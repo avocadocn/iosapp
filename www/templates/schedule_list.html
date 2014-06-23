@@ -1,0 +1,16 @@
+<ion-view title="日程列表">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item ng-repeat="schedule in schedule_list">
+        <p>{{ schedule.content }}</p>
+        <p>开始时间: {{ schedule.start_time }}</p>
+        <p>截止时间: {{ schedule.end_time }}</p>
+        <p>活动地点: {{ schedule.location }}</p>
+        <button class="button button-block" ng-click="quit(schedule.id)">退出</button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,274 @@
+2014-05-26 17:16:00.447 HelloCordova[9000:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-26 17:16:00.785 HelloCordova[9000:70b] Unlimited access to network resources
+2014-05-26 17:16:01.048 HelloCordova[9000:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-26 17:16:01.049 HelloCordova[9000:70b] [CDVTimer][statusbar] 0.550032ms
+2014-05-26 17:16:01.049 HelloCordova[9000:70b] [CDVTimer][TotalPluginStartup] 0.958025ms
+2014-05-26 17:16:01.492 HelloCordova[9000:70b] Resetting plugins due to page load.
+2014-05-26 17:16:03.031 HelloCordova[9000:70b] THREAD WARNING: ['Device'] took '38.164062' ms. Plugin should use a background thread.
+2014-05-26 17:16:03.034 HelloCordova[9000:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html
+2014-05-26 17:31:50.105 HelloCordova[9481:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-26 17:31:50.147 HelloCordova[9481:70b] Unlimited access to network resources
+2014-05-26 17:31:50.204 HelloCordova[9481:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-26 17:31:50.204 HelloCordova[9481:70b] [CDVTimer][statusbar] 0.630975ms
+2014-05-26 17:31:50.205 HelloCordova[9481:70b] [CDVTimer][TotalPluginStartup] 1.132011ms
+2014-05-26 17:31:50.296 HelloCordova[9481:70b] Resetting plugins due to page load.
+2014-05-26 17:31:51.089 HelloCordova[9481:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html
+2014-05-26 17:33:31.399 HelloCordova[9683:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-26 17:33:31.450 HelloCordova[9683:70b] Unlimited access to network resources
+2014-05-26 17:33:31.491 HelloCordova[9683:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-26 17:33:31.491 HelloCordova[9683:70b] [CDVTimer][statusbar] 0.557005ms
+2014-05-26 17:33:31.492 HelloCordova[9683:70b] [CDVTimer][TotalPluginStartup] 0.977039ms
+2014-05-26 17:33:31.933 HelloCordova[9683:70b] Resetting plugins due to page load.
+2014-05-26 17:33:32.637 HelloCordova[9683:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html
+2014-05-26 17:52:55.337 HelloCordova[10195:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-26 17:52:55.344 HelloCordova[10195:70b] Unlimited access to network resources
+2014-05-26 17:52:55.385 HelloCordova[10195:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-26 17:52:55.385 HelloCordova[10195:70b] [CDVTimer][statusbar] 0.513971ms
+2014-05-26 17:52:55.386 HelloCordova[10195:70b] [CDVTimer][TotalPluginStartup] 0.937998ms
+2014-05-26 17:52:57.037 HelloCordova[10195:70b] Resetting plugins due to page load.
+2014-05-26 17:52:58.507 HelloCordova[10195:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html
+2014-05-26 18:01:41.062 HelloCordova[10473:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-26 18:01:41.070 HelloCordova[10473:70b] Unlimited access to network resources
+2014-05-26 18:01:41.101 HelloCordova[10473:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-26 18:01:41.101 HelloCordova[10473:70b] [CDVTimer][statusbar] 0.500977ms
+2014-05-26 18:01:41.102 HelloCordova[10473:70b] [CDVTimer][TotalPluginStartup] 0.899971ms
+2014-05-26 18:01:41.712 HelloCordova[10473:70b] Resetting plugins due to page load.
+2014-05-26 18:01:42.700 HelloCordova[10473:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html
+2014-05-26 19:36:31.146 HelloCordova[11793:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-26 19:36:31.170 HelloCordova[11793:70b] Unlimited access to network resources
+2014-05-26 19:36:31.302 HelloCordova[11793:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-26 19:36:31.302 HelloCordova[11793:70b] [CDVTimer][statusbar] 0.544012ms
+2014-05-26 19:36:31.303 HelloCordova[11793:70b] [CDVTimer][TotalPluginStartup] 0.953019ms
+2014-05-26 19:36:31.396 HelloCordova[11793:70b] Resetting plugins due to page load.
+2014-05-26 19:36:32.567 HelloCordova[11793:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-26 19:38:29.143 HelloCordova[12088:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-26 19:38:29.175 HelloCordova[12088:70b] Unlimited access to network resources
+2014-05-26 19:38:29.214 HelloCordova[12088:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-26 19:38:29.215 HelloCordova[12088:70b] [CDVTimer][statusbar] 0.533044ms
+2014-05-26 19:38:29.215 HelloCordova[12088:70b] [CDVTimer][TotalPluginStartup] 0.963986ms
+2014-05-26 19:38:30.355 HelloCordova[12088:70b] Resetting plugins due to page load.
+2014-05-26 19:38:31.746 HelloCordova[12088:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-26 19:49:22.104 HelloCordova[12720:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-26 19:49:22.159 HelloCordova[12720:70b] Unlimited access to network resources
+2014-05-26 19:49:22.244 HelloCordova[12720:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-26 19:49:22.245 HelloCordova[12720:70b] [CDVTimer][statusbar] 0.634015ms
+2014-05-26 19:49:22.245 HelloCordova[12720:70b] [CDVTimer][TotalPluginStartup] 1.188993ms
+2014-05-26 19:49:22.345 HelloCordova[12720:70b] Resetting plugins due to page load.
+2014-05-26 19:49:23.577 HelloCordova[12720:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-28 15:18:13.881 HelloCordova[4271:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-28 15:18:14.204 HelloCordova[4271:70b] Unlimited access to network resources
+2014-05-28 15:18:16.377 HelloCordova[4271:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-28 15:18:16.377 HelloCordova[4271:70b] [CDVTimer][statusbar] 0.492036ms
+2014-05-28 15:18:16.378 HelloCordova[4271:70b] [CDVTimer][TotalPluginStartup] 0.853956ms
+2014-05-28 15:18:17.383 HelloCordova[4271:70b] Resetting plugins due to page load.
+2014-05-28 15:18:20.494 HelloCordova[4271:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-28 17:52:25.359 HelloCordova[14670:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-28 17:52:25.386 HelloCordova[14670:70b] Unlimited access to network resources
+2014-05-28 17:52:25.496 HelloCordova[14670:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-28 17:52:25.496 HelloCordova[14670:70b] [CDVTimer][statusbar] 0.581026ms
+2014-05-28 17:52:25.497 HelloCordova[14670:70b] [CDVTimer][TotalPluginStartup] 0.963986ms
+2014-05-28 17:52:26.096 HelloCordova[14670:70b] Resetting plugins due to page load.
+2014-05-28 17:52:27.901 HelloCordova[14670:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-28 18:06:31.272 HelloCordova[15920:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-28 18:06:31.336 HelloCordova[15920:70b] Unlimited access to network resources
+2014-05-28 18:06:35.001 HelloCordova[15920:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-28 18:06:35.002 HelloCordova[15920:70b] [CDVTimer][statusbar] 21.598995ms
+2014-05-28 18:06:35.002 HelloCordova[15920:70b] [CDVTimer][TotalPluginStartup] 22.031963ms
+2014-05-28 18:06:37.723 HelloCordova[15920:70b] Resetting plugins due to page load.
+2014-05-28 18:06:42.556 HelloCordova[15920:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-28 18:13:04.813 HelloCordova[16878:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-28 18:13:04.870 HelloCordova[16878:70b] Unlimited access to network resources
+2014-05-28 18:13:05.028 HelloCordova[16878:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-28 18:13:05.028 HelloCordova[16878:70b] [CDVTimer][statusbar] 0.541985ms
+2014-05-28 18:13:05.029 HelloCordova[16878:70b] [CDVTimer][TotalPluginStartup] 0.936985ms
+2014-05-28 18:13:05.566 HelloCordova[16878:70b] Resetting plugins due to page load.
+2014-05-28 18:13:06.868 HelloCordova[16878:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-28 18:17:32.153 HelloCordova[17691:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-28 18:17:32.283 HelloCordova[17691:70b] Unlimited access to network resources
+2014-05-28 18:17:33.177 HelloCordova[17691:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-28 18:17:33.177 HelloCordova[17691:70b] [CDVTimer][statusbar] 0.523984ms
+2014-05-28 18:17:33.178 HelloCordova[17691:70b] [CDVTimer][TotalPluginStartup] 0.894964ms
+2014-05-28 18:17:34.405 HelloCordova[17691:70b] Resetting plugins due to page load.
+2014-05-28 18:17:36.185 HelloCordova[17691:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-28 18:29:22.867 HelloCordova[18850:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-28 18:29:22.898 HelloCordova[18850:70b] Unlimited access to network resources
+2014-05-28 18:29:22.938 HelloCordova[18850:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-28 18:29:22.938 HelloCordova[18850:70b] [CDVTimer][statusbar] 0.541031ms
+2014-05-28 18:29:22.939 HelloCordova[18850:70b] [CDVTimer][TotalPluginStartup] 0.950992ms
+2014-05-28 18:29:23.954 HelloCordova[18850:70b] Resetting plugins due to page load.
+2014-05-28 18:29:25.041 HelloCordova[18850:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-28 19:17:49.423 HelloCordova[21384:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-28 19:17:49.550 HelloCordova[21384:70b] Unlimited access to network resources
+2014-05-28 19:17:50.041 HelloCordova[21384:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-28 19:17:50.042 HelloCordova[21384:70b] [CDVTimer][statusbar] 0.566006ms
+2014-05-28 19:17:50.042 HelloCordova[21384:70b] [CDVTimer][TotalPluginStartup] 1.024008ms
+2014-05-28 19:17:52.148 HelloCordova[21384:70b] Resetting plugins due to page load.
+2014-05-28 19:17:55.684 HelloCordova[21384:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-28 20:02:10.486 HelloCordova[24693:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-28 20:02:10.689 HelloCordova[24693:70b] Unlimited access to network resources
+2014-05-28 20:02:11.475 HelloCordova[24693:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-28 20:02:11.476 HelloCordova[24693:70b] [CDVTimer][statusbar] 0.714958ms
+2014-05-28 20:02:11.476 HelloCordova[24693:70b] [CDVTimer][TotalPluginStartup] 1.277030ms
+2014-05-28 20:02:12.738 HelloCordova[24693:70b] Resetting plugins due to page load.
+2014-05-28 20:02:15.033 HelloCordova[24693:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-29 13:33:04.699 HelloCordova[5980:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-29 13:33:05.542 HelloCordova[5980:70b] Unlimited access to network resources
+2014-05-29 13:33:08.884 HelloCordova[5980:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-29 13:33:08.885 HelloCordova[5980:70b] [CDVTimer][statusbar] 0.871003ms
+2014-05-29 13:33:08.885 HelloCordova[5980:70b] [CDVTimer][TotalPluginStartup] 1.388967ms
+2014-05-29 13:33:10.228 HelloCordova[5980:70b] Resetting plugins due to page load.
+2014-05-29 13:33:12.923 HelloCordova[5980:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-29 14:44:46.528 HelloCordova[10324:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-29 14:44:46.557 HelloCordova[10324:70b] Unlimited access to network resources
+2014-05-29 14:44:46.608 HelloCordova[10324:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-29 14:44:46.609 HelloCordova[10324:70b] [CDVTimer][statusbar] 0.629008ms
+2014-05-29 14:44:46.609 HelloCordova[10324:70b] [CDVTimer][TotalPluginStartup] 1.073003ms
+2014-05-29 14:44:47.325 HelloCordova[10324:70b] Resetting plugins due to page load.
+2014-05-29 14:44:51.550 HelloCordova[10324:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8C97E8D5-AF59-40D1-9850-A7D8804F973F/HelloCordova.app/www/index.html#/login
+2014-05-29 15:14:01.549 Donler[12741:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-29 15:14:01.607 Donler[12741:70b] Unlimited access to network resources
+2014-05-29 15:14:01.613 Donler[12741:70b] Fix applied for database locations?: YES
+2014-05-29 15:14:02.485 Donler[12741:70b] Resetting plugins due to page load.
+2014-05-29 15:14:05.616 Donler[12741:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-05-29 17:30:10.335 Donler[21751:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-29 17:30:10.378 Donler[21751:70b] Unlimited access to network resources
+2014-05-29 17:30:11.150 Donler[21751:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-29 17:30:11.150 Donler[21751:70b] [CDVTimer][statusbar] 0.615001ms
+2014-05-29 17:30:11.151 Donler[21751:70b] [CDVTimer][TotalPluginStartup] 1.010001ms
+2014-05-29 17:30:11.260 Donler[21751:70b] Resetting plugins due to page load.
+2014-05-29 17:30:12.490 Donler[21751:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-05-29 19:15:21.573 Donler[28082:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-29 19:15:21.693 Donler[28082:70b] Unlimited access to network resources
+2014-05-29 19:15:22.016 Donler[28082:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-05-29 19:15:22.017 Donler[28082:70b] [CDVTimer][statusbar] 0.766993ms
+2014-05-29 19:15:22.017 Donler[28082:70b] [CDVTimer][TotalPluginStartup] 1.359046ms
+2014-05-29 19:15:22.174 Donler[28082:70b] Resetting plugins due to page load.
+2014-05-29 19:15:23.385 Donler[28082:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-02 21:03:22.062 Donler[27569:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-02 21:03:22.105 Donler[27569:70b] Unlimited access to network resources
+2014-06-02 21:03:23.065 Donler[27569:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-02 21:03:23.066 Donler[27569:70b] [CDVTimer][statusbar] 0.686049ms
+2014-06-02 21:03:23.066 Donler[27569:70b] [CDVTimer][TotalPluginStartup] 1.262009ms
+2014-06-02 21:03:29.357 Donler[27569:70b] Resetting plugins due to page load.
+2014-06-02 21:03:33.026 Donler[27569:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-08 15:01:02.136 Donler[12767:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-08 15:01:02.457 Donler[12767:70b] Unlimited access to network resources
+2014-06-08 15:01:04.362 Donler[12767:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-08 15:01:04.363 Donler[12767:70b] [CDVTimer][statusbar] 0.644982ms
+2014-06-08 15:01:04.363 Donler[12767:70b] [CDVTimer][TotalPluginStartup] 1.218021ms
+2014-06-08 15:01:04.636 Donler[12767:70b] Resetting plugins due to page load.
+2014-06-08 15:01:06.383 Donler[12767:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-08 15:01:54.150 Donler[12767:70b] Received memory warning.
+2014-06-08 16:12:50.576 Donler[16551:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-08 16:12:50.605 Donler[16551:70b] Unlimited access to network resources
+2014-06-08 16:12:50.624 Donler[16551:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-08 16:12:50.625 Donler[16551:70b] [CDVTimer][statusbar] 0.518978ms
+2014-06-08 16:12:50.625 Donler[16551:70b] [CDVTimer][TotalPluginStartup] 0.967026ms
+2014-06-08 16:12:50.737 Donler[16551:70b] Resetting plugins due to page load.
+2014-06-08 16:12:51.259 Donler[16551:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-08 16:51:30.689 Donler[19111:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-08 16:51:30.695 Donler[19111:70b] Unlimited access to network resources
+2014-06-08 16:51:30.735 Donler[19111:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-08 16:51:30.735 Donler[19111:70b] [CDVTimer][statusbar] 0.537992ms
+2014-06-08 16:51:30.736 Donler[19111:70b] [CDVTimer][TotalPluginStartup] 0.945032ms
+2014-06-08 16:51:31.223 Donler[19111:70b] Resetting plugins due to page load.
+2014-06-08 16:51:31.891 Donler[19111:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-08 16:58:04.571 Donler[20001:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-08 16:58:04.595 Donler[20001:70b] Unlimited access to network resources
+2014-06-08 16:58:04.628 Donler[20001:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-08 16:58:04.628 Donler[20001:70b] [CDVTimer][statusbar] 0.503957ms
+2014-06-08 16:58:04.629 Donler[20001:70b] [CDVTimer][TotalPluginStartup] 0.872016ms
+2014-06-08 16:58:05.016 Donler[20001:70b] Resetting plugins due to page load.
+2014-06-08 16:58:05.538 Donler[20001:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-08 17:00:15.736 Donler[20658:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-08 17:00:15.742 Donler[20658:70b] Unlimited access to network resources
+2014-06-08 17:00:15.759 Donler[20658:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-08 17:00:15.760 Donler[20658:70b] [CDVTimer][statusbar] 0.566006ms
+2014-06-08 17:00:15.760 Donler[20658:70b] [CDVTimer][TotalPluginStartup] 1.061022ms
+2014-06-08 17:00:15.803 Donler[20658:70b] Resetting plugins due to page load.
+2014-06-08 17:00:16.683 Donler[20658:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-08 17:02:37.864 Donler[21334:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-08 17:02:37.870 Donler[21334:70b] Unlimited access to network resources
+2014-06-08 17:02:37.889 Donler[21334:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-08 17:02:37.890 Donler[21334:70b] [CDVTimer][statusbar] 0.523984ms
+2014-06-08 17:02:37.890 Donler[21334:70b] [CDVTimer][TotalPluginStartup] 0.921011ms
+2014-06-08 17:02:37.927 Donler[21334:70b] Resetting plugins due to page load.
+2014-06-08 17:02:38.309 Donler[21334:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-08 19:24:51.586 Donler[29180:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-08 19:24:51.796 Donler[29180:70b] Unlimited access to network resources
+2014-06-08 19:24:52.344 Donler[29180:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-08 19:24:52.345 Donler[29180:70b] [CDVTimer][statusbar] 0.891030ms
+2014-06-08 19:24:52.346 Donler[29180:70b] [CDVTimer][TotalPluginStartup] 1.598954ms
+2014-06-08 19:24:53.757 Donler[29180:70b] Resetting plugins due to page load.
+2014-06-08 19:24:55.214 Donler[29180:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-08 19:58:35.173 Donler[32947:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-08 19:58:35.200 Donler[32947:70b] Unlimited access to network resources
+2014-06-08 19:58:35.215 Donler[32947:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-08 19:58:35.216 Donler[32947:70b] [CDVTimer][statusbar] 0.551999ms
+2014-06-08 19:58:35.216 Donler[32947:70b] [CDVTimer][TotalPluginStartup] 0.977993ms
+2014-06-08 19:58:35.318 Donler[32947:70b] Resetting plugins due to page load.
+2014-06-08 19:58:35.706 Donler[32947:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-09 18:10:37.599 Donler[17843:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-09 18:10:37.782 Donler[17843:70b] Unlimited access to network resources
+2014-06-09 18:10:38.796 Donler[17843:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-09 18:10:38.796 Donler[17843:70b] [CDVTimer][statusbar] 0.544012ms
+2014-06-09 18:10:38.797 Donler[17843:70b] [CDVTimer][TotalPluginStartup] 0.988007ms
+2014-06-09 18:10:39.043 Donler[17843:70b] Resetting plugins due to page load.
+2014-06-09 18:10:40.143 Donler[17843:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-09 18:14:36.841 Donler[18600:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-09 18:14:36.872 Donler[18600:70b] Unlimited access to network resources
+2014-06-09 18:14:36.928 Donler[18600:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-09 18:14:36.929 Donler[18600:70b] [CDVTimer][statusbar] 0.554025ms
+2014-06-09 18:14:36.929 Donler[18600:70b] [CDVTimer][TotalPluginStartup] 1.002014ms
+2014-06-09 18:14:38.171 Donler[18600:70b] Resetting plugins due to page load.
+2014-06-09 18:14:38.903 Donler[18600:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-09 18:15:58.428 Donler[18600:6727] ERROR: unable to get the receiver data from the DB!
+2014-06-17 14:53:15.759 Donler[16361:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 14:53:15.813 Donler[16361:70b] Unlimited access to network resources
+2014-06-17 14:53:15.871 Donler[16361:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-17 14:53:15.872 Donler[16361:70b] [CDVTimer][statusbar] 0.586033ms
+2014-06-17 14:53:15.872 Donler[16361:70b] [CDVTimer][TotalPluginStartup] 0.972986ms
+2014-06-17 14:53:15.968 Donler[16361:70b] Resetting plugins due to page load.
+2014-06-17 14:53:17.055 Donler[16361:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-17 14:53:30.697 Donler[16361:3907] ERROR: unable to get the receiver data from the DB!
+2014-06-17 15:39:38.745 Donler[19474:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 15:39:38.922 Donler[19474:70b] Unlimited access to network resources
+2014-06-17 15:39:39.485 Donler[19474:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-17 15:39:39.486 Donler[19474:70b] [CDVTimer][statusbar] 0.643969ms
+2014-06-17 15:39:39.486 Donler[19474:70b] [CDVTimer][TotalPluginStartup] 1.132965ms
+2014-06-17 15:39:40.548 Donler[19474:70b] Resetting plugins due to page load.
+2014-06-17 15:39:41.752 Donler[19474:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-17 15:39:54.221 Donler[19474:4517] ERROR: unable to get the receiver data from the DB!
+2014-06-17 15:47:03.829 Donler[20447:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 15:47:03.858 Donler[20447:70b] Unlimited access to network resources
+2014-06-17 15:47:03.894 Donler[20447:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-17 15:47:03.894 Donler[20447:70b] [CDVTimer][statusbar] 0.526965ms
+2014-06-17 15:47:03.895 Donler[20447:70b] [CDVTimer][TotalPluginStartup] 0.961006ms
+2014-06-17 15:47:04.874 Donler[20447:70b] Resetting plugins due to page load.
+2014-06-17 15:47:05.757 Donler[20447:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-17 15:47:17.326 Donler[20447:4613] ERROR: unable to get the receiver data from the DB!
+2014-06-17 15:51:42.981 Donler[21225:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 15:51:43.003 Donler[21225:70b] Unlimited access to network resources
+2014-06-17 15:51:43.627 Donler[21225:70b] Resetting plugins due to page load.
+2014-06-17 15:51:44.689 Donler[21225:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-17 15:52:44.681 Donler[21225:420f] ERROR: unable to get the receiver data from the DB!
+2014-06-17 15:57:15.722 Donler[22050:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 15:57:15.769 Donler[22050:70b] Unlimited access to network resources
+2014-06-17 15:57:16.619 Donler[22050:70b] Resetting plugins due to page load.
+2014-06-17 15:57:17.751 Donler[22050:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-17 15:57:33.590 Donler[22050:4613] ERROR: unable to get the receiver data from the DB!
+2014-06-17 16:24:48.676 Donler[24068:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 16:24:48.706 Donler[24068:70b] Unlimited access to network resources
+2014-06-17 16:24:48.740 Donler[24068:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-17 16:24:48.741 Donler[24068:70b] [CDVTimer][statusbar] 0.572026ms
+2014-06-17 16:24:48.741 Donler[24068:70b] [CDVTimer][TotalPluginStartup] 0.952005ms
+2014-06-17 16:24:49.466 Donler[24068:70b] Resetting plugins due to page load.
+2014-06-17 16:24:50.746 Donler[24068:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login
+2014-06-17 16:25:05.970 Donler[24068:5803] ERROR: unable to get the receiver data from the DB!
+2014-06-17 17:03:34.296 Donler[27717:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-17 17:03:34.326 Donler[27717:70b] Unlimited access to network resources
+2014-06-17 17:03:34.481 Donler[27717:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-17 17:03:34.482 Donler[27717:70b] [CDVTimer][statusbar] 0.680029ms
+2014-06-17 17:03:34.482 Donler[27717:70b] [CDVTimer][TotalPluginStartup] 1.160979ms
+2014-06-17 17:03:35.422 Donler[27717:70b] Resetting plugins due to page load.
+2014-06-17 17:03:36.459 Donler[27717:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/88C6A5BD-8955-458C-8F85-98675F2A9199/Donler.app/www/index.html#/login

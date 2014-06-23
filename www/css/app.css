@@ -1,0 +1,403 @@
+body {
+  background-color: #3abde8;
+}
+.wrap {
+  background-color: #f6f6f6;
+}
+.content {
+  background-color: #fff;
+}
+.head_title {
+  background-color: #ededed;
+  height: 40px;
+  text-align: center;
+}
+.head_title .title {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 5px 0;
+  padding: 0 20px;
+  font-size: 14px;
+  line-height: 30px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #dcdcdc #e9e9e9 #f6f6f6 #e9e9e9;
+  border-radius: 7px;
+  background-color: #ededed;
+}
+.table_wrap {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+.table_cell {
+  display: table-cell;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+.col-30 {
+  -webkit-flex: 0 0 30%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 30%;
+  -ms-flex: 0 0 30%;
+  flex: 0 0 30%;
+  max-width: 30%;
+}
+.col-40 {
+  -webkit-flex: 0 0 40%;
+  -moz-box-flex: 0;
+  -moz-flex: 0 0 40%;
+  -ms-flex: 0 0 40%;
+  flex: 0 0 40%;
+  max-width: 40%;
+}
+.padding {
+  padding: 10px;
+}
+.donler_tabs .tab-item {
+  background-color: #3abde8;
+  color: #fff;
+}
+.donler_tabs_bottom .tabs {
+  height: 60px;
+  line-height: 1;
+  background-image: none;
+}
+.donler_tabs_bottom .tabs .tab-item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.clearfix {
+  clear: both;
+}
+.menu_wrap {
+  background-color: #3abde8;
+}
+.menu_wrap .has-header {
+  overflow: visible;
+}
+.menu_wrap .menu_header {
+  background-color: #3abde8;
+  background-image: none;
+  z-index: 0;
+  border-bottom: none;
+}
+.menu_bar {
+  background-image: none !important;
+  background-color: #3abde8 !important;
+  border: none !important;
+  color: #fff !important;
+}
+.menu_bar .button {
+  color: #fff !important;
+}
+.menu_bar .title {
+  color: #fff !important;
+}
+.menu_logo {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3px;
+  width: 75px;
+  height: 20px;
+}
+.menu_personal_info {
+  color: #fff;
+}
+.menu_photo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -10px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+}
+.menu_nickname {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  text-align: center;
+}
+.menu_list .list .item {
+  color: #fff;
+  border: none;
+}
+.menu_list .list .item:nth-child(2n+1) {
+  background-color: #35add5;
+}
+.menu_list .list .item:nth-child(2n+1) a {
+  background-color: #35add5;
+}
+.menu_list .list .item:nth-child(2n+2) {
+  background-color: #37b4dd;
+}
+.menu_list .list .item:nth-child(2n+2) a {
+  background-color: #37b4dd;
+}
+.login_wrap {
+  background-color: #3abde8;
+}
+.login_wrap .scroll {
+  height: 100%;
+}
+.login_head {
+  height: 179px;
+}
+.login_head .logo {
+  width: 140px;
+}
+.login_body {
+  height: 221px;
+}
+.login_modal {
+  position: relative;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #fff;
+  border: 5px solid #75d1ef;
+  border-bottom: none;
+}
+.login_line {
+  margin: 10px;
+}
+.login_line .item-input {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.login_line .item-input input {
+  margin-left: 10px;
+  padding: 5px 0;
+  height: 30px;
+  flex: 1 0 0;
+  line-height: 20px;
+  font-size: 14px;
+  color: #bbb;
+}
+.login_line button {
+  padding-top: 0;
+  min-height: 0;
+  height: 30px;
+  font-size: 14px;
+  line-height: 30px;
+}
+.login_button {
+  border: none;
+  color: #fff;
+  background-color: #ea6060;
+}
+.login_button:hover {
+  color: #fff;
+  background-color: #e57272;
+}
+.login_forget {
+  text-align: center;
+  font-size: 12px;
+}
+.login_forget span {
+  color: #ffc0cb;
+}
+.login_forget a {
+  color: #aaa;
+}
+.login_info {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 0;
+  width: 100%;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #75d1ef;
+}
+.campaign {
+  background-color: #a3cbe2;
+/* Firefox 3.6+ */
+  background: -moz-linear-gradient(left, #e9f4fe, #cfe9f9 5%, #e9f4fe, #cfe9f9 95%, #e9f4fe);
+/* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, left top, right top, from(#e9f4fe), color-stop(0.05, #cfe9f9), color-stop(0.5, #e9f4fe), color-stop(0.95, #cfe9f9), to(#e9f4fe));
+/* Safari 5.1+, Chrome 10+ */
+  background: -webkit-linear-gradient(left, #e9f4fe, #cfe9f9 5%, #e9f4fe, #cfe9f9 95%, #e9f4fe);
+/* Opera 11.10+ */
+  background: -o-linear-gradient(left, #e9f4fe, #cfe9f9 5%, #e9f4fe, #cfe9f9 95%, #e9f4fe);
+}
+.campaign_item {
+  background-color: transparent;
+  padding: 0;
+}
+.campaign_item .item-content {
+  padding: 0;
+  background-color: transparent;
+}
+.campaign_link {
+  text-decoration: none;
+}
+.campaign_line {
+  margin-top: 0 !important;
+  padding: 0 10px;
+  height: 45px;
+}
+.campaign_team_info {
+  line-height: 45px;
+  color: #3abde8 !important;
+}
+.campaign_group_logo {
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  border: 1px solid #fff;
+  border-radius: 5px;
+}
+.campaign_content {
+  background-color: #a3cbe2;
+/* Firefox 3.6+ */
+/* -moz-radial-gradient( [ || ,]? [ || ,]? , [, ]* ) */
+  background: -moz-radial-gradient(circle, #cfe0eb, #a3cbe2);
+/* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(radial, center center, 0, center center, 460, from(#cfe0eb), to(#a3cbe2));
+/* Safari 5.1+, Chrome 10+ */
+  background: -webkit-radial-gradient(circle, #cfe0eb, #a3cbe2);
+}
+.campaign_content p {
+  line-height: 45px;
+}
+.campaign_time {
+  padding-bottom: 0;
+  height: 112.5px;
+}
+.campaign_time .campaign_time_shadow {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  background-color: rgba(0,0,0,0.4);
+}
+.campaign_time p {
+  color: #fff;
+}
+.campaign_time .campaign_time_remind {
+  font-size: 10px;
+  margin: 0;
+}
+.campaign_time .campaign_time_count {
+  font-weight: normal;
+  font-size: 24px;
+}
+.football {
+  background-size: 100%;
+  background-image: url("../img/football.jpg");
+}
+.campaign_operate_bar {
+  background-color: #3abde8;
+}
+.campaign_operate_button_container {
+  padding: 5px;
+}
+.campaign_operate_text {
+  line-height: 45px;
+  color: #fff !important;
+}
+.campaign_operate_button {
+  min-height: 0;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #ff7f66;
+}
+.campaign_operate_share {
+  text-align: right;
+}
+.scroll-content .scroll {
+  height: 100%;
+}
+.campaign_photo_panel {
+  float: left;
+  width: 50%;
+  height: 160px;
+  padding-left: 10px;
+  margin-top: 7px;
+}
+.campaign_photo_panel:nth-child(2n+2) {
+  padding-right: 10px;
+}
+.campaign_photo_panel .campaign_photo_border {
+  position: relative;
+  height: 100%;
+  border: 1px solid #ddd;
+}
+.campaign_photo_panel .campaign_photo_img_wrap {
+  height: 110px;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+.campaign_photo_panel .campaign_photo_ori_button_wrap {
+  position: absolute;
+  bottom: 37px;
+  width: 100%;
+  text-align: center;
+}
+.campaign_photo_panel .campaign_photo_ori_button_wrap .campaign_photo_ori_button {
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  border: none;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 30px;
+  color: #fff;
+  background-color: #5bc9d5;
+}
+.campaign_photo_panel p {
+  text-align: center;
+}
+.campaign_photo_panel .campaign_upload_user {
+  margin-top: 12px;
+  margin-bottom: 0;
+  line-height: 1;
+}
+.campaign_photo_panel .campaign_upload_date {
+  margin-top: 5px;
+  font-size: 7px;
+  line-height: 1;
+  color: #bbb;
+}
+.campaign_members_wrap {
+  position: relative;
+  padding: 5px;
+}
+.campaign_members_wrap .campaign_member_panel {
+  float: left;
+  display: block;
+  padding: 5px;
+  width: 33.333333%;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1;
+}
+.campaign_members_wrap .campaign_member_panel .campaign_member_wrap {
+  position: relative;
+  overflow: hidden;
+}
+.campaign_members_wrap .campaign_member_panel .campaign_member_wrap .campaign_member_photo {
+  max-width: 100%;
+}
+.campaign_members_wrap .campaign_member_panel .campaign_member_wrap .campaign_member_name {
+  position: absolute;
+  bottom: 1px;
+  margin: 0;
+  width: 100%;
+  line-height: 20px;
+  color: #fff;
+  background-color: rgba(0,0,0,0.4);
+}

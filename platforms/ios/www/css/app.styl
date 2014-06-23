@@ -1,0 +1,520 @@
+
+// global variables
+
+themeColor = #3abde8
+
+// 页面用于衬托内容的背景色
+wrapBgColor = #f6f6f6
+
+// 页面内容背景色
+contentBgColor = #ffffff
+
+// 页面内部标题的背景颜色
+headBgColor = #ededed
+
+
+
+
+
+// common style or css tools
+
+
+body
+  background-color themeColor
+
+
+.wrap
+  background-color wrapBgColor
+
+.content
+  background-color contentBgColor
+
+.head_title
+  background-color headBgColor
+  height 40px
+  text-align center
+
+  .title
+    display inline-block
+    box-sizing border-box
+    margin 5px 0
+    padding 0 20px
+    font-size 14px
+    line-height 30px
+    border-width 1px
+    border-style solid
+    border-color #dcdcdc #e9e9e9 #f6f6f6 #e9e9e9
+    border-radius 7px
+    background-color headBgColor
+
+.table_wrap
+  display table
+  width 100%
+  height 100%
+
+.table_cell
+  display table-cell
+  width 100%
+  height 100%
+  text-align center
+  vertical-align middle
+
+.col-30
+  -webkit-flex 0 0 30%
+  -moz-box-flex 0
+  -moz-flex 0 0 30%
+  -ms-flex 0 0 30%
+  flex 0 0 30%
+  max-width 30%
+
+.col-40
+  -webkit-flex 0 0 40%
+  -moz-box-flex 0
+  -moz-flex 0 0 40%
+  -ms-flex 0 0 40%
+  flex 0 0 40%
+  max-width 40%
+
+.padding
+  padding 10px
+
+.donler_tabs
+  .tab-item
+    background-color themeColor
+    color white
+
+.donler_tabs_bottom
+  .tabs
+    height 60px
+    line-height 1
+    background-image none
+
+    .tab-item
+      padding-top 5px
+      padding-bottom 5px
+
+
+.clearfix
+  clear both
+
+
+
+// menu
+
+oddItemBgcolor = #35add5
+evenItemBgcolor = #37b4dd
+
+
+.menu_wrap
+  background-color themeColor
+
+  .has-header
+    overflow visible
+
+  .menu_header
+    background-color themeColor
+    background-image none
+    z-index 0
+    border-bottom none
+
+.menu_bar
+  background-image none !important
+  background-color themeColor !important
+  border none !important
+  color white !important
+
+  .button
+    color white !important
+  .title
+    color white !important
+
+.menu_logo
+  margin-left auto
+  margin-right auto
+  margin-top 3px
+  width 75px
+  height 20px
+
+.menu_personal_info
+  color white
+
+.menu_photo
+  display block
+  margin-left auto
+  margin-right auto
+  margin-top -10px
+  border 2px solid white
+  border-radius 5px
+
+.menu_nickname
+  margin-top 10px
+  margin-bottom 10px
+  font-size 24px
+  text-align center
+
+
+.menu_list .list
+  .item
+    color white
+    border none
+
+    &:nth-child(2n+1)
+      background-color oddItemBgcolor
+      a
+        background-color oddItemBgcolor
+
+    &:nth-child(2n+2)
+      background-color evenItemBgcolor
+      a
+        background-color evenItemBgcolor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// login page
+
+loginButtonBgcolor = #ea6060
+loginInfoBgcolor = #75d1ef
+
+.login_wrap
+  background-color themeColor
+
+  .scroll
+    height 100%
+
+.login_head
+  height 179px
+
+  .logo
+    width 140px
+
+
+
+.login_body
+  height 221px
+
+.login_modal
+  position relative
+  padding-top 5px
+  padding-left 10px
+  padding-right 10px
+  background-color white
+  border 5px solid loginInfoBgcolor
+  border-bottom none
+
+.login_line
+  margin 10px
+
+  .item-input
+    padding-top 0
+    padding-bottom 0
+
+    input
+      margin-left 10px
+      padding 5px 0
+      height 30px
+      flex 1 0 0
+      line-height 20px
+      font-size 14px
+      color #bbb
+
+  button
+    padding-top 0
+    min-height 0
+    height 30px
+    font-size 14px
+    line-height 30px
+
+.login_button
+  border none
+  color white
+  background-color loginButtonBgcolor
+
+  &:hover
+    color white
+    background-color #e57272
+
+.login_forget
+  text-align center
+  font-size 12px
+
+  span
+    color pink
+
+  a
+    color #aaa
+
+.login_info
+  position absolute
+  left 0
+  bottom 0
+  margin-bottom 0
+  width 100%
+  height 35px
+  text-align center
+  line-height 35px
+  font-size 12px
+  color white
+  background-color loginInfoBgcolor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// campaign list page
+
+campaignContentBgcolor = #a3cbe2
+campaignContentRadialColor = #cfe0eb
+
+campaignBgcolor = #e9f4fe
+campaignLinearColor = #cfe9f9
+
+operateBarBgcolor = #3abde8
+
+campaignLineHeight = 45px
+
+
+.campaign
+  background-color campaignContentBgcolor
+  /* Firefox 3.6+ */
+  background -moz-linear-gradient(left, campaignBgcolor, campaignLinearColor 5%, campaignBgcolor, campaignLinearColor 95%, campaignBgcolor)
+  /* Safari 4-5, Chrome 1-9 */
+  background -webkit-gradient(linear, left top, right top, from(campaignBgcolor), color-stop(0.05, campaignLinearColor), color-stop(0.5, campaignBgcolor), color-stop(0.95, campaignLinearColor), to(campaignBgcolor))
+  /* Safari 5.1+, Chrome 10+ */
+  background -webkit-linear-gradient(left, campaignBgcolor, campaignLinearColor 5%, campaignBgcolor, campaignLinearColor 95%, campaignBgcolor)
+  /* Opera 11.10+ */
+  background -o-linear-gradient(left, campaignBgcolor, campaignLinearColor 5%, campaignBgcolor, campaignLinearColor 95%, campaignBgcolor)
+
+.campaign_item
+  background-color transparent
+  padding 0
+  .item-content
+    padding 0
+    background-color transparent
+
+.campaign_link
+  text-decoration none
+
+.campaign_line
+  margin-top 0 !important
+  padding 0 10px
+  height campaignLineHeight
+
+.campaign_team_info
+  line-height campaignLineHeight
+  color #3abde8 !important
+
+.campaign_group_logo
+  width 36px
+  height 36px
+  vertical-align middle
+  border 1px solid white
+  border-radius 5px
+
+.campaign_content
+  background-color campaignContentBgcolor
+  /* Firefox 3.6+ */
+  /* -moz-radial-gradient( [ || ,]? [ || ,]? , [, ]* ) */
+  background -moz-radial-gradient(circle, campaignContentRadialColor, campaignContentBgcolor)
+  /* Safari 4-5, Chrome 1-9 */
+  background -webkit-gradient(radial, center center, 0, center center, 460, from(campaignContentRadialColor), to(campaignContentBgcolor))
+  /* Safari 5.1+, Chrome 10+ */
+  background -webkit-radial-gradient(circle, campaignContentRadialColor, campaignContentBgcolor)
+
+  p
+    line-height campaignLineHeight
+
+.campaign_time
+  padding-bottom 0
+  height 2.5 * campaignLineHeight
+
+  .campaign_time_shadow
+    margin-left auto
+    margin-right auto
+    width 40%
+    background-color rgba(0, 0, 0, 0.4)
+
+  p
+    color white
+
+  .campaign_time_remind
+    font-size 10px
+    margin 0
+
+  .campaign_time_count
+    font-weight normal
+    font-size 24px
+
+// campaign type background image
+.football
+  background-size 100%
+  background-image url(../img/football.jpg)
+
+.campaign_operate_bar
+  background-color operateBarBgcolor
+
+.campaign_operate_button_container
+  padding 5px
+
+.campaign_operate_text
+  line-height 45px
+  color white !important
+
+.campaign_operate_button
+  min-height 0
+  width 100%
+  height 35px
+  line-height 35px
+  font-size 14px
+  border none
+  border-radius 5px
+  color white
+  background-color #ff7f66
+
+.campaign_operate_share
+  text-align right
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// campaign detail page
+
+.scroll-content
+  .scroll
+    height 100%
+
+.campaign_photo_panel
+
+  float left
+  width 50%
+  height 160px
+  padding-left 10px
+  margin-top 7px
+  &:nth-child(2n+2)
+    padding-right 10px
+
+  .campaign_photo_border
+    position relative
+    height 100%
+    border 1px solid #ddd
+
+  .campaign_photo_img_wrap
+    height 110px
+    text-align center
+    vertical-align middle
+    overflow hidden
+
+  .campaign_photo_ori_button_wrap
+    position absolute
+    bottom 37px
+    width 100%
+    text-align center
+
+    .campaign_photo_ori_button
+      min-width 0
+      min-height 0
+      padding 0
+      width 22px
+      height 22px
+      border none
+      text-align center
+      font-size 12px
+      border-radius 30px
+      color white
+      background-color rgb(91, 201, 213)
+
+  p
+    text-align center
+
+  .campaign_upload_user
+    margin-top 12px
+    margin-bottom 0
+    line-height 1
+
+  .campaign_upload_date
+    margin-top 5px
+    font-size 7px
+    line-height 1
+    color #bbb
+
+
+
+.campaign_members_wrap
+  position relative
+  padding 5px
+
+  .campaign_member_panel
+    float left
+    display block
+    padding 5px
+    width 33.333333%
+    text-decoration none
+    text-align center
+    line-height 1
+
+
+    .campaign_member_wrap
+      position relative
+      overflow hidden
+
+
+      .campaign_member_photo
+        max-width 100%
+
+      .campaign_member_name
+        position absolute
+
+        // 本该是0，不知道什么原因底部多了1px空隙，暂且将bottom设为1px
+        bottom 1px
+        margin 0
+        width 100%
+        line-height 20px
+        color white
+        background-color rgba(0, 0, 0, 0.4)
+
+
+
+
+
+
+
