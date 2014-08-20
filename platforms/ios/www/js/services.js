@@ -6,26 +6,32 @@ angular.module('starter.services', [])
 
 
 .factory('Global', function() {
-  var base_url = 'http://www.donler.cn';
+  //var base_url = window.location.origin;
+  var base_url = "http://www.donler.cn";
+  var _user = {};
+  var last_date;
 
   return {
-    base_url: base_url
+    base_url: base_url,
+    user: _user,
+    last_date: last_date
   };
 })
 
 .factory('Authorize', function($state, $http, Global) {
 
-
-  /**
-   * 是否经过授权
-   * @property authorize
-   * @type Boolean
-   * @default false
-   */
   var _authorize = false;
 
 
   var authorize = function() {
+    if (!Global.user._id && localStorage.user_id) {
+      _authorize = true;
+      Global.user = {
+        _id: localStorage.user_id,
+        nickname: localStorage.user_nickname
+      };
+      autologin(localStorage.user_id, localStorage.app_token);
+    }
     if (_authorize === false) {
       $state.go('login');
       return false;
@@ -34,17 +40,18 @@ angular.module('starter.services', [])
     }
   };
 
-  var login = function($scope, $rootScope) {
+  var login = function($scope) {
     return function(username, password) {
       $http.post(Global.base_url + '/users/login', { username: username, password: password })
       .success(function(data, status, headers, config) {
         if (data.result === 1) {
           _authorize = true;
-          var user_info = data.data;
-          if (user_info) {
-            $rootScope._id = user_info._id;
-            $rootScope.nickname = user_info.nickname;
-            $rootScope.role = user_info.role;
+          var user = data.data;
+          if (user) {
+            Global.user = user;
+            localStorage.user_id = user._id;
+            localStorage.user_nickname = user.nickname;
+            localStorage.app_token = user.app_token;
           }
           $state.go('app.campaignList');
         }
@@ -56,12 +63,35 @@ angular.module('starter.services', [])
       });
     };
   };
+  var autologin = function(uid, app_token) {
+    $http.post(Global.base_url + '/users/autologin', { uid: uid, app_token: app_token})
+    .success(function(data, status, headers, config) {
+      if (data.result === 1) {
+        _authorize = true;
+        var user = data.data;
+        if (user) {
+          Global.user.app_token = user.app_token;
+          localStorage.app_token = user.app_token;
+          return true;
+        }
+      }
+    })
+    .error(function(data, status, headers, config) {
+      if (status === 401) {
+        $scope.loginMsg = '用户名或密码错误';
+      }
+    });
+  };
 
   var logout = function() {
     $http.get(Global.base_url + '/users/logout')
     .success(function(data, status, headers, config) {
       if (data.result === 1) {
         _authorize = false;
+        Global.user = {};
+        delete localStorage.user_id;
+        delete localStorage.user_nickname;
+        delete localStorage.app_token;
         $state.go('login');
       }
     });
@@ -84,29 +114,11 @@ angular.module('starter.services', [])
     return campaign_list;
   };
 
-  var setCampaignTime = function(campaign) {
-    var start_time = new Date(campaign.start_time);
-    var rest_time = start_time - new Date();
-    if (rest_time >= 0) {
-      campaign.rest_time = rest_time;
-    } else {
-      campaign.beyond_time = 0 - rest_time;
-    }
-  }
-
-  var setTime = function() {
-    for (var i = 0; i < campaign_list.length; i++) {
-      setCampaignTime(campaign_list[i]);
-
-    }
-  };
-
   // callback(campaign)
   var getCampaign = function(id, callback) {
-    $http.get(Global.base_url + '/campaign/' + id)
+    $http.get(Global.base_url + '/campaign/getCampaigns/' + id + '/' + Global.user._id+ '/' + Global.user.app_token)
     .success(function(data, status) {
       var campaign = data.campaign;
-      setCampaignTime(campaign);
       for (var i = 0; i < campaign_list.length; i++) {
         if (campaign_list[i]._id === id) {
           campaign_list[i] = campaign;
@@ -118,31 +130,36 @@ angular.module('starter.services', [])
       }
     });
   };
-
+    // callback(campaign)
+var getCampaignDetail = function(id, callback) {
+    $http.get(Global.base_url + '/campaign/getCampaigns/' + id + '/' + Global.user._id+ '/' + Global.user.app_token)
+    .success(function(data, status) {
+      var campaign = data.campaign;
+      if (callback) {
+        callback(campaign);
+      }
+    });
+  };
   // callback(campaign_list)
-  var getUserCampaigns = function(callback) {
-    $http.get(Global.base_url + '/users/campaigns')
+  var getUserCampaignsForList = function(callback) {
+    $http.get(Global.base_url + '/campaign/user/all/applist/'+ Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status, headers, config) {
-      campaign_list = data.data;
-      setTime();
+      campaign_list = data.campaigns;
       callback(campaign_list);
     });
   };
 
-  // callback(campaign_list)
-  var getGroupCampaigns = function(group_id, callback) {
-    $http.get(Global.base_url + '/group/' + group_id + '/campaigns')
-    .success(function(data, status, headers, config) {
-      campaign_list = data.data;
-      setTime();
-      callback(campaign_list);
+  var getUserCampaignsForCalendar = function(callback) {
+    $http.get(Global.base_url + '/campaign/user/all/appcalendar/' + Global.user._id + '/' + Global.user.app_token)
+    .success(function(data, status) {
+      callback(data.campaigns);
     });
   };
 
   // callback(id)
   var join = function(callback) {
-    return function(id) {
-      $http.post(Global.base_url + '/users/joinCampaign', { campaign_id: id })
+    return function(id,tid) {
+      $http.post(Global.base_url + '/campaign/joinCampaign/'+id, { campaign_id: id, tid:tid})
       .success(function(data, status, headers, config) {
         callback(id);
       });
@@ -152,7 +169,7 @@ angular.module('starter.services', [])
   // callback(id)
   var quit = function(callback) {
     return function(id) {
-      $http.post(Global.base_url + '/users/quitCampaign', { campaign_id: id })
+      $http.post(Global.base_url + '/campaign/quitCampaign/'+id, { campaign_id: id})
       .success(function(data, status, headers, config) {
         callback(id);
       });
@@ -162,98 +179,98 @@ angular.module('starter.services', [])
   return {
     getCampaign: getCampaign,
     getCampaignList: getCampaignList,
-    getUserCampaigns: getUserCampaigns,
-    getGroupCampaigns: getGroupCampaigns,
+    getUserCampaignsForList: getUserCampaignsForList,
+    getUserCampaignsForCalendar: getUserCampaignsForCalendar,
     join: join,
-    quit: quit
+    quit: quit,
+    getCampaignDetail: getCampaignDetail
   };
 
 })
 
 
-.factory('Schedule', function($http, Global) {
+// .factory('Dynamic', function($http, Global) {
 
-  // callback(schedule_list)
-  var getSchedules = function(callback) {
-    $http.get(Global.base_url + '/users/schedules')
-    .success(function(data, status, headers, config) {
-      callback(data.data);
-    });
-  };
+//   var getDynamics = function(callback) {
+//     $http.get(Global.base_url + '/groupMessage/user/' +  Global.user._id + '/0')
+//     .success(function(data, status, headers, config) {
+//       callback(data.group_messages);
+//     });
+//   };
 
-  var quit = function(callback) {
-    return function(id) {
-      $http.post(Global.base_url + '/users/quitCampaign', { campaign_id: id })
-      .success(function(data, status, headers, config) {
-        callback();
-      });
-    };
-  };
+//   var getGroupDynamics = function(group_id, callback) {
+//     $http.get(Global.base_url + '/groupMessage/team/' + group_id + '/0')
+//     .success(function(data, status, headers, config) {
+//       if (callback) {
+//         callback(data.group_messages);
+//       }
+//     });
+//   };
 
-  return {
-    getSchedules: getSchedules,
-    quit: quit
-  };
+//   // callback(positiveCount, negativeCount)
+//   var vote = function(dynamic_list, callback) {
+//     return function(provoke_dynamic_id, status, index) {
+//       $http.post(Global.base_url + '/users/vote', {
+//           provoke_message_id: provoke_dynamic_id,
+//           aOr: status,
+//           tid: dynamic_list[index].my_team_id
+//         }
+//       ).success(function(data, status) {
+//         callback(data.positive, data.negative);
+//       });
+//     };
+//   };
 
-})
+//   return {
+//     getDynamics: getDynamics,
+//     getGroupDynamics: getGroupDynamics,
+//     vote: vote
+//   };
 
-
-.factory('Dynamic', function($http, Global) {
-
-  var getDynamics = function(callback) {
-    $http.get(Global.base_url + '/users/getGroupMessages')
-    .success(function(data, status, headers, config) {
-      callback(data.group_messages);
-    });
-  };
-
-  var getGroupDynamics = function(group_id, callback) {
-    $http.get(Global.base_url + '/group/getGroupMessages/' + group_id)
-    .success(function(data, status, headers, config) {
-      if (callback) {
-        callback(data.group_messages);
-      }
-    });
-  };
-
-  // callback(positiveCount, negativeCount)
-  var vote = function(dynamic_list, callback) {
-    return function(provoke_dynamic_id, status, index) {
-      $http.post(Global.base_url + '/users/vote', {
-          provoke_message_id: provoke_dynamic_id,
-          aOr: status,
-          tid: dynamic_list[index].my_team_id
-        }
-      ).success(function(data, status) {
-        callback(data.positive, data.negative);
-      });
-    };
-  };
-
-  return {
-    getDynamics: getDynamics,
-    getGroupDynamics: getGroupDynamics,
-    vote: vote
-  };
-
-})
+// })
 
 
-.factory('Group', function($http, Global) {
+// .factory('Group', function($http, Global) {
 
-  var getGroups = function(callback) {
-    $http.get(Global.base_url + '/users/groups')
-    .success(function(data, status, headers, config) {
-      callback(data.joined_groups, data.unjoin_groups);
-    });
-  };
+//   var joined_group_list = null,
+//     unjoin_group_list = null,
+//     group_list = [];
 
-  return {
-    getGroups: getGroups
-  };
+//   var getGroups = function(callback) {
+//     $http.get(Global.base_url + '/users/groups/' + Global.user._id)
+//     .success(function(data, status, headers, config) {
+//       joined_group_list = data.joined_groups;
+//       unjoin_group_list = data.unjoin_groups;
+//       group_list = joined_group_list.concat(unjoin_group_list);
+//       callback(data.joined_groups, data.unjoin_groups);
+//     });
+//   };
+
+//   var getGroup = function(id) {
+//     for (var i = 0; i < group_list.length; i++) {
+//       if (id === group_list[i]._id) {
+//         return group_list[i];
+//       }
+//     }
+//   };
+
+//   var getJoinedGroups = function() {
+//     return joined_group_list;
+//   };
+
+//   var getUnjoinGroups = function() {
+//     return unjoin_group_list;
+//   };
+
+//   return {
+//     getGroups: getGroups,
+//     getGroup: getGroup,
+//     getJoinedGroups: getJoinedGroups,
+//     getUnjoinGroups: getUnjoinGroups
+//   };
 
 
-})
+// })
 
 
 .factory('PhotoAlbum', function($http, Global) {
@@ -297,66 +314,111 @@ angular.module('starter.services', [])
 })
 
 
-.factory('User', function($http, Global) {
+.factory('Comment', function($http, Global){
 
-  // callback(user)
-  var getInfo = function(user_id, callback) {
-    $http.post(Global.base_url + '/users/info', { _id: user_id })
-    .success(function(data, status, headers, config) {
-      if (data.result === 1) {
-        callback(data.user);
+  /**
+   * 获取活动的评论
+   * @param  {String}   id       活动id
+   * @param  {Function} callback callback(comments)
+   */
+  var getCampaignComments = function(id, callback) {
+    // why post?
+    $http.post(Global.base_url + '/comment/pull/campaign/' + id, { host_id: id,userId:Global.user._id, appToken:Global.user.app_token })
+    .success(function(data, status) {
+      callback(data.comments);
+    });
+  };
+
+  /**
+   * 发表活动的评论
+   * @param  {String}   id       活动id
+   * @param  {String}   comment  评论文本
+   * @param  {Function} callback callback(err), 成功则err为null
+   */
+  var publishCampaignComment = function(id, comment, callback) {
+    var post_data = {
+      host_type: 'campaign',
+      host_id: id,
+      content: comment
+    };
+    $http.post(Global.base_url + '/comment/push', post_data)
+    .success(function(data, status) {
+      if (data.msg === 'SUCCESS') {
+        callback(null);
+      } else {
+        callback(data.msg);
       }
     });
   };
 
   return {
-    getInfo: getInfo
+    getCampaignComments: getCampaignComments,
+    publishCampaignComment: publishCampaignComment
   };
 
 })
 
 
-.factory('Map', function() {
+// .factory('User', function($http, Global) {
 
-  var init = function(element_id, location) {
-    var map = new BMap.Map(element_id);            // 创建Map实例
-    var _address = location || '';
-    var _title = location;
-    var _longitude = 116.404;
-    var _latitude = 39.915;
-    var point = new BMap.Point(_longitude, _latitude);    // 创建点坐标
-    map.centerAndZoom(point, 15);                     // 初始化地图,设置中心点坐标和地图级别。
-    map.enableScrollWheelZoom();
-    map.addControl(new BMap.NavigationControl({ anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM }));
-    var marker = new BMap.Marker(point);  // 创建标注
-    map.addOverlay(marker);              // 将标注添加到地图中
-    function showInfo(e){
-      var opts = {
-        width : 200,     // 信息窗口宽度
-        height: 60,     // 信息窗口高度
-        title : _title, // 信息窗口标题
-      };
-      var infoWindow = new BMap.InfoWindow(_address, opts);  // 创建信息窗口对象
-      map.openInfoWindow(infoWindow,point); //开启信息窗口
-    }
-    map.addEventListener("click", showInfo);
+//   // callback(user)
+//   var getInfo = function(user_id, callback) {
+//     $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id })
+//     .success(function(data, status, headers, config) {
+//       if (data.result === 1) {
+//         callback(data.user);
+//       }
+//     });
+//   };
+
+//   return {
+//     getInfo: getInfo
+//   };
+
+// })
 
 
-  };
+// .factory('Map', function() {
 
-  return {
-    init: init
-  };
+//   var init = function(element_id, location) {
+//     var map = new BMap.Map(element_id);            // 创建Map实例
+//     var _address = location || '';
+//     var _title = location;
+//     var _longitude = 116.404;
+//     var _latitude = 39.915;
+//     var point = new BMap.Point(_longitude, _latitude);    // 创建点坐标
+//     map.centerAndZoom(point, 15);                     // 初始化地图,设置中心点坐标和地图级别。
+//     map.enableScrollWheelZoom();
+//     map.addControl(new BMap.NavigationControl({ anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM }));
+//     var marker = new BMap.Marker(point);  // 创建标注
+//     map.addOverlay(marker);              // 将标注添加到地图中
+//     function showInfo(e){
+//       var opts = {
+//         width : 200,     // 信息窗口宽度
+//         height: 60,     // 信息窗口高度
+//         title : _title, // 信息窗口标题
+//       };
+//       var infoWindow = new BMap.InfoWindow(_address, opts);  // 创建信息窗口对象
+//       map.openInfoWindow(infoWindow,point); //开启信息窗口
+//     }
+//     map.addEventListener("click", showInfo);
 
 
-})
+//   };
+
+//   return {
+//     init: init
+//   };
+
+
+// })
 
 
 .factory('Timeline', function($http, Global) {
 
   // callback(time_lines)
   var getUserTimeline = function(callback) {
-    $http.get(Global.base_url + '/users/getTimelineForApp')
+    $http.get(Global.base_url + '/users/getTimelineForApp/'+ Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status) {
       callback(data.time_lines);
     });

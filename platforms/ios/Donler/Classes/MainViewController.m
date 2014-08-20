@@ -19,7 +19,7 @@
 
 //
 //  MainViewController.h
-//  HelloCordova
+//  Donler
 //
 //  Created by ___FULLUSERNAME___ on ___DATE___.
 //  Copyright ___ORGANIZATIONNAME___ ___YEAR___. All rights reserved.
@@ -64,22 +64,10 @@
 #pragma mark View lifecycle
 
 - (void)viewWillAppear:(BOOL)animated
-//{
-//    // View defaults to full size.  If you want to customize the view's size, or its subviews (e.g. webView),
-//    // you can do so here.
-//
-//    [super viewWillAppear:animated];
-//}
 {
     // View defaults to full size.  If you want to customize the view's size, or its subviews (e.g. webView),
     // you can do so here.
-    //Lower screen 20px on ios 7
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-        CGRect viewBounds = [self.webView bounds];
-        viewBounds.origin.y = 20;
-        viewBounds.size.height = viewBounds.size.height - 20;
-        self.webView.frame = viewBounds;
-    }
+
     [super viewWillAppear:animated];
 }
 

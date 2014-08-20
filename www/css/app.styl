@@ -58,8 +58,12 @@ body
   height 100%
   text-align center
   vertical-align middle
-
+.col-10
+  width 10%
+.col-80
+  width 80%
 .col-30
+  width 30%
   -webkit-flex 0 0 30%
   -moz-box-flex 0
   -moz-flex 0 0 30%
@@ -93,12 +97,44 @@ body
       padding-top 5px
       padding-bottom 5px
 
-
 .clearfix
-  clear both
+  &:after
+    clear both
+  &:before, &:after
+    display table
+    content " "
+
+.pull-left
+  display block
+  float left
+
+.pull-right
+  display block
+  float right
 
 
+.btn_radius
+  min-height 0
+  width 100%
+  height 35px
+  line-height 35px
+  font-size 14px
+  border none
+  border-radius 5px
 
+.btn_red
+  color white
+  background-color #ff7f66
+
+.btn_darkred
+  color white
+  background-color #ea6060
+
+.btn_blue
+  color white
+  background-color themeColor
+.img_user
+  border-radius 100%
 // menu
 
 oddItemBgcolor = #35add5
@@ -162,18 +198,6 @@ evenItemBgcolor = #37b4dd
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // login page
 
 loginButtonBgcolor = #ea6060
@@ -189,7 +213,8 @@ loginInfoBgcolor = #75d1ef
   height 179px
 
   .logo
-    width 140px
+    width 210px
+    height 30px
 
 
 
@@ -199,8 +224,6 @@ loginInfoBgcolor = #75d1ef
 .login_modal
   position relative
   padding-top 5px
-  padding-left 10px
-  padding-right 10px
   background-color white
   border 5px solid loginInfoBgcolor
   border-bottom none
@@ -248,31 +271,212 @@ loginInfoBgcolor = #75d1ef
     color #aaa
 
 .login_info
-  position absolute
-  left 0
-  bottom 0
   margin-bottom 0
   width 100%
-  height 35px
+  height 37px
   text-align center
-  line-height 35px
+  line-height 37px
   font-size 12px
   color white
   background-color loginInfoBgcolor
 
 
 
+// 日程
+.calendar
+  height 100%
 
+  nav
+    background-color rgb(246, 246, 246)
+    border-bottom solid 1px rgb(220, 220, 220)
 
+    .operator
+      .btn
+        display inline-block
+        line-height 30px
+        height 30px
+        min-width 30px
+        padding 0 10px
+        text-align center
+        color themeColor
 
+    .week
+      position relative
+      margin-top 5px
 
+      .day
+        float left
+        width (100 / 7)%
+        height 20px
+        line-height 20px
 
+      .weekend
+        color gray
 
+    .date_list
+      position relative
+      margin-top 5px
 
+      .date_box
+        float left
+        width (100 / 7)%
+        height 30px
+        line-height 30px
 
+        navDateSize = 24px
+        .date
+          margin-top 10%
+          margin-left auto
+          margin-right auto
+          width navDateSize
+          height navDateSize
+          line-height navDateSize
 
+        .current_day
+          color white
+          border-radius 50px
+          background-color black
 
+        .current_day.today
+          background-color themeColor
 
+    .date_bar
+      margin 5px auto
+
+  .full_box
+    height 100%
+
+  .calendar_box
+    position relative
+    height 100%
+
+    .swipe-cards
+      height 100%
+
+    .swipe-card
+      height 100%
+
+  yearSectionPadding = 6px
+  .calendar_year
+    position relative
+    height 100%
+    padding yearSectionPadding
+
+    .year_section
+      float left
+      width (100 / 3)%
+      height 25%
+      text-align center
+      padding yearSectionPadding
+      color themeColor
+
+      .table_wrap
+        border solid 1px themeColor
+
+  .calendar_month
+    position relative
+    height 100%
+
+    .month
+      width (100 / 7)%
+      height 40px
+      padding-top 15px
+      color themeColor
+      text-align center
+
+    .calendar_day
+      position relative
+      float left
+      width (100 / 7)%
+      height 60px
+      border-top solid 1px rgb(220, 220, 220)
+
+      monthDateSize = 24px
+      .calendar_date
+        margin-top 15%
+        margin-left auto
+        margin-right auto
+        width monthDateSize
+        height monthDateSize
+        line-height monthDateSize
+
+      .today
+        color white
+        background-color themeColor
+        border-radius 50px
+
+      .event_unjoin, .event_joined
+        width 0
+        height 0
+        margin-top 15%
+        margin-left auto
+        margin-right auto
+        border-style solid
+        border-width 3px
+        border-radius 30px
+        font-size 0px
+
+      .event_unjoin
+        border-color rgb(193, 193, 193)
+
+      .event_joined
+        border-color themeColor
+
+      .weekend
+        color gray
+
+    for day in (0..6)
+      .offset_{day}
+        margin-left (100 * day / 7)%
+
+  .calendar_day
+    padding 5px
+    height 100%
+
+    .calendar_campaign
+      display block
+      position relative
+      margin 5px 0
+      height 62px
+      color black
+      border solid 1px rgb(0, 152, 227)
+      background-color rgb(206, 239, 254)
+
+      campaignLogoSize = 50px
+      .logo
+        float left
+        text-align center
+        width 60px
+        height 60px
+        img
+          margin-top 5px
+          width campaignLogoSize
+          height campaignLogoSize
+
+      .calendar_content
+        float left
+        margin-left 10px
+
+        .text
+          &:first-child
+            margin-top 3px
+          height 18px
+          line-height 18px
+          font-size 12px
+
+        .time
+          color gray
+
+        .joined_flag
+          position absolute
+          bottom 15px
+          right 15px
+          color rgb(0,152,227)
+          border solid 1px rgb(0, 152, 227)
+          padding 0 6px
+          height 30px
+          line-height 28px
+          font-size 16px
 
 
 
@@ -375,36 +579,8 @@ campaignLineHeight = 45px
   line-height 45px
   color white !important
 
-.campaign_operate_button
-  min-height 0
-  width 100%
-  height 35px
-  line-height 35px
-  font-size 14px
-  border none
-  border-radius 5px
-  color white
-  background-color #ff7f66
-
 .campaign_operate_share
   text-align right
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -415,45 +591,83 @@ campaignLineHeight = 45px
   .scroll
     height 100%
 
-.campaign_photo_panel
-
-  float left
-  width 50%
-  height 160px
-  padding-left 10px
-  margin-top 7px
-  &:nth-child(2n+2)
-    padding-right 10px
-
-  .campaign_photo_border
-    position relative
-    height 100%
-    border 1px solid #ddd
-
-  .campaign_photo_img_wrap
-    height 110px
-    text-align center
-    vertical-align middle
-    overflow hidden
-
-  .campaign_photo_ori_button_wrap
+// photos
+.campaign_photos
+  .campaing_upload_form
+    
     position absolute
-    bottom 37px
-    width 100%
-    text-align center
-
-    .campaign_photo_ori_button
-      min-width 0
-      min-height 0
-      padding 0
-      width 22px
-      height 22px
-      border none
-      text-align center
-      font-size 12px
-      border-radius 30px
+    bottom 10px
+    .upload_input
+      width 200px
+      opacity 0
+      position absolute
+      left 60px
+      z-index 3
+      bottom 5px
+    .upload_input_view
+      width 200px
+      position absolute
+      left 60px
+      background-color #ff2200
       color white
-      background-color rgb(91, 201, 213)
+      padding 5px 15px
+      text-align center
+      bottom 5px
+  .campaign_photos_wrap
+    
+    .pager
+      position absolute
+      bottom 40px
+      left 0
+      width 100%
+      text-align center
+      .page
+        display inline-block
+        width 5px
+        height 5px
+        margin 5px
+        background-color #9C9494
+        border-radius 100%
+      .active
+        background-color rgb(91, 201, 213)
+    .campaign_photo_panel
+
+      float left
+      width 50%
+      height 120px
+      padding-left 10px
+      margin-top 7px
+      &:nth-child(2n+2)
+        padding-right 10px
+
+      .campaign_photo_border
+        position relative
+        height 100%
+        border 1px solid #ddd
+
+      .campaign_photo_img_wrap
+        height 120px
+        text-align center
+        vertical-align middle
+        overflow hidden
+
+      .campaign_photo_ori_button_wrap
+        position absolute
+        bottom 5px
+        left 5px
+        .campaign_photo_ori_button
+          min-width 0
+          min-height 0
+          padding 0
+          width 22px
+          height 22px
+          border none
+          
+          font-size 12px
+          border-radius 30px
+          color white
+          background-color rgb(91, 201, 213)
+          opacity 0.6
 
   p
     text-align center
@@ -468,9 +682,17 @@ campaignLineHeight = 45px
     font-size 7px
     line-height 1
     color #bbb
-
-
-
+//slide
+.slider
+  .slider-pager
+    .slider-pager-page
+      width 10px
+//photo detail
+.photo_detail_img
+  width 280px
+  height 330px
+  margin 70px 20px 20px 20px
+// members
 .campaign_members_wrap
   position relative
   padding 5px
@@ -479,34 +701,283 @@ campaignLineHeight = 45px
     float left
     display block
     padding 5px
-    width 33.333333%
+    width 25%
     text-decoration none
     text-align center
     line-height 1
-
 
     .campaign_member_wrap
       position relative
       overflow hidden
 
-
       .campaign_member_photo
         max-width 100%
 
       .campaign_member_name
-        position absolute
-
         // 本该是0，不知道什么原因底部多了1px空隙，暂且将bottom设为1px
         bottom 1px
         margin 0
         width 100%
+        text-overflow ellipsis
+        white-space nowrap
+        overflow hidden
+        max-width 100px
         line-height 20px
-        color white
-        background-color rgba(0, 0, 0, 0.4)
+
+// comments
+.comment_edit
+  position absolute
+  bottom 60px
+  z-index 2
+  width 100%
+  .comment_add_button
+    display inline-block
+    float right
+    width 30px
+    height 30px
+    margin-right 6px
+    background-image url('../img/plus.png')
+    cursor pointer
+    background-size contain
+
+  form
+    background-color rgb(58, 189, 232)
+    padding 5px
+    .comment_input
+      float left
+      width 80%
+      background-color rgb(58, 189, 232)
+      color white
+      border 1px white solid
+      border-radius 16px
+    .comment_button
+      width 20%
+      background-color rgb(58, 189, 232)
+      color white
+      height 34px
+      border 1px white solid
+      border-radius 16px
+    input:-moz-placeholder
+      color white
+    ::-webkit-input-placeholder
+      color white
+.campaign_detail
+  .campaign_time
+    padding 0 10px
+    height 150px
+  .head_title
+    text-overflow ellipsis
+    white-space nowrap
+    overflow hidden
+    max-width 100%
+  .detail_label
+    display inline-block
+    width 20%
+    float left
+    margin 0 0 10px
+  .detail_detail
+    display inline-block
+    width 80%
+    float left
+    margin 0 0 10px
+  .campaign_time_shadow
+    text-align center
+    width 66.66666667%
+
+    .campaign_time_content
+      margin 13px 0
+
+    .campaign_time_remind
+      margin 0
+
+    .campaign_time_count
+      margin 0
+
+    .campaign_time_operator
+      margin-top 30px
+
+      .btn_operator
+        width 85px
+        height 25px
+        line-height 25px
+        font-size 11px
+
+      .btn_good
+        margin-left 13px
+  .comments
+    margin 10px
+    padding 1px 10px
+    background-color white
+    .comment
+      border-bottom 1px inset #ddd
+      .comment_left
+        .comment_photo
+          float left
+          width 40px
+          height 40px
+          margin-left 10px
+        .comment_name
+          span
+            text-overflow ellipsis
+            white-space nowrap
+            overflow hidden
+            float right
+            margin-right 10px
+        .comment_content
+          margin-left 20px
+          margin-right 70px
+          padding-top 20px
+          p
+            white-space pre
+            color #999
+        .comment_time
+          color #CEC7C7
+          margin-right 85px
+          font-size 10px
+          font-weight 300
+          text-align right
+      .comment_right
+        position relative
+        left 5%
+        margin 10px 0
+        .comment_photo
+          float right
+          width 40px
+          height 40px
+          margin-right 20px
+        .comment_name
+          text-overflow ellipsis
+          white-space nowrap
+          overflow hidden
+          max-width 100px
+        .comment_content
+          margin-left 60px
+          margin-right 40px
+          p
+            white-space pre
+            color #999
+        .comment_time
+          color #CEC7C7
+          margin-left 55px
+          font-size 10px
+          font-weight 300
+.campaign_location
+  .location
+    height 260px
+    width 290px
+//动态页
+.dynamic_list
+  white-space normal
+  .dynamic_side
+    float left
+  img.team_logo
+    //height 50px
+    width 20%
+  .pull_left
+    float left
+  .pull_right
+    float right
+  .team_link
+    display inline-block
+  .dynamic_score
+    font-size 30px
+  a
+    text-decoration none
 
 
 
-
-
-
-
+//timeline
+timeline_logo_width = 50px
+.dl_timeline
+  width 660px
+  position relative
+  overflow hidden
+  margin 0px auto
+  padding-top 20px
+  .timeline_element
+    position relative
+    margin 10px
+    clear both
+    border-radius 0px
+    padding-bottom 15px
+    color #888888
+    border-bottom 1px inset #ddd
+    &:before
+      content ''
+      position absolute
+      display block
+      top -10px
+      width 2px
+      height 120%
+      border-radius 2px   
+      left 24%
+      background-color #CCCCCC
+      z-index 2
+    &:after
+      content ''
+      position absolute
+      display block
+      width 6px
+      height 6px
+      border-radius 100%
+      background-color #BBBBBB
+      box-shadow 0px 0px 2px rgba(0, 0, 0, 0.2)
+      top 20%
+      left 24%
+      z-index 3
+      margin-left -2px
+    .timeline-left
+      .timeline-logo
+        margin 0 4px 5px 5px
+        width timeline_logo_width
+        float left
+    .timeline-right
+      position relative
+      left timeline_logo_width - 10px
+      .title
+        position relative
+        font-size 10px
+        overflow hidden
+        margin-bottom 0
+        text-transform uppercase
+        a
+          color #AAAAAA
+          display block
+          &:hover
+            text-decoration none
+        .head
+          color #AAAAAA
+          font-size 12px
+          line-height 22px
+          display inline-block
+          width 165px
+        .date
+          float right
+          position relative
+          right timeline_logo_width - 5px
+      .timeline_content
+        position relative
+        font-size 10px
+        overflow hidden
+        margin-bottom 0
+        text-transform uppercase
+        margin-right 50px
+        .img_scroll
+          max-height 45px
+          overflow hidden
+          .photo
+            display inline-block
+            max-width 45px
+            max-height 45px
+            margin-right 1px
+        p
+          margin-bottom 0
+          margin-right 10px
+        a
+          color #888888
+          display block
+          &:hover
+            text-decoration none
+.select_team_container
+  background-color #3abde8
+  color white
