@@ -3,7 +3,7 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($state, $scope, $rootScope, Authorize, Global) {
   if (Authorize.authorize() === true) {
-    $state.go('app.campaignList');
+    $state.go('app.index');
   }
 
   $scope.logout = Authorize.logout;
@@ -16,7 +16,7 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, $rootScope, $http, $state, Authorize) {
 
   if (Authorize.authorize() === true) {
-    $state.go('app.campaignList');
+    $state.go('app.index');
   }
 
   $scope.data = {
@@ -29,18 +29,58 @@ angular.module('starter.controllers', [])
   $scope.login = Authorize.login($scope, $rootScope);
 })
 
-
+.controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicModal, Campaign, Global, Authorize) {
+  Authorize.authorize();
+  $scope.base_url = Global.base_url;
+  $rootScope.campaignReturnUri = '#/app/index';
+  Campaign.getNowCampaignList(function(campaign_list) {
+    $scope.nowCampaigns = campaign_list;
+    $ionicSlideBoxDelegate.update();
+  });
+  Campaign.getNewCampaignList(function(campaign_list) {
+    $scope.newCampaigns = campaign_list;
+  });
+  Campaign.getNewFinishCampaign(function(newFinishCampaign) {
+    $scope.newFinishCampaign = newFinishCampaign;
+  });
+  var removeCampaign = function(id){
+    var _length = $scope.newCampaigns.length;
+    for(var i=0;i<_length;i++){
+      if($scope.newCampaigns[i]._id==id){
+        $scope.newCampaigns.splice(i,1);
+        break;
+      }
+    }
+  }
+  $scope.join = Campaign.join(removeCampaign);
+  $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.selectModal = modal;
+  });
+  $scope.openselectModal = function(campaign) {
+    $scope.campaign=campaign;
+    $scope.selectModal.show();
+  };
+  $scope.select = function(campaign_id,tid) {
+    $scope.join(campaign_id,tid);
+    $scope.selectModal.hide();
+  };
+})
 
 .controller('CampaignListCtrl', function($scope, $rootScope, $ionicModal, Campaign, Global, Authorize) {
   Authorize.authorize();
-
+  var page = -1;
+  $scope.moreData =true;
+  $scope.remind_text = '没有更多的活动了';
   $scope.base_url = Global.base_url;
 
   $rootScope.campaignReturnUri = '#/app/campaign_list';
 
-  Campaign.getUserCampaignsForList(function(campaign_list) {
-    $scope.campaign_list = campaign_list;
-  });
+  // Campaign.getUserCampaignsForList(page,function(campaign_list) {
+  //   $scope.campaign_list = campaign_list;
+  // });
 
 
   $scope.join = Campaign.join(Campaign.getCampaign);
@@ -59,6 +99,26 @@ angular.module('starter.controllers', [])
     $scope.join(campaign_id,tid);
     $scope.selectModal.hide();
   };
+  $scope.loadMore = function(){
+    page++;
+    Campaign.getUserJoinedCampaignsForList(page,function(campaign_list) {
+      if($scope.campaign_list){
+         $scope.campaign_list = $scope.campaign_list.concat(campaign_list);
+      }
+      else{
+        $scope.campaign_list = campaign_list;
+      }
+      if(campaign_list.length<20){
+        $scope.moreData =false;
+        if (campaign_list.length === 0) {
+          $scope.remind_text = '没有已参加的活动';
+        } else {
+          $scope.remind_text = '没有更多的活动了';
+        }
+      }
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  }
 })
 
 
@@ -67,6 +127,7 @@ angular.module('starter.controllers', [])
 
   $scope.base_url = Global.base_url;
   $scope.user_id = Global.user._id;
+  $scope.loading = {status:false};
   Campaign.getCampaignDetail( $stateParams.id,function(campaign) {
     $scope.campaign = campaign;
     $scope.photo_album_id = $scope.campaign.photo_album;
@@ -79,10 +140,10 @@ angular.module('starter.controllers', [])
       $scope.photos = photos;
       $scope.photos_view = [];
       var _length = photos.length;
-      for(var i=0;i<_length;i++){
-        var index = Math.floor(i/4);
-        if(!$scope.photos_view[index]){
-          $scope.photos_view[index]=[];
+      for(var i = 0; i < _length; i++){
+        var index = Math.floor(i / 6);
+        if(!$scope.photos_view[index]) {
+          $scope.photos_view[index] = [];
         }
         photos[i].index = i;
         $scope.photos_view[index].push(photos[i]);
@@ -95,15 +156,15 @@ angular.module('starter.controllers', [])
   };
   $scope.initUpload = function(){
     $('#upload_form').ajaxForm(function(ee) {
+      alert('图片上传成功！');
       getPhotoList();
       var file = $('#upload_form').find('.upload_input');
-      file.after(file.clone().val(""));
-      file.remove();
-      alert('图片上传成功！');
+      file.val("");
+      $scope.loading.status=false;
     });
+
   }
   $scope.photos = [];
-
   Comment.getCampaignComments($stateParams.id, function(comments) {
     $scope.comments = comments;
   });
@@ -561,11 +622,25 @@ angular.module('starter.controllers', [])
 
 .controller('TimelineCtrl', function($scope, $rootScope, Timeline, Authorize) {
   Authorize.authorize();
-  
-  Timeline.getUserTimeline(function(time_lines) {
-    $rootScope.time_lines = time_lines;
-    $rootScope.campaignReturnUri = '#/app/timeline';
-  });
+
+  $rootScope.campaignReturnUri = '#/app/timeline';
+  $scope.moreData =true;
+  var page = -1;
+  $scope.loadMore = function(){
+    page++;
+    Timeline.getUserTimeline(page,function(time_lines) {
+      if($scope.time_lines ){
+        $scope.time_lines = $scope.time_lines.concat(time_lines);
+      }
+      else{
+        $scope.time_lines = time_lines;
+      }
+      if(time_lines.length<20){
+        $scope.moreData =false;
+      }
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    });
+  }
 
 })
 
@@ -593,11 +668,10 @@ angular.module('starter.controllers', [])
 // })
 
 
-.directive('thumbnailPhotoDirective', function() {
+.directive('thumbnailPhoto', function() {
   return function(scope, element, attrs) {
-
     var thumbnail = function(img) {
-      if (img.width * 120 > img.height * 128) {
+      if (img.width > img.height) {
         element[0].style.height = '100%';
       } else {
         element[0].style.width = '100%';
@@ -620,6 +694,7 @@ angular.module('starter.controllers', [])
 
   };
 })
+
 
 // .directive('mapDirective', function(Map) {
 //   return function(scope, element, attrs) {
@@ -651,14 +726,32 @@ angular.module('starter.controllers', [])
     link:function(scope,el,attrs,control){
       el.bind('change',function(){
         scope.$apply(function(){
+          scope.loading.status=true;
           $('#upload_form').submit();
         });
       });
     }
   }
-});
+})
 
-
+.directive('hidePager', function() {
+  return {
+    restrict: 'A',
+    scope: {
+      length: '='
+    },
+    link: function(scope, element, attrs) {
+      var pager = $(element).parent().parent().find('.slider-pager');
+      scope.$watch('length', function(newVal, oldVal) {
+        if (newVal === 1) {
+          pager.hide();
+        } else {
+          pager.show();
+        }
+      });
+    }
+  };
+})
 
 
 
