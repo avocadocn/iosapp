@@ -29,19 +29,19 @@
         </p>
       </div>
       <div class="col-33 col-40 campaign_operate_button_container">
-        <button class="btn_radius btn_red" ng-if="!campaign.is_joined" ng-click="campaign.myteam.length<2 ? join(campaign._id) : openselectModal(campaign)">
+        <button class="btn_radius btn_red" ng-if="!campaign.is_joined" ng-click="campaign.myteam.length<2 ? join(campaign._id,campaign.myteam[0].id) : openselectModal(campaign)">
           参加活动
         </button>
         <button class="btn_radius btn_red" ng-if="campaign.is_joined" ng-click="quit(campaign._id)">
           退出活动
         </button>
       </div>
-      <div class="col-33 col-30">
+<!--       <div class="col-33 col-30">
         <p class="campaign_operate_text campaign_operate_share">
           <i class="icon ion-android-share"></i>
           share
         </p>
-      </div>
+      </div> -->
     </div>
   </ion-item>
 </ion-list>

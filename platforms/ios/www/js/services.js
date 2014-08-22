@@ -7,10 +7,10 @@ angular.module('starter.services', [])
 
 .factory('Global', function() {
   //var base_url = window.location.origin;
-  var base_url = "http://www.donler.cn";
+  //var base_url = "http://www.donler.com";
+  var base_url = "http://www.55yali.com";
   var _user = {};
   var last_date;
-
   return {
     base_url: base_url,
     user: _user,
@@ -28,7 +28,8 @@ angular.module('starter.services', [])
       _authorize = true;
       Global.user = {
         _id: localStorage.user_id,
-        nickname: localStorage.user_nickname
+        nickname: localStorage.user_nickname,
+        app_token:localStorage.app_token
       };
       autologin(localStorage.user_id, localStorage.app_token);
     }
@@ -53,7 +54,7 @@ angular.module('starter.services', [])
             localStorage.user_nickname = user.nickname;
             localStorage.app_token = user.app_token;
           }
-          $state.go('app.campaignList');
+          $state.go('app.index');
         }
       })
       .error(function(data, status, headers, config) {
@@ -74,6 +75,13 @@ angular.module('starter.services', [])
           localStorage.app_token = user.app_token;
           return true;
         }
+      }
+      else{
+        _authorize = false;
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("user_nickname");
+        localStorage.removeItem("app_token");
+        return false;
       }
     })
     .error(function(data, status, headers, config) {
@@ -113,7 +121,25 @@ angular.module('starter.services', [])
   var getCampaignList = function() {
     return campaign_list;
   };
-
+  var getNowCampaignList = function(callback){
+    $http.get(Global.base_url + '/campaign/user/now/applist/'+ Global.user._id + '/' + Global.user.app_token)
+    .success(function(data, status, headers, config) {
+      callback(data.campaigns);
+    });
+  }
+  var getNewCampaignList = function(callback){
+    $http.get(Global.base_url + '/campaign/user/new/applist/'+ Global.user._id + '/' + Global.user.app_token)
+    .success(function(data, status, headers, config) {
+      callback(data.campaigns);
+    });
+  }
+  var getNewFinishCampaign = function(callback){
+    $http.get(Global.base_url + '/campaign/user/newfinish/applist/'+ Global.user._id + '/' + Global.user.app_token)
+    .success(function(data, status, headers, config) {
+      callback(data.campaigns);
+    });
+  }
+  
   // callback(campaign)
   var getCampaign = function(id, callback) {
     $http.get(Global.base_url + '/campaign/getCampaigns/' + id + '/' + Global.user._id+ '/' + Global.user.app_token)
@@ -131,7 +157,7 @@ angular.module('starter.services', [])
     });
   };
     // callback(campaign)
-var getCampaignDetail = function(id, callback) {
+  var getCampaignDetail = function(id, callback) {
     $http.get(Global.base_url + '/campaign/getCampaigns/' + id + '/' + Global.user._id+ '/' + Global.user.app_token)
     .success(function(data, status) {
       var campaign = data.campaign;
@@ -141,8 +167,16 @@ var getCampaignDetail = function(id, callback) {
     });
   };
   // callback(campaign_list)
-  var getUserCampaignsForList = function(callback) {
-    $http.get(Global.base_url + '/campaign/user/all/applist/'+ Global.user._id + '/' + Global.user.app_token)
+  var getUserCampaignsForList = function(page, callback) {
+    $http.get(Global.base_url + '/campaign/user/all/applist/'+ page +'/'+ Global.user._id + '/' + Global.user.app_token)
+    .success(function(data, status, headers, config) {
+      campaign_list = data.campaigns;
+      callback(campaign_list);
+    });
+  };
+
+  var getUserJoinedCampaignsForList = function(page, callback) {
+    $http.get(Global.base_url + '/campaign/user/joined/applist/'+ page +'/'+ Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status, headers, config) {
       campaign_list = data.campaigns;
       callback(campaign_list);
@@ -176,14 +210,28 @@ var getCampaignDetail = function(id, callback) {
     };
   };
 
+  var getPhotoComments = function(id, callback) {
+    $http.get(Global.base_url + '/campaign/getCampaignCommentsAndPhotos/' + id + '/' + Global.user._id+ '/' + Global.user.app_token)
+    .success(function(data, status) {
+      if (callback) {
+        callback(data.photo_comments);
+      }
+    });
+  };
+
   return {
     getCampaign: getCampaign,
     getCampaignList: getCampaignList,
     getUserCampaignsForList: getUserCampaignsForList,
+    getUserJoinedCampaignsForList: getUserJoinedCampaignsForList,
     getUserCampaignsForCalendar: getUserCampaignsForCalendar,
+    getNowCampaignList: getNowCampaignList,
+    getNewCampaignList: getNewCampaignList,
+    getNewFinishCampaign: getNewFinishCampaign,
     join: join,
     quit: quit,
-    getCampaignDetail: getCampaignDetail
+    getCampaignDetail: getCampaignDetail,
+    getPhotoComments: getPhotoComments
   };
 
 })
@@ -314,7 +362,7 @@ var getCampaignDetail = function(id, callback) {
 })
 
 
-.factory('Comment', function($http, Global){
+.factory('Comment', function($http, Global) {
 
   /**
    * 获取活动的评论
@@ -357,6 +405,7 @@ var getCampaignDetail = function(id, callback) {
   };
 
 })
+
 
 
 // .factory('User', function($http, Global) {
@@ -417,8 +466,8 @@ var getCampaignDetail = function(id, callback) {
 .factory('Timeline', function($http, Global) {
 
   // callback(time_lines)
-  var getUserTimeline = function(callback) {
-    $http.get(Global.base_url + '/users/getTimelineForApp/'+ Global.user._id + '/' + Global.user.app_token)
+  var getUserTimeline = function(page, callback) {
+    $http.get(Global.base_url + '/users/getTimelineForApp/' + page + '/' + Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status) {
       callback(data.time_lines);
     });
