@@ -19,8 +19,15 @@
 
 package com.ionicframework.starter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import org.apache.cordova.*;
+
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
+//import com.cmpsoft.mobile.plugin.pushnotification.LoginActivity;
+import com.cmpsoft.mobile.plugin.pushnotification.Utils;
 
 public class Donler extends CordovaActivity 
 {
@@ -32,6 +39,12 @@ public class Donler extends CordovaActivity
         // Set by <content src="index.html" /> in config.xml
         super.loadUrl(Config.getStartUrl());
         //super.loadUrl("file:///android_asset/www/index.html");
+        parameter.CONTEX = getApplicationContext();
+        if (!Utils.hasBind(getApplicationContext())) {
+            PushManager.startWork(getApplicationContext(),
+                PushConstants.LOGIN_TYPE_API_KEY,
+                Utils.getMetaValue(Donler.this, "api_key"));
+        }
     }
 }
 
