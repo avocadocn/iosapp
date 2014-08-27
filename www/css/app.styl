@@ -83,6 +83,20 @@ body
   height 100%
   text-align center
   vertical-align middle
+
+.center_img_container
+  display block
+  text-align center
+  white-space nowrap
+  &:after
+    display inline-block
+    height 100%
+    vertical-align middle
+    content " "
+  .img
+    vertical-align middle
+
+
 .col-10
   width 10%
 .col-80
@@ -121,6 +135,18 @@ body
     .tab-item
       padding-top 5px
       padding-bottom 5px
+
+.donler_msg_corner
+  margin-top -2px
+  margin-left 14px
+  font-size 10px
+  position absolute
+  z-index 1000
+  width 10px
+  height 10px
+  background-color wrapBgColor
+  border-radius 100%
+  color headBgColor
 
 .clearfix
   &:after
@@ -167,7 +193,11 @@ body
   position absolute
   background-color white
   z-index 1000
-
+.more_data_text
+  //background-color #ededed
+  height 20px
+  text-align center
+  border-top 1px solid #ededed
 
 
 // menu
@@ -335,14 +365,21 @@ body
           margin-right 0
 .now_campaign_item
   .campaign_link
+    text-decoration none
     .campaign_title
       width 100%
-      background-color #D8D8D8
+      background-color #F0F0F0
       height 56px
       margin 0
       padding 0
       .campaign_group_logo
         margin 10px
+        width 36px
+        height 36px
+        vertical-align middle
+        border 1px solid white
+        border-radius 5px
+
       .campaign_label
         padding 10px 0
         position relative
@@ -391,10 +428,16 @@ body
   .item-content
     padding 0
     .campaign_link
+      text-decoration none
       .campaign_title
         padding 0
         .campaign_group_logo
           margin 10px
+          width 36px
+          height 36px
+          vertical-align middle
+          border 1px solid white
+          border-radius 5px
         .campaign_label
           padding 10px 0
           p
@@ -509,7 +552,7 @@ body
       position relative
       float left
       width (100 / 7)%
-      height 60px
+      height 53px
       border-top solid 1px rgb(220, 220, 220)
 
       .calendar_date
@@ -556,11 +599,11 @@ body
     .calendar_campaign
       display block
       position relative
-      margin 5px 0
       height 62px
       color black
-      border solid 1px rgb(0, 152, 227)
-      background-color rgb(206, 239, 254)
+      border-top solid 1px #ddd
+      &:first-child
+        border-top none
 
       .logo
         float left
@@ -591,6 +634,7 @@ body
           bottom 15px
           right 15px
           color rgb(0,152,227)
+          background-color rgb(206, 239, 254)
           border solid 1px rgb(0, 152, 227)
           padding 0 6px
           height 30px
@@ -602,95 +646,61 @@ body
 
 
 // 活动列表样式
-.campaign
-  background-color campaignContentBgcolor
-  /* Firefox 3.6+ */
-  background -moz-linear-gradient(left, campaignBgcolor, campaignLinearColor 5%, campaignBgcolor, campaignLinearColor 95%, campaignBgcolor)
-  /* Safari 4-5, Chrome 1-9 */
-  background -webkit-gradient(linear, left top, right top, from(campaignBgcolor), color-stop(0.05, campaignLinearColor), color-stop(0.5, campaignBgcolor), color-stop(0.95, campaignLinearColor), to(campaignBgcolor))
-  /* Safari 5.1+, Chrome 10+ */
-  background -webkit-linear-gradient(left, campaignBgcolor, campaignLinearColor 5%, campaignBgcolor, campaignLinearColor 95%, campaignBgcolor)
-  /* Opera 11.10+ */
-  background -o-linear-gradient(left, campaignBgcolor, campaignLinearColor 5%, campaignBgcolor, campaignLinearColor 95%, campaignBgcolor)
-
 .campaign_item
-  background-color transparent
+  margin 0
   padding 0
+  border none
+  .item-options
+    .button
+      line-height 56px
+      width 60px
   .item-content
     padding 0
-    background-color transparent
-
-.campaign_link
-  text-decoration none
-
-.campaign_line
-  margin-top 0 !important
-  padding 0 10px
-  height campaignLineHeight
-
-.campaign_team_info
-  line-height campaignLineHeight
-  color #3abde8 !important
-
-.campaign_group_logo
-  width 36px
-  height 36px
-  vertical-align middle
-  border 1px solid white
-  border-radius 5px
-
-.campaign_content
-  background-color campaignContentBgcolor
-  /* Firefox 3.6+ */
-  /* -moz-radial-gradient( [ || ,]? [ || ,]? , [, ]* ) */
-  background -moz-radial-gradient(circle, campaignContentRadialColor, campaignContentBgcolor)
-  /* Safari 4-5, Chrome 1-9 */
-  background -webkit-gradient(radial, center center, 0, center center, 460, from(campaignContentRadialColor), to(campaignContentBgcolor))
-  /* Safari 5.1+, Chrome 10+ */
-  background -webkit-radial-gradient(circle, campaignContentRadialColor, campaignContentBgcolor)
-
-  p
-    line-height campaignLineHeight
-
-.campaign_time
-  padding-bottom 0
-  height 2.5 * campaignLineHeight
-
-  .campaign_time_shadow
-    margin-left auto
-    margin-right auto
-    width 40%
-    background-color rgba(0, 0, 0, 0.4)
-
-  p
-    color white
-
-  .campaign_time_remind
-    font-size 10px
     margin 0
-
-  .campaign_time_count
-    font-weight normal
-    font-size 24px
-
-// campaign type background image
-.football
-  background-size 100%
-  background-image url(../img/football.jpg)
-
-.campaign_operate_bar
-  background-color operateBarBgcolor
-
-.campaign_operate_button_container
-  padding 5px
-
-.campaign_operate_text
-  line-height 45px
-  color white !important
-
-.campaign_operate_share
-  text-align right
-
+  .campaign_link
+    text-decoration none
+    .campaign_title
+      width 100%
+      background-color #F0F0F0
+      height 56px
+      margin 0
+      padding 0
+      .campaign_group_logo
+        margin 10px
+        width 36px
+        height 36px
+        vertical-align middle
+        border 1px solid white
+        border-radius 5px
+      .campaign_label
+        padding 10px 0
+        position relative
+        color #404040
+        line-height 18px
+        font-size 14px
+        .now_campaign_now
+          margin-bottom 0
+        .campaign_theme
+          position absolute
+          bottom 10px
+          margin-bottom 0
+          max-width 250px
+          text-overflow ellipsis
+          white-space nowrap
+          overflow hidden
+    .campaign_time
+      width 100%
+      height 80px
+      text-align center
+      padding 10px
+      .campaign_time_remind
+        font-size 14px
+        color #404040
+      .campaign_time_count
+        font-size 22px
+        color black
+    .start_campaign
+      height 40px
 
 
 
@@ -710,33 +720,36 @@ largeCell()
 
 .campaign_detail
   background-color white
-  .flat_title
-    background-color #D8D8D8
+  .simple_title
+    border-bottom solid 1px #ddd
     .title
       float left
-    .upload_form
+    .operator_button
+      float right
+      padding 0
+      border none
       width 20px
       height 20px
-      position relative
-      .upload_input
-        opacity 0
-        position absolute
-        z-index 3
-      .upload_button
-        position absolute
-        z-index 0
-        padding 0
-        border none
-        width 20px
-        height 20px
-        background-color transparent
-        line-height 20px
+      background-color transparent
+      line-height 20px
+      font-size 20px
+      min-height 0
+      min-width 0
+      &:before
         font-size 20px
-        min-height 0
-        min-width 0
-        &:before
-          font-size 20px
-          line-height 20px
+        line-height 20px
+
+  .upload_form
+    width 20px
+    height 20px
+    position relative
+    .upload_input
+      opacity 0
+      position absolute
+      z-index 3
+    .upload_button
+      position absolute
+      z-index 0
   .photo_list
     margin-top 10px
   .photo_slide_box
@@ -799,15 +812,16 @@ largeCell()
         margin-top cellGap
 
   .comments
+    margin 0 10px
     .self, .other
       position relative
-      border-top inset 1px #ddd
+      border-top solid 1px #ddd
       padding 5px 0
+      &:first-child
+        border-top none
     .self
       .photo_box, .comment_body
         float right
-      .comment_body
-        padding-right 7px
       .nickname
         text-align right
       .content
@@ -817,8 +831,6 @@ largeCell()
     .other
       .photo_box, .comment_body
         float left
-      .comment_body
-        padding-left 7px
       .nickname
         text-align left
       .time
@@ -828,7 +840,6 @@ largeCell()
       text-align center
     .comment_body
       width 80%
-      padding 0 10px
     .photo
       margin-top 4px
       width 40px
@@ -839,6 +850,7 @@ largeCell()
       overflow hidden
     .content
       color #999
+      word-break break-all
     .time
       color #CEC7C7
       font-size 10px
@@ -858,16 +870,64 @@ largeCell()
 
   .placeholder
     height 44px
+
+  .detail_list
+    .item
+      padding 10px
+      .title
+        display block
+        float left
+      .content
+        display block
+        float right
+    .intro_item
+      border-bottom none
+
+  .location
+    height 260px
+    width 300px
+
+.join_box
+  width 64px
+  height 58px
+  position absolute
+  bottom 0
+  right 0
+  z-index 10
+  background-color #ea6060
+
+  .operator
+    text-align center
+    line-height 58px
+    height 58px
+    color white
+
 //slide
 .slider
   .slider-pager
     .slider-pager-page
       width 10px
-//photo detail
-.photo_detail_img
-  width 100%
+//photo fullscreen slide
+.modal-wrapper
   height 100%
-  margin 0
+.photo_slide_modal
+  height 100%
+  position relative
+  .slider-slides
+    height 100%
+    position relative
+    .photo_slide_cell
+      display flex
+      height 100%
+      .photo_wrap
+        position relative
+        width 100%
+        height 100%
+        background-color black
+        .photo
+          max-width 100%
+          max-height 100%
+
 // members
 .campaign_members_wrap
   position relative
@@ -925,67 +985,20 @@ largeCell()
       background-color rgb(58, 189, 232)
       color white
       border 1px white solid
-      border-radius 16px
+      border-radius 0
     .comment_button
       width 20%
       background-color rgb(58, 189, 232)
       color white
       height 34px
       border 1px white solid
-      border-radius 16px
+      border-left none
+      border-radius 0
     input:-moz-placeholder
       color white
     ::-webkit-input-placeholder
       color white
-.campaign_detail
-  .campaign_time
-    padding 0 10px
-    height 150px
-  .head_title
-    .title
-      text-overflow ellipsis
-      white-space nowrap
-      overflow hidden
-      max-width 90%
-  .detail_label
-    display inline-block
-    width 20%
-    float left
-    margin 0 0 10px
-  .detail_detail
-    display inline-block
-    width 80%
-    float left
-    margin 0 0 10px
-  .campaign_time_shadow
-    text-align center
-    width 66.66666667%
 
-    .campaign_time_content
-      margin 13px 0
-
-    .campaign_time_remind
-      margin 0
-
-    .campaign_time_count
-      margin 0
-
-    .campaign_time_operator
-      margin-top 30px
-
-      .btn_operator
-        width 85px
-        height 25px
-        line-height 25px
-        font-size 11px
-
-      .btn_good
-        margin-left 13px
-
-.campaign_location
-  .location
-    height 260px
-    width 290px
 //动态页
 .dynamic_list
   white-space normal
@@ -1019,7 +1032,9 @@ largeCell()
     border-radius 0px
     padding 10px
     color #888888
-    border-bottom 1px inset #ddd
+    border-top 1px solid #ededed
+    &:first-child
+      border none
     // &:before
     //   content ''
     //   position absolute

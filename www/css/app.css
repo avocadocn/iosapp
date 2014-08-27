@@ -37,6 +37,20 @@ body {
   text-align: center;
   vertical-align: middle;
 }
+.center_img_container {
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+}
+.center_img_container:after {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  content: " ";
+}
+.center_img_container .img {
+  vertical-align: middle;
+}
 .col-10 {
   width: 10%;
 }
@@ -75,6 +89,18 @@ body {
 .donler_tabs_bottom .tabs .tab-item {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+.donler_msg_corner {
+  margin-top: -2px;
+  margin-left: 14px;
+  font-size: 10px;
+  position: absolute;
+  z-index: 1000;
+  width: 10px;
+  height: 10px;
+  background-color: #f6f6f6;
+  border-radius: 100%;
+  color: #ededed;
 }
 .clearfix:after {
   clear: both;
@@ -123,6 +149,11 @@ body {
   position: absolute;
   background-color: #fff;
   z-index: 1000;
+}
+.more_data_text {
+  height: 20px;
+  text-align: center;
+  border-top: 1px solid #ededed;
 }
 .menu_wrap {
   background-color: #3abde8;
@@ -284,15 +315,23 @@ body {
 .new_finish_campaign .campaign_link .campaign_photos .campaign_photo:last-child {
   margin-right: 0;
 }
+.now_campaign_item .campaign_link {
+  text-decoration: none;
+}
 .now_campaign_item .campaign_link .campaign_title {
   width: 100%;
-  background-color: #d8d8d8;
+  background-color: #f0f0f0;
   height: 56px;
   margin: 0;
   padding: 0;
 }
 .now_campaign_item .campaign_link .campaign_title .campaign_group_logo {
   margin: 10px;
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  border: 1px solid #fff;
+  border-radius: 5px;
 }
 .now_campaign_item .campaign_link .campaign_title .campaign_label {
   padding: 10px 0;
@@ -352,11 +391,19 @@ body {
 .new_campaign_item .item-content {
   padding: 0;
 }
+.new_campaign_item .item-content .campaign_link {
+  text-decoration: none;
+}
 .new_campaign_item .item-content .campaign_link .campaign_title {
   padding: 0;
 }
 .new_campaign_item .item-content .campaign_link .campaign_title .campaign_group_logo {
   margin: 10px;
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  border: 1px solid #fff;
+  border-radius: 5px;
 }
 .new_campaign_item .item-content .campaign_link .campaign_title .campaign_label {
   padding: 10px 0;
@@ -474,7 +521,7 @@ body {
   position: relative;
   float: left;
   width: 14.285714285714286%;
-  height: 60px;
+  height: 53px;
   border-top: solid 1px #dcdcdc;
 }
 .calendar .calendar_month .calendar_day .calendar_date {
@@ -539,11 +586,12 @@ body {
 .calendar .calendar_day .calendar_campaign {
   display: block;
   position: relative;
-  margin: 5px 0;
   height: 62px;
   color: #000;
-  border: solid 1px #0098e3;
-  background-color: #ceeffe;
+  border-top: solid 1px #ddd;
+}
+.calendar .calendar_day .calendar_campaign:first-child {
+  border-top: none;
 }
 .calendar .calendar_day .calendar_campaign .logo {
   float: left;
@@ -576,100 +624,79 @@ body {
   bottom: 15px;
   right: 15px;
   color: #0098e3;
+  background-color: #ceeffe;
   border: solid 1px #0098e3;
   padding: 0 6px;
   height: 30px;
   line-height: 28px;
   font-size: 16px;
 }
-.campaign {
-  background-color: #a3cbe2;
-/* Firefox 3.6+ */
-  background: -moz-linear-gradient(left, #e9f4fe, #cfe9f9 5%, #e9f4fe, #cfe9f9 95%, #e9f4fe);
-/* Safari 4-5, Chrome 1-9 */
-  background: -webkit-gradient(linear, left top, right top, from(#e9f4fe), color-stop(0.05, #cfe9f9), color-stop(0.5, #e9f4fe), color-stop(0.95, #cfe9f9), to(#e9f4fe));
-/* Safari 5.1+, Chrome 10+ */
-  background: -webkit-linear-gradient(left, #e9f4fe, #cfe9f9 5%, #e9f4fe, #cfe9f9 95%, #e9f4fe);
-/* Opera 11.10+ */
-  background: -o-linear-gradient(left, #e9f4fe, #cfe9f9 5%, #e9f4fe, #cfe9f9 95%, #e9f4fe);
-}
 .campaign_item {
-  background-color: transparent;
+  margin: 0;
   padding: 0;
+  border: none;
+}
+.campaign_item .item-options .button {
+  line-height: 56px;
+  width: 60px;
 }
 .campaign_item .item-content {
   padding: 0;
-  background-color: transparent;
+  margin: 0;
 }
-.campaign_link {
+.campaign_item .campaign_link {
   text-decoration: none;
 }
-.campaign_line {
-  margin-top: 0 !important;
-  padding: 0 10px;
-  height: 45px;
+.campaign_item .campaign_link .campaign_title {
+  width: 100%;
+  background-color: #f0f0f0;
+  height: 56px;
+  margin: 0;
+  padding: 0;
 }
-.campaign_team_info {
-  line-height: 45px;
-  color: #3abde8 !important;
-}
-.campaign_group_logo {
+.campaign_item .campaign_link .campaign_title .campaign_group_logo {
+  margin: 10px;
   width: 36px;
   height: 36px;
   vertical-align: middle;
   border: 1px solid #fff;
   border-radius: 5px;
 }
-.campaign_content {
-  background-color: #a3cbe2;
-/* Firefox 3.6+ */
-/* -moz-radial-gradient( [ || ,]? [ || ,]? , [, ]* ) */
-  background: -moz-radial-gradient(circle, #cfe0eb, #a3cbe2);
-/* Safari 4-5, Chrome 1-9 */
-  background: -webkit-gradient(radial, center center, 0, center center, 460, from(#cfe0eb), to(#a3cbe2));
-/* Safari 5.1+, Chrome 10+ */
-  background: -webkit-radial-gradient(circle, #cfe0eb, #a3cbe2);
+.campaign_item .campaign_link .campaign_title .campaign_label {
+  padding: 10px 0;
+  position: relative;
+  color: #404040;
+  line-height: 18px;
+  font-size: 14px;
 }
-.campaign_content p {
-  line-height: 45px;
+.campaign_item .campaign_link .campaign_title .campaign_label .now_campaign_now {
+  margin-bottom: 0;
 }
-.campaign_time {
-  padding-bottom: 0;
-  height: 112.5px;
+.campaign_item .campaign_link .campaign_title .campaign_label .campaign_theme {
+  position: absolute;
+  bottom: 10px;
+  margin-bottom: 0;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
-.campaign_time .campaign_time_shadow {
-  margin-left: auto;
-  margin-right: auto;
-  width: 40%;
-  background-color: rgba(0,0,0,0.4);
+.campaign_item .campaign_link .campaign_time {
+  width: 100%;
+  height: 80px;
+  text-align: center;
+  padding: 10px;
 }
-.campaign_time p {
-  color: #fff;
+.campaign_item .campaign_link .campaign_time .campaign_time_remind {
+  font-size: 14px;
+  color: #404040;
 }
-.campaign_time .campaign_time_remind {
-  font-size: 10px;
-  margin: 0;
+.campaign_item .campaign_link .campaign_time .campaign_time_count {
+  font-size: 22px;
+  color: #000;
 }
-.campaign_time .campaign_time_count {
-  font-weight: normal;
-  font-size: 24px;
-}
-.football {
-  background-size: 100%;
-  background-image: url("../img/football.jpg");
-}
-.campaign_operate_bar {
-  background-color: #3abde8;
-}
-.campaign_operate_button_container {
-  padding: 5px;
-}
-.campaign_operate_text {
-  line-height: 45px;
-  color: #fff !important;
-}
-.campaign_operate_share {
-  text-align: right;
+.campaign_item .campaign_link .start_campaign {
+  height: 40px;
 }
 .scroll-content .scroll {
   height: 100%;
@@ -677,25 +704,14 @@ body {
 .campaign_detail {
   background-color: #fff;
 }
-.campaign_detail .flat_title {
-  background-color: #d8d8d8;
+.campaign_detail .simple_title {
+  border-bottom: solid 1px #ddd;
 }
-.campaign_detail .flat_title .title {
+.campaign_detail .simple_title .title {
   float: left;
 }
-.campaign_detail .flat_title .upload_form {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-.campaign_detail .flat_title .upload_form .upload_input {
-  opacity: 0;
-  position: absolute;
-  z-index: 3;
-}
-.campaign_detail .flat_title .upload_form .upload_button {
-  position: absolute;
-  z-index: 0;
+.campaign_detail .simple_title .operator_button {
+  float: right;
   padding: 0;
   border: none;
   width: 20px;
@@ -706,9 +722,23 @@ body {
   min-height: 0;
   min-width: 0;
 }
-.campaign_detail .flat_title .upload_form .upload_button:before {
+.campaign_detail .simple_title .operator_button:before {
   font-size: 20px;
   line-height: 20px;
+}
+.campaign_detail .upload_form {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.campaign_detail .upload_form .upload_input {
+  opacity: 0;
+  position: absolute;
+  z-index: 3;
+}
+.campaign_detail .upload_form .upload_button {
+  position: absolute;
+  z-index: 0;
 }
 .campaign_detail .photo_list {
   margin-top: 10px;
@@ -871,18 +901,22 @@ body {
 .campaign_detail .photo_box .inner_6 .cell_6 {
   margin-top: 10px;
 }
+.campaign_detail .comments {
+  margin: 0 10px;
+}
 .campaign_detail .comments .self,
 .campaign_detail .comments .other {
   position: relative;
-  border-top: inset 1px #ddd;
+  border-top: solid 1px #ddd;
   padding: 5px 0;
+}
+.campaign_detail .comments .self:first-child,
+.campaign_detail .comments .other:first-child {
+  border-top: none;
 }
 .campaign_detail .comments .self .photo_box,
 .campaign_detail .comments .self .comment_body {
   float: right;
-}
-.campaign_detail .comments .self .comment_body {
-  padding-right: 7px;
 }
 .campaign_detail .comments .self .nickname {
   text-align: right;
@@ -897,9 +931,6 @@ body {
 .campaign_detail .comments .other .comment_body {
   float: left;
 }
-.campaign_detail .comments .other .comment_body {
-  padding-left: 7px;
-}
 .campaign_detail .comments .other .nickname {
   text-align: left;
 }
@@ -912,7 +943,6 @@ body {
 }
 .campaign_detail .comments .comment_body {
   width: 80%;
-  padding: 0 10px;
 }
 .campaign_detail .comments .photo {
   margin-top: 4px;
@@ -926,6 +956,7 @@ body {
 }
 .campaign_detail .comments .content {
   color: #999;
+  word-break: break-all;
 }
 .campaign_detail .comments .time {
   color: #cec7c7;
@@ -946,13 +977,66 @@ body {
 .campaign_detail .placeholder {
   height: 44px;
 }
+.campaign_detail .detail_list .item {
+  padding: 10px;
+}
+.campaign_detail .detail_list .item .title {
+  display: block;
+  float: left;
+}
+.campaign_detail .detail_list .item .content {
+  display: block;
+  float: right;
+}
+.campaign_detail .detail_list .intro_item {
+  border-bottom: none;
+}
+.campaign_detail .location {
+  height: 260px;
+  width: 300px;
+}
+.join_box {
+  width: 64px;
+  height: 58px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  background-color: #ea6060;
+}
+.join_box .operator {
+  text-align: center;
+  line-height: 58px;
+  height: 58px;
+  color: #fff;
+}
 .slider .slider-pager .slider-pager-page {
   width: 10px;
 }
-.photo_detail_img {
+.modal-wrapper {
+  height: 100%;
+}
+.photo_slide_modal {
+  height: 100%;
+  position: relative;
+}
+.photo_slide_modal .slider-slides {
+  height: 100%;
+  position: relative;
+}
+.photo_slide_modal .slider-slides .photo_slide_cell {
+  display: flex;
+  height: 100%;
+}
+.photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap {
+  position: relative;
   width: 100%;
   height: 100%;
-  margin: 0;
+  background-color: #000;
+}
+.photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap .photo {
+  max-width: 100%;
+  max-height: 100%;
 }
 .campaign_members_wrap {
   position: relative;
@@ -1010,7 +1094,7 @@ body {
   background-color: #3abde8;
   color: #fff;
   border: 1px #fff solid;
-  border-radius: 16px;
+  border-radius: 0;
 }
 .comment_edit form .comment_button {
   width: 20%;
@@ -1018,64 +1102,14 @@ body {
   color: #fff;
   height: 34px;
   border: 1px #fff solid;
-  border-radius: 16px;
+  border-left: none;
+  border-radius: 0;
 }
 .comment_edit form input:-moz-placeholder {
   color: #fff;
 }
 .comment_edit form ::-webkit-input-placeholder {
   color: #fff;
-}
-.campaign_detail .campaign_time {
-  padding: 0 10px;
-  height: 150px;
-}
-.campaign_detail .head_title .title {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 90%;
-}
-.campaign_detail .detail_label {
-  display: inline-block;
-  width: 20%;
-  float: left;
-  margin: 0 0 10px;
-}
-.campaign_detail .detail_detail {
-  display: inline-block;
-  width: 80%;
-  float: left;
-  margin: 0 0 10px;
-}
-.campaign_detail .campaign_time_shadow {
-  text-align: center;
-  width: 66.66666667%;
-}
-.campaign_detail .campaign_time_shadow .campaign_time_content {
-  margin: 13px 0;
-}
-.campaign_detail .campaign_time_shadow .campaign_time_remind {
-  margin: 0;
-}
-.campaign_detail .campaign_time_shadow .campaign_time_count {
-  margin: 0;
-}
-.campaign_detail .campaign_time_shadow .campaign_time_operator {
-  margin-top: 30px;
-}
-.campaign_detail .campaign_time_shadow .campaign_time_operator .btn_operator {
-  width: 85px;
-  height: 25px;
-  line-height: 25px;
-  font-size: 11px;
-}
-.campaign_detail .campaign_time_shadow .campaign_time_operator .btn_good {
-  margin-left: 13px;
-}
-.campaign_location .location {
-  height: 260px;
-  width: 290px;
 }
 .dynamic_list {
   white-space: normal;
@@ -1113,7 +1147,10 @@ body {
   border-radius: 0px;
   padding: 10px;
   color: #888;
-  border-bottom: 1px inset #ddd;
+  border-top: 1px solid #ededed;
+}
+.dl_timeline .timeline_element:first-child {
+  border: none;
 }
 .dl_timeline .timeline_element .timeline-left .timeline-logo {
   margin: 0 4px 5px 5px;

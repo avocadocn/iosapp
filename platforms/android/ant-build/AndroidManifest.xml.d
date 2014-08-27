@@ -1,2 +1,2 @@
-/Users/yali-04/www/yali/public/mobile/platforms/android/ant-build/AndroidManifest.xml : \
-/Users/yali-04/www/yali/public/mobile/platforms/android/AndroidManifest.xml \
+/Users/yali-07/iosapp/platforms/android/ant-build/AndroidManifest.xml : \
+/Users/yali-07/iosapp/platforms/android/AndroidManifest.xml \

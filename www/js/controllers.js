@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 .controller('AppCtrl', function($state, $scope, $rootScope, Authorize, Global) {
@@ -33,23 +33,27 @@ angular.module('starter.controllers', [])
   Authorize.authorize();
   $scope.base_url = Global.base_url;
   $rootScope.campaignReturnUri = '#/app/index';
-  Campaign.getNowCampaignList(function(campaign_list) {
-    $scope.nowCampaigns = campaign_list;
-    $ionicSlideBoxDelegate.update();
-  });
-  Campaign.getNewCampaignList(function(campaign_list) {
-
-    Campaign.getNewFinishCampaign(function(newFinishCampaign) {
-      $scope.newCampaigns = campaign_list;
-      if($scope.newCampaigns.length>3){
-        $scope.newCampaigns.splice(3,0,newFinishCampaign);
-      }
-      else{
-        $scope.newCampaigns.push(newFinishCampaign);
-      }
+  var init = function(callback){
+    Campaign.getNowCampaignList(function(campaign_list) {
+      $scope.nowCampaigns = campaign_list;
+      $ionicSlideBoxDelegate.update();
     });
-  });
+    Campaign.getNewCampaignList(function(campaign_list) {
 
+      Campaign.getNewFinishCampaign(function(newFinishCampaign) {
+        $scope.newCampaigns = campaign_list;
+        if($scope.newCampaigns.length>3){
+          $scope.newCampaigns.splice(3,0,newFinishCampaign);
+        }
+        else{
+          $scope.newCampaigns.push(newFinishCampaign);
+        }
+        callback && callback();
+      });
+    });
+  }
+
+  init();
   var removeCampaign = function(id){
     var _length = $scope.newCampaigns.length;
     for(var i=0;i<_length;i++){
@@ -74,6 +78,11 @@ angular.module('starter.controllers', [])
     $scope.join(campaign_id,tid);
     $scope.selectModal.hide();
   };
+  $scope.doRefresh = function(){
+    init(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
 })
 
 .controller('CampaignListCtrl', function($scope, $rootScope, $ionicModal, Campaign, Global, Authorize) {
@@ -82,30 +91,43 @@ angular.module('starter.controllers', [])
   $scope.moreData =true;
   $scope.remind_text = '没有更多的活动了';
   $scope.base_url = Global.base_url;
-
+  $scope.doRefresh = function(){
+    $scope.moreData =true;
+    page = -1;
+    $scope.campaign_list = undefined;
+    $scope.loadMore();
+  }
   $rootScope.campaignReturnUri = '#/app/campaign_list';
 
   // Campaign.getUserCampaignsForList(page,function(campaign_list) {
   //   $scope.campaign_list = campaign_list;
   // });
 
-
-  $scope.join = Campaign.join(Campaign.getCampaign);
-  $scope.quit = Campaign.quit(Campaign.getCampaign);
-  $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.selectModal = modal;
-  });
-  $scope.openselectModal = function(campaign) {
-    $scope.campaign =campaign;
-    $scope.selectModal.show();
-  };
-  $scope.select = function(campaign_id,tid) {
-    $scope.join(campaign_id,tid);
-    $scope.selectModal.hide();
-  };
+  // var removeCampaign = function(id){
+  //   var _length = $scope.campaign_list.length;
+  //   for(var i=0;i<_length;i++){
+  //     if($scope.campaign_list[i]._id==id){
+  //       $scope.campaign_list.splice(i,1);
+  //       break;
+  //     }
+  //   }
+  // }
+  // $scope.join = Campaign.join(Campaign.getCampaign);
+  // $scope.quit = Campaign.quit(removeCampaign);
+  // $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
+  //   scope: $scope,
+  //   animation: 'slide-in-up'
+  // }).then(function(modal) {
+  //   $scope.selectModal = modal;
+  // });
+  // $scope.openselectModal = function(campaign) {
+  //   $scope.campaign =campaign;
+  //   $scope.selectModal.show();
+  // };
+  // $scope.select = function(campaign_id,tid) {
+  //   $scope.join(campaign_id,tid);
+  //   $scope.selectModal.hide();
+  // };
   $scope.loadMore = function(){
     page++;
     Campaign.getUserJoinedCampaignsForList(page,function(campaign_list) {
@@ -129,12 +151,18 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $timeout, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
   Authorize.authorize();
 
   $scope.base_url = Global.base_url;
   $scope.user_id = Global.user._id;
   $scope.loading = {status:false};
+  $scope.publishing = false;
+
+  $scope.togglePublishing = function() {
+    $scope.publishing = !$scope.publishing;
+  };
+
   Campaign.getCampaignDetail( $stateParams.id,function(campaign) {
     $scope.campaign = campaign;
     $scope.photo_album_id = $scope.campaign.photo_album;
@@ -167,10 +195,15 @@ angular.module('starter.controllers', [])
       getPhotoList();
       var file = $('#upload_form').find('.upload_input');
       file.val("");
-      $scope.loading.status=false;
+      $ionicLoading.hide();
     });
 
   }
+  $scope.showLoading = function() {
+    $ionicLoading.show({
+      template: '上传中...'
+    });
+  };
   $scope.photos = [];
   Comment.getCampaignComments($stateParams.id, function(comments) {
     $scope.comments = comments;
@@ -200,6 +233,7 @@ angular.module('starter.controllers', [])
         alert(msg);
       }
     });
+    $scope.publishing = false;
   };
   //$scope.viewFormFlag =false;
   // $scope.viewCommentForm =function(){
@@ -232,21 +266,6 @@ angular.module('starter.controllers', [])
     $scope.join(campaign_id,tid);
     $scope.selectModal.hide();
   };
-  //Cleanup the modal when we're done with it!
-  // $scope.$on('$destroy', function() {
-  //   $scope.modal.remove();
-  // });
-  // Execute action on hide modal
-  // $scope.$on('modal.hidden', function() {
-  //   // Execute action
-  // });
-  // // Execute action on remove modal
-  // $scope.$on('modal.removed', function() {
-  //   // Execute action
-  // });
-  $timeout( function() {
-    $ionicSlideBoxDelegate.update();
-  });
 })
 
 
@@ -382,6 +401,7 @@ angular.module('starter.controllers', [])
       campaign.format_end_time = moment(campaign.end_time).calendar();
     });
     $scope.current_month = month_data;
+
     return month_data;
   };
 
@@ -627,28 +647,40 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('TimelineCtrl', function($scope, $rootScope, Timeline, Authorize) {
+.controller('TimelineCtrl', function($scope, $rootScope, $ionicScrollDelegate, $timeout, Timeline, Authorize) {
   Authorize.authorize();
-
   $rootScope.campaignReturnUri = '#/app/timeline';
   $scope.moreData =true;
   var page = -1;
-  $scope.loadMore = function(){
-    page++;
-    Timeline.getUserTimeline(page,function(time_lines) {
-      if($scope.time_lines ){
-        $scope.time_lines = $scope.time_lines.concat(time_lines);
-      }
-      else{
-        $scope.time_lines = time_lines;
-      }
-      if(time_lines.length<20){
-        $scope.moreData =false;
-      }
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+  $scope.doRefresh = function(){
+    $scope.moreData =true;
+    page = -1;
+    $scope.time_lines = undefined;
+    $scope.loadMore(function(){
+       $scope.$broadcast('scroll.refreshComplete');
     });
   }
-
+  $scope.loadMoreFinish = function(){
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+  }
+  $scope.loadMore = function(callback){
+    page++;
+    Timeline.getUserTimeline(page,function(time_lines, nowpage, moreData) {
+      $scope.time_lines = time_lines;
+      if(Timeline.getCacheTimeline()){
+        $ionicScrollDelegate.$getByHandle('timelineScroll').scrollTo(0,Timeline.getTimelinePosition());
+        Timeline.setCacheTimeline(false);
+      }
+      $scope.moreData =moreData;
+      callback();
+    });
+  }
+  $scope.rememberPosition = function(){
+    Timeline.setTimelinePosition($ionicScrollDelegate.$getByHandle('timelineScroll').getScrollPosition().top);
+    console.log()
+    Timeline.setCacheTimeline(true);
+    return true;
+  }
 })
 
 
@@ -733,7 +765,7 @@ angular.module('starter.controllers', [])
     link:function(scope,el,attrs,control){
       el.bind('change',function(){
         scope.$apply(function(){
-          scope.loading.status=true;
+          scope.showLoading();
           $('#upload_form').submit();
         });
       });
