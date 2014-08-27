@@ -1,0 +1,5 @@
+platforms/android/ant-build/
+platforms/android/ant-gen/
+platforms/android/local.properties
+platforms/android/CordovaLib/local.properties
+
