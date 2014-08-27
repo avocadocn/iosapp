@@ -1,11 +1,10 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 .controller('AppCtrl', function($state, $scope, $rootScope, Authorize, Global) {
   if (Authorize.authorize() === true) {
-    $state.go('app.campaignList');
+    $state.go('app.index');
   }
-
   $scope.logout = Authorize.logout;
   $scope.base_url = Global.base_url;
   $scope.user = Global.user;
@@ -16,7 +15,7 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, $rootScope, $http, $state, Authorize) {
 
   if (Authorize.authorize() === true) {
-    $state.go('app.campaignList');
+    $state.go('app.index');
   }
 
   $scope.data = {
@@ -29,22 +28,41 @@ angular.module('starter.controllers', [])
   $scope.login = Authorize.login($scope, $rootScope);
 })
 
-
-
-.controller('CampaignListCtrl', function($scope, $rootScope, $ionicModal, Campaign, Global, Authorize) {
+.controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicModal, Campaign, Global, Authorize) {
   Authorize.authorize();
-
   $scope.base_url = Global.base_url;
+  $rootScope.campaignReturnUri = '#/app/index';
+  var init = function(callback){
+    Campaign.getNowCampaignList(function(campaign_list) {
+      $scope.nowCampaigns = campaign_list;
+      $ionicSlideBoxDelegate.update();
+    });
+    Campaign.getNewCampaignList(function(campaign_list) {
 
-  $rootScope.campaignReturnUri = '#/app/campaign_list';
+      Campaign.getNewFinishCampaign(function(newFinishCampaign) {
+        $scope.newCampaigns = campaign_list;
+        if($scope.newCampaigns.length>3){
+          $scope.newCampaigns.splice(3,0,newFinishCampaign);
+        }
+        else{
+          $scope.newCampaigns.push(newFinishCampaign);
+        }
+        callback && callback();
+      });
+    });
+  }
 
-  Campaign.getUserCampaignsForList(function(campaign_list) {
-    $scope.campaign_list = campaign_list;
-  });
-
-
-  $scope.join = Campaign.join(Campaign.getCampaign);
-  $scope.quit = Campaign.quit(Campaign.getCampaign);
+  init();
+  var removeCampaign = function(id){
+    var _length = $scope.newCampaigns.length;
+    for(var i=0;i<_length;i++){
+      if($scope.newCampaigns[i]._id==id){
+        $scope.newCampaigns.splice(i,1);
+        break;
+      }
+    }
+  }
+  $scope.join = Campaign.join(removeCampaign);
   $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -52,21 +70,102 @@ angular.module('starter.controllers', [])
     $scope.selectModal = modal;
   });
   $scope.openselectModal = function(campaign) {
-    $scope.campaign =campaign;
+    $scope.campaign=campaign;
     $scope.selectModal.show();
   };
   $scope.select = function(campaign_id,tid) {
     $scope.join(campaign_id,tid);
     $scope.selectModal.hide();
   };
+  $scope.doRefresh = function(){
+    init(function(){
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
+})
+
+.controller('CampaignListCtrl', function($scope, $rootScope, $ionicModal, Campaign, Global, Authorize) {
+  Authorize.authorize();
+  var page = -1;
+  $scope.moreData =true;
+  $scope.remind_text = '没有更多的活动了';
+  $scope.base_url = Global.base_url;
+  $scope.doRefresh = function(){
+    $scope.moreData =true;
+    page = -1;
+    $scope.campaign_list = undefined;
+    $scope.loadMore(function(){
+       $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
+  $rootScope.campaignReturnUri = '#/app/campaign_list';
+  $scope.loadMoreFinish = function(){
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+  }
+  // Campaign.getUserCampaignsForList(page,function(campaign_list) {
+  //   $scope.campaign_list = campaign_list;
+  // });
+
+  // var removeCampaign = function(id){
+  //   var _length = $scope.campaign_list.length;
+  //   for(var i=0;i<_length;i++){
+  //     if($scope.campaign_list[i]._id==id){
+  //       $scope.campaign_list.splice(i,1);
+  //       break;
+  //     }
+  //   }
+  // }
+  // $scope.join = Campaign.join(Campaign.getCampaign);
+  // $scope.quit = Campaign.quit(removeCampaign);
+  // $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
+  //   scope: $scope,
+  //   animation: 'slide-in-up'
+  // }).then(function(modal) {
+  //   $scope.selectModal = modal;
+  // });
+  // $scope.openselectModal = function(campaign) {
+  //   $scope.campaign =campaign;
+  //   $scope.selectModal.show();
+  // };
+  // $scope.select = function(campaign_id,tid) {
+  //   $scope.join(campaign_id,tid);
+  //   $scope.selectModal.hide();
+  // };
+  $scope.loadMore = function(callback){
+    page++;
+    Campaign.getUserJoinedCampaignsForList(page,function(campaign_list) {
+      if($scope.campaign_list){
+         $scope.campaign_list = $scope.campaign_list.concat(campaign_list);
+      }
+      else{
+        $scope.campaign_list = campaign_list;
+      }
+      if(campaign_list.length<20){
+        $scope.moreData =false;
+        if (campaign_list.length === 0) {
+          $scope.remind_text = '没有已参加的活动';
+        } else {
+          $scope.remind_text = '没有更多的活动了';
+        }
+      }
+      callback();
+    });
+  }
 })
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $timeout, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
   Authorize.authorize();
 
   $scope.base_url = Global.base_url;
   $scope.user_id = Global.user._id;
+  $scope.loading = {status:false};
+  $scope.publishing = false;
+
+  $scope.togglePublishing = function() {
+    $scope.publishing = !$scope.publishing;
+  };
+
   Campaign.getCampaignDetail( $stateParams.id,function(campaign) {
     $scope.campaign = campaign;
     $scope.photo_album_id = $scope.campaign.photo_album;
@@ -79,10 +178,10 @@ angular.module('starter.controllers', [])
       $scope.photos = photos;
       $scope.photos_view = [];
       var _length = photos.length;
-      for(var i=0;i<_length;i++){
-        var index = Math.floor(i/4);
-        if(!$scope.photos_view[index]){
-          $scope.photos_view[index]=[];
+      for(var i = 0; i < _length; i++){
+        var index = Math.floor(i / 6);
+        if(!$scope.photos_view[index]) {
+          $scope.photos_view[index] = [];
         }
         photos[i].index = i;
         $scope.photos_view[index].push(photos[i]);
@@ -95,15 +194,20 @@ angular.module('starter.controllers', [])
   };
   $scope.initUpload = function(){
     $('#upload_form').ajaxForm(function(ee) {
+      alert('图片上传成功！');
       getPhotoList();
       var file = $('#upload_form').find('.upload_input');
-      file.after(file.clone().val(""));
-      file.remove();
-      alert('图片上传成功！');
+      file.val("");
+      $ionicLoading.hide();
     });
-  }
-  $scope.photos = [];
 
+  }
+  $scope.showLoading = function() {
+    $ionicLoading.show({
+      template: '上传中...'
+    });
+  };
+  $scope.photos = [];
   Comment.getCampaignComments($stateParams.id, function(comments) {
     $scope.comments = comments;
   });
@@ -126,17 +230,18 @@ angular.module('starter.controllers', [])
         Comment.getCampaignComments($stateParams.id, function(comments) {
           $scope.comments = comments;
         });
-      $scope.viewFormFlag =false;
+      //$scope.viewFormFlag =false;
       }
       else{
         alert(msg);
       }
     });
+    $scope.publishing = false;
   };
-  $scope.viewFormFlag =false;
-  $scope.viewCommentForm =function(){
-    $scope.viewFormFlag =true;
-  }
+  //$scope.viewFormFlag =false;
+  // $scope.viewCommentForm =function(){
+  //   $scope.viewFormFlag =true;
+  // }
   $ionicModal.fromTemplateUrl('templates/partials/photo_detail.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -164,21 +269,6 @@ angular.module('starter.controllers', [])
     $scope.join(campaign_id,tid);
     $scope.selectModal.hide();
   };
-  //Cleanup the modal when we're done with it!
-  // $scope.$on('$destroy', function() {
-  //   $scope.modal.remove();
-  // });
-  // Execute action on hide modal
-  // $scope.$on('modal.hidden', function() {
-  //   // Execute action
-  // });
-  // // Execute action on remove modal
-  // $scope.$on('modal.removed', function() {
-  //   // Execute action
-  // });
-  $timeout( function() {
-    $ionicSlideBoxDelegate.update();
-  });
 })
 
 
@@ -242,58 +332,79 @@ angular.module('starter.controllers', [])
     var year = date.getFullYear();
     var month = date.getMonth();
     var mdate = moment(new Date(year, month));
+    var offset = mdate.day();// mdate.day(): Sunday as 0 and Saturday as 6
+    var now = new Date();
     $scope.current_year = year;
     var month_data = {
       date: date,
       format_month: mdate.format('MMMM'),
       days: []
     };
-    for (var i = 0; i < mdate.daysInMonth(); i++) {
+    var month_dates = mdate.daysInMonth();
+    //标记周末、今天
+    for (var i = 0; i < month_dates; i++) {
       month_data.days[i] = {
         full_date: new Date(year, month, i + 1),
         date: i + 1,
         events: []
       };
-
-      // 如果是本月第一天，计算是星期几，决定位移量
-      if (i === 0) {
-        month_data.days[i].first_day = 'offset_' + mdate.day(); // mdate.day(): Sunday as 0 and Saturday as 6
-        month_data.offset = month_data.days[i].first_day;
+      //由本月第一天，计算是星期几，决定位移量
+      if(i===0){
+        month_data.days[0].first_day = 'offset_' + offset; // mdate.day(): Sunday as 0 and Saturday as 6
+        month_data.offset = month_data.days[0].first_day;
       }
-
       // 是否是周末
-      var thisDay = new Date(year, month, i + 1);
-      if (thisDay.getDay() === 0 || thisDay.getDay() === 6) {
+      if((i+offset)%7===6||(i+offset)%7===0)
         month_data.days[i].is_weekend = true;
-      }
 
       // 是否是今天
       var now = new Date();
       if (now.getDate() === i + 1 && now.getFullYear() === year && now.getMonth() === month) {
         month_data.days[i].is_today = true;
       }
+    }
+    var dayOperate = function (i,campaign) {
+      month_data.days[i-1].events.push(campaign);
+      month_data.days[i-1].has_event = true;
+      if (campaign.is_joined) {
+        month_data.days[i-1].has_joined_event = true;
+      }
+    };
+    // 将活动及相关标记存入某天
+    var month_start = new Date(year,month,1);
+    var month_end = new Date(year,month,1);
+    month_end.setMonth(month_end.getMonth()+1);
+    $scope.campaigns.forEach(function(campaign) {
+      var start_time = new Date(campaign.start_time);
+      var end_time = new Date(campaign.end_time);
+      if(start_time<=month_end&&end_time>=month_start){//如果活动'经过'本月
+        var day_start = start_time.getDate();
+        var day_end = end_time.getDate();
+        var month_day_end = month_end.getDate();
+        if(start_time>=month_start){//c>=a
+          if(end_time<=month_end){//d<=b 活动日
+            for(i=day_start;i<day_end+1;i++)
+              dayOperate(i,campaign);
+          }else{//d>b 开始日到月尾
+            for(i=day_start;i<month_dates+1;i++)
+              dayOperate(i,campaign);
+          }
+        }else{//c<a
+          if(end_time<=month_end){//d<=b 月首到结束日
+            for(i=1;i<day_end+1;i++)
+              dayOperate(i,campaign);
+          }else{//d>b 每天
+            for(i=1;i<month_dates+1;i++)
+              dayOperate(i,campaign);
 
-      // 将活动及相关标记存入这一天
-      $scope.campaigns.forEach(function(campaign) {
-        var start = moment(campaign.start_time);
-        var end = moment(campaign.end_time);
-        var today_end = moment(new Date(year, month, i + 1, 24));
-        if (start < today_end && today_end < end
-          || start.year() === year && start.month() === month && start.date() === i + 1
-          || end.year() === year && end.month() === month && end.date() === i + 1) {
-          month_data.days[i].events.push(campaign);
-          month_data.days[i].has_event = true;
-          if (campaign.is_joined) {
-            month_data.days[i].has_joined_event = true;
           }
         }
-        campaign.format_start_time = moment(campaign.start_time).calendar();
-        campaign.format_end_time = moment(campaign.end_time).calendar();
-
-      });
-
-    }
+      }
+      campaign.format_start_time = moment(campaign.start_time).calendar();
+      campaign.format_end_time = moment(campaign.end_time).calendar();
+    });
     $scope.current_month = month_data;
+
     return month_data;
   };
 
@@ -539,14 +650,39 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('TimelineCtrl', function($scope, $rootScope, Timeline, Authorize) {
+.controller('TimelineCtrl', function($scope, $rootScope, $ionicScrollDelegate, $timeout, Timeline, Authorize) {
   Authorize.authorize();
-  
-  Timeline.getUserTimeline(function(time_lines) {
-    $rootScope.time_lines = time_lines;
-    $rootScope.campaignReturnUri = '#/app/timeline';
-  });
-
+  $rootScope.campaignReturnUri = '#/app/timeline';
+  $scope.moreData =true;
+  var page = -1;
+  $scope.doRefresh = function(){
+    $scope.moreData =true;
+    page = -1;
+    $scope.time_lines = undefined;
+    $scope.loadMore(function(){
+       $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
+  $scope.loadMoreFinish = function(){
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+  }
+  $scope.loadMore = function(callback){
+    page++;
+    Timeline.getUserTimeline(page,function(time_lines, nowpage, moreData) {
+      $scope.time_lines = time_lines;
+      if(Timeline.getCacheTimeline()){
+        $ionicScrollDelegate.$getByHandle('timelineScroll').scrollTo(0,Timeline.getTimelinePosition());
+        Timeline.setCacheTimeline(false);
+      }
+      $scope.moreData =moreData;
+      callback();
+    });
+  }
+  $scope.rememberPosition = function(){
+    Timeline.setTimelinePosition($ionicScrollDelegate.$getByHandle('timelineScroll').getScrollPosition().top);
+    Timeline.setCacheTimeline(true);
+    return true;
+  }
 })
 
 
@@ -573,11 +709,10 @@ angular.module('starter.controllers', [])
 // })
 
 
-.directive('thumbnailPhotoDirective', function() {
+.directive('thumbnailPhoto', function() {
   return function(scope, element, attrs) {
-
     var thumbnail = function(img) {
-      if (img.width * 120 > img.height * 128) {
+      if (img.width > img.height) {
         element[0].style.height = '100%';
       } else {
         element[0].style.width = '100%';
@@ -600,6 +735,7 @@ angular.module('starter.controllers', [])
 
   };
 })
+
 
 // .directive('mapDirective', function(Map) {
 //   return function(scope, element, attrs) {
@@ -631,14 +767,32 @@ angular.module('starter.controllers', [])
     link:function(scope,el,attrs,control){
       el.bind('change',function(){
         scope.$apply(function(){
+          scope.showLoading();
           $('#upload_form').submit();
         });
       });
     }
   }
-});
+})
 
-
+.directive('hidePager', function() {
+  return {
+    restrict: 'A',
+    scope: {
+      length: '='
+    },
+    link: function(scope, element, attrs) {
+      var pager = $(element).parent().parent().find('.slider-pager');
+      scope.$watch('length', function(newVal, oldVal) {
+        if (newVal === 1) {
+          pager.hide();
+        } else {
+          pager.show();
+        }
+      });
+    }
+  };
+})
 
 
 

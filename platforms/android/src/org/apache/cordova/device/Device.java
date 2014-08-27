@@ -31,8 +31,6 @@ import org.json.JSONObject;
 import android.provider.Settings;
 
 public class Device extends CordovaPlugin {
-    public static final String TAG = "Device";
-
     public static String platform;                            // Device OS
     public static String uuid;                                // Device UUID
 

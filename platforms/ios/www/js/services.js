@@ -43,25 +43,56 @@ angular.module('starter.services', [])
 
   var login = function($scope) {
     return function(username, password) {
-      $http.post(Global.base_url + '/users/login', { username: username, password: password })
-      .success(function(data, status, headers, config) {
-        if (data.result === 1) {
-          _authorize = true;
-          var user = data.data;
-          if (user) {
-            Global.user = user;
-            localStorage.user_id = user._id;
-            localStorage.user_nickname = user.nickname;
-            localStorage.app_token = user.app_token;
+      function loginPost(ids){
+        $http.post(Global.base_url + '/users/login', { 
+          username: username,
+          password: password,
+          device: ionic.Platform.device(),
+          userid: ids ? ids[0] : '',
+          channelid: ids ? ids[1] : ''
+        })
+        .success(function(data, status, headers, config) {
+            if (data.result === 1) {
+            _authorize = true;
+            var user = data.data;
+            if (user) {
+              Global.user = user;
+              localStorage.user_id = user._id;
+              localStorage.user_nickname = user.nickname;
+              localStorage.app_token = user.app_token;
+            }
+            $state.go('app.index');
           }
-          $state.go('app.index');
-        }
-      })
-      .error(function(data, status, headers, config) {
-        if (status === 401) {
-          $scope.loginMsg = '用户名或密码错误';
-        }
-      });
+        })
+        .error(function(data, status, headers, config) {
+          if (status === 401) {
+            $scope.loginMsg = '用户名或密码错误';
+          }
+        });
+      }
+
+      function onSuccess(fileEntry) {
+        fileEntry.file(function(file) {
+          var reader = new FileReader();
+          reader.readAsText(file);
+          reader.onloadend = function(evt) {
+            var login_text = evt.target.result;
+            var ids = login_text.split("=.=");
+            loginPost(ids);
+          }
+        });
+      }
+      function onError(evt) {
+        console.log('error'+evt.target.error.code);
+      }
+
+      if(ionic.Platform.device().platform == 'Android'){
+        var path = cordova.file.dataDirectory+"login.tmp";
+        window.resolveLocalFileSystemURL(path, onSuccess,onError);
+      }
+      else{
+        loginPost();
+      }
     };
   };
   var autologin = function(uid, app_token) {
@@ -464,29 +495,61 @@ angular.module('starter.services', [])
 
 
 .factory('Timeline', function($http, Global) {
-
+  var timeline = [];
+  var page = -1;
+  var _cacheStatue = false;
+  var moreData = true;
+  var timelinePosition = 0;
   // callback(time_lines)
-  var getUserTimeline = function(page, callback) {
-    $http.get(Global.base_url + '/users/getTimelineForApp/' + page + '/' + Global.user._id + '/' + Global.user.app_token)
-    .success(function(data, status) {
-      callback(data.time_lines);
-    });
+  var getUserTimeline = function(nowpage, callback) {
+    if(_cacheStatue){
+      callback(timeline, page, moreData);
+    }
+    else{
+      page = nowpage;
+      $http.get(Global.base_url + '/users/getTimelineForApp/' + page + '/' + Global.user._id + '/' + Global.user.app_token)
+      .success(function(data, status) {
+        timeline = timeline.length>0 ? timeline.concat(data.time_lines) : data.time_lines;
+        moreData = data.time_lines.length==20;
+        callback(timeline, page, moreData);
+      });
+    }
+
   };
-
-
+  var setCacheTimeline = function(cacheStatue){
+    _cacheStatue = cacheStatue;
+  }
+  var getCacheTimeline = function(){
+    return _cacheStatue;
+  }
+  var setTimelinePosition = function(position){
+    timelinePosition = position;
+  }
+  var getTimelinePosition = function(){
+    return timelinePosition;
+  }
   return {
-    getUserTimeline: getUserTimeline
+    getUserTimeline: getUserTimeline,
+    setCacheTimeline: setCacheTimeline,
+    getCacheTimeline: getCacheTimeline,
+    setTimelinePosition: setTimelinePosition,
+    getTimelinePosition: getTimelinePosition
   };
 
 
 
 })
 
+//未读站内信
+.factory('Message', function($http, Global) {
+  var getUnreadMsg = function(callback){
+    $http.get(Global.base_url + '/message/header').success(function(data, status) {
+      callback(data.msg);
+    });
+  };
 
-
-
-
-
-
-
+  return {
+    getUnreadMsg: getUnreadMsg
+  };
+})
 
