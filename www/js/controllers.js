@@ -33,6 +33,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   Authorize.authorize();
   $scope.base_url = Global.base_url;
   $rootScope.campaignReturnUri = '#/app/index';
+  $scope.moreData = true;
   var init = function(callback){
     Campaign.getNowCampaignList(function(campaign_list) {
       $scope.nowCampaigns = campaign_list;
@@ -47,6 +48,9 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         }
         else{
           $scope.newCampaigns.push(newFinishCampaign);
+        }
+        if($scope.nowCampaigns.length==0 && $scope.newCampaigns.length==0 ){
+          $scope.moreData = false;
         }
         callback && callback();
       });
