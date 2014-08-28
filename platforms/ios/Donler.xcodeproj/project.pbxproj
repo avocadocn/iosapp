@@ -44,6 +44,10 @@
 		E87A1D5203B643B1B551A473 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A2CAD26E84249A5B7A186 /* CDVFile.m */; };
 		A75E6459A7D1430AA842D3B3 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 567ED5697FC246358C0F7C13 /* CDVLocalFilesystem.m */; };
 		42B0A30AB13D497188D35232 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = D876CBCE961141409A2C1D8A /* CDVAssetLibraryFilesystem.m */; };
+		2E041A34C614417EB726C423 /* PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 256D552ADC574B8B986F4EAF /* PushNotification.m */; };
+		4043E687A0AC42809B8CD318 /* Pushwoosh in Resources */ = {isa = PBXBuildFile; fileRef = 82B659D11CB445F98D8CF336 /* Pushwoosh */; };
+		17735674FFC14088970A139D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CCA6F7F5344D76AC1B8DF4 /* Security.framework */; };
+		F1C0FB602D354DC78441FDA8 /* Storekit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB54D95C68004DF685BE5663 /* Storekit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +124,12 @@
 		AD6C786E127843D0961F5F9A /* CDVFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVFile.h"; path = "org.apache.cordova.file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		557A5A53565448A8860CA937 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLocalFilesystem.h"; path = "org.apache.cordova.file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		56BD0CE9E54F4085AEC47E3C /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVAssetLibraryFilesystem.h"; path = "org.apache.cordova.file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		256D552ADC574B8B986F4EAF /* PushNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PushNotification.m"; path = "com.pushwoosh.plugins.pushwoosh/ios/PushNotification.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		82B659D11CB445F98D8CF336 /* Pushwoosh */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "Pushwoosh"; path = "Donler/Plugins/com.pushwoosh.plugins.pushwoosh/Pushwoosh"; sourceTree = "<group>"; fileEncoding = 4; };
+		F402CD700D564013BB8744ED /* PushNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PushNotification.h"; path = "com.pushwoosh.plugins.pushwoosh/ios/PushNotification.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		09089B8FEB424030A3AFBF7F /* PushNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PushNotificationManager.h"; path = "com.pushwoosh.plugins.pushwoosh/ios/PushNotificationManager.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		40CCA6F7F5344D76AC1B8DF4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		BB54D95C68004DF685BE5663 /* Storekit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Storekit.framework"; path = "System/Library/Frameworks/Storekit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +142,9 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
+				4043E687A0AC42809B8CD318 /* Pushwoosh in Resources */,
+				17735674FFC14088970A139D /* Security.framework in Frameworks */,
+				F1C0FB602D354DC78441FDA8 /* Storekit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +238,9 @@
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
+				82B659D11CB445F98D8CF336 /* Pushwoosh */,
+				40CCA6F7F5344D76AC1B8DF4 /* Security.framework */,
+				BB54D95C68004DF685BE5663 /* Storekit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -252,6 +268,9 @@
 				AD6C786E127843D0961F5F9A /* CDVFile.h */,
 				557A5A53565448A8860CA937 /* CDVLocalFilesystem.h */,
 				56BD0CE9E54F4085AEC47E3C /* CDVAssetLibraryFilesystem.h */,
+				256D552ADC574B8B986F4EAF /* PushNotification.m */,
+				F402CD700D564013BB8744ED /* PushNotification.h */,
+				09089B8FEB424030A3AFBF7F /* PushNotificationManager.h */,
 			);
 			name = Plugins;
 			path = Donler/Plugins;
@@ -457,6 +476,7 @@
 				E87A1D5203B643B1B551A473 /* CDVFile.m in Sources */,
 				A75E6459A7D1430AA842D3B3 /* CDVLocalFilesystem.m in Sources */,
 				42B0A30AB13D497188D35232 /* CDVAssetLibraryFilesystem.m in Sources */,
+				2E041A34C614417EB726C423 /* PushNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +557,10 @@
 				);
 				PRODUCT_NAME = Donler;
 				TARGETED_DEVICE_FAMILY = 1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Donler/Plugins/com.pushwoosh.plugins.pushwoosh\"",
+				);
 			};
 			name = Debug;
 		};
@@ -569,6 +593,10 @@
 				);
 				PRODUCT_NAME = Donler;
 				TARGETED_DEVICE_FAMILY = 1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Donler/Plugins/com.pushwoosh.plugins.pushwoosh\"",
+				);
 			};
 			name = Release;
 		};

@@ -9,6 +9,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       StatusBar.styleDefault();
     }
   });
+  $http.post('http://192.168.2.101:3000/test/plugin', { data:window.plugins})
+    .success(function(data, status, headers, config) {
+      console.log('1');
+    })
+    .error(function(data, status, headers, config) {
+      console.log('0');
+    });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {

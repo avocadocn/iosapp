@@ -9,11 +9,14 @@ angular.module('starter.services', [])
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
-  // ionic.Platform.ready(function(){
-  //   window.plugin.notification.local.onclick = function (id, state, json) {
-  //     $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
-  //   };
-  // });
+
+  //var base_url = "http://192.168.2.106:3000";
+  //var base_url = "http://192.168.2.101:3000";
+  ionic.Platform.ready(function(){
+    window.plugin.notification.local.onclick = function (id, state, json) {
+      $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
+    };
+  });
   var _user = {};
   var last_date;
   return {
@@ -48,17 +51,16 @@ angular.module('starter.services', [])
 
   var login = function($scope) {
     return function(username, password) {
-
       function initPushwoosh(callback) {
-        var pushNotification = window.plugins.pushNotification;
-        console.log('Received Event: ');
-        console.warn(pushNotification);
         if(!window.plugins){
           callback(null,null,'NO_WINDOW_PLUGINS');
         }else{
           if(!window.plugins.pushNotification){
             callback(null,null,'NO_PUSHNOTIFICATION');
           }else{
+            var pushNotification = window.plugins.pushNotification;
+            console.log('Received Event: ');
+            console.warn(pushNotification);
             //set push notification callback before we initialize the plugin
             document.addEventListener('push-notification', function(event) {
                           //get the notification payload
@@ -158,9 +160,7 @@ angular.module('starter.services', [])
         window.resolveLocalFileSystemURL(path, onSuccess,onError);
       }
       else{
-        //console.log(ionic.Platform.device().platform);
         initPushwoosh(loginPost);
-        //loginPost(null,null,'NULL',null);
       }
     };
   };
