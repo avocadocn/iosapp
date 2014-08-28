@@ -1,0 +1,7 @@
+{
+  "name": "iosapp",
+  "dependencies": {
+    "grunt-contrib-stylus": "^0.15.0",
+    "load-grunt-tasks": "^0.4.0"
+  }
+}
