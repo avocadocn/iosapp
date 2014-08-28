@@ -393,6 +393,7 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-08-22 17:03:56.250 Donler[24618:70b] Resetting plugins due to page load.
 2014-08-22 17:03:57.001 Donler[24618:70b] Finished load of: file:///Users/yali-04/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/DA7DBB8E-3362-49F4-9C81-F3B53AD27BD2/Donler.app/www/index.html#/login
 <<<<<<< HEAD
+<<<<<<< HEAD
 2014-08-28 19:21:43.085 Donler[16750:70b] Multi-tasking -> Device: YES, App: YES
 2014-08-28 19:21:43.166 Donler[16750:70b] Unlimited access to network resources
 2014-08-28 19:21:43.189 Donler[16750:70b] 
@@ -401,12 +402,23 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-08-29 13:35:14.683 Donler[14231:70b] Unlimited access to network resources
 2014-08-29 13:35:14.704 Donler[14231:70b] 
 >>>>>>> 修复打包后不能上传文件的BUG
+=======
+2014-08-29 13:35:14.672 Donler[14231:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-29 13:35:14.683 Donler[14231:70b] Unlimited access to network resources
+2014-08-29 13:35:14.704 Donler[14231:70b] 
+=======
+2014-08-28 12:12:56.261 Donler[2510:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 12:12:57.049 Donler[2510:70b] Unlimited access to network resources
+2014-08-28 12:12:57.202 Donler[2510:70b] 
+>>>>>>> 增加iOS token获取(需要真机)
+>>>>>>> 增加iOS token获取(需要真机)
 
 Started backup to iCloud! Please be careful.
 Your application might rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines"
 You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 2014-08-28 19:21:43.237 Donler[16750:70b] [CDVTimer][localnotification] 25.736034ms
 2014-08-28 19:21:43.238 Donler[16750:70b] [CDVTimer][localnotification] 0.016987ms
@@ -423,6 +435,8 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-08-29 11:20:09.637 Donler[1302:70b] Unlimited access to network resources
 2014-08-29 11:20:09.661 Donler[1302:70b] 
 =======
+=======
+>>>>>>> 增加iOS token获取(需要真机)
 2014-08-29 13:35:14.720 Donler[14231:70b] [CDVTimer][localnotification] 0.081003ms
 2014-08-29 13:35:14.720 Donler[14231:70b] [CDVTimer][localnotification] 0.011027ms
 2014-08-29 13:35:14.722 Donler[14231:70b] [CDVTimer][file] 1.186013ms
@@ -434,13 +448,32 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-08-29 13:35:46.026 Donler[14786:70b] Multi-tasking -> Device: YES, App: YES
 2014-08-29 13:35:46.034 Donler[14786:70b] Unlimited access to network resources
 2014-08-29 13:35:46.036 Donler[14786:70b] 
+<<<<<<< HEAD
 >>>>>>> 修复打包后不能上传文件的BUG
+=======
+=======
+2014-08-28 12:12:58.405 Donler[2510:70b] [CDVTimer][localnotification] 26.045978ms
+2014-08-28 12:12:58.406 Donler[2510:70b] [CDVTimer][localnotification] 0.017047ms
+2014-08-28 12:12:58.431 Donler[2510:70b] [CDVTimer][file] 25.155008ms
+2014-08-28 12:12:58.432 Donler[2510:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-28 12:12:58.433 Donler[2510:70b] [CDVTimer][statusbar] 0.545979ms
+2014-08-28 12:12:58.433 Donler[2510:70b] [CDVTimer][TotalPluginStartup] 54.168999ms
+2014-08-28 12:12:59.021 Donler[2510:70b] Resetting plugins due to page load.
+2014-08-28 12:13:00.348 Donler[2510:70b] Finished load of: file:///Users/yali-02/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/251D670F-3C01-4BFD-B18E-FEBD683D3671/Donler.app/www/index.html#/login
+2014-08-28 12:13:01.584 Donler[2510:70b] THREAD WARNING: ['Device'] took '64.749756' ms. Plugin should use a background thread.
+2014-08-28 12:13:01.739 Donler[2510:70b] THREAD WARNING: ['File'] took '119.441162' ms. Plugin should use a background thread.
+2014-08-28 12:16:22.923 Donler[2938:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 12:16:22.964 Donler[2938:70b] Unlimited access to network resources
+2014-08-28 12:16:22.967 Donler[2938:70b] 
+>>>>>>> 增加iOS token获取(需要真机)
+>>>>>>> 增加iOS token获取(需要真机)
 
 Started backup to iCloud! Please be careful.
 Your application might rejected by Apple if you store too much data.
 For more information please read "iOS Data Storage Guidelines"
 You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 2014-08-29 11:20:11.389 Donler[1302:70b] [CDVTimer][localnotification] 0.063002ms
 2014-08-29 11:20:11.389 Donler[1302:70b] [CDVTimer][localnotification] 0.014961ms
@@ -520,6 +553,8 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-08-29 13:18:20.706 Donler[10755:70b] Resetting plugins due to page load.
 2014-08-29 13:18:20.902 Donler[10755:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/E884681F-A827-4056-B2AC-7B16E70ADEB6/Donler.app/www/index.html#/login
 =======
+=======
+>>>>>>> 增加iOS token获取(需要真机)
 2014-08-29 13:35:46.052 Donler[14786:70b] [CDVTimer][localnotification] 0.051975ms
 2014-08-29 13:35:46.053 Donler[14786:70b] [CDVTimer][localnotification] 0.014007ms
 2014-08-29 13:35:46.055 Donler[14786:70b] [CDVTimer][file] 1.436949ms
@@ -528,4 +563,245 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-08-29 13:35:46.056 Donler[14786:70b] [CDVTimer][TotalPluginStartup] 3.565013ms
 2014-08-29 13:35:46.194 Donler[14786:70b] Resetting plugins due to page load.
 2014-08-29 13:35:46.376 Donler[14786:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/788BFDF5-AAE0-4352-B79A-F7608A5D0B7B/Donler.app/www/index.html#/login
+<<<<<<< HEAD
 >>>>>>> 修复打包后不能上传文件的BUG
+=======
+=======
+2014-08-28 12:16:23.004 Donler[2938:70b] [CDVTimer][localnotification] 0.077009ms
+2014-08-28 12:16:23.004 Donler[2938:70b] [CDVTimer][localnotification] 0.012994ms
+2014-08-28 12:16:23.006 Donler[2938:70b] [CDVTimer][file] 1.717985ms
+2014-08-28 12:16:23.007 Donler[2938:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-28 12:16:23.007 Donler[2938:70b] [CDVTimer][statusbar] 0.440001ms
+2014-08-28 12:16:23.008 Donler[2938:70b] [CDVTimer][TotalPluginStartup] 4.148006ms
+2014-08-28 12:16:23.788 Donler[2938:70b] Resetting plugins due to page load.
+2014-08-28 12:16:23.945 Donler[2938:70b] Finished load of: file:///Users/yali-02/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8955FE61-0D1F-48ED-BDBC-0B62B512AA73/Donler.app/www/index.html#/login
+2014-08-28 12:17:41.596 Donler[2938:70b] iOS
+2014-08-28 12:17:41.634 Donler[2938:70b] THREAD WARNING: ['Console'] took '37.327881' ms. Plugin should use a background thread.
+2014-08-28 12:17:58.158 Donler[2938:70b] iOS
+2014-08-28 12:18:06.068 Donler[2938:70b] iOS
+2014-08-28 12:18:06.574 Donler[2938:70b] iOS
+2014-08-28 12:18:06.959 Donler[2938:70b] iOS
+2014-08-28 12:18:07.162 Donler[2938:70b] iOS
+2014-08-28 12:18:07.343 Donler[2938:70b] iOS
+2014-08-28 12:18:07.595 Donler[2938:70b] iOS
+2014-08-28 12:18:07.751 Donler[2938:70b] iOS
+2014-08-28 12:18:12.319 Donler[2938:70b] iOS
+2014-08-28 12:18:12.922 Donler[2938:70b] iOS
+2014-08-28 12:18:13.296 Donler[2938:70b] iOS
+2014-08-28 12:18:13.603 Donler[2938:70b] iOS
+2014-08-28 12:18:16.562 Donler[2938:70b] iOS
+2014-08-28 12:18:26.647 Donler[2938:70b] iOS
+2014-08-28 12:18:27.108 Donler[2938:70b] iOS
+2014-08-28 12:18:27.890 Donler[2938:70b] iOS
+2014-08-28 12:18:28.205 Donler[2938:70b] iOS
+2014-08-28 12:18:28.380 Donler[2938:70b] iOS
+2014-08-28 12:18:28.642 Donler[2938:70b] iOS
+2014-08-28 12:18:29.041 Donler[2938:70b] iOS
+2014-08-28 12:18:31.640 Donler[2938:70b] iOS
+2014-08-28 12:18:32.327 Donler[2938:70b] iOS
+2014-08-28 12:18:32.688 Donler[2938:70b] iOS
+2014-08-28 12:18:32.860 Donler[2938:70b] iOS
+2014-08-28 12:18:33.026 Donler[2938:70b] iOS
+2014-08-28 12:18:51.140 Donler[2938:70b] iOS
+2014-08-28 12:18:51.673 Donler[2938:70b] iOS
+2014-08-28 12:18:52.032 Donler[2938:70b] iOS
+2014-08-28 12:18:52.324 Donler[2938:70b] iOS
+2014-08-28 12:18:52.861 Donler[2938:70b] iOS
+2014-08-28 12:18:53.269 Donler[2938:70b] iOS
+2014-08-28 12:18:53.472 Donler[2938:70b] iOS
+2014-08-28 12:18:53.675 Donler[2938:70b] iOS
+2014-08-28 12:18:53.867 Donler[2938:70b] iOS
+2014-08-28 12:18:54.061 Donler[2938:70b] iOS
+2014-08-28 12:18:54.233 Donler[2938:70b] iOS
+2014-08-28 12:18:54.395 Donler[2938:70b] iOS
+2014-08-28 12:18:54.567 Donler[2938:70b] iOS
+2014-08-28 12:18:54.725 Donler[2938:70b] iOS
+2014-08-28 12:18:54.889 Donler[2938:70b] iOS
+2014-08-28 12:18:55.053 Donler[2938:70b] iOS
+2014-08-28 12:18:55.225 Donler[2938:70b] iOS
+2014-08-28 12:18:55.405 Donler[2938:70b] iOS
+2014-08-28 12:18:55.625 Donler[2938:70b] iOS
+2014-08-28 12:18:55.816 Donler[2938:70b] iOS
+2014-08-28 12:18:56.001 Donler[2938:70b] iOS
+2014-08-28 12:18:56.300 Donler[2938:70b] iOS
+2014-08-28 12:20:12.475 Donler[2938:70b] iOS
+2014-08-28 12:20:12.524 Donler[2938:70b] THREAD WARNING: ['Console'] took '49.416992' ms. Plugin should use a background thread.
+2014-08-28 12:20:13.007 Donler[2938:70b] iOS
+2014-08-28 12:20:13.319 Donler[2938:70b] iOS
+2014-08-28 12:20:13.619 Donler[2938:70b] iOS
+2014-08-28 12:20:13.844 Donler[2938:70b] iOS
+2014-08-28 12:20:14.229 Donler[2938:70b] iOS
+2014-08-28 12:20:14.606 Donler[2938:70b] iOS
+2014-08-28 12:20:14.847 Donler[2938:70b] iOS
+2014-08-28 12:20:15.019 Donler[2938:70b] iOS
+2014-08-28 12:20:15.206 Donler[2938:70b] iOS
+2014-08-28 12:20:15.440 Donler[2938:70b] iOS
+2014-08-28 12:20:15.604 Donler[2938:70b] iOS
+2014-08-28 12:20:18.828 Donler[2938:70b] iOS
+2014-08-28 12:20:19.110 Donler[2938:70b] iOS
+2014-08-28 12:20:19.372 Donler[2938:70b] iOS
+2014-08-28 12:20:22.193 Donler[2938:70b] iOS
+2014-08-28 12:20:22.624 Donler[2938:70b] iOS
+2014-08-28 12:20:22.889 Donler[2938:70b] iOS
+2014-08-28 12:20:23.085 Donler[2938:70b] iOS
+2014-08-28 12:20:23.265 Donler[2938:70b] iOS
+2014-08-28 12:20:23.462 Donler[2938:70b] iOS
+2014-08-28 12:20:23.618 Donler[2938:70b] iOS
+2014-08-28 12:20:23.790 Donler[2938:70b] iOS
+2014-08-28 12:20:23.954 Donler[2938:70b] iOS
+2014-08-28 12:20:24.119 Donler[2938:70b] iOS
+2014-08-28 12:20:24.291 Donler[2938:70b] iOS
+2014-08-28 12:20:24.464 Donler[2938:70b] iOS
+2014-08-28 12:20:24.643 Donler[2938:70b] iOS
+2014-08-28 12:20:24.823 Donler[2938:70b] iOS
+2014-08-28 12:20:25.003 Donler[2938:70b] iOS
+2014-08-28 12:20:25.184 Donler[2938:70b] iOS
+2014-08-28 12:20:25.371 Donler[2938:70b] iOS
+2014-08-28 12:20:25.750 Donler[2938:70b] iOS
+2014-08-28 12:20:25.919 Donler[2938:70b] iOS
+2014-08-28 12:20:26.284 Donler[2938:70b] iOS
+2014-08-28 12:20:26.454 Donler[2938:70b] iOS
+2014-08-28 12:20:48.478 Donler[2938:70b] iOS
+2014-08-28 12:20:49.152 Donler[2938:70b] iOS
+2014-08-28 12:20:49.512 Donler[2938:70b] iOS
+2014-08-28 12:20:49.926 Donler[2938:70b] iOS
+2014-08-28 12:20:50.161 Donler[2938:70b] iOS
+2014-08-28 12:20:50.380 Donler[2938:70b] iOS
+2014-08-28 12:20:50.601 Donler[2938:70b] iOS
+2014-08-28 12:20:51.030 Donler[2938:70b] iOS
+2014-08-28 12:20:51.453 Donler[2938:70b] iOS
+2014-08-28 12:20:51.668 Donler[2938:70b] iOS
+2014-08-28 12:21:11.321 Donler[2938:70b] iOS
+2014-08-28 12:21:11.697 Donler[2938:70b] iOS
+2014-08-28 12:21:11.958 Donler[2938:70b] iOS
+2014-08-28 12:21:12.222 Donler[2938:70b] iOS
+2014-08-28 12:21:12.472 Donler[2938:70b] iOS
+2014-08-28 12:21:12.662 Donler[2938:70b] iOS
+2014-08-28 12:21:14.697 Donler[2938:70b] iOS
+2014-08-28 12:21:15.064 Donler[2938:70b] iOS
+2014-08-28 12:21:15.427 Donler[2938:70b] iOS
+2014-08-28 12:21:15.862 Donler[2938:70b] iOS
+2014-08-28 12:21:16.370 Donler[2938:70b] iOS
+2014-08-28 12:21:16.677 Donler[2938:70b] iOS
+2014-08-28 12:21:16.855 Donler[2938:70b] iOS
+2014-08-28 12:21:27.216 Donler[2938:70b] iOS
+2014-08-28 12:21:27.216 Donler[2938:70b] iOS
+2014-08-28 12:21:27.990 Donler[2938:70b] iOS
+2014-08-28 12:21:28.288 Donler[2938:70b] iOS
+2014-08-28 12:21:28.523 Donler[2938:70b] iOS
+2014-08-28 12:21:28.749 Donler[2938:70b] iOS
+2014-08-28 12:21:28.977 Donler[2938:70b] iOS
+2014-08-28 12:21:29.218 Donler[2938:70b] iOS
+2014-08-28 12:21:29.406 Donler[2938:70b] iOS
+2014-08-28 12:21:29.575 Donler[2938:70b] iOS
+2014-08-28 12:21:29.742 Donler[2938:70b] iOS
+2014-08-28 12:21:29.900 Donler[2938:70b] iOS
+2014-08-28 12:21:30.244 Donler[2938:70b] iOS
+2014-08-28 12:23:38.036 Donler[3379:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 12:23:38.067 Donler[3379:70b] Unlimited access to network resources
+2014-08-28 12:23:38.070 Donler[3379:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-28 12:23:38.085 Donler[3379:70b] [CDVTimer][localnotification] 0.051975ms
+2014-08-28 12:23:38.086 Donler[3379:70b] [CDVTimer][localnotification] 0.012994ms
+2014-08-28 12:23:38.088 Donler[3379:70b] [CDVTimer][file] 1.595974ms
+2014-08-28 12:23:38.088 Donler[3379:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-28 12:23:38.089 Donler[3379:70b] [CDVTimer][statusbar] 0.423014ms
+2014-08-28 12:23:38.089 Donler[3379:70b] [CDVTimer][TotalPluginStartup] 3.787994ms
+2014-08-28 12:23:38.484 Donler[3379:70b] Resetting plugins due to page load.
+2014-08-28 12:23:38.764 Donler[3379:70b] Finished load of: file:///Users/yali-02/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/FDC9044C-E52E-464B-9373-ACA16E303A75/Donler.app/www/index.html#/login
+2014-08-28 12:23:53.634 Donler[3379:70b] iOS
+2014-08-28 12:23:54.662 Donler[3379:70b] iOS
+2014-08-28 12:23:55.349 Donler[3379:70b] iOS
+2014-08-28 12:23:55.578 Donler[3379:70b] iOS
+2014-08-28 12:23:55.766 Donler[3379:70b] iOS
+2014-08-28 12:23:55.961 Donler[3379:70b] iOS
+2014-08-28 12:23:56.164 Donler[3379:70b] iOS
+2014-08-28 12:23:56.384 Donler[3379:70b] iOS
+2014-08-28 12:24:00.046 Donler[3379:70b] iOS
+2014-08-28 12:24:00.581 Donler[3379:70b] iOS
+2014-08-28 12:24:01.070 Donler[3379:70b] iOS
+2014-08-28 12:24:01.869 Donler[3379:70b] iOS
+2014-08-28 12:24:02.049 Donler[3379:70b] iOS
+2014-08-28 12:24:02.494 Donler[3379:70b] iOS
+2014-08-28 12:24:02.670 Donler[3379:70b] iOS
+2014-08-28 12:24:02.870 Donler[3379:70b] iOS
+2014-08-28 12:24:03.247 Donler[3379:70b] iOS
+2014-08-28 12:24:03.521 Donler[3379:70b] iOS
+2014-08-28 12:24:03.724 Donler[3379:70b] iOS
+2014-08-28 12:24:03.934 Donler[3379:70b] iOS
+2014-08-28 12:24:04.131 Donler[3379:70b] iOS
+2014-08-28 12:24:04.373 Donler[3379:70b] iOS
+2014-08-28 12:24:04.585 Donler[3379:70b] iOS
+2014-08-28 12:24:05.085 Donler[3379:70b] iOS
+2014-08-28 12:24:05.424 Donler[3379:70b] iOS
+2014-08-28 12:24:06.181 Donler[3379:70b] iOS
+2014-08-28 12:24:06.344 Donler[3379:70b] iOS
+2014-08-28 12:24:06.862 Donler[3379:70b] iOS
+2014-08-28 12:24:07.026 Donler[3379:70b] iOS
+2014-08-28 12:24:08.327 Donler[3379:70b] iOS
+2014-08-28 12:24:08.506 Donler[3379:70b] iOS
+2014-08-28 12:24:09.350 Donler[3379:70b] iOS
+2014-08-28 12:24:09.508 Donler[3379:70b] iOS
+2014-08-28 16:01:09.613 Donler[15051:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 16:01:09.648 Donler[15051:70b] Unlimited access to network resources
+2014-08-28 16:01:09.651 Donler[15051:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-28 16:01:09.666 Donler[15051:70b] [CDVTimer][localnotification] 0.054002ms
+2014-08-28 16:01:09.666 Donler[15051:70b] [CDVTimer][localnotification] 0.014007ms
+2014-08-28 16:01:09.668 Donler[15051:70b] [CDVTimer][file] 1.510024ms
+2014-08-28 16:01:09.668 Donler[15051:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-28 16:01:09.669 Donler[15051:70b] [CDVTimer][statusbar] 0.359952ms
+2014-08-28 16:01:09.669 Donler[15051:70b] [CDVTimer][TotalPluginStartup] 3.637969ms
+2014-08-28 16:01:09.810 Donler[15051:70b] Resetting plugins due to page load.
+2014-08-28 16:01:09.966 Donler[15051:70b] Finished load of: file:///Users/yali-02/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/DF217636-C856-400B-B80B-2F0A5FB8B5C8/Donler.app/www/index.html#/login
+2014-08-28 16:01:10.544 Donler[15051:70b] THREAD WARNING: ['Device'] took '266.656982' ms. Plugin should use a background thread.
+2014-08-28 16:03:09.986 Donler[15051:70b] 0
+2014-08-28 16:51:46.982 Donler[17859:70b] Initializing application: (null) (null)
+2014-08-28 16:51:47.917 Donler[17859:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 16:51:47.923 Donler[17859:70b] Unlimited access to network resources
+2014-08-28 16:51:47.926 Donler[17859:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-28 16:51:47.941 Donler[17859:70b] [CDVTimer][localnotification] 0.055015ms
+2014-08-28 16:51:47.941 Donler[17859:70b] [CDVTimer][localnotification] 0.011981ms
+2014-08-28 16:51:47.943 Donler[17859:70b] [CDVTimer][file] 1.407027ms
+2014-08-28 16:51:47.943 Donler[17859:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-28 16:51:47.944 Donler[17859:70b] [CDVTimer][statusbar] 0.356972ms
+2014-08-28 16:51:47.944 Donler[17859:70b] [CDVTimer][TotalPluginStartup] 3.477991ms
+2014-08-28 16:51:48.536 Donler[17859:70b] Resetting plugins due to page load.
+2014-08-28 16:51:48.844 Donler[17859:70b] Finished load of: file:///Users/yali-02/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/5C0463BC-9EFB-488B-99AB-F5DEB8242617/Donler.app/www/index.html#/login
+2014-08-28 16:51:56.501 Donler[17859:70b] 0
+>>>>>>> 增加iOS token获取(需要真机)
+>>>>>>> 增加iOS token获取(需要真机)
+2014-08-29 14:11:30.398 Donler[7475:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-29 14:11:31.252 Donler[7475:70b] Unlimited access to network resources
+2014-08-29 14:11:31.405 Donler[7475:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-29 14:11:34.053 Donler[7475:70b] [CDVTimer][localnotification] 0.305951ms
+2014-08-29 14:11:34.054 Donler[7475:70b] [CDVTimer][localnotification] 0.012040ms
+2014-08-29 14:11:34.079 Donler[7475:70b] [CDVTimer][file] 24.307013ms
+2014-08-29 14:11:34.079 Donler[7475:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-29 14:11:34.080 Donler[7475:70b] [CDVTimer][statusbar] 0.506997ms
+2014-08-29 14:11:34.081 Donler[7475:70b] [CDVTimer][TotalPluginStartup] 27.434945ms
+2014-08-29 14:11:36.282 Donler[7475:70b] Resetting plugins due to page load.
+2014-08-29 14:11:39.049 Donler[7475:70b] Finished load of: file:///Users/yali-02/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/22EBD4BF-018B-4E16-AE1C-26270ED96658/Donler.app/www/index.html#/login
+2014-08-29 14:11:40.240 Donler[7475:70b] THREAD WARNING: ['Device'] took '42.631836' ms. Plugin should use a background thread.

@@ -9,6 +9,9 @@ angular.module('starter.services', [])
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
+
+  //var base_url = "http://192.168.2.106:3000";
+  //var base_url = "http://192.168.2.101:3000";
   ionic.Platform.ready(function(){
     window.plugin.notification.local.onclick = function (id, state, json) {
       $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
@@ -48,13 +51,14 @@ angular.module('starter.services', [])
 
   var login = function($scope) {
     return function(username, password) {
-      function loginPost(ids){
+      function loginPost(ids,token){
         $http.post(Global.base_url + '/users/login', { 
           username: username,
           password: password,
           device: ionic.Platform.device(),
           userid: ids ? ids[0] : '',
-          channelid: ids ? ids[1] : ''
+          channelid: ids ? ids[1] : '',
+          token: token ? token : ''
         })
         .success(function(data, status, headers, config) {
             if (data.result === 1) {
@@ -96,7 +100,9 @@ angular.module('starter.services', [])
         window.resolveLocalFileSystemURL(path, onSuccess,onError);
       }
       else{
-        loginPost();
+        //console.log(ionic.Platform.device().platform);
+        //initPushwoosh(loginPost);
+        loginPost(null,null,'NULL',null);
       }
     };
   };
@@ -141,6 +147,57 @@ angular.module('starter.services', [])
     });
   };
 
+  function initPushwoosh(callback) {
+    var pushNotification = window.plugins.pushNotification;
+    console.log('Received Event: ');
+    console.warn(pushNotification);
+    //set push notification callback before we initialize the plugin
+    document.addEventListener('push-notification', function(event) {
+                  //get the notification payload
+                  var notification = event.notification;
+
+                  //display alert to the user for example
+                  alert(notification.aps.alert);
+                  //clear the app badge
+                  pushNotification.setApplicationIconBadgeNumber(0);
+                });
+
+      //initialize the plugin
+      pushNotification.onDeviceReady({pw_appid:"B13D4-3532F"});
+
+      //register for pushes
+      pushNotification.registerDevice(function(status) {
+                                            var deviceToken = status['deviceToken'];
+                                            console.warn('registerDevice: ' + deviceToken);
+                      },
+                      function(status) {
+                                            console.warn('failed to register : ' + JSON.stringify(status));
+                                            navigator.notification.alert(JSON.stringify(['failed to register ', status]));
+                                            callback(null,null,'ERROR',status);
+                      });
+      pushNotification.setApplicationIconBadgeNumber(0);
+      pushNotification.getTags(function(tags) {
+                    console.warn('tags for the device: ' + JSON.stringify(tags));
+                   },
+                   function(error) {
+                    console.warn('get tags error: ' + JSON.stringify(error));
+                   });
+
+      pushNotification.getPushToken(function(token) {
+                      console.warn('push token device: ' + token);
+                      //执行loginPost,将token POST到后台
+                      callback(null,token,'SUCCESS',null);
+                   });
+
+      pushNotification.getPushwooshHWID(function(token) {
+                      console.warn('Pushwoosh HWID: ' + token);
+                    });
+
+      //start geo tracking.
+      pushNotification.startLocationTracking(function() {
+                                             console.warn('Location Tracking Started');
+                                             });
+  }
   return {
     authorize: authorize,
     login: login,
