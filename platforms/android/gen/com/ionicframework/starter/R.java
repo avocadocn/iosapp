@@ -21,9 +21,8 @@ public final class R {
         public static final int bpush_list_item_bg=0x7f020001;
         public static final int bpush_return_btn=0x7f020002;
         public static final int bpush_top_bg=0x7f020003;
-        public static final int favicon=0x7f020004;
-        public static final int icon=0x7f020005;
-        public static final int screen=0x7f020006;
+        public static final int donler=0x7f020004;
+        public static final int screen=0x7f020005;
     }
     public static final class id {
         public static final int text_head=0x7f070000;
