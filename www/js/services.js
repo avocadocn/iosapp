@@ -9,14 +9,11 @@ angular.module('starter.services', [])
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
-
-  //var base_url = "http://192.168.2.106:3000";
-  //var base_url = "http://192.168.2.101:3000";
-  ionic.Platform.ready(function(){
-    window.plugin.notification.local.onclick = function (id, state, json) {
-      $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
-    };
-  });
+  // ionic.Platform.ready(function(){
+  //   window.plugin.notification.local.onclick = function (id, state, json) {
+  //     $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
+  //   };
+  // });
   var _user = {};
   var last_date;
   return {
@@ -347,7 +344,7 @@ angular.module('starter.services', [])
     return function(campaign,tid) {
       $http.post(Global.base_url + '/campaign/joinCampaign/'+campaign._id, { campaign_id: campaign._id, tid:tid})
       .success(function(data, status, headers, config) {
-        scheduleCampaign(campaign);
+        // scheduleCampaign(campaign);
         callback(campaign._id);
       });
     };
@@ -359,7 +356,7 @@ angular.module('starter.services', [])
       $http.post(Global.base_url + '/campaign/quitCampaign/'+id, { campaign_id: id})
       .success(function(data, status, headers, config) {
         callback(id);
-        cancelScheduleCampaign(id);
+        // cancelScheduleCampaign(id);
       });
     };
   };

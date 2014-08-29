@@ -11,7 +11,11 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   
 })
 
-
+.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+])
 
 .controller('LoginCtrl', function($scope, $rootScope, $http, $state, Authorize) {
 
