@@ -48,7 +48,7 @@
             <input id="upload_input" class="upload_input" type="file" name="photos" multiple="multiple" accept="image/*;capture=camera" validFile required/>
             <label for="upload_input" class="button icon ion-plus upload_button operator_button"></label>
           </form> -->
-          <button class="button icon ion-plus upload_button operator_button" ng-click="selectFile()"></button>
+          <button class="button icon ion-plus upload_button operator_button" ng-click="openUploadModal()"></button>
         </div>
         <div id="photo_list" class="photo_list" ng-if="photos.length > 0">
           <ion-slide-box on-slide-changed="slideChange($index)" class="photo_slide_box clearfix">

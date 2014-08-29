@@ -164,7 +164,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize, Camera) {
 
   Authorize.authorize();
 
@@ -252,20 +252,17 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.publishing = false;
   };
 
+  var win = function(r) {
+    alert('上传成功！');
+    getPhotoList();
+  };
+
+  var fail = function(error) {
+    alert('上传失败，请重试');
+  };
+
   var success = function(data) {
     var filepath = data.filepath;
-
-    var win = function(r) {
-      // console.log("Code = " + r.responseCode);
-      // console.log("Response = " + r.response);
-      // console.log("Sent = " + r.bytesSent);
-      alert('上传成功！');
-      getPhotoList();
-    };
-
-    var fail = function(error) {
-      alert("An error has occurred: Code = " + error.code);
-    };
 
     var uri = encodeURI($scope.upload_form_url);
     var options = new FileUploadOptions();
@@ -273,25 +270,53 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     options.fileName = filepath.substr(filepath.lastIndexOf('/')+1);
 
     var ft = new FileTransfer();
-    ft.onprogress = function(progressEvent) {
-      if (progressEvent.lengthComputable) {
-          loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
-      }
-      else {
-          loadingStatus.increment();
-      }
-    };
     ft.upload(filepath, uri, win, fail, options);
   };
 
   var error = function(msg) {
-    console.log(msg);
-    alert('上传失败，请重试');
+    alert('获取照片失败，请重试');
   };
 
 
   $scope.selectFile = function() {
     filechooser.open({}, success, error);
+  };
+
+  $ionicModal.fromTemplateUrl('templates/partials/upload.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.upload_modal = modal;
+  });
+
+  $scope.openUploadModal = function() {
+    $scope.upload_modal.show();
+  };
+
+  $scope.closeUploadModal = function() {
+    $scope.upload_modal.hide();
+  };
+
+  $scope.getPhoto = function() {
+    // var camera_options =   {
+    //   quality: 50,
+    //   destinationType: Camera.DestinationType.DATA_URL,
+    //   sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+    //   encodingType: 0     // 0=JPG 1=PNG
+    // };
+    Camera.getPicture().then(function(imageURI) {
+      var picData = 'data:image/jpeg;base64,' + imageURI;
+      var options = new FileUploadOptions();
+      options.fileKey = 'photos';
+      options.chunkedMode = false;
+      var params = {};
+      var uri = encodeURI($scope.upload_form_url);
+
+      var ft = new FileTransfer();
+      ft.upload(picData.src, uri, win, fail, options);
+    }, function(err) {
+      alert('上传失败，请重试');
+    });
   };
 
   //$scope.viewFormFlag =false;
