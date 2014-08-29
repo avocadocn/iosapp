@@ -160,7 +160,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $sce, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
   Authorize.authorize();
 
   $scope.base_url = Global.base_url;
@@ -175,6 +175,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   Campaign.getCampaignDetail( $stateParams.id,function(campaign) {
     $scope.campaign = campaign;
     $scope.photo_album_id = $scope.campaign.photo_album;
+    $scope.upload_form_url = $scope.base_url + '/photoAlbum/' + $scope.photo_album_id + '/photo';
+    $scope.upload_form_url = $sce.trustAsResourceUrl($scope.upload_form_url);
     getPhotoList();
     $scope.deletePhoto = PhotoAlbum.deletePhoto($scope.photo_album_id, getPhotoList);
     $scope.commentPhoto = PhotoAlbum.commentPhoto($scope.photo_album_id, getPhotoList);

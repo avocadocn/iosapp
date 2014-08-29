@@ -25,8 +25,13 @@
     <feature name="Device">
         <param name="ios-package" value="CDVDevice" />
     </feature>
-    <feature name="PushNotification">
-        <param name="ios-package" value="PushNotification" />
+    <feature name="LocalNotification">
+        <param name="ios-package" onload="true" value="APPLocalNotification" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="File">
+        <param name="ios-package" value="CDVFile" />
+        <param name="onload" value="true" />
     </feature>
     <name>Donler</name>
     <description>
@@ -43,6 +48,8 @@
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="6000" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>

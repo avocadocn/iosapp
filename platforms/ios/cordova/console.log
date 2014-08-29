@@ -392,3 +392,109 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-08-22 17:03:55.866 Donler[24618:70b] [CDVTimer][TotalPluginStartup] 1.475990ms
 2014-08-22 17:03:56.250 Donler[24618:70b] Resetting plugins due to page load.
 2014-08-22 17:03:57.001 Donler[24618:70b] Finished load of: file:///Users/yali-04/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/DA7DBB8E-3362-49F4-9C81-F3B53AD27BD2/Donler.app/www/index.html#/login
+2014-08-28 19:21:43.085 Donler[16750:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-28 19:21:43.166 Donler[16750:70b] Unlimited access to network resources
+2014-08-28 19:21:43.189 Donler[16750:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-28 19:21:43.237 Donler[16750:70b] [CDVTimer][localnotification] 25.736034ms
+2014-08-28 19:21:43.238 Donler[16750:70b] [CDVTimer][localnotification] 0.016987ms
+2014-08-28 19:21:43.466 Donler[16750:70b] [CDVTimer][file] 227.930009ms
+2014-08-28 19:21:43.467 Donler[16750:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-28 19:21:43.467 Donler[16750:70b] [CDVTimer][statusbar] 0.517011ms
+2014-08-28 19:21:43.468 Donler[16750:70b] [CDVTimer][TotalPluginStartup] 256.422997ms
+2014-08-28 19:21:43.858 Donler[16750:70b] Resetting plugins due to page load.
+2014-08-28 19:21:44.487 Donler[16750:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/81067CD3-B0AA-4325-825A-959F3EF8EBEC/Donler.app/www/index.html#/login
+2014-08-28 19:21:44.757 Donler[16750:70b] THREAD WARNING: ['Device'] took '16.036865' ms. Plugin should use a background thread.
+2014-08-28 19:21:44.774 Donler[16750:70b] THREAD WARNING: ['File'] took '16.426270' ms. Plugin should use a background thread.
+2014-08-28 19:22:55.668 Donler[16750:70b] Received memory warning.
+2014-08-29 11:20:09.361 Donler[1302:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-29 11:20:09.637 Donler[1302:70b] Unlimited access to network resources
+2014-08-29 11:20:09.661 Donler[1302:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-29 11:20:11.389 Donler[1302:70b] [CDVTimer][localnotification] 0.063002ms
+2014-08-29 11:20:11.389 Donler[1302:70b] [CDVTimer][localnotification] 0.014961ms
+2014-08-29 11:20:11.418 Donler[1302:70b] [CDVTimer][file] 27.689993ms
+2014-08-29 11:20:11.418 Donler[1302:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-29 11:20:11.419 Donler[1302:70b] [CDVTimer][statusbar] 0.643015ms
+2014-08-29 11:20:11.420 Donler[1302:70b] [CDVTimer][TotalPluginStartup] 30.873001ms
+2014-08-29 11:20:11.761 Donler[1302:70b] Resetting plugins due to page load.
+2014-08-29 11:20:12.260 Donler[1302:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CDA124C7-F3E4-49BD-836E-3A411C8FE16C/Donler.app/www/index.html#/login
+2014-08-29 11:20:20.406 Donler[1302:70b] Received memory warning.
+2014-08-29 13:10:06.053 Donler[6597:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-29 13:10:06.084 Donler[6597:70b] Unlimited access to network resources
+2014-08-29 13:10:06.113 Donler[6597:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-29 13:10:06.135 Donler[6597:70b] [CDVTimer][localnotification] 0.083029ms
+2014-08-29 13:10:06.136 Donler[6597:70b] [CDVTimer][localnotification] 0.012994ms
+2014-08-29 13:10:06.138 Donler[6597:70b] [CDVTimer][file] 1.960993ms
+2014-08-29 13:10:06.139 Donler[6597:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-29 13:10:06.140 Donler[6597:70b] [CDVTimer][statusbar] 0.460029ms
+2014-08-29 13:10:06.140 Donler[6597:70b] [CDVTimer][TotalPluginStartup] 4.916012ms
+2014-08-29 13:10:06.213 Donler[6597:70b] Resetting plugins due to page load.
+2014-08-29 13:10:06.871 Donler[6597:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CDA124C7-F3E4-49BD-836E-3A411C8FE16C/Donler.app/www/index.html#/login
+2014-08-29 13:12:13.831 Donler[7824:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-29 13:12:13.838 Donler[7824:70b] Unlimited access to network resources
+2014-08-29 13:12:13.840 Donler[7824:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-29 13:12:13.855 Donler[7824:70b] [CDVTimer][localnotification] 0.052989ms
+2014-08-29 13:12:13.855 Donler[7824:70b] [CDVTimer][localnotification] 0.014007ms
+2014-08-29 13:12:13.857 Donler[7824:70b] [CDVTimer][file] 1.143038ms
+2014-08-29 13:12:13.857 Donler[7824:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-29 13:12:13.858 Donler[7824:70b] [CDVTimer][statusbar] 0.351965ms
+2014-08-29 13:12:13.858 Donler[7824:70b] [CDVTimer][TotalPluginStartup] 3.203988ms
+2014-08-29 13:12:13.899 Donler[7824:70b] Resetting plugins due to page load.
+2014-08-29 13:12:14.034 Donler[7824:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CDA124C7-F3E4-49BD-836E-3A411C8FE16C/Donler.app/www/index.html#/login
+2014-08-29 13:16:36.707 Donler[9459:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-29 13:16:36.841 Donler[9459:70b] Unlimited access to network resources
+2014-08-29 13:16:36.844 Donler[9459:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-29 13:16:36.858 Donler[9459:70b] [CDVTimer][localnotification] 0.051975ms
+2014-08-29 13:16:36.859 Donler[9459:70b] [CDVTimer][localnotification] 0.012994ms
+2014-08-29 13:16:36.861 Donler[9459:70b] [CDVTimer][file] 1.498997ms
+2014-08-29 13:16:36.861 Donler[9459:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-29 13:16:36.861 Donler[9459:70b] [CDVTimer][statusbar] 0.384986ms
+2014-08-29 13:16:36.862 Donler[9459:70b] [CDVTimer][TotalPluginStartup] 3.601015ms
+2014-08-29 13:16:37.015 Donler[9459:70b] Resetting plugins due to page load.
+2014-08-29 13:16:37.228 Donler[9459:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/A8189600-1C27-4DDA-AE14-BCFFAE6A4C75/Donler.app/www/index.html#/login
+2014-08-29 13:18:20.061 Donler[10755:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-29 13:18:20.071 Donler[10755:70b] Unlimited access to network resources
+2014-08-29 13:18:20.075 Donler[10755:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-08-29 13:18:20.095 Donler[10755:70b] [CDVTimer][localnotification] 0.081956ms
+2014-08-29 13:18:20.095 Donler[10755:70b] [CDVTimer][localnotification] 0.014007ms
+2014-08-29 13:18:20.097 Donler[10755:70b] [CDVTimer][file] 1.513004ms
+2014-08-29 13:18:20.098 Donler[10755:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-29 13:18:20.098 Donler[10755:70b] [CDVTimer][statusbar] 0.367999ms
+2014-08-29 13:18:20.098 Donler[10755:70b] [CDVTimer][TotalPluginStartup] 3.688037ms
+2014-08-29 13:18:20.706 Donler[10755:70b] Resetting plugins due to page load.
+2014-08-29 13:18:20.902 Donler[10755:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/E884681F-A827-4056-B2AC-7B16E70ADEB6/Donler.app/www/index.html#/login
