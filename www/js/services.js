@@ -9,11 +9,22 @@ angular.module('starter.services', [])
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
+<<<<<<< HEAD
   // ionic.Platform.ready(function(){
   //   window.plugin.notification.local.onclick = function (id, state, json) {
   //     $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
   //   };
   // });
+=======
+
+  //var base_url = "http://192.168.2.106:3000";
+  //var base_url = "http://192.168.2.101:3000";
+  ionic.Platform.ready(function(){
+    window.plugin.notification.local.onclick = function (id, state, json) {
+      $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
+    };
+  });
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
   var _user = {};
   var last_date;
   return {
@@ -48,17 +59,27 @@ angular.module('starter.services', [])
 
   var login = function($scope) {
     return function(username, password) {
+<<<<<<< HEAD
 
       function initPushwoosh(callback) {
         var pushNotification = window.plugins.pushNotification;
         console.log('Received Event: ');
         console.warn(pushNotification);
+=======
+      function initPushwoosh(callback) {
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
         if(!window.plugins){
           callback(null,null,'NO_WINDOW_PLUGINS');
         }else{
           if(!window.plugins.pushNotification){
             callback(null,null,'NO_PUSHNOTIFICATION');
           }else{
+<<<<<<< HEAD
+=======
+            var pushNotification = window.plugins.pushNotification;
+            console.log('Received Event: ');
+            console.warn(pushNotification);
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
             //set push notification callback before we initialize the plugin
             document.addEventListener('push-notification', function(event) {
                           //get the notification payload
@@ -158,9 +179,13 @@ angular.module('starter.services', [])
         window.resolveLocalFileSystemURL(path, onSuccess,onError);
       }
       else{
+<<<<<<< HEAD
         //console.log(ionic.Platform.device().platform);
         initPushwoosh(loginPost);
         //loginPost(null,null,'NULL',null);
+=======
+        initPushwoosh(loginPost);
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
       }
     };
   };

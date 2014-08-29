@@ -9,11 +9,22 @@ angular.module('starter.services', [])
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
+<<<<<<< HEAD
   // ionic.Platform.ready(function(){
   //   window.plugin.notification.local.onclick = function (id, state, json) {
   //     $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
   //   };
   // });
+=======
+
+  //var base_url = "http://192.168.2.106:3000";
+  //var base_url = "http://192.168.2.101:3000";
+  ionic.Platform.ready(function(){
+    window.plugin.notification.local.onclick = function (id, state, json) {
+      $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
+    };
+  });
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
   var _user = {};
   var last_date;
   return {
@@ -48,6 +59,7 @@ angular.module('starter.services', [])
 
   var login = function($scope) {
     return function(username, password) {
+<<<<<<< HEAD
 
       function initPushwoosh(callback) {
         var pushNotification = window.plugins.pushNotification;
@@ -109,14 +121,21 @@ angular.module('starter.services', [])
         }
       }
       function loginPost(ids,token,_status){
+=======
+      function loginPost(ids,token){
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
         $http.post(Global.base_url + '/users/login', { 
           username: username,
           password: password,
           device: ionic.Platform.device(),
           userid: ids ? ids[0] : '',
           channelid: ids ? ids[1] : '',
+<<<<<<< HEAD
           token: token ? token : '',
           status:_status
+=======
+          token: token ? token : ''
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
         })
         .success(function(data, status, headers, config) {
             if (data.result === 1) {
@@ -159,8 +178,13 @@ angular.module('starter.services', [])
       }
       else{
         //console.log(ionic.Platform.device().platform);
+<<<<<<< HEAD
         initPushwoosh(loginPost);
         //loginPost(null,null,'NULL',null);
+=======
+        //initPushwoosh(loginPost);
+        loginPost(null,null,'NULL',null);
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
       }
     };
   };
@@ -204,6 +228,61 @@ angular.module('starter.services', [])
       }
     });
   };
+<<<<<<< HEAD
+=======
+
+  function initPushwoosh(callback) {
+    var pushNotification = window.plugins.pushNotification;
+    console.log('Received Event: ');
+    console.warn(pushNotification);
+    //set push notification callback before we initialize the plugin
+    document.addEventListener('push-notification', function(event) {
+                  //get the notification payload
+                  var notification = event.notification;
+
+                  //display alert to the user for example
+                  alert(notification.aps.alert);
+                  //clear the app badge
+                  pushNotification.setApplicationIconBadgeNumber(0);
+                });
+
+      //initialize the plugin
+      pushNotification.onDeviceReady({pw_appid:"B13D4-3532F"});
+
+      //register for pushes
+      pushNotification.registerDevice(function(status) {
+                                            var deviceToken = status['deviceToken'];
+                                            console.warn('registerDevice: ' + deviceToken);
+                      },
+                      function(status) {
+                                            console.warn('failed to register : ' + JSON.stringify(status));
+                                            navigator.notification.alert(JSON.stringify(['failed to register ', status]));
+                                            callback(null,null,'ERROR',status);
+                      });
+      pushNotification.setApplicationIconBadgeNumber(0);
+      pushNotification.getTags(function(tags) {
+                    console.warn('tags for the device: ' + JSON.stringify(tags));
+                   },
+                   function(error) {
+                    console.warn('get tags error: ' + JSON.stringify(error));
+                   });
+
+      pushNotification.getPushToken(function(token) {
+                      console.warn('push token device: ' + token);
+                      //执行loginPost,将token POST到后台
+                      callback(null,token,'SUCCESS',null);
+                   });
+
+      pushNotification.getPushwooshHWID(function(token) {
+                      console.warn('Pushwoosh HWID: ' + token);
+                    });
+
+      //start geo tracking.
+      pushNotification.startLocationTracking(function() {
+                                             console.warn('Location Tracking Started');
+                                             });
+  }
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
   return {
     authorize: authorize,
     login: login,
@@ -344,7 +423,11 @@ angular.module('starter.services', [])
     return function(campaign,tid) {
       $http.post(Global.base_url + '/campaign/joinCampaign/'+campaign._id, { campaign_id: campaign._id, tid:tid})
       .success(function(data, status, headers, config) {
+<<<<<<< HEAD
         // scheduleCampaign(campaign);
+=======
+        scheduleCampaign(campaign);
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
         callback(campaign._id);
       });
     };
@@ -356,7 +439,11 @@ angular.module('starter.services', [])
       $http.post(Global.base_url + '/campaign/quitCampaign/'+id, { campaign_id: id})
       .success(function(data, status, headers, config) {
         callback(id);
+<<<<<<< HEAD
         // cancelScheduleCampaign(id);
+=======
+        cancelScheduleCampaign(id);
+>>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
       });
     };
   };
