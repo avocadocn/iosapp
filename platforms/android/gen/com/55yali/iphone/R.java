@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.ionicframework.starter;
+package com.55yali.iphone;
 
 public final class R {
     public static final class attr {
@@ -22,7 +22,8 @@ public final class R {
         public static final int bpush_return_btn=0x7f020002;
         public static final int bpush_top_bg=0x7f020003;
         public static final int donler=0x7f020004;
-        public static final int screen=0x7f020005;
+        public static final int screeb=0x7f020005;
+        public static final int screen=0x7f020006;
     }
     public static final class id {
         public static final int text_head=0x7f070000;
