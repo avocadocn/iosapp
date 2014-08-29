@@ -11,7 +11,11 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   
 })
 
-
+.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+])
 
 .controller('LoginCtrl', function($scope, $rootScope, $http, $state, Authorize) {
 
@@ -161,6 +165,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 .controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+
   Authorize.authorize();
 
   $scope.base_url = Global.base_url;
