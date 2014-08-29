@@ -5,10 +5,10 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   if (Authorize.authorize() === true) {
     $state.go('app.index');
   }
-
   $scope.logout = Authorize.logout;
   $scope.base_url = Global.base_url;
   $scope.user = Global.user;
+  
 })
 
 
@@ -33,6 +33,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   Authorize.authorize();
   $scope.base_url = Global.base_url;
   $rootScope.campaignReturnUri = '#/app/index';
+  $scope.moreData = true;
   var init = function(callback){
     Campaign.getNowCampaignList(function(campaign_list) {
       $scope.nowCampaigns = campaign_list;
@@ -47,6 +48,9 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         }
         else{
           $scope.newCampaigns.push(newFinishCampaign);
+        }
+        if($scope.nowCampaigns.length==0 && $scope.newCampaigns.length==0 ){
+          $scope.moreData = false;
         }
         callback && callback();
       });
@@ -95,10 +99,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.moreData =true;
     page = -1;
     $scope.campaign_list = undefined;
-    $scope.loadMore();
+    $scope.loadMore(function(){
+       $scope.$broadcast('scroll.refreshComplete');
+    });
   }
   $rootScope.campaignReturnUri = '#/app/campaign_list';
-
+  $scope.loadMoreFinish = function(){
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+  }
   // Campaign.getUserCampaignsForList(page,function(campaign_list) {
   //   $scope.campaign_list = campaign_list;
   // });
@@ -128,7 +136,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   //   $scope.join(campaign_id,tid);
   //   $scope.selectModal.hide();
   // };
-  $scope.loadMore = function(){
+  $scope.loadMore = function(callback){
     page++;
     Campaign.getUserJoinedCampaignsForList(page,function(campaign_list) {
       if($scope.campaign_list){
@@ -145,13 +153,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
           $scope.remind_text = '没有更多的活动了';
         }
       }
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+      callback();
     });
   }
+  $scope.loadMore($scope.loadMoreFinish);
 })
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
   Authorize.authorize();
 
   $scope.base_url = Global.base_url;
@@ -166,6 +175,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   Campaign.getCampaignDetail( $stateParams.id,function(campaign) {
     $scope.campaign = campaign;
     $scope.photo_album_id = $scope.campaign.photo_album;
+    $scope.upload_form_url = $scope.base_url + '/photoAlbum/' + $scope.photo_album_id + '/photo';
+    $scope.upload_form_url = $sce.trustAsResourceUrl($scope.upload_form_url);
     getPhotoList();
     $scope.deletePhoto = PhotoAlbum.deletePhoto($scope.photo_album_id, getPhotoList);
     $scope.commentPhoto = PhotoAlbum.commentPhoto($scope.photo_album_id, getPhotoList);
@@ -647,7 +658,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 
-.controller('TimelineCtrl', function($scope, $rootScope, $ionicScrollDelegate, $timeout, Timeline, Authorize) {
+.controller('TimelineCtrl', function($scope, $rootScope, $ionicScrollDelegate, $state, Timeline, Authorize) {
   Authorize.authorize();
   $rootScope.campaignReturnUri = '#/app/timeline';
   $scope.moreData =true;
@@ -668,17 +679,18 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     Timeline.getUserTimeline(page,function(time_lines, nowpage, moreData) {
       $scope.time_lines = time_lines;
       if(Timeline.getCacheTimeline()){
-        $ionicScrollDelegate.$getByHandle('timelineScroll').scrollTo(0,Timeline.getTimelinePosition());
         Timeline.setCacheTimeline(false);
+        $ionicScrollDelegate.$getByHandle('timelineScroll').scrollTo(0,Timeline.getTimelinePosition());
       }
       $scope.moreData =moreData;
       callback();
     });
   }
-  $scope.rememberPosition = function(){
+  $scope.loadMore($scope.loadMoreFinish);
+  $scope.rememberPosition = function(id){
     Timeline.setTimelinePosition($ionicScrollDelegate.$getByHandle('timelineScroll').getScrollPosition().top);
-    console.log()
     Timeline.setCacheTimeline(true);
+    $state.go('app.campaignDetail',{'id':id});
     return true;
   }
 })
