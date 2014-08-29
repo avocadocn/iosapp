@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.55yali.iphone;
+package com.donler.android;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

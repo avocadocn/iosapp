@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.55yali.iphone;
+package com.donler.android;
 
 public final class R {
     public static final class attr {

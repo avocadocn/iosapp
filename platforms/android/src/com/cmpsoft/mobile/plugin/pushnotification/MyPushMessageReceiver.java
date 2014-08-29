@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
-import com.ionicframework.starter.parameter;
+import com.donler.android.parameter;
 
 /**
  * Push消息处理receiver。请编写您需要的回调函数， 一般来说： onBind是必须的，用来处理startWork返回值；
