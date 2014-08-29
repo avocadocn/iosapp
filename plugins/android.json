@@ -23,6 +23,14 @@
                         {
                             "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FileChooser\"><param name=\"android-package\" value=\"com.cesidiodibenedetto.filechooser.FileChooser\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -56,7 +64,7 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 1
+                            "count": 2
                         }
                     ],
                     "/manifest/application": [
@@ -83,11 +91,57 @@
                         {
                             "xml": "<activity android:launchMode=\"singleInstance\" android:name=\"de.appplant.cordova.plugin.localnotification.ReceiverActivity\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<activity android:enabled=\"@bool/use_activity\" android:exported=\"true\" android:icon=\"@drawable/ic_chooser\" android:label=\"@string/choose_file\" android:name=\"com.ipaulpro.afilechooser.FileChooserActivity\"><intent-filter><action android:name=\"android.intent.action.GET_CONTENT\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.OPENABLE\" /><data android:mimeType=\"*/*\" /></intent-filter></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<provider android:authorities=\"com.ianhanniballake.localstorage.documents\" android:enabled=\"@bool/use_provider\" android:exported=\"true\" android:grantUriPermissions=\"true\" android:name=\"com.ianhanniballake.localstorage.LocalStorageProvider\" android:permission=\"android.permission.MANAGE_DOCUMENTS\"><intent-filter><action android:name=\"android.content.action.DOCUMENTS_PROVIDER\" /></intent-filter></provider>",
+                            "count": 1
                         }
                     ],
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "res/values/strings.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<string name=\"empty_directory\">Empty Directory</string>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<string name=\"storage_removed\">Storage was removed or unmounted.</string>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<string name=\"choose_file\">Select a file</string>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<string name=\"chooser_title\">File Browser</string>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<string name=\"error_selecting_file\">Error selecting File</string>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<string name=\"internal_storage\">Internal storage</string>",
                             "count": 1
                         }
                     ]
@@ -110,6 +164,12 @@
         },
         "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.ionicframework.starter"
+        },
+        "com.cesidiodibenedetto.filechooser": {
+            "PACKAGE_NAME": "com.donler.android"
+        },
+        "org.apache.cordova.file-transfer": {
+            "PACKAGE_NAME": "com.donler.android"
         }
     },
     "dependent_plugins": {}

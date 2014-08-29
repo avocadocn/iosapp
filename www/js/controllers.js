@@ -160,7 +160,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
   Authorize.authorize();
 
   $scope.base_url = Global.base_url;
@@ -175,6 +175,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   Campaign.getCampaignDetail( $stateParams.id,function(campaign) {
     $scope.campaign = campaign;
     $scope.photo_album_id = $scope.campaign.photo_album;
+    $scope.upload_form_url = $scope.base_url + '/photoAlbum/' + $scope.photo_album_id + '/photo';
+    $scope.upload_form_url = $sce.trustAsResourceUrl($scope.upload_form_url);
     getPhotoList();
     $scope.deletePhoto = PhotoAlbum.deletePhoto($scope.photo_album_id, getPhotoList);
     $scope.commentPhoto = PhotoAlbum.commentPhoto($scope.photo_album_id, getPhotoList);
@@ -244,6 +246,49 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
     $scope.publishing = false;
   };
+
+  var success = function(data) {
+    var filepath = data.filepath;
+
+    var win = function(r) {
+      // console.log("Code = " + r.responseCode);
+      // console.log("Response = " + r.response);
+      // console.log("Sent = " + r.bytesSent);
+      alert('上传成功！');
+      getPhotoList();
+    };
+
+    var fail = function(error) {
+      alert("An error has occurred: Code = " + error.code);
+    };
+
+    var uri = encodeURI($scope.upload_form_url);
+    var options = new FileUploadOptions();
+    options.fileKey = "photos";
+    options.fileName = filepath.substr(filepath.lastIndexOf('/')+1);
+
+    var ft = new FileTransfer();
+    ft.onprogress = function(progressEvent) {
+      if (progressEvent.lengthComputable) {
+          loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+      }
+      else {
+          loadingStatus.increment();
+      }
+    };
+    ft.upload(filepath, uri, win, fail, options);
+  };
+
+  var error = function(msg) {
+    console.log(msg);
+    alert('上传失败，请重试');
+  };
+
+
+  $scope.selectFile = function() {
+    filechooser.open({}, success, error);
+  };
+
   //$scope.viewFormFlag =false;
   // $scope.viewCommentForm =function(){
   //   $scope.viewFormFlag =true;

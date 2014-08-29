@@ -735,7 +735,7 @@ body {
 .campaign_detail .upload_form .upload_input {
   opacity: 0;
   position: absolute;
-  z-index: 3;
+  display: none;
 }
 .campaign_detail .upload_form .upload_button {
   position: absolute;
