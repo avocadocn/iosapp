@@ -160,8 +160,12 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
+<<<<<<< HEAD
 
 .controller('CampaignDetailCtrl', function($scope, $rootScope, $sce, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+=======
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+>>>>>>> 修复打包后不能上传文件的BUG
 
   Authorize.authorize();
 
