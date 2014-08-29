@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.55yali.iphone;
+package com.donler.android;
 
 import android.content.Intent;
 import android.net.Uri;

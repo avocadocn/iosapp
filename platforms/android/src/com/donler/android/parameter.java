@@ -1,4 +1,4 @@
-package com.ionicframework.starter;
+package com.donler.android;
 
 import android.content.Context;
 
