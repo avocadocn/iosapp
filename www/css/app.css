@@ -841,16 +841,18 @@ body {
   width: 145px;
 }
 .campaign_detail .photo_box .inner_1 .cell_1 {
-  width: 145px;
-  height: 145px;
+  width: 143px;
+  height: 143px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_2 {
   width: 300px;
 }
 .campaign_detail .photo_box .inner_2 .cell_1,
 .campaign_detail .photo_box .inner_2 .cell_2 {
-  width: 145px;
-  height: 145px;
+  width: 143px;
+  height: 143px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_2 .cell_2 {
   margin-left: 10px;
@@ -859,14 +861,16 @@ body {
   width: 222.5px;
 }
 .campaign_detail .photo_box .inner_3 .cell_1 {
-  width: 145px;
-  height: 145px;
+  width: 143px;
+  height: 143px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_3 .cell_2,
 .campaign_detail .photo_box .inner_3 .cell_3 {
   margin-left: 10px;
-  width: 67.5px;
-  height: 67.5px;
+  width: 65.5px;
+  height: 65.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_3 .cell_3 {
   margin-top: 10px;
@@ -878,8 +882,9 @@ body {
 .campaign_detail .photo_box .inner_4 .cell_2,
 .campaign_detail .photo_box .inner_4 .cell_3,
 .campaign_detail .photo_box .inner_4 .cell_4 {
-  width: 67.5px;
-  height: 67.5px;
+  width: 65.5px;
+  height: 65.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_4 .cell_2,
 .campaign_detail .photo_box .inner_4 .cell_4 {
@@ -893,16 +898,18 @@ body {
   width: 300px;
 }
 .campaign_detail .photo_box .inner_5 .cell_1 {
-  width: 145px;
-  height: 145px;
+  width: 143px;
+  height: 143px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_5 .cell_2,
 .campaign_detail .photo_box .inner_5 .cell_3,
 .campaign_detail .photo_box .inner_5 .cell_4,
 .campaign_detail .photo_box .inner_5 .cell_5 {
   margin-left: 10px;
-  width: 67.5px;
-  height: 67.5px;
+  width: 65.5px;
+  height: 65.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_5 .cell_4,
 .campaign_detail .photo_box .inner_5 .cell_5 {
@@ -912,28 +919,34 @@ body {
   width: 222.5px;
 }
 .campaign_detail .photo_box .inner_6 .cell_1 {
-  width: 67.5px;
-  height: 67.5px;
+  width: 65.5px;
+  height: 65.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_2 {
-  width: 67.5px;
-  height: 67.5px;
+  width: 65.5px;
+  height: 65.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_3 {
-  width: 67.5px;
-  height: 67.5px;
+  width: 65.5px;
+  height: 65.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_4 {
-  width: 67.5px;
-  height: 67.5px;
+  width: 65.5px;
+  height: 65.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_5 {
-  width: 67.5px;
-  height: 67.5px;
+  width: 65.5px;
+  height: 65.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_6 {
-  width: 67.5px;
-  height: 67.5px;
+  width: 65.5px;
+  height: 65.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_2,
 .campaign_detail .photo_box .inner_6 .cell_3,
@@ -1040,6 +1053,17 @@ body {
   height: 260px;
   width: 300px;
 }
+.upload_modal {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.upload_modal .content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
 .join_box {
   width: 64px;
   height: 48px;
@@ -1127,7 +1151,7 @@ body {
 }
 .comment_edit {
   position: absolute;
-  bottom: 60px;
+  bottom: 50px;
   z-index: 2;
   width: 100%;
 }

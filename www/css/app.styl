@@ -749,12 +749,14 @@ body
 
 
 smallCell()
-  width smallCellSize
-  height smallCellSize
+  width smallCellSize - 2px
+  height smallCellSize - 2px
+  border solid 1px gray
 
 largeCell()
-  width largeCellSize
-  height largeCellSize
+  width largeCellSize - 2px
+  height largeCellSize - 2px
+  border solid 1px gray
 
 .campaign_detail
   background-color white
@@ -926,6 +928,16 @@ largeCell()
   .location
     height 260px
     width 300px
+
+.upload_modal
+  width 100%
+  height 100%
+  background-color white
+  .content
+    position relative
+    width 100%
+    height 100%
+    background-color white
 
 .join_box
   width 64px

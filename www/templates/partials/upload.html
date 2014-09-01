@@ -1,4 +1,17 @@
-<div ng-click="closeUploadModal()">
-  <button class="button" ng-click="getPhoto()">拍照上传</button>
-  <button class="button" ng-click="selectFile()">本地图片</button>
-</div>
+<ion-modal-view class="upload_modal">
+  <ion-header-bar>
+    <h1 class="title">请选择上传方式</h1>
+    <button class="button ion-close button-clear button-dark" ng-click="closeUploadModal()"></button>
+  </ion-header-bar>
+  <ion-content>
+    <div class="content padding">
+      <button class="button button-block button-large button-outline button-positive" ng-click="getPhoto()">
+        <i class="icon ion-camera"></i> 拍照上传
+      </button>
+      <button class="button button-block button-large button-outline button-positive" ng-click="selectFile()">
+        <i class="icon ion-images"></i> 本地图片
+      </button>
+    </div>
+  </ion-content>
+</ion-modal-view>
+

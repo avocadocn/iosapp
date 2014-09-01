@@ -284,6 +284,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     options.fileName = filepath.substr(filepath.lastIndexOf('/')+1);
 
     var ft = new FileTransfer();
+    $scope.upload_modal.hide();
     showLoading();
     ft.upload(filepath, uri, win, fail, options);
   };
@@ -319,6 +320,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       options.chunkedMode = false;
       var uri = encodeURI($scope.upload_form_url);
       var ft = new FileTransfer();
+      $scope.upload_modal.hide();
       showLoading();
       ft.upload(imageURI, uri, win, fail, options);
     }, function(err) {
