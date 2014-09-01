@@ -48,6 +48,7 @@
 		4043E687A0AC42809B8CD318 /* Pushwoosh in Resources */ = {isa = PBXBuildFile; fileRef = 82B659D11CB445F98D8CF336 /* Pushwoosh */; };
 		17735674FFC14088970A139D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CCA6F7F5344D76AC1B8DF4 /* Security.framework */; };
 		F1C0FB602D354DC78441FDA8 /* Storekit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB54D95C68004DF685BE5663 /* Storekit.framework */; };
+		4CF0C499F5F346E9A5E0ADA7 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C7385631CF40BBB66386A4 /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,8 @@
 		09089B8FEB424030A3AFBF7F /* PushNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PushNotificationManager.h"; path = "com.pushwoosh.plugins.pushwoosh/ios/PushNotificationManager.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		40CCA6F7F5344D76AC1B8DF4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		BB54D95C68004DF685BE5663 /* Storekit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Storekit.framework"; path = "System/Library/Frameworks/Storekit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		92C7385631CF40BBB66386A4 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		D27A42EFBAE346989C781014 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +274,8 @@
 				256D552ADC574B8B986F4EAF /* PushNotification.m */,
 				F402CD700D564013BB8744ED /* PushNotification.h */,
 				09089B8FEB424030A3AFBF7F /* PushNotificationManager.h */,
+				92C7385631CF40BBB66386A4 /* CDVInAppBrowser.m */,
+				D27A42EFBAE346989C781014 /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = Donler/Plugins;
@@ -477,6 +482,7 @@
 				A75E6459A7D1430AA842D3B3 /* CDVLocalFilesystem.m in Sources */,
 				42B0A30AB13D497188D35232 /* CDVAssetLibraryFilesystem.m in Sources */,
 				2E041A34C614417EB726C423 /* PushNotification.m in Sources */,
+				4CF0C499F5F346E9A5E0ADA7 /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

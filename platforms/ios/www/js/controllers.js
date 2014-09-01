@@ -283,6 +283,11 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.join(campaign_id,tid);
     $scope.selectModal.hide();
   };
+  $scope.linkMap = function (location) {
+    var link = 'http://mo.amap.com/?q=' + location.coordinates[1] + ',' + location.coordinates[0] + '&name=' + location.name;
+    window.open( link, '_system' , 'location=yes');
+    return false;
+  }
 })
 
 

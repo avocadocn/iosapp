@@ -180,6 +180,13 @@ module.exports = [
         "clobbers": [
             "plugins.pushNotification"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -189,7 +196,8 @@ module.exports.metadata =
     "org.apache.cordova.device": "0.2.9",
     "de.appplant.cordova.plugin.local-notification": "0.8.0dev",
     "org.apache.cordova.file": "1.3.0",
-    "com.pushwoosh.plugins.pushwoosh": "3.2.0"
+    "com.pushwoosh.plugins.pushwoosh": "3.2.0",
+    "org.apache.cordova.inappbrowser": "0.5.2-dev"
 }
 // BOTTOM OF METADATA
 });

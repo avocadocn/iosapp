@@ -42,4 +42,7 @@
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
 </widget>
