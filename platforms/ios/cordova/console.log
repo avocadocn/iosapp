@@ -72008,4 +72008,30 @@ You could find it at the following address https://developer.apple.com/icloud/do
 2014-09-01 18:55:20.354 Donler[46595:5607] Response "200 no error": string: {"status_code":200,"status_message":"OK","response":null}
 2014-09-01 18:55:20.354 Donler[46595:5607] sending appOpen completed
 2014-09-01 18:55:47.584 Donler[46595:70b] Camera.getPicture: source type 1 not available.
+<<<<<<< HEAD
 >>>>>>> 改进文件上传
+=======
+2014-09-01 19:01:06.011 Donler[48756:70b] Initializing application: (null) (null)
+2014-09-01 19:01:06.487 Donler[48756:70b] Multi-tasking -> Device: YES, App: YES
+2014-09-01 19:01:06.503 Donler[48756:70b] Unlimited access to network resources
+2014-09-01 19:01:06.521 Donler[48756:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-01 19:01:06.535 Donler[48756:70b] [CDVTimer][localnotification] 0.050962ms
+2014-09-01 19:01:06.536 Donler[48756:70b] [CDVTimer][localnotification] 0.012994ms
+2014-09-01 19:01:06.537 Donler[48756:70b] [CDVTimer][file] 1.163006ms
+2014-09-01 19:01:06.538 Donler[48756:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-09-01 19:01:06.538 Donler[48756:70b] [CDVTimer][statusbar] 0.366986ms
+2014-09-01 19:01:06.538 Donler[48756:70b] [CDVTimer][TotalPluginStartup] 3.232002ms
+2014-09-01 19:01:06.624 Donler[48756:70b] Will show push notifications alert
+2014-09-01 19:01:06.630 Donler[48756:5707] Sending request: {"request":{"hwid":"FDE576C9-606C-4EC1-9D1C-B0BD357F472D","application":"B13D4-3532F","v":"2.3"}}
+2014-09-01 19:01:06.630 Donler[48756:5707] To urL https://cp.pushwoosh.com/json/1.3/applicationOpen
+2014-09-01 19:01:07.121 Donler[48756:70b] Resetting plugins due to page load.
+2014-09-01 19:01:07.727 Donler[48756:70b] Finished load of: file:///Users/cahavar/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/B6AE558C-AB4D-4BC1-A237-03F03A5828A7/Donler.app/www/index.html#/login
+2014-09-01 19:01:09.878 Donler[48756:5707] Response "200 no error": string: {"status_code":200,"status_message":"OK","response":null}
+2014-09-01 19:01:09.879 Donler[48756:5707] sending appOpen completed
+>>>>>>> 添加loading
