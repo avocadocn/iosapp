@@ -166,7 +166,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 
 });
-<<<<<<< HEAD
+
 
 // function initPushwoosh() {
   
@@ -223,5 +223,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 // }
 // initPushwoosh();
 
-=======
->>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
+

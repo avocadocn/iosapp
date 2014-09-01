@@ -164,13 +164,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-<<<<<<< HEAD
+
 .controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
-=======
-
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $sce, $state, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
-
->>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
 
   Authorize.authorize();
 

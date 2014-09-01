@@ -1191,7 +1191,6 @@ body {
   display: block;
   text-decoration: none;
 }
-<<<<<<< HEAD
 .dl_timeline .timeline_element a .timeline-left {
   float: left;
   width: 10%;
@@ -1205,15 +1204,6 @@ body {
   float: right;
   width: 90%;
   padding-left: 10px;
-=======
-.dl_timeline .timeline_element a .timeline-left .timeline-logo {
-  margin: 0 4px 5px 5px;
-  width: 10%;
-  float: left;
-}
-.dl_timeline .timeline_element a .timeline-right {
-  position: relative;
->>>>>>> 6046287ac57c9321812ef96251214318ff402e9f
 }
 .dl_timeline .timeline_element a .timeline-right .title {
   position: relative;
