@@ -165,7 +165,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicPopup, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize, Camera) {
 
   Authorize.authorize();
 
@@ -206,21 +206,39 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.comment_content = {
     text:''
   };
-  $scope.initUpload = function(){
-    $('#upload_form').ajaxForm(function(ee) {
-      alert('图片上传成功！');
-      getPhotoList();
-      var file = $('#upload_form').find('.upload_input');
-      file.val("");
-      $ionicLoading.hide();
-    });
 
-  }
-  $scope.showLoading = function() {
+  var showLoading = function() {
     $ionicLoading.show({
       template: '上传中...'
     });
   };
+
+  var hideLoading = function(){
+    $ionicLoading.hide();
+  };
+
+  var ionicAlert = function(text) {
+    $ionicPopup.alert({
+      title: '提示',
+      template: text
+    });
+  };
+
+  $scope.autoUpload = function() {
+    var form = $('#upload_form')
+    form.ajaxForm(function(data, status) {
+      $scope.upload_modal.hide();
+      hideLoading();
+      ionicAlert('图片上传成功！');
+      getPhotoList();
+      var file = $scope.upload_form.find('#upload_input');
+      file.val("");
+    });
+    form.submit();
+    showLoading();
+
+  };
+
   $scope.photos = [];
   Comment.getCampaignComments($stateParams.id, function(comments) {
     $scope.comments = comments;
@@ -236,7 +254,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.quit = Campaign.quit(updateCampaign);
   $scope.publishComment =  function(){
     if($scope.comment_content.text==''){
-      return alert('评论不能为空');
+      return ionicAlert('评论不能为空');
     }
     Comment.publishCampaignComment($stateParams.id, $scope.comment_content.text, function(msg) {
       if(!msg){
@@ -256,6 +274,47 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   // $scope.viewCommentForm =function(){
   //   $scope.viewFormFlag =true;
   // }
+
+  var win = function(r) {
+    hideLoading();
+    ionicAlert('上传成功');
+    getPhotoList();
+  };
+
+  var fail = function(error) {
+    ionicAlert('上传失败，请重试。');
+  };
+
+  $ionicModal.fromTemplateUrl('templates/partials/upload.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.upload_modal = modal;
+  });
+
+  $scope.openUploadModal = function() {
+    $scope.upload_modal.show();
+  };
+
+  $scope.closeUploadModal = function() {
+    $scope.upload_modal.hide();
+  };
+
+  $scope.getPhoto = function() {
+    Camera.getPicture().then(function(imageURI) {
+      var options = new FileUploadOptions();
+      options.fileKey = 'photos';
+      options.chunkedMode = false;
+      var uri = encodeURI($scope.upload_form_url);
+      var ft = new FileTransfer();
+      $scope.upload_modal.hide();
+      showLoading();
+      ft.upload(imageURI, uri, win, fail, options);
+    }, function(err) {
+      ionicAlert('上传失败，请重试。');
+    });
+  };
+
   $ionicModal.fromTemplateUrl('templates/partials/photo_detail.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -765,11 +824,11 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 // })
 
 
-.directive('uploadDirective', function() {
-  return function(scope, element, attrs) {
-    scope.initUpload();
-  };
-})
+// .directive('uploadDirective', function() {
+//   return function(scope, element, attrs) {
+//     scope.initUpload();
+//   };
+// })
 
 .directive('noScroll', function() {
   return {
@@ -782,14 +841,13 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }
 })
 
-.directive('validFile',function(){
+.directive('autoUpload',function() {
   return {
     require: 'ngModel',
-    link:function(scope,el,attrs,control){
-      el.bind('change',function(){
-        scope.$apply(function(){
-          scope.showLoading();
-          $('#upload_form').submit();
+    link: function(scope, el, attrs, control) {
+      el.bind('change', function() {
+        scope.$apply(function() {
+          scope.autoUpload();
         });
       });
     }

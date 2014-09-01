@@ -187,6 +187,34 @@ module.exports = [
         "clobbers": [
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraConstants.js",
+        "id": "org.apache.cordova.camera.Camera",
+        "clobbers": [
+            "Camera"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverOptions.js",
+        "id": "org.apache.cordova.camera.CameraPopoverOptions",
+        "clobbers": [
+            "CameraPopoverOptions"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/Camera.js",
+        "id": "org.apache.cordova.camera.camera",
+        "clobbers": [
+            "navigator.camera"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/ios/CameraPopoverHandle.js",
+        "id": "org.apache.cordova.camera.CameraPopoverHandle",
+        "clobbers": [
+            "CameraPopoverHandle"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -197,7 +225,8 @@ module.exports.metadata =
     "de.appplant.cordova.plugin.local-notification": "0.8.0dev",
     "org.apache.cordova.file": "1.3.0",
     "com.pushwoosh.plugins.pushwoosh": "3.2.0",
-    "org.apache.cordova.inappbrowser": "0.5.2-dev"
+    "org.apache.cordova.inappbrowser": "0.5.2-dev",
+    "org.apache.cordova.camera": "0.3.1"
 }
 // BOTTOM OF METADATA
 });

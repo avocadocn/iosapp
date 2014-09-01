@@ -36,6 +36,9 @@
     <feature name="PushNotification">
         <param name="ios-package" value="PushNotification" />
     </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
     <name>Donler</name>
     <description>
         Donler 企业员工活动互联网工具

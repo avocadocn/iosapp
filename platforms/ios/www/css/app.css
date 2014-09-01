@@ -146,13 +146,33 @@ body {
 .img_user {
   border-radius: 100%;
 }
+.loading_box {
+  position: relative;
+}
+.loading_content {
+  position: relative;
+  z-index: 1;
+}
 .loading_div {
-  background: url("/img/loading.gif") center center no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
-  background-color: #fff;
-  z-index: 1000;
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 0;
+}
+.loading_div:after {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  content: " ";
+}
+.loading_div .loading {
+  display: inline-block;
+  vertical-align: middle;
 }
 .more_data_text {
   height: 20px;
@@ -748,20 +768,6 @@ body {
   font-size: 20px;
   line-height: 20px;
 }
-.campaign_detail .upload_form {
-  width: 20px;
-  height: 20px;
-  position: relative;
-}
-.campaign_detail .upload_form .upload_input {
-  opacity: 0;
-  position: absolute;
-  z-index: 3;
-}
-.campaign_detail .upload_form .upload_button {
-  position: absolute;
-  z-index: 0;
-}
 .campaign_detail .photo_list {
   margin-top: 10px;
 }
@@ -820,6 +826,7 @@ body {
 .campaign_detail .photo_box .inner_1 .cell_1 {
   width: 145px;
   height: 145px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_2 {
   width: 300px;
@@ -828,6 +835,7 @@ body {
 .campaign_detail .photo_box .inner_2 .cell_2 {
   width: 145px;
   height: 145px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_2 .cell_2 {
   margin-left: 10px;
@@ -838,12 +846,14 @@ body {
 .campaign_detail .photo_box .inner_3 .cell_1 {
   width: 145px;
   height: 145px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_3 .cell_2,
 .campaign_detail .photo_box .inner_3 .cell_3 {
   margin-left: 10px;
   width: 67.5px;
   height: 67.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_3 .cell_3 {
   margin-top: 10px;
@@ -857,6 +867,7 @@ body {
 .campaign_detail .photo_box .inner_4 .cell_4 {
   width: 67.5px;
   height: 67.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_4 .cell_2,
 .campaign_detail .photo_box .inner_4 .cell_4 {
@@ -872,6 +883,7 @@ body {
 .campaign_detail .photo_box .inner_5 .cell_1 {
   width: 145px;
   height: 145px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_5 .cell_2,
 .campaign_detail .photo_box .inner_5 .cell_3,
@@ -880,6 +892,7 @@ body {
   margin-left: 10px;
   width: 67.5px;
   height: 67.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_5 .cell_4,
 .campaign_detail .photo_box .inner_5 .cell_5 {
@@ -891,26 +904,32 @@ body {
 .campaign_detail .photo_box .inner_6 .cell_1 {
   width: 67.5px;
   height: 67.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_2 {
   width: 67.5px;
   height: 67.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_3 {
   width: 67.5px;
   height: 67.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_4 {
   width: 67.5px;
   height: 67.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_5 {
   width: 67.5px;
   height: 67.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_6 {
   width: 67.5px;
   height: 67.5px;
+  border: solid 1px #808080;
 }
 .campaign_detail .photo_box .inner_6 .cell_2,
 .campaign_detail .photo_box .inner_6 .cell_3,
@@ -1017,6 +1036,33 @@ body {
   height: 260px;
   width: 300px;
 }
+.upload_modal {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.upload_modal .content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+.upload_modal .content .upload_form {
+  width: 100%;
+  height: 59px;
+  position: relative;
+}
+.upload_modal .content .upload_form .upload_input {
+  position: absolute;
+  width: 100%;
+  height: 59px;
+  opacity: 0;
+  z-index: 3;
+}
+.upload_modal .content .upload_form .upload_button {
+  position: absolute;
+  z-index: 0;
+}
 .join_box {
   width: 64px;
   height: 48px;
@@ -1104,7 +1150,7 @@ body {
 }
 .comment_edit {
   position: absolute;
-  bottom: 60px;
+  bottom: 50px;
   z-index: 2;
   width: 100%;
 }

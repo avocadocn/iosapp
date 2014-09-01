@@ -189,13 +189,33 @@ body
   background-color themeColor
 .img_user
   border-radius 100%
+
+.loading_box
+  position relative
+
+.loading_content
+  position relative
+  z-index 1
+
 .loading_div
-  background url("/img/loading.gif") center center no-repeat
+  position absolute
+  top 0
+  left 0
   width 100%
   height 100%
-  position absolute
-  background-color white
-  z-index 1000
+  display block
+  text-align center
+  white-space nowrap
+  z-index 0
+  &:after
+    display inline-block
+    height 100%
+    vertical-align middle
+    content " "
+  .loading
+    display inline-block
+    vertical-align middle
+
 .more_data_text
   //background-color #ededed
   height 20px
@@ -731,10 +751,12 @@ body
 smallCell()
   width smallCellSize
   height smallCellSize
+  border solid 1px gray
 
 largeCell()
   width largeCellSize
   height largeCellSize
+  border solid 1px gray
 
 .campaign_detail
   background-color white
@@ -757,17 +779,17 @@ largeCell()
         font-size 20px
         line-height 20px
 
-  .upload_form
-    width 20px
-    height 20px
-    position relative
-    .upload_input
-      opacity 0
-      position absolute
-      z-index 3
-    .upload_button
-      position absolute
-      z-index 0
+  // .upload_form
+  //   width 20px
+  //   height 20px
+  //   position relative
+  //   .upload_input
+  //     opacity 0
+  //     position absolute
+  //     z-index 3
+  //   .upload_button
+  //     position absolute
+  //     z-index 0
   .photo_list
     margin-top 10px
   .photo_slide_box
@@ -904,6 +926,30 @@ largeCell()
   .location
     height 260px
     width 300px
+
+.upload_modal
+  width 100%
+  height 100%
+  background-color white
+  .content
+    position relative
+    width 100%
+    height 100%
+    background-color white
+
+    .upload_form
+      width 100%
+      height 59px
+      position relative
+      .upload_input
+        position absolute
+        width 100%
+        height 59px
+        opacity 0
+        z-index 3
+      .upload_button
+        position absolute
+        z-index 0
 
 .join_box
   width 64px
