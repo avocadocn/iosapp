@@ -282,6 +282,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
   var fail = function(error) {
+    hideLoading();
     ionicAlert('上传失败，请重试。');
   };
 
@@ -311,7 +312,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       showLoading();
       ft.upload(imageURI, uri, win, fail, options);
     }, function(err) {
-      ionicAlert('上传失败，请重试。');
     });
   };
 
