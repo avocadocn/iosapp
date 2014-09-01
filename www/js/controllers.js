@@ -164,7 +164,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, Campaign, PhotoAlbum, Comment, Global, Authorize, Camera) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, $ionicPopup, Campaign, PhotoAlbum, Comment, Global, Authorize, Camera) {
 
   Authorize.authorize();
 
@@ -205,21 +205,34 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.comment_content = {
     text:''
   };
-  $scope.initUpload = function(){
-    $('#upload_form').ajaxForm(function(ee) {
-      alert('图片上传成功！');
-      getPhotoList();
-      var file = $('#upload_form').find('.upload_input');
-      file.val("");
-      $ionicLoading.hide();
-    });
+  // unuse in android
+  // $scope.initUpload = function(){
+  //   $('#upload_form').ajaxForm(function(ee) {
+  //     alert('图片上传成功！');
+  //     getPhotoList();
+  //     var file = $('#upload_form').find('.upload_input');
+  //     file.val("");
+  //     $ionicLoading.hide();
+  //   });
 
-  }
-  $scope.showLoading = function() {
+  // }
+  var showLoading = function() {
     $ionicLoading.show({
       template: '上传中...'
     });
   };
+
+  var hideLoading = function(){
+    $ionicLoading.hide();
+  };
+
+  var ionicAlert = function(text) {
+    $ionicPopup.alert({
+      title: '提示',
+      template: text
+    });
+  };
+
   $scope.photos = [];
   Comment.getCampaignComments($stateParams.id, function(comments) {
     $scope.comments = comments;
@@ -233,9 +246,9 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   $scope.join = Campaign.join(updateCampaign);
   $scope.quit = Campaign.quit(updateCampaign);
-  $scope.publishComment =  function(){
-    if($scope.comment_content.text==''){
-      return alert('评论不能为空');
+  $scope.publishComment = function() {
+    if($scope.comment_content.text=='') {
+      return ionicAlert('评论不能为空');
     }
     Comment.publishCampaignComment($stateParams.id, $scope.comment_content.text, function(msg) {
       if(!msg){
@@ -253,12 +266,13 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
   var win = function(r) {
-    alert('上传成功！');
+    hideLoading();
+    ionicAlert('上传成功');
     getPhotoList();
   };
 
   var fail = function(error) {
-    alert('上传失败，请重试');
+    ionicAlert('上传失败，请重试。');
   };
 
   var success = function(data) {
@@ -270,11 +284,12 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     options.fileName = filepath.substr(filepath.lastIndexOf('/')+1);
 
     var ft = new FileTransfer();
+    showLoading();
     ft.upload(filepath, uri, win, fail, options);
   };
 
   var error = function(msg) {
-    alert('获取照片失败，请重试');
+    ionicAlert('获取照片失败');
   };
 
 
@@ -298,24 +313,16 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
   $scope.getPhoto = function() {
-    // var camera_options =   {
-    //   quality: 50,
-    //   destinationType: Camera.DestinationType.DATA_URL,
-    //   sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-    //   encodingType: 0     // 0=JPG 1=PNG
-    // };
     Camera.getPicture().then(function(imageURI) {
-      var picData = 'data:image/jpeg;base64,' + imageURI;
       var options = new FileUploadOptions();
       options.fileKey = 'photos';
       options.chunkedMode = false;
-      var params = {};
       var uri = encodeURI($scope.upload_form_url);
-
       var ft = new FileTransfer();
-      ft.upload(picData.src, uri, win, fail, options);
+      showLoading();
+      ft.upload(imageURI, uri, win, fail, options);
     }, function(err) {
-      alert('上传失败，请重试');
+      ionicAlert('上传失败，请重试。');
     });
   };
 

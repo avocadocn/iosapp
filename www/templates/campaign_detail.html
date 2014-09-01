@@ -54,8 +54,11 @@
           <ion-slide-box on-slide-changed="slideChange($index)" class="photo_slide_box clearfix">
             <ion-slide ng-repeat="photo_page in photos_view" class="photo_box" length="photos_view.length" hide-pager>
               <div class="inner_{{photo_page.length}} clearfix">
-                <div ng-repeat="photo in photo_page" class="cell_{{$index+1}}" ng-click="openModal(photo.index)">
-                  <img class="photo" ng-src="{{ base_url + photo.uri +'/145/145'}}" thumbnail-photo/>
+                <div ng-repeat="photo in photo_page" class="cell_{{$index+1}} loading_box" ng-click="openModal(photo.index)">
+                  <img class="photo loading_content" ng-src="{{ base_url + photo.uri +'/145/145'}}" thumbnail-photo/>
+                  <div class="loading_div">
+                    <i class="ion-loading-d"></i>
+                  </div>
                 </div>
               </div>
             </ion-slide>

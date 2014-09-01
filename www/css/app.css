@@ -146,13 +146,33 @@ body {
 .img_user {
   border-radius: 100%;
 }
+.loading_box {
+  position: relative;
+}
+.loading_content {
+  position: relative;
+  z-index: 1;
+}
 .loading_div {
-  background: url("/img/loading.gif") center center no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
-  background-color: #fff;
-  z-index: 1000;
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 0;
+}
+.loading_div:before {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  content: " ";
+}
+.loading_div .loading {
+  display: inline-block;
+  vertical-align: middle;
 }
 .more_data_text {
   height: 20px;
@@ -771,6 +791,9 @@ body {
 }
 .campaign_detail .photo_slide_box .slider-pager {
   bottom: -20px;
+}
+.campaign_detail .photo_box {
+  background-color: #fff;
 }
 .campaign_detail .photo_box .inner_1 {
   margin-left: auto;
