@@ -50,15 +50,15 @@ angular.module('starter.services', [])
     return function(username, password) {
 
       function initPushwoosh(callback) {
-        var pushNotification = window.plugins.pushNotification;
-        console.log('Received Event: ');
-        console.warn(pushNotification);
         if(!window.plugins){
           callback(null,null,'NO_WINDOW_PLUGINS');
         }else{
           if(!window.plugins.pushNotification){
             callback(null,null,'NO_PUSHNOTIFICATION');
           }else{
+            var pushNotification = window.plugins.pushNotification;
+            console.log('Received Event: ');
+            console.warn(pushNotification);
             //set push notification callback before we initialize the plugin
             document.addEventListener('push-notification', function(event) {
                           //get the notification payload
@@ -158,9 +158,7 @@ angular.module('starter.services', [])
         window.resolveLocalFileSystemURL(path, onSuccess,onError);
       }
       else{
-        //console.log(ionic.Platform.device().platform);
         initPushwoosh(loginPost);
-        //loginPost(null,null,'NULL',null);
       }
     };
   };

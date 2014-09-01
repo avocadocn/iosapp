@@ -167,6 +167,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 });
 
+
 // function initPushwoosh() {
   
 //   var pushNotification = window.plugins.pushNotification;
@@ -221,4 +222,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 //                                            });
 // }
 // initPushwoosh();
+
 

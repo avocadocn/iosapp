@@ -134,9 +134,11 @@
           <!-- <a href="http://maps.apple.com/?q=cupertino">my location</a>--> 
           <!-- android -->
           <!-- <a href="geo:{{campaign.location.coordinates[1]}},{{campaign.location.coordinates[0]}}">my location</a> -->
-          <a ng-if="campaign.location.coordinates.length==2" href="geo:{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}">
+          <a ng-if="campaign.location.coordinates.length==2" href="#" ng-click="linkMap(campaign.location)">
+
+<!--           <a ng-if="campaign.location.coordinates.length==2" href="http://maps.apple.com/?sspn={{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}" target="_blank"> -->
 <!--             <img ng-if="campaign.location.coordinates.length==2" class="location" ng-src="http://api.map.baidu.com/staticimage?width=580&height=520&center={{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&zoom=15&markers={{campaign.location.name}}|{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&markerStyles=m,A,0xff0000&labels={{campaign.location.name}}|{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&labelStyles={{campaign.location.name}},1,14,0xffffff,0x000fff,1"/> -->
-          <img ng-if="campaign.location.coordinates.length==2" class="location" ng-src="http://restapi.amap.com/v3/staticmap?location={{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&zoom=15&size=600*520&markers=mid,,A:{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&labels={{campaign.location.name | nospace}},2,0,12,0xffffff,0x3498db:{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&key=077eff0a89079f77e2893d6735c2f044"/>
+            <img ng-if="campaign.location.coordinates.length==2" class="location" ng-src="http://restapi.amap.com/v3/staticmap?location={{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&zoom=15&size=600*520&markers=mid,,A:{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&labels={{campaign.location.name | nospace}},2,0,12,0xffffff,0x3498db:{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&key=077eff0a89079f77e2893d6735c2f044"/>
           </a>
         </div>
       </ion-content>
