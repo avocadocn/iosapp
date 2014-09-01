@@ -66514,3 +66514,778 @@ Stop monitoring region: com.pushwoosh.userPositionRegion <+37.785834, -122.40641
 2014-09-01 13:53:52.548 Donler[16530:70b] THREAD WARNING: ['InAppBrowser'] took '186.095947' ms. Plugin should use a background thread.
 2014-09-01 14:03:20.875 Donler[16530:70b] THREAD WARNING: ['InAppBrowser'] took '50.912842' ms. Plugin should use a background thread.
 >>>>>>> 修改timeline和地图的链接
+2014-09-01 15:39:18.183 Donler[32000:70b] Initializing application: (null) (null)
+2014-09-01 15:39:20.825 Donler[32000:70b] Multi-tasking -> Device: YES, App: YES
+2014-09-01 15:39:20.937 Donler[32000:70b] Unlimited access to network resources
+2014-09-01 15:39:20.942 Donler[32000:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-01 15:39:24.296 Donler[32000:70b] [CDVTimer][localnotification] 0.100017ms
+2014-09-01 15:39:24.297 Donler[32000:70b] [CDVTimer][localnotification] 0.019968ms
+2014-09-01 15:39:24.299 Donler[32000:70b] [CDVTimer][file] 1.311004ms
+2014-09-01 15:39:24.299 Donler[32000:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-09-01 15:39:24.300 Donler[32000:70b] [CDVTimer][statusbar] 0.490010ms
+2014-09-01 15:39:24.300 Donler[32000:70b] [CDVTimer][TotalPluginStartup] 4.076958ms
+2014-09-01 15:39:24.752 Donler[32000:70b] Will show push notifications alert
+2014-09-01 15:39:24.766 Donler[32000:5807] Sending request: {"request":{"hwid":"3D63AA0B-5524-4967-BB2F-C3C7CB82A70A","application":"B13D4-3532F","v":"2.3"}}
+2014-09-01 15:39:24.768 Donler[32000:5807] To urL https://cp.pushwoosh.com/json/1.3/applicationOpen
+2014-09-01 15:39:24.952 Donler[32000:70b] Resetting plugins due to page load.
+2014-09-01 15:39:27.232 Donler[32000:5807] Response "200 no error": string: {"status_code":200,"status_message":"OK","response":null}
+2014-09-01 15:39:27.233 Donler[32000:5807] sending appOpen completed
+2014-09-01 15:39:27.330 Donler[32000:70b] Finished load of: file:///Users/yali-04/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/0833AF6B-AAEC-46F5-B783-8C47056B7267/Donler.app/www/index.html#/login
+2014-09-01 15:39:49.755 Donler[32000:70b] Received Event: 
+2014-09-01 15:39:49.771 Donler[32000:70b] THREAD WARNING: ['Console'] took '16.318848' ms. Plugin should use a background thread.
+2014-09-01 15:39:49.772 Donler[32000:70b] WARN: {}
+2014-09-01 15:39:49.822 Donler[32000:70b] THREAD WARNING: ['PushNotification'] took '49.834961' ms. Plugin should use a background thread.
+2014-09-01 15:39:49.843 Donler[32000:70b] THREAD WARNING: ['PushNotification'] took '21.020996' ms. Plugin should use a background thread.
+2014-09-01 15:39:49.866 Donler[32000:70b] THREAD WARNING: ['PushNotification'] took '22.383057' ms. Plugin should use a background thread.
+2014-09-01 15:39:49.868 Donler[32000:70b] Error registering for push notifications. Error: Error Domain=NSCocoaErrorDomain Code=3010 "模拟器不支持远程通知" UserInfo=0xa6a6a90 {NSLocalizedDescription=模拟器不支持远程通知}
+2014-09-01 15:39:49.870 Donler[32000:3e07] Sending request: {"request":{"hwid":"3D63AA0B-5524-4967-BB2F-C3C7CB82A70A","application":"B13D4-3532F","v":"2.3"}}
+2014-09-01 15:39:49.870 Donler[32000:3e07] To urL https://cp.pushwoosh.com/json/1.3/getTags
+2014-09-01 15:39:49.874 Donler[32000:70b] WARN: push token device: null
+2014-09-01 15:39:49.874 Donler[32000:70b] WARN: Pushwoosh HWID: 3D63AA0B-5524-4967-BB2F-C3C7CB82A70A
+2014-09-01 15:39:49.893 Donler[32000:70b] WARN: failed to register : {"error":"Error Domain=NSCocoaErrorDomain Code=3010 \"模拟器不支持远程通知\" UserInfo=0xa6a6a90 {NSLocalizedDescription=模拟器不支持远程通知}"}
+2014-09-01 15:39:49.894 Donler[32000:70b] Error in error callback: PushNotification1828653010 = TypeError: 'undefined' is not an object (evaluating 'navigator.notification.alert')
+2014-09-01 15:39:49.894 Donler[32000:70b] WARN: Location Tracking Started
+2014-09-01 15:39:50.211 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:50.292 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:50.295 Donler[32000:811b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:50.309 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:50.372 Donler[32000:3e07] Response "200 no error": string: {"status_code":210,"status_message":"Device not found","response":null}
+2014-09-01 15:39:50.372 Donler[32000:3e07] loadTags failed
+2014-09-01 15:39:50.380 Donler[32000:811b] PWLocationTracker:
+started task: 3
+ 
+2014-09-01 15:39:50.403 Donler[32000:70b] PWLocationTracker:
+started task: 4
+ 
+2014-09-01 15:39:50.568 Donler[32000:70b] WARN: get tags error: {"error":"Error Domain=com.pushwoosh Code=200 \"The operation couldn’t be completed. (com.pushwoosh error 200.)\" UserInfo=0xa98c190 {response=null, status_code=210, status_message=Device not found}"}
+2014-09-01 15:39:50.597 Donler[32000:70b] THREAD WARNING: ['Console'] took '28.746826' ms. Plugin should use a background thread.
+2014-09-01 15:39:50.602 Donler[32000:811b] Sending location: <+37.78583400,-122.40641700> +/- 5.00m (speed -1.00 mps / course -1.00) @ 9/1/14, 3:39:50 PM China Standard Time
+2014-09-01 15:39:50.640 Donler[32000:811b] Sending request: {"request":{"lng":-122.406417,"hwid":"3D63AA0B-5524-4967-BB2F-C3C7CB82A70A","application":"B13D4-3532F","lat":37.785834,"v":"2.3"}}
+2014-09-01 15:39:50.641 Donler[32000:811b] To urL https://cp.pushwoosh.com/json/1.3/getNearestZone
+2014-09-01 15:39:50.670 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:50.699 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:50.717 Donler[32000:70b] PWLocationTracker:
+stopping task: 4
+ 
+2014-09-01 15:39:51.131 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:51.157 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:51.175 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:51.186 Donler[32000:811b] Response "200 no error": string: {"status_code":210,"status_message":"Device not found","response":null}
+2014-09-01 15:39:51.186 Donler[32000:811b] getNearestZone failed
+2014-09-01 15:39:51.186 Donler[32000:811b] Location sent
+2014-09-01 15:39:51.186 Donler[32000:811b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:51.204 Donler[32000:811b] PWLocationTracker:
+stopping task: 3
+ 
+2014-09-01 15:39:51.219 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:51.237 Donler[32000:70b] PWLocationTracker:
+started task: 5
+ 
+2014-09-01 15:39:51.462 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:51.479 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:51.519 Donler[32000:70b] PWLocationTracker:
+stopping task: 5
+ 
+2014-09-01 15:39:52.224 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:52.449 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:52.468 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:52.485 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:52.527 Donler[32000:70b] PWLocationTracker:
+started task: 6
+ 
+2014-09-01 15:39:53.229 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:53.257 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:53.289 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:53.316 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:53.337 Donler[32000:70b] PWLocationTracker:
+started task: 7
+ 
+2014-09-01 15:39:53.354 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:53.385 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:53.410 Donler[32000:70b] PWLocationTracker:
+stopping task: 7
+ 
+2014-09-01 15:39:53.570 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:54.134 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:54.166 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:54.198 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:54.238 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:54.271 Donler[32000:70b] PWLocationTracker:
+started task: 8
+ 
+2014-09-01 15:39:54.553 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:54.570 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:54.587 Donler[32000:70b] PWLocationTracker:
+stopping task: 8
+ 
+2014-09-01 15:39:55.135 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:55.152 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:55.173 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:55.191 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:55.210 Donler[32000:70b] PWLocationTracker:
+started task: 9
+ 
+2014-09-01 15:39:55.376 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:55.392 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:55.426 Donler[32000:70b] PWLocationTracker:
+stopping task: 9
+ 
+2014-09-01 15:39:56.136 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:56.170 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:56.186 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:56.274 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:56.363 Donler[32000:70b] PWLocationTracker:
+started task: 10
+ 
+2014-09-01 15:39:56.643 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:56.660 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:56.677 Donler[32000:70b] PWLocationTracker:
+stopping task: 10
+ 
+2014-09-01 15:39:57.138 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:57.154 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:57.171 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:57.188 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:57.204 Donler[32000:70b] PWLocationTracker:
+started task: 11
+ 
+2014-09-01 15:39:57.497 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:57.531 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:57.548 Donler[32000:70b] PWLocationTracker:
+stopping task: 11
+ 
+2014-09-01 15:39:57.836 Donler[32000:70b] Received Event: 
+2014-09-01 15:39:57.836 Donler[32000:70b] WARN: {}
+2014-09-01 15:39:57.864 Donler[32000:70b] THREAD WARNING: ['PushNotification'] took '26.986084' ms. Plugin should use a background thread.
+2014-09-01 15:39:58.065 Donler[32000:70b] THREAD WARNING: ['PushNotification'] took '200.670166' ms. Plugin should use a background thread.
+2014-09-01 15:39:58.066 Donler[32000:3e07] Sending request: {"request":{"hwid":"3D63AA0B-5524-4967-BB2F-C3C7CB82A70A","application":"B13D4-3532F","v":"2.3"}}
+2014-09-01 15:39:58.067 Donler[32000:3e07] To urL https://cp.pushwoosh.com/json/1.3/getTags
+2014-09-01 15:39:58.070 Donler[32000:70b] PWLocationTracker:
+Stop monitoring region: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:58.150 Donler[32000:70b] THREAD WARNING: ['PushNotification'] took '81.314209' ms. Plugin should use a background thread.
+2014-09-01 15:39:58.151 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:58.175 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:58.197 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:58.214 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:58.231 Donler[32000:70b] PWLocationTracker:
+started task: 12
+ 
+2014-09-01 15:39:58.248 Donler[32000:70b] Error registering for push notifications. Error: Error Domain=NSCocoaErrorDomain Code=3010 "模拟器不支持远程通知" UserInfo=0xa9a91a0 {NSLocalizedDescription=模拟器不支持远程通知}
+2014-09-01 15:39:58.249 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:58.272 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:58.317 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:58.379 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:58.396 Donler[32000:70b] PWLocationTracker:
+started task: 13
+ 
+2014-09-01 15:39:58.431 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:58.447 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:58.478 Donler[32000:70b] PWLocationTracker:
+stopping task: 13
+ 
+2014-09-01 15:39:58.495 Donler[32000:70b] WARN: push token device: null
+2014-09-01 15:39:58.496 Donler[32000:70b] WARN: Pushwoosh HWID: 3D63AA0B-5524-4967-BB2F-C3C7CB82A70A
+2014-09-01 15:39:58.506 Donler[32000:70b] WARN: Location Tracking Started
+2014-09-01 15:39:58.507 Donler[32000:70b] WARN: failed to register : {"error":"Error Domain=NSCocoaErrorDomain Code=3010 \"模拟器不支持远程通知\" UserInfo=0xa9a91a0 {NSLocalizedDescription=模拟器不支持远程通知}"}
+2014-09-01 15:39:58.507 Donler[32000:70b] Error in error callback: PushNotification1828653015 = TypeError: 'undefined' is not an object (evaluating 'navigator.notification.alert')
+2014-09-01 15:39:58.538 Donler[32000:3e07] Response "200 no error": string: {"status_code":210,"status_message":"Device not found","response":null}
+2014-09-01 15:39:58.538 Donler[32000:3e07] loadTags failed
+2014-09-01 15:39:58.540 Donler[32000:70b] WARN: get tags error: {"error":"Error Domain=com.pushwoosh Code=200 \"The operation couldn’t be completed. (com.pushwoosh error 200.)\" UserInfo=0xa98ccf0 {response=null, status_code=210, status_message=Device not found}"}
+2014-09-01 15:39:58.622 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:59.137 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:39PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:39:59.186 Donler[32000:70b] PWLocationTracker:
+Don't want to send new location as timestamp is less than update time
+ 
+2014-09-01 15:39:59.282 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:39:59.311 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:39:59.435 Donler[32000:70b] PWLocationTracker:
+started task: 14
+ 
+2014-09-01 15:39:59.634 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:39:59.651 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:39:59.681 Donler[32000:70b] PWLocationTracker:
+stopping task: 14
+ 
+2014-09-01 15:40:00.138 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:00.171 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:00.203 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:00.204 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:00.221 Donler[32000:70b] PWLocationTracker:
+started task: 16
+ 
+2014-09-01 15:40:00.499 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:00.516 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:00.537 Donler[32000:70b] PWLocationTracker:
+stopping task: 16
+ 
+2014-09-01 15:40:01.138 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:01.155 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:01.176 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:01.208 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:01.241 Donler[32000:70b] PWLocationTracker:
+started task: 17
+ 
+2014-09-01 15:40:01.474 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:01.491 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:01.509 Donler[32000:70b] PWLocationTracker:
+stopping task: 17
+ 
+2014-09-01 15:40:02.139 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:02.179 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:02.196 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:02.229 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:02.279 Donler[32000:70b] PWLocationTracker:
+started task: 18
+ 
+2014-09-01 15:40:02.507 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:02.524 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:02.541 Donler[32000:70b] PWLocationTracker:
+stopping task: 18
+ 
+2014-09-01 15:40:03.139 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:03.164 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:03.194 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:03.210 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:03.279 Donler[32000:70b] PWLocationTracker:
+started task: 19
+ 
+2014-09-01 15:40:03.578 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:03.595 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:03.619 Donler[32000:70b] PWLocationTracker:
+stopping task: 19
+ 
+2014-09-01 15:40:04.140 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:04.156 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:04.276 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:04.293 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:04.311 Donler[32000:70b] PWLocationTracker:
+started task: 20
+ 
+2014-09-01 15:40:04.571 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:04.610 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:04.633 Donler[32000:70b] PWLocationTracker:
+stopping task: 20
+ 
+2014-09-01 15:40:05.141 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:05.169 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:05.301 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:05.376 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:05.496 Donler[32000:70b] PWLocationTracker:
+started task: 21
+ 
+2014-09-01 15:40:06.214 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:06.230 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:06.487 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:06.552 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:06.554 Donler[32000:70b] PWLocationTracker:
+started task: 22
+ 
+2014-09-01 15:40:06.572 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:06.617 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:06.668 Donler[32000:70b] PWLocationTracker:
+stopping task: 22
+ 
+2014-09-01 15:40:07.052 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:07.142 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:07.370 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:07.540 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:07.571 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:07.606 Donler[32000:70b] PWLocationTracker:
+started task: 23
+ 
+2014-09-01 15:40:08.246 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:08.313 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:08.314 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:08.419 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:08.546 Donler[32000:70b] PWLocationTracker:
+started task: 24
+ 
+2014-09-01 15:40:08.564 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:08.585 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:08.618 Donler[32000:70b] PWLocationTracker:
+stopping task: 24
+ 
+2014-09-01 15:40:09.082 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:09.145 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:09.163 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:09.180 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:09.223 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:09.224 Donler[32000:70b] PWLocationTracker:
+started task: 25
+ 
+2014-09-01 15:40:09.423 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:09.440 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:09.457 Donler[32000:70b] PWLocationTracker:
+stopping task: 25
+ 
+2014-09-01 15:40:10.145 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:10.162 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:10.180 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:10.196 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:10.213 Donler[32000:70b] PWLocationTracker:
+started task: 26
+ 
+2014-09-01 15:40:12.214 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:12.269 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:12.413 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:12.544 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:12.546 Donler[32000:70b] PWLocationTracker:
+started task: 27
+ 
+2014-09-01 15:40:12.943 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:13.123 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:13.673 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:13.690 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:13.815 Donler[32000:70b] PWLocationTracker:
+started task: 28
+ 
+2014-09-01 15:40:13.938 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:13.985 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:14.044 Donler[32000:70b] PWLocationTracker:
+stopping task: 28
+ 
+2014-09-01 15:40:19.521 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:19.848 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:20.180 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:20.606 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:20.948 Donler[32000:70b] PWLocationTracker:
+started task: 29
+ 
+2014-09-01 15:40:21.036 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:21.178 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:21.195 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:21.484 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:21.501 Donler[32000:70b] PWLocationTracker:
+started task: 30
+ 
+2014-09-01 15:40:21.541 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:21.722 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:21.742 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:21.853 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:21.886 Donler[32000:70b] PWLocationTracker:
+started task: 31
+ 
+2014-09-01 15:40:21.904 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:21.964 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:21.979 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:22.061 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:22.125 Donler[32000:70b] PWLocationTracker:
+started task: 32
+ 
+2014-09-01 15:40:22.128 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:22.145 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:22.162 Donler[32000:70b] PWLocationTracker:
+stopping task: 32
+ 
+2014-09-01 15:40:22.222 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:22.322 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:22.445 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:22.473 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:22.555 Donler[32000:70b] PWLocationTracker:
+started task: 33
+ 
+2014-09-01 15:40:22.654 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:22.699 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:22.717 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:22.749 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:22.765 Donler[32000:70b] PWLocationTracker:
+started task: 34
+ 
+2014-09-01 15:40:22.919 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:22.936 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:22.952 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:22.982 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:22.999 Donler[32000:70b] PWLocationTracker:
+started task: 35
+ 
+2014-09-01 15:40:23.055 Donler[32000:70b] PWLocationTracker:
+Region monitoring did start: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:40:23.189 Donler[32000:70b] PWLocationTracker:
+--------------------stopBackgroundTask--------------------
+ 
+2014-09-01 15:40:23.323 Donler[32000:70b] PWLocationTracker:
+stopping task: 35
+ 
+2014-09-01 15:40:23.456 Donler[32000:70b] PWLocationTracker:
+Attempt to send location: 03:40PM <+37.785834, -122.406417> (+/-5m) -3.6km/h
+ 
+2014-09-01 15:40:23.581 Donler[32000:70b] PWLocationTracker:
+Don't want to new send location as it is too close
+ 
+2014-09-01 15:40:23.599 Donler[32000:70b] PWLocationTracker:
+setting up new regions
+ 
+2014-09-01 15:40:23.662 Donler[32000:70b] PWLocationTracker:
+--------------------startBackgroundTask--------------------
+ 
+2014-09-01 15:40:23.680 Donler[32000:70b] PWLocationTracker:
+started task: 36
+ 
+2014-09-01 15:44:58.456 Donler[32560:70b] Initializing application: (null) (null)
+2014-09-01 15:45:10.503 Donler[32560:70b] Multi-tasking -> Device: YES, App: YES
+2014-09-01 15:45:13.451 Donler[32560:70b] Unlimited access to network resources
+2014-09-01 15:45:14.920 Donler[32560:70b] 
+
+Started backup to iCloud! Please be careful.
+Your application might rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines"
+You could find it at the following address https://developer.apple.com/icloud/documentation/data-storage/ .
+
+2014-09-01 15:45:37.330 Donler[32560:70b] [CDVTimer][localnotification] 138.485968ms
+2014-09-01 15:45:38.054 Donler[32560:70b] [CDVTimer][localnotification] 0.013053ms
+2014-09-01 15:45:39.088 Donler[32560:70b] [CDVTimer][file] 1033.793986ms
+2014-09-01 15:45:39.088 Donler[32560:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-09-01 15:45:39.089 Donler[32560:70b] [CDVTimer][statusbar] 0.503004ms
+2014-09-01 15:45:39.089 Donler[32560:70b] [CDVTimer][TotalPluginStartup] 1897.594988ms
+2014-09-01 15:45:52.668 Donler[32560:70b] Will show push notifications alert
+2014-09-01 15:45:54.641 Donler[32560:70b] PWLocationTracker:
+Stop monitoring region: com.pushwoosh.userPositionRegion <+37.785834, -122.406417> radius 100m
+ 
+2014-09-01 15:45:54.813 Donler[32560:5603] Sending request: {"request":{"hwid":"3D63AA0B-5524-4967-BB2F-C3C7CB82A70A","application":"B13D4-3532F","v":"2.3"}}
+2014-09-01 15:45:54.814 Donler[32560:5603] To urL https://cp.pushwoosh.com/json/1.3/applicationOpen
+2014-09-01 15:46:01.420 Donler[32560:5603] Response "200 no error": string: {"status_code":200,"status_message":"OK","response":null}
+2014-09-01 15:46:01.614 Donler[32560:5603] sending appOpen completed
+2014-09-01 15:46:03.118 Donler[32560:70b] Resetting plugins due to page load.
+2014-09-01 15:46:30.037 Donler[32560:70b] Finished load of: file:///Users/yali-04/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/0833AF6B-AAEC-46F5-B783-8C47056B7267/Donler.app/www/index.html#/login
+2014-09-01 15:46:52.651 Donler[32560:70b] THREAD WARNING: ['File'] took '414.038086' ms. Plugin should use a background thread.
+2014-09-01 15:47:17.374 Donler[32560:70b] THREAD WARNING: ['InAppBrowser'] took '6518.058105' ms. Plugin should use a background thread.

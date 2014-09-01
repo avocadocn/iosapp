@@ -58,7 +58,6 @@
     </feature>
     <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
-        <param name="android-package" value="org.apache.cordova.InAppBrowser" />
     </feature>
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
 </widget>
