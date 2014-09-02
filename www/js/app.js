@@ -46,7 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     .state('app.campaignDetail', {
-      url: '/campaign_detail/:id',
+      url: '/campaign_detail/:id/:index',
       views: {
         'menuContent': {
           templateUrl: 'templates/campaign_detail.html',

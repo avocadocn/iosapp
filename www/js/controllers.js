@@ -164,7 +164,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, $ionicPopup, Campaign, PhotoAlbum, Comment, Global, Authorize, Camera) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicLoading, $ionicPopup, $ionicTabsDelegate, Campaign, PhotoAlbum, Comment, Global, Authorize, Camera) {
 
   Authorize.authorize();
 
@@ -179,12 +179,17 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   Campaign.getCampaignDetail( $stateParams.id,function(campaign) {
     $scope.campaign = campaign;
+    $scope.loading.status = true;
+
     $scope.photo_album_id = $scope.campaign.photo_album;
     $scope.upload_form_url = $scope.base_url + '/photoAlbum/' + $scope.photo_album_id + '/photo';
     $scope.upload_form_url = $sce.trustAsResourceUrl($scope.upload_form_url);
     getPhotoList();
     $scope.deletePhoto = PhotoAlbum.deletePhoto($scope.photo_album_id, getPhotoList);
     $scope.commentPhoto = PhotoAlbum.commentPhoto($scope.photo_album_id, getPhotoList);
+    if($stateParams.index){
+      $ionicTabsDelegate.select(1);
+    }
   });
   var getPhotoList = function() {
     PhotoAlbum.getPhotoList($scope.photo_album_id, function(photos) {
