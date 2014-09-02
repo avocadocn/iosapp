@@ -7,9 +7,9 @@
     <ion-refresher
       on-refresh="doRefresh()">
     </ion-refresher>
-    <ion-slide-box does-continue="true" class="index_slide_box" length="nowCampaigns.length" hidePager ng-cloak>
-      <ion-slide class="now_campaign_item" ng-repeat="nowCampaign in nowCampaigns">
-        <a href="#/app/campaign_detail/{{ nowCampaign._id }}" class="campaign_link">
+    <ion-slide-box does-continue="true" class="index_slide_box">
+      <ion-slide class="now_campaign_item" ng-repeat="nowCampaign in nowCampaigns" length="nowCampaigns.length" hide-pager>
+        <a href="#/app/campaign_detail/{{ nowCampaign._id }}/{{nowCampaign.start_flag==1 ? '1':''}}" class="campaign_link">
           <div class="row campaign_title">
             <img class="campaign_group_logo" ng-src="{{ base_url + nowCampaign.logo + '/72/72'}}"/>
             <div class="campaign_label">
@@ -20,7 +20,8 @@
           </div>
           <div ng-if="nowCampaign.start_flag==0 || nowCampaign.photo_thumbnails.length==0" class="now_campaign_time">
             <p class="campaign_time_remind">{{ nowCampaign.remind_text }}</p>
-            <p class="campaign_time_count">{{ nowCampaign.start_time_text }}</p>
+            <p ng-if="nowCampaign.start_flag==1" class="campaign_time_count">快来传照片吧</p>
+            <p ng-if="nowCampaign.start_flag==0" class="campaign_time_count">{{ nowCampaign.start_time_text }}</p>
           </div>
           <div ng-if="nowCampaign.start_flag!=0 && nowCampaign.photo_thumbnails.length>0" class="now_campaign_photos">
             <img class="now_campaign_photo" ng-src="{{ base_url + photo.uri + '/150/150'}}" ng-repeat="photo in nowCampaign.photo_thumbnails">
@@ -31,7 +32,7 @@
     <ion-list>
       <ion-item class="new_campaign_item" ng-repeat="campaign in newCampaigns">
         <div class="new_finish_campaign" ng-if="campaign.finishStatus==true">
-          <a href="#/app/campaign_detail/{{ campaign._id }}" class="campaign_link">
+          <a href="#/app/campaign_detail/{{ campaign._id }}/1" class="campaign_link">
             <div class="row campaign_title">
               <p class="campaign_theme"> {{ campaign.theme }} </p>
               <p class="campaign_time"> {{ campaign.formatTime }} 结束</p>
@@ -41,7 +42,7 @@
             </div>
           </a>
         </div>
-        <a href="#/app/campaign_detail/{{ campaign._id }}" class="campaign_link" ng-if="!campaign.finishStatus">
+        <a href="#/app/campaign_detail/{{ campaign._id }}/" class="campaign_link" ng-if="!campaign.finishStatus">
           <div class="row campaign_title">
             <img class="campaign_group_logo" ng-src="{{ base_url + campaign.logo + '/72/72'}}"/>
             <div class="campaign_label">
