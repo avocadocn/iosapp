@@ -215,6 +215,20 @@ module.exports = [
         "clobbers": [
             "CameraPopoverHandle"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.file-transfer/www/FileTransferError.js",
+        "id": "org.apache.cordova.file-transfer.FileTransferError",
+        "clobbers": [
+            "window.FileTransferError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.file-transfer/www/FileTransfer.js",
+        "id": "org.apache.cordova.file-transfer.FileTransfer",
+        "clobbers": [
+            "window.FileTransfer"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -226,7 +240,8 @@ module.exports.metadata =
     "org.apache.cordova.file": "1.3.0",
     "com.pushwoosh.plugins.pushwoosh": "3.2.0",
     "org.apache.cordova.inappbrowser": "0.5.2-dev",
-    "org.apache.cordova.camera": "0.3.1"
+    "org.apache.cordova.camera": "0.3.1",
+    "org.apache.cordova.file-transfer": "0.4.6-dev"
 }
 // BOTTOM OF METADATA
 });

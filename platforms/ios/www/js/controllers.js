@@ -165,7 +165,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicPopup, $ionicLoading, $ionicTabsDelegate, Campaign, PhotoAlbum, Comment, Global, Authorize, Camera) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicPopup, $ionicLoading, $ionicTabsDelegate, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+
 
   Authorize.authorize();
   $scope.base_url = Global.base_url;
@@ -303,22 +304,27 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
   $scope.getPhoto = function() {
-    Camera.getPicture({
-      quality: 50,
-      destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-      encodingType: 0     // 0=JPG 1=PNG
-    }).then(function(imageURI) {
+
+    navigator.camera.getPicture(function(imageURI) {
       var options = new FileUploadOptions();
       options.fileKey = 'photos';
       options.chunkedMode = false;
+      options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+      options.mimeType = "image/jpeg";
       var uri = encodeURI($scope.upload_form_url);
       var ft = new FileTransfer();
       $scope.upload_modal.hide();
       showLoading();
       ft.upload(imageURI, uri, win, fail, options);
     }, function(err) {
+      
+    }, {
+      quality: 10,
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType: 1,
+      encodingType: 0
     });
+
   };
 
   $ionicModal.fromTemplateUrl('templates/partials/photo_detail.html', {
