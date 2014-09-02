@@ -111,6 +111,13 @@ angular.module('starter.services', [])
         }
       }
       function loginPost(ids,token,_status){
+        //for logout save these ids
+        if(token){
+          localStorage.token = token;   //for pushwoosh
+        }
+        if(ids){
+          localStorage.userid = ids[0]; //for baidu
+        }
         $http.post(Global.base_url + '/users/login', { 
           username: username,
           password: password,
@@ -192,7 +199,11 @@ angular.module('starter.services', [])
   };
 
   var logout = function() {
-    $http.get(Global.base_url + '/users/logout')
+    $http.post(Global.base_url + '/users/logout', {
+      device: ionic.Platform.device(),
+      userid: localStorage.userid ? localStorage.userid : '',
+      token: localStorage.token ? localStorage.token : '',
+    })
     .success(function(data, status, headers, config) {
       if (data.result === 1) {
         _authorize = false;
@@ -200,6 +211,8 @@ angular.module('starter.services', [])
         delete localStorage.user_id;
         delete localStorage.user_nickname;
         delete localStorage.app_token;
+        delete localStorage.userid;//for baidu
+        delete localStorage.token;//for pushwoosh
         $state.go('login');
       }
     });
