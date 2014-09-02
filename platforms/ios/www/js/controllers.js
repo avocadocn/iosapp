@@ -317,12 +317,13 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       showLoading();
       ft.upload(imageURI, uri, win, fail, options);
     }, function(err) {
-      
+
     }, {
       quality: 10,
       destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: 1,
-      encodingType: 0
+      sourceType: Camera.PictureSourceType.CAMERA,
+      encodingType: Camera.EncodingType.JPEG,
+      correctOrientation: true
     });
 
   };
