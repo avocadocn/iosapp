@@ -323,7 +323,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       destinationType: Camera.DestinationType.FILE_URI,
       sourceType: Camera.PictureSourceType.CAMERA,
       encodingType: Camera.EncodingType.JPEG,
-      correctOrientation: true
+      correctOrientation: true,
+      saveToPhotoAlbum: true
     });
 
   };
