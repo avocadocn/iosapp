@@ -1033,6 +1033,7 @@ body {
 }
 .campaign_detail .detail_list .intro_item {
   border-bottom: none;
+  white-space: normal;
 }
 .campaign_detail .location {
   height: 260px;
