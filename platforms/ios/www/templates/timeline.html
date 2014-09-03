@@ -9,7 +9,7 @@
       <div class="timeline_element" ng-repeat="time_line in time_lines">
         <a ng-click="rememberPosition(time_line.id)" href="">
           <div class="timeline-left">
-            <img class="timeline-logo" ng-src="{{base_url + time_line.logo +'/60/60'}}"/>
+            <img class="timeline-logo" ng-src="{{base_url + time_line.logo +'/40/40'}}"/>
           </div>
           <div class="timeline-right">
             <div class="title">
@@ -23,7 +23,7 @@
             <div class="timeline_content">
               <div class="img_scroll">
                 <div class="photos_{{time_line.photo_list.length}}">
-                  <img class="photo photo_{{$index}}" ng-src="{{base_url + photo.uri +'/400/400'}}" ng-repeat="photo in time_line.photo_list">
+                  <img class="photo photo_{{$index}}" ng-src="{{base_url + photo.uri +'/150/150'}}" ng-repeat="photo in time_line.photo_list">
                 </div>
               </div>
             </div>

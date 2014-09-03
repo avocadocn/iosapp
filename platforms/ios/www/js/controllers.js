@@ -165,7 +165,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicPopup, $ionicLoading, $ionicTabsDelegate, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicPopup, $ionicLoading, $ionicTabsDelegate, $timeout, Campaign, PhotoAlbum, Comment, Global, Authorize) {
 
 
   Authorize.authorize();
@@ -179,15 +179,15 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   Campaign.getCampaignDetail( $stateParams.id,function(campaign) {
     $scope.campaign = campaign;
     $scope.loading.status = true;
+    if($stateParams.index){
+      $ionicTabsDelegate.select(1,true);
+    }
     $scope.photo_album_id = $scope.campaign.photo_album;
     $scope.upload_form_url = $scope.base_url + '/photoAlbum/' + $scope.photo_album_id + '/photo';
     $scope.upload_form_url = $sce.trustAsResourceUrl($scope.upload_form_url);
     getPhotoList();
     $scope.deletePhoto = PhotoAlbum.deletePhoto($scope.photo_album_id, getPhotoList);
     $scope.commentPhoto = PhotoAlbum.commentPhoto($scope.photo_album_id, getPhotoList);
-    if($stateParams.index){
-      $ionicTabsDelegate.select(1);
-    }
   });
   var getPhotoList = function() {
     PhotoAlbum.getPhotoList($scope.photo_album_id, function(photos) {
@@ -195,7 +195,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       $scope.photos_view = [];
       var _length = photos.length;
       for(var i = 0; i < _length; i++){
-        var index = Math.floor(i / 6);
+        var index = Math.floor(i / 4);
         if(!$scope.photos_view[index]) {
           $scope.photos_view[index] = [];
         }
@@ -360,6 +360,31 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     var link = 'http://mo.amap.com/?q=' + location.coordinates[1] + ',' + location.coordinates[0] + '&name=' + location.name;
     window.open( link, '_system' , 'location=yes');
     return false;
+  }
+  $scope.swipeTab = function(event)  {
+    switch(event.gesture.direction){
+      case 'left':
+        var nowTab = $ionicTabsDelegate.selectedIndex();
+        if(nowTab<3){
+          $timeout(function() {
+            $ionicTabsDelegate.select(nowTab+1,true);
+          });
+        }
+      break;
+      case 'right':
+        var nowTab = $ionicTabsDelegate.selectedIndex();
+        if(nowTab>0){
+          $timeout(function() {
+            $ionicTabsDelegate.select(nowTab-1,true);
+          });
+        }
+      break;
+      default:
+      break;
+    }
+  }
+  $scope.pinchImage = function (event){
+    console.log(event);
   }
 })
 
@@ -774,7 +799,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.rememberPosition = function(id){
     Timeline.setTimelinePosition($ionicScrollDelegate.$getByHandle('timelineScroll').getScrollPosition().top);
     Timeline.setCacheTimeline(true);
-    $state.go('app.campaignDetail',{'id':id});
+    $state.go('app.campaignDetail',{'id':id,'index':1});
     return true;
   }
 })
@@ -887,7 +912,53 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 })
 
+.directive('detectGestures', function($ionicGesture) {
+  return {
+    restrict :  'A',
 
+    link : function(scope, elem, attrs) {
+      var gestureType = attrs.gestureType;
+
+      switch(gestureType) {
+        case 'swipe':
+          $ionicGesture.on('swipe', scope.swipeTab, elem);
+          break;
+        case 'pinchout':
+          $ionicGesture.on('pinchout', scope.pinchImage, elem);
+          break;
+        // case 'swipeleft':
+        //   $ionicGesture.on('swipeleft', scope.reportEvent, elem);
+        //   break;
+        // case 'doubletap':
+        //   $ionicGesture.on('doubletap', scope.reportEvent, elem);
+        //   break;
+        // case 'tap':
+        //   $ionicGesture.on('tap', scope.reportEvent, elem);
+        //   break;
+      }
+      scope.$on('$destroy', function() {
+        // Unbind drag gesture handler
+        switch(gestureType) {
+        case 'swipe':
+          $ionicGesture.off('swipe', scope.swipeTab, elem);
+          break;
+        case 'pinchout':
+          $ionicGesture.off('pinchout', scope.pinchImage, elem);
+          break;
+        // case 'swipeleft':
+        //   $ionicGesture.off('swipeleft', scope.reportEvent, elem);
+        //   break;
+        // case 'doubletap':
+        //   $ionicGesture.off('doubletap', scope.reportEvent, elem);
+        //   break;
+        // case 'tap':
+        //   $ionicGesture.off('tap', scope.reportEvent, elem);
+        //   break;
+      }
+      });
+    }
+  }
+})
 
 
 
