@@ -42,13 +42,13 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $rootScope.campaignReturnUri = '#/app/index';
   $scope.moreData = true;
   var init = function(callback){
-    Campaign.getNowCampaignList(function(campaign_list) {
+    Campaign.getNowCampaignList(function(now_campaign_list) {
       
-      Campaign.getNewCampaignList(function(campaign_list) {
+      Campaign.getNewCampaignList(function(new_campaign_list) {
 
         Campaign.getNewFinishCampaign(function(newFinishCampaign) {
-          $scope.nowCampaigns = campaign_list;
-          $scope.newCampaigns = campaign_list;
+          $scope.nowCampaigns = now_campaign_list;
+          $scope.newCampaigns = new_campaign_list;
           if($scope.newCampaigns.length>3){
             $scope.newCampaigns.splice(3,0,newFinishCampaign);
           }
