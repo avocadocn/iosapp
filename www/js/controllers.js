@@ -320,7 +320,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
   $scope.getPhoto = function() {
-    Camera.getPicture().then(function(imageURI) {
+    Camera.getPicture({
+      quality: 10,
+      destinationType: 1, //file uri
+      sourceType: 1, //camera
+      encodingType: 0, //jpeg
+      correctOrientation: true,
+      saveToPhotoAlbum: true
+    }).then(function(imageURI) {
       var options = new FileUploadOptions();
       options.fileKey = 'photos';
       options.chunkedMode = false;
