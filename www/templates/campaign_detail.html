@@ -3,6 +3,12 @@
   <ion-nav-buttons side="left">
     <a class="button icon-left ion-chevron-left button-clear button-dark" href="{{ campaignReturnUri }}">返回</a>
   </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <div class="join_box" ng-if="loading.status && !campaign.finish">
+      <a ng-if="!campaign.is_joined" class="button button-clear button-dark" ng-click="campaign.myteam.length<2 ? join(campaign,campaign.myteam[0].id) : openselectModal()" >参加</a>
+      <a class="button button-clear button-dark" ng-if="campaign.is_joined" ng-click="quit(campaign._id)">退出</a>
+    </div>
+  </ion-nav-buttons>
 
   <ion-tabs tabs-type="tabs-icon-top tabs-positive" class="donler_tabs donler_tabs_bottom">
 
@@ -147,15 +153,7 @@
       </ion-content>
     </ion-tab>
 
-    <ion-tab title="参加" icon="ion-ios7-location-outline" ng-if="!campaign.finish"></ion-tab>
-
   </ion-tabs>
-
-  <div class="join_box" ng-if="loading.status && !campaign.finish">
-    <div class="operator" ng-if="!campaign.is_joined" ng-click="campaign.myteam.length<2 ? join(campaign,campaign.myteam[0].id) : openselectModal()">参加</div>
-    <div class="operator" ng-if="campaign.is_joined" ng-click="quit(campaign._id)">退出</div>
-  </div>
-
 </ion-view>
 
 
