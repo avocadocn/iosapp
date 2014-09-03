@@ -18,9 +18,12 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 ])
 
 .controller('LoginCtrl', function($scope, $rootScope, $http, $state, Authorize) {
-
+  $scope.checkStatus = false;
   if (Authorize.authorize() === true) {
     $state.go('app.index');
+  }
+  else {
+    $scope.checkStatus = true;
   }
 
   $scope.data = {
@@ -40,28 +43,30 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.moreData = true;
   var init = function(callback){
     Campaign.getNowCampaignList(function(campaign_list) {
-      $scope.nowCampaigns = campaign_list;
-      $ionicSlideBoxDelegate.update();
-    });
-    Campaign.getNewCampaignList(function(campaign_list) {
+      
+      Campaign.getNewCampaignList(function(campaign_list) {
 
-      Campaign.getNewFinishCampaign(function(newFinishCampaign) {
-        $scope.newCampaigns = campaign_list;
-        if($scope.newCampaigns.length>3){
-          $scope.newCampaigns.splice(3,0,newFinishCampaign);
-        }
-        else{
-          $scope.newCampaigns.push(newFinishCampaign);
-        }
-        if($scope.nowCampaigns.length==0 && $scope.newCampaigns.length==0 ){
-          $scope.moreData = false;
-        }
-        callback && callback();
+        Campaign.getNewFinishCampaign(function(newFinishCampaign) {
+          $scope.nowCampaigns = campaign_list;
+          $scope.newCampaigns = campaign_list;
+          if($scope.newCampaigns.length>3){
+            $scope.newCampaigns.splice(3,0,newFinishCampaign);
+          }
+          else{
+            $scope.newCampaigns.push(newFinishCampaign);
+          }
+          if($scope.nowCampaigns.length==0 && $scope.newCampaigns.length==0 ){
+            $scope.moreData = false;
+          }
+          callback && callback();
+        });
       });
     });
   }
 
-  init();
+  init(function(){
+      $ionicSlideBoxDelegate.update();
+    });
   var removeCampaign = function(id){
     var _length = $scope.newCampaigns.length;
     for(var i=0;i<_length;i++){
@@ -89,6 +94,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.doRefresh = function(){
     init(function(){
       $scope.$broadcast('scroll.refreshComplete');
+      $ionicSlideBoxDelegate.update();
     });
   }
 })
@@ -939,8 +945,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         case 'swipe':
           $ionicGesture.on('swipe', scope.swipeTab, elem);
           break;
-        case 'pinchout':
-          $ionicGesture.on('pinchout', scope.pinchImage, elem);
+        case 'pinch':
+          $ionicGesture.on('pinch', scope.pinchImage, elem);
           break;
         // case 'swipeleft':
         //   $ionicGesture.on('swipeleft', scope.reportEvent, elem);
@@ -958,8 +964,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         case 'swipe':
           $ionicGesture.off('swipe', scope.swipeTab, elem);
           break;
-        case 'pinchout':
-          $ionicGesture.off('pinchout', scope.pinchImage, elem);
+        case 'pinch':
+          $ionicGesture.off('pinch', scope.pinchImage, elem);
           break;
         // case 'swipeleft':
         //   $ionicGesture.off('swipeleft', scope.reportEvent, elem);
