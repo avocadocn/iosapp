@@ -13,8 +13,13 @@
   <ion-tabs tabs-type="tabs-icon-top tabs-positive" class="donler_tabs donler_tabs_bottom">
 
     <ion-tab title="详情" icon="ion-ios7-information-outline">
-      <ion-content has-header="true" class="wrap campaign_detail">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
         <div class="list detail_list">
+          <div class="item clearfix">
+            <img class="campaign_group_logo" ng-src="{{ base_url + campaign.logo + '/40/40' }}"/>
+            <span class="team_name">{{ campaign.owner_name }}</span>
+          </div>
+
           <div class="item item-divider">
             主题: {{campaign.theme}}
           </div>
@@ -47,7 +52,7 @@
           <button class="comment_button" ng-click="publishComment()" ng-disabled="comment_form.$invalid"> 发表</button>
         </form>
       </div>
-      <ion-content has-header="true" class="wrap campaign_detail">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
         <div class="simple_title padding clearfix">
           <div class="title">活动相册</div>
           <!-- <form id="upload_form" class="upload_form pull-right" name="upload_form" action="{{ upload_form_url }}" method="post" enctype="multipart/form-data" upload-directive>
@@ -59,8 +64,8 @@
         <div id="photo_list" class="photo_list" ng-if="photos.length > 0">
           <ion-slide-box on-slide-changed="slideChange($index)" class="photo_slide_box clearfix">
             <ion-slide ng-repeat="photo_page in photos_view" class="photo_box" length="photos_view.length" hide-pager>
-              <div class="inner_{{photo_page.length}} clearfix">
-                <div ng-repeat="photo in photo_page" class="cell_{{$index+1}} loading_box" ng-click="openModal(photo.index)">
+              <div class="clearfix">
+                <div ng-repeat="photo in photo_page" class="photo_content loading_box" ng-click="openModal(photo.index)">
                   <img class="photo loading_content" ng-src="{{ base_url + photo.uri +'/145/145'}}" thumbnail-photo/>
                   <div class="loading_div">
                     <i class="ion-loading-d"></i>
@@ -100,7 +105,7 @@
     </ion-tab>
 
     <ion-tab title="成员" icon="ion-ios7-person-outline">
-      <ion-content has-header="true" class="wrap campaign_detail">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
         <div class="padding">
           <div ng-if="campaign.campaign_type<=3" class="campaign_members_wrap content clearfix">
             <!-- href="#/app/other_user_info/{{ user.uid }}" -->
@@ -135,7 +140,7 @@
     </ion-tab>
 
     <ion-tab title="地点" icon="ion-ios7-location-outline">
-      <ion-content has-header="true" class="wrap campaign_detail">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
         <div class="padding">
           <p>活动地点</p>
           <p>{{campaign.location.name}}</p>
