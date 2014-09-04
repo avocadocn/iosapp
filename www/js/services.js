@@ -5,11 +5,11 @@
 angular.module('starter.services', [])
 
 
-.factory('Global', function($state) {
+.factory('Global', function($state, $ionicActionSheet, $timeout) {
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
-  //var base_url = "http://192.168.2.102:3000";
+  //var base_url = "http://192.168.2.104:3000";
   // ionic.Platform.ready(function(){
   //   window.plugin.notification.local.onclick = function (id, state, json) {
   //     $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
@@ -17,6 +17,21 @@ angular.module('starter.services', [])
   // });
   var _user = {};
   var last_date;
+  //for menu 退出
+  document.addEventListener("menubutton", onMenuKeyDown, false);
+  function onMenuKeyDown(){
+    var hideSheet = $ionicActionSheet.show({
+      destructiveText: '退出',
+      titleText: '您真的要退出动梨吗?',
+      cancelText: '取消',
+      cancel: function() {
+          // add cancel code..
+        },
+      destructiveButtonClicked: function() {
+        navigator.app.exitApp();
+      }
+    });
+  }
   return {
     base_url: base_url,
     user: _user,
