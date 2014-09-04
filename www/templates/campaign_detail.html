@@ -43,7 +43,7 @@
       </ion-content>
     </ion-tab>
 
-    <ion-tab title="评论" icon="ion-ios7-plus-outline">
+    <ion-tab title="互动" icon="ion-ios7-plus-outline">
       <div class="comment_edit" ng-if="publishing">
         <form name="comment_form">
           <input class="comment_input" type="text" name="comment" ng-model="comment_content.text" placeholder="写点什么吧" maxlength=140 required/>
@@ -156,6 +156,9 @@
       </ion-content>
     </ion-tab>
   </ion-tabs>
+  <div class="join_circle" ng-if="loading.status && !campaign.finish && !campaign.is_joined">
+    <div class="operator" ng-click="campaign.myteam.length<2 ? join(campaign,campaign.myteam[0].id) : openselectModal()">参加</div>
+  </div>
 
 </ion-view>
 
