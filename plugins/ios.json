@@ -25,10 +25,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"PushNotification\"><param name=\"ios-package\" value=\"PushNotification\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
                         },
@@ -38,6 +34,12 @@
                         },
                         {
                             "xml": "<feature name=\"FileTransfer\"><param name=\"ios-package\" value=\"CDVFileTransfer\" /></feature>",
+                            "count": 1
+                        }
+                    ],
+                    "/widget": [
+                        {
+                            "xml": "<feature name=\"PushNotificationPlugin\"><param name=\"ios-package\" value=\"PushNotificationPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -55,24 +57,27 @@
                         {
                             "xml": "false",
                             "count": 2
+                        },
+                        {
+                            "xml": "true",
+                            "count": 2
                         }
                     ],
                     "Security.framework": [
                         {
-                            "xml": "false",
+                            "xml": "true",
                             "count": 1
                         }
                     ],
-                    "Storekit.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
+                    "Storekit.framework": [],
                     "CoreGraphics.framework": [
                         {
                             "xml": "false",
                             "count": 3
+                        },
+                        {
+                            "xml": "true",
+                            "count": 1
                         }
                     ],
                     "ImageIO.framework": [
@@ -86,17 +91,54 @@
                             "xml": "false",
                             "count": 1
                         }
+                    ],
+                    "libsqlite3.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "libz.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CFNetwork.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "Foundation.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "SystemConfiguration.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "UIKit.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "CoreTelephony.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
                     ]
                 }
             },
             "undefined": {
                 "parents": {
-                    "undefined": [
-                        {
-                            "xml": "<access origin=\"*.pushwoosh.com\" />",
-                            "count": 1
-                        }
-                    ]
+                    "undefined": []
                 }
             }
         }
@@ -114,9 +156,6 @@
         "org.apache.cordova.file": {
             "PACKAGE_NAME": "com.donler.app"
         },
-        "com.pushwoosh.plugins.pushwoosh": {
-            "PACKAGE_NAME": "com.ionicframework.starter"
-        },
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.donler.android"
         },
@@ -125,6 +164,9 @@
         },
         "org.apache.cordova.file-transfer": {
             "PACKAGE_NAME": "com.donler.android"
+        },
+        "com.urbanairship.phonegap.PushNotification": {
+            "PACKAGE_NAME": "com.donler.app"
         }
     },
     "dependent_plugins": {}

@@ -51,65 +51,127 @@ angular.module('starter.services', [])
   var login = function($scope) {
     return function(username, password) {
 
-      function initPushwoosh(callback) {
-        if(!window.plugins){
-          callback(null,null,'NO_WINDOW_PLUGINS');
-        }else{
-          if(!window.plugins.pushNotification){
-            callback(null,null,'NO_PUSHNOTIFICATION');
-          }else{
-            var pushNotification = window.plugins.pushNotification;
-            console.log('Received Event: ');
-            console.warn(pushNotification);
-            //set push notification callback before we initialize the plugin
-            document.addEventListener('push-notification', function(event) {
-                          //get the notification payload
-                          var notification = event.notification;
+      // function initPushwoosh(callback) {
+      //   if(!window.plugins){
+      //     callback(null,null,'NO_WINDOW_PLUGINS');
+      //   }else{
+      //     if(!window.plugins.pushNotification){
+      //       callback(null,null,'NO_PUSHNOTIFICATION');
+      //     }else{
+      //       var pushNotification = window.plugins.pushNotification;
+      //       console.log('Received Event: ');
+      //       console.warn(pushNotification);
+      //       //set push notification callback before we initialize the plugin
+      //       document.addEventListener('push-notification', function(event) {
+      //                     //get the notification payload
+      //                     var notification = event.notification;
 
-                          //display alert to the user for example
-                          alert(notification.aps.alert);
-                          //clear the app badge
-                          pushNotification.setApplicationIconBadgeNumber(0);
-                        });
+      //                     //display alert to the user for example
+      //                     alert(notification.aps.alert);
+      //                     //clear the app badge
+      //                     pushNotification.setApplicationIconBadgeNumber(0);
+      //                   });
 
-              //initialize the plugin
-              pushNotification.onDeviceReady({pw_appid:"B13D4-3532F"});
+      //         //initialize the plugin
+      //         pushNotification.onDeviceReady({pw_appid:"B13D4-3532F"});
 
-              //register for pushes
-              pushNotification.registerDevice(function(status) {
-                                                    var deviceToken = status['deviceToken'];
-                                                    console.warn('registerDevice: ' + deviceToken);
-                              },
-                              function(status) {
-                                                    console.warn('failed to register : ' + JSON.stringify(status));
-                                                    navigator.notification.alert(JSON.stringify(['failed to register ', status]));
-                                                    callback(null,null,status);
-                              });
-              pushNotification.setApplicationIconBadgeNumber(0);
-              pushNotification.getTags(function(tags) {
-                            console.warn('tags for the device: ' + JSON.stringify(tags));
-                           },
-                           function(error) {
-                            console.warn('get tags error: ' + JSON.stringify(error));
-                           });
+      //         //register for pushes
+      //         pushNotification.registerDevice(function(status) {
+      //                                               var deviceToken = status['deviceToken'];
+      //                                               console.warn('registerDevice: ' + deviceToken);
+      //                         },
+      //                         function(status) {
+      //                                               console.warn('failed to register : ' + JSON.stringify(status));
+      //                                               navigator.notification.alert(JSON.stringify(['failed to register ', status]));
+      //                                               callback(null,null,status);
+      //                         });
+      //         pushNotification.setApplicationIconBadgeNumber(0);
+      //         pushNotification.getTags(function(tags) {
+      //                       console.warn('tags for the device: ' + JSON.stringify(tags));
+      //                      },
+      //                      function(error) {
+      //                       console.warn('get tags error: ' + JSON.stringify(error));
+      //                      });
 
-              pushNotification.getPushToken(function(token) {
-                              console.warn('push token device: ' + token);
-                              //执行loginPost,将token POST到后台
-                              callback(null,token);
-                           });
+      //         pushNotification.getPushToken(function(token) {
+      //                         console.warn('push token device: ' + token);
+      //                         //执行loginPost,将token POST到后台
+      //                         callback(null,token);
+      //                      });
 
-              pushNotification.getPushwooshHWID(function(token) {
-                              console.warn('Pushwoosh HWID: ' + token);
-                            });
+      //         pushNotification.getPushwooshHWID(function(token) {
+      //                         console.warn('Pushwoosh HWID: ' + token);
+      //                       });
 
-              //start geo tracking.
-              pushNotification.startLocationTracking(function() {
-                                                     console.warn('Location Tracking Started');
-                                                     });
-          }
+      //         //start geo tracking.
+      //         pushNotification.startLocationTracking(function() {
+      //                                                console.warn('Location Tracking Started');
+      //                                                });
+      //     }
+      //   }
+      // }
+
+      function initUaPush(callback) {
+
+        if (!PushNotification) {
+          console.log('PushNotification is undefined');
+          return;
         }
+
+        // Incoming message callback
+        var handleIncomingPush = function(event) {
+          if(event.message) {
+            console.log("Incoming push: " + event.message);
+          } else {
+            console.log("No incoming message");
+          }
+        };
+
+        // Registration callback
+        var onRegistration = function(event)  {
+          if (!event.error) {
+            alert("Reg Success: " + event.pushID);
+            callback(event.pushId);
+          } else {
+            console.log(event.error);
+          }
+        };
+
+        // Register for any urban airship events
+        document.addEventListener("urbanairship.registration", onRegistration, false);
+        document.addEventListener("urbanairship.push", handleIncomingPush, false);
+
+        // Handle resume
+        document.addEventListener("resume", function() {
+          console.log("Device resume!");
+
+          PushNotification.resetBadge();
+          PushNotification.getIncoming(handleIncomingPush);
+
+          // Reregister for urbanairship events if they were removed in pause event
+          document.addEventListener("urbanairship.registration", onRegistration, false);
+          document.addEventListener("urbanairship.push", handleIncomingPush, false);
+        }, false);
+
+
+        // Handle pause
+        document.addEventListener("pause", function() {
+          console.log("Device pause!");
+
+          // Remove urbanairship events.  Important on android to not receive push in the background.
+          document.removeEventListener("urbanairship.registration", onRegistration, false);
+          document.removeEventListener("urbanairship.push", handleIncomingPush, false);
+        }, false);
+
+        // Register for notification types
+        PushNotification.registerForNotificationTypes(PushNotification.notificationType.badge |
+          PushNotification.notificationType.sound |
+          PushNotification.notificationType.alert);
+
+        // Get any incoming push from device ready open
+        PushNotification.getIncoming(handleIncomingPush);
       }
+
       function loginPost(ids,token,_status){
         //for logout save these ids
         if(token){
@@ -118,7 +180,7 @@ angular.module('starter.services', [])
         if(ids){
           localStorage.userid = ids[0]; //for baidu
         }
-        $http.post(Global.base_url + '/users/login', { 
+        $http.post(Global.base_url + '/users/login', {
           username: username,
           password: password,
           device: ionic.Platform.device(),
@@ -167,7 +229,8 @@ angular.module('starter.services', [])
         window.resolveLocalFileSystemURL(path, onSuccess,onError);
       }
       else{
-        initPushwoosh(loginPost);
+        //initPushwoosh(loginPost);
+        initUaPush(loginPost);
       }
     };
   };

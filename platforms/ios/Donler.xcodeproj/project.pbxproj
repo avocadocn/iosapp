@@ -7,12 +7,10 @@
 	objects = {
 /* Begin PBXBuildFile section */
 		03D797FC19B59E6600A92D3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D797FB19B59E6600A92D3E /* Images.xcassets */; };
-		17735674FFC14088970A139D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CCA6F7F5344D76AC1B8DF4 /* Security.framework */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1F766FE113BBADB100FB74C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F766FDC13BBADB100FB74C0 /* Localizable.strings */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
-		2E041A34C614417EB726C423 /* PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 256D552ADC574B8B986F4EAF /* PushNotification.m */; };
 		301BF552109A68D80062928A /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
 		302D95F114D2391D003F00A1 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
 		302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
@@ -31,7 +29,6 @@
 		362584D47D7F41CD9916BA88 /* CDVFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA55D9B508994156A59C4F10 /* CDVFileTransfer.m */; };
 		38ADC1451D5F4E13B0BFD464 /* APPLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B51A5703BB4C4E867DCEEF /* APPLocalNotification.m */; };
 		3E05918E73C4409AAB58B36F /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A7DF318DCB4C6C893C4010 /* CDVJpegHeaderWriter.m */; };
-		4043E687A0AC42809B8CD318 /* Pushwoosh in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B659D11CB445F98D8CF336 /* Pushwoosh */; };
 		42B0A30AB13D497188D35232 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = D876CBCE961141409A2C1D8A /* CDVAssetLibraryFilesystem.m */; };
 		4CF0C499F5F346E9A5E0ADA7 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C7385631CF40BBB66386A4 /* CDVInAppBrowser.m */; };
 		4D5B8527533E44D2892C58EC /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = FD492D21F48F403F929BD687 /* CDVDevice.m */; };
@@ -53,7 +50,15 @@
 		D376AB82E9664FFA908092C2 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42E67A937B274FE499C8A636 /* ImageIO.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		E87A1D5203B643B1B551A473 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A2CAD26E84249A5B7A186 /* CDVFile.m */; };
-		F1C0FB602D354DC78441FDA8 /* Storekit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB54D95C68004DF685BE5663 /* Storekit.framework */; };
+		75DA3B46A68948739DD0B82B /* PushNotificationPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C10B808CDE4AAA8467E7BE /* PushNotificationPlugin.m */; };
+		B7B55ED584474BEBB0DAD5DD /* libUAirship-4.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5E43D4509EC46329FB8E492 /* libUAirship-4.0.0.a */; };
+		41F2097AE8AE4A3AB90ECBA9 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FBA12C139D41539C7BD805 /* libsqlite3.dylib */; };
+		9FC25E2998B5432085436B43 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C2199502335B4534BB5C09D3 /* libz.dylib */; };
+		76DD8E59A9BC46ECBC9E18F5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12236C7C63143DFAADEFA36 /* CFNetwork.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C78A8031C4F841F498D1E429 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3CDC31242CD412799FD25C9 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		26C0C71F2DE74118BF0FB135 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2446F6F9F2FA4DD3A3EE9B83 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		1036B8A6A2134A009787B3D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D51C4E24DD4EAC8B3BC8C1 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		A6CDCBF8636C4183A07D0338 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B88A5233C84F02A1A5702F /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +152,86 @@
 		F94DDA7202604FF6B227C6DC /* CDVLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLogger.m; path = org.apache.cordova.console/CDVLogger.m; sourceTree = "<group>"; };
 		FA55D9B508994156A59C4F10 /* CDVFileTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVFileTransfer.m; path = "org.apache.cordova.file-transfer/CDVFileTransfer.m"; sourceTree = "<group>"; };
 		FD492D21F48F403F929BD687 /* CDVDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVDevice.m; path = org.apache.cordova.device/CDVDevice.m; sourceTree = "<group>"; };
+		39C10B808CDE4AAA8467E7BE /* PushNotificationPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PushNotificationPlugin.m"; path = "com.urbanairship.phonegap.PushNotification/PushNotificationPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		D5E43D4509EC46329FB8E492 /* libUAirship-4.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-4.0.0.a"; path = "Donler/Plugins/com.urbanairship.phonegap.PushNotification/libUAirship-4.0.0.a"; sourceTree = "<group>"; fileEncoding = 4; };
+		D87D571B6F4A4508B9629CE2 /* PushNotificationPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PushNotificationPlugin.h"; path = "com.urbanairship.phonegap.PushNotification/PushNotificationPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		D8E69BC041944D35BADB9F78 /* UAAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAAnalytics.h"; path = "com.urbanairship.phonegap.PushNotification/UAAnalytics.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		89FB71D8DF494D87B8A56A21 /* UAAnalyticsDBManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAAnalyticsDBManager.h"; path = "com.urbanairship.phonegap.PushNotification/UAAnalyticsDBManager.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		E54C4D2DA18348FAB14BE8BE /* UAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAAppDelegate.h"; path = "com.urbanairship.phonegap.PushNotification/UAAppDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		2D07D4A5BC264140A5B21B36 /* UAAppDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAAppDelegateProxy.h"; path = "com.urbanairship.phonegap.PushNotification/UAAppDelegateProxy.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		9EE111AFA096406D8DC2A2A0 /* UABaseLocationProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UABaseLocationProvider.h"; path = "com.urbanairship.phonegap.PushNotification/UABaseLocationProvider.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		BADFE3A03C3346A29C3612DA /* UAConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAConfig.h"; path = "com.urbanairship.phonegap.PushNotification/UAConfig.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		1FCAAC07290C4A289B3B1148 /* UADelayOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UADelayOperation.h"; path = "com.urbanairship.phonegap.PushNotification/UADelayOperation.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		DF7E83876E3943C8818A788C /* UAEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAEvent.h"; path = "com.urbanairship.phonegap.PushNotification/UAEvent.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		E4F4AF454A1D482C8C94306B /* UAGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAGlobal.h"; path = "com.urbanairship.phonegap.PushNotification/UAGlobal.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		EFEB473298904F219DE220B6 /* UAHTTPConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAHTTPConnection.h"; path = "com.urbanairship.phonegap.PushNotification/UAHTTPConnection.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		777E6A05FC924973A4E5785E /* UAHTTPConnectionOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAHTTPConnectionOperation.h"; path = "com.urbanairship.phonegap.PushNotification/UAHTTPConnectionOperation.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		25E947A4D41F40E9B13DA306 /* UAHTTPRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAHTTPRequest.h"; path = "com.urbanairship.phonegap.PushNotification/UAHTTPRequest.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		5A43EC64D57B4F479047593B /* UAHTTPRequestEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAHTTPRequestEngine.h"; path = "com.urbanairship.phonegap.PushNotification/UAHTTPRequestEngine.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		87923300911849E79F73E4A0 /* UAKeychainUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAKeychainUtils.h"; path = "com.urbanairship.phonegap.PushNotification/UAKeychainUtils.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		113EF1C945D343C78FB0B5D0 /* UALocationCommonValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UALocationCommonValues.h"; path = "com.urbanairship.phonegap.PushNotification/UALocationCommonValues.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		012A6EFD7BAA4AF2A951C5CA /* UALocationEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UALocationEvent.h"; path = "com.urbanairship.phonegap.PushNotification/UALocationEvent.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		12B8195FC3AE46F5AA65F85E /* UALocationProviderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UALocationProviderDelegate.h"; path = "com.urbanairship.phonegap.PushNotification/UALocationProviderDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		17FA6B65352E420297A4B951 /* UALocationProviderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UALocationProviderProtocol.h"; path = "com.urbanairship.phonegap.PushNotification/UALocationProviderProtocol.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		4DAB62A83A48467E920F040E /* UALocationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UALocationService.h"; path = "com.urbanairship.phonegap.PushNotification/UALocationService.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		63D6BFA9019F408F9D805623 /* UASQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UASQLite.h"; path = "com.urbanairship.phonegap.PushNotification/UASQLite.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		2212AD5EA5F6465892950E41 /* UASignificantChangeProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UASignificantChangeProvider.h"; path = "com.urbanairship.phonegap.PushNotification/UASignificantChangeProvider.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		03C4D495B2AB4136A08C97C2 /* UAStandardLocationProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAStandardLocationProvider.h"; path = "com.urbanairship.phonegap.PushNotification/UAStandardLocationProvider.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		0E1BF4A1FA3B42B7963B420C /* UATagUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UATagUtils.h"; path = "com.urbanairship.phonegap.PushNotification/UATagUtils.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		DC472A68837143ECA0E40B66 /* UAUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAUser.h"; path = "com.urbanairship.phonegap.PushNotification/UAUser.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		1A0F4682526642829EB12C3A /* UAUserAPIClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAUserAPIClient.h"; path = "com.urbanairship.phonegap.PushNotification/UAUserAPIClient.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		DC6C6D4F05FA4E68A944BF23 /* UAUserData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAUserData.h"; path = "com.urbanairship.phonegap.PushNotification/UAUserData.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		AC1DE102270C4048B90279E8 /* UAUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAUtils.h"; path = "com.urbanairship.phonegap.PushNotification/UAUtils.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		6F967C9943DC496CA04E3029 /* UAirship.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAirship.h"; path = "com.urbanairship.phonegap.PushNotification/UAirship.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		276A0C675141431480AC6ED3 /* UAObservable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAObservable.h"; path = "com.urbanairship.phonegap.PushNotification/UAObservable.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		7C787754BF4F42C590933135 /* NSJSONSerialization+UAAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSJSONSerialization+UAAdditions.h"; path = "com.urbanairship.phonegap.PushNotification/NSJSONSerialization+UAAdditions.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		3E62E079464140E7B93734C8 /* UAURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAURLProtocol.h"; path = "com.urbanairship.phonegap.PushNotification/UAURLProtocol.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		021AA22C473D474C8A88A3CB /* NSString+URLEncoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncoding.h"; path = "com.urbanairship.phonegap.PushNotification/NSString+URLEncoding.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		1B18CB69625F40569CDB9774 /* UAAction+Operators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAAction+Operators.h"; path = "com.urbanairship.phonegap.PushNotification/UAAction+Operators.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		21167C4921E84ED09B9834F1 /* UAAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAAction.h"; path = "com.urbanairship.phonegap.PushNotification/UAAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		C74ADAF3F9E448279B8CF5E5 /* UAActionArguments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAActionArguments.h"; path = "com.urbanairship.phonegap.PushNotification/UAActionArguments.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		A608832D1BD740D0BA3FFC01 /* UAActionJSDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAActionJSDelegate.h"; path = "com.urbanairship.phonegap.PushNotification/UAActionJSDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		C6332B8942E2439FA658E8D9 /* UAActionRegistry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAActionRegistry.h"; path = "com.urbanairship.phonegap.PushNotification/UAActionRegistry.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		2812D07D9C774FCBAE1FF137 /* UAActionRegistryEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAActionRegistryEntry.h"; path = "com.urbanairship.phonegap.PushNotification/UAActionRegistryEntry.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		7CE87E54130445D493CE1E16 /* UAActionResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAActionResult.h"; path = "com.urbanairship.phonegap.PushNotification/UAActionResult.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		ADB8413F18CB4D0F8B2D8788 /* UAActionRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAActionRunner.h"; path = "com.urbanairship.phonegap.PushNotification/UAActionRunner.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		BDF515088CA44563859B2ED8 /* UAAddTagsAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAAddTagsAction.h"; path = "com.urbanairship.phonegap.PushNotification/UAAddTagsAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		D2F596D370B5445CAEC20FC6 /* UAAggregateActionResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAAggregateActionResult.h"; path = "com.urbanairship.phonegap.PushNotification/UAAggregateActionResult.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		F117E8E5DBB94D36B153D829 /* UAApplicationMetrics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAApplicationMetrics.h"; path = "com.urbanairship.phonegap.PushNotification/UAApplicationMetrics.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		1682539BF02A4A469A403BF2 /* UABespokeCloseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UABespokeCloseView.h"; path = "com.urbanairship.phonegap.PushNotification/UABespokeCloseView.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		D3C8ECAFC2684B128489DEEF /* UABeveledLoadingIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UABeveledLoadingIndicator.h"; path = "com.urbanairship.phonegap.PushNotification/UABeveledLoadingIndicator.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		C17A6FFAC30D41288116DED0 /* UACloseWindowAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UACloseWindowAction.h"; path = "com.urbanairship.phonegap.PushNotification/UACloseWindowAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		C9CF78E19A38472391728919 /* UAIncomingPushAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAIncomingPushAction.h"; path = "com.urbanairship.phonegap.PushNotification/UAIncomingPushAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		83F7A90E721A424CAB23E96E /* UAIncomingRichPushAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAIncomingRichPushAction.h"; path = "com.urbanairship.phonegap.PushNotification/UAIncomingRichPushAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		6C7FD550A52149E88B51F9EE /* UAJavaScriptDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAJavaScriptDelegate.h"; path = "com.urbanairship.phonegap.PushNotification/UAJavaScriptDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		63760A421AC745669035CFD8 /* UALandingPageOverlayController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UALandingPageOverlayController.h"; path = "com.urbanairship.phonegap.PushNotification/UALandingPageOverlayController.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		9F924B0FB7EB40EF9BBB4F2E /* UAModifyTagsAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAModifyTagsAction.h"; path = "com.urbanairship.phonegap.PushNotification/UAModifyTagsAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		357FAA5FD5F3482E8E285641 /* UAOpenExternalURLAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAOpenExternalURLAction.h"; path = "com.urbanairship.phonegap.PushNotification/UAOpenExternalURLAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		61E6C1380A6D43BCBF993C47 /* UAPushActionArguments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAPushActionArguments.h"; path = "com.urbanairship.phonegap.PushNotification/UAPushActionArguments.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		E8F50021D1384249977DED30 /* UARemoveTagsAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UARemoveTagsAction.h"; path = "com.urbanairship.phonegap.PushNotification/UARemoveTagsAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		3073EF04E01F4D8CA96465AC /* UARichContentWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UARichContentWindow.h"; path = "com.urbanairship.phonegap.PushNotification/UARichContentWindow.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		AB32274EE8F34C0D8E334043 /* UASyncAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UASyncAction.h"; path = "com.urbanairship.phonegap.PushNotification/UASyncAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		6756E6B934564C708B16FD03 /* UAWebInvocationActionArguments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAWebInvocationActionArguments.h"; path = "com.urbanairship.phonegap.PushNotification/UAWebInvocationActionArguments.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		3A67976305D44103971EB5B3 /* UAWebViewCallData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAWebViewCallData.h"; path = "com.urbanairship.phonegap.PushNotification/UAWebViewCallData.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		9095CEF7E5E049A2AEAFD293 /* UAWebViewTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAWebViewTools.h"; path = "com.urbanairship.phonegap.PushNotification/UAWebViewTools.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		A9CB37BA08944917B4CEF541 /* UIWebView+UAAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIWebView+UAAdditions.h"; path = "com.urbanairship.phonegap.PushNotification/UIWebView+UAAdditions.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		CDC7D4D1DC3E481F8F022B7E /* UANativeBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UANativeBridge.h"; path = "com.urbanairship.phonegap.PushNotification/UANativeBridge.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		6AB4CA5BD39F4EA78B77E5FE /* UALandingPageAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UALandingPageAction.h"; path = "com.urbanairship.phonegap.PushNotification/UALandingPageAction.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		590788D3CBE04898A3DD2554 /* UADeviceAPIClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UADeviceAPIClient.h"; path = "com.urbanairship.phonegap.PushNotification/UADeviceAPIClient.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		D8DCAED22C58421192C7753D /* UADeviceRegistrationPayload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UADeviceRegistrationPayload.h"; path = "com.urbanairship.phonegap.PushNotification/UADeviceRegistrationPayload.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		CB4557E5A8D4485DADEB8BEB /* UAPush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAPush.h"; path = "com.urbanairship.phonegap.PushNotification/UAPush.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		3B7097B1811049DBAFEAE217 /* UAChannelAPIClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAChannelAPIClient.h"; path = "com.urbanairship.phonegap.PushNotification/UAChannelAPIClient.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		DF81FA1E677645668C645584 /* UAChannelRegistrationPayload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UAChannelRegistrationPayload.h"; path = "com.urbanairship.phonegap.PushNotification/UAChannelRegistrationPayload.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		3DD8883CD9914CA2B3584186 /* UADeviceRegistrar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UADeviceRegistrar.h"; path = "com.urbanairship.phonegap.PushNotification/UADeviceRegistrar.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		0D161637B2224A94A4A37874 /* UA_Base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UA_Base64.h"; path = "com.urbanairship.phonegap.PushNotification/UA_Base64.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		345BEB5317474A2EA2B6C2C3 /* UA_Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UA_Reachability.h"; path = "com.urbanairship.phonegap.PushNotification/UA_Reachability.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		38FBA12C139D41539C7BD805 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsqlite3.dylib"; path = "usr/lib/libsqlite3.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		C2199502335B4534BB5C09D3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		C12236C7C63143DFAADEFA36 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CFNetwork.framework"; path = "System/Library/Frameworks/CFNetwork.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		D3CDC31242CD412799FD25C9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		2446F6F9F2FA4DD3A3EE9B83 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		28D51C4E24DD4EAC8B3BC8C1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		E2B88A5233C84F02A1A5702F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CoreTelephony.framework"; path = "System/Library/Frameworks/CoreTelephony.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,9 +245,15 @@
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
 				4043E687A0AC42809B8CD318 /* Pushwoosh in Frameworks */,
-				17735674FFC14088970A139D /* Security.framework in Frameworks */,
-				F1C0FB602D354DC78441FDA8 /* Storekit.framework in Frameworks */,
 				D376AB82E9664FFA908092C2 /* ImageIO.framework in Frameworks */,
+				B7B55ED584474BEBB0DAD5DD /* libUAirship-4.0.0.a in Frameworks */,
+				41F2097AE8AE4A3AB90ECBA9 /* libsqlite3.dylib in Frameworks */,
+				9FC25E2998B5432085436B43 /* libz.dylib in Frameworks */,
+				76DD8E59A9BC46ECBC9E18F5 /* CFNetwork.framework in Frameworks */,
+				C78A8031C4F841F498D1E429 /* Foundation.framework in Frameworks */,
+				26C0C71F2DE74118BF0FB135 /* SystemConfiguration.framework in Frameworks */,
+				1036B8A6A2134A009787B3D7 /* UIKit.framework in Frameworks */,
+				A6CDCBF8636C4183A07D0338 /* CoreTelephony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +352,14 @@
 				40CCA6F7F5344D76AC1B8DF4 /* Security.framework */,
 				BB54D95C68004DF685BE5663 /* Storekit.framework */,
 				42E67A937B274FE499C8A636 /* ImageIO.framework */,
+				D5E43D4509EC46329FB8E492 /* libUAirship-4.0.0.a */,
+				38FBA12C139D41539C7BD805 /* libsqlite3.dylib */,
+				C2199502335B4534BB5C09D3 /* libz.dylib */,
+				C12236C7C63143DFAADEFA36 /* CFNetwork.framework */,
+				D3CDC31242CD412799FD25C9 /* Foundation.framework */,
+				2446F6F9F2FA4DD3A3EE9B83 /* SystemConfiguration.framework */,
+				28D51C4E24DD4EAC8B3BC8C1 /* UIKit.framework */,
+				E2B88A5233C84F02A1A5702F /* CoreTelephony.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -300,6 +399,78 @@
 				90E2BA8D44F946609C303622 /* CDVExif.h */,
 				FA55D9B508994156A59C4F10 /* CDVFileTransfer.m */,
 				9D4C9143044442DDACC3AE5E /* CDVFileTransfer.h */,
+				39C10B808CDE4AAA8467E7BE /* PushNotificationPlugin.m */,
+				D87D571B6F4A4508B9629CE2 /* PushNotificationPlugin.h */,
+				D8E69BC041944D35BADB9F78 /* UAAnalytics.h */,
+				89FB71D8DF494D87B8A56A21 /* UAAnalyticsDBManager.h */,
+				E54C4D2DA18348FAB14BE8BE /* UAAppDelegate.h */,
+				2D07D4A5BC264140A5B21B36 /* UAAppDelegateProxy.h */,
+				9EE111AFA096406D8DC2A2A0 /* UABaseLocationProvider.h */,
+				BADFE3A03C3346A29C3612DA /* UAConfig.h */,
+				1FCAAC07290C4A289B3B1148 /* UADelayOperation.h */,
+				DF7E83876E3943C8818A788C /* UAEvent.h */,
+				E4F4AF454A1D482C8C94306B /* UAGlobal.h */,
+				EFEB473298904F219DE220B6 /* UAHTTPConnection.h */,
+				777E6A05FC924973A4E5785E /* UAHTTPConnectionOperation.h */,
+				25E947A4D41F40E9B13DA306 /* UAHTTPRequest.h */,
+				5A43EC64D57B4F479047593B /* UAHTTPRequestEngine.h */,
+				87923300911849E79F73E4A0 /* UAKeychainUtils.h */,
+				113EF1C945D343C78FB0B5D0 /* UALocationCommonValues.h */,
+				012A6EFD7BAA4AF2A951C5CA /* UALocationEvent.h */,
+				12B8195FC3AE46F5AA65F85E /* UALocationProviderDelegate.h */,
+				17FA6B65352E420297A4B951 /* UALocationProviderProtocol.h */,
+				4DAB62A83A48467E920F040E /* UALocationService.h */,
+				63D6BFA9019F408F9D805623 /* UASQLite.h */,
+				2212AD5EA5F6465892950E41 /* UASignificantChangeProvider.h */,
+				03C4D495B2AB4136A08C97C2 /* UAStandardLocationProvider.h */,
+				0E1BF4A1FA3B42B7963B420C /* UATagUtils.h */,
+				DC472A68837143ECA0E40B66 /* UAUser.h */,
+				1A0F4682526642829EB12C3A /* UAUserAPIClient.h */,
+				DC6C6D4F05FA4E68A944BF23 /* UAUserData.h */,
+				AC1DE102270C4048B90279E8 /* UAUtils.h */,
+				6F967C9943DC496CA04E3029 /* UAirship.h */,
+				276A0C675141431480AC6ED3 /* UAObservable.h */,
+				7C787754BF4F42C590933135 /* NSJSONSerialization+UAAdditions.h */,
+				3E62E079464140E7B93734C8 /* UAURLProtocol.h */,
+				021AA22C473D474C8A88A3CB /* NSString+URLEncoding.h */,
+				1B18CB69625F40569CDB9774 /* UAAction+Operators.h */,
+				21167C4921E84ED09B9834F1 /* UAAction.h */,
+				C74ADAF3F9E448279B8CF5E5 /* UAActionArguments.h */,
+				A608832D1BD740D0BA3FFC01 /* UAActionJSDelegate.h */,
+				C6332B8942E2439FA658E8D9 /* UAActionRegistry.h */,
+				2812D07D9C774FCBAE1FF137 /* UAActionRegistryEntry.h */,
+				7CE87E54130445D493CE1E16 /* UAActionResult.h */,
+				ADB8413F18CB4D0F8B2D8788 /* UAActionRunner.h */,
+				BDF515088CA44563859B2ED8 /* UAAddTagsAction.h */,
+				D2F596D370B5445CAEC20FC6 /* UAAggregateActionResult.h */,
+				F117E8E5DBB94D36B153D829 /* UAApplicationMetrics.h */,
+				1682539BF02A4A469A403BF2 /* UABespokeCloseView.h */,
+				D3C8ECAFC2684B128489DEEF /* UABeveledLoadingIndicator.h */,
+				C17A6FFAC30D41288116DED0 /* UACloseWindowAction.h */,
+				C9CF78E19A38472391728919 /* UAIncomingPushAction.h */,
+				83F7A90E721A424CAB23E96E /* UAIncomingRichPushAction.h */,
+				6C7FD550A52149E88B51F9EE /* UAJavaScriptDelegate.h */,
+				63760A421AC745669035CFD8 /* UALandingPageOverlayController.h */,
+				9F924B0FB7EB40EF9BBB4F2E /* UAModifyTagsAction.h */,
+				357FAA5FD5F3482E8E285641 /* UAOpenExternalURLAction.h */,
+				61E6C1380A6D43BCBF993C47 /* UAPushActionArguments.h */,
+				E8F50021D1384249977DED30 /* UARemoveTagsAction.h */,
+				3073EF04E01F4D8CA96465AC /* UARichContentWindow.h */,
+				AB32274EE8F34C0D8E334043 /* UASyncAction.h */,
+				6756E6B934564C708B16FD03 /* UAWebInvocationActionArguments.h */,
+				3A67976305D44103971EB5B3 /* UAWebViewCallData.h */,
+				9095CEF7E5E049A2AEAFD293 /* UAWebViewTools.h */,
+				A9CB37BA08944917B4CEF541 /* UIWebView+UAAdditions.h */,
+				CDC7D4D1DC3E481F8F022B7E /* UANativeBridge.h */,
+				6AB4CA5BD39F4EA78B77E5FE /* UALandingPageAction.h */,
+				590788D3CBE04898A3DD2554 /* UADeviceAPIClient.h */,
+				D8DCAED22C58421192C7753D /* UADeviceRegistrationPayload.h */,
+				CB4557E5A8D4485DADEB8BEB /* UAPush.h */,
+				3B7097B1811049DBAFEAE217 /* UAChannelAPIClient.h */,
+				DF81FA1E677645668C645584 /* UAChannelRegistrationPayload.h */,
+				3DD8883CD9914CA2B3584186 /* UADeviceRegistrar.h */,
+				0D161637B2224A94A4A37874 /* UA_Base64.h */,
+				345BEB5317474A2EA2B6C2C3 /* UA_Reachability.h */,
 			);
 			name = Plugins;
 			path = Donler/Plugins;
@@ -506,11 +677,11 @@
 				E87A1D5203B643B1B551A473 /* CDVFile.m in Sources */,
 				A75E6459A7D1430AA842D3B3 /* CDVLocalFilesystem.m in Sources */,
 				42B0A30AB13D497188D35232 /* CDVAssetLibraryFilesystem.m in Sources */,
-				2E041A34C614417EB726C423 /* PushNotification.m in Sources */,
 				4CF0C499F5F346E9A5E0ADA7 /* CDVInAppBrowser.m in Sources */,
 				8861FF46066343C8B07D69E0 /* CDVCamera.m in Sources */,
 				3E05918E73C4409AAB58B36F /* CDVJpegHeaderWriter.m in Sources */,
 				362584D47D7F41CD9916BA88 /* CDVFileTransfer.m in Sources */,
+				75DA3B46A68948739DD0B82B /* PushNotificationPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,7 +751,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Donler/Plugins/com.pushwoosh.plugins.pushwoosh\"",
+					"\"$(SRCROOT)/Donler/Plugins/com.urbanairship.phonegap.PushNotification\"",
 				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -620,7 +791,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Donler/Plugins/com.pushwoosh.plugins.pushwoosh\"",
+					"\"$(SRCROOT)/Donler/Plugins/com.urbanairship.phonegap.PushNotification\"",
 				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",

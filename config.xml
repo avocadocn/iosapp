@@ -17,6 +17,20 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="6000" />
+    <!-- Urban Airship app credentials -->
+    <preference name="com.urbanairship.production_app_key" value="PRODUCTION_APP_KEY" />
+    <preference name="com.urbanairship.production_app_secret" value="PRODUCTION_APP_SECRET" />
+    <preference name="com.urbanairship.development_app_key" value="DEVELOPMENT_APP_KEY" />
+    <preference name="com.urbanairship.development_app_secret" value="DEVELOPMENT_APP_SECRET" />
+
+    <!-- If the app is in production or not -->
+
+
+
+    <preference name="com.urbanairship.in_production" value="true | false" />
+
+    <!-- Enable push when the application launches (instead of waiting for enablePush js call).  Defaults to false -->
+    <preference name="com.urbanairship.enable_push_onlaunch" value="true | false" />
     <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true" />
     </feature>

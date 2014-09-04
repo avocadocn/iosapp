@@ -18,9 +18,6 @@
     <feature name="LocalNotification">
         <param name="android-package" value="de.appplant.cordova.plugin.localnotification.LocalNotification" />
     </feature>
-    <feature name="PushNotification">
-        <param name="android-package" onload="true" value="com.pushwoosh.plugin.pushnotifications.PushNotifications" />
-    </feature>
     <name>Donler</name>
     <description>
         Donler 企业员工活动互联网工具
@@ -50,5 +47,9 @@
     </feature>
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
+    <feature name="PushNotificationPlugin">
+        <param name="android-package" value="com.urbanairship.phonegap.PushNotificationPlugin" />
+        <param name="onload" value="true" />
     </feature>
 </widget>

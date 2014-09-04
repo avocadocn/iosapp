@@ -175,13 +175,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/com.pushwoosh.plugins.pushwoosh/www/PushNotification.js",
-        "id": "com.pushwoosh.plugins.pushwoosh.PushNotification",
-        "clobbers": [
-            "plugins.pushNotification"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
         "id": "org.apache.cordova.inappbrowser.inappbrowser",
         "clobbers": [
@@ -229,6 +222,13 @@ module.exports = [
         "clobbers": [
             "window.FileTransfer"
         ]
+    },
+    {
+        "file": "plugins/com.urbanairship.phonegap.PushNotification/www/PushNotification.js",
+        "id": "com.urbanairship.phonegap.PushNotification.PushNotification",
+        "clobbers": [
+            "PushNotification"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -238,10 +238,10 @@ module.exports.metadata =
     "org.apache.cordova.device": "0.2.9",
     "de.appplant.cordova.plugin.local-notification": "0.8.0dev",
     "org.apache.cordova.file": "1.3.0",
-    "com.pushwoosh.plugins.pushwoosh": "3.2.0",
     "org.apache.cordova.inappbrowser": "0.5.2-dev",
     "org.apache.cordova.camera": "0.3.1",
-    "org.apache.cordova.file-transfer": "0.4.6-dev"
+    "org.apache.cordova.file-transfer": "0.4.6-dev",
+    "com.urbanairship.phonegap.PushNotification": "2.4.0"
 }
 // BOTTOM OF METADATA
 });
