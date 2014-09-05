@@ -298,7 +298,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.comments = comments;
   });
 
-  var updateCampaign = function(id) {
+  var updateCampaign = function(upstatus,id) {
+    if(upstatus){
+      $ionicPopup.alert({
+        title: '提示',
+        template: '网络错误，请检查网络状态'
+      });
+      return;
+    }
     Campaign.getCampaign(id, function(status, campaign) {
       if(status){
         $ionicPopup.alert({
@@ -307,11 +314,17 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         });
         return;
       }
-      $scope.campaign = campaign;
+      $timeout(function(){
+        $scope.campaign = campaign;
+        $('#join_circle').removeClass("join_active");
+      },400);
     });
   }
 
   $scope.join = Campaign.join(updateCampaign);
+  $scope.join_active = function(){
+    $('#join_circle').addClass("join_active");
+  };
   $scope.quit = Campaign.quit(updateCampaign);
   $scope.publishComment =  function(){
     if($scope.comment_content.text==''){

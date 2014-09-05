@@ -292,12 +292,19 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   });
 
   var updateCampaign = function(id) {
-    Campaign.getCampaign(id, function(campaign) {
-      $scope.campaign = campaign;
-    });
+    $timeout(function(){
+      Campaign.getCampaign(id, function(campaign) {
+        $scope.campaign = campaign;
+      });
+      $('#join_circle').removeClass("join_active");
+    },400);
   }
 
   $scope.join = Campaign.join(updateCampaign);
+  $scope.join_active = function(){
+    console.log($('#join_circle'));
+    $('#join_circle').addClass("join_active");
+  };
   $scope.quit = Campaign.quit(updateCampaign);
   $scope.publishComment =  function(){
     if($scope.comment_content.text==''){
