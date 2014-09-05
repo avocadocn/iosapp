@@ -3,7 +3,7 @@
     <div class="item-content">
       <a href="#/app/campaign_detail/{{ campaign._id }}/" class="campaign_link">
         <div class="row campaign_title">
-          <img class="campaign_group_logo" ng-src="{{ base_url + campaign.logo }}"/>
+          <img class="campaign_group_logo" ng-src="{{ img_url + campaign.logo }}"/>
           <div class="campaign_label">
             <p class="campaign_theme"> {{ campaign.theme }} </p>
             <p class="new_campaign_time">开始时间：{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} </p>

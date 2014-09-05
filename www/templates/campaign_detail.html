@@ -13,11 +13,10 @@
   <ion-tabs tabs-type="tabs-icon-top tabs-positive" class="donler_tabs donler_tabs_bottom">
 
     <ion-tab title="详情" icon="ion-ios7-information-outline">
-      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe" getsture-callback="swipeTab">
         <div class="list detail_list">
           <div class="item clearfix">
-            <img class="campaign_group_logo" ng-src="{{ base_url + campaign.logo + '/40/40' }}"/>
-            <span class="team_name">{{ campaign.owner_name }}</span>
+            <span class="team_name text-center">{{ campaign.owner_name }}</span>
           </div>
 
           <div class="item item-divider">
@@ -52,7 +51,7 @@
           <button class="comment_button" ng-click="publishComment()" ng-disabled="comment_form.$invalid"> 发表</button>
         </form>
       </div>
-      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe" getsture-callback="swipeTab">
         <div class="simple_title padding clearfix">
           <div class="title">活动相册</div>
           <!-- <form id="upload_form" class="upload_form pull-right" name="upload_form" action="{{ upload_form_url }}" method="post" enctype="multipart/form-data" upload-directive>
@@ -66,7 +65,7 @@
             <ion-slide ng-repeat="photo_page in photos_view" class="photo_box" length="photos_view.length" hide-pager>
               <div class="clearfix">
                 <div ng-repeat="photo in photo_page" class="photo_content loading_box" ng-click="openModal(photo.index)">
-                  <img class="photo loading_content" ng-src="{{ base_url + photo.uri +'/145/145'}}" thumbnail-photo/>
+                  <img class="photo loading_content" ng-src="{{ img_url + photo.uri +'/145/145'}}" thumbnail-photo/>
                   <div class="loading_div">
                     <i class="ion-loading-d"></i>
                   </div>
@@ -86,7 +85,7 @@
         <div ng-if="comments.length > 0" class="comments">
           <div ng-repeat="comment in comments" ng-class="{'self':comment.poster._id==user_id, 'other':comment.poster._id!=user_id}" class="clearfix">
             <div class="photo_box">
-              <img ng-src="{{base_url + comment.poster.photo}}" class="photo img_user"/>
+              <img ng-src="{{img_url + comment.poster.photo}}" class="photo img_user"/>
             </div>
             <div class="comment_body">
               <div class="nickname">{{comment.poster.nickname}}</div>
@@ -105,13 +104,13 @@
     </ion-tab>
 
     <ion-tab title="成员" icon="ion-ios7-person-outline">
-      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe" getsture-callback="swipeTab">
         <div class="padding">
           <div ng-if="campaign.campaign_type<=3" class="campaign_members_wrap content clearfix">
             <!-- href="#/app/other_user_info/{{ user.uid }}" -->
             <a class="campaign_member_panel" ng-repeat="user in campaign.member">
               <div class="campaign_member_wrap">
-                <img class="campaign_member_photo img_user" ng-src="{{ base_url + '/logo/user/' + user.uid + '/40/40' }}"/>
+                <img class="campaign_member_photo img_user" ng-src="{{ img_url + '/logo/user/' + user.uid + '/40/40' }}"/>
                 <p class="campaign_member_name">{{ user.nickname }}</p>
               </div>
             </a>
@@ -122,13 +121,13 @@
             <div class="team" ng-repeat="team in campaign.myteam">
               <div class="row campaign_line">
                 <p class="campaign_team_info">
-                  <img class="campaign_group_logo" ng-src="{{ base_url + team.logo + '/40/40' }}"/>
+                  <img class="campaign_group_logo" ng-src="{{ img_url + team.logo + '/40/40' }}"/>
                   <span class="team_name">{{ team.name }}</span>
                 </p>
               </div>
               <a class="campaign_member_panel" ng-repeat="user in team.member">
                 <div class="campaign_member_wrap">
-                  <img class="campaign_member_photo img_user" ng-src="{{ base_url + '/logo/user/' + user.uid + '/40/40' }}"/>
+                  <img class="campaign_member_photo img_user" ng-src="{{ img_url + '/logo/user/' + user.uid + '/40/40' }}"/>
                   <p class="campaign_member_name">{{ user.nickname }}</p>
                 </div>
               </a>
@@ -160,7 +159,7 @@
 
   </ion-tabs>
 
-  <div class="join_circle" ng-if="loading.status && !campaign.finish && !campaign.is_joined">
+  <div class="join_circle" id="join_circle" ng-show="loading.status && !campaign.finish && !campaign.is_joined" ng-click="join_active()">
     <div class="operator" ng-click="campaign.myteam.length<2 ? join(campaign,campaign.myteam[0].id) : openselectModal()">参加</div>
   </div>
 
