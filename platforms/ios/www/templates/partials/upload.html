@@ -8,7 +8,7 @@
       <button class="button button-block button-large button-outline button-positive" ng-click="getPhoto()">
         <i class="icon ion-camera"></i> 拍照上传
       </button>
-      <form id="upload_form" class="upload_form" name="upload_form" action="{{ upload_form_url }}" method="post" enctype="multipart/form-data">
+      <form id="upload_form" class="upload_form" name="upload_form" action="{{ upload_form_url }}" method="post" enctype="multipart/form-data" upload-form>
         <input id="upload_input" class="upload_input" type="file" name="photos" multiple="multiple" accept="image/*;capture=camera" ng-model="upload_file" auto-upload required/>
         <button class="button button-block button-large button-outline button-positive">
           <i class="icon ion-images"></i> 本地图片

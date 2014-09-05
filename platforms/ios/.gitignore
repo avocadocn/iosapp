@@ -4,3 +4,6 @@
 .DS_Store
 build/
 cordova/console.log
+CordovaLib/CordovaLib.xcodeproj/xcuserdata/
+Donler.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/
+Donler.xcodeproj/xcuserdata/*.xcuserdatad/
