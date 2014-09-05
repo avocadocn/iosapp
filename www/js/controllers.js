@@ -298,7 +298,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.comments = comments;
   });
 
-  var updateCampaign = function(upstatus,id) {
+  var updateCampaign = function(upstatus, id) {
     if(upstatus){
       $ionicPopup.alert({
         title: '提示',
