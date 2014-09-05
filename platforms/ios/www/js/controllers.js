@@ -266,26 +266,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
   };
 
-  $scope.autoUpload = function() {
-    var form = $('#upload_form')
-    form.ajaxForm(function(data, status) {
-      if(data.result){
-        $scope.upload_modal.hide();
-        hideLoading();
-        ionicAlert('图片上传成功！');
-        getPhotoList();
-        var file = $scope.upload_form.find('#upload_input');
-        file.val("");
-      }
-      else{
-        ionicAlert('图片上传失败！');
-      }
-    });
-    form.submit();
-    showLoading();
-
-  };
-
   $scope.photos = [];
   Comment.getCampaignComments($stateParams.id, function(status, comments) {
     if(status){
@@ -366,6 +346,22 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }).then(function(modal) {
     $scope.upload_modal = modal;
   });
+
+  $scope.uploadFormSuccess = function() {
+    $scope.upload_modal.hide();
+    hideLoading();
+    ionicAlert('图片上传成功！');
+    getPhotoList();
+  };
+
+  $scope.uploadFormFail = function() {
+    hideLoading();
+    ionicAlert('图片上传失败！');
+  };
+
+  $scope.upload = function() {
+    showLoading();
+  };
 
   $scope.openUploadModal = function() {
     $scope.upload_modal.show();
@@ -1022,13 +1018,31 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }
 })
 
+.directive('uploadForm', function() {
+  return function(scope, element, attrs) {
+    form = $(element);
+    scope.form = form;
+    form.ajaxForm(function(data, status) {
+      if(data.result){
+        scope.uploadFormSuccess();
+        var file = form.find('#upload_input');
+        file.val("");
+      }
+      else{
+        scope.uploadFormFail();
+      }
+    });
+  };
+})
+
 .directive('autoUpload',function() {
   return {
     require: 'ngModel',
     link: function(scope, el, attrs, control) {
       el.bind('change', function() {
         scope.$apply(function() {
-          scope.autoUpload();
+          scope.form.submit();
+          scope.upload();
         });
       });
     }
