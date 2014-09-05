@@ -287,12 +287,26 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
   $scope.photos = [];
-  Comment.getCampaignComments($stateParams.id, function(comments) {
+  Comment.getCampaignComments($stateParams.id, function(status, comments) {
+    if(status){
+      $ionicPopup.alert({
+        title: '提示',
+        template: '网络错误，请检查网络状态'
+      });
+      return;
+    }
     $scope.comments = comments;
   });
 
   var updateCampaign = function(id) {
-    Campaign.getCampaign(id, function(campaign) {
+    Campaign.getCampaign(id, function(status, campaign) {
+      if(status){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '网络错误，请检查网络状态'
+        });
+        return;
+      }
       $scope.campaign = campaign;
     });
   }
@@ -1034,7 +1048,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     link : function(scope, elem, attrs) {
       var gestureType = attrs.gestureType.split(',');
       var getstureCallback = attrs.getstureCallback.split(',');
-      console.log(gestureType,getstureCallback);
       var gesture = [];
       gestureType.forEach(function(_gestureType,_index){
         switch(_gestureType) {
