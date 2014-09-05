@@ -38,7 +38,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.now =0;
   var init = function(callback){
     Campaign.getNowCampaignList(function(now_campaign_status, now_campaign_list) {
-      
+
       Campaign.getNewCampaignList(function(new_campaign_status, new_campaign_list) {
 
         Campaign.getNewFinishCampaign(function(newFinishCampaignStatus, newFinishCampaign) {
@@ -109,6 +109,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       $ionicSlideBoxDelegate.update();
     });
   }
+
 })
 
 .controller('CampaignListCtrl', function($scope, $rootScope, $ionicModal, $ionicPopup, Campaign, Global, Authorize) {
