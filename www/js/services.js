@@ -703,7 +703,7 @@ angular.module('starter.services', [])
   // callback(time_lines)
   var getUserTimeline = function(nowpage, callback) {
     if(_cacheStatue){
-      callback(timeline, page, moreData);
+      callback(null, timeline, page, moreData);
     }
     else{
       page = nowpage;

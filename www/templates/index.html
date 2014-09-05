@@ -24,7 +24,7 @@
           </div>
           <div ng-if="nowCampaign.start_flag==0 || nowCampaign.photo_thumbnails.length==0" class="now_campaign_time">
             <p class="campaign_time_remind">{{ nowCampaign.remind_text }}</p>
-            <p ng-if="nowCampaign.start_flag==1" class="campaign_time_count">快来传照片吧</p>
+            <p ng-if="nowCampaign.start_flag!=0" class="campaign_time_count">快来传照片吧</p>
             <p ng-if="nowCampaign.start_flag==0" class="campaign_time_count">{{ nowCampaign.start_time_text }}</p>
           </div>
           <div ng-if="nowCampaign.start_flag!=0 && nowCampaign.photo_thumbnails.length>0" class="now_campaign_photos">
@@ -59,6 +59,10 @@
         <ion-option-button class="button-calm" ng-if="campaign.active!=undefined &&!campaign.is_joined" ng-click="campaign.myteam.length<2 ? join(campaign,campaign.myteam[0].id) : openselectModal(campaign)">
           参加
         </ion-option-button>
+        <ion-option-button class="button-calm" ng-if="!campaign.active ||campaign.is_joined">
+          已参加
+        </ion-option-button>
+
       </ion-item>
     </ion-list>
     <div class="more_data_text" ng-if="!moreData">您还没有活动，快去组织吧。</div>

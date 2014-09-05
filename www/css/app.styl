@@ -381,7 +381,7 @@ body
       .campaign_theme
         color black
         font-size 16px
-        max-width 76%
+        max-width 70%
         margin 0
         padding 0
         text-overflow ellipsis
@@ -458,6 +458,7 @@ body
         &:last-child
           margin-right 0
 .index_slide_box
+  width 100%
   .slider-pager
     height 1px
     .slider-pager-page
@@ -469,10 +470,12 @@ body
   margin 0
   padding 0
   border-bottom 1px
+  border-left none
+  border-right none
   .item-options
     .button
       line-height 56px
-      width 60px
+      width 65px
   .item-content
     padding 0
     .campaign_link
@@ -502,7 +505,7 @@ body
             top 0
             width 0
             height 0
-            border-color transparent #3abde8 transparent transparent
+            border-color transparent #43cee6 transparent transparent
             border-style solid
             border-width 0 20px 20px
 
@@ -742,6 +745,7 @@ body
         .campaign_theme
           width 100%
           float left
+          font-size 16px
           margin-bottom 0
           max-width 250px
           text-overflow ellipsis
@@ -1015,13 +1019,24 @@ largeCell()
 //photo fullscreen slide
 .modal-wrapper
   height 100%
-  .photo_wrap
-    width 100%
+  .photo_slide_modal
     height 100%
-    background-color black
-    .photo
-      max-width 100%
-      max-height 100%
+    position relative
+    .slider-slides
+      height 100%
+      position relative
+      .photo_slide_cell
+        display flex
+        height 100%
+        .photo_wrap
+          position relative
+          width 100%
+          height 100%
+          background-color black
+          .photo
+            max-width 100%
+            max-height 100%
+
 
 // members
 .campaign_members_wrap

@@ -49,7 +49,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
               title: '提示',
               template: '网络错误，请检查网络状态'
             });
-            callback && $timeout(callback,0);
+            callback && callback());
             return;
           }
           $scope.nowCampaigns = now_campaign_list;
@@ -65,7 +65,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
           if($scope.nowCampaigns.length==0 && $scope.newCampaigns.length==0 ){
             $scope.moreData = false;
           }
-          callback && $timeout(callback,0);
+          callback && callback();
         });
       });
     });
@@ -199,7 +199,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.user_id = Global.user._id;
   $scope.loading = {status:false};
   $scope.publishing = false;
-  $scope.now =0;
+  // $scope.now =0;
   $scope.togglePublishing = function() {
     $scope.publishing = !$scope.publishing;
   };
@@ -418,8 +418,10 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.modal = modal;
   });
   $scope.openModal = function(index) {
-    $scope.now = index;
-    $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
+    // $scope.now = index;
+    // $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
+    $ionicSlideBoxDelegate.update();
+    $ionicSlideBoxDelegate.slide(index);
     $scope.modal.show();
   };
   $scope.closeModal = function() {
@@ -468,60 +470,60 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       break;
     }
   }
-  var scale = 1;
-  $scope.changePhoto = function(event)  {
-    var target = $(event.target);
-    switch(event.gesture.direction){
-      case 'left':
-        if($scope.now<$scope.photos.length-1){
-          $scope.now++;
-        }
-      break;
-      case 'right':
-        if($scope.now>0){
-          $scope.now--;
+  // var scale = 1;
+  // $scope.changePhoto = function(event)  {
+  //   var target = $(event.target);
+  //   switch(event.gesture.direction){
+  //     case 'left':
+  //       if($scope.now<$scope.photos.length-1){
+  //         $scope.now++;
+  //       }
+  //     break;
+  //     case 'right':
+  //       if($scope.now>0){
+  //         $scope.now--;
 
-        }
-      break;
-      default:
-      break;
-    }
-    $timeout(function () {
-      $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
-    }, 0);
-    scale =1;
-    target.css('-webkit-transform', 'scale(' + scale + ') translate(0,0)');
-  }
-  $scope.pinchImage = function (event){
-    var target = $(event.target);
-    scale =event.gesture.scale * scale;
-    if(scale>2){
-      scale =2;
-    }
-    else if(scale<1){
-      scale=1;
-    }
-    target.css('-webkit-transform', 'scale(' + scale + ')');
-  }
-  $scope.drageImage = function (event) {
-    var target = $(event.target);
-    switch(event.gesture.direction){
-      case 'left':
-        target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + (-event.gesture.distance) + 'px)');
-      break;
-      case 'right':
-        target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + event.gesture.distance + 'px)');
-      break;
-      case 'up':
-        target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + (-event.gesture.distance) + 'px)');
-      break;
-      case 'down':
-        target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + event.gesture.distance + 'px)');
-      break;
-      default:
-      break;
-    }
-  }
+  //       }
+  //     break;
+  //     default:
+  //     break;
+  //   }
+  //   $timeout(function () {
+  //     $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
+  //   }, 0);
+  //   scale =1;
+  //   target.css('-webkit-transform', 'scale(' + scale + ') translate(0,0)');
+  // }
+  // $scope.pinchImage = function (event){
+  //   var target = $(event.target);
+  //   scale =event.gesture.scale * scale;
+  //   if(scale>2){
+  //     scale =2;
+  //   }
+  //   else if(scale<1){
+  //     scale=1;
+  //   }
+  //   target.css('-webkit-transform', 'scale(' + scale + ')');
+  // }
+  // $scope.drageImage = function (event) {
+  //   var target = $(event.target);
+  //   switch(event.gesture.direction){
+  //     case 'left':
+  //       target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + (-event.gesture.distance) + 'px)');
+  //     break;
+  //     case 'right':
+  //       target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + event.gesture.distance + 'px)');
+  //     break;
+  //     case 'up':
+  //       target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + (-event.gesture.distance) + 'px)');
+  //     break;
+  //     case 'down':
+  //       target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + event.gesture.distance + 'px)');
+  //     break;
+  //     default:
+  //     break;
+  //   }
+  // }
 })
 
 
