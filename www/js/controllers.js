@@ -295,17 +295,11 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         });
         return;
       }
-      $timeout(function(){
-        $scope.campaign = campaign;
-        $('#join_circle').removeClass("join_active");
-      },400);
+      $scope.campaign = campaign;
     });
-  }
+  };
 
   $scope.join = Campaign.join(updateCampaign);
-  $scope.join_active = function(){
-    $('#join_circle').addClass("join_active");
-  };
   $scope.quit = Campaign.quit(updateCampaign);
   $scope.publishComment =  function(){
     if($scope.comment_content.text==''){
