@@ -3,8 +3,8 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-    <a href="#/app/campaign_list" class="button button-clear button-positive"> 已参加 </a>
+  <ion-nav-buttons side="right">
+    <a href="#/app/campaign_list" class="button button-clear icon ion-ios7-alarm-outline"> </a>
   </ion-nav-buttons>
   <ion-content class="has-header">
     <ion-refresher
@@ -23,7 +23,7 @@
           </div>
           <div ng-if="nowCampaign.start_flag==0 || nowCampaign.photo_thumbnails.length==0" class="now_campaign_time">
             <p class="campaign_time_remind">{{ nowCampaign.remind_text }}</p>
-            <p ng-if="nowCampaign.start_flag==1" class="campaign_time_count">快来传照片吧</p>
+            <p ng-if="nowCampaign.start_flag!=0" class="campaign_time_count">快来传照片吧</p>
             <p ng-if="nowCampaign.start_flag==0" class="campaign_time_count">{{ nowCampaign.start_time_text }}</p>
           </div>
           <div ng-if="nowCampaign.start_flag!=0 && nowCampaign.photo_thumbnails.length>0" class="now_campaign_photos">
@@ -57,6 +57,9 @@
         </a>
         <ion-option-button class="button-calm" ng-if="campaign.active!=undefined &&!campaign.is_joined" ng-click="campaign.myteam.length<2 ? join(campaign,campaign.myteam[0].id) : openselectModal(campaign)">
           参加
+        </ion-option-button>
+        <ion-option-button class="button-calm" ng-if="!campaign.active ||campaign.is_joined">
+          已参加
         </ion-option-button>
       </ion-item>
     </ion-list>
