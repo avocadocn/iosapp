@@ -26,5 +26,9 @@
     <string>0.0.1</string>
     <key>CFBundleVersion</key>
     <string>0.0.1</string>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleLightContent</string>
   </dict>
 </plist>
