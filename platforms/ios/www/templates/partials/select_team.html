@@ -5,7 +5,7 @@
   <ion-content>
     <div class="select_team_container">
       <p ng-click="select(campaign,team.id)" ng-repeat="team in campaign.myteam" class="team">
-        <img class="campaign_group_logo" ng-src="{{ base_url + team.logo +'/80/80'}}"/>
+        <img class="campaign_group_logo" ng-src="{{ img_url + team.logo +'/80/80'}}"/>
         <span class="team_name">{{ team.name }}
         </span>
       </p>

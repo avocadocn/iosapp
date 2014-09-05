@@ -7,22 +7,19 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }
   $scope.logout = Authorize.logout;
   $scope.base_url = Global.base_url;
+  $scope.img_url = Global.img_url;
   $scope.user = Global.user;
   
 })
 
-.config(['$httpProvider', function($httpProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    }
-])
-
 .controller('LoginCtrl', function($scope, $rootScope, $http, $state, Authorize) {
-
+  $scope.checkStatus = false;
   if (Authorize.authorize() === true) {
     $state.go('app.index');
   }
-
+  else {
+    $scope.checkStatus = true;
+  }
   $scope.data = {
     username: '',
     password: ''
@@ -33,40 +30,60 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.login = Authorize.login($scope, $rootScope);
 })
 
-.controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicModal, Campaign, Global, Authorize) {
+.controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicModal, $ionicPopup, $timeout, Campaign, Global, Authorize) {
   Authorize.authorize();
   $scope.base_url = Global.base_url;
   $rootScope.campaignReturnUri = '#/app/index';
   $scope.moreData = true;
+  $scope.now =0;
   var init = function(callback){
-    Campaign.getNowCampaignList(function(campaign_list) {
-      $scope.nowCampaigns = campaign_list;
-      $ionicSlideBoxDelegate.update();
-    });
-    Campaign.getNewCampaignList(function(campaign_list) {
+    Campaign.getNowCampaignList(function(now_campaign_status, now_campaign_list) {
+      
+      Campaign.getNewCampaignList(function(new_campaign_status, new_campaign_list) {
 
-      Campaign.getNewFinishCampaign(function(newFinishCampaign) {
-        $scope.newCampaigns = campaign_list;
-        if($scope.newCampaigns.length>3){
-          $scope.newCampaigns.splice(3,0,newFinishCampaign);
-        }
-        else{
-          $scope.newCampaigns.push(newFinishCampaign);
-        }
-        if($scope.nowCampaigns.length==0 && $scope.newCampaigns.length==0 ){
-          $scope.moreData = false;
-        }
-        callback && callback();
+        Campaign.getNewFinishCampaign(function(newFinishCampaignStatus, newFinishCampaign) {
+          if(now_campaign_status || new_campaign_status || newFinishCampaignStatus){
+            $ionicPopup.alert({
+              title: '提示',
+              template: '网络错误，请检查网络状态'
+            });
+            callback && $timeout(callback,0);
+            return;
+          }
+          $scope.nowCampaigns = now_campaign_list;
+          $scope.newCampaigns = new_campaign_list;
+          if(newFinishCampaign){
+            if($scope.newCampaigns.length>3){
+              $scope.newCampaigns.splice(3,0,newFinishCampaign);
+            }
+            else{
+              $scope.newCampaigns.push(newFinishCampaign);
+            }
+          }
+          if($scope.nowCampaigns.length==0 && $scope.newCampaigns.length==0 ){
+            $scope.moreData = false;
+          }
+          callback && $timeout(callback,0);
+        });
       });
     });
   }
 
-  init();
-  var removeCampaign = function(id){
+  init(function(){
+    $ionicSlideBoxDelegate.update();
+  });
+  var removeCampaign = function(status, id){
+    if(status){
+      $ionicPopup.alert({
+        title: '提示',
+        template: '网络错误，请检查网络状态'
+      });
+      return;
+    }
     var _length = $scope.newCampaigns.length;
     for(var i=0;i<_length;i++){
       if($scope.newCampaigns[i]._id==id){
-        $scope.newCampaigns.splice(i,1);
+        $scope.newCampaigns[i].is_joined = true;
         break;
       }
     }
@@ -89,11 +106,12 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.doRefresh = function(){
     init(function(){
       $scope.$broadcast('scroll.refreshComplete');
+      $ionicSlideBoxDelegate.update();
     });
   }
 })
 
-.controller('CampaignListCtrl', function($scope, $rootScope, $ionicModal, Campaign, Global, Authorize) {
+.controller('CampaignListCtrl', function($scope, $rootScope, $ionicModal, $ionicPopup, Campaign, Global, Authorize) {
   Authorize.authorize();
   var page = -1;
   $scope.moreData =true;
@@ -142,7 +160,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   // };
   $scope.loadMore = function(callback){
     page++;
-    Campaign.getUserJoinedCampaignsForList(page,function(campaign_list) {
+    Campaign.getUserJoinedCampaignsForList(page,function(status, campaign_list) {
+      if(status){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '网络错误，请检查网络状态'
+        });
+        return;
+      }
       if($scope.campaign_list){
          $scope.campaign_list = $scope.campaign_list.concat(campaign_list);
       }
@@ -173,10 +198,18 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.user_id = Global.user._id;
   $scope.loading = {status:false};
   $scope.publishing = false;
+  $scope.now =0;
   $scope.togglePublishing = function() {
     $scope.publishing = !$scope.publishing;
   };
-  Campaign.getCampaignDetail( $stateParams.id,function(campaign) {
+  Campaign.getCampaignDetail( $stateParams.id,function(status, campaign) {
+    if(status){
+      $ionicPopup.alert({
+        title: '提示',
+        template: '网络错误，请检查网络状态'
+      });
+      return;
+    }
     $scope.campaign = campaign;
     $scope.loading.status = true;
     if($stateParams.index){
@@ -190,7 +223,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.commentPhoto = PhotoAlbum.commentPhoto($scope.photo_album_id, getPhotoList);
   });
   var getPhotoList = function() {
-    PhotoAlbum.getPhotoList($scope.photo_album_id, function(photos) {
+    PhotoAlbum.getPhotoList($scope.photo_album_id, function(status, photos) {
+      if(status){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '网络错误，请检查网络状态'
+        });
+        return;
+      }
       $scope.photos = photos;
       $scope.photos_view = [];
       var _length = photos.length;
@@ -229,12 +269,17 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.autoUpload = function() {
     var form = $('#upload_form')
     form.ajaxForm(function(data, status) {
-      $scope.upload_modal.hide();
-      hideLoading();
-      ionicAlert('图片上传成功！');
-      getPhotoList();
-      var file = $scope.upload_form.find('#upload_input');
-      file.val("");
+      if(data.result){
+        $scope.upload_modal.hide();
+        hideLoading();
+        ionicAlert('图片上传成功！');
+        getPhotoList();
+        var file = $scope.upload_form.find('#upload_input');
+        file.val("");
+      }
+      else{
+        ionicAlert('图片上传失败！');
+      }
     });
     form.submit();
     showLoading();
@@ -336,8 +381,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.modal = modal;
   });
   $scope.openModal = function(index) {
-    $ionicSlideBoxDelegate.update();
-    $ionicSlideBoxDelegate.slide(index);
+    $scope.now = index;
+    $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
     $scope.modal.show();
   };
   $scope.closeModal = function() {
@@ -362,6 +407,9 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     return false;
   }
   $scope.swipeTab = function(event)  {
+    if($(event.target).parents('#photo_list').length>0){
+      return true;
+    }
     switch(event.gesture.direction){
       case 'left':
         var nowTab = $ionicTabsDelegate.selectedIndex();
@@ -383,14 +431,66 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       break;
     }
   }
+  var scale = 1;
+  $scope.changePhoto = function(event)  {
+    var target = $(event.target);
+    switch(event.gesture.direction){
+      case 'left':
+        if($scope.now<$scope.photos.length-1){
+          $scope.now++;
+        }
+      break;
+      case 'right':
+        if($scope.now>0){
+          $scope.now--;
+
+        }
+      break;
+      default:
+      break;
+    }
+    $timeout(function () {
+      $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
+    }, 0);
+    scale =1;
+    target.css('-webkit-transform', 'scale(' + scale + ') translate(0,0)');
+  }
+
   $scope.pinchImage = function (event){
-    console.log(event);
+    var target = $(event.target);
+    scale =event.gesture.scale * scale;
+    if(scale>2){
+      scale =2;
+    }
+    else if(scale<1){
+      scale=1;
+    }
+    target.css('-webkit-transform', 'scale(' + scale + ')');
+  }
+  $scope.drageImage = function (event) {
+    var target = $(event.target);
+    switch(event.gesture.direction){
+      case 'left':
+        target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + (-event.gesture.distance) + 'px)');
+      break;
+      case 'right':
+        target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + event.gesture.distance + 'px)');
+      break;
+      case 'up':
+        target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + (-event.gesture.distance) + 'px)');
+      break;
+      case 'down':
+        target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + event.gesture.distance + 'px)');
+      break;
+      default:
+      break;
+    }
   }
 })
 
 
 
-.controller('ScheduleListCtrl', function($scope, $rootScope, Campaign, Global, Authorize) {
+.controller('ScheduleListCtrl', function($scope, $rootScope, $ionicPopup, Campaign, Global, Authorize) {
   Authorize.authorize();
   $rootScope.enable_drag = false;
   $rootScope.$on('$stateChangeStart', function() {
@@ -670,7 +770,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
 
-  Campaign.getUserCampaignsForCalendar(function(campaigns) {
+  Campaign.getUserCampaignsForCalendar(function(status, campaigns) {
+    if(status){
+      $ionicPopup.alert({
+        title: '提示',
+        template: '网络错误，请检查网络状态'
+      });
+      return;
+    }
     $scope.campaigns = campaigns;
     var month = updateMonth(current);
     $scope.month_cards = [month];
@@ -767,7 +874,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 
-.controller('TimelineCtrl', function($scope, $rootScope, $ionicScrollDelegate, $state, Timeline, Authorize) {
+.controller('TimelineCtrl', function($scope, $rootScope, $ionicScrollDelegate, $state, $ionicPopup, Timeline, Authorize) {
   Authorize.authorize();
   $rootScope.campaignReturnUri = '#/app/timeline';
   $scope.moreData =true;
@@ -785,7 +892,15 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }
   $scope.loadMore = function(callback){
     page++;
-    Timeline.getUserTimeline(page,function(time_lines, nowpage, moreData) {
+    Timeline.getUserTimeline(page,function(status, time_lines, nowpage, moreData) {
+      if(status){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '网络错误，请检查网络状态'
+        });
+        callback();
+        return;
+      }
       $scope.time_lines = time_lines;
       if(Timeline.getCacheTimeline()){
         Timeline.setCacheTimeline(false);
@@ -917,44 +1032,51 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     restrict :  'A',
 
     link : function(scope, elem, attrs) {
-      var gestureType = attrs.gestureType;
-
-      switch(gestureType) {
-        case 'swipe':
-          $ionicGesture.on('swipe', scope.swipeTab, elem);
-          break;
-        case 'pinchout':
-          $ionicGesture.on('pinchout', scope.pinchImage, elem);
-          break;
-        // case 'swipeleft':
-        //   $ionicGesture.on('swipeleft', scope.reportEvent, elem);
-        //   break;
-        // case 'doubletap':
-        //   $ionicGesture.on('doubletap', scope.reportEvent, elem);
-        //   break;
-        // case 'tap':
-        //   $ionicGesture.on('tap', scope.reportEvent, elem);
-        //   break;
-      }
+      var gestureType = attrs.gestureType.split(',');
+      var getstureCallback = attrs.getstureCallback.split(',');
+      console.log(gestureType,getstureCallback);
+      var gesture = [];
+      gestureType.forEach(function(_gestureType,_index){
+        switch(_gestureType) {
+          case "swipe":
+            gesture[_index] = $ionicGesture.on('swipe', scope[getstureCallback[_index]], elem);
+            break;
+          case "pinch":
+            gesture[_index] = $ionicGesture.on('pinch', scope[getstureCallback[_index]], elem);
+            break;
+           case "drag":
+            gesture[_index] = $ionicGesture.on('drag', scope[getstureCallback[_index]], elem);
+            break;
+          case 'doubletap':
+            gesture[_index] = $ionicGesture.on('doubletap', scope[getstureCallback[_index]], elem);
+            break;
+          // case 'tap':
+          //   $ionicGesture.on('tap', scope.reportEvent, elem);
+          //   break;
+        }
+      });
+      
       scope.$on('$destroy', function() {
         // Unbind drag gesture handler
-        switch(gestureType) {
-        case 'swipe':
-          $ionicGesture.off('swipe', scope.swipeTab, elem);
-          break;
-        case 'pinchout':
-          $ionicGesture.off('pinchout', scope.pinchImage, elem);
-          break;
-        // case 'swipeleft':
-        //   $ionicGesture.off('swipeleft', scope.reportEvent, elem);
-        //   break;
-        // case 'doubletap':
-        //   $ionicGesture.off('doubletap', scope.reportEvent, elem);
-        //   break;
-        // case 'tap':
-        //   $ionicGesture.off('tap', scope.reportEvent, elem);
-        //   break;
-      }
+        gestureType.forEach(function(_gestureType,_index){
+          switch(_gestureType) {
+            case "swipe":
+              $ionicGesture.off(gesture[_index], 'swipe');
+              break;
+            case "pinch":
+              $ionicGesture.off(gesture[_index], 'pinch');
+              break;
+            case "drag":
+              $ionicGesture.off(gesture[_index], 'drag');
+              break;
+            case 'doubletap':
+              $ionicGesture.off(gesture[_index],'doubletap');
+              break;
+            // case 'tap':
+            //   $ionicGesture.off('tap', scope.reportEvent, elem);
+            //   break;
+          }
+        });
       });
     }
   }

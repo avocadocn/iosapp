@@ -9,17 +9,17 @@ angular.module('starter.services', [])
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
-
   // ionic.Platform.ready(function(){
   //   window.plugin.notification.local.onclick = function (id, state, json) {
   //     $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
   //   };
   // });
-
+  var img_url = "http://www.55yali.com";
   var _user = {};
   var last_date;
   return {
     base_url: base_url,
+    img_url: img_url,
     user: _user,
     last_date: last_date
   };
@@ -215,6 +215,9 @@ angular.module('starter.services', [])
         delete localStorage.token;//for pushwoosh
         $state.go('login');
       }
+    })
+    .error(function(data, status, headers, config) {
+      alert('网络连接错误，请检查网络状态');
     });
   };
   return {
@@ -286,19 +289,28 @@ angular.module('starter.services', [])
   var getNowCampaignList = function(callback){
     $http.get(Global.base_url + '/campaign/user/now/applist/'+ Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status, headers, config) {
-      callback(data.campaigns);
+      callback(null,data.campaigns);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status,null);
     });
   }
   var getNewCampaignList = function(callback){
     $http.get(Global.base_url + '/campaign/user/new/applist/'+ Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status, headers, config) {
-      callback(data.campaigns);
+      callback(null, data.campaigns);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status,null);
     });
   }
   var getNewFinishCampaign = function(callback){
     $http.get(Global.base_url + '/campaign/user/newfinish/applist/'+ Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status, headers, config) {
-      callback(data.campaigns);
+      callback(null, data.campaigns);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status,null);
     });
   }
   
@@ -314,8 +326,11 @@ angular.module('starter.services', [])
         }
       }
       if (callback) {
-        callback(campaign);
+        callback(null, campaign);
       }
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
     });
   };
     // callback(campaign)
@@ -324,8 +339,11 @@ angular.module('starter.services', [])
     .success(function(data, status) {
       var campaign = data.campaign;
       if (callback) {
-        callback(campaign);
+        callback(null, campaign);
       }
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
     });
   };
   // callback(campaign_list)
@@ -333,7 +351,10 @@ angular.module('starter.services', [])
     $http.get(Global.base_url + '/campaign/user/all/applist/'+ page +'/'+ Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status, headers, config) {
       campaign_list = data.campaigns;
-      callback(campaign_list);
+      callback(null, campaign_list);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
     });
   };
 
@@ -341,14 +362,20 @@ angular.module('starter.services', [])
     $http.get(Global.base_url + '/campaign/user/joined/applist/'+ page +'/'+ Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status, headers, config) {
       campaign_list = data.campaigns;
-      callback(campaign_list);
+      callback(null, campaign_list);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
     });
   };
 
   var getUserCampaignsForCalendar = function(callback) {
     $http.get(Global.base_url + '/campaign/user/all/appcalendar/' + Global.user._id + '/' + Global.user.app_token)
     .success(function(data, status) {
-      callback(data.campaigns);
+      callback(null, data.campaigns);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
     });
   };
 
@@ -358,7 +385,10 @@ angular.module('starter.services', [])
       $http.post(Global.base_url + '/campaign/joinCampaign/'+campaign._id, { campaign_id: campaign._id, tid:tid})
       .success(function(data, status, headers, config) {
         // scheduleCampaign(campaign);
-        callback(campaign._id);
+        callback(null, campaign._id);
+      })
+      .error(function(data, status, headers, config) {
+        callback(status, null);
       });
     };
   };
@@ -368,8 +398,11 @@ angular.module('starter.services', [])
     return function(id) {
       $http.post(Global.base_url + '/campaign/quitCampaign/'+id, { campaign_id: id})
       .success(function(data, status, headers, config) {
-        callback(id);
+        callback(null, id);
         // cancelScheduleCampaign(id);
+      })
+      .error(function(data, status, headers, config) {
+        callback(status, null);
       });
     };
   };
@@ -378,8 +411,11 @@ angular.module('starter.services', [])
     $http.get(Global.base_url + '/campaign/getCampaignCommentsAndPhotos/' + id + '/' + Global.user._id+ '/' + Global.user.app_token)
     .success(function(data, status) {
       if (callback) {
-        callback(data.photo_comments);
+        callback(null, data.photo_comments);
       }
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
     });
   };
 
@@ -491,7 +527,10 @@ angular.module('starter.services', [])
   var getPhotoList = function(photo_album_id, callback) {
     $http.get(Global.base_url + '/photoAlbum/' + photo_album_id + '/photolist')
     .success(function(data, status) {
-      callback(data.data);
+      callback(null, data.data);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
     });
   };
 
@@ -500,7 +539,10 @@ angular.module('starter.services', [])
     return function(photo_id) {
       $http.delete(Global.base_url + '/photoAlbum/' + photo_album_id + '/photo/' + photo_id)
       .success(function(data, status) {
-        callback();
+        callback(null);
+      })
+      .error(function(data, status, headers, config) {
+        callback(status);
       });
     };
   };
@@ -511,7 +553,10 @@ angular.module('starter.services', [])
         comment: comment
       })
       .success(function(data, status) {
-        callback();
+        callback(null);
+      })
+      .error(function(data, status, headers, config) {
+        callback(status);
       });
     };
   };
@@ -537,7 +582,10 @@ angular.module('starter.services', [])
     // why post?
     $http.post(Global.base_url + '/comment/pull/campaign/' + id, { host_id: id,userId:Global.user._id, appToken:Global.user.app_token })
     .success(function(data, status) {
-      callback(data.comments);
+      callback(null, data.comments);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
     });
   };
 
@@ -560,6 +608,9 @@ angular.module('starter.services', [])
       } else {
         callback(data.msg);
       }
+    })
+    .error(function(data, status, headers, config) {
+      callback(status);
     });
   };
 
@@ -644,7 +695,10 @@ angular.module('starter.services', [])
       .success(function(data, status) {
         timeline = timeline.length>0 ? timeline.concat(data.time_lines) : data.time_lines;
         moreData = data.time_lines.length==20;
-        callback(timeline, page, moreData);
+        callback(null,timeline, page, moreData);
+      })
+      .error(function(data, status, headers, config) {
+        callback(status, null);
       });
     }
 
@@ -677,7 +731,10 @@ angular.module('starter.services', [])
 .factory('Message', function($http, Global) {
   var getUnreadMsg = function(callback){
     $http.get(Global.base_url + '/message/header').success(function(data, status) {
-      callback(data.msg);
+      callback(null, data.msg);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
     });
   };
 

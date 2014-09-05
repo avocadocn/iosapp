@@ -416,14 +416,14 @@ body {
   margin-right: 0;
 }
 .index_slide_box .slider-pager {
-  height: 6px;
+  height: 1px;
 }
 .index_slide_box .slider-pager .slider-pager-page {
   width: 11px;
 }
 .index_slide_box .slider-pager .slider-pager-page .icon {
   font-size: 6px;
-  color: #f0f0f0;
+  color: #e0e0e0;
 }
 .new_campaign_item {
   margin: 0;
@@ -464,6 +464,16 @@ body {
 }
 .new_campaign_item .item-content .campaign_link .campaign_title .campaign_label .new_campaign_time {
   font-size: 14px;
+}
+.new_campaign_item .item-content .campaign_link .campaign_title .campaign_label .joined_sign {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-color: transparent #3abde8 transparent transparent;
+  border-style: solid;
+  border-width: 0 20px 20px;
 }
 .calendar {
   height: 100%;
@@ -785,8 +795,11 @@ body {
 }
 .campaign_detail .photo_box .photo_content {
   float: left;
-  width: 79px;
-  height: 79px;
+  width: 78px;
+  height: 78px;
+  margin: 1px;
+}
+.campaign_detail .photo_box .photo_content .loading_div {
   border: solid 1px #808080;
 }
 .campaign_detail .comments {
@@ -942,25 +955,12 @@ body {
 .modal-wrapper {
   height: 100%;
 }
-.photo_slide_modal {
-  height: 100%;
-  position: relative;
-}
-.photo_slide_modal .slider-slides {
-  height: 100%;
-  position: relative;
-}
-.photo_slide_modal .slider-slides .photo_slide_cell {
-  display: flex;
-  height: 100%;
-}
-.photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap {
-  position: relative;
+.modal-wrapper .photo_wrap {
   width: 100%;
   height: 100%;
   background-color: #000;
 }
-.photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap .photo {
+.modal-wrapper .photo_wrap .photo {
   max-width: 100%;
   max-height: 100%;
 }

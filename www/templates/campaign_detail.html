@@ -12,11 +12,10 @@
   <ion-tabs tabs-type="tabs-icon-top tabs-positive" class="donler_tabs donler_tabs_bottom">
 
     <ion-tab title="详情" icon="ion-ios7-information-outline">
-      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe" getsture-callback="swipeTab">
         <div class="list detail_list">
           <div class="item clearfix">
-              <img class="campaign_group_logo" ng-src="{{ base_url + campaign.logo + '/40/40' }}"/>
-              <span class="team_name">{{ campaign.owner_name }}</span>
+            <span class="team_name text-center">{{ campaign.owner_name }}</span>
           </div>
           <div class="item item-divider">
             主题: {{campaign.theme}}
@@ -50,7 +49,7 @@
           <button class="comment_button" ng-click="publishComment()" ng-disabled="comment_form.$invalid"> 发表</button>
         </form>
       </div>
-      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe" getsture-callback="swipeTab">
         <div class="simple_title padding clearfix">
           <div class="title">活动相册</div>
           <button class="button icon ion-plus upload_button operator_button" ng-click="openUploadModal()"></button>
@@ -64,7 +63,7 @@
             <ion-slide ng-repeat="photo_page in photos_view" class="photo_box" length="photos_view.length" hide-pager>
               <div class="clearfix">
                 <div ng-repeat="photo in photo_page" class="photo_content loading_box" ng-click="openModal(photo.index)">
-                  <img class="photo loading_content" ng-src="{{ base_url + photo.uri +'/145/145'}}" thumbnail-photo/>
+                  <img class="photo loading_content" ng-src="{{ img_url + photo.uri +'/145/145'}}" thumbnail-photo/>
                   <div class="loading_div">
                     <i class="ion-loading-d"></i>
                   </div>
@@ -84,7 +83,7 @@
         <div ng-if="comments.length > 0" class="comments">
           <div ng-repeat="comment in comments" ng-class="{'self':comment.poster._id==user_id, 'other':comment.poster._id!=user_id}" class="clearfix">
             <div class="photo_box">
-              <img ng-src="{{base_url + comment.poster.photo}}" class="photo img_user"/>
+              <img ng-src="{{img_url + comment.poster.photo}}" class="photo img_user"/>
             </div>
             <div class="comment_body">
               <div class="nickname">{{comment.poster.nickname}}</div>
@@ -103,13 +102,13 @@
     </ion-tab>
 
     <ion-tab title="成员" icon="ion-ios7-person-outline">
-      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe" getsture-callback="swipeTab">
         <div class="padding">
           <div ng-if="campaign.campaign_type<=3" class="campaign_members_wrap content clearfix">
             <!-- href="#/app/other_user_info/{{ user.uid }}" -->
             <a class="campaign_member_panel" ng-repeat="user in campaign.member">
               <div class="campaign_member_wrap">
-                <img class="campaign_member_photo img_user" ng-src="{{ base_url + '/logo/user/' + user.uid + '/40/40' }}"/>
+                <img class="campaign_member_photo img_user" ng-src="{{ img_url + '/logo/user/' + user.uid + '/40/40' }}"/>
                 <p class="campaign_member_name">{{ user.nickname }}</p>
               </div>
             </a>
@@ -138,7 +137,7 @@
     </ion-tab>
 
     <ion-tab title="地点" icon="ion-ios7-location-outline">
-      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe">
+      <ion-content has-header="true" class="wrap campaign_detail" detect-gestures gesture-type="swipe" getsture-callback="swipeTab">
         <div class="padding">
           <p>活动地点</p>
           <p>{{campaign.location.name}}</p>
@@ -150,7 +149,7 @@
 
 <!--           <a ng-if="campaign.location.coordinates.length==2" href="http://maps.apple.com/?sspn={{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}" target="_blank"> -->
 <!--             <img ng-if="campaign.location.coordinates.length==2" class="location" ng-src="http://api.map.baidu.com/staticimage?width=580&height=520&center={{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&zoom=15&markers={{campaign.location.name}}|{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&markerStyles=m,A,0xff0000&labels={{campaign.location.name}}|{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&labelStyles={{campaign.location.name}},1,14,0xffffff,0x000fff,1"/> -->
-            <img ng-if="campaign.location.coordinates.length==2" class="location" ng-src="http://restapi.amap.com/v3/staticmap?location={{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&zoom=15&size=600*520&markers=mid,,A:{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&labels={{campaign.location.name | nospace}},2,0,12,0xffffff,0x3498db:{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&key=077eff0a89079f77e2893d6735c2f044"/>
+            <img ng-if="campaign.location.coordinates.length==2" class="location" ng-src="http://restapi.amap.com/v3/staticmap?location={{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&zoom=15&size=300*260&markers=mid,,A:{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&labels={{campaign.location.name | nospace}},2,0,12,0xffffff,0x3498db:{{campaign.location.coordinates[0]}},{{campaign.location.coordinates[1]}}&key=077eff0a89079f77e2893d6735c2f044"/>
           </a>
         </div>
       </ion-content>
