@@ -1047,20 +1047,20 @@ body {
   background-size: contain;
 }
 .comment_edit form {
-  background-color: #3abde8;
+  background-color: #464646;
   padding: 5px;
 }
 .comment_edit form .comment_input {
   float: left;
   width: 80%;
-  background-color: #3abde8;
+  background-color: #464646;
   color: #fff;
   border: 1px #fff solid;
   border-radius: 0;
 }
 .comment_edit form .comment_button {
   width: 20%;
-  background-color: #3abde8;
+  background-color: #464646;
   color: #fff;
   height: 34px;
   border: 1px #fff solid;
