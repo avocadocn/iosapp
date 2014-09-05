@@ -159,7 +159,7 @@
 
   </ion-tabs>
 
-  <div class="join_circle" id="join_circle" ng-show="loading.status && !campaign.finish && !campaign.is_joined" ng-click="join_active()">
+  <div class="join_circle" id="join_circle" ng-show="loading.status && !campaign.finish && !campaign.is_joined && !publishing" ng-click="join_active()">
     <div class="operator" ng-click="campaign.myteam.length<2 ? join(campaign,campaign.myteam[0].id) : openselectModal()">参加</div>
   </div>
 
