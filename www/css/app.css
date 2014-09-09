@@ -543,7 +543,6 @@ body {
 }
 .calendar .calendar_box {
   position: relative;
-  height: 100%;
 }
 .calendar .calendar_box .swipe-cards {
   height: 100%;
@@ -642,7 +641,14 @@ body {
 }
 .calendar .calendar_day {
   padding: 5px;
-  height: 100%;
+  position: relative;
+}
+.calendar .calendar_day .swipe-cards {
+  height: auto;
+}
+.calendar .calendar_day .swipe-card {
+  height: auto;
+  min-height: 100%;
 }
 .calendar .calendar_day .calendar_campaign {
   display: block;

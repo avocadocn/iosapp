@@ -1125,5 +1125,20 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
+.directive('autoHeight', function() {
+  return {
+    restrict: 'A',
+    scope: {
+      subHeight: '='
+    },
+    link: function (scope, element, attrs, ctrl) {
+      var subHeight = parseInt(scope.subHeight);
+      var height = window.innerHeight - subHeight - 64;
+      $(element)[0].style.height = height + 'px';
+      ($(element).find('.scroll'))[0].style.height = (height - 10) + 'px';
+    }
+  };
+
+})
 
 

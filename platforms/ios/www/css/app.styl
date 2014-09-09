@@ -570,7 +570,6 @@ body
 
   .calendar_box
     position relative
-    height 100%
 
     .swipe-cards
       height 100%
@@ -651,7 +650,14 @@ body
 
   .calendar_day
     padding 5px
-    height 100%
+    position relative
+
+    .swipe-cards
+      height auto
+
+    .swipe-card
+      height auto
+      min-height 100%
 
     .calendar_campaign
       display block
