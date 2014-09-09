@@ -9,7 +9,7 @@ angular.module('starter.services', [])
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
-  //var base_url = "http://192.168.2.104:3000";
+  //var base_url = "http://192.168.2.109:3000";
   // ionic.Platform.ready(function(){
   //   window.plugin.notification.local.onclick = function (id, state, json) {
   //     $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
