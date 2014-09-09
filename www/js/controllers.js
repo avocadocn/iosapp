@@ -190,7 +190,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicPopup, $ionicLoading, $ionicTabsDelegate, $timeout, Campaign, PhotoAlbum, Comment, Global, Authorize) {
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicPopup, $ionicLoading, $ionicTabsDelegate, $timeout, Campaign, PhotoAlbum, Comment, Global, Authorize) {
 
   Authorize.authorize();
 
@@ -278,6 +278,15 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
   $scope.photos = [];
+  $scope.changePhoto = function (index) {
+    var scrollDelegate = $ionicScrollDelegate.$getByHandle('photo_'+index);
+    var view = scrollDelegate.getScrollView();
+
+    //reset zoom level
+    view.__zoomLevel = 1;
+    scrollDelegate.scrollTo(0,0);
+  }
+
   Comment.getCampaignComments($stateParams.id, function(status, comments) {
     if(status){
       $ionicPopup.alert({
