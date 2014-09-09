@@ -1143,7 +1143,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       var subHeight = parseInt(scope.subHeight);
       var height = window.innerHeight - subHeight - 64;
       $(element)[0].style.height = height + 'px';
-      ($(element).find('.scroll'))[0].style.height = (height - 10) + 'px';
+      ($(element).find('.scroll'))[0].style.height = height + 'px';
     }
   };
 
