@@ -2,11 +2,11 @@
   <img class="photo img" ng-src="{{nowPhoto}}"  detect-gestures gesture-type="pinch,drag" getsture-callback="pinchImage,drageImage"/>
   <img class="photo img" ng-src="{{nowPhoto}}"/>
 </div> -->
-<ion-slide-box class="photo_slide_modal" show-pager="false" detect-gestures gesture-type="doubletap" getsture-callback="closeModal">
+<ion-slide-box class="photo_slide_modal" show-pager="false" on-slide-changed="changePhoto(index)" detect-gestures gesture-type="doubletap" getsture-callback="closeModal">
   <ion-slide ng-repeat="photo in photos" class="photo_slide_cell">
-    <div class="photo_wrap center_img_container">
+    <ion-scroll zooming="true" direction="xy" class="photo_wrap center_img_container" delegate-handle="photo_{{$index}}">
       <!-- <img class="photo img"  detect-gestures gesture-type="pinchout" ng-src="{{ base_url + photo.uri}}/resize/320/568" /> -->
-      <img class="photo img" ng-src="{{ base_url + photo.uri}}/resize/600/800"/>
-    </div>
+      <img class="photo img" id="photo_{{$index}}" ng-src="{{ base_url + photo.uri}}/resize/600/800"/>
+    </ion-scroll >
   </ion-slide>
 </ion-slide-box>
