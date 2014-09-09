@@ -43,13 +43,12 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       Campaign.getNewCampaignList(function(new_campaign_status, new_campaign_list) {
 
         Campaign.getNewFinishCampaign(function(newFinishCampaignStatus, newFinishCampaign) {
-          if(now_campaign_status || new_campaign_status || newFinishCampaignStatus){
-
+          if(now_campaign_status || new_campaign_status || newFinishCampaignStatus) {
             $ionicPopup.alert({
               title: '提示',
               template: '网络错误，请检查网络状态'
             });
-            callback && callback());
+            callback && callback();
             return;
           }
           $scope.nowCampaigns = now_campaign_list;
@@ -306,17 +305,11 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         });
         return;
       }
-      $timeout(function(){
-        $scope.campaign = campaign;
-        $('#join_circle').removeClass("join_active");
-      },400);
+      $scope.campaign = campaign;
     });
   }
 
   $scope.join = Campaign.join(updateCampaign);
-  $scope.join_active = function(){
-    $('#join_circle').addClass("join_active");
-  };
   $scope.quit = Campaign.quit(updateCampaign);
   $scope.publishComment = function() {
     if($scope.comment_content.text=='') {
