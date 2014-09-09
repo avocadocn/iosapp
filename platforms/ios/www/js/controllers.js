@@ -407,7 +407,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.modal.show();
   };
   $scope.closeModal = function() {
-    console.log('s');
     $scope.modal.hide();
   };
   $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
