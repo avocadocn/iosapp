@@ -1,12 +1,18 @@
-<ion-view title="个人信息">
+<ion-view title="个人信息" animation="slide-left-right">
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
     <img ng-src="{{ img_url + user.photo }}" height="64px"/>
-    <p>{{ user.nickname }}</p>
-    <p>{{ user.realname }}</p>
-    <p>{{ user.email }}</p>
-    <p>{{ user.company }}</p>
+    <a class="item item-icon-right">
+      <span class="title">昵称:</span>
+      <span class="content">{{ user.nickname }}</span>
+      <i class="icon ion-arrow-right-c"></i>
+    </a>
+    <span>{{ user.realname }}</span>
+    <span>{{ user.introduce }}</span>
+    <span>{{ user.cname }}</span>
+    <span>{{ user.department }}</span>
+    <span>{{ user.phone }}</span>
   </ion-content>
 </ion-view>

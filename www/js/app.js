@@ -62,8 +62,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
 
-
-
     .state('app.scheduleList', {
       url: '/schedule_list',
       views: {
@@ -134,7 +132,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     //   }
     // })
 
-
     .state('app.timeline', {
       url: '/timeline',
       views: {
@@ -145,17 +142,35 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
 
+    .state('app.settings', {
+      url: '/settings',
+      views: {
+        'menuContent':  {
+          templateUrl: 'templates/settings.html',
+          controller: 'SettingsCtrl'
+        }
+      }
+    })
 
-    // .state('app.userInfo', {
-    //   url: '/user_info',
+    .state('app.userInfo', {
+      url: '/user_info',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/user_info.html',
+          controller: 'UserInfoCtrl'
+        }
+      }
+    })
+
+    // .state('app.changePhoto', {
+    //   url: '/change_photo',
     //   views: {
     //     'menuContent': {
-    //       templateUrl: 'templates/user_info.html',
-    //       controller: 'UserInfoCtrl'
+    //       templateUrl: 'templates/change_photo.html',
+    //       controller: 'changePhotoCtrl'
     //     }
     //   }
     // })
-
     // .state('app.otherUserInfo', {
     //   url: '/other_user_info/:uid',
     //   views: {

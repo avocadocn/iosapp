@@ -189,10 +189,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.loadMore($scope.loadMoreFinish);
 })
 
-
-
 .controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicPopup, $ionicLoading, $ionicTabsDelegate, $timeout, Campaign, PhotoAlbum, Comment, Global, Authorize) {
-
 
   Authorize.authorize();
   $scope.base_url = Global.base_url;
@@ -520,8 +517,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   //   }
   // }
 })
-
-
 
 .controller('ScheduleListCtrl', function($scope, $rootScope, $ionicPopup, Campaign, Global, Authorize) {
   Authorize.authorize();
@@ -905,8 +900,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 //   })
 // })
 
-
-
 .controller('TimelineCtrl', function($scope, $rootScope, $ionicScrollDelegate, $state, $ionicPopup, Timeline, Authorize) {
   Authorize.authorize();
   $rootScope.campaignReturnUri = '#/app/timeline';
@@ -952,17 +945,15 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }
 })
 
+.controller('UserInfoCtrl', function($scope, User, Global) {
 
-// .controller('UserInfoCtrl', function($scope, User, Global) {
+  $scope.base_url = Global.base_url;
 
-//   $scope.base_url = Global.base_url;
+  User.getInfo(Global.user._id, function(user) {
+    $scope.user = user;
+  });
 
-//   User.getInfo(Global.user._id, function(user) {
-//     $scope.user = user;
-//   });
-
-// })
-
+})
 
 // .controller('OtherUserInfoCtrl', function($scope, $stateParams, User, Global) {
 
@@ -974,6 +965,24 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 // })
+.controller('SettingsCtrl', function($scope, $ionicModal, Authorize) {
+  $ionicModal.fromTemplateUrl('templates/partials/logout_modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.logoutModal = modal;
+  });
+  $scope.openlogoutModal = function() {
+    $scope.logoutModal.show();
+  };
+  $scope.logout = function() {
+    $scope.logoutModal.hide();
+    Authorize.logout();
+  };
+  $scope.cancel = function() {
+    $scope.logoutModal.hide();
+  };
+})
 
 
 .directive('thumbnailPhoto', function() {
