@@ -5,22 +5,23 @@
   <ion-content class="has-header">
     <div class="info_list">
       <img ng-src="{{ img_url + user.photo }}" class="menu_photo" height="64px"/>
-      <a class="item item-icon-right">
+      <a class="item item-icon-right" ng-click="editInfo('nickname')">
         <span class="info_title">昵称:</span>
         <span class="info_content">{{ user.nickname }}</span>
-        <i class="icon ion-ios7-arrow-right"></i>
+        <i ng-if="true" class="icon ion-ios7-arrow-right"></i>
+        <!-- todo M when others visit, don't show icon -->
       </a>
-      <a class="item item-icon-right">
+      <a class="item item-icon-right" ng-click="editInfo('realname')">
         <span class="info_title">真名:</span>
         <span class="info_content">{{ user.realname }}</span>
         <i class="icon ion-ios7-arrow-right"></i>
       </a>
-      <a class="item item-icon-right">
+      <a class="item item-icon-right" ng-click="editInfo('introduce')">
         <span class="info_title">简介:</span>
         <span class="info_content">{{ user.introduce }}</span>
         <i class="icon ion-ios7-arrow-right"></i>
       </a>
-      <a class="item item-icon-right">
+      <a class="item item-icon-right" ng-click="editInfo('phone')">
         <span class="info_title">电话:</span>
         <span class="info_content" ng-show="user.phone">{{user.phone}}</span>
         <span class="info_content" ng-show="!user.phone">还未填写，赶紧完善吧～</span>

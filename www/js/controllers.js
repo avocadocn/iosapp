@@ -326,7 +326,10 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       //$scope.viewFormFlag =false;
       }
       else{
-        alert(msg);
+        $ionicPopup.alert({
+          title: '提示',
+          template: '网络错误，请检查网络状态'
+        });
       }
     });
     $scope.publishing = false;
@@ -952,7 +955,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }
 })
 
-.controller('UserInfoCtrl', function($scope, User, Global) {
+.controller('UserInfoCtrl', function($scope,$ionicPopup, User, Global) {
 
   $scope.base_url = Global.base_url;
 
@@ -960,6 +963,52 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.user = user;
   });
 
+  $scope.editInfo = function(editName){
+    var template = '',
+        title = '';
+    if(editName === 'nickname'){
+      //template = '<input type="String" ng-model="user.nickname">';
+      title = '修改昵称';
+    }
+    else if(editName === 'realname'){
+      //template = '<input type="String" ng-model="user.realname">';
+      title = '修改真名';
+    }
+    else if(editName === 'introduce'){
+      //template = '<input type="String" ng-model="user.introduce">';
+      title = '修改简介';
+    }
+    else if(editName === 'phone'){
+      //template = '<input type="String" ng-model="user.phone">';
+      title = '修改电话';
+    }
+    var myPopup = $ionicPopup.show({
+      template: '<input type="String" ng-model="user.'+editName+'">',
+      title: title,
+      //subTitle: 'Please use normal things',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确定</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            return;
+          }
+        },
+      ]
+    });
+    myPopup.then(function() {
+      User.setInfo($scope.user._id, editName, $scope.user[editName] ,function(msg){
+        if(msg){
+          $ionicPopup.alert({
+            title: '提示',
+            template: '网络错误，请检查网络状态'
+          });
+        }
+      });
+    });
+  };
 })
 
 // .controller('OtherUserInfoCtrl', function($scope, $stateParams, User, Global) {

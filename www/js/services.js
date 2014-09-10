@@ -625,15 +625,31 @@ angular.module('starter.services', [])
   // callback(user)
   var getInfo = function(user_id, callback) {
     $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id })
-    .success(function(data, status, headers, config) {
+    .success(function(data, status) {
       if (data.result === 1) {
         callback(data.user);
       }
     });
   };
 
+  var setInfo = function(user_id, editName, editValue, callback) {
+    $http.post(Global.base_url + '/users/editUserInfo/'+ user_id, {_id:user_id, editName:editName, editValue:editValue })
+    .success(function(data, status) {
+      if(data.result === 1) {
+        callback(null);
+      }
+      else{
+        callback(data.msg);
+      }
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
+    });
+  };
+
   return {
-    getInfo: getInfo
+    getInfo: getInfo,
+    setInfo: setInfo
   };
 
 })
