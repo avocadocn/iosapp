@@ -313,7 +313,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     Comment.publishCampaignComment($stateParams.id, $scope.comment_content.text, function(msg) {
       if(!msg){
         $scope.comment_content.text = '';
-        Comment.getCampaignComments($stateParams.id, function(comments) {
+        Comment.getCampaignComments($stateParams.id, function(status, comments) {
+          if(status){
+            $ionicPopup.alert({
+              title: '提示',
+              template: '网络错误，请检查网络状态'
+            });
+            return;
+          }
           $scope.comments = comments;
         });
       //$scope.viewFormFlag =false;
