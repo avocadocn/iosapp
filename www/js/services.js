@@ -8,8 +8,10 @@ angular.module('starter.services', [])
 .factory('Global', function($state) {
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
-  var base_url = "http://www.55yali.com";
-  var img_url = "http://www.55yali.com";
+  //var base_url = "http://www.55yali.com";
+  //var img_url = "http://www.55yali.com";
+  var base_url = "http://192.168.2.105:3000";
+  var img_url = "http://192.168.2.105:3000";
   var _user = {};
   var last_date;
   return {
@@ -618,23 +620,23 @@ angular.module('starter.services', [])
 
 
 
-// .factory('User', function($http, Global) {
+.factory('User', function($http, Global) {
 
-//   // callback(user)
-//   var getInfo = function(user_id, callback) {
-//     $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id })
-//     .success(function(data, status, headers, config) {
-//       if (data.result === 1) {
-//         callback(data.user);
-//       }
-//     });
-//   };
+  // callback(user)
+  var getInfo = function(user_id, callback) {
+    $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id })
+    .success(function(data, status, headers, config) {
+      if (data.result === 1) {
+        callback(data.user);
+      }
+    });
+  };
 
-//   return {
-//     getInfo: getInfo
-//   };
+  return {
+    getInfo: getInfo
+  };
 
-// })
+})
 
 
 // .factory('Map', function() {
@@ -717,9 +719,6 @@ angular.module('starter.services', [])
     setTimelinePosition: setTimelinePosition,
     getTimelinePosition: getTimelinePosition
   };
-
-
-
 })
 
 //未读站内信
@@ -736,10 +735,4 @@ angular.module('starter.services', [])
   return {
     getUnreadMsg: getUnreadMsg
   };
-})
-
-
-
-
-
-
+});

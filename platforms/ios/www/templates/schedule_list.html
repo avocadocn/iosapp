@@ -2,10 +2,10 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-  <ion-content class="has-header">
+  <ion-content class="has-header" scrollbar-y="false">
 
-    <div class="calendar" no-scroll>
-      <nav>
+    <div class="calendar">
+      <nav no-scroll>
         <div class="operator clearfix">
           <div class="pull-left">
             <div class="btn" ng-if="view==='month'" ng-click="back()"><i class="icon ion-chevron-left"></i>&nbsp;{{ current_year }}</div>
@@ -32,7 +32,7 @@
         <div class="date_bar text-center" ng-if="view==='day'">{{ current_day.format_date }}&nbsp;{{ current_day.format_day }}</div>
       </nav>
       <div class="calendar_box" ng-class="{full_box: view==='year'}">
-        <div class="calendar_year clearfix" ng-if="view==='year'">
+        <div class="calendar_year clearfix" ng-if="view==='year'" no-scroll>
           <div class="year_section" ng-repeat="month in year" ng-click="monthView($index)">
             <div class="table_wrap">
               <div class="table_cell">
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="calendar_month clearfix" ng-if="view==='month'">
+        <div class="calendar_month clearfix" ng-if="view==='month'" no-scroll>
           <swipe-cards>
             <swipe-card class="clearfix" ng-repeat="month in month_cards" on-up="nextMonth(month)" on-down="preMonth(month)" on-destroy="removeMonth($index)">
               <div class="month" ng-class="month.offset">{{ month.format_month }}</div>
@@ -53,20 +53,27 @@
             </swipe-card>
           </swipe-cards>
         </div>
-        <div class="calendar_day clearfix" ng-if="view==='day'">
+        <div class="calendar_day clearfix" ng-if="view==='day'" auto-height sub-height="121">
           <swipe-cards>
-            <swipe-card class="clearfix" ng-repeat="day in day_cards" on-left="nextDay(day)" on-right="preDay(day)" on-destroy="removeDay($index)">
-              <a class="calendar_campaign" ng-repeat="campaign in day.campaigns" ng-href="#/app/campaign_detail/{{ campaign._id }}/">
-                <div class="logo"><img ng-src="{{base_url +  campaign.logo }}"/></div>
-                <div class="calendar_content">
-                  <div class="text">{{ campaign.theme }}</div>
-                  <div class="text time">开始: {{ campaign.format_start_time }}</div>
-                  <div class="text time">结束: {{ campaign.format_end_time }}</div>
-                  <div class="joined_flag" ng-if="campaign.is_joined">已参加</div>
-                </div>
-              </a>
-              <div class="text-center" ng-if="day.campaigns.length === 0">今天没有活动哦</div>
-            </swipe-card>
+            <ion-scroll scrollbar-y="false">
+              <swipe-card class="clearfix" ng-repeat="day in day_cards" on-left="nextDay(day)" on-right="preDay(day)" on-destroy="removeDay($index)">
+                <ion-list>
+                  <ion-item class="calendar_campaign" ng-repeat="campaign in day.campaigns">
+                    <a href="#/app/campaign_detail/{{ campaign._id }}/" class="campaign_link">
+                      <div class="row campaign_title">
+                        <img class="campaign_group_logo" ng-src="{{ img_url + campaign.logo + '/72/72'}}"/>
+                        <div class="campaign_label">
+                          <p class="campaign_theme"> {{ campaign.theme }} </p>
+                          <p class="new_campaign_time">开始时间：{{campaign.format_start_time}} </p>
+                          <div ng-if="campaign.is_joined" class="joined_sign"></div>
+                        </div>
+                      </div>
+                    </a>
+                  </ion-item>
+                </ion-list>
+                <div class="text-center" ng-if="day.campaigns.length === 0">今天没有活动哦</div>
+              </swipe-card>
+            </ion-scroll>
           </swipe-cards>
         </div>
       </div>

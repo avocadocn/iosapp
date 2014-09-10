@@ -543,7 +543,6 @@ body {
 }
 .calendar .calendar_box {
   position: relative;
-  height: 100%;
 }
 .calendar .calendar_box .swipe-cards {
   height: 100%;
@@ -641,56 +640,62 @@ body {
   margin-left: 85.71428571428571%;
 }
 .calendar .calendar_day {
-  padding: 5px;
-  height: 100%;
+  position: relative;
+}
+.calendar .calendar_day .swipe-cards {
+  height: auto;
+}
+.calendar .calendar_day .swipe-card {
+  height: auto;
+  min-height: 100%;
 }
 .calendar .calendar_day .calendar_campaign {
-  display: block;
-  position: relative;
-  height: 62px;
-  color: #000;
-  border-bottom: solid 1px #ddd;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px;
+  border-left: none;
+  border-right: none;
 }
 .calendar .calendar_day .calendar_campaign:first-child {
   border-top: none;
 }
-.calendar .calendar_day .calendar_campaign .logo {
-  float: left;
-  text-align: center;
-  width: 60px;
-  height: 60px;
+.calendar .calendar_day .calendar_campaign .campaign_link {
+  text-decoration: none;
 }
-.calendar .calendar_day .calendar_campaign .logo img {
-  margin-top: 5px;
-  width: 50px;
-  height: 50px;
+.calendar .calendar_day .calendar_campaign .campaign_link .campaign_title {
+  padding: 0;
 }
-.calendar .calendar_day .calendar_campaign .calendar_content {
-  float: left;
-  margin-left: 10px;
+.calendar .calendar_day .calendar_campaign .campaign_link .campaign_title .campaign_group_logo {
+  margin: 10px;
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  border: 1px solid #fff;
+  border-radius: 5px;
 }
-.calendar .calendar_day .calendar_campaign .calendar_content .text {
-  height: 18px;
-  line-height: 18px;
-  font-size: 12px;
+.calendar .calendar_day .calendar_campaign .campaign_link .campaign_title .campaign_label {
+  padding: 10px 0;
 }
-.calendar .calendar_day .calendar_campaign .calendar_content .text:first-child {
-  margin-top: 3px;
+.calendar .calendar_day .calendar_campaign .campaign_link .campaign_title .campaign_label p {
+  padding: 0;
+  margin: 0;
 }
-.calendar .calendar_day .calendar_campaign .calendar_content .time {
-  color: #808080;
-}
-.calendar .calendar_day .calendar_campaign .calendar_content .joined_flag {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  color: #0098e3;
-  background-color: #ceeffe;
-  border: solid 1px #0098e3;
-  padding: 0 6px;
-  height: 30px;
-  line-height: 28px;
+.calendar .calendar_day .calendar_campaign .campaign_link .campaign_title .campaign_label .campaign_theme {
   font-size: 16px;
+  color: #000;
+}
+.calendar .calendar_day .calendar_campaign .campaign_link .campaign_title .campaign_label .new_campaign_time {
+  font-size: 14px;
+}
+.calendar .calendar_day .calendar_campaign .campaign_link .campaign_title .campaign_label .joined_sign {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-color: transparent #43cee6 transparent transparent;
+  border-style: solid;
+  border-width: 0 20px 20px;
 }
 .campaign_item {
   margin: 0;
@@ -978,13 +983,28 @@ body {
 }
 .modal-wrapper .photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap {
   position: relative;
-  width: 100%;
   height: 100%;
+  width: 100%;
   background-color: #000;
 }
-.modal-wrapper .photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap .photo {
+.modal-wrapper .photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap div {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+}
+.modal-wrapper .photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap div:after {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  content: " ";
+}
+.modal-wrapper .photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap div .photo {
   max-width: 100%;
   max-height: 100%;
+  vertical-align: middle;
 }
 .campaign_members_wrap {
   position: relative;

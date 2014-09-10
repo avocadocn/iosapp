@@ -55,10 +55,10 @@
             </div>
           </div>
         </a>
-        <ion-option-button class="button-calm" ng-if="campaign.active!=undefined &&!campaign.is_joined" ng-click="campaign.myteam.length<2 ? join(campaign,campaign.myteam[0].id) : openselectModal(campaign)">
+        <ion-option-button class="button-calm" ng-if="campaign.active!=undefined && !campaign.finishStatus && !campaign.is_joined" ng-click="campaign.myteam.length<2 ? join(campaign,campaign.myteam[0].id) : openselectModal(campaign)">
           参加
         </ion-option-button>
-        <ion-option-button class="button-calm" ng-if="!campaign.active ||campaign.is_joined">
+        <ion-option-button class="button-calm" ng-if="!campaign.finishStatus && campaign.active  && campaign.is_joined">
           已参加
         </ion-option-button>
       </ion-item>

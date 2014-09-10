@@ -189,10 +189,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.loadMore($scope.loadMoreFinish);
 })
 
-
-
-.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicPopup, $ionicLoading, $ionicTabsDelegate, $timeout, Campaign, PhotoAlbum, Comment, Global, Authorize) {
-
+.controller('CampaignDetailCtrl', function($scope, $rootScope, $state, $sce, $stateParams, $ionicModal, $ionicSlideBoxDelegate, $ionicScrollDelegate, $ionicPopup, $ionicLoading, $ionicTabsDelegate, $timeout, Campaign, PhotoAlbum, Comment, Global, Authorize) {
 
   Authorize.authorize();
   $scope.base_url = Global.base_url;
@@ -268,6 +265,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
   $scope.photos = [];
+  $scope.changePhoto = function (index) {
+    var scrollDelegate = $ionicScrollDelegate.$getByHandle('photo_'+index);
+    var view = scrollDelegate.getScrollView();
+
+    //reset zoom level
+    view.__zoomLevel = 1;
+    scrollDelegate.scrollTo(0,0);
+  }
   Comment.getCampaignComments($stateParams.id, function(status, comments) {
     if(status){
       $ionicPopup.alert({
@@ -308,7 +313,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     Comment.publishCampaignComment($stateParams.id, $scope.comment_content.text, function(msg) {
       if(!msg){
         $scope.comment_content.text = '';
-        Comment.getCampaignComments($stateParams.id, function(comments) {
+        Comment.getCampaignComments($stateParams.id, function(status, comments) {
+          if(status){
+            $ionicPopup.alert({
+              title: '提示',
+              template: '网络错误，请检查网络状态'
+            });
+            return;
+          }
           $scope.comments = comments;
         });
       //$scope.viewFormFlag =false;
@@ -512,8 +524,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   //   }
   // }
 })
-
-
 
 .controller('ScheduleListCtrl', function($scope, $rootScope, $ionicPopup, Campaign, Global, Authorize) {
   Authorize.authorize();
@@ -897,8 +907,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 //   })
 // })
 
-
-
 .controller('TimelineCtrl', function($scope, $rootScope, $ionicScrollDelegate, $state, $ionicPopup, Timeline, Authorize) {
   Authorize.authorize();
   $rootScope.campaignReturnUri = '#/app/timeline';
@@ -944,17 +952,15 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }
 })
 
+.controller('UserInfoCtrl', function($scope, User, Global) {
 
-// .controller('UserInfoCtrl', function($scope, User, Global) {
+  $scope.base_url = Global.base_url;
 
-//   $scope.base_url = Global.base_url;
+  User.getInfo(Global.user._id, function(user) {
+    $scope.user = user;
+  });
 
-//   User.getInfo(Global.user._id, function(user) {
-//     $scope.user = user;
-//   });
-
-// })
-
+})
 
 // .controller('OtherUserInfoCtrl', function($scope, $stateParams, User, Global) {
 
@@ -966,6 +972,24 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 // })
+.controller('SettingsCtrl', function($scope, $ionicModal, Authorize) {
+  $ionicModal.fromTemplateUrl('templates/partials/logout_modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.logoutModal = modal;
+  });
+  $scope.openlogoutModal = function() {
+    $scope.logoutModal.show();
+  };
+  $scope.logout = function() {
+    $scope.logoutModal.hide();
+    Authorize.logout();
+  };
+  $scope.cancel = function() {
+    $scope.logoutModal.hide();
+  };
+})
 
 
 .directive('thumbnailPhoto', function() {
@@ -1125,5 +1149,20 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
+.directive('autoHeight', function() {
+  return {
+    restrict: 'A',
+    scope: {
+      subHeight: '='
+    },
+    link: function (scope, element, attrs, ctrl) {
+      var subHeight = parseInt(scope.subHeight);
+      var height = window.innerHeight - subHeight - 64;
+      $(element)[0].style.height = height + 'px';
+      ($(element).find('.scroll'))[0].style.height = height + 'px';
+    }
+  };
+
+})
 
 
