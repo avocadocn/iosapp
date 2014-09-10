@@ -1021,6 +1021,12 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
             template: '网络错误，请检查网络状态'
           });
         }
+        else{
+          $ionicPopup.alert({
+            title: '提示',
+            template: '修改成功!'
+          });
+        }
       });
     });
   };
