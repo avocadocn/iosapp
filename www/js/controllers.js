@@ -314,7 +314,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       });
       return;
     }
-    Campaign.getCampaign(id, function(status, campaign) {
+    Campaign.getCampaignDetail(id, function(status, campaign) {
       if(status){
         $ionicPopup.alert({
           title: '提示',
