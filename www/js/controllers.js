@@ -972,22 +972,19 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 // })
-.controller('SettingsCtrl', function($scope, $ionicModal, Authorize) {
-  $ionicModal.fromTemplateUrl('templates/partials/logout_modal.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.logoutModal = modal;
-  });
+.controller('SettingsCtrl', function($scope, $ionicActionSheet, Authorize) {
   $scope.openlogoutModal = function() {
-    $scope.logoutModal.show();
-  };
-  $scope.logout = function() {
-    $scope.logoutModal.hide();
-    Authorize.logout();
-  };
-  $scope.cancel = function() {
-    $scope.logoutModal.hide();
+    var hideSheet = $ionicActionSheet.show({
+      destructiveText: '注销',
+      titleText: '您确认要注销吗?',
+      cancelText: '取消',
+      cancel: function() {
+          // add cancel code..
+        },
+      destructiveButtonClicked: function() {
+        Authorize.logout();
+      }
+    });
   };
 })
 
