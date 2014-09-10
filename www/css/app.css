@@ -51,6 +51,9 @@ body {
 .center_img_container .img {
   vertical-align: middle;
 }
+.contain_black {
+  background-color: #000 !important;
+}
 .col-10 {
   width: 10%;
 }
@@ -216,7 +219,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   border: 2px solid #fff;
-  border-radius: 5px;
+  border-radius: 100%;
   width: 80px;
   height: 80px;
 }
@@ -439,6 +442,7 @@ body {
   border-bottom: 1px;
   border-left: none;
   border-right: none;
+  background-color: #43cee6;
 }
 .new_campaign_item .item-options .button {
   line-height: 56px;
@@ -932,6 +936,14 @@ body {
   height: 260px;
   width: 300px;
 }
+.info_list .info_title {
+  width: 28%;
+  float: left;
+}
+.info_list .info_content {
+  width: 72%;
+  float: left;
+}
 .upload_modal {
   width: 100%;
   height: 100%;
@@ -1214,17 +1226,19 @@ body {
   margin-bottom: 0;
   margin-right: 10px;
 }
-.select_team_container {
-  background-color: #3abde8;
-  color: #fff;
-}
 .select_team_container .team {
   margin: 0;
   border-bottom: 1px solid #f0f0f0;
 }
 .select_team_container .team .campaign_group_logo {
   width: 40px;
+  height: 40px;
+  vertical-align: middle;
 }
 .select_team_container .team .team_name {
   margin-left: 10px;
+}
+.select_team_container .select {
+  background-color: #3abde8;
+  color: #fff;
 }

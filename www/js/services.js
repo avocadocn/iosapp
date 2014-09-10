@@ -639,23 +639,43 @@ angular.module('starter.services', [])
 
 
 
-// .factory('User', function($http, Global) {
+.factory('User', function($http, Global) {
 
-//   // callback(user)
-//   var getInfo = function(user_id, callback) {
-//     $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id })
-//     .success(function(data, status, headers, config) {
-//       if (data.result === 1) {
-//         callback(data.user);
-//       }
-//     });
-//   };
+  // callback(user)
+  var getInfo = function(user_id, callback) {
+    $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id })
+    .success(function(data, status) {
+      if (data.result === 1) {
+        callback(data.user);
+      }
+      else{
+        callback(data.msg,null);
+      }
 
-//   return {
-//     getInfo: getInfo
-//   };
+    });
+  };
+  var setInfo = function(user_id, editName, editValue, callback) {
+    $http.post(Global.base_url + '/users/editUserInfo/'+ user_id, {_id:user_id, editName:editName, editValue:editValue })
+    .success(function(data, status) {
+      if(data.result === 1) {
+        callback(null);
+      }
+      else{
+        callback(data.msg);
+      }
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
+    });
+  };
 
-// })
+
+  return {
+    getInfo: getInfo,
+    setInfo: setInfo
+  };
+
+})
 
 
 // .factory('Map', function() {

@@ -12,7 +12,9 @@
         <img class="menu_logo" src="img/dl_logol.png"/>
       </header>
       <div class="menu_personal_info" ng-if="user._id">
-        <img class="menu_photo" ng-src="{{ img_url }}/logo/user/{{ user._id }}/80/80"/>
+        <a href="#/app/user_info">
+          <img class="menu_photo" ng-src="{{ img_url }}/logo/user/{{ user._id }}/80/80"/>
+        </a>
         <p class="menu_nickname">{{ user.nickname }}</p>
       </div>
       <ion-list class="menu_list">
@@ -25,7 +27,7 @@
         <ion-item nav-clear menu-close href="#/app/schedule_list">
           我的日程
         </ion-item>
-<!--         <ion-item nav-clear menu-close href="#/app/dynamic_list">
+        <!--<ion-item nav-clear menu-close href="#/app/dynamic_list">
           我的动态
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/group_list/joined">
@@ -34,16 +36,16 @@
         <ion-item nav-clear menu-close href="#/app/timeline">
           我的足迹
         </ion-item>
-<!--         <ion-item nav-clear menu-close href="#/app/user_info">
-          个人资料
-        </ion-item> -->
+        <ion-item nav-clear menu-close href="#/app/settings">
+          设置
+        </ion-item>
         <!-- <ion-item nav-clear menu-close ng-click="#/app/msg_list">
           <span class="donler_msg_corner"></span>
           站内信
         </icon-item> -->
-        <ion-item nav-clear menu-close ng-click="logout()">
+        <!--ion-item nav-clear menu-close ng-click="logout()">
           退出
-        </icon-item>
+        </icon-item> -->
       </ion-list>
     </ion-content>
   </ion-side-menu>

@@ -31,7 +31,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.login = Authorize.login($scope, $rootScope);
 })
 
-.controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicModal, $ionicPopup, $timeout, Campaign, Global, Authorize) {
+.controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Campaign, Global, Authorize) {
   Authorize.authorize();
   $scope.base_url = Global.base_url;
   $rootScope.campaignReturnUri = '#/app/index';
@@ -90,19 +90,27 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     }
   }
   $scope.join = Campaign.join(removeCampaign);
-  $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.selectModal = modal;
-  });
   $scope.openselectModal = function(campaign) {
     $scope.campaign=campaign;
-    $scope.selectModal.show();
+    $scope.selectTid = campaign.myteam[0].id;
+    var myPopup = $ionicPopup.show({
+      templateUrl: 'templates/partials/select_team.html',
+      title: '选择参加活动的小队',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确定</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            $scope.join($scope.campaign,$scope.selectTid);
+          }
+        },
+      ]
+    });
   };
-  $scope.select = function(campaign_id,tid) {
-    $scope.join(campaign_id,tid);
-    $scope.selectModal.hide();
+  $scope.select = function(tid) {
+    $scope.selectTid = tid;
   };
   $scope.doRefresh = function(){
     init(function(){
@@ -327,13 +335,24 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     Comment.publishCampaignComment($stateParams.id, $scope.comment_content.text, function(msg) {
       if(!msg){
         $scope.comment_content.text = '';
-        Comment.getCampaignComments($stateParams.id, function(comments) {
+        Comment.getCampaignComments($stateParams.id, function(status, comments) {
+          if(status){
+            $ionicPopup.alert({
+              title: '提示',
+              template: '网络错误，请检查网络状态'
+            });
+            return;
+          }
           $scope.comments = comments;
         });
       //$scope.viewFormFlag =false;
       }
       else{
-        alert(msg);
+        $ionicPopup.alert({
+          title: '提示',
+          template: '网络错误，请检查网络状态'
+        });
+
       }
     });
     $scope.publishing = false;
@@ -420,8 +439,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.modal = modal;
   });
   $scope.openModal = function(index) {
-    // $scope.now = index;
-    // $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
+    $scope.showHeader = true;
     $ionicSlideBoxDelegate.update();
     $ionicSlideBoxDelegate.slide(index);
     $scope.modal.show();
@@ -429,18 +447,26 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
-  $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.selectModal = modal;
-  });
   $scope.openselectModal = function() {
-    $scope.selectModal.show();
+    $scope.selectTid = $scope.campaign.myteam[0].id;
+    var myPopup = $ionicPopup.show({
+      templateUrl: 'templates/partials/select_team.html',
+      title: '选择参加活动的小队',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确定</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            $scope.join($scope.campaign,$scope.selectTid);
+          }
+        },
+      ]
+    });
   };
-  $scope.select = function(campaign_id,tid) {
-    $scope.join(campaign_id,tid);
-    $scope.selectModal.hide();
+  $scope.select = function(tid) {
+    $scope.selectTid = tid;
   };
   $scope.linkMap = function (location) {
     var link = 'http://mo.amap.com/?q=' + location.coordinates[1] + ',' + location.coordinates[0] + '&name=' + location.name;
@@ -472,60 +498,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       break;
     }
   }
-  // var scale = 1;
-  // $scope.changePhoto = function(event)  {
-  //   var target = $(event.target);
-  //   switch(event.gesture.direction){
-  //     case 'left':
-  //       if($scope.now<$scope.photos.length-1){
-  //         $scope.now++;
-  //       }
-  //     break;
-  //     case 'right':
-  //       if($scope.now>0){
-  //         $scope.now--;
-
-  //       }
-  //     break;
-  //     default:
-  //     break;
-  //   }
-  //   $timeout(function () {
-  //     $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
-  //   }, 0);
-  //   scale =1;
-  //   target.css('-webkit-transform', 'scale(' + scale + ') translate(0,0)');
-  // }
-  // $scope.pinchImage = function (event){
-  //   var target = $(event.target);
-  //   scale =event.gesture.scale * scale;
-  //   if(scale>2){
-  //     scale =2;
-  //   }
-  //   else if(scale<1){
-  //     scale=1;
-  //   }
-  //   target.css('-webkit-transform', 'scale(' + scale + ')');
-  // }
-  // $scope.drageImage = function (event) {
-  //   var target = $(event.target);
-  //   switch(event.gesture.direction){
-  //     case 'left':
-  //       target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + (-event.gesture.distance) + 'px)');
-  //     break;
-  //     case 'right':
-  //       target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + event.gesture.distance + 'px)');
-  //     break;
-  //     case 'up':
-  //       target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + (-event.gesture.distance) + 'px)');
-  //     break;
-  //     case 'down':
-  //       target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + event.gesture.distance + 'px)');
-  //     break;
-  //     default:
-  //     break;
-  //   }
-  // }
 })
 
 
@@ -960,15 +932,74 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-// .controller('UserInfoCtrl', function($scope, User, Global) {
+.controller('UserInfoCtrl', function($scope,$ionicPopup, User, Global) {
 
-//   $scope.base_url = Global.base_url;
+  $scope.base_url = Global.base_url;
 
-//   User.getInfo(Global.user._id, function(user) {
-//     $scope.user = user;
-//   });
+  User.getInfo(Global.user._id, function(msg, user) {
+    if(msg){
+      $ionicPopup.alert({
+        title: '提示',
+        template: msg
+      });
+      return;
+    }
+    $scope.user = user;
+  });
+  $scope.editInfo = function(editName){
+    var template = '',
+        title = '';
+    if(editName === 'nickname'){
+      //template = '<input type="String" ng-model="user.nickname">';
+      title = '修改昵称';
+    }
+    else if(editName === 'realname'){
+      //template = '<input type="String" ng-model="user.realname">';
+      title = '修改真名';
+    }
+    else if(editName === 'introduce'){
+      //template = '<input type="String" ng-model="user.introduce">';
+      title = '修改简介';
+    }
+    else if(editName === 'phone'){
+      //template = '<input type="String" ng-model="user.phone">';
+      title = '修改电话';
+    }
+    var myPopup = $ionicPopup.show({
+      template: '<input type="String" ng-model="user.'+editName+'">',
+      title: title,
+      //subTitle: 'Please use normal things',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确定</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            return;
+          }
+        },
+      ]
+    });
+    myPopup.then(function() {
+      User.setInfo($scope.user._id, editName, $scope.user[editName] ,function(msg){
+        if(msg){
+          $ionicPopup.alert({
+            title: '提示',
+            template: '网络错误，请检查网络状态'
+          });
+        }
+        else{
+          $ionicPopup.alert({
+            title: '提示',
+            template: '修改成功!'
+          });
+        }
+      });
+    });
+  };
 
-// })
+})
 
 
 // .controller('OtherUserInfoCtrl', function($scope, $stateParams, User, Global) {
@@ -982,6 +1013,21 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 // })
 
+.controller('SettingsCtrl', function($scope, $ionicActionSheet, Authorize) {
+  $scope.openlogoutModal = function() {
+    var hideSheet = $ionicActionSheet.show({
+      destructiveText: '注销',
+      titleText: '您确认要注销吗?',
+      cancelText: '取消',
+      cancel: function() {
+          // add cancel code..
+        },
+      destructiveButtonClicked: function() {
+        Authorize.logout();
+      }
+    });
+  };
+})
 
 .directive('thumbnailPhoto', function() {
   return function(scope, element, attrs) {
