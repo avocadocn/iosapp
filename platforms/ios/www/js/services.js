@@ -8,10 +8,10 @@ angular.module('starter.services', [])
 .factory('Global', function($state) {
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
-  //var base_url = "http://www.55yali.com";
-  //var img_url = "http://www.55yali.com";
-  var base_url = "http://192.168.2.105:3000";
-  var img_url = "http://192.168.2.105:3000";
+  var base_url = "http://www.55yali.com";
+  var img_url = "http://www.55yali.com";
+  // var base_url = "http://192.168.2.105:3000";
+  // var img_url = "http://192.168.2.105:3000";
   var _user = {};
   var last_date;
   return {

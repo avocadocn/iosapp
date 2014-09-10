@@ -30,7 +30,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.login = Authorize.login($scope, $rootScope);
 })
 
-.controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicModal, $ionicPopup, $timeout, Campaign, Global, Authorize) {
+.controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Campaign, Global, Authorize) {
   Authorize.authorize();
   $scope.base_url = Global.base_url;
   $rootScope.campaignReturnUri = '#/app/index';
@@ -89,19 +89,27 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     }
   }
   $scope.join = Campaign.join(removeCampaign);
-  $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.selectModal = modal;
-  });
   $scope.openselectModal = function(campaign) {
     $scope.campaign=campaign;
-    $scope.selectModal.show();
+    $scope.selectTid = campaign.myteam[0].id;
+    var myPopup = $ionicPopup.show({
+      templateUrl: 'templates/partials/select_team.html',
+      title: '选择参加活动的小队',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确定</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            $scope.join($scope.campaign,$scope.selectTid);
+          }
+        },
+      ]
+    });
   };
-  $scope.select = function(campaign_id,tid) {
-    $scope.join(campaign_id,tid);
-    $scope.selectModal.hide();
+  $scope.select = function(tid) {
+    $scope.selectTid = tid;
   };
   $scope.doRefresh = function(){
     init(function(){
@@ -414,8 +422,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.modal = modal;
   });
   $scope.openModal = function(index) {
-    // $scope.now = index;
-    // $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
+    $scope.showHeader = true;
     $ionicSlideBoxDelegate.update();
     $ionicSlideBoxDelegate.slide(index);
 
@@ -424,18 +431,26 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
-  $ionicModal.fromTemplateUrl('templates/partials/select_team.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.selectModal = modal;
-  });
   $scope.openselectModal = function() {
-    $scope.selectModal.show();
+    $scope.selectTid = $scope.campaign.myteam[0].id;
+    var myPopup = $ionicPopup.show({
+      templateUrl: 'templates/partials/select_team.html',
+      title: '选择参加活动的小队',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>确定</b>',
+          type: 'button-positive',
+          onTap: function(e) {
+            $scope.join($scope.campaign,$scope.selectTid);
+          }
+        },
+      ]
+    });
   };
-  $scope.select = function(campaign_id,tid) {
-    $scope.join(campaign_id,tid);
-    $scope.selectModal.hide();
+  $scope.select = function(tid) {
+    $scope.selectTid = tid;
   };
   $scope.linkMap = function (location) {
     var link = 'http://mo.amap.com/?q=' + location.coordinates[1] + ',' + location.coordinates[0] + '&name=' + location.name;
