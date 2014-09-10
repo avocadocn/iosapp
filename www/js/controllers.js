@@ -300,7 +300,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       });
       return;
     }
-    Campaign.getCampaign(id, function(status, campaign) {
+    Campaign.getCampaignDetail(id, function(status, campaign) {
       if(status){
         $ionicPopup.alert({
           title: '提示',
@@ -482,65 +482,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       break;
     }
   }
-  // var scale = 1;
-  // $scope.changePhoto = function(event)  {
-  //   var target = $(event.target);
-  //   var direction = event.gesture.direction;
-  //   switch(direction){
-  //     case 'left':
-  //       if($scope.now<$scope.photos.length-1){
-  //         $scope.now++;
-  //       }
-  //     break;
-  //     case 'right':
-  //       if($scope.now>0){
-  //         $scope.now--;
-
-  //       }
-  //     break;
-  //     default:
-  //     break;
-  //   }
-  //   scale =1;
-  //   //target.css('-webkit-transform', 'scale(' + scale + ') translate(0,0)');
-  //   $timeout(function () {
-  //     $scope.nowPhoto =  Global.img_url + $scope.photos[$scope.now].uri +'/resize/600/800';
-  //     target.removeClass("photo_left_slide").removeClass("photo_right_slide").addClass("photo_"+direction+"_slide");
-      
-  //   }, 0);
-  // }
-
-  // $scope.pinchImage = function (event){
-  //   var target = $(event.target);
-  //   scale =event.gesture.scale * scale;
-  //   if(scale>2){
-  //     scale =2;
-  //   }
-  //   else if(scale<1){
-  //     scale=1;
-  //   }
-  //   target.css('-webkit-transform', 'scale(' + scale + ')');
-  // }
-  // $scope.drageImage = function (event) {
-  //   var target = $(event.target);
-  //   switch(event.gesture.direction){
-  //     case 'left':
-  //     if(event.gesture.distance)
-  //       target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + (-event.gesture.distance) + 'px)');
-  //     break;
-  //     case 'right':
-  //       target.css('-webkit-transform', 'scale(' + scale + ') translateX(' + event.gesture.distance + 'px)');
-  //     break;
-  //     case 'up':
-  //       target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + (-event.gesture.distance) + 'px)');
-  //     break;
-  //     case 'down':
-  //       target.css('-webkit-transform', 'scale(' + scale + ') translateY(' + event.gesture.distance + 'px)');
-  //     break;
-  //     default:
-  //     break;
-  //   }
-  // }
 })
 
 .controller('ScheduleListCtrl', function($scope, $rootScope, $ionicPopup, Campaign, Global, Authorize) {
