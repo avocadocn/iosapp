@@ -915,7 +915,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   $scope.base_url = Global.base_url;
 
-  User.getInfo(Global.user._id, function(user) {
+  User.getInfo(Global.user._id, false, function(user) {
     $scope.user = user;
   });
 
@@ -949,26 +949,28 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
           text: '<b>确定</b>',
           type: 'button-positive',
           onTap: function(e) {
-            return;
+            return true;
           }
         },
       ]
     });
-    myPopup.then(function() {
-      User.setInfo($scope.user._id, editName, $scope.user[editName] ,function(msg){
-        if(msg){
-          $ionicPopup.alert({
-            title: '提示',
-            template: '网络错误，请检查网络状态'
-          });
-        }
-        else{
-          $ionicPopup.alert({
-            title: '提示',
-            template: '修改成功!'
-          });
-        }
-      });
+    myPopup.then(function(res) {
+      if(res){
+        User.setInfo($scope.user._id, editName, $scope.user[editName] ,function(msg){
+          if(msg){
+            $ionicPopup.alert({
+              title: '提示',
+              template: '网络错误，请检查网络状态'
+            });
+          }
+          else{
+            $ionicPopup.alert({
+              title: '提示',
+              template: '修改成功!'
+            });
+          }
+        });
+      }
     });
   };
 })
@@ -983,19 +985,35 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
 // })
-.controller('SettingsCtrl', function($scope, $ionicActionSheet, Authorize) {
+.controller('SettingsCtrl', function($scope, $ionicActionSheet,$timeout, User, Authorize, Global) {
+  User.getInfo(Global.user._id, true, function(user) {
+    $scope.user.push_toggle = user.push_toggle;
+  });
+
   $scope.openlogoutModal = function() {
     var hideSheet = $ionicActionSheet.show({
       destructiveText: '注销',
       titleText: '您确认要注销吗?',
       cancelText: '取消',
       cancel: function() {
-          // add cancel code..
         },
       destructiveButtonClicked: function() {
         Authorize.logout();
       }
     });
+  };
+
+  $scope.pushToggle = function(){
+    $timeout(function(){
+      User.setInfo($scope.user._id, 'push_toggle', $scope.user.push_toggle ,function(msg){
+        if(msg){
+          $ionicPopup.alert({
+            title: '提示',
+            template: '网络错误，请检查网络状态'
+          });
+        }
+      });
+    },10);
   };
 })
 
