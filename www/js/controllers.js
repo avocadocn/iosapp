@@ -1031,7 +1031,20 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       }
     });
   };
-
+  
+  $scope.openlogoutModal = function() {
+    var hideSheet = $ionicActionSheet.show({
+      destructiveText: '退出',
+      titleText: '您真的要退出动梨吗?',
+      cancelText: '取消',
+      cancel: function() {
+          // add cancel code..
+        },
+      destructiveButtonClicked: function() {
+        navigator.app.exitApp();
+      }
+    });
+  };
   $scope.pushToggle = function(){
     $timeout(function(){
       User.setInfo($scope.user._id, 'push_toggle', $scope.user.push_toggle ,function(msg){

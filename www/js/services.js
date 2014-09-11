@@ -18,21 +18,6 @@ angular.module('starter.services', [])
   var img_url = "http://www.55yali.com";
   var _user = {};
   var last_date;
-  //for menu 退出
-  document.addEventListener("menubutton", onMenuKeyDown, false);
-  function onMenuKeyDown(){
-    var hideSheet = $ionicActionSheet.show({
-      destructiveText: '退出',
-      titleText: '您真的要退出动梨吗?',
-      cancelText: '取消',
-      cancel: function() {
-          // add cancel code..
-        },
-      destructiveButtonClicked: function() {
-        navigator.app.exitApp();
-      }
-    });
-  }
   return {
     base_url: base_url,
     img_url: img_url,
