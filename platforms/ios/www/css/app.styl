@@ -98,8 +98,8 @@ body
     content " "
   .img
     vertical-align middle
-
-
+.contain_black
+  background-color black !important
 .col-10
   width 10%
 .col-80
@@ -258,7 +258,7 @@ body
   margin-left auto
   margin-right auto
   border 2px solid white
-  border-radius 5px
+  border-radius 100%
   width 80px
   height 80px
 
@@ -469,6 +469,7 @@ body
   border-bottom 1px
   border-left none
   border-right none
+  background-color #43cee6
   .item-options
     .button
       line-height 56px
@@ -953,6 +954,14 @@ largeCell()
     height 260px
     width 300px
 
+.info_list
+  .info_title
+    width 28%
+    float left
+  .info_content
+    width 72%
+    float left
+
 .upload_modal
   width 100%
   height 100%
@@ -1247,12 +1256,15 @@ largeCell()
             margin-right 10px
 
 .select_team_container
-  background-color #3abde8
-  color white
   .team
     margin 0
     border-bottom 1px solid #F0F0F0
     .campaign_group_logo
       width 40px
+      height 40px
+      vertical-align middle
     .team_name
       margin-left 10px
+  .select
+    background-color #3abde8
+    color white

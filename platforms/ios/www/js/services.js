@@ -8,10 +8,10 @@ angular.module('starter.services', [])
 .factory('Global', function($state) {
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
-  //var base_url = "http://www.55yali.com";
-  //var img_url = "http://www.55yali.com";
-  var base_url = "http://192.168.2.105:3000";
-  var img_url = "http://192.168.2.105:3000";
+  var base_url = "http://www.55yali.com";
+  var img_url = "http://www.55yali.com";
+  // var base_url = "http://192.168.2.105:3000";
+  // var img_url = "http://192.168.2.105:3000";
   var _user = {};
   var last_date;
   return {
@@ -623,17 +623,33 @@ angular.module('starter.services', [])
 .factory('User', function($http, Global) {
 
   // callback(user)
-  var getInfo = function(user_id, callback) {
-    $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id })
-    .success(function(data, status, headers, config) {
+  var getInfo = function(user_id, push, callback) {
+    $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id, push:push })
+    .success(function(data, status) {
       if (data.result === 1) {
         callback(data.user);
       }
     });
   };
 
+  var setInfo = function(user_id, editName, editValue, callback) {
+    $http.post(Global.base_url + '/users/editUserInfo/'+ user_id, {_id:user_id, editName:editName, editValue:editValue })
+    .success(function(data, status) {
+      if(data.result === 1) {
+        callback(null);
+      }
+      else{
+        callback(data.msg);
+      }
+    })
+    .error(function(data, status, headers, config) {
+      callback(status, null);
+    });
+  };
+
   return {
-    getInfo: getInfo
+    getInfo: getInfo,
+    setInfo: setInfo
   };
 
 })
