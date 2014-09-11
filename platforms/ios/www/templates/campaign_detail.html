@@ -57,7 +57,7 @@
             <ion-slide ng-repeat="photo_page in photos_view" class="photo_box" length="photos_view.length" hide-pager>
               <div class="clearfix">
                 <div ng-repeat="photo in photo_page" class="photo_content loading_box" ng-click="openModal(photo.index)">
-                  <img class="photo loading_content" ng-src="{{ img_url + photo.uri +'/145/145'}}" thumbnail-photo/>
+                  <img class="photo loading_content" ng-src="{{ img_url + photo.uri +'/145/145'}}"/>
                   <div class="loading_div">
                     <i class="ion-loading-d"></i>
                   </div>

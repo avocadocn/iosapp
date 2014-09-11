@@ -162,6 +162,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
 
+    .state('app.userPhoto', {
+      url: '/user_photo',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/user_photo.html',
+          controller: 'UserPhotoCtrl'
+        }
+      }
+    })
+
     // .state('app.changePhoto', {
     //   url: '/change_photo',
     //   views: {

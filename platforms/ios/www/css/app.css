@@ -813,6 +813,10 @@ body {
   height: 78px;
   margin: 1px;
 }
+.campaign_detail .photo_box .photo_content .photo {
+  width: 100%;
+  height: 100%;
+}
 .campaign_detail .photo_box .photo_content .loading_div {
   border: solid 1px #808080;
 }
@@ -1235,4 +1239,14 @@ body {
 .select_team_container .select {
   background-color: #3abde8;
   color: #fff;
+}
+.user_photo .photo_border {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 256px;
+  height: 256px;
+  border: solid 1px #808080;
+  overflow: hidden;
+  box-sizing: content-box;
 }

@@ -820,6 +820,9 @@ largeCell()
     .photo_content
       float left
       smallCell()
+      .photo
+        width 100%
+        height 100%
       .loading_div
         border solid 1px gray
     // for capacity in (1..4)
@@ -1267,3 +1270,19 @@ largeCell()
   .select
     background-color #3abde8
     color white
+
+
+// 修改头像
+.user_photo
+  .photo_border
+    position relative
+    margin-left auto
+    margin-right auto
+    width 256px
+    height 256px
+    border solid 1px gray
+    overflow hidden
+    box-sizing content-box
+
+
+

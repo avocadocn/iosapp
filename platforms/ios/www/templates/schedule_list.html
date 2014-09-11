@@ -53,7 +53,7 @@
             </swipe-card>
           </swipe-cards>
         </div>
-        <div class="calendar_day clearfix" ng-if="view==='day'" auto-height sub-height="121">
+        <div class="calendar_day clearfix" ng-if="view==='day'" auto-height="121">
           <swipe-cards>
             <ion-scroll scrollbar-y="false">
               <swipe-card class="clearfix" ng-repeat="day in day_cards" on-left="nextDay(day)" on-right="preDay(day)" on-destroy="removeDay($index)">
