@@ -6,3 +6,7 @@ platforms/android/bin/
 platforms/android/assets/
 
 node_modules/
+
+.bower-*/
+
+www/lib/
