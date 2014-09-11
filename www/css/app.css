@@ -437,6 +437,7 @@ body {
   border-bottom: 1px;
   border-left: none;
   border-right: none;
+  background-color: #43cee6;
 }
 .new_campaign_item .item-options .button {
   line-height: 56px;

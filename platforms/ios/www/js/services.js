@@ -623,8 +623,8 @@ angular.module('starter.services', [])
 .factory('User', function($http, Global) {
 
   // callback(user)
-  var getInfo = function(user_id, callback) {
-    $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id })
+  var getInfo = function(user_id, push, callback) {
+    $http.post(Global.base_url + '/users/info/'+user_id, { _id: user_id, push:push })
     .success(function(data, status) {
       if (data.result === 1) {
         callback(data.user);

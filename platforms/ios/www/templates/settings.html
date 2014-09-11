@@ -22,6 +22,12 @@
         注销
         <i class="icon ion-ios7-arrow-right"></i>
       </a>
+      <div class="item item-divider">
+        系统设置
+      </div>
+      <ion-toggle ng-model="user.push_toggle" ng-change="pushToggle()">
+        免打扰
+      </ion-toggle>
     </div>
   </ion-content>
 </ion-view>
