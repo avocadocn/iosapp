@@ -241,7 +241,7 @@ module.exports.metadata =
     "com.pushwoosh.plugins.pushwoosh": "3.2.0",
     "org.apache.cordova.inappbrowser": "0.5.2-dev",
     "org.apache.cordova.camera": "0.3.1",
-    "org.apache.cordova.file-transfer": "0.4.6-dev"
+    "org.apache.cordova.file-transfer": "0.4.5"
 }
 // BOTTOM OF METADATA
 });
