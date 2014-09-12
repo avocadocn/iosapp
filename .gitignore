@@ -5,4 +5,10 @@ platforms/android/CordovaLib/
 platforms/android/bin/
 platforms/android/assets/
 
+platforms/ios/www/
+
 node_modules/
+
+.bower-*/
+
+www/lib/

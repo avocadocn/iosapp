@@ -1018,29 +1018,114 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.directive('thumbnailPhoto', function() {
-  return function(scope, element, attrs) {
-    var thumbnail = function(img) {
-      if (img.width > img.height) {
-        element[0].style.height = '100%';
-      } else {
-        element[0].style.width = '100%';
-      }
+.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, Authorize, Global) {
+  Authorize.authorize();
+
+  $scope.uid = Global.user._id;
+  $scope.preview_img = '';
+  $scope.edit_form_action = Global.base_url + '/logo/update';
+  $scope.edit_form_action = $sce.trustAsResourceUrl($scope.edit_form_action);
+  $scope.crop_args = {
+    width: 128,
+    height: 128,
+    x: 0,
+    y: 0
+  };
+
+  var getFilePath = function(input, callback) {
+    var file = input.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(e) {
+      callback(this.result);
     };
+  };
 
-    var img = new Image();
-    img.src = attrs.ngSrc;
+  var photo_input = $('#photo');
+  photo_input.change(function() {
+    getFilePath(photo_input[0], function(path) {
+      $scope.preview_img = path;
+      $scope.$apply();
+    });
+  });
+  photo_input.click();
 
-    if (img.complete) {
-      thumbnail(img);
-      img = null;
+  $('#edit_photo_form').ajaxForm(function(data, status) {
+    if (status === 'success' && data.result === 1) {
+      $ionicPopup.alert({
+        title: '提示',
+        template: '修改头像成功'
+      });
+      $state.go('app.settings');
     } else {
-      img.onload = function() {
-        thumbnail(img);
-        img = null;
-      };
+      $ionicPopup.alert({
+        title: '提示',
+        template: '修改头像失败'
+      });
     }
+  });
 
+})
+
+
+.directive('cropPhoto', function () {
+  return {
+    scope: {
+      resource: '=',
+      crop: '=',
+    },
+    link: function (scope, element, attrs) {
+      element[0].style.position = 'absolute';
+      var parent = $(element).parent();
+      parent.css('position', 'relative');
+      var thumbnail = function(img) {
+        if (img.width > img.height) {
+          element[0].style.height = '100%';
+          var resize_width = img.width * parent.height() / img.height;
+          var left = (resize_width - parent.width()) / 2;
+          element[0].style.left = '-' + left + 'px';
+          // crop 参数均为100%
+          scope.crop = {
+            x: left / resize_width,
+            y: 0,
+            width: parent.width() / resize_width,
+            height: 100
+          };
+        } else {
+          element[0].style.width = '100%';
+          var resize_height = img.height * parent.width() / img.width;
+          var top = (resize_height - parent.height()) / 2;
+          element[0].style.top = '-' + top + 'px';
+          scope.crop = {
+            x: 0,
+            y: top / resize_height,
+            width: 100,
+            height: parent.height() / resize_height
+          };
+        }
+      };
+
+      var setSrc = function (src) {
+        if (!src || src === '') {
+          return;
+        }
+        var img = new Image();
+        img.src = src;
+
+        if (img.complete) {
+          thumbnail(img);
+        } else {
+          img.onload = function() {
+            thumbnail(img);
+          };
+        }
+      };
+
+      setSrc(attrs.ngSrc);
+      scope.$watch('resource', function (newVal) {
+        setSrc(newVal);
+      });
+    }
 
   };
 })
@@ -1178,11 +1263,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 .directive('autoHeight', function() {
   return {
     restrict: 'A',
-    scope: {
-      subHeight: '='
-    },
     link: function (scope, element, attrs, ctrl) {
-      var subHeight = parseInt(scope.subHeight);
+      var subHeight = parseInt(attrs.autoHeight);
       var height = window.innerHeight - subHeight - 64;
       $(element)[0].style.height = height + 'px';
       ($(element).find('.scroll'))[0].style.height = height + 'px';
