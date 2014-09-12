@@ -8,13 +8,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    window.plugin.notification.local.onclick = function (id, state, json) {
-      $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
-      window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
-    };
-    document.addEventListener("resume", function() {
-      window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
-    }, false);
+    // window.plugin.notification.local.onclick = function (id, state, json) {
+    //   $state.go('app.campaignDetail',{'id':JSON.parse(json).id});
+    //   window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
+    // };
   });
 })
 
@@ -170,7 +167,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           controller: 'UserPhotoCtrl'
         }
       }
-    })
+    });
 
     // .state('app.changePhoto', {
     //   url: '/change_photo',
