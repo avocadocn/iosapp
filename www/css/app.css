@@ -924,6 +924,17 @@ body {
 .info_list .info_content {
   width: 72%;
   float: left;
+  word-break: break-all;
+  white-space: normal;
+}
+.info_list .info_title_no_icon {
+  width: 24.5%;
+  float: left;
+}
+.info_list .no_content {
+  color: #999;
+  font-size: 90%;
+  font-style: italic;
 }
 .upload_modal {
   width: 100%;

@@ -920,6 +920,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   });
 
   $scope.editInfo = function(editName){
+    $scope.backup={};
+    $scope.backup.editValue = $scope.user[editName];
     var template = '',
         title = '';
     if(editName === 'nickname'){
@@ -939,7 +941,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       title = '修改电话';
     }
     var myPopup = $ionicPopup.show({
-      template: '<input type="String" ng-model="user.'+editName+'">',
+      template: '<input type="String" ng-model="backup.editValue">',
       title: title,
       //subTitle: 'Please use normal things',
       scope: $scope,
@@ -956,7 +958,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
     myPopup.then(function(res) {
       if(res){
-        User.setInfo($scope.user._id, editName, $scope.user[editName] ,function(msg){
+        console.log($scope.backup.editValue);
+        User.setInfo($scope.user._id, editName, $scope.backup.editValue ,function(msg){
           if(msg){
             $ionicPopup.alert({
               title: '提示',
@@ -964,6 +967,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
             });
           }
           else{
+            $scope.user[editName]= $scope.backup.editValue;
             $ionicPopup.alert({
               title: '提示',
               template: '修改成功!'
@@ -999,6 +1003,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         },
       destructiveButtonClicked: function() {
         Authorize.logout();
+        return true;
       }
     });
   };
