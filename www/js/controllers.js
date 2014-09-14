@@ -316,7 +316,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.changePhoto = function (index) {
     var scrollDelegate = $ionicScrollDelegate.$getByHandle('photo_'+index);
     var view = scrollDelegate.getScrollView();
-
+    $scope.nowIndex = index;
     //reset zoom level
     view.__zoomLevel = 1;
     scrollDelegate.scrollTo(0,0);
@@ -462,6 +462,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.modal = modal;
   });
   $scope.openModal = function(index) {
+    $scope.nowIndex = index;
     $scope.showHeader = true;
     $ionicSlideBoxDelegate.update();
     $ionicSlideBoxDelegate.slide(index);
@@ -521,6 +522,31 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       default:
       break;
     }
+  }
+  $scope.savePhoto = function(){
+    console.log('ssssa');
+    var fileTransfer = new FileTransfer();
+    var uri = encodeURI(Global.img_url + $scope.photos[$scope.nowIndex].uri);
+    var tempUri = uri.split('/');
+    var downloadPhoto = function(fileSystem){
+      console.log(fileSystem.root.toURL()+'/'+tempUri[tempUri.length-1]);
+        fileTransfer.download(
+          uri,
+          fileSystem.root.toURL()+'/'+tempUri[tempUri.length-1],
+          function(entry) {
+              console.log("download complete: " + entry.fullPath);
+          },
+          function(error) {
+              console.log(error);
+              console.log("download error source " + error.source);
+              console.log("download error target " + error.target);
+              console.log("upload error code" + error.code);
+          }
+        );
+
+    }
+
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, downloadPhoto, null);
   }
 })
 
@@ -910,6 +936,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   Authorize.authorize();
   $rootScope.campaignReturnUri = '#/app/timeline';
   $scope.moreData =true;
+  $scope.time_lines = undefined;
   var page = -1;
   $scope.doRefresh = function(){
     $scope.moreData =true;
@@ -1063,7 +1090,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, Authorize, Global) {
+.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $timeout, Authorize, Global) {
   Authorize.authorize();
 
   $scope.uid = Global.user._id;
@@ -1076,7 +1103,9 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     x: 0,
     y: 0
   };
-
+  $scope.submit = function(){
+    $('#edit_photo_form').submit();
+  }
   var getFilePath = function(input, callback) {
     var file = input.files[0];
     var reader = new FileReader();
@@ -1088,12 +1117,13 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   var photo_input = $('#photo');
   photo_input.change(function() {
+    console.log('s');
     getFilePath(photo_input[0], function(path) {
       $scope.preview_img = path;
       $scope.$apply();
     });
   });
-  photo_input.click();
+
 
   $('#edit_photo_form').ajaxForm(function(data, status) {
     if (status === 'success' && data.result === 1) {
@@ -1109,7 +1139,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       });
     }
   });
-
+  $timeout(function(){photo_input.click();console.log(photo_input);},100);
 })
 
 
