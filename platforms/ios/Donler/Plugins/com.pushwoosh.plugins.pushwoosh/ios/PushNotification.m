@@ -280,7 +280,7 @@
 #endif
 
     // Affect results
-    [results setValue:[NSString stringWithFormat:@"%d", type] forKey:@"type"];
+    [results setValue:[NSString stringWithFormat:@"%lu", (unsigned long)type] forKey:@"type"];
 	[results setValue:[NSString stringWithFormat:@"%d", type != UIRemoteNotificationTypeNone] forKey:@"enabled"];
     [results setValue:pushBadge forKey:@"pushBadge"];
     [results setValue:pushAlert forKey:@"pushAlert"];

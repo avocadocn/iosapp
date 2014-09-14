@@ -435,7 +435,7 @@
         if (fileStream) {
             NSUInteger len = [encData length];
             if (len == 0) {
-                result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:len];
+                result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:(int)len];
             } else {
                 [fileStream open];
 

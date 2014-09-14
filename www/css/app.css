@@ -178,9 +178,11 @@ body {
   vertical-align: middle;
 }
 .more_data_text {
+  padding-top: 20px;
   height: 20px;
   text-align: center;
   border-top: 1px solid #ededed;
+  opacity: 0.4;
 }
 .menu_wrap {
   background-color: #3abde8;
