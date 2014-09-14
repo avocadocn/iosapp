@@ -453,7 +453,7 @@ body {
   padding: 0;
 }
 .new_campaign_item .item-content .campaign_link .campaign_title .campaign_group_logo {
-  margin: 10px;
+  margin: 12px 10px;
   width: 36px;
   height: 36px;
   vertical-align: middle;
@@ -1252,6 +1252,9 @@ body {
   background-color: #3abde8;
   color: #fff;
 }
+.user_photo {
+  background-color: #000;
+}
 .user_photo .photo_border {
   position: relative;
   margin-left: auto;
@@ -1261,4 +1264,7 @@ body {
   border: solid 1px #808080;
   overflow: hidden;
   box-sizing: content-box;
+}
+.user_photo .ele_hiden {
+  opacity: 0;
 }
