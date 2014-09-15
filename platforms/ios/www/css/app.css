@@ -1255,7 +1255,12 @@ body {
   color: #fff;
 }
 .user_photo {
+  position: relative;
+  height: 100%;
   background-color: #000;
+}
+.user_photo .col {
+  position: relative;
 }
 .user_photo .photo_border {
   position: relative;
@@ -1268,5 +1273,11 @@ body {
   box-sizing: content-box;
 }
 .user_photo .ele_hiden {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   opacity: 0;
+  z-index: 1;
 }

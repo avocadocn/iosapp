@@ -1113,13 +1113,52 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.edit_form_action = Global.base_url + '/logo/update';
   $scope.edit_form_action = $sce.trustAsResourceUrl($scope.edit_form_action);
   $scope.crop_args = {
-    width: 128,
-    height: 128,
+    width: 1,
+    height: 1,
     x: 0,
     y: 0
   };
+
+  $scope.img_source = 'local'; // 'local' or 'photo'
+  $scope.photo_uri;
+
+  var success = function () {
+    $ionicPopup.alert({
+      title: '提示',
+      template: '修改头像成功'
+    });
+    $state.go('app.settings');
+  };
+
+  var failed = function () {
+    $ionicPopup.alert({
+      title: '提示',
+      template: '修改头像失败'
+    });
+  };
+
   $scope.submit = function(){
-    $('#edit_photo_form').submit();
+    if ($scope.img_source === 'local') {
+      $('#edit_photo_form').submit();
+    } else if ($scope.img_source === 'photo') {
+      var photo_uri = $scope.photo_uri;
+      var options = new FileUploadOptions();
+      options.fileKey = 'logo';
+      options.chunkedMode = false;
+      options.fileName = photo_uri.substr(photo_uri.lastIndexOf('/') + 1);
+      options.mimeType = "image/jpeg";
+      options.params = {
+        userId: $scope.uid,
+        target: 'u',
+        width: $scope.crop_args.width,
+        height: $scope.crop_args.height,
+        x: $scope.crop_args.x,
+        y: $scope.crop_args.y
+      };
+      var uri = encodeURI($scope.edit_form_action);
+      var ft = new FileTransfer();
+      ft.upload(photo_uri, uri, success, failed, options);
+    }
   }
   var getFilePath = function(input, callback) {
     var file = input.files[0];
@@ -1132,8 +1171,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   var photo_input = $('#photo');
   photo_input.change(function() {
-    console.log('s');
     getFilePath(photo_input[0], function(path) {
+      $scope.img_source = 'local';
       $scope.preview_img = path;
       $scope.$apply();
     });
@@ -1142,19 +1181,33 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   $('#edit_photo_form').ajaxForm(function(data, status) {
     if (status === 'success' && data.result === 1) {
-      $ionicPopup.alert({
-        title: '提示',
-        template: '修改头像成功'
-      });
-      $state.go('app.settings');
+      success();
     } else {
-      $ionicPopup.alert({
-        title: '提示',
-        template: '修改头像失败'
-      });
+      failed();
     }
   });
-  $timeout(function(){photo_input.click();console.log(photo_input);},100);
+
+
+  $scope.getPhoto = function() {
+    navigator.camera.getPicture(function(imageURI) {
+      $scope.img_source = 'photo';
+      $scope.photo_uri = imageURI;
+      $scope.preview_img = imageURI;
+      $scope.$apply();
+    }, function(err) {
+
+    }, {
+      quality: 10,
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      encodingType: Camera.EncodingType.JPEG,
+      correctOrientation: true,
+      saveToPhotoAlbum: true
+    });
+
+  };
+
+
 })
 
 

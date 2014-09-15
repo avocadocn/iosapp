@@ -3,12 +3,22 @@
     <a class="button icon-left ion-ios7-arrow-back button-clear button-dark" href="#/app/settings">返回</a>
   </ion-nav-buttons>
   <ion-nav-buttons side="right">
-    <a class="button button-clear button-dark" >使用</a>
+    <a class="button button-clear button-dark" ng-click="submit()">使用</a>
   </ion-nav-buttons>
   <ion-content class="has-header">
-    <div class="user_photo">
+    <div class="user_photo" no-scroll>
       <form id="edit_photo_form" action="{{ edit_form_action }}" method="post" enctype="multipart/form-data">
-        <input id="photo" class="ele_hiden" name="logo" type="file" accept="image/*" required/>
+        <div class="row">
+          <div class="col">
+            <button class="button button-block button-positive" type="button" ng-click="getPhoto()"><i class="icon ion-camera"></i> 拍照</button>
+          </div>
+          <div class="col">
+            <label class="button button-block button-positive">
+              <i class="icon ion-images"></i> 本地文件
+            </label>
+            <input id="photo" class="ele_hiden" name="logo" type="file" accept="image/*" required/>
+          </div>
+        </div>
         <input type="hidden" name="userId" value="{{uid}}">
         <input type="hidden" name="target" value="u">
         <input type="hidden" name="width" value="{{crop_args.width}}">
@@ -18,7 +28,6 @@
         <div class="photo_border">
           <img class="photo" id="preview" ng-src="{{preview_img}}" crop="crop_args" resource="preview_img" crop-photo/>
         </div>
-<!--         <button type="submit">确认</button> -->
       </form>
     </div>
   </ion-content>
