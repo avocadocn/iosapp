@@ -289,7 +289,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.changePhoto = function (index) {
     var scrollDelegate = $ionicScrollDelegate.$getByHandle('photo_'+index);
     var view = scrollDelegate.getScrollView();
-
+    $scope.nowIndex = index;
     //reset zoom level
     view.__zoomLevel = 1;
     scrollDelegate.scrollTo(0,0);
@@ -439,6 +439,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.modal = modal;
   });
   $scope.openModal = function(index) {
+    $scope.nowIndex = index;
     $scope.showHeader = true;
     $ionicSlideBoxDelegate.update();
     $ionicSlideBoxDelegate.slide(index);
@@ -498,6 +499,59 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       break;
     }
   }
+  $scope.savePhoto = function(){
+    $ionicLoading.show({
+      template: '保存中...'
+    });
+
+    var fileTransfer = new FileTransfer();
+    var uri = encodeURI(Global.img_url + $scope.photos[$scope.nowIndex].uri);
+    var tempUri = uri.split('/');
+    var downloadPhoto = function(fileSystem){
+        fileTransfer.download(
+          uri,
+          fileSystem.root.toURL()+'/动梨/'+tempUri[tempUri.length-1],
+          function(entry) {
+            hideLoading();
+              $ionicPopup.alert({
+                title: '提示',
+                template: '已保存图片到动梨目录下'
+              });
+            // function success() {
+            //   hideLoading();
+            //   $ionicPopup.alert({
+            //     title: '提示',
+            //     template: '图片保存成功！'
+            //   });
+            // }
+          
+            // function fail(err) {
+            //   $ionicPopup.alert({
+            //     title: '提示',
+            //     template: '图片保存失败！'
+            //   });
+            // }
+            // window.plugins.SaveToPhotoAlbum.saveToPhotoAlbum( success, fail, entry.toURL());
+
+          },
+          function(error) {
+            hideLoading();
+            $ionicPopup.alert({
+                title: '提示',
+                template: '图片保存失败！'
+              });
+              console.log(error);
+              console.log("download error source " + error.source);
+              console.log("download error target " + error.target);
+              console.log("upload error code" + error.code);
+          }
+        );
+
+    }
+
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, downloadPhoto, null);
+  }
+
 })
 
 
