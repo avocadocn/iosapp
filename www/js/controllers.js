@@ -1119,7 +1119,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 //更改头像
-.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $ionicLoading, $ionicModal, Authorize, Global, Camera) {
+.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $jrCrop, $ionicLoading, $ionicModal, Authorize, Global, Camera) {
   Authorize.authorize();
 
   $scope.uid = Global.user._id;
@@ -1152,37 +1152,41 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 
   //modal
-  $ionicModal.fromTemplateUrl('templates/partials/upload.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.upload_modal = modal;
-  });
+  // $ionicModal.fromTemplateUrl('templates/partials/upload.html', {
+  //   scope: $scope,
+  //   animation: 'slide-in-up'
+  // }).then(function(modal) {
+  //   $scope.upload_modal = modal;
+  // });
 
-  $scope.openUploadModal = function() {
-    $scope.upload_modal.show();
-  };
+  // $scope.openUploadModal = function() {
+  //   $scope.upload_modal.show();
+  // };
 
-  $scope.closeUploadModal = function() {
-    $scope.upload_modal.hide();
-  };
+  // $scope.closeUploadModal = function() {
+  //   $scope.upload_modal.hide();
+  // };
 
   var onSuccess = function(fileEntry){//更改预览图片
     fileEntry.file(function(file) {
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = function(e) {
-        $scope.preview_img = this.result;
+        //$scope.preview_img = this.result;
+        deal(this.result);
       }
     });
   };
   var onError = function(evt){
     ionicAlert('获取照片失败');
   };
+
   //选文件
 
   var chooseSuccess = function(data){
     $scope.uploadfile = 'file://'+data.filepath;
+    // $scope.upload_modal.hide();
+    //deal($scope.uploadfile);
     window.resolveLocalFileSystemURL($scope.uploadfile, onSuccess,onError);
   };
 
@@ -1201,18 +1205,17 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       saveToPhotoAlbum: true
     }).then(function(imageURI) {
       $scope.uploadfile = imageURI;
-      $scope.upload_modal.hide();
+      // $scope.upload_modal.hide();
       window.resolveLocalFileSystemURL(imageURI, onSuccess,onError); //更改预览图片 
     }, function(err) {
       ionicAlert('获取照相机出错');
     });
   };
 
-  //上传部分
+  //上传部分 Todo M
   var win = function(r) {
     hideLoading();
     ionicAlert('上传成功');
-    getPhotoList();
   };
 
   var fail = function(error) {
@@ -1239,6 +1242,19 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $scope.upload_modal.hide();
     showLoading();
     ft.upload($scope.uploadfile, uri, win, fail, options);
+  };
+
+  var deal = function(url){
+    $jrCrop.crop({
+    url: url,
+    width: 200,
+    height: 200
+    }).then(function(canvas) {
+        // success!
+        var image = canvas.toDataURL();
+    }, function() {
+        // User canceled or couldn't load image.
+    });
   };
 })
 
