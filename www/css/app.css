@@ -412,11 +412,11 @@ body {
 .now_campaign_item .campaign_link .now_campaign_photos {
   width: 100%;
   height: 120px;
+  text-align: center;
 }
 .now_campaign_item .campaign_link .now_campaign_photos .now_campaign_photo {
   width: 106px;
   height: 106px;
-  float: left;
   margin-right: 1px;
 }
 .now_campaign_item .campaign_link .now_campaign_photos .now_campaign_photo:last-child {
