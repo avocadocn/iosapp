@@ -524,17 +524,32 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     }
   }
   $scope.savePhoto = function(){
-    console.log('ssssa');
+    $ionicLoading.show({
+      template: '保存中...'
+    });
     var fileTransfer = new FileTransfer();
     var uri = encodeURI(Global.img_url + $scope.photos[$scope.nowIndex].uri);
     var tempUri = uri.split('/');
     var downloadPhoto = function(fileSystem){
-      console.log(fileSystem.root.toURL()+'/'+tempUri[tempUri.length-1]);
         fileTransfer.download(
           uri,
-          fileSystem.root.toURL()+'/'+tempUri[tempUri.length-1],
+          fileSystem.root.toURL()+'/donler/'+tempUri[tempUri.length-1],
           function(entry) {
-              console.log("download complete: " + entry.fullPath);
+              function success() {
+                hideLoading();
+                $ionicPopup.alert({
+                  title: '提示',
+                  template: '图片保存成功！'
+                });
+              }
+            
+              function fail(err) {
+                $ionicPopup.alert({
+                  title: '提示',
+                  template: '图片保存失败！'
+                });
+              }
+              window.plugins.SaveToPhotoAlbum.saveToPhotoAlbum( success, fail, entry.toURL());
           },
           function(error) {
               console.log(error);

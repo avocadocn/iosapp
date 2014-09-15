@@ -39,6 +39,10 @@
                         {
                             "xml": "<feature name=\"FileTransfer\"><param name=\"ios-package\" value=\"CDVFileTransfer\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SaveToPhotoAlbum\"><param name=\"ios-package\" value=\"SaveToPhotoAlbum\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -124,6 +128,9 @@
             "PACKAGE_NAME": "com.donler.android"
         },
         "org.apache.cordova.file-transfer": {
+            "PACKAGE_NAME": "com.donler.android"
+        },
+        "SaveToPhotoAlbum": {
             "PACKAGE_NAME": "com.donler.android"
         }
     },

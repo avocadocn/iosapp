@@ -229,6 +229,13 @@ module.exports = [
         "clobbers": [
             "window.FileTransfer"
         ]
+    },
+    {
+        "file": "plugins/saveToPhotoAlbum/SaveToPhotoAlbum.js",
+        "id": "saveToPhotoAlbum.SaveToPhotoAlbum",
+        "clobbers": [
+            "window.plugins.SaveToPhotoAlbum"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -241,7 +248,8 @@ module.exports.metadata =
     "com.pushwoosh.plugins.pushwoosh": "3.2.0",
     "org.apache.cordova.inappbrowser": "0.5.2-dev",
     "org.apache.cordova.camera": "0.3.1",
-    "org.apache.cordova.file-transfer": "0.4.5"
+    "org.apache.cordova.file-transfer": "0.4.5",
+    "saveToPhotoAlbum": "0.3.1"
 }
 // BOTTOM OF METADATA
 });

@@ -35,6 +35,9 @@
     <feature name="Camera">
         <param name="ios-package" value="CDVCamera" />
     </feature>
+    <feature name="SaveToPhotoAlbum">
+        <param name="ios-package" value="SaveToPhotoAlbum" />
+    </feature>
     <name>Donler</name>
     <description>
         Donler 企业员工活动互联网工具
@@ -66,4 +69,5 @@
         <param name="ios-package" value="CDVFileTransfer" />
     </feature>
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
+    <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
 </widget>

@@ -37,6 +37,7 @@
 		4D5B8527533E44D2892C58EC /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = FD492D21F48F403F929BD687 /* CDVDevice.m */; };
 		5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AEE5B34173C68D80009041E /* CoreLocation.framework */; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
+		7266DCF419C587D300859B41 /* SaveToPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 7266DCF319C587D300859B41 /* SaveToPhotoAlbum.m */; };
 		7E7966DE1810823500FA85AD /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D41810823500FA85AD /* icon-40.png */; };
 		7E7966DF1810823500FA85AD /* icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D51810823500FA85AD /* icon-40@2x.png */; };
 		7E7966E01810823500FA85AD /* icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D61810823500FA85AD /* icon-50.png */; };
@@ -114,6 +115,8 @@
 		56BD0CE9E54F4085AEC47E3C /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVAssetLibraryFilesystem.h; path = org.apache.cordova.file/CDVAssetLibraryFilesystem.h; sourceTree = "<group>"; };
 		5AEE5B34173C68D80009041E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		7266DCF219C587D300859B41 /* SaveToPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SaveToPhotoAlbum.h; path = SaveToPhotoAlbum/SaveToPhotoAlbum.h; sourceTree = "<group>"; };
+		7266DCF319C587D300859B41 /* SaveToPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SaveToPhotoAlbum.m; path = SaveToPhotoAlbum/SaveToPhotoAlbum.m; sourceTree = "<group>"; };
 		7D5ED7D4A4A944F688FFEA3C /* CDVJpegHeaderWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVJpegHeaderWriter.h; path = org.apache.cordova.camera/CDVJpegHeaderWriter.h; sourceTree = "<group>"; };
 		7E7966D41810823500FA85AD /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		7E7966D51810823500FA85AD /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40@2x.png"; sourceTree = "<group>"; };
@@ -139,7 +142,6 @@
 		D876CBCE961141409A2C1D8A /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVAssetLibraryFilesystem.m; path = org.apache.cordova.file/CDVAssetLibraryFilesystem.m; sourceTree = "<group>"; };
 		E2ABCFC3BC9543AD9AC42CD7 /* APPLocalNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APPLocalNotification.h; path = "de.appplant.cordova.plugin.local-notification/APPLocalNotification.h"; sourceTree = "<group>"; };
 		E70AA6A2A961421C81A7115D /* CDVLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVLogger.h; path = org.apache.cordova.console/CDVLogger.h; sourceTree = "<group>"; };
-		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F402CD700D564013BB8744ED /* PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PushNotification.h; path = com.pushwoosh.plugins.pushwoosh/ios/PushNotification.h; sourceTree = "<group>"; };
@@ -211,7 +213,6 @@
 			children = (
 				EB87FDF41871DAF40020F90C /* config.xml */,
 				EB87FDF31871DA8E0020F90C /* www */,
-				EB87FDF21871DA7A0020F90C /* merges */,
 				EB87FDF11871DA420020F90C /* Staging */,
 				301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -276,6 +277,8 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				7266DCF219C587D300859B41 /* SaveToPhotoAlbum.h */,
+				7266DCF319C587D300859B41 /* SaveToPhotoAlbum.m */,
 				F94DDA7202604FF6B227C6DC /* CDVLogger.m */,
 				E70AA6A2A961421C81A7115D /* CDVLogger.h */,
 				FD492D21F48F403F929BD687 /* CDVDevice.m */,
@@ -503,6 +506,7 @@
 				4D5B8527533E44D2892C58EC /* CDVDevice.m in Sources */,
 				38ADC1451D5F4E13B0BFD464 /* APPLocalNotification.m in Sources */,
 				E87A1D5203B643B1B551A473 /* CDVFile.m in Sources */,
+				7266DCF419C587D300859B41 /* SaveToPhotoAlbum.m in Sources */,
 				A75E6459A7D1430AA842D3B3 /* CDVLocalFilesystem.m in Sources */,
 				42B0A30AB13D497188D35232 /* CDVAssetLibraryFilesystem.m in Sources */,
 				2E041A34C614417EB726C423 /* PushNotification.m in Sources */,
