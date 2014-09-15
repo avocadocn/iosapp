@@ -1257,9 +1257,8 @@ body {
 .user_photo {
   position: relative;
   height: 100%;
-  background-color: #000;
 }
-.user_photo .col {
+.user_photo .fileinput_wrap {
   position: relative;
 }
 .user_photo .photo_border {

@@ -1105,22 +1105,13 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $timeout, Authorize, Global) {
+.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $jrCrop, $timeout, ImageHelper, Authorize, Global) {
   Authorize.authorize();
 
   $scope.uid = Global.user._id;
   $scope.preview_img = '';
   $scope.edit_form_action = Global.base_url + '/logo/update';
   $scope.edit_form_action = $sce.trustAsResourceUrl($scope.edit_form_action);
-  $scope.crop_args = {
-    width: 1,
-    height: 1,
-    x: 0,
-    y: 0
-  };
-
-  $scope.img_source = 'local'; // 'local' or 'photo'
-  $scope.photo_uri;
 
   var success = function () {
     $ionicPopup.alert({
@@ -1137,29 +1128,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
   };
 
-  $scope.submit = function(){
-    if ($scope.img_source === 'local') {
-      $('#edit_photo_form').submit();
-    } else if ($scope.img_source === 'photo') {
-      var photo_uri = $scope.photo_uri;
-      var options = new FileUploadOptions();
-      options.fileKey = 'logo';
-      options.chunkedMode = false;
-      options.fileName = photo_uri.substr(photo_uri.lastIndexOf('/') + 1);
-      options.mimeType = "image/jpeg";
-      options.params = {
-        userId: $scope.uid,
-        target: 'u',
-        width: $scope.crop_args.width,
-        height: $scope.crop_args.height,
-        x: $scope.crop_args.x,
-        y: $scope.crop_args.y
-      };
-      var uri = encodeURI($scope.edit_form_action);
-      var ft = new FileTransfer();
-      ft.upload(photo_uri, uri, success, failed, options);
-    }
-  }
   var getFilePath = function(input, callback) {
     var file = input.files[0];
     var reader = new FileReader();
@@ -1172,8 +1140,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   var photo_input = $('#photo');
   photo_input.change(function() {
     getFilePath(photo_input[0], function(path) {
-      $scope.img_source = 'local';
-      $scope.preview_img = path;
+      $scope.source_uri = path;
       $scope.$apply();
     });
   });
@@ -1190,9 +1157,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   $scope.getPhoto = function() {
     navigator.camera.getPicture(function(imageURI) {
-      $scope.img_source = 'photo';
-      $scope.photo_uri = imageURI;
-      $scope.preview_img = imageURI;
+      $scope.source_uri = imageURI;
       $scope.$apply();
     }, function(err) {
 
@@ -1206,6 +1171,30 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
 
   };
+
+  $scope.$watch('source_uri', function (newVal, oldVal) {
+    if (newVal && newVal !== '') {
+      $jrCrop.crop({
+        url: newVal,
+        width: 256,
+        height: 256
+      }).then(function(canvas) {
+        var dataURL = canvas.toDataURL();
+        var blob = ImageHelper.dataURItoBlob(dataURL);
+        var fd = new FormData($('#edit_photo_form')[0]);
+        fd.append('logo', blob);
+        $.ajax({
+          url: $scope.edit_form_action,
+          type: 'POST',
+          data: fd,
+          processData: false,
+          contentType: false,
+          success: success,
+          error: failed
+        });
+      });
+    }
+  });
 
 
 })
