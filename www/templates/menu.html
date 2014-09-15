@@ -13,7 +13,7 @@
       </header>
       <div class="menu_personal_info" ng-if="user._id">
         <a href="#/app/user_info">
-          <img class="menu_photo" ng-src="{{ img_url }}/logo/user/{{ user._id }}/80/80"/>
+          <img class="menu_photo" ng-src="{{ img_url }}/logo/user/{{ user._id }}/80/80?{{logoRandom}}"/>
         </a>
         <p class="menu_nickname">{{ user.nickname }}</p>
       </div>

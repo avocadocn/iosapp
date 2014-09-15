@@ -5,11 +5,11 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   if (Authorize.authorize() === true) {
     $state.go('app.index');
   }
-  console.log(Global);
   $scope.logout = Authorize.logout;
   $scope.base_url = Global.base_url;
   $scope.img_url = Global.img_url;
   $scope.user = Global.user;
+  $scope.logoRandom = new Date().getTime();
   document.addEventListener("resume", function() {
     window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
     Authorize.autologin(false,function(loginStatus,otherStatus){
@@ -544,6 +544,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
               }
             
               function fail(err) {
+                hideLoading();
                 $ionicPopup.alert({
                   title: '提示',
                   template: '图片保存失败！'
@@ -1127,6 +1128,9 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       title: '提示',
       template: '修改头像成功'
     });
+    console.log($scope);
+    $scope.logoRandom = new Date().getTime();
+    console.log($scope);
     $state.go('app.settings');
   };
 
@@ -1206,8 +1210,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
 
   };
-
-
 })
 
 
