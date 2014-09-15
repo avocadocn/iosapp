@@ -782,7 +782,26 @@ angular.module('starter.services', [])
   }
 }])
 
-
+// .factory('userPhoto', function($http, Global) {
+//   var uploadPhoto = function(logo,crop_args,callback){
+//     $http.post(Global.base_url + '/logo/update' ,{
+//       logo:logo,
+//       userId:Global.user._id,
+//       target:'u',
+//       width:crop_args.width,
+//       height:crop_args.height,
+//       x:crop_args.x,
+//       y:crop_args.y
+//     })
+//     .success(function(data, status) {
+//       callback(null);
+//     })
+//     .error(function(data,status,headers,config) {
+//       callback(status, null);
+//     })
+//   }
+//   return {uploadPhoto : uploadPhoto};
+// })
 
 
 
