@@ -32,15 +32,6 @@ angular.module('starter.services', [])
 
 
   var authorize = function() {
-    if (!Global.user._id && localStorage.user_id) {
-      _authorize = true;
-      Global.user = {
-        _id: localStorage.user_id,
-        nickname: localStorage.user_nickname,
-        app_token:localStorage.app_token
-      };
-      autologin(localStorage.user_id, localStorage.app_token);
-    }
     if (_authorize === false) {
       $state.go('login');
       return false;
@@ -172,32 +163,50 @@ angular.module('starter.services', [])
       }
     };
   };
-  var autologin = function(uid, app_token) {
-    $http.post(Global.base_url + '/users/autologin', { uid: uid, app_token: app_token})
-    .success(function(data, status, headers, config) {
-      if (data.result === 1) {
-        _authorize = true;
-        var user = data.data;
-        if (user) {
-          Global.user.app_token = user.app_token;
-          localStorage.app_token = user.app_token;
-          return true;
+  var autologin = function(authCheck, callback) {
+    if(authCheck && _authorize){
+      return callback(true,false);
+    }
+    if (!Global.user._id && localStorage.user_id) {
+      Global.user = {
+        _id: localStorage.user_id,
+        nickname: localStorage.user_nickname,
+        app_token:localStorage.app_token
+      };
+      $http.post(Global.base_url + '/users/autologin', { uid: Global.user._id, app_token: Global.user.app_token})
+      .success(function(data, status, headers, config) {
+        if (data.result === 1) {
+          _authorize = true;
+          var user = data.data;
+          if (user) {
+            Global.user.app_token = user.app_token;
+            localStorage.app_token = user.app_token;
+          }
+          callback(true,false);
         }
-      }
-      else{
-        _authorize = false;
-        localStorage.removeItem("user_id");
-        localStorage.removeItem("user_nickname");
-        localStorage.removeItem("app_token");
-        return false;
-      }
-    })
-    .error(function(data, status, headers, config) {
-      if (status === 401) {
-        $scope.loginMsg = '用户名或密码错误';
-      }
-    });
+        else{
+          _authorize = false;
+          localStorage.removeItem("user_id");
+          localStorage.removeItem("user_nickname");
+          localStorage.removeItem("app_token");
+          callback(false,true);
+        }
+      })
+      .error(function(data, status, headers, config) {
+        if (status === 401) {
+          _authorize = false;
+          callback(false,false);
+        }
+      });
+    }
+    else if(Global.user._id){
+      callback(true,false);
+    }
+    else{
+      callback(false,false);
+    }
   };
+
 
   var logout = function() {
     $http.post(Global.base_url + '/users/logout', {
@@ -224,6 +233,7 @@ angular.module('starter.services', [])
   
   return {
     authorize: authorize,
+    autologin: autologin,
     login: login,
     logout: logout
   };

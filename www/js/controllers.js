@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 
-.controller('AppCtrl', function($state, $scope, $rootScope, Authorize, Global) {
+.controller('AppCtrl', function($state, $scope, $rootScope,  $ionicPopup, Authorize, Global) {
   if (Authorize.authorize() === true) {
     $state.go('app.index');
   }
@@ -9,6 +9,40 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.base_url = Global.base_url;
   $scope.user = Global.user;
   $scope.img_url = Global.img_url;
+  $scope.imgRandom = new Date().getTime();
+  document.addEventListener("resume", function() {
+    window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
+    Authorize.autologin(false,function(loginStatus,otherStatus){
+      if(!loginStatus){
+        if(otherStatus){
+          var myPopup = $ionicPopup.show({
+            template: '您的账号在其他设备上登录，请重新登录!',
+            title: '警告',
+            scope: $scope,
+            buttons: [
+              { text: '取消' },
+              {
+                text: '<b>确定</b>',
+                type: 'button-positive',
+                onTap: function(e) {
+                  return true;
+                }
+              },
+            ]
+          });
+          myPopup.then(function(res) {
+            if(res){
+              $state.go('login');
+            }
+          });
+        }
+        else{
+          $state.go('login');
+        }a
+      }
+    });
+  }, false);
+
 
 })
 
@@ -18,7 +52,15 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     $state.go('app.index');
   }
   else {
-    $scope.checkStatus = true;
+    Authorize.autologin(true,function(loginStatus){
+      if(loginStatus){
+        $state.go('app.index');
+      }
+      else{
+        $scope.checkStatus = true;
+      }
+    });
+
   }
 
   $scope.data = {
@@ -1212,7 +1254,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   var win = function(r) {
     hideLoading();
     ionicAlert('上传成功');
-    getPhotoList();
+    $scope.imgRandom = new Date().getTime();
   };
 
   var fail = function(error) {
