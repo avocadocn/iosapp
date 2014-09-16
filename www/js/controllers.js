@@ -1119,19 +1119,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 //更改头像
-.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $jrCrop, $ionicLoading, $ionicModal, Authorize, Global, Camera) {
+.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $jrCrop, $ionicLoading, $ionicModal, Authorize, Global, Camera, ImageHelper) {
   Authorize.authorize();
 
   $scope.uid = Global.user._id;
   $scope.preview_img = Global.img_url + '/logo/user/' + Global.user._id + '/256/256';
   $scope.edit_form_action = Global.base_url + '/logo/update';
   $scope.edit_form_action = $sce.trustAsResourceUrl($scope.edit_form_action);
-  $scope.crop_args = {
-    width: 256,
-    height: 256,
-    x: 0,
-    y: 0
-  };
+
   $scope.uploadfile = null;
 
   var showLoading = function() {
@@ -1212,46 +1207,73 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
   };
 
-  //上传部分 Todo M
-  var win = function(r) {
-    hideLoading();
-    ionicAlert('上传成功');
+  // //上传部分 Todo M
+  // var win = function(r) {
+  //   // hideLoading();
+  //   ionicAlert('上传成功');
+  // };
+
+  // var fail = function(error) {
+  //   // hideLoading();
+  //   ionicAlert('上传失败，请重试。');
+  // };
+
+  // $scope.uploadPhoto = function(){
+  //   showLoading();
+  //   var filepath = $scope.uploadfile;
+  //   var uri = encodeURI($scope.edit_form_action);
+  //   var options = new FileUploadOptions();
+  //   options.fileKey = "logo";
+  //   options.fileName = filepath.substr(filepath.lastIndexOf('/')+1);
+  //   options.params = {
+  //     userId: $scope.uid,
+  //     target: "u",
+  //     width: $scope.crop_args.width,
+  //     height: $scope.crop_args.height,
+  //     x: $scope.crop_args.x,
+  //     y: $scope.crop_args.y
+  //   };
+  //   var ft = new FileTransfer();
+  //   $scope.upload_modal.hide();
+  //   showLoading();
+  //   ft.upload($scope.uploadfile, uri, win, fail, options);
+  // };
+
+  var success = function () {
+    $ionicPopup.alert({
+      title: '提示',
+      template: '修改头像成功'
+    });
+    $state.go('app.settings');
   };
 
-  var fail = function(error) {
-    hideLoading();
-    ionicAlert('上传失败，请重试。');
-  };
-
-  $scope.uploadPhoto = function(){
-    showLoading();
-    var filepath = $scope.uploadfile;
-    var uri = encodeURI($scope.edit_form_action);
-    var options = new FileUploadOptions();
-    options.fileKey = "logo";
-    options.fileName = filepath.substr(filepath.lastIndexOf('/')+1);
-    options.params = {
-      userId: $scope.uid,
-      target: "u",
-      width: $scope.crop_args.width,
-      height: $scope.crop_args.height,
-      x: $scope.crop_args.x,
-      y: $scope.crop_args.y
-    };
-    var ft = new FileTransfer();
-    $scope.upload_modal.hide();
-    showLoading();
-    ft.upload($scope.uploadfile, uri, win, fail, options);
+  var failed = function () {
+    $ionicPopup.alert({
+      title: '提示',
+      template: '修改头像失败'
+    });
   };
 
   var deal = function(url){
+    // showLoading();
     $jrCrop.crop({
     url: url,
-    width: 200,
-    height: 200
+    width: 256,
+    height: 256
     }).then(function(canvas) {
-        // success!
-        var image = canvas.toDataURL();
+        var dataURL = canvas.toDataURL();
+        var blob = ImageHelper.dataURItoBlob(dataURL);
+        var fd = new FormData($('#edit_photo_form')[0]);
+        fd.append('logo', blob);
+        $.ajax({
+          url: $scope.edit_form_action,
+          type: 'POST',
+          data: fd,
+          processData: false,
+          contentType: false,
+          success: success,
+          error: failed
+        });
     }, function() {
         // User canceled or couldn't load image.
     });
