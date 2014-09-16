@@ -113,10 +113,12 @@
             <div class="team" ng-repeat="team in campaign.myteam">
               <div class="row campaign_line">
                 <p class="campaign_team_info">
+
                   <img class="campaign_group_logo" ng-src="{{ base_url + team.logo + '/40/40' }}"/>
                   <span class="team_name">{{ team.name }}</span>
                 </p>
               </div>
+              <p ng-if="team.member.length>0">参加成员:</p>
               <a class="campaign_member_panel" ng-repeat="user in team.member">
                 <div class="campaign_member_wrap">
                   <img class="campaign_member_photo img_user" ng-src="{{ base_url + '/logo/user/' + user.uid + '/40/40' }}"/>
