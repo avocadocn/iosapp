@@ -10,6 +10,11 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.img_url = Global.img_url;
   $scope.user = Global.user;
   $scope.logoRandom = new Date().getTime();
+  $rootScope.$on('updateUser', function() {
+    $scope.user = Global.user;
+    $scope.logoRandom = new Date().getTime();
+    console.log(Global.user);
+  });
   document.addEventListener("resume", function() {
     window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
     Authorize.autologin(false,function(loginStatus,otherStatus){
@@ -994,7 +999,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }
 })
 
-.controller('UserInfoCtrl', function($scope,$ionicPopup, User, Global) {
+.controller('UserInfoCtrl', function($scope,$ionicPopup, $rootScope, User, Global) {
 
   $scope.base_url = Global.base_url;
 
@@ -1041,7 +1046,13 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
     myPopup.then(function(res) {
       if(res){
-        console.log($scope.backup.editValue);
+        if(editName === 'nickname' && $scope.backup.editValue===""){
+          $ionicPopup.alert({
+            title: '提示',
+            template: '昵称不能为空'
+          });
+          return;
+        }
         User.setInfo($scope.user._id, editName, $scope.backup.editValue ,function(msg){
           if(msg){
             $ionicPopup.alert({
@@ -1051,6 +1062,10 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
           }
           else{
             $scope.user[editName]= $scope.backup.editValue;
+            if(editName === 'nickname'){
+              Global.user.nickname = $scope.backup.editValue;
+              $rootScope.$broadcast('updateUser', true);
+            }
             $ionicPopup.alert({
               title: '提示',
               template: '修改成功!'
@@ -1106,7 +1121,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
-.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $timeout, Authorize, Global) {
+.controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $timeout, $rootScope, Authorize, Global) {
   Authorize.authorize();
 
   $scope.uid = Global.user._id;
@@ -1128,9 +1143,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       title: '提示',
       template: '修改头像成功'
     });
-    console.log($scope);
-    $scope.logoRandom = new Date().getTime();
-    console.log($scope);
+    $rootScope.$broadcast('updateUser', true);
     $state.go('app.settings');
   };
 
