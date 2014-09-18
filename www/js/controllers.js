@@ -1121,22 +1121,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 })
 
 
+
 .controller('UserPhotoCtrl', function($scope, $sce, $state, $ionicPopup, $timeout, $rootScope, Authorize, Global) {
+
   Authorize.authorize();
 
   $scope.uid = Global.user._id;
-  $scope.preview_img = '';
   $scope.edit_form_action = Global.base_url + '/logo/update';
   $scope.edit_form_action = $sce.trustAsResourceUrl($scope.edit_form_action);
-  $scope.crop_args = {
-    width: 1,
-    height: 1,
-    x: 0,
-    y: 0
-  };
-
-  $scope.img_source = 'local'; // 'local' or 'photo'
-  $scope.photo_uri;
 
   var success = function () {
     $ionicPopup.alert({
@@ -1154,72 +1146,40 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
   };
 
-  $scope.submit = function(){
-    if ($scope.img_source === 'local') {
-      $('#edit_photo_form').submit();
-    } else if ($scope.img_source === 'photo') {
-      var photo_uri = $scope.photo_uri;
+  /**
+   * 获取照片
+   * @param  {Number} from 0,1 as Camera.PictureSourceType.PHOTOLIBRARY, Camera.PictureSourceType.CAMERA
+   */
+  $scope.getPhoto = function(from) {
+    navigator.camera.getPicture(function(imageURI) {
       var options = new FileUploadOptions();
       options.fileKey = 'logo';
       options.chunkedMode = false;
-      options.fileName = photo_uri.substr(photo_uri.lastIndexOf('/') + 1);
+      options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
       options.mimeType = "image/jpeg";
       options.params = {
         userId: $scope.uid,
         target: 'u',
-        width: $scope.crop_args.width,
-        height: $scope.crop_args.height,
-        x: $scope.crop_args.x,
-        y: $scope.crop_args.y
+        width: 1,
+        height: 1,
+        x: 0,
+        y: 0
       };
       var uri = encodeURI($scope.edit_form_action);
       var ft = new FileTransfer();
-      ft.upload(photo_uri, uri, success, failed, options);
-    }
-  }
-  var getFilePath = function(input, callback) {
-    var file = input.files[0];
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function(e) {
-      callback(this.result);
-    };
-  };
-
-  var photo_input = $('#photo');
-  photo_input.change(function() {
-    getFilePath(photo_input[0], function(path) {
-      $scope.img_source = 'local';
-      $scope.preview_img = path;
-      $scope.$apply();
-    });
-  });
-
-
-  $('#edit_photo_form').ajaxForm(function(data, status) {
-    if (status === 'success' && data.result === 1) {
-      success();
-    } else {
-      failed();
-    }
-  });
-
-
-  $scope.getPhoto = function() {
-    navigator.camera.getPicture(function(imageURI) {
-      $scope.img_source = 'photo';
-      $scope.photo_uri = imageURI;
-      $scope.preview_img = imageURI;
-      $scope.$apply();
+      ft.upload(imageURI, uri, success, failed, options);
     }, function(err) {
-
+      // 取消照相也会触发error.
     }, {
       quality: 10,
       destinationType: Camera.DestinationType.FILE_URI,
-      sourceType: Camera.PictureSourceType.CAMERA,
+      sourceType: from,
       encodingType: Camera.EncodingType.JPEG,
       correctOrientation: true,
-      saveToPhotoAlbum: true
+      saveToPhotoAlbum: true,
+      allowEdit: true,
+      targetWidth: 256,
+      targetHeight: 256
     });
 
   };
