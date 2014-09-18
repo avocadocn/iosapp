@@ -10,29 +10,29 @@
 	<string>Donler</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>1FCABDE6-DF15-46AF-8D3B-8B6BF8EDCB0A</key>
+		<key>A667C1CFB7304C4F423CB2B0B8DAB7E1F40FE651</key>
 		<string>https://github.com/avocadocn/iosapp.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>platforms/ios/Donler.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>1FCABDE6-DF15-46AF-8D3B-8B6BF8EDCB0A</key>
+		<key>A667C1CFB7304C4F423CB2B0B8DAB7E1F40FE651</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/avocadocn/iosapp.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>1FCABDE6-DF15-46AF-8D3B-8B6BF8EDCB0A</string>
+	<string>A667C1CFB7304C4F423CB2B0B8DAB7E1F40FE651</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>1FCABDE6-DF15-46AF-8D3B-8B6BF8EDCB0A</string>
+			<string>A667C1CFB7304C4F423CB2B0B8DAB7E1F40FE651</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iosapp</string>
 		</dict>
