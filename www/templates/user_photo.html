@@ -4,23 +4,14 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
     <div class="user_photo" no-scroll>
-      <form id="edit_photo_form" action="{{ edit_form_action }}" method="post" enctype="multipart/form-data">
-        <div class="row">
-          <button class="button button-block button-large button-outline button-positive" type="button" ng-click="getPhoto()"><i class="icon ion-camera"></i> 拍照</button>
-        </div>
-        <div class="row fileinput_wrap">
-          <button class="button button-block button-large button-outline button-positive">
-            <i class="icon ion-images"></i> 本地文件
-          </button>
-          <input id="photo" class="ele_hiden" type="file" accept="image/*" required/>
-        </div>
-        <input type="hidden" name="userId" value="{{uid}}">
-        <input type="hidden" name="target" value="u">
-        <input type="hidden" name="width" value="1">
-        <input type="hidden" name="height" value="1">
-        <input type="hidden" name="x" value="0">
-        <input type="hidden" name="y" value="0">
-      </form>
+      <div class="row">
+        <button class="button button-block button-large button-outline button-positive" type="button" ng-click="getPhoto(1)"><i class="icon ion-camera"></i> 拍照</button>
+      </div>
+      <div class="row fileinput_wrap">
+        <button class="button button-block button-large button-outline button-positive" ng-click="getPhoto(0)">
+          <i class="icon ion-images"></i> 本地文件
+        </button>
+      </div>
     </div>
   </ion-content>
 </ion-view>
