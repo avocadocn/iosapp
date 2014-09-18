@@ -118,6 +118,7 @@
                   <span class="team_name">{{ team.name }}</span>
                 </p>
               </div>
+              <p ng-if="team.member.length>0">参加成员:</p>
               <a class="campaign_member_panel" ng-repeat="user in team.member">
                 <div class="campaign_member_wrap">
                   <img class="campaign_member_photo img_user" ng-src="{{ img_url + '/logo/user/' + user.uid + '/40/40' }}"/>
