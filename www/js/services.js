@@ -10,6 +10,7 @@ angular.module('starter.services', [])
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
   var img_url = "http://www.55yali.com";
+  base_url = img_url = "http://192.168.2.107:3000";
   var _user = {};
   var last_date;
   return {
@@ -34,7 +35,7 @@ angular.module('starter.services', [])
     }
   };
 
-  var login = function($scope) {
+  var login = function(loginCallback) {
     return function(username, password) {
 
       function initPushwoosh(callback) {
@@ -123,38 +124,16 @@ angular.module('starter.services', [])
               localStorage.user_nickname = user.nickname;
               localStorage.app_token = user.app_token;
             }
-            $state.go('app.index');
+            loginCallback(null);
           }
         })
         .error(function(data, status, headers, config) {
-          if (status === 401) {
-            $scope.loginMsg = '用户名或密码错误';
-          }
+          loginCallback(status);
         });
       }
 
-      function onSuccess(fileEntry) {
-        fileEntry.file(function(file) {
-          var reader = new FileReader();
-          reader.readAsText(file);
-          reader.onloadend = function(evt) {
-            var login_text = evt.target.result;
-            var ids = login_text.split("=.=");
-            loginPost(ids);
-          }
-        });
-      }
-      function onError(evt) {
-        console.log('error'+evt.target.error.code);
-      }
 
-      if(ionic.Platform.device().platform == 'Android'){
-        var path = cordova.file.dataDirectory+"login.tmp";
-        window.resolveLocalFileSystemURL(path, onSuccess,onError);
-      }
-      else{
-        initPushwoosh(loginPost);
-      }
+      initPushwoosh(loginPost);
     };
   };
   var autologin = function(authCheck, callback) {
@@ -617,10 +596,24 @@ angular.module('starter.services', [])
       callback(status);
     });
   };
+  var deleteCampaginComment = function(id, callback){
+    $http.post(Global.base_url + '/comment/delete',{comment_id:id})
+    .success(function(data, status) {
+      if (data.msg === 'SUCCESS') {
+        callback(null);
+      } else {
+        callback(data.msg);
+      }
+    })
+    .error(function(data, status, headers, config) {
+      callback(status);
+    });
+  }
 
   return {
     getCampaignComments: getCampaignComments,
-    publishCampaignComment: publishCampaignComment
+    publishCampaignComment: publishCampaignComment,
+    deleteCampaginComment: deleteCampaginComment
   };
 
 })
@@ -785,4 +778,19 @@ angular.module('starter.services', [])
     dataURItoBlob: dataURItoBlob
   };
 })
+
+.factory('FeedBack', function($http, Global) {
+  var submitFeedBack = function(content, callback){
+    $http.post(Global.base_url + '/feedback',{uid:Global.user._id, content: content}).success(function(data, status) {
+      callback(null);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status);
+    });
+  };
+
+  return {
+    submitFeedBack: submitFeedBack
+  };
+});
 

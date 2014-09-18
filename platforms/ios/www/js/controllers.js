@@ -17,7 +17,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   });
   document.addEventListener("resume", function() {
     window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
-    Authorize.autologin(false,function(loginStatus,otherStatus){
+    Authorize.autologin(false,function(loginStatus,otherStatus,netStatus){
+      if(netStatus){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '网络错误，请检查网络状态'
+        });
+        return;
+      }
       if(!loginStatus){
         if(otherStatus){
           var myPopup = $ionicPopup.show({
@@ -72,7 +79,19 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   $scope.loginMsg = '';
 
-  $scope.login = Authorize.login($scope, $rootScope);
+  $scope.login = Authorize.login(function(status){
+    if(status){
+      if (status === 401) {
+        $scope.loginMsg = '用户名或密码错误';
+      }
+      else{
+        $scope.loginMsg = '网络错误，请检查网络状态';
+      }
+    }else{
+      $state.go('app.index');
+    }
+  });
+
 })
 
 .controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Campaign, Global, Authorize) {
@@ -296,6 +315,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       $ionicSlideBoxDelegate.update();
     });
   };
+  $scope.deletePhoto = PhotoAlbum.deletePhoto
   $scope.comment_content = {
     text:''
   };
@@ -389,6 +409,19 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
     $scope.publishing = false;
   };
+  $scope.deleteComment = function(id, index){
+    Comment.deleteCampaginComment(id,function(msg){
+      if(msg){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '删除失败'
+        });
+      }
+      else{
+        $scope.comments.splice(index,1);
+      }
+    });
+  }
   //$scope.viewFormFlag =false;
   // $scope.viewCommentForm =function(){
   //   $scope.viewFormFlag =true;
@@ -461,7 +494,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
 
   };
-
   $ionicModal.fromTemplateUrl('templates/partials/photo_detail.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -1187,6 +1219,26 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 })
 
+.controller('feedbackCtrl', function($scope, $state, $ionicPopup, Authorize, FeedBack) {
+  Authorize.authorize();
+  $scope.submitFeedBack = function(){
+    FeedBack.submitFeedBack($scope.feedBackContent,function(status){
+      if(status){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '反馈发送失败，请检查网络状态'
+        });
+      }
+      else{
+        $ionicPopup.alert({
+          title: '提示',
+          template: '反馈发送成功！'
+        });
+        $state.go('app.settings');
+      }
+    });
+  };
+})
 
 .directive('cropPhoto', function () {
   return {

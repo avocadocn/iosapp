@@ -167,6 +167,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           controller: 'UserPhotoCtrl'
         }
       }
+    })
+
+    .state('app.agreement', {
+      url: '/agreement',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/agreement.html'
+        }
+      }
+    })
+
+    .state('app.feedback', {
+      url: '/feedback',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/feedback.html',
+          controller: 'feedbackCtrl'
+        }
+      }
     });
 
     // .state('app.changePhoto', {

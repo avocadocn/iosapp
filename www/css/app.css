@@ -10,6 +10,7 @@ body {
 .head_title {
   background-color: #ededed;
   height: 40px;
+  line-height: 40px;
   text-align: center;
 }
 .head_title .title {
@@ -243,6 +244,16 @@ body {
 }
 .menu_list .list .item:nth-child(2n+2) a {
   background-color: #37b4dd;
+}
+.agreement_contain {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+.agreement_contain .agreement_button {
+  color: #37b4dd;
+  text-decoration: none;
 }
 .login_wrap {
   background-color: #3abde8;
@@ -868,6 +879,14 @@ body {
 .campaign_detail .comments .comment_body {
   width: 80%;
 }
+.campaign_detail .comments .comment_body .delete-button {
+  color: #37b4dd;
+  display: inline-block;
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+  font-size: 10px;
+}
 .campaign_detail .comments .photo {
   margin-top: 4px;
   width: 40px;
@@ -1017,6 +1036,11 @@ body {
   height: 100%;
   width: 100%;
   background-color: #000;
+}
+.modal-wrapper .photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap .delete_button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 .modal-wrapper .photo_slide_modal .slider-slides .photo_slide_cell .photo_wrap div {
   position: relative;
@@ -1281,4 +1305,8 @@ body {
   left: 0;
   opacity: 0;
   z-index: 1;
+}
+.agereement_content {
+  margin-left: 10px;
+  margin-right: 5px;
 }

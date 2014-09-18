@@ -13,9 +13,9 @@
 </ion-header-bar>
 <ion-slide-box class="photo_slide_modal" show-pager="false" on-slide-changed="changePhoto(index)" ng-click="showHeader= !showHeader;" detect-gestures gesture-type="doubletap" getsture-callback="closeModal">
   <ion-slide ng-repeat="photo in photos" class="photo_slide_cell">
-    <ion-scroll zooming="true" direction="xy" class="photo_wrap center_img_container" delegate-handle="photo_{{$index}}">
-      <!-- <img class="photo img"  detect-gestures gesture-type="pinchout" ng-src="{{ base_url + photo.uri}}/resize/320/568" /> -->
+    <ion-scroll zooming="true" direction="xy" min-zoom="1" max-zoom="2"class="photo_wrap center_img_container" delegate-handle="photo_{{$index}}">
       <img class="photo img" id="photo_{{$index}}" ng-src="{{ base_url + photo.uri}}/resize/600/800"/>
+      <button class="button button-clear button-positive delete_button" ng-if="showHeader && photo.delete_permission"  ng-click="deletePhoto(photo._id)">删除</button>
     </ion-scroll >
   </ion-slide>
 </ion-slide-box>

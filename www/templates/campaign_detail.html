@@ -84,7 +84,9 @@
               <div class="clearfix">
                 <div class="content">{{comment.content}}</div>
               </div>
-              <div class="time">{{comment.create_date | date:'yyyy-MM-dd HH:mm'}}</div>
+              <div class="time">{{comment.create_date | date:'yyyy-MM-dd HH:mm'}}
+                <button ng-if="comment.delete_permission" class="delete-button" ng-click="deleteComment(comment._id,$index)">删除</button>
+              </div>
             </div>
           </div>
         </div>
