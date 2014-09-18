@@ -302,7 +302,9 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   var showLoading = function() {
     $ionicLoading.show({
-      template: '上传中...'
+      template: '上传中...',
+      noBackdrop: true,
+      duration: 5000
     });
   };
 
@@ -450,7 +452,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     }, function(err) {
 
     }, {
-      quality: 10,
+      quality: 50,
       destinationType: Camera.DestinationType.FILE_URI,
       sourceType: Camera.PictureSourceType.CAMERA,
       encodingType: Camera.EncodingType.JPEG,
@@ -1171,7 +1173,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     }, function(err) {
       // 取消照相也会触发error.
     }, {
-      quality: 10,
+      quality: 50,
       destinationType: Camera.DestinationType.FILE_URI,
       sourceType: from,
       encodingType: Camera.EncodingType.JPEG,
