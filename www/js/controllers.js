@@ -16,8 +16,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   });
 
   document.addEventListener("resume", function() {
-    window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
-    Authorize.autologin(false,function(loginStatus,otherStatus){
+    Authorize.autologin(false,function(loginStatus,otherStatus,netStatus){
+      if(netStatus){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '网络错误，请检查网络状态'
+        });
+        return;
+      }
       if(!loginStatus){
         if(otherStatus){
           var myPopup = $ionicPopup.show({
@@ -43,7 +49,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         }
         else{
           $state.go('login');
-        }a
+        }
       }
     });
   }, false);
@@ -75,7 +81,18 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   $scope.loginMsg = '';
 
-  $scope.login = Authorize.login($scope, $rootScope);
+  $scope.login = Authorize.login(function(status){
+    if(status){
+      if (status === 401) {
+        $scope.loginMsg = '用户名或密码错误';
+      }
+      else{
+        $scope.loginMsg = '网络错误，请检查网络状态';
+      }
+    }else{
+      $state.go('app.index');
+    }
+  });
 })
 
 .controller('IndexCtrl', function($scope, $rootScope, $ionicSlideBoxDelegate, $ionicPopup, $timeout, Campaign, Global, Authorize) {
