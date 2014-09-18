@@ -40,68 +40,8 @@ angular.module('starter.services', [])
     }
   };
 
-  var login = function($scope) {
+  var login = function(loginCallback) {
     return function(username, password) {
-
-      function initPushwoosh(callback) {
-        if(!window.plugins){
-          callback(null,null,'NO_WINDOW_PLUGINS');
-        }else{
-          if(!window.plugins.pushNotification){
-            callback(null,null,'NO_PUSHNOTIFICATION');
-          }else{
-            var pushNotification = window.plugins.pushNotification;
-            console.log('Received Event: ');
-            console.warn(pushNotification);
-            //set push notification callback before we initialize the plugin
-            document.addEventListener('push-notification', function(event) {
-                          //get the notification payload
-                          var notification = event.notification;
-
-                          //display alert to the user for example
-                          alert(notification.aps.alert);
-                          //clear the app badge
-                          pushNotification.setApplicationIconBadgeNumber(0);
-                        });
-
-              //initialize the plugin
-              pushNotification.onDeviceReady({pw_appid:"B13D4-3532F"});
-
-              //register for pushes
-              pushNotification.registerDevice(function(status) {
-                                                    var deviceToken = status['deviceToken'];
-                                                    console.warn('registerDevice: ' + deviceToken);
-                              },
-                              function(status) {
-                                                    console.warn('failed to register : ' + JSON.stringify(status));
-                                                    navigator.notification.alert(JSON.stringify(['failed to register ', status]));
-                                                    callback(null,null,status);
-                              });
-              pushNotification.setApplicationIconBadgeNumber(0);
-              pushNotification.getTags(function(tags) {
-                            console.warn('tags for the device: ' + JSON.stringify(tags));
-                           },
-                           function(error) {
-                            console.warn('get tags error: ' + JSON.stringify(error));
-                           });
-
-              pushNotification.getPushToken(function(token) {
-                              console.warn('push token device: ' + token);
-                              //执行loginPost,将token POST到后台
-                              callback(null,token);
-                           });
-
-              pushNotification.getPushwooshHWID(function(token) {
-                              console.warn('Pushwoosh HWID: ' + token);
-                            });
-
-              //start geo tracking.
-              pushNotification.startLocationTracking(function() {
-                                                     console.warn('Location Tracking Started');
-                                                     });
-          }
-        }
-      }
       function loginPost(ids,token,_status){
         //for logout save these ids
         if(token){
@@ -129,13 +69,11 @@ angular.module('starter.services', [])
               localStorage.user_nickname = user.nickname;
               localStorage.app_token = user.app_token;
             }
-            $state.go('app.index');
+            loginCallback(null);
           }
         })
         .error(function(data, status, headers, config) {
-          if (status === 401) {
-            $scope.loginMsg = '用户名或密码错误';
-          }
+          loginCallback(status);
         });
       }
 
@@ -151,15 +89,15 @@ angular.module('starter.services', [])
         });
       }
       function onError(evt) {
-        console.log('error'+evt.target.error.code);
+        loginCallback('noNet');
       }
 
-      if(ionic.Platform.device().platform == 'Android'){
+      try {
         var path = cordova.file.dataDirectory+"login.tmp";
         window.resolveLocalFileSystemURL(path, onSuccess,onError);
       }
-      else{
-        initPushwoosh(loginPost);
+      catch (err) {
+        loginCallback('noFount');
       }
     };
   };
