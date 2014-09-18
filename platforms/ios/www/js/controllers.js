@@ -1128,6 +1128,28 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
   };
 
+  var docrop = function (url) {
+    $jrCrop.crop({
+      url: url,
+      width: 256,
+      height: 256
+    }).then(function(canvas) {
+      var dataURL = canvas.toDataURL();
+      var blob = ImageHelper.dataURItoBlob(dataURL);
+      var fd = new FormData($('#edit_photo_form')[0]);
+      fd.append('logo', blob);
+      $.ajax({
+        url: $scope.edit_form_action,
+        type: 'POST',
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: success,
+        error: failed
+      });
+    });
+  }
+
   var getFilePath = function(input, callback) {
     var file = input.files[0];
     var reader = new FileReader();
@@ -1140,8 +1162,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   var photo_input = $('#photo');
   photo_input.change(function() {
     getFilePath(photo_input[0], function(path) {
-      $scope.source_uri = path;
-      $scope.$apply();
+      docrop(path);
     });
   });
 
@@ -1157,8 +1178,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
   $scope.getPhoto = function() {
     navigator.camera.getPicture(function(imageURI) {
-      $scope.source_uri = imageURI;
-      $scope.$apply();
+      docrop(imageURI);
     }, function(err) {
 
     }, {
@@ -1171,30 +1191,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     });
 
   };
-
-  $scope.$watch('source_uri', function (newVal, oldVal) {
-    if (newVal && newVal !== '') {
-      $jrCrop.crop({
-        url: newVal,
-        width: 256,
-        height: 256
-      }).then(function(canvas) {
-        var dataURL = canvas.toDataURL();
-        var blob = ImageHelper.dataURItoBlob(dataURL);
-        var fd = new FormData($('#edit_photo_form')[0]);
-        fd.append('logo', blob);
-        $.ajax({
-          url: $scope.edit_form_action,
-          type: 'POST',
-          data: fd,
-          processData: false,
-          contentType: false,
-          success: success,
-          error: failed
-        });
-      });
-    }
-  });
 
 
 })
