@@ -315,7 +315,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       $ionicSlideBoxDelegate.update();
     });
   };
-  $scope.deletePhoto = PhotoAlbum.deletePhoto
   $scope.comment_content = {
     text:''
   };
