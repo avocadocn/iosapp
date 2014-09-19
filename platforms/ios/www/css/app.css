@@ -10,6 +10,7 @@ body {
 .head_title {
   background-color: #ededed;
   height: 40px;
+  line-height: 40px;
   text-align: center;
 }
 .head_title .title {

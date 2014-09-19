@@ -1221,8 +1221,15 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
 
 .controller('feedbackCtrl', function($scope, $state, $ionicPopup, Authorize, FeedBack) {
   Authorize.authorize();
+  var submiting = false;
   $scope.submitFeedBack = function(){
+    console.log($scope.feedBackContent);
+    if(submiting) {
+      return;
+    }
+    submiting = true;
     FeedBack.submitFeedBack($scope.feedBackContent,function(status){
+      submiting = false;
       if(status){
         $ionicPopup.alert({
           title: '提示',

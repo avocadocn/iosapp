@@ -120,6 +120,8 @@ angular.module('starter.services', [])
             var user = data.data;
             if (user) {
               Global.user = user;
+              Global.user.username = username;
+              localStorage.username = username;
               localStorage.user_id = user._id;
               localStorage.user_nickname = user.nickname;
               localStorage.app_token = user.app_token;
@@ -143,6 +145,7 @@ angular.module('starter.services', [])
     if (!Global.user._id && localStorage.user_id) {
       Global.user = {
         _id: localStorage.user_id,
+        username: localStorage.username,
         nickname: localStorage.user_nickname,
         app_token:localStorage.app_token
       };
@@ -160,6 +163,7 @@ angular.module('starter.services', [])
         else{
           _authorize = false;
           localStorage.removeItem("user_id");
+          localStorage.removeItem("username");
           localStorage.removeItem("user_nickname");
           localStorage.removeItem("app_token");
           callback(false,true);
@@ -191,6 +195,7 @@ angular.module('starter.services', [])
         _authorize = false;
         Global.user = {};
         delete localStorage.user_id;
+        delete localStorage.username;
         delete localStorage.user_nickname;
         delete localStorage.app_token;
         delete localStorage.userid;//for baidu
@@ -781,7 +786,7 @@ angular.module('starter.services', [])
 
 .factory('FeedBack', function($http, Global) {
   var submitFeedBack = function(content, callback){
-    $http.post(Global.base_url + '/feedback',{content: content}).success(function(data, status) {
+    $http.post(Global.base_url + '/feedback',{username: Global.user.username, content: content}).success(function(data, status) {
       callback(null);
     })
     .error(function(data, status, headers, config) {
@@ -793,3 +798,4 @@ angular.module('starter.services', [])
     submitFeedBack: submitFeedBack
   };
 });
+
