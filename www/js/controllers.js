@@ -315,7 +315,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         photos[i].index = i;
         $scope.photos_view[index].push(photos[i]);
       }
-      $ionicSlideBoxDelegate.update();
+      $ionicSlideBoxDelegate.$getByHandle('photoList').update();
     });
   };
   $scope.comment_content = {
@@ -506,8 +506,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.openModal = function(index) {
     $scope.nowIndex = index;
     $scope.showHeader = true;
-    $ionicSlideBoxDelegate.update();
-    $ionicSlideBoxDelegate.slide(index);
+    $ionicSlideBoxDelegate.$getByHandle('photoDetail').update();
+    $ionicSlideBoxDelegate.$getByHandle('photoDetail').slide(index);
     $scope.modal.show();
   };
   $scope.closeModal = function() {
