@@ -13,7 +13,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $rootScope.$on('updateUser', function() {
     $scope.user = Global.user;
     $scope.logoRandom = new Date().getTime();
-    console.log(Global.user);
   });
   document.addEventListener("resume", function() {
     window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
@@ -312,7 +311,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         photos[i].index = i;
         $scope.photos_view[index].push(photos[i]);
       }
-      $ionicSlideBoxDelegate.update();
+      $ionicSlideBoxDelegate.$getByHandle('photoList').update();
     });
   };
   $scope.comment_content = {
@@ -455,6 +454,15 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     hideLoading();
     ionicAlert('图片上传失败！');
   };
+  $scope.uploadFormError = function(status) {
+    hideLoading();
+    if(status==413){
+      ionicAlert('图片尺寸过大，请重新选择！');
+    }
+    else{
+      ionicAlert('图片上传失败！');
+    }
+  };
 
   $scope.upload = function() {
     showLoading();
@@ -502,8 +510,8 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.openModal = function(index) {
     $scope.nowIndex = index;
     $scope.showHeader = true;
-    $ionicSlideBoxDelegate.update();
-    $ionicSlideBoxDelegate.slide(index);
+    $ionicSlideBoxDelegate.$getByHandle('photoDetail').update();
+    $ionicSlideBoxDelegate.$getByHandle('photoDetail').slide(index);
 
     $scope.modal.show();
   };
@@ -1336,14 +1344,20 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   return function(scope, element, attrs) {
     form = $(element);
     scope.form = form;
-    form.ajaxForm(function(data, status) {
-      if(data.result){
-        scope.uploadFormSuccess();
-        var file = form.find('#upload_input');
-        file.val("");
-      }
-      else{
-        scope.uploadFormFail();
+    form.ajaxForm({
+      success:function(data, status) {
+        if(data.result){
+          scope.uploadFormSuccess();
+          var file = form.find('#upload_input');
+          file.val("");
+        }
+        else{
+          scope.uploadFormFail();
+        }
+      },
+      error:function(xhr, status, error){
+        console.log(xhr,status,error);
+        scope.uploadFormError(status);
       }
     });
   };

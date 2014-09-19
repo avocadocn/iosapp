@@ -11,7 +11,7 @@
   </div>
   </div>
 </ion-header-bar>
-<ion-slide-box class="photo_slide_modal" show-pager="false" on-slide-changed="changePhoto(index)" ng-click="showHeader= !showHeader;" detect-gestures gesture-type="doubletap" getsture-callback="closeModal">
+<ion-slide-box class="photo_slide_modal" show-pager="false" on-slide-changed="changePhoto(index)" ng-click="showHeader= !showHeader;" detect-gestures gesture-type="doubletap" getsture-callback="closeModal" delegate-handle="photoDetail">
   <ion-slide ng-repeat="photo in photos" class="photo_slide_cell">
     <ion-scroll zooming="true" direction="xy" min-zoom="1" max-zoom="2"class="photo_wrap center_img_container" delegate-handle="photo_{{$index}}">
       <img class="photo img" id="photo_{{$index}}" ng-src="{{ base_url + photo.uri}}/resize/600/800"/>
