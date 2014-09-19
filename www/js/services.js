@@ -10,7 +10,6 @@ angular.module('starter.services', [])
   //var base_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
   var img_url = "http://www.55yali.com";
-  base_url = img_url = "http://192.168.2.107:3000";
   var _user = {};
   var last_date;
   return {
