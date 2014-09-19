@@ -2,22 +2,23 @@
   <ion-nav-buttons side="left">
     <a class="button icon-left ion-ios7-arrow-back button-clear button-dark" href="#/app/settings">返回</a>
   </ion-nav-buttons>
-  <ion-nav-buttons side="right">
-    <a class="button icon-right ion-plus button-clear button-dark" ng-click="openUploadModal()"></a>
-  </ion-nav-buttons>
   <ion-content class="has-header">
     <div class="user_photo">
-      <form id="edit_photo_form" action="{{ edit_form_action }}" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="userId" value="{{uid}}">
-        <input type="hidden" name="target" value="u">
-        <input type="hidden" name="width" value="{{crop_args.width}}">
-        <input type="hidden" name="height" value="{{crop_args.height}}">
-        <input type="hidden" name="x" value="{{crop_args.x}}">
-        <input type="hidden" name="y" value="{{crop_args.y}}">
+      <div class="button-bar buttons_1">
+        <button class="button photo_button button-positive" ng-click="getPhoto()">
+          <i class="icon ion-camera"></i> 拍照上传
+        </button>
+        <button class="button button-positive" ng-click="selectFile()">
+          <i class="icon ion-images"></i> 本地图片
+        </button>
+      </div>
+      <form id="edit_photo_form">
         <div class="photo_border"> 
-          <img class="photo" id="preview" ng-src="{{preview_img}}" crop="crop_args" resource="preview_img" crop-photo/>
+          <img class="photo" id="preview" ng-src="{{preview_img}}"/>
         </div>
-        <button ng-disabled="!uploadfile" class="button button-calm" ng-click="uploadPhoto()">确认</button>
+        <div class="buttons_2">
+          <button ng-disabled="!uploadfile" class="button button-positive" ng-click="uploadPhoto()">确认</button>
+        </div>
       </form>
     </div>
   </ion-content>

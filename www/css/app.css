@@ -1285,6 +1285,17 @@ body {
   background-color: #3abde8;
   color: #fff;
 }
+.user_photo .buttons_2 {
+  position: relative;
+  margin: 10px auto;
+  text-align: center;
+}
+.user_photo .buttons_2 button {
+  padding: 2px 50px;
+}
+.user_photo .buttons_1 {
+  margin-bottom: 10px;
+}
 .user_photo .photo_border {
   position: relative;
   margin-left: auto;
@@ -1294,6 +1305,10 @@ body {
   border: solid 1px #808080;
   overflow: hidden;
   box-sizing: content-box;
+}
+.user_photo .photo_border .photo {
+  width: 100%;
+  height: 100%;
 }
 .agereement_content {
   margin-left: 10px;
