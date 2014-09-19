@@ -60,6 +60,7 @@ body
 .head_title
   background-color headBgColor
   height 40px
+  line-height 40px
   text-align center
 
   .title
@@ -288,6 +289,15 @@ body
       background-color evenItemBgcolor
       a
         background-color evenItemBgcolor
+
+.agreement_contain
+  position absolute
+  bottom 20px
+  width 100%
+  text-align center
+  .agreement_button
+    color evenItemBgcolor
+    text-decoration none
 
 
 
@@ -919,6 +929,13 @@ largeCell()
       text-align center
     .comment_body
       width 80%
+      .delete-button
+        color evenItemBgcolor
+        display inline-block
+        border-color transparent
+        background none
+        box-shadow none
+        font-size 10px
     .photo
       margin-top 4px
       width 40px
@@ -1047,6 +1064,10 @@ largeCell()
           height 100%
           width 100%
           background-color black
+          .delete_button
+            position absolute
+            bottom 0
+            right 0
           div
             position relative
             height 100%
@@ -1268,3 +1289,6 @@ largeCell()
     border solid 1px gray
     overflow hidden
     box-sizing content-box
+.agereement_content
+  margin-left 10px
+  margin-right 5px

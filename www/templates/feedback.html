@@ -1,0 +1,15 @@
+<ion-view title="反馈">
+  <ion-nav-buttons side="left">
+    <a class="button icon-left ion-ios7-arrow-back button-clear button-dark" href="#/app/settings">返回</a>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <a class="button icon-right  button-clear button-dark" href="#" ng-disabled = "$parent.feedBackContent==''" ng-click="submitFeedBack()">发送</a>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <div class="list">
+      <label class="item item-input">
+        <textarea placeholder="反馈" ng-model="$parent.feedBackContent"></textarea>
+      </label>
+    </div>
+  </ion-content>
+</ion-view>

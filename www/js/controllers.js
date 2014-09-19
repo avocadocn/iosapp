@@ -491,6 +491,19 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
     }, function(err) {
     });
   };
+  $scope.deleteComment = function(id, index){
+    Comment.deleteCampaginComment(id,function(msg){
+      if(msg){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '删除失败'
+        });
+      }
+      else{
+        $scope.comments.splice(index,1);
+      }
+    });
+  }
 
   //$scope.viewFormFlag =false;
   // $scope.viewCommentForm =function(){
@@ -1319,6 +1332,26 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   };
 })
 
+.controller('feedbackCtrl', function($scope, $state, $ionicPopup, Authorize, FeedBack) {
+  Authorize.authorize();
+  $scope.submitFeedBack = function(){
+    FeedBack.submitFeedBack($scope.feedBackContent,function(status){
+      if(status){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '反馈发送失败，请检查网络状态'
+        });
+      }
+      else{
+        $ionicPopup.alert({
+          title: '提示',
+          template: '反馈发送成功！'
+        });
+        $state.go('app.settings');
+      }
+    });
+  };
+})
 
 .directive('cropPhoto', function () {
   return {

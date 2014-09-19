@@ -562,10 +562,24 @@ angular.module('starter.services', [])
       callback(status);
     });
   };
+  var deleteCampaginComment = function(id, callback){
+    $http.post(Global.base_url + '/comment/delete',{comment_id:id})
+    .success(function(data, status) {
+      if (data.msg === 'SUCCESS') {
+        callback(null);
+      } else {
+        callback(data.msg);
+      }
+    })
+    .error(function(data, status, headers, config) {
+      callback(status);
+    });
+  }
 
   return {
     getCampaignComments: getCampaignComments,
-    publishCampaignComment: publishCampaignComment
+    publishCampaignComment: publishCampaignComment,
+    deleteCampaginComment: deleteCampaginComment
   };
 
 })
@@ -729,6 +743,20 @@ angular.module('starter.services', [])
     }
   }
 }])
+.factory('FeedBack', function($http, Global) {
+  var submitFeedBack = function(content, callback){
+    $http.post(Global.base_url + '/feedback',{uid:Global.user._id, content: content}).success(function(data, status) {
+      callback(null);
+    })
+    .error(function(data, status, headers, config) {
+      callback(status);
+    });
+  };
+
+  return {
+    submitFeedBack: submitFeedBack
+  };
+});
 
 // .factory('userPhoto', function($http, Global) {
 //   var uploadPhoto = function(logo,crop_args,callback){
