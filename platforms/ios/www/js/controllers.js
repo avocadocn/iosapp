@@ -315,7 +315,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
       $ionicSlideBoxDelegate.update();
     });
   };
-  $scope.deletePhoto = PhotoAlbum.deletePhoto
   $scope.comment_content = {
     text:''
   };
@@ -1223,7 +1222,6 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   Authorize.authorize();
   var submiting = false;
   $scope.submitFeedBack = function(){
-    console.log($scope.feedBackContent);
     if(submiting) {
       return;
     }
