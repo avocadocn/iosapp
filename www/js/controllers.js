@@ -12,7 +12,7 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   $scope.imgRandom = new Date().getTime();
   $rootScope.$on('updateUser', function() {
     $scope.user = Global.user;
-    $scope.logoRandom = new Date().getTime();
+    $scope.imgRandom = new Date().getTime();
   });
 
   document.addEventListener("resume", function() {
