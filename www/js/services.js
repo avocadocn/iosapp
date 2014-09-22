@@ -57,7 +57,8 @@ angular.module('starter.services', [])
 
             //initialize the plugin
             pushNotification.onDeviceReady({
-              pw_appid: "B13D4-3532F"
+              // pw_appid: "B13D4-3532F"
+              pw_appid: "090E1-53FA0"
             });
 
             //register for pushes

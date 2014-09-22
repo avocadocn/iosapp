@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>E511ABA5-51D9-49D5-8023-F3B8A3AB7BF6</string>
+	<string>1A2FE53B-3F25-42E3-9FD4-D687E71CD8F2</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Donler</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,7 +14,7 @@
 		<string>https://github.com/avocadocn/iosapp.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>platforms/ios/Donler.xcodeproj/project.xcworkspace</string>
+	<string>platforms/ios/Donler.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>A667C1CFB7304C4F423CB2B0B8DAB7E1F40FE651</key>

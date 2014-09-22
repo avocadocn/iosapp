@@ -1,3 +1,9 @@
+Node version: v0.10.26
+
+Cordova version: 0.21.13
+
+Config.xml file: 
+
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.donler.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Donler</name>
@@ -24,9 +30,6 @@
     <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
-    <feature name="Device">
-        <param name="ios-package" value="CDVDevice" />
-    </feature>
     <feature name="File">
         <param name="ios-package" value="CDVFile" />
     </feature>
@@ -36,3 +39,16 @@
     <gap:plugin name="de.appplant.cordova.plugin.local-notification"/>
     <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
 </widget>
+
+
+Plugins: 
+
+SaveToPhotoAlbum,com.cmpsoft.mobile.plugin.pushnotification,com.pushwoosh.plugins.pushwoosh,de.appplant.cordova.plugin.local-notification,org.apache.cordova.camera,org.apache.cordova.console,org.apache.cordova.device,org.apache.cordova.file,org.apache.cordova.file-transfer,org.apache.cordova.inappbrowser
+
+Error retrieving Android platform information: Error: android: Command failed with exit code ENOENT
+
+iOS platform:
+
+Xcode 6.0
+Build version 6A313
+
