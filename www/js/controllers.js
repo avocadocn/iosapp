@@ -50,14 +50,14 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         }
         else{
           $state.go('login');
-        }a
+        }
       }
     });
   }, false);
-  
+
 })
 
-.controller('LoginCtrl', function($scope, $rootScope, $http, $state, Authorize) {
+.controller('LoginCtrl', function($scope, $rootScope, $http, $state, $ionicPopup, Authorize, Pushwoosh, User) {
   $scope.checkStatus = false;
   if (Authorize.authorize() === true) {
     $state.go('app.index');
@@ -88,6 +88,22 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
         $scope.loginMsg = '网络错误，请检查网络状态';
       }
     }else{
+      Pushwoosh.init(function (err, token) {
+        if (err) {
+          console.log(err);
+        } else {
+          User.setToken(ionic.Platform.device(), token, function (err) {
+            if (err) {
+              $ionicPopup.alert({
+                title: '提示',
+                template: '网络错误，请检查网络状态'
+              });
+            } else {
+              localStorage.token = token;
+            }
+          });
+        }
+      });
       $state.go('app.index');
     }
   });
