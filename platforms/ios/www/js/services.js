@@ -20,6 +20,75 @@ angular.module('starter.services', [])
   };
 })
 
+.factory('Pushwoosh', function() {
+
+  /**
+   * 初始化设置
+   * @param  {Function} callback callback(err, token)
+   */
+  var init = function(callback) {
+    if (!window.plugins) {
+      callback('NO_WINDOW_PLUGINS');
+    } else {
+      if (!window.plugins.pushNotification) {
+        callback('NO_PUSHNOTIFICATION');
+      } else {
+        var pushNotification = window.plugins.pushNotification;
+        console.log('Received Event: ');
+        console.warn(pushNotification);
+        //set push notification callback before we initialize the plugin
+        document.addEventListener('push-notification', function(event) {
+          //get the notification payload
+          var notification = event.notification;
+          //clear the app badge
+          pushNotification.setApplicationIconBadgeNumber(0);
+        });
+
+        //initialize the plugin
+        pushNotification.onDeviceReady({
+          pw_appid: "B13D4-3532F"
+        });
+
+        //register for pushes
+        pushNotification.registerDevice(function(status) {
+            var deviceToken = status['deviceToken'];
+            console.warn('registerDevice: ' + deviceToken);
+          },
+          function(status) {
+            console.warn('failed to register : ' + JSON.stringify(status));
+            navigator.notification.alert(JSON.stringify(['failed to register ', status]));
+            callback(status);
+          });
+        pushNotification.setApplicationIconBadgeNumber(0);
+        pushNotification.getTags(function(tags) {
+            console.warn('tags for the device: ' + JSON.stringify(tags));
+          },
+          function(error) {
+            console.warn('get tags error: ' + JSON.stringify(error));
+          });
+
+        pushNotification.getPushToken(function(token) {
+          console.warn('push token device: ' + token);
+          callback(null, token);
+        });
+
+        pushNotification.getPushwooshHWID(function(token) {
+          console.warn('Pushwoosh HWID: ' + token);
+        });
+
+        //start geo tracking.
+        pushNotification.startLocationTracking(function() {
+          console.warn('Location Tracking Started');
+        });
+      }
+    }
+  };
+
+  return {
+    init: init
+  };
+})
+
 .factory('Authorize', function($state, $http, Global) {
 
   var _authorize = false;
@@ -34,110 +103,79 @@ angular.module('starter.services', [])
     }
   };
 
-  var login = function(loginCallback) {
+  var login = function(callback) {
     return function(username, password) {
 
-      function initPushwoosh(callback) {
-        if (!window.plugins) {
-          callback(null, null, 'NO_WINDOW_PLUGINS');
-        } else {
-          if (!window.plugins.pushNotification) {
-            callback(null, null, 'NO_PUSHNOTIFICATION');
-          } else {
-            var pushNotification = window.plugins.pushNotification;
-            console.log('Received Event: ');
-            console.warn(pushNotification);
-            //set push notification callback before we initialize the plugin
-            document.addEventListener('push-notification', function(event) {
-              //get the notification payload
-              var notification = event.notification;
-              //clear the app badge
-              pushNotification.setApplicationIconBadgeNumber(0);
-            });
-
-            //initialize the plugin
-            pushNotification.onDeviceReady({
-              // pw_appid: "B13D4-3532F"
-              pw_appid: "090E1-53FA0"
-            });
-
-            //register for pushes
-            pushNotification.registerDevice(function(status) {
-                var deviceToken = status['deviceToken'];
-                console.warn('registerDevice: ' + deviceToken);
-              },
-              function(status) {
-                console.warn('failed to register : ' + JSON.stringify(status));
-                navigator.notification.alert(JSON.stringify(['failed to register ', status]));
-                callback(null, null, status);
-              });
-            pushNotification.setApplicationIconBadgeNumber(0);
-            pushNotification.getTags(function(tags) {
-                console.warn('tags for the device: ' + JSON.stringify(tags));
-              },
-              function(error) {
-                console.warn('get tags error: ' + JSON.stringify(error));
-              });
-
-            pushNotification.getPushToken(function(token) {
-              console.warn('push token device: ' + token);
-              //执行loginPost,将token POST到后台
-              callback(null, token);
-            });
-
-            pushNotification.getPushwooshHWID(function(token) {
-              console.warn('Pushwoosh HWID: ' + token);
-            });
-
-            //start geo tracking.
-            pushNotification.startLocationTracking(function() {
-              console.warn('Location Tracking Started');
-            });
-          }
+      $http.post(Global.base_url + '/users/login', {
+        username: username,
+        password: password
+      })
+      .success(function(data, status, headers, config) {
+        if (data.result === 1) {
+        _authorize = true;
+        var user = data.data;
+        if (user) {
+          Global.user = user;
+          Global.user.username = username;
+          localStorage.username = username;
+          localStorage.user_id = user._id;
+          localStorage.user_nickname = user.nickname;
+          localStorage.app_token = user.app_token;
         }
-      }
-
-      function loginPost(ids,token,_status){
-        //for logout save these ids
-        if(token){
-          localStorage.token = token;   //for pushwoosh
+        callback(null);
         }
-        if(ids){
-          localStorage.userid = ids[0]; //for baidu
-        }
-        $http.post(Global.base_url + '/users/login', { 
-          username: username,
-          password: password,
-          device: ionic.Platform.device(),
-          userid: ids ? ids[0] : '',
-          channelid: ids ? ids[1] : '',
-          token: token ? token : '',
-          status:_status
-        })
-        .success(function(data, status, headers, config) {
-            if (data.result === 1) {
-            _authorize = true;
-            var user = data.data;
-            if (user) {
-              Global.user = user;
-              Global.user.username = username;
-              localStorage.username = username;
-              localStorage.user_id = user._id;
-              localStorage.user_nickname = user.nickname;
-              localStorage.app_token = user.app_token;
-            }
-            loginCallback(null);
-          }
-        })
-        .error(function(data, status, headers, config) {
-          loginCallback(status);
-        });
-      }
-
-
-      initPushwoosh(loginPost);
-    };
+      })
+      .error(function(data, status, headers, config) {
+        callback(status);
+      });
+    }
   };
+
+  // var login = function(loginCallback) {
+  //   return function(username, password) {
+
+  //     function loginPost(ids,token,_status){
+  //       //for logout save these ids
+  //       if(token){
+  //         localStorage.token = token;   //for pushwoosh
+  //       }
+  //       if(ids){
+  //         localStorage.userid = ids[0]; //for baidu
+  //       }
+  //       $http.post(Global.base_url + '/users/login', { 
+  //         username: username,
+  //         password: password,
+  //         device: ionic.Platform.device(),
+  //         userid: ids ? ids[0] : '',
+  //         channelid: ids ? ids[1] : '',
+  //         token: token ? token : '',
+  //         status:_status
+  //       })
+  //       .success(function(data, status, headers, config) {
+  //           if (data.result === 1) {
+  //           _authorize = true;
+  //           var user = data.data;
+  //           if (user) {
+  //             Global.user = user;
+  //             Global.user.username = username;
+  //             localStorage.username = username;
+  //             localStorage.user_id = user._id;
+  //             localStorage.user_nickname = user.nickname;
+  //             localStorage.app_token = user.app_token;
+  //           }
+  //           loginCallback(null);
+  //         }
+  //       })
+  //       .error(function(data, status, headers, config) {
+  //         loginCallback(status);
+  //       });
+  //     }
+
+
+  //     initPushwoosh(loginPost);
+  //   };
+  // };
+
   var autologin = function(authCheck, callback) {
     if(authCheck && _authorize){
       return callback(true,false);
@@ -170,10 +208,8 @@ angular.module('starter.services', [])
         }
       })
       .error(function(data, status, headers, config) {
-        if (status === 401) {
-          _authorize = false;
-          callback(false,false);
-        }
+        _authorize = false;
+        callback(false,false);
       });
     }
     else if(Global.user._id){
@@ -652,9 +688,27 @@ angular.module('starter.services', [])
     });
   };
 
+  var setToken = function (device, token, callback) {
+    $http.post(Global.base_url + '/users/setToken/' + Global.user._id, {
+      device: device,
+      token: token
+    })
+    .success(function (data, status) {
+      if (data.result === 1) {
+        callback(null);
+      } else {
+        callback(data.msg);
+      }
+    })
+    .error(function (data, status) {
+      callback(status);
+    });
+  };
+
   return {
     getInfo: getInfo,
-    setInfo: setInfo
+    setInfo: setInfo,
+    setToken: setToken
   };
 
 })

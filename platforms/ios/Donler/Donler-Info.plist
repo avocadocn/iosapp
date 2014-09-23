@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>CFBundleDevelopmentRegion</key>
-    <string>English</string>
+    <string>zh_CN</string>
     <key>CFBundleDisplayName</key>
     <string>${PRODUCT_NAME}</string>
     <key>CFBundleExecutable</key>
@@ -18,6 +18,10 @@
     <string>com.donler.app</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
+    <key>CFBundleLocalizations</key>
+    <array>
+      <string>zh_CN</string>
+    </array>
     <key>CFBundleName</key>
     <string>${PRODUCT_NAME}</string>
     <key>CFBundlePackageType</key>
