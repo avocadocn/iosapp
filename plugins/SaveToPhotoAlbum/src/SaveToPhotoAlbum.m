@@ -20,7 +20,7 @@
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self writeJavascript: [pluginResult toSuccessCallbackString:callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
 }
 
 

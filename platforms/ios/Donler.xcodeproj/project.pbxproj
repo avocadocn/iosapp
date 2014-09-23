@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		033F527819D0130B0021322F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 033F527719D0130B0021322F /* Images.xcassets */; };
 		054B917AD6654FA78B6D4D03 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA92557BD6446E6B98575B4 /* CDVAssetLibraryFilesystem.m */; };
@@ -32,6 +33,7 @@
 		415B681CD91242A9A40A975C /* APPLocalNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = D7798701CEFA4AFDB40B0A8E /* APPLocalNotification.m */; };
 		509CCF53A593423A967D6137 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D73BA3928B6F4D1CAA1C8AE2 /* CDVLogger.m */; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
+		7261EDC519D1384F005AC943 /* SaveToPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 7261EDC419D1384F005AC943 /* SaveToPhotoAlbum.m */; };
 		7E7966DE1810823500FA85AD /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D41810823500FA85AD /* icon-40.png */; };
 		7E7966DF1810823500FA85AD /* icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D51810823500FA85AD /* icon-40@2x.png */; };
 		7E7966E01810823500FA85AD /* icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D61810823500FA85AD /* icon-50.png */; };
@@ -115,6 +117,8 @@
 		6A184906DC87443B9AB39DCD /* PushNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PushNotification.m; path = com.pushwoosh.plugins.pushwoosh/ios/PushNotification.m; sourceTree = "<group>"; };
 		6DA92557BD6446E6B98575B4 /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVAssetLibraryFilesystem.m; path = org.apache.cordova.file/CDVAssetLibraryFilesystem.m; sourceTree = "<group>"; };
 		70AF0193F06B4705837342D2 /* CoreLocation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		7261EDC319D1384F005AC943 /* SaveToPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SaveToPhotoAlbum.h; path = SaveToPhotoAlbum/SaveToPhotoAlbum.h; sourceTree = "<group>"; };
+		7261EDC419D1384F005AC943 /* SaveToPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SaveToPhotoAlbum.m; path = SaveToPhotoAlbum/SaveToPhotoAlbum.m; sourceTree = "<group>"; };
 		7E7966D41810823500FA85AD /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		7E7966D51810823500FA85AD /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40@2x.png"; sourceTree = "<group>"; };
 		7E7966D61810823500FA85AD /* icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-50.png"; sourceTree = "<group>"; };
@@ -276,6 +280,8 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				7261EDC319D1384F005AC943 /* SaveToPhotoAlbum.h */,
+				7261EDC419D1384F005AC943 /* SaveToPhotoAlbum.m */,
 				6A184906DC87443B9AB39DCD /* PushNotification.m */,
 				2A0CD3A3F8E74BA68182D7F1 /* PushNotification.h */,
 				CA515A59EC324A98AE0585D3 /* PushNotificationManager.h */,
@@ -504,6 +510,7 @@
 				B728FB2A4D8245D58ADA5122 /* CDVDevice.m in Sources */,
 				415B681CD91242A9A40A975C /* APPLocalNotification.m in Sources */,
 				909BE26535C54CF3B6B04BA6 /* CDVCamera.m in Sources */,
+				7261EDC519D1384F005AC943 /* SaveToPhotoAlbum.m in Sources */,
 				CC5DDA1676534F8195650EC4 /* CDVJpegHeaderWriter.m in Sources */,
 				509CCF53A593423A967D6137 /* CDVLogger.m in Sources */,
 				9E545ED930654FEB92648E70 /* CDVFile.m in Sources */,

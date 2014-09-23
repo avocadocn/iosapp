@@ -20,7 +20,7 @@
     //Now it will do this for each photo in the array
     UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self writeJavascript: [pluginResult toSuccessCallbackString:callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
 }
 
 

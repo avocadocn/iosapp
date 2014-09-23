@@ -32,6 +32,9 @@
     <feature name="Console">
         <param name="ios-package" value="CDVLogger" />
     </feature>
+    <feature name="SaveToPhotoAlbum">
+        <param name="ios-package" value="SaveToPhotoAlbum" />
+    </feature>
     <name>Donler</name>
     <description>
         Donler 企业员工活动互联网工具
