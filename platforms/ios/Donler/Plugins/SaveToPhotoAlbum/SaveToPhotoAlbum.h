@@ -13,6 +13,6 @@
 @interface SaveToPhotoAlbum : CDVPlugin {
 }
 
-// - (void) saveToPhotoAlbum:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
-- (void) saveToPhotoAlbum:(CDVInvokedUrlCommand*)command;
+- (void) saveToPhotoAlbum:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+
 @end

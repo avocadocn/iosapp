@@ -231,13 +231,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/saveToPhotoAlbum/SaveToPhotoAlbum.js",
-        "id": "saveToPhotoAlbum.SaveToPhotoAlbum",
-        "clobbers": [
-            "window.plugins.SaveToPhotoAlbum"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.device/www/device.js",
         "id": "org.apache.cordova.device.device",
         "clobbers": [
@@ -256,7 +249,6 @@ module.exports.metadata =
     "org.apache.cordova.file": "1.3.0",
     "org.apache.cordova.file-transfer": "0.4.5",
     "org.apache.cordova.inappbrowser": "0.5.2-dev",
-    "saveToPhotoAlbum": "0.3.1",
     "org.apache.cordova.device": "0.2.9"
 }
 // BOTTOM OF METADATA
