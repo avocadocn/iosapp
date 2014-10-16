@@ -55,7 +55,12 @@ angular.module('starter.controllers', ['ngTouch', 'ionic.contrib.ui.cards'])
   }, false);
 
 })
-
+.controller('AgreementController', function($state, $scope){
+  $scope.returnLogin = function(){
+    console.log(1);
+    $state.go('login');
+  }
+})
 .controller('LoginCtrl', function($scope, $rootScope, $http, $state, $ionicPopup, Authorize, Pushwoosh, User) {
   $scope.checkStatus = false;
   if (Authorize.authorize() === true) {

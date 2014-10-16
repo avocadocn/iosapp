@@ -26,7 +26,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
     .state('agreementguest', {
       url: '/agreementguest',
-      templateUrl: 'templates/agreement-guest.html'
+      templateUrl: 'templates/agreement-guest.html',
+      controller:'AgreementController'
     })
     .state('login', {
       url: '/login',
