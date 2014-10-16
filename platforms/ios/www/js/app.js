@@ -24,7 +24,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       templateUrl: 'templates/menu.html',
       controller: 'AppCtrl'
     })
-
+    .state('agreementguest', {
+      url: '/agreementguest',
+      templateUrl: 'templates/agreement-guest.html'
+    })
     .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',

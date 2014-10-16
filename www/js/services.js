@@ -8,6 +8,7 @@ angular.module('starter.services', [])
 .factory('Global', function($state) {
   //var base_url = window.location.origin;
   //var base_url = "http://www.donler.com";
+  //var img_url = "http://www.donler.com";
   var base_url = "http://www.55yali.com";
   var img_url = "http://www.55yali.com";
   var _user = {};
