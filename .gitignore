@@ -6,7 +6,8 @@ platforms/android/bin/
 platforms/android/assets/
 
 platforms/ios/www/
-
+platforms/ios/build/
+platforms/ios/CordovaLib/
 node_modules/
 
 .bower-*/
