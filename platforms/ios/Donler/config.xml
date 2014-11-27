@@ -33,12 +33,6 @@
     <icon height="58" src="icons/ios/icon-small@2x.png" width="58" />
     <icon height="50" src="icons/ios/icon-50.png" width="50" />
     <icon height="100" src="icons/ios/icon-50@2x.png" width="100" />
-    <gap:splash gap:platform="ios" height="480" src="splash/Default.png" width="320" />
-    <gap:splash gap:platform="ios" height="960" src="splash/Default@2x.png" width="640" />
-    <gap:splash gap:platform="ios" height="1136" src="splash/Default-568h@2x.png" width="640" />
-    <gap:splash gap:platform="ios" height="1334" src="splash/Default-667h@2x.png" width="750" />
-    <gap:splash gap:platform="ios" height="2208" src="splash/Default-Portrait-736h@3x.png" width="1242" />
-    <gap:splash gap:platform="ios" height="1242" src="splash/Default-Landscape-736h@3x.png" width="2208" />
     <name>Donler</name>
     <description>
         Donler 企业员工活动互联网工具
@@ -59,4 +53,7 @@
     <preference name="StatusBarStyle" value="lightcontent" />
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
     <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
+    <gap:splash gap:platform="ios" height="480" src="splash/Default.png" width="320" />
+    <gap:splash gap:platform="ios" height="960" src="splash/Default@2x.png" width="640" />
+    <gap:splash gap:platform="ios" height="1136" src="splash/Default-568h@2x.png" width="640" />
 </widget>
