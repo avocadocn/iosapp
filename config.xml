@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="com.ionicframework.donler785781" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Donler</name>
+    <description>
+        Donler 企业员工活动互联网工具
+    </description>
+    <author email="service@donler.com" href="http://www.donler.com">
+      Donler
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <access origin="*.pushwoosh.com" />
+    <preference name="fullscreen" value="false" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="6000" />
+    <feature name="StatusBar">
+      <param name="ios-package" value="CDVStatusBar" onload="true" />
+    </feature>
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
+    <feature name="File">
+        <param name="ios-package" value="CDVFile" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="ios-package" value="CDVFileTransfer" />
+    </feature>
+    <gap:plugin name="de.appplant.cordova.plugin.local-notification"/>
+    <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
+    <platform name="ios">
+      <!-- iOS 7.0+ -->
+      <!-- iPhone / iPod Touch -->
+      <icon src="icons/ios/icon-60.png" width="60" height="60" />
+      <icon src="icons/ios/icon-60@2x.png" width="120" height="120" />
+
+      <!-- iPad -->
+      <icon src="icons/ios/icon-76.png" width="76" height="76" />
+      <icon src="icons/ios/icon-76@2x.png" width="152" height="152" />
+
+      <!-- iOS 6.1 -->
+      <!-- Spotlight Icon -->
+      <icon src="icons/ios/icon-40.png" width="40" height="40" />
+      <icon src="icons/ios/icon-40@2x.png" width="80" height="80" />
+
+      <!-- iPhone / iPod Touch -->
+      <icon src="icons/ios/icon.png" width="57" height="57" />
+      <icon src="icons/ios/icon@2x.png" width="114" height="114" />
+
+      <!-- iPad -->
+      <icon src="icons/ios/icon-72.png" width="72" height="72" />
+      <icon src="icons/ios/icon-72@2x.png" width="144" height="144" />
+
+      <!-- iPhone Spotlight and Settings Icon -->
+      <icon src="icons/ios/icon-small.png" width="29" height="29" />
+      <icon src="icons/ios/icon-small@2x.png" width="58" height="58" />
+
+      <!-- iPad Spotlight and Settings Icon -->
+      <icon src="icons/ios/icon-50.png" width="50" height="50" />
+      <icon src="icons/ios/icon-50@2x.png" width="100" height="100" />
+
+      <!-- iPhone and iPod touch -->
+      <gap:splash src="splash/Default.png" gap:platform="ios" width="320" height="480" />
+      <gap:splash src="splash/Default@2x.png" gap:platform="ios" width="640" height="960" />
+
+      <!-- iPhone 5 / iPod Touch (5th Generation) -->
+      <gap:splash src="splash/Default-568h@2x.png" gap:platform="ios" width="640" height="1136" />
+
+      <!-- iPhone 6 -->
+      <gap:splash src="splash/Default-667h@2x.png" gap:platform="ios" width="750" height="1334" />
+      <gap:splash src="splash/Default-Portrait-736h@3x.png" gap:platform="ios" width="1242" height="2208" />
+      <gap:splash src="splash/Default-Landscape-736h@3x.png" gap:platform="ios" width="2208" height="1242" />
+    </platform>
+</widget>
