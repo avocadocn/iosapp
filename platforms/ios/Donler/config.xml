@@ -21,6 +21,7 @@
     </feature>
     <icon height="60" src="icons/ios/icon-60.png" width="60" />
     <icon height="120" src="icons/ios/icon-60@2x.png" width="120" />
+    <icon height="180" src="icons/ios/icon-60@3x.png" width="180" />
     <icon height="76" src="icons/ios/icon-76.png" width="76" />
     <icon height="152" src="icons/ios/icon-76@2x.png" width="152" />
     <icon height="40" src="icons/ios/icon-40.png" width="40" />
@@ -53,7 +54,7 @@
     <preference name="StatusBarStyle" value="lightcontent" />
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
     <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
-    <gap:splash gap:platform="ios" height="480" src="splash/Default.png" width="320" />
-    <gap:splash gap:platform="ios" height="960" src="splash/Default@2x.png" width="640" />
-    <gap:splash gap:platform="ios" height="1136" src="splash/Default-568h@2x.png" width="640" />
+    <gap:splash gap:platform="ios" height="480" src="splash/ios/Default~iphone.png" width="320" />
+    <gap:splash gap:platform="ios" height="960" src="splash/ios/Default@2x~iphone.png" width="640" />
+    <gap:splash gap:platform="ios" height="480" src="splash/ios/Default-568h@2x~iphone.png" width="320" />
 </widget>
