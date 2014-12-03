@@ -1,0 +1,16 @@
+/* Empty. Add your own CSS if you like */
+
+.dl-header-bg
+	{ 
+    -webkit-filter: blur(1px); 
+    -moz-filter: blur(1px); 
+    filter: blur(1px); 
+    position: fixed;
+    top: 0px;
+    background-color: blue;
+    opacity: 0.8;
+
+}
+.dl-header {
+	background: none;
+}
