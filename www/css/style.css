@@ -1,16 +1,17 @@
 /* Empty. Add your own CSS if you like */
 
-.dl-header-bg
-	{ 
-    -webkit-filter: blur(1px); 
-    -moz-filter: blur(1px); 
-    filter: blur(1px); 
-    position: fixed;
-    top: 0px;
-    background-color: blue;
-    opacity: 0.8;
-
+body {
+	background-color: #ddd;
 }
 .dl-header {
-	background: none;
+
+    opacity: 0.9;
+}
+.dl-card {
+	margin: 1rem 1rem 0;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.dl-card .item {
+	background-color: #fff;
+	border-color: #fff;
 }
