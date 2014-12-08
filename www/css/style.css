@@ -1,17 +1,18 @@
 /* Empty. Add your own CSS if you like */
 
 body {
-	background-color: #ddd;
+	background-color: #e2e2e2;
 }
-.dl-header {
+.dl_header {
 
     opacity: 0.9;
 }
-.dl-card {
-	margin: 1rem 1rem 0;
-	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+.dl_card {
+	margin: 1rem 1rem 0.5rem;
+	box-shadow: 0 4px 0 rgba(204, 204, 204, 1);
+	background-color: #fff;
 }
-.dl-card .item {
+.dl_card .item {
 	background-color: #fff;
 	border-color: #fff;
 }
