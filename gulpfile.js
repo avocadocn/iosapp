@@ -2,20 +2,24 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var bower = require('bower');
 var concat = require('gulp-concat');
-var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var stylus = require('gulp-stylus');
+var watch = require('gulp-watch');
+var jade = require('gulp-jade');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  jade: ['./jade/**/*.jade'],
+  stylus: ['./stylus/**/*.styl']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['stylus', 'jade']);
 
-gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
+gulp.task('stylus', function (done) {
+  gulp.src(paths.stylus)
+    .pipe(watch(paths.stylus))
+    .pipe(stylus())
     .pipe(gulp.dest('./www/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
@@ -25,18 +29,24 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+gulp.task('jade', function (done) {
+  gulp.src(paths.jade)
+    .pipe(watch(paths.jade))
+    .pipe(jade({
+      pretty: true
+    }))
+    .pipe(gulp.dest('./www/'))
+    .on('end', done);
 });
 
-gulp.task('install', ['git-check'], function() {
+gulp.task('install', ['git-check'], function () {
   return bower.commands.install()
     .on('log', function(data) {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
     });
 });
 
-gulp.task('git-check', function(done) {
+gulp.task('git-check', function (done) {
   if (!sh.which('git')) {
     console.log(
       '  ' + gutil.colors.red('Git is not installed.'),

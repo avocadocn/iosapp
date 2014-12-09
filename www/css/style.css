@@ -1,11 +1,9 @@
 /* Empty. Add your own CSS if you like */
-
 body {
-	background-color: #e2e2e2;
+  background-color: #e2e2e2;
 }
 .dl_header {
-
-    opacity: 0.9;
+  opacity: 0.9;
 }
 .dl_card {
 	margin: 12px 12px 10px;
@@ -13,6 +11,6 @@ body {
 	background-color: #fff;
 }
 .dl_card .item {
-	background-color: #fff;
-	border-color: #fff;
+  background-color: #fff;
+  border-color: #fff;
 }

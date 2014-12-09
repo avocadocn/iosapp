@@ -11,5 +11,6 @@ platforms/ios/CordovaLib/
 node_modules/
 
 .bower-*/
+.idea/
 
 www/lib/
