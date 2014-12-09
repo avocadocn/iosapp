@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title 动梨活动助理
+    meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width")
+    link(rel="stylesheet" href="lib/ionic/css/ionic.css")
+    link(href="css/ionic.app.css" rel="stylesheet")
+    link(href="css/style.css" rel="stylesheet")
+    script(src="lib/ionic/release/js/ionic.bundle.js")
+
+    script(src="js/app.js")
+    script(src="js/controllers.js")
+    script(src="js/services.js")
+  body
+    .bar.bar-header.bar-light.dl_header
+      h1.title header
+    .card.dl_card
+      .item.item-divider.dl_card_header
+        img.dl_team_logo(src="lll.png")
+      .item.item-text-wrap
+        | This is a basic Card with some text.
+      .item.item-divider.dl_card_footer
+        | I'm a Footer in a Card!
+    .card.dl_card
+      .item.item-divider.dl_card_header
+        img.dl_team_logo(src="lll.png")
+        h3.dl_cp_name 带娃去旅游～
+        p.dl_cp_time 2014年11月11日 周日
+        a.button.dl_btn_join 参加
+      .item.item-text-wrap.dl_card_body
+        .dl_photo_alb
+          img.dl_cp_photo(src="lll.png")
+      .item.item-divider.dl_card_footer
+        span.dl_team_name 动梨信息-亲子队
+        span.dl_team_number 88
+        span.dl_team_comment 888
