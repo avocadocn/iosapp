@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>动梨活动助理</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <link rel="stylesheet" href="lib/ionic/css/ionic.css">
+    <link rel="stylesheet" href="lib/ionic/release/css/ionic.css">
     <link href="css/ionic.app.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="lib/ionic/release/js/ionic.bundle.js"></script>
@@ -12,24 +12,7 @@
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
   </head>
-  <body>
-    <div class="bar bar-header bar-light dl_header">
-      <h1 class="title">header</h1>
-    </div>
-    <div class="card dl_card">
-      <div class="item item-divider dl_card_header"><img src="lll.png" class="dl_team_logo"></div>
-      <div class="item item-text-wrap">This is a basic Card with some text.</div>
-      <div class="item item-divider dl_card_footer">I'm a Footer in a Card!</div>
-    </div>
-    <div class="card dl_card">
-      <div class="item item-divider dl_card_header"><img src="lll.png" class="dl_team_logo">
-        <h3 class="dl_cp_name">带娃去旅游～</h3>
-        <p class="dl_cp_time">2014年11月11日 周日</p><a class="button dl_btn_join">参加</a>
-      </div>
-      <div class="item item-text-wrap dl_card_body">
-        <div class="dl_photo_alb"><img src="lll.png" class="dl_cp_photo"></div>
-      </div>
-      <div class="item item-divider dl_card_footer"><span class="dl_team_name">动梨信息-亲子队</span><span class="dl_team_number">88</span><span class="dl_team_comment">888</span></div>
-    </div>
+  <body ng-app="todoApp">
+    <ion-nav-view></ion-nav-view>
   </body>
 </html>

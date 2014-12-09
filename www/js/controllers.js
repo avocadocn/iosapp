@@ -33,4 +33,12 @@ angular.module('todoApp.controllers',[]).controller('TodoListController',['$scop
         });
     }
 
+}]).controller('CampaignController', ['$scope', function ($scope) {
+
+}]).controller('DiscussController', ['$scope', function ($scope) {
+
+}]).controller('DiscoverController', ['$scope', function ($scope) {
+
+}]).controller('PersonalController', ['$scope', function ($scope) {
+
 }]);
