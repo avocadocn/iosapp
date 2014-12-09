@@ -1,6 +1,7 @@
 /**
  * Created by Sandeep on 11/09/14.
  */
+
 angular.module('donlerApp.controllers', []).controller('TodoListController', ['$scope', 'Todo', function ($scope, Todo) {
 
   Todo.getAll().success(function (data) {
@@ -44,12 +45,15 @@ angular.module('donlerApp.controllers', []).controller('TodoListController', ['$
     });
   };
 
-}]).controller('CampaignController', ['$scope', function ($scope) {
+}])
+.controller('CampaignController', ['$scope', 'Campaign', function ($scope, Campaign) {
+}])
+.controller('DiscussController', ['$scope', function ($scope) {
 
-}]).controller('DiscussController', ['$scope', function ($scope) {
+}])
+.controller('DiscoverController', ['$scope', function ($scope) {
 
-}]).controller('DiscoverController', ['$scope', function ($scope) {
-
-}]).controller('PersonalController', ['$scope', function ($scope) {
+}])
+.controller('PersonalController', ['$scope', function ($scope) {
 
 }]);

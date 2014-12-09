@@ -1,23 +1,21 @@
 
 <ion-view>
   <ion-header-bar class="bar-positive">
+    <button class="button icon ion-navicon"></button>
     <h1 class="title">活动</h1>
+    <button class="button">Edit</button>
   </ion-header-bar>
   <ion-content>
-    <div class="card dl_card">
-      <div class="item item-divider dl_card_header"><img src="lll.png" class="dl_team_logo"/></div>
-      <div class="item item-text-wrap">This is a basic Card with some text.</div>
-      <div class="item item-divider dl_card_footer">I'm a Footer in a Card!</div>
-    </div>
-    <div class="card dl_card">
-      <div class="item item-divider dl_card_header"><img src="lll.png" class="dl_team_logo"/>
-        <h3 class="dl_cp_name">带娃去旅游～</h3>
-        <p class="dl_cp_time">2014年11月11日 周日</p><a class="button dl_btn_join">参加</a>
+    <div class="button-bar"><a class="button">所有</a><a class="button">新活动</a><a class="button">挑战</a><a class="button">进行中</a><a class="button">即将</a></div>
+    <div ng-repeat="campaign in campaigns" class="card dl_card">
+      <div class="item item-divider dl_card_header"><img ng-src="campaign.campaign_unit[0].team.logo" class="dl_team_logo"/>
+        <h3 class="dl_cp_name">{{campaign.theme}}</h3>
+        <p class="dl_cp_time">{{campaign.active_time | date:"yyyy-MM-dd HH:mm"}}</p>
       </div>
       <div class="item item-text-wrap dl_card_body">
         <div class="dl_photo_alb"><img src="lll.png" class="dl_cp_photo"/></div>
       </div>
-      <div class="item item-divider dl_card_footer"><span class="dl_team_name">动梨信息-亲子队</span><span class="dl_team_number">88</span><span class="dl_team_comment">888</span></div>
+      <div class="item item-divider dl_card_footer"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span><span class="dl_team_number">{{campaign.member.length}}</span><span class="dl_team_comment">{{campaign.comment_sum}}</span></div>
     </div>
   </ion-content>
   <div class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss" class="tab-item"><i class="icon ion-home"></i>讨论</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>

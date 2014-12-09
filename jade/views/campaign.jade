@@ -1,23 +1,26 @@
 extends ./tab-layout
 
+block header
+  button.button.icon.ion-navicon
+  h1.title 活动
+  button.button Edit
 block content
-  .card.dl_card
+  .button-bar
+    a.button 所有
+    a.button 新活动
+    a.button 挑战
+    a.button 进行中
+    a.button 即将
+  .card.dl_card(ng-repeat="campaign in campaigns")
     .item.item-divider.dl_card_header
-      img.dl_team_logo(src="lll.png")
-    .item.item-text-wrap
-      | This is a basic Card with some text.
-    .item.item-divider.dl_card_footer
-      | I'm a Footer in a Card!
-  .card.dl_card
-    .item.item-divider.dl_card_header
-      img.dl_team_logo(src="lll.png")
-      h3.dl_cp_name 带娃去旅游～
-      p.dl_cp_time 2014年11月11日 周日
-      a.button.dl_btn_join 参加
+      img.dl_team_logo(ng-src="campaign.campaign_unit[0].team.logo")
+      h3.dl_cp_name {{campaign.theme}}
+      p.dl_cp_time {{campaign.active_time | date:"yyyy-MM-dd HH:mm"}}
+      //- a.button.dl_btn_join 参加
     .item.item-text-wrap.dl_card_body
       .dl_photo_alb
         img.dl_cp_photo(src="lll.png")
     .item.item-divider.dl_card_footer
-      span.dl_team_name 动梨信息-亲子队
-      span.dl_team_number 88
-      span.dl_team_comment 888
+      span.dl_team_name {{campaign.campaign_unit[0].team.name}}
+      span.dl_team_number {{campaign.member.length}}
+      span.dl_team_comment {{campaign.comment_sum}}

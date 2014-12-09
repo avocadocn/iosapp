@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.services'])
 
-  .run(function ($ionicPlatform, $state) {
+  .run(function ($ionicPlatform, $state, $http) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
