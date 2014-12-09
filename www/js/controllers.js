@@ -1,7 +1,7 @@
 /**
  * Created by Sandeep on 11/09/14.
  */
-angular.module('todoApp.controllers',[]).controller('TodoListController',['$scope','Todo',function($scope,Todo){
+angular.module('donlerApp.controllers',[]).controller('TodoListController',['$scope','Todo',function($scope,Todo){
 
     Todo.getAll().success(function(data){
         $scope.items=data.results;
@@ -32,6 +32,8 @@ angular.module('todoApp.controllers',[]).controller('TodoListController',['$scop
             $state.go('todos');
         });
     }
+
+}]).controller('UserLoginController', ['$scope', function ($scope) {
 
 }]).controller('CampaignController', ['$scope', function ($scope) {
 

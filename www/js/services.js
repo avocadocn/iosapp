@@ -2,7 +2,7 @@
 /**
  * Created by Sandeep on 11/09/14.
  */
-angular.module('todoApp.services',[]).factory('Todo',['$http','PARSE_CREDENTIALS',function($http,PARSE_CREDENTIALS){
+angular.module('donlerApp.services',[]).factory('Todo',['$http','PARSE_CREDENTIALS',function($http,PARSE_CREDENTIALS){
     return {
         getAll:function(){
             return $http.get('https://api.parse.com/1/classes/Todo',{
