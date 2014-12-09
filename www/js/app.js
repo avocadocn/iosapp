@@ -15,6 +15,13 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
+      $http.defaults.headers.common['x-app-id'] = '';
+      $http.defaults.headers.common['x-api-key'] = '';
+      $http.defaults.headers.common['x-device-id'] = '';
+      $http.defaults.headers.common['x-device-type'] = '';
+      $http.defaults.headers.common['x-platform'] = '';
+      $http.defaults.headers.common['x-version'] = '';
+      $http.defaults.headers.common['x-access-token'] = '';
       $state.go('campaigns');
     });
   }).config(function ($stateProvider) {

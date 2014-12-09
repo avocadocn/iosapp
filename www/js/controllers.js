@@ -47,6 +47,9 @@ angular.module('donlerApp.controllers', []).controller('TodoListController', ['$
 
 }])
 .controller('CampaignController', ['$scope', 'Campaign', function ($scope, Campaign) {
+  // Campaign.getAll('user','').success(function(data){
+  //   $scope.campaigns = data;
+  // })
 }])
 .controller('DiscussController', ['$scope', function ($scope) {
 
