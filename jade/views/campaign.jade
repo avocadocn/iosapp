@@ -1,24 +1,31 @@
 extends ./tab-layout
 
+mixin campaignsContainer(containerTitle, items)
+  .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
+    .campaign_container_title= containerTitle
+    .card.dl_card(ng-repeat="campaign in #{items}")
+      .item.item-divider.dl_card_header
+        //img.dl_team_logo(ng-src="campaign.campaign_unit[0].team.logo")
+        h3.dl_cp_name {{campaign.theme}}
+        p.dl_cp_time {{campaign.active_time | date:"yyyy-MM-dd HH:mm"}}
+        //- a.button.dl_btn_join 参加
+      .item.item-text-wrap.dl_card_body
+        .dl_photo_alb
+          //- img.dl_cp_photo(src="lll.png")
+      .item.item-divider.dl_card_footer
+        span.dl_team_name {{campaign.campaign_unit[0].team.name}}
+        span.dl_team_number {{campaign.member.length}}
+        span.dl_team_comment {{campaign.comment_sum}}
 block header
   h1.title 活动
 block content
   .button-bar
-    a.button 所有
-    a.button 新活动
-    a.button 挑战
-    a.button 进行中
-    a.button 即将
-  .card.dl_card(ng-repeat="campaign in campaigns")
-    .item.item-divider.dl_card_header
-      img.dl_team_logo(ng-src="campaign.campaign_unit[0].team.logo")
-      h3.dl_cp_name {{campaign.theme}}
-      p.dl_cp_time {{campaign.active_time | date:"yyyy-MM-dd HH:mm"}}
-      //- a.button.dl_btn_join 参加
-    .item.item-text-wrap.dl_card_body
-      .dl_photo_alb
-        img.dl_cp_photo(src="lll.png")
-    .item.item-divider.dl_card_footer
-      span.dl_team_name {{campaign.campaign_unit[0].team.name}}
-      span.dl_team_number {{campaign.member.length}}
-      span.dl_team_comment {{campaign.comment_sum}}
+    a.button(ng-click="nowType='all'") 所有
+    a.button(ng-click="nowType='newCampaigns'") 新活动
+    a.button(ng-click="nowType='provokes'") 挑战
+    a.button(ng-click="nowType='nowCampaigns'") 进行中
+    a.button(ng-click="nowType='unStartCampaigns'") 即将
+  +campaignsContainer('新的活动','newCampaigns')
+  +campaignsContainer('挑战','provokes')
+  +campaignsContainer('进行中','nowCampaigns')
+  +campaignsContainer('即将','unStartCampaigns')

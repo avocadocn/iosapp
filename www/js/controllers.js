@@ -42,9 +42,13 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('CampaignController', ['$scope', 'Campaign', function ($scope, Campaign) {
-    // Campaign.getAll('user','').success(function(data){
-    //   $scope.campaigns = data;
-    // })
+  $scope.nowType = 'all';
+  Campaign.getAll('user','53aa7a0c6b2836fd41ba41d7').success(function(data){
+    $scope.unStartCampaigns = data[0];
+    $scope.nowCampaigns = data[1];
+    $scope.newCampaigns = data[2];
+    $scope.provokes = data[3];
+  })
   }])
   .controller('DiscussController', ['$scope', function ($scope) {
 
