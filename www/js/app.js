@@ -43,6 +43,10 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/user_login',
       controller: 'UserLoginController',
       templateUrl: 'views/user_login.html'
+    }).state('company_login', {
+      url: '/company_login',
+      controller: 'CompanyLoginController',
+      templateUrl: 'views/company_login.html'
     }).state('register', {
       url: '/register',
       templateUrl: 'views/register.html'

@@ -61,8 +61,8 @@ angular.module('donlerApp.services', [])
       logout: function (callback) {
         $http.post(CONFIG.BASE_URL + '/users/logout')
           .success(function (data, status) {
-            localStorage.accessToken = null;
-            localStorage.userType = null;
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('companyType');
             $http.defaults.headers.common['x-access-token'] = null;
             callback();
           })

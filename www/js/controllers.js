@@ -22,6 +22,25 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
+  .controller('CompanyLoginController', ['$scope', '$state', 'CompanyAuth', function ($scope, $state, CompanyAuth) {
+
+    $scope.loginData = {
+      username: '',
+      password: ''
+    };
+
+    $scope.login = function () {
+      CompanyAuth.login($scope.loginData.username, $scope.loginData.password, function (err) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $state.go('campaigns');
+        }
+      });
+    };
+
+  }])
   .controller('CampaignController', ['$scope', 'Campaign', function ($scope, Campaign) {
     // Campaign.getAll('user','').success(function(data){
     //   $scope.campaigns = data;
