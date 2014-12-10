@@ -65,4 +65,7 @@ angular.module('donlerApp.controllers', [])
       })
     }
 
+  }])
+  .controller('CalendarController', ['$scope', function ($scope) {
+
   }]);

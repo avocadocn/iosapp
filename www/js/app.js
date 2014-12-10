@@ -66,5 +66,9 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/personal',
       controller: 'PersonalController',
       templateUrl: 'views/personal.html'
+    }).state('calendar', {
+      url: '/calendar',
+      controller: 'CalendarController',
+      templateUrl: 'views/calendar.html'
     });
   });
