@@ -3,8 +3,8 @@ ion-view
   ion-header-bar
 
   ion-content
-    input(type="email" name="email" ng-model="email" placeholder="公司邮箱" required)
-    input(type="password" name="password" ng-model="password" placeholder="密码" required)
+    input(type="email" name="email" ng-model="loginData.email" placeholder="公司邮箱" required)
+    input(type="password" name="password" ng-model="loginData.password" placeholder="密码" required)
     button(type="button" ng-click="login()") 个人登录
     a(href="#/forget") 忘记密码？
     a(href="#/company_login") 企业账号登录

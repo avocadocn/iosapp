@@ -34,14 +34,21 @@ angular.module('donlerApp.controllers', []).controller('TodoListController', ['$
     });
   }
 
-}]).controller('UserLoginController', ['$scope', 'UserAuth', function ($scope, UserAuth) {
+}]).controller('UserLoginController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
 
-  $scope.email = '';
-  $scope.password = '';
+  $scope.loginData = {
+    email: '',
+    password: ''
+  };
 
   $scope.login = function () {
-    UserAuth.login($scope.email, $scope.password, function (err) {
-      alert(err);
+    UserAuth.login($scope.loginData.email, $scope.loginData.password, function (err) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $state.go('campaigns');
+      }
     });
   };
 
