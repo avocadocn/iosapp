@@ -61,6 +61,9 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('PersonalController', ['$scope','$state', 'UserAuth', function ($scope, $state, UserAuth) {
 
+  }])
+  .controller('SettingsController', ['$scope','$state', 'UserAuth', function ($scope, $state, UserAuth) {
+
     $scope.logout = function () {
       UserAuth.logout(function (err) {
         if (err) {

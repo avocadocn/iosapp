@@ -76,6 +76,19 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/personal',
       controller: 'PersonalController',
       templateUrl: 'views/personal.html'
+    }).state('settings', {
+      url: '/personal/settings',
+      controller: 'SettingsController',
+      templateUrl: 'views/settings.html'
+    }).state('settings_account', {
+      url: '/personal/settings/account',
+      templateUrl: 'views/settings-account.html'
+    }).state('settings_feedback', {
+      url: '/personal/settings/feedback',
+      templateUrl: 'views/settings-feedback.html'
+    }).state('settings_about', {
+      url: '/personal/settings/about',
+      templateUrl: 'views/settings-about.html'
     }).state('calendar', {
       url: '/calendar',
       controller: 'CalendarController',

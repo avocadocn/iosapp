@@ -1,5 +1,40 @@
 extends ./tab-layout
 
+block header
+  h1.title 我的
+
 block content
-  p 我的
+
+  .list.card
+    .item.item-avatar
+      img(src="http://placehold.it/45x45")
+      h2 Echo
+      p 公司：动梨信息技术有限公司
+      p 部门：设计部
+      p 手机：13612345678
+      p 邮箱：echo@donler.com
+  .list
+    a.item.item-icon-left.item-icon-right(href="#")
+      i.icon.ion-mic-a
+      | 我的小队
+      i.icon.ion-chevron-right
+    a.item.item-icon-left.item-icon-right(href="#")
+      i.icon.ion-mic-a
+      | 我的足迹
+      i.icon.ion-chevron-right
+    a.item.item-icon-left.item-icon-right(href="#")
+      i.icon.ion-mic-a
+      | 我的站内信
+      i.icon.ion-chevron-right
+    a.item.item-icon-left.item-icon-right(href="#")
+      i.icon.ion-mic-a
+      | 我的日程
+      i.icon.ion-chevron-right
+    a.item.item-icon-left.item-icon-right(href="#/personal/settings")
+      i.icon.ion-mic-a
+      | 设置
+      i.icon.ion-chevron-right
+
+
   button(ng-click="logout()") 退出登录
+
