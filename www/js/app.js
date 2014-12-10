@@ -66,6 +66,12 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/discover',
       controller: 'DiscoverController',
       templateUrl: 'views/discover.html'
+    }).state('discover_circle', {
+      url: '/discover/circle',
+      templateUrl: 'views/colleague-circle.html'
+    }).state('discover_teams', {
+      url: '/discover/teams',
+      templateUrl: 'views/all-team.html'
     }).state('personal', {
       url: '/personal',
       controller: 'PersonalController',
