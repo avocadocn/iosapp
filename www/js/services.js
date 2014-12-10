@@ -13,16 +13,66 @@ angular.module('donlerApp.services', [])
           password: password
         })
           .success(function (data, status) {
-            // todo save token
+            localStorage.accessToken = data.token;
+            localStorage.userType = 'user';
+            $http.defaults.headers.common['x-access-token'] = data.token;
             callback();
           })
           .error(function (data, status) {
+            // todo
             callback(data.msg);
+          });
+      },
+
+      logout: function (callback) {
+        $http.post(CONFIG.BASE_URL + '/users/logout')
+          .success(function (data, status) {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userType');
+            $http.defaults.headers.common['x-access-token'] = null;
+            callback();
+          })
+          .error(function (data, status) {
+            // todo
+            callback('error');
           });
       }
     };
   }])
+  .factory('CompanyAuth', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+      login: function (username, password, callback) {
+        $http.post(CONFIG.BASE_URL + '/companies/login', {
+          username: username,
+          password: password
+        })
+          .success(function (data, status) {
+            localStorage.accessToken = data.token;
+            localStorage.userType = 'company';
+            $http.defaults.headers.common['x-access-token'] = data.token;
+            callback();
+          })
+          .error(function (data, status) {
+            // todo
+            callback(data.msg);
+          });
+      },
 
+      logout: function (callback) {
+        $http.post(CONFIG.BASE_URL + '/users/logout')
+          .success(function (data, status) {
+            localStorage.accessToken = null;
+            localStorage.userType = null;
+            $http.defaults.headers.common['x-access-token'] = null;
+            callback();
+          })
+          .error(function (data, status) {
+            // todo
+            callback('error');
+          });
+      }
+    };
+  }])
   .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
       getAll: function (type, id) {

@@ -33,6 +33,17 @@ angular.module('donlerApp.controllers', [])
   .controller('DiscoverController', ['$scope', function ($scope) {
 
   }])
-  .controller('PersonalController', ['$scope', function ($scope) {
+  .controller('PersonalController', ['$scope','$state', 'UserAuth', function ($scope, $state, UserAuth) {
+
+    $scope.logout = function () {
+      UserAuth.logout(function (err) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $state.go('home');
+        }
+      })
+    }
 
   }]);

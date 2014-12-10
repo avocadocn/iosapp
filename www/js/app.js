@@ -22,7 +22,18 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       $http.defaults.headers.common['x-platform'] = '';
       $http.defaults.headers.common['x-version'] = '';
       $http.defaults.headers.common['x-access-token'] = '';
-      $state.go('campaigns');
+      if (localStorage.userType) {
+        if (localStorage.userType === 'user') {
+          $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
+          $state.go('campaigns');
+        } else if (localStorage.userType === 'company') {
+          $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
+          // todo 企业登录后页面未知
+          $state.go('campaigns');
+        }
+      } else {
+        $state.go('home');
+      }
     });
   }).config(function ($stateProvider) {
     $stateProvider.state('home', {
