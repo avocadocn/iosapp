@@ -1,4 +1,16 @@
 extends ./tab-layout
 
+block header
+  h1.title 发现
+
 block content
-  p 发现
+  img(src="http://placehold.it/640x290")
+  ul.list
+    a.item.item-icon-left.item-icon-right(href="#")
+      i.icon.ion-mic-a
+      | 同事圈
+      i.icon.ion-chevron-right
+    a.item.item-icon-left.item-icon-right(href="#")
+      i.icon.ion-mic-a
+      | 所有小队
+      i.icon.ion-chevron-right
