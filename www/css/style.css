@@ -14,3 +14,13 @@ body {
   background-color: #fff;
   border-color: #fff;
 }
+.dl_card .dl_card_header .logo_container,
+.dl_card .dl_card_header .text_container {
+  float: left;
+}
+.dl_card .dl_card_header .button_container {
+  float: right;
+}
+.button-bar > .button {
+  padding: 0;
+}

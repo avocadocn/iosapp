@@ -1,21 +1,26 @@
 
 <ion-view>
-  <ion-header-bar class="bar-positive">
+  <ion-header-bar><a href="#/calendar" class="button icon button-clear ion-calendar"></a>
     <h1 class="title">活动</h1>
+    <button class="button icon button-clear ion-plus"></button>
   </ion-header-bar>
   <ion-content>
-    <div class="button-bar"><a ng-click="nowType='all'" class="button">所有</a><a ng-click="nowType='newCampaigns'" class="button">新活动</a><a ng-click="nowType='provokes'" class="button">挑战</a><a ng-click="nowType='nowCampaigns'" class="button">进行中</a><a ng-click="nowType='unStartCampaigns'" class="button">即将</a></div>
+    <div class="button-bar campaign_filter"><a ng-click="nowType='all'" ng-class="{'active':nowType=='all'}" class="button button-clear">所有</a><a ng-click="nowType='newCampaigns'" ng-class="{'active':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="nowType='provokes'" ng-class="{'active':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="nowType='nowCampaigns'" ng-class="{'active':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="nowType='unStartCampaigns'" ng-class="{'active':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
     <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container">
       <div class="campaign_container_title">新的活动</div>
       <div ng-repeat="campaign in newCampaigns" class="card dl_card">
         <div class="item item-divider dl_card_header">
-          <!--img.dl_team_logo(ng-src="campaign.campaign_unit[0].team.logo")-->
-          <h3 class="dl_cp_name">{{campaign.theme}}</h3>
-          <p class="dl_cp_time">{{campaign.active_time | date:"yyyy-MM-dd HH:mm"}}</p>
+          <div class="logo_container"><img ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/45/45'}}" class="dl_team_logo"/></div>
+          <div class="text_container">
+            <p class="dl_cp_name">{{campaign.theme}}</p>
+            <p class="dl_cp_time_start">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
+          </div>
+          <div class="button_container">
+            <button class="dl_cp_join">参加</button>
+          </div>
         </div>
         <div class="item item-text-wrap dl_card_body">
-          <div class="dl_photo_alb">
-          </div>
+          <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/300/300'}}" class="dl_cp_photo"/></div>
         </div>
         <div class="item item-divider dl_card_footer"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span><span class="dl_team_number">{{campaign.member.length}}</span><span class="dl_team_comment">{{campaign.comment_sum}}</span></div>
       </div>
@@ -24,13 +29,16 @@
       <div class="campaign_container_title">挑战</div>
       <div ng-repeat="campaign in provokes" class="card dl_card">
         <div class="item item-divider dl_card_header">
-          <!--img.dl_team_logo(ng-src="campaign.campaign_unit[0].team.logo")-->
-          <h3 class="dl_cp_name">{{campaign.theme}}</h3>
-          <p class="dl_cp_time">{{campaign.active_time | date:"yyyy-MM-dd HH:mm"}}</p>
+          <div class="logo_container"><img ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/45/45'}}" class="dl_team_logo"/></div>
+          <div class="text_container">
+            <p class="dl_cp_name">{{campaign.theme}}</p>
+          </div>
+          <div class="button_container">
+            <button class="dl_cp_join">参加</button>
+          </div>
         </div>
         <div class="item item-text-wrap dl_card_body">
-          <div class="dl_photo_alb">
-          </div>
+          <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/300/300'}}" class="dl_cp_photo"/></div>
         </div>
         <div class="item item-divider dl_card_footer"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span><span class="dl_team_number">{{campaign.member.length}}</span><span class="dl_team_comment">{{campaign.comment_sum}}</span></div>
       </div>
@@ -39,13 +47,17 @@
       <div class="campaign_container_title">进行中</div>
       <div ng-repeat="campaign in nowCampaigns" class="card dl_card">
         <div class="item item-divider dl_card_header">
-          <!--img.dl_team_logo(ng-src="campaign.campaign_unit[0].team.logo")-->
-          <h3 class="dl_cp_name">{{campaign.theme}}</h3>
-          <p class="dl_cp_time">{{campaign.active_time | date:"yyyy-MM-dd HH:mm"}}</p>
+          <div class="logo_container"><img ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/45/45'}}" class="dl_team_logo"/></div>
+          <div class="text_container">
+            <p class="dl_cp_name">{{campaign.theme}}</p>
+            <p class="dl_cp_time_end">{{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
+          </div>
+          <div class="button_container">
+            <button class="dl_cp_join">参加</button>
+          </div>
         </div>
         <div class="item item-text-wrap dl_card_body">
-          <div class="dl_photo_alb">
-          </div>
+          <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/300/300'}}" class="dl_cp_photo"/></div>
         </div>
         <div class="item item-divider dl_card_footer"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span><span class="dl_team_number">{{campaign.member.length}}</span><span class="dl_team_comment">{{campaign.comment_sum}}</span></div>
       </div>
@@ -54,13 +66,17 @@
       <div class="campaign_container_title">即将</div>
       <div ng-repeat="campaign in unStartCampaigns" class="card dl_card">
         <div class="item item-divider dl_card_header">
-          <!--img.dl_team_logo(ng-src="campaign.campaign_unit[0].team.logo")-->
-          <h3 class="dl_cp_name">{{campaign.theme}}</h3>
-          <p class="dl_cp_time">{{campaign.active_time | date:"yyyy-MM-dd HH:mm"}}</p>
+          <div class="logo_container"><img ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/45/45'}}" class="dl_team_logo"/></div>
+          <div class="text_container">
+            <p class="dl_cp_name">{{campaign.theme}}</p>
+            <p class="dl_cp_address">{{campaign.location.name}}</p>
+          </div>
+          <div class="button_container">
+            <p class="dl_cp_time_countdown">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
+          </div>
         </div>
         <div class="item item-text-wrap dl_card_body">
-          <div class="dl_photo_alb">
-          </div>
+          <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/300/300'}}" class="dl_cp_photo"/></div>
         </div>
         <div class="item item-divider dl_card_footer"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span><span class="dl_team_number">{{campaign.member.length}}</span><span class="dl_team_comment">{{campaign.comment_sum}}</span></div>
       </div>

@@ -5,26 +5,42 @@ mixin campaignsContainer(containerTitle, items)
     .campaign_container_title= containerTitle
     .card.dl_card(ng-repeat="campaign in #{items}")
       .item.item-divider.dl_card_header
-        //img.dl_team_logo(ng-src="campaign.campaign_unit[0].team.logo")
-        h3.dl_cp_name {{campaign.theme}}
-        p.dl_cp_time {{campaign.active_time | date:"yyyy-MM-dd HH:mm"}}
+        .logo_container
+          img.dl_team_logo(ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/45/45'}}")
+        .text_container
+          p.dl_cp_name {{campaign.theme}}
+          if items =='newCampaigns'
+            p.dl_cp_time_start {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
+          if items =='nowCampaigns'
+            p.dl_cp_time_end {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}
+          if items =='unStartCampaigns'
+            p.dl_cp_address {{campaign.location.name}}
+        .button_container
+          if items =='unStartCampaigns'
+            p.dl_cp_time_countdown {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
+          else
+            button.dl_cp_join 参加
         //- a.button.dl_btn_join 参加
       .item.item-text-wrap.dl_card_body
         .dl_photo_alb
-          //- img.dl_cp_photo(src="lll.png")
+          img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/300/300'}}")
       .item.item-divider.dl_card_footer
         span.dl_team_name {{campaign.campaign_unit[0].team.name}}
         span.dl_team_number {{campaign.member.length}}
         span.dl_team_comment {{campaign.comment_sum}}
+
 block header
+  a.button.icon.button-clear.ion-calendar(href="#/calendar")
   h1.title 活动
+  button.button.icon.button-clear.ion-plus
+
 block content
-  .button-bar
-    a.button(ng-click="nowType='all'") 所有
-    a.button(ng-click="nowType='newCampaigns'") 新活动
-    a.button(ng-click="nowType='provokes'") 挑战
-    a.button(ng-click="nowType='nowCampaigns'") 进行中
-    a.button(ng-click="nowType='unStartCampaigns'") 即将
+  .button-bar.campaign_filter
+    a.button.button-clear(ng-click="nowType='all'" ng-class="{'active':nowType=='all'}") 所有
+    a.button.button-clear(ng-click="nowType='newCampaigns'" ng-class="{'active':nowType=='newCampaigns'}") 新活动
+    a.button.button-clear(ng-click="nowType='provokes'" ng-class="{'active':nowType=='provokes'}") 挑战
+    a.button.button-clear(ng-click="nowType='nowCampaigns'" ng-class="{'active':nowType=='nowCampaigns'}") 进行中
+    a.button.button-clear(ng-click="nowType='unStartCampaigns'" ng-class="{'active':nowType=='unStartCampaigns'}") 即将
   +campaignsContainer('新的活动','newCampaigns')
   +campaignsContainer('挑战','provokes')
   +campaignsContainer('进行中','nowCampaigns')

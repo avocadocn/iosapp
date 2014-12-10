@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.services'])
 
-  .run(function ($ionicPlatform, $state, $http) {
+  .run(function ($ionicPlatform, $state, $http,$rootScope) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -15,13 +15,13 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
+      $rootScope.STATIC_URL ='http://localhost:3000';
       $http.defaults.headers.common['x-app-id'] = '';
       $http.defaults.headers.common['x-api-key'] = '';
       $http.defaults.headers.common['x-device-id'] = '';
       $http.defaults.headers.common['x-device-type'] = '';
       $http.defaults.headers.common['x-platform'] = '';
       $http.defaults.headers.common['x-version'] = '';
-      $http.defaults.headers.common['x-access-token'] = '';
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
