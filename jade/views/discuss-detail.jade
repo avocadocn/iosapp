@@ -1,0 +1,32 @@
+extends ./tab-layout
+
+block header
+  a.button.icon.ion-chevron-left(href="#/discuss/list") &nbsp;返回
+  h1.title 下午一起吃马卡龙
+  button.button.icon.ion-ionic
+
+block content
+  div
+    h4 活动公告
+    p 赵本山：大家都要什么口味的？在讨论里留言哦~~~~~~~~
+  div
+    label 12月01日 12:21
+    .comment
+      .content
+        img(src="http://placehold.it/200x150")
+      .author
+        .logo(src="http://placehold.it/90x90")
+        .name 我
+    label 12月01日 13:01
+    .comment
+      .content
+        p 哈哈哈哈！
+      .author
+        .logo(src="http://placehold.it/90x90")
+        .name 我
+    .comment
+      .content
+        p 我们队快赢了吧！
+      .author
+        .logo(src="http://placehold.it/90x90")
+        .name 老张

@@ -50,7 +50,10 @@ angular.module('donlerApp.controllers', [])
     $scope.provokes = data[3];
   })
   }])
-  .controller('DiscussController', ['$scope', function ($scope) {
+  .controller('DiscussListController', ['$scope', function ($scope) {
+
+  }])
+  .controller('DiscussDetailController', ['$scope', function ($scope) {
 
   }])
   .controller('DiscoverController', ['$scope', function ($scope) {

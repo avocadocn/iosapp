@@ -40,13 +40,13 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/home',
       templateUrl: 'views/home.html'
     }).state('user_login', {
-      url: '/user_login',
+      url: '/user/login',
       controller: 'UserLoginController',
-      templateUrl: 'views/user_login.html'
+      templateUrl: 'views/user-login.html'
     }).state('company_login', {
-      url: '/company_login',
+      url: '/company/login',
       controller: 'CompanyLoginController',
-      templateUrl: 'views/company_login.html'
+      templateUrl: 'views/company-login.html'
     }).state('register', {
       url: '/register',
       templateUrl: 'views/register.html'
@@ -54,10 +54,14 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/campaigns',
       controller: 'CampaignController',
       templateUrl: 'views/campaign.html'
-    }).state('discuss', {
-      url: '/discuss',
-      controller: 'DiscussController',
-      templateUrl: 'views/discuss.html'
+    }).state('discuss_list', {
+      url: '/discuss/list',
+      controller: 'DiscussListController',
+      templateUrl: 'views/discuss-list.html'
+    }).state('discuss_detail', {
+      url: '/discuss/detail',
+      controller: 'DiscussDetailController',
+      templateUrl: 'views/discuss-detail.html'
     }).state('discover', {
       url: '/discover',
       controller: 'DiscoverController',
