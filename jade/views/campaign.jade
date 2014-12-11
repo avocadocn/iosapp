@@ -2,33 +2,40 @@ extends ./tab-layout
 
 mixin campaignsContainer(containerTitle, items)
   .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
-    .campaign_container_title= containerTitle
-    .card.dl_card(ng-repeat="campaign in #{items}")
-      .item.item-divider.dl_card_header
-        .logo_container
-          img.dl_team_logo(ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/45/45'}}")
-        .text_container
-          p.dl_cp_name {{campaign.theme}}
-          if items =='newCampaigns'
-            p.dl_cp_time_start {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
-          if items =='nowCampaigns'
-            p.dl_cp_time_end {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}
-          if items =='unStartCampaigns'
-            p.dl_cp_address {{campaign.location.name}}
+    .campaign_container_title
+      p #{containerTitle} {{#{items}.length}}
+    .list.card.dl_card(ng-repeat="campaign in #{items}")
+      .item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1")
+        img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
+        h2.dl_cp_name {{campaign.theme}}
+        if items =='newCampaigns'
+          p.dl_cp_time_start {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
+        if items =='unStartCampaigns' || items =='nowCampaigns'
+          p.dl_cp_address {{campaign.location.name}}
         .button_container
-          if items =='unStartCampaigns'
-            p.dl_cp_time_countdown {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
-          else
+          if items =='newCampaigns'
             button.dl_cp_join 参加
-        //- a.button.dl_btn_join 参加
-      .item.item-text-wrap.dl_card_body
-        .dl_photo_alb
-          img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/300/300'}}")
-      .item.item-divider.dl_card_footer
-        span.dl_team_name {{campaign.campaign_unit[0].team.name}}
-        span.dl_team_number {{campaign.member.length}}
-        span.dl_team_comment {{campaign.comment_sum}}
-
+          else if items =='nowCampaigns'
+            p.dl_cp_time_countdown {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}
+          else
+            p.dl_cp_time_countdown {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
+      .item.item-avatar.dl_card_header.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2")
+        img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
+        span.dl_team_vs vs
+        img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
+      .item.item-body.dl_card_body
+        ion-scroll(direction="x")
+          .dl_photo_alb
+            img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
+      .item.tabs.tabs-secondary.tabs-icon-left.dl_card_footer
+        a.tab-item.dl_team_name(href="#")
+          | {{campaign.campaign_unit[0].team.name}}
+        a.tab-item.dl_team_number(href="#")
+          i.icon.ion-person-stalker
+          | {{campaign.member.length || '0'}}
+        a.tab-item.dl_team_comment(href="#")
+          i.icon.ion-chatbox
+          | {{campaign.comment_sum}}
 block header
   a.button.icon.button-clear.ion-calendar(href="#/calendar")
   h1.title 活动
