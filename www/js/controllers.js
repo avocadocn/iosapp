@@ -41,13 +41,16 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CampaignController', ['$scope', 'Campaign', function ($scope, Campaign) {
+  .controller('CampaignController', ['$scope', '$timeout', 'Campaign', function ($scope, $timeout, Campaign) {
     $scope.nowType = 'all';
     Campaign.getAll('user','53aa7a0c6b2836fd41ba41d7').success(function(data){
       $scope.unStartCampaigns = data[0];
       $scope.nowCampaigns = data[1];
       $scope.newCampaigns = data[2];
       $scope.provokes = data[3];
+      $timeout(function(){
+        $scope.$broadcast('scroll.resize');
+      });
     })
   }])
   .controller('CampaignDetailController', ['$scope', 'Campaign', function ($scope, Campaign) {

@@ -50,3 +50,6 @@ body {
   padding: 0;
   color: #999;
 }
+.tabs {
+  z-index: 20;
+}

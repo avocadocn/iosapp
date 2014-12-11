@@ -40,16 +40,15 @@ block header
   a.button.icon.button-clear.ion-calendar.icon_blue(href="#/calendar")
   h1.title 活动
   a.button.icon.button-clear.ion-plus.icon_blue
-
 block content
-  ion-content(scroll='false')
+  ion-content.has-header(scroll="false")
     .button-bar.campaign_filter
-      a.button.button-clear(ng-click="nowType='all'" ng-class="{'active':nowType=='all'}") 所有
-      a.button.button-clear(ng-click="nowType='newCampaigns'" ng-class="{'active':nowType=='newCampaigns'}") 新活动
-      a.button.button-clear(ng-click="nowType='provokes'" ng-class="{'active':nowType=='provokes'}") 挑战
-      a.button.button-clear(ng-click="nowType='nowCampaigns'" ng-class="{'active':nowType=='nowCampaigns'}") 进行中
-      a.button.button-clear(ng-click="nowType='unStartCampaigns'" ng-class="{'active':nowType=='unStartCampaigns'}") 即将
-    ion-scroll(direction="y")
+      a.button.button-clear(ng-click="nowType='all'" ng-class="{'button_active':nowType=='all'}") 所有
+      a.button.button-clear(ng-click="nowType='newCampaigns'" ng-class="{'button_active':nowType=='newCampaigns'}") 新活动
+      a.button.button-clear(ng-click="nowType='provokes'" ng-class="{'button_active':nowType=='provokes'}") 挑战
+      a.button.button-clear(ng-click="nowType='nowCampaigns'" ng-class="{'button_active':nowType=='nowCampaigns'}") 进行中
+      a.button.button-clear(ng-click="nowType='unStartCampaigns'" ng-class="{'button_active':nowType=='unStartCampaigns'}") 即将
+    ion-scroll
       +campaignsContainer('新的活动','newCampaigns')
       +campaignsContainer('挑战','provokes')
       +campaignsContainer('进行中','nowCampaigns')
