@@ -43,6 +43,10 @@ body {
 .dl_card .dl_card_body .dl_photo_alb {
   white-space: nowrap;
 }
+.icon_blue {
+  color: #3ca2e0;
+}
 .button-bar > .button {
   padding: 0;
+  color: #999;
 }

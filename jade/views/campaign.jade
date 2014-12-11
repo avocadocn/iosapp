@@ -37,9 +37,9 @@ mixin campaignsContainer(containerTitle, items)
           i.icon.ion-chatbox
           | {{campaign.comment_sum}}
 block header
-  a.button.icon.button-clear.ion-calendar(href="#/calendar")
+  a.button.icon.button-clear.ion-calendar.icon_blue(href="#/calendar")
   h1.title 活动
-  button.button.icon.button-clear.ion-plus
+  a.button.icon.button-clear.ion-plus.icon_blue
 
 block content
   ion-content(scroll='false')

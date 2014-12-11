@@ -1,8 +1,7 @@
 
 <ion-view>
-  <ion-header-bar><a href="#/calendar" class="button icon button-clear ion-calendar"></a>
-    <h1 class="title">活动</h1>
-    <button class="button icon button-clear ion-plus"></button>
+  <ion-header-bar><a href="#/calendar" class="button icon button-clear ion-calendar icon_blue"></a>
+    <h1 class="title">活动</h1><a class="button icon button-clear ion-plus icon_blue"></a>
   </ion-header-bar>
   <ion-content scroll="false">
     <div class="button-bar campaign_filter"><a ng-click="nowType='all'" ng-class="{'active':nowType=='all'}" class="button button-clear">所有</a><a ng-click="nowType='newCampaigns'" ng-class="{'active':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="nowType='provokes'" ng-class="{'active':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="nowType='nowCampaigns'" ng-class="{'active':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="nowType='unStartCampaigns'" ng-class="{'active':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
