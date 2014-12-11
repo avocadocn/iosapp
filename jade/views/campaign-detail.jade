@@ -1,0 +1,56 @@
+ion-view
+
+  ion-header-bar
+    a.button.button-clear 返回
+    h1.title 下午一起吃马卡龙
+    button.button.icon.button-clear.ion-chatbox
+  ion-content
+    .card
+      .item.item-divider
+        img(src="http://placehold.it/40x40")
+        span 下午茶队
+        span 美食
+      .item.item-text-wrap
+        p 下午一起吃马卡龙
+        p 活动地点：上海市静安区安福路128号
+        p 开始：2014-12-2 今天 结束： 2014-12-2 今天
+        div
+          button 立即参加
+        ion-scroll(direction="x")
+          .dl_photo_alb
+            //- img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
+            img.dl_cp_photo(src="http://placehold.it/40x40")
+      .item.tabs.tabs-secondary.tabs-icon-left.dl_card_footer
+        a.tab-item.dl_team_name(href="#")
+          i.icon.ion-image
+          | 上传图片
+        a.tab-item.dl_team_number(href="#")
+          i.icon.ion-person-stalker
+          | 活动成员({{campaign.member.length || '0'}})
+        a.tab-item.dl_team_comment(href="#")
+          i.icon.ion-chatbox
+          | {{campaign.comment_sum}}条讨论
+    .card
+      .item.item-text-wrap
+        span 即将开始
+        span 距离比赛开始还有：
+        span 01 天
+    .card
+      .item.item-divider
+        span 活动公告
+        span 1
+      a.item.item-avatar
+        img(src="http://placehold.it/40x40")
+        h2 Venkman
+        p Back off, man. I'm a scientist.
+    .card
+      .item.item-text-wrap
+        img(src="http://placehold.it/40x40")
+        img(src="http://placehold.it/40x40")
+        img(src="http://placehold.it/40x40")
+        span 40>
+    .card
+      .item.item-divider
+        | 活动简介
+      .item.item-avatar
+        p Back off, man. I'm a scientist.

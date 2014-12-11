@@ -10,14 +10,12 @@
       <div class="campaign_container_title">
         <p>新的活动 {{newCampaigns.length}}</p>
       </div>
-      <div ng-repeat="campaign in newCampaigns" class="list card dl_card">
-        <div ng-if="campaign.campaign_unit.length==1" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+      <div ng-repeat="campaign in newCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
           <h2 class="dl_cp_name">{{campaign.theme}}</h2>
           <p class="dl_cp_time_start">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
           <div class="button_container">
             <button class="dl_cp_join">参加</button>
-          </div>
-        </div>
+          </div></a>
         <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
         <div class="item item-body dl_card_body">
           <ion-scroll direction="x">
@@ -31,13 +29,11 @@
       <div class="campaign_container_title">
         <p>挑战 {{provokes.length}}</p>
       </div>
-      <div ng-repeat="campaign in provokes" class="list card dl_card">
-        <div ng-if="campaign.campaign_unit.length==1" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+      <div ng-repeat="campaign in provokes" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
           <h2 class="dl_cp_name">{{campaign.theme}}</h2>
           <div class="button_container">
             <p class="dl_cp_time_countdown">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
-          </div>
-        </div>
+          </div></a>
         <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
         <div class="item item-body dl_card_body">
           <ion-scroll direction="x">
@@ -51,14 +47,12 @@
       <div class="campaign_container_title">
         <p>进行中 {{nowCampaigns.length}}</p>
       </div>
-      <div ng-repeat="campaign in nowCampaigns" class="list card dl_card">
-        <div ng-if="campaign.campaign_unit.length==1" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+      <div ng-repeat="campaign in nowCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
           <h2 class="dl_cp_name">{{campaign.theme}}</h2>
           <p class="dl_cp_address">{{campaign.location.name}}</p>
           <div class="button_container">
             <p class="dl_cp_time_countdown">{{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
-          </div>
-        </div>
+          </div></a>
         <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
         <div class="item item-body dl_card_body">
           <ion-scroll direction="x">
@@ -72,14 +66,12 @@
       <div class="campaign_container_title">
         <p>即将 {{unStartCampaigns.length}}</p>
       </div>
-      <div ng-repeat="campaign in unStartCampaigns" class="list card dl_card">
-        <div ng-if="campaign.campaign_unit.length==1" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+      <div ng-repeat="campaign in unStartCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
           <h2 class="dl_cp_name">{{campaign.theme}}</h2>
           <p class="dl_cp_address">{{campaign.location.name}}</p>
           <div class="button_container">
             <p class="dl_cp_time_countdown">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
-          </div>
-        </div>
+          </div></a>
         <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
         <div class="item item-body dl_card_body">
           <ion-scroll direction="x">

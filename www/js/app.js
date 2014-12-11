@@ -54,6 +54,10 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/campaigns',
       controller: 'CampaignController',
       templateUrl: 'views/campaign.html'
+    }).state('campaigns_detail', {
+      url: '/campaign/detail',
+      controller: 'CampaignDetailController',
+      templateUrl: 'views/campaign-detail.html'
     }).state('discuss_list', {
       url: '/discuss/list',
       controller: 'DiscussListController',

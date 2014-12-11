@@ -5,7 +5,7 @@ mixin campaignsContainer(containerTitle, items)
     .campaign_container_title
       p #{containerTitle} {{#{items}.length}}
     .list.card.dl_card(ng-repeat="campaign in #{items}")
-      .item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1")
+      a.item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail")
         img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
         h2.dl_cp_name {{campaign.theme}}
         if items =='newCampaigns'
