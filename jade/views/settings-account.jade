@@ -3,19 +3,20 @@ block header
   a.button.icon.ion-chevron-left(href="#/personal/settings") &nbsp;设置
   h1.title 账号设置
 block content
-  .list
-    .item
-      | 注册邮箱
-      span.item-note echo@donler.com
-    .item.item-icon-right
-      | 密码修改
-      i.icon.ion-chevron-right
-    .item.item-toggle
-      | 免打扰
-      label.toggle.toggle-calm
-        input(type="checkbox")
-        .track
-          .handle
-    .item.item-icon-right
-      | 注销
-      i.icon.ion-chevron-right
+  ion-content
+    .list
+      .item
+        | 注册邮箱
+        span.item-note echo@donler.com
+      .item.item-icon-right
+        | 密码修改
+        i.icon.ion-chevron-right
+      .item.item-toggle
+        | 免打扰
+        label.toggle.toggle-calm
+          input(type="checkbox")
+          .track
+            .handle
+      .item.item-icon-right
+        | 注销
+        i.icon.ion-chevron-right

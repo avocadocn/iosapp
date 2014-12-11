@@ -4,83 +4,85 @@
     <h1 class="title">活动</h1>
     <button class="button icon button-clear ion-plus"></button>
   </ion-header-bar>
-  <ion-content>
+  <ion-content scroll="false">
     <div class="button-bar campaign_filter"><a ng-click="nowType='all'" ng-class="{'active':nowType=='all'}" class="button button-clear">所有</a><a ng-click="nowType='newCampaigns'" ng-class="{'active':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="nowType='provokes'" ng-class="{'active':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="nowType='nowCampaigns'" ng-class="{'active':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="nowType='unStartCampaigns'" ng-class="{'active':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
-    <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container">
-      <div class="campaign_container_title">
-        <p>新的活动 {{newCampaigns.length}}</p>
-      </div>
-      <div ng-repeat="campaign in newCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-          <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-          <p class="dl_cp_time_start">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
-          <div class="button_container">
-            <button class="dl_cp_join">参加</button>
-          </div></a>
-        <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
-        <div class="item item-body dl_card_body">
-          <ion-scroll direction="x">
-            <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-          </ion-scroll>
+    <ion-scroll direction="y">
+      <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container">
+        <div class="campaign_container_title">
+          <p>新的活动 {{newCampaigns.length}}</p>
         </div>
-        <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
-      </div>
-    </div>
-    <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
-      <div class="campaign_container_title">
-        <p>挑战 {{provokes.length}}</p>
-      </div>
-      <div ng-repeat="campaign in provokes" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-          <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-          <div class="button_container">
-            <p class="dl_cp_time_countdown">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
-          </div></a>
-        <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
-        <div class="item item-body dl_card_body">
-          <ion-scroll direction="x">
-            <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-          </ion-scroll>
+        <div ng-repeat="campaign in newCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+            <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+            <p class="dl_cp_time_start">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
+            <div class="button_container">
+              <button class="dl_cp_join">参加</button>
+            </div></a>
+          <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
+          <div class="item item-body dl_card_body">
+            <ion-scroll direction="x">
+              <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
+            </ion-scroll>
+          </div>
+          <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
         </div>
-        <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
       </div>
-    </div>
-    <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
-      <div class="campaign_container_title">
-        <p>进行中 {{nowCampaigns.length}}</p>
-      </div>
-      <div ng-repeat="campaign in nowCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-          <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-          <p class="dl_cp_address">{{campaign.location.name}}</p>
-          <div class="button_container">
-            <p class="dl_cp_time_countdown">{{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
-          </div></a>
-        <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
-        <div class="item item-body dl_card_body">
-          <ion-scroll direction="x">
-            <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-          </ion-scroll>
+      <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
+        <div class="campaign_container_title">
+          <p>挑战 {{provokes.length}}</p>
         </div>
-        <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
-      </div>
-    </div>
-    <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
-      <div class="campaign_container_title">
-        <p>即将 {{unStartCampaigns.length}}</p>
-      </div>
-      <div ng-repeat="campaign in unStartCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-          <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-          <p class="dl_cp_address">{{campaign.location.name}}</p>
-          <div class="button_container">
-            <p class="dl_cp_time_countdown">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
-          </div></a>
-        <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
-        <div class="item item-body dl_card_body">
-          <ion-scroll direction="x">
-            <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-          </ion-scroll>
+        <div ng-repeat="campaign in provokes" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+            <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+            <div class="button_container">
+              <p class="dl_cp_time_countdown">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
+            </div></a>
+          <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
+          <div class="item item-body dl_card_body">
+            <ion-scroll direction="x">
+              <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
+            </ion-scroll>
+          </div>
+          <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
         </div>
-        <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
       </div>
-    </div>
+      <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
+        <div class="campaign_container_title">
+          <p>进行中 {{nowCampaigns.length}}</p>
+        </div>
+        <div ng-repeat="campaign in nowCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+            <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+            <p class="dl_cp_address">{{campaign.location.name}}</p>
+            <div class="button_container">
+              <p class="dl_cp_time_countdown">{{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
+            </div></a>
+          <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
+          <div class="item item-body dl_card_body">
+            <ion-scroll direction="x">
+              <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
+            </ion-scroll>
+          </div>
+          <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
+        </div>
+      </div>
+      <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
+        <div class="campaign_container_title">
+          <p>即将 {{unStartCampaigns.length}}</p>
+        </div>
+        <div ng-repeat="campaign in unStartCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+            <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+            <p class="dl_cp_address">{{campaign.location.name}}</p>
+            <div class="button_container">
+              <p class="dl_cp_time_countdown">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
+            </div></a>
+          <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
+          <div class="item item-body dl_card_body">
+            <ion-scroll direction="x">
+              <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
+            </ion-scroll>
+          </div>
+          <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
+        </div>
+      </div>
+    </ion-scroll>
   </ion-content>
   <div class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss/list" class="tab-item"><i class="icon ion-home"></i>讨论</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>
 </ion-view>

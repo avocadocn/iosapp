@@ -3,16 +3,17 @@ block header
   a.button.icon.ion-chevron-left(href="#/personal") &nbsp;我的
   h1.title 设置
 block content
-  .card.list
-    a.item.item-icon-right(href="#/personal/settings/account")
-      | 账号设置
-      i.icon.ion-chevron-right
-  .card.list
-    a.item.item-icon-right(href="#/personal/settings/feedback")
-      | 我要吐槽
-      i.icon.ion-chevron-right
-    a.item.item-icon-right(href="#/personal/settings/about")
-      | 关于活动助手
-      i.icon.ion-chevron-right
+  ion-content
+    .card.list
+      a.item.item-icon-right(href="#/personal/settings/account")
+        | 账号设置
+        i.icon.ion-chevron-right
+    .card.list
+      a.item.item-icon-right(href="#/personal/settings/feedback")
+        | 我要吐槽
+        i.icon.ion-chevron-right
+      a.item.item-icon-right(href="#/personal/settings/about")
+        | 关于活动助手
+        i.icon.ion-chevron-right
 
-  button.button.button-block.button-light(ng-click="logout()") 退出登录
+    button.button.button-block.button-light(ng-click="logout()") 退出登录

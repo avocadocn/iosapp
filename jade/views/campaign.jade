@@ -29,7 +29,7 @@ mixin campaignsContainer(containerTitle, items)
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
       .item.tabs.tabs-secondary.tabs-icon-left.dl_card_footer
         a.tab-item.dl_team_name(href="#")
-          | {{campaign.campaign_unit[0].team.name}}
+          | {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
         a.tab-item.dl_team_number(href="#")
           i.icon.ion-person-stalker
           | {{campaign.member.length || '0'}}
@@ -42,13 +42,15 @@ block header
   button.button.icon.button-clear.ion-plus
 
 block content
-  .button-bar.campaign_filter
-    a.button.button-clear(ng-click="nowType='all'" ng-class="{'active':nowType=='all'}") 所有
-    a.button.button-clear(ng-click="nowType='newCampaigns'" ng-class="{'active':nowType=='newCampaigns'}") 新活动
-    a.button.button-clear(ng-click="nowType='provokes'" ng-class="{'active':nowType=='provokes'}") 挑战
-    a.button.button-clear(ng-click="nowType='nowCampaigns'" ng-class="{'active':nowType=='nowCampaigns'}") 进行中
-    a.button.button-clear(ng-click="nowType='unStartCampaigns'" ng-class="{'active':nowType=='unStartCampaigns'}") 即将
-  +campaignsContainer('新的活动','newCampaigns')
-  +campaignsContainer('挑战','provokes')
-  +campaignsContainer('进行中','nowCampaigns')
-  +campaignsContainer('即将','unStartCampaigns')
+  ion-content(scroll='false')
+    .button-bar.campaign_filter
+      a.button.button-clear(ng-click="nowType='all'" ng-class="{'active':nowType=='all'}") 所有
+      a.button.button-clear(ng-click="nowType='newCampaigns'" ng-class="{'active':nowType=='newCampaigns'}") 新活动
+      a.button.button-clear(ng-click="nowType='provokes'" ng-class="{'active':nowType=='provokes'}") 挑战
+      a.button.button-clear(ng-click="nowType='nowCampaigns'" ng-class="{'active':nowType=='nowCampaigns'}") 进行中
+      a.button.button-clear(ng-click="nowType='unStartCampaigns'" ng-class="{'active':nowType=='unStartCampaigns'}") 即将
+    ion-scroll(direction="y")
+      +campaignsContainer('新的活动','newCampaigns')
+      +campaignsContainer('挑战','provokes')
+      +campaignsContainer('进行中','nowCampaigns')
+      +campaignsContainer('即将','unStartCampaigns')

@@ -7,9 +7,13 @@ ion-view
   ion-content
     .card
       .item.item-divider
-        img(src="http://placehold.it/40x40")
-        span 下午茶队
-        span 美食
+        //- img(src="http://placehold.it/40x40")
+        //- span 下午茶队
+        //- span 美食
+        .item.item-avatar
+          img(src="http://placehold.it/40x40")
+          h2 下午茶队
+          span 美食
       .item.item-text-wrap
         p 下午一起吃马卡龙
         p 活动地点：上海市静安区安福路128号
@@ -48,7 +52,9 @@ ion-view
         img(src="http://placehold.it/40x40")
         img(src="http://placehold.it/40x40")
         img(src="http://placehold.it/40x40")
-        span 40>
+        a(href="#/members")
+          span 40
+          i.icon.ion-chevron-right
     .card
       .item.item-divider
         | 活动简介
