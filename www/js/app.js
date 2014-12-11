@@ -47,9 +47,9 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/company/login',
       controller: 'CompanyLoginController',
       templateUrl: 'views/company-login.html'
-    }).state('register', {
-      url: '/register',
-      templateUrl: 'views/register.html'
+    }).state('register_company', {
+      url: '/register/company',
+      templateUrl: 'views/register-company.html'
     }).state('campaigns', {
       url: '/campaigns',
       controller: 'CampaignController',
@@ -102,6 +102,9 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
     }).state('settings_about', {
       url: '/personal/settings/about',
       templateUrl: 'views/settings-about.html'
+    }).state('privacy', {
+      url: '/personal/settings/about/privacy',
+      templateUrl: 'views/privacy.html'
     }).state('calendar', {
       url: '/calendar',
       controller: 'CalendarController',
