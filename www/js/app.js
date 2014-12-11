@@ -71,11 +71,20 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       templateUrl: 'views/colleague-circle.html'
     }).state('discover_teams', {
       url: '/discover/teams',
-      templateUrl: 'views/all-team.html'
+      templateUrl: 'views/team-list.html'
     }).state('personal', {
       url: '/personal',
       controller: 'PersonalController',
       templateUrl: 'views/personal.html'
+    }).state('personal_teams', {
+      url: '/personal/teams',
+      templateUrl: 'views/team-list.html'
+    }).state('personal_timeline', {
+      url: '/personal/timeline',
+      templateUrl: 'views/timeline.html'
+    }).state('personal_messages', {
+      url: '/personal/messages',
+      templateUrl: 'views/messages.html'
     }).state('settings', {
       url: '/personal/settings',
       controller: 'SettingsController',
