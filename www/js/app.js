@@ -102,5 +102,20 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/calendar',
       controller: 'CalendarController',
       templateUrl: 'views/calendar.html'
+    }).state('team', {
+      url: '/team',
+      templateUrl: 'views/team-detail.html'
+    }).state('members', {
+      url: '/members',
+      templateUrl: 'views/members.html'
+    }).state('photo_album_list', {
+      url: '/photo_album/list',
+      templateUrl: 'views/photo-album-list.html'
+    }).state('photo_album_detail', {
+      url: '/photo_album/detail',
+      templateUrl: 'views/photo-album-detail.html'
+    }).state('photo_detail', {
+      url: '/photo_album/photo',
+      templateUrl: 'views/photo-detail.html'
     });
   });
