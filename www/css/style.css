@@ -42,7 +42,7 @@ body {
   margin: 0 auto;
   border-radius: 100%;
   color: #fff;
-  fonr-size: 32px;
+  font-size: 32px;
   line-height: 24px;
   text-align: center;
 }
@@ -53,6 +53,10 @@ body {
 }
 .campaigns_container .campaign_list .campaign_container .dl_card .dl_card_header_provoke {
   padding-right: 72px;
+}
+.campaigns_container .campaign_list .campaign_container .dl_card .dl_card_body .dl_prvoke_info .dl_team_name {
+  color: #6a73c6;
+  margin: 0 5px;
 }
 .campaigns_container .campaign_list .campaign_container .dl_card .dl_card_body .dl_photo_alb {
   white-space: nowrap;
