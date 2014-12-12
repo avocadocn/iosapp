@@ -77,7 +77,7 @@ angular.module('donlerApp.services', [])
   .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
       getAll:function(type, id){
-        return $http.get(CONFIG.BASE_URL + '/campaigns?select_type=0&requestType=' + type + '&requestId=' + id);
+        return $http.get(CONFIG.BASE_URL + '/campaigns?select_type=0&populate=photo_album&requestType=' + type + '&requestId=' + id);
       },
       get: function (id) {
         return $http.get(CONFIG.BASE_URL + '/campaigns' + id);
