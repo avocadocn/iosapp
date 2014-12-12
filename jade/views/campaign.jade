@@ -2,7 +2,7 @@ extends ./tab-layout
 
 mixin campaignsContainer(containerTitle, items)
   .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
-    .campaign_container_title
+    .campaign_container_title(ng-cloack)
       p #{containerTitle} {{#{items}.length}}
     .list.card.dl_card(ng-repeat="campaign in #{items}")
       a.item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail")
@@ -19,12 +19,12 @@ mixin campaignsContainer(containerTitle, items)
             p.dl_cp_time_countdown {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}
           else
             p.dl_cp_time_countdown {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
-      .item.item-avatar.dl_card_header.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2")
+      a.item.item-avatar.dl_card_header.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2"  href="#/campaign/detail")
         img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
         span.dl_team_vs vs
         img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
-      .item.item-body.dl_card_body
-        ion-scroll(direction="x")
+      a.item.item-body.dl_card_body(ng-if="campaign.photo_album.photos.length>0" href="#/campaign/detail")
+        ion-scroll(direction="x" scrollbar-x="false")
           .dl_photo_alb
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
       .item.tabs.tabs-secondary.tabs-icon-left.dl_card_footer
@@ -41,14 +41,14 @@ block header
   h1.title 活动
   a.button.icon.button-clear.ion-plus.icon_blue
 block content
-  ion-content.has-header(scroll="false")
+  ion-content.campaigns_container.has-header(overflow-scroll="true")
     .button-bar.campaign_filter
       a.button.button-clear(ng-click="nowType='all'" ng-class="{'button_active':nowType=='all'}") 所有
       a.button.button-clear(ng-click="nowType='newCampaigns'" ng-class="{'button_active':nowType=='newCampaigns'}") 新活动
       a.button.button-clear(ng-click="nowType='provokes'" ng-class="{'button_active':nowType=='provokes'}") 挑战
       a.button.button-clear(ng-click="nowType='nowCampaigns'" ng-class="{'button_active':nowType=='nowCampaigns'}") 进行中
       a.button.button-clear(ng-click="nowType='unStartCampaigns'" ng-class="{'button_active':nowType=='unStartCampaigns'}") 即将
-    ion-scroll
+    ion-scroll.campaign_list
       +campaignsContainer('新的活动','newCampaigns')
       +campaignsContainer('挑战','provokes')
       +campaignsContainer('进行中','nowCampaigns')
