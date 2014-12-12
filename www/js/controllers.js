@@ -55,16 +55,16 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CampaignController', ['$scope', '$timeout', 'Campaign', function ($scope, $timeout, Campaign) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', 'Campaign', function ($scope, $state, $timeout, Campaign) {
     $scope.nowType = 'all';
-    Campaign.getAll('user','53aa7a0c6b2836fd41ba41d7').success(function(data){
+    if(!localStorage.id){
+      return $state.go('login');
+    }
+    Campaign.getAll('user',localStorage.id).success(function(data){
       $scope.unStartCampaigns = data[0];
       $scope.nowCampaigns = data[1];
       $scope.newCampaigns = data[2];
       $scope.provokes = data[3];
-      $timeout(function(){
-        $scope.$broadcast('scroll.resize');
-      });
     })
   }])
   .controller('CampaignDetailController', ['$scope', 'Campaign', function ($scope, Campaign) {
@@ -109,6 +109,7 @@ angular.module('donlerApp.controllers', [])
       localStorage.hasNewComment = true;
     });
     //点过去就代表看过了
+
     $scope.readComments = function(){
       $scope.hasNewComment = false;
       localStorage.hasNewComment = false;

@@ -19,8 +19,6 @@
       <div class="section"><img src="http://placehold.it/115x115" class="photo"/><img src="http://placehold.it/115x115" class="photo"/><img src="http://placehold.it/115x115" class="photo"/></div>
     </div>
   </ion-content>
-  <ion-footer-bar>
-    <div ng-controller="TabController" class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss/list" ng-click="readComments()" class="tab-item">
-        <div ng-show="hasNewComment" class="red_spot"></div><i class="icon ion-home"></i>讨论</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>
-  </ion-footer-bar>
 </ion-view>
+<div class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss/list" ng-click="readComments()" class="tab-item">
+    <div ng-show="hasNewComment" class="red_spot"></div><i class="icon ion-home"></i>讨论</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>

@@ -14,12 +14,14 @@
             <h2 class="dl_cp_name">{{campaign.theme}}</h2>
             <p class="dl_cp_time_start">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
             <div class="button_container">
-              <button class="dl_cp_join">参加</button>
+              <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" class="dl_cp_join">参加</button>
             </div></a><a ng-if="campaign.campaign_unit.length==2" href="#/campaign/detail" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></a><a ng-if="campaign.photo_album.photos.length&gt;0" href="#/campaign/detail" class="item item-body dl_card_body">
             <ion-scroll direction="x" scrollbar-x="false">
               <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
             </ion-scroll></a>
-          <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
+          <div class="item tabs tabs-icon-left dl_card_footer">
+            <div class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a>
+          </div>
         </div>
       </div>
       <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
@@ -30,11 +32,17 @@
             <h2 class="dl_cp_name">{{campaign.theme}}</h2>
             <div class="button_container">
               <p class="dl_cp_time_countdown">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
-            </div></a><a ng-if="campaign.campaign_unit.length==2" href="#/campaign/detail" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></a><a ng-if="campaign.photo_album.photos.length&gt;0" href="#/campaign/detail" class="item item-body dl_card_body">
-            <ion-scroll direction="x" scrollbar-x="false">
+            </div></a><a ng-if="campaign.campaign_unit.length==2" href="#/campaign/detail" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></a><a href="#/campaign/detail" class="item item-body dl_card_body">
+            <p class="dl_prvoke_info"><span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>向<span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>发起挑战</p>
+            <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+            <ion-scroll ng-if="campaign.photo_album.photos.length&gt;0" direction="x" scrollbar-x="false">
               <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
             </ion-scroll></a>
-          <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
+          <div class="item tabs dl_card_footer">
+            <button class="tab-item dl_cp_confirm">接收</button>
+            <button class="tab-item dl_cp_refuse">拒绝</button>
+            <button class="tab-item dl_cp_cancel">取消</button>
+          </div>
         </div>
       </div>
       <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
@@ -45,12 +53,14 @@
             <h2 class="dl_cp_name">{{campaign.theme}}</h2>
             <p class="dl_cp_address">{{campaign.location.name}}</p>
             <div class="button_container">
-              <p class="dl_cp_time_countdown">{{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
+              <p class="dl_cp_time_countdown">{{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}后结束</p>
             </div></a><a ng-if="campaign.campaign_unit.length==2" href="#/campaign/detail" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></a><a ng-if="campaign.photo_album.photos.length&gt;0" href="#/campaign/detail" class="item item-body dl_card_body">
             <ion-scroll direction="x" scrollbar-x="false">
               <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
             </ion-scroll></a>
-          <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
+          <div class="item tabs tabs-icon-left dl_card_footer">
+            <div class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a>
+          </div>
         </div>
       </div>
       <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
@@ -66,7 +76,9 @@
             <ion-scroll direction="x" scrollbar-x="false">
               <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
             </ion-scroll></a>
-          <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a></div>
+          <div class="item tabs tabs-icon-left dl_card_footer">
+            <div class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</a>
+          </div>
         </div>
       </div>
     </ion-scroll>

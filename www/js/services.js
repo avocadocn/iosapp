@@ -16,6 +16,7 @@ angular.module('donlerApp.services', [])
           .success(function (data, status) {
             localStorage.accessToken = data.token;
             localStorage.userType = 'user';
+            localStorage.id = data.id;
             $http.defaults.headers.common['x-access-token'] = data.token;
             callback();
           })
@@ -30,6 +31,7 @@ angular.module('donlerApp.services', [])
           .success(function (data, status) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('userType');
+            localStorage.removeItem('id');
             $http.defaults.headers.common['x-access-token'] = null;
             callback();
           })
@@ -50,6 +52,7 @@ angular.module('donlerApp.services', [])
           .success(function (data, status) {
             localStorage.accessToken = data.token;
             localStorage.userType = 'company';
+            localStorage.id = data.id;
             $http.defaults.headers.common['x-access-token'] = data.token;
             callback();
           })
@@ -64,6 +67,7 @@ angular.module('donlerApp.services', [])
           .success(function (data, status) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('userType');
+            localStorage.removeItem('id');
             $http.defaults.headers.common['x-access-token'] = null;
             callback();
           })

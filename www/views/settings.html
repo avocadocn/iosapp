@@ -8,8 +8,6 @@
     <div class="card list"><a href="#/personal/settings/feedback" class="item item-icon-right">我要吐槽<i class="icon ion-chevron-right"></i></a><a href="#/personal/settings/about" class="item item-icon-right">关于活动助手<i class="icon ion-chevron-right"></i></a></div>
     <button ng-click="logout()" class="button button-block button-light">退出登录</button>
   </ion-content>
-  <ion-footer-bar>
-    <div ng-controller="TabController" class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss/list" ng-click="readComments()" class="tab-item">
-        <div ng-show="hasNewComment" class="red_spot"></div><i class="icon ion-home"></i>讨论</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>
-  </ion-footer-bar>
 </ion-view>
+<div class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss/list" ng-click="readComments()" class="tab-item">
+    <div ng-show="hasNewComment" class="red_spot"></div><i class="icon ion-home"></i>讨论</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>
