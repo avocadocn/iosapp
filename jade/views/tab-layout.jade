@@ -6,13 +6,13 @@ ion-view
 
   block content
 
-  .tabs.tabs-icon-top
+  .tabs.tabs-icon-top(ng-controller="TabController")
     a.tab-item(href="#/campaigns")
       i.icon.ion-home
       | 活动
     a.tab-item(href="#/discuss/list")
       i.icon.ion-home
-      | 讨论
+      | 讨论{{hasNew}}
     a.tab-item(href="#/discover")
       i.icon.ion-home
       | 发现

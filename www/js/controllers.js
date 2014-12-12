@@ -81,6 +81,15 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
+  .controller('TabController', ['$scope','Socket', function($scope, Socket) {
+    Socket.on('getNewComment', function(){
+      console.log('...');
+      $scope.hasNewComment = true;
+    });
+    $scope.readComments = function(){
+      $scope.hasNewComment = true;
+    }
+  }])
   .controller('CalendarController', ['$scope', function ($scope) {
 
   }]);

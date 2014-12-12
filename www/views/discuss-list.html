@@ -21,5 +21,5 @@
         <h2>年末足球赛</h2>
         <p>[1条新讨论]张张：我们队快赢了吧？</p></a></ul>
   </ion-content>
-  <div class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss/list" class="tab-item"><i class="icon ion-home"></i>讨论</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>
+  <div ng-controller="TabController" class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss/list" class="tab-item"><i class="icon ion-home"></i>讨论{{hasNew}}</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>
 </ion-view>

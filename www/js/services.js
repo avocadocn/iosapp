@@ -3,7 +3,8 @@
  */
 angular.module('donlerApp.services', [])
   .constant('CONFIG', {
-    BASE_URL: 'http://localhost:3002'
+    BASE_URL: 'http://localhost:3002',
+    SOCKET_URL: 'http://localhost:3005'
   })
   .factory('UserAuth', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
@@ -91,4 +92,30 @@ angular.module('donlerApp.services', [])
         return $http.delete(CONFIG.BASE_URL + '/campaigns/' + id);
       }
     }
+  }])
+
+  .factory('Socket', ['$rootScope','CONFIG', function socket($rootScope, CONFIG) {
+    var token =  localStorage.accessToken;
+    var socket = io.connect(CONFIG.SOCKET_URL,{query:'token=' + token});
+    socket.emit('login');
+    return {
+      on: function (eventName, callback) {
+        socket.on(eventName, function () {  
+          var args = arguments;
+          $rootScope.$apply(function () {
+            callback.apply(socket, args);
+          });
+        });
+      },
+      emit: function (eventName, data, callback) {
+        socket.emit(eventName, data, function () {
+          var args = arguments;
+          $rootScope.$apply(function () {
+            if (callback) {
+              callback.apply(socket, args);
+            }
+          });
+        });
+      }
+    };
   }])
