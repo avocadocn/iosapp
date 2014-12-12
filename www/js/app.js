@@ -50,6 +50,18 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
     }).state('register_company', {
       url: '/register/company',
       templateUrl: 'views/register-company.html'
+    }).state('register_user_searchCompany', {
+      url: '/register/user/search_company',
+      templateUrl: 'views/register-user-search-company.html'
+    }).state('register_user_postDetail', {
+      url: '/register/user/post_detail',
+      templateUrl: 'views/register-user-post-detail.html'
+    }).state('register_user_waitEmail', {
+      url: '/register/user/wait_email',
+      templateUrl: 'views/register-user-wait-email.html'
+    }).state('register_user_activeCode', {
+      url: '/register/user/active_code',
+      templateUrl: 'views/register-user-active-code.html'
     }).state('campaigns', {
       url: '/campaigns',
       controller: 'CampaignController',

@@ -1,29 +1,29 @@
 ion-view
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/home") &nbsp;返回
-    a.button.icon.ion-chevron-right(href="#/company/login") &nbsp;登录
+    a.button.icon.ion-chevron-right(href="#/user/login") &nbsp;登录
   ion-content
+    p 动梨信息技术有限公司
     .list.list-inset
       label.item.item-input
-        input(type="text" placeholder="公司全称")
+        input(type="text" placeholder="企业邮箱")
     .list.list-inset
       label.item.item-input
-        input(type="text" placeholder="省、市、区")
+        input(type="text" placeholder="昵称")
     .list.list-inset
       label.item.item-input
-        input(type="text" placeholder="详细地址")
+        input(type="text" placeholder="密码")
     .list.list-inset
       label.item.item-input
-        input(type="text" placeholder="联系人姓名")
+        input(type="text" placeholder="密码确认")
     .list.list-inset
       label.item.item-input
-        input(type="text" placeholder="区号")
+        input(type="text" placeholder="真实姓名")
     .list.list-inset
       label.item.item-input
-        input(type="text" placeholder="电子邮箱")
+        input(type="text" placeholder="部门")
     .list.list-inset
       label.item.item-input
         input(type="text" placeholder="手机号码")
     p 点击注册即代表同意《法律声明》及《隐私政策》
-    button.button.button-block.button-assertive 企业注册
-    a.button.button-block.button-light(href="#/register/user/search_company") 个人注册
+    a.button.button-block.button-positive(href="#/register/user/wait_email") 个人注册
