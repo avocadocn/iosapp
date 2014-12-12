@@ -120,8 +120,23 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Comment', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
-      getList: function () {
-        return $http.get(CONFIG.BASE_URL + '/comments/list/');
+      getList: function (type) {
+        return $http.get(CONFIG.BASE_URL + '/comments/list/?type=' + type);
+      }
+    }
+  }])
+  .factory('Tools', [ function (myArray, searchTerm, property) {
+    return{
+      arrayObjectIndexOf: function () {
+        var _property = property.split('.');
+        for(var i = 0, len = myArray.length; i < len; i++) {
+          var item = myArray[i];
+          _property.forEach( function (_pro) {
+            item = item[_pro];
+          });
+          if (item.toString() === searchTerm.toString()) return i;
+        }
+        return -1;
       }
     }
   }])

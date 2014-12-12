@@ -69,14 +69,24 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CampaignDetailController', ['$scope', 'Campaign', function ($scope, Campaign) {
   }])
-  .controller('DiscussListController', ['$scope','Comment', function ($scope, Comment) {
+  .controller('DiscussListController', ['$scope', 'Comment', 'Socket', 'Tools', function ($scope, Comment, Socket, Tools) { //标为全部已读???
     //进来以后先http请求,再监视推送
-    Comment.getList().success(function(data){
-      $scope.commentCampaignList = data;
+    Comment.getList('joined').success(function(data){
+      console.log(data);
+      $scope.commentCampaigns = data.commentCampaigns;
+      $scope.newUnjoined = data.newUnjoinedCampaignComment;
+      localStorage.hasNewComment = false;
     });
+    Socket.on('newCommentCampaign',function(data){
+      var newCommentCampaign = data;
+      var index = Tools.arrayObjectIndexOf($scope.commentCampaigns, newCommentCampaign._id, '_id');
+    });
+    Socket.on('newUnjoinedCommentCampaign', function(data){
+      $scope.newUnjoined = true;
+    })
   }])
   .controller('DiscussDetailController', ['$scope', function ($scope) {
-
+    //无论进入离开，都需归零user的对应campaign的unread数目
   }])
   .controller('DiscoverController', ['$scope', function ($scope) {
 
@@ -112,7 +122,7 @@ angular.module('donlerApp.controllers', [])
     $scope.readComments = function(){
       $scope.hasNewComment = false;
       localStorage.hasNewComment = false;
-    }
+    };
   }])
   .controller('CalendarController', ['$scope', function ($scope) {
 

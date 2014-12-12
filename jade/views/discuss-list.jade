@@ -8,6 +8,8 @@ block header
 block content
   ion-content
     ul.list
+      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns" ng-href="#/discuss/detail/")
+        span {{commentCampaign}}
       a.item.item-avatar(href="#/discuss/detail")
         img(src="http://placehold.it/45x45")
         h2 年末足球赛

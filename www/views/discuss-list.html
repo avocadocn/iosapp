@@ -5,7 +5,7 @@
     <button class="button icon ion-plus"></button>
   </ion-header-bar>
   <ion-content>
-    <ul class="list"><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
+    <ul class="list"><a ng-repeat="commentCampaign in commentCampaigns" ng-href="#/discuss/detail/" class="item item-avatar"><span>{{commentCampaign}}</span></a><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
         <h2>年末足球赛</h2>
         <p>[1条新讨论]张张：我们队快赢了吧？</p></a><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
         <h2>每晚下班一起健身</h2>
