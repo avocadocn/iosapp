@@ -60,7 +60,7 @@ angular.module('donlerApp.services', [])
       },
 
       logout: function (callback) {
-        $http.post(CONFIG.BASE_URL + '/users/logout')
+        $http.post(CONFIG.BASE_URL + '/companies/logout')
           .success(function (data, status) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('companyType');

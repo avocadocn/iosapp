@@ -35,7 +35,21 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-          $state.go('campaigns');
+          $state.go('company_home');
+        }
+      });
+    };
+
+  }])
+  .controller('CompanyHomeController', ['$scope', '$state', 'CompanyAuth', function ($scope, $state, CompanyAuth) {
+
+    $scope.logout = function () {
+      CompanyAuth.logout(function (err) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $state.go('home');
         }
       });
     };

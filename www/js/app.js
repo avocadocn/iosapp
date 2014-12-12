@@ -29,7 +29,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         } else if (localStorage.userType === 'company') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
           // todo 企业登录后页面未知
-          $state.go('campaigns');
+          $state.go('company_home');
         }
       } else {
         $state.go('home');
@@ -47,6 +47,16 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/company/login',
       controller: 'CompanyLoginController',
       templateUrl: 'views/company-login.html'
+    }).state('company_home', {
+      url: '/company/home',
+      controller: 'CompanyHomeController',
+      templateUrl: 'views/company-home.html'
+    }).state('company_activeCode', {
+      url: '/company/active_code',
+      templateUrl: 'views/company-active-code.html'
+    }).state('company_teamList', {
+      url: '/company/team_list',
+      templateUrl: 'views/company-team-list.html'
     }).state('register_company', {
       url: '/register/company',
       templateUrl: 'views/register-company.html'
