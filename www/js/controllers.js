@@ -69,8 +69,11 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CampaignDetailController', ['$scope', 'Campaign', function ($scope, Campaign) {
   }])
-  .controller('DiscussListController', ['$scope', function ($scope) {
-
+  .controller('DiscussListController', ['$scope','Comment', function ($scope, Comment) {
+    //进来以后先http请求,再监视推送
+    Comment.getList().success(function(data){
+      $scope.commentCampaignList = data;
+    });
   }])
   .controller('DiscussDetailController', ['$scope', function ($scope) {
 
@@ -96,13 +99,16 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('TabController', ['$scope','Socket', function($scope, Socket) {
+    //每次进入页面判断是否有新评论没看
     if(localStorage.hasNewComment === true){
       $scope.hasNewComment = true;
     }
+    //socket服务器推送通知
     Socket.on('getNewComment', function(){
       $scope.hasNewComment = true;
       localStorage.hasNewComment = true;
     });
+    //点过去就代表看过了
     $scope.readComments = function(){
       $scope.hasNewComment = false;
       localStorage.hasNewComment = false;

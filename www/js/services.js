@@ -93,7 +93,6 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-
   .factory('Socket', ['$rootScope','CONFIG', function socket($rootScope, CONFIG) {
     var token =  localStorage.accessToken;
     var socket = io.connect(CONFIG.SOCKET_URL,{query:'token=' + token});
@@ -118,4 +117,11 @@ angular.module('donlerApp.services', [])
         });
       }
     };
+  }])
+  .factory('Comment', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+      getList: function () {
+        return $http.get(CONFIG.BASE_URL + '/comments/list/');
+      }
+    }
   }])
