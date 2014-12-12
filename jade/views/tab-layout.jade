@@ -10,9 +10,10 @@ ion-view
     a.tab-item(href="#/campaigns")
       i.icon.ion-home
       | 活动
-    a.tab-item(href="#/discuss/list")
+    a.tab-item(href="#/discuss/list" ng-click="readComments()")
+      .red_spot(ng-show="hasNewComment")
       i.icon.ion-home
-      | 讨论{{hasNew}}
+      | 讨论
     a.tab-item(href="#/discover")
       i.icon.ion-home
       | 发现

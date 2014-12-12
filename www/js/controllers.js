@@ -82,12 +82,16 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('TabController', ['$scope','Socket', function($scope, Socket) {
-    Socket.on('getNewComment', function(){
-      console.log('...');
+    if(localStorage.hasNewComment === true){
       $scope.hasNewComment = true;
+    }
+    Socket.on('getNewComment', function(){
+      $scope.hasNewComment = true;
+      localStorage.hasNewComment = true;
     });
     $scope.readComments = function(){
-      $scope.hasNewComment = true;
+      $scope.hasNewComment = false;
+      localStorage.hasNewComment = false;
     }
   }])
   .controller('CalendarController', ['$scope', function ($scope) {

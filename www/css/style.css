@@ -53,3 +53,15 @@ body {
 .tabs {
   z-index: 20;
 }
+.tabs .tab-item {
+  position: relative;
+}
+.tabs .tab-item .red_spot {
+  background-color: #f48361;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  left: 55%;
+  top: 5%;
+}
