@@ -60,6 +60,10 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
     }).state('register_company', {
       url: '/register/company',
       templateUrl: 'views/register-company.html'
+    }).state('register_company_law', {
+      url: '/register/company/law',
+      controller: 'compRegPrivacyController',
+      templateUrl: 'views/privacy.html'
     }).state('register_user_searchCompany', {
       url: '/register/user/search_company',
       templateUrl: 'views/register-user-search-company.html'
@@ -72,6 +76,10 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
     }).state('register_user_activeCode', {
       url: '/register/user/active_code',
       templateUrl: 'views/register-user-active-code.html'
+    }).state('register_user_law', {
+      url: '/register/user/law',
+      controller: 'userRegPrivacyController',
+      templateUrl: 'views/privacy.html'
     }).state('campaigns', {
       url: '/campaigns',
       controller: 'CampaignController',
@@ -126,6 +134,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       templateUrl: 'views/settings-about.html'
     }).state('privacy', {
       url: '/personal/settings/about/privacy',
+      controller: 'privacyController',
       templateUrl: 'views/privacy.html'
     }).state('calendar', {
       url: '/calendar',

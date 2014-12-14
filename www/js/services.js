@@ -126,6 +126,16 @@ angular.module('donlerApp.services', [])
     return {
       getList: function (type) {
         return $http.get(CONFIG.BASE_URL + '/comments/list/?type=' + type);
+      },
+      getComments: function(campaignId, limit, createDate) {
+        var url = CONFIG.BASE_URL + '/comments/?requestType=campaign&requestId='+campaignId;
+        if (limit) {
+          url+='&limit=' + limit;
+        }
+        if (createDate) {
+          url+='&createDate=' + createDate;
+        }
+        return $http.get(url);
       }
     }
   }])

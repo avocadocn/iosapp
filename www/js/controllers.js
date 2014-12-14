@@ -129,4 +129,13 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CalendarController', ['$scope', function ($scope) {
 
+  }])
+  .controller('privacyController', ['$scope', '$ionicNavBarDelegate', function($scope, $ionicNavBarDelegate) {
+    $scope.backHref = '#/personal/settings/about';
+  }])
+  .controller('compRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function($scope, $ionicNavBarDelegate) {
+    $scope.backHref = '#/register/company';
+  }])
+  .controller('userRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function($scope, $ionicNavBarDelegate) {
+    $scope.backHref = '#/register/user/post_detail';
   }]);
