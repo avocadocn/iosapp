@@ -5,7 +5,7 @@ mixin campaignsContainer(containerTitle, items)
     .campaign_container_title(ng-cloack)
       p #{containerTitle} {{#{items}.length}}
     .list.card.dl_card(ng-repeat="campaign in #{items}")
-      a.item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1" href="#/campaign/detail")
+      a.item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}")
         img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
         h2.dl_cp_name {{campaign.theme}}
         if items =='newCampaigns'
@@ -14,19 +14,19 @@ mixin campaignsContainer(containerTitle, items)
           p.dl_cp_address {{campaign.location.name}}
         .button_container
           if items =='newCampaigns'
-            button.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign") 参加
+            button.dl_cp_join(eat-click ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join('#{items}',$index, campaign._id)") 参加
           else if items =='nowCampaigns'
-            p.dl_cp_time_countdown {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}后结束
+            p.dl_cp_time_countdown {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束
           else
-            p.dl_cp_time_countdown {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
-      a.item.item-avatar.dl_card_header.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2"  href="#/campaign/detail")
+            p.dl_cp_time_countdown {{campaign.start_time_text}}
+      a.item.item-avatar.dl_card_header.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2"  href="#/campaign/detail/{{campaign._id}}")
         img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
         span.dl_team_vs vs
         img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
       if items =='provokes'
-        a.item.item-body.dl_card_body(href="#/campaign/detail")
+        a.item.item-body.dl_card_body(href="#/campaign/detail/{{campaign._id}}")
           p.dl_prvoke_info
-            span.dl_team_name {{campaign.campaign_unit[1].team.name}}
+            span.dl_team_name {{campaign.campaign_unit[0].team.name}}
             | 向
             span.dl_team_name {{campaign.campaign_unit[1].team.name}}
             | 发起挑战
@@ -35,15 +35,15 @@ mixin campaignsContainer(containerTitle, items)
             .dl_photo_alb
               img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
       else
-        a.item.item-body.dl_card_body(ng-if="campaign.photo_album.photos.length>0" href="#/campaign/detail")
+        a.item.item-body.dl_card_body(ng-if="campaign.photo_album.photos.length>0" href="#/campaign/detail/{{campaign._id}}")
           ion-scroll(direction="x" scrollbar-x="false")
             .dl_photo_alb
               img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
       if items =='provokes'
         .item.tabs.dl_card_footer
-          button.tab-item.dl_cp_confirm 接收
-          button.tab-item.dl_cp_refuse 拒绝
-          button.tab-item.dl_cp_cancel 取消
+          button.tab-item.dl_cp_confirm(eat-click ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke('#{items}',$index, campaign._id,1)") 接收
+          button.tab-item.dl_cp_refuse(eat-click ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke('#{items}',$index, campaign._id,2)") 拒绝
+          button.tab-item.dl_cp_cancel(eat-click ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke('#{items}',$index, campaign._id,3)") 取消
       else
         .item.tabs.tabs-icon-left.dl_card_footer
           .tab-item.dl_team_name

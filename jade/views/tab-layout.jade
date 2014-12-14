@@ -9,15 +9,15 @@ ion-view
   ion-footer-bar
     .tabs.tabs-icon-top(ng-controller="TabController")
       a.tab-item(href="#/campaigns")
-        i.icon.ion-home
+        i.icon.ion_campaign.active
         | 活动
       a.tab-item(href="#/discuss/list" ng-click="readComments()")
         .red_spot(ng-show="hasNewComment")
-        i.icon.ion-home
+        i.icon.ion_chat
         | 讨论
       a.tab-item(href="#/discover")
-        i.icon.ion-home
+        i.icon.ion_find
         | 发现
       a.tab-item(href="#/personal")
-        i.icon.ion-home
+        i.icon.ion_mine
         | 我的

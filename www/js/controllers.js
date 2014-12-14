@@ -3,6 +3,13 @@
  */
 
 angular.module('donlerApp.controllers', [])
+  .directive('eatClick', function() {
+      return function(scope, element, attrs) {
+          $(element).click(function(event) {
+              event.preventDefault();
+          });
+      }
+  })
   .controller('UserLoginController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
 
     $scope.loginData = {
@@ -60,14 +67,62 @@ angular.module('donlerApp.controllers', [])
     if(!localStorage.id){
       return $state.go('login');
     }
-    Campaign.getAll('user',localStorage.id).success(function(data){
-      $scope.unStartCampaigns = data[0];
-      $scope.nowCampaigns = data[1];
-      $scope.newCampaigns = data[2];
-      $scope.provokes = data[3];
-    })
+    Campaign.getAll('user',localStorage.id,function(err,data){
+      if(!err){
+        $scope.unStartCampaigns = data[0];
+        $scope.nowCampaigns = data[1];
+        $scope.newCampaigns = data[2];
+        $scope.provokes = data[3];
+      }
+    });
+    $scope.join = function(filter,index, id){
+      Campaign.join(id,localStorage.id, function(err, data){
+        if(!err){
+          $scope[filter][index] = data;
+          alert('参加成功');
+        }
+      });
+      return false;
+    }
+    $scope.dealProvoke = function(filter,index, id, dealType){
+      //dealType:1接受，2拒绝，3取消
+      Campaign.dealProvoke(id, dealType, function(err, data){
+        if(!err){
+          //TODO:
+          alert('挑战处理成功');
+          $scope[filter].splice(index,1);
+        }
+        else{
+          alert(err);
+        }
+      });
+      return false;
+    }
   }])
-  .controller('CampaignDetailController', ['$scope', 'Campaign', function ($scope, Campaign) {
+  .controller('CampaignDetailController', ['$scope', '$state', 'Campaign', function ($scope, $state, Campaign) {
+    Campaign.get($state.params.id, function(err, data){
+      if(!err){
+        $scope.campaign = data;
+      }
+    });
+    $scope.join = function(id){
+      Campaign.join(id,localStorage.id, function(err, data){
+        if(!err){
+          $scope.campaign = data;
+          alert('参加成功');
+        }
+      });
+      return false;
+    }
+    $scope.quit = function(id){
+      Campaign.quit(id,localStorage.id, function(err, data){
+        if(!err){
+          $scope.campaign = data;
+          alert('退出成功');
+        }
+      });
+      return false;
+    }
   }])
   .controller('DiscussListController', ['$scope', 'Comment', 'Socket', 'Tools', function ($scope, Comment, Socket, Tools) { //标为全部已读???
     //进来以后先http请求,再监视推送

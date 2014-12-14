@@ -4,40 +4,29 @@
 
 angular.module('donlerApp.filters', [])
 
-// .filter('dateView', function() {
-//   return function(input) {
-//     // input will be ginger in the usage below
-//     switch(new Date(input).getDay()){
-//       case 0:
-//       input = '周日';
-//       break;
-//       case 1:
-//       input = '周一';
-//       break;
-//       case 2:
-//       input = '周二';
-//       break;
-//       case 3:
-//       input = '周三';
-//       break;
-//       case 4:
-//       input = '周四';
-//       break;
-//       case 5:
-//       input = '周五';
-//       break;
-//       case 6:
-//       input = '周六';
-//       break;
-//       default:
-//       input = '';
-//     }
-//     return input;
-//   }
-// })
-
-// .filter('nospace', function() {
-//   return function(input) {
-//     return input.replace(/ /g, '');
-//   };
-// })
+.filter('day', function() {
+  return function(input) {
+    var today = new Date();
+    today.setHours(0);
+    today.setMinutes(0);
+    today.setSeconds(0);
+    var date = new Date(input);
+    var intervalMilli = date.getTime() - today.getTime();
+    var xcts = Math.floor(intervalMilli / (24 * 60 * 60 * 1000));
+    // -2:前天 -1：昨天 0：今天 1：明天 2：后天， out：显示日期
+    switch(xcts){
+    // case -2:
+    //   return '前天';
+    case -1:
+      return '昨天';
+    case 0:
+      return '今天';
+    case 1:
+      return '明天';
+    // case 2:
+    //   return '后天';
+    default:
+      return (date.getMonth() + 1) + '-' + date.getDate();
+    }
+  }
+});

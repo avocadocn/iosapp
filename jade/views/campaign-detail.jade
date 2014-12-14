@@ -2,24 +2,26 @@ ion-view
 
   ion-header-bar
     a.button.button-clear(href="#/campaigns") 返回
-    h1.title 下午一起吃马卡龙
+    h1.title {{campaign.theme}}
     a.button.icon.button-clear.ion-chatbox
   ion-content
     .card
       .item.item-divider
-        //- img(src="http://placehold.it/40x40")
-        //- span 下午茶队
-        //- span 美食
-        .item.item-avatar
-          img(src="http://placehold.it/40x40")
-          h2 下午茶队
-          span 美食
+        .item.item-avatar(ng-if="campaign.campaign_unit.length==1")
+          img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
+          h2.dl_team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
+          span.campaign_mold {{campaign.campaign_mold}}
+        .item.item-avatar(ng-if="campaign.campaign_unit.length==2")
+          img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
+          span.dl_team_vs vs
+          img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
       .item.item-text-wrap
-        p 下午一起吃马卡龙
-        p 活动地点：上海市静安区安福路128号
-        p 开始：2014-12-2 今天 结束： 2014-12-2 今天
+        h1.dl_cp_name {{campaign.theme}}
+        p 活动地点：{{campaign.location.name}}
+        p 开始：{{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}} 结束： {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}
         div
-          button 立即参加
+          button.button.button-block.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
+          button.button.button-block.dl_cp_quit(ng-if="campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
         ion-scroll(direction="x")
           .dl_photo_alb
             //- img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")

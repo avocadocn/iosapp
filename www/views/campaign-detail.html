@@ -1,21 +1,23 @@
 
 <ion-view>
   <ion-header-bar><a href="#/campaigns" class="button button-clear">返回</a>
-    <h1 class="title">下午一起吃马卡龙</h1><a class="button icon button-clear ion-chatbox"></a>
+    <h1 class="title">{{campaign.theme}}</h1><a class="button icon button-clear ion-chatbox"></a>
   </ion-header-bar>
   <ion-content>
     <div class="card">
       <div class="item item-divider">
-        <div class="item item-avatar"><img src="http://placehold.it/40x40"/>
-          <h2>下午茶队</h2><span>美食</span>
+        <div ng-if="campaign.campaign_unit.length==1" class="item item-avatar"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+          <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</h2><span class="campaign_mold">{{campaign.campaign_mold}}</span>
         </div>
+        <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
       </div>
       <div class="item item-text-wrap">
-        <p>下午一起吃马卡龙</p>
-        <p>活动地点：上海市静安区安福路128号</p>
-        <p>开始：2014-12-2 今天 结束： 2014-12-2 今天</p>
+        <h1 class="dl_cp_name">{{campaign.theme}}</h1>
+        <p>活动地点：{{campaign.location.name}}</p>
+        <p>开始：{{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}} 结束： {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}</p>
         <div>
-          <button>立即参加</button>
+          <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-block dl_cp_join">立即参加</button>
+          <button ng-if="campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-block dl_cp_quit">已经加入</button>
         </div>
         <ion-scroll direction="x">
           <div class="dl_photo_alb"><img src="http://placehold.it/40x40" class="dl_cp_photo"/>

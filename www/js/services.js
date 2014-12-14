@@ -80,23 +80,89 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
-      getAll:function(type, id){
-        return $http.get(CONFIG.BASE_URL + '/campaigns?select_type=0&populate=photo_album&requestType=' + type + '&requestId=' + id);
+      getAll:function(type, id,callback){
+        $http.get(CONFIG.BASE_URL + '/campaigns?select_type=0&populate=photo_album&requestType=' + type + '&requestId=' + id)
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback('error');
+        });
       },
-      get: function (id) {
-        return $http.get(CONFIG.BASE_URL + '/campaigns' + id);
+      get: function (id, callback) {
+        $http.get(CONFIG.BASE_URL + '/campaigns/' + id)
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback('error');
+        });
       },
-      create: function (data) {
-        return $http.post(CONFIG.BASE_URL + '/campaigns', data);
+      create: function (data, callback) {
+        $http.post(CONFIG.BASE_URL + '/campaigns', data)
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback('error');
+        });
       },
-      edit: function (id, data) {
-        return $http.put(BASE_URL + '/campaigns/' + id, data);
+      edit: function (id, campaignData, callback) {
+        $http.put(CONFIG.BASE_URL + '/campaigns/' + id, campaignData)
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback('error');
+        });
       },
-      delete: function (id) {
-        return $http.delete(CONFIG.BASE_URL + '/campaigns/' + id);
+      close: function (id, callback) {
+        $http.delete(CONFIG.BASE_URL + '/campaigns/' + id)
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback('error');
+        });
+      },
+      join: function(id, uid, callback) {
+        $http.post(CONFIG.BASE_URL + '/campaigns/' + id+'/users/'+uid)
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback('error');
+        });
+      },
+      quit: function(id, uid, callback) {
+        $http.delete(CONFIG.BASE_URL + '/campaigns/' + id+'/users/'+uid)
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback('error');
+        });
+      },
+      dealProvoke: function(id, dealType, callback) {
+        $http.put(CONFIG.BASE_URL + '/campaigns/' + id+'/dealProvoke',{dealType:dealType})
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback(data.msg);
+        });
       }
     }
   }])
+
   .factory('Socket', ['$rootScope','CONFIG', function socket($rootScope, CONFIG) {
     var token =  localStorage.accessToken;
     var socket = io.connect(CONFIG.SOCKET_URL,{query:'token=' + token});

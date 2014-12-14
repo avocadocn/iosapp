@@ -62,8 +62,12 @@ body
   padding 0
   color #999
 .tabs
+  background-color #000
+  color #fbfbfb
   .tab-item
     position relative
+    .icon
+      width 32px
     .red_spot
       background-color #f48361
       position absolute
@@ -72,3 +76,27 @@ body
       border-radius 100%
       left 55%
       top 5%
+.ion_campaign
+  background-image url('/img/icon.png')
+  background-size 160px
+  background-position 8px 5px
+  &.active
+    background-position 8px -35px
+.ion_chat
+  background-image url('/img/icon.png')
+  background-size 160px
+  background-position -33px 5px
+  &.active
+    background-position 8px -35px
+.ion_find
+  background-image url('/img/icon.png')
+  background-size 160px
+  background-position -73px 5px
+  &.active
+    background-position 8px -35px
+.ion_mine
+  background-image url('/img/icon.png')
+  background-size 160px
+  background-position -113px 5px
+  &.active
+    background-position 8px -35px

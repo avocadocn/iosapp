@@ -71,8 +71,15 @@ body {
   padding: 0;
   color: #999;
 }
+.tabs {
+  background-color: #000;
+  color: #fbfbfb;
+}
 .tabs .tab-item {
   position: relative;
+}
+.tabs .tab-item .icon {
+  width: 32px;
 }
 .tabs .tab-item .red_spot {
   background-color: #f48361;
@@ -82,4 +89,36 @@ body {
   border-radius: 100%;
   left: 55%;
   top: 5%;
+}
+.ion_campaign {
+  background-image: url("/img/icon.png");
+  background-size: 160px;
+  background-position: 8px 5px;
+}
+.ion_campaign.active {
+  background-position: 8px -35px;
+}
+.ion_chat {
+  background-image: url("/img/icon.png");
+  background-size: 160px;
+  background-position: -33px 5px;
+}
+.ion_chat.active {
+  background-position: 8px -35px;
+}
+.ion_find {
+  background-image: url("/img/icon.png");
+  background-size: 160px;
+  background-position: -73px 5px;
+}
+.ion_find.active {
+  background-position: 8px -35px;
+}
+.ion_mine {
+  background-image: url("/img/icon.png");
+  background-size: 160px;
+  background-position: -113px 5px;
+}
+.ion_mine.active {
+  background-position: 8px -35px;
 }
