@@ -5,22 +5,12 @@
     <button class="button icon ion-plus"></button>
   </ion-header-bar>
   <ion-content>
-    <ul class="list"><a ng-repeat="commentCampaign in commentCampaigns" ng-href="#/discuss/detail/" class="item item-avatar"><span>{{commentCampaign}}</span></a><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>年末足球赛</h2>
-        <p>[1条新讨论]张张：我们队快赢了吧？</p></a><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>每晚下班一起健身</h2>
-        <p>李四：今天怎么没人？</p></a><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>未参加的活动讨论</h2>
-        <p>[1条新讨论]下午一起吃马卡龙</p></a><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>流浪狗领养</h2>
-        <p>丁丁：现在还剩6只哦</p></a><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>羽毛球训练</h2>
-        <p>[1条新讨论]张张：我们队快赢了吧？</p></a><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>流浪狗领养</h2>
-        <p>丁丁：现在还剩6只哦</p></a><a href="#/discuss/detail" class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>年末足球赛</h2>
-        <p>[1条新讨论]张张：我们队快赢了吧？</p></a></ul>
+    <ul class="list"><a ng-repeat="commentCampaign in commentCampaigns" ng-href="#/discuss/detail/{{commentCampaign._id}}" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{commentCampaign.logo}}"/>
+        <h2>{{commentCampaign.theme}}</h2>
+        <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span>{{commentCampaign.latestComment.content}}</span></p></a></ul>
   </ion-content>
+  <ion-footer-bar>
+    <div ng-controller="TabController" class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss/list" ng-click="readComments()" class="tab-item">
+        <div ng-show="hasNewComment" class="red_spot"></div><i class="icon ion-home"></i>讨论</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>
+  </ion-footer-bar>
 </ion-view>
-<div class="tabs tabs-icon-top"><a href="#/campaigns" class="tab-item"><i class="icon ion-home"></i>活动</a><a href="#/discuss/list" ng-click="readComments()" class="tab-item">
-    <div ng-show="hasNewComment" class="red_spot"></div><i class="icon ion-home"></i>讨论</a><a href="#/discover" class="tab-item"><i class="icon ion-home"></i>发现</a><a href="#/personal" class="tab-item"><i class="icon ion-home"></i>我的</a></div>

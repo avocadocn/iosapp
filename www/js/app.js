@@ -85,7 +85,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       controller: 'DiscussListController',
       templateUrl: 'views/discuss-list.html'
     }).state('discuss_detail', {
-      url: '/discuss/detail',
+      url: '/discuss/detail/:id',
       controller: 'DiscussDetailController',
       templateUrl: 'views/discuss-detail.html'
     }).state('discover', {

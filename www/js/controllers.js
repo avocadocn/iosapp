@@ -87,6 +87,8 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('DiscussDetailController', ['$scope', function ($scope) {
     //无论进入离开，都需归零user的对应campaign的unread数目
+    //获取时清空好了
+    
   }])
   .controller('DiscoverController', ['$scope', function ($scope) {
 
