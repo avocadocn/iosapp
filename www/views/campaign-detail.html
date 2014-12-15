@@ -15,6 +15,7 @@
         <h1 class="dl_cp_name">{{campaign.theme}}</h1>
         <p>活动地点：{{campaign.location.name}}</p>
         <p>开始：{{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}} 结束： {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}</p>
+        <p>报名截止：{{campaign.deadline | date:"yyyy-MM-dd HH:mm" | day}}</p>
         <div>
           <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-block dl_cp_join">立即参加</button>
           <button ng-if="campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-block dl_cp_quit">已经加入</button>
@@ -23,7 +24,11 @@
           <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
         </ion-scroll>
       </div>
-      <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name"><i class="icon ion-image"></i>上传图片</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>活动成员({{campaign.member.length || '0'}})</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}条讨论</a></div>
+      <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer">
+        <div class="tab-item dl_team_name"><i class="icon ion-image"></i>上传图片</div>
+        <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>活动成员({{campaign.member.length || '0'}})</div>
+        <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}条讨论</div>
+      </div>
     </div>
     <div class="card">
       <div class="item item-text-wrap"><span>即将开始</span><span>{{campaign.remind_text}}：</span><span>{{campaign.time_text}}</span></div>
@@ -33,14 +38,16 @@
         <h2>Venkman</h2>
         <p>Back off, man. I'm a scientist.</p></a>
     </div>
-    <div class="card">
-      <div class="item item-text-wrap">
-        <div ng-repeat="unit in campaign.campaign_unit"><img ng-repeat="member in unit.member" ng-src="{{STATIC_URL +member.photo+'/40/40'}}"/></div><a href="#/members"><span>{{campaign.members_count}}</span><i class="icon ion-chevron-right"></i></a>
+    <div ng-if="campaign.members.length&gt;0" class="card">
+      <div class="item item-button-right">
+        <ion-scroll direction="x"><img ng-repeat="member in campaign.members" ng-src="{{STATIC_URL +member.photo+'/40/40'}}"/></ion-scroll><a href="#/members" class="button button-positive"><span>{{campaign.members_count}}</span><i class="icon ion-chevron-right"></i></a>
       </div>
     </div>
     <div class="card">
       <div class="item item-divider">活动简介</div>
-      <div class="item item-avatar">{{campaign.content}}</div>
+      <div class="item item-avatar">
+        <p>{{campaign.content}}</p>
+      </div>
     </div>
   </ion-content>
 </ion-view>

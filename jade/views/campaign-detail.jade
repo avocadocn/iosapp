@@ -19,6 +19,7 @@ ion-view
         h1.dl_cp_name {{campaign.theme}}
         p 活动地点：{{campaign.location.name}}
         p 开始：{{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}} 结束： {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}
+        p 报名截止：{{campaign.deadline | date:"yyyy-MM-dd HH:mm" | day}}
         div
           button.button.button-block.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
           button.button.button-block.dl_cp_quit(ng-if="campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
@@ -26,13 +27,13 @@ ion-view
           .dl_photo_alb
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
       .item.tabs.tabs-secondary.tabs-icon-left.dl_card_footer
-        a.tab-item.dl_team_name(href="#")
+        .tab-item.dl_team_name
           i.icon.ion-image
           | 上传图片
-        a.tab-item.dl_team_number(href="#")
+        .tab-item.dl_team_number
           i.icon.ion-person-stalker
           | 活动成员({{campaign.member.length || '0'}})
-        a.tab-item.dl_team_comment(href="#")
+        .tab-item.dl_team_comment
           i.icon.ion-chatbox
           | {{campaign.comment_sum}}条讨论
     .card
@@ -48,15 +49,15 @@ ion-view
         img(src="http://placehold.it/40x40")
         h2 Venkman
         p Back off, man. I'm a scientist.
-    .card
-      .item.item-text-wrap
-        div(ng-repeat="unit in campaign.campaign_unit")
-          img(ng-repeat="member in unit.member" ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
-        a(href="#/members")
+    .card(ng-if="campaign.members.length>0")
+      .item.item-button-right
+        ion-scroll(direction="x")
+          img(ng-repeat="member in campaign.members" ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
+        a.button.button-positive(href="#/members")
           span {{campaign.members_count}}
           i.icon.ion-chevron-right
     .card
       .item.item-divider
         | 活动简介
       .item.item-avatar
-        {{campaign.content}}
+        p {{campaign.content}}

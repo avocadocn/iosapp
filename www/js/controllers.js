@@ -107,6 +107,10 @@ angular.module('donlerApp.controllers', [])
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         $scope.campaign = data;
+        $scope.campaign.members =[];
+        data.campaign_unit.forEach(function(campaign_unit){
+          $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
+        });
       }
     });
     $scope.join = function(id){
