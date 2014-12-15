@@ -5,12 +5,13 @@
   </ion-header-bar>
   <ion-content>
     <div class="list card">
-      <div class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>Echo</h2>
-        <p>公司：动梨信息技术有限公司</p>
-        <p>部门：设计部</p>
-        <p>手机：13612345678</p>
-        <p>邮箱：echo@donler.com</p>
+      <div class="item item-avatar"><img ng-src="{{STATIC_URL + user.photo}}"/>
+        <h2>{{user.nickname}}</h2>
+        <p>公司：{{user.company.name}}</p>
+        <p ng-if="user.department" ng-cloak="ng-cloak">部门：{{user.department.name}}</p>
+        <p ng-if="!user.department" ng-cloak="ng-cloak">部门：无</p>
+        <p ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
+        <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p>
       </div>
     </div>
     <div class="list"><a href="#/app/personal_teams" class="item item-icon-left item-icon-right"><i class="icon ion-mic-a"></i>我的小队<i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion-mic-a"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/personal/messages" class="item item-icon-left item-icon-right"><i class="icon ion-mic-a"></i>我的站内信<i class="icon ion-chevron-right"></i></a><a href="#" class="item item-icon-left item-icon-right"><i class="icon ion-mic-a"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/app/settings" class="item item-icon-left item-icon-right"><i class="icon ion-mic-a"></i>设置<i class="icon ion-chevron-right"></i></a></div>

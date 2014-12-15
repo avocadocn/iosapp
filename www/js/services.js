@@ -220,6 +220,28 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
+  .factory('User', ['$http', 'CONFIG', function ($http, CONFIG) {
+
+    return {
+
+      /**
+       * 获取用户数据
+       * @param {String} id 用户id
+       * @param {Function} callback 获取后的回调函数，形式为function(err, data)
+       */
+      getData: function (id, callback) {
+        $http.get(CONFIG.BASE_URL + '/users/' + id)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            callback('error');
+          });
+      }
+
+    };
+
+  }])
   .factory('Team', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
 

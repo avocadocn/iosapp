@@ -6,7 +6,7 @@ ion-view
   ion-content
     .list
       a.item.item-thumbnail-left(ng-repeat="team in teams" href="#/team")
-        img(ng-src="{{team.logo}}/85/85")
+        img(ng-src="{{STATIC_URL + team.logo}}/85/85")
         h2 {{team.name}}
         //-todo 获取每个队最近的一个活动
         //-p 2014-11-20 年末足球赛

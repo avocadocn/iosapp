@@ -192,7 +192,16 @@ angular.module('donlerApp.controllers', [])
   .controller('DiscoverController', ['$scope', function ($scope) {
 
   }])
-  .controller('PersonalController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
+  .controller('PersonalController', ['$scope', '$state', 'User', function ($scope, $state, User) {
+
+    User.getData(localStorage.id, function (err, data) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.user = data;
+      }
+    });
 
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', function ($scope, Team) {
