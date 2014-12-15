@@ -5,11 +5,24 @@ ion-view
     h1.title 讨论列表
     button.button.icon.ion-plus
 
-
   ion-content
     ul.list
-      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns" ng-href="#/discuss/detail/{{commentCampaign._id}}" ng-cloak)
-        img(ng-src="{{commentCampaign.logo}}")
+      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index<unjoinedIndex" ng-href="#/discuss/detail/{{commentCampaign._id}}/{{commentCampaign.theme}}" ng-cloak)
+        img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
+        .red_spot(ng-if="commentCampaign.unread")
+        h2 {{commentCampaign.theme}}
+        p
+          span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
+          span {{commentCampaign.latestComment.content}}
+      a.item.item-avatar(ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined")
+        img(ng-src="/img/icons/unjoined.png")
+        .red_spot(ng-if="newUnjoined")
+        h2 未参加的活动讨论
+        p
+          span {{latestUnjoinedCampaign.theme}}
+      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index>=unjoinedIndex" ng-href="#/discuss/detail/{{commentCampaign._id}}/{{commentCampaign.theme}}" ng-cloak)
+        img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
+        .red_spot(ng-if="commentCampaign.unread")
         h2 {{commentCampaign.theme}}
         p
           span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]

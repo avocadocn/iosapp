@@ -132,8 +132,13 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         }
       }
     })
+    .state('unjoined_discuss_list', {
+      url: '/discuss/list/unjoined',
+      controller: 'UnjoinedDiscussController',
+      templateUrl: 'views/unjoined-discuss-list.html'
+    })
     .state('discuss_detail', {
-      url: '/discuss/detail/:campaignId',
+      url: '/discuss/detail/:campaignId/:campaignName',
       controller: 'DiscussDetailController',
       templateUrl: 'views/discuss-detail.html'
     })

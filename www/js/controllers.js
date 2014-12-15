@@ -137,18 +137,52 @@ angular.module('donlerApp.controllers', [])
     //进来以后先http请求,再监视推送
     Comment.getList('joined').success(function (data) {
       $scope.commentCampaigns = data.commentCampaigns;
+      // $filter('orderBu')
+      $scope.latestUnjoinedCampaign = data.latestUnjoinedCampaign;
+      //判断下把未参加的放哪
+      $scope.unjoinedIndex = 20;
+      if($scope.latestUnjoinedCampaign) {
+        var unjoinedCommentTime = new Date($scope.latestUnjoinedCampaign.latestComment.createDate);
+        for(var i=$scope.commentCampaigns.length-1; i>=0; i--){
+          var joinedCommentTime = new Date($scope.commentCampaigns[i].latestComment.createDate);
+          if(unjoinedCommentTime>joinedCommentTime){
+            $scope.unjoinedIndex = i;
+          }else{
+            $scope.unjoinedIndex = i;
+            break;
+          }
+        }
+      }
       $scope.newUnjoined = data.newUnjoinedCampaignComment;
       localStorage.hasNewComment = false;
     });
     Socket.on('newCommentCampaign', function (data) {
       var newCommentCampaign = data;
       var index = Tools.arrayObjectIndexOf($scope.commentCampaigns, newCommentCampaign._id, '_id');
+      if(index===-1){
+        $scope.commentCampaigns.unshift(newCommentCampaign);
+      }else{
+        $scope.commentCampaigns[index].unread++;
+        $scope.commentCampaigns[index].latestComment = newCommentCampaign.latestComment;
+      }
     });
     Socket.on('newUnjoinedCommentCampaign', function (data) {
       $scope.newUnjoined = true;
     });
   }])
+  .controller('UnjoinedDiscussController', ['$scope', 'Comment', 'Socket', 'Tools', function ($scope, Comment, Socket, Tools) { //标为全部已读???
+    Socket.emit('enterRoom', localStorage.id);
+    //进来以后先http请求,再监视推送
+    Comment.getList('unjoined').success(function (data) {
+      $scope.commentCampaigns = data.commentCampaigns;
+    });
+    Socket.on('newUnjoinedCommentCampaign', function (data) {
+      var newCommentCampaign = data;
+      var index = Tools.arrayObjectIndexOf($scope.commentCampaigns, newCommentCampaign._id, '_id');
+    });
+  }])
   .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket) {
+    $scope.campaignTitle =  $stateParams.campaignName;
     Socket.emit('enterRoom', $stateParams.campaignId);
     //无论进入离开，都需归零user的对应campaign的unread数目
     //获取时清空好了
@@ -162,9 +196,7 @@ angular.module('donlerApp.controllers', [])
     
     //获取新留言
     Socket.on('newCampaignComment', function (data) {
-      console.log('???');
       $scope.comments.push(data);
-      //滚到最下?
       $ionicScrollDelegate.scrollBottom();
     });
     /* 是否需要显示时间()
