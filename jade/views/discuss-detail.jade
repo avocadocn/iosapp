@@ -5,27 +5,30 @@ ion-view
     button.button.icon.ion-ionic
 
   ion-content
-    div
+    .notice
       h4 活动公告
       p 赵本山：大家都要什么口味的？在讨论里留言哦~~~~~~~~
-    div
-      label 12月01日 12:21
-      .comment
-        .content
-          img(src="http://placehold.it/200x150")
-        .author
-          .logo(src="http://placehold.it/90x90")
-          .name 我
-      label 12月01日 13:01
-      .comment
-        .content
-          p 哈哈哈哈！
-        .author
-          .logo(src="http://placehold.it/90x90")
-          .name 我
-      .comment
-        .content
-          p 我们队快赢了吧！
-        .author
-          .logo(src="http://placehold.it/90x90")
-          .name 老张
+      //- 公告todo
+    .comments
+      //- balloon?
+      //- .balloon(ng-if="newComment")
+      .block(ng-repeat="comment in comments track by $index " ng-init="showTime=needShowTime($index)" ng-cloack)
+        //- span {{$index}}
+        .time(ng-if="showTime")
+          p(ng-if="showTime===1") {{comment.create_date | date: 'yyyy'}}
+          p {{comment.create_date | date: 'M月dd日 HH:mm'}}
+        .comment(ng-repeat="photo in comment.photos")
+          .content
+            img.img(ng-src="{{STATIC_URL +photo.url+ '/190/190'}}")
+          .author
+            .logo
+              img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
+            .name {{comment.poster.nickname}}
+        .comment
+          .content
+            p {{comment.content}}
+          .author
+            .logo
+              img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
+            .name {{comment.poster.nickname}}
+

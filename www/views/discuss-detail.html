@@ -5,36 +5,31 @@
     <button class="button icon ion-ionic"></button>
   </ion-header-bar>
   <ion-content>
-    <div>
+    <div class="notice">
       <h4>活动公告</h4>
       <p>赵本山：大家都要什么口味的？在讨论里留言哦~~~~~~~~</p>
     </div>
-    <div>
-      <label>12月01日 12:21</label>
-      <div class="comment">
-        <div class="content"><img src="http://placehold.it/200x150"/></div>
-        <div class="author">
-          <div src="http://placehold.it/90x90" class="logo"></div>
-          <div class="name">我</div>
+    <div class="comments">
+      <div ng-repeat="comment in comments track by $index " ng-init="showTime=needShowTime($index)" ng-cloack="ng-cloack" class="block">
+        <div ng-if="showTime" class="time">
+          <p ng-if="showTime===1">{{comment.create_date | date: 'yyyy'}}</p>
+          <p>{{comment.create_date | date: 'M月dd日 HH:mm'}}</p>
         </div>
-      </div>
-      <label>12月01日 13:01</label>
-      <div class="comment">
-        <div class="content">
-          <p>哈哈哈哈！</p>
+        <div ng-repeat="photo in comment.photos" class="comment">
+          <div class="content"><img ng-src="{{STATIC_URL +photo.url+ '/190/190'}}" class="img"/></div>
+          <div class="author">
+            <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+            <div class="name">{{comment.poster.nickname}}</div>
+          </div>
         </div>
-        <div class="author">
-          <div src="http://placehold.it/90x90" class="logo"></div>
-          <div class="name">我</div>
-        </div>
-      </div>
-      <div class="comment">
-        <div class="content">
-          <p>我们队快赢了吧！</p>
-        </div>
-        <div class="author">
-          <div src="http://placehold.it/90x90" class="logo"></div>
-          <div class="name">老张</div>
+        <div class="comment">
+          <div class="content">
+            <p>{{comment.content}}</p>
+          </div>
+          <div class="author">
+            <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+            <div class="name">{{comment.poster.nickname}}</div>
+          </div>
         </div>
       </div>
     </div>

@@ -122,3 +122,19 @@ body {
 .ion_personal.active {
   background-position: 8px -35px;
 }
+.comments .time {
+  text-align: center;
+  width: 100%;
+  float: left;
+}
+.comments .comment {
+  width: 100%;
+}
+.comments .comment .content {
+  float: left;
+  width: 80%;
+}
+.comments .comment .author {
+  float: right;
+  width: 20%;
+}

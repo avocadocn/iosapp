@@ -128,10 +128,9 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
           templateUrl: 'views/discuss-list.html'
         }
       }
-      
     })
     .state('discuss_detail', {
-      url: '/discuss/detail/:id',
+      url: '/discuss/detail/:campaignId',
       controller: 'DiscussDetailController',
       templateUrl: 'views/discuss-detail.html'
     })
@@ -144,7 +143,6 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
           templateUrl: 'views/discover.html'
         }
       }
-      
     })
     .state('discover_circle', {
       url: '/discover/circle',
