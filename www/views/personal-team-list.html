@@ -1,0 +1,11 @@
+
+<ion-view>
+  <ion-header-bar><a href="#/app/personal" class="button icon ion-chevron-left">&nbsp;我的</a>
+    <h1 class="title">我的小队</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list"><a ng-repeat="team in teams" href="#/team" class="item item-thumbnail-left"><img ng-src="{{STATIC_URL + team.logo}}/85/85"/>
+        <h2>{{team.name}}</h2>
+        <p>队员：{{team.memberCount}} 活动：100</p></a></div>
+  </ion-content>
+</ion-view>

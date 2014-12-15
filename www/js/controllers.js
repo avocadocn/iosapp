@@ -209,10 +209,6 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', function ($scope, Team) {
-    $scope.backLink = '#/app/personal';
-    $scope.backLinkText = '我的';
-    $scope.title = '我的小队';
-
     Team.getList('user', localStorage.id, function (err, teams) {
       if (err) {
         // todo

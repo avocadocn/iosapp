@@ -1,0 +1,14 @@
+ion-view
+
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/app/personal") &nbsp;我的
+    h1.title 我的小队
+  ion-content
+    .list
+      a.item.item-thumbnail-left(ng-repeat="team in teams" href="#/team")
+        img(ng-src="{{STATIC_URL + team.logo}}/85/85")
+        h2 {{team.name}}
+        //-todo 获取每个队最近的一个活动
+        //-p 2014-11-20 年末足球赛
+        //-活动数还是假数据
+        p 队员：{{team.memberCount}} 活动：100

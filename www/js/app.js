@@ -169,7 +169,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       views: {
         'tab-personal': {
           controller: 'PersonalTeamListController',
-          templateUrl: 'views/team-list.html'
+          templateUrl: 'views/personal-team-list.html'
         }
       }
     })
