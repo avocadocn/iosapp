@@ -1,11 +1,11 @@
-extends ./tab-layout
+ion-view
 
-block header
-  a.button.icon.ion-calendar(href="#/calendar")
-  h1.title 讨论列表
-  button.button.icon.ion-plus
+  ion-header-bar
+    a.button.icon.ion-calendar(href="#/calendar")
+    h1.title 讨论列表
+    button.button.icon.ion-plus
 
-block content
+
   ion-content
     ul.list
       a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns" ng-href="#/discuss/detail/{{commentCampaign._id}}" ng-cloak)

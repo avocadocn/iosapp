@@ -10,6 +10,9 @@ angular.module('donlerApp.controllers', [])
           });
       }
   })
+  .controller('AppContoller', ['$scope', function ($scope) {
+
+  }])
   .controller('UserLoginController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
 
     $scope.loginData = {

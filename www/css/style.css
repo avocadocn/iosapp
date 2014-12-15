@@ -98,27 +98,27 @@ body {
 .ion_campaign.active {
   background-position: 8px -35px;
 }
-.ion_chat {
+.ion_discuss {
   background-image: url("/img/icon.png");
   background-size: 160px;
   background-position: -33px 5px;
 }
-.ion_chat.active {
+.ion_discuss.active {
   background-position: 8px -35px;
 }
-.ion_find {
+.ion_discover {
   background-image: url("/img/icon.png");
   background-size: 160px;
   background-position: -73px 5px;
 }
-.ion_find.active {
+.ion_discover.active {
   background-position: 8px -35px;
 }
-.ion_mine {
+.ion_personal {
   background-image: url("/img/icon.png");
   background-size: 160px;
   background-position: -113px 5px;
 }
-.ion_mine.active {
+.ion_personal.active {
   background-position: 8px -35px;
 }

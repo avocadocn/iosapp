@@ -1,23 +1,13 @@
-ion-view
+ion-tabs.tabs-icon-top(ng-controller="TabController")
 
-  ion-header-bar
-    block header
-    
-
-  block content
-
-  ion-footer-bar
-    .tabs.tabs-icon-top(ng-controller="TabController")
-      a.tab-item(href="#/campaigns")
-        i.icon.ion_campaign.active
-        | 活动
-      a.tab-item(href="#/discuss/list" ng-click="readComments()")
-        .red_spot(ng-show="hasNewComment")
-        i.icon.ion_chat
-        | 讨论
-      a.tab-item(href="#/discover")
-        i.icon.ion_find
-        | 发现
-      a.tab-item(href="#/personal")
-        i.icon.ion_mine
-        | 我的
+  ion-tab(title="活动" icon-on="ion_campaign" icon-off="ion_campaign" href="#/app/campaigns")
+    <!-- Tab 1 content -->
+    ion-nav-view(name="tab-campaign")
+  ion-tab(title="讨论" icon-on="ion_discuss" icon-off="ion_discuss"  href="#/app/discuss/list")
+    <!-- Tab 2 content -->
+    ion-nav-view(name="tab-discuss-list")
+  ion-tab(title="发现" icon-on="ion_discover" icon-off="ion_discover"  href="#/app/discover")
+    <!-- Tab 3 content -->
+    ion-nav-view(name="tab-discover")
+  ion-tab(title="我的" icon-on="ion_personal" icon-off="ion_personal"  href="#/app/personal")
+    ion-nav-view(name="tab-personal")

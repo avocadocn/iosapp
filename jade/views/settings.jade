@@ -1,8 +1,7 @@
-extends ./tab-layout
-block header
-  a.button.icon.ion-chevron-left(href="#/personal") &nbsp;我的
-  h1.title 设置
-block content
+ion-view
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/app/personal") &nbsp;我的
+    h1.title 设置
   ion-content
     .card.list
       a.item.item-icon-right(href="#/personal/settings/account")
