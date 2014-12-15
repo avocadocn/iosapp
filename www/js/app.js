@@ -93,12 +93,15 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       controller: 'userRegPrivacyController',
       templateUrl: 'views/privacy.html'
     })
-    .state('privacy', {
-      url: '/personal/settings/about/privacy',
-      controller: 'privacyController',
-      templateUrl: 'views/privacy.html'
+    .state('app.privacy', {
+      url: '/settings/about/privacy',
+      views: {
+        'tab-campaign': {
+          controller: 'privacyController',
+          templateUrl: 'views/privacy.html'
+        }
+      }
     })
-
     .state('app', {
       url: '/app',
       abstract: true,
@@ -160,7 +163,6 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
           templateUrl: 'views/personal.html'
         }
       }
-      
     })
     .state('personal_teams', {
       url: '/personal/teams',
@@ -174,22 +176,38 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       url: '/personal/messages',
       templateUrl: 'views/messages.html'
     })
-    .state('settings', {
-      url: '/personal/settings',
-      controller: 'SettingsController',
-      templateUrl: 'views/settings.html'
+    .state('app.settings', {
+      url: '/settings',
+      views: {
+        'tab-personal': {
+          controller: 'SettingsController',
+          templateUrl: 'views/settings.html'
+        }
+      }
     })
-    .state('settings_account', {
-      url: '/personal/settings/account',
-      templateUrl: 'views/settings-account.html'
+    .state('app.settings_account', {
+      url: '/settings/account',
+      views: {
+        'tab-personal': {
+          templateUrl: 'views/settings-account.html'
+        }
+      }
     })
-    .state('settings_feedback', {
-      url: '/personal/settings/feedback',
-      templateUrl: 'views/settings-feedback.html'
+    .state('app.settings_feedback', {
+      url: '/settings/feedback',
+      views: {
+        'tab-personal': {
+          templateUrl: 'views/settings-feedback.html'
+        }
+      }
     })
-    .state('settings_about', {
-      url: '/personal/settings/about',
-      templateUrl: 'views/settings-about.html'
+    .state('app.settings_about', {
+      url: '/settings/about',
+      views: {
+        'tab-personal': {
+          templateUrl: 'views/settings-about.html'
+        }
+      }
     })
     .state('calendar', {
       url: '/calendar',
