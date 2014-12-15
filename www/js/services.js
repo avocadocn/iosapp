@@ -220,3 +220,28 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
+  .factory('Team', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+
+      /**
+       * 获取小队列表
+       * @param {String} hostType 小队所属，只可以是'company','user'
+       * @param {String} hostId 所属者id
+       * @param {Function} callback 形式为function(err, teams)
+       */
+      getList: function (hostType, hostId, callback) {
+        $http.get(CONFIG.BASE_URL + '/teams?hostType=' + hostType + '&hostId=' + hostId)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          })
+      }
+
+    };
+  }])

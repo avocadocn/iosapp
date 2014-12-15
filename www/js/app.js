@@ -164,9 +164,14 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         }
       }
     })
-    .state('personal_teams', {
-      url: '/personal/teams',
-      templateUrl: 'views/team-list.html'
+    .state('app.personal_teams', {
+      url: '/personal_teams',
+      views: {
+        'tab-personal': {
+          controller: 'PersonalTeamListController',
+          templateUrl: 'views/team-list.html'
+        }
+      }
     })
     .state('personal_timeline', {
       url: '/personal/timeline',

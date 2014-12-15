@@ -27,7 +27,7 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-          $state.go('campaigns');
+          $state.go('app.campaigns');
         }
       });
     };
@@ -193,6 +193,21 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('PersonalController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
+
+  }])
+  .controller('PersonalTeamListController', ['$scope', 'Team', function ($scope, Team) {
+    $scope.backLink = '#/app/personal';
+    $scope.backLinkText = '我的';
+    $scope.title = '我的小队';
+
+    Team.getList('user', localStorage.id, function (err, teams) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.teams = teams;
+      }
+    });
 
   }])
   .controller('SettingsController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
