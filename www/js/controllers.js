@@ -3,10 +3,11 @@
  */
 
 angular.module('donlerApp.controllers', [])
-  .directive('eatClick', function() {
+  .directive('preventDefault', function() {
       return function(scope, element, attrs) {
-          $(element).click(function(event) {
+          angular.element(element).bind('click', function(event) {
               event.preventDefault();
+              event.stopPropagation();
           });
       }
   })

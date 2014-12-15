@@ -1,17 +1,17 @@
 
 <ion-view>
-  <ion-header-bar><a href="#/campaigns" class="button button-clear">返回</a>
+  <ion-header-bar><a href="#/app/campaigns" class="button button-clear">返回</a>
     <h1 class="title">{{campaign.theme}}</h1><a class="button icon button-clear ion-chatbox"></a>
   </ion-header-bar>
   <ion-content>
-    <div class="card">
+    <div class="card dl_card">
       <div class="item item-divider">
         <div ng-if="campaign.campaign_unit.length==1" class="item item-avatar"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
           <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</h2><span class="campaign_mold">{{campaign.campaign_mold}}</span>
         </div>
         <div ng-if="campaign.campaign_unit.length==2" class="item item-avatar"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
       </div>
-      <div class="item item-text-wrap">
+      <div class="item item-text-wrap dl_card_body">
         <h1 class="dl_cp_name">{{campaign.theme}}</h1>
         <p>活动地点：{{campaign.location.name}}</p>
         <p>开始：{{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}} 结束： {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}</p>
@@ -20,14 +20,13 @@
           <button ng-if="campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-block dl_cp_quit">已经加入</button>
         </div>
         <ion-scroll direction="x">
-          <div class="dl_photo_alb"><img src="http://placehold.it/40x40" class="dl_cp_photo"/>
-          </div>
+          <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
         </ion-scroll>
       </div>
       <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a href="#" class="tab-item dl_team_name"><i class="icon ion-image"></i>上传图片</a><a href="#" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>活动成员({{campaign.member.length || '0'}})</a><a href="#" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}条讨论</a></div>
     </div>
     <div class="card">
-      <div class="item item-text-wrap"><span>即将开始</span><span>距离比赛开始还有：</span><span>01 天</span></div>
+      <div class="item item-text-wrap"><span>即将开始</span><span>{{campaign.remind_text}}：</span><span>{{campaign.time_text}}</span></div>
     </div>
     <div class="card">
       <div class="item item-divider"><span>活动公告</span><span>1</span></div><a class="item item-avatar"><img src="http://placehold.it/40x40"/>
@@ -35,13 +34,13 @@
         <p>Back off, man. I'm a scientist.</p></a>
     </div>
     <div class="card">
-      <div class="item item-text-wrap"><img src="http://placehold.it/40x40"/><img src="http://placehold.it/40x40"/><img src="http://placehold.it/40x40"/><a href="#/members"><span>40</span><i class="icon ion-chevron-right"></i></a></div>
+      <div class="item item-text-wrap">
+        <div ng-repeat="unit in campaign.campaign_unit"><img ng-repeat="member in unit.member" ng-src="{{STATIC_URL +member.photo+'/40/40'}}"/></div><a href="#/members"><span>{{campaign.members_count}}</span><i class="icon ion-chevron-right"></i></a>
+      </div>
     </div>
     <div class="card">
       <div class="item item-divider">活动简介</div>
-      <div class="item item-avatar">
-        <p>Back off, man. I'm a scientist.</p>
-      </div>
+      <div class="item item-avatar">{{campaign.content}}</div>
     </div>
   </ion-content>
 </ion-view>

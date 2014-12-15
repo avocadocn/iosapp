@@ -91,7 +91,7 @@ angular.module('donlerApp.services', [])
         });
       },
       get: function (id, callback) {
-        $http.get(CONFIG.BASE_URL + '/campaigns/' + id)
+        $http.get(CONFIG.BASE_URL + '/campaigns/' + id+'?populate=photo_album')
         .success(function (data, status) {
           callback(null,data);
         })

@@ -1,11 +1,11 @@
 ion-view
 
   ion-header-bar
-    a.button.button-clear(href="#/campaigns") 返回
+    a.button.button-clear(href="#/app/campaigns") 返回
     h1.title {{campaign.theme}}
     a.button.icon.button-clear.ion-chatbox
   ion-content
-    .card
+    .card.dl_card
       .item.item-divider
         .item.item-avatar(ng-if="campaign.campaign_unit.length==1")
           img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
@@ -15,7 +15,7 @@ ion-view
           img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
           span.dl_team_vs vs
           img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
-      .item.item-text-wrap
+      .item.item-text-wrap.dl_card_body
         h1.dl_cp_name {{campaign.theme}}
         p 活动地点：{{campaign.location.name}}
         p 开始：{{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}} 结束： {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}
@@ -24,8 +24,7 @@ ion-view
           button.button.button-block.dl_cp_quit(ng-if="campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
         ion-scroll(direction="x")
           .dl_photo_alb
-            //- img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
-            img.dl_cp_photo(src="http://placehold.it/40x40")
+            img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
       .item.tabs.tabs-secondary.tabs-icon-left.dl_card_footer
         a.tab-item.dl_team_name(href="#")
           i.icon.ion-image
@@ -39,8 +38,8 @@ ion-view
     .card
       .item.item-text-wrap
         span 即将开始
-        span 距离比赛开始还有：
-        span 01 天
+        span {{campaign.remind_text}}：
+        span {{campaign.time_text}}
     .card
       .item.item-divider
         span 活动公告
@@ -51,14 +50,13 @@ ion-view
         p Back off, man. I'm a scientist.
     .card
       .item.item-text-wrap
-        img(src="http://placehold.it/40x40")
-        img(src="http://placehold.it/40x40")
-        img(src="http://placehold.it/40x40")
+        div(ng-repeat="unit in campaign.campaign_unit")
+          img(ng-repeat="member in unit.member" ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
         a(href="#/members")
-          span 40
+          span {{campaign.members_count}}
           i.icon.ion-chevron-right
     .card
       .item.item-divider
         | 活动简介
       .item.item-avatar
-        p Back off, man. I'm a scientist.
+        {{campaign.content}}
