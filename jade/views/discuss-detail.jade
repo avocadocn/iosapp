@@ -9,7 +9,7 @@ ion-view
     .notice(ng-show="!hideNotice&&notification")
       h4 活动公告
       button(ng-click="hideNotice=true") x
-      p {{notification}}
+      p {{noticeSender}}:{{notification}}
     .comments
       //- balloon?
       //- .balloon(ng-if="newComment")

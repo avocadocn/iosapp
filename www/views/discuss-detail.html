@@ -9,7 +9,7 @@
     <div ng-show="!hideNotice&amp;&amp;notification" class="notice">
       <h4>活动公告</h4>
       <button ng-click="hideNotice=true">x</button>
-      <p>{{notification}}</p>
+      <p>{{noticeSender}}:{{notification}}</p>
     </div>
     <div class="comments">
       <div ng-repeat="historyComments in historyCommentList track by $index" id="comment{{$index}}" class="blocks">

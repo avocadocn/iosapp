@@ -209,7 +209,10 @@ angular.module('donlerApp.controllers', [])
       if(err){
         console.log(err)
       }else{
-        $scope.notification = data[0].content;
+        if(data){
+          $scope.noticeSender = data[0].sender[0].nickname;
+          $scope.notification = data[0].content;
+        }
       }
     })
     
