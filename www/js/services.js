@@ -364,6 +364,44 @@ angular.module('donlerApp.services', [])
               callback('error');
             }
           });
+      },
+
+      /**
+       * 获取某个相册的id
+       * @param {String} photoAlbumId 相册id
+       * @param {Function} callback 形式为function(err, photoAlbum)
+       */
+      getData: function (photoAlbumId, callback) {
+        $http.get(CONFIG.BASE_URL + '/photo_albums/' + photoAlbumId)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
+      },
+
+      /**
+       * 获取某个相册的所有包子
+       * @param {String} photoAlbumId 相册id
+       * @param {Function} callback 形式为function(err, photos)
+       */
+      getPhotos: function (photoAlbumId, callback) {
+        $http.get(CONFIG.BASE_URL + '/photo_albums/' + photoAlbumId + '/photos')
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
       }
 
     };

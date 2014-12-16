@@ -250,6 +250,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
     })
     .state('photo_album_detail', {
       url: '/photo_album/:photoAlbumId/detail',
+      controller: 'PhotoAlbumDetailController',
       templateUrl: 'views/photo-album-detail.html'
     })
     .state('photo_detail', {

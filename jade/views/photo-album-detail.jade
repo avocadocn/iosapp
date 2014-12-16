@@ -1,31 +1,9 @@
 ion-view
   ion-header-bar
-    a.button.icon.ion-chevron-left(href="#/photo_album/list") &nbsp;返回
-    h1.title 一起吃马卡龙
+    a.button.icon.ion-chevron-left(ng-href="{{backLink}}") &nbsp;返回
+    h1.title {{photoAlbum.name}}
 
   ion-content
-    .card
-      p 今天
-      a(href="#/photo_album/photo")
-        img(src="http://placehold.it/60x60")
-    .card
-      p 昨天
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-    .card
-      p 前天
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-    .card
-      p 2014年11月18日
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
+    .card(ng-repeat="group in photoGroups")
+      p {{group.date | date:'yyyy年MM月dd日'}}
+      img(ng-repeat="photo in group.photos" ng-src="{{STATIC_URL + photo.uri}}/60/60")

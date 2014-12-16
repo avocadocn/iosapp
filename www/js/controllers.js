@@ -390,15 +390,76 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', function ($scope, $stateParams, PhotoAlbum) {
-    $scope.teamId = $stateParams.teamId;
-    PhotoAlbum.getList($stateParams.teamId, function (err, photoAlbums) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.photoAlbums = photoAlbums;
-      }
-    });
+  .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', '$rootScope',
+    function ($scope, $stateParams, PhotoAlbum, $rootScope) {
+      $scope.teamId = $stateParams.teamId;
+      $rootScope.backLink = '#/photo_album/list/team/' + $stateParams.teamId;
+      PhotoAlbum.getList($stateParams.teamId, function (err, photoAlbums) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.photoAlbums = photoAlbums;
+        }
+      });
 
-  }]);
+    }])
+  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', 'PhotoAlbum',
+    function ($scope, $stateParams, PhotoAlbum) {
+      PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.photoAlbum = photoAlbum;
+        }
+      });
+
+      PhotoAlbum.getPhotos($stateParams.photoAlbumId, function (err, photos) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.photoGroups = groupByDate(photos);
+        }
+      });
+
+      /**
+       * 判断两个日期是否是同一天
+       * @param {Date|String} d1
+       * @param {Date|String} d2
+       */
+      var isTheSameDay = function (d1, d2) {
+        if (typeof d1 === 'string') {
+          d1 = new Date(d1);
+        }
+        if (typeof d2 === 'string') {
+          d2 = new Date(d2);
+        }
+        return d1.getFullYear() === d2.getFullYear()
+          && d1.getMonth() === d2.getMonth()
+          && d1.getDate() === d2.getDate();
+
+      };
+
+      /**
+       * 将照片按日期分组，要求照片是按上传日期排序，上传日期距离现在越近，排在最前面
+       * @param {Array} photos 照片数组
+       */
+      var groupByDate = function (photos) {
+        var resData = [];
+        photos.forEach(function (photo) {
+          var lastGroup = resData[resData.length - 1];
+          if (lastGroup && isTheSameDay(lastGroup.date, photo.upload_date)) {
+            lastGroup.photos.push(photo);
+          } else {
+            resData.push({
+              date: new Date(photo.upload_date),
+              photos: [photo]
+            });
+          }
+        });
+        return resData;
+      };
+
+    }]);

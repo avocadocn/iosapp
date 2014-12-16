@@ -8,7 +8,7 @@
       <p>全家福(1)</p><a href="#/photo_album/detail"><img src="http://placehold.it/60x60"/></a>
     </div>
     <div ng-repeat="photoAlbum in photoAlbums" class="card">
-      <p>{{photoAlbum.name}}({{photoAlbum.photoCount}})</p><img ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60"/>
+      <p><a ng-href="#/photo_album/{{photoAlbum._id}}/detail">{{photoAlbum.name}}({{photoAlbum.photoCount}})</a></p><img ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60"/>
     </div>
   </ion-content>
 </ion-view>
