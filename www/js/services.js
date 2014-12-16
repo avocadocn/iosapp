@@ -252,7 +252,36 @@ angular.module('donlerApp.services', [])
        * @param {Function} callback 形式为function(err, teams)
        */
       getList: function (hostType, hostId, callback) {
-        $http.get(CONFIG.BASE_URL + '/teams?hostType=' + hostType + '&hostId=' + hostId)
+        var requestUrl = CONFIG.BASE_URL + '/teams?hostType=' + hostType;
+        if(hostId){
+          requestUrl += '&hostId=' + hostId;
+        }
+        $http.get(requestUrl)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          })
+      }
+
+    };
+  }])
+  .factory('Message', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+
+      /**
+       * 获取活动的公告列表
+       * @param {String} hostId campaignd
+       * @param {Function} callback 形式为function(err, teams)
+       */
+      getCampaignMessages: function (hostId, callback) {
+        var requestUrl = CONFIG.BASE_URL + '/messages?requestType=campaign&requestId=' + hostId;
+        $http.get(requestUrl)
           .success(function (data, status, headers, config) {
             callback(null, data);
           })
@@ -284,5 +313,41 @@ angular.module('donlerApp.services', [])
           });
       }
 
+    };
+  }])
+  .factory('TimeLine', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+
+      /**
+       * 获取活动的公告列表
+       * @param {String} hostId campaignd
+       * @param {Function} callback 形式为function(err, teams)
+       */
+      getTimelineRecord: function (hostType, hostId, callback) {
+        $http.get( CONFIG.BASE_URL + '/timeline/record/' + hostType +'/'+hostId )
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          })
+      },
+      getTimelineData: function (hostType, hostId, callback) {
+        $http.get( CONFIG.BASE_URL + '/timeline/record/' + hostType + '/'+ hostId)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          })
+      }
     };
   }])

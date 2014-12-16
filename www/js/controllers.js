@@ -103,7 +103,7 @@ angular.module('donlerApp.controllers', [])
       return false;
     }
   }])
-  .controller('CampaignDetailController', ['$scope', '$state', 'Campaign', function ($scope, $state, Campaign) {
+  .controller('CampaignDetailController', ['$scope', '$state', 'Campaign', 'Message', function ($scope, $state, Campaign, Message) {
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         $scope.campaign = data;
@@ -111,6 +111,11 @@ angular.module('donlerApp.controllers', [])
         data.campaign_unit.forEach(function(campaign_unit){
           $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
         });
+      }
+    });
+    Message.getCampaignMessages($state.params.id, function(err, data){
+      if(!err){
+        $scope.notices = data;
       }
     });
     $scope.join = function(id){
@@ -225,8 +230,35 @@ angular.module('donlerApp.controllers', [])
       }
     };
   }])
-  .controller('DiscoverController', ['$scope', function ($scope) {
-
+  .controller('DiscoverController', ['$scope', 'Team', function ($scope, Team) {
+    Team.getList('company', null, function (err, teams) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.teams = teams;
+      }
+    });
+  }])
+  .controller('DiscoverCircleController', ['$scope', 'TimeLine', function ($scope, TimeLine) {
+    TimeLine.getTimelineRecord('company', '0', function (err, timelines) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.timelinesRecord = timelines;
+      }
+    });
+    $scope.loadData = function(){
+      TimeLine.getTimelineData('company', '0', function (err, timelines) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.timelinesRecord = timelines;
+        }
+      });
+    }
   }])
   .controller('PersonalController', ['$scope', '$state', 'User', function ($scope, $state, User) {
 

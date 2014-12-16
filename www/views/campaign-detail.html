@@ -33,10 +33,10 @@
     <div class="card">
       <div class="item item-text-wrap"><span>即将开始</span><span>{{campaign.remind_text}}：</span><span>{{campaign.time_text}}</span></div>
     </div>
-    <div class="card">
-      <div class="item item-divider"><span>活动公告</span><span>1</span></div><a class="item item-avatar"><img src="http://placehold.it/40x40"/>
-        <h2>Venkman</h2>
-        <p>Back off, man. I'm a scientist.</p></a>
+    <div ng-if="notices.length&gt;0" class="card">
+      <div class="item item-divider"><span>活动公告</span><span>{{notices.length}}</span></div><a class="item item-avatar"><img ng-src="{{STATIC_URL +notices[0].sender[0].photo}}"/>
+        <h2>{{notices[0].content}}</h2>
+        <p>{{notices[0].post_date | date:"yyyy-MM-dd HH:mm" }}</p></a>
     </div>
     <div ng-if="campaign.members.length&gt;0" class="card">
       <div class="item item-button-right">

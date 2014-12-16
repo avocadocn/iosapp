@@ -41,14 +41,14 @@ ion-view
         span 即将开始
         span {{campaign.remind_text}}：
         span {{campaign.time_text}}
-    .card
+    .card(ng-if="notices.length>0")
       .item.item-divider
         span 活动公告
-        span 1
+        span {{notices.length}}
       a.item.item-avatar
-        img(src="http://placehold.it/40x40")
-        h2 Venkman
-        p Back off, man. I'm a scientist.
+        img(ng-src="{{STATIC_URL +notices[0].sender[0].photo}}")
+        h2 {{notices[0].content}}
+        p {{notices[0].post_date | date:"yyyy-MM-dd HH:mm" }}
     .card(ng-if="campaign.members.length>0")
       .item.item-button-right
         ion-scroll(direction="x")
