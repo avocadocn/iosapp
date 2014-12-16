@@ -1,33 +1,13 @@
 ion-view
   ion-header-bar
-    a.button.icon.ion-chevron-left(href="#/team") &nbsp;返回
-    h1.title 小队影集(101)
+    a.button.icon.ion-chevron-left(ng-href="#/team/{{teamId}}") &nbsp;返回
+    h1.title 小队影集({{photoAlbums.length}})
   ion-content
     .card
       p 全家福(1)
       a(href="#/photo_album/detail")
         img(src="http://placehold.it/60x60")
-    .card
-      p 下午一起吃马卡龙(16)
-        span 即将开始
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-    .card
-      p 活动名称
-        span 已结束
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-    .card
-      p 随机活动(3)
-        span 已结束
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
-      img(src="http://placehold.it/60x60")
+
+    .card(ng-repeat="photoAlbum in photoAlbums")
+      p {{photoAlbum.name}}({{photoAlbum.photoCount}})
+      img(ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60")

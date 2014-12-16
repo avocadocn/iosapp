@@ -286,3 +286,27 @@ angular.module('donlerApp.services', [])
 
     };
   }])
+  .factory('PhotoAlbum', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+
+      /**
+       * 获取某个小队的相册列表
+       * @param {String} tid 小队id
+       * @param {Function} callback 形式为function(err, photoAlbums)
+       */
+      getList: function (tid, callback) {
+        $http.get(CONFIG.BASE_URL + '/photo_albums?ownerType=team&ownerId=' + tid)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
+      }
+
+    };
+  }])

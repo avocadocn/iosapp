@@ -18,8 +18,7 @@
         <button ng-if="!team.hasJoined" class="button button-block button-positive btn_join">立即加入</button>
         <button ng-if="team.hasJoined" class="button button-block button-light btn_join">已经加入</button>
       </div>
-      <div class="item tabs">
-        <div class="tab-item btn_upload_photo">上传照片</div>
+      <div class="item tabs"><a ng-href="#/photo_album/list/team/{{team._id}}" class="tab-item btn_upload_photo">上传照片</a>
         <div class="tab-item btn_member">{{team.memberCount}}名队员</div>
         <div class="tab-item btn_cp">活动</div>
       </div>

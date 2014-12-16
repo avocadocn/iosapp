@@ -225,7 +225,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       templateUrl: 'views/calendar.html'
     })
     .state('team', {
-      url: '/team/:id',
+      url: '/team/:teamId',
       controller: 'TeamController',
       templateUrl: 'views/team-detail.html'
     })
@@ -234,15 +234,16 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       templateUrl: 'views/members.html'
     })
     .state('photo_album_list', {
-      url: '/photo_album/list',
+      url: '/photo_album/list/team/:teamId',
+      controller: 'PhotoAlbumListController',
       templateUrl: 'views/photo-album-list.html'
     })
     .state('photo_album_detail', {
-      url: '/photo_album/detail',
+      url: '/photo_album/:photoAlbumId/detail',
       templateUrl: 'views/photo-album-detail.html'
     })
     .state('photo_detail', {
-      url: '/photo_album/photo',
+      url: '/photo_album/:photoAlbumId/photo/:photoId',
       templateUrl: 'views/photo-detail.html'
     });
   });

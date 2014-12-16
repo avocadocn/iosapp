@@ -1,20 +1,14 @@
 
 <ion-view>
-  <ion-header-bar><a href="#/team" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">小队影集(101)</h1>
+  <ion-header-bar><a ng-href="#/team/{{teamId}}" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">小队影集({{photoAlbums.length}})</h1>
   </ion-header-bar>
   <ion-content>
     <div class="card">
       <p>全家福(1)</p><a href="#/photo_album/detail"><img src="http://placehold.it/60x60"/></a>
     </div>
-    <div class="card">
-      <p>下午一起吃马卡龙(16)<span>即将开始</span></p><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/>
-    </div>
-    <div class="card">
-      <p>活动名称<span>已结束</span></p><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/>
-    </div>
-    <div class="card">
-      <p>随机活动(3)<span>已结束</span></p><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/><img src="http://placehold.it/60x60"/>
+    <div ng-repeat="photoAlbum in photoAlbums" class="card">
+      <p>{{photoAlbum.name}}({{photoAlbum.photoCount}})</p><img ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60"/>
     </div>
   </ion-content>
 </ion-view>

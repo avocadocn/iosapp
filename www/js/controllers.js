@@ -295,7 +295,7 @@ angular.module('donlerApp.controllers', [])
     $scope.backHref = '#/register/user/post_detail';
   }])
   .controller('TeamController', ['$scope', '$stateParams', 'Team', function ($scope, $stateParams, Team) {
-    var teamId = $stateParams.id;
+    var teamId = $stateParams.teamId;
     Team.getData(teamId, function (err, team) {
       if (err) {
         // todo
@@ -309,5 +309,17 @@ angular.module('donlerApp.controllers', [])
     $scope.selectHomeCourt = function (index) {
       $scope.homeCourtIndex = index;
     };
+
+  }])
+  .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', function ($scope, $stateParams, PhotoAlbum) {
+    $scope.teamId = $stateParams.teamId;
+    PhotoAlbum.getList($stateParams.teamId, function (err, photoAlbums) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.photoAlbums = photoAlbums;
+      }
+    });
 
   }]);

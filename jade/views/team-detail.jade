@@ -18,7 +18,7 @@ ion-view
         button.button.button-block.button-positive.btn_join(ng-if="!team.hasJoined") 立即加入
         button.button.button-block.button-light.btn_join(ng-if="team.hasJoined") 已经加入
       .item.tabs
-        .tab-item.btn_upload_photo 上传照片
+        a.tab-item.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}") 上传照片
         .tab-item.btn_member {{team.memberCount}}名队员
         .tab-item.btn_cp 活动
     .card.team_home_court
