@@ -54,6 +54,9 @@ body {
 .dl_card .dl_card_header_provoke {
   padding-right: 72px;
 }
+.dl_card .dl_card_body {
+  padding: 0;
+}
 .dl_card .dl_card_body .dl_prvoke_info .dl_team_name {
   color: #6a73c6;
   margin: 0 5px;

@@ -3,8 +3,12 @@
  */
 angular.module('donlerApp.services', [])
   .constant('CONFIG', {
-    BASE_URL: 'http://localhost:3002',
-    SOCKET_URL: 'http://localhost:3005'
+    BASE_URL: 'http://192.168.2.107:3002',
+    SOCKET_URL: 'http://192.168.2.107:3005'
+  })
+  .value('INFO', {
+    campaignBackUrl:'#/app/campaigns',
+    teamBackUrl:'#/app/personal_teams'
   })
   .factory('UserAuth', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
@@ -279,15 +283,16 @@ angular.module('donlerApp.services', [])
       },
 
       /**
-       * 获取小队数据
-       * @param {String} teamId 小队id
-       * @param {Function} callback 形式为function(err, teams)
+       * 获取某个小队的数据
+       * @param {String} tid 小队id
+       * @param {Function} callback 形式为function(err, team)
        */
-      getData: function (teamId, callback) {
-        $http.get(CONFIG.BASE_URL + '/teams/' + teamId)
+      getData: function (tid, callback) {
+        $http.get(CONFIG.BASE_URL + '/teams/' + tid)
           .success(function (data, status, headers, config) {
             callback(null, data);
           })
+
           .error(function (data, status, headers, config) {
             if (status === 400) {
               callback(data.msg);
@@ -320,25 +325,6 @@ angular.module('donlerApp.services', [])
               callback('error');
             }
           })
-      },
-
-      /**
-       * 获取某个小队的数据
-       * @param {String} tid 小队id
-       * @param {Function} callback 形式为function(err, team)
-       */
-      getData: function (tid, callback) {
-        $http.get(CONFIG.BASE_URL + '/teams/' + tid)
-          .success(function (data, status, headers, config) {
-            callback(null, data);
-          })
-          .error(function (data, status, headers, config) {
-            if (status === 400) {
-              callback(data.msg);
-            } else {
-              callback('error');
-            }
-          });
       }
 
     };
@@ -410,9 +396,10 @@ angular.module('donlerApp.services', [])
     return {
 
       /**
-       * 获取活动的公告列表
-       * @param {String} hostId campaignd
-       * @param {Function} callback 形式为function(err, teams)
+       * 获取timeline的记录
+       * @param {String} hostType 数据主体类型，只可以是'company','team','user'
+       * @param {String} hostId 主体的id
+       * @param {Function} callback 形式为function(err, timelineRecord)
        */
       getTimelineRecord: function (hostType, hostId, callback) {
         $http.get( CONFIG.BASE_URL + '/timeline/record/' + hostType +'/'+hostId )
@@ -427,8 +414,17 @@ angular.module('donlerApp.services', [])
             }
           })
       },
-      getTimelineData: function (hostType, hostId, callback) {
-        $http.get( CONFIG.BASE_URL + '/timeline/record/' + hostType + '/'+ hostId)
+      /**
+       * 获取timeline的数据
+       * @param {String} hostType 数据主体类型，只可以是'company','team','user'
+       * @param {String} hostId 主体的id
+       * @param {String} year 获取数据的年份
+       * @param {String} month  获取数据的月份
+       * @param {Function} callback 形式为function(err, timelineData)
+       */
+      getTimelineData: function (hostType, hostId, year, month, callback) {
+        $http.get( CONFIG.BASE_URL + '/timeline/data/' + hostType + '/'+ hostId +'?year='
+          +year+'&month='+month)
           .success(function (data, status, headers, config) {
             callback(null, data);
           })

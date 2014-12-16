@@ -6,7 +6,7 @@ ion-view
     h1.title {{title}}
   ion-content
     .list
-      a.item.item-thumbnail-left(ng-repeat="team in teams" href="#/team")
+      a.item.item-thumbnail-left(ng-repeat="team in teams" ng-href="#/team/{{team._id}}")
         img(ng-src="{{STATIC_URL + team.logo}}/85/85")
         h2 {{team.name}}
         //-todo 获取每个队最近的一个活动

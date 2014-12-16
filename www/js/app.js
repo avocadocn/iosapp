@@ -15,7 +15,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
-      $rootScope.STATIC_URL ='http://localhost:3000';
+      $rootScope.STATIC_URL ='http://192.168.2.107:3000';
       $http.defaults.headers.common['x-app-id'] = '';
       $http.defaults.headers.common['x-api-key'] = '';
       $http.defaults.headers.common['x-device-id'] = '';

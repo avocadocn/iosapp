@@ -12,7 +12,6 @@ angular.module('donlerApp.controllers', [])
       }
   })
   .controller('AppContoller', ['$scope', function ($scope) {
-
   }])
   .controller('UserLoginController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
 
@@ -66,8 +65,9 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', 'Campaign', function ($scope, $state, $timeout, Campaign) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', 'Campaign', 'INFO', function ($scope, $state, $timeout, Campaign, INFO) {
     $scope.nowType = 'all';
+    INFO.campaignBackUrl = '#/app/campaigns';
     if(!localStorage.id){
       return $state.go('login');
     }
@@ -103,7 +103,8 @@ angular.module('donlerApp.controllers', [])
       return false;
     }
   }])
-  .controller('CampaignDetailController', ['$scope', '$state', 'Campaign', 'Message', function ($scope, $state, Campaign, Message) {
+  .controller('CampaignDetailController', ['$scope', '$state', 'Campaign', 'Message', 'INFO', function ($scope, $state, Campaign, Message, INFO) {
+    $scope.backUrl = INFO.campaignBackUrl;
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         $scope.campaign = data;
@@ -277,7 +278,8 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('DiscoverController', ['$scope', 'Team', function ($scope, Team) {
+  .controller('DiscoverController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
+    INFO.teamBackUrl = '#/app/discover/teams';
     Team.getList('company', null, function (err, teams) {
       if (err) {
         // todo
@@ -287,24 +289,46 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('DiscoverCircleController', ['$scope', 'TimeLine', function ($scope, TimeLine) {
+  .controller('DiscoverCircleController', ['$scope', 'TimeLine', 'INFO', function ($scope, TimeLine, INFO) {
+    INFO.campaignBackUrl = '#/app/discover/circle';
+    var yearIndex= 0,
+    monthIndex = -1;
+    $scope.loadFinished = false;
+    $scope.timelinesRecord =[];
+    var loadData = function(yearIndex, monthIndex){
+      TimeLine.getTimelineData('company', '0', $scope.timelinesRecord[yearIndex].year, $scope.timelinesRecord[yearIndex].month[monthIndex].month, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.timelinesRecord[yearIndex].month[monthIndex].campaign = timelineData.campaigns;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        }
+      });
+    }
     TimeLine.getTimelineRecord('company', '0', function (err, timelines) {
       if (err) {
         // todo
         console.log(err);
       } else {
         $scope.timelinesRecord = timelines;
+        $scope.loadMore();
       }
     });
-    $scope.loadData = function(){
-      TimeLine.getTimelineData('company', '0', function (err, timelines) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.timelinesRecord = timelines;
-        }
-      });
+
+    $scope.loadMore = function(){
+      if($scope.timelinesRecord.length<=yearIndex || $scope.timelinesRecord.length==yearIndex+1 && $scope.timelinesRecord[yearIndex].month.length==monthIndex+1){
+        $scope.loadFinished = true;
+        return;
+      }
+      else if($scope.timelinesRecord[yearIndex].month.length <= monthIndex + 1){
+        yearIndex++;
+        monthIndex = 0;
+      }
+      else {
+        monthIndex ++;
+      }
+      loadData(yearIndex, monthIndex);
     }
   }])
   .controller('PersonalController', ['$scope', '$state', 'User', function ($scope, $state, User) {
@@ -319,7 +343,8 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('PersonalTeamListController', ['$scope', 'Team', function ($scope, Team) {
+  .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
+    INFO.teamBackUrl = '#/app/personal_teams';
     Team.getList('user', localStorage.id, function (err, teams) {
       if (err) {
         // todo
@@ -373,8 +398,9 @@ angular.module('donlerApp.controllers', [])
   .controller('userRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/register/user/post_detail';
   }])
-  .controller('TeamController', ['$scope', '$stateParams', 'Team', function ($scope, $stateParams, Team) {
+  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'INFO', function ($scope, $stateParams, Team, INFO) {
     var teamId = $stateParams.teamId;
+    $scope.backUrl = INFO.teamBackUrl;
     Team.getData(teamId, function (err, team) {
       if (err) {
         // todo

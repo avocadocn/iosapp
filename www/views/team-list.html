@@ -4,7 +4,7 @@
     <h1 class="title">{{title}}</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="list"><a ng-repeat="team in teams" href="#/team" class="item item-thumbnail-left"><img ng-src="{{STATIC_URL + team.logo}}/85/85"/>
+    <div class="list"><a ng-repeat="team in teams" ng-href="#/team/{{team._id}}" class="item item-thumbnail-left"><img ng-src="{{STATIC_URL + team.logo}}/85/85"/>
         <h2>{{team.name}}</h2>
         <p>{{team.lastCampaign.theme}}</p>
         <p>队员：{{team.memberCount}} 活动：{{team.campaignCount}}</p>
