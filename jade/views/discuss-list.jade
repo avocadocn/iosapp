@@ -6,6 +6,7 @@ ion-view
     button.button.icon.ion-plus
 
   ion-content
+    ion-refresher(on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中...")
     ul.list
       a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index<unjoinedIndex" ng-href="#/discuss/detail/{{commentCampaign._id}}/{{commentCampaign.theme}}" ng-cloak)
         img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")

@@ -152,13 +152,23 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         }
       }
     })
-    .state('discover_circle', {
+    .state('app.discover_circle', {
       url: '/discover/circle',
-      templateUrl: 'views/colleague-circle.html'
+      views: {
+        'tab-discover': {
+          controller: 'DiscoverCircleController',
+          templateUrl: 'views/colleague-circle.html'
+        }
+      }
     })
-    .state('discover_teams', {
+    .state('app.discover_teams', {
       url: '/discover/teams',
-      templateUrl: 'views/team-list.html'
+      views: {
+        'tab-discover': {
+          controller: 'DiscoverController',
+          templateUrl: 'views/team-list.html'
+        }
+      }
     })
     .state('app.personal', {
       url: '/personal',

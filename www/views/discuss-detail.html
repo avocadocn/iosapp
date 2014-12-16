@@ -5,37 +5,64 @@
     <button class="button icon ion-ionic"></button>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div class="notice">
       <h4>活动公告</h4>
-      <p>赵本山：大家都要什么口味的？在讨论里留言哦~~~~~~~~</p>
+      <p>{{notification}}</p>
     </div>
     <div class="comments">
-      <div ng-repeat="comment in comments track by $index " ng-init="showTime=needShowTime($index)" ng-cloack="ng-cloack" class="block">
-        <div ng-if="showTime" class="time">
-          <p ng-if="showTime===1">{{comment.create_date | date: 'yyyy'}}</p>
-          <p>{{comment.create_date | date: 'M月dd日 HH:mm'}}</p>
-        </div>
-        <div ng-repeat="photo in comment.photos" class="comment">
-          <div class="content"><img ng-src="{{STATIC_URL +photo.uri+ '/190/190'}}" class="img"/></div>
-          <div class="author">
-            <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
-            <div class="name">{{comment.poster.nickname}}</div>
+      <div ng-repeat="historyComments in historyCommentList track by $index" id="comment{{$index}}" class="blocks">
+        <div ng-repeat="comment in historyComments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack="ng-cloack" class="block">
+          <div ng-if="showTime" class="time">
+            <p ng-if="showTime===1">{{comment.create_date | date: 'yyyy'}}</p>
+            <p>{{comment.create_date | date: 'M月dd日 HH:mm'}} </p>
+          </div>
+          <div ng-repeat="photo in comment.photos" class="comment">
+            <div class="content"><img ng-src="{{STATIC_URL +photo.uri+ '/190/190'}}" class="img"/></div>
+            <div class="author">
+              <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+              <div class="name">{{comment.poster.nickname}}</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="content">
+              <p>{{comment.content}}</p>
+            </div>
+            <div class="author">
+              <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+              <div class="name">{{comment.poster.nickname}}</div>
+            </div>
           </div>
         </div>
-        <div class="comment">
-          <div class="content">
-            <p>{{comment.content}}</p>
+      </div>
+      <div id="currentComment" class="blocks">
+        <div ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack="ng-cloack" class="block">
+          <div ng-if="showTime" class="time">
+            <p ng-if="showTime===1">{{comment.create_date | date: 'yyyy'}}</p>
+            <p>{{comment.create_date | date: 'M月dd日 HH:mm'}}</p>
           </div>
-          <div class="author">
-            <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
-            <div class="name">{{comment.poster.nickname}}</div>
+          <div ng-repeat="photo in comment.photos" class="comment">
+            <div class="content"><img ng-src="{{STATIC_URL +photo.uri+ '/190/190'}}" class="img"/></div>
+            <div class="author">
+              <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+              <div class="name">{{comment.poster.nickname}}</div>
+            </div>
+          </div>
+          <div class="comment">
+            <div class="content">
+              <p>{{comment.content}}</p>
+            </div>
+            <div class="author">
+              <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+              <div class="name">{{comment.poster.nickname}}</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </ion-content>
-  <ion-footer-bar><i>+ </i>
-    <input/>
-    <button>发表</button>
+  <ion-footer-bar><i>  +   </i>
+    <input ng-model="commentContent"/>
+    <button ng-click="publishComment()" ng-disabled="!commentContent">发表</button>
   </ion-footer-bar>
 </ion-view>

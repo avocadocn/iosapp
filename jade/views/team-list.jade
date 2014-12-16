@@ -2,7 +2,7 @@ ion-view
   //- todo 由于在设计上所有小队和我的小队不太一样，不好共用一个模板，因此使用两个模板，现在该模板只用于所有小队
     以下内容需要全部修改
   ion-header-bar
-    a.button.icon.ion-chevron-left(ng-href="{{backLink}}") &nbsp;{{backLinkText || '返回'}}
+    a.button.icon.ion-chevron-left(href="#/app/discover") &nbsp;返回
     h1.title {{title}}
   ion-content
     .list
@@ -10,9 +10,8 @@ ion-view
         img(ng-src="{{STATIC_URL + team.logo}}/85/85")
         h2 {{team.name}}
         //-todo 获取每个队最近的一个活动
-        //-p 2014-11-20 年末足球赛
+        p {{team.lastCampaign.theme}}
         //-活动数还是假数据
-        p 队员：{{team.memberCount}} 活动：100
-        //-todo 是否已加入该小队
-        button 已加入小队
-        //-button 立即加入
+        p 队员：{{team.memberCount}} 活动：{{team.campaignCount}}
+        button(ng-if="team.hasJoined") 已加入小队
+        button(ng-if="!team.hasJoined") 立即加入

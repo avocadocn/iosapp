@@ -5,6 +5,7 @@
     <button class="button icon ion-plus"></button>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <ul class="list"><a ng-repeat="commentCampaign in commentCampaigns track by $index" ng-href="#/discuss/detail/{{commentCampaign._id}}/{{commentCampaign.theme}}" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}"/>
         <div ng-if="commentCampaign.unread" class="red_spot"></div>
         <h2>{{commentCampaign.theme}}</h2>
