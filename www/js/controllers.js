@@ -302,7 +302,12 @@ angular.module('donlerApp.controllers', [])
         console.log(err);
       } else {
         $scope.team = team;
+        $scope.homeCourtIndex = 0;
       }
     });
+
+    $scope.selectHomeCourt = function (index) {
+      $scope.homeCourtIndex = index;
+    };
 
   }]);

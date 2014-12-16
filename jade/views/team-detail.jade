@@ -5,20 +5,34 @@ ion-view
   ion-content
     .team_header
       img.logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/45/45")
-      //-todo 以下的元素是正确的，因缺少样式导致太占位置，故先注释掉，等做样式的时候别忘了取消注释
-      //-img(ng-repeat="photo in team.familyPhotos" ng-src="{{STATIC_URL + photo.uri}}")
-    .team_info
-      .team_name {{team.name}}
-      .team_type {{team.groupType}}
-      .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
-      .team_des 小队简介: {{team.brief}}
-      button.btn_join 立即加入
-      .btn_upload_photo 上传照片
-      .btn_member {{team.memberCount}}名队员
-      .btn_cp 活动
+      //-todo 有bug，滑动有问题，原因未知，可能需要较多时间排查，先搁置
+      ion-slide-box
+        ion-slide(ng-repeat="photo in team.familyPhotos")
+          img.team_family(ng-src="{{STATIC_URL + photo.uri}}/300/160")
+    .list.card.team_info
+      .item.item-body
+        .team_name {{team.name}}
+        .team_type {{team.groupType}}
+        .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
+        .team_des 小队简介: {{team.brief}}
+        button.button.button-block.button-positive.btn_join(ng-if="!team.hasJoined") 立即加入
+        button.button.button-block.button-light.btn_join(ng-if="team.hasJoined") 已经加入
+      .item.tabs
+        .tab-item.btn_upload_photo 上传照片
+        .tab-item.btn_member {{team.memberCount}}名队员
+        .tab-item.btn_cp 活动
+    .card.team_home_court
+      .row
+        .col.tab(ng-click="selectHomeCourt(0)") 主场一
+        .col.tab(ng-click="selectHomeCourt(1)") 主场二
+      .map(ng-repeat="homeCourt in team.homeCourts" ng-if="homeCourtIndex==$index")
+        p(ng-cloak ng-if="homeCourt.name&&homeCourt.loc.coordinates.length!==2") {{homeCourt.name}}
+        a(ng-cloak ng-if="homeCourt.loc.coordinates.length===2" ng-href="http://mo.amap.com/?q={{homeCourt.loc.coordinates[1]}},{{homeCourt.loc.coordinates[0]}}&name={{homeCourt.name}}" target="_blank")
+          img.map_size(ng-src="http://restapi.amap.com/v3/staticmap?location={{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&zoom=15&size=420*230&markers=mid,,A:{{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&labels={{homeCourt.name}},2,0,12,0xffffff,0x3498db:{{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&key=077eff0a89079f77e2893d6735c2f044")
     .card
-      img(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
-      img(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
+      ion-scroll(direction="x" scrollbar-x="false")
+        img(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
+        img(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
       a
         span {{team.memberCount}}
         i.icon.ion-chevron-right
