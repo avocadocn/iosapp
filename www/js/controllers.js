@@ -193,7 +193,7 @@ angular.module('donlerApp.controllers', [])
       $scope.$broadcast('scroll.refreshComplete');
     }
   }])
-  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket) {
+  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message) {
     $scope.campaignTitle =  $stateParams.campaignName;
     Socket.emit('enterRoom', $stateParams.campaignId);
     //无论进入离开，都需归零user的对应campaign的unread数目
@@ -205,7 +205,13 @@ angular.module('donlerApp.controllers', [])
       $ionicScrollDelegate.scrollBottom();
     });
     //获取公告
-    //todo
+    Message.getCampaignMessages($stateParams.campaignId, function(err, data){
+      if(err){
+        console.log(err)
+      }else{
+        $scope.notification = data[0].content;
+      }
+    })
     
     //获取新留言
     Socket.on('newCampaignComment', function (data) {
