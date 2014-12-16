@@ -142,7 +142,6 @@ angular.module('donlerApp.controllers', [])
     //进来以后先http请求,再监视推送
     Comment.getList('joined').success(function (data) {
       $scope.commentCampaigns = data.commentCampaigns;
-      // $filter('orderBu')
       $scope.latestUnjoinedCampaign = data.latestUnjoinedCampaign;
       //判断下把未参加的放哪
       $scope.unjoinedIndex = 20;
@@ -174,6 +173,10 @@ angular.module('donlerApp.controllers', [])
     Socket.on('newUnjoinedCommentCampaign', function (data) {
       $scope.newUnjoined = true;
     });
+    //不作数据刷新，给用户玩玩的...
+    $scope.refresh = function() {
+      $scope.$broadcast('scroll.refreshComplete');
+    }
   }])
   .controller('UnjoinedDiscussController', ['$scope', 'Comment', 'Socket', 'Tools', function ($scope, Comment, Socket, Tools) { //标为全部已读???
     Socket.emit('enterRoom', localStorage.id);
@@ -185,15 +188,20 @@ angular.module('donlerApp.controllers', [])
       var newCommentCampaign = data;
       var index = Tools.arrayObjectIndexOf($scope.commentCampaigns, newCommentCampaign._id, '_id');
     });
+    //不作数据刷新，给用户玩玩的...
+    $scope.refresh = function() {
+      $scope.$broadcast('scroll.refreshComplete');
+    }
   }])
   .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket) {
     $scope.campaignTitle =  $stateParams.campaignName;
     Socket.emit('enterRoom', $stateParams.campaignId);
     //无论进入离开，都需归零user的对应campaign的unread数目
     //获取时清空好了
+    var nextStartDate ='';
     Comment.getComments($stateParams.campaignId, 20).success(function(data){
       $scope.comments = data.comments.reverse();//保证最新的在最下面
-      $scope.nextStartDate = data.nextStartDate;
+      nextStartDate = data.nextStartDate;
       $ionicScrollDelegate.scrollBottom();
     });
     //获取公告
@@ -201,7 +209,9 @@ angular.module('donlerApp.controllers', [])
     
     //获取新留言
     Socket.on('newCampaignComment', function (data) {
+      data.create_date = data.createDate;
       $scope.comments.push(data);
+      $scope.comments[$scope.comments.length-1].showTime = $scope.needShowTime($scope.comments.length-1);
       $ionicScrollDelegate.scrollBottom();
     });
     /* 是否需要显示时间()
@@ -227,7 +237,27 @@ angular.module('donlerApp.controllers', [])
         }else if(nowTime.getMinutes() != preTime.getMinutes()){
           return 2;
         }
-      }
+      };
+    };
+    $scope.historyCommentList=[];
+    //拉取历史讨论记录
+    $scope.readHistory = function() {
+      Comment.getComments($stateParams.campaignId, 20, nextStartDate).success(function(data){
+        $scope.historyCommentList.unshift(data.comments.reverse());
+        // $('#currentComment').scrollIntoView();//need jQuery
+        nextStartDate = data.nextStartDate;
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    };
+    //发表评论
+    $scope.publishComment = function(photo) {
+      Comment.publishComment($stateParams.campaignId, $scope.commentContent, photo, function(err){
+        if(err){
+          console.log(err);
+        }else{
+          $scope.commentContent = '';
+        }
+      });
     };
   }])
   .controller('DiscoverController', ['$scope', 'Team', function ($scope, Team) {

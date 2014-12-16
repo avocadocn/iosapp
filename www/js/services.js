@@ -202,6 +202,15 @@ angular.module('donlerApp.services', [])
           url+='&createDate=' + createDate;
         }
         return $http.get(url);
+      },
+      publishComment: function(campaignId, content, photo, callback) {
+        $http.post(CONFIG.BASE_URL +'/comments/host_type/campaign/host_id/'+campaignId,{content:content})
+        .success(function (data, status) {
+          callback();
+        }).error(function (data, status) {
+          // todo
+          callback('publish error');
+        });
       }
     }
   }])
