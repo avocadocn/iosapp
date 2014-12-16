@@ -214,9 +214,9 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-  .factory('Tools', [ function (myArray, searchTerm, property) {
+  .factory('Tools', [ function () {
     return{
-      arrayObjectIndexOf: function () {
+      arrayObjectIndexOf: function (myArray, searchTerm, property) {
         var _property = property.split('.');
         for(var i = 0, len = myArray.length; i < len; i++) {
           var item = myArray[i];

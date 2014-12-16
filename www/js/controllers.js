@@ -172,6 +172,8 @@ angular.module('donlerApp.controllers', [])
     });
     Socket.on('newUnjoinedCommentCampaign', function (data) {
       $scope.newUnjoined = true;
+      $scope.latestUnjoinedCampaign = data;
+      $scope.unjoinedIndex = 0;
     });
     //不作数据刷新，给用户玩玩的...
     $scope.refresh = function() {
@@ -187,6 +189,12 @@ angular.module('donlerApp.controllers', [])
     Socket.on('newUnjoinedCommentCampaign', function (data) {
       var newCommentCampaign = data;
       var index = Tools.arrayObjectIndexOf($scope.commentCampaigns, newCommentCampaign._id, '_id');
+      if(index===-1){
+        $scope.commentCampaigns.unshift(newCommentCampaign);
+      }else{
+        $scope.commentCampaigns[index].unread++;
+        $scope.commentCampaigns[index].latestComment = newCommentCampaign.latestComment;
+      }
     });
     //不作数据刷新，给用户玩玩的...
     $scope.refresh = function() {
@@ -209,7 +217,7 @@ angular.module('donlerApp.controllers', [])
       if(err){
         console.log(err)
       }else{
-        if(data){
+        if(data.length>0){
           $scope.noticeSender = data[0].sender[0].nickname;
           $scope.notification = data[0].content;
         }
