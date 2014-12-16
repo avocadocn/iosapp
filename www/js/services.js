@@ -275,7 +275,26 @@ angular.module('donlerApp.services', [])
             } else {
               callback('error');
             }
+          });
+      },
+
+      /**
+       * 获取小队数据
+       * @param {String} teamId 小队id
+       * @param {Function} callback 形式为function(err, teams)
+       */
+      getData: function (teamId, callback) {
+        $http.get(CONFIG.BASE_URL + '/teams/' + teamId)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
           })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
       }
 
     };
