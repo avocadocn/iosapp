@@ -293,4 +293,16 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('userRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/register/user/post_detail';
+  }])
+  .controller('TeamController', ['$scope', '$stateParams', 'Team', function ($scope, $stateParams, Team) {
+    var teamId = $stateParams.id;
+    Team.getData(teamId, function (err, team) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.team = team;
+      }
+    });
+
   }]);

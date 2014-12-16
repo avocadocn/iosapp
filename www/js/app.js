@@ -225,7 +225,8 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       templateUrl: 'views/calendar.html'
     })
     .state('team', {
-      url: '/team',
+      url: '/team/:id',
+      controller: 'TeamController',
       templateUrl: 'views/team-detail.html'
     })
     .state('members', {

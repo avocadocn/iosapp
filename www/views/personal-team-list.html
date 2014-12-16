@@ -4,8 +4,9 @@
     <h1 class="title">我的小队</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="list"><a ng-repeat="team in teams" href="#/team" class="item item-thumbnail-left"><img ng-src="{{STATIC_URL + team.logo}}/85/85"/>
-        <h2>{{team.name}}</h2>
-        <p>队员：{{team.memberCount}} 活动：100</p></a></div>
+    <div class="list"><a ng-repeat="team in teams" ng-href="#/team/{{team._id}}" class="item item-thumbnail-left dl_team_card"><img ng-src="{{STATIC_URL + team.logo}}/85/85" class="team_logo"/>
+        <h2 class="team_name">{{team.name}}</h2>
+        <p ng-if="team.lastCampaign" class="team_cp_title">2014-11-20 年末足球赛</p>
+        <p><span class="team_member">队员：{{team.memberCount}}</span><span ng-if="team.campaignCount" class="team_cp_number">活动：{{team.campaignCount}}</span></p></a></div>
   </ion-content>
 </ion-view>

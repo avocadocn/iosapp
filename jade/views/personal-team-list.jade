@@ -5,10 +5,10 @@ ion-view
     h1.title 我的小队
   ion-content
     .list
-      a.item.item-thumbnail-left(ng-repeat="team in teams" href="#/team")
-        img(ng-src="{{STATIC_URL + team.logo}}/85/85")
-        h2 {{team.name}}
-        //-todo 获取每个队最近的一个活动
-        //-p 2014-11-20 年末足球赛
-        //-活动数还是假数据
-        p 队员：{{team.memberCount}} 活动：100
+      a.item.item-thumbnail-left.dl_team_card(ng-repeat="team in teams" ng-href="#/team/{{team._id}}")
+        img.team_logo(ng-src="{{STATIC_URL + team.logo}}/85/85")
+        h2.team_name {{team.name}}
+        p.team_cp_title(ng-if="team.lastCampaign") 2014-11-20 年末足球赛
+        p
+         span.team_member 队员：{{team.memberCount}}
+         span.team_cp_number(ng-if="team.campaignCount") 活动：{{team.campaignCount}}

@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <div class="list card">
-      <div class="item item-avatar"><img ng-src="{{STATIC_URL + user.photo}}"/>
+      <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}"/>
         <h2>{{user.nickname}}</h2>
         <p>公司：{{user.company.name}}</p>
         <p ng-if="user.department" ng-cloak="ng-cloak">部门：{{user.department.name}}</p>

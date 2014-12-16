@@ -6,7 +6,7 @@ ion-view
   ion-content
     .list.card
       .item.item-avatar
-        img(ng-src="{{STATIC_URL + user.photo}}")
+        img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}")
         h2 {{user.nickname}}
         p 公司：{{user.company.name}}
         p(ng-if="user.department" ng-cloak) 部门：{{user.department.name}}

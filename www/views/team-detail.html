@@ -1,10 +1,22 @@
 
 <ion-view>
-  <ion-header-bar><a href="#/personal" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">吃香喝辣队</h1>
+  <ion-header-bar><a href="#/app/personal_teams" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">{{team.name}}</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="card"><img src="http://placehold.it/45x45"/><img src="http://placehold.it/45x45"/><img src="http://placehold.it/45x45"/><img src="http://placehold.it/45x45"/><img src="http://placehold.it/45x45"/><a href="#/members"><span>40</span><i class="icon ion-chevron-right"></i></a></div>
+    <div class="team_header"><img ng-if="team" ng-src="{{STATIC_URL + team.logo}}/45/45" class="logo"/>
+    </div>
+    <div class="team_info">
+      <div class="team_name">{{team.name}}</div>
+      <div class="team_type">{{team.groupType}}</div>
+      <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
+      <div class="team_des">小队简介: {{team.brief}}</div>
+      <button class="btn_join">立即加入</button>
+      <div class="btn_upload_photo">上传照片</div>
+      <div class="btn_member">{{team.memberCount}}名队员</div>
+      <div class="btn_cp">活动</div>
+    </div>
+    <div class="card"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45"/><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45"/><a><span>{{team.memberCount}}</span><i class="icon ion-chevron-right"></i></a></div>
     <label>2014-11</label>
     <div class="list card">
       <div class="item item-avatar"><img src="http://placehold.it/45x45"/>

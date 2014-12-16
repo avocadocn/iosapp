@@ -263,6 +263,25 @@ angular.module('donlerApp.services', [])
               callback('error');
             }
           })
+      },
+
+      /**
+       * 获取某个小队的数据
+       * @param {String} tid 小队id
+       * @param {Function} callback 形式为function(err, team)
+       */
+      getData: function (tid, callback) {
+        $http.get(CONFIG.BASE_URL + '/teams/' + tid)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
       }
 
     };

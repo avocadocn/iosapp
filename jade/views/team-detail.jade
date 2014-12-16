@@ -1,16 +1,26 @@
 ion-view
   ion-header-bar
-    a.button.icon.ion-chevron-left(href="#/personal") &nbsp;返回
-    h1.title 吃香喝辣队
+    a.button.icon.ion-chevron-left(href="#/app/personal_teams") &nbsp;返回
+    h1.title {{team.name}}
   ion-content
+    .team_header
+      img.logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/45/45")
+      //-todo 以下的元素是正确的，因缺少样式导致太占位置，故先注释掉，等做样式的时候别忘了取消注释
+      //-img(ng-repeat="photo in team.familyPhotos" ng-src="{{STATIC_URL + photo.uri}}")
+    .team_info
+      .team_name {{team.name}}
+      .team_type {{team.groupType}}
+      .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
+      .team_des 小队简介: {{team.brief}}
+      button.btn_join 立即加入
+      .btn_upload_photo 上传照片
+      .btn_member {{team.memberCount}}名队员
+      .btn_cp 活动
     .card
-      img(src="http://placehold.it/45x45")
-      img(src="http://placehold.it/45x45")
-      img(src="http://placehold.it/45x45")
-      img(src="http://placehold.it/45x45")
-      img(src="http://placehold.it/45x45")
-      a(href="#/members")
-        span 40
+      img(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
+      img(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
+      a
+        span {{team.memberCount}}
         i.icon.ion-chevron-right
     label 2014-11
     .list.card
