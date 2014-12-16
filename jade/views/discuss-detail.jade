@@ -6,8 +6,9 @@ ion-view
 
   ion-content
     ion-refresher(on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
-    .notice
+    .notice(ng-show="!hideNotice&&notification")
       h4 活动公告
+      button(ng-click="hideNotice=true") x
       p {{notification}}
     .comments
       //- balloon?
