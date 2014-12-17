@@ -11,6 +11,71 @@ angular.module('donlerApp.controllers', [])
       });
     }
   })
+  .directive('detectGestures', function($ionicGesture) {
+    return {
+      restrict :  'A',
+
+      link : function(scope, elem, attrs) {
+        var gestureType = attrs.gestureType.split(',');
+        var getstureCallback = attrs.getstureCallback.split(',');
+        var gesture = [];
+        gestureType.forEach(function(_gestureType,_index){
+          switch(_gestureType) {
+            case "swipe":
+              gesture[_index] = $ionicGesture.on('swipe', scope[getstureCallback[_index]], elem);
+              break;
+            case "swipeleft":
+              gesture[_index] = $ionicGesture.on('swipeleft', scope[getstureCallback[_index]], elem);
+              break;
+            case "swiperight":
+              gesture[_index] = $ionicGesture.on('swiperight', scope[getstureCallback[_index]], elem);
+              break;
+            case "pinch":
+              gesture[_index] = $ionicGesture.on('pinch', scope[getstureCallback[_index]], elem);
+              break;
+             case "drag":
+              gesture[_index] = $ionicGesture.on('drag', scope[getstureCallback[_index]], elem);
+              break;
+            case 'doubletap':
+              gesture[_index] = $ionicGesture.on('doubletap', scope[getstureCallback[_index]], elem);
+              break;
+            // case 'tap':
+            //   $ionicGesture.on('tap', scope.reportEvent, elem);
+            //   break;
+          }
+        });
+        scope.$on('$destroy', function() {
+          console.log(2)
+          // Unbind drag gesture handler
+          gestureType.forEach(function(_gestureType,_index){
+            switch(_gestureType) {
+              case "swipe":
+                $ionicGesture.off(gesture[_index], 'swipeleft');
+                break;
+              case "swipeleft":
+                $ionicGesture.off(gesture[_index], 'swipeleft');
+                break;
+              case "swiperight":
+                $ionicGesture.off(gesture[_index], 'swipeleft');
+                break;
+              case "pinch":
+                $ionicGesture.off(gesture[_index], 'pinch');
+                break;
+              case "drag":
+                $ionicGesture.off(gesture[_index], 'drag');
+                break;
+              case 'doubletap':
+                $ionicGesture.off(gesture[_index],'doubletap');
+                break;
+              // case 'tap':
+              //   $ionicGesture.off('tap', scope.reportEvent, elem);
+              //   break;
+            }
+          });
+        });
+      }
+    }
+  })
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
   .controller('UserLoginController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
@@ -58,6 +123,8 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           // todo
           console.log(err);
+          $state.go('login');
+
         } else {
           $state.go('home');
         }
@@ -108,7 +175,7 @@ angular.module('donlerApp.controllers', [])
       return false;
     }
   }])
-  .controller('CampaignDetailController', ['$scope', '$state', 'Campaign', 'Message', 'INFO', function ($scope, $state, Campaign, Message, INFO) {
+  .controller('CampaignDetailController', ['$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', function ($scope, $state, $ionicPopup, Campaign, Message, INFO) {
     $scope.backUrl = INFO.campaignBackUrl;
     INFO.photoAlbumBackUrl = '#/campaign/detail/' + $state.params.id;
     INFO.memberBackUrl = '#/campaign/detail/' + $state.params.id;
@@ -146,7 +213,10 @@ angular.module('donlerApp.controllers', [])
       Campaign.join(id,localStorage.id, function(err, data){
         if(!err){
           $scope.campaign = data;
-          alert('参加成功');
+          $ionicPopup.alert({
+            title: '提示',
+            template: '参加成功'
+          });
         }
       });
       return false;
@@ -155,13 +225,20 @@ angular.module('donlerApp.controllers', [])
       Campaign.quit(id,localStorage.id, function(err, data){
         if(!err){
           $scope.campaign = data;
-          alert('退出成功');
+          $ionicPopup.alert({
+            title: '提示',
+            template: '退出成功'
+          });
         }
       });
       return false;
     }
+    $scope.goDiscussDetail = function(campaignId, campaignTheme) {
+      INFO.discussName = campaignTheme;
+      $state.go('discuss_detail',{campaignId: campaignId});
+    }
   }])
-  .controller('DiscussListController', ['$scope', 'Comment', 'Socket', 'Tools', function ($scope, Comment, Socket, Tools) { //标为全部已读???
+  .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
     Socket.emit('enterRoom', localStorage.id);
     //进来以后先http请求,再监视推送
     Comment.getList('joined').success(function (data) {
@@ -202,6 +279,10 @@ angular.module('donlerApp.controllers', [])
     //不作数据刷新，给用户玩玩的...
     $scope.refresh = function() {
       $scope.$broadcast('scroll.refreshComplete');
+    }
+    $scope.goDetail = function(campaignId, campaignTheme) {
+      INFO.discussName = campaignTheme;
+      $state.go('discuss_detail',{campaignId: campaignId});
     }
   }])
   .controller('UnjoinedDiscussController', ['$scope', 'Comment', 'Socket', 'Tools', function ($scope, Comment, Socket, Tools) { //标为全部已读???
@@ -307,7 +388,7 @@ angular.module('donlerApp.controllers', [])
     //获取id给详情链接用
     $scope.campaignId = $stateParams.campaignId;
   }])
-  .controller('DiscoverController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
+  .controller('DiscoverController', ['$scope', '$ionicPopup', 'Team', 'INFO', function ($scope, $ionicPopup, Team, INFO) {
     INFO.teamBackUrl = '#/app/discover/teams';
     Team.getList('company', null, function (err, teams) {
       if (err) {
@@ -320,22 +401,34 @@ angular.module('donlerApp.controllers', [])
     $scope.joinTeam = function(tid, index) {
       Team.joinTeam(tid, localStorage.id, function(err, data) {
         if(!err) {
-          alert('加入成功');
+          $ionicPopup.alert({
+            title: '提示',
+            template: '加入成功'
+          });
           $scope.teams[index].hasJoined = true;
         }
         else {
-          alert(err);
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
         }
       });
     }
     $scope.quitTeam = function(tid, index) {
       Team.quitTeam(tid, localStorage.id, function(err, data) {
         if(!err) {
-          alert('退出成功');
+          $ionicPopup.alert({
+            title: '提示',
+            template: '退出成功'
+          });
           $scope.teams[index].hasJoined = false;
         }
         else {
-          alert(err);
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
         }
       });
     }
@@ -437,8 +530,309 @@ angular.module('donlerApp.controllers', [])
       localStorage.hasNewComment = false;
     };
   }])
-  .controller('CalendarController', ['$scope', function ($scope) {
+  .controller('', ['$scope', function ($scope) {
 
+  }])
+  .controller('CalendarController',['$scope', '$rootScope', '$ionicPopover', 'Campaign', 'INFO', function($scope, $rootScope, $ionicPopover, Campaign, INFO) {
+    // $rootScope.enable_drag = false;
+    // $rootScope.$on('$stateChangeStart', function() {
+    //   $rootScope.enable_drag = true;
+    // });
+    moment.locale('zh-cn');
+
+    /**
+     * 日历视图的状态，有年、月、日三种视图
+     * 'year' or 'month' or 'day'
+     * @type {String}
+     */
+    $scope.view = 'month';
+
+    /**
+     * 日视图中，当前周的日期数组，从周日开始
+     * 每个数组元素为Date对象
+     * @type {Array}
+     */
+    $scope.current_week_date = [];
+
+    $scope.year = '一月 二月 三月 四月 五月 六月 七月 八月 九月 十月 十一月 十二月'.split(' ');
+
+
+    if (INFO.lastDate) {
+      /**
+       * 当前浏览的日期，用于更新视图
+       * @type {Date}
+       */
+      var current = $scope.current_date = INFO.lastDate;
+      $scope.view = 'day';
+      INFO.lastDate = null;
+    } else {
+      var current = $scope.current_date = new Date();
+    }
+
+    /**
+     * 月视图卡片数据
+     * @type {Array}
+     */
+    $scope.month;
+
+    /**
+     * 日视图卡片数据
+     * @type {Array}
+     */
+    $scope.day_cards = [];
+
+    /**
+     * 更新日历的月视图, 并返回该存放该月相关数据的对象, 不会更新current对象
+     * @param  {Date} date
+     * @return {Object}
+     */
+    var updateMonth = function(date) {
+      var date = new Date(date);
+      var year = date.getFullYear();
+      var month = date.getMonth();
+      var mdate = moment(new Date(year, month));
+      var offset = mdate.day();// mdate.day(): Sunday as 0 and Saturday as 6
+      var now = new Date();
+      $scope.current_year = year;
+      var month_data = {
+        date: date,
+        format_month: month+1,
+        days: []
+      };
+      var month_dates = mdate.daysInMonth();
+      //标记周末、今天
+      for (var i = 0; i < month_dates; i++) {
+        month_data.days[i] = {
+          full_date: new Date(year, month, i + 1),
+          date: i + 1,
+          events: []
+        };
+        //由本月第一天，计算是星期几，决定位移量
+        if(i===0){
+          month_data.days[0].first_day = 'offset_' + offset; // mdate.day(): Sunday as 0 and Saturday as 6
+          month_data.offset = month_data.days[0].first_day;
+        }
+        // 是否是周末
+        if((i+offset)%7===6||(i+offset)%7===0)
+          month_data.days[i].is_weekend = true;
+
+        // 是否是今天
+        var now = new Date();
+        if (now.getDate() === i + 1 && now.getFullYear() === year && now.getMonth() === month) {
+          month_data.days[i].is_today = true;
+        }
+      }
+      var dayOperate = function (i,campaign) {
+        month_data.days[i-1].events.push(campaign);
+        month_data.days[i-1].has_event = true;
+        if (campaign.is_joined) {
+          month_data.days[i-1].has_joined_event = true;
+        }
+      };
+      // 将活动及相关标记存入某天
+      var month_start = new Date(year,month,1);
+      var month_end = new Date(year,month,1);
+      month_end.setMonth(month_end.getMonth()+1);
+      $scope.campaigns.forEach(function(campaign) {
+        var start_time = new Date(campaign.start_time);
+        var end_time = new Date(campaign.end_time);
+        if(start_time<=month_end&&end_time>=month_start){//如果活动'经过'本月
+          var day_start = start_time.getDate();
+          var day_end = end_time.getDate();
+          var month_day_end = month_end.getDate();
+          if(start_time>=month_start){//c>=a
+            if(end_time<=month_end){//d<=b 活动日
+              for(i=day_start;i<day_end+1;i++)
+                dayOperate(i,campaign);
+            }else{//d>b 开始日到月尾
+              for(i=day_start;i<month_dates+1;i++)
+                dayOperate(i,campaign);
+            }
+          }else{//c<a
+            if(end_time<=month_end){//d<=b 月首到结束日
+              for(i=1;i<day_end+1;i++)
+                dayOperate(i,campaign);
+            }else{//d>b 每天
+              for(i=1;i<month_dates+1;i++)
+                dayOperate(i,campaign);
+
+            }
+          }
+        }
+        campaign.format_start_time = moment(campaign.start_time).calendar();
+        campaign.format_end_time = moment(campaign.end_time).calendar();
+      });
+      $scope.current_month = month_data;
+
+      return month_data;
+    };
+
+    /**
+     * 进入某一天的详情, 会更新current
+     * @param  {Date} date
+     */
+    var updateDay = $scope.updateDay = function(date) {
+      var date = new Date(date);
+      $scope.view = 'day';
+      if (date.getMonth() !== current.getMonth()) {
+        updateMonth(date);
+      }
+      current = date;
+
+      // ios safari ng-click将ng-href覆盖, 此为临时解决方案
+      INFO.lastDate = current;
+      $rootScope.campaignReturnUri = '#/app/schedule_list';
+
+      var day = {
+        date: current,
+        format_date: moment(current).format('ll'),
+        format_day: moment(current).format('dddd'),
+        campaigns: $scope.current_month.days[current.getDate() - 1].events
+      };
+
+      var temp = new Date(date);
+      var first_day_of_week = new Date(temp.setDate(temp.getDate() - temp.getDay()));
+      $scope.current_week_date = [];
+      for (var i = 0; i < 7; i++) {
+        $scope.current_week_date.push(new Date(first_day_of_week.setDate(first_day_of_week.getDate())));
+        first_day_of_week.setDate(first_day_of_week.getDate() + 1);
+        var week_date = $scope.current_week_date[i];
+        var now = new Date();
+        if (week_date.getFullYear() === now.getFullYear() && week_date.getMonth() === now.getMonth() && week_date.getDate() === now.getDate()) {
+          week_date.is_today = true;
+        }
+        if (week_date.getFullYear() === current.getFullYear() && week_date.getMonth() === current.getMonth() && week_date.getDate() === current.getDate()) {
+          week_date.is_current = true;
+        }
+      }
+      $scope.current_day = day;
+      return day;
+    };
+
+    $scope.back = function() {
+      switch ($scope.view) {
+      case 'month':
+        $scope.view = 'year';
+        break;
+      case 'day':
+        $scope.view = 'month';
+        break;
+      }
+    };
+
+
+    /**
+     * 回到今天，仅在月、日视图下起作用
+     */
+    $scope.today = function() {
+
+      switch ($scope.view) {
+      case 'month':
+        current = new Date();
+        $scope.month = updateMonth(current);
+        break;
+      case 'day':
+        var temp = new Date();
+        var day = updateDay(temp);
+        $scope.day_cards = [day];
+        break;
+      }
+
+    };
+
+    /**
+     * 进入某月的视图
+     * @param  {Number} month 月份, 0-11
+     */
+    $scope.monthView = function(month) {
+      current.setDate(1);
+      current.setMonth(month);
+      var new_month = updateMonth(current);
+      $scope.month_cards = [new_month];
+      $scope.view = 'month';
+    };
+
+    /**
+     * 进入日视图
+     * @param  {Date} date
+     */
+    $scope.dayView = function(date) {
+      var day = updateDay(date);
+      $scope.day_cards = [day];
+      $scope.view = 'day';
+    };
+
+    // ios safari下有问题
+    /**
+     * 查看活动详情前保存当前时间，以便返回
+     */
+    // $scope.saveStatus = function() {
+    //   Global.last_date = current;
+    //   $rootScope.campaignReturnUri = '#/app/schedule_list';
+    // };
+
+
+    $scope.nextMonth = function() {
+      var temp = $scope.current_date;
+      temp.setMonth(temp.getMonth() + 1);
+      current = new Date(temp);
+      $scope.month = updateMonth(temp);
+    };
+
+    $scope.preMonth = function() {
+      var temp = $scope.current_date;
+      temp.setMonth(temp.getMonth() - 1);
+      current = new Date(temp);
+      $scope.month = updateMonth(temp);
+    };
+
+    $scope.nextDay = function(day) {
+      var temp = new Date(day.date);
+      temp.setDate(temp.getDate() + 1);
+      var new_day = updateDay(temp);
+      $scope.day_cards.push(new_day);
+    };
+
+    $scope.preDay = function(day) {
+      var temp = new Date(day.date);
+      temp.setDate(temp.getDate() - 1);
+      var new_day = updateDay(temp);
+      $scope.day_cards.push(new_day);
+    };
+
+    $scope.removeMonth = function(index) {
+      $scope.month_cards.splice(index, 1);
+    };
+
+    $scope.removeDay = function(index) {
+      $scope.day_cards.splice(index, 1);
+    };
+    $scope.showFilter = function(){
+      $ionicPopover.fromTemplateUrl('my-popover.html', {
+        scope: $scope,
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+    }
+
+    Campaign.getList({
+      requestType: 'user',
+      requestId: localStorage.id
+    }, function (err, data) {
+      if(err){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '网络错误，请检查网络状态'
+        });
+        return;
+      }
+      $scope.campaigns = data;
+      $scope.month = updateMonth(current);
+      if ($scope.view === 'day') {
+        var day = updateDay(current);
+        $scope.day_cards = [day];
+      }
+    });
   }])
   .controller('privacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/app/settings/about';
@@ -537,22 +931,34 @@ angular.module('donlerApp.controllers', [])
     $scope.joinTeam = function (tid) {
       Team.joinTeam(tid, localStorage.id, function (err, data) {
         if (!err) {
-          alert('加入成功');
+          $ionicPopup.alert({
+            title: '提示',
+            template: '加入成功'
+          });
           $scope.team.hasJoined = true;
         }
         else {
-          alert(err);
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
         }
       });
     };
     $scope.quitTeam = function (tid) {
       Team.quitTeam(tid, localStorage.id, function (err, data) {
         if (!err) {
-          alert('退出成功');
+          $ionicPopup.alert({
+            title: '提示',
+            template: '退出成功'
+          });
           $scope.team.hasJoined = false;
         }
         else {
-          alert(err);
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
         }
       });
     };

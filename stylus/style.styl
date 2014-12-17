@@ -125,6 +125,7 @@ body
     .author
       float right
       width 20%
+
 .company_signup
   select
     width 30%
@@ -142,3 +143,195 @@ body
       float left
   .ng-dirty.ng-invalid
     background-color #FCEBEB
+    
+// 日程
+.calendar
+  height 100%
+
+  nav
+    background-color rgb(246, 246, 246)
+    border-bottom solid 1px rgb(220, 220, 220)
+
+    .operator
+      .btn
+        display inline-block
+        line-height 30px
+        height 30px
+        min-width 30px
+        padding 0 10px
+        text-align center
+        color themeColor
+
+    .week
+      position relative
+      margin-top 5px
+
+      .day
+        float left
+        width (100 / 7)%
+        height 20px
+        line-height 20px
+
+      .weekend
+        color gray
+
+    .date_list
+      position relative
+      margin-top 5px
+
+      .date_box
+        float left
+        width (100 / 7)%
+        height 30px
+        line-height 30px
+
+        .date
+          margin-top 10%
+          margin-left auto
+          margin-right auto
+          width navDateSize
+          height navDateSize
+          line-height navDateSize
+
+        .current_day
+          color white
+          border-radius 50px
+          background-color black
+
+        .current_day.today
+          background-color themeColor
+
+    .date_bar
+      margin 5px auto
+
+  .full_box
+    height 100%
+
+  .calendar_box
+    position relative
+
+    .swipe-cards
+      height 100%
+
+    .swipe-card
+      height 100%
+
+  .calendar_year
+    position relative
+    height 100%
+    padding yearSectionPadding
+
+    .year_section
+      float left
+      width (100 / 3)%
+      height 25%
+      text-align center
+      padding yearSectionPadding
+      color themeColor
+
+      .table_wrap
+        border solid 1px themeColor
+
+  .calendar_month
+    position relative
+    height 100%
+
+    .month
+      width (100 / 7)%
+      height 40px
+      padding-top 15px
+      color themeColor
+      text-align center
+
+    .calendar_day
+      position relative
+      float left
+      width (100 / 7)%
+      height 53px
+      border-top solid 1px rgb(220, 220, 220)
+
+      .calendar_date
+        margin-top 15%
+        margin-left auto
+        margin-right auto
+        width monthDateSize
+        height monthDateSize
+        line-height monthDateSize
+
+      .today
+        color white
+        background-color themeColor
+        border-radius 50px
+
+      .event_unjoin, .event_joined
+        width 0
+        height 0
+        margin-top 15%
+        margin-left auto
+        margin-right auto
+        border-style solid
+        border-width 3px
+        border-radius 30px
+        font-size 0px
+
+      .event_unjoin
+        border-color rgb(193, 193, 193)
+
+      .event_joined
+        border-color themeColor
+
+      .weekend
+        color gray
+
+    for day in (0..6)
+      .offset_{day}
+        margin-left (100 * day / 7)%
+
+  .calendar_day
+    padding 5px
+    position relative
+    .swipe-cards
+      height auto
+
+    .swipe-card
+      height auto
+      min-height 100%
+
+    .calendar_campaign
+      margin 0
+      padding 0
+      border-bottom 1px
+      border-left none
+      border-right none
+      &:first-child
+        border-top none
+      .campaign_link
+        text-decoration none
+        .campaign_title
+          padding 0
+          .campaign_group_logo
+            margin 10px
+            width 36px
+            height 36px
+            vertical-align middle
+            border 1px solid white
+            border-radius 5px
+          .campaign_label
+            padding 10px 0
+            p
+              padding 0
+              margin 0
+            .campaign_theme
+              font-size 16px
+              color black
+            .new_campaign_time
+              font-size 14px
+            .joined_sign
+              position absolute
+              right 0
+              top 0
+              width 0
+              height 0
+              border-color transparent #43cee6 transparent transparent
+              border-style solid
+              border-width 0 20px 20px

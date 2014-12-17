@@ -3,15 +3,17 @@
  */
 angular.module('donlerApp.services', [])
   .constant('CONFIG', {
-    BASE_URL: 'http://localhost:3002',
-    SOCKET_URL: 'http://localhost:3005'
+    BASE_URL: 'http://192.168.2.104:3002',
+    SOCKET_URL: 'http://192.168.2.104:3005'
   })
   .value('INFO', {
     campaignBackUrl:'#/app/campaigns',
     teamBackUrl:'#/app/personal_teams',
     photoAlbumBackUrl:'',
     memberBackURL:'',
-    memberContent:''
+    memberContent:'',
+    discussName:'',
+    lastDate:''
   })
   .factory('UserAuth', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
@@ -44,6 +46,10 @@ angular.module('donlerApp.services', [])
           })
           .error(function (data, status) {
             // todo
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userType');
+            localStorage.removeItem('id');
+            $http.defaults.headers.common['x-access-token'] = null;
             callback('error');
           });
       }
@@ -131,7 +137,6 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
-
       /**
        * 获取所有活动
        * @param {Object} params 请求参数，参见api /campaigns说明

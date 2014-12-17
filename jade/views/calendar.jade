@@ -1,4 +1,67 @@
 ion-view
-  ion-header-bar.bar-positive
+  ion-header-bar
     a.button.icon.ion-chevron-left(href="#/app/campaigns") 返回
-    h1.title 日程
+    a.button(ng-if="view==='day'" ng-click="back()") 关闭
+    h1.title 我的日程
+    a.button.icon.ion-chevron-down(ng-click="showFilter()") 所有
+  ion-content.has-header(scrollbar-y="false")
+    .calendar
+      nav(no-scroll)
+        .operator.item.tabs.tabs-icon-left.dl_card_footer
+            .tab-item(ng-click="preMonth()")
+              i.icon.ion-chevron-left
+            .tab-item.dl_team_number
+              {{ current_year }} - {{ current_month.format_month }}
+            .tab-item(ng-click="nextMonth()")
+              i.icon.ion-chevron-right
+          //- .pull-right(ng-if="view!=='year'")
+          //-   .btn.today(ng-click="today()") 今天
+        .week.text-center.clearfix(ng-if="view!=='year'")
+          .day.weekend 日
+          .day 一
+          .day 二
+          .day 三
+          .day 四
+          .day 五
+          .day.weekend 六
+        .date_list.text-center.clearfix(ng-if="view==='day'")
+          .date_box(ng-repeat="date in current_week_date")
+            .date(ng-class="{today: date.is_today===true, current_day: date.is_current===true}" ng-click="dayView(date)") {{ date.getDate() }}
+        .date_bar.text-center(ng-if="view==='day'"){{ current_day.format_date }}&nbsp;{{ current_day.format_day }}
+      .calendar_box(ng-class="{full_box: view==='year'}")
+        .calendar_year.clearfix(ng-if="view==='year'" no-scroll)
+          .year_section(ng-repeat="month in year" ng-click="monthView($index)")
+            .table_wrap
+              .table_cell
+                .year_box {{ month }}
+        .calendar_month.clearfix(ng-if="view==='month'" no-scroll)
+          swipe-cards
+            swipe-card.clearfix( detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth")
+              //- .month(ng-class="month.offset"){{ month.format_month }}
+              .calendar_day.text-center(ng-repeat="day in month.days" ng-class="day.first_day")
+                .calendar_date(ng-class="{weekend: day.is_weekend===true, today: day.is_today===true}" ng-click="dayView(day.full_date)") {{ day.date }}
+                //- .event_unjoin(ng-if="day.has_event && !day.has_joined_event")
+                //- .event_joined(ng-if="day.has_joined_event")
+                span.calendar_campaign_count(ng-if="day.events.length>0") {{day.events.length}}
+          div(ng-if="view!=='year'")
+            button.button.button-outline.button-positive.today(ng-click="today()") 今天
+        .calendar_day.clearfix(ng-if="view==='day'" auto-height="121")
+          swipe-cards
+            ion-scroll(scrollbar-y="false")
+              swipe-card.clearfix(ng-repeat="day in day_cards" on-left="nextDay(day)" on-right="preDay(day)" on-destroy="removeDay($index)")
+                ion-list
+                  ion-item.calendar_campaign(ng-repeat="campaign in day.campaigns")
+                    a.campaign_link(href="#/app/campaign_detail/{{ campaign._id }}/")
+                      .row.campaign_title
+                        img.campaign_group_logo(ng-src="{{ img_url + campaign.logo + '/72/72'}}")
+                        .campaign_label
+                          p.campaign_theme {{ campaign.theme }}
+                          p.new_campaign_time 开始时间：{{campaign.format_start_time}}
+                          .joined_sign(ng-if="campaign.is_joined")
+                .text-center(ng-if="day.campaigns.length === 0") 今天没有活动哦
+script(id="my-popover.html" type="text/ng-template")
+  ion-popover-view
+    ion-content
+      button 已参加
+      button 未参加
+      button 所有

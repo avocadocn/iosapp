@@ -1,7 +1,7 @@
 
 <ion-view>
   <ion-header-bar><a ng-href="{{backUrl}}" class="button button-clear">返回</a>
-    <h1 class="title">{{campaign.theme}}</h1><a class="button icon button-clear ion-chatbox"></a>
+    <h1 class="title">{{campaign.theme}}</h1><a ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="button icon button-clear ion-chatbox"></a>
   </ion-header-bar>
   <ion-content>
     <div class="card dl_card">
@@ -25,7 +25,7 @@
         </ion-scroll>
       </div>
       <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a ng-href="#/photo_album/{{campaign.photo_album._id}}/detail" class="tab-item btn_upload_photo"><i class="icon ion-image"></i>上传图片</a><a href="#/members/campaign/{{campaign._id}}" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>活动成员({{campaign.members_count || '0'}})</a>
-        <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}条讨论</div>
+        <div ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}条讨论</div>
       </div>
     </div>
     <div class="card">
