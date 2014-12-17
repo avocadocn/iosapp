@@ -283,12 +283,16 @@ angular.module('donlerApp.controllers', [])
     $scope.historyCommentList=[];
     //拉取历史讨论记录
     $scope.readHistory = function() {
-      Comment.getComments($stateParams.campaignId, 20, nextStartDate).success(function(data){
-        $scope.historyCommentList.unshift(data.comments.reverse());
-        // $('#currentComment').scrollIntoView();//need jQuery
-        nextStartDate = data.nextStartDate;
+      if(nextStartDate){//如果还有下一条
+        Comment.getComments($stateParams.campaignId, 20, nextStartDate).success(function(data){
+          $scope.historyCommentList.unshift(data.comments.reverse());
+          // $('#currentComment').scrollIntoView();//need jQuery
+          nextStartDate = data.nextStartDate;
+          $scope.$broadcast('scroll.refreshComplete');
+        });
+      }else{//没下一条了~
         $scope.$broadcast('scroll.refreshComplete');
-      });
+      }
     };
     //发表评论
     $scope.publishComment = function(photo) {
@@ -300,6 +304,8 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
+    //获取id给详情链接用
+    $scope.campaignId = $stateParams.campaignId;
   }])
   .controller('DiscoverController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
     INFO.teamBackUrl = '#/app/discover/teams';
