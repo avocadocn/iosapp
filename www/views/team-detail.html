@@ -33,20 +33,20 @@
     </div>
     <div class="card">
       <ion-scroll direction="x" scrollbar-x="false"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45"/><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45"/></ion-scroll><a><span>{{team.memberCount}}</span><i class="icon ion-chevron-right"></i></a>
-    </div>
-    <div ng-repeat="campaign in campaigns" class="list card dl_card">
+    </div><a ng-repeat="campaign in campaigns" ng-href="#/campaign/detail/{{campaign._id}}" class="list card dl_card">
       <div class="item item-avatar dl_card_header"><img ng-if="team.logo" ng-src="{{STATIC_URL + team.logo}}/45/45" class="dl_team_logo"/>
         <h2 class="dl_cp_name">{{campaign.theme}}</h2>
         <p class="dl_cp_address">地点: {{campaign.location.name}}</p>
-        <button class="dl_btn_join">参加</button>
-      </div><a ng-if="campaign.photo_album.photos.length&gt;0" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-body dl_card_body">
+        <button ng-click="joinCampaign(campaign._id)" prevent-default="prevent-default" class="dl_btn_join">参加</button>
+      </div>
+      <div ng-if="campaign.photo_album.photos.length&gt;0" class="item item-body dl_card_body">
         <ion-scroll direction="x" scrollbar-x="false">
           <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-        </ion-scroll></a>
+        </ion-scroll>
+      </div>
       <div class="item dl_card_footer"><span ng-if="campaign.campaign_unit.length === 1" class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span><span ng-if="campaign.campaign_unit.length === 2" class="dl_team_name">
           {{campaign.campaign_unit[0].team.name}}
           vs
-          {{campaign.campaign_unit[1].team.name}}</span><span>参加人数: {{campaign.members_count}}</span><span>讨论: {{campaign.comment_sum}}</span></div>
-    </div>
+          {{campaign.campaign_unit[1].team.name}}</span><span>参加人数: {{campaign.members_count}}</span><span>讨论: {{campaign.comment_sum}}</span></div></a>
   </ion-content>
 </ion-view>

@@ -446,6 +446,7 @@ angular.module('donlerApp.controllers', [])
   .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, Team, Campaign, INFO) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
+    INFO.campaignBackUrl = '#/team/' + teamId;
     Team.getData(teamId, function (err, team) {
       if (err) {
         // todo
@@ -486,7 +487,8 @@ angular.module('donlerApp.controllers', [])
     Campaign.getList({
       requestType: 'team',
       requestId: teamId,
-      populate: 'photo_album'
+      populate: 'photo_album',
+      sortBy: '-start_time'
     }, function (err, campaigns) {
       if (err) {
         // todo
@@ -495,6 +497,15 @@ angular.module('donlerApp.controllers', [])
         $scope.campaigns = campaigns;
       }
     });
+
+    $scope.joinCampaign = function (campaignId) {
+      Campaign.join(campaignId, localStorage.id, function (err, data) {
+        if (!err) {
+          // todo
+          alert('参加成功');
+        }
+      });
+    };
 
   }])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
