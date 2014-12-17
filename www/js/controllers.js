@@ -443,6 +443,76 @@ angular.module('donlerApp.controllers', [])
   .controller('userRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/register/user/post_detail';
   }])
+  .controller('companySignupController' ,['$scope', '$state', 'CompanySignup', 'CONFIG', function ($scope,$state, CompanySignup, CONFIG) {
+    //for region
+    var region_url = CONFIG.BASE_URL + '/region';
+    // var region_url = "http://192.168.2.107:3002/region";
+    var selector_elem = document.getElementById('selector');
+    selector_elem.dataset.src = region_url;
+    $scope.province = '安徽省';
+    $scope.city = '安庆市';
+    $scope.district = '大观区';
+    var selector = new LinkageSelector(selector_elem, function(selectValues) {
+      $scope.province = selectValues[0];
+      $scope.city = selectValues[1];
+      $scope.district = selectValues[2];
+    });
+    //提交表单数据
+    $scope.signup = function() {
+      var data = {
+        name: $scope.name,
+        province: $scope.province,
+        city: $scope.city,
+        district: $scope.district,
+        address: $scope.address,
+        contacts: $scope.contacts,
+        areacode: $scope.areacode,
+        tel: $scope.tel,
+        extension: $scope.extension,
+        email: $scope.email,
+        phone: $scope.phone
+      };
+      CompanySignup.signup(data, function(err){
+        if(err){
+          console.log(err);
+        }else{
+          $state.go('register_company_wait');
+        }
+      })
+    };
+    //validate
+    var pattern =  /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+    $scope.reg = true;
+    $scope.mailRegCheck = function() {
+      $scope.reg = (pattern.test($scope.email));
+    };
+    $scope.mailCheck = function() {
+      if($scope.reg&&$scope.email){
+        CompanySignup.validate($scope.email, null, function(msg){
+          if(!msg){
+            $scope.mail_error = false;
+            $scope.mail_msg = '该邮箱可以使用';
+          }else{
+            $scope.mail_error = true;
+            $scope.mail_msg = '该邮箱已存在或您输入的邮箱有误'
+          }
+          $scope.mail_check = true;
+        });
+      }
+    };
+    $scope.nameCheck = function() {
+      if($scope.name) {
+        CompanySignup.validate(null, $scope.name, function(msg){
+          if(msg) {
+            $scope.name_repeat = true;
+          }else{
+            $scope.name_repeat = false;
+          }
+          $scope.name_check = true;
+        });
+      }
+    }
+  }])
   .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, Team, Campaign, INFO) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;

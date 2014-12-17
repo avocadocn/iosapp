@@ -152,3 +152,25 @@ body {
   float: right;
   width: 20%;
 }
+.company_signup select {
+  width: 30%;
+  float: left;
+}
+.company_signup .dl_item_input {
+  padding: 6px 0 5px 16px;
+}
+.company_signup .dl_item_input input.arecode {
+  width: 25%;
+  float: left;
+}
+.company_signup .dl_item_input input.number {
+  width: 50%;
+  float: left;
+}
+.company_signup .dl_item_input input.extension {
+  width: 25%;
+  float: left;
+}
+.company_signup .ng-dirty.ng-invalid {
+  background-color: #fcebeb;
+}

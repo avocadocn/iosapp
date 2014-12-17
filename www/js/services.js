@@ -85,6 +85,50 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
+  .factory('CompanySignup', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+      /**
+       * [validate description] 验证
+       * @param  {string}   mail
+       * @param  {string}   name
+       * @param  {Function} callback
+       */
+      validate: function (email, name, callback) {
+        var data;
+        if(!email&&!name) {
+          callback('参数错误');
+        }else{
+          if(email)
+            data = {email: email};
+          else
+            data = {name: name};
+          $http.post(CONFIG.BASE_URL + '/companies/validate',data)
+          .success(function (data, status) {
+            if(data.validate)
+              callback();
+            else
+              callback(data.msg);
+          }).error(function (data, status) {
+            callback(data.msg);
+          });
+        }
+        
+      },
+      /**
+       * [signup description] 注册
+       * @param  {object}   data
+       * @param  {Function} callback
+       */
+      signup: function(data, callback) {
+        $http.post(CONFIG.BASE_URL + '/companies', data)
+        .success(function (data, status) {
+          callback();
+        }).error(function (data, status) {
+          callback(data.msg);
+        });
+      }
+    }
+  }])
   .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
 

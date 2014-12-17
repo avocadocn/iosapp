@@ -73,6 +73,10 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         controller: 'compRegPrivacyController',
         templateUrl: 'views/privacy.html'
       })
+      .state('register_company_wait', {
+        url: '/register/company/wait',
+        templateUrl: 'views/register-company-wait.html'
+      })
       .state('register_user_searchCompany', {
         url: '/register/user/search_company',
         templateUrl: 'views/register-user-search-company.html'

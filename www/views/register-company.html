@@ -2,42 +2,50 @@
 <ion-view>
   <ion-header-bar><a href="#/home" class="button icon ion-chevron-left">&nbsp;返回</a><a href="#/company/login" class="button icon ion-chevron-right">&nbsp;登录</a></ion-header-bar>
   <ion-content>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="公司全称"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="省、市、区"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="详细地址"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="联系人姓名"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="区号"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="电子邮箱"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="手机号码"/>
-      </label>
-    </div>
-    <p>点击注册即代表同意<a href="#/register/company/law">《法律声明》及《隐私政策》</a></p>
-    <button class="button button-block button-assertive">企业注册</button><a href="#/register/user/search_company" class="button button-block button-light">个人注册</a>
+    <form ng-controller="companySignupController" name="signup_form" novalidate="novalidate" class="company_signup">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required="required"/>
+        </label>
+        <p ng-if="name_check&amp;&amp;name_repeat">此公司名已被注册，请直接以个人身份注册。</p>
+      </div>
+      <div class="list list-inset">
+        <label id="selector" data-select="province city district" class="item dl_item_input">
+          <select type="text" name="province" required="required"></select>
+          <select type="text" name="city" required="required"></select>
+          <select type="text" name="district" required="required"></select>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" name="address" ng-model="address" placeholder="详细地址" required="required"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" name="contacts" ng-model="contacts" placeholder="联系人姓名" required="required"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item dl_item_input">
+          <input type="number" name="areacode" ng-model="areacode" placeholder="区号" ng-minlength="3" ng-maxlength="4" required="required" class="arecode"/>
+          <input type="number" name="tel" ng-model="tel" placeholder="电话" required="required" class="number"/>
+          <input type="number" name="extension" ng-model="extension" placeholder="分机" class="extension"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" name="email" ng-model="email" placeholder="电子邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
+        </label>
+        <p ng-if="mail_check">{{mail_msg}}</p>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" name="phone" ng-model="phone" placeholder="手机号码" ng-minlength="11" ng-maxlength="11" required="required"/>
+        </label>
+      </div>
+      <p>点击注册即代表同意<a href="#/register/company/law">《法律声明》及《隐私政策》</a></p>
+      <button ng-disabled="!mail_check || mail_error || name_check&amp;&amp;name_error ||form.$invalid" ng-click="signup()" class="button button-block button-assertive">企业注册</button><a href="#/register/user/search_company" class="button button-block button-light">个人注册</a>
+    </form>
   </ion-content>
 </ion-view>
