@@ -560,7 +560,24 @@ angular.module('donlerApp.controllers', [])
         return resData;
       };
   }])
-  .controller('MemberController', ['$scope', '$stateParams', 'INFO', function($scope, $stateParams, INFO) {
-    $scope.memberContents = INFO.memberContent;
-    $scope.backUrl = INFO.memberBackUrl;    
+  .controller('MemberController', ['$scope', '$stateParams', 'INFO', 'Team', function($scope, $stateParams, INFO, Team) {
+    if($stateParams.memberType=='team') {
+      var currentTeam = Team.getCurrentTeam();
+
+      Team.getMembers($stateParams.id, function (err, members) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.memberContents = [{
+            name: currentTeam.name,
+            members: members
+          }];
+        }
+      });
+    }
+    else {
+      $scope.memberContents = INFO.memberContent;
+    }
+    $scope.backUrl = INFO.memberBackUrl;
   }])
