@@ -8,7 +8,7 @@
         <h2>{{team.name}}</h2>
         <p>{{team.lastCampaign.theme}}</p>
         <p>队员：{{team.memberCount}} 活动：{{team.campaignCount}}</p>
-        <button ng-if="team.hasJoined">已加入小队</button>
-        <button ng-if="!team.hasJoined">立即加入</button></a></div>
+        <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id, $index)">已加入小队</button>
+        <button prevent-default="prevent-default" ng-if="!team.hasJoined" ng-click="joinTeam(team._id, $index)">立即加入</button></a></div>
   </ion-content>
 </ion-view>

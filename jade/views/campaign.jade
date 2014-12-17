@@ -49,7 +49,7 @@ ion-view
               | {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
             .tab-item.dl_team_number
               i.icon.ion-person-stalker
-              | {{campaign.member.length || '0'}}
+              | {{campaign.members_count || '0'}}
             .tab-item.dl_team_comment
               i.icon.ion-chatbox
               | {{campaign.comment_sum}}

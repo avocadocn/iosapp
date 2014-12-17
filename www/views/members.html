@@ -1,15 +1,15 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="#/team/{{team._id}}" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">队员</h1>
+  <ion-header-bar><a ng-href="{{backUrl}}" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">队员(成员)</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="team_box">
-      <div class="team_name">
-        <h2 ng-cloak="ng-cloak">{{team.name}}</h2>
-      </div>
-      <div ng-repeat="member in members" class="team_member"><img ng-src="{{STATIC_URL + member.photo}}/45/45" class="logo"/>
-        <p class="name">{{member.nickname}}</p>
+    <div ng-repeat="memberContent in memberContents">
+      <p>{{memberContent.name}}</p>
+      <div class="row">
+        <div ng-repeat="member in memberContent.members" class="member col-25"><img ng-src="{{STATIC_URL + member.photo}}/45/45"/>
+          <p>{{member.nickname}}</p>
+        </div>
       </div>
     </div>
   </ion-content>

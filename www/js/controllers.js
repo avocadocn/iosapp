@@ -105,10 +105,28 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CampaignDetailController', ['$scope', '$state', 'Campaign', 'Message', 'INFO', function ($scope, $state, Campaign, Message, INFO) {
     $scope.backUrl = INFO.campaignBackUrl;
+    INFO.photoAlbumBackUrl = '#/campaign/detail/' + $state.params.id;
+    INFO.memberBackUrl = '#/campaign/detail/' + $state.params.id;
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         $scope.campaign = data;
         $scope.campaign.members =[];
+        var memberContent = [];
+        data.campaign_unit.forEach(function(campaign_unit){
+          if(campaign_unit.team){
+            memberContent.push({
+              name:campaign_unit.team.name,
+              members:campaign_unit.member
+            });
+          }
+          else{
+              memberContent.push({
+              name:campaign_unit.company.name,
+              members:campaign_unit.member
+            });
+          }
+        })
+        INFO.memberContent = memberContent;
         data.campaign_unit.forEach(function(campaign_unit){
           $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
         });
@@ -288,6 +306,28 @@ angular.module('donlerApp.controllers', [])
         $scope.teams = teams;
       }
     });
+    $scope.joinTeam = function(tid, index) {
+      Team.joinTeam(tid, localStorage.id, function(err, data) {
+        if(!err) {
+          alert('加入成功');
+          $scope.teams[index].hasJoined = true;
+        }
+        else {
+          alert(err);
+        }
+      });
+    }
+    $scope.quitTeam = function(tid, index) {
+      Team.quitTeam(tid, localStorage.id, function(err, data) {
+        if(!err) {
+          alert('退出成功');
+          $scope.teams[index].hasJoined = false;
+        }
+        else {
+          alert(err);
+        }
+      });
+    }
   }])
   .controller('DiscoverCircleController', ['$scope', 'TimeLine', 'INFO', function ($scope, TimeLine, INFO) {
     INFO.campaignBackUrl = '#/app/discover/circle';
@@ -407,19 +447,42 @@ angular.module('donlerApp.controllers', [])
         console.log(err);
       } else {
         $scope.team = team;
+        INFO.memberBackUrl = '#/team/' + teamId;
+        INFO.memberContent = [team];
         $scope.homeCourtIndex = 0;
       }
     });
-
+    $scope.joinTeam = function(tid) {
+      Team.joinTeam(tid, localStorage.id, function(err, data) {
+        if(!err) {
+          alert('加入成功');
+          $scope.team.hasJoined = true;
+        }
+        else {
+          alert(err);
+        }
+      });
+    }
+    $scope.quitTeam = function(tid) {
+      Team.quitTeam(tid, localStorage.id, function(err, data) {
+        if(!err) {
+          alert('退出成功');
+          $scope.team.hasJoined = false;
+        }
+        else {
+          alert(err);
+        }
+      });
+    }
     $scope.selectHomeCourt = function (index) {
       $scope.homeCourtIndex = index;
     };
 
   }])
-  .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', '$rootScope',
-    function ($scope, $stateParams, PhotoAlbum, $rootScope) {
+  .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
+    function ($scope, $stateParams, PhotoAlbum, INFO) {
       $scope.teamId = $stateParams.teamId;
-      $rootScope.backLink = '#/photo_album/list/team/' + $stateParams.teamId;
+      INFO.photoAlbumBackUrl = '#/photo_album/list/team/' + $stateParams.teamId;
       PhotoAlbum.getList($stateParams.teamId, function (err, photoAlbums) {
         if (err) {
           // todo
@@ -429,9 +492,10 @@ angular.module('donlerApp.controllers', [])
         }
       });
 
-    }])
-  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', 'PhotoAlbum',
-    function ($scope, $stateParams, PhotoAlbum) {
+  }])
+  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
+    function ($scope, $stateParams, PhotoAlbum, INFO) {
+      $scope.photoAlbumBackUrl = INFO.photoAlbumBackUrl;
       PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
         if (err) {
           // todo
@@ -487,20 +551,8 @@ angular.module('donlerApp.controllers', [])
         });
         return resData;
       };
-
-    }])
-  .controller('MemberController', ['$scope', '$stateParams', 'Team',
-    function ($scope, $stateParams, Team) {
-
-      $scope.team = Team.getCurrentTeam();
-
-      Team.getMembers($stateParams.teamId, function (err, members) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.members = members;
-        }
-      });
-
-    }])
+  }])
+  .controller('MemberController', ['$scope', '$stateParams', 'INFO', function($scope, $stateParams, INFO) {
+    $scope.memberContents = INFO.memberContent;
+    $scope.backUrl = INFO.memberBackUrl;    
+  }])

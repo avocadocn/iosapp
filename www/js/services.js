@@ -8,7 +8,10 @@ angular.module('donlerApp.services', [])
   })
   .value('INFO', {
     campaignBackUrl:'#/app/campaigns',
-    teamBackUrl:'#/app/personal_teams'
+    teamBackUrl:'#/app/personal_teams',
+    photoAlbumBackUrl:'',
+    memberBackURL:'',
+    memberContent:''
   })
   .factory('UserAuth', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
@@ -335,8 +338,34 @@ angular.module('donlerApp.services', [])
        */
       getCurrentTeam: function () {
         return currentTeam;
-      }
+      },
+      joinTeam: function(tid, uid, callback) {
+        $http.put(CONFIG.BASE_URL + '/teams/' + tid +'/users/'+ uid)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
+      },
+      quitTeam: function(tid, uid, callback) {
+        $http.delete(CONFIG.BASE_URL + '/teams/' + tid +'/users/'+ uid)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
 
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
+      }
     };
   }])
   .factory('Message', ['$http', 'CONFIG', function ($http, CONFIG) {

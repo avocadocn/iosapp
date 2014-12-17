@@ -240,7 +240,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       templateUrl: 'views/team-detail.html'
     })
     .state('members', {
-      url: '/team/:teamId/members',
+      url: '/members/:memberType',
       controller: 'MemberController',
       templateUrl: 'views/members.html'
     })

@@ -24,9 +24,7 @@
           <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
         </ion-scroll>
       </div>
-      <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer">
-        <div class="tab-item dl_team_name"><i class="icon ion-image"></i>上传图片</div>
-        <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>活动成员({{campaign.member.length || '0'}})</div>
+      <div class="item tabs tabs-secondary tabs-icon-left dl_card_footer"><a ng-href="#/photo_album/{{campaign.photo_album._id}}/detail" class="tab-item btn_upload_photo"><i class="icon ion-image"></i>上传图片</a><a href="#/members/campaign" class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>活动成员({{campaign.members_count || '0'}})</a>
         <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}条讨论</div>
       </div>
     </div>

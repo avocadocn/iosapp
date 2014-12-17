@@ -15,11 +15,11 @@ ion-view
         .team_type {{team.groupType}}
         .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
         .team_des 小队简介: {{team.brief}}
-        button.button.button-block.button-positive.btn_join(ng-if="!team.hasJoined") 立即加入
-        button.button.button-block.button-light.btn_join(ng-if="team.hasJoined") 已经加入
+        button.button.button-block.button-light.btn_join(prevent-default ng-if="team.hasJoined" ng-click="quitTeam(team._id)") 已加入小队
+        button.button.button-block.button-positive.btn_join(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id)") 立即加入
       .item.tabs
         a.tab-item.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}") 上传照片
-        a.tab-item.btn_member(ng-href="#/team/{{team._id}}/members") {{team.memberCount}}名队员
+        a.tab-item.btn_member(href="#/members/team") {{team.memberCount}}名队员
         .tab-item.btn_cp 活动
     .card.team_home_court
       .row

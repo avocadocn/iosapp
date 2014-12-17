@@ -13,5 +13,5 @@ ion-view
         p {{team.lastCampaign.theme}}
         //-活动数还是假数据
         p 队员：{{team.memberCount}} 活动：{{team.campaignCount}}
-        button(ng-if="team.hasJoined") 已加入小队
-        button(ng-if="!team.hasJoined") 立即加入
+        button(prevent-default ng-if="team.hasJoined" ng-click="quitTeam(team._id, $index)") 已加入小队
+        button(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id, $index)") 立即加入

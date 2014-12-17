@@ -15,10 +15,10 @@
         <div class="team_type">{{team.groupType}}</div>
         <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
         <div class="team_des">小队简介: {{team.brief}}</div>
-        <button ng-if="!team.hasJoined" class="button button-block button-positive btn_join">立即加入</button>
-        <button ng-if="team.hasJoined" class="button button-block button-light btn_join">已经加入</button>
+        <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id)" class="button button-block button-light btn_join">已加入小队</button>
+        <button prevent-default="prevent-default" ng-if="!team.hasJoined" ng-click="joinTeam(team._id)" class="button button-block button-positive btn_join">立即加入</button>
       </div>
-      <div class="item tabs"><a ng-href="#/photo_album/list/team/{{team._id}}" class="tab-item btn_upload_photo">上传照片</a><a ng-href="#/team/{{team._id}}/members" class="tab-item btn_member">{{team.memberCount}}名队员</a>
+      <div class="item tabs"><a ng-href="#/photo_album/list/team/{{team._id}}" class="tab-item btn_upload_photo">上传照片</a><a href="#/members/team" class="tab-item btn_member">{{team.memberCount}}名队员</a>
         <div class="tab-item btn_cp">活动</div>
       </div>
     </div>

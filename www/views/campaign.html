@@ -20,7 +20,7 @@
                 <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
               </ion-scroll></a><a href="#/campaign/detail/{{campaign._id}}" class="item tabs tabs-icon-left dl_card_footer">
               <div class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div>
-              <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</div>
+              <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.members_count || '0'}}</div>
               <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</div></a>
           </div>
         </div>
@@ -57,7 +57,7 @@
                 <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
               </ion-scroll></a><a href="#/campaign/detail/{{campaign._id}}" class="item tabs tabs-icon-left dl_card_footer">
               <div class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div>
-              <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</div>
+              <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.members_count || '0'}}</div>
               <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</div></a>
           </div>
         </div>
@@ -75,7 +75,7 @@
                 <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
               </ion-scroll></a><a href="#/campaign/detail/{{campaign._id}}" class="item tabs tabs-icon-left dl_card_footer">
               <div class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div>
-              <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.member.length || '0'}}</div>
+              <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.members_count || '0'}}</div>
               <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</div></a>
           </div>
         </div>
