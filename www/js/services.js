@@ -3,8 +3,8 @@
  */
 angular.module('donlerApp.services', [])
   .constant('CONFIG', {
-    BASE_URL: 'http://192.168.2.107:3002',
-    SOCKET_URL: 'http://192.168.2.107:3005'
+    BASE_URL: 'http://localhost:3002',
+    SOCKET_URL: 'http://localhost:3005'
   })
   .value('INFO', {
     campaignBackUrl:'#/app/campaigns',

@@ -3,13 +3,13 @@
  */
 
 angular.module('donlerApp.controllers', [])
-  .directive('preventDefault', function() {
-      return function(scope, element, attrs) {
-          angular.element(element).bind('click', function(event) {
-              event.preventDefault();
-              event.stopPropagation();
-          });
-      }
+  .directive('preventDefault', function () {
+    return function (scope, element, attrs) {
+      angular.element(element).bind('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      });
+    }
   })
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
