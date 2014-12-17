@@ -435,7 +435,7 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('privacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
-    $scope.backHref = '#/personal/settings/about';
+    $scope.backHref = '#/app/settings/about';
   }])
   .controller('compRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/register/company';
