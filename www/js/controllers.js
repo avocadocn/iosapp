@@ -438,7 +438,7 @@ angular.module('donlerApp.controllers', [])
   .controller('userRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/register/user/post_detail';
   }])
-  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'INFO', function ($scope, $stateParams, Team, INFO) {
+  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, Team, Campaign, INFO) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
     Team.getData(teamId, function (err, team) {
@@ -452,9 +452,9 @@ angular.module('donlerApp.controllers', [])
         $scope.homeCourtIndex = 0;
       }
     });
-    $scope.joinTeam = function(tid) {
-      Team.joinTeam(tid, localStorage.id, function(err, data) {
-        if(!err) {
+    $scope.joinTeam = function (tid) {
+      Team.joinTeam(tid, localStorage.id, function (err, data) {
+        if (!err) {
           alert('加入成功');
           $scope.team.hasJoined = true;
         }
@@ -462,10 +462,10 @@ angular.module('donlerApp.controllers', [])
           alert(err);
         }
       });
-    }
-    $scope.quitTeam = function(tid) {
-      Team.quitTeam(tid, localStorage.id, function(err, data) {
-        if(!err) {
+    };
+    $scope.quitTeam = function (tid) {
+      Team.quitTeam(tid, localStorage.id, function (err, data) {
+        if (!err) {
           alert('退出成功');
           $scope.team.hasJoined = false;
         }
@@ -473,11 +473,19 @@ angular.module('donlerApp.controllers', [])
           alert(err);
         }
       });
-    }
+    };
     $scope.selectHomeCourt = function (index) {
       $scope.homeCourtIndex = index;
     };
 
+    Campaign.getAll('team', teamId, function (err, campaigns) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.campaigns = campaigns;
+      }
+    });
   }])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
     function ($scope, $stateParams, PhotoAlbum, INFO) {
