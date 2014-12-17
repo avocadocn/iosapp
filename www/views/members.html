@@ -1,30 +1,15 @@
 
 <ion-view>
-  <ion-header-bar><a href="#/app/personal" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">队员(成员)</h1>
+  <ion-header-bar><a ng-href="#/team/{{team._id}}" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">队员</h1>
   </ion-header-bar>
   <ion-content>
-    <h2>动梨下午茶队</h2>
-    <div class="row">
-      <div class="member col-25"><img src="http://placehold.it/45x45"/>
-        <p>用户昵称</p>
+    <div class="team_box">
+      <div class="team_name">
+        <h2 ng-cloak="ng-cloak">{{team.name}}</h2>
       </div>
-      <div class="member col-25"><img src="http://placehold.it/45x45"/>
-        <p>用户昵称</p>
-      </div>
-      <div class="member col-25"><img src="http://placehold.it/45x45"/>
-        <p>用户昵称</p>
-      </div>
-      <div class="member col-25"><img src="http://placehold.it/45x45"/>
-        <p>用户昵称</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="member col-25"><img src="http://placehold.it/45x45"/>
-        <p>用户昵称</p>
-      </div>
-      <div class="member col-25"><img src="http://placehold.it/45x45"/>
-        <p>用户昵称</p>
+      <div ng-repeat="member in members" class="team_member"><img ng-src="{{STATIC_URL + member.photo}}/45/45" class="logo"/>
+        <p class="name">{{member.nickname}}</p>
       </div>
     </div>
   </ion-content>

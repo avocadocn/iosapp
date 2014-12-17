@@ -488,4 +488,19 @@ angular.module('donlerApp.controllers', [])
         return resData;
       };
 
-    }]);
+    }])
+  .controller('MemberController', ['$scope', '$stateParams', 'Team',
+    function ($scope, $stateParams, Team) {
+
+      $scope.team = Team.getCurrentTeam();
+
+      Team.getMembers($stateParams.teamId, function (err, members) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.members = members;
+        }
+      });
+
+    }])

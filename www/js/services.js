@@ -256,6 +256,13 @@ angular.module('donlerApp.services', [])
 
   }])
   .factory('Team', ['$http', 'CONFIG', function ($http, CONFIG) {
+
+    /**
+     * 每调用Team.getData方法时，会将小队数据保存到这个变量中，在进入小队子页面时不必再去请求小队数据，
+     * 同时也避免了使用rootScope
+     */
+    var currentTeam;
+
     return {
 
       /**
@@ -290,6 +297,7 @@ angular.module('donlerApp.services', [])
       getData: function (tid, callback) {
         $http.get(CONFIG.BASE_URL + '/teams/' + tid)
           .success(function (data, status, headers, config) {
+            currentTeam = data;
             callback(null, data);
           })
 
@@ -300,6 +308,33 @@ angular.module('donlerApp.services', [])
               callback('error');
             }
           });
+      },
+
+      /**
+       * 获取小队成员列表
+       * @param {String} teamId 小队id
+       * @param {Function} callback 形式为function(err, members)
+       */
+      getMembers: function (teamId, callback) {
+        $http.get(CONFIG.BASE_URL + '/teams/' + teamId + '/members')
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
+      },
+
+      /**
+       * 获取当前小队数据
+       * @return {Object}
+       */
+      getCurrentTeam: function () {
+        return currentTeam;
       }
 
     };
