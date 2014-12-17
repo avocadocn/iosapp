@@ -36,26 +36,24 @@ ion-view
       a
         span {{team.memberCount}}
         i.icon.ion-chevron-right
-    label 2014-11
-    .list.card
-      .item.item-avatar
-        img(src="http://placehold.it/45x45")
-        h2 影评大赛
-        p 地点：2楼会议室
-        p 距离开始还有2小时
-      .item.item-body
-        img.full-image(src="http://placehold.it/320x140")
-      .item
-        span 观影不剧透队VS业余编剧队
-        span 参加人数: 20
-        span 讨论: 22
-    .list.card
-      .item.item-avatar
-        h2 一起看狂野非洲
-        p 2014年11月05日 周日
-      .item.item-body
-        img(src="http://placehold.it/160x140")
-        img(src="http://placehold.it/160x140")
-      .item
-        span 参加人数: 20
-        span 讨论: 22
+
+    .list.card.dl_card(ng-repeat="campaign in campaigns")
+      .item.item-avatar.dl_card_header
+        img.dl_team_logo(ng-if="team.logo" ng-src="{{STATIC_URL + team.logo}}/45/45")
+        h2.dl_cp_name {{campaign.theme}}
+        p.dl_cp_address 地点: {{campaign.location.name}}
+        button.dl_btn_join 参加
+      a.item.item-body.dl_card_body(ng-if="campaign.photo_album.photos.length>0" ng-href="#/campaign/detail/{{campaign._id}}")
+        ion-scroll(direction="x" scrollbar-x="false")
+          .dl_photo_alb
+            img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
+      .item.dl_card_footer
+        span.dl_team_name(ng-if="campaign.campaign_unit.length === 1")
+          | {{campaign.campaign_unit[0].team.name}}
+        span.dl_team_name(ng-if="campaign.campaign_unit.length === 2")
+          | {{campaign.campaign_unit[0].team.name}}
+          | vs
+          | {{campaign.campaign_unit[1].team.name}}
+        span 参加人数: {{campaign.members_count}}
+        span 讨论: {{campaign.comment_sum}}
+

@@ -74,7 +74,8 @@ angular.module('donlerApp.controllers', [])
     Campaign.getList({
       requestType: 'user',
       requestId: localStorage.id,
-      select_type: 0
+      select_type: 0,
+      populate: 'photo_album'
     }, function (err, data) {
       if (!err) {
         $scope.unStartCampaigns = data[0];
@@ -481,6 +482,19 @@ angular.module('donlerApp.controllers', [])
     $scope.selectHomeCourt = function (index) {
       $scope.homeCourtIndex = index;
     };
+
+    Campaign.getList({
+      requestType: 'team',
+      requestId: teamId,
+      populate: 'photo_album'
+    }, function (err, campaigns) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.campaigns = campaigns;
+      }
+    });
 
   }])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',

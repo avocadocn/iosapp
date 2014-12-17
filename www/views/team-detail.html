@@ -34,23 +34,19 @@
     <div class="card">
       <ion-scroll direction="x" scrollbar-x="false"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45"/><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45"/></ion-scroll><a><span>{{team.memberCount}}</span><i class="icon ion-chevron-right"></i></a>
     </div>
-    <label>2014-11</label>
-    <div class="list card">
-      <div class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>影评大赛</h2>
-        <p>地点：2楼会议室</p>
-        <p>距离开始还有2小时</p>
-      </div>
-      <div class="item item-body"><img src="http://placehold.it/320x140" class="full-image"/></div>
-      <div class="item"><span>观影不剧透队VS业余编剧队</span><span>参加人数: 20</span><span>讨论: 22</span></div>
-    </div>
-    <div class="list card">
-      <div class="item item-avatar">
-        <h2>一起看狂野非洲</h2>
-        <p>2014年11月05日 周日</p>
-      </div>
-      <div class="item item-body"><img src="http://placehold.it/160x140"/><img src="http://placehold.it/160x140"/></div>
-      <div class="item"><span>参加人数: 20</span><span>讨论: 22</span></div>
+    <div ng-repeat="campaign in campaigns" class="list card dl_card">
+      <div class="item item-avatar dl_card_header"><img ng-if="team.logo" ng-src="{{STATIC_URL + team.logo}}/45/45" class="dl_team_logo"/>
+        <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+        <p class="dl_cp_address">地点: {{campaign.location.name}}</p>
+        <button class="dl_btn_join">参加</button>
+      </div><a ng-if="campaign.photo_album.photos.length&gt;0" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-body dl_card_body">
+        <ion-scroll direction="x" scrollbar-x="false">
+          <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
+        </ion-scroll></a>
+      <div class="item dl_card_footer"><span ng-if="campaign.campaign_unit.length === 1" class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span><span ng-if="campaign.campaign_unit.length === 2" class="dl_team_name">
+          {{campaign.campaign_unit[0].team.name}}
+          vs
+          {{campaign.campaign_unit[1].team.name}}</span><span>参加人数: {{campaign.members_count}}</span><span>讨论: {{campaign.comment_sum}}</span></div>
     </div>
   </ion-content>
 </ion-view>
