@@ -71,8 +71,12 @@ angular.module('donlerApp.controllers', [])
     if(!localStorage.id){
       return $state.go('login');
     }
-    Campaign.getAll('user',localStorage.id,function(err,data){
-      if(!err){
+    Campaign.getList({
+      requestType: 'user',
+      requestId: localStorage.id,
+      select_type: 0
+    }, function (err, data) {
+      if (!err) {
         $scope.unStartCampaigns = data[0];
         $scope.nowCampaigns = data[1];
         $scope.newCampaigns = data[2];
@@ -478,14 +482,6 @@ angular.module('donlerApp.controllers', [])
       $scope.homeCourtIndex = index;
     };
 
-    Campaign.getAll('team', teamId, function (err, campaigns) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.campaigns = campaigns;
-      }
-    });
   }])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
     function ($scope, $stateParams, PhotoAlbum, INFO) {

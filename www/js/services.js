@@ -87,8 +87,16 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
-      getAll:function(type, id,callback){
-        $http.get(CONFIG.BASE_URL + '/campaigns?select_type=0&populate=photo_album&requestType=' + type + '&requestId=' + id)
+
+      /**
+       * 获取所有活动
+       * @param {Object} params 请求参数，参见api /campaigns说明
+       * @param {Function} callback
+       */
+      getList:function(params, callback){
+        $http.get(CONFIG.BASE_URL + '/campaigns', {
+          params: params
+        })
         .success(function (data, status) {
           callback(null,data);
         })
