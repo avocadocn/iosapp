@@ -913,7 +913,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, Team, Campaign, INFO) {
+  .controller('TeamController', ['$scope', '$stateParams', '$ionicPopup', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, $ionicPopup, Team, Campaign, INFO) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
     INFO.campaignBackUrl = '#/team/' + teamId;
