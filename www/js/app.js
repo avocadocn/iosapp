@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives'])
 
-  .run(function ($ionicPlatform, $state, $http,$rootScope) {
+  .run(function ($ionicPlatform, $state, $http, $rootScope, CommonHeaders) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -16,12 +16,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         StatusBar.styleDefault();
       }
       $rootScope.STATIC_URL ='http://localhost:3000';
-      $http.defaults.headers.common['x-app-id'] = '';
-      $http.defaults.headers.common['x-api-key'] = '';
-      $http.defaults.headers.common['x-device-id'] = '';
-      $http.defaults.headers.common['x-device-type'] = '';
-      $http.defaults.headers.common['x-platform'] = '';
-      $http.defaults.headers.common['x-version'] = '';
+      CommonHeaders.set();
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
@@ -72,6 +67,10 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         url: '/register/company/law',
         controller: 'compRegPrivacyController',
         templateUrl: 'views/privacy.html'
+      })
+      .state('register_company_wait', {
+        url: '/register/company/wait',
+        templateUrl: 'views/register-company-wait.html'
       })
       .state('register_user_searchCompany', {
         url: '/register/user/search_company',
@@ -138,7 +137,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         templateUrl: 'views/unjoined-discuss-list.html'
       })
       .state('discuss_detail', {
-        url: '/discuss/detail/:campaignId/:campaignName',
+        url: '/discuss/detail/:campaignId',
         controller: 'DiscussDetailController',
         templateUrl: 'views/discuss-detail.html'
       })

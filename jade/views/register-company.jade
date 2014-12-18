@@ -3,28 +3,35 @@ ion-view
     a.button.icon.ion-chevron-left(href="#/home") &nbsp;返回
     a.button.icon.ion-chevron-right(href="#/company/login") &nbsp;登录
   ion-content
-    .list.list-inset
-      label.item.item-input
-        input(type="text" placeholder="公司全称")
-    .list.list-inset
-      label.item.item-input
-        input(type="text" placeholder="省、市、区")
-    .list.list-inset
-      label.item.item-input
-        input(type="text" placeholder="详细地址")
-    .list.list-inset
-      label.item.item-input
-        input(type="text" placeholder="联系人姓名")
-    .list.list-inset
-      label.item.item-input
-        input(type="text" placeholder="区号")
-    .list.list-inset
-      label.item.item-input
-        input(type="text" placeholder="电子邮箱")
-    .list.list-inset
-      label.item.item-input
-        input(type="text" placeholder="手机号码")
-    p 点击注册即代表同意
-      a(href="#/register/company/law")《法律声明》及《隐私政策》
-    button.button.button-block.button-assertive 企业注册
-    a.button.button-block.button-light(href="#/register/user/search_company") 个人注册
+    form.company_signup(ng-controller="companySignupController" name="signup_form" novalidate)
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required)
+        p(ng-if="name_check&&name_repeat") 此公司名已被注册，请直接以个人身份注册。
+      .list.list-inset
+        label.item.dl_item_input#selector(data-select="province city district")
+          select(type="text" name="province" required)
+          select(type="text" name="city" required)
+          select(type="text" name="district" required)
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="address" ng-model="address" placeholder="详细地址" required)
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="contacts" ng-model="contacts" placeholder="联系人姓名" required)
+      .list.list-inset
+        label.item.dl_item_input
+          input.arecode(type="number" name="areacode" ng-model="areacode" placeholder="区号" ng-minlength=3 ng-maxlength=4 required)
+          input.number(type="number" name="tel" ng-model="tel" placeholder="电话" required)
+          input.extension(type="number" name="extension" ng-model="extension" placeholder="分机")
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="email" ng-model="email" placeholder="电子邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required)
+        p(ng-if="mail_check") {{mail_msg}}
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="phone" ng-model="phone" placeholder="手机号码" ng-minlength=11 ng-maxlength=11 required)
+      p 点击注册即代表同意
+        a(href="#/register/company/law") 《法律声明》及《隐私政策》
+      button.button.button-block.button-assertive(ng-disabled="!mail_check || mail_error || name_check&&name_error ||form.$invalid" ng-click="signup()") 企业注册
+      a.button.button-block.button-light(href="#/register/user/search_company") 个人注册

@@ -2,6 +2,39 @@
  * Created by Sandeep on 11/09/14.
  */
 angular.module('donlerApp.services', [])
+  .config(['$httpProvider', function ($httpProvider) {
+    var interceptor = ['$q', function ($q) {
+      var success = function (response) {
+        return response;
+      };
+      var error = function (response) {
+        var status = response.status;
+        var isLogin = false;
+        if (response.config.url.indexOf('/users/login') !== -1
+        || response.config.url.indexOf('/companies/login') !== -1) {
+          isLogin = true;
+        }
+        if (status === 401 && !isLogin) {
+          var userType = localStorage.userType;
+          if (userType === 'company') {
+            window.location.href = '#/company/login';
+          } else {
+            window.location.href = '#/user/login';
+          }
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userType');
+          localStorage.removeItem('id');
+          return response;
+        }
+        // otherwise
+        return $q.reject(response);
+      };
+      return function (promise) {
+        return promise.then(success, error);
+      }
+    }];
+    $httpProvider.responseInterceptors.push(interceptor);
+  }])
   .constant('CONFIG', {
     BASE_URL: 'http://localhost:3002',
     SOCKET_URL: 'http://localhost:3005'
@@ -11,8 +44,41 @@ angular.module('donlerApp.services', [])
     teamBackUrl:'#/app/personal_teams',
     photoAlbumBackUrl:'',
     memberBackURL:'',
-    memberContent:''
+    memberContent:'',
+    discussName:'',
+    lastDate:''
   })
+  .factory('CommonHeaders', ['$http', function ($http) {
+
+    return {
+
+      /**
+       * 设置默认的headers
+       * 示例:
+       *  set({
+       *    'x-app-id': 'appid',
+       *    'x-api-key': 'apikey'
+       *  })
+       * @param {Object} headers
+       */
+      set: function (headers) {
+        if (!headers) {
+          $http.defaults.headers.common['x-app-id'] = 'id1a2b3c4d5e6f';
+          $http.defaults.headers.common['x-api-key'] = 'key1a2b3c4d5e6f';
+          $http.defaults.headers.common['x-device-id'] = 'did1a2b3c4d5e6f';
+          $http.defaults.headers.common['x-device-type'] = 'iphone 6';
+          $http.defaults.headers.common['x-platform'] = 'ios';
+          $http.defaults.headers.common['x-version'] = '8.0';
+        } else {
+          for (var key in headers) {
+            $http.defaults.headers.common[key] = headers[key];
+          }
+        }
+      }
+
+    };
+
+  }])
   .factory('UserAuth', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
       login: function (email, password, callback) {
@@ -43,7 +109,6 @@ angular.module('donlerApp.services', [])
             callback();
           })
           .error(function (data, status) {
-            // todo
             callback('error');
           });
       }
@@ -85,9 +150,52 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
+  .factory('CompanySignup', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+      /**
+       * [validate description] 验证
+       * @param  {string}   mail
+       * @param  {string}   name
+       * @param  {Function} callback
+       */
+      validate: function (email, name, callback) {
+        var data;
+        if(!email&&!name) {
+          callback('参数错误');
+        }else{
+          if(email)
+            data = {email: email};
+          else
+            data = {name: name};
+          $http.post(CONFIG.BASE_URL + '/companies/validate',data)
+          .success(function (data, status) {
+            if(data.validate)
+              callback();
+            else
+              callback(data.msg);
+          }).error(function (data, status) {
+            callback(data.msg);
+          });
+        }
+        
+      },
+      /**
+       * [signup description] 注册
+       * @param  {object}   data
+       * @param  {Function} callback
+       */
+      signup: function(data, callback) {
+        $http.post(CONFIG.BASE_URL + '/companies', data)
+        .success(function (data, status) {
+          callback();
+        }).error(function (data, status) {
+          callback(data.msg);
+        });
+      }
+    }
+  }])
   .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
-
       /**
        * 获取所有活动
        * @param {Object} params 请求参数，参见api /campaigns说明

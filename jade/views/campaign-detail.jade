@@ -3,7 +3,7 @@ ion-view
   ion-header-bar
     a.button.button-clear(ng-href="{{backUrl}}") 返回
     h1.title {{campaign.theme}}
-    a.button.icon.button-clear.ion-chatbox
+    a.button.icon.button-clear.ion-chatbox(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
   ion-content
     .card.dl_card
       .item.item-divider
@@ -33,7 +33,7 @@ ion-view
         a.tab-item.dl_team_number(href="#/members/campaign/{{campaign._id}}")
           i.icon.ion-person-stalker
           | 活动成员({{campaign.members_count || '0'}})
-        .tab-item.dl_team_comment
+        .tab-item.dl_team_comment(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           i.icon.ion-chatbox
           | {{campaign.comment_sum}}条讨论
     .card

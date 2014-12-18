@@ -1,8 +1,7 @@
 
 <ion-view>
   <ion-header-bar><a href="#/app/discuss/list" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">{{campaignTitle}}</h1>
-    <button class="button icon ion-ionic"></button>
+    <h1 class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon ion-ionic"></a>
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
