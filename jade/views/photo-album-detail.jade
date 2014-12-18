@@ -4,6 +4,33 @@ ion-view
     h1.title {{photoAlbum.name}}
 
   ion-content
-    .card(ng-repeat="group in photoGroups")
+    .dl_gallery.card(ng-repeat="group in photoGroups" itemscope itemtype="http://schema.org/ImageGallery" on-last-repeat)
       p {{group.date | date:'yyyy年MM月dd日'}}
-      img(ng-repeat="photo in group.photos" ng-src="{{STATIC_URL + photo.uri}}/60/60")
+      figure(itemscope itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos")
+        a(ng-href="{{STATIC_URL + photo.uri}}/60/60" itemprop="contentUrl" data-size="320x200")
+          img(ng-src="{{STATIC_URL + photo.uri}}/60/60" itemprop="thumbnail")
+        figcaption(itemprop="caption description") {{photo.name}}
+
+
+    .pswp(tabindex="-1" role="dialog" aria-hidden="true")
+      .pswp_bg
+      .pswp__scroll-wrap
+        .pswp__container
+          .pswp__item
+          .pswp__item
+          .pswp__item
+        .pswp__ui.pswp__ui--hidden
+          .pswp__top-bar
+            .pswp__counter
+            button.pswp__button.pswp__button--close(title="关闭")
+            button.pswp__button.pswp__button--fs(title="全屏")
+            button.pswp__button.pswp__button--zoom(title="放大/缩小")
+            .pswp__preloader
+              .pswp__preloader__icn
+                .pswp__preloader__cut
+                  .pswp__preloader__donut
+
+          button.pswp__button.pswp__button--arrow--left(title="上一张")
+          button.pswp__button.pswp__button--arrow--right(title="下一张")
+          .pswp__caption
+            .pswp__caption__center

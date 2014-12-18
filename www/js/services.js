@@ -411,7 +411,6 @@ angular.module('donlerApp.services', [])
        */
       getList: function (tid, callback) {
         $http.get(CONFIG.BASE_URL + '/photo_albums?ownerType=team&ownerId=' + tid)
-
           .success(function (data, status, headers, config) {
             callback(null, data);
           })
@@ -444,7 +443,7 @@ angular.module('donlerApp.services', [])
       },
 
       /**
-       * 获取某个相册的所有包子
+       * 获取某个相册的所有照片
        * @param {String} photoAlbumId 相册id
        * @param {Function} callback 形式为function(err, photos)
        */
