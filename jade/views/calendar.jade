@@ -49,14 +49,11 @@ ion-view
             .clearfix(detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preDay,nextDay")
               ion-list
                 ion-item.calendar_campaign(ng-repeat="campaign in current_day.campaigns")
-                  a.campaign_link(href="#/app/campaign_detail/{{ campaign._id }}/")
-                    .row.campaign_title
-                      img.campaign_group_logo(ng-src="{{ img_url + campaign.logo + '/72/72'}}")
-                      .campaign_label
-                        p.campaign_theme {{ campaign.theme }}
-                        p.new_campaign_time 开始时间：{{campaign.format_start_time}}
-                        .joined_sign(ng-if="campaign.is_joined")
-              .text-center(ng-if="day_cards.campaigns.length === 0") 今天没有活动哦
+                  a.item.item-avatar(ng-href="#/campaign/detail/{{campaign._id}}")
+                    img.dl_team_logo(ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/40/40'}}")
+                    h2 {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].team.name}}{{campaign.campaign_unit[1] ? 'vs' +campaign.campaign_unit[1].team.name || campaign.campaign_unit[1].team.name :''}}
+                    p.dl_cp_name {{ campaign.theme }}
+              .text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
 script(id="my-popover.html" type="text/ng-template")
   ion-popover-view
     ion-content
