@@ -4,14 +4,13 @@ ion-view
     a.button(ng-if="view==='day'" ng-click="back()") 关闭
     h1.title 我的日程
     a.button.icon.ion-chevron-down(ng-click="showFilter()") 所有
-  ion-content.has-header(scrollbar-y="false")
+  ion-content.has-header(scroll='false')
     .calendar
       nav(no-scroll)
         .operator.item.tabs.tabs-icon-left.dl_card_footer
             .tab-item(ng-click="preMonth()")
               i.icon.ion-chevron-left
-            .tab-item.dl_team_number
-              {{ current_year }} - {{ current_month.format_month }}
+            .tab-item.dl_team_number {{ current_year }} - {{ current_month.format_month }}
             .tab-item(ng-click="nextMonth()")
               i.icon.ion-chevron-right
           //- .pull-right(ng-if="view!=='year'")

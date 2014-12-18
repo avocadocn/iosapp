@@ -22,7 +22,7 @@ angular.module('donlerApp.controllers', [])
         gestureType.forEach(function(_gestureType,_index){
           switch(_gestureType) {
             case "swipe":
-              gesture[_index] = $ionicGesture.on('swipe', scope[getstureCallback[_index]], elem);
+              gesture[_index] = $ionicGesture.on('swipe',scope[getstureCallback[_index]], elem);
               break;
             case "swipeleft":
               gesture[_index] = $ionicGesture.on('swipeleft', scope[getstureCallback[_index]], elem);
@@ -533,7 +533,7 @@ angular.module('donlerApp.controllers', [])
   .controller('', ['$scope', function ($scope) {
 
   }])
-  .controller('CalendarController',['$scope', '$rootScope', '$ionicPopover', 'Campaign', 'INFO', function($scope, $rootScope, $ionicPopover, Campaign, INFO) {
+  .controller('CalendarController',['$scope', '$rootScope', '$ionicPopup', '$ionicPopover', 'Campaign', 'INFO', function($scope, $rootScope, $ionicPopup, $ionicPopover, Campaign, INFO) {
     // $rootScope.enable_drag = false;
     // $rootScope.$on('$stateChangeStart', function() {
     //   $rootScope.enable_drag = true;
