@@ -2,6 +2,39 @@
  * Created by Sandeep on 11/09/14.
  */
 angular.module('donlerApp.services', [])
+  .config(['$httpProvider', function ($httpProvider) {
+    var interceptor = ['$q', function ($q) {
+      var success = function (response) {
+        return response;
+      };
+      var error = function (response) {
+        var status = response.status;
+        var isLogin = false;
+        if (response.config.url.indexOf('/users/login') !== -1
+        || response.config.url.indexOf('/companies/login') !== -1) {
+          isLogin = true;
+        }
+        if (status === 401 && !isLogin) {
+          var userType = localStorage.userType;
+          if (userType === 'company') {
+            window.location.href = '#/company/login';
+          } else {
+            window.location.href = '#/user/login';
+          }
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userType');
+          localStorage.removeItem('id');
+          return response;
+        }
+        // otherwise
+        return $q.reject(response);
+      };
+      return function (promise) {
+        return promise.then(success, error);
+      }
+    }];
+    $httpProvider.responseInterceptors.push(interceptor);
+  }])
   .constant('CONFIG', {
     BASE_URL: 'http://localhost:3002',
     SOCKET_URL: 'http://localhost:3005'
@@ -45,11 +78,6 @@ angular.module('donlerApp.services', [])
             callback();
           })
           .error(function (data, status) {
-            // todo
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('userType');
-            localStorage.removeItem('id');
-            $http.defaults.headers.common['x-access-token'] = null;
             callback('error');
           });
       }
