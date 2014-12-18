@@ -46,7 +46,9 @@
               <ion-list>
                 <ion-item ng-repeat="campaign in current_day.campaigns" class="calendar_campaign"><a ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar"><img ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/40/40'}}" class="dl_team_logo"/>
                     <h2>{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].team.name}}{{campaign.campaign_unit[1] ? 'vs' +campaign.campaign_unit[1].team.name || campaign.campaign_unit[1].team.name :''}}</h2>
-                    <p class="dl_cp_name">{{ campaign.theme }}</p></a></ion-item>
+                    <p class="dl_cp_name">{{ campaign.theme }}</p>
+                    <p ng-if="current_day.past_flag" class="flag">{{ campaign.finish?'已经结束':'正在新兴' }}</p>
+                    <p ng-if="!current_day.past_flag" class="flag">{{ campaign.join_flag==1?'已参加':'未参加' }}</p></a></ion-item>
               </ion-list>
               <div ng-if="current_day.campaigns.length === 0" class="text-center">今天没有活动哦</div>
             </div>

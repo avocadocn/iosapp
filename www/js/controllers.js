@@ -541,7 +541,7 @@ angular.module('donlerApp.controllers', [])
     }];
     $scope.nowTypeIndex =2;
     moment.locale('zh-cn');
-
+    INFO.campaignBackUrl = '#/calendar';
     /**
      * 日历视图的状态，有年、月、日三种视图
      * 'year' or 'month' or 'day'
@@ -680,12 +680,14 @@ angular.module('donlerApp.controllers', [])
      */
     var updateDay = $scope.updateDay = function(date) {
       var date = new Date(date);
+      var now = new Date();
       $scope.view = 'day';
       if (date.getMonth() !== current.getMonth()) {
         updateMonth(date);
       }
       current = date;
       $scope.current_date =date;
+      INFO.lastDate = date;
       var events =[];
       $scope.current_month.days[current.getDate() - 1].events.forEach(function(event){
         if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag) {
@@ -694,6 +696,7 @@ angular.module('donlerApp.controllers', [])
       })
       var day = {
         date: current,
+        past_flag: current<now,
         format_date: moment(current).format('ll'),
         format_day: moment(current).format('dddd'),
         campaigns: events

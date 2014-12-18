@@ -53,6 +53,8 @@ ion-view
                     img.dl_team_logo(ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/40/40'}}")
                     h2 {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].team.name}}{{campaign.campaign_unit[1] ? 'vs' +campaign.campaign_unit[1].team.name || campaign.campaign_unit[1].team.name :''}}
                     p.dl_cp_name {{ campaign.theme }}
+                    p.flag(ng-if="current_day.past_flag") {{ campaign.finish?'已经结束':'正在新兴' }}
+                    p.flag(ng-if="!current_day.past_flag") {{ campaign.join_flag==1?'已参加':'未参加' }}
               .text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
 script(id="my-popover.html" type="text/ng-template")
   ion-popover-view
