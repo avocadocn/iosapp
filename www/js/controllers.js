@@ -1017,15 +1017,6 @@ angular.module('donlerApp.controllers', [])
       }
     });
 
-    $scope.joinCampaign = function (campaignId) {
-      Campaign.join(campaignId, localStorage.id, function (err, data) {
-        if (!err) {
-          // todo
-          alert('参加成功');
-        }
-      });
-    };
-
   }])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
     function ($scope, $stateParams, PhotoAlbum, INFO) {

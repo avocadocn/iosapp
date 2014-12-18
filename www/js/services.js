@@ -37,6 +37,7 @@ angular.module('donlerApp.services', [])
   }])
   .constant('CONFIG', {
     BASE_URL: 'http://localhost:3002',
+    STATIC_URL: 'http://localhost:3000',
     SOCKET_URL: 'http://localhost:3005'
   })
   .value('INFO', {
