@@ -48,6 +48,37 @@ angular.module('donlerApp.services', [])
     discussName:'',
     lastDate:''
   })
+  .factory('CommonHeaders', ['$http', function ($http) {
+
+    return {
+
+      /**
+       * 设置默认的headers
+       * 示例:
+       *  set({
+       *    'x-app-id': 'appid',
+       *    'x-api-key': 'apikey'
+       *  })
+       * @param {Object} headers
+       */
+      set: function (headers) {
+        if (!headers) {
+          $http.defaults.headers.common['x-app-id'] = 'id1a2b3c4d5e6f';
+          $http.defaults.headers.common['x-api-key'] = 'key1a2b3c4d5e6f';
+          $http.defaults.headers.common['x-device-id'] = 'did1a2b3c4d5e6f';
+          $http.defaults.headers.common['x-device-type'] = 'iphone 6';
+          $http.defaults.headers.common['x-platform'] = 'ios';
+          $http.defaults.headers.common['x-version'] = '8.0';
+        } else {
+          for (var key in headers) {
+            $http.defaults.headers.common[key] = headers[key];
+          }
+        }
+      }
+
+    };
+
+  }])
   .factory('UserAuth', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
       login: function (email, password, callback) {
