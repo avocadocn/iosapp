@@ -2,42 +2,53 @@
 <ion-view>
   <ion-header-bar><a href="#/home" class="button icon ion-chevron-left">&nbsp;返回</a><a href="#/user/login" class="button icon ion-chevron-right">&nbsp;登录</a></ion-header-bar>
   <ion-content>
-    <p>动梨信息技术有限公司</p>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="企业邮箱"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="昵称"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="密码"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="密码确认"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="真实姓名"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="部门"/>
-      </label>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="手机号码"/>
-      </label>
-    </div>
-    <p>点击注册即代表同意<a href="#/register/user/law">《法律声明》及《隐私政策》</a></p><a href="#/register/user/wait_email" class="button button-block button-positive">个人注册</a>
+    <p>{{companyName}}</p>
+    <form name="user_signup_form" novalidate="novalidate">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
+        </label>
+      </div>
+      <div ng-show="active">
+        <p ng-show="active===1">该邮箱可以注册。</p>
+        <p ng-show="active===2">该邮箱已注册过但尚未激活，请到邮箱查收邮件。</p>
+        <p ng-show="active===3">该邮箱已注册，请直接登录。</p>
+        <p ng-show="active===3">请使用企业邮箱进行注册，若企业后缀不统一，请通知贵公司管理员进行后缀添加。</p>
+      </div>
+      <div ng-show="!active||active===1">
+        <div class="list list-inset">
+          <label class="item item-input">
+            <input type="text" ng-model="data.nickname" placeholder="昵称" required="required"/>
+          </label>
+        </div>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <input type="text" ng-model="data.password" placeholder="密码" required="required"/>
+          </label>
+        </div>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <input type="text" ng-model="data.passconf" placeholder="密码确认" match="data.password" required="required"/>
+          </label>
+        </div>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <input type="text" ng-model="data.name" placeholder="真实姓名" required="required"/>
+          </label>
+        </div>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <input type="text" ng-model="data.phone" placeholder="手机号码(选填)"/>
+          </label>
+        </div>
+        <div class="list list-inset">
+          <label class="item item-input">
+            <input type="text" ng-model="data.inviteKey" placeholder="公司专属8位激活码" required="required"/>
+          </label>
+        </div>
+        <p>点击注册即代表同意<a href="#/register/user/law">《法律声明》及《隐私政策》</a></p>
+        <button ng-disabled="email_check&amp;&amp;email_error ||form.$invalid" ng-click="signup()" class="button button-block button-positive">个人注册</button>
+      </div>
+    </form>
   </ion-content>
 </ion-view>

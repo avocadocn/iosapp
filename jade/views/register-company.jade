@@ -3,7 +3,7 @@ ion-view
     a.button.icon.ion-chevron-left(href="#/home") &nbsp;返回
     a.button.icon.ion-chevron-right(href="#/company/login") &nbsp;登录
   ion-content
-    form.company_signup(ng-controller="companySignupController" name="signup_form" novalidate)
+    form.company_signup(ng-controller="companySignupController" name="company_signup_form" novalidate)
       .list.list-inset
         label.item.item-input
           input(type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required)

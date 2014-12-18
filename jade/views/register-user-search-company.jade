@@ -5,17 +5,14 @@ ion-view
    ion-content
       .list.list-inset
          label.item.item-input
-            input(type="text" placeholder="输入您的公司全称")
-            i.icon.ion-search.placeholder-icon
-      p 请在上方输入您的公司名称，进行搜索。
-      .list
-         a.item.item-icon-right(href="#/register/user/post_detail")
-            | 动梨信息技术有限公司
+            input(type="text" placeholder="输入您的公司全称" ng-model="companyName.value" ng-blur="searchCompany()" ng-keypress="keypress($event)")
+            i.icon.ion-search.placeholder-icon(ng-click="searchCompany()")
+      p(ng-if="!searched") 请在上方输入您的公司名称，进行搜索。
+      .list(ng-if="searched && companies.length")
+         a.item.item-icon-right(ng-repeat="company in companies" ng-click="goDetail(company)")
+            | {{company.name}}
             i.icon.ion-chevron-right
-         a.item.item-icon-right(href="#/register/user/post_detail")
-            | 动梨粥店
-            i.icon.ion-chevron-right
-
-      p 没有您的公司？
-      a.button.button-outline.button-positive 将动梨推荐给您的HR
-      a.button.button-outline.button-assertive(href="#/register/company") 为公司注册
+      div(ng-if="searched && !companies.length")
+         p 没有您的公司？
+         a.button.button-outline.button-positive 将动梨推荐给您的HR
+         a.button.button-outline.button-assertive(href="#/register/company") 为公司注册

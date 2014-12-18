@@ -74,11 +74,17 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       })
       .state('register_user_searchCompany', {
         url: '/register/user/search_company',
+        controller:'userSearchCompanyController',
         templateUrl: 'views/register-user-search-company.html'
       })
       .state('register_user_postDetail', {
-        url: '/register/user/post_detail',
+        url: '/register/user/post_detail/:cid',
+        controller: 'userRegisterDetailController',
         templateUrl: 'views/register-user-post-detail.html'
+      })
+      .state('register_user_remind_activate', {
+        url: '/register/user/remind_activate',
+        templateUrl: 'views/register-user-remind-activate.html'
       })
       .state('register_user_waitEmail', {
         url: '/register/user/wait_email',

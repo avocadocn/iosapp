@@ -47,7 +47,9 @@ angular.module('donlerApp.services', [])
     memberBackURL:'',
     memberContent:'',
     discussName:'',
-    lastDate:''
+    lastDate:'',
+    companyId:'',
+    companyName:''
   })
   .factory('CommonHeaders', ['$http', function ($http) {
 
@@ -187,6 +189,34 @@ angular.module('donlerApp.services', [])
        */
       signup: function(data, callback) {
         $http.post(CONFIG.BASE_URL + '/companies', data)
+        .success(function (data, status) {
+          callback();
+        }).error(function (data, status) {
+          callback(data.msg);
+        });
+      }
+    }
+  }])
+  .factory('UserSignup', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return{
+      validate: function (email, cid, callback) {
+        $http.post(CONFIG.BASE_URL + '/users/validate', {email:email, cid:cid})
+        .success(function (data, status) {
+          callback(null,data);
+        }).error(function (data, status) {
+          callback(data.msg);
+        });
+      },
+      searchCompany: function (name, callback) {
+        $http.post(CONFIG.BASE_URL + '/search/companies', {'name':name})
+        .success(function (data, status) {
+          callback(null,data);
+        }).error(function (data, status) {
+          callback(data.msg);
+        });
+      },
+      signup: function(data, callback) {
+        $http.post(CONFIG.BASE_URL + '/users', data)
         .success(function (data, status) {
           callback();
         }).error(function (data, status) {

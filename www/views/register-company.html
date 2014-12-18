@@ -2,7 +2,7 @@
 <ion-view>
   <ion-header-bar><a href="#/home" class="button icon ion-chevron-left">&nbsp;返回</a><a href="#/company/login" class="button icon ion-chevron-right">&nbsp;登录</a></ion-header-bar>
   <ion-content>
-    <form ng-controller="companySignupController" name="signup_form" novalidate="novalidate" class="company_signup">
+    <form ng-controller="companySignupController" name="company_signup_form" novalidate="novalidate" class="company_signup">
       <div class="list list-inset">
         <label class="item item-input">
           <input type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required="required"/>
