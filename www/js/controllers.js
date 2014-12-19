@@ -389,7 +389,7 @@ angular.module('donlerApp.controllers', [])
       $state.go('discuss_detail',{campaignId: campaignId});
     }
   }])
-  .controller('UnjoinedDiscussController', ['$scope','$state', 'Comment', 'Socket', 'Tools', function ($scope, $state, Comment, Socket, Tools) { //标为全部已读???
+  .controller('UnjoinedDiscussController', ['$scope','$state', 'INFO', 'Comment', 'Socket', 'Tools', function ($scope, $state, INFO, Comment, Socket, Tools) { //标为全部已读???
     Socket.emit('enterRoom', localStorage.id);
     //进来以后先http请求,再监视推送
     Comment.getList('unjoined').success(function (data) {
@@ -1179,6 +1179,10 @@ angular.module('donlerApp.controllers', [])
         $scope.invitekeyCheck = false;
       }
     }
+  
+  }])
+  .controller('CompanyActiveCodeController', ['$scope', function ($scope) {
+
   }])
   .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, Team, Campaign, INFO) {
     var teamId = $stateParams.teamId;

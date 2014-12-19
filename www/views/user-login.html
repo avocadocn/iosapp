@@ -13,7 +13,7 @@
       </label>
     </div>
     <p ng-show="msg">{{msg}}</p>
-    <button type="button" ng-disabled="!loginData.username || !loginData.password" ng-click="login()">个人登录</button>
+    <button type="button" ng-disabled="!loginData.email || !loginData.password" ng-click="login()">个人登录</button>
     <p><a href="#/forget">忘记密码？</a><a href="#/company/login">企业账号登录</a></p>
   </ion-content>
 </ion-view>

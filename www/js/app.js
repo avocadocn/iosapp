@@ -53,6 +53,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       })
       .state('company_activeCode', {
         url: '/company/active_code',
+        controller: 'CompanyActiveCodeController',
         templateUrl: 'views/company-active-code.html'
       })
       .state('company_teamList', {
