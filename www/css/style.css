@@ -379,3 +379,6 @@ body {
   border-style: solid;
   border-width: 0 20px 20px;
 }
+.dl_family_photo_selected {
+  border: 1px solid #3ca2e0;
+}

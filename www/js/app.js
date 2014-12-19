@@ -302,8 +302,8 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         controller: 'PhotoAlbumDetailController',
         templateUrl: 'views/photo-album-detail.html'
       })
-      .state('photo_detail', {
-        url: '/photo_album/:photoAlbumId/photo/:photoId',
-        templateUrl: 'views/photo-detail.html'
-      });
+      //.state('photo_detail', {
+      //  url: '/photo_album/:photoAlbumId/photo/:photoId',
+      //  templateUrl: 'views/photo-detail.html'
+      //});
   });

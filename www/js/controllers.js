@@ -1647,7 +1647,16 @@ angular.module('donlerApp.controllers', [])
       }
     });
 
-
+    $scope.toggleSelect = function (familyPhoto) {
+      Team.toggleSelectFamilyPhoto($scope.team._id, familyPhoto._id, function (err) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          familyPhoto.select = !familyPhoto.select;
+        }
+      });
+    };
 
   }])
   .controller('MemberController', ['$scope', '$stateParams', 'INFO', 'Team', function($scope, $stateParams, INFO, Team) {

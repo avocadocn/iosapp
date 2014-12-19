@@ -554,7 +554,18 @@ angular.module('donlerApp.services', [])
           .error(function (data, status, headers, config) {
             callback('error');
           });
+      },
+
+      toggleSelectFamilyPhoto: function (teamId, familyPhotoId, callback) {
+        $http.put(CONFIG.BASE_URL + '/teams/' + teamId + '/family_photos/' + familyPhotoId)
+          .success(function (data, status, headers, config) {
+            callback();
+          })
+          .error(function (data, status, headers, config) {
+            callback('error');
+          });
       }
+
     };
   }])
   .factory('Message', ['$http', 'CONFIG', function ($http, CONFIG) {

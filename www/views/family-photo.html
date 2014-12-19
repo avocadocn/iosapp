@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <div class="card">
-      <p>全家福({{familyPhotos.length}})</p><img ng-repeat="photo in familyPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60"/>
+      <p>全家福({{familyPhotos.length}})</p><img ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="toggleSelect(photo)"/>
     </div>
   </ion-content>
 </ion-view>

@@ -5,6 +5,6 @@ ion-view
   ion-content
     .card
       p 全家福({{familyPhotos.length}})
-      img(ng-repeat="photo in familyPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60")
+      img(ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="toggleSelect(photo)")
 
 include ./photo-swipe
