@@ -1,0 +1,14 @@
+2014-12-17 17:15:42.042 Donler[41740:1379327] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/vitrum.zhu/Library/Developer/CoreSimulator/Devices/DEEA3E27-751C-4F9E-B66F-AFFB7213D698/data/Containers/Data/Application/749A48A3-BBF9-4D17-AAF0-B69D43956EAB/Library/Cookies/Cookies.binarycookies
+2014-12-17 17:15:43.174 Donler[41740:1379327] Apache Cordova native platform version 3.7.0 is starting.
+2014-12-17 17:15:43.175 Donler[41740:1379327] Multi-tasking -> Device: YES, App: YES
+2014-12-17 17:15:43.222 Donler[41740:1379327] Unlimited access to network resources
+2014-12-17 17:15:43.262 Donler[41740:1379327] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2014-12-17 17:15:48.676 Donler[41740:1379327] Resetting plugins due to page load.
+2014-12-17 17:15:54.177 Donler[41740:1379327] Finished load of: file:///Users/vitrum.zhu/Library/Developer/CoreSimulator/Devices/DEEA3E27-751C-4F9E-B66F-AFFB7213D698/data/Containers/Bundle/Application/7025110F-6D7C-4615-8EA6-D686E1723C05/Donler.app/www/index.html

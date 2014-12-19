@@ -1378,6 +1378,7 @@ angular.module('donlerApp.controllers', [])
 
           // Pass data to PhotoSwipe and initialize it
           gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+
           gallery.init();
         };
 
