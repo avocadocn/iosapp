@@ -20,7 +20,7 @@ ion-view
             p {{comment.create_date | date: 'M月dd日 HH:mm'}} 
           .comment(ng-repeat="photo in comment.photos")
             .content
-              img.img(ng-src="{{STATIC_URL +photo.uri+ '/190/190'}}")
+              img.img(ng-src="{{STATIC_URL +photo.uri+ '/190/190'}}" ng-click="openPhotoSwipe(photo._id)")
             .author
               .logo
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
@@ -39,7 +39,7 @@ ion-view
             p {{comment.create_date | date: 'M月dd日 HH:mm'}}
           .comment(ng-repeat="photo in comment.photos")
             .content
-              img.img(ng-src="{{STATIC_URL +photo.uri+ '/190/190'}}")
+              img.img(ng-src="{{STATIC_URL +photo.uri+ '/190/190'}}" ng-click="openPhotoSwipe(photo._id)")
             .author
               .logo
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
@@ -55,3 +55,5 @@ ion-view
     i   +   
     input(ng-model = "commentContent")
     button(ng-click="publishComment()" ng-disabled="!commentContent") 发表
+
+include ./photo-swipe

@@ -321,14 +321,49 @@ angular.module('donlerApp.controllers', [])
       $state.go('discuss_detail',{campaignId: campaignId});
     };
   }])
-  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message) {
+  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', 'Tools', 'CONFIG', 'INFO', function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message, Tools, CONFIG, INFO) {
     $scope.campaignTitle =  $stateParams.campaignName;
     Socket.emit('enterRoom', $stateParams.campaignId);
     //无论进入离开，都需归零user的对应campaign的unread数目
     //获取时清空好了
+
+    $scope.photos = [];
+    var addPhotos = function (comment) {
+      if (comment.photos && comment.photos.length > 0) {
+        comment.photos.forEach(function (photo) {
+          // todo 获取屏幕尺寸
+          $scope.photos.push({
+            _id: photo._id,
+            src: CONFIG.STATIC_URL + photo.uri + '/resize/' + INFO.screenWidth + '/' + INFO.screenHeight,
+            w: INFO.screenWidth,
+            h: INFO.screenHeight
+          });
+        });
+      }
+    };
+
+    $scope.openPhotoSwipe = function (photoId) {
+      var pswpElement = document.querySelectorAll('.pswp')[0];
+
+      var index = Tools.arrayObjectIndexOf($scope.photos, photoId, '_id');
+
+      var options = {
+        // history & focus options are disabled on CodePen
+        history: false,
+        focus: false,
+        index: index,
+        showAnimationDuration: 0,
+        hideAnimationDuration: 0
+
+      };
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
+      gallery.init();
+    };
+
     var nextStartDate ='';
     Comment.getComments($stateParams.campaignId, 20).success(function(data){
       $scope.comments = data.comments.reverse();//保证最新的在最下面
+      $scope.comments.forEach(addPhotos);
       nextStartDate = data.nextStartDate;
       $ionicScrollDelegate.scrollBottom();
     });
@@ -342,12 +377,13 @@ angular.module('donlerApp.controllers', [])
           $scope.notification = data[0].content;
         }
       }
-    })
+    });
     
     //获取新留言
     Socket.on('newCampaignComment', function (data) {
       data.create_date = data.createDate;
       $scope.comments.push(data);
+      addPhotos(data);
       $scope.comments[$scope.comments.length-1].showTime = $scope.needShowTime($scope.comments.length-1);
       $ionicScrollDelegate.scrollBottom();
     });
@@ -454,6 +490,7 @@ angular.module('donlerApp.controllers', [])
     monthIndex = -1;
     $scope.loadFinished = false;
     $scope.timelinesRecord =[];
+
     var loadData = function(yearIndex, monthIndex){
       TimeLine.getTimelineData('company', '0', $scope.timelinesRecord[yearIndex].year, $scope.timelinesRecord[yearIndex].month[monthIndex].month, function (err, timelineData) {
         if (err) {
@@ -489,6 +526,9 @@ angular.module('donlerApp.controllers', [])
       }
       loadData(yearIndex, monthIndex);
     }
+
+
+
   }])
   .controller('PersonalController', ['$scope', '$state', 'User', function ($scope, $state, User) {
 
@@ -1231,6 +1271,9 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
     function ($scope, $stateParams, PhotoAlbum, INFO) {
+      $scope.screenWidth = INFO.screenWidth;
+      $scope.screenHeight = INFO.screenHeight;
+
       $scope.photoAlbumBackUrl = INFO.photoAlbumBackUrl;
       PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
         if (err) {

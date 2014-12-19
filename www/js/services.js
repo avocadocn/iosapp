@@ -49,7 +49,9 @@ angular.module('donlerApp.services', [])
     discussName:'',
     lastDate:'',
     companyId:'',
-    companyName:''
+    companyName:'',
+    screenWidth: 320,
+    screenHeight: 568
   })
   .factory('CommonHeaders', ['$http', function ($http) {
 
