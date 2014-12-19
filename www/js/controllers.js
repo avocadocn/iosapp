@@ -1684,3 +1684,45 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.backUrl = INFO.memberBackUrl;
   }])
+  .controller('TimelineController', ['$scope', '$stateParams', 'TimeLine', function ($scope, $stateParams, TimeLine) {
+
+    var yearIndex = 0,
+      monthIndex = -1;
+    $scope.loadFinished = false;
+    $scope.timelinesRecord = [];
+
+    var loadData = function (yearIndex, monthIndex) {
+      TimeLine.getTimelineData('user', '0', $scope.timelinesRecord[yearIndex].year, $scope.timelinesRecord[yearIndex].month[monthIndex].month, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.timelinesRecord[yearIndex].month[monthIndex].campaign = timelineData.campaigns;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        }
+      });
+    };
+    TimeLine.getTimelineRecord('user', '0', function (err, timelines) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.timelinesRecord = timelines;
+        $scope.loadMore();
+      }
+    });
+
+    $scope.loadMore = function () {
+      if ($scope.timelinesRecord.length <= yearIndex || $scope.timelinesRecord.length == yearIndex + 1 && $scope.timelinesRecord[yearIndex].month.length == monthIndex + 1) {
+        $scope.loadFinished = true;
+        return;
+      } else if ($scope.timelinesRecord[yearIndex].month.length <= monthIndex + 1) {
+        yearIndex++;
+        monthIndex = 0;
+      } else {
+        monthIndex++;
+      }
+      loadData(yearIndex, monthIndex);
+    }
+
+  }])

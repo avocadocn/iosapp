@@ -201,6 +201,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       })
       .state('personal_timeline', {
         url: '/personal/timeline',
+        controller: 'TimelineController',
         templateUrl: 'views/timeline.html'
       })
       .state('personal_messages', {
@@ -301,9 +302,5 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         url: '/photo_album/:photoAlbumId/detail',
         controller: 'PhotoAlbumDetailController',
         templateUrl: 'views/photo-album-detail.html'
-      })
-      //.state('photo_detail', {
-      //  url: '/photo_album/:photoAlbumId/photo/:photoId',
-      //  templateUrl: 'views/photo-detail.html'
-      //});
+      });
   });

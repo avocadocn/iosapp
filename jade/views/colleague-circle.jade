@@ -4,33 +4,7 @@ ion-view
     h1.title 同事圈
 
   ion-content
-    div(ng-repeat="year in timelinesRecord")
-      div(ng-repeat="month in year.month")
-        label {{year.year + '-'+ month.month}}
-        .list.card.dl_card(ng-repeat="campaign in month.campaign")
-          a.item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}")
-            img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
-            h2.dl_cp_name {{campaign.theme}}
-              p {{campaign.start_time | date:"yyyy-MM-dd HH:mm" }} 至 {{campaign.end_time | date:"yyyy-MM-dd HH:mm" }}
-          a.item.item-avatar.dl_card_header.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2"  href="#/campaign/detail/{{campaign._id}}")
-            img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
-            span.dl_team_vs vs
-            img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
-            a.item.dl_card_body(href="#/campaign/detail/{{campaign._id}}")
-              h2(ng-if="campaign.campaign_unit.length==2") {{campaign.theme}}
-              p(ng-if="campaign.campaign_unit.length==2") {{campaign.start_time | date:"yyyy-MM-dd HH:mm" }} 至 {{campaign.end_time | date:"yyyy-MM-dd HH:mm" }}
-              ion-scroll(direction="x" scrollbar-x="false")
-                .dl_photo_alb
-                  img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
-            a.item.tabs.tabs-icon-left.dl_card_footer(href="#/campaign/detail/{{campaign._id}}")
-              .tab-item.dl_team_name
-                | {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
-              .tab-item.dl_team_number
-                i.icon.ion-person-stalker
-                | {{campaign.member.length || '0'}}
-              .tab-item.dl_team_comment
-                i.icon.ion-chatbox
-                | {{campaign.comment_sum}}
+    include ./timeline-card
     ion-infinite-scroll(ng-show="!loadFinished" on-infinite="loadMore()" distance="5%")
 
 
