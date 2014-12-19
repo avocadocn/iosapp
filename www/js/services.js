@@ -241,7 +241,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback('error');
+          callback(data.msg);
         });
       },
       get: function (id, callback) {
@@ -251,7 +251,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback('error');
+          callback(data.msg);
         });
       },
       create: function (data, callback) {
@@ -271,7 +271,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback('error');
+          callback(data.msg);
         });
       },
       close: function (id, callback) {
@@ -291,7 +291,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback('error');
+          callback(data.msg);
         });
       },
       quit: function(id, uid, callback) {
@@ -301,7 +301,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback('error');
+          callback(data.msg);
         });
       },
       dealProvoke: function(id, dealType, callback) {

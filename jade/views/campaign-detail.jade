@@ -24,7 +24,7 @@ ion-view
           button.button.button-block.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
           button.button.button-block.dl_cp_quit(ng-if="campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
         ion-scroll(direction="x")
-          .dl_photo_alb
+          a.dl_photo_alb(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
       .item.tabs.tabs-secondary.tabs-icon-left.dl_card_footer
         a.tab-item.btn_upload_photo(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
