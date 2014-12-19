@@ -5,7 +5,7 @@ ion-view
   ion-content
     form.sponsor(name="sponsorForm" novalidate)
       .list.list-inset
-        select(ng-change="changeTeam()" ng-model="selectTeam" ng-options="ledTeam.name for ledTeam in leadTeams")
+        select(ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams")
       .list.list-inset
         label.item.item-input
           input(type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限定14个字" ng-maxlength=14 required)

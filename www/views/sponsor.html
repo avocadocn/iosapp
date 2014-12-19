@@ -6,7 +6,7 @@
   <ion-content>
     <form name="sponsorForm" novalidate="novalidate" class="sponsor">
       <div class="list list-inset">
-        <select ng-change="changeTeam()" ng-model="selectTeam" ng-options="ledTeam.name for ledTeam in leadTeams"></select>
+        <select ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams"></select>
       </div>
       <div class="list list-inset">
         <label class="item item-input">

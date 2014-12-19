@@ -287,18 +287,20 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('SponsorController', ['$scope', '$state', '$ionicPopup', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, Campaign, Team, INFO) {
     $scope.campaignData ={};
+    $scope.leadTeams = [];
+    $scope.selectTeam = {};
     Team.getLeadTeam(null, function(err, leadTeams){
       if(!err &&leadTeams.length>0){
         $scope.leadTeams = leadTeams;
         $scope.selectTeam = leadTeams[0];
-        $scope.changeTeam();
+        $scope.changeTeam($scope.selectTeam);
       }
       else{
         $state.go('app.campaigns');
       }
     });
-    $scope.changeTeam = function() {
-      Campaign.getMolds('team',$scope.selectTeam._id,function(err, molds){
+    $scope.changeTeam = function(selectTeam) {
+      Campaign.getMolds('team',selectTeam._id,function(err, molds){
         if(!err){
           $scope.campaign_molds = molds;
           $scope.selectMold = molds[0];
