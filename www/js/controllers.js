@@ -644,10 +644,10 @@ angular.module('donlerApp.controllers', [])
       var dayOperate = function (i,campaign) {
         if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==campaign.join_flag) {
           month_data.days[i-1].events.push(campaign);
-          month_data.days[i-1].has_event = true;
-          if (campaign.is_joined) {
-            month_data.days[i-1].has_joined_event = true;
-          }
+          // month_data.days[i-1].has_event = true;
+          // if (campaign.is_joined) {
+          //   month_data.days[i-1].has_joined_event = true;
+          // }
         };
       }
       // 将活动及相关标记存入某天

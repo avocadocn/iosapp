@@ -181,27 +181,21 @@ body {
   background-color: #f6f6f6;
   border-bottom: solid 1px #dcdcdc;
 }
-.calendar nav .operator .btn {
-  display: inline-block;
-  line-height: 30px;
-  height: 30px;
-  min-width: 30px;
-  padding: 0 10px;
-  text-align: center;
-  color: themeColor;
+.calendar nav .operator {
+  background-color: #3ca2e0;
+  color: #fff;
+  border: none;
 }
 .calendar nav .week {
   position: relative;
-  margin-top: 5px;
+  background-color: #3ca2e0;
 }
 .calendar nav .week .day {
   float: left;
   width: 14.285714285714286%;
   height: 20px;
   line-height: 20px;
-}
-.calendar nav .week .weekend {
-  color: #808080;
+  color: #fff;
 }
 .calendar nav .date_list {
   position: relative;
@@ -217,17 +211,11 @@ body {
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
-  width: navDateSize;
-  height: navDateSize;
-  line-height: navDateSize;
 }
 .calendar nav .date_list .date_box .current_day {
   color: #fff;
   border-radius: 50px;
   background-color: #000;
-}
-.calendar nav .date_list .date_box .current_day.today {
-  background-color: themeColor;
 }
 .calendar nav .date_bar {
   margin: 5px auto;
@@ -247,18 +235,12 @@ body {
 .calendar .calendar_year {
   position: relative;
   height: 100%;
-  padding: yearSectionPadding;
 }
 .calendar .calendar_year .year_section {
   float: left;
   width: 33.333333333333336%;
   height: 25%;
   text-align: center;
-  padding: yearSectionPadding;
-  color: themeColor;
-}
-.calendar .calendar_year .year_section .table_wrap {
-  border: solid 1px themeColor;
 }
 .calendar .calendar_month {
   position: relative;
@@ -268,28 +250,39 @@ body {
   width: 14.285714285714286%;
   height: 40px;
   padding-top: 15px;
-  color: themeColor;
   text-align: center;
 }
 .calendar .calendar_month .calendar_day {
   position: relative;
   float: left;
   width: 14.285714285714286%;
-  height: 53px;
+  height: 60px;
   border-top: solid 1px #dcdcdc;
 }
 .calendar .calendar_month .calendar_day .calendar_date {
   margin-top: 15%;
   margin-left: auto;
   margin-right: auto;
-  width: monthDateSize;
-  height: monthDateSize;
-  line-height: monthDateSize;
 }
-.calendar .calendar_month .calendar_day .today {
+.calendar .calendar_month .calendar_day .calendar_campaign_count {
+  display: inline-block;
   color: #fff;
-  background-color: themeColor;
+  background-color: #3ca2e0;
+  border-radius: 100%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+.calendar .calendar_month .calendar_day.today {
+  background-color: #3ca2e0;
+}
+.calendar .calendar_month .calendar_day.today .calendar_date {
+  color: #fff;
   border-radius: 50px;
+}
+.calendar .calendar_month .calendar_day.today .calendar_campaign_count {
+  color: #3ca2e0;
+  background-color: #fff;
 }
 .calendar .calendar_month .calendar_day .event_unjoin,
 .calendar .calendar_month .calendar_day .event_joined {
@@ -302,12 +295,6 @@ body {
   border-width: 3px;
   border-radius: 30px;
   font-size: 0px;
-}
-.calendar .calendar_month .calendar_day .event_unjoin {
-  border-color: #c1c1c1;
-}
-.calendar .calendar_month .calendar_day .event_joined {
-  border-color: themeColor;
 }
 .calendar .calendar_month .calendar_day .weekend {
   color: #808080;

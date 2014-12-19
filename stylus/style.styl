@@ -1,5 +1,6 @@
 /* Empty. Add your own CSS if you like */
 
+
 body
   background-color #e2e2e2
 
@@ -151,30 +152,19 @@ body
   nav
     background-color rgb(246, 246, 246)
     border-bottom solid 1px rgb(220, 220, 220)
-
     .operator
-      .btn
-        display inline-block
-        line-height 30px
-        height 30px
-        min-width 30px
-        padding 0 10px
-        text-align center
-        color themeColor
-
+      background-color #3ca2e0
+      color white
+      border none
     .week
       position relative
-      margin-top 5px
-
+      background-color #3ca2e0
       .day
         float left
         width (100 / 7)%
         height 20px
         line-height 20px
-
-      .weekend
-        color gray
-
+        color #fff
     .date_list
       position relative
       margin-top 5px
@@ -189,17 +179,17 @@ body
           margin-top 10%
           margin-left auto
           margin-right auto
-          width navDateSize
-          height navDateSize
-          line-height navDateSize
+          // width navDateSize
+          // height navDateSize
+          // line-height navDateSize
 
         .current_day
           color white
           border-radius 50px
           background-color black
 
-        .current_day.today
-          background-color themeColor
+        // .current_day.today
+        //   background-color themeColor
 
     .date_bar
       margin 5px auto
@@ -219,18 +209,18 @@ body
   .calendar_year
     position relative
     height 100%
-    padding yearSectionPadding
+    // padding yearSectionPadding
 
     .year_section
       float left
       width (100 / 3)%
       height 25%
       text-align center
-      padding yearSectionPadding
-      color themeColor
+      // padding yearSectionPadding
+      // color themeColor
 
-      .table_wrap
-        border solid 1px themeColor
+      // .table_wrap
+      //   border solid 1px themeColor
 
   .calendar_month
     position relative
@@ -240,28 +230,39 @@ body
       width (100 / 7)%
       height 40px
       padding-top 15px
-      color themeColor
+      // color themeColor
       text-align center
 
     .calendar_day
       position relative
       float left
       width (100 / 7)%
-      height 53px
+      height 60px
       border-top solid 1px rgb(220, 220, 220)
-
       .calendar_date
         margin-top 15%
         margin-left auto
         margin-right auto
-        width monthDateSize
-        height monthDateSize
-        line-height monthDateSize
-
-      .today
+        // width monthDateSize
+        // height monthDateSize
+        // line-height monthDateSize
+      .calendar_campaign_count
+        display inline-block
         color white
-        background-color themeColor
-        border-radius 50px
+        background-color #3ca2e0
+        border-radius 100%
+        width 20px
+        height 20px
+        line-height 20px
+      &.today
+        background-color #3ca2e0
+        .calendar_date
+          color white
+          border-radius 50px
+        .calendar_campaign_count
+          color #3ca2e0
+          background-color white
+      
 
       .event_unjoin, .event_joined
         width 0
@@ -273,12 +274,6 @@ body
         border-width 3px
         border-radius 30px
         font-size 0px
-
-      .event_unjoin
-        border-color rgb(193, 193, 193)
-
-      .event_joined
-        border-color themeColor
 
       .weekend
         color gray
