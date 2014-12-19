@@ -1,18 +1,11 @@
 ion-view
-  ion-header-bar
-    a.button.icon.ion-chevron-left(href="#/company/home") &nbsp;返回
-    h1.title 公司小队
   ion-content
-    .card.list
-      a.item
-        | 新建小队
-    .card.list
-      a.item.item-icon-right
-        | 已有小队
-        i.icon.ion-chevron-right
-      a.item.item-icon-right
-        | 官方小队
-        i.icon.ion-chevron-right
-      a.item.item-icon-right
-        | 个人小队
-        i.icon.ion-chevron-right
+    ul.list
+      a.item.item-avatar(ng-repeat="team in teams")
+        img(ng-src="{{STATIC_URL + team.logo + '/45/45'}}")
+        h2 {{team.name}}
+        p 类型: {{team.groupType}}
+        //- p 队长: todo
+        p 打开: {{team.active}}
+        p 成员: {{team.memberCount}}
+        p 积分: {{team.score.total}}
