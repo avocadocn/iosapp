@@ -1187,8 +1187,12 @@ angular.module('donlerApp.controllers', [])
     }
   
   }])
-  .controller('CompanyActiveCodeController', ['$scope', function ($scope) {
-
+  .controller('CompanyActiveCodeController', ['$scope','Company', function ($scope, Company) {
+    Company.getInviteKey(localStorage.id, function(msg, data){
+      if(!msg){
+        $scope.inviteKey = data.staffInviteCode;
+      }
+    })
   }])
   .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, Team, Campaign, INFO) {
     var teamId = $stateParams.teamId;

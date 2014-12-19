@@ -35,7 +35,7 @@
       </div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" name="email" ng-model="email" placeholder="电子邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
+          <input type="email" name="email" ng-model="email" placeholder="电子邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
         </label>
         <p ng-if="mail_check">{{mail_msg}}</p>
       </div>

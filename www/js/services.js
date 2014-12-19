@@ -568,6 +568,19 @@ angular.module('donlerApp.services', [])
 
     };
   }])
+  .factory('Company', ['$http', 'CONFIG', function ($http, CONFIG) {
+      return {
+        getInviteKey: function (cid, callback) {
+          $http.get(CONFIG.BASE_URL + '/companies/' + cid + '?responseKey=inviteKey')
+          .success(function(data, status){
+            callback(null,data);
+          })
+          .error(function(data, status){
+            callback(data.msg);
+          });
+        }
+      }
+    }])
   .factory('Message', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
 

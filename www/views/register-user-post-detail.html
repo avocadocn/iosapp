@@ -6,7 +6,7 @@
     <form name="user_signup_form" novalidate="novalidate" class="signup_form">
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
+          <input type="email" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
         </label>
       </div>
       <p ng-show="active===1">该邮箱可以注册。</p>
