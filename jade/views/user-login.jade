@@ -3,8 +3,14 @@ ion-view
   ion-header-bar
 
   ion-content
-    input(type="email" name="email" ng-model="loginData.email" placeholder="公司邮箱" required)
-    input(type="password" name="password" ng-model="loginData.password" placeholder="密码" required)
-    button(type="button" ng-click="login()") 个人登录
-    a(href="#/forget") 忘记密码？
-    a(href="#/company/login") 企业账号登录
+    .list.list-inset
+      label.item.item-input
+        input(type="email" name="email" ng-model="loginData.email" placeholder="公司邮箱" required)
+    .list.list-inset
+      label.item.item-input
+        input(type="password" name="password" ng-model="loginData.password" placeholder="密码" required)
+    p(ng-show="msg") {{msg}}
+    button(type="button" ng-disabled="!loginData.username || !loginData.password" ng-click="login()") 个人登录
+    p
+      a(href="#/forget") 忘记密码？
+      a(href="#/company/login") 企业账号登录

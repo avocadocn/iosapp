@@ -99,7 +99,6 @@ angular.module('donlerApp.services', [])
             callback();
           })
           .error(function (data, status) {
-            // todo
             callback(data.msg);
           });
       },
@@ -134,7 +133,6 @@ angular.module('donlerApp.services', [])
             callback();
           })
           .error(function (data, status) {
-            // todo
             callback(data.msg);
           });
       },

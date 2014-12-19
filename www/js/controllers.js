@@ -97,10 +97,9 @@ angular.module('donlerApp.controllers', [])
     };
 
     $scope.login = function () {
-      UserAuth.login($scope.loginData.email, $scope.loginData.password, function (err) {
-        if (err) {
-          // todo
-          console.log(err);
+      UserAuth.login($scope.loginData.email, $scope.loginData.password, function (msg) {
+        if (msg) {
+          $scope.msg = msg;
         } else {
           $state.go('app.campaigns');
         }
@@ -116,10 +115,9 @@ angular.module('donlerApp.controllers', [])
     };
 
     $scope.login = function () {
-      CompanyAuth.login($scope.loginData.username, $scope.loginData.password, function (err) {
-        if (err) {
-          // todo
-          console.log(err);
+      CompanyAuth.login($scope.loginData.username, $scope.loginData.password, function (msg) {
+        if (msg) {
+          $scope.msg = msg;
         } else {
           $state.go('company_home');
         }

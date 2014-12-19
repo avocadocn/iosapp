@@ -2,8 +2,18 @@
 <ion-view>
   <ion-header-bar></ion-header-bar>
   <ion-content>
-    <input type="text" name="username" ng-model="loginData.username" placeholder="用户名" required="required"/>
-    <input type="password" name="password" ng-model="loginData.password" placeholder="密码" required="required"/>
-    <button type="button" ng-click="login()">企业登录</button><a href="#/forget">忘记密码？</a><a href="#/user/login">个人账号登录</a>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="text" name="username" ng-model="loginData.username" placeholder="用户名" required="required"/>
+      </label>
+    </div>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="password" name="password" ng-model="loginData.password" placeholder="密码" required="required"/>
+      </label>
+    </div>
+    <p ng-show="msg">{{msg}}</p>
+    <button type="button" ng-disabled="!loginData.username || !loginData.password" ng-click="login()">企业登录</button>
+    <p><a href="#/forget">忘记密码？</a><a href="#/user/login">个人账号登录</a></p>
   </ion-content>
 </ion-view>
