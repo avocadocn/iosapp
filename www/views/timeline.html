@@ -5,17 +5,14 @@
   </ion-header-bar>
   <ion-content>
     <div class="card">
-      <div class="item item-avatar"><img src="http://placehold.it/45x45"/>
-        <h2>Echo</h2>
-        <p>公司：动梨信息技术有限公司</p>
-        <p>部门：设计部</p>
-        <p>手机：13612345678</p>
-        <p>邮箱：echo@donler.com</p>
+      <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/45/45"/>
+        <h2>{{user.nickname}}</h2>
+        <p>公司：{{user.company.name}}</p>
+        <p ng-if="user.department" ng-cloak="ng-cloak">部门：{{user.department.name}}</p>
+        <p ng-if="!user.department" ng-cloak="ng-cloak">部门：无</p>
+        <p ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
+        <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">8个小队</div>
-      <div class="col">102个活动</div>
     </div>
     <div ng-repeat="year in timelinesRecord">
       <div ng-repeat="month in year.month">

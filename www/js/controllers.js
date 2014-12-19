@@ -1684,7 +1684,7 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.backUrl = INFO.memberBackUrl;
   }])
-  .controller('TimelineController', ['$scope', '$stateParams', 'TimeLine', function ($scope, $stateParams, TimeLine) {
+  .controller('TimelineController', ['$scope', '$stateParams', 'TimeLine', 'User', function ($scope, $stateParams, TimeLine, User) {
 
     var yearIndex = 0,
       monthIndex = -1;
@@ -1723,6 +1723,15 @@ angular.module('donlerApp.controllers', [])
         monthIndex++;
       }
       loadData(yearIndex, monthIndex);
-    }
+    };
+
+    User.getData(localStorage.id, function (err, data) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.user = data;
+      }
+    });
 
   }])
