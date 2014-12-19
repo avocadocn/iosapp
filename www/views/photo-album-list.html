@@ -10,5 +10,6 @@
     <div ng-repeat="photoAlbum in photoAlbums" class="card">
       <p><a ng-href="#/photo_album/{{photoAlbum._id}}/detail">{{photoAlbum.name}}({{photoAlbum.photoCount}})</a></p><img ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60"/>
     </div>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded()"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

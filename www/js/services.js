@@ -545,11 +545,13 @@ angular.module('donlerApp.services', [])
 
       /**
        * 获取某个小队的相册列表
-       * @param {String} tid 小队id
+       * @param {Object} params 查询query
        * @param {Function} callback 形式为function(err, photoAlbums)
        */
-      getList: function (tid, callback) {
-        $http.get(CONFIG.BASE_URL + '/photo_albums?ownerType=team&ownerId=' + tid)
+      getList: function (params, callback) {
+        $http.get(CONFIG.BASE_URL + '/photo_albums', {
+          params: params
+        })
           .success(function (data, status, headers, config) {
             callback(null, data);
           })

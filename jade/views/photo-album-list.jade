@@ -11,3 +11,5 @@ ion-view
     .card(ng-repeat="photoAlbum in photoAlbums")
       p: a(ng-href="#/photo_album/{{photoAlbum._id}}/detail") {{photoAlbum.name}}({{photoAlbum.photoCount}})
       img(ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60")
+
+    ion-infinite-scroll(on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded()")

@@ -1094,6 +1094,7 @@ angular.module('donlerApp.controllers', [])
         } else {
           $scope.lastCount = campaigns.length;
           $scope.firstLoad = false;
+          $scope.loading = false;
           $scope.campaigns = $scope.campaigns.concat(campaigns);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         }
@@ -1101,7 +1102,12 @@ angular.module('donlerApp.controllers', [])
     };
 
     $scope.loadMore = function () {
+      // ionic bug, loadmore会意外地执行两次，现在并无好的解决方案，故只要开始加载就设置标记阻止再次执行
+      if ($scope.loading == true) {
+        return;
+      }
       if ($scope.firstLoad) {
+        $scope.loading = true;
         var options = {
           requestType: 'team',
           requestId: teamId,
@@ -1112,6 +1118,7 @@ angular.module('donlerApp.controllers', [])
         $scope.getCampaigns(options);
       } else {
         if ($scope.lastCount === pageSize) {
+          $scope.loading = true;
           var startTime = new Date($scope.campaigns[$scope.campaigns.length - 1].start_time);
           options = {
             requestType: 'team',
@@ -1143,13 +1150,63 @@ angular.module('donlerApp.controllers', [])
     function ($scope, $stateParams, PhotoAlbum, INFO) {
       $scope.teamId = $stateParams.teamId;
       INFO.photoAlbumBackUrl = '#/photo_album/list/team/' + $stateParams.teamId;
-      PhotoAlbum.getList($stateParams.teamId, function (err, photoAlbums) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.photoAlbums = photoAlbums;
+
+      $scope.firstLoad = true;
+      $scope.lastCount;
+      var pageSize = 20;
+      $scope.photoAlbums = [];
+
+      $scope.getPhotoAlbums = function (options) {
+        PhotoAlbum.getList(options, function (err, photoAlbums) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            $scope.lastCount = photoAlbums.length;
+            $scope.firstLoad = false;
+            $scope.loading = false;
+            $scope.photoAlbums = $scope.photoAlbums.concat(photoAlbums);
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          }
+        });
+      };
+
+      $scope.loadMore = function () {
+        // ionic bug, loadmore会意外地执行两次，现在并无好的解决方案，故只要开始加载就设置标记阻止再次执行
+        if ($scope.loading == true) {
+          return;
         }
+        if ($scope.firstLoad) {
+          $scope.loading = true;
+          var options = {
+            ownerType: 'team',
+            ownerId: $scope.teamId
+          };
+          $scope.getPhotoAlbums(options);
+        } else {
+          if ($scope.lastCount === pageSize) {
+            $scope.loading = true;
+            var createDate = $scope.photoAlbums[$scope.photoAlbums.length - 1].createDate;
+            options = {
+              ownerType: 'team',
+              ownerId: $scope.teamId,
+              createDate: createDate
+            };
+            $scope.getPhotoAlbums(options);
+          }
+        }
+      };
+
+      $scope.moreDataCanBeLoaded = function () {
+        if (!$scope.firstLoad && $scope.lastCount < pageSize) {
+          return false;
+        } else {
+          return true;
+        }
+      };
+
+      $scope.$on('$stateChangeSuccess', function() {
+        $scope.loadMore();
       });
 
   }])
