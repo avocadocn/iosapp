@@ -38,7 +38,7 @@
     </div>
     <div ng-if="campaign.members.length&gt;0" class="card">
       <div class="item item-button-right">
-        <ion-scroll direction="x"><img ng-repeat="member in campaign.members" ng-src="{{STATIC_URL +member.photo+'/40/40'}}"/></ion-scroll><a href="#/members" class="button button-positive"><span>{{campaign.members_count}}</span><i class="icon ion-chevron-right"></i></a>
+        <ion-scroll direction="x"><img ng-repeat="member in campaign.members" ng-src="{{STATIC_URL +member.photo+'/40/40'}}"/></ion-scroll><a href="#/members/campaign/{{campaign._id}}" class="button button-positive"><span>{{campaign.members_count}}</span><i class="icon ion-chevron-right"></i></a>
       </div>
     </div>
     <div class="card">

@@ -141,7 +141,16 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', 'Campaign', 'INFO', function ($scope, $state, $timeout, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicLoading', '$ionicPopup', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicLoading, $ionicPopup, Campaign, INFO) {
+    var showLoading = function() {
+      $ionicLoading.show({
+        template: '正在加载'
+      });
+    };
+    var hideLoading = function(){
+      $ionicLoading.hide();
+    };
+    showLoading();
     $scope.nowType = 'all';
     INFO.campaignBackUrl = '#/app/campaigns';
     if(!localStorage.id){
@@ -159,6 +168,13 @@ angular.module('donlerApp.controllers', [])
         $scope.newCampaigns = data[2];
         $scope.provokes = data[3];
       }
+      else {
+        $ionicPopup.alert({
+          title: '错误',
+          template: err
+        });
+      }
+      hideLoading();
     });
     $scope.join = function(filter,index, id){
       Campaign.join(id,localStorage.id, function(err, data){
@@ -182,6 +198,28 @@ angular.module('donlerApp.controllers', [])
         }
       });
       return false;
+    }
+    $scope.doRefresh = function(){
+      Campaign.getList({
+        requestType: 'user',
+        requestId: localStorage.id,
+        select_type: 0,
+        populate: 'photo_album'
+      }, function (err, data) {
+        if (!err) {
+          $scope.unStartCampaigns = data[0];
+          $scope.nowCampaigns = data[1];
+          $scope.newCampaigns = data[2];
+          $scope.provokes = data[3];
+        }
+        else{
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
     }
   }])
   .controller('CampaignDetailController', ['$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', function ($scope, $state, $ionicPopup, Campaign, Message, INFO) {
@@ -245,6 +283,41 @@ angular.module('donlerApp.controllers', [])
     $scope.goDiscussDetail = function(campaignId, campaignTheme) {
       INFO.discussName = campaignTheme;
       $state.go('discuss_detail',{campaignId: campaignId});
+    }
+  }])
+  .controller('SponsorController', ['$scope', '$state', '$ionicPopup', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, Campaign, Team, INFO) {
+    $scope.campaignData ={};
+    Team.getLeadTeam(null, function(err, leadTeams){
+      if(!err &&leadTeams.length>0){
+        $scope.leadTeams = leadTeams;
+        $scope.selectTeam = leadTeams[0];
+        $scope.changeTeam();
+      }
+      else{
+        $state.go('app.campaigns');
+      }
+    });
+    $scope.changeTeam = function() {
+      Campaign.getMolds('team',$scope.selectTeam._id,function(err, molds){
+        if(!err){
+          $scope.campaign_molds = molds;
+          $scope.selectMold = molds[0];
+        }
+      })
+    }
+    $scope.sponsor = function(){
+        $scope.campaignData.cid = [$scope.selectTeam.cid];
+        $scope.campaignData.tid = [$scope.selectTeam._id];
+        $scope.campaignData.campaign_type = 2;
+        $scope.campaignData.campaign_mold = $scope.selectMold.name;
+      Campaign.create($scope.campaignData,function(err,data){
+        if(!err){
+          $ionicPopup.alert({
+            title: '提示',
+            template: '活动发布成功！'
+          });
+        }
+      })
     }
   }])
   .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???

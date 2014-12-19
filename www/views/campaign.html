@@ -1,16 +1,17 @@
 
 <ion-view>
   <ion-header-bar><a href="#/calendar" class="button icon button-clear ion-calendar icon_blue"></a>
-    <h1 class="title">活动</h1><a class="button icon button-clear ion-plus icon_blue"></a>
+    <h1 class="title">活动</h1><a href="#/campaign/sponsor" class="button icon button-clear ion-plus icon_blue"></a>
   </ion-header-bar>
   <ion-content overflow-scroll="true" class="campaigns_container has-header">
     <div class="button-bar campaign_filter"><a ng-click="nowType='all'" ng-class="{'button_active':nowType=='all'}" class="button button-clear">所有</a><a ng-click="nowType='newCampaigns'" ng-class="{'button_active':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="nowType='provokes'" ng-class="{'button_active':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="nowType='nowCampaigns'" ng-class="{'button_active':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="nowType='unStartCampaigns'" ng-class="{'button_active':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
     <ion-scroll class="campaign_list">
+      <ion-refresher on-refresh="doRefresh()"></ion-refresher>
         <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container">
-          <div ng-cloack="ng-cloack" class="campaign_container_title">
+          <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
             <p>新的活动 {{newCampaigns.length}}</p>
           </div>
-          <div ng-repeat="campaign in newCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+          <div ng-repeat="campaign in newCampaigns" ng-cloak="ng-cloak" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
               <h2 class="dl_cp_name">{{campaign.theme}}</h2>
               <p class="dl_cp_time_start">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
               <div class="button_container">
@@ -25,10 +26,10 @@
           </div>
         </div>
         <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
-          <div ng-cloack="ng-cloack" class="campaign_container_title">
+          <div ng-if="provokes.length&gt;0 || nowType=='provokes'" ng-cloak="ng-cloak" class="campaign_container_title">
             <p>挑战 {{provokes.length}}</p>
           </div>
-          <div ng-repeat="campaign in provokes" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+          <div ng-repeat="campaign in provokes" ng-cloak="ng-cloak" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
               <h2 class="dl_cp_name">{{campaign.theme}}</h2>
               <div class="button_container">
                 <p class="dl_cp_time_countdown">{{campaign.time_text}}</p>
@@ -44,10 +45,10 @@
           </div>
         </div>
         <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
-          <div ng-cloack="ng-cloack" class="campaign_container_title">
+          <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
             <p>进行中 {{nowCampaigns.length}}</p>
           </div>
-          <div ng-repeat="campaign in nowCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+          <div ng-repeat="campaign in nowCampaigns" ng-cloak="ng-cloak" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
               <h2 class="dl_cp_name">{{campaign.theme}}</h2>
               <p class="dl_cp_address">{{campaign.location.name}}</p>
               <div class="button_container">
@@ -62,10 +63,10 @@
           </div>
         </div>
         <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
-          <div ng-cloack="ng-cloack" class="campaign_container_title">
+          <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
             <p>即将 {{unStartCampaigns.length}}</p>
           </div>
-          <div ng-repeat="campaign in unStartCampaigns" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+          <div ng-repeat="campaign in unStartCampaigns" ng-cloak="ng-cloak" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
               <h2 class="dl_cp_name">{{campaign.theme}}</h2>
               <p class="dl_cp_address">{{campaign.location.name}}</p>
               <div class="button_container">

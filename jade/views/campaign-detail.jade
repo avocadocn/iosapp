@@ -53,7 +53,7 @@ ion-view
       .item.item-button-right
         ion-scroll(direction="x")
           img(ng-repeat="member in campaign.members" ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
-        a.button.button-positive(href="#/members")
+        a.button.button-positive(href="#/members/campaign/{{campaign._id}}")
           span {{campaign.members_count}}
           i.icon.ion-chevron-right
     .card

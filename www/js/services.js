@@ -313,6 +313,16 @@ angular.module('donlerApp.services', [])
           // todo
           callback(data.msg);
         });
+      },
+      getMolds: function(hostType, hostId, callback) {
+        $http.get(CONFIG.BASE_URL + '/campaigns/mold/' + hostType +'/'+ hostId)
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback(data.msg);
+        });
       }
     }
   }])
@@ -421,10 +431,16 @@ angular.module('donlerApp.services', [])
        * @param {String} hostId 所属者id
        * @param {Function} callback 形式为function(err, teams)
        */
-      getList: function (hostType, hostId, callback) {
+      getList: function (hostType, hostId, callback, gid, leadFlag) {
         var requestUrl = CONFIG.BASE_URL + '/teams?hostType=' + hostType;
         if(hostId){
           requestUrl += '&hostId=' + hostId;
+        }
+        if(gid) {
+          requestUrl += '&gid=' + gid;
+        }
+        if(leadFlag) {
+          requestUrl += '&leadFlag=' + leadFlag;
         }
         $http.get(requestUrl)
           .success(function (data, status, headers, config) {
@@ -505,6 +521,23 @@ angular.module('donlerApp.services', [])
             callback(null, data);
           })
 
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
+      },
+      getLeadTeam: function(gid, callback){
+        var requestUrl = CONFIG.BASE_URL + '/teams/lead/list';
+        if(gid) {
+          requestUrl += '?gid=' + gid;
+        }
+        $http.get(requestUrl)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
           .error(function (data, status, headers, config) {
             if (status === 400) {
               callback(data.msg);

@@ -1,9 +1,9 @@
 ion-view
   mixin campaignsContainer(containerTitle, items)
     .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
-      .campaign_container_title(ng-cloack)
+      .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" ng-cloak)
         p #{containerTitle} {{#{items}.length}}
-      .list.card.dl_card(ng-repeat="campaign in #{items}")
+      .list.card.dl_card(ng-repeat="campaign in #{items}" ng-cloak)
         a.item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}")
           img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
           h2.dl_cp_name {{campaign.theme}}
@@ -57,7 +57,7 @@ ion-view
 
     a.button.icon.button-clear.ion-calendar.icon_blue(href="#/calendar")
     h1.title 活动
-    a.button.icon.button-clear.ion-plus.icon_blue
+    a.button.icon.button-clear.ion-plus.icon_blue(href="#/campaign/sponsor")
     
   ion-content.campaigns_container.has-header(overflow-scroll="true")
     .button-bar.campaign_filter
@@ -67,6 +67,7 @@ ion-view
       a.button.button-clear(ng-click="nowType='nowCampaigns'" ng-class="{'button_active':nowType=='nowCampaigns'}") 进行中
       a.button.button-clear(ng-click="nowType='unStartCampaigns'" ng-class="{'button_active':nowType=='unStartCampaigns'}") 即将
     ion-scroll.campaign_list
+      ion-refresher(on-refresh="doRefresh()")
       +campaignsContainer('新的活动','newCampaigns')
       +campaignsContainer('挑战','provokes')
       +campaignsContainer('进行中','nowCampaigns')

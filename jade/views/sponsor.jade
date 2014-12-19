@@ -1,0 +1,23 @@
+ion-view
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/app/campaigns") 返回
+    h1.title 发活动
+  ion-content
+    form.sponsor(name="sponsorForm" novalidate)
+      .list.list-inset
+        select(ng-change="changeTeam()" ng-model="selectTeam" ng-options="ledTeam.name for ledTeam in leadTeams")
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限定14个字" ng-maxlength=14 required)
+      .list.list-inset
+        select(ng-model="selectMold" ng-options="mold.name for mold in campaign_molds")
+      .list.list-inset
+        label.item.item-input
+          input(type="datetime-local" name="start_time" ng-model="campaignData.start_time" placeholder="活动开始时间" required)
+      .list.list-inset
+        label.item.item-input
+          input(type="datetime-local" name="end_time" ng-model="campaignData.end_time" placeholder="活动结束时间" required)
+      .list.list-inset
+        label.item.dl_item_input
+          input.arecode(type="text" name="location" ng-model="campaignData.location.name" placeholder="活动地点" required)
+      button.button.button-block.button-positive(ng-disabled="sponsorForm.$invalid" ng-click="sponsor()") 发布

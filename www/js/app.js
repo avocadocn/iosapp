@@ -128,6 +128,11 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         controller: 'CampaignDetailController',
         templateUrl: 'views/campaign-detail.html'
       })
+      .state('sponsor', {
+        url: '/campaign/sponsor',
+        controller: 'SponsorController',
+        templateUrl: 'views/sponsor.html'
+      })
       .state('app.discuss_list', {
         url: '/discuss/list',
         views: {
