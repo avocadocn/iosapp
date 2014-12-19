@@ -1081,18 +1081,61 @@ angular.module('donlerApp.controllers', [])
       $scope.homeCourtIndex = index;
     };
 
-    Campaign.getList({
-      requestType: 'team',
-      requestId: teamId,
-      populate: 'photo_album',
-      sortBy: '-start_time'
-    }, function (err, campaigns) {
-      if (err) {
-        // todo
-        console.log(err);
+    $scope.firstLoad = true;
+    $scope.lastCount;
+    var pageSize = 20;
+    $scope.campaigns = [];
+
+    $scope.getCampaigns = function (options) {
+      Campaign.getList(options, function (err, campaigns) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.lastCount = campaigns.length;
+          $scope.firstLoad = false;
+          $scope.campaigns = $scope.campaigns.concat(campaigns);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        }
+      });
+    };
+
+    $scope.loadMore = function () {
+      if ($scope.firstLoad) {
+        var options = {
+          requestType: 'team',
+          requestId: teamId,
+          populate: 'photo_album',
+          sortBy: '-start_time',
+          limit: pageSize
+        };
+        $scope.getCampaigns(options);
       } else {
-        $scope.campaigns = campaigns;
+        if ($scope.lastCount === pageSize) {
+          var startTime = new Date($scope.campaigns[$scope.campaigns.length - 1].start_time);
+          options = {
+            requestType: 'team',
+            requestId: teamId,
+            populate: 'photo_album',
+            sortBy: '-start_time',
+            limit: pageSize,
+            to: startTime.valueOf()
+          };
+          $scope.getCampaigns(options);
+        }
       }
+    };
+
+    $scope.moreDataCanBeLoaded = function () {
+      if (!$scope.firstLoad && $scope.lastCount < pageSize) {
+        return false;
+      } else {
+        return true;
+      }
+    };
+
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.loadMore();
     });
 
   }])

@@ -38,4 +38,6 @@ ion-view
         i.icon.ion-chevron-right
 
     campaign-card(ng-repeat="campaign in campaigns" campaign="campaign" team="team")
+    ion-infinite-scroll(on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded()")
+
 
