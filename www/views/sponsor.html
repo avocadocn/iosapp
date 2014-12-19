@@ -14,7 +14,7 @@
         </label>
       </div>
       <div class="list list-inset">
-        <select ng-model="selectMold" ng-options="mold.name for mold in campaign_molds"></select>
+        <select ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds"></select>
       </div>
       <div class="list list-inset">
         <label class="item item-input">

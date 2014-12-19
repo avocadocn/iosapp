@@ -10,7 +10,7 @@ ion-view
         label.item.item-input
           input(type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限定14个字" ng-maxlength=14 required)
       .list.list-inset
-        select(ng-model="selectMold" ng-options="mold.name for mold in campaign_molds")
+        select(ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds")
       .list.list-inset
         label.item.item-input
           input(type="datetime-local" name="start_time" ng-model="campaignData.start_time" placeholder="活动开始时间" required)

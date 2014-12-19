@@ -300,12 +300,16 @@ angular.module('donlerApp.controllers', [])
       }
     });
     $scope.changeTeam = function(selectTeam) {
+      $scope.selectTeam =selectTeam;
       Campaign.getMolds('team',selectTeam._id,function(err, molds){
         if(!err){
           $scope.campaign_molds = molds;
           $scope.selectMold = molds[0];
         }
       })
+    }
+    $scope.changeMold = function(selectMold) {
+      $scope.selectMold = selectMold;
     }
     $scope.sponsor = function(){
       var errMsg;
