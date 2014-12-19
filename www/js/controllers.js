@@ -1014,7 +1014,7 @@ angular.module('donlerApp.controllers', [])
       if(err){
         $ionicPopup.alert({
           title: '提示',
-          template: '网络错误，请检查网络状态'
+          template: err
         });
         return;
       }
