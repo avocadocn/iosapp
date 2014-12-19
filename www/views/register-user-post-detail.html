@@ -3,18 +3,17 @@
   <ion-header-bar><a href="#/home" class="button icon ion-chevron-left">&nbsp;返回</a><a href="#/user/login" class="button icon ion-chevron-right">&nbsp;登录</a></ion-header-bar>
   <ion-content>
     <p>{{companyName}}</p>
-    <form name="user_signup_form" novalidate="novalidate">
+    <form name="user_signup_form" novalidate="novalidate" class="signup_form">
       <div class="list list-inset">
         <label class="item item-input">
           <input type="text" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
         </label>
       </div>
-      <div ng-show="active">
-        <p ng-show="active===1">该邮箱可以注册。</p>
-        <p ng-show="active===2">该邮箱已注册过但尚未激活，请到邮箱查收邮件。</p>
-        <p ng-show="active===3">该邮箱已注册，请直接登录。</p>
-        <p ng-show="active===3">请使用企业邮箱进行注册，若企业后缀不统一，请通知贵公司管理员进行后缀添加。</p>
-      </div>
+      <p ng-show="active===1">该邮箱可以注册。</p>
+      <p ng-show="active===2">该邮箱已注册过但尚未激活，请到邮箱查收邮件。</p>
+      <p ng-show="active===3">该邮箱已注册，请直接登录。</p>
+      <p ng-show="active===4">请使用企业邮箱进行注册，若企业后缀不统一，请通知贵公司管理员进行后缀添加。</p>
+      <p ng-show="mail_msg">{{mail_msg}}</p>
       <div ng-show="!active||active===1">
         <div class="list list-inset">
           <label class="item item-input">
@@ -23,17 +22,17 @@
         </div>
         <div class="list list-inset">
           <label class="item item-input">
-            <input type="text" ng-model="data.password" placeholder="密码" required="required"/>
+            <input type="password" ng-model="data.password" placeholder="密码" required="required"/>
           </label>
         </div>
         <div class="list list-inset">
           <label class="item item-input">
-            <input type="text" ng-model="data.passconf" placeholder="密码确认" match="data.password" required="required"/>
+            <input type="password" ng-model="data.passconf" placeholder="密码确认" match="data.password" required="required"/>
           </label>
         </div>
         <div class="list list-inset">
           <label class="item item-input">
-            <input type="text" ng-model="data.name" placeholder="真实姓名" required="required"/>
+            <input type="text" ng-model="data.realname" placeholder="真实姓名" required="required"/>
           </label>
         </div>
         <div class="list list-inset">
@@ -43,11 +42,16 @@
         </div>
         <div class="list list-inset">
           <label class="item item-input">
-            <input type="text" ng-model="data.inviteKey" placeholder="公司专属8位激活码" required="required"/>
+            <input type="text" ng-model="data.inviteKey" placeholder="公司专属8位激活码" ng-change="checkInvitekey()" required="required"/>
           </label>
         </div>
+        <p ng-if="!invitekeyCheck">为了保证每一个动梨用户都是真实可靠的，请您向HR或同事索要激活码。</p>
+        <div ng-show="invitekeyCheck" class="list list-inset">
+          <p ng-if="invitekeyCheck===1">激活码验证成功</p>
+          <p ng-if="invitekeyCheck===2">激活码填写错误</p>
+        </div>
         <p>点击注册即代表同意<a href="#/register/user/law">《法律声明》及《隐私政策》</a></p>
-        <button ng-disabled="email_check&amp;&amp;email_error ||form.$invalid" ng-click="signup()" class="button button-block button-positive">个人注册</button>
+        <button ng-disabled="active!==1 || invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()" class="button button-block button-positive">个人注册</button>
       </div>
     </form>
   </ion-content>

@@ -997,11 +997,16 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('userRegisterDetailController', ['$scope', '$state', 'UserSignup', 'INFO', function ($scope, $state, UserSignup, INFO) {
+  .controller('userRegisterDetailController', ['$scope', '$state', '$ionicLoading', 'UserSignup', 'INFO', function ($scope, $state, $ionicLoading, UserSignup, INFO) {
     $scope.data = {};
+    $scope.data.cid = INFO.companyId;
     $scope.companyName = INFO.companyName;
     $scope.signup = function() {
-      UserSignup.signup(data, function(msg, data) {
+      $ionicLoading.show({
+        template: 'Loading...'
+      });
+      UserSignup.signup($scope.data, function(msg, data) {
+        $ionicLoading.hide();
         if(!msg){
           $state.go('register_user_waitEmail');
         }
@@ -1013,20 +1018,34 @@ angular.module('donlerApp.controllers', [])
       $scope.reg = (pattern.test($scope.data.email));
     };
     $scope.mailCheck = function() {
-      if($scope.reg&&$scope.email){
-        UserSignup.validate($scope.data.email, INFO.companyId, function(msg, data){
+      if($scope.reg&&$scope.data.email){
+        UserSignup.validate($scope.data.email, INFO.companyId, null, function (msg, data) {
           $scope.active=data.active;
-          if(!msg){
-            $scope.mail_error = false;
-            $scope.mail_msg = '该邮箱可以使用';
+          if(msg){
+            $scope.mail_msg = '您输入的邮箱有误';
           }else{
-            $scope.mail_error = true;
-            $scope.mail_msg = '该邮箱已存在或您输入的邮箱有误'
+            $scope.mail_msg = null;
           }
           $scope.mail_check = true;
         });
+      }else{
+        $scope.mail_check = false;
+        $scope.mail_msg = '您输入的邮箱有误';
       }
     };
+    $scope.checkInvitekey = function() {
+      if($scope.data.inviteKey && $scope.data.inviteKey.length===8){
+        UserSignup.validate(null, INFO.companyId, $scope.data.inviteKey, function (msg, data) {
+          if(!msg){
+            $scope.invitekeyCheck=data.invitekeyCheck;
+          }else{
+            $scope.invitekeyCheck=2;
+          }
+        });
+      }else{
+        $scope.invitekeyCheck = false;
+      }
+    }
   }])
   .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, Team, Campaign, INFO) {
     var teamId = $stateParams.teamId;

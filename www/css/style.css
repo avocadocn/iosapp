@@ -152,26 +152,26 @@ body {
   float: right;
   width: 20%;
 }
-.company_signup select {
+.signup_form select {
   width: 30%;
   float: left;
 }
-.company_signup .dl_item_input {
+.signup_form .dl_item_input {
   padding: 6px 0 5px 16px;
 }
-.company_signup .dl_item_input input.arecode {
+.signup_form .dl_item_input input.arecode {
   width: 25%;
   float: left;
 }
-.company_signup .dl_item_input input.number {
+.signup_form .dl_item_input input.number {
   width: 50%;
   float: left;
 }
-.company_signup .dl_item_input input.extension {
+.signup_form .dl_item_input input.extension {
   width: 25%;
   float: left;
 }
-.company_signup .ng-dirty.ng-invalid {
+.signup_form .ng-dirty.ng-invalid {
   background-color: #fcebeb;
 }
 .calendar {

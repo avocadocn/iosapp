@@ -3,7 +3,7 @@ ion-view
     a.button.icon.ion-chevron-left(href="#/home") &nbsp;返回
     a.button.icon.ion-chevron-right(href="#/company/login") &nbsp;登录
   ion-content
-    form.company_signup(ng-controller="companySignupController" name="company_signup_form" novalidate)
+    form.signup_form(ng-controller="companySignupController" name="company_signup_form" novalidate)
       .list.list-inset
         label.item.item-input
           input(type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required)
@@ -33,5 +33,5 @@ ion-view
           input(type="text" name="phone" ng-model="phone" placeholder="手机号码" ng-minlength=11 ng-maxlength=11 required)
       p 点击注册即代表同意
         a(href="#/register/company/law") 《法律声明》及《隐私政策》
-      button.button.button-block.button-assertive(ng-disabled="!mail_check || mail_error || name_check&&name_error ||form.$invalid" ng-click="signup()") 企业注册
+      button.button.button-block.button-assertive(ng-disabled="!mail_check || mail_error || name_check&&name_error ||company_signup_form.$invalid" ng-click="signup()") 企业注册
       a.button.button-block.button-light(href="#/register/user/search_company") 个人注册

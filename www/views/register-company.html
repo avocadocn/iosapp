@@ -2,7 +2,7 @@
 <ion-view>
   <ion-header-bar><a href="#/home" class="button icon ion-chevron-left">&nbsp;返回</a><a href="#/company/login" class="button icon ion-chevron-right">&nbsp;登录</a></ion-header-bar>
   <ion-content>
-    <form ng-controller="companySignupController" name="company_signup_form" novalidate="novalidate" class="company_signup">
+    <form ng-controller="companySignupController" name="company_signup_form" novalidate="novalidate" class="signup_form">
       <div class="list list-inset">
         <label class="item item-input">
           <input type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required="required"/>
@@ -45,7 +45,7 @@
         </label>
       </div>
       <p>点击注册即代表同意<a href="#/register/company/law">《法律声明》及《隐私政策》</a></p>
-      <button ng-disabled="!mail_check || mail_error || name_check&amp;&amp;name_error ||form.$invalid" ng-click="signup()" class="button button-block button-assertive">企业注册</button><a href="#/register/user/search_company" class="button button-block button-light">个人注册</a>
+      <button ng-disabled="!mail_check || mail_error || name_check&amp;&amp;name_error ||company_signup_form.$invalid" ng-click="signup()" class="button button-block button-assertive">企业注册</button><a href="#/register/user/search_company" class="button button-block button-light">个人注册</a>
     </form>
   </ion-content>
 </ion-view>
