@@ -306,18 +306,40 @@ angular.module('donlerApp.controllers', [])
       })
     }
     $scope.sponsor = function(){
+      var errMsg;
+      if($scope.campaignData.start_time<new Date() ) {
+        errMsg ='开始时间不能早于现在';
+      }
+      else if($scope.campaignData.end_time<$scope.campaignData.start_time) {
+        errMsg ='结束时间不能早于开始时间';
+      }
+      if(errMsg){
+        $ionicPopup.alert({
+          title: '提示',
+          template: errMsg
+        });
+      }
+      else {
         $scope.campaignData.cid = [$scope.selectTeam.cid];
         $scope.campaignData.tid = [$scope.selectTeam._id];
         $scope.campaignData.campaign_type = 2;
         $scope.campaignData.campaign_mold = $scope.selectMold.name;
-      Campaign.create($scope.campaignData,function(err,data){
-        if(!err){
-          $ionicPopup.alert({
-            title: '提示',
-            template: '活动发布成功！'
-          });
-        }
-      })
+        Campaign.create($scope.campaignData,function(err,data){
+          if(!err){
+            $ionicPopup.alert({
+              title: '提示',
+              template: '活动发布成功！'
+            });
+          }
+          else{
+            $ionicPopup.alert({
+              title: '提示',
+              template: err
+            });
+          }
+        })
+      }
+      
     }
   }])
   .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???

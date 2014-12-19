@@ -261,7 +261,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback('error');
+          callback(data.msg);
         });
       },
       edit: function (id, campaignData, callback) {
