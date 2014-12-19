@@ -1304,10 +1304,20 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
-    function ($scope, $stateParams, PhotoAlbum, INFO) {
+  .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'Team', 'INFO',
+    function ($scope, $stateParams, PhotoAlbum, Team, INFO) {
       $scope.teamId = $stateParams.teamId;
       INFO.photoAlbumBackUrl = '#/photo_album/list/team/' + $stateParams.teamId;
+
+      Team.getFamilyPhotos($scope.teamId, function (err, photos) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.familyPhotoLength = photos.length;
+          $scope.familyPhotos = photos.reverse().slice(0, 8);
+        }
+      });
 
       $scope.firstLoad = true;
       $scope.lastCount;
@@ -1622,6 +1632,22 @@ angular.module('donlerApp.controllers', [])
       $scope.$on('onRepeatLast', function (scope, element, attrs) {
         initPhotoSwipe();
       });
+
+  }])
+  .controller('FamilyPhotoController', ['$scope', '$stateParams', 'INFO', 'Team', function ($scope, $stateParams, INFO, Team) {
+    $scope.screenWidth = INFO.screenWidth;
+    $scope.screenHeight = INFO.screenHeight;
+    $scope.team = Team.getCurrentTeam();
+    Team.getFamilyPhotos($scope.team._id, function (err, photos) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.familyPhotos = photos;
+      }
+    });
+
+
 
   }])
   .controller('MemberController', ['$scope', '$stateParams', 'INFO', 'Team', function($scope, $stateParams, INFO, Team) {

@@ -3,10 +3,9 @@ ion-view
     a.button.icon.ion-chevron-left(ng-href="#/team/{{teamId}}") &nbsp;返回
     h1.title 小队影集({{photoAlbums.length}})
   ion-content
-    .card
-      p 全家福(1)
-      a(href="#/photo_album/detail")
-        img(src="http://placehold.it/60x60")
+    a.card(href="#/team/{{teamId}}/family")
+      p 全家福({{familyPhotoLength}})
+      img(ng-repeat="photo in familyPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60")
 
     .card(ng-repeat="photoAlbum in photoAlbums")
       p: a(ng-href="#/photo_album/{{photoAlbum._id}}/detail") {{photoAlbum.name}}({{photoAlbum.photoCount}})

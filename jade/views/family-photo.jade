@@ -1,0 +1,10 @@
+ion-view
+  ion-header-bar
+    a.button.icon.ion-chevron-left(ng-href="#/photo_album/list/team/{{team._id}}") &nbsp;返回
+    h1.title {{team.name}}的全家福相册
+  ion-content
+    .card
+      p 全家福({{familyPhotos.length}})
+      img(ng-repeat="photo in familyPhotos" ng-src="{{STATIC_URL + photo.uri}}/60/60")
+
+include ./photo-swipe

@@ -282,6 +282,11 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         controller: 'TeamController',
         templateUrl: 'views/team-detail.html'
       })
+      .state('team_family', {
+        url: '/team/:teamId/family',
+        controller: 'FamilyPhotoController',
+        templateUrl: 'views/family-photo.html'
+      })
       .state('members', {
         url: '/members/:memberType/:id',
         controller: 'MemberController',

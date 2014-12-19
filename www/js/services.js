@@ -520,7 +520,6 @@ angular.module('donlerApp.services', [])
           .success(function (data, status, headers, config) {
             callback(null, data);
           })
-
           .error(function (data, status, headers, config) {
             if (status === 400) {
               callback(data.msg);
@@ -544,6 +543,16 @@ angular.module('donlerApp.services', [])
             } else {
               callback('error');
             }
+          });
+      },
+
+      getFamilyPhotos: function (teamId, callback) {
+        $http.get(CONFIG.BASE_URL + '/teams/' + teamId + '/family_photos')
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            callback('error');
           });
       }
     };
