@@ -45,6 +45,7 @@ angular.module('donlerApp.services', [])
     teamBackUrl:'#/app/personal_teams',
     photoAlbumBackUrl:'',
     memberBackURL:'',
+    calendarBackUrl:'',
     memberContent:'',
     discussName:'',
     lastDate:'',
@@ -764,7 +765,23 @@ angular.module('donlerApp.services', [])
               callback('error');
             }
           })
-      }
+      },
+      /**
+       * 获取timelines
+       * @param {String} hostType 数据主体类型，只可以是'company','team','user'
+       * @param {String} hostId 主体的id
+       * @param {String} page timeline的页数
+       * @param {Function} callback 形式为function(err, timelineData)
+       */
+      getTimelines: function (hostType, hostId, page, callback) {
+        $http.get( CONFIG.BASE_URL + '/timeline/' + hostType + '/'+ hostId +'?page=' + page)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            callback(data.msg);
+          })
+      },
     };
   }])
 

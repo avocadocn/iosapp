@@ -5,6 +5,7 @@ ion-view
 
   ion-content
     include ./timeline-card
-    ion-infinite-scroll(ng-show="!loadFinished" on-infinite="loadMore()" distance="5%")
+    ion-infinite-scroll(ng-if="!loading || !loadFinished" on-infinite="loadMore()" distance="5%")
+    .nomore_text(ng-if="loadFinished") 没有更多的足迹
 
 

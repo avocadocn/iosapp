@@ -141,18 +141,11 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicLoading', '$ionicPopup', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicLoading, $ionicPopup, Campaign, INFO) {
-    var showLoading = function() {
-      $ionicLoading.show({
-        template: '正在加载'
-      });
-    };
-    var hideLoading = function(){
-      $ionicLoading.hide();
-    };
-    showLoading();
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicPopup, $rootScope, Campaign, INFO) {
+    $rootScope.showLoading();
     $scope.nowType = 'all';
     INFO.campaignBackUrl = '#/app/campaigns';
+    INFO.calendarBackUrl ='#/app/campaigns';
     if(!localStorage.id){
       return $state.go('login');
     }
@@ -174,7 +167,7 @@ angular.module('donlerApp.controllers', [])
           template: err
         });
       }
-      hideLoading();
+      $rootScope.hideLoading();
     });
     $scope.join = function(filter,index, id){
       Campaign.join(id,localStorage.id, function(err, data){
@@ -583,54 +576,57 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('DiscoverCircleController', ['$scope', 'TimeLine', 'INFO', function ($scope, TimeLine, INFO) {
+  .controller('DiscoverCircleController', ['$scope', '$timeout', 'TimeLine', 'INFO', function ($scope, $timeout, TimeLine, INFO) {
     INFO.campaignBackUrl = '#/app/discover/circle';
-    var yearIndex= 0,
-    monthIndex = -1;
     $scope.loadFinished = false;
+    $scope.loading = false;
     $scope.timelinesRecord =[];
-
-    var loadData = function(yearIndex, monthIndex){
-      TimeLine.getTimelineData('company', '0', $scope.timelinesRecord[yearIndex].year, $scope.timelinesRecord[yearIndex].month[monthIndex].month, function (err, timelineData) {
+    $scope.page = 0;
+    var iii =0;
+    /* 是否需要显示时间()
+     * @params: index: 第几个comment
+     * 判断依据：与上一个评论时间是否在同一分钟||index为0
+     * return: 
+     *   0 不用显示
+     *   1 显示年、月、日
+     *   2 显示月、日
+     */
+    $scope.needShowTime = function (index) {
+      if(index===0){
+        return true;
+      }else{
+        var preTime = new Date($scope.timelinesRecord[index-1].start_time);
+        var nowTime = new Date($scope.timelinesRecord[index].start_time);
+        return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
+      };
+    };
+    $scope.loadMore = function() {
+      $scope.page++;
+      $scope.loading = true;
+      TimeLine.getTimelines('company', '0', $scope.page, function (err, timelineData) {
         if (err) {
           // todo
           console.log(err);
         } else {
-          $scope.timelinesRecord[yearIndex].month[monthIndex].campaign = timelineData.campaigns;
-          $scope.$broadcast('scroll.infiniteScrollComplete');
+          if(timelineData.length>0) {
+            $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
+          }
+          else {
+            $scope.loadFinished = true;
+          }
         }
+        $scope.loading = false;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
       });
     }
-    TimeLine.getTimelineRecord('company', '0', function (err, timelines) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.timelinesRecord = timelines;
-        $scope.loadMore();
-      }
-    });
-
-    $scope.loadMore = function(){
-      if($scope.timelinesRecord.length<=yearIndex || $scope.timelinesRecord.length==yearIndex+1 && $scope.timelinesRecord[yearIndex].month.length==monthIndex+1){
-        $scope.loadFinished = true;
-        return;
-      }
-      else if($scope.timelinesRecord[yearIndex].month.length <= monthIndex + 1){
-        yearIndex++;
-        monthIndex = 0;
-      }
-      else {
-        monthIndex ++;
-      }
-      loadData(yearIndex, monthIndex);
-    }
-
+    // $scope.$on('$stateChangeSuccess', function() {
+    //   $scope.loadMore();
+    // });
 
 
   }])
-  .controller('PersonalController', ['$scope', '$state', 'User', 'Message', function ($scope, $state, User, Message) {
-
+  .controller('PersonalController', ['$scope', '$state', 'User', 'Message', 'INFO', function ($scope, $state, User, Message, INFO) {
+    INFO.calendarBackUrl ='#/app/personal';
     User.getData(localStorage.id, function (err, data) {
       if (err) {
         // todo
@@ -706,6 +702,7 @@ angular.module('donlerApp.controllers', [])
     $scope.nowTypeIndex =2;
     moment.locale('zh-cn');
     INFO.campaignBackUrl = '#/calendar';
+    $scope.calendarBackUrl = INFO.calendarBackUrl;
     /**
      * 日历视图的状态，有年、月、日三种视图
      * 'year' or 'month' or 'day'
@@ -1705,47 +1702,55 @@ angular.module('donlerApp.controllers', [])
     $scope.backUrl = INFO.memberBackUrl;
   }])
   .controller('TimelineController', ['$scope', '$stateParams', 'TimeLine', 'User', function ($scope, $stateParams, TimeLine, User) {
-
-    var yearIndex = 0,
-      monthIndex = -1;
     $scope.loadFinished = false;
-    $scope.timelinesRecord = [];
-
-    var loadData = function (yearIndex, monthIndex) {
-      TimeLine.getTimelineData('user', '0', $scope.timelinesRecord[yearIndex].year, $scope.timelinesRecord[yearIndex].month[monthIndex].month, function (err, timelineData) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.timelinesRecord[yearIndex].month[monthIndex].campaign = timelineData.campaigns;
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-        }
-      });
+    $scope.loading = false;
+    $scope.timelinesRecord =[];
+    $scope.page = 0;
+    /* 是否需要显示时间()
+     * @params: index: 第几个comment
+     * 判断依据：与上一个评论时间是否在同一分钟||index为0
+     * return: 
+     *   0 不用显示
+     *   1 显示年、月、日
+     *   2 显示月、日
+     */
+    $scope.needShowTime = function (index) {
+      if(index===0){
+        return true;
+      }else{
+        var preTime = new Date($scope.timelinesRecord[index-1].start_time);
+        var nowTime = new Date($scope.timelinesRecord[index].start_time);
+        return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
+      };
     };
-    TimeLine.getTimelineRecord('user', '0', function (err, timelines) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.timelinesRecord = timelines;
-        $scope.loadMore();
-      }
-    });
-
-    $scope.loadMore = function () {
-      if ($scope.timelinesRecord.length <= yearIndex || $scope.timelinesRecord.length == yearIndex + 1 && $scope.timelinesRecord[yearIndex].month.length == monthIndex + 1) {
-        $scope.loadFinished = true;
+    $scope.loadMore = function() {
+      if($scope.loading) {
+        $scope.$broadcast('scroll.infiniteScrollComplete');
         return;
-      } else if ($scope.timelinesRecord[yearIndex].month.length <= monthIndex + 1) {
-        yearIndex++;
-        monthIndex = 0;
-      } else {
-        monthIndex++;
       }
-      loadData(yearIndex, monthIndex);
-    };
-
-    User.getData(localStorage.id, function (err, data) {
+      else {
+        $scope.page++;
+        $scope.loading = true;
+        TimeLine.getTimelines('user', '0', $scope.page, function (err, timelineData) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            if(timelineData.length>0) {
+              $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
+            }
+            else {
+              $scope.loadFinished = true;
+            }
+          }
+          $scope.loading = false;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+      }
+      
+    }
+    $scope.loadMore();
+        User.getData(localStorage.id, function (err, data) {
       if (err) {
         // todo
         console.log(err);
@@ -1753,7 +1758,6 @@ angular.module('donlerApp.controllers', [])
         $scope.user = data;
       }
     });
-
   }])
   .controller('MessageController', ['$scope', 'Message', function ($scope, Message) {
 
