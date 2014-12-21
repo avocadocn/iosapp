@@ -3,22 +3,22 @@
   <ion-header-bar><a ng-href="{{backUrl}}" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">{{team.name}}</h1>
   </ion-header-bar>
-  <ion-content>
-    <div class="team_header"><img ng-if="team" ng-src="{{STATIC_URL + team.logo}}/45/45" class="logo"/>
+  <ion-content class="team_page">
+    <div class="team_header">
       <ion-slide-box>
-        <ion-slide ng-repeat="photo in team.familyPhotos"><img ng-src="{{STATIC_URL + photo.uri}}/300/160" class="team_family"/></ion-slide>
-      </ion-slide-box>
+        <ion-slide ng-repeat="photo in team.familyPhotos"><img ng-src="{{STATIC_URL + photo.uri}}/320/190" class="team_family"/></ion-slide>
+      </ion-slide-box><img ng-if="team" ng-src="{{STATIC_URL + team.logo}}/65/65" class="logo"/>
     </div>
-    <div class="list card team_info">
-      <div class="item item-body">
+    <div class="card team_info">
+      <div class="info_header clearfix">
         <div class="team_name">{{team.name}}</div>
         <div class="team_type">{{team.groupType}}</div>
-        <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
-        <div class="team_des">小队简介: {{team.brief}}</div>
-        <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id)" class="button button-block button-light btn_join">已加入小队</button>
-        <button prevent-default="prevent-default" ng-if="!team.hasJoined" ng-click="joinTeam(team._id)" class="button button-block button-positive btn_join">立即加入</button>
       </div>
-      <div class="item tabs"><a ng-href="#/photo_album/list/team/{{team._id}}" class="tab-item btn_upload_photo">上传照片</a><a href="#/members/team/{{team._id}}" class="tab-item btn_member">{{team.memberCount}}名队员</a>
+      <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
+      <div class="team_des">小队简介: {{team.brief}}</div>
+      <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id)" class="button button-block button-light btn_join">已加入小队</button>
+      <button prevent-default="prevent-default" ng-if="!team.hasJoined" ng-click="joinTeam(team._id)" class="button button-block button-positive btn_join">立即加入</button>
+      <div class="tabs"><a ng-href="#/photo_album/list/team/{{team._id}}" class="tab-item btn_upload_photo">上传照片</a><a href="#/members/team/{{team._id}}" class="tab-item btn_member">{{team.memberCount}}名队员</a>
         <div class="tab-item btn_cp">活动</div>
       </div>
     </div>

@@ -2,22 +2,22 @@ ion-view
   ion-header-bar
     a.button.icon.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
     h1.title {{team.name}}
-  ion-content
+  ion-content.team_page
     .team_header
-      img.logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/45/45")
       //-todo 有bug，滑动有问题，原因未知，可能需要较多时间排查，先搁置
       ion-slide-box
         ion-slide(ng-repeat="photo in team.familyPhotos")
-          img.team_family(ng-src="{{STATIC_URL + photo.uri}}/300/160")
-    .list.card.team_info
-      .item.item-body
+          img.team_family(ng-src="{{STATIC_URL + photo.uri}}/320/190")
+      img.logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/65/65")
+    .card.team_info
+      .info_header.clearfix
         .team_name {{team.name}}
         .team_type {{team.groupType}}
-        .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
-        .team_des 小队简介: {{team.brief}}
-        button.button.button-block.button-light.btn_join(prevent-default ng-if="team.hasJoined" ng-click="quitTeam(team._id)") 已加入小队
-        button.button.button-block.button-positive.btn_join(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id)") 立即加入
-      .item.tabs
+      .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
+      .team_des 小队简介: {{team.brief}}
+      button.button.button-block.button-light.btn_join(prevent-default ng-if="team.hasJoined" ng-click="quitTeam(team._id)") 已加入小队
+      button.button.button-block.button-positive.btn_join(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id)") 立即加入
+      .tabs
         a.tab-item.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}") 上传照片
         a.tab-item.btn_member(href="#/members/team/{{team._id}}") {{team.memberCount}}名队员
         .tab-item.btn_cp 活动

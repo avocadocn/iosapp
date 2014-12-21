@@ -1,11 +1,31 @@
 /* Empty. Add your own CSS if you like */
 
+// colors
+col_black = #333333
+col_white = #fbfbfb
+col_gray = #e2e2e2
+col_darkGray = #999999
+col_blue = #3ca2e0
+col_darkBlue = #618bd7
+col_iconPurple = #6a73c6
+col_borderPurple = #806dd0
+col_textPurple = #9e6dd0
 
+html
+  font-size 12px
 body
   background-color #e2e2e2
   font-size 12px
 .pane, .view
   background-color #e2e2e2
+
+.clearfix
+  &:before, &:after
+    display table
+    content " "
+  &:after
+    clear both
+
 .dl_header
   opacity 0.9
 .campaigns_container
@@ -347,6 +367,7 @@ body
 // todo
 .dl_message_unread
   color darkred
+<<<<<<< HEAD
 .campaign_filter
   height 34px
   background-color #ffffff
@@ -354,3 +375,39 @@ body
     height 32px
     line-height 32px
     min-height 32px
+=======
+
+// 小队主页
+.team_page
+  .team_header
+    position relative
+    .logo
+      position absolute
+      left 20px
+      bottom 15px
+      border-radius 15%
+      width 65px
+      height 65px
+      border 3px solid col_white
+  .team_info
+    .info_header
+      position relative
+      padding 0 1rem
+      height 50px
+      color col_white
+      background-color col_blue
+    .team_name
+      float left
+      font-size 16px
+      line-height 50px
+    .team_type
+      float right
+      margin 10px 0
+      padding 0 1rem
+      font-size 12px
+      line-height 30px
+      color col_blue
+      background-color col_white
+      border-radius 15%
+
+>>>>>>> 7fcc1a3a488ff23df7a51f951b2bfff1f74b02b7
