@@ -1195,7 +1195,7 @@ angular.module('donlerApp.controllers', [])
     })
   }])
   .controller('CompanyTeamController', ['$scope', 'Company', function ($scope, Company) {
-    Company.getTeams(localStorage.id, 'all', function(msg, data) {
+    Company.getTeams(localStorage.id, 'team', 'all', function(msg, data) {
       if(!msg){
         $scope.teams = data;
       }

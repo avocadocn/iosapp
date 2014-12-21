@@ -579,9 +579,13 @@ angular.module('donlerApp.services', [])
             callback(data.msg);
           });
         },
-        getTeams: function (cid, type, callback) {
+        getTeams: function (cid, target, type, callback) {
           //type todo
-          $http.get(CONFIG.BASE_URL + '/companies' + cid +'/statistics')
+          $http.get(CONFIG.BASE_URL + '/companies/' + cid +'/statistics', {
+            params: {
+              target: target
+            }
+          })
           .success(function (data, status) {
             callback(null, data);
           })
