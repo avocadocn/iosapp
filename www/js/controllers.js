@@ -1208,6 +1208,12 @@ angular.module('donlerApp.controllers', [])
         INFO.memberBackUrl = '#/team/' + teamId;
         INFO.memberContent = [team];
         $scope.homeCourtIndex = 0;
+        $scope.homeCourts = team.homeCourts;
+        while ($scope.homeCourts.length < 2) {
+          $scope.homeCourts.push({
+            empty: true
+          });
+        }
       }
     });
     $scope.joinTeam = function (tid) {

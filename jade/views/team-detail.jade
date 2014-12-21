@@ -25,13 +25,16 @@ ion-view
         a.col.btn_member(href="#/members/team/{{team._id}}") {{team.memberCount}}名队员
         .col.btn_cp 活动
     .card.team_home_court
-      .row
-        .col.tab(ng-click="selectHomeCourt(0)") 主场一
-        .col.tab(ng-click="selectHomeCourt(1)") 主场二
-      .map(ng-repeat="homeCourt in team.homeCourts" ng-if="homeCourtIndex==$index")
-        p(ng-cloak ng-if="homeCourt.name&&homeCourt.loc.coordinates.length!==2") {{homeCourt.name}}
-        a(ng-cloak ng-if="homeCourt.loc.coordinates.length===2" ng-href="http://mo.amap.com/?q={{homeCourt.loc.coordinates[1]}},{{homeCourt.loc.coordinates[0]}}&name={{homeCourt.name}}" target="_blank")
-          img.map_size(ng-src="http://restapi.amap.com/v3/staticmap?location={{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&zoom=15&size=420*230&markers=mid,,A:{{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&labels={{homeCourt.name}},2,0,12,0xffffff,0x3498db:{{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&key=077eff0a89079f77e2893d6735c2f044")
+      .row.home_court_tabs
+        .col.tab(ng-class="{'active': homeCourtIndex===0}" ng-click="selectHomeCourt(0)") 主场一
+        .col.tab(ng-class="{'active': homeCourtIndex===1}" ng-click="selectHomeCourt(1)") 主场二
+      .map(ng-repeat="homeCourt in homeCourts" ng-if="homeCourtIndex==$index")
+        div(ng-if="!homeCourt.empty")
+          a.map_wrap(ng-cloak ng-if="homeCourt.loc.coordinates.length===2" ng-href="http://mo.amap.com/?q={{homeCourt.loc.coordinates[1]}},{{homeCourt.loc.coordinates[0]}}&name={{homeCourt.name}}" target="_blank")
+            img.map_img(ng-src="http://restapi.amap.com/v3/staticmap?location={{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&zoom=15&size=300*130&markers=mid,,A:{{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&labels={{homeCourt.name}},2,0,12,0xffffff,0x3498db:{{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&key=077eff0a89079f77e2893d6735c2f044")
+          p.home_court_name(ng-cloak ng-if="homeCourt.name") {{homeCourt.name}}
+        div(ng-if="homeCourt.empty")
+          img.no_homecourt(src="./img/no_homecourt.png")
     .card
       ion-scroll(direction="x" scrollbar-x="false")
         img(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
