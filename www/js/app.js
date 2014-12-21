@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives'])
 
-  .run(function ($ionicPlatform, $state, $http, $rootScope, CommonHeaders, CONFIG) {
+  .run(function ($ionicPlatform, $state, $ionicLoading, $http, $rootScope, CommonHeaders, CONFIG) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -30,6 +30,14 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         $state.go('home');
       }
     });
+    $rootScope.showLoading = function() {
+      $ionicLoading.show({
+        template: '<i class="icon ion-looping"></i>正在加载'
+      });
+    };
+    $rootScope.hideLoading = function(){
+      $ionicLoading.hide();
+    };
   }).config(function ($stateProvider) {
     $stateProvider
       .state('home', {

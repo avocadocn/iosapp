@@ -425,6 +425,7 @@ body {
 .campaign_filter .button_active {
   height: 31px;
   border-bottom: 2px solid #618bd7;
+  color: #618bd7;
 }
 .team_page .team_header {
   position: relative;
@@ -459,4 +460,57 @@ body {
   color: #3ca2e0;
   background-color: #fbfbfb;
   border-radius: 15%;
+}
+.team_page .team_info .info_body {
+  padding: 1rem;
+}
+.team_page .team_info .start_time,
+.team_page .team_info .team_des {
+  font-size: 14px;
+  color: #333;
+}
+.team_page .team_info .team_des {
+  margin-top: 5px;
+}
+.team_page .team_info .btn_join,
+.team_page .team_info .btn_joined {
+  display: block;
+  width: 100%;
+  margin: 0;
+  margin-top: 15px;
+  padding: 0 1rem;
+  border: 0;
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+.team_page .team_info .btn_join {
+  color: #fbfbfb;
+  background-color: #3ca2e0;
+}
+.team_page .team_info .btn_joined {
+  color: #3ca2e0;
+  background-color: #fbfbfb;
+}
+.team_page .team_info .info_footer {
+  position: relative;
+  padding: 0;
+  height: 40px;
+  border-top: 1px solid #e2e2e2;
+}
+.team_page .team_info .btn_member,
+.team_page .team_info .btn_cp {
+  border-left: 1px solid #e2e2e2;
+}
+.team_page .team_info .btn_upload_photo,
+.team_page .team_info .btn_member,
+.team_page .team_info .btn_cp {
+  padding: 0;
+  color: #999;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 40px;
 }
