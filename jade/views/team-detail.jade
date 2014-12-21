@@ -35,12 +35,12 @@ ion-view
           p.home_court_name(ng-cloak ng-if="homeCourt.name") {{homeCourt.name}}
         div(ng-if="homeCourt.empty")
           img.no_homecourt(src="./img/no_homecourt.png")
-    .card
+    .card.member_card
       ion-scroll(direction="x" scrollbar-x="false")
-        img(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
-        img(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
-      a
-        span {{team.memberCount}}
+        img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
+        img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
+      a.member_link
+        span.member_count {{team.memberCount}}
         i.icon.ion-chevron-right
 
     campaign-card(ng-repeat="campaign in campaigns" campaign="campaign" team="team")

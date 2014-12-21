@@ -36,8 +36,8 @@
         <div ng-if="homeCourt.empty"><img src="./img/no_homecourt.png" class="no_homecourt"/></div>
       </div>
     </div>
-    <div class="card">
-      <ion-scroll direction="x" scrollbar-x="false"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45"/><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45"/></ion-scroll><a><span>{{team.memberCount}}</span><i class="icon ion-chevron-right"></i></a>
+    <div class="card member_card">
+      <ion-scroll direction="x" scrollbar-x="false"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45" class="member"/><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45" class="member"/></ion-scroll><a class="member_link"><span class="member_count">{{team.memberCount}}</span><i class="icon ion-chevron-right"></i></a>
     </div>
     <campaign-card ng-repeat="campaign in campaigns" campaign="campaign" team="team"></campaign-card>
     <ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded()"></ion-infinite-scroll>

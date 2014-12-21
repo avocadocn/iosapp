@@ -100,7 +100,7 @@ body {
 }
 .app_tabs > .tabs {
   background-color: #000;
-  color: #fbfbfb;
+  color: col_white;
 }
 .app_tabs > .tabs .tab-item {
   position: relative;
@@ -549,4 +549,18 @@ body {
 .team_page .team_home_court .no_homecourt {
   max-width: 100%;
   display: block;
+}
+.team_page .member_card {
+  background-color: #3ca2e0;
+  height: 60px;
+}
+.team_page .member_card .member {
+  width: 40px;
+  height: 40px;
+}
+.team_page .member_card .member_link {
+  display: block;
+  float: right;
+  background-color: #3ca2e0;
+  color: #fff;
 }
