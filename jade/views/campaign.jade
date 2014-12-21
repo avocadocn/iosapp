@@ -1,7 +1,7 @@
 ion-view
-  mixin campaignsContainer(containerTitle, items)
+  mixin campaignsContainer(containerTitle, items,itemsClass)
     .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
-      .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" ng-cloak)
+      .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" class="#{itemsClass}" ng-cloak)
         p #{containerTitle} {{#{items}.length}}
       .list.card.dl_card(ng-repeat="campaign in #{items}" ng-cloak)
         a.item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}")
@@ -13,7 +13,7 @@ ion-view
             p.dl_cp_address {{campaign.location.name}}
           .button_container
             if items =='newCampaigns'
-              button.dl_cp_join(prevent-default ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join('#{items}',$index, campaign._id)") 参加
+              button.dl_button.dl_cp_join(prevent-default ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join('#{items}',$index, campaign._id)") 参加
             else if items =='nowCampaigns'
               p.dl_cp_time_countdown {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束
             else
@@ -40,9 +40,9 @@ ion-view
                 img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
         if items =='provokes'
           a.item.tabs.dl_card_footer(href="#/campaign/detail/{{campaign._id}}")
-            button.tab-item.dl_cp_confirm(eat-click ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke('#{items}',$index, campaign._id,1)") 接收
-            button.tab-item.dl_cp_refuse(eat-click ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke('#{items}',$index, campaign._id,2)") 拒绝
-            button.tab-item.dl_cp_cancel(eat-click ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke('#{items}',$index, campaign._id,3)") 取消
+            button.tab-item.dl_button.dl_cp_confirm(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke('#{items}',$index, campaign._id,1)") 接收
+            button.tab-item.dl_button.dl_cp_refuse(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke('#{items}',$index, campaign._id,2)") 拒绝
+            button.tab-item.dl_button.dl_cp_cancel(prevent-default ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke('#{items}',$index, campaign._id,3)") 取消
         else
           a.item.tabs.tabs-icon-left.dl_card_footer(href="#/campaign/detail/{{campaign._id}}")
             .tab-item.dl_team_name
@@ -61,14 +61,14 @@ ion-view
     
   ion-content.campaigns_container.has-header(overflow-scroll="true")
     .button-bar.campaign_filter
-      a.button.button-clear(ng-click="nowType='all'" ng-class="{'button_active':nowType=='all'}") 所有
-      a.button.button-clear(ng-click="nowType='newCampaigns'" ng-class="{'button_active':nowType=='newCampaigns'}") 新活动
-      a.button.button-clear(ng-click="nowType='provokes'" ng-class="{'button_active':nowType=='provokes'}") 挑战
-      a.button.button-clear(ng-click="nowType='nowCampaigns'" ng-class="{'button_active':nowType=='nowCampaigns'}") 进行中
-      a.button.button-clear(ng-click="nowType='unStartCampaigns'" ng-class="{'button_active':nowType=='unStartCampaigns'}") 即将
+      a.button.button-clear(ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}") 所有
+      a.button.button-clear(ng-click="filter('newCampaigns')" ng-class="{'icon_darkBlue':nowType=='newCampaigns'}") 新活动
+      a.button.button-clear(ng-click="filter('provokes')" ng-class="{'icon_iconPurple':nowType=='provokes'}") 挑战
+      a.button.button-clear(ng-click="filter('nowCampaigns')" ng-class="{'icon_borderPurple':nowType=='nowCampaigns'}") 进行中
+      a.button.button-clear(ng-click="filter('unStartCampaigns')" ng-class="{'icon_textPurple':nowType=='unStartCampaigns'}") 即将
     ion-scroll.campaign_list
       ion-refresher(on-refresh="doRefresh()")
-      +campaignsContainer('新的活动','newCampaigns')
-      +campaignsContainer('挑战','provokes')
-      +campaignsContainer('进行中','nowCampaigns')
-      +campaignsContainer('即将','unStartCampaigns')
+      +campaignsContainer('新的活动','newCampaigns','icon_darkBlue')
+      +campaignsContainer('挑战','provokes','icon_iconPurple')
+      +campaignsContainer('进行中','nowCampaigns','icon_borderPurple')
+      +campaignsContainer('即将','unStartCampaigns','icon_textPurple')

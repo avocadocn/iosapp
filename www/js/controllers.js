@@ -141,7 +141,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicPopup, $rootScope, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, Campaign, INFO) {
     $rootScope.showLoading();
     $scope.nowType = 'all';
     INFO.campaignBackUrl = '#/app/campaigns';
@@ -169,6 +169,10 @@ angular.module('donlerApp.controllers', [])
       }
       $rootScope.hideLoading();
     });
+    $scope.filter = function(filterType) {
+      $scope.nowType = filterType;
+      $ionicScrollDelegate.scrollTop(true);
+    }
     $scope.join = function(filter,index, id){
       Campaign.join(id,localStorage.id, function(err, data){
         if(!err){

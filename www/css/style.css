@@ -30,10 +30,24 @@ body {
   background-color: #e2e2e2;
 }
 .campaigns_container .campaign_list .campaign_container .campaign_container_title {
-  color: #618bd7;
   font-size: 24px;
   margin-left: 20px;
   padding-top: 20px;
+}
+.campaigns_container .campaign_list .campaign_container .campaign_container_title.icon_blue {
+  color: #3ca2e0;
+}
+.campaigns_container .campaign_list .campaign_container .campaign_container_title.icon_darkBlue {
+  color: #618bd7;
+}
+.campaigns_container .campaign_list .campaign_container .campaign_container_title.icon_iconPurple {
+  color: #6a73c6;
+}
+.campaigns_container .campaign_list .campaign_container .campaign_container_title.icon_borderPurple {
+  color: #806dd0;
+}
+.campaigns_container .campaign_list .campaign_container .campaign_container_title.icon_textPurple {
+  color: #9e6dd0;
 }
 .dl_card {
   margin: 1rem;
@@ -68,6 +82,10 @@ body {
   right: 16px;
   top: 16px;
 }
+.dl_card .dl_card_header .button_container .dl_cp_join {
+  background-color: #3ca2e0;
+  color: #fff;
+}
 .dl_card .dl_card_header p {
   margin: 0;
   color: #999;
@@ -91,12 +109,22 @@ body {
 .bar-footer {
   padding: 0;
 }
-.icon_blue {
-  color: #3ca2e0;
-}
 .button-bar > .button {
   padding: 0;
   color: #999;
+}
+.dl_button {
+  margin: 0;
+  color: #fff;
+  padding: 0 10px;
+  border-width: 0;
+  border-radius: 2px;
+  vertical-align: top;
+  text-align: center;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  line-height: 30px;
+  cursor: pointer;
 }
 .app_tabs > .tabs {
   background-color: #000;
@@ -122,42 +150,42 @@ body {
   color: #3ca2e0;
 }
 .ion_campaign {
-  background-image: url("/img/icon.png");
+  background-image: url("../img/icon.png");
   background-size: 160px;
   background-position: 8px 5px;
 }
 .ion_campaign_active {
-  background-image: url("/img/icon.png");
+  background-image: url("../img/icon.png");
   background-size: 160px;
   background-position: 8px -35px;
 }
 .ion_discuss {
-  background-image: url("/img/icon.png");
+  background-image: url("../img/icon.png");
   background-size: 160px;
   background-position: -33px 5px;
 }
 .ion_discuss_active {
-  background-image: url("/img/icon.png");
+  background-image: url("../img/icon.png");
   background-size: 160px;
   background-position: -33px -35px;
 }
 .ion_discover {
-  background-image: url("/img/icon.png");
+  background-image: url("../img/icon.png");
   background-size: 160px;
   background-position: -73px 5px;
 }
 .ion_discover_active {
-  background-image: url("/img/icon.png");
+  background-image: url("../img/icon.png");
   background-size: 160px;
   background-position: -73px -35px;
 }
 .ion_personal {
-  background-image: url("/img/icon.png");
+  background-image: url("../img/icon.png");
   background-size: 160px;
   background-position: -113px 5px;
 }
 .ion_personal_active {
-  background-image: url("/img/icon.png");
+  background-image: url("../img/icon.png");
   background-size: 160px;
   background-position: -113px -35px;
 }
@@ -413,11 +441,32 @@ body {
 .campaign_filter {
   height: 34px;
   background-color: #fff;
+  border-top: 1px solid #e2e2e2;
 }
 .campaign_filter .button {
   height: 32px;
   line-height: 32px;
   min-height: 32px;
+}
+.campaign_filter .button.icon_blue {
+  color: #3ca2e0;
+  border-bottom: 1px solid #3ca2e0;
+}
+.campaign_filter .button.icon_darkBlue {
+  color: #618bd7;
+  border-bottom: 1px solid #618bd7;
+}
+.campaign_filter .button.icon_iconPurple {
+  color: #6a73c6;
+  border-bottom: 1px solid #6a73c6;
+}
+.campaign_filter .button.icon_borderPurple {
+  color: #806dd0;
+  border-bottom: 1px solid #806dd0;
+}
+.campaign_filter .button.icon_textPurple {
+  color: #9e6dd0;
+  border-bottom: 1px solid #9e6dd0;
 }
 .team_page .team_header {
   position: relative;

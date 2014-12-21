@@ -36,10 +36,19 @@ body
     background-color col_gray
     .campaign_container
       .campaign_container_title
-        color col_darkBlue
         font-size 24px
         margin-left 20px
         padding-top 20px
+        &.icon_blue
+          color col_blue
+        &.icon_darkBlue
+          color col_darkBlue
+        &.icon_iconPurple
+          color col_iconPurple
+        &.icon_borderPurple
+          color col_borderPurple
+        &.icon_textPurple
+          color col_textPurple
 .dl_card
   margin 1rem
   box-shadow 0 4px 0 rgba(204, 204, 204, 1)
@@ -69,6 +78,9 @@ body
       position absolute
       right 16px
       top 16px
+      .dl_cp_join
+        background-color col_blue
+        color #fff
     p
       margin 0
       color #999999
@@ -86,11 +98,22 @@ body
     color #999999
 .bar-footer
   padding 0
-.icon_blue
-  color #3ca2e0
 .button-bar > .button
   padding 0
   color #999
+.dl_button
+  margin 0
+  color #fff
+  
+  padding 0 10px
+  border-width 0
+  border-radius 2px
+  vertical-align top
+  text-align center
+  text-overflow ellipsis
+  font-size 12px
+  line-height 30px
+  cursor pointer
 .app_tabs > .tabs
   background-color #000
   color #fbfbfb
@@ -109,37 +132,37 @@ body
       top 5%
   .tab-item-active
     .tab-title
-      color #3ca2e0
+      color col_blue
 .ion_campaign
-  background-image url('/img/icon.png')
+  background-image url('../img/icon.png')
   background-size 160px
   background-position 8px 5px
 .ion_campaign_active
-  background-image url('/img/icon.png')
+  background-image url('../img/icon.png')
   background-size 160px
   background-position 8px -35px
 .ion_discuss
-  background-image url('/img/icon.png')
+  background-image url('../img/icon.png')
   background-size 160px
   background-position -33px 5px
 .ion_discuss_active
-  background-image url('/img/icon.png')
+  background-image url('../img/icon.png')
   background-size 160px
   background-position -33px -35px
 .ion_discover
-  background-image url('/img/icon.png')
+  background-image url('../img/icon.png')
   background-size 160px
   background-position -73px 5px
 .ion_discover_active
-  background-image url('/img/icon.png')
+  background-image url('../img/icon.png')
   background-size 160px
   background-position -73px -35px
 .ion_personal
-  background-image url('/img/icon.png')
+  background-image url('../img/icon.png')
   background-size 160px
   background-position -113px 5px
 .ion_personal_active
-  background-image url('/img/icon.png')
+  background-image url('../img/icon.png')
   background-size 160px
   background-position -113px -35px
 .comments
@@ -182,12 +205,12 @@ body
     background-color rgb(246, 246, 246)
     border-bottom solid 1px rgb(220, 220, 220)
     .operator
-      background-color #3ca2e0
+      background-color col_blue
       color white
       border none
     .week
       position relative
-      background-color #3ca2e0
+      background-color col_blue
       .day
         float left
         width (100 / 7)%
@@ -278,13 +301,13 @@ body
       .calendar_campaign_count
         display inline-block
         color white
-        background-color #3ca2e0
+        background-color col_blue
         border-radius 100%
         width 20px
         height 20px
         line-height 20px
       &.today
-        background-color #3ca2e0
+        background-color col_blue
         .calendar_date
           color white
           border-radius 50px
@@ -371,11 +394,26 @@ body
 .campaign_filter
   height 34px
   background-color #ffffff
+  border-top 1px solid col_gray
   .button
     height 32px
     line-height 32px
     min-height 32px
-
+    &.icon_blue
+      color col_blue
+      border-bottom 1px solid col_blue
+    &.icon_darkBlue
+      color col_darkBlue
+      border-bottom 1px solid col_darkBlue
+    &.icon_iconPurple
+      color col_iconPurple
+      border-bottom 1px solid col_iconPurple
+    &.icon_borderPurple
+      color col_borderPurple
+      border-bottom 1px solid col_borderPurple
+    &.icon_textPurple
+      color col_textPurple
+      border-bottom 1px solid col_textPurple
 
 // 小队主页
 .team_page
