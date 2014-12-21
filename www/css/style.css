@@ -1,6 +1,7 @@
 /* Empty. Add your own CSS if you like */
 body {
   background-color: #e2e2e2;
+  font-size: 12px;
 }
 .pane,
 .view {
@@ -31,6 +32,7 @@ body {
 .dl_card .item {
   background-color: #fff;
   border-color: #fff;
+  border-style: 0px;
 }
 .dl_card .dl_card_header .dl_team_logo_right {
   position: absolute;
@@ -55,6 +57,10 @@ body {
   right: 16px;
   top: 16px;
 }
+.dl_card .dl_card_header p {
+  margin: 0;
+  color: #999;
+}
 .dl_card .dl_card_header_provoke {
   padding-right: 72px;
 }
@@ -62,11 +68,14 @@ body {
   padding: 0;
 }
 .dl_card .dl_card_body .dl_prvoke_info .dl_team_name {
-  color: #6a73c6;
+  color: #333;
   margin: 0 5px;
 }
 .dl_card .dl_card_body .dl_photo_alb {
   white-space: nowrap;
+}
+.dl_card .dl_card_footer {
+  color: #999;
 }
 .bar-footer {
   padding: 0;
@@ -389,4 +398,13 @@ body {
 }
 .dl_message_unread {
   color: #8b0000;
+}
+.campaign_filter {
+  height: 34px;
+  background-color: #fff;
+}
+.campaign_filter .button {
+  height: 32px;
+  line-height: 32px;
+  min-height: 32px;
 }
