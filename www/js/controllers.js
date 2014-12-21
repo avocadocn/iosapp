@@ -582,15 +582,7 @@ angular.module('donlerApp.controllers', [])
     $scope.loading = false;
     $scope.timelinesRecord =[];
     $scope.page = 0;
-    var iii =0;
-    /* 是否需要显示时间()
-     * @params: index: 第几个comment
-     * 判断依据：与上一个评论时间是否在同一分钟||index为0
-     * return: 
-     *   0 不用显示
-     *   1 显示年、月、日
-     *   2 显示月、日
-     */
+    // 是否需要显示时间
     $scope.needShowTime = function (index) {
       if(index===0){
         return true;
@@ -619,10 +611,6 @@ angular.module('donlerApp.controllers', [])
         $scope.$broadcast('scroll.infiniteScrollComplete');
       });
     }
-    // $scope.$on('$stateChangeSuccess', function() {
-    //   $scope.loadMore();
-    // });
-
 
   }])
   .controller('PersonalController', ['$scope', '$state', 'User', 'Message', 'INFO', function ($scope, $state, User, Message, INFO) {
@@ -1706,14 +1694,7 @@ angular.module('donlerApp.controllers', [])
     $scope.loading = false;
     $scope.timelinesRecord =[];
     $scope.page = 0;
-    /* 是否需要显示时间()
-     * @params: index: 第几个comment
-     * 判断依据：与上一个评论时间是否在同一分钟||index为0
-     * return: 
-     *   0 不用显示
-     *   1 显示年、月、日
-     *   2 显示月、日
-     */
+    // 是否需要显示时间
     $scope.needShowTime = function (index) {
       if(index===0){
         return true;
@@ -1724,33 +1705,25 @@ angular.module('donlerApp.controllers', [])
       };
     };
     $scope.loadMore = function() {
-      if($scope.loading) {
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-        return;
-      }
-      else {
-        $scope.page++;
-        $scope.loading = true;
-        TimeLine.getTimelines('user', '0', $scope.page, function (err, timelineData) {
-          if (err) {
-            // todo
-            console.log(err);
-          } else {
-            if(timelineData.length>0) {
-              $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
-            }
-            else {
-              $scope.loadFinished = true;
-            }
+      $scope.page++;
+      $scope.loading = true;
+      TimeLine.getTimelines('user', '0', $scope.page, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          if(timelineData.length>0) {
+            $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
           }
-          $scope.loading = false;
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-        });
-      }
-      
+          else {
+            $scope.loadFinished = true;
+          }
+        }
+        $scope.loading = false;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      });
     }
-    $scope.loadMore();
-        User.getData(localStorage.id, function (err, data) {
+    User.getData(localStorage.id, function (err, data) {
       if (err) {
         // todo
         console.log(err);
