@@ -1,10 +1,21 @@
 /* Empty. Add your own CSS if you like */
+html {
+  font-size: 12px;
+}
 body {
   background-color: #e2e2e2;
 }
 .pane,
 .view {
   background-color: #e2e2e2;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: " ";
+}
+.clearfix:after {
+  clear: both;
 }
 .dl_header {
   opacity: 0.9;
@@ -389,4 +400,38 @@ body {
 }
 .dl_message_unread {
   color: #8b0000;
+}
+.team_page .team_header {
+  position: relative;
+}
+.team_page .team_header .logo {
+  position: absolute;
+  left: 20px;
+  bottom: 15px;
+  border-radius: 15%;
+  width: 65px;
+  height: 65px;
+  border: 3px solid #fbfbfb;
+}
+.team_page .team_info .info_header {
+  position: relative;
+  padding: 0 1rem;
+  height: 50px;
+  color: #fbfbfb;
+  background-color: #3ca2e0;
+}
+.team_page .team_info .team_name {
+  float: left;
+  font-size: 16px;
+  line-height: 50px;
+}
+.team_page .team_info .team_type {
+  float: right;
+  margin: 10px 0;
+  padding: 0 1rem;
+  font-size: 12px;
+  line-height: 30px;
+  color: #3ca2e0;
+  background-color: #fbfbfb;
+  border-radius: 15%;
 }
