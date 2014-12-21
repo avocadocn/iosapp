@@ -434,16 +434,16 @@ body {
   position: absolute;
   left: 20px;
   bottom: 15px;
-  border-radius: 15%;
+  border-radius: 5px;
   width: 65px;
   height: 65px;
-  border: 3px solid #fbfbfb;
+  border: 3px solid #fff;
 }
 .team_page .team_info .info_header {
   position: relative;
   padding: 0 1rem;
   height: 50px;
-  color: #fbfbfb;
+  color: #fff;
   background-color: #3ca2e0;
 }
 .team_page .team_info .team_name {
@@ -458,8 +458,8 @@ body {
   font-size: 12px;
   line-height: 30px;
   color: #3ca2e0;
-  background-color: #fbfbfb;
-  border-radius: 15%;
+  background-color: #fff;
+  border-radius: 5px;
 }
 .team_page .team_info .info_body {
   padding: 1rem;
@@ -484,14 +484,16 @@ body {
   text-align: center;
   cursor: pointer;
   text-overflow: ellipsis;
+  border-radius: 5px;
 }
 .team_page .team_info .btn_join {
-  color: #fbfbfb;
+  color: #fff;
   background-color: #3ca2e0;
 }
 .team_page .team_info .btn_joined {
   color: #3ca2e0;
-  background-color: #fbfbfb;
+  background-color: #fff;
+  border: 1px solid #3ca2e0;
 }
 .team_page .team_info .info_footer {
   position: relative;
