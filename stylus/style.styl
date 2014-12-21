@@ -10,6 +10,7 @@ col_darkBlue = #618bd7
 col_iconPurple = #6a73c6
 col_borderPurple = #806dd0
 col_textPurple = #9e6dd0
+col_lightGray = #676767
 
 html
   font-size 12px
@@ -371,10 +372,17 @@ body
 .campaign_filter
   height 34px
   background-color #ffffff
+  border-top 1px solid col_gray
   .button
     height 32px
-    line-height 32px
+    line-height 30px
     min-height 32px
+    color col_lightGray
+    border-bottom 1px solid col_gray
+  .button_active
+    height 31px
+    border-bottom 2px solid col_darkBlue
+    color col_darkBlue
 
 
 // 小队主页
