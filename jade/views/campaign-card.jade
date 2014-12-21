@@ -1,33 +1,47 @@
 .list.card.dl_card
-  a.item.item-avatar.dl_card_header(ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}")
-    img.dl_team_logo(ng-if="team.logo" ng-src="{{STATIC_URL + team.logo}}/45/45")
-    h2.dl_cp_name {{campaign.theme}}
-    p.dl_cp_address 地点: {{campaign.location.name}}
-    button.dl_btn_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign._id)" prevent-default) 参加
-    p.dl_cp_time_countdown(ng-if="!campaign.allow.joinTeamCampaign && campaign.is_start && !campaign.is_end") {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束
-    p.dl_cp_time_countdown(ng-if="!campaign.allow.joinTeamCampaign && !campaign.is_start") {{campaign.time_text}}距离开始
-  a.item.item-avatar.dl_card_header.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2"  href="#/campaign/detail/{{campaign._id}}")
-    img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
-    span.dl_team_vs vs
-    img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
-  a.item.item-body.dl_card_body(ng-if="campaign.photo_album.photos.length>0" ng-href="#/campaign/detail/{{campaign._id}}")
-    ion-scroll(direction="x" scrollbar-x="false")
-      .dl_photo_alb
-        img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
-  a.item.tabs.tabs-icon-left.dl_card_footer(href="#/campaign/detail/{{campaign._id}}")
-    .tab-item.dl_team_name(ng-if="campaign.campaign_unit.length === 1")
-      | {{campaign.campaign_unit[0].team.name}}
-    .tab-item.dl_team_name(ng-if="campaign.campaign_unit.length === 2")
-      | {{campaign.campaign_unit[0].team.name}}
-      | vs
-      | {{campaign.campaign_unit[1].team.name}}
-    .tab-item.dl_team_number
-      i.icon.ion-person-stalker
-      | {{campaign.members_count || '0'}}
-    .tab-item.dl_team_comment
-      i.icon.ion-chatbox
-      | {{campaign.comment_sum}}
-  a.item.tabs.dl_card_footer(ng-if="!campaign.confirm_status" href="#/campaign/detail/{{campaign._id}}")
-    button.tab-item.dl_cp_confirm(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接收
-    button.tab-item.dl_cp_refuse(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝
-    button.tab-item.dl_cp_cancel(prevent-default ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
+  a.campaign_card(ng-href="#/campaign/detail/{{campaign._id}}" ng-if="campaign.confirm_status===true")
+    .item.item-avatar.dl_card_header
+      img.dl_team_logo(ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45")
+      h2.dl_cp_name {{campaign.theme}}
+      p.dl_cp_address 地点: {{campaign.location.name}}
+      button.dl_btn_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign._id)" prevent-default) 参加
+      p.dl_cp_time_countdown(ng-if="!campaign.allow.joinTeamCampaign && campaign.is_start && !campaign.is_end") {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束
+      p.dl_cp_time_countdown(ng-if="!campaign.allow.joinTeamCampaign && !campaign.is_start") {{campaign.time_text}}距离开始
+    .item.item-body.dl_card_body(ng-if="campaign.photo_album.photos.length>0")
+      ion-scroll(direction="x" scrollbar-x="false")
+        .dl_photo_alb
+          img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150")
+    .item.tabs.tabs-icon-left.dl_card_footer
+      .tab-item.dl_team_name(ng-if="campaign.campaign_unit.length === 1")
+        | {{campaign.campaign_unit[0].team.name}}
+      .tab-item.dl_team_name(ng-if="campaign.campaign_unit.length === 2")
+        | {{campaign.campaign_unit[0].team.name}}
+        | vs
+        | {{campaign.campaign_unit[1].team.name}}
+      .tab-item.dl_team_number
+        i.icon.ion-person-stalker
+        | {{campaign.members_count || '0'}}
+      .tab-item.dl_team_comment
+        i.icon.ion-chatbox
+        | {{campaign.comment_sum}}
+
+  a.provoke_card(ng-href="#/campaign/detail/{{campaign._id}}" ng-if="campaign.confirm_status===false")
+    .item.item-avatar.dl_card_header.dl_card_header_provoke
+      img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
+      span.dl_team_vs vs
+      img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
+      .item.item-body.dl_card_body
+        p.dl_prvoke_info
+          span.dl_team_name {{campaign.campaign_unit[0].team.name}}
+          | 向
+          span.dl_team_name {{campaign.campaign_unit[1].team.name}}
+          | 发起挑战
+        h2.dl_cp_name {{campaign.theme}}
+        ion-scroll(ng-if="campaign.photo_album.photos.length>0" direction="x" scrollbar-x="false")
+          .dl_photo_alb
+            img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
+    .item.tabs.dl_card_footer(ng-if="!campaign.confirm_status")
+      button.tab-item.dl_cp_confirm(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
+      button.tab-item.dl_cp_refuse(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝
+      button.tab-item.dl_cp_cancel(prevent-default ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
+

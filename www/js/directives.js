@@ -19,8 +19,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     return {
       restrict: 'E',
       scope: {
-        campaign: '=',
-        team: '='
+        campaign: '='
       },
       templateUrl: './views/campaign-card.html',
       link: function (scope, element, attrs, ctrl) {
