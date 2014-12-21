@@ -10,6 +10,7 @@ col_darkBlue = #618bd7
 col_iconPurple = #6a73c6
 col_borderPurple = #806dd0
 col_textPurple = #9e6dd0
+col_lightGray = #676767
 
 html
   font-size 12px
@@ -36,9 +37,9 @@ body
     background-color col_gray
     .campaign_container
       .campaign_container_title
-        font-size 24px
-        margin-left 20px
-        padding-top 20px
+        font-size 16px
+        margin-left 1rem
+        padding-top 1rem
         &.icon_blue
           color col_blue
         &.icon_darkBlue
@@ -67,7 +68,7 @@ body
       height 30px
       width 135px
       display block
-      background-color #6a73c6
+      background-color col_darkBlue
       margin 0 auto
       border-radius 100%
       color #fff
@@ -83,28 +84,27 @@ body
         color #fff
     p
       margin 0
-      color #999999
+      color col_darkGray
   .dl_card_header_provoke
     padding-right 72px
   .dl_card_body
     padding 0
     .dl_prvoke_info
       .dl_team_name
-        color #333333
+        color col_black
         margin 0 5px
     .dl_photo_alb
       white-space nowrap
   .dl_card_footer
-    color #999999
+    color col_darkGray
 .bar-footer
   padding 0
 .button-bar > .button
   padding 0
-  color #999
+  color col_darkGray
 .dl_button
   margin 0
   color #fff
-  
   padding 0 10px
   border-width 0
   border-radius 2px
@@ -116,7 +116,7 @@ body
   cursor pointer
 .app_tabs > .tabs
   background-color #000
-  color #fbfbfb
+  color col_white
   .tab-item
     position relative
     .icon
@@ -312,7 +312,7 @@ body
           color white
           border-radius 50px
         .calendar_campaign_count
-          color #3ca2e0
+          color col_blue
           background-color white
       
 
@@ -385,7 +385,7 @@ body
 
 // todo
 .dl_family_photo_selected
-  border 1px solid #3ca2e0
+  border 1px solid col_blue
 
 // todo
 .dl_message_unread
@@ -397,23 +397,30 @@ body
   border-top 1px solid col_gray
   .button
     height 32px
-    line-height 32px
+    line-height 30px
     min-height 32px
+    color col_lightGray
+    border-bottom 1px solid col_gray
     &.icon_blue
+      height 31px
       color col_blue
-      border-bottom 1px solid col_blue
+      border-bottom 2px solid col_blue
     &.icon_darkBlue
+      height 31px
       color col_darkBlue
-      border-bottom 1px solid col_darkBlue
+      border-bottom 2px solid col_darkBlue
     &.icon_iconPurple
+      height 31px
       color col_iconPurple
-      border-bottom 1px solid col_iconPurple
+      border-bottom 2px solid col_iconPurple
     &.icon_borderPurple
+      height 31px
       color col_borderPurple
-      border-bottom 1px solid col_borderPurple
+      border-bottom 2px solid col_borderPurple
     &.icon_textPurple
+      height 31px
       color col_textPurple
-      border-bottom 1px solid col_textPurple
+      border-bottom 2px solid col_textPurple
 
 // 小队主页
 .team_page
@@ -428,6 +435,7 @@ body
       height 65px
       border 3px solid white
   .team_info
+    border-radius 5px
     .info_header
       position relative
       padding 0 1rem
@@ -488,3 +496,66 @@ body
       cursor pointer
       font-size 12px
       line-height 40px
+
+  .team_home_court
+    border-radius 5px
+    .home_court_tabs
+      padding 0
+      height 35px
+    .tab
+      text-align center
+      padding 0
+      line-height 35px
+      font-size 16px
+      color white
+      background-color col_blue
+    .tab.active
+      color col_blue
+      background-color white
+    .map_wrap
+      display block
+    .map_img
+      display block
+    .home_court_name
+      padding 0 1rem
+      margin 0
+      height 30px
+      font-size 16px
+      line-height 30px
+      color col_black
+    .no_homecourt
+      max-width 100%
+      display block
+
+  .member_card
+    position relative
+    background-color col_blue
+    height 60px
+    padding 0 1rem
+    border-radius 5px
+    .member_wrap
+      height 60px
+      line-height 60px
+      float left
+    .member
+      margin 10px 0
+      margin-right 5px
+      width 40px
+      height 40px
+      border-radius 5px
+    .member_link
+      position absolute
+      top 0
+      right 0
+      width 40px
+      height 60px
+      display block
+      border-radius 5px
+      background-color col_blue
+      color white
+      line-height 60px
+      font-size 12px
+      text-align center
+      text-decoration none
+
+
