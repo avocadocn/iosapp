@@ -383,3 +383,6 @@ body {
 .dl_family_photo_selected {
   border: 1px solid #3ca2e0;
 }
+.dl_message_unread {
+  color: #8b0000;
+}

@@ -211,6 +211,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       })
       .state('personal_messages', {
         url: '/personal/messages',
+        controller: 'MessageController',
         templateUrl: 'views/messages.html'
       })
       .state('app.settings', {
