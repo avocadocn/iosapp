@@ -410,7 +410,6 @@ body {
 .dl_message_unread {
   color: #8b0000;
 }
-<<<<<<< HEAD
 .campaign_filter {
   height: 34px;
   background-color: #fff;
@@ -419,7 +418,7 @@ body {
   height: 32px;
   line-height: 32px;
   min-height: 32px;
-=======
+}
 .team_page .team_header {
   position: relative;
 }
@@ -453,5 +452,4 @@ body {
   color: #3ca2e0;
   background-color: #fbfbfb;
   border-radius: 15%;
->>>>>>> 7fcc1a3a488ff23df7a51f951b2bfff1f74b02b7
 }
