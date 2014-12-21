@@ -13,14 +13,17 @@ ion-view
       .info_header.clearfix
         .team_name {{team.name}}
         .team_type {{team.groupType}}
-      .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
-      .team_des 小队简介: {{team.brief}}
-      button.button.button-block.button-light.btn_join(prevent-default ng-if="team.hasJoined" ng-click="quitTeam(team._id)") 已加入小队
-      button.button.button-block.button-positive.btn_join(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id)") 立即加入
-      .tabs
-        a.tab-item.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}") 上传照片
-        a.tab-item.btn_member(href="#/members/team/{{team._id}}") {{team.memberCount}}名队员
-        .tab-item.btn_cp 活动
+      .info_body
+        .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
+        .team_des 小队简介:
+          span(ng-if="team.brief" ng-cloak) {{team.brief}}
+          span(ng-if="!team.brief" ng-cloak) 无
+        button.btn_joined(prevent-default ng-if="team.hasJoined" ng-click="quitTeam(team._id)") 已加入小队
+        button.btn_join(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id)") 立即加入
+      .info_footer.row
+        a.col.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}") 上传照片
+        a.col.btn_member(href="#/members/team/{{team._id}}") {{team.memberCount}}名队员
+        .col.btn_cp 活动
     .card.team_home_court
       .row
         .col.tab(ng-click="selectHomeCourt(0)") 主场一

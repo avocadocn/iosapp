@@ -14,12 +14,14 @@
         <div class="team_name">{{team.name}}</div>
         <div class="team_type">{{team.groupType}}</div>
       </div>
-      <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
-      <div class="team_des">小队简介: {{team.brief}}</div>
-      <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id)" class="button button-block button-light btn_join">已加入小队</button>
-      <button prevent-default="prevent-default" ng-if="!team.hasJoined" ng-click="joinTeam(team._id)" class="button button-block button-positive btn_join">立即加入</button>
-      <div class="tabs"><a ng-href="#/photo_album/list/team/{{team._id}}" class="tab-item btn_upload_photo">上传照片</a><a href="#/members/team/{{team._id}}" class="tab-item btn_member">{{team.memberCount}}名队员</a>
-        <div class="tab-item btn_cp">活动</div>
+      <div class="info_body">
+        <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
+        <div class="team_des">小队简介:<span ng-if="team.brief" ng-cloak="ng-cloak">{{team.brief}}</span><span ng-if="!team.brief" ng-cloak="ng-cloak">无</span></div>
+        <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id)" class="btn_joined">已加入小队</button>
+        <button prevent-default="prevent-default" ng-if="!team.hasJoined" ng-click="joinTeam(team._id)" class="btn_join">立即加入</button>
+      </div>
+      <div class="info_footer row"><a ng-href="#/photo_album/list/team/{{team._id}}" class="col btn_upload_photo">上传照片</a><a href="#/members/team/{{team._id}}" class="col btn_member">{{team.memberCount}}名队员</a>
+        <div class="col btn_cp">活动</div>
       </div>
     </div>
     <div class="card team_home_court">
