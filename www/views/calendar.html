@@ -1,7 +1,7 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="{{calendarBackUrl}}" class="button icon ion-chevron-left">返回</a><a ng-if="view==='day'" ng-click="back()" class="button">关闭</a>
-    <h1 class="title">我的日程</h1><a ng-click="showFilter($event)" class="button icon ion-chevron-down">{{campaignTypes[nowTypeIndex].view}}</a>
+  <ion-header-bar><a ng-href="{{calendarBackUrl}}" class="button icon ion-chevron-left button-clear">返回</a><a ng-if="view==='day'" ng-click="back()" class="button button-clear">关闭</a>
+    <h1 class="title">我的日程</h1><a ng-click="showFilter($event)" class="button icon ion-chevron-down button-clear icon-right">{{campaignTypes[nowTypeIndex].view}}</a>
   </ion-header-bar>
   <ion-content scroll="false" class="has-header">
     <div class="calendar">

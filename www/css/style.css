@@ -113,6 +113,12 @@ body {
   padding: 0;
   color: #999;
 }
+.button.button-clear {
+  color: #999;
+}
+.button.icon_blue {
+  color: #3ca2e0;
+}
 .dl_button {
   margin: 0;
   color: #fff;
@@ -236,7 +242,7 @@ body {
 }
 .calendar nav .operator {
   background-color: #3ca2e0;
-  color: #fff;
+  color: #fbfbfb;
   border: none;
 }
 .calendar nav .week {
