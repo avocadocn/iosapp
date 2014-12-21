@@ -128,7 +128,7 @@ body {
 }
 .app_tabs > .tabs {
   background-color: #000;
-  color: col_white;
+  color: #fff;
 }
 .app_tabs > .tabs .tab-item {
   position: relative;
