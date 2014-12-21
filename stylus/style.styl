@@ -10,6 +10,7 @@ col_darkBlue = #618bd7
 col_iconPurple = #6a73c6
 col_borderPurple = #806dd0
 col_textPurple = #9e6dd0
+col_lightGray = #676767
 
 html
   font-size 12px
@@ -37,9 +38,9 @@ body
     .campaign_container
       .campaign_container_title
         color col_darkBlue
-        font-size 24px
-        margin-left 20px
-        padding-top 20px
+        font-size 16px
+        margin-left 1rem
+        padding-top 1rem
 .dl_card
   margin 1rem
   box-shadow 0 4px 0 rgba(204, 204, 204, 1)
@@ -58,7 +59,7 @@ body
       height 30px
       width 135px
       display block
-      background-color #6a73c6
+      background-color col_darkBlue
       margin 0 auto
       border-radius 100%
       color #fff
@@ -71,29 +72,29 @@ body
       top 16px
     p
       margin 0
-      color #999999
+      color col_darkGray
   .dl_card_header_provoke
     padding-right 72px
   .dl_card_body
     padding 0
     .dl_prvoke_info
       .dl_team_name
-        color #333333
+        color col_black
         margin 0 5px
     .dl_photo_alb
       white-space nowrap
   .dl_card_footer
-    color #999999
+    color col_darkGray
 .bar-footer
   padding 0
 .icon_blue
   color #3ca2e0
 .button-bar > .button
   padding 0
-  color #999
+  color col_darkGray
 .app_tabs > .tabs
   background-color #000
-  color #fbfbfb
+  color col_white
   .tab-item
     position relative
     .icon
@@ -109,7 +110,7 @@ body
       top 5%
   .tab-item-active
     .tab-title
-      color #3ca2e0
+      color col_blue
 .ion_campaign
   background-image url('/img/icon.png')
   background-size 160px
@@ -182,12 +183,12 @@ body
     background-color rgb(246, 246, 246)
     border-bottom solid 1px rgb(220, 220, 220)
     .operator
-      background-color #3ca2e0
+      background-color col_blue
       color white
       border none
     .week
       position relative
-      background-color #3ca2e0
+      background-color col_blue
       .day
         float left
         width (100 / 7)%
@@ -278,18 +279,18 @@ body
       .calendar_campaign_count
         display inline-block
         color white
-        background-color #3ca2e0
+        background-color col_blue
         border-radius 100%
         width 20px
         height 20px
         line-height 20px
       &.today
-        background-color #3ca2e0
+        background-color col_blue
         .calendar_date
           color white
           border-radius 50px
         .calendar_campaign_count
-          color #3ca2e0
+          color col_blue
           background-color white
       
 
@@ -362,7 +363,7 @@ body
 
 // todo
 .dl_family_photo_selected
-  border 1px solid #3ca2e0
+  border 1px solid col_blue
 
 // todo
 .dl_message_unread
@@ -371,11 +372,16 @@ body
 .campaign_filter
   height 34px
   background-color #ffffff
+  border-top 1px solid col_gray
   .button
     height 32px
-    line-height 32px
+    line-height 30px
     min-height 32px
-
+    color col_lightGray
+    border-bottom 1px solid col_gray
+  .button_active
+    height 31px
+    border-bottom 2px solid col_darkBlue
 
 // 小队主页
 .team_page
