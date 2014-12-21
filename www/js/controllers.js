@@ -629,7 +629,7 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('PersonalController', ['$scope', '$state', 'User', function ($scope, $state, User) {
+  .controller('PersonalController', ['$scope', '$state', 'User', 'Message', function ($scope, $state, User, Message) {
 
     User.getData(localStorage.id, function (err, data) {
       if (err) {
@@ -637,6 +637,15 @@ angular.module('donlerApp.controllers', [])
         console.log(err);
       } else {
         $scope.user = data;
+      }
+    });
+
+    Message.receiveUserMessages(localStorage.id, function (err, messagesCount) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.messagesCount = messagesCount;
       }
     });
 
@@ -1742,6 +1751,18 @@ angular.module('donlerApp.controllers', [])
         console.log(err);
       } else {
         $scope.user = data;
+      }
+    });
+
+  }])
+  .controller('MessageController', ['$scope', 'Message', function ($scope, Message) {
+
+    Message.getUserMessages(localStorage.id, function (err, data) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.messages = data;
       }
     });
 

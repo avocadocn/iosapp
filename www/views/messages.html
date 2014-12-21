@@ -6,13 +6,7 @@
   <ion-content>
     <h1>站内信，待设计</h1>
     <ul class="list">
-      <li class="item">您参加的“足球比赛”（动梨足球队）被队长取消了</li>
-    </ul>
-    <ul class="list">
-      <li class="item">香蕉足球队无情地拒绝了动梨足球队的挑战“周末来比赛吧”</li>
-    </ul>
-    <ul class="list">
-      <li class="item">来自动梨足球队的消息：比赛延迟1小时开始</li>
+      <li ng-repeat="message in messages" ng-class="{'dl_message_unread': message.status=='unread'}" class="item">{{message.MessageContent.caption}}</li>
     </ul>
   </ion-content>
 </ion-view>

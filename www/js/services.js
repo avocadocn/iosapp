@@ -616,6 +616,43 @@ angular.module('donlerApp.services', [])
               callback('error');
             }
           })
+      },
+
+      /**
+       * 获取个人的站内信列表
+       * @param {String} userId
+       * @param {Function} callback function(err, messages)
+       */
+      getUserMessages: function (userId, callback) {
+        $http.get(CONFIG.BASE_URL + '/messages', {
+          params: {
+            requestType: 'all',
+            requestId: userId
+          }
+        })
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            // todo
+            callback('error');
+          });
+      },
+
+      /**
+       * 收取个人的站内信
+       * @param {String} userId
+       * @param {Function} callback function(err, messagesCount)
+       */
+      receiveUserMessages: function (userId, callback) {
+        $http.get(CONFIG.BASE_URL + '/messages/user/' + userId)
+          .success(function (data, status, headers, config) {
+            callback(null, data.count);
+          })
+          .error(function (data, status, headers, config) {
+            // todo
+            callback('error');
+          });
       }
 
     };
