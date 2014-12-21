@@ -22,7 +22,7 @@ ion-view
         button.btn_join(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id)") 立即加入
       .info_footer.row
         a.col.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}") 上传照片
-        a.col.btn_member(href="#/members/team/{{team._id}}") {{team.memberCount}}名队员
+        a.col.btn_member(ng-href="#/members/team/{{team._id}}") {{team.memberCount}}名队员
         .col.btn_cp 活动
     .card.team_home_court
       .row.home_court_tabs
@@ -37,10 +37,12 @@ ion-view
           img.no_homecourt(src="./img/no_homecourt.png")
     .card.member_card
       ion-scroll(direction="x" scrollbar-x="false")
-        img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
-        img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
-      a.member_link
-        span.member_count {{team.memberCount}}
+        .member_wrap
+          img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
+        .member_wrap
+          img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
+      a.member_link(ng-href="#/members/team/{{team._id}}")
+        span.member_count {{team.memberCount}}&nbsp;
         i.icon.ion-chevron-right
 
     campaign-card(ng-repeat="campaign in campaigns" campaign="campaign" team="team")
