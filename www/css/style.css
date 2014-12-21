@@ -20,7 +20,7 @@ body {
   padding-top: 20px;
 }
 .dl_card {
-  margin: 20px 20px 15px;
+  margin: 1rem;
   box-shadow: 0 4px 0 #ccc;
   background-color: #fff;
 }
@@ -83,6 +83,7 @@ body {
 }
 .app_tabs > .tabs .tab-item .icon {
   width: 32px;
+  height: 28px;
 }
 .app_tabs > .tabs .tab-item .red_spot {
   background-color: #f48361;
