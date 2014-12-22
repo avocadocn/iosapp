@@ -1298,6 +1298,7 @@ angular.module('donlerApp.controllers', [])
     $scope.firstLoad = true;
     $scope.lastCount;
     var pageSize = 20;
+    var nextCampaign;
 
     /**
      * 按日期分组后的活动
@@ -1360,7 +1361,9 @@ angular.module('donlerApp.controllers', [])
           $scope.lastCount = campaigns.length;
           $scope.firstLoad = false;
           $scope.loading = false;
-          addCampaignsToGroup(campaigns);
+          var sliceLength = campaigns.length === pageSize + 1 ? pageSize : campaigns.length;
+          nextCampaign = campaigns[campaigns.length - 1];
+          addCampaignsToGroup(campaigns.slice(0, sliceLength));
           $scope.$broadcast('scroll.infiniteScrollComplete');
         }
       });
@@ -1378,19 +1381,19 @@ angular.module('donlerApp.controllers', [])
           requestId: teamId,
           populate: 'photo_album',
           sortBy: '-start_time',
-          limit: pageSize
+          limit: pageSize + 1
         };
         $scope.getCampaigns(options);
       } else {
-        if ($scope.lastCount === pageSize) {
+        if ($scope.lastCount >= pageSize) {
           $scope.loading = true;
-          var startTime = new Date($scope.campaigns[$scope.campaigns.length - 1].start_time);
+          var startTime = new Date(nextCampaign.start_time);
           options = {
             requestType: 'team',
             requestId: teamId,
             populate: 'photo_album',
             sortBy: '-start_time',
-            limit: pageSize,
+            limit: pageSize + 1,
             to: startTime.valueOf()
           };
           $scope.getCampaigns(options);

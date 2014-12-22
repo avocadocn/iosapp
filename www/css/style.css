@@ -990,3 +990,35 @@ input:focus:-ms-input-placeholder {
   border-radius: 5px;
   text-align: center;
 }
+.member_page .member_group {
+  margin: 0.833333rem;
+}
+.member_page .member_group_name {
+  display: block;
+  margin: 0 0.833333rem;
+  border: 1px solid #999;
+  color: #999;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.member_page .member {
+  margin: 0.833333rem 0.833333rem 0;
+  float: left;
+}
+.member_page .member_photo {
+  display: block;
+  width: 55px;
+  height: 55px;
+  border-radius: 5px;
+}
+.member_page .member_name {
+  margin: 3px auto 0;
+  width: 50px;
+  text-align: center;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
