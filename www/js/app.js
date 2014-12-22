@@ -166,7 +166,11 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         controller: 'DiscussDetailController',
         templateUrl: 'views/discuss-detail.html'
       })
-
+      .state('create_team',{
+        url: '/company/create_team',
+        controller: 'createTeamController',
+        templateUrl: 'views/create-team.html'
+      })
       .state('app.discover', {
         url: '/discover',
         views: {
