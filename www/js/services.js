@@ -458,6 +458,17 @@ angular.module('donlerApp.services', [])
           .error(function (data, status, headers, config) {
             callback('error');
           });
+      },
+
+
+      findBack: function (email, callback) {
+        $http.post(CONFIG.BASE_URL + '/users/forgetPassword',{email: email})
+        .success(function (data, status) {
+          callback(null);
+        })
+        .error(function (data, status) {
+          callback('error');
+        });
       }
 
     };
@@ -644,6 +655,15 @@ angular.module('donlerApp.services', [])
           })
           .error(function (data, status) {
             callback(data.msg);
+          });
+        },
+        findBack: function (email, callback) {
+          $http.post(CONFIG.BASE_URL + '/companies/forgetPassword',{email: email})
+          .success(function (data, status) {
+            callback(null);
+          })
+          .error(function (data, status) {
+            callback('error');
           });
         }
       }

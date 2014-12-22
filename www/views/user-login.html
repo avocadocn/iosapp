@@ -1,7 +1,7 @@
 
 <ion-view class="login">
   <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a><a href="#/register/user/search_company" class="button icon-right ion-chevron-right">注册&nbsp;</a></ion-header-bar>
-  <ion-content>
+  <ion-content scroll="false">
     <div class="list list-inset">
       <label class="item item-input">
         <input type="email" name="email" ng-model="loginData.email" placeholder="公司邮箱" required="required"/>
@@ -11,10 +11,10 @@
       <label class="item item-input">
         <input type="password" name="password" ng-model="loginData.password" placeholder="密码" required="required"/>
       </label>
-    </div><span ng-show="msg" class="login_msg">{{msg}}</span>
+    </div><span ng-show="msg" class="tip_msg">{{msg}}</span>
     <div class="list list-inset">
       <button type="button" ng-disabled="!loginData.email || !loginData.password" ng-click="login()" class="button dl_button login_button">个&nbsp;人&nbsp;登&nbsp;录</button>
     </div>
-    <div class="list list-inset"><a href="#/company/forget" class="login_link">忘记密码？</a><a href="#/company/login" class="login_link pull-right">企业账号登录</a></div>
+    <div class="list list-inset"><a href="#/user/forget" class="login_link">忘记密码？</a><a href="#/company/login" class="login_link pull-right">企业账号登录</a></div>
   </ion-content>
 </ion-view>

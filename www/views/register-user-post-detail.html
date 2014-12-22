@@ -8,12 +8,7 @@
         <label class="item item-input">
           <input type="email" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
         </label>
-      </div>
-      <p ng-show="active===1">该邮箱可以注册。</p>
-      <p ng-show="active===2">该邮箱已注册过但尚未激活，请到邮箱查收邮件。</p>
-      <p ng-show="active===3">该邮箱已注册，请直接登录。</p>
-      <p ng-show="active===4">请使用企业邮箱进行注册，若企业后缀不统一，请通知贵公司管理员进行后缀添加。</p>
-      <p ng-show="mail_msg">{{mail_msg}}</p>
+      </div><span ng-show="active===1" class="tip_msg">该邮箱可以注册。</span><span ng-show="active===2" class="tip_msg">该邮箱已注册过但尚未激活，请到邮箱查收邮件。</span><span ng-show="active===3" class="tip_msg">该邮箱已注册，请直接登录。</span><span ng-show="active===4" class="tip_msg">请使用企业邮箱进行注册，若企业后缀不统一，请通知贵公司管理员进行后缀添加。</span><span ng-show="mail_msg" class="tip_msg">{{mail_msg}}</span>
       <div ng-show="!active||active===1">
         <div class="list list-inset">
           <label class="item item-input">

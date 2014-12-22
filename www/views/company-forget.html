@@ -1,0 +1,19 @@
+
+<ion-view class="login">
+  <ion-header-bar><a href="#/company/login" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">忘记密码</h1>
+  </ion-header-bar>
+  <ion-content scroll="false">
+    <div class="list list-inset"><span class="forget_msg">{{msg}}</span></div>
+    <form name="forget_form" ng-show="!sent" novalidate="novalidate">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="email" name="email" ng-model="forget.email" placeholder="公司邮箱账号" required="required"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <button type="button" ng-disabled="!forget.email || forget_form.$invalid" ng-click="findBack()" class="button dl_button forget_button">下&nbsp;一&nbsp;步</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

@@ -73,6 +73,16 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         controller: 'CompanyTeamController',
         templateUrl: 'views/company-team-list.html'
       })
+      .state('company_forget', {
+        url: '/company/forget',
+        controller: 'CompanyForgetController',
+        templateUrl: 'views/company-forget.html'
+      })
+      .state('user_forget', {
+        url: '/user/forget',
+        controller: 'UserForgetController',
+        templateUrl: 'views/user-forget.html'
+      })
       .state('register_company', {
         url: '/register/company',
         templateUrl: 'views/register-company.html'

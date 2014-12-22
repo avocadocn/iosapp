@@ -144,6 +144,42 @@ angular.module('donlerApp.controllers', [])
   .controller('createTeamController', ['$scope', '$state', 'Team', function ($scope, $state, Team) {
     //todo
   }])
+  .controller('CompanyForgetController', ['$scope', '$ionicLoading', 'Company', function ($scope, $ionicLoading, Company) {
+    $scope.msg = '请输入注册所填邮箱，我们会将密码重置邮件发送给您。';
+    $scope.forget={};
+    $scope.findBack = function(){
+      $ionicLoading.show({
+        template: '请稍等...'
+      });
+      Company.findBack($scope.forget.email, function(msg){
+        $ionicLoading.hide();
+        if(msg){
+          $scope.msg = '邮箱填写有误，请重新填写。';
+        }else{
+          $scope.msg= '密码重置邮件已发送，请登录您的邮箱查收。';
+          $scope.sent = true;
+        }
+      })
+    }
+  }])
+  .controller('UserForgetController', ['$scope', '$ionicLoading', 'User', function ($scope, $ionicLoading, User) {
+    $scope.msg = '请输入注册所填邮箱，我们会将密码重置邮件发送给您。';
+    $scope.forget={};
+    $scope.findBack = function(){
+      $ionicLoading.show({
+        template: '请稍等...'
+      });
+      User.findBack($scope.forget.email, function(msg){
+        $ionicLoading.hide();
+        if(msg){
+          $scope.msg = '邮箱填写有误，请重新填写。';
+        }else{
+          $scope.msg= '密码重置邮件已发送，请登录您的邮箱查收。';
+          $scope.sent = true;
+        }
+      })
+    }
+  }])
   .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, Campaign, INFO) {
     $rootScope.showLoading();
     $scope.nowType = 'all';
@@ -1141,7 +1177,7 @@ angular.module('donlerApp.controllers', [])
     $scope.companyName = INFO.companyName;
     $scope.signup = function() {
       $ionicLoading.show({
-        template: 'Loading...'
+        template: '请稍等...'
       });
       UserSignup.signup($scope.data, function(msg, data) {
         $ionicLoading.hide();
