@@ -42,7 +42,10 @@
         <div class="member_wrap"><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45" class="member"/></div>
       </ion-scroll><a ng-href="#/members/team/{{team._id}}" class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></a>
     </div>
-    <campaign-card ng-repeat="campaign in campaigns" campaign="campaign"></campaign-card>
+    <div ng-repeat="group in campaignGroups" class="dl_campaign_group">
+      <p class="dl_campaign_group_date">{{group.date | date:'yyyy-MM'}}</p>
+      <campaign-card ng-repeat="campaign in group.campaigns" campaign="campaign"></campaign-card>
+    </div>
     <ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded()"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

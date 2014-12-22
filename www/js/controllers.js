@@ -820,8 +820,8 @@ angular.module('donlerApp.controllers', [])
             }
           }
         }
-        campaign.format_start_time = moment(campaign.start_time).calendar();
-        campaign.format_end_time = moment(campaign.end_time).calendar();
+        // campaign.format_start_time = moment(campaign.start_time).calendar();
+        // campaign.format_end_time = moment(campaign.end_time).calendar();
       });
       $scope.current_month = month_data;
       if(!$scope.$$phase) {
@@ -869,8 +869,18 @@ angular.module('donlerApp.controllers', [])
         if (week_date.getFullYear() === now.getFullYear() && week_date.getMonth() === now.getMonth() && week_date.getDate() === now.getDate()) {
           week_date.is_today = true;
         }
-        if (week_date.getFullYear() === current.getFullYear() && week_date.getMonth() === current.getMonth() && week_date.getDate() === current.getDate()) {
-          week_date.is_current = true;
+        if (week_date.getFullYear() === current.getFullYear() && week_date.getMonth() === current.getMonth()) {
+          week_date.is_current_month = true;
+          if (week_date.getDate() === current.getDate()) {
+            week_date.is_current = true;
+          }
+          var events =[];
+          $scope.current_month.days[week_date.getDate() - 1].events.forEach(function(event){
+            if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag) {
+              events.push(event);
+            }
+          })
+          week_date.events = events;
         }
       }
       $scope.current_day = day;
@@ -887,6 +897,7 @@ angular.module('donlerApp.controllers', [])
         break;
       case 'day':
         $scope.view = 'month';
+        INFO.lastDate = null;
         break;
       }
     };
@@ -932,15 +943,6 @@ angular.module('donlerApp.controllers', [])
       // $scope.day_cards = day;
       $scope.view = 'day';
     };
-
-    // ios safari下有问题
-    /**
-     * 查看活动详情前保存当前时间，以便返回
-     */
-    // $scope.saveStatus = function() {
-    //   Global.last_date = current;
-    //   $rootScope.campaignReturnUri = '#/app/schedule_list';
-    // };
 
 
     $scope.nextMonth = function() {
@@ -1020,11 +1022,7 @@ angular.module('donlerApp.controllers', [])
         return;
       }
       $scope.campaigns = data;
-      // var lastMonthDate = nextMonthDate =current;
-      // lastMonthDate.setMonth(current.getMonth() - 1);
-      // nextMonthDate.setMonth(current.getMonth() + 1);
-      // $scope.month_cards = [updateMonth(lastMonthDate),updateMonth(current),updateMonth(nextMonthDate)];
-      $scope.month_cards = updateMonth(current);
+      updateMonth(current);
       if ($scope.view === 'day') {
         updateDay(current);
       }
@@ -1202,7 +1200,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, Team, Campaign, INFO) {
+  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'Tools', 'INFO', function ($scope, $stateParams, Team, Campaign, Tools, INFO) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
     INFO.campaignBackUrl = '#/team/' + teamId;
@@ -1264,7 +1262,58 @@ angular.module('donlerApp.controllers', [])
     $scope.firstLoad = true;
     $scope.lastCount;
     var pageSize = 20;
-    $scope.campaigns = [];
+
+    /**
+     * 按日期分组后的活动
+     * [{
+     *   date: Date,
+     *   campaigns: [Object]
+     * }]
+     * @type {Array}
+     */
+    $scope.campaignGroups = [];
+
+    /**
+     * 获取该日期的分组，如果不存在，则新建一个
+     * @param  {Date} date 日期
+     * @return {Object}
+     */
+    var getGroup = function (date) {
+      for (var i = 0; i < $scope.campaignGroups.length; i++) {
+        var group = $scope.campaignGroups[i];
+        if (Tools.isTheSameMonth(group.date, date)) {
+          return group;
+        }
+      }
+      var group = {
+        date: date,
+        campaigns: []
+      };
+      $scope.campaignGroups.push(group);
+      $scope.campaignGroups.sort(function (a, b) {
+        return b.date > a.date;
+      });
+      return group;
+    };
+
+    // 将活动按开始时间分组
+    var addCampaignsToGroup = function (campaigns) {
+      var group;
+      for (var i = 0; i < campaigns.length; i++) {
+        var campaign = campaigns[i];
+        if (!group) {
+          group = getGroup(campaign.start_time);
+        } else {
+          if (!Tools.isTheSameMonth(group.date, campaign.start_time)) {
+            group.campaigns.sort(function (a, b) {
+              return b.start_time > a.start_time;
+            });
+            group = getGroup(campaign.start_time);
+          }
+        }
+        group.campaigns.push(campaign);
+      }
+    };
 
     $scope.getCampaigns = function (options) {
       Campaign.getList(options, function (err, campaigns) {
@@ -1275,7 +1324,7 @@ angular.module('donlerApp.controllers', [])
           $scope.lastCount = campaigns.length;
           $scope.firstLoad = false;
           $scope.loading = false;
-          $scope.campaigns = $scope.campaigns.concat(campaigns);
+          addCampaignsToGroup(campaigns);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         }
       });
@@ -1400,8 +1449,8 @@ angular.module('donlerApp.controllers', [])
       });
 
   }])
-  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
-    function ($scope, $stateParams, PhotoAlbum, INFO) {
+  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', 'PhotoAlbum', 'Tools', 'INFO',
+    function ($scope, $stateParams, PhotoAlbum, Tools, INFO) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
 
@@ -1425,24 +1474,6 @@ angular.module('donlerApp.controllers', [])
       });
 
       /**
-       * 判断两个日期是否是同一天
-       * @param {Date|String} d1
-       * @param {Date|String} d2
-       */
-      var isTheSameDay = function (d1, d2) {
-        if (typeof d1 === 'string') {
-          d1 = new Date(d1);
-        }
-        if (typeof d2 === 'string') {
-          d2 = new Date(d2);
-        }
-        return d1.getFullYear() === d2.getFullYear()
-          && d1.getMonth() === d2.getMonth()
-          && d1.getDate() === d2.getDate();
-
-      };
-
-      /**
        * 将照片按日期分组，要求照片是按上传日期排序，上传日期距离现在越近，排在最前面
        * @param {Array} photos 照片数组
        */
@@ -1450,7 +1481,7 @@ angular.module('donlerApp.controllers', [])
         var resData = [];
         photos.forEach(function (photo) {
           var lastGroup = resData[resData.length - 1];
-          if (lastGroup && isTheSameDay(lastGroup.date, photo.upload_date)) {
+          if (lastGroup && Tools.isTheSameDay(lastGroup.date, photo.upload_date)) {
             lastGroup.photos.push(photo);
           } else {
             resData.push({

@@ -33,7 +33,6 @@ body
   padding-bottom 44px
   .campaign_list
     height 100%
-    margin-bottom 49px
     background-color col_gray
     .campaign_container
       .campaign_container_title
@@ -358,7 +357,18 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-image url('../img/nav_tab.png')
   background-size 300px 110px
   background-position -233px -50px
+<<<<<<< HEAD
 
+=======
+.ion_member
+  background-image url('../img/icon.png')
+  background-size 160px
+  background-position 0px -80px
+.ion_comment
+  background-image url('../img/icon.png')
+  background-size 160px
+  background-position -40px -80px
+>>>>>>> 71ec6745351a1d4addcfc16fb8bddca2c811dfe4
 .comments
   .time
     text-align center
@@ -437,46 +447,68 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
 // 日程
 .calendar
+  margin 6px 4px
+  color col_darkGray
   height 100%
-
   nav
     background-color rgb(246, 246, 246)
-    border-bottom solid 1px rgb(220, 220, 220)
+    border-top-left-radius 4px
+    border-top-right-radius 4px
     .operator
       background-color col_blue
       color col_navGray
       border none
+      margin 0
+      border-top-left-radius 4px
+      border-top-right-radius 4px
     .week
       position relative
       background-color col_blue
+      background-image -webkit-linear-gradient(#57b4ec,col_blue)
       .day
         float left
         width (100 / 7)%
         height 20px
         line-height 20px
         color #fff
+        border-right solid 1px #2184bf
     .date_list
       position relative
-      margin-top 5px
 
       .date_box
         float left
         width (100 / 7)%
-        height 30px
-        line-height 30px
-
+        height 60px
+        border-right 1px solid #ccc
+        border-bottom 1px solid #ccc
+        &.other_month
+          background-color #efefef
+          color #ccc
         .date
-          margin-top 10%
+          margin-top 15%
           margin-left auto
           margin-right auto
-          // width navDateSize
-          // height navDateSize
-          // line-height navDateSize
-
-        .current_day
+          font-weight bold
+        .campaign_count
+          margin-top 15%
+          display inline-block
           color white
-          border-radius 50px
-          background-color black
+          background-color col_blue
+          border-radius 100%
+          width 1.5rem
+          height 1.5rem
+          line-height 1.5rem
+        &.current_day
+          background-color col_blue
+          color white
+          .date
+            color white
+            border-radius 50px
+          .campaign_count
+            color col_blue
+            background-color white
+
+        
 
         // .current_day.today
         //   background-color themeColor
@@ -489,38 +521,34 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
   .calendar_box
     position relative
-
-    .swipe-cards
-      height 100%
-
-    .swipe-card
-      height 100%
-
-  .calendar_year
-    position relative
     height 100%
-    // padding yearSectionPadding
+  .calendar_year
+    height 100%
 
     .year_section
       float left
       width (100 / 3)%
       height 25%
       text-align center
-      // padding yearSectionPadding
-      // color themeColor
-
-      // .table_wrap
-      //   border solid 1px themeColor
 
   .calendar_month
-    position relative
     height 100%
-
+    .today_container
+      position fixed
+      bottom 0
+      width 100%
+      background-color #efefef
+      height 50px
+      .today
+        height 30px
+        min-height 30px
+        line-height 30px
+        margin 10px
+        border-radius 6px
     .month
       width (100 / 7)%
       height 40px
       padding-top 15px
-      // color themeColor
       text-align center
 
     .calendar_day
@@ -528,22 +556,23 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       float left
       width (100 / 7)%
       height 60px
-      border-top solid 1px rgb(220, 220, 220)
+      background-color col_navGray
+      border-bottom solid 1px #ccc
+      border-right solid 1px #ccc
       .calendar_date
         margin-top 15%
         margin-left auto
         margin-right auto
-        // width monthDateSize
-        // height monthDateSize
-        // line-height monthDateSize
+        font-weight bold
       .calendar_campaign_count
+        margin-top 15%
         display inline-block
         color white
         background-color col_blue
         border-radius 100%
-        width 20px
-        height 20px
-        line-height 20px
+        width 1.5rem
+        height 1.5rem
+        line-height 1.5rem
       &.today
         background-color col_blue
         .calendar_date
@@ -552,19 +581,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         .calendar_campaign_count
           color col_blue
           background-color white
-      
 
-      .event_unjoin, .event_joined
-        width 0
-        height 0
-        margin-top 15%
-        margin-left auto
-        margin-right auto
-        border-style solid
-        border-width 3px
-        border-radius 30px
-        font-size 0px
-
+        
       .weekend
         color gray
 
@@ -573,15 +591,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         margin-left (100 * day / 7)%
 
   .calendar_day
-    padding 5px
-    position relative
-    .swipe-cards
-      height auto
-
-    .swipe-card
-      height auto
-      min-height 100%
-
+    height 100%
+    .no_campagin
+      background-color col_navGray
     .calendar_campaign
       margin 0
       padding 0
@@ -795,3 +807,22 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       font-size 12px
       text-align center
       text-decoration none
+      
+  .dl_campaign_group
+    .dl_campaign_group_date
+      margin 1rem
+      height 20px
+      background-color col_darkGray
+      color white
+      border-radius 5px
+      text-align center
+
+.dl_timeline_date
+  display block
+  margin 1rem auto
+  width 100px
+  height 20px
+  background-color col_darkGray
+  color white
+  border-radius 5px
+  text-align center

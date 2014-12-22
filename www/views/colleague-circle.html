@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <div ng-repeat="campaign in timelinesRecord">
-      <label ng-if="needShowTime($index)">{{campaign.start_time | date:'yyyy-MM'}}</label>
+      <label ng-if="needShowTime($index)" class="dl_timeline_date">{{campaign.start_time | date:'yyyy-MM'}}</label>
       <campaign-card campaign="campaign"></campaign-card>
     </div>
     <ion-infinite-scroll ng-if="!loading || !loadFinished" on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>
