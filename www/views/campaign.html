@@ -11,74 +11,25 @@
           <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_darkBlue">
             <p>新的活动 {{newCampaigns.length}}</p>
           </div>
-          <div ng-repeat="campaign in newCampaigns" ng-cloak="ng-cloak" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-              <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-              <p class="dl_cp_time_start">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
-              <div class="button_container">
-                <button prevent-default="prevent-default" ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join('newCampaigns',$index, campaign._id)" class="dl_button dl_cp_join">参加</button>
-              </div></a><a ng-if="campaign.campaign_unit.length==2" href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></a><a ng-if="campaign.photo_album.photos.length&gt;0" href="#/campaign/detail/{{campaign._id}}" class="item item-body dl_card_body">
-              <ion-scroll direction="x" scrollbar-x="false">
-                <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-              </ion-scroll></a><a href="#/campaign/detail/{{campaign._id}}" class="item tabs tabs-icon-left dl_card_footer">
-              <div class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div>
-              <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.members_count || '0'}}</div>
-              <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</div></a>
-          </div>
+          <campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign"></campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
           <div ng-if="provokes.length&gt;0 || nowType=='provokes'" ng-cloak="ng-cloak" class="campaign_container_title icon_iconPurple">
             <p>挑战 {{provokes.length}}</p>
           </div>
-          <div ng-repeat="campaign in provokes" ng-cloak="ng-cloak" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-              <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-              <div class="button_container">
-                <p class="dl_cp_time_countdown">{{campaign.time_text}}</p>
-              </div></a><a ng-if="campaign.campaign_unit.length==2" href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></a><a href="#/campaign/detail/{{campaign._id}}" class="item item-body dl_card_body">
-              <p class="dl_prvoke_info"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span>向<span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>发起挑战</p>
-              <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-              <ion-scroll ng-if="campaign.photo_album.photos.length&gt;0" direction="x" scrollbar-x="false">
-                <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-              </ion-scroll></a><a href="#/campaign/detail/{{campaign._id}}" class="item tabs dl_card_footer">
-              <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke('provokes',$index, campaign._id,1)" class="tab-item dl_button dl_cp_confirm">接收</button>
-              <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke('provokes',$index, campaign._id,2)" class="tab-item dl_button dl_cp_refuse">拒绝</button>
-              <button prevent-default="prevent-default" ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke('provokes',$index, campaign._id,3)" class="tab-item dl_button dl_cp_cancel">取消</button></a>
-          </div>
+          <campaign-card ng-repeat="campaign in provokes" campaign="campaign"></campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
           <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_borderPurple">
             <p>进行中 {{nowCampaigns.length}}</p>
           </div>
-          <div ng-repeat="campaign in nowCampaigns" ng-cloak="ng-cloak" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-              <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-              <p class="dl_cp_address">{{campaign.location.name}}</p>
-              <div class="button_container">
-                <p class="dl_cp_time_countdown">{{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束</p>
-              </div></a><a ng-if="campaign.campaign_unit.length==2" href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></a><a ng-if="campaign.photo_album.photos.length&gt;0" href="#/campaign/detail/{{campaign._id}}" class="item item-body dl_card_body">
-              <ion-scroll direction="x" scrollbar-x="false">
-                <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-              </ion-scroll></a><a href="#/campaign/detail/{{campaign._id}}" class="item tabs tabs-icon-left dl_card_footer">
-              <div class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div>
-              <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.members_count || '0'}}</div>
-              <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</div></a>
-          </div>
+          <campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign"></campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
           <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_textPurple">
             <p>即将 {{unStartCampaigns.length}}</p>
           </div>
-          <div ng-repeat="campaign in unStartCampaigns" ng-cloak="ng-cloak" class="list card dl_card"><a ng-if="campaign.campaign_unit.length==1" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-              <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-              <p class="dl_cp_address">{{campaign.location.name}}</p>
-              <div class="button_container">
-                <p class="dl_cp_time_countdown">{{campaign.time_text}}</p>
-              </div></a><a ng-if="campaign.campaign_unit.length==2" href="#/campaign/detail/{{campaign._id}}" class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></a><a ng-if="campaign.photo_album.photos.length&gt;0" href="#/campaign/detail/{{campaign._id}}" class="item item-body dl_card_body">
-              <ion-scroll direction="x" scrollbar-x="false">
-                <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-              </ion-scroll></a><a href="#/campaign/detail/{{campaign._id}}" class="item tabs tabs-icon-left dl_card_footer">
-              <div class="tab-item dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div>
-              <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.members_count || '0'}}</div>
-              <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</div></a>
-          </div>
+          <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign"></campaign-card>
         </div>
     </ion-scroll>
   </ion-content>

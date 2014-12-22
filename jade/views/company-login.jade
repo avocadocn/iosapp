@@ -1,8 +1,8 @@
-ion-view
+ion-view.login
 
   ion-header-bar
-    a.button.icon.ion-chevron-left(href="#/home") &nbsp;返回
-    a.button.icon.ion-chevron-right(href="#/register/company") &nbsp;注册
+    a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    a.button.icon-right.ion-chevron-right(href="#/register/company") 注册&nbsp;
   ion-content
     .list.list-inset
       label.item.item-input
@@ -10,8 +10,9 @@ ion-view
     .list.list-inset
       label.item.item-input
         input(type="password" name="password" ng-model="loginData.password" placeholder="密码" required)
-    p(ng-show="msg") {{msg}}
-    button(type="button" ng-disabled="!loginData.username || !loginData.password" ng-click="login()") 企业登录
-    p
-      a(href="#/forget") 忘记密码？
-      a(href="#/user/login") 个人账号登录
+    span.login_msg(ng-show="msg") {{msg}}
+    .list.list-inset
+      button.button.dl_button.login_button(type="button" ng-disabled="!loginData.username || !loginData.password" ng-click="login()") 企&nbsp;业&nbsp;登&nbsp;录
+    .list.list-inset
+      a.login_link(href="#/user/forget") 忘记密码？
+      a.login_link.pull-right(href="#/user/login") 个人账号登录
