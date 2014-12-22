@@ -234,6 +234,98 @@ body {
   line-height: 30px;
   cursor: pointer;
 }
+input::-webkit-input-placeholder {
+  color: #3ca2e0;
+}
+input::-moz-placeholder {
+  color: #3ca2e0;
+}
+input::-moz-placeholder {
+  color: #3ca2e0;
+}
+input:-ms-input-placeholder {
+  color: #3ca2e0;
+}
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+input:focus::-moz-placeholder {
+  color: transparent;
+}
+input:focus::-moz-placeholder {
+  color: transparent;
+}
+input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+.bar {
+  border-bottom: 1px solid #ccc;
+}
+.bar .button {
+  border: 0;
+  background-color: transparent;
+  color: #3ca2e0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 34px;
+}
+.bar .button.activated {
+  box-shadow: inset 0px 1px 1px rgba(0,0,0,0.15);
+}
+.home {
+  background: url("../img/index_1.gif") center no-repeat;
+  background-size: 401px;
+  background-color: #e2e2e2;
+}
+.home .home_buttons {
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+.home .home_buttons .button {
+  width: 45%;
+  min-height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.home .home_buttons .login_button {
+  background-color: #3ca2e0;
+  margin-right: 3%;
+}
+.home .home_buttons .register_button {
+  background-color: #618bd7;
+}
+.login {
+  background-color: #fff;
+}
+.login input {
+  color: #3ca2e0;
+}
+.login .list-inset .item {
+  border: 1px solid #3ca2e0;
+  border-radius: 5px;
+}
+.login .list-inset .login_button {
+  background-color: #3ca2e0;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+}
+.login .list-inset .login_link {
+  text-decoration: none;
+  font-size: 14px;
+  color: #666;
+}
+.login .login_msg {
+  color: #3ca2e0;
+  padding: 0 10px;
+}
+.pull-right {
+  float: right;
+}
 .app_tabs > .tabs {
   background-color: #000;
   color: #fff;

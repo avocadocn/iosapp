@@ -200,6 +200,82 @@ body
   line-height 30px
   cursor pointer
 
+//-input全局placeholder
+input::-webkit-input-placeholder /* WebKit browsers */
+  color col_blue
+input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+  color col_blue
+input::-moz-placeholder /* Mozilla Firefox 19+ */
+  color col_blue
+input:-ms-input-placeholder /* Internet Explorer 10+ */
+  color col_blue
+
+input:focus::-webkit-input-placeholder /* WebKit browsers */
+  color transparent
+input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+  color transparent
+input:focus::-moz-placeholder /* Mozilla Firefox 19+ */
+  color transparent
+input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
+  color transparent
+
+//-通用bar
+.bar
+  border-bottom 1px solid #ccc
+  .button
+    border 0
+    background-color transparent
+    color col_blue
+    font-size 16px
+    font-weight 600
+    line-height 34px
+  .button.activated
+    box-shadow inset 0px 1px 1px rgba(0, 0, 0, 0.15)
+//- home页
+.home
+  background url('../img/index_1.gif') center no-repeat
+  background-size 401px
+  background-color col_gray
+  .home_buttons
+    position absolute
+    bottom 10px
+    text-align center
+    width 100%
+    .button
+      width 45%
+      min-height 40px
+      line-height 40px
+      font-size 16px
+      font-weight bold
+    .login_button
+      background-color col_blue
+      margin-right 3%
+    .register_button
+      background-color col_darkBlue
+//-登录页
+.login
+  background-color #fff
+  input
+    color col_blue
+  .list-inset
+    .item
+      border 1px solid col_blue
+      border-radius 5px
+    .login_button
+      background-color col_blue
+      border-radius 5px
+      font-size 16px
+      font-weight 600
+      width 100%
+    .login_link
+      text-decoration none
+      font-size 14px
+      color #666
+  .login_msg
+    color col_blue
+    padding 0 10px
+.pull-right
+  float right
 .app_tabs > .tabs
   background-color #000
   color white
@@ -651,5 +727,3 @@ body
       font-size 12px
       text-align center
       text-decoration none
-
-
