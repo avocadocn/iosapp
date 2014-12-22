@@ -18,6 +18,12 @@ body {
 .clearfix:after {
   clear: both;
 }
+.icon.icon_small {
+  font-size: 16px !important;
+}
+.icon.icon_small:before {
+  font-size: 16px !important;
+}
 .dl_header {
   opacity: 0.9;
 }
@@ -611,6 +617,7 @@ input:focus:-ms-input-placeholder {
 .calendar nav .date_list .date_box.current_day {
   background-color: #3ca2e0;
   color: #fff;
+  border-top: solid 1px #2184bf;
 }
 .calendar nav .date_list .date_box.current_day .date {
   color: #fff;
@@ -737,6 +744,29 @@ input:focus:-ms-input-placeholder {
 }
 .calendar .calendar_day .calendar_campaign:first-child {
   border-top: none;
+}
+.calendar .calendar_day .calendar_campaign .provoke {
+  padding-left: 116px;
+}
+.calendar .calendar_day .calendar_campaign .provoke .second_team {
+  position: absolute;
+  top: 16px;
+  left: 66px;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  border-radius: 4px;
+}
+.calendar .calendar_day .calendar_campaign .flag {
+  position: absolute;
+  top: 0;
+  right: 5px;
+}
+.calendar .calendar_day .calendar_campaign .flag.now {
+  color: #9e6dd0;
+}
+.calendar .calendar_day .calendar_campaign .flag.join {
+  color: #3ca2e0;
 }
 .calendar .calendar_day .calendar_campaign .campaign_link {
   text-decoration: none;
