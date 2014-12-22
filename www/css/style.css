@@ -244,14 +244,48 @@ body {
 }
 .comments .comment {
   width: 100%;
+  clear: both;
 }
 .comments .comment .content {
   float: left;
-  width: 80%;
+  width: auto;
+  font-size: 16px;
+  color: #333;
+  max-width: 80%;
 }
 .comments .comment .author {
-  float: right;
+  float: left;
   width: 20%;
+  padding: 1rem 0 0 1rem;
+}
+.comments .comment .triangle-isosceles {
+  position: relative;
+  padding: 0.8rem;
+  margin: 1rem 0;
+  background: #fff;
+  border-radius: 10px;
+  background: linear-gradient(top, #fff, #fbfbfb);
+}
+.comments .comment .triangle-isosceles:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -15px;
+  left: 50px;
+  width: 0;
+  border-width: 15px 15px 0;
+  border-style: solid;
+  border-color: #fff transparent;
+}
+.comments .comment .putleft {
+  margin-left: 0.8rem;
+}
+.comments .comment .putleft:after {
+  top: 1rem;
+  left: -1rem;
+  bottom: auto;
+  border-width: 0.6rem 1rem 0.6rem 0;
+  border-color: transparent #fff;
 }
 .signup_form select {
   width: 30%;

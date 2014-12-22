@@ -203,7 +203,7 @@ body
   background-size 300px 110px
   background-position -233px -50px
   
-  
+
 .comments
   .time
     text-align center
@@ -211,13 +211,43 @@ body
     float left
   .comment
     width 100%
+    clear both
     .content
       float left
-      width 80%
+      width auto
+      font-size 16px
+      color col_black
+      max-width 80%
+      
     .author
-      float right
+      float left
       width 20%
-
+      padding 1rem 0 0 1rem
+    .triangle-isosceles 
+      position relative
+      padding 0.8rem
+      margin 1rem 0
+      background #fff
+      border-radius 10px
+      background linear-gradient(top, #fff, #fbfbfb)
+    .triangle-isosceles:after 
+      content ""
+      display block
+      position absolute
+      bottom -15px
+      left 50px
+      width 0
+      border-width 15px 15px 0
+      border-style solid
+      border-color #fff transparent
+    .putleft
+      margin-left 0.8rem
+    .putleft:after
+      top 1rem
+      left -1rem
+      bottom auto
+      border-width 0.6rem 1rem 0.6rem 0
+      border-color transparent #fff
 .signup_form
   select
     width 30%

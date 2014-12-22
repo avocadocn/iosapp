@@ -18,19 +18,21 @@
             <p>{{comment.create_date | date: 'M月dd日 HH:mm'}} </p>
           </div>
           <div ng-repeat="photo in comment.photos" class="comment">
-            <div class="content"><img ng-src="{{STATIC_URL +photo.uri+ '/190/190'}}" ng-click="openPhotoSwipe(photo._id)" class="img"/></div>
             <div class="author">
               <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
               <div class="name">{{comment.poster.nickname}}</div>
+            </div>
+            <div class="content">
+              <p class="triangle-isosceles putleft"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
             </div>
           </div>
           <div class="comment">
-            <div class="content">
-              <p>{{comment.content}}</p>
-            </div>
             <div class="author">
               <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
               <div class="name">{{comment.poster.nickname}}</div>
+            </div>
+            <div class="content">
+              <p class="triangle-isosceles putleft">{{comment.content}}</p>
             </div>
           </div>
         </div>
@@ -42,19 +44,21 @@
             <p>{{comment.create_date | date: 'M月dd日 HH:mm'}}</p>
           </div>
           <div ng-repeat="photo in comment.photos" class="comment">
-            <div class="content"><img ng-src="{{STATIC_URL +photo.uri+ '/190/190'}}" ng-click="openPhotoSwipe(photo._id)" class="img"/></div>
             <div class="author">
               <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
               <div class="name">{{comment.poster.nickname}}</div>
+            </div>
+            <div class="content">
+              <p class="triangle-isosceles putleft"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
             </div>
           </div>
           <div class="comment">
-            <div class="content">
-              <p>{{comment.content}}</p>
-            </div>
             <div class="author">
               <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
               <div class="name">{{comment.poster.nickname}}</div>
+            </div>
+            <div class="content">
+              <p class="triangle-isosceles putleft">{{comment.content}}</p>
             </div>
           </div>
         </div>
