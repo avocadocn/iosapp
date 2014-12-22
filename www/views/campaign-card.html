@@ -22,17 +22,15 @@
       <div class="tab-item dl_team_number"><i class="icon ion-person-stalker"></i>{{campaign.members_count || '0'}}</div>
       <div class="tab-item dl_team_comment"><i class="icon ion-chatbox"></i>{{campaign.comment_sum}}</div>
     </div></a><a ng-href="#/campaign/detail/{{campaign._id}}" ng-if="campaign.confirm_status===false" class="provoke_card">
-    <div class="item item-avatar dl_card_header dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/>
-      <div class="item item-body dl_card_body">
-        <p class="dl_prvoke_info"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span>向<span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>发起挑战</p>
-        <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-        <ion-scroll ng-if="campaign.photo_album.photos.length&gt;0" direction="x" scrollbar-x="false">
-          <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></div>
-        </ion-scroll>
-      </div>
+    <div class="dl_card_header clearfix"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
+    <div class="dl_card_body">
+      <p class="dl_provoke_info"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span>&nbsp;向&nbsp;<span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>&nbsp;发起挑战</p>
+      <p class="dl_cp_name">{{campaign.theme}}</p>
     </div>
-    <div ng-if="!campaign.confirm_status" class="item tabs dl_card_footer">
-      <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)" class="tab-item dl_cp_confirm">接受</button>
-      <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)" class="tab-item dl_cp_refuse">拒绝</button>
-      <button prevent-default="prevent-default" ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)" class="tab-item dl_cp_cancel">取消</button>
+    <div ng-if="!campaign.confirm_status" class="dl_card_footer">
+      <div class="clearfix">
+        <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)" class="dl_cp_confirm">接受</button>
+        <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)" class="dl_cp_refuse">拒绝</button>
+        <button prevent-default="prevent-default" ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)" class="dl_cp_cancel">取消</button>
+      </div>
     </div></a></div>

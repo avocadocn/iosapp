@@ -58,33 +58,64 @@ body
     background-color #fff
     border-color #fff
     border-style 0px
-  .dl_card_header
-    .dl_team_logo_right
+  .provoke_card
+    text-decoration none
+    .dl_card_header
+      border-bottom 1px solid col_darkGray
+      height 65px
+    .dl_team_logo
       position absolute
-      top 16px
-      right 16px
+      display block
+      left 0
+      top 0
+      margin 10px
+      width 45px
+      height 45px
+    .dl_team_logo_right
+      left initial
+      right 0
     .dl_team_vs
-      width 100%
+      margin 17.5px auto
       height 30px
       width 135px
       display block
       background-color col_darkBlue
-      margin 0 auto
       border-radius 100%
       color #fff
       font-size 32px
       line-height 24px
       text-align center
-    .button_container
-      position absolute
-      right 16px
-      top 16px
-      .dl_cp_join
-        background-color col_blue
-        color #fff
-    p
-      margin 0
+    .dl_card_body
+      padding 1rem
+      font-size 14px
+    .dl_provoke_info
       color col_darkGray
+    .dl_team_name
+      color col_iconPurple
+    .dl_cp_name
+      margin-top 10px
+      color col_black
+      font-size 16px
+    .dl_card_footer
+      padding 0.833333rem
+      height 50px
+      border-top 1px solid col_darkGray
+    .dl_cp_confirm, .dl_cp_refuse, .dl_cp_cancel
+      width 135px
+      height 30px
+      border none
+      color white
+      background-color col_darkGray
+      font-size 14px
+      border-radius 5px
+    .dl_cp_confirm
+      background-color col_iconPurple
+    .dl_cp_refuse
+      float right
+    .dl_cp_cancel
+      display block
+      margin 0 auto
+
   .dl_card_header_provoke
     padding-right 72px
   .dl_card_body

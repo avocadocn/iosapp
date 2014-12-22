@@ -26,22 +26,20 @@
         | {{campaign.comment_sum}}
 
   a.provoke_card(ng-href="#/campaign/detail/{{campaign._id}}" ng-if="campaign.confirm_status===false")
-    .item.item-avatar.dl_card_header.dl_card_header_provoke
+    .dl_card_header.clearfix
       img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
       span.dl_team_vs vs
       img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
-      .item.item-body.dl_card_body
-        p.dl_prvoke_info
-          span.dl_team_name {{campaign.campaign_unit[0].team.name}}
-          | 向
-          span.dl_team_name {{campaign.campaign_unit[1].team.name}}
-          | 发起挑战
-        h2.dl_cp_name {{campaign.theme}}
-        ion-scroll(ng-if="campaign.photo_album.photos.length>0" direction="x" scrollbar-x="false")
-          .dl_photo_alb
-            img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
-    .item.tabs.dl_card_footer(ng-if="!campaign.confirm_status")
-      button.tab-item.dl_cp_confirm(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
-      button.tab-item.dl_cp_refuse(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝
-      button.tab-item.dl_cp_cancel(prevent-default ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
+    .dl_card_body
+      p.dl_provoke_info
+        span.dl_team_name {{campaign.campaign_unit[0].team.name}}
+        | &nbsp;向&nbsp;
+        span.dl_team_name {{campaign.campaign_unit[1].team.name}}
+        | &nbsp;发起挑战
+      p.dl_cp_name {{campaign.theme}}
+    .dl_card_footer(ng-if="!campaign.confirm_status")
+      .clearfix
+        button.dl_cp_confirm(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
+        button.dl_cp_refuse(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝
+        button.dl_cp_cancel(prevent-default ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
 
