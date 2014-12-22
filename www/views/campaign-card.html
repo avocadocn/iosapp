@@ -1,12 +1,14 @@
 
 <div class="card dl_card"><a ng-href="#/campaign/detail/{{campaign._id}}" ng-if="campaign.confirm_status===true" class="campaign_card">
-    <div class="dl_card_header clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45" class="dl_team_logo"/>
-      <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-      <p class="dl_cp_address">地点: {{campaign.location.name}}</p>
-      <div class="dl_card_header_operator">
+    <div class="dl_card_header clearfix">
+      <div class="dl_card_header_info clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45" class="dl_team_logo"/>
+        <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+        <p class="dl_cp_address">地点: {{campaign.location.name}}</p>
+      </div>
+      <div class="dl_card_header_operator clearfix">
         <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign._id)" prevent-default="prevent-default" class="dl_btn_join">参加</button>
-        <p ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown">{{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束</p>
-        <p ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.is_start" class="dl_cp_time_countdown">{{campaign.time_text}}距离开始</p>
+        <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown_end">{{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束</div>
+        <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.is_start" class="dl_cp_time_countdown clearfix"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
       </div>
     </div>
     <div ng-if="campaign.photo_album.photos.length&gt;0" class="dl_card_body">

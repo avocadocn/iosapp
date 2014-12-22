@@ -137,10 +137,14 @@ body {
   padding: 0.833333rem;
   height: 65px;
 }
+.dl_card .campaign_card .dl_card_header_info {
+  width: 205px;
+  float: left;
+}
 .dl_card .campaign_card .dl_team_logo {
   display: block;
   float: left;
-  margin-right: 0.833333rem;
+  margin-right: 10px;
   width: 45px;
   height: 45px;
 }
@@ -164,6 +168,40 @@ body {
 }
 .dl_card .campaign_card .dl_card_header_operator {
   float: right;
+  padding-top: 2px;
+}
+.dl_card .campaign_card .dl_btn_join {
+  width: 60px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  background-color: #3ca2e0;
+}
+.dl_card .campaign_card .dl_cp_time_countdown_end {
+  color: #9e6dd0;
+}
+.dl_card .campaign_card .dl_cp_time_countdown {
+  margin: 0;
+  width: 70px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #806dd0;
+  border-radius: 5px;
+  color: #9e6dd0;
+  font-size: 16px;
+}
+.dl_card .campaign_card .dl_cp_time_count,
+.dl_card .campaign_card .dl_cp_time_unit {
+  display: block;
+  float: left;
+  width: 34px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+}
+.dl_card .campaign_card .dl_cp_time_count {
+  border-right: 1px solid #806dd0;
 }
 .dl_card .campaign_card .dl_photo_alb {
   white-space: nowrap;
