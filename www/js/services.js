@@ -85,7 +85,7 @@ angular.module('donlerApp.services', [])
     };
 
   }])
-  .factory('UserAuth', ['$http', 'CONFIG', function ($http, CONFIG) {
+  .factory('UserAuth', ['$http', 'CONFIG', 'Socket', function ($http, CONFIG, Socket) {
     return {
       login: function (email, password, callback) {
         $http.post(CONFIG.BASE_URL + '/users/login', {
@@ -96,7 +96,9 @@ angular.module('donlerApp.services', [])
             localStorage.accessToken = data.token;
             localStorage.userType = 'user';
             localStorage.id = data.id;
+            localStorage.cid = data.cid;
             $http.defaults.headers.common['x-access-token'] = data.token;
+            Socket.login();
             callback();
           })
           .error(function (data, status) {
@@ -105,11 +107,13 @@ angular.module('donlerApp.services', [])
       },
 
       logout: function (callback) {
+        Socket.logout();
         $http.post(CONFIG.BASE_URL + '/users/logout')
           .success(function (data, status) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('userType');
             localStorage.removeItem('id');
+            localStorage.removeItem('cid');
             $http.defaults.headers.common['x-access-token'] = null;
             callback();
           })
@@ -329,10 +333,20 @@ angular.module('donlerApp.services', [])
   }])
 
   .factory('Socket', ['$rootScope','CONFIG', function socket($rootScope, CONFIG) {
-    var token =  localStorage.accessToken;
-    var socket = io.connect(CONFIG.SOCKET_URL,{query:'token=' + token});
-    socket.emit('login');
+    var token = localStorage.accessToken;
+    var socket ; 
+    if(token){
+      socket = io.connect(CONFIG.SOCKET_URL,{query:'token=' + token});
+    }
     return {
+      login: function() {
+        token = localStorage.accessToken;
+        socket = io.connect(CONFIG.SOCKET_URL,{query:'token=' + token});
+      },
+      logout: function() {
+        socket.disconnect();
+        socket = null;
+      },
       on: function (eventName, callback) {
         socket.on(eventName, function () {  
           var args = arguments;
@@ -565,6 +579,11 @@ angular.module('donlerApp.services', [])
           .error(function (data, status, headers, config) {
             callback('error');
           });
+      },
+
+      //获取供新建小队用的全部类型group
+      getGroups: function(callback) {
+        //todo
       }
 
     };

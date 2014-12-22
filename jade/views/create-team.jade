@@ -1,0 +1,9 @@
+ion-view
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/company/team_page") &nbsp;返回
+  ion-content
+    //-todo
+      .card.list
+        a.item(ng-repeat="group in groups" ng-class="{'active':selectedGroup.type==group.type, 'inactive':selectedGroup.type!=group.type}")
+          input(type='radio' name='group' id='{{group._id}}' value='{{group.type}}' ng-model='selected' ng-change='select()')
+          label.img_contain(class='group_'+'{{group._id}}' for='{{group._id}}') {{group.type}}

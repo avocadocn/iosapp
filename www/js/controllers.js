@@ -141,6 +141,9 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
+  .controller('createTeamController', ['$scope', '$state', 'Team', function ($scope, $state, Team) {
+    //todo
+  }])
   .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, Campaign, INFO) {
     $rootScope.showLoading();
     $scope.nowType = 'all';
