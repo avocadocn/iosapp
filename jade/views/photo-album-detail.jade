@@ -3,13 +3,14 @@ ion-view
     a.button.icon.ion-chevron-left(ng-href="{{photoAlbumBackUrl}}") &nbsp;返回
     h1.title {{photoAlbum.name}}
 
-  ion-content
-    .card(ng-repeat="group in photoGroups" on-last-repeat)
-      p {{group.date | date:'yyyy年MM月dd日'}}
-      .dl_gallery(itemscope itemtype="http://schema.org/ImageGallery")
-        figure(itemscope itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos")
+  ion-content.photo_album_detail_page
+    .dl_photo_album_card(ng-repeat="group in photoGroups" on-last-repeat)
+      .card_header.clearfix
+        p.header_title {{group.date | date:'yyyy年MM月dd日'}}
+      .dl_gallery.clearfix(itemscope itemtype="http://schema.org/ImageGallery")
+        figure.photo(itemscope itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos")
           a(ng-href="{{STATIC_URL + photo.uri}}/resize/{{screenWidth}}/{{screenHeight}}" itemprop="contentUrl" data-size="{{screenWidth}}x{{screenHeight}}")
-            img(ng-src="{{STATIC_URL + photo.uri}}/60/60" itemprop="thumbnail")
-          figcaption(itemprop="caption description") {{photo.name}}
+            img(ng-src="{{STATIC_URL + photo.uri}}/65/65" itemprop="thumbnail")
+          figcaption.hidden_figcaption(itemprop="caption description") {{photo.name}}
 
 include ./photo-swipe

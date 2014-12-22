@@ -3,8 +3,10 @@ ion-view
     a.button.icon.ion-chevron-left(ng-href="#/photo_album/list/team/{{team._id}}") &nbsp;返回
     h1.title {{team.name}}的全家福相册
   ion-content
-    .card
-      p 全家福({{familyPhotos.length}})
-      img(ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="toggleSelect(photo)")
+    .dl_photo_album_card
+      .card_header.clearfix
+        p.header_title 全家福({{familyPhotos.length}})
+      .clearfix
+        img.photo(ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="toggleSelect(photo)")
 
 include ./photo-swipe

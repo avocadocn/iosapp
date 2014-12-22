@@ -4,8 +4,11 @@
     <h1 class="title">{{team.name}}的全家福相册</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="card">
-      <p>全家福({{familyPhotos.length}})</p><img ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="toggleSelect(photo)"/>
+    <div class="dl_photo_album_card">
+      <div class="card_header clearfix">
+        <p class="header_title">全家福({{familyPhotos.length}})</p>
+      </div>
+      <div class="clearfix"><img ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="toggleSelect(photo)" class="photo"/></div>
     </div>
   </ion-content>
 </ion-view>

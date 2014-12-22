@@ -3,12 +3,14 @@
   <ion-header-bar><a ng-href="{{photoAlbumBackUrl}}" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">{{photoAlbum.name}}</h1>
   </ion-header-bar>
-  <ion-content>
-    <div ng-repeat="group in photoGroups" on-last-repeat="on-last-repeat" class="card">
-      <p>{{group.date | date:'yyyy年MM月dd日'}}</p>
-      <div itemscope="itemscope" itemtype="http://schema.org/ImageGallery" class="dl_gallery">
-        <figure itemscope="itemscope" itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos"><a ng-href="{{STATIC_URL + photo.uri}}/resize/{{screenWidth}}/{{screenHeight}}" itemprop="contentUrl" data-size="{{screenWidth}}x{{screenHeight}}"><img ng-src="{{STATIC_URL + photo.uri}}/60/60" itemprop="thumbnail"/></a>
-          <figcaption itemprop="caption description">{{photo.name}}</figcaption>
+  <ion-content class="photo_album_detail_page">
+    <div ng-repeat="group in photoGroups" on-last-repeat="on-last-repeat" class="dl_photo_album_card">
+      <div class="card_header clearfix">
+        <p class="header_title">{{group.date | date:'yyyy年MM月dd日'}}</p>
+      </div>
+      <div itemscope="itemscope" itemtype="http://schema.org/ImageGallery" class="dl_gallery clearfix">
+        <figure itemscope="itemscope" itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos" class="photo"><a ng-href="{{STATIC_URL + photo.uri}}/resize/{{screenWidth}}/{{screenHeight}}" itemprop="contentUrl" data-size="{{screenWidth}}x{{screenHeight}}"><img ng-src="{{STATIC_URL + photo.uri}}/65/65" itemprop="thumbnail"/></a>
+          <figcaption itemprop="caption description" class="hidden_figcaption">{{photo.name}}</figcaption>
         </figure>
       </div>
     </div>

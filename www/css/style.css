@@ -50,9 +50,13 @@ body {
 }
 .dl_card {
   position: relative;
-  margin: 1rem;
+  display: block;
+  margin: 10px 10px 5px;
+  padding: 10px;
   box-shadow: 0 2px 0 #ccc;
+  line-height: 18px;
   background-color: #fff;
+  padding: 0;
 }
 .dl_card .provoke_card {
   display: block;
@@ -70,6 +74,7 @@ body {
   margin: 10px;
   width: 45px;
   height: 45px;
+  border-radius: 5px;
 }
 .dl_card .provoke_card .dl_team_logo_right {
   left: initial;
@@ -146,6 +151,7 @@ body {
   margin-right: 10px;
   width: 45px;
   height: 45px;
+  border-radius: 5px;
 }
 .dl_card .campaign_card .dl_cp_name,
 .dl_card .campaign_card .dl_cp_address {
@@ -244,6 +250,32 @@ body {
 .dl_card .campaign_card .dl_card_footer_count {
   display: block;
   float: left;
+}
+.dl_photo_album_card {
+  display: block;
+  margin: 10px 10px 5px;
+  padding: 10px;
+  box-shadow: 0 2px 0 #ccc;
+  line-height: 18px;
+  background-color: #fff;
+}
+.dl_photo_album_card .card_header {
+  height: 20px;
+}
+.dl_photo_album_card .header_title {
+  float: left;
+  margin: 0;
+  font-size: 12px;
+  line-height: 20px;
+  color: #333;
+}
+.dl_photo_album_card .photo {
+  display: block;
+  float: left;
+  margin-top: 5px;
+  margin-right: 5px;
+  width: 65px;
+  height: 65px;
 }
 .bar-footer {
   padding: 0;
@@ -1031,4 +1063,7 @@ input:focus:-ms-input-placeholder {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.photo_album_detail_page .hidden_figcaption {
+  display: none;
 }

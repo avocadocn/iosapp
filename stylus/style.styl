@@ -12,6 +12,15 @@ col_borderPurple = #806dd0
 col_textPurple = #9e6dd0
 col_lightGray = #676767
 
+// mixins
+dl_card()
+  display block
+  margin 10px 10px 5px
+  padding 10px
+  box-shadow 0 2px 0 rgba(204, 204, 204, 1)
+  line-height 18px
+  background-color #fff
+
 html
   font-size 12px
 body
@@ -51,9 +60,8 @@ body
           color col_textPurple
 .dl_card
   position relative
-  margin 1rem
-  box-shadow 0 2px 0 rgba(204, 204, 204, 1)
-  background-color #fff
+  dl_card()
+  padding 0
   .provoke_card
     display block
     text-decoration none
@@ -68,6 +76,7 @@ body
       margin 10px
       width 45px
       height 45px
+      border-radius 5px
     .dl_team_logo_right
       left initial
       right 0
@@ -128,6 +137,7 @@ body
       margin-right 10px
       width 45px
       height 45px
+      border-radius 5px
     .dl_cp_name, .dl_cp_address
       margin 0
       float left
@@ -206,6 +216,24 @@ body
     .dl_card_footer_count
       display block
       float left
+
+.dl_photo_album_card
+  dl_card()
+  .card_header
+    height 20px
+  .header_title
+    float left
+    margin 0
+    font-size 12px
+    line-height 20px
+    color col_black
+  .photo
+    display block
+    float left
+    margin-top 5px
+    margin-right 5px
+    width 65px
+    height 65px
 
 .bar-footer
   padding 0
@@ -876,4 +904,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     text-overflow ellipsis
     white-space nowrap
 
+.photo_album_detail_page
+  .hidden_figcaption
+    display none
 
