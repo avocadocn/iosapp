@@ -246,7 +246,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg);
+          callback(data.msg || '网络连接错误');
         });
       },
       get: function (id, callback) {
@@ -256,7 +256,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg);
+          callback(data.msg|| '网络连接错误');
         });
       },
       create: function (data, callback) {
@@ -276,7 +276,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg);
+          callback(data.msg|| '网络连接错误');
         });
       },
       close: function (id, callback) {
@@ -296,7 +296,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg);
+          callback(data.msg|| '网络连接错误');
         });
       },
       quit: function(id, uid, callback) {
@@ -306,7 +306,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg);
+          callback(data.msg|| '网络连接错误');
         });
       },
       dealProvoke: function(id, dealType, callback) {
@@ -316,7 +316,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg);
+          callback(data.msg|| '网络连接错误');
         });
       },
       getMolds: function(hostType, hostId, callback) {
@@ -326,7 +326,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg);
+          callback(data.msg|| '网络连接错误');
         });
       }
     }

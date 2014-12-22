@@ -26,7 +26,6 @@ body {
 }
 .campaigns_container .campaign_list {
   height: 100%;
-  margin-bottom: 49px;
   background-color: #e2e2e2;
 }
 .campaigns_container .campaign_list .campaign_container .campaign_container_title {
@@ -510,20 +509,27 @@ input:focus:-ms-input-placeholder {
   background-color: #fcebeb;
 }
 .calendar {
+  margin: 6px 4px;
+  color: #999;
   height: 100%;
 }
 .calendar nav {
   background-color: #f6f6f6;
-  border-bottom: solid 1px #dcdcdc;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .calendar nav .operator {
   background-color: #3ca2e0;
   color: #fbfbfb;
   border: none;
+  margin: 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .calendar nav .week {
   position: relative;
   background-color: #3ca2e0;
+  background-image: -webkit-linear-gradient(#57b4ec, #3ca2e0);
 }
 .calendar nav .week .day {
   float: left;
@@ -531,26 +537,49 @@ input:focus:-ms-input-placeholder {
   height: 20px;
   line-height: 20px;
   color: #fff;
+  border-right: solid 1px #2184bf;
 }
 .calendar nav .date_list {
   position: relative;
-  margin-top: 5px;
 }
 .calendar nav .date_list .date_box {
   float: left;
   width: 14.285714285714286%;
-  height: 30px;
-  line-height: 30px;
+  height: 60px;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.calendar nav .date_list .date_box.other_month {
+  background-color: #efefef;
+  color: #ccc;
 }
 .calendar nav .date_list .date_box .date {
-  margin-top: 10%;
+  margin-top: 15%;
   margin-left: auto;
   margin-right: auto;
+  font-weight: bold;
 }
-.calendar nav .date_list .date_box .current_day {
+.calendar nav .date_list .date_box .campaign_count {
+  margin-top: 15%;
+  display: inline-block;
+  color: #fff;
+  background-color: #3ca2e0;
+  border-radius: 100%;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+}
+.calendar nav .date_list .date_box.current_day {
+  background-color: #3ca2e0;
+  color: #fff;
+}
+.calendar nav .date_list .date_box.current_day .date {
   color: #fff;
   border-radius: 50px;
-  background-color: #000;
+}
+.calendar nav .date_list .date_box.current_day .campaign_count {
+  color: #3ca2e0;
+  background-color: #fff;
 }
 .calendar nav .date_bar {
   margin: 5px auto;
@@ -560,15 +589,9 @@ input:focus:-ms-input-placeholder {
 }
 .calendar .calendar_box {
   position: relative;
-}
-.calendar .calendar_box .swipe-cards {
-  height: 100%;
-}
-.calendar .calendar_box .swipe-card {
   height: 100%;
 }
 .calendar .calendar_year {
-  position: relative;
   height: 100%;
 }
 .calendar .calendar_year .year_section {
@@ -578,8 +601,21 @@ input:focus:-ms-input-placeholder {
   text-align: center;
 }
 .calendar .calendar_month {
-  position: relative;
   height: 100%;
+}
+.calendar .calendar_month .today_container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #efefef;
+  height: 50px;
+}
+.calendar .calendar_month .today_container .today {
+  height: 30px;
+  min-height: 30px;
+  line-height: 30px;
+  margin: 10px;
+  border-radius: 6px;
 }
 .calendar .calendar_month .month {
   width: 14.285714285714286%;
@@ -592,21 +628,25 @@ input:focus:-ms-input-placeholder {
   float: left;
   width: 14.285714285714286%;
   height: 60px;
-  border-top: solid 1px #dcdcdc;
+  background-color: #fbfbfb;
+  border-bottom: solid 1px #ccc;
+  border-right: solid 1px #ccc;
 }
 .calendar .calendar_month .calendar_day .calendar_date {
   margin-top: 15%;
   margin-left: auto;
   margin-right: auto;
+  font-weight: bold;
 }
 .calendar .calendar_month .calendar_day .calendar_campaign_count {
+  margin-top: 15%;
   display: inline-block;
   color: #fff;
   background-color: #3ca2e0;
   border-radius: 100%;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
 }
 .calendar .calendar_month .calendar_day.today {
   background-color: #3ca2e0;
@@ -618,18 +658,6 @@ input:focus:-ms-input-placeholder {
 .calendar .calendar_month .calendar_day.today .calendar_campaign_count {
   color: #3ca2e0;
   background-color: #fff;
-}
-.calendar .calendar_month .calendar_day .event_unjoin,
-.calendar .calendar_month .calendar_day .event_joined {
-  width: 0;
-  height: 0;
-  margin-top: 15%;
-  margin-left: auto;
-  margin-right: auto;
-  border-style: solid;
-  border-width: 3px;
-  border-radius: 30px;
-  font-size: 0px;
 }
 .calendar .calendar_month .calendar_day .weekend {
   color: #808080;
@@ -656,15 +684,10 @@ input:focus:-ms-input-placeholder {
   margin-left: 85.71428571428571%;
 }
 .calendar .calendar_day {
-  padding: 5px;
-  position: relative;
+  height: 100%;
 }
-.calendar .calendar_day .swipe-cards {
-  height: auto;
-}
-.calendar .calendar_day .swipe-card {
-  height: auto;
-  min-height: 100%;
+.calendar .calendar_day .no_campagin {
+  background-color: #fbfbfb;
 }
 .calendar .calendar_day .calendar_campaign {
   margin: 0;

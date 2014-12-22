@@ -820,8 +820,8 @@ angular.module('donlerApp.controllers', [])
             }
           }
         }
-        campaign.format_start_time = moment(campaign.start_time).calendar();
-        campaign.format_end_time = moment(campaign.end_time).calendar();
+        // campaign.format_start_time = moment(campaign.start_time).calendar();
+        // campaign.format_end_time = moment(campaign.end_time).calendar();
       });
       $scope.current_month = month_data;
       if(!$scope.$$phase) {
@@ -869,8 +869,18 @@ angular.module('donlerApp.controllers', [])
         if (week_date.getFullYear() === now.getFullYear() && week_date.getMonth() === now.getMonth() && week_date.getDate() === now.getDate()) {
           week_date.is_today = true;
         }
-        if (week_date.getFullYear() === current.getFullYear() && week_date.getMonth() === current.getMonth() && week_date.getDate() === current.getDate()) {
-          week_date.is_current = true;
+        if (week_date.getFullYear() === current.getFullYear() && week_date.getMonth() === current.getMonth()) {
+          week_date.is_current_month = true;
+          if (week_date.getDate() === current.getDate()) {
+            week_date.is_current = true;
+          }
+          var events =[];
+          $scope.current_month.days[week_date.getDate() - 1].events.forEach(function(event){
+            if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag) {
+              events.push(event);
+            }
+          })
+          week_date.events = events;
         }
       }
       $scope.current_day = day;
@@ -887,6 +897,7 @@ angular.module('donlerApp.controllers', [])
         break;
       case 'day':
         $scope.view = 'month';
+        INFO.lastDate = null;
         break;
       }
     };
@@ -932,15 +943,6 @@ angular.module('donlerApp.controllers', [])
       // $scope.day_cards = day;
       $scope.view = 'day';
     };
-
-    // ios safari下有问题
-    /**
-     * 查看活动详情前保存当前时间，以便返回
-     */
-    // $scope.saveStatus = function() {
-    //   Global.last_date = current;
-    //   $rootScope.campaignReturnUri = '#/app/schedule_list';
-    // };
 
 
     $scope.nextMonth = function() {
@@ -1020,11 +1022,7 @@ angular.module('donlerApp.controllers', [])
         return;
       }
       $scope.campaigns = data;
-      // var lastMonthDate = nextMonthDate =current;
-      // lastMonthDate.setMonth(current.getMonth() - 1);
-      // nextMonthDate.setMonth(current.getMonth() + 1);
-      // $scope.month_cards = [updateMonth(lastMonthDate),updateMonth(current),updateMonth(nextMonthDate)];
-      $scope.month_cards = updateMonth(current);
+      updateMonth(current);
       if ($scope.view === 'day') {
         updateDay(current);
       }
