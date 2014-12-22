@@ -928,3 +928,13 @@ input:focus:-ms-input-placeholder {
   border-radius: 5px;
   text-align: center;
 }
+.dl_timeline_date {
+  display: block;
+  margin: 1rem auto;
+  width: 100px;
+  height: 20px;
+  background-color: #999;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+}
