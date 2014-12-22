@@ -42,7 +42,7 @@
         span.dl_team_name {{campaign.campaign_unit[1].team.name}}
         | &nbsp;发起挑战
       p.dl_cp_name {{campaign.theme}}
-    .dl_card_footer(ng-if="!campaign.confirm_status")
+    .dl_card_footer(ng-if="campaign.allow.dealProvoke || campaign.allow.quitProvoke")
       .clearfix
         button.dl_cp_confirm(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
         button.dl_cp_refuse(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝

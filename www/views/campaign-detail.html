@@ -1,11 +1,11 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="{{backUrl}}" class="button button-clear">返回</a>
-    <h1 class="title">{{campaign.theme}}</h1><a ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="button icon button-clear ion-chatbox"></a>
+  <ion-header-bar><a ng-href="{{backUrl}}" class="button icon icon_small ion-chevron-left button-clear icon_blue">返回</a>
+    <h1 class="title">{{campaign.theme}}</h1><a ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="button icon button-clear ion-chatbubble-working"></a>
   </ion-header-bar>
   <ion-content>
     <div class="card dl_card">
-      <div class="item item-divider">
+      <div class="item item-divider dl_card_header">
         <div ng-if="campaign.campaign_unit.length==1" class="item item-avatar"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
           <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</h2><span class="campaign_mold">{{campaign.campaign_mold}}</span>
         </div>
