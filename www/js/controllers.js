@@ -1202,7 +1202,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'INFO', function ($scope, $stateParams, Team, Campaign, INFO) {
+  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'Tools', 'INFO', function ($scope, $stateParams, Team, Campaign, Tools, INFO) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
     INFO.campaignBackUrl = '#/team/' + teamId;
@@ -1264,7 +1264,58 @@ angular.module('donlerApp.controllers', [])
     $scope.firstLoad = true;
     $scope.lastCount;
     var pageSize = 20;
-    $scope.campaigns = [];
+
+    /**
+     * 按日期分组后的活动
+     * [{
+     *   date: Date,
+     *   campaigns: [Object]
+     * }]
+     * @type {Array}
+     */
+    $scope.campaignGroups = [];
+
+    /**
+     * 获取该日期的分组，如果不存在，则新建一个
+     * @param  {Date} date 日期
+     * @return {Object}
+     */
+    var getGroup = function (date) {
+      for (var i = 0; i < $scope.campaignGroups.length; i++) {
+        var group = $scope.campaignGroups[i];
+        if (Tools.isTheSameMonth(group.date, date)) {
+          return group;
+        }
+      }
+      var group = {
+        date: date,
+        campaigns: []
+      };
+      $scope.campaignGroups.push(group);
+      $scope.campaignGroups.sort(function (a, b) {
+        return b.date > a.date;
+      });
+      return group;
+    };
+
+    // 将活动按开始时间分组
+    var addCampaignsToGroup = function (campaigns) {
+      var group;
+      for (var i = 0; i < campaigns.length; i++) {
+        var campaign = campaigns[i];
+        if (!group) {
+          group = getGroup(campaign.start_time);
+        } else {
+          if (!Tools.isTheSameMonth(group.date, campaign.start_time)) {
+            group.campaigns.sort(function (a, b) {
+              return b.start_time > a.start_time;
+            });
+            group = getGroup(campaign.start_time);
+          }
+        }
+        group.campaigns.push(campaign);
+      }
+    };
 
     $scope.getCampaigns = function (options) {
       Campaign.getList(options, function (err, campaigns) {
@@ -1275,7 +1326,7 @@ angular.module('donlerApp.controllers', [])
           $scope.lastCount = campaigns.length;
           $scope.firstLoad = false;
           $scope.loading = false;
-          $scope.campaigns = $scope.campaigns.concat(campaigns);
+          addCampaignsToGroup(campaigns);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         }
       });
@@ -1400,8 +1451,8 @@ angular.module('donlerApp.controllers', [])
       });
 
   }])
-  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', 'PhotoAlbum', 'INFO',
-    function ($scope, $stateParams, PhotoAlbum, INFO) {
+  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', 'PhotoAlbum', 'Tools', 'INFO',
+    function ($scope, $stateParams, PhotoAlbum, Tools, INFO) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
 
@@ -1425,24 +1476,6 @@ angular.module('donlerApp.controllers', [])
       });
 
       /**
-       * 判断两个日期是否是同一天
-       * @param {Date|String} d1
-       * @param {Date|String} d2
-       */
-      var isTheSameDay = function (d1, d2) {
-        if (typeof d1 === 'string') {
-          d1 = new Date(d1);
-        }
-        if (typeof d2 === 'string') {
-          d2 = new Date(d2);
-        }
-        return d1.getFullYear() === d2.getFullYear()
-          && d1.getMonth() === d2.getMonth()
-          && d1.getDate() === d2.getDate();
-
-      };
-
-      /**
        * 将照片按日期分组，要求照片是按上传日期排序，上传日期距离现在越近，排在最前面
        * @param {Array} photos 照片数组
        */
@@ -1450,7 +1483,7 @@ angular.module('donlerApp.controllers', [])
         var resData = [];
         photos.forEach(function (photo) {
           var lastGroup = resData[resData.length - 1];
-          if (lastGroup && isTheSameDay(lastGroup.date, photo.upload_date)) {
+          if (lastGroup && Tools.isTheSameDay(lastGroup.date, photo.upload_date)) {
             lastGroup.photos.push(photo);
           } else {
             resData.push({

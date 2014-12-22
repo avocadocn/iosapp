@@ -393,7 +393,7 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-  .factory('Tools', [ function () {
+  .factory('Tools', [function () {
     return{
       arrayObjectIndexOf: function (myArray, searchTerm, property) {
         var _property = property.split('.');
@@ -405,8 +405,41 @@ angular.module('donlerApp.services', [])
           if (item.toString() === searchTerm.toString()) return i;
         }
         return -1;
+      },
+
+      /**
+       * 判断两个日期是否是同一天
+       * @param {Date|String} d1
+       * @param {Date|String} d2
+       */
+      isTheSameDay: function (d1, d2) {
+        if (typeof d1 === 'string') {
+          d1 = new Date(d1);
+        }
+        if (typeof d2 === 'string') {
+          d2 = new Date(d2);
+        }
+        return d1.getFullYear() === d2.getFullYear()
+          && d1.getMonth() === d2.getMonth()
+          && d1.getDate() === d2.getDate();
+      },
+
+      /**
+       * 判断两个日期是否是同一个月
+       * @param {Date|String} d1
+       * @param {Date|String} d2
+       */
+      isTheSameMonth: function (d1, d2) {
+        if (typeof d1 === 'string') {
+          d1 = new Date(d1);
+        }
+        if (typeof d2 === 'string') {
+          d2 = new Date(d2);
+        }
+        return d1.getFullYear() === d2.getFullYear()
+          && d1.getMonth() === d2.getMonth();
       }
-    }
+    };
   }])
   .factory('User', ['$http', 'CONFIG', function ($http, CONFIG) {
 

@@ -920,3 +920,11 @@ input:focus:-ms-input-placeholder {
   text-align: center;
   text-decoration: none;
 }
+.team_page .dl_campaign_group .dl_campaign_group_date {
+  margin: 1rem;
+  height: 20px;
+  background-color: #999;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+}
