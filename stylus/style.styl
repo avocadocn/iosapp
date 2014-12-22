@@ -340,6 +340,33 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       width 100%
     .forget_msg
       color col_blue
+  .signup_form
+    .dl_list
+      display flex
+      margin 10px
+      border 1px solid col_blue
+      border-radius 5px
+      padding 6px 0 5px 16px
+      select
+        width 30%
+        float left
+        border 0
+        background-color transparent
+        margin-right 3px
+        color col_blue
+        height 34px
+      input.arecode
+        width 25%
+        float left
+      input.number
+        width 50%
+        float left
+      input.extension
+        width 25%
+        float left
+    .ng-dirty.ng-invalid
+      background-color #FCEBEB
+
 .tip_msg
   color col_blue
   padding 0 10px
@@ -477,24 +504,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       .img 
         border 2px solid col_blue
       
-
-.signup_form
-  select
-    width 30%
-    float left
-  .dl_item_input
-    padding 6px 0 5px 16px
-    input.arecode
-      width 25%
-      float left
-    input.number
-      width 50%
-      float left
-    input.extension
-      width 25%
-      float left
-  .ng-dirty.ng-invalid
-    background-color #FCEBEB
 
 // 日程
 .calendar

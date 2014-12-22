@@ -1,6 +1,6 @@
 
-<ion-view>
-  <ion-header-bar><a href="#/home" class="button icon ion-chevron-left">&nbsp;返回</a><a href="#/company/login" class="button icon ion-chevron-right">&nbsp;登录</a></ion-header-bar>
+<ion-view class="login">
+  <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a><a href="#/company/login" class="button icon-right ion-chevron-right">登录&nbsp;</a></ion-header-bar>
   <ion-content>
     <form ng-controller="companySignupController" name="company_signup_form" novalidate="novalidate" class="signup_form">
       <div class="list list-inset">
@@ -9,12 +9,10 @@
         </label>
         <p ng-if="name_check&amp;&amp;name_repeat">此公司名已被注册，请直接以个人身份注册。</p>
       </div>
-      <div class="list list-inset">
-        <label id="selector" data-select="province city district" class="item dl_item_input">
-          <select type="text" name="province" required="required"></select>
-          <select type="text" name="city" required="required"></select>
-          <select type="text" name="district" required="required"></select>
-        </label>
+      <div id="selector" data-select="province city district" class="dl_list">
+        <select type="text" name="province" required="required"></select>
+        <select type="text" name="city" required="required"></select>
+        <select type="text" name="district" required="required"></select>
       </div>
       <div class="list list-inset">
         <label class="item item-input">
@@ -26,12 +24,10 @@
           <input type="text" name="contacts" ng-model="contacts" placeholder="联系人姓名" required="required"/>
         </label>
       </div>
-      <div class="list list-inset">
-        <label class="item dl_item_input">
-          <input type="number" name="areacode" ng-model="areacode" placeholder="区号" ng-minlength="3" ng-maxlength="4" required="required" class="arecode"/>
-          <input type="number" name="tel" ng-model="tel" placeholder="电话" required="required" class="number"/>
-          <input type="number" name="extension" ng-model="extension" placeholder="分机" class="extension"/>
-        </label>
+      <div class="dl_list">
+        <input type="number" name="areacode" ng-model="areacode" placeholder="区号" ng-minlength="3" ng-maxlength="4" required="required" class="arecode"/>
+        <input type="number" name="tel" ng-model="tel" placeholder="电话" required="required" class="number"/>
+        <input type="number" name="extension" ng-model="extension" placeholder="分机" class="extension"/>
       </div>
       <div class="list list-inset">
         <label class="item item-input">
@@ -44,8 +40,10 @@
           <input type="text" name="phone" ng-model="phone" placeholder="手机号码" ng-minlength="11" ng-maxlength="11" required="required"/>
         </label>
       </div>
-      <p>点击注册即代表同意<a href="#/register/company/law">《法律声明》及《隐私政策》</a></p>
-      <button ng-disabled="!mail_check || mail_error || name_check&amp;&amp;name_error ||company_signup_form.$invalid" ng-click="signup()" class="button button-block button-assertive">企业注册</button><a href="#/register/user/search_company" class="button button-block button-light">个人注册</a>
+      <p class="tip_msg">点击注册即代表同意<a href="#/register/company/law">《法律声明》及《隐私政策》</a></p>
+      <div class="list list-inset">
+        <button ng-disabled="!mail_check || mail_error || name_check&amp;&amp;name_error ||company_signup_form.$invalid" ng-click="signup()" class="button button-block button-assertive">企业注册</button><a href="#/register/user/search_company" class="button button-block button-light">个人注册</a>
+      </div>
     </form>
   </ion-content>
 </ion-view>

@@ -404,6 +404,37 @@ input:focus:-ms-input-placeholder {
 .login .list-inset .forget_msg {
   color: #3ca2e0;
 }
+.login .signup_form .dl_list {
+  display: flex;
+  margin: 10px;
+  border: 1px solid #3ca2e0;
+  border-radius: 5px;
+  padding: 6px 0 5px 16px;
+}
+.login .signup_form .dl_list select {
+  width: 30%;
+  float: left;
+  border: 0;
+  background-color: transparent;
+  margin-right: 3px;
+  color: #3ca2e0;
+  height: 34px;
+}
+.login .signup_form .dl_list input.arecode {
+  width: 25%;
+  float: left;
+}
+.login .signup_form .dl_list input.number {
+  width: 50%;
+  float: left;
+}
+.login .signup_form .dl_list input.extension {
+  width: 25%;
+  float: left;
+}
+.login .signup_form .ng-dirty.ng-invalid {
+  background-color: #fcebeb;
+}
 .tip_msg {
   color: #3ca2e0;
   padding: 0 10px;
@@ -562,28 +593,6 @@ input:focus:-ms-input-placeholder {
 }
 .comments .putright .triangle_img .img {
   border: 2px solid #3ca2e0;
-}
-.signup_form select {
-  width: 30%;
-  float: left;
-}
-.signup_form .dl_item_input {
-  padding: 6px 0 5px 16px;
-}
-.signup_form .dl_item_input input.arecode {
-  width: 25%;
-  float: left;
-}
-.signup_form .dl_item_input input.number {
-  width: 50%;
-  float: left;
-}
-.signup_form .dl_item_input input.extension {
-  width: 25%;
-  float: left;
-}
-.signup_form .ng-dirty.ng-invalid {
-  background-color: #fcebeb;
 }
 .calendar {
   margin: 6px 4px;
