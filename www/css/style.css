@@ -141,7 +141,7 @@ body {
 }
 .app_tabs > .tabs .tab-item .icon {
   width: 32px;
-  height: 28px;
+  height: 30px;
 }
 .app_tabs > .tabs .tab-item .red_spot {
   background-color: #f48361;
@@ -156,44 +156,44 @@ body {
   color: #3ca2e0;
 }
 .ion_campaign {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: 8px 5px;
+  background-image: url("../img/nav_tab.png");
+  background-size: 300px 110px;
+  background-position: 6px -7px;
 }
 .ion_campaign_active {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: 8px -35px;
+  background-image: url("../img/nav_tab.png");
+  background-size: 300px 110px;
+  background-position: 6px -50px;
 }
 .ion_discuss {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: -33px 5px;
+  background-image: url("../img/nav_tab.png");
+  background-size: 300px 110px;
+  background-position: -75px -7px;
 }
 .ion_discuss_active {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: -33px -35px;
+  background-image: url("../img/nav_tab.png");
+  background-size: 300px 110px;
+  background-position: -75px -50px;
 }
 .ion_discover {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: -73px 5px;
+  background-image: url("../img/nav_tab.png");
+  background-size: 300px 110px;
+  background-position: -153px -7px;
 }
 .ion_discover_active {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: -73px -35px;
+  background-image: url("../img/nav_tab.png");
+  background-size: 300px 110px;
+  background-position: -153px -50px;
 }
 .ion_personal {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: -113px 5px;
+  background-image: url("../img/nav_tab.png");
+  background-size: 300px 110px;
+  background-position: -233px -7px;
 }
 .ion_personal_active {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: -113px -35px;
+  background-image: url("../img/nav_tab.png");
+  background-size: 300px 110px;
+  background-position: -233px -50px;
 }
 .comments .time {
   text-align: center;
