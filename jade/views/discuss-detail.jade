@@ -27,7 +27,7 @@ ion-view
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
-              p.triangle-isosceles
+              p.triangle_isosceles.triangle_img
                 img.img(ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)")
             
           .comment
@@ -36,7 +36,7 @@ ion-view
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
-              p.triangle-isosceles {{comment.content}}
+              p.triangle_isosceles {{comment.content}}
             
       .blocks#currentComment
         .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack)
@@ -50,7 +50,7 @@ ion-view
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
-              p.triangle-isosceles
+              p.triangle_isosceles.triangle_img
                 img.img(ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)")
             
           .comment( ng-class="{putright: comment.poster._id == userId}")
@@ -59,7 +59,7 @@ ion-view
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
-              p.triangle-isosceles {{comment.content}}
+              p.triangle_isosceles {{comment.content}}
             
   ion-footer-bar
     i   +   

@@ -24,7 +24,7 @@
               <div class="name">{{comment.poster.nickname}}</div>
             </div>
             <div class="content">
-              <p class="triangle-isosceles"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
+              <p class="triangle_isosceles triangle_img"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
             </div>
           </div>
           <div class="comment">
@@ -33,7 +33,7 @@
               <div class="name">{{comment.poster.nickname}}</div>
             </div>
             <div class="content">
-              <p class="triangle-isosceles">{{comment.content}}</p>
+              <p class="triangle_isosceles">{{comment.content}}</p>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
               <div class="name">{{comment.poster.nickname}}</div>
             </div>
             <div class="content">
-              <p class="triangle-isosceles"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
+              <p class="triangle_isosceles triangle_img"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
             </div>
           </div>
           <div ng-class="{putright: comment.poster._id == userId}" class="comment">
@@ -59,7 +59,7 @@
               <div class="name">{{comment.poster.nickname}}</div>
             </div>
             <div class="content">
-              <p class="triangle-isosceles">{{comment.content}}</p>
+              <p class="triangle_isosceles">{{comment.content}}</p>
             </div>
           </div>
         </div>

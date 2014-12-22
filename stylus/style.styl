@@ -377,7 +377,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       float left
       width 20%
       padding 1rem 0 0 1rem
-    .triangle-isosceles 
+    .triangle_isosceles 
       position relative
       padding 0.8rem
       margin 1rem 0
@@ -385,7 +385,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       border-radius 10px
       background linear-gradient(top, #fff, #fbfbfb)
       margin-left 0.8rem
-    .triangle-isosceles:after 
+    .triangle_isosceles:after 
       content ""
       display block
       position absolute
@@ -400,23 +400,35 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       bottom auto
       border-width 0.6rem 1rem 0.6rem 0
       border-color transparent #fff
+    .triangle_img
+      background none
+      padding 0
+      .img 
+        border-radius 10px
+        border 2px solid #fff
+       
+        
   .putright
     .author
       float right
     .content
       float right
       color #fff
-    .triangle-isosceles 
+    .triangle_isosceles 
       margin-right 0.4rem
       background col_blue
-      background linear-gradient(top, col_blue, col_blue)
-    .triangle-isosceles:after 
+    .triangle_isosceles:after 
       top 1rem
       right -1rem
       left auto
       bottom auto
       border-width 0.6rem 0rem 0.6rem 1rem
       border-color transparent col_blue
+    .triangle_img
+      background none
+      .img 
+        border 2px solid col_blue
+      
 
 .signup_form
   select
