@@ -8,7 +8,7 @@
       <div class="dl_card_header_operator clearfix">
         <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign._id)" prevent-default="prevent-default" class="dl_btn_join">参加</button>
         <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown_end">{{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束</div>
-        <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.is_start" class="dl_cp_time_countdown clearfix"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
+        <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown clearfix"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
       </div>
     </div>
     <div ng-if="campaign.photo_album.photos.length&gt;0" class="dl_card_body">

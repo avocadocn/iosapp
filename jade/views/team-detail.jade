@@ -45,7 +45,7 @@ ion-view
         span.member_count {{team.memberCount}}&nbsp;
         i.icon.ion-chevron-right
 
-    campaign-card(ng-repeat="campaign in campaigns" campaign="campaign" team="team")
+    campaign-card(ng-repeat="campaign in campaigns" campaign="campaign")
     ion-infinite-scroll(on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded()")
 
 
