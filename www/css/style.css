@@ -477,9 +477,12 @@ input:focus:-ms-input-placeholder {
 }
 .comments .putright .content {
   float: right;
+  color: #fff;
 }
 .comments .putright .triangle-isosceles {
   margin-right: 0.4rem;
+  background: #3ca2e0;
+  background: linear-gradient(top, #3ca2e0, #3ca2e0);
 }
 .comments .putright .triangle-isosceles:after {
   top: 1rem;
@@ -487,7 +490,7 @@ input:focus:-ms-input-placeholder {
   left: auto;
   bottom: auto;
   border-width: 0.6rem 0rem 0.6rem 1rem;
-  border-color: transparent #fff;
+  border-color: transparent #3ca2e0;
 }
 .signup_form select {
   width: 30%;
