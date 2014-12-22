@@ -51,14 +51,12 @@ body
         &.icon_textPurple
           color col_textPurple
 .dl_card
+  position relative
   margin 1rem
-  box-shadow 0 4px 0 rgba(204, 204, 204, 1)
+  box-shadow 0 2px 0 rgba(204, 204, 204, 1)
   background-color #fff
-  .item
-    background-color #fff
-    border-color #fff
-    border-style 0px
   .provoke_card
+    display block
     text-decoration none
     .dl_card_header
       border-bottom 1px solid col_darkGray
@@ -116,18 +114,69 @@ body
       display block
       margin 0 auto
 
-  .dl_card_header_provoke
-    padding-right 72px
-  .dl_card_body
-    padding 0
-    .dl_prvoke_info
-      .dl_team_name
-        color col_black
-        margin 0 5px
+  .campaign_card
+    display block
+    text-decoration none
+    .dl_card_header
+      padding 0.833333rem
+      height 65px
+    .dl_team_logo
+      display block
+      float left
+      margin-right 0.833333rem
+      width 45px
+      height 45px
+    .dl_cp_name, .dl_cp_address
+      margin 0
+      float left
+      width 150px
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+    .dl_cp_name
+      font-size 16px
+      color col_black
+    .dl_cp_address
+      margin-top 6px
+      font-size 12px
+      color col_darkGray
+    .dl_card_header_operator
+      float right
     .dl_photo_alb
       white-space nowrap
-  .dl_card_footer
-    color col_darkGray
+    .dl_cp_photo
+      margin-right 5px
+      width 150px
+      height 150px
+    .dl_card_footer
+      height 30px
+      line-height 30px
+      padding 0 0.833333rem
+      font-size 12px
+      color col_darkGray
+    .dl_team_name
+      float left
+      width 200px
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      padding-right 5px
+    .dl_team_number
+      float right
+    .dl_team_comment
+      float right
+      margin-left 10px
+    .ion_member, .ion_comment
+      display block
+      float left
+      margin-top 9px
+      margin-right 5px
+      width 12px
+      height 12px
+    .dl_card_footer_count
+      display block
+      float left
+
 .bar-footer
   padding 0
 .button-bar > .button
@@ -202,8 +251,14 @@ body
   background-image url('../img/nav_tab.png')
   background-size 300px 110px
   background-position -233px -50px
-  
-  
+.ion_member
+  background-image url('../img/icon.png')
+  background-size 160px
+  background-position 0px -80px
+.ion_comment
+  background-image url('../img/icon.png')
+  background-size 160px
+  background-position -40px -80px
 .comments
   .time
     text-align center
