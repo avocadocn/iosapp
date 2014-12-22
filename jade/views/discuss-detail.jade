@@ -10,10 +10,13 @@ ion-view
       h4 活动公告
       button(ng-click="hideNotice=true") x
       p {{noticeSender}}:{{notification}}
+
+    
     .comments
       //- balloon?
       //- .balloon(ng-if="newComment")
       .blocks(ng-repeat="historyComments in historyCommentList track by $index" id="comment{{$index}}")
+        .test {{historyCommentList}}
         .block(ng-repeat="comment in historyComments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack)
           .time(ng-if="showTime")
             p(ng-if="showTime===1") {{comment.create_date | date: 'yyyy'}}
@@ -24,7 +27,7 @@ ion-view
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
-              p.triangle-isosceles.putleft
+              p.triangle-isosceles
                 img.img(ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)")
             
           .comment
@@ -33,29 +36,30 @@ ion-view
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
-              p.triangle-isosceles.putleft {{comment.content}}
+              p.triangle-isosceles {{comment.content}}
             
       .blocks#currentComment
         .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack)
+          
           .time(ng-if="showTime")
             p(ng-if="showTime===1") {{comment.create_date | date: 'yyyy'}}
             p {{comment.create_date | date: 'M月dd日 HH:mm'}}
-          .comment(ng-repeat="photo in comment.photos")
+          .comment(ng-repeat="photo in comment.photos", ng-class="{putright: comment.poster._id == userId}")
             .author
               .logo
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
-              p.triangle-isosceles.putleft
+              p.triangle-isosceles
                 img.img(ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)")
             
-          .comment
+          .comment( ng-class="{putright: comment.poster._id == userId}")
             .author
               .logo
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
-              p.triangle-isosceles.putleft {{comment.content}}
+              p.triangle-isosceles {{comment.content}}
             
   ion-footer-bar
     i   +   

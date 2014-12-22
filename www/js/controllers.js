@@ -425,7 +425,7 @@ angular.module('donlerApp.controllers', [])
     Socket.emit('enterRoom', $stateParams.campaignId);
     //无论进入离开，都需归零user的对应campaign的unread数目
     //获取时清空好了
-
+    $scope.userId = localStorage.id;
     $scope.photos = [];
     var addPhotos = function (comment) {
       if (comment.photos && comment.photos.length > 0) {

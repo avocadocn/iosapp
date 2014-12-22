@@ -427,16 +427,6 @@ input:focus:-ms-input-placeholder {
   background-size: 300px 110px;
   background-position: -233px -50px;
 }
-.ion_member {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: 0px -80px;
-}
-.ion_comment {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
-  background-position: -40px -80px;
-}
 .comments .time {
   text-align: center;
   width: 100%;
@@ -465,6 +455,7 @@ input:focus:-ms-input-placeholder {
   background: #fff;
   border-radius: 10px;
   background: linear-gradient(top, #fff, #fbfbfb);
+  margin-left: 0.8rem;
 }
 .comments .comment .triangle-isosceles:after {
   content: "";
@@ -476,15 +467,27 @@ input:focus:-ms-input-placeholder {
   border-width: 15px 15px 0;
   border-style: solid;
   border-color: #fff transparent;
-}
-.comments .comment .putleft {
-  margin-left: 0.8rem;
-}
-.comments .comment .putleft:after {
   top: 1rem;
   left: -1rem;
   bottom: auto;
   border-width: 0.6rem 1rem 0.6rem 0;
+  border-color: transparent #fff;
+}
+.comments .putright .author {
+  float: right;
+}
+.comments .putright .content {
+  float: right;
+}
+.comments .putright .triangle-isosceles {
+  margin-right: 0.4rem;
+}
+.comments .putright .triangle-isosceles:after {
+  top: 1rem;
+  right: -1rem;
+  left: auto;
+  bottom: auto;
+  border-width: 0.6rem 0rem 0.6rem 1rem;
   border-color: transparent #fff;
 }
 .signup_form select {

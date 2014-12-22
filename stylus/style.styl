@@ -358,19 +358,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-image url('../img/nav_tab.png')
   background-size 300px 110px
   background-position -233px -50px
-<<<<<<< HEAD
-  
 
-=======
-.ion_member
-  background-image url('../img/icon.png')
-  background-size 160px
-  background-position 0px -80px
-.ion_comment
-  background-image url('../img/icon.png')
-  background-size 160px
-  background-position -40px -80px
->>>>>>> cbe530eb99331a3f745d2e990d74145dadc52270
 .comments
   .time
     text-align center
@@ -397,6 +385,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       background #fff
       border-radius 10px
       background linear-gradient(top, #fff, #fbfbfb)
+      margin-left 0.8rem
     .triangle-isosceles:after 
       content ""
       display block
@@ -407,14 +396,27 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       border-width 15px 15px 0
       border-style solid
       border-color #fff transparent
-    .putleft
-      margin-left 0.8rem
-    .putleft:after
       top 1rem
       left -1rem
       bottom auto
       border-width 0.6rem 1rem 0.6rem 0
       border-color transparent #fff
+  .putright
+    .author
+      float right
+    .content
+      float right
+    .triangle-isosceles 
+      margin-right 0.4rem
+    .triangle-isosceles:after 
+      top 1rem
+      right -1rem
+      left auto
+      bottom auto
+      border-width 0.6rem 0rem 0.6rem 1rem
+
+      border-color transparent #fff
+
 .signup_form
   select
     width 30%

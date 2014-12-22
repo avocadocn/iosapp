@@ -12,6 +12,7 @@
     </div>
     <div class="comments">
       <div ng-repeat="historyComments in historyCommentList track by $index" id="comment{{$index}}" class="blocks">
+        <div class="test">{{historyCommentList}}</div>
         <div ng-repeat="comment in historyComments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack="ng-cloack" class="block">
           <div ng-if="showTime" class="time">
             <p ng-if="showTime===1">{{comment.create_date | date: 'yyyy'}}</p>
@@ -23,7 +24,7 @@
               <div class="name">{{comment.poster.nickname}}</div>
             </div>
             <div class="content">
-              <p class="triangle-isosceles putleft"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
+              <p class="triangle-isosceles"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
             </div>
           </div>
           <div class="comment">
@@ -32,7 +33,7 @@
               <div class="name">{{comment.poster.nickname}}</div>
             </div>
             <div class="content">
-              <p class="triangle-isosceles putleft">{{comment.content}}</p>
+              <p class="triangle-isosceles">{{comment.content}}</p>
             </div>
           </div>
         </div>
@@ -43,22 +44,22 @@
             <p ng-if="showTime===1">{{comment.create_date | date: 'yyyy'}}</p>
             <p>{{comment.create_date | date: 'M月dd日 HH:mm'}}</p>
           </div>
-          <div ng-repeat="photo in comment.photos" class="comment">
+          <div ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}" class="comment">
             <div class="author">
               <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
               <div class="name">{{comment.poster.nickname}}</div>
             </div>
             <div class="content">
-              <p class="triangle-isosceles putleft"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
+              <p class="triangle-isosceles"><img ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)" class="img"/></p>
             </div>
           </div>
-          <div class="comment">
+          <div ng-class="{putright: comment.poster._id == userId}" class="comment">
             <div class="author">
               <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
               <div class="name">{{comment.poster.nickname}}</div>
             </div>
             <div class="content">
-              <p class="triangle-isosceles putleft">{{comment.content}}</p>
+              <p class="triangle-isosceles">{{comment.content}}</p>
             </div>
           </div>
         </div>
