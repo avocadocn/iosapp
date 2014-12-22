@@ -1,18 +1,18 @@
 ion-view
   ion-header-bar
-    a.button.icon.ion-chevron-left.button-clear.icon_blue(ng-href="{{calendarBackUrl}}") 返回
+    a.button.icon.icon_small.ion-chevron-left.button-clear.icon_blue(ng-href="{{calendarBackUrl}}") 返回
     a.button.button-clear.icon_blue(ng-if="view==='day'" ng-click="back()") 关闭
     h1.title 我的日程
-    a.button.icon.ion-chevron-down.button-clear.icon-right.icon_blue(ng-click="showFilter($event)") {{campaignTypes[nowTypeIndex].view}}
+    a.button.icon.icon_small.ion-chevron-down.button-clear.icon-right.icon_blue(ng-click="showFilter($event)") {{campaignTypes[nowTypeIndex].view}}
   ion-content.has-header(scroll='false')
     .calendar
       nav
         .operator.item.tabs(ng-if="view==='month'")
             .tab-item(ng-click="preMonth()")
-              i.icon.ion-chevron-left
+              i.icon.icon_small.ion-chevron-left
             .tab-item {{ current_year }} - {{ current_month.format_month }}
             .tab-item(ng-click="nextMonth()")
-              i.icon.ion-chevron-right
+              i.icon.icon_small.ion-chevron-right
           //- .pull-right(ng-if="view!=='year'")
           //-   .btn.today(ng-click="today()") 今天
         .week.text-center.clearfix(ng-if="view!=='year'")
@@ -48,12 +48,13 @@ ion-view
         ion-scroll.calendar_day.clearfix(detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preDay,nextDay" scrollbar-y="false" ng-if="view==='day'" auto-height="121")
           ion-list
             ion-item.calendar_campaign(ng-repeat="campaign in current_day.campaigns")
-              a.item.item-avatar(ng-href="#/campaign/detail/{{campaign._id}}")
-                img.dl_team_logo(ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/40/40'}}")
+              a.item.item-avatar(ng-class="{provoke: campaign.campaign_unit.length==2}" ng-href="#/campaign/detail/{{campaign._id}}")
+                img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/40/40'}}")
+                img.dl_team_logo.second_team(ng-if="campaign.campaign_unit.length==2" ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/40/40'}}")
                 h2 {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].team.name}}{{campaign.campaign_unit[1] ? 'vs' +campaign.campaign_unit[1].team.name || campaign.campaign_unit[1].team.name :''}}
                 p.dl_cp_name {{ campaign.theme }}
-                p.flag(ng-if="current_day.past_flag") {{ campaign.finish?'已经结束':'正在进行' }}
-                p.flag(ng-if="!current_day.past_flag") {{ campaign.join_flag==1?'已参加':'未参加' }}
+                p.flag(ng-if="current_day.past_flag" ng-class="{now:!campaign.finish}") {{ campaign.finish?'已经结束':'正在进行' }}
+                p.flag(ng-if="!current_day.past_flag" ng-class="{join:campaign.join_flag==1}") {{ campaign.join_flag==1?'已参加':'未参加' }}
           .no_campagin.text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
 script(id="my-popover.html" type="text/ng-template")
   ion-popover-view

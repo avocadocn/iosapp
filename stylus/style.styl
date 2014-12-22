@@ -35,7 +35,10 @@ body
     content " "
   &:after
     clear both
-
+.icon.icon_small
+  font-size 16px !important
+  &:before
+    font-size 16px !important
 .dl_header
   opacity 0.9
 .campaigns_container
@@ -549,6 +552,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         &.current_day
           background-color col_blue
           color white
+          border-top solid 1px #2184bf
           .date
             color white
             border-radius 50px
@@ -650,6 +654,24 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       border-right none
       &:first-child
         border-top none
+      .provoke
+        padding-left 116px
+        .second_team
+          position absolute
+          top 16px
+          left 66px
+          max-width 40px
+          max-height 40px
+          width 100%
+          border-radius 4px
+      .flag
+        position absolute
+        top 0
+        right 5px
+        &.now
+          color col_textPurple
+        &.join
+          color col_blue
       .campaign_link
         text-decoration none
         .campaign_title

@@ -1,15 +1,15 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="{{calendarBackUrl}}" class="button icon ion-chevron-left button-clear icon_blue">返回</a><a ng-if="view==='day'" ng-click="back()" class="button button-clear icon_blue">关闭</a>
-    <h1 class="title">我的日程</h1><a ng-click="showFilter($event)" class="button icon ion-chevron-down button-clear icon-right icon_blue">{{campaignTypes[nowTypeIndex].view}}</a>
+  <ion-header-bar><a ng-href="{{calendarBackUrl}}" class="button icon icon_small ion-chevron-left button-clear icon_blue">返回</a><a ng-if="view==='day'" ng-click="back()" class="button button-clear icon_blue">关闭</a>
+    <h1 class="title">我的日程</h1><a ng-click="showFilter($event)" class="button icon icon_small ion-chevron-down button-clear icon-right icon_blue">{{campaignTypes[nowTypeIndex].view}}</a>
   </ion-header-bar>
   <ion-content scroll="false" class="has-header">
     <div class="calendar">
       <nav>
         <div ng-if="view==='month'" class="operator item tabs">
-          <div ng-click="preMonth()" class="tab-item"><i class="icon ion-chevron-left"></i></div>
+          <div ng-click="preMonth()" class="tab-item"><i class="icon icon_small ion-chevron-left"></i></div>
           <div class="tab-item">{{ current_year }} - {{ current_month.format_month }}</div>
-          <div ng-click="nextMonth()" class="tab-item"><i class="icon ion-chevron-right"></i></div>
+          <div ng-click="nextMonth()" class="tab-item"><i class="icon icon_small ion-chevron-right"></i></div>
         </div>
         <div ng-if="view!=='year'" class="week text-center clearfix">
           <div class="day">日</div>
@@ -41,11 +41,11 @@
         </div>
         <ion-scroll detect-gestures="detect-gestures" gesture-type="swiperight,swipeleft" getsture-callback="preDay,nextDay" scrollbar-y="false" ng-if="view==='day'" auto-height="121" class="calendar_day clearfix">
           <ion-list>
-            <ion-item ng-repeat="campaign in current_day.campaigns" class="calendar_campaign"><a ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar"><img ng-repeat="unit in campaign.campaign_unit" ng-src="{{STATIC_URL +(unit.team.logo || unit.company.logo)+'/40/40'}}" class="dl_team_logo"/>
+            <ion-item ng-repeat="campaign in current_day.campaigns" class="calendar_campaign"><a ng-class="{provoke: campaign.campaign_unit.length==2}" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/40/40'}}" class="dl_team_logo"/><img ng-if="campaign.campaign_unit.length==2" ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/40/40'}}" class="dl_team_logo second_team"/>
                 <h2>{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].team.name}}{{campaign.campaign_unit[1] ? 'vs' +campaign.campaign_unit[1].team.name || campaign.campaign_unit[1].team.name :''}}</h2>
                 <p class="dl_cp_name">{{ campaign.theme }}</p>
-                <p ng-if="current_day.past_flag" class="flag">{{ campaign.finish?'已经结束':'正在进行' }}</p>
-                <p ng-if="!current_day.past_flag" class="flag">{{ campaign.join_flag==1?'已参加':'未参加' }}</p></a></ion-item>
+                <p ng-if="current_day.past_flag" ng-class="{now:!campaign.finish}" class="flag">{{ campaign.finish?'已经结束':'正在进行' }}</p>
+                <p ng-if="!current_day.past_flag" ng-class="{join:campaign.join_flag==1}" class="flag">{{ campaign.join_flag==1?'已参加':'未参加' }}</p></a></ion-item>
           </ion-list>
           <div ng-if="current_day.campaigns.length === 0" class="no_campagin text-center">今天没有活动哦</div>
         </ion-scroll>
