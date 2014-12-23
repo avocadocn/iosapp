@@ -11,7 +11,7 @@ ion-view
     h1.title 活动
     a.button.icon.button-clear.ion-plus.icon_blue(href="#/campaign/sponsor")
 
-  ion-content.campaigns_container.has-header(overflow-scroll="true")
+  ion-content.campaigns_container.has-header(delegate-handle="mainScroll" overflow-scroll="true")
     .button-bar.campaign_filter
       a.button.button-clear(ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}") 所有
       a.button.button-clear(ng-click="filter('newCampaigns')" ng-class="{'icon_darkBlue':nowType=='newCampaigns'}") 新活动

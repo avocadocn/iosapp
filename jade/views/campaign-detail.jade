@@ -5,24 +5,29 @@ ion-view
     h1.title {{campaign.theme}}
     a.button.icon.button-clear.ion-chatbubble-working(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
   ion-content
-    .card.dl_card
-      .item.item-divider.dl_card_header
-        .item.item-avatar(ng-if="campaign.campaign_unit.length==1")
-          img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
-          h2.dl_team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
-          span.campaign_mold {{campaign.campaign_mold}}
-        .item.item-avatar(ng-if="campaign.campaign_unit.length==2")
-          img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
-          span.dl_team_vs vs
-          img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
+    .card.dl_card_detail
+      .item.dl_card_header(ng-if="campaign.campaign_unit.length==1")
+        img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
+        h2.dl_team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
+        span.campaign_mold(ng-if="campaign.campaign_mold") {{campaign.campaign_mold}}
+      .item.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2")
+        img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
+        span.dl_team_name {{campaign.campaign_unit[0].team.name}}
+        span.dl_team_vs vs
+        span.dl_team_name {{campaign.campaign_unit[0].team.name}}
+        img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
       .item.item-text-wrap.dl_card_body
         h1.dl_cp_name {{campaign.theme}}
-        p 活动地点：{{campaign.location.name}}
-        p 开始：{{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}} 结束： {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}
-        p 报名截止：{{campaign.deadline | date:"yyyy-MM-dd HH:mm" | day}}
-        div
-          button.button.button-block.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
-          button.button.button-block.dl_cp_quit(ng-if="campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
+        p
+          span.dl_cp_address 活动地点：{{campaign.location.name}}
+        p 开始：{{campaign.start_time | date:"yyyy-MM-dd"}} 结束： {{campaign.end_time | date:"yyyy-MM-dd" }}
+        p 报名截止：{{campaign.deadline | date:"yyyy-MM-dd"}}
+        button.button.button-full.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
+        button.button.button-full.dl_cp_quit(ng-if="campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
+        .dl_card_operator
+          button.button.dl_cp_confirm(ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
+          button.button.dl_cp_refuse(ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝
+          button.button.dl_cp_cancel(ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
         ion-scroll(direction="x")
           a.dl_photo_alb(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
@@ -31,33 +36,41 @@ ion-view
           i.icon.ion-image
           | 上传图片
         a.tab-item.dl_team_number(href="#/members/campaign/{{campaign._id}}")
-          i.icon.ion-person-stalker
+          i.icon.ion_member.dl_icon
           | 活动成员({{campaign.members_count || '0'}})
         .tab-item.dl_team_comment(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
-          i.icon.ion-chatbox
+          i.icon.ion-chatbubble-working
           | {{campaign.comment_sum}}条讨论
-    .card
+    .card.dl_card_detail
       .item.item-text-wrap
-        span 即将开始
-        span {{campaign.remind_text}}：
-        span {{campaign.time_text}}
-    .card(ng-if="notices.length>0")
-      .item.item-divider
+        span.dl_cp_time_status 即将开始
+        span.dl_cp_time_remind {{campaign.remind_text}}：
+        .dl_cp_time_countdown
+          span.dl_cp_time_count {{campaign.time_text.substr(0, campaign.time_text.length - 1)}}
+          span.dl_cp_time_unit {{campaign.time_text.substr(-1)}}
+    .card.dl_card_detail(ng-if="notices.length>0")
+      .item.dl_card_header
         span 活动公告
-        span {{notices.length}}
-      a.item.item-avatar
+        span.dl_notice_count {{notices.length}}
+      a.item.item-avatar.dl_notice
         img(ng-src="{{STATIC_URL +notices[0].sender[0].photo}}")
-        h2 {{notices[0].content}}
+        h2
+          span.dl_notice_sender {{notices[0].sender[0].nickname}}
+          span :
+          span.dl_notice_content {{notices[0].content}}
         p {{notices[0].post_date | date:"yyyy-MM-dd HH:mm" }}
-    .card(ng-if="campaign.members.length>0")
-      .item.item-button-right
+    .card.dl_card_detail(ng-if="campaign.members.length>0")
+      .item.item-button-right.dl_card_member
         ion-scroll(direction="x")
-          img(ng-repeat="member in campaign.members" ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
-        a.button.button-positive(href="#/members/campaign/{{campaign._id}}")
+          span.dl_member(ng-repeat="member in campaign.members")
+            img.dl_member_logo(ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
+            span.dl_member_leader(ng-if="member.isLeader")
+
+        a.button.dl_card_more(href="#/members/campaign/{{campaign._id}}")
           span {{campaign.members_count}}
-          i.icon.ion-chevron-right
-    .card
-      .item.item-divider
+          i.icon.ion-chevron-right.icon_small
+    .card.dl_card_detail(ng-if="campaign.content")
+      .item.dl_card_header
         | 活动简介
-      .item.item-avatar
+      .item.item-text-wrap
         p {{campaign.content}}

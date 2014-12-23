@@ -257,6 +257,205 @@ body {
   display: block;
   float: left;
 }
+.dl_card_detail {
+  display: block;
+  margin: 10px 10px 5px;
+  padding: 10px;
+  box-shadow: 0 2px 0 #ccc;
+  line-height: 18px;
+  background-color: #fff;
+  padding: 0;
+}
+.dl_card_detail .dl_card_header {
+  background-color: #3ca2e0;
+  color: #fff;
+  padding: 10px;
+}
+.dl_card_detail .dl_card_header .dl_team_logo {
+  float: left;
+  border-radius: 5px;
+}
+.dl_card_detail .dl_card_header .dl_team_name {
+  color: #fff;
+  float: left;
+  margin: 0 0 0 10px;
+  line-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 60%;
+}
+.dl_card_detail .dl_card_header .campaign_mold {
+  float: right;
+  color: #3ca2e0;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 5px 0;
+  font-weight: bolder;
+}
+.dl_card_detail .dl_card_header .dl_notice_count {
+  float: right;
+}
+.dl_card_detail .dl_card_header_provoke {
+  background-color: #3ca2e0;
+  color: #fff;
+}
+.dl_card_detail .dl_card_header_provoke .dl_team_logo {
+  float: left;
+  border-radius: 5px;
+}
+.dl_card_detail .dl_card_header_provoke .dl_team_logo_right {
+  float: right;
+}
+.dl_card_detail .dl_card_header_provoke .dl_team_name {
+  color: #fff;
+  float: left;
+  margin: 0 0 0 10px;
+  line-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 25%;
+}
+.dl_card_detail .dl_card_header_provoke .dl_team_vs {
+  color: #fff;
+  float: left;
+  margin: 0 0 0 10px;
+  line-height: 40px;
+}
+.dl_card_detail .dl_card_body {
+  padding: 10px;
+}
+.dl_card_detail .dl_card_body .dl_cp_address {
+  background-color: #e2e2e2;
+  padding: 5px;
+}
+.dl_card_detail .dl_card_body .dl_photo_alb {
+  white-space: nowrap;
+}
+.dl_card_detail .dl_card_body .dl_cp_join {
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  background-color: #3ca2e0;
+}
+.dl_card_detail .dl_card_body .dl_cp_quit {
+  border-radius: 5px;
+  color: #3ca2e0;
+  border: 1px solid #3ca2e0;
+  background-color: #fff;
+}
+.dl_card_detail .dl_card_body .dl_cp_confirm,
+.dl_card_detail .dl_card_body .dl_cp_refuse,
+.dl_card_detail .dl_card_body .dl_cp_cancel {
+  width: 48%;
+  height: 30px;
+  border: none;
+  color: #fff;
+  background-color: #999;
+  font-size: 14px;
+  border-radius: 5px;
+}
+.dl_card_detail .dl_card_body .dl_cp_confirm {
+  background-color: #6a73c6;
+}
+.dl_card_detail .dl_card_body .dl_cp_refuse {
+  float: right;
+}
+.dl_card_detail .dl_card_body .dl_cp_cancel {
+  display: block;
+  margin: 0 auto;
+}
+.dl_card_detail .dl_card_footer .tab-item {
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.dl_card_detail .dl_card_footer .tab-item:last-child {
+  border-right: none;
+}
+.dl_card_detail .dl_card_footer .tab-item .icon {
+  color: #3ca2e0;
+}
+.dl_card_detail .dl_card_footer .tab-item .dl_icon {
+  background-size: 240px;
+  vertical-align: middle;
+  width: 24px;
+  margin-top: 10px;
+}
+.dl_card_detail .dl_card_footer .tab-item .ion_member {
+  background-position: 0px -180px;
+}
+.dl_card_detail .dl_cp_time_status {
+  color: #9e6dd0;
+  margin-right: 10px;
+}
+.dl_card_detail .dl_cp_time_countdown {
+  margin-top: -6px;
+  width: 70px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #806dd0;
+  border-radius: 3px;
+  color: #9e6dd0;
+  font-size: 16px;
+  float: right;
+}
+.dl_card_detail .dl_cp_time_countdown .dl_cp_time_count,
+.dl_card_detail .dl_cp_time_countdown .dl_cp_time_unit {
+  display: block;
+  float: left;
+  width: 34px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+}
+.dl_card_detail .dl_cp_time_countdown .dl_cp_time_count {
+  border-right: 1px solid #806dd0;
+}
+.dl_card_detail .dl_notice span {
+  color: #999;
+}
+.dl_card_detail .dl_notice .dl_notice_sender {
+  color: #3ca2e0;
+}
+.dl_card_detail .dl_notice .dl_notice_content {
+  margin-left: 10px;
+}
+.dl_card_detail .dl_card_member {
+  background-color: #3ca2e0;
+  padding: 6px 46px 2px 10px;
+}
+.dl_card_detail .dl_card_member .dl_member {
+  position: relative;
+}
+.dl_card_detail .dl_card_member .dl_member .dl_member_logo {
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.dl_card_detail .dl_card_member .dl_member .dl_member_leader {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: absolute;
+  right: 5px;
+  bottom: 3px;
+  background-color: #fbc441;
+  border-radius: 100%;
+  background-image: url("../img/icon.png");
+  background-size: 180px;
+  background-position: -42px 49px;
+}
+.dl_card_detail .dl_card_member .dl_card_more {
+  background-color: #3ca2e0;
+  color: #fff;
+  border: none;
+  top: 7px;
+  right: 0;
+}
+.dl_card_detail .dl_card_member .dl_card_more .icon {
+  margin-left: 5px;
+}
 .dl_photo_album_card {
   display: block;
   margin: 10px 10px 5px;
@@ -288,13 +487,6 @@ body {
 }
 .button-bar > .button {
   padding: 0;
-  color: #999;
-}
-.button.button-clear {
-  color: #999;
-}
-.button.icon_blue {
-  color: #3ca2e0;
 }
 .dl_button {
   margin: 0;
@@ -910,6 +1102,27 @@ a>.login .companies_list:activated {
   border-color: transparent #43cee6 transparent transparent;
   border-style: solid;
   border-width: 0 20px 20px;
+}
+.calendar_filter_popover {
+  width: 100px;
+  height: 135px;
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 0 !important;
+}
+.calendar_filter_popover .calendar_content {
+  margin-top: -100px;
+rgba(0,0,0,0.5)
+}
+.calendar_filter_popover .calendar_content .calendar_button {
+  color: #fff;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 16px;
+  border-bottom: 1px solid #000;
+}
+.popover-arrow:after {
+  background-color: rgba(0,0,0,0.7) !important;
 }
 .dl_family_photo_selected {
   border: 1px solid #3ca2e0;

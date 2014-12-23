@@ -54,13 +54,9 @@
   </ion-content>
 </ion-view>
 <script id="my-popover.html" type="text/ng-template">
-  <ion-popover-view>
-    <ion-content>
-      <ion-list>
-        <ion-item ng-repeat="campaignType in campaignTypes">
-          <button ng-click="campaignFilter($index)">{{ campaignType.view}}</button>
-        </ion-item>
-      </ion-list>
+  <ion-popover-view class="calendar_filter_popover">
+    <ion-content class="calendar_content">
+      <div ng-repeat="campaignType in campaignTypes" ng-click="campaignFilter($index)" class="calendar_button">{{ campaignType.view}}</div>
     </ion-content>
   </ion-popover-view>
 </script>

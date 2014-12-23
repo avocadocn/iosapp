@@ -301,6 +301,12 @@ angular.module('donlerApp.controllers', [])
             template: '参加成功'
           });
         }
+        else {
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
+        }
       });
       return false;
     }
@@ -311,6 +317,12 @@ angular.module('donlerApp.controllers', [])
           $ionicPopup.alert({
             title: '提示',
             template: '退出成功'
+          });
+        }
+        else {
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
           });
         }
       });
