@@ -538,16 +538,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .item-input>input
       height 37px
   .signup_form
-    .item-input
-      padding 5px 0 5px 16px
-      input
-        height 18px
+    //- .item-input
+    //-   padding 5px 0 5px 16px
+    //-   input
+    //-     height 18px
     .dl_list
       display flex
       margin 10px 20px
       border 1px solid col_blue
       border-radius 5px
       padding 5px 0 5px 16px
+      height 47px
       select
         width 32%
         float left
@@ -555,9 +556,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         background-color transparent
         margin-right 3px
         color col_blue
-        height 18px
-      input
-        height 18px
+        height 34px
+
       input.arecode
         width 25%
         float left
@@ -632,77 +632,135 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-size 160px
   background-position -40px -80px
 
-.comments
-  .time
-    text-align center
-    width 100%
-    float left
-  .comment
-    width 100%
-    clear both
-    .content
-      float left
-      width auto
-      font-size 16px
-      color col_black
-      max-width 80%
-      
-    .author
-      float left
-      width 20%
-      padding 1rem 0 0 1rem
-    .triangle_isosceles 
-      position relative
-      padding 0.8rem
-      margin 1rem 0
-      background #fff
-      border-radius 10px
-      background linear-gradient(top, #fff, #fbfbfb)
-      margin-left 0.8rem
-    .triangle_isosceles:after 
-      content ""
-      display block
+//- 讨论页
+.discuss_detail
+  background-image url('../img/discuss_bgd.gif')
+  background-size 600px
+  background-position center
+  //-公告
+  .notice
+    height 85px
+    position absolute
+    top 40px
+    width 90%
+    margin 5%
+    .notice_cover
+      background-color #fff
+      opacity 0.6
+      height 85px
+      z-index 1
+      border-radius 3px
       position absolute
-      bottom -15px
-      left 50px
-      width 0
-      border-width 15px 15px 0
-      border-style solid
-      border-color #fff transparent
-      top 1rem
-      left -1rem
-      bottom auto
-      border-width 0.6rem 1rem 0.6rem 0
-      border-color transparent #fff
-    .triangle_img
-      background none
-      padding 0
-      .img 
-        border-radius 10px
-        border 2px solid #fff
-       
-        
-  .putright
-    .author
-      float right
+      width 100%
+      left 0
+      top 0
     .content
-      float right
-      color #fff
-    .triangle_isosceles 
-      margin-right 0.4rem
-      background col_blue
-    .triangle_isosceles:after 
-      top 1rem
-      right -1rem
-      left auto
-      bottom auto
-      border-width 0.6rem 0rem 0.6rem 1rem
-      border-color transparent col_blue
-    .triangle_img
-      background none
-      .img 
-        border 2px solid col_blue
-      
+      z-index 2
+      padding 10px
+      .notice_title
+        color #fff
+        float left
+        font-size 14px
+        font-weight 600
+      .notice_content
+        color #666
+        width 100%
+        float left
+        font-size 16px
+        margin-top 10px
+      .close_button
+        background-color transparent
+        font-size 20px
+        line-height 1
+        padding 0
+  //-发评论
+  .comment_box
+    color #333
+    background-color col_gray
+    .icon
+      font-size 30px
+      padding 8px 10px
+    .comment_input
+      width 70%
+      height 70%
+      margin 6px 0
+    .publish_button
+      padding 0
+      background-color transparent
+      color #333
+      text-align center
+      width 15%
+      font-size 14px
+  //-评论列表
+  .comments
+    .time
+      text-align center
+      width 100%
+      float left
+    .comment
+      width 100%
+      clear both
+      .content
+        float left
+        width auto
+        font-size 16px
+        color col_black
+        max-width 80%
+        
+      .author
+        float left
+        width 20%
+        padding 1rem 0 0 1rem
+      .triangle_isosceles 
+        position relative
+        padding 0.8rem
+        margin 1rem 0
+        background #fff
+        border-radius 10px
+        background linear-gradient(top, #fff, #fbfbfb)
+        margin-left 0.8rem
+      .triangle_isosceles:after 
+        content ""
+        display block
+        position absolute
+        bottom -15px
+        left 50px
+        width 0
+        border-width 15px 15px 0
+        border-style solid
+        border-color #fff transparent
+        top 1rem
+        left -1rem
+        bottom auto
+        border-width 0.6rem 1rem 0.6rem 0
+        border-color transparent #fff
+      .triangle_img
+        background none
+        padding 0
+        .img 
+          border-radius 10px
+          border 2px solid #fff
+
+    .putright
+      .author
+        float right
+      .content
+        float right
+        color #fff
+      .triangle_isosceles 
+        margin-right 0.4rem
+        background col_blue
+      .triangle_isosceles:after 
+        top 1rem
+        right -1rem
+        left auto
+        bottom auto
+        border-width 0.6rem 0rem 0.6rem 1rem
+        border-color transparent col_blue
+      .triangle_img
+        background none
+        .img 
+          border 2px solid col_blue
 
 // 日程
 .calendar

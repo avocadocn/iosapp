@@ -1,18 +1,18 @@
 
-<ion-view>
+<ion-view class="discuss_detail">
   <ion-header-bar><a href="#/app/discuss/list" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon ion-ionic"></a>
   </ion-header-bar>
+  <div ng-show="!hideNotice&amp;&amp;notification" class="notice">
+    <div class="notice_cover"></div>
+    <div class="content"><span class="notice_title">活动公告</span>
+      <button ng-click="hideNotice=true" class="dl_button close_button pull-right">x</button><span class="notice_content">{{noticeSender}}:{{notification}}</span>
+    </div>
+  </div>
   <ion-content>
     <ion-refresher on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
-    <div ng-show="!hideNotice&amp;&amp;notification" class="notice">
-      <h4>活动公告</h4>
-      <button ng-click="hideNotice=true">x</button>
-      <p>{{noticeSender}}:{{notification}}</p>
-    </div>
     <div class="comments">
       <div ng-repeat="historyComments in historyCommentList track by $index" id="comment{{$index}}" class="blocks">
-        <div class="test">{{historyCommentList}}</div>
         <div ng-repeat="comment in historyComments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack="ng-cloack" class="block">
           <div ng-if="showTime" class="time">
             <p ng-if="showTime===1">{{comment.create_date | date: 'yyyy'}}</p>
@@ -66,9 +66,9 @@
       </div>
     </div>
   </ion-content>
-  <ion-footer-bar><i>  +   </i>
-    <input ng-model="commentContent"/>
-    <button ng-click="publishComment()" ng-disabled="!commentContent">发表</button>
+  <ion-footer-bar class="comment_box"><i class="icon ion-image"></i>
+    <input ng-model="commentContent" class="comment_input"/>
+    <button ng-click="publishComment()" ng-disabled="!commentContent" class="dl_button publish_button">发言</button>
   </ion-footer-bar>
 </ion-view>
 <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
