@@ -1,20 +1,20 @@
-ion-view
-   ion-header-bar
-      a.button.icon.ion-chevron-left(href="#/home") &nbsp;返回
-      a.button.icon.ion-chevron-right(href="#/user/login") &nbsp;登录
-   ion-content
-      .list.list-inset
-         label.item.item-input
-            input(type="text" placeholder="输入您的公司全称" ng-model="companyName.value" ng-blur="searchCompany()" ng-keypress="keypress($event)")
-            i.icon.ion-search.placeholder-icon(ng-click="searchCompany()")
-      p(ng-if="!searched") 请在上方输入您的公司名称，进行搜索。
-      .list(ng-if="searched && companies.length")
-         a.item.item-icon-right(ng-repeat="company in companies" ng-click="goDetail(company)")
-            | {{company.name}}
-            i.icon.ion-chevron-right
-      div(ng-if="searched && !companies.length")
-         p 没有您的公司？
-         p
-            a.button.button-outline.button-positive 将动梨推荐给您的HR
-         p
-            a.button.button-outline.button-assertive(href="#/register/company") 为公司注册
+ion-view.login
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
+  ion-content
+    .list.list-inset
+      label.item.item-input
+        input(type="text" placeholder="输入您的公司全称" ng-model="companyName.value" ng-blur="searchCompany()" ng-keypress="keypress($event)")
+        i.icon.ion-search.placeholder-icon.dl_search_icon(ng-click="searchCompany()")
+    .tip_msg(ng-if="!searched")
+      p.gray_msg 请在上方输入您的公司名称，进行搜索。
+    .list(ng-if="searched && companies.length")
+      a.item.item-icon-right.companies_list(ng-repeat="company in companies" ng-click="goDetail(company)")
+        | {{company.name}}
+        i.icon.ion-chevron-right
+    .tip_msg(ng-if="searched")
+      p.medium_tip 没有您的公司？
+      //- p.tip_msg.login_link 将动梨推荐给您的HR
+      p
+        a.medium_tip.dkblue_msg(href="#/register/company") 为公司注册

@@ -309,6 +309,9 @@ body {
   line-height: 30px;
   cursor: pointer;
 }
+.dl_button:hover {
+  color: #fff;
+}
 input::-webkit-input-placeholder {
   color: #3ca2e0;
 }
@@ -347,6 +350,14 @@ input:focus:-ms-input-placeholder {
 .bar .button.activated {
   box-shadow: inset 0px 1px 1px rgba(0,0,0,0.15);
 }
+.bar .icon-left.ion-chevron-left:before {
+  font-size: 14px;
+  padding-left: 10px;
+}
+.bar .icon-right.ion-chevron-right:before {
+  font-size: 14px;
+  padding-right: 10px;
+}
 .home {
   background: url("../img/index_1.gif") center no-repeat;
   background-size: 401px;
@@ -378,47 +389,103 @@ input:focus:-ms-input-placeholder {
 .login input {
   color: #3ca2e0;
 }
-.login .list-inset .item {
+.login .list.list-inset:first-child {
+  margin: 20px 20px 15px;
+}
+.login .list.list-inset {
+  margin: 15px 20px;
+}
+.login .list.list-inset .item {
   border: 1px solid #3ca2e0;
   border-radius: 5px;
 }
-.login .list-inset .login_button {
+.login .list.list-inset .login_button {
   background-color: #3ca2e0;
   border-radius: 5px;
   font-size: 16px;
   font-weight: 600;
   width: 100%;
+  min-height: 40px;
+  line-height: 40px;
 }
-.login .list-inset .login_link {
-  text-decoration: none;
-  font-size: 14px;
-  color: #666;
-}
-.login .list-inset .forget_button {
+.login .list.list-inset .dkblue_button {
   background-color: #618bd7;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 600;
-  width: 100%;
 }
-.login .list-inset .forget_msg {
+.login .list.list-inset .dl_search_icon {
   color: #3ca2e0;
+  font-size: 30px;
+  margin: -10px 10px;
+}
+.login .links,
+.login .tip_msg {
+  margin: 0 20px;
+}
+.login .links .medium_tip,
+.login .tip_msg .medium_tip {
+  font-size: 14px;
+}
+.login .links .large_tip,
+.login .tip_msg .large_tip {
+  font-size: 16px;
+}
+.login .links .gray_msg,
+.login .tip_msg .gray_msg {
+  color: #999;
+}
+.login .links .black_msg,
+.login .tip_msg .black_msg {
+  color: #666;
+  font-weight: 600;
+}
+.login .links .blue_msg,
+.login .tip_msg .blue_msg {
+  color: #3ca2e0;
+}
+.login .links .dkblue_msg,
+.login .tip_msg .dkblue_msg {
+  color: #618bd7;
+}
+.login .links a,
+.login .tip_msg a {
+  text-decoration: none;
+}
+.login .companies_list {
+  color: #3ca2e0;
+  padding: 16px 18px;
+}
+a>.login .companies_list:activated {
+  background-color: #676767;
+}
+.login .companies_list .icon.ion-chevron-right {
+  font-size: 18px;
+}
+.login .login_form .item-input>input {
+  height: 37px;
+}
+.login .signup_form .item-input {
+  padding: 5px 0 5px 16px;
+}
+.login .signup_form .item-input input {
+  height: 18px;
 }
 .login .signup_form .dl_list {
   display: flex;
-  margin: 10px;
+  margin: 10px 20px;
   border: 1px solid #3ca2e0;
   border-radius: 5px;
-  padding: 6px 0 5px 16px;
+  padding: 5px 0 5px 16px;
 }
 .login .signup_form .dl_list select {
-  width: 30%;
+  width: 32%;
   float: left;
   border: 0;
   background-color: transparent;
   margin-right: 3px;
   color: #3ca2e0;
-  height: 34px;
+  height: 18px;
+}
+.login .signup_form .dl_list input {
+  height: 18px;
 }
 .login .signup_form .dl_list input.arecode {
   width: 25%;
@@ -434,10 +501,6 @@ input:focus:-ms-input-placeholder {
 }
 .login .signup_form .ng-dirty.ng-invalid {
   background-color: #fcebeb;
-}
-.tip_msg {
-  color: #3ca2e0;
-  padding: 0 10px;
 }
 .pull-right {
   float: right;

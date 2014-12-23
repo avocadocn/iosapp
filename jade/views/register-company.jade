@@ -7,7 +7,8 @@ ion-view.login
       .list.list-inset
         label.item.item-input
           input(type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required)
-        p(ng-if="name_check&&name_repeat") 此公司名已被注册，请直接以个人身份注册。
+      .tip_msg(ng-if="name_check&&name_repeat")
+        span.gray_msg 此公司名已被注册，请直接以个人身份注册。
       //- .list.list-inset
         label.dl_item_input#selector(data-select="province city district")
       div.dl_list#selector(data-select="province city district")
@@ -31,8 +32,10 @@ ion-view.login
       .list.list-inset
         label.item.item-input
           input(type="text" name="phone" ng-model="phone" placeholder="手机号码" ng-minlength=11 ng-maxlength=11 required)
-      p.tip_msg 点击注册即代表同意
-        a(href="#/register/company/law") 《法律声明》及《隐私政策》
+      .tip_msg
+        span.gray_msg 点击注册即代表同意
+        a.blue_msg(href="#/register/company/law") 《法律声明》及《隐私政策》
       .list.list-inset
-        button.button.button-block.button-assertive(ng-disabled="!mail_check || mail_error || name_check&&name_error ||company_signup_form.$invalid" ng-click="signup()") 企业注册
-        a.button.button-block.button-light(href="#/register/user/search_company") 个人注册
+        button.button.dl_button.login_button(ng-disabled="!mail_check || mail_error || name_check&&name_error ||company_signup_form.$invalid" ng-click="signup()") 企业注册
+      .list.list-inset
+        a.button.dl_button.login_button.dkblue_button(href="#/register/user/search_company") 个人注册

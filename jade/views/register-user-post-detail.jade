@@ -3,42 +3,45 @@ ion-view.login
     a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
     a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
   ion-content
-    p {{companyName}}
+    .list.list-inset.tip_msg
+      span.large_tip.black_msg {{companyName}}
     form.signup_form(name="user_signup_form" novalidate)
       .list.list-inset
         label.item.item-input
           input(type="email" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required)
-      span.tip_msg(ng-show="active===1") 该邮箱可以注册。
-      span.tip_msg(ng-show="active===2") 该邮箱已注册过但尚未激活，请到邮箱查收邮件。
-      span.tip_msg(ng-show="active===3") 该邮箱已注册，请直接登录。
-      span.tip_msg(ng-show="active===4") 请使用企业邮箱进行注册，若企业后缀不统一，请通知贵公司管理员进行后缀添加。
-      span.tip_msg(ng-show="mail_msg") {{mail_msg}}
-      div(ng-show="!active||active===1")
-        .list.list-inset
-          label.item.item-input
-            input(type="text" ng-model="data.nickname" placeholder="昵称" required)
-        .list.list-inset
-          label.item.item-input
-            input(type="password" ng-model="data.password" placeholder="密码" required)
-        .list.list-inset
-          label.item.item-input
-            input(type="password" ng-model="data.passconf" placeholder="密码确认" match="data.password" required)
-        .list.list-inset
-          label.item.item-input
-            input(type="text" ng-model="data.realname" placeholder="真实姓名" required)
-        //- .list.list-inset
-        //-   label.item.item-input
-        //-     input(type="text" placeholder="部门")
-        .list.list-inset
-          label.item.item-input
-            input(type="text" ng-model="data.phone" placeholder="手机号码(选填)")
-        .list.list-inset
-          label.item.item-input
-            input(type="text" ng-model="data.inviteKey" placeholder="公司专属8位激活码" ng-change="checkInvitekey()" required)
-        p(ng-if="!invitekeyCheck") 为了保证每一个动梨用户都是真实可靠的，请您向HR或同事索要激活码。
-        .list.list-inset(ng-show="invitekeyCheck")
-          p(ng-if="invitekeyCheck===1") 激活码验证成功
-          p(ng-if="invitekeyCheck===2") 激活码填写错误
-        p 点击注册即代表同意
-          a(href="#/register/user/law") 《法律声明》及《隐私政策》
-        button.button.button-block.button-positive(ng-disabled="active!==1 || invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()") 个人注册
+      .tip_msg(ng-show="active||mail_msg")
+        span.gray_msg(ng-show="active===1") 该邮箱可以注册。
+        span.gray_msg(ng-show="active===2") 该邮箱已注册过但尚未激活，请到邮箱查收邮件。
+        span.gray_msg(ng-show="active===3") 该邮箱已注册，请直接登录。
+        span.gray_msg(ng-show="active===4") 请使用企业邮箱进行注册，若企业后缀不统一，请通知贵公司管理员进行后缀添加。
+        span.gray_msg(ng-show="mail_msg") {{mail_msg}}
+      .list.list-inset
+        label.item.item-input
+          input(type="text" ng-model="data.nickname" placeholder="昵称" required)
+      .list.list-inset
+        label.item.item-input
+          input(type="password" ng-model="data.password" placeholder="密码" required)
+      .list.list-inset
+        label.item.item-input
+          input(type="password" ng-model="data.passconf" placeholder="密码确认" match="data.password" required)
+      .list.list-inset
+        label.item.item-input
+          input(type="text" ng-model="data.realname" placeholder="真实姓名" required)
+      //- .list.list-inset
+      //-   label.item.item-input
+      //-     input(type="text" placeholder="部门")
+      .list.list-inset
+        label.item.item-input
+          input(type="text" ng-model="data.phone" placeholder="手机号码(选填)")
+      .list.list-inset
+        label.item.item-input
+          input(type="text" ng-model="data.inviteKey" placeholder="公司专属8位激活码" ng-change="checkInvitekey()" required)
+      .tip_msg
+        p.gray_msg(ng-if="!invitekeyCheck") 为了保证每一个动梨用户都是真实可靠的，请您向HR或同事索要激活码。
+        p.gray_msg(ng-if="invitekeyCheck===1") 激活码验证成功
+        p.gray_msg(ng-if="invitekeyCheck===2") 激活码填写错误
+        p
+          span.gray_msg 点击注册即代表同意
+          a.blue_msg(href="#/register/user/law") 《法律声明》及《隐私政策》
+      .list.list-inset
+        button.button.dl_button.login_button(ng-disabled="active!==1 || invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()") 个人注册

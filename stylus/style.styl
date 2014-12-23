@@ -260,6 +260,8 @@ body
   font-size 12px
   line-height 30px
   cursor pointer
+  &:hover
+    color #fff
 
 //-input全局placeholder
 input::-webkit-input-placeholder /* WebKit browsers */
@@ -292,6 +294,15 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     line-height 34px
   .button.activated
     box-shadow inset 0px 1px 1px rgba(0, 0, 0, 0.15)
+  .icon-left.ion-chevron-left
+    &:before
+      font-size 14px
+      padding-left 10px
+  .icon-right.ion-chevron-right
+    &:before
+      font-size 14px
+      padding-right 10px
+
 //- home页
 .home
   background url('../img/index_1.gif') center no-repeat
@@ -313,48 +324,84 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       margin-right 3%
     .register_button
       background-color col_darkBlue
-//-登录页、忘记密码页
+//-登录页、忘记密码页、注册页
 .login
   background-color #fff
   input
     color col_blue
-  .list-inset
+  .list.list-inset
+    &:first-child
+      margin 20px 20px 15px
+  .list.list-inset
+    margin 15px 20px
     .item
       border 1px solid col_blue
       border-radius 5px
+    //-buttons
     .login_button
       background-color col_blue
       border-radius 5px
       font-size 16px
       font-weight 600
       width 100%
-    .login_link
-      text-decoration none
-      font-size 14px
-      color #666
-    .forget_button
+      min-height 40px
+      line-height 40px
+    .dkblue_button
       background-color col_darkBlue
-      border-radius 5px
+    .dl_search_icon
+      color #3ca2e0
+      font-size 30px
+      margin -10px 10px
+  //-words
+  .links, .tip_msg
+    margin 0 20px
+    .medium_tip
+      font-size 14px
+    .large_tip
       font-size 16px
+    .gray_msg
+      color col_darkGray
+    .black_msg
+      color #666
       font-weight 600
-      width 100%
-    .forget_msg
+    .blue_msg
       color col_blue
+    .dkblue_msg
+      color col_darkBlue
+    a
+      text-decoration none
+  .companies_list
+    color col_blue
+    padding 16px 18px
+    a>&:activated
+      background-color col_lightGray
+    .icon.ion-chevron-right
+      font-size 18px
+  //-special for input
+  .login_form
+    .item-input>input
+      height 37px
   .signup_form
+    .item-input
+      padding 5px 0 5px 16px
+      input
+        height 18px
     .dl_list
       display flex
-      margin 10px
+      margin 10px 20px
       border 1px solid col_blue
       border-radius 5px
-      padding 6px 0 5px 16px
+      padding 5px 0 5px 16px
       select
-        width 30%
+        width 32%
         float left
         border 0
         background-color transparent
         margin-right 3px
         color col_blue
-        height 34px
+        height 18px
+      input
+        height 18px
       input.arecode
         width 25%
         float left
@@ -366,10 +413,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         float left
     .ng-dirty.ng-invalid
       background-color #FCEBEB
-
-.tip_msg
-  color col_blue
-  padding 0 10px
 .pull-right
   float right
 .app_tabs > .tabs
