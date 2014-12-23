@@ -1170,3 +1170,39 @@ a>.login .companies_list:activated {
 .photo_album_detail_page .hidden_figcaption {
   display: none;
 }
+.personal_team_list_page .dl_team_card {
+  display: block;
+  margin: 10px 10px 5px;
+  padding: 10px;
+  box-shadow: 0 2px 0 #ccc;
+  line-height: 18px;
+  background-color: #fff;
+  position: relative;
+  border-radius: 5px;
+}
+.personal_team_list_page .team_logo {
+  display: block;
+  float: left;
+  width: 60px;
+  height: 60px;
+}
+.personal_team_list_page .team_info {
+  float: left;
+  margin-left: 10px;
+  color: #333;
+}
+.personal_team_list_page .team_name {
+  margin: 0;
+  margin-top: 5px;
+  font-size: 14px;
+}
+.personal_team_list_page .team_cp_title,
+.personal_team_list_page .team_count,
+.personal_team_list_page .team_member,
+.personal_team_list_page .team_cp_number {
+  margin: 0;
+  font-size: 12px;
+}
+.personal_team_list_page .team_cp_title {
+  margin-top: 5px;
+}

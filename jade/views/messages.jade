@@ -3,7 +3,6 @@ ion-view
     a.button.icon.ion-chevron-left(href="#/app/personal") &nbsp;我的
     h1.title 我的站内信
   ion-content
-    h1 站内信，待设计
     ul.list
       li.item(ng-repeat="message in messages" ng-class="{'dl_message_unread': message.status=='unread'}")
         | {{message.MessageContent.caption}}

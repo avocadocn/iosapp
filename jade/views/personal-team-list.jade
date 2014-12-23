@@ -3,12 +3,12 @@ ion-view
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/app/personal") &nbsp;我的
     h1.title 我的小队
-  ion-content
-    .list
-      a.item.item-thumbnail-left.dl_team_card(ng-repeat="team in teams" ng-href="#/team/{{team._id}}")
-        img.team_logo(ng-src="{{STATIC_URL + team.logo}}/85/85")
+  ion-content.personal_team_list_page
+    a.dl_team_card.clearfix(ng-repeat="team in teams" ng-href="#/team/{{team._id}}")
+      img.team_logo(ng-src="{{STATIC_URL + team.logo}}/120/120")
+      .team_info
         h2.team_name {{team.name}}
         p.team_cp_title(ng-if="team.lastCampaign") 2014-11-20 年末足球赛
-        p
+        p.team_count
          span.team_member 队员：{{team.memberCount}}
          span.team_cp_number(ng-if="team.campaignCount") 活动：{{team.campaignCount}}
