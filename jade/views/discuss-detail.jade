@@ -1,22 +1,21 @@
-ion-view
+ion-view.discuss_detail
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
     h1.title {{campaignTitle}}
     a.button.icon.ion-ionic(href="#/campaign/detail/{{campaignId}}")
-
+  .notice(ng-show="!hideNotice&&notification")
+    .notice_cover
+    .content
+      span.notice_title 活动公告
+      button.dl_button.close_button.pull-right(ng-click="hideNotice=true") x
+      span.notice_content {{noticeSender}}:{{notification}}
   ion-content
     ion-refresher(on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
-    .notice(ng-show="!hideNotice&&notification")
-      h4 活动公告
-      button(ng-click="hideNotice=true") x
-      p {{noticeSender}}:{{notification}}
-
-    
     .comments
       //- balloon?
       //- .balloon(ng-if="newComment")
       .blocks(ng-repeat="historyComments in historyCommentList track by $index" id="comment{{$index}}")
-        .test {{historyCommentList}}
+        //- .test {{historyCommentList}}
         .block(ng-repeat="comment in historyComments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack)
           .time(ng-if="showTime")
             p(ng-if="showTime===1") {{comment.create_date | date: 'yyyy'}}
@@ -61,9 +60,9 @@ ion-view
             .content
               p.triangle_isosceles {{comment.content}}
             
-  ion-footer-bar
-    i   +   
-    input(ng-model = "commentContent")
-    button(ng-click="publishComment()" ng-disabled="!commentContent") 发表
+  ion-footer-bar.comment_box
+    i.icon.ion-image
+    input.comment_input(ng-model = "commentContent")
+    button.dl_button.publish_button(ng-click="publishComment()" ng-disabled="!commentContent") 发言
 
 include ./photo-swipe
