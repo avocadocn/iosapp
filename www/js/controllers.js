@@ -466,12 +466,14 @@ angular.module('donlerApp.controllers', [])
     var addPhotos = function (comment) {
       if (comment.photos && comment.photos.length > 0) {
         comment.photos.forEach(function (photo) {
+          var width = photo.width || INFO.screenWidth;
+          var height = photo.height || INFO.screenHeight;
           // todo 获取屏幕尺寸
           $scope.photos.push({
             _id: photo._id,
-            src: CONFIG.STATIC_URL + photo.uri + '/resize/' + INFO.screenWidth + '/' + INFO.screenHeight,
-            w: INFO.screenWidth,
-            h: INFO.screenHeight
+            src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
+            w: width,
+            h: height
           });
         });
       }
