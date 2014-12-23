@@ -9,7 +9,7 @@ ion-view
         p.header_title {{group.date | date:'yyyy年MM月dd日'}}
       .dl_gallery.clearfix(itemscope itemtype="http://schema.org/ImageGallery")
         figure.photo(itemscope itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos")
-          a(ng-href="{{STATIC_URL + photo.uri}}/resize/{{screenWidth}}/{{screenHeight}}" itemprop="contentUrl" data-size="{{screenWidth}}x{{screenHeight}}")
+          a(ng-href="{{STATIC_URL + photo.uri}}/resize/{{photo.viewWidth}}/{{photo.viewHeight}}" itemprop="contentUrl" data-size="{{photo.viewWidth}}x{{photo.viewHeight}}")
             img(ng-src="{{STATIC_URL + photo.uri}}/65/65" itemprop="thumbnail")
           figcaption.hidden_figcaption(itemprop="caption description") {{photo.name}}
 

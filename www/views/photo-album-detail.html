@@ -9,7 +9,7 @@
         <p class="header_title">{{group.date | date:'yyyy年MM月dd日'}}</p>
       </div>
       <div itemscope="itemscope" itemtype="http://schema.org/ImageGallery" class="dl_gallery clearfix">
-        <figure itemscope="itemscope" itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos" class="photo"><a ng-href="{{STATIC_URL + photo.uri}}/resize/{{screenWidth}}/{{screenHeight}}" itemprop="contentUrl" data-size="{{screenWidth}}x{{screenHeight}}"><img ng-src="{{STATIC_URL + photo.uri}}/65/65" itemprop="thumbnail"/></a>
+        <figure itemscope="itemscope" itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos" class="photo"><a ng-href="{{STATIC_URL + photo.uri}}/resize/{{photo.viewWidth}}/{{photo.viewHeight}}" itemprop="contentUrl" data-size="{{photo.viewWidth}}x{{photo.viewHeight}}"><img ng-src="{{STATIC_URL + photo.uri}}/65/65" itemprop="thumbnail"/></a>
           <figcaption itemprop="caption description" class="hidden_figcaption">{{photo.name}}</figcaption>
         </figure>
       </div>
@@ -28,7 +28,6 @@
       <div class="pswp__top-bar">
         <div class="pswp__counter"></div>
         <button title="关闭" class="pswp__button pswp__button--close"></button>
-        <button title="全屏" class="pswp__button pswp__button--fs"></button>
         <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
         <div class="pswp__preloader">
           <div class="pswp__preloader__icn">

@@ -1517,11 +1517,31 @@ angular.module('donlerApp.controllers', [])
         }
       });
 
+      var setPhotoSize = function (photo) {
+        if (photo.width < INFO.screenWidth && photo.height < INFO.screenHeight) {
+          photo.viewWidth = photo.width;
+          photo.viewHeight = photo.height;
+        } else {
+          // o: photo, d: device, 比较 ow/oh 与 dw/dh, 即ow/oh-dw/dh >= 0?
+          var compareResult = photo.width * INFO.screenHeight - photo.height * INFO.screenWidth;
+          if (compareResult >= 0) {
+            // 将图片的宽度调整至屏幕宽度，高度自适应（必定会比屏幕高度小）
+            photo.viewWidth = INFO.screenWidth;
+            photo.viewHeight = Math.floor(photo.height * INFO.screenWidth / photo.width);
+          } else {
+            // 将图片的高度调整至屏幕高度，宽度自适应（必定会比屏幕宽度小）
+            photo.viewHeight = INFO.screenHeight;
+            photo.viewWidth = Math.floor(photo.width * INFO.screenHeight / photo.height);
+          }
+        }
+      };
+
       PhotoAlbum.getPhotos($stateParams.photoAlbumId, function (err, photos) {
         if (err) {
           // todo
           console.log(err);
         } else {
+          photos.forEach(setPhotoSize);
           $scope.photoGroups = groupByDate(photos);
         }
       });
