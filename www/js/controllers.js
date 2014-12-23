@@ -846,7 +846,7 @@ angular.module('donlerApp.controllers', [])
           }
         }
         var dayOperate = function (i,campaign) {
-          if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==campaign.join_flag) {
+          if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==campaign.join_flag ||$scope.nowTypeIndex==0&&campaign.join_flag==-1) {
             month_data.days[i-1].events.push(campaign);
             // month_data.days[i-1].has_event = true;
             // if (campaign.is_joined) {
