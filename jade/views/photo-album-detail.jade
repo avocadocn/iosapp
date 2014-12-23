@@ -12,5 +12,7 @@ ion-view
           a(ng-href="{{STATIC_URL + photo.uri}}/resize/{{photo.viewWidth}}/{{photo.viewHeight}}" itemprop="contentUrl" data-size="{{photo.viewWidth}}x{{photo.viewHeight}}")
             img(ng-src="{{STATIC_URL + photo.uri}}/65/65" itemprop="thumbnail")
           figcaption.hidden_figcaption(itemprop="caption description") {{photo.name}}
+    .list(ng-if="photoGroups.length === 0")
+      .item 该相册还没有照片，快来上传吧。
 
 include ./photo-swipe

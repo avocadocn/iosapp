@@ -14,6 +14,9 @@
         </figure>
       </div>
     </div>
+    <div ng-if="photoGroups.length === 0" class="list">
+      <div class="item">该相册还没有照片，快来上传吧。</div>
+    </div>
   </ion-content>
 </ion-view>
 <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">

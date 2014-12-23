@@ -1434,7 +1434,6 @@ angular.module('donlerApp.controllers', [])
     function ($scope, $stateParams, PhotoAlbum, Team, INFO) {
       $scope.teamId = $stateParams.teamId;
       INFO.photoAlbumBackUrl = '#/photo_album/list/team/' + $stateParams.teamId;
-
       Team.getFamilyPhotos($scope.teamId, function (err, photos) {
         if (err) {
           // todo
