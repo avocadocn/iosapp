@@ -4,10 +4,10 @@ ion-view
     h1.title {{team.name}}
   ion-content.team_page
     .team_header
-      //-todo 有bug，滑动有问题，原因未知，可能需要较多时间排查，先搁置
-      ion-slide-box
+      ion-slide-box(ng-cloak)
         ion-slide(ng-repeat="photo in team.familyPhotos")
           img.team_family(ng-src="{{STATIC_URL + photo.uri}}/640/380")
+      img.team_family(ng-if="team.familyPhotos.length === 0" src="./img/family.png")
       img.logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/130/130")
     .card.team_info
       .info_header.clearfix

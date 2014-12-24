@@ -1233,8 +1233,7 @@ rgba(0,0,0,0.5)
   position: relative;
 }
 .team_page .team_header .team_family {
-  width: 320px;
-  height: 190px;
+  width: 100%;
 }
 .team_page .team_header .logo {
   position: absolute;
