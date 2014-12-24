@@ -1452,7 +1452,7 @@ rgba(0,0,0,0.5)
 .photo_album_detail_page .hidden_figcaption {
   display: none;
 }
-.personal_team_list_page .dl_team_card {
+.dl_team_card {
   display: block;
   margin: 10px 10px 5px;
   padding: 10px;
@@ -1462,29 +1462,52 @@ rgba(0,0,0,0.5)
   position: relative;
   border-radius: 5px;
 }
-.personal_team_list_page .team_logo {
+.dl_team_card .team_logo {
   display: block;
   float: left;
   width: 60px;
   height: 60px;
 }
-.personal_team_list_page .team_info {
+.dl_team_card .team_info {
   float: left;
   margin-left: 10px;
   color: #333;
 }
-.personal_team_list_page .team_name {
+.dl_team_card .team_name {
   margin: 0;
   margin-top: 5px;
   font-size: 14px;
 }
-.personal_team_list_page .team_cp_title,
-.personal_team_list_page .team_count,
-.personal_team_list_page .team_member,
-.personal_team_list_page .team_cp_number {
+.dl_team_card .team_cp_title,
+.dl_team_card .team_count,
+.dl_team_card .team_member,
+.dl_team_card .team_cp_number {
   margin: 0;
   font-size: 12px;
 }
-.personal_team_list_page .team_cp_title {
+.dl_team_card .team_cp_title {
   margin-top: 5px;
+}
+.all_team_list_page .team_logo {
+  width: 85px;
+  height: 85px;
+}
+.all_team_list_page .btn_quit,
+.all_team_list_page .btn_join {
+  margin-top: 10px;
+  padding: 0;
+  width: 185px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.all_team_list_page .btn_quit {
+  border: 1px solid #3ca2e0;
+  color: #3ca2e0;
+  background-color: #fff;
+}
+.all_team_list_page .btn_join {
+  color: #fff;
+  background-color: #3ca2e0;
+  border: none;
 }

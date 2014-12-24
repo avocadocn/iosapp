@@ -3,7 +3,7 @@
   <ion-header-bar><a href="#/app/personal" class="button icon ion-chevron-left">&nbsp;我的</a>
     <h1 class="title">我的小队</h1>
   </ion-header-bar>
-  <ion-content class="personal_team_list_page"><a ng-repeat="team in teams" ng-href="#/team/{{team._id}}" class="dl_team_card clearfix"><img ng-src="{{STATIC_URL + team.logo}}/120/120" class="team_logo"/>
+  <ion-content><a ng-repeat="team in teams" ng-href="#/team/{{team._id}}" class="dl_team_card clearfix"><img ng-src="{{STATIC_URL + team.logo}}/120/120" class="team_logo"/>
       <div class="team_info">
         <h2 class="team_name">{{team.name}}</h2>
         <p ng-if="team.lastCampaign" class="team_cp_title">2014-11-20 年末足球赛</p>

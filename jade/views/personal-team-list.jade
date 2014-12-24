@@ -3,7 +3,7 @@ ion-view
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/app/personal") &nbsp;我的
     h1.title 我的小队
-  ion-content.personal_team_list_page
+  ion-content
     a.dl_team_card.clearfix(ng-repeat="team in teams" ng-href="#/team/{{team._id}}")
       img.team_logo(ng-src="{{STATIC_URL + team.logo}}/120/120")
       .team_info
