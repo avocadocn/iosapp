@@ -5,6 +5,9 @@
   </ion-header-bar>
   <ion-content>
     <form name="editForm" class="list">
+      <div class="item item-thumbnail-right"><img ng-src="{{STATIC_URL + user.photo}}/160/160"/>
+        <h2>头像</h2>
+      </div>
       <div class="item item-input"><span class="input-label">昵称</span>
         <input type="text" name="nickname" ng-model="formData.nickname"/>
       </div>

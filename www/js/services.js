@@ -438,7 +438,22 @@ angular.module('donlerApp.services', [])
         }
         return d1.getFullYear() === d2.getFullYear()
           && d1.getMonth() === d2.getMonth();
+      },
+
+      /**
+       * 获取生日对应的星座
+       * @param  {Number} mon 月份，1-12
+       * @param  {Number} day 日期，1-31
+       * @return {String}     星座名
+       */
+      birthdayToConstellation: function(mon, day) {
+        var s = "魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
+        var d = [20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22];
+        var i = mon * 2 - (day < d[mon - 1] ? 2 : 0);
+        return s.substring(i, i + 2) + "座";
       }
+
+
     };
   }])
   .factory('User', ['$http', 'CONFIG', function ($http, CONFIG) {

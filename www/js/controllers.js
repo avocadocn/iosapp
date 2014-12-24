@@ -670,7 +670,7 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
-  .controller('PersonalController', ['$scope', '$state', 'User', 'Message', 'INFO', function ($scope, $state, User, Message, INFO) {
+  .controller('PersonalController', ['$scope', '$state', 'User', 'Message', 'INFO', 'Tools', function ($scope, $state, User, Message, INFO, Tools) {
     INFO.calendarBackUrl ='#/app/personal';
     User.getData(localStorage.id, function (err, data) {
       if (err) {
@@ -678,6 +678,10 @@ angular.module('donlerApp.controllers', [])
         console.log(err);
       } else {
         $scope.user = data;
+        if ($scope.user.birthday) {
+          var birthday = new Date($scope.user.birthday);
+          $scope.constellation = Tools.birthdayToConstellation(birthday.getMonth() + 1, birthday.getDate());
+        }
       }
     });
 

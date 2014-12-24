@@ -6,6 +6,9 @@ ion-view
 
   ion-content
     form.list(name="editForm")
+      .item.item-thumbnail-right
+        img(ng-src="{{STATIC_URL + user.photo}}/160/160")
+        h2 头像
       .item.item-input
         span.input-label 昵称
         input(type="text" name="nickname" ng-model="formData.nickname")
