@@ -1264,7 +1264,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'Tools', 'INFO', function ($scope, $stateParams, Team, Campaign, Tools, INFO) {
+  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($scope, $stateParams, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
     INFO.campaignBackUrl = '#/team/' + teamId;
@@ -1283,6 +1283,7 @@ angular.module('donlerApp.controllers', [])
             empty: true
           });
         }
+        $ionicSlideBoxDelegate.update();
       }
     });
     $scope.joinTeam = function (tid) {

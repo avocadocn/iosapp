@@ -1229,6 +1229,10 @@ rgba(0,0,0,0.5)
 .team_page .team_header {
   position: relative;
 }
+.team_page .team_header .team_family {
+  width: 320px;
+  height: 190px;
+}
 .team_page .team_header .logo {
   position: absolute;
   left: 20px;
@@ -1342,6 +1346,7 @@ rgba(0,0,0,0.5)
 }
 .team_page .team_home_court .map_img {
   display: block;
+  width: 100%;
 }
 .team_page .team_home_court .home_court_name {
   padding: 0 1rem;

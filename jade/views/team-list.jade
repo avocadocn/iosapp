@@ -4,14 +4,15 @@ ion-view
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/app/discover") &nbsp;返回
     h1.title {{title}}
-  ion-content
-    .list
-      a.item.item-thumbnail-left(ng-repeat="team in teams" ng-href="#/team/{{team._id}}")
-        img(ng-src="{{STATIC_URL + team.logo}}/85/85")
-        h2 {{team.name}}
-        //-todo 获取每个队最近的一个活动
-        p {{team.lastCampaign.theme}}
+  ion-content.all_team_list_page
+    a.dl_team_card.clearfix(ng-repeat="team in teams" ng-href="#/team/{{team._id}}")
+      img.team_logo(ng-src="{{STATIC_URL + team.logo}}/85/85")
+      .team_info
+        h2.team_name {{team.name}}
+        p.team_cp_title {{team.lastCampaign.theme}}
         //-活动数还是假数据
-        p 队员：{{team.memberCount}} 活动：{{team.campaignCount}}
+        p.team_count
+          span.team_member 队员：{{team.memberCount}}
+          span.team_cp_number 活动：{{team.campaignCount}}
         button(prevent-default ng-if="team.hasJoined" ng-click="quitTeam(team._id, $index)") 已加入小队
         button(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id, $index)") 立即加入
