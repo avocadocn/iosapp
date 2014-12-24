@@ -446,7 +446,6 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('UnjoinedDiscussController', ['$scope','$state', 'INFO', 'Comment', 'Socket', 'Tools', function ($scope, $state, INFO, Comment, Socket, Tools) { //标为全部已读???
-    Socket.emit('enterRoom', localStorage.id);
     //进来以后先http请求,再监视推送
     Comment.getList('unjoined').success(function (data) {
       $scope.commentCampaigns = data.commentCampaigns;
