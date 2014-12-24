@@ -1,23 +1,24 @@
 
-<ion-view>
-  <ion-header-bar><a ng-href="{{backUrl}}" class="button icon icon_small ion-chevron-left button-clear icon_blue">返回</a>
-    <h1 class="title">{{campaign.theme}}</h1><a ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="button icon button-clear ion-chatbubble-working"></a>
-  </ion-header-bar>
+<ion-view title="{{campaign.theme}}">
+  <ion-nav-bar>
+    <ion-nav-back-button></ion-nav-back-button>
+  </ion-nav-bar>
   <ion-content>
+    <ion-nav-buttons side="left"><a ng-href="{{backUrl}}" class="button icon icon_small ion-chevron-left button-clear icon_blue">返回</a></ion-nav-buttons>
+    <ion-nav-buttons side="right"><a ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="button icon button-clear ion-chatbubble-working"></a></ion-nav-buttons>
     <div class="card dl_card_detail">
-      <div ng-if="campaign.campaign_unit.length==1" class="item dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-        <h1 class="dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</h1><span ng-if="campaign.campaign_mold" class="campaign_mold">{{campaign.campaign_mold}}</span>
+      <div ng-if="campaign.campaign_unit.length==1" class="item dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}" class="dl_team_logo"/>
+        <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</h2><span ng-if="campaign.campaign_mold" class="campaign_mold">{{campaign.campaign_mold}}</span>
       </div>
-      <div ng-if="campaign.campaign_unit.length==2" class="item dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+      <div ng-if="campaign.campaign_unit.length==2" class="item dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}" class="dl_team_logo"/>
         <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</h2>
         <h2 class="dl_team_vs">vs</h2>
-        <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</h2><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/>
+        <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</h2><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/30/30'}}" class="dl_team_logo dl_team_logo_right"/>
       </div>
       <div class="item item-text-wrap dl_card_body">
-        <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-        <p><span class="dl_cp_address">活动地点：{{campaign.location.name}}</span></p>
-        <p>开始：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}} 结束： {{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}</p>
-        <p>报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}</p>
+        <h2 class="dl_cp_name">{{campaign.theme}}</h2><a href="#/location/{{campaign._id}}" class="dl_cp_address">活动地点：{{campaign.location.name}}<span class="icon icon_small ion-chevron-right button-clear"></span></a>
+        <p class="dl_cp_time">开始：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}} 结束： {{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}</p>
+        <p class="dl_cp_time">报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}</p>
         <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">立即参加</button>
         <button ng-if="campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-full dl_cp_quit">已经加入</button>
         <div class="dl_card_operator">
@@ -32,12 +33,12 @@
       </div>
     </div>
     <div class="card dl_card_detail">
-      <div class="item item-text-wrap"><span class="dl_cp_time_status">即将开始</span><span class="dl_cp_time_remind">{{campaign.remind_text}}：</span>
+      <div class="item dl_card_time"><span class="dl_cp_time_status">即将开始</span><span class="dl_cp_time_remind">{{campaign.remind_text}}：</span>
         <div class="dl_cp_time_countdown"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
       </div>
     </div>
     <div ng-if="notices.length&gt;0" class="card dl_card_detail">
-      <div class="item dl_card_header"><span>活动公告</span><span class="dl_notice_count">{{notices.length}}</span></div><a class="item item-avatar dl_notice"><img ng-src="{{STATIC_URL +notices[0].sender[0].photo}}"/>
+      <div class="item dl_card_header dl_card_header_small"><span>活动公告</span><span class="dl_notice_count">{{notices.length}}</span></div><a class="item item-avatar dl_notice"><img ng-src="{{STATIC_URL +notices[0].sender[0].photo}}"/>
         <h2><span class="dl_notice_sender">{{notices[0].sender[0].nickname}}</span><span>:</span><span class="dl_notice_content">{{notices[0].content}}</span></h2>
         <p>{{notices[0].post_date | date:"yyyy-MM-dd HH:mm" }}</p></a>
     </div>
@@ -47,7 +48,7 @@
       </div>
     </div>
     <div ng-if="campaign.content" class="card dl_card_detail">
-      <div class="item dl_card_header">活动简介</div>
+      <div class="item dl_card_header dl_card_header_small">活动简介</div>
       <div class="item item-text-wrap">
         <p>{{campaign.content}}</p>
       </div>

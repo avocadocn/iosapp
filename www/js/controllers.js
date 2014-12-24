@@ -282,6 +282,7 @@ angular.module('donlerApp.controllers', [])
           }
         })
         INFO.memberContent = memberContent;
+        INFO.locationContent = data.location;
         data.campaign_unit.forEach(function(campaign_unit){
           $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
         });
@@ -397,6 +398,7 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
+    INFO.calendarBackUrl ='#/app/discuss/list';
     Socket.emit('enterRoom', localStorage.id);
     //进来以后先http请求,再监视推送
     Comment.getList('joined').success(function (data) {
@@ -1515,7 +1517,11 @@ angular.module('donlerApp.controllers', [])
         return true;
       }
     };
-
+    $scope.linkMap = function (homeCourt) {
+      var link = 'http://mo.amap.com/?q=' + homeCourt.loc.coordinates[1] + ',' + homeCourt.loc.coordinates[0] + '&name=' + homeCourt.name;
+      window.open( link, '_system' , 'location=yes');
+      return false;
+    }
     $scope.$on('$stateChangeSuccess', function() {
       $scope.loadMore();
     });
@@ -1897,6 +1903,14 @@ angular.module('donlerApp.controllers', [])
       $scope.memberContents = INFO.memberContent;
     }
     $scope.backUrl = INFO.memberBackUrl;
+  }])
+  .controller('LocationController', ['$scope', '$stateParams', 'INFO', function($scope, $stateParams, INFO) {
+    $scope.location = INFO.locationContent;
+    $scope.linkMap = function (location) {
+      var link = 'http://mo.amap.com/?q=' + location.coordinates[1] + ',' + location.coordinates[0] + '&name=' + location.name;
+      window.open( link, '_system' , 'location=yes');
+      return false;
+    }
   }])
   .controller('TimelineController', ['$scope', '$stateParams', 'TimeLine', 'User', function ($scope, $stateParams, TimeLine, User) {
     $scope.loadFinished = false;

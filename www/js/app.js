@@ -123,6 +123,12 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         controller: 'userRegPrivacyController',
         templateUrl: 'views/privacy.html'
       })
+      .state('app', {
+        url: '/app',
+        abstract: true,
+        templateUrl: 'views/tab-layout.html',
+        controller: 'AppContoller'
+      })
       .state('app.privacy', {
         url: '/settings/about/privacy',
         views: {
@@ -131,12 +137,6 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
             templateUrl: 'views/privacy.html'
           }
         }
-      })
-      .state('app', {
-        url: '/app',
-        abstract: true,
-        templateUrl: 'views/tab-layout.html',
-        controller: 'AppContoller'
       })
       .state('app.campaigns', {
         url: '/campaigns',
@@ -329,6 +329,12 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         url: '/members/:memberType/:id',
         controller: 'MemberController',
         templateUrl: 'views/members.html'
+      })
+
+      .state('location', {
+        url: '/location/:id',
+        controller: 'LocationController',
+        templateUrl: 'views/location.html'
       })
       .state('photo_album_list', {
         url: '/photo_album/list/team/:teamId',

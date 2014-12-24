@@ -41,11 +41,6 @@ angular.module('donlerApp.services', [])
     SOCKET_URL: 'http://localhost:3005'
   })
   .value('INFO', {
-    campaignBackUrl:'#/app/campaigns',
-    teamBackUrl:'#/app/personal_teams',
-    photoAlbumBackUrl:'',
-    memberBackURL:'',
-    calendarBackUrl:'',
     memberContent:'',
     discussName:'',
     lastDate:'',

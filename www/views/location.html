@@ -1,0 +1,10 @@
+
+<ion-view title="活动地点">
+  <ion-nav-bar>
+    <ion-nav-back-button class="button-clear"><i class="ion-chevron-left"></i>返回</ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content scroll="false" class="map_page">
+    <p class="map_name">活动地点: {{location.name}}</p>
+    <div class="map"><a ng-if="location.coordinates.length==2" href="#" ng-click="linkMap(location)" class="map_wrap"><img ng-if="location.coordinates.length==2" ng-src="http://restapi.amap.com/v3/staticmap?location={{location.coordinates[0]}},{{location.coordinates[1]}}&amp;zoom=15&amp;size=300*260&amp;markers=mid,,A:{{location.coordinates[0]}},{{location.coordinates[1]}}&amp;labels={{location.name}},2,0,12,0xffffff,0x3498db:{{location.coordinates[0]}},{{location.coordinates[1]}}&amp;key=077eff0a89079f77e2893d6735c2f044" class="map_img"/></a></div>
+  </ion-content>
+</ion-view>
