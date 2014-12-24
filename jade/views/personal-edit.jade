@@ -1,0 +1,22 @@
+ion-view
+
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/app/personal") &nbsp;我的
+    h1.title 编辑个人信息
+
+  ion-content
+    form.list(name="editForm")
+      .item.item-input
+        span.input-label 昵称
+        input(type="text" name="nickname" ng-model="formData.nickname")
+      .item.item-input
+        span.input-label 真实姓名
+        input(type="text" name="realname" ng-model="formData.realname")
+      .item.item-input
+        span.input-label 手机
+        input(type="text" name="phone" ng-model="formData.phone")
+      .item.item-input
+        span.input-label 生日
+        input#birthday(type="date" name="birthday" ng-model="formData.birthday")
+      .padding
+        button.button.button-block.button-positive(ng-click="edit()") 确定

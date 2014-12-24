@@ -442,7 +442,6 @@ angular.module('donlerApp.services', [])
     };
   }])
   .factory('User', ['$http', 'CONFIG', function ($http, CONFIG) {
-
     return {
 
       /**
@@ -454,6 +453,16 @@ angular.module('donlerApp.services', [])
         $http.get(CONFIG.BASE_URL + '/users/' + id)
           .success(function (data, status, headers, config) {
             callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            callback('error');
+          });
+      },
+
+      editData: function (id, data, callback) {
+        $http.put(CONFIG.BASE_URL + '/users/' + id, data)
+          .success(function (data, status, headers, config) {
+            callback();
           })
           .error(function (data, status, headers, config) {
             callback('error');

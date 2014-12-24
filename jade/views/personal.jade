@@ -5,7 +5,7 @@ ion-view
 
   ion-content
     .list.card
-      .item.item-avatar
+      a.item.item-avatar(href="#/app/personal/edit")
         img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}")
         h2 {{user.nickname}}
         p 公司：{{user.company.name}}
@@ -13,8 +13,10 @@ ion-view
         p(ng-if="!user.department" ng-cloak) 部门：无
         p(ng-cloak) 手机：{{user.phone || '-'}}
         p(ng-cloak) 邮箱：{{user.email}}
+        p(ng-cloak) 生日：{{user.birthday | date:'yyyy-MM-dd'}}
+        p(ng-cloak) 真实姓名：{{user.realname}}
     .list
-      a.item.item-icon-left.item-icon-right(href="#/app/personal_teams")
+      a.item.item-icon-left.item-icon-right(href="#/app/personal/teams")
         i.icon.ion-mic-a
         | 我的小队
         i.icon.ion-chevron-right

@@ -691,8 +691,46 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
+  .controller('PersonalEditController', ['$scope', '$ionicPopup', 'User', function ($scope, $ionicPopup, User) {
+
+    var birthdayInput = document.getElementById('birthday');
+
+    User.getData(localStorage.id, function (err, data) {
+      if (err) {
+        $ionicPopup.alert({
+          title: '获取个人信息失败',
+          template: err
+        });
+      } else {
+        $scope.user = data;
+        $scope.formData = {
+          nickname: $scope.user.nickname,
+          realname: $scope.user.realname,
+          phone: $scope.user.phone,
+          birthday: moment($scope.user.birthday).format('YYYY-MM-DD')
+        };
+      }
+    });
+
+    $scope.edit = function () {
+      User.editData($scope.user._id, $scope.formData, function (err) {
+        if (err) {
+          $ionicPopup.alert({
+            title: '编辑失败',
+            template: err
+          });
+        } else {
+          $ionicPopup.alert({
+            title: '操作成功',
+            template: '编辑个人信息成功'
+          });
+        }
+      });
+    };
+
+  }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
-    INFO.teamBackUrl = '#/app/personal_teams';
+    INFO.teamBackUrl = '#/app/personal/teams';
     Team.getList('user', localStorage.id, function (err, teams) {
       if (err) {
         // todo
