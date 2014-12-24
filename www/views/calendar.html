@@ -30,7 +30,7 @@
         <div ng-if="view==='month'" class="calendar_month clearfix">
           <ion-scroll direction="x" scrollbar-x="false">
             <div detect-gestures="detect-gestures" gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth" class="clearfix">
-              <div ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true}" class="calendar_day text-center">
+              <div ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true};day.first_day" class="calendar_day text-center">
                 <div class="calendar_date">{{ day.date }}</div><span ng-if="day.events.length&gt;0" class="calendar_campaign_count">{{day.events.length}}</span>
               </div>
             </div>

@@ -38,7 +38,7 @@ ion-view
           ion-scroll(direction='x' scrollbar-x="false")
             .clearfix(detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth")
               //- .month(ng-class="month.offset"){{ month.format_month }}
-              .calendar_day.text-center(ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true}")
+              .calendar_day.text-center(ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true};day.first_day")
                 .calendar_date {{ day.date }}
                 //- .event_unjoin(ng-if="day.has_event && !day.has_joined_event")
                 //- .event_joined(ng-if="day.has_joined_event")

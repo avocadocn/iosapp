@@ -6,14 +6,18 @@
   <ion-content>
     <div class="card dl_card_detail">
       <div ng-if="campaign.campaign_unit.length==1" class="item dl_card_header"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
-        <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</h2><span ng-if="campaign.campaign_mold" class="campaign_mold">{{campaign.campaign_mold}}</span>
+        <h1 class="dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</h1><span ng-if="campaign.campaign_mold" class="campaign_mold">{{campaign.campaign_mold}}</span>
       </div>
-      <div ng-if="campaign.campaign_unit.length==2" class="item dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span><span class="dl_team_vs">vs</span><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
+      <div ng-if="campaign.campaign_unit.length==2" class="item dl_card_header_provoke"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/>
+        <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</h2>
+        <h2 class="dl_team_vs">vs</h2>
+        <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</h2><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/>
+      </div>
       <div class="item item-text-wrap dl_card_body">
-        <h1 class="dl_cp_name">{{campaign.theme}}</h1>
+        <h2 class="dl_cp_name">{{campaign.theme}}</h2>
         <p><span class="dl_cp_address">活动地点：{{campaign.location.name}}</span></p>
-        <p>开始：{{campaign.start_time | date:"yyyy-MM-dd"}} 结束： {{campaign.end_time | date:"yyyy-MM-dd" }}</p>
-        <p>报名截止：{{campaign.deadline | date:"yyyy-MM-dd"}}</p>
+        <p>开始：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}} 结束： {{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}</p>
+        <p>报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}</p>
         <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">立即参加</button>
         <button ng-if="campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-full dl_cp_quit">已经加入</button>
         <div class="dl_card_operator">

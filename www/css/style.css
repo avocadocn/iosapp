@@ -327,6 +327,9 @@ body {
 .dl_card_detail .dl_card_body {
   padding: 10px;
 }
+.dl_card_detail .dl_card_body .dl_cp_name {
+  margin-bottom: 15px;
+}
 .dl_card_detail .dl_card_body .dl_cp_address {
   background-color: #e2e2e2;
   padding: 5px;

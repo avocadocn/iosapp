@@ -8,20 +8,20 @@ ion-view
     .card.dl_card_detail
       .item.dl_card_header(ng-if="campaign.campaign_unit.length==1")
         img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
-        h2.dl_team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
+        h1.dl_team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
         span.campaign_mold(ng-if="campaign.campaign_mold") {{campaign.campaign_mold}}
       .item.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2")
         img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
-        span.dl_team_name {{campaign.campaign_unit[0].team.name}}
-        span.dl_team_vs vs
-        span.dl_team_name {{campaign.campaign_unit[0].team.name}}
+        h2.dl_team_name {{campaign.campaign_unit[0].team.name}}
+        h2.dl_team_vs vs
+        h2.dl_team_name {{campaign.campaign_unit[0].team.name}}
         img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
       .item.item-text-wrap.dl_card_body
-        h1.dl_cp_name {{campaign.theme}}
+        h2.dl_cp_name {{campaign.theme}}
         p
           span.dl_cp_address 活动地点：{{campaign.location.name}}
-        p 开始：{{campaign.start_time | date:"yyyy-MM-dd"}} 结束： {{campaign.end_time | date:"yyyy-MM-dd" }}
-        p 报名截止：{{campaign.deadline | date:"yyyy-MM-dd"}}
+        p 开始：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}} 结束： {{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}
+        p 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}
         button.button.button-full.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
         button.button.button-full.dl_cp_quit(ng-if="campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
         .dl_card_operator
