@@ -470,10 +470,13 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', 'Tools', 'CONFIG', 'INFO', function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message, Tools, CONFIG, INFO) {
     $scope.campaignTitle =  $stateParams.campaignName;
-    Socket.emit('enterRoom', $stateParams.campaignId);
+    $scope.campaignId = $stateParams.campaignId;
+    Socket.emit('enterRoom', $scope.campaignId);
     //无论进入离开，都需归零user的对应campaign的unread数目
     //获取时清空好了
     $scope.userId = localStorage.id;
+    //获取id给详情链接用
+    
     $scope.photos = [];
     var addPhotos = function (comment) {
       if (comment.photos && comment.photos.length > 0) {
@@ -510,14 +513,9 @@ angular.module('donlerApp.controllers', [])
     };
 
     var nextStartDate ='';
-    Comment.getComments($stateParams.campaignId, 20).success(function(data){
-      $scope.comments = data.comments.reverse();//保证最新的在最下面
-      $scope.comments.forEach(addPhotos);
-      nextStartDate = data.nextStartDate;
-      $ionicScrollDelegate.scrollBottom();
-    });
+    
     //获取公告
-    Message.getCampaignMessages($stateParams.campaignId, function(err, data){
+    Message.getCampaignMessages($scope.campaignId, function(err, data){
       if(err){
         console.log(err)
       }else{
@@ -527,15 +525,66 @@ angular.module('donlerApp.controllers', [])
         }
       }
     });
+
+    //评论获取
+
+    $scope.commentList = [];
+    $scope.topShowTime = [];
+
+    var judgeTopShowTime = function() {
+      $scope.topShowTime.unshift(1);
+      if($scope.commentList.length>1) {
+        var preTime = new Date($scope.commentList[1][0].create_date);//上次的第一个
+        var length = $scope.commentList[0].length;
+        var nowTime = new Date($scope.commentList[0][length-1].create_date);//这次的最后一个
+        if(nowTime.getFullYear() != preTime.getFullYear()) {
+          $scope.topShowTime[1] = 1;
+        }else if(nowTime.getDay() != preTime.getDay()) {
+          $scope.topShowTime[1] = 2;
+        }else if(nowTime.getHours() != preTime.getHours()) {
+          $scope.topShowTime[1] = 2;
+        }else if(nowTime.getMinutes() != preTime.getMinutes()){
+          $scope.topShowTime[1] = 2;
+        }else{
+          $scope.topShowTime[1] = 0;
+        }
+      }
+    };
+
+    //获取最新20条评论
+    Comment.getComments($scope.campaignId, 20).success(function(data){
+      $scope.commentList.push(data.comments.reverse());//保证最新的在最下面
+      data.comments.forEach(addPhotos);
+      nextStartDate = data.nextStartDate;
+      $ionicScrollDelegate.scrollBottom();
+      judgeTopShowTime();
+    });
     
     //获取新留言
     Socket.on('newCampaignComment', function (data) {
       data.create_date = data.createDate;
-      $scope.comments.push(data);
+      var comentListIndex = $scope.commentList.length -1;
+      $scope.commentList[comentListIndex].push(data);
       addPhotos(data);
-      $scope.comments[$scope.comments.length-1].showTime = $scope.needShowTime($scope.comments.length-1);
       $ionicScrollDelegate.scrollBottom();
     });
+
+    //拉取历史讨论记录
+    $scope.readHistory = function() {
+      if(nextStartDate){//如果还有下一条
+        Comment.getComments($scope.campaignId, 20, nextStartDate).success(function(data){
+          $scope.commentList.unshift(data.comments.reverse());
+          $scope.topShowTime.push();
+          // $('#currentComment').scrollIntoView();//need jQuery
+          nextStartDate = data.nextStartDate;
+          //-addPhoto
+          $scope.$broadcast('scroll.refreshComplete');
+          judgeTopShowTime();
+        });
+      }else{//没下一条了~
+        $scope.$broadcast('scroll.refreshComplete');
+      }
+    };
     /* 是否需要显示时间()
      * @params: index: 第几个comment
      * 判断依据：与上一个评论时间是否在同一分钟||index为0
@@ -544,12 +593,13 @@ angular.module('donlerApp.controllers', [])
      *   1 显示年、月、日
      *   2 显示月、日
      */
-    $scope.needShowTime = function (index) {
+    
+    $scope.needShowTime = function (index, comments) {
       if(index===0){
         return 1;
       }else{
-        var preTime = new Date($scope.comments[index-1].create_date);
-        var nowTime = new Date($scope.comments[index].create_date);
+        var preTime = new Date(comments[index-1].create_date);
+        var nowTime = new Date(comments[index].create_date);
         if(nowTime.getFullYear() != preTime.getFullYear()) {
           return 1;
         }else if(nowTime.getDay() != preTime.getDay()) {
@@ -561,23 +611,10 @@ angular.module('donlerApp.controllers', [])
         }
       };
     };
-    $scope.historyCommentList=[];
-    //拉取历史讨论记录
-    $scope.readHistory = function() {
-      if(nextStartDate){//如果还有下一条
-        Comment.getComments($stateParams.campaignId, 20, nextStartDate).success(function(data){
-          $scope.historyCommentList.unshift(data.comments.reverse());
-          // $('#currentComment').scrollIntoView();//need jQuery
-          nextStartDate = data.nextStartDate;
-          $scope.$broadcast('scroll.refreshComplete');
-        });
-      }else{//没下一条了~
-        $scope.$broadcast('scroll.refreshComplete');
-      }
-    };
+    
     //发表评论
     $scope.publishComment = function(photo) {
-      Comment.publishComment($stateParams.campaignId, $scope.commentContent, photo, function(err){
+      Comment.publishComment($scope.campaignId, $scope.commentContent, photo, function(err){
         if(err){
           console.log(err);
         }else{
@@ -585,8 +622,7 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
-    //获取id给详情链接用
-    $scope.campaignId = $stateParams.campaignId;
+    
   }])
   .controller('DiscoverController', ['$scope', '$ionicPopup', 'Team', 'INFO', function ($scope, $ionicPopup, Team, INFO) {
     INFO.teamBackUrl = '#/app/discover/teams';

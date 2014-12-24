@@ -1,8 +1,8 @@
 ion-view.discuss_detail
   ion-header-bar
-    a.button.icon.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
     h1.title {{campaignTitle}}
-    a.button.icon.ion-ionic(href="#/campaign/detail/{{campaignId}}")
+    a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
   .notice(ng-show="!hideNotice&&notification")
     .notice_cover
     .content
@@ -14,52 +14,31 @@ ion-view.discuss_detail
     .comments
       //- balloon?
       //- .balloon(ng-if="newComment")
-      .blocks(ng-repeat="historyComments in historyCommentList track by $index" id="comment{{$index}}")
+      .blocks(ng-repeat="comments in commentList track by $index" id="comment{{$index}}")
         //- .test {{historyCommentList}}
-        .block(ng-repeat="comment in historyComments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack)
-          .time(ng-if="showTime")
-            p(ng-if="showTime===1") {{comment.create_date | date: 'yyyy'}}
-            p {{comment.create_date | date: 'M月dd日 HH:mm'}} 
-          .comment(ng-repeat="photo in comment.photos")
+        .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack)
+          .time_block(ng-show="showTime && ($index!==0||($index===0&&topShowTime[$parent.$index]))")
+            p
+              span.time(ng-show="showTime===1 && ($index!==0||($index===0&&topShowTime[$parent.$index]===1))") {{comment.create_date | date: 'yyyy'}}
+            p
+              span.time {{comment.create_date | date: 'M月dd日 HH:mm'}} 
+          .comment(ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}")
             .author
               .logo
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
               p.triangle_isosceles.triangle_img
-                img.img(ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)")
+                img.img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
             
-          .comment
+          .comment(ng-class="{putright: comment.poster._id == userId}")
             .author
               .logo
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
               p.triangle_isosceles {{comment.content}}
-            
-      .blocks#currentComment
-        .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index)" ng-cloack)
-          
-          .time(ng-if="showTime")
-            p(ng-if="showTime===1") {{comment.create_date | date: 'yyyy'}}
-            p {{comment.create_date | date: 'M月dd日 HH:mm'}}
-          .comment(ng-repeat="photo in comment.photos", ng-class="{putright: comment.poster._id == userId}")
-            .author
-              .logo
-                img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
-              .name {{comment.poster.nickname}}
-            .content
-              p.triangle_isosceles.triangle_img
-                img.img(ng-src="{{STATIC_URL +photo.uri+ '/180/180'}}" width="90" height="90" ng-click="openPhotoSwipe(photo._id)")
-            
-          .comment( ng-class="{putright: comment.poster._id == userId}")
-            .author
-              .logo
-                img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
-              .name {{comment.poster.nickname}}
-            .content
-              p.triangle_isosceles {{comment.content}}
-            
+      //-再做个刷新?todo
   ion-footer-bar.comment_box
     i.icon.ion-image
     input.comment_input(ng-model = "commentContent")

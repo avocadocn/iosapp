@@ -588,7 +588,7 @@ input:focus:-ms-input-placeholder {
   color: #3ca2e0;
 }
 .login .list.list-inset:first-child {
-  margin: 20px 20px 15px;
+  margin: 20px 20px 10px;
 }
 .login .list.list-inset {
   margin: 15px 20px;
@@ -662,7 +662,7 @@ a>.login .companies_list:activated {
 }
 .login .signup_form .dl_list {
   display: flex;
-  margin: 10px 20px;
+  margin: 15px 20px;
   border: 1px solid #3ca2e0;
   border-radius: 5px;
   padding: 5px 0 5px 16px;
@@ -769,9 +769,13 @@ a>.login .companies_list:activated {
   background-position: -40px -80px;
 }
 .discuss_detail {
-  background-image: url("../img/discuss_bgd.gif");
-  background-size: 600px;
+  background-image: url("../img/discuss_bgd.jpg");
+  background-size: 640px;
   background-position: center;
+}
+.discuss_detail .icon-right {
+  width: 40px;
+  margin-top: 3px;
 }
 .discuss_detail .notice {
   height: 85px;
@@ -782,7 +786,7 @@ a>.login .companies_list:activated {
 }
 .discuss_detail .notice .notice_cover {
   background-color: #fff;
-  opacity: 0.6;
+  opacity: 0.8;
   height: 85px;
   z-index: 1;
   border-radius: 3px;
@@ -835,10 +839,16 @@ a>.login .companies_list:activated {
   width: 15%;
   font-size: 14px;
 }
-.discuss_detail .comments .time {
+.discuss_detail .comments .time_block {
   text-align: center;
   width: 100%;
   float: left;
+}
+.discuss_detail .comments .time_block .time {
+  border-radius: 2px;
+  color: #fff;
+  background-color: #333;
+  padding: 2px 15px;
 }
 .discuss_detail .comments .comment {
   width: 100%;
@@ -848,7 +858,7 @@ a>.login .companies_list:activated {
   float: left;
   width: auto;
   font-size: 16px;
-  color: #333;
+  color: #676767;
   max-width: 80%;
 }
 .discuss_detail .comments .comment .author {
