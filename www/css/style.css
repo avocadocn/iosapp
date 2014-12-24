@@ -108,6 +108,9 @@ body {
 .dl_card .provoke_card .dl_team_name {
   color: #6a73c6;
 }
+.dl_card .provoke_card .dl_photo_alb {
+  white-space: nowrap;
+}
 .dl_card .provoke_card .dl_cp_name {
   margin-top: 10px;
   color: #333;

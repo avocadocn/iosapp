@@ -42,6 +42,9 @@
         span.dl_team_name {{campaign.campaign_unit[1].team.name}}
         | &nbsp;发起挑战
       p.dl_cp_name {{campaign.theme}}
+      ion-scroll(direction="x" scrollbar-x="false")
+        .dl_photo_alb
+          img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150")
     .dl_card_footer(ng-if="campaign.allow.dealProvoke || campaign.allow.quitProvoke")
       .clearfix
         button.dl_cp_confirm(prevent-default ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受

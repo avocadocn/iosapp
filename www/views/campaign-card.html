@@ -30,6 +30,9 @@
     <div class="dl_card_body">
       <p class="dl_provoke_info"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span>&nbsp;向&nbsp;<span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>&nbsp;发起挑战</p>
       <p class="dl_cp_name">{{campaign.theme}}</p>
+      <ion-scroll direction="x" scrollbar-x="false">
+        <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" class="dl_cp_photo"/></div>
+      </ion-scroll>
     </div>
     <div ng-if="campaign.allow.dealProvoke || campaign.allow.quitProvoke" class="dl_card_footer">
       <div class="clearfix">
