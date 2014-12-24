@@ -1488,6 +1488,9 @@ rgba(0,0,0,0.5)
 .dl_team_card .team_cp_title {
   margin-top: 5px;
 }
+.dl_team_card .team_cp_number {
+  margin-left: 10px;
+}
 .all_team_list_page .team_logo {
   width: 85px;
   height: 85px;
