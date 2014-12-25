@@ -9,7 +9,7 @@ platforms/ios/www/
 platforms/ios/build/
 platforms/ios/CordovaLib/
 node_modules/
-
+plugins/
 .bower-*/
 .idea/
 
