@@ -27,9 +27,11 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
               .name {{comment.poster.nickname}}
             .content
-              p.triangle_isosceles.triangle_img
-                img.img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
-            
+              .triangle_isosceles.triangle_img
+                .tr
+                  img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180")
+                .box
+                  img.img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
           .comment(ng-class="{putright: comment.poster._id == userId}")
             .author
               .logo

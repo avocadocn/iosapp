@@ -917,7 +917,7 @@ a>.login .companies_list:activated {
 }
 .discuss_detail .comments .comment .triangle_isosceles:after {
   content: "";
-  display: block;
+  display: none;
   position: absolute;
   bottom: -15px;
   left: 50px;
@@ -935,9 +935,39 @@ a>.login .companies_list:activated {
   background: none;
   padding: 0;
 }
-.discuss_detail .comments .comment .triangle_img .img {
+.discuss_detail .comments .comment .triangle_img .box {
+  position: relative;
+  overflow: hidden;
+  width: 170px;
+  height: 170px;
   border-radius: 10px;
-  border: 2px solid #fff;
+}
+.discuss_detail .comments .comment .triangle_img .box img {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+.discuss_detail .comments .comment .triangle_img .tr {
+  position: absolute;
+  overflow: hidden;
+  top: 10px;
+  left: -5px;
+  width: 14px;
+  height: 14px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.discuss_detail .comments .comment .triangle_img .tr img {
+  position: absolute;
+  top: -4px;
+  left: -20px;
+  -webkit-transform-origin: 0px 0px;
+  -ms-transform-origin: 0px 0px;
+  transform-origin: 0px 0px;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 .discuss_detail .comments .putright .author {
   float: right;
@@ -951,6 +981,7 @@ a>.login .companies_list:activated {
   background: #3ca2e0;
 }
 .discuss_detail .comments .putright .triangle_isosceles:after {
+none
   top: 1rem;
   right: -1rem;
   left: auto;
@@ -961,8 +992,27 @@ a>.login .companies_list:activated {
 .discuss_detail .comments .putright .triangle_img {
   background: none;
 }
-.discuss_detail .comments .putright .triangle_img .img {
-  border: 2px solid #3ca2e0;
+.discuss_detail .comments .putright .triangle_img .tr {
+  top: 10px;
+  left: 162px;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.discuss_detail .comments .putright .triangle_img .tr img {
+  top: -19px;
+  left: -33px;
+  -webkit-transform-origin: 0px 0px;
+  -ms-transform-origin: 0px 0px;
+  transform-origin: 106px -129px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.discuss_detail .comments .putright .triangle_img .box img {
+  left: auto;
+  border: none;
+  right: -10px;
 }
 .discuss_list .list .item {
   position: relative;
