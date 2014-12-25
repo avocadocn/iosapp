@@ -278,5 +278,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/photo_album/:photoAlbumId/detail',
         controller: 'PhotoAlbumDetailController',
         templateUrl: './views/photo-album-detail.html'
+      })
+      .state('user_info', {
+        url: '/user/:userId',
+        controller: 'UserInfoController',
+        templateUrl: './views/user-info.html'
       });
   });

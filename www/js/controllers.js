@@ -1971,9 +1971,11 @@ angular.module('donlerApp.controllers', [])
           }];
         }
       });
+      INFO.userInfoBackUrl = '#/members/team/' + $stateParams.id;
     }
     else {
       $scope.memberContents = INFO.memberContent;
+      INFO.userInfoBackUrl = '#/members/campaign/' + $stateParams.id;
     }
     $scope.backUrl = INFO.memberBackUrl;
   }])
@@ -2021,6 +2023,50 @@ angular.module('donlerApp.controllers', [])
       });
     }
     User.getData(localStorage.id, function (err, data) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.user = data;
+      }
+    });
+  }])
+  .controller('UserInfoController', ['$scope', '$stateParams', 'TimeLine', 'User', 'INFO', function ($scope, $stateParams, TimeLine, User, INFO) {
+    $scope.backUrl = INFO.userInfoBackUrl;
+    $scope.loadFinished = false;
+    $scope.loading = false;
+    $scope.timelinesRecord =[];
+    $scope.page = 0;
+    // 是否需要显示时间
+    $scope.needShowTime = function (index) {
+      if(index===0){
+        return true;
+      }else{
+        var preTime = new Date($scope.timelinesRecord[index-1].start_time);
+        var nowTime = new Date($scope.timelinesRecord[index].start_time);
+        return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
+      };
+    };
+    $scope.loadMore = function() {
+      $scope.page++;
+      $scope.loading = true;
+      TimeLine.getTimelines('user', $stateParams.userId, $scope.page, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          if(timelineData.length>0) {
+            $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
+          }
+          else {
+            $scope.loadFinished = true;
+          }
+        }
+        $scope.loading = false;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      });
+    }
+    User.getData($stateParams.userId, function (err, data) {
       if (err) {
         // todo
         console.log(err);

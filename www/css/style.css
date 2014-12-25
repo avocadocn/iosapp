@@ -1681,6 +1681,7 @@ rgba(0,0,0,0.5)
 .member_page .member {
   margin: 0.833333rem 0.833333rem 0;
   float: left;
+  text-decoration: none;
 }
 .member_page .member_photo {
   display: block;

@@ -1,0 +1,18 @@
+ion-view
+  ion-header-bar
+    a.button.icon.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
+    h1.title 用户信息
+  ion-content
+    .card
+      .item.item-avatar
+        img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/45/45")
+        h2 {{user.nickname}}
+        p 公司：{{user.company.name}}
+        p(ng-if="user.department" ng-cloak) 部门：{{user.department.name}}
+        p(ng-if="!user.department" ng-cloak) 部门：无
+        p(ng-cloak) 手机：{{user.phone || '-'}}
+        p(ng-cloak) 邮箱：{{user.email}}
+
+    include ./timeline-card
+    ion-infinite-scroll(ng-if="!loading || !loadFinished" on-infinite="loadMore()" distance="5%")
+    .nomore_text(ng-if="loadFinished") 没有更多的足迹

@@ -6,6 +6,6 @@ ion-view
     .member_group(ng-repeat="memberContent in memberContents")
       p.member_group_name {{memberContent.name}}
       .clearfix
-        .member(ng-repeat="member in memberContent.members")
+        a.member(ng-repeat="member in memberContent.members" ng-href="#/user/{{member._id}}")
           img.member_photo(ng-src="{{STATIC_URL + member.photo}}/55/55")
           p.member_name {{member.nickname}}
