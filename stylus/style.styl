@@ -177,7 +177,7 @@ body
       border 1px solid col_borderPurple
       border-radius 5px
       color col_textPurple
-      font-size 16px
+      font-size 14px
     .dl_cp_time_count, .dl_cp_time_unit
       display block
       float left
@@ -265,7 +265,9 @@ body
   .dl_card_header_small
     height 25px
     padding 5px 10px
-    font-size 14px
+    font-size 12px
+    line-height 13px
+    font-weight bolder
     border-top-left-radius 5px !important
     border-top-right-radius 5px !important
   .dl_card_body
@@ -289,18 +291,23 @@ body
       .dl_cp_photo
         margin-right 5px
     .dl_cp_join
+      min-height 40px
+      height 40px
       border-radius 5px
       border none
       color white
       background-color col_blue
     .dl_cp_quit
+      min-height 40px
+      height 40px
       border-radius 5px
       color col_blue
       border 1px solid col_blue
       background-color white
     .dl_cp_confirm, .dl_cp_refuse, .dl_cp_cancel
       width 48%
-      height 30px
+      height 40px
+      min-height 40px
       border none
       color white
       background-color col_darkGray
@@ -320,20 +327,22 @@ body
     .tab-item
       border-top 1px solid #ccc
       border-right 1px solid #ccc
+      line-height 40px
       &:last-child
         border-right none
       .icon
         color col_blue
         font-size 14px
         &:before
+          font-size 18px
           line-height 40px
       .dl_icon
-        background-size 240px
+        background-size 200px
         vertical-align middle
         width 24px
         margin-top 10px
       .ion_member
-        background-position 0px -180px
+        background-position 5px -148px
   .dl_cp_time_status
     color col_textPurple
     margin-right 10px
@@ -465,6 +474,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 //-通用bar
 .bar
   border-bottom 1px solid #ccc
+  .title + .button:last-child
+    right 15px
+    width 30px
   .button
     border 0
     background-color transparent
@@ -1322,4 +1334,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .map_img
       width 100%
 
-
+// .sponsor
+//   .list
+//     .item
+//       border 1px solid col_blue
+//       border-radius 5px

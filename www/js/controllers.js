@@ -185,6 +185,7 @@ angular.module('donlerApp.controllers', [])
     $scope.nowType = 'all';
     INFO.campaignBackUrl = '#/app/campaigns';
     INFO.calendarBackUrl ='#/app/campaigns';
+    INFO.sponsorBackUrl ='#/app/campaigns';
     if(!localStorage.id){
       return $state.go('login');
     }
@@ -338,6 +339,8 @@ angular.module('donlerApp.controllers', [])
     $scope.campaignData ={};
     $scope.leadTeams = [];
     $scope.selectTeam = {};
+    $scope.backUrl = INFO.sponsorBackUrl;
+    $scope.isBusy = false;
     Team.getLeadTeam(null, function(err, leadTeams){
       if(!err &&leadTeams.length>0){
         $scope.leadTeams = leadTeams;
@@ -368,13 +371,17 @@ angular.module('donlerApp.controllers', [])
       else if($scope.campaignData.end_time<$scope.campaignData.start_time) {
         errMsg ='结束时间不能早于开始时间';
       }
-      if(errMsg){
+      if($scope.isBusy){
+
+      }
+      else if(errMsg ){
         $ionicPopup.alert({
           title: '提示',
           template: errMsg
         });
       }
       else {
+        $scope.isBusy = true;
         $scope.campaignData.cid = [$scope.selectTeam.cid];
         $scope.campaignData.tid = [$scope.selectTeam._id];
         $scope.campaignData.campaign_type = 2;
@@ -392,13 +399,15 @@ angular.module('donlerApp.controllers', [])
               template: err
             });
           }
+          $scope.isBusy = false;
         })
       }
       
     }
   }])
   .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
-    INFO.calendarBackUrl ='#/discuss/list';
+    INFO.calendarBackUrl ='#/app/discuss/list';
+    INFO.sponsorBackUrl ='#/app/discuss/list';
     Socket.emit('enterRoom', localStorage.id);
     //进来以后先http请求,再监视推送
     Comment.getList('joined').success(function (data) {
