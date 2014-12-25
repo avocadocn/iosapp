@@ -1,9 +1,9 @@
 ion-view
   ion-header-bar
-    a.button.icon.icon_small.ion-chevron-left.button-clear.icon_blue(ng-href="{{calendarBackUrl}}") 返回
-    a.button.button-clear.icon_blue(ng-if="view==='day'" ng-click="back()") 关闭
+    a.button.icon-left.ion-chevron-left(ng-href="{{calendarBackUrl}}") 返回
+    a.button.icon_blue(ng-if="view==='day'" ng-click="back()") 关闭
     h1.title 我的日程
-    a.button.icon.icon_small.ion-chevron-down.button-clear.icon-right.icon_blue(ng-click="showFilter($event)") {{campaignTypes[nowTypeIndex].view}}
+    a.button.ion-chevron-down.icon-right(ng-click="showFilter($event)") {{campaignTypes[nowTypeIndex].view}}
   ion-content.has-header(scroll='false')
     .calendar
       nav

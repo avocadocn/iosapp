@@ -36,8 +36,6 @@
     <gap:plugin name="de.appplant.cordova.plugin.local-notification"/>
     <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
 
-
-
     <gap:splash src="splash/ios/Default~iphone.png" gap:platform="ios" width="320" height="480" />
     <gap:splash src="splash/ios/Default@2x~iphone.png" gap:platform="ios" width="640" height="960" />
     <gap:splash src="splash/ios/Default-568h@2x~iphone.png" gap:platform="ios" width="320" height="480" />

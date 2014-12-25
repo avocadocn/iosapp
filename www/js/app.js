@@ -129,23 +129,15 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         templateUrl: 'views/tab-layout.html',
         controller: 'AppContoller'
       })
-      .state('app.privacy', {
+      .state('privacy', {
         url: '/settings/about/privacy',
-        views: {
-          'tab-campaign': {
-            controller: 'privacyController',
-            templateUrl: 'views/privacy.html'
-          }
-        }
+        controller: 'privacyController',
+        templateUrl: 'views/privacy.html'
       })
       .state('app.campaigns', {
         url: '/campaigns',
-        views: {
-          'tab-campaign': {
-            controller: 'CampaignController',
-            templateUrl: 'views/campaign.html'
-          }
-        }
+        // controller: 'CampaignController',
+        templateUrl: 'views/campaign.html'
       })
       .state('campaigns_detail', {
         url: '/campaign/detail/:id',
@@ -159,12 +151,8 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       })
       .state('app.discuss_list', {
         url: '/discuss/list',
-        views: {
-          'tab-discuss-list': {
-            controller: 'DiscussListController',
-            templateUrl: 'views/discuss-list.html'
-          }
-        }
+        // controller: 'DiscussListController',
+        templateUrl: 'views/discuss-list.html'
       })
       .state('unjoined_discuss_list', {
         url: '/discuss/list/unjoined',
@@ -183,57 +171,33 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       })
       .state('app.discover', {
         url: '/discover',
-        views: {
-          'tab-discover': {
-            controller: 'DiscoverController',
-            templateUrl: 'views/discover.html'
-          }
-        }
+        // controller: 'DiscoverController',
+        templateUrl: 'views/discover.html'
       })
-      .state('app.discover_circle', {
+      .state('discover_circle', {
         url: '/discover/circle',
-        views: {
-          'tab-discover': {
-            controller: 'DiscoverCircleController',
-            templateUrl: 'views/colleague-circle.html'
-          }
-        }
+        controller: 'DiscoverCircleController',
+        templateUrl: 'views/colleague-circle.html'
       })
-      .state('app.discover_teams', {
+      .state('discover_teams', {
         url: '/discover/teams',
-        views: {
-          'tab-discover': {
-            controller: 'DiscoverController',
-            templateUrl: 'views/team-list.html'
-          }
-        }
+        controller: 'DiscoverController',
+        templateUrl: 'views/team-list.html'
       })
       .state('app.personal', {
         url: '/personal',
-        views: {
-          'tab-personal': {
-            controller: 'PersonalController',
-            templateUrl: 'views/personal.html'
-          }
-        }
+        // controller: 'PersonalController',
+        templateUrl: 'views/personal.html'
       })
-      .state('app.personal_edit', {
+      .state('personal_edit', {
         url: '/personal/edit',
-        views: {
-          'tab-personal': {
-            controller: 'PersonalEditController',
-            templateUrl: 'views/personal-edit.html'
-          }
-        }
+        controller: 'PersonalEditController',
+        templateUrl: 'views/personal-edit.html'
       })
-      .state('app.personal_teams', {
+      .state('personal_teams', {
         url: '/personal/teams',
-        views: {
-          'tab-personal': {
-            controller: 'PersonalTeamListController',
-            templateUrl: 'views/personal-team-list.html'
-          }
-        }
+        controller: 'PersonalTeamListController',
+        templateUrl: 'views/personal-team-list.html'
       })
       .state('personal_timeline', {
         url: '/personal/timeline',
@@ -245,70 +209,38 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
         controller: 'MessageController',
         templateUrl: 'views/messages.html'
       })
-      .state('app.settings', {
+      .state('settings', {
         url: '/settings',
-        views: {
-          'tab-personal': {
-            controller: 'SettingsController',
-            templateUrl: 'views/settings.html'
-          }
-        }
+        controller: 'SettingsController',
+        templateUrl: 'views/settings.html'
       })
-      .state('app.settings_account', {
+      .state('settings_account', {
         url: '/settings/account',
-        views: {
-          'tab-personal': {
-            templateUrl: 'views/settings-account.html'
-          }
-        }
+        templateUrl: 'views/settings-account.html'
       })
-      .state('app.change_password', {
+      .state('change_password', {
         url: '/settings/account/change_password',
-        views: {
-          'tab-personal': {
-            templateUrl: 'views/settings-change-password.html'
-          }
-        }
+        templateUrl: 'views/settings-change-password.html'
       })
-      .state('app.settings_feedback', {
+      .state('settings_feedback', {
         url: '/settings/feedback',
-        views: {
-          'tab-personal': {
-            templateUrl: 'views/settings-feedback.html'
-          }
-        }
+        templateUrl: 'views/settings-feedback.html'
       })
-      .state('app.settings_about', {
+      .state('settings_about', {
         url: '/settings/about',
-        views: {
-          'tab-personal': {
-            templateUrl: 'views/settings-about.html'
-          }
-        }
+        templateUrl: 'views/settings-about.html'
       })
-      .state('app.good', {
+      .state('good', {
         url: '/settings/about/good',
-        views: {
-          'tab-personal': {
-            templateUrl: 'views/about-good.html'
-          }
-        }
+        templateUrl: 'views/about-good.html'
       })
-      .state('app.intro', {
+      .state('intro', {
         url: '/settings/about/intro',
-        views: {
-          'tab-personal': {
-            templateUrl: 'views/about-intro.html'
-          }
-        }
+        templateUrl: 'views/about-intro.html'
       })
-      .state('app.notice', {
+      .state('notice', {
         url: '/settings/about/notice',
-        views: {
-          'tab-personal': {
-            templateUrl: 'views/about-notice.html'
-          }
-        }
+        templateUrl: 'views/about-notice.html'
       })
       .state('calendar', {
         url: '/calendar',

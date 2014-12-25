@@ -301,32 +301,17 @@ body {
 .dl_card_detail .dl_card_header .dl_notice_count {
   float: right;
 }
-.dl_card_detail .dl_card_header_provoke {
-  background-color: #3ca2e0;
-  color: #fff;
-}
-.dl_card_detail .dl_card_header_provoke .dl_team_logo {
-  float: left;
-  border-radius: 5px;
-}
 .dl_card_detail .dl_card_header_provoke .dl_team_logo_right {
   float: right;
 }
 .dl_card_detail .dl_card_header_provoke .dl_team_name {
-  color: #fff;
-  float: left;
-  margin: 0 0 0 10px;
-  line-height: 40px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: 25%;
 }
 .dl_card_detail .dl_card_header_provoke .dl_team_vs {
   color: #fff;
   float: left;
   margin: 0 0 0 10px;
-  line-height: 40px;
+  line-height: 30px;
 }
 .dl_card_detail .dl_card_header_small {
   height: 25px;
@@ -348,6 +333,7 @@ body {
   margin-bottom: 10px;
   color: #999;
   text-decoration: none;
+  font-size: 14px;
 }
 .dl_card_detail .dl_card_body .dl_cp_address .icon {
   margin-left: 5px;
@@ -395,6 +381,7 @@ body {
   margin: 0 auto;
 }
 .dl_card_detail .dl_card_footer {
+  height: 40px;
   border-bottom-left-radius: 5px !important;
   border-bottom-right-radius: 5px !important;
 }
@@ -407,6 +394,10 @@ body {
 }
 .dl_card_detail .dl_card_footer .tab-item .icon {
   color: #3ca2e0;
+  font-size: 14px;
+}
+.dl_card_detail .dl_card_footer .tab-item .icon:before {
+  line-height: 40px;
 }
 .dl_card_detail .dl_card_footer .tab-item .dl_icon {
   background-size: 240px;
@@ -489,6 +480,8 @@ body {
   margin-left: 5px;
 }
 .dl_card_detail .dl_card_time {
+  height: 50px;
+  font-size: 14px;
   border-radius: 5px !important;
 }
 .dl_card_detail .item:last-child {

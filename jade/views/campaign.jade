@@ -1,4 +1,4 @@
-ion-view
+ion-view(ng-controller="CampaignController")
   mixin campaignsContainer(containerTitle, items,itemsClass)
     .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
       .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" class="#{itemsClass}" ng-cloak)

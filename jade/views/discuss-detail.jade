@@ -1,7 +1,6 @@
-ion-view.discuss_detail
+ion-view.discuss_detail(title="{{campaignTitle}}")
   ion-header-bar
     a.button.icon-left.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
-    h1.title {{campaignTitle}}
     a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
   .notice(ng-show="!hideNotice&&notification")
     .notice_cover

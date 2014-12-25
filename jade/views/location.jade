@@ -1,8 +1,6 @@
 ion-view(title="活动地点")
-  ion-nav-bar
-    ion-nav-back-button.button-clear
-      i.ion-chevron-left
-      | 返回
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
   ion-content.map_page(scroll="false")
     p.map_name 活动地点: {{location.name}}
     .map

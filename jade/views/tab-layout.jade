@@ -2,12 +2,16 @@ ion-tabs.tabs-icon-top.app_tabs(ng-controller="TabController")
 
   ion-tab(title="活动" icon-on="ion_campaign_active" icon-off="ion_campaign" href="#/app/campaigns")
     <!-- Tab 1 content -->
-    ion-nav-view(name="tab-campaign")
+    //- ion-nav-view(name="tab-campaign")
+    include ./campaign
   ion-tab(title="讨论" icon-on="ion_discuss_active" icon-off="ion_discuss"  href="#/app/discuss/list")
     <!-- Tab 2 content -->
-    ion-nav-view(name="tab-discuss-list")
+    //- ion-nav-view(name="tab-discuss-list")
+    include ./discuss-list
   ion-tab(title="发现" icon-on="ion_discover_active" icon-off="ion_discover"  href="#/app/discover")
     <!-- Tab 3 content -->
-    ion-nav-view(name="tab-discover")
+    //- ion-nav-view(name="tab-discover")
+    include ./discover
   ion-tab(title="我的" icon-on="ion_personal_active" icon-off="ion_personal"  href="#/app/personal")
-    ion-nav-view(name="tab-personal")
+    //- ion-nav-view(name="tab-personal")
+    include ./personal

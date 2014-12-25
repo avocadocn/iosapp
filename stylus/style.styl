@@ -253,27 +253,15 @@ body
     .dl_notice_count
       float right
   .dl_card_header_provoke
-    background-color col_blue
-    color white
-    .dl_team_logo
-      float left
-      border-radius 5px
     .dl_team_logo_right
       float right
     .dl_team_name
-      color white
-      float left
-      margin 0 0 0 10px
-      line-height 40px
-      overflow hidden
-      text-overflow ellipsis
-      white-space nowrap
       width 25%
     .dl_team_vs
       color white
       float left
       margin 0 0 0 10px
-      line-height 40px
+      line-height 30px
   .dl_card_header_small
     height 25px
     padding 5px 10px
@@ -291,6 +279,7 @@ body
       margin-bottom 10px
       color col_darkGray
       text-decoration none
+      font-size 14px
       .icon
         margin-left 5px
     .dl_cp_time
@@ -325,6 +314,7 @@ body
       display block
       margin 0 auto
   .dl_card_footer
+    height 40px
     border-bottom-left-radius 5px !important
     border-bottom-right-radius 5px !important
     .tab-item
@@ -334,6 +324,9 @@ body
         border-right none
       .icon
         color col_blue
+        font-size 14px
+        &:before
+          line-height 40px
       .dl_icon
         background-size 240px
         vertical-align middle
@@ -400,6 +393,8 @@ body
       .icon
         margin-left 5px
   .dl_card_time
+    height 50px
+    font-size 14px
     border-radius 5px !important
   .item:last-child
     border-bottom-right-radius 5px

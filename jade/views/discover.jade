@@ -1,15 +1,15 @@
-ion-view
+ion-view(ng-controller="DiscoverController")
   ion-header-bar
     h1.title 发现
 
   ion-content
     img(src="http://placehold.it/320x145")
     .list
-      a.item.item-icon-left.item-icon-right(href="#/app/discover/circle")
+      a.item.item-icon-left.item-icon-right(href="#/discover/circle")
         i.icon.ion-mic-a
         | 同事圈
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/app/discover/teams")
+      a.item.item-icon-left.item-icon-right(href="#/discover/teams")
         i.icon.ion-mic-a
         | 所有小队
         span.item-note {{teams.length}}

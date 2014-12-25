@@ -398,7 +398,7 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
-    INFO.calendarBackUrl ='#/app/discuss/list';
+    INFO.calendarBackUrl ='#/discuss/list';
     Socket.emit('enterRoom', localStorage.id);
     //进来以后先http请求,再监视推送
     Comment.getList('joined').success(function (data) {
@@ -626,7 +626,7 @@ angular.module('donlerApp.controllers', [])
     
   }])
   .controller('DiscoverController', ['$scope', '$ionicPopup', 'Team', 'INFO', function ($scope, $ionicPopup, Team, INFO) {
-    INFO.teamBackUrl = '#/app/discover/teams';
+    INFO.teamBackUrl = '#/discover/teams';
     Team.getList('company', null, function (err, teams) {
       if (err) {
         // todo
@@ -671,7 +671,7 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('DiscoverCircleController', ['$scope', '$timeout', 'TimeLine', 'INFO', function ($scope, $timeout, TimeLine, INFO) {
-    INFO.campaignBackUrl = '#/app/discover/circle';
+    INFO.campaignBackUrl = '#/discover/circle';
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -708,6 +708,7 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('PersonalController', ['$scope', '$state', 'User', 'Message', 'INFO', 'Tools', function ($scope, $state, User, Message, INFO, Tools) {
+    console.log('PersonalController');
     INFO.calendarBackUrl ='#/app/personal';
     User.getData(localStorage.id, function (err, data) {
       if (err) {
@@ -771,7 +772,7 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
-    INFO.teamBackUrl = '#/app/personal/teams';
+    INFO.teamBackUrl = '#/personal/teams';
     Team.getList('user', localStorage.id, function (err, teams) {
       if (err) {
         // todo
@@ -1172,7 +1173,7 @@ angular.module('donlerApp.controllers', [])
     
   }])
   .controller('privacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
-    $scope.backHref = '#/app/settings/about';
+    $scope.backHref = '#/settings/about';
   }])
   .controller('compRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/register/company';
@@ -1905,6 +1906,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('LocationController', ['$scope', '$stateParams', 'INFO', function($scope, $stateParams, INFO) {
     $scope.location = INFO.locationContent;
+    $scope.backUrl='#/campaign/detail/'+$stateParams.id;
     $scope.linkMap = function (location) {
       var link = 'http://mo.amap.com/?q=' + location.coordinates[1] + ',' + location.coordinates[0] + '&name=' + location.name;
       window.open( link, '_system' , 'location=yes');

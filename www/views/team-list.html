@@ -1,6 +1,6 @@
 
 <ion-view>
-  <ion-header-bar><a href="#/app/discover" class="button icon ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><a href="#/app/discover" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">{{title}}</h1>
   </ion-header-bar>
   <ion-content class="all_team_list_page"><a ng-repeat="team in teams" ng-href="#/team/{{team._id}}" class="dl_team_card clearfix"><img ng-src="{{STATIC_URL + team.logo}}/170/170" class="team_logo"/>

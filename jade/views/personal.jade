@@ -1,11 +1,11 @@
-ion-view
+ion-view(ng-controller="PersonalController")
 
   ion-header-bar
     h1.title 我的
 
   ion-content
     .list.card
-      a.item.item-avatar(href="#/app/personal/edit")
+      a.item.item-avatar(href="#/personal/edit")
         img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80")
         h2 {{user.nickname}}
         p 公司：{{user.company.name}}
@@ -17,7 +17,7 @@ ion-view
         p(ng-if="constellation" ng-cloak) 星座：{{constellation}}
         p(ng-if="user.realname" ng-cloak) 真实姓名：{{user.realname}}
     .list
-      a.item.item-icon-left.item-icon-right(href="#/app/personal/teams")
+      a.item.item-icon-left.item-icon-right(href="#/personal/teams")
         i.icon.ion-mic-a
         | 我的小队
         i.icon.ion-chevron-right
@@ -34,7 +34,7 @@ ion-view
         i.icon.ion-mic-a
         | 我的日程
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/app/settings")
+      a.item.item-icon-left.item-icon-right(href="#/settings")
         i.icon.ion-mic-a
         | 设置
         i.icon.ion-chevron-right

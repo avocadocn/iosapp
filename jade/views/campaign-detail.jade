@@ -1,17 +1,16 @@
-ion-view(title="{{campaign.theme}}")
-  ion-nav-bar
-    ion-nav-back-button
+ion-view
+  ion-header-bar
+    a.button.icon.icon_small.ion-chevron-left(ng-href="{{backUrl}}") 返回
+    h1.title {{campaign.theme}}
+    a.button.icon.ion-chatbubble-working(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
   ion-content
-    ion-nav-buttons(side="left")
-      a.button.icon.icon_small.ion-chevron-left.button-clear.icon_blue(ng-href="{{backUrl}}") 返回
-    ion-nav-buttons(side="right")
-      a.button.icon.button-clear.ion-chatbubble-working(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
+
     .card.dl_card_detail
       .item.dl_card_header(ng-if="campaign.campaign_unit.length==1")
         img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}")
         h2.dl_team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
         span.campaign_mold(ng-if="campaign.campaign_mold") {{campaign.campaign_mold}}
-      .item.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2")
+      .item.dl_card_header.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2")
         img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}")
         h2.dl_team_name {{campaign.campaign_unit[0].team.name}}
         h2.dl_team_vs vs
@@ -21,7 +20,8 @@ ion-view(title="{{campaign.theme}}")
         h2.dl_cp_name {{campaign.theme}}
         a.dl_cp_address(href="#/location/{{campaign._id}}") 活动地点：{{campaign.location.name}}
           span.icon.icon_small.ion-chevron-right.button-clear
-        p.dl_cp_time 开始：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}} 结束： {{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}
+        p.dl_cp_time 开始：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}}
+        p.dl_cp_time 结束： {{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}
         p.dl_cp_time 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}
         button.button.button-full.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
         button.button.button-full.dl_cp_quit(ng-if="campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
@@ -32,7 +32,7 @@ ion-view(title="{{campaign.theme}}")
         ion-scroll(direction="x")
           a.dl_photo_alb(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
-      .item.tabs.tabs-secondary.tabs-icon-left.dl_card_footer
+      .item.tabs.tabs-icon-left.dl_card_footer
         a.tab-item.btn_upload_photo(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
           i.icon.ion-image
           | 上传图片

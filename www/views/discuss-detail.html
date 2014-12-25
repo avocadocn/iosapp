@@ -1,8 +1,6 @@
 
-<ion-view class="discuss_detail">
-  <ion-header-bar><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a>
-  </ion-header-bar>
+<ion-view title="{{campaignTitle}}" class="discuss_detail">
+  <ion-header-bar><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a></ion-header-bar>
   <div ng-show="!hideNotice&amp;&amp;notification" class="notice">
     <div class="notice_cover"></div>
     <div class="content"><span class="notice_title">活动公告</span>
