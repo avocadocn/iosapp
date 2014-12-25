@@ -717,7 +717,6 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('PersonalController', ['$scope', '$state', 'User', 'Message', 'INFO', 'Tools', function ($scope, $state, User, Message, INFO, Tools) {
-    console.log('PersonalController');
     INFO.calendarBackUrl ='#/app/personal';
     User.getData(localStorage.id, function (err, data) {
       if (err) {

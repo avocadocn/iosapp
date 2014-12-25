@@ -1,10 +1,10 @@
-ion-view(ng-controller="PersonalController")
+ion-view.personal(ng-controller="PersonalController")
 
   ion-header-bar
     h1.title 我的
 
   ion-content
-    .list.card
+    .list
       a.item.item-avatar(href="#/personal/edit")
         img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80")
         h2 {{user.nickname}}
@@ -16,25 +16,25 @@ ion-view(ng-controller="PersonalController")
         p(ng-if="user.birthday" ng-cloak) 生日：{{user.birthday | date:'yyyy-MM-dd'}}
         p(ng-if="constellation" ng-cloak) 星座：{{constellation}}
         p(ng-if="user.realname" ng-cloak) 真实姓名：{{user.realname}}
-    .list
       a.item.item-icon-left.item-icon-right(href="#/personal/teams")
-        i.icon.ion-mic-a
+        i.icon.ion_teams
         | 我的小队
+        span.item-note {{user.tids.length}}
         i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/personal/timeline")
-        i.icon.ion-mic-a
+        i.icon.ion_foot
         | 我的足迹
         i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/personal/messages")
-        i.icon.ion-mic-a
+        i.icon.ion_message
         | 我的站内信
         span(ng-if="messagesCount && messagesCount>0") {{messagesCount}}
         i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/calendar")
-        i.icon.ion-mic-a
+        i.icon.ion_calendar
         | 我的日程
         i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/settings")
-        i.icon.ion-mic-a
+        i.icon.ion_setting
         | 设置
         i.icon.ion-chevron-right

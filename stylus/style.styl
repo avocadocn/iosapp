@@ -642,9 +642,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .ion_personal_active
   background-position -233px -50px
 
-.ion_member, .ion_comment, .ion_ballon, .ion_teams
+.ion_member, .ion_comment, .ion_ballon, .ion_teams, .ion_team, .ion_foot, .ion_message, .ion_calendar, .ion_setting
   background-image url('../img/icon.png')
-  background-size 160px
+  background-size 160px 200px
 .ion_member
   background-position 0px -80px
 .ion_comment
@@ -653,6 +653,14 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-position -110px -65px
 .ion_teams
   background-position -70px -62px
+.ion_foot
+  background-position -110px -103px
+.ion_message
+  background-position 10px -342px
+.ion_calendar
+  background-position -70px -103px
+.ion_setting
+  background-position -30px -145px
 //- 讨论页
 .discuss_detail
   background-image url('../img/discuss_bgd.jpg')
@@ -806,10 +814,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         top 1rem
 //-发现页
 .discover
-  background-color col_navGray
   .discover_image
     width 100%
-    margin-bottom 1rem
+    display block
   .list
     .item
       &:first-child
@@ -820,6 +827,89 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         color col_blue
       .item-note
         color col_blue
+//-我的等页面通用">"
+.personal, .settings, .about, .settings_account
+  .list
+    margin-top 10px
+    .ion-chevron-right
+      font-size 14px
+      color #ccc
+//-我的
+.personal
+  .list
+    padding-top 0
+    .item.item-avatar
+      h2
+        font-weight 400
+        margin-bottom 5px
+      padding-bottom 5px
+      p
+        margin-bottom 5px
+        color col_darkGray
+    .item.item-icon-left
+      .icon
+        width 3rem
+//-设置
+.settings
+  .list
+    padding-top 0
+    border-bottom 1px solid #ccc
+    &:first-child
+      margin-bottom 10px
+      margin-top 10px
+    .item
+      color #333
+      padding-left 20px
+  .quit_button
+    border-top 0
+    color #f3835c
+    height 50px
+    border-bottom 1px solid #ccc
+//- 关于
+.about
+  .list
+    color #666
+    font-weight 600
+    border-bottom 1px solid #ccc
+    .item
+      padding-left 20px
+  .about_title
+    width 100%
+    height 70px
+    text-align center
+    font-size 16px
+    padding 30px
+    color #333
+//- 反馈
+.settings_feedback
+  .list>.list-inset
+    background-color transparent
+    .item
+      border-radius 5px
+      input::-webkit-input-placeholder /* WebKit browsers */
+        color col_lightGray
+      input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+        color col_lightGray
+      input::-moz-placeholder /* Mozilla Firefox 19+ */
+        color col_lightGray
+      input:-ms-input-placeholder /* Internet Explorer 10+ */
+        color col_lightGray
+      textarea::-webkit-input-placeholder /* WebKit browsers */
+        color col_lightGray
+      textarea::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+        color col_lightGray
+      textarea::-moz-placeholder /* Mozilla Firefox 19+ */
+        color col_lightGray
+      textarea:-ms-input-placeholder /* Internet Explorer 10+ */
+        color col_lightGray
+      textarea
+        height 100px
+    .submit_button
+      border 0
+      border-radius 5px
+      background-color col_blue
+      font-size 16px
+      font-weight 600
 // 日程
 .calendar
   margin 6px 4px
