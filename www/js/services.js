@@ -76,6 +76,18 @@ angular.module('donlerApp.services', [])
             $http.defaults.headers.common[key] = headers[key];
           }
         }
+      },
+
+      get: function () {
+        return {
+          'x-app-id': $http.defaults.headers.common['x-app-id'],
+          'x-api-key': $http.defaults.headers.common['x-api-key'],
+          'x-device-id': $http.defaults.headers.common['x-device-id'],
+          'x-device-type': $http.defaults.headers.common['x-device-type'],
+          'x-platform': $http.defaults.headers.common['x-platform'],
+          'x-version': $http.defaults.headers.common['x-version']
+        };
+
       }
 
     };

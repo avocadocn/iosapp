@@ -792,9 +792,14 @@ a>.login .companies_list:activated {
 .ion_member,
 .ion_comment,
 .ion_ballon,
-.ion_teams {
+.ion_teams,
+.ion_team,
+.ion_foot,
+.ion_message,
+.ion_calendar,
+.ion_setting {
   background-image: url("../img/icon.png");
-  background-size: 160px;
+  background-size: 160px 200px;
 }
 .ion_member {
   background-position: 0px -80px;
@@ -807,6 +812,18 @@ a>.login .companies_list:activated {
 }
 .ion_teams {
   background-position: -70px -62px;
+}
+.ion_foot {
+  background-position: -110px -103px;
+}
+.ion_message {
+  background-position: 10px -342px;
+}
+.ion_calendar {
+  background-position: -70px -103px;
+}
+.ion_setting {
+  background-position: -30px -145px;
 }
 .discuss_detail {
   background-image: url("../img/discuss_bgd.jpg");
@@ -1026,12 +1043,9 @@ none
   left: 4rem;
   top: 1rem;
 }
-.discover {
-  background-color: #fbfbfb;
-}
 .discover .discover_image {
   width: 100%;
-  margin-bottom: 1rem;
+  display: block;
 }
 .discover .list .item:first-child {
   border-top: 0;
@@ -1043,6 +1057,110 @@ none
 }
 .discover .list .item .item-note {
   color: #3ca2e0;
+}
+.personal .list,
+.settings .list,
+.about .list,
+.settings_account .list {
+  margin-top: 10px;
+}
+.personal .list .ion-chevron-right,
+.settings .list .ion-chevron-right,
+.about .list .ion-chevron-right,
+.settings_account .list .ion-chevron-right {
+  font-size: 14px;
+  color: #ccc;
+}
+.personal .list {
+  padding-top: 0;
+}
+.personal .list .item.item-avatar {
+  padding-bottom: 5px;
+}
+.personal .list .item.item-avatar h2 {
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+.personal .list .item.item-avatar p {
+  margin-bottom: 5px;
+  color: #999;
+}
+.personal .list .item.item-icon-left .icon {
+  width: 3rem;
+}
+.settings .list {
+  padding-top: 0;
+  border-bottom: 1px solid #ccc;
+}
+.settings .list:first-child {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.settings .list .item {
+  color: #333;
+  padding-left: 20px;
+}
+.settings .quit_button {
+  border-top: 0;
+  color: #f3835c;
+  height: 50px;
+  border-bottom: 1px solid #ccc;
+}
+.about .list {
+  color: #666;
+  font-weight: 600;
+  border-bottom: 1px solid #ccc;
+}
+.about .list .item {
+  padding-left: 20px;
+}
+.about .about_title {
+  width: 100%;
+  height: 70px;
+  text-align: center;
+  font-size: 16px;
+  padding: 30px;
+  color: #333;
+}
+.settings_feedback .list>.list-inset {
+  background-color: transparent;
+}
+.settings_feedback .list>.list-inset .item {
+  border-radius: 5px;
+}
+.settings_feedback .list>.list-inset .item input::-webkit-input-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item input::-moz-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item input::-moz-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item input:-ms-input-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item textarea::-webkit-input-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item textarea::-moz-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item textarea::-moz-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item textarea:-ms-input-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item textarea {
+  height: 100px;
+}
+.settings_feedback .list>.list-inset .submit_button {
+  border: 0;
+  border-radius: 5px;
+  background-color: #3ca2e0;
+  font-size: 16px;
+  font-weight: 600;
 }
 .calendar {
   margin: 6px 4px;

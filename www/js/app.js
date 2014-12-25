@@ -3,7 +3,8 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives'])
+
+angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives'])
 
   .run(function ($ionicPlatform, $state, $ionicLoading, $http, $rootScope, CommonHeaders, CONFIG) {
     $ionicPlatform.ready(function () {
@@ -42,240 +43,240 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
     $stateProvider
       .state('home', {
         url: '/home',
-        templateUrl: 'views/home.html'
+        templateUrl: './views/home.html'
       })
       .state('user_login', {
         url: '/user/login',
         controller: 'UserLoginController',
-        templateUrl: 'views/user-login.html'
+        templateUrl: './views/user-login.html'
       })
       .state('company_login', {
         url: '/company/login',
         controller: 'CompanyLoginController',
-        templateUrl: 'views/company-login.html'
+        templateUrl: './views/company-login.html'
       })
       .state('company_home', {
         url: '/company/home',
         controller: 'CompanyHomeController',
-        templateUrl: 'views/company-home.html'
+        templateUrl: './views/company-home.html'
       })
       .state('company_activeCode', {
         url: '/company/active_code',
         controller: 'CompanyActiveCodeController',
-        templateUrl: 'views/company-active-code.html'
+        templateUrl: './views/company-active-code.html'
       })
       .state('company_teamPage', {
         url: '/company/team_page',
-        templateUrl: 'views/company-team-page.html'
+        templateUrl: './views/company-team-page.html'
       })
       .state('company_teamList', {
         url: '/company/team_list/:type',
         controller: 'CompanyTeamController',
-        templateUrl: 'views/company-team-list.html'
+        templateUrl: './views/company-team-list.html'
       })
       .state('company_forget', {
         url: '/company/forget',
         controller: 'CompanyForgetController',
-        templateUrl: 'views/company-forget.html'
+        templateUrl: './views/company-forget.html'
       })
       .state('user_forget', {
         url: '/user/forget',
         controller: 'UserForgetController',
-        templateUrl: 'views/user-forget.html'
+        templateUrl: './views/user-forget.html'
       })
       .state('register_company', {
         url: '/register/company',
-        templateUrl: 'views/register-company.html'
+        templateUrl: './views/register-company.html'
       })
       .state('register_company_law', {
         url: '/register/company/law',
         controller: 'compRegPrivacyController',
-        templateUrl: 'views/privacy.html'
+        templateUrl: './views/privacy.html'
       })
       .state('register_company_wait', {
         url: '/register/company/wait',
-        templateUrl: 'views/register-company-wait.html'
+        templateUrl: './views/register-company-wait.html'
       })
       .state('register_user_searchCompany', {
         url: '/register/user/search_company',
         controller:'userSearchCompanyController',
-        templateUrl: 'views/register-user-search-company.html'
+        templateUrl: './views/register-user-search-company.html'
       })
       .state('register_user_postDetail', {
         url: '/register/user/post_detail/:cid',
         controller: 'userRegisterDetailController',
-        templateUrl: 'views/register-user-post-detail.html'
+        templateUrl: './views/register-user-post-detail.html'
       })
       .state('register_user_remind_activate', {
         url: '/register/user/remind_activate',
-        templateUrl: 'views/register-user-remind-activate.html'
+        templateUrl: './views/register-user-remind-activate.html'
       })
       .state('register_user_waitEmail', {
         url: '/register/user/wait_email',
-        templateUrl: 'views/register-user-wait-email.html'
+        templateUrl: './views/register-user-wait-email.html'
       })
       .state('register_user_activeCode', {
         url: '/register/user/active_code',
-        templateUrl: 'views/register-user-active-code.html'
+        templateUrl: './views/register-user-active-code.html'
       })
       .state('register_user_law', {
         url: '/register/user/law',
         controller: 'userRegPrivacyController',
-        templateUrl: 'views/privacy.html'
+        templateUrl: './views/privacy.html'
       })
       .state('app', {
         url: '/app',
         abstract: true,
-        templateUrl: 'views/tab-layout.html',
+        templateUrl: './views/tab-layout.html',
         controller: 'AppContoller'
       })
       .state('privacy', {
         url: '/settings/about/privacy',
         controller: 'privacyController',
-        templateUrl: 'views/privacy.html'
+        templateUrl: './views/privacy.html'
       })
       .state('app.campaigns', {
         url: '/campaigns',
         // controller: 'CampaignController',
-        templateUrl: 'views/campaign.html'
+        templateUrl: './views/campaign.html'
       })
       .state('campaigns_detail', {
         url: '/campaign/detail/:id',
         controller: 'CampaignDetailController',
-        templateUrl: 'views/campaign-detail.html'
+        templateUrl: './views/campaign-detail.html'
       })
       .state('sponsor', {
         url: '/campaign/sponsor',
         controller: 'SponsorController',
-        templateUrl: 'views/sponsor.html'
+        templateUrl: './views/sponsor.html'
       })
       .state('app.discuss_list', {
         url: '/discuss/list',
         // controller: 'DiscussListController',
-        templateUrl: 'views/discuss-list.html'
+        templateUrl: './views/discuss-list.html'
       })
       .state('unjoined_discuss_list', {
         url: '/discuss/list/unjoined',
         controller: 'UnjoinedDiscussController',
-        templateUrl: 'views/unjoined-discuss-list.html'
+        templateUrl: './views/unjoined-discuss-list.html'
       })
       .state('discuss_detail', {
         url: '/discuss/detail/:campaignId',
         controller: 'DiscussDetailController',
-        templateUrl: 'views/discuss-detail.html'
+        templateUrl: './views/discuss-detail.html'
       })
       .state('create_team',{
         url: '/company/create_team',
         controller: 'createTeamController',
-        templateUrl: 'views/create-team.html'
+        templateUrl: './views/create-team.html'
       })
       .state('app.discover', {
         url: '/discover',
         // controller: 'DiscoverController',
-        templateUrl: 'views/discover.html'
+        templateUrl: './views/discover.html'
       })
       .state('discover_circle', {
         url: '/discover/circle',
         controller: 'DiscoverCircleController',
-        templateUrl: 'views/colleague-circle.html'
+        templateUrl: './views/colleague-circle.html'
       })
       .state('discover_teams', {
         url: '/discover/teams',
         controller: 'DiscoverController',
-        templateUrl: 'views/team-list.html'
+        templateUrl: './views/team-list.html'
       })
       .state('app.personal', {
         url: '/personal',
         // controller: 'PersonalController',
-        templateUrl: 'views/personal.html'
+        templateUrl: './views/personal.html'
       })
       .state('personal_edit', {
         url: '/personal/edit',
         controller: 'PersonalEditController',
-        templateUrl: 'views/personal-edit.html'
+        templateUrl: './views/personal-edit.html'
       })
       .state('personal_teams', {
         url: '/personal/teams',
         controller: 'PersonalTeamListController',
-        templateUrl: 'views/personal-team-list.html'
+        templateUrl: './views/personal-team-list.html'
       })
       .state('personal_timeline', {
         url: '/personal/timeline',
         controller: 'TimelineController',
-        templateUrl: 'views/timeline.html'
+        templateUrl: './views/timeline.html'
       })
       .state('personal_messages', {
         url: '/personal/messages',
         controller: 'MessageController',
-        templateUrl: 'views/messages.html'
+        templateUrl: './views/messages.html'
       })
       .state('settings', {
         url: '/settings',
         controller: 'SettingsController',
-        templateUrl: 'views/settings.html'
+        templateUrl: './views/settings.html'
       })
       .state('settings_account', {
         url: '/settings/account',
-        templateUrl: 'views/settings-account.html'
+        templateUrl: './views/settings-account.html'
       })
       .state('change_password', {
         url: '/settings/account/change_password',
-        templateUrl: 'views/settings-change-password.html'
+        templateUrl: './views/settings-change-password.html'
       })
       .state('settings_feedback', {
         url: '/settings/feedback',
-        templateUrl: 'views/settings-feedback.html'
+        templateUrl: './views/settings-feedback.html'
       })
       .state('settings_about', {
         url: '/settings/about',
-        templateUrl: 'views/settings-about.html'
+        templateUrl: './views/settings-about.html'
       })
       .state('good', {
         url: '/settings/about/good',
-        templateUrl: 'views/about-good.html'
+        templateUrl: './views/about-good.html'
       })
       .state('intro', {
         url: '/settings/about/intro',
-        templateUrl: 'views/about-intro.html'
+        templateUrl: './views/about-intro.html'
       })
       .state('notice', {
         url: '/settings/about/notice',
-        templateUrl: 'views/about-notice.html'
+        templateUrl: './views/about-notice.html'
       })
       .state('calendar', {
         url: '/calendar',
         controller: 'CalendarController',
-        templateUrl: 'views/calendar.html'
+        templateUrl: './views/calendar.html'
       })
       .state('team', {
         url: '/team/:teamId',
         controller: 'TeamController',
-        templateUrl: 'views/team-detail.html'
+        templateUrl: './views/team-detail.html'
       })
       .state('team_family', {
         url: '/team/:teamId/family',
         controller: 'FamilyPhotoController',
-        templateUrl: 'views/family-photo.html'
+        templateUrl: './views/family-photo.html'
       })
       .state('members', {
         url: '/members/:memberType/:id',
         controller: 'MemberController',
-        templateUrl: 'views/members.html'
+        templateUrl: './views/members.html'
       })
 
       .state('location', {
         url: '/location/:id',
         controller: 'LocationController',
-        templateUrl: 'views/location.html'
+        templateUrl: './views/location.html'
       })
       .state('photo_album_list', {
         url: '/photo_album/list/team/:teamId',
         controller: 'PhotoAlbumListController',
-        templateUrl: 'views/photo-album-list.html'
+        templateUrl: './views/photo-album-list.html'
       })
       .state('photo_album_detail', {
         url: '/photo_album/:photoAlbumId/detail',
         controller: 'PhotoAlbumDetailController',
-        templateUrl: 'views/photo-album-detail.html'
+        templateUrl: './views/photo-album-detail.html'
       });
   });
