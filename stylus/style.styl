@@ -474,7 +474,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 //-通用bar
 .bar
   border-bottom 1px solid #ccc
-  .title + .button:last-child
+  .title + .button.ion_discuss_active:last-child
     right 15px
     width 30px
   .button
@@ -486,14 +486,10 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     line-height 34px
   .button.activated
     box-shadow inset 0px 1px 1px rgba(0, 0, 0, 0.15)
-  .icon-left.ion-chevron-left
-    &:before
+  .icon-left, .icon-right
+    &.button:before
       font-size 14px
       padding-left 10px
-  .icon-right.ion-chevron-right
-    &:before
-      font-size 14px
-      padding-right 10px
 
 //- home页
 .home
@@ -1296,6 +1292,10 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     margin 0
     margin-top 5px
     font-size 14px
+    max-width 15rem
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
   .team_cp_title, .team_count, .team_member, .team_cp_number
     margin 0
     font-size 12px
@@ -1334,8 +1334,30 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .map_img
       width 100%
 
-// .sponsor
-//   .list
-//     .item
-//       border 1px solid col_blue
-//       border-radius 5px
+.sponsor
+  background-color #fff
+  .list
+    .input-label
+      color col_blue
+    .item-label
+      margin 10px 20px
+      border none
+      padding 0
+    .item-input
+      margin 10px 20px
+      border 1px solid col_blue
+      border-radius 5px
+      input
+        color col_blue
+    .item-select
+      select
+        color col_blue
+      &:after
+        color col_blue
+    .item-button
+      margin 10px 20px
+      .button_sponsor
+        width 100%
+        background-color col_blue
+        color white
+        border-radius 5px

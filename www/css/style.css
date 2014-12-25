@@ -572,7 +572,7 @@ input:focus:-ms-input-placeholder {
 .bar {
   border-bottom: 1px solid #ccc;
 }
-.bar .title + .button:last-child {
+.bar .title + .button.ion_discuss_active:last-child {
   right: 15px;
   width: 30px;
 }
@@ -587,13 +587,10 @@ input:focus:-ms-input-placeholder {
 .bar .button.activated {
   box-shadow: inset 0px 1px 1px rgba(0,0,0,0.15);
 }
-.bar .icon-left.ion-chevron-left:before {
+.bar .icon-left.button:before,
+.bar .icon-right.button:before {
   font-size: 14px;
   padding-left: 10px;
-}
-.bar .icon-right.ion-chevron-right:before {
-  font-size: 14px;
-  padding-right: 10px;
 }
 .home {
   background: url("../img/index_1.gif") center no-repeat;
@@ -1560,6 +1557,10 @@ rgba(0,0,0,0.5)
   margin: 0;
   margin-top: 5px;
   font-size: 14px;
+  max-width: 15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .dl_team_card .team_cp_title,
 .dl_team_card .team_count,
@@ -1607,4 +1608,38 @@ rgba(0,0,0,0.5)
 }
 .map_page .map .map_img {
   width: 100%;
+}
+.sponsor {
+  background-color: #fff;
+}
+.sponsor .list .input-label {
+  color: #3ca2e0;
+}
+.sponsor .list .item-label {
+  margin: 10px 20px;
+  border: none;
+  padding: 0;
+}
+.sponsor .list .item-input {
+  margin: 10px 20px;
+  border: 1px solid #3ca2e0;
+  border-radius: 5px;
+}
+.sponsor .list .item-input input {
+  color: #3ca2e0;
+}
+.sponsor .list .item-select select {
+  color: #3ca2e0;
+}
+.sponsor .list .item-select:after {
+  color: #3ca2e0;
+}
+.sponsor .list .item-button {
+  margin: 10px 20px;
+}
+.sponsor .list .item-button .button_sponsor {
+  width: 100%;
+  background-color: #3ca2e0;
+  color: #fff;
+  border-radius: 5px;
 }

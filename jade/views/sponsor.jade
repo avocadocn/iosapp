@@ -1,22 +1,27 @@
-ion-view
+ion-view.sponsor
   ion-header-bar
-    a.button.ion-left.ion-chevron-left(ng-href="{{backUrl}}") 返回
+    a.button.ion-left.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
     h1.title 发活动
   ion-content
-    form.sponsor(name="sponsorForm" novalidate)
+    form(name="sponsorForm" novalidate)
       .list
         label.item.item-input.item-select
-          .input-label 小队
+          span.input-label 发活动的小队
           select(ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams")
         label.item.item-input
-          input(type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限定14个字" ng-maxlength=14 required)
+          input(type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限制14个字" ng-maxlength=14 required)
         label.item.item-input.item-select
-          .input-label 活动类型
+          span.input-label 活动类型
           select(ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds")
+        label.item.item-label
+          span.input-label 活动开始时间:
         label.item.item-input
           input(type="datetime-local" name="start_time" ng-model="campaignData.start_time" placeholder="活动开始时间" required)
+        label.item.item-label
+          span.input-label 活动结束时间:
         label.item.item-input
-          input(type="datetime-local" name="end_time" ng-model="campaignData.end_time" placeholder="活动结束时间" required)
-        label.item.dl_item_input
+          input(type="datetime-local" name="end_time" ng-model="campaignData.end_time" required)
+        label.item.item-input
           input.arecode(type="text" name="location" ng-model="campaignData.location.name" placeholder="活动地点" required)
-      button.button.button-block.button-positive(ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()") 发布
+        .item-button
+          button.button.button-full.button_sponsor(ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()") 发布
