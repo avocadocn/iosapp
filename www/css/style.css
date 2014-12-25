@@ -751,55 +751,59 @@ a>.login .companies_list:activated {
 .app_tabs > .tabs .tab-item-active .tab-title {
   color: #3ca2e0;
 }
-.ion_campaign {
-  background-image: url("../img/nav_tab.png");
-  background-size: 300px 110px;
-  background-position: 6px -7px;
-}
-.ion_campaign_active {
-  background-image: url("../img/nav_tab.png");
-  background-size: 300px 110px;
-  background-position: 6px -50px;
-}
-.ion_discuss {
-  background-image: url("../img/nav_tab.png");
-  background-size: 300px 110px;
-  background-position: -75px -7px;
-}
-.ion_discuss_active {
-  background-image: url("../img/nav_tab.png");
-  background-size: 300px 110px;
-  background-position: -75px -50px;
-}
-.ion_discover {
-  background-image: url("../img/nav_tab.png");
-  background-size: 300px 110px;
-  background-position: -153px -7px;
-}
-.ion_discover_active {
-  background-image: url("../img/nav_tab.png");
-  background-size: 300px 110px;
-  background-position: -153px -50px;
-}
-.ion_personal {
-  background-image: url("../img/nav_tab.png");
-  background-size: 300px 110px;
-  background-position: -233px -7px;
-}
+.ion_campaign,
+.ion_campaign_active,
+.ion_discuss,
+.ion_discuss_active,
+.ion_discover,
+.ion_discover_active,
+.ion_personal,
 .ion_personal_active {
   background-image: url("../img/nav_tab.png");
   background-size: 300px 110px;
+}
+.ion_campaign {
+  background-position: 6px -7px;
+}
+.ion_campaign_active {
+  background-position: 6px -50px;
+}
+.ion_discuss {
+  background-position: -75px -7px;
+}
+.ion_discuss_active {
+  background-position: -75px -50px;
+}
+.ion_discover {
+  background-position: -153px -7px;
+}
+.ion_discover_active {
+  background-position: -153px -50px;
+}
+.ion_personal {
+  background-position: -233px -7px;
+}
+.ion_personal_active {
   background-position: -233px -50px;
 }
-.ion_member {
+.ion_member,
+.ion_comment,
+.ion_ballon,
+.ion_teams {
   background-image: url("../img/icon.png");
   background-size: 160px;
+}
+.ion_member {
   background-position: 0px -80px;
 }
 .ion_comment {
-  background-image: url("../img/icon.png");
-  background-size: 160px;
   background-position: -40px -80px;
+}
+.ion_ballon {
+  background-position: -110px -65px;
+}
+.ion_teams {
+  background-position: -70px -62px;
 }
 .discuss_detail {
   background-image: url("../img/discuss_bgd.jpg");
@@ -968,6 +972,24 @@ a>.login .companies_list:activated {
   border-radius: 100%;
   left: 4rem;
   top: 1rem;
+}
+.discover {
+  background-color: #fbfbfb;
+}
+.discover .discover_image {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.discover .list .item:first-child {
+  border-top: 0;
+}
+.discover .list .item .icon {
+  width: 3rem;
+  font-size: 14px;
+  color: #3ca2e0;
+}
+.discover .list .item .item-note {
+  color: #3ca2e0;
 }
 .calendar {
   margin: 6px 4px;
