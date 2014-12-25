@@ -741,7 +741,7 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('PersonalEditController', ['$scope', '$ionicPopup', 'User', function ($scope, $ionicPopup, User) {
+  .controller('PersonalEditController', ['$scope', '$ionicPopup', '$ionicModal', 'User', '$cordovaCamera', '$cordovaFile', 'CONFIG', 'CommonHeaders', function ($scope, $ionicPopup, $ionicModal, User, $cordovaCamera, $cordovaFile, CONFIG, CommonHeaders) {
 
     var birthdayInput = document.getElementById('birthday');
 
@@ -777,6 +777,71 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
+    $ionicModal.fromTemplateUrl('./views/select-photo-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+
+    var upload = function (imageURI) {
+      var serverAddr = CONFIG.BASE_URL + '/users/' + localStorage.id;
+      var headers = CommonHeaders.get();
+      headers['x-access-token'] = localStorage.token;
+
+      var options = {
+        fileKey: 'photo',
+        httpMethod: 'PUT',
+        headers: headers
+      };
+
+      $cordovaFile
+        .uploadFile(serverAddr, imageURI, options)
+        .then(function(result) {
+          // Success!
+        }, function(err) {
+          // Error
+        }, function (progress) {
+          // constant progress updates
+        });
+    }
+
+    $scope.getPhotoFrom = function (source) {
+
+      var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+      if (source === 'camera') {
+        sourceType = Camera.PictureSourceType.CAMERA;
+      }
+
+      var options = {
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        sourceType: sourceType,
+        allowEdit: true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 256,
+        targetHeight: 256,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: true,
+        correctOrientation: true
+      };
+
+      $cordovaCamera.getPicture(options).then(function(imageURI) {
+        //upload(imageURI);
+      }, function(err) {
+        $ionicPopup.alert({
+          title: '获取照片失败',
+          template: err
+        });
+      });
+    };
+
 
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
