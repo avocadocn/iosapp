@@ -1,0 +1,13 @@
+
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">请选择上传照片的方式</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <div ng-click="getPhotoFrom('camera')" class="item">拍照上传</div>
+      <div ng-click="getPhotoFrom('file')" class="item">本地上传</div>
+      <div ng-click="closeModal()" class="item">取消</div>
+    </div>
+  </ion-content>
+</ion-modal-view>
