@@ -7,7 +7,7 @@
     <div class="list"><a href="#/settings/account/change_password" class="item item-icon-right">密码修改<i class="icon ion-chevron-right"></i></a>
       <div class="item item-toggle">免打扰
         <label class="toggle toggle-calm">
-          <input type="checkbox"/>
+          <input type="checkbox" ng-model="user.pushToggle" ng-change="changePushToggle()"/>
           <div class="track">
             <div class="handle"></div>
           </div>
