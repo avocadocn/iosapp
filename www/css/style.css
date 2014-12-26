@@ -28,7 +28,43 @@ body {
   opacity: 0.9;
 }
 .campaigns_container {
-  padding-bottom: 44px;
+  padding-bottom: 32px;
+}
+.campaigns_container .campaign_filter {
+  height: 33px;
+  background-color: #fff;
+}
+.campaigns_container .campaign_filter .button {
+  height: 32px;
+  line-height: 30px;
+  min-height: 32px;
+  color: #676767;
+  border-bottom: 1px solid #e2e2e2;
+}
+.campaigns_container .campaign_filter .button.icon_blue {
+  height: 31px;
+  color: #3ca2e0;
+  border-bottom: 2px solid #3ca2e0;
+}
+.campaigns_container .campaign_filter .button.icon_darkBlue {
+  height: 31px;
+  color: #618bd7;
+  border-bottom: 2px solid #618bd7;
+}
+.campaigns_container .campaign_filter .button.icon_iconPurple {
+  height: 31px;
+  color: #6a73c6;
+  border-bottom: 2px solid #6a73c6;
+}
+.campaigns_container .campaign_filter .button.icon_borderPurple {
+  height: 31px;
+  color: #806dd0;
+  border-bottom: 2px solid #806dd0;
+}
+.campaigns_container .campaign_filter .button.icon_textPurple {
+  height: 31px;
+  color: #9e6dd0;
+  border-bottom: 2px solid #9e6dd0;
 }
 .campaigns_container .campaign_list {
   height: 100%;
@@ -1426,43 +1462,6 @@ rgba(0,0,0,0.5)
 .dl_message_unread {
   color: #8b0000;
 }
-.campaign_filter {
-  height: 34px;
-  background-color: #fff;
-  border-top: 1px solid #e2e2e2;
-}
-.campaign_filter .button {
-  height: 32px;
-  line-height: 30px;
-  min-height: 32px;
-  color: #676767;
-  border-bottom: 1px solid #e2e2e2;
-}
-.campaign_filter .button.icon_blue {
-  height: 31px;
-  color: #3ca2e0;
-  border-bottom: 2px solid #3ca2e0;
-}
-.campaign_filter .button.icon_darkBlue {
-  height: 31px;
-  color: #618bd7;
-  border-bottom: 2px solid #618bd7;
-}
-.campaign_filter .button.icon_iconPurple {
-  height: 31px;
-  color: #6a73c6;
-  border-bottom: 2px solid #6a73c6;
-}
-.campaign_filter .button.icon_borderPurple {
-  height: 31px;
-  color: #806dd0;
-  border-bottom: 2px solid #806dd0;
-}
-.campaign_filter .button.icon_textPurple {
-  height: 31px;
-  color: #9e6dd0;
-  border-bottom: 2px solid #9e6dd0;
-}
 .team_page .team_header {
   position: relative;
 }
@@ -1707,49 +1706,60 @@ rgba(0,0,0,0.5)
   background-color: #fff;
   position: relative;
   border-radius: 5px;
+  text-decoration: none;
 }
 .dl_team_card .team_logo {
   display: block;
-  float: left;
+  position: absolute;
+  top: 10px;
+  left: 10px;
   width: 60px;
   height: 60px;
 }
 .dl_team_card .team_info {
-  float: left;
-  margin-left: 10px;
+  width: 100%;
+  padding-left: 70px;
   color: #333;
+  text-decoration: none;
 }
-.dl_team_card .team_name {
+.dl_team_card .team_info .team_name {
   margin: 0;
   margin-top: 5px;
   font-size: 14px;
-  max-width: 15rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
-.dl_team_card .team_cp_title,
-.dl_team_card .team_count,
-.dl_team_card .team_member,
-.dl_team_card .team_cp_number {
+.dl_team_card .team_info .team_cp_title,
+.dl_team_card .team_info .team_count,
+.dl_team_card .team_info .team_member,
+.dl_team_card .team_info .team_cp_number {
   margin: 0;
   font-size: 12px;
 }
-.dl_team_card .team_cp_title {
+.dl_team_card .team_info .team_cp_title {
   margin-top: 5px;
 }
-.dl_team_card .team_cp_number {
+.dl_team_card .team_info .team_cp_number {
   margin-left: 10px;
+}
+.dl_team_card .team_info .team_name,
+.dl_team_card .team_info .team_cp_title,
+.dl_team_card .team_info .team_cp_number {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .all_team_list_page .team_logo {
   width: 85px;
   height: 85px;
 }
+.all_team_list_page .team_info {
+  padding-left: 95px;
+}
 .all_team_list_page .btn_quit,
 .all_team_list_page .btn_join {
   margin-top: 10px;
   padding: 0;
-  width: 185px;
+  width: 100%;
   height: 30px;
   border-radius: 5px;
   font-size: 14px;
