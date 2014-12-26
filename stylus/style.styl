@@ -65,52 +65,150 @@ body
   position relative
   dl_card()
   padding 0
-  .provoke_card
+  .campaign_card
     display block
     text-decoration none
-    .dl_card_header
-      border-bottom 1px solid col_darkGray
-      height 65px
-    .dl_team_logo
-      position absolute
-      display block
-      left 0
-      top 0
-      margin 10px
-      width 45px
-      height 45px
-      border-radius 5px
-    .dl_team_logo_right
-      left initial
-      right 0
-    .dl_team_vs
-      margin 17.5px auto
-      height 30px
-      width 135px
-      display block
-      background-color col_darkBlue
-      border-radius 100%
-      color #fff
-      font-size 32px
-      line-height 24px
-      text-align center
-    .dl_card_body
-      padding 1rem
-      font-size 14px
-    .dl_provoke_info
-      color col_darkGray
-    .dl_team_name
-      color col_iconPurple
-    .dl_photo_alb
-      white-space nowrap
     .dl_cp_name
-      margin-top 10px
-      color col_black
       font-size 16px
+      color col_black
+    .dl_card_header
+      padding 0.833333rem
+      height 65px
+      .dl_card_header_info
+        width 100%
+        padding-left 55px
+        padding-right 70px
+        .dl_cp_name, .dl_cp_address
+          margin 0
+          width 100%
+          overflow hidden
+          text-overflow ellipsis
+          white-space nowrap
+
+        .dl_cp_address
+          margin-top 6px
+          font-size 12px
+          color col_darkGray
+      .dl_card_header_operator
+        position absolute
+        right 10px
+        top 10px
+        .dl_btn_join
+          width 60px
+          height 30px
+          border-radius 5px
+          border none
+          color white
+          background-color col_blue
+        .dl_cp_time_countdown_end
+          color col_textPurple
+        .dl_cp_time_countdown
+          margin 0
+          width 70px
+          height 30px
+          line-height 30px
+          border 1px solid col_borderPurple
+          border-radius 5px
+          color col_textPurple
+          font-size 14px
+        .dl_cp_time_count, .dl_cp_time_unit
+          display block
+          float left
+          width 34px
+          height 28px
+          line-height 28px
+          text-align center
+        .dl_cp_time_count
+          border-right 1px solid col_borderPurple
+      .dl_team_logo
+        display block
+        position absolute
+        margin-right 10px
+        width 45px
+        height 45px
+        border-radius 5px
+    .dl_card_header_provoke
+      border-bottom 1px solid col_gray
+      height 65px
+      .dl_team_logo
+        position absolute
+        display block
+        left 0
+        top 0
+        margin 10px
+        width 45px
+        height 45px
+        border-radius 5px
+      .dl_team_logo_right
+        right 0
+        left initial
+      .dl_team_vs
+        margin 7.5px auto
+        height 30px
+        width 135px
+        display block
+        background-color col_darkBlue
+        border-radius 100%
+        color #fff
+        font-size 32px
+        line-height 24px
+        text-align center
+    .dl_card_body
+      .dl_photo_alb
+        white-space nowrap
+        .dl_cp_photo
+          margin-right 5px
+          width 150px
+          height 150px
+      .dl_cp_name
+        margin 10px
+      .dl_provoke_info
+        color col_black
+        margin 10px
+        .dl_team_name
+          color col_borderPurple
+        .dl_cp_name
+          margin-left 0
+        .dl_cp_address
+          color col_darkGray
+        
     .dl_card_footer
+      position relative
+      height 30px
+      line-height 30px
+      padding 0 0.833333rem
+      font-size 12px
+      color col_darkGray
+      width 100%
+      .dl_team_name
+        width 100%
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+        padding-right 90px
+      .dl_team_number
+        position absolute
+        top 0
+        right 50px
+      .dl_team_comment
+        position absolute
+        top 0
+        right 10px
+        margin-left 10px
+      .ion_member, .ion_comment
+        display block
+        float left
+        margin-top 9px
+        margin-right 5px
+        width 12px
+        height 12px
+      .dl_card_footer_count
+        display block
+        float left
+    .dl_card_footer_provoke
       padding 0.833333rem
       height 50px
-      border-top 1px solid col_darkGray
+      border-top 1px solid col_gray
     .dl_cp_confirm, .dl_cp_refuse, .dl_cp_cancel
       width 135px
       height 30px
@@ -126,102 +224,6 @@ body
     .dl_cp_cancel
       display block
       margin 0 auto
-
-  .campaign_card
-    display block
-    text-decoration none
-    .dl_card_header
-      padding 0.833333rem
-      height 65px
-    .dl_card_header_info
-      width 205px
-      float left
-    .dl_team_logo
-      display block
-      float left
-      margin-right 10px
-      width 45px
-      height 45px
-      border-radius 5px
-    .dl_cp_name, .dl_cp_address
-      margin 0
-      float left
-      width 150px
-      overflow hidden
-      text-overflow ellipsis
-      white-space nowrap
-    .dl_cp_name
-      font-size 16px
-      color col_black
-    .dl_cp_address
-      margin-top 6px
-      font-size 12px
-      color col_darkGray
-    .dl_card_header_operator
-      float right
-      padding-top 2px
-    .dl_btn_join
-      width 60px
-      height 30px
-      border-radius 5px
-      border none
-      color white
-      background-color col_blue
-    .dl_cp_time_countdown_end
-      color col_textPurple
-    .dl_cp_time_countdown
-      margin 0
-      width 70px
-      height 30px
-      line-height 30px
-      border 1px solid col_borderPurple
-      border-radius 5px
-      color col_textPurple
-      font-size 14px
-    .dl_cp_time_count, .dl_cp_time_unit
-      display block
-      float left
-      width 34px
-      height 28px
-      line-height 28px
-      text-align center
-    .dl_cp_time_count
-      border-right 1px solid col_borderPurple
-    .dl_photo_alb
-      white-space nowrap
-    .dl_cp_photo
-      margin-right 5px
-      width 150px
-      height 150px
-    .dl_card_footer
-      height 30px
-      line-height 30px
-      padding 0 0.833333rem
-      font-size 12px
-      color col_darkGray
-    .dl_team_name
-      float left
-      width 200px
-      overflow hidden
-      text-overflow ellipsis
-      white-space nowrap
-      padding-right 5px
-    .dl_team_number
-      float right
-    .dl_team_comment
-      float right
-      margin-left 10px
-    .ion_member, .ion_comment
-      display block
-      float left
-      margin-top 9px
-      margin-right 5px
-      width 12px
-      height 12px
-    .dl_card_footer_count
-      display block
-      float left
-
 .dl_card_detail
   dl_card()
   padding 0
@@ -453,20 +455,16 @@ body
     color #fff
 
 //-input全局placeholder
-input::-webkit-input-placeholder /* WebKit browsers */
+input::-webkit-input-placeholder
   color col_blue
 input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-  color col_blue
-input::-moz-placeholder /* Mozilla Firefox 19+ */
   color col_blue
 input:-ms-input-placeholder /* Internet Explorer 10+ */
   color col_blue
 
-input:focus::-webkit-input-placeholder /* WebKit browsers */
+input:focus::-webkit-input-placeholder textarea /* WebKit browsers */
   color transparent
 input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-  color transparent
-input:focus::-moz-placeholder /* Mozilla Firefox 19+ */
   color transparent
 input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   color transparent
@@ -934,21 +932,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .settings_feedback
   .list>.list-inset
     background-color transparent
+    margin 20px
     .item
       border-radius 5px
-      input::-webkit-input-placeholder /* WebKit browsers */
-        color col_lightGray
-      input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-        color col_lightGray
-      input::-moz-placeholder /* Mozilla Firefox 19+ */
-        color col_lightGray
-      input:-ms-input-placeholder /* Internet Explorer 10+ */
-        color col_lightGray
       textarea::-webkit-input-placeholder /* WebKit browsers */
         color col_lightGray
       textarea::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-        color col_lightGray
-      textarea::-moz-placeholder /* Mozilla Firefox 19+ */
         color col_lightGray
       textarea:-ms-input-placeholder /* Internet Explorer 10+ */
         color col_lightGray
@@ -1370,16 +1359,28 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       color white
       border-radius 5px
       text-align center
-
-.dl_timeline_date
-  display block
-  margin 1rem auto
-  width 100px
-  height 20px
-  background-color col_darkGray
-  color white
-  border-radius 5px
-  text-align center
+.dl_timeline
+  &:before
+    content ''
+    position absolute
+    top 0
+    bottom 0
+    width 3px
+    background #ccc
+    left 50%
+  .dl_timeline_card
+    z-index 10
+  .dl_timeline_date
+    display block
+    margin 1rem auto
+    width 100px
+    height 20px
+    background-color #ccc
+    color white
+    border-radius 5px
+    text-align center
+    position relative
+    z-index 10
 
 .member_page
   .member_group

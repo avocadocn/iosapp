@@ -64,15 +64,87 @@ body {
   background-color: #fff;
   padding: 0;
 }
-.dl_card .provoke_card {
+.dl_card .campaign_card {
   display: block;
   text-decoration: none;
 }
-.dl_card .provoke_card .dl_card_header {
-  border-bottom: 1px solid #999;
+.dl_card .campaign_card .dl_cp_name {
+  font-size: 16px;
+  color: #333;
+}
+.dl_card .campaign_card .dl_card_header {
+  padding: 0.833333rem;
   height: 65px;
 }
-.dl_card .provoke_card .dl_team_logo {
+.dl_card .campaign_card .dl_card_header .dl_card_header_info {
+  width: 100%;
+  padding-left: 55px;
+  padding-right: 70px;
+}
+.dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_name,
+.dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_address {
+  margin: 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_address {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #999;
+}
+.dl_card .campaign_card .dl_card_header .dl_card_header_operator {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_btn_join {
+  width: 60px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  background-color: #3ca2e0;
+}
+.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_countdown_end {
+  color: #9e6dd0;
+}
+.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_countdown {
+  margin: 0;
+  width: 70px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #806dd0;
+  border-radius: 5px;
+  color: #9e6dd0;
+  font-size: 14px;
+}
+.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_count,
+.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_unit {
+  display: block;
+  float: left;
+  width: 34px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+}
+.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_count {
+  border-right: 1px solid #806dd0;
+}
+.dl_card .campaign_card .dl_card_header .dl_team_logo {
+  display: block;
+  position: absolute;
+  margin-right: 10px;
+  width: 45px;
+  height: 45px;
+  border-radius: 5px;
+}
+.dl_card .campaign_card .dl_card_header_provoke {
+  border-bottom: 1px solid #e2e2e2;
+  height: 65px;
+}
+.dl_card .campaign_card .dl_card_header_provoke .dl_team_logo {
   position: absolute;
   display: block;
   left: 0;
@@ -82,12 +154,12 @@ body {
   height: 45px;
   border-radius: 5px;
 }
-.dl_card .provoke_card .dl_team_logo_right {
-  left: initial;
+.dl_card .campaign_card .dl_card_header_provoke .dl_team_logo_right {
   right: 0;
+  left: initial;
 }
-.dl_card .provoke_card .dl_team_vs {
-  margin: 17.5px auto;
+.dl_card .campaign_card .dl_card_header_provoke .dl_team_vs {
+  margin: 7.5px auto;
   height: 30px;
   width: 135px;
   display: block;
@@ -98,32 +170,78 @@ body {
   line-height: 24px;
   text-align: center;
 }
-.dl_card .provoke_card .dl_card_body {
-  padding: 1rem;
-  font-size: 14px;
-}
-.dl_card .provoke_card .dl_provoke_info {
-  color: #999;
-}
-.dl_card .provoke_card .dl_team_name {
-  color: #6a73c6;
-}
-.dl_card .provoke_card .dl_photo_alb {
+.dl_card .campaign_card .dl_card_body .dl_photo_alb {
   white-space: nowrap;
 }
-.dl_card .provoke_card .dl_cp_name {
-  margin-top: 10px;
-  color: #333;
-  font-size: 16px;
+.dl_card .campaign_card .dl_card_body .dl_photo_alb .dl_cp_photo {
+  margin-right: 5px;
+  width: 150px;
+  height: 150px;
 }
-.dl_card .provoke_card .dl_card_footer {
+.dl_card .campaign_card .dl_card_body .dl_cp_name {
+  margin: 10px;
+}
+.dl_card .campaign_card .dl_card_body .dl_provoke_info {
+  color: #333;
+  margin: 10px;
+}
+.dl_card .campaign_card .dl_card_body .dl_provoke_info .dl_team_name {
+  color: #806dd0;
+}
+.dl_card .campaign_card .dl_card_body .dl_provoke_info .dl_cp_name {
+  margin-left: 0;
+}
+.dl_card .campaign_card .dl_card_body .dl_provoke_info .dl_cp_address {
+  color: #999;
+}
+.dl_card .campaign_card .dl_card_footer {
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 0.833333rem;
+  font-size: 12px;
+  color: #999;
+  width: 100%;
+}
+.dl_card .campaign_card .dl_card_footer .dl_team_name {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 90px;
+}
+.dl_card .campaign_card .dl_card_footer .dl_team_number {
+  position: absolute;
+  top: 0;
+  right: 50px;
+}
+.dl_card .campaign_card .dl_card_footer .dl_team_comment {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  margin-left: 10px;
+}
+.dl_card .campaign_card .dl_card_footer .ion_member,
+.dl_card .campaign_card .dl_card_footer .ion_comment {
+  display: block;
+  float: left;
+  margin-top: 9px;
+  margin-right: 5px;
+  width: 12px;
+  height: 12px;
+}
+.dl_card .campaign_card .dl_card_footer .dl_card_footer_count {
+  display: block;
+  float: left;
+}
+.dl_card .campaign_card .dl_card_footer_provoke {
   padding: 0.833333rem;
   height: 50px;
-  border-top: 1px solid #999;
+  border-top: 1px solid #e2e2e2;
 }
-.dl_card .provoke_card .dl_cp_confirm,
-.dl_card .provoke_card .dl_cp_refuse,
-.dl_card .provoke_card .dl_cp_cancel {
+.dl_card .campaign_card .dl_cp_confirm,
+.dl_card .campaign_card .dl_cp_refuse,
+.dl_card .campaign_card .dl_cp_cancel {
   width: 135px;
   height: 30px;
   border: none;
@@ -132,133 +250,15 @@ body {
   font-size: 14px;
   border-radius: 5px;
 }
-.dl_card .provoke_card .dl_cp_confirm {
+.dl_card .campaign_card .dl_cp_confirm {
   background-color: #6a73c6;
 }
-.dl_card .provoke_card .dl_cp_refuse {
+.dl_card .campaign_card .dl_cp_refuse {
   float: right;
 }
-.dl_card .provoke_card .dl_cp_cancel {
+.dl_card .campaign_card .dl_cp_cancel {
   display: block;
   margin: 0 auto;
-}
-.dl_card .campaign_card {
-  display: block;
-  text-decoration: none;
-}
-.dl_card .campaign_card .dl_card_header {
-  padding: 0.833333rem;
-  height: 65px;
-}
-.dl_card .campaign_card .dl_card_header_info {
-  width: 205px;
-  float: left;
-}
-.dl_card .campaign_card .dl_team_logo {
-  display: block;
-  float: left;
-  margin-right: 10px;
-  width: 45px;
-  height: 45px;
-  border-radius: 5px;
-}
-.dl_card .campaign_card .dl_cp_name,
-.dl_card .campaign_card .dl_cp_address {
-  margin: 0;
-  float: left;
-  width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.dl_card .campaign_card .dl_cp_name {
-  font-size: 16px;
-  color: #333;
-}
-.dl_card .campaign_card .dl_cp_address {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #999;
-}
-.dl_card .campaign_card .dl_card_header_operator {
-  float: right;
-  padding-top: 2px;
-}
-.dl_card .campaign_card .dl_btn_join {
-  width: 60px;
-  height: 30px;
-  border-radius: 5px;
-  border: none;
-  color: #fff;
-  background-color: #3ca2e0;
-}
-.dl_card .campaign_card .dl_cp_time_countdown_end {
-  color: #9e6dd0;
-}
-.dl_card .campaign_card .dl_cp_time_countdown {
-  margin: 0;
-  width: 70px;
-  height: 30px;
-  line-height: 30px;
-  border: 1px solid #806dd0;
-  border-radius: 5px;
-  color: #9e6dd0;
-  font-size: 14px;
-}
-.dl_card .campaign_card .dl_cp_time_count,
-.dl_card .campaign_card .dl_cp_time_unit {
-  display: block;
-  float: left;
-  width: 34px;
-  height: 28px;
-  line-height: 28px;
-  text-align: center;
-}
-.dl_card .campaign_card .dl_cp_time_count {
-  border-right: 1px solid #806dd0;
-}
-.dl_card .campaign_card .dl_photo_alb {
-  white-space: nowrap;
-}
-.dl_card .campaign_card .dl_cp_photo {
-  margin-right: 5px;
-  width: 150px;
-  height: 150px;
-}
-.dl_card .campaign_card .dl_card_footer {
-  height: 30px;
-  line-height: 30px;
-  padding: 0 0.833333rem;
-  font-size: 12px;
-  color: #999;
-}
-.dl_card .campaign_card .dl_team_name {
-  float: left;
-  width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding-right: 5px;
-}
-.dl_card .campaign_card .dl_team_number {
-  float: right;
-}
-.dl_card .campaign_card .dl_team_comment {
-  float: right;
-  margin-left: 10px;
-}
-.dl_card .campaign_card .ion_member,
-.dl_card .campaign_card .ion_comment {
-  display: block;
-  float: left;
-  margin-top: 9px;
-  margin-right: 5px;
-  width: 12px;
-  height: 12px;
-}
-.dl_card .campaign_card .dl_card_footer_count {
-  display: block;
-  float: left;
 }
 .dl_card_detail {
   display: block;
@@ -551,16 +551,10 @@ input::-webkit-input-placeholder {
 input::-moz-placeholder {
   color: #3ca2e0;
 }
-input::-moz-placeholder {
-  color: #3ca2e0;
-}
 input:-ms-input-placeholder {
   color: #3ca2e0;
 }
-input:focus::-webkit-input-placeholder {
-  color: transparent;
-}
-input:focus::-moz-placeholder {
+input:focus::-webkit-input-placeholder textarea {
   color: transparent;
 }
 input:focus::-moz-placeholder {
@@ -1127,26 +1121,12 @@ none
 }
 .settings_feedback .list>.list-inset {
   background-color: transparent;
+  margin: 20px;
 }
 .settings_feedback .list>.list-inset .item {
   border-radius: 5px;
 }
-.settings_feedback .list>.list-inset .item input::-webkit-input-placeholder {
-  color: #676767;
-}
-.settings_feedback .list>.list-inset .item input::-moz-placeholder {
-  color: #676767;
-}
-.settings_feedback .list>.list-inset .item input::-moz-placeholder {
-  color: #676767;
-}
-.settings_feedback .list>.list-inset .item input:-ms-input-placeholder {
-  color: #676767;
-}
 .settings_feedback .list>.list-inset .item textarea::-webkit-input-placeholder {
-  color: #676767;
-}
-.settings_feedback .list>.list-inset .item textarea::-moz-placeholder {
   color: #676767;
 }
 .settings_feedback .list>.list-inset .item textarea::-moz-placeholder {
@@ -1658,15 +1638,29 @@ rgba(0,0,0,0.5)
   border-radius: 5px;
   text-align: center;
 }
-.dl_timeline_date {
+.dl_timeline:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #ccc;
+  left: 50%;
+}
+.dl_timeline .dl_timeline_card {
+  z-index: 10;
+}
+.dl_timeline .dl_timeline_date {
   display: block;
   margin: 1rem auto;
   width: 100px;
   height: 20px;
-  background-color: #999;
+  background-color: #ccc;
   color: #fff;
   border-radius: 5px;
   text-align: center;
+  position: relative;
+  z-index: 10;
 }
 .member_page .member_group {
   margin: 0.833333rem;

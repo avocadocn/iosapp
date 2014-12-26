@@ -217,6 +217,7 @@ angular.module('donlerApp', ['ionic', 'donlerApp.controllers', 'donlerApp.servic
       })
       .state('settings_account', {
         url: '/settings/account',
+        controller: 'AccoutController',
         templateUrl: './views/settings-account.html'
       })
       .state('change_password', {

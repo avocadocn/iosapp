@@ -696,23 +696,28 @@ angular.module('donlerApp.controllers', [])
       };
     };
     $scope.loadMore = function() {
-      $scope.page++;
-      $scope.loading = true;
-      TimeLine.getTimelines('company', '0', $scope.page, function (err, timelineData) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          if(timelineData.length>0) {
-            $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
-          }
-          else {
-            $scope.loadFinished = true;
-          }
-        }
-        $scope.loading = false;
+      if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
-      });
+      }
+      else{
+        $scope.page++;
+        $scope.loading = true;
+        TimeLine.getTimelines('company', '0', $scope.page, function (err, timelineData) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            if(timelineData.length>0) {
+              $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
+            }
+            else {
+              $scope.loadFinished = true;
+            }
+          }
+          $scope.loading = false;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+      }
     }
 
   }])
@@ -869,6 +874,16 @@ angular.module('donlerApp.controllers', [])
       })
     }
 
+  }])
+  .controller('AccoutController', ['$scope', 'User', function($scope, User) {
+    User.getPushToggle(localStorage.id, function(msg, data){
+      if(!msg){
+        $scope.user = data;
+      }
+    });
+    $scope.changePushToggle = function() {
+      User.editData(localStorage.id, $scope.user, function(msg){});
+    }
   }])
   .controller('TabController', ['$scope','Socket', function ($scope, Socket) {
     //每次进入页面判断是否有新评论没看
@@ -1071,7 +1086,7 @@ angular.module('donlerApp.controllers', [])
         INFO.lastDate = date;
         var events =[];
         $scope.current_month.days[current.getDate() - 1].events.forEach(function(event){
-          if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag) {
+          if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag ||$scope.nowTypeIndex==0&&event.join_flag==-1) {
             events.push(event);
           }
         })

@@ -51,7 +51,22 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="6000" />
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
     <preference name="StatusBarStyle" value="lightcontent" />
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
+    <feature name="File">
+        <param name="ios-package" value="CDVFile" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="ios-package" value="CDVFileTransfer" />
+    </feature>
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
     <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
     <gap:splash gap:platform="ios" height="480" src="splash/ios/Default~iphone.png" width="320" />
