@@ -6,7 +6,7 @@ ion-view
 
   ion-content
     form.list(name="editForm")
-      .item.item-thumbnail-right(ng-click="openModal()")
+      .item.item-thumbnail-right(ng-click="showUploadActionSheet()")
         img(ng-src="{{STATIC_URL + user.photo}}/160/160")
         h2 头像
       .item.item-input

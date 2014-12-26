@@ -746,7 +746,7 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', '$ionicModal', 'User', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', function ($scope, $state, $ionicPopup, $ionicModal, User, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera) {
+  .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', '$ionicModal', 'User', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', function ($scope, $state, $ionicPopup, $ionicModal, User, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
 
     var birthdayInput = document.getElementById('birthday');
 
@@ -795,6 +795,28 @@ angular.module('donlerApp.controllers', [])
       $scope.modal.hide();
     };
 
+    var uploadSheet;
+    $scope.showUploadActionSheet = function () {
+      uploadSheet = $ionicActionSheet.show({
+        buttons: [{
+          text: '拍照上传'
+        }, {
+          text: '本地上传'
+        }],
+        titleText: '请选择上传方式',
+        cancelText: '取消',
+        buttonClicked: function (index) {
+          console.log(index);
+          if (index === 0) {
+            getPhotoFrom('camera');
+          } else if (index === 1) {
+            getPhotoFrom('file');
+          }
+          return true;
+        }
+      });
+    }
+
     var upload = function (imageURI) {
       var serverAddr = CONFIG.BASE_URL + '/users/' + localStorage.id;
       var headers = CommonHeaders.get();
@@ -814,7 +836,6 @@ angular.module('donlerApp.controllers', [])
             template: '修改头像成功'
           });
           successAlert.then(function () {
-            $scope.modal.hide();
             $state.go('app.personal');
           });
         }, function(err) {
@@ -825,9 +846,9 @@ angular.module('donlerApp.controllers', [])
         }, function (progress) {
           // constant progress updates
         });
-    }
+    };
 
-    $scope.getPhotoFrom = function (source) {
+    var getPhotoFrom = function (source) {
 
       var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
       var save = false;
