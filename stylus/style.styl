@@ -958,12 +958,18 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     padding 30px
     color #333
 //- 反馈
-.settings_feedback
+.settings_feedback, .changePwd
   .list>.list-inset
     background-color transparent
     margin 20px
     .item
       border-radius 5px
+      input::-webkit-input-placeholder /* WebKit browsers */
+        color col_lightGray
+      input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+        color col_lightGray
+      input:-ms-input-placeholder /* Internet Explorer 10+ */
+        color col_lightGray
       textarea::-webkit-input-placeholder /* WebKit browsers */
         color col_lightGray
       textarea::-moz-placeholder /* Mozilla Firefox 4 to 18 */
@@ -972,6 +978,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         color col_lightGray
       textarea
         height 100px
+      .ng-dirty.ng-invalid
+        background-color #FCEBEB
     .submit_button
       border 0
       border-radius 5px

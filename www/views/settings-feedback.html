@@ -10,9 +10,6 @@
           <textarea placeholder="您的意见" ng-model="opinion.content"></textarea>
         </label>
       </div>
-      <div ng-if="msg" class="list-inset">
-        <p>{{msg}}</p>
-      </div>
       <div class="list-inset">
         <button ng-disabled="!opinion.content" ng-click="feedback()" class="button button-block dl_button submit_button">提&nbsp;交</button>
       </div>

@@ -221,6 +221,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('change_password', {
         url: '/settings/account/change_password',
+        controller: 'PasswordController',
         templateUrl: './views/settings-change-password.html'
       })
       .state('settings_feedback', {

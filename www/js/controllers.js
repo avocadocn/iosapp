@@ -989,6 +989,20 @@ angular.module('donlerApp.controllers', [])
       User.editData(localStorage.id, $scope.user, function(msg){});
     }
   }])
+  .controller('PasswordController', ['$scope', '$rootScope', '$ionicPopup', 'User', function($scope, $rootScope, $ionicPopup, User) {
+    $scope.pswData = {};
+    $scope.changePwd = function() {
+      $rootScope.showLoading();
+      User.editData(localStorage.id, $scope.pswData, function(msg) {
+        $rootScope.hideLoading();
+        if(msg){
+          $ionicPopup.alert({title:'修改失败',template:msg});
+        }else{
+          $ionicPopup.alert({title:'修改成功'});
+        }
+      });
+    }
+  }])
   .controller('TabController', ['$scope','Socket', function ($scope, Socket) {
     //每次进入页面判断是否有新评论没看
     if(localStorage.hasNewComment === true) {
@@ -1536,16 +1550,17 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('FeedbackController', ['$scope', '$rootScope', 'User', function ($scope, $rootScope, User) {
+  .controller('FeedbackController', ['$scope', '$rootScope', '$ionicPopup', 'User', function ($scope, $rootScope, $ionicPopup, User) {
     $scope.opinion = {};
     $scope.feedback = function () {
       $rootScope.showLoading();
       User.feedback($scope.opinion.content, function(msg) {
         if(msg){
-          $scope.msg = '发送错误请重试。';
+          $ionicPopup.alert({title:'发送错误',template:'发送错误请重试。'});
         }else{
-          $scope.msg = '感谢您的反馈，动梨将尽快查看。';
+          $ionicPopup.alert({title:'发送成功',template:'感谢您的反馈。'});
           $scope.opinion.content = '';
+
         }
         $rootScope.hideLoading();
       });
