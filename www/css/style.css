@@ -934,7 +934,7 @@ a>.login .companies_list:activated {
 }
 .discuss_detail .comments .comment .triangle_isosceles:after {
   content: "";
-  display: none;
+  display: block;
   position: absolute;
   bottom: -15px;
   left: 50px;
@@ -985,6 +985,9 @@ a>.login .companies_list:activated {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
+}
+.discuss_detail .comments .comment .triangle_img:after {
+  display: none;
 }
 .discuss_detail .comments .putright .author {
   float: right;

@@ -759,7 +759,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         margin-left 0.8rem
       .triangle_isosceles:after 
         content ""
-        display none
+        display block
         position absolute
         bottom -15px
         left 50px
@@ -805,6 +805,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
             -webkit-transform rotate(-45deg)
             -ms-transform rotate(-45deg)
             transform rotate(-45deg)
+      .triangle_img:after
+        display none
     .putright
       .author
         float right
