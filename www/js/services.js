@@ -488,7 +488,11 @@ angular.module('donlerApp.services', [])
             callback();
           })
           .error(function (data, status, headers, config) {
-            callback('error');
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('出错了');
+            }
           });
       },
 

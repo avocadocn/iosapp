@@ -1,28 +1,13 @@
 
-<ion-view>
-  <ion-header-bar><a href="#/app/personal" class="button icon ion-chevron-left">&nbsp;我的</a>
-    <h1 class="title">编辑个人信息</h1>
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">请选择上传照片的方式</h1>
   </ion-header-bar>
   <ion-content>
-    <form name="editForm" class="list">
-      <div ng-click="openModal()" class="item item-thumbnail-right"><img ng-src="{{STATIC_URL + user.photo}}/160/160"/>
-        <h2>头像</h2>
-      </div>
-      <div class="item item-input"><span class="input-label">昵称</span>
-        <input type="text" name="nickname" ng-model="formData.nickname"/>
-      </div>
-      <div class="item item-input"><span class="input-label">真实姓名</span>
-        <input type="text" name="realname" ng-model="formData.realname"/>
-      </div>
-      <div class="item item-input"><span class="input-label">手机</span>
-        <input type="text" name="phone" ng-model="formData.phone"/>
-      </div>
-      <div class="item item-input"><span class="input-label">生日</span>
-        <input id="birthday" type="date" name="birthday" ng-model="formData.birthday"/>
-      </div>
-      <div class="padding">
-        <button ng-click="edit()" class="button button-block button-positive">确定</button>
-      </div>
-    </form>
+    <div class="list">
+      <div ng-click="getPhotoFrom('camera')" class="item">拍照上传</div>
+      <div ng-click="getPhotoFrom('file')" class="item">本地上传</div>
+      <div ng-click="closeModal()" class="item">取消</div>
+    </div>
   </ion-content>
-</ion-view>
+</ion-modal-view>
