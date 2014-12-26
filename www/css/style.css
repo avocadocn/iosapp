@@ -1458,17 +1458,11 @@ none
   border-style: solid;
   border-width: 0 20px 20px;
 }
-.calendar_filter_popover {
-  width: 100px;
-  height: 135px;
+.dl_popover {
   background-color: rgba(0,0,0,0.7);
   border-radius: 0 !important;
 }
-.calendar_filter_popover .calendar_content {
-  margin-top: -100px;
-rgba(0,0,0,0.5)
-}
-.calendar_filter_popover .calendar_content .calendar_button {
+.dl_popover .dl_popover_content .dl_popover_button {
   color: #fff;
   height: 40px;
   line-height: 40px;
@@ -1476,8 +1470,25 @@ rgba(0,0,0,0.5)
   font-size: 16px;
   border-bottom: 1px solid #000;
 }
-.popover-arrow:after {
+.dl_popover .popover-arrow {
+  top: -19px;
+}
+.dl_popover .popover-arrow:after {
   background-color: rgba(0,0,0,0.7) !important;
+}
+.calendar_filter_popover {
+  width: 100px;
+  height: 135px;
+}
+.user_more_popover {
+  width: 100px;
+  height: 56px;
+}
+.user_more_popover .dl_popover_button .full_parent_link {
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  width: 100%;
 }
 .dl_family_photo_selected {
   border: 1px solid #3ca2e0;

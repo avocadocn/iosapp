@@ -57,6 +57,6 @@ ion-view
                 p.flag(ng-if="!current_day.past_flag" ng-class="{join:campaign.join_flag==1}") {{ campaign.join_flag==1?'已参加':'未参加' }}
           .no_campagin.text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
 script(id="my-popover.html" type="text/ng-template")
-  ion-popover-view.calendar_filter_popover
+  ion-popover-view.dl_popover.calendar_filter_popover
     ion-content.calendar_content
       .calendar_button(ng-repeat="campaignType in campaignTypes" ng-click="campaignFilter($index)") {{ campaignType.view}}

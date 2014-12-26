@@ -2272,19 +2272,24 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$scope', '$stateParams', '$ionicPopover', 'TimeLine', 'User', 'INFO', function ($scope, $stateParams, $ionicPopover, TimeLine, User, INFO) {
+  .controller('UserInfoController', ['$scope', '$state', '$stateParams', '$ionicPopover', 'TimeLine', 'User', 'INFO', function ($scope, $state, $stateParams, $ionicPopover, TimeLine, User, INFO) {
     $scope.backUrl = INFO.userInfoBackUrl;
+    INFO.reportBackUrl ='#/user/' + $stateParams.userId;
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
     $scope.page = 0;
-    $ionicPopover.fromTemplateUrl('my-popover.html', {
+    $ionicPopover.fromTemplateUrl('more-popover.html', {
         scope: $scope,
       }).then(function(popover) {
         $scope.popover = popover;
       });
-    $scope.showFilter = function($event){
+    $scope.showPopover = function($event){
       $scope.popover.show($event);
+    }
+    $scope.showReportForm = function() {
+      $state.go('report_form',{userId: $scope.user._id});
+      $scope.popover.hide();
     }
     // 是否需要显示时间
     $scope.needShowTime = function (index) {
@@ -2336,3 +2341,71 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
+  .controller('ReportController', ['$scope', '$stateParams', '$ionicPopup', 'INFO', 'Report', function ($scope, $stateParams, $ionicPopup, INFO, Report) {
+    $scope.backUrl = INFO.reportBackUrl;
+    $scope.isBusy = false;
+    $scope.reportTypes = [
+    {
+      value: 0,
+      view: '淫秽色情'
+    },
+    {
+      value: 1,
+      view: '敏感信息'
+    },
+    {
+      value: 2,
+      view: '垃圾营销'
+    },
+    {
+      value: 3,
+      view: '诈骗'
+    },
+    {
+      value: 4,
+      view: '人身攻击'
+    },
+    {
+      value: 5,
+      view: '泄露我的隐私'
+    },
+    {
+      value: 6,
+      view: '虚假资料'
+    }];
+    $scope.reportData ={
+      hostType:'user',
+      hostId :$stateParams.userId
+    }
+    $scope.pushReport = function() {
+      if($scope.isBusy) {
+
+      }
+      else {
+        $scope.isBusy = true;
+        Report.pushReport($scope.reportData, function (err, data) {
+          if (err) {
+            // todo
+            console.log(err);
+            $ionicPopup.alert({
+              title: '错误',
+              template: err
+            });
+
+          } else {
+            $ionicPopup.alert({
+              title: '提示',
+              template:'举报成功！'
+            });
+          }
+          $scope.isBusy = false;
+        });
+      }
+      
+    }
+
+  }])
+
+
+
+

@@ -1,7 +1,7 @@
 
 <ion-view>
   <ion-header-bar><a ng-href="{{backUrl}}" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">用户信息</h1>
+    <h1 class="title">用户信息</h1><a ng-click="showPopover($event)" class="button icon ion-more"></a>
   </ion-header-bar>
   <ion-content>
     <div class="card">
@@ -48,3 +48,10 @@
     <div ng-if="loadFinished" class="nomore_text">没有更多的足迹</div>
   </ion-content>
 </ion-view>
+<script id="more-popover.html" type="text/ng-template">
+  <ion-popover-view class="dl_popover user_more_popover">
+    <ion-content class="dl_popover_content">
+      <div class="dl_popover_button"><a ng-click="showReportForm()" class="full_parent_link">举报</a></div>
+    </ion-content>
+  </ion-popover-view>
+</script>

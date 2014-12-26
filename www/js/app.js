@@ -285,5 +285,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/user/:userId',
         controller: 'UserInfoController',
         templateUrl: './views/user-info.html'
+      })
+      .state('report_form', {
+        url: '/report/:userId',
+        controller: 'ReportController',
+        templateUrl: './views/report.html'
       });
   });

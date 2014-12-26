@@ -43,6 +43,7 @@ angular.module('donlerApp.services', [])
   .value('INFO', {
     memberContent:'',
     sponsorBackUrl:'',
+    reportBackUrl:'',
     discussName:'',
     lastDate:'',
     companyId:'',
@@ -917,5 +918,32 @@ angular.module('donlerApp.services', [])
       },
     };
   }])
+  .factory('Report', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+
+      /**
+       * 举报
+       * @param {String} hostType 数据主体类型，只可以是'comment','team','photo'
+       * @param {String} hostId 主体的id
+       * @param {Function} callback 形式为function(err, data)
+       */
+      pushReport: function (data, callback) {
+        $http.post( CONFIG.BASE_URL + '/report', data )
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            if (status === 400) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
+      }
+    };
+  }])
+
+
+
 
 

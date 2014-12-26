@@ -1193,23 +1193,33 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
               border-color transparent #43cee6 transparent transparent
               border-style solid
               border-width 0 20px 20px
-.calendar_filter_popover
-  width 100px
-  height 135px
+.dl_popover
   background-color rgba(0,0,0,0.7)
   border-radius 0 !important
-  .calendar_content
-    margin-top -100px
-    rgba(0,0,0,0.5)
-    .calendar_button
+  .dl_popover_content
+    .dl_popover_button
       color white
       height 40px
       line-height 40px
       text-align center
       font-size 16px
       border-bottom 1px solid black
-.popover-arrow:after
-  background-color rgba(0,0,0,0.7) !important
+  .popover-arrow
+    top -19px
+    &:after
+      background-color rgba(0,0,0,0.7) !important
+.calendar_filter_popover
+  width 100px
+  height 135px
+.user_more_popover
+  width 100px
+  height 56px
+  .dl_popover_button
+    .full_parent_link
+      text-decoration none
+      color white
+      display inline-block
+      width 100%
 // todo
 .dl_family_photo_selected
   border 1px solid col_blue
