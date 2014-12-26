@@ -14,7 +14,7 @@
         <div ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack="ng-cloack" class="block">
           <div ng-show="showTime &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]))" class="time_block">
             <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]===1))" class="time">{{comment.create_date | date: 'yyyy'}}</span></p>
-            <p><span class="time">{{comment.create_date | date: 'M月dd日 HH:mm'}} </span></p>
+            <p><span class="time">{{comment.create_date | date: 'M月dd日 HH:mm'}}</span></p>
           </div>
           <div ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}" class="comment">
             <div class="author">
@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-          <div ng-class="{putright: comment.poster._id == userId}" class="comment">
+          <div ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" class="comment">
             <div class="author">
               <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
               <div class="name">{{comment.poster.nickname}}</div>
@@ -41,7 +41,7 @@
       </div>
     </div>
   </ion-content>
-  <ion-footer-bar class="comment_box"><i class="icon ion-image"></i>
+  <ion-footer-bar class="comment_box"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
     <input ng-model="commentContent" class="comment_input"/>
     <button ng-click="publishComment()" ng-disabled="!commentContent" class="dl_button publish_button">发言</button>
   </ion-footer-bar>

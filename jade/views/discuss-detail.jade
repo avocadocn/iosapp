@@ -20,7 +20,7 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
             p
               span.time(ng-show="showTime===1 && ($index!==0||($index===0&&topShowTime[$parent.$index]===1))") {{comment.create_date | date: 'yyyy'}}
             p
-              span.time {{comment.create_date | date: 'M月dd日 HH:mm'}} 
+              span.time {{comment.create_date | date: 'M月dd日 HH:mm'}}
           .comment(ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}")
             .author
               .logo
@@ -32,7 +32,7 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
                   img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180")
                 .box
                   img.img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
-          .comment(ng-class="{putright: comment.poster._id == userId}")
+          .comment(ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content")
             .author
               .logo
                 img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
@@ -41,7 +41,7 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
               p.triangle_isosceles {{comment.content}}
       //-再做个刷新?todo
   ion-footer-bar.comment_box
-    i.icon.ion-image
+    i.icon.ion-image(ng-click="showUploadActionSheet()")
     input.comment_input(ng-model = "commentContent")
     button.dl_button.publish_button(ng-click="publishComment()" ng-disabled="!commentContent") 发言
 
