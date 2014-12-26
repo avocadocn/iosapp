@@ -870,6 +870,16 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
+  .controller('AccoutController', ['$scope', 'User', function($scope, User) {
+    User.getPushToggle(localStorage.id, function(msg, data){
+      if(!msg){
+        $scope.user = data;
+      }
+    });
+    $scope.changePushToggle = function() {
+      User.editData(localStorage.id, $scope.user, function(msg){});
+    }
+  }])
   .controller('TabController', ['$scope','Socket', function ($scope, Socket) {
     //每次进入页面判断是否有新评论没看
     if(localStorage.hasNewComment === true) {

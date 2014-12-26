@@ -551,16 +551,10 @@ input::-webkit-input-placeholder {
 input::-moz-placeholder {
   color: #3ca2e0;
 }
-input::-moz-placeholder {
-  color: #3ca2e0;
-}
 input:-ms-input-placeholder {
   color: #3ca2e0;
 }
-input:focus::-webkit-input-placeholder {
-  color: transparent;
-}
-input:focus::-moz-placeholder {
+input:focus::-webkit-input-placeholder textarea {
   color: transparent;
 }
 input:focus::-moz-placeholder {
@@ -1127,26 +1121,12 @@ none
 }
 .settings_feedback .list>.list-inset {
   background-color: transparent;
+  margin: 20px;
 }
 .settings_feedback .list>.list-inset .item {
   border-radius: 5px;
 }
-.settings_feedback .list>.list-inset .item input::-webkit-input-placeholder {
-  color: #676767;
-}
-.settings_feedback .list>.list-inset .item input::-moz-placeholder {
-  color: #676767;
-}
-.settings_feedback .list>.list-inset .item input::-moz-placeholder {
-  color: #676767;
-}
-.settings_feedback .list>.list-inset .item input:-ms-input-placeholder {
-  color: #676767;
-}
 .settings_feedback .list>.list-inset .item textarea::-webkit-input-placeholder {
-  color: #676767;
-}
-.settings_feedback .list>.list-inset .item textarea::-moz-placeholder {
   color: #676767;
 }
 .settings_feedback .list>.list-inset .item textarea::-moz-placeholder {

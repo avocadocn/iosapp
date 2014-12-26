@@ -13,7 +13,7 @@ ion-view.settings_account
       .item.item-toggle
         | 免打扰
         label.toggle.toggle-calm
-          input(type="checkbox")
+          input(type="checkbox" ng-model="user.pushToggle" ng-change="changePushToggle()")
           .track
             .handle
       //- .item.item-icon-right

@@ -453,20 +453,16 @@ body
     color #fff
 
 //-input全局placeholder
-input::-webkit-input-placeholder /* WebKit browsers */
+input::-webkit-input-placeholder
   color col_blue
 input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-  color col_blue
-input::-moz-placeholder /* Mozilla Firefox 19+ */
   color col_blue
 input:-ms-input-placeholder /* Internet Explorer 10+ */
   color col_blue
 
-input:focus::-webkit-input-placeholder /* WebKit browsers */
+input:focus::-webkit-input-placeholder textarea /* WebKit browsers */
   color transparent
 input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-  color transparent
-input:focus::-moz-placeholder /* Mozilla Firefox 19+ */
   color transparent
 input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   color transparent
@@ -934,21 +930,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .settings_feedback
   .list>.list-inset
     background-color transparent
+    margin 20px
     .item
       border-radius 5px
-      input::-webkit-input-placeholder /* WebKit browsers */
-        color col_lightGray
-      input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-        color col_lightGray
-      input::-moz-placeholder /* Mozilla Firefox 19+ */
-        color col_lightGray
-      input:-ms-input-placeholder /* Internet Explorer 10+ */
-        color col_lightGray
       textarea::-webkit-input-placeholder /* WebKit browsers */
         color col_lightGray
       textarea::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-        color col_lightGray
-      textarea::-moz-placeholder /* Mozilla Firefox 19+ */
         color col_lightGray
       textarea:-ms-input-placeholder /* Internet Explorer 10+ */
         color col_lightGray

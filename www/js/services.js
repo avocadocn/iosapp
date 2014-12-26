@@ -511,6 +511,16 @@ angular.module('donlerApp.services', [])
         .error(function (data, status) {
           callback('err');
         });
+      },
+
+      getPushToggle: function(id, callback) {
+        $http.get(CONFIG.BASE_URL + '/users/' + id, {params:{responseKey:'pushToggle'}})
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          callback('error');
+        });
       }
 
     };
