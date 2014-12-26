@@ -2061,12 +2061,20 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$scope', '$stateParams', 'TimeLine', 'User', 'INFO', function ($scope, $stateParams, TimeLine, User, INFO) {
+  .controller('UserInfoController', ['$scope', '$stateParams', '$ionicPopover', 'TimeLine', 'User', 'INFO', function ($scope, $stateParams, $ionicPopover, TimeLine, User, INFO) {
     $scope.backUrl = INFO.userInfoBackUrl;
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
     $scope.page = 0;
+    $ionicPopover.fromTemplateUrl('my-popover.html', {
+        scope: $scope,
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+    $scope.showFilter = function($event){
+      $scope.popover.show($event);
+    }
     // 是否需要显示时间
     $scope.needShowTime = function (index) {
       if(index===0){
