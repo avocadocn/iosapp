@@ -1155,26 +1155,49 @@ none
   padding: 30px;
   color: #333;
 }
-.settings_feedback .list>.list-inset {
+.settings_feedback .list>.list-inset,
+.changePwd .list>.list-inset {
   background-color: transparent;
   margin: 20px;
 }
-.settings_feedback .list>.list-inset .item {
+.settings_feedback .list>.list-inset .item,
+.changePwd .list>.list-inset .item {
   border-radius: 5px;
 }
-.settings_feedback .list>.list-inset .item textarea::-webkit-input-placeholder {
+.settings_feedback .list>.list-inset .item input::-webkit-input-placeholder,
+.changePwd .list>.list-inset .item input::-webkit-input-placeholder {
   color: #676767;
 }
-.settings_feedback .list>.list-inset .item textarea::-moz-placeholder {
+.settings_feedback .list>.list-inset .item input::-moz-placeholder,
+.changePwd .list>.list-inset .item input::-moz-placeholder {
   color: #676767;
 }
-.settings_feedback .list>.list-inset .item textarea:-ms-input-placeholder {
+.settings_feedback .list>.list-inset .item input:-ms-input-placeholder,
+.changePwd .list>.list-inset .item input:-ms-input-placeholder {
   color: #676767;
 }
-.settings_feedback .list>.list-inset .item textarea {
+.settings_feedback .list>.list-inset .item textarea::-webkit-input-placeholder,
+.changePwd .list>.list-inset .item textarea::-webkit-input-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item textarea::-moz-placeholder,
+.changePwd .list>.list-inset .item textarea::-moz-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item textarea:-ms-input-placeholder,
+.changePwd .list>.list-inset .item textarea:-ms-input-placeholder {
+  color: #676767;
+}
+.settings_feedback .list>.list-inset .item textarea,
+.changePwd .list>.list-inset .item textarea {
   height: 100px;
 }
-.settings_feedback .list>.list-inset .submit_button {
+.settings_feedback .list>.list-inset .item .ng-dirty.ng-invalid,
+.changePwd .list>.list-inset .item .ng-dirty.ng-invalid {
+  background-color: #fcebeb;
+}
+.settings_feedback .list>.list-inset .submit_button,
+.changePwd .list>.list-inset .submit_button {
   border: 0;
   border-radius: 5px;
   background-color: #3ca2e0;
