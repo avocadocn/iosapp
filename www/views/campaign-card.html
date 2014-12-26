@@ -1,22 +1,25 @@
 
-<div class="card dl_card"><a ng-href="#/campaign/detail/{{campaign._id}}" ng-if="campaign.confirm_status===true" class="campaign_card">
-    <div class="dl_card_header clearfix">
-      <div class="dl_card_header_info clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45" class="dl_team_logo"/>
+<div class="card dl_card"><a ng-href="#/campaign/detail/{{campaign._id}}" class="campaign_card">
+    <div ng-if="campaign.confirm_status===true" class="dl_card_header clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45" class="dl_team_logo"/>
+      <div class="dl_card_header_info clearfix">
         <h2 class="dl_cp_name">{{campaign.theme}}</h2>
         <p class="dl_cp_address">地点: {{campaign.location.name}}</p>
       </div>
-      <div class="dl_card_header_operator clearfix">
+      <div class="dl_card_header_operator">
         <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign._id)" prevent-default="prevent-default" class="dl_btn_join">参加</button>
         <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown_end">{{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束</div>
         <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown clearfix"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
       </div>
     </div>
-    <div ng-if="campaign.photo_album.photos.length&gt;0" class="dl_card_body">
+    <div ng-if="campaign.confirm_status===false" class="dl_card_header dl_card_header_provoke clearfix"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
+    <div ng-if="campaign.confirm_status===false || campaign.photo_album.photos.length&gt;0" class="dl_card_body">
+      <p ng-if="campaign.confirm_status===false" class="dl_provoke_info"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span>&nbsp;向&nbsp;<span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>&nbsp;发起挑战</p>
+      <p ng-if="campaign.confirm_status===false" class="dl_cp_name">{{campaign.theme}}</p>
       <ion-scroll direction="x" scrollbar-x="false">
         <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" class="dl_cp_photo"/></div>
       </ion-scroll>
     </div>
-    <div class="dl_card_footer clearfix">
+    <div ng-if="campaign.confirm_status===true" class="dl_card_footer clearfix">
       <div ng-if="campaign.campaign_unit.length === 1" class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</div>
       <div ng-if="campaign.campaign_unit.length === 2" class="dl_team_name">
         {{campaign.campaign_unit[0].team.name}}
@@ -25,16 +28,8 @@
       </div>
       <div class="dl_team_comment clearfix"><i class="ion_comment"></i><span class="dl_card_footer_count">{{campaign.comment_sum}}</span></div>
       <div class="dl_team_number clearfix"><i class="ion_member"></i><span class="dl_card_footer_count">{{campaign.members_count || '0'}}</span></div>
-    </div></a><a ng-href="#/campaign/detail/{{campaign._id}}" ng-if="campaign.confirm_status===false" class="provoke_card">
-    <div class="dl_card_header clearfix"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
-    <div class="dl_card_body">
-      <p class="dl_provoke_info"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span>&nbsp;向&nbsp;<span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>&nbsp;发起挑战</p>
-      <p class="dl_cp_name">{{campaign.theme}}</p>
-      <ion-scroll direction="x" scrollbar-x="false">
-        <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" class="dl_cp_photo"/></div>
-      </ion-scroll>
     </div>
-    <div ng-if="campaign.allow.dealProvoke || campaign.allow.quitProvoke" class="dl_card_footer">
+    <div ng-if="campaign.confirm_status===false &amp;&amp;(campaign.allow.dealProvoke || campaign.allow.quitProvoke)" class="dl_card_footer dl_card_footer_provoke">
       <div class="clearfix">
         <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)" class="dl_cp_confirm">接受</button>
         <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)" class="dl_cp_refuse">拒绝</button>

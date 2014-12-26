@@ -897,14 +897,19 @@ angular.module('donlerApp.services', [])
        * @param {String} page timeline的页数
        * @param {Function} callback 形式为function(err, timelineData)
        */
-      getTimelines: function (hostType, hostId, page, callback) {
-        $http.get( CONFIG.BASE_URL + '/timeline/' + hostType + '/'+ hostId +'?page=' + page)
-          .success(function (data, status, headers, config) {
-            callback(null, data);
-          })
-          .error(function (data, status, headers, config) {
-            callback(data.msg);
-          })
+      getTimelines: function (hostType, hostId, page, callback, unfinishFlag) {
+        $http.get( CONFIG.BASE_URL + '/timeline/' + hostType + '/'+ hostId,{
+          params:{
+            page: page,
+            unfinishFlag:unfinishFlag
+          }
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          callback(data.msg||'网络连接错误');
+        })
       },
     };
   }])

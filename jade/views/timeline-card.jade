@@ -1,3 +1,33 @@
-div(ng-repeat="campaign in timelinesRecord")
+.dl_timeline(ng-repeat="campaign in timelinesRecord")
   label.dl_timeline_date(ng-if="needShowTime($index)") {{campaign.start_time | date:'yyyy-MM'}}
-  campaign-card(campaign="campaign")
+  .card.dl_card.dl_timeline_card
+    a.campaign_card(ng-href="#/campaign/detail/{{campaign._id}}")
+      .dl_card_header.clearfix(ng-if="campaign.campaign_unit.length===1")
+        img.dl_team_logo(ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45")
+        .dl_card_header_info.clearfix
+          h2.dl_cp_name {{campaign.theme}}
+          p.dl_cp_address {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}
+      .dl_card_header.dl_card_header_provoke.clearfix( ng-if="campaign.campaign_unit.length===2")
+        img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}")
+        span.dl_team_vs vs
+        img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}")
+      .dl_card_body
+        .dl_provoke_info(ng-if="campaign.campaign_unit.length===2")
+          h2.dl_cp_name {{campaign.theme}}
+          p.dl_cp_address {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}
+        ion-scroll(direction="x" scrollbar-x="false")
+          .dl_photo_alb
+            img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150")
+      .dl_card_footer.clearfix
+        .dl_team_name(ng-if="campaign.campaign_unit.length===1")
+          | {{campaign.campaign_unit[0].team.name}}
+        .dl_team_name(ng-if="campaign.campaign_unit.length===2")
+          | {{campaign.campaign_unit[0].team.name}}
+          | vs
+          | {{campaign.campaign_unit[1].team.name}}
+        .dl_team_comment.clearfix
+          i.ion_comment
+          span.dl_card_footer_count {{campaign.comment_sum}}
+        .dl_team_number.clearfix
+          i.ion_member
+          span.dl_card_footer_count {{campaign.members_count || '0'}}
