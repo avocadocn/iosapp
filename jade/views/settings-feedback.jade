@@ -6,9 +6,8 @@ ion-view.settings_feedback
     .list
       .list-inset
         label.item.item-input
-          input(type="text" placeholder="您的邮箱")
+          textarea(placeholder="您的意见" ng-model="opinion.content")
+      .list-inset(ng-if="msg")
+        p {{msg}}
       .list-inset
-        label.item.item-input
-          textarea(placeholder="您的意见")
-      .list-inset
-        button.button.button-block.dl_button.submit_button 提&nbsp;交
+        button.button.button-block.dl_button.submit_button(ng-disabled="!opinion.content" ng-click="feedback()") 提&nbsp;交

@@ -225,6 +225,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('settings_feedback', {
         url: '/settings/feedback',
+        controller: 'FeedbackController',
         templateUrl: './views/settings-feedback.html'
       })
       .state('settings_about', {

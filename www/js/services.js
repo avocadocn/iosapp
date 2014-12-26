@@ -501,6 +501,16 @@ angular.module('donlerApp.services', [])
         .error(function (data, status) {
           callback('error');
         });
+      },
+
+      feedback: function(content, callback) {
+        $http.post(CONFIG.BASE_URL + '/users/sendFeedback',{content: content})
+        .success(function (data, status) {
+          callback(null);
+        })
+        .error(function (data, status) {
+          callback('err');
+        });
       }
 
     };

@@ -7,16 +7,14 @@
     <div class="list">
       <div class="list-inset">
         <label class="item item-input">
-          <input type="text" placeholder="您的邮箱"/>
+          <textarea placeholder="您的意见" ng-model="opinion.content"></textarea>
         </label>
       </div>
-      <div class="list-inset">
-        <label class="item item-input">
-          <textarea placeholder="您的意见"></textarea>
-        </label>
+      <div ng-if="msg" class="list-inset">
+        <p>{{msg}}</p>
       </div>
       <div class="list-inset">
-        <button class="button button-block dl_button submit_button">提&nbsp;交</button>
+        <button ng-disabled="!opinion.content" ng-click="feedback()" class="button button-block dl_button submit_button">提&nbsp;交</button>
       </div>
     </div>
   </ion-content>

@@ -1417,6 +1417,21 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
+  .controller('FeedbackController', ['$scope', '$rootScope', 'User', function ($scope, $rootScope, User) {
+    $scope.opinion = {};
+    $scope.feedback = function () {
+      $rootScope.showLoading();
+      User.feedback($scope.opinion.content, function(msg) {
+        if(msg){
+          $scope.msg = '发送错误请重试。';
+        }else{
+          $scope.msg = '感谢您的反馈，动梨将尽快查看。';
+          $scope.opinion.content = '';
+        }
+        $rootScope.hideLoading();
+      });
+    }
+  }])
   .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($scope, $stateParams, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
