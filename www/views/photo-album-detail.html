@@ -2,6 +2,7 @@
 <ion-view>
   <ion-header-bar><a ng-href="{{photoAlbumBackUrl}}" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">{{photoAlbum.name}}</h1>
+    <div ng-click="showUploadActionSheet()" class="button icon ion-plus"></div>
   </ion-header-bar>
   <ion-content class="photo_album_detail_page">
     <div ng-repeat="group in photoGroups" on-last-repeat="on-last-repeat" class="dl_photo_album_card">

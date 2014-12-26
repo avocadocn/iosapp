@@ -901,7 +901,7 @@ angular.module('donlerApp.controllers', [])
         .uploadFile(serverAddr, imageURI, options)
         .then(function(result) {
           var successAlert = $ionicPopup.alert({
-            title: '操作成功',
+            title: '提示',
             template: '修改头像成功'
           });
           successAlert.then(function () {
@@ -909,8 +909,8 @@ angular.module('donlerApp.controllers', [])
           });
         }, function(err) {
           $ionicPopup.alert({
-            title: '上传失败',
-            template: '请重试'
+            title: '提示',
+            template: '修改失败，请重试'
           });
         }, function (progress) {
           // constant progress updates
@@ -1822,8 +1822,8 @@ angular.module('donlerApp.controllers', [])
       });
 
   }])
-  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', 'PhotoAlbum', 'Tools', 'INFO',
-    function ($scope, $stateParams, PhotoAlbum, Tools, INFO) {
+  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet',
+    function ($scope, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
 
@@ -1856,15 +1856,18 @@ angular.module('donlerApp.controllers', [])
         }
       };
 
-      PhotoAlbum.getPhotos($stateParams.photoAlbumId, function (err, photos) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          photos.forEach(setPhotoSize);
-          $scope.photoGroups = groupByDate(photos);
-        }
-      });
+      var getPhotos = function () {
+        PhotoAlbum.getPhotos($stateParams.photoAlbumId, function (err, photos) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            photos.forEach(setPhotoSize);
+            $scope.photoGroups = groupByDate(photos);
+          }
+        });
+      };
+      getPhotos();
 
       /**
        * 将照片按日期分组，要求照片是按上传日期排序，上传日期距离现在越近，排在最前面
@@ -2078,6 +2081,95 @@ angular.module('donlerApp.controllers', [])
       $scope.$on('onRepeatLast', function (scope, element, attrs) {
         initPhotoSwipe();
       });
+
+
+      // 上传照片
+      var uploadSheet;
+      $scope.showUploadActionSheet = function () {
+        uploadSheet = $ionicActionSheet.show({
+          buttons: [{
+            text: '拍照上传'
+          }, {
+            text: '本地上传'
+          }],
+          titleText: '请选择上传方式',
+          cancelText: '取消',
+          buttonClicked: function (index) {
+            if (index === 0) {
+              getPhotoFrom('camera');
+            } else if (index === 1) {
+              getPhotoFrom('file');
+            }
+            return true;
+          }
+        });
+      };
+
+      var upload = function (imageURI) {
+        var serverAddr = CONFIG.BASE_URL + '/photo_albums/' + $scope.photoAlbum._id + '/photos';
+        var headers = CommonHeaders.get();
+        headers['x-access-token'] = localStorage.accessToken;
+        var options = {
+          fileKey: 'photo',
+          httpMethod: 'POST',
+          headers: headers,
+          mimeType: 'image/jpeg'
+        };
+
+        $cordovaFile
+          .uploadFile(serverAddr, imageURI, options)
+          .then(function(result) {
+            var successAlert = $ionicPopup.alert({
+              title: '提示',
+              template: '上传照片成功'
+            });
+            successAlert.then(function () {
+              getPhotos();
+            });
+          }, function(err) {
+            $ionicPopup.alert({
+              title: '提示',
+              template: '上传失败，请重试'
+            });
+          }, function (progress) {
+            // constant progress updates
+          });
+      };
+
+      var getPhotoFrom = function (source) {
+
+        var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+        var save = false;
+        if (source === 'camera') {
+          sourceType = Camera.PictureSourceType.CAMERA;
+          save = true;
+        }
+
+        var options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: sourceType,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 256,
+          targetHeight: 256,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: save,
+          correctOrientation: true
+        };
+
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
+          upload(imageURI);
+        }, function(err) {
+          if (err !== 'no image selected') {
+            $ionicPopup.alert({
+              title: '获取照片失败',
+              template: err
+            });
+          }
+        });
+      };
+
 
   }])
   .controller('FamilyPhotoController', ['$scope', '$stateParams', 'INFO', 'Team', function ($scope, $stateParams, INFO, Team) {
