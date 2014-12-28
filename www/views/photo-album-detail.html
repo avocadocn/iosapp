@@ -11,7 +11,10 @@
       </div>
       <div itemscope="itemscope" itemtype="http://schema.org/ImageGallery" class="dl_gallery clearfix">
         <figure itemscope="itemscope" itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos" class="photo"><a ng-href="{{STATIC_URL + photo.uri}}/resize/{{photo.viewWidth}}/{{photo.viewHeight}}" itemprop="contentUrl" data-size="{{photo.viewWidth}}x{{photo.viewHeight}}"><img ng-src="{{STATIC_URL + photo.uri}}/65/65" itemprop="thumbnail"/></a>
-          <figcaption itemprop="caption description" class="hidden_figcaption">{{photo.name}}</figcaption>
+          <figcaption itemprop="caption description" class="hidden_figcaption">
+            上传者:&nbsp;{{photo.uploadUser.name}}
+            &nbsp;&nbsp;上传日期:&nbsp;{{photo.uploadDate | date:'yyyy年MM月dd日'}}
+          </figcaption>
         </figure>
       </div>
     </div>

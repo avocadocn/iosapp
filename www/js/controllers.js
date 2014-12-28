@@ -1877,11 +1877,11 @@ angular.module('donlerApp.controllers', [])
         var resData = [];
         photos.forEach(function (photo) {
           var lastGroup = resData[resData.length - 1];
-          if (lastGroup && Tools.isTheSameDay(lastGroup.date, photo.upload_date)) {
+          if (lastGroup && Tools.isTheSameDay(lastGroup.date, photo.uploadDate)) {
             lastGroup.photos.push(photo);
           } else {
             resData.push({
-              date: new Date(photo.upload_date),
+              date: new Date(photo.uploadDate),
               photos: [photo]
             });
           }

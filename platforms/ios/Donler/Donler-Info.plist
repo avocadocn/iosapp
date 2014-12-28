@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>CFBundleDevelopmentRegion</key>
-    <string>zh_CN</string>
+    <string>English</string>
     <key>CFBundleDisplayName</key>
     <string>${PRODUCT_NAME}</string>
     <key>CFBundleExecutable</key>
@@ -50,6 +50,8 @@
     </dict>
     <key>CFBundleIdentifier</key>
     <string>com.ionicframework.donler785781</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
     <key>CFBundleName</key>
     <string>${PRODUCT_NAME}</string>
     <key>CFBundlePackageType</key>
@@ -182,7 +184,5 @@
     </array>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string></string>
-    <key>CFBundleInfoDictionaryVersion</key>
-    <string>6.0</string>
   </dict>
 </plist>
