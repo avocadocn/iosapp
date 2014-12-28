@@ -36,6 +36,35 @@
         </ion-scroll>
       </ion-content>
     </ion-view>
+    <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+      <div class="pswp__bg"></div>
+      <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+          <div class="pswp__top-bar">
+            <div class="pswp__counter"></div>
+            <button title="关闭" class="pswp__button pswp__button--close"></button>
+            <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
+            <div class="pswp__preloader">
+              <div class="pswp__preloader__icn">
+                <div class="pswp__preloader__cut">
+                  <div class="pswp__preloader__donut"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button title="上一张" class="pswp__button pswp__button--arrow--left"></button>
+          <button title="下一张" class="pswp__button pswp__button--arrow--right"></button>
+          <div class="pswp__caption">
+            <div class="pswp__caption__center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </ion-tab>
   <ion-tab title="讨论" icon-on="ion_discuss_active" icon-off="ion_discuss" href="#/app/discuss/list"><!-- Tab 2 content -->
     <ion-view ng-controller="DiscussListController" class="discuss_list">
@@ -83,7 +112,7 @@
             <p ng-if="user.birthday" ng-cloak="ng-cloak">生日：{{user.birthday | date:'yyyy-MM-dd'}}</p>
             <p ng-if="constellation" ng-cloak="ng-cloak">星座：{{constellation}}</p>
             <p ng-if="user.realname" ng-cloak="ng-cloak">真实姓名：{{user.realname}}</p>
-            <p ng-if="user.score" ng-cloak="ng-cloak">积分：{{user.score}}</p></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/personal/messages" class="item item-icon-left item-icon-right"><i class="icon ion_message"></i>我的站内信<span ng-if="messagesCount &amp;&amp; messagesCount&gt;0">{{messagesCount}}</span><i class="icon ion-chevron-right"></i></a><a href="#/calendar" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a></div>
+            <p ng-if="user.score" ng-cloak="ng-cloak">积分：{{user.score}}</p></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/personal/messages" class="item item-icon-left item-icon-right"><i class="icon ion_message"></i>我的站内信<span ng-if="messagesCount &amp;&amp; messagesCount&gt;0" class="item-note">{{messagesCount}}</span><i class="icon ion-chevron-right"></i></a><a href="#/calendar" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a></div>
       </ion-content>
     </ion-view>
   </ion-tab>

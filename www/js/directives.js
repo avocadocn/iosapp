@@ -15,7 +15,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     };
   })
 
-  .directive('campaignCard', ['CONFIG', 'Campaign', function (CONFIG, Campaign) {
+  .directive('campaignCard', ['CONFIG', 'Campaign', 'INFO', 'Tools', function (CONFIG, Campaign, INFO, Tools) {
     return {
       restrict: 'E',
       scope: {
@@ -44,7 +44,39 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           });
           return false;
         }
+        var addPhotos = function (photos) {
+            photos.forEach(function (photo) {
+              var width = photo.width || INFO.screenWidth;
+              var height = photo.height || INFO.screenHeight;
+              // todo 获取屏幕尺寸
+              scope.photos.push({
+                _id: photo._id,
+                src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
+                w: width,
+                h: height
+              });
+            });
+        };
 
+        scope.openPhotoSwipe = function (photos, photoId) {
+          var pswpElement = document.querySelectorAll('.pswp')[0];
+          scope.photos = [];
+          addPhotos(photos);
+          var index = Tools.arrayObjectIndexOf(scope.photos, photoId, '_id');
+
+          var options = {
+            // history & focus options are disabled on CodePen
+            history: false,
+            focus: false,
+            index: index,
+            showAnimationDuration: 0,
+            hideAnimationDuration: 0
+
+          };
+          var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, scope.photos, options);
+          gallery.init();
+          return false;
+        };
       }
     }
   }])
