@@ -1,6 +1,7 @@
 ion-view.discuss_detail(title="{{campaignTitle}}")
   ion-header-bar
     a.button.icon-left.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
+    h1.title {{campaignTitle}}
     a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
   .notice(ng-show="!hideNotice&&notification")
     .notice_cover
@@ -22,23 +23,27 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
             p
               span.time {{comment.create_date | date: 'M月dd日 HH:mm'}}
           .comment(ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}")
-            .author
-              .logo
-                img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
-              .name {{comment.poster.nickname}}
-            .content
-              .triangle_isosceles.triangle_img
-                .tr
-                  img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180")
-                .box
-                  img.img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
+            .logo
+              img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
+            .contents
+              .name(ng-if="comment.poster._id !== userId") {{comment.poster.nickname}}
+              .name(ng-if="comment.poster._id == userId") 我
+              i.icon.ion-looping(ng-if="comment.loading")
+              .content
+                .triangle_isosceles.triangle_img
+                  .tr
+                    img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180")
+                  .box
+                    img.img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
           .comment(ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content")
-            .author
-              .logo
-                img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
-              .name {{comment.poster.nickname}}
-            .content
-              p.triangle_isosceles {{comment.content}}
+            .logo
+              img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
+            .contents
+              .name(ng-if="comment.poster._id !== userId") {{comment.poster.nickname}}
+              .name(ng-if="comment.poster._id == userId") 我
+              i.icon.ion-looping(ng-if="comment.loading")
+              .content
+                .triangle_isosceles {{comment.content}}
       //-再做个刷新?todo
   ion-footer-bar.comment_box
     i.icon.ion-image(ng-click="showUploadActionSheet()")

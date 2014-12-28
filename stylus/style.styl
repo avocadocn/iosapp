@@ -757,31 +757,48 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       text-align center
       width 100%
       float left
+      opacity 0.8
+      padding 5px
       .time
-        border-radius 2px
+        border-radius 3px
         color #fff
         background-color #333
         padding 2px 15px
     .comment
       width 100%
       clear both
-      .content
-        float left
-        width auto
-        font-size 16px
-        color col_lightGray
-        max-width 80%
-        
-      .author
+      .logo
         float left
         width 20%
-        padding 1rem 0 0 1rem
+        padding-top 0.5rem
+        padding-left 1rem
+        img
+          float left
+      .contents
+        float left
+        width 80%
+        .name
+          width 100%
+          text-align left
+          color #fff
+          font-weight 600
+          padding 0 0.5rem
+        .ion-looping
+          float left
+          margin-top 0.8rem
+          color #fff
+          font-size 14px
+        .content
+          display inline-block
+          font-size 16px
+          color col_lightGray
+          max-width 80%
+          padding 2px 7px
       .triangle_isosceles 
         position relative
-        padding 0.8rem
-        margin 1rem 0
+        padding 0.5rem
         background #fff
-        border-radius 10px
+        border-radius 5px
         background linear-gradient(top, #fff, #fbfbfb)
         margin-left 0.8rem
       .triangle_isosceles:after 
@@ -791,13 +808,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         bottom -15px
         left 50px
         width 0
-        border-width 15px 15px 0
+        //- border-width 15px 15px 0
         border-style solid
         border-color #fff transparent
-        top 1rem
-        left -1rem
+        top 0.8rem
+        left -0.7rem
         bottom auto
-        border-width 0.6rem 1rem 0.6rem 0
+        border-width 0.5rem 0.8rem 0.5rem 0
         border-color transparent #fff
       .triangle_img
         background none
@@ -835,21 +852,30 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       .triangle_img:after
         display none
     .putright
-      .author
+      .logo
         float right
-      .content
+        padding-left 0
+        padding-right 1rem
+        img
+          float right
+      .contents
         float right
-        color #fff
+        .name
+          text-align right
+        .ion-looping
+          float right
+        .content
+          color #fff
+          float right
       .triangle_isosceles 
         margin-right 0.4rem
         background col_blue
       .triangle_isosceles:after 
-        none
-        top 1rem
-        right -1rem
+        
+        right -0.7rem
         left auto
         bottom auto
-        border-width 0.6rem 0rem 0.6rem 1rem
+        border-width 0.5rem 0rem 0.5rem 0.8rem
         border-color transparent col_blue
       .triangle_img
         background none
@@ -1525,3 +1551,10 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         background-color col_blue
         color white
         border-radius 5px
+
+.pswp
+  .dl_button_to_album
+    background-image none
+    color white
+    .icon
+      font-size 20px

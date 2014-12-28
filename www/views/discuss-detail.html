@@ -1,6 +1,8 @@
 
 <ion-view title="{{campaignTitle}}" class="discuss_detail">
-  <ion-header-bar><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a></ion-header-bar>
+  <ion-header-bar><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a>
+  </ion-header-bar>
   <div ng-show="!hideNotice&amp;&amp;notification" class="notice">
     <div class="notice_cover"></div>
     <div class="content"><span class="notice_title">活动公告</span>
@@ -17,24 +19,26 @@
             <p><span class="time">{{comment.create_date | date: 'M月dd日 HH:mm'}}</span></p>
           </div>
           <div ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}" class="comment">
-            <div class="author">
-              <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
-              <div class="name">{{comment.poster.nickname}}</div>
-            </div>
-            <div class="content">
-              <div class="triangle_isosceles triangle_img">
-                <div class="tr"><img ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180"/></div>
-                <div class="box"><img ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/></div>
+            <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+            <div class="contents">
+              <div ng-if="comment.poster._id !== userId" class="name">{{comment.poster.nickname}}</div>
+              <div ng-if="comment.poster._id == userId" class="name">我</div><i ng-if="comment.loading" class="icon ion-looping"></i>
+              <div class="content">
+                <div class="triangle_isosceles triangle_img">
+                  <div class="tr"><img ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180"/></div>
+                  <div class="box"><img ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/></div>
+                </div>
               </div>
             </div>
           </div>
           <div ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" class="comment">
-            <div class="author">
-              <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
-              <div class="name">{{comment.poster.nickname}}</div>
-            </div>
-            <div class="content">
-              <p class="triangle_isosceles">{{comment.content}}</p>
+            <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+            <div class="contents">
+              <div ng-if="comment.poster._id !== userId" class="name">{{comment.poster.nickname}}</div>
+              <div ng-if="comment.poster._id == userId" class="name">我</div><i ng-if="comment.loading" class="icon ion-looping"></i>
+              <div class="content">
+                <div class="triangle_isosceles">{{comment.content}}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -59,6 +63,7 @@
         <div class="pswp__counter"></div>
         <button title="关闭" class="pswp__button pswp__button--close"></button>
         <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
+        <button ng-if="photoAlbumId" ng-click="goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
         <div class="pswp__preloader">
           <div class="pswp__preloader__icn">
             <div class="pswp__preloader__cut">
