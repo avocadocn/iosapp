@@ -23,13 +23,13 @@
                 </div>
                 <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
                   <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_borderPurple">
-                    <p>进行中 {{nowCampaigns.length}}</p>
+                    <p>进行中的活动 {{nowCampaigns.length}}</p>
                   </div>
                   <campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign"></campaign-card>
                 </div>
                 <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
                   <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_textPurple">
-                    <p>即将 {{unStartCampaigns.length}}</p>
+                    <p>即将开始的活动 {{unStartCampaigns.length}}</p>
                   </div>
                   <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign"></campaign-card>
                 </div>
