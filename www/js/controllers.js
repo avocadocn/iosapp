@@ -692,10 +692,7 @@ angular.module('donlerApp.controllers', [])
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI,
         sourceType: sourceType,
-        allowEdit: true,
         encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 256,
-        targetHeight: 256,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: save,
         correctOrientation: true
@@ -2149,10 +2146,7 @@ angular.module('donlerApp.controllers', [])
           quality: 50,
           destinationType: Camera.DestinationType.FILE_URI,
           sourceType: sourceType,
-          allowEdit: true,
           encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 256,
-          targetHeight: 256,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: save,
           correctOrientation: true
