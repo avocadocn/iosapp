@@ -1886,3 +1886,10 @@ a>.login .companies_list:activated {
   color: #fff;
   border-radius: 5px;
 }
+.pswp .dl_button_to_album {
+  background-image: none;
+  color: #fff;
+}
+.pswp .dl_button_to_album .icon {
+  font-size: 20px;
+}

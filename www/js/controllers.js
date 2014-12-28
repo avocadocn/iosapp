@@ -478,11 +478,20 @@ angular.module('donlerApp.controllers', [])
       $state.go('discuss_detail',{campaignId: campaignId});
     };
   }])
-  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 
-    function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup) {
+  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location',
+    function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
     Socket.emit('enterRoom', $scope.campaignId);
+
+    Campaign.get($scope.campaignId, function (err, data) {
+      if (!err) {
+        $scope.campaign = data;
+        $scope.photoAlbumId = $scope.campaign.photo_album._id; // for photoswipe
+      }
+    });
+
+
     $scope.userId = localStorage.id;
     $scope.photos = [];
     var addPhotos = function (comment) {
@@ -490,7 +499,6 @@ angular.module('donlerApp.controllers', [])
         comment.photos.forEach(function (photo) {
           var width = photo.width || INFO.screenWidth;
           var height = photo.height || INFO.screenHeight;
-          // todo 获取屏幕尺寸
           $scope.photos.push({
             _id: photo._id,
             src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
@@ -513,14 +521,18 @@ angular.module('donlerApp.controllers', [])
         index: index,
         showAnimationDuration: 0,
         hideAnimationDuration: 0
-
       };
       var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
       gallery.init();
+      $scope.goToAlbum = function () {
+        INFO.photoAlbumBackUrl = '#' + $location.url();
+        gallery.close();
+        $location.url('/photo_album/' + $scope.photoAlbumId + '/detail');
+      };
     };
 
     var nextStartDate ='';
-    
+
     //获取公告
     Message.getCampaignMessages($scope.campaignId, function(err, data){
       if(err){
