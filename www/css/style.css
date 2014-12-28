@@ -930,9 +930,11 @@ a>.login .companies_list:activated {
   text-align: center;
   width: 100%;
   float: left;
+  opacity: 0.8;
+  padding: 5px;
 }
 .discuss_detail .comments .time_block .time {
-  border-radius: 2px;
+  border-radius: 3px;
   color: #fff;
   background-color: #333;
   padding: 2px 15px;
@@ -941,24 +943,44 @@ a>.login .companies_list:activated {
   width: 100%;
   clear: both;
 }
-.discuss_detail .comments .comment .content {
+.discuss_detail .comments .comment .logo {
   float: left;
-  width: auto;
+  width: 20%;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+}
+.discuss_detail .comments .comment .logo img {
+  float: left;
+}
+.discuss_detail .comments .comment .contents {
+  float: left;
+  width: 80%;
+}
+.discuss_detail .comments .comment .contents .name {
+  width: 100%;
+  text-align: left;
+  color: #fff;
+  font-weight: 600;
+  padding: 0 0.5rem;
+}
+.discuss_detail .comments .comment .contents .ion-looping {
+  float: left;
+  margin-top: 0.8rem;
+  color: #fff;
+  font-size: 14px;
+}
+.discuss_detail .comments .comment .contents .content {
+  display: inline-block;
   font-size: 16px;
   color: #676767;
   max-width: 80%;
-}
-.discuss_detail .comments .comment .author {
-  float: left;
-  width: 20%;
-  padding: 1rem 0 0 1rem;
+  padding: 2px 7px;
 }
 .discuss_detail .comments .comment .triangle_isosceles {
   position: relative;
-  padding: 0.8rem;
-  margin: 1rem 0;
+  padding: 0.5rem;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 5px;
   background: linear-gradient(top, #fff, #fbfbfb);
   margin-left: 0.8rem;
 }
@@ -969,13 +991,12 @@ a>.login .companies_list:activated {
   bottom: -15px;
   left: 50px;
   width: 0;
-  border-width: 15px 15px 0;
   border-style: solid;
   border-color: #fff transparent;
-  top: 1rem;
-  left: -1rem;
+  top: 0.8rem;
+  left: -0.7rem;
   bottom: auto;
-  border-width: 0.6rem 1rem 0.6rem 0;
+  border-width: 0.5rem 0.8rem 0.5rem 0;
   border-color: transparent #fff;
 }
 .discuss_detail .comments .comment .triangle_img {
@@ -1019,24 +1040,36 @@ a>.login .companies_list:activated {
 .discuss_detail .comments .comment .triangle_img:after {
   display: none;
 }
-.discuss_detail .comments .putright .author {
+.discuss_detail .comments .putright .logo {
+  float: right;
+  padding-left: 0;
+  padding-right: 1rem;
+}
+.discuss_detail .comments .putright .logo img {
   float: right;
 }
-.discuss_detail .comments .putright .content {
+.discuss_detail .comments .putright .contents {
   float: right;
+}
+.discuss_detail .comments .putright .contents .name {
+  text-align: right;
+}
+.discuss_detail .comments .putright .contents .ion-looping {
+  float: right;
+}
+.discuss_detail .comments .putright .contents .content {
   color: #fff;
+  float: right;
 }
 .discuss_detail .comments .putright .triangle_isosceles {
   margin-right: 0.4rem;
   background: #3ca2e0;
 }
 .discuss_detail .comments .putright .triangle_isosceles:after {
-none
-  top: 1rem;
-  right: -1rem;
+  right: -0.7rem;
   left: auto;
   bottom: auto;
-  border-width: 0.6rem 0rem 0.6rem 1rem;
+  border-width: 0.5rem 0rem 0.5rem 0.8rem;
   border-color: transparent #3ca2e0;
 }
 .discuss_detail .comments .putright .triangle_img {

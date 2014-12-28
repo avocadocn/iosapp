@@ -478,15 +478,12 @@ angular.module('donlerApp.controllers', [])
       $state.go('discuss_detail',{campaignId: campaignId});
     };
   }])
-  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup) {
-    $scope.campaignTitle =  $stateParams.campaignName;
+  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 
+    function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup) {
     $scope.campaignId = $stateParams.campaignId;
+    $scope.campaignTitle = INFO.discussName;
     Socket.emit('enterRoom', $scope.campaignId);
-    //无论进入离开，都需归零user的对应campaign的unread数目
-    //获取时清空好了
     $scope.userId = localStorage.id;
-    //获取id给详情链接用
-    
     $scope.photos = [];
     var addPhotos = function (comment) {
       if (comment.photos && comment.photos.length > 0) {
@@ -561,8 +558,16 @@ angular.module('donlerApp.controllers', [])
       }
     };
 
+    // //获取本地记录
+    // if(localStorage.commentList) {
+    //   var index = Tools.arrayObjectIndexOf(localStorage.commentList, $scope.campaignId, '_id');
+    //   if(index>-1) $scope.commentList.push(localStorage.commentList[index]);
+    // }
+      
     //获取最新20条评论
+
     Comment.getComments($scope.campaignId, 20).success(function(data){
+      $scope.commentList = [];
       $scope.commentList.push(data.comments.reverse());//保证最新的在最下面
       data.comments.forEach(addPhotos);
       nextStartDate = data.nextStartDate;
@@ -710,7 +715,24 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
-
+    // localStorage不能保存数组
+    // //-保存最新的20条评论
+    // $scope.$on('$destroy',function( ) {
+    //   if(!localStorage.commentList){
+    //     localStorage.commentList = [];
+    //   }
+    //   var index = Tools.arrayObjectIndexOf(localStorage.commentList, $scope.campaignId, '_id');
+    //   var comments = $scope.commentList[$scope.commentList.length-1];
+    //   comments.length = 20;
+    //   if(index>-1){
+    //     localStorage.commentList[index] = comments
+    //   }else{
+    //     localStorage.commentList.push({
+    //       _id: $scope.campaignId,
+    //       comments: comments
+    //     })
+    //   }
+    // });
 
   }])
   .controller('DiscoverController', ['$scope', '$ionicPopup', 'Team', 'INFO', function ($scope, $ionicPopup, Team, INFO) {

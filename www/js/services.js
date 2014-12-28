@@ -466,16 +466,24 @@ angular.module('donlerApp.services', [])
     };
   }])
   .factory('User', ['$http', 'CONFIG', function ($http, CONFIG) {
+    var currentUser;//存下自己的数据，我的、发评论时用
     return {
-
       /**
        * 获取用户数据
        * @param {String} id 用户id
        * @param {Function} callback 获取后的回调函数，形式为function(err, data)
        */
       getData: function (id, callback) {
+        if(id===localStorage.id){
+          if(currentUser) {
+            callback(null, currentUser);
+            return;
+          }
+        }
         $http.get(CONFIG.BASE_URL + '/users/' + id)
           .success(function (data, status, headers, config) {
+            if(id===localStorage.id)
+              currentUser = data;
             callback(null, data);
           })
           .error(function (data, status, headers, config) {
@@ -486,6 +494,7 @@ angular.module('donlerApp.services', [])
       editData: function (id, data, callback) {
         $http.put(CONFIG.BASE_URL + '/users/' + id, data)
           .success(function (data, status, headers, config) {
+            currentUser = null;
             callback();
           })
           .error(function (data, status, headers, config) {
@@ -497,7 +506,6 @@ angular.module('donlerApp.services', [])
           });
       },
 
-
       findBack: function (email, callback) {
         $http.post(CONFIG.BASE_URL + '/users/forgetPassword',{email: email})
         .success(function (data, status) {
@@ -508,6 +516,11 @@ angular.module('donlerApp.services', [])
         });
       },
 
+      /**
+       * 发送反馈
+       * @param  {string}   content 反馈内容
+       * @param {Function} callback 获取后的回调函数，形式为function(err, data)
+       */
       feedback: function(content, callback) {
         $http.post(CONFIG.BASE_URL + '/users/sendFeedback',{content: content})
         .success(function (data, status) {
@@ -518,6 +531,11 @@ angular.module('donlerApp.services', [])
         });
       },
 
+      /**
+       * 获取免打扰状态
+       * @param  {String}   id
+       * @param  {Function} callback 获取后的回调函数，形式为function(err, data)
+       */
       getPushToggle: function(id, callback) {
         $http.get(CONFIG.BASE_URL + '/users/' + id, {params:{responseKey:'pushToggle'}})
         .success(function (data, status, headers, config) {
