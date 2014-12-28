@@ -1562,7 +1562,19 @@ angular.module('donlerApp.controllers', [])
       }
     })
   }])
-  .controller('CompanyTeamController', ['$scope', 'Company', function ($scope, Company) {
+  .controller('CompanyTeamController', ['$scope', '$stateParams', 'Company', function ($scope, $stateParams, Company) {
+    switch ($stateParams.type) {
+    case 'all':
+      $scope.title = '所有小队';
+      break;
+    case 'official':
+      $scope.title = '官方小队';
+      break;
+    case 'unofficial':
+      $scope.title = '个人小队';
+      break;
+    }
+
     Company.getTeams(localStorage.id, 'team', 'all', function(msg, data) {
       if(!msg){
         $scope.teams = data;
