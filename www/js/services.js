@@ -84,36 +84,6 @@ angular.module('donlerApp.services', [])
           $http.defaults.headers.common['x-version'] = '8.0';
         }
 
-        var saveToLocal = function (key) {
-          localStorage.setItem(key, $http.defaults.headers.common[key]);
-        };
-        saveToLocal('x-app-id');
-        saveToLocal('x-api-key');
-        saveToLocal('x-device-id');
-        saveToLocal('x-device-type');
-        saveToLocal('x-platform');
-        saveToLocal('x-version');
-
-      },
-
-      getFromLocal: function () {
-        return {
-          'x-app-id': localStorage.getItem('x-app-id'),
-          'x-api-key': localStorage.getItem('x-app-key'),
-          'x-device-id': localStorage.getItem('x-device-id'),
-          'x-device-type': localStorage.getItem('x-device-type'),
-          'x-platform': localStorage.getItem('x-platform'),
-          'x-version': localStorage.getItem('x-version')
-        };
-      },
-
-      clearLocal: function () {
-        localStorage.removeItem('x-app-id');
-        localStorage.removeItem('x-api-key');
-        localStorage.removeItem('x-device-id');
-        localStorage.removeItem('x-device-type');
-        localStorage.removeItem('x-platform');
-        localStorage.removeItem('x-version');
       },
 
       get: function () {

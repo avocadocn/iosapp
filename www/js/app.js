@@ -18,8 +18,14 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       }
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
 
-      var headers = CommonHeaders.getFromLocal();
-      CommonHeaders.set(headers);
+      if (typeof device !== 'undefined') {
+        CommonHeaders.set({
+          'x-device-id': device.uuid,
+          'x-device-type': device.model,
+          'x-platform': device.platform,
+          'x-version': device.version
+        });
+      }
 
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {

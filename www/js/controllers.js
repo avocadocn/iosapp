@@ -89,14 +89,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
-  .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', 'UserAuth', '$cordovaDevice', function ($scope, CommonHeaders, $state, UserAuth, $cordovaDevice) {
-    var device = $cordovaDevice.getDevice();
-    CommonHeaders.set({
-      'x-device-id': device.uuid,
-      'x-device-type': device.model,
-      'x-platform': device.platform,
-      'x-version': device.version
-    });
+  .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', 'UserAuth', function ($scope, CommonHeaders, $state, UserAuth) {
 
     $scope.loginData = {
       email: '',
@@ -114,14 +107,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', 'CompanyAuth', '$cordovaDevice', function ($scope, CommonHeaders, $state, CompanyAuth, $cordovaDevice) {
-    var device = $cordovaDevice.getDevice();
-    CommonHeaders.set({
-      'x-device-id': device.uuid,
-      'x-device-type': device.model,
-      'x-platform': device.platform,
-      'x-version': device.version
-    });
+  .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', 'CompanyAuth', function ($scope, CommonHeaders, $state, CompanyAuth) {
 
     $scope.loginData = {
       username: '',
@@ -147,9 +133,7 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
           $state.go('login');
-
         } else {
-          CommonHeaders.clearLocal();
           $state.go('home');
         }
       });
@@ -928,7 +912,7 @@ angular.module('donlerApp.controllers', [])
           });
         }
       });
-    }
+    };
     $scope.quitTeam = function(tid, index) {
       Team.quitTeam(tid, localStorage.id, function(err, data) {
         if(!err) {
@@ -1161,7 +1145,6 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-          CommonHeaders.clearLocal();
           $state.go('home');
         }
       });
