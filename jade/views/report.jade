@@ -7,8 +7,7 @@ ion-view.report_form
       .list
         label.item.item-radio(ng-repeat="reportType in reportTypes")
           input(type="radio" name="group" ng-model="reportData.reportType" value="{{reportType.value}}")
-          .item-content
-          | {{reportType.view}}
-          i.radio-icon.ion-checkmark
+          .item-content {{reportType.view}}
+          i.radio-icon.ion-checkmark-circled
         .item-button
-          button.button.button-full.button_sponsor(ng-disabled="reportForm.$invalid || isBusy" ng-click="pushReport()") 举报
+          button.button.button-full.button_report(ng-disabled="reportForm.$invalid || isBusy" ng-click="pushReport()") 举报

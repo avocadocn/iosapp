@@ -8,10 +8,10 @@
       <div class="list">
         <label ng-repeat="reportType in reportTypes" class="item item-radio">
           <input type="radio" name="group" ng-model="reportData.reportType" value="{{reportType.value}}"/>
-          <div class="item-content"></div>{{reportType.view}}<i class="radio-icon ion-checkmark"></i>
+          <div class="item-content">{{reportType.view}}</div><i class="radio-icon ion-checkmark-circled"></i>
         </label>
         <div class="item-button">
-          <button ng-disabled="reportForm.$invalid || isBusy" ng-click="pushReport()" class="button button-full button_sponsor">举报</button>
+          <button ng-disabled="reportForm.$invalid || isBusy" ng-click="pushReport()" class="button button-full button_report">举报</button>
         </div>
       </div>
     </form>

@@ -5,7 +5,7 @@ ion-view.personal(ng-controller="PersonalController")
 
   ion-content
     .list
-      a.item.item-avatar(href="#/personal/edit")
+      a.item.item-avatar.item-icon-right(href="#/personal/edit")
         img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80")
         h2 {{user.nickname}}
         p 公司：{{user.company.name}}
@@ -17,6 +17,7 @@ ion-view.personal(ng-controller="PersonalController")
         p(ng-if="constellation" ng-cloak) 星座：{{constellation}}
         p(ng-if="user.realname" ng-cloak) 真实姓名：{{user.realname}}
         p(ng-if="user.score" ng-cloak) 积分：{{user.score}}
+        i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/personal/teams")
         i.icon.ion_teams
         | 我的小队

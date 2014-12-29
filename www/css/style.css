@@ -942,11 +942,11 @@ a>.login .companies_list:activated {
 .discuss_detail .comments .comment {
   width: 100%;
   clear: both;
+  margin-bottom: 1rem;
 }
 .discuss_detail .comments .comment .logo {
   float: left;
-  width: 20%;
-  padding-top: 0.5rem;
+  width: 5rem;
   padding-left: 1rem;
 }
 .discuss_detail .comments .comment .logo img {
@@ -962,6 +962,8 @@ a>.login .companies_list:activated {
   color: #fff;
   font-weight: 600;
   padding: 0 0.5rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
 }
 .discuss_detail .comments .comment .contents .ion-looping {
   float: left;
@@ -1112,6 +1114,9 @@ a>.login .companies_list:activated {
 .discover .discover_image {
   width: 100%;
   display: block;
+  background: url("../img/discover.jpg") center no-repeat;
+  background-size: 100%;
+  height: 15rem;
 }
 .discover .list .item:first-child {
   border-top: 0;
