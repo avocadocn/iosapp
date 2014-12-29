@@ -1164,6 +1164,9 @@ a>.login .companies_list:activated {
   font-size: 14px;
   color: #ccc;
 }
+.settings_account a.item {
+  color: #444;
+}
 .personal .list {
   padding-top: 0;
 }

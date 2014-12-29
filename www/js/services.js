@@ -584,6 +584,10 @@ angular.module('donlerApp.services', [])
         .error(function (data, status, headers, config) {
           callback('error');
         });
+      },
+
+      clearCurrentUser: function() {
+        currentUser = null;
       }
 
     };

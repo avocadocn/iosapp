@@ -1082,9 +1082,10 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('SettingsController', ['$scope', '$state', 'UserAuth', 'CommonHeaders', function ($scope, $state, UserAuth, CommonHeaders) {
+  .controller('SettingsController', ['$scope', '$state', 'UserAuth', 'User', 'CommonHeaders', function ($scope, $state, UserAuth, User, CommonHeaders) {
 
     $scope.logout = function () {
+      User.clearCurrentUser();
       UserAuth.logout(function (err) {
         if (err) {
           // todo
