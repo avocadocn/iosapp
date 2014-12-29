@@ -425,6 +425,13 @@ angular.module('donlerApp.controllers', [])
     INFO.calendarBackUrl ='#/app/discuss/list';
     INFO.sponsorBackUrl ='#/app/discuss/list';
     Socket.emit('enterRoom', localStorage.id);
+    //先在缓存里取
+    // console.log(INFO);
+    if(INFO.discussList){
+      $scope.commentCampaigns = INFO.discussList.commentCampaigns;
+      $scope.latestUnjoinedCampaign = INFO.discussList.latestUnjoinedCampaign;
+      $scope.unjoinedIndex = INFO.discussList.unjoinedIndex;
+    }
     //进来以后先http请求,再监视推送
     Comment.getList('joined').success(function (data) {
       $scope.commentCampaigns = data.commentCampaigns;
@@ -464,11 +471,17 @@ angular.module('donlerApp.controllers', [])
     //不作数据刷新，给用户玩玩的...
     $scope.refresh = function() {
       $scope.$broadcast('scroll.refreshComplete');
-    }
+    };
     $scope.goDetail = function(campaignId, campaignTheme) {
       INFO.discussName = campaignTheme;
       $state.go('discuss_detail',{campaignId: campaignId});
-    }
+    };
+    //暂且算存个缓存
+    $scope.$on('$destroy',function() {
+      INFO.discussList.commentCampaigns = $scope.commentCampaigns;
+      INFO.discussList.latestUnjoinedCampaign = $scope.latestUnjoinedCampaign;
+      INFO.discussList.unjoinedIndex = $scope.unjoinedIndex;
+    });
   }])
   .controller('UnjoinedDiscussController', ['$scope','$state', 'INFO', 'Comment', 'Socket', 'Tools', function ($scope, $state, INFO, Comment, Socket, Tools) { //标为全部已读???
     //进来以后先http请求,再监视推送
@@ -493,6 +506,7 @@ angular.module('donlerApp.controllers', [])
       INFO.discussName = campaignTheme;
       $state.go('discuss_detail',{campaignId: campaignId});
     };
+    
   }])
   .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location',
     function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {

@@ -12,9 +12,10 @@ ion-view.discuss_list(ng-controller="DiscussListController")
         img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
         .red_spot(ng-if="commentCampaign.unread")
         h2 {{commentCampaign.theme}}
+        //- span {{commentCampaign.latestComment}}
         p
           span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
-          span {{commentCampaign.latestComment.content}}
+          span {{commentCampaign.latestComment.content || '[图片]'}}
       a.item.item-avatar(ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined")
         img.unjoined(ng-src="/img/icons/unjoined_discuss.png")
         .red_spot(ng-if="newUnjoined")
@@ -27,4 +28,4 @@ ion-view.discuss_list(ng-controller="DiscussListController")
         h2 {{commentCampaign.theme}}
         p
           span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
-          span {{commentCampaign.latestComment.content}}
+          span {{commentCampaign.latestComment.content || '[图片]'}}

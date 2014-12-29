@@ -50,7 +50,8 @@ angular.module('donlerApp.services', [])
     lastDate:'',
     companyId:'',
     companyName:'',
-    email:'',
+    email:'',//注册传递用
+    discussList:{},//讨论列表缓存
     screenWidth: 320,
     screenHeight: 568
   })
