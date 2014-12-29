@@ -1,19 +1,29 @@
 
 <ion-view class="login">
-  <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a></ion-header-bar>
+  <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">注册</h1><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
+  </ion-header-bar>
   <ion-content>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="输入您的公司全称" ng-model="companyName.value" ng-blur="searchCompany()" ng-keypress="keypress($event)"/><i ng-click="searchCompany()" class="icon ion-search placeholder-icon dl_search_icon"></i>
-      </label>
-    </div>
-    <div ng-if="!searched" class="tip_msg">
-      <p class="gray_msg">请在上方输入您的公司名称，进行搜索。</p>
-    </div>
+    <form name="search_form">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="email" placeholder="输入您的公司邮箱" ng-model="companyEmail.value" required="required"/><i class="icon ion-search placeholder-icon dl_search_icon"></i>
+        </label>
+      </div>
+      <div ng-if="!searched&amp;&amp;!active" class="tip_msg">
+        <p class="gray_msg">请在上方输入您的企业邮箱，进行搜索。</p>
+      </div>
+      <div ng-show="active||mail_msg" class="tip_msg"><span ng-show="active===2" class="gray_msg">该邮箱已注册过但尚未激活，请到邮箱查收邮件。</span><span ng-show="active===3" class="blue_msg medium_tip">该邮箱已注册，请点击右上角直接登录。</span><span ng-show="mail_msg" class="gray_msg">{{mail_msg}}</span>
+      </div>
+      <div class="list list-inset">
+        <button ng-disabled="search_form.$invalid" ng-click="searchCompany()" class="button dl_button login_button">查找您的企业</button>
+      </div>
+    </form>
     <div ng-if="searched &amp;&amp; companies.length" class="list"><a ng-repeat="company in companies" ng-click="goDetail(company)" class="item item-icon-right companies_list">{{company.name}}<i class="icon ion-chevron-right"></i></a></div>
     <div ng-if="searched" class="tip_msg">
-      <p class="medium_tip">没有您的公司？</p>
-      <p><a href="#/register/company" class="medium_tip dkblue_msg">为公司注册</a></p>
+      <p class="medium_tip gray_msg">没有您的公司？</p>
+      <p class="medium_tip blue_msg">将动梨推荐给您的HR 或者进行企业注册&nbsp;↓</p>
     </div>
+    <div class="list list-inset"><a href="#/register/company" class="button dl_button login_button dkblue_button">企&nbsp;业&nbsp;注&nbsp;册</a></div>
   </ion-content>
 </ion-view>

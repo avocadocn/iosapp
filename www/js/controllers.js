@@ -1541,60 +1541,21 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('userSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
-    // UserSignup.searchCompany()
-    $scope.keypress = function(keyEvent) {
-      if (keyEvent.which === 13) {
-        $scope.searchCompany();
-      }
-    };
-    $scope.companyName = {};
-    $scope.searchCompany = function() {
-      if($scope.companyName.value){
-        UserSignup.searchCompany($scope.companyName.value, function(msg, data){
-          if(!msg){
-            $scope.companies = data;
-          }
-          $scope.searched = true;
-        });
-      }
-    };
-    $scope.goDetail = function(company) {
-      INFO.companyId = company._id;
-      INFO.companyName = company.name;
-      if(company.mail_active){
-        $state.go('register_user_postDetail',{cid:company._id});
-      }else{
-        $state.go('register_user_remind_activate');
-      }
-    }
-  }])
-  .controller('userRegisterDetailController', ['$scope', '$state', '$ionicLoading', 'UserSignup', 'INFO', function ($scope, $state, $ionicLoading, UserSignup, INFO) {
-    $scope.data = {};
-    $scope.data.cid = INFO.companyId;
-    $scope.companyName = INFO.companyName;
-    $scope.signup = function() {
-      $ionicLoading.show({
-        template: '请稍等...'
-      });
-      UserSignup.signup($scope.data, function(msg, data) {
-        $ionicLoading.hide();
-        if(!msg){
-          $state.go('register_user_waitEmail');
-        }
-      })
-    };
-    var pattern =  /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
-    $scope.reg = true;
-    $scope.mailRegCheck = function() {
-      $scope.reg = (pattern.test($scope.data.email));
-    };
-    $scope.mailCheck = function() {
-      if($scope.reg&&$scope.data.email){
-        UserSignup.validate($scope.data.email, INFO.companyId, null, function (msg, data) {
+    // $scope.keypress = function(keyEvent) {
+    //   if (keyEvent.which === 13) {
+    //     $scope.searchCompany();
+    //   }
+    // };
+    $scope.companyEmail = {};
+    var mailCheck = function(callback) {
+      if($scope.companyEmail.value){
+        UserSignup.validate($scope.companyEmail.value, null, null, function (msg, data) {
           $scope.active=data.active;
           if(msg){
             $scope.mail_msg = '您输入的邮箱有误';
+            callback(false);
           }else{
+            callback($scope.active);
             $scope.mail_msg = null;
           }
           $scope.mail_check = true;
@@ -1602,8 +1563,47 @@ angular.module('donlerApp.controllers', [])
       }else{
         $scope.mail_check = false;
         $scope.mail_msg = '您输入的邮箱有误';
+        callback(false);
       }
     };
+    $scope.searchCompany = function() {
+      mailCheck(function(active){
+        if(active===1){
+          UserSignup.searchCompany($scope.companyEmail.value, function(msg, data){
+            if(!msg){
+              $scope.companies = data;
+            }
+            $scope.searched = true;
+          });
+        }
+      });
+    };
+    $scope.goDetail = function(company) {
+      INFO.companyId = company._id;
+      INFO.companyName = company.name;
+      INFO.email = $scope.companyEmail.value;
+      if(company.mail_active){
+        $state.go('register_user_postDetail',{cid:company._id});
+      }else{
+        $state.go('register_user_remind_activate');
+      }
+    }
+  }])
+  .controller('userRegisterDetailController', ['$scope', '$state', 'UserSignup', 'INFO', function ($scope, $state, UserSignup, INFO) {
+    $scope.data = {};
+    $scope.data.cid = INFO.companyId;
+    $scope.data.email = INFO.email;
+    $scope.companyName = INFO.companyName;
+    $scope.signup = function() {
+      $rootScope.showLoading();
+      UserSignup.signup($scope.data, function(msg, data) {
+        $rootScope.hideLoading();
+        if(!msg){
+          $state.go('register_user_waitEmail');
+        }
+      })
+    };
+    
     $scope.checkInvitekey = function() {
       if($scope.data.inviteKey && $scope.data.inviteKey.length===8){
         UserSignup.validate(null, INFO.companyId, $scope.data.inviteKey, function (msg, data) {
