@@ -479,8 +479,8 @@ angular.module('donlerApp.controllers', [])
       $state.go('discuss_detail',{campaignId: campaignId});
     };
   }])
-  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location',
-    function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
+  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location',
+    function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
     Socket.emit('enterRoom', $scope.campaignId);
@@ -593,11 +593,22 @@ angular.module('donlerApp.controllers', [])
     
     //获取新留言
     Socket.on('newCampaignComment', function (data) {
+      //如果是自己发的看看是不是取消loading就行.
+      var commentListIndex = $scope.commentList.length -1;
       data.create_date = data.createDate;
-      var comentListIndex = $scope.commentList.length -1;
-      $scope.commentList[comentListIndex].push(data);
-      addPhotos(data);
-      $ionicScrollDelegate.scrollBottom();
+      if(data.poster._id === currentUser._id && data.randomId) {
+        //-找到那条自己发的
+        var length = $scope.commentList[commentListIndex].length;
+        for(var i = length-1; i>=0; i--){
+          if($scope.commentList[commentListIndex][i].randomId === data.randomId){
+            $scope.commentList[commentListIndex][i] = data;
+          }
+        }
+      }else{
+        $scope.commentList[commentListIndex].push(data);
+        addPhotos(data);
+        $ionicScrollDelegate.scrollBottom();
+      }
     });
 
     //拉取历史讨论记录
@@ -616,6 +627,13 @@ angular.module('donlerApp.controllers', [])
         $scope.$broadcast('scroll.refreshComplete');
       }
     };
+
+    //获取个人信息供发评论使用
+    var currentUser;
+    User.getData($scope.userId, function(err,data){
+      currentUser = data;
+    });
+
     /* 是否需要显示时间()
      * @params: index: 第几个comment
      * 判断依据：与上一个评论时间是否在同一分钟||index为0
@@ -644,8 +662,24 @@ angular.module('donlerApp.controllers', [])
     };
     
     //发表评论
-    $scope.publishComment = function(photo) {
-      Comment.publishComment($scope.campaignId, $scope.commentContent, photo, function(err){
+    $scope.publishComment = function() {
+      //-创建一个新comment
+      var randomId = Math.floor(Math.random()*100);
+      var newComment = {
+        randomId: randomId,
+        create_date: new Date(),
+        poster: {
+          '_id': currentUser._id,
+          'photo': currentUser.photo,
+          'nickname': currentUser.nickname
+        },
+        content: $scope.commentContent,
+        loading: true
+      };
+      var commentListIndex = $scope.commentList.length -1;
+      $scope.commentList[commentListIndex].push(newComment);
+      $ionicScrollDelegate.scrollBottom();
+      Comment.publishComment($scope.campaignId, $scope.commentContent, randomId, function(err){
         if(err){
           console.log(err);
         }else{
@@ -676,7 +710,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
-    var upload = function (imageURI) {
+    var upload = function (imageURI, randomId) {
       var serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
       var headers = CommonHeaders.get();
       headers['x-access-token'] = localStorage.accessToken;
@@ -684,7 +718,8 @@ angular.module('donlerApp.controllers', [])
         fileKey: 'photo',
         httpMethod: 'POST',
         headers: headers,
-        mimeType: 'image/jpeg'
+        mimeType: 'image/jpeg',
+        params:{randomId: randomId}
       };
 
       $cordovaFile
@@ -720,7 +755,24 @@ angular.module('donlerApp.controllers', [])
       };
 
       $cordovaCamera.getPicture(options).then(function(imageURI) {
-        upload(imageURI);
+        //-生成随机id
+        var randomId = Math.floor(Math.random()*100);
+        upload(imageURI,randomId);
+        //-创建一个新comment
+        var newComment = {
+          randomId: randomId.toString(),
+          create_date: new Date(),
+          poster: {
+            '_id': currentUser._id,
+            'photo': currentUser.photo,
+            'nickname': currentUser.nickname
+          },
+          photos: [{uri:imageURI}],
+          loading: true
+        };
+        var commentListIndex = $scope.commentList.length -1;
+        $scope.commentList[commentListIndex].push(newComment);
+        $ionicScrollDelegate.scrollBottom();
       }, function(err) {
         if (err !== 'no image selected') {
           $ionicPopup.alert({

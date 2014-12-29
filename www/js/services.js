@@ -391,8 +391,11 @@ angular.module('donlerApp.services', [])
         }
         return $http.get(url);
       },
-      publishComment: function(campaignId, content, photo, callback) {
-        $http.post(CONFIG.BASE_URL +'/comments/host_type/campaign/host_id/'+campaignId,{content:content})
+      publishComment: function(campaignId, content, randomId, callback) {
+        $http.post(CONFIG.BASE_URL +'/comments/host_type/campaign/host_id/'+campaignId,{
+          'content':content,
+          'randomId':randomId
+        })
         .success(function (data, status) {
           callback();
         }).error(function (data, status) {
