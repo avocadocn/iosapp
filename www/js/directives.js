@@ -76,7 +76,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, scope.photos, options);
           pswp.listen('close', function() {
             $rootScope.hideTabs = false;
-            $rootScope.$digest();
+            if (!$rootScope.$$phase) {
+              $rootScope.$digest();
+            }
           });
           $rootScope.hideTabs = true;
           pswp.init();
