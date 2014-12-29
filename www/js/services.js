@@ -48,6 +48,7 @@ angular.module('donlerApp.services', [])
     lastDate:'',
     companyId:'',
     companyName:'',
+    email:'',
     screenWidth: 320,
     screenHeight: 568
   })
@@ -214,15 +215,15 @@ angular.module('donlerApp.services', [])
   .factory('UserSignup', ['$http', 'CONFIG', function ($http, CONFIG) {
     return{
       validate: function (email, cid, inviteKey, callback) {
-        $http.post(CONFIG.BASE_URL + '/users/validate', {email:email, cid:cid, inviteKey:inviteKey})
+        $http.post(CONFIG.BASE_URL + '/users/validate', {'email':email, 'cid':cid, 'inviteKey':inviteKey})
         .success(function (data, status) {
           callback(null,data);
         }).error(function (data, status) {
           callback(data.msg);
         });
       },
-      searchCompany: function (name, callback) {
-        $http.post(CONFIG.BASE_URL + '/search/companies', {'name':name})
+      searchCompany: function (email, callback) {
+        $http.post(CONFIG.BASE_URL + '/search/companies', {'email':email})
         .success(function (data, status) {
           callback(null,data);
         }).error(function (data, status) {

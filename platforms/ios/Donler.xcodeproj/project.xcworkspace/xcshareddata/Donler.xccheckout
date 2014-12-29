@@ -5,7 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>B8A5A4D4-717D-4B55-BF9E-9C39947D0368</string>
+=======
+	<string>B004CD17-2AA1-413B-8CCB-F1E01091375A</string>
+>>>>>>> 3ffef4af84e33369739130c99d58978c5d84a36f
 	<key>IDESourceControlProjectName</key>
 	<string>Donler</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>

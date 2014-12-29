@@ -11,56 +11,56 @@
           <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_darkBlue">
             <p>新的活动 {{newCampaigns.length}}</p>
           </div>
-          <campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign"></campaign-card>
+          <campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
           <div ng-if="provokes.length&gt;0 || nowType=='provokes'" ng-cloak="ng-cloak" class="campaign_container_title icon_iconPurple">
             <p>挑战 {{provokes.length}}</p>
           </div>
-          <campaign-card ng-repeat="campaign in provokes" campaign="campaign"></campaign-card>
+          <campaign-card ng-repeat="campaign in provokes" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
           <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_borderPurple">
             <p>进行中的活动 {{nowCampaigns.length}}</p>
           </div>
-          <campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign"></campaign-card>
+          <campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
           <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_textPurple">
             <p>即将开始的活动 {{unStartCampaigns.length}}</p>
           </div>
-          <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign"></campaign-card>
+          <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
     </ion-scroll>
   </ion-content>
-</ion-view>
-<div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
-  <div class="pswp__bg"></div>
-  <div class="pswp__scroll-wrap">
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    <div class="pswp__ui pswp__ui--hidden">
-      <div class="pswp__top-bar">
-        <div class="pswp__counter"></div>
-        <button title="关闭" class="pswp__button pswp__button--close"></button>
-        <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
-        <button ng-if="photoAlbumId" ng-click="goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
-        <div class="pswp__preloader">
-          <div class="pswp__preloader__icn">
-            <div class="pswp__preloader__cut">
-              <div class="pswp__preloader__donut"></div>
+  <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+      <div class="pswp__ui pswp__ui--hidden">
+        <div class="pswp__top-bar">
+          <div class="pswp__counter"></div>
+          <button title="关闭" class="pswp__button pswp__button--close"></button>
+          <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
+          <button ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <button title="上一张" class="pswp__button pswp__button--arrow--left"></button>
-      <button title="下一张" class="pswp__button pswp__button--arrow--right"></button>
-      <div class="pswp__caption">
-        <div class="pswp__caption__center"></div>
+        <button title="上一张" class="pswp__button pswp__button--arrow--left"></button>
+        <button title="下一张" class="pswp__button pswp__button--arrow--right"></button>
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ion-view>
