@@ -11,7 +11,7 @@
         button.pswp__button.pswp__button--close(title="关闭")
         button.pswp__button.pswp__button--zoom(title="放大/缩小")
         //- 需要相册入口的页面请提供相册id和跳转方法
-        button.pswp__button.dl_button_to_album(ng-if="photoAlbumId" ng-click="goToAlbum()" title="查看相册")
+        button.pswp__button.dl_button_to_album(ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册")
           i.icon.ion-image
         .pswp__preloader
           .pswp__preloader__icn
