@@ -141,8 +141,53 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('createTeamController', ['$scope', '$state', 'Team', function ($scope, $state, Team) {
-    //todo
+  .controller('createTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
+    $scope.backUrl = INFO.createTeamBackUrl;
+    $scope.isBusy = false;
+    Team.getGroups(function(err,data) {
+      if(!err) {
+        $scope.groups = data;
+        $scope.selectType = data[0];
+      }
+      else {
+        $ionicPopup.alert({
+          title: '错误',
+          template: err
+        });
+      }
+    });
+    $scope.changeGroupType = function(selectType) {
+      $scope.selectType = selectType;
+    }
+    $scope.createTeam = function() {
+      if($scope.isBusy) {
+
+      }
+      else {
+        $rootScope.showLoading();
+        var teamData = {
+          selectedGroups: [{
+            groupType:$scope.selectType.groupType,
+            entityType:$scope.selectType.entityType,
+            _id:$scope.selectType._id,
+            teamName:$scope.teamName
+          }]
+        }
+        Team.createTeam(teamData, function(err, data) {
+          $rootScope.hideLoading();
+          if(!err){
+            $state.go('team',{teamId:data.teamId});
+          }
+          else{
+            $ionicPopup.alert({
+              title: '错误',
+              template: err
+            });
+          }
+        });
+      }
+      
+    }
   }])
   .controller('CompanyForgetController', ['$scope', '$ionicLoading', 'Company', function ($scope, $ionicLoading, Company) {
     $scope.msg = '请输入注册所填邮箱，我们会将密码重置邮件发送给您。';
@@ -388,10 +433,11 @@ angular.module('donlerApp.controllers', [])
         $scope.campaignData.campaign_mold = $scope.selectMold.name;
         Campaign.create($scope.campaignData,function(err,data){
           if(!err){
-            $ionicPopup.alert({
-              title: '提示',
-              template: '活动发布成功！'
-            });
+            // $ionicPopup.alert({
+            //   title: '提示',
+            //   template: '活动发布成功！'
+            // });
+            $state.go('campaigns_detail',{id:data.campaign_id});
           }
           else{
             $ionicPopup.alert({
@@ -747,16 +793,39 @@ angular.module('donlerApp.controllers', [])
     // });
 
   }])
-  .controller('DiscoverController', ['$scope', '$ionicPopup', 'Team', 'INFO', function ($scope, $ionicPopup, Team, INFO) {
+  .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', 'Team', 'INFO', function ($scope, $ionicPopup, $state, Team, INFO) {
     INFO.teamBackUrl = '#/discover/teams';
-    Team.getList('company', null, function (err, teams) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.teams = teams;
+    if($state.params.type) {
+      if($state.params.type=='personal') {
+        $scope.teams = INFO.personalTeamList;
+        INFO.teamBackUrl = '#/discover/teams/personal';
       }
-    });
+      else {
+        $scope.teams = INFO.officialTeamList;
+        INFO.teamBackUrl = '#/discover/teams/official';
+      }
+    }
+    else {
+      Team.getList('company', null, false, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.officialTeams = teams;
+          INFO.officialTeamList = teams;
+        }
+      });
+      Team.getList('company', null, true, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.personalTeams = teams;
+          INFO.personalTeamList = teams;
+        }
+      });
+    }
+    
     $scope.joinTeam = function(tid, index) {
       Team.joinTeam(tid, localStorage.id, function(err, data) {
         if(!err) {
@@ -986,7 +1055,8 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
     INFO.teamBackUrl = '#/personal/teams';
-    Team.getList('user', localStorage.id, function (err, teams) {
+    INFO.createTeamBackUrl = '#/personal/teams';
+    Team.getList('user', localStorage.id, null, function (err, teams) {
       if (err) {
         // todo
         console.log(err);
@@ -1609,7 +1679,7 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('TeamController', ['$scope', '$stateParams', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($scope, $stateParams, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
+  .controller('TeamController', ['$scope', '$stateParams', '$ionicPopup', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($scope, $stateParams, $ionicPopup, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
     INFO.campaignBackUrl = '#/team/' + teamId;
@@ -1631,6 +1701,23 @@ angular.module('donlerApp.controllers', [])
         $ionicSlideBoxDelegate.update();
       }
     });
+    $scope.updatePersonalTeam = function (tid) {
+      Team.updatePersonalTeam(tid, function (err, data) {
+        if (!err) {
+          $ionicPopup.alert({
+            title: '提示',
+            template: data.msg
+          });
+          $scope.team.level = data.level;
+        }
+        else {
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
+        }
+      });
+    };
     $scope.joinTeam = function (tid) {
       Team.joinTeam(tid, localStorage.id, function (err, data) {
         if (!err) {

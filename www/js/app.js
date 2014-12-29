@@ -180,7 +180,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/colleague-circle.html'
       })
       .state('discover_teams', {
-        url: '/discover/teams',
+        url: '/discover/teams/:type',
         controller: 'DiscoverController',
         templateUrl: './views/team-list.html'
       })

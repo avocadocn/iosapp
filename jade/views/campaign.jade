@@ -20,7 +20,7 @@ ion-view(ng-controller="CampaignController")
       a.button.button-clear(ng-click="filter('unStartCampaigns')" ng-class="{'icon_textPurple':nowType=='unStartCampaigns'}") 即将
     ion-scroll.campaign_list
       ion-refresher(on-refresh="doRefresh()")
-      +campaignsContainer('新的活动','newCampaigns','icon_darkBlue')
+      +campaignsContainer('未参加的新活动','newCampaigns','icon_darkBlue')
       +campaignsContainer('挑战','provokes','icon_iconPurple')
       +campaignsContainer('进行中的活动','nowCampaigns','icon_borderPurple')
       +campaignsContainer('即将开始的活动','unStartCampaigns','icon_textPurple')

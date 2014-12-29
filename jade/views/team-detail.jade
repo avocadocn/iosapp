@@ -15,6 +15,7 @@ ion-view
         .team_type {{team.groupType}}
       .info_body
         .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
+        .team_des(ng-if="team.poster") 创建人: {{team.poster.nickname}}
         .team_des 小队简介:
           span(ng-if="team.brief" ng-cloak) {{team.brief}}
           span(ng-if="!team.brief" ng-cloak) 无

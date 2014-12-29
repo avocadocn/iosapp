@@ -16,6 +16,7 @@
       </div>
       <div class="info_body">
         <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
+        <div ng-if="team.poster" class="team_des">创建人: {{team.poster.nickname}}</div>
         <div class="team_des">小队简介:<span ng-if="team.brief" ng-cloak="ng-cloak">{{team.brief}}</span><span ng-if="!team.brief" ng-cloak="ng-cloak">无</span></div>
         <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id)" class="btn_joined">已加入小队</button>
         <button prevent-default="prevent-default" ng-if="!team.hasJoined" ng-click="joinTeam(team._id)" class="btn_join">立即加入</button>

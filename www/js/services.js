@@ -564,19 +564,17 @@ angular.module('donlerApp.services', [])
        * @param {String} hostType 小队所属，只可以是'company','user'
        * @param {String} hostId 所属者id
        * @param {Function} callback 形式为function(err, teams)
+       * @param {Object} other gid,personalFlag
        */
-      getList: function (hostType, hostId, callback, gid, leadFlag) {
-        var requestUrl = CONFIG.BASE_URL + '/teams?hostType=' + hostType;
-        if(hostId){
-          requestUrl += '&hostId=' + hostId;
-        }
-        if(gid) {
-          requestUrl += '&gid=' + gid;
-        }
-        if(leadFlag) {
-          requestUrl += '&leadFlag=' + leadFlag;
-        }
-        $http.get(requestUrl)
+      getList: function (hostType, hostId, personalFlag, callback) {
+        var requestUrl = CONFIG.BASE_URL + '/teams';
+        $http.get(requestUrl,{
+          params:{
+            hostType: hostType,
+            hostId: hostId,
+            personalFlag: personalFlag
+          }
+        })
           .success(function (data, status, headers, config) {
             callback(null, data);
           })
@@ -702,7 +700,32 @@ angular.module('donlerApp.services', [])
 
       //获取供新建小队用的全部类型group
       getGroups: function(callback) {
-        //todo
+        $http.get(CONFIG.BASE_URL + '/groups/')
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            callback('error');
+          });
+      },
+
+      createTeam: function(data, callback) {
+        $http.post(CONFIG.BASE_URL + '/teams/', data)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            callback(data.msg||'error');
+          });
+      },
+      updatePersonalTeam: function(teamId, callback) {
+        $http.put(CONFIG.BASE_URL + '/teams/'+teamId+'/update', data)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            callback(data.msg||'error');
+          });
       }
 
     };

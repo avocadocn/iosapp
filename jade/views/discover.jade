@@ -11,8 +11,13 @@ ion-view.discover(ng-controller="DiscoverController")
         i.icon.ion_ballon
         | 同事圈
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/discover/teams")
+      a.item.item-icon-left.item-icon-right(href="#/discover/teams/official")
         i.icon.ion_teams
-        | 所有小队
-        span.item-note {{teams.length}}
+        | 官方小队
+        span.item-note {{officialTeams.length}}
+        i.icon.ion-chevron-right
+      a.item.item-icon-left.item-icon-right(href="#/discover/teams/personal")
+        i.icon.ion_teams
+        | 个人小队
+        span.item-note {{personalTeams.length}}
         i.icon.ion-chevron-right

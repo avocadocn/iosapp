@@ -1,9 +1,13 @@
-ion-view
+ion-view.sponsor
   ion-header-bar
-    a.button.icon-left.ion-chevron-left(href="#/company/team_page") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(href="{{backUrl}}") &nbsp;返回
   ion-content
-    //-todo
-      .card.list
-        a.item(ng-repeat="group in groups" ng-class="{'active':selectedGroup.type==group.type, 'inactive':selectedGroup.type!=group.type}")
-          input(type='radio' name='group' id='{{group._id}}' value='{{group.type}}' ng-model='selected' ng-change='select()')
-          label.img_contain(class='group_'+'{{group._id}}' for='{{group._id}}') {{group.type}}
+    form(name="createTeamForm" novalidate)
+    .list
+      label.item.item-input.item-select
+        span.input-label 小队类型
+        select(ng-change="changeGroupType(selectType)" ng-model="selectType" ng-options="group as group.groupType for group in groups")
+      label.item.item-input
+        input(type="text" name="name" ng-model="teamName" placeholder="小队名，限制14个字" ng-maxlength=14 required)
+      .item-button
+        button.button.button-full.button_sponsor(ng-disabled="createTeamForm.$invalid || isBusy" ng-click="createTeam()") 建立
