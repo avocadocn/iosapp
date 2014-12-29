@@ -256,7 +256,9 @@ angular.module('donlerApp.controllers', [])
     });
     $scope.filter = function(filterType) {
       $scope.nowType = filterType;
-      $ionicScrollDelegate.scrollTop(true);
+      $timeout(function() {
+        $ionicScrollDelegate.scrollTop(true);
+      });
     }
     $scope.join = function(filter,index, id){
       Campaign.join(id,localStorage.id, function(err, data){
