@@ -38,7 +38,9 @@ angular.module('donlerApp.services', [])
   .constant('CONFIG', {
     BASE_URL: 'http://localhost:3002',
     STATIC_URL: 'http://localhost:3000',
-    SOCKET_URL: 'http://localhost:3005'
+    SOCKET_URL: 'http://localhost:3005',
+    APP_ID: 'id1a2b3c4d5e6f',
+    API_KEY: 'key1a2b3c4d5e6f'
   })
   .value('INFO', {
     memberContent:'',
@@ -52,7 +54,7 @@ angular.module('donlerApp.services', [])
     screenWidth: 320,
     screenHeight: 568
   })
-  .factory('CommonHeaders', ['$http', function ($http) {
+  .factory('CommonHeaders', ['$http', 'CONFIG', function ($http, CONFIG) {
 
     return {
 
@@ -66,18 +68,51 @@ angular.module('donlerApp.services', [])
        * @param {Object} headers
        */
       set: function (headers) {
-        if (!headers) {
-          $http.defaults.headers.common['x-app-id'] = 'id1a2b3c4d5e6f';
-          $http.defaults.headers.common['x-api-key'] = 'key1a2b3c4d5e6f';
+
+        $http.defaults.headers.common['x-app-id'] = CONFIG.APP_ID;
+        $http.defaults.headers.common['x-api-key'] = CONFIG.API_KEY;
+
+        if (headers) {
+          for (var key in headers) {
+            $http.defaults.headers.common[key] = headers[key];
+          }
+        } else {
           $http.defaults.headers.common['x-device-id'] = 'did1a2b3c4d5e6f';
           $http.defaults.headers.common['x-device-type'] = 'iphone 6';
           $http.defaults.headers.common['x-platform'] = 'ios';
           $http.defaults.headers.common['x-version'] = '8.0';
-        } else {
-          for (var key in headers) {
-            $http.defaults.headers.common[key] = headers[key];
-          }
         }
+
+        var saveToLocal = function (key) {
+          localStorage.setItem(key, $http.defaults.headers.common[key]);
+        };
+        saveToLocal('x-app-id');
+        saveToLocal('x-api-key');
+        saveToLocal('x-device-id');
+        saveToLocal('x-device-type');
+        saveToLocal('x-platform');
+        saveToLocal('x-version');
+
+      },
+
+      getFromLocal: function () {
+        return {
+          'x-app-id': localStorage.getItem('x-app-id'),
+          'x-api-key': localStorage.getItem('x-app-key'),
+          'x-device-id': localStorage.getItem('x-device-id'),
+          'x-device-type': localStorage.getItem('x-device-type'),
+          'x-platform': localStorage.getItem('x-platform'),
+          'x-version': localStorage.getItem('x-version')
+        };
+      },
+
+      clearLocal: function () {
+        localStorage.removeItem('x-app-id');
+        localStorage.removeItem('x-api-key');
+        localStorage.removeItem('x-device-id');
+        localStorage.removeItem('x-device-type');
+        localStorage.removeItem('x-platform');
+        localStorage.removeItem('x-version');
       },
 
       get: function () {

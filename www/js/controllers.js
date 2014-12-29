@@ -89,7 +89,14 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
-  .controller('UserLoginController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
+  .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', 'UserAuth', '$cordovaDevice', function ($scope, CommonHeaders, $state, UserAuth, $cordovaDevice) {
+    var device = $cordovaDevice.getDevice();
+    CommonHeaders.set({
+      'x-device-id': device.uuid,
+      'x-device-type': device.model,
+      'x-platform': device.platform,
+      'x-version': device.version
+    });
 
     $scope.loginData = {
       email: '',
@@ -107,7 +114,14 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CompanyLoginController', ['$scope', '$state', 'CompanyAuth', function ($scope, $state, CompanyAuth) {
+  .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', 'CompanyAuth', '$cordovaDevice', function ($scope, CommonHeaders, $state, CompanyAuth, $cordovaDevice) {
+    var device = $cordovaDevice.getDevice();
+    CommonHeaders.set({
+      'x-device-id': device.uuid,
+      'x-device-type': device.model,
+      'x-platform': device.platform,
+      'x-version': device.version
+    });
 
     $scope.loginData = {
       username: '',
@@ -125,7 +139,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CompanyHomeController', ['$scope', '$state', 'CompanyAuth', function ($scope, $state, CompanyAuth) {
+  .controller('CompanyHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', function ($scope, $state, CompanyAuth, CommonHeaders) {
 
     $scope.logout = function () {
       CompanyAuth.logout(function (err) {
@@ -135,6 +149,7 @@ angular.module('donlerApp.controllers', [])
           $state.go('login');
 
         } else {
+          CommonHeaders.clearLocal();
           $state.go('home');
         }
       });
@@ -1053,7 +1068,7 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('SettingsController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
+  .controller('SettingsController', ['$scope', '$state', 'UserAuth', 'CommonHeaders', function ($scope, $state, UserAuth, CommonHeaders) {
 
     $scope.logout = function () {
       UserAuth.logout(function (err) {
@@ -1061,9 +1076,10 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
+          CommonHeaders.clearLocal();
           $state.go('home');
         }
-      })
+      });
     }
 
   }])
