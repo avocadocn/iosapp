@@ -602,6 +602,7 @@ angular.module('donlerApp.controllers', [])
         for(var i = length-1; i>=0; i--){
           if($scope.commentList[commentListIndex][i].randomId === data.randomId){
             $scope.commentList[commentListIndex][i] = data;
+            $scope.commentList[commentListIndex][i].randomId = null;
           }
         }
       }else{

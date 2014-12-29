@@ -35,7 +35,7 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
                     img(ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180")
                   .box
                     img.img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
-                    img.img(ng-if="comment.randomId" ng-src="photo.uri" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
+                    img.img(ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
           .comment(ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content")
             .logo
               img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")

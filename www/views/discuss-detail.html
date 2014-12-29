@@ -26,7 +26,7 @@
               <div class="content">
                 <div class="triangle_isosceles triangle_img">
                   <div class="tr"><img ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180"/></div>
-                  <div class="box"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/><img ng-if="comment.randomId" ng-src="photo.uri" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/></div>
+                  <div class="box"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/></div>
                 </div>
               </div>
             </div>

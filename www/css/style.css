@@ -878,7 +878,7 @@ a>.login .companies_list:activated {
 }
 .discuss_detail {
   background-image: url("../img/discuss_bgd.jpg");
-  background-size: 640px;
+  background-size: 400px;
   background-position: center;
 }
 .discuss_detail .icon-right {
@@ -908,7 +908,7 @@ a>.login .companies_list:activated {
   padding: 10px;
 }
 .discuss_detail .notice .content .notice_title {
-  color: #fff;
+  color: #3ca2e0;
   float: left;
   font-size: 14px;
   font-weight: 600;
@@ -921,6 +921,7 @@ a>.login .companies_list:activated {
   margin-top: 10px;
 }
 .discuss_detail .notice .content .close_button {
+  color: #3ca2e0;
   background-color: transparent;
   font-size: 20px;
   line-height: 1;
