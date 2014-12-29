@@ -15,11 +15,12 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     };
   })
 
-  .directive('campaignCard', ['CONFIG', 'Campaign', 'INFO', 'Tools', function (CONFIG, Campaign, INFO, Tools) {
+  .directive('campaignCard', ['$rootScope', 'CONFIG', 'Campaign', 'INFO', 'Tools', '$location', function ($rootScope, CONFIG, Campaign, INFO, Tools, $location) {
     return {
       restrict: 'E',
       scope: {
-        campaign: '='
+        campaign: '=',
+        pswpPhotoAlbum: '='
       },
       templateUrl: './views/campaign-card.html',
       link: function (scope, element, attrs, ctrl) {
@@ -43,19 +44,20 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             }
           });
           return false;
-        }
+        };
+
         var addPhotos = function (photos) {
-            photos.forEach(function (photo) {
-              var width = photo.width || INFO.screenWidth;
-              var height = photo.height || INFO.screenHeight;
-              // todo 获取屏幕尺寸
-              scope.photos.push({
-                _id: photo._id,
-                src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
-                w: width,
-                h: height
-              });
+          photos.forEach(function (photo) {
+            var width = photo.width || INFO.screenWidth;
+            var height = photo.height || INFO.screenHeight;
+            scope.photos.push({
+              _id: photo._id,
+              src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
+              w: width,
+              h: height,
+              title: '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm')
             });
+          });
         };
 
         scope.openPhotoSwipe = function (photos, photoId) {
@@ -65,16 +67,26 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           var index = Tools.arrayObjectIndexOf(scope.photos, photoId, '_id');
 
           var options = {
-            // history & focus options are disabled on CodePen
             history: false,
             focus: false,
             index: index,
             showAnimationDuration: 0,
             hideAnimationDuration: 0
-
           };
-          var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, scope.photos, options);
-          gallery.init();
+          var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, scope.photos, options);
+          pswp.listen('close', function() {
+            $rootScope.hideTabs = false;
+          });
+          $rootScope.hideTabs = true;
+          pswp.init();
+          if (scope.pswpPhotoAlbum) {
+            scope.pswpPhotoAlbum.goToAlbum = function () {
+              INFO.photoAlbumBackUrl = '#' + $location.url();
+              pswp.close();
+              $rootScope.hideTabs = false;
+              $location.url('/photo_album/' + scope.campaign.photo_album._id + '/detail');
+            };
+          }
           return false;
         };
       }

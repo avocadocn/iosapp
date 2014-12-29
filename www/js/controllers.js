@@ -182,6 +182,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, Campaign, INFO) {
     $rootScope.showLoading();
+    $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
     INFO.campaignBackUrl = '#/app/campaigns';
     INFO.calendarBackUrl ='#/app/campaigns';
@@ -503,7 +504,8 @@ angular.module('donlerApp.controllers', [])
             _id: photo._id,
             src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
             w: width,
-            h: height
+            h: height,
+            title: '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm')
           });
         });
       }
@@ -524,10 +526,12 @@ angular.module('donlerApp.controllers', [])
       };
       var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
       gallery.init();
-      $scope.goToAlbum = function () {
-        INFO.photoAlbumBackUrl = '#' + $location.url();
-        gallery.close();
-        $location.url('/photo_album/' + $scope.photoAlbumId + '/detail');
+      $scope.pswpPhotoAlbum = {
+        goToAlbum: function () {
+          INFO.photoAlbumBackUrl = '#' + $location.url();
+          gallery.close();
+          $location.url('/photo_album/' + $scope.photoAlbumId + '/detail');
+        }
       };
     };
 
