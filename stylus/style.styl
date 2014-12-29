@@ -520,14 +520,27 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
 //- home页
 .home
-  background url('../img/index_1.gif') center no-repeat
-  background-size 401px
   background-color col_gray
+  .slider
+    height 100%
+    .page_1
+      height 100%
+      background url('../img/index_1.gif') center no-repeat
+      background-size 401px
+    .page_2
+      height 100%
+      background url('../img/index_2.gif') center no-repeat
+      background-size 320px
+  .slider-pager
+    bottom 80px
+    .active>.icon.ion-record
+      color col_blue
   .home_buttons
     position absolute
     bottom 10px
     text-align center
     width 100%
+    z-index 2
     .button
       width 45%
       min-height 40px
