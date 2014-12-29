@@ -1,26 +1,21 @@
 ion-view.login
   ion-header-bar
     a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    h1.title 个人注册
     a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
   ion-content
     .list.list-inset.tip_msg
       span.large_tip.black_msg {{companyName}}
     form.signup_form(name="user_signup_form" novalidate)
-      .list.list-inset
-        label.item.item-input
-          input(type="email" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required)
-      .tip_msg(ng-show="active||mail_msg")
-        span.gray_msg(ng-show="active===1") 该邮箱可以注册。
-        span.gray_msg(ng-show="active===2") 该邮箱已注册过但尚未激活，请到邮箱查收邮件。
-        span.gray_msg(ng-show="active===3") 该邮箱已注册，请直接登录。
-        span.gray_msg(ng-show="active===4") 请使用企业邮箱进行注册，若企业后缀不统一，请通知贵公司管理员进行后缀添加。
-        span.gray_msg(ng-show="mail_msg") {{mail_msg}}
+      //- .list.list-inset
+      //-   label.item.item-input
+      //-     input(type="email" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required)
       .list.list-inset
         label.item.item-input
           input(type="text" ng-model="data.nickname" placeholder="昵称" required)
       .list.list-inset
         label.item.item-input
-          input(type="password" ng-model="data.password" placeholder="密码" required)
+          input(type="password" ng-model="data.password" ng-minlength=6 placeholder="密码(至少6位)" required)
       .list.list-inset
         label.item.item-input
           input(type="password" ng-model="data.passconf" placeholder="密码确认" match="data.password" required)
@@ -44,4 +39,4 @@ ion-view.login
           span.gray_msg 点击注册即代表同意
           a.blue_msg(href="#/register/user/law") 《法律声明》及《隐私政策》
       .list.list-inset
-        button.button.dl_button.login_button(ng-disabled="active!==1 || invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()") 个人注册
+        button.button.dl_button.login_button(ng-disabled="invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()") 个人注册

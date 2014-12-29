@@ -520,14 +520,27 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
 //- home页
 .home
-  background url('../img/index_1.gif') center no-repeat
-  background-size 401px
   background-color col_gray
+  .slider
+    height 100%
+    .page_1
+      height 100%
+      background url('../img/index_1.gif') center no-repeat
+      background-size 401px
+    .page_2
+      height 100%
+      background url('../img/index_2.gif') center no-repeat
+      background-size 320px
+  .slider-pager
+    bottom 80px
+    .active>.icon.ion-record
+      color col_blue
   .home_buttons
     position absolute
     bottom 10px
     text-align center
     width 100%
+    z-index 2
     .button
       width 45%
       min-height 40px
@@ -544,6 +557,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-color #fff
   input
     color col_blue
+  .bar
+    .title
+      color col_blue
   .list.list-inset
     &:first-child
       margin 20px 20px 10px
@@ -691,7 +707,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 //- 讨论页
 .discuss_detail
   background-image url('../img/discuss_bgd.jpg')
-  background-size 640px
+  background-size 400px
   background-position center
   //-右icon
   .icon-right
@@ -718,7 +734,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       z-index 2
       padding 10px
       .notice_title
-        color #fff
+        color col_blue
         float left
         font-size 14px
         font-weight 600
@@ -729,6 +745,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         font-size 16px
         margin-top 10px
       .close_button
+        color col_blue
         background-color transparent
         font-size 20px
         line-height 1
@@ -767,10 +784,10 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .comment
       width 100%
       clear both
+      margin-bottom 1rem
       .logo
         float left
-        width 20%
-        padding-top 0.5rem
+        width 5rem
         padding-left 1rem
         img
           float left
@@ -783,6 +800,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           color #fff
           font-weight 600
           padding 0 0.5rem
+          line-height 1
+          margin-bottom 0.5rem
         .ion-looping
           float left
           margin-top 0.8rem
@@ -794,7 +813,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           color col_lightGray
           max-width 80%
           padding 2px 7px
-      .triangle_isosceles 
+      .triangle_isosceles
         position relative
         padding 0.5rem
         background #fff
@@ -920,6 +939,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   .discover_image
     width 100%
     display block
+    background url('../img/discover.jpg') center no-repeat
+    background-size 100%
+    height 15rem
   .list
     .item
       &:first-child
@@ -937,6 +959,10 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .ion-chevron-right
       font-size 14px
       color #ccc
+//-账号设置页
+.settings_account
+  a.item
+    color #444
 //-我的
 .personal
   .list

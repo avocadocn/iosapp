@@ -17,7 +17,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         StatusBar.styleDefault();
       }
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
-      CommonHeaders.set();
+
+      var headers = CommonHeaders.getFromLocal();
+      CommonHeaders.set(headers);
+
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;

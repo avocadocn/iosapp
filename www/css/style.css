@@ -623,15 +623,33 @@ input:focus:-ms-input-placeholder {
   padding-left: 10px;
 }
 .home {
+  background-color: #e2e2e2;
+}
+.home .slider {
+  height: 100%;
+}
+.home .slider .page_1 {
+  height: 100%;
   background: url("../img/index_1.gif") center no-repeat;
   background-size: 401px;
-  background-color: #e2e2e2;
+}
+.home .slider .page_2 {
+  height: 100%;
+  background: url("../img/index_2.gif") center no-repeat;
+  background-size: 320px;
+}
+.home .slider-pager {
+  bottom: 80px;
+}
+.home .slider-pager .active>.icon.ion-record {
+  color: #3ca2e0;
 }
 .home .home_buttons {
   position: absolute;
   bottom: 10px;
   text-align: center;
   width: 100%;
+  z-index: 2;
 }
 .home .home_buttons .button {
   width: 45%;
@@ -651,6 +669,9 @@ input:focus:-ms-input-placeholder {
   background-color: #fff;
 }
 .login input {
+  color: #3ca2e0;
+}
+.login .bar .title {
   color: #3ca2e0;
 }
 .login .list.list-inset:first-child {
@@ -857,7 +878,7 @@ a>.login .companies_list:activated {
 }
 .discuss_detail {
   background-image: url("../img/discuss_bgd.jpg");
-  background-size: 640px;
+  background-size: 400px;
   background-position: center;
 }
 .discuss_detail .icon-right {
@@ -887,7 +908,7 @@ a>.login .companies_list:activated {
   padding: 10px;
 }
 .discuss_detail .notice .content .notice_title {
-  color: #fff;
+  color: #3ca2e0;
   float: left;
   font-size: 14px;
   font-weight: 600;
@@ -900,6 +921,7 @@ a>.login .companies_list:activated {
   margin-top: 10px;
 }
 .discuss_detail .notice .content .close_button {
+  color: #3ca2e0;
   background-color: transparent;
   font-size: 20px;
   line-height: 1;
@@ -942,11 +964,11 @@ a>.login .companies_list:activated {
 .discuss_detail .comments .comment {
   width: 100%;
   clear: both;
+  margin-bottom: 1rem;
 }
 .discuss_detail .comments .comment .logo {
   float: left;
-  width: 20%;
-  padding-top: 0.5rem;
+  width: 5rem;
   padding-left: 1rem;
 }
 .discuss_detail .comments .comment .logo img {
@@ -962,6 +984,8 @@ a>.login .companies_list:activated {
   color: #fff;
   font-weight: 600;
   padding: 0 0.5rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
 }
 .discuss_detail .comments .comment .contents .ion-looping {
   float: left;
@@ -1112,6 +1136,9 @@ a>.login .companies_list:activated {
 .discover .discover_image {
   width: 100%;
   display: block;
+  background: url("../img/discover.jpg") center no-repeat;
+  background-size: 100%;
+  height: 15rem;
 }
 .discover .list .item:first-child {
   border-top: 0;
@@ -1136,6 +1163,9 @@ a>.login .companies_list:activated {
 .settings_account .list .ion-chevron-right {
   font-size: 14px;
   color: #ccc;
+}
+.settings_account a.item {
+  color: #444;
 }
 .personal .list {
   padding-top: 0;

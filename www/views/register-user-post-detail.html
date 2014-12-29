@@ -1,15 +1,11 @@
 
 <ion-view class="login">
-  <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a></ion-header-bar>
+  <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">个人注册</h1><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
+  </ion-header-bar>
   <ion-content>
     <div class="list list-inset tip_msg"><span class="large_tip black_msg">{{companyName}}</span></div>
     <form name="user_signup_form" novalidate="novalidate" class="signup_form">
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input type="email" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
-        </label>
-      </div>
-      <div ng-show="active||mail_msg" class="tip_msg"><span ng-show="active===1" class="gray_msg">该邮箱可以注册。</span><span ng-show="active===2" class="gray_msg">该邮箱已注册过但尚未激活，请到邮箱查收邮件。</span><span ng-show="active===3" class="gray_msg">该邮箱已注册，请直接登录。</span><span ng-show="active===4" class="gray_msg">请使用企业邮箱进行注册，若企业后缀不统一，请通知贵公司管理员进行后缀添加。</span><span ng-show="mail_msg" class="gray_msg">{{mail_msg}}</span></div>
       <div class="list list-inset">
         <label class="item item-input">
           <input type="text" ng-model="data.nickname" placeholder="昵称" required="required"/>
@@ -17,7 +13,7 @@
       </div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="password" ng-model="data.password" placeholder="密码" required="required"/>
+          <input type="password" ng-model="data.password" ng-minlength="6" placeholder="密码(至少6位)" required="required"/>
         </label>
       </div>
       <div class="list list-inset">
@@ -47,7 +43,7 @@
         <p><span class="gray_msg">点击注册即代表同意</span><a href="#/register/user/law" class="blue_msg">《法律声明》及《隐私政策》</a></p>
       </div>
       <div class="list list-inset">
-        <button ng-disabled="active!==1 || invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()" class="button dl_button login_button">个人注册</button>
+        <button ng-disabled="invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()" class="button dl_button login_button">个人注册</button>
       </div>
     </form>
   </ion-content>

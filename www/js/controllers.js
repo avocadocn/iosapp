@@ -89,7 +89,14 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
-  .controller('UserLoginController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
+  .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', 'UserAuth', '$cordovaDevice', function ($scope, CommonHeaders, $state, UserAuth, $cordovaDevice) {
+    var device = $cordovaDevice.getDevice();
+    CommonHeaders.set({
+      'x-device-id': device.uuid,
+      'x-device-type': device.model,
+      'x-platform': device.platform,
+      'x-version': device.version
+    });
 
     $scope.loginData = {
       email: '',
@@ -107,7 +114,14 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CompanyLoginController', ['$scope', '$state', 'CompanyAuth', function ($scope, $state, CompanyAuth) {
+  .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', 'CompanyAuth', '$cordovaDevice', function ($scope, CommonHeaders, $state, CompanyAuth, $cordovaDevice) {
+    var device = $cordovaDevice.getDevice();
+    CommonHeaders.set({
+      'x-device-id': device.uuid,
+      'x-device-type': device.model,
+      'x-platform': device.platform,
+      'x-version': device.version
+    });
 
     $scope.loginData = {
       username: '',
@@ -125,7 +139,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CompanyHomeController', ['$scope', '$state', 'CompanyAuth', function ($scope, $state, CompanyAuth) {
+  .controller('CompanyHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', function ($scope, $state, CompanyAuth, CommonHeaders) {
 
     $scope.logout = function () {
       CompanyAuth.logout(function (err) {
@@ -135,6 +149,7 @@ angular.module('donlerApp.controllers', [])
           $state.go('login');
 
         } else {
+          CommonHeaders.clearLocal();
           $state.go('home');
         }
       });
@@ -227,6 +242,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, Campaign, INFO) {
     $rootScope.showLoading();
+    $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
     INFO.campaignBackUrl = '#/app/campaigns';
     INFO.calendarBackUrl ='#/app/campaigns';
@@ -455,6 +471,13 @@ angular.module('donlerApp.controllers', [])
     INFO.calendarBackUrl ='#/app/discuss/list';
     INFO.sponsorBackUrl ='#/app/discuss/list';
     Socket.emit('enterRoom', localStorage.id);
+    //先在缓存里取
+    // console.log(INFO);
+    if(INFO.discussList){
+      $scope.commentCampaigns = INFO.discussList.commentCampaigns;
+      $scope.latestUnjoinedCampaign = INFO.discussList.latestUnjoinedCampaign;
+      $scope.unjoinedIndex = INFO.discussList.unjoinedIndex;
+    }
     //进来以后先http请求,再监视推送
     Comment.getList('joined').success(function (data) {
       $scope.commentCampaigns = data.commentCampaigns;
@@ -494,11 +517,17 @@ angular.module('donlerApp.controllers', [])
     //不作数据刷新，给用户玩玩的...
     $scope.refresh = function() {
       $scope.$broadcast('scroll.refreshComplete');
-    }
+    };
     $scope.goDetail = function(campaignId, campaignTheme) {
       INFO.discussName = campaignTheme;
       $state.go('discuss_detail',{campaignId: campaignId});
-    }
+    };
+    //暂且算存个缓存
+    $scope.$on('$destroy',function() {
+      INFO.discussList.commentCampaigns = $scope.commentCampaigns;
+      INFO.discussList.latestUnjoinedCampaign = $scope.latestUnjoinedCampaign;
+      INFO.discussList.unjoinedIndex = $scope.unjoinedIndex;
+    });
   }])
   .controller('UnjoinedDiscussController', ['$scope','$state', 'INFO', 'Comment', 'Socket', 'Tools', function ($scope, $state, INFO, Comment, Socket, Tools) { //标为全部已读???
     //进来以后先http请求,再监视推送
@@ -523,9 +552,10 @@ angular.module('donlerApp.controllers', [])
       INFO.discussName = campaignTheme;
       $state.go('discuss_detail',{campaignId: campaignId});
     };
+    
   }])
-  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location',
-    function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
+  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location',
+    function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
     Socket.emit('enterRoom', $scope.campaignId);
@@ -549,7 +579,8 @@ angular.module('donlerApp.controllers', [])
             _id: photo._id,
             src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
             w: width,
-            h: height
+            h: height,
+            title: '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm')
           });
         });
       }
@@ -570,10 +601,12 @@ angular.module('donlerApp.controllers', [])
       };
       var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
       gallery.init();
-      $scope.goToAlbum = function () {
-        INFO.photoAlbumBackUrl = '#' + $location.url();
-        gallery.close();
-        $location.url('/photo_album/' + $scope.photoAlbumId + '/detail');
+      $scope.pswpPhotoAlbum = {
+        goToAlbum: function () {
+          INFO.photoAlbumBackUrl = '#' + $location.url();
+          gallery.close();
+          $location.url('/photo_album/' + $scope.photoAlbumId + '/detail');
+        }
       };
     };
 
@@ -635,11 +668,23 @@ angular.module('donlerApp.controllers', [])
     
     //获取新留言
     Socket.on('newCampaignComment', function (data) {
+      //如果是自己发的看看是不是取消loading就行.
+      var commentListIndex = $scope.commentList.length -1;
       data.create_date = data.createDate;
-      var comentListIndex = $scope.commentList.length -1;
-      $scope.commentList[comentListIndex].push(data);
-      addPhotos(data);
-      $ionicScrollDelegate.scrollBottom();
+      if(data.poster._id === currentUser._id && data.randomId) {
+        //-找到那条自己发的
+        var length = $scope.commentList[commentListIndex].length;
+        for(var i = length-1; i>=0; i--){
+          if($scope.commentList[commentListIndex][i].randomId === data.randomId){
+            $scope.commentList[commentListIndex][i] = data;
+            $scope.commentList[commentListIndex][i].randomId = null;
+          }
+        }
+      }else{
+        $scope.commentList[commentListIndex].push(data);
+        addPhotos(data);
+        $ionicScrollDelegate.scrollBottom();
+      }
     });
 
     //拉取历史讨论记录
@@ -658,6 +703,13 @@ angular.module('donlerApp.controllers', [])
         $scope.$broadcast('scroll.refreshComplete');
       }
     };
+
+    //获取个人信息供发评论使用
+    var currentUser;
+    User.getData($scope.userId, function(err,data){
+      currentUser = data;
+    });
+
     /* 是否需要显示时间()
      * @params: index: 第几个comment
      * 判断依据：与上一个评论时间是否在同一分钟||index为0
@@ -686,8 +738,24 @@ angular.module('donlerApp.controllers', [])
     };
     
     //发表评论
-    $scope.publishComment = function(photo) {
-      Comment.publishComment($scope.campaignId, $scope.commentContent, photo, function(err){
+    $scope.publishComment = function() {
+      //-创建一个新comment
+      var randomId = Math.floor(Math.random()*100);
+      var newComment = {
+        randomId: randomId,
+        create_date: new Date(),
+        poster: {
+          '_id': currentUser._id,
+          'photo': currentUser.photo,
+          'nickname': currentUser.nickname
+        },
+        content: $scope.commentContent,
+        loading: true
+      };
+      var commentListIndex = $scope.commentList.length -1;
+      $scope.commentList[commentListIndex].push(newComment);
+      $ionicScrollDelegate.scrollBottom();
+      Comment.publishComment($scope.campaignId, $scope.commentContent, randomId, function(err){
         if(err){
           console.log(err);
         }else{
@@ -718,7 +786,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
-    var upload = function (imageURI) {
+    var upload = function (imageURI, randomId) {
       var serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
       var headers = CommonHeaders.get();
       headers['x-access-token'] = localStorage.accessToken;
@@ -726,7 +794,8 @@ angular.module('donlerApp.controllers', [])
         fileKey: 'photo',
         httpMethod: 'POST',
         headers: headers,
-        mimeType: 'image/jpeg'
+        mimeType: 'image/jpeg',
+        params:{randomId: randomId}
       };
 
       $cordovaFile
@@ -762,7 +831,24 @@ angular.module('donlerApp.controllers', [])
       };
 
       $cordovaCamera.getPicture(options).then(function(imageURI) {
-        upload(imageURI);
+        //-生成随机id
+        var randomId = Math.floor(Math.random()*100);
+        upload(imageURI,randomId);
+        //-创建一个新comment
+        var newComment = {
+          randomId: randomId.toString(),
+          create_date: new Date(),
+          poster: {
+            '_id': currentUser._id,
+            'photo': currentUser.photo,
+            'nickname': currentUser.nickname
+          },
+          photos: [{uri:imageURI}],
+          loading: true
+        };
+        var commentListIndex = $scope.commentList.length -1;
+        $scope.commentList[commentListIndex].push(newComment);
+        $ionicScrollDelegate.scrollBottom();
       }, function(err) {
         if (err !== 'no image selected') {
           $ionicPopup.alert({
@@ -1066,17 +1152,19 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('SettingsController', ['$scope', '$state', 'UserAuth', function ($scope, $state, UserAuth) {
+  .controller('SettingsController', ['$scope', '$state', 'UserAuth', 'User', 'CommonHeaders', function ($scope, $state, UserAuth, User, CommonHeaders) {
 
     $scope.logout = function () {
+      User.clearCurrentUser();
       UserAuth.logout(function (err) {
         if (err) {
           // todo
           console.log(err);
         } else {
+          CommonHeaders.clearLocal();
           $state.go('home');
         }
-      })
+      });
     }
 
   }])
@@ -1559,60 +1647,21 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('userSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
-    // UserSignup.searchCompany()
-    $scope.keypress = function(keyEvent) {
-      if (keyEvent.which === 13) {
-        $scope.searchCompany();
-      }
-    };
-    $scope.companyName = {};
-    $scope.searchCompany = function() {
-      if($scope.companyName.value){
-        UserSignup.searchCompany($scope.companyName.value, function(msg, data){
-          if(!msg){
-            $scope.companies = data;
-          }
-          $scope.searched = true;
-        });
-      }
-    };
-    $scope.goDetail = function(company) {
-      INFO.companyId = company._id;
-      INFO.companyName = company.name;
-      if(company.mail_active){
-        $state.go('register_user_postDetail',{cid:company._id});
-      }else{
-        $state.go('register_user_remind_activate');
-      }
-    }
-  }])
-  .controller('userRegisterDetailController', ['$scope', '$state', '$ionicLoading', 'UserSignup', 'INFO', function ($scope, $state, $ionicLoading, UserSignup, INFO) {
-    $scope.data = {};
-    $scope.data.cid = INFO.companyId;
-    $scope.companyName = INFO.companyName;
-    $scope.signup = function() {
-      $ionicLoading.show({
-        template: '请稍等...'
-      });
-      UserSignup.signup($scope.data, function(msg, data) {
-        $ionicLoading.hide();
-        if(!msg){
-          $state.go('register_user_waitEmail');
-        }
-      })
-    };
-    var pattern =  /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
-    $scope.reg = true;
-    $scope.mailRegCheck = function() {
-      $scope.reg = (pattern.test($scope.data.email));
-    };
-    $scope.mailCheck = function() {
-      if($scope.reg&&$scope.data.email){
-        UserSignup.validate($scope.data.email, INFO.companyId, null, function (msg, data) {
+    // $scope.keypress = function(keyEvent) {
+    //   if (keyEvent.which === 13) {
+    //     $scope.searchCompany();
+    //   }
+    // };
+    $scope.companyEmail = {};
+    var mailCheck = function(callback) {
+      if($scope.companyEmail.value){
+        UserSignup.validate($scope.companyEmail.value, null, null, function (msg, data) {
           $scope.active=data.active;
           if(msg){
             $scope.mail_msg = '您输入的邮箱有误';
+            callback(false);
           }else{
+            callback($scope.active);
             $scope.mail_msg = null;
           }
           $scope.mail_check = true;
@@ -1620,8 +1669,47 @@ angular.module('donlerApp.controllers', [])
       }else{
         $scope.mail_check = false;
         $scope.mail_msg = '您输入的邮箱有误';
+        callback(false);
       }
     };
+    $scope.searchCompany = function() {
+      mailCheck(function(active){
+        if(active===1){
+          UserSignup.searchCompany($scope.companyEmail.value, function(msg, data){
+            if(!msg){
+              $scope.companies = data;
+            }
+            $scope.searched = true;
+          });
+        }
+      });
+    };
+    $scope.goDetail = function(company) {
+      INFO.companyId = company._id;
+      INFO.companyName = company.name;
+      INFO.email = $scope.companyEmail.value;
+      if(company.mail_active){
+        $state.go('register_user_postDetail',{cid:company._id});
+      }else{
+        $state.go('register_user_remind_activate');
+      }
+    }
+  }])
+  .controller('userRegisterDetailController', ['$scope', '$state', 'UserSignup', 'INFO', function ($scope, $state, UserSignup, INFO) {
+    $scope.data = {};
+    $scope.data.cid = INFO.companyId;
+    $scope.data.email = INFO.email;
+    $scope.companyName = INFO.companyName;
+    $scope.signup = function() {
+      $rootScope.showLoading();
+      UserSignup.signup($scope.data, function(msg, data) {
+        $rootScope.hideLoading();
+        if(!msg){
+          $state.go('register_user_waitEmail');
+        }
+      })
+    };
+    
     $scope.checkInvitekey = function() {
       if($scope.data.inviteKey && $scope.data.inviteKey.length===8){
         UserSignup.validate(null, INFO.companyId, $scope.data.inviteKey, function (msg, data) {
