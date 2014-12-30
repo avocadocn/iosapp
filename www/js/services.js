@@ -759,7 +759,8 @@ angular.module('donlerApp.services', [])
           //type todo
           $http.get(CONFIG.BASE_URL + '/companies/' + cid +'/statistics', {
             params: {
-              target: target
+              target: target,
+              type: type
             }
           })
           .success(function (data, status) {

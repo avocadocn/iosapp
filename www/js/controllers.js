@@ -1732,7 +1732,7 @@ angular.module('donlerApp.controllers', [])
       break;
     }
 
-    Company.getTeams(localStorage.id, 'team', 'all', function(msg, data) {
+    Company.getTeams(localStorage.id, 'team', $stateParams.type, function(msg, data) {
       if(!msg){
         $scope.teams = data;
       }
