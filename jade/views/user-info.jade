@@ -13,6 +13,7 @@ ion-view
         p(ng-if="!user.department" ng-cloak) 部门：无
         p(ng-cloak) 手机：{{user.phone || '-'}}
         p(ng-cloak) 邮箱：{{user.email}}
+        p(ng-if="user.introduce" ng-cloak) 简介: {{user.introduce}}
 
     include ./timeline-card
     ion-infinite-scroll(ng-if="!loading || !loadFinished" on-infinite="loadMore()" distance="5%")

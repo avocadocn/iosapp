@@ -12,6 +12,7 @@
         <p ng-if="!user.department" ng-cloak="ng-cloak">部门：无</p>
         <p ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
         <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p>
+        <p ng-if="user.introduce" ng-cloak="ng-cloak">简介: {{user.introduce}}</p>
       </div>
     </div>
     <div ng-repeat="campaign in timelinesRecord" class="dl_timeline">
