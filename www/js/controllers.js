@@ -313,6 +313,7 @@ angular.module('donlerApp.controllers', [])
     $scope.backUrl = INFO.campaignBackUrl;
     INFO.photoAlbumBackUrl = '#/campaign/detail/' + $state.params.id;
     INFO.memberBackUrl = '#/campaign/detail/' + $state.params.id;
+    INFO.discussDetailBackUrl = '#/campaign/detail/' + $state.params.id;
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         $scope.campaign = data;
@@ -459,6 +460,7 @@ angular.module('donlerApp.controllers', [])
   .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
     INFO.calendarBackUrl ='#/app/discuss/list';
     INFO.sponsorBackUrl ='#/app/discuss/list';
+    INFO.discussDetailBackUrl ='#/app/discuss/list';
     Socket.emit('enterRoom', localStorage.id);
     //先在缓存里取
     // console.log(INFO);
@@ -547,6 +549,7 @@ angular.module('donlerApp.controllers', [])
     function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
+    $scope.backUrl = INFO.discussDetailBackUrl;
     Socket.emit('enterRoom', $scope.campaignId);
 
     Campaign.get($scope.campaignId, function (err, data) {
@@ -2620,33 +2623,26 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
-  .controller('CampaignEditController', ['$scope', '$stateParams', '$ionicPopup', 'INFO', 'Campaign', function ($scope, $stateParams, $ionicPopup, INFO, Campaign) {
-    $scope.backUrl = INFO.reportBackUrl;
+  .controller('CampaignEditController', ['$scope', '$state', '$ionicPopup', 'INFO', 'Campaign', function ($scope, $state, $ionicPopup, INFO, Campaign) {
+    $scope.backUrl = '#/campaign/detail/'+ $state.params.id;
     $scope.isBusy = false;
+    $scope.campaignData ={};
+    var deadLineInput = document.getElementById('deadline');
     Campaign.get($state.params.id, function(err, data){
       if(!err){
-        $scope.campaign = data;
-        $scope.campaign.members =[];
-        var memberContent = [];
-        data.campaign_unit.forEach(function(campaign_unit){
-          if(campaign_unit.team){
-            memberContent.push({
-              name:campaign_unit.team.name,
-              members:campaign_unit.member
-            });
-          }
-          else{
-              memberContent.push({
-              name:campaign_unit.company.name,
-              members:campaign_unit.member
-            });
-          }
-        })
-        INFO.memberContent = memberContent;
-        INFO.locationContent = data.location;
-        data.campaign_unit.forEach(function(campaign_unit){
-          $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
-        });
+        if(data.deadline){
+          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DD HH:mm:ss')
+          $scope.campaignData.end_time = moment(data.end_time).format('YYYY-MM-DD HH:mm:ss')
+        }
+        if(data.content){
+          $scope.campaignData.content = data.content;
+        }
+        if(data.member_min){
+          $scope.campaignData.member_min = data.member_min;
+        }
+        if(data.member_max){
+          $scope.campaignData.member_max = data.member_max;
+        }
       }
     });
     $scope.editCampaign = function() {
@@ -2654,26 +2650,46 @@ angular.module('donlerApp.controllers', [])
 
       }
       else {
-        $scope.isBusy = true;
-        Campaign.edit($state.params.id, $scope.campaignData,function (err, data) {
-          if (err) {
-            // todo
-            console.log(err);
-            $ionicPopup.alert({
-              title: '错误',
-              template: err
-            });
+        if($scope.campaignData.member_min>$scope.campaignData.member_max) {
+          $ionicPopup.alert({
+            title: '错误',
+            template: '人数下限不能大于上限，请重新填写'
+          });
+        }
+        else if($scope.campaignData.deadline >$scope.campaignData.end_time ) {
+          $ionicPopup.alert({
+            title: '错误',
+            template: '报名截止时间不能晚于结束时间'+$scope.campaignData.end_time
+          });
+        }
+        else if($scope.campaignData.deadline < moment(new Date()).format('YYYY-MM-DD HH:mm:ss')) {
+          $ionicPopup.alert({
+            title: '错误',
+            template: '报名截止时间不能比现在更早'
+          });
+        }
+        else {
+          $scope.isBusy = true;
+          Campaign.edit($state.params.id, $scope.campaignData, function (err, data) {
+            if (err) {
+              // todo
+              console.log(err);
+              $ionicPopup.alert({
+                title: '错误',
+                template: err
+              });
 
-          } else {
-            $ionicPopup.alert({
-              title: '提示',
-              template:'修改成功'
-            });
-          }
-          $scope.isBusy = false;
-        });
+            } else {
+              $ionicPopup.alert({
+                title: '提示',
+                template:'修改成功'
+              });
+              $state.go('campaigns_detail',{id:$state.params.id});
+            }
+            $scope.isBusy = false;
+          });
+        }
       }
-      
     }
 
   }])

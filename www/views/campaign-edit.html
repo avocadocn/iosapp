@@ -1,33 +1,26 @@
 
 <ion-view class="sponsor">
   <ion-header-bar><a ng-href="{{backUrl}}" class="button ion-left ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">发活动</h1>
+    <h1 class="title">活动编辑</h1>
   </ion-header-bar>
   <ion-content>
-    <form name="sponsorForm" novalidate="novalidate">
+    <form name="editCampaignForm" novalidate="novalidate">
       <div class="list">
-        <label class="item item-input item-select"><span class="input-label">发活动的小队</span>
-          <select ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams"></select>
+        <label class="item item-label"><span class="input-label">报名截止时间:</span></label>
+        <label class="item item-input">
+          <input id="deadline" type="datetime" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间"/>
         </label>
         <label class="item item-input">
-          <input type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限制14个字" ng-maxlength="14" required="required"/>
-        </label>
-        <label class="item item-input item-select"><span class="input-label">活动类型</span>
-          <select ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds"></select>
-        </label>
-        <label class="item item-label"><span class="input-label">活动开始时间:</span></label>
-        <label class="item item-input">
-          <input type="datetime-local" name="start_time" ng-model="campaignData.start_time" placeholder="活动开始时间" required="required"/>
-        </label>
-        <label class="item item-label"><span class="input-label">活动结束时间:</span></label>
-        <label class="item item-input">
-          <input type="datetime-local" name="end_time" ng-model="campaignData.end_time" required="required"/>
+          <input type="text" name="content" ng-model="campaignData.content" placeholder="活动简介" class="arecode"/>
         </label>
         <label class="item item-input">
-          <input type="text" name="location" ng-model="campaignData.location.name" placeholder="活动地点" required="required" class="arecode"/>
+          <input type="number" name="member_max" ng-model="campaignData.member_max" min="0" placeholder="报名人数上限" class="arecode"/>
+        </label>
+        <label class="item item-input">
+          <input type="number" name="member_min" ng-model="campaignData.member_min" min="0" placeholder="报名人数下限" class="arecode"/>
         </label>
         <div class="item-button">
-          <button ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()" class="button button-full button_sponsor">发布</button>
+          <button ng-disabled="editCampaignForm.$invalid || isBusy" ng-click="editCampaign()" class="button button-full button_sponsor">修改</button>
         </div>
       </div>
     </form>
