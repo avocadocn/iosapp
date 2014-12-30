@@ -18,6 +18,8 @@ ion-view.personal(ng-controller="PersonalController")
         p(ng-if="user.realname") 真实姓名：{{user.realname}}
         p(ng-if="user.introduce") 简介: {{user.introduce}}
         p(ng-if="user.score") 积分：{{user.score}}
+        p(ng-if="user.tags") 标签:
+          span(ng-repeat="tag in user.tags") {{tag}}&nbsp;
         i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/personal/teams")
         i.icon.ion_teams
