@@ -31,8 +31,8 @@
         <div ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="tab-item dl_team_comment"><i class="icon ion-chatbubble-working"></i>{{campaign.comment_sum}}条讨论</div>
       </div>
     </div>
-    <div class="card dl_card_detail">
-      <div class="item dl_card_time"><span class="dl_cp_time_status">即将开始</span><span class="dl_cp_time_remind">{{campaign.remind_text}}：</span>
+    <div ng-if="!campaign.is_end" class="card dl_card_detail">
+      <div class="item dl_card_time"><span class="dl_cp_time_status">{{campaign.is_start ? '正在进行' : '即将开始'}}</span><span class="dl_cp_time_remind">{{campaign.remind_text}}:</span>
         <div class="dl_cp_time_countdown"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
       </div>
     </div>

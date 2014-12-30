@@ -153,6 +153,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CampaignDetailController',
         templateUrl: './views/campaign-detail.html'
       })
+      .state('campaigns_edit', {
+        url: '/campaign/edit/:id',
+        controller: 'CampaignEditController',
+        templateUrl: './views/campaign-edit.html'
+      })
       .state('sponsor', {
         url: '/campaign/sponsor',
         controller: 'SponsorController',

@@ -724,7 +724,7 @@ angular.module('donlerApp.services', [])
       },
 
       createTeam: function(data, callback) {
-        $http.post(CONFIG.BASE_URL + '/teams/', data)
+        $http.post(CONFIG.BASE_URL + '/teams', data)
           .success(function (data, status, headers, config) {
             callback(null, data);
           })

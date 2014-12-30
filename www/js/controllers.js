@@ -164,6 +164,7 @@ angular.module('donlerApp.controllers', [])
       }
       else {
         $rootScope.showLoading();
+        $scope.isBusy = true;
         var teamData = {
           selectedGroups: [{
             groupType:$scope.selectType.groupType,
@@ -175,7 +176,9 @@ angular.module('donlerApp.controllers', [])
         Team.createTeam(teamData, function(err, data) {
           $rootScope.hideLoading();
           if(!err){
-            $state.go('team',{teamId:data.teamId});
+            if(data.teamId) {
+              $state.go('team',{teamId:data.teamId});
+            }
           }
           else{
             $ionicPopup.alert({
@@ -1133,7 +1136,18 @@ angular.module('donlerApp.controllers', [])
         // todo
         console.log(err);
       } else {
-        $scope.teams = teams;
+        var leadTeams = [];
+        var memberTeams = [];
+        teams.forEach(function(team) {
+          if(team.isLeader) {
+            leadTeams.push(team);
+          }
+          else {
+            memberTeams.push(team);
+          }
+        });
+        $scope.leadTeams = leadTeams;
+        $scope.memberTeams = memberTeams;
       }
     });
 
@@ -2596,6 +2610,63 @@ angular.module('donlerApp.controllers', [])
             $ionicPopup.alert({
               title: '提示',
               template:'举报成功！'
+            });
+          }
+          $scope.isBusy = false;
+        });
+      }
+      
+    }
+
+  }])
+  .controller('CampaignEditController', ['$scope', '$stateParams', '$ionicPopup', 'INFO', 'Campaign', function ($scope, $stateParams, $ionicPopup, INFO, Campaign) {
+    $scope.backUrl = INFO.reportBackUrl;
+    $scope.isBusy = false;
+    Campaign.get($state.params.id, function(err, data){
+      if(!err){
+        $scope.campaign = data;
+        $scope.campaign.members =[];
+        var memberContent = [];
+        data.campaign_unit.forEach(function(campaign_unit){
+          if(campaign_unit.team){
+            memberContent.push({
+              name:campaign_unit.team.name,
+              members:campaign_unit.member
+            });
+          }
+          else{
+              memberContent.push({
+              name:campaign_unit.company.name,
+              members:campaign_unit.member
+            });
+          }
+        })
+        INFO.memberContent = memberContent;
+        INFO.locationContent = data.location;
+        data.campaign_unit.forEach(function(campaign_unit){
+          $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
+        });
+      }
+    });
+    $scope.editCampaign = function() {
+      if($scope.isBusy) {
+
+      }
+      else {
+        $scope.isBusy = true;
+        Campaign.edit($state.params.id, $scope.campaignData,function (err, data) {
+          if (err) {
+            // todo
+            console.log(err);
+            $ionicPopup.alert({
+              title: '错误',
+              template: err
+            });
+
+          } else {
+            $ionicPopup.alert({
+              title: '提示',
+              template:'修改成功'
             });
           }
           $scope.isBusy = false;
