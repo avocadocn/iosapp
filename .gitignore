@@ -6,6 +6,7 @@ platforms/android/bin/
 platforms/android/assets/
 
 platforms/ios/www/
+platforms/ios/cordova/
 platforms/ios/build/
 platforms/ios/CordovaLib/
 node_modules/

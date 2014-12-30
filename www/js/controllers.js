@@ -141,8 +141,9 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('createTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
-    $scope.backUrl = INFO.createTeamBackUrl;
+    $scope.backUrl = localStorage.userType==='company' ? '#/company/team_page' : INFO.createTeamBackUrl;
     $scope.isBusy = false;
+    $scope.teamName = {};
     Team.getGroups(function(err,data) {
       if(!err) {
         $scope.groups = data;
@@ -159,10 +160,8 @@ angular.module('donlerApp.controllers', [])
       $scope.selectType = selectType;
     }
     $scope.createTeam = function() {
-      if($scope.isBusy) {
-
-      }
-      else {
+      if(!$scope.isBusy) {
+        $scope.isBusy = true;
         $rootScope.showLoading();
         $scope.isBusy = true;
         var teamData = {
@@ -170,15 +169,16 @@ angular.module('donlerApp.controllers', [])
             groupType:$scope.selectType.groupType,
             entityType:$scope.selectType.entityType,
             _id:$scope.selectType._id,
-            teamName:$scope.teamName
+            teamName:$scope.teamName.value
           }]
         }
         Team.createTeam(teamData, function(err, data) {
           $rootScope.hideLoading();
           if(!err){
-            if(data.teamId) {
+            if(localStorage.userType==='user')
               $state.go('team',{teamId:data.teamId});
-            }
+            else
+              $state.go('company_teamPage');
           }
           else{
             $ionicPopup.alert({
@@ -1744,7 +1744,7 @@ angular.module('donlerApp.controllers', [])
       break;
     }
 
-    Company.getTeams(localStorage.id, 'team', 'all', function(msg, data) {
+    Company.getTeams(localStorage.id, 'team', $stateParams.type, function(msg, data) {
       if(!msg){
         $scope.teams = data;
       }
