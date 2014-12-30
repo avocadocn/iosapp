@@ -8,7 +8,7 @@
         <select ng-change="changeGroupType(selectType)" ng-model="selectType" ng-options="group as group.groupType for group in groups"></select>
       </label>
       <label class="item item-input">
-        <input type="text" name="name" ng-model="teamName" placeholder="小队名，限制14个字" ng-maxlength="14" required="required"/>
+        <input type="text" name="name" ng-model="teamName.value" placeholder="小队名，限制14个字" ng-maxlength="14" required="required"/>
       </label>
       <div class="item-button">
         <button ng-disabled="createTeamForm.$invalid || isBusy" ng-click="createTeam()" class="button button-full button_sponsor">建立</button>

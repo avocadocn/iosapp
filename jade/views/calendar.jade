@@ -58,5 +58,5 @@ ion-view
           .no_campagin.text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
 script(id="my-popover.html" type="text/ng-template")
   ion-popover-view.dl_popover.calendar_filter_popover
-    ion-content.calendar_content
-      .calendar_button(ng-repeat="campaignType in campaignTypes" ng-click="campaignFilter($index)") {{ campaignType.view}}
+    ion-content.dl_popover_content
+      .dl_popover_button(ng-repeat="campaignType in campaignTypes" ng-click="campaignFilter($index)") {{ campaignType.view}}

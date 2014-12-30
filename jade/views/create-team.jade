@@ -8,6 +8,6 @@ ion-view.sponsor
         span.input-label 小队类型
         select(ng-change="changeGroupType(selectType)" ng-model="selectType" ng-options="group as group.groupType for group in groups")
       label.item.item-input
-        input(type="text" name="name" ng-model="teamName" placeholder="小队名，限制14个字" ng-maxlength=14 required)
+        input(type="text" name="name" ng-model="teamName.value" placeholder="小队名，限制14个字" ng-maxlength=14 required)
       .item-button
         button.button.button-full.button_sponsor(ng-disabled="createTeamForm.$invalid || isBusy" ng-click="createTeam()") 建立

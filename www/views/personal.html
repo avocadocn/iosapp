@@ -4,16 +4,17 @@
     <h1 class="title">我的</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="list"><a href="#/personal/edit" class="item item-avatar item-icon-right"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80"/>
+    <div class="list"><a href="#/personal/edit" ng-cloak="ng-cloak" class="item item-avatar item-icon-right"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80"/>
         <h2>{{user.nickname}}</h2>
         <p>公司：{{user.company.name}}</p>
-        <p ng-if="user.department" ng-cloak="ng-cloak">部门：{{user.department.name}}</p>
-        <p ng-if="!user.department" ng-cloak="ng-cloak">部门：无</p>
-        <p ng-if="user.phone" ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
-        <p ng-if="user.email" ng-cloak="ng-cloak">邮箱：{{user.email}}</p>
-        <p ng-if="user.birthday" ng-cloak="ng-cloak">生日：{{user.birthday | date:'yyyy-MM-dd'}}</p>
-        <p ng-if="constellation" ng-cloak="ng-cloak">星座：{{constellation}}</p>
-        <p ng-if="user.realname" ng-cloak="ng-cloak">真实姓名：{{user.realname}}</p>
-        <p ng-if="user.score" ng-cloak="ng-cloak">积分：{{user.score}}</p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/personal/messages" class="item item-icon-left item-icon-right"><i class="icon ion_message"></i>我的站内信<span ng-if="messagesCount &amp;&amp; messagesCount&gt;0" class="item-note">{{messagesCount}}</span><i class="icon ion-chevron-right"></i></a><a href="#/calendar" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a></div>
+        <p ng-if="user.department">部门：{{user.department.name}}</p>
+        <p ng-if="!user.department">部门：无</p>
+        <p ng-if="user.phone">手机：{{user.phone || '-'}}</p>
+        <p ng-if="user.email">邮箱：{{user.email}}</p>
+        <p ng-if="user.birthday">生日：{{user.birthday | date:'yyyy-MM-dd'}}</p>
+        <p ng-if="constellation">星座：{{constellation}}</p>
+        <p ng-if="user.realname">真实姓名：{{user.realname}}</p>
+        <p ng-if="user.introduce">简介: {{user.introduce}}</p>
+        <p ng-if="user.score">积分：{{user.score}}</p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/personal/messages" class="item item-icon-left item-icon-right"><i class="icon ion_message"></i>我的站内信<span ng-if="messagesCount &amp;&amp; messagesCount&gt;0" class="item-note">{{messagesCount}}</span><i class="icon ion-chevron-right"></i></a><a href="#/calendar" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a></div>
   </ion-content>
 </ion-view>

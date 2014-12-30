@@ -141,8 +141,9 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('createTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
-    $scope.backUrl = INFO.createTeamBackUrl;
+    $scope.backUrl = localStorage.userType==='company' ? '#/company/team_page' : INFO.createTeamBackUrl;
     $scope.isBusy = false;
+    $scope.teamName = {};
     Team.getGroups(function(err,data) {
       if(!err) {
         $scope.groups = data;
@@ -159,23 +160,25 @@ angular.module('donlerApp.controllers', [])
       $scope.selectType = selectType;
     }
     $scope.createTeam = function() {
-      if($scope.isBusy) {
-
-      }
-      else {
+      if(!$scope.isBusy) {
+        $scope.isBusy = true;
         $rootScope.showLoading();
+        $scope.isBusy = true;
         var teamData = {
           selectedGroups: [{
             groupType:$scope.selectType.groupType,
             entityType:$scope.selectType.entityType,
             _id:$scope.selectType._id,
-            teamName:$scope.teamName
+            teamName:$scope.teamName.value
           }]
         }
         Team.createTeam(teamData, function(err, data) {
           $rootScope.hideLoading();
           if(!err){
-            $state.go('team',{teamId:data.teamId});
+            if(localStorage.userType==='user')
+              $state.go('team',{teamId:data.teamId});
+            else
+              $state.go('company_teamPage');
           }
           else{
             $ionicPopup.alert({
@@ -310,6 +313,7 @@ angular.module('donlerApp.controllers', [])
     $scope.backUrl = INFO.campaignBackUrl;
     INFO.photoAlbumBackUrl = '#/campaign/detail/' + $state.params.id;
     INFO.memberBackUrl = '#/campaign/detail/' + $state.params.id;
+    INFO.discussDetailBackUrl = '#/campaign/detail/' + $state.params.id;
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         $scope.campaign = data;
@@ -456,6 +460,7 @@ angular.module('donlerApp.controllers', [])
   .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
     INFO.calendarBackUrl ='#/app/discuss/list';
     INFO.sponsorBackUrl ='#/app/discuss/list';
+    INFO.discussDetailBackUrl ='#/app/discuss/list';
     Socket.emit('enterRoom', localStorage.id);
     //先在缓存里取
     // console.log(INFO);
@@ -544,6 +549,7 @@ angular.module('donlerApp.controllers', [])
     function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
+    $scope.backUrl = INFO.discussDetailBackUrl;
     Socket.emit('enterRoom', $scope.campaignId);
 
     Campaign.get($scope.campaignId, function (err, data) {
@@ -1016,7 +1022,8 @@ angular.module('donlerApp.controllers', [])
           nickname: $scope.user.nickname,
           realname: $scope.user.realname,
           phone: $scope.user.phone,
-          birthday: moment($scope.user.birthday).format('YYYY-MM-DD')
+          birthday: moment($scope.user.birthday).format('YYYY-MM-DD'),
+          introduce: $scope.user.introduce
         };
       }
     });
@@ -1133,7 +1140,18 @@ angular.module('donlerApp.controllers', [])
         // todo
         console.log(err);
       } else {
-        $scope.teams = teams;
+        var leadTeams = [];
+        var memberTeams = [];
+        teams.forEach(function(team) {
+          if(team.isLeader) {
+            leadTeams.push(team);
+          }
+          else {
+            memberTeams.push(team);
+          }
+        });
+        $scope.leadTeams = leadTeams;
+        $scope.memberTeams = memberTeams;
       }
     });
 
@@ -1730,7 +1748,7 @@ angular.module('donlerApp.controllers', [])
       break;
     }
 
-    Company.getTeams(localStorage.id, 'team', 'all', function(msg, data) {
+    Company.getTeams(localStorage.id, 'team', $stateParams.type, function(msg, data) {
       if(!msg){
         $scope.teams = data;
       }
@@ -2602,6 +2620,76 @@ angular.module('donlerApp.controllers', [])
         });
       }
       
+    }
+
+  }])
+  .controller('CampaignEditController', ['$scope', '$state', '$ionicPopup', 'INFO', 'Campaign', function ($scope, $state, $ionicPopup, INFO, Campaign) {
+    $scope.backUrl = '#/campaign/detail/'+ $state.params.id;
+    $scope.isBusy = false;
+    $scope.campaignData ={};
+    var deadLineInput = document.getElementById('deadline');
+    Campaign.get($state.params.id, function(err, data){
+      if(!err){
+        if(data.deadline){
+          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DD HH:mm:ss')
+          $scope.campaignData.end_time = moment(data.end_time).format('YYYY-MM-DD HH:mm:ss')
+        }
+        if(data.content){
+          $scope.campaignData.content = data.content;
+        }
+        if(data.member_min){
+          $scope.campaignData.member_min = data.member_min;
+        }
+        if(data.member_max){
+          $scope.campaignData.member_max = data.member_max;
+        }
+      }
+    });
+    $scope.editCampaign = function() {
+      if($scope.isBusy) {
+
+      }
+      else {
+        if($scope.campaignData.member_min>$scope.campaignData.member_max) {
+          $ionicPopup.alert({
+            title: '错误',
+            template: '人数下限不能大于上限，请重新填写'
+          });
+        }
+        else if($scope.campaignData.deadline >$scope.campaignData.end_time ) {
+          $ionicPopup.alert({
+            title: '错误',
+            template: '报名截止时间不能晚于结束时间'+$scope.campaignData.end_time
+          });
+        }
+        else if($scope.campaignData.deadline < moment(new Date()).format('YYYY-MM-DD HH:mm:ss')) {
+          $ionicPopup.alert({
+            title: '错误',
+            template: '报名截止时间不能比现在更早'
+          });
+        }
+        else {
+          $scope.isBusy = true;
+          Campaign.edit($state.params.id, $scope.campaignData, function (err, data) {
+            if (err) {
+              // todo
+              console.log(err);
+              $ionicPopup.alert({
+                title: '错误',
+                template: err
+              });
+
+            } else {
+              $ionicPopup.alert({
+                title: '提示',
+                template:'修改成功'
+              });
+              $state.go('campaigns_detail',{id:$state.params.id});
+            }
+            $scope.isBusy = false;
+          });
+        }
+      }
     }
 
   }])

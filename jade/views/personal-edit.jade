@@ -21,5 +21,8 @@ ion-view
       .item.item-input
         span.input-label 生日
         input#birthday(type="date" name="birthday" ng-model="formData.birthday")
+      .item.item-input
+        span.input-label 简介
+        input(type="text" name="introduce" ng-model="formData.introduce")
       .padding
         button.button.button-block.button-positive(ng-click="edit()") 确定
