@@ -36,9 +36,13 @@ angular.module('donlerApp.services', [])
     $httpProvider.responseInterceptors.push(interceptor);
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://localhost:3002',
-    STATIC_URL: 'http://localhost:3000',
-    SOCKET_URL: 'http://localhost:3005',
+    //BASE_URL: 'http://localhost:3002',
+    //STATIC_URL: 'http://localhost:3000',
+    //SOCKET_URL: 'http://localhost:3005',
+    // todo debug test
+    BASE_URL: 'http://192.168.2.105:3002',
+    STATIC_URL: 'http://192.168.2.105:3000',
+    SOCKET_URL: 'http://192.168.2.105:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
   })
@@ -93,7 +97,8 @@ angular.module('donlerApp.services', [])
           'x-device-id': $http.defaults.headers.common['x-device-id'],
           'x-device-type': $http.defaults.headers.common['x-device-type'],
           'x-platform': $http.defaults.headers.common['x-platform'],
-          'x-version': $http.defaults.headers.common['x-version']
+          'x-version': $http.defaults.headers.common['x-version'],
+          'x-device-token': $http.defaults.headers.common['x-device-token']
         };
 
       }

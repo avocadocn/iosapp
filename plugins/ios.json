@@ -35,6 +35,18 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -70,6 +82,12 @@
                             "xml": "false",
                             "count": 2
                         }
+                    ],
+                    "AudioToolbox.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
                     ]
                 }
             },
@@ -103,6 +121,15 @@
         },
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.ionicframework.donler785781"
+        },
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "com.ionicframework.donler785781"
+        },
+        "org.apache.cordova.dialogs": {
+            "PACKAGE_NAME": "com.donler.app"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "com.donler.app"
         }
     },
     "dependent_plugins": {}

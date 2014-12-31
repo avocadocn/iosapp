@@ -6,7 +6,7 @@
 
 angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives'])
 
-  .run(function ($ionicPlatform, $state, $ionicLoading, $http, $rootScope, CommonHeaders, CONFIG) {
+  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $http, $rootScope, CommonHeaders, CONFIG) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -16,7 +16,22 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
+
+      if (window.plugin && window.plugin.notification) {
+        window.plugin.notification.local.onclick = function (id, state, json) {
+          console.log(id, state, json);
+          // $state.go('campaigns_detail',{'id':JSON.parse(json).id}); // todo 需要查证push数据
+          window.plugins.pushNotification.setApplicationIconBadgeNumber(0);
+        };
+      }
+
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
+
+      var iosConfig = {
+        "badge": "true",
+        "sound": "false",
+        "alert": "true"
+      };
 
       if (typeof device !== 'undefined') {
         CommonHeaders.set({
@@ -25,6 +40,36 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           'x-platform': device.platform,
           'x-version': device.version
         });
+
+        var config;
+        if (device.platform === 'iOS') {
+          config = iosConfig;
+        }
+        $cordovaPush.register(config).then(function(result) {
+          CommonHeaders.set({
+            'x-device-token': result
+          });
+        }, function(err) {
+          console.log(err);
+        });
+
+        $rootScope.$on('pushNotificationReceived', function(event, notification) {
+          console.log(event, notification);
+
+          window.plugin.notification.local.add({
+            //id:         String,  // A unique id of the notification
+            //date:       Date,    // This expects a date object
+            message:    notification.alert,  // The message that is displayed
+            title:      notification.alert,  // The title of the message
+            //repeat:     String,  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+            badge:      Number(notification.badge),  // Displays number badge to notification
+            sound:      String  // A sound to be played
+          }, function (args) {
+            console.log('add callback', args);
+          });
+
+        });
+
       }
 
       if (localStorage.userType) {
@@ -38,6 +83,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       } else {
         $state.go('home');
       }
+
     });
     $rootScope.showLoading = function() {
       $ionicLoading.show({
