@@ -4,7 +4,7 @@
     <h1 class="title">用户信息</h1><a ng-click="showPopover($event)" class="button icon ion-more"></a>
   </ion-header-bar>
   <ion-content>
-    <div class="card">
+    <div class="card user_card">
       <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/45/45"/>
         <h2>{{user.nickname}}</h2>
         <p>公司：{{user.company.name}}</p>
@@ -13,6 +13,7 @@
         <p ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
         <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p>
         <p ng-if="user.introduce" ng-cloak="ng-cloak">简介: {{user.introduce}}</p>
+        <p ng-if="user.tags" ng-cloak="ng-cloak" class="tags">个人标签:<span ng-repeat="tag in user.tags" class="tag">{{tag}}</span></p>
       </div>
     </div>
     <div ng-repeat="campaign in timelinesRecord" class="dl_timeline">

@@ -1181,6 +1181,12 @@ a>.login .companies_list:activated {
   margin-bottom: 5px;
   color: #999;
 }
+.personal .list .item.item-avatar .tags {
+  white-space: normal;
+}
+.personal .list .item.item-avatar .tags .tag {
+  padding: 2px;
+}
 .personal .list .item.item-icon-left .icon {
   width: 3rem;
 }
@@ -1189,6 +1195,9 @@ a>.login .companies_list:activated {
 }
 .edit_info .item-thumbnail-right img:first-child {
   left: 36%;
+}
+.edit_info .item-input input {
+  color: #3ca2e0;
 }
 .edit_info .list>.item {
   padding: 6px 20px 5px;
@@ -1216,6 +1225,12 @@ a>.login .companies_list:activated {
   background-color: #3ca2e0;
   border-radius: 0 4px 4px 0;
   padding: 0 0.5rem;
+}
+.user_card .tags {
+  white-space: normal;
+}
+.user_card .tags .tag {
+  padding: 2px;
 }
 .settings .list {
   padding-top: 0;
