@@ -1148,6 +1148,10 @@ a>.login .companies_list:activated {
   font-size: 14px;
   color: #3ca2e0;
 }
+.discover .list .item .icon.ion-android-contacts {
+  font-size: 22px;
+  padding-left: 4px;
+}
 .discover .list .item .item-note {
   color: #3ca2e0;
 }
@@ -1204,29 +1208,13 @@ a>.login .companies_list:activated {
 .edit_info .list>.item {
   padding: 6px 20px 5px;
 }
-.edit_info .list>.item .tags {
-  width: 75%;
-  float: right;
+.edit_info .item-icon-right input {
+  z-index: 2;
 }
-.edit_info .list>.item .tags .tag {
-  float: left;
-  display: block;
-  margin-right: 5px;
-  margin-bottom: 0.5rem;
-}
-.edit_info .list>.item .tags .tag .content {
-  float: left;
-  background-color: #3ca2e0;
-  height: 30px;
-  padding: 5px 6px;
-  color: #fff;
-  font-size: 14px;
-}
-.edit_info .list>.item .tags .tag .tag_delete {
-  float: left;
-  background-color: #3ca2e0;
-  border-radius: 0 4px 4px 0;
-  padding: 0 0.5rem;
+.edit_info .item-icon-right .icon {
+  color: #999;
+  z-index: 1;
+  font-size: 24px;
 }
 .user_card .tags {
   white-space: normal;
