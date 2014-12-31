@@ -5,8 +5,8 @@ ion-view
     h1.title 我的小队
     //- a.button.icon.ion-plus(href="#/company/create_team")
   ion-content
-    p.dl_team_title(ng-if="leadTeams.length>0") 我管理的小队
-    a.dl_team_card.clearfix(ng-repeat="team in leadTeams" ng-href="#/team/{{team._id}}")
+    p.dl_team_title(ng-if="leadTeams.length>0" ng-cloak) 我管理的小队
+    a.dl_team_card.clearfix(ng-repeat="team in leadTeams" ng-href="#/team/{{team._id}}" ng-cloak)
       img.team_logo(ng-src="{{STATIC_URL + team.logo}}/120/120")
       .team_info
         h2.team_name {{team.name}}
@@ -15,8 +15,8 @@ ion-view
           span.team_member 队员：{{team.memberCount}}
           span.team_cp_number(ng-if="team.score.campaign") 活动：{{team.score.campaign}}
           span.team_cp_number 积分：{{team.score.total}}
-    p.dl_team_title(ng-if="memberTeams.length>0") 我参加的小队
-    a.dl_team_card.clearfix(ng-repeat="team in memberTeams" ng-href="#/team/{{team._id}}")
+    p.dl_team_title(ng-if="memberTeams.length>0" ng-cloak) 我参加的小队
+    a.dl_team_card.clearfix(ng-repeat="team in memberTeams" ng-href="#/team/{{team._id}}" ng-cloak)
       img.team_logo(ng-src="{{STATIC_URL + team.logo}}/120/120")
       .team_info
         h2.team_name {{team.name}}
