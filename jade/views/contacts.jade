@@ -1,0 +1,13 @@
+ion-view.contacts
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/app/discover") &nbsp;返回
+    h1.title 同事
+  ion-content
+    .list
+      a.item.item-icon-right(ng-repeat="contact in contacts" href="#/user/{{contact._id}}")
+        //- i.icon.ion_ballon
+        span {{contact.nickname}}
+        span.item-note {{contact.email}}
+        i.icon.ion-chevron-right
+
+    

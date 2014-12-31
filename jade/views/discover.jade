@@ -7,17 +7,21 @@ ion-view.discover(ng-controller="DiscoverController")
   ion-content
     .discover_image
     .list
+      a.item.item-icon-left.item-icon-right(href="#/discover/teams/official")
+        i.icon.ion_teams
+        | 所有小队
+        span.item-note {{officialTeams.length}}
+        i.icon.ion-chevron-right
+      a.item.item-icon-left.item-icon-right(href="#/discover/contacts")
+        i.icon.ion_teams
+        | 通讯录
+        i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/discover/circle")
         i.icon.ion_ballon
         | 所有活动
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/discover/teams/official")
-        i.icon.ion_teams
-        | 官方小队
-        span.item-note {{officialTeams.length}}
-        i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/discover/teams/personal")
-        i.icon.ion_teams
-        | 个人小队
-        span.item-note {{personalTeams.length}}
-        i.icon.ion-chevron-right
+      //- a.item.item-icon-left.item-icon-right(href="#/discover/teams/personal")
+      //-   i.icon.ion_teams
+      //-   | 个人小队
+      //-   span.item-note {{personalTeams.length}}
+      //-   i.icon.ion-chevron-right

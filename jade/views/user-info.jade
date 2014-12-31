@@ -14,8 +14,8 @@ ion-view
         p(ng-cloak) 手机：{{user.phone || '-'}}
         p(ng-cloak) 邮箱：{{user.email}}
         p(ng-if="user.introduce" ng-cloak) 简介: {{user.introduce}}
-        p.tags(ng-if="user.tags" ng-cloak) 个人标签:
-          span.tag(ng-repeat="tag in user.tags") {{tag}}
+        //- p.tags(ng-if="user.tags" ng-cloak) 个人标签:
+        //-   span.tag(ng-repeat="tag in user.tags") {{tag}}
 
     include ./timeline-card
     ion-infinite-scroll(ng-if="!loading || !loadFinished" on-infinite="loadMore()" distance="5%")

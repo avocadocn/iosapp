@@ -1154,13 +1154,15 @@ a>.login .companies_list:activated {
 .personal .list,
 .settings .list,
 .about .list,
-.settings_account .list {
+.settings_account .list,
+.contacts .list {
   margin-top: 10px;
 }
 .personal .list .ion-chevron-right,
 .settings .list .ion-chevron-right,
 .about .list .ion-chevron-right,
-.settings_account .list .ion-chevron-right {
+.settings_account .list .ion-chevron-right,
+.contacts .list .ion-chevron-right {
   font-size: 14px;
   color: #ccc;
 }

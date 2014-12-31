@@ -13,7 +13,6 @@
         <p ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
         <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p>
         <p ng-if="user.introduce" ng-cloak="ng-cloak">简介: {{user.introduce}}</p>
-        <p ng-if="user.tags" ng-cloak="ng-cloak" class="tags">个人标签:<span ng-repeat="tag in user.tags" class="tag">{{tag}}</span></p>
       </div>
     </div>
     <div ng-repeat="campaign in timelinesRecord" class="dl_timeline">

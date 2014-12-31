@@ -94,7 +94,8 @@
       </ion-header-bar>
       <ion-content>
         <div class="discover_image"></div>
-        <div class="list"><a href="#/discover/circle" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>所有活动<i class="icon ion-chevron-right"></i></a><a href="#/discover/teams/official" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>官方小队<span class="item-note">{{officialTeams.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/discover/teams/personal" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>个人小队<span class="item-note">{{personalTeams.length}}</span><i class="icon ion-chevron-right"></i></a></div>
+        <div class="list"><a href="#/discover/teams/official" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>所有小队<span class="item-note">{{officialTeams.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/discover/contacts" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>通讯录<i class="icon ion-chevron-right"></i></a><a href="#/discover/circle" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>所有活动<i class="icon ion-chevron-right"></i></a>
+        </div>
       </ion-content>
     </ion-view>
   </ion-tab>
@@ -115,8 +116,8 @@
             <p ng-if="constellation">星座：{{constellation}}</p>
             <p ng-if="user.realname">真实姓名：{{user.realname}}</p>
             <p ng-if="user.introduce">简介: {{user.introduce}}</p>
-            <p ng-if="user.score">积分：{{user.score}}</p>
-            <p ng-if="user.tags" class="tags">标签:<span ng-repeat="tag in user.tags" class="tag">{{tag}}&nbsp;</span></p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/personal/messages" class="item item-icon-left item-icon-right"><i class="icon ion_message"></i>我的站内信<span ng-if="messagesCount &amp;&amp; messagesCount&gt;0" class="item-note">{{messagesCount}}</span><i class="icon ion-chevron-right"></i></a><a href="#/calendar" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a></div>
+            <p ng-if="user.score">积分：{{user.score}}</p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/calendar" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a>
+        </div>
       </ion-content>
     </ion-view>
   </ion-tab>

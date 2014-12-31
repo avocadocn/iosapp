@@ -18,8 +18,8 @@ ion-view.personal(ng-controller="PersonalController")
         p(ng-if="user.realname") 真实姓名：{{user.realname}}
         p(ng-if="user.introduce") 简介: {{user.introduce}}
         p(ng-if="user.score") 积分：{{user.score}}
-        p.tags(ng-if="user.tags") 标签:
-          span.tag(ng-repeat="tag in user.tags") {{tag}}
+        //- p.tags(ng-if="user.tags") 标签:
+        //-   span.tag(ng-repeat="tag in user.tags") {{tag}}
         i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/personal/teams")
         i.icon.ion_teams
@@ -30,11 +30,11 @@ ion-view.personal(ng-controller="PersonalController")
         i.icon.ion_foot
         | 我的足迹
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/personal/messages")
-        i.icon.ion_message
-        | 我的站内信
-        span.item-note(ng-if="messagesCount && messagesCount>0") {{messagesCount}}
-        i.icon.ion-chevron-right
+      //- a.item.item-icon-left.item-icon-right(href="#/personal/messages")
+      //-   i.icon.ion_message
+      //-   | 我的站内信
+      //-   span.item-note(ng-if="messagesCount && messagesCount>0") {{messagesCount}}
+      //-   i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/calendar")
         i.icon.ion_calendar
         | 我的日程

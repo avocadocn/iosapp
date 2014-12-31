@@ -981,6 +981,16 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
+  .controller('ContactsController', ['$scope', 'User', 'INFO', function ($scope, User, INFO) {
+    //获取公司联系人
+    User.getCompanyUsers(localStorage.cid,function(msg, data){
+      if(!msg) {
+        $scope.contacts = data;
+      }
+    });
+    //设置点入个人资料后返回的地址
+    INFO.userInfoBackUrl = '#/discover/contacts';
+  }])
   .controller('PersonalController', ['$scope', '$state', 'User', 'Message', 'INFO', 'Tools', function ($scope, $state, User, Message, INFO, Tools) {
     INFO.calendarBackUrl ='#/app/personal';
     User.getData(localStorage.id, function (err, data) {
