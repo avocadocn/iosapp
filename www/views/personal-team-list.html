@@ -8,13 +8,13 @@
       <div class="team_info">
         <h2 class="team_name">{{team.name}}</h2>
         <p class="team_cp_title">{{team.lastCampaign._id ? team.lastCampaign.theme:'近期没有活动'}}</p>
-        <p class="team_count"><span class="team_member">队员：{{team.memberCount}}</span><span ng-if="team.score.campaign" class="team_cp_number">活动：{{team..score.campaign}}</span><span class="team_cp_number">积分：{{team.score.total}}</span></p>
+        <p class="team_count"><span class="team_member">队员：{{team.memberCount}}</span><span ng-if="team.score.campaign" class="team_cp_number">活动：{{team.score.campaign}}</span><span class="team_cp_number">积分：{{team.score.total}}</span></p>
       </div></a>
     <p ng-if="memberTeams.length&gt;0" class="dl_team_title">我参加的小队</p><a ng-repeat="team in memberTeams" ng-href="#/team/{{team._id}}" class="dl_team_card clearfix"><img ng-src="{{STATIC_URL + team.logo}}/120/120" class="team_logo"/>
       <div class="team_info">
         <h2 class="team_name">{{team.name}}</h2>
         <p class="team_cp_title">{{team.lastCampaign._id ? team.lastCampaign.theme:'近期没有活动'}}</p>
-        <p class="team_count"><span class="team_member">队员：{{team.memberCount}}</span><span ng-if="team.score.campaign" class="team_cp_number">活动：{{team..score.campaign}}</span><span class="team_cp_number">积分：{{team.score.total}}</span></p>
+        <p class="team_count"><span class="team_member">队员：{{team.memberCount}}</span><span ng-if="team.campaignCount" class="team_cp_number">活动：{{team.campaignCount}}</span><span class="team_cp_number">积分：{{team.score.total}}</span></p>
       </div></a>
   </ion-content>
 </ion-view>

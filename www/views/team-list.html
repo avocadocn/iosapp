@@ -8,7 +8,7 @@
         <h2 class="team_name">{{team.name}}</h2>
         <p class="team_cp_title">{{team.lastCampaign.theme}}</p>
         <p ng-if="team.poster" class="team_cp_title">创建人: {{team.poster.nickname}}</p>
-        <p class="team_count"><span class="team_member">队员：{{team.memberCount}}</span><span class="team_cp_number">活动：{{team.score.campaign}}</span><span class="team_cp_number">积分：{{team.score.total}}</span></p>
+        <p class="team_count"><span class="team_member">队员：{{team.memberCount || '0'}}</span><span class="team_cp_number">活动：{{team.campaignCount || '0'}}</span><span class="team_cp_number">积分：{{team.score.total || '0'}}</span></p>
         <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id, $index)" class="btn_quit">已加入小队</button>
         <button prevent-default="prevent-default" ng-if="!team.hasJoined" ng-click="joinTeam(team._id, $index)" class="btn_join">立即加入</button>
       </div></a></ion-content>
