@@ -422,8 +422,8 @@ body
         background-color #fbc441
         border-radius 100%
         background-image url('../img/icon.png')
-        background-size 180px
-        background-position -42px 49px
+        background-size 192px 240px
+        background-position -45px -140px
     .dl_card_more
       background-color col_blue
       color white
@@ -532,7 +532,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       background url('../img/index_2.gif') center no-repeat
       background-size 320px
   .slider-pager
-    bottom 80px
+    bottom 90px
     .active>.icon.ion-record
       color col_blue
   .home_buttons
@@ -950,10 +950,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         width 3rem
         font-size 14px
         color col_blue
+      .icon.ion-android-contacts
+        font-size 22px
+        padding-left 4px
       .item-note
         color col_blue
 //-我的等页面通用">"
-.personal, .settings, .about, .settings_account
+.personal, .settings, .about, .settings_account, .contacts
   .list
     margin-top 10px
     .ion-chevron-right
@@ -975,9 +978,58 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       p
         margin-bottom 5px
         color col_darkGray
+      .tags
+        white-space normal
+        .tag
+          padding 2px
     .item.item-icon-left
       .icon
         width 3rem
+//-编辑个人信息页
+.edit_info
+  .item-thumbnail-right
+    h2
+      margin-top 10px
+    img:first-child
+      left 36%
+  .item-input
+    input
+      color col_blue
+  .list>.item
+    padding 6px 20px 5px
+    //- .tags
+    //-   width 75%
+    //-   float right
+    //-   .tag
+    //-     float left
+    //-     display block
+    //-     margin-right 5px
+    //-     margin-bottom 0.5rem
+    //-     .content
+    //-       float left
+    //-       background-color col_blue
+    //-       height 30px
+    //-       padding 5px 6px
+    //-       color #fff
+    //-       font-size 14px
+    //-     .tag_delete
+    //-       float left
+    //-       background-color col_blue
+    //-       border-radius 0 4px 4px 0
+    //-       padding 0 0.5rem
+  .item-icon-right
+    input
+      z-index 2
+    .icon
+      color col_darkGray
+      z-index 1
+      font-size 24px
+//-别人的卡片
+.user_card
+  .tags
+    white-space normal
+    .tag
+      padding 2px
 //-设置
 .settings
   .list
@@ -1251,8 +1303,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   .dl_popover_content
     .dl_popover_button
       color white
-      height 40px
-      line-height 40px
+      height 30px
+      line-height 30px
       text-align center
       font-size 16px
       border-bottom 1px solid black
@@ -1261,11 +1313,11 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     &:after
       background-color rgba(0,0,0,0.7) !important
 .calendar_filter_popover
-  width 100px
-  height 135px
+  width 80px
+  height 105px
 .user_more_popover
-  width 100px
-  height 56px
+  width 80px
+  height 46px
   .dl_popover_button
     .full_parent_link
       text-decoration none
@@ -1433,7 +1485,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     content ''
     position absolute
     top 0
-    bottom 0
+    bottom 30px
     width 3px
     background #ccc
     left 50%
@@ -1450,7 +1502,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     text-align center
     position relative
     z-index 10
-
+.nomore_text
+  margin 10px
+  font-size 14px
+  text-align center
+  background-color white
+  
 .member_page
   .member_group
     margin 0.833333rem
@@ -1484,7 +1541,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .photo_album_detail_page
   .hidden_figcaption
     display none
-
+.dl_team_title
+  font-size 14px
+  margin-left 10px
 .dl_team_card
   dl_card()
   position relative

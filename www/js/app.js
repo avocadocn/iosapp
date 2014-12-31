@@ -199,6 +199,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CampaignDetailController',
         templateUrl: './views/campaign-detail.html'
       })
+      .state('campaigns_edit', {
+        url: '/campaign/edit/:id',
+        controller: 'CampaignEditController',
+        templateUrl: './views/campaign-edit.html'
+      })
       .state('sponsor', {
         url: '/campaign/sponsor',
         controller: 'SponsorController',
@@ -239,6 +244,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'DiscoverController',
         templateUrl: './views/team-list.html'
       })
+      .state('contacts', {
+        url: '/discover/contacts',
+        controller: 'ContactsController',
+        templateUrl: './views/contacts.html'
+      })
       .state('app.personal', {
         url: '/personal',
         // controller: 'PersonalController',
@@ -259,11 +269,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'TimelineController',
         templateUrl: './views/timeline.html'
       })
-      .state('personal_messages', {
-        url: '/personal/messages',
-        controller: 'MessageController',
-        templateUrl: './views/messages.html'
-      })
+      // .state('personal_messages', {
+      //   url: '/personal/messages',
+      //   controller: 'MessageController',
+      //   templateUrl: './views/messages.html'
+      // })
       .state('settings', {
         url: '/settings',
         controller: 'SettingsController',

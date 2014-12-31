@@ -561,6 +561,21 @@ angular.module('donlerApp.services', [])
         });
       },
 
+      /**
+       * 获取公司通讯录
+       * @param  {String}   cid  公司id
+       * @param  {Function} callback 获取后的回调函数，形式为function(err, data)
+       */
+      getCompanyUsers: function(cid, callback) {
+        $http.get(CONFIG.BASE_URL + '/users/list/' + cid)
+        .success(function (data, status) {
+          callback(null, data);
+        })
+        .error(function (data, status) {
+          callback(data.msg);
+        });
+      },
+
       clearCurrentUser: function() {
         currentUser = null;
       }
@@ -729,7 +744,7 @@ angular.module('donlerApp.services', [])
       },
 
       createTeam: function(data, callback) {
-        $http.post(CONFIG.BASE_URL + '/teams/', data)
+        $http.post(CONFIG.BASE_URL + '/teams', data)
           .success(function (data, status, headers, config) {
             callback(null, data);
           })
@@ -764,7 +779,8 @@ angular.module('donlerApp.services', [])
           //type todo
           $http.get(CONFIG.BASE_URL + '/companies/' + cid +'/statistics', {
             params: {
-              target: target
+              target: target,
+              type: type
             }
           })
           .success(function (data, status) {

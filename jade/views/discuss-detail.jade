@@ -1,6 +1,6 @@
 ion-view.discuss_detail(title="{{campaignTitle}}")
   ion-header-bar
-    a.button.icon-left.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(href="{{backUrl}}") &nbsp;返回
     h1.title {{campaignTitle}}
     a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
   .notice(ng-show="!hideNotice&&notification")
@@ -23,7 +23,7 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
             p
               span.time {{comment.create_date | date: 'M月dd日 HH:mm'}}
           .comment(ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}")
-            .logo
+            a.logo(ng-href="#/user/{{comment.poster._id}}")
               img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
             .contents
               .name(ng-if="comment.poster._id !== userId") {{comment.poster.nickname}}
@@ -37,7 +37,7 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
                     img.img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
                     img.img(ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
           .comment(ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content")
-            .logo
+            a.logo(ng-href="#/user/{{comment.poster._id}}")
               img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
             .contents
               .name(ng-if="comment.poster._id !== userId") {{comment.poster.nickname}}
