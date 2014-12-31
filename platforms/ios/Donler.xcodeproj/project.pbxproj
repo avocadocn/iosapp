@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		0330A609D70E44DBA46B0B0F /* UIWebViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C996394BD0C047699CD8FBEE /* UIWebViewExtension.m */; };
 		0390C21A1A53BA39008DB89B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0390C2191A53BA39008DB89B /* Images.xcassets */; };
@@ -79,7 +80,7 @@
 		1580DA0DAEEF465AAC0C01AE /* IonicKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IonicKeyboard.h; path = com.ionic.keyboard/IonicKeyboard.h; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Donler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Donler.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* 动梨活动助理.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "动梨活动助理.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21CD41B67A2F4928A0644702 /* CDVFileTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVFileTransfer.h; path = "org.apache.cordova.file-transfer/CDVFileTransfer.h"; sourceTree = "<group>"; };
 		2334D8C5D0874E2C896F47C8 /* CoreLocation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -174,7 +175,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Donler.app */,
+				1D6058910D05DD3D006BFB54 /* 动梨活动助理.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -335,7 +336,7 @@
 			);
 			name = Donler;
 			productName = Donler;
-			productReference = 1D6058910D05DD3D006BFB54 /* Donler.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* 动梨活动助理.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -506,7 +507,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PRODUCT_NAME = Donler;
+				PRODUCT_NAME = "动梨活动助理";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -538,7 +539,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PRODUCT_NAME = Donler;
+				PRODUCT_NAME = "动梨活动助理";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
