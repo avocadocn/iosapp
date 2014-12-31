@@ -639,7 +639,7 @@ input:focus:-ms-input-placeholder {
   background-size: 320px;
 }
 .home .slider-pager {
-  bottom: 80px;
+  bottom: 90px;
 }
 .home .slider-pager .active>.icon.ion-record {
   color: #3ca2e0;

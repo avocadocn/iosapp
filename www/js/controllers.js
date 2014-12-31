@@ -550,6 +550,7 @@ angular.module('donlerApp.controllers', [])
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
     $scope.backUrl = INFO.discussDetailBackUrl;
+    INFO.userInfoBackUrl = '#/discuss/detail/'+$scope.campaignId;
     Socket.emit('enterRoom', $scope.campaignId);
 
     Campaign.get($scope.campaignId, function (err, data) {
@@ -559,7 +560,6 @@ angular.module('donlerApp.controllers', [])
       }
     });
 
-
     $scope.userId = localStorage.id;
     $scope.photos = [];
     var addPhotos = function (comment) {
@@ -567,6 +567,9 @@ angular.module('donlerApp.controllers', [])
         comment.photos.forEach(function (photo) {
           var width = photo.width || INFO.screenWidth;
           var height = photo.height || INFO.screenHeight;
+          if(!photo.upload_user) {
+            photo.upload_user = {name:''};
+          }
           $scope.photos.push({
             _id: photo._id,
             src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
