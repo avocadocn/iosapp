@@ -18,8 +18,7 @@
             <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]===1))" class="time">{{comment.create_date | date: 'yyyy'}}</span></p>
             <p><span class="time">{{comment.create_date | date: 'M月dd日 HH:mm'}}</span></p>
           </div>
-          <div ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}" class="comment">
-            <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+          <div ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}" class="comment"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a>
             <div class="contents">
               <div ng-if="comment.poster._id !== userId" class="name">{{comment.poster.nickname}}</div>
               <div ng-if="comment.poster._id == userId" class="name">我</div><i ng-if="comment.loading" class="icon ion-looping"></i>
@@ -31,8 +30,7 @@
               </div>
             </div>
           </div>
-          <div ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" class="comment">
-            <div class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></div>
+          <div ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" class="comment"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a>
             <div class="contents">
               <div ng-if="comment.poster._id !== userId" class="name">{{comment.poster.nickname}}</div>
               <div ng-if="comment.poster._id == userId" class="name">我</div><i ng-if="comment.loading" class="icon ion-looping"></i>

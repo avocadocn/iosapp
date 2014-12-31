@@ -9,29 +9,33 @@ ion-view.edit_info
       .item.item-thumbnail-right(ng-click="showUploadActionSheet()")
         img(ng-src="{{STATIC_URL + user.photo}}/160/160")
         h2 头像
-      .item.item-input
+      .item.item-input.item-icon-right
         span.input-label 昵称
         input(type="text" name="nickname" ng-change="change()" ng-model="formData.nickname" required)
-      .item.item-input
+        i.icon.ion-compose
+      .item.item-input.item-icon-right
         span.input-label 真实姓名
         input(type="text" name="realname" ng-change="change()" ng-model="formData.realname")
-      .item.item-input
+        i.icon.ion-compose
+      .item.item-input.item-icon-right
         span.input-label 手机
         input(type="text" name="phone" ng-change="change()" ng-model="formData.phone")
+        i.icon.ion-compose
       .item.item-input
         span.input-label 生日
         input#birthday(type="date" name="birthday" ng-change="change()" ng-model="formData.birthday")
-      .item.item-input
+      .item.item-input.item-icon-right
         span.input-label 简介
         input(type="text" name="introduce" ng-change="change()" ng-model="formData.introduce")
-      .item.item-input
-        span.input-label 标签
-        input(type="text" name="tag" ng-model="formData.tag" placeholder="增加新标签,最多20字" ng-maxlength="20" ng-change="change()")
-      .item(ng-if="user.tags")
-        .tags
-          .tag(ng-repeat="tag in user.tags track by $index") 
-            .content
-              span {{tag}}
-            button.dl_button.tag_delete(ng-click="tagDelete(tag,$index)") x
+        i.icon.ion-compose
+      //- .item.item-input
+      //-   span.input-label 标签
+      //-   input(type="text" name="tag" ng-model="formData.tag" placeholder="增加新标签,最多20字" ng-maxlength="20" ng-change="change()")
+      //- .item(ng-if="user.tags")
+      //-   .tags
+      //-     .tag(ng-repeat="tag in user.tags track by $index") 
+      //-       .content
+      //-         span {{tag}}
+      //-       button.dl_button.tag_delete(ng-click="tagDelete(tag,$index)") x
       .padding
         button.button.button-block.button-positive(ng-disabled="unchanged || editForm.$invalid" ng-click="edit()") 确定

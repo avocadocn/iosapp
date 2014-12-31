@@ -550,6 +550,7 @@ angular.module('donlerApp.controllers', [])
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
     $scope.backUrl = INFO.discussDetailBackUrl;
+    INFO.userInfoBackUrl = '#/discuss/detail/'+$scope.campaignId;
     Socket.emit('enterRoom', $scope.campaignId);
 
     Campaign.get($scope.campaignId, function (err, data) {
@@ -559,7 +560,6 @@ angular.module('donlerApp.controllers', [])
       }
     });
 
-
     $scope.userId = localStorage.id;
     $scope.photos = [];
     var addPhotos = function (comment) {
@@ -567,6 +567,9 @@ angular.module('donlerApp.controllers', [])
         comment.photos.forEach(function (photo) {
           var width = photo.width || INFO.screenWidth;
           var height = photo.height || INFO.screenHeight;
+          if(!photo.upload_user) {
+            photo.upload_user = {name:''};
+          }
           $scope.photos.push({
             _id: photo._id,
             src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
@@ -980,6 +983,16 @@ angular.module('donlerApp.controllers', [])
       }
     }
 
+  }])
+  .controller('ContactsController', ['$scope', 'User', 'INFO', function ($scope, User, INFO) {
+    //获取公司联系人
+    User.getCompanyUsers(localStorage.cid,function(msg, data){
+      if(!msg) {
+        $scope.contacts = data;
+      }
+    });
+    //设置点入个人资料后返回的地址
+    INFO.userInfoBackUrl = '#/discover/contacts';
   }])
   .controller('PersonalController', ['$scope', '$state', 'User', 'Message', 'INFO', 'Tools', function ($scope, $state, User, Message, INFO, Tools) {
     INFO.calendarBackUrl ='#/app/personal';
@@ -2484,23 +2497,28 @@ angular.module('donlerApp.controllers', [])
       };
     };
     $scope.loadMore = function() {
-      $scope.page++;
-      $scope.loading = true;
-      TimeLine.getTimelines('user', '0', $scope.page, function (err, timelineData) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          if(timelineData.length>0) {
-            $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
-          }
-          else {
-            $scope.loadFinished = true;
-          }
-        }
-        $scope.loading = false;
+      if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
-      });
+      }
+      else{
+        $scope.page++;
+        $scope.loading = true;
+        TimeLine.getTimelines('user', '0', $scope.page, function (err, timelineData) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            if(timelineData.length>0) {
+              $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
+            }
+            else {
+              $scope.loadFinished = true;
+            }
+          }
+          $scope.loading = false;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+      }
     }
     User.getData(localStorage.id, function (err, data) {
       if (err) {
@@ -2540,24 +2558,30 @@ angular.module('donlerApp.controllers', [])
         return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
       };
     };
+
     $scope.loadMore = function() {
-      $scope.page++;
-      $scope.loading = true;
-      TimeLine.getTimelines('user', $stateParams.userId, $scope.page, function (err, timelineData) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          if(timelineData.length>0) {
-            $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
-          }
-          else {
-            $scope.loadFinished = true;
-          }
-        }
-        $scope.loading = false;
+      if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
-      });
+      }
+      else{
+        $scope.page++;
+        $scope.loading = true;
+        TimeLine.getTimelines('user', $stateParams.userId, $scope.page, function (err, timelineData) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            if(timelineData.length>0) {
+              $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
+            }
+            else {
+              $scope.loadFinished = true;
+            }
+          }
+          $scope.loading = false;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+      }
     }
     User.getData($stateParams.userId, function (err, data) {
       if (err) {
@@ -2652,8 +2676,8 @@ angular.module('donlerApp.controllers', [])
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         if(data.deadline){
-          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DD HH:mm:ss')
-          $scope.campaignData.end_time = moment(data.end_time).format('YYYY-MM-DD HH:mm:ss')
+          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DDThh:mm')
+          $scope.campaignData.end_time = moment(data.end_time).format('YYYY-MM-DDThh:mm')
         }
         if(data.content){
           $scope.campaignData.content = data.content;
@@ -2683,7 +2707,7 @@ angular.module('donlerApp.controllers', [])
             template: '报名截止时间不能晚于结束时间'+$scope.campaignData.end_time
           });
         }
-        else if($scope.campaignData.deadline < moment(new Date()).format('YYYY-MM-DD HH:mm:ss')) {
+        else if($scope.campaignData.deadline < moment(new Date()).format('YYYY-MM-DDThh:mm')) {
           $ionicPopup.alert({
             title: '错误',
             template: '报名截止时间不能比现在更早'

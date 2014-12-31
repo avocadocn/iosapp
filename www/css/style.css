@@ -639,7 +639,7 @@ input:focus:-ms-input-placeholder {
   background-size: 320px;
 }
 .home .slider-pager {
-  bottom: 80px;
+  bottom: 90px;
 }
 .home .slider-pager .active>.icon.ion-record {
   color: #3ca2e0;
@@ -1148,19 +1148,25 @@ a>.login .companies_list:activated {
   font-size: 14px;
   color: #3ca2e0;
 }
+.discover .list .item .icon.ion-android-contacts {
+  font-size: 22px;
+  padding-left: 4px;
+}
 .discover .list .item .item-note {
   color: #3ca2e0;
 }
 .personal .list,
 .settings .list,
 .about .list,
-.settings_account .list {
+.settings_account .list,
+.contacts .list {
   margin-top: 10px;
 }
 .personal .list .ion-chevron-right,
 .settings .list .ion-chevron-right,
 .about .list .ion-chevron-right,
-.settings_account .list .ion-chevron-right {
+.settings_account .list .ion-chevron-right,
+.contacts .list .ion-chevron-right {
   font-size: 14px;
   color: #ccc;
 }
@@ -1202,29 +1208,13 @@ a>.login .companies_list:activated {
 .edit_info .list>.item {
   padding: 6px 20px 5px;
 }
-.edit_info .list>.item .tags {
-  width: 75%;
-  float: right;
+.edit_info .item-icon-right input {
+  z-index: 2;
 }
-.edit_info .list>.item .tags .tag {
-  float: left;
-  display: block;
-  margin-right: 5px;
-  margin-bottom: 0.5rem;
-}
-.edit_info .list>.item .tags .tag .content {
-  float: left;
-  background-color: #3ca2e0;
-  height: 30px;
-  padding: 5px 6px;
-  color: #fff;
-  font-size: 14px;
-}
-.edit_info .list>.item .tags .tag .tag_delete {
-  float: left;
-  background-color: #3ca2e0;
-  border-radius: 0 4px 4px 0;
-  padding: 0 0.5rem;
+.edit_info .item-icon-right .icon {
+  color: #999;
+  z-index: 1;
+  font-size: 24px;
 }
 .user_card .tags {
   white-space: normal;
@@ -1786,7 +1776,7 @@ a>.login .companies_list:activated {
   content: '';
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: 30px;
   width: 3px;
   background: #ccc;
   left: 50%;
@@ -1805,6 +1795,12 @@ a>.login .companies_list:activated {
   text-align: center;
   position: relative;
   z-index: 10;
+}
+.nomore_text {
+  margin: 10px;
+  font-size: 14px;
+  text-align: center;
+  background-color: #fff;
 }
 .member_page .member_group {
   margin: 0.833333rem;

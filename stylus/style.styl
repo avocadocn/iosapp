@@ -532,7 +532,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       background url('../img/index_2.gif') center no-repeat
       background-size 320px
   .slider-pager
-    bottom 80px
+    bottom 90px
     .active>.icon.ion-record
       color col_blue
   .home_buttons
@@ -950,10 +950,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         width 3rem
         font-size 14px
         color col_blue
+      .icon.ion-android-contacts
+        font-size 22px
+        padding-left 4px
       .item-note
         color col_blue
 //-我的等页面通用">"
-.personal, .settings, .about, .settings_account
+.personal, .settings, .about, .settings_account, .contacts
   .list
     margin-top 10px
     .ion-chevron-right
@@ -994,26 +997,33 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       color col_blue
   .list>.item
     padding 6px 20px 5px
-    .tags
-      width 75%
-      float right
-      .tag
-        float left
-        display block
-        margin-right 5px
-        margin-bottom 0.5rem
-        .content
-          float left
-          background-color col_blue
-          height 30px
-          padding 5px 6px
-          color #fff
-          font-size 14px
-        .tag_delete
-          float left
-          background-color col_blue
-          border-radius 0 4px 4px 0
-          padding 0 0.5rem
+    //- .tags
+    //-   width 75%
+    //-   float right
+    //-   .tag
+    //-     float left
+    //-     display block
+    //-     margin-right 5px
+    //-     margin-bottom 0.5rem
+    //-     .content
+    //-       float left
+    //-       background-color col_blue
+    //-       height 30px
+    //-       padding 5px 6px
+    //-       color #fff
+    //-       font-size 14px
+    //-     .tag_delete
+    //-       float left
+    //-       background-color col_blue
+    //-       border-radius 0 4px 4px 0
+    //-       padding 0 0.5rem
+  .item-icon-right
+    input
+      z-index 2
+    .icon
+      color col_darkGray
+      z-index 1
+      font-size 24px
 //-别人的卡片
 .user_card
   .tags
@@ -1475,7 +1485,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     content ''
     position absolute
     top 0
-    bottom 0
+    bottom 30px
     width 3px
     background #ccc
     left 50%
@@ -1492,7 +1502,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     text-align center
     position relative
     z-index 10
-
+.nomore_text
+  margin 10px
+  font-size 14px
+  text-align center
+  background-color white
+  
 .member_page
   .member_group
     margin 0.833333rem
