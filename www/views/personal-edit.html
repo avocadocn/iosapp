@@ -8,20 +8,20 @@
       <div ng-click="showUploadActionSheet()" class="item item-thumbnail-right"><img ng-src="{{STATIC_URL + user.photo}}/160/160"/>
         <h2>头像</h2>
       </div>
-      <div class="item item-input item-icon-right"><span class="input-label">昵称</span>
-        <input type="text" name="nickname" ng-change="change()" ng-model="formData.nickname" required="required"/><i class="icon ion-compose"></i>
+      <div class="item item-input"><span class="input-label">昵称</span>
+        <input type="text" name="nickname" ng-change="change()" maxlength="20" ng-model="formData.nickname" required="required"/>
       </div>
-      <div class="item item-input item-icon-right"><span class="input-label">真实姓名</span>
-        <input type="text" name="realname" ng-change="change()" ng-model="formData.realname"/><i class="icon ion-compose"></i>
+      <div class="item item-input"><span class="input-label">真实姓名</span>
+        <input type="text" name="realname" ng-change="change()" maxlength="20" ng-model="formData.realname"/>
       </div>
-      <div class="item item-input item-icon-right"><span class="input-label">手机</span>
-        <input type="text" name="phone" ng-change="change()" ng-model="formData.phone"/><i class="icon ion-compose"></i>
+      <div class="item item-input"><span class="input-label">手机</span>
+        <input type="text" name="phone" ng-change="change()" ng-model="formData.phone"/>
       </div>
       <div class="item item-input"><span class="input-label">生日</span>
         <input id="birthday" type="date" name="birthday" ng-change="change()" ng-model="formData.birthday"/>
       </div>
-      <div class="item item-input item-icon-right"><span class="input-label">简介</span>
-        <input type="text" name="introduce" ng-change="change()" ng-model="formData.introduce"/><i class="icon ion-compose"></i>
+      <div class="item item-input"><span class="input-label">简介</span>
+        <textarea placeholder="简介" name="introduce" rows="4" ng-change="change()" maxlength="40" ng-model="formData.introduce"></textarea>
       </div>
       <div class="padding">
         <button ng-disabled="unchanged || editForm.$invalid" ng-click="edit()" class="button button-block button-positive">确定</button>
