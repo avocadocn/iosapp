@@ -1184,6 +1184,39 @@ a>.login .companies_list:activated {
 .personal .list .item.item-icon-left .icon {
   width: 3rem;
 }
+.edit_info .item-thumbnail-right h2 {
+  margin-top: 10px;
+}
+.edit_info .item-thumbnail-right img:first-child {
+  left: 36%;
+}
+.edit_info .list>.item {
+  padding: 6px 20px 5px;
+}
+.edit_info .list>.item .tags {
+  width: 75%;
+  float: right;
+}
+.edit_info .list>.item .tags .tag {
+  float: left;
+  display: block;
+  margin-right: 5px;
+  margin-bottom: 0.5rem;
+}
+.edit_info .list>.item .tags .tag .content {
+  float: left;
+  background-color: #3ca2e0;
+  height: 30px;
+  padding: 5px 6px;
+  color: #fff;
+  font-size: 14px;
+}
+.edit_info .list>.item .tags .tag .tag_delete {
+  float: left;
+  background-color: #3ca2e0;
+  border-radius: 0 4px 4px 0;
+  padding: 0 0.5rem;
+}
 .settings .list {
   padding-top: 0;
   border-bottom: 1px solid #ccc;
