@@ -888,7 +888,7 @@ a>.login .companies_list:activated {
 .discuss_detail .notice {
   height: 85px;
   position: absolute;
-  top: 40px;
+  top: 5rem;
   width: 90%;
   margin: 5%;
 }
@@ -1136,7 +1136,7 @@ a>.login .companies_list:activated {
 .discover .discover_image {
   width: 100%;
   display: block;
-  background: url("../img/discover.jpg") center no-repeat;
+  background: url("../img/discover.jpg") no-repeat;
   background-size: 100%;
   height: 15rem;
 }
@@ -1203,6 +1203,9 @@ a>.login .companies_list:activated {
   left: 36%;
 }
 .edit_info .item-input input {
+  color: #3ca2e0;
+}
+.edit_info .item-input .introduce {
   color: #3ca2e0;
 }
 .edit_info .list>.item {

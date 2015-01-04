@@ -11,9 +11,9 @@ ion-view
         h2.team_name {{team.name}}
         p.team_cp_title {{team.lastCampaign.theme}}
         p.team_cp_title(ng-if="team.poster") 创建人: {{team.poster.nickname}}
-        p.team_count
-          span.team_member 队员：{{team.memberCount || '0'}}
-          span.team_cp_number 活动：{{team.campaignCount || '0'}}
-          span.team_cp_number 积分：{{team.score.total || '0'}}
+        p.team_count(ng-cloak)
+          span.team_member 队员：{{team.memberCount}}
+          span.team_cp_number 活动：{{team.campaignCount}}
+          span.team_cp_number 积分：{{team.score.total}}
         button.btn_quit(prevent-default ng-if="team.hasJoined" ng-click="quitTeam(team._id, $index)") 已加入小队
         button.btn_join(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id, $index)") 立即加入
