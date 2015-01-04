@@ -17,23 +17,11 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
                             "count": 1
                         },
                         {
@@ -46,6 +34,10 @@
                         },
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -82,12 +74,6 @@
                             "xml": "false",
                             "count": 2
                         }
-                    ],
-                    "AudioToolbox.framework": [
-                        {
-                            "xml": "true",
-                            "count": 1
-                        }
                     ]
                 }
             },
@@ -110,13 +96,7 @@
         "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "com.donler.app"
         },
-        "de.appplant.cordova.plugin.local-notification": {
-            "PACKAGE_NAME": "com.donler.app"
-        },
         "org.apache.cordova.camera": {
-            "PACKAGE_NAME": "com.donler.app"
-        },
-        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "com.donler.app"
         },
         "org.apache.cordova.file": {
@@ -127,11 +107,10 @@
         },
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.donler.app"
-        }
-    },
-    "dependent_plugins": {
+        },
         "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.donler.app"
         }
-    }
+    },
+    "dependent_plugins": {}
 }
