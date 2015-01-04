@@ -888,7 +888,7 @@ a>.login .companies_list:activated {
 .discuss_detail .notice {
   height: 85px;
   position: absolute;
-  top: 40px;
+  top: 5rem;
   width: 90%;
   margin: 5%;
 }
