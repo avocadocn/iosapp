@@ -672,6 +672,7 @@ angular.module('donlerApp.controllers', [])
         for(var i = length-1; i>=0; i--){
           if($scope.commentList[commentListIndex][i].randomId === data.randomId){
             data.randomId = null;
+            addPhotos(data);
             $scope.commentList[commentListIndex][i] = data;
             break;
           }
@@ -694,6 +695,7 @@ angular.module('donlerApp.controllers', [])
           nextStartDate = data.nextStartDate;
           //-addPhoto
           $scope.$broadcast('scroll.refreshComplete');
+          data.comments.forEach(addPhotos);
           judgeTopShowTime();
         });
       }else{//没下一条了~
