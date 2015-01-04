@@ -40,12 +40,12 @@ ion-view
         a.tab-item.btn_upload_photo(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
           i.icon.ion-image
           | 上传图片
-        a.tab-item.dl_team_number(href="#/members/campaign/{{campaign._id}}")
+        a.tab-item.dl_team_number(href="#/members/campaign/{{campaign._id}}" ng-cloak)
           i.icon.ion_member.dl_icon
-          | 活动成员({{campaign.members_count || '0'}})
-        .tab-item.dl_team_comment(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
+          | 活动成员({{campaign.members_count}})
+        .tab-item.dl_team_comment(ng-click="goDiscussDetail(campaign._id, campaign.theme)" ng-cloak)
           i.icon.ion-chatbubble-working
-          | {{campaign.comment_sum || '0'}}条讨论
+          | {{campaign.comment_sum}}条讨论
     .card.dl_card_detail(ng-if="!campaign.is_end")
       .item.dl_card_time
         span.dl_cp_time_status {{campaign.is_start ? '正在进行' : '即将开始'}}

@@ -671,11 +671,13 @@ angular.module('donlerApp.controllers', [])
         var length = $scope.commentList[commentListIndex].length;
         for(var i = length-1; i>=0; i--){
           if($scope.commentList[commentListIndex][i].randomId === data.randomId){
+            data.randomId = null;
             $scope.commentList[commentListIndex][i] = data;
-            $scope.commentList[commentListIndex][i].randomId = null;
+            break;
           }
         }
       }else{
+        data.randomId = null;
         $scope.commentList[commentListIndex].push(data);
         addPhotos(data);
         $ionicScrollDelegate.scrollBottom();
