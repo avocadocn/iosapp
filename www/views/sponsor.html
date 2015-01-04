@@ -29,6 +29,12 @@
         <div class="item-button">
           <button ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()" class="button button-full button_sponsor">发布</button>
         </div>
+        <div class="item-button">
+          <button ng-click="showMap()" class="button button-full button_sponsor">详细地图</button>
+        </div>
+        <div ng-show="showMapFlag" class="map_container">
+          <div id="mapDetail" class="map_content"></div>
+        </div>
       </div>
     </form>
   </ion-content>
