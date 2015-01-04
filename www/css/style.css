@@ -1136,7 +1136,7 @@ a>.login .companies_list:activated {
 .discover .discover_image {
   width: 100%;
   display: block;
-  background: url("../img/discover.jpg") center no-repeat;
+  background: url("../img/discover.jpg") no-repeat;
   background-size: 100%;
   height: 15rem;
 }
