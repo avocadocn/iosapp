@@ -93,7 +93,8 @@ angular.module('donlerApp.services', [])
           'x-device-id': $http.defaults.headers.common['x-device-id'],
           'x-device-type': $http.defaults.headers.common['x-device-type'],
           'x-platform': $http.defaults.headers.common['x-platform'],
-          'x-version': $http.defaults.headers.common['x-version']
+          'x-version': $http.defaults.headers.common['x-version'],
+          'x-device-token': $http.defaults.headers.common['x-device-token']
         };
 
       }

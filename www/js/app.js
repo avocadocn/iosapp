@@ -6,7 +6,7 @@
 
 angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives'])
 
-  .run(function ($ionicPlatform, $state, $ionicLoading, $http, $rootScope, CommonHeaders, CONFIG) {
+  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -16,7 +16,14 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
+
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
+
+      var iosConfig = {
+        "badge": "true",
+        "sound": "false",
+        "alert": "true"
+      };
 
       if (typeof device !== 'undefined') {
         CommonHeaders.set({
@@ -25,6 +32,34 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           'x-platform': device.platform,
           'x-version': device.version
         });
+
+        var config;
+        if (device.platform === 'iOS') {
+          config = iosConfig;
+        }
+        $cordovaPush.register(config).then(function(result) {
+          CommonHeaders.set({
+            'x-device-token': result
+          });
+        }, function(err) {
+          console.log(err);
+        });
+
+        $rootScope.$on('pushNotificationReceived', function(event, notification) {
+          var confirmPopup = $ionicPopup.confirm({
+            title: '提示',
+            template: notification.alert,
+            okText: '查看详情',
+            cancelText: '忽略'
+          });
+          confirmPopup.then(function (res) {
+            if (res) {
+              $state.go('campaigns_detail',{ 'id': notification.campaignId });
+            }
+          });
+
+        });
+
       }
 
       if (localStorage.userType) {
@@ -38,6 +73,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       } else {
         $state.go('home');
       }
+
     });
     $rootScope.showLoading = function() {
       $ionicLoading.show({
