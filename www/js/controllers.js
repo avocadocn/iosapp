@@ -755,6 +755,9 @@ angular.module('donlerApp.controllers', [])
       Comment.publishComment($scope.campaignId, $scope.commentContent, randomId, function(err){
         if(err){
           console.log(err);
+          var length =  $scope.commentList[commentListIndex].length;
+          //发送失败
+          $scope.commentList[commentListIndex][length-1].failed = true;
         }else{
           $scope.commentContent = '';
         }
@@ -799,10 +802,13 @@ angular.module('donlerApp.controllers', [])
         .uploadFile(serverAddr, imageURI, options)
         .then(function(result) {
         }, function(err) {
-          $ionicPopup.alert({
-            title: '发送失败',
-            template: '请重试'
-          });
+          //发送失败
+          var length =  $scope.commentList[commentListIndex].length;
+          $scope.commentList[commentListIndex][length-1].failed = true;
+          // $ionicPopup.alert({
+          //   title: '发送失败',
+          //   template: '请重试'
+          // });
         }, function (progress) {
           // constant progress updates
         });

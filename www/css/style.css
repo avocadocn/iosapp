@@ -961,6 +961,16 @@ a>.login .companies_list:activated {
   background-color: #333;
   padding: 2px 15px;
 }
+.discuss_detail .comments .failed {
+  text-align: center;
+  color: #fff;
+}
+.discuss_detail .comments .failed .tip {
+  background-color: #999;
+  padding: 2px 10px;
+  border-radius: 5px;
+  display: -webkit-inline-box;
+}
 .discuss_detail .comments .comment {
   width: 100%;
   clear: both;
