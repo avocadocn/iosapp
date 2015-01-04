@@ -1205,6 +1205,9 @@ a>.login .companies_list:activated {
 .edit_info .item-input input {
   color: #3ca2e0;
 }
+.edit_info .item-input .introduce {
+  color: #3ca2e0;
+}
 .edit_info .list>.item {
   padding: 6px 20px 5px;
 }
