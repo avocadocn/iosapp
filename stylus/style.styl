@@ -751,23 +751,47 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         line-height 1
         padding 0
   //-发评论
+  .comment_box.taller
+    height 200px
   .comment_box
     color #333
     background-color col_gray
+    display block
+    padding-top 8px
     .icon
       font-size 30px
-      padding 8px 10px
+      padding 0 10px
+      float left
     .comment_input
-      width 70%
-      height 70%
-      margin 6px 0
+      float left
+      width 65%
+      height 2rem
+      margin-top 2px
+      padding 2px 6px
+      background-color #fff
+      //- border 1px solid col_darkGray
+      //- box-shadow 1px 1px 1px 0 col_lightGray inset
+      //- -moz-appearance textfield-multiline
+      //- -webkit-appearance textarea
+    .emotion_button
+      float left
+      margin 2px 5px
     .publish_button
+      float left
       padding 0
       background-color transparent
       color #333
       text-align center
-      width 15%
+      width 4rem
       font-size 14px
+      line-height 1
+      padding-top 5px
+    .emotion_box
+      padding 5px 9px
+      width 100%
+      float left
+      background-color #fff
+
   //-评论列表
   .comments
     .time_block

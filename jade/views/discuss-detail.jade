@@ -43,15 +43,18 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
               .name(ng-if="comment.poster._id !== userId") {{comment.poster.nickname}}
               .name(ng-if="comment.poster._id == userId") 我
               .content
-                .triangle_isosceles {{comment.content}}
+                .triangle_isosceles(ng-bind-html="comment.content | emoji | unsafe")
           .failed(ng-if="comment.failed")
             .tip
               i.icon.ion-alert-circled
               span 发送失败
       //-再做个刷新?todo
-  ion-footer-bar.comment_box
+  ion-footer-bar.comment_box(ng-class="{'taller':isShowEmotions}")
     i.icon.ion-image(ng-click="showUploadActionSheet()")
-    input.comment_input(ng-model = "commentContent")
-    button.dl_button.publish_button(ng-click="publishComment()" ng-disabled="!commentContent") 发言
-
+    input.comment_input(ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()")
+    button.dl_button.emotion_button.emoji.emoji_yum(ng-click="showEmotions()") 
+    button.dl_button.publish_button(ng-click="publishComment();hideEmotions()" ng-disabled="!commentContent") 发言
+    .emotion_box(ng-if="isShowEmotions")
+      .box
+        i(ng-repeat="emotion in emoji" class="emoji {{'emoji_'+emotion}}" ng-click="addEmotion(emotion)")
 include ./photo-swipe

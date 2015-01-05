@@ -718,6 +718,7 @@ angular.module('donlerApp.controllers', [])
     $scope.backUrl = INFO.discussDetailBackUrl;
     INFO.userInfoBackUrl = '#/discuss/detail/'+$scope.campaignId;
     Socket.emit('enterRoom', $scope.campaignId);
+    $scope.commentContent='';
 
     Campaign.get($scope.campaignId, function (err, data) {
       if (!err) {
@@ -1048,7 +1049,41 @@ angular.module('donlerApp.controllers', [])
     //     })
     //   }
     // });
+    
+    $scope.isShowEmotions = false;
+    $scope.showEmotions = function() {
+      $scope.isShowEmotions = true;
+    };
+    $scope.hideEmotions = function() {
+      $scope.isShowEmotions = false;
+    };
 
+    $scope.emoji = ["bowtie", "smile", "laughing", "blush", "smiley", "relaxed",
+      "smirk", "heart_eyes", "kissing_heart", "kissing_closed_eyes", "flushed",
+      "relieved", "satisfied", "grin", "wink", "stuck_out_tongue_winking_eye",
+      "stuck_out_tongue_closed_eyes", "grinning", "kissing",
+      "stuck_out_tongue", "sleeping", "worried",
+      "frowning", "anguished", "open_mouth", "grimacing", "confused", "hushed",
+      "expressionless", "unamused", "sweat_smile", "sweat",
+      "disappointed_relieved", "weary", "pensive", "disappointed", "confounded",
+      "fearful", "cold_sweat", "persevere", "cry", "sob", "joy", "astonished",
+      "scream", "neckbeard", "tired_face", "angry", "rage", "triumph", "sleepy",
+      "yum", "mask", "sunglasses", "dizzy_face", "smiling_imp",
+      "neutral_face", "no_mouth", "innocent", "alien", "heart", "broken_heart",
+      "heartbeat", "heartpulse", "two_hearts", "revolving_hearts", "cupid",
+      "sparkling_heart", "sparkles", "star", "star2", "dizzy", "boom",
+      "collision", "anger", "exclamation", "question", "grey_exclamation",
+      "grey_question", "zzz", "dash", "sweat_drops", "notes", "musical_note",
+      "fire", "hankey", "+1", "-1", 
+      "ok_hand", "punch", "fist", "v", "wave", "hand",
+      "open_hands", "point_up", "point_down", "point_left", "point_right",
+      "raised_hands", "pray", "point_up_2", "clap", "muscle", "metal", "fu"
+    ];
+
+    $scope.addEmotion = function(emotion) {
+      // console.log(emotion);
+      $scope.commentContent += ':'+ emotion +':';
+    };
   }])
   .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', 'Team', 'INFO', function ($scope, $ionicPopup, $state, Team, INFO) {
     INFO.teamBackUrl = '#/discover/teams';

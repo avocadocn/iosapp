@@ -35,7 +35,7 @@
               <div ng-if="comment.poster._id !== userId" class="name">{{comment.poster.nickname}}</div>
               <div ng-if="comment.poster._id == userId" class="name">我</div>
               <div class="content">
-                <div class="triangle_isosceles">{{comment.content}}</div>
+                <div ng-bind-html="comment.content | emoji | unsafe" class="triangle_isosceles"></div>
               </div>
             </div>
           </div>
@@ -46,9 +46,13 @@
       </div>
     </div>
   </ion-content>
-  <ion-footer-bar class="comment_box"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
-    <input ng-model="commentContent" class="comment_input"/>
-    <button ng-click="publishComment()" ng-disabled="!commentContent" class="dl_button publish_button">发言</button>
+  <ion-footer-bar ng-class="{'taller':isShowEmotions}" class="comment_box"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
+    <input ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()" class="comment_input"/>
+    <button ng-click="showEmotions()" class="dl_button emotion_button emoji emoji_yum"> </button>
+    <button ng-click="publishComment();hideEmotions()" ng-disabled="!commentContent" class="dl_button publish_button">发言</button>
+    <div ng-if="isShowEmotions" class="emotion_box">
+      <div class="box"><i ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emoji {{'emoji_'+emotion}}"></i></div>
+    </div>
   </ion-footer-bar>
 </ion-view>
 <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">

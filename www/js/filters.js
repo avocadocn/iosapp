@@ -31,4 +31,10 @@ angular.module('donlerApp.filters', [])
         return (date.getMonth() + 1) + '-' + date.getDate();
     }
   }
-});
+})
+
+.filter("unsafe", ['$sce', function($sce) {
+  return function(val) {
+    return $sce.trustAsHtml(val);
+  };
+}]);

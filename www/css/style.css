@@ -927,26 +927,48 @@ a>.login .companies_list:activated {
   line-height: 1;
   padding: 0;
 }
+.discuss_detail .comment_box.taller {
+  height: 200px;
+}
 .discuss_detail .comment_box {
   color: #333;
   background-color: #e2e2e2;
+  display: block;
+  padding-top: 8px;
 }
 .discuss_detail .comment_box .icon {
   font-size: 30px;
-  padding: 8px 10px;
+  padding: 0 10px;
+  float: left;
 }
 .discuss_detail .comment_box .comment_input {
-  width: 70%;
-  height: 70%;
-  margin: 6px 0;
+  float: left;
+  width: 65%;
+  height: 2rem;
+  margin-top: 2px;
+  padding: 2px 6px;
+  background-color: #fff;
+}
+.discuss_detail .comment_box .emotion_button {
+  float: left;
+  margin: 2px 5px;
 }
 .discuss_detail .comment_box .publish_button {
+  float: left;
   padding: 0;
   background-color: transparent;
   color: #333;
   text-align: center;
-  width: 15%;
+  width: 4rem;
   font-size: 14px;
+  line-height: 1;
+  padding-top: 5px;
+}
+.discuss_detail .comment_box .emotion_box {
+  padding: 5px 9px;
+  width: 100%;
+  float: left;
+  background-color: #fff;
 }
 .discuss_detail .comments .time_block {
   text-align: center;
