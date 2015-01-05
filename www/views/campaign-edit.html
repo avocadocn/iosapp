@@ -1,0 +1,28 @@
+
+<ion-view class="sponsor">
+  <ion-header-bar><a ng-href="{{backUrl}}" class="button ion-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">活动编辑</h1>
+  </ion-header-bar>
+  <ion-content>
+    <form name="editCampaignForm" novalidate="novalidate">
+      <div class="list">
+        <label class="item item-label"><span class="input-label">报名截止时间:</span></label>
+        <label class="item item-input">
+          <input id="deadline" type="datetime-local" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间"/>
+        </label>
+        <label class="item item-input">
+          <input type="text" name="content" ng-model="campaignData.content" placeholder="活动简介" class="arecode"/>
+        </label>
+        <label class="item item-input">
+          <input type="number" name="member_max" ng-model="campaignData.member_max" min="0" placeholder="报名人数上限" class="arecode"/>
+        </label>
+        <label class="item item-input">
+          <input type="number" name="member_min" ng-model="campaignData.member_min" min="0" placeholder="报名人数下限" class="arecode"/>
+        </label>
+        <div class="item-button">
+          <button ng-disabled="editCampaignForm.$invalid || isBusy" ng-click="editCampaign()" class="button button-full button_sponsor">修改</button>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

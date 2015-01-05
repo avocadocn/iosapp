@@ -1,0 +1,23 @@
+
+<ion-view class="login">
+  <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a><a href="#/register/company" class="button icon-right ion-chevron-right">注册&nbsp;</a></ion-header-bar>
+  <ion-content scroll="false">
+    <form name="login_form" class="login_form">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" name="username" ng-model="loginData.username" placeholder="用户名" required="required"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="password" name="password" ng-model="loginData.password" placeholder="密码" required="required"/>
+        </label>
+      </div>
+      <div ng-show="msg" class="tip_msg"><span class="small_tip gray_msg">{{msg}}</span></div>
+      <div class="list list-inset">
+        <button type="button" ng-disabled="login_form.$invalid" ng-click="login()" class="button dl_button login_button">企&nbsp;业&nbsp;登&nbsp;录</button>
+      </div>
+      <div class="links"><a href="#/company/forget" class="medium_tip black_msg">忘记密码?</a><a href="#/user/login" class="medium_tip black_msg pull-right">个人账号登录</a></div>
+    </form>
+  </ion-content>
+</ion-view>

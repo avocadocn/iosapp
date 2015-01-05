@@ -1,0 +1,50 @@
+
+<ion-view class="login">
+  <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">个人注册</h1><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list list-inset tip_msg"><span class="large_tip black_msg">{{companyName}}</span></div>
+    <form name="user_signup_form" novalidate="novalidate" class="signup_form">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" ng-model="data.nickname" placeholder="昵称" required="required"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="password" ng-model="data.password" ng-minlength="6" placeholder="密码(至少6位)" required="required"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="password" ng-model="data.passconf" placeholder="密码确认" match="data.password" required="required"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" ng-model="data.realname" placeholder="真实姓名" required="required"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" ng-model="data.phone" placeholder="手机号码(选填)"/>
+        </label>
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" ng-model="data.inviteKey" placeholder="公司专属8位激活码" ng-change="checkInvitekey()" required="required"/>
+        </label>
+      </div>
+      <div class="tip_msg">
+        <p ng-if="!invitekeyCheck" class="gray_msg">为了保证每一个动梨用户都是真实可靠的，请您向HR或同事索要激活码。</p>
+        <p ng-if="invitekeyCheck===1" class="gray_msg">激活码验证成功</p>
+        <p ng-if="invitekeyCheck===2" class="gray_msg">激活码填写错误</p>
+        <p><span class="gray_msg">点击注册即代表同意</span><a href="#/register/user/law" class="blue_msg">《法律声明》及《隐私政策》</a></p>
+      </div>
+      <div class="list list-inset">
+        <button ng-disabled="invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()" class="button dl_button login_button">个人注册</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

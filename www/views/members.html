@@ -1,0 +1,13 @@
+
+<ion-view>
+  <ion-header-bar><a ng-href="{{backUrl}}" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">成员</h1>
+  </ion-header-bar>
+  <ion-content class="member_page">
+    <div ng-repeat="memberContent in memberContents" class="member_group">
+      <p class="member_group_name">{{memberContent.name}}</p>
+      <div class="clearfix"><a ng-repeat="member in memberContent.members" ng-href="#/user/{{member._id}}" class="member"><img ng-src="{{STATIC_URL + member.photo}}/55/55" class="member_photo"/>
+          <p class="member_name">{{member.nickname}}</p></a></div>
+    </div>
+  </ion-content>
+</ion-view>

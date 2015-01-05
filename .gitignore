@@ -4,8 +4,10 @@ platforms/android/local.properties
 platforms/android/CordovaLib/
 platforms/android/bin/
 platforms/android/assets/
+platforms/android/cordova/
+platforms/ios/
 
-platforms/ios/www/
+plugins/
 
 node_modules/
 

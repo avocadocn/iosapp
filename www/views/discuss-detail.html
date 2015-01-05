@@ -1,0 +1,83 @@
+
+<ion-view title="{{campaignTitle}}" class="discuss_detail">
+  <ion-header-bar><a href="{{backUrl}}" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a>
+  </ion-header-bar>
+  <div ng-show="!hideNotice&amp;&amp;notification" class="notice">
+    <div class="notice_cover"></div>
+    <div class="content"><span class="notice_title">活动公告</span>
+      <button ng-click="hideNotice=true" class="dl_button close_button pull-right">x</button><span class="notice_content">{{noticeSender}}:{{notification}}</span>
+    </div>
+  </div>
+  <ion-content>
+    <ion-refresher on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
+    <div class="comments">
+      <div ng-repeat="comments in commentList track by $index" id="comment{{$index}}" class="blocks">
+        <div ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack="ng-cloack" class="block">
+          <div ng-show="showTime &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]))" class="time_block">
+            <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]===1))" class="time">{{comment.create_date | date: 'yyyy'}}</span></p>
+            <p><span class="time">{{comment.create_date | date: 'M月dd日 HH:mm'}}</span></p>
+          </div>
+          <div ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}" class="comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a>
+            <div class="contents">
+              <div ng-if="comment.poster._id !== userId" class="name">{{comment.poster.nickname}}</div>
+              <div ng-if="comment.poster._id == userId" class="name">我</div>
+              <div class="content">
+                <div class="triangle_isosceles triangle_img">
+                  <div class="tr"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180"/></div>
+                  <div class="box"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" class="comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a>
+            <div class="contents">
+              <div ng-if="comment.poster._id !== userId" class="name">{{comment.poster.nickname}}</div>
+              <div ng-if="comment.poster._id == userId" class="name">我</div>
+              <div class="content">
+                <div class="triangle_isosceles">{{comment.content}}</div>
+              </div>
+            </div>
+          </div>
+          <div ng-if="comment.failed" class="failed">
+            <div class="tip"><i class="icon ion-alert-circled"></i><span>发送失败</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer-bar class="comment_box"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
+    <input ng-model="commentContent" class="comment_input"/>
+    <button ng-click="publishComment()" ng-disabled="!commentContent" class="dl_button publish_button">发言</button>
+  </ion-footer-bar>
+</ion-view>
+<div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+  <div class="pswp__bg"></div>
+  <div class="pswp__scroll-wrap">
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <div class="pswp__counter"></div>
+        <button title="关闭" class="pswp__button pswp__button--close"></button>
+        <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
+        <button ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button title="上一张" class="pswp__button pswp__button--arrow--left"></button>
+      <button title="下一张" class="pswp__button pswp__button--arrow--right"></button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center"></div>
+      </div>
+    </div>
+  </div>
+</div>

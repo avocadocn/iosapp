@@ -1,0 +1,44 @@
+
+<ion-view>
+  <ion-header-bar><a ng-href="#/photo_album/list/team/{{team._id}}" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">{{team.name}}的全家福相册</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class="dl_photo_album_card">
+      <div class="card_header clearfix">
+        <p class="header_title">全家福({{familyPhotos.length}})</p>
+      </div>
+      <div class="clearfix"><img ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="toggleSelect(photo)" class="photo"/></div>
+    </div>
+  </ion-content>
+</ion-view>
+<div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+  <div class="pswp__bg"></div>
+  <div class="pswp__scroll-wrap">
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <div class="pswp__counter"></div>
+        <button title="关闭" class="pswp__button pswp__button--close"></button>
+        <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
+        <button ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button title="上一张" class="pswp__button pswp__button--arrow--left"></button>
+      <button title="下一张" class="pswp__button pswp__button--arrow--right"></button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center"></div>
+      </div>
+    </div>
+  </div>
+</div>

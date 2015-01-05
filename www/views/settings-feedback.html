@@ -1,0 +1,18 @@
+
+<ion-view class="settings_feedback">
+  <ion-header-bar><a href="#/settings" class="button icon ion-chevron-left">&nbsp;设置</a>
+    <h1 class="title">我要吐槽</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <div class="list-inset">
+        <label class="item item-input">
+          <textarea placeholder="您的意见" ng-model="opinion.content"></textarea>
+        </label>
+      </div>
+      <div class="list-inset">
+        <button ng-disabled="!opinion.content" ng-click="feedback()" class="button button-block dl_button submit_button">提&nbsp;交</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

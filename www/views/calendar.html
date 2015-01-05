@@ -1,0 +1,62 @@
+
+<ion-view>
+  <ion-header-bar><a ng-href="{{calendarBackUrl}}" class="button icon-left ion-chevron-left">返回</a><a ng-if="view==='day'" ng-click="back()" class="button icon_blue">关闭</a>
+    <h1 class="title">我的日程</h1><a ng-click="showFilter($event)" class="button ion-chevron-down icon-right">{{campaignTypes[nowTypeIndex].view}}</a>
+  </ion-header-bar>
+  <ion-content scroll="false" class="has-header">
+    <div class="calendar">
+      <nav>
+        <div ng-if="view==='month'" class="operator item tabs">
+          <div ng-click="preMonth()" class="tab-item"><i class="icon icon_small ion-chevron-left"></i></div>
+          <div class="tab-item">{{ current_year }} - {{ current_month.format_month }}</div>
+          <div ng-click="nextMonth()" class="tab-item"><i class="icon icon_small ion-chevron-right"></i></div>
+        </div>
+        <div ng-if="view!=='year'" class="week text-center clearfix">
+          <div class="day">日</div>
+          <div class="day">一</div>
+          <div class="day">二</div>
+          <div class="day">三</div>
+          <div class="day">四</div>
+          <div class="day">五</div>
+          <div class="day">六</div>
+        </div>
+        <div ng-if="view==='day'" class="date_list text-center clearfix">
+          <div ng-repeat="date in current_week_date" ng-class="{other_month: !date.is_current_month, today: date.is_today===true, current_day: date.is_current===true}" ng-click="dayView(date)" class="date_box"> 
+            <div class="date">{{ date.getDate() }}</div><span ng-if="date.is_current_month &amp;&amp; date.events.length&gt;0" class="campaign_count">{{date.events.length}}</span>
+          </div>
+        </div>
+      </nav>
+      <div ng-class="{full_box: view==='year'}" class="calendar_box">
+        <div ng-if="view==='month'" class="calendar_month clearfix">
+          <ion-scroll direction="x" scrollbar-x="false">
+            <div detect-gestures="detect-gestures" gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth" class="clearfix">
+              <div ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true};day.first_day" class="calendar_day text-center">
+                <div class="calendar_date">{{ day.date }}</div><span ng-if="day.events.length&gt;0" class="calendar_campaign_count">{{day.events.length}}</span>
+              </div>
+            </div>
+          </ion-scroll>
+          <div ng-if="view!=='year'" class="text-center today_container">
+            <button ng-click="today()" class="button button-outline button-positive today">今天</button>
+          </div>
+        </div>
+        <ion-scroll detect-gestures="detect-gestures" gesture-type="swiperight,swipeleft" getsture-callback="preDay,nextDay" scrollbar-y="false" ng-if="view==='day'" auto-height="121" class="calendar_day clearfix">
+          <ion-list>
+            <ion-item ng-repeat="campaign in current_day.campaigns" class="calendar_campaign"><a ng-class="{provoke: campaign.campaign_unit.length==2}" ng-href="#/campaign/detail/{{campaign._id}}" class="item item-avatar"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/40/40'}}" class="dl_team_logo"/><img ng-if="campaign.campaign_unit.length==2" ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/40/40'}}" class="dl_team_logo second_team"/>
+                <h2>{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].team.name}}{{campaign.campaign_unit[1] ? 'vs' +campaign.campaign_unit[1].team.name || campaign.campaign_unit[1].team.name :''}}</h2>
+                <p class="dl_cp_name">{{ campaign.theme }}</p>
+                <p ng-if="current_day.past_flag" ng-class="{now:!campaign.finish}" class="flag">{{ campaign.finish?'已经结束':'正在进行' }}</p>
+                <p ng-if="!current_day.past_flag" ng-class="{join:campaign.join_flag==1}" class="flag">{{ campaign.join_flag==1?'已参加':'未参加' }}</p></a></ion-item>
+          </ion-list>
+          <div ng-if="current_day.campaigns.length === 0" class="no_campagin text-center">今天没有活动哦</div>
+        </ion-scroll>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+<script id="my-popover.html" type="text/ng-template">
+  <ion-popover-view class="dl_popover calendar_filter_popover">
+    <ion-content class="dl_popover_content">
+      <div ng-repeat="campaignType in campaignTypes" ng-click="campaignFilter($index)" class="dl_popover_button">{{ campaignType.view}}</div>
+    </ion-content>
+  </ion-popover-view>
+</script>
