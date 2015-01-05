@@ -855,6 +855,16 @@ angular.module('donlerApp.services', [])
             // todo
             callback('error');
           });
+      },
+      postMessage: function (data, callback) {
+        $http.post(CONFIG.BASE_URL + '/messages', data)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            // todo
+            callback(data.msg || 'error');
+          });
       }
 
     };

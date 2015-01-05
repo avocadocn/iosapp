@@ -385,6 +385,65 @@ angular.module('donlerApp.controllers', [])
       INFO.discussName = campaignTheme;
       $state.go('discuss_detail',{campaignId: campaignId});
     }
+    $scope.showPopup = function() {
+      $scope.data = {}
+
+      // An elaborate, custom popup
+      var myPopup = $ionicPopup.show({
+        template: '<input type="text" ng-model="data.message">',
+        title: '公告',
+        subTitle: '请输入公告内容',
+        scope: $scope,
+        buttons: [
+          { text: '取消' },
+          {
+            text: '<b>保存</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if (!$scope.data.message) {
+                //don't allow the user to close unless he enters wifi password
+                e.preventDefault();
+              } else {
+                return $scope.data.message;
+              }
+            }
+          }
+        ]
+      });
+      myPopup.then(function(res) {
+        if(res) {
+          var messageData = {
+            type:'private',
+            caption:$scope.campaign.theme,
+            content:res,
+            specific_type:{
+              value: 3,
+              child_type: $scope.campaign.campaign_unit.length>1 ? 1 : 0,
+            },
+            campaignId:$scope.campaign._id
+          }
+          Message.postMessage( messageData, function(err, data){
+            if(!err){
+              $ionicPopup.alert({
+                title: '提示',
+                template: '公告发布成功！'
+              });
+              Message.getCampaignMessages($state.params.id, function(err, data){
+                if(!err){
+                  $scope.notices = data;
+                }
+              });
+            }
+            else{
+              $ionicPopup.alert({
+                title: '错误',
+                template: err
+              });
+            }
+          });
+        }
+      });
+     };
   }])
   .controller('SponsorController', ['$scope', '$state', '$ionicPopup', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, Campaign, Team, INFO) {
     $scope.campaignData ={};

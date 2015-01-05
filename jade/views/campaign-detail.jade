@@ -56,6 +56,7 @@ ion-view
     .card.dl_card_detail(ng-if="notices.length>0")
       .item.dl_card_header.dl_card_header_small
         span 活动公告
+        a.icon.ion-plus(ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()")
         span.dl_notice_count {{notices.length}}
       a.item.item-avatar.dl_notice
         img(ng-src="{{STATIC_URL +notices[0].sender[0].photo}}")
