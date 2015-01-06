@@ -1,6 +1,6 @@
 ion-view
   ion-header-bar
-    a.button.icon-left.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(ng-href="{{backUrl}}" ng-click="goBack()") &nbsp;返回
     h1.title {{team.name}}
   ion-content.team_page
     .team_header
