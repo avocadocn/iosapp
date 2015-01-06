@@ -516,7 +516,6 @@ angular.module('donlerApp.controllers', [])
             city:city
           });
           AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-          $scope.MSearch.search($scope.campaignData.location.name);
         });
       }
       else {
@@ -526,7 +525,6 @@ angular.module('donlerApp.controllers', [])
             pageIndex:1
           });
           AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-          $scope.MSearch.search($scope.campaignData.location.name);
         });
         $scope.locationmap.plugin(["AMap.CitySearch"], function() {
           //实例化城市查询类
