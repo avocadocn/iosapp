@@ -50,13 +50,16 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           photos.forEach(function (photo) {
             var width = photo.width || INFO.screenWidth;
             var height = photo.height || INFO.screenHeight;
-            scope.photos.push({
+            var item = {
               _id: photo._id,
               src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
               w: width,
-              h: height,
-              title: '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm')
-            });
+              h: height
+            };
+            if (photo.upload_user && photo.upload_date) {
+              item.title = '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm');
+            }
+            scope.photos.push(item);
           });
         };
 
@@ -94,4 +97,24 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         };
       }
     }
+  }])
+
+  .directive('errorImg', ['CONFIG', function (CONFIG) {
+    return {
+      restrict: 'A',
+      scope: {
+        errorImg: '='
+      },
+      link: function (scope, ele, attrs, ctrl) {
+        var errorImgSrc;
+        if (!scope.errorImg) {
+          errorImgSrc = CONFIG.STATIC_URL + '/img/not_found.jpg';
+        } else {
+          errorImgSrc = scope.errorImg;
+        }
+        ele[0].onerror = function () {
+          this.src = errorImgSrc;
+        };
+      }
+    };
   }])
