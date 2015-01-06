@@ -1667,6 +1667,26 @@ a>.login .companies_list:activated {
   height: 65px;
   border: 3px solid #fff;
 }
+.team_page .team_header .triangle_right_top,
+.team_page .team_header .triangle_left_bottom {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent;
+}
+.team_page .team_header .triangle_right_top {
+  border-right-color: #3ca2e0;
+  border-top-color: #3ca2e0;
+}
+.team_page .team_header .triangle_left_bottom {
+  border-left-color: #fff;
+  border-bottom-color: #fff;
+}
 .team_page .team_info {
   border-radius: 5px;
 }

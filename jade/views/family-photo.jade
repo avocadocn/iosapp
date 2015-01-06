@@ -2,6 +2,7 @@ ion-view
   ion-header-bar
     a.button.icon.ion-chevron-left(ng-href="#/photo_album/list/team/{{team._id}}") &nbsp;返回
     h1.title {{team.name}}的全家福相册
+    .button.icon.ion-plus(ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak)
   ion-content
     .dl_photo_album_card
       .card_header.clearfix

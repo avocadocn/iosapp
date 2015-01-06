@@ -2680,26 +2680,118 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('FamilyPhotoController', ['$scope', '$stateParams', 'INFO', 'Team', function ($scope, $stateParams, INFO, Team) {
+  .controller('FamilyPhotoController', ['$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', function ($scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
     $scope.screenWidth = INFO.screenWidth;
     $scope.screenHeight = INFO.screenHeight;
     $scope.team = Team.getCurrentTeam();
-    Team.getFamilyPhotos($scope.team._id, function (err, photos) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.familyPhotos = photos;
-      }
-    });
+
+    var getFamilyPhotos = function () {
+      Team.getFamilyPhotos($scope.team._id, function (err, photos) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.familyPhotos = photos;
+        }
+      });
+    };
+    getFamilyPhotos();
 
     $scope.toggleSelect = function (familyPhoto) {
+      if (!$scope.team.isLeader) {
+        return;
+      }
       Team.toggleSelectFamilyPhoto($scope.team._id, familyPhoto._id, function (err) {
         if (err) {
           // todo
           console.log(err);
         } else {
           familyPhoto.select = !familyPhoto.select;
+        }
+      });
+    };
+
+
+    // 上传全家福
+    var uploadSheet;
+    $scope.showUploadActionSheet = function () {
+      uploadSheet = $ionicActionSheet.show({
+        buttons: [{
+          text: '拍照上传'
+        }, {
+          text: '本地上传'
+        }],
+        titleText: '请选择上传方式',
+        cancelText: '取消',
+        buttonClicked: function (index) {
+          if (index === 0) {
+            getPhotoFrom('camera');
+          } else if (index === 1) {
+            getPhotoFrom('file');
+          }
+          return true;
+        }
+      });
+    };
+
+    var upload = function (imageURI) {
+      var serverAddr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
+      var headers = CommonHeaders.get();
+      headers['x-access-token'] = localStorage.accessToken;
+      var options = {
+        fileKey: 'photo',
+        httpMethod: 'POST',
+        headers: headers,
+        mimeType: 'image/jpeg'
+      };
+
+      $cordovaFile
+        .uploadFile(serverAddr, imageURI, options)
+        .then(function(result) {
+          var successAlert = $ionicPopup.alert({
+            title: '提示',
+            template: '上传照片成功'
+          });
+          successAlert.then(function () {
+            getFamilyPhotos();
+          });
+        }, function(err) {
+          $ionicPopup.alert({
+            title: '提示',
+            template: '上传失败，请重试'
+          });
+        }, function (progress) {
+          // constant progress updates
+        });
+    };
+
+    var getPhotoFrom = function (source) {
+
+      var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+      var save = false;
+      if (source === 'camera') {
+        sourceType = Camera.PictureSourceType.CAMERA;
+        save = true;
+      }
+
+      var options = {
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        sourceType: sourceType,
+        encodingType: Camera.EncodingType.JPEG,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: save,
+        correctOrientation: true
+      };
+
+      $cordovaCamera.getPicture(options).then(function(imageURI) {
+        upload(imageURI);
+      }, function(err) {
+        if (err !== 'no image selected') {
+          $ionicPopup.alert({
+            title: '获取照片失败',
+            template: err
+          });
         }
       });
     };
