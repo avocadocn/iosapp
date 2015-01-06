@@ -24,8 +24,16 @@ ion-view.sponsor
         label.item.item-input
           input.arecode(type="text" name="location" ng-model="campaignData.location.name" placeholder="活动地点" required)
         .item-button
-          button.button.button-full.button_sponsor(ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()") 发布
+          button.button.button-full.button_sponsor(ng-disabled="!campaignData.location.name" ng-click="showPopup()") 显示地图
         .item-button
-          button.button.button-full.button_sponsor(ng-click="showMap()") 详细地图
-        .map_container(ng-show="showMapFlag")
-          .map_content#mapDetail
+          button.button.button-full.button_sponsor(ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()") 发布
+  script(id="my-modal.html" type="text/ng-template")
+    ion-modal-view
+      ion-header-bar
+        h1.title 地址选择
+      ion-content
+        #mapDetail.map_container
+        label.item.item-input
+          input.arecode(type="text" name="location" ng-model="campaignData.location.name" placeholder="活动地点" required)
+        button.button.button-full.button-positive(ng-click="search()") 搜索
+        button.button.button-full.button-positive(ng-click="closeModal()") 关闭
