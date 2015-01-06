@@ -314,6 +314,15 @@ angular.module('donlerApp.controllers', [])
     INFO.photoAlbumBackUrl = '#/campaign/detail/' + $state.params.id;
     INFO.memberBackUrl = '#/campaign/detail/' + $state.params.id;
     INFO.discussDetailBackUrl = '#/campaign/detail/' + $state.params.id;
+    if(INFO.campaignBackUrl.indexOf('#/team/')===0){
+      var beforeTeamBackUrl = INFO.teamBackUrl;
+    }
+    INFO.teamBackUrl = '#/campaign/detail/' + $state.params.id;
+    $scope.goBack = function() {
+      if(beforeTeamBackUrl){
+        INFO.teamBackUrl = beforeTeamBackUrl;
+      }
+    }
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         $scope.campaign = data;
@@ -445,7 +454,7 @@ angular.module('donlerApp.controllers', [])
       });
      };
   }])
-  .controller('SponsorController', ['$scope', '$state', '$ionicPopup', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, Campaign, Team, INFO) {
+  .controller('SponsorController', ['$scope', '$state', '$ionicPopup', '$ionicModal', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, $ionicModal, Campaign, Team, INFO) {
     $scope.campaignData ={};
     $scope.leadTeams = [];
     $scope.selectTeam = {};
@@ -453,6 +462,7 @@ angular.module('donlerApp.controllers', [])
     $scope.isBusy = false;
     $scope.showMapFlag ==false;
     $scope.campaignData.location = {};
+    var city,myPopup;
     Team.getLeadTeam(null, function(err, leadTeams){
       if(!err &&leadTeams.length>0){
         $scope.leadTeams = leadTeams;
@@ -463,11 +473,14 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.campaigns');
       }
     });
-    
     var placeSearchCallBack = function(data){
       $scope.locationmap.clearMap();
       if(data.poiList.pois.length==0){
-        alert('没有符合条件的地点，请重新输入');
+        $ionicPopup.alert({
+          title: '提示',
+          template: '没有符合条件的地点，请重新输入'
+        });
+        myPopup.close();
         return;
       }
       var lngX = data.poiList.pois[0].location.getLng();
@@ -482,35 +495,30 @@ angular.module('donlerApp.controllers', [])
         raiseOnDrag:true
       };
       var mar = new AMap.Marker(markerOption);
+      $scope.locationmap.setFitView();
       var changePoint = function (e) {
         var p = mar.getPosition();
         $scope.campaignData.location.coordinates=[p.getLng(), p.getLat()];
       };
-      $scope.locationmap.setFitView();
       AMap.event.addListener(mar,"dragend", changePoint);
-      AMap.event.addListener($scope.locationmap,'click',function(e){
-        var lngX = e.lnglat.getLng();
-        var latY = e.lnglat.getLat();
-        $scope.campaignData.location.coordinates=[lngX,latY];
-        $scope.locationmap.clearMap();
-        var nowPoint = new AMap.LngLat(lngX,latY);
-        var markerOption = {
-          map: $scope.locationmap,
-          position: nowPoint,
-          raiseOnDrag:true
-        };
-        var mar = new AMap.Marker(markerOption);
-        $scope.locationmap.setFitView();
-      });
-
     };
     $scope.initialize = function(){
-      $scope.locationmap = new AMap.Map("mapDetail",{
-        view: new AMap.View2D({//创建地图二维视口
-        zoom:12 //设置地图缩放级别
-       })
-      });            // 创建Map实例
-      $scope.locationmap.plugin(["AMap.CitySearch"], function() {
+      $scope.locationmap =  new AMap.Map("mapDetail");            // 创建Map实例
+      $scope.locationmap.plugin(["AMap.ToolBar"],function(){    
+        toolBar = new AMap.ToolBar();
+        $scope.locationmap.addControl(toolBar);   
+      });
+      if(city){
+        $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+          $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+            pageSize:1,
+            pageIndex:1,
+            city:city
+          });
+          AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+        });
+      }
+      else {
         $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
           $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
             pageSize:1,
@@ -518,56 +526,76 @@ angular.module('donlerApp.controllers', [])
           });
           AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
         });
-        //实例化城市查询类
-        var citysearch = new AMap.CitySearch();
-        //自动获取用户IP，返回当前城市
-        citysearch.getLocalCity();
-        //citysearch.getCityByIp("123.125.114.*");
-        AMap.event.addListener(citysearch, "complete", function(result){
-          if(result && result.city && result.bounds) {
-            var citybounds = result.bounds;
-            //地图显示当前城市
-            $scope.locationmap.setBounds(citybounds);
-            $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-              $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-                pageSize:1,
-                pageIndex:1,
-                // city: result.city
-
+        $scope.locationmap.plugin(["AMap.CitySearch"], function() {
+          //实例化城市查询类
+          var citysearch = new AMap.CitySearch();
+          AMap.event.addListener(citysearch, "complete", function(result){
+            if(result && result.city && result.bounds) {
+              var citybounds = result.bounds;
+              //地图显示当前城市
+              $scope.locationmap.setBounds(citybounds);
+              city = result.city;
+              $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+                $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+                  pageSize:1,
+                  pageIndex:1,
+                  city: result.city
+                });
+                AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+                $scope.MSearch.search($scope.campaignData.location.name);
               });
-              AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-            });
-          }
+            }
+          });
+          AMap.event.addListener(citysearch, "error", function(result){alert(result.info);});
+          //自动获取用户IP，返回当前城市
+          citysearch.getLocalCity();
         });
-        AMap.event.addListener(citysearch, "error", function(result){alert(result.info);});
-      });
+      }
       window.map_ready =true;
     }
-    $scope.showMap = function(){
+    $ionicModal.fromTemplateUrl('my-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    $scope.search = function() {
       if($scope.campaignData.location.name==''){
-        alert('请输入地点');
+        $ionicPopup.alert({
+          title: '提示',
+          template: '请输入地点'
+        });
         return false;
       }
-      else if(!$scope.showMapFlag){
-        console.log($scope.showMapFlag)
-        $scope.showMapFlag =true;
-        $scope.MSearch.search($scope.campaignData.location.name); //关键字查询
-      }
       else{
-        console.log($scope.showMapFlag)
-        $scope.MSearch.search($scope.campaignData.location.name); //关键字查询
+        $scope.MSearch.search($scope.campaignData.location.name);
       }
     };
-    //加载地图
-    if(!window.map_ready){
-      window.campaign_map_initialize = $scope.initialize;
-      var script = document.createElement("script");
-      script.src = "http://webapi.amap.com/maps?v=1.3&key=077eff0a89079f77e2893d6735c2f044&callback=campaign_map_initialize";
-      document.body.appendChild(script);
-    }
-    else{
-      $scope.initialize();
-    }
+    $scope.showPopup = function() {
+      if($scope.campaignData.location.name==''){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '请输入地点'
+        });
+        return false;
+      }
+      else{
+        $scope.modal.show();
+        //加载地图
+        if(!window.map_ready){
+          window.campaign_map_initialize = $scope.initialize;
+          var script = document.createElement("script");
+          script.src = "http://webapi.amap.com/maps?v=1.3&key=077eff0a89079f77e2893d6735c2f044&callback=campaign_map_initialize";
+          document.body.appendChild(script);
+        }
+        else{
+          $scope.initialize();
+        }
+      }
+     };
     $scope.changeTeam = function(selectTeam) {
       $scope.selectTeam =selectTeam;
       Campaign.getMolds('team',selectTeam._id,function(err, molds){
@@ -2046,9 +2074,17 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('TeamController', ['$scope', '$stateParams', '$ionicPopup', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($scope, $stateParams, $ionicPopup, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
+  .controller('TeamController', ['$scope', '$state', '$stateParams', '$ionicPopup', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($scope, $state, $stateParams, $ionicPopup, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
+    if(INFO.teamBackUrl.indexOf('#/campaign/detail/')===0){
+      var beforeCampaignBackUrl = INFO.campaignBackUrl;
+    }
+    $scope.goBack = function() {
+      if(beforeCampaignBackUrl){
+        INFO.campaignBackUrl = beforeCampaignBackUrl;
+      }
+    }
     INFO.campaignBackUrl = '#/team/' + teamId;
     Team.getData(teamId, function (err, team) {
       if (err) {
@@ -2237,7 +2273,7 @@ angular.module('donlerApp.controllers', [])
       }
     };
     $scope.linkMap = function (homeCourt) {
-      var link = 'http://mo.amap.com/?q=' + homeCourt.loc.coordinates[1] + ',' + homeCourt.loc.coordinates[0] + '&name=' + homeCourt.name;
+      var link = 'http://m.amap.com/navi/?dest=' + homeCourt.loc.coordinates[0] + ',' + homeCourt.loc.coordinates[1] + '&destName=' + homeCourt.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
       window.open( link, '_system' , 'location=yes');
       return false;
     }
@@ -2824,7 +2860,7 @@ angular.module('donlerApp.controllers', [])
     $scope.location = INFO.locationContent;
     $scope.backUrl='#/campaign/detail/'+$stateParams.id;
     $scope.linkMap = function (location) {
-      var link = 'http://mo.amap.com/?q=' + location.coordinates[1] + ',' + location.coordinates[0] + '&name=' + location.name;
+      var link = 'http://m.amap.com/navi/?dest=' + location.coordinates[0] + ',' + location.coordinates[1] + '&destName=' + location.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
       window.open( link, '_system' , 'location=yes');
       return false;
     }
@@ -3086,7 +3122,6 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
-
 
 
 
