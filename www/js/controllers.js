@@ -734,16 +734,16 @@ angular.module('donlerApp.controllers', [])
         comment.photos.forEach(function (photo) {
           var width = photo.width || INFO.screenWidth;
           var height = photo.height || INFO.screenHeight;
-          if(!photo.upload_user) {
-            photo.upload_user = {name:''};
-          }
-          $scope.photos.push({
+          var item = {
             _id: photo._id,
             src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
             w: width,
-            h: height,
-            title: '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm')
-          });
+            h: height
+          };
+          if (photo.upload_user && photo.upload_date) {
+            item.title = '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm');
+          }
+          $scope.photos.push(item);
         });
       }
     };
@@ -2325,12 +2325,18 @@ angular.module('donlerApp.controllers', [])
       $scope.screenHeight = INFO.screenHeight;
 
       $scope.photoAlbumBackUrl = INFO.photoAlbumBackUrl;
+
+      var isCampaignPhotoAlbum = false;
+
       PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
         if (err) {
           // todo
           console.log(err);
         } else {
           $scope.photoAlbum = photoAlbum;
+          if (photoAlbum.owner && photoAlbum.owner.model.type === 'Campaign') {
+            isCampaignPhotoAlbum = true;
+          }
         }
       });
 
@@ -2612,6 +2618,14 @@ angular.module('donlerApp.controllers', [])
           headers: headers,
           mimeType: 'image/jpeg'
         };
+
+        if (isCampaignPhotoAlbum) {
+          serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.photoAlbum.owner.model._id;
+          var randomId = Math.floor(Math.random()*100);
+          options.params = {
+            randomId: randomId
+          };
+        }
 
         $cordovaFile
           .uploadFile(serverAddr, imageURI, options)
