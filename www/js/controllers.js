@@ -462,7 +462,7 @@ angular.module('donlerApp.controllers', [])
     $scope.isBusy = false;
     $scope.showMapFlag ==false;
     $scope.campaignData.location = {};
-    var city;
+    var city,marker;
     $ionicModal.fromTemplateUrl('my-modal.html', {
       scope: $scope,
       animation: 'slide-in-up'
@@ -499,17 +499,24 @@ angular.module('donlerApp.controllers', [])
       var markerOption = {
         map: $scope.locationmap,
         position: nowPoint,
-        draggable: true,
-        cursor:'move',  //鼠标悬停点标记时的鼠标样式
         raiseOnDrag:true
       };
-      var mar = new AMap.Marker(markerOption);
+      marker = new AMap.Marker(markerOption);
       $scope.locationmap.setFitView();
-      var changePoint = function (e) {
-        var p = mar.getPosition();
-        $scope.campaignData.location.coordinates=[p.getLng(), p.getLat()];
-      };
-      AMap.event.addListener(mar,"dragend", changePoint);
+      AMap.event.addListener($scope.locationmap,'click',function(e){
+        var lngX = e.lnglat.getLng();
+        var latY = e.lnglat.getLat();
+        $scope.campaignData.location.coordinates=[lngX,latY];
+        $scope.locationmap.clearMap();
+        var nowPoint = new AMap.LngLat(lngX,latY);
+        var markerOption = {
+          map: $scope.locationmap,
+          position: nowPoint,
+          raiseOnDrag:true
+        };
+        marker = new AMap.Marker(markerOption);
+      });
+
     };
     $scope.initialize = function(){
       $scope.locationmap =  new AMap.Map("mapDetail");            // 创建Map实例
