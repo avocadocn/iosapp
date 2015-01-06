@@ -454,7 +454,7 @@ angular.module('donlerApp.controllers', [])
       });
      };
   }])
-  .controller('SponsorController', ['$scope', '$state', '$ionicPopup', '$ionicModal', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, $ionicModal, Campaign, Team, INFO) {
+  .controller('SponsorController', ['$scope', '$state', '$ionicPopup', '$ionicModal', '$timeout', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, $ionicModal, $timeout, Campaign, Team, INFO) {
     $scope.campaignData ={};
     $scope.leadTeams = [];
     $scope.selectTeam = {};
@@ -462,7 +462,16 @@ angular.module('donlerApp.controllers', [])
     $scope.isBusy = false;
     $scope.showMapFlag ==false;
     $scope.campaignData.location = {};
-    var city,myPopup;
+    var city;
+    $ionicModal.fromTemplateUrl('my-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
     Team.getLeadTeam(null, function(err, leadTeams){
       if(!err &&leadTeams.length>0){
         $scope.leadTeams = leadTeams;
@@ -480,7 +489,7 @@ angular.module('donlerApp.controllers', [])
           title: '提示',
           template: '没有符合条件的地点，请重新输入'
         });
-        myPopup.close();
+        $scope.closeModal();
         return;
       }
       var lngX = data.poiList.pois[0].location.getLng();
@@ -525,55 +534,41 @@ angular.module('donlerApp.controllers', [])
             pageIndex:1
           });
           AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+
         });
-        $scope.locationmap.plugin(["AMap.CitySearch"], function() {
-          //实例化城市查询类
-          var citysearch = new AMap.CitySearch();
-          AMap.event.addListener(citysearch, "complete", function(result){
-            if(result && result.city && result.bounds) {
-              var citybounds = result.bounds;
-              //地图显示当前城市
-              $scope.locationmap.setBounds(citybounds);
-              city = result.city;
-              $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-                $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-                  pageSize:1,
-                  pageIndex:1,
-                  city: result.city
-                });
-                AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-                $scope.MSearch.search($scope.campaignData.location.name);
-              });
-            }
-          });
-          AMap.event.addListener(citysearch, "error", function(result){alert(result.info);});
-          //自动获取用户IP，返回当前城市
-          citysearch.getLocalCity();
+        // $scope.locationmap.plugin(["AMap.CitySearch"], function() {
+        //   //实例化城市查询类
+        //   var citysearch = new AMap.CitySearch();
+        //   AMap.event.addListener(citysearch, "complete", function(result){
+        //     if(result && result.city && result.bounds) {
+        //       var citybounds = result.bounds;
+        //       //地图显示当前城市
+        //       $scope.locationmap.setBounds(citybounds);
+        //       city = result.city;
+        //       $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+        //         $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+        //           pageSize:1,
+        //           pageIndex:1,
+        //           city: result.city
+        //         });
+        //         AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+        //         $timeout(function(){
+        //           $scope.MSearch.search($scope.campaignData.location.name);
+        //         });
+        //       });
+        //     }
+        //   });
+        //   AMap.event.addListener(citysearch, "error", function(result){alert(result.info);});
+        //   //自动获取用户IP，返回当前城市
+        //   citysearch.getLocalCity();
+
+        // });
+        $timeout(function(){
+          $scope.MSearch.search($scope.campaignData.location.name);
         });
       }
       window.map_ready =true;
     }
-    $ionicModal.fromTemplateUrl('my-modal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
-    $scope.search = function() {
-      if($scope.campaignData.location.name==''){
-        $ionicPopup.alert({
-          title: '提示',
-          template: '请输入地点'
-        });
-        return false;
-      }
-      else{
-        $scope.MSearch.search($scope.campaignData.location.name);
-      }
-    };
     $scope.showPopup = function() {
       if($scope.campaignData.location.name==''){
         $ionicPopup.alert({
