@@ -638,6 +638,20 @@ angular.module('donlerApp.services', [])
           });
       },
 
+      edit: function (tid, data, callback) {
+        $http.put(CONFIG.BASE_URL + '/teams/' + tid, data)
+          .success(function (data, status, headers, config) {
+            callback();
+          })
+          .error(function (data, status, headers, config) {
+            if (data.msg) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
+      },
+
       /**
        * 获取小队成员列表
        * @param {String} teamId 小队id

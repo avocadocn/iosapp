@@ -310,6 +310,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'TeamController',
         templateUrl: './views/team-detail.html'
       })
+      .state('team_edit', {
+        url: '/team/:teamId/edit',
+        controller: 'TeamEditController',
+        templateUrl: './views/team-edit.html'
+      })
       .state('team_family', {
         url: '/team/:teamId/family',
         controller: 'FamilyPhotoController',

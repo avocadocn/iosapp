@@ -1327,7 +1327,7 @@ angular.module('donlerApp.controllers', [])
             template: err
           });
         }
-      })
+      });
     }
 
     $scope.edit = function () {
@@ -2282,6 +2282,32 @@ angular.module('donlerApp.controllers', [])
     $scope.$on('$stateChangeSuccess', function() {
       $scope.loadMore();
     });
+
+  }])
+  .controller('TeamEditController', ['$scope', '$state', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', function ($scope, $state, $ionicPopup, $stateParams, Team, CONFIG) {
+    $scope.STATIC_URL = CONFIG.STATIC_URL;
+    $scope.team = Team.getCurrentTeam();
+    $scope.unchanged = true;
+    $scope.change = function() {
+      $scope.unchanged = false;
+    };
+    $scope.formData = {
+      name: $scope.team.name,
+      brief: $scope.team.brief || ''
+    };
+
+    $scope.edit = function () {
+      Team.edit($scope.team._id, $scope.formData, function (err) {
+        if (err) {
+          $ionicPopup.alert({
+            title: '编辑失败',
+            template: err
+          });
+        } else {
+          $state.go('team', { teamId: $scope.team._id });
+        }
+      });
+    };
 
   }])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'Team', 'INFO',
