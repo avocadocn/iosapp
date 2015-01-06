@@ -1058,7 +1058,9 @@ angular.module('donlerApp.controllers', [])
       $scope.isShowEmotions = false;
     };
 
-    $scope.emoji = ["bowtie", "smile", "laughing", "blush", "smiley", "relaxed",
+    $scope.emojiList=[];
+
+    var emoji = ["bowtie", "smile", "laughing", "blush", "smiley", "relaxed",
       "smirk", "heart_eyes", "kissing_heart", "kissing_closed_eyes", "flushed",
       "relieved", "satisfied", "grin", "wink", "stuck_out_tongue_winking_eye",
       "stuck_out_tongue_closed_eyes", "grinning", "kissing",
@@ -1077,8 +1079,37 @@ angular.module('donlerApp.controllers', [])
       "fire", "hankey", "+1", "-1", 
       "ok_hand", "punch", "fist", "v", "wave", "hand",
       "open_hands", "point_up", "point_down", "point_left", "point_right",
-      "raised_hands", "pray", "point_up_2", "clap", "muscle", "metal", "fu"
+      "raised_hands", "pray", "point_up_2", "clap", "muscle", "metal", "fu",
+      "walking", "runner", "running", "couple", "family", "two_men_holding_hands",
+      "two_women_holding_hands", "dancer", "dancers", "ok_woman", "no_good",
+      "information_desk_person", "raising_hand", "bride_with_veil",
+      "person_with_pouting_face", "person_frowning", "bow", "couplekiss",
+      "couple_with_heart", "massage", "haircut", "nail_care", "boy", "girl",
+      "woman", "man", "baby", "older_woman", "older_man",
+      "person_with_blond_hair", "man_with_gua_pi_mao", "man_with_turban",
+      "construction_worker", "cop", "angel", "princess", "smiley_cat",
+      "smile_cat", "heart_eyes_cat", "kissing_cat", "smirk_cat", "scream_cat",
+      "crying_cat_face", "joy_cat", "pouting_cat", "japanese_ogre",
+      "japanese_goblin", "see_no_evil", "hear_no_evil", "speak_no_evil",
+      "guardsman", "skull", "feet", "lips", "kiss", "droplet", "ear", "eyes",
+      "nose", "tongue", "love_letter", "bust_in_silhouette",
+      "busts_in_silhouette", "speech_balloon", "thought_balloon", "feelsgood",
+      "finnadie", "goberserk", "godmode", "hurtrealbad", "rage1", "rage2",
+      "rage3", "rage4", "suspect", "trollface", "sunny", "umbrella", "cloud",
+      "snowflake", "snowman", "zap", "cyclone", "foggy", "ocean", "cat", "dog",
+      "mouse", "hamster", "rabbit", "wolf", "frog", "tiger", "koala", "bear",
+      "pig", "pig_nose", "cow", "boar", "monkey_face", "monkey", "horse",
+      "racehorse", "camel", "sheep", "elephant", "panda_face", "snake", "bird",
+      "baby_chick", "hatched_chick", "hatching_chick", "chicken", "penguin",
+      "turtle", "bug", "honeybee", "ant", "beetle", "snail", "octopus",
+      "tropical_fish", "fish", "whale", "whale2", "dolphin", "cow2", "ram", "rat",
+      "water_buffalo", "tiger2", "rabbit2", "dragon", "goat"
     ];
+
+    for(var i =0; emoji.length>24 ;i++) {
+      $scope.emojiList.push(emoji.splice(24,24));
+    }
+    $scope.emojiList.unshift(emoji);
 
     $scope.addEmotion = function(emotion) {
       // console.log(emotion);

@@ -51,10 +51,11 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
       //-再做个刷新?todo
   ion-footer-bar.comment_box(ng-class="{'taller':isShowEmotions}")
     i.icon.ion-image(ng-click="showUploadActionSheet()")
-    input.comment_input(ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()")
+    textarea.comment_input(ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()")
     button.dl_button.emotion_button.emoji.emoji_yum(ng-click="showEmotions()") 
-    button.dl_button.publish_button(ng-click="publishComment();hideEmotions()" ng-disabled="!commentContent") 发言
-    .emotion_box(ng-if="isShowEmotions")
-      .box
-        i(ng-repeat="emotion in emoji" class="emoji {{'emoji_'+emotion}}" ng-click="addEmotion(emotion)")
+    button.dl_button.publish_button(ng-click="hideEmotions();publishComment()" ng-disabled="!commentContent") 发言
+    ion-slide-box.emotion_box(ng-if="isShowEmotions")
+      ion-slide(ng-repeat="emoji in emojiList")
+        .box
+          i(ng-repeat="emotion in emoji" class="emoji {{'emoji_'+emotion}}" ng-click="addEmotion(emotion)")
 include ./photo-swipe
