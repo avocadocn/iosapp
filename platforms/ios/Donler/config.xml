@@ -74,6 +74,7 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="6000" />
+    <preference name="orientation" value="portrait" />
     <preference name="StatusBarStyle" value="lightcontent" />
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
     <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
