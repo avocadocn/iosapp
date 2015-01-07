@@ -1,0 +1,1717 @@
+/* Empty. Add your own CSS if you like */
+
+// colors
+col_black = #333333
+col_navGray = #fbfbfb
+col_gray = #e2e2e2
+col_darkGray = #999999
+col_blue = #3ca2e0
+col_darkBlue = #618bd7
+col_iconPurple = #6a73c6
+col_borderPurple = #806dd0
+col_textPurple = #9e6dd0
+col_lightGray = #676767
+
+// mixins
+dl_card()
+  display block
+  margin 10px 10px 5px
+  padding 10px
+  box-shadow 0 2px 0 rgba(204, 204, 204, 1)
+  line-height 18px
+  background-color #fff
+
+html
+  font-size 12px
+body
+  background-color col_gray
+  font-size 12px
+.pane, .view
+  background-color col_gray
+
+.clearfix
+  &:before, &:after
+    display table
+    content " "
+  &:after
+    clear both
+.icon.icon_small
+  font-size 16px !important
+  &:before
+    font-size 16px !important
+.dl_header
+  opacity 0.9
+.campaigns_container
+  padding-bottom 32px
+  .campaign_filter
+    height 33px
+    background-color #ffffff
+    .button
+      height 32px
+      line-height 30px
+      min-height 32px
+      color col_lightGray
+      border-bottom 1px solid col_gray
+      &.icon_blue
+        height 31px
+        color col_blue
+        border-bottom 2px solid col_blue
+      &.icon_darkBlue
+        height 31px
+        color col_darkBlue
+        border-bottom 2px solid col_darkBlue
+      &.icon_iconPurple
+        height 31px
+        color col_iconPurple
+        border-bottom 2px solid col_iconPurple
+      &.icon_borderPurple
+        height 31px
+        color col_borderPurple
+        border-bottom 2px solid col_borderPurple
+      &.icon_textPurple
+        height 31px
+        color col_textPurple
+        border-bottom 2px solid col_textPurple
+  .campaign_list
+    height 100%
+    background-color col_gray
+    .campaign_container
+      .campaign_container_title
+        font-size 16px
+        margin-left 1rem
+        padding-top 1rem
+        &.icon_blue
+          color col_blue
+        &.icon_darkBlue
+          color col_darkBlue
+        &.icon_iconPurple
+          color col_iconPurple
+        &.icon_borderPurple
+          color col_borderPurple
+        &.icon_textPurple
+          color col_textPurple
+.dl_card
+  position relative
+  dl_card()
+  padding 0
+  .campaign_card
+    display block
+    text-decoration none
+    .dl_cp_name
+      font-size 16px
+      color col_black
+    .dl_card_header
+      padding 0.833333rem
+      height 65px
+      .dl_card_header_info
+        width 100%
+        padding-left 55px
+        padding-right 70px
+        .dl_cp_name, .dl_cp_address
+          margin 0
+          width 100%
+          overflow hidden
+          text-overflow ellipsis
+          white-space nowrap
+
+        .dl_cp_address
+          margin-top 6px
+          font-size 12px
+          color col_darkGray
+      .dl_card_header_operator
+        position absolute
+        right 10px
+        top 10px
+        .dl_btn_join
+          width 60px
+          height 30px
+          border-radius 5px
+          border none
+          color white
+          background-color col_blue
+        .dl_cp_time_countdown_end
+          color col_textPurple
+        .dl_cp_time_countdown
+          margin 0
+          width 70px
+          height 30px
+          line-height 30px
+          border 1px solid col_borderPurple
+          border-radius 5px
+          color col_textPurple
+          font-size 14px
+        .dl_cp_time_count, .dl_cp_time_unit
+          display block
+          float left
+          width 34px
+          height 28px
+          line-height 28px
+          text-align center
+        .dl_cp_time_count
+          border-right 1px solid col_borderPurple
+      .dl_team_logo
+        display block
+        position absolute
+        margin-right 10px
+        width 45px
+        height 45px
+        border-radius 5px
+    .dl_card_header_provoke
+      border-bottom 1px solid col_gray
+      height 65px
+      .dl_team_logo
+        position absolute
+        display block
+        left 0
+        top 0
+        margin 10px
+        width 45px
+        height 45px
+        border-radius 5px
+      .dl_team_logo_right
+        right 0
+        left initial
+      .dl_team_vs
+        margin 7.5px auto
+        height 30px
+        width 135px
+        display block
+        background-color col_darkBlue
+        border-radius 100%
+        color #fff
+        font-size 32px
+        line-height 24px
+        text-align center
+    .dl_card_body
+      .dl_photo_alb
+        white-space nowrap
+        .dl_cp_photo
+          margin-right 5px
+          width 150px
+          height 150px
+      .dl_cp_name
+        margin 10px
+      .dl_provoke_info
+        color col_black
+        margin 10px
+        .dl_team_name
+          color col_borderPurple
+        .dl_cp_name
+          margin-left 0
+        .dl_cp_address
+          color col_darkGray
+        
+    .dl_card_footer
+      position relative
+      height 30px
+      line-height 30px
+      padding 0 0.833333rem
+      font-size 12px
+      color col_darkGray
+      width 100%
+      .dl_team_name
+        width 100%
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+        padding-right 90px
+      .dl_team_number
+        position absolute
+        top 0
+        right 50px
+      .dl_team_comment
+        position absolute
+        top 0
+        right 10px
+        margin-left 10px
+      .ion_member, .ion_comment
+        display block
+        float left
+        margin-top 9px
+        margin-right 5px
+        width 12px
+        height 12px
+      .dl_card_footer_count
+        display block
+        float left
+    .dl_card_footer_provoke
+      padding 0.833333rem
+      height 50px
+      border-top 1px solid col_gray
+    .dl_cp_confirm, .dl_cp_refuse, .dl_cp_cancel
+      width 135px
+      height 30px
+      border none
+      color white
+      background-color col_darkGray
+      font-size 14px
+      border-radius 5px
+    .dl_cp_confirm
+      background-color col_iconPurple
+    .dl_cp_refuse
+      float right
+    .dl_cp_cancel
+      display block
+      margin 0 auto
+.dl_card_detail
+  dl_card()
+  padding 0
+  border-radius 5px
+  .dl_card_header
+    background-color col_blue
+    color white
+    padding 10px
+    height 50px
+    .dl_team_logo
+      float left
+      border-radius 5px
+    .dl_team_name
+      color white
+      float left
+      margin 0 0 0 10px
+      line-height 30px
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      width 60%
+    .campaign_mold
+      float right
+      color col_blue
+      background-color white
+      border-radius 5px
+      padding 5px 10px
+      font-weight bolder
+    .dl_notice_count
+      float right
+  .dl_card_header_provoke
+    .dl_team_logo_right
+      float right
+    .dl_team_name
+      width 25%
+    .dl_team_vs
+      color white
+      float left
+      margin 0 0 0 10px
+      line-height 30px
+  .dl_card_header_small
+    height 25px
+    padding 5px 10px
+    font-size 12px
+    line-height 13px
+    font-weight bolder
+    border-top-left-radius 5px !important
+    border-top-right-radius 5px !important
+  .dl_card_body
+    padding 10px
+    .dl_cp_name
+      margin-bottom 10px
+    .dl_cp_address
+      display inline-block
+      background-color #efefef
+      padding 10px
+      margin-bottom 10px
+      color col_darkGray
+      text-decoration none
+      font-size 14px
+      .icon
+        margin-left 5px
+    .dl_cp_time
+      margin-bottom 10px
+    .dl_photo_alb
+      white-space nowrap
+      .dl_cp_photo
+        margin-right 5px
+    .dl_cp_join
+      min-height 40px
+      height 40px
+      border-radius 5px
+      border none
+      color white
+      background-color col_blue
+    .dl_cp_quit
+      min-height 40px
+      height 40px
+      border-radius 5px
+      color col_blue
+      border 1px solid col_blue
+      background-color white
+    .dl_cp_confirm, .dl_cp_refuse, .dl_cp_cancel
+      width 48%
+      height 40px
+      min-height 40px
+      border none
+      color white
+      background-color col_darkGray
+      font-size 14px
+      border-radius 5px
+    .dl_cp_confirm
+      background-color col_iconPurple
+    .dl_cp_refuse
+      float right
+    .dl_cp_cancel
+      display block
+      margin 0 auto
+  .dl_card_footer
+    height 40px
+    border-bottom-left-radius 5px !important
+    border-bottom-right-radius 5px !important
+    .tab-item
+      border-top 1px solid #ccc
+      border-right 1px solid #ccc
+      line-height 40px
+      &:last-child
+        border-right none
+      .icon
+        color col_blue
+        font-size 14px
+        &:before
+          font-size 18px
+          line-height 40px
+      .dl_icon
+        background-size 200px
+        vertical-align middle
+        width 24px
+        margin-top 10px
+      .ion_member
+        background-position 5px -148px
+  .dl_cp_time_status
+    color col_textPurple
+    margin-right 10px
+  .dl_cp_time_countdown
+    margin-top -6px
+    width 70px
+    height 30px
+    line-height 30px
+    border 1px solid col_borderPurple
+    border-radius 3px
+    color col_textPurple
+    font-size 16px
+    float right
+    .dl_cp_time_count, .dl_cp_time_unit
+      display block
+      float left
+      width 34px
+      height 28px
+      line-height 28px
+      text-align center
+    .dl_cp_time_count
+      border-right 1px solid col_borderPurple
+  .dl_notice
+    span
+      color col_darkGray
+    .dl_notice_sender
+      color col_blue
+    .dl_notice_content
+      margin-left 10px
+  .dl_card_member
+    background-color col_blue
+    padding 6px 46px 2px 10px
+    border-radius 5px !important
+    .dl_member
+      position relative
+      .dl_member_logo
+        border-radius 5px
+        margin-right 5px
+      .dl_member_leader
+        width 20px
+        height 20px
+        display inline-block
+        position absolute
+        right 5px
+        bottom 3px
+        background-color #fbc441
+        border-radius 100%
+        background-image url('../img/icon.png')
+        background-size 192px 240px
+        background-position -45px -140px
+    .dl_card_more
+      background-color col_blue
+      color white
+      border none
+      top 7px
+      right 0
+      .icon
+        margin-left 5px
+  .dl_card_time
+    height 50px
+    font-size 14px
+    border-radius 5px !important
+  .item:last-child
+    border-bottom-right-radius 5px
+    border-bottom-left-radius 5px
+.dl_photo_album_card
+  dl_card()
+  .card_header
+    height 20px
+  .header_title
+    float left
+    margin 0
+    font-size 12px
+    line-height 20px
+    color col_black
+  .photo
+    display block
+    float left
+    margin-top 5px
+    margin-right 5px
+    width 65px
+    height 65px
+
+
+.bar-footer
+  padding 0
+.button-bar > .button
+  padding 0
+//   color col_darkGray
+// .button
+//   &.button-clear
+//     color col_darkGray
+//   &.icon_blue
+//     color col_blue
+.dl_button
+  margin 0
+  color #fff
+  padding 0 10px
+  border-width 0
+  border-radius 2px
+  vertical-align top
+  text-align center
+  text-overflow ellipsis
+  font-size 12px
+  line-height 30px
+  cursor pointer
+  &:hover
+    color #fff
+
+//-input全局placeholder
+input::-webkit-input-placeholder
+  color col_blue
+input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+  color col_blue
+input:-ms-input-placeholder /* Internet Explorer 10+ */
+  color col_blue
+
+input:focus::-webkit-input-placeholder textarea /* WebKit browsers */
+  color transparent
+input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+  color transparent
+input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
+  color transparent
+
+//-通用bar
+.bar
+  border-bottom 1px solid #ccc
+  .title + .button.ion_discuss_active:last-child
+    right 15px
+    width 30px
+  .button
+    border 0
+    background-color transparent
+    color col_blue
+    font-size 16px
+    font-weight 600
+    line-height 34px
+  .button.activated
+    box-shadow inset 0px 1px 1px rgba(0, 0, 0, 0.15)
+  .icon-left, .icon-right
+    &.button:before
+      font-size 14px
+      padding-left 10px
+
+//- home页
+.home
+  background-color col_gray
+  .slider
+    height 100%
+    .page_1
+      height 100%
+      background url('../img/index_1.gif') center no-repeat
+      background-size 401px
+    .page_2
+      height 100%
+      background url('../img/index_2.gif') center no-repeat
+      background-size 320px
+  .slider-pager
+    bottom 90px
+    .active>.icon.ion-record
+      color col_blue
+  .home_buttons
+    position absolute
+    bottom 10px
+    text-align center
+    width 100%
+    z-index 2
+    .button
+      width 45%
+      min-height 40px
+      line-height 40px
+      font-size 16px
+      font-weight bold
+    .login_button
+      background-color col_blue
+      margin-right 3%
+    .register_button
+      background-color col_darkBlue
+//-登录页、忘记密码页、注册页
+.login
+  background-color #fff
+  input
+    color col_blue
+  .bar
+    .title
+      color col_blue
+  .list.list-inset
+    &:first-child
+      margin 20px 20px 10px
+  .list.list-inset
+    margin 15px 20px
+    .item
+      border 1px solid col_blue
+      border-radius 5px
+    //-buttons
+    .login_button
+      background-color col_blue
+      border-radius 5px
+      font-size 16px
+      font-weight 600
+      width 100%
+      min-height 40px
+      line-height 40px
+    .dkblue_button
+      background-color col_darkBlue
+    .dl_search_icon
+      color #3ca2e0
+      font-size 30px
+      margin -10px 10px
+  //-words
+  .links, .tip_msg
+    margin 0 20px
+    .medium_tip
+      font-size 14px
+    .large_tip
+      font-size 16px
+    .gray_msg
+      color col_darkGray
+    .black_msg
+      color #666
+      font-weight 600
+    .blue_msg
+      color col_blue
+    .dkblue_msg
+      color col_darkBlue
+    a
+      text-decoration none
+  .companies_list
+    color col_blue
+    padding 16px 18px
+    a>&:activated
+      background-color col_lightGray
+    .icon.ion-chevron-right
+      font-size 18px
+  //-special for input
+  .login_form
+    .item-input>input
+      height 37px
+  .signup_form
+    //- .item-input
+    //-   padding 5px 0 5px 16px
+    //-   input
+    //-     height 18px
+    .dl_list
+      display flex
+      margin 15px 20px
+      border 1px solid col_blue
+      border-radius 5px
+      padding 5px 0 5px 16px
+      height 47px
+      select
+        width 32%
+        float left
+        border 0
+        background-color transparent
+        margin-right 3px
+        color col_blue
+        height 34px
+
+      input.arecode
+        width 25%
+        float left
+      input.number
+        width 50%
+        float left
+      input.extension
+        width 25%
+        float left
+    .ng-dirty.ng-invalid
+      background-color #FCEBEB
+.pull-right
+  float right
+.app_tabs > .tabs
+  background-color #000
+  color white
+  .tab-item
+    position relative
+    .icon
+      width 32px
+      height 30px
+    .red_spot
+      background-color #f48361
+      position absolute
+      width 12px
+      height 12px
+      border-radius 100%
+      left 55%
+      top 5%
+  .tab-item-active
+    .tab-title
+      color col_blue
+.ion_campaign, .ion_campaign_active, .ion_discuss, .ion_discuss_active, .ion_discover, .ion_discover_active, .ion_personal, .ion_personal_active
+  background-image url('../img/nav_tab.png')
+  background-size 300px 110px
+.ion_campaign
+  background-position 6px -7px
+.ion_campaign_active
+  background-position 6px -50px
+.ion_discuss
+  background-position -75px -7px
+.ion_discuss_active
+  background-position -75px -50px
+.ion_discover
+  background-position -153px -7px
+.ion_discover_active
+  background-position -153px -50px
+.ion_personal
+  background-position -233px -7px
+.ion_personal_active
+  background-position -233px -50px
+
+.ion_member, .ion_comment, .ion_ballon, .ion_teams, .ion_team, .ion_foot, .ion_message, .ion_calendar, .ion_setting
+  background-image url('../img/icon.png')
+  background-size 160px 200px
+.ion_member
+  background-position 0px -80px
+.ion_comment
+  background-position -40px -80px
+.ion_ballon
+  background-position -110px -65px
+.ion_teams
+  background-position -70px -62px
+.ion_foot
+  background-position -110px -103px
+.ion_message
+  background-position 10px -342px
+.ion_calendar
+  background-position -70px -103px
+.ion_setting
+  background-position -30px -145px
+//- 讨论页
+.discuss_detail
+  background-image url('../img/discuss_bgd.jpg')
+  background-size 400px
+  background-position center
+  //-右icon
+  .icon-right
+    width 40px
+    margin-top 3px
+  //-公告
+  .notice
+    height 85px
+    position absolute
+    top 5rem
+    width 90%
+    margin 5%
+    .notice_cover
+      background-color #fff
+      opacity 0.8
+      height 85px
+      z-index 1
+      border-radius 3px
+      position absolute
+      width 100%
+      left 0
+      top 0
+    .content
+      z-index 2
+      padding 10px
+      .notice_title
+        color col_blue
+        float left
+        font-size 14px
+        font-weight 600
+      .notice_content
+        color #666
+        width 100%
+        float left
+        font-size 16px
+        margin-top 10px
+      .close_button
+        color col_blue
+        background-color transparent
+        font-size 20px
+        line-height 1
+        padding 0
+  //-发评论
+  .comment_box.taller
+    height 200px
+  .comment_box
+    color #333
+    background-color col_gray
+    display block
+    .icon.ion-image
+      font-size 24px
+      padding 8px 10px
+      float left
+    .comment_input
+      float left
+      width 65%
+      height 3rem
+      margin-top 3px
+      padding 5px
+      background-color #fff
+      box-shadow 0 0 3px #999 inset
+      border-radius 3px
+      //- border 1px solid col_darkGray
+      //- box-shadow 1px 1px 1px 0 col_lightGray inset
+      //- -moz-appearance textfield-multiline
+      //- -webkit-appearance textarea
+    .emotion_button
+      float left
+      margin 10px 5px
+    .publish_button
+      float left
+      padding 0
+      background-color transparent
+      color #333
+      text-align cesfdgnter
+      width 3rem
+      font-size 14px
+      line-height 21px
+      padding 10px 0
+      font-weight 600
+    .emotion_box
+      border-top 1px solid #ccc
+      padding 5px 0
+      width 100%
+      height 160px
+      float left
+      background-color #fff
+      .box
+        width 320px
+        padding 4px
+        margin auto
+      .emoji
+        margin 9px
+      .slider-pager
+        bottom 5px
+        .icon.ion-record
+          color col_blue
+
+  //-评论列表
+  .comments
+    .time_block
+      text-align center
+      width 100%
+      float left
+      opacity 0.8
+      padding 5px
+      .time
+        border-radius 3px
+        color #fff
+        background-color #333
+        padding 2px 15px
+    //- 发送失败样式
+    .failed
+      text-align center
+      color #fff
+      .tip
+        background-color col_darkGray
+        padding 2px 10px
+        border-radius 5px
+        display -webkit-inline-box
+    .comment
+      width 100%
+      clear both
+      margin-bottom 1rem
+      .logo
+        float left
+        width 5rem
+        padding-left 1rem
+        img
+          float left
+      .contents
+        float left
+        width 80%
+        .name
+          width 100%
+          text-align left
+          color #fff
+          font-weight 600
+          padding 0 0.5rem
+          line-height 1
+          margin-bottom 0.5rem
+        .ion-looping
+          float left
+          margin-top 0.8rem
+          color #fff
+          font-size 14px
+        .content
+          display inline-block
+          font-size 16px
+          color col_lightGray
+          max-width 80%
+          padding 2px 7px
+      .triangle_isosceles
+        position relative
+        padding 0.5rem
+        background #fff
+        border-radius 5px
+        background linear-gradient(top, #fff, #fbfbfb)
+        margin-left 0.8rem
+      .triangle_isosceles:after 
+        content ""
+        display block
+        position absolute
+        bottom -15px
+        left 50px
+        width 0
+        //- border-width 15px 15px 0
+        border-style solid
+        border-color #fff transparent
+        top 0.8rem
+        left -0.7rem
+        bottom auto
+        border-width 0.5rem 0.8rem 0.5rem 0
+        border-color transparent #fff
+      .triangle_img
+        background none
+        padding 0
+        .box
+          position relative
+          overflow hidden
+          width 170px
+          height 170px
+          border-radius 10px
+          background-color #fff
+          img
+            position absolute
+            top -10px
+            left -10px
+        .tr
+          position absolute
+          overflow hidden
+          top 10px
+          left -5px
+          width 14px
+          height 14px
+          -webkit-transform rotate(45deg)
+          -ms-transform rotate(45deg)
+          transform rotate(45deg)
+          background-color #fff
+          img
+            position absolute
+            top -4px
+            left -20px
+            -webkit-transform-origin  0px 0px
+            -ms-transform-origin: 0px 0px
+            transform-origin  0px 0px
+            -webkit-transform rotate(-45deg)
+            -ms-transform rotate(-45deg)
+            transform rotate(-45deg)
+      .triangle_img:after
+        display none
+    .putright
+      .logo
+        float right
+        padding-left 0
+        padding-right 1rem
+        img
+          float right
+      .contents
+        float right
+        .name
+          text-align right
+        .ion-looping
+          float right
+        .content
+          color #fff
+          float right
+      .triangle_isosceles 
+        margin-right 0.4rem
+        background col_blue
+      .triangle_isosceles:after 
+        
+        right -0.7rem
+        left auto
+        bottom auto
+        border-width 0.5rem 0rem 0.5rem 0.8rem
+        border-color transparent col_blue
+      .triangle_img
+        background none
+
+        .tr
+          top 10px
+          left 162px
+          -webkit-transform rotate(-45deg)
+          -ms-transform rotate(-45deg)
+          transform rotate(-45deg)
+          img
+            top -19px
+            left -33px
+            -webkit-transform-origin  106px -129px
+            -ms-transform-origin: 106px -129px
+            transform-origin  106px -129px
+            -webkit-transform rotate(45deg)
+            -ms-transform rotate(45deg)
+            transform rotate(45deg)
+        .box
+          img
+            left auto
+            border none
+            right -10px
+
+          
+//-讨论列表页
+.discuss_list
+  .list
+    .item
+      position relative
+      .red_spot
+        background-color #f48361
+        position absolute
+        width 1rem
+        height 1rem
+        border-radius 100%
+        left 4rem
+        top 1rem
+//-发现页
+.discover
+  .discover_image
+    width 100%
+    display block
+    background url('../img/discover.jpg') no-repeat
+    background-size 100%
+    height 15rem
+  .list
+    .item
+      &:first-child
+        border-top 0
+      .icon
+        width 3rem
+        font-size 14px
+        color col_blue
+      .icon.ion-android-contacts
+        font-size 22px
+        padding-left 4px
+      .item-note
+        color col_blue
+//-我的等页面通用">"
+.personal, .settings, .about, .settings_account, .contacts
+  .list
+    margin-top 10px
+    .ion-chevron-right
+      font-size 14px
+      color #ccc
+//-账号设置页
+.settings_account
+  a.item
+    color #444
+//-我的
+.personal
+  .list
+    padding-top 0
+    .item.item-avatar
+      h2
+        font-weight 400
+        margin-bottom 5px
+      padding-bottom 5px
+      p
+        margin-bottom 5px
+        color col_darkGray
+      .tags
+        white-space normal
+        .tag
+          padding 2px
+    .item.item-icon-left
+      .icon
+        width 3rem
+//-编辑个人信息页
+.edit_info
+  .item-thumbnail-right
+    h2
+      margin-top 10px
+    img:first-child
+      left 36%
+  .item-input
+    input
+      color col_blue
+    .introduce
+      color col_blue
+  .list>.item
+    padding 6px 20px 5px
+    //- .tags
+    //-   width 75%
+    //-   float right
+    //-   .tag
+    //-     float left
+    //-     display block
+    //-     margin-right 5px
+    //-     margin-bottom 0.5rem
+    //-     .content
+    //-       float left
+    //-       background-color col_blue
+    //-       height 30px
+    //-       padding 5px 6px
+    //-       color #fff
+    //-       font-size 14px
+    //-     .tag_delete
+    //-       float left
+    //-       background-color col_blue
+    //-       border-radius 0 4px 4px 0
+    //-       padding 0 0.5rem
+  .item-icon-right
+    input
+      z-index 2
+    .icon
+      color col_darkGray
+      z-index 1
+      font-size 24px
+//-别人的卡片
+.user_card
+  .tags
+    white-space normal
+    .tag
+      padding 2px
+//-设置
+.settings
+  .list
+    padding-top 0
+    border-bottom 1px solid #ccc
+    &:first-child
+      margin-bottom 10px
+      margin-top 10px
+    .item
+      color #333
+      padding-left 20px
+  .quit_button
+    border-top 0
+    color #f3835c
+    height 50px
+    border-bottom 1px solid #ccc
+//- 关于
+.about
+  .list
+    color #666
+    font-weight 600
+    border-bottom 1px solid #ccc
+    .item
+      padding-left 20px
+  .about_title
+    width 100%
+    height 70px
+    text-align center
+    font-size 16px
+    padding 30px
+    color #333
+//- 反馈
+.settings_feedback, .changePwd
+  .list>.list-inset
+    background-color transparent
+    margin 20px
+    .item
+      border-radius 5px
+      input::-webkit-input-placeholder /* WebKit browsers */
+        color col_lightGray
+      input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+        color col_lightGray
+      input:-ms-input-placeholder /* Internet Explorer 10+ */
+        color col_lightGray
+      textarea::-webkit-input-placeholder /* WebKit browsers */
+        color col_lightGray
+      textarea::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+        color col_lightGray
+      textarea:-ms-input-placeholder /* Internet Explorer 10+ */
+        color col_lightGray
+      textarea
+        height 100px
+      .ng-dirty.ng-invalid
+        background-color #FCEBEB
+    .submit_button
+      border 0
+      border-radius 5px
+      background-color col_blue
+      font-size 16px
+      font-weight 600
+// 日程
+.calendar
+  margin 6px 4px
+  color col_darkGray
+  height 100%
+  nav
+    background-color rgb(246, 246, 246)
+    border-top-left-radius 4px
+    border-top-right-radius 4px
+    .operator
+      background-color col_blue
+      color col_navGray
+      border none
+      margin 0
+      border-top-left-radius 4px
+      border-top-right-radius 4px
+    .week
+      position relative
+      background-color col_blue
+      background-image -webkit-linear-gradient(#57b4ec,col_blue)
+      .day
+        float left
+        width (100 / 7)%
+        height 20px
+        line-height 20px
+        color #fff
+        border-right solid 1px #2184bf
+    .date_list
+      position relative
+
+      .date_box
+        float left
+        width (100 / 7)%
+        height 60px
+        border-right 1px solid #ccc
+        border-bottom 1px solid #ccc
+        &.other_month
+          background-color #efefef
+          color #ccc
+        .date
+          margin-top 15%
+          margin-left auto
+          margin-right auto
+          font-weight bold
+        .campaign_count
+          margin-top 15%
+          display inline-block
+          color white
+          background-color col_blue
+          border-radius 100%
+          width 1.5rem
+          height 1.5rem
+          line-height 1.5rem
+        &.current_day
+          background-color col_blue
+          color white
+          border-top solid 1px #2184bf
+          .date
+            color white
+            border-radius 50px
+          .campaign_count
+            color col_blue
+            background-color white
+
+        
+
+        // .current_day.today
+        //   background-color themeColor
+
+    .date_bar
+      margin 5px auto
+
+  .full_box
+    height 100%
+
+  .calendar_box
+    position relative
+    height 100%
+  .calendar_year
+    height 100%
+
+    .year_section
+      float left
+      width (100 / 3)%
+      height 25%
+      text-align center
+
+  .calendar_month
+    height 100%
+    .today_container
+      position fixed
+      bottom 0
+      width 100%
+      background-color #efefef
+      height 50px
+      .today
+        height 30px
+        min-height 30px
+        line-height 30px
+        margin 10px
+        border-radius 6px
+    .month
+      width (100 / 7)%
+      height 40px
+      padding-top 15px
+      text-align center
+
+    .calendar_day
+      position relative
+      float left
+      width (100 / 7)%
+      height 60px
+      background-color col_navGray
+      border-bottom solid 1px #ccc
+      border-right solid 1px #ccc
+      .calendar_date
+        margin-top 15%
+        margin-left auto
+        margin-right auto
+        font-weight bold
+        font-size 16px
+      .calendar_campaign_count
+        margin-top 15%
+        display inline-block
+        color white
+        background-color col_blue
+        border-radius 100%
+        width 1.5rem
+        height 1.5rem
+        line-height 1.5rem
+      &.today
+        background-color col_blue
+        .calendar_date
+          color white
+          border-radius 50px
+        .calendar_campaign_count
+          color col_blue
+          background-color white
+
+        
+      .weekend
+        color gray
+
+    for day in (0..6)
+      .offset_{day}
+        margin-left (100 * day / 7)%
+
+  .calendar_day
+    height 100%
+    .no_campagin
+      background-color col_navGray
+    .calendar_campaign
+      margin 0
+      padding 0
+      border-bottom 1px
+      border-left none
+      border-right none
+      &:first-child
+        border-top none
+      .provoke
+        padding-left 116px
+        .second_team
+          position absolute
+          top 16px
+          left 66px
+          max-width 40px
+          max-height 40px
+          width 100%
+          border-radius 4px
+      .flag
+        position absolute
+        top 0
+        right 5px
+        &.now
+          color col_textPurple
+        &.join
+          color col_blue
+      .campaign_link
+        text-decoration none
+        .campaign_title
+          padding 0
+          .campaign_group_logo
+            margin 10px
+            width 36px
+            height 36px
+            vertical-align middle
+            border 1px solid white
+            border-radius 5px
+          .campaign_label
+            padding 10px 0
+            p
+              padding 0
+              margin 0
+            .campaign_theme
+              font-size 16px
+              color black
+            .new_campaign_time
+              font-size 14px
+            .joined_sign
+              position absolute
+              right 0
+              top 0
+              width 0
+              height 0
+              border-color transparent #43cee6 transparent transparent
+              border-style solid
+              border-width 0 20px 20px
+.dl_popover
+  background-color rgba(0,0,0,0.7)
+  border-radius 0 !important
+  .dl_popover_content
+    .dl_popover_button
+      color white
+      height 30px
+      line-height 30px
+      text-align center
+      font-size 16px
+      border-bottom 1px solid black
+  .popover-arrow
+    top -19px
+    &:after
+      background-color rgba(0,0,0,0.7) !important
+.calendar_filter_popover
+  width 80px
+  height 105px
+.user_more_popover
+  width 80px
+  height 46px
+  .dl_popover_button
+    .full_parent_link
+      text-decoration none
+      color white
+      display inline-block
+      width 100%
+// todo
+.dl_family_photo_selected
+  border 1px solid col_blue
+
+// todo
+.dl_message_unread
+  color darkred
+
+
+// 小队主页
+.team_page
+  .team_header
+    position relative
+    .team_family
+      width 100%
+    .logo
+      position absolute
+      left 20px
+      bottom 15px
+      border-radius 5px
+      width 65px
+      height 65px
+      border 3px solid white
+    .triangle_right_top, .triangle_left_bottom
+      display block
+      position absolute
+      top 0
+      right 0
+      width 0
+      height 0
+      border-width 10px
+      border-style solid
+      border-color transparent
+    .triangle_right_top
+      border-right-color col_blue
+      border-top-color col_blue
+    .triangle_left_bottom
+      border-left-color white
+      border-bottom-color white
+  .team_info
+    border-radius 5px
+    .info_header
+      position relative
+      padding 0 1rem
+      height 50px
+      color white
+      background-color col_blue
+    .team_name
+      float left
+      font-size 16px
+      line-height 50px
+    .team_type
+      float right
+      margin 10px 0
+      padding 0 1rem
+      font-size 12px
+      line-height 30px
+      color col_blue
+      background-color white
+      border-radius 5px
+    .info_body
+      padding 1rem
+    .start_time, .team_des
+      font-size 14px
+      color col_black
+    .team_des
+      margin-top 5px
+    .btn_join, .btn_joined
+      display block
+      width 100%
+      margin 0
+      margin-top 15px
+      padding 0 1rem
+      border 0
+      height 40px
+      text-align center
+      cursor pointer
+      text-overflow ellipsis
+      border-radius 5px
+    .btn_join
+      color white
+      background-color col_blue
+    .btn_joined
+      color col_blue
+      background-color white
+      border 1px solid col_blue
+    .info_footer
+      position relative
+      padding 0
+      height 40px
+      border-top 1px solid col_gray
+    .btn_member, .btn_cp
+      border-left 1px solid col_gray
+    .btn_upload_photo, .btn_member, .btn_cp
+      padding 0
+      color col_darkGray
+      text-align center
+      text-decoration none
+      cursor pointer
+      font-size 12px
+      line-height 40px
+
+  .team_home_court
+    border-radius 5px
+    .home_court_tabs
+      padding 0
+      height 35px
+    .tab
+      text-align center
+      padding 0
+      line-height 35px
+      font-size 16px
+      color white
+      background-color col_blue
+    .tab.active
+      color col_blue
+      background-color white
+    .map_wrap
+      display block
+    .map_img
+      display block
+      width 100%
+    .home_court_name
+      padding 0 1rem
+      margin 0
+      height 30px
+      font-size 16px
+      line-height 30px
+      color col_black
+    .no_homecourt
+      max-width 100%
+      display block
+
+  .member_card
+    position relative
+    background-color col_blue
+    height 60px
+    padding 0 1rem
+    border-radius 5px
+    .member_wrap
+      height 60px
+      line-height 60px
+      float left
+    .member
+      margin 10px 0
+      margin-right 5px
+      width 40px
+      height 40px
+      border-radius 5px
+    .member_link
+      position absolute
+      top 0
+      right 0
+      width 40px
+      height 60px
+      display block
+      border-radius 5px
+      background-color col_blue
+      color white
+      line-height 60px
+      font-size 12px
+      text-align center
+      text-decoration none
+
+  .dl_campaign_group
+    .dl_campaign_group_date
+      margin 1rem
+      height 20px
+      background-color col_darkGray
+      color white
+      border-radius 5px
+      text-align center
+.dl_timeline
+  &:before
+    content ''
+    position absolute
+    top 0
+    bottom 30px
+    width 3px
+    background #ccc
+    left 50%
+  .dl_timeline_card
+    z-index 10
+  .dl_timeline_date
+    display block
+    margin 1rem auto
+    width 100px
+    height 20px
+    background-color #ccc
+    color white
+    border-radius 5px
+    text-align center
+    position relative
+    z-index 10
+.nomore_text
+  margin 10px
+  font-size 14px
+  text-align center
+  background-color white
+  
+.member_page
+  .member_group
+    margin 0.833333rem
+  .member_group_name
+    display block
+    margin 0 0.833333rem
+    border 1px solid col_darkGray
+    color col_darkGray
+    background-color white
+    text-align center
+    border-radius 5px
+    font-size 12px
+  .member
+    margin 0.833333rem 0.833333rem 0
+    float left
+    text-decoration none
+  .member_photo
+    display block
+    width 55px
+    height 55px
+    border-radius 5px
+  .member_name
+    margin 3px auto 0
+    width 50px
+    text-align center
+    color col_black
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+
+.photo_album_detail_page
+  .hidden_figcaption
+    display none
+.dl_team_title
+  font-size 14px
+  margin-left 10px
+.dl_team_card
+  dl_card()
+  position relative
+  border-radius 5px
+  text-decoration none
+  .team_logo
+    display block
+    position absolute
+    top 10px
+    left 10px
+    width 60px
+    height 60px
+  .team_info
+    width 100%
+    padding-left 70px
+    color col_black
+    text-decoration none
+    .team_name
+      margin 0
+      margin-top 5px
+      font-size 14px
+    .team_cp_title, .team_count, .team_member, .team_cp_number
+      margin 0
+      font-size 12px
+    .team_cp_title
+      margin-top 5px
+    .team_cp_number
+      margin-left 10px
+    .team_name, .team_cp_title, .team_cp_number
+      max-width 100%
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+.all_team_list_page
+  .team_logo
+    width 85px
+    height 85px
+  .team_info
+    padding-left 95px
+  .btn_quit, .btn_join
+    margin-top 10px
+    padding 0
+    width 100%
+    height 30px
+    border-radius 5px
+    font-size 14px
+  .btn_quit
+    border 1px solid col_blue
+    color col_blue
+    background-color white
+  .btn_join
+    color white
+    background-color col_blue
+    border none
+
+
+
+
+//地图页面
+.map_page
+  dl_card()
+  .map
+    .map_img
+      width 100%
+
+.sponsor
+  background-color #fff
+  .list
+    .input-label
+      color col_blue
+    .item-label
+      margin 10px 20px
+      border none
+      padding 0
+    .item-input
+      margin 10px 20px
+      border 1px solid col_blue
+      border-radius 5px
+      input
+        color col_blue
+    .item-select
+      select
+        color col_blue
+      &:after
+        color col_blue
+    .item-button
+      margin 10px 20px
+      .button_sponsor
+        width 100%
+        background-color col_blue
+        color white
+        border-radius 5px
+
+.pswp
+  .dl_button_to_album
+    background-image none
+    color white
+    .icon
+      font-size 20px
+.map_container
+  height 400px
+.popup-container
+  .popup
+    width 100%

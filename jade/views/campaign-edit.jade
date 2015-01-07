@@ -1,0 +1,19 @@
+ion-view.sponsor
+  ion-header-bar
+    a.button.ion-left.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
+    h1.title 活动编辑
+  ion-content
+    form(name="editCampaignForm" novalidate)
+      .list
+        label.item.item-label
+          span.input-label 报名截止时间:
+        label.item.item-input
+          input#deadline(type="datetime-local" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间")
+        label.item.item-input
+          input.arecode(type="text" name="content" ng-model="campaignData.content" placeholder="活动简介")
+        label.item.item-input
+          input.arecode(type="number" name="member_max" ng-model="campaignData.member_max" min=0 placeholder="报名人数上限")
+        label.item.item-input
+          input.arecode(type="number" name="member_min" ng-model="campaignData.member_min" min=0 placeholder="报名人数下限")
+        .item-button
+          button.button.button-full.button_sponsor(ng-disabled="editCampaignForm.$invalid || isBusy" ng-click="editCampaign()") 修改

@@ -1,0 +1,31 @@
+ion-view.discuss_list(ng-controller="DiscussListController")
+
+  ion-header-bar
+    a.button.icon.ion-calendar(href="#/calendar")
+    h1.title 讨论列表
+    a.button.icon.ion-plus(href="#/campaign/sponsor")
+
+  ion-content
+    ion-refresher(on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中...")
+    ul.list
+      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index<unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme)" ng-cloak)
+        img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
+        .red_spot(ng-if="commentCampaign.unread")
+        h2 {{commentCampaign.theme}}
+        //- span {{commentCampaign.latestComment}}
+        p
+          span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
+          span {{commentCampaign.latestComment.content || '[图片]'}}
+      a.item.item-avatar(ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined")
+        img.unjoined(ng-src="/img/icons/unjoined_discuss.png")
+        .red_spot(ng-if="newUnjoined")
+        h2 未参加的活动讨论
+        p
+          span {{latestUnjoinedCampaign.theme}}
+      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index>=unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme)" ng-cloak)
+        img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
+        .red_spot(ng-if="commentCampaign.unread")
+        h2 {{commentCampaign.theme}}
+        p
+          span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
+          span {{commentCampaign.latestComment.content || '[图片]'}}

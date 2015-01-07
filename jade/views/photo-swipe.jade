@@ -1,0 +1,23 @@
+.pswp(tabindex="-1" role="dialog" aria-hidden="true")
+  .pswp__bg
+  .pswp__scroll-wrap
+    .pswp__container
+      .pswp__item
+      .pswp__item
+      .pswp__item
+    .pswp__ui.pswp__ui--hidden
+      .pswp__top-bar
+        .pswp__counter
+        button.pswp__button.pswp__button--close(title="关闭")
+        button.pswp__button.pswp__button--zoom(title="放大/缩小")
+        //- 需要相册入口的页面请提供相册id和跳转方法
+        button.pswp__button.dl_button_to_album(ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册")
+          i.icon.ion-image
+        .pswp__preloader
+          .pswp__preloader__icn
+            .pswp__preloader__cut
+              .pswp__preloader__donut
+      button.pswp__button.pswp__button--arrow--left(title="上一张")
+      button.pswp__button.pswp__button--arrow--right(title="下一张")
+      .pswp__caption
+        .pswp__caption__center

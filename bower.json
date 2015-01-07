@@ -1,8 +1,13 @@
 {
   "name": "donler-app",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "ionic": "1.0.0-beta.13"
+    "ionic": "1.0.0-beta.13",
+    "photoswipe": "~4.0.1",
+    "linkage-selector": "0.1.5",
+    "moment": "~2.8.4",
+    "ngCordova": "~0.1.9-alpha",
+    "angular-emoji-filter": "latest"
   }
 }

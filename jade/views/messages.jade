@@ -1,0 +1,8 @@
+ion-view
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/app/personal") &nbsp;我的
+    h1.title 我的站内信
+  ion-content
+    ul.list
+      li.item(ng-repeat="message in messages" ng-class="{'dl_message_unread': message.status=='unread'}")
+        | {{message.MessageContent.caption}}

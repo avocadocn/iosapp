@@ -314,6 +314,15 @@ angular.module('donlerApp.controllers', [])
     INFO.photoAlbumBackUrl = '#/campaign/detail/' + $state.params.id;
     INFO.memberBackUrl = '#/campaign/detail/' + $state.params.id;
     INFO.discussDetailBackUrl = '#/campaign/detail/' + $state.params.id;
+    if(INFO.campaignBackUrl.indexOf('#/team/')===0){
+      var beforeTeamBackUrl = INFO.teamBackUrl;
+    }
+    INFO.teamBackUrl = '#/campaign/detail/' + $state.params.id;
+    $scope.goBack = function() {
+      if(beforeTeamBackUrl){
+        INFO.teamBackUrl = beforeTeamBackUrl;
+      }
+    }
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         $scope.campaign = data;
@@ -385,13 +394,84 @@ angular.module('donlerApp.controllers', [])
       INFO.discussName = campaignTheme;
       $state.go('discuss_detail',{campaignId: campaignId});
     }
+    $scope.showPopup = function() {
+      $scope.data = {}
+
+      // An elaborate, custom popup
+      var myPopup = $ionicPopup.show({
+        template: '<input type="text" ng-model="data.message">',
+        title: '公告',
+        subTitle: '请输入公告内容',
+        scope: $scope,
+        buttons: [
+          { text: '取消' },
+          {
+            text: '<b>保存</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if (!$scope.data.message) {
+                //don't allow the user to close unless he enters wifi password
+                e.preventDefault();
+              } else {
+                return $scope.data.message;
+              }
+            }
+          }
+        ]
+      });
+      myPopup.then(function(res) {
+        if(res) {
+          var messageData = {
+            type:'private',
+            caption:$scope.campaign.theme,
+            content:res,
+            specific_type:{
+              value: 3,
+              child_type: $scope.campaign.campaign_unit.length>1 ? 1 : 0,
+            },
+            campaignId:$scope.campaign._id
+          }
+          Message.postMessage( messageData, function(err, data){
+            if(!err){
+              $ionicPopup.alert({
+                title: '提示',
+                template: '公告发布成功！'
+              });
+              Message.getCampaignMessages($state.params.id, function(err, data){
+                if(!err){
+                  $scope.notices = data;
+                }
+              });
+            }
+            else{
+              $ionicPopup.alert({
+                title: '错误',
+                template: err
+              });
+            }
+          });
+        }
+      });
+     };
   }])
-  .controller('SponsorController', ['$scope', '$state', '$ionicPopup', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, Campaign, Team, INFO) {
+  .controller('SponsorController', ['$scope', '$state', '$ionicPopup', '$ionicModal', '$timeout', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, $ionicModal, $timeout, Campaign, Team, INFO) {
     $scope.campaignData ={};
     $scope.leadTeams = [];
     $scope.selectTeam = {};
     $scope.backUrl = INFO.sponsorBackUrl;
     $scope.isBusy = false;
+    $scope.showMapFlag ==false;
+    $scope.campaignData.location = {};
+    var city,marker;
+    $ionicModal.fromTemplateUrl('my-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
     Team.getLeadTeam(null, function(err, leadTeams){
       if(!err &&leadTeams.length>0){
         $scope.leadTeams = leadTeams;
@@ -402,6 +482,122 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.campaigns');
       }
     });
+    var placeSearchCallBack = function(data){
+      $scope.locationmap.clearMap();
+      if(data.poiList.pois.length==0){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '没有符合条件的地点，请重新输入'
+        });
+        $scope.closeModal();
+        return;
+      }
+      var lngX = data.poiList.pois[0].location.getLng();
+      var latY = data.poiList.pois[0].location.getLat();
+      $scope.campaignData.location.coordinates=[lngX, latY];
+      var nowPoint = new AMap.LngLat(lngX,latY);
+      var markerOption = {
+        map: $scope.locationmap,
+        position: nowPoint,
+        raiseOnDrag:true
+      };
+      marker = new AMap.Marker(markerOption);
+      $scope.locationmap.setFitView();
+      AMap.event.addListener($scope.locationmap,'click',function(e){
+        var lngX = e.lnglat.getLng();
+        var latY = e.lnglat.getLat();
+        $scope.campaignData.location.coordinates=[lngX,latY];
+        $scope.locationmap.clearMap();
+        var nowPoint = new AMap.LngLat(lngX,latY);
+        var markerOption = {
+          map: $scope.locationmap,
+          position: nowPoint,
+          raiseOnDrag:true
+        };
+        marker = new AMap.Marker(markerOption);
+      });
+
+    };
+    $scope.initialize = function(){
+      $scope.locationmap =  new AMap.Map("mapDetail");            // 创建Map实例
+      $scope.locationmap.plugin(["AMap.ToolBar"],function(){    
+        toolBar = new AMap.ToolBar();
+        $scope.locationmap.addControl(toolBar);   
+      });
+      if(city){
+        $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+          $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+            pageSize:1,
+            pageIndex:1,
+            city:city
+          });
+          AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+        });
+      }
+      else {
+        $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+          $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+            pageSize:1,
+            pageIndex:1
+          });
+          AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+
+        });
+        // $scope.locationmap.plugin(["AMap.CitySearch"], function() {
+        //   //实例化城市查询类
+        //   var citysearch = new AMap.CitySearch();
+        //   AMap.event.addListener(citysearch, "complete", function(result){
+        //     if(result && result.city && result.bounds) {
+        //       var citybounds = result.bounds;
+        //       //地图显示当前城市
+        //       $scope.locationmap.setBounds(citybounds);
+        //       city = result.city;
+        //       $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+        //         $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+        //           pageSize:1,
+        //           pageIndex:1,
+        //           city: result.city
+        //         });
+        //         AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+        //         $timeout(function(){
+        //           $scope.MSearch.search($scope.campaignData.location.name);
+        //         });
+        //       });
+        //     }
+        //   });
+        //   AMap.event.addListener(citysearch, "error", function(result){alert(result.info);});
+        //   //自动获取用户IP，返回当前城市
+        //   citysearch.getLocalCity();
+
+        // });
+        $timeout(function(){
+          $scope.MSearch.search($scope.campaignData.location.name);
+        });
+      }
+      window.map_ready =true;
+    }
+    $scope.showPopup = function() {
+      if($scope.campaignData.location.name==''){
+        $ionicPopup.alert({
+          title: '提示',
+          template: '请输入地点'
+        });
+        return false;
+      }
+      else{
+        $scope.modal.show();
+        //加载地图
+        if(!window.map_ready){
+          window.campaign_map_initialize = $scope.initialize;
+          var script = document.createElement("script");
+          script.src = "http://webapi.amap.com/maps?v=1.3&key=077eff0a89079f77e2893d6735c2f044&callback=campaign_map_initialize";
+          document.body.appendChild(script);
+        }
+        else{
+          $scope.initialize();
+        }
+      }
+     };
     $scope.changeTeam = function(selectTeam) {
       $scope.selectTeam =selectTeam;
       Campaign.getMolds('team',selectTeam._id,function(err, molds){
@@ -414,7 +610,17 @@ angular.module('donlerApp.controllers', [])
     $scope.changeMold = function(selectMold) {
       $scope.selectMold = selectMold;
     }
+    var localizeDateStr = function(date_to_convert_str) {
+      var date_to_convert = new Date(date_to_convert_str);
+      var local_date = new Date();
+      date_to_convert.setMinutes(date_to_convert.getMinutes()+local_date.getTimezoneOffset());
+      return date_to_convert.toString();
+    }
     $scope.sponsor = function(){
+      console.log($scope.campaignData.start_time);
+      $scope.campaignData.start_time = localizeDateStr($scope.campaignData.start_time);
+      $scope.campaignData.end_time = localizeDateStr($scope.campaignData.end_time);
+      console.log($scope.campaignData.start_time);
       var errMsg;
       if($scope.campaignData.start_time<new Date() ) {
         errMsg ='开始时间不能早于现在';
@@ -552,6 +758,7 @@ angular.module('donlerApp.controllers', [])
     $scope.backUrl = INFO.discussDetailBackUrl;
     INFO.userInfoBackUrl = '#/discuss/detail/'+$scope.campaignId;
     Socket.emit('enterRoom', $scope.campaignId);
+    $scope.commentContent='';
 
     Campaign.get($scope.campaignId, function (err, data) {
       if (!err) {
@@ -567,16 +774,16 @@ angular.module('donlerApp.controllers', [])
         comment.photos.forEach(function (photo) {
           var width = photo.width || INFO.screenWidth;
           var height = photo.height || INFO.screenHeight;
-          if(!photo.upload_user) {
-            photo.upload_user = {name:''};
-          }
-          $scope.photos.push({
+          var item = {
             _id: photo._id,
             src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
             w: width,
-            h: height,
-            title: '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm')
-          });
+            h: height
+          };
+          if (photo.upload_user && photo.upload_date) {
+            item.title = '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm');
+          }
+          $scope.photos.push(item);
         });
       }
     };
@@ -882,7 +1089,72 @@ angular.module('donlerApp.controllers', [])
     //     })
     //   }
     // });
+    
+    $scope.isShowEmotions = false;
+    $scope.showEmotions = function() {
+      $scope.isShowEmotions = true;
+    };
+    $scope.hideEmotions = function() {
+      $scope.isShowEmotions = false;
+    };
 
+    $scope.emojiList=[];
+
+    var emoji = ["bowtie", "smile", "laughing", "blush", "smiley", "relaxed",
+      "smirk", "heart_eyes", "kissing_heart", "kissing_closed_eyes", "flushed",
+      "relieved", "satisfied", "grin", "wink", "stuck_out_tongue_winking_eye",
+      "stuck_out_tongue_closed_eyes", "grinning", "kissing",
+      "stuck_out_tongue", "sleeping", "worried",
+      "frowning", "anguished", "open_mouth", "grimacing", "confused", "hushed",
+      "expressionless", "unamused", "sweat_smile", "sweat",
+      "disappointed_relieved", "weary", "pensive", "disappointed", "confounded",
+      "fearful", "cold_sweat", "persevere", "cry", "sob", "joy", "astonished",
+      "scream", "neckbeard", "tired_face", "angry", "rage", "triumph", "sleepy",
+      "yum", "mask", "sunglasses", "dizzy_face", "smiling_imp",
+      "neutral_face", "no_mouth", "innocent", "alien", "heart", "broken_heart",
+      "heartbeat", "heartpulse", "two_hearts", "revolving_hearts", "cupid",
+      "sparkling_heart", "sparkles", "star", "star2", "dizzy", "boom",
+      "collision", "anger", "exclamation", "question", "grey_exclamation",
+      "grey_question", "zzz", "dash", "sweat_drops", "notes", "musical_note",
+      "fire", "hankey", "+1", "-1", 
+      "ok_hand", "punch", "fist", "v", "wave", "hand",
+      "open_hands", "point_up", "point_down", "point_left", "point_right",
+      "raised_hands", "pray", "point_up_2", "clap", "muscle", "metal", "fu",
+      "walking", "runner", "running", "couple", "family", "two_men_holding_hands",
+      "two_women_holding_hands", "dancer", "dancers", "ok_woman", "no_good",
+      "information_desk_person", "raising_hand", "bride_with_veil",
+      "person_with_pouting_face", "person_frowning", "bow", "couplekiss",
+      "couple_with_heart", "massage", "haircut", "nail_care", "boy", "girl",
+      "woman", "man", "baby", "older_woman", "older_man",
+      "person_with_blond_hair", "man_with_gua_pi_mao", "man_with_turban",
+      "construction_worker", "cop", "angel", "princess", "smiley_cat",
+      "smile_cat", "heart_eyes_cat", "kissing_cat", "smirk_cat", "scream_cat",
+      "crying_cat_face", "joy_cat", "pouting_cat", "japanese_ogre",
+      "japanese_goblin", "see_no_evil", "hear_no_evil", "speak_no_evil",
+      "guardsman", "skull", "feet", "lips", "kiss", "droplet", "ear", "eyes",
+      "nose", "tongue", "love_letter", "bust_in_silhouette",
+      "busts_in_silhouette", "speech_balloon", "thought_balloon", "feelsgood",
+      "finnadie", "goberserk", "godmode", "hurtrealbad", "rage1", "rage2",
+      "rage3", "rage4", "suspect", "trollface", "sunny", "umbrella", "cloud",
+      "snowflake", "snowman", "zap", "cyclone", "foggy", "ocean", "cat", "dog",
+      "mouse", "hamster", "rabbit", "wolf", "frog", "tiger", "koala", "bear",
+      "pig", "pig_nose", "cow", "boar", "monkey_face", "monkey", "horse",
+      "racehorse", "camel", "sheep", "elephant", "panda_face", "snake", "bird",
+      "baby_chick", "hatched_chick", "hatching_chick", "chicken", "penguin",
+      "turtle", "bug", "honeybee", "ant", "beetle", "snail", "octopus",
+      "tropical_fish", "fish", "whale", "whale2", "dolphin", "cow2", "ram", "rat",
+      "water_buffalo", "tiger2", "rabbit2", "dragon", "goat"
+    ];
+
+    for(var i =0; emoji.length>24 ;i++) {
+      $scope.emojiList.push(emoji.splice(24,24));
+    }
+    $scope.emojiList.unshift(emoji);
+
+    $scope.addEmotion = function(emotion) {
+      // console.log(emotion);
+      $scope.commentContent += ':'+ emotion +':';
+    };
   }])
   .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', 'Team', 'INFO', function ($scope, $ionicPopup, $state, Team, INFO) {
     INFO.teamBackUrl = '#/discover/teams';
@@ -1065,7 +1337,7 @@ angular.module('donlerApp.controllers', [])
             template: err
           });
         }
-      })
+      });
     }
 
     $scope.edit = function () {
@@ -1814,9 +2086,17 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('TeamController', ['$scope', '$stateParams', '$ionicPopup', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($scope, $stateParams, $ionicPopup, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
+  .controller('TeamController', ['$scope', '$state', '$stateParams', '$ionicPopup', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($scope, $state, $stateParams, $ionicPopup, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
     var teamId = $stateParams.teamId;
     $scope.backUrl = INFO.teamBackUrl;
+    if(INFO.teamBackUrl.indexOf('#/campaign/detail/')===0){
+      var beforeCampaignBackUrl = INFO.campaignBackUrl;
+    }
+    $scope.goBack = function() {
+      if(beforeCampaignBackUrl){
+        INFO.campaignBackUrl = beforeCampaignBackUrl;
+      }
+    }
     INFO.campaignBackUrl = '#/team/' + teamId;
     Team.getData(teamId, function (err, team) {
       if (err) {
@@ -2005,13 +2285,39 @@ angular.module('donlerApp.controllers', [])
       }
     };
     $scope.linkMap = function (homeCourt) {
-      var link = 'http://mo.amap.com/?q=' + homeCourt.loc.coordinates[1] + ',' + homeCourt.loc.coordinates[0] + '&name=' + homeCourt.name;
+      var link = 'http://m.amap.com/navi/?dest=' + homeCourt.loc.coordinates[0] + ',' + homeCourt.loc.coordinates[1] + '&destName=' + homeCourt.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
       window.open( link, '_system' , 'location=yes');
       return false;
     }
     $scope.$on('$stateChangeSuccess', function() {
       $scope.loadMore();
     });
+
+  }])
+  .controller('TeamEditController', ['$scope', '$state', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', function ($scope, $state, $ionicPopup, $stateParams, Team, CONFIG) {
+    $scope.STATIC_URL = CONFIG.STATIC_URL;
+    $scope.team = Team.getCurrentTeam();
+    $scope.unchanged = true;
+    $scope.change = function() {
+      $scope.unchanged = false;
+    };
+    $scope.formData = {
+      name: $scope.team.name,
+      brief: $scope.team.brief || ''
+    };
+
+    $scope.edit = function () {
+      Team.edit($scope.team._id, $scope.formData, function (err) {
+        if (err) {
+          $ionicPopup.alert({
+            title: '编辑失败',
+            template: err
+          });
+        } else {
+          $state.go('team', { teamId: $scope.team._id });
+        }
+      });
+    };
 
   }])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'Team', 'INFO',
@@ -2093,12 +2399,18 @@ angular.module('donlerApp.controllers', [])
       $scope.screenHeight = INFO.screenHeight;
 
       $scope.photoAlbumBackUrl = INFO.photoAlbumBackUrl;
+
+      var isCampaignPhotoAlbum = false;
+
       PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
         if (err) {
           // todo
           console.log(err);
         } else {
           $scope.photoAlbum = photoAlbum;
+          if (photoAlbum.owner && photoAlbum.owner.model.type === 'Campaign') {
+            isCampaignPhotoAlbum = true;
+          }
         }
       });
 
@@ -2381,6 +2693,14 @@ angular.module('donlerApp.controllers', [])
           mimeType: 'image/jpeg'
         };
 
+        if (isCampaignPhotoAlbum) {
+          serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.photoAlbum.owner.model._id;
+          var randomId = Math.floor(Math.random()*100);
+          options.params = {
+            randomId: randomId
+          };
+        }
+
         $cordovaFile
           .uploadFile(serverAddr, imageURI, options)
           .then(function(result) {
@@ -2434,26 +2754,118 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('FamilyPhotoController', ['$scope', '$stateParams', 'INFO', 'Team', function ($scope, $stateParams, INFO, Team) {
+  .controller('FamilyPhotoController', ['$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', function ($scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
     $scope.screenWidth = INFO.screenWidth;
     $scope.screenHeight = INFO.screenHeight;
     $scope.team = Team.getCurrentTeam();
-    Team.getFamilyPhotos($scope.team._id, function (err, photos) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.familyPhotos = photos;
-      }
-    });
+
+    var getFamilyPhotos = function () {
+      Team.getFamilyPhotos($scope.team._id, function (err, photos) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.familyPhotos = photos;
+        }
+      });
+    };
+    getFamilyPhotos();
 
     $scope.toggleSelect = function (familyPhoto) {
+      if (!$scope.team.isLeader) {
+        return;
+      }
       Team.toggleSelectFamilyPhoto($scope.team._id, familyPhoto._id, function (err) {
         if (err) {
           // todo
           console.log(err);
         } else {
           familyPhoto.select = !familyPhoto.select;
+        }
+      });
+    };
+
+
+    // 上传全家福
+    var uploadSheet;
+    $scope.showUploadActionSheet = function () {
+      uploadSheet = $ionicActionSheet.show({
+        buttons: [{
+          text: '拍照上传'
+        }, {
+          text: '本地上传'
+        }],
+        titleText: '请选择上传方式',
+        cancelText: '取消',
+        buttonClicked: function (index) {
+          if (index === 0) {
+            getPhotoFrom('camera');
+          } else if (index === 1) {
+            getPhotoFrom('file');
+          }
+          return true;
+        }
+      });
+    };
+
+    var upload = function (imageURI) {
+      var serverAddr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
+      var headers = CommonHeaders.get();
+      headers['x-access-token'] = localStorage.accessToken;
+      var options = {
+        fileKey: 'photo',
+        httpMethod: 'POST',
+        headers: headers,
+        mimeType: 'image/jpeg'
+      };
+
+      $cordovaFile
+        .uploadFile(serverAddr, imageURI, options)
+        .then(function(result) {
+          var successAlert = $ionicPopup.alert({
+            title: '提示',
+            template: '上传照片成功'
+          });
+          successAlert.then(function () {
+            getFamilyPhotos();
+          });
+        }, function(err) {
+          $ionicPopup.alert({
+            title: '提示',
+            template: '上传失败，请重试'
+          });
+        }, function (progress) {
+          // constant progress updates
+        });
+    };
+
+    var getPhotoFrom = function (source) {
+
+      var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+      var save = false;
+      if (source === 'camera') {
+        sourceType = Camera.PictureSourceType.CAMERA;
+        save = true;
+      }
+
+      var options = {
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        sourceType: sourceType,
+        encodingType: Camera.EncodingType.JPEG,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: save,
+        correctOrientation: true
+      };
+
+      $cordovaCamera.getPicture(options).then(function(imageURI) {
+        upload(imageURI);
+      }, function(err) {
+        if (err !== 'no image selected') {
+          $ionicPopup.alert({
+            title: '获取照片失败',
+            template: err
+          });
         }
       });
     };
@@ -2486,7 +2898,7 @@ angular.module('donlerApp.controllers', [])
     $scope.location = INFO.locationContent;
     $scope.backUrl='#/campaign/detail/'+$stateParams.id;
     $scope.linkMap = function (location) {
-      var link = 'http://mo.amap.com/?q=' + location.coordinates[1] + ',' + location.coordinates[0] + '&name=' + location.name;
+      var link = 'http://m.amap.com/navi/?dest=' + location.coordinates[0] + ',' + location.coordinates[1] + '&destName=' + location.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
       window.open( link, '_system' , 'location=yes');
       return false;
     }
@@ -2683,11 +3095,17 @@ angular.module('donlerApp.controllers', [])
     $scope.isBusy = false;
     $scope.campaignData ={};
     var deadLineInput = document.getElementById('deadline');
+    var localizeDateStr = function(date_to_convert_str) {
+      var date_to_convert = new Date(date_to_convert_str);
+      var local_date = new Date();
+      date_to_convert.setMinutes(date_to_convert.getMinutes()+local_date.getTimezoneOffset());
+      return date_to_convert.toString();
+    }
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         if(data.deadline){
-          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DDThh:mm')
-          $scope.campaignData.end_time = moment(data.end_time).format('YYYY-MM-DDThh:mm')
+          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DDThh:mm');
+          $scope.campaignData.end_time = new Date(data.end_time);
         }
         if(data.content){
           $scope.campaignData.content = data.content;
@@ -2705,19 +3123,21 @@ angular.module('donlerApp.controllers', [])
 
       }
       else {
-        if($scope.campaignData.member_min>$scope.campaignData.member_max) {
+        $scope.campaignData.deadline = localizeDateStr($scope.campaignData.deadline);
+        console.log($scope.campaignData.deadline ,$scope.campaignData.end_time,$scope.campaignData.deadline > $scope.campaignData.end_time)
+        if($scope.campaignData.member_min > $scope.campaignData.member_max) {
           $ionicPopup.alert({
             title: '错误',
             template: '人数下限不能大于上限，请重新填写'
           });
         }
-        else if($scope.campaignData.deadline >$scope.campaignData.end_time ) {
+        else if($scope.campaignData.deadline > $scope.campaignData.end_time ) {
           $ionicPopup.alert({
             title: '错误',
             template: '报名截止时间不能晚于结束时间'+$scope.campaignData.end_time
           });
         }
-        else if($scope.campaignData.deadline < moment(new Date()).format('YYYY-MM-DDThh:mm')) {
+        else if($scope.campaignData.deadline < new Date()) {
           $ionicPopup.alert({
             title: '错误',
             template: '报名截止时间不能比现在更早'
@@ -2748,7 +3168,6 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
-
 
 
 

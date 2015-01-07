@@ -1,0 +1,29 @@
+ion-view.login
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    h1.title 注册
+    a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
+  ion-content
+    form(name="search_form")
+      .list.list-inset
+        label.item.item-input
+          input(type="email" placeholder="输入您的公司邮箱" ng-model="companyEmail.value" required)
+          i.icon.ion-search.placeholder-icon.dl_search_icon
+      .tip_msg(ng-if="!searched&&!active")
+        p.gray_msg 请在上方输入您的企业邮箱，进行搜索。
+      .tip_msg(ng-show="active||mail_msg")
+        //- span.gray_msg(ng-show="active===1") 该邮箱可以注册。
+        span.gray_msg(ng-show="active===2") 该邮箱已注册过但尚未激活，请到邮箱查收邮件。
+        span.blue_msg.medium_tip(ng-show="active===3") 该邮箱已注册，请点击右上角直接登录。
+        span.gray_msg(ng-show="mail_msg") {{mail_msg}}
+      .list.list-inset
+        button.button.dl_button.login_button(ng-disabled="search_form.$invalid" ng-click="searchCompany()") 查找您的企业
+    .list(ng-if="searched && companies.length")
+      a.item.item-icon-right.companies_list(ng-repeat="company in companies" ng-click="goDetail(company)")
+        | {{company.name}}
+        i.icon.ion-chevron-right
+    .tip_msg(ng-if="searched")
+      p.medium_tip.gray_msg 没有您的公司？
+      p.medium_tip.blue_msg 将动梨推荐给您的HR 或者进行企业注册&nbsp;↓
+    .list.list-inset
+      a.button.dl_button.login_button.dkblue_button(href="#/register/company") 企&nbsp;业&nbsp;注&nbsp;册

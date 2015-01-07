@@ -1,0 +1,11 @@
+ion-view.settings_feedback
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/settings") &nbsp;设置
+    h1.title 我要吐槽
+  ion-content
+    .list
+      .list-inset
+        label.item.item-input
+          textarea(placeholder="您的意见" ng-model="opinion.content")
+      .list-inset
+        button.button.button-block.dl_button.submit_button(ng-disabled="!opinion.content" ng-click="feedback()") 提&nbsp;交

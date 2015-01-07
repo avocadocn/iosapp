@@ -1,0 +1,36 @@
+ion-view.sponsor
+  ion-header-bar
+    a.button.ion-left.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
+    h1.title 发活动
+  ion-content
+    form(name="sponsorForm" novalidate)
+      .list
+        label.item.item-input.item-select
+          span.input-label 发活动的小队
+          select(ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams")
+        label.item.item-input
+          input(type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限制14个字" ng-maxlength=14 required)
+        label.item.item-input.item-select
+          span.input-label 活动类型
+          select(ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds")
+        label.item.item-label
+          span.input-label 活动开始时间:
+        label.item.item-input
+          input(type="datetime-local" name="start_time" ng-model="campaignData.start_time" placeholder="活动开始时间" required)
+        label.item.item-label
+          span.input-label 活动结束时间:
+        label.item.item-input
+          input(type="datetime-local" name="end_time" ng-model="campaignData.end_time" required)
+        label.item.item-input
+          input.arecode(type="text" name="location" ng-model="campaignData.location.name" placeholder="活动地点" required)
+        .item-button
+          button.button.button-full.button_sponsor(ng-disabled="!campaignData.location.name" ng-click="showPopup()") 显示地图
+        .item-button
+          button.button.button-full.button_sponsor(ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()") 发布
+  script(id="my-modal.html" type="text/ng-template")
+    ion-modal-view
+      ion-header-bar
+        h1.title 地址选择
+      ion-content
+        #mapDetail.map_container
+        button.button.button-full.button-positive(ng-click="closeModal()") 确定

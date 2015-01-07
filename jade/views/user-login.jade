@@ -1,0 +1,19 @@
+ion-view.login
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    a.button.icon-right.ion-chevron-right(href="#/register/user/search_company") 注册&nbsp;
+  ion-content(scroll="false")
+    form.login_form(name="login_form")
+      .list.list-inset
+        label.item.item-input
+          input(type="email" name="email" ng-model="loginData.email" placeholder="公司邮箱" required)
+      .list.list-inset
+        label.item.item-input
+          input(type="password" name="password" ng-model="loginData.password" placeholder="密码" required)
+      .tip_msg(ng-show="msg")
+        span.small_tip.gray_msg {{msg}}
+      .list.list-inset
+        button.button.dl_button.login_button(type="button" ng-disabled="login_form.$invalid" ng-click="login()") 个&nbsp;人&nbsp;登&nbsp;录
+      .links
+        a.medium_tip.black_msg(href="#/user/forget") 忘记密码?
+        a.medium_tip.black_msg.pull-right(href="#/company/login") 企业账号登录

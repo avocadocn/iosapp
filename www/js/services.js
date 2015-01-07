@@ -36,9 +36,9 @@ angular.module('donlerApp.services', [])
     $httpProvider.responseInterceptors.push(interceptor);
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://www.55yali.com:3002',
-    STATIC_URL: 'http://www.55yali.com:3000',
-    SOCKET_URL: 'http://www.55yali.com:3005',
+    BASE_URL: 'http://localhost:3002',
+    STATIC_URL: 'http://localhost:3000',
+    SOCKET_URL: 'http://localhost:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
   })
@@ -638,6 +638,20 @@ angular.module('donlerApp.services', [])
           });
       },
 
+      edit: function (tid, data, callback) {
+        $http.put(CONFIG.BASE_URL + '/teams/' + tid, data)
+          .success(function (data, status, headers, config) {
+            callback();
+          })
+          .error(function (data, status, headers, config) {
+            if (data.msg) {
+              callback(data.msg);
+            } else {
+              callback('error');
+            }
+          });
+      },
+
       /**
        * 获取小队成员列表
        * @param {String} teamId 小队id
@@ -854,6 +868,16 @@ angular.module('donlerApp.services', [])
           .error(function (data, status, headers, config) {
             // todo
             callback('error');
+          });
+      },
+      postMessage: function (data, callback) {
+        $http.post(CONFIG.BASE_URL + '/messages', data)
+          .success(function (data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            // todo
+            callback(data.msg || 'error');
           });
       }
 

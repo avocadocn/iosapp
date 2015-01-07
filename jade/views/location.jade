@@ -1,0 +1,8 @@
+ion-view(title="活动地点")
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
+  ion-content.map_page(scroll="false")
+    p.map_name 活动地点: {{location.name}}
+    .map
+      a.map_wrap(ng-if="location.coordinates.length==2"  href="#" ng-click="linkMap(location)")
+        img.map_img(ng-if="location.coordinates.length==2" ng-src="http://restapi.amap.com/v3/staticmap?location={{location.coordinates[0]}},{{location.coordinates[1]}}&zoom=15&size=300*260&markers=mid,,A:{{location.coordinates[0]}},{{location.coordinates[1]}}&labels={{location.name}},2,0,12,0xffffff,0x3498db:{{location.coordinates[0]}},{{location.coordinates[1]}}&key=077eff0a89079f77e2893d6735c2f044")

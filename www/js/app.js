@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives'])
+angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'emoji'])
 
   .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG) {
     $ionicPlatform.ready(function () {
@@ -309,6 +309,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/team/:teamId',
         controller: 'TeamController',
         templateUrl: './views/team-detail.html'
+      })
+      .state('team_edit', {
+        url: '/team/:teamId/edit',
+        controller: 'TeamEditController',
+        templateUrl: './views/team-edit.html'
       })
       .state('team_family', {
         url: '/team/:teamId/family',

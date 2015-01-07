@@ -1,0 +1,13 @@
+ion-view.report_form
+  ion-header-bar
+    a.button.ion-left.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
+    h1.title 举报
+  ion-content
+    form(name="reportForm" novalidate)
+      .list
+        label.item.item-radio(ng-repeat="reportType in reportTypes")
+          input(type="radio" name="group" ng-model="reportData.reportType" value="{{reportType.value}}")
+          .item-content {{reportType.view}}
+          i.radio-icon.ion-checkmark-circled
+        .item-button
+          button.button.button-full.button_report(ng-disabled="reportForm.$invalid || isBusy" ng-click="pushReport()") 举报

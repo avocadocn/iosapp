@@ -1,0 +1,37 @@
+ion-view.edit_info
+
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/app/personal") &nbsp;我的
+    h1.title 编辑个人信息
+
+  ion-content
+    form.list(name="editForm")
+      .item.item-thumbnail-right(ng-click="showUploadActionSheet()")
+        img(ng-src="{{STATIC_URL + user.photo}}/160/160")
+        h2 头像
+      .item.item-input
+        span.input-label 昵称
+        input(type="text" name="nickname" ng-change="change()" maxlength="20" ng-model="formData.nickname" required)
+      .item.item-input
+        span.input-label 真实姓名
+        input(type="text" name="realname" ng-change="change()" maxlength="20" ng-model="formData.realname")
+      .item.item-input
+        span.input-label 手机
+        input(type="text" name="phone" ng-change="change()" ng-model="formData.phone")
+      .item.item-input
+        span.input-label 生日
+        input#birthday(type="date" name="birthday" ng-change="change()" ng-model="formData.birthday")
+      .item.item-input
+        span.input-label 简介
+        textarea.introduce(placeholder="简介" name="introduce" ng-change="change()" maxlength="40" ng-model="formData.introduce")
+      //- .item.item-input
+      //-   span.input-label 标签
+      //-   input(type="text" name="tag" ng-model="formData.tag" placeholder="增加新标签,最多20字" ng-maxlength="20" ng-change="change()")
+      //- .item(ng-if="user.tags")
+      //-   .tags
+      //-     .tag(ng-repeat="tag in user.tags track by $index") 
+      //-       .content
+      //-         span {{tag}}
+      //-       button.dl_button.tag_delete(ng-click="tagDelete(tag,$index)") x
+      .padding
+        button.button.button-block.button-positive(ng-disabled="unchanged || editForm.$invalid" ng-click="edit()") 确定

@@ -1,13 +1,13 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="{{backUrl}}" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">{{team.name}}</h1>
+  <ion-header-bar><a ng-href="{{backUrl}}" ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">{{team.name}}</h1><a ng-if="team.isLeader" ng-href="#/team/{{team._id}}/edit" ng-cloak="ng-cloak" class="button">编辑</a>
   </ion-header-bar>
   <ion-content class="team_page">
     <div class="team_header">
       <ion-slide-box ng-cloak="ng-cloak">
         <ion-slide ng-repeat="photo in team.familyPhotos"><img ng-src="{{STATIC_URL + photo.uri}}/640/380" class="team_family"/></ion-slide>
-      </ion-slide-box><img ng-if="team.familyPhotos.length === 0" src="./img/family.png" class="team_family"/><img ng-if="team" ng-src="{{STATIC_URL + team.logo}}/130/130" class="logo"/>
+      </ion-slide-box><img ng-if="team.familyPhotos.length === 0" src="./img/family.png" class="team_family"/><img ng-if="team" ng-src="{{STATIC_URL + team.logo}}/130/130" class="logo"/><a ng-if="team.isLeader" ng-href="#/team/{{team._id}}/family" class="triangle_right_top"></a><a ng-if="team.isLeader" ng-href="#/team/{{team._id}}/family" class="triangle_left_bottom"></a>
     </div>
     <div class="card team_info">
       <div class="info_header clearfix">

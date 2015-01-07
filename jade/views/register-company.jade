@@ -1,0 +1,42 @@
+ion-view.login
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    h1.title 企业注册
+    a.button.icon-right.ion-chevron-right(href="#/company/login") 登录&nbsp;
+  ion-content
+    form.signup_form(ng-controller="companySignupController" name="company_signup_form" novalidate)
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required)
+      .tip_msg(ng-if="name_check&&name_repeat")
+        span.gray_msg 此公司名已被注册，请直接以个人身份注册。
+      //- .list.list-inset
+        label.dl_item_input#selector(data-select="province city district")
+      div.dl_list#selector(data-select="province city district")
+        select(type="text" name="province" required)
+        select(type="text" name="city" required)
+        select(type="text" name="district" required)
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="address" ng-model="address" placeholder="详细地址" required)
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="contacts" ng-model="contacts" placeholder="联系人姓名" required)
+      .dl_list
+        input.arecode(type="number" name="areacode" ng-model="areacode" placeholder="区号" ng-minlength=3 ng-maxlength=4 required)
+        input.number(type="number" name="tel" ng-model="tel" placeholder="电话" required)
+        input.extension(type="number" name="extension" ng-model="extension" placeholder="分机")
+      .list.list-inset
+        label.item.item-input
+          input(type="email" name="email" ng-model="email" placeholder="电子邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required)
+        p(ng-if="mail_check") {{mail_msg}}
+      .list.list-inset
+        label.item.item-input
+          input(type="text" name="phone" ng-model="phone" placeholder="手机号码" ng-minlength=11 ng-maxlength=11 required)
+      .tip_msg
+        span.gray_msg 点击注册即代表同意
+        a.blue_msg(href="#/register/company/law") 《法律声明》及《隐私政策》
+      .list.list-inset
+        button.button.dl_button.login_button(ng-disabled="!mail_check || mail_error || name_check&&name_error ||company_signup_form.$invalid" ng-click="signup()") 企业注册
+      .list.list-inset
+        a.button.dl_button.login_button.dkblue_button(href="#/register/user/search_company") 个人注册
