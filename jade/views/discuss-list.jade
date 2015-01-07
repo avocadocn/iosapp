@@ -17,7 +17,7 @@ ion-view.discuss_list(ng-controller="DiscussListController")
           span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
           span {{commentCampaign.latestComment.content || '[图片]'}}
       a.item.item-avatar(ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined")
-        img.unjoined(ng-src="/img/icons/unjoined_discuss.png")
+        img.unjoined(src="img/icons/unjoined_discuss.png")
         .red_spot(ng-if="newUnjoined")
         h2 未参加的活动讨论
         p
