@@ -1,19 +1,22 @@
 ion-view.edit_info
 
   ion-header-bar
-    a.button.icon.ion-chevron-left(ng-href="#/team/{{team._id}}") &nbsp;返回
+    a.button.icon.ion-chevron-left(ng-if="!editing" ng-href="#/team/{{team._id}}" ng-cloak) &nbsp;返回
+    button.button(ng-if="editing" ng-click="cancelEditing()" ng-cloak) 取消
     h1.title 编辑小队信息
+    button.button(ng-if="editing" ng-click="edit()" ng-disabled="!changed || editForm.$invalid" ng-cloak) 确定
 
   ion-content
     form.list(name="editForm")
       .item.item-thumbnail-right(ng-click="showUploadActionSheet()")
         img(ng-src="{{STATIC_URL + team.logo}}/160/160")
-        h2 头像
+        h2 小队logo
       .item.item-input
         span.input-label 小队名称
-        input(type="text" name="nickname" ng-change="change()" maxlength="20" ng-model="formData.name" required)
+        input(type="text" name="nickname" ng-change="change()" maxlength="20" ng-model="formData.name" ng-focus="toEditing()" ng-blur="cancelEditing()" required)
       .item.item-input
         span.input-label 简介
-        textarea.introduce(name="brief" ng-change="change()" maxlength="140" ng-model="formData.brief")
-      .padding
-        button.button.button-block.button-positive(ng-disabled="unchanged || editForm.$invalid" ng-click="edit()") 确定
+        textarea.introduce(name="brief" ng-change="change()" maxlength="140" ng-model="formData.brief" ng-focus="toEditing()" ng-blur="cancelEditing()")
+      a.item.item-input.item-icon-right(ng-href="#/team/{{team._id}}/family")
+        span.input-label 修改全家福
+        i.icon.ion-chevron-right

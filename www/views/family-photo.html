@@ -1,6 +1,6 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="#/photo_album/list/team/{{team._id}}" class="button icon ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><a ng-href="{{backUrl}}" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">{{team.name}}的全家福相册</h1>
     <div ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak="ng-cloak" class="button icon ion-plus"></div>
   </ion-header-bar>

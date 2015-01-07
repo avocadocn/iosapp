@@ -2294,12 +2294,36 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('TeamEditController', ['$scope', '$state', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', function ($scope, $state, $ionicPopup, $stateParams, Team, CONFIG, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders) {
+  .controller('TeamEditController', ['$scope', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', 'INFO', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', function ($scope, $ionicPopup, $stateParams, Team, CONFIG, INFO, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders) {
     $scope.STATIC_URL = CONFIG.STATIC_URL;
     $scope.team = Team.getCurrentTeam();
-    $scope.unchanged = true;
+    INFO.familyPhotoBackurl = '#/team/' + $scope.team._id + '/edit';
+
+    $scope.editing = false;
+
+    $scope.toEditing = function () {
+      if ($scope.editing === false) {
+        $scope.formData = {
+          name: $scope.team.name,
+          brief: $scope.team.brief || ''
+        };
+        $scope.editing = true;
+      }
+    };
+
+    $scope.cancelEditing = function () {
+      if ($scope.editing === true) {
+        $scope.formData = {
+          name: $scope.team.name,
+          brief: $scope.team.brief || ''
+        };
+        $scope.editing = false;
+      }
+    };
+
+    $scope.changed = false;
     $scope.change = function() {
-      $scope.unchanged = false;
+      $scope.changed = true;
     };
     $scope.formData = {
       name: $scope.team.name,
@@ -2307,6 +2331,10 @@ angular.module('donlerApp.controllers', [])
     };
 
     $scope.edit = function () {
+      if (!$scope.changed) {
+        $scope.editing = false;
+        return;
+      }
       Team.edit($scope.team._id, $scope.formData, function (err) {
         if (err) {
           $ionicPopup.alert({
@@ -2314,7 +2342,7 @@ angular.module('donlerApp.controllers', [])
             template: err
           });
         } else {
-          $state.go('team', { teamId: $scope.team._id });
+          $scope.editing = false;
         }
       });
     };
@@ -2410,6 +2438,7 @@ angular.module('donlerApp.controllers', [])
     function ($scope, $stateParams, PhotoAlbum, Team, INFO) {
       $scope.teamId = $stateParams.teamId;
       INFO.photoAlbumBackUrl = '#/photo_album/list/team/' + $stateParams.teamId;
+      INFO.familyPhotoBackurl = '#/photo_album/list/team/' + $stateParams.teamId;
       Team.getFamilyPhotos($scope.teamId, function (err, photos) {
         if (err) {
           // todo
@@ -2844,7 +2873,7 @@ angular.module('donlerApp.controllers', [])
     $scope.screenWidth = INFO.screenWidth;
     $scope.screenHeight = INFO.screenHeight;
     $scope.team = Team.getCurrentTeam();
-
+    $scope.backUrl = INFO.familyPhotoBackurl;
     var getFamilyPhotos = function () {
       Team.getFamilyPhotos($scope.team._id, function (err, photos) {
         if (err) {
