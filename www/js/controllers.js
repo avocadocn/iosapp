@@ -610,7 +610,17 @@ angular.module('donlerApp.controllers', [])
     $scope.changeMold = function(selectMold) {
       $scope.selectMold = selectMold;
     }
+    var localizeDateStr = function(date_to_convert_str) {
+      var date_to_convert = new Date(date_to_convert_str);
+      var local_date = new Date();
+      date_to_convert.setMinutes(date_to_convert.getMinutes()+local_date.getTimezoneOffset());
+      return date_to_convert.toString();
+    }
     $scope.sponsor = function(){
+      console.log($scope.campaignData.start_time);
+      $scope.campaignData.start_time = localizeDateStr($scope.campaignData.start_time);
+      $scope.campaignData.end_time = localizeDateStr($scope.campaignData.end_time);
+      console.log($scope.campaignData.start_time);
       var errMsg;
       if($scope.campaignData.start_time<new Date() ) {
         errMsg ='开始时间不能早于现在';
@@ -3085,11 +3095,17 @@ angular.module('donlerApp.controllers', [])
     $scope.isBusy = false;
     $scope.campaignData ={};
     var deadLineInput = document.getElementById('deadline');
+    var localizeDateStr = function(date_to_convert_str) {
+      var date_to_convert = new Date(date_to_convert_str);
+      var local_date = new Date();
+      date_to_convert.setMinutes(date_to_convert.getMinutes()+local_date.getTimezoneOffset());
+      return date_to_convert.toString();
+    }
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         if(data.deadline){
-          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DDThh:mm')
-          $scope.campaignData.end_time = moment(data.end_time).format('YYYY-MM-DDThh:mm')
+          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DDThh:mm');
+          $scope.campaignData.end_time = new Date(data.end_time);
         }
         if(data.content){
           $scope.campaignData.content = data.content;
@@ -3107,19 +3123,21 @@ angular.module('donlerApp.controllers', [])
 
       }
       else {
-        if($scope.campaignData.member_min>$scope.campaignData.member_max) {
+        $scope.campaignData.deadline = localizeDateStr($scope.campaignData.deadline);
+        console.log($scope.campaignData.deadline ,$scope.campaignData.end_time,$scope.campaignData.deadline > $scope.campaignData.end_time)
+        if($scope.campaignData.member_min > $scope.campaignData.member_max) {
           $ionicPopup.alert({
             title: '错误',
             template: '人数下限不能大于上限，请重新填写'
           });
         }
-        else if($scope.campaignData.deadline >$scope.campaignData.end_time ) {
+        else if($scope.campaignData.deadline > $scope.campaignData.end_time ) {
           $ionicPopup.alert({
             title: '错误',
             template: '报名截止时间不能晚于结束时间'+$scope.campaignData.end_time
           });
         }
-        else if($scope.campaignData.deadline < moment(new Date()).format('YYYY-MM-DDThh:mm')) {
+        else if($scope.campaignData.deadline < new Date()) {
           $ionicPopup.alert({
             title: '错误',
             template: '报名截止时间不能比现在更早'
