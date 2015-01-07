@@ -11,6 +11,8 @@ platforms/ios/www/
 platforms/ios/cordova/
 platforms/ios/build/
 platforms/ios/CordovaLib/
+platforms/ios/Donler.xcodeproj/project.xcworkspace/xcuserdata/
+
 node_modules/
 plugins/
 .bower-*/
