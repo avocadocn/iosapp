@@ -2297,26 +2297,45 @@ angular.module('donlerApp.controllers', [])
   .controller('TeamEditController', ['$scope', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', 'INFO', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', function ($scope, $ionicPopup, $stateParams, Team, CONFIG, INFO, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders) {
     $scope.STATIC_URL = CONFIG.STATIC_URL;
     $scope.team = Team.getCurrentTeam();
+
+    $scope.formData = {
+      name: $scope.team.name,
+      brief: $scope.team.brief || ''
+    };
+
+    var updateFormData = function () {
+      $scope.formData = {
+        name: $scope.team.name,
+        brief: $scope.team.brief || ''
+      };
+    };
+
+    var refreshTeamData = function (callback) {
+      Team.getData($scope.team._id, function (err, team) {
+        if (err) {
+          console.log(err);
+        } else {
+          $scope.team = team;
+          callback && callback(team);
+        }
+      });
+    };
+
     INFO.familyPhotoBackurl = '#/team/' + $scope.team._id + '/edit';
 
     $scope.editing = false;
+    $scope.editingLock = false; // 为true时阻止获得或失去焦点时更新formData
 
     $scope.toEditing = function () {
       if ($scope.editing === false) {
-        $scope.formData = {
-          name: $scope.team.name,
-          brief: $scope.team.brief || ''
-        };
+        updateFormData();
         $scope.editing = true;
       }
     };
 
     $scope.cancelEditing = function () {
-      if ($scope.editing === true) {
-        $scope.formData = {
-          name: $scope.team.name,
-          brief: $scope.team.brief || ''
-        };
+      if ($scope.editing === true && !$scope.editingLock) {
+        updateFormData();
         $scope.editing = false;
       }
     };
@@ -2325,16 +2344,13 @@ angular.module('donlerApp.controllers', [])
     $scope.change = function() {
       $scope.changed = true;
     };
-    $scope.formData = {
-      name: $scope.team.name,
-      brief: $scope.team.brief || ''
-    };
 
     $scope.edit = function () {
       if (!$scope.changed) {
         $scope.editing = false;
         return;
       }
+      $scope.editingLock = true;
       Team.edit($scope.team._id, $scope.formData, function (err) {
         if (err) {
           $ionicPopup.alert({
@@ -2342,6 +2358,10 @@ angular.module('donlerApp.controllers', [])
             template: err
           });
         } else {
+          refreshTeamData(function (team) {
+            updateFormData();
+            $scope.editingLock = false;
+          });
           $scope.editing = false;
         }
       });
@@ -2386,9 +2406,7 @@ angular.module('donlerApp.controllers', [])
             title: '提示',
             template: '修改logo成功'
           });
-          successAlert.then(function () {
-            $state.go('team', { teamId: $scope.team._id });
-          });
+          refreshTeamData();
         }, function(err) {
           $ionicPopup.alert({
             title: '提示',

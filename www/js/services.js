@@ -638,8 +638,8 @@ angular.module('donlerApp.services', [])
           });
       },
 
-      edit: function (tid, data, callback) {
-        $http.put(CONFIG.BASE_URL + '/teams/' + tid, data)
+      edit: function (tid, postData, callback) {
+        $http.put(CONFIG.BASE_URL + '/teams/' + tid, postData)
           .success(function (data, status, headers, config) {
             callback();
           })
