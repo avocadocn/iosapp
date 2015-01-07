@@ -1455,6 +1455,7 @@ a>.login .companies_list:activated {
 }
 .calendar .calendar_month {
   height: 100%;
+  margin-top: 1px;
 }
 .calendar .calendar_month .today_container {
   position: fixed;
