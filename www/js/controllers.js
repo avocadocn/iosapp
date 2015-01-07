@@ -614,7 +614,7 @@ angular.module('donlerApp.controllers', [])
       var date_to_convert = new Date(date_to_convert_str);
       var local_date = new Date();
       date_to_convert.setMinutes(date_to_convert.getMinutes()+local_date.getTimezoneOffset());
-      return date_to_convert.toString();
+      return date_to_convert;
     }
     $scope.sponsor = function(){
       console.log($scope.campaignData.start_time);
@@ -3099,7 +3099,7 @@ angular.module('donlerApp.controllers', [])
       var date_to_convert = new Date(date_to_convert_str);
       var local_date = new Date();
       date_to_convert.setMinutes(date_to_convert.getMinutes()+local_date.getTimezoneOffset());
-      return date_to_convert.toString();
+      return date_to_convert;
     }
     Campaign.get($state.params.id, function(err, data){
       if(!err){
