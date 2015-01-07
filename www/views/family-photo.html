@@ -9,7 +9,7 @@
       <div class="card_header clearfix">
         <p class="header_title">全家福({{familyPhotos.length}})</p>
       </div>
-      <div class="clearfix"><img ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="toggleSelect(photo)" class="photo"/></div>
+      <div class="clearfix"><img ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="openPhotoSwipe(photo._id)" class="photo"/></div>
     </div>
   </ion-content>
 </ion-view>
@@ -26,7 +26,8 @@
         <div class="pswp__counter"></div>
         <button title="关闭" class="pswp__button pswp__button--close"></button>
         <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
-        <button ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
+        <button ng-if="currentFamilyPhoto.select===false" ng-click="toggleSelect(currentFamilyPhoto)" class="pswp__button toggle_select">在小队主页显示</button>
+        <button ng-if="currentFamilyPhoto.select===true" ng-click="toggleSelect(currentFamilyPhoto)" class="pswp__button toggle_select">从小队主页隐藏</button>
         <div class="pswp__preloader">
           <div class="pswp__preloader__icn">
             <div class="pswp__preloader__cut">

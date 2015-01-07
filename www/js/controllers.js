@@ -2887,7 +2887,7 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('FamilyPhotoController', ['$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', function ($scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
+  .controller('FamilyPhotoController', ['$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', 'Tools', function ($scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, Tools) {
     $scope.screenWidth = INFO.screenWidth;
     $scope.screenHeight = INFO.screenHeight;
     $scope.team = Team.getCurrentTeam();
@@ -2903,6 +2903,40 @@ angular.module('donlerApp.controllers', [])
       });
     };
     getFamilyPhotos();
+
+    $scope.openPhotoSwipe = function (photoId) {
+      var pswpElement = document.querySelectorAll('.pswp')[0];
+
+      var index = Tools.arrayObjectIndexOf($scope.familyPhotos, photoId, '_id');
+
+      var options = {
+        // history & focus options are disabled on CodePen
+        history: false,
+        focus: false,
+        index: index,
+        showAnimationDuration: 0,
+        hideAnimationDuration: 0
+      };
+      var items = [];
+      $scope.familyPhotos.forEach(function (photo) {
+        items.push({
+          _id: photo._id,
+          src: CONFIG.STATIC_URL + photo.uri + '/320/190',
+          w: 320,
+          h: 190
+        });
+      });
+      var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+      pswp.listen('afterChange', function() {
+        var itemIndex = pswp.getCurrentIndex();
+        var familyPhotosIndex = Tools.arrayObjectIndexOf($scope.familyPhotos, items[itemIndex]._id, '_id');
+        $scope.currentFamilyPhoto = $scope.familyPhotos[familyPhotosIndex];
+        if(!$scope.$$phase) {
+          $scope.$apply();
+        }
+      });
+      pswp.init();
+    };
 
     $scope.toggleSelect = function (familyPhoto) {
       if (!$scope.team.isLeader) {
