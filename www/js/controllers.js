@@ -614,18 +614,18 @@ angular.module('donlerApp.controllers', [])
       var date_to_convert = new Date(date_to_convert_str);
       var local_date = new Date();
       date_to_convert.setMinutes(date_to_convert.getMinutes()+local_date.getTimezoneOffset());
-      return date_to_convert.toString();
+      return date_to_convert;
     }
     $scope.sponsor = function(){
       console.log($scope.campaignData.start_time);
       $scope.campaignData.start_time = localizeDateStr($scope.campaignData.start_time);
       $scope.campaignData.end_time = localizeDateStr($scope.campaignData.end_time);
-      console.log($scope.campaignData.start_time);
+      console.log($scope.campaignData.start_time,$scope.campaignData.end_time,$scope.campaignData.end_time < $scope.campaignData.start_time);
       var errMsg;
-      if($scope.campaignData.start_time<new Date() ) {
+      if($scope.campaignData.start_time < new Date() ) {
         errMsg ='开始时间不能早于现在';
       }
-      else if($scope.campaignData.end_time<$scope.campaignData.start_time) {
+      else if($scope.campaignData.end_time < $scope.campaignData.start_time) {
         errMsg ='结束时间不能早于开始时间';
       }
       if($scope.isBusy){
@@ -3099,7 +3099,7 @@ angular.module('donlerApp.controllers', [])
       var date_to_convert = new Date(date_to_convert_str);
       var local_date = new Date();
       date_to_convert.setMinutes(date_to_convert.getMinutes()+local_date.getTimezoneOffset());
-      return date_to_convert.toString();
+      return date_to_convert;
     }
     Campaign.get($state.params.id, function(err, data){
       if(!err){
