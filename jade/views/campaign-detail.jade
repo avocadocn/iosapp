@@ -56,12 +56,12 @@ ion-view
         .dl_cp_time_countdown
           span.dl_cp_time_count {{campaign.time_text.substr(0, campaign.time_text.length - 1)}}
           span.dl_cp_time_unit {{campaign.time_text.substr(-1)}}
-    .card.dl_card_detail(ng-if="notices.length>0")
+    .card.dl_card_detail(ng-if="notices.length>0 || campaign.allow.publishCampaignMessage")
       .item.dl_card_header.dl_card_header_small
         span 活动公告
         a.icon.ion-plus(ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()")
         span.dl_notice_count {{notices.length}}
-      a.item.item-avatar.dl_notice
+      a.item.item-avatar.dl_notice(ng-if="notices.length>0")
         img(ng-src="{{STATIC_URL +notices[0].sender[0].photo}}")
         h2
           span.dl_notice_sender {{notices[0].sender[0].nickname}}
