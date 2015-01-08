@@ -8,7 +8,10 @@ ion-view
       .card_header.clearfix
         p.header_title 全家福({{familyPhotos.length}})
       .clearfix
-        img.photo(ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="openPhotoSwipe(photo._id)")
+        .photo_wrap(ng-repeat="photo in familyPhotos")
+          img.family_photo(ng-class="{'family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="openPhotoSwipe(photo._id)")
+          span.icon.ion-checkmark-circled(ng-if="photo.select === true" ng-cloak)
+          .icon-background(ng-if="photo.select === true" ng-cloak)
 
 .pswp(tabindex="-1" role="dialog" aria-hidden="true")
   .pswp__bg
