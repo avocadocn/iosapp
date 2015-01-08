@@ -9,7 +9,11 @@
       <div class="card_header clearfix">
         <p class="header_title">全家福({{familyPhotos.length}})</p>
       </div>
-      <div class="clearfix"><img ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="openPhotoSwipe(photo._id)" class="photo"/></div>
+      <div class="clearfix">
+        <div ng-repeat="photo in familyPhotos" class="photo_wrap"><img ng-class="{'family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="openPhotoSwipe(photo._id)" class="family_photo"/><span ng-if="photo.select === true" ng-cloak="ng-cloak" class="icon ion-checkmark-circled"></span>
+          <div ng-if="photo.select === true" ng-cloak="ng-cloak" class="icon-background"></div>
+        </div>
+      </div>
     </div>
   </ion-content>
 </ion-view>

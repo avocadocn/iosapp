@@ -3081,7 +3081,6 @@ angular.module('donlerApp.controllers', [])
       var index = Tools.arrayObjectIndexOf($scope.familyPhotos, photoId, '_id');
 
       var options = {
-        // history & focus options are disabled on CodePen
         history: false,
         focus: false,
         index: index,
