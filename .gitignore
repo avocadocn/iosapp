@@ -1,17 +1,4 @@
-platforms/android/ant-build/
-platforms/android/ant-gen/
-platforms/android/local.properties
-platforms/android/CordovaLib/
-platforms/android/bin/
-platforms/android/assets/
-
-platforms/ios/Donler/
-platforms/ios/Donler.xcodeproj/
-platforms/ios/www/
-platforms/ios/cordova/
-platforms/ios/build/
-platforms/ios/CordovaLib/
-platforms/ios/Donler.xcodeproj/project.xcworkspace/xcuserdata/
+platforms/
 
 node_modules/
 plugins/
