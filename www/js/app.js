@@ -346,6 +346,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'UserInfoController',
         templateUrl: './views/user-info.html'
       })
+      .state('user_info_timeline', {
+        url: '/user/:userId/timeline',
+        controller: 'UserInfoTimelineController',
+        templateUrl: './views/user-info-timeline.html'
+      })
       .state('report_form', {
         url: '/report/:userId',
         controller: 'ReportController',

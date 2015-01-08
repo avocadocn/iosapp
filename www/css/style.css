@@ -1289,6 +1289,9 @@ a>.login .companies_list:activated {
 .user_card .tags .tag {
   padding: 2px;
 }
+.user_card .tabs {
+  border-top: 1px solid #e2e2e2 !important;
+}
 .settings .list {
   padding-top: 0;
   border-bottom: 1px solid #ccc;

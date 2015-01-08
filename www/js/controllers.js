@@ -3282,13 +3282,10 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$scope', '$state', '$stateParams', '$ionicPopover', 'TimeLine', 'User', 'INFO', function ($scope, $state, $stateParams, $ionicPopover, TimeLine, User, INFO) {
+  .controller('UserInfoController', ['$scope', '$state', '$stateParams', '$ionicPopover', 'User', 'INFO', function ($scope, $state, $stateParams, $ionicPopover, User, INFO) {
     $scope.backUrl = INFO.userInfoBackUrl;
     INFO.reportBackUrl ='#/user/' + $stateParams.userId;
-    $scope.loadFinished = false;
-    $scope.loading = false;
-    $scope.timelinesRecord =[];
-    $scope.page = 0;
+    
     $ionicPopover.fromTemplateUrl('more-popover.html', {
         scope: $scope,
       }).then(function(popover) {
@@ -3301,6 +3298,33 @@ angular.module('donlerApp.controllers', [])
       $state.go('report_form',{userId: $scope.user._id});
       $scope.popover.hide();
     }
+    
+    User.getData($stateParams.userId, function (err, data) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.user = data;
+      }
+    });
+  }])
+  .controller('UserInfoTimelineController', ['$scope', '$stateParams', 'User', 'TimeLine', function ($scope, $stateParams, User, TimeLine) {
+    $scope.loadFinished = false;
+    $scope.loading = false;
+    $scope.timelinesRecord =[];
+    $scope.page = 0;
+
+    $scope.backUrl = '#/user/' + $stateParams.userId;
+
+    User.getData($stateParams.userId, function (err, data) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.user = data;
+      }
+    });
+
     // 是否需要显示时间
     $scope.needShowTime = function (index) {
       if(index===0){
@@ -3335,15 +3359,7 @@ angular.module('donlerApp.controllers', [])
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
       }
-    }
-    User.getData($stateParams.userId, function (err, data) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.user = data;
-      }
-    });
+    };
   }])
   .controller('MessageController', ['$scope', 'Message', function ($scope, Message) {
 
