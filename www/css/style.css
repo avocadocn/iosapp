@@ -2027,6 +2027,11 @@ a>.login .companies_list:activated {
 .pswp .dl_button_to_album .icon {
   font-size: 20px;
 }
+.pswp .toggle_select {
+  width: 100px;
+  background-image: none;
+  color: #fff;
+}
 .map_container {
   height: 400px;
 }
