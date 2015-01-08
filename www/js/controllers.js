@@ -472,6 +472,9 @@ angular.module('donlerApp.controllers', [])
     $scope.closeModal = function() {
       $scope.modal.hide();
     };
+    $scope.$on('$destroy',function() {
+      $scope.modal.remove();
+    });
     Team.getLeadTeam(null, function(err, leadTeams){
       if(!err &&leadTeams.length>0){
         $scope.leadTeams = leadTeams;
@@ -2421,7 +2424,6 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
-
     var city, marker;
     $ionicModal.fromTemplateUrl('homecourt-modal.html', {
       scope: $scope,
@@ -2432,6 +2434,11 @@ angular.module('donlerApp.controllers', [])
     $scope.closeModal = function() {
       $scope.modal.hide();
     };
+
+    $scope.$on('$destroy',function() {
+      $scope.modal.remove();
+    });
+
     var placeSearchCallBack = function(homeCourt) {
       return function(data) {
         $scope.locationmap.clearMap();
