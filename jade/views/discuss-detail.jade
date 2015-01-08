@@ -56,6 +56,7 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
     button.dl_button.publish_button(ng-click="hideEmotions();publishComment()" ng-disabled="!commentContent") 发言
     ion-slide-box.emotion_box(ng-if="isShowEmotions")
       ion-slide(ng-repeat="emoji in emojiList")
-        .box
-          i(ng-repeat="emotion in emoji" class="emoji {{'emoji_'+emotion}}" ng-click="addEmotion(emotion)")
+        .box.clearfix
+          .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
+            i(class="emoji {{'emoji_'+emotion}}" )
 include ./photo-swipe

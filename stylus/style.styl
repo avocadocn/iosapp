@@ -516,7 +516,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   .icon-left, .icon-right
     &.button:before
       font-size 14px
+.login>.bar
+  .icon-left, .icon-right
+    &.button:before
       padding-left 10px
+  .icon-right
+    &.button:before
+      padding-right 10px
 
 //- home页
 .home
@@ -799,8 +805,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         width 320px
         padding 4px
         margin auto
-      .emoji
-        margin 9px
+        .emotion
+          padding 9px
+          float left
+          .emoji
+            margin-right 0
+            height 21px
+            width 21px
       .slider-pager
         bottom 5px
         .icon.ion-record

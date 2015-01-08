@@ -1895,7 +1895,7 @@ angular.module('donlerApp.controllers', [])
   .controller('userRegPrivacyController', ['$scope', '$ionicNavBarDelegate', 'INFO', function ($scope, $ionicNavBarDelegate, INFO) {
     $scope.backHref = '#/register/user/post_detail/' + INFO.companyId;
   }])
-  .controller('companySignupController' ,['$scope', '$state', 'CompanySignup', 'CONFIG', function ($scope,$state, CompanySignup, CONFIG) {
+  .controller('companySignupController' ,['$scope', '$state', '$rootScope', '$ionicPopup', 'CompanySignup', 'CONFIG', function ($scope, $state, $rootScope, $ionicPopup, CompanySignup, CONFIG) {
     //for region
     var region_url = CONFIG.BASE_URL + '/region';
     // var region_url = "http://192.168.2.107:3002/region";
@@ -1911,6 +1911,7 @@ angular.module('donlerApp.controllers', [])
     });
     //提交表单数据
     $scope.signup = function() {
+      $rootScope.showLoading();
       var data = {
         name: $scope.name,
         province: $scope.province,
@@ -1925,8 +1926,12 @@ angular.module('donlerApp.controllers', [])
         phone: $scope.phone
       };
       CompanySignup.signup(data, function(err){
+        $rootScope.hideLoading();
         if(err){
-          console.log(err);
+          $ionicPopup.alert({
+            title: '验证失败',
+            template: err
+          });
         }else{
           $state.go('register_company_wait');
         }
@@ -2014,7 +2019,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('userRegisterDetailController', ['$scope', '$state', 'UserSignup', 'INFO', function ($scope, $state, UserSignup, INFO) {
+  .controller('userRegisterDetailController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, $ionicPopup, UserSignup, INFO) {
     $scope.data = {};
     $scope.data.cid = INFO.companyId;
     $scope.data.email = INFO.email;
@@ -2025,6 +2030,11 @@ angular.module('donlerApp.controllers', [])
         $rootScope.hideLoading();
         if(!msg){
           $state.go('register_user_waitEmail');
+        }else{
+          $ionicPopup.alert({
+            title: '失败',
+            template: msg
+          });
         }
       })
     };

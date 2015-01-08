@@ -52,7 +52,9 @@
     <button ng-click="hideEmotions();publishComment()" ng-disabled="!commentContent" class="dl_button publish_button">发言</button>
     <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
       <ion-slide ng-repeat="emoji in emojiList">
-        <div class="box"><i ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emoji {{'emoji_'+emotion}}"></i></div>
+        <div class="box clearfix">
+          <div ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emotion"><i class="emoji {{'emoji_'+emotion}}"></i></div>
+        </div>
       </ion-slide>
     </ion-slide-box>
   </ion-footer-bar>
