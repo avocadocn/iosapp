@@ -2304,7 +2304,7 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('TeamEditController', ['$scope', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', 'INFO', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', function ($scope, $ionicPopup, $stateParams, Team, CONFIG, INFO, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders) {
+  .controller('TeamEditController', ['$scope', '$ionicModal', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', 'INFO', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', '$timeout', function ($scope, $ionicModal, $ionicPopup, $stateParams, Team, CONFIG, INFO, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders, $timeout) {
     $scope.STATIC_URL = CONFIG.STATIC_URL;
     $scope.team = Team.getCurrentTeam();
 
@@ -2312,12 +2312,58 @@ angular.module('donlerApp.controllers', [])
       name: $scope.team.name,
       brief: $scope.team.brief || ''
     };
+    var copyLoc = function (loc) {
+      var resLoc = {};
+      if (loc) {
+        resLoc.coordinates = [
+          loc.coordinates[0],
+          loc.coordinates[1]
+        ];
+        resLoc.type = 'Point';
+      }
+      return resLoc;
+    };
+    var setFormDataHomeCourts = function () {
+      if (!$scope.team.homeCourts || $scope.team.homeCourts.length === 0) {
+        $scope.formData.homeCourts = [
+          {
+            name: ''
+          },
+          {
+            name: ''
+          }
+        ];
+      } else if ($scope.team.homeCourts.length === 1) {
+        $scope.formData.homeCourts = [
+          {
+            name: $scope.team.homeCourts[0].name,
+            loc: copyLoc($scope.team.homeCourts[0].loc)
+          },
+          {
+            name: ''
+          }
+        ];
+      } else if ($scope.team.homeCourts.length >= 2) {
+        $scope.formData.homeCourts = [
+          {
+            name: $scope.team.homeCourts[0].name,
+            loc: copyLoc($scope.team.homeCourts[0].loc)
+          },
+          {
+            name: $scope.team.homeCourts[1].name,
+            loc: copyLoc($scope.team.homeCourts[1].loc)
+          }
+        ];
+      }
+    };
+    setFormDataHomeCourts();
 
     var updateFormData = function () {
       $scope.formData = {
         name: $scope.team.name,
         brief: $scope.team.brief || ''
       };
+      setFormDataHomeCourts();
     };
 
     var refreshTeamData = function (callback) {
@@ -2334,7 +2380,6 @@ angular.module('donlerApp.controllers', [])
     INFO.familyPhotoBackurl = '#/team/' + $scope.team._id + '/edit';
 
     $scope.editing = false;
-    $scope.editingLock = false; // 为true时阻止获得或失去焦点时更新formData
 
     $scope.toEditing = function () {
       if ($scope.editing === false) {
@@ -2344,7 +2389,7 @@ angular.module('donlerApp.controllers', [])
     };
 
     $scope.cancelEditing = function () {
-      if ($scope.editing === true && !$scope.editingLock) {
+      if ($scope.editing === true) {
         updateFormData();
         $scope.editing = false;
       }
@@ -2376,6 +2421,115 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
+
+    var city, marker;
+    $ionicModal.fromTemplateUrl('homecourt-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    var placeSearchCallBack = function(homeCourt) {
+      return function(data) {
+        $scope.locationmap.clearMap();
+        if (data.poiList.pois.length == 0) {
+          $ionicPopup.alert({
+            title: '提示',
+            template: '没有符合条件的地点，请重新输入'
+          });
+          $scope.closeModal();
+          return;
+        }
+        var lngX = data.poiList.pois[0].location.getLng();
+        var latY = data.poiList.pois[0].location.getLat();
+        homeCourt.loc.coordinates = [lngX, latY];
+        var nowPoint = new AMap.LngLat(lngX, latY);
+        var markerOption = {
+          map: $scope.locationmap,
+          position: nowPoint,
+          raiseOnDrag: true
+        };
+        marker = new AMap.Marker(markerOption);
+        $scope.locationmap.setFitView();
+        AMap.event.addListener($scope.locationmap, 'click', function(e) {
+          var lngX = e.lnglat.getLng();
+          var latY = e.lnglat.getLat();
+          homeCourt.loc.coordinates = [lngX, latY];
+          $scope.locationmap.clearMap();
+          var nowPoint = new AMap.LngLat(lngX, latY);
+          var markerOption = {
+            map: $scope.locationmap,
+            position: nowPoint,
+            raiseOnDrag: true
+          };
+          marker = new AMap.Marker(markerOption);
+        });
+      };
+    };
+
+    $scope.initialize = function (homeCourt) {
+      try {
+        $scope.locationmap = new AMap.Map("homeCourtMapDetail"); // 创建Map实例
+        $scope.locationmap.plugin(["AMap.ToolBar"], function() {
+          toolBar = new AMap.ToolBar();
+          $scope.locationmap.addControl(toolBar);
+        });
+        if (city) {
+          $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+            $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+              pageSize: 1,
+              pageIndex: 1,
+              city: city
+            });
+            AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack(homeCourt)); //返回地点查询结果
+          });
+        } else {
+          $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+            $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+              pageSize: 1,
+              pageIndex: 1
+            });
+            AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack(homeCourt)); //返回地点查询结果
+          });
+          $timeout(function() {
+            $scope.MSearch.search(homeCourt.name);
+          });
+        }
+      } catch (e) {
+        console.log(e);
+        console.log(e.stack)
+      }
+
+      window.team_map_ready = true;
+    };
+
+    $scope.showPopup = function(homeCourt) {
+      if (!homeCourt || !homeCourt.name || homeCourt.name == '') {
+        $ionicPopup.alert({
+          title: '提示',
+          template: '请输入地点'
+        });
+        return false;
+      } else {
+        $scope.modal.show();
+        //加载地图
+        if (!window.team_map_ready) {
+          window.team_map_init = function () {
+            $scope.initialize(homeCourt);
+          };
+          var script = document.createElement("script");
+          script.src = "http://webapi.amap.com/maps?v=1.3&key=077eff0a89079f77e2893d6735c2f044&callback=team_map_init";
+          document.body.appendChild(script);
+        } else {
+          $scope.initialize(homeCourt);
+        }
+      }
+    };
+
+
 
     var uploadSheet;
     $scope.showUploadActionSheet = function () {
