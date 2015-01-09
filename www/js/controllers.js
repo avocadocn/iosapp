@@ -231,9 +231,8 @@ angular.module('donlerApp.controllers', [])
     $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
-    INFO.campaignBackUrl = '#/app/campaigns';
     INFO.calendarBackUrl ='#/app/campaigns';
-    INFO.sponsorBackUrl ='#/app/campaigns';
+    INFO.sponsorBackUrl ='app.campaigns';
     if(!localStorage.id){
       return $state.go('login');
     }
@@ -309,18 +308,13 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('CampaignDetailController', ['$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', function ($scope, $state, $ionicPopup, Campaign, Message, INFO) {
-    $scope.backUrl = INFO.campaignBackUrl;
-    INFO.photoAlbumBackUrl = '#/campaign/detail/' + $state.params.id;
-    INFO.memberBackUrl = '#/campaign/detail/' + $state.params.id;
-    INFO.discussDetailBackUrl = '#/campaign/detail/' + $state.params.id;
-    if(INFO.campaignBackUrl.indexOf('#/team/')===0){
-      var beforeTeamBackUrl = INFO.teamBackUrl;
-    }
-    INFO.teamBackUrl = '#/campaign/detail/' + $state.params.id;
+  .controller('CampaignDetailController', ['$rootScope', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', function ($rootScope, $scope, $state, $ionicPopup, Campaign, Message, INFO) {
     $scope.goBack = function() {
-      if(beforeTeamBackUrl){
-        INFO.teamBackUrl = beforeTeamBackUrl;
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
+      else {
+        $state.go('app.campaigns');
       }
     }
     Campaign.get($state.params.id, function(err, data){
@@ -454,11 +448,10 @@ angular.module('donlerApp.controllers', [])
       });
      };
   }])
-  .controller('SponsorController', ['$scope', '$state', '$ionicPopup', '$ionicModal', '$timeout', 'Campaign', 'Team', 'INFO', function ($scope, $state, $ionicPopup, $ionicModal, $timeout, Campaign, Team, INFO) {
+  .controller('SponsorController', ['$rootScope', '$scope', '$state', '$ionicPopup', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team', function ($rootScope, $scope, $state, $ionicPopup, $ionicModal, $timeout, Campaign, INFO, Team) {
     $scope.campaignData ={};
     $scope.leadTeams = [];
     $scope.selectTeam = {};
-    $scope.backUrl = INFO.sponsorBackUrl;
     $scope.isBusy = false;
     $scope.showMapFlag ==false;
     $scope.campaignData.location = {};
@@ -469,6 +462,14 @@ angular.module('donlerApp.controllers', [])
     }).then(function(modal) {
       $scope.modal = modal;
     });
+    $scope.goBack = function() {
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
+      else{
+        $state.go(INFO.sponsorBackUrl);
+      }
+    }
     $scope.closeModal = function() {
       $scope.modal.hide();
     };
@@ -668,8 +669,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
     INFO.calendarBackUrl ='#/app/discuss/list';
-    INFO.sponsorBackUrl ='#/app/discuss/list';
-    INFO.discussDetailBackUrl ='#/app/discuss/list';
+    INFO.sponsorBackUrl ='app.discuss_list';
     Socket.emit('enterRoom', localStorage.id);
     //先在缓存里取
     // console.log(INFO);
@@ -754,12 +754,10 @@ angular.module('donlerApp.controllers', [])
     };
     
   }])
-  .controller('DiscussDetailController', ['$scope', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location',
-    function ($scope, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
+  .controller('DiscussDetailController', ['$rootScope', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location',
+    function ($rootScope, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
-    $scope.backUrl = INFO.discussDetailBackUrl;
-    INFO.userInfoBackUrl = '#/discuss/detail/'+$scope.campaignId;
     Socket.emit('enterRoom', $scope.campaignId);
     $scope.commentContent='';
 
@@ -790,7 +788,14 @@ angular.module('donlerApp.controllers', [])
         });
       }
     };
-
+    $scope.goBack = function() {
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
+      else{
+        $state.go('app.discuss_list');
+      }
+    }
     $scope.openPhotoSwipe = function (photoId) {
       var pswpElement = document.querySelectorAll('.pswp')[0];
 
@@ -808,7 +813,6 @@ angular.module('donlerApp.controllers', [])
       gallery.init();
       $scope.pswpPhotoAlbum = {
         goToAlbum: function () {
-          INFO.photoAlbumBackUrl = '#' + $location.url();
           gallery.close();
           $location.url('/photo_album/' + $scope.photoAlbumId + '/detail');
         }
@@ -1160,15 +1164,12 @@ angular.module('donlerApp.controllers', [])
     };
   }])
   .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', 'Team', 'INFO', function ($scope, $ionicPopup, $state, Team, INFO) {
-    INFO.teamBackUrl = '#/discover/teams';
     if($state.params.type) {
       if($state.params.type=='personal') {
         $scope.teams = INFO.personalTeamList;
-        INFO.teamBackUrl = '#/discover/teams/personal';
       }
       else {
         $scope.teams = INFO.officialTeamList;
-        INFO.teamBackUrl = '#/discover/teams/official';
       }
     }
     else {
@@ -1228,7 +1229,6 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('DiscoverCircleController', ['$scope', '$timeout', 'TimeLine', 'INFO', function ($scope, $timeout, TimeLine, INFO) {
-    INFO.campaignBackUrl = '#/discover/circle';
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -1449,7 +1449,6 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
-    INFO.teamBackUrl = '#/personal/teams';
     INFO.createTeamBackUrl = '#/personal/teams';
     Team.getList('user', localStorage.id, null, function (err, teams) {
       if (err) {
@@ -1540,7 +1539,6 @@ angular.module('donlerApp.controllers', [])
     }];
     $scope.nowTypeIndex =2;
     moment.locale('zh-cn');
-    INFO.campaignBackUrl = '#/calendar';
     $scope.calendarBackUrl = INFO.calendarBackUrl;
     /**
      * 日历视图的状态，有年、月、日三种视图
@@ -2096,25 +2094,19 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('TeamController', ['$scope', '$state', '$stateParams', '$ionicPopup', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($scope, $state, $stateParams, $ionicPopup, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
+  .controller('TeamController', ['$rootScope', '$scope', '$state', '$stateParams', '$ionicPopup', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($rootScope, $scope, $state, $stateParams, $ionicPopup, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
     var teamId = $stateParams.teamId;
-    $scope.backUrl = INFO.teamBackUrl;
-    if(INFO.teamBackUrl.indexOf('#/campaign/detail/')===0){
-      var beforeCampaignBackUrl = INFO.campaignBackUrl;
-    }
     $scope.goBack = function() {
-      if(beforeCampaignBackUrl){
-        INFO.campaignBackUrl = beforeCampaignBackUrl;
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
       }
     }
-    INFO.campaignBackUrl = '#/team/' + teamId;
     Team.getData(teamId, function (err, team) {
       if (err) {
         // todo
         console.log(err);
       } else {
         $scope.team = team;
-        INFO.memberBackUrl = '#/team/' + teamId;
         INFO.memberContent = [team];
         $scope.homeCourtIndex = 0;
         $scope.homeCourts = team.homeCourts;
@@ -2377,8 +2369,6 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
-    INFO.familyPhotoBackurl = '#/team/' + $scope.team._id + '/edit';
-
     $scope.editing = false;
 
     $scope.toEditing = function () {
@@ -2623,8 +2613,6 @@ angular.module('donlerApp.controllers', [])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'Team', 'INFO',
     function ($scope, $stateParams, PhotoAlbum, Team, INFO) {
       $scope.teamId = $stateParams.teamId;
-      INFO.photoAlbumBackUrl = '#/photo_album/list/team/' + $stateParams.teamId;
-      INFO.familyPhotoBackurl = '#/photo_album/list/team/' + $stateParams.teamId;
       Team.getFamilyPhotos($scope.teamId, function (err, photos) {
         if (err) {
           // todo
@@ -2694,15 +2682,17 @@ angular.module('donlerApp.controllers', [])
       });
 
   }])
-  .controller('PhotoAlbumDetailController', ['$scope', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet',
-    function ($scope, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
+  .controller('PhotoAlbumDetailController', ['$rootScope', '$scope', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet',
+    function ($rootScope, $scope, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
 
-      $scope.photoAlbumBackUrl = INFO.photoAlbumBackUrl;
-
       var isCampaignPhotoAlbum = false;
-
+      $scope.goBack = function() {
+        if($rootScope.$viewHistory.backView){
+          $rootScope.$viewHistory.backView.go();
+        }
+      }
       PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
         if (err) {
           // todo
@@ -2892,11 +2882,10 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('FamilyPhotoController', ['$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', 'Tools', function ($scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, Tools) {
+  .controller('FamilyPhotoController', ['$rootScope', '$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', 'Tools', function ($rootScope, $scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, Tools) {
     $scope.screenWidth = INFO.screenWidth;
     $scope.screenHeight = INFO.screenHeight;
     $scope.team = Team.getCurrentTeam();
-    $scope.backUrl = INFO.familyPhotoBackurl;
     var getFamilyPhotos = function () {
       Team.getFamilyPhotos($scope.team._id, function (err, photos) {
         if (err) {
@@ -2908,7 +2897,11 @@ angular.module('donlerApp.controllers', [])
       });
     };
     getFamilyPhotos();
-
+    $scope.goBack = function() {
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
+    }
     $scope.openPhotoSwipe = function (photoId) {
       var pswpElement = document.querySelectorAll('.pswp')[0];
 
@@ -3058,7 +3051,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('MemberController', ['$scope', '$stateParams', 'INFO', 'Team', function($scope, $stateParams, INFO, Team) {
+  .controller('MemberController', ['$rootScope', '$scope', '$stateParams', 'INFO', 'Team', function($rootScope, $scope, $stateParams, INFO, Team) {
     if($stateParams.memberType=='team') {
       var currentTeam = Team.getCurrentTeam();
 
@@ -3073,21 +3066,27 @@ angular.module('donlerApp.controllers', [])
           }];
         }
       });
-      INFO.userInfoBackUrl = '#/members/team/' + $stateParams.id;
     }
     else {
       $scope.memberContents = INFO.memberContent;
-      INFO.userInfoBackUrl = '#/members/campaign/' + $stateParams.id;
     }
-    $scope.backUrl = INFO.memberBackUrl;
+    $scope.goBack = function() {
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
+    }
   }])
-  .controller('LocationController', ['$scope', '$stateParams', 'INFO', function($scope, $stateParams, INFO) {
+  .controller('LocationController', ['$rootScope', '$scope', '$stateParams', 'INFO', function($rootScope, $scope, $stateParams, INFO) {
     $scope.location = INFO.locationContent;
-    $scope.backUrl='#/campaign/detail/'+$stateParams.id;
     $scope.linkMap = function (location) {
       var link = 'http://m.amap.com/navi/?dest=' + location.coordinates[0] + ',' + location.coordinates[1] + '&destName=' + location.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
       window.open( link, '_system' , 'location=yes');
       return false;
+    }
+    $scope.goBack = function() {
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
     }
   }])
   .controller('TimelineController', ['$scope', '$stateParams', 'TimeLine', 'User', function ($scope, $stateParams, TimeLine, User) {
@@ -3138,15 +3137,18 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$scope', '$state', '$stateParams', '$ionicPopover', 'User', 'INFO', function ($scope, $state, $stateParams, $ionicPopover, User, INFO) {
-    $scope.backUrl = INFO.userInfoBackUrl;
-    INFO.reportBackUrl ='#/user/' + $stateParams.userId;
+  .controller('UserInfoController', ['$rootScope', '$scope', '$state', '$stateParams', '$ionicPopover', 'User', function ($rootScope, $scope, $state, $stateParams, $ionicPopover, User) {
     
     $ionicPopover.fromTemplateUrl('more-popover.html', {
         scope: $scope,
       }).then(function(popover) {
         $scope.popover = popover;
       });
+    $scope.goBack = function() {
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
+    }
     $scope.showPopover = function($event){
       $scope.popover.show($event);
     }
@@ -3164,13 +3166,11 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoTimelineController', ['$scope', '$stateParams', 'User', 'TimeLine', function ($scope, $stateParams, User, TimeLine) {
+  .controller('UserInfoTimelineController', ['$rootScope', '$scope', '$stateParams', 'User', 'TimeLine', function ($rootScope, $scope, $stateParams, User, TimeLine) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
     $scope.page = 0;
-
-    $scope.backUrl = '#/user/' + $stateParams.userId;
 
     User.getData($stateParams.userId, function (err, data) {
       if (err) {
@@ -3180,7 +3180,11 @@ angular.module('donlerApp.controllers', [])
         $scope.user = data;
       }
     });
-
+    $scope.goBack = function() {
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
+    }
     // 是否需要显示时间
     $scope.needShowTime = function (index) {
       if(index===0){
@@ -3229,8 +3233,12 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('ReportController', ['$scope', '$stateParams', '$ionicPopup', 'INFO', 'Report', function ($scope, $stateParams, $ionicPopup, INFO, Report) {
-    $scope.backUrl = INFO.reportBackUrl;
+  .controller('ReportController', ['$rootScope', '$scope', '$stateParams', '$ionicPopup', 'Report', function ($rootScope, $scope, $stateParams, $ionicPopup, Report) {
+    $scope.goBack = function() {
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
+    }
     $scope.isBusy = false;
     $scope.reportTypes = [
     {
@@ -3293,8 +3301,7 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
-  .controller('CampaignEditController', ['$scope', '$state', '$ionicPopup', 'INFO', 'Campaign', function ($scope, $state, $ionicPopup, INFO, Campaign) {
-    $scope.backUrl = '#/campaign/detail/'+ $state.params.id;
+  .controller('CampaignEditController', ['$rootScope', '$scope', '$state', '$ionicPopup', 'Campaign', function ($rootScope, $scope, $state, $ionicPopup, Campaign) {
     $scope.isBusy = false;
     $scope.campaignData ={};
     var deadLineInput = document.getElementById('deadline');
@@ -3321,6 +3328,14 @@ angular.module('donlerApp.controllers', [])
         }
       }
     });
+    $scope.goBack = function() {
+      if($rootScope.$viewHistory.backView){
+        $rootScope.$viewHistory.backView.go();
+      }
+      else {
+        $state.go('campaigns_detail',{id:$state.params.id});
+      }
+    }
     $scope.editCampaign = function() {
       if($scope.isBusy) {
 
@@ -3369,33 +3384,31 @@ angular.module('donlerApp.controllers', [])
       }
     }
     $scope.closeCampaign = function() {
-   var confirmPopup = $ionicPopup.confirm({
-     title: '确认',
-     template: '关闭后将无法再次打开，您确认要关闭该活动吗?',
-     cancelText: '取消',
-     okText: '确认'
-   });
-   confirmPopup.then(function(res) {
-     if(res) {
-       Campaign.close($state.params.id,function(err,data) {
-        if(!err){
-          $ionicPopup.alert({
-            title: '提示',
-            template: '关闭成功'
-          });
-          $state.go('campaigns_detail',{id:$state.params.id});
-        }
-        else {
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
+      var confirmPopup = $ionicPopup.confirm({
+        title: '确认',
+        template: '关闭后将无法再次打开，您确认要关闭该活动吗?',
+        cancelText: '取消',
+        okText: '确认'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          Campaign.close($state.params.id,function(err,data) {
+            if(!err){
+              $ionicPopup.alert({
+                title: '提示',
+                template: '关闭成功'
+              });
+              $state.go('campaigns_detail',{id:$state.params.id});
+            }
+            else {
+              $ionicPopup.alert({
+                title: '错误',
+                template: err
+              });
+            }
           });
         }
       });
-     } else {
-     }
-   });
-      
     }
   }])
 

@@ -1,6 +1,6 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="{{backUrl}}" ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
     <h1 class="title">{{team.name}}</h1><a ng-if="team.isLeader" ng-href="#/team/{{team._id}}/edit" ng-cloak="ng-cloak" class="button">编辑</a>
   </ion-header-bar>
   <ion-content class="team_page">

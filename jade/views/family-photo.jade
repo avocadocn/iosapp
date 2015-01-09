@@ -1,6 +1,6 @@
 ion-view
   ion-header-bar
-    a.button.icon.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
+    span.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title {{team.name}}的全家福相册
     .button.icon.ion-plus(ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak)
   ion-content

@@ -1,6 +1,6 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="{{photoAlbumBackUrl}}" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
     <h1 class="title">{{photoAlbum.name}}</h1>
     <div ng-click="showUploadActionSheet()" class="button icon ion-plus"></div>
   </ion-header-bar>
