@@ -53,7 +53,7 @@ ion-view
 
     .dl_campaign_group(ng-repeat="group in campaignGroups")
       p.dl_campaign_group_date {{group.date | date:'yyyy-MM'}}
-      campaign-card(ng-repeat="campaign in group.campaigns" campaign="campaign")
+      campaign-card(ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum")
     ion-infinite-scroll(on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded()")
-
+  include ./photo-swipe
 

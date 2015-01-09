@@ -51,34 +51,40 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         };
 
         scope.openPhotoSwipe = function (photos, photoId) {
-          var pswpElement = document.querySelectorAll('.pswp')[0];
-          scope.photos = [];
-          addPhotos(photos);
-          var index = Tools.arrayObjectIndexOf(scope.photos, photoId, '_id');
+          try {
+            var pswpElement = document.querySelectorAll('.pswp')[0];
+            scope.photos = [];
+            addPhotos(photos);
+            var index = Tools.arrayObjectIndexOf(scope.photos, photoId, '_id');
 
-          var options = {
-            history: false,
-            focus: false,
-            index: index,
-            showAnimationDuration: 0,
-            hideAnimationDuration: 0
-          };
-          var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, scope.photos, options);
-          pswp.listen('close', function() {
-            $rootScope.hideTabs = false;
-            if (!$rootScope.$$phase) {
-              $rootScope.$digest();
-            }
-          });
-          $rootScope.hideTabs = true;
-          pswp.init();
-          if (scope.pswpPhotoAlbum) {
-            scope.pswpPhotoAlbum.goToAlbum = function () {
-              INFO.photoAlbumBackUrl = '#' + $location.url();
-              pswp.close();
-              $rootScope.hideTabs = false;
-              $location.url('/photo_album/' + scope.campaign.photo_album._id + '/detail');
+            var options = {
+              history: false,
+              focus: false,
+              index: index,
+              showAnimationDuration: 0,
+              hideAnimationDuration: 0
             };
+            var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, scope.photos, options);
+            pswp.listen('close', function() {
+              $rootScope.hideTabs = false;
+              if (!$rootScope.$$phase) {
+                $rootScope.$digest();
+              }
+            });
+            $rootScope.hideTabs = true;
+            pswp.init();
+            if (scope.pswpPhotoAlbum) {
+              scope.pswpPhotoAlbum.goToAlbum = function () {
+                INFO.photoAlbumBackUrl = '#' + $location.url();
+                pswp.close();
+                $rootScope.hideTabs = false;
+                $location.url('/photo_album/' + scope.campaign.photo_album._id + '/detail');
+              };
+            }
+          } catch (e) {
+            console.log(e);
+            console.log(e.stack);
+            $rootScope.hideTabs = false;
           }
           return false;
         };

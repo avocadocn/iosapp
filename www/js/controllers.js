@@ -2108,6 +2108,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
     INFO.campaignBackUrl = '#/team/' + teamId;
+    $scope.pswpPhotoAlbum = {};
     Team.getData(teamId, function (err, team) {
       if (err) {
         // todo
