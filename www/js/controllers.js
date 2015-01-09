@@ -1307,7 +1307,6 @@ angular.module('donlerApp.controllers', [])
   .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', 'User', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', function ($scope, $state, $ionicPopup, User, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
 
     var birthdayInput = document.getElementById('birthday');
-    
 
     User.getData(localStorage.id, function (err, data) {
       if (err) {
@@ -1351,14 +1350,11 @@ angular.module('donlerApp.controllers', [])
             template: err
           });
         } else {
-          $ionicPopup.alert({
-            title: '操作成功',
-            template: '编辑个人信息成功'
-          });
           if($scope.formData.tag) {
             $scope.user.tags.push($scope.formData.tag);
             $scope.formData.tag = '';
           }
+          $state.go('app.personal');
         }
       });
     };
@@ -1403,6 +1399,7 @@ angular.module('donlerApp.controllers', [])
             template: '修改头像成功'
           });
           successAlert.then(function () {
+            User.clearCurrentUser();
             $state.go('app.personal');
           });
         }, function(err) {

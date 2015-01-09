@@ -34,6 +34,9 @@
     <feature name="FileTransfer">
         <param name="ios-package" value="CDVFileTransfer" />
     </feature>
+    <feature name="Keyboard">
+        <param name="ios-package" value="IonicKeyboard" onload="true" />
+    </feature>
     <gap:plugin name="de.appplant.cordova.plugin.local-notification"/>
     <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
 
