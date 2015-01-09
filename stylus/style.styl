@@ -467,22 +467,28 @@ body
     .family_photo
       width 65px
       height 65px
-    .family_photo_selected
-      border 3px solid col_blue
-    .icon
+    .delete_op_wrap
       position absolute
-      right 1px
-      bottom 1px
-      color col_blue
-      font-size 16px
+      top 0
+      left 0
+      width 65px
+      height 65px
+      background-color transparent
       z-index 10
-    .icon-background
+    .delete_icon_background
       position absolute
-      right 5px
-      bottom 7px
-      width 6px
-      height 6px
+      top 20px
+      left 18px
+      width 26px
+      height 26px
+      border-radius 100%
       background-color white
+    .delete_icon
+      position absolute
+      top 20px
+      left 20px
+      font-size 25px
+      color #e74c3c // todo
 
 
 .bar-footer
@@ -1732,10 +1738,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     color white
     .icon
       font-size 20px
-  .toggle_select
-    width 100px
-    background-image none
-    color white
 .map_container
   height 400px
 .popup-container

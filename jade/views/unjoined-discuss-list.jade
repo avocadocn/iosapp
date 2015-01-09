@@ -14,4 +14,4 @@ ion-view.discuss_list
         h2 {{commentCampaign.theme}}
         p
           span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
-          span {{commentCampaign.latestComment.content}}
+          span(ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe")
