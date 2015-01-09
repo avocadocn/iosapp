@@ -2,19 +2,6 @@
 
 angular.module('donlerApp.directives', ['donlerApp.services'])
 
-  .directive('onLastRepeat', function () {
-    return {
-      link: function(scope, element, attrs, ctrl) {
-        if (scope.$last) {
-          setTimeout(function () {
-            scope.$emit('onRepeatLast', element, attrs);
-          }, 1);
-        }
-      }
-
-    };
-  })
-
   .directive('campaignCard', ['$rootScope', 'CONFIG', 'Campaign', 'INFO', 'Tools', '$location', function ($rootScope, CONFIG, Campaign, INFO, Tools, $location) {
     return {
       restrict: 'E',

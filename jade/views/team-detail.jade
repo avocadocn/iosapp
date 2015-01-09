@@ -29,7 +29,7 @@ ion-view
         a.col.btn_member(ng-href="#/members/team/{{team._id}}")
           .ion_member
           | {{team.memberCount}}名队员
-        .col.btn_cp 0个活动
+        .col.btn_cp {{team.campaignCount}}个活动
     .card.team_home_court
       .row.home_court_tabs
         .col.tab(ng-class="{'active': homeCourtIndex===0}" ng-click="selectHomeCourt(0)") 主场一
