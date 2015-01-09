@@ -1783,6 +1783,23 @@ a>.login .companies_list:activated {
   height: 40px;
   border-top: 1px solid #e2e2e2;
 }
+.team_page .team_info .info_footer .icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-right: 5px;
+  color: #3ca2e0;
+  font-size: 16px;
+}
+.team_page .team_info .ion_member {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: 200px;
+  background-position: 5px -148px;
+  vertical-align: middle;
+  margin-top: 3px;
+}
 .team_page .team_info .btn_member,
 .team_page .team_info .btn_cp {
   border-left: 1px solid #e2e2e2;
