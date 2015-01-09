@@ -9,9 +9,13 @@ ion-view
         p.header_title 全家福({{familyPhotos.length}})
       .clearfix
         .photo_wrap(ng-repeat="photo in familyPhotos")
-          img.family_photo(ng-class="{'family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="openPhotoSwipe(photo._id)")
-          span.icon.ion-checkmark-circled(ng-if="photo.select === true" ng-cloak)
-          .icon-background(ng-if="photo.select === true" ng-cloak)
+          img.family_photo(ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="openPhotoSwipe(photo._id)")
+          .delete_op_wrap(ng-if="editing" ng-cloak ng-click="toggleSelect($index)")
+            .delete_icon_background
+            .delete_icon.icon.ion-minus-circled
+    .row
+      button.button.button-block.button-positive(ng-if="team.isLeader && !editing" ng-click="toggleEdit()" ng-cloak) 编辑
+      button.button.button-block.button-positive(ng-if="team.isLeader && editing" ng-click="toggleEdit()" ng-cloak) 确定
 
 .pswp(tabindex="-1" role="dialog" aria-hidden="true")
   .pswp__bg
@@ -25,8 +29,6 @@ ion-view
         .pswp__counter
         button.pswp__button.pswp__button--close(title="关闭")
         button.pswp__button.pswp__button--zoom(title="放大/缩小")
-        button.pswp__button.toggle_select(ng-if="currentFamilyPhoto.select===false" ng-click="toggleSelect(currentFamilyPhoto)") 在小队主页显示
-        button.pswp__button.toggle_select(ng-if="currentFamilyPhoto.select===true" ng-click="toggleSelect(currentFamilyPhoto)") 从小队主页隐藏
         .pswp__preloader
           .pswp__preloader__icn
             .pswp__preloader__cut

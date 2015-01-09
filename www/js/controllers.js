@@ -3108,20 +3108,36 @@ angular.module('donlerApp.controllers', [])
       pswp.init();
     };
 
-    $scope.toggleSelect = function (familyPhoto) {
+    $scope.toggleSelect = function (index) {
       if (!$scope.team.isLeader) {
         return;
       }
-      Team.toggleSelectFamilyPhoto($scope.team._id, familyPhoto._id, function (err) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          familyPhoto.select = !familyPhoto.select;
+
+      var deleteConfirm = $ionicPopup.confirm({
+        title: '提示',
+        template: '确定要移除这张全家福吗？',
+        okText: '确定',
+        cancelText: '取消'
+      });
+      deleteConfirm.then(function (res) {
+        if (res) {
+          var familyPhoto = $scope.familyPhotos[index];
+          Team.toggleSelectFamilyPhoto($scope.team._id, familyPhoto._id, function (err) {
+            if (err) {
+              // todo
+              console.log(err);
+            } else {
+              $scope.familyPhotos.splice(index, 1);
+            }
+          });
         }
       });
     };
 
+    $scope.editing = false;
+    $scope.toggleEdit = function () {
+      $scope.editing = !$scope.editing;
+    };
 
     // 上传全家福
     var uploadSheet;
