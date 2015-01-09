@@ -45,7 +45,6 @@ angular.module('donlerApp.services', [])
   .value('INFO', {
     memberContent:'',
     sponsorBackUrl:'',
-    reportBackUrl:'',
     discussName:'',
     lastDate:'',
     companyId:'',

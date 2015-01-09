@@ -1,6 +1,6 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="{{backUrl}}" ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
     <h1 ng-cloak="ng-cloak" class="title">{{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</h1><a ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="button icon ion_discuss_active"></a>
   </ion-header-bar>
   <ion-content>

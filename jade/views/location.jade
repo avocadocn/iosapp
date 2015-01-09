@@ -1,6 +1,6 @@
 ion-view(title="活动地点")
   ion-header-bar
-    a.button.icon-left.ion-chevron-left(ng-href="{{backUrl}}") &nbsp;返回
+    span.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
   ion-content.map_page(scroll="false")
     p.map_name 活动地点: {{location.name}}
     .map
