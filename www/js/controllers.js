@@ -3532,7 +3532,15 @@ angular.module('donlerApp.controllers', [])
       }
     }
     $scope.closeCampaign = function() {
-      Campaign.close($state.params.id,function(err,data) {
+   var confirmPopup = $ionicPopup.confirm({
+     title: '确认',
+     template: '关闭后将无法再次打开，您确认要关闭该活动吗?',
+     cancelText: '取消',
+     okText: '确认'
+   });
+   confirmPopup.then(function(res) {
+     if(res) {
+       Campaign.close($state.params.id,function(err,data) {
         if(!err){
           $ionicPopup.alert({
             title: '提示',
@@ -3547,6 +3555,10 @@ angular.module('donlerApp.controllers', [])
           });
         }
       });
+     } else {
+     }
+   });
+      
     }
   }])
 
