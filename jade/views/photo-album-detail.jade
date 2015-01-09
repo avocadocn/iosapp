@@ -8,13 +8,8 @@ ion-view
     .dl_photo_album_card(ng-repeat="group in photoGroups" on-last-repeat)
       .card_header.clearfix
         p.header_title {{group.date | date:'yyyy年MM月dd日'}}
-      .dl_gallery.clearfix(itemscope itemtype="http://schema.org/ImageGallery")
-        figure.photo(itemscope itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos")
-          a(ng-href="{{STATIC_URL + photo.uri}}/resize/{{photo.viewWidth}}/{{photo.viewHeight}}" itemprop="contentUrl" data-size="{{photo.viewWidth}}x{{photo.viewHeight}}")
-            img(ng-src="{{STATIC_URL + photo.uri}}/65/65" itemprop="thumbnail")
-          figcaption.hidden_figcaption(itemprop="caption description")
-            | 上传者:&nbsp;{{photo.uploadUser.name}}
-            | &nbsp;&nbsp;上传日期:&nbsp;{{photo.uploadDate | date:'yyyy年MM月dd日'}}
+      .dl_gallery.clearfix
+        img.photo(ng-repeat="photo in group.photos" ng-src="{{STATIC_URL + photo.uri}}/65/65" ng-click="openPhotoSwipe(photo._id)")
     .list(ng-if="photoGroups.length === 0")
       .item 该相册还没有照片，快来上传吧。
 

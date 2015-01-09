@@ -303,7 +303,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback('error');
+          callback(data.msg ||'error');
         });
       },
       join: function(id, uid, callback) {

@@ -1,7 +1,7 @@
 
 <ion-view>
   <ion-header-bar><a ng-href="{{backUrl}}" ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">{{campaign.theme}}</h1><a ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="button icon ion_discuss_active"></a>
+    <h1 ng-cloak="ng-cloak" class="title">{{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</h1><a ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="button icon ion_discuss_active"></a>
   </ion-header-bar>
   <ion-content>
     <div class="card dl_card_detail">
@@ -14,18 +14,18 @@
         <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</h2><a ng-href="{{campaign.campaign_unit[1].team._id ? '#/team/'+ campaign.campaign_unit[1].team._id: ''}}"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/30/30'}}" class="dl_team_logo dl_team_logo_right"/></a>
       </div>
       <div class="item item-text-wrap dl_card_body">
-        <h2 class="dl_cp_name">{{campaign.theme}}<a ng-if="campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}" class="dl_cp_edit"><span class="icon icon_small ion-compose button-clear"></span></a></h2><a href="#/location/{{campaign._id}}" class="dl_cp_address">活动地点：{{campaign.location.name}}<span class="icon icon_small ion-chevron-right button-clear"></span></a>
+        <h2 class="dl_cp_name">{{campaign.theme}}<a ng-if="campaign.active &amp;&amp; campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}" class="dl_cp_edit"><span class="icon icon_small ion-compose button-clear"></span></a></h2><a href="#/location/{{campaign._id}}" class="dl_cp_address">活动地点：{{campaign.location.name}}<span class="icon icon_small ion-chevron-right button-clear"></span></a>
         <p class="dl_cp_time">开始时间：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}}</p>
         <p class="dl_cp_time">结束时间：{{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}</p>
         <p class="dl_cp_time">报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}</p>
         <p ng-if="campaign.member_max&amp;&amp;campaign.member_max!=0" class="dl_cp_member_max">人数上限：{{campaign.member_max}}</p>
         <p ng-if="campaign.member_min&amp;&amp;campaign.member_min!=0" class="dl_cp_member_min">人数下限：{{campaign.member_min}}</p>
-        <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">立即参加</button>
-        <button ng-if="campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-full dl_cp_quit">已经加入</button>
+        <button ng-if="campaign.active &amp;&amp; campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">立即参加</button>
+        <button ng-if="campaign.active &amp;&amp; campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-full dl_cp_quit">已经加入</button>
         <div class="dl_card_operator">
-          <button ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)" class="button dl_cp_confirm">接受</button>
-          <button ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)" class="button dl_cp_refuse">拒绝</button>
-          <button ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)" class="button dl_cp_cancel">取消</button>
+          <button ng-if="campaign.active &amp;&amp; campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)" class="button dl_cp_confirm">接受</button>
+          <button ng-if="ccampaign.active &amp;&amp; ampaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)" class="button dl_cp_refuse">拒绝</button>
+          <button ng-if="campaign.active &amp;&amp; campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)" class="button dl_cp_cancel">取消</button>
         </div>
         <ion-scroll direction="x"><a ng-href="#/photo_album/{{campaign.photo_album._id}}/detail" class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></a></ion-scroll>
       </div>

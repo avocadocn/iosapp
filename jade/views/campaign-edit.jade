@@ -9,11 +9,19 @@ ion-view.sponsor
           span.input-label 报名截止时间:
         label.item.item-input
           input#deadline(type="datetime-local" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间")
+        label.item.item-label
+          span.input-label 活动简介:
         label.item.item-input
-          input.arecode(type="text" name="content" ng-model="campaignData.content" placeholder="活动简介")
+          input.arecode(type="text" name="content" ng-model="campaignData.content")
+        label.item.item-label
+          span.input-label 报名人数上限:
         label.item.item-input
-          input.arecode(type="number" name="member_max" ng-model="campaignData.member_max" min=0 placeholder="报名人数上限")
+          input.arecode(type="number" name="member_max" ng-model="campaignData.member_max" min=0)
+        label.item.item-label
+          span.input-label 报名人数下限:
         label.item.item-input
-          input.arecode(type="number" name="member_min" ng-model="campaignData.member_min" min=0 placeholder="报名人数下限")
+          input.arecode(type="number" name="member_min" ng-model="campaignData.member_min" min=0)
         .item-button
           button.button.button-full.button_sponsor(ng-disabled="editCampaignForm.$invalid || isBusy" ng-click="editCampaign()") 修改
+        .item-button
+          button.button.button-full.button_close(ng-click="closeCampaign()") 关闭
