@@ -21,7 +21,7 @@ ion-view
           img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/30/30'}}")
       .item.item-text-wrap.dl_card_body
         h2.dl_cp_name {{campaign.theme}}
-          a.dl_cp_edit(ng-if="campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}")
+          a.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}")
             span.icon.icon_small.ion-compose.button-clear
         a.dl_cp_address(href="#/location/{{campaign._id}}") 活动地点：{{campaign.location.name}}
           span.icon.icon_small.ion-chevron-right.button-clear
@@ -30,12 +30,12 @@ ion-view
         p.dl_cp_time 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}
         p.dl_cp_member_max(ng-if="campaign.member_max&&campaign.member_max!=0") 人数上限：{{campaign.member_max}}
         p.dl_cp_member_min(ng-if="campaign.member_min&&campaign.member_min!=0") 人数下限：{{campaign.member_min}}
-        button.button.button-full.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
-        button.button.button-full.dl_cp_quit(ng-if="campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
+        button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
+        button.button.button-full.dl_cp_quit(ng-if="campaign.active && campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
         .dl_card_operator
-          button.button.dl_cp_confirm(ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
-          button.button.dl_cp_refuse(ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝
-          button.button.dl_cp_cancel(ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
+          button.button.dl_cp_confirm(ng-if="campaign.active && campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
+          button.button.dl_cp_refuse(ng-if="ccampaign.active && ampaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝
+          button.button.dl_cp_cancel(ng-if="campaign.active && campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
         ion-scroll(direction="x")
           a.dl_photo_alb(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")

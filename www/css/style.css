@@ -2064,11 +2064,16 @@ a>.login .companies_list:activated {
 .sponsor .list .item-button {
   margin: 10px 20px;
 }
-.sponsor .list .item-button .button_sponsor {
+.sponsor .list .item-button .button {
   width: 100%;
+  border-radius: 5px;
+}
+.sponsor .list .item-button .button_sponsor {
   background-color: #3ca2e0;
   color: #fff;
-  border-radius: 5px;
+}
+.sponsor .list .item-button .button_close {
+  border: none;
 }
 .pswp .dl_button_to_album {
   background-image: none;

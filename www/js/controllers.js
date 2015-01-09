@@ -3490,7 +3490,6 @@ angular.module('donlerApp.controllers', [])
       }
       else {
         $scope.campaignData.deadline = localizeDateStr($scope.campaignData.deadline);
-        console.log($scope.campaignData.deadline ,$scope.campaignData.end_time,$scope.campaignData.deadline > $scope.campaignData.end_time)
         if($scope.campaignData.member_min > $scope.campaignData.member_max) {
           $ionicPopup.alert({
             title: '错误',
@@ -3532,8 +3531,28 @@ angular.module('donlerApp.controllers', [])
         }
       }
     }
-
+    $scope.closeCampaign = function() {
+      Campaign.close($state.params.id,function(err,data) {
+        if(!err){
+          $ionicPopup.alert({
+            title: '提示',
+            template: '关闭成功'
+          });
+          $state.go('campaigns_detail',{id:$state.params.id});
+        }
+        else {
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
+        }
+      });
+    }
   }])
+
+
+
+
 
 
 
