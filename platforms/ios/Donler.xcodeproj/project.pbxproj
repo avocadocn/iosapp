@@ -39,8 +39,6 @@
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
-		63D0E850D359441A94B5543B /* IonicKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 951DB0BD008648F795A8E9EA /* IonicKeyboard.m */; };
-		212D5164C96744C698C16641 /* UIWebViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 74DAFB9B5FFC4612AB5E8885 /* UIWebViewExtension.m */; };
 		EBDEA4E3B1FA4074835F0C40 /* AppDelegate+notification.m in Sources */ = {isa = PBXBuildFile; fileRef = A4835ED12C6740F5AFC921FE /* AppDelegate+notification.m */; };
 		7D274860E20941FAB3F240F8 /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D4503DF25A40E9880FB63C /* PushPlugin.m */; };
 		E93712CED2A14AA695E1BA63 /* CDVCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA2B7CFA15B47DAA0C052E3 /* CDVCamera.m */; };
@@ -118,10 +116,6 @@
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Donler/config.xml"; sourceTree = "<group>"; };
-		951DB0BD008648F795A8E9EA /* IonicKeyboard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "IonicKeyboard.m"; path = "com.ionic.keyboard/IonicKeyboard.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		74DAFB9B5FFC4612AB5E8885 /* UIWebViewExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIWebViewExtension.m"; path = "com.ionic.keyboard/UIWebViewExtension.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		19082B5A8149478B96B7FB9B /* IonicKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "IonicKeyboard.h"; path = "com.ionic.keyboard/IonicKeyboard.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		11A49DE094564008B4188E9D /* UIWebViewExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIWebViewExtension.h"; path = "com.ionic.keyboard/UIWebViewExtension.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		A4835ED12C6740F5AFC921FE /* AppDelegate+notification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+notification.m"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		D6D4503DF25A40E9880FB63C /* PushPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PushPlugin.m"; path = "com.phonegap.plugins.PushPlugin/PushPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		E1B85B803F864F4A86D37CCC /* AppDelegate+notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+notification.h"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.h"; sourceTree = "<group>"; fileEncoding = 4; };
@@ -247,10 +241,6 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				951DB0BD008648F795A8E9EA /* IonicKeyboard.m */,
-				74DAFB9B5FFC4612AB5E8885 /* UIWebViewExtension.m */,
-				19082B5A8149478B96B7FB9B /* IonicKeyboard.h */,
-				11A49DE094564008B4188E9D /* UIWebViewExtension.h */,
 				A4835ED12C6740F5AFC921FE /* AppDelegate+notification.m */,
 				D6D4503DF25A40E9880FB63C /* PushPlugin.m */,
 				E1B85B803F864F4A86D37CCC /* AppDelegate+notification.h */,
@@ -456,8 +446,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				63D0E850D359441A94B5543B /* IonicKeyboard.m in Sources */,
-				212D5164C96744C698C16641 /* UIWebViewExtension.m in Sources */,
 				EBDEA4E3B1FA4074835F0C40 /* AppDelegate+notification.m in Sources */,
 				7D274860E20941FAB3F240F8 /* PushPlugin.m in Sources */,
 				E93712CED2A14AA695E1BA63 /* CDVCamera.m in Sources */,
