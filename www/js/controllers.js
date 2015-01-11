@@ -2142,7 +2142,7 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('TeamController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($ionicHistory, $scope, $state, $stateParams, $ionicPopup, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
+  .controller('TeamController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$stateParams', '$ionicPopup', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', 'User', function ($ionicHistory, $rootScope, $scope, $state, $stateParams, $ionicPopup, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate, User) {
     var teamId = $stateParams.teamId;
     $scope.goBack = function() {
       if($ionicHistory.backView()){
@@ -2151,12 +2151,20 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.pswpPhotoAlbum = {};
 
+    // 已登录的用户获取自己的信息不是异步过程
+    User.getData(localStorage.id, function (err, user) {
+      $scope.user = user;
+    });
+
     Team.getData(teamId, function (err, team) {
       if (err) {
         // todo
         console.log(err);
       } else {
         $scope.team = team;
+        if ($scope.team.cid !== $scope.user.company._id) {
+          $scope.team.isOtherCompanyTeam = true;
+        }
         INFO.memberContent = [team];
         $scope.homeCourtIndex = 0;
         $scope.homeCourts = team.homeCourts;

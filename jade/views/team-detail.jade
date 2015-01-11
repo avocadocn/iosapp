@@ -20,13 +20,16 @@ ion-view
         .team_des 小队简介:
           span(ng-if="team.brief" ng-cloak) {{team.brief}}
           span(ng-if="!team.brief" ng-cloak) 无
-        button.btn_joined(prevent-default ng-if="team.hasJoined" ng-click="quitTeam(team._id)") 已加入小队
-        button.btn_join(prevent-default ng-if="!team.hasJoined" ng-click="joinTeam(team._id)") 立即加入
+        button.btn_joined(prevent-default ng-if="team.hasJoined && !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak) 已加入小队
+        button.btn_join(prevent-default ng-if="!team.hasJoined && !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak) 立即加入
       .info_footer.row
-        a.col.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}")
+        a.col.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak)
           i.icon.ion-image
           | 上传照片
-        a.col.btn_member(ng-href="#/members/team/{{team._id}}")
+        a.col.btn_member(ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak)
+          .ion_member
+          | {{team.memberCount}}名队员
+        .col.btn_member(ng-if="team.isOtherCompanyTeam" ng-cloak)
           .ion_member
           | {{team.memberCount}}名队员
         .col.btn_cp {{team.campaignCount}}个活动
@@ -47,13 +50,13 @@ ion-view
           img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
         .member_wrap
           img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
-      a.member_link(ng-href="#/members/team/{{team._id}}")
+      a.member_link(ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam")
         span.member_count {{team.memberCount}}&nbsp;
         i.icon.ion-chevron-right
 
-    .dl_campaign_group(ng-repeat="group in campaignGroups")
+    .dl_campaign_group(ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam")
       p.dl_campaign_group_date {{group.date | date:'yyyy-MM'}}
       campaign-card(ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum")
-    ion-infinite-scroll(on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded()")
+    ion-infinite-scroll(on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded() && !team.isOtherCompanyTeam")
   include ./photo-swipe
 

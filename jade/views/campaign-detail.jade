@@ -16,7 +16,7 @@ ion-view
           img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}")
         h2.dl_team_name {{campaign.campaign_unit[0].team.name}}
         h2.dl_team_vs vs
-        h2.dl_team_name {{campaign.campaign_unit[0].team.name}}
+        h2.dl_team_name {{campaign.campaign_unit[1].team.name}}
         a(ng-href="{{campaign.campaign_unit[1].team._id ? '#/team/'+ campaign.campaign_unit[1].team._id: ''}}")
           img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/30/30'}}")
       .item.item-text-wrap.dl_card_body

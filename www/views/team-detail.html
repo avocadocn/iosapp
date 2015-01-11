@@ -18,11 +18,14 @@
         <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
         <div ng-if="team.poster" class="team_des">创建人: {{team.poster.nickname}}</div>
         <div class="team_des">小队简介:<span ng-if="team.brief" ng-cloak="ng-cloak">{{team.brief}}</span><span ng-if="!team.brief" ng-cloak="ng-cloak">无</span></div>
-        <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id)" class="btn_joined">已加入小队</button>
-        <button prevent-default="prevent-default" ng-if="!team.hasJoined" ng-click="joinTeam(team._id)" class="btn_join">立即加入</button>
+        <button prevent-default="prevent-default" ng-if="team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak="ng-cloak" class="btn_joined">已加入小队</button>
+        <button prevent-default="prevent-default" ng-if="!team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak="ng-cloak" class="btn_join">立即加入</button>
       </div>
-      <div class="info_footer row"><a ng-href="#/photo_album/list/team/{{team._id}}" class="col btn_upload_photo"><i class="icon ion-image"></i>上传照片</a><a ng-href="#/members/team/{{team._id}}" class="col btn_member">
+      <div class="info_footer row"><a ng-href="#/photo_album/list/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_upload_photo"><i class="icon ion-image"></i>上传照片</a><a ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_member">
           <div class="ion_member"></div>{{team.memberCount}}名队员</a>
+        <div ng-if="team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_member">
+          <div class="ion_member"></div>{{team.memberCount}}名队员
+        </div>
         <div class="col btn_cp">{{team.campaignCount}}个活动</div>
       </div>
     </div>
@@ -42,13 +45,13 @@
       <ion-scroll direction="x" scrollbar-x="false">
         <div class="member_wrap"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45" class="member"/></div>
         <div class="member_wrap"><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45" class="member"/></div>
-      </ion-scroll><a ng-href="#/members/team/{{team._id}}" class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></a>
+      </ion-scroll><a ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></a>
     </div>
-    <div ng-repeat="group in campaignGroups" class="dl_campaign_group">
+    <div ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam" class="dl_campaign_group">
       <p class="dl_campaign_group_date">{{group.date | date:'yyyy-MM'}}</p>
       <campaign-card ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
     </div>
-    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded()"></ion-infinite-scroll>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded() &amp;&amp; !team.isOtherCompanyTeam"></ion-infinite-scroll>
   </ion-content>
   <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
     <div class="pswp__bg"></div>
