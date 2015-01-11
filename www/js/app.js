@@ -195,7 +195,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/campaign-edit.html'
       })
       .state('sponsor', {
-        url: '/campaign/sponsor',
+        url: '/campaign/sponsor/:type',
         controller: 'SponsorController',
         templateUrl: './views/sponsor.html'
       })
@@ -301,7 +301,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/about-notice.html'
       })
       .state('calendar', {
-        url: '/calendar',
+        url: '/calendar/:type',
         controller: 'CalendarController',
         templateUrl: './views/calendar.html'
       })

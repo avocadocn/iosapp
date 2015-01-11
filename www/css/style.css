@@ -311,6 +311,8 @@ body {
   color: #fff;
   padding: 10px;
   height: 50px;
+  border-top-right-radius: 5px !important;
+  border-top-left-radius: 5px !important;
 }
 .dl_card_detail .dl_card_header .dl_team_logo {
   float: left;
@@ -336,6 +338,15 @@ body {
 }
 .dl_card_detail .dl_card_header .dl_notice_count {
   float: right;
+  margin: 0 10px 0 0;
+  line-height: 30px;
+}
+.dl_card_detail .dl_card_header .dl_card_title {
+  margin: 0 0 0 10px;
+  line-height: 30px;
+}
+.dl_card_detail .dl_card_header .publish_notice {
+  margin-left: 10px;
 }
 .dl_card_detail .dl_card_header_provoke .dl_team_logo_right {
   float: right;
@@ -518,8 +529,10 @@ body {
   background-color: #3ca2e0;
   color: #fff;
   border: none;
-  top: 7px;
-  right: 0;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  line-height: 50px;
 }
 .dl_card_detail .dl_card_member .dl_card_more .icon {
   margin-left: 5px;

@@ -227,12 +227,11 @@ angular.module('donlerApp.controllers', [])
       })
     }
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate', 'Campaign', 'INFO', function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', 'Campaign', 'INFO',
+    function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory, Campaign, INFO) {
     $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
-    INFO.calendarBackUrl ='#/app/campaigns';
-    INFO.sponsorBackUrl ='app.campaigns';
     if(!localStorage.id){
       return $state.go('login');
     }
@@ -308,10 +307,10 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('CampaignDetailController', ['$rootScope', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', function ($rootScope, $scope, $state, $ionicPopup, Campaign, Message, INFO) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO) {
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack();
       }
       else {
         $state.go('app.campaigns');
@@ -448,7 +447,7 @@ angular.module('donlerApp.controllers', [])
       });
      };
   }])
-  .controller('SponsorController', ['$rootScope', '$scope', '$state', '$ionicPopup', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team', function ($rootScope, $scope, $state, $ionicPopup, $ionicModal, $timeout, Campaign, INFO, Team) {
+  .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team', function ($ionicHistory, $scope, $state, $ionicPopup, $ionicModal, $timeout, Campaign, INFO, Team) {
     $scope.campaignData ={};
     $scope.leadTeams = [];
     $scope.selectTeam = {};
@@ -463,11 +462,11 @@ angular.module('donlerApp.controllers', [])
       $scope.modal = modal;
     });
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
       }
-      else{
-        $state.go(INFO.sponsorBackUrl);
+      else {
+        $state.go('app.'+$state.params.type);
       }
     }
     $scope.closeModal = function() {
@@ -621,10 +620,8 @@ angular.module('donlerApp.controllers', [])
       return date_to_convert;
     }
     $scope.sponsor = function(){
-      console.log($scope.campaignData.start_time);
       $scope.campaignData.start_time = localizeDateStr($scope.campaignData.start_time);
       $scope.campaignData.end_time = localizeDateStr($scope.campaignData.end_time);
-      console.log($scope.campaignData.start_time,$scope.campaignData.end_time,$scope.campaignData.end_time < $scope.campaignData.start_time);
       var errMsg;
       if($scope.campaignData.start_time < new Date() ) {
         errMsg ='开始时间不能早于现在';
@@ -667,9 +664,7 @@ angular.module('donlerApp.controllers', [])
 
     }
   }])
-  .controller('DiscussListController', ['$scope', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
-    INFO.calendarBackUrl ='#/app/discuss/list';
-    INFO.sponsorBackUrl ='app.discuss_list';
+  .controller('DiscussListController', ['$scope', '$ionicHistory', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, $ionicHistory, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
     Socket.emit('enterRoom', localStorage.id);
     //先在缓存里取
     // console.log(INFO);
@@ -754,8 +749,8 @@ angular.module('donlerApp.controllers', [])
     };
     
   }])
-  .controller('DiscussDetailController', ['$rootScope', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location', '$ionicModal', '$ionicLoading',
-    function ($rootScope, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location, $ionicModal, $ionicLoading) {
+  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location', '$ionicModal', '$ionicLoading',
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location, $ionicModal, $ionicLoading) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
     Socket.emit('enterRoom', $scope.campaignId);
@@ -789,10 +784,10 @@ angular.module('donlerApp.controllers', [])
       }
     };
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
       }
-      else{
+      else {
         $state.go('app.discuss_list');
       }
     }
@@ -1192,7 +1187,7 @@ angular.module('donlerApp.controllers', [])
       $scope.commentContent += ':'+ emotion +':';
     };
   }])
-  .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', 'Team', 'INFO', function ($scope, $ionicPopup, $state, Team, INFO) {
+  .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
     if($state.params.type) {
       if($state.params.type=='personal') {
         $scope.teams = INFO.personalTeamList;
@@ -1308,7 +1303,7 @@ angular.module('donlerApp.controllers', [])
     //设置点入个人资料后返回的地址
     INFO.userInfoBackUrl = '#/discover/contacts';
   }])
-  .controller('PersonalController', ['$scope', '$state', 'User', 'Message', 'INFO', 'Tools', function ($scope, $state, User, Message, INFO, Tools) {
+  .controller('PersonalController', ['$scope', '$state', '$ionicHistory', 'User', 'Message', 'INFO', 'Tools', function ($scope, $state, $ionicHistory, User, Message, INFO, Tools) {
     INFO.calendarBackUrl ='#/app/personal';
     User.getData(localStorage.id, function (err, data) {
       if (err) {
@@ -1539,7 +1534,7 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('TabController', ['$scope','Socket', function ($scope, Socket) {
+  .controller('TabController', ['$scope', '$ionicHistory', 'Socket', function ($scope, $ionicHistory, Socket) {
     //每次进入页面判断是否有新评论没看
     if(localStorage.hasNewComment === true) {
       $scope.hasNewComment = true;
@@ -1555,363 +1550,379 @@ angular.module('donlerApp.controllers', [])
       $scope.hasNewComment = false;
       localStorage.hasNewComment = false;
     };
+    $scope.$on('$stateChangeStart',
+      function () {
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+          historyRoot: true
+        });
+    });
   }])
-  .controller('CalendarController',['$scope', '$rootScope', '$ionicPopup', '$ionicPopover', '$timeout','Campaign', 'INFO', function($scope, $rootScope, $ionicPopup, $ionicPopover, $timeout, Campaign, INFO) {
-    $scope.campaignTypes =[{
-      value:'unjoined',view:'未参加'
-    },
-    {
-      value:'joined',view:'已参加'
-    },
-    {
-      value:'all',view:'所有'
-    }];
-    $scope.nowTypeIndex =2;
-    moment.locale('zh-cn');
-    $scope.calendarBackUrl = INFO.calendarBackUrl;
-    /**
-     * 日历视图的状态，有年、月、日三种视图
-     * 'year' or 'month' or 'day'
-     * @type {String}
-     */
-    $scope.view = 'month';
-
-    /**
-     * 日视图中，当前周的日期数组，从周日开始
-     * 每个数组元素为Date对象
-     * @type {Array}
-     */
-    $scope.current_week_date = [];
-
-    $scope.year = '一月 二月 三月 四月 五月 六月 七月 八月 九月 十月 十一月 十二月'.split(' ');
-
-
-    if (INFO.lastDate) {
+  .controller('CalendarController',['$scope', '$rootScope', '$state', '$ionicPopup', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
+    function($scope, $rootScope, $state, $ionicPopup, $ionicPopover, $timeout, $ionicHistory, Campaign, INFO) {
+      $scope.campaignTypes =[{
+        value:'unjoined',view:'未参加'
+      },
+      {
+        value:'joined',view:'已参加'
+      },
+      {
+        value:'all',view:'所有'
+      }];
+      $scope.goBack = function() {
+        if($ionicHistory.backView()){
+          $ionicHistory.goBack()
+        }
+        else {
+          $state.go('app.'+$state.params.type);
+        }
+      }
+      $scope.nowTypeIndex =2;
+      moment.locale('zh-cn');
+      $scope.calendarBackUrl = INFO.calendarBackUrl;
       /**
-       * 当前浏览的日期，用于更新视图
-       * @type {Date}
+       * 日历视图的状态，有年、月、日三种视图
+       * 'year' or 'month' or 'day'
+       * @type {String}
        */
-      var current = $scope.current_date = INFO.lastDate;
-      $scope.view = 'day';
-      INFO.lastDate = null;
-    } else {
-      var current = $scope.current_date = new Date();
-    }
-
-    /**
-     * 月视图卡片数据
-     * @type {Array}
-     */
-    $scope.month_cards;
-
-    /**
-     * 日视图卡片数据
-     * @type {Array}
-     */
-    $scope.day_cards = [];
-
-    /**
-     * 更新日历的月视图, 并返回该存放该月相关数据的对象, 不会更新current对象
-     * @param  {Date} date
-     * @return {Object}
-     */
-    var updateMonth = function(date,callback) {
-      var date = new Date(date);
-      var year = date.getFullYear();
-      var month = date.getMonth();
-      var mdate = moment(new Date(year, month));
-      var offset = mdate.day();// mdate.day(): Sunday as 0 and Saturday as 6
-      var now = new Date();
-      $scope.current_year = year;
-      $scope.current_date = date;
-      var month_data = {
-        date: date,
-        format_month: month+1,
-        days: []
-      };
-      var month_dates = mdate.daysInMonth();
-      Campaign.getList({
-        requestType: 'user',
-        requestId: localStorage.id,
-        from:new Date(year, month).getTime(),
-        to:new Date(year, month+1).getTime()
-      }, function (err, data) {
-        if(err){
-          $ionicPopup.alert({
-            title: '提示',
-            template: err
-          });
-          return;
-        }
-        $scope.campaigns = data;
-        //标记周末、今天
-        for (var i = 0; i < month_dates; i++) {
-          month_data.days[i] = {
-            full_date: new Date(year, month, i + 1),
-            date: i + 1,
-            events: []
-          };
-          //由本月第一天，计算是星期几，决定位移量
-          if(i===0){
-            month_data.days[0].first_day = 'offset_' + offset; // mdate.day(): Sunday as 0 and Saturday as 6
-            month_data.offset = month_data.days[0].first_day;
-          }
-          // 是否是周末
-          if((i+offset)%7===6||(i+offset)%7===0)
-            month_data.days[i].is_weekend = true;
-
-          // 是否是今天
-          var now = new Date();
-          if (now.getDate() === i + 1 && now.getFullYear() === year && now.getMonth() === month) {
-            month_data.days[i].is_today = true;
-          }
-        }
-        var dayOperate = function (i,campaign) {
-          if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==campaign.join_flag ||$scope.nowTypeIndex==0&&campaign.join_flag==-1) {
-            month_data.days[i-1].events.push(campaign);
-            // month_data.days[i-1].has_event = true;
-            // if (campaign.is_joined) {
-            //   month_data.days[i-1].has_joined_event = true;
-            // }
-          };
-        }
-        // 将活动及相关标记存入某天
-        var month_start = new Date(year,month,1);
-        var month_end = new Date(year,month,1);
-        month_end.setMonth(month_end.getMonth()+1);
-        $scope.campaigns.forEach(function(campaign) {
-          var start_time = new Date(campaign.start_time);
-          var end_time = new Date(campaign.end_time);
-          if(start_time<=month_end&&end_time>=month_start){//如果活动'经过'本月
-            var day_start = start_time.getDate();
-            var day_end = end_time.getDate();
-            var month_day_end = month_end.getDate();
-            if(start_time>=month_start){//c>=a
-              if(end_time<=month_end){//d<=b 活动日
-                for(i=day_start;i<day_end+1;i++)
-                  dayOperate(i,campaign);
-              }else{//d>b 开始日到月尾
-                for(i=day_start;i<month_dates+1;i++)
-                  dayOperate(i,campaign);
-              }
-            }else{//c<a
-              if(end_time<=month_end){//d<=b 月首到结束日
-                for(i=1;i<day_end+1;i++)
-                  dayOperate(i,campaign);
-              }else{//d>b 每天
-                for(i=1;i<month_dates+1;i++)
-                  dayOperate(i,campaign);
-
-              }
-            }
-          }
-          // campaign.format_start_time = moment(campaign.start_time).calendar();
-          // campaign.format_end_time = moment(campaign.end_time).calendar();
-        });
-        $scope.current_month = month_data;
-        if(!$scope.$$phase) {
-          $scope.$apply();
-        }
-        callback && callback();
-        // return month_data;
-      });
-
-      
-    };
-
-    /**
-     * 进入某一天的详情, 会更新current
-     * @param  {Date} date
-     */
-    var updateDay = $scope.updateDay = function(date) {
-      var date = new Date(date);
-      var now = new Date();
-      $scope.view = 'day';
-      if (date.getMonth() !== current.getMonth() || !$scope.campaigns) {
-        updateMonth(date,function(){
-          updateDay(date);
-        });
-        return false;
-      }
-      else {
-        current = date;
-        $scope.current_date =date;
-        INFO.lastDate = date;
-        var events =[];
-        $scope.current_month.days[current.getDate() - 1].events.forEach(function(event){
-          if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag ||$scope.nowTypeIndex==0&&event.join_flag==-1) {
-            events.push(event);
-          }
-        })
-        var day = {
-          date: current,
-          past_flag: current<now,
-          format_date: moment(current).format('ll'),
-          format_day: moment(current).format('dddd'),
-          campaigns: events
-        };
-
-        var temp = new Date(date);
-        var first_day_of_week = new Date(temp.setDate(temp.getDate() - temp.getDay()));
-        $scope.current_week_date = [];
-        for (var i = 0; i < 7; i++) {
-          $scope.current_week_date.push(new Date(first_day_of_week.setDate(first_day_of_week.getDate())));
-          first_day_of_week.setDate(first_day_of_week.getDate() + 1);
-          var week_date = $scope.current_week_date[i];
-          var now = new Date();
-          if (week_date.getFullYear() === now.getFullYear() && week_date.getMonth() === now.getMonth() && week_date.getDate() === now.getDate()) {
-            week_date.is_today = true;
-          }
-          if (week_date.getFullYear() === current.getFullYear() && week_date.getMonth() === current.getMonth()) {
-            week_date.is_current_month = true;
-            if (week_date.getDate() === current.getDate()) {
-              week_date.is_current = true;
-            }
-            var events =[];
-            $scope.current_month.days[week_date.getDate() - 1].events.forEach(function(event){
-              if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag) {
-                events.push(event);
-              }
-            })
-            week_date.events = events;
-          }
-        }
-        $scope.current_day = day;
-        if(!$scope.$$phase) {
-          $scope.$apply();
-        }
-        // return day;
-      }
-      
-    };
-
-    $scope.back = function() {
-      switch ($scope.view) {
-      case 'month':
-        $scope.view = 'year';
-        break;
-      case 'day':
-        $scope.view = 'month';
-        INFO.lastDate = null;
-        break;
-      }
-    };
-
-
-    /**
-     * 回到今天，仅在月、日视图下起作用
-     */
-    $scope.today = function() {
-
-      switch ($scope.view) {
-      case 'month':
-        current = new Date();
-        $scope.month = updateMonth(current);
-        break;
-      case 'day':
-        var temp = new Date();
-        var day = updateDay(temp);
-        $scope.day_cards = [day];
-        break;
-      }
-
-    };
-
-    /**
-     * 进入某月的视图
-     * @param  {Number} month 月份, 0-11
-     */
-    $scope.monthView = function(month) {
-      current.setDate(1);
-      current.setMonth(month);
-      var new_month = updateMonth(current);
-      $scope.month_cards = [new_month];
       $scope.view = 'month';
-    };
 
-    /**
-     * 进入日视图
-     * @param  {Date} date
-     */
-    $scope.dayView = function(date) {
-      updateDay(date);
-      // $scope.day_cards = day;
-      $scope.view = 'day';
-    };
+      /**
+       * 日视图中，当前周的日期数组，从周日开始
+       * 每个数组元素为Date对象
+       * @type {Array}
+       */
+      $scope.current_week_date = [];
+
+      $scope.year = '一月 二月 三月 四月 五月 六月 七月 八月 九月 十月 十一月 十二月'.split(' ');
 
 
-    $scope.nextMonth = function() {
-      var temp = $scope.current_date;
-      temp.setMonth(temp.getMonth() + 1);
-      current = new Date(temp);
-      updateMonth(temp);
-      // $scope.month_cards.push(updateMonth(temp));
-      // $timeout(function(){
-      //   $scope.removeMonth(0);
-      // },100);
-    };
-
-    $scope.preMonth = function() {
-      var temp = $scope.current_date;
-      temp.setMonth(temp.getMonth() - 1);
-      current = new Date(temp);
-      updateMonth(temp);
-      // $scope.month_cards.unshift(updateMonth(temp));
-      // $timeout(function(){
-      //   $scope.removeMonth(-1);
-      // },100);
-    };
-
-    $scope.nextDay = function() {
-      var temp = $scope.current_date;
-      temp.setDate(temp.getDate() + 1);
-      updateDay(temp);
-      // $scope.day_cards = new_day;
-    };
-
-    $scope.preDay = function(day) {
-      var temp = $scope.current_date;
-      temp.setDate(temp.getDate() - 1);
-      updateDay(temp);
-      // $scope.day_cards = new_day;
-
-    };
-
-    // $scope.removeMonth = function(index) {
-    //   $scope.month_cards.splice(index, 1);
-    // };
-
-    // $scope.removeDay = function(index) {
-    //   $scope.day_cards.splice(index, 1);
-    // };
-    $ionicPopover.fromTemplateUrl('my-popover.html', {
-        scope: $scope,
-      }).then(function(popover) {
-        $scope.popover = popover;
-      });
-    $scope.showFilter = function($event){
-      $scope.popover.show($event);
-    }
-    $scope.campaignFilter = function(index){
-      $scope.nowTypeIndex = index;
-      $scope.popover.hide();
-      switch ($scope.view) {
-      case 'month':
-        updateMonth($scope.current_date);
-        break;
-      case 'day':
-        updateDay($scope.current_date);
-
-        break;
+      if (INFO.lastDate) {
+        /**
+         * 当前浏览的日期，用于更新视图
+         * @type {Date}
+         */
+        var current = $scope.current_date = INFO.lastDate;
+        $scope.view = 'day';
+        INFO.lastDate = null;
+      } else {
+        var current = $scope.current_date = new Date();
       }
-    }
-    if($scope.view=='month') {
-      updateMonth(current)
-    }
-    else if($scope.view =='day') {
-      updateDay(current)
-    }
-    
+
+      /**
+       * 月视图卡片数据
+       * @type {Array}
+       */
+      $scope.month_cards;
+
+      /**
+       * 日视图卡片数据
+       * @type {Array}
+       */
+      $scope.day_cards = [];
+
+      /**
+       * 更新日历的月视图, 并返回该存放该月相关数据的对象, 不会更新current对象
+       * @param  {Date} date
+       * @return {Object}
+       */
+      var updateMonth = function(date,callback) {
+        var date = new Date(date);
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var mdate = moment(new Date(year, month));
+        var offset = mdate.day();// mdate.day(): Sunday as 0 and Saturday as 6
+        var now = new Date();
+        $scope.current_year = year;
+        $scope.current_date = date;
+        var month_data = {
+          date: date,
+          format_month: month+1,
+          days: []
+        };
+        var month_dates = mdate.daysInMonth();
+        Campaign.getList({
+          requestType: 'user',
+          requestId: localStorage.id,
+          from:new Date(year, month).getTime(),
+          to:new Date(year, month+1).getTime()
+        }, function (err, data) {
+          if(err){
+            $ionicPopup.alert({
+              title: '提示',
+              template: err
+            });
+            return;
+          }
+          $scope.campaigns = data;
+          //标记周末、今天
+          for (var i = 0; i < month_dates; i++) {
+            month_data.days[i] = {
+              full_date: new Date(year, month, i + 1),
+              date: i + 1,
+              events: []
+            };
+            //由本月第一天，计算是星期几，决定位移量
+            if(i===0){
+              month_data.days[0].first_day = 'offset_' + offset; // mdate.day(): Sunday as 0 and Saturday as 6
+              month_data.offset = month_data.days[0].first_day;
+            }
+            // 是否是周末
+            if((i+offset)%7===6||(i+offset)%7===0)
+              month_data.days[i].is_weekend = true;
+
+            // 是否是今天
+            var now = new Date();
+            if (now.getDate() === i + 1 && now.getFullYear() === year && now.getMonth() === month) {
+              month_data.days[i].is_today = true;
+            }
+          }
+          var dayOperate = function (i,campaign) {
+            if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==campaign.join_flag ||$scope.nowTypeIndex==0&&campaign.join_flag==-1) {
+              month_data.days[i-1].events.push(campaign);
+              // month_data.days[i-1].has_event = true;
+              // if (campaign.is_joined) {
+              //   month_data.days[i-1].has_joined_event = true;
+              // }
+            };
+          }
+          // 将活动及相关标记存入某天
+          var month_start = new Date(year,month,1);
+          var month_end = new Date(year,month,1);
+          month_end.setMonth(month_end.getMonth()+1);
+          $scope.campaigns.forEach(function(campaign) {
+            var start_time = new Date(campaign.start_time);
+            var end_time = new Date(campaign.end_time);
+            if(start_time<=month_end&&end_time>=month_start){//如果活动'经过'本月
+              var day_start = start_time.getDate();
+              var day_end = end_time.getDate();
+              var month_day_end = month_end.getDate();
+              if(start_time>=month_start){//c>=a
+                if(end_time<=month_end){//d<=b 活动日
+                  for(i=day_start;i<day_end+1;i++)
+                    dayOperate(i,campaign);
+                }else{//d>b 开始日到月尾
+                  for(i=day_start;i<month_dates+1;i++)
+                    dayOperate(i,campaign);
+                }
+              }else{//c<a
+                if(end_time<=month_end){//d<=b 月首到结束日
+                  for(i=1;i<day_end+1;i++)
+                    dayOperate(i,campaign);
+                }else{//d>b 每天
+                  for(i=1;i<month_dates+1;i++)
+                    dayOperate(i,campaign);
+
+                }
+              }
+            }
+            // campaign.format_start_time = moment(campaign.start_time).calendar();
+            // campaign.format_end_time = moment(campaign.end_time).calendar();
+          });
+          $scope.current_month = month_data;
+          if(!$scope.$$phase) {
+            $scope.$apply();
+          }
+          callback && callback();
+          // return month_data;
+        });
+
+        
+      };
+
+      /**
+       * 进入某一天的详情, 会更新current
+       * @param  {Date} date
+       */
+      var updateDay = $scope.updateDay = function(date) {
+        var date = new Date(date);
+        var now = new Date();
+        $scope.view = 'day';
+        if (date.getMonth() !== current.getMonth() || !$scope.campaigns) {
+          updateMonth(date,function(){
+            updateDay(date);
+          });
+          return false;
+        }
+        else {
+          current = date;
+          $scope.current_date =date;
+          INFO.lastDate = date;
+          var events =[];
+          $scope.current_month.days[current.getDate() - 1].events.forEach(function(event){
+            if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag ||$scope.nowTypeIndex==0&&event.join_flag==-1) {
+              events.push(event);
+            }
+          })
+          var day = {
+            date: current,
+            past_flag: current<now,
+            format_date: moment(current).format('ll'),
+            format_day: moment(current).format('dddd'),
+            campaigns: events
+          };
+
+          var temp = new Date(date);
+          var first_day_of_week = new Date(temp.setDate(temp.getDate() - temp.getDay()));
+          $scope.current_week_date = [];
+          for (var i = 0; i < 7; i++) {
+            $scope.current_week_date.push(new Date(first_day_of_week.setDate(first_day_of_week.getDate())));
+            first_day_of_week.setDate(first_day_of_week.getDate() + 1);
+            var week_date = $scope.current_week_date[i];
+            var now = new Date();
+            if (week_date.getFullYear() === now.getFullYear() && week_date.getMonth() === now.getMonth() && week_date.getDate() === now.getDate()) {
+              week_date.is_today = true;
+            }
+            if (week_date.getFullYear() === current.getFullYear() && week_date.getMonth() === current.getMonth()) {
+              week_date.is_current_month = true;
+              if (week_date.getDate() === current.getDate()) {
+                week_date.is_current = true;
+              }
+              var events =[];
+              $scope.current_month.days[week_date.getDate() - 1].events.forEach(function(event){
+                if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag) {
+                  events.push(event);
+                }
+              })
+              week_date.events = events;
+            }
+          }
+          $scope.current_day = day;
+          if(!$scope.$$phase) {
+            $scope.$apply();
+          }
+          // return day;
+        }
+        
+      };
+
+      $scope.back = function() {
+        switch ($scope.view) {
+        case 'month':
+          $scope.view = 'year';
+          break;
+        case 'day':
+          $scope.view = 'month';
+          INFO.lastDate = null;
+          break;
+        }
+      };
+
+
+      /**
+       * 回到今天，仅在月、日视图下起作用
+       */
+      $scope.today = function() {
+
+        switch ($scope.view) {
+        case 'month':
+          current = new Date();
+          $scope.month = updateMonth(current);
+          break;
+        case 'day':
+          var temp = new Date();
+          var day = updateDay(temp);
+          $scope.day_cards = [day];
+          break;
+        }
+
+      };
+
+      /**
+       * 进入某月的视图
+       * @param  {Number} month 月份, 0-11
+       */
+      $scope.monthView = function(month) {
+        current.setDate(1);
+        current.setMonth(month);
+        var new_month = updateMonth(current);
+        $scope.month_cards = [new_month];
+        $scope.view = 'month';
+      };
+
+      /**
+       * 进入日视图
+       * @param  {Date} date
+       */
+      $scope.dayView = function(date) {
+        updateDay(date);
+        // $scope.day_cards = day;
+        $scope.view = 'day';
+      };
+
+
+      $scope.nextMonth = function() {
+        var temp = $scope.current_date;
+        temp.setMonth(temp.getMonth() + 1);
+        current = new Date(temp);
+        updateMonth(temp);
+        // $scope.month_cards.push(updateMonth(temp));
+        // $timeout(function(){
+        //   $scope.removeMonth(0);
+        // },100);
+      };
+
+      $scope.preMonth = function() {
+        var temp = $scope.current_date;
+        temp.setMonth(temp.getMonth() - 1);
+        current = new Date(temp);
+        updateMonth(temp);
+        // $scope.month_cards.unshift(updateMonth(temp));
+        // $timeout(function(){
+        //   $scope.removeMonth(-1);
+        // },100);
+      };
+
+      $scope.nextDay = function() {
+        var temp = $scope.current_date;
+        temp.setDate(temp.getDate() + 1);
+        updateDay(temp);
+        // $scope.day_cards = new_day;
+      };
+
+      $scope.preDay = function(day) {
+        var temp = $scope.current_date;
+        temp.setDate(temp.getDate() - 1);
+        updateDay(temp);
+        // $scope.day_cards = new_day;
+
+      };
+
+      // $scope.removeMonth = function(index) {
+      //   $scope.month_cards.splice(index, 1);
+      // };
+
+      // $scope.removeDay = function(index) {
+      //   $scope.day_cards.splice(index, 1);
+      // };
+      $ionicPopover.fromTemplateUrl('my-popover.html', {
+          scope: $scope,
+        }).then(function(popover) {
+          $scope.popover = popover;
+        });
+      $scope.showFilter = function($event){
+        $scope.popover.show($event);
+      }
+      $scope.campaignFilter = function(index){
+        $scope.nowTypeIndex = index;
+        $scope.popover.hide();
+        switch ($scope.view) {
+        case 'month':
+          updateMonth($scope.current_date);
+          break;
+        case 'day':
+          updateDay($scope.current_date);
+
+          break;
+        }
+      }
+      if($scope.view=='month') {
+        updateMonth(current)
+      }
+      else if($scope.view =='day') {
+        updateDay(current)
+      }
+      
   }])
   .controller('privacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/settings/about';
@@ -2123,11 +2134,11 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('TeamController', ['$rootScope', '$scope', '$state', '$stateParams', '$ionicPopup', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($rootScope, $scope, $state, $stateParams, $ionicPopup, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
+  .controller('TeamController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', function ($ionicHistory, $scope, $state, $stateParams, $ionicPopup, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate) {
     var teamId = $stateParams.teamId;
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
       }
     }
     $scope.pswpPhotoAlbum = {};
@@ -2713,15 +2724,15 @@ angular.module('donlerApp.controllers', [])
       });
 
   }])
-  .controller('PhotoAlbumDetailController', ['$rootScope', '$scope', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicModal', '$ionicLoading',
-    function ($rootScope, $scope, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicModal, $ionicLoading) {
+  .controller('PhotoAlbumDetailController', ['$ionicHistory', '$scope', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicModal', '$ionicLoading',
+    function ($ionicHistory, $scope, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicModal, $ionicLoading) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
 
       var isCampaignPhotoAlbum = false;
       $scope.goBack = function() {
-        if($rootScope.$viewHistory.backView){
-          $rootScope.$viewHistory.backView.go();
+        if($ionicHistory.backView()){
+          $ionicHistory.goBack()
         }
       }
       PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
@@ -2920,204 +2931,213 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('FamilyPhotoController', ['$rootScope', '$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', 'Tools', '$ionicModal', '$ionicLoading', function ($rootScope, $scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, Tools, $ionicModal, $ionicLoading) {
-    $scope.screenWidth = INFO.screenWidth;
-    $scope.screenHeight = INFO.screenHeight;
-    $scope.team = Team.getCurrentTeam();
-    var getFamilyPhotos = function () {
-      Team.getFamilyPhotos($scope.team._id, function (err, photos) {
+  .controller('FamilyPhotoController', ['$ionicHistory', '$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', 'Tools', '$ionicModal', '$ionicLoading',
+    function ($ionicHistory, $scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, Tools, $ionicModal, $ionicLoading) {
+      $scope.screenWidth = INFO.screenWidth;
+      $scope.screenHeight = INFO.screenHeight;
+
+      var isCampaignPhotoAlbum = false;
+      $scope.goBack = function() {
+        if($ionicHistory.backView()){
+          $ionicHistory.goBack()
+        }
+      }
+      PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
         if (err) {
           // todo
           console.log(err);
         } else {
-          $scope.familyPhotos = photos;
-        }
-      });
-    };
-    getFamilyPhotos();
-    $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
-      }
-    }
-    $scope.openPhotoSwipe = function (photoId) {
-      var pswpElement = document.querySelectorAll('.pswp')[0];
-
-      var index = Tools.arrayObjectIndexOf($scope.familyPhotos, photoId, '_id');
-
-      var options = {
-        history: false,
-        focus: false,
-        index: index,
-        showAnimationDuration: 0,
-        hideAnimationDuration: 0
-      };
-      var items = [];
-      $scope.familyPhotos.forEach(function (photo) {
-        items.push({
-          _id: photo._id,
-          src: CONFIG.STATIC_URL + photo.uri + '/320/190',
-          w: 320,
-          h: 190
-        });
-      });
-      var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-      pswp.listen('afterChange', function() {
-        var itemIndex = pswp.getCurrentIndex();
-        var familyPhotosIndex = Tools.arrayObjectIndexOf($scope.familyPhotos, items[itemIndex]._id, '_id');
-        $scope.currentFamilyPhoto = $scope.familyPhotos[familyPhotosIndex];
-        if(!$scope.$$phase) {
-          $scope.$apply();
-        }
-      });
-      pswp.init();
-    };
-
-    $scope.toggleSelect = function (index) {
-      if (!$scope.team.isLeader) {
-        return;
-      }
-
-      var deleteConfirm = $ionicPopup.confirm({
-        title: '提示',
-        template: '确定要移除这张全家福吗？',
-        okText: '确定',
-        cancelText: '取消'
-      });
-      deleteConfirm.then(function (res) {
-        if (res) {
-          var familyPhoto = $scope.familyPhotos[index];
-          Team.toggleSelectFamilyPhoto($scope.team._id, familyPhoto._id, function (err) {
-            if (err) {
-              // todo
-              console.log(err);
-            } else {
-              $scope.familyPhotos.splice(index, 1);
-            }
-          });
-        }
-      });
-    };
-
-    $scope.editing = false;
-    $scope.toggleEdit = function () {
-      $scope.editing = !$scope.editing;
-    };
-
-    // 上传全家福
-    var uploadSheet;
-    $scope.showUploadActionSheet = function () {
-      uploadSheet = $ionicActionSheet.show({
-        buttons: [{
-          text: '拍照上传'
-        }, {
-          text: '本地上传'
-        }],
-        titleText: '请选择上传方式',
-        cancelText: '取消',
-        buttonClicked: function (index) {
-          if (index === 0) {
-            getPhotoFrom('camera');
-          } else if (index === 1) {
-            getPhotoFrom('file');
+          $scope.photoAlbum = photoAlbum;
+          if (photoAlbum.owner && photoAlbum.owner.model.type === 'Campaign') {
+            isCampaignPhotoAlbum = true;
           }
-          return true;
         }
       });
-    };
 
-    $ionicModal.fromTemplateUrl('confirm-upload-modal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.confirmUploadModal = modal;
-    });
-    $scope.cancelUpload = function() {
-      $scope.confirmUploadModal.hide();
-    };
-
-    $scope.$on('$destroy',function() {
-      $scope.confirmUploadModal.remove();
-    });
-
-    var upload = function (imageURI) {
-      var serverAddr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
-      var headers = CommonHeaders.get();
-      headers['x-access-token'] = localStorage.accessToken;
-      var options = {
-        fileKey: 'photo',
-        httpMethod: 'POST',
-        headers: headers,
-        mimeType: 'image/jpeg'
-      };
-
-      $ionicLoading.show({
-        template: '上传中',
-        scope: $scope,
-        duration: 5000
-      });
-
-      $cordovaFile
-        .uploadFile(serverAddr, imageURI, options)
-        .then(function(result) {
-          $ionicLoading.hide();
-          var successAlert = $ionicPopup.alert({
-            title: '提示',
-            template: '上传照片成功'
-          });
-          successAlert.then(function () {
-            $scope.confirmUploadModal.hide();
-            getFamilyPhotos();
-          });
-        }, function(err) {
-          $ionicLoading.hide();
-          $ionicPopup.alert({
-            title: '提示',
-            template: '上传失败，请重试'
-          });
-        }, function (progress) {
-          // constant progress updates
-        });
-    };
-
-    $scope.confirmUpload = function () {
-      upload($scope.previewImg);
-    };
-
-    var getPhotoFrom = function (source) {
-
-      var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-      var save = false;
-      if (source === 'camera') {
-        sourceType = Camera.PictureSourceType.CAMERA;
-        save = true;
+      var pushToScopePhotos = function (photo) {
+        var resPhoto = {
+          _id: photo._id,
+          src: CONFIG.STATIC_URL + photo.uri,
+          w: photo.width || $scope.screenWidth,
+          h: photo.height || $scope.screenHeight
+        };
+        if (photo.uploadUser && photo.uploadDate) {
+          resPhoto.title = '上传者: ' + photo.uploadUser.name + '  上传时间: ' + moment(photo.uploadDate).format('YYYY-MM-DD HH:mm');
+        }
+        $scope.photos.push(resPhoto);
       }
 
-      var options = {
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: sourceType,
-        encodingType: Camera.EncodingType.JPEG,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: save,
-        correctOrientation: true
+      /**
+       * 将照片按日期分组，要求照片是按上传日期排序，上传日期距离现在越近，排在最前面
+       * @param {Array} photos 照片数组
+       */
+      var groupByDate = function (photos) {
+        var resData = [];
+        photos.forEach(function (photo) {
+          var lastGroup = resData[resData.length - 1];
+          if (lastGroup && Tools.isTheSameDay(lastGroup.date, photo.uploadDate)) {
+            lastGroup.photos.push(photo);
+          } else {
+            resData.push({
+              date: new Date(photo.uploadDate),
+              photos: [photo]
+            });
+          }
+        });
+        return resData;
       };
 
-      $cordovaCamera.getPicture(options).then(function(imageURI) {
-        $scope.previewImg = imageURI;
-        $scope.confirmUploadModal.show();
-      }, function(err) {
-        if (err !== 'no image selected') {
-          $ionicPopup.alert({
-            title: '获取照片失败',
-            template: err
-          });
-        }
+      var getPhotos = function () {
+        PhotoAlbum.getPhotos($stateParams.photoAlbumId, function (err, photos) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            $scope.photos = [];
+            photos.forEach(pushToScopePhotos);
+            $scope.photoGroups = groupByDate(photos);
+          }
+        });
+      };
+      getPhotos();
+
+      $scope.openPhotoSwipe = function (photoId) {
+        var pswpElement = document.querySelectorAll('.pswp')[0];
+
+        var index = Tools.arrayObjectIndexOf($scope.photos, photoId, '_id');
+
+        var options = {
+          history: false,
+          focus: false,
+          index: index,
+          showAnimationDuration: 0,
+          hideAnimationDuration: 0
+        };
+        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
+        gallery.init();
+      };
+
+      // 上传照片
+      var uploadSheet;
+      $scope.showUploadActionSheet = function () {
+        uploadSheet = $ionicActionSheet.show({
+          buttons: [{
+            text: '拍照上传'
+          }, {
+            text: '本地上传'
+          }],
+          titleText: '请选择上传方式',
+          cancelText: '取消',
+          buttonClicked: function (index) {
+            if (index === 0) {
+              getPhotoFrom('camera');
+            } else if (index === 1) {
+              getPhotoFrom('file');
+            }
+            return true;
+          }
+        });
+      };
+
+      $ionicModal.fromTemplateUrl('confirm-upload-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.confirmUploadModal = modal;
       });
-    };
+      $scope.cancelUpload = function() {
+        $scope.confirmUploadModal.hide();
+      };
+
+      $scope.$on('$destroy',function() {
+        $scope.confirmUploadModal.remove();
+      });
+
+      var upload = function (imageURI) {
+        var serverAddr = CONFIG.BASE_URL + '/photo_albums/' + $scope.photoAlbum._id + '/photos';
+        var headers = CommonHeaders.get();
+        headers['x-access-token'] = localStorage.accessToken;
+        var options = {
+          fileKey: 'photo',
+          httpMethod: 'POST',
+          headers: headers,
+          mimeType: 'image/jpeg'
+        };
+
+        if (isCampaignPhotoAlbum) {
+          serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.photoAlbum.owner.model._id;
+          var randomId = Math.floor(Math.random()*100);
+          options.params = {
+            randomId: randomId
+          };
+        }
+
+        $ionicLoading.show({
+          template: '上传中',
+          scope: $scope,
+          duration: 5000
+        });
+
+        $cordovaFile
+          .uploadFile(serverAddr, imageURI, options)
+          .then(function(result) {
+            $ionicLoading.hide();
+            var successAlert = $ionicPopup.alert({
+              title: '提示',
+              template: '上传照片成功'
+            });
+            successAlert.then(function () {
+              $scope.confirmUploadModal.hide();
+              getPhotos();
+            });
+          }, function(err) {
+            $ionicLoading.hide();
+            $ionicPopup.alert({
+              title: '提示',
+              template: '上传失败，请重试'
+            });
+          }, function (progress) {
+          });
+      };
+
+      $scope.confirmUpload = function () {
+        upload($scope.previewImg);
+      };
+
+      var getPhotoFrom = function (source) {
+
+        var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+        var save = false;
+        if (source === 'camera') {
+          sourceType = Camera.PictureSourceType.CAMERA;
+          save = true;
+        }
+
+        var options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: sourceType,
+          encodingType: Camera.EncodingType.JPEG,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: save,
+          correctOrientation: true
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageURI) {
+          $scope.previewImg = imageURI;
+          $scope.confirmUploadModal.show();
+        }, function(err) {
+          if (err !== 'no image selected') {
+            $ionicPopup.alert({
+              title: '获取照片失败',
+              template: err
+            });
+          }
+        });
+      };
 
   }])
-  .controller('MemberController', ['$rootScope', '$scope', '$stateParams', 'INFO', 'Team', function($rootScope, $scope, $stateParams, INFO, Team) {
+  .controller('MemberController', ['$ionicHistory', '$scope', '$stateParams', 'INFO', 'Team', function($ionicHistory, $scope, $stateParams, INFO, Team) {
     if($stateParams.memberType=='team') {
       var currentTeam = Team.getCurrentTeam();
 
@@ -3137,12 +3157,12 @@ angular.module('donlerApp.controllers', [])
       $scope.memberContents = INFO.memberContent;
     }
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
       }
     }
   }])
-  .controller('LocationController', ['$rootScope', '$scope', '$stateParams', 'INFO', function($rootScope, $scope, $stateParams, INFO) {
+  .controller('LocationController', ['$ionicHistory', '$scope', '$stateParams', 'INFO', function($ionicHistory, $scope, $stateParams, INFO) {
     $scope.location = INFO.locationContent;
     $scope.linkMap = function (location) {
       var link = 'http://m.amap.com/navi/?dest=' + location.coordinates[0] + ',' + location.coordinates[1] + '&destName=' + location.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
@@ -3150,8 +3170,8 @@ angular.module('donlerApp.controllers', [])
       return false;
     }
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
       }
     }
   }])
@@ -3203,7 +3223,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$rootScope', '$scope', '$state', '$stateParams', '$ionicPopover', 'User', function ($rootScope, $scope, $state, $stateParams, $ionicPopover, User) {
+  .controller('UserInfoController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopover', 'User', function ($ionicHistory, $scope, $state, $stateParams, $ionicPopover, User) {
     
     $ionicPopover.fromTemplateUrl('more-popover.html', {
         scope: $scope,
@@ -3211,8 +3231,8 @@ angular.module('donlerApp.controllers', [])
         $scope.popover = popover;
       });
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
       }
     }
     $scope.showPopover = function($event){
@@ -3232,7 +3252,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoTimelineController', ['$rootScope', '$scope', '$stateParams', 'User', 'TimeLine', function ($rootScope, $scope, $stateParams, User, TimeLine) {
+  .controller('UserInfoTimelineController', ['$ionicHistory', '$scope', '$stateParams', 'User', 'TimeLine', function ($ionicHistory, $scope, $stateParams, User, TimeLine) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -3247,8 +3267,8 @@ angular.module('donlerApp.controllers', [])
       }
     });
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
       }
     }
     // 是否需要显示时间
@@ -3299,10 +3319,10 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('ReportController', ['$rootScope', '$scope', '$stateParams', '$ionicPopup', 'Report', function ($rootScope, $scope, $stateParams, $ionicPopup, Report) {
+  .controller('ReportController', ['$ionicHistory', '$scope', '$stateParams', '$ionicPopup', 'Report', function ($ionicHistory, $scope, $stateParams, $ionicPopup, Report) {
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
       }
     }
     $scope.isBusy = false;
@@ -3367,7 +3387,7 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
-  .controller('CampaignEditController', ['$rootScope', '$scope', '$state', '$ionicPopup', 'Campaign', function ($rootScope, $scope, $state, $ionicPopup, Campaign) {
+  .controller('CampaignEditController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign) {
     $scope.isBusy = false;
     $scope.campaignData ={};
     var deadLineInput = document.getElementById('deadline');
@@ -3395,8 +3415,8 @@ angular.module('donlerApp.controllers', [])
       }
     });
     $scope.goBack = function() {
-      if($rootScope.$viewHistory.backView){
-        $rootScope.$viewHistory.backView.go();
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
       }
       else {
         $state.go('campaigns_detail',{id:$state.params.id});
@@ -3477,10 +3497,6 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-
-
-
-
 
 
 

@@ -33,7 +33,7 @@ angular.module('donlerApp.services', [])
         return promise.then(success, error);
       }
     }];
-    $httpProvider.responseInterceptors.push(interceptor);
+    $httpProvider.interceptors.push(interceptor);
   }])
   .constant('CONFIG', {
     BASE_URL: 'http://localhost:3002',
