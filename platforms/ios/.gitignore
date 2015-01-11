@@ -3,6 +3,3 @@
 *.pbxuser
 .DS_Store
 build/
-cordova/
-CordovaLib/
-Donler.xcodeproj/

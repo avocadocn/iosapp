@@ -920,6 +920,10 @@ a>.login .companies_list:activated {
 .ion_setting {
   background-position: -30px -145px;
 }
+.emoji {
+  margin: 0 0.1rem;
+  vertical-align: middle;
+}
 .discuss_detail {
   background-image: url("../img/discuss_bgd.jpg");
   background-size: 400px;
@@ -1100,10 +1104,6 @@ a>.login .companies_list:activated {
   max-width: 100%;
   padding: 2px 7px;
   line-height: 22px;
-}
-.discuss_detail .comments .comment .contents .content .emoji {
-  margin: 0 0.1rem;
-  vertical-align: middle;
 }
 .discuss_detail .comments .comment .triangle_isosceles {
   position: relative;
