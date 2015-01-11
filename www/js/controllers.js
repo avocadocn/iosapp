@@ -754,8 +754,8 @@ angular.module('donlerApp.controllers', [])
     };
     
   }])
-  .controller('DiscussDetailController', ['$rootScope', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location',
-    function ($rootScope, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location) {
+  .controller('DiscussDetailController', ['$rootScope', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location', '$ionicModal', '$ionicLoading',
+    function ($rootScope, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location, $ionicModal, $ionicLoading) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
     Socket.emit('enterRoom', $scope.campaignId);
@@ -1002,6 +1002,20 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
+    $ionicModal.fromTemplateUrl('confirm-upload-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.confirmUploadModal = modal;
+    });
+    $scope.cancelUpload = function() {
+      $scope.confirmUploadModal.hide();
+    };
+
+    $scope.$on('$destroy',function() {
+      $scope.confirmUploadModal.remove();
+    });
+
     var upload = function (imageURI, randomId) {
       var serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
       var headers = CommonHeaders.get();
@@ -1014,10 +1028,19 @@ angular.module('donlerApp.controllers', [])
         params:{randomId: randomId}
       };
 
+      $ionicLoading.show({
+        template: '上传中',
+        scope: $scope,
+        duration: 5000
+      });
+
       $cordovaFile
         .uploadFile(serverAddr, imageURI, options)
         .then(function(result) {
+          $ionicLoading.hide();
+          $scope.confirmUploadModal.hide();
         }, function(err) {
+          $scope.confirmUploadModal.hide();
           //发送失败
           var length =  $scope.commentList[commentListIndex].length;
           $scope.commentList[commentListIndex][length-1].failed = true;
@@ -1028,6 +1051,10 @@ angular.module('donlerApp.controllers', [])
         }, function (progress) {
           // constant progress updates
         });
+    };
+
+    $scope.confirmUpload = function () {
+      upload($scope.previewImg, $scope.randomId);
     };
 
     var getPhotoFrom = function (source) {
@@ -1052,7 +1079,9 @@ angular.module('donlerApp.controllers', [])
       $cordovaCamera.getPicture(options).then(function(imageURI) {
         //-生成随机id
         var randomId = Math.floor(Math.random()*100);
-        upload(imageURI,randomId);
+        $scope.previewImg = imageURI;
+        $scope.randomId = randomId;
+        $scope.confirmUploadModal.show();
         //-创建一个新comment
         var newComment = {
           randomId: randomId.toString(),

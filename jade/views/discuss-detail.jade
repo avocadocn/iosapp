@@ -59,4 +59,15 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
         .box.clearfix
           .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
             i(class="emoji {{'emoji_'+emotion}}" )
+
+  script(id="confirm-upload-modal.html" type="text/ng-template")
+    ion-modal-view
+      ion-header-bar
+        button.button(ng-click="cancelUpload()") 取消
+        h1.title 预览
+        button.button(ng-click="confirmUpload()") 确定
+      ion-content
+        .card
+          .item.item-image
+            img(ng-src="{{previewImg}}")
 include ./photo-swipe
