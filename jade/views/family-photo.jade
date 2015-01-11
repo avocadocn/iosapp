@@ -17,6 +17,17 @@ ion-view
       button.button.button-block.button-positive(ng-if="team.isLeader && !editing" ng-click="toggleEdit()" ng-cloak) 编辑
       button.button.button-block.button-positive(ng-if="team.isLeader && editing" ng-click="toggleEdit()" ng-cloak) 确定
 
+  script(id="confirm-upload-modal.html" type="text/ng-template")
+    ion-modal-view
+      ion-header-bar
+        button.button(ng-click="cancelUpload()") 取消
+        h1.title 预览
+        button.button(ng-click="confirmUpload()") 确定
+      ion-content
+        .card
+          .item.item-image
+            img(ng-src="{{previewImg}}")
+
 .pswp(tabindex="-1" role="dialog" aria-hidden="true")
   .pswp__bg
   .pswp__scroll-wrap
