@@ -777,7 +777,7 @@ angular.module('donlerApp.controllers', [])
           var height = photo.height || INFO.screenHeight;
           var item = {
             _id: photo._id,
-            src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
+            src: CONFIG.STATIC_URL + photo.uri,
             w: width,
             h: height
           };
@@ -2707,31 +2707,12 @@ angular.module('donlerApp.controllers', [])
         }
       });
 
-      var setPhotoSize = function (photo) {
-        if (photo.width < INFO.screenWidth && photo.height < INFO.screenHeight) {
-          photo.viewWidth = photo.width;
-          photo.viewHeight = photo.height;
-        } else {
-          // o: photo, d: device, 比较 ow/oh 与 dw/dh, 即ow/oh-dw/dh >= 0?
-          var compareResult = photo.width * INFO.screenHeight - photo.height * INFO.screenWidth;
-          if (compareResult >= 0) {
-            // 将图片的宽度调整至屏幕宽度，高度自适应（必定会比屏幕高度小）
-            photo.viewWidth = INFO.screenWidth;
-            photo.viewHeight = Math.floor(photo.height * INFO.screenWidth / photo.width);
-          } else {
-            // 将图片的高度调整至屏幕高度，宽度自适应（必定会比屏幕宽度小）
-            photo.viewHeight = INFO.screenHeight;
-            photo.viewWidth = Math.floor(photo.width * INFO.screenHeight / photo.height);
-          }
-        }
-      };
-
       var pushToScopePhotos = function (photo) {
         var resPhoto = {
           _id: photo._id,
-          src: CONFIG.STATIC_URL + photo.uri + '/resize/' + photo.viewWidth + '/' + photo.viewHeight,
-          w: photo.viewWidth,
-          h: photo.viewHeight
+          src: CONFIG.STATIC_URL + photo.uri,
+          w: photo.width || $scope.screenWidth,
+          h: photo.height || $scope.screenHeight
         };
         if (photo.uploadUser && photo.uploadDate) {
           resPhoto.title = '上传者: ' + photo.uploadUser.name + '  上传时间: ' + moment(photo.uploadDate).format('YYYY-MM-DD HH:mm');
@@ -2765,7 +2746,6 @@ angular.module('donlerApp.controllers', [])
             // todo
             console.log(err);
           } else {
-            photos.forEach(setPhotoSize);
             $scope.photos = [];
             photos.forEach(pushToScopePhotos);
             $scope.photoGroups = groupByDate(photos);

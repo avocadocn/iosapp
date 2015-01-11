@@ -39,7 +39,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             var height = photo.height || INFO.screenHeight;
             var item = {
               _id: photo._id,
-              src: CONFIG.STATIC_URL + photo.uri + '/resize/' + width + '/' + height,
+              src: CONFIG.STATIC_URL + photo.uri,
               w: width,
               h: height
             };
