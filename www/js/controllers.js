@@ -2684,8 +2684,8 @@ angular.module('donlerApp.controllers', [])
       });
 
   }])
-  .controller('PhotoAlbumDetailController', ['$rootScope', '$scope', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet',
-    function ($rootScope, $scope, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
+  .controller('PhotoAlbumDetailController', ['$rootScope', '$scope', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicModal', '$ionicLoading',
+    function ($rootScope, $scope, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicModal, $ionicLoading) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
 
@@ -2792,6 +2792,20 @@ angular.module('donlerApp.controllers', [])
         });
       };
 
+      $ionicModal.fromTemplateUrl('confirm-upload-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.confirmUploadModal = modal;
+      });
+      $scope.cancelUpload = function() {
+        $scope.confirmUploadModal.hide();
+      };
+
+      $scope.$on('$destroy',function() {
+        $scope.confirmUploadModal.remove();
+      });
+
       var upload = function (imageURI) {
         var serverAddr = CONFIG.BASE_URL + '/photo_albums/' + $scope.photoAlbum._id + '/photos';
         var headers = CommonHeaders.get();
@@ -2811,24 +2825,36 @@ angular.module('donlerApp.controllers', [])
           };
         }
 
+        $ionicLoading.show({
+          template: '上传中',
+          scope: $scope,
+          duration: 5000
+        });
+
         $cordovaFile
           .uploadFile(serverAddr, imageURI, options)
           .then(function(result) {
+            $ionicLoading.hide();
             var successAlert = $ionicPopup.alert({
               title: '提示',
               template: '上传照片成功'
             });
             successAlert.then(function () {
+              $scope.confirmUploadModal.hide();
               getPhotos();
             });
           }, function(err) {
+            $ionicLoading.hide();
             $ionicPopup.alert({
               title: '提示',
               template: '上传失败，请重试'
             });
           }, function (progress) {
-            // constant progress updates
           });
+      };
+
+      $scope.confirmUpload = function () {
+        upload($scope.previewImg);
       };
 
       var getPhotoFrom = function (source) {
@@ -2850,8 +2876,9 @@ angular.module('donlerApp.controllers', [])
           correctOrientation: true
         };
 
-        $cordovaCamera.getPicture(options).then(function(imageURI) {
-          upload(imageURI);
+        $cordovaCamera.getPicture(options).then(function (imageURI) {
+          $scope.previewImg = imageURI;
+          $scope.confirmUploadModal.show();
         }, function(err) {
           if (err !== 'no image selected') {
             $ionicPopup.alert({
