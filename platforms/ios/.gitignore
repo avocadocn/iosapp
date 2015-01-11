@@ -1,8 +1,10 @@
 *.mode1v3
 *.perspectivev3
 *.pbxuser
+*.xcuserstate
 .DS_Store
 build/
 cordova/
 CordovaLib/
 Donler.xcodeproj/
+Donler/
