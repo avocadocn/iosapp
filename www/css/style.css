@@ -1827,12 +1827,12 @@ a>.login .companies_list:activated {
   padding: 0;
   line-height: 35px;
   font-size: 16px;
-  color: #fff;
-  background-color: #3ca2e0;
-}
-.team_page .team_home_court .tab.active {
   color: #3ca2e0;
   background-color: #fff;
+}
+.team_page .team_home_court .tab.active {
+  color: #fff;
+  background-color: #3ca2e0;
 }
 .team_page .team_home_court .map_wrap {
   display: block;
