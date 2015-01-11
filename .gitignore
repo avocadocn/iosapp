@@ -6,3 +6,9 @@ plugins/
 .idea/
 
 www/lib/
+
+
+platforms/ios/build/
+platforms/ios/cordova/
+platforms/ios/CordovaLib/
+platforms/ios/Donler.xcodeproj/
