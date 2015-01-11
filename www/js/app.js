@@ -118,6 +118,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CompanyTeamController',
         templateUrl: './views/company-team-list.html'
       })
+      .state('company_editTeam', {
+        url: '/company/edit_team/:teamId',
+        controller: 'companyEditTeamController',
+        templateUrl: './views/company-edit-team.html'
+      })
       .state('company_forget', {
         url: '/company/forget',
         controller: 'CompanyForgetController',

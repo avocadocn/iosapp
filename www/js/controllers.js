@@ -621,10 +621,10 @@ angular.module('donlerApp.controllers', [])
       return date_to_convert;
     }
     $scope.sponsor = function(){
-      console.log($scope.campaignData.start_time);
+      // console.log($scope.campaignData.start_time);
       $scope.campaignData.start_time = localizeDateStr($scope.campaignData.start_time);
       $scope.campaignData.end_time = localizeDateStr($scope.campaignData.end_time);
-      console.log($scope.campaignData.start_time,$scope.campaignData.end_time,$scope.campaignData.end_time < $scope.campaignData.start_time);
+      // console.log($scope.campaignData.start_time,$scope.campaignData.end_time,$scope.campaignData.end_time < $scope.campaignData.start_time);
       var errMsg;
       if($scope.campaignData.start_time < new Date() ) {
         errMsg ='开始时间不能早于现在';
@@ -2359,8 +2359,8 @@ angular.module('donlerApp.controllers', [])
       } else if ($scope.team.homeCourts.length === 1) {
         $scope.formData.homeCourts = [
           {
-            name: $scope.team.homeCourts[0].name,
-            loc: copyLoc($scope.team.homeCourts[0].loc)
+            name: $scope.team.homeCourts[0]? $scope.team.homeCourts[0].name: '',
+            loc: copyLoc($scope.team.homeCourts[0]? $scope.team.homeCourts[0].loc: null)
           },
           {
             name: ''
@@ -2369,12 +2369,12 @@ angular.module('donlerApp.controllers', [])
       } else if ($scope.team.homeCourts.length >= 2) {
         $scope.formData.homeCourts = [
           {
-            name: $scope.team.homeCourts[0].name,
-            loc: copyLoc($scope.team.homeCourts[0].loc)
+            name: $scope.team.homeCourts[0] ? $scope.team.homeCourts[0].name: '',
+            loc: copyLoc($scope.team.homeCourts[0]? $scope.team.homeCourts[0].loc: null)
           },
           {
-            name: $scope.team.homeCourts[1].name,
-            loc: copyLoc($scope.team.homeCourts[1].loc)
+            name: $scope.team.homeCourts[1] ? $scope.team.homeCourts[1].name: '',
+            loc: copyLoc($scope.team.homeCourts[1]? $scope.team.homeCourts[1].loc: null)
           }
         ];
       }
@@ -2640,6 +2640,9 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
+  }])
+  .controller('companyEditTeamController', ['$scope', 'Team', function ($scope, Team) {
+    
   }])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'Team', 'INFO',
     function ($scope, $stateParams, PhotoAlbum, Team, INFO) {
@@ -3093,14 +3096,14 @@ angular.module('donlerApp.controllers', [])
     if($stateParams.memberType=='team') {
       var currentTeam = Team.getCurrentTeam();
 
-      Team.getMembers($stateParams.id, function (err, members) {
+      Team.getMembers($stateParams.id, function (err, data) {
         if (err) {
           // todo
           console.log(err);
         } else {
           $scope.memberContents = [{
             name: currentTeam.name,
-            members: members
+            members: data.members
           }];
         }
       });

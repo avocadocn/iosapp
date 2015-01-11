@@ -591,6 +591,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       margin-right 3%
     .register_button
       background-color col_darkBlue
+//-search icon
+.login, .edit_team_info
+  .dl_search_icon
+    color #3ca2e0
+    font-size 30px
+    margin -10px 10px
 //-登录页、忘记密码页、注册页
 .login
   background-color #fff
@@ -618,10 +624,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       line-height 40px
     .dkblue_button
       background-color col_darkBlue
-    .dl_search_icon
-      color #3ca2e0
-      font-size 30px
-      margin -10px 10px
+    
   //-words
   .links, .tip_msg
     margin 0 20px
@@ -1049,12 +1052,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       .item-note
         color col_blue
 //-我的等页面通用">"
-.personal, .settings, .about, .settings_account, .contacts
+.personal, .settings, .about, .settings_account, .contacts, .company
   .list
     margin-top 10px
     .ion-chevron-right
       font-size 14px
       color #ccc
+    .ion-compose
+      color #333
+      font-size 20px
+      display block
+      top 16px
 //-账号设置页
 .settings_account
   a.item
@@ -1119,6 +1127,32 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       color col_darkGray
       z-index 1
       font-size 24px
+//- HR编辑小队
+.edit_team_info
+  .list
+    background-color #fff
+    .leader
+      span
+        float left
+      .leader_logo
+        float left
+        height 20px
+        width 20px
+        margin-right 10px
+    .search
+      border 1px solid col_blue
+      border-radius 5px
+      margin 5px 16px
+    .people
+      .person
+        float left
+        margin-right 8px
+        .photo
+          width 40px
+          height 40px
+        .name
+          width 40px
+          text-align center
 //-别人的卡片
 .user_card
   .tags

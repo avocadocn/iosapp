@@ -709,6 +709,12 @@ input:focus:-ms-input-placeholder {
 .home .home_buttons .register_button {
   background-color: #618bd7;
 }
+.login .dl_search_icon,
+.edit_team_info .dl_search_icon {
+  color: #3ca2e0;
+  font-size: 30px;
+  margin: -10px 10px;
+}
 .login {
   background-color: #fff;
 }
@@ -739,11 +745,6 @@ input:focus:-ms-input-placeholder {
 }
 .login .list.list-inset .dkblue_button {
   background-color: #618bd7;
-}
-.login .list.list-inset .dl_search_icon {
-  color: #3ca2e0;
-  font-size: 30px;
-  margin: -10px 10px;
 }
 .login .links,
 .login .tip_msg {
@@ -1261,16 +1262,29 @@ a>.login .companies_list:activated {
 .settings .list,
 .about .list,
 .settings_account .list,
-.contacts .list {
+.contacts .list,
+.company .list {
   margin-top: 10px;
 }
 .personal .list .ion-chevron-right,
 .settings .list .ion-chevron-right,
 .about .list .ion-chevron-right,
 .settings_account .list .ion-chevron-right,
-.contacts .list .ion-chevron-right {
+.contacts .list .ion-chevron-right,
+.company .list .ion-chevron-right {
   font-size: 14px;
   color: #ccc;
+}
+.personal .list .ion-compose,
+.settings .list .ion-compose,
+.about .list .ion-compose,
+.settings_account .list .ion-compose,
+.contacts .list .ion-compose,
+.company .list .ion-compose {
+  color: #333;
+  font-size: 20px;
+  display: block;
+  top: 16px;
 }
 .settings_account a.item {
   color: #444;
@@ -1320,6 +1334,35 @@ a>.login .companies_list:activated {
   color: #999;
   z-index: 1;
   font-size: 24px;
+}
+.edit_team_info .list {
+  background-color: #fff;
+}
+.edit_team_info .list .leader span {
+  float: left;
+}
+.edit_team_info .list .leader .leader_logo {
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+.edit_team_info .list .search {
+  border: 1px solid #3ca2e0;
+  border-radius: 5px;
+  margin: 5px 16px;
+}
+.edit_team_info .list .people .person {
+  float: left;
+  margin-right: 8px;
+}
+.edit_team_info .list .people .person .photo {
+  width: 40px;
+  height: 40px;
+}
+.edit_team_info .list .people .person .name {
+  width: 40px;
+  text-align: center;
 }
 .user_card .tags {
   white-space: normal;
