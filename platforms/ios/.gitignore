@@ -2,6 +2,7 @@
 *.perspectivev3
 *.pbxuser
 *.xcuserstate
+Donler.xcodeproj/project.pbxproj
 .DS_Store
 build/
 cordova/

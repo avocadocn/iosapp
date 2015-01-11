@@ -12,3 +12,4 @@ platforms/ios/build/
 platforms/ios/cordova/
 platforms/ios/CordovaLib/
 platforms/ios/Donler.xcodeproj/
+platforms/ios/Donler.xcodeproj/project.pbxproj
