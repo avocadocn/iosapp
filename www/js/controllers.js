@@ -89,7 +89,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
-  .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', 'UserAuth', function ($scope, CommonHeaders, $state, UserAuth) {
+  .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'UserAuth', function ($scope, CommonHeaders, $state, $ionicHistory, UserAuth) {
 
     $scope.loginData = {
       email: '',
@@ -101,13 +101,15 @@ angular.module('donlerApp.controllers', [])
         if (msg) {
           $scope.msg = msg;
         } else {
+          $ionicHistory.clearHistory();
+          $ionicHistory.clearCache();
           $state.go('app.campaigns');
         }
       });
     };
 
   }])
-  .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', 'CompanyAuth', function ($scope, CommonHeaders, $state, CompanyAuth) {
+  .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'CompanyAuth', function ($scope, CommonHeaders, $state, $ionicHistory, CompanyAuth) {
 
     $scope.loginData = {
       username: '',
@@ -119,6 +121,8 @@ angular.module('donlerApp.controllers', [])
         if (msg) {
           $scope.msg = msg;
         } else {
+          $ionicHistory.clearHistory();
+          $ionicHistory.clearCache();
           $state.go('company_home');
         }
       });
@@ -232,9 +236,6 @@ angular.module('donlerApp.controllers', [])
     $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
-    if(!localStorage.id){
-      return $state.go('login');
-    }
     Campaign.getList({
       requestType: 'user',
       requestId: localStorage.id,
@@ -246,6 +247,9 @@ angular.module('donlerApp.controllers', [])
         $scope.nowCampaigns = data[1];
         $scope.newCampaigns = data[2];
         $scope.provokes = data[3];
+        if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
+          $scope.noCampaigns = true;
+        }
       }
       else {
         $ionicPopup.alert({
@@ -296,6 +300,9 @@ angular.module('donlerApp.controllers', [])
           $scope.nowCampaigns = data[1];
           $scope.newCampaigns = data[2];
           $scope.provokes = data[3];
+          if(data[0].length==0&&data[1].length==0&&data[2].length&&data[3].length==0){
+            $scope.noCampaigns = true;
+          }
         }
         else{
           $ionicPopup.alert({
@@ -1303,8 +1310,7 @@ angular.module('donlerApp.controllers', [])
     //设置点入个人资料后返回的地址
     INFO.userInfoBackUrl = '#/discover/contacts';
   }])
-  .controller('PersonalController', ['$scope', '$state', '$ionicHistory', 'User', 'Message', 'INFO', 'Tools', function ($scope, $state, $ionicHistory, User, Message, INFO, Tools) {
-    INFO.calendarBackUrl ='#/app/personal';
+  .controller('PersonalController', ['$scope', '$state', '$ionicHistory', 'User', 'Message', 'Tools', function ($scope, $state, $ionicHistory, User, Message, Tools) {
     User.getData(localStorage.id, function (err, data) {
       if (err) {
         // todo
@@ -1495,7 +1501,7 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('SettingsController', ['$scope', '$state', 'UserAuth', 'User', 'CommonHeaders', function ($scope, $state, UserAuth, User, CommonHeaders) {
+  .controller('SettingsController', ['$scope', '$state', '$ionicHistory', 'UserAuth', 'User', 'CommonHeaders', function ($scope, $state, $ionicHistory, UserAuth, User, CommonHeaders) {
 
     $scope.logout = function () {
       User.clearCurrentUser();
@@ -1504,6 +1510,8 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
+          $ionicHistory.clearHistory();
+          $ionicHistory.clearCache();
           $state.go('home');
         }
       });

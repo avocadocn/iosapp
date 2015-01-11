@@ -33,6 +33,8 @@
                   </div>
                   <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
                 </div>
+          <div ng-if="noCampaigns" class="no_campaign_tip"><img src="./img/no_new_campaign.png" class="no_new_campaign"/>
+          </div>
         </ion-scroll>
       </ion-content>
       <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
@@ -70,7 +72,7 @@
   <ion-tab title="讨论" icon-on="ion_discuss_active" icon-off="ion_discuss" href="#/app/discuss/list"><!-- Tab 2 content -->
     <ion-view ng-controller="DiscussListController" class="discuss_list">
       <ion-header-bar><a href="#/calendar/discuss_list" class="button icon ion-calendar"></a>
-        <h1 class="title">讨论列表</h1><a href="#/campaign/sponsor/discuss_list" class="button icon ion-plus"></a>
+        <h1 class="title">讨论列表</h1>
       </ion-header-bar>
       <ion-content>
         <ion-refresher on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
@@ -116,7 +118,7 @@
             <p ng-if="constellation">星座：{{constellation}}</p>
             <p ng-if="user.realname">真实姓名：{{user.realname}}</p>
             <p ng-if="user.introduce">简介: {{user.introduce}}</p>
-            <p ng-if="user.score">积分：{{user.score}}</p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/calendar" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a>
+            <p ng-if="user.score">积分：{{user.score}}</p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/calendar/personal" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a>
         </div>
       </ion-content>
     </ion-view>

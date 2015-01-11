@@ -31,6 +31,8 @@
           </div>
           <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
+      <div ng-if="noCampaigns" class="no_campaign_tip"><img src="./img/no_new_campaign.png" class="no_new_campaign"/>
+      </div>
     </ion-scroll>
   </ion-content>
   <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
