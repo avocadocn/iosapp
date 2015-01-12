@@ -1770,6 +1770,8 @@ a>.login .companies_list:activated {
   border: 3px solid #fff;
 }
 .team_page .team_info {
+  padding-top: 0;
+  padding-bottom: 0;
   border-radius: 5px;
 }
 .team_page .team_info .info_header {
@@ -1867,6 +1869,8 @@ a>.login .companies_list:activated {
   line-height: 40px;
 }
 .team_page .team_home_court {
+  padding-top: 0;
+  padding-bottom: 0;
   border-radius: 5px;
 }
 .team_page .team_home_court .home_court_tabs {
