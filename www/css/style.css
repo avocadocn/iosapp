@@ -1287,6 +1287,9 @@ a>.login .companies_list:activated {
   left: 4rem;
   top: 1rem;
 }
+.item-avatar > img:first-child {
+  border-radius: 0;
+}
 .discover .discover_image {
   width: 100%;
   display: block;
