@@ -2065,6 +2065,7 @@ a>.login .companies_list:activated {
   font-size: 12px;
 }
 .member_page .member {
+  position: relative;
   margin: 0.833333rem 0.833333rem 0;
   float: left;
   text-decoration: none;
@@ -2074,6 +2075,19 @@ a>.login .companies_list:activated {
   width: 55px;
   height: 55px;
   border-radius: 5px;
+}
+.member_page .dl_member_leader {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: 23px;
+  background-color: #fbc441;
+  border-radius: 100%;
+  background-image: url("../img/icon.png");
+  background-size: 192px 240px;
+  background-position: -45px -140px;
 }
 .member_page .member_name {
   margin: 3px auto 0;

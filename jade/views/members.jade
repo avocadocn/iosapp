@@ -8,4 +8,5 @@ ion-view
       .clearfix
         a.member(ng-repeat="member in memberContent.members" ng-href="#/user/{{member._id}}")
           img.member_photo(ng-src="{{STATIC_URL + member.photo}}/55/55")
+          span.dl_member_leader(ng-if="member.isLeader" ng-cloak)
           p.member_name {{member.nickname}}

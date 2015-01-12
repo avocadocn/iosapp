@@ -3268,9 +3268,26 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
+          var leaders = data.leaders;
+          var members = data.members;
+          members.forEach(function (member) {
+            for (var i = 0; i < leaders.length; i++) {
+              if (member._id === leaders[i]._id) {
+                member.isLeader = true;
+                break;
+              }
+            }
+          });
+          members.sort(function (a, b) {
+            if (a.isLeader && !b.isLeader) {
+              return false;
+            } else {
+              return true;
+            }
+          });
           $scope.memberContents = [{
             name: currentTeam.name,
-            members: data.members
+            members: members
           }];
         }
       });
