@@ -2849,8 +2849,8 @@ angular.module('donlerApp.controllers', [])
       });
 
   }])
-  .controller('PhotoAlbumDetailController', ['$ionicHistory', '$scope', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicModal', '$ionicLoading',
-    function ($ionicHistory, $scope, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicModal, $ionicLoading) {
+  .controller('PhotoAlbumDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicModal', '$ionicLoading',
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicModal, $ionicLoading) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
 
@@ -2858,6 +2858,9 @@ angular.module('donlerApp.controllers', [])
       $scope.goBack = function() {
         if($ionicHistory.backView()){
           $ionicHistory.goBack()
+        }
+        else{
+          $state.go('app.campaigns');
         }
       }
       PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
@@ -3074,8 +3077,8 @@ angular.module('donlerApp.controllers', [])
       };
       getFamilyPhotos();
       $scope.goBack = function() {
-        if($rootScope.$viewHistory.backView){
-          $rootScope.$viewHistory.backView.go();
+        if($ionicHistory.backView()){
+          $ionicHistory.goBack();
         }
       }
       $scope.openPhotoSwipe = function (photoId) {
