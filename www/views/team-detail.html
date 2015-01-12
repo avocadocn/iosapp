@@ -43,7 +43,7 @@
     </div>
     <div class="card member_card">
       <ion-scroll direction="x" scrollbar-x="false">
-        <div class="member_wrap"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45" class="member"/></div>
+        <div class="member_wrap"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45" class="member"/><span class="dl_member_leader"></span></div>
         <div class="member_wrap"><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45" class="member"/></div>
       </ion-scroll><a ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></a>
     </div>

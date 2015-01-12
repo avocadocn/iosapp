@@ -1970,6 +1970,7 @@ a>.login .companies_list:activated {
   border-radius: 5px;
 }
 .team_page .member_card .member_wrap {
+  position: relative;
   height: 60px;
   line-height: 60px;
   float: left;
@@ -1980,6 +1981,19 @@ a>.login .companies_list:activated {
   width: 40px;
   height: 40px;
   border-radius: 5px;
+}
+.team_page .member_card .dl_member_leader {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: absolute;
+  right: 5px;
+  bottom: 9px;
+  background-color: #fbc441;
+  border-radius: 100%;
+  background-image: url("../img/icon.png");
+  background-size: 192px 240px;
+  background-position: -45px -140px;
 }
 .team_page .member_card .member_link {
   position: absolute;

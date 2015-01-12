@@ -48,6 +48,7 @@ ion-view
       ion-scroll(direction="x" scrollbar-x="false")
         .member_wrap
           img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
+          span.dl_member_leader
         .member_wrap
           img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
       a.member_link(ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam")
