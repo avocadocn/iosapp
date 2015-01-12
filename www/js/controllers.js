@@ -1351,7 +1351,7 @@ angular.module('donlerApp.controllers', [])
           nickname: $scope.user.nickname,
           realname: $scope.user.realname,
           phone: $scope.user.phone,
-          birthday: moment($scope.user.birthday).format('YYYY-MM-DD'),
+          birthday: new Date($scope.user.birthday),
           introduce: $scope.user.introduce
         };
       }
