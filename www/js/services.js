@@ -52,7 +52,8 @@ angular.module('donlerApp.services', [])
     email:'',//注册传递用
     discussList:{},//讨论列表缓存
     screenWidth: 320,
-    screenHeight: 568
+    screenHeight: 568,
+    team:''//hr编辑小队用
   })
   .factory('CommonHeaders', ['$http', 'CONFIG', function ($http, CONFIG) {
 

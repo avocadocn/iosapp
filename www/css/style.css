@@ -1354,15 +1354,23 @@ a>.login .companies_list:activated {
 }
 .edit_team_info .list .people .person {
   float: left;
-  margin-right: 8px;
+  width: 25%;
+  text-align: center;
 }
 .edit_team_info .list .people .person .photo {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+.edit_team_info .list .people .person .photo.selected {
+  border: 1px solid #f44;
 }
 .edit_team_info .list .people .person .name {
-  width: 40px;
+  width: 100%;
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 12px;
 }
 .user_card .tags {
   white-space: normal;

@@ -2088,7 +2088,7 @@ angular.module('donlerApp.controllers', [])
       }
     })
   }])
-  .controller('CompanyTeamController', ['$scope', '$stateParams', 'Company', function ($scope, $stateParams, Company) {
+  .controller('CompanyTeamController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
     switch ($stateParams.type) {
     case 'all':
       $scope.title = '所有小队';
@@ -2106,6 +2106,112 @@ angular.module('donlerApp.controllers', [])
         $scope.teams = data;
       }
     });
+
+    $scope.editTeam = function (team) {
+      INFO.team = team;
+      $state.go('company_editTeam',{teamId:team._id});
+    };
+  }])
+  //-hr编辑小队信息
+  .controller('companyEditTeamController', ['$scope', '$ionicPopup', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, INFO, Team, User) {
+    $scope.formData = {name: INFO.team.name};
+    $scope.memberName = {};
+    var teamMembersBackup = [];//切换组员、公司成员用 全部组员备份
+    var allMembers = [];//切换组员、公司成员用  全部成员备份
+    var originLeader = {};
+    var getTeamMembers = function () {//获取小队成员
+      Team.getMembers(INFO.team._id, function(err, team){
+        originLeader = team.leaders[0];
+        $scope.nowLeader = team.leaders[0];
+        
+        $scope.members = team.members;//前端
+        teamMembersBackup = team.members;
+        $scope.isShowTeam = true;
+        if($scope.members.length === 0) {
+          $scope.showCompanyMember();
+        }
+      });
+    };
+    getTeamMembers();
+
+    $scope.cancelEditing = function() {//取消编辑->重置
+      $scope.nowLeader = originLeader;
+      $scope.formData.name = INFO.team.name;
+      $scope.editing = false;
+    };
+    $scope.edit = function () {//上传队名及队长
+      //if nowLeader._id!==originLeader._id -> upload
+      if(!originLeader || $scope.nowLeader._id !== originLeader._id) {
+        $scope.formData.leader = $scope.nowLeader;
+      }
+      //if success getTeamMembers();
+      Team.edit(INFO.team._id, $scope.formData, function(err) {
+        if(err) {
+          $ionicPopup.alert({
+            title: '编辑失败',
+            template: err
+          });
+        }else{
+          $ionicPopup.alert({
+            title: '编辑成功'
+          });
+          getTeamMembers();
+          $scope.editing = false;
+        }
+      })
+      
+    };
+    $scope.point = function (person) {//指定某人为队长
+      $scope.nowLeader = person;
+    };
+    $scope.showTeamMember = function () {//显示小队成员
+      $scope.isShowTeam = true;
+      $scope.members = teamMembersBackup;
+    };
+
+    var getAllMembers = false; //标记是否获取过公司成员
+    $scope.showCompanyMember = function () {//显示公司成员
+      if(!getAllMembers){//没获取过去拉一下
+        User.getCompanyUsers(localStorage.id, function (err, data) {
+          allMembers = data;
+          $scope.members = allMembers;
+          getAllMembers = true;
+          // membersBackup = allMembers
+        });
+      }
+      //获取过了就去把members置为allMembers
+      else{
+        $scope.members = allMembers;
+        // membersBackup = allMembers;
+      }
+      $scope.isShowTeam =false;
+    };
+
+    $scope.change = function() {
+      $scope.editing = true;
+    };
+
+    $scope.search = function(keyEvent) {
+      if($scope.memberName.value && (!keyEvent || keyEvent.which === 13)) {
+        var membersBackup = $scope.isShowTeam ? teamMembersBackup : allMembers ;
+        var length = membersBackup.length;
+        var find = false;
+        $scope.members = [];
+        for(var i=0; i<length; i++) {
+          if(membersBackup[i].nickname.indexOf($scope.memberName.value) > -1){
+            $scope.members.push(membersBackup[i]);
+            find = true;
+          }
+        }
+        if(!find){
+          $scope.message = "未找到该成员";
+        }else{
+          $scope.message = '';
+        }
+        $scope.memberName.value = '';
+      }
+    }
+
   }])
   .controller('FeedbackController', ['$scope', '$rootScope', '$ionicPopup', 'User', function ($scope, $rootScope, $ionicPopup, User) {
     $scope.opinion = {};
@@ -2641,9 +2747,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('companyEditTeamController', ['$scope', 'Team', function ($scope, Team) {
-    
-  }])
+  
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'Team', 'INFO',
     function ($scope, $stateParams, PhotoAlbum, Team, INFO) {
       $scope.teamId = $stateParams.teamId;

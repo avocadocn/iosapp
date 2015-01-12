@@ -1146,13 +1146,21 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .people
       .person
         float left
-        margin-right 8px
+        width 25%
+        text-align center
         .photo
-          width 40px
-          height 40px
+          width 50px
+          height 50px
+          margin 0 auto
+        .photo.selected
+          border 1px solid #f44
         .name
-          width 40px
+          width 100%
           text-align center
+          overflow hidden
+          white-space nowrap
+          font-size 12px
+          //- text-overflow ellipsis
 //-别人的卡片
 .user_card
   .tags

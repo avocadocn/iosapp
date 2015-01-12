@@ -4,7 +4,7 @@ ion-view.company
     h1.title {{title}}
   ion-content
     ul.list
-      a.item.item-avatar.item-icon-right(ng-repeat="team in teams" ng-href="#/company/edit_team/{{team._id}}")
+      a.item.item-avatar.item-icon-right(ng-repeat="team in teams" ng-click="editTeam(team)")
         img(ng-src="{{STATIC_URL + team.logo + '/45/45'}}")
         h2 {{team.name}}
         p 类型: {{team.groupType}}
