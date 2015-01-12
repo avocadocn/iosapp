@@ -1085,6 +1085,7 @@ a>.login .companies_list:activated {
   margin-right: 0;
   height: 21px;
   width: 21px;
+  margin: 0;
 }
 .discuss_detail .comment_box .emotion_box .slider-pager {
   bottom: 5px;
