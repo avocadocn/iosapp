@@ -1279,6 +1279,9 @@ a>.login .companies_list:activated {
   border: none;
   right: -10px;
 }
+.discuss_list .list {
+  padding-top: 0;
+}
 .discuss_list .list .item {
   position: relative;
 }
@@ -1300,6 +1303,7 @@ a>.login .companies_list:activated {
   background: url("../img/discover.jpg") no-repeat;
   background-size: 100%;
   height: 15rem;
+  margin-top: 10px;
 }
 .discover .list .item:first-child {
   border-top: 0;
@@ -1392,25 +1396,28 @@ a>.login .companies_list:activated {
 .personal .list .statistics .row a {
   text-decoration: none;
 }
-.edit_info .item-thumbnail-right h2 {
+.edit_info .list {
+  padding-top: 10px;
+}
+.edit_info .list .item-thumbnail-right h2 {
   margin-top: 10px;
 }
-.edit_info .item-thumbnail-right img:first-child {
+.edit_info .list .item-thumbnail-right img:first-child {
   left: 36%;
 }
-.edit_info .item-input input {
+.edit_info .list .item-input input {
   color: #3ca2e0;
 }
-.edit_info .item-input .introduce {
+.edit_info .list .item-input .introduce {
   color: #3ca2e0;
 }
-.edit_info .list>.item {
+.edit_info .list .list>.item {
   padding: 6px 20px 5px;
 }
-.edit_info .item-icon-right input {
+.edit_info .list .item-icon-right input {
   z-index: 2;
 }
-.edit_info .item-icon-right .icon {
+.edit_info .list .item-icon-right .icon {
   color: #999;
   z-index: 1;
   font-size: 24px;

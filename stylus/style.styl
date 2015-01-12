@@ -1070,6 +1070,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 //-讨论列表页
 .discuss_list
   .list
+    padding-top 0
     .item
       position relative
       .red_spot
@@ -1090,6 +1091,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     background url('../img/discover.jpg') no-repeat
     background-size 100%
     height 15rem
+    margin-top 10px
   .list
     .item
       &:first-child
@@ -1160,45 +1162,47 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
 //-编辑个人信息页
 .edit_info
-  .item-thumbnail-right
-    h2
-      margin-top 10px
-    img:first-child
-      left 36%
-  .item-input
-    input
-      color col_blue
-    .introduce
-      color col_blue
-  .list>.item
-    padding 6px 20px 5px
-    //- .tags
-    //-   width 75%
-    //-   float right
-    //-   .tag
-    //-     float left
-    //-     display block
-    //-     margin-right 5px
-    //-     margin-bottom 0.5rem
-    //-     .content
-    //-       float left
-    //-       background-color col_blue
-    //-       height 30px
-    //-       padding 5px 6px
-    //-       color #fff
-    //-       font-size 14px
-    //-     .tag_delete
-    //-       float left
-    //-       background-color col_blue
-    //-       border-radius 0 4px 4px 0
-    //-       padding 0 0.5rem
-  .item-icon-right
-    input
-      z-index 2
-    .icon
-      color col_darkGray
-      z-index 1
-      font-size 24px
+  .list
+    padding-top 10px
+    .item-thumbnail-right
+      h2
+        margin-top 10px
+      img:first-child
+        left 36%
+    .item-input
+      input
+        color col_blue
+      .introduce
+        color col_blue
+    .list>.item
+      padding 6px 20px 5px
+      //- .tags
+      //-   width 75%
+      //-   float right
+      //-   .tag
+      //-     float left
+      //-     display block
+      //-     margin-right 5px
+      //-     margin-bottom 0.5rem
+      //-     .content
+      //-       float left
+      //-       background-color col_blue
+      //-       height 30px
+      //-       padding 5px 6px
+      //-       color #fff
+      //-       font-size 14px
+      //-     .tag_delete
+      //-       float left
+      //-       background-color col_blue
+      //-       border-radius 0 4px 4px 0
+      //-       padding 0 0.5rem
+    .item-icon-right
+      input
+        z-index 2
+      .icon
+        color col_darkGray
+        z-index 1
+        font-size 24px
 //- HR编辑小队
 .edit_team_info
   .list
