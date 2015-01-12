@@ -798,7 +798,7 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.discuss_list');
       }
     }
-    $scope.pswpId = 'discuss';
+    $scope.pswpId = 'discuss' + Date.now();
     $scope.openPhotoSwipe = function (photoId) {
       var pswpElement = document.querySelector('#' + $scope.pswpId);
 
@@ -2256,7 +2256,7 @@ angular.module('donlerApp.controllers', [])
         $ionicHistory.goBack()
       }
     }
-    $scope.pswpId = 'team';
+    $scope.pswpId = 'team' + Date.now();
     $scope.pswpPhotoAlbum = {};
 
     // 已登录的用户获取自己的信息不是异步过程
@@ -2922,7 +2922,7 @@ angular.module('donlerApp.controllers', [])
       };
       getPhotos();
 
-      $scope.pswpId = 'photoAlbum';
+      $scope.pswpId = 'photoAlbum' + Date.now();
       $scope.openPhotoSwipe = function (photoId) {
         var pswpElement = document.querySelector('#' + $scope.pswpId);
 
@@ -3080,9 +3080,10 @@ angular.module('donlerApp.controllers', [])
         if($ionicHistory.backView()){
           $ionicHistory.goBack();
         }
-      }
+      };
+      $scope.familyAlbumPswpId = 'fa' + Date.now();
       $scope.openPhotoSwipe = function (photoId) {
-        var pswpElement = document.querySelector('#familyPhotoAlbum');
+        var pswpElement = document.querySelector('#' + $scope.familyAlbumPswpId);
 
         var index = Tools.arrayObjectIndexOf($scope.familyPhotos, photoId, '_id');
 
