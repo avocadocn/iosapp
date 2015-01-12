@@ -323,37 +323,40 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.campaigns');
       }
     }
-    Campaign.get($state.params.id, function(err, data){
-      if(!err){
-        $scope.campaign = data;
-        $scope.campaign.members =[];
-        var memberContent = [];
-        data.campaign_unit.forEach(function(campaign_unit){
-          if(campaign_unit.team){
-            memberContent.push({
-              name:campaign_unit.team.name,
-              members:campaign_unit.member
-            });
-          }
-          else{
+    $scope.$on('$ionicView.enter',function(scopes, states){
+      Campaign.get($state.params.id, function(err, data){
+        if(!err){
+          $scope.campaign = data;
+          $scope.campaign.members =[];
+          var memberContent = [];
+          data.campaign_unit.forEach(function(campaign_unit){
+            if(campaign_unit.team){
               memberContent.push({
-              name:campaign_unit.company.name,
-              members:campaign_unit.member
-            });
-          }
-        })
-        INFO.memberContent = memberContent;
-        INFO.locationContent = data.location;
-        data.campaign_unit.forEach(function(campaign_unit){
-          $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
-        });
-      }
+                name:campaign_unit.team.name,
+                members:campaign_unit.member
+              });
+            }
+            else{
+                memberContent.push({
+                name:campaign_unit.company.name,
+                members:campaign_unit.member
+              });
+            }
+          })
+          INFO.memberContent = memberContent;
+          INFO.locationContent = data.location;
+          data.campaign_unit.forEach(function(campaign_unit){
+            $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
+          });
+        }
+      });
+      Message.getCampaignMessages($state.params.id, function(err, data){
+        if(!err){
+          $scope.notices = data;
+        }
+      });
     });
-    Message.getCampaignMessages($state.params.id, function(err, data){
-      if(!err){
-        $scope.notices = data;
-      }
-    });
+
     $scope.join = function(id){
       Campaign.join(id,localStorage.id, function(err, data){
         if(!err){
@@ -3539,7 +3542,7 @@ angular.module('donlerApp.controllers', [])
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         if(data.deadline){
-          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DDThh:mm');
+          $scope.campaignData.deadline = new Date(data.deadline);
           $scope.campaignData.end_time = new Date(data.end_time);
         }
         if(data.content){

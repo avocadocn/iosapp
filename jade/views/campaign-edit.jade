@@ -20,7 +20,7 @@ ion-view.sponsor
         label.item.item-label
           span.input-label 活动简介:
         label.item.item-input
-          textarea.introduce(placeholder="简介" name="content" maxlength="40" ng-model="campaignData.content")
+          textarea.introduce(placeholder="简介" name="content" ng-model="campaignData.content")
         .item-button
           button.button.button-full.button_sponsor(ng-disabled="editCampaignForm.$invalid || isBusy" ng-click="editCampaign()") 修改
         .item-button
