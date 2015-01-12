@@ -7,7 +7,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       restrict: 'E',
       scope: {
         campaign: '=',
-        pswpPhotoAlbum: '='
+        pswpPhotoAlbum: '=',
+        pswpId: '='
       },
       templateUrl: './views/campaign-card.html',
       link: function (scope, element, attrs, ctrl) {
@@ -52,7 +53,12 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
         scope.openPhotoSwipe = function (photos, photoId) {
           try {
-            var pswpElement = document.querySelectorAll('.pswp')[0];
+            var pswpElement;
+            if (scope.pswpId) {
+              pswpElement = document.querySelector('#' + scope.pswpId);
+            } else {
+              pswpElement = document.querySelectorAll('.pswp')[0];
+            }
             scope.photos = [];
             addPhotos(photos);
             var index = Tools.arrayObjectIndexOf(scope.photos, photoId, '_id');
