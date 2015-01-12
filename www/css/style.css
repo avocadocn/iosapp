@@ -1348,6 +1348,7 @@ a>.login .companies_list:activated {
 }
 .personal .list {
   padding-top: 0;
+  margin-bottom: 10px;
 }
 .personal .list .item.item-avatar {
   padding-bottom: 5px;
@@ -1368,6 +1369,27 @@ a>.login .companies_list:activated {
 }
 .personal .list .item.item-icon-left .icon {
   width: 3rem;
+}
+.personal .list .statistics {
+  text-align: center;
+  padding: 0;
+}
+.personal .list .statistics .row {
+  padding: 0;
+}
+.personal .list .statistics .row .col-33 {
+  border-left: 1px solid #ccc;
+  padding: 5px 0;
+}
+.personal .list .statistics .row .col-33 .number {
+  color: #222;
+  font-size: 16px;
+}
+.personal .list .statistics .row .col-33:first-child {
+  border-left: 0;
+}
+.personal .list .statistics .row a {
+  text-decoration: none;
 }
 .edit_info .item-thumbnail-right h2 {
   margin-top: 10px;

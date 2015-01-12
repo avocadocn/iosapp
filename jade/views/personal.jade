@@ -8,19 +8,20 @@ ion-view.personal(ng-controller="PersonalController")
       a.item.item-avatar.item-icon-right(href="#/personal/edit" ng-cloak)
         img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80")
         h2 {{user.nickname}}
-        p 公司：{{user.company.name}}
-        p(ng-if="user.department") 部门：{{user.department.name}}
-        p(ng-if="!user.department") 部门：无
-        p(ng-if="user.phone") 手机：{{user.phone || '-'}}
-        p(ng-if="user.email") 邮箱：{{user.email}}
-        p(ng-if="user.birthday") 生日：{{user.birthday | date:'yyyy-MM-dd'}}
-        p(ng-if="constellation") 星座：{{constellation}}
-        p(ng-if="user.realname") 真实姓名：{{user.realname}}
         p(ng-if="user.introduce") 简介: {{user.introduce}}
-        p(ng-if="user.score") 积分：{{user.score}}
-        //- p.tags(ng-if="user.tags") 标签:
-        //-   span.tag(ng-repeat="tag in user.tags") {{tag}}
         i.icon.ion-chevron-right
+      .item.statistics(ng-cloak)
+        .row
+          a.col.col-33(href="#/personal/teams")
+            p.number {{user.tids.length}}
+            p.key 小队
+          a.col.col-33(href="#/personal/timeline")
+            p.number {{user.campaignCount}}
+            p.key 活动
+          .col.col-33
+            p.number {{user.score}}
+            p.key 积分
+    .list
       a.item.item-icon-left.item-icon-right(href="#/personal/teams")
         i.icon.ion_teams
         | 我的小队

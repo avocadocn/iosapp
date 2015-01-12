@@ -1122,6 +1122,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .personal
   .list
     padding-top 0
+    margin-bottom 10px
     .item.item-avatar
       h2
         font-weight 400
@@ -1137,6 +1138,25 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .item.item-icon-left
       .icon
         width 3rem
+    .statistics
+      text-align center
+      padding 0
+      .row
+        padding 0
+        .col-33
+          border-left 1px solid #ccc
+          padding 5px 0
+          //- .key
+          //-   color #aaa
+          .number
+            color #222
+            font-size 16px
+        .col-33
+          &:first-child
+            border-left 0
+        a
+          text-decoration none
+
 //-编辑个人信息页
 .edit_info
   .item-thumbnail-right
