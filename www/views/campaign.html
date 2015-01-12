@@ -31,7 +31,11 @@
           </div>
           <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
-      <div ng-if="noCampaigns" class="no_campaign_tip"><img src="./img/no_new_campaign.png" class="no_new_campaign"/>
+      <div class="no_campaign">
+        <div ng-if="noCampaigns" class="no_campaign_tip">
+          <p>没有活动怎么办？进入</p>
+          <p><a href="#/app/discover" class="team_link">发现</a><span class="tip_info">加入更多小队！</span></p>
+        </div>
       </div>
     </ion-scroll>
   </ion-content>

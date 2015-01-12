@@ -553,33 +553,33 @@ angular.module('donlerApp.controllers', [])
           AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
 
         });
-        // $scope.locationmap.plugin(["AMap.CitySearch"], function() {
-        //   //实例化城市查询类
-        //   var citysearch = new AMap.CitySearch();
-        //   AMap.event.addListener(citysearch, "complete", function(result){
-        //     if(result && result.city && result.bounds) {
-        //       var citybounds = result.bounds;
-        //       //地图显示当前城市
-        //       $scope.locationmap.setBounds(citybounds);
-        //       city = result.city;
-        //       $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-        //         $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-        //           pageSize:1,
-        //           pageIndex:1,
-        //           city: result.city
-        //         });
-        //         AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-        //         $timeout(function(){
-        //           $scope.MSearch.search($scope.campaignData.location.name);
-        //         });
-        //       });
-        //     }
-        //   });
-        //   AMap.event.addListener(citysearch, "error", function(result){alert(result.info);});
-        //   //自动获取用户IP，返回当前城市
-        //   citysearch.getLocalCity();
+        $scope.locationmap.plugin(["AMap.CitySearch"], function() {
+          //实例化城市查询类
+          var citysearch = new AMap.CitySearch();
+          AMap.event.addListener(citysearch, "complete", function(result){
+            if(result && result.city && result.bounds) {
+              var citybounds = result.bounds;
+              //地图显示当前城市
+              $scope.locationmap.setBounds(citybounds);
+              city = result.city;
+              $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+                $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+                  pageSize:1,
+                  pageIndex:1,
+                  city: result.city
+                });
+                AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+                $timeout(function(){
+                  $scope.MSearch.search($scope.campaignData.location.name);
+                });
+              });
+            }
+          });
+          AMap.event.addListener(citysearch, "error", function(result){alert(result.info);});
+          //自动获取用户IP，返回当前城市
+          citysearch.getLocalCity();
 
-        // });
+        });
         $timeout(function(){
           $scope.MSearch.search($scope.campaignData.location.name);
         });
@@ -1196,12 +1196,12 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
     if($state.params.type) {
-      if($state.params.type=='personal') {
-        $scope.teams = INFO.personalTeamList;
-      }
-      else {
+      // if($state.params.type=='personal') {
+      //   $scope.teams = INFO.personalTeamList;
+      // }
+      // else {
         $scope.teams = INFO.officialTeamList;
-      }
+      // }
     }
     else {
       Team.getList('company', null, false, function (err, teams) {
@@ -1213,15 +1213,15 @@ angular.module('donlerApp.controllers', [])
           INFO.officialTeamList = teams;
         }
       });
-      Team.getList('company', null, true, function (err, teams) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.personalTeams = teams;
-          INFO.personalTeamList = teams;
-        }
-      });
+      // Team.getList('company', null, true, function (err, teams) {
+      //   if (err) {
+      //     // todo
+      //     console.log(err);
+      //   } else {
+      //     $scope.personalTeams = teams;
+      //     INFO.personalTeamList = teams;
+      //   }
+      // });
     }
     
     $scope.joinTeam = function(tid, index) {
