@@ -41,11 +41,19 @@
         <div ng-if="homeCourt.empty"><img src="./img/no_homecourt.png" class="no_homecourt"/></div>
       </div>
     </div>
-    <div class="card member_card">
-      <ion-scroll direction="x" scrollbar-x="false">
-        <div class="member_wrap"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45" class="member"/><span class="dl_member_leader"></span></div>
-        <div class="member_wrap"><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45" class="member"/></div>
-      </ion-scroll><a ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></a>
+    <div class="card member_card"><a ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak">
+        <ion-scroll direction="x" scrollbar-x="false">
+          <div class="member_wrap"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45" class="member"/><span class="dl_member_leader"></span></div>
+          <div class="member_wrap"><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45" class="member"/></div>
+        </ion-scroll>
+        <div class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></div></a>
+      <div ng-if="team.isOtherCompanyTeam" ng-cloak="ng-cloak">
+        <ion-scroll direction="x" scrollbar-x="false">
+          <div class="member_wrap"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45" class="member"/><span class="dl_member_leader"></span></div>
+          <div class="member_wrap"><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45" class="member"/></div>
+        </ion-scroll>
+        <div class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></div>
+      </div>
     </div>
     <div ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam" class="dl_campaign_group">
       <p class="dl_campaign_group_date">{{group.date | date:'yyyy-MM'}}</p>

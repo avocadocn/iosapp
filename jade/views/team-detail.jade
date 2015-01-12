@@ -45,15 +45,26 @@ ion-view
         div(ng-if="homeCourt.empty")
           img.no_homecourt(src="./img/no_homecourt.png")
     .card.member_card
-      ion-scroll(direction="x" scrollbar-x="false")
-        .member_wrap
-          img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
-          span.dl_member_leader
-        .member_wrap
-          img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
-      a.member_link(ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam")
-        span.member_count {{team.memberCount}}&nbsp;
-        i.icon.ion-chevron-right
+      a(ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak)
+        ion-scroll(direction="x" scrollbar-x="false")
+          .member_wrap
+            img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
+            span.dl_member_leader
+          .member_wrap
+            img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
+        .member_link
+          span.member_count {{team.memberCount}}&nbsp;
+          i.icon.ion-chevron-right
+      div(ng-if="team.isOtherCompanyTeam" ng-cloak)
+        ion-scroll(direction="x" scrollbar-x="false")
+          .member_wrap
+            img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
+            span.dl_member_leader
+          .member_wrap
+            img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
+        .member_link
+          span.member_count {{team.memberCount}}&nbsp;
+          i.icon.ion-chevron-right
 
     .dl_campaign_group(ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam")
       p.dl_campaign_group_date {{group.date | date:'yyyy-MM'}}
