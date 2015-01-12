@@ -2950,81 +2950,31 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('FamilyPhotoController', ['$ionicHistory', '$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', 'Tools', '$ionicModal', '$ionicLoading',
-    function ($ionicHistory, $scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, Tools, $ionicModal, $ionicLoading) {
+  .controller('FamilyPhotoController', ['$ionicHistory', '$rootScope', '$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', 'Tools', '$ionicModal', '$ionicLoading',
+    function ($ionicHistory, $rootScope, $scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, Tools, $ionicModal, $ionicLoading) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
-
-      var isCampaignPhotoAlbum = false;
-      $scope.goBack = function() {
-        if($ionicHistory.backView()){
-          $ionicHistory.goBack()
-        }
-      }
-      PhotoAlbum.getData($stateParams.photoAlbumId, function (err, photoAlbum) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.photoAlbum = photoAlbum;
-          if (photoAlbum.owner && photoAlbum.owner.model.type === 'Campaign') {
-            isCampaignPhotoAlbum = true;
-          }
-        }
-      });
-
-      var pushToScopePhotos = function (photo) {
-        var resPhoto = {
-          _id: photo._id,
-          src: CONFIG.STATIC_URL + photo.uri,
-          w: photo.width || $scope.screenWidth,
-          h: photo.height || $scope.screenHeight
-        };
-        if (photo.uploadUser && photo.uploadDate) {
-          resPhoto.title = '上传者: ' + photo.uploadUser.name + '  上传时间: ' + moment(photo.uploadDate).format('YYYY-MM-DD HH:mm');
-        }
-        $scope.photos.push(resPhoto);
-      }
-
-      /**
-       * 将照片按日期分组，要求照片是按上传日期排序，上传日期距离现在越近，排在最前面
-       * @param {Array} photos 照片数组
-       */
-      var groupByDate = function (photos) {
-        var resData = [];
-        photos.forEach(function (photo) {
-          var lastGroup = resData[resData.length - 1];
-          if (lastGroup && Tools.isTheSameDay(lastGroup.date, photo.uploadDate)) {
-            lastGroup.photos.push(photo);
-          } else {
-            resData.push({
-              date: new Date(photo.uploadDate),
-              photos: [photo]
-            });
-          }
-        });
-        return resData;
-      };
-
-      var getPhotos = function () {
-        PhotoAlbum.getPhotos($stateParams.photoAlbumId, function (err, photos) {
+      $scope.team = Team.getCurrentTeam();
+      var getFamilyPhotos = function () {
+        Team.getFamilyPhotos($scope.team._id, function (err, photos) {
           if (err) {
             // todo
             console.log(err);
           } else {
-            $scope.photos = [];
-            photos.forEach(pushToScopePhotos);
-            $scope.photoGroups = groupByDate(photos);
+            $scope.familyPhotos = photos;
           }
         });
       };
-      getPhotos();
-
-      $scope.pswpId = 'familyPhotoAlbum'
+      getFamilyPhotos();
+      $scope.goBack = function() {
+        if($rootScope.$viewHistory.backView){
+          $rootScope.$viewHistory.backView.go();
+        }
+      }
       $scope.openPhotoSwipe = function (photoId) {
-        var pswpElement = document.querySelector('#' + $scope.pswpId);
+        var pswpElement = document.querySelector('#familyPhotoAlbum');
 
-        var index = Tools.arrayObjectIndexOf($scope.photos, photoId, '_id');
+        var index = Tools.arrayObjectIndexOf($scope.familyPhotos, photoId, '_id');
 
         var options = {
           history: false,
@@ -3033,11 +2983,59 @@ angular.module('donlerApp.controllers', [])
           showAnimationDuration: 0,
           hideAnimationDuration: 0
         };
-        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
-        gallery.init();
+        var items = [];
+        $scope.familyPhotos.forEach(function (photo) {
+          items.push({
+            _id: photo._id,
+            src: CONFIG.STATIC_URL + photo.uri + '/320/190',
+            w: 320,
+            h: 190
+          });
+        });
+        var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+        pswp.listen('afterChange', function() {
+          var itemIndex = pswp.getCurrentIndex();
+          var familyPhotosIndex = Tools.arrayObjectIndexOf($scope.familyPhotos, items[itemIndex]._id, '_id');
+          $scope.currentFamilyPhoto = $scope.familyPhotos[familyPhotosIndex];
+          if(!$scope.$$phase) {
+            $scope.$apply();
+          }
+        });
+        pswp.init();
       };
 
-      // 上传照片
+      $scope.toggleSelect = function (index) {
+        if (!$scope.team.isLeader) {
+          return;
+        }
+
+        var deleteConfirm = $ionicPopup.confirm({
+          title: '提示',
+          template: '确定要移除这张全家福吗？',
+          okText: '确定',
+          cancelText: '取消'
+        });
+        deleteConfirm.then(function (res) {
+          if (res) {
+            var familyPhoto = $scope.familyPhotos[index];
+            Team.toggleSelectFamilyPhoto($scope.team._id, familyPhoto._id, function (err) {
+              if (err) {
+                // todo
+                console.log(err);
+              } else {
+                $scope.familyPhotos.splice(index, 1);
+              }
+            });
+          }
+        });
+      };
+
+      $scope.editing = false;
+      $scope.toggleEdit = function () {
+        $scope.editing = !$scope.editing;
+      };
+
+      // 上传全家福
       var uploadSheet;
       $scope.showUploadActionSheet = function () {
         uploadSheet = $ionicActionSheet.show({
@@ -3074,7 +3072,7 @@ angular.module('donlerApp.controllers', [])
       });
 
       var upload = function (imageURI) {
-        var serverAddr = CONFIG.BASE_URL + '/photo_albums/' + $scope.photoAlbum._id + '/photos';
+        var serverAddr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
         var headers = CommonHeaders.get();
         headers['x-access-token'] = localStorage.accessToken;
         var options = {
@@ -3083,14 +3081,6 @@ angular.module('donlerApp.controllers', [])
           headers: headers,
           mimeType: 'image/jpeg'
         };
-
-        if (isCampaignPhotoAlbum) {
-          serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.photoAlbum.owner.model._id;
-          var randomId = Math.floor(Math.random()*100);
-          options.params = {
-            randomId: randomId
-          };
-        }
 
         $ionicLoading.show({
           template: '上传中',
@@ -3108,7 +3098,7 @@ angular.module('donlerApp.controllers', [])
             });
             successAlert.then(function () {
               $scope.confirmUploadModal.hide();
-              getPhotos();
+              getFamilyPhotos();
             });
           }, function(err) {
             $ionicLoading.hide();
@@ -3117,6 +3107,7 @@ angular.module('donlerApp.controllers', [])
               template: '上传失败，请重试'
             });
           }, function (progress) {
+            // constant progress updates
           });
       };
 
@@ -3143,7 +3134,7 @@ angular.module('donlerApp.controllers', [])
           correctOrientation: true
         };
 
-        $cordovaCamera.getPicture(options).then(function (imageURI) {
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
           $scope.previewImg = imageURI;
           $scope.confirmUploadModal.show();
         }, function(err) {
