@@ -23,8 +23,22 @@
       <button ng-if="team.isLeader &amp;&amp; editing" ng-click="toggleEdit()" ng-cloak="ng-cloak" class="button button-block button-positive">确定</button>
     </div>
   </ion-content>
+  <script id="confirm-upload-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+        <button ng-click="cancelUpload()" class="button">取消</button>
+        <h1 class="title">预览</h1>
+        <button ng-click="confirmUpload()" class="button">确定</button>
+      </ion-header-bar>
+      <ion-content>
+        <div class="card">
+          <div class="item item-image"><img ng-src="{{previewImg}}"/></div>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
 </ion-view>
-<div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+<div tabindex="-1" role="dialog" aria-hidden="true" id="familyPhotoAlbum" class="pswp">
   <div class="pswp__bg"></div>
   <div class="pswp__scroll-wrap">
     <div class="pswp__container">

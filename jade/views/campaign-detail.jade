@@ -16,7 +16,7 @@ ion-view
           img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}")
         h2.dl_team_name {{campaign.campaign_unit[0].team.name}}
         h2.dl_team_vs vs
-        h2.dl_team_name {{campaign.campaign_unit[0].team.name}}
+        h2.dl_team_name {{campaign.campaign_unit[1].team.name}}
         a(ng-href="{{campaign.campaign_unit[1].team._id ? '#/team/'+ campaign.campaign_unit[1].team._id: ''}}")
           img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/30/30'}}")
       .item.item-text-wrap.dl_card_body
@@ -57,9 +57,9 @@ ion-view
           span.dl_cp_time_count {{campaign.time_text.substr(0, campaign.time_text.length - 1)}}
           span.dl_cp_time_unit {{campaign.time_text.substr(-1)}}
     .card.dl_card_detail(ng-if="notices.length>0 || campaign.allow.publishCampaignMessage")
-      .item.dl_card_header.dl_card_header_small
-        span 活动公告
-        a.icon.ion-plus(ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()")
+      .item.dl_card_header
+        span.dl_card_title 活动公告
+        a.publish_notice.icon.ion-plus(ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()")
         span.dl_notice_count {{notices.length}}
       a.item.item-avatar.dl_notice(ng-if="notices.length>0")
         img(ng-src="{{STATIC_URL +notices[0].sender[0].photo}}")
@@ -69,17 +69,17 @@ ion-view
           span.dl_notice_content {{notices[0].content}}
         p {{notices[0].post_date | date:"yyyy-MM-dd HH:mm" }}
     .card.dl_card_detail(ng-if="campaign.members.length>0")
-      .item.item-button-right.dl_card_member
+      a.item.item-button-right.dl_card_member(href="#/members/campaign/{{campaign._id}}")
         ion-scroll(direction="x")
           span.dl_member(ng-repeat="member in campaign.members")
             img.dl_member_logo(ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
             span.dl_member_leader(ng-if="member.isLeader")
 
-        a.button.dl_card_more(href="#/members/campaign/{{campaign._id}}")
+        .dl_card_more
           span {{campaign.members_count}}
           i.icon.ion-chevron-right.icon_small
     .card.dl_card_detail(ng-if="campaign.content")
-      .item.dl_card_header.dl_card_header_small
-        | 活动简介
+      .item.dl_card_header
+        span.dl_card_title 活动简介
       .item.item-text-wrap
         p {{campaign.content}}

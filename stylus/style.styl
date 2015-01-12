@@ -75,6 +75,34 @@ body
   .campaign_list
     height 100%
     background-color col_gray
+    .no_campaign
+      background-image url('/img/no_new_campaign.png')
+      width 100%
+      height 100%
+      background-repeat no-repeat
+      .no_campaign_tip
+        position absolute
+        top 210px
+        left 65px
+        font-size 14px
+        p
+          margin 6px 1px
+          .team_link
+            margin 0
+            color #FFF
+            background-color #3498DB
+            border none
+            position relative
+            font-size 12px
+            text-align center
+            vertical-align middle
+            display inline-block
+            cursor pointer
+            border-radius 5px
+            padding 7px 11px
+            text-decoration none
+          .tip_info
+            padding-left 11px
     .campaign_container
       .campaign_container_title
         font-size 16px
@@ -262,6 +290,8 @@ body
     color white
     padding 10px
     height 50px
+    border-top-right-radius 5px !important
+    border-top-left-radius 5px !important
     .dl_team_logo
       float left
       border-radius 5px
@@ -283,6 +313,13 @@ body
       font-weight bolder
     .dl_notice_count
       float right
+      margin 0 10px 0 0
+      line-height 30px
+    .dl_card_title
+      margin 0 0 0 10px
+      line-height 30px
+    .publish_notice
+      margin-left 10px
   .dl_card_header_provoke
     .dl_team_logo_right
       float right
@@ -428,8 +465,10 @@ body
       background-color col_blue
       color white
       border none
-      top 7px
-      right 0
+      position absolute
+      top 0
+      right 10px
+      line-height 50px
       .icon
         margin-left 5px
   .dl_card_time
@@ -746,6 +785,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-position -70px -103px
 .ion_setting
   background-position -30px -145px
+.emoji
+  margin 0 0.1rem
+  vertical-align middle
 //- 讨论页
 .discuss_detail
   background-image url('../img/discuss_bgd.jpg')
@@ -793,6 +835,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         line-height 1
         padding 0
   //-发评论
+    
+
+
   .comment_box.taller
     height 200px
   .comment_box
@@ -905,11 +950,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           display inline-block
           font-size 16px
           color col_lightGray
-          max-width 80%
+          max-width 100%
           padding 2px 7px
+          line-height 22px
+
       .triangle_isosceles
         position relative
-        padding 0.5rem
+        padding 0.5rem 1rem
         background #fff
         border-radius 5px
         background linear-gradient(top, #fff, #fbfbfb)
@@ -1485,6 +1532,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       height 65px
       border 3px solid white
   .team_info
+    padding-top 0
+    padding-bottom 0
     border-radius 5px
     .info_header
       position relative
@@ -1563,6 +1612,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       line-height 40px
 
   .team_home_court
+    padding-top 0
+    padding-bottom 0
     border-radius 5px
     .home_court_tabs
       padding 0

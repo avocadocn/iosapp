@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "ionic": "1.0.0-beta.13",
+    "ionic": "1.0.0-beta.14",
     "photoswipe": "~4.0.1",
     "linkage-selector": "0.1.5",
     "moment": "~2.8.4",

@@ -1,7 +1,7 @@
 
 <ion-view ng-controller="CampaignController">
-  <ion-header-bar><a href="#/calendar" class="button icon ion-calendar"></a>
-    <h1 class="title">活动</h1><a href="#/campaign/sponsor" class="button icon ion-plus"></a>
+  <ion-header-bar><a href="#/calendar/campaigns" class="button icon ion-calendar"></a>
+    <h1 class="title">活动</h1><a href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
   </ion-header-bar>
   <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container has-header">
     <div class="button-bar campaign_filter"><a ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}" class="button button-clear">所有</a><a ng-click="filter('newCampaigns')" ng-class="{'icon_darkBlue':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="filter('provokes')" ng-class="{'icon_iconPurple':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="filter('nowCampaigns')" ng-class="{'icon_borderPurple':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="filter('unStartCampaigns')" ng-class="{'icon_textPurple':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
@@ -31,9 +31,15 @@
           </div>
           <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
+      <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign">
+        <div class="no_campaign_tip">
+          <p>没有活动怎么办？进入</p>
+          <p><a href="#/app/discover" class="team_link">发现</a><span class="tip_info">加入更多小队！</span></p>
+        </div>
+      </div>
     </ion-scroll>
   </ion-content>
-  <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+  <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" class="pswp">
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
       <div class="pswp__container">
