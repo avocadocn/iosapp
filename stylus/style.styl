@@ -1141,24 +1141,24 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .item.item-icon-left
       .icon
         width 3rem
-    .statistics
-      text-align center
+  .statistics
+    text-align center
+    padding 0
+    .row
       padding 0
-      .row
-        padding 0
-        .col-33
-          border-left 1px solid #ccc
-          padding 5px 0
-          //- .key
-          //-   color #aaa
-          .number
-            color #222
-            font-size 16px
-        .col-33
-          &:first-child
-            border-left 0
-        a
-          text-decoration none
+      .col-33
+        border-left 1px solid #ccc
+        padding 5px 0
+        //- .key
+        //-   color #aaa
+        .number
+          color #222
+          font-size 16px
+      .col-33
+        &:first-child
+          border-left 0
+      a
+        text-decoration none
 
 //-编辑个人信息页
 .edit_info
@@ -1170,12 +1170,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       img:first-child
         left 36%
     .item-input
+      padding 6px 20px 5px
       input
         color col_blue
       .introduce
         color col_blue
-    .list>.item
-      padding 6px 20px 5px
+      //- .item
+      //-   padding 6px 20px 5px
       //- .tags
       //-   width 75%
       //-   float right
@@ -1196,6 +1197,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       //-       background-color col_blue
       //-       border-radius 0 4px 4px 0
       //-       padding 0 0.5rem
+    .item-radio
+      .item-content
+        padding 0 30px
+      .radio-icon
+        padding 0 5px
+        font-size 16px
+        color #666
     .item-icon-right
       input
         z-index 2

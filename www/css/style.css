@@ -1375,25 +1375,25 @@ a>.login .companies_list:activated {
 .personal .list .item.item-icon-left .icon {
   width: 3rem;
 }
-.personal .list .statistics {
+.personal .statistics {
   text-align: center;
   padding: 0;
 }
-.personal .list .statistics .row {
+.personal .statistics .row {
   padding: 0;
 }
-.personal .list .statistics .row .col-33 {
+.personal .statistics .row .col-33 {
   border-left: 1px solid #ccc;
   padding: 5px 0;
 }
-.personal .list .statistics .row .col-33 .number {
+.personal .statistics .row .col-33 .number {
   color: #222;
   font-size: 16px;
 }
-.personal .list .statistics .row .col-33:first-child {
+.personal .statistics .row .col-33:first-child {
   border-left: 0;
 }
-.personal .list .statistics .row a {
+.personal .statistics .row a {
   text-decoration: none;
 }
 .edit_info .list {
@@ -1405,14 +1405,22 @@ a>.login .companies_list:activated {
 .edit_info .list .item-thumbnail-right img:first-child {
   left: 36%;
 }
+.edit_info .list .item-input {
+  padding: 6px 20px 5px;
+}
 .edit_info .list .item-input input {
   color: #3ca2e0;
 }
 .edit_info .list .item-input .introduce {
   color: #3ca2e0;
 }
-.edit_info .list .list>.item {
-  padding: 6px 20px 5px;
+.edit_info .list .item-radio .item-content {
+  padding: 0 30px;
+}
+.edit_info .list .item-radio .radio-icon {
+  padding: 0 5px;
+  font-size: 16px;
+  color: #666;
 }
 .edit_info .list .item-icon-right input {
   z-index: 2;

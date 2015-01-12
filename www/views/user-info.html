@@ -1,5 +1,5 @@
 
-<ion-view>
+<ion-view class="personal">
   <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
     <h1 class="title">用户信息</h1><a ng-click="showPopover($event)" class="button icon ion-more"></a>
   </ion-header-bar>
@@ -7,12 +7,33 @@
     <div class="card user_card">
       <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/45/45"/>
         <h2>{{user.nickname}}</h2>
-        <p>公司：{{user.company.name}}</p>
+        <p ng-cloak="ng-cloak">简介: {{user.introduce || '-'}}</p>
+      </div>
+      <div ng-cloak="ng-cloak" class="item statistics">
+        <div class="row">
+          <div class="col col-33">
+            <p class="number">{{user.tids.length}}</p>
+            <p class="key">小队</p>
+          </div><a ng-href="#/user/{{user._id}}/timeline" class="col col-33">
+            <p class="number">{{user.campaignCount}}</p>
+            <p class="key">活动</p></a>
+          <div class="col col-33">
+            <p class="number">{{user.score}}</p>
+            <p class="key">积分</p>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <p ng-if="user.realname" ng-cloak="ng-cloak">姓名：{{user.realname}}</p>
+        <p ng-if="user.introduce" ng-cloak="ng-cloak">简介：{{user.introduce}}</p>
         <p ng-if="user.department" ng-cloak="ng-cloak">部门：{{user.department.name}}</p>
         <p ng-if="!user.department" ng-cloak="ng-cloak">部门：无</p>
-        <p ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
+        <p ng-if="user.sex">性别：{{user.sex}}</p>
+        <p ng-if="user.birthday" ng-cloak="ng-cloak">生日：{{user.birthday | date:'yyyy-MM-dd'}}</p>
+        <p ng-if="constellation">星座：{{constellation}}</p>
         <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p>
-        <p ng-if="user.introduce" ng-cloak="ng-cloak">简介: {{user.introduce}}</p>
+        <p ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
+        <p ng-if="user.qq">QQ：{{user.qq}}</p>
       </div>
       <div class="item tabs"><a ng-href="#/user/{{user._id}}/timeline" class="tab-item">活动足迹</a></div>
     </div>

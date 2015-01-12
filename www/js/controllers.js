@@ -1352,7 +1352,8 @@ angular.module('donlerApp.controllers', [])
           realname: $scope.user.realname,
           phone: $scope.user.phone,
           birthday: new Date($scope.user.birthday),
-          introduce: $scope.user.introduce
+          introduce: $scope.user.introduce,
+          sex: $scope.user.sex
         };
       }
     });
@@ -3387,7 +3388,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopover', 'User', function ($ionicHistory, $scope, $state, $stateParams, $ionicPopover, User) {
+  .controller('UserInfoController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', function ($ionicHistory, $scope, $state, $stateParams, $ionicPopover, Tools, User) {
     
     $ionicPopover.fromTemplateUrl('more-popover.html', {
         scope: $scope,
@@ -3413,6 +3414,10 @@ angular.module('donlerApp.controllers', [])
         console.log(err);
       } else {
         $scope.user = data;
+        if ($scope.user.birthday) {
+          var birthday = new Date($scope.user.birthday);
+          $scope.constellation = Tools.birthdayToConstellation(birthday.getMonth() + 1, birthday.getDate());
+        }
       }
     });
   }])
