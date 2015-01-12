@@ -2178,6 +2178,12 @@ a>.login .companies_list:activated {
 .sponsor .list .item-input input {
   color: #3ca2e0;
 }
+.sponsor .list .item-input .introduce {
+  color: #3ca2e0;
+}
+.sponsor .list .item-input .introduce::-webkit-input-placeholder {
+  color: #3ca2e0;
+}
 .sponsor .list .item-select select {
   color: #3ca2e0;
 }

@@ -2,38 +2,45 @@
  * Created by Sandeep on 11/09/14.
  */
 angular.module('donlerApp.services', [])
-  .config(['$httpProvider', function ($httpProvider) {
-    var interceptor = ['$q', function ($q) {
-      var success = function (response) {
-        return response;
-      };
-      var error = function (response) {
-        var status = response.status;
+  .factory('myInterceptor', ['$q', '$location', function($q, $location) {
+      var signOut = function(){
         var isLogin = false;
-        if (response.config.url.indexOf('/users/login') !== -1
-        || response.config.url.indexOf('/companies/login') !== -1) {
+        var path = $location.path();
+        if (path ==='/users/login' || path ==='/companies/login') {
           isLogin = true;
         }
-        if (status === 401 && !isLogin) {
+        if (!isLogin) {
           var userType = localStorage.userType;
           if (userType === 'company') {
-            window.location.href = '#/company/login';
+            $location.path('/company/login');
           } else {
-            window.location.href = '#/user/login';
+            $location.path('/user/login');
           }
           localStorage.removeItem('accessToken');
           localStorage.removeItem('userType');
           localStorage.removeItem('id');
-          return response;
         }
-        // otherwise
-        return $q.reject(response);
-      };
-      return function (promise) {
-        return promise.then(success, error);
       }
-    }];
-    $httpProvider.interceptors.push(interceptor);
+      var requestInterceptor = {
+        'responseError': function(rejection) {
+          if (rejection.status == 401)
+          {
+            signOut();
+          }
+          return $q.reject(rejection);
+        },
+        'response': function (response) {
+          if (response.status == 401) {
+            signOut();
+          };
+          return response || $q.when(response);
+        }
+      };
+
+      return requestInterceptor;
+  }])
+  .config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push('myInterceptor');
   }])
   .constant('CONFIG', {
     BASE_URL: 'http://localhost:3002',
