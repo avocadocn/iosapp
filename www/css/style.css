@@ -1348,6 +1348,10 @@ a>.login .companies_list:activated {
   display: block;
   top: 16px;
 }
+.contacts .search_box {
+  width: 100%;
+  background-color: #fff;
+}
 .settings_account a.item {
   color: #444;
 }
