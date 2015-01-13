@@ -887,14 +887,12 @@ a>.login .companies_list:activated {
   width: 32px;
   height: 30px;
 }
-.app_tabs > .tabs .tab-item .red_spot {
+.app_tabs > .tabs .tab-item .badge {
   background-color: #f48361;
-  position: absolute;
   width: 12px;
   height: 12px;
-  border-radius: 100%;
-  left: 55%;
-  top: 5%;
+  color: transparent;
+  right: calc(50% - 20px);
 }
 .app_tabs > .tabs .tab-item-active .tab-title {
   color: #3ca2e0;
