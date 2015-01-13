@@ -1,14 +1,14 @@
 
-<ion-view>
+<ion-view class="company">
   <ion-header-bar><a ng-href="#/company/team_page" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">{{title}}</h1>
   </ion-header-bar>
   <ion-content>
-    <ul class="list"><a ng-repeat="team in teams" class="item item-avatar"><img ng-src="{{STATIC_URL + team.logo + '/45/45'}}"/>
+    <ul class="list"><a ng-repeat="team in teams" ng-click="editTeam(team)" class="item item-avatar item-icon-right"><img ng-src="{{STATIC_URL + team.logo + '/45/45'}}"/>
         <h2>{{team.name}}</h2>
         <p>类型: {{team.groupType}}</p>
-        <p>打开: {{team.active}}</p>
+        <p>状态: {{team.active? '正常':'关闭'}} </p>
         <p>成员: {{team.memberCount}}</p>
-        <p>积分: {{team.score.total}}</p></a></ul>
+        <p>积分: {{team.score.total}}</p><i class="icon ion-compose"></i></a></ul>
   </ion-content>
 </ion-view>

@@ -15,7 +15,8 @@
         <p ng-if="constellation">星座：{{constellation}}</p>
         <p ng-if="user.realname">真实姓名：{{user.realname}}</p>
         <p ng-if="user.introduce">简介: {{user.introduce}}</p>
-        <p ng-if="user.score">积分：{{user.score}}</p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/calendar" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a>
+        <p ng-if="user.score">积分：{{user.score}}</p>
+        <p>{{info}}</p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/calendar/personal" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a>
     </div>
   </ion-content>
 </ion-view>

@@ -2,50 +2,56 @@
  * Created by Sandeep on 11/09/14.
  */
 angular.module('donlerApp.services', [])
-  .config(['$httpProvider', function ($httpProvider) {
-    var interceptor = ['$q', function ($q) {
-      var success = function (response) {
-        return response;
-      };
-      var error = function (response) {
-        var status = response.status;
+  .factory('myInterceptor', ['$q', '$location', function($q, $location) {
+      var signOut = function(){
         var isLogin = false;
-        if (response.config.url.indexOf('/users/login') !== -1
-        || response.config.url.indexOf('/companies/login') !== -1) {
+        var path = $location.path();
+        if (path ==='/users/login' || path ==='/companies/login') {
           isLogin = true;
         }
-        if (status === 401 && !isLogin) {
+        if (!isLogin) {
           var userType = localStorage.userType;
           if (userType === 'company') {
-            window.location.href = '#/company/login';
+            $location.path('/company/login');
           } else {
-            window.location.href = '#/user/login';
+            $location.path('/user/login');
           }
           localStorage.removeItem('accessToken');
           localStorage.removeItem('userType');
           localStorage.removeItem('id');
-          return response;
         }
-        // otherwise
-        return $q.reject(response);
-      };
-      return function (promise) {
-        return promise.then(success, error);
       }
-    }];
-    $httpProvider.responseInterceptors.push(interceptor);
+      var requestInterceptor = {
+        'responseError': function(rejection) {
+          if (rejection.status == 401)
+          {
+            signOut();
+          }
+          return $q.reject(rejection);
+        },
+        'response': function (response) {
+          if (response.status == 401) {
+            signOut();
+          };
+          return response || $q.when(response);
+        }
+      };
+
+      return requestInterceptor;
+  }])
+  .config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push('myInterceptor');
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://localhost:3002',
-    STATIC_URL: 'http://localhost:3000',
-    SOCKET_URL: 'http://localhost:3005',
+    BASE_URL: 'http://192.168.2.107:3002',
+    STATIC_URL: 'http://192.168.2.107:3000',
+    SOCKET_URL: 'http://192.168.2.107:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
   })
   .value('INFO', {
     memberContent:'',
     sponsorBackUrl:'',
-    reportBackUrl:'',
     discussName:'',
     lastDate:'',
     companyId:'',
@@ -53,7 +59,8 @@ angular.module('donlerApp.services', [])
     email:'',//注册传递用
     discussList:{},//讨论列表缓存
     screenWidth: 320,
-    screenHeight: 568
+    screenHeight: 568,
+    team:''//hr编辑小队用
   })
   .factory('CommonHeaders', ['$http', 'CONFIG', function ($http, CONFIG) {
 
@@ -94,7 +101,6 @@ angular.module('donlerApp.services', [])
           'x-device-type': $http.defaults.headers.common['x-device-type'],
           'x-platform': $http.defaults.headers.common['x-platform'],
           'x-version': $http.defaults.headers.common['x-version'],
-          'x-device-token': $http.defaults.headers.common['x-device-token']
         };
 
       }
@@ -102,12 +108,13 @@ angular.module('donlerApp.services', [])
     };
 
   }])
-  .factory('UserAuth', ['$http', 'CONFIG', 'Socket', function ($http, CONFIG, Socket) {
+  .factory('UserAuth', ['$http', 'CONFIG', 'Socket', 'INFO', function ($http, CONFIG, Socket, INFO) {
     return {
       login: function (email, password, callback) {
         $http.post(CONFIG.BASE_URL + '/users/login', {
           email: email,
-          password: password
+          password: password,
+          pushInfo:INFO.pushInfo
         })
           .success(function (data, status) {
             localStorage.accessToken = data.token;
@@ -303,7 +310,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback('error');
+          callback(data.msg ||'error');
         });
       },
       join: function(id, uid, callback) {
@@ -638,8 +645,8 @@ angular.module('donlerApp.services', [])
           });
       },
 
-      edit: function (tid, data, callback) {
-        $http.put(CONFIG.BASE_URL + '/teams/' + tid, data)
+      edit: function (tid, postData, callback) {
+        $http.put(CONFIG.BASE_URL + '/teams/' + tid, postData)
           .success(function (data, status, headers, config) {
             callback();
           })

@@ -1,6 +1,6 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="{{photoAlbumBackUrl}}" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
     <h1 class="title">{{photoAlbum.name}}</h1>
     <div ng-click="showUploadActionSheet()" class="button icon ion-plus"></div>
   </ion-header-bar>
@@ -9,21 +9,28 @@
       <div class="card_header clearfix">
         <p class="header_title">{{group.date | date:'yyyy年MM月dd日'}}</p>
       </div>
-      <div itemscope="itemscope" itemtype="http://schema.org/ImageGallery" class="dl_gallery clearfix">
-        <figure itemscope="itemscope" itemtype="http://schema.org/ImageObject" ng-repeat="photo in group.photos" class="photo"><a ng-href="{{STATIC_URL + photo.uri}}/resize/{{photo.viewWidth}}/{{photo.viewHeight}}" itemprop="contentUrl" data-size="{{photo.viewWidth}}x{{photo.viewHeight}}"><img ng-src="{{STATIC_URL + photo.uri}}/65/65" itemprop="thumbnail"/></a>
-          <figcaption itemprop="caption description" class="hidden_figcaption">
-            上传者:&nbsp;{{photo.uploadUser.name}}
-            &nbsp;&nbsp;上传日期:&nbsp;{{photo.uploadDate | date:'yyyy年MM月dd日'}}
-          </figcaption>
-        </figure>
-      </div>
+      <div class="dl_gallery clearfix"><img ng-repeat="photo in group.photos" ng-src="{{STATIC_URL + photo.uri}}/65/65" ng-click="openPhotoSwipe(photo._id)" class="photo"/></div>
     </div>
     <div ng-if="photoGroups.length === 0" class="list">
       <div class="item">该相册还没有照片，快来上传吧。</div>
     </div>
   </ion-content>
+  <script id="confirm-upload-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+        <button ng-click="cancelUpload()" class="button">取消</button>
+        <h1 class="title">预览</h1>
+        <button ng-click="confirmUpload()" class="button">确定</button>
+      </ion-header-bar>
+      <ion-content>
+        <div class="card">
+          <div class="item item-image"><img ng-src="{{previewImg}}"/></div>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
 </ion-view>
-<div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+<div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" class="pswp">
   <div class="pswp__bg"></div>
   <div class="pswp__scroll-wrap">
     <div class="pswp__container">

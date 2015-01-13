@@ -1,22 +1,40 @@
 
 <ion-view class="edit_info">
-  <ion-header-bar><a ng-href="#/team/{{team._id}}" class="button icon ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><a ng-if="!editing" ng-href="#/team/{{team._id}}" ng-cloak="ng-cloak" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <button ng-if="editing" ng-click="cancelEditing()" ng-cloak="ng-cloak" class="button">取消</button>
     <h1 class="title">编辑小队信息</h1>
+    <button ng-if="editing" ng-click="edit()" ng-disabled="!changed || editForm.$invalid" ng-cloak="ng-cloak" class="button">确定</button>
   </ion-header-bar>
   <ion-content>
     <form name="editForm" class="list">
-      <div ng-click="showUploadActionSheet()" class="item item-thumbnail-right"><img ng-src="{{STATIC_URL + team.logo}}/160/160"/>
-        <h2>头像</h2>
+      <div ng-click="showUploadActionSheet()" class="item item-thumbnail-right item-icon-right"><img ng-src="{{STATIC_URL + team.logo}}/160/160"/>
+        <h2>小队logo</h2><i class="icon ion-chevron-right"></i>
       </div>
       <div class="item item-input"><span class="input-label">小队名称</span>
-        <input type="text" name="nickname" ng-change="change()" maxlength="20" ng-model="formData.name" required="required"/>
+        <input type="text" name="nickname" ng-change="change()" maxlength="20" ng-model="formData.name" ng-focus="toEditing()" required="required"/>
       </div>
       <div class="item item-input"><span class="input-label">简介</span>
-        <textarea name="brief" ng-change="change()" maxlength="140" ng-model="formData.brief" class="introduce"></textarea>
+        <textarea name="brief" ng-change="change()" maxlength="140" ng-model="formData.brief" ng-focus="toEditing()" class="introduce"></textarea>
       </div>
-      <div class="padding">
-        <button ng-disabled="unchanged || editForm.$invalid" ng-click="edit()" class="button button-block button-positive">确定</button>
+      <div class="item item-input item-button-right"><span class="input-label">主场1</span>
+        <input type="text" name="homecourt0" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[0].name"/>
+        <button ng-click="showPopup(formData.homeCourts[0])" class="button button-positive">地图</button>
       </div>
+      <div class="item item-input item-button-right"><span class="input-label">主场2</span>
+        <input type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name"/>
+        <button ng-click="showPopup(formData.homeCourts[1])" class="button button-positive">地图</button>
+      </div><a ng-href="#/team/{{team._id}}/family" class="item item-input item-icon-right"><span class="input-label">修改全家福</span><i class="icon ion-chevron-right"></i></a>
     </form>
   </ion-content>
+  <script id="homecourt-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+        <h1 class="title">地址选择</h1>
+      </ion-header-bar>
+      <ion-content>
+        <div id="homeCourtMapDetail" class="map_container"></div>
+        <button ng-click="closeModal()" class="button button-full button-positive">确定</button>
+      </ion-content>
+    </ion-modal-view>
+  </script>
 </ion-view>

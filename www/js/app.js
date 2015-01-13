@@ -6,25 +6,26 @@
 
 angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'dbaq.emoji', 'ngSanitize'])
 
-  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG) {
+  .run(function ($ionicPlatform, $state, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
-      // 
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
-
+      var onCloudPushRegistered = function(info) {
+        INFO.pushInfo = {
+          channel_id:info.channel_id,
+          user_id: info.user_id
+        }
+        alert(INFO.pushInfo.user_id)
+      }
+      document.addEventListener("cloudPushRegistered", onCloudPushRegistered, false);
+      fastgoPushNotification.init("pSGg3PHKgD7vdah7eHDydQOu");
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
-
-      var iosConfig = {
-        "badge": "true",
-        "sound": "false",
-        "alert": "true"
-      };
 
       if (typeof device !== 'undefined') {
         CommonHeaders.set({
@@ -33,34 +34,6 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           'x-platform': device.platform,
           'x-version': device.version
         });
-
-        var config;
-        if (device.platform === 'iOS') {
-          config = iosConfig;
-        }
-        $cordovaPush.register(config).then(function(result) {
-          CommonHeaders.set({
-            'x-device-token': result
-          });
-        }, function(err) {
-          console.log(err);
-        });
-
-        $rootScope.$on('pushNotificationReceived', function(event, notification) {
-          var confirmPopup = $ionicPopup.confirm({
-            title: '提示',
-            template: notification.alert,
-            okText: '查看详情',
-            cancelText: '忽略'
-          });
-          confirmPopup.then(function (res) {
-            if (res) {
-              $state.go('campaigns_detail',{ 'id': notification.campaignId });
-            }
-          });
-
-        });
-
       }
 
       if (localStorage.userType) {
@@ -74,6 +47,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       } else {
         $state.go('home');
       }
+
+      INFO.screenWidth = window.innerWidth;
+      INFO.screenHeight = window.innerHeight;
 
     });
     $rootScope.showLoading = function() {
@@ -118,6 +94,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/company/team_list/:type',
         controller: 'CompanyTeamController',
         templateUrl: './views/company-team-list.html'
+      })
+      .state('company_editTeam', {
+        url: '/company/edit_team/:teamId',
+        controller: 'companyEditTeamController',
+        templateUrl: './views/company-edit-team.html'
       })
       .state('company_forget', {
         url: '/company/forget',
@@ -196,7 +177,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/campaign-edit.html'
       })
       .state('sponsor', {
-        url: '/campaign/sponsor',
+        url: '/campaign/sponsor/:type',
         controller: 'SponsorController',
         templateUrl: './views/sponsor.html'
       })
@@ -302,7 +283,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/about-notice.html'
       })
       .state('calendar', {
-        url: '/calendar',
+        url: '/calendar/:type',
         controller: 'CalendarController',
         templateUrl: './views/calendar.html'
       })
@@ -346,6 +327,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/user/:userId',
         controller: 'UserInfoController',
         templateUrl: './views/user-info.html'
+      })
+      .state('user_info_timeline', {
+        url: '/user/:userId/timeline',
+        controller: 'UserInfoTimelineController',
+        templateUrl: './views/user-info-timeline.html'
       })
       .state('report_form', {
         url: '/report/:userId',

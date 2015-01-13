@@ -1,6 +1,6 @@
 
 <ion-view class="login">
-  <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><a href="#/register/user/search_company" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">企业注册</h1><a href="#/company/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
   </ion-header-bar>
   <ion-content>
@@ -35,8 +35,8 @@
         <label class="item item-input">
           <input type="email" name="email" ng-model="email" placeholder="电子邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
         </label>
-        <p ng-if="mail_check">{{mail_msg}}</p>
       </div>
+      <div ng-if="mail_check" class="tip_msg gray_msg">{{mail_msg}}</div>
       <div class="list list-inset">
         <label class="item item-input">
           <input type="text" name="phone" ng-model="phone" placeholder="手机号码" ng-minlength="11" ng-maxlength="11" required="required"/>
@@ -46,7 +46,6 @@
       <div class="list list-inset">
         <button ng-disabled="!mail_check || mail_error || name_check&amp;&amp;name_error ||company_signup_form.$invalid" ng-click="signup()" class="button dl_button login_button">企业注册</button>
       </div>
-      <div class="list list-inset"><a href="#/register/user/search_company" class="button dl_button login_button dkblue_button">个人注册</a></div>
     </form>
   </ion-content>
 </ion-view>

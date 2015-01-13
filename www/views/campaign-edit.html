@@ -1,6 +1,6 @@
 
 <ion-view class="sponsor">
-  <ion-header-bar><a ng-href="{{backUrl}}" class="button ion-left ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
     <h1 class="title">活动编辑</h1>
   </ion-header-bar>
   <ion-content>
@@ -10,17 +10,23 @@
         <label class="item item-input">
           <input id="deadline" type="datetime-local" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间"/>
         </label>
+        <label class="item item-label"><span class="input-label">报名人数上限:</span></label>
         <label class="item item-input">
-          <input type="text" name="content" ng-model="campaignData.content" placeholder="活动简介" class="arecode"/>
+          <input type="number" name="member_max" ng-model="campaignData.member_max" min="0" class="arecode"/>
         </label>
+        <label class="item item-label"><span class="input-label">报名人数下限:</span></label>
         <label class="item item-input">
-          <input type="number" name="member_max" ng-model="campaignData.member_max" min="0" placeholder="报名人数上限" class="arecode"/>
+          <input type="number" name="member_min" ng-model="campaignData.member_min" min="0" class="arecode"/>
         </label>
+        <label class="item item-label"><span class="input-label">活动简介:</span></label>
         <label class="item item-input">
-          <input type="number" name="member_min" ng-model="campaignData.member_min" min="0" placeholder="报名人数下限" class="arecode"/>
+          <textarea placeholder="简介" name="content" maxlength="40" ng-model="campaignData.content" class="introduce"></textarea>
         </label>
         <div class="item-button">
           <button ng-disabled="editCampaignForm.$invalid || isBusy" ng-click="editCampaign()" class="button button-full button_sponsor">修改</button>
+        </div>
+        <div class="item-button">
+          <button ng-click="closeCampaign()" class="button button-full button_close">关闭活动</button>
         </div>
       </div>
     </form>

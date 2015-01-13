@@ -1,6 +1,6 @@
 ion-view.login
   ion-header-bar
-    a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(href="#/register/user/search_company") &nbsp;返回
     h1.title 企业注册
     a.button.icon-right.ion-chevron-right(href="#/company/login") 登录&nbsp;
   ion-content
@@ -29,7 +29,7 @@ ion-view.login
       .list.list-inset
         label.item.item-input
           input(type="email" name="email" ng-model="email" placeholder="电子邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required)
-        p(ng-if="mail_check") {{mail_msg}}
+      .tip_msg.gray_msg(ng-if="mail_check") {{mail_msg}}
       .list.list-inset
         label.item.item-input
           input(type="text" name="phone" ng-model="phone" placeholder="手机号码" ng-minlength=11 ng-maxlength=11 required)
@@ -38,5 +38,3 @@ ion-view.login
         a.blue_msg(href="#/register/company/law") 《法律声明》及《隐私政策》
       .list.list-inset
         button.button.dl_button.login_button(ng-disabled="!mail_check || mail_error || name_check&&name_error ||company_signup_form.$invalid" ng-click="signup()") 企业注册
-      .list.list-inset
-        a.button.dl_button.login_button.dkblue_button(href="#/register/user/search_company") 个人注册

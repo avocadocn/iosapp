@@ -3,7 +3,6 @@ ion-view.discuss_list
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
     h1.title 未参加的讨论列表
-    button.button.icon.ion-plus
 
   ion-content
     ion-refresher(on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中...")
@@ -14,4 +13,4 @@ ion-view.discuss_list
         h2 {{commentCampaign.theme}}
         p
           span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
-          span {{commentCampaign.latestComment.content}}
+          span(ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe")

@@ -41,6 +41,8 @@ body
     font-size 16px !important
 .dl_header
   opacity 0.9
+.title.title_have_right
+  margin-right 30px
 .campaigns_container
   padding-bottom 32px
   .campaign_filter
@@ -75,6 +77,34 @@ body
   .campaign_list
     height 100%
     background-color col_gray
+    .no_campaign
+      background-image url('/img/no_new_campaign.png')
+      width 100%
+      height 100%
+      background-repeat no-repeat
+      .no_campaign_tip
+        position absolute
+        top 210px
+        left 65px
+        font-size 14px
+        p
+          margin 6px 1px
+          .team_link
+            margin 0
+            color #FFF
+            background-color #3498DB
+            border none
+            position relative
+            font-size 12px
+            text-align center
+            vertical-align middle
+            display inline-block
+            cursor pointer
+            border-radius 5px
+            padding 7px 11px
+            text-decoration none
+          .tip_info
+            padding-left 11px
     .campaign_container
       .campaign_container_title
         font-size 16px
@@ -262,6 +292,8 @@ body
     color white
     padding 10px
     height 50px
+    border-top-right-radius 5px !important
+    border-top-left-radius 5px !important
     .dl_team_logo
       float left
       border-radius 5px
@@ -283,6 +315,13 @@ body
       font-weight bolder
     .dl_notice_count
       float right
+      margin 0 10px 0 0
+      line-height 30px
+    .dl_card_title
+      margin 0 0 0 10px
+      line-height 30px
+    .publish_notice
+      margin-left 10px
   .dl_card_header_provoke
     .dl_team_logo_right
       float right
@@ -428,8 +467,10 @@ body
       background-color col_blue
       color white
       border none
-      top 7px
-      right 0
+      position absolute
+      top 0
+      right 10px
+      line-height 50px
       .icon
         margin-left 5px
   .dl_card_time
@@ -456,6 +497,39 @@ body
     margin-right 5px
     width 65px
     height 65px
+  .photo_wrap
+    display block
+    position relative
+    float left
+    margin-top 5px
+    margin-right 5px
+    width 65px
+    height 65px
+    .family_photo
+      width 65px
+      height 65px
+    .delete_op_wrap
+      position absolute
+      top 0
+      left 0
+      width 65px
+      height 65px
+      background-color transparent
+      z-index 10
+    .delete_icon_background
+      position absolute
+      top 20px
+      left 18px
+      width 26px
+      height 26px
+      border-radius 100%
+      background-color white
+    .delete_icon
+      position absolute
+      top 20px
+      left 20px
+      font-size 25px
+      color #e74c3c // todo
 
 
 .bar-footer
@@ -516,7 +590,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   .icon-left, .icon-right
     &.button:before
       font-size 14px
+.login>.bar
+  .icon-left, .icon-right
+    &.button:before
       padding-left 10px
+  .icon-right
+    &.button:before
+      padding-right 10px
 
 //- home页
 .home
@@ -552,6 +632,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       margin-right 3%
     .register_button
       background-color col_darkBlue
+//-search icon
+.login, .edit_team_info
+  .dl_search_icon
+    color #3ca2e0
+    font-size 30px
+    margin -10px 10px
 //-登录页、忘记密码页、注册页
 .login
   background-color #fff
@@ -579,10 +665,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       line-height 40px
     .dkblue_button
       background-color col_darkBlue
-    .dl_search_icon
-      color #3ca2e0
-      font-size 30px
-      margin -10px 10px
+    
   //-words
   .links, .tip_msg
     margin 0 20px
@@ -704,6 +787,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-position -70px -103px
 .ion_setting
   background-position -30px -145px
+.emoji
+  margin 0 0.1rem
+  vertical-align middle
 //- 讨论页
 .discuss_detail
   background-image url('../img/discuss_bgd.jpg')
@@ -751,6 +837,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         line-height 1
         padding 0
   //-发评论
+    
+
+
   .comment_box.taller
     height 200px
   .comment_box
@@ -799,8 +888,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         width 320px
         padding 4px
         margin auto
-      .emoji
-        margin 9px
+        .emotion
+          padding 9px
+          float left
+          .emoji
+            margin-right 0
+            height 21px
+            width 21px
       .slider-pager
         bottom 5px
         .icon.ion-record
@@ -858,11 +952,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           display inline-block
           font-size 16px
           color col_lightGray
-          max-width 80%
+          max-width 100%
           padding 2px 7px
+          line-height 22px
+
       .triangle_isosceles
         position relative
-        padding 0.5rem
+        padding 0.5rem 1rem
         background #fff
         border-radius 5px
         background linear-gradient(top, #fff, #fbfbfb)
@@ -983,6 +1079,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         border-radius 100%
         left 4rem
         top 1rem
+.item-avatar > img:first-child
+  border-radius 0
 //-发现页
 .discover
   .discover_image
@@ -1005,12 +1103,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       .item-note
         color col_blue
 //-我的等页面通用">"
-.personal, .settings, .about, .settings_account, .contacts
+.personal, .settings, .about, .settings_account, .contacts, .company
   .list
     margin-top 10px
     .ion-chevron-right
       font-size 14px
       color #ccc
+    .ion-compose
+      color #333
+      font-size 20px
+      display block
+      top 16px
 //-账号设置页
 .settings_account
   a.item
@@ -1075,12 +1178,48 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       color col_darkGray
       z-index 1
       font-size 24px
+//- HR编辑小队
+.edit_team_info
+  .list
+    background-color #fff
+    .leader
+      span
+        float left
+      .leader_logo
+        float left
+        height 20px
+        width 20px
+        margin-right 10px
+    .search
+      border 1px solid col_blue
+      border-radius 5px
+      margin 5px 16px
+    .people
+      .person
+        float left
+        width 25%
+        text-align center
+        .photo
+          width 50px
+          height 50px
+          margin 0 auto
+        .photo.selected
+          border 1px solid #f44
+        .name
+          width 100%
+          text-align center
+          overflow hidden
+          white-space nowrap
+          font-size 12px
+          //- text-overflow ellipsis
 //-别人的卡片
 .user_card
   .tags
     white-space normal
     .tag
       padding 2px
+  .tabs
+    border-top 1px solid col_gray !important
 //-设置
 .settings
   .list
@@ -1376,9 +1515,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       color white
       display inline-block
       width 100%
-// todo
-.dl_family_photo_selected
-  border 1px solid col_blue
 
 // todo
 .dl_message_unread
@@ -1399,23 +1535,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       width 65px
       height 65px
       border 3px solid white
-    .triangle_right_top, .triangle_left_bottom
-      display block
-      position absolute
-      top 0
-      right 0
-      width 0
-      height 0
-      border-width 10px
-      border-style solid
-      border-color transparent
-    .triangle_right_top
-      border-right-color col_blue
-      border-top-color col_blue
-    .triangle_left_bottom
-      border-left-color white
-      border-bottom-color white
   .team_info
+    padding-top 0
+    padding-bottom 0
     border-radius 5px
     .info_header
       position relative
@@ -1467,6 +1589,21 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       padding 0
       height 40px
       border-top 1px solid col_gray
+      .icon
+        display inline-block
+        vertical-align middle
+        margin-top -2px
+        margin-right 5px
+        color col_blue
+        font-size 16px
+    .ion_member
+      display inline-block
+      width 24px
+      height 24px
+      background-size 200px
+      background-position 5px -148px
+      vertical-align middle
+      margin-top 3px
     .btn_member, .btn_cp
       border-left 1px solid col_gray
     .btn_upload_photo, .btn_member, .btn_cp
@@ -1479,6 +1616,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       line-height 40px
 
   .team_home_court
+    padding-top 0
+    padding-bottom 0
     border-radius 5px
     .home_court_tabs
       padding 0
@@ -1488,11 +1627,11 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       padding 0
       line-height 35px
       font-size 16px
-      color white
-      background-color col_blue
-    .tab.active
       color col_blue
       background-color white
+    .tab.active
+      color white
+      background-color col_blue
     .map_wrap
       display block
     .map_img
@@ -1516,6 +1655,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     padding 0 1rem
     border-radius 5px
     .member_wrap
+      position relative
       height 60px
       line-height 60px
       float left
@@ -1525,6 +1665,18 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       width 40px
       height 40px
       border-radius 5px
+    .dl_member_leader
+      width 20px
+      height 20px
+      display inline-block
+      position absolute
+      right 5px
+      bottom 9px
+      background-color #fbc441
+      border-radius 100%
+      background-image url('../img/icon.png')
+      background-size 192px 240px
+      background-position -45px -140px
     .member_link
       position absolute
       top 0
@@ -1692,6 +1844,10 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       border-radius 5px
       input
         color col_blue
+      .introduce
+        color col_blue
+        &::-webkit-input-placeholder
+          color col_blue
     .item-select
       select
         color col_blue
@@ -1699,11 +1855,15 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         color col_blue
     .item-button
       margin 10px 20px
-      .button_sponsor
+      .button
         width 100%
+        border-radius 5px
+      .button_sponsor
         background-color col_blue
         color white
-        border-radius 5px
+      .button_close
+        border none
+
 
 .pswp
   .dl_button_to_album

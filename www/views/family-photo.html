@@ -1,19 +1,43 @@
 
 <ion-view>
-  <ion-header-bar><a ng-href="#/photo_album/list/team/{{team._id}}" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">{{team.name}}的全家福相册</h1>
-    <div ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak="ng-cloak" class="button icon ion-plus"></div>
+  <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
+    <h1 class="title title_have_right">{{team.name}}的全家福相册</h1><span ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak="ng-cloak" class="button icon ion-plus"></span>
   </ion-header-bar>
   <ion-content>
     <div class="dl_photo_album_card">
       <div class="card_header clearfix">
         <p class="header_title">全家福({{familyPhotos.length}})</p>
       </div>
-      <div class="clearfix"><img ng-repeat="photo in familyPhotos" ng-class="{'dl_family_photo_selected': photo.select === true}" ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="toggleSelect(photo)" class="photo"/></div>
+      <div class="clearfix">
+        <div ng-repeat="photo in familyPhotos" class="photo_wrap"><img ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="openPhotoSwipe(photo._id)" class="family_photo"/>
+          <div ng-if="editing" ng-cloak="ng-cloak" ng-click="toggleSelect($index)" class="delete_op_wrap">
+            <div class="delete_icon_background"></div>
+            <div class="delete_icon icon ion-minus-circled"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button ng-if="team.isLeader &amp;&amp; !editing" ng-click="toggleEdit()" ng-cloak="ng-cloak" class="button button-block button-positive">编辑</button>
+      <button ng-if="team.isLeader &amp;&amp; editing" ng-click="toggleEdit()" ng-cloak="ng-cloak" class="button button-block button-positive">确定</button>
     </div>
   </ion-content>
+  <script id="confirm-upload-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+        <button ng-click="cancelUpload()" class="button">取消</button>
+        <h1 class="title">预览</h1>
+        <button ng-click="confirmUpload()" class="button">确定</button>
+      </ion-header-bar>
+      <ion-content>
+        <div class="card">
+          <div class="item item-image"><img ng-src="{{previewImg}}"/></div>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
 </ion-view>
-<div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+<div tabindex="-1" role="dialog" aria-hidden="true" id="familyPhotoAlbum" class="pswp">
   <div class="pswp__bg"></div>
   <div class="pswp__scroll-wrap">
     <div class="pswp__container">
@@ -26,7 +50,6 @@
         <div class="pswp__counter"></div>
         <button title="关闭" class="pswp__button pswp__button--close"></button>
         <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
-        <button ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
         <div class="pswp__preloader">
           <div class="pswp__preloader__icn">
             <div class="pswp__preloader__cut">

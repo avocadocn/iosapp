@@ -2,8 +2,8 @@
 <ion-tabs ng-controller="TabController" ng-class="{'tabs-item-hide': hideTabs}" class="tabs-icon-top app_tabs">
   <ion-tab title="活动" icon-on="ion_campaign_active" icon-off="ion_campaign" href="#/app/campaigns"><!-- Tab 1 content -->
     <ion-view ng-controller="CampaignController">
-      <ion-header-bar><a href="#/calendar" class="button icon ion-calendar"></a>
-        <h1 class="title">活动</h1><a href="#/campaign/sponsor" class="button icon ion-plus"></a>
+      <ion-header-bar><a href="#/calendar/campaigns" class="button icon ion-calendar"></a>
+        <h1 class="title">活动</h1><a href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
       </ion-header-bar>
       <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container has-header">
         <div class="button-bar campaign_filter"><a ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}" class="button button-clear">所有</a><a ng-click="filter('newCampaigns')" ng-class="{'icon_darkBlue':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="filter('provokes')" ng-class="{'icon_iconPurple':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="filter('nowCampaigns')" ng-class="{'icon_borderPurple':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="filter('unStartCampaigns')" ng-class="{'icon_textPurple':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
@@ -33,9 +33,15 @@
                   </div>
                   <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
                 </div>
+          <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign">
+            <div class="no_campaign_tip">
+              <p>没有活动怎么办？进入</p>
+              <p><a href="#/app/discover" class="team_link">发现</a><span class="tip_info">加入更多小队！</span></p>
+            </div>
+          </div>
         </ion-scroll>
       </ion-content>
-      <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+      <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" class="pswp">
         <div class="pswp__bg"></div>
         <div class="pswp__scroll-wrap">
           <div class="pswp__container">
@@ -69,21 +75,21 @@
   </ion-tab>
   <ion-tab title="讨论" icon-on="ion_discuss_active" icon-off="ion_discuss" href="#/app/discuss/list"><!-- Tab 2 content -->
     <ion-view ng-controller="DiscussListController" class="discuss_list">
-      <ion-header-bar><a href="#/calendar" class="button icon ion-calendar"></a>
-        <h1 class="title">讨论列表</h1><a href="#/campaign/sponsor" class="button icon ion-plus"></a>
+      <ion-header-bar><a href="#/calendar/discuss_list" class="button icon ion-calendar"></a>
+        <h1 class="title">讨论列表</h1>
       </ion-header-bar>
       <ion-content>
         <ion-refresher on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
         <ul class="list"><a ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index&lt;unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}"/>
             <div ng-if="commentCampaign.unread" class="red_spot"></div>
             <h2>{{commentCampaign.theme}}</h2>
-            <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span>{{commentCampaign.latestComment.content || '[图片]'}}</span></p></a><a ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined" class="item item-avatar"><img src="img/icons/unjoined_discuss.png" class="unjoined"/>
+            <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe"> </span></p></a><a ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined" class="item item-avatar"><img src="img/icons/unjoined_discuss.png" class="unjoined"/>
             <div ng-if="newUnjoined" class="red_spot"></div>
-            <h2>未参加的活动讨论</h2>
+            <h2>其它小队讨论</h2>
             <p><span>{{latestUnjoinedCampaign.theme}}</span></p></a><a ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index&gt;=unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}"/>
             <div ng-if="commentCampaign.unread" class="red_spot"></div>
             <h2>{{commentCampaign.theme}}</h2>
-            <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span>{{commentCampaign.latestComment.content || '[图片]'}}</span></p></a></ul>
+            <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe"> </span></p></a></ul>
       </ion-content>
     </ion-view>
   </ion-tab>
@@ -116,7 +122,8 @@
             <p ng-if="constellation">星座：{{constellation}}</p>
             <p ng-if="user.realname">真实姓名：{{user.realname}}</p>
             <p ng-if="user.introduce">简介: {{user.introduce}}</p>
-            <p ng-if="user.score">积分：{{user.score}}</p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/calendar" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a>
+            <p ng-if="user.score">积分：{{user.score}}</p>
+            <p>{{info}}</p><i class="icon ion-chevron-right"></i></a><a href="#/personal/teams" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/calendar/personal" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a>
         </div>
       </ion-content>
     </ion-view>
