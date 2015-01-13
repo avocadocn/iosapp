@@ -87,7 +87,7 @@ angular.module('donlerApp.services', [])
         } else {
           $http.defaults.headers.common['x-device-id'] = 'did1a2b3c4d5e6f';
           $http.defaults.headers.common['x-device-type'] = 'iphone 6';
-          $http.defaults.headers.common['x-platform'] = 'ios';
+          $http.defaults.headers.common['x-platform'] = 'iOS';
           $http.defaults.headers.common['x-version'] = '8.0';
         }
 
@@ -100,8 +100,7 @@ angular.module('donlerApp.services', [])
           'x-device-id': $http.defaults.headers.common['x-device-id'],
           'x-device-type': $http.defaults.headers.common['x-device-type'],
           'x-platform': $http.defaults.headers.common['x-platform'],
-          'x-version': $http.defaults.headers.common['x-version'],
-          'x-device-token': $http.defaults.headers.common['x-device-token']
+          'x-version': $http.defaults.headers.common['x-version']
         };
 
       }
@@ -109,12 +108,13 @@ angular.module('donlerApp.services', [])
     };
 
   }])
-  .factory('UserAuth', ['$http', 'CONFIG', 'Socket', function ($http, CONFIG, Socket) {
+  .factory('UserAuth', ['$http', 'CONFIG', 'Socket', 'INFO', function ($http, CONFIG, Socket, INFO) {
     return {
       login: function (email, password, callback) {
         $http.post(CONFIG.BASE_URL + '/users/login', {
           email: email,
-          password: password
+          password: password,
+          pushInfo:INFO.pushInfo
         })
           .success(function (data, status) {
             localStorage.accessToken = data.token;

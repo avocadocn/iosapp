@@ -35,9 +35,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           config = iosConfig;
         }
         $cordovaPush.register(config).then(function(result) {
-          CommonHeaders.set({
-            'x-device-token': result
-          });
+          INFO.pushInfo = {
+            ios_token: result
+          };
         }, function(err) {
           console.log(err);
         });
@@ -58,7 +58,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         });
 
       }
-
+      // else {
+      //   CommonHeaders.set();
+      // }
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
