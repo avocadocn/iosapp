@@ -1301,15 +1301,50 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
-  .controller('ContactsController', ['$scope', 'User', 'INFO', function ($scope, User, INFO) {
+  .controller('ContactsController', ['$scope', 'User', 'INFO', 'Tools', function ($scope, User, INFO, Tools) {
+    var contactsBackup = [];
+    $scope.keyword = {value:''};
     //获取公司联系人
     User.getCompanyUsers(localStorage.cid,function(msg, data){
       if(!msg) {
         $scope.contacts = data;
+        contactsBackup = data;
       }
     });
-    //设置点入个人资料后返回的地址
-    INFO.userInfoBackUrl = '#/discover/contacts';
+    $scope.goSearch = function () {
+      $scope.searching = true;
+    };
+    $scope.cancelSearch = function () {
+      $scope.contacts = contactsBackup;//还原
+      $scope.searching = false;
+    };
+    $scope.search = function (event) {
+      var keyword = $scope.keyword.value;
+      if(keyword && (!event || event.which===13)) {
+        $scope.contacts = [];
+        var length = contactsBackup.length;
+        var find = false;
+        for(var i=0; i<length; i++) {//找名字里含关键字的
+          if(contactsBackup[i].nickname.indexOf(keyword) > -1) {
+            $scope.contacts.push(contactsBackup[i]);
+            find = true;
+          }
+        }
+        for(var i=0; i<length; i++) {//找email里含关键字的
+          if(contactsBackup[i].email.indexOf(keyword) > -1) {
+            if(Tools.arrayObjectIndexOf($scope.contacts,contactsBackup[i]._id,'_id')===-1) {
+              $scope.contacts.push(contactsBackup[i]);
+              find = true;
+            }
+          }
+        }
+        if(find === false) {
+          $scope.message = '未查找到相关同事';
+        }else{
+          $scope.message = '';
+        }
+      }
+    };
   }])
   .controller('PersonalController', ['$scope', '$state', '$ionicHistory', 'User', 'Message', 'Tools', function ($scope, $state, $ionicHistory, User, Message, Tools) {
     User.getData(localStorage.id, function (err, data) {
