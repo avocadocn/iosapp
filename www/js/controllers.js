@@ -682,36 +682,45 @@ angular.module('donlerApp.controllers', [])
 
     }
   }])
-  .controller('DiscussListController', ['$scope', '$ionicHistory', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, $ionicHistory, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
+  .controller('DiscussListController', ['$scope', '$rootScope', '$ionicHistory', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, $rootScope, $ionicHistory, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
     Socket.emit('enterRoom', localStorage.id);
     //先在缓存里取
     // console.log(INFO);
+    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
+      if(!states.stateName){
+        getComments();
+      }
+    });
     if(INFO.discussList){
       $scope.commentCampaigns = INFO.discussList.commentCampaigns;
       $scope.latestUnjoinedCampaign = INFO.discussList.latestUnjoinedCampaign;
       $scope.unjoinedIndex = INFO.discussList.unjoinedIndex;
     }
     //进来以后先http请求,再监视推送
-    Comment.getList('joined').success(function (data) {
-      $scope.commentCampaigns = data.commentCampaigns;
-      $scope.latestUnjoinedCampaign = data.latestUnjoinedCampaign;
-      //判断下把未参加的放哪
-      $scope.unjoinedIndex = 20;
-      if($scope.latestUnjoinedCampaign) {
-        var unjoinedCommentTime = new Date($scope.latestUnjoinedCampaign.latestComment.createDate);
-        for(var i=$scope.commentCampaigns.length-1; i>=0; i--){
-          var joinedCommentTime = new Date($scope.commentCampaigns[i].latestComment.createDate);
-          if(unjoinedCommentTime>joinedCommentTime){
-            $scope.unjoinedIndex = i;
-          }else{
-            $scope.unjoinedIndex = i;
-            break;
+    var getComments = function() {
+      Comment.getList('joined').success(function (data) {
+        $scope.commentCampaigns = data.commentCampaigns;
+        $scope.latestUnjoinedCampaign = data.latestUnjoinedCampaign;
+        //判断下把未参加的放哪
+        $scope.unjoinedIndex = 20;
+        if($scope.latestUnjoinedCampaign) {
+          var unjoinedCommentTime = new Date($scope.latestUnjoinedCampaign.latestComment.createDate);
+          for(var i=$scope.commentCampaigns.length-1; i>=0; i--){
+            var joinedCommentTime = new Date($scope.commentCampaigns[i].latestComment.createDate);
+            if(unjoinedCommentTime>joinedCommentTime){
+              $scope.unjoinedIndex = i;
+            }else{
+              $scope.unjoinedIndex = i;
+              break;
+            }
           }
         }
-      }
-      $scope.newUnjoined = data.newUnjoinedCampaignComment;
-      localStorage.hasNewComment = false;
-    });
+        $scope.newUnjoined = data.newUnjoinedCampaignComment;
+        localStorage.hasNewComment = false;
+      });
+    };
+    getComments();
+    
     Socket.on('newCommentCampaign', function (data) {
       var newCommentCampaign = data;
       var index = Tools.arrayObjectIndexOf($scope.commentCampaigns, newCommentCampaign._id, '_id');
