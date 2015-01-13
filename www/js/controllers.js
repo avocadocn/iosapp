@@ -323,35 +323,40 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.campaigns');
       }
     }
+
+    var setMembers = function () {
+      $scope.campaign.members =[];
+      var memberContent = [];
+      $scope.campaign.campaign_unit.forEach(function(campaign_unit){
+        if(campaign_unit.team){
+          var content = {
+            name:campaign_unit.team.name,
+            members:campaign_unit.member
+          };
+          if (campaign_unit.company._id !== localStorage.cid) {
+            content.isOtherCompany = true;
+          }
+          memberContent.push(content);
+        }
+        else {
+          memberContent.push({
+            name:campaign_unit.company.name,
+            members:campaign_unit.member
+          });
+        }
+      })
+      INFO.memberContent = memberContent;
+      INFO.locationContent = $scope.campaign.location;
+      $scope.campaign.campaign_unit.forEach(function(campaign_unit){
+        $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
+      });
+    };
+
     $scope.$on('$ionicView.enter',function(scopes, states){
       Campaign.get($state.params.id, function(err, data){
         if(!err){
           $scope.campaign = data;
-          $scope.campaign.members =[];
-          var memberContent = [];
-          data.campaign_unit.forEach(function(campaign_unit){
-            if(campaign_unit.team){
-              var content = {
-                name:campaign_unit.team.name,
-                members:campaign_unit.member
-              };
-              if (campaign_unit.company._id !== localStorage.cid) {
-                content.isOtherCompany = true;
-              }
-              memberContent.push(content);
-            }
-            else {
-              memberContent.push({
-                name:campaign_unit.company.name,
-                members:campaign_unit.member
-              });
-            }
-          })
-          INFO.memberContent = memberContent;
-          INFO.locationContent = data.location;
-          data.campaign_unit.forEach(function(campaign_unit){
-            $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
-          });
+          setMembers();
         }
       });
       Message.getCampaignMessages($state.params.id, function(err, data){
@@ -365,6 +370,7 @@ angular.module('donlerApp.controllers', [])
       Campaign.join(id,localStorage.id, function(err, data){
         if(!err){
           $scope.campaign = data;
+          setMembers();
           $ionicPopup.alert({
             title: '提示',
             template: '参加成功'
@@ -383,6 +389,7 @@ angular.module('donlerApp.controllers', [])
       Campaign.quit(id,localStorage.id, function(err, data){
         if(!err){
           $scope.campaign = data;
+          setMembers();
           $ionicPopup.alert({
             title: '提示',
             template: '退出成功'
