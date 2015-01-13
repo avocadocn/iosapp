@@ -6,7 +6,7 @@ ion-view.personal
   ion-content
     .card.user_card
       .item.item-avatar
-        img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/45/45")
+        img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/90/90" ng-click="openPhotoSwipe();$event.preventDefault();$event.stopPropagation();")
         h2 {{user.nickname}}
         p(ng-cloak) 简介: {{user.introduce || '-'}}
       .item.statistics(ng-cloak)
@@ -35,6 +35,25 @@ ion-view.personal
         //-   span.tag(ng-repeat="tag in user.tags") {{tag}}
       .item.tabs
         a.tab-item(ng-href="#/user/{{user._id}}/timeline") 活动足迹
+
+  .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{userInfoPswpId}}")
+    .pswp__bg
+    .pswp__scroll-wrap
+      .pswp__container
+        .pswp__item
+        .pswp__item
+        .pswp__item
+      .pswp__ui.pswp__ui--hidden
+        .pswp__top-bar
+          .pswp__counter
+          button.pswp__button.pswp__button--close(title="关闭")
+          button.pswp__button.pswp__button--zoom(title="放大/缩小")
+          .pswp__preloader
+            .pswp__preloader__icn
+              .pswp__preloader__cut
+                .pswp__preloader__donut
+        .pswp__caption
+          .pswp__caption__center
 
 script(id="more-popover.html" type="text/ng-template")
   ion-popover-view.dl_popover.user_more_popover

@@ -1368,7 +1368,7 @@ angular.module('donlerApp.controllers', [])
       }
     };
   }])
-  .controller('PersonalController', ['$scope', '$state', '$ionicHistory', 'User', 'Message', 'Tools', function ($scope, $state, $ionicHistory, User, Message, Tools) {
+  .controller('PersonalController', ['$scope', '$rootScope', '$state', '$ionicHistory', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', function ($scope, $rootScope, $state, $ionicHistory, User, Message, Tools, CONFIG, INFO) {
     User.getData(localStorage.id, function (err, data) {
       if (err) {
         // todo
@@ -1381,6 +1381,38 @@ angular.module('donlerApp.controllers', [])
         }
       }
     });
+
+    $scope.personalPswpId = 'personal' + Date.now();
+    $scope.openPhotoSwipe = function () {
+      try {
+        $rootScope.hideTabs = true;
+        var pswpElement = document.querySelector('#' + $scope.personalPswpId);
+        var options = {
+          history: false,
+          focus: false,
+          index: 0,
+          showAnimationDuration: 0,
+          hideAnimationDuration: 0
+        };
+        var width = Math.min(INFO.screenWidth, INFO.screenHeight);
+        var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [{
+          src: CONFIG.STATIC_URL + $scope.user.photo + '/' + width + '/' + width,
+          w: width,
+          h: width
+        }], options);
+        pswp.listen('close', function() {
+          $rootScope.hideTabs = false;
+          if (!$rootScope.$$phase) {
+            $rootScope.$digest();
+          }
+        });
+        pswp.init();
+      } catch (e) {
+        console.log(e);
+        console.log(e.stack);
+        $rootScope.hideTabs = false;
+      }
+    };
 
     Message.receiveUserMessages(localStorage.id, function (err, messagesCount) {
       if (err) {
@@ -3460,8 +3492,8 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', function ($ionicHistory, $scope, $state, $stateParams, $ionicPopover, Tools, User) {
-    
+  .controller('UserInfoController', ['$ionicHistory', '$scope', '$rootScope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', 'CONFIG', 'INFO', function ($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopover, Tools, User, CONFIG, INFO) {
+
     $ionicPopover.fromTemplateUrl('more-popover.html', {
         scope: $scope,
       }).then(function(popover) {
@@ -3479,7 +3511,7 @@ angular.module('donlerApp.controllers', [])
       $state.go('report_form',{userId: $scope.user._id});
       $scope.popover.hide();
     }
-    
+
     User.getData($stateParams.userId, function (err, data) {
       if (err) {
         // todo
@@ -3492,6 +3524,39 @@ angular.module('donlerApp.controllers', [])
         }
       }
     });
+
+    $scope.userInfoPswpId = 'personal' + Date.now();
+    $scope.openPhotoSwipe = function () {
+      try {
+        $rootScope.hideTabs = true;
+        var pswpElement = document.querySelector('#' + $scope.userInfoPswpId);
+        var options = {
+          history: false,
+          focus: false,
+          index: 0,
+          showAnimationDuration: 0,
+          hideAnimationDuration: 0
+        };
+        var width = Math.min(INFO.screenWidth, INFO.screenHeight);
+        var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [{
+          src: CONFIG.STATIC_URL + $scope.user.photo + '/' + width + '/' + width,
+          w: width,
+          h: width
+        }], options);
+        pswp.listen('close', function() {
+          $rootScope.hideTabs = false;
+          if (!$rootScope.$$phase) {
+            $rootScope.$digest();
+          }
+        });
+        pswp.init();
+      } catch (e) {
+        console.log(e);
+        console.log(e.stack);
+        $rootScope.hideTabs = false;
+      }
+    };
+
   }])
   .controller('UserInfoTimelineController', ['$ionicHistory', '$scope', '$stateParams', 'User', 'TimeLine', function ($ionicHistory, $scope, $stateParams, User, TimeLine) {
     $scope.loadFinished = false;

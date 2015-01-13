@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <div class="card user_card">
-      <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/45/45"/>
+      <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/90/90" ng-click="openPhotoSwipe();$event.preventDefault();$event.stopPropagation();"/>
         <h2>{{user.nickname}}</h2>
         <p ng-cloak="ng-cloak">简介: {{user.introduce || '-'}}</p>
       </div>
@@ -38,6 +38,33 @@
       <div class="item tabs"><a ng-href="#/user/{{user._id}}/timeline" class="tab-item">活动足迹</a></div>
     </div>
   </ion-content>
+  <div tabindex="-1" role="dialog" aria-hidden="true" id="{{userInfoPswpId}}" class="pswp">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+      <div class="pswp__ui pswp__ui--hidden">
+        <div class="pswp__top-bar">
+          <div class="pswp__counter"></div>
+          <button title="关闭" class="pswp__button pswp__button--close"></button>
+          <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-view>
 <script id="more-popover.html" type="text/ng-template">
   <ion-popover-view class="dl_popover user_more_popover">
