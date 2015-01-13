@@ -1380,23 +1380,25 @@ angular.module('donlerApp.controllers', [])
 
     var birthdayInput = document.getElementById('birthday');
 
-    User.getData(localStorage.id, function (err, data) {
-      if (err) {
-        $ionicPopup.alert({
-          title: '获取个人信息失败',
-          template: err
-        });
-      } else {
-        $scope.user = data;
-        $scope.formData = {
-          nickname: $scope.user.nickname,
-          realname: $scope.user.realname,
-          phone: $scope.user.phone,
-          birthday: new Date($scope.user.birthday),
-          introduce: $scope.user.introduce,
-          sex: $scope.user.sex
-        };
-      }
+    $scope.$on('$ionicView.enter', function (scopes, states) {
+      User.getData(localStorage.id, function (err, data) {
+        if (err) {
+          $ionicPopup.alert({
+            title: '获取个人信息失败',
+            template: err
+          });
+        } else {
+          $scope.user = data;
+          $scope.formData = {
+            nickname: $scope.user.nickname,
+            realname: $scope.user.realname,
+            phone: $scope.user.phone,
+            birthday: new Date($scope.user.birthday),
+            introduce: $scope.user.introduce,
+            sex: $scope.user.sex
+          };
+        }
+      });
     });
 
     $scope.unchanged = true;
@@ -1469,6 +1471,9 @@ angular.module('donlerApp.controllers', [])
       $cordovaFile
         .uploadFile(serverAddr, imageURI, options)
         .then(function(result) {
+          $ionicHistory.clearHistory();
+          $ionicHistory.clearCache();
+          User.clearCurrentUser();
           var successAlert = $ionicPopup.alert({
             title: '提示',
             template: '修改头像成功'

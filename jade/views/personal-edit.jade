@@ -24,7 +24,7 @@ ion-view.edit_info
         input(type="text" name="phone" ng-change="change()" ng-model="formData.phone")
       .item.item-input
         span.input-label 生日
-        input#birthday(type="date" name="birthday" ng-change="change()" ng-model="formData.birthday")
+        input#birthday(type="date" name="birthday" ng-change="change()" ng-model="formData.birthday" placeholder="yyyy-MM-dd")
       .item.item-input
         span.input-label 简介
         textarea.introduce(placeholder="简介" name="introduce" ng-change="change()" maxlength="40" ng-model="formData.introduce")
