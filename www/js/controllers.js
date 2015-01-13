@@ -1333,9 +1333,6 @@ angular.module('donlerApp.controllers', [])
         contactsBackup = data;
       }
     });
-    $scope.goSearch = function () {
-      $scope.searching = true;
-    };
     $scope.cancelSearch = function () {
       $scope.contacts = contactsBackup;//还原
       $scope.searching = false;
@@ -1365,6 +1362,7 @@ angular.module('donlerApp.controllers', [])
         }else{
           $scope.message = '';
         }
+        $scope.searching = true;
       }
     };
   }])

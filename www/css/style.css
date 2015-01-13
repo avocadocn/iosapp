@@ -699,20 +699,22 @@ input:focus:-ms-input-placeholder {
   color: #3ca2e0;
   font-size: 16px;
   font-weight: 600;
-  line-height: 34px;
+  line-height: 35px;
 }
 .bar .button.activated {
-  box-shadow: inset 0px 1px 1px rgba(0,0,0,0.15);
+  box-shadow: 0 0 0;
+  color: #ddd;
 }
 .bar .icon-left.button:before,
 .bar .icon-right.button:before {
-  font-size: 14px;
+  font-size: 16px;
 }
 .login>.bar .icon-left.button:before,
 .login>.bar .icon-right.button:before {
   padding-left: 10px;
 }
 .login>.bar .icon-right.button:before {
+  padding-left: 5px;
   padding-right: 10px;
 }
 .home {
@@ -1348,6 +1350,12 @@ a>.login .companies_list:activated {
 }
 .contacts .search_box {
   width: 100%;
+  background-color: #e2e2e2;
+}
+.contacts .search_box .item-input-wrapper {
+  background-color: #fff;
+}
+.contacts .search_box input {
   background-color: #fff;
 }
 .settings_account a.item {
