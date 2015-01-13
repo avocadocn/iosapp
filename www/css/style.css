@@ -879,7 +879,6 @@ a>.login .companies_list:activated {
 .app_tabs > .tabs {
   background-color: #000;
   color: #fff;
-  border-bottom: none;
 }
 .app_tabs > .tabs .tab-item {
   position: relative;

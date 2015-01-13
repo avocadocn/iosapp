@@ -6,7 +6,7 @@ ion-view.personal(ng-controller="PersonalController")
   ion-content
     .list
       a.item.item-avatar.item-icon-right(href="#/personal/edit" ng-cloak)
-        img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80")
+        img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80" ng-click="openPhotoSwipe();$event.preventDefault();$event.stopPropagation();")
         h2 {{user.nickname}}
         p(ng-if="user.introduce") 简介: {{user.introduce}}
         i.icon.ion-chevron-right
@@ -44,3 +44,22 @@ ion-view.personal(ng-controller="PersonalController")
         i.icon.ion_setting
         | 设置
         i.icon.ion-chevron-right
+
+  .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{personalPswpId}}")
+    .pswp__bg
+    .pswp__scroll-wrap
+      .pswp__container
+        .pswp__item
+        .pswp__item
+        .pswp__item
+      .pswp__ui.pswp__ui--hidden
+        .pswp__top-bar
+          .pswp__counter
+          button.pswp__button.pswp__button--close(title="关闭")
+          button.pswp__button.pswp__button--zoom(title="放大/缩小")
+          .pswp__preloader
+            .pswp__preloader__icn
+              .pswp__preloader__cut
+                .pswp__preloader__donut
+        .pswp__caption
+          .pswp__caption__center
