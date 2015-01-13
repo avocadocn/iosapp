@@ -87,7 +87,7 @@ angular.module('donlerApp.services', [])
         } else {
           $http.defaults.headers.common['x-device-id'] = 'did1a2b3c4d5e6f';
           $http.defaults.headers.common['x-device-type'] = 'iphone 6';
-          $http.defaults.headers.common['x-platform'] = 'ios';
+          $http.defaults.headers.common['x-platform'] = 'iOS';
           $http.defaults.headers.common['x-version'] = '8.0';
         }
 

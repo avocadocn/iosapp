@@ -60,7 +60,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
     $rootScope.hideLoading = function(){
       $ionicLoading.hide();
     };
-  }).config(function ($stateProvider) {
+  }).config(function ($stateProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
+    $ionicConfigProvider.navBar.alignTitle('center');
     $stateProvider
       .state('home', {
         url: '/home',
