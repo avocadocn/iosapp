@@ -732,6 +732,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .app_tabs > .tabs
   background-color #000
   color white
+  border-bottom none
   .tab-item
     position relative
     .icon
@@ -895,6 +896,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
             margin-right 0
             height 21px
             width 21px
+            margin 0
       .slider-pager
         bottom 5px
         .icon.ion-record
@@ -1069,6 +1071,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 //-讨论列表页
 .discuss_list
   .list
+    padding-top 0
     .item
       position relative
       .red_spot
@@ -1089,6 +1092,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     background url('../img/discover.jpg') no-repeat
     background-size 100%
     height 15rem
+    margin-top 10px
   .list
     .item
       &:first-child
@@ -1114,6 +1118,11 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       font-size 20px
       display block
       top 16px
+//-通讯录
+.contacts
+  .search_box
+    width 100%
+    background-color #fff
 //-账号设置页
 .settings_account
   a.item
@@ -1122,6 +1131,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .personal
   .list
     padding-top 0
+    margin-bottom 10px
     .item.item-avatar
       h2
         font-weight 400
@@ -1137,47 +1147,76 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .item.item-icon-left
       .icon
         width 3rem
+  .statistics
+    text-align center
+    padding 0
+    .row
+      padding 0
+      .col-33
+        border-left 1px solid #ccc
+        padding 5px 0
+        //- .key
+        //-   color #aaa
+        .number
+          color #222
+          font-size 16px
+      .col-33
+        &:first-child
+          border-left 0
+      a
+        text-decoration none
+
 //-编辑个人信息页
 .edit_info
-  .item-thumbnail-right
-    h2
-      margin-top 10px
-    img:first-child
-      left 36%
-  .item-input
-    input
-      color col_blue
-    .introduce
-      color col_blue
-  .list>.item
-    padding 6px 20px 5px
-    //- .tags
-    //-   width 75%
-    //-   float right
-    //-   .tag
-    //-     float left
-    //-     display block
-    //-     margin-right 5px
-    //-     margin-bottom 0.5rem
-    //-     .content
-    //-       float left
-    //-       background-color col_blue
-    //-       height 30px
-    //-       padding 5px 6px
-    //-       color #fff
-    //-       font-size 14px
-    //-     .tag_delete
-    //-       float left
-    //-       background-color col_blue
-    //-       border-radius 0 4px 4px 0
-    //-       padding 0 0.5rem
-  .item-icon-right
-    input
-      z-index 2
-    .icon
-      color col_darkGray
-      z-index 1
-      font-size 24px
+  .list
+    padding-top 10px
+    .item-thumbnail-right
+      h2
+        margin-top 10px
+      img:first-child
+        left 36%
+    .item-input
+      padding 6px 20px 5px
+      input
+        color col_blue
+      .introduce
+        color col_blue
+      //- .item
+      //-   padding 6px 20px 5px
+      //- .tags
+      //-   width 75%
+      //-   float right
+      //-   .tag
+      //-     float left
+      //-     display block
+      //-     margin-right 5px
+      //-     margin-bottom 0.5rem
+      //-     .content
+      //-       float left
+      //-       background-color col_blue
+      //-       height 30px
+      //-       padding 5px 6px
+      //-       color #fff
+      //-       font-size 14px
+      //-     .tag_delete
+      //-       float left
+      //-       background-color col_blue
+      //-       border-radius 0 4px 4px 0
+      //-       padding 0 0.5rem
+    .item-radio
+      .item-content
+        padding 0 30px
+      .radio-icon
+        padding 0 5px
+        font-size 16px
+        color #666
+    .item-icon-right
+      input
+        z-index 2
+      .icon
+        color col_darkGray
+        z-index 1
+        font-size 24px
 //- HR编辑小队
 .edit_team_info
   .list
@@ -1741,6 +1780,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     border-radius 5px
     font-size 12px
   .member
+    position relative
     margin 0.833333rem 0.833333rem 0
     float left
     text-decoration none
@@ -1749,6 +1789,18 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     width 55px
     height 55px
     border-radius 5px
+  .dl_member_leader
+    width 20px
+    height 20px
+    display inline-block
+    position absolute
+    right 0
+    bottom 23px
+    background-color #fbc441
+    border-radius 100%
+    background-image url('../img/icon.png')
+    background-size 192px 240px
+    background-position -45px -140px
   .member_name
     margin 3px auto 0
     width 50px

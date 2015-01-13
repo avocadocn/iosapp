@@ -16,6 +16,10 @@ ion-view.edit_info
         span.input-label 真实姓名
         input(type="text" name="realname" ng-change="change()" maxlength="20" ng-model="formData.realname")
       .item.item-input
+        span.input-label 性别
+        ion-radio(ng-model="formData.sex" ng-value="'男'" ng-change="change()") 男
+        ion-radio(ng-model="formData.sex" ng-value="'女'" ng-change="change()") 女
+      .item.item-input
         span.input-label 手机
         input(type="text" name="phone" ng-change="change()" ng-model="formData.phone")
       .item.item-input

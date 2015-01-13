@@ -323,37 +323,40 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.campaigns');
       }
     }
-    Campaign.get($state.params.id, function(err, data){
-      if(!err){
-        $scope.campaign = data;
-        $scope.campaign.members =[];
-        var memberContent = [];
-        data.campaign_unit.forEach(function(campaign_unit){
-          if(campaign_unit.team){
-            memberContent.push({
-              name:campaign_unit.team.name,
-              members:campaign_unit.member
-            });
-          }
-          else{
+    $scope.$on('$ionicView.enter',function(scopes, states){
+      Campaign.get($state.params.id, function(err, data){
+        if(!err){
+          $scope.campaign = data;
+          $scope.campaign.members =[];
+          var memberContent = [];
+          data.campaign_unit.forEach(function(campaign_unit){
+            if(campaign_unit.team){
               memberContent.push({
-              name:campaign_unit.company.name,
-              members:campaign_unit.member
-            });
-          }
-        })
-        INFO.memberContent = memberContent;
-        INFO.locationContent = data.location;
-        data.campaign_unit.forEach(function(campaign_unit){
-          $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
-        });
-      }
+                name:campaign_unit.team.name,
+                members:campaign_unit.member
+              });
+            }
+            else{
+                memberContent.push({
+                name:campaign_unit.company.name,
+                members:campaign_unit.member
+              });
+            }
+          })
+          INFO.memberContent = memberContent;
+          INFO.locationContent = data.location;
+          data.campaign_unit.forEach(function(campaign_unit){
+            $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
+          });
+        }
+      });
+      Message.getCampaignMessages($state.params.id, function(err, data){
+        if(!err){
+          $scope.notices = data;
+        }
+      });
     });
-    Message.getCampaignMessages($state.params.id, function(err, data){
-      if(!err){
-        $scope.notices = data;
-      }
-    });
+
     $scope.join = function(id){
       Campaign.join(id,localStorage.id, function(err, data){
         if(!err){
@@ -522,7 +525,7 @@ angular.module('donlerApp.controllers', [])
         var markerOption = {
           map: $scope.locationmap,
           position: nowPoint,
-          raiseOnDrag:true
+          raiseOnDrag: true
         };
         marker = new AMap.Marker(markerOption);
       });
@@ -530,9 +533,9 @@ angular.module('donlerApp.controllers', [])
     };
     $scope.initialize = function(){
       $scope.locationmap =  new AMap.Map("mapDetail");            // 创建Map实例
-      $scope.locationmap.plugin(["AMap.ToolBar"],function(){    
+      $scope.locationmap.plugin(["AMap.ToolBar"],function(){
         toolBar = new AMap.ToolBar();
-        $scope.locationmap.addControl(toolBar);   
+        $scope.locationmap.addControl(toolBar);
       });
       if(city){
         $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
@@ -542,17 +545,10 @@ angular.module('donlerApp.controllers', [])
             city:city
           });
           AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+          $scope.MSearch.search($scope.campaignData.location.name);
         });
       }
       else {
-        $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-          $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-            pageSize:1,
-            pageIndex:1
-          });
-          AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-
-        });
         $scope.locationmap.plugin(["AMap.CitySearch"], function() {
           //实例化城市查询类
           var citysearch = new AMap.CitySearch();
@@ -569,19 +565,23 @@ angular.module('donlerApp.controllers', [])
                   city: result.city
                 });
                 AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-                $timeout(function(){
-                  $scope.MSearch.search($scope.campaignData.location.name);
-                });
+                $scope.MSearch.search($scope.campaignData.location.name);
               });
             }
           });
-          AMap.event.addListener(citysearch, "error", function(result){alert(result.info);});
+          AMap.event.addListener(citysearch, "error", function (result) {
+            $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+              $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+                pageSize:1,
+                pageIndex:1
+              });
+              AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+              $scope.MSearch.search($scope.campaignData.location.name);
+            });
+          });
           //自动获取用户IP，返回当前城市
           citysearch.getLocalCity();
 
-        });
-        $timeout(function(){
-          $scope.MSearch.search($scope.campaignData.location.name);
         });
       }
       window.map_ready =true;
@@ -798,7 +798,7 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.discuss_list');
       }
     }
-    $scope.pswpId = 'discuss';
+    $scope.pswpId = 'discuss' + Date.now();
     $scope.openPhotoSwipe = function (photoId) {
       var pswpElement = document.querySelector('#' + $scope.pswpId);
 
@@ -1301,18 +1301,52 @@ angular.module('donlerApp.controllers', [])
     }
 
   }])
-  .controller('ContactsController', ['$scope', 'User', 'INFO', function ($scope, User, INFO) {
+  .controller('ContactsController', ['$scope', 'User', 'INFO', 'Tools', function ($scope, User, INFO, Tools) {
+    var contactsBackup = [];
+    $scope.keyword = {value:''};
     //获取公司联系人
     User.getCompanyUsers(localStorage.cid,function(msg, data){
       if(!msg) {
         $scope.contacts = data;
+        contactsBackup = data;
       }
     });
-    //设置点入个人资料后返回的地址
-    INFO.userInfoBackUrl = '#/discover/contacts';
+    $scope.goSearch = function () {
+      $scope.searching = true;
+    };
+    $scope.cancelSearch = function () {
+      $scope.contacts = contactsBackup;//还原
+      $scope.searching = false;
+    };
+    $scope.search = function (event) {
+      var keyword = $scope.keyword.value;
+      if(keyword && (!event || event.which===13)) {
+        $scope.contacts = [];
+        var length = contactsBackup.length;
+        var find = false;
+        for(var i=0; i<length; i++) {//找名字里含关键字的
+          if(contactsBackup[i].nickname.indexOf(keyword) > -1) {
+            $scope.contacts.push(contactsBackup[i]);
+            find = true;
+          }
+        }
+        for(var i=0; i<length; i++) {//找email里含关键字的
+          if(contactsBackup[i].email.indexOf(keyword) > -1) {
+            if(Tools.arrayObjectIndexOf($scope.contacts,contactsBackup[i]._id,'_id')===-1) {
+              $scope.contacts.push(contactsBackup[i]);
+              find = true;
+            }
+          }
+        }
+        if(find === false) {
+          $scope.message = '未查找到相关同事';
+        }else{
+          $scope.message = '';
+        }
+      }
+    };
   }])
-  .controller('PersonalController', ['$scope', '$state', '$ionicHistory', 'User', 'Message', 'Tools', 'INFO', function ($scope, $state, $ionicHistory, User, Message, Tools, INFO) {
-    $scope.info = INFO.info;
+  .controller('PersonalController', ['$scope', '$state', '$ionicHistory', 'User', 'Message', 'Tools', function ($scope, $state, $ionicHistory, User, Message, Tools) {
     User.getData(localStorage.id, function (err, data) {
       if (err) {
         // todo
@@ -1336,7 +1370,7 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', 'User', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', function ($scope, $state, $ionicPopup, User, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
+  .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', 'User', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicHistory', function ($scope, $state, $ionicPopup, User, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicHistory) {
 
     var birthdayInput = document.getElementById('birthday');
 
@@ -1352,8 +1386,9 @@ angular.module('donlerApp.controllers', [])
           nickname: $scope.user.nickname,
           realname: $scope.user.realname,
           phone: $scope.user.phone,
-          birthday: moment($scope.user.birthday).format('YYYY-MM-DD'),
-          introduce: $scope.user.introduce
+          birthday: new Date($scope.user.birthday),
+          introduce: $scope.user.introduce,
+          sex: $scope.user.sex
         };
       }
     });
@@ -1386,6 +1421,8 @@ angular.module('donlerApp.controllers', [])
             $scope.user.tags.push($scope.formData.tag);
             $scope.formData.tag = '';
           }
+          $ionicHistory.clearHistory();
+          $ionicHistory.clearCache();
           $state.go('app.personal');
         }
       });
@@ -1561,7 +1598,7 @@ angular.module('donlerApp.controllers', [])
       localStorage.hasNewComment = false;
     };
     $scope.$on('$stateChangeStart',
-      function () {
+      function (event, toState, toParams, fromState, fromParams) {
         $ionicHistory.nextViewOptions({
           disableBack: true,
           historyRoot: true
@@ -2257,7 +2294,7 @@ angular.module('donlerApp.controllers', [])
         $ionicHistory.goBack()
       }
     }
-    $scope.pswpId = 'team';
+    $scope.pswpId = 'team' + Date.now();
     $scope.pswpPhotoAlbum = {};
 
     // 已登录的用户获取自己的信息不是异步过程
@@ -2265,26 +2302,33 @@ angular.module('donlerApp.controllers', [])
       $scope.user = user;
     });
 
-    Team.getData(teamId, function (err, team) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.team = team;
-        if ($scope.team.cid !== $scope.user.company._id) {
-          $scope.team.isOtherCompanyTeam = true;
-        }
-        INFO.memberContent = [team];
-        $scope.homeCourtIndex = 0;
-        $scope.homeCourts = team.homeCourts;
-        while ($scope.homeCourts.length < 2) {
-          $scope.homeCourts.push({
-            empty: true
-          });
-        }
-        $ionicSlideBoxDelegate.update();
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // 为true或undefined时获取小队数据
+      if (INFO.hasModifiedTeam !== false) {
+        Team.getData(teamId, function (err, team) {
+          INFO.hasModifiedTeam = true;
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            $scope.team = team;
+            if ($scope.team.cid !== $scope.user.company._id) {
+              $scope.team.isOtherCompanyTeam = true;
+            }
+            INFO.memberContent = [team];
+            $scope.homeCourtIndex = 0;
+            $scope.homeCourts = team.homeCourts;
+            while ($scope.homeCourts.length < 2) {
+              $scope.homeCourts.push({
+                empty: true
+              });
+            }
+            $ionicSlideBoxDelegate.update();
+          }
+        });
       }
     });
+
     $scope.updatePersonalTeam = function (tid) {
       Team.updatePersonalTeam(tid, function (err, data) {
         if (!err) {
@@ -2463,7 +2507,7 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('TeamEditController', ['$scope', '$ionicModal', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', 'INFO', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', '$timeout', function ($scope, $ionicModal, $ionicPopup, $stateParams, Team, CONFIG, INFO, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders, $timeout) {
+  .controller('TeamEditController', ['$scope', '$ionicModal', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', 'INFO', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', '$timeout', '$ionicHistory', function ($scope, $ionicModal, $ionicPopup, $stateParams, Team, CONFIG, INFO, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders, $timeout, $ionicHistory) {
     $scope.STATIC_URL = CONFIG.STATIC_URL;
     $scope.team = Team.getCurrentTeam();
 
@@ -2570,6 +2614,7 @@ angular.module('donlerApp.controllers', [])
             template: err
           });
         } else {
+          INFO.hasModifiedTeam = true;
           refreshTeamData(function (team) {
             updateFormData();
             $scope.editingLock = false;
@@ -2593,7 +2638,7 @@ angular.module('donlerApp.controllers', [])
       $scope.modal.remove();
     });
 
-    var placeSearchCallBack = function(homeCourt) {
+    var placeSearchCallBack = function (homeCourt) {
       return function(data) {
         $scope.locationmap.clearMap();
         if (data.poiList.pois.length == 0) {
@@ -2646,17 +2691,42 @@ angular.module('donlerApp.controllers', [])
               city: city
             });
             AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack(homeCourt)); //返回地点查询结果
+            $scope.MSearch.search(homeCourt.name);
           });
         } else {
-          $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-            $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-              pageSize: 1,
-              pageIndex: 1
+          $scope.locationmap.plugin(["AMap.CitySearch"], function() {
+            //实例化城市查询类
+            var citysearch = new AMap.CitySearch();
+            AMap.event.addListener(citysearch, "complete", function(result){
+              if(result && result.city && result.bounds) {
+                var citybounds = result.bounds;
+                //地图显示当前城市
+                $scope.locationmap.setBounds(citybounds);
+                city = result.city;
+                $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+                  $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+                    pageSize:1,
+                    pageIndex:1,
+                    city: result.city
+                  });
+                  AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack(homeCourt));//返回地点查询结果
+                  $scope.MSearch.search(homeCourt.name);
+                });
+              }
             });
-            AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack(homeCourt)); //返回地点查询结果
-          });
-          $timeout(function() {
-            $scope.MSearch.search(homeCourt.name);
+            AMap.event.addListener(citysearch, "error", function (result) {
+              $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+                $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+                  pageSize:1,
+                  pageIndex:1
+                });
+                AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack(homeCourt));//返回地点查询结果
+                $scope.MSearch.search(homeCourt.name);
+              });
+            });
+            //自动获取用户IP，返回当前城市
+            citysearch.getLocalCity();
+
           });
         }
       } catch (e) {
@@ -2923,7 +2993,7 @@ angular.module('donlerApp.controllers', [])
       };
       getPhotos();
 
-      $scope.pswpId = 'photoAlbum';
+      $scope.pswpId = 'photoAlbum' + Date.now();
       $scope.openPhotoSwipe = function (photoId) {
         var pswpElement = document.querySelector('#' + $scope.pswpId);
 
@@ -3081,9 +3151,10 @@ angular.module('donlerApp.controllers', [])
         if($ionicHistory.backView()){
           $ionicHistory.goBack();
         }
-      }
+      };
+      $scope.familyAlbumPswpId = 'fa' + Date.now();
       $scope.openPhotoSwipe = function (photoId) {
-        var pswpElement = document.querySelector('#familyPhotoAlbum');
+        var pswpElement = document.querySelector('#' + $scope.familyAlbumPswpId);
 
         var index = Tools.arrayObjectIndexOf($scope.familyPhotos, photoId, '_id');
 
@@ -3268,9 +3339,26 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
+          var leaders = data.leaders;
+          var members = data.members;
+          members.forEach(function (member) {
+            for (var i = 0; i < leaders.length; i++) {
+              if (member._id === leaders[i]._id) {
+                member.isLeader = true;
+                break;
+              }
+            }
+          });
+          members.sort(function (a, b) {
+            if (a.isLeader && !b.isLeader) {
+              return false;
+            } else {
+              return true;
+            }
+          });
           $scope.memberContents = [{
             name: currentTeam.name,
-            members: data.members
+            members: members
           }];
         }
       });
@@ -3345,7 +3433,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopover', 'User', function ($ionicHistory, $scope, $state, $stateParams, $ionicPopover, User) {
+  .controller('UserInfoController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', function ($ionicHistory, $scope, $state, $stateParams, $ionicPopover, Tools, User) {
     
     $ionicPopover.fromTemplateUrl('more-popover.html', {
         scope: $scope,
@@ -3371,6 +3459,10 @@ angular.module('donlerApp.controllers', [])
         console.log(err);
       } else {
         $scope.user = data;
+        if ($scope.user.birthday) {
+          var birthday = new Date($scope.user.birthday);
+          $scope.constellation = Tools.birthdayToConstellation(birthday.getMonth() + 1, birthday.getDate());
+        }
       }
     });
   }])
@@ -3522,7 +3614,7 @@ angular.module('donlerApp.controllers', [])
     Campaign.get($state.params.id, function(err, data){
       if(!err){
         if(data.deadline){
-          $scope.campaignData.deadline = moment(data.deadline).format('YYYY-MM-DDThh:mm');
+          $scope.campaignData.deadline = new Date(data.deadline);
           $scope.campaignData.end_time = new Date(data.end_time);
         }
         if(data.content){

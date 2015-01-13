@@ -4,7 +4,7 @@
     <h1 ng-cloak="ng-cloak" class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a>
   </ion-header-bar>
   <div ng-show="!hideNotice&amp;&amp;notification" ng-cloak="ng-cloak" class="notice">
-    <div class="notice_cover"></div>
+    <div ng-cloak="ng-cloak" class="notice_cover"></div>
     <div class="content"><span class="notice_title">活动公告</span>
       <button ng-click="hideNotice=true" class="dl_button close_button pull-right">&times;</button><span class="notice_content">{{noticeSender}}:{{notification}}</span>
     </div>

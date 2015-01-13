@@ -38,10 +38,10 @@
         <div class="dl_cp_time_countdown"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
       </div>
     </div>
-    <div ng-if="notices.length&gt;0 || campaign.allow.publishCampaignMessage" class="card dl_card_detail">
-      <div class="item dl_card_header"><span class="dl_card_title">活动公告</span><a ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()" class="publish_notice icon ion-plus"></a><span class="dl_notice_count">{{notices.length}}</span></div><a ng-if="notices.length&gt;0" class="item item-avatar dl_notice"><img ng-src="{{STATIC_URL +notices[0].sender[0].photo}}"/>
-        <h2><span class="dl_notice_sender">{{notices[0].sender[0].nickname}}</span><span>:</span><span class="dl_notice_content">{{notices[0].content}}</span></h2>
-        <p>{{notices[0].post_date | date:"yyyy-MM-dd HH:mm" }}</p></a>
+    <div ng-init="showAllNotice=false;" ng-if="notices.length&gt;0 || campaign.allow.publishCampaignMessage" class="card dl_card_detail">
+      <div class="item dl_card_header"><span class="dl_card_title">活动公告</span><a ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()" class="publish_notice icon ion-plus"></a><span ng-click="showAllNotice=!showAllNotice;" class="dl_notice_count">{{notices.length}}</span></div><a ng-repeat="notice in notices" ng-if="showAllNotice || $index==0" class="item item-avatar dl_notice"><img ng-src="{{STATIC_URL +notice.sender[0].photo}}"/>
+        <h2><span class="dl_notice_sender">{{notice.sender[0].nickname}}</span><span>:</span><span class="dl_notice_content">{{notice.content}}</span></h2>
+        <p>{{notice.post_date | date:"yyyy-MM-dd HH:mm" }}</p></a>
     </div>
     <div ng-if="campaign.members.length&gt;0" class="card dl_card_detail"><a href="#/members/campaign/{{campaign._id}}" class="item item-button-right dl_card_member">
         <ion-scroll direction="x"><span ng-repeat="member in campaign.members" class="dl_member"><img ng-src="{{STATIC_URL +member.photo+'/40/40'}}" class="dl_member_logo"/><span ng-if="member.isLeader" class="dl_member_leader"></span></span></ion-scroll>

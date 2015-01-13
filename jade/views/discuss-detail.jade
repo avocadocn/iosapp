@@ -4,7 +4,7 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
     h1.title(ng-cloak) {{campaignTitle}}
     a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
   .notice(ng-show="!hideNotice&&notification" ng-cloak)
-    .notice_cover
+    .notice_cover(ng-cloak)
     .content
       span.notice_title 活动公告
       button.dl_button.close_button.pull-right(ng-click="hideNotice=true") &times;

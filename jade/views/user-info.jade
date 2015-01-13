@@ -1,4 +1,4 @@
-ion-view
+ion-view.personal
   ion-header-bar
     span.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title 用户信息
@@ -8,12 +8,29 @@ ion-view
       .item.item-avatar
         img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/45/45")
         h2 {{user.nickname}}
-        p 公司：{{user.company.name}}
+        p(ng-cloak) 简介: {{user.introduce || '-'}}
+      .item.statistics(ng-cloak)
+        .row
+          .col.col-33
+            p.number {{user.tids.length}}
+            p.key 小队
+          a.col.col-33(ng-href="#/user/{{user._id}}/timeline")
+            p.number {{user.campaignCount}}
+            p.key 活动
+          .col.col-33
+            p.number {{user.score}}
+            p.key 积分
+      .item
+        p(ng-if="user.realname" ng-cloak) 姓名：{{user.realname}}
+        p(ng-if="user.introduce" ng-cloak) 简介：{{user.introduce}}
         p(ng-if="user.department" ng-cloak) 部门：{{user.department.name}}
         p(ng-if="!user.department" ng-cloak) 部门：无
-        p(ng-cloak) 手机：{{user.phone || '-'}}
+        p(ng-if="user.sex") 性别：{{user.sex}}
+        p(ng-if="user.birthday" ng-cloak) 生日：{{user.birthday | date:'yyyy-MM-dd'}}
+        p(ng-if="constellation") 星座：{{constellation}}
         p(ng-cloak) 邮箱：{{user.email}}
-        p(ng-if="user.introduce" ng-cloak) 简介: {{user.introduce}}
+        p(ng-cloak) 手机：{{user.phone || '-'}}
+        p(ng-if="user.qq") QQ：{{user.qq}}
         //- p.tags(ng-if="user.tags" ng-cloak) 个人标签:
         //-   span.tag(ng-repeat="tag in user.tags") {{tag}}
       .item.tabs
