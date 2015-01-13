@@ -5,8 +5,13 @@ ion-view
   ion-content.member_page
     .member_group(ng-repeat="memberContent in memberContents")
       p.member_group_name {{memberContent.name}}
-      .clearfix
+      .clearfix(ng-if="!memberContent.isOtherCompany" ng-cloak)
         a.member(ng-repeat="member in memberContent.members" ng-href="#/user/{{member._id}}")
+          img.member_photo(ng-src="{{STATIC_URL + member.photo}}/55/55")
+          span.dl_member_leader(ng-if="member.isLeader" ng-cloak)
+          p.member_name {{member.nickname}}
+      .clearfix(ng-if="memberContent.isOtherCompany" ng-cloak)
+        .member(ng-repeat="member in memberContent.members")
           img.member_photo(ng-src="{{STATIC_URL + member.photo}}/55/55")
           span.dl_member_leader(ng-if="member.isLeader" ng-cloak)
           p.member_name {{member.nickname}}

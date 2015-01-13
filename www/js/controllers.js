@@ -331,13 +331,17 @@ angular.module('donlerApp.controllers', [])
           var memberContent = [];
           data.campaign_unit.forEach(function(campaign_unit){
             if(campaign_unit.team){
-              memberContent.push({
+              var content = {
                 name:campaign_unit.team.name,
                 members:campaign_unit.member
-              });
+              };
+              if (campaign_unit.company._id !== localStorage.cid) {
+                content.isOtherCompany = true;
+              }
+              memberContent.push(content);
             }
-            else{
-                memberContent.push({
+            else {
+              memberContent.push({
                 name:campaign_unit.company.name,
                 members:campaign_unit.member
               });

@@ -6,8 +6,13 @@
   <ion-content class="member_page">
     <div ng-repeat="memberContent in memberContents" class="member_group">
       <p class="member_group_name">{{memberContent.name}}</p>
-      <div class="clearfix"><a ng-repeat="member in memberContent.members" ng-href="#/user/{{member._id}}" class="member"><img ng-src="{{STATIC_URL + member.photo}}/55/55" class="member_photo"/><span ng-if="member.isLeader" ng-cloak="ng-cloak" class="dl_member_leader"></span>
+      <div ng-if="!memberContent.isOtherCompany" ng-cloak="ng-cloak" class="clearfix"><a ng-repeat="member in memberContent.members" ng-href="#/user/{{member._id}}" class="member"><img ng-src="{{STATIC_URL + member.photo}}/55/55" class="member_photo"/><span ng-if="member.isLeader" ng-cloak="ng-cloak" class="dl_member_leader"></span>
           <p class="member_name">{{member.nickname}}</p></a></div>
+      <div ng-if="memberContent.isOtherCompany" ng-cloak="ng-cloak" class="clearfix">
+        <div ng-repeat="member in memberContent.members" class="member"><img ng-src="{{STATIC_URL + member.photo}}/55/55" class="member_photo"/><span ng-if="member.isLeader" ng-cloak="ng-cloak" class="dl_member_leader"></span>
+          <p class="member_name">{{member.nickname}}</p>
+        </div>
+      </div>
     </div>
   </ion-content>
 </ion-view>
