@@ -1335,7 +1335,7 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', 'User', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', function ($scope, $state, $ionicPopup, User, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet) {
+  .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', 'User', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicHistory', function ($scope, $state, $ionicPopup, User, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicHistory) {
 
     var birthdayInput = document.getElementById('birthday');
 
@@ -1386,6 +1386,8 @@ angular.module('donlerApp.controllers', [])
             $scope.user.tags.push($scope.formData.tag);
             $scope.formData.tag = '';
           }
+          $ionicHistory.clearHistory();
+          $ionicHistory.clearCache();
           $state.go('app.personal');
         }
       });
@@ -1561,7 +1563,7 @@ angular.module('donlerApp.controllers', [])
       localStorage.hasNewComment = false;
     };
     $scope.$on('$stateChangeStart',
-      function () {
+      function (event, toState, toParams, fromState, fromParams) {
         $ionicHistory.nextViewOptions({
           disableBack: true,
           historyRoot: true
@@ -2265,26 +2267,33 @@ angular.module('donlerApp.controllers', [])
       $scope.user = user;
     });
 
-    Team.getData(teamId, function (err, team) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.team = team;
-        if ($scope.team.cid !== $scope.user.company._id) {
-          $scope.team.isOtherCompanyTeam = true;
-        }
-        INFO.memberContent = [team];
-        $scope.homeCourtIndex = 0;
-        $scope.homeCourts = team.homeCourts;
-        while ($scope.homeCourts.length < 2) {
-          $scope.homeCourts.push({
-            empty: true
-          });
-        }
-        $ionicSlideBoxDelegate.update();
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // 为true或undefined时获取小队数据
+      if (INFO.hasModifiedTeam !== false) {
+        Team.getData(teamId, function (err, team) {
+          INFO.hasModifiedTeam = true;
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            $scope.team = team;
+            if ($scope.team.cid !== $scope.user.company._id) {
+              $scope.team.isOtherCompanyTeam = true;
+            }
+            INFO.memberContent = [team];
+            $scope.homeCourtIndex = 0;
+            $scope.homeCourts = team.homeCourts;
+            while ($scope.homeCourts.length < 2) {
+              $scope.homeCourts.push({
+                empty: true
+              });
+            }
+            $ionicSlideBoxDelegate.update();
+          }
+        });
       }
     });
+
     $scope.updatePersonalTeam = function (tid) {
       Team.updatePersonalTeam(tid, function (err, data) {
         if (!err) {
@@ -2463,7 +2472,7 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('TeamEditController', ['$scope', '$ionicModal', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', 'INFO', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', '$timeout', function ($scope, $ionicModal, $ionicPopup, $stateParams, Team, CONFIG, INFO, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders, $timeout) {
+  .controller('TeamEditController', ['$scope', '$ionicModal', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', 'INFO', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', '$timeout', '$ionicHistory', function ($scope, $ionicModal, $ionicPopup, $stateParams, Team, CONFIG, INFO, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders, $timeout, $ionicHistory) {
     $scope.STATIC_URL = CONFIG.STATIC_URL;
     $scope.team = Team.getCurrentTeam();
 
@@ -2570,6 +2579,7 @@ angular.module('donlerApp.controllers', [])
             template: err
           });
         } else {
+          INFO.hasModifiedTeam = true;
           refreshTeamData(function (team) {
             updateFormData();
             $scope.editingLock = false;
