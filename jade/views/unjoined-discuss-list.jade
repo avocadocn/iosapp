@@ -7,7 +7,7 @@ ion-view.discuss_list
   ion-content
     ion-refresher(on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中...")
     ul.list
-      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-click="goDetail(commentCampaign._id, commentCampaign.theme)" ng-cloak)
+      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak)
         img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
         .red_spot(ng-if="commentCampaign.unread")
         h2 {{commentCampaign.theme}}

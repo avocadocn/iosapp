@@ -720,8 +720,9 @@ angular.module('donlerApp.controllers', [])
     $scope.refresh = function() {
       $scope.$broadcast('scroll.refreshComplete');
     };
-    $scope.goDetail = function(campaignId, campaignTheme) {
+    $scope.goDetail = function(campaignId, campaignTheme, index) {
       INFO.discussName = campaignTheme;
+      $scope.commentCampaigns[index].unread = 0;
       $state.go('discuss_detail',{campaignId: campaignId});
     };
     //暂且算存个缓存
@@ -750,8 +751,9 @@ angular.module('donlerApp.controllers', [])
     $scope.refresh = function() {
       $scope.$broadcast('scroll.refreshComplete');
     };
-    $scope.goDetail = function(campaignId, campaignTheme) {
+    $scope.goDetail = function(campaignId, campaignTheme, index) {
       INFO.discussName = campaignTheme;
+      $scope.commentCampaigns[index].unread = 0;
       $state.go('discuss_detail',{campaignId: campaignId});
     };
     
