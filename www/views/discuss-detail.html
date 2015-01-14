@@ -3,7 +3,7 @@
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 ng-cloak="ng-cloak" class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a>
   </ion-header-bar>
-  <div ng-show="!hideNotice&amp;&amp;notification" ng-cloak="ng-cloak" class="notice">
+  <div ng-class="{show:showNotice===true}" ng-show="!hideNotice&amp;&amp;notification" ng-cloak="ng-cloak" class="notice">
     <div ng-cloak="ng-cloak" class="notice_cover"></div>
     <div ng-cloak="ng-cloak" class="content"><span class="notice_title">活动公告</span>
       <button ng-click="hideNotice=true" class="dl_button close_button pull-right">&times;</button><span ng-cloak="ng-cloak" class="notice_content">{{noticeSender}}:{{notification}}</span>
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <ion-infinite-scroll ng-if="!loading" on-infinite="refresh()" distance="-5%"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="!loading" on-infinite="refresh()" distance="-1%"></ion-infinite-scroll>
   </ion-content>
   <ion-footer-bar ng-class="{'taller':isShowEmotions}" class="comment_box"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
     <textarea ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()" class="comment_input"></textarea>

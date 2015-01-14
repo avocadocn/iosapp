@@ -867,6 +867,7 @@ angular.module('donlerApp.controllers', [])
     var nextStartDate ='';
 
     //获取公告
+    $scope.showNotice = false;
     Message.getCampaignMessages($scope.campaignId, function(err, data){
       if(err){
         console.log(err)
@@ -875,6 +876,7 @@ angular.module('donlerApp.controllers', [])
           $scope.noticeSender = data[0].sender[0].nickname;
           $scope.notification = data[0].content;
         }
+        $scope.showNotice = true;
       }
     });
 
