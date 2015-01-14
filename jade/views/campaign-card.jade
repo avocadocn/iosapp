@@ -7,9 +7,9 @@
         p.dl_cp_address 地点: {{campaign.location.name}}{{campaign.remove}}
       .dl_card_header_operator
         button.dl_btn_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign)" prevent-default) 参加
-        .dl_cp_time_countdown_end(ng-if="!campaign.allow.joinTeamCampaign && campaign.is_start && !campaign.is_end")
+        .dl_cp_time_countdown_end(ng-if="!campaign.allow.joinTeamCampaign && !campaign.allow.joinCompanyCampaign && campaign.is_start && !campaign.is_end")
           | {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束
-        .dl_cp_time_countdown.clearfix(ng-if="!campaign.allow.joinTeamCampaign && !campaign.is_start && !campaign.is_end")
+        .dl_cp_time_countdown.clearfix(ng-if="!campaign.allow.joinTeamCampaign && !campaign.allow.joinCompanyCampaign && !campaign.is_start && !campaign.is_end")
           span.dl_cp_time_count {{campaign.time_text.substr(0, campaign.time_text.length - 1)}}
           span.dl_cp_time_unit {{campaign.time_text.substr(-1)}}
     .dl_card_header.dl_card_header_provoke.clearfix( ng-if="campaign.confirm_status===false")
