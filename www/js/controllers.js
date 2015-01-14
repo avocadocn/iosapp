@@ -278,19 +278,17 @@ angular.module('donlerApp.controllers', [])
       });
     }
     $scope.$on('updateCampaignList', function(event, args) {
-      $scope[args.campaignFilter][args.campaignIndex].remove = true;
       $timeout(function(){
         $scope[args.campaignFilter].splice(args.campaignIndex,1);
-      },2000);
-
-      if(args.campaign){
-        if(args.campaign.start_flag){
-          $scope.nowCampaigns.push(args.campaign)
+        if(args.campaign){
+          if(args.campaign.start_flag){
+            $scope.nowCampaigns.push(args.campaign)
+          }
+          else{
+            $scope.unStartCampaigns.push(args.campaign);
+          }
         }
-        else{
-          $scope.unStartCampaigns.push(args.campaign);
-        }
-      }
+      },300);
     });
     $scope.doRefresh = function(){
       Campaign.getList({

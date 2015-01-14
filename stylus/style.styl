@@ -1981,16 +1981,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .popup-container
   .popup
     width 100%
-.campaign_card_container
-  transition transform
-  -moz-transition -moz-transform 2s /* Firefox 4 */
-  -webkit-transition -webkit-transform 2s /* Safari and Chrome */
-  -o-transition -o-transform 2s /* Opera */
-  &:.remove
-    transform scale(0.1)
-    -moz-transform scale(0.1) /* Firefox 4 */
-    -webkit-transform scale(0.1) /* Safari and Chrome */
-    -o-transform scale(0.1)  /* Opera */
 
+.campaign_card_container
+  -moz-transition  -moz-transform 1s /* Firefox 4 */
+  -webkit-transition -webkit-transform 1s /* Safari and Chrome */
+  -o-transition -o-transform 1s /* Opera */
+
+
+.campaign_card_container.remove
+  transform translateY(500px) scale(0.1) 
+  -moz-transform translateY(500px) scale(0.1) /* Firefox 4 */
+  -webkit-transform translateY(500px) scale(0.1) /* Safari and Chrome */
+  -o-transform translateY(500px) scale(0.1) /* Opera */
 
 

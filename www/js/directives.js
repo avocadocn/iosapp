@@ -20,6 +20,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             if (!err) {
               // todo
               scope.campaign = data;
+              scope.campaign.remove = true;
               $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
             }
           });
@@ -38,6 +39,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             if(res) {
               Campaign.dealProvoke(campaignId, dealType, function(err, data){
                 if(!err){
+                  scope.campaign.remove = true;
                   $rootScope.$broadcast('updateCampaignList', { campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
                 }
               });
