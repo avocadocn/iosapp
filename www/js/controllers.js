@@ -278,7 +278,11 @@ angular.module('donlerApp.controllers', [])
       });
     }
     $scope.$on('updateCampaignList', function(event, args) {
-      $scope[args.campaignFilter].splice(args.campaignIndex,1);
+      $scope[args.campaignFilter][args.campaignIndex].remove = true;
+      $timeout(function(){
+        $scope[args.campaignFilter].splice(args.campaignIndex,1);
+      },2000);
+
       if(args.campaign){
         if(args.campaign.start_flag){
           $scope.nowCampaigns.push(args.campaign)

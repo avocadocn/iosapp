@@ -15,12 +15,10 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       templateUrl: './views/campaign-card.html',
       link: function (scope, element, attrs, ctrl) {
         scope.STATIC_URL = CONFIG.STATIC_URL;
-console.log(scope.campaignIndex)
         scope.joinCampaign = function (campaignId) {
           Campaign.join(campaignId, localStorage.id, function (err, data) {
             if (!err) {
               // todo
-              console.log(scope.campaignIndex)
               scope.campaign = data;
               $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
             }

@@ -2351,3 +2351,15 @@ a>.login .companies_list:activated {
 .popup-container .popup {
   width: 100%;
 }
+.campaign_card_container {
+  transition: transform;
+  -moz-transition: -moz-transform 2s;
+  -webkit-transition: -webkit-transform 2s;
+  -o-transition: -o-transform 2s;
+}
+.campaign_card_container:.remove {
+  transform: scale(0.1);
+  -moz-transform: scale(0.1);
+  -webkit-transform: scale(0.1);
+  -o-transform: scale(0.1);
+}
