@@ -202,6 +202,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/campaign-edit.html'
       })
       .state('sponsor', {
+        cache: false,
         url: '/campaign/sponsor/:type',
         controller: 'SponsorController',
         templateUrl: './views/sponsor.html'

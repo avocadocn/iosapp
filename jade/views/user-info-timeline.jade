@@ -3,6 +3,7 @@ ion-view
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title 用户信息
   ion-content
-    include ./timeline-card
-    ion-infinite-scroll(ng-if="!loading && !loadFinished" on-infinite="loadMore()" distance="5%")
+    .timeline_card
+      include ./timeline-card
+    ion-infinite-scroll(ng-if="!loading && !loadFinished" on-infinite="loadMore()" distance="-1%")
     .nomore_text(ng-if="loadFinished") 没有更多的足迹

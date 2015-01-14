@@ -12,7 +12,7 @@ ion-view
         p(ng-if="!user.department" ng-cloak) 部门：无
         p(ng-cloak) 手机：{{user.phone || '-'}}
         p(ng-cloak) 邮箱：{{user.email}}
-
-    include ./timeline-card
-    ion-infinite-scroll(ng-if="!loading && !loadFinished" on-infinite="loadMore()" distance="5%")
+    .timeline_card
+        include ./timeline-card
+    ion-infinite-scroll(ng-if="!loading && !loadFinished" on-infinite="loadMore()" distance="-1%")
     .nomore_text(ng-if="loadFinished") 没有更多的足迹

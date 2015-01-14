@@ -74,10 +74,11 @@ body {
   background-color: #e2e2e2;
 }
 .campaigns_container .campaign_list .no_campaign {
-  background-image: url("/img/no_new_campaign.png");
+  background-image: url("../img/no_new_campaign.png");
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
+  position: relative;
 }
 .campaigns_container .campaign_list .no_campaign .no_campaign_tip {
   position: absolute;
@@ -2109,7 +2110,7 @@ a>.login .companies_list:activated {
   content: '';
   position: absolute;
   top: 0;
-  bottom: 30px;
+  bottom: 70px;
   width: 3px;
   background: #ccc;
   left: 50%;
@@ -2133,7 +2134,6 @@ a>.login .companies_list:activated {
   margin: 10px;
   font-size: 14px;
   text-align: center;
-  background-color: #fff;
 }
 .member_page .member_group {
   margin: 0.833333rem;
@@ -2282,14 +2282,16 @@ a>.login .companies_list:activated {
 }
 .sponsor .list .input-label {
   color: #3ca2e0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .sponsor .list .item-label {
-  margin: 10px 20px;
+  margin: 5px 20px;
   border: none;
   padding: 0;
 }
 .sponsor .list .item-input {
-  margin: 10px 20px;
+  margin: 5px 20px;
   border: 1px solid #3ca2e0;
   border-radius: 5px;
 }
@@ -2304,6 +2306,7 @@ a>.login .companies_list:activated {
 }
 .sponsor .list .item-select select {
   color: #3ca2e0;
+  padding: 7px 48px 7px 16px;
 }
 .sponsor .list .item-select:after {
   color: #3ca2e0;

@@ -78,10 +78,11 @@ body
     height 100%
     background-color col_gray
     .no_campaign
-      background-image url('/img/no_new_campaign.png')
+      background-image url('../img/no_new_campaign.png')
       width 100%
       height 100%
       background-repeat no-repeat
+      position relative
       .no_campaign_tip
         position absolute
         top 210px
@@ -1777,7 +1778,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     content ''
     position absolute
     top 0
-    bottom 30px
+    bottom 70px
     width 3px
     background #ccc
     left 50%
@@ -1798,7 +1799,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   margin 10px
   font-size 14px
   text-align center
-  background-color white
   
 .member_page
   .member_group
@@ -1919,12 +1919,14 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   .list
     .input-label
       color col_blue
+      padding-top 0
+      padding-bottom 0
     .item-label
-      margin 10px 20px
+      margin 5px 20px
       border none
       padding 0
     .item-input
-      margin 10px 20px
+      margin 5px 20px
       border 1px solid col_blue
       border-radius 5px
       input
@@ -1936,6 +1938,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .item-select
       select
         color col_blue
+        padding 7px 48px 7px 16px
       &:after
         color col_blue
     .item-button

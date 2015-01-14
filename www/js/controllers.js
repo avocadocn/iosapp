@@ -256,6 +256,9 @@ angular.module('donlerApp.controllers', [])
           if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
             $scope.noCampaigns = true;
           }
+          else {
+            $scope.noCampaigns = false;
+          }
         }
         else {
           $ionicPopup.alert({
@@ -274,29 +277,29 @@ angular.module('donlerApp.controllers', [])
         $ionicScrollDelegate.scrollTop(true);
       });
     }
-    $scope.join = function(filter,index, id){
-      Campaign.join(id,localStorage.id, function(err, data){
-        if(!err){
-          $scope[filter][index] = data;
-          alert('参加成功');
-        }
-      });
-      return false;
-    }
-    $scope.dealProvoke = function(filter,index, id, dealType){
-      //dealType:1接受，2拒绝，3取消
-      Campaign.dealProvoke(id, dealType, function(err, data){
-        if(!err){
-          //TODO:
-          alert('挑战处理成功');
-          $scope[filter].splice(index,1);
-        }
-        else{
-          alert(err);
-        }
-      });
-      return false;
-    }
+    // $scope.join = function(filter,index, id){
+    //   Campaign.join(id,localStorage.id, function(err, data){
+    //     if(!err){
+    //       $scope[filter][index] = data;
+    //       alert('参加成功');
+    //     }
+    //   });
+    //   return false;
+    // }
+    // $scope.dealProvoke = function(filter,index, id, dealType){
+    //   //dealType:1接受，2拒绝，3取消
+    //   Campaign.dealProvoke(id, dealType, function(err, data){
+    //     if(!err){
+    //       //TODO:
+    //       alert('挑战处理成功');
+    //       $scope[filter].splice(index,1);
+    //     }
+    //     else{
+    //       alert(err);
+    //     }
+    //   });
+    //   return false;
+    // }
     $scope.doRefresh = function(){
       Campaign.getList({
         requestType: 'user',
@@ -309,8 +312,11 @@ angular.module('donlerApp.controllers', [])
           $scope.nowCampaigns = data[1];
           $scope.newCampaigns = data[2];
           $scope.provokes = data[3];
-          if(data[0].length==0&&data[1].length==0&&data[2].length&&data[3].length==0){
+          if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
             $scope.noCampaigns = true;
+          }
+          else {
+            $scope.noCampaigns = false;
           }
         }
         else{
@@ -485,6 +491,10 @@ angular.module('donlerApp.controllers', [])
     $scope.showMapFlag ==false;
     $scope.campaignData.location = {};
     var city,marker;
+    $ionicHistory.nextViewOptions({
+      disableBack: true,
+      historyRoot: true
+    });
     $ionicModal.fromTemplateUrl('my-modal.html', {
       scope: $scope,
       animation: 'slide-in-up'
@@ -1343,12 +1353,13 @@ angular.module('donlerApp.controllers', [])
               $scope.loadFinished = true;
             }
           }
-          $scope.loading = false;
+          $timeout(function() {
+            $scope.loading = false;
+          }, 1000);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
       }
     }
-
   }])
   .controller('ContactsController', ['$scope', 'User', 'INFO', 'Tools', function ($scope, User, INFO, Tools) {
     var contactsBackup = [];
@@ -3472,7 +3483,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('TimelineController', ['$scope', '$stateParams', 'TimeLine', 'User', function ($scope, $stateParams, TimeLine, User) {
+  .controller('TimelineController', ['$scope', '$stateParams', '$timeout', 'TimeLine', 'User', function ($scope, $stateParams, $timeout, TimeLine, User) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -3506,7 +3517,9 @@ angular.module('donlerApp.controllers', [])
               $scope.loadFinished = true;
             }
           }
-          $scope.loading = false;
+          $timeout(function() {
+            $scope.loading = false;
+          },1000);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
       }
@@ -3586,7 +3599,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('UserInfoTimelineController', ['$ionicHistory', '$scope', '$stateParams', 'User', 'TimeLine', function ($ionicHistory, $scope, $stateParams, User, TimeLine) {
+  .controller('UserInfoTimelineController', ['$ionicHistory', '$scope', '$stateParams', '$timeout','User', 'TimeLine', function ($ionicHistory, $scope, $stateParams, $timeout, User, TimeLine) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -3635,7 +3648,9 @@ angular.module('donlerApp.controllers', [])
               $scope.loadFinished = true;
             }
           }
-          $scope.loading = false;
+          $timeout(function(){
+            $scope.loading = false;
+          },1000);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
       }
