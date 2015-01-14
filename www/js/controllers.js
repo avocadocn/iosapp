@@ -1650,7 +1650,7 @@ angular.module('donlerApp.controllers', [])
     });
     //点过去就代表看过了
 
-    $scope.readComments = function() {
+    var readComments = function() {
       $scope.hasNewComment = false;
       localStorage.hasNewComment = false;
     };
@@ -1660,6 +1660,9 @@ angular.module('donlerApp.controllers', [])
           disableBack: true,
           historyRoot: true
         });
+        if(toState.url==='/discuss/list') {
+          readComments();
+        }
     });
   }])
   .controller('CalendarController',['$scope', '$rootScope', '$state', '$ionicPopup', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
