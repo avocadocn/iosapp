@@ -313,10 +313,46 @@ angular.module('donlerApp.services', [])
           callback(data.msg ||'error');
         });
       },
-      join: function(id, uid, callback) {
-        $http.post(CONFIG.BASE_URL + '/campaigns/' + id+'/users/'+uid)
+      join: function(campaign, uid, callback) {
+        $http.post(CONFIG.BASE_URL + '/campaigns/' + campaign._id +'/users/'+uid)
         .success(function (data, status) {
           callback(null,data);
+          if(window.plugin){
+            var remindTimeDay = 1000 * 60 * 60 * 24;//one day
+            var remindTimeHour = 1000 * 60 * 60;//one hour
+            var scheduleTimeDay = new Date(new Date(campaign.start_time).getTime()-remindTimeDay);
+            if(scheduleTimeDay>=new Date()){
+              window.plugin.notification.local.isScheduled(campaign._id+'1', function (isScheduled) {
+                if(!isScheduled){
+                  window.plugin.notification.local.add({
+                    id:         campaign._id + '1',  // A unique id of the notifiction
+                    date:       scheduleTimeDay,    // This expects a date object
+                    message:    '活动' + campaign.theme +'明天就要开始了，请准时参加哦。',  // The message that is displayed
+                    title:      '活动提醒',  // The title of the message
+                    //sound:      String,  // A sound to be played
+                    json:       JSON.stringify({ id: campaign._id }),  // Data to be passed through the notification
+                    autoCancel: true // Setting this flag and the notification is automatically canceled when the user clicks it
+                  });
+                }
+              });
+            }
+            var scheduleTimeHour = new Date(new Date(campaign.start_time).getTime()-remindTimeHour);
+            if(scheduleTimeHour>=new Date()){
+              window.plugin.notification.local.isScheduled(campaign._id+'2', function (isScheduled) {
+                if(!isScheduled){
+                  window.plugin.notification.local.add({
+                    id:         campaign._id + '2',  // A unique id of the notifiction
+                    date:       scheduleTimeHour,    // This expects a date object
+                    message:    '活动' + campaign.theme + '再过一小时就要开始了，请准时参加哦。',  // The message that is displayed
+                    title:      '活动提醒',  // The title of the message
+                    //sound:      String,  // A sound to be played
+                    json:       JSON.stringify({ id: campaign._id }),  // Data to be passed through the notification
+                    autoCancel: true // Setting this flag and the notification is automatically canceled when the user clicks it
+                  });
+                }
+              });
+            }
+          }
         })
         .error(function (data, status) {
           // todo
@@ -327,6 +363,10 @@ angular.module('donlerApp.services', [])
         $http.delete(CONFIG.BASE_URL + '/campaigns/' + id+'/users/'+uid)
         .success(function (data, status) {
           callback(null,data);
+          if(window.plugin){
+            window.plugin.notification.local.cancel(id + '1', function () { });
+            window.plugin.notification.local.cancel(id + '2', function () { });
+          }
         })
         .error(function (data, status) {
           // todo

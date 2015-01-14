@@ -15,8 +15,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       templateUrl: './views/campaign-card.html',
       link: function (scope, element, attrs, ctrl) {
         scope.STATIC_URL = CONFIG.STATIC_URL;
-        scope.joinCampaign = function (campaignId) {
-          Campaign.join(campaignId, localStorage.id, function (err, data) {
+        scope.joinCampaign = function (campaign) {
+          Campaign.join(campaign, localStorage.id, function (err, data) {
             if (!err) {
               // todo
               scope.campaign = data;

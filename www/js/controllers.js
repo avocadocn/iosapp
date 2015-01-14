@@ -374,7 +374,7 @@ angular.module('donlerApp.controllers', [])
     });
 
     $scope.join = function(id){
-      Campaign.join(id,localStorage.id, function(err, data){
+      Campaign.join($scope.campaign,localStorage.id, function(err, data){
         if(!err){
           $scope.campaign = data;
           setMembers();
