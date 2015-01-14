@@ -29,8 +29,8 @@
         </div>
         <ion-scroll direction="x"><a ng-href="#/photo_album/{{campaign.photo_album._id}}/detail" class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></a></ion-scroll>
       </div>
-      <div class="item tabs tabs-icon-left dl_card_footer"><a ng-href="#/photo_album/{{campaign.photo_album._id}}/detail" class="tab-item btn_upload_photo"><i class="icon ion-image"></i>上传图片</a><a href="#/members/campaign/{{campaign._id}}" ng-cloak="ng-cloak" class="tab-item dl_team_number"><i class="icon ion_member dl_icon"></i>活动成员({{campaign.members_count}})</a>
-        <div ng-click="goDiscussDetail(campaign._id, campaign.theme)" ng-cloak="ng-cloak" class="tab-item dl_team_comment"><i class="icon ion-chatbubble-working"></i>{{campaign.comment_sum}}条讨论</div>
+      <div class="item dl_card_footer row"><a ng-href="#/photo_album/{{campaign.photo_album._id}}/detail" class="col btn_upload_photo"><i class="icon ion-image"></i>上传图片</a><a ng-href="#/members/campaign/{{campaign._id}}" class="col dl_team_number"><i class="ion_member dl_icon"></i>活动成员({{campaign.members_count}})</a>
+        <div ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="col dl_team_comment"><i class="icon ion-chatbubble-working"></i>{{campaign.comment_sum}}条讨论</div>
       </div>
     </div>
     <div ng-if="!campaign.is_end" class="card dl_card_detail">

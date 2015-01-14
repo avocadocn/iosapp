@@ -39,14 +39,14 @@ ion-view
         ion-scroll(direction="x")
           a.dl_photo_alb(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
-      .item.tabs.tabs-icon-left.dl_card_footer
-        a.tab-item.btn_upload_photo(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
+      .item.dl_card_footer.row
+        a.col.btn_upload_photo(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
           i.icon.ion-image
           | 上传图片
-        a.tab-item.dl_team_number(href="#/members/campaign/{{campaign._id}}" ng-cloak)
-          i.icon.ion_member.dl_icon
+        a.col.dl_team_number(ng-href="#/members/campaign/{{campaign._id}}")
+          i.ion_member.dl_icon
           | 活动成员({{campaign.members_count}})
-        .tab-item.dl_team_comment(ng-click="goDiscussDetail(campaign._id, campaign.theme)" ng-cloak)
+        .col.dl_team_comment(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           i.icon.ion-chatbubble-working
           | {{campaign.comment_sum}}条讨论
     .card.dl_card_detail(ng-if="!campaign.is_end")

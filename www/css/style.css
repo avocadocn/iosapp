@@ -472,32 +472,40 @@ body {
 }
 .dl_card_detail .dl_card_footer {
   height: 40px;
+  padding: 0;
   border-bottom-left-radius: 5px !important;
   border-bottom-right-radius: 5px !important;
 }
-.dl_card_detail .dl_card_footer .tab-item {
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+.dl_card_detail .dl_card_footer .col {
+  padding: 0;
+  color: #999;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 12px;
   line-height: 40px;
+  border-right: 1px solid #ccc;
 }
-.dl_card_detail .dl_card_footer .tab-item:last-child {
+.dl_card_detail .dl_card_footer .col:last-child {
   border-right: none;
 }
-.dl_card_detail .dl_card_footer .tab-item .icon {
+.dl_card_detail .dl_card_footer .col .icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-right: 5px;
   color: #3ca2e0;
-  font-size: 14px;
+  font-size: 16px;
 }
-.dl_card_detail .dl_card_footer .tab-item .icon:before {
-  font-size: 18px;
-  line-height: 40px;
-}
-.dl_card_detail .dl_card_footer .tab-item .dl_icon {
+.dl_card_detail .dl_card_footer .col .dl_icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
   background-size: 200px;
   vertical-align: middle;
-  width: 24px;
-  margin-top: 10px;
+  margin-top: 3px;
 }
-.dl_card_detail .dl_card_footer .tab-item .ion_member {
+.dl_card_detail .dl_card_footer .col .ion_member {
   background-position: 5px -148px;
 }
 .dl_card_detail .dl_cp_time_status {
