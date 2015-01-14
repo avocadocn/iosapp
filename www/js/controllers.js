@@ -1678,8 +1678,10 @@ angular.module('donlerApp.controllers', [])
     }
     //socket服务器推送通知
     Socket.on('getNewComment', function() {
-      $scope.hasNewComment = true;
-      localStorage.hasNewComment = true;
+      if(nowState!=='discussList'){
+        $scope.hasNewComment = true;
+        localStorage.hasNewComment = true;
+      }
     });
     //点过去就代表看过了
 
@@ -1687,6 +1689,7 @@ angular.module('donlerApp.controllers', [])
       $scope.hasNewComment = false;
       localStorage.hasNewComment = false;
     };
+    var nowState = '';
     $scope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {
         $ionicHistory.nextViewOptions({
@@ -1695,6 +1698,9 @@ angular.module('donlerApp.controllers', [])
         });
         if(toState.url==='/discuss/list') {
           readComments();
+          nowState = 'discussList';
+        }else{
+          nowState = '';
         }
     });
   }])
