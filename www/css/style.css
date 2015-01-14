@@ -998,6 +998,27 @@ a>.login .companies_list:activated {
   width: 40px;
   margin-top: 3px;
 }
+.discuss_detail .balloon {
+  position: absolute;
+  right: 10px;
+  margin-bottom: 20px;
+  z-index: 10;
+  background-color: #f48361;
+  width: 31px;
+  height: 31px;
+  border-radius: 5px;
+  padding: 6px 11px;
+  color: #fff;
+  font-size: 16px;
+}
+.discuss_detail .balloon .triangle {
+  position: absolute;
+  bottom: -10px;
+  left: 10px;
+  border-style: solid;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #f48361;
+}
 .discuss_detail .notice {
   height: 85px;
   position: absolute;

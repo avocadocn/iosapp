@@ -236,29 +236,38 @@ angular.module('donlerApp.controllers', [])
     $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
-    Campaign.getList({
-      requestType: 'user',
-      requestId: localStorage.id,
-      select_type: 0,
-      populate: 'photo_album'
-    }, function (err, data) {
-      if (!err) {
-        $scope.unStartCampaigns = data[0];
-        $scope.nowCampaigns = data[1];
-        $scope.newCampaigns = data[2];
-        $scope.provokes = data[3];
-        if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
-          $scope.noCampaigns = true;
-        }
+    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
+      if(!states.stateName){
+        getCampaignList();
       }
-      else {
-        $ionicPopup.alert({
-          title: '错误',
-          template: err
-        });
-      }
-      $rootScope.hideLoading();
     });
+    var getCampaignList = function() {
+      Campaign.getList({
+        requestType: 'user',
+        requestId: localStorage.id,
+        select_type: 0,
+        populate: 'photo_album'
+      }, function (err, data) {
+        if (!err) {
+          $scope.unStartCampaigns = data[0];
+          $scope.nowCampaigns = data[1];
+          $scope.newCampaigns = data[2];
+          $scope.provokes = data[3];
+          if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
+            $scope.noCampaigns = true;
+          }
+        }
+        else {
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
+        }
+        $rootScope.hideLoading();
+      });
+    };
+    getCampaignList();
+      
     $scope.filter = function(filterType) {
       $scope.nowType = filterType;
       $timeout(function() {
@@ -785,6 +794,7 @@ angular.module('donlerApp.controllers', [])
     Socket.emit('enterRoom', $scope.campaignId);
     $scope.commentContent='';
 
+    
     Campaign.get($scope.campaignId, function (err, data) {
       if (!err) {
         $scope.campaign = data;
@@ -890,16 +900,18 @@ angular.module('donlerApp.controllers', [])
     // }
       
     //获取最新20条评论
+    var getComments = function() {
+      Comment.getComments($scope.campaignId, 20).success(function(data){
+        $scope.commentList = [];
+        $scope.commentList.push(data.comments.reverse());//保证最新的在最下面
+        data.comments.forEach(addPhotos);
+        nextStartDate = data.nextStartDate;
+        $ionicScrollDelegate.scrollBottom();
+        judgeTopShowTime();
+      });
+    }
+    getComments();
 
-    Comment.getComments($scope.campaignId, 20).success(function(data){
-      $scope.commentList = [];
-      $scope.commentList.push(data.comments.reverse());//保证最新的在最下面
-      data.comments.forEach(addPhotos);
-      nextStartDate = data.nextStartDate;
-      $ionicScrollDelegate.scrollBottom();
-      judgeTopShowTime();
-    });
-    
     //获取新留言
     Socket.on('newCampaignComment', function (data) {
       //如果是自己发的看看是不是取消loading就行.
@@ -920,9 +932,11 @@ angular.module('donlerApp.controllers', [])
         data.randomId = null;
         $scope.commentList[commentListIndex].push(data);
         addPhotos(data);
-        $ionicScrollDelegate.scrollBottom();
+        // $ionicScrollDelegate.scrollBottom();
+        $scope.newCommentNumber ++;
       }
     });
+    $scope.newCommentNumber = 0;
 
     //拉取历史讨论记录
     $scope.readHistory = function() {
@@ -940,6 +954,19 @@ angular.module('donlerApp.controllers', [])
       }else{//没下一条了~
         $scope.$broadcast('scroll.refreshComplete');
       }
+    };
+
+    //refresh todo
+    $scope.refresh = function() {
+      $scope.loading = true;
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+      $scope.newCommentNumber = 0;
+      $ionicScrollDelegate.scrollBottom();
+      $scope.loading = false;
+    };
+    $scope.toBottom = function() {
+      $scope.newCommentNumber = 0;
+      $ionicScrollDelegate.scrollBottom();
     };
 
     //获取个人信息供发评论使用

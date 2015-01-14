@@ -5,15 +5,16 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
     a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
   .notice(ng-show="!hideNotice&&notification" ng-cloak)
     .notice_cover(ng-cloak)
-    .content
+    .content(ng-cloak)
       span.notice_title 活动公告
       button.dl_button.close_button.pull-right(ng-click="hideNotice=true") &times;
-      span.notice_content {{noticeSender}}:{{notification}}
+      span.notice_content(ng-cloak) {{noticeSender}}:{{notification}}
+  .balloon.has-footer(ng-if="newCommentNumber" ng-click="toBottom()" ng-cloak) 
+    span(ng-cloak) {{newCommentNumber}}
+    .triangle
   ion-content
     ion-refresher(on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .comments
-      //- balloon?
-      //- .balloon(ng-if="newComment")
       .blocks(ng-repeat="comments in commentList track by $index" id="comment{{$index}}")
         //- .test {{historyCommentList}}
         .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack)
@@ -48,7 +49,8 @@ ion-view.discuss_detail(title="{{campaignTitle}}")
             .tip
               i.icon.ion-alert-circled
               span 发送失败
-      //-再做个刷新?todo
+
+    ion-infinite-scroll(ng-if="!loading" on-infinite="refresh()" distance="-5%")
   ion-footer-bar.comment_box(ng-class="{'taller':isShowEmotions}")
     i.icon.ion-image(ng-click="showUploadActionSheet()")
     textarea.comment_input(ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()")
