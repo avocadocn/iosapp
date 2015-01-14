@@ -556,6 +556,7 @@ body {
   background-color: #3ca2e0;
   padding: 6px 46px 2px 10px;
   border-radius: 5px !important;
+  min-height: 50px;
 }
 .dl_card_detail .dl_card_member .dl_member {
   position: relative;
@@ -563,6 +564,8 @@ body {
 .dl_card_detail .dl_card_member .dl_member .dl_member_logo {
   border-radius: 5px;
   margin-right: 5px;
+  width: 40px;
+  height: 40px;
 }
 .dl_card_detail .dl_card_member .dl_member .dl_member_leader {
   width: 20px;
@@ -2288,7 +2291,7 @@ a>.login .companies_list:activated {
   background-color: #fff;
 }
 .sponsor .list .input-label {
-  color: #3ca2e0;
+  color: #999;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -2303,7 +2306,9 @@ a>.login .companies_list:activated {
   border-radius: 5px;
 }
 .sponsor .list .item-input input {
+  height: 22px;
   color: #3ca2e0;
+  padding-top: 2px;
 }
 .sponsor .list .item-input .introduce {
   color: #3ca2e0;
@@ -2330,6 +2335,7 @@ a>.login .companies_list:activated {
   color: #fff;
 }
 .sponsor .list .item-button .button_close {
+  background-color: #999;
   border: none;
 }
 .pswp .dl_button_to_album {

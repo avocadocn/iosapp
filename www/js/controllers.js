@@ -277,29 +277,17 @@ angular.module('donlerApp.controllers', [])
         $ionicScrollDelegate.scrollTop(true);
       });
     }
-    // $scope.join = function(filter,index, id){
-    //   Campaign.join(id,localStorage.id, function(err, data){
-    //     if(!err){
-    //       $scope[filter][index] = data;
-    //       alert('参加成功');
-    //     }
-    //   });
-    //   return false;
-    // }
-    // $scope.dealProvoke = function(filter,index, id, dealType){
-    //   //dealType:1接受，2拒绝，3取消
-    //   Campaign.dealProvoke(id, dealType, function(err, data){
-    //     if(!err){
-    //       //TODO:
-    //       alert('挑战处理成功');
-    //       $scope[filter].splice(index,1);
-    //     }
-    //     else{
-    //       alert(err);
-    //     }
-    //   });
-    //   return false;
-    // }
+    $scope.$on('updateCampaignList', function(event, args) {
+      $scope[args.campaignFilter].splice(args.campaignIndex,1);
+      if(args.campaign){
+        if(args.campaign.start_flag){
+          $scope.nowCampaigns.push(args.campaign)
+        }
+        else{
+          $scope.unStartCampaigns.push(args.campaign);
+        }
+      }
+    });
     $scope.doRefresh = function(){
       Campaign.getList({
         requestType: 'user',
