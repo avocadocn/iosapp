@@ -638,8 +638,8 @@ angular.module('donlerApp.controllers', [])
       return date_to_convert;
     }
     $scope.sponsor = function(){
-      $scope.campaignData.start_time = localizeDateStr($scope.campaignData.start_time);
-      $scope.campaignData.end_time = localizeDateStr($scope.campaignData.end_time);
+      $scope.campaignData.start_time = $scope.campaignData.start_time;
+      $scope.campaignData.end_time = $scope.campaignData.end_time;
       var errMsg;
       if($scope.campaignData.start_time < new Date() ) {
         errMsg ='开始时间不能早于现在';
@@ -3734,7 +3734,7 @@ angular.module('donlerApp.controllers', [])
 
       }
       else {
-        $scope.campaignData.deadline = localizeDateStr($scope.campaignData.deadline);
+        $scope.campaignData.deadline = $scope.campaignData.deadline;
         if($scope.campaignData.member_min > $scope.campaignData.member_max) {
           $ionicPopup.alert({
             title: '错误',

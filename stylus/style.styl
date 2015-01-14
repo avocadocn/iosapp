@@ -313,15 +313,20 @@ body
       border-radius 5px
       padding 5px 10px
       font-weight bolder
-    .dl_notice_count
+    .publish_notice
       float right
       margin 0 10px 0 0
       line-height 30px
+      padding-left 20px
     .dl_card_title
       margin 0 0 0 10px
       line-height 30px
-    .publish_notice
-      margin-left 10px
+    .dl_notice_container
+      padding 10px
+      .dl_card_title
+        margin 0
+      .dl_notice_count
+        margin-left 10px
   .dl_card_header_provoke
     .dl_team_logo_right
       float right
@@ -489,10 +494,6 @@ body
   .item:last-child
     border-bottom-right-radius 5px
     border-bottom-left-radius 5px
-  .publish_notice
-    background-color col_blue
-    margin 0
-    color white
 .dl_photo_album_card
   dl_card()
   .card_header

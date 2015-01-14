@@ -372,16 +372,23 @@ body {
   padding: 5px 10px;
   font-weight: bolder;
 }
-.dl_card_detail .dl_card_header .dl_notice_count {
+.dl_card_detail .dl_card_header .publish_notice {
   float: right;
   margin: 0 10px 0 0;
   line-height: 30px;
+  padding-left: 20px;
 }
 .dl_card_detail .dl_card_header .dl_card_title {
   margin: 0 0 0 10px;
   line-height: 30px;
 }
-.dl_card_detail .dl_card_header .publish_notice {
+.dl_card_detail .dl_card_header .dl_notice_container {
+  padding: 10px;
+}
+.dl_card_detail .dl_card_header .dl_notice_container .dl_card_title {
+  margin: 0;
+}
+.dl_card_detail .dl_card_header .dl_notice_container .dl_notice_count {
   margin-left: 10px;
 }
 .dl_card_detail .dl_card_header_provoke .dl_team_logo_right {
@@ -589,11 +596,6 @@ body {
 .dl_card_detail .item:last-child {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-}
-.dl_card_detail .publish_notice {
-  background-color: #3ca2e0;
-  margin: 0;
-  color: #fff;
 }
 .dl_photo_album_card {
   display: block;
