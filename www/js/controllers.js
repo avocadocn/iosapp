@@ -935,10 +935,10 @@ angular.module('donlerApp.controllers', [])
         $scope.commentList[commentListIndex].push(data);
         addPhotos(data);
         // $ionicScrollDelegate.scrollBottom();
-        $scope.newCommentNumber ++;
+        // $scope.newCommentNumber ++;
       }
     });
-    $scope.newCommentNumber = 0;
+    // $scope.newCommentNumber = 0;
 
     //拉取历史讨论记录
     $scope.readHistory = function() {
@@ -959,17 +959,20 @@ angular.module('donlerApp.controllers', [])
     };
 
     //refresh todo
-    $scope.refresh = function() {
-      $scope.loading = true;
-      $scope.$broadcast('scroll.infiniteScrollComplete');
-      $scope.newCommentNumber = 0;
-      $ionicScrollDelegate.scrollBottom();
-      $scope.loading = false;
-    };
-    $scope.toBottom = function() {
-      $scope.newCommentNumber = 0;
-      $ionicScrollDelegate.scrollBottom();
-    };
+    // $scope.refresh = function() {
+    //   $scope.loading = true;
+      
+    //   $scope.newCommentNumber = 0;
+    //   $timeout({
+    //     $ionicScrollDelegate.scrollBottom();
+    //     $scope.loading = false;
+    //     $scope.$broadcast('scroll.infiniteScrollComplete');
+    //   },1000);
+    // };
+    // $scope.toBottom = function() {
+    //   $scope.newCommentNumber = 0;
+    //   $ionicScrollDelegate.scrollBottom();
+    // };
 
     //获取个人信息供发评论使用
     var currentUser;

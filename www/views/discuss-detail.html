@@ -9,9 +9,6 @@
       <button ng-click="hideNotice=true" class="dl_button close_button pull-right">&times;</button><span ng-cloak="ng-cloak" class="notice_content">{{noticeSender}}:{{notification}}</span>
     </div>
   </div>
-  <div ng-if="newCommentNumber" ng-click="toBottom()" ng-cloak="ng-cloak" class="balloon has-footer"> <span ng-cloak="ng-cloak">{{newCommentNumber}}</span>
-    <div class="triangle"></div>
-  </div>
   <ion-content>
     <ion-refresher on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div class="comments">
@@ -48,7 +45,6 @@
         </div>
       </div>
     </div>
-    <ion-infinite-scroll ng-if="!loading" on-infinite="refresh()" distance="-1%"></ion-infinite-scroll>
   </ion-content>
   <ion-footer-bar ng-class="{'taller':isShowEmotions}" class="comment_box"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
     <textarea ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()" class="comment_input"></textarea>
