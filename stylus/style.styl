@@ -1862,6 +1862,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   position relative
   border-radius 5px
   text-decoration none
+  min-height 80px
   .team_logo
     display block
     position absolute
@@ -1881,6 +1882,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .team_cp_title, .team_count, .team_member, .team_cp_number
       margin 0
       font-size 12px
+    .team_count
+      margin-top 12px
     .team_cp_title
       margin-top 5px
     .team_cp_number
@@ -1891,26 +1894,29 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       text-overflow ellipsis
       white-space nowrap
 .all_team_list_page
-  .team_logo
-    width 85px
-    height 85px
-  .team_info
-    padding-left 95px
-  .btn_quit, .btn_join
-    margin-top 10px
-    padding 0
-    width 100%
-    height 30px
-    border-radius 5px
-    font-size 14px
-  .btn_quit
-    border 1px solid col_blue
-    color col_blue
-    background-color white
-  .btn_join
-    color white
-    background-color col_blue
-    border none
+  .dl_team_card
+    .team_logo
+      width 85px
+      height 85px
+    .team_info
+      padding-left 95px
+    .team_count
+      margin-top 6px
+    .btn_quit, .btn_join
+      margin-top 10px
+      padding 0
+      width 100%
+      height 30px
+      border-radius 5px
+      font-size 14px
+    .btn_quit
+      border 1px solid col_blue
+      color col_blue
+      background-color white
+    .btn_join
+      color white
+      background-color col_blue
+      border none
 
 
 

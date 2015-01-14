@@ -2209,6 +2209,7 @@ a>.login .companies_list:activated {
   position: relative;
   border-radius: 5px;
   text-decoration: none;
+  min-height: 80px;
 }
 .dl_team_card .team_logo {
   display: block;
@@ -2236,6 +2237,9 @@ a>.login .companies_list:activated {
   margin: 0;
   font-size: 12px;
 }
+.dl_team_card .team_info .team_count {
+  margin-top: 12px;
+}
 .dl_team_card .team_info .team_cp_title {
   margin-top: 5px;
 }
@@ -2250,15 +2254,18 @@ a>.login .companies_list:activated {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.all_team_list_page .team_logo {
+.all_team_list_page .dl_team_card .team_logo {
   width: 85px;
   height: 85px;
 }
-.all_team_list_page .team_info {
+.all_team_list_page .dl_team_card .team_info {
   padding-left: 95px;
 }
-.all_team_list_page .btn_quit,
-.all_team_list_page .btn_join {
+.all_team_list_page .dl_team_card .team_count {
+  margin-top: 6px;
+}
+.all_team_list_page .dl_team_card .btn_quit,
+.all_team_list_page .dl_team_card .btn_join {
   margin-top: 10px;
   padding: 0;
   width: 100%;
@@ -2266,12 +2273,12 @@ a>.login .companies_list:activated {
   border-radius: 5px;
   font-size: 14px;
 }
-.all_team_list_page .btn_quit {
+.all_team_list_page .dl_team_card .btn_quit {
   border: 1px solid #3ca2e0;
   color: #3ca2e0;
   background-color: #fff;
 }
-.all_team_list_page .btn_join {
+.all_team_list_page .dl_team_card .btn_join {
   color: #fff;
   background-color: #3ca2e0;
   border: none;

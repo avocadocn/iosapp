@@ -66,7 +66,7 @@ ion-view
           span.member_count {{team.memberCount}}&nbsp;
           i.icon.ion-chevron-right
 
-    .dl_campaign_group(ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam")
+    .dl_campaign_group(ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam" ng-cloak)
       p.dl_campaign_group_date {{group.date | date:'yyyy-MM'}}
       campaign-card(ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId")
     ion-infinite-scroll(on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded() && !team.isOtherCompanyTeam")

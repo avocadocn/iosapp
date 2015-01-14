@@ -55,7 +55,7 @@
         <div class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></div>
       </div>
     </div>
-    <div ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam" class="dl_campaign_group">
+    <div ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="dl_campaign_group">
       <p class="dl_campaign_group_date">{{group.date | date:'yyyy-MM'}}</p>
       <campaign-card ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId"></campaign-card>
     </div>
