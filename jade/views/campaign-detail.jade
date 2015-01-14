@@ -25,9 +25,9 @@ ion-view
             span.icon.icon_small.ion-compose.button-clear
         a.dl_cp_address(href="#/location/{{campaign._id}}") 活动地点：{{campaign.location.name}}
           span.icon.icon_small.ion-chevron-right.button-clear
-        p.dl_cp_time 开始时间：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}}
-        p.dl_cp_time 结束时间：{{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}
-        p.dl_cp_time 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}
+        p.dl_cp_time 开始时间：{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
+        p.dl_cp_time 结束时间：{{campaign.end_time | date:"yyyy-MM-dd  HH:mm" }}
+        p.dl_cp_time 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  HH:mm"}}
         p.dl_cp_member_max(ng-if="campaign.member_max&&campaign.member_max!=0") 人数上限：{{campaign.member_max}}
         p.dl_cp_member_min(ng-if="campaign.member_min&&campaign.member_min!=0") 人数下限：{{campaign.member_min}}
         button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加

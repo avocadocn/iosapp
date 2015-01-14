@@ -15,9 +15,9 @@
       </div>
       <div class="item item-text-wrap dl_card_body">
         <h2 class="dl_cp_name">{{campaign.theme}}<a ng-if="campaign.active &amp;&amp; campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}" class="dl_cp_edit"><span class="icon icon_small ion-compose button-clear"></span></a></h2><a href="#/location/{{campaign._id}}" class="dl_cp_address">活动地点：{{campaign.location.name}}<span class="icon icon_small ion-chevron-right button-clear"></span></a>
-        <p class="dl_cp_time">开始时间：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}}</p>
-        <p class="dl_cp_time">结束时间：{{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}</p>
-        <p class="dl_cp_time">报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}</p>
+        <p class="dl_cp_time">开始时间：{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
+        <p class="dl_cp_time">结束时间：{{campaign.end_time | date:"yyyy-MM-dd  HH:mm" }}</p>
+        <p class="dl_cp_time">报名截止：{{campaign.deadline | date:"yyyy-MM-dd  HH:mm"}}</p>
         <p ng-if="campaign.member_max&amp;&amp;campaign.member_max!=0" class="dl_cp_member_max">人数上限：{{campaign.member_max}}</p>
         <p ng-if="campaign.member_min&amp;&amp;campaign.member_min!=0" class="dl_cp_member_min">人数下限：{{campaign.member_min}}</p>
         <button ng-if="campaign.active &amp;&amp; campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">立即参加</button>
