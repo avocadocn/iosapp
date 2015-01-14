@@ -56,10 +56,11 @@ ion-view
         .dl_cp_time_countdown
           span.dl_cp_time_count {{campaign.time_text.substr(0, campaign.time_text.length - 1)}}
           span.dl_cp_time_unit {{campaign.time_text.substr(-1)}}
-    .card.dl_card_detail(ng-init="showAllNotice=false;" ng-if="notices.length>0 || campaign.allow.publishCampaignMessage")
+    .card.dl_card_detail
+      button.button.button-full.publish_notice(ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()") 发布公告
+    .card.dl_card_detail(ng-init="showAllNotice=false;" ng-if="notices.length>0")
       .item.dl_card_header
         span.dl_card_title 活动公告
-        a.publish_notice.icon.ion-plus(ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()")
         span.dl_notice_count(ng-click="showAllNotice=!showAllNotice;") {{notices.length}}
       a.item.item-avatar.dl_notice(ng-repeat="notice in notices" ng-if="showAllNotice || $index==0")
         img(ng-src="{{STATIC_URL +notice.sender[0].photo}}")
