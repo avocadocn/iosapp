@@ -4,6 +4,7 @@ ion-view
     h1.title 所有活动
 
   ion-content
+    ion-refresher(on-refresh="doRefresh()")
     .timeline_card
       include ./timeline-card
     ion-infinite-scroll(ng-if="!loading && !loadFinished" on-infinite="loadMore()" distance="-1%")

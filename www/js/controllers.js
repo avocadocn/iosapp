@@ -1372,6 +1372,24 @@ angular.module('donlerApp.controllers', [])
         return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
       };
     };
+    $scope.doRefresh = function(){
+      $scope.page = 0;
+      $scope.loadFinished = false;
+      TimeLine.getTimelines('company', '0', $scope.page, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          if(timelineData.length>0) {
+            $scope.timelinesRecord = timelineData;
+          }
+          else {
+            $scope.loadFinished = true;
+          }
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    }
     $scope.loadMore = function() {
       if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -3544,6 +3562,24 @@ angular.module('donlerApp.controllers', [])
         return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
       };
     };
+    $scope.doRefresh = function(){
+      $scope.page = 0;
+      $scope.loadFinished = false;
+      TimeLine.getTimelines('user', '0', $scope.page, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          if(timelineData.length>0) {
+            $scope.timelinesRecord = timelineData;
+          }
+          else {
+            $scope.loadFinished = true;
+          }
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    }
     $scope.loadMore = function() {
       if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -3674,7 +3710,24 @@ angular.module('donlerApp.controllers', [])
         return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
       };
     };
-
+    $scope.doRefresh = function(){
+      $scope.page = 0;
+      $scope.loadFinished = false;
+      TimeLine.getTimelines('user', $stateParams.userId, $scope.page, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          if(timelineData.length>0) {
+            $scope.timelinesRecord = timelineData;
+          }
+          else {
+            $scope.loadFinished = true;
+          }
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    }
     $scope.loadMore = function() {
       if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
