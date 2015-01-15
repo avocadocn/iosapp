@@ -4,7 +4,7 @@
       img.dl_team_logo(ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45")
       .dl_card_header_info.clearfix
         h2.dl_cp_name {{campaign.theme}}
-        p.dl_cp_address 地点: {{campaign.location.name}}{{campaign.remove}}
+        p.dl_cp_address 地点: {{campaign.location.name}}
       .dl_card_header_operator
         button.dl_btn_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign)" prevent-default) 参加
         .dl_cp_time_countdown_end(ng-if="!campaign.allow.joinTeamCampaign && !campaign.allow.joinCompanyCampaign && campaign.is_start && !campaign.is_end")

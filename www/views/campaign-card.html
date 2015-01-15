@@ -3,7 +3,7 @@
     <div ng-if="campaign.confirm_status===true" class="dl_card_header clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45" class="dl_team_logo"/>
       <div class="dl_card_header_info clearfix">
         <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-        <p class="dl_cp_address">地点: {{campaign.location.name}}{{campaign.remove}}</p>
+        <p class="dl_cp_address">地点: {{campaign.location.name}}</p>
       </div>
       <div class="dl_card_header_operator">
         <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign)" prevent-default="prevent-default" class="dl_btn_join">参加</button>
