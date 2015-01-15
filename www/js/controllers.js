@@ -1474,18 +1474,27 @@ angular.module('donlerApp.controllers', [])
     };
   }])
   .controller('PersonalController', ['$scope', '$rootScope', '$state', '$ionicHistory', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', function ($scope, $rootScope, $state, $ionicHistory, User, Message, Tools, CONFIG, INFO) {
-    User.getData(localStorage.id, function (err, data) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.user = data;
-        if ($scope.user.birthday) {
-          var birthday = new Date($scope.user.birthday);
-          $scope.constellation = Tools.birthdayToConstellation(birthday.getMonth() + 1, birthday.getDate());
-        }
+    $scope.$on('$stateChangeStart',function (event, toState, toParams, fromState, fromParams){
+      if(toState.url==='/personal') {
+        getUser();
       }
-    });
+    })
+    var getUser = function() {
+      User.getData(localStorage.id, function (err, data) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.user = data;
+          if ($scope.user.birthday) {
+            var birthday = new Date($scope.user.birthday);
+            $scope.constellation = Tools.birthdayToConstellation(birthday.getMonth() + 1, birthday.getDate());
+          }
+        }
+      });
+    };
+    getUser();
+    
 
     $scope.personalPswpId = 'personal' + Date.now();
     $scope.openPhotoSwipe = function () {
