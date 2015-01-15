@@ -3401,7 +3401,7 @@ angular.module('donlerApp.controllers', [])
 
         var deleteConfirm = $ionicPopup.confirm({
           title: '提示',
-          template: '确定要移除这张全家福吗？',
+          template: '确定要从封面中移除这张照片吗？',
           okText: '确定',
           cancelText: '取消'
         });
