@@ -1307,7 +1307,7 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-          $scope.officialTeams = teams;
+          $scope.teams = teams;
           INFO.officialTeamList = teams;
         }
       });
@@ -1321,6 +1321,21 @@ angular.module('donlerApp.controllers', [])
       //   }
       // });
     }
+
+    $scope.refresh = function() {
+      console.log('???')
+      Team.getList('company', null, false, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          console.log('...');
+          $scope.teams = teams;
+          INFO.officialTeamList = teams;
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    };
     
     $scope.joinTeam = function(tid, index) {
       Team.joinTeam(tid, localStorage.id, function(err, data) {
@@ -1670,25 +1685,32 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
     INFO.createTeamBackUrl = '#/personal/teams';
-    Team.getList('user', localStorage.id, null, function (err, teams) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        var leadTeams = [];
-        var memberTeams = [];
-        teams.forEach(function(team) {
-          if(team.isLeader) {
-            leadTeams.push(team);
-          }
-          else {
-            memberTeams.push(team);
-          }
-        });
-        $scope.leadTeams = leadTeams;
-        $scope.memberTeams = memberTeams;
-      }
-    });
+    var getMyTeams = function() {
+      Team.getList('user', localStorage.id, null, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          var leadTeams = [];
+          var memberTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else {
+              memberTeams.push(team);
+            }
+          });
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+        }
+      });
+    };
+    getMyTeams();
+    $scope.refresh = function() {
+      getMyTeams();
+      $scope.$broadcast('scroll.refreshComplete');
+    };
 
   }])
   .controller('SettingsController', ['$scope', '$state', '$ionicHistory', 'UserAuth', 'User', 'CommonHeaders', function ($scope, $state, $ionicHistory, UserAuth, User, CommonHeaders) {
