@@ -1479,6 +1479,11 @@ angular.module('donlerApp.controllers', [])
         getUser();
       }
     })
+    $rootScope.$on('$ionicView.enter', function (scopes, states) {
+      if(!states.stateName){
+        getUser();
+      }
+    })
     var getUser = function() {
       User.getData(localStorage.id, function (err, data) {
         if (err) {
