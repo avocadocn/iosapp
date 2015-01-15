@@ -231,33 +231,43 @@ angular.module('donlerApp.controllers', [])
       })
     }
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', 'Campaign', 'INFO',
-    function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
+    function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
     $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
-    Campaign.getList({
-      requestType: 'user',
-      requestId: localStorage.id,
-      select_type: 0,
-      populate: 'photo_album'
-    }, function (err, data) {
-      if (!err) {
-        $scope.unStartCampaigns = data[0];
-        $scope.nowCampaigns = data[1];
-        $scope.newCampaigns = data[2];
-        $scope.provokes = data[3];
-        if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
-          $scope.noCampaigns = true;
+    var getCampaignList = function() {
+      Campaign.getList({
+        requestType: 'user',
+        requestId: localStorage.id,
+        select_type: 0,
+        populate: 'photo_album'
+      }, function (err, data) {
+        if (!err) {
+          $scope.unStartCampaigns = data[0];
+          $scope.nowCampaigns = data[1];
+          $scope.newCampaigns = data[2];
+          $scope.provokes = data[3];
+          if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
+            $scope.noCampaigns = true;
+          }
+          else {
+            $scope.noCampaigns = false;
+          }
         }
+        else {
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
+          });
+        }
+        $rootScope.hideLoading();
+      });
+    };
+    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
+      if(!states.stateName){
+        getCampaignList();
       }
-      else {
-        $ionicPopup.alert({
-          title: '错误',
-          template: err
-        });
-      }
-      $rootScope.hideLoading();
     });
     $scope.filter = function(filterType) {
       $scope.nowType = filterType;
@@ -265,29 +275,22 @@ angular.module('donlerApp.controllers', [])
         $ionicScrollDelegate.scrollTop(true);
       });
     }
-    $scope.join = function(filter,index, id){
-      Campaign.join(id,localStorage.id, function(err, data){
-        if(!err){
-          $scope[filter][index] = data;
-          alert('参加成功');
+    $scope.$on('updateCampaignList', function(event, args) {
+      $timeout(function(){
+        $scope[args.campaignFilter].splice(args.campaignIndex,1);
+        if(args.campaign){
+          args.campaign.remove = false;
+          if(args.campaign.start_flag){
+            $scope.nowCampaigns.push(args.campaign);
+            $scope.nowCampaigns = $filter('orderBy')($scope.nowCampaigns, 'start_time');
+          }
+          else{
+            $scope.unStartCampaigns.push(args.campaign);
+            $scope.unStartCampaigns = $filter('orderBy')($scope.unStartCampaigns, 'start_time');
+          }
         }
-      });
-      return false;
-    }
-    $scope.dealProvoke = function(filter,index, id, dealType){
-      //dealType:1接受，2拒绝，3取消
-      Campaign.dealProvoke(id, dealType, function(err, data){
-        if(!err){
-          //TODO:
-          alert('挑战处理成功');
-          $scope[filter].splice(index,1);
-        }
-        else{
-          alert(err);
-        }
-      });
-      return false;
-    }
+      },300);
+    });
     $scope.doRefresh = function(){
       Campaign.getList({
         requestType: 'user',
@@ -300,8 +303,11 @@ angular.module('donlerApp.controllers', [])
           $scope.nowCampaigns = data[1];
           $scope.newCampaigns = data[2];
           $scope.provokes = data[3];
-          if(data[0].length==0&&data[1].length==0&&data[2].length&&data[3].length==0){
+          if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
             $scope.noCampaigns = true;
+          }
+          else {
+            $scope.noCampaigns = false;
           }
         }
         else{
@@ -367,7 +373,7 @@ angular.module('donlerApp.controllers', [])
     });
 
     $scope.join = function(id){
-      Campaign.join(id,localStorage.id, function(err, data){
+      Campaign.join($scope.campaign,localStorage.id, function(err, data){
         if(!err){
           $scope.campaign = data;
           setMembers();
@@ -476,6 +482,10 @@ angular.module('donlerApp.controllers', [])
     $scope.showMapFlag ==false;
     $scope.campaignData.location = {};
     var city,marker;
+    $ionicHistory.nextViewOptions({
+      disableBack: true,
+      historyRoot: true
+    });
     $ionicModal.fromTemplateUrl('my-modal.html', {
       scope: $scope,
       animation: 'slide-in-up'
@@ -638,8 +648,8 @@ angular.module('donlerApp.controllers', [])
       return date_to_convert;
     }
     $scope.sponsor = function(){
-      $scope.campaignData.start_time = localizeDateStr($scope.campaignData.start_time);
-      $scope.campaignData.end_time = localizeDateStr($scope.campaignData.end_time);
+      $scope.campaignData.start_time = $scope.campaignData.start_time;
+      $scope.campaignData.end_time = $scope.campaignData.end_time;
       var errMsg;
       if($scope.campaignData.start_time < new Date() ) {
         errMsg ='开始时间不能早于现在';
@@ -688,7 +698,8 @@ angular.module('donlerApp.controllers', [])
     // console.log(INFO);
     $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
       if(!states.stateName){
-        getComments();
+        getComments(INFO.discussCampaignId);
+        Socket.emit('enterRoom', localStorage.id);
       }
     });
     if(INFO.discussList){
@@ -697,15 +708,25 @@ angular.module('donlerApp.controllers', [])
       $scope.unjoinedIndex = INFO.discussList.unjoinedIndex;
     }
     //进来以后先http请求,再监视推送
-    var getComments = function() {
+    var getComments = function(campaignId) {
       Comment.getList('joined').success(function (data) {
         $scope.commentCampaigns = data.commentCampaigns;
         $scope.latestUnjoinedCampaign = data.latestUnjoinedCampaign;
         //判断下把未参加的放哪
         $scope.unjoinedIndex = 20;
+        if(campaignId) {
+          //如果从某个讨论详情页回来，把unread数清零.
+          var length = $scope.commentCampaigns.length;
+          for(var i = 0; i<length; i++){
+            if($scope.commentCampaigns[i]._id.toString() == campaignId.toString()) {
+              $scope.commentCampaigns[i].unread = 0;
+            }
+          }
+        }
         if($scope.latestUnjoinedCampaign) {
           var unjoinedCommentTime = new Date($scope.latestUnjoinedCampaign.latestComment.createDate);
-          for(var i=$scope.commentCampaigns.length-1; i>=0; i--){
+          var length = $scope.commentCampaigns.length-1;
+          for(var i=length; i>=0; i--){
             var joinedCommentTime = new Date($scope.commentCampaigns[i].latestComment.createDate);
             if(unjoinedCommentTime>joinedCommentTime){
               $scope.unjoinedIndex = i;
@@ -717,6 +738,7 @@ angular.module('donlerApp.controllers', [])
         }
         $scope.newUnjoined = data.newUnjoinedCampaignComment;
         localStorage.hasNewComment = false;
+        INFO.discussCampaignId = '';
       });
     };
     getComments();
@@ -754,8 +776,24 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('UnjoinedDiscussController', ['$scope','$state', 'INFO', 'Comment', 'Socket', 'Tools', function ($scope, $state, INFO, Comment, Socket, Tools) { //标为全部已读???
     //进来以后先http请求,再监视推送
-    Comment.getList('unjoined').success(function (data) {
-      $scope.commentCampaigns = data.commentCampaigns;
+    // Comment.getList('unjoined').success(function (data) {
+    //   $scope.commentCampaigns = data.commentCampaigns;
+    // });
+    $scope.$on("$ionicView.enter", function( scopes, states ) {
+      Socket.emit('quitRoom');
+      Socket.emit('enterRoom', localStorage.id);
+      Comment.getList('unjoined').success(function (data) {
+        $scope.commentCampaigns = data.commentCampaigns;
+        if(INFO.discussCampaignId) {
+          //如果从某个讨论详情页回来，把unread数清零.
+          var length = $scope.commentCampaigns.length;
+          for(var i = 0; i<length; i++){
+            if($scope.commentCampaigns[i]._id.toString() == INFO.discussCampaignId.toString()) {
+              $scope.commentCampaigns[i].unread = 0;
+            }
+          }
+        }
+      });
     });
     Socket.on('newUnjoinedCommentCampaign', function (data) {
       var newCommentCampaign = data;
@@ -785,6 +823,7 @@ angular.module('donlerApp.controllers', [])
     Socket.emit('enterRoom', $scope.campaignId);
     $scope.commentContent='';
 
+    
     Campaign.get($scope.campaignId, function (err, data) {
       if (!err) {
         $scope.campaign = data;
@@ -847,6 +886,7 @@ angular.module('donlerApp.controllers', [])
     var nextStartDate ='';
 
     //获取公告
+    $scope.showNotice = false;
     Message.getCampaignMessages($scope.campaignId, function(err, data){
       if(err){
         console.log(err)
@@ -855,6 +895,7 @@ angular.module('donlerApp.controllers', [])
           $scope.noticeSender = data[0].sender[0].nickname;
           $scope.notification = data[0].content;
         }
+        $scope.showNotice = true;
       }
     });
 
@@ -890,17 +931,20 @@ angular.module('donlerApp.controllers', [])
     // }
       
     //获取最新20条评论
+    var getComments = function() {
+      Comment.getComments($scope.campaignId, 20).success(function(data){
+        $scope.commentList = [];
+        $scope.commentList.push(data.comments.reverse());//保证最新的在最下面
+        data.comments.forEach(addPhotos);
+        nextStartDate = data.nextStartDate;
+        $ionicScrollDelegate.scrollBottom();
+        judgeTopShowTime();
+      });
+    }
+    getComments();
 
-    Comment.getComments($scope.campaignId, 20).success(function(data){
-      $scope.commentList = [];
-      $scope.commentList.push(data.comments.reverse());//保证最新的在最下面
-      data.comments.forEach(addPhotos);
-      nextStartDate = data.nextStartDate;
-      $ionicScrollDelegate.scrollBottom();
-      judgeTopShowTime();
-    });
-    
     //获取新留言
+    var needRead = false;//标记是否需要再去read
     Socket.on('newCampaignComment', function (data) {
       //如果是自己发的看看是不是取消loading就行.
       var commentListIndex = $scope.commentList.length -1;
@@ -920,9 +964,12 @@ angular.module('donlerApp.controllers', [])
         data.randomId = null;
         $scope.commentList[commentListIndex].push(data);
         addPhotos(data);
-        $ionicScrollDelegate.scrollBottom();
+        // $ionicScrollDelegate.scrollBottom();
+        // $scope.newCommentNumber ++;
+        needRead = true;
       }
     });
+    // $scope.newCommentNumber = 0;
 
     //拉取历史讨论记录
     $scope.readHistory = function() {
@@ -941,6 +988,22 @@ angular.module('donlerApp.controllers', [])
         $scope.$broadcast('scroll.refreshComplete');
       }
     };
+
+    //refresh todo
+    // $scope.refresh = function() {
+    //   $scope.loading = true;
+      
+    //   $scope.newCommentNumber = 0;
+    //   $timeout({
+    //     $ionicScrollDelegate.scrollBottom();
+    //     $scope.loading = false;
+    //     $scope.$broadcast('scroll.infiniteScrollComplete');
+    //   },1000);
+    // };
+    // $scope.toBottom = function() {
+    //   $scope.newCommentNumber = 0;
+    //   $ionicScrollDelegate.scrollBottom();
+    // };
 
     //获取个人信息供发评论使用
     var currentUser;
@@ -1216,6 +1279,18 @@ angular.module('donlerApp.controllers', [])
       // console.log(emotion);
       $scope.commentContent += ':'+ emotion +':';
     };
+
+    $scope.$on('$ionicView.enter', function(){
+      INFO.discussCampaignId = $scope.campaignId;
+    });
+
+    $scope.$on('$ionicView.leave', function(){
+      if(needRead){
+        Comment.readComment($scope.campaignId, function(err) {
+          if(err) console.log(err);
+        });
+      }
+    });
   }])
   .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
     if($state.params.type) {
@@ -1297,6 +1372,24 @@ angular.module('donlerApp.controllers', [])
         return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
       };
     };
+    $scope.doRefresh = function(){
+      $scope.page = 0;
+      $scope.loadFinished = false;
+      TimeLine.getTimelines('company', '0', $scope.page, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          if(timelineData.length>0) {
+            $scope.timelinesRecord = timelineData;
+          }
+          else {
+            $scope.loadFinished = true;
+          }
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    }
     $scope.loadMore = function() {
       if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -1316,12 +1409,13 @@ angular.module('donlerApp.controllers', [])
               $scope.loadFinished = true;
             }
           }
-          $scope.loading = false;
+          $timeout(function() {
+            $scope.loading = false;
+          }, 1000);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
       }
     }
-
   }])
   .controller('ContactsController', ['$scope', 'User', 'INFO', 'Tools', function ($scope, User, INFO, Tools) {
     var contactsBackup = [];
@@ -1333,9 +1427,6 @@ angular.module('donlerApp.controllers', [])
         contactsBackup = data;
       }
     });
-    $scope.goSearch = function () {
-      $scope.searching = true;
-    };
     $scope.cancelSearch = function () {
       $scope.contacts = contactsBackup;//还原
       $scope.searching = false;
@@ -1365,6 +1456,7 @@ angular.module('donlerApp.controllers', [])
         }else{
           $scope.message = '';
         }
+        $scope.searching = true;
       }
     };
   }])
@@ -1645,23 +1737,32 @@ angular.module('donlerApp.controllers', [])
     if(localStorage.hasNewComment === true) {
       $scope.hasNewComment = true;
     }
+    var nowState = '';
     //socket服务器推送通知
     Socket.on('getNewComment', function() {
-      $scope.hasNewComment = true;
-      localStorage.hasNewComment = true;
+      if(nowState!=='discussList'){
+        $scope.hasNewComment = true;
+        localStorage.hasNewComment = true;
+      }
     });
     //点过去就代表看过了
-
-    $scope.readComments = function() {
+    var readComments = function() {
       $scope.hasNewComment = false;
       localStorage.hasNewComment = false;
     };
+    
     $scope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {
         $ionicHistory.nextViewOptions({
           disableBack: true,
           historyRoot: true
         });
+        if(toState.name==='app.discuss_list' || toState.name==='discuss_detail' || toState.name==='unjoined_discuss_list') {
+          readComments();
+          nowState = 'discussList';
+        }else{
+          nowState = '';
+        }
     });
   }])
   .controller('CalendarController',['$scope', '$rootScope', '$state', '$ionicPopup', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
@@ -2528,7 +2629,7 @@ angular.module('donlerApp.controllers', [])
           requestType: 'team',
           requestId: teamId,
           populate: 'photo_album',
-          sortBy: '-start_time',
+          sortBy: '-start_time -_id',
           limit: pageSize + 1
         };
         $scope.getCampaigns(options);
@@ -2536,13 +2637,15 @@ angular.module('donlerApp.controllers', [])
         if ($scope.lastCount >= pageSize) {
           $scope.loading = true;
           var startTime = new Date(nextCampaign.start_time);
+          var nextPageStartId = nextCampaign._id;
           options = {
             requestType: 'team',
             requestId: teamId,
             populate: 'photo_album',
-            sortBy: '-start_time',
+            sortBy: '-start_time -_id',
             limit: pageSize + 1,
-            to: startTime.valueOf()
+            to: startTime.valueOf(),
+            nextPageStartId: nextPageStartId
           };
           $scope.getCampaigns(options);
         }
@@ -3444,7 +3547,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('TimelineController', ['$scope', '$stateParams', 'TimeLine', 'User', function ($scope, $stateParams, TimeLine, User) {
+  .controller('TimelineController', ['$scope', '$stateParams', '$timeout', 'TimeLine', 'User', function ($scope, $stateParams, $timeout, TimeLine, User) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -3459,6 +3562,24 @@ angular.module('donlerApp.controllers', [])
         return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
       };
     };
+    $scope.doRefresh = function(){
+      $scope.page = 0;
+      $scope.loadFinished = false;
+      TimeLine.getTimelines('user', '0', $scope.page, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          if(timelineData.length>0) {
+            $scope.timelinesRecord = timelineData;
+          }
+          else {
+            $scope.loadFinished = true;
+          }
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    }
     $scope.loadMore = function() {
       if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -3478,7 +3599,9 @@ angular.module('donlerApp.controllers', [])
               $scope.loadFinished = true;
             }
           }
-          $scope.loading = false;
+          $timeout(function() {
+            $scope.loading = false;
+          },1000);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
       }
@@ -3558,7 +3681,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('UserInfoTimelineController', ['$ionicHistory', '$scope', '$stateParams', 'User', 'TimeLine', function ($ionicHistory, $scope, $stateParams, User, TimeLine) {
+  .controller('UserInfoTimelineController', ['$ionicHistory', '$scope', '$stateParams', '$timeout','User', 'TimeLine', function ($ionicHistory, $scope, $stateParams, $timeout, User, TimeLine) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -3587,7 +3710,24 @@ angular.module('donlerApp.controllers', [])
         return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
       };
     };
-
+    $scope.doRefresh = function(){
+      $scope.page = 0;
+      $scope.loadFinished = false;
+      TimeLine.getTimelines('user', $stateParams.userId, $scope.page, function (err, timelineData) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          if(timelineData.length>0) {
+            $scope.timelinesRecord = timelineData;
+          }
+          else {
+            $scope.loadFinished = true;
+          }
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    }
     $scope.loadMore = function() {
       if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -3607,7 +3747,9 @@ angular.module('donlerApp.controllers', [])
               $scope.loadFinished = true;
             }
           }
-          $scope.loading = false;
+          $timeout(function(){
+            $scope.loading = false;
+          },1000);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
       }
@@ -3733,7 +3875,7 @@ angular.module('donlerApp.controllers', [])
 
       }
       else {
-        $scope.campaignData.deadline = localizeDateStr($scope.campaignData.deadline);
+        $scope.campaignData.deadline = $scope.campaignData.deadline;
         if($scope.campaignData.member_min > $scope.campaignData.member_max) {
           $ionicPopup.alert({
             title: '错误',

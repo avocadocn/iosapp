@@ -74,10 +74,11 @@ body {
   background-color: #e2e2e2;
 }
 .campaigns_container .campaign_list .no_campaign {
-  background-image: url("/img/no_new_campaign.png");
+  background-image: url("../img/no_new_campaign.png");
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
+  position: relative;
 }
 .campaigns_container .campaign_list .no_campaign .no_campaign_tip {
   position: absolute;
@@ -372,16 +373,23 @@ body {
   padding: 5px 10px;
   font-weight: bolder;
 }
-.dl_card_detail .dl_card_header .dl_notice_count {
+.dl_card_detail .dl_card_header .publish_notice {
   float: right;
   margin: 0 10px 0 0;
   line-height: 30px;
+  padding-left: 20px;
 }
 .dl_card_detail .dl_card_header .dl_card_title {
   margin: 0 0 0 10px;
   line-height: 30px;
 }
-.dl_card_detail .dl_card_header .publish_notice {
+.dl_card_detail .dl_card_header .dl_notice_container {
+  padding: 10px;
+}
+.dl_card_detail .dl_card_header .dl_notice_container .dl_card_title {
+  margin: 0;
+}
+.dl_card_detail .dl_card_header .dl_notice_container .dl_notice_count {
   margin-left: 10px;
 }
 .dl_card_detail .dl_card_header_provoke .dl_team_logo_right {
@@ -472,32 +480,40 @@ body {
 }
 .dl_card_detail .dl_card_footer {
   height: 40px;
+  padding: 0;
   border-bottom-left-radius: 5px !important;
   border-bottom-right-radius: 5px !important;
 }
-.dl_card_detail .dl_card_footer .tab-item {
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+.dl_card_detail .dl_card_footer .col {
+  padding: 0;
+  color: #999;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 12px;
   line-height: 40px;
+  border-right: 1px solid #ccc;
 }
-.dl_card_detail .dl_card_footer .tab-item:last-child {
+.dl_card_detail .dl_card_footer .col:last-child {
   border-right: none;
 }
-.dl_card_detail .dl_card_footer .tab-item .icon {
+.dl_card_detail .dl_card_footer .col .icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-right: 5px;
   color: #3ca2e0;
-  font-size: 14px;
+  font-size: 16px;
 }
-.dl_card_detail .dl_card_footer .tab-item .icon:before {
-  font-size: 18px;
-  line-height: 40px;
-}
-.dl_card_detail .dl_card_footer .tab-item .dl_icon {
+.dl_card_detail .dl_card_footer .col .dl_icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
   background-size: 200px;
   vertical-align: middle;
-  width: 24px;
-  margin-top: 10px;
+  margin-top: 3px;
 }
-.dl_card_detail .dl_card_footer .tab-item .ion_member {
+.dl_card_detail .dl_card_footer .col .ion_member {
   background-position: 5px -148px;
 }
 .dl_card_detail .dl_cp_time_status {
@@ -540,6 +556,7 @@ body {
   background-color: #3ca2e0;
   padding: 6px 46px 2px 10px;
   border-radius: 5px !important;
+  min-height: 50px;
 }
 .dl_card_detail .dl_card_member .dl_member {
   position: relative;
@@ -547,6 +564,8 @@ body {
 .dl_card_detail .dl_card_member .dl_member .dl_member_logo {
   border-radius: 5px;
   margin-right: 5px;
+  width: 40px;
+  height: 40px;
 }
 .dl_card_detail .dl_card_member .dl_member .dl_member_leader {
   width: 20px;
@@ -699,20 +718,22 @@ input:focus:-ms-input-placeholder {
   color: #3ca2e0;
   font-size: 16px;
   font-weight: 600;
-  line-height: 34px;
+  line-height: 35px;
 }
 .bar .button.activated {
-  box-shadow: inset 0px 1px 1px rgba(0,0,0,0.15);
+  box-shadow: 0 0 0;
+  color: #ddd;
 }
 .bar .icon-left.button:before,
 .bar .icon-right.button:before {
-  font-size: 14px;
+  font-size: 16px;
 }
 .login>.bar .icon-left.button:before,
 .login>.bar .icon-right.button:before {
   padding-left: 10px;
 }
 .login>.bar .icon-right.button:before {
+  padding-left: 5px;
   padding-right: 10px;
 }
 .home {
@@ -888,14 +909,12 @@ a>.login .companies_list:activated {
   width: 32px;
   height: 30px;
 }
-.app_tabs > .tabs .tab-item .red_spot {
-  background-color: #f48361;
-  position: absolute;
+.app_tabs > .tabs .tab-item .badge {
+  background-color: #ff5724;
   width: 12px;
   height: 12px;
-  border-radius: 100%;
-  left: 55%;
-  top: 5%;
+  color: transparent;
+  right: calc(50% - 20px);
 }
 .app_tabs > .tabs .tab-item-active .tab-title {
   color: #3ca2e0;
@@ -984,7 +1003,11 @@ a>.login .companies_list:activated {
   width: 40px;
   margin-top: 3px;
 }
+.discuss_detail .notice.show {
+  display: block;
+}
 .discuss_detail .notice {
+  display: none;
   height: 85px;
   position: absolute;
   top: 5rem;
@@ -1125,6 +1148,7 @@ a>.login .companies_list:activated {
 .discuss_detail .comments .comment .logo {
   float: left;
   width: 5rem;
+  height: 5rem;
   padding-left: 1rem;
 }
 .discuss_detail .comments .comment .logo img {
@@ -1351,6 +1375,12 @@ a>.login .companies_list:activated {
 }
 .contacts .search_box {
   width: 100%;
+  background-color: #e2e2e2;
+}
+.contacts .search_box .item-input-wrapper {
+  background-color: #fff;
+}
+.contacts .search_box input {
   background-color: #fff;
 }
 .settings_account a.item {
@@ -1819,9 +1849,36 @@ a>.login .companies_list:activated {
   border-style: solid;
   border-width: 0 20px 20px;
 }
+.platform-android .popover-backdrop.active .dl_popover {
+  margin-top: 12px;
+  background-color: rgba(0,0,0,0.7);
+}
+.platform-android .popover-backdrop.active .popover-arrow {
+  position: absolute;
+  display: block;
+  width: 30px;
+  height: 19px;
+  overflow: hidden;
+  left: 50px !important;
+}
+.platform-android .popover-backdrop.active .popover-arrow:after {
+  position: absolute;
+  top: 12px;
+  left: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  content: '';
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  background-color: rgba(0,0,0,0.7) !important;
+}
 .dl_popover {
   background-color: rgba(0,0,0,0.7);
   border-radius: 0 !important;
+}
+.dl_popover .dl_popover_content {
+  margin: 8px 0;
 }
 .dl_popover .dl_popover_content .dl_popover_button {
   color: #fff;
@@ -2068,7 +2125,7 @@ a>.login .companies_list:activated {
   content: '';
   position: absolute;
   top: 0;
-  bottom: 30px;
+  bottom: 70px;
   width: 3px;
   background: #ccc;
   left: 50%;
@@ -2092,7 +2149,6 @@ a>.login .companies_list:activated {
   margin: 10px;
   font-size: 14px;
   text-align: center;
-  background-color: #fff;
 }
 .member_page .member_group {
   margin: 0.833333rem;
@@ -2158,6 +2214,7 @@ a>.login .companies_list:activated {
   position: relative;
   border-radius: 5px;
   text-decoration: none;
+  min-height: 80px;
 }
 .dl_team_card .team_logo {
   display: block;
@@ -2185,6 +2242,9 @@ a>.login .companies_list:activated {
   margin: 0;
   font-size: 12px;
 }
+.dl_team_card .team_info .team_count {
+  margin-top: 12px;
+}
 .dl_team_card .team_info .team_cp_title {
   margin-top: 5px;
 }
@@ -2199,15 +2259,18 @@ a>.login .companies_list:activated {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.all_team_list_page .team_logo {
+.all_team_list_page .dl_team_card .team_logo {
   width: 85px;
   height: 85px;
 }
-.all_team_list_page .team_info {
+.all_team_list_page .dl_team_card .team_info {
   padding-left: 95px;
 }
-.all_team_list_page .btn_quit,
-.all_team_list_page .btn_join {
+.all_team_list_page .dl_team_card .team_count {
+  margin-top: 6px;
+}
+.all_team_list_page .dl_team_card .btn_quit,
+.all_team_list_page .dl_team_card .btn_join {
   margin-top: 10px;
   padding: 0;
   width: 100%;
@@ -2215,12 +2278,12 @@ a>.login .companies_list:activated {
   border-radius: 5px;
   font-size: 14px;
 }
-.all_team_list_page .btn_quit {
+.all_team_list_page .dl_team_card .btn_quit {
   border: 1px solid #3ca2e0;
   color: #3ca2e0;
   background-color: #fff;
 }
-.all_team_list_page .btn_join {
+.all_team_list_page .dl_team_card .btn_join {
   color: #fff;
   background-color: #3ca2e0;
   border: none;
@@ -2240,20 +2303,24 @@ a>.login .companies_list:activated {
   background-color: #fff;
 }
 .sponsor .list .input-label {
-  color: #3ca2e0;
+  color: #999;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .sponsor .list .item-label {
-  margin: 10px 20px;
+  margin: 5px 20px;
   border: none;
   padding: 0;
 }
 .sponsor .list .item-input {
-  margin: 10px 20px;
+  margin: 5px 20px;
   border: 1px solid #3ca2e0;
   border-radius: 5px;
 }
 .sponsor .list .item-input input {
+  height: 22px;
   color: #3ca2e0;
+  padding-top: 2px;
 }
 .sponsor .list .item-input .introduce {
   color: #3ca2e0;
@@ -2263,6 +2330,7 @@ a>.login .companies_list:activated {
 }
 .sponsor .list .item-select select {
   color: #3ca2e0;
+  padding: 7px 48px 7px 16px;
 }
 .sponsor .list .item-select:after {
   color: #3ca2e0;
@@ -2279,6 +2347,7 @@ a>.login .companies_list:activated {
   color: #fff;
 }
 .sponsor .list .item-button .button_close {
+  background-color: #999;
   border: none;
 }
 .pswp .dl_button_to_album {
@@ -2293,4 +2362,15 @@ a>.login .companies_list:activated {
 }
 .popup-container .popup {
   width: 100%;
+}
+.campaign_card_container {
+  -moz-transition: -moz-transform 1s;
+  -webkit-transition: -webkit-transform 1s;
+  -o-transition: -o-transform 1s;
+}
+.campaign_card_container.remove {
+  transform: translateY(500px) scale(0.1);
+  -moz-transform: translateY(500px) scale(0.1);
+  -webkit-transform: translateY(500px) scale(0.1);
+  -o-transform: translateY(500px) scale(0.1);
 }

@@ -4,12 +4,12 @@
 angular.module('donlerApp.services', [])
   .factory('myInterceptor', ['$q', '$location', function($q, $location) {
       var signOut = function(){
-        var isLogin = false;
+        var isLogin = true;
         var path = $location.path();
-        if (path ==='/users/login' || path ==='/companies/login') {
-          isLogin = true;
+        if (path ==='/users/login' || path ==='/company/login') {
+          isLogin = false;
         }
-        if (!isLogin) {
+        if (isLogin) {
           var userType = localStorage.userType;
           if (userType === 'company') {
             $location.path('/company/login');
@@ -60,7 +60,8 @@ angular.module('donlerApp.services', [])
     discussList:{},//讨论列表缓存
     screenWidth: 320,
     screenHeight: 568,
-    team:''//hr编辑小队用
+    team:'',//hr编辑小队用
+    discussCampaignId:''//供返回时去除红点用
   })
   .factory('CommonHeaders', ['$http', 'CONFIG', function ($http, CONFIG) {
 
@@ -313,10 +314,46 @@ angular.module('donlerApp.services', [])
           callback(data.msg ||'error');
         });
       },
-      join: function(id, uid, callback) {
-        $http.post(CONFIG.BASE_URL + '/campaigns/' + id+'/users/'+uid)
+      join: function(campaign, uid, callback) {
+        $http.post(CONFIG.BASE_URL + '/campaigns/' + campaign._id +'/users/'+uid)
         .success(function (data, status) {
           callback(null,data);
+          if(window.plugin){
+            var remindTimeDay = 1000 * 60 * 60 * 24;//one day
+            var remindTimeHour = 1000 * 60 * 60;//one hour
+            var scheduleTimeDay = new Date(new Date(campaign.start_time).getTime()-remindTimeDay);
+            if(scheduleTimeDay>=new Date()){
+              window.plugin.notification.local.isScheduled(campaign._id+'1', function (isScheduled) {
+                if(!isScheduled){
+                  window.plugin.notification.local.add({
+                    id:         campaign._id + '1',  // A unique id of the notifiction
+                    date:       scheduleTimeDay,    // This expects a date object
+                    message:    '活动' + campaign.theme +'明天就要开始了，请准时参加哦。',  // The message that is displayed
+                    title:      '活动提醒',  // The title of the message
+                    //sound:      String,  // A sound to be played
+                    json:       JSON.stringify({ id: campaign._id }),  // Data to be passed through the notification
+                    autoCancel: true // Setting this flag and the notification is automatically canceled when the user clicks it
+                  });
+                }
+              });
+            }
+            var scheduleTimeHour = new Date(new Date(campaign.start_time).getTime()-remindTimeHour);
+            if(scheduleTimeHour>=new Date()){
+              window.plugin.notification.local.isScheduled(campaign._id+'2', function (isScheduled) {
+                if(!isScheduled){
+                  window.plugin.notification.local.add({
+                    id:         campaign._id + '2',  // A unique id of the notifiction
+                    date:       scheduleTimeHour,    // This expects a date object
+                    message:    '活动' + campaign.theme + '再过一小时就要开始了，请准时参加哦。',  // The message that is displayed
+                    title:      '活动提醒',  // The title of the message
+                    //sound:      String,  // A sound to be played
+                    json:       JSON.stringify({ id: campaign._id }),  // Data to be passed through the notification
+                    autoCancel: true // Setting this flag and the notification is automatically canceled when the user clicks it
+                  });
+                }
+              });
+            }
+          }
         })
         .error(function (data, status) {
           // todo
@@ -327,6 +364,10 @@ angular.module('donlerApp.services', [])
         $http.delete(CONFIG.BASE_URL + '/campaigns/' + id+'/users/'+uid)
         .success(function (data, status) {
           callback(null,data);
+          if(window.plugin){
+            window.plugin.notification.local.cancel(id + '1', function () { });
+            window.plugin.notification.local.cancel(id + '2', function () { });
+          }
         })
         .error(function (data, status) {
           // todo
@@ -417,6 +458,14 @@ angular.module('donlerApp.services', [])
           // todo
           callback('publish error');
         });
+      },
+      readComment: function(campaignId, callback) {
+        $http.post(CONFIG.BASE_URL + '/comments/read',{requestId:campaignId})
+        .success(function (data,status) {
+          callback()
+        }).error(function (data, status) {
+          callback('read error');
+        })
       }
     }
   }])
@@ -457,10 +506,10 @@ angular.module('donlerApp.services', [])
        * @param {Date|String} d2
        */
       isTheSameMonth: function (d1, d2) {
-        if (typeof d1 === 'string') {
+        if (!(d1 instanceof Date)) {
           d1 = new Date(d1);
         }
-        if (typeof d2 === 'string') {
+        if (!(d2 instanceof Date)) {
           d2 = new Date(d2);
         }
         return d1.getFullYear() === d2.getFullYear()

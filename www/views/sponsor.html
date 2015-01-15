@@ -1,12 +1,12 @@
 
 <ion-view class="sponsor">
-  <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">发活动</h1>
   </ion-header-bar>
   <ion-content>
     <form name="sponsorForm" novalidate="novalidate">
       <div class="list">
-        <label class="item item-input item-select"><span class="input-label">发活动的小队</span>
+        <label class="item item-input item-select"><span class="input-label">小队</span>
           <select ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams"></select>
         </label>
         <label class="item item-input">

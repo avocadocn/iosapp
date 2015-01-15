@@ -1,6 +1,6 @@
 ion-view
   ion-header-bar
-    span.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     a.button.icon_blue(ng-if="view==='day'" ng-click="back()") 关闭
     h1.title 我的日程
     a.button.ion-chevron-down.icon-right(ng-click="showFilter($event)") {{campaignTypes[nowTypeIndex].view}}

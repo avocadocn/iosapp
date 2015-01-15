@@ -1,40 +1,43 @@
 
 <ion-view>
-  <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">用户信息</h1>
   </ion-header-bar>
   <ion-content>
-    <div ng-repeat="campaign in timelinesRecord" class="dl_timeline">
-      <label ng-if="needShowTime($index)" class="dl_timeline_date">{{campaign.start_time | date:'yyyy-MM'}}</label>
-      <div class="card dl_card dl_timeline_card"><a ng-href="#/campaign/detail/{{campaign._id}}" class="campaign_card">
-          <div ng-if="campaign.campaign_unit.length===1" class="dl_card_header clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45" class="dl_team_logo"/>
-            <div class="dl_card_header_info clearfix">
-              <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-              <p class="dl_cp_address">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+    <div class="timeline_card">
+      <div ng-repeat="campaign in timelinesRecord" class="dl_timeline">
+        <label ng-if="needShowTime($index)" class="dl_timeline_date">{{campaign.start_time | date:'yyyy-MM'}}</label>
+        <div class="card dl_card dl_timeline_card"><a ng-href="#/campaign/detail/{{campaign._id}}" class="campaign_card">
+            <div ng-if="campaign.campaign_unit.length===1" class="dl_card_header clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45" class="dl_team_logo"/>
+              <div class="dl_card_header_info clearfix">
+                <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+                <p class="dl_cp_address">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
+              </div>
             </div>
-          </div>
-          <div ng-if="campaign.campaign_unit.length===2" class="dl_card_header dl_card_header_provoke clearfix"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
-          <div class="dl_card_body">
-            <div ng-if="campaign.campaign_unit.length===2" class="dl_provoke_info">
-              <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-              <p class="dl_cp_address">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
+            <div ng-if="campaign.campaign_unit.length===2" class="dl_card_header dl_card_header_provoke clearfix"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
+            <div class="dl_card_body">
+              <div ng-if="campaign.campaign_unit.length===2" class="dl_provoke_info">
+                <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+                <p class="dl_cp_address">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
+              </div>
+              <ion-scroll direction="x" scrollbar-x="false">
+                <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" class="dl_cp_photo"/></div>
+              </ion-scroll>
             </div>
-            <ion-scroll direction="x" scrollbar-x="false">
-              <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" class="dl_cp_photo"/></div>
-            </ion-scroll>
-          </div>
-          <div class="dl_card_footer clearfix">
-            <div ng-if="campaign.campaign_unit.length===1" class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</div>
-            <div ng-if="campaign.campaign_unit.length===2" class="dl_team_name">
-              {{campaign.campaign_unit[0].team.name}}
-              vs
-              {{campaign.campaign_unit[1].team.name}}
-            </div>
-            <div class="dl_team_comment clearfix"><i class="ion_comment"></i><span class="dl_card_footer_count">{{campaign.comment_sum}}</span></div>
-            <div class="dl_team_number clearfix"><i class="ion_member"></i><span class="dl_card_footer_count">{{campaign.members_count || '0'}}</span></div>
-          </div></a></div>
+            <div class="dl_card_footer clearfix">
+              <div ng-if="campaign.campaign_unit.length===1" class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</div>
+              <div ng-if="campaign.campaign_unit.length===2" class="dl_team_name">
+                {{campaign.campaign_unit[0].team.name}}
+                vs
+                {{campaign.campaign_unit[1].team.name}}
+              </div>
+              <div class="dl_team_comment clearfix"><i class="ion_comment"></i><span class="dl_card_footer_count">{{campaign.comment_sum}}</span></div>
+              <div class="dl_team_number clearfix"><i class="ion_member"></i><span class="dl_card_footer_count">{{campaign.members_count || '0'}}</span></div>
+            </div></a></div>
+      </div>
     </div>
-    <ion-infinite-scroll ng-if="!loading &amp;&amp; !loadFinished" on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="!loading &amp;&amp; !loadFinished" on-infinite="loadMore()" distance="-1%"></ion-infinite-scroll>
     <div ng-if="loadFinished" class="nomore_text">没有更多的足迹</div>
   </ion-content>
 </ion-view>

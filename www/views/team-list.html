@@ -6,7 +6,6 @@
   <ion-content class="all_team_list_page"><a ng-repeat="team in teams" ng-href="#/team/{{team._id}}" class="dl_team_card clearfix"><img ng-src="{{STATIC_URL + team.logo}}/170/170" class="team_logo"/>
       <div class="team_info">
         <h2 class="team_name">{{team.name}}</h2>
-        <p class="team_cp_title">{{team.lastCampaign.theme}}</p>
         <p ng-if="team.poster" class="team_cp_title">创建人: {{team.poster.nickname}}</p>
         <p ng-cloak="ng-cloak" class="team_count"><span class="team_member">队员：{{team.memberCount}}</span><span class="team_cp_number">活动：{{team.campaignCount}}</span><span class="team_cp_number">积分：{{team.score.total}}</span></p>
         <button prevent-default="prevent-default" ng-if="team.hasJoined" ng-click="quitTeam(team._id, $index)" class="btn_quit">已加入小队</button>

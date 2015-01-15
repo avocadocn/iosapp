@@ -8,27 +8,41 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       scope: {
         campaign: '=',
         pswpPhotoAlbum: '=',
-        pswpId: '='
+        pswpId: '=',
+        campaignIndex:'=',
+        campaignFilter:'@'
       },
       templateUrl: './views/campaign-card.html',
       link: function (scope, element, attrs, ctrl) {
         scope.STATIC_URL = CONFIG.STATIC_URL;
-
-        scope.joinCampaign = function (campaignId) {
-          Campaign.join(campaignId, localStorage.id, function (err, data) {
+        scope.joinCampaign = function (campaign) {
+          Campaign.join(campaign, localStorage.id, function (err, data) {
             if (!err) {
               // todo
               scope.campaign = data;
+              scope.campaign.remove = true;
+              $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
             }
           });
         };
 
         scope.dealProvoke = function(campaignId, dealType){
           //dealType:1接受，2拒绝，3取消
-          Campaign.dealProvoke(campaignId, dealType, function(err, data){
-            if(!err){
-              // todo
-              scope.campaign = data;
+          var dealTypeString = ['接受','拒绝','取消'];
+          var confirmPopup = $ionicPopup.confirm({
+            title: '确认',
+            template: '您确认要'+dealTypeString[dealType-1]+'该挑战吗?',
+            cancelText: '取消',
+            okText: '确认'
+          });
+          confirmPopup.then(function(res) {
+            if(res) {
+              Campaign.dealProvoke(campaignId, dealType, function(err, data){
+                if(!err){
+                  scope.campaign.remove = true;
+                  $rootScope.$broadcast('updateCampaignList', { campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
+                }
+              });
             }
           });
           return false;

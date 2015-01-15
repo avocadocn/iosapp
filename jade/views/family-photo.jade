@@ -1,8 +1,8 @@
 ion-view
   ion-header-bar
-    span.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title.title_have_right {{team.name}}的全家福相册
-    span.button.icon.ion-plus(ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak)
+    a.button.icon.ion-plus(ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak)
   ion-content
     .dl_photo_album_card
       .card_header.clearfix

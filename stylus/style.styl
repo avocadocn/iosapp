@@ -78,10 +78,11 @@ body
     height 100%
     background-color col_gray
     .no_campaign
-      background-image url('/img/no_new_campaign.png')
+      background-image url('../img/no_new_campaign.png')
       width 100%
       height 100%
       background-repeat no-repeat
+      position relative
       .no_campaign_tip
         position absolute
         top 210px
@@ -313,15 +314,20 @@ body
       border-radius 5px
       padding 5px 10px
       font-weight bolder
-    .dl_notice_count
+    .publish_notice
       float right
       margin 0 10px 0 0
       line-height 30px
+      padding-left 20px
     .dl_card_title
       margin 0 0 0 10px
       line-height 30px
-    .publish_notice
-      margin-left 10px
+    .dl_notice_container
+      padding 10px
+      .dl_card_title
+        margin 0
+      .dl_notice_count
+        margin-left 10px
   .dl_card_header_provoke
     .dl_team_logo_right
       float right
@@ -392,25 +398,34 @@ body
       margin 0 auto
   .dl_card_footer
     height 40px
+    padding 0
     border-bottom-left-radius 5px !important
     border-bottom-right-radius 5px !important
-    .tab-item
-      border-top 1px solid #ccc
-      border-right 1px solid #ccc
+    .col
+      padding 0
+      color col_darkGray
+      text-align center
+      text-decoration none
+      cursor pointer
+      font-size 12px
       line-height 40px
+      border-right 1px solid #ccc
       &:last-child
         border-right none
       .icon
+        display inline-block
+        vertical-align middle
+        margin-top -2px
+        margin-right 5px
         color col_blue
-        font-size 14px
-        &:before
-          font-size 18px
-          line-height 40px
+        font-size 16px
       .dl_icon
+        display inline-block
+        width 24px
+        height 24px
         background-size 200px
         vertical-align middle
-        width 24px
-        margin-top 10px
+        margin-top 3px
       .ion_member
         background-position 5px -148px
   .dl_cp_time_status
@@ -446,11 +461,14 @@ body
     background-color col_blue
     padding 6px 46px 2px 10px
     border-radius 5px !important
+    min-height 50px
     .dl_member
       position relative
       .dl_member_logo
         border-radius 5px
         margin-right 5px
+        width 40px
+        height 40px
       .dl_member_leader
         width 20px
         height 20px
@@ -584,18 +602,20 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     color col_blue
     font-size 16px
     font-weight 600
-    line-height 34px
+    line-height 35px
   .button.activated
-    box-shadow inset 0px 1px 1px rgba(0, 0, 0, 0.15)
+    box-shadow 0 0 0
+    color #ddd
   .icon-left, .icon-right
     &.button:before
-      font-size 14px
+      font-size 16px
 .login>.bar
   .icon-left, .icon-right
     &.button:before
       padding-left 10px
   .icon-right
     &.button:before
+      padding-left 5px
       padding-right 10px
 
 //- home页
@@ -738,14 +758,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .icon
       width 32px
       height 30px
-    .red_spot
-      background-color #f48361
-      position absolute
+    .badge
+      background-color #FF5724
       width 12px
       height 12px
-      border-radius 100%
-      left 55%
-      top 5%
+      color transparent
+      right calc(50% - 20px)
   .tab-item-active
     .tab-title
       color col_blue
@@ -797,11 +815,35 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-size 400px
   background-position center
   //-右icon
+  //- ion-infinite-scroll
+  //-   height 20px
   .icon-right
     width 40px
     margin-top 3px
+  //- .balloon
+  //-   position absolute
+  //-   right 10px
+  //-   margin-bottom 20px
+  //-   z-index 10
+  //-   background-color #f48361
+  //-   width 31px
+  //-   height 31px
+  //-   border-radius 5px
+  //-   padding 6px 11px
+  //-   color #fff
+  //-   font-size 16px
+  //-   .triangle
+  //-     position absolute
+  //-     bottom -10px
+  //-     left 10px
+  //-     border-style solid
+  //-     border-width 10px 10px 10px 0
+  //-     border-color transparent #f48361
   //-公告
+  .notice.show
+    display block
   .notice
+    display none
     height 85px
     position absolute
     top 5rem
@@ -838,9 +880,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         line-height 1
         padding 0
   //-发评论
-    
-
-
   .comment_box.taller
     height 200px
   .comment_box
@@ -931,6 +970,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       .logo
         float left
         width 5rem
+        height 5rem
         padding-left 1rem
         img
           float left
@@ -1122,7 +1162,11 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .contacts
   .search_box
     width 100%
-    background-color #fff
+    background-color col_gray
+    .item-input-wrapper
+      background-color #fff
+    input
+      background-color #fff
 //-账号设置页
 .settings_account
   a.item
@@ -1527,10 +1571,34 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
               border-color transparent #43cee6 transparent transparent
               border-style solid
               border-width 0 20px 20px
+.platform-android
+  .popover-backdrop.active
+    .dl_popover
+      margin-top 12px
+      background-color rgba(0,0,0,0.7)
+    .popover-arrow
+      position absolute
+      display block
+      width 30px
+      height 19px
+      overflow hidden
+      left 50px !important
+      &:after
+        position absolute
+        top 12px
+        left 5px
+        width 20px
+        height 20px
+        border-radius 3px
+        content ''
+        -webkit-transform rotate(-45deg)
+        transform rotate(-45deg)
+        background-color rgba(0,0,0,0.7) !important
 .dl_popover
   background-color rgba(0,0,0,0.7)
   border-radius 0 !important
   .dl_popover_content
+    margin 8px 0
     .dl_popover_button
       color white
       height 30px
@@ -1744,7 +1812,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     content ''
     position absolute
     top 0
-    bottom 30px
+    bottom 70px
     width 3px
     background #ccc
     left 50%
@@ -1765,7 +1833,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   margin 10px
   font-size 14px
   text-align center
-  background-color white
   
 .member_page
   .member_group
@@ -1821,6 +1888,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   position relative
   border-radius 5px
   text-decoration none
+  min-height 80px
   .team_logo
     display block
     position absolute
@@ -1840,6 +1908,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .team_cp_title, .team_count, .team_member, .team_cp_number
       margin 0
       font-size 12px
+    .team_count
+      margin-top 12px
     .team_cp_title
       margin-top 5px
     .team_cp_number
@@ -1850,26 +1920,29 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       text-overflow ellipsis
       white-space nowrap
 .all_team_list_page
-  .team_logo
-    width 85px
-    height 85px
-  .team_info
-    padding-left 95px
-  .btn_quit, .btn_join
-    margin-top 10px
-    padding 0
-    width 100%
-    height 30px
-    border-radius 5px
-    font-size 14px
-  .btn_quit
-    border 1px solid col_blue
-    color col_blue
-    background-color white
-  .btn_join
-    color white
-    background-color col_blue
-    border none
+  .dl_team_card
+    .team_logo
+      width 85px
+      height 85px
+    .team_info
+      padding-left 95px
+    .team_count
+      margin-top 6px
+    .btn_quit, .btn_join
+      margin-top 10px
+      padding 0
+      width 100%
+      height 30px
+      border-radius 5px
+      font-size 14px
+    .btn_quit
+      border 1px solid col_blue
+      color col_blue
+      background-color white
+    .btn_join
+      color white
+      background-color col_blue
+      border none
 
 
 
@@ -1885,17 +1958,21 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-color #fff
   .list
     .input-label
-      color col_blue
+      color col_darkGray
+      padding-top 0
+      padding-bottom 0
     .item-label
-      margin 10px 20px
+      margin 5px 20px
       border none
       padding 0
     .item-input
-      margin 10px 20px
+      margin 5px 20px
       border 1px solid col_blue
       border-radius 5px
       input
+        height 22px
         color col_blue
+        padding-top 2px
       .introduce
         color col_blue
         &::-webkit-input-placeholder
@@ -1903,6 +1980,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .item-select
       select
         color col_blue
+        padding 7px 48px 7px 16px
       &:after
         color col_blue
     .item-button
@@ -1914,6 +1992,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         background-color col_blue
         color white
       .button_close
+        background-color col_darkGray
         border none
 
 
@@ -1928,3 +2007,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .popup-container
   .popup
     width 100%
+
+.campaign_card_container
+  -moz-transition  -moz-transform 1s /* Firefox 4 */
+  -webkit-transition -webkit-transform 1s /* Safari and Chrome */
+  -o-transition -o-transform 1s /* Opera */
+
+
+.campaign_card_container.remove
+  transform translateY(500px) scale(0.1) 
+  -moz-transform translateY(500px) scale(0.1) /* Firefox 4 */
+  -webkit-transform translateY(500px) scale(0.1) /* Safari and Chrome */
+  -o-transform translateY(500px) scale(0.1) /* Opera */
+
+

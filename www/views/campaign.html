@@ -11,25 +11,25 @@
           <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_darkBlue">
             <p>未参加的新活动 {{newCampaigns.length}}</p>
           </div>
-          <campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
+          <campaign-card ng-repeat="campaign in newCampaigns | orderBy:'start_time'" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
           <div ng-if="provokes.length&gt;0 || nowType=='provokes'" ng-cloak="ng-cloak" class="campaign_container_title icon_iconPurple">
             <p>挑战 {{provokes.length}}</p>
           </div>
-          <campaign-card ng-repeat="campaign in provokes" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
+          <campaign-card ng-repeat="campaign in provokes | orderBy:'start_time'" campaign="campaign" campaign-index="$index" campaign-filter="provokes" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
           <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_borderPurple">
             <p>进行中的活动 {{nowCampaigns.length}}</p>
           </div>
-          <campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
+          <campaign-card ng-repeat="campaign in nowCampaigns | orderBy:'start_time'" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
           <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_textPurple">
             <p>即将开始的活动 {{unStartCampaigns.length}}</p>
           </div>
-          <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
+          <campaign-card ng-repeat="campaign in unStartCampaigns | orderBy:'start_time'" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns" pswp-photo-album="pswpPhotoAlbum"></campaign-card>
         </div>
       <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign">
         <div class="no_campaign_tip">

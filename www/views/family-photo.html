@@ -1,7 +1,7 @@
 
 <ion-view>
-  <ion-header-bar><span ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</span>
-    <h1 class="title title_have_right">{{team.name}}的全家福相册</h1><span ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak="ng-cloak" class="button icon ion-plus"></span>
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title title_have_right">{{team.name}}的全家福相册</h1><a ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak="ng-cloak" class="button icon ion-plus"></a>
   </ion-header-bar>
   <ion-content>
     <div class="dl_photo_album_card">

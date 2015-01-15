@@ -24,7 +24,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
 
       }
       document.addEventListener("cloudPushRegistered", onCloudPushRegistered, false);
-      fastgoPushNotification.init("pSGg3PHKgD7vdah7eHDydQOu");
+      //fastgoPushNotification.init("pSGg3PHKgD7vdah7eHDydQOu");
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
 
       if (typeof device !== 'undefined') {
@@ -179,6 +179,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/campaign-edit.html'
       })
       .state('sponsor', {
+        cache: false,
         url: '/campaign/sponsor/:type',
         controller: 'SponsorController',
         templateUrl: './views/sponsor.html'

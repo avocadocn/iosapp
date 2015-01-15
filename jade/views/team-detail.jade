@@ -1,13 +1,14 @@
 ion-view
   ion-header-bar
-    span.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title {{team.name}}
     a.button(ng-if="team.isLeader" ng-href="#/team/{{team._id}}/edit" ng-cloak) 编辑
   ion-content.team_page
     .team_header
-      ion-slide-box(ng-cloak)
+      ion-slide-box(ng-if="team.familyPhotos.length > 1" ng-cloak)
         ion-slide(ng-repeat="photo in team.familyPhotos")
           img.team_family(ng-src="{{STATIC_URL + photo.uri}}/640/380")
+      img.team_family(ng-if="team.familyPhotos.length === 1" ng-src="{{STATIC_URL + team.familyPhotos[0].uri}}/640/380")
       img.team_family(ng-if="team.familyPhotos.length === 0" src="./img/family.png")
       img.logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/130/130")
     .card.team_info
@@ -66,7 +67,7 @@ ion-view
           span.member_count {{team.memberCount}}&nbsp;
           i.icon.ion-chevron-right
 
-    .dl_campaign_group(ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam")
+    .dl_campaign_group(ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam" ng-cloak)
       p.dl_campaign_group_date {{group.date | date:'yyyy-MM'}}
       campaign-card(ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId")
     ion-infinite-scroll(on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded() && !team.isOtherCompanyTeam")

@@ -1,8 +1,7 @@
 ion-view.contacts
   ion-header-bar
-    a.button.icon.ion-chevron-left(href="#/app/discover") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(href="#/app/discover") &nbsp;返回
     h1.title 同事
-    button.button.button-clear(ng-if="!searching" ng-click="goSearch()" ng-cloak) 搜索
     button.button.button-clear(ng-if="searching" ng-click="cancelSearch()" ng-cloak) 取消
   ion-content
     .list
@@ -12,9 +11,9 @@ ion-view.contacts
         i.icon.ion-chevron-right
       .item(ng-if="message" ng-cloak)
         span {{message}}
-  ion-footer-bar(ng-if="searching" ng-cloak)
+  ion-footer-bar(ng-cloak)
     .search_box.item-input-inset
       label.item-input-wrapper
         i.icon.ion-ios7-search.placeholder-icon
         input(type="search" ng-model="keyword.value" ng-keypress="search($event)" autofocus)
-      button.button.button-clear(ng-click="search()") 搜索
+      button.button-clear(ng-click="search()") 搜索

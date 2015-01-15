@@ -1,6 +1,6 @@
 ion-view
   ion-header-bar
-    span.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title(ng-cloak) {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
     a.button.icon.ion_discuss_active(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
   ion-content
@@ -25,9 +25,9 @@ ion-view
             span.icon.icon_small.ion-compose.button-clear
         a.dl_cp_address(href="#/location/{{campaign._id}}") 活动地点：{{campaign.location.name}}
           span.icon.icon_small.ion-chevron-right.button-clear
-        p.dl_cp_time 开始时间：{{campaign.start_time | date:"yyyy-MM-dd hh:mm"}}
-        p.dl_cp_time 结束时间：{{campaign.end_time | date:"yyyy-MM-dd  hh:mm" }}
-        p.dl_cp_time 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  hh:mm"}}
+        p.dl_cp_time 开始时间：{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
+        p.dl_cp_time 结束时间：{{campaign.end_time | date:"yyyy-MM-dd  HH:mm" }}
+        p.dl_cp_time 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  HH:mm"}}
         p.dl_cp_member_max(ng-if="campaign.member_max&&campaign.member_max!=0") 人数上限：{{campaign.member_max}}
         p.dl_cp_member_min(ng-if="campaign.member_min&&campaign.member_min!=0") 人数下限：{{campaign.member_min}}
         button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
@@ -39,14 +39,14 @@ ion-view
         ion-scroll(direction="x")
           a.dl_photo_alb(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
-      .item.tabs.tabs-icon-left.dl_card_footer
-        a.tab-item.btn_upload_photo(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
+      .item.dl_card_footer.row
+        a.col.btn_upload_photo(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
           i.icon.ion-image
           | 上传图片
-        a.tab-item.dl_team_number(href="#/members/campaign/{{campaign._id}}" ng-cloak)
-          i.icon.ion_member.dl_icon
+        a.col.dl_team_number(ng-href="#/members/campaign/{{campaign._id}}")
+          i.ion_member.dl_icon
           | 活动成员({{campaign.members_count}})
-        .tab-item.dl_team_comment(ng-click="goDiscussDetail(campaign._id, campaign.theme)" ng-cloak)
+        .col.dl_team_comment(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           i.icon.ion-chatbubble-working
           | {{campaign.comment_sum}}条讨论
     .card.dl_card_detail(ng-if="!campaign.is_end")
@@ -58,9 +58,10 @@ ion-view
           span.dl_cp_time_unit {{campaign.time_text.substr(-1)}}
     .card.dl_card_detail(ng-init="showAllNotice=false;" ng-if="notices.length>0 || campaign.allow.publishCampaignMessage")
       .item.dl_card_header
-        span.dl_card_title 活动公告
+        span.dl_notice_container(ng-click="showAllNotice=!showAllNotice;")
+          span.dl_card_title 活动公告
+          span.dl_notice_count {{notices.length}}
         a.publish_notice.icon.ion-plus(ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()")
-        span.dl_notice_count(ng-click="showAllNotice=!showAllNotice;") {{notices.length}}
       a.item.item-avatar.dl_notice(ng-repeat="notice in notices" ng-if="showAllNotice || $index==0")
         img(ng-src="{{STATIC_URL +notice.sender[0].photo}}")
         h2

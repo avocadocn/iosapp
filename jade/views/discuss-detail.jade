@@ -1,54 +1,56 @@
-ion-view.discuss_detail(title="{{campaignTitle}}")
+ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
   ion-header-bar
-    span.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title(ng-cloak) {{campaignTitle}}
     a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
-  .notice(ng-show="!hideNotice&&notification" ng-cloak)
+  .notice(ng-class="{show:showNotice===true}" ng-show="!hideNotice&&notification" ng-cloak)
     .notice_cover(ng-cloak)
-    .content
+    .content(ng-cloak)
       span.notice_title 活动公告
       button.dl_button.close_button.pull-right(ng-click="hideNotice=true") &times;
-      span.notice_content {{noticeSender}}:{{notification}}
+      span.notice_content(ng-cloak) {{noticeSender}}:{{notification}}
+  //- .balloon.has-footer(ng-if="newCommentNumber" ng-click="toBottom()" ng-cloak) 
+  //-   span(ng-cloak) {{newCommentNumber}}
+  //-   .triangle
   ion-content
     ion-refresher(on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .comments
-      //- balloon?
-      //- .balloon(ng-if="newComment")
       .blocks(ng-repeat="comments in commentList track by $index" id="comment{{$index}}")
         //- .test {{historyCommentList}}
         .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack)
           .time_block(ng-show="showTime && ($index!==0||($index===0&&topShowTime[$parent.$index]))")
             p
-              span.time(ng-show="showTime===1 && ($index!==0||($index===0&&topShowTime[$parent.$index]===1))") {{comment.create_date | date: 'yyyy'}}
+              span.time(ng-show="showTime===1 && ($index!==0||($index===0&&topShowTime[$parent.$index]===1))" ng-cloak) {{comment.create_date | date: 'yyyy'}}
             p
-              span.time {{comment.create_date | date: 'M月dd日 HH:mm'}}
-          .comment.clearfix(ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}")
+              span.time(ng-cloak) {{comment.create_date | date: 'M月dd日 HH:mm'}}
+          .comment.clearfix(ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}" ng-cloak)
             a.logo(ng-href="#/user/{{comment.poster._id}}")
               img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
             .contents
-              .name(ng-if="comment.poster._id !== userId") {{comment.poster.nickname}}
-              .name(ng-if="comment.poster._id == userId") 我
+              .name(ng-if="comment.poster._id !== userId" ng-cloak) {{comment.poster.nickname}}
+              .name(ng-if="comment.poster._id == userId" ng-cloak) 我
               .content
                 .triangle_isosceles.triangle_img
                   .tr
-                    img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img width="180" height="180")
-                    img(ng-if="comment.randomId" ng-src="{{photo.uri}}" error-img width="180" height="180")
+                    img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img width="180" height="180" ng-cloak)
+                    img(ng-if="comment.randomId" ng-src="{{photo.uri}}" error-img width="180" height="180" ng-cloak)
                   .box
                     img.img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
                     img.img(ng-if="comment.randomId" ng-src="{{photo.uri}}" error-img width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
-          .comment.clearfix(ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content")
+          .comment.clearfix(ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" ng-cloak)
             a.logo(ng-href="#/user/{{comment.poster._id}}")
               img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
             .contents
-              .name(ng-if="comment.poster._id !== userId") {{comment.poster.nickname}}
-              .name(ng-if="comment.poster._id == userId") 我
+              .name(ng-if="comment.poster._id !== userId" ng-cloak) {{comment.poster.nickname}}
+              .name(ng-if="comment.poster._id == userId" ng-cloak) 我
               .content
                 .triangle_isosceles(ng-bind-html="comment.content | emoji | unsafe")
-          .failed(ng-if="comment.failed")
+          .failed(ng-if="comment.failed" ng-cloak)
             .tip
               i.icon.ion-alert-circled
               span 发送失败
-      //-再做个刷新?todo
+
+    //- ion-infinite-scroll(ng-if="!loading" on-infinite="refresh()" distance="-1%")
   ion-footer-bar.comment_box(ng-class="{'taller':isShowEmotions}")
     i.icon.ion-image(ng-click="showUploadActionSheet()")
     textarea.comment_input(ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()")
