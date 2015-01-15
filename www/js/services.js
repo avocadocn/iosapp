@@ -4,12 +4,12 @@
 angular.module('donlerApp.services', [])
   .factory('myInterceptor', ['$q', '$location', function($q, $location) {
       var signOut = function(){
-        var isLogin = false;
+        var isLogin = true;
         var path = $location.path();
-        if (path ==='/users/login' || path ==='/companies/login') {
-          isLogin = true;
+        if (path ==='/users/login' || path ==='/company/login') {
+          isLogin = false;
         }
-        if (!isLogin) {
+        if (isLogin) {
           var userType = localStorage.userType;
           if (userType === 'company') {
             $location.path('/company/login');
