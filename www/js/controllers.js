@@ -2398,7 +2398,6 @@ angular.module('donlerApp.controllers', [])
 
     // 已登录的用户获取自己的信息不是异步过程
     User.getData(localStorage.id, function (err, user) {
-      console.log($scope.user)
       $scope.user = user;
     });
 
@@ -2412,7 +2411,6 @@ angular.module('donlerApp.controllers', [])
             console.log(err);
           } else {
             $scope.team = team;
-            console.log($scope.team, $scope.user)
             if ($scope.team.cid !== $scope.user.company._id) {
               $scope.team.isOtherCompanyTeam = true;
             }
@@ -2570,7 +2568,7 @@ angular.module('donlerApp.controllers', [])
           requestType: 'team',
           requestId: teamId,
           populate: 'photo_album',
-          sortBy: '-start_time',
+          sortBy: '-start_time -_id',
           limit: pageSize + 1
         };
         $scope.getCampaigns(options);
@@ -2578,13 +2576,15 @@ angular.module('donlerApp.controllers', [])
         if ($scope.lastCount >= pageSize) {
           $scope.loading = true;
           var startTime = new Date(nextCampaign.start_time);
+          var nextPageStartId = nextCampaign._id;
           options = {
             requestType: 'team',
             requestId: teamId,
             populate: 'photo_album',
-            sortBy: '-start_time',
+            sortBy: '-start_time -_id',
             limit: pageSize + 1,
-            to: startTime.valueOf()
+            to: startTime.valueOf(),
+            nextPageStartId: nextPageStartId
           };
           $scope.getCampaigns(options);
         }

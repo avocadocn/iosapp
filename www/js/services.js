@@ -497,10 +497,10 @@ angular.module('donlerApp.services', [])
        * @param {Date|String} d2
        */
       isTheSameMonth: function (d1, d2) {
-        if (typeof d1 === 'string') {
+        if (!(d1 instanceof Date)) {
           d1 = new Date(d1);
         }
-        if (typeof d2 === 'string') {
+        if (!(d2 instanceof Date)) {
           d2 = new Date(d2);
         }
         return d1.getFullYear() === d2.getFullYear()
