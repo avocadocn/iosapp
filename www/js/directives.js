@@ -19,8 +19,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           Campaign.join(campaign, localStorage.id, function (err, data) {
             if (!err) {
               // todo
-              scope.campaign = data;
               scope.campaign.remove = true;
+              scope.campaign = data;
               $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
             }
           });

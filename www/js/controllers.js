@@ -231,16 +231,11 @@ angular.module('donlerApp.controllers', [])
       })
     }
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', 'Campaign', 'INFO',
-    function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
+    function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
     $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
-    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
-      if(!states.stateName){
-        getCampaignList();
-      }
-    });
     var getCampaignList = function() {
       Campaign.getList({
         requestType: 'user',
@@ -269,8 +264,11 @@ angular.module('donlerApp.controllers', [])
         $rootScope.hideLoading();
       });
     };
-    getCampaignList();
-      
+    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
+      if(!states.stateName){
+        getCampaignList();
+      }
+    });
     $scope.filter = function(filterType) {
       $scope.nowType = filterType;
       $timeout(function() {
@@ -282,10 +280,12 @@ angular.module('donlerApp.controllers', [])
         $scope[args.campaignFilter].splice(args.campaignIndex,1);
         if(args.campaign){
           if(args.campaign.start_flag){
-            $scope.nowCampaigns.push(args.campaign)
+            $scope.nowCampaigns.push(args.campaign);
+            $scope.nowCampaigns = $filter('orderBy')($scope.nowCampaigns, 'start_time');
           }
           else{
             $scope.unStartCampaigns.push(args.campaign);
+            $scope.unStartCampaigns = $filter('orderBy')($scope.unStartCampaigns, 'start_time');
           }
         }
       },300);
