@@ -58,9 +58,6 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         });
 
       }
-      else {
-        CommonHeaders.set();
-      }
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;

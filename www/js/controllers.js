@@ -231,16 +231,11 @@ angular.module('donlerApp.controllers', [])
       })
     }
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', 'Campaign', 'INFO',
-    function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
+    function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
     $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
-    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
-      if(!states.stateName){
-        getCampaignList();
-      }
-    });
     var getCampaignList = function() {
       Campaign.getList({
         requestType: 'user',
@@ -269,8 +264,11 @@ angular.module('donlerApp.controllers', [])
         $rootScope.hideLoading();
       });
     };
-    getCampaignList();
-      
+    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
+      if(!states.stateName){
+        getCampaignList();
+      }
+    });
     $scope.filter = function(filterType) {
       $scope.nowType = filterType;
       $timeout(function() {
@@ -281,11 +279,14 @@ angular.module('donlerApp.controllers', [])
       $timeout(function(){
         $scope[args.campaignFilter].splice(args.campaignIndex,1);
         if(args.campaign){
+          args.campaign.remove = false;
           if(args.campaign.start_flag){
-            $scope.nowCampaigns.push(args.campaign)
+            $scope.nowCampaigns.push(args.campaign);
+            $scope.nowCampaigns = $filter('orderBy')($scope.nowCampaigns, 'start_time');
           }
           else{
             $scope.unStartCampaigns.push(args.campaign);
+            $scope.unStartCampaigns = $filter('orderBy')($scope.unStartCampaigns, 'start_time');
           }
         }
       },300);
@@ -2440,7 +2441,6 @@ angular.module('donlerApp.controllers', [])
 
     // 已登录的用户获取自己的信息不是异步过程
     User.getData(localStorage.id, function (err, user) {
-      console.log($scope.user)
       $scope.user = user;
     });
 
@@ -2454,7 +2454,6 @@ angular.module('donlerApp.controllers', [])
             console.log(err);
           } else {
             $scope.team = team;
-            console.log($scope.team, $scope.user)
             if ($scope.team.cid !== $scope.user.company._id) {
               $scope.team.isOtherCompanyTeam = true;
             }
@@ -2612,7 +2611,7 @@ angular.module('donlerApp.controllers', [])
           requestType: 'team',
           requestId: teamId,
           populate: 'photo_album',
-          sortBy: '-start_time',
+          sortBy: '-start_time -_id',
           limit: pageSize + 1
         };
         $scope.getCampaigns(options);
@@ -2620,13 +2619,15 @@ angular.module('donlerApp.controllers', [])
         if ($scope.lastCount >= pageSize) {
           $scope.loading = true;
           var startTime = new Date(nextCampaign.start_time);
+          var nextPageStartId = nextCampaign._id;
           options = {
             requestType: 'team',
             requestId: teamId,
             populate: 'photo_album',
-            sortBy: '-start_time',
+            sortBy: '-start_time -_id',
             limit: pageSize + 1,
-            to: startTime.valueOf()
+            to: startTime.valueOf(),
+            nextPageStartId: nextPageStartId
           };
           $scope.getCampaigns(options);
         }
