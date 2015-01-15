@@ -1323,13 +1323,11 @@ angular.module('donlerApp.controllers', [])
     }
 
     $scope.refresh = function() {
-      console.log('???')
       Team.getList('company', null, false, function (err, teams) {
         if (err) {
           // todo
           console.log(err);
         } else {
-          console.log('...');
           $scope.teams = teams;
           INFO.officialTeamList = teams;
         }
