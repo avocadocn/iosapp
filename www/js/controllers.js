@@ -697,7 +697,8 @@ angular.module('donlerApp.controllers', [])
     // console.log(INFO);
     $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
       if(!states.stateName){
-        getComments();
+        getComments(INFO.discussCampaignId);
+        Socket.emit('enterRoom', localStorage.id);
       }
     });
     if(INFO.discussList){
@@ -706,15 +707,25 @@ angular.module('donlerApp.controllers', [])
       $scope.unjoinedIndex = INFO.discussList.unjoinedIndex;
     }
     //进来以后先http请求,再监视推送
-    var getComments = function() {
+    var getComments = function(campaignId) {
       Comment.getList('joined').success(function (data) {
         $scope.commentCampaigns = data.commentCampaigns;
         $scope.latestUnjoinedCampaign = data.latestUnjoinedCampaign;
         //判断下把未参加的放哪
         $scope.unjoinedIndex = 20;
+        if(campaignId) {
+          //如果从某个讨论详情页回来，把unread数清零.
+          var length = $scope.commentCampaigns.length;
+          for(var i = 0; i<length; i++){
+            if($scope.commentCampaigns[i]._id.toString() == campaignId.toString()) {
+              $scope.commentCampaigns[i].unread = 0;
+            }
+          }
+        }
         if($scope.latestUnjoinedCampaign) {
           var unjoinedCommentTime = new Date($scope.latestUnjoinedCampaign.latestComment.createDate);
-          for(var i=$scope.commentCampaigns.length-1; i>=0; i--){
+          var length = $scope.commentCampaigns.length-1;
+          for(var i=length; i>=0; i--){
             var joinedCommentTime = new Date($scope.commentCampaigns[i].latestComment.createDate);
             if(unjoinedCommentTime>joinedCommentTime){
               $scope.unjoinedIndex = i;
@@ -726,6 +737,7 @@ angular.module('donlerApp.controllers', [])
         }
         $scope.newUnjoined = data.newUnjoinedCampaignComment;
         localStorage.hasNewComment = false;
+        INFO.discussCampaignId = '';
       });
     };
     getComments();
@@ -763,8 +775,24 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('UnjoinedDiscussController', ['$scope','$state', 'INFO', 'Comment', 'Socket', 'Tools', function ($scope, $state, INFO, Comment, Socket, Tools) { //标为全部已读???
     //进来以后先http请求,再监视推送
-    Comment.getList('unjoined').success(function (data) {
-      $scope.commentCampaigns = data.commentCampaigns;
+    // Comment.getList('unjoined').success(function (data) {
+    //   $scope.commentCampaigns = data.commentCampaigns;
+    // });
+    $scope.$on("$ionicView.enter", function( scopes, states ) {
+      Socket.emit('quitRoom');
+      Socket.emit('enterRoom', localStorage.id);
+      Comment.getList('unjoined').success(function (data) {
+        $scope.commentCampaigns = data.commentCampaigns;
+        if(INFO.discussCampaignId) {
+          //如果从某个讨论详情页回来，把unread数清零.
+          var length = $scope.commentCampaigns.length;
+          for(var i = 0; i<length; i++){
+            if($scope.commentCampaigns[i]._id.toString() == INFO.discussCampaignId.toString()) {
+              $scope.commentCampaigns[i].unread = 0;
+            }
+          }
+        }
+      });
     });
     Socket.on('newUnjoinedCommentCampaign', function (data) {
       var newCommentCampaign = data;
@@ -915,6 +943,7 @@ angular.module('donlerApp.controllers', [])
     getComments();
 
     //获取新留言
+    var needRead = false;//标记是否需要再去read
     Socket.on('newCampaignComment', function (data) {
       //如果是自己发的看看是不是取消loading就行.
       var commentListIndex = $scope.commentList.length -1;
@@ -936,6 +965,7 @@ angular.module('donlerApp.controllers', [])
         addPhotos(data);
         // $ionicScrollDelegate.scrollBottom();
         // $scope.newCommentNumber ++;
+        needRead = true;
       }
     });
     // $scope.newCommentNumber = 0;
@@ -1248,6 +1278,18 @@ angular.module('donlerApp.controllers', [])
       // console.log(emotion);
       $scope.commentContent += ':'+ emotion +':';
     };
+
+    $scope.$on('$ionicView.enter', function(){
+      INFO.discussCampaignId = $scope.campaignId;
+    });
+
+    $scope.$on('$ionicView.leave', function(){
+      if(needRead){
+        Comment.readComment($scope.campaignId, function(err) {
+          if(err) console.log(err);
+        });
+      }
+    });
   }])
   .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
     if($state.params.type) {
@@ -1676,6 +1718,7 @@ angular.module('donlerApp.controllers', [])
     if(localStorage.hasNewComment === true) {
       $scope.hasNewComment = true;
     }
+    var nowState = '';
     //socket服务器推送通知
     Socket.on('getNewComment', function() {
       if(nowState!=='discussList'){
@@ -1684,19 +1727,18 @@ angular.module('donlerApp.controllers', [])
       }
     });
     //点过去就代表看过了
-
     var readComments = function() {
       $scope.hasNewComment = false;
       localStorage.hasNewComment = false;
     };
-    var nowState = '';
+    
     $scope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {
         $ionicHistory.nextViewOptions({
           disableBack: true,
           historyRoot: true
         });
-        if(toState.url==='/discuss/list') {
+        if(toState.name==='app.discuss_list' || toState.name==='discuss_detail' || toState.name==='unjoined_discuss_list') {
           readComments();
           nowState = 'discussList';
         }else{

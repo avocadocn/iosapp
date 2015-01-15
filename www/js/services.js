@@ -60,7 +60,8 @@ angular.module('donlerApp.services', [])
     discussList:{},//讨论列表缓存
     screenWidth: 320,
     screenHeight: 568,
-    team:''//hr编辑小队用
+    team:'',//hr编辑小队用
+    discussCampaignId:''//供返回时去除红点用
   })
   .factory('CommonHeaders', ['$http', 'CONFIG', function ($http, CONFIG) {
 
@@ -457,6 +458,14 @@ angular.module('donlerApp.services', [])
           // todo
           callback('publish error');
         });
+      },
+      readComment: function(campaignId, callback) {
+        $http.post(CONFIG.BASE_URL + '/comments/read',{requestId:campaignId})
+        .success(function (data,status) {
+          callback()
+        }).error(function (data, status) {
+          callback('read error');
+        })
       }
     }
   }])
