@@ -4,6 +4,8 @@
     <h1 class="title">员工验证码</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="card list"><a ng-cloak="ng-cloak" class="item">{{inviteKey}}</a></div>
+    <div class="card list">
+      <div ng-cloak="ng-cloak" class="item item-icon-right">{{inviteKey}}<i ng-click="copy()" class="icon ion-clipboard"></i></div>
+    </div>
   </ion-content>
 </ion-view>

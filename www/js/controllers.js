@@ -2319,12 +2319,29 @@ angular.module('donlerApp.controllers', [])
     }
   
   }])
-  .controller('CompanyActiveCodeController', ['$scope', 'Company', function ($scope, Company) {
+  .controller('CompanyActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', function ($scope, Company, $cordovaClipboard, $ionicPopup) {
     Company.getInviteKey(localStorage.id, function(msg, data){
       if(!msg){
         $scope.inviteKey = data.staffInviteCode;
       }
-    })
+    });
+
+    $scope.copy = function () {
+      $cordovaClipboard
+      .copy($scope.inviteKey)
+      .then(function () {
+        $ionicPopup.alert({
+          title: '提示',
+          template: '验证码已成功复制到剪贴板'
+        });
+      }, function () {
+        $ionicPopup.alert({
+          title: '提示',
+          template: '复制验证码到剪贴板失败'
+        });
+      });
+    };
+
   }])
   .controller('CompanyTeamController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
     switch ($stateParams.type) {
