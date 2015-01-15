@@ -279,6 +279,7 @@ angular.module('donlerApp.controllers', [])
       $timeout(function(){
         $scope[args.campaignFilter].splice(args.campaignIndex,1);
         if(args.campaign){
+          args.campaign.remove = false;
           if(args.campaign.start_flag){
             $scope.nowCampaigns.push(args.campaign);
             $scope.nowCampaigns = $filter('orderBy')($scope.nowCampaigns, 'start_time');
