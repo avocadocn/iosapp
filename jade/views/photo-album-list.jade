@@ -2,7 +2,7 @@ ion-view
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-href="#/team/{{teamId}}") &nbsp;返回
     h1.title 小队影集
-  ion-content
+  ion-content(has-bouncing="true")
     a.dl_photo_album_card(href="#/team/{{teamId}}/family")
       .card_header.clearfix
         p.header_title 小队封面&nbsp;({{familyPhotoLength}})
