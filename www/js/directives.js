@@ -131,3 +131,27 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       }
     };
   }])
+    
+.directive('staticMap',function(){
+  return {
+    restrict: 'E',
+    scope: {
+      name: '@',
+      coordinates: '='
+    },
+    // replace: true,
+    template: '<a ng-if="coordinates.length==2" href="#" ng-click="linkMap()" class="map_wrap"><img ng-src="http://restapi.amap.com/v3/staticmap?location={{coordinates[0]}},{{coordinates[1]}}&amp;zoom=15&amp;size=300*260&amp;markers=mid,,A:{{coordinates[0]}},{{coordinates[1]}}&amp;labels={{name}},2,0,12,0xffffff,0x3498db:{{coordinates[0]}},{{coordinates[1]}}&amp;key=077eff0a89079f77e2893d6735c2f044" class="map_img"/></a>',
+    link: function (scope, element, attrs, ctrl) {
+      scope.linkMap = function () {
+        if(scope.coordinates &&scope.coordinates.length==2) {
+          var link = 'http://m.amap.com/navi/?dest=' + scope.coordinates[0] + ',' + scope.coordinates[1] + '&destName=' + scope.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
+          window.open( link, '_system' , 'location=yes');
+        }
+        return false;
+      }
+    }
+  }
+})
+
+
+

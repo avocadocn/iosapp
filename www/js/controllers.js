@@ -2710,11 +2710,6 @@ angular.module('donlerApp.controllers', [])
         return true;
       }
     };
-    $scope.linkMap = function (homeCourt) {
-      var link = 'http://m.amap.com/navi/?dest=' + homeCourt.loc.coordinates[0] + ',' + homeCourt.loc.coordinates[1] + '&destName=' + homeCourt.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
-      window.open( link, '_system' , 'location=yes');
-      return false;
-    }
     $scope.$on('$stateChangeSuccess', function() {
       $scope.loadMore();
     });
@@ -3587,11 +3582,6 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('LocationController', ['$ionicHistory', '$scope', '$stateParams', 'INFO', function($ionicHistory, $scope, $stateParams, INFO) {
     $scope.location = INFO.locationContent;
-    $scope.linkMap = function (location) {
-      var link = 'http://m.amap.com/navi/?dest=' + location.coordinates[0] + ',' + location.coordinates[1] + '&destName=' + location.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
-      window.open( link, '_system' , 'location=yes');
-      return false;
-    }
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
