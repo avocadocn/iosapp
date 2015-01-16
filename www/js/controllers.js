@@ -1307,7 +1307,7 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-          $scope.officialTeams = teams;
+          $scope.teams = teams;
           INFO.officialTeamList = teams;
         }
       });
@@ -1321,6 +1321,19 @@ angular.module('donlerApp.controllers', [])
       //   }
       // });
     }
+
+    $scope.refresh = function() {
+      Team.getList('company', null, false, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.teams = teams;
+          INFO.officialTeamList = teams;
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    };
     
     $scope.joinTeam = function(tid, index) {
       Team.joinTeam(tid, localStorage.id, function(err, data) {
@@ -1461,18 +1474,32 @@ angular.module('donlerApp.controllers', [])
     };
   }])
   .controller('PersonalController', ['$scope', '$rootScope', '$state', '$ionicHistory', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', function ($scope, $rootScope, $state, $ionicHistory, User, Message, Tools, CONFIG, INFO) {
-    User.getData(localStorage.id, function (err, data) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.user = data;
-        if ($scope.user.birthday) {
-          var birthday = new Date($scope.user.birthday);
-          $scope.constellation = Tools.birthdayToConstellation(birthday.getMonth() + 1, birthday.getDate());
-        }
+    $scope.$on('$stateChangeStart',function (event, toState, toParams, fromState, fromParams){
+      if(toState.url==='/personal') {
+        getUser();
       }
-    });
+    })
+    $rootScope.$on('$ionicView.enter', function (scopes, states) {
+      if(!states.stateName){
+        getUser();
+      }
+    })
+    var getUser = function() {
+      User.getData(localStorage.id, function (err, data) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.user = data;
+          if ($scope.user.birthday) {
+            var birthday = new Date($scope.user.birthday);
+            $scope.constellation = Tools.birthdayToConstellation(birthday.getMonth() + 1, birthday.getDate());
+          }
+        }
+      });
+    };
+    getUser();
+    
 
     $scope.personalPswpId = 'personal' + Date.now();
     $scope.openPhotoSwipe = function () {
@@ -1670,25 +1697,32 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
     INFO.createTeamBackUrl = '#/personal/teams';
-    Team.getList('user', localStorage.id, null, function (err, teams) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        var leadTeams = [];
-        var memberTeams = [];
-        teams.forEach(function(team) {
-          if(team.isLeader) {
-            leadTeams.push(team);
-          }
-          else {
-            memberTeams.push(team);
-          }
-        });
-        $scope.leadTeams = leadTeams;
-        $scope.memberTeams = memberTeams;
-      }
-    });
+    var getMyTeams = function() {
+      Team.getList('user', localStorage.id, null, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          var leadTeams = [];
+          var memberTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else {
+              memberTeams.push(team);
+            }
+          });
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+        }
+      });
+    };
+    getMyTeams();
+    $scope.refresh = function() {
+      getMyTeams();
+      $scope.$broadcast('scroll.refreshComplete');
+    };
 
   }])
   .controller('SettingsController', ['$scope', '$state', '$ionicHistory', 'UserAuth', 'User', 'CommonHeaders', function ($scope, $state, $ionicHistory, UserAuth, User, CommonHeaders) {
@@ -2299,12 +2333,29 @@ angular.module('donlerApp.controllers', [])
     }
   
   }])
-  .controller('CompanyActiveCodeController', ['$scope', 'Company', function ($scope, Company) {
+  .controller('CompanyActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', function ($scope, Company, $cordovaClipboard, $ionicPopup) {
     Company.getInviteKey(localStorage.id, function(msg, data){
       if(!msg){
         $scope.inviteKey = data.staffInviteCode;
       }
-    })
+    });
+
+    $scope.copy = function () {
+      $cordovaClipboard
+      .copy($scope.inviteKey)
+      .then(function () {
+        $ionicPopup.alert({
+          title: '提示',
+          template: '验证码已成功复制到剪贴板'
+        });
+      }, function () {
+        $ionicPopup.alert({
+          title: '提示',
+          template: '复制验证码到剪贴板失败'
+        });
+      });
+    };
+
   }])
   .controller('CompanyTeamController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
     switch ($stateParams.type) {
@@ -3355,7 +3406,7 @@ angular.module('donlerApp.controllers', [])
 
         var deleteConfirm = $ionicPopup.confirm({
           title: '提示',
-          template: '确定要移除这张全家福吗？',
+          template: '确定要从封面中移除这张照片吗？',
           okText: '确定',
           cancelText: '取消'
         });

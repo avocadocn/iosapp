@@ -1,12 +1,12 @@
 ion-view
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title.title_have_right {{team.name}}的全家福相册
+    h1.title.title_have_right {{team.name}}的封面
     a.button.icon.ion-plus(ng-if="team.isLeader" ng-click="showUploadActionSheet()" ng-cloak)
   ion-content
     .dl_photo_album_card
       .card_header.clearfix
-        p.header_title 全家福({{familyPhotos.length}})
+        p.header_title 小队封面({{familyPhotos.length}})
       .clearfix
         .photo_wrap(ng-repeat="photo in familyPhotos")
           img.family_photo(ng-src="{{STATIC_URL + photo.uri}}/60/60" ng-click="openPhotoSwipe(photo._id)")

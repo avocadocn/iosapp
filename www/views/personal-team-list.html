@@ -4,6 +4,7 @@
     <h1 class="title">我的小队</h1>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <p ng-if="leadTeams.length&gt;0" ng-cloak="ng-cloak" class="dl_team_title">我管理的小队</p><a ng-repeat="team in leadTeams" ng-href="#/team/{{team._id}}" ng-cloak="ng-cloak" class="dl_team_card clearfix"><img ng-src="{{STATIC_URL + team.logo}}/120/120" class="team_logo"/>
       <div class="team_info">
         <h2 class="team_name">{{team.name}}</h2>

@@ -4,5 +4,6 @@ ion-view
     h1.title 员工验证码
   ion-content
     .card.list
-      a.item(ng-cloak)
+      .item.item-icon-right(ng-cloak)
         | {{inviteKey}}
+        i.icon.ion-clipboard(ng-click="copy()")

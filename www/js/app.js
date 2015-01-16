@@ -24,7 +24,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
 
       }
       document.addEventListener("cloudPushRegistered", onCloudPushRegistered, false);
-      //fastgoPushNotification.init("pSGg3PHKgD7vdah7eHDydQOu");
+      if(typeof fastgoPushNotification !='undefined'){
+        fastgoPushNotification.init("pSGg3PHKgD7vdah7eHDydQOu");
+      }
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
 
       if (typeof device !== 'undefined') {

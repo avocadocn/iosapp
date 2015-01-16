@@ -27,7 +27,7 @@ ion-view.edit_info
         input(type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name")
         button.button.button-positive(ng-click="showPopup(formData.homeCourts[1])") 地图
       a.item.item-input.item-icon-right(ng-href="#/team/{{team._id}}/family")
-        span.input-label 修改全家福
+        span.input-label 修改小队封面
         i.icon.ion-chevron-right
   script(id="homecourt-modal.html" type="text/ng-template")
     ion-modal-view

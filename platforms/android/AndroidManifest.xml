@@ -28,6 +28,13 @@
             </intent-filter>
         </receiver>
         <service android:exported="true" android:name="com.baidu.android.pushservice.PushService" android:process=":bdservice_v1" />
+        <receiver android:name="de.appplant.cordova.plugin.localnotification.Receiver" />
+        <receiver android:name="de.appplant.cordova.plugin.localnotification.Restore">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <activity android:launchMode="singleInstance" android:name="de.appplant.cordova.plugin.localnotification.ReceiverActivity" />
     </application>
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />

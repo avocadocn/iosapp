@@ -5,7 +5,7 @@ ion-view
   ion-content
     a.dl_photo_album_card(href="#/team/{{teamId}}/family")
       .card_header.clearfix
-        p.header_title 全家福&nbsp;({{familyPhotoLength}})
+        p.header_title 小队封面&nbsp;({{familyPhotoLength}})
       .clearfix
         img.photo(ng-repeat="photo in familyPhotos" ng-src="{{STATIC_URL + photo.uri}}/65/65")
 
