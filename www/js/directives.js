@@ -139,7 +139,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       name: '@',
       coordinates: '='
     },
-    // replace: true,
     template: '<a ng-if="coordinates.length==2" href="#" ng-click="linkMap()" class="map_wrap"><img ng-src="http://restapi.amap.com/v3/staticmap?location={{coordinates[0]}},{{coordinates[1]}}&amp;zoom=15&amp;size=300*260&amp;markers=mid,,A:{{coordinates[0]}},{{coordinates[1]}}&amp;labels={{name}},2,0,12,0xffffff,0x3498db:{{coordinates[0]}},{{coordinates[1]}}&amp;key=077eff0a89079f77e2893d6735c2f044" class="map_img"/></a>',
     link: function (scope, element, attrs, ctrl) {
       scope.linkMap = function () {
@@ -152,6 +151,161 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   }
 })
+
+.directive('editMap',['$ionicModal', '$ionicPopup', function($ionicModal, $ionicPopup){
+  return {
+    restrict: 'AE',
+    scope: {
+      mapName: '@',
+      locationName:'=',
+      location: '='
+    },
+    link: function (scope, element, attrs, ctrl) {
+      var city, marker, toolBar;
+      var modalController = $ionicModal.fromTemplate('<ion-modal-view><ion-header-bar><h1 class="title">地址选择</h1></ion-header-bar><ion-content><div id="{{mapName}}" class="map_container"></div><button ng-click="closeModal()" class="button button-full button-positive">确定</button></ion-content></ion-modal-view>', {
+        scope: scope,
+        animation: 'slide-in-up'
+      });
+      scope.$on('$destroy',function() {
+        modalController.remove();
+      });
+
+      var placeSearchCallBack = function(data){
+
+        scope.locationmap.clearMap();
+        if(data.poiList.pois.length==0){
+          $ionicPopup.alert({
+            title: '提示',
+            template: '没有符合条件的地点，请重新输入'
+          });
+          scope.closeModal();
+          return;
+        }
+        var lngX = data.poiList.pois[0].location.getLng();
+        var latY = data.poiList.pois[0].location.getLat();
+        scope.location.coordinates=[lngX, latY];
+        var nowPoint = new AMap.LngLat(lngX,latY);
+        var markerOption = {
+          map: scope.locationmap,
+          position: nowPoint,
+          raiseOnDrag:true
+        };
+        marker = new AMap.Marker(markerOption);
+        scope.locationmap.setFitView();
+        AMap.event.addListener(scope.locationmap,'click',function(e){
+          var lngX = e.lnglat.getLng();
+          var latY = e.lnglat.getLat();
+          scope.location.coordinates=[lngX,latY];
+          scope.locationmap.clearMap();
+          var nowPoint = new AMap.LngLat(lngX,latY);
+          var markerOption = {
+            map: scope.locationmap,
+            position: nowPoint,
+            raiseOnDrag: true
+          };
+          marker = new AMap.Marker(markerOption);
+        });
+      };
+      scope.initialize = function(){
+        try {
+          scope.locationmap =  new AMap.Map(scope.mapName);            // 创建Map实例
+          scope.locationmap.plugin(["AMap.ToolBar"],function(){
+            toolBar = new AMap.ToolBar();
+            scope.locationmap.addControl(toolBar);
+          });
+          if(city){
+            scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+              scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+                pageSize:1,
+                pageIndex:1,
+                city:city
+              });
+              AMap.event.addListener(scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+              scope.MSearch.search(scope.locationName);
+            });
+          }
+          else {
+            scope.locationmap.plugin(["AMap.CitySearch"], function() {
+              //实例化城市查询类
+              var citysearch = new AMap.CitySearch();
+              AMap.event.addListener(citysearch, "complete", function(result){
+                if(result && result.city && result.bounds) {
+                  var citybounds = result.bounds;
+                  //地图显示当前城市
+                  scope.locationmap.setBounds(citybounds);
+                  city = result.city;
+                  scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+                    scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+                      pageSize:1,
+                      pageIndex:1,
+                      city: city
+                    });
+                    AMap.event.addListener(scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+                    scope.MSearch.search(scope.locationName);
+                  });
+                }
+              });
+              AMap.event.addListener(citysearch, "error", function (result) {
+                scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
+                  scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
+                    pageSize:1,
+                    pageIndex:1
+                  });
+                  AMap.event.addListener(scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
+                  scope.MSearch.search(scope.locationName);
+                });
+              });
+              //自动获取用户IP，返回当前城市
+              citysearch.getLocalCity();
+
+            });
+          }
+        }
+        catch (e){
+          console.log(e)
+        }
+        window.map_ready =true;
+      }
+      scope.showPopup = function() {
+        if(scope.locationName==''){
+          $ionicPopup.alert({
+            title: '提示',
+            template: '请输入地点'
+          });
+          return false;
+        }
+        else{
+          modalController.show();
+          //加载地图
+          if(!window.map_ready){
+            window.map_initialize = scope.initialize;
+            var script = document.createElement("script");
+            script.src = "http://webapi.amap.com/maps?v=1.3&key=077eff0a89079f77e2893d6735c2f044&callback=map_initialize";
+            document.body.appendChild(script);
+          }
+          else{
+            scope.initialize();
+          }
+        }
+      }
+      scope.closeModal = function() {
+        modalController.hide();
+      };
+      element.bind('click', function() {
+        scope.showPopup();
+      });
+    }
+  }
+}])
+
+
+
+
+
+
+
+
+
 
 
 
