@@ -593,6 +593,10 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 //-通用bar
 .bar
   border-bottom 1px solid #ccc
+  //title的button用的时{{}}绑定时会不居中，所有统一固定为70
+  .dl_title
+    left 70px !important
+    right 70px !important
   .title + .button.ion_discuss_active:last-child
     right 15px
     width 30px

@@ -2,9 +2,9 @@ ion-view
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     a.button.icon_blue(ng-if="view==='day'" ng-click="back()") 关闭
-    h1.title 我的日程
-    a.button.ion-chevron-down.icon-right(ng-click="showFilter($event)") {{campaignTypes[nowTypeIndex].view}}
-  ion-content.has-header(scroll='false')
+    h1.title.dl_title 我的日程
+    a.button.ion-chevron-down.icon-right(ng-click="showFilter($event)" ng-cloak) {{campaignTypes[nowTypeIndex].view || '所有'}}
+  ion-content(scroll='false')
     .calendar
       nav
         .operator.item.tabs(ng-if="view==='month'")

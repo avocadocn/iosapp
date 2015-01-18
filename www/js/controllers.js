@@ -1676,6 +1676,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CalendarController',['$scope', '$rootScope', '$state', '$ionicPopup', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
     function($scope, $rootScope, $state, $ionicPopup, $ionicPopover, $timeout, $ionicHistory, Campaign, INFO) {
+      $scope.nowTypeIndex =2;
       $scope.campaignTypes =[{
         value:'unjoined',view:'未参加'
       },
@@ -1693,7 +1694,7 @@ angular.module('donlerApp.controllers', [])
           $state.go('app.'+$state.params.type);
         }
       }
-      $scope.nowTypeIndex =2;
+
       moment.locale('zh-cn');
       $scope.calendarBackUrl = INFO.calendarBackUrl;
       /**
