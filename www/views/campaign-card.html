@@ -16,7 +16,7 @@
       <p ng-if="campaign.confirm_status===false" class="dl_provoke_info"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span>&nbsp;向&nbsp;<span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>&nbsp;发起挑战</p>
       <p ng-if="campaign.confirm_status===false" class="dl_cp_name">{{campaign.theme}}</p>
       <ion-scroll direction="x" scrollbar-x="false">
-        <div class="dl_photo_alb"><img prevent-default="prevent-default" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" error-img="error-img" ng-click="openPhotoSwipe(campaign.photo_album.photos, photo._id)" class="dl_cp_photo"/></div>
+        <div class="dl_photo_alb"><img prevent-default="prevent-default" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" error-img="error-img" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="campaign.photo_album._id" ng-click="addPhotos(campaign.photo_album.photos)" open-photo="open-photo" class="dl_cp_photo"/></div>
       </ion-scroll>
     </div>
     <div ng-if="campaign.confirm_status===true" class="dl_card_footer clearfix">

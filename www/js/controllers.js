@@ -3,90 +3,7 @@
  */
 
 angular.module('donlerApp.controllers', [])
-  .directive('preventDefault', function () {
-    return function (scope, element, attrs) {
-      angular.element(element).bind('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      });
-    }
-  })
-  .directive('detectGestures', function($ionicGesture) {
-    return {
-      restrict :  'A',
-
-      link : function(scope, elem, attrs) {
-        var gestureType = attrs.gestureType.split(',');
-        var getstureCallback = attrs.getstureCallback.split(',');
-        var gesture = [];
-        gestureType.forEach(function(_gestureType,_index){
-          switch(_gestureType) {
-            case "swipe":
-              gesture[_index] = $ionicGesture.on('swipe',scope[getstureCallback[_index]], elem);
-              break;
-            case "swipeleft":
-              gesture[_index] = $ionicGesture.on('swipeleft', scope[getstureCallback[_index]], elem);
-              break;
-            case "swiperight":
-              gesture[_index] = $ionicGesture.on('swiperight', scope[getstureCallback[_index]], elem);
-              break;
-            case "pinch":
-              gesture[_index] = $ionicGesture.on('pinch', scope[getstureCallback[_index]], elem);
-              break;
-             case "drag":
-              gesture[_index] = $ionicGesture.on('drag', scope[getstureCallback[_index]], elem);
-              break;
-            case 'doubletap':
-              gesture[_index] = $ionicGesture.on('doubletap', scope[getstureCallback[_index]], elem);
-              break;
-            // case 'tap':
-            //   $ionicGesture.on('tap', scope.reportEvent, elem);
-            //   break;
-          }
-        });
-        scope.$on('$destroy', function() {
-          // Unbind drag gesture handler
-          gestureType.forEach(function(_gestureType,_index){
-            switch(_gestureType) {
-              case "swipe":
-                $ionicGesture.off(gesture[_index], 'swipeleft');
-                break;
-              case "swipeleft":
-                $ionicGesture.off(gesture[_index], 'swipeleft');
-                break;
-              case "swiperight":
-                $ionicGesture.off(gesture[_index], 'swipeleft');
-                break;
-              case "pinch":
-                $ionicGesture.off(gesture[_index], 'pinch');
-                break;
-              case "drag":
-                $ionicGesture.off(gesture[_index], 'drag');
-                break;
-              case 'doubletap':
-                $ionicGesture.off(gesture[_index],'doubletap');
-                break;
-              // case 'tap':
-              //   $ionicGesture.off('tap', scope.reportEvent, elem);
-              //   break;
-            }
-          });
-        });
-      }
-    }
-  })
-  .directive('match', ['$parse', function ($parse) {
-    return {
-      require: 'ngModel',
-      link: function(scope, elem, attrs, ctrl) {
-        scope.$watch(function() {
-          return $parse(attrs.match)(scope) === ctrl.$modelValue;
-        }, function(currentValue) {
-          ctrl.$setValidity('mismatch', currentValue);
-        });
-      }
-    };
-  }])
+  
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
   .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'UserAuth', function ($scope, CommonHeaders, $state, $ionicHistory, UserAuth) {
@@ -236,6 +153,7 @@ angular.module('donlerApp.controllers', [])
     $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
+    $scope.pswpId = 'campaigns' + Date.now();
     var getCampaignList = function() {
       Campaign.getList({
         requestType: 'user',
@@ -726,6 +644,7 @@ angular.module('donlerApp.controllers', [])
         });
       }
     };
+    $scope.pswpPhotoAlbum = {};
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
@@ -735,30 +654,8 @@ angular.module('donlerApp.controllers', [])
       }
     }
     $scope.pswpId = 'discuss' + Date.now();
-    $scope.openPhotoSwipe = function (photoId) {
-      var pswpElement = document.querySelector('#' + $scope.pswpId);
 
-      var index = Tools.arrayObjectIndexOf($scope.photos, photoId, '_id');
-
-      var options = {
-        // history & focus options are disabled on CodePen
-        history: false,
-        focus: false,
-        index: index,
-        showAnimationDuration: 0,
-        hideAnimationDuration: 0
-      };
-      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
-      gallery.init();
-      $scope.pswpPhotoAlbum = {
-        goToAlbum: function () {
-          gallery.close();
-          $location.url('/photo_album/' + $scope.photoAlbumId + '/detail');
-        }
-      };
-    };
-
-    var nextStartDate ='';
+    
 
     //获取公告
     $scope.showNotice = false;
@@ -804,7 +701,7 @@ angular.module('donlerApp.controllers', [])
     //   var index = Tools.arrayObjectIndexOf(localStorage.commentList, $scope.campaignId, '_id');
     //   if(index>-1) $scope.commentList.push(localStorage.commentList[index]);
     // }
-      
+    var nextStartDate ='';      
     //获取最新20条评论
     var getComments = function() {
       Comment.getComments($scope.campaignId, 20).success(function(data){
@@ -1376,37 +1273,7 @@ angular.module('donlerApp.controllers', [])
     getUser();
     
 
-    $scope.personalPswpId = 'personal' + Date.now();
-    $scope.openPhotoSwipe = function () {
-      try {
-        $rootScope.hideTabs = true;
-        var pswpElement = document.querySelector('#' + $scope.personalPswpId);
-        var options = {
-          history: false,
-          focus: false,
-          index: 0,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0
-        };
-        var width = Math.min(INFO.screenWidth, INFO.screenHeight);
-        var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [{
-          src: CONFIG.STATIC_URL + $scope.user.photo + '/' + width + '/' + width,
-          w: width,
-          h: width
-        }], options);
-        pswp.listen('close', function() {
-          $rootScope.hideTabs = false;
-          if (!$rootScope.$$phase) {
-            $rootScope.$digest();
-          }
-        });
-        pswp.init();
-      } catch (e) {
-        console.log(e);
-        console.log(e.stack);
-        $rootScope.hideTabs = false;
-      }
-    };
+    $scope.pswpId = 'personal' + Date.now();
 
     Message.receiveUserMessages(localStorage.id, function (err, messagesCount) {
       if (err) {
@@ -2940,21 +2807,6 @@ angular.module('donlerApp.controllers', [])
       getPhotos();
 
       $scope.pswpId = 'photoAlbum' + Date.now();
-      $scope.openPhotoSwipe = function (photoId) {
-        var pswpElement = document.querySelector('#' + $scope.pswpId);
-
-        var index = Tools.arrayObjectIndexOf($scope.photos, photoId, '_id');
-
-        var options = {
-          history: false,
-          focus: false,
-          index: index,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0
-        };
-        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
-        gallery.init();
-      };
 
       // 上传照片
       var uploadSheet;
@@ -3089,6 +2941,16 @@ angular.module('donlerApp.controllers', [])
             console.log(err);
           } else {
             $scope.familyPhotos = photos;
+            //photo
+            $scope.photos = [];
+            photos.forEach(function (photo) {
+              $scope.photos.push({
+                _id: photo._id,
+                src: CONFIG.STATIC_URL + photo.uri + '/320/190',
+                w: 320,
+                h: 190
+              });
+            });
           }
         });
       };
@@ -3098,39 +2960,9 @@ angular.module('donlerApp.controllers', [])
           $ionicHistory.goBack();
         }
       };
-      $scope.familyAlbumPswpId = 'fa' + Date.now();
-      $scope.openPhotoSwipe = function (photoId) {
-        var pswpElement = document.querySelector('#' + $scope.familyAlbumPswpId);
-
-        var index = Tools.arrayObjectIndexOf($scope.familyPhotos, photoId, '_id');
-
-        var options = {
-          history: false,
-          focus: false,
-          index: index,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0
-        };
-        var items = [];
-        $scope.familyPhotos.forEach(function (photo) {
-          items.push({
-            _id: photo._id,
-            src: CONFIG.STATIC_URL + photo.uri + '/320/190',
-            w: 320,
-            h: 190
-          });
-        });
-        var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-        pswp.listen('afterChange', function() {
-          var itemIndex = pswp.getCurrentIndex();
-          var familyPhotosIndex = Tools.arrayObjectIndexOf($scope.familyPhotos, items[itemIndex]._id, '_id');
-          $scope.currentFamilyPhoto = $scope.familyPhotos[familyPhotosIndex];
-          if(!$scope.$$phase) {
-            $scope.$apply();
-          }
-        });
-        pswp.init();
-      };
+      //for pswp
+      $scope.pswpId = 'fa' + Date.now();
+      $scope.pswpPhotoAlbum = {};
 
       $scope.toggleSelect = function (index) {
         if (!$scope.team.isLeader) {
@@ -3427,37 +3259,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
 
-    $scope.userInfoPswpId = 'personal' + Date.now();
-    $scope.openPhotoSwipe = function () {
-      try {
-        $rootScope.hideTabs = true;
-        var pswpElement = document.querySelector('#' + $scope.userInfoPswpId);
-        var options = {
-          history: false,
-          focus: false,
-          index: 0,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0
-        };
-        var width = Math.min(INFO.screenWidth, INFO.screenHeight);
-        var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [{
-          src: CONFIG.STATIC_URL + $scope.user.photo + '/' + width + '/' + width,
-          w: width,
-          h: width
-        }], options);
-        pswp.listen('close', function() {
-          $rootScope.hideTabs = false;
-          if (!$rootScope.$$phase) {
-            $rootScope.$digest();
-          }
-        });
-        pswp.init();
-      } catch (e) {
-        console.log(e);
-        console.log(e.stack);
-        $rootScope.hideTabs = false;
-      }
-    };
+    $scope.pswpId = 'personal' + Date.now();
 
   }])
   .controller('UserInfoTimelineController', ['$ionicHistory', '$scope', '$stateParams', '$timeout','User', 'TimeLine', function ($ionicHistory, $scope, $stateParams, $timeout, User, TimeLine) {

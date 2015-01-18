@@ -1,6 +1,58 @@
 'use strict';
 
 angular.module('donlerApp.directives', ['donlerApp.services'])
+  .directive('openPhoto',['$location', '$ionicModal', 'Tools', 'CONFIG', 'INFO', function($location, $ionicModal, Tools, CONFIG, INFO) {
+    return {
+      restrict: 'A',
+      scope: {
+        pswpId: '=',
+        photo: '=',
+        photos: '=',
+        pswpPhotoAlbum: '=',
+        photoAlbumId: '='
+      },
+      link: function (scope, element, attrs, ctrl) {
+        element[0].onclick = function() {
+          var pswpElement ; //页面元素
+          if (scope.pswpId) {//有的时候设置了pswpId,directive里会拿不到，所以用搜索.pswp类的方法
+            pswpElement = document.querySelector('#' + scope.pswpId);
+          } else {
+            pswpElement = document.querySelectorAll('.pswp')[0];
+          }
+          var photos = []; //pswp所需的全部photos对象
+          if(scope.photos){//非打开个人头像
+            var index = Tools.arrayObjectIndexOf(scope.photos, scope.photo._id, '_id');
+            photos = scope.photos;
+          }else{//打开个人头像
+            var width = Math.min(INFO.screenWidth, INFO.screenHeight);
+            photos.push({
+              src: CONFIG.STATIC_URL + scope.photo + '/' + width + '/' + width,
+              w: width,
+              h: width
+            });
+          }
+          var options = {
+            // history & focus options are disabled on CodePen
+            history: false,
+            focus: false,
+            index: index? index: 0,
+            showAnimationDuration: 0,
+            hideAnimationDuration: 0
+          };
+          var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, photos, options);
+          gallery.init();
+
+          if(scope.pswpPhotoAlbum){
+            scope.pswpPhotoAlbum.goToAlbum = function () {
+              gallery.close();
+              $location.url('/photo_album/' + scope.photoAlbumId + '/detail');
+            };
+          }
+          
+        };
+      }
+    }
+  }])
 
   .directive('campaignCard', ['$rootScope', 'CONFIG', 'Campaign', 'INFO', 'Tools', '$location', function ($rootScope, CONFIG, Campaign, INFO, Tools, $location) {
     return {
@@ -48,7 +100,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           return false;
         };
 
-        var addPhotos = function (photos) {
+        scope.addPhotos = function (photos) {
+          scope.photos = [];
           photos.forEach(function (photo) {
             var width = photo.width || INFO.screenWidth;
             var height = photo.height || INFO.screenHeight;
@@ -64,50 +117,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             scope.photos.push(item);
           });
         };
-
-        scope.openPhotoSwipe = function (photos, photoId) {
-          try {
-            var pswpElement;
-            if (scope.pswpId) {
-              pswpElement = document.querySelector('#' + scope.pswpId);
-            } else {
-              pswpElement = document.querySelectorAll('.pswp')[0];
-            }
-            scope.photos = [];
-            addPhotos(photos);
-            var index = Tools.arrayObjectIndexOf(scope.photos, photoId, '_id');
-
-            var options = {
-              history: false,
-              focus: false,
-              index: index,
-              showAnimationDuration: 0,
-              hideAnimationDuration: 0
-            };
-            var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, scope.photos, options);
-            pswp.listen('close', function() {
-              $rootScope.hideTabs = false;
-              if (!$rootScope.$$phase) {
-                $rootScope.$digest();
-              }
-            });
-            $rootScope.hideTabs = true;
-            pswp.init();
-            if (scope.pswpPhotoAlbum) {
-              scope.pswpPhotoAlbum.goToAlbum = function () {
-                INFO.photoAlbumBackUrl = '#' + $location.url();
-                pswp.close();
-                $rootScope.hideTabs = false;
-                $location.url('/photo_album/' + scope.campaign.photo_album._id + '/detail');
-              };
-            }
-          } catch (e) {
-            console.log(e);
-            console.log(e.stack);
-            $rootScope.hideTabs = false;
-          }
-          return false;
-        };
       }
     }
   }])
@@ -115,19 +124,106 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   .directive('errorImg', ['CONFIG', function (CONFIG) {
     return {
       restrict: 'A',
-      scope: {
+      attrs: {
         errorImg: '='
       },
       link: function (scope, ele, attrs, ctrl) {
+        // console.log(attrs.errorImg);
+        // console.log(ele[0]);
         var errorImgSrc;
-        if (!scope.errorImg) {
+        if (!attrs.errorImg) {
           errorImgSrc = CONFIG.STATIC_URL + '/img/not_found.jpg';
         } else {
-          errorImgSrc = scope.errorImg;
+          errorImgSrc = attrs.errorImg;
         }
         ele[0].onerror = function () {
           this.src = errorImgSrc;
         };
+
+      }
+    };
+  }])
+  .directive('preventDefault', function () {
+    return function (scope, element, attrs) {
+      angular.element(element).bind('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      });
+    }
+  })
+  .directive('detectGestures', function($ionicGesture) {
+    return {
+      restrict :  'A',
+
+      link : function(scope, elem, attrs) {
+        var gestureType = attrs.gestureType.split(',');
+        var getstureCallback = attrs.getstureCallback.split(',');
+        var gesture = [];
+        gestureType.forEach(function(_gestureType,_index){
+          switch(_gestureType) {
+            case "swipe":
+              gesture[_index] = $ionicGesture.on('swipe',scope[getstureCallback[_index]], elem);
+              break;
+            case "swipeleft":
+              gesture[_index] = $ionicGesture.on('swipeleft', scope[getstureCallback[_index]], elem);
+              break;
+            case "swiperight":
+              gesture[_index] = $ionicGesture.on('swiperight', scope[getstureCallback[_index]], elem);
+              break;
+            case "pinch":
+              gesture[_index] = $ionicGesture.on('pinch', scope[getstureCallback[_index]], elem);
+              break;
+             case "drag":
+              gesture[_index] = $ionicGesture.on('drag', scope[getstureCallback[_index]], elem);
+              break;
+            case 'doubletap':
+              gesture[_index] = $ionicGesture.on('doubletap', scope[getstureCallback[_index]], elem);
+              break;
+            // case 'tap':
+            //   $ionicGesture.on('tap', scope.reportEvent, elem);
+            //   break;
+          }
+        });
+        scope.$on('$destroy', function() {
+          // Unbind drag gesture handler
+          gestureType.forEach(function(_gestureType,_index){
+            switch(_gestureType) {
+              case "swipe":
+                $ionicGesture.off(gesture[_index], 'swipeleft');
+                break;
+              case "swipeleft":
+                $ionicGesture.off(gesture[_index], 'swipeleft');
+                break;
+              case "swiperight":
+                $ionicGesture.off(gesture[_index], 'swipeleft');
+                break;
+              case "pinch":
+                $ionicGesture.off(gesture[_index], 'pinch');
+                break;
+              case "drag":
+                $ionicGesture.off(gesture[_index], 'drag');
+                break;
+              case 'doubletap':
+                $ionicGesture.off(gesture[_index],'doubletap');
+                break;
+              // case 'tap':
+              //   $ionicGesture.off('tap', scope.reportEvent, elem);
+              //   break;
+            }
+          });
+        });
+      }
+    }
+  })
+  .directive('match', ['$parse', function ($parse) {
+    return {
+      require: 'ngModel',
+      link: function(scope, elem, attrs, ctrl) {
+        scope.$watch(function() {
+          return $parse(attrs.match)(scope) === ctrl.$modelValue;
+        }, function(currentValue) {
+          ctrl.$setValidity('mismatch', currentValue);
+        });
       }
     };
   }])
