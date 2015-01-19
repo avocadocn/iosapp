@@ -1096,6 +1096,97 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
+  .factory('Upload', ['$cordovaFile', '$ionicModal', '$ionicActionSheet', '$ionicLoading', '$cordovaCamera', 'CommonHeaders', function($cordovaFile, $ionicModal, $ionicActionSheet, $ionicLoading, $cordovaCamera, CommonHeaders) {
+    return {
+      /**
+       * 用户选择图片接口
+       * @param  {boolean}   needEdit 是否需要剪裁
+       * @param  {Function} callback 形式：callback(err, imageURI)
+       */
+      getPicture: function(needEdit, callback) {
+        var getPhotoFrom = function (source) {
+          var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+          var save = false;
+          if (source === 'camera') {
+            sourceType = Camera.PictureSourceType.CAMERA;
+            save = true;
+          }
+
+          var options = {
+            quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: sourceType,
+            encodingType: Camera.EncodingType.JPEG,
+            //edit todo
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: save,
+            correctOrientation: true
+          };
+
+          $cordovaCamera.getPicture(options).then(function(imageURI) {
+            callback(null, imageURI);
+          }, function(err) {
+            callback(err);
+          });
+        };
+        var uploadSheet = $ionicActionSheet.show({
+          buttons: [{
+            text: '拍照上传'
+          }, {
+            text: '本地上传'
+          }],
+          titleText: '请选择上传方式',
+          cancelText: '取消',
+          buttonClicked: function (index) {
+            if (index === 0) {
+              getPhotoFrom('camera');
+            } else if (index === 1) {
+              getPhotoFrom('file');
+            }
+            return true;
+          }
+        });
+      },
+
+      /**
+       * 上传图片接口
+       * @param  {string}   source   来源，enum:[discuss,photoAlbum,logo,photo] 相册、评论、logo、头像
+       * @param  {[type]}   addr     上传server地址
+       * @param  {[type]}   data     imageURI等需要上传的数据
+       * @param  {Function} callback 返回函数 形式：callback(err)
+       */
+      upload: function (source, addr, data, callback) {
+        // var serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
+        var headers = CommonHeaders.get();
+        headers['x-access-token'] = localStorage.accessToken;
+        var options = {
+          fileKey: 'photo',
+          httpMethod: 'POST',
+          headers: headers,
+          mimeType: 'image/jpeg'
+          // params:{randomId: randomId}
+        };
+        if(source==='discuss') {
+          options.params= {randomId: data.randomId};
+        }
+
+        $ionicLoading.show({
+          template: '上传中',
+          // scope: $scope,
+          duration: 5000
+        });
+
+        $cordovaFile.uploadFile(addr, data.imageURI, options)
+        .then(function(result) {
+          $ionicLoading.hide();
+          callback();
+        }, function(err) {//发送失败
+          callback(err);
+        });
+      }
+    }
+
+  }])
 
 
 

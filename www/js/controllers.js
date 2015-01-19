@@ -608,13 +608,16 @@ angular.module('donlerApp.controllers', [])
     };
     
   }])
-  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location', '$ionicModal', '$ionicLoading',
-    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location, $ionicModal, $ionicLoading) {
+  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$ionicPopup', 'Upload', 'Campaign', '$ionicModal',
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $ionicPopup, Upload, Campaign, $ionicModal) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
-    Socket.emit('enterRoom', $scope.campaignId);
     $scope.commentContent='';
-
+    $scope.$on('$ionicView.enter', function(){
+      INFO.discussCampaignId = $scope.campaignId; //for 回到讨论列表时清红点
+      Socket.emit('quitRoom');
+      Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
+    });
     
     Campaign.get($scope.campaignId, function (err, data) {
       if (!err) {
@@ -624,6 +627,10 @@ angular.module('donlerApp.controllers', [])
     });
 
     $scope.userId = localStorage.id;
+
+    //for pswp
+    $scope.pswpId = 'discuss' + Date.now();
+    $scope.pswpPhotoAlbum = {};
     $scope.photos = [];
     var addPhotos = function (comment) {
       if (comment.photos && comment.photos.length > 0) {
@@ -643,7 +650,8 @@ angular.module('donlerApp.controllers', [])
         });
       }
     };
-    $scope.pswpPhotoAlbum = {};
+    
+    //ionichistory
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
@@ -652,9 +660,8 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.discuss_list');
       }
     }
-    $scope.pswpId = 'discuss' + Date.now();
 
-    
+
 
     //获取公告
     $scope.showNotice = false;
@@ -671,7 +678,6 @@ angular.module('donlerApp.controllers', [])
     });
 
     //评论获取
-
     $scope.commentList = [];
     $scope.topShowTime = [];
 
@@ -695,11 +701,6 @@ angular.module('donlerApp.controllers', [])
       }
     };
 
-    // //获取本地记录
-    // if(localStorage.commentList) {
-    //   var index = Tools.arrayObjectIndexOf(localStorage.commentList, $scope.campaignId, '_id');
-    //   if(index>-1) $scope.commentList.push(localStorage.commentList[index]);
-    // }
     var nextStartDate ='';      
     //获取最新20条评论
     var getComments = function() {
@@ -839,24 +840,13 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
+
     // 上传图片
-    var uploadSheet;
     $scope.showUploadActionSheet = function () {
-      uploadSheet = $ionicActionSheet.show({
-        buttons: [{
-          text: '拍照上传'
-        }, {
-          text: '本地上传'
-        }],
-        titleText: '请选择上传方式',
-        cancelText: '取消',
-        buttonClicked: function (index) {
-          if (index === 0) {
-            getPhotoFrom('camera');
-          } else if (index === 1) {
-            getPhotoFrom('file');
-          }
-          return true;
+      Upload.getPicture(false, function (err, imageURI) {
+        if(!err){
+          $scope.previewImg = imageURI;
+          $scope.confirmUploadModal.show();
         }
       });
     };
@@ -875,116 +865,42 @@ angular.module('donlerApp.controllers', [])
       $scope.confirmUploadModal.remove();
     });
 
-    var upload = function (imageURI, randomId) {
-      var serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
-      var headers = CommonHeaders.get();
-      headers['x-access-token'] = localStorage.accessToken;
-      var options = {
-        fileKey: 'photo',
-        httpMethod: 'POST',
-        headers: headers,
-        mimeType: 'image/jpeg',
-        params:{randomId: randomId}
-      };
-
-      $ionicLoading.show({
-        template: '上传中',
-        scope: $scope,
-        duration: 5000
-      });
-
-      $cordovaFile
-        .uploadFile(serverAddr, imageURI, options)
-        .then(function(result) {
-          $ionicLoading.hide();
+    $scope.confirmUpload = function () {
+      //-生成随机id
+      var randomId = Math.floor(Math.random()*100);
+      $scope.randomId = randomId;
+      //上传
+      var data = {randomId: randomId, imageURI:$scope.previewImg};
+      var addr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
+      Upload.upload('discuss', addr, data, function(err) {
+        if(!err) {
           $scope.confirmUploadModal.hide();
-        }, function(err) {
+        } else {//发送失败
           $scope.confirmUploadModal.hide();
-          //发送失败
+          //-逻辑修改todo
           var length =  $scope.commentList[commentListIndex].length;
           $scope.commentList[commentListIndex][length-1].failed = true;
-          // $ionicPopup.alert({
-          //   title: '发送失败',
-          //   template: '请重试'
-          // });
-        }, function (progress) {
-          // constant progress updates
-        });
-    };
-
-    $scope.confirmUpload = function () {
-      upload($scope.previewImg, $scope.randomId);
-    };
-
-    var getPhotoFrom = function (source) {
-
-      var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-      var save = false;
-      if (source === 'camera') {
-        sourceType = Camera.PictureSourceType.CAMERA;
-        save = true;
-      }
-
-      var options = {
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: sourceType,
-        encodingType: Camera.EncodingType.JPEG,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: save,
-        correctOrientation: true
-      };
-
-      $cordovaCamera.getPicture(options).then(function(imageURI) {
-        //-生成随机id
-        var randomId = Math.floor(Math.random()*100);
-        $scope.previewImg = imageURI;
-        $scope.randomId = randomId;
-        $scope.confirmUploadModal.show();
-        //-创建一个新comment
-        var newComment = {
-          randomId: randomId.toString(),
-          create_date: new Date(),
-          poster: {
-            '_id': currentUser._id,
-            'photo': currentUser.photo,
-            'nickname': currentUser.nickname
-          },
-          photos: [{uri:imageURI}],
-          loading: true
-        };
-        var commentListIndex = $scope.commentList.length -1;
-        $scope.commentList[commentListIndex].push(newComment);
-        $ionicScrollDelegate.scrollBottom();
-      }, function(err) {
-        if (err !== 'no image selected') {
-          $ionicPopup.alert({
-            title: '获取照片失败',
-            template: err
-          });
         }
       });
+      //-创建一个新comment
+      var newComment = {
+        randomId: randomId.toString(),
+        create_date: new Date(),
+        poster: {
+          '_id': currentUser._id,
+          'photo': currentUser.photo,
+          'nickname': currentUser.nickname
+        },
+        photos: [{uri:$scope.previewImg}],
+        loading: true
+      };
+      var commentListIndex = $scope.commentList.length -1;
+      $scope.commentList[commentListIndex].push(newComment);
+      $ionicScrollDelegate.scrollBottom();
     };
 
-    // localStorage不能保存数组
-    // //-保存最新的20条评论
-    // $scope.$on('$destroy',function( ) {
-    //   if(!localStorage.commentList){
-    //     localStorage.commentList = [];
-    //   }
-    //   var index = Tools.arrayObjectIndexOf(localStorage.commentList, $scope.campaignId, '_id');
-    //   var comments = $scope.commentList[$scope.commentList.length-1];
-    //   comments.length = 20;
-    //   if(index>-1){
-    //     localStorage.commentList[index] = comments
-    //   }else{
-    //     localStorage.commentList.push({
-    //       _id: $scope.campaignId,
-    //       comments: comments
-    //     })
-    //   }
-    // });
-    
+
+    //表情
     $scope.isShowEmotions = false;
     $scope.showEmotions = function() {
       $scope.isShowEmotions = true;
@@ -1047,14 +963,11 @@ angular.module('donlerApp.controllers', [])
     $scope.emojiList.unshift(emoji);
 
     $scope.addEmotion = function(emotion) {
-      // console.log(emotion);
       $scope.commentContent += ':'+ emotion +':';
     };
 
-    $scope.$on('$ionicView.enter', function(){
-      INFO.discussCampaignId = $scope.campaignId;
-    });
-
+    
+    //发送请求已读某评论
     $scope.$on('$ionicView.leave', function(){
       if(needRead){
         Comment.readComment($scope.campaignId, function(err) {

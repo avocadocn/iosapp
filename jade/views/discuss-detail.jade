@@ -49,7 +49,7 @@ ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
               i.icon.ion-alert-circled
               span 发送失败
 
-    //- ion-infinite-scroll(ng-if="!loading" on-infinite="refresh()" distance="-1%")
+    //- ion-infinite-scroll(ng-if="!loading" on-infinite="refresh()" distance="-5%")
   ion-footer-bar.comment_box(ng-class="{'taller':isShowEmotions}")
     i.icon.ion-image(ng-click="showUploadActionSheet()")
     textarea.comment_input(ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()")

@@ -31,6 +31,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
               h: width
             });
           }
+          //初始化gallery
           var options = {
             // history & focus options are disabled on CodePen
             history: false,
@@ -41,7 +42,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           };
           var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, photos, options);
           gallery.init();
-
+          //有些地方需要进入相册,则增加此方法
           if(scope.pswpPhotoAlbum){
             scope.pswpPhotoAlbum.goToAlbum = function () {
               gallery.close();
