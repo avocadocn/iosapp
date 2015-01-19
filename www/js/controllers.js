@@ -2454,16 +2454,19 @@ angular.module('donlerApp.controllers', [])
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'Team', 'INFO',
     function ($scope, $stateParams, PhotoAlbum, Team, INFO) {
       $scope.teamId = $stateParams.teamId;
-      Team.getFamilyPhotos($scope.teamId, function (err, photos) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.familyPhotoLength = photos.length;
-          $scope.familyPhotos = photos.reverse().slice(0, 8);
-        }
-      });
-
+      var getFamily = function() {
+        Team.getFamilyPhotos($scope.teamId, function (err, photos) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            $scope.familyPhotoLength = photos.length;
+            $scope.familyPhotos = photos.reverse().slice(0, 8);
+          }
+        });
+      }
+      getFamily();
+      
       $scope.firstLoad = true;
       $scope.lastCount;
       var pageSize = 20;
@@ -2475,6 +2478,7 @@ angular.module('donlerApp.controllers', [])
             // todo
             console.log(err);
           } else {
+            $scope.photoAlbums=[];
             $scope.lastCount = photoAlbums.length;
             $scope.firstLoad = false;
             $scope.loading = false;
@@ -2482,6 +2486,17 @@ angular.module('donlerApp.controllers', [])
             $scope.$broadcast('scroll.infiniteScrollComplete');
           }
         });
+      };
+
+      $scope.refresh = function () {
+        $scope.loading = true;
+        var options = {
+          ownerType: 'team',
+          ownerId: $scope.teamId
+        }
+        $scope.getPhotoAlbums(options);
+        getFamily();
+        $scope.$broadcast('scroll.refreshComplete');
       };
 
       $scope.loadMore = function () {
@@ -2517,10 +2532,6 @@ angular.module('donlerApp.controllers', [])
           return true;
         }
       };
-
-      $scope.$on('$stateChangeSuccess', function() {
-        $scope.loadMore();
-      });
 
   }])
   .controller('PhotoAlbumDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$ionicModal', '$ionicLoading', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'Upload',

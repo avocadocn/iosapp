@@ -1161,8 +1161,8 @@ angular.module('donlerApp.services', [])
       /**
        * 上传图片接口
        * @param  {string}   source   来源，enum:[discuss,photoAlbum,logo,photo,family] 相册、评论、logo、头像
-       * @param  {[type]}   addr     上传server地址
-       * @param  {[type]}   data     imageURI等需要上传的数据
+       * @param  {string}   addr     上传server地址
+       * @param  {object}   data     imageURI等需要上传的数据
        * @param  {Function} callback 返回函数 形式：callback(err)
        */
       upload: function (source, addr, data, callback) {
