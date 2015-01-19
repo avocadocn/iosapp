@@ -71,13 +71,11 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           Campaign.join(campaign, localStorage.id, function (err, data) {
             if (!err) {
               // todo
-              scope.campaign = data;
               scope.campaign.remove = true;
               $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
             }
           });
         };
-
         scope.dealProvoke = function(campaignId, dealType){
           //dealType:1接受，2拒绝，3取消
           var dealTypeString = ['接受','拒绝','取消'];

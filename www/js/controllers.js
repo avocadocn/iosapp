@@ -162,10 +162,10 @@ angular.module('donlerApp.controllers', [])
         populate: 'photo_album'
       }, function (err, data) {
         if (!err) {
-          $scope.unStartCampaigns = data[0];
-          $scope.nowCampaigns = data[1];
-          $scope.newCampaigns = data[2];
-          $scope.provokes = data[3];
+          $scope.unStartCampaigns = $filter('orderBy')(data[0], 'start_time');
+          $scope.nowCampaigns = $filter('orderBy')(data[1], 'end_time');
+          $scope.newCampaigns = $filter('orderBy')(data[2], '-create_time');
+          $scope.provokes = $filter('orderBy')(data[3], '-create_time');
           if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
             $scope.noCampaigns = true;
           }
@@ -196,11 +196,11 @@ angular.module('donlerApp.controllers', [])
     $scope.$on('updateCampaignList', function(event, args) {
       $timeout(function(){
         $scope[args.campaignFilter].splice(args.campaignIndex,1);
+        $scope[args.campaignFilter] = $filter('orderBy')($scope[args.campaignFilter], '-create_time');
         if(args.campaign){
-          args.campaign.remove = false;
           if(args.campaign.start_flag){
             $scope.nowCampaigns.push(args.campaign);
-            $scope.nowCampaigns = $filter('orderBy')($scope.nowCampaigns, 'start_time');
+            $scope.nowCampaigns = $filter('orderBy')($scope.nowCampaigns, 'end_time');
           }
           else{
             $scope.unStartCampaigns.push(args.campaign);
@@ -217,10 +217,10 @@ angular.module('donlerApp.controllers', [])
         populate: 'photo_album'
       }, function (err, data) {
         if (!err) {
-          $scope.unStartCampaigns = data[0];
-          $scope.nowCampaigns = data[1];
-          $scope.newCampaigns = data[2];
-          $scope.provokes = data[3];
+          $scope.unStartCampaigns = $filter('orderBy')(data[0], 'start_time');
+          $scope.nowCampaigns = $filter('orderBy')(data[1], 'end_time');
+          $scope.newCampaigns = $filter('orderBy')(data[2], '-create_time');
+          $scope.provokes = $filter('orderBy')(data[3], '-create_time');
           if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
             $scope.noCampaigns = true;
           }
