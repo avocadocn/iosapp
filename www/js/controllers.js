@@ -24,7 +24,6 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
-
   }])
   .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'CompanyAuth', function ($scope, CommonHeaders, $state, $ionicHistory, CompanyAuth) {
 

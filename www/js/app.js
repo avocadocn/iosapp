@@ -89,11 +89,13 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/home.html'
       })
       .state('user_login', {
+        cache: false,
         url: '/user/login',
         controller: 'UserLoginController',
         templateUrl: './views/user-login.html'
       })
       .state('company_login', {
+        cache: false,
         url: '/company/login',
         controller: 'CompanyLoginController',
         templateUrl: './views/company-login.html'
