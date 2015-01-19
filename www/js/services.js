@@ -1117,15 +1117,25 @@ angular.module('donlerApp.services', [])
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: sourceType,
             encodingType: Camera.EncodingType.JPEG,
-            //edit todo
             popoverOptions: CameraPopoverOptions,
             saveToPhotoAlbum: save,
             correctOrientation: true
           };
+          if(needEdit) {
+            options.allowEdit = true;
+            options.targetWidth = 256;
+            options.targetHeight = 256;
+          }
 
           $cordovaCamera.getPicture(options).then(function(imageURI) {
             callback(null, imageURI);
           }, function(err) {
+            if (err !== 'no image selected') {
+              $ionicPopup.alert({
+                title: '获取照片失败',
+                template: err
+              });
+            }
             callback(err);
           });
         };
@@ -1150,13 +1160,12 @@ angular.module('donlerApp.services', [])
 
       /**
        * 上传图片接口
-       * @param  {string}   source   来源，enum:[discuss,photoAlbum,logo,photo] 相册、评论、logo、头像
+       * @param  {string}   source   来源，enum:[discuss,photoAlbum,logo,photo,family] 相册、评论、logo、头像
        * @param  {[type]}   addr     上传server地址
        * @param  {[type]}   data     imageURI等需要上传的数据
        * @param  {Function} callback 返回函数 形式：callback(err)
        */
       upload: function (source, addr, data, callback) {
-        // var serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
         var headers = CommonHeaders.get();
         headers['x-access-token'] = localStorage.accessToken;
         var options = {
@@ -1164,15 +1173,20 @@ angular.module('donlerApp.services', [])
           httpMethod: 'POST',
           headers: headers,
           mimeType: 'image/jpeg'
-          // params:{randomId: randomId}
         };
+
         if(source==='discuss') {
           options.params= {randomId: data.randomId};
+        }
+        else if(source==='photo'|| source === 'logo') {
+          options.httpMethod = 'PUT';
+        }
+        if(source === 'logo') {
+          options.fileKey = 'logo';//为什么这个这么特别= -
         }
 
         $ionicLoading.show({
           template: '上传中',
-          // scope: $scope,
           duration: 5000
         });
 
@@ -1181,6 +1195,7 @@ angular.module('donlerApp.services', [])
           $ionicLoading.hide();
           callback();
         }, function(err) {//发送失败
+          $ionicLoading.hide();
           callback(err);
         });
       }
