@@ -6,3 +6,4 @@ ionic plugin add org.apache.cordova.camera
 ionic plugin add https://github.com/phonegap-build/PushPlugin.git
 ionic plugin add de.appplant.cordova.plugin.local-notification
 ionic plugin add https://github.com/VersoSolutions/CordovaClipboard
+ionic plugin add org.apache.cordova.statusbar

@@ -6,3 +6,4 @@ ionic plugin rm org.apache.cordova.device
 ionic plugin rm https://github.com/phonegap-build/PushPlugin.git
 ionic plugin rm de.appplant.cordova.plugin.local-notification
 ionic plugin rm https://github.com/VersoSolutions/CordovaClipboard
+ionic plugin rm org.apache.cordova.statusbar

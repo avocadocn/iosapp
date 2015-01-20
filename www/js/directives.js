@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('donlerApp.directives', ['donlerApp.services'])
-  .directive('openPhoto',['$location', '$ionicModal', '$rootScope', 'Tools', 'CONFIG', 'INFO', function($location, $ionicModal, $rootScope, Tools, CONFIG, INFO) {
+  .directive('openPhoto',['$location', '$ionicModal', '$rootScope', '$cordovaStatusbar', 'Tools', 'CONFIG', 'INFO', function($location, $ionicModal, $rootScope, $cordovaStatusbar, Tools, CONFIG, INFO) {
     return {
       restrict: 'A',
       scope: {
@@ -43,11 +43,13 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             };
             var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, photos, options);
             $rootScope.hideTabs = true;
+            $cordovaStatusbar.hide();
             if (!$rootScope.$$phase) {
               $rootScope.$digest();
             }
             gallery.listen('close', function() {
               $rootScope.hideTabs = false;
+              $cordovaStatusbar.show();
               if (!$rootScope.$$phase) {
                 $rootScope.$digest();
               }
@@ -64,6 +66,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           } catch (e) {
             console.log(e.stack);
             $rootScope.hideTabs = false;
+            $cordovaStatusbar.show();
             if (!$rootScope.$$phase) {
               $rootScope.$digest();
             }
