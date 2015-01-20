@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.donler697323" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.donler.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Donler</name>
   <description>
-        An Ionic Framework and Cordova project.
-    </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
-    </author>
+      动梨活动助理
+  </description>
+  <author email="service@donler.com" href="http://www.donler.com">
+    Donler
+  </author>
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
@@ -17,4 +17,20 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+   <platform name="android">
+      <preference name="Fullscreen" value="true" />
+      <icon src="icons/ios/icon-small.png" density="ldpi" />
+      <icon src="icons/ios/icon-40@2x.png" density="mdpi" />
+      <icon src="icons/ios/icon-60@2x.png" density="hdpi" />
+      <icon src="icons/ios/icon-76@2x.png" density="xhdpi" />
+      <splash src="splash/ios/Default-667h.png" density="land-hdpi"/>
+      <splash src="splash/ios/Default~iphone.png" density="land-ldpi"/>
+      <splash src="splash/ios/Default@2x~iphone.png" density="land-mdpi"/>
+      <splash src="splash/ios/Default-736h.png" density="land-xhdpi"/>
+
+      <splash src="splash/ios/Default-667h.png" density="port-hdpi"/>
+      <splash src="splash/ios/Default~iphone.png" density="port-ldpi"/>
+      <splash src="splash/ios/Default@2x~iphone.png" density="port-mdpi"/>
+      <splash src="splash/ios/Default-736h.png" density="port-xhdpi"/>
+    </platform>
 </widget>

@@ -25,7 +25,7 @@
               <div class="content">
                 <div class="triangle_isosceles triangle_img">
                   <div class="tr"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img="error-img" width="180" height="180" ng-cloak="ng-cloak"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" error-img="error-img" width="180" height="180" ng-cloak="ng-cloak"/></div>
-                  <div class="box"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img="error-img" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" error-img="error-img" width="180" height="180" ng-click="openPhotoSwipe(photo._id)" class="img"/></div>
+                  <div class="box"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" error-img="error-img" class="img"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180" class="img"/></div>
                 </div>
               </div>
             </div>
@@ -72,7 +72,7 @@
       </ion-content>
     </ion-modal-view>
   </script>
-  <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" class="pswp">
+  <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
       <div class="pswp__container">

@@ -3,7 +3,7 @@ ion-view(ng-controller="CampaignController")
     .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
       .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" class="#{itemsClass}" ng-cloak)
         p #{containerTitle} {{#{items}.length}}
-      campaign-card(ng-repeat="campaign in #{items} | orderBy:'#{orderByStr}'" campaign="campaign" campaign-index="$index" campaign-filter="#{items}" pswp-photo-album="pswpPhotoAlbum")
+      campaign-card(ng-repeat="campaign in #{items}" campaign="campaign" campaign-index="$index" campaign-filter="#{items}" pswp-photo-album="pswpPhotoAlbum")
 
   ion-header-bar
 
@@ -20,10 +20,10 @@ ion-view(ng-controller="CampaignController")
       a.button.button-clear(ng-click="filter('unStartCampaigns')" ng-class="{'icon_textPurple':nowType=='unStartCampaigns'}") 即将
     ion-scroll.campaign_list
       ion-refresher(on-refresh="doRefresh()")
-      +campaignsContainer('未参加的新活动','newCampaigns','icon_darkBlue','-create_time')
-      +campaignsContainer('挑战','provokes','icon_iconPurple','-create_time')
-      +campaignsContainer('进行中的活动','nowCampaigns','icon_borderPurple','end_time')
-      +campaignsContainer('即将开始的活动','unStartCampaigns','icon_textPurple','start_time')
+      +campaignsContainer('未参加的新活动','newCampaigns','icon_darkBlue')
+      +campaignsContainer('挑战','provokes','icon_iconPurple')
+      +campaignsContainer('进行中的活动','nowCampaigns','icon_borderPurple')
+      +campaignsContainer('即将开始的活动','unStartCampaigns','icon_textPurple')
       .no_campaign(ng-if="noCampaigns" ng-cloak)
         .no_campaign_tip
           p 没有活动怎么办？进入

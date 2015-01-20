@@ -9,7 +9,7 @@
       <div class="card_header clearfix">
         <p class="header_title">{{group.date | date:'yyyy年MM月dd日'}}</p>
       </div>
-      <div class="dl_gallery clearfix"><img ng-repeat="photo in group.photos" ng-src="{{STATIC_URL + photo.uri}}/65/65" ng-click="openPhotoSwipe(photo._id)" class="photo"/></div>
+      <div class="dl_gallery clearfix"><img ng-repeat="photo in group.photos" ng-src="{{STATIC_URL + photo.uri}}/65/65" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" open-photo="open-photo" class="photo"/></div>
     </div>
     <div ng-if="photoGroups.length === 0" class="list">
       <div class="item">该相册还没有照片，快来上传吧。</div>
@@ -30,7 +30,7 @@
     </ion-modal-view>
   </script>
 </ion-view>
-<div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" class="pswp">
+<div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
   <div class="pswp__bg"></div>
   <div class="pswp__scroll-wrap">
     <div class="pswp__container">

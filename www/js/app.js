@@ -21,11 +21,13 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           channel_id:info.channel_id,
           user_id: info.user_id
         }
-
+        bdPushNotification.onNotificationClicked = function(pushMessage) {
+          $state.go('campaigns_detail',{ 'id': pushMessage.campaignId });
+        }
       }
       document.addEventListener("cloudPushRegistered", onCloudPushRegistered, false);
-      if(typeof fastgoPushNotification !='undefined'){
-        fastgoPushNotification.init("pSGg3PHKgD7vdah7eHDydQOu");
+      if(typeof bdPushNotification !='undefined'){
+        bdPushNotification.init("pSGg3PHKgD7vdah7eHDydQOu");
       }
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
 
@@ -71,11 +73,13 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/home.html'
       })
       .state('user_login', {
+        cache: false,
         url: '/user/login',
         controller: 'UserLoginController',
         templateUrl: './views/user-login.html'
       })
       .state('company_login', {
+        cache: false,
         url: '/company/login',
         controller: 'CompanyLoginController',
         templateUrl: './views/company-login.html'

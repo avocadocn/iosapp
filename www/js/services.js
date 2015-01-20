@@ -43,9 +43,9 @@ angular.module('donlerApp.services', [])
     $httpProvider.interceptors.push('myInterceptor');
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://www.donler.com:3002',
-    STATIC_URL: 'http://www.donler.com',
-    SOCKET_URL: 'http://www.donler.com:3005',
+    BASE_URL: 'http://localhost:3002',
+    STATIC_URL: 'http://localhost:3000',
+    SOCKET_URL: 'http://localhost:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
   })

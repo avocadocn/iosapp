@@ -35,7 +35,8 @@
         <div ng-class="{'active': homeCourtIndex===1}" ng-click="selectHomeCourt(1)" class="col tab">主场二</div>
       </div>
       <div ng-repeat="homeCourt in homeCourts" ng-if="homeCourtIndex==$index" class="map">
-        <div ng-if="!homeCourt.empty"><a ng-cloak="ng-cloak" ng-if="homeCourt.loc.coordinates.length===2" href="#" ng-click="linkMap(homeCourt)" class="map_wrap"><img ng-src="http://restapi.amap.com/v3/staticmap?location={{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&amp;zoom=15&amp;size=300*130&amp;markers=mid,,A:{{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&amp;labels={{homeCourt.name}},2,0,12,0xffffff,0x3498db:{{homeCourt.loc.coordinates[0]}},{{homeCourt.loc.coordinates[1]}}&amp;key=077eff0a89079f77e2893d6735c2f044" class="map_img"/></a>
+        <div ng-if="!homeCourt.empty">
+          <static-map name="{{homeCourt.name}}" coordinates="homeCourt.loc.coordinates"></static-map>
           <p ng-cloak="ng-cloak" ng-if="homeCourt.name" class="home_court_name">{{homeCourt.name}}</p>
         </div>
         <div ng-if="homeCourt.empty"><img src="./img/no_homecourt.png" class="no_homecourt"/></div>
@@ -61,7 +62,7 @@
     </div>
     <ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded() &amp;&amp; !team.isOtherCompanyTeam"></ion-infinite-scroll>
   </ion-content>
-  <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" class="pswp">
+  <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
       <div class="pswp__container">

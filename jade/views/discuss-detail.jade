@@ -16,7 +16,6 @@ ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
     ion-refresher(on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .comments
       .blocks(ng-repeat="comments in commentList track by $index" id="comment{{$index}}")
-        //- .test {{historyCommentList}}
         .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack)
           .time_block(ng-show="showTime && ($index!==0||($index===0&&topShowTime[$parent.$index]))")
             p
@@ -35,8 +34,8 @@ ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
                     img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img width="180" height="180" ng-cloak)
                     img(ng-if="comment.randomId" ng-src="{{photo.uri}}" error-img width="180" height="180" ng-cloak)
                   .box
-                    img.img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
-                    img.img(ng-if="comment.randomId" ng-src="{{photo.uri}}" error-img width="180" height="180" ng-click="openPhotoSwipe(photo._id)")
+                    img.img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo error-img)
+                    img.img(ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180")
           .comment.clearfix(ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" ng-cloak)
             a.logo(ng-href="#/user/{{comment.poster._id}}")
               img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")

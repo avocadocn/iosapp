@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+xmlns:rim="http://www.blackberry.com/ns/widgets"
+xmlns:android="http://schemas.android.com/apk/res/android"
+id="com.donler.plugin.bdpushnotification"
+version="1.0.1">
+	<name>
+		PushNotification
+	</name>
+	<description>
+		baidu pushNotification plugin description 
+	</description>
+	<license>
+		Apache 2.0
+	</license>
+	<keywords>
+		baidupush, pushnotification
+	</keywords>
+	<js-module src="www/PushNotification.js" name="bdPushNotification">
+		<clobbers target="bdPushNotification" />
+	</js-module>
+	<!-- android -->
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="bdPushNotification">
+				<param name="android-package" value="com.donler.plugin.bdpushnotification.PushNotification"/>
+			</feature>
+		</config-file>
+		<config-file target="AndroidManifest.xml" parent="/*">
+			<!-- <application
+			android:name="com.baidu.frontia.FrontiaApplication"></application> -->
+			<!-- 百度云推送 -->
+			<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+			<!-- Push service 运行需要的权限 -->
+			<uses-permission android:name="android.permission.INTERNET"/>
+			<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+			<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+			<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+			<uses-permission android:name="android.permission.VIBRATE" />
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+			<uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+			<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+			<uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	    <uses-permission android:name="android.permission.VIBRATE" />
+	    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+		</config-file>
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+			<!-- push必须的receviver和service声明 -->
+		  <receiver android:name="com.donler.plugin.bdpushnotification.MyPushMessageReceiver">
+          <intent-filter>
+              <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+              <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+              <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+          </intent-filter>
+      </receiver>
+			<receiver android:name="com.baidu.android.pushservice.PushServiceReceiver"
+			android:process=":bdservice_v1">
+				<intent-filter>
+					<action android:name="android.intent.action.BOOT_COMPLETED" />
+					<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+					<action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+					<action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+				</intent-filter>
+			</receiver>
+			<receiver android:name="com.baidu.android.pushservice.RegistrationReceiver"
+			android:process=":bdservice_v1">
+				<intent-filter>
+					<action android:name="com.baidu.android.pushservice.action.METHOD" />
+					<action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+				</intent-filter>
+				<intent-filter>
+					<action android:name="android.intent.action.PACKAGE_REMOVED"/>
+					<data android:scheme="package" />
+				</intent-filter>
+			</receiver>
+			<service
+			android:name="com.baidu.android.pushservice.PushService"
+			android:exported="true"
+			android:process=":bdservice_v1" >
+				<intent-filter >
+					<action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
+				</intent-filter>
+			</service>
+			<!-- push结束 -->
+		</config-file>
+		<source-file src="src/android/PushNotification.java" target-dir="src/com/donler/plugin/bdpushnotification" />
+		<source-file src="src/android/MyPushMessageReceiver.java" target-dir="src/com/donler/plugin/bdpushnotification" />
+		<source-file src="src/android/armeabi/libbdpush_V2_2.so" target-dir="libs/armeabi" />
+		<source-file src="src/android/mips/libbdpush_V2_2.so" target-dir="libs/mips" />
+		<!--        <source-file src="src/android/x86/libbdpush_V1_0.so" target-dir="libs/x86" />-->
+		<source-file src="src/android/pushservice-4.3.0.4.jar" target-dir="libs" />
+		<source-file src="src/android/res/drawable-hdpi/bpush_gray_logo.png" target-dir="res/drawable-hdpi"/>
+		<source-file src="src/android/res/drawable-hdpi/bpush_list_item_bg.9.png" target-dir="res/drawable-hdpi"/>
+		<source-file src="src/android/res/drawable-hdpi/bpush_message_prompt.png" target-dir="res/drawable-hdpi"/>
+		<source-file src="src/android/res/drawable-hdpi/bpush_return_btn.png" target-dir="res/drawable-hdpi"/>
+		<source-file src="src/android/res/drawable-hdpi/bpush_top_bg.9.png" target-dir="res/drawable-hdpi"/>
+		<source-file src="src/android/res/drawable-hdpi/simple_notification_icon.png" target-dir="res/drawable-hdpi"/>
+		<source-file src="src/android/res/drawable-ldpi/simple_notification_icon.png" target-dir="res/drawable-ldpi"/>
+		<source-file src="src/android/res/drawable-mdpi/simple_notification_icon.png" target-dir="res/drawable-mdpi"/>
+		<source-file src="src/android/res/layout/bpush_download_progress.xml" target-dir="res/layout"/>
+		<source-file src="src/android/res/layout/bpush_media_list_item.xml" target-dir="res/layout"/>
+		<source-file src="src/android/res/layout/bpush_media_list.xml" target-dir="res/layout"/>
+		<source-file src="src/android/res/layout/notification_custom_builder.xml" target-dir="res/layout"/>
+	</platform>
+</plugin>

@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.donler697323" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.donler.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
-    <feature name="FGPushNotification">
-        <param name="android-package" value="com.cmpsoft.mobile.plugin.pushnotification.PushNotification" />
+    <feature name="bdPushNotification">
+        <param name="android-package" value="com.donler.plugin.bdpushnotification.PushNotification" />
     </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
@@ -23,13 +23,26 @@
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
+    <preference name="Fullscreen" value="true" />
+    <icon density="ldpi" src="icons/ios/icon-small.png" />
+    <icon density="mdpi" src="icons/ios/icon-40@2x.png" />
+    <icon density="hdpi" src="icons/ios/icon-60@2x.png" />
+    <icon density="xhdpi" src="icons/ios/icon-76@2x.png" />
+    <splash density="land-hdpi" src="splash/ios/Default-667h.png" />
+    <splash density="land-ldpi" src="splash/ios/Default~iphone.png" />
+    <splash density="land-mdpi" src="splash/ios/Default@2x~iphone.png" />
+    <splash density="land-xhdpi" src="splash/ios/Default-736h.png" />
+    <splash density="port-hdpi" src="splash/ios/Default-667h.png" />
+    <splash density="port-ldpi" src="splash/ios/Default~iphone.png" />
+    <splash density="port-mdpi" src="splash/ios/Default@2x~iphone.png" />
+    <splash density="port-xhdpi" src="splash/ios/Default-736h.png" />
     <name>Donler</name>
     <description>
-        An Ionic Framework and Cordova project.
-    </description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
-    </author>
+      动梨活动助理
+  </description>
+    <author email="service@donler.com" href="http://www.donler.com">
+    Donler
+  </author>
     <content src="index.html" />
     <access origin="*" />
     <preference name="webviewbounce" value="false" />

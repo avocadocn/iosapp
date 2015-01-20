@@ -3,90 +3,7 @@
  */
 
 angular.module('donlerApp.controllers', [])
-  .directive('preventDefault', function () {
-    return function (scope, element, attrs) {
-      angular.element(element).bind('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      });
-    }
-  })
-  .directive('detectGestures', function($ionicGesture) {
-    return {
-      restrict :  'A',
-
-      link : function(scope, elem, attrs) {
-        var gestureType = attrs.gestureType.split(',');
-        var getstureCallback = attrs.getstureCallback.split(',');
-        var gesture = [];
-        gestureType.forEach(function(_gestureType,_index){
-          switch(_gestureType) {
-            case "swipe":
-              gesture[_index] = $ionicGesture.on('swipe',scope[getstureCallback[_index]], elem);
-              break;
-            case "swipeleft":
-              gesture[_index] = $ionicGesture.on('swipeleft', scope[getstureCallback[_index]], elem);
-              break;
-            case "swiperight":
-              gesture[_index] = $ionicGesture.on('swiperight', scope[getstureCallback[_index]], elem);
-              break;
-            case "pinch":
-              gesture[_index] = $ionicGesture.on('pinch', scope[getstureCallback[_index]], elem);
-              break;
-             case "drag":
-              gesture[_index] = $ionicGesture.on('drag', scope[getstureCallback[_index]], elem);
-              break;
-            case 'doubletap':
-              gesture[_index] = $ionicGesture.on('doubletap', scope[getstureCallback[_index]], elem);
-              break;
-            // case 'tap':
-            //   $ionicGesture.on('tap', scope.reportEvent, elem);
-            //   break;
-          }
-        });
-        scope.$on('$destroy', function() {
-          // Unbind drag gesture handler
-          gestureType.forEach(function(_gestureType,_index){
-            switch(_gestureType) {
-              case "swipe":
-                $ionicGesture.off(gesture[_index], 'swipeleft');
-                break;
-              case "swipeleft":
-                $ionicGesture.off(gesture[_index], 'swipeleft');
-                break;
-              case "swiperight":
-                $ionicGesture.off(gesture[_index], 'swipeleft');
-                break;
-              case "pinch":
-                $ionicGesture.off(gesture[_index], 'pinch');
-                break;
-              case "drag":
-                $ionicGesture.off(gesture[_index], 'drag');
-                break;
-              case 'doubletap':
-                $ionicGesture.off(gesture[_index],'doubletap');
-                break;
-              // case 'tap':
-              //   $ionicGesture.off('tap', scope.reportEvent, elem);
-              //   break;
-            }
-          });
-        });
-      }
-    }
-  })
-  .directive('match', ['$parse', function ($parse) {
-    return {
-      require: 'ngModel',
-      link: function(scope, elem, attrs, ctrl) {
-        scope.$watch(function() {
-          return $parse(attrs.match)(scope) === ctrl.$modelValue;
-        }, function(currentValue) {
-          ctrl.$setValidity('mismatch', currentValue);
-        });
-      }
-    };
-  }])
+  
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
   .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'UserAuth', function ($scope, CommonHeaders, $state, $ionicHistory, UserAuth) {
@@ -107,7 +24,6 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
-
   }])
   .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'CompanyAuth', function ($scope, CommonHeaders, $state, $ionicHistory, CompanyAuth) {
 
@@ -236,6 +152,7 @@ angular.module('donlerApp.controllers', [])
     $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
+    $scope.pswpId = 'campaigns' + Date.now();
     var getCampaignList = function() {
       Campaign.getList({
         requestType: 'user',
@@ -244,10 +161,10 @@ angular.module('donlerApp.controllers', [])
         populate: 'photo_album'
       }, function (err, data) {
         if (!err) {
-          $scope.unStartCampaigns = data[0];
-          $scope.nowCampaigns = data[1];
-          $scope.newCampaigns = data[2];
-          $scope.provokes = data[3];
+          $scope.unStartCampaigns = $filter('orderBy')(data[0], 'start_time');
+          $scope.nowCampaigns = $filter('orderBy')(data[1], 'end_time');
+          $scope.newCampaigns = $filter('orderBy')(data[2], '-create_time');
+          $scope.provokes = $filter('orderBy')(data[3], '-create_time');
           if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
             $scope.noCampaigns = true;
           }
@@ -278,11 +195,11 @@ angular.module('donlerApp.controllers', [])
     $scope.$on('updateCampaignList', function(event, args) {
       $timeout(function(){
         $scope[args.campaignFilter].splice(args.campaignIndex,1);
+        $scope[args.campaignFilter] = $filter('orderBy')($scope[args.campaignFilter], '-create_time');
         if(args.campaign){
-          args.campaign.remove = false;
           if(args.campaign.start_flag){
             $scope.nowCampaigns.push(args.campaign);
-            $scope.nowCampaigns = $filter('orderBy')($scope.nowCampaigns, 'start_time');
+            $scope.nowCampaigns = $filter('orderBy')($scope.nowCampaigns, 'end_time');
           }
           else{
             $scope.unStartCampaigns.push(args.campaign);
@@ -299,10 +216,10 @@ angular.module('donlerApp.controllers', [])
         populate: 'photo_album'
       }, function (err, data) {
         if (!err) {
-          $scope.unStartCampaigns = data[0];
-          $scope.nowCampaigns = data[1];
-          $scope.newCampaigns = data[2];
-          $scope.provokes = data[3];
+          $scope.unStartCampaigns = $filter('orderBy')(data[0], 'start_time');
+          $scope.nowCampaigns = $filter('orderBy')(data[1], 'end_time');
+          $scope.newCampaigns = $filter('orderBy')(data[2], '-create_time');
+          $scope.provokes = $filter('orderBy')(data[3], '-create_time');
           if(data[0].length==0&&data[1].length==0&&data[2].length==0&&data[3].length==0){
             $scope.noCampaigns = true;
           }
@@ -481,17 +398,11 @@ angular.module('donlerApp.controllers', [])
     $scope.isBusy = false;
     $scope.showMapFlag ==false;
     $scope.campaignData.location = {};
-    var city,marker;
     $ionicHistory.nextViewOptions({
       disableBack: true,
       historyRoot: true
     });
-    $ionicModal.fromTemplateUrl('my-modal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
+
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
@@ -500,12 +411,6 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.'+$state.params.type);
       }
     }
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
-    $scope.$on('$destroy',function() {
-      $scope.modal.remove();
-    });
     Team.getLeadTeam(null, function(err, leadTeams){
       if(!err &&leadTeams.length>0){
         $scope.leadTeams = leadTeams;
@@ -516,119 +421,6 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.campaigns');
       }
     });
-    var placeSearchCallBack = function(data){
-      $scope.locationmap.clearMap();
-      if(data.poiList.pois.length==0){
-        $ionicPopup.alert({
-          title: '提示',
-          template: '没有符合条件的地点，请重新输入'
-        });
-        $scope.closeModal();
-        return;
-      }
-      var lngX = data.poiList.pois[0].location.getLng();
-      var latY = data.poiList.pois[0].location.getLat();
-      $scope.campaignData.location.coordinates=[lngX, latY];
-      var nowPoint = new AMap.LngLat(lngX,latY);
-      var markerOption = {
-        map: $scope.locationmap,
-        position: nowPoint,
-        raiseOnDrag:true
-      };
-      marker = new AMap.Marker(markerOption);
-      $scope.locationmap.setFitView();
-      AMap.event.addListener($scope.locationmap,'click',function(e){
-        var lngX = e.lnglat.getLng();
-        var latY = e.lnglat.getLat();
-        $scope.campaignData.location.coordinates=[lngX,latY];
-        $scope.locationmap.clearMap();
-        var nowPoint = new AMap.LngLat(lngX,latY);
-        var markerOption = {
-          map: $scope.locationmap,
-          position: nowPoint,
-          raiseOnDrag: true
-        };
-        marker = new AMap.Marker(markerOption);
-      });
-
-    };
-    $scope.initialize = function(){
-      $scope.locationmap =  new AMap.Map("mapDetail");            // 创建Map实例
-      $scope.locationmap.plugin(["AMap.ToolBar"],function(){
-        toolBar = new AMap.ToolBar();
-        $scope.locationmap.addControl(toolBar);
-      });
-      if(city){
-        $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-          $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-            pageSize:1,
-            pageIndex:1,
-            city:city
-          });
-          AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-          $scope.MSearch.search($scope.campaignData.location.name);
-        });
-      }
-      else {
-        $scope.locationmap.plugin(["AMap.CitySearch"], function() {
-          //实例化城市查询类
-          var citysearch = new AMap.CitySearch();
-          AMap.event.addListener(citysearch, "complete", function(result){
-            if(result && result.city && result.bounds) {
-              var citybounds = result.bounds;
-              //地图显示当前城市
-              $scope.locationmap.setBounds(citybounds);
-              city = result.city;
-              $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-                $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-                  pageSize:1,
-                  pageIndex:1,
-                  city: result.city
-                });
-                AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-                $scope.MSearch.search($scope.campaignData.location.name);
-              });
-            }
-          });
-          AMap.event.addListener(citysearch, "error", function (result) {
-            $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-              $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-                pageSize:1,
-                pageIndex:1
-              });
-              AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-              $scope.MSearch.search($scope.campaignData.location.name);
-            });
-          });
-          //自动获取用户IP，返回当前城市
-          citysearch.getLocalCity();
-
-        });
-      }
-      window.map_ready =true;
-    }
-    $scope.showPopup = function() {
-      if($scope.campaignData.location.name==''){
-        $ionicPopup.alert({
-          title: '提示',
-          template: '请输入地点'
-        });
-        return false;
-      }
-      else{
-        $scope.modal.show();
-        //加载地图
-        if(!window.map_ready){
-          window.campaign_map_initialize = $scope.initialize;
-          var script = document.createElement("script");
-          script.src = "http://webapi.amap.com/maps?v=1.3&key=077eff0a89079f77e2893d6735c2f044&callback=campaign_map_initialize";
-          document.body.appendChild(script);
-        }
-        else{
-          $scope.initialize();
-        }
-      }
-     };
     $scope.changeTeam = function(selectTeam) {
       $scope.selectTeam =selectTeam;
       Campaign.getMolds('team',selectTeam._id,function(err, molds){
@@ -851,6 +643,7 @@ angular.module('donlerApp.controllers', [])
         });
       }
     };
+    $scope.pswpPhotoAlbum = {};
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
@@ -860,30 +653,8 @@ angular.module('donlerApp.controllers', [])
       }
     }
     $scope.pswpId = 'discuss' + Date.now();
-    $scope.openPhotoSwipe = function (photoId) {
-      var pswpElement = document.querySelector('#' + $scope.pswpId);
 
-      var index = Tools.arrayObjectIndexOf($scope.photos, photoId, '_id');
-
-      var options = {
-        // history & focus options are disabled on CodePen
-        history: false,
-        focus: false,
-        index: index,
-        showAnimationDuration: 0,
-        hideAnimationDuration: 0
-      };
-      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
-      gallery.init();
-      $scope.pswpPhotoAlbum = {
-        goToAlbum: function () {
-          gallery.close();
-          $location.url('/photo_album/' + $scope.photoAlbumId + '/detail');
-        }
-      };
-    };
-
-    var nextStartDate ='';
+    
 
     //获取公告
     $scope.showNotice = false;
@@ -929,7 +700,7 @@ angular.module('donlerApp.controllers', [])
     //   var index = Tools.arrayObjectIndexOf(localStorage.commentList, $scope.campaignId, '_id');
     //   if(index>-1) $scope.commentList.push(localStorage.commentList[index]);
     // }
-      
+    var nextStartDate ='';      
     //获取最新20条评论
     var getComments = function() {
       Comment.getComments($scope.campaignId, 20).success(function(data){
@@ -1501,37 +1272,7 @@ angular.module('donlerApp.controllers', [])
     getUser();
     
 
-    $scope.personalPswpId = 'personal' + Date.now();
-    $scope.openPhotoSwipe = function () {
-      try {
-        $rootScope.hideTabs = true;
-        var pswpElement = document.querySelector('#' + $scope.personalPswpId);
-        var options = {
-          history: false,
-          focus: false,
-          index: 0,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0
-        };
-        var width = Math.min(INFO.screenWidth, INFO.screenHeight);
-        var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [{
-          src: CONFIG.STATIC_URL + $scope.user.photo + '/' + width + '/' + width,
-          w: width,
-          h: width
-        }], options);
-        pswp.listen('close', function() {
-          $rootScope.hideTabs = false;
-          if (!$rootScope.$$phase) {
-            $rootScope.$digest();
-          }
-        });
-        pswp.init();
-      } catch (e) {
-        console.log(e);
-        console.log(e.stack);
-        $rootScope.hideTabs = false;
-      }
-    };
+    $scope.pswpId = 'personal' + Date.now();
 
     Message.receiveUserMessages(localStorage.id, function (err, messagesCount) {
       if (err) {
@@ -1801,6 +1542,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CalendarController',['$scope', '$rootScope', '$state', '$ionicPopup', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
     function($scope, $rootScope, $state, $ionicPopup, $ionicPopover, $timeout, $ionicHistory, Campaign, INFO) {
+      $scope.nowTypeIndex =2;
       $scope.campaignTypes =[{
         value:'unjoined',view:'未参加'
       },
@@ -1818,7 +1560,7 @@ angular.module('donlerApp.controllers', [])
           $state.go('app.'+$state.params.type);
         }
       }
-      $scope.nowTypeIndex =2;
+
       moment.locale('zh-cn');
       $scope.calendarBackUrl = INFO.calendarBackUrl;
       /**
@@ -2710,11 +2452,6 @@ angular.module('donlerApp.controllers', [])
         return true;
       }
     };
-    $scope.linkMap = function (homeCourt) {
-      var link = 'http://m.amap.com/navi/?dest=' + homeCourt.loc.coordinates[0] + ',' + homeCourt.loc.coordinates[1] + '&destName=' + homeCourt.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
-      window.open( link, '_system' , 'location=yes');
-      return false;
-    }
     $scope.$on('$stateChangeSuccess', function() {
       $scope.loadMore();
     });
@@ -2836,144 +2573,6 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
-    var city, marker;
-    $ionicModal.fromTemplateUrl('homecourt-modal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy',function() {
-      $scope.modal.remove();
-    });
-
-    var placeSearchCallBack = function (homeCourt) {
-      return function(data) {
-        $scope.locationmap.clearMap();
-        if (data.poiList.pois.length == 0) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: '没有符合条件的地点，请重新输入'
-          });
-          $scope.closeModal();
-          return;
-        }
-        var lngX = data.poiList.pois[0].location.getLng();
-        var latY = data.poiList.pois[0].location.getLat();
-        homeCourt.loc.coordinates = [lngX, latY];
-        var nowPoint = new AMap.LngLat(lngX, latY);
-        var markerOption = {
-          map: $scope.locationmap,
-          position: nowPoint,
-          raiseOnDrag: true
-        };
-        marker = new AMap.Marker(markerOption);
-        $scope.locationmap.setFitView();
-        AMap.event.addListener($scope.locationmap, 'click', function(e) {
-          var lngX = e.lnglat.getLng();
-          var latY = e.lnglat.getLat();
-          homeCourt.loc.coordinates = [lngX, latY];
-          $scope.locationmap.clearMap();
-          var nowPoint = new AMap.LngLat(lngX, latY);
-          var markerOption = {
-            map: $scope.locationmap,
-            position: nowPoint,
-            raiseOnDrag: true
-          };
-          marker = new AMap.Marker(markerOption);
-        });
-      };
-    };
-
-    $scope.initialize = function (homeCourt) {
-      try {
-        $scope.locationmap = new AMap.Map("homeCourtMapDetail"); // 创建Map实例
-        $scope.locationmap.plugin(["AMap.ToolBar"], function() {
-          toolBar = new AMap.ToolBar();
-          $scope.locationmap.addControl(toolBar);
-        });
-        if (city) {
-          $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-            $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-              pageSize: 1,
-              pageIndex: 1,
-              city: city
-            });
-            AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack(homeCourt)); //返回地点查询结果
-            $scope.MSearch.search(homeCourt.name);
-          });
-        } else {
-          $scope.locationmap.plugin(["AMap.CitySearch"], function() {
-            //实例化城市查询类
-            var citysearch = new AMap.CitySearch();
-            AMap.event.addListener(citysearch, "complete", function(result){
-              if(result && result.city && result.bounds) {
-                var citybounds = result.bounds;
-                //地图显示当前城市
-                $scope.locationmap.setBounds(citybounds);
-                city = result.city;
-                $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-                  $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-                    pageSize:1,
-                    pageIndex:1,
-                    city: result.city
-                  });
-                  AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack(homeCourt));//返回地点查询结果
-                  $scope.MSearch.search(homeCourt.name);
-                });
-              }
-            });
-            AMap.event.addListener(citysearch, "error", function (result) {
-              $scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
-                $scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类
-                  pageSize:1,
-                  pageIndex:1
-                });
-                AMap.event.addListener($scope.MSearch, "complete", placeSearchCallBack(homeCourt));//返回地点查询结果
-                $scope.MSearch.search(homeCourt.name);
-              });
-            });
-            //自动获取用户IP，返回当前城市
-            citysearch.getLocalCity();
-
-          });
-        }
-      } catch (e) {
-        console.log(e);
-        console.log(e.stack)
-      }
-
-      window.team_map_ready = true;
-    };
-
-    $scope.showPopup = function(homeCourt) {
-      if (!homeCourt || !homeCourt.name || homeCourt.name == '') {
-        $ionicPopup.alert({
-          title: '提示',
-          template: '请输入地点'
-        });
-        return false;
-      } else {
-        $scope.modal.show();
-        //加载地图
-        if (!window.team_map_ready) {
-          window.team_map_init = function () {
-            $scope.initialize(homeCourt);
-          };
-          var script = document.createElement("script");
-          script.src = "http://webapi.amap.com/maps?v=1.3&key=077eff0a89079f77e2893d6735c2f044&callback=team_map_init";
-          document.body.appendChild(script);
-        } else {
-          $scope.initialize(homeCourt);
-        }
-      }
-    };
-
-
 
     var uploadSheet;
     $scope.showUploadActionSheet = function () {
@@ -3207,21 +2806,6 @@ angular.module('donlerApp.controllers', [])
       getPhotos();
 
       $scope.pswpId = 'photoAlbum' + Date.now();
-      $scope.openPhotoSwipe = function (photoId) {
-        var pswpElement = document.querySelector('#' + $scope.pswpId);
-
-        var index = Tools.arrayObjectIndexOf($scope.photos, photoId, '_id');
-
-        var options = {
-          history: false,
-          focus: false,
-          index: index,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0
-        };
-        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, $scope.photos, options);
-        gallery.init();
-      };
 
       // 上传照片
       var uploadSheet;
@@ -3356,6 +2940,16 @@ angular.module('donlerApp.controllers', [])
             console.log(err);
           } else {
             $scope.familyPhotos = photos;
+            //photo
+            $scope.photos = [];
+            photos.forEach(function (photo) {
+              $scope.photos.push({
+                _id: photo._id,
+                src: CONFIG.STATIC_URL + photo.uri + '/320/190',
+                w: 320,
+                h: 190
+              });
+            });
           }
         });
       };
@@ -3365,39 +2959,9 @@ angular.module('donlerApp.controllers', [])
           $ionicHistory.goBack();
         }
       };
-      $scope.familyAlbumPswpId = 'fa' + Date.now();
-      $scope.openPhotoSwipe = function (photoId) {
-        var pswpElement = document.querySelector('#' + $scope.familyAlbumPswpId);
-
-        var index = Tools.arrayObjectIndexOf($scope.familyPhotos, photoId, '_id');
-
-        var options = {
-          history: false,
-          focus: false,
-          index: index,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0
-        };
-        var items = [];
-        $scope.familyPhotos.forEach(function (photo) {
-          items.push({
-            _id: photo._id,
-            src: CONFIG.STATIC_URL + photo.uri + '/320/190',
-            w: 320,
-            h: 190
-          });
-        });
-        var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-        pswp.listen('afterChange', function() {
-          var itemIndex = pswp.getCurrentIndex();
-          var familyPhotosIndex = Tools.arrayObjectIndexOf($scope.familyPhotos, items[itemIndex]._id, '_id');
-          $scope.currentFamilyPhoto = $scope.familyPhotos[familyPhotosIndex];
-          if(!$scope.$$phase) {
-            $scope.$apply();
-          }
-        });
-        pswp.init();
-      };
+      //for pswp
+      $scope.pswpId = 'fa' + Date.now();
+      $scope.pswpPhotoAlbum = {};
 
       $scope.toggleSelect = function (index) {
         if (!$scope.team.isLeader) {
@@ -3587,11 +3151,6 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('LocationController', ['$ionicHistory', '$scope', '$stateParams', 'INFO', function($ionicHistory, $scope, $stateParams, INFO) {
     $scope.location = INFO.locationContent;
-    $scope.linkMap = function (location) {
-      var link = 'http://m.amap.com/navi/?dest=' + location.coordinates[0] + ',' + location.coordinates[1] + '&destName=' + location.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
-      window.open( link, '_system' , 'location=yes');
-      return false;
-    }
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
@@ -3699,37 +3258,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
 
-    $scope.userInfoPswpId = 'personal' + Date.now();
-    $scope.openPhotoSwipe = function () {
-      try {
-        $rootScope.hideTabs = true;
-        var pswpElement = document.querySelector('#' + $scope.userInfoPswpId);
-        var options = {
-          history: false,
-          focus: false,
-          index: 0,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0
-        };
-        var width = Math.min(INFO.screenWidth, INFO.screenHeight);
-        var pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, [{
-          src: CONFIG.STATIC_URL + $scope.user.photo + '/' + width + '/' + width,
-          w: width,
-          h: width
-        }], options);
-        pswp.listen('close', function() {
-          $rootScope.hideTabs = false;
-          if (!$rootScope.$$phase) {
-            $rootScope.$digest();
-          }
-        });
-        pswp.init();
-      } catch (e) {
-        console.log(e);
-        console.log(e.stack);
-        $rootScope.hideTabs = false;
-      }
-    };
+    $scope.pswpId = 'personal' + Date.now();
 
   }])
   .controller('UserInfoTimelineController', ['$ionicHistory', '$scope', '$stateParams', '$timeout','User', 'TimeLine', function ($ionicHistory, $scope, $stateParams, $timeout, User, TimeLine) {

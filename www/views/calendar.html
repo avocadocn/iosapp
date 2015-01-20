@@ -1,9 +1,9 @@
 
 <ion-view>
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a><a ng-if="view==='day'" ng-click="back()" class="button icon_blue">关闭</a>
-    <h1 class="title">我的日程</h1><a ng-click="showFilter($event)" class="button ion-chevron-down icon-right">{{campaignTypes[nowTypeIndex].view}}</a>
+    <h1 class="title dl_title">我的日程</h1><a ng-click="showFilter($event)" ng-cloak="ng-cloak" class="button ion-chevron-down icon-right">{{campaignTypes[nowTypeIndex].view || '所有'}}</a>
   </ion-header-bar>
-  <ion-content scroll="false" class="has-header">
+  <ion-content scroll="false">
     <div class="calendar">
       <nav>
         <div ng-if="view==='month'" class="operator item tabs">

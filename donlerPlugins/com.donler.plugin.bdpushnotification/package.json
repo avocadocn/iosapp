@@ -1,0 +1,12 @@
+{
+    "version": "1.0.0",
+    "name": "com.donler.plugin.bdpushnotification",
+    "cordova_name": "PushNotification",
+    "description": "pushNotification plugin description",
+    "license": "Apache 2.0",
+    "keywords": [
+        "baidupush",
+        " pushnotification"
+    ],
+    "engines": []
+}
