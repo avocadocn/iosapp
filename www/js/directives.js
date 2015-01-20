@@ -82,8 +82,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       restrict: 'E',
       scope: {
         campaign: '=',
-        pswpPhotoAlbum: '=',
-        pswpId: '=',
         campaignIndex:'=',
         campaignFilter:'@'
       },
@@ -95,7 +93,12 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             if (!err) {
               // todo
               scope.campaign.remove = true;
-              $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
+              if(scope.campaignIndex&&scope.campaignFilter){
+                $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
+              }
+              else {
+                scope.campaign = data;
+              }
             }
           });
         };
@@ -113,7 +116,12 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
               Campaign.dealProvoke(campaignId, dealType, function(err, data){
                 if(!err){
                   scope.campaign.remove = true;
-                  $rootScope.$broadcast('updateCampaignList', { campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
+                  if(scope.campaignIndex&&scope.campaignFilter){
+                    $rootScope.$broadcast('updateCampaignList', { campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
+                  }
+                  else {
+                    scope.campaign = data;
+                  }
                 }
               });
             }
