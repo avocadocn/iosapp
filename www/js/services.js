@@ -291,7 +291,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg);
+          callback(data.msg|| '网络连接错误');
         });
       },
       edit: function (id, campaignData, callback) {

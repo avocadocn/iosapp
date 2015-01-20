@@ -15,7 +15,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       }
 
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
-
+      //@:ios
       var iosConfig = {
         "badge": "true",
         "sound": "false",
@@ -29,7 +29,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           'x-platform': device.platform,
           'x-version': device.version
         });
-
+        //@:ios_start
         var config;
         if (device.platform === 'iOS') {
           config = iosConfig;
@@ -56,7 +56,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           });
 
         });
-
+        //@:ios_end
       }
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {
@@ -82,7 +82,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
     $rootScope.hideLoading = function(){
       $ionicLoading.hide();
     };
-  }).config(function ($stateProvider) {
+  }).config(function ($stateProvider) {//@:ios
     $stateProvider
       .state('home', {
         url: '/home',
