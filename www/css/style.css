@@ -611,10 +611,11 @@ body {
 }
 .dl_photo_album_card .card_header {
   height: 20px;
+  width: 100%;
+  display: inline-block;
 }
 .dl_photo_album_card .header_title {
-  float: left;
-  margin: 0;
+  width: 100%;
   font-size: 12px;
   line-height: 20px;
   color: #333;
