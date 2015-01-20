@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <div class="card user_card">
-      <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/90/90" preventDefault="preventDefault" photo="user.photo" pswp-id="pswpId" open-photo="open-photo"/>
+      <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/90/90" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo"/>
         <h2>{{user.nickname}}</h2>
         <p ng-cloak="ng-cloak">简介: {{user.introduce || '-'}}</p>
       </div>
