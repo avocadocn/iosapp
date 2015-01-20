@@ -23,7 +23,10 @@
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
-    <preference name="Fullscreen" value="true" />
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
     <icon density="ldpi" src="icons/ios/icon-small.png" />
     <icon density="mdpi" src="icons/ios/icon-40@2x.png" />
     <icon density="hdpi" src="icons/ios/icon-60@2x.png" />

@@ -3,7 +3,7 @@ ion-view(ng-controller="CampaignController")
     .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
       .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" class="#{itemsClass}" ng-cloak)
         p #{containerTitle} {{#{items}.length}}
-      campaign-card(ng-repeat="campaign in #{items}" campaign="campaign" campaign-index="$index" campaign-filter="#{items}" pswp-photo-album="pswpPhotoAlbum")
+      campaign-card(ng-repeat="campaign in #{items}" campaign="campaign" campaign-index="$index" campaign-filter="#{items}")
 
   ion-header-bar
 

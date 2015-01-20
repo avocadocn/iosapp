@@ -608,13 +608,16 @@ angular.module('donlerApp.controllers', [])
     };
     
   }])
-  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicPopup', 'Campaign', '$location', '$ionicModal', '$ionicLoading',
-    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicPopup, Campaign, $location, $ionicModal, $ionicLoading) {
+  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', '$ionicPopup', 'Upload', 'Campaign', '$ionicModal',
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, $ionicPopup, Upload, Campaign, $ionicModal) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
-    Socket.emit('enterRoom', $scope.campaignId);
     $scope.commentContent='';
-
+    $scope.$on('$ionicView.enter', function(){
+      INFO.discussCampaignId = $scope.campaignId; //for 回到讨论列表时清红点
+      Socket.emit('quitRoom');
+      Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
+    });
     
     Campaign.get($scope.campaignId, function (err, data) {
       if (!err) {
@@ -624,6 +627,10 @@ angular.module('donlerApp.controllers', [])
     });
 
     $scope.userId = localStorage.id;
+
+    //for pswp
+    $scope.pswpId = 'discuss' + Date.now();
+    $scope.pswpPhotoAlbum = {};
     $scope.photos = [];
     var addPhotos = function (comment) {
       if (comment.photos && comment.photos.length > 0) {
@@ -643,7 +650,8 @@ angular.module('donlerApp.controllers', [])
         });
       }
     };
-    $scope.pswpPhotoAlbum = {};
+    
+    //ionichistory
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
@@ -652,9 +660,8 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.discuss_list');
       }
     }
-    $scope.pswpId = 'discuss' + Date.now();
 
-    
+
 
     //获取公告
     $scope.showNotice = false;
@@ -671,7 +678,6 @@ angular.module('donlerApp.controllers', [])
     });
 
     //评论获取
-
     $scope.commentList = [];
     $scope.topShowTime = [];
 
@@ -695,11 +701,6 @@ angular.module('donlerApp.controllers', [])
       }
     };
 
-    // //获取本地记录
-    // if(localStorage.commentList) {
-    //   var index = Tools.arrayObjectIndexOf(localStorage.commentList, $scope.campaignId, '_id');
-    //   if(index>-1) $scope.commentList.push(localStorage.commentList[index]);
-    // }
     var nextStartDate ='';      
     //获取最新20条评论
     var getComments = function() {
@@ -839,24 +840,13 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
+
     // 上传图片
-    var uploadSheet;
     $scope.showUploadActionSheet = function () {
-      uploadSheet = $ionicActionSheet.show({
-        buttons: [{
-          text: '拍照上传'
-        }, {
-          text: '本地上传'
-        }],
-        titleText: '请选择上传方式',
-        cancelText: '取消',
-        buttonClicked: function (index) {
-          if (index === 0) {
-            getPhotoFrom('camera');
-          } else if (index === 1) {
-            getPhotoFrom('file');
-          }
-          return true;
+      Upload.getPicture(false, function (err, imageURI) {
+        if(!err){
+          $scope.previewImg = imageURI;
+          $scope.confirmUploadModal.show();
         }
       });
     };
@@ -875,116 +865,42 @@ angular.module('donlerApp.controllers', [])
       $scope.confirmUploadModal.remove();
     });
 
-    var upload = function (imageURI, randomId) {
-      var serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
-      var headers = CommonHeaders.get();
-      headers['x-access-token'] = localStorage.accessToken;
-      var options = {
-        fileKey: 'photo',
-        httpMethod: 'POST',
-        headers: headers,
-        mimeType: 'image/jpeg',
-        params:{randomId: randomId}
-      };
-
-      $ionicLoading.show({
-        template: '上传中',
-        scope: $scope,
-        duration: 5000
-      });
-
-      $cordovaFile
-        .uploadFile(serverAddr, imageURI, options)
-        .then(function(result) {
-          $ionicLoading.hide();
+    $scope.confirmUpload = function () {
+      //-生成随机id
+      var randomId = Math.floor(Math.random()*100);
+      $scope.randomId = randomId;
+      //上传
+      var data = {randomId: randomId, imageURI:$scope.previewImg};
+      var addr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
+      Upload.upload('discuss', addr, data, function(err) {
+        if(!err) {
           $scope.confirmUploadModal.hide();
-        }, function(err) {
+        } else {//发送失败
           $scope.confirmUploadModal.hide();
-          //发送失败
+          //-逻辑修改todo
           var length =  $scope.commentList[commentListIndex].length;
           $scope.commentList[commentListIndex][length-1].failed = true;
-          // $ionicPopup.alert({
-          //   title: '发送失败',
-          //   template: '请重试'
-          // });
-        }, function (progress) {
-          // constant progress updates
-        });
-    };
-
-    $scope.confirmUpload = function () {
-      upload($scope.previewImg, $scope.randomId);
-    };
-
-    var getPhotoFrom = function (source) {
-
-      var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-      var save = false;
-      if (source === 'camera') {
-        sourceType = Camera.PictureSourceType.CAMERA;
-        save = true;
-      }
-
-      var options = {
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: sourceType,
-        encodingType: Camera.EncodingType.JPEG,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: save,
-        correctOrientation: true
-      };
-
-      $cordovaCamera.getPicture(options).then(function(imageURI) {
-        //-生成随机id
-        var randomId = Math.floor(Math.random()*100);
-        $scope.previewImg = imageURI;
-        $scope.randomId = randomId;
-        $scope.confirmUploadModal.show();
-        //-创建一个新comment
-        var newComment = {
-          randomId: randomId.toString(),
-          create_date: new Date(),
-          poster: {
-            '_id': currentUser._id,
-            'photo': currentUser.photo,
-            'nickname': currentUser.nickname
-          },
-          photos: [{uri:imageURI}],
-          loading: true
-        };
-        var commentListIndex = $scope.commentList.length -1;
-        $scope.commentList[commentListIndex].push(newComment);
-        $ionicScrollDelegate.scrollBottom();
-      }, function(err) {
-        if (err !== 'no image selected') {
-          $ionicPopup.alert({
-            title: '获取照片失败',
-            template: err
-          });
         }
       });
+      //-创建一个新comment
+      var newComment = {
+        randomId: randomId.toString(),
+        create_date: new Date(),
+        poster: {
+          '_id': currentUser._id,
+          'photo': currentUser.photo,
+          'nickname': currentUser.nickname
+        },
+        photos: [{uri:$scope.previewImg}],
+        loading: true
+      };
+      var commentListIndex = $scope.commentList.length -1;
+      $scope.commentList[commentListIndex].push(newComment);
+      $ionicScrollDelegate.scrollBottom();
     };
 
-    // localStorage不能保存数组
-    // //-保存最新的20条评论
-    // $scope.$on('$destroy',function( ) {
-    //   if(!localStorage.commentList){
-    //     localStorage.commentList = [];
-    //   }
-    //   var index = Tools.arrayObjectIndexOf(localStorage.commentList, $scope.campaignId, '_id');
-    //   var comments = $scope.commentList[$scope.commentList.length-1];
-    //   comments.length = 20;
-    //   if(index>-1){
-    //     localStorage.commentList[index] = comments
-    //   }else{
-    //     localStorage.commentList.push({
-    //       _id: $scope.campaignId,
-    //       comments: comments
-    //     })
-    //   }
-    // });
-    
+
+    //表情
     $scope.isShowEmotions = false;
     $scope.showEmotions = function() {
       $scope.isShowEmotions = true;
@@ -1047,14 +963,11 @@ angular.module('donlerApp.controllers', [])
     $scope.emojiList.unshift(emoji);
 
     $scope.addEmotion = function(emotion) {
-      // console.log(emotion);
       $scope.commentContent += ':'+ emotion +':';
     };
 
-    $scope.$on('$ionicView.enter', function(){
-      INFO.discussCampaignId = $scope.campaignId;
-    });
-
+    
+    //发送请求已读某评论
     $scope.$on('$ionicView.leave', function(){
       if(needRead){
         Comment.readComment($scope.campaignId, function(err) {
@@ -1284,7 +1197,8 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', 'User', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicHistory', function ($scope, $state, $ionicPopup, User, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicHistory) {
+  .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', '$ionicHistory', 'User', 'CONFIG', 'Upload',
+    function ($scope, $state, $ionicPopup, $ionicHistory, User, CONFIG, Upload) {
 
     var birthdayInput = document.getElementById('birthday');
 
@@ -1333,10 +1247,11 @@ angular.module('donlerApp.controllers', [])
             template: err
           });
         } else {
-          if($scope.formData.tag) {
-            $scope.user.tags.push($scope.formData.tag);
-            $scope.formData.tag = '';
-          }
+          //暂时么有tag
+          // if($scope.formData.tag) {
+          //   $scope.user.tags.push($scope.formData.tag);
+          //   $scope.formData.tag = '';
+          // }
           $ionicHistory.clearHistory();
           $ionicHistory.clearCache();
           $state.go('app.personal');
@@ -1344,97 +1259,34 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
-    var uploadSheet;
+    // var uploadSheet;
     $scope.showUploadActionSheet = function () {
-      uploadSheet = $ionicActionSheet.show({
-        buttons: [{
-          text: '拍照上传'
-        }, {
-          text: '本地上传'
-        }],
-        titleText: '请选择上传方式',
-        cancelText: '取消',
-        buttonClicked: function (index) {
-          if (index === 0) {
-            getPhotoFrom('camera');
-          } else if (index === 1) {
-            getPhotoFrom('file');
-          }
-          return true;
-        }
-      });
-    };
-
-    var upload = function (imageURI) {
-      var serverAddr = CONFIG.BASE_URL + '/users/' + localStorage.id;
-      var headers = CommonHeaders.get();
-      headers['x-access-token'] = localStorage.accessToken;
-      var options = {
-        fileKey: 'photo',
-        httpMethod: 'PUT',
-        headers: headers,
-        mimeType: 'image/jpeg'
-      };
-
-      $cordovaFile
-        .uploadFile(serverAddr, imageURI, options)
-        .then(function(result) {
-          $ionicHistory.clearHistory();
-          $ionicHistory.clearCache();
-          User.clearCurrentUser();
-          var successAlert = $ionicPopup.alert({
-            title: '提示',
-            template: '修改头像成功'
-          });
-          successAlert.then(function () {
-            User.clearCurrentUser();
-            $state.go('app.personal');
-          });
-        }, function(err) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: '修改失败，请重试'
-          });
-        }, function (progress) {
-          // constant progress updates
-        });
-    };
-
-    var getPhotoFrom = function (source) {
-
-      var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-      var save = false;
-      if (source === 'camera') {
-        sourceType = Camera.PictureSourceType.CAMERA;
-        save = true;
-      }
-
-      var options = {
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: sourceType,
-        allowEdit: true,
-        encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 256,
-        targetHeight: 256,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: save,
-        correctOrientation: true
-      };
-
-      $cordovaCamera.getPicture(options).then(function(imageURI) {
-        upload(imageURI);
-      }, function(err) {
-        if (err !== 'no image selected') {
-          $ionicPopup.alert({
-            title: '获取照片失败',
-            template: err
+      Upload.getPicture(true, function (err, imageURI) {
+        if(!err){
+          var addr = CONFIG.BASE_URL + '/users/' + localStorage.id;
+          Upload.upload('photo', addr, {imageURI:imageURI}, function(err) {
+            if(!err) {
+              //更新现在的头像
+              $ionicHistory.clearHistory();
+              $ionicHistory.clearCache();
+              User.clearCurrentUser();
+              var successAlert = $ionicPopup.alert({
+                title: '提示',
+                template: '修改头像成功'
+              });
+              successAlert.then(function () {
+                $state.go('app.personal');
+              });
+            }else {
+              $ionicPopup.alert({
+                title: '提示',
+                template: '修改失败，请重试'
+              });
+            }
           });
         }
       });
     };
-
-
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
     INFO.createTeamBackUrl = '#/personal/teams';
@@ -2457,7 +2309,8 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('TeamEditController', ['$scope', '$ionicModal', '$ionicPopup', '$stateParams', 'Team', 'CONFIG', 'INFO', '$ionicActionSheet', '$cordovaFile', '$cordovaCamera', 'CommonHeaders', '$timeout', '$ionicHistory', function ($scope, $ionicModal, $ionicPopup, $stateParams, Team, CONFIG, INFO, $ionicActionSheet, $cordovaFile, $cordovaCamera, CommonHeaders, $timeout, $ionicHistory) {
+  .controller('TeamEditController', ['$scope', '$ionicModal', '$ionicPopup', '$ionicHistory', '$stateParams', 'Team', 'CONFIG', 'INFO', 'Upload',
+    function ($scope, $ionicModal, $ionicPopup, $ionicHistory, $stateParams, Team, CONFIG, INFO, Upload) {
     $scope.STATIC_URL = CONFIG.STATIC_URL;
     $scope.team = Team.getCurrentTeam();
 
@@ -2574,105 +2427,46 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
-    var uploadSheet;
+    //上传
     $scope.showUploadActionSheet = function () {
-      uploadSheet = $ionicActionSheet.show({
-        buttons: [{
-          text: '拍照上传'
-        }, {
-          text: '本地上传'
-        }],
-        titleText: '请选择上传方式',
-        cancelText: '取消',
-        buttonClicked: function (index) {
-          if (index === 0) {
-            getPhotoFrom('camera');
-          } else if (index === 1) {
-            getPhotoFrom('file');
-          }
-          return true;
-        }
-      });
-    };
-
-    var upload = function (imageURI) {
-      var serverAddr = CONFIG.BASE_URL + '/teams/' + $scope.team._id;
-      var headers = CommonHeaders.get();
-      headers['x-access-token'] = localStorage.accessToken;
-      var options = {
-        fileKey: 'logo',
-        httpMethod: 'PUT',
-        headers: headers,
-        mimeType: 'image/jpeg'
-      };
-
-      $cordovaFile
-        .uploadFile(serverAddr, imageURI, options)
-        .then(function(result) {
-          var successAlert = $ionicPopup.alert({
-            title: '提示',
-            template: '修改logo成功'
-          });
-          refreshTeamData();
-        }, function(err) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: '修改失败，请重试'
-          });
-        }, function (progress) {
-          // constant progress updates
-        });
-    };
-
-    var getPhotoFrom = function (source) {
-
-      var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-      var save = false;
-      if (source === 'camera') {
-        sourceType = Camera.PictureSourceType.CAMERA;
-        save = true;
-      }
-
-      var options = {
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: sourceType,
-        allowEdit: true,
-        encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 256,
-        targetHeight: 256,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: save,
-        correctOrientation: true
-      };
-
-      $cordovaCamera.getPicture(options).then(function(imageURI) {
-        upload(imageURI);
-      }, function(err) {
-        if (err !== 'no image selected') {
-          $ionicPopup.alert({
-            title: '获取照片失败',
-            template: err
+      Upload.getPicture(true, function (err, imageURI) {//取图
+        if(!err) {
+          var addr = CONFIG.BASE_URL + '/teams/' + $scope.team._id;
+          Upload.upload('logo', addr, {imageURI:imageURI}, function(err) {//上传
+            if(!err){
+              var successAlert = $ionicPopup.alert({
+                title: '提示',
+                template: '修改logo成功'
+              });
+              refreshTeamData();
+            } else {
+              $ionicPopup.alert({
+                title: '提示',
+                template: '修改失败，请重试'
+              });
+            }
           });
         }
       });
     };
-
   }])
   
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'Team', 'INFO',
     function ($scope, $stateParams, PhotoAlbum, Team, INFO) {
       $scope.teamId = $stateParams.teamId;
-      Team.getFamilyPhotos($scope.teamId, function (err, photos) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.familyPhotoLength = photos.length;
-          $scope.familyPhotos = photos.reverse().slice(0, 8);
-        }
-      });
-
+      var getFamily = function() {
+        Team.getFamilyPhotos($scope.teamId, function (err, photos) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            $scope.familyPhotoLength = photos.length;
+            $scope.familyPhotos = photos.reverse().slice(0, 8);
+          }
+        });
+      }
+      getFamily();
+      
       $scope.firstLoad = true;
       $scope.lastCount;
       var pageSize = 20;
@@ -2684,6 +2478,7 @@ angular.module('donlerApp.controllers', [])
             // todo
             console.log(err);
           } else {
+            $scope.photoAlbums=[];
             $scope.lastCount = photoAlbums.length;
             $scope.firstLoad = false;
             $scope.loading = false;
@@ -2691,6 +2486,17 @@ angular.module('donlerApp.controllers', [])
             $scope.$broadcast('scroll.infiniteScrollComplete');
           }
         });
+      };
+
+      $scope.refresh = function () {
+        $scope.loading = true;
+        var options = {
+          ownerType: 'team',
+          ownerId: $scope.teamId
+        }
+        $scope.getPhotoAlbums(options);
+        getFamily();
+        $scope.$broadcast('scroll.refreshComplete');
       };
 
       $scope.loadMore = function () {
@@ -2727,20 +2533,16 @@ angular.module('donlerApp.controllers', [])
         }
       };
 
-      $scope.$on('$stateChangeSuccess', function() {
-        $scope.loadMore();
-      });
-
   }])
-  .controller('PhotoAlbumDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', '$ionicModal', '$ionicLoading',
-    function ($ionicHistory, $scope, $state, $stateParams, $ionicPopup, PhotoAlbum, Tools, INFO, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, $ionicModal, $ionicLoading) {
+  .controller('PhotoAlbumDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$ionicModal', '$ionicLoading', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'Upload',
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicPopup, $ionicModal, $ionicLoading, PhotoAlbum, Tools, INFO, CONFIG, Upload) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
 
       var isCampaignPhotoAlbum = false;
       $scope.goBack = function() {
-        if($ionicHistory.backView()){
-          $ionicHistory.goBack()
+        if($ionicHistory.backView()) {
+          $ionicHistory.goBack();
         }
         else{
           $state.go('app.campaigns');
@@ -2808,25 +2610,13 @@ angular.module('donlerApp.controllers', [])
       $scope.pswpId = 'photoAlbum' + Date.now();
 
       // 上传照片
-      var uploadSheet;
       $scope.showUploadActionSheet = function () {
-        uploadSheet = $ionicActionSheet.show({
-          buttons: [{
-            text: '拍照上传'
-          }, {
-            text: '本地上传'
-          }],
-          titleText: '请选择上传方式',
-          cancelText: '取消',
-          buttonClicked: function (index) {
-            if (index === 0) {
-              getPhotoFrom('camera');
-            } else if (index === 1) {
-              getPhotoFrom('file');
-            }
-            return true;
+        Upload.getPicture(false, function(err, imageURI) {//取图
+          if(!err) {
+            $scope.previewImg = imageURI;
+            $scope.confirmUploadModal.show();
           }
-        });
+        })
       };
 
       $ionicModal.fromTemplateUrl('confirm-upload-modal.html', {
@@ -2843,35 +2633,12 @@ angular.module('donlerApp.controllers', [])
         $scope.confirmUploadModal.remove();
       });
 
-      var upload = function (imageURI) {
-        var serverAddr = CONFIG.BASE_URL + '/photo_albums/' + $scope.photoAlbum._id + '/photos';
-        var headers = CommonHeaders.get();
-        headers['x-access-token'] = localStorage.accessToken;
-        var options = {
-          fileKey: 'photo',
-          httpMethod: 'POST',
-          headers: headers,
-          mimeType: 'image/jpeg'
-        };
-
-        if (isCampaignPhotoAlbum) {
-          serverAddr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.photoAlbum.owner.model._id;
-          var randomId = Math.floor(Math.random()*100);
-          options.params = {
-            randomId: randomId
-          };
-        }
-
-        $ionicLoading.show({
-          template: '上传中',
-          scope: $scope,
-          duration: 5000
-        });
-
-        $cordovaFile
-          .uploadFile(serverAddr, imageURI, options)
-          .then(function(result) {
-            $ionicLoading.hide();
+      $scope.confirmUpload = function () {
+        var addr = CONFIG.BASE_URL + '/photo_albums/' + $scope.photoAlbum._id + '/photos'
+        var randomId = Math.floor(Math.random()*100);
+        var data = {randomId: randomId, imageURI:$scope.previewImg};
+        Upload.upload('photoAlbum', addr, data, function(err) {
+          if(!err) {
             var successAlert = $ionicPopup.alert({
               title: '提示',
               template: '上传照片成功'
@@ -2880,56 +2647,17 @@ angular.module('donlerApp.controllers', [])
               $scope.confirmUploadModal.hide();
               getPhotos();
             });
-          }, function(err) {
-            $ionicLoading.hide();
+          } else {
             $ionicPopup.alert({
               title: '提示',
               template: '上传失败，请重试'
             });
-          }, function (progress) {
-          });
-      };
-
-      $scope.confirmUpload = function () {
-        upload($scope.previewImg);
-      };
-
-      var getPhotoFrom = function (source) {
-
-        var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-        var save = false;
-        if (source === 'camera') {
-          sourceType = Camera.PictureSourceType.CAMERA;
-          save = true;
-        }
-
-        var options = {
-          quality: 50,
-          destinationType: Camera.DestinationType.FILE_URI,
-          sourceType: sourceType,
-          encodingType: Camera.EncodingType.JPEG,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: save,
-          correctOrientation: true
-        };
-
-        $cordovaCamera.getPicture(options).then(function (imageURI) {
-          $scope.previewImg = imageURI;
-          $scope.confirmUploadModal.show();
-        }, function(err) {
-          if (err !== 'no image selected') {
-            $ionicPopup.alert({
-              title: '获取照片失败',
-              template: err
-            });
           }
         });
       };
-
-
   }])
-  .controller('FamilyPhotoController', ['$ionicHistory', '$rootScope', '$scope', '$stateParams', '$ionicPopup', 'INFO', 'Team', 'CONFIG', 'CommonHeaders', '$cordovaFile', '$cordovaCamera', '$ionicActionSheet', 'Tools', '$ionicModal', '$ionicLoading',
-    function ($ionicHistory, $rootScope, $scope, $stateParams, $ionicPopup, INFO, Team, CONFIG, CommonHeaders, $cordovaFile, $cordovaCamera, $ionicActionSheet, Tools, $ionicModal, $ionicLoading) {
+  .controller('FamilyPhotoController', ['$ionicHistory', '$rootScope', '$scope', '$stateParams', '$ionicPopup', '$ionicModal', '$ionicLoading', 'INFO', 'Team', 'CONFIG', 'Tools', 'Upload',
+    function ($ionicHistory, $rootScope, $scope, $stateParams, $ionicPopup, $ionicModal, $ionicLoading, INFO, Team, CONFIG, Tools, Upload) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
       $scope.team = Team.getCurrentTeam();
@@ -2995,25 +2723,13 @@ angular.module('donlerApp.controllers', [])
       };
 
       // 上传全家福
-      var uploadSheet;
       $scope.showUploadActionSheet = function () {
-        uploadSheet = $ionicActionSheet.show({
-          buttons: [{
-            text: '拍照上传'
-          }, {
-            text: '本地上传'
-          }],
-          titleText: '请选择上传方式',
-          cancelText: '取消',
-          buttonClicked: function (index) {
-            if (index === 0) {
-              getPhotoFrom('camera');
-            } else if (index === 1) {
-              getPhotoFrom('file');
-            }
-            return true;
+        Upload.getPicture(false, function (err, imageURI) {
+          if(!err){
+            $scope.previewImg = imageURI;
+            $scope.confirmUploadModal.show();
           }
-        });
+        })
       };
 
       $ionicModal.fromTemplateUrl('confirm-upload-modal.html', {
@@ -3030,27 +2746,10 @@ angular.module('donlerApp.controllers', [])
         $scope.confirmUploadModal.remove();
       });
 
-      var upload = function (imageURI) {
-        var serverAddr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
-        var headers = CommonHeaders.get();
-        headers['x-access-token'] = localStorage.accessToken;
-        var options = {
-          fileKey: 'photo',
-          httpMethod: 'POST',
-          headers: headers,
-          mimeType: 'image/jpeg'
-        };
-
-        $ionicLoading.show({
-          template: '上传中',
-          scope: $scope,
-          duration: 5000
-        });
-
-        $cordovaFile
-          .uploadFile(serverAddr, imageURI, options)
-          .then(function(result) {
-            $ionicLoading.hide();
+      $scope.confirmUpload = function () {
+        var addr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
+        Upload.upload('family', addr, {imageURI:$scope.previewImg}, function(err) {
+          if(!err) {
             var successAlert = $ionicPopup.alert({
               title: '提示',
               template: '上传照片成功'
@@ -3059,48 +2758,11 @@ angular.module('donlerApp.controllers', [])
               $scope.confirmUploadModal.hide();
               getFamilyPhotos();
             });
-          }, function(err) {
-            $ionicLoading.hide();
+          }else {
+            $scope.confirmUploadModal.hide();
             $ionicPopup.alert({
               title: '提示',
               template: '上传失败，请重试'
-            });
-          }, function (progress) {
-            // constant progress updates
-          });
-      };
-
-      $scope.confirmUpload = function () {
-        upload($scope.previewImg);
-      };
-
-      var getPhotoFrom = function (source) {
-
-        var sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-        var save = false;
-        if (source === 'camera') {
-          sourceType = Camera.PictureSourceType.CAMERA;
-          save = true;
-        }
-
-        var options = {
-          quality: 50,
-          destinationType: Camera.DestinationType.FILE_URI,
-          sourceType: sourceType,
-          encodingType: Camera.EncodingType.JPEG,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: save,
-          correctOrientation: true
-        };
-
-        $cordovaCamera.getPicture(options).then(function(imageURI) {
-          $scope.previewImg = imageURI;
-          $scope.confirmUploadModal.show();
-        }, function(err) {
-          if (err !== 'no image selected') {
-            $ionicPopup.alert({
-              title: '获取照片失败',
-              template: err
             });
           }
         });

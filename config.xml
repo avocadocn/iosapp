@@ -15,10 +15,10 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="orientation" value="portrait" />
   <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+    <param name="android-package" value="CDVStatusBar" onload="true"/>
   </feature>
    <platform name="android">
-      <preference name="Fullscreen" value="true" />
+      <!-- <preference name="Fullscreen" value="true" /> -->
       <icon src="icons/ios/icon-small.png" density="ldpi" />
       <icon src="icons/ios/icon-40@2x.png" density="mdpi" />
       <icon src="icons/ios/icon-60@2x.png" density="hdpi" />
