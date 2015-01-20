@@ -1130,7 +1130,7 @@ angular.module('donlerApp.services', [])
           $cordovaCamera.getPicture(options).then(function(imageURI) {
             callback(null, imageURI);
           }, function(err) {
-            if (err !== 'no image selected') {
+            if (err !== 'no image selected' && err !=='Selection cancelled.') {
               $ionicPopup.alert({
                 title: '获取照片失败',
                 template: err
