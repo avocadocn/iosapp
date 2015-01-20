@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('donlerApp.directives', ['donlerApp.services'])
-  .directive('openPhoto',['$location', '$ionicModal', 'Tools', 'CONFIG', 'INFO', function($location, $ionicModal, Tools, CONFIG, INFO) {
+  .directive('openPhoto',['$location', '$ionicModal', '$rootScope', 'Tools', 'CONFIG', 'INFO', function($location, $ionicModal, $rootScope, Tools, CONFIG, INFO) {
     return {
       restrict: 'A',
       scope: {
@@ -13,43 +13,62 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       },
       link: function (scope, element, attrs, ctrl) {
         element[0].onclick = function() {
-          var pswpElement ; //页面元素
-          if (scope.pswpId) {//有的时候设置了pswpId,directive里会拿不到，所以用搜索.pswp类的方法
-            pswpElement = document.querySelector('#' + scope.pswpId);
-          } else {
-            pswpElement = document.querySelectorAll('.pswp')[0];
-          }
-          var photos = []; //pswp所需的全部photos对象
-          if(scope.photos){//非打开个人头像
-            var index = Tools.arrayObjectIndexOf(scope.photos, scope.photo._id, '_id');
-            photos = scope.photos;
-          }else{//打开个人头像
-            var width = Math.min(INFO.screenWidth, INFO.screenHeight);
-            photos.push({
-              src: CONFIG.STATIC_URL + scope.photo + '/' + width + '/' + width,
-              w: width,
-              h: width
-            });
-          }
-          //初始化gallery
-          var options = {
-            // history & focus options are disabled on CodePen
-            history: false,
-            focus: false,
-            index: index? index: 0,
-            showAnimationDuration: 0,
-            hideAnimationDuration: 0
-          };
-          var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, photos, options);
-          gallery.init();
-          //有些地方需要进入相册,则增加此方法
-          if(scope.pswpPhotoAlbum){
-            scope.pswpPhotoAlbum.goToAlbum = function () {
-              gallery.close();
-              $location.url('/photo_album/' + scope.photoAlbumId + '/detail');
+
+          try {
+            var pswpElement ; //页面元素
+            if (scope.pswpId) {//有的时候设置了pswpId,directive里会拿不到，所以用搜索.pswp类的方法
+              pswpElement = document.querySelector('#' + scope.pswpId);
+            } else {
+              pswpElement = document.querySelectorAll('.pswp')[0];
+            }
+            var photos = []; //pswp所需的全部photos对象
+            if(scope.photos){//非打开个人头像
+              var index = Tools.arrayObjectIndexOf(scope.photos, scope.photo._id, '_id');
+              photos = scope.photos;
+            }else{//打开个人头像
+              var width = Math.min(INFO.screenWidth, INFO.screenHeight);
+              photos.push({
+                src: CONFIG.STATIC_URL + scope.photo + '/' + width + '/' + width,
+                w: width,
+                h: width
+              });
+            }
+            //初始化gallery
+            var options = {
+              history: false,
+              focus: false,
+              index: index? index: 0,
+              showAnimationDuration: 0,
+              hideAnimationDuration: 0
             };
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, photos, options);
+            $rootScope.hideTabs = true;
+            if (!$rootScope.$$phase) {
+              $rootScope.$digest();
+            }
+            gallery.listen('close', function() {
+              $rootScope.hideTabs = false;
+              if (!$rootScope.$$phase) {
+                $rootScope.$digest();
+              }
+            });
+
+            gallery.init();
+            //有些地方需要进入相册,则增加此方法
+            if(scope.pswpPhotoAlbum){
+              scope.pswpPhotoAlbum.goToAlbum = function () {
+                gallery.close();
+                $location.url('/photo_album/' + scope.photoAlbumId + '/detail');
+              };
+            }
+          } catch (e) {
+            console.log(e.stack);
+            $rootScope.hideTabs = false;
+            if (!$rootScope.$$phase) {
+              $rootScope.$digest();
+            }
           }
-          
+
         };
       }
     }
