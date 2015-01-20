@@ -16,6 +16,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
+      //@:android
       var onCloudPushRegistered = function(info) {
         INFO.pushInfo = {
           channel_id:info.channel_id,
@@ -25,7 +26,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           $state.go('campaigns_detail',{ 'id': pushMessage.campaignId });
         }
       }
+      //@:android
       document.addEventListener("cloudPushRegistered", onCloudPushRegistered, false);
+      //@:android
       if(typeof bdPushNotification !='undefined'){
         bdPushNotification.init("pSGg3PHKgD7vdah7eHDydQOu");
       }
@@ -64,9 +67,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
     $rootScope.hideLoading = function(){
       $ionicLoading.hide();
     };
-  }).config(function ($stateProvider, $ionicConfigProvider) {
-    $ionicConfigProvider.tabs.position('bottom');
-    $ionicConfigProvider.navBar.alignTitle('center');
+  }).config(function ($stateProvider, $ionicConfigProvider) {//@:android
+    $ionicConfigProvider.tabs.position('bottom');//@:android
+    $ionicConfigProvider.navBar.alignTitle('center');//@:android
     $stateProvider
       .state('home', {
         url: '/home',

@@ -502,11 +502,11 @@ body
   dl_card()
   .card_header
     height 20px
-    width 100%
-    display inline-block
+    width 100%//@:android
+    display inline-block//@:android
 
   .header_title
-    width 100%
+    width 100%//@:android
     font-size 12px
     line-height 20px
     color col_black
@@ -758,7 +758,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .app_tabs > .tabs
   background-color #000
   color white
-  border-bottom none
+  border-bottom none//@:android
   .tab-item
     position relative
     .icon
@@ -1577,6 +1577,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
               border-color transparent #43cee6 transparent transparent
               border-style solid
               border-width 0 20px 20px
+//@:android
 .platform-android
   .popover-backdrop.active
     .dl_popover
@@ -1604,7 +1605,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-color rgba(0,0,0,0.7)
   border-radius 0 !important
   .dl_popover_content
-    margin 8px 0
+    margin 8px 0//@:android
     .dl_popover_button
       color white
       height 30px

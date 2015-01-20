@@ -4,6 +4,9 @@
     <feature name="bdPushNotification">
         <param name="android-package" value="com.donler.plugin.bdpushnotification.PushNotification" />
     </feature>
+    <feature name="Clipboard">
+        <param name="android-package" value="com.verso.cordova.clipboard.Clipboard" />
+    </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
@@ -27,18 +30,19 @@
         <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
         <param name="onload" value="true" />
     </feature>
-    <icon density="ldpi" src="icons/ios/icon-small.png" />
-    <icon density="mdpi" src="icons/ios/icon-40@2x.png" />
-    <icon density="hdpi" src="icons/ios/icon-60@2x.png" />
-    <icon density="xhdpi" src="icons/ios/icon-76@2x.png" />
-    <splash density="land-hdpi" src="splash/ios/Default-667h.png" />
-    <splash density="land-ldpi" src="splash/ios/Default~iphone.png" />
-    <splash density="land-mdpi" src="splash/ios/Default@2x~iphone.png" />
-    <splash density="land-xhdpi" src="splash/ios/Default-736h.png" />
-    <splash density="port-hdpi" src="splash/ios/Default-667h.png" />
-    <splash density="port-ldpi" src="splash/ios/Default~iphone.png" />
-    <splash density="port-mdpi" src="splash/ios/Default@2x~iphone.png" />
-    <splash density="port-xhdpi" src="splash/ios/Default-736h.png" />
+    <preference name="SplashScreen" value="screen" />
+    <icon density="ldpi" src="icons/android/drawable-ldpi/donler.png" />
+    <icon density="mdpi" src="icons/android/drawable-mdpi/donler.png" />
+    <icon density="hdpi" src="icons/android/drawable-hdpi/donler.png" />
+    <icon density="xhdpi" src="icons/android/drawable-xhdpi/donler.png" />
+    <splash density="land-hdpi" src="splash/android/drawable-xhdpi/screen.png" />
+    <splash density="land-ldpi" src="splash/android/drawable-xhdpi/screen.png" />
+    <splash density="land-mdpi" src="splash/android/drawable-xhdpi/screen.png" />
+    <splash density="land-xhdpi" src="splash/android/drawable-xhdpi/screen.png" />
+    <splash density="port-hdpi" src="splash/android/drawable-xhdpi/screen.png" />
+    <splash density="port-ldpi" src="splash/android/drawable-xhdpi/screen.png" />
+    <splash density="port-mdpi" src="splash/android/drawable-xhdpi/screen.png" />
+    <splash density="port-xhdpi" src="splash/android/drawable-xhdpi/screen.png" />
     <name>Donler</name>
     <description>
       动梨活动助理

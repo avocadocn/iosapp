@@ -291,7 +291,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg);
+          callback(data.msg|| '网络连接错误');
         });
       },
       edit: function (id, campaignData, callback) {
@@ -1110,11 +1110,11 @@ angular.module('donlerApp.services', [])
           if (source === 'camera') {
             sourceType = Camera.PictureSourceType.CAMERA;
             save = true;
-          }
-
+          } 
+          //destinationType必须为DATA_URL，否则不能预览
           var options = {
             quality: 50,
-            destinationType: Camera.DestinationType.FILE_URI,
+            destinationType: Camera.DestinationType.DATA_URL,
             sourceType: sourceType,
             encodingType: Camera.EncodingType.JPEG,
             popoverOptions: CameraPopoverOptions,
@@ -1126,9 +1126,8 @@ angular.module('donlerApp.services', [])
             options.targetWidth = 256;
             options.targetHeight = 256;
           }
-
           $cordovaCamera.getPicture(options).then(function(imageURI) {
-            callback(null, imageURI);
+            callback(null, "data:image/jpeg;base64," + imageURI);
           }, function(err) {
             if (err !== 'no image selected' && err !=='Selection cancelled.') {
               $ionicPopup.alert({

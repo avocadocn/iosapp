@@ -38,9 +38,6 @@ import org.json.JSONObject;
 
 import android.util.Base64;
 import android.net.Uri;
-import android.content.Context;
-import android.content.Intent;
-import android.app.Activity;
 
 public class LocalFilesystem extends Filesystem {
 
@@ -305,7 +302,11 @@ public class LocalFilesystem extends Filesystem {
         // This weird test is to determine if we are copying or moving a directory into itself.
         // Copy /sdcard/myDir to /sdcard/myDir-backup is okay but
         // Copy /sdcard/myDir to /sdcard/myDir/backup should throw an INVALID_MODIFICATION_ERR
-        return dest.equals(src) || dest.startsWith(src + File.separator);
+        if (dest.startsWith(src) && dest.indexOf(File.separator, src.length() - 1) != -1) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -578,7 +579,6 @@ public class LocalFilesystem extends Filesystem {
             	// Always close the output
             	out.close();
             }
-            broadcastNewFile(inputURL);
         }
         catch (NullPointerException e)
         {
@@ -589,31 +589,6 @@ public class LocalFilesystem extends Filesystem {
 
         return rawData.length;
 	}
-
-     /**
-     * Send broadcast of new file so files appear over MTP
-     *
-     * @param inputURL
-     */
-    private void broadcastNewFile(LocalFilesystemURL inputURL) {
-        File file = new File(this.filesystemPathForURL(inputURL));
-        if (file.exists()) {
-            //Get the activity
-            Activity activity = this.cordova.getActivity();
-
-            //Get the context
-            Context context = activity.getApplicationContext();
-
-            //Create the URI
-            Uri uri = Uri.fromFile(file);
-
-            //Create the intent
-            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
-
-            //Send broadcast of new file
-            context.sendBroadcast(intent);
-        }
-    }
 
 	@Override
 	public long truncateFileAtURL(LocalFilesystemURL inputURL, long size) throws IOException {

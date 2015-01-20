@@ -848,6 +848,9 @@ angular.module('donlerApp.controllers', [])
           $scope.previewImg = imageURI;
           $scope.confirmUploadModal.show();
         }
+        else{
+          console.log(err)
+        }
       });
     };
 
