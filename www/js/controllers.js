@@ -1260,7 +1260,6 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
-    // var uploadSheet;
     $scope.showUploadActionSheet = function () {
       Upload.getPicture(true, function (err, imageURI) {
         if(!err){
