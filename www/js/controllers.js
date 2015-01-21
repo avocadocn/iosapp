@@ -977,16 +977,20 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
+  .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
+    function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
     if($state.params.type) {
       // if($state.params.type=='personal') {
       //   $scope.teams = INFO.personalTeamList;
       // }
       // else {
-        $scope.teams = INFO.officialTeamList;
+      $scope.loading = true;
+      $scope.teams = INFO.officialTeamList;
+      $scope.loading = false;
       // }
     }
     else {
+      $scope.loading = true;
       Team.getList('company', null, false, function (err, teams) {
         if (err) {
           // todo
@@ -994,6 +998,7 @@ angular.module('donlerApp.controllers', [])
         } else {
           $scope.teams = teams;
           INFO.officialTeamList = teams;
+          $scope.loading = false;
         }
       });
       // Team.getList('company', null, true, function (err, teams) {
@@ -1290,6 +1295,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
     INFO.createTeamBackUrl = '#/personal/teams';
+    $scope.loading = true;
     var getMyTeams = function() {
       Team.getList('user', localStorage.id, null, function (err, teams) {
         if (err) {
@@ -1308,6 +1314,7 @@ angular.module('donlerApp.controllers', [])
           });
           $scope.leadTeams = leadTeams;
           $scope.memberTeams = memberTeams;
+          $scope.loading = false;
         }
       });
     };

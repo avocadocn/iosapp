@@ -10,7 +10,7 @@
     </div>
   </div>
   <ion-content>
-    <ion-refresher on-refresh="readHistory()" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
+    <ion-refresher on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div class="comments">
       <div ng-repeat="comments in commentList track by $index" id="comment{{$index}}" class="blocks">
         <div ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack="ng-cloack" class="block">

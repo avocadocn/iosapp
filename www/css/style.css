@@ -2264,6 +2264,16 @@ a>.login .companies_list:activated {
   background-color: #3ca2e0;
   border: none;
 }
+.loading_cover {
+  width: 100%;
+  padding-top: 10px;
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+}
+.scroll-content>.scroll .ion-looping {
+  font-size: 24px;
+}
 .map_page {
   display: block;
   margin: 10px 10px 5px;

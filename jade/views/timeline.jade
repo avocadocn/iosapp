@@ -3,7 +3,7 @@ ion-view
     a.button.icon-left.ion-chevron-left(href="#/app/personal") &nbsp;我的
     h1.title 我的足迹
   ion-content
-    ion-refresher(on-refresh="doRefresh()")
+    ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")
     .card
       .item.item-avatar
         img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/45/45")
