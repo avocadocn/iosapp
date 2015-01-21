@@ -3,7 +3,7 @@
   <ion-tab title="活动" icon-on="ion_campaign_active" icon-off="ion_campaign" href="#/app/campaigns"><!-- Tab 1 content -->
     <ion-view ng-controller="CampaignController">
       <ion-header-bar><a href="#/calendar/campaigns" class="button icon ion-calendar"></a>
-        <h1 class="title">活动</h1><a href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
+        <h1 class="title">活动</h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
       </ion-header-bar>
       <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container has-header">
         <div class="button-bar campaign_filter"><a ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}" class="button button-clear">所有</a><a ng-click="filter('newCampaigns')" ng-class="{'icon_darkBlue':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="filter('provokes')" ng-class="{'icon_iconPurple':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="filter('nowCampaigns')" ng-class="{'icon_borderPurple':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="filter('unStartCampaigns')" ng-class="{'icon_textPurple':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>

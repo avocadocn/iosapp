@@ -153,6 +153,7 @@ angular.module('donlerApp.controllers', [])
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
     $scope.pswpId = 'campaigns' + Date.now();
+    $scope.showSponsorButton = localStorage.role =='LEADER';
     var getCampaignList = function() {
       Campaign.getList({
         requestType: 'user',

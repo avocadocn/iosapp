@@ -9,7 +9,7 @@ ion-view(ng-controller="CampaignController")
 
     a.button.icon.ion-calendar(href="#/calendar/campaigns")
     h1.title 活动
-    a.button.icon.ion-plus(href="#/campaign/sponsor/campaigns")
+    a.button.icon.ion-plus(ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns")
 
   ion-content.campaigns_container.has-header(delegate-handle="mainScroll" overflow-scroll="true")
     .button-bar.campaign_filter
