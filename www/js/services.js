@@ -637,7 +637,7 @@ angular.module('donlerApp.services', [])
     };
 
   }])
-  .factory('Team', ['$http', 'CONFIG', 'User', function ($http, CONFIG, User) {
+  .factory('Team', ['$http', '$ionicActionSheet', 'CONFIG', 'User', function ($http, $ionicActionSheet, CONFIG, User) {
 
     /**
      * 每调用Team.getData方法时，会将小队数据保存到这个变量中，在进入小队子页面时不必再去请求小队数据，
@@ -751,18 +751,29 @@ angular.module('donlerApp.services', [])
           });
       },
       quitTeam: function(tid, uid, callback) {
-        $http.delete(CONFIG.BASE_URL + '/teams/' + tid +'/users/'+ uid)
-          .success(function (data, status, headers, config) {
-            callback(null, data);
-            User.clearCurrentUser();
-          })
-          .error(function (data, status, headers, config) {
-            if (status === 400) {
-              callback(data.msg);
-            } else {
-              callback('error');
-            }
-          });
+        var uploadSheet = $ionicActionSheet.show({
+          buttons:[{text: '确定'}],
+          titleText: '您确定要退出小队吗?',
+          cancelText: '取消',
+          buttonClicked: function (index) {
+            quit();
+            return true;
+          }
+        });
+        var quit = function() {
+          $http.delete(CONFIG.BASE_URL + '/teams/' + tid +'/users/'+ uid)
+            .success(function (data, status, headers, config) {
+              callback(null, data);
+              User.clearCurrentUser();
+            })
+            .error(function (data, status, headers, config) {
+              if (status === 400) {
+                callback(data.msg);
+              } else {
+                callback('error');
+              }
+            });
+        };
       },
       getLeadTeam: function(gid, callback){
         var requestUrl = CONFIG.BASE_URL + '/teams/lead/list';
