@@ -2102,6 +2102,10 @@ angular.module('donlerApp.controllers', [])
     $scope.pswpId = 'team' + Date.now();
     $scope.pswpPhotoAlbum = {};
 
+    $scope.familyMinHeight = {
+      height: (INFO.screenWidth * 190 / 320) + 'px'
+    };
+
     // 已登录的用户获取自己的信息不是异步过程
     User.getData(localStorage.id, function (err, user) {
       $scope.user = user;

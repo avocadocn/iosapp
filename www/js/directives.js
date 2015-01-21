@@ -157,16 +157,20 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         errorImg: '='
       },
       link: function (scope, ele, attrs, ctrl) {
-        // console.log(attrs.errorImg);
-        // console.log(ele[0]);
         var errorImgSrc;
-        if (!attrs.errorImg) {
+        if (!attrs.errorImg || attrs.errorImg === '' || attrs.errorImg === 'error-img') {
           errorImgSrc = CONFIG.STATIC_URL + '/img/not_found.jpg';
         } else {
           errorImgSrc = attrs.errorImg;
         }
+        var errCount = 0;
         ele[0].onerror = function () {
+          if (errCount > 1) {
+            this.onerror = null;
+            return;
+          }
           this.src = errorImgSrc;
+          errCount++;
         };
 
       }
