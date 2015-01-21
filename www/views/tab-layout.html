@@ -111,7 +111,7 @@
         <h1 class="title">我的</h1>
       </ion-header-bar>
       <ion-content>
-        <div class="list"><a href="#/personal/edit" ng-cloak="ng-cloak" class="item item-avatar item-icon-right"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80" preventDefault="preventDefault" photo="user.photo" pswp-id="pswpId" open-photo="open-photo"/>
+        <div class="list"><a href="#/personal/edit" ng-cloak="ng-cloak" class="item item-avatar item-icon-right"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo"/>
             <h2>{{user.nickname}}</h2>
             <p ng-if="user.introduce">简介: {{user.introduce}}</p><i class="icon ion-chevron-right"></i></a>
           <div ng-cloak="ng-cloak" class="item statistics">
