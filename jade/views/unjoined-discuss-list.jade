@@ -5,7 +5,7 @@ ion-view.discuss_list
     h1.title 其它小队讨论
 
   ion-content
-    ion-refresher(on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中...")
+    ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     ul.list
       a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak)
         img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")

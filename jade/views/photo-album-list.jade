@@ -2,8 +2,8 @@ ion-view
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-href="#/team/{{teamId}}") &nbsp;返回
     h1.title 小队影集
-  ion-content(has-bouncing="true")
-    ion-refresher(on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中...")
+  ion-content
+    ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     a.dl_photo_album_card(href="#/team/{{teamId}}/family")
       .card_header.clearfix
         p.header_title 小队封面&nbsp;({{familyPhotoLength}})
@@ -16,4 +16,4 @@ ion-view
       .clearfix
         img.photo(ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/65/65")
 
-    ion-infinite-scroll(on-infinite="loadMore()" distance="-1%" ng-if="moreDataCanBeLoaded()")
+    ion-infinite-scroll(on-infinite="loadMore()" distance="-1%" icon="ion-looping" ng-if="moreDataCanBeLoaded()")

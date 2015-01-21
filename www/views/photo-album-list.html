@@ -3,8 +3,8 @@
   <ion-header-bar><a ng-href="#/team/{{teamId}}" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">小队影集</h1>
   </ion-header-bar>
-  <ion-content has-bouncing="true">
-    <ion-refresher on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher><a href="#/team/{{teamId}}/family" class="dl_photo_album_card">
+  <ion-content>
+    <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher><a href="#/team/{{teamId}}/family" class="dl_photo_album_card">
       <div class="card_header clearfix">
         <p class="header_title">小队封面&nbsp;({{familyPhotoLength}})</p>
       </div>
@@ -13,6 +13,6 @@
         <p class="header_title">{{photoAlbum.name}}&nbsp;({{photoAlbum.photoCount}})</p>
       </div>
       <div class="clearfix"><img ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/65/65" class="photo"/></div></a>
-    <ion-infinite-scroll on-infinite="loadMore()" distance="-1%" ng-if="moreDataCanBeLoaded()"></ion-infinite-scroll>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="-1%" icon="ion-looping" ng-if="moreDataCanBeLoaded()"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

@@ -60,7 +60,7 @@
       <p class="dl_campaign_group_date">{{group.date | date:'yyyy-MM'}}</p>
       <campaign-card ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId"></campaign-card>
     </div>
-    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if="moreDataCanBeLoaded() &amp;&amp; !team.isOtherCompanyTeam"></ion-infinite-scroll>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-looping" ng-if="moreDataCanBeLoaded() &amp;&amp; !team.isOtherCompanyTeam"></ion-infinite-scroll>
   </ion-content>
   <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
     <div class="pswp__bg"></div>

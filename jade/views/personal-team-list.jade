@@ -5,7 +5,9 @@ ion-view
     h1.title 我的小队
     //- a.button.icon.ion-plus(href="#/company/create_team")
   ion-content
-    ion-refresher(on-refresh="refresh()" pulling-text="下拉刷新" refreshing-text="刷新中...")
+    ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
+    .loading_cover(ng-if="loading" ng-cloak)
+      i.icon.ion-looping
     p.dl_team_title(ng-if="leadTeams.length>0" ng-cloak) 我管理的小队
     a.dl_team_card.clearfix(ng-repeat="team in leadTeams" ng-href="#/team/{{team._id}}" ng-cloak)
       img.team_logo(ng-src="{{STATIC_URL + team.logo}}/120/120")

@@ -4,7 +4,7 @@
     <h1 class="title">用户信息</h1>
   </ion-header-bar>
   <ion-content has-bouncing="true">
-    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+    <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping"></ion-refresher>
     <div class="timeline_card">
       <div ng-repeat="campaign in timelinesRecord" class="dl_timeline">
         <label ng-if="needShowTime($index)" class="dl_timeline_date">{{campaign.start_time | date:'yyyy-MM'}}</label>
@@ -37,7 +37,7 @@
             </div></a></div>
       </div>
     </div>
-    <ion-infinite-scroll ng-if="!loading &amp;&amp; !loadFinished" on-infinite="loadMore()" distance="-1%"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="!loading &amp;&amp; !loadFinished" icon="ion-looping" on-infinite="loadMore()" distance="-1%"></ion-infinite-scroll>
     <div ng-if="loadFinished" class="nomore_text">没有更多的足迹</div>
   </ion-content>
 </ion-view>

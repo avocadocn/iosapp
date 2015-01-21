@@ -1294,6 +1294,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
     INFO.createTeamBackUrl = '#/personal/teams';
+    $scope.loading = true;
     var getMyTeams = function() {
       Team.getList('user', localStorage.id, null, function (err, teams) {
         if (err) {
@@ -1312,6 +1313,7 @@ angular.module('donlerApp.controllers', [])
           });
           $scope.leadTeams = leadTeams;
           $scope.memberTeams = memberTeams;
+          $scope.loading = false;
         }
       });
     };
