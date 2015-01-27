@@ -100,7 +100,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             if (!err) {
               // todo
               scope.campaign.remove = true;
-              if(scope.campaignIndex&&scope.campaignFilter){
+              if(scope.campaignFilter){
                 $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
               }
               else {
@@ -123,7 +123,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
               Campaign.dealProvoke(campaignId, dealType, function(err, data){
                 if(!err){
                   scope.campaign.remove = true;
-                  if(scope.campaignIndex&&scope.campaignFilter){
+                  if(scope.campaignFilter){
                     $rootScope.$broadcast('updateCampaignList', { campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
                   }
                   else {
