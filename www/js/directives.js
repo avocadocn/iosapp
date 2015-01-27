@@ -43,13 +43,18 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             };
             var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, photos, options);
             $rootScope.hideTabs = true;
-            $cordovaStatusbar.hide();
+            if (window.StatusBar) {
+              $cordovaStatusbar.hide();
+            }
+
             if (!$rootScope.$$phase) {
               $rootScope.$digest();
             }
             gallery.listen('close', function() {
               $rootScope.hideTabs = false;
-              $cordovaStatusbar.show();
+              if (window.StatusBar) {
+                $cordovaStatusbar.show();
+              }
               if (!$rootScope.$$phase) {
                 $rootScope.$digest();
               }
@@ -66,7 +71,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           } catch (e) {
             console.log(e.stack);
             $rootScope.hideTabs = false;
-            $cordovaStatusbar.show();
+            if (window.StatusBar) {
+              $cordovaStatusbar.show();
+            }
             if (!$rootScope.$$phase) {
               $rootScope.$digest();
             }
