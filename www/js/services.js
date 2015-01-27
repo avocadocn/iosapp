@@ -401,18 +401,21 @@ angular.module('donlerApp.services', [])
 
   .factory('Socket', ['$rootScope','CONFIG', function socket($rootScope, CONFIG) {
     var token = localStorage.accessToken;
-    var socket ; 
+    var socket;
     if(token){
       socket = io.connect(CONFIG.SOCKET_URL,{query:'token=' + token});
     }
     return {
       login: function() {
         token = localStorage.accessToken;
-        socket = io.connect(CONFIG.SOCKET_URL,{query:'token=' + token});
+        if (socket) {
+          socket = io.connect(CONFIG.SOCKET_URL,{ query: 'token=' + token, forceNew: true });
+        } else {
+          socket = io.connect(CONFIG.SOCKET_URL,{query:'token=' + token});
+        }
       },
       logout: function() {
         socket.disconnect();
-        socket = null;
       },
       on: function (eventName, callback) {
         socket.on(eventName, function () {  
