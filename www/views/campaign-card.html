@@ -6,8 +6,8 @@
         <p class="dl_cp_address">地点: {{campaign.location.name}}</p>
       </div>
       <div class="dl_card_header_operator">
-        <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign)" prevent-default="prevent-default" class="dl_btn_join">参加</button>
-        <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.allow.joinCompanyCampaign &amp;&amp; campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown_end">{{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束</div>
+        <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.allow.joinCompanyCampaign &amp;&amp; campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown_end">{{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}&nbsp;结束</div>
+        <div ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" class="dl_cp_time_countdown_end">{{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}}&nbsp;开始</div>
         <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.allow.joinCompanyCampaign &amp;&amp; !campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown clearfix"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
       </div>
     </div>

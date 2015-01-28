@@ -23,8 +23,9 @@ ion-view
         h2.dl_cp_name {{campaign.theme}}
           a.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}")
             span.icon.icon_small.ion-compose.button-clear
-        a.dl_cp_address(href="#/location/{{campaign._id}}") 活动地点：{{campaign.location.name}}
+        a.dl_cp_address(ng-if="campaign.location.coordinates.length==2" href="#/location/{{campaign._id}}") 活动地点：{{campaign.location.name}}
           span.icon.icon_small.ion-chevron-right.button-clear
+        p.dl_cp_address(ng-if="campaign.location.coordinates.length==0") 活动地点：{{campaign.location.name}}
         p.dl_cp_time 开始时间：{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
         p.dl_cp_time 结束时间：{{campaign.end_time | date:"yyyy-MM-dd  HH:mm" }}
         p.dl_cp_time 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  HH:mm"}}
