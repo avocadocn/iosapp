@@ -884,42 +884,64 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         line-height 1
         padding 0
   //-发评论
-  .comment_box.taller
-    height 200px
   .comment_box
     color #333
-    background-color col_gray
+    background-color #fff
     display block
+    height auto
+    padding-top 5px
+    //- position relative
     .icon.ion-image
-      font-size 24px
-      padding 8px 10px
+      font-size 22px
+      margin-top -12px
+      padding 6% 10px 0
       float left
-    .comment_input
+    .input_area
+      width 75%
       float left
-      width 65%
-      height 3rem
-      margin-top 3px
-      padding 5px
-      background-color #fff
-      box-shadow 0 0 3px #999 inset
-      border-radius 3px
-      //- border 1px solid col_darkGray
-      //- box-shadow 1px 1px 1px 0 col_lightGray inset
-      //- -moz-appearance textfield-multiline
-      //- -webkit-appearance textarea
-    .emotion_button
-      float left
-      margin 10px 5px
+      min-height 3rem
+      .comment_input
+        float left
+        width 90%
+        margin-top 3px
+        padding-left 5px
+        background-color transparent
+        box-shadow 0 0 0
+        border-radius 3px
+        min-height 2rem
+        resize none
+        //- border 1px solid col_darkGray
+        //- box-shadow 1px 1px 1px 0 col_lightGray inset
+        //- -moz-appearance textfield-multiline
+        //- -webkit-appearance textarea
+      
+      .input_bottom
+        float left
+        height 2px
+        width 100%
+        border 1px solid #666
+        border-top 0
+        margin-bottom 5px
+      .emotion_button
+        float left
+        background-color transparent
+        width 24px
+        margin-top -15px
+        padding 6% 0 0
+    button.publish_button[disabled]
+      color col_darkGray !important
     .publish_button
       float left
       padding 0
+      border 0
       background-color transparent
       color #333
       text-align cesfdgnter
       width 3rem
       font-size 14px
       line-height 21px
-      padding 10px 0
+      margin-top -12px
+      padding 6% 0 5px
       font-weight 600
     .emotion_box
       border-top 1px solid #ccc
