@@ -3,7 +3,7 @@ ion-view
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title(ng-cloak) {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
     a.button.icon.ion_discuss_active(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
-  ion-content
+  ion-content(delegate-handle="detailScroll")
 
     .card.dl_card_detail
       .item.dl_card_header(ng-if="campaign.campaign_unit.length==1")
@@ -37,7 +37,7 @@ ion-view
           button.button.dl_cp_confirm(ng-if="campaign.active && campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
           button.button.dl_cp_refuse(ng-if="ccampaign.active && ampaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝
           button.button.dl_cp_cancel(ng-if="campaign.active && campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
-        ion-scroll(direction="x")
+        ion-scroll(scroll-parent="detailScroll" parent-direction="y" direction="x" scrollbar-x="false")
           a.dl_photo_alb(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
       .item.dl_card_footer.row

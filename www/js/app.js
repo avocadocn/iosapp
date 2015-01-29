@@ -13,7 +13,6 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
-
       $rootScope.STATIC_URL = CONFIG.STATIC_URL;
       //@:ios
       var iosConfig = {
