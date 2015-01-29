@@ -3,7 +3,7 @@ ion-view
     a.button.icon-left.ion-chevron-left(href="#/app/discover") &nbsp;发现
     h1.title 所有活动
 
-  ion-content(has-bouncing="true")
+  ion-content(delegate-handle="mainScroll" has-bouncing="true")
     ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")
     .timeline_card
       include ./timeline-card

@@ -3,7 +3,7 @@
   <ion-header-bar><a href="#/app/discover" class="button icon-left ion-chevron-left">&nbsp;发现</a>
     <h1 class="title">所有活动</h1>
   </ion-header-bar>
-  <ion-content has-bouncing="true">
+  <ion-content delegate-handle="mainScroll" has-bouncing="true">
     <ion-refresher refreshing-icon="ion-looping" on-refresh="doRefresh()"></ion-refresher>
     <div class="timeline_card">
       <div ng-repeat="campaign in timelinesRecord" class="dl_timeline">
@@ -21,7 +21,7 @@
                 <h2 class="dl_cp_name">{{campaign.theme}}</h2>
                 <p class="dl_cp_address">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
               </div>
-              <ion-scroll direction="x" scrollbar-x="false">
+              <ion-scroll scroll-parent="mainScroll" parent-direction="y" direction="x" scrollbar-x="false">
                 <div class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" class="dl_cp_photo"/></div>
               </ion-scroll>
             </div>

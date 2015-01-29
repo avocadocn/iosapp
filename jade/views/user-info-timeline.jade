@@ -2,7 +2,7 @@ ion-view
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title 用户信息
-  ion-content(has-bouncing="true")
+  ion-content(delegate-handle="mainScroll" has-bouncing="true")
     ion-refresher(on-refresh="doRefresh()" refreshing-icon="ion-looping")
     .timeline_card
       include ./timeline-card
