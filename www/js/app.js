@@ -13,6 +13,17 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       // if (window.cordova && window.cordova.plugins.Keyboard) {
       //   cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       // }
+      $ionicPlatform.registerBackButtonAction(function (event) {
+      if ( $state.$current.name.indexOf('app.')==0){
+        // H/W BACK button is disabled for these states (these views)
+        // Do not go to the previous state (or view) for these states. 
+        // Do nothing here to disable H/W back button.
+          navigator.app.exitApp();
+        } else {
+          // For all other states, the H/W BACK button is enabled
+          navigator.app.backHistory();
+        }
+      }, 100);
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
