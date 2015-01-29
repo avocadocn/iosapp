@@ -2,47 +2,28 @@
 
 angular.module('donlerApp.directives', ['donlerApp.services'])
 
-
   .directive('scrollParent', function ($ionicScrollDelegate,$ionicGesture) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
-          // var sc;
+          var sc,deltaY,deltaX,geth = $ionicScrollDelegate.$getByHandle(attrs.scrollParent);
           function applydrag(drag) {
-              // console.log(drag);
-              var geth = $ionicScrollDelegate.$getByHandle(attrs.scrollParent);
-
-              // if(sc){
-                  if(attrs.parentDirecion == "y"){
-                      $ionicScrollDelegate.scrollBy(0, drag.gesture.deltaY, false);
-                  }
-                  else if(attrs.parentDirecion == "x"){
-                      $ionicScrollDelegate.scrollBy(drag.gesture.deltaX, 0, false);
-                  }
-              // }
+            // console.log(drag);
+            if(attrs.parentDirection == "y"){
+              deltaY = drag.gesture.deltaY - deltaY;
+              $ionicScrollDelegate.scrollBy(0,-deltaY, false);
+              deltaY = drag.gesture.deltaY;
+            }
+            else if(attrs.parentDirection == "x"){
+              deltaX = drag.gesture.deltaX - deltaX;
+              $ionicScrollDelegate.scrollBy(-deltaX, 0, false);
+              deltaX = drag.gesture.deltaX;
+            }
           }
-          // var dragUpGesture = $ionicGesture.on('dragup', applydrag, element);
-          // var dragDownGesture = $ionicGesture.on('dragdown', applydrag, element);
-          // var dragStartGesture = $ionicGesture.on('dragstart',  function (event) {
-          //   // console.log(attrs.scrollParent);
-            
-          //   // console.log(geth);
-          //   // sc = geth.getScrollPosition();
-          //   console.log(sc);
-          // }, element);
-          // var dragEndGesture = $ionicGesture.on('dragend', function (event) {
-          //     sc = false;
-          // }, element);
-          // $ionicGesture.off(dragGesture, 'drag');
-          // element.on('drag', applydrag);
-          // element.on('dragstart', function (event) {
-          //     sc = geth.getScrollPosition();
-          //     console.log(sc);
-          // });
-
-          // element.on('dragend', function (event) {
-          //     sc = false;
-          // });
+          var dragUpGesture = $ionicGesture.on('drag', applydrag, element);
+          var dragStartGesture = $ionicGesture.on('dragstart',  function (event) {
+            deltaY= 0,deltaX =0;
+          }, element);
         }
     };
   })
@@ -129,7 +110,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   }])
 
-  .directive('campaignCard', ['$rootScope', '$ionicScrollDelegate', 'CONFIG', 'Campaign', 'INFO', 'Tools', '$location', function ($rootScope, $ionicScrollDelegate, CONFIG, Campaign, INFO, Tools, $location) {
+  .directive('campaignCard', ['$rootScope', 'CONFIG', 'Campaign', 'INFO', 'Tools', '$location', function ($rootScope, CONFIG, Campaign, INFO, Tools, $location) {
     return {
       restrict: 'E',
       scope: {

@@ -12,6 +12,7 @@ ion-view(ng-controller="CampaignController")
     a.button.icon.ion-plus(ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns")
 
   ion-content.campaigns_container.has-header(delegate-handle="mainScroll" overflow-scroll="true")
+    
     .button-bar.campaign_filter
       a.button.button-clear(ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}") 所有
       a.button.button-clear(ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}") 新活动
