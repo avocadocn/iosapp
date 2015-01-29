@@ -6,9 +6,11 @@
         h2.dl_cp_name {{campaign.theme}}
         p.dl_cp_address 地点: {{campaign.location.name}}
       .dl_card_header_operator
-        button.dl_btn_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign)" prevent-default) 参加
+        //- button.dl_btn_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign)" prevent-default) 参加
         .dl_cp_time_countdown_end(ng-if="!campaign.allow.joinTeamCampaign && !campaign.allow.joinCompanyCampaign && campaign.is_start && !campaign.is_end")
-          | {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}结束
+          | {{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}&nbsp;结束
+        .dl_cp_time_countdown_end(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign")
+          | {{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}}&nbsp;开始
         .dl_cp_time_countdown.clearfix(ng-if="!campaign.allow.joinTeamCampaign && !campaign.allow.joinCompanyCampaign && !campaign.is_start && !campaign.is_end")
           span.dl_cp_time_count {{campaign.time_text.substr(0, campaign.time_text.length - 1)}}
           span.dl_cp_time_unit {{campaign.time_text.substr(-1)}}
@@ -23,7 +25,7 @@
         span.dl_team_name {{campaign.campaign_unit[1].team.name}}
         | &nbsp;发起挑战
       p.dl_cp_name(ng-if="campaign.confirm_status===false") {{campaign.theme}}
-      ion-scroll(direction="x" scrollbar-x="false")
+      ion-scroll(scroll-parent="mainScroll" parent-direcion="y" direction="x" scrollbar-x="false")
         .dl_photo_alb
           img.dl_cp_photo(prevent-default ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" error-img photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="campaign.photo_album._id" ng-click="addPhotos(campaign.photo_album.photos)" open-photo)
     .dl_card_footer.clearfix(ng-if="campaign.confirm_status===true")

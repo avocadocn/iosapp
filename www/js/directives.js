@@ -1,6 +1,33 @@
 'use strict';
 
 angular.module('donlerApp.directives', ['donlerApp.services'])
+
+  .directive('scrollParent', function ($ionicScrollDelegate,$ionicGesture) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+          var sc,deltaY,deltaX,geth = $ionicScrollDelegate.$getByHandle(attrs.scrollParent);
+          function applydrag(drag) {
+            // console.log(drag);
+            if(attrs.parentDirecion == "y"){
+              deltaY = drag.gesture.deltaY - deltaY;
+              $ionicScrollDelegate.scrollBy(0,-deltaY, false);
+              deltaY = drag.gesture.deltaY;
+            }
+            else if(attrs.parentDirecion == "x"){
+              deltaX = drag.gesture.deltaX - deltaX;
+              $ionicScrollDelegate.scrollBy(-deltaX, 0, false);
+              deltaX = drag.gesture.deltaX;
+            }
+          }
+          var dragUpGesture = $ionicGesture.on('drag', applydrag, element);
+          var dragStartGesture = $ionicGesture.on('dragstart',  function (event) {
+            deltaY= 0,deltaX =0;
+          }, element);
+        }
+    };
+  })
+
   .directive('openPhoto',['$location', '$ionicModal', '$rootScope', '$cordovaStatusbar', 'Tools', 'CONFIG', 'INFO', function($location, $ionicModal, $rootScope, $cordovaStatusbar, Tools, CONFIG, INFO) {
     return {
       restrict: 'A',
@@ -43,13 +70,17 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             };
             var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, photos, options);
             $rootScope.hideTabs = true;
-            $cordovaStatusbar.hide();
+            if (window.StatusBar) {
+              $cordovaStatusbar.hide();
+            }
             if (!$rootScope.$$phase) {
               $rootScope.$digest();
             }
             gallery.listen('close', function() {
               $rootScope.hideTabs = false;
-              $cordovaStatusbar.show();
+              if (window.StatusBar) {
+                $cordovaStatusbar.show();
+              }
               if (!$rootScope.$$phase) {
                 $rootScope.$digest();
               }
@@ -66,7 +97,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           } catch (e) {
             console.log(e.stack);
             $rootScope.hideTabs = false;
-            $cordovaStatusbar.show();
+            if (window.StatusBar) {
+              $cordovaStatusbar.show();
+            }
             if (!$rootScope.$$phase) {
               $rootScope.$digest();
             }

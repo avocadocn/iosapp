@@ -6,29 +6,29 @@
         <h1 class="title">活动</h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
       </ion-header-bar>
       <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container has-header">
-        <div class="button-bar campaign_filter"><a ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}" class="button button-clear">所有</a><a ng-click="filter('newCampaigns')" ng-class="{'icon_darkBlue':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="filter('provokes')" ng-class="{'icon_iconPurple':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="filter('nowCampaigns')" ng-class="{'icon_borderPurple':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="filter('unStartCampaigns')" ng-class="{'icon_textPurple':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
+        <div class="button-bar campaign_filter"><a ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}" class="button button-clear">所有</a><a ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="filter('provokes')" ng-class="{'icon_blue':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
         <ion-scroll class="campaign_list">
           <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
                 <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container">
-                  <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_darkBlue">
+                  <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
                     <p>未参加的新活动 {{newCampaigns.length}}</p>
                   </div>
                   <campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns"></campaign-card>
                 </div>
                 <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
-                  <div ng-if="provokes.length&gt;0 || nowType=='provokes'" ng-cloak="ng-cloak" class="campaign_container_title icon_iconPurple">
+                  <div ng-if="provokes.length&gt;0 || nowType=='provokes'" ng-cloak="ng-cloak" class="campaign_container_title">
                     <p>挑战 {{provokes.length}}</p>
                   </div>
                   <campaign-card ng-repeat="campaign in provokes" campaign="campaign" campaign-index="$index" campaign-filter="provokes"></campaign-card>
                 </div>
                 <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
-                  <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_borderPurple">
+                  <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
                     <p>进行中的活动 {{nowCampaigns.length}}</p>
                   </div>
                   <campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns"></campaign-card>
                 </div>
                 <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
-                  <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title icon_textPurple">
+                  <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
                     <p>即将开始的活动 {{unStartCampaigns.length}}</p>
                   </div>
                   <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns"></campaign-card>

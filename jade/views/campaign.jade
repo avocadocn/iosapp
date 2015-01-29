@@ -1,7 +1,7 @@
 ion-view(ng-controller="CampaignController")
   mixin campaignsContainer(containerTitle, items,itemsClass,orderByStr)
     .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
-      .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" class="#{itemsClass}" ng-cloak)
+      .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" ng-cloak)
         p #{containerTitle} {{#{items}.length}}
       campaign-card(ng-repeat="campaign in #{items}" campaign="campaign" campaign-index="$index" campaign-filter="#{items}")
 
@@ -14,11 +14,11 @@ ion-view(ng-controller="CampaignController")
   ion-content.campaigns_container.has-header(delegate-handle="mainScroll" overflow-scroll="true")
     .button-bar.campaign_filter
       a.button.button-clear(ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}") 所有
-      a.button.button-clear(ng-click="filter('newCampaigns')" ng-class="{'icon_darkBlue':nowType=='newCampaigns'}") 新活动
-      a.button.button-clear(ng-click="filter('provokes')" ng-class="{'icon_iconPurple':nowType=='provokes'}") 挑战
-      a.button.button-clear(ng-click="filter('nowCampaigns')" ng-class="{'icon_borderPurple':nowType=='nowCampaigns'}") 进行中
-      a.button.button-clear(ng-click="filter('unStartCampaigns')" ng-class="{'icon_textPurple':nowType=='unStartCampaigns'}") 即将
-    ion-scroll.campaign_list
+      a.button.button-clear(ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}") 新活动
+      a.button.button-clear(ng-click="filter('provokes')" ng-class="{'icon_blue':nowType=='provokes'}") 挑战
+      a.button.button-clear(ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}") 进行中
+      a.button.button-clear(ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}") 即将
+    .campaign_list
       ion-refresher(on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
       +campaignsContainer('未参加的新活动','newCampaigns','icon_darkBlue')
       +campaignsContainer('挑战','provokes','icon_iconPurple')
@@ -30,4 +30,5 @@ ion-view(ng-controller="CampaignController")
           p
             a.team_link(href="#/app/discover") 发现
             span.tip_info 加入更多小队！
+
   include ./photo-swipe
