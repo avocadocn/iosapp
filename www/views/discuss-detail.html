@@ -48,7 +48,7 @@
   </ion-content>
   <ion-footer-bar ng-class="{'taller':isShowEmotions}" class="comment_box"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
     <textarea ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()" class="comment_input"></textarea>
-    <button ng-click="showEmotions()" class="dl_button emotion_button emoji emoji_yum"> </button>
+    <button ng-click="showEmotions()" class="dl_button emotion_button emoji emoji_tongue"> </button>
     <button ng-click="hideEmotions();publishComment()" ng-disabled="!commentContent" class="dl_button publish_button">发言</button>
     <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
       <ion-slide ng-repeat="emoji in emojiList">

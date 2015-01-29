@@ -8,6 +8,6 @@
     "linkage-selector": "0.1.5",
     "moment": "~2.8.4",
     "ngCordova": "~0.1.9-alpha",
-    "angular-emoji-filter-hd": "latest"
+    "angular-emoji-filter-hd-thin": "https://github.com/maggie03230/angular-emoji-filter-hd-thin.git"
   }
 }
