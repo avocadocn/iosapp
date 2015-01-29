@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container has-header">
     <div class="button-bar campaign_filter"><a ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}" class="button button-clear">所有</a><a ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="filter('provokes')" ng-class="{'icon_blue':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
-    <div class="campaign_list">
+    <ion-scroll class="campaign_list">
       <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
         <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container">
           <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
@@ -37,7 +37,7 @@
           <p><a href="#/app/discover" class="team_link">发现</a><span class="tip_info">加入更多小队！</span></p>
         </div>
       </div>
-    </div>
+    </ion-scroll>
   </ion-content>
   <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
     <div class="pswp__bg"></div>

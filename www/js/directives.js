@@ -9,12 +9,12 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           var sc,deltaY,deltaX,geth = $ionicScrollDelegate.$getByHandle(attrs.scrollParent);
           function applydrag(drag) {
             // console.log(drag);
-            if(attrs.parentDirecion == "y"){
+            if(attrs.parentDirection == "y"){
               deltaY = drag.gesture.deltaY - deltaY;
               $ionicScrollDelegate.scrollBy(0,-deltaY, false);
               deltaY = drag.gesture.deltaY;
             }
-            else if(attrs.parentDirecion == "x"){
+            else if(attrs.parentDirection == "x"){
               deltaX = drag.gesture.deltaX - deltaX;
               $ionicScrollDelegate.scrollBy(-deltaX, 0, false);
               deltaX = drag.gesture.deltaX;
