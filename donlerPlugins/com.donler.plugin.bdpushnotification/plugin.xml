@@ -27,6 +27,7 @@ version="1.0.1">
 			</feature>
 		</config-file>
 		<config-file target="AndroidManifest.xml" parent="/*">
+			<!-- 需要在AndroidManifest.xml的aplication上添加字段android:name="com.baidu.frontia.FrontiaApplication" -->
 			<!-- <application
 			android:name="com.baidu.frontia.FrontiaApplication"></application> -->
 			<!-- 百度云推送 -->
