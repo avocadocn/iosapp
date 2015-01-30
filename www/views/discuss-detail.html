@@ -11,7 +11,7 @@
   </div>
   <ion-content>
     <ion-refresher on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
-    <div class="comments">
+    <div ng-click="hideEmotions()" class="comments">
       <div ng-repeat="comments in commentList track by $index" id="comment{{$index}}" class="blocks">
         <div ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack="ng-cloack" class="block">
           <div ng-show="showTime &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]))" class="time_block">
@@ -46,17 +46,22 @@
       </div>
     </div>
   </ion-content>
-  <ion-footer-bar ng-class="{'taller':isShowEmotions}" class="comment_box"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
-    <textarea ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()" class="comment_input"></textarea>
-    <button ng-click="showEmotions()" class="dl_button emotion_button emoji emoji_yum"> </button>
-    <button ng-click="hideEmotions();publishComment()" ng-disabled="!commentContent" class="dl_button publish_button">发言</button>
-    <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
-      <ion-slide ng-repeat="emoji in emojiList">
-        <div class="box clearfix">
-          <div ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emotion"><i class="emoji {{'emoji_'+emotion}}"></i></div>
-        </div>
-      </ion-slide>
-    </ion-slide-box>
+  <ion-footer-bar class="comment_box">
+    <form name="comment_form"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
+      <div class="input_area">
+        <textarea id="ta" rows="1" cols="32" ng-model="commentContent" required="required" ng-maxlength="140" contentEditable="true" ng-focus="hideEmotions()" ng-change="resizeTextarea()" class="comment_input"></textarea>
+        <button ng-click="showEmotions()" prevent-default="prevent-default" class="dl_button emotion_button"><i class="emoji emoji_tongue"></i></button>
+        <div class="input_bottom"></div>
+      </div>
+      <button ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid" class="publish_button">发言</button>
+      <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
+        <ion-slide ng-repeat="emoji in emojiList">
+          <div class="box clearfix">
+            <div ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emotion"><i class="emoji {{'emoji_'+emotion}}"></i></div>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+    </form>
   </ion-footer-bar>
   <script id="confirm-upload-modal.html" type="text/ng-template">
     <ion-modal-view>

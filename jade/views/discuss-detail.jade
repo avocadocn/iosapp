@@ -14,7 +14,7 @@ ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
   //-   .triangle
   ion-content
     ion-refresher(on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
-    .comments
+    .comments(ng-click="hideEmotions()")
       .blocks(ng-repeat="comments in commentList track by $index" id="comment{{$index}}")
         .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack)
           .time_block(ng-show="showTime && ($index!==0||($index===0&&topShowTime[$parent.$index]))")
@@ -50,16 +50,21 @@ ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
               span 发送失败
 
     //- ion-infinite-scroll(ng-if="!loading" on-infinite="refresh()" distance="-5%")
-  ion-footer-bar.comment_box(ng-class="{'taller':isShowEmotions}")
-    i.icon.ion-image(ng-click="showUploadActionSheet()")
-    textarea.comment_input(ng-model="commentContent" contentEditable="true" ng-focus="hideEmotions()")
-    button.dl_button.emotion_button.emoji.emoji_yum(ng-click="showEmotions()") 
-    button.dl_button.publish_button(ng-click="hideEmotions();publishComment()" ng-disabled="!commentContent") 发言
-    ion-slide-box.emotion_box(ng-if="isShowEmotions")
-      ion-slide(ng-repeat="emoji in emojiList")
-        .box.clearfix
-          .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
-            i(class="emoji {{'emoji_'+emotion}}" )
+  ion-footer-bar.comment_box
+    form(name="comment_form")
+      i.icon.ion-image(ng-click="showUploadActionSheet()")
+      .input_area
+        textarea#ta.comment_input(rows="1" cols="32" ng-model="commentContent" required ng-maxlength="140" contentEditable="true" ng-focus="hideEmotions()" ng-change="resizeTextarea()")
+        button.dl_button.emotion_button(ng-click="showEmotions()" prevent-default)
+          i.emoji.emoji_tongue
+        .input_bottom
+      button.publish_button(ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid") 发言
+
+      ion-slide-box.emotion_box(ng-if="isShowEmotions")
+        ion-slide(ng-repeat="emoji in emojiList")
+          .box.clearfix
+            .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
+              i(class="emoji {{'emoji_'+emotion}}" )
 
   script(id="confirm-upload-modal.html" type="text/ng-template")
     ion-modal-view

@@ -915,51 +915,17 @@ angular.module('donlerApp.controllers', [])
 
     $scope.emojiList=[];
 
-    var emoji = ["bowtie", "smile", "laughing", "blush", "smiley", "relaxed",
-      "smirk", "heart_eyes", "kissing_heart", "kissing_closed_eyes", "flushed",
-      "relieved", "satisfied", "grin", "wink", "stuck_out_tongue_winking_eye",
-      "stuck_out_tongue_closed_eyes", "grinning", "kissing",
-      "stuck_out_tongue", "sleeping", "worried",
-      "frowning", "anguished", "open_mouth", "grimacing", "confused", "hushed",
-      "expressionless", "unamused", "sweat_smile", "sweat",
-      "disappointed_relieved", "weary", "pensive", "disappointed", "confounded",
-      "fearful", "cold_sweat", "persevere", "cry", "sob", "joy", "astonished",
-      "scream", "neckbeard", "tired_face", "angry", "rage", "triumph", "sleepy",
-      "yum", "mask", "sunglasses", "dizzy_face", "smiling_imp",
-      "neutral_face", "no_mouth", "innocent", "alien", "heart", "broken_heart",
-      "heartbeat", "heartpulse", "two_hearts", "revolving_hearts", "cupid",
-      "sparkling_heart", "sparkles", "star", "star2", "dizzy", "boom",
-      "collision", "anger", "exclamation", "question", "grey_exclamation",
-      "grey_question", "zzz", "dash", "sweat_drops", "notes", "musical_note",
-      "fire", "hankey", "+1", "-1", 
-      "ok_hand", "punch", "fist", "v", "wave", "hand",
-      "open_hands", "point_up", "point_down", "point_left", "point_right",
-      "raised_hands", "pray", "point_up_2", "clap", "muscle", "metal", "fu",
-      "walking", "runner", "running", "couple", "family", "two_men_holding_hands",
-      "two_women_holding_hands", "dancer", "dancers", "ok_woman", "no_good",
-      "information_desk_person", "raising_hand", "bride_with_veil",
-      "person_with_pouting_face", "person_frowning", "bow", "couplekiss",
-      "couple_with_heart", "massage", "haircut", "nail_care", "boy", "girl",
-      "woman", "man", "baby", "older_woman", "older_man",
-      "person_with_blond_hair", "man_with_gua_pi_mao", "man_with_turban",
-      "construction_worker", "cop", "angel", "princess", "smiley_cat",
-      "smile_cat", "heart_eyes_cat", "kissing_cat", "smirk_cat", "scream_cat",
-      "crying_cat_face", "joy_cat", "pouting_cat", "japanese_ogre",
-      "japanese_goblin", "see_no_evil", "hear_no_evil", "speak_no_evil",
-      "guardsman", "skull", "feet", "lips", "kiss", "droplet", "ear", "eyes",
-      "nose", "tongue", "love_letter", "bust_in_silhouette",
-      "busts_in_silhouette", "speech_balloon", "thought_balloon", "feelsgood",
-      "finnadie", "goberserk", "godmode", "hurtrealbad", "rage1", "rage2",
-      "rage3", "rage4", "suspect", "trollface", "sunny", "umbrella", "cloud",
-      "snowflake", "snowman", "zap", "cyclone", "foggy", "ocean", "cat", "dog",
-      "mouse", "hamster", "rabbit", "wolf", "frog", "tiger", "koala", "bear",
-      "pig", "pig_nose", "cow", "boar", "monkey_face", "monkey", "horse",
-      "racehorse", "camel", "sheep", "elephant", "panda_face", "snake", "bird",
-      "baby_chick", "hatched_chick", "hatching_chick", "chicken", "penguin",
-      "turtle", "bug", "honeybee", "ant", "beetle", "snail", "octopus",
-      "tropical_fish", "fish", "whale", "whale2", "dolphin", "cow2", "ram", "rat",
-      "water_buffalo", "tiger2", "rabbit2", "dragon", "goat"
-    ];
+    var emoji = ["laugh", "smile", "happy", "snag", "snaky", "heart_eyes", "kiss", "blush", "howl", "angry",
+    "blink", "tongue", "tired", "logy", "asquint", "embarassed", "cry", "laugh_cry", "sigh", "sweat",
+    "good", "yeah", "pray", "finger", "clap", "muscle", "bro", "ladybro", "flash", "sun",
+    "cat", "dog", "hog_nose", "horse", "plumpkin", "ghost", "present", "trollface", "diamond", "mahjong",
+    "hamburger", "fries", "ramen", "bread", "lollipop", "cherry", "cake", "icecream"];
+
+    var dict = {"laugh":"大笑","smile":"微笑","happy":"高兴","snag":"龇牙","snaky":"阴险","heart_eyes":"心心眼","kiss":"啵一个","blush":"脸红","howl":"鬼嚎","angry":"怒",
+    "blink":"眨眼","tongue":"吐舌","tired":"困","logy":"呆","asquint":"斜眼","embarassed":"尴尬","cry":"面条泪","laugh_cry":"笑cry","sigh":"叹气","sweat":"汗",
+    "good":"棒","yeah":"耶","pray":"祈祷","finger":"楼上","clap":"鼓掌","muscle":"肌肉","bro":"基友","ladybro":"闺蜜","flash":"闪电","sun":"太阳",
+    "cat":"猫咪","dog":"狗狗","hog_nose":"猪鼻","horse":"马","plumpkin":"南瓜","ghost":"鬼","present":"礼物","trollface":"贱笑","diamond":"钻石","mahjong":"红中",
+    "hamburger":"汉堡","fries":"薯条","ramen":"拉面","bread":"面包","lollipop":"棒棒糖","cherry":"樱桃","cake":"蛋糕","icecream":"冰激凌"};
 
     for(var i =0; emoji.length>24 ;i++) {
       $scope.emojiList.push(emoji.splice(24,24));
@@ -967,9 +933,47 @@ angular.module('donlerApp.controllers', [])
     $scope.emojiList.unshift(emoji);
 
     $scope.addEmotion = function(emotion) {
-      $scope.commentContent += ':'+ emotion +':';
+      $scope.commentContent += '['+ dict[emotion] +']';
+      $scope.resizeTextarea();
     };
 
+    var ta = document.getElementById('ta');
+
+    //获取字符串真实长度，供计算高度用
+    var getRealLength = function(str) {
+      if(typeof(str) === 'string') {
+        var newstr =str.replace(/[\u0391-\uFFE5]/g,"aa");
+        return newstr.length;
+      }else {
+        return 0;
+      }
+    }
+    //重新计算输入框行数
+    $scope.resizeTextarea = function() {
+      if($scope.commentContent) {
+        var text = $scope.commentContent.split("\n");
+        var rows = text.length;
+        var originCols = ta.cols;
+        for(var i = 0; i<rows; i++) {
+          var rowText = i === 0 ? text[i] || text : text[i] || '';
+          var realLength = getRealLength(rowText);
+          if(realLength >= originCols) {
+            if(!text[i])
+              rows += Math.ceil(realLength/originCols);
+            else
+              rows = Math.ceil(realLength/originCols);
+          }
+        }
+        rows = Math.max(rows, 1);
+        rows = Math.min(rows, 3);
+        if(rows != ta.rows) {
+          ta.rows = rows;
+        }
+      }else {
+        ta.rows = 1;
+      }
+        
+    };
     
     //发送请求已读某评论
     $scope.$on('$ionicView.leave', function(){
