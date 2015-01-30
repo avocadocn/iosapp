@@ -1344,6 +1344,44 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
+
+    
+    var ta = document.getElementById('ta');
+
+    //获取字符串真实长度，供计算高度用
+    var getRealLength = function(str) {
+      if(typeof(str) === 'string') {
+        var newstr =str.replace(/[\u0391-\uFFE5]/g,"aa");
+        return newstr.length;
+      }else {
+        return 0;
+      }
+    }
+    //重新计算输入框行数
+    $scope.resizeTextarea = function() {
+      if($scope.formData.introduce) {
+        var text = $scope.formData.introduce.split("\n");
+        var rows = text.length;
+        var originCols = ta.cols;
+        for(var i = 0; i<rows; i++) {
+          var rowText = i === 0 ? text[i] || text : text[i] || '';
+          var realLength = getRealLength(rowText);
+          if(realLength >= originCols) {
+            if(!text[i])
+              rows += Math.ceil(realLength/originCols);
+            else
+              rows = Math.ceil(realLength/originCols);
+          }
+        }
+        rows = Math.max(rows, 1);
+        rows = Math.min(rows, 4);
+        if(rows != ta.rows) {
+          ta.rows = rows;
+        }
+      }else {
+        ta.rows = 1;
+      }
+    };
   }])
   .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
     INFO.createTeamBackUrl = '#/personal/teams';

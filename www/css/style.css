@@ -1403,6 +1403,16 @@ a>.login .companies_list:activated {
 .personal .list .item.item-icon-left .icon {
   width: 3rem;
 }
+.personal .user_card>.item>.introduce {
+  white-space: normal;
+}
+.personal .user_card>.item>.introduce .title {
+  float: left;
+}
+.personal .user_card>.item>.introduce .content {
+  float: left;
+  width: 82%;
+}
 .personal .statistics {
   text-align: center;
   padding: 0;
@@ -1441,6 +1451,7 @@ a>.login .companies_list:activated {
 }
 .edit_info .list .item-input .introduce {
   color: #3ca2e0;
+  resize: none;
 }
 .edit_info .list .item-radio .item-content {
   padding: 0 30px;
