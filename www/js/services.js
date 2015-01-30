@@ -125,6 +125,9 @@ angular.module('donlerApp.services', [])
             localStorage.role = data.role;
             $http.defaults.headers.common['x-access-token'] = data.token;
             Socket.login();
+            if(window.analytics){
+              window.analytics.setUserId(data.id);
+            }
             callback();
           })
           .error(function (data, status) {
@@ -162,6 +165,9 @@ angular.module('donlerApp.services', [])
             localStorage.userType = 'company';
             localStorage.id = data.id;
             $http.defaults.headers.common['x-access-token'] = data.token;
+            if(window.analytics){
+              window.analytics.setUserId(data.id);
+            }
             callback();
           })
           .error(function (data, status) {

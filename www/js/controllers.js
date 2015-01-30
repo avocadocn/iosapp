@@ -7,13 +7,15 @@ angular.module('donlerApp.controllers', [])
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
   .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'UserAuth', function ($scope, CommonHeaders, $state, $ionicHistory, UserAuth) {
-
     $scope.loginData = {
       email: '',
       password: ''
     };
 
     $scope.login = function () {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'userLogin');
+      }
       UserAuth.login($scope.loginData.email, $scope.loginData.password, function (msg) {
         if (msg) {
           $scope.msg = msg;
@@ -33,6 +35,9 @@ angular.module('donlerApp.controllers', [])
     };
 
     $scope.login = function () {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'companyLogin');
+      }
       CompanyAuth.login($scope.loginData.username, $scope.loginData.password, function (msg) {
         if (msg) {
           $scope.msg = msg;
@@ -48,6 +53,9 @@ angular.module('donlerApp.controllers', [])
   .controller('CompanyHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', function ($scope, $state, CompanyAuth, CommonHeaders) {
 
     $scope.logout = function () {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'companyLogOut');
+      }
       CompanyAuth.logout(function (err) {
         if (err) {
           // todo
@@ -81,6 +89,9 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.createTeam = function() {
       if(!$scope.isBusy) {
+        if(window.analytics){
+          window.analytics.trackEvent('Click', 'createTeam');
+        }
         $scope.isBusy = true;
         $rootScope.showLoading();
         $scope.isBusy = true;
@@ -118,6 +129,9 @@ angular.module('donlerApp.controllers', [])
       $ionicLoading.show({
         template: '请稍等...'
       });
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'companyFindBackPassword');
+      }
       Company.findBack($scope.forget.email, function(msg){
         $ionicLoading.hide();
         if(msg){
@@ -136,6 +150,9 @@ angular.module('donlerApp.controllers', [])
       $ionicLoading.show({
         template: '请稍等...'
       });
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'userFindBackPassword');
+      }
       User.findBack($scope.forget.email, function(msg){
         $ionicLoading.hide();
         if(msg){
@@ -291,6 +308,9 @@ angular.module('donlerApp.controllers', [])
     });
 
     $scope.join = function(id){
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'joinCampaign');
+      }
       Campaign.join($scope.campaign,localStorage.id, function(err, data){
         if(!err){
           $scope.campaign = data;
@@ -310,6 +330,9 @@ angular.module('donlerApp.controllers', [])
       return false;
     }
     $scope.quit = function(id){
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'quitCampaign');
+      }
       Campaign.quit(id,localStorage.id, function(err, data){
         if(!err){
           $scope.campaign = data;
@@ -368,6 +391,9 @@ angular.module('donlerApp.controllers', [])
               child_type: $scope.campaign.campaign_unit.length>1 ? 1 : 0,
             },
             campaignId:$scope.campaign._id
+          }
+          if(window.analytics){
+            window.analytics.trackEvent('Click', 'postCampaignMessage');
           }
           Message.postMessage( messageData, function(err, data){
             if(!err){
@@ -460,6 +486,9 @@ angular.module('donlerApp.controllers', [])
         });
       }
       else {
+        if(window.analytics){
+          window.analytics.trackEvent('Click', 'sponsor');
+        }
         $scope.isBusy = true;
         $scope.campaignData.cid = [$scope.selectTeam.cid];
         $scope.campaignData.tid = [$scope.selectTeam._id];
@@ -813,6 +842,9 @@ angular.module('donlerApp.controllers', [])
     
     //发表评论
     $scope.publishComment = function() {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'publishComment');
+      }
       //-创建一个新comment
       var randomId = Math.floor(Math.random()*100);
       var newComment = {
@@ -868,6 +900,9 @@ angular.module('donlerApp.controllers', [])
     });
 
     $scope.confirmUpload = function () {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'uploadImg');
+      }
       //-生成随机id
       var randomId = Math.floor(Math.random()*100);
       $scope.randomId = randomId;
@@ -1032,6 +1067,9 @@ angular.module('donlerApp.controllers', [])
     };
     
     $scope.joinTeam = function(tid, index) {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'joinTeamInAllTeam');
+      }
       Team.joinTeam(tid, localStorage.id, function(err, data) {
         if(!err) {
           $ionicPopup.alert({
@@ -1049,6 +1087,9 @@ angular.module('donlerApp.controllers', [])
       });
     };
     $scope.quitTeam = function(tid, index) {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'quitTeamInAllTeam');
+      }
       Team.quitTeam(tid, localStorage.id, function(err, data) {
         if(!err) {
           $ionicPopup.alert({
@@ -1141,6 +1182,9 @@ angular.module('donlerApp.controllers', [])
       $scope.searching = false;
     };
     $scope.search = function (event) {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'searchContacts');
+      }
       var keyword = $scope.keyword.value;
       if(keyword && (!event || event.which===13)) {
         $scope.contacts = [];
@@ -1252,6 +1296,9 @@ angular.module('donlerApp.controllers', [])
     }
 
     $scope.edit = function () {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'editUser');
+      }
       User.editData($scope.user._id, $scope.formData, function (err) {
         if (err) {
           $ionicPopup.alert({
@@ -1276,6 +1323,9 @@ angular.module('donlerApp.controllers', [])
         if(!err){
           var addr = CONFIG.BASE_URL + '/users/' + localStorage.id;
           Upload.upload('photo', addr, {imageURI:imageURI}, function(err) {
+            if(window.analytics){
+              window.analytics.trackEvent('Click', 'editUserPhoto');
+            }
             if(!err) {
               //更新现在的头像
               $ionicHistory.clearHistory();
@@ -1334,6 +1384,9 @@ angular.module('donlerApp.controllers', [])
   .controller('SettingsController', ['$scope', '$state', '$ionicHistory', 'UserAuth', 'User', 'CommonHeaders', function ($scope, $state, $ionicHistory, UserAuth, User, CommonHeaders) {
 
     $scope.logout = function () {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'userLogOut');
+      }
       User.clearCurrentUser();
       UserAuth.logout(function (err) {
         if (err) {
@@ -1355,6 +1408,9 @@ angular.module('donlerApp.controllers', [])
       }
     });
     $scope.changePushToggle = function() {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'changePushToggle');
+      }
       User.editData(localStorage.id, $scope.user, function(msg){});
     }
   }])
@@ -1362,6 +1418,9 @@ angular.module('donlerApp.controllers', [])
     $scope.pswData = {};
     $scope.changePwd = function() {
       $rootScope.showLoading();
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'changePwd');
+      }
       User.editData(localStorage.id, $scope.pswData, function(msg) {
         $rootScope.hideLoading();
         if(msg){
@@ -1798,6 +1857,9 @@ angular.module('donlerApp.controllers', [])
     //提交表单数据
     $scope.signup = function() {
       $rootScope.showLoading();
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'companySignUp');
+      }
       var data = {
         name: $scope.name,
         province: $scope.province,
@@ -1883,6 +1945,9 @@ angular.module('donlerApp.controllers', [])
       }
     };
     $scope.searchCompany = function() {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'searchCompany');
+      }
       mailCheck(function(active){
         if(active===1){
           UserSignup.searchCompany($scope.companyEmail.value, function(msg, data){
@@ -1912,6 +1977,9 @@ angular.module('donlerApp.controllers', [])
     $scope.companyName = INFO.companyName;
     $scope.signup = function() {
       $rootScope.showLoading();
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'userSignUp');
+      }
       UserSignup.signup($scope.data, function(msg, data) {
         $rootScope.hideLoading();
         if(!msg){
@@ -1948,6 +2016,9 @@ angular.module('donlerApp.controllers', [])
     });
 
     $scope.copy = function () {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'copyInviteKey');
+      }
       $cordovaClipboard
       .copy($scope.inviteKey)
       .then(function () {
@@ -2017,6 +2088,9 @@ angular.module('donlerApp.controllers', [])
     };
     $scope.edit = function () {//上传队名及队长
       //if nowLeader._id!==originLeader._id -> upload
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'hrEditTeam');
+      }
       if(!originLeader || $scope.nowLeader._id !== originLeader._id) {
         $scope.formData.leader = $scope.nowLeader;
       }
@@ -2068,6 +2142,9 @@ angular.module('donlerApp.controllers', [])
     };
 
     $scope.search = function(keyEvent) {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'hrEditTeamSearchMember');
+      }
       if($scope.memberName.value && (!keyEvent || keyEvent.which === 13)) {
         var membersBackup = $scope.isShowTeam ? teamMembersBackup : allMembers ;
         var length = membersBackup.length;
@@ -2093,6 +2170,9 @@ angular.module('donlerApp.controllers', [])
     $scope.opinion = {};
     $scope.feedback = function () {
       $rootScope.showLoading();
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'feedBack');
+      }
       User.feedback($scope.opinion.content, function(msg) {
         if(msg){
           $ionicPopup.alert({title:'发送错误',template:'发送错误请重试。'});
@@ -2169,6 +2249,9 @@ angular.module('donlerApp.controllers', [])
       });
     };
     $scope.joinTeam = function (tid) {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'joinTeamInTeamDetail');
+      }
       Team.joinTeam(tid, localStorage.id, function (err, data) {
         if (!err) {
           $ionicPopup.alert({
@@ -2186,6 +2269,9 @@ angular.module('donlerApp.controllers', [])
       });
     };
     $scope.quitTeam = function (tid) {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'quitTeamInTeamDetail');
+      }
       Team.quitTeam(tid, localStorage.id, function (err, data) {
         if (!err) {
           $ionicPopup.alert({
@@ -2426,6 +2512,9 @@ angular.module('donlerApp.controllers', [])
         $scope.editing = false;
         return;
       }
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'leaderEditTeam');
+      }
       $scope.editingLock = true;
       Team.edit($scope.team._id, $scope.formData, function (err) {
         if (err) {
@@ -2450,6 +2539,9 @@ angular.module('donlerApp.controllers', [])
         if(!err) {
           var addr = CONFIG.BASE_URL + '/teams/' + $scope.team._id;
           Upload.upload('logo', addr, {imageURI:imageURI}, function(err) {//上传
+            if(window.analytics){
+              window.analytics.trackEvent('Click', 'leaderEditTeamLogo');
+            }
             if(!err){
               var successAlert = $ionicPopup.alert({
                 title: '提示',
@@ -2651,6 +2743,9 @@ angular.module('donlerApp.controllers', [])
       });
 
       $scope.confirmUpload = function () {
+        if(window.analytics){
+          window.analytics.trackEvent('Click', 'uploadPictureInPhotoAlbumDetail');
+        }
         var addr = CONFIG.BASE_URL + '/photo_albums/' + $scope.photoAlbum._id + '/photos'
         var randomId = Math.floor(Math.random()*100);
         var data = {randomId: randomId, imageURI:$scope.previewImg};
@@ -2721,6 +2816,9 @@ angular.module('donlerApp.controllers', [])
         });
         deleteConfirm.then(function (res) {
           if (res) {
+            if(window.analytics){
+              window.analytics.trackEvent('Click', 'toggleSelectFamilyPhoto');
+            }
             var familyPhoto = $scope.familyPhotos[index];
             Team.toggleSelectFamilyPhoto($scope.team._id, familyPhoto._id, function (err) {
               if (err) {
@@ -2764,6 +2862,9 @@ angular.module('donlerApp.controllers', [])
       });
 
       $scope.confirmUpload = function () {
+        if(window.analytics){
+          window.analytics.trackEvent('Click', 'uploadFamilyPhoto');
+        }
         var addr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
         Upload.upload('family', addr, {imageURI:$scope.previewImg}, function(err) {
           if(!err) {
@@ -3071,6 +3172,9 @@ angular.module('donlerApp.controllers', [])
 
       }
       else {
+        if(window.analytics){
+          window.analytics.trackEvent('Click', 'report');
+        }
         $scope.isBusy = true;
         Report.pushReport($scope.reportData, function (err, data) {
           if (err) {
@@ -3134,6 +3238,9 @@ angular.module('donlerApp.controllers', [])
 
       }
       else {
+        if(window.analytics){
+          window.analytics.trackEvent('Click', 'editCampaign');
+        }
         $scope.campaignData.deadline = $scope.campaignData.deadline;
         if($scope.campaignData.member_min > $scope.campaignData.member_max) {
           $ionicPopup.alert({
@@ -3185,6 +3292,9 @@ angular.module('donlerApp.controllers', [])
       });
       confirmPopup.then(function(res) {
         if(res) {
+          if(window.analytics){
+            window.analytics.trackEvent('Click', 'closeCampaign');
+          }
           Campaign.close($state.params.id,function(err,data) {
             if(!err){
               $ionicPopup.alert({
