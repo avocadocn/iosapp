@@ -869,6 +869,7 @@ angular.module('donlerApp.controllers', [])
           $scope.commentList[commentListIndex][length-1].failed = true;
         }else{
           $scope.commentContent = '';
+          $scope.resizeTextarea();
         }
       });
     };
