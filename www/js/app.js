@@ -24,9 +24,24 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           navigator.app.backHistory();
         }
       }, 100);
+      if(window.analytics) {
+        window.analytics.startTrackerWithId('UA-52353216-2');
+        if(localStorage.id){
+          window.analytics.setUserId(localStorage.id);
+        }
+      }
+      $rootScope.$on('$stateChangeSuccess',
+        function (event, toState, toParams, fromState, fromParams) {
+          var nowHash = window.location.hash;
+          if(window.analytics &&nowHash!='') {
+            window.analytics.trackView(window.location.hash);
+          }
+      });
+
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
+
       //@:android
       var onCloudPushRegistered = function(info) {
         INFO.pushInfo = {
