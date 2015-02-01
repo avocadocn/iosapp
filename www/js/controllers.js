@@ -798,6 +798,7 @@ angular.module('donlerApp.controllers', [])
             var index = Tools.arrayObjectIndexOf(newComments, latestCommentId, '_id');
             //插入比这个新的
             if(index > -1) newComments.splice(0, index + 1);
+            newComments.forEach(addPhotos);
             $scope.commentList.push(newComments);
             $ionicScrollDelegate.scrollBottom();
           });
