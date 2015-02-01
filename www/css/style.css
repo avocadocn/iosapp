@@ -2392,3 +2392,6 @@ a>.login .companies_list:activated {
   -webkit-transform: translateY(500px) scale(0.1);
   -o-transform: translateY(500px) scale(0.1);
 }
+#inviteKeyQrCode img {
+  margin: 0 auto;
+}
