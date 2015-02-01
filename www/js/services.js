@@ -584,6 +584,22 @@ angular.module('donlerApp.services', [])
           });
       },
 
+      /**
+       * 获取某人某活动的未读评论数
+       * @param  {[type]}   userId    
+       * @param  {[type]}   campaignId 
+       * @param  {Function} callback  形式为function(err, data)
+       */
+      getCampaignCommentNumber: function(userId, campaignId, callback) {
+        $http.get(CONFIG.BASE_URL + '/users/' + userId, {
+          params: {commentCampaignId : campaignId}
+        }).success(function (data, status) {
+          callback(null,data);
+        }).error(function (data, status) {
+          callback('error');
+        })
+      },
+
       findBack: function (email, callback) {
         $http.post(CONFIG.BASE_URL + '/users/forgetPassword',{email: email})
         .success(function (data, status) {
@@ -896,7 +912,7 @@ angular.module('donlerApp.services', [])
 
       /**
        * 获取活动的公告列表
-       * @param {String} hostId campaignd
+       * @param {String} hostId campaignId
        * @param {Function} callback 形式为function(err, teams)
        */
       getCampaignMessages: function (hostId, callback) {
