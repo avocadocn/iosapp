@@ -21,7 +21,7 @@
                 <h2 class="dl_cp_name">{{campaign.theme}}</h2>
                 <p class="dl_cp_address">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
               </div>
-              <div class="dl_photo_alb"><img ng-if="$index&lt;2" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" class="dl_cp_photo"/></div>
+              <div class="dl_photo_alb"><img ng-if="$index&lt;3" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" class="dl_cp_photo"/></div>
             </div>
             <div class="dl_card_footer clearfix">
               <div ng-if="campaign.campaign_unit.length===1" class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</div>
