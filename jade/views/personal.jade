@@ -40,11 +40,14 @@ ion-view.personal(ng-controller="PersonalController")
         i.icon.ion_calendar
         | 我的日程
         i.icon.ion-chevron-right
+      a.item.item-icon-left.item-icon-right(href="#/personal/invitecode")
+        i.icon.ion_invite_code
+        | 邀请码
+        i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/settings")
         i.icon.ion_setting
         | 设置
         i.icon.ion-chevron-right
-
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}")
     .pswp__bg
     .pswp__scroll-wrap
