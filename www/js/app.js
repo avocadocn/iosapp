@@ -264,6 +264,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         // controller: 'PersonalController',
         templateUrl: './views/personal.html'
       })
+      .state('inviteCode', {
+        url: '/personal/invitecode',
+        controller: 'PersonalInviteCodeController',
+        templateUrl: './views/personal-invite-code.html'
+      })
       .state('personal_edit', {
         url: '/personal/edit',
         controller: 'PersonalEditController',

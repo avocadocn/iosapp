@@ -933,7 +933,8 @@ a>.login .companies_list:activated {
 .ion_foot,
 .ion_message,
 .ion_calendar,
-.ion_setting {
+.ion_setting,
+.ion_invite_code {
   background-image: url("../img/icon.png");
   background-size: 160px 200px;
 }
@@ -960,6 +961,9 @@ a>.login .companies_list:activated {
 }
 .ion_setting {
   background-position: -30px -145px;
+}
+.ion_invite_code {
+  background-position: 10px -25px;
 }
 .emoji {
   margin: 0 0.1rem;

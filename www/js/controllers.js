@@ -939,7 +939,6 @@ angular.module('donlerApp.controllers', [])
       $ionicScrollDelegate.scrollBottom();
     };
 
-
     //表情
     $scope.isShowEmotions = false;
     $scope.showEmotions = function() {
@@ -1248,6 +1247,36 @@ angular.module('donlerApp.controllers', [])
         $scope.messagesCount = messagesCount;
       }
     });
+
+  }])
+  .controller('PersonalInviteCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', function ($scope, Company, $cordovaClipboard, $ionicPopup) {
+    Company.getInviteKey(localStorage.cid, function(msg, data){
+      if(!msg){
+        $scope.inviteKey = data.staffInviteCode;
+        var qrcode = new QRCode("inviteKeyQrCode", {
+          text: "http://www.donler.com/users/invite?key="+data.staffInviteCode+"&cid="+localStorage.cid
+        });
+      }
+    });
+
+    $scope.copy = function () {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'copyInviteKey');
+      }
+      $cordovaClipboard
+      .copy($scope.inviteKey)
+      .then(function () {
+        $ionicPopup.alert({
+          title: '提示',
+          template: '验证码已成功复制到剪贴板'
+        });
+      }, function () {
+        $ionicPopup.alert({
+          title: '提示',
+          template: '复制验证码到剪贴板失败'
+        });
+      });
+    };
 
   }])
   .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', '$ionicHistory', 'User', 'CONFIG', 'Upload',
@@ -2047,6 +2076,10 @@ angular.module('donlerApp.controllers', [])
     Company.getInviteKey(localStorage.id, function(msg, data){
       if(!msg){
         $scope.inviteKey = data.staffInviteCode;
+        var qrcode = new QRCode("inviteKeyQrCode", {
+          text: "http://www.donler.com/users/invite?key="+data.staffInviteCode+"&cid="+localStorage.id
+        });
+
       }
     });
 
