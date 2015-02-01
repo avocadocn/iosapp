@@ -44,6 +44,9 @@ angular.module('donlerApp.controllers', [])
         } else {
           $ionicHistory.clearHistory();
           $ionicHistory.clearCache();
+          $ionicHistory.nextViewOptions({
+            historyRoot: true
+          });
           $state.go('company_home');
         }
       });
