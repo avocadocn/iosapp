@@ -54,7 +54,7 @@ ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
     form(name="comment_form")
       i.icon.ion-image(ng-click="showUploadActionSheet()")
       .input_area
-        textarea#ta.comment_input(rows="1" cols="32" ng-model="commentContent" required ng-maxlength="140" contentEditable="true" ng-focus="hideEmotions()" ng-change="resizeTextarea()")
+        textarea#ta.comment_input(rows="1" cols="32" ng-model="commentContent" required ng-maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting=true;" ng-blur="isWriting=false;" ng-change="resizeTextarea()")
         button.dl_button.emotion_button(ng-click="showEmotions()" prevent-default)
           i.emoji.emoji_tongue
         .input_bottom

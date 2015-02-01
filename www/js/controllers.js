@@ -710,6 +710,8 @@ angular.module('donlerApp.controllers', [])
       }
     });
 
+    $scope.isWriting = false;
+
     //评论获取
     $scope.commentList = [];
     $scope.topShowTime = [];
@@ -749,6 +751,7 @@ angular.module('donlerApp.controllers', [])
     getComments();
 
     //获取新留言
+    var comments_ele = document.getElementsByClassName('comments'); // 获取滚动条
     var needRead = false;//标记是否需要再去read
     Socket.on('newCampaignComment', function (data) {
       //如果是自己发的看看是不是取消loading就行.
@@ -767,9 +770,13 @@ angular.module('donlerApp.controllers', [])
         }
       }else{
         data.randomId = null;
+        var nowHeight =  $ionicScrollDelegate.getScrollPosition().top; //获取总高度
+        var scrollHeight = comments_ele[0].scrollHeight - (window.outerHeight-86); //获取当前所在位置
+        var isAtBottom = false;
+        if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
         $scope.commentList[commentListIndex].push(data);
         addPhotos(data);
-        // $ionicScrollDelegate.scrollBottom();
+        if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
         // $scope.newCommentNumber ++;
         needRead = true;
       }

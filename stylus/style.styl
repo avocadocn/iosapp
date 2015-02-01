@@ -895,7 +895,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     background-color #fff
     display block
     height auto
-    padding-top 5px
+    padding-top 3px
     //- position relative
     .icon.ion-image
       font-size 22px
@@ -911,14 +911,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         width 90%
         margin-top 8px
         padding-left 5px
+        padding-right 0
+        padding-bottom 0
         background-color transparent
         box-shadow 0 0 0
         border-radius 3px
         min-height 2rem
+        margin-bottom -2px
         resize none
       .input_bottom
         float left
-        height 2px
+        height 4px
         width 100%
         border 1px solid #666
         border-top 0
@@ -927,8 +930,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         float left
         background-color transparent
         width 24px
-        margin-top -15px
-        padding 6% 0 0
+        margin-top -12px
+        padding 7% 0 0
+        line-height 1
+        .emoji
+          vertical-align baseline
+          margin-right 2px
     button.publish_button[disabled]
       color col_darkGray !important
     .publish_button

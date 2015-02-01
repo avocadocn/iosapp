@@ -1029,7 +1029,7 @@ a>.login .companies_list:activated {
   background-color: #fff;
   display: block;
   height: auto;
-  padding-top: 5px;
+  padding-top: 3px;
 }
 .discuss_detail .comment_box .icon.ion-image {
   font-size: 22px;
@@ -1047,15 +1047,18 @@ a>.login .companies_list:activated {
   width: 90%;
   margin-top: 8px;
   padding-left: 5px;
+  padding-right: 0;
+  padding-bottom: 0;
   background-color: transparent;
   box-shadow: 0 0 0;
   border-radius: 3px;
   min-height: 2rem;
+  margin-bottom: -2px;
   resize: none;
 }
 .discuss_detail .comment_box .input_area .input_bottom {
   float: left;
-  height: 2px;
+  height: 4px;
   width: 100%;
   border: 1px solid #666;
   border-top: 0;
@@ -1065,8 +1068,13 @@ a>.login .companies_list:activated {
   float: left;
   background-color: transparent;
   width: 24px;
-  margin-top: -15px;
-  padding: 6% 0 0;
+  margin-top: -12px;
+  padding: 7% 0 0;
+  line-height: 1;
+}
+.discuss_detail .comment_box .input_area .emotion_button .emoji {
+  vertical-align: baseline;
+  margin-right: 2px;
 }
 .discuss_detail .comment_box button.publish_button[disabled] {
   color: #999 !important;
