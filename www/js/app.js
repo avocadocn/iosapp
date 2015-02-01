@@ -14,7 +14,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       //   cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       // }
       $ionicPlatform.registerBackButtonAction(function (event) {
-      if ( $state.$current.name.indexOf('app.')==0 ||  $state.$current.name=='company_home'){
+      if ( $state.$current.name.indexOf('app.')==0 || $state.$current.name=='company_home' || $state.$current.name=='home'){
         // H/W BACK button is disabled for these states (these views)
         // Do not go to the previous state (or view) for these states. 
         // Do nothing here to disable H/W back button.
