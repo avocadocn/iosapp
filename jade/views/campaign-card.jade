@@ -27,7 +27,7 @@
       p.dl_cp_name(ng-if="campaign.confirm_status===false") {{campaign.theme}}
       //- ion-scroll(scroll-parent="mainScroll" parent-direction="y" direction="x" scrollbar-x="false")
       .dl_photo_alb
-        img.dl_cp_photo(prevent-default ng-if="$index<2" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" error-img photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="campaign.photo_album._id" ng-click="addPhotos(campaign.photo_album.photos)" open-photo)
+        img.dl_cp_photo(prevent-default ng-if="$index<3" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" error-img photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="campaign.photo_album._id" ng-click="addPhotos(campaign.photo_album.photos)" open-photo)
     .dl_card_footer.clearfix(ng-if="campaign.confirm_status===true")
       .dl_team_name(ng-if="campaign.campaign_unit.length === 1")
         | {{campaign.campaign_unit[0].team.name}}

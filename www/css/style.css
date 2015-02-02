@@ -214,8 +214,8 @@ body {
 }
 .dl_card .campaign_card .dl_card_body .dl_photo_alb .dl_cp_photo {
   margin-right: 5px;
-  width: 150px;
-  height: 150px;
+  width: 96px;
+  height: 96px;
 }
 .dl_card .campaign_card .dl_card_body .dl_cp_name {
   margin: 10px;
@@ -2356,4 +2356,7 @@ a>.login .companies_list:activated {
   -moz-transform: translateY(500px) scale(0.1);
   -webkit-transform: translateY(500px) scale(0.1);
   -o-transform: translateY(500px) scale(0.1);
+}
+#inviteKeyQrCode img {
+  margin: 0 auto;
 }

@@ -17,7 +17,7 @@
           p.dl_cp_address {{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}
         //- ion-scroll(scroll-parent="mainScroll" parent-direction="y" direction="x" scrollbar-x="false")
         .dl_photo_alb
-          img.dl_cp_photo(ng-if="$index<2" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150")
+          img.dl_cp_photo(ng-if="$index<3" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150")
       .dl_card_footer.clearfix
         .dl_team_name(ng-if="campaign.campaign_unit.length===1")
           | {{campaign.campaign_unit[0].team.name}}
