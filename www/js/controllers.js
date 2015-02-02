@@ -169,12 +169,12 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
     function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
-    $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
     $scope.pswpId = 'campaigns' + Date.now();
     $scope.showSponsorButton = localStorage.role =='LEADER';
     var getCampaignList = function() {
+      $rootScope.showLoading();
       Campaign.getList({
         requestType: 'user',
         requestId: localStorage.id,
