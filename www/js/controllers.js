@@ -648,6 +648,14 @@ angular.module('donlerApp.controllers', [])
       Socket.emit('quitRoom');
       Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
     });
+    var comeBackFromBackground = function() {
+      Socket.emit('quitRoom');
+      Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
+      //更新刚才一段时间内的新评论
+      $scope.refreshComment();
+    };
+
+    document.addEventListener('resume',comeBackFromBackground, false);//从后台切回来要刷新及进room
     
     Campaign.get($scope.campaignId, function (err, data) {
       if (!err) {
@@ -690,8 +698,6 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.discuss_list');
       }
     }
-
-
 
     //获取公告
     $scope.showNotice = false;
@@ -777,6 +783,29 @@ angular.module('donlerApp.controllers', [])
         needRead = true;
       }
     });
+
+    //回到前台、用户手动刷新
+    $scope.refreshComment = function() {
+      User.getCampaignCommentNumber($scope.userId, $scope.campaignId, function(msg, data) {
+        if(data.unreadNumbers>0) {//如果有没读的，就去拿
+          Comment.getComments($scope.campaignId, data.unreadNumbers).success(function(data){
+            //获取当前最新一条的id
+            var commentListIndex = $scope.commentList.length -1;
+            var commentIndex = $scope.commentList[commentListIndex].length - 1;
+            var latestCommentId = $scope.commentList[commentListIndex][commentIndex]._id;
+            //与data来的id作比较
+            var newComments = data.comments.reverse();
+            var index = Tools.arrayObjectIndexOf(newComments, latestCommentId, '_id');
+            //插入比这个新的
+            if(index > -1) newComments.splice(0, index + 1);
+            newComments.forEach(addPhotos);
+            $scope.commentList.push(newComments);
+            $ionicScrollDelegate.scrollBottom();
+          });
+        }
+      });
+    };
+
     // $scope.newCommentNumber = 0;
 
     //拉取历史讨论记录
