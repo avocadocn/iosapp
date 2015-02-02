@@ -2360,3 +2360,6 @@ a>.login .companies_list:activated {
 #inviteKeyQrCode img {
   margin: 0 auto;
 }
+.invite_key .ion-clipboard {
+  color: #3ca2e0;
+}
