@@ -166,12 +166,12 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
     function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
-    $rootScope.showLoading();
     $scope.pswpPhotoAlbum = {};
     $scope.nowType = 'all';
     $scope.pswpId = 'campaigns' + Date.now();
     $scope.showSponsorButton = localStorage.role =='LEADER';
     var getCampaignList = function() {
+      $rootScope.showLoading();
       Campaign.getList({
         requestType: 'user',
         requestId: localStorage.id,
@@ -200,7 +200,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
     $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
-      if(!states.stateName){
+      if(!states.stateName && $state.$current.name === 'app.campaigns'){
         getCampaignList();
       }
     });
@@ -1578,10 +1578,12 @@ angular.module('donlerApp.controllers', [])
     
     $scope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {
-        $ionicHistory.nextViewOptions({
-          disableBack: true,
-          historyRoot: true
-        });
+        // $ionicHistory.nextViewOptions({
+        //   disableBack: true,
+        //   historyRoot: true
+        // });
+        $ionicHistory.clearHistory();
+        // $ionicHistory.clearCache();
         if(toState.name==='app.discuss_list' || toState.name==='discuss_detail' || toState.name==='unjoined_discuss_list') {
           readComments();
           nowState = 'discussList';
