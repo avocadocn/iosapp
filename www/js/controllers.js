@@ -524,6 +524,13 @@ angular.module('donlerApp.controllers', [])
         Socket.emit('enterRoom', localStorage.id);
       }
     });
+    var comeBack = function() {
+      Socket.emit('quitRoom');
+      Socket.emit('enterRoom', localStorage.id);
+      getComments();
+    };
+    document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
+
     if(INFO.discussList){
       $scope.commentCampaigns = INFO.discussList.commentCampaigns;
       $scope.latestUnjoinedCampaign = INFO.discussList.latestUnjoinedCampaign;
@@ -532,6 +539,7 @@ angular.module('donlerApp.controllers', [])
     //进来以后先http请求,再监视推送
     var getComments = function(campaignId) {
       Comment.getList('joined').success(function (data) {
+        $scope.commentCampaigns = [];
         $scope.commentCampaigns = data.commentCampaigns;
         $scope.latestUnjoinedCampaign = data.latestUnjoinedCampaign;
         //判断下把未参加的放哪
@@ -604,6 +612,9 @@ angular.module('donlerApp.controllers', [])
     $scope.$on("$ionicView.enter", function( scopes, states ) {
       Socket.emit('quitRoom');
       Socket.emit('enterRoom', localStorage.id);
+      getList();
+    });
+    var getList = function() {
       Comment.getList('unjoined').success(function (data) {
         $scope.commentCampaigns = data.commentCampaigns;
         if(INFO.discussCampaignId) {
@@ -616,7 +627,13 @@ angular.module('donlerApp.controllers', [])
           }
         }
       });
-    });
+    };
+    var comeBack = function() {
+      Socket.emit('quitRoom');
+      Socket.emit('enterRoom', localStorage.id);
+      getList();
+    };
+    document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
     Socket.on('newUnjoinedCommentCampaign', function (data) {
       var newCommentCampaign = data;
       var index = Tools.arrayObjectIndexOf($scope.commentCampaigns, newCommentCampaign._id, '_id');
