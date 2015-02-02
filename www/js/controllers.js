@@ -525,9 +525,11 @@ angular.module('donlerApp.controllers', [])
       }
     });
     var comeBack = function() {
-      Socket.emit('quitRoom');
-      Socket.emit('enterRoom', localStorage.id);
-      getComments();
+      if($state.$current.name==='app.discuss_list') {
+        Socket.emit('quitRoom');
+        Socket.emit('enterRoom', localStorage.id);
+        getComments();
+      }
     };
     document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
 
@@ -629,9 +631,11 @@ angular.module('donlerApp.controllers', [])
       });
     };
     var comeBack = function() {
-      Socket.emit('quitRoom');
-      Socket.emit('enterRoom', localStorage.id);
-      getList();
+      if($state.$current.name === 'unjoined_discuss_list') {
+        Socket.emit('quitRoom');
+        Socket.emit('enterRoom', localStorage.id);
+        getList();
+      }
     };
     document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
     Socket.on('newUnjoinedCommentCampaign', function (data) {
@@ -666,10 +670,12 @@ angular.module('donlerApp.controllers', [])
       Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
     });
     var comeBackFromBackground = function() {
-      Socket.emit('quitRoom');
-      Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
-      //更新刚才一段时间内的新评论
-      $scope.refreshComment();
+      if($state.$current.name === 'discuss_detail' && $scope.campaignId === $state.params.campaignId) {
+        Socket.emit('quitRoom');
+        Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
+        //更新刚才一段时间内的新评论
+        $scope.refreshComment();
+      }
     };
 
     document.addEventListener('resume',comeBackFromBackground, false);//从后台切回来要刷新及进room
