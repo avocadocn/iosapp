@@ -1187,6 +1187,7 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           // todo
           console.log(err);
+          $scope.loadFinished = true;
         } else {
           if(timelineData.length>0) {
             $scope.timelinesRecord = timelineData;
@@ -1209,6 +1210,7 @@ angular.module('donlerApp.controllers', [])
           if (err) {
             // todo
             console.log(err);
+            $scope.loadFinished = true;
           } else {
             if(timelineData.length>0) {
               $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
@@ -1475,14 +1477,25 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('PersonalTeamListController', ['$scope', 'Team', 'INFO', function ($scope, Team, INFO) {
+  .controller('PersonalTeamListController', ['$scope','$state', '$ionicHistory','Team', 'INFO', function ($scope, $state, $ionicHistory, Team, INFO) {
     INFO.createTeamBackUrl = '#/personal/teams';
     $scope.loading = true;
+    $scope.goBack = function() {
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack();
+      }
+      else {
+        $state.go('app.personal');
+      }
+    }
+    $scope.myTeamFlag = !$state.params.userId  || $state.params.userId==localStorage.id;
+
     var getMyTeams = function() {
-      Team.getList('user', localStorage.id, null, function (err, teams) {
+      Team.getList('user', $state.params.userId || localStorage.id, null, function (err, teams) {
         if (err) {
           // todo
           console.log(err);
+          $scope.loading = false;
         } else {
           var leadTeams = [];
           var memberTeams = [];
@@ -3090,6 +3103,7 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           // todo
           console.log(err);
+          $scope.loadFinished = true;
         } else {
           if(timelineData.length>0) {
             $scope.timelinesRecord = timelineData;
@@ -3112,6 +3126,7 @@ angular.module('donlerApp.controllers', [])
           if (err) {
             // todo
             console.log(err);
+            $scope.loadFinished = true;
           } else {
             if(timelineData.length>0) {
               $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
@@ -3208,6 +3223,7 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           // todo
           console.log(err);
+          $scope.loadFinished = true;
         } else {
           if(timelineData.length>0) {
             $scope.timelinesRecord = timelineData;
@@ -3230,6 +3246,7 @@ angular.module('donlerApp.controllers', [])
           if (err) {
             // todo
             console.log(err);
+            $scope.loadFinished = true;
           } else {
             if(timelineData.length>0) {
               $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);

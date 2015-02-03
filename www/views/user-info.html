@@ -10,11 +10,9 @@
         <p ng-cloak="ng-cloak">姓名: {{user.realname || '-'}}</p>
       </div>
       <div ng-cloak="ng-cloak" class="item statistics">
-        <div class="row">
-          <div class="col col-33">
+        <div class="row"><a ng-href="#/personal/teams/{{user._id}}" class="col col-33">
             <p class="number">{{user.tids.length}}</p>
-            <p class="key">小队</p>
-          </div><a ng-href="#/user/{{user._id}}/timeline" class="col col-33">
+            <p class="key">小队</p></a><a ng-href="#/user/{{user._id}}/timeline" class="col col-33">
             <p class="number">{{user.campaignCount}}</p>
             <p class="key">活动</p></a>
           <div class="col col-33">

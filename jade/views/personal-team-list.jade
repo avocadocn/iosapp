@@ -1,14 +1,14 @@
 ion-view
 
   ion-header-bar
-    a.button.icon-left.ion-chevron-left(href="#/app/personal") &nbsp;我的
-    h1.title 我的小队
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title {{myTeamFlag ?'我' :'他'}}的小队
     //- a.button.icon.ion-plus(href="#/company/create_team")
   ion-content
     ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     .loading_cover(ng-if="loading" ng-cloak)
       i.icon.ion-looping
-    p.dl_team_title(ng-if="leadTeams.length>0" ng-cloak) 我管理的小队
+    p.dl_team_title(ng-if="leadTeams.length>0" ng-cloak) {{myTeamFlag ?'我' :'他'}}管理的小队
     a.dl_team_card.clearfix(ng-repeat="team in leadTeams" ng-href="#/team/{{team._id}}" ng-cloak)
       img.team_logo(ng-src="{{STATIC_URL + team.logo}}/120/120")
       .team_info
@@ -18,7 +18,7 @@ ion-view
           span.team_member 队员：{{team.memberCount}}
           span.team_cp_number(ng-if="team.score.campaign") 活动：{{team.score.campaign}}
           span.team_cp_number 积分：{{team.score.total}}
-    p.dl_team_title(ng-if="memberTeams.length>0" ng-cloak) 我参加的小队
+    p.dl_team_title(ng-if="memberTeams.length>0" ng-cloak) {{myTeamFlag ?'我' :'他'}}参加的小队
     a.dl_team_card.clearfix(ng-repeat="team in memberTeams" ng-href="#/team/{{team._id}}" ng-cloak)
       img.team_logo(ng-src="{{STATIC_URL + team.logo}}/120/120")
       .team_info
