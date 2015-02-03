@@ -275,7 +275,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/personal-edit.html'
       })
       .state('personal_teams', {
-        url: '/personal/teams',
+        url: '/personal/teams/:userId',
         controller: 'PersonalTeamListController',
         templateUrl: './views/personal-team-list.html'
       })
