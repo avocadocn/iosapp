@@ -26,9 +26,9 @@ ion-view(ng-controller="CampaignController")
       +campaignsContainer('即将开始的活动','unStartCampaigns','icon_textPurple')
       .no_campaign(ng-if="noCampaigns" ng-cloak)
         .no_campaign_tip
-          p 没有活动怎么办？进入
+          p 没有活动怎么办?
           p
-            a.team_link(href="#/app/discover") 发现
+            a.team_link(href="#/discover/teams/") 发现
             span.tip_info 加入更多小队！
 
   include ./photo-swipe

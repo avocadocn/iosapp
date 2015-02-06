@@ -35,8 +35,8 @@
                 </div>
           <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign">
             <div class="no_campaign_tip">
-              <p>没有活动怎么办？进入</p>
-              <p><a href="#/app/discover" class="team_link">发现</a><span class="tip_info">加入更多小队！</span></p>
+              <p>没有活动怎么办?</p>
+              <p><a href="#/discover/teams/" class="team_link">发现</a><span class="tip_info">加入更多小队！</span></p>
             </div>
           </div>
         </ion-scroll>
@@ -115,7 +115,7 @@
             <h2>{{user.nickname}}</h2>
             <p ng-if="user.introduce">简介: {{user.introduce}}</p><i class="icon ion-chevron-right"></i></a>
           <div ng-cloak="ng-cloak" class="item statistics">
-            <div class="row"><a href="#/personal/teams" class="col col-33">
+            <div class="row"><a href="#/personal/teams/" class="col col-33">
                 <p class="number">{{user.tids.length}}</p>
                 <p class="key">小队</p></a><a href="#/personal/timeline" class="col col-33">
                 <p class="number">{{user.campaignCount}}</p>
