@@ -532,7 +532,6 @@ angular.module('donlerApp.controllers', [])
       }
     };
     document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
-
     if(INFO.discussList){
       $scope.commentCampaigns = INFO.discussList.commentCampaigns;
       $scope.latestUnjoinedCampaign = INFO.discussList.latestUnjoinedCampaign;
@@ -663,6 +662,7 @@ angular.module('donlerApp.controllers', [])
     function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, $ionicPopup, Upload, Campaign, $ionicModal) {
     $scope.campaignId = $stateParams.campaignId;
     $scope.campaignTitle = INFO.discussName;
+
     $scope.commentContent='';
     $scope.$on('$ionicView.enter', function(){
       INFO.discussCampaignId = $scope.campaignId; //for 回到讨论列表时清红点
@@ -715,7 +715,8 @@ angular.module('donlerApp.controllers', [])
     //ionichistory
     $scope.goBack = function() {
       if($ionicHistory.backView()){
-        $ionicHistory.goBack()
+        // $ionicHistory.goBack();
+        $state.go('app.discuss_list');
       }
       else {
         $state.go('app.discuss_list');
