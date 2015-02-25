@@ -1,8 +1,9 @@
 
 <div ng-class="{'remove':campaign.remove}" class="card dl_card campaign_card_container"><a ng-href="#/campaign/detail/{{campaign._id}}" class="campaign_card">
-    <div ng-if="campaign.confirm_status===true" class="dl_card_header clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45" class="dl_team_logo"/>
+    <div ng-if="campaign.confirm_status===true" class="dl_card_header clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60" class="dl_team_logo"/>
       <div class="dl_card_header_info clearfix">
         <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+        <p class="dl_cp_address">时间: {{campaign.start_time | date:"MM-dd HH:mm"}} - {{campaign.end_time | date:"MM-dd HH:mm"}}</p>
         <p class="dl_cp_address">地点: {{campaign.location.name}}</p>
       </div>
       <div class="dl_card_header_operator">
@@ -24,6 +25,7 @@
         vs
         {{campaign.campaign_unit[1].team.name}}
       </div>
+      <div class="dl_cp_time clearfix">发布于 {{campaign.create_time | beforeNow}}</div>
       <div class="dl_team_comment clearfix"><i class="ion_comment"></i><span class="dl_card_footer_count">{{campaign.comment_sum}}</span></div>
       <div class="dl_team_number clearfix"><i class="ion_member"></i><span class="dl_card_footer_count">{{campaign.members_count || '0'}}</span></div>
     </div>

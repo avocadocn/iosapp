@@ -114,11 +114,11 @@ body {
 }
 .dl_card .campaign_card .dl_card_header {
   padding: 0.833333rem;
-  height: 65px;
+  height: 80px;
 }
 .dl_card .campaign_card .dl_card_header .dl_card_header_info {
   width: 100%;
-  padding-left: 55px;
+  padding-left: 70px;
   padding-right: 70px;
 }
 .dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_name,
@@ -128,6 +128,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: #3ca2e0;
 }
 .dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_address {
   margin-top: 6px;
@@ -176,8 +177,8 @@ body {
   display: block;
   position: absolute;
   margin-right: 10px;
-  width: 45px;
-  height: 45px;
+  width: 60px;
+  height: 60px;
   border-radius: 5px;
 }
 .dl_card .campaign_card .dl_card_header_provoke {
@@ -242,13 +243,19 @@ body {
   font-size: 12px;
   color: #999;
   width: 100%;
+  border-top: 1px solid #e2e2e2;
 }
 .dl_card .campaign_card .dl_card_footer .dl_team_name {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding-right: 90px;
+  padding-right: 150px;
+}
+.dl_card .campaign_card .dl_card_footer .dl_cp_time {
+  position: absolute;
+  top: 0;
+  right: 80px;
 }
 .dl_card .campaign_card .dl_card_footer .dl_team_number {
   position: absolute;
