@@ -688,7 +688,8 @@ angular.module('donlerApp.controllers', [])
     //ionichistory
     $scope.goBack = function() {
       if($ionicHistory.backView()){
-        $ionicHistory.goBack()
+        // $ionicHistory.goBack()
+        $state.go('app.discuss_list');
       }
       else {
         $state.go('app.discuss_list');

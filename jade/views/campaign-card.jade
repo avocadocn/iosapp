@@ -1,9 +1,10 @@
 .card.dl_card.campaign_card_container(ng-class="{'remove':campaign.remove}" )
   a.campaign_card(ng-href="#/campaign/detail/{{campaign._id}}")
     .dl_card_header.clearfix(ng-if="campaign.confirm_status===true")
-      img.dl_team_logo(ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45")
+      img.dl_team_logo(ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60")
       .dl_card_header_info.clearfix
         h2.dl_cp_name {{campaign.theme}}
+        p.dl_cp_address 时间: {{campaign.start_time | date:"MM-dd HH:mm"}} - {{campaign.end_time | date:"MM-dd HH:mm"}}
         p.dl_cp_address 地点: {{campaign.location.name}}
       .dl_card_header_operator
         //- button.dl_btn_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="joinCampaign(campaign)" prevent-default) 参加
@@ -35,6 +36,8 @@
         | {{campaign.campaign_unit[0].team.name}}
         | vs
         | {{campaign.campaign_unit[1].team.name}}
+      .dl_cp_time.clearfix
+        | 发布于 {{campaign.create_time | beforeNow}}
       .dl_team_comment.clearfix
         i.ion_comment
         span.dl_card_footer_count {{campaign.comment_sum}}
