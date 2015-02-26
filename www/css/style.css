@@ -250,7 +250,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding-right: 150px;
+  padding-right: 160px;
 }
 .dl_card .campaign_card .dl_card_footer .dl_cp_time {
   position: absolute;
