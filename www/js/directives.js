@@ -305,7 +305,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     link: function (scope, element, attrs, ctrl) {
       scope.linkMap = function () {
         if(scope.coordinates &&scope.coordinates.length==2) {
-          var link = 'http://m.amap.com/navi/?dest=' + scope.coordinates[0] + ',' + scope.coordinates[1] + '&destName=' + scope.name+'&hideRouteIcon=1&key=077eff0a89079f77e2893d6735c2f044';
+          var link = 'http://mo.amap.com/?q=' + scope.coordinates[1] + ',' + scope.coordinates[0] + '&name=' + scope.name+'&dev=0';
           window.open( link, '_system' , 'location=yes');
         }
         return false;
