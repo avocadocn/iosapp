@@ -900,8 +900,8 @@ a>.login .companies_list:activated {
 .ion_campaign_active,
 .ion_discuss,
 .ion_discuss_active,
-.ion_discover,
-.ion_discover_active,
+.ion_company,
+.ion_company_active,
 .ion_personal,
 .ion_personal_active {
   background-image: url("../img/nav_tab.png");
@@ -919,10 +919,10 @@ a>.login .companies_list:activated {
 .ion_discuss_active {
   background-position: -75px -50px;
 }
-.ion_discover {
+.ion_company {
   background-position: -153px -7px;
 }
-.ion_discover_active {
+.ion_company_active {
   background-position: -153px -50px;
 }
 .ion_personal {
@@ -1340,6 +1340,29 @@ a>.login .companies_list:activated {
   padding-left: 4px;
 }
 .discover .list .item .item-note {
+  color: #3ca2e0;
+}
+.company .company_image {
+  width: 100%;
+  display: block;
+  background: url("../img/discover.jpg") no-repeat;
+  background-size: 100%;
+  height: 15rem;
+  margin-top: 10px;
+}
+.company .list .item:first-child {
+  border-top: 0;
+}
+.company .list .item .icon {
+  width: 3rem;
+  font-size: 14px;
+  color: #3ca2e0;
+}
+.company .list .item .icon.ion-android-contacts {
+  font-size: 22px;
+  padding-left: 4px;
+}
+.company .list .item .item-note {
   color: #3ca2e0;
 }
 .personal .list,

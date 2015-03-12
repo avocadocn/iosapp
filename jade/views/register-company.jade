@@ -2,9 +2,9 @@ ion-view.login
   ion-header-bar
     a.button.icon-left.ion-chevron-left(href="#/register/user/search_company") &nbsp;返回
     h1.title 企业注册
-    a.button.icon-right.ion-chevron-right(href="#/company/login") 登录&nbsp;
+    a.button.icon-right.ion-chevron-right(href="#/hr/login") 登录&nbsp;
   ion-content
-    form.signup_form(ng-controller="companySignupController" name="company_signup_form" novalidate)
+    form.signup_form(ng-controller="HrSignupController" name="company_signup_form" novalidate)
       .list.list-inset
         label.item.item-input
           input(type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required)

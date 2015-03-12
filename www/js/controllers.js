@@ -27,7 +27,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'CompanyAuth', function ($scope, CommonHeaders, $state, $ionicHistory, CompanyAuth) {
+  .controller('HrLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'CompanyAuth', function ($scope, CommonHeaders, $state, $ionicHistory, CompanyAuth) {
 
     $scope.loginData = {
       username: '',
@@ -36,7 +36,7 @@ angular.module('donlerApp.controllers', [])
 
     $scope.login = function () {
       if(window.analytics){
-        window.analytics.trackEvent('Click', 'companyLogin');
+        window.analytics.trackEvent('Click', 'hrLogin');
       }
       CompanyAuth.login($scope.loginData.username, $scope.loginData.password, function (msg) {
         if (msg) {
@@ -44,17 +44,17 @@ angular.module('donlerApp.controllers', [])
         } else {
           $ionicHistory.clearHistory();
           $ionicHistory.clearCache();
-          $state.go('company_home');
+          $state.go('hr_home');
         }
       });
     };
 
   }])
-  .controller('CompanyHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', function ($scope, $state, CompanyAuth, CommonHeaders) {
+  .controller('HrHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', function ($scope, $state, CompanyAuth, CommonHeaders) {
 
     $scope.logout = function () {
       if(window.analytics){
-        window.analytics.trackEvent('Click', 'companyLogOut');
+        window.analytics.trackEvent('Click', 'hrLogOut');
       }
       CompanyAuth.logout(function (err) {
         if (err) {
@@ -68,8 +68,8 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('createTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
-    $scope.backUrl = localStorage.userType==='company' ? '#/company/team_page' : INFO.createTeamBackUrl;
+  .controller('CreateTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
+    $scope.backUrl = localStorage.userType==='company' ? '#/hr/team_page' : INFO.createTeamBackUrl;
     $scope.isBusy = false;
     $scope.teamName = {};
     Team.getGroups(function(err,data) {
@@ -109,7 +109,7 @@ angular.module('donlerApp.controllers', [])
             if(localStorage.userType==='user')
               $state.go('team',{teamId:data.teamId});
             else
-              $state.go('company_teamPage');
+              $state.go('hr_teamPage');
           }
           else{
             $ionicPopup.alert({
@@ -122,7 +122,7 @@ angular.module('donlerApp.controllers', [])
       
     }
   }])
-  .controller('CompanyForgetController', ['$scope', '$ionicLoading', 'Company', function ($scope, $ionicLoading, Company) {
+  .controller('HrForgetController', ['$scope', '$ionicLoading', 'Company', function ($scope, $ionicLoading, Company) {
     $scope.msg = '请输入注册所填邮箱，我们会将密码重置邮件发送给您。';
     $scope.forget={};
     $scope.findBack = function(){
@@ -130,7 +130,7 @@ angular.module('donlerApp.controllers', [])
         template: '请稍等...'
       });
       if(window.analytics){
-        window.analytics.trackEvent('Click', 'companyFindBackPassword');
+        window.analytics.trackEvent('Click', 'hrFindBackPassword');
       }
       Company.findBack($scope.forget.email, function(msg){
         $ionicLoading.hide();
@@ -572,7 +572,7 @@ angular.module('donlerApp.controllers', [])
         INFO.discussCampaignId = '';
       });
     };
-    getComments();
+    // getComments();
     
     Socket.on('newCommentCampaign', function (data) {
       var newCommentCampaign = data;
@@ -1077,7 +1077,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
+  .controller('CompanyController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
     function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
     if($state.params.type) {
       // if($state.params.type=='personal') {
@@ -1166,7 +1166,7 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('DiscoverCircleController', ['$scope', '$timeout', 'TimeLine', 'INFO', function ($scope, $timeout, TimeLine, INFO) {
+  .controller('CompanyCircleController', ['$scope', '$timeout', 'TimeLine', 'INFO', function ($scope, $timeout, TimeLine, INFO) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -1973,16 +1973,16 @@ angular.module('donlerApp.controllers', [])
       }
       
   }])
-  .controller('privacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
+  .controller('PrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/settings/about';
   }])
-  .controller('compRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
+  .controller('CompRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/register/company';
   }])
-  .controller('userRegPrivacyController', ['$scope', '$ionicNavBarDelegate', 'INFO', function ($scope, $ionicNavBarDelegate, INFO) {
+  .controller('UserRegPrivacyController', ['$scope', '$ionicNavBarDelegate', 'INFO', function ($scope, $ionicNavBarDelegate, INFO) {
     $scope.backHref = '#/register/user/post_detail/' + INFO.companyId;
   }])
-  .controller('companySignupController' ,['$scope', '$state', '$rootScope', '$ionicPopup', 'CompanySignup', 'CONFIG', function ($scope, $state, $rootScope, $ionicPopup, CompanySignup, CONFIG) {
+  .controller('HrSignupController' ,['$scope', '$state', '$rootScope', '$ionicPopup', 'CompanySignup', 'CONFIG', function ($scope, $state, $rootScope, $ionicPopup, CompanySignup, CONFIG) {
     //for region
     var region_url = CONFIG.BASE_URL + '/region';
     // var region_url = "http://192.168.2.107:3002/region";
@@ -2060,7 +2060,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('userSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
+  .controller('UserSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
     // $scope.keypress = function(keyEvent) {
     //   if (keyEvent.which === 13) {
     //     $scope.searchCompany();
@@ -2112,7 +2112,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('userRegisterDetailController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, $ionicPopup, UserSignup, INFO) {
+  .controller('UserRegisterDetailController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, $ionicPopup, UserSignup, INFO) {
     $scope.data = {};
     $scope.data.cid = INFO.companyId;
     $scope.data.email = INFO.email;
@@ -2150,7 +2150,7 @@ angular.module('donlerApp.controllers', [])
     }
   
   }])
-  .controller('CompanyActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', function ($scope, Company, $cordovaClipboard, $ionicPopup) {
+  .controller('HrActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', function ($scope, Company, $cordovaClipboard, $ionicPopup) {
     Company.getInviteKey(localStorage.id, function(msg, data){
       if(!msg){
         $scope.inviteKey = data.staffInviteCode;
@@ -2180,7 +2180,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CompanyTeamController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
+  .controller('HrTeamController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
     switch ($stateParams.type) {
     case 'all':
       $scope.title = '所有小队';
@@ -2201,11 +2201,11 @@ angular.module('donlerApp.controllers', [])
 
     $scope.editTeam = function (team) {
       INFO.team = team;
-      $state.go('company_editTeam',{teamId:team._id});
+      $state.go('hr_editTeam',{teamId:team._id});
     };
   }])
   //-hr编辑小队信息
-  .controller('companyEditTeamController', ['$scope', '$ionicPopup', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, INFO, Team, User) {
+  .controller('HrEditTeamController', ['$scope', '$ionicPopup', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, INFO, Team, User) {
     $scope.formData = {name: INFO.team.name};
     $scope.memberName = {};
     var teamMembersBackup = [];//切换组员、公司成员用 全部组员备份
@@ -3463,6 +3463,10 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
+  .controller('DiscoverController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', function ($ionicHistory, $scope, $state, $ionicPopup) {
+  }])
+
+
 
 
 

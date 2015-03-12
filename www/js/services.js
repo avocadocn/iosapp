@@ -6,13 +6,13 @@ angular.module('donlerApp.services', [])
       var signOut = function(){
         var isLogin = true;
         var path = $location.path();
-        if (path ==='/users/login' || path ==='/company/login') {
+        if (path ==='/users/login' || path ==='/hr/login') {
           isLogin = false;
         }
         if (isLogin) {
           var userType = localStorage.userType;
           if (userType === 'company') {
-            $location.path('/company/login');
+            $location.path('/hr/login');
           } else {
             $location.path('/user/login');
           }
@@ -43,9 +43,9 @@ angular.module('donlerApp.services', [])
     $httpProvider.interceptors.push('myInterceptor');
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://www.donler.com:3002',
-    STATIC_URL: 'http://www.donler.com',
-    SOCKET_URL: 'http://www.donler.com:3005',
+    BASE_URL: 'http://localhost:3002',
+    STATIC_URL: 'http://localhost:3000',
+    SOCKET_URL: 'http://localhost:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
   })
