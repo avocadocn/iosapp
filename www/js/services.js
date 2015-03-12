@@ -1241,7 +1241,53 @@ angular.module('donlerApp.services', [])
 
   }])
 
+  .factory('Rank', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
 
+      /**
+       * 获取排行榜
+       * @param  {Object}   data     query的数据包括：province，city，gid
+       * @param  {Function} callback 回调函数
+       */
+      getRank: function (data, callback) {
+        $http.get( CONFIG.BASE_URL + '/rank', {
+          params: {
+            province: data.province,
+            city: data.city,
+            gid: data.gid
+          }
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 获取小队的排行列表
+       * @param  {[type]}   teamId   小队id
+       * @param  {Function} callback 回调函数
+       */
+      getTeamRank: function (teamId, callback) {
+        $http.get( CONFIG.BASE_URL + '/rank/team/' + teamId )
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      }
+    };
+  }])
 
 
 

@@ -7,18 +7,20 @@
     <div class="discover_image"></div>
     <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/rank/select" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>排行榜<i class="icon ion-chevron-right"></i></a><a href="#/competition/log_list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<i class="icon ion-chevron-right"></i></a></div>
     <div class="rank_panel">
-      <div class="team_select"><span>我的小队排名:</span>
-        <select ng-change="selectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams"></select>
+      <div class="team_select">
+        <label class="item item-input item-select"><span class="input-label">我的小队排名:</span>
+          <select ng-change="changeSelectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams" class="select_info"></select>
+        </label>
       </div>
       <div class="rank_table">
-        <table class="table table-bordered table-condensed table-hover table-striped">
+        <table>
           <tbody>
-            <tr ng-repeat="_team in selectRank.team">
-              <td>{{team.score_rank.rank}}</td>
-              <td><img ng-src="{{team.logo}}/40/40" class="memer_logo"/></td>
-              <td class="center">{{team.name}}</td>
-              <td class="center">{{team.score_rank.score}}</td>
-              <td class="center">{{team.score_rank.win/(team.score_rank.win+team.score_rank.tie+team.score_rank.lose)}}</td>
+            <tr ng-repeat="rankTeam in rankTeams">
+              <td>{{rankTeam.score_rank.rank}}</td>
+              <td><img ng-src="{{STATIC_URL + rankTeam.logo}}/40/40" class="memer_logo"/></td>
+              <td class="center">{{rankTeam.name}}</td>
+              <td class="center">{{rankTeam.score_rank.score || 0}}</td>
+              <td class="center">{{rankTeam.score_rank.winPercent}}</td>
             </tr>
           </tbody>
         </table>
