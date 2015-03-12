@@ -199,6 +199,8 @@ angular.module('donlerApp.controllers', [])
         $rootScope.hideLoading();
       });
     };
+    // 此处使用rootScope是为了解决切换tab时不能刷新的问题
+    $rootScope.getCampaignList = getCampaignList;
     $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
       if(!states.stateName && $state.$current.name === 'app.campaigns'){
         getCampaignList();
@@ -1571,7 +1573,7 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('TabController', ['$scope', '$ionicHistory', 'Socket', function ($scope, $ionicHistory, Socket) {
+  .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', function ($scope, $rootScope, $ionicHistory, Socket) {
     //每次进入页面判断是否有新评论没看
     if(localStorage.hasNewComment === true) {
       $scope.hasNewComment = true;
@@ -1592,17 +1594,20 @@ angular.module('donlerApp.controllers', [])
     
     $scope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {
-        // $ionicHistory.nextViewOptions({
-        //   disableBack: true,
-        //   historyRoot: true
-        // });
-        $ionicHistory.clearHistory();
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+          historyRoot: true
+        });
+        // $ionicHistory.clearHistory();
         // $ionicHistory.clearCache();
         if(toState.name==='app.discuss_list' || toState.name==='discuss_detail' || toState.name==='unjoined_discuss_list') {
           readComments();
           nowState = 'discussList';
         }else{
           nowState = '';
+          if (toState.name === 'app.campaigns') {
+            $rootScope.getCampaignList();
+          }
         }
     });
   }])
