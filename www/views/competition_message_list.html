@@ -1,0 +1,20 @@
+
+<ion-view class="competition_message_panel">
+  <ion-header-bar><a href="#/app/discover" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">挑战日志</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class="competition_message_list">
+      <div class="type_filter">
+        <button ng-click="typeFilter('sponsor')" ng-class="messageType=='sponsor'?'button-positive':''" class="button button-small">发出</button>
+        <button ng-click="typeFilter('receive')" ng-class="messageType=='receive'?'button-positive':''" class="button button-small">收到</button>
+      </div><a ng-repeat="competitionMessage in competitionMessages" ng-href="#/competition_message/detail/{{competitionMessage._id}}" class="row competition_message">
+        <div class="col">{{competitionMessage.create_time |beforeNow}}</div>
+        <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></div>
+        <div class="col">{{competitionMessage.sponsor_team.name}}</div>
+        <div class="col">VS</div>
+        <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/></div>
+        <div class="col">{{competitionMessage.opposite_team.name}}</div></a>
+    </div>
+  </ion-content>
+</ion-view>

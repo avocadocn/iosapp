@@ -2475,3 +2475,12 @@ a>.login .companies_list:activated {
 .rank_table .top {
   color: #f00;
 }
+.competition_message_panel .competition_message_list .type_filter {
+  text-align: center;
+  padding: 10px 0;
+}
+.competition_message_panel .competition_message_list .competition_message {
+  text-decoration: none;
+  color: #000;
+  background-color: #fff;
+}

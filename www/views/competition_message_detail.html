@@ -1,0 +1,40 @@
+
+<ion-view class="competition_message_panel">
+  <ion-header-bar><a href="#/competition_message/list" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">挑战日志</h1>
+    <button class="button">应战</button>
+  </ion-header-bar>
+  <ion-content>
+    <div ng-if="competitionMessage" class="competition_message_detail">
+      <div class="row">
+        <div class="col">{{competitionMessage.create_time | beforeNow}}</div>
+        <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></div>
+        <div class="col">{{competitionMessage.sponsor_team.name}}</div>
+        <div class="col">VS</div>
+        <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/></div>
+        <div class="col">{{competitionMessage.opposite_team.name}}</div>
+      </div>
+      <div class="row">
+        <div ng-cloak="ng-cloak" class="col">活动性质：{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}</div>
+      </div>
+      <div class="row">
+        <div class="col">挑战方</div>
+        <div class="col">VS</div>
+        <div class="col">应战方</div>
+      </div>
+      <div class="row">
+        <div class="col">{{competitionMessage.vote.units[0].positive}} 人支持</div>
+        <div class="col">{{competitionMessage.vote.units[1].positive}} 人支持</div>
+      </div>
+    </div>
+    <div class="competition_message_comment">
+      <div ng-repeat="comment in comments" class="row">
+        <div class="col"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/>
+          <p>{{comment.poster.nickname}}</p>
+        </div>
+        <div class="col">{{comment.content}}</div>
+        <div class="col">{{comment.create_date | date:"MM-dd HH:mm"}}</div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

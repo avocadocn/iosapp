@@ -439,14 +439,14 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'RankDetailController',
         templateUrl: './views/rank_detail.html'
       })
-      .state('competition_log_list', {
-        url: '/competition/log_list',
-        // controller: 'DiscoverController',
-        templateUrl: './views/competition_log_list.html'
+      .state('competition_message_list', {
+        url: '/competition_message/list',
+        controller: 'CompetitionMessageListController',
+        templateUrl: './views/competition_message_list.html'
       })
-      .state('competition_log_detail', {
-        url: '/competition/log_detail/:id/:type',
-        // controller: 'DiscoverController',
-        templateUrl: './views/competition_log_detail.html'
+      .state('competition_message_detail', {
+        url: '/competition_message/detail/:id',
+        controller: 'CompetitionMessageDetailController',
+        templateUrl: './views/competition_message_detail.html'
       });
   });

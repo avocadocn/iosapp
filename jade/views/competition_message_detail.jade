@@ -1,0 +1,30 @@
+ion-view.competition_message_panel
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/competition_message/list") &nbsp;返回
+    h1.title 挑战日志
+    button.button 应战
+  ion-content
+    .competition_message_detail(ng-if="competitionMessage")
+      .row
+        .col {{competitionMessage.create_time | beforeNow}}
+        .col: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40")
+        .col {{competitionMessage.sponsor_team.name}}
+        .col VS
+        .col: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40")
+        .col {{competitionMessage.opposite_team.name}}
+      .row
+        .col(ng-cloak) 活动性质：{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}
+      .row
+        .col 挑战方
+        .col VS
+        .col 应战方
+      .row
+        .col {{competitionMessage.vote.units[0].positive}} 人支持
+        .col {{competitionMessage.vote.units[1].positive}} 人支持
+    .competition_message_comment
+      .row(ng-repeat="comment in comments")
+        .col
+          img.member_logo(ng-src="{{STATIC_URL + comment.poster.photo}}/40/40")
+          p {{comment.poster.nickname}}
+        .col {{comment.content}}
+        .col {{comment.create_date | date:"MM-dd HH:mm"}}

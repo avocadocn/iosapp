@@ -1,7 +1,3 @@
-/**
- * Created by Sandeep on 11/09/14.
- */
-
 angular.module('donlerApp.controllers', [])
   
   .controller('AppContoller', ['$scope', function ($scope) {
@@ -766,13 +762,24 @@ angular.module('donlerApp.controllers', [])
     var nextStartDate ='';      
     //获取最新20条评论
     var getComments = function() {
-      Comment.getComments($scope.campaignId, 20).success(function(data){
-        $scope.commentList = [];
-        $scope.commentList.push(data.comments.reverse());//保证最新的在最下面
-        data.comments.forEach(addPhotos);
-        nextStartDate = data.nextStartDate;
-        $ionicScrollDelegate.scrollBottom();
-        judgeTopShowTime();
+      var queryData = {
+        requestType: 'campaign',
+        requestId: $scope.campaignId,
+        limit: 20
+      }
+      Comment.getComments(queryData, function(err, data){
+        if(!err) {
+          $scope.commentList = [];
+          $scope.commentList.push(data.comments.reverse());//保证最新的在最下面
+          data.comments.forEach(addPhotos);
+          nextStartDate = data.nextStartDate;
+          $ionicScrollDelegate.scrollBottom();
+          judgeTopShowTime();
+        }
+        else{
+          console.log(err);
+        }
+
       });
     }
     getComments();
@@ -814,19 +821,29 @@ angular.module('donlerApp.controllers', [])
     $scope.refreshComment = function() {
       User.getCampaignCommentNumber($scope.userId, $scope.campaignId, function(msg, data) {
         if(data.unreadNumbers>0) {//如果有没读的，就去拿
-          Comment.getComments($scope.campaignId, data.unreadNumbers).success(function(data){
-            //获取当前最新一条的id
-            var commentListIndex = $scope.commentList.length -1;
-            var commentIndex = $scope.commentList[commentListIndex].length - 1;
-            var latestCommentId = $scope.commentList[commentListIndex][commentIndex]._id;
-            //与data来的id作比较
-            var newComments = data.comments.reverse();
-            var index = Tools.arrayObjectIndexOf(newComments, latestCommentId, '_id');
-            //插入比这个新的
-            if(index > -1) newComments.splice(0, index + 1);
-            newComments.forEach(addPhotos);
-            $scope.commentList.push(newComments);
-            $ionicScrollDelegate.scrollBottom();
+          var queryData = {
+            requestType: 'campaign',
+            requestId: $scope.campaignId,
+            limit: data.unreadNumbers
+          }
+          Comment.getComments(queryData,function(err, data){
+            if(!err) {
+              //获取当前最新一条的id
+              var commentListIndex = $scope.commentList.length -1;
+              var commentIndex = $scope.commentList[commentListIndex].length - 1;
+              var latestCommentId = $scope.commentList[commentListIndex][commentIndex]._id;
+              //与data来的id作比较
+              var newComments = data.comments.reverse();
+              var index = Tools.arrayObjectIndexOf(newComments, latestCommentId, '_id');
+              //插入比这个新的
+              if(index > -1) newComments.splice(0, index + 1);
+              newComments.forEach(addPhotos);
+              $scope.commentList.push(newComments);
+              $ionicScrollDelegate.scrollBottom();
+            }
+            else {
+              console.log(err);
+            }
           });
         }
       });
@@ -837,15 +854,26 @@ angular.module('donlerApp.controllers', [])
     //拉取历史讨论记录
     $scope.readHistory = function() {
       if(nextStartDate){//如果还有下一条
-        Comment.getComments($scope.campaignId, 20, nextStartDate).success(function(data){
-          $scope.commentList.unshift(data.comments.reverse());
-          $scope.topShowTime.push();
-          // $('#currentComment').scrollIntoView();//need jQuery
-          nextStartDate = data.nextStartDate;
-          //-addPhoto
-          $scope.$broadcast('scroll.refreshComplete');
-          data.comments.forEach(addPhotos);
-          judgeTopShowTime();
+        var queryData = {
+          requestType: 'campaign',
+          requestId: $scope.campaignId,
+          limit: 20,
+          createDate: nextStartDate
+        }
+        Comment.getComments(queryData,function (err,data) {
+          if(!err) {
+            $scope.commentList.unshift(data.comments.reverse());
+            $scope.topShowTime.push();
+            // $('#currentComment').scrollIntoView();//need jQuery
+            nextStartDate = data.nextStartDate;
+            //-addPhoto
+            $scope.$broadcast('scroll.refreshComplete');
+            data.comments.forEach(addPhotos);
+            judgeTopShowTime();
+          }
+          else {
+            console.log(err);
+          }
         });
       }else{//没下一条了~
         $scope.$broadcast('scroll.refreshComplete');
@@ -3537,5 +3565,54 @@ angular.module('donlerApp.controllers', [])
     }
     getRank();
   }])
-
+  .controller('CompetitionMessageListController', ['$scope', '$state', 'CompetitionMessage', function ($scope, $state, CompetitionMessage) {
+    $scope.messageType ='receive';
+    var getCompetitionLog = function () {
+      var data = {
+        messageType: $scope.messageType
+      }
+      CompetitionMessage.getCompetitionMessages(data,function (err,data) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.competitionMessages = data.messages;
+        }
+      });
+    }
+    getCompetitionLog();
+    $scope.typeFilter = function (messageType) {
+      $scope.messageType = messageType;
+      getCompetitionLog();
+    }
+  }])
+  .controller('CompetitionMessageDetailController', ['$scope', '$state', 'CompetitionMessage', 'Comment', function ($scope, $state, CompetitionMessage, Comment) {
+    var getCompetitionLog = function () {
+      CompetitionMessage.getCompetitionMessage($state.params.id,function (err,data) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.competitionMessage = data.message;
+        }
+      });
+    }
+    var getCompetitionComments = function () {
+      var queryData = {
+        requestType: 'competition_message',
+        requestId: $state.params.id
+      }
+      Comment.getComments(queryData,function (err,data) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.comments = data.comments;
+          console.log(1,$scope.comments);
+        }
+      });
+    }
+    getCompetitionLog();
+    getCompetitionComments();
+  }])
 

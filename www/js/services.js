@@ -1,6 +1,3 @@
-/**
- * Created by Sandeep on 11/09/14.
- */
 angular.module('donlerApp.services', [])
   .factory('myInterceptor', ['$q', '$location', function($q, $location) {
       var signOut = function(){
@@ -303,7 +300,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg || '网络连接错误');
+          callback(data ? data.msg:'网络连接错误');
         });
       },
       get: function (id, callback) {
@@ -313,7 +310,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg:'网络连接错误');
         });
       },
       create: function (data, callback) {
@@ -323,7 +320,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       edit: function (id, campaignData, callback) {
@@ -333,7 +330,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       close: function (id, callback) {
@@ -343,7 +340,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg ||'error');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       join: function(campaign, uid, callback) {
@@ -389,7 +386,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       quit: function(id, uid, callback) {
@@ -403,7 +400,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       dealProvoke: function(id, dealType, callback) {
@@ -413,7 +410,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       getMolds: function(hostType, hostId, callback) {
@@ -423,7 +420,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       }
     }
@@ -469,18 +466,23 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Comment', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
-      getList: function (type) {
-        return $http.get(CONFIG.BASE_URL + '/comments/list/?type=' + type);
-      },
-      getComments: function(campaignId, limit, createDate) {
-        var url = CONFIG.BASE_URL + '/comments/?requestType=campaign&requestId='+campaignId;
-        if (limit) {
-          url+='&limit=' + limit;
-        }
-        if (createDate) {
-          url+='&createDate=' + createDate;
-        }
-        return $http.get(url);
+      // getList: function (type) {
+      //   return $http.get(CONFIG.BASE_URL + '/comments/list/?type=' + type);
+      // },
+      getComments: function(data,callback) {
+        $http.get(CONFIG.BASE_URL + '/comments',{
+          params:{
+            requestType: data.requestType,
+            requestId: data.requestId,
+            limit: data.limit,
+            createDate: data.createDate
+          }
+        }).success(function (data, status) {
+          callback(null,data);
+        }).error(function (data, status) {
+          // todo
+          callback(data ? data.msg:'error');
+        });;
       },
       publishComment: function(campaignId, content, randomId, callback) {
         $http.post(CONFIG.BASE_URL +'/comments/host_type/campaign/host_id/'+campaignId,{
@@ -493,15 +495,15 @@ angular.module('donlerApp.services', [])
           // todo
           callback('publish error');
         });
-      },
-      readComment: function(campaignId, callback) {
-        $http.post(CONFIG.BASE_URL + '/comments/read',{requestId:campaignId})
-        .success(function (data,status) {
-          callback()
-        }).error(function (data, status) {
-          callback('read error');
-        })
       }
+      // readComment: function(campaignId, callback) {
+      //   $http.post(CONFIG.BASE_URL + '/comments/read',{requestId:campaignId})
+      //   .success(function (data,status) {
+      //     callback()
+      //   }).error(function (data, status) {
+      //     callback('read error');
+      //   })
+      // }
     }
   }])
   .factory('Tools', [function () {
@@ -1312,6 +1314,52 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
+  .factory('CompetitionMessage', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
 
+      /**
+       * 获取挑战信列表
+       * @param  {Object}   data     query的数据包括： sponsor， opposite，messageType
+       * @param  {Function} callback 回调函数
+       */
+      getCompetitionMessages: function (data, callback) {
+        $http.get( CONFIG.BASE_URL + '/competition_messages', {
+          params: {
+            sponsor: data.sponsor,
+            opposite: data.opposite,
+            messageType: data.messageType
+          }
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 获取挑战信详情
+       * @param  {[type]}   messageId   挑战信id
+       * @param  {Function} callback 回调函数
+       */
+      getCompetitionMessage: function (messageId, callback) {
+        $http.get( CONFIG.BASE_URL + '/competition_messages/' + messageId )
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      }
+    };
+  }])
 
 
