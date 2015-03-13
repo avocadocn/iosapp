@@ -3,4 +3,17 @@ ion-view
     a.button.icon.ion-chevron-left(href="#/rank/select") &nbsp;返回
     h1.title 排行榜
   ion-content
-    p 排行榜
+    .rank_table
+      .row(ng-repeat="team in rank.team | orderBy : 'rank'" ng-class="team.belong? 'belong': ''")
+        .col(ng-class="$index<3 ? 'top': ''")
+          span(ng-if="$index<3") TOP
+          span {{team.rank}}
+        .col
+          img.team_logo(ng-src="{{STATIC_URL + team.logo}}/40/40")
+        .col.col-50
+          p {{team.name}}
+          p
+           span {{team.member_num}} 人
+           span 胜率{{team.win}} : {{team.tie}} : {{team.lose}}
+        .col {{team.score || 0}}分
+

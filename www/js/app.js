@@ -431,12 +431,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('rank_select', {
         url: '/rank/select',
-        // controller: 'DiscoverController',
+        controller: 'RankSelectController',
         templateUrl: './views/rank_select.html'
       })
       .state('rank_detail', {
         url: '/rank/detail/:gid',
-        // controller: 'DiscoverController',
+        controller: 'RankDetailController',
         templateUrl: './views/rank_detail.html'
       })
       .state('competition_log_list', {

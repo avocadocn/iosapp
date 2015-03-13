@@ -2066,3 +2066,33 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .invite_key
   .ion-clipboard
     color col_blue
+//选择小队类型
+.rank_select
+  .groups
+    .group
+      min-width 50px
+      float left
+      width 25%
+      text-align center
+      padding 10px
+      a
+        text-decoration none
+        label
+          color black
+          &.active
+            color #3ca2e0
+        .img_contain
+          width 50px
+          height 50px
+          background-image url('/img/icons/groups_new.png')
+          background-repeat no-repeat
+          background-size 600px 1500px
+          margin 0 auto
+        for i in 0..16
+          .group_{i+1}
+            background-position i%6 * -100px floor(i/6) * -100px
+.rank_table
+  .belong
+    color #3ca2e0
+  .top
+    color red

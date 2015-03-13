@@ -1,9 +1,13 @@
 
-<ion-view>
+<ion-view class="rank_select">
   <ion-header-bar><a href="#/app/discover" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">排行榜</h1>
   </ion-header-bar>
   <ion-content>
-    <p>选择类型</p>
+    <div class="groups">
+      <div ng-repeat="group in groups" class="group"><a href="#/rank/detail/{{group._id}}">
+          <div class="img_contain group_{{group._id}}"></div>
+          <label for="{{group._id}}">{{group.groupType}}</label></a></div>
+    </div>
   </ion-content>
 </ion-view>

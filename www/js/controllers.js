@@ -3468,23 +3468,21 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('DiscoverController', ['$ionicHistory', '$scope', '$state', 'Team', 'Rank', function ($ionicHistory, $scope, $state, Team, Rank) {
-    $scope.loading = true;
+  .controller('DiscoverController', ['$scope', '$state', 'Team', 'Rank', function ($scope, $state, Team, Rank) {
     var getMyTeams = function(callback) {
       Team.getList('user', localStorage.id, null, function (err, teams) {
         if (err) {
           // todo
           console.log(err);
-          $scope.loading = false;
         } else {
           $scope.teams = teams;
           $scope.selectTeam = teams[0];
-          $scope.loading = false;
           callback && callback();
         }
       });
     };
     var getTeamRank = function () {
+      if($scope.selectTeam.rankTeams) return;
       Rank.getTeamRank($scope.selectTeam._id,function (err,rankTeams) {
         if (err) {
           // todo
@@ -3493,7 +3491,7 @@ angular.module('donlerApp.controllers', [])
           rankTeams.forEach(function(rankTeam, index){
             rankTeam.score_rank.winPercent= (rankTeam.score_rank.win || 0)/(rankTeam.score_rank.win || 0  + rankTeam.score_rank.tie  || 0 + rankTeam.score_rank.lose || 0) || 0;
           });
-          $scope.rankTeams = rankTeams;
+          $scope.selectTeam.rankTeams = rankTeams;
         }
       });
     }
@@ -3503,8 +3501,41 @@ angular.module('donlerApp.controllers', [])
       getTeamRank();
     }
   }])
-
-
-
+  .controller('RankSelectController', ['$scope', '$state', 'Team', 'Rank', function ($scope, $state, Team, Rank) {
+    var getTeamType = function () {
+      Team.getGroups(function (err,groups) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.groups = groups;
+        }
+      });
+    }
+    getTeamType();
+  }])
+  .controller('RankDetailController', ['$scope', '$state', 'Rank', function ($scope, $state, Rank) {
+    var getRank = function () {
+      var data = {
+        gid: $state.params.gid,
+        province: localStorage.province || '上海市',
+        city: localStorage.city || '上海市'
+      }
+      Rank.getRank(data,function (err,data) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.rank = data.rank;
+          if(data.team) {
+            data.team.forEach(function(_team, index){
+              $scope.rank.team[_team.score_rank.rank-1].belong=true;
+            });
+          }
+        }
+      });
+    }
+    getRank();
+  }])
 
 

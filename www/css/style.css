@@ -2394,3 +2394,84 @@ a>.login .companies_list:activated {
 .invite_key .ion-clipboard {
   color: #3ca2e0;
 }
+.rank_select .groups .group {
+  min-width: 50px;
+  float: left;
+  width: 25%;
+  text-align: center;
+  padding: 10px;
+}
+.rank_select .groups .group a {
+  text-decoration: none;
+}
+.rank_select .groups .group a label {
+  color: #000;
+}
+.rank_select .groups .group a label.active {
+  color: #3ca2e0;
+}
+.rank_select .groups .group a .img_contain {
+  width: 50px;
+  height: 50px;
+  background-image: url("/img/icons/groups_new.png");
+  background-repeat: no-repeat;
+  background-size: 600px 1500px;
+  margin: 0 auto;
+}
+.rank_select .groups .group a .group_1 {
+  background-position: 0px 0px;
+}
+.rank_select .groups .group a .group_2 {
+  background-position: -100px 0px;
+}
+.rank_select .groups .group a .group_3 {
+  background-position: -200px 0px;
+}
+.rank_select .groups .group a .group_4 {
+  background-position: -300px 0px;
+}
+.rank_select .groups .group a .group_5 {
+  background-position: -400px 0px;
+}
+.rank_select .groups .group a .group_6 {
+  background-position: -500px 0px;
+}
+.rank_select .groups .group a .group_7 {
+  background-position: 0px -100px;
+}
+.rank_select .groups .group a .group_8 {
+  background-position: -100px -100px;
+}
+.rank_select .groups .group a .group_9 {
+  background-position: -200px -100px;
+}
+.rank_select .groups .group a .group_10 {
+  background-position: -300px -100px;
+}
+.rank_select .groups .group a .group_11 {
+  background-position: -400px -100px;
+}
+.rank_select .groups .group a .group_12 {
+  background-position: -500px -100px;
+}
+.rank_select .groups .group a .group_13 {
+  background-position: 0px -200px;
+}
+.rank_select .groups .group a .group_14 {
+  background-position: -100px -200px;
+}
+.rank_select .groups .group a .group_15 {
+  background-position: -200px -200px;
+}
+.rank_select .groups .group a .group_16 {
+  background-position: -300px -200px;
+}
+.rank_select .groups .group a .group_17 {
+  background-position: -400px -200px;
+}
+.rank_table .belong {
+  color: #3ca2e0;
+}
+.rank_table .top {
+  color: #f00;
+}
