@@ -6,7 +6,7 @@
 
 angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize'])
 
-  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth) {
+  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -81,7 +81,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           });
         } else if (localStorage.userType === 'company') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
-          $state.go('hr_home');
+          CompanyAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+            $state.go('hr_home');
+          });
         }
       } else {
         $state.go('home');
@@ -102,7 +107,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
            });
          }
          else if (localStorage.userType === 'company') {
-           // todo
+           CompanyAuth.refreshToken(function (err) {
+             if (err) {
+               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+             }
+           });
          }
        }
     });

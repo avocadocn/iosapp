@@ -187,6 +187,18 @@ angular.module('donlerApp.services', [])
           });
       },
 
+      refreshToken: function (callback) {
+        $http.post(CONFIG.BASE_URL + '/companies/refresh/token')
+          .success(function (data) {
+            localStorage.accessToken = data.newToken;
+            $http.defaults.headers.common['x-access-token'] = data.newToken;
+            callback();
+          })
+          .error(function (data) {
+            callback(data);
+          });
+      },
+
       logout: function (callback) {
         $http.post(CONFIG.BASE_URL + '/companies/logout')
           .success(function (data, status) {
