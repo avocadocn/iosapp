@@ -135,6 +135,18 @@ angular.module('donlerApp.services', [])
           });
       },
 
+      refreshToken: function (callback) {
+        $http.post(CONFIG.BASE_URL + '/users/refresh/token')
+          .success(function (data) {
+            localStorage.accessToken = data.newToken;
+            $http.defaults.headers.common['x-access-token'] = data.newToken;
+            callback();
+          })
+          .error(function (data) {
+            callback(data);
+          });
+      },
+
       logout: function (callback) {
         Socket.logout();
         $http.post(CONFIG.BASE_URL + '/users/logout')
@@ -172,6 +184,18 @@ angular.module('donlerApp.services', [])
           })
           .error(function (data, status) {
             callback(data.msg);
+          });
+      },
+
+      refreshToken: function (callback) {
+        $http.post(CONFIG.BASE_URL + '/companies/refresh/token')
+          .success(function (data) {
+            localStorage.accessToken = data.newToken;
+            $http.defaults.headers.common['x-access-token'] = data.newToken;
+            callback();
+          })
+          .error(function (data) {
+            callback(data);
           });
       },
 

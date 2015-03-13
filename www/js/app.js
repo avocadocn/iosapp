@@ -6,7 +6,7 @@
 
 angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize'])
 
-  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO) {
+  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -73,10 +73,22 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
-          $state.go('app.campaigns');
+          UserAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+            $state.go('app.campaigns');
+          });
+
         } else if (localStorage.userType === 'company') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
-          $state.go('company_home');
+          CompanyAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+            $state.go('company_home');
+          });
+
         }
       } else {
         $state.go('home');
@@ -86,6 +98,26 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       INFO.screenHeight = window.innerHeight;
 
     });
+
+    $ionicPlatform.on('resume', function () {
+      if (localStorage.userType) {
+        if (localStorage.userType === 'user') {
+          UserAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+          });
+        }
+        else if (localStorage.userType === 'company') {
+          CompanyAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+          });
+        }
+      }
+    });
+
     $rootScope.showLoading = function() {
       $ionicLoading.show({
         template: '<i class="icon ion-looping"></i>正在加载'
