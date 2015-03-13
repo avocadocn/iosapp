@@ -448,5 +448,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/competition/log_detail/:id/:type',
         // controller: 'DiscoverController',
         templateUrl: './views/competition_log_detail.html'
+      })
+      .state('circle_uploader', {
+        url: '/circle/uploader',
+        templateUrl: './views/circle_uploader.html',
+        controller: 'CircleUploaderController'
       });
   });

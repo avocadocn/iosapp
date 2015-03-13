@@ -267,6 +267,10 @@ angular.module('donlerApp.controllers', [])
       }
     }
 
+    $scope.goToCircleUploaderPage = function () {
+      $state.go('circle_uploader');
+    };
+
     var setMembers = function () {
       $scope.campaign.members =[];
       var memberContent = [];
@@ -3537,5 +3541,16 @@ angular.module('donlerApp.controllers', [])
     }
     getRank();
   }])
+  .controller('CircleUploaderController', ['$scope', '$ionicHistory', '$state', function ($scope, $ionicHistory, $state) {
+    $scope.goBack = function() {
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack();
+      }
+      else {
+        // 这里是不正常的返回，正常情况下都应该从history中返回，不会进入到这里。
+        $state.go('app.campaigns');
+      }
+    }
+  }]);
 
 
