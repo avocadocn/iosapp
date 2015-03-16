@@ -18,13 +18,16 @@
         <div ng-cloak="ng-cloak" class="col">活动性质：{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}</div>
       </div>
       <div class="row">
+        <div ng-cloak="ng-cloak" class="col">状态：{{competitionMessage.status | competitionMessageStatusFormat}}</div>
+      </div>
+      <div class="row">
         <div class="col">挑战方</div>
         <div class="col">VS</div>
         <div class="col">应战方</div>
       </div>
       <div class="row">
-        <div class="col">{{competitionMessage.vote.units[0].positive}} 人支持</div>
-        <div class="col">{{competitionMessage.vote.units[1].positive}} 人支持</div>
+        <div ng-click="voteCompetition(0)" class="col">{{competitionMessage.vote.units[0].positive}} 人支持</div>
+        <div ng-click="voteCompetition(1)" class="col">{{competitionMessage.vote.units[1].positive}} 人支持</div>
       </div>
     </div>
     <div class="competition_message_comment">

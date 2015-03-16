@@ -38,6 +38,7 @@ angular.module('donlerApp.services', [])
   }])
   .config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('myInterceptor');
+    $httpProvider.defaults.headers["delete"] = {'Content-Type': 'application/json;charset=utf-8'};
   }])
   .constant('CONFIG', {
     BASE_URL: 'http://localhost:3002',
@@ -77,7 +78,6 @@ angular.module('donlerApp.services', [])
 
         $http.defaults.headers.common['x-app-id'] = CONFIG.APP_ID;
         $http.defaults.headers.common['x-api-key'] = CONFIG.API_KEY;
-
         if (headers) {
           for (var key in headers) {
             $http.defaults.headers.common[key] = headers[key];
@@ -1348,6 +1348,65 @@ angular.module('donlerApp.services', [])
        */
       getCompetitionMessage: function (messageId, callback) {
         $http.get( CONFIG.BASE_URL + '/competition_messages/' + messageId )
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      }
+    };
+  }])
+  .factory('Vote', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+      /**
+       * 获取投票信息
+       * @param  {Object}   data     query的数据包括： sponsor， opposite，messageType
+       * @param  {Function} callback 回调函数
+       */
+      getVote: function (voteId, callback) {
+        $http.get( CONFIG.BASE_URL + '/components/Vote/'+voteId )
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 获取挑战信详情
+       * @param  {[type]}   messageId   挑战信id
+       * @param  {Function} callback 回调函数
+       */
+      vote: function (voteId, tid, callback) {
+        $http.post( CONFIG.BASE_URL + '/components/Vote/'+voteId, {
+          tid: tid
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      cancelVote: function (voteId, tid, callback) {
+        $http.delete( CONFIG.BASE_URL + '/components/Vote/'+voteId, {
+          data: {
+            tid: tid
+          }
+        })
         .success(function (data, status, headers, config) {
           callback(null, data);
         })

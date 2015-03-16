@@ -15,5 +15,19 @@
         <div class="col">{{team.score || 0}}分</div>
       </div>
     </div>
+    <div ng-if="noRankTeams.length&gt;0" class="team_table">
+      <div class="row">
+        <div class="col">我的小队</div>
+      </div>
+      <div ng-repeat="team in noRankTeams | orderBy : 'rank'" class="row">
+        <div class="col"><span>{{team.rank}}</span></div>
+        <div class="col"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="team_logo"/></div>
+        <div class="col col-50">
+          <p>{{team.name}}</p>
+          <p><span>{{team.member_num}} 人</span><span>胜率{{team.win}} : {{team.tie}} : {{team.lose}}</span></p>
+        </div>
+        <div class="col">{{team.score || 0}}分</div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

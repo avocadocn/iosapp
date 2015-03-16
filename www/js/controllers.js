@@ -3555,9 +3555,14 @@ angular.module('donlerApp.controllers', [])
           console.log(err);
         } else {
           $scope.rank = data.rank;
+          $scope.noRankTeams = [];
           if(data.team) {
             data.team.forEach(function(_team, index){
-              $scope.rank.team[_team.score_rank.rank-1].belong=true;
+              $scope.rank.team[_team.rank-1].belong=true;
+              if(_team.rank>10) {
+                $scope.noRankTeams.push(_team);
+              }
+              
             });
           }
         }
@@ -3586,7 +3591,15 @@ angular.module('donlerApp.controllers', [])
       getCompetitionLog();
     }
   }])
-  .controller('CompetitionMessageDetailController', ['$scope', '$state', 'CompetitionMessage', 'Comment', function ($scope, $state, CompetitionMessage, Comment) {
+  .controller('CompetitionMessageDetailController', ['$scope', '$state', 'CompetitionMessage', 'Comment', 'Vote',function ($scope, $state, CompetitionMessage, Comment, Vote) {
+    var formatVote = function (vote) {
+      vote.units.forEach(function(unit, index){
+        if(unit.positive==0 || unit.positive_member.indexOf(localStorage.id)==-1) {
+          unit.canVote = true;
+        }
+      });
+      return vote;
+    }
     var getCompetitionLog = function () {
       CompetitionMessage.getCompetitionMessage($state.params.id,function (err,data) {
         if (err) {
@@ -3594,6 +3607,7 @@ angular.module('donlerApp.controllers', [])
           console.log(err);
         } else {
           $scope.competitionMessage = data.message;
+          formatVote($scope.competitionMessage.vote);
         }
       });
     }
@@ -3608,9 +3622,33 @@ angular.module('donlerApp.controllers', [])
           console.log(err);
         } else {
           $scope.comments = data.comments;
-          console.log(1,$scope.comments);
+
         }
       });
+    }
+    $scope.voteCompetition = function (index) {
+      var vote = $scope.competitionMessage.vote;
+      var unit = vote.units[index];
+      if(unit.canVote) {
+        Vote.vote(vote._id,unit.tid,function (err, vote) {
+          if(err) {
+            console.log(err);
+          }
+          else{
+            $scope.competitionMessage.vote = formatVote(vote);
+          }
+        })
+      }
+      else{
+        Vote.cancelVote(vote._id,unit.tid,function (err, vote) {
+          if(err) {
+            console.log(err);
+          }
+          else{
+            $scope.competitionMessage.vote = formatVote(vote);
+          }
+        })
+      }
     }
     getCompetitionLog();
     getCompetitionComments();

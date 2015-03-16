@@ -15,12 +15,14 @@ ion-view.competition_message_panel
       .row
         .col(ng-cloak) 活动性质：{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}
       .row
+        .col(ng-cloak) 状态：{{competitionMessage.status | competitionMessageStatusFormat}}
+      .row
         .col 挑战方
         .col VS
         .col 应战方
       .row
-        .col {{competitionMessage.vote.units[0].positive}} 人支持
-        .col {{competitionMessage.vote.units[1].positive}} 人支持
+        .col(ng-click="voteCompetition(0)") {{competitionMessage.vote.units[0].positive}} 人支持
+        .col(ng-click="voteCompetition(1)") {{competitionMessage.vote.units[1].positive}} 人支持
     .competition_message_comment
       .row(ng-repeat="comment in comments")
         .col
