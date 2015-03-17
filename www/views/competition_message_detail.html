@@ -1,10 +1,10 @@
 
 <ion-view class="competition_message_panel">
   <ion-header-bar><a href="#/competition_message/list" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">挑战日志</h1>
-    <button class="button">应战</button>
+    <h1 class="title">挑战日志</h1><a ng-if="sponsorLeader &amp;&amp; competitionMessage.status=='accepted'" ng-click="sponsorCompetition()" class="button button-clear button-positive">发活动</a>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher on-refresh="getCompetitionComments()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-if="competitionMessage" class="competition_message_detail">
       <div class="row">
         <div class="col">{{competitionMessage.create_time | beforeNow}}</div>
@@ -20,6 +20,12 @@
       <div class="row">
         <div ng-cloak="ng-cloak" class="col">状态：{{competitionMessage.status | competitionMessageStatusFormat}}</div>
       </div>
+      <div ng-if="oppositeLeader &amp;&amp; competitionMessage.status=='sent'" class="row">
+        <div class="button-bar">
+          <button ng-click="dealCompetition('accept')" class="button button-positive">应战</button>
+          <button ng-click="dealCompetition('reject')" class="button button-assertive">拒绝</button>
+        </div>
+      </div>
       <div class="row">
         <div class="col">挑战方</div>
         <div class="col">VS</div>
@@ -31,13 +37,27 @@
       </div>
     </div>
     <div class="competition_message_comment">
-      <div ng-repeat="comment in comments" class="row">
+      <div ng-repeat="comment in commentList" class="row">
         <div class="col"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/>
           <p>{{comment.poster.nickname}}</p>
         </div>
-        <div class="col">{{comment.content}}</div>
+        <div ng-bind-html="comment.content | emoji | unsafe" class="col"></div>
         <div class="col">{{comment.create_date | date:"MM-dd HH:mm"}}</div>
       </div>
     </div>
   </ion-content>
+  <ion-footer-bar ng-show="oppositeLeader || sponsorLeader" class="comment_box">
+    <form name="comment_form">
+      <textarea id="ta" rows="1" cols="30" ng-model="commentContent" required="required" maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting = true;" ng-blur="isWriting=false;" ng-change="resizeTextarea()" class="comment_input"></textarea>
+      <button ng-click="showEmotions()" prevent-default="prevent-default" class="dl_button emotion_button"><i class="emoji emoji_tongue"></i></button>
+      <button ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid" class="publish_button">发言</button>
+      <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
+        <ion-slide ng-repeat="emoji in emojiList">
+          <div class="box clearfix">
+            <div ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emotion"><i class="emoji {{'emoji_'+emotion}}"></i></div>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+    </form>
+  </ion-footer-bar>
 </ion-view>

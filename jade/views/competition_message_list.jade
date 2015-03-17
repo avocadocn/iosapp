@@ -4,7 +4,7 @@ ion-view.competition_message_panel
     h1.title 挑战日志
   ion-content
     .competition_message_list
-      .type_filter
+      .type_filter.button-bar
         button.button.button-small(ng-click="typeFilter('sponsor')" ng-class="messageType=='sponsor'?'button-positive':''") 发出
         button.button.button-small(ng-click="typeFilter('receive')" ng-class="messageType=='receive'?'button-positive':''") 收到
       a.row.competition_message(ng-repeat="competitionMessage in competitionMessages" ng-href="#/competition_message/detail/{{competitionMessage._id}}")

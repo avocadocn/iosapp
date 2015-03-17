@@ -469,7 +469,7 @@ angular.module('donlerApp.services', [])
       // getList: function (type) {
       //   return $http.get(CONFIG.BASE_URL + '/comments/list/?type=' + type);
       // },
-      getComments: function(data,callback) {
+      getComments: function(data, callback) {
         $http.get(CONFIG.BASE_URL + '/comments',{
           params:{
             requestType: data.requestType,
@@ -484,10 +484,16 @@ angular.module('donlerApp.services', [])
           callback(data ? data.msg:'error');
         });;
       },
-      publishComment: function(campaignId, content, randomId, callback) {
-        $http.post(CONFIG.BASE_URL +'/comments/host_type/campaign/host_id/'+campaignId,{
-          'content':content,
-          'randomId':randomId
+      /**
+       * 发评论
+       * @param  {Object}   data     hostType，hostId，content，randomId
+       * @param  {Function} callback [description]
+       * @return {[type]}            [description]
+       */
+      publishComment: function(data, callback) {
+        $http.post(CONFIG.BASE_URL +'/comments/host_type/'+data.hostType+'/host_id/'+data.hostId,{
+          'content':data.content,
+          'randomId':data.randomId
         })
         .success(function (data, status) {
           callback();
@@ -892,6 +898,30 @@ angular.module('donlerApp.services', [])
           .error(function (data, status, headers, config) {
             callback(data.msg||'error');
           });
+      },
+      /**
+       * 查找小队
+       * @param  {Object}   data     type,tid,page,key,latitude,longitude
+       *                         type:sameCity,nearbyTeam,search
+       * @param  {Function} callback [description]
+       * @return {[type]}            [description]
+       */
+      getSearchTeam: function (data,callback) {
+        $http.get(CONFIG.BASE_URL + '/teams/search/'+data.type,{
+          params:{
+            tid: data.tid,
+            page: data.page,
+            key: data.key,
+            latitude: data.latitude,
+            longitude: data.longitude
+          }
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          callback(data ? data.msg:'网络连接错误');
+        });
       }
 
     };
@@ -1348,6 +1378,26 @@ angular.module('donlerApp.services', [])
        */
       getCompetitionMessage: function (messageId, callback) {
         $http.get( CONFIG.BASE_URL + '/competition_messages/' + messageId )
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 处理挑战
+       * @param  {[type]}   messageId   挑战信id
+       * @param  {Function} callback 回调函数
+       */
+      dealCompetition: function (messageId, action, callback) {
+        $http.put( CONFIG.BASE_URL + '/competition_messages/' + messageId,{
+          action: action
+        } )
         .success(function (data, status, headers, config) {
           callback(null, data);
         })

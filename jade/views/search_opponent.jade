@@ -1,6 +1,42 @@
-ion-view
+ion-view.search_opponent
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/app/discover") &nbsp;返回
     h1.title 发现
   ion-content
-    p 发现小队
+    .select_team(ng-show="!hasSelected")
+      .units
+        .unit(ng-repeat='team in myTeams' ng-class="{'leader':team.isLeader}" ng-click="selectTeam($index)")
+          img.logo(ng-src="{{STATIC_URL + team.logo}}/40/40")
+          .text
+            span.title {{team.name }}
+          button.button.button-small.button-calm(ng-if="team.isLeader") 为它选对手
+          button.button.button-small.button-calm(ng-if="!team.isLeader") 给它推荐对手
+    .selected_team(ng-show="hasSelected")
+      .team
+        img.logo(ng-src="{{STATIC_URL +myTeam.logo}}/40/40")
+        .text
+          .tname {{myTeam.name}}
+          .type {{myTeam.groupType}}
+          .leader 队长: {{myTeam.leaders[0].nickname}}
+        button.button.button-small.button-calm(ng-click="changeTeam()") 更换小队
+      .tab_view
+        ul.nav
+          li.opponent_tab_style.sameCity(ng-class="{'active':nowTab=='sameCity'}")
+            a(ng-click="changeFilter('sameCity')") 
+              span 同城
+          li.opponent_tab_style.nearbyTeam(ng-class="{'active':nowTab=='nearbyTeam'}")
+            a(ng-click="changeFilter('nearbyTeam')") 
+              span 附近
+          li.opponent_tab_style.search(ng-class="{'active':nowTab=='search'}")
+            a(ng-click="changeFilter('search')") 
+              input.searchOpponentInput(ng-disabled="!myTeam" ng-model="$parent.keywords" placeholder="公司名字、小队名")
+              button.search_button.button.icon.ion-search(ng-click="search()")
+        .tab_content
+          a.team(href="" ng-repeat="team in teams")
+            img.logo(ng-src="{{STATIC_URL +team.logo}}/40/40")
+            .text
+              .tname {{team.name}}
+              .leader 公司: {{team.cname}}
+          .operator(ng-if="teams.length>0 &&page<maxPage")
+            button.button.button-small.button-calm(ng-if="nowTab=='sameCity'" ng-click="changeRecommendTeam(nowTab)") 换一批
+            button.button.button-small.button-calm(ng-if="nowTab!=='sameCity'" ng-click="moreTeam(nowTab)") 显示更多

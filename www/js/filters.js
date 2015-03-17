@@ -75,7 +75,7 @@ angular.module('donlerApp.filters', [])
         result = '接受未发活动';
         break;
       case 'rejected':
-        result = '被拒绝被拒绝';
+        result = '被拒绝';
         break;
       case 'competing':
         result = '已生成挑战';
