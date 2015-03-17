@@ -241,6 +241,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CampaignEditController',
         templateUrl: './views/campaign-edit.html'
       })
+      .state('campaigns_discuss', {
+        url: '/campaign/discuss/:id',
+        controller: 'DiscussDetailController',
+        templateUrl: './views/campaign-discuss.html'
+      })
       .state('sponsor', {
         cache: false,
         url: '/campaign/sponsor/:type',
@@ -249,17 +254,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('app.discuss_list', {
         url: '/discuss/list',
-        // controller: 'DiscussListController',
+        controller: 'DiscussListController',
         templateUrl: './views/discuss-list.html'
       })
-      .state('unjoined_discuss_list', {
-        url: '/discuss/list/unjoined',
-        controller: 'UnjoinedDiscussController',
-        templateUrl: './views/unjoined-discuss-list.html'
-      })
-      .state('discuss_detail', {
-        url: '/discuss/detail/:campaignId',
-        controller: 'DiscussDetailController',
+      .state('chat', {
+        url: '/chat/:chatroomId',
+        controller: 'ChatroomDetailController',
         templateUrl: './views/discuss-detail.html'
       })
       .state('create_team',{

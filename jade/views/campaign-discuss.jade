@@ -1,15 +1,22 @@
-ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
+ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title(ng-cloak) {{chatroomName}}
+    h1.title(ng-cloak) {{campaignTitle}}
+    a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
+  //- .notice(ng-class="{show:showNotice===true}" ng-show="!hideNotice&&notification" ng-cloak)
+  //-   .notice_cover(ng-cloak)
+  //-   .content(ng-cloak)
+  //-     span.notice_title 活动公告
+  //-     button.dl_button.close_button.pull-right(ng-click="hideNotice=true") &times;
+  //-     span.notice_content(ng-cloak) {{noticeSender}}:{{notification}}
   //- .balloon.has-footer(ng-if="newCommentNumber" ng-click="toBottom()" ng-cloak) 
   //-   span(ng-cloak) {{newCommentNumber}}
   //-   .triangle
   ion-content
     ion-refresher(on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .comments(ng-click="hideEmotions()")
-      .blocks(ng-repeat="chats in chatsList track by $index" id="chats{{$index}}")
-        .block(ng-repeat="comment in chats track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack)
+      .blocks(ng-repeat="comments in commentList track by $index" id="comment{{$index}}")
+        .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack)
           .time_block(ng-show="showTime && ($index!==0||($index===0&&topShowTime[$parent.$index]))")
             p
               span.time(ng-show="showTime===1 && ($index!==0||($index===0&&topShowTime[$parent.$index]===1))" ng-cloak) {{comment.create_date | date: 'yyyy'}}
@@ -42,7 +49,7 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
               i.icon.ion-alert-circled
               span 发送失败
 
-    //- ion-infinite-scroll(ng-if="!loading" on-infinite="refresh()" distance="5%")
+    //- ion-infinite-scroll(ng-if="!loading" on-infinite="refresh()" distance="-5%")
   ion-footer-bar.comment_box
     form(name="comment_form")
       i.icon.ion-image(ng-click="showUploadActionSheet()")

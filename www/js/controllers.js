@@ -351,7 +351,7 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.goDiscussDetail = function(campaignId, campaignTheme) {
       INFO.discussName = campaignTheme;
-      $state.go('discuss_detail',{campaignId: campaignId});
+      $state.go('campaigns_discuss',{id: campaignId});
     }
     $scope.showPopup = function() {
       $scope.data = {}
@@ -512,76 +512,51 @@ angular.module('donlerApp.controllers', [])
 
     }
   }])
-  .controller('DiscussListController', ['$scope', '$rootScope', '$ionicHistory', 'Comment', '$state', 'Socket', 'Tools', 'INFO', function ($scope, $rootScope, $ionicHistory, Comment, $state, Socket, Tools, INFO) { //标为全部已读???
+  .controller('DiscussListController', ['$scope', '$rootScope', '$ionicHistory', 'Chat', '$state', 'Socket', 'Tools', 'INFO', 
+    function ($scope, $rootScope, $ionicHistory, Chat, $state, Socket, Tools, INFO) { //标为全部已读???
     Socket.emit('enterRoom', localStorage.id);
     //先在缓存里取
-    // console.log(INFO);
-    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
+    $rootScope.$on( "$ionicView.enter", function ( scopes, states ) {
       if(!states.stateName){
-        getComments(INFO.discussCampaignId);
+        //? todo -M 可能需要到缓存里取什么...
         Socket.emit('enterRoom', localStorage.id);
+        if(INFO.needUpdateDiscussList) {
+          getChatroomsUnread();
+        }
       }
     });
     var comeBack = function() {
       if($state.$current.name==='app.discuss_list') {
         Socket.emit('quitRoom');
         Socket.emit('enterRoom', localStorage.id);
-        getComments();
+        getChatroomsUnread();
       }
     };
     document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
-    if(INFO.discussList){
-      $scope.commentCampaigns = INFO.discussList.commentCampaigns;
-      $scope.latestUnjoinedCampaign = INFO.discussList.latestUnjoinedCampaign;
-      $scope.unjoinedIndex = INFO.discussList.unjoinedIndex;
-    }
-    //进来以后先http请求,再监视推送
-    var getComments = function(campaignId) {
-      Comment.getList('joined').success(function (data) {
-        $scope.commentCampaigns = [];
-        $scope.commentCampaigns = data.commentCampaigns;
-        $scope.latestUnjoinedCampaign = data.latestUnjoinedCampaign;
-        //判断下把未参加的放哪
-        $scope.unjoinedIndex = 20;
-        if(campaignId) {
-          //如果从某个讨论详情页回来，把unread数清零.
-          var length = $scope.commentCampaigns.length;
-          for(var i = 0; i<length; i++){
-            if($scope.commentCampaigns[i]._id.toString() == campaignId.toString()) {
-              $scope.commentCampaigns[i].unread = 0;
-            }
-          }
-        }
-        if($scope.latestUnjoinedCampaign) {
-          var unjoinedCommentTime = new Date($scope.latestUnjoinedCampaign.latestComment.createDate);
-          var length = $scope.commentCampaigns.length-1;
-          for(var i=length; i>=0; i--){
-            var joinedCommentTime = new Date($scope.commentCampaigns[i].latestComment.createDate);
-            if(unjoinedCommentTime>joinedCommentTime){
-              $scope.unjoinedIndex = i;
-            }else{
-              $scope.unjoinedIndex = i;
-              break;
-            }
-          }
-        }
-        $scope.newUnjoined = data.newUnjoinedCampaignComment;
-        localStorage.hasNewComment = false;
-        INFO.discussCampaignId = '';
-      });
+
+    var getChatrooms = function() {
+      Chat.getChatroomList(function (err, data) {
+        // console.log(data);
+        $scope.chatrooms = data;
+        getChatroomsUnread();
+      })
     };
-    // getComments();
-    
-    Socket.on('newCommentCampaign', function (data) {
-      var newCommentCampaign = data;
-      var index = Tools.arrayObjectIndexOf($scope.commentCampaigns, newCommentCampaign._id, '_id');
-      if(index===-1){
-        $scope.commentCampaigns.unshift(newCommentCampaign);
-      }else{
-        $scope.commentCampaigns[index].unread++;
-        $scope.commentCampaigns[index].latestComment = newCommentCampaign.latestComment;
-      }
+    getChatrooms();
+    var getChatroomsUnread = function() {
+      Chat.getChatroomUnread(function (err, data) {
+        var chatroomsLength = $scope.chatrooms.length;
+        for(var i=0; i<data.length; i++) {
+          var index = Tools.arrayObjectIndexOf($scope.chatrooms, data[i]._id, '_id');
+          if(index>-1) {
+            $scope.chatrooms[index].unread = data[i].unread;
+          }
+        }
+      });
+    }
+    Socket.on('newChat', function (chat) {
+
     });
+
     Socket.on('newUnjoinedCommentCampaign', function (data) {
       $scope.newUnjoined = true;
       $scope.latestUnjoinedCampaign = data;
@@ -591,74 +566,49 @@ angular.module('donlerApp.controllers', [])
     $scope.refresh = function() {
       $scope.$broadcast('scroll.refreshComplete');
     };
-    $scope.goDetail = function(campaignId, campaignTheme, index) {
-      INFO.discussName = campaignTheme;
-      $scope.commentCampaigns[index].unread = 0;
-      $state.go('discuss_detail',{campaignId: campaignId});
+    $scope.goDetail = function(chatroom, index) {
+      INFO.chatroomName = chatroom.name;
+      $scope.chatrooms[index].unread = 0;
+      $state.go('chat',{chatroomId: chatroom._id});
     };
-    //暂且算存个缓存
+    //离开时缓存
     $scope.$on('$destroy',function() {
-      INFO.discussList.commentCampaigns = $scope.commentCampaigns;
-      INFO.discussList.latestUnjoinedCampaign = $scope.latestUnjoinedCampaign;
-      INFO.discussList.unjoinedIndex = $scope.unjoinedIndex;
+      Chat.saveChatroomList($scope.chatrooms);
     });
   }])
-  .controller('UnjoinedDiscussController', ['$scope','$state', 'INFO', 'Comment', 'Socket', 'Tools', function ($scope, $state, INFO, Comment, Socket, Tools) { //标为全部已读???
-    //进来以后先http请求,再监视推送
-    // Comment.getList('unjoined').success(function (data) {
-    //   $scope.commentCampaigns = data.commentCampaigns;
-    // });
-    $scope.$on("$ionicView.enter", function( scopes, states ) {
-      Socket.emit('quitRoom');
-      Socket.emit('enterRoom', localStorage.id);
-      getList();
+  .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Chat', 'Socket', 'Tools', 'CONFIG', 'INFO', '$ionicPopup', 'Upload', '$ionicModal',
+    function ($scope, $state, $stateParams, $ionicScrollDelegate, Chat, Socket, Tools, CONFIG, INFO, $ionicPopup, Upload, $ionicModal) {
+    $scope.chatroomId = $stateParams.chatroomId;
+    $scope.chatroomName = INFO.chatroomName;
+    $scope.userId = localStorage.id;
+    $scope.chatsList = [];
+    Chat.getChats({chatroom: $scope.chatroomId}, function(err, data) {
+      if(!err) {
+        $scope.chatsList.push(data.chats);
+        $scope.nextDate = data.nextDate;
+        $scope.nextId = data.nextId;
+      }
     });
-    var getList = function() {
-      Comment.getList('unjoined').success(function (data) {
-        $scope.commentCampaigns = data.commentCampaigns;
-        if(INFO.discussCampaignId) {
-          //如果从某个讨论详情页回来，把unread数清零.
-          var length = $scope.commentCampaigns.length;
-          for(var i = 0; i<length; i++){
-            if($scope.commentCampaigns[i]._id.toString() == INFO.discussCampaignId.toString()) {
-              $scope.commentCampaigns[i].unread = 0;
-            }
-          }
+    $scope.readHistory = function() {
+
+    }
+    var getChats = function(nextDate, nextId) {
+      var params = {chatroom: $scope.chatroomId};
+      if(nextDate) {params.nextDate = nextDate;}
+      if(nextId) {params.nextId = nextId;}
+      Chat.getChats(params, function(err, data) {
+        if(!err) {
+          $scope.chatsList.push(data.chats);
+          $scope.nextDate = data.nextDate;
+          $scope.nextId = data.nextId;
         }
       });
-    };
-    var comeBack = function() {
-      if($state.$current.name === 'unjoined_discuss_list') {
-        Socket.emit('quitRoom');
-        Socket.emit('enterRoom', localStorage.id);
-        getList();
-      }
-    };
-    document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
-    Socket.on('newUnjoinedCommentCampaign', function (data) {
-      var newCommentCampaign = data;
-      var index = Tools.arrayObjectIndexOf($scope.commentCampaigns, newCommentCampaign._id, '_id');
-      if(index===-1){
-        $scope.commentCampaigns.unshift(newCommentCampaign);
-      }else{
-        $scope.commentCampaigns[index].unread++;
-        $scope.commentCampaigns[index].latestComment = newCommentCampaign.latestComment;
-      }
-    });
-    //不作数据刷新，给用户玩玩的...
-    $scope.refresh = function() {
-      $scope.$broadcast('scroll.refreshComplete');
-    };
-    $scope.goDetail = function(campaignId, campaignTheme, index) {
-      INFO.discussName = campaignTheme;
-      $scope.commentCampaigns[index].unread = 0;
-      $state.go('discuss_detail',{campaignId: campaignId});
-    };
-    
+    }
+
   }])
-  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Message', 'Tools', 'CONFIG', 'INFO', '$ionicPopup', 'Upload', 'Campaign', '$ionicModal',
-    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Message, Tools, CONFIG, INFO, $ionicPopup, Upload, Campaign, $ionicModal) {
-    $scope.campaignId = $stateParams.campaignId;
+  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', '$ionicPopup', 'Upload', 'Campaign', '$ionicModal',
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Tools, CONFIG, INFO, $ionicPopup, Upload, Campaign, $ionicModal) {
+    $scope.campaignId = $stateParams.id;
     $scope.campaignTitle = INFO.discussName;
 
     $scope.commentContent='';
@@ -713,27 +663,26 @@ angular.module('donlerApp.controllers', [])
     //ionichistory
     $scope.goBack = function() {
       if($ionicHistory.backView()){
-        // $ionicHistory.goBack();
-        $state.go('app.discuss_list');
+        $ionicHistory.goBack();
       }
       else {
-        $state.go('app.discuss_list');
+        $state.go('app.campaigns');
       }
     }
 
     //获取公告
     $scope.showNotice = false;
-    Message.getCampaignMessages($scope.campaignId, function(err, data){
-      if(err){
-        console.log(err)
-      }else{
-        if(data.length>0){
-          $scope.noticeSender = data[0].sender[0].nickname;
-          $scope.notification = data[0].content;
-        }
-        $scope.showNotice = true;
-      }
-    });
+    // Message.getCampaignMessages($scope.campaignId, function(err, data){
+    //   if(err){
+    //     console.log(err)
+    //   }else{
+    //     if(data.length>0){
+    //       $scope.noticeSender = data[0].sender[0].nickname;
+    //       $scope.notification = data[0].content;
+    //     }
+    //     $scope.showNotice = true;
+    //   }
+    // });
 
     //评论获取
     $scope.commentList = [];
@@ -1634,7 +1583,7 @@ angular.module('donlerApp.controllers', [])
         }else{
           nowState = '';
           if (toState.name === 'app.campaigns') {
-            $rootScope.getCampaignList();
+            if($rootScope.getCampaignList) { $rootScope.getCampaignList(); }
           }
         }
     });
