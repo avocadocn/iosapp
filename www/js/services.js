@@ -1,6 +1,3 @@
-/**
- * Created by Sandeep on 11/09/14.
- */
 angular.module('donlerApp.services', [])
   .factory('myInterceptor', ['$q', '$location', function($q, $location) {
       var signOut = function(){
@@ -41,6 +38,7 @@ angular.module('donlerApp.services', [])
   }])
   .config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('myInterceptor');
+    $httpProvider.defaults.headers["delete"] = {'Content-Type': 'application/json;charset=utf-8'};
   }])
   .constant('CONFIG', {
     BASE_URL: 'http://www.donler.com:3002',
@@ -61,7 +59,7 @@ angular.module('donlerApp.services', [])
     screenWidth: 320,
     screenHeight: 568,
     team:'',//hr编辑小队用
-    discussCampaignId:''//供返回时去除红点用
+    needUpdateDiscussList:false //供判断是否需要更新discussList
   })
   .factory('CommonHeaders', ['$http', 'CONFIG', function ($http, CONFIG) {
 
@@ -80,7 +78,6 @@ angular.module('donlerApp.services', [])
 
         $http.defaults.headers.common['x-app-id'] = CONFIG.APP_ID;
         $http.defaults.headers.common['x-api-key'] = CONFIG.API_KEY;
-
         if (headers) {
           for (var key in headers) {
             $http.defaults.headers.common[key] = headers[key];
@@ -303,7 +300,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg || '网络连接错误');
+          callback(data ? data.msg:'网络连接错误');
         });
       },
       get: function (id, callback) {
@@ -313,7 +310,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg:'网络连接错误');
         });
       },
       create: function (data, callback) {
@@ -323,7 +320,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       edit: function (id, campaignData, callback) {
@@ -333,7 +330,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       close: function (id, callback) {
@@ -343,7 +340,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg ||'error');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       join: function(campaign, uid, callback) {
@@ -389,7 +386,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       quit: function(id, uid, callback) {
@@ -403,7 +400,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       dealProvoke: function(id, dealType, callback) {
@@ -413,7 +410,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       getMolds: function(hostType, hostId, callback) {
@@ -423,7 +420,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data.msg|| '网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       }
     }
@@ -469,23 +466,31 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Comment', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
-      getList: function (type) {
-        return $http.get(CONFIG.BASE_URL + '/comments/list/?type=' + type);
+      getComments: function(data,callback) {
+        $http.get(CONFIG.BASE_URL + '/comments',{
+          params:{
+            requestType: data.requestType,
+            requestId: data.requestId,
+            limit: data.limit,
+            createDate: data.createDate
+          }
+        }).success(function (data, status) {
+          callback(null,data);
+        }).error(function (data, status) {
+          // todo
+          callback(data ? data.msg:'error');
+        });;
       },
-      getComments: function(campaignId, limit, createDate) {
-        var url = CONFIG.BASE_URL + '/comments/?requestType=campaign&requestId='+campaignId;
-        if (limit) {
-          url+='&limit=' + limit;
-        }
-        if (createDate) {
-          url+='&createDate=' + createDate;
-        }
-        return $http.get(url);
-      },
-      publishComment: function(campaignId, content, randomId, callback) {
-        $http.post(CONFIG.BASE_URL +'/comments/host_type/campaign/host_id/'+campaignId,{
-          'content':content,
-          'randomId':randomId
+      /**
+       * 发评论
+       * @param  {Object}   data     hostType，hostId，content，randomId
+       * @param  {Function} callback [description]
+       * @return {[type]}            [description]
+       */
+      publishComment: function(data, callback) {
+        $http.post(CONFIG.BASE_URL +'/comments/host_type/'+data.hostType+'/host_id/'+data.hostId,{
+          'content':data.content,
+          'randomId':data.randomId
         })
         .success(function (data, status) {
           callback();
@@ -493,14 +498,88 @@ angular.module('donlerApp.services', [])
           // todo
           callback('publish error');
         });
-      },
-      readComment: function(campaignId, callback) {
-        $http.post(CONFIG.BASE_URL + '/comments/read',{requestId:campaignId})
-        .success(function (data,status) {
-          callback()
+      }
+    }
+  }])
+  .factory('Chat', ['$http', 'CONFIG',function ($http, CONFIG, Tools) {
+    var chatroomList;//缓存chatroomList
+    return {
+      /**
+       * 获取聊天室列表
+       * @param  {Function} callback 形如function(err, list)
+       */
+      getChatroomList: function(callback) {
+        if(chatroomList) {
+          callback(null, chatroomList);
+          return;
+        }
+        $http.get(CONFIG.BASE_URL + '/chatrooms')
+        .success(function (data, status) {
+          callback(null,data.chatRoomList);
+          chatroomList = data.chatroomList;
         }).error(function (data, status) {
-          callback('read error');
-        })
+          callback('列表获取错误');
+        });
+      },
+
+      getChatroomUnread: function(callback) {
+        $http.get(CONFIG.BASE_URL + '/chatrooms/unread')
+        .success(function (data, status) {
+          callback(null,data.chatrooms);
+        }).error(function (data, status) {
+          callback('列表获取错误');
+        });
+      },
+      /**
+       * 获取某聊天室的聊天记录
+       * @param  {Object}   params  查询query:{chatroom,nextDate,nextId}
+       * @param  {Function} callback 形如:function(err,data)
+       */
+      getChats: function(params, callback) {
+        $http.get(CONFIG.BASE_URL +'/chats',{
+          params:params
+        }).success(function (data, status) {
+          callback(null, data);
+        }).error(function (data, status) {
+          callback('获取聊天失败');
+        });
+        var index = Tools.arrayObjectIndexOf(chatroomList,chatroomId,'_id');
+        if(index>-1) {
+          chatroomList[i].unread = 0;
+        }
+      },
+      postChat: function(chatroomId, content, randomId, callback) {
+        // $http.post(CONFIG.BASE_URL + '/chatrooms/'+chatroomId+'/chats',{})
+      },
+      /**
+       * [readChat description]
+       * @param  {[type]}   chatroomId [description]
+       * @param  {Function} callback   [description]
+       * @return {[type]}              [description]
+       */
+      readChat: function(chatroomId, callback) {
+        $http.post(CONFIG.BASE_URL +'/chatrooms/actions/read',{chatRoomIds:[chatroomId]});
+        var index = Tools.arrayObjectIndexOf(chatroomList,chatroomId,'_id');
+        if(index>-1) {
+          chatroomList[i].unread = 0;
+        }
+      },
+      /**
+       * 保存当前chatroomList(离开列表页时)
+       * @param  {array} chatrooms
+       */
+      saveChatroomList: function(chatrooms) {
+        chatroomList = chatrooms;
+      },
+      /**
+       * 当socket来了数据时更新缓存chatroomList
+       * @param  {Object} chat 
+       */
+      updateChatroomList: function(chat) {
+        if(chatroomList) {
+          var index = Tools.arrayObjectIndexOf(chatroomList,chat.chatroom_id,'_id');
+          if(index>-1) chatroomList[index].unread ++;
+        }
       }
     }
   }])
@@ -890,6 +969,30 @@ angular.module('donlerApp.services', [])
           .error(function (data, status, headers, config) {
             callback(data.msg||'error');
           });
+      },
+      /**
+       * 查找小队
+       * @param  {Object}   data     type,tid,page,key,latitude,longitude
+       *                         type:sameCity,nearbyTeam,search
+       * @param  {Function} callback [description]
+       * @return {[type]}            [description]
+       */
+      getSearchTeam: function (data,callback) {
+        $http.get(CONFIG.BASE_URL + '/teams/search/'+data.type,{
+          params:{
+            tid: data.tid,
+            page: data.page,
+            key: data.key,
+            latitude: data.latitude,
+            longitude: data.longitude
+          }
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          callback(data ? data.msg:'网络连接错误');
+        });
       }
 
     };
@@ -1312,6 +1415,131 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
+  .factory('CompetitionMessage', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
 
+      /**
+       * 获取挑战信列表
+       * @param  {Object}   data     query的数据包括： sponsor， opposite，messageType
+       * @param  {Function} callback 回调函数
+       */
+      getCompetitionMessages: function (data, callback) {
+        $http.get( CONFIG.BASE_URL + '/competition_messages', {
+          params: {
+            sponsor: data.sponsor,
+            opposite: data.opposite,
+            messageType: data.messageType
+          }
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 获取挑战信详情
+       * @param  {[type]}   messageId   挑战信id
+       * @param  {Function} callback 回调函数
+       */
+      getCompetitionMessage: function (messageId, callback) {
+        $http.get( CONFIG.BASE_URL + '/competition_messages/' + messageId )
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 处理挑战
+       * @param  {[type]}   messageId   挑战信id
+       * @param  {Function} callback 回调函数
+       */
+      dealCompetition: function (messageId, action, callback) {
+        $http.put( CONFIG.BASE_URL + '/competition_messages/' + messageId,{
+          action: action
+        } )
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      }
+    };
+  }])
+  .factory('Vote', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+      /**
+       * 获取投票信息
+       * @param  {Object}   data     query的数据包括： sponsor， opposite，messageType
+       * @param  {Function} callback 回调函数
+       */
+      getVote: function (voteId, callback) {
+        $http.get( CONFIG.BASE_URL + '/components/Vote/'+voteId )
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 获取挑战信详情
+       * @param  {[type]}   messageId   挑战信id
+       * @param  {Function} callback 回调函数
+       */
+      vote: function (voteId, tid, callback) {
+        $http.post( CONFIG.BASE_URL + '/components/Vote/'+voteId, {
+          tid: tid
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      cancelVote: function (voteId, tid, callback) {
+        $http.delete( CONFIG.BASE_URL + '/components/Vote/'+voteId, {
+          data: {
+            tid: tid
+          }
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      }
+    };
+  }])
 
 

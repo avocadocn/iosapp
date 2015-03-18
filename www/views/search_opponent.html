@@ -1,9 +1,46 @@
 
-<ion-view>
+<ion-view class="search_opponent">
   <ion-header-bar><a href="#/app/discover" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">发现</h1>
   </ion-header-bar>
   <ion-content>
-    <p>发现小队</p>
+    <div ng-show="!hasSelected" class="select_team">
+      <div class="units">
+        <div ng-repeat="team in myTeams" ng-class="{'leader':team.isLeader}" ng-click="selectTeam($index)" class="unit"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="logo"/>
+          <div class="text"><span class="title">{{team.name }}</span></div>
+          <button ng-if="team.isLeader" class="button button-small button-calm">为它选对手</button>
+          <button ng-if="!team.isLeader" class="button button-small button-calm">给它推荐对手</button>
+        </div>
+      </div>
+    </div>
+    <div ng-show="hasSelected" class="selected_team">
+      <div class="team"><img ng-src="{{STATIC_URL +myTeam.logo}}/40/40" class="logo"/>
+        <div class="text">
+          <div class="tname">{{myTeam.name}}</div>
+          <div class="type">{{myTeam.groupType}}</div>
+          <div class="leader">队长: {{myTeam.leaders[0].nickname}}</div>
+        </div>
+        <button ng-click="changeTeam()" class="button button-small button-calm">更换小队</button>
+      </div>
+      <div class="tab_view">
+        <ul class="nav">
+          <li ng-class="{'active':nowTab=='sameCity'}" class="opponent_tab_style sameCity"><a ng-click="changeFilter('sameCity')"> <span>同城</span></a></li>
+          <li ng-class="{'active':nowTab=='nearbyTeam'}" class="opponent_tab_style nearbyTeam"><a ng-click="changeFilter('nearbyTeam')"> <span>附近</span></a></li>
+          <li ng-class="{'active':nowTab=='search'}" class="opponent_tab_style search"><a ng-click="changeFilter('search')"> 
+              <input ng-disabled="!myTeam" ng-model="$parent.keywords" placeholder="公司名字、小队名" class="searchOpponentInput"/>
+              <button ng-click="search()" class="search_button button icon ion-search"></button></a></li>
+        </ul>
+        <div class="tab_content"><a href="" ng-repeat="team in teams" class="team"><img ng-src="{{STATIC_URL +team.logo}}/40/40" class="logo"/>
+            <div class="text">
+              <div class="tname">{{team.name}}</div>
+              <div class="leader">公司: {{team.cname}}</div>
+            </div></a>
+          <div ng-if="teams.length&gt;0 &amp;&amp;page&lt;maxPage" class="operator">
+            <button ng-if="nowTab=='sameCity'" ng-click="changeRecommendTeam(nowTab)" class="button button-small button-calm">换一批</button>
+            <button ng-if="nowTab!=='sameCity'" ng-click="moreTeam(nowTab)" class="button button-small button-calm">显示更多</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

@@ -80,16 +80,10 @@
       </ion-header-bar>
       <ion-content>
         <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-        <ul class="list"><a ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index&lt;unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}"/>
-            <div ng-if="commentCampaign.unread" class="red_spot"></div>
-            <h2>{{commentCampaign.theme}}</h2>
-            <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe"> </span></p></a><a ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined" ng-click="" class="item item-avatar"><img src="img/icons/unjoined_discuss.png" class="unjoined"/>
-            <div ng-if="newUnjoined" class="red_spot"></div>
-            <h2>其它小队讨论</h2>
-            <p><span>{{latestUnjoinedCampaign.theme}}</span></p></a><a ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index&gt;=unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}"/>
-            <div ng-if="commentCampaign.unread" class="red_spot"></div>
-            <h2>{{commentCampaign.theme}}</h2>
-            <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe"> </span></p></a></ul>
+        <ul class="list"><a ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/><img ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png"/>
+            <div ng-if="chatroom.unread" class="red_spot"></div>
+            <h2>{{chatroom.name}}</h2>
+            <p><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息] </span><span ng-if="chatroom.latestChat">{{chatroom.latestChat.poster.nickname}}:</span><span ng-if="chatroom.latestChat" ng-bind-html=" chatroom.latestChat.content||'[图片]' | emoji | unsafe"></span></p></a></ul>
       </ion-content>
     </ion-view>
   </ion-tab>
@@ -100,7 +94,7 @@
       </ion-header-bar>
       <ion-content>
         <div class="discover_image"></div>
-        <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/rank/select" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>排行榜<i class="icon ion-chevron-right"></i></a><a href="#/competition/log_list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<i class="icon ion-chevron-right"></i></a></div>
+        <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/rank/select" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>排行榜<i class="icon ion-chevron-right"></i></a><a href="#/competition_message/list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<i class="icon ion-chevron-right"></i></a></div>
         <div class="rank_panel">
           <div class="team_select">
             <label class="item item-input item-select"><span class="input-label">我的小队排名:</span>

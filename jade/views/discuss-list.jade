@@ -8,23 +8,12 @@ ion-view.discuss_list(ng-controller="DiscussListController")
   ion-content
     ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     ul.list
-      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index<unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak)
-        img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
-        .red_spot(ng-if="commentCampaign.unread")
-        h2 {{commentCampaign.theme}}
+      a.item.item-avatar(ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak)
+        img(ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}")
+        img(ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png")
+        .red_spot(ng-if="chatroom.unread")
+        h2 {{chatroom.name}}
         p
-          span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
-          span(ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe") 
-      a.item.item-avatar(ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined" ng-click="")
-        img.unjoined(src="img/icons/unjoined_discuss.png")
-        .red_spot(ng-if="newUnjoined")
-        h2 其它小队讨论
-        p
-          span {{latestUnjoinedCampaign.theme}}
-      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index>=unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak)
-        img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
-        .red_spot(ng-if="commentCampaign.unread")
-        h2 {{commentCampaign.theme}}
-        p
-          span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
-          span(ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe") 
+          span(ng-show="chatroom.unread") [{{chatroom.unread}}条新消息] 
+          span(ng-if="chatroom.latestChat") {{chatroom.latestChat.poster.nickname}}:
+          span(ng-if="chatroom.latestChat" ng-bind-html=" chatroom.latestChat.content||'[图片]' | emoji | unsafe")

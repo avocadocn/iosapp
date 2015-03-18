@@ -1,0 +1,50 @@
+ion-view.competition_message_panel
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/competition_message/list") &nbsp;返回
+    h1.title 挑战日志
+    a.button.button-clear.button-positive(ng-if="sponsorLeader && competitionMessage.status=='accepted'" ng-click="sponsorCompetition()") 发活动
+  ion-content
+    ion-refresher(on-refresh="getCompetitionComments()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
+    .competition_message_detail(ng-if="competitionMessage")
+      .row
+        .col {{competitionMessage.create_time | beforeNow}}
+        .col: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40")
+        .col {{competitionMessage.sponsor_team.name}}
+        .col VS
+        .col: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40")
+        .col {{competitionMessage.opposite_team.name}}
+      .row
+        .col(ng-cloak) 活动性质：{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}
+      .row
+        .col(ng-cloak) 状态：{{competitionMessage.status | competitionMessageStatusFormat}}
+      .row(ng-if="oppositeLeader && competitionMessage.status=='sent'")
+        .button-bar
+          button.button.button-positive(ng-click="dealCompetition('accept')") 应战
+          button.button.button-assertive(ng-click="dealCompetition('reject')") 拒绝
+      .row
+        .col 挑战方
+        .col VS
+        .col 应战方
+      .row
+        .col(ng-click="voteCompetition(0)") {{competitionMessage.vote.units[0].positive}} 人支持
+        .col(ng-click="voteCompetition(1)") {{competitionMessage.vote.units[1].positive}} 人支持
+    .competition_message_comment
+      .row(ng-repeat="comment in commentList")
+        .col
+          img.member_logo(ng-src="{{STATIC_URL + comment.poster.photo}}/40/40")
+          p {{comment.poster.nickname}}
+        .col(ng-bind-html="comment.content | emoji | unsafe")
+        .col {{comment.create_date | date:"MM-dd HH:mm"}}
+  ion-footer-bar.comment_box(ng-show="oppositeLeader || sponsorLeader")
+    form(name="comment_form")
+      //- i.icon.ion-image(ng-click="showUploadActionSheet()")
+      textarea#ta.comment_input(rows="1" cols="30" ng-model="commentContent" required maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting = true;" ng-blur="isWriting=false;" ng-change="resizeTextarea()")
+      button.dl_button.emotion_button(ng-click="showEmotions()" prevent-default)
+        i.emoji.emoji_tongue
+      button.publish_button(ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid") 发言
+
+      ion-slide-box.emotion_box(ng-if="isShowEmotions")
+        ion-slide(ng-repeat="emoji in emojiList")
+          .box.clearfix
+            .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
+              i(class="emoji {{'emoji_'+emotion}}" )
