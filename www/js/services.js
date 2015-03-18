@@ -239,7 +239,7 @@ angular.module('donlerApp.services', [])
             callback(data.msg);
           });
         }
-        
+
       },
       /**
        * [signup description] 注册
@@ -457,7 +457,7 @@ angular.module('donlerApp.services', [])
         socket.disconnect();
       },
       on: function (eventName, callback) {
-        socket.on(eventName, function () {  
+        socket.on(eventName, function () {
           var args = arguments;
           $rootScope.$apply(function () {
             callback.apply(socket, args);
@@ -588,7 +588,7 @@ angular.module('donlerApp.services', [])
       },
       /**
        * 当socket来了数据时更新缓存chatroomList
-       * @param  {Object} chat 
+       * @param  {Object} chat
        */
       updateChatroomList: function(chat) {
         if(chatroomList) {
@@ -1572,5 +1572,36 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
+  .factory('Circle', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
 
+      /**
+       * 发布前的准备，创建一个处于等待状态的CircleContent
+       * @param {String} campaignId 活动id
+       * @param {String} content 文本内容
+       * @returns {HttpPromise}
+       */
+      preCreate: function (campaignId, content) {
+        return $http.post(CONFIG.BASE_URL + '/circle_contents', {
+          isUploadImgFromFileApi: true,
+          uploadStep: 'create',
+          campaign_id: campaignId,
+          content: content
+        });
+      },
 
+      /**
+       * 文件上传完毕后，激活其对应的CircleContent
+       * @param circleContentId
+       * @returns {HttpPromise}
+       */
+      active: function (circleContentId) {
+        return $http.post(CONFIG.BASE_URL + '/circle_contents', {
+          isUploadImgFromFileApi: true,
+          uploadStep: 'active',
+          circleContentId: circleContentId
+        });
+      }
+
+    };
+  }])
