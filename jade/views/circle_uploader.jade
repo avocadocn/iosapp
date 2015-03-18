@@ -4,4 +4,8 @@ ion-view
     h1.title 上传图片
   ion-content
     p test
+    textarea(ng-model="circleData.content" placeholder="说点什么吧")
     button.button(ng-click="choosePhotos()") 选择图片
+    div
+      img(ng-repeat="uri in uploadFileURIs" ng-src="{{uri}}" width="150" height="150")
+    button.button(ng-click="publish()") 发表

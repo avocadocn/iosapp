@@ -450,7 +450,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/competition_log_detail.html'
       })
       .state('circle_uploader', {
-        url: '/circle/uploader',
+        url: '/circle/uploader/:campaignId',
         templateUrl: './views/circle_uploader.html',
         controller: 'CircleUploaderController'
       })
