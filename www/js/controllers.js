@@ -585,29 +585,136 @@ angular.module('donlerApp.controllers', [])
     $scope.chatroomId = $stateParams.chatroomId;
     $scope.chatroomName = INFO.chatroomName;
     $scope.userId = localStorage.id;
-    $scope.chatsList = [];
-    Chat.getChats({chatroom: $scope.chatroomId}, function(err, data) {
-      if(!err) {
-        $scope.chatsList.push(data.chats);
-        $scope.nextDate = data.nextDate;
-        $scope.nextId = data.nextId;
-      }
-    });
-    $scope.readHistory = function() {
 
-    }
-    var getChats = function(nextDate, nextId) {
+    $scope.chatsList = [];
+
+    //各种获取评论，带nextDate是获取历史，带preDate是获取最新
+    var getChats = function(nextDate, nextId, preDate, callback) {
       var params = {chatroom: $scope.chatroomId};
       if(nextDate) {params.nextDate = nextDate;}
       if(nextId) {params.nextId = nextId;}
+      if(preDate) {params.preDate = preDate;}
       Chat.getChats(params, function(err, data) {
         if(!err) {
-          $scope.chatsList.push(data.chats);
+          if(!nextDate)
+            $scope.chatsList.push(data.chats.reverse());
+          else {
+            $scope.chatsList.unshift(data.chats.reverse());
+            $ionicScrollDelegate.scrollBottom();
+          }
           $scope.nextDate = data.nextDate;
           $scope.nextId = data.nextId;
+          callback && callback();
         }
       });
-    }
+    };
+    //刚进来的时候获取第一页评论
+    getChats(null,null,null,function() {
+      $ionicScrollDelegate.scrollBottom();
+    });
+
+    // var judgeTopShowTime = function() {
+    //   $scope.topShowTime.unshift(1);
+    //   if($scope.commentList.length>1) {
+    //     var preTime = new Date($scope.commentList[1][0].create_date);//上次的第一个
+    //     var length = $scope.commentList[0].length;
+    //     var nowTime = new Date($scope.commentList[0][length-1].create_date);//这次的最后一个
+    //     if(nowTime.getFullYear() != preTime.getFullYear()) {
+    //       $scope.topShowTime[1] = 1;
+    //     }else if(nowTime.getDay() != preTime.getDay()) {
+    //       $scope.topShowTime[1] = 2;
+    //     }else if(nowTime.getHours() != preTime.getHours()) {
+    //       $scope.topShowTime[1] = 2;
+    //     }else if(nowTime.getMinutes() != preTime.getMinutes()){
+    //       $scope.topShowTime[1] = 2;
+    //     }else{
+    //       $scope.topShowTime[1] = 0;
+    //     }
+    //   }
+    // };
+    // $scope.needShowTime = function (index, comments) {
+    //   if(index===0){
+    //     return 1;
+    //   }else{
+    //     var preTime = new Date(comments[index-1].create_date);
+    //     var nowTime = new Date(comments[index].create_date);
+    //     if(nowTime.getFullYear() != preTime.getFullYear()) {
+    //       return 1;
+    //     }else if(nowTime.getDay() != preTime.getDay()) {
+    //       return 2;
+    //     }else if(nowTime.getHours() != preTime.getHours()) {
+    //       return 2;
+    //     }else if(nowTime.getMinutes() != preTime.getMinutes()){
+    //       return 2;
+    //     }
+    //   };
+    // };
+    
+
+    //获取更老的评论
+    $scope.readHistory = function() {
+      if($scope.nextDate) {
+        getChats($scope.nextDate, $scope.nextId, null, function() {
+          $scope.$broadcast('scroll.refreshComplete');
+          $ionicScrollDelegate.scrollTo(0,1350);//此数值仅在发的评论为1行时有效...
+          //如果需要精确定位到刚才的地方，需要jquery
+          // $('#currentComment').scrollIntoView();//need jQuery
+        }); 
+      }else {
+        $scope.$broadcast('scroll.refreshComplete');
+      }
+    };
+
+    //获取比现在的第一条更新的所有讨论
+    var refreshChat = function () {
+      $scope.startRefresh = true;
+      var latestCreateDate = null;
+      if($scope.chatsList.length && $scope.chatsList[0][0]) {
+        var latestChatIndex = $scope.chatsList[0].length-1;
+        latestCreateDate = $scope.chatsList[0][latestChatIndex].create_date;
+      }
+      getChats(null, null, latestCreateDate);
+    };
+
+    //从后台切回来要刷新及进room
+    var comeBackFromBackground = function() {
+      if($state.$current.name === 'chat' && $scope.chatroomId === $state.params.chatroomId) {
+        Socket.emit('quitRoom');
+        Socket.emit('enterRoom', $scope.chatroomId); //以防回来以后接收不到
+        //更新刚才一段时间内的新评论
+        refreshChat();
+      }
+    };
+    document.addEventListener('resume',comeBackFromBackground, false);
+
+    //离开此页时标记读过
+    $scope.$on('$destroy',function() {
+      Chat.readChat($scope.chatroomId);
+    });
+
+
+    $scope.isShowEmotions = false;
+    $scope.content = '';
+    //发表
+    $scope.publish = function() {
+      // if(window.analytics){
+      //   window.analytics.trackEvent('Click', 'publishComment');
+      // }
+      console.log($scope.content);
+      // var randomId = Math.floor(Math.random()*100);
+      // Chat.postChat($scope.chatroomId, $scope.publishContent, randomId, function() {
+
+      // });
+    };
+
+    $scope.hideEmotions = function() {
+      $scope.isShowEmotions = false;
+    };
+
+    $scope.showUploadActionSheet =function() {
+
+    };
+
 
   }])
   .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', '$ionicPopup', 'Upload', 'Campaign', '$ionicModal',
@@ -616,22 +723,13 @@ angular.module('donlerApp.controllers', [])
     $scope.campaignTitle = INFO.discussName;
 
     $scope.commentContent='';
-    $scope.$on('$ionicView.enter', function(){
-      INFO.discussCampaignId = $scope.campaignId; //for 回到讨论列表时清红点
-      Socket.emit('quitRoom');
-      Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
-    });
-    var comeBackFromBackground = function() {
-      if($state.$current.name === 'discuss_detail' && $scope.campaignId === $state.params.campaignId) {
-        Socket.emit('quitRoom');
-        Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
-        //更新刚才一段时间内的新评论
-        $scope.refreshComment();
-      }
-    };
-
-    document.addEventListener('resume',comeBackFromBackground, false);//从后台切回来要刷新及进room
+    // $scope.$on('$ionicView.enter', function(){
+    //   INFO.discussCampaignId = $scope.campaignId; //for 回到讨论列表时清红点
+    //   Socket.emit('quitRoom');
+    //   Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
+    // });
     
+    // ??? -M
     Campaign.get($scope.campaignId, function (err, data) {
       if (!err) {
         $scope.campaign = data;
@@ -675,7 +773,7 @@ angular.module('donlerApp.controllers', [])
     }
 
     //获取公告
-    $scope.showNotice = false;
+    // $scope.showNotice = false;
     // Message.getCampaignMessages($scope.campaignId, function(err, data){
     //   if(err){
     //     console.log(err)
@@ -712,7 +810,7 @@ angular.module('donlerApp.controllers', [])
       }
     };
 
-    var nextStartDate ='';      
+    var nextStartDate ='';
     //获取最新20条评论
     var getComments = function() {
       var queryData = {
@@ -739,68 +837,68 @@ angular.module('donlerApp.controllers', [])
 
     $scope.isWriting = false;
     //获取新留言
-    var comments_ele = document.getElementsByClassName('comments'); // 获取滚动条
-    var needRead = false;//标记是否需要再去read
-    Socket.on('newCampaignComment', function (data) {
-      //如果是自己发的看看是不是取消loading就行.
-      var commentListIndex = $scope.commentList.length -1;
-      data.create_date = data.createDate;
-      if(data.poster._id === currentUser._id && data.randomId) {
-        //-找到那条自己发的
-        var length = $scope.commentList[commentListIndex].length;
-        for(var i = length-1; i>=0; i--){
-          if($scope.commentList[commentListIndex][i].randomId === data.randomId){
-            data.randomId = null;
-            addPhotos(data);
-            $scope.commentList[commentListIndex][i] = data;
-            break;
-          }
-        }
-      }else{
-        data.randomId = null;
-        var nowHeight =  $ionicScrollDelegate.getScrollPosition().top; //获取总高度
-        var scrollHeight = comments_ele[0].scrollHeight - (window.outerHeight-89); //获取当前所在位置
-        var isAtBottom = false;
-        if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
-        $scope.commentList[commentListIndex].push(data);
-        addPhotos(data);
-        if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
-        // $scope.newCommentNumber ++;
-        needRead = true;
-      }
-    });
+    // var comments_ele = document.getElementsByClassName('comments'); // 获取滚动条
+    // var needRead = false;//标记是否需要再去read
+    // Socket.on('newCampaignComment', function (data) {
+    //   //如果是自己发的看看是不是取消loading就行.
+    //   var commentListIndex = $scope.commentList.length -1;
+    //   data.create_date = data.createDate;
+    //   if(data.poster._id === currentUser._id && data.randomId) {
+    //     //-找到那条自己发的
+    //     var length = $scope.commentList[commentListIndex].length;
+    //     for(var i = length-1; i>=0; i--){
+    //       if($scope.commentList[commentListIndex][i].randomId === data.randomId){
+    //         data.randomId = null;
+    //         addPhotos(data);
+    //         $scope.commentList[commentListIndex][i] = data;
+    //         break;
+    //       }
+    //     }
+    //   }else{
+    //     data.randomId = null;
+    //     var nowHeight =  $ionicScrollDelegate.getScrollPosition().top; //获取总高度
+    //     var scrollHeight = comments_ele[0].scrollHeight - (window.outerHeight-89); //获取当前所在位置
+    //     var isAtBottom = false;
+    //     if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
+    //     $scope.commentList[commentListIndex].push(data);
+    //     addPhotos(data);
+    //     if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
+    //     // $scope.newCommentNumber ++;
+    //     needRead = true;
+    //   }
+    // });
 
     //回到前台、用户手动刷新
-    $scope.refreshComment = function() {
-      User.getCampaignCommentNumber($scope.userId, $scope.campaignId, function(msg, data) {
-        if(data.unreadNumbers>0) {//如果有没读的，就去拿
-          var queryData = {
-            requestType: 'campaign',
-            requestId: $scope.campaignId,
-            limit: data.unreadNumbers
-          }
-          Comment.getComments(queryData,function(err, data){
-            if(!err) {
-              //获取当前最新一条的id
-              var commentListIndex = $scope.commentList.length -1;
-              var commentIndex = $scope.commentList[commentListIndex].length - 1;
-              var latestCommentId = $scope.commentList[commentListIndex][commentIndex]._id;
-              //与data来的id作比较
-              var newComments = data.comments.reverse();
-              var index = Tools.arrayObjectIndexOf(newComments, latestCommentId, '_id');
-              //插入比这个新的
-              if(index > -1) newComments.splice(0, index + 1);
-              newComments.forEach(addPhotos);
-              $scope.commentList.push(newComments);
-              $ionicScrollDelegate.scrollBottom();
-            }
-            else {
-              console.log(err);
-            }
-          });
-        }
-      });
-    };
+    // $scope.refreshComment = function() {
+    //   User.getCampaignCommentNumber($scope.userId, $scope.campaignId, function(msg, data) {
+    //     if(data.unreadNumbers>0) {//如果有没读的，就去拿
+    //       var queryData = {
+    //         requestType: 'campaign',
+    //         requestId: $scope.campaignId,
+    //         limit: data.unreadNumbers
+    //       }
+    //       Comment.getComments(queryData,function(err, data){
+    //         if(!err) {
+    //           //获取当前最新一条的id
+    //           var commentListIndex = $scope.commentList.length -1;
+    //           var commentIndex = $scope.commentList[commentListIndex].length - 1;
+    //           var latestCommentId = $scope.commentList[commentListIndex][commentIndex]._id;
+    //           //与data来的id作比较
+    //           var newComments = data.comments.reverse();
+    //           var index = Tools.arrayObjectIndexOf(newComments, latestCommentId, '_id');
+    //           //插入比这个新的
+    //           if(index > -1) newComments.splice(0, index + 1);
+    //           newComments.forEach(addPhotos);
+    //           $scope.commentList.push(newComments);
+    //           $ionicScrollDelegate.scrollBottom();
+    //         }
+    //         else {
+    //           console.log(err);
+    //         }
+    //       });
+    //     }
+    //   });
+    // };
 
     // $scope.newCommentNumber = 0;
 
@@ -817,6 +915,7 @@ angular.module('donlerApp.controllers', [])
           if(!err) {
             $scope.commentList.unshift(data.comments.reverse());
             $scope.topShowTime.push();
+            $ionicScrollDelegate.scrollTo(0,1350);//此数值仅在发的评论为1行时有效...
             // $('#currentComment').scrollIntoView();//need jQuery
             nextStartDate = data.nextStartDate;
             //-addPhoto
@@ -888,22 +987,27 @@ angular.module('donlerApp.controllers', [])
         window.analytics.trackEvent('Click', 'publishComment');
       }
       //-创建一个新comment
-      var randomId = Math.floor(Math.random()*100);
+      // var randomId = Math.floor(Math.random()*100);
       var newComment = {
-        randomId: randomId,
+        // randomId: randomId,
         create_date: new Date(),
         poster: {
           '_id': currentUser._id,
           'photo': currentUser.photo,
           'nickname': currentUser.nickname
         },
-        content: $scope.commentContent,
-        loading: true
+        content: $scope.commentContent
+        // loading: true
       };
       var commentListIndex = $scope.commentList.length -1;
       $scope.commentList[commentListIndex].push(newComment);
       $ionicScrollDelegate.scrollBottom();
-      Comment.publishComment($scope.campaignId, $scope.commentContent, randomId, function(err){
+      Comment.publishComment({
+        'hostType': 'campaign',
+        'hostId': $scope.campaignId,
+        'content': $scope.commentContent
+        // 'randomId': randomId
+      }, function(err){
         if(err){
           console.log(err);
           var length =  $scope.commentList[commentListIndex].length;
@@ -1052,13 +1156,13 @@ angular.module('donlerApp.controllers', [])
 
     
     //发送请求已读某评论
-    $scope.$on('$ionicView.leave', function(){
-      if(needRead){
-        Comment.readComment($scope.campaignId, function(err) {
-          if(err) console.log(err);
-        });
-      }
-    });
+    // $scope.$on('$ionicView.leave', function(){
+    //   if(needRead){
+    //     Comment.readComment($scope.campaignId, function(err) {
+    //       if(err) console.log(err);
+    //     });
+    //   }
+    // });
   }])
   .controller('CompanyController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
     function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {

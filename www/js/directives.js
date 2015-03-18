@@ -109,6 +109,93 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       }
     }
   }])
+  .directive('publishBox', ['CONFIG', function(CONFIG) {
+    return {
+      restrict: 'E',
+      scope: {
+        isShowEmotions: '=',
+        content: '=',
+        publish: '&',
+        showUploadActionSheet: '&'
+      },
+      templateUrl: './views/publish-box.html',
+      link: function (scope, element, attrs, ctrl) {
+
+        // console.log(scope.publish);
+        //表情
+        scope.isShowEmotions = false;
+        scope.showEmotions = function() {
+          scope.isShowEmotions = true;
+        };
+
+        scope.hideEmotions = function() {
+          scope.isShowEmotions = false;
+        };
+
+        scope.emojiList=[];
+
+        var emoji = ["laugh", "smile", "happy", "snag", "snaky", "heart_eyes", "kiss", "blush", "howl", "angry",
+        "blink", "tongue", "tired", "logy", "asquint", "embarassed", "cry", "laugh_cry", "sigh", "sweat",
+        "good", "yeah", "pray", "finger", "clap", "muscle", "bro", "ladybro", "flash", "sun",
+        "cat", "dog", "hog_nose", "horse", "plumpkin", "ghost", "present", "trollface", "diamond", "mahjong",
+        "hamburger", "fries", "ramen", "bread", "lollipop", "cherry", "cake", "icecream"];
+
+        var dict = {"laugh":"大笑","smile":"微笑","happy":"高兴","snag":"龇牙","snaky":"阴险","heart_eyes":"心心眼","kiss":"啵一个","blush":"脸红","howl":"鬼嚎","angry":"怒",
+        "blink":"眨眼","tongue":"吐舌","tired":"困","logy":"呆","asquint":"斜眼","embarassed":"尴尬","cry":"面条泪","laugh_cry":"笑cry","sigh":"叹气","sweat":"汗",
+        "good":"棒","yeah":"耶","pray":"祈祷","finger":"楼上","clap":"鼓掌","muscle":"肌肉","bro":"基友","ladybro":"闺蜜","flash":"闪电","sun":"太阳",
+        "cat":"猫咪","dog":"狗狗","hog_nose":"猪鼻","horse":"马","plumpkin":"南瓜","ghost":"鬼","present":"礼物","trollface":"贱笑","diamond":"钻石","mahjong":"红中",
+        "hamburger":"汉堡","fries":"薯条","ramen":"拉面","bread":"面包","lollipop":"棒棒糖","cherry":"樱桃","cake":"蛋糕","icecream":"冰激凌"};
+
+        for(var i =0; emoji.length>24 ;i++) {
+          scope.emojiList.push(emoji.splice(24,24));
+        }
+        scope.emojiList.unshift(emoji);
+
+        scope.addEmotion = function(emotion) {
+          scope.content += '['+ dict[emotion] +']';
+          scope.resizeTextarea();
+        };
+
+        var ta = document.getElementById('ta');
+
+        //获取字符串真实长度，供计算高度用
+        var getRealLength = function(str) {
+          if(typeof(str) === 'string') {
+            var newstr =str.replace(/[\u0391-\uFFE5]/g,"aa");
+            return newstr.length;
+          }else {
+            return 0;
+          }
+        };
+
+        //重新计算输入框行数
+        scope.resizeTextarea = function() {
+          if(scope.content) {
+            var text = scope.content.split("\n");
+            var rows = text.length;
+            var originCols = ta.cols;
+            for(var i = 0; i<rows; i++) {
+              var rowText = i === 0 ? text[i] || text : text[i] || '';
+              var realLength = getRealLength(rowText);
+              if(realLength >= originCols) {
+                if(!text[i])
+                  rows += Math.ceil(realLength/originCols);
+                else
+                  rows = Math.ceil(realLength/originCols);
+              }
+            }
+            rows = Math.max(rows, 1);
+            rows = Math.min(rows, 3);
+            if(rows != ta.rows) {
+              ta.rows = rows;
+            }
+          }else {
+            ta.rows = 1;
+          }
+        };
+      }
+    }
+  }])
 
   .directive('campaignCard', ['$rootScope', 'CONFIG', 'Campaign', 'INFO', 'Tools', '$location', function ($rootScope, CONFIG, Campaign, INFO, Tools, $location) {
     return {
@@ -459,15 +546,3 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   }
 }])
-
-
-
-
-
-
-
-
-
-
-
-

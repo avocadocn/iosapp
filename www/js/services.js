@@ -488,9 +488,10 @@ angular.module('donlerApp.services', [])
        * @return {[type]}            [description]
        */
       publishComment: function(data, callback) {
+        // console.log(data);
         $http.post(CONFIG.BASE_URL +'/comments/host_type/'+data.hostType+'/host_id/'+data.hostId,{
-          'content':data.content,
-          'randomId':data.randomId
+          'content':data.content
+          // 'randomId':data.randomId
         })
         .success(function (data, status) {
           callback();
@@ -501,7 +502,7 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-  .factory('Chat', ['$http', 'CONFIG',function ($http, CONFIG, Tools) {
+  .factory('Chat', ['$http', 'CONFIG', 'Tools', function ($http, CONFIG, Tools) {
     var chatroomList;//缓存chatroomList
     return {
       /**
@@ -516,7 +517,7 @@ angular.module('donlerApp.services', [])
         $http.get(CONFIG.BASE_URL + '/chatrooms')
         .success(function (data, status) {
           callback(null,data.chatRoomList);
-          chatroomList = data.chatroomList;
+          chatroomList = data.chatRoomList;
         }).error(function (data, status) {
           callback('列表获取错误');
         });
@@ -543,9 +544,11 @@ angular.module('donlerApp.services', [])
         }).error(function (data, status) {
           callback('获取聊天失败');
         });
-        var index = Tools.arrayObjectIndexOf(chatroomList,chatroomId,'_id');
-        if(index>-1) {
-          chatroomList[i].unread = 0;
+        if(chatroomList) {
+          var index = Tools.arrayObjectIndexOf(chatroomList, params.chatroom,'_id');
+          if(index>-1) {
+            chatroomList[index].unread = 0;
+          }
         }
       },
       postChat: function(chatroomId, content, randomId, callback) {
@@ -561,7 +564,7 @@ angular.module('donlerApp.services', [])
         $http.post(CONFIG.BASE_URL +'/chatrooms/actions/read',{chatRoomIds:[chatroomId]});
         var index = Tools.arrayObjectIndexOf(chatroomList,chatroomId,'_id');
         if(index>-1) {
-          chatroomList[i].unread = 0;
+          chatroomList[index].unread = 0;
         }
       },
       /**
@@ -685,22 +688,6 @@ angular.module('donlerApp.services', [])
               callback('出错了');
             }
           });
-      },
-
-      /**
-       * 获取某人某活动的未读评论数
-       * @param  {[type]}   userId    
-       * @param  {[type]}   campaignId 
-       * @param  {Function} callback  形式为function(err, data)
-       */
-      getCampaignCommentNumber: function(userId, campaignId, callback) {
-        $http.get(CONFIG.BASE_URL + '/users/' + userId, {
-          params: {commentCampaignId : campaignId}
-        }).success(function (data, status) {
-          callback(null,data);
-        }).error(function (data, status) {
-          callback('error');
-        })
       },
 
       findBack: function (email, callback) {

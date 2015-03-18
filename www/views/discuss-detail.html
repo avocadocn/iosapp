@@ -1,6 +1,6 @@
 
 <ion-view cache-view="false" title="{{chatroomName}}" class="discuss_detail">
-  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 ng-cloak="ng-cloak" class="title">{{chatroomName}}</h1>
   </ion-header-bar>
   <ion-content>
@@ -41,18 +41,7 @@
     </div>
   </ion-content>
   <ion-footer-bar class="comment_box">
-    <form name="comment_form"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
-      <textarea id="ta" rows="1" cols="30" ng-model="commentContent" required="required" maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting = true;" ng-blur="isWriting=false;" ng-change="resizeTextarea()" class="comment_input"></textarea>
-      <button ng-click="showEmotions()" prevent-default="prevent-default" class="dl_button emotion_button"><i class="emoji emoji_tongue"></i></button>
-      <button ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid" class="publish_button">发言</button>
-      <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
-        <ion-slide ng-repeat="emoji in emojiList">
-          <div class="box clearfix">
-            <div ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emotion"><i class="emoji {{'emoji_'+emotion}}"></i></div>
-          </div>
-        </ion-slide>
-      </ion-slide-box>
-    </form>
+    <publish-box is-show-emotions="isShowEmotions" content="content" publish="publish()" show-upload-action-sheet="showUploadActionSheet()"></publish-box>
   </ion-footer-bar>
   <script id="confirm-upload-modal.html" type="text/ng-template">
     <ion-modal-view>
