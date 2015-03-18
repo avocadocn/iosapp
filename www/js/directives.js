@@ -460,6 +460,15 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   }
 }])
 
+.directive('repeatComplete', function($timeout) {
+  // return {
+  //   restrict: 'E',
+
+  // }
+  return function(scope, element, attrs) {
+    
+  };
+})
 
 
 

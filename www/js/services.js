@@ -6,13 +6,13 @@ angular.module('donlerApp.services', [])
       var signOut = function(){
         var isLogin = true;
         var path = $location.path();
-        if (path ==='/users/login' || path ==='/company/login') {
+        if (path ==='/users/login' || path ==='/hr/login') {
           isLogin = false;
         }
         if (isLogin) {
           var userType = localStorage.userType;
           if (userType === 'company') {
-            $location.path('/company/login');
+            $location.path('/hr/login');
           } else {
             $location.path('/user/login');
           }
@@ -43,9 +43,9 @@ angular.module('donlerApp.services', [])
     $httpProvider.interceptors.push('myInterceptor');
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://www.donler.com:3002',
-    STATIC_URL: 'http://www.donler.com',
-    SOCKET_URL: 'http://www.donler.com:3005',
+    BASE_URL: 'http://localhost:3002',
+    STATIC_URL: 'http://localhost:3000',
+    SOCKET_URL: 'http://localhost:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
   })
@@ -1236,6 +1236,75 @@ angular.module('donlerApp.services', [])
           $ionicLoading.hide();
           callback(err);
         });
+      }
+    }
+
+  }])
+  .factory('Circle', ['$http', 'CONFIG', 'Socket', 'INFO', function($http, CONFIG, Socket, INFO) {
+    return {
+      /**
+       * 发同事圈文字
+       * @param  {String}   campaignId 活动id
+       * @param  {String}   content    文字内容
+       * @param  {Function} callback   返回函数 形式：callback(err)
+       */
+      postCircleContent: function(campaignId, content, callback) {
+        var fd = new FormData();
+        fd.append('campaign_id', campaignId);
+        fd.append('content', content);
+        var req = {
+          method: 'POST',
+          url: CONFIG.BASE_URL + '/circle_contents',
+          headers: {
+            'Content-Type': undefined
+          },
+          data: fd,
+          transformRequest: angular.identity
+        }
+        $http(req)
+          .success(function(data, status) {
+            callback(null, data);
+          })
+          .error(function(data, status) {
+            callback(data.msg || 'error');
+          });
+      },
+      /**
+       * 获取公司同事圈内容
+       * @param  {Date|String}     latestContentDate 最新消息的发布时间(页面显示)
+       * @param  {[Date|String]}   lastContentDate   最早消息的发布时间(页面显示)
+       * @param  {Function}        callback          返回函数 形式：callback(err)
+       */
+      getCompanyCircle: function(latestContentDate, lastContentDate, callback) {
+        var url = CONFIG.BASE_URL + '/circle/company';
+        if (latestContentDate && lastContentDate) {
+          url = url + '?latest_content_date=' + latestContentDate + '&last_content_date=' + lastContentDate;
+        } else if (latestContentDate && !lastContentDate) {
+          url = url + '?latest_content_date=' + latestContentDate;
+        } else if (!latestContentDate && lastContentDate) {
+          url = url + '?last_content_date=' + lastContentDate;
+        }
+        $http.get(url)
+          .success(function(data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function(data, status, headers, config) {
+            callback('error');
+          });
+      },
+      /**
+       * 删除公司同事圈内容
+       * @param  {String}   contentId 同事圈消息id
+       * @param  {Function} callback  返回函数 形式：callback(err)
+       */
+      deleteCompanyCircle: function(contentId, callback) {
+        $http.delete(CONFIG.BASE_URL + '/circle_contents/' + contentId)
+          .success(function(data, status, headers, config) {
+            callback(null, data);
+          })
+          .error(function(data, status, headers, config) {
+            callback('error');
+          });
       }
     }
 

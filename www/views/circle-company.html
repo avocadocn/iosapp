@@ -1,0 +1,18 @@
+
+<ion-view class="circle_company">
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">同事圈</h1>
+  </ion-header-bar>
+  <ion-content>
+    <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" ng-if="!loadOptions.loadingNew"></ion-refresher>
+    <div ng-if="loadOptions.loadingNew" ng-cloak="ng-cloak" class="loading_cover"><i class="icon ion-looping"></i></div>
+    <div class="circle_company_image"></div>
+    <div class="circle_user"><a class="circle_user_name">{{user.nickname}}</a><img ng-src="{{STATIC_URL + user.photo}}/70/70" class="circle_user_image"/></div><a ng-repeat="circle in circles" ng-cloak="ng-cloak" class="dl_circle_company_card clearfix"><img ng-src="{{STATIC_URL + circle.user.photo}}/32/32" class="circle_company_logo"/>
+      <div class="circle_info"> 
+        <h2 class="user_name">{{circle.user.nickname}}</h2>
+        <p class="circle_content">{{circle.content.content}}</p>
+        <div class="icon_comment"><i ng-if="user._id == circle.user._id" ng-click="circleContentDelete($event)" id="{{circle.content._id}}" class="circle_delete">删除</i><i class="ion_comment circle_comment"></i></div>
+      </div></a>
+    <ion-infinite-scroll ng-if="!loadOptions.loadingOld" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,27 @@
+
+ion-view.company(ng-controller="CompanyController")
+
+  ion-header-bar
+    h1.title 公司
+
+  ion-content
+    .company_image
+    .list
+      a.item.item-icon-left.item-icon-right(href="#/company/teams/official")
+        i.icon.ion_teams
+        | 所有小队
+        span.item-note {{teams.length}}
+        i.icon.ion-chevron-right
+      a.item.item-icon-left.item-icon-right(href="#/company/contacts")
+        i.icon.ion-android-contacts
+        | 通讯录
+        i.icon.ion-chevron-right
+      a.item.item-icon-left.item-icon-right(href="#/company/circle")
+        i.icon.ion_ballon
+        | 所有活动
+        i.icon.ion-chevron-right
+      //- a.item.item-icon-left.item-icon-right(href="#/company/teams/personal")
+      //-   i.icon.ion_teams
+      //-   | 个人小队
+      //-   span.item-note {{personalTeams.length}}
+      //-   i.icon.ion-chevron-right

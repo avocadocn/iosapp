@@ -777,7 +777,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   .tab-item-active
     .tab-title
       color col_blue
-.ion_campaign, .ion_campaign_active, .ion_discuss, .ion_discuss_active, .ion_discover, .ion_discover_active, .ion_personal, .ion_personal_active
+.ion_campaign, .ion_campaign_active, .ion_discuss, .ion_discuss_active, .ion_company, .ion_company_active, .ion_personal, .ion_personal_active
   background-image url('../img/nav_tab.png')
   background-size 300px 110px
 .ion_campaign
@@ -788,9 +788,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-position -75px -7px
 .ion_discuss_active
   background-position -75px -50px
-.ion_discover
+.ion_company
   background-position -153px -7px
-.ion_discover_active
+.ion_company_active
   background-position -153px -50px
 .ion_personal
   background-position -233px -7px
@@ -1149,8 +1149,31 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .item-avatar > img:first-child
   border-radius 0
 //-发现页
+//TODO:
 .discover
   .discover_image
+    width 100%
+    display block
+    background url('../img/discover.jpg') no-repeat
+    background-size 100%
+    height 15rem
+    margin-top 10px
+  .list
+    .item
+      &:first-child
+        border-top 0
+      .icon
+        width 3rem
+        font-size 14px
+        color col_blue
+      .icon.ion-android-contacts
+        font-size 22px
+        padding-left 4px
+      .item-note
+        color col_blue
+//公司页
+.company
+  .company_image
     width 100%
     display block
     background url('../img/discover.jpg') no-repeat
@@ -2043,3 +2066,83 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .invite_key
   .ion-clipboard
     color col_blue
+// 同事圈发送文字页面
+.circle_content
+  margin 20px 20px 10px
+.circle_content_form
+  .content_border
+    padding0 0 0 6px
+    z-index 1500
+    height 5px
+    border-left 1px solid #33B5E5
+    border-right 1px solid #33B5E5
+    border-bottom 1px solid #33B5E5
+    background-color transparent
+  textarea
+    overflow hidden
+    height auto
+    padding 0px
+    resize none
+    max-height 560px
+    margin 0px 4px 2px
+    background-color transparent
+// 公司同事圈页面
+.circle_company
+  .circle_company_image
+    width 100%
+    display block
+    background url('../img/discover.jpg') no-repeat
+    background-size 100%
+    height 15rem
+  .circle_user
+    position relative
+    height 20px
+    .circle_user_name
+      position absolute
+      bottom 30px
+      right 110px
+      color #FFFFFF
+      font-size 14px
+      font-family Arial, Helvetica, sans-serif
+    .circle_user_image
+      display block
+      position absolute
+      top auto
+      bottom 10px
+      right 30px
+      padding 2px
+.dl_circle_company_card
+  dl_card()
+  position relative
+  border-radius 5px
+  text-decoration none
+  min-height 80px
+  .circle_company_logo
+    display block
+    position absolute
+    top 10px
+    left 10px
+  .circle_info
+    margin-left 45px
+    color col_black
+    text-decoration none
+    .user_name
+      margin 0
+      margin-top 5px
+      font-size 14px
+    .circle_content
+      margin 0
+      margin-top 5px
+      font-size 14px
+    .icon_comment
+      height 15px
+    .circle_comment
+      position absolute
+      right 10px
+      width 15px
+      height 15px
+    .circle_delete
+      font-size 4px
+      margin-left 4px
+      color col_darkBlue
+

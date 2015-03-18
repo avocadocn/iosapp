@@ -900,8 +900,8 @@ a>.login .companies_list:activated {
 .ion_campaign_active,
 .ion_discuss,
 .ion_discuss_active,
-.ion_discover,
-.ion_discover_active,
+.ion_company,
+.ion_company_active,
 .ion_personal,
 .ion_personal_active {
   background-image: url("../img/nav_tab.png");
@@ -919,10 +919,10 @@ a>.login .companies_list:activated {
 .ion_discuss_active {
   background-position: -75px -50px;
 }
-.ion_discover {
+.ion_company {
   background-position: -153px -7px;
 }
-.ion_discover_active {
+.ion_company_active {
   background-position: -153px -50px;
 }
 .ion_personal {
@@ -1340,6 +1340,29 @@ a>.login .companies_list:activated {
   padding-left: 4px;
 }
 .discover .list .item .item-note {
+  color: #3ca2e0;
+}
+.company .company_image {
+  width: 100%;
+  display: block;
+  background: url("../img/discover.jpg") no-repeat;
+  background-size: 100%;
+  height: 15rem;
+  margin-top: 10px;
+}
+.company .list .item:first-child {
+  border-top: 0;
+}
+.company .list .item .icon {
+  width: 3rem;
+  font-size: 14px;
+  color: #3ca2e0;
+}
+.company .list .item .icon.ion-android-contacts {
+  font-size: 22px;
+  padding-left: 4px;
+}
+.company .list .item .item-note {
   color: #3ca2e0;
 }
 .personal .list,
@@ -2370,4 +2393,99 @@ a>.login .companies_list:activated {
 }
 .invite_key .ion-clipboard {
   color: #3ca2e0;
+}
+.circle_content {
+  margin: 20px 20px 10px;
+}
+.circle_content_form .content_border {
+  padding0: 0 0 6px;
+  z-index: 1500;
+  height: 5px;
+  border-left: 1px solid #33b5e5;
+  border-right: 1px solid #33b5e5;
+  border-bottom: 1px solid #33b5e5;
+  background-color: transparent;
+}
+.circle_content_form textarea {
+  overflow: hidden;
+  height: auto;
+  padding: 0px;
+  resize: none;
+  max-height: 560px;
+  margin: 0px 4px 2px;
+  background-color: transparent;
+}
+.circle_company .circle_company_image {
+  width: 100%;
+  display: block;
+  background: url("../img/discover.jpg") no-repeat;
+  background-size: 100%;
+  height: 15rem;
+}
+.circle_company .circle_user {
+  position: relative;
+  height: 20px;
+}
+.circle_company .circle_user .circle_user_name {
+  position: absolute;
+  bottom: 30px;
+  right: 110px;
+  color: #fff;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.circle_company .circle_user .circle_user_image {
+  display: block;
+  position: absolute;
+  top: auto;
+  bottom: 10px;
+  right: 30px;
+  padding: 2px;
+}
+.dl_circle_company_card {
+  display: block;
+  margin: 10px 10px 5px;
+  padding: 10px;
+  box-shadow: 0 2px 0 #ccc;
+  line-height: 18px;
+  background-color: #fff;
+  position: relative;
+  border-radius: 5px;
+  text-decoration: none;
+  min-height: 80px;
+}
+.dl_circle_company_card .circle_company_logo {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+.dl_circle_company_card .circle_info {
+  margin-left: 45px;
+  color: #333;
+  text-decoration: none;
+}
+.dl_circle_company_card .circle_info .user_name {
+  margin: 0;
+  margin-top: 5px;
+  font-size: 14px;
+}
+.dl_circle_company_card .circle_info .circle_content {
+  margin: 0;
+  margin-top: 5px;
+  font-size: 14px;
+}
+.dl_circle_company_card .circle_info .icon_comment {
+  height: 15px;
+}
+.dl_circle_company_card .circle_info .circle_comment {
+  position: absolute;
+  right: 10px;
+  width: 15px;
+  height: 15px;
+}
+.dl_circle_company_card .circle_info .circle_delete {
+  font-size: 4px;
+  margin-left: 4px;
+  color: #618bd7;
 }

@@ -27,7 +27,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CompanyLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'CompanyAuth', function ($scope, CommonHeaders, $state, $ionicHistory, CompanyAuth) {
+  .controller('HrLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'CompanyAuth', function ($scope, CommonHeaders, $state, $ionicHistory, CompanyAuth) {
 
     $scope.loginData = {
       username: '',
@@ -36,7 +36,7 @@ angular.module('donlerApp.controllers', [])
 
     $scope.login = function () {
       if(window.analytics){
-        window.analytics.trackEvent('Click', 'companyLogin');
+        window.analytics.trackEvent('Click', 'hrLogin');
       }
       CompanyAuth.login($scope.loginData.username, $scope.loginData.password, function (msg) {
         if (msg) {
@@ -44,17 +44,17 @@ angular.module('donlerApp.controllers', [])
         } else {
           $ionicHistory.clearHistory();
           $ionicHistory.clearCache();
-          $state.go('company_home');
+          $state.go('hr_home');
         }
       });
     };
 
   }])
-  .controller('CompanyHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', function ($scope, $state, CompanyAuth, CommonHeaders) {
+  .controller('HrHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', function ($scope, $state, CompanyAuth, CommonHeaders) {
 
     $scope.logout = function () {
       if(window.analytics){
-        window.analytics.trackEvent('Click', 'companyLogOut');
+        window.analytics.trackEvent('Click', 'hrLogOut');
       }
       CompanyAuth.logout(function (err) {
         if (err) {
@@ -68,8 +68,8 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('createTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
-    $scope.backUrl = localStorage.userType==='company' ? '#/company/team_page' : INFO.createTeamBackUrl;
+  .controller('CreateTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
+    $scope.backUrl = localStorage.userType==='company' ? '#/hr/team_page' : INFO.createTeamBackUrl;
     $scope.isBusy = false;
     $scope.teamName = {};
     Team.getGroups(function(err,data) {
@@ -109,7 +109,7 @@ angular.module('donlerApp.controllers', [])
             if(localStorage.userType==='user')
               $state.go('team',{teamId:data.teamId});
             else
-              $state.go('company_teamPage');
+              $state.go('hr_teamPage');
           }
           else{
             $ionicPopup.alert({
@@ -122,7 +122,7 @@ angular.module('donlerApp.controllers', [])
       
     }
   }])
-  .controller('CompanyForgetController', ['$scope', '$ionicLoading', 'Company', function ($scope, $ionicLoading, Company) {
+  .controller('HrForgetController', ['$scope', '$ionicLoading', 'Company', function ($scope, $ionicLoading, Company) {
     $scope.msg = '请输入注册所填邮箱，我们会将密码重置邮件发送给您。';
     $scope.forget={};
     $scope.findBack = function(){
@@ -130,7 +130,7 @@ angular.module('donlerApp.controllers', [])
         template: '请稍等...'
       });
       if(window.analytics){
-        window.analytics.trackEvent('Click', 'companyFindBackPassword');
+        window.analytics.trackEvent('Click', 'hrFindBackPassword');
       }
       Company.findBack($scope.forget.email, function(msg){
         $ionicLoading.hide();
@@ -199,6 +199,8 @@ angular.module('donlerApp.controllers', [])
         $rootScope.hideLoading();
       });
     };
+    // 此处使用rootScope是为了解决切换tab时不能刷新的问题
+    $rootScope.getCampaignList = getCampaignList;
     $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
       if(!states.stateName && $state.$current.name === 'app.campaigns'){
         getCampaignList();
@@ -354,6 +356,10 @@ angular.module('donlerApp.controllers', [])
     $scope.goDiscussDetail = function(campaignId, campaignTheme) {
       INFO.discussName = campaignTheme;
       $state.go('discuss_detail',{campaignId: campaignId});
+    }
+    $scope.goSendCircle = function(campaignId) {
+      // $state.go('circle_send_content',{campaignId: campaignId});
+      $state.go('circle_company');
     }
     $scope.showPopup = function() {
       $scope.data = {}
@@ -572,7 +578,7 @@ angular.module('donlerApp.controllers', [])
         INFO.discussCampaignId = '';
       });
     };
-    getComments();
+    // getComments();
     
     Socket.on('newCommentCampaign', function (data) {
       var newCommentCampaign = data;
@@ -1077,7 +1083,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('DiscoverController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
+  .controller('CompanyController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
     function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
     if($state.params.type) {
       // if($state.params.type=='personal') {
@@ -1166,7 +1172,7 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('DiscoverCircleController', ['$scope', '$timeout', 'TimeLine', 'INFO', function ($scope, $timeout, TimeLine, INFO) {
+  .controller('CompanyCircleController', ['$scope', '$timeout', 'TimeLine', 'INFO', function ($scope, $timeout, TimeLine, INFO) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -1201,6 +1207,7 @@ angular.module('donlerApp.controllers', [])
       });
     }
     $scope.loadMore = function() {
+      console.log('1');
       if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
@@ -1571,7 +1578,7 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('TabController', ['$scope', '$ionicHistory', 'Socket', function ($scope, $ionicHistory, Socket) {
+  .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', function ($scope, $rootScope, $ionicHistory, Socket) {
     //每次进入页面判断是否有新评论没看
     if(localStorage.hasNewComment === true) {
       $scope.hasNewComment = true;
@@ -1592,17 +1599,20 @@ angular.module('donlerApp.controllers', [])
     
     $scope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {
-        // $ionicHistory.nextViewOptions({
-        //   disableBack: true,
-        //   historyRoot: true
-        // });
-        $ionicHistory.clearHistory();
+        $ionicHistory.nextViewOptions({
+          disableBack: true,
+          historyRoot: true
+        });
+        // $ionicHistory.clearHistory();
         // $ionicHistory.clearCache();
         if(toState.name==='app.discuss_list' || toState.name==='discuss_detail' || toState.name==='unjoined_discuss_list') {
           readComments();
           nowState = 'discussList';
         }else{
           nowState = '';
+          if (toState.name === 'app.campaigns') {
+            $rootScope.getCampaignList();
+          }
         }
     });
   }])
@@ -1973,16 +1983,16 @@ angular.module('donlerApp.controllers', [])
       }
       
   }])
-  .controller('privacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
+  .controller('PrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/settings/about';
   }])
-  .controller('compRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
+  .controller('CompRegPrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/register/company';
   }])
-  .controller('userRegPrivacyController', ['$scope', '$ionicNavBarDelegate', 'INFO', function ($scope, $ionicNavBarDelegate, INFO) {
+  .controller('UserRegPrivacyController', ['$scope', '$ionicNavBarDelegate', 'INFO', function ($scope, $ionicNavBarDelegate, INFO) {
     $scope.backHref = '#/register/user/post_detail/' + INFO.companyId;
   }])
-  .controller('companySignupController' ,['$scope', '$state', '$rootScope', '$ionicPopup', 'CompanySignup', 'CONFIG', function ($scope, $state, $rootScope, $ionicPopup, CompanySignup, CONFIG) {
+  .controller('HrSignupController' ,['$scope', '$state', '$rootScope', '$ionicPopup', 'CompanySignup', 'CONFIG', function ($scope, $state, $rootScope, $ionicPopup, CompanySignup, CONFIG) {
     //for region
     var region_url = CONFIG.BASE_URL + '/region';
     // var region_url = "http://192.168.2.107:3002/region";
@@ -2060,7 +2070,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('userSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
+  .controller('UserSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
     // $scope.keypress = function(keyEvent) {
     //   if (keyEvent.which === 13) {
     //     $scope.searchCompany();
@@ -2112,7 +2122,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('userRegisterDetailController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, $ionicPopup, UserSignup, INFO) {
+  .controller('UserRegisterDetailController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, $ionicPopup, UserSignup, INFO) {
     $scope.data = {};
     $scope.data.cid = INFO.companyId;
     $scope.data.email = INFO.email;
@@ -2150,7 +2160,7 @@ angular.module('donlerApp.controllers', [])
     }
   
   }])
-  .controller('CompanyActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', function ($scope, Company, $cordovaClipboard, $ionicPopup) {
+  .controller('HrActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', function ($scope, Company, $cordovaClipboard, $ionicPopup) {
     Company.getInviteKey(localStorage.id, function(msg, data){
       if(!msg){
         $scope.inviteKey = data.staffInviteCode;
@@ -2180,7 +2190,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CompanyTeamController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
+  .controller('HrTeamController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
     switch ($stateParams.type) {
     case 'all':
       $scope.title = '所有小队';
@@ -2201,11 +2211,11 @@ angular.module('donlerApp.controllers', [])
 
     $scope.editTeam = function (team) {
       INFO.team = team;
-      $state.go('company_editTeam',{teamId:team._id});
+      $state.go('hr_editTeam',{teamId:team._id});
     };
   }])
   //-hr编辑小队信息
-  .controller('companyEditTeamController', ['$scope', '$ionicPopup', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, INFO, Team, User) {
+  .controller('HrEditTeamController', ['$scope', '$ionicPopup', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, INFO, Team, User) {
     $scope.formData = {name: INFO.team.name};
     $scope.memberName = {};
     var teamMembersBackup = [];//切换组员、公司成员用 全部组员备份
@@ -3463,6 +3473,168 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
+  .controller('DiscoverController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', function ($ionicHistory, $scope, $state, $ionicPopup) {
+  }])
+  .controller('CircleSendController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', 'Circle', function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, Circle) {
+      $scope.circle = {
+        content: ''
+      };
+      $scope.campaignId = $stateParams.campaignId;
+      $scope.unshow = true;
+      $scope.goBack = function() {
+        if ($ionicHistory.backView()) {
+          $ionicHistory.goBack()
+        } else {
+          $state.go('app.campaigns');
+        }
+      }
+      $scope.change = function() {
+        if (!$scope.circle.content) {
+          $scope.unshow = true;
+        } else {
+          $scope.unshow = false;
+        }
+        var element = document.getElementById('circle_content');
+        element.style.height = 'auto';
+        element.style.height = element.scrollHeight + "px";
+      }
+      $scope.circle_send_content = function() {
+        Circle.postCircleContent($scope.campaignId, $scope.circle.content, function(err, data) {
+          if (!err) {
+            console.log(data);
+            $state.go('circle_company');
+          } else {
+            console.log('error');
+          }
+        })
+      }
+    }])
+    // TODO:
+    // ion-infinite-scroll maybe have bug on conditon that the items is few.
+    //  
+    .controller('CircleCompanyController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$timeout', 'Circle', 'User', 'INFO', 'Tools',
+      function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools) {
+        $scope.circles = [];
+        $scope.loadOptions = {
+          loadingNew: true,
+          loadingOld: false,
+          loadingFirst: true
+        };
+
+        User.getData(localStorage.id, function(err, data) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            $scope.user = data;
+          }
+        });
+        $scope.goBack = function() {
+          if ($ionicHistory.backView()) {
+            $ionicHistory.goBack()
+          } else {
+            $state.go('app.campaigns');
+          }
+        }
+
+        $scope.refresh = function() {
+          if ($scope.loading == true) {
+            return;
+          }
+          var latestContentDate = INFO.circleCompanyInfo[0].content.post_date;
+          Circle.getCompanyCircle(latestContentDate, null, function(err, data) {
+            if (!err) {
+              $scope.circles = data.concat(INFO.circleCompanyInfo);
+              INFO.circleCompanyInfo = data.concat(INFO.circleCompanyInfo);
+
+            } else {
+              $scope.circles = INFO.circleCompanyInfo;
+            }
+            $scope.$broadcast('scroll.refreshComplete');
+          });
+
+        }
+
+        $scope.loadMore = function() {
+          if ($scope.loadOptions.loadingOld == true) {
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          } else {
+            console.log('1');
+            $scope.loadOptions.loadingOld = true;
+
+            if (!INFO.circleCompanyInfo) {
+              console.log('2');
+              // If there is no circle company info, query the them with no parameters.
+              Circle.getCompanyCircle(null, null, function(err, data) {
+                $scope.circles = data;
+                INFO.circleCompanyInfo = data;
+                $scope.loadOptions.loadingFirst = false;
+                $timeout(function() {
+                  $scope.loadOptions.loadingNew = false;
+                }, 1000);
+              });
+            } else {
+              console.log('3');
+              if ($scope.loadOptions.loadingFirst) {
+                console.log('4');
+                // TODO:
+                // If there is some circle company info, query the newer ones with parameter(latestContentDate) and 
+                // merge them with INFO.circleCompanyInfo.
+                // think twice: slice new INFO.circleCompanyInfo to new data whose num is limited to a constant(For example: 20).
+                $scope.circles = INFO.circleCompanyInfo;
+                $scope.loadOptions.loadingFirst = false;
+                $scope.loadOptions.loadingNew = false;
+              } else {
+                console.log('5');
+                var pos = INFO.circleCompanyInfo.length - 1;
+                var lastContentDate = INFO.circleCompanyInfo[pos].content.post_date;
+                Circle.getCompanyCircle(null, lastContentDate, function(err, data) {
+                  if (!err) {
+                    $scope.circles = INFO.circleCompanyInfo.concat(data);
+                    INFO.circleCompanyInfo = INFO.circleCompanyInfo.concat(data);
+                  } else {
+                    $scope.circles = INFO.circleCompanyInfo;
+                  }
+                });
+              }
+            }
+            $timeout(function() {
+              $scope.loadOptions.loadingOld = false;
+              $scope.$broadcast('scroll.infiniteScrollComplete');
+            }, 1000);
+            // Warning: the following code is incorrect.
+            // $scope.loadOptions.loadingOld = false;
+            // $scope.$broadcast('scroll.infiniteScrollComplete');
+          }
+        }
+
+        $scope.circleContentDelete = function(e) {
+          var confirmPopup = $ionicPopup.confirm({
+            title: '提示',
+            template: '确定删除吗?',
+            cancelText: '取消',
+            okText: '确定'
+          });
+          confirmPopup.then(function(res) {
+            if (res) {
+              var element = typeof e === 'object' ? e.target : document.getElementById(e);
+              var index = Tools.arrayObjectIndexOf($scope.circles, element.id, 'content._id');
+              
+              Circle.deleteCompanyCircle(element.id, function(err, data) {
+                if(!err) {
+                  $scope.circles.splice(index, 1);
+                } else {
+                  // TODO:
+                  // show the error in the phone screen
+                  console.log('error');
+                }
+                
+              })
+            }
+          });
+        }
+      }
+    ])
 
 
 

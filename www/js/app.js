@@ -76,7 +76,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           $state.go('app.campaigns');
         } else if (localStorage.userType === 'company') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
-          $state.go('company_home');
+          $state.go('hr_home');
         }
       } else {
         $state.go('home');
@@ -106,40 +106,40 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'UserLoginController',
         templateUrl: './views/user-login.html'
       })
-      .state('company_login', {
+      .state('hr_login', {
         cache: false,
-        url: '/company/login',
-        controller: 'CompanyLoginController',
-        templateUrl: './views/company-login.html'
+        url: '/hr/login',
+        controller: 'HrLoginController',
+        templateUrl: './views/hr-login.html'
       })
-      .state('company_home', {
-        url: '/company/home',
-        controller: 'CompanyHomeController',
-        templateUrl: './views/company-home.html'
+      .state('hr_home', {
+        url: '/hr/home',
+        controller: 'HrHomeController',
+        templateUrl: './views/hr-home.html'
       })
-      .state('company_activeCode', {
-        url: '/company/active_code',
-        controller: 'CompanyActiveCodeController',
-        templateUrl: './views/company-active-code.html'
+      .state('hr_activeCode', {
+        url: '/hr/active_code',
+        controller: 'HrActiveCodeController',
+        templateUrl: './views/hr-active-code.html'
       })
-      .state('company_teamPage', {
-        url: '/company/team_page',
-        templateUrl: './views/company-team-page.html'
+      .state('hr_teamPage', {
+        url: '/hr/team_page',
+        templateUrl: './views/hr-team-page.html'
       })
-      .state('company_teamList', {
-        url: '/company/team_list/:type',
-        controller: 'CompanyTeamController',
-        templateUrl: './views/company-team-list.html'
+      .state('hr_teamList', {
+        url: '/hr/team_list/:type',
+        controller: 'HrTeamController',
+        templateUrl: './views/hr-team-list.html'
       })
-      .state('company_editTeam', {
-        url: '/company/edit_team/:teamId',
-        controller: 'companyEditTeamController',
-        templateUrl: './views/company-edit-team.html'
+      .state('hr_editTeam', {
+        url: '/hr/edit_team/:teamId',
+        controller: 'HrEditTeamController',
+        templateUrl: './views/hr-edit-team.html'
       })
-      .state('company_forget', {
-        url: '/company/forget',
-        controller: 'CompanyForgetController',
-        templateUrl: './views/company-forget.html'
+      .state('hr_forget', {
+        url: '/hr/forget',
+        controller: 'HrForgetController',
+        templateUrl: './views/hr-forget.html'
       })
       .state('user_forget', {
         url: '/user/forget',
@@ -152,7 +152,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_company_law', {
         url: '/register/company/law',
-        controller: 'compRegPrivacyController',
+        controller: 'CompRegPrivacyController',
         templateUrl: './views/privacy.html'
       })
       .state('register_company_wait', {
@@ -161,12 +161,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_user_searchCompany', {
         url: '/register/user/search_company',
-        controller:'userSearchCompanyController',
+        controller:'UserSearchCompanyController',
         templateUrl: './views/register-user-search-company.html'
       })
       .state('register_user_postDetail', {
         url: '/register/user/post_detail/:cid',
-        controller: 'userRegisterDetailController',
+        controller: 'UserRegisterDetailController',
         templateUrl: './views/register-user-post-detail.html'
       })
       .state('register_user_remind_activate', {
@@ -183,7 +183,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_user_law', {
         url: '/register/user/law',
-        controller: 'userRegPrivacyController',
+        controller: 'UserRegPrivacyController',
         templateUrl: './views/privacy.html'
       })
       .state('app', {
@@ -194,7 +194,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('privacy', {
         url: '/settings/about/privacy',
-        controller: 'privacyController',
+        controller: 'PrivacyController',
         templateUrl: './views/privacy.html'
       })
       .state('app.campaigns', {
@@ -234,27 +234,27 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/discuss-detail.html'
       })
       .state('create_team',{
-        url: '/company/create_team',
-        controller: 'createTeamController',
+        url: '/hr/create_team',
+        controller: 'CreateTeamController',
         templateUrl: './views/create-team.html'
       })
-      .state('app.discover', {
-        url: '/discover',
-        // controller: 'DiscoverController',
-        templateUrl: './views/discover.html'
+      .state('app.company', {
+        url: '/company',
+        // controller: 'CompanyController',
+        templateUrl: './views/company.html'
       })
-      .state('discover_circle', {
-        url: '/discover/circle',
-        controller: 'DiscoverCircleController',
+      .state('company_circle', {
+        url: '/company/circle',
+        controller: 'CompanyCircleController',
         templateUrl: './views/colleague-circle.html'
       })
-      .state('discover_teams', {
-        url: '/discover/teams/:type',
-        controller: 'DiscoverController',
+      .state('company_teams', {
+        url: '/company/teams/:type',
+        controller: 'CompanyController',
         templateUrl: './views/team-list.html'
       })
       .state('contacts', {
-        url: '/discover/contacts',
+        url: '/company/contacts',
         controller: 'ContactsController',
         templateUrl: './views/contacts.html'
       })
@@ -379,5 +379,55 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/report/:userId',
         controller: 'ReportController',
         templateUrl: './views/report.html'
+      })
+      .state('app.discover', {
+        url: '/discover',
+        // controller: 'DiscoverController',
+        templateUrl: './views/discover.html'
+      })
+      .state('search_opponent', {
+        url: '/discover/search_opponent',
+        // controller: 'DiscoverController',
+        templateUrl: './views/search_opponent.html'
+      })
+      .state('competition_team', {
+        url: '/competition/team/:tid',
+        // controller: 'DiscoverController',
+        templateUrl: './views/competition_team.html'
+      })
+      .state('competition_send', {
+        url: '/competition/send',
+        // controller: 'DiscoverController',
+        templateUrl: './views/competition_send.html'
+      })
+      .state('rank_select', {
+        url: '/rank/select',
+        // controller: 'DiscoverController',
+        templateUrl: './views/rank_select.html'
+      })
+      .state('rank_detail', {
+        url: '/rank/detail/:gid',
+        // controller: 'DiscoverController',
+        templateUrl: './views/rank_detail.html'
+      })
+      .state('competition_log_list', {
+        url: '/competition/log_list',
+        // controller: 'DiscoverController',
+        templateUrl: './views/competition_log_list.html'
+      })
+      .state('competition_log_detail', {
+        url: '/competition/log_detail/:id/:type',
+        // controller: 'DiscoverController',
+        templateUrl: './views/competition_log_detail.html'
+      })
+      .state('circle_send_content', {
+        url: '/circle/circle_send_content/:campaignId',
+        controller: 'CircleSendController',
+        templateUrl: './views/circle-send-content.html'
+      })
+      .state('circle_company', {
+        url: '/circle/circle_company',
+        controller: 'CircleCompanyController',
+        templateUrl: './views/circle-company.html'
       });
   });
