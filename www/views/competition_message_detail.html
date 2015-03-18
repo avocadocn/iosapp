@@ -18,6 +18,10 @@
         <div ng-cloak="ng-cloak" class="col">活动性质：{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}</div>
       </div>
       <div class="row">
+        <div class="col col-25">挑战词:</div>
+        <div ng-cloak="ng-cloak" ng-bind-html="competitionMessage.content" class="col"></div>
+      </div>
+      <div class="row">
         <div ng-cloak="ng-cloak" class="col">状态：{{competitionMessage.status | competitionMessageStatusFormat}}</div>
       </div>
       <div ng-if="oppositeLeader &amp;&amp; competitionMessage.status=='sent'" class="row">

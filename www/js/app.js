@@ -420,13 +420,13 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/search_opponent.html'
       })
       .state('competition_team', {
-        url: '/competition/team/:tid',
-        // controller: 'DiscoverController',
+        url: '/competition/team/:fromTeamId/:targetTeamId',
+        controller: 'CompetitionTeamController',
         templateUrl: './views/competition_team.html'
       })
       .state('competition_send', {
         url: '/competition/send',
-        // controller: 'DiscoverController',
+        controller: 'CompetitonSendController',
         templateUrl: './views/competition_send.html'
       })
       .state('rank_select', {

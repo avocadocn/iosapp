@@ -2475,6 +2475,9 @@ a>.login .companies_list:activated {
 .rank_table .top {
   color: #f00;
 }
+.rank_table .no_rank_table {
+  text-align: center;
+}
 .competition_message_panel .competition_message_list .type_filter {
   text-align: center;
   padding: 10px 0;
@@ -2536,8 +2539,12 @@ a>.login .companies_list:activated {
   padding: 50px 0 10px 0;
 }
 .search_opponent .selected_team .tab_view .tab_content .team {
-  clear: both;
+  float: left;
   padding: 10px;
+  text-decoration: none;
+  color: #3ca2e0;
+  width: 100%;
+  background-color: #fff;
 }
 .search_opponent .selected_team .tab_view .tab_content .operator {
   clear: both;

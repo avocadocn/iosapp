@@ -303,6 +303,18 @@ angular.module('donlerApp.services', [])
           callback(data ? data.msg:'网络连接错误');
         });
       },
+      getCompetitionOfTeams:function(data, callback){
+        $http.get(CONFIG.BASE_URL + '/campaigns/competition/'+data.fromTeamId+'/'+data.targetTeamId, {
+          page: data.page
+        })
+        .success(function (data, status) {
+          callback(null,data);
+        })
+        .error(function (data, status) {
+          // todo
+          callback(data ? data.msg:'网络连接错误');
+        });
+      },
       get: function (id, callback) {
         $http.get(CONFIG.BASE_URL + '/campaigns/' + id+'?populate=photo_album')
         .success(function (data, status) {
@@ -922,6 +934,15 @@ angular.module('donlerApp.services', [])
         .error(function (data, status, headers, config) {
           callback(data ? data.msg:'网络连接错误');
         });
+      },
+      getCompetitonTeam: function (fromTeamId, targetTeamId, callback) {
+        $http.get(CONFIG.BASE_URL + '/teams/competition/'+fromTeamId+'/'+targetTeamId)
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          callback(data ? data.msg:'网络连接错误');
+        });
       }
 
     };
@@ -1346,7 +1367,30 @@ angular.module('donlerApp.services', [])
   }])
   .factory('CompetitionMessage', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
-
+      /**
+       * 创建挑战信
+       * @param  {Object}   data     发送的数据
+       * @param  {Function} callback [description]
+       * @return {[type]}            [description]
+       */
+      createCompetitionMessage: function (data, callback) {
+        $http.post( CONFIG.BASE_URL + '/competition_messages', {
+          sponsor: data.sponsor,
+          opposite: data.opposite,
+          type: data.type,
+          content: data.content
+        })
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
       /**
        * 获取挑战信列表
        * @param  {Object}   data     query的数据包括： sponsor， opposite，messageType

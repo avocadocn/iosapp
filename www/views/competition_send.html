@@ -1,9 +1,33 @@
 
 <ion-view>
-  <ion-header-bar><a href="#/competition/team/" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">发送挑战信</h1>
+  <ion-header-bar><a ng-click="goBack()" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">发送挑战信</h1><a ng-click="publishMessage()" class="button button-clear button-positive">&nbsp;发送</a>
   </ion-header-bar>
   <ion-content>
-    <p>发送挑战信</p>
+    <div class="competition_send">
+      <div ng-cloak="ng-cloak" class="row">
+        <div class="col"><img ng-src="{{STATIC_URL + targetTeam.logo}}/50/50" class="team_logo"/></div>
+        <div class="col col-50">
+          <p>{{targetTeam.name}}</p>
+          <p>活跃度: {{targetTeam.activityScore}}</p>
+          <p>{{targetTeam.cname}}</p>
+        </div>
+        <div class="col">
+          <p>{{targetTeam.memberCount}} 人</p>
+          <p>积分: {{targetTeam.score_rank.score || 0}}({{targetTeam.score_rank.win || 0}} 胜 {{targetTeam.score_rank.tie || 0}}平 {{targetTeam.score_rank.lose || 0}}负)</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">类型：
+          <input type="radio" ng-model="messageData.type" value="1" name="type"/><span>挑战</span>
+          <input type="radio" ng-model="messageData.type" value="2" name="type"/><span>联谊</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <textarea ng-model="messageData.content" rows="5" required="required" maxlength="200"></textarea>
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

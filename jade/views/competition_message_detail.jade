@@ -16,6 +16,9 @@ ion-view.competition_message_panel
       .row
         .col(ng-cloak) 活动性质：{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}
       .row
+        .col.col-25 挑战词:
+        .col(ng-cloak ng-bind-html="competitionMessage.content")
+      .row
         .col(ng-cloak) 状态：{{competitionMessage.status | competitionMessageStatusFormat}}
       .row(ng-if="oppositeLeader && competitionMessage.status=='sent'")
         .button-bar

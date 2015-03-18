@@ -3,7 +3,7 @@ ion-view
     a.button.icon.ion-chevron-left(href="#/rank/select") &nbsp;返回
     h1.title 排行榜
   ion-content
-    .rank_table
+    .rank_table(ng-if="rank.team.length>0")
       .row(ng-repeat="team in rank.team | orderBy : 'rank'" ng-class="team.belong? 'belong': ''")
         .col(ng-class="$index<3 ? 'top': ''")
           span(ng-if="$index<3") TOP
@@ -16,6 +16,9 @@ ion-view
            span {{team.member_num}} 人
            span 胜率{{team.win}} : {{team.tie}} : {{team.lose}}
         .col {{team.score || 0}}分
+    .rank_table(ng-if="!rank || rank.team.length==0")
+      .row
+        .col.no_rank_table 目前没有该类型的小队排行
     .team_table(ng-if="noRankTeams.length>0")
       .row
         .col 我的小队
