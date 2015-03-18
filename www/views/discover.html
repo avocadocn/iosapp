@@ -5,23 +5,21 @@
   </ion-header-bar>
   <ion-content>
     <div class="discover_image"></div>
-    <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/rank/select" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>排行榜<i class="icon ion-chevron-right"></i></a><a href="#/competition/log_list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<i class="icon ion-chevron-right"></i></a></div>
+    <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/rank/select" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>排行榜<i class="icon ion-chevron-right"></i></a><a href="#/competition_message/list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<i class="icon ion-chevron-right"></i></a></div>
     <div class="rank_panel">
-      <div class="team_select"><span>我的小队排名:</span>
-        <select ng-change="selectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams"></select>
+      <div class="team_select">
+        <label class="item item-input item-select"><span class="input-label">我的小队排名:</span>
+          <select ng-change="changeSelectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams" class="select_info"></select>
+        </label>
       </div>
       <div class="rank_table">
-        <table class="table table-bordered table-condensed table-hover table-striped">
-          <tbody>
-            <tr ng-repeat="_team in selectRank.team">
-              <td>{{team.score_rank.rank}}</td>
-              <td><img ng-src="{{team.logo}}/40/40" class="memer_logo"/></td>
-              <td class="center">{{team.name}}</td>
-              <td class="center">{{team.score_rank.score}}</td>
-              <td class="center">{{team.score_rank.win/(team.score_rank.win+team.score_rank.tie+team.score_rank.lose)}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div ng-repeat="rankTeam in selectTeam.rankTeams" class="row">
+          <div class="col">{{rankTeam.score_rank.rank}}</div>
+          <div class="col"><img ng-src="{{STATIC_URL + rankTeam.logo}}/40/40" class="team_logo"/></div>
+          <div class="col">{{rankTeam.name}}</div>
+          <div class="col">{{rankTeam.score_rank.score || 0}}</div>
+          <div class="col">{{rankTeam.score_rank.winPercent}}</div>
+        </div>
       </div>
     </div>
   </ion-content>

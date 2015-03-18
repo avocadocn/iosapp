@@ -1,6 +1,25 @@
 ion-view
   ion-header-bar
-    a.button.icon.ion-chevron-left(href="#/competition/team/") &nbsp;返回
+    a.button.icon.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title 发送挑战信
+    a.button.button-clear.button-positive(ng-click="publishMessage()") &nbsp;发送
   ion-content
-    p 发送挑战信
+    .competition_send
+      .row(ng-cloak)
+        .col: img.team_logo(ng-src="{{STATIC_URL + targetTeam.logo}}/50/50")
+        .col.col-50
+          p {{targetTeam.name}}
+          p 活跃度: {{targetTeam.activityScore}}
+          p {{targetTeam.cname}}
+        .col
+          p {{targetTeam.memberCount}} 人
+          p 积分: {{targetTeam.score_rank.score || 0}}({{targetTeam.score_rank.win || 0}} 胜 {{targetTeam.score_rank.tie || 0}}平 {{targetTeam.score_rank.lose || 0}}负)
+      .row
+        .col 类型：
+          input(type="radio" ng-model="messageData.type" value="1" name="type")
+          span 挑战
+          input(type="radio" ng-model="messageData.type" value="2" name="type")
+          span 联谊
+      .row
+        .col
+          textarea(ng-model="messageData.content" rows=5 required maxlength=200)

@@ -6,7 +6,7 @@
 
 angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize'])
 
-  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO) {
+  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -73,10 +73,20 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
-          $state.go('app.campaigns');
+          UserAuth.refreshToken(function (err) {
+             if (err) {
+               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+             }
+             $state.go('app.campaigns');
+          });
         } else if (localStorage.userType === 'company') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
-          $state.go('hr_home');
+          CompanyAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+            $state.go('hr_home');
+          });
         }
       } else {
         $state.go('home');
@@ -85,6 +95,25 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       INFO.screenWidth = window.innerWidth;
       INFO.screenHeight = window.innerHeight;
 
+    });
+
+    $ionicPlatform.on('resume', function () {
+       if (localStorage.userType) {
+         if (localStorage.userType === 'user') {
+           UserAuth.refreshToken(function (err) {
+             if (err) {
+               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+             }
+           });
+         }
+         else if (localStorage.userType === 'company') {
+           CompanyAuth.refreshToken(function (err) {
+             if (err) {
+               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+             }
+           });
+         }
+       }
     });
     $rootScope.showLoading = function() {
       $ionicLoading.show({
@@ -212,6 +241,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CampaignEditController',
         templateUrl: './views/campaign-edit.html'
       })
+      .state('campaigns_discuss', {
+        url: '/campaign/discuss/:id',
+        controller: 'DiscussDetailController',
+        templateUrl: './views/campaign-discuss.html'
+      })
       .state('sponsor', {
         cache: false,
         url: '/campaign/sponsor/:type',
@@ -220,17 +254,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('app.discuss_list', {
         url: '/discuss/list',
-        // controller: 'DiscussListController',
+        controller: 'DiscussListController',
         templateUrl: './views/discuss-list.html'
       })
-      .state('unjoined_discuss_list', {
-        url: '/discuss/list/unjoined',
-        controller: 'UnjoinedDiscussController',
-        templateUrl: './views/unjoined-discuss-list.html'
-      })
-      .state('discuss_detail', {
-        url: '/discuss/detail/:campaignId',
-        controller: 'DiscussDetailController',
+      .state('chat', {
+        url: '/chat/:chatroomId',
+        controller: 'ChatroomDetailController',
         templateUrl: './views/discuss-detail.html'
       })
       .state('create_team',{
@@ -387,33 +416,33 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('search_opponent', {
         url: '/discover/search_opponent',
-        // controller: 'DiscoverController',
+        controller: 'SearchOpponentController',
         templateUrl: './views/search_opponent.html'
       })
       .state('competition_team', {
-        url: '/competition/team/:tid',
-        // controller: 'DiscoverController',
+        url: '/competition/team/:fromTeamId/:targetTeamId',
+        controller: 'CompetitionTeamController',
         templateUrl: './views/competition_team.html'
       })
       .state('competition_send', {
         url: '/competition/send',
-        // controller: 'DiscoverController',
+        controller: 'CompetitonSendController',
         templateUrl: './views/competition_send.html'
       })
       .state('rank_select', {
         url: '/rank/select',
-        // controller: 'DiscoverController',
+        controller: 'RankSelectController',
         templateUrl: './views/rank_select.html'
       })
       .state('rank_detail', {
         url: '/rank/detail/:gid',
-        // controller: 'DiscoverController',
+        controller: 'RankDetailController',
         templateUrl: './views/rank_detail.html'
       })
-      .state('competition_log_list', {
-        url: '/competition/log_list',
-        // controller: 'DiscoverController',
-        templateUrl: './views/competition_log_list.html'
+      .state('competition_message_list', {
+        url: '/competition_message/list',
+        controller: 'CompetitionMessageListController',
+        templateUrl: './views/competition_message_list.html'
       })
       .state('competition_log_detail', {
         url: '/competition/log_detail/:id/:type',
@@ -429,5 +458,15 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/circle/circle_company',
         controller: 'CircleCompanyController',
         templateUrl: './views/circle-company.html'
+      })
+      .state('circle_uploader', {
+        url: '/circle/uploader/:campaignId',
+        templateUrl: './views/circle_uploader.html',
+        controller: 'CircleUploaderController'
+      })
+      .state('competition_message_detail', {
+        url: '/competition_message/detail/:id',
+        controller: 'CompetitionMessageDetailController',
+        templateUrl: './views/competition_message_detail.html'
       });
   });

@@ -63,4 +63,24 @@ angular.module('donlerApp.filters', [])
   return function(val) {
     return $sce.trustAsHtml(val);
   };
+}])
+.filter("competitionMessageStatusFormat", [function() {
+  return function(input) {
+    var result = '';
+    switch(input) {
+      case 'sent':
+        result = '已发送请求';
+        break;
+      case 'accepted':
+        result = '接受未发活动';
+        break;
+      case 'rejected':
+        result = '被拒绝';
+        break;
+      case 'competing':
+        result = '已生成挑战';
+        break;
+    }
+    return result;
+  };
 }]);

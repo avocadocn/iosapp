@@ -1,13 +1,13 @@
 
-<ion-view cache-view="false" title="{{chatroomName}}" class="discuss_detail">
-  <ion-header-bar><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 ng-cloak="ng-cloak" class="title">{{chatroomName}}</h1>
+<ion-view cache-view="false" title="{{campaignTitle}}" class="discuss_detail">
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 ng-cloak="ng-cloak" class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a>
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-click="hideEmotions()" class="comments">
-      <div ng-repeat="chats in chatsList track by $index" id="chats{{$index}}" class="blocks">
-        <div ng-repeat="comment in chats track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack="ng-cloack" class="block">
+      <div ng-repeat="comments in commentList track by $index" id="comment{{$index}}" class="blocks">
+        <div ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack="ng-cloack" class="block">
           <div ng-show="showTime &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]))" class="time_block">
             <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]===1))" ng-cloak="ng-cloak" class="time">{{comment.create_date | date: 'yyyy'}}</span></p>
             <p><span ng-cloak="ng-cloak" class="time">{{comment.create_date | date: 'M月dd日 HH:mm'}}</span></p>
@@ -41,7 +41,18 @@
     </div>
   </ion-content>
   <ion-footer-bar class="comment_box">
-    <publish-box is-show-emotions="isShowEmotions" content="content" publish="publish()" show-upload-action-sheet="showUploadActionSheet()"></publish-box>
+    <form name="comment_form"><i ng-click="showUploadActionSheet()" class="icon ion-image"></i>
+      <textarea id="ta" rows="1" cols="30" ng-model="commentContent" required="required" maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting = true;" ng-blur="isWriting=false;" ng-change="resizeTextarea()" class="comment_input"></textarea>
+      <button ng-click="showEmotions()" prevent-default="prevent-default" class="dl_button emotion_button"><i class="emoji emoji_tongue"></i></button>
+      <button ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid" class="publish_button">发言</button>
+      <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
+        <ion-slide ng-repeat="emoji in emojiList">
+          <div class="box clearfix">
+            <div ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emotion"><i class="emoji {{'emoji_'+emotion}}"></i></div>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+    </form>
   </ion-footer-bar>
   <script id="confirm-upload-modal.html" type="text/ng-template">
     <ion-modal-view>

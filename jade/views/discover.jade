@@ -15,20 +15,19 @@ ion-view.discover(ng-controller="DiscoverController")
         i.icon.ion-android-contacts
         | 排行榜
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/competition/log_list")
+      a.item.item-icon-left.item-icon-right(href="#/competition_message/list")
         i.icon.ion_ballon
         | 挑战日志
         i.icon.ion-chevron-right
     .rank_panel
       .team_select
-        span 我的小队排名:
-        select(ng-change="selectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams")
+        label.item.item-input.item-select
+          span.input-label 我的小队排名:
+          select.select_info(ng-change="changeSelectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams")
       .rank_table
-        table.table.table-bordered.table-condensed.table-hover.table-striped
-          tbody()
-            tr(ng-repeat="_team in selectRank.team")
-              td {{team.score_rank.rank}}
-              td: img.memer_logo(ng-src="{{team.logo}}/40/40")
-              td.center {{team.name}}
-              td.center {{team.score_rank.score}}
-              td.center {{team.score_rank.win/(team.score_rank.win+team.score_rank.tie+team.score_rank.lose)}}
+        .row(ng-repeat="rankTeam in selectTeam.rankTeams")
+          .col {{rankTeam.score_rank.rank}}
+          .col: img.team_logo(ng-src="{{STATIC_URL + rankTeam.logo}}/40/40")
+          .col {{rankTeam.name}}
+          .col {{rankTeam.score_rank.score || 0}}
+          .col {{rankTeam.score_rank.winPercent}}

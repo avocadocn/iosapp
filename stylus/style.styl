@@ -891,79 +891,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         font-size 20px
         line-height 1
         padding 0
-  //-发评论
-  .comment_box
-    color #333
-    background-color col_gray
-    display block
-    height auto
-    padding-top 5px
-    //- position relative
-    .icon.ion-image
-      font-size 22px
-      margin-top -12px
-      padding 6% 10px 0
-      float left
-    .comment_input
-      float left
-      width 68%
-      margin-top 3px
-      padding-left 5px
-      background-color #fff
-      border-radius 3px
-      padding-top 5px
-      box-shadow 0 0 0
-      border-radius 3px
-      min-height 28px
-      resize none
-      margin-bottom 5px
-    .emotion_button
-      float left
-      background-color transparent
-      width 24px
-      margin-left 2px
-      margin-top -12px
-      padding 6% 0 0
-      .emoji
-        vertical-align baseline
-    button.publish_button[disabled]
-      color col_darkGray !important
-    .publish_button
-      float left
-      padding 0
-      border 0
-      background-color transparent
-      color #333
-      text-align cesfdgnter
-      width 3rem
-      font-size 14px
-      line-height 21px
-      margin-top -12px
-      padding 6% 0 5px
-      font-weight 600
-    .emotion_box
-      border-top 1px solid #ccc
-      padding 5px 0
-      width 100%
-      height 160px
-      float left
-      background-color #fff
-      .box
-        width 320px
-        padding 4px
-        margin auto
-        .emotion
-          padding 9px
-          float left
-          .emoji
-            margin-right 0
-            height 21px
-            width 21px
-            margin 0
-      .slider-pager
-        bottom 5px
-        .icon.ion-record
-          color col_blue
 
   //-评论列表
   .comments
@@ -1130,7 +1057,79 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
             left auto
             border none
             right -10px
-
+//-发评论
+.comment_box
+  color #333
+  background-color col_gray
+  display block
+  height auto
+  padding-top 5px
+  //- position relative
+  .icon.ion-image
+    font-size 22px
+    margin-top -12px
+    padding 6% 10px 0
+    float left
+  .comment_input
+    float left
+    width 68%
+    margin-top 3px
+    padding-left 5px
+    background-color #fff
+    border-radius 3px
+    padding-top 5px
+    box-shadow 0 0 0
+    border-radius 3px
+    min-height 28px
+    resize none
+    margin-bottom 5px
+  .emotion_button
+    float left
+    background-color transparent
+    width 24px
+    margin-left 2px
+    margin-top -12px
+    padding 6% 0 0
+    .emoji
+      vertical-align baseline
+  button.publish_button[disabled]
+    color col_darkGray !important
+  .publish_button
+    float left
+    padding 0
+    border 0
+    background-color transparent
+    color #333
+    text-align cesfdgnter
+    width 3rem
+    font-size 14px
+    line-height 21px
+    margin-top -12px
+    padding 6% 0 5px
+    font-weight 600
+  .emotion_box
+    border-top 1px solid #ccc
+    padding 5px 0
+    width 100%
+    height 160px
+    float left
+    background-color #fff
+    .box
+      width 320px
+      padding 4px
+      margin auto
+      .emotion
+        padding 9px
+        float left
+        .emoji
+          margin-right 0
+          height 21px
+          width 21px
+          margin 0
+    .slider-pager
+      bottom 5px
+      .icon.ion-record
+        color col_blue
           
 //-讨论列表页
 .discuss_list
@@ -2145,4 +2144,149 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       font-size 4px
       margin-left 4px
       color col_darkBlue
-
+//选择小队类型
+.rank_select
+  .groups
+    .group
+      min-width 50px
+      float left
+      width 25%
+      text-align center
+      padding 10px
+      a
+        text-decoration none
+        label
+          color black
+          &.active
+            color #3ca2e0
+        .img_contain
+          width 50px
+          height 50px
+          background-image url('/img/icons/groups_new.png')
+          background-repeat no-repeat
+          background-size 600px 1500px
+          margin 0 auto
+        for i in 0..16
+          .group_{i+1}
+            background-position i%6 * -100px floor(i/6) * -100px
+.rank_table
+  .belong
+    color #3ca2e0
+  .top
+    color red
+  .no_rank_table
+    text-align center
+.competition_message_panel
+  .competition_message_list
+    .type_filter
+      text-align center
+      padding 10px 0
+    .competition_message
+      text-decoration none
+      color black
+      background-color white
+.search_opponent
+  .select_team
+    .units
+      background-color #fbfbfb
+      .unit
+        float left
+        width 30%
+        padding 10px
+        cursor pointer
+        background-color #edebec
+        border-radius 5px
+        margin 5px
+        border 1px solid #3CA2E0
+        box-shadow 1px 1px 3px #c8cac7
+        text-align center
+        &.leader
+          border 1px solid #F48361
+        .logo
+          width 50px
+          height 50px
+          margin-right 10px
+        .text
+          .title
+            width 100%
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
+            margin-bottom 10px
+            float left
+        .button
+          width 100%
+          height 25px
+          background-color #ccc
+          box-shadow 0 0 0
+  .selected_team
+    .team
+      .logo
+        width 50px
+        height 50px
+        margin-right 10px
+        float left
+    .tab_view
+      width 100%
+      background-color #fff
+      margin-top 10px
+      .tab_content
+        padding 50px 0 10px 0
+        .team
+          float left
+          padding 10px
+          text-decoration none
+          color #3CA2E0
+          width 100%
+          background-color white
+        .operator
+          clear both
+          text-align center
+      .opponent_tab_style
+        width 30%
+        float left
+        text-align center
+        background-color #3CA2E0
+        border-right 1px solid #3CA2E0
+        a
+          font-size 16px
+          height 100%
+          padding 10px
+          display block
+          color white
+        &.active
+          background-color white
+          a
+            color #3CA2E0
+      .sameCity
+        width 25%
+      .nearbyTeam
+        width 25%
+        .nav_img
+          width 16px
+      .search
+        width 50%
+        position relative
+        a
+          padding 5px
+        .searchOpponentInput
+          height 30px
+          width 280px
+          border-radius 5px
+          border 0
+          padding 8px 10px
+          color #3CA2E0
+          background-color #E2E2E2
+        .search_button
+          height 30px
+          min-height 30px
+          width 30px
+          min-width 30px
+          position absolute
+          right 0
+          top 0
+          background-color transparent
+          color #3CA2E0
+          font-size 22px
+          padding 0
+          border none

@@ -1,0 +1,13 @@
+
+<ion-view>
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">上传图片</h1>
+  </ion-header-bar>
+  <ion-content>
+    <p>test</p>
+    <textarea ng-model="circleData.content" placeholder="说点什么吧"></textarea>
+    <button ng-click="choosePhotos()" class="button">选择图片</button>
+    <div><img ng-repeat="uri in uploadFileURIs" ng-src="{{uri}}" width="150" height="150"/></div>
+    <button ng-click="publish()" class="button">发表</button>
+  </ion-content>
+</ion-view>
