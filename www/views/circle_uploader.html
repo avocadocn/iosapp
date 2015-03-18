@@ -1,13 +1,22 @@
 
 <ion-view>
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">上传图片</h1>
+    <h1 class="title">发图片</h1>
   </ion-header-bar>
   <ion-content>
-    <p>test</p>
-    <textarea ng-model="circleData.content" placeholder="说点什么吧"></textarea>
-    <button ng-click="choosePhotos()" class="button">选择图片</button>
-    <div><img ng-repeat="uri in uploadFileURIs" ng-src="{{uri}}" width="150" height="150"/></div>
-    <button ng-click="publish()" class="button">发表</button>
+    <div class="list">
+      <div ng-repeat="uri in uploadFileURIs" class="item item-thumbnail-left item-icon-right"><img ng-src="{{uri}}" width="150" height="150"/><i ng-click="remove($index)" class="icon ion-close-round"></i></div>
+    </div>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <textarea ng-model="circleData.content" placeholder="说点什么吧"></textarea>
+      </label>
+    </div>
+    <div class="list">
+      <div class="item">
+        <button ng-click="publish()" ng-disabled="uploadFileURIs.length === 0" class="button button-block button-positive">发表</button>
+        <button ng-click="choosePhotos()" class="button button-block">重新选择</button>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

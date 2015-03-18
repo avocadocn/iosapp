@@ -3803,7 +3803,8 @@ angular.module('donlerApp.controllers', [])
     '$cordovaFile',
     'CONFIG',
     'CommonHeaders',
-    function ($scope, $ionicHistory, $state, $q, Circle, $cordovaFile, CONFIG, CommonHeaders) {
+    '$ionicLoading',
+    function ($scope, $ionicHistory, $state, $q, Circle, $cordovaFile, CONFIG, CommonHeaders, $ionicLoading) {
       $scope.goBack = function() {
         if($ionicHistory.backView()){
           $ionicHistory.goBack();
@@ -3820,18 +3821,24 @@ angular.module('donlerApp.controllers', [])
 
       $scope.uploadFileURIs = [];
 
+      $scope.remove = function (index) {
+        $scope.uploadFileURIs.splice(index, 1);
+      };
+
       $scope.choosePhotos = function () {
         if (window.imagePicker) {
-          window.imagePicker.getPictures(
-            function(results) {
-              $scope.uploadFileURIs = results;
-              $scope.$digest();
-            }, function (error) {
-              console.log('Error: ' + error);
-            }
-          );
+          window.imagePicker.getPictures(function(results) {
+            $scope.uploadFileURIs = results;
+            $scope.$digest();
+          }, function (error) {
+            console.log('Error: ' + error);
+          }, {
+            maximumImagesCount: 9,
+            quality: 50 // 0~100
+          });
         }
       };
+      $scope.choosePhotos(); // 进入该页面先直接弹出选框
 
       /**
        * 上传一张图片
@@ -3865,13 +3872,19 @@ angular.module('donlerApp.controllers', [])
           var uploadPromises = $scope.uploadFileURIs.map(function (uri) {
             return upload(uri, circleContentId);
           });
+          $ionicLoading.show({
+            template: '上传中...',
+            duration: 5000
+          });
           return $q.all(uploadPromises);
         })
         .then(function (results) {
           return Circle.active(circleContentId);
         })
         .then(function (response) {
+          $ionicLoading.hide();
           alert('发表成功'); // TODO: 需改为设计样式
+          $scope.goBack();
         })
         .then(null, function (response) {
           if (response instanceof Error) {
