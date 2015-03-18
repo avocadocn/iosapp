@@ -3550,7 +3550,23 @@ angular.module('donlerApp.controllers', [])
         // 这里是不正常的返回，正常情况下都应该从history中返回，不会进入到这里。
         $state.go('app.campaigns');
       }
-    }
+    };
+
+    $scope.choosePhotos = function () {
+      if (window.imagePicker) {
+        window.imagePicker.getPictures(
+          function(results) {
+            for (var i = 0; i < results.length; i++) {
+              console.log('Image URI: ' + results[i]);
+            }
+
+          }, function (error) {
+            console.log('Error: ' + error);
+          }
+        );
+      }
+    };
+
   }]);
 
 
