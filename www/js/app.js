@@ -241,6 +241,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CampaignEditController',
         templateUrl: './views/campaign-edit.html'
       })
+      .state('campaigns_discuss', {
+        url: '/campaign/discuss/:id',
+        controller: 'DiscussDetailController',
+        templateUrl: './views/campaign-discuss.html'
+      })
       .state('sponsor', {
         cache: false,
         url: '/campaign/sponsor/:type',
@@ -249,17 +254,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('app.discuss_list', {
         url: '/discuss/list',
-        // controller: 'DiscussListController',
+        controller: 'DiscussListController',
         templateUrl: './views/discuss-list.html'
       })
-      .state('unjoined_discuss_list', {
-        url: '/discuss/list/unjoined',
-        controller: 'UnjoinedDiscussController',
-        templateUrl: './views/unjoined-discuss-list.html'
-      })
-      .state('discuss_detail', {
-        url: '/discuss/detail/:campaignId',
-        controller: 'DiscussDetailController',
+      .state('chat', {
+        url: '/chat/:chatroomId',
+        controller: 'ChatroomDetailController',
         templateUrl: './views/discuss-detail.html'
       })
       .state('create_team',{
@@ -443,6 +443,16 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/competition_message/list',
         controller: 'CompetitionMessageListController',
         templateUrl: './views/competition_message_list.html'
+      })
+      .state('competition_log_detail', {
+        url: '/competition/log_detail/:id/:type',
+        // controller: 'DiscoverController',
+        templateUrl: './views/competition_log_detail.html'
+      })
+      .state('circle_uploader', {
+        url: '/circle/uploader',
+        templateUrl: './views/circle_uploader.html',
+        controller: 'CircleUploaderController'
       })
       .state('competition_message_detail', {
         url: '/competition_message/detail/:id',

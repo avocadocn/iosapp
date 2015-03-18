@@ -41,9 +41,9 @@ angular.module('donlerApp.services', [])
     $httpProvider.defaults.headers["delete"] = {'Content-Type': 'application/json;charset=utf-8'};
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://localhost:3002',
-    STATIC_URL: 'http://localhost:3000',
-    SOCKET_URL: 'http://localhost:3005',
+    BASE_URL: 'http://www.donler.com:3002',
+    STATIC_URL: 'http://www.donler.com:3000',
+    SOCKET_URL: 'http://www.donler.com:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
   })
@@ -59,7 +59,7 @@ angular.module('donlerApp.services', [])
     screenWidth: 320,
     screenHeight: 568,
     team:'',//hr编辑小队用
-    discussCampaignId:''//供返回时去除红点用
+    needUpdateDiscussList:false //供判断是否需要更新discussList
   })
   .factory('CommonHeaders', ['$http', 'CONFIG', function ($http, CONFIG) {
 
@@ -478,10 +478,7 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Comment', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
-      // getList: function (type) {
-      //   return $http.get(CONFIG.BASE_URL + '/comments/list/?type=' + type);
-      // },
-      getComments: function(data, callback) {
+      getComments: function(data,callback) {
         $http.get(CONFIG.BASE_URL + '/comments',{
           params:{
             requestType: data.requestType,
@@ -503,9 +500,10 @@ angular.module('donlerApp.services', [])
        * @return {[type]}            [description]
        */
       publishComment: function(data, callback) {
+        // console.log(data);
         $http.post(CONFIG.BASE_URL +'/comments/host_type/'+data.hostType+'/host_id/'+data.hostId,{
-          'content':data.content,
-          'randomId':data.randomId
+          'content':data.content
+          // 'randomId':data.randomId
         })
         .success(function (data, status) {
           callback();
@@ -514,14 +512,90 @@ angular.module('donlerApp.services', [])
           callback('publish error');
         });
       }
-      // readComment: function(campaignId, callback) {
-      //   $http.post(CONFIG.BASE_URL + '/comments/read',{requestId:campaignId})
-      //   .success(function (data,status) {
-      //     callback()
-      //   }).error(function (data, status) {
-      //     callback('read error');
-      //   })
-      // }
+    }
+  }])
+  .factory('Chat', ['$http', 'CONFIG', 'Tools', function ($http, CONFIG, Tools) {
+    var chatroomList;//缓存chatroomList
+    return {
+      /**
+       * 获取聊天室列表
+       * @param  {Function} callback 形如function(err, list)
+       */
+      getChatroomList: function(callback) {
+        if(chatroomList) {
+          callback(null, chatroomList);
+          return;
+        }
+        $http.get(CONFIG.BASE_URL + '/chatrooms')
+        .success(function (data, status) {
+          callback(null,data.chatRoomList);
+          chatroomList = data.chatRoomList;
+        }).error(function (data, status) {
+          callback('列表获取错误');
+        });
+      },
+
+      getChatroomUnread: function(callback) {
+        $http.get(CONFIG.BASE_URL + '/chatrooms/unread')
+        .success(function (data, status) {
+          callback(null,data.chatrooms);
+        }).error(function (data, status) {
+          callback('列表获取错误');
+        });
+      },
+      /**
+       * 获取某聊天室的聊天记录
+       * @param  {Object}   params  查询query:{chatroom,nextDate,nextId}
+       * @param  {Function} callback 形如:function(err,data)
+       */
+      getChats: function(params, callback) {
+        $http.get(CONFIG.BASE_URL +'/chats',{
+          params:params
+        }).success(function (data, status) {
+          callback(null, data);
+        }).error(function (data, status) {
+          callback('获取聊天失败');
+        });
+        if(chatroomList) {
+          var index = Tools.arrayObjectIndexOf(chatroomList, params.chatroom,'_id');
+          if(index>-1) {
+            chatroomList[index].unread = 0;
+          }
+        }
+      },
+      postChat: function(chatroomId, content, randomId, callback) {
+        // $http.post(CONFIG.BASE_URL + '/chatrooms/'+chatroomId+'/chats',{})
+      },
+      /**
+       * [readChat description]
+       * @param  {[type]}   chatroomId [description]
+       * @param  {Function} callback   [description]
+       * @return {[type]}              [description]
+       */
+      readChat: function(chatroomId, callback) {
+        $http.post(CONFIG.BASE_URL +'/chatrooms/actions/read',{chatRoomIds:[chatroomId]});
+        var index = Tools.arrayObjectIndexOf(chatroomList,chatroomId,'_id');
+        if(index>-1) {
+          chatroomList[index].unread = 0;
+        }
+      },
+      /**
+       * 保存当前chatroomList(离开列表页时)
+       * @param  {array} chatrooms
+       */
+      saveChatroomList: function(chatrooms) {
+        chatroomList = chatrooms;
+      },
+      /**
+       * 当socket来了数据时更新缓存chatroomList
+       * @param  {Object} chat 
+       */
+      updateChatroomList: function(chat) {
+        if(chatroomList) {
+          var index = Tools.arrayObjectIndexOf(chatroomList,chat.chatroom_id,'_id');
+          if(index>-1) chatroomList[index].unread ++;
+        }
+      }
     }
   }])
   .factory('Tools', [function () {
@@ -626,22 +700,6 @@ angular.module('donlerApp.services', [])
               callback('出错了');
             }
           });
-      },
-
-      /**
-       * 获取某人某活动的未读评论数
-       * @param  {[type]}   userId    
-       * @param  {[type]}   campaignId 
-       * @param  {Function} callback  形式为function(err, data)
-       */
-      getCampaignCommentNumber: function(userId, campaignId, callback) {
-        $http.get(CONFIG.BASE_URL + '/users/' + userId, {
-          params: {commentCampaignId : campaignId}
-        }).success(function (data, status) {
-          callback(null,data);
-        }).error(function (data, status) {
-          callback('error');
-        })
       },
 
       findBack: function (email, callback) {
