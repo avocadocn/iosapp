@@ -577,7 +577,6 @@ angular.module('donlerApp.controllers', [])
       });
     };
     Socket.on('newChatroomChat', function (chat) {
-      // console.log(chat);
       if($scope.chatrooms) {
         var index = Tools.arrayObjectIndexOf($scope.chatrooms, chat.chatroom_id, '_id');
         if(index>-1) {
@@ -808,22 +807,7 @@ angular.module('donlerApp.controllers', [])
     $scope.campaignId = $stateParams.id;
     $scope.campaignTitle = INFO.discussName;
 
-    $scope.commentContent='';
-    // $scope.$on('$ionicView.enter', function(){
-    //   INFO.discussCampaignId = $scope.campaignId; //for 回到讨论列表时清红点
-    //   Socket.emit('quitRoom');
-    //   Socket.emit('enterRoom', $scope.campaignId); //以防回来以后接收不到
-    // });
-
-    // ??? -M
-
-    Campaign.get($scope.campaignId, function (err, data) {
-      if (!err) {
-        $scope.campaign = data;
-        $scope.photoAlbumId = $scope.campaign.photo_album._id; // for photoswipe
-      }
-    });
-
+    $scope.content='';
     $scope.userId = localStorage.id;
 
     //for pswp
@@ -917,43 +901,11 @@ angular.module('donlerApp.controllers', [])
         else{
           console.log(err);
         }
-
       });
     };
     getComments();
 
     $scope.isWriting = false;
-    //获取新留言
-    // var comments_ele = document.getElementsByClassName('comments'); // 获取滚动条
-    // var needRead = false;//标记是否需要再去read
-    // Socket.on('newCampaignComment', function (data) {
-    //   //如果是自己发的看看是不是取消loading就行.
-    //   var commentListIndex = $scope.commentList.length -1;
-    //   data.create_date = data.createDate;
-    //   if(data.poster._id === currentUser._id && data.randomId) {
-    //     //-找到那条自己发的
-    //     var length = $scope.commentList[commentListIndex].length;
-    //     for(var i = length-1; i>=0; i--){
-    //       if($scope.commentList[commentListIndex][i].randomId === data.randomId){
-    //         data.randomId = null;
-    //         addPhotos(data);
-    //         $scope.commentList[commentListIndex][i] = data;
-    //         break;
-    //       }
-    //     }
-    //   }else{
-    //     data.randomId = null;
-    //     var nowHeight =  $ionicScrollDelegate.getScrollPosition().top; //获取总高度
-    //     var scrollHeight = comments_ele[0].scrollHeight - (window.outerHeight-89); //获取当前所在位置
-    //     var isAtBottom = false;
-    //     if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
-    //     $scope.commentList[commentListIndex].push(data);
-    //     addPhotos(data);
-    //     if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
-    //     // $scope.newCommentNumber ++;
-    //     needRead = true;
-    //   }
-    // });
 
     //回到前台、用户手动刷新
     // $scope.refreshComment = function() {
@@ -1069,22 +1021,19 @@ angular.module('donlerApp.controllers', [])
     };
 
     //发表评论
-    $scope.publishComment = function() {
+    $scope.publish = function() {
       if(window.analytics){
         window.analytics.trackEvent('Click', 'publishComment');
       }
       //-创建一个新comment
-      // var randomId = Math.floor(Math.random()*100);
       var newComment = {
-        // randomId: randomId,
         create_date: new Date(),
         poster: {
           '_id': currentUser._id,
           'photo': currentUser.photo,
           'nickname': currentUser.nickname
         },
-        content: $scope.commentContent
-        // loading: true
+        content: $scope.content
       };
       var commentListIndex = $scope.commentList.length -1;
       $scope.commentList[commentListIndex].push(newComment);
@@ -1092,7 +1041,7 @@ angular.module('donlerApp.controllers', [])
       Comment.publishComment({
         'hostType': 'campaign',
         'hostId': $scope.campaignId,
-        'content': $scope.commentContent
+        'content': $scope.content
         // 'randomId': randomId
       }, function(err){
         if(err){
@@ -1101,8 +1050,8 @@ angular.module('donlerApp.controllers', [])
           //发送失败
           $scope.commentList[commentListIndex][length-1].failed = true;
         }else{
-          $scope.commentContent = '';
-          $scope.resizeTextarea();
+          $scope.content = '';
+          // $scope.resizeTextarea();
         }
       });
     };
@@ -1154,15 +1103,13 @@ angular.module('donlerApp.controllers', [])
       });
       //-创建一个新comment
       var newComment = {
-        randomId: randomId.toString(),
         create_date: new Date(),
         poster: {
           '_id': currentUser._id,
           'photo': currentUser.photo,
           'nickname': currentUser.nickname
         },
-        photos: [{uri:$scope.previewImg}],
-        loading: true
+        photos: [{uri:$scope.previewImg}]
       };
       var commentListIndex = $scope.commentList.length -1;
       $scope.commentList[commentListIndex].push(newComment);
@@ -1170,86 +1117,10 @@ angular.module('donlerApp.controllers', [])
     };
 
 
-    //表情
-    $scope.isShowEmotions = false;
-    $scope.showEmotions = function() {
-      $scope.isShowEmotions = true;
-    };
-
     $scope.hideEmotions = function() {
       $scope.isShowEmotions = false;
     };
 
-    $scope.emojiList=[];
-
-    var emoji = ["laugh", "smile", "happy", "snag", "snaky", "heart_eyes", "kiss", "blush", "howl", "angry",
-    "blink", "tongue", "tired", "logy", "asquint", "embarassed", "cry", "laugh_cry", "sigh", "sweat",
-    "good", "yeah", "pray", "finger", "clap", "muscle", "bro", "ladybro", "flash", "sun",
-    "cat", "dog", "hog_nose", "horse", "plumpkin", "ghost", "present", "trollface", "diamond", "mahjong",
-    "hamburger", "fries", "ramen", "bread", "lollipop", "cherry", "cake", "icecream"];
-
-    var dict = {"laugh":"大笑","smile":"微笑","happy":"高兴","snag":"龇牙","snaky":"阴险","heart_eyes":"心心眼","kiss":"啵一个","blush":"脸红","howl":"鬼嚎","angry":"怒",
-    "blink":"眨眼","tongue":"吐舌","tired":"困","logy":"呆","asquint":"斜眼","embarassed":"尴尬","cry":"面条泪","laugh_cry":"笑cry","sigh":"叹气","sweat":"汗",
-    "good":"棒","yeah":"耶","pray":"祈祷","finger":"楼上","clap":"鼓掌","muscle":"肌肉","bro":"基友","ladybro":"闺蜜","flash":"闪电","sun":"太阳",
-    "cat":"猫咪","dog":"狗狗","hog_nose":"猪鼻","horse":"马","plumpkin":"南瓜","ghost":"鬼","present":"礼物","trollface":"贱笑","diamond":"钻石","mahjong":"红中",
-    "hamburger":"汉堡","fries":"薯条","ramen":"拉面","bread":"面包","lollipop":"棒棒糖","cherry":"樱桃","cake":"蛋糕","icecream":"冰激凌"};
-
-    for(var i =0; emoji.length>24 ;i++) {
-      $scope.emojiList.push(emoji.splice(24,24));
-    }
-    $scope.emojiList.unshift(emoji);
-
-    $scope.addEmotion = function(emotion) {
-      $scope.commentContent += '['+ dict[emotion] +']';
-      $scope.resizeTextarea();
-    };
-
-    var ta = document.getElementById('ta');
-
-    //获取字符串真实长度，供计算高度用
-    var getRealLength = function(str) {
-      if(typeof(str) === 'string') {
-        var newstr =str.replace(/[\u0391-\uFFE5]/g,"aa");
-        return newstr.length;
-      }else {
-        return 0;
-      }
-    };
-    //重新计算输入框行数
-    $scope.resizeTextarea = function() {
-      if($scope.commentContent) {
-        var text = $scope.commentContent.split("\n");
-        var rows = text.length;
-        var originCols = ta.cols;
-        for(var i = 0; i<rows; i++) {
-          var rowText = i === 0 ? text[i] || text : text[i] || '';
-          var realLength = getRealLength(rowText);
-          if(realLength >= originCols) {
-            if(!text[i])
-              rows += Math.ceil(realLength/originCols);
-            else
-              rows = Math.ceil(realLength/originCols);
-          }
-        }
-        rows = Math.max(rows, 1);
-        rows = Math.min(rows, 3);
-        if(rows != ta.rows) {
-          ta.rows = rows;
-        }
-      }else {
-        ta.rows = 1;
-      }
-    };
-
-
-    //发送请求已读某评论
-    // $scope.$on('$ionicView.leave', function(){
-    //   if(needRead){
-    //     Comment.readComment($scope.campaignId, function(err) {
-    //       if(err) console.log(err);
-    //     });
-    //   }
-    // });
   }])
   .controller('CompanyController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
     function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
@@ -1753,7 +1624,7 @@ angular.module('donlerApp.controllers', [])
     }
     var nowState = '';
     //socket服务器推送通知
-    Socket.on('getNewComment', function() {
+    Socket.on('getNewChat', function() {
       if(nowState!=='discussList'){
         $scope.hasNewComment = true;
         localStorage.hasNewComment = true;

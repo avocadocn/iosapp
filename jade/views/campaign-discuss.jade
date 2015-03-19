@@ -51,18 +51,7 @@ ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
 
     //- ion-infinite-scroll(ng-if="!loading" on-infinite="refresh()" distance="-5%")
   ion-footer-bar.comment_box
-    form(name="comment_form")
-      i.icon.ion-image(ng-click="showUploadActionSheet()")
-      textarea#ta.comment_input(rows="1" cols="30" ng-model="commentContent" required maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting = true;" ng-blur="isWriting=false;" ng-change="resizeTextarea()")
-      button.dl_button.emotion_button(ng-click="showEmotions()" prevent-default)
-        i.emoji.emoji_tongue
-      button.publish_button(ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid") 发言
-
-      ion-slide-box.emotion_box(ng-if="isShowEmotions")
-        ion-slide(ng-repeat="emoji in emojiList")
-          .box.clearfix
-            .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
-              i(class="emoji {{'emoji_'+emotion}}" )
+    publish-box(is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publish()" show-upload-action-sheet="showUploadActionSheet()")
 
   script(id="confirm-upload-modal.html" type="text/ng-template")
     ion-modal-view
