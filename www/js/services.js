@@ -564,7 +564,14 @@ angular.module('donlerApp.services', [])
         }
       },
       postChat: function(chatroomId, content, randomId, callback) {
-        // $http.post(CONFIG.BASE_URL + '/chatrooms/'+chatroomId+'/chats',{})
+        $http.post(CONFIG.BASE_URL + '/chatrooms/'+chatroomId+'/chats',{
+          content: content,
+          randomId: randomId
+        }).success(function (data, status) {
+          callback(null, data);
+        }).error(function (data, status) {
+          callback('发送失败');
+        });
       },
       /**
        * [readChat description]

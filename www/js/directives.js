@@ -169,8 +169,11 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         };
 
         //重新计算输入框行数
-        scope.resizeTextarea = function() {
-          if(scope.content) {
+        scope.resizeTextarea = function(row) {
+          if(row) {
+            ta.rows = 1;
+          }
+          else if(scope.content) {
             var text = scope.content.split("\n");
             var rows = text.length;
             var originCols = ta.cols;
