@@ -1383,6 +1383,11 @@ angular.module('donlerApp.services', [])
 
   }])
   .factory('Circle', ['$http', 'CONFIG', 'Socket', 'INFO', function($http, CONFIG, Socket, INFO) {
+    /**
+     * 用于临时保存需要上传的图片的URI
+     */
+    var uploadImages = [];
+
     return {
       /**
        * 发同事圈文字
@@ -1474,8 +1479,23 @@ angular.module('donlerApp.services', [])
           uploadStep: 'active',
           circleContentId: circleContentId
         });
+      },
+
+      /**
+       * 保存准备上传的图片的URI
+       */
+      setUploadImages: function (images) {
+        uploadImages = images;
+      },
+
+      /**
+       * 获取准备上传的图片的URI
+       */
+      getUploadImages: function () {
+        return uploadImages;
       }
-    }
+
+    };
 
   }])
 

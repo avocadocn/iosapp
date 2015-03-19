@@ -253,7 +253,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'Circle', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO, Circle) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -263,8 +263,21 @@ angular.module('donlerApp.controllers', [])
       }
     };
 
-    $scope.goToCircleUploaderPage = function () {
-      $state.go('circle_uploader', { campaignId: $state.params.id });
+    $scope.chooseUploadImages = function () {
+      if (window.imagePicker) {
+        window.imagePicker.getPictures(function(results) {
+          if (results.length === 0) {
+            return;
+          }
+          Circle.setUploadImages(results);
+          $state.go('circle_uploader', { campaignId: $state.params.id });
+        }, function (error) {
+          console.log('Error: ' + error);
+        }, {
+          maximumImagesCount: 9,
+          quality: 50 // 0~100
+        });
+      }
     };
 
     var setMembers = function () {
@@ -702,7 +715,7 @@ angular.module('donlerApp.controllers', [])
         }
       };
     };
-    
+
     //---发聊天
     $scope.isShowEmotions = false;
     $scope.content = '';
@@ -727,7 +740,7 @@ angular.module('donlerApp.controllers', [])
         content: $scope.content,
         randomId: randomId
         // loading: true
-        // 不用loading原因: 用了某个loading旋转以后聊天的外框css会有问题... 
+        // 不用loading原因: 用了某个loading旋转以后聊天的外框css会有问题...
       };
       $scope.content = '';
       var chatsListIndex = $scope.chatsList.length-1;
@@ -3858,26 +3871,7 @@ angular.module('donlerApp.controllers', [])
         content: ''
       };
 
-      $scope.uploadFileURIs = [];
-
-      $scope.choosePhotos = function () {
-        if (window.imagePicker) {
-          window.imagePicker.getPictures(function(results) {
-            if (results.length === 0) {
-              $scope.goBack();
-              return;
-            }
-            $scope.uploadFileURIs = results;
-            $scope.$digest();
-          }, function (error) {
-            console.log('Error: ' + error);
-          }, {
-            maximumImagesCount: 9,
-            quality: 50 // 0~100
-          });
-        }
-      };
-      $scope.choosePhotos(); // 进入该页面先直接弹出选框
+      $scope.uploadFileURIs = Circle.getUploadImages();
 
       $scope.change = function() {
         var element = document.getElementById('circle_content');
