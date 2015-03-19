@@ -1,6 +1,6 @@
 form(name="comment_form")
   i.icon.ion-image(ng-click="showUploadActionSheet()")
-  textarea#ta.comment_input(rows="1" cols="30" ng-model="content" required maxlength="140" contentEditable="true" ng-focus="hideEmotions();" ng-change="resizeTextarea()")
+  textarea#ta.comment_input(rows="1" cols="30" ng-model="content" required maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting=false" ng-blur="isWriting=true" ng-change="resizeTextarea()")
   button.dl_button.emotion_button(ng-click="showEmotions()" prevent-default)
     i.emoji.emoji_tongue
   button.publish_button(ng-click="publish();hideEmotions();resizeTextarea(1)" ng-disabled="comment_form.$invalid") 发言

@@ -115,6 +115,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       scope: {
         isShowEmotions: '=',
         content: '=',
+        isWriting: '=',
         publish: '&',
         showUploadActionSheet: '&'
       },

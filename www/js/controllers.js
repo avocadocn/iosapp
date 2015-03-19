@@ -576,15 +576,17 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
-    Socket.on('newChat', function (chat) {
-
+    Socket.on('newChatroomChat', function (chat) {
+      // console.log(chat);
+      if($scope.chatrooms) {
+        var index = Tools.arrayObjectIndexOf($scope.chatrooms, chat.chatroom_id, '_id');
+        if(index>-1) {
+          $scope.chatrooms[index].unread ++;
+          $scope.chatrooms[index].latestChat = chat;
+        }
+      }
     });
 
-    Socket.on('newUnjoinedCommentCampaign', function (data) {
-      $scope.newUnjoined = true;
-      $scope.latestUnjoinedCampaign = data;
-      $scope.unjoinedIndex = 0;
-    });
     //不作数据刷新，给用户玩玩的...
     $scope.refresh = function() {
       $scope.$broadcast('scroll.refreshComplete');
@@ -604,7 +606,8 @@ angular.module('donlerApp.controllers', [])
     $scope.chatroomId = $stateParams.chatroomId;
     $scope.chatroomName = INFO.chatroomName;
     $scope.userId = localStorage.id;
-
+    Socket.emit('quitRoom');
+    Socket.emit('enterRoom', $scope.chatroomId);
     $scope.chatsList = [];
     $scope.topShowTime = [];
 
@@ -658,6 +661,34 @@ angular.module('donlerApp.controllers', [])
       }
       getChats(null, null, latestCreateDate);
     };
+    //socket来了新评论
+    Socket.on('newChat', function(data) {
+      // console.log(data);
+      //如果是自己发的看看是不是取消loading就行.
+      var chatListIndex = $scope.chatsList.length -1;
+      if(data.poster._id === currentUser._id && data.randomId) {
+        //-找到那条自己发的
+        var length = $scope.chatsList[chatListIndex].length;
+        for(var i = length-1; i>=0; i--){
+          if($scope.chatsList[chatListIndex][i].randomId === data.randomId){
+            data.randomId = null;
+            // addPhotos(data);
+            $scope.chatsList[chatListIndex][i] = data;
+            break;
+          }
+        }
+      }else{
+        var chats_ele = document.getElementsByClassName('comments'); // 获取滚动条
+        data.randomId = null;
+        var nowHeight =  $ionicScrollDelegate.getScrollPosition().top; //获取总高度
+        var scrollHeight = chats_ele[0].scrollHeight - (window.outerHeight-89); //获取当前所在位置
+        var isAtBottom = false;
+        if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
+        $scope.chatsList[chatListIndex].push(data);
+        // addPhotos(data);
+        if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
+      }
+    })
     //从后台切回来要刷新及进room
     var comeBackFromBackground = function() {
       if($state.$current.name === 'chat' && $scope.chatroomId === $state.params.chatroomId) {

@@ -581,9 +581,11 @@ angular.module('donlerApp.services', [])
        */
       readChat: function(chatroomId, callback) {
         $http.post(CONFIG.BASE_URL +'/chatrooms/actions/read',{chatRoomIds:[chatroomId]});
-        var index = Tools.arrayObjectIndexOf(chatroomList,chatroomId,'_id');
-        if(index>-1) {
-          chatroomList[index].unread = 0;
+        if(chatroomList) {
+          var index = Tools.arrayObjectIndexOf(chatroomList,chatroomId,'_id');
+          if(index>-1) {
+            chatroomList[index].unread = 0;
+          }
         }
       },
       /**

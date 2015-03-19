@@ -43,7 +43,7 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
               span 发送失败
 
   ion-footer-bar.comment_box
-    publish-box(is-show-emotions="isShowEmotions" content="content" publish="publish()" show-upload-action-sheet="showUploadActionSheet()")
+    publish-box(is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publish()" show-upload-action-sheet="showUploadActionSheet()")
 
   script(id="confirm-upload-modal.html" type="text/ng-template")
     ion-modal-view
