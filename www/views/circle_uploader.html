@@ -2,20 +2,20 @@
 <ion-view>
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">发图片</h1>
+    <button ng-click="publish()" ng-disabled="uploadFileURIs.length === 0" class="button icon-right">发表</button>
   </ion-header-bar>
-  <ion-content>
-    <div class="list">
-      <div ng-repeat="uri in uploadFileURIs" class="item item-thumbnail-left item-icon-right"><img ng-src="{{uri}}" width="150" height="150"/><i ng-click="remove($index)" class="icon ion-close-round"></i></div>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <textarea ng-model="circleData.content" placeholder="说点什么吧"></textarea>
-      </label>
-    </div>
-    <div class="list">
+  <ion-content class="circle_uploader_page">
+    <div class="card">
       <div class="item">
-        <button ng-click="publish()" ng-disabled="uploadFileURIs.length === 0" class="button button-block button-positive">发表</button>
-        <button ng-click="choosePhotos()" class="button button-block">重新选择</button>
+        <div class="clearfix">
+          <div ng-repeat="uri in uploadFileURIs" square="square" class="preview_img_box"><img ng-src="{{uri}}" class="preview_img"/></div>
+        </div>
+      </div>
+      <div class="item">
+        <form class="circle_content_form">
+          <textarea id="circle_content" rows="1" ng-model="circleData.content" ng-change="change()" ng-trim="false" required="required" autofocus="autofocus" placeholder="说点什么吧"></textarea>
+          <div class="content_border"></div>
+        </form>
       </div>
     </div>
   </ion-content>

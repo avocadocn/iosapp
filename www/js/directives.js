@@ -380,7 +380,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       }
     };
   }])
-    
+
 .directive('staticMap',function(){
   return {
     restrict: 'E',
@@ -546,3 +546,13 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   }
 }])
+
+.directive('square', function () {
+  return {
+    restrict: 'A',
+    link: function (scope, ele, attrs, ctrl) {
+      var domEle = ele[0];
+      domEle.style.height = domEle.clientWidth + 'px';
+    }
+  };
+})

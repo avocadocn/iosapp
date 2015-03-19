@@ -3811,7 +3811,8 @@ angular.module('donlerApp.controllers', [])
     'CONFIG',
     'CommonHeaders',
     '$ionicLoading',
-    function ($scope, $ionicHistory, $state, $q, Circle, $cordovaFile, CONFIG, CommonHeaders, $ionicLoading) {
+    '$ionicPopup',
+    function ($scope, $ionicHistory, $state, $q, Circle, $cordovaFile, CONFIG, CommonHeaders, $ionicLoading, $ionicPopup) {
       $scope.goBack = function() {
         if($ionicHistory.backView()){
           $ionicHistory.goBack();
@@ -3828,13 +3829,13 @@ angular.module('donlerApp.controllers', [])
 
       $scope.uploadFileURIs = [];
 
-      $scope.remove = function (index) {
-        $scope.uploadFileURIs.splice(index, 1);
-      };
-
       $scope.choosePhotos = function () {
         if (window.imagePicker) {
           window.imagePicker.getPictures(function(results) {
+            if (results.length === 0) {
+              $scope.goBack();
+              return;
+            }
             $scope.uploadFileURIs = results;
             $scope.$digest();
           }, function (error) {
@@ -3846,6 +3847,12 @@ angular.module('donlerApp.controllers', [])
         }
       };
       $scope.choosePhotos(); // 进入该页面先直接弹出选框
+
+      $scope.change = function() {
+        var element = document.getElementById('circle_content');
+        element.style.height = 'auto';
+        element.style.height = element.scrollHeight + "px";
+      };
 
       /**
        * 上传一张图片
@@ -3890,7 +3897,10 @@ angular.module('donlerApp.controllers', [])
         })
         .then(function (response) {
           $ionicLoading.hide();
-          alert('发表成功'); // TODO: 需改为设计样式
+          $ionicPopup.alert({
+            title: '提示',
+            template: '发表成功'
+          });
           $scope.goBack();
         })
         .then(null, function (response) {
@@ -3906,7 +3916,10 @@ angular.module('donlerApp.controllers', [])
             else {
               msg = '发表失败';
             }
-            alert(msg);
+            $ionicPopup.alert({
+              title: '提示',
+              template: msg
+            });
           }
         });
       };

@@ -2394,11 +2394,9 @@ a>.login .companies_list:activated {
 .invite_key .ion-clipboard {
   color: #3ca2e0;
 }
-.circle_content {
-  margin: 20px 20px 10px;
-}
-.circle_content_form .content_border {
-  padding0: 0 0 6px;
+.circle_send_content_page .circle_content_form .content_border,
+.circle_uploader_page .circle_content_form .content_border {
+  padding-right: 6px;
   z-index: 1500;
   height: 5px;
   border-left: 1px solid #33b5e5;
@@ -2406,7 +2404,8 @@ a>.login .companies_list:activated {
   border-bottom: 1px solid #33b5e5;
   background-color: transparent;
 }
-.circle_content_form textarea {
+.circle_send_content_page .circle_content_form textarea,
+.circle_uploader_page .circle_content_form textarea {
   overflow: hidden;
   height: auto;
   padding: 0px;
@@ -2414,6 +2413,20 @@ a>.login .companies_list:activated {
   max-height: 560px;
   margin: 0px 4px 2px;
   background-color: transparent;
+}
+.circle_send_content_page .circle_content {
+  margin: 20px 20px 10px;
+}
+.circle_uploader_page .preview_img_box {
+  display: block;
+  position: relative;
+  float: left;
+  padding: 5px;
+  width: 33.3333333333333%;
+}
+.circle_uploader_page .preview_img {
+  width: 100%;
+  height: 100%;
 }
 .circle_company .circle_company_image {
   width: 100%;

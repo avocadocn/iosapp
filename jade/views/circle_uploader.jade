@@ -2,15 +2,15 @@ ion-view
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title 发图片
-  ion-content
-    .list
-      .item.item-thumbnail-left.item-icon-right(ng-repeat="uri in uploadFileURIs")
-        img(ng-src="{{uri}}" width="150" height="150")
-        i.icon.ion-close-round(ng-click="remove($index)")
-    .list.list-inset
-      label.item.item-input
-        textarea(ng-model="circleData.content" placeholder="说点什么吧")
-    .list
+    button.button.icon-right(ng-click="publish()" ng-disabled="uploadFileURIs.length === 0") 发表
+  ion-content.circle_uploader_page
+    .card
       .item
-        button.button.button-block.button-positive(ng-click="publish()" ng-disabled="uploadFileURIs.length === 0") 发表
-        button.button.button-block(ng-click="choosePhotos()") 重新选择
+        .clearfix
+          .preview_img_box(ng-repeat="uri in uploadFileURIs" square)
+            img.preview_img(ng-src="{{uri}}")
+            
+      .item
+        form.circle_content_form
+          textarea#circle_content(rows="1" ng-model="circleData.content" ng-change="change()" ng-trim="false" required autofocus placeholder="说点什么吧")
+          .content_border

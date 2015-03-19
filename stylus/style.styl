@@ -233,7 +233,7 @@ body
           margin-left 0
         .dl_cp_address
           color col_darkGray
-        
+
     .dl_card_footer
       position relative
       height 30px
@@ -696,7 +696,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       line-height 40px
     .dkblue_button
       background-color col_darkBlue
-    
+
   //-words
   .links, .tip_msg
     margin 0 20px
@@ -956,7 +956,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         border-radius 5px
         background linear-gradient(top, #fff, #fbfbfb)
         margin-left 0.8rem
-      .triangle_isosceles:after 
+      .triangle_isosceles:after
         content ""
         display block
         position absolute
@@ -1024,11 +1024,11 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         .content
           color #fff
           float right
-      .triangle_isosceles 
+      .triangle_isosceles
         margin-right 0.4rem
         background col_blue
-      .triangle_isosceles:after 
-        
+      .triangle_isosceles:after
+
         right -0.7rem
         left auto
         bottom auto
@@ -1130,7 +1130,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       bottom 5px
       .icon.ion-record
         color col_blue
-          
+
 //-讨论列表页
 .discuss_list
   .list
@@ -1481,7 +1481,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
             color col_blue
             background-color white
 
-        
+
 
         // .current_day.today
         //   background-color themeColor
@@ -1557,7 +1557,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           color col_blue
           background-color white
 
-        
+
       .weekend
         color gray
 
@@ -1863,7 +1863,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   margin 10px
   font-size 14px
   text-align center
-  
+
 .member_page
   .member_group
     margin 0.833333rem
@@ -2055,7 +2055,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
 
 .campaign_card_container.remove
-  transform translateY(500px) scale(0.1) 
+  transform translateY(500px) scale(0.1)
   -moz-transform translateY(500px) scale(0.1) /* Firefox 4 */
   -webkit-transform translateY(500px) scale(0.1) /* Safari and Chrome */
   -o-transform translateY(500px) scale(0.1) /* Opera */
@@ -2065,26 +2065,44 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .invite_key
   .ion-clipboard
     color col_blue
+
+// 同事圈发文字或发图片附加文字样式
+.circle_send_content_page, .circle_uploader_page
+  .circle_content_form
+    .content_border
+      padding-right 6px
+      z-index 1500
+      height 5px
+      border-left 1px solid #33B5E5
+      border-right 1px solid #33B5E5
+      border-bottom 1px solid #33B5E5
+      background-color transparent
+    textarea
+      overflow hidden
+      height auto
+      padding 0px
+      resize none
+      max-height 560px
+      margin 0px 4px 2px
+      background-color transparent
+
 // 同事圈发送文字页面
-.circle_content
-  margin 20px 20px 10px
-.circle_content_form
-  .content_border
-    padding0 0 0 6px
-    z-index 1500
-    height 5px
-    border-left 1px solid #33B5E5
-    border-right 1px solid #33B5E5
-    border-bottom 1px solid #33B5E5
-    background-color transparent
-  textarea
-    overflow hidden
-    height auto
-    padding 0px
-    resize none
-    max-height 560px
-    margin 0px 4px 2px
-    background-color transparent
+.circle_send_content_page
+  .circle_content
+    margin 20px 20px 10px
+
+// 同事圈发图片页面
+.circle_uploader_page
+  .preview_img_box
+    display block
+    position relative
+    float left
+    padding 5px
+    width (1 / 3 * 100)%
+  .preview_img
+    width 100%
+    height 100%
+
 // 公司同事圈页面
 .circle_company
   .circle_company_image
