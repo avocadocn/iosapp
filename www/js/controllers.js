@@ -586,8 +586,8 @@ angular.module('donlerApp.controllers', [])
       Chat.saveChatroomList($scope.chatrooms);
     });
   }])
-  .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Chat', 'Socket', 'Tools', 'CONFIG', 'INFO', '$ionicPopup', 'Upload', '$ionicModal',
-    function ($scope, $state, $stateParams, $ionicScrollDelegate, Chat, Socket, Tools, CONFIG, INFO, $ionicPopup, Upload, $ionicModal) {
+  .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Chat', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', '$ionicPopup', 'Upload', '$ionicModal',
+    function ($scope, $state, $stateParams, $ionicScrollDelegate, Chat, Socket, User, Tools, CONFIG, INFO, $ionicPopup, Upload, $ionicModal) {
     $scope.chatroomId = $stateParams.chatroomId;
     $scope.chatroomName = INFO.chatroomName;
     $scope.userId = localStorage.id;
@@ -595,6 +595,7 @@ angular.module('donlerApp.controllers', [])
     $scope.chatsList = [];
     $scope.topShowTime = [];
 
+    //---获取评论
     //各种获取评论，带nextDate是获取历史，带preDate是获取最新
     var getChats = function(nextDate, nextId, preDate, callback) {
       var params = {chatroom: $scope.chatroomId};
@@ -620,6 +621,40 @@ angular.module('donlerApp.controllers', [])
     getChats(null,null,null,function() {
       $ionicScrollDelegate.scrollBottom();
     });
+    //获取更老的评论
+    $scope.readHistory = function() {
+      if($scope.nextDate) {
+        $scope.topShowTime.push();
+        getChats($scope.nextDate, $scope.nextId, null, function() {
+          $scope.$broadcast('scroll.refreshComplete');
+          $ionicScrollDelegate.scrollTo(0,1350);//此数值仅在发的评论为1行时有效...
+          //如果需要精确定位到刚才的地方，需要jquery
+          // $('#currentComment').scrollIntoView();//need jQuery
+        });
+      }else {
+        $scope.$broadcast('scroll.refreshComplete');
+      }
+    };
+    //获取比现在的第一条更新的所有讨论
+    var refreshChat = function () {
+      $scope.startRefresh = true;
+      var latestCreateDate = null;
+      if($scope.chatsList.length && $scope.chatsList[0][0]) {
+        var latestChatIndex = $scope.chatsList[0].length-1;
+        latestCreateDate = $scope.chatsList[0][latestChatIndex].create_date;
+      }
+      getChats(null, null, latestCreateDate);
+    };
+    //从后台切回来要刷新及进room
+    var comeBackFromBackground = function() {
+      if($state.$current.name === 'chat' && $scope.chatroomId === $state.params.chatroomId) {
+        Socket.emit('quitRoom');
+        Socket.emit('enterRoom', $scope.chatroomId); //以防回来以后接收不到
+        //更新刚才一段时间内的新评论
+        refreshChat();
+      }
+    };
+    document.addEventListener('resume',comeBackFromBackground, false);
 
     //---判断时间
     //判断顶部时间是否需要显示
@@ -642,6 +677,14 @@ angular.module('donlerApp.controllers', [])
         }
       }
     };
+    /* 是否需要显示时间()
+     * @params: index: 第几个chat
+     * 判断依据：与上一个评论时间是否在同一分钟||index为0
+     * return:
+     *   0 不用显示
+     *   1 显示年、月、日
+     *   2 显示月、日
+     */
     $scope.needShowTime = function (index, chats) {
       if(index===0){
         return 1;
@@ -659,72 +702,60 @@ angular.module('donlerApp.controllers', [])
         }
       };
     };
-
-
-    //获取更老的评论
-    $scope.readHistory = function() {
-      if($scope.nextDate) {
-        $scope.topShowTime.push();
-        getChats($scope.nextDate, $scope.nextId, null, function() {
-          $scope.$broadcast('scroll.refreshComplete');
-          $ionicScrollDelegate.scrollTo(0,1350);//此数值仅在发的评论为1行时有效...
-          //如果需要精确定位到刚才的地方，需要jquery
-          // $('#currentComment').scrollIntoView();//need jQuery
-        });
-      }else {
-        $scope.$broadcast('scroll.refreshComplete');
-      }
-    };
-
-    //获取比现在的第一条更新的所有讨论
-    var refreshChat = function () {
-      $scope.startRefresh = true;
-      var latestCreateDate = null;
-      if($scope.chatsList.length && $scope.chatsList[0][0]) {
-        var latestChatIndex = $scope.chatsList[0].length-1;
-        latestCreateDate = $scope.chatsList[0][latestChatIndex].create_date;
-      }
-      getChats(null, null, latestCreateDate);
-    };
-
-    //从后台切回来要刷新及进room
-    var comeBackFromBackground = function() {
-      if($state.$current.name === 'chat' && $scope.chatroomId === $state.params.chatroomId) {
-        Socket.emit('quitRoom');
-        Socket.emit('enterRoom', $scope.chatroomId); //以防回来以后接收不到
-        //更新刚才一段时间内的新评论
-        refreshChat();
-      }
-    };
-    document.addEventListener('resume',comeBackFromBackground, false);
-
-    //离开此页时标记读过
-    $scope.$on('$destroy',function() {
-      Chat.readChat($scope.chatroomId);
-    });
-
-
+    
+    //---发聊天
     $scope.isShowEmotions = false;
     $scope.content = '';
-    //发表
+    //获取自己的资料供发的时候用
+    var currentUser;
+    User.getData($scope.userId, function(err,data){
+      currentUser = data;
+    });
+    //发布文字消息
     $scope.publish = function() {
       // if(window.analytics){
       //   window.analytics.trackEvent('Click', 'publishComment');
       // }
-      console.log($scope.content);
-      // var randomId = Math.floor(Math.random()*100);
-      // Chat.postChat($scope.chatroomId, $scope.publishContent, randomId, function() {
+      var randomId = Math.floor(Math.random()*100);
+      var newChat = {
+        create_date: new Date(),
+        poster: {
+          '_id': currentUser._id,
+          'photo': currentUser.photo,
+          'nickname': currentUser.nickname
+        },
+        content: $scope.content,
+        randomId: randomId
+        // loading: true
+        // 不用loading原因: 用了某个loading旋转以后聊天的外框css会有问题... 
+      };
+      $scope.content = '';
+      var chatsListIndex = $scope.chatsList.length-1;
+      $scope.chatsList[chatsListIndex].push(newChat);
+      $ionicScrollDelegate.scrollBottom();
 
-      // });
+      Chat.postChat($scope.chatroomId, newChat.content, randomId, function(err, chat) {
+        if(err) {
+          console.log(err);
+          var latestIndex = $scope.chatsList[chatsListIndex].length -1;
+          $scope.chatsList[chatsListIndex][latestIndex].failed = true;
+        }
+      });
     };
 
     $scope.hideEmotions = function() {
       $scope.isShowEmotions = false;
     };
 
+    //---发图片相关
     $scope.showUploadActionSheet =function() {
 
     };
+
+    //离开此页时标记读过
+    $scope.$on('$destroy',function() {
+      Chat.readChat($scope.chatroomId);
+    });
 
 
   }])
