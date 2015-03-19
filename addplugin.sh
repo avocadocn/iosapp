@@ -9,3 +9,4 @@ ionic plugin add https://github.com/VersoSolutions/CordovaClipboard
 ionic plugin add org.apache.cordova.statusbar
 ionic plugin add https://github.com/danwilson/google-analytics-plugin.git
 ionic plugin add https://github.com/wymsee/cordova-imagePicker.git
+ionic plugin add org.apache.cordova.geolocation

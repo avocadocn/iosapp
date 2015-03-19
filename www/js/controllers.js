@@ -4258,7 +4258,17 @@ angular.module('donlerApp.controllers', [])
       });
       //获取坐标
       if($scope.coordinates.length==0) {
+        var onSuccess = function(position) {
+          $scope.coordinates = [position.coords.longitude,position.coords.latitude];
+        };
+        function onError(error) {
+           console.log('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+        }
 
+        if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        }
       }
     }
     $scope.changeTeam = function () {
