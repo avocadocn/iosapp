@@ -438,12 +438,46 @@ angular.module('donlerApp.controllers', [])
      };
   }])
   .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team', function ($ionicHistory, $scope, $state, $ionicPopup, $ionicModal, $timeout, Campaign, INFO, Team) {
-    $scope.campaignData ={};
-    $scope.leadTeams = [];
-    $scope.selectTeam = {};
+    $scope.campaignData ={
+      location : {}
+    };
     $scope.isBusy = false;
-    $scope.showMapFlag = false;
-    $scope.campaignData.location = {};
+    $scope.showMapFlag ==false;
+    $scope.sponsorType = $state.params.type;
+    if($scope.sponsorType=='competition') {
+      $scope.competitionMessage = INFO.competitionMessage;
+      $scope.campaignData.messageId = $scope.competitionMessage._id;
+      $scope.campaignData.cid = [$scope.competitionMessage.sponsor_cid,$scope.competitionMessage.opposite_cid];
+      $scope.campaignData.tid = [$scope.competitionMessage.sponsor_team._id,$scope.competitionMessage.opposite_team._id];
+      if($scope.competitionMessage.competition_type==1){
+        $scope.campaignData.campaign_mold = $scope.competitionMessage.sponsor_team.group_type;
+      }
+    }
+    else{
+      $scope.campaignData.campaign_type = 2;
+      Team.getLeadTeam(null, function(err, leadTeams){
+        if(!err &&leadTeams.length>0){
+          $scope.leadTeams = leadTeams;
+          $scope.selectTeam = leadTeams[0];
+          $scope.changeTeam($scope.selectTeam);
+        }
+        else{
+          $state.go('app.campaigns');
+        }
+      });
+      $scope.changeTeam = function(selectTeam) {
+        $scope.selectTeam =selectTeam;
+        Campaign.getMolds('team',selectTeam._id,function(err, molds){
+          if(!err){
+            $scope.campaign_molds = molds;
+            $scope.selectMold = molds[0];
+          }
+        })
+      }
+      $scope.changeMold = function(selectMold) {
+        $scope.selectMold = selectMold;
+      }
+    }
     $ionicHistory.nextViewOptions({
       disableBack: true,
       historyRoot: true
@@ -454,31 +488,15 @@ angular.module('donlerApp.controllers', [])
         $ionicHistory.goBack();
       }
       else {
-        $state.go('app.'+$state.params.type);
-      }
-    };
-    Team.getLeadTeam(null, function(err, leadTeams){
-      if(!err &&leadTeams.length>0){
-        $scope.leadTeams = leadTeams;
-        $scope.selectTeam = leadTeams[0];
-        $scope.changeTeam($scope.selectTeam);
-      }
-      else{
-        $state.go('app.campaigns');
-      }
-    });
-    $scope.changeTeam = function(selectTeam) {
-      $scope.selectTeam =selectTeam;
-      Campaign.getMolds('team',selectTeam._id,function(err, molds){
-        if(!err){
-          $scope.campaign_molds = molds;
-          $scope.selectMold = molds[0];
+        if($scope.sponsorType=='competition') {
+          $state.go('competition_message_detail',{id:$scope.competitionMessage._id});
         }
-      });
-    };
-    $scope.changeMold = function(selectMold) {
-      $scope.selectMold = selectMold;
-    };
+        else{
+          $state.go('app.'+ $scope.sponsorType);
+        }
+
+      }
+    }
     var localizeDateStr = function(date_to_convert_str) {
       var date_to_convert = new Date(date_to_convert_str);
       var local_date = new Date();
@@ -509,10 +527,11 @@ angular.module('donlerApp.controllers', [])
           window.analytics.trackEvent('Click', 'sponsor');
         }
         $scope.isBusy = true;
-        $scope.campaignData.cid = [$scope.selectTeam.cid];
-        $scope.campaignData.tid = [$scope.selectTeam._id];
-        $scope.campaignData.campaign_type = 2;
-        $scope.campaignData.campaign_mold = $scope.selectMold.name;
+        if($scope.sponsorType!=='competition') {
+          $scope.campaignData.cid = [$scope.selectTeam.cid];
+          $scope.campaignData.tid = [$scope.selectTeam._id];
+          $scope.campaignData.campaign_mold = $scope.selectMold.name;
+        }
         Campaign.create($scope.campaignData,function(err,data){
           if(!err){
             // $ionicPopup.alert({
@@ -3874,7 +3893,7 @@ angular.module('donlerApp.controllers', [])
       getCompetitionLog();
     }
   }])
-  .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload',function ($scope, $state, $ionicModal, CompetitionMessage, Comment, Vote, User, Upload) {
+  .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO', function ($scope, $state, $ionicModal, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
     //评论获取
     $scope.commentList = [];
     $scope.topShowTime = [];
@@ -3948,12 +3967,13 @@ angular.module('donlerApp.controllers', [])
           console.log(err);
         } else {
           alert('挑战处理成功!');
-          $state.reload();
+          $scope.competitionMessage.status =action+'ed';
         }
       });
     }
-    $scope.sponsorCompetition = function (argument) {
-      // body...
+    $scope.sponsorCompetition = function () {
+      INFO.competitionMessage = $scope.competitionMessage;
+      $state.go('sponsor',{type:'competition'});
     }
     getCompetitionMessage();
     $scope.getCompetitionComments();
@@ -4301,7 +4321,6 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CompetitonSendController', ['$scope', '$state', '$ionicHistory', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', function ($scope, $state, $ionicHistory, CompetitionMessage, Team, INFO, Campaign) {
     if(INFO.competitionMessageData) {
-      console.log(INFO.competitionMessageData);
       var competitionMessageData = INFO.competitionMessageData;
       $scope.fromTeamId = competitionMessageData.fromTeamId;
       $scope.targetTeam = competitionMessageData.targetTeam;

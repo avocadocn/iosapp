@@ -1,16 +1,25 @@
-ion-view.sponsor
-  ion-header-bar
-    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title 发活动
-  ion-content
-    form(name="sponsorForm" novalidate)
+form(name="sponsorForm" novalidate ng-init="showMore=false;")
+  ion-view.sponsor
+    ion-header-bar
+      a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+      h1.title 发活动
+      button.button.button-clear(ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()") 发布
+    ion-content
       .list
-        label.item.item-input.item-select
+        .row(ng-if="sponsorType==='competition'")
+          .col 挑战方
+          .col VS
+          .col 应战方
+        .row(ng-if="sponsorType==='competition'")
+          .col: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40")
+          .col {{competitionMessage.sponsor_team.name}}
+          .col VS
+          .col: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40")
+          .col {{competitionMessage.opposite_team.name}}
+        label.item.item-input.item-select(ng-if="sponsorType!=='competition'")
           span.input-label 小队
           select(ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams")
-        label.item.item-input
-          input(type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限制14个字" ng-maxlength=14 required)
-        label.item.item-input.item-select
+        label.item.item-input.item-select(ng-if="sponsorType!=='competition' || competitionMessage.competition_type==2")
           span.input-label 活动类型
           select(ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds")
         label.item.item-label
@@ -21,9 +30,24 @@ ion-view.sponsor
           span.input-label 活动结束时间:
         label.item.item-input
           input(type="datetime-local" name="end_time" ng-model="campaignData.end_time" required)
+        label.item.item-input.item-icon-right
+          input(type="text" name="location" ng-model="campaignData.location.name" placeholder="活动地点" required)
+          i.icon.ion-map(edit-map ng-disabled="campaignData.location.name" location-name="campaignData.location.name" location='campaignData.location' map-name="mapDetail")
         label.item.item-input
-          input.arecode(type="text" name="location" ng-model="campaignData.location.name" placeholder="活动地点" required)
-        .item-button
-          button.button.button-full.button_sponsor(edit-map ng-disabled="!campaignData.location.name" location-name="campaignData.location.name" location='campaignData.location' map-name="mapDetail") 显示地图
-        .item-button
-          button.button.button-full.button_sponsor(ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()") 发布
+          input(type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限制14个字" ng-maxlength=14 required)
+        label.item.item-input
+          textarea(name="content" rows=5 ng-model="campaignData.content" placeholder="活动简介" ng-maxlength=2000)
+        label.item.item-divider(ng-click="showMore=!showMore;") 更多
+      .list(ng-if="showMore")
+        label.item.item-label
+          span.input-label 报名截止时间:
+        label.item.item-input
+          input#deadline(type="datetime-local" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间")
+        label.item.item-label
+          span.input-label 报名人数上限:
+        label.item.item-input
+          input.arecode(type="number" name="member_max" ng-model="campaignData.member_max" min=0)
+        label.item.item-label
+          span.input-label 报名人数下限:
+        label.item.item-input
+          input.arecode(type="number" name="member_min" ng-model="campaignData.member_min" min=0)

@@ -2330,6 +2330,10 @@ a>.login .companies_list:activated {
   margin: 5px 20px;
   border: 1px solid #3ca2e0;
   border-radius: 5px;
+  color: #3ca2e0;
+}
+.sponsor .list .item-input textarea {
+  color: #3ca2e0;
 }
 .sponsor .list .item-input input {
   height: 22px;

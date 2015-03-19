@@ -444,10 +444,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CompetitionMessageListController',
         templateUrl: './views/competition_message_list.html'
       })
-      .state('competition_log_detail', {
-        url: '/competition/log_detail/:id/:type',
-        // controller: 'DiscoverController',
-        templateUrl: './views/competition_log_detail.html'
+      .state('competition_message_detail', {
+        url: '/competition_message/detail/:id',
+        controller: 'CompetitionMessageDetailController',
+        templateUrl: './views/competition_message_detail.html'
       })
       .state('circle_send_content', {
         url: '/circle/circle_send_content/:campaignId',
@@ -463,10 +463,5 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/circle/uploader/:campaignId',
         templateUrl: './views/circle_uploader.html',
         controller: 'CircleUploaderController'
-      })
-      .state('competition_message_detail', {
-        url: '/competition_message/detail/:id',
-        controller: 'CompetitionMessageDetailController',
-        templateUrl: './views/competition_message_detail.html'
       });
   });
