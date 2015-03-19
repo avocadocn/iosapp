@@ -39,7 +39,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       },
       link: function (scope, element, attrs, ctrl) {
         element[0].onclick = function() {
-
           try {
             var pswpElement ; //页面元素
             if (scope.pswpId) {//有的时候设置了pswpId,directive里会拿不到，所以用搜索.pswp类的方法
@@ -48,8 +47,12 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
               pswpElement = document.querySelectorAll('.pswp')[0];
             }
             var photos = []; //pswp所需的全部photos对象
+            var index = 0;
             if(scope.photos){//非打开个人头像
-              var index = Tools.arrayObjectIndexOf(scope.photos, scope.photo._id, '_id');
+              index = Tools.arrayObjectIndexOf(scope.photos, scope.photo._id, '_id');
+              if (index === -1) { // 没找到则不打开大图
+                return;
+              }
               photos = scope.photos;
             }else{//打开个人头像
               var width = Math.min(INFO.screenWidth, INFO.screenHeight);
@@ -63,7 +66,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             var options = {
               history: false,
               focus: false,
-              index: index? index: 0,
+              index: index,
               showAnimationDuration: 0,
               hideAnimationDuration: 0
             };
@@ -96,6 +99,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             }
           } catch (e) {
             console.log(e.stack);
+            gallery.close();
             $rootScope.hideTabs = false;
             if (window.StatusBar) {
               $cordovaStatusbar.show();

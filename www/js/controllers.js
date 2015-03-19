@@ -3643,8 +3643,8 @@ angular.module('donlerApp.controllers', [])
     // TODO:
     // ion-infinite-scroll maybe have bug on conditon that the items is few.
     //
-    .controller('CircleCompanyController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$timeout', 'Circle', 'User', 'INFO', 'Tools',
-      function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools) {
+    .controller('CircleCompanyController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$timeout', 'Circle', 'User', 'INFO', 'Tools', 'CONFIG',
+      function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG) {
         $scope.circles = [];
         $scope.loadOptions = {
           loadingNew: true,
@@ -3662,7 +3662,7 @@ angular.module('donlerApp.controllers', [])
         });
         $scope.goBack = function() {
           if ($ionicHistory.backView()) {
-            $ionicHistory.goBack()
+            $ionicHistory.goBack();
           } else {
             $state.go('app.campaigns');
           }
@@ -3690,11 +3690,9 @@ angular.module('donlerApp.controllers', [])
           if ($scope.loadOptions.loadingOld == true) {
             $scope.$broadcast('scroll.infiniteScrollComplete');
           } else {
-            console.log('1');
             $scope.loadOptions.loadingOld = true;
 
             if (!INFO.circleCompanyInfo) {
-              console.log('2');
               // If there is no circle company info, query the them with no parameters.
               Circle.getCompanyCircle(null, null, function(err, data) {
                 $scope.circles = data;
@@ -3705,9 +3703,7 @@ angular.module('donlerApp.controllers', [])
                 }, 1000);
               });
             } else {
-              console.log('3');
               if ($scope.loadOptions.loadingFirst) {
-                console.log('4');
                 // TODO:
                 // If there is some circle company info, query the newer ones with parameter(latestContentDate) and
                 // merge them with INFO.circleCompanyInfo.
@@ -3716,13 +3712,12 @@ angular.module('donlerApp.controllers', [])
                 $scope.loadOptions.loadingFirst = false;
                 $scope.loadOptions.loadingNew = false;
               } else {
-                console.log('5');
                 var pos = INFO.circleCompanyInfo.length - 1;
                 var lastContentDate = INFO.circleCompanyInfo[pos].content.post_date;
                 Circle.getCompanyCircle(null, lastContentDate, function(err, data) {
                   if (!err) {
                     $scope.circles = INFO.circleCompanyInfo.concat(data);
-                    INFO.circleCompanyInfo = INFO.circleCompanyInfo.concat(data);
+                    INFO.circleCompanyInfo = $scope.circles;
                   } else {
                     $scope.circles = INFO.circleCompanyInfo;
                   }
@@ -3738,6 +3733,32 @@ angular.module('donlerApp.controllers', [])
             // $scope.$broadcast('scroll.infiniteScrollComplete');
           }
         }
+
+        $scope.circlePswpId = 'circle_pswp_' + Date.now();
+
+        // 提取图片到一个数组里
+        $scope.$watch('circles', function (newVal) {
+          $scope.imagesForPswp = [];
+          var id = 0;
+          for (var i = 0, circlesLen = newVal.length; i < circlesLen; i++) {
+            var circle = newVal[i];
+            if (circle.content.photos && circle.content.photos.length > 0) {
+              var pswpPhotos = [];
+              for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
+                var photo = circle.content.photos[j];
+                photo._id = id;
+                pswpPhotos.push({
+                  _id: photo._id,
+                  w: photo.width || $scope.screenWidth,
+                  h: photo.height || $scope.screenHeight,
+                  src: CONFIG.STATIC_URL + photo.uri
+                });
+                id++;
+              }
+              $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
+            }
+          }
+        });
 
         $scope.circleContentDelete = function(e) {
           var confirmPopup = $ionicPopup.confirm({
