@@ -553,10 +553,12 @@ angular.module('donlerApp.controllers', [])
     var getChatroomsUnread = function() {
       Chat.getChatroomUnread(function (err, data) {
         var chatroomsLength = $scope.chatrooms.length;
-        for(var i=0; i<data.length; i++) {
-          var index = Tools.arrayObjectIndexOf($scope.chatrooms, data[i]._id, '_id');
-          if(index>-1) {
-            $scope.chatrooms[index].unread = data[i].unread;
+        if(data.length && $scope.chatrooms) {
+          for(var i=0; i<data.length; i++) {
+            var index = Tools.arrayObjectIndexOf($scope.chatrooms, data[i]._id, '_id');
+            if(index>-1) {
+              $scope.chatrooms[index].unread = data[i].unread;
+            }
           }
         }
       });
@@ -591,6 +593,7 @@ angular.module('donlerApp.controllers', [])
     $scope.userId = localStorage.id;
 
     $scope.chatsList = [];
+    $scope.topShowTime = [];
 
     //各种获取评论，带nextDate是获取历史，带preDate是获取最新
     var getChats = function(nextDate, nextId, preDate, callback) {
@@ -600,12 +603,13 @@ angular.module('donlerApp.controllers', [])
       if(preDate) {params.preDate = preDate;}
       Chat.getChats(params, function(err, data) {
         if(!err) {
-          if(!nextDate)
+          if(!nextDate) {
             $scope.chatsList.push(data.chats.reverse());
+          }
           else {
             $scope.chatsList.unshift(data.chats.reverse());
-            $ionicScrollDelegate.scrollBottom();
           }
+          judgeTopShowTime();
           $scope.nextDate = data.nextDate;
           $scope.nextId = data.nextId;
           callback && callback();
@@ -617,47 +621,50 @@ angular.module('donlerApp.controllers', [])
       $ionicScrollDelegate.scrollBottom();
     });
 
-    // var judgeTopShowTime = function() {
-    //   $scope.topShowTime.unshift(1);
-    //   if($scope.commentList.length>1) {
-    //     var preTime = new Date($scope.commentList[1][0].create_date);//上次的第一个
-    //     var length = $scope.commentList[0].length;
-    //     var nowTime = new Date($scope.commentList[0][length-1].create_date);//这次的最后一个
-    //     if(nowTime.getFullYear() != preTime.getFullYear()) {
-    //       $scope.topShowTime[1] = 1;
-    //     }else if(nowTime.getDay() != preTime.getDay()) {
-    //       $scope.topShowTime[1] = 2;
-    //     }else if(nowTime.getHours() != preTime.getHours()) {
-    //       $scope.topShowTime[1] = 2;
-    //     }else if(nowTime.getMinutes() != preTime.getMinutes()){
-    //       $scope.topShowTime[1] = 2;
-    //     }else{
-    //       $scope.topShowTime[1] = 0;
-    //     }
-    //   }
-    // };
-    // $scope.needShowTime = function (index, comments) {
-    //   if(index===0){
-    //     return 1;
-    //   }else{
-    //     var preTime = new Date(comments[index-1].create_date);
-    //     var nowTime = new Date(comments[index].create_date);
-    //     if(nowTime.getFullYear() != preTime.getFullYear()) {
-    //       return 1;
-    //     }else if(nowTime.getDay() != preTime.getDay()) {
-    //       return 2;
-    //     }else if(nowTime.getHours() != preTime.getHours()) {
-    //       return 2;
-    //     }else if(nowTime.getMinutes() != preTime.getMinutes()){
-    //       return 2;
-    //     }
-    //   };
-    // };
+    //---判断时间
+    //判断顶部时间是否需要显示
+    var judgeTopShowTime = function() {
+      $scope.topShowTime.unshift(1);
+      if($scope.chatsList.length>1) {
+        var preTime = new Date($scope.chatsList[1][0].create_date);//上次的第一个
+        var length = $scope.chatsList[0].length;
+        var nowTime = new Date($scope.chatsList[0][length-1].create_date);//这次的最后一个
+        if(nowTime.getFullYear() != preTime.getFullYear()) {
+          $scope.topShowTime[1] = 1;
+        }else if(nowTime.getDay() != preTime.getDay()) {
+          $scope.topShowTime[1] = 2;
+        }else if(nowTime.getHours() != preTime.getHours()) {
+          $scope.topShowTime[1] = 2;
+        }else if(nowTime.getMinutes() != preTime.getMinutes()){
+          $scope.topShowTime[1] = 2;
+        }else{
+          $scope.topShowTime[1] = 0;
+        }
+      }
+    };
+    $scope.needShowTime = function (index, chats) {
+      if(index===0){
+        return 1;
+      }else{
+        var preTime = new Date(chats[index-1].create_date);
+        var nowTime = new Date(chats[index].create_date);
+        if(nowTime.getFullYear() != preTime.getFullYear()) {
+          return 1;
+        }else if(nowTime.getDay() != preTime.getDay()) {
+          return 2;
+        }else if(nowTime.getHours() != preTime.getHours()) {
+          return 2;
+        }else if(nowTime.getMinutes() != preTime.getMinutes()){
+          return 2;
+        }
+      };
+    };
 
 
     //获取更老的评论
     $scope.readHistory = function() {
       if($scope.nextDate) {
+        $scope.topShowTime.push();
         getChats($scope.nextDate, $scope.nextId, null, function() {
           $scope.$broadcast('scroll.refreshComplete');
           $ionicScrollDelegate.scrollTo(0,1350);//此数值仅在发的评论为1行时有效...

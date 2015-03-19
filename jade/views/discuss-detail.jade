@@ -9,7 +9,7 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
     ion-refresher(on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .comments(ng-click="hideEmotions()")
       .blocks(ng-repeat="chats in chatsList track by $index" id="chats{{$index}}")
-        .block(ng-repeat="comment in chats track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack)
+        .block(ng-repeat="comment in chats track by $index" ng-init="showTime=needShowTime($index,chats)" ng-cloack)
           .time_block(ng-show="showTime && ($index!==0||($index===0&&topShowTime[$parent.$index]))")
             p
               span.time(ng-show="showTime===1 && ($index!==0||($index===0&&topShowTime[$parent.$index]===1))" ng-cloak) {{comment.create_date | date: 'yyyy'}}
