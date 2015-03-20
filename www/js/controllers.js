@@ -800,7 +800,7 @@ angular.module('donlerApp.controllers', [])
       $scope.chatsList[chatsListIndex].push(newChat);
       $ionicScrollDelegate.scrollBottom();
 
-      Chat.postChat({chatroomId:$scope.chatroomId, content:newChat.content, randomId:randomId}, function(err, chat) {
+      Chat.postChat($scope.chatroomId, {content:newChat.content, randomId:randomId}, function(err, chat) {
         if(err) {
           console.log(err);
           var latestIndex = $scope.chatsList[chatsListIndex].length -1;
@@ -4388,12 +4388,11 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.recommend = function () {
       var postData = {
-        chatroomId: fromTeamId,
         content: $scope.targetTeam.name,
         chatType: 'recommend_team',
         recommendTeamId: targetTeamId
       }
-      Chat.postChat(postData, function(err, data) {
+      Chat.postChat(fromTeamId, postData, function(err, data) {
         if(err) {
           console.log(err);
         }
