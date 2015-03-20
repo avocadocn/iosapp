@@ -601,6 +601,10 @@ angular.module('donlerApp.controllers', [])
         if(index>-1) {
           $scope.chatrooms[index].unread ++;
           $scope.chatrooms[index].latestChat = chat;
+          //升到第一个
+          var temp = $scope.chatrooms[index];
+          $scope.chatrooms.splice(index, 1);
+          $scope.chatrooms.unshift(temp);
         }
       }
     });
@@ -810,13 +814,70 @@ angular.module('donlerApp.controllers', [])
     };
 
     //---发图片相关
-    $scope.showUploadActionSheet =function() {
+    $ionicModal.fromTemplateUrl('confirm-upload-modal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.confirmUploadModal = modal;
+    });
 
+    $scope.showUploadActionSheet =function() {
+      Upload.getPicture(false, function (err, imageURI) {
+        if(!err){
+          $scope.previewImg = imageURI;
+          $scope.confirmUploadModal.show();
+        }
+      });
+    };
+
+    $scope.cancelUpload = function() {
+      $scope.confirmUploadModal.hide();
+    };
+
+    $scope.confirmUpload = function () {
+      // if(window.analytics){
+      //   window.analytics.trackEvent('Click', 'uploadImg');
+      // }
+      //-生成随机id
+      var randomId = Math.floor(Math.random()*100);
+      //-创建一个新chat
+      var newChat = {
+        randomId: randomId,
+        chatroom_id: $scope.chatroom_id,
+        create_date: new Date(),
+        poster: {
+          '_id': currentUser._id,
+          'photo': currentUser.photo,
+          'nickname': currentUser.nickname
+        },
+        photos: [{uri:$scope.previewImg}]
+      };
+      var chatsListIndex = $scope.chatsList.length -1;
+      $scope.chatsList[chatsListIndex].push(newChat);
+      $ionicScrollDelegate.scrollBottom();
+      //上传
+      var data = {randomId: randomId, imageURI:$scope.previewImg};
+      var addr = CONFIG.BASE_URL + '/chatrooms/' + $scope.chatroomId + '/chats/';
+      Upload.upload('discuss', addr, data, function(err) {
+        if(!err) {
+          $scope.confirmUploadModal.hide();
+        } else {//发送失败
+          $scope.confirmUploadModal.hide();
+          var length = $scope.chatsList[chatListIndex].length;
+          for(var i = length-1; i>=0; i--){
+            if($scope.chatsList[chatListIndex][i].randomId === data.randomId){
+              $scope.chatsList[chatListIndex][i].failed = true;
+              break;
+            }
+          }
+        }
+      });
     };
 
     //离开此页时标记读过
     $scope.$on('$destroy',function() {
       Chat.readChat($scope.chatroomId);
+      $scope.confirmUploadModal.remove();
     });
 
 

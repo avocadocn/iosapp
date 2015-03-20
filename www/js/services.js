@@ -528,8 +528,8 @@ angular.module('donlerApp.services', [])
         }
         $http.get(CONFIG.BASE_URL + '/chatrooms')
         .success(function (data, status) {
-          callback(null,data.chatRoomList);
-          chatroomList = data.chatRoomList;
+          callback(null,data.chatroomList);
+          chatroomList = data.chatroomList;
         }).error(function (data, status) {
           callback('列表获取错误');
         });
