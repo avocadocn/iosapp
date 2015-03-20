@@ -31,7 +31,7 @@ ion-view.circle_company
           i.ion-heart
           span.appreciate(ng-repeat="appr in circle.appreciate") {{appr.post_user_id}}
         .comment_container(ng-if="circle.textComments.length > 0")
-          .comment(ng-repeat="comment in circle.textComments")
+          .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)")
             p {{comment.content}}
     ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
   .comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
@@ -39,7 +39,7 @@ ion-view.circle_company
   .bar.bar-footer.item-input-inset.circle_comment_box(ng-if="isCommenting")
     .item-input-wrapper
       i.icon.ion-happy.placeholder-icon
-      input(type="text" ng-model="commentFormData.content" when-focus="isCommenting" required)
+      input(type="text" ng-model="commentFormData.content" when-focus="isCommenting" placeholder="{{commentPlaceholderText}}" required)
     button.button.button-clear(ng-click="comment()") 发表
 
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{circlePswpId}}")

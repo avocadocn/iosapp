@@ -3721,6 +3721,7 @@ angular.module('donlerApp.controllers', [])
       $scope.openCommentBox = function (circle) {
         $scope.isCommenting = true;
         $scope.targetCommentCircle = circle;
+        $scope.isOnlyToContent = true;
       };
 
       $scope.commentFormData = {
@@ -3728,20 +3729,35 @@ angular.module('donlerApp.controllers', [])
       };
       // 发表评论
       $scope.comment = function () {
-        Circle.comment($scope.targetCommentCircle.content._id, {
+        var postData = {
           kind: 'comment',
-          is_only_to_content: true,
+          is_only_to_content: $scope.isOnlyToContent,
           content: $scope.commentFormData.content
-        })
+        };
+        if ($scope.targetUserId) {
+          postData.target_user_id = $scope.targetUserId;
+        }
+        Circle.comment($scope.targetCommentCircle.content._id, postData)
           .success(function (data) {
             $scope.targetCommentCircle.textComments = [data.circleComment].concat($scope.targetCommentCircle.textComments);
             $scope.stopComment();
-            $scope.targetCommentCircle = null;
             $scope.commentFormData.content = '';
+            $scope.targetUserId = null;
+            $scope.commentPlaceholderText = '';
+            $scope.targetCommentCircle.isCommenting = false;
+            $scope.targetCommentCircle = null;
           })
           .error(function (data) {
             ionicAlert(data.msg || '操作失败');
           });
+      };
+
+      $scope.replyTo = function (circle, comment) {
+        $scope.isCommenting = true;
+        $scope.targetCommentCircle = circle;
+        $scope.isOnlyToContent = false;
+        $scope.targetUserId = comment.post_user_id;
+        $scope.commentPlaceholderText = '回复 ' + comment.post_user_id; // TODO
       };
 
       $scope.stopComment = function () {

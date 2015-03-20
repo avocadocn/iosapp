@@ -18,7 +18,7 @@
       <div class="circle_comment_list">
         <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><i class="ion-heart"></i><span ng-repeat="appr in circle.appreciate" class="appreciate">{{appr.post_user_id}}</span></div>
         <div ng-if="circle.textComments.length &gt; 0" class="comment_container">
-          <div ng-repeat="comment in circle.textComments" class="comment">
+          <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" class="comment">
             <p>{{comment.content}}</p>
           </div>
         </div>
@@ -28,7 +28,7 @@
   <div ng-if="isCommenting" ng-click="stopComment()" class="comment_wrap"></div>
   <div ng-if="isCommenting" class="bar bar-footer item-input-inset circle_comment_box">
     <div class="item-input-wrapper"><i class="icon ion-happy placeholder-icon"></i>
-      <input type="text" ng-model="commentFormData.content" when-focus="isCommenting" required="required"/>
+      <input type="text" ng-model="commentFormData.content" when-focus="isCommenting" placeholder="{{commentPlaceholderText}}" required="required"/>
     </div>
     <button ng-click="comment()" class="button button-clear">发表</button>
   </div>
