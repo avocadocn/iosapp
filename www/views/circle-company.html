@@ -14,7 +14,7 @@
         <div><img ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo="open-photo" error-img="error-img" photo="photo" pswp-id="circlePswpId" photos="imagesForPswp"/></div>
         <div class="icon_comment"><i ng-if="user._id == circle.user._id" ng-click="circleContentDelete($event)" id="{{circle.content._id}}" class="circle_delete">删除</i><i class="ion_comment circle_comment"></i></div>
       </div></a>
-    <ion-infinite-scroll ng-if="loadingStatus.hasMore" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>
   <div tabindex="-1" role="dialog" aria-hidden="true" id="{{circlePswpId}}" class="pswp">
     <div class="pswp__bg"></div>

@@ -21,7 +21,7 @@ ion-view.circle_company
         .icon_comment
           i.circle_delete(ng-if="user._id == circle.user._id" ng-click="circleContentDelete($event)" id="{{circle.content._id}}") 删除
           i.ion_comment.circle_comment
-    ion-infinite-scroll(ng-if="loadingStatus.hasMore" icon="ion-looping" on-infinite="loadMore()" distance="1%")
+    ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
 
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{circlePswpId}}")
     .pswp__bg

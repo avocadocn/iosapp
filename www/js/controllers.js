@@ -3689,8 +3689,10 @@ angular.module('donlerApp.controllers', [])
           $scope.loadingStatus.hasMore = false;
         }
       })
-      .error(function (data) {
-        alertError(data.msg || '获取失败');
+      .error(function (data, status) {
+        if (status !== 404) {
+          alertError(data.msg || '获取失败');
+        }
       });
 
       $scope.refresh = function() {
@@ -3709,11 +3711,10 @@ angular.module('donlerApp.controllers', [])
       };
 
       $scope.loadMore = function () {
-        if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading) {
-          return; // 如果没有更多内容或已经正在加载，则返回，防止连续的请求
+        if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
+          return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
         }
         $scope.loadingStatus.loading = true;
-
         var pos = $scope.circleContentList.length - 1;
         var lastContentDate = $scope.circleContentList[pos].content.post_date;
         Circle.getCompanyCircle(null, lastContentDate)
@@ -3722,8 +3723,14 @@ angular.module('donlerApp.controllers', [])
           $scope.loadingStatus.loading = false;
           $scope.$broadcast('scroll.infiniteScrollComplete');
         })
-        .error(function (data) {
-          alertError(data.msg || '获取失败');
+        .error(function (data, status) {
+          if (status !== 404) {
+            alertError(data.msg || '获取失败');
+          }
+          else {
+            $scope.loadingStatus.hasMore = false;
+          }
+          $scope.loadingStatus.loading = false;
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
       };
