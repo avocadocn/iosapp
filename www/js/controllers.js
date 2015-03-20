@@ -3738,9 +3738,53 @@ angular.module('donlerApp.controllers', [])
         });
       };
 
+      // 复制图片地址到一个数组供预览大图用
+      var copyPhotosToPswp = function () {
+        $scope.imagesForPswp = [];
+        var id = 0;
+        for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
+          var circle = $scope.circleContentList[i];
+          if (circle.content.photos && circle.content.photos.length > 0) {
+            var pswpPhotos = [];
+            for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
+              var photo = circle.content.photos[j];
+              photo._id = id;
+              pswpPhotos.push({
+                _id: photo._id,
+                w: photo.width || $scope.screenWidth,
+                h: photo.height || $scope.screenHeight,
+                src: CONFIG.STATIC_URL + photo.uri
+              });
+              id++;
+            }
+            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
+          }
+        }
+      };
+
+      // 将赞和评论分别抽取出来
+      var pickAppreciateAndComments = function (circle) {
+        circle.appreciate = [];
+        circle.textComments = [];
+        for (var i = 0, commentsLen = circle.comments.length; i < commentsLen; i++) {
+          var comment = circle.comments[i];
+          switch (comment.kind) {
+          case 'appreciate':
+            circle.appreciate.push(comment);
+            break;
+          case 'comment':
+            circle.textComments.push(comment);
+            break;
+          }
+        }
+      };
+
       // 先获取一次
       Circle.getCompanyCircle()
       .success(function (data) {
+        data.forEach(function (circle) {
+          pickAppreciateAndComments(circle);
+        });
         $scope.circleContentList = data;
         $scope.loadingStatus.hasInit = true;
         if (data.length >= pageLength) {
@@ -3749,6 +3793,7 @@ angular.module('donlerApp.controllers', [])
         else {
           $scope.loadingStatus.hasMore = false;
         }
+        copyPhotosToPswp();
       })
       .error(function (data, status) {
         if (status !== 404) {
@@ -3760,7 +3805,11 @@ angular.module('donlerApp.controllers', [])
         var latestContentDate = $scope.circleContentList[0].content.post_date;
         Circle.getCompanyCircle(latestContentDate, null)
         .success(function (data) {
+          data.forEach(function (circle) {
+            pickAppreciateAndComments(circle);
+          });
           $scope.circleContentList = (data || []).concat($scope.circleContentList);
+          copyPhotosToPswp();
           $scope.$broadcast('scroll.refreshComplete');
         })
         .error(function (data, status) {
@@ -3780,8 +3829,12 @@ angular.module('donlerApp.controllers', [])
         var lastContentDate = $scope.circleContentList[pos].content.post_date;
         Circle.getCompanyCircle(null, lastContentDate)
         .success(function (data) {
+          data.forEach(function (circle) {
+            pickAppreciateAndComments(circle);
+          });
           $scope.circleContentList = $scope.circleContentList.concat(data);
           $scope.loadingStatus.loading = false;
+          copyPhotosToPswp();
           $scope.$broadcast('scroll.infiniteScrollComplete');
         })
         .error(function (data, status) {
@@ -3797,30 +3850,6 @@ angular.module('donlerApp.controllers', [])
       };
 
       $scope.circlePswpId = 'circle_pswp_' + Date.now();
-
-      // 提取图片到一个数组里
-      $scope.$watch('circleContentList', function (newVal) {
-        $scope.imagesForPswp = [];
-        var id = 0;
-        for (var i = 0, circlesLen = newVal.length; i < circlesLen; i++) {
-          var circle = newVal[i];
-          if (circle.content.photos && circle.content.photos.length > 0) {
-            var pswpPhotos = [];
-            for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
-              var photo = circle.content.photos[j];
-              photo._id = id;
-              pswpPhotos.push({
-                _id: photo._id,
-                w: photo.width || $scope.screenWidth,
-                h: photo.height || $scope.screenHeight,
-                src: CONFIG.STATIC_URL + photo.uri
-              });
-              id++;
-            }
-            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-          }
-        }
-      });
 
       $scope.deleteCircleContent = function (circle) {
         var confirmPopup = $ionicPopup.confirm({
@@ -3844,6 +3873,35 @@ angular.module('donlerApp.controllers', [])
           }
         });
       };
+
+      $scope.toComment = function (circle) {
+        if (circle.isToComment === undefined) {
+          circle.isToComment = true;
+        }
+        else {
+          circle.isToComment = !circle.isToComment;
+        }
+      };
+
+      // TODO: 评论
+      $scope.comment = function (circle) {
+
+      };
+
+      // 赞
+      $scope.appreciate = function (circle) {
+        Circle.comment(circle.content._id, {
+          kind: 'appreciate',
+          is_only_to_content: true
+        })
+          .success(function (data) {
+            circle.appreciate.push(data.circleComment);
+          })
+          .error(function (data) {
+            ionicAlert(data.msg || '操作失败');
+          });
+      };
+
     }
   ])
   .controller('CircleUploaderController', [

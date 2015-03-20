@@ -19,8 +19,20 @@ ion-view.circle_company
         .image_box.clearfix
           img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo error-img photo="photo" pswp-id="circlePswpId" photos="imagesForPswp")
         .icon_comment
-          span.circle_delete(ng-if="user._id == circle.user._id" ng-click="deleteCircleContent(circle)") 删除
-          i.ion_comment.circle_comment
+          i.ion_comment.circle_comment(ng-click="toComment(circle)")
+        .comment_op(ng-if="circle.isToComment")
+          span.op(ng-click="appreciate(circle)") 赞
+          span.divider |
+          span.op 评论
+          span.divider |
+          span.op(ng-if="user._id == circle.user._id" ng-click="deleteCircleContent(circle)") 删除
+      .circle_comment_list
+        .appreciate_container(ng-if="circle.appreciate.length > 0")
+          i.ion-heart
+          span.appreciate(ng-repeat="appr in circle.appreciate") {{appr.post_user_id}}
+        .comment_container(ng-if="circle.textComments.length > 0")
+          .comment(ng-repeat="comment in circle.comments")
+            p {{comment.content}}
     ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
 
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{circlePswpId}}")

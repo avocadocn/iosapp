@@ -1472,6 +1472,7 @@ angular.module('donlerApp.services', [])
 
       /**
        * 保存准备上传的图片的URI
+       * @param {Array} images uri数组
        */
       setUploadImages: function (images) {
         uploadImages = images;
@@ -1482,6 +1483,16 @@ angular.module('donlerApp.services', [])
        */
       getUploadImages: function () {
         return uploadImages;
+      },
+
+      /**
+       * 评论或赞
+       * @param {String} id 同事圈内容的id
+       * @param {Object} data 请求数据
+       * @returns {HttpPromise}
+       */
+      comment: function (id, data) {
+        return $http.post(CONFIG.BASE_URL + '/circle_contents/' + id + '/comments', data);
       }
 
     };
