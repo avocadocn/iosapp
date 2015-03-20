@@ -39,17 +39,7 @@ ion-view.competition_message_panel
         .col {{comment.create_date | date:"MM-dd HH:mm"}}
     //- ion-infinite-scroll(ng-if="canloadMore()" on-infinite="getCompetitionComments(1)" distance="-10%")
   ion-footer-bar.comment_box(ng-show="oppositeLeader || sponsorLeader")
-    form(name="comment_form")
-      //- i.icon.ion-image(ng-click="showUploadActionSheet()")
-      textarea#ta.comment_input(rows="1" cols="30" ng-model="commentContent" required maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting = true;" ng-blur="isWriting=false;" ng-change="resizeTextarea()")
-      button.dl_button.emotion_button(ng-click="showEmotions()" prevent-default)
-        i.emoji.emoji_tongue
-      button.publish_button(ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid") 发言
+    publish-box(is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publishComment()")
 
-      ion-slide-box.emotion_box(ng-if="isShowEmotions")
-        ion-slide(ng-repeat="emoji in emojiList")
-          .box.clearfix
-            .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
-              i(class="emoji {{'emoji_'+emotion}}" )
 
 
