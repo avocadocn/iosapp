@@ -4,25 +4,12 @@
     <h1 ng-cloak="ng-cloak" class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a>
   </ion-header-bar>
   <ion-content>
-    <ion-refresher on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-click="hideEmotions()" class="comments">
-      <div ng-repeat="comments in commentList track by $index" id="comment{{$index}}" class="blocks">
+      <div class="blocks">
         <div ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack="ng-cloack" class="block">
-          <div ng-show="showTime &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]))" class="time_block">
-            <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]===1))" ng-cloak="ng-cloak" class="time">{{comment.create_date | date: 'yyyy'}}</span></p>
+          <div ng-show="showTime &amp;&amp; ($index!==0||($index===0))" class="time_block">
+            <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0))" ng-cloak="ng-cloak" class="time">{{comment.create_date | date: 'yyyy'}}</span></p>
             <p><span ng-cloak="ng-cloak" class="time">{{comment.create_date | date: 'M月dd日 HH:mm'}}</span></p>
-          </div>
-          <div ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}" ng-cloak="ng-cloak" class="comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a>
-            <div class="contents">
-              <div ng-if="comment.poster._id !== userId" ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>
-              <div ng-if="comment.poster._id == userId" ng-cloak="ng-cloak" class="name">我</div>
-              <div class="content">
-                <div class="triangle_isosceles triangle_img">
-                  <div class="tr"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img="error-img" width="180" height="180" ng-cloak="ng-cloak"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" error-img="error-img" width="180" height="180" ng-cloak="ng-cloak"/></div>
-                  <div class="box"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" error-img="error-img" class="img"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180" class="img"/></div>
-                </div>
-              </div>
-            </div>
           </div>
           <div ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" ng-cloak="ng-cloak" class="comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a>
             <div class="contents">
@@ -39,52 +26,9 @@
         </div>
       </div>
     </div>
+    <ion-infinite-scroll ng-if="!loading&amp;&amp;hasMore" on-infinite="readHistory()" distance="-2%"></ion-infinite-scroll>
   </ion-content>
   <ion-footer-bar class="comment_box">
-    <publish-box is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publish()" show-upload-action-sheet="showUploadActionSheet()"></publish-box>
+    <publish-box is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publish()"></publish-box>
   </ion-footer-bar>
-  <script id="confirm-upload-modal.html" type="text/ng-template">
-    <ion-modal-view>
-      <ion-header-bar>
-        <button ng-click="cancelUpload()" class="button">取消</button>
-        <h1 class="title">预览</h1>
-        <button ng-click="confirmUpload()" class="button">确定</button>
-      </ion-header-bar>
-      <ion-content>
-        <div class="card">
-          <div class="item item-image"><img ng-src="{{previewImg}}"/></div>
-        </div>
-      </ion-content>
-    </ion-modal-view>
-  </script>
-  <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
-    <div class="pswp__bg"></div>
-    <div class="pswp__scroll-wrap">
-      <div class="pswp__container">
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-      </div>
-      <div class="pswp__ui pswp__ui--hidden">
-        <div class="pswp__top-bar">
-          <div class="pswp__counter"></div>
-          <button title="关闭" class="pswp__button pswp__button--close"></button>
-          <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
-          <button ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
-          <div class="pswp__preloader">
-            <div class="pswp__preloader__icn">
-              <div class="pswp__preloader__cut">
-                <div class="pswp__preloader__donut"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button title="上一张" class="pswp__button pswp__button--arrow--left"></button>
-        <button title="下一张" class="pswp__button pswp__button--arrow--right"></button>
-        <div class="pswp__caption">
-          <div class="pswp__caption__center"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 </ion-view>

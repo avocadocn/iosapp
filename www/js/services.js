@@ -1451,18 +1451,13 @@ angular.module('donlerApp.services', [])
       /**
        * 删除公司同事圈内容
        * @param  {String}   contentId 同事圈消息id
-       * @param  {Function} callback  返回函数 形式：callback(err)
+       * @returns  {HttpPromise}
        */
-      deleteCompanyCircle: function(contentId, callback) {
-        $http.delete(CONFIG.BASE_URL + '/circle_contents/' + contentId)
-          .success(function(data, status, headers, config) {
-            callback(null, data);
-          })
-          .error(function(data, status, headers, config) {
-            callback('error');
-          });
+      deleteCompanyCircle: function(contentId) {
+        return $http.delete(CONFIG.BASE_URL + '/circle_contents/' + contentId);
       },
-            /**
+
+      /**
        * 发布前的准备，创建一个处于等待状态的CircleContent
        * @param {String} campaignId 活动id
        * @param {String} content 文本内容
@@ -1492,6 +1487,7 @@ angular.module('donlerApp.services', [])
 
       /**
        * 保存准备上传的图片的URI
+       * @param {Array} images uri数组
        */
       setUploadImages: function (images) {
         uploadImages = images;
@@ -1502,6 +1498,16 @@ angular.module('donlerApp.services', [])
        */
       getUploadImages: function () {
         return uploadImages;
+      },
+
+      /**
+       * 评论或赞
+       * @param {String} id 同事圈内容的id
+       * @param {Object} data 请求数据
+       * @returns {HttpPromise}
+       */
+      comment: function (id, data) {
+        return $http.post(CONFIG.BASE_URL + '/circle_contents/' + id + '/comments', data);
       }
 
     };

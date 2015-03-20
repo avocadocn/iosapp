@@ -673,6 +673,7 @@ angular.module('donlerApp.controllers', [])
           else {
             $scope.chatsList.unshift(data.chats.reverse());
           }
+          data.chats.forEach(addPhotos);
           judgeTopShowTime();
           $scope.nextDate = data.nextDate;
           $scope.nextId = data.nextId;
@@ -719,7 +720,7 @@ angular.module('donlerApp.controllers', [])
         for(var i = length-1; i>=0; i--){
           if($scope.chatsList[chatListIndex][i].randomId === data.randomId){
             data.randomId = null;
-            // addPhotos(data);
+            addPhotos(data);
             $scope.chatsList[chatListIndex][i] = data;
             break;
           }
@@ -732,7 +733,7 @@ angular.module('donlerApp.controllers', [])
         var isAtBottom = false;
         if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
         $scope.chatsList[chatListIndex].push(data);
-        // addPhotos(data);
+        addPhotos(data);
         if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
       }
     })
@@ -899,29 +900,13 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
-    //离开此页时标记读过
-    $scope.$on('$destroy',function() {
-      Chat.readChat($scope.chatroomId);
-      $scope.confirmUploadModal.remove();
-    });
-
-
-  }])
-  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Comment', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', '$ionicPopup', 'Upload', 'Campaign', '$ionicModal',
-    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, Comment, Socket, User, Tools, CONFIG, INFO, $ionicPopup, Upload, Campaign, $ionicModal) {
-    $scope.campaignId = $stateParams.id;
-    $scope.campaignTitle = INFO.discussName;
-
-    $scope.content='';
-    $scope.userId = localStorage.id;
-
     //for pswp
-    $scope.pswpId = 'discuss' + Date.now();
+    $scope.pswpId = 'chat' + Date.now();
     $scope.pswpPhotoAlbum = {};
     $scope.photos = [];
-    var addPhotos = function (comment) {
-      if (comment.photos && comment.photos.length > 0) {
-        comment.photos.forEach(function (photo) {
+    var addPhotos = function (chat) {
+      if (chat.photos && chat.photos.length > 0) {
+        chat.photos.forEach(function (photo) {
           var width = photo.width || INFO.screenWidth;
           var height = photo.height || INFO.screenHeight;
           var item = {
@@ -930,13 +915,27 @@ angular.module('donlerApp.controllers', [])
             w: width,
             h: height
           };
-          if (photo.upload_user && photo.upload_date) {
-            item.title = '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm');
-          }
+          item.title = '上传者: ' + chat.poster.nickname + '  上传时间: ' + moment(chat.create_date).format('YYYY-MM-DD HH:mm');
           $scope.photos.push(item);
         });
       }
     };
+
+    //离开此页时标记读过
+    $scope.$on('$destroy',function() {
+      Chat.readChat($scope.chatroomId);
+      $scope.confirmUploadModal.remove();
+    });
+
+
+  }])
+  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$timeout', 'Comment', 'User', 'INFO', 
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, $timeout, Comment, User, INFO) {
+    $scope.campaignId = $stateParams.id;
+    $scope.campaignTitle = INFO.discussName;
+
+    $scope.content='';
+    $scope.userId = localStorage.id;
 
     //ionichistory
     $scope.goBack = function() {
@@ -948,104 +947,35 @@ angular.module('donlerApp.controllers', [])
       }
     };
 
-    //获取公告
-    // $scope.showNotice = false;
-    // Message.getCampaignMessages($scope.campaignId, function(err, data){
-    //   if(err){
-    //     console.log(err)
-    //   }else{
-    //     if(data.length>0){
-    //       $scope.noticeSender = data[0].sender[0].nickname;
-    //       $scope.notification = data[0].content;
-    //     }
-    //     $scope.showNotice = true;
-    //   }
-    // });
-
-    //评论获取
-    $scope.commentList = [];
-    $scope.topShowTime = [];
-
-    var judgeTopShowTime = function() {
-      $scope.topShowTime.unshift(1);
-      if($scope.commentList.length>1) {
-        var preTime = new Date($scope.commentList[1][0].create_date);//上次的第一个
-        var length = $scope.commentList[0].length;
-        var nowTime = new Date($scope.commentList[0][length-1].create_date);//这次的最后一个
-        if(nowTime.getFullYear() != preTime.getFullYear()) {
-          $scope.topShowTime[1] = 1;
-        }else if(nowTime.getDay() != preTime.getDay()) {
-          $scope.topShowTime[1] = 2;
-        }else if(nowTime.getHours() != preTime.getHours()) {
-          $scope.topShowTime[1] = 2;
-        }else if(nowTime.getMinutes() != preTime.getMinutes()){
-          $scope.topShowTime[1] = 2;
-        }else{
-          $scope.topShowTime[1] = 0;
-        }
-      }
-    };
-
-    var nextStartDate ='';
-    //获取最新20条评论
-    var getComments = function() {
-      var queryData = {
-        requestType: 'campaign',
-        requestId: $scope.campaignId,
-        limit: 20
-      };
+    $scope.comments = [];
+    var nextStartDate = '';
+    $scope.loading = false;
+    //获取评论
+    var getComments = function(queryData) {
+      $scope.loading = true;
       Comment.getComments(queryData, function(err, data){
         if(!err) {
-          $scope.commentList = [];
-          $scope.commentList.push(data.comments.reverse());//保证最新的在最下面
-          data.comments.forEach(addPhotos);
+          $scope.comments = $scope.comments.concat(data.comments);
           nextStartDate = data.nextStartDate;
-          $ionicScrollDelegate.scrollBottom();
-          judgeTopShowTime();
+          $scope.hasMore = nextStartDate ? true: false;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $timeout(function() {
+            $scope.loading = false;
+          }, 1000);
         }
         else{
           console.log(err);
         }
       });
     };
-    getComments();
+    getComments({
+      requestType: 'campaign',
+      requestId: $scope.campaignId,
+      limit: 20
+    });
 
     $scope.isWriting = false;
-
-    //回到前台、用户手动刷新
-    // $scope.refreshComment = function() {
-    //   User.getCampaignCommentNumber($scope.userId, $scope.campaignId, function(msg, data) {
-    //     if(data.unreadNumbers>0) {//如果有没读的，就去拿
-    //       var queryData = {
-    //         requestType: 'campaign',
-    //         requestId: $scope.campaignId,
-    //         limit: data.unreadNumbers
-    //       }
-    //       Comment.getComments(queryData,function(err, data){
-    //         if(!err) {
-    //           //获取当前最新一条的id
-    //           var commentListIndex = $scope.commentList.length -1;
-    //           var commentIndex = $scope.commentList[commentListIndex].length - 1;
-    //           var latestCommentId = $scope.commentList[commentListIndex][commentIndex]._id;
-    //           //与data来的id作比较
-    //           var newComments = data.comments.reverse();
-    //           var index = Tools.arrayObjectIndexOf(newComments, latestCommentId, '_id');
-    //           //插入比这个新的
-    //           if(index > -1) newComments.splice(0, index + 1);
-    //           newComments.forEach(addPhotos);
-    //           $scope.commentList.push(newComments);
-    //           $ionicScrollDelegate.scrollBottom();
-    //         }
-    //         else {
-    //           console.log(err);
-    //         }
-    //       });
-    //     }
-    //   });
-    // };
-
-    // $scope.newCommentNumber = 0;
-
+    
     //拉取历史讨论记录
     $scope.readHistory = function() {
       if(nextStartDate){//如果还有下一条
@@ -1055,42 +985,11 @@ angular.module('donlerApp.controllers', [])
           limit: 20,
           createDate: nextStartDate
         };
-        Comment.getComments(queryData,function (err,data) {
-          if(!err) {
-            $scope.commentList.unshift(data.comments.reverse());
-            $scope.topShowTime.push();
-            $ionicScrollDelegate.scrollTo(0,1350);//此数值仅在发的评论为1行时有效...
-            // $('#currentComment').scrollIntoView();//need jQuery
-            nextStartDate = data.nextStartDate;
-            //-addPhoto
-            $scope.$broadcast('scroll.refreshComplete');
-            data.comments.forEach(addPhotos);
-            judgeTopShowTime();
-          }
-          else {
-            console.log(err);
-          }
-        });
+        getComments(queryData);
       }else{//没下一条了~
-        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$broadcast('scroll.infiniteScrollComplete');
       }
     };
-
-    //refresh todo
-    // $scope.refresh = function() {
-    //   $scope.loading = true;
-
-    //   $scope.newCommentNumber = 0;
-    //   $timeout({
-    //     $ionicScrollDelegate.scrollBottom();
-    //     $scope.loading = false;
-    //     $scope.$broadcast('scroll.infiniteScrollComplete');
-    //   },1000);
-    // };
-    // $scope.toBottom = function() {
-    //   $scope.newCommentNumber = 0;
-    //   $ionicScrollDelegate.scrollBottom();
-    // };
 
     //获取个人信息供发评论使用
     var currentUser;
@@ -1106,7 +1005,6 @@ angular.module('donlerApp.controllers', [])
      *   1 显示年、月、日
      *   2 显示月、日
      */
-
     $scope.needShowTime = function (index, comments) {
       if(index===0){
         return 1;
@@ -1140,87 +1038,23 @@ angular.module('donlerApp.controllers', [])
         },
         content: $scope.content
       };
-      var commentListIndex = $scope.commentList.length -1;
-      $scope.commentList[commentListIndex].push(newComment);
+      $scope.comments.push(newComment);
       $ionicScrollDelegate.scrollBottom();
       Comment.publishComment({
         'hostType': 'campaign',
         'hostId': $scope.campaignId,
         'content': $scope.content
-        // 'randomId': randomId
       }, function(err){
         if(err){
           console.log(err);
-          var length =  $scope.commentList[commentListIndex].length;
           //发送失败
-          $scope.commentList[commentListIndex][length-1].failed = true;
+          var length = $scope.comments.length;
+          $scope.comments[length-1].failed = true;
         }else{
           $scope.content = '';
-          // $scope.resizeTextarea();
         }
       });
     };
-
-
-    // 上传图片
-    $scope.showUploadActionSheet = function () {
-      Upload.getPicture(false, function (err, imageURI) {
-        if(!err){
-          $scope.previewImg = imageURI;
-          $scope.confirmUploadModal.show();
-        }
-      });
-    };
-
-    $ionicModal.fromTemplateUrl('confirm-upload-modal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.confirmUploadModal = modal;
-    });
-    $scope.cancelUpload = function() {
-      $scope.confirmUploadModal.hide();
-    };
-
-    $scope.$on('$destroy',function() {
-      $scope.confirmUploadModal.remove();
-    });
-
-    $scope.confirmUpload = function () {
-      if(window.analytics){
-        window.analytics.trackEvent('Click', 'uploadImg');
-      }
-      //-生成随机id
-      var randomId = Math.floor(Math.random()*100);
-      $scope.randomId = randomId;
-      //上传
-      var data = {randomId: randomId, imageURI:$scope.previewImg};
-      var addr = CONFIG.BASE_URL + '/comments/host_type/campaign/host_id/' + $scope.campaignId;
-      Upload.upload('discuss', addr, data, function(err) {
-        if(!err) {
-          $scope.confirmUploadModal.hide();
-        } else {//发送失败
-          $scope.confirmUploadModal.hide();
-          //-逻辑修改todo
-          var length =  $scope.commentList[commentListIndex].length;
-          $scope.commentList[commentListIndex][length-1].failed = true;
-        }
-      });
-      //-创建一个新comment
-      var newComment = {
-        create_date: new Date(),
-        poster: {
-          '_id': currentUser._id,
-          'photo': currentUser.photo,
-          'nickname': currentUser.nickname
-        },
-        photos: [{uri:$scope.previewImg}]
-      };
-      var commentListIndex = $scope.commentList.length -1;
-      $scope.commentList[commentListIndex].push(newComment);
-      $ionicScrollDelegate.scrollBottom();
-    };
-
 
     $scope.hideEmotions = function() {
       $scope.isShowEmotions = false;
@@ -3747,79 +3581,19 @@ angular.module('donlerApp.controllers', [])
 
       var pageLength = 20; // 一次获取的数据量
 
-      var alertError = function (err) {
+      var ionicAlert = function (err) {
         $ionicPopup.alert({
           title: '提示',
-          template: err || '获取数据失败'
+          template: err
         });
       };
 
-      // 先获取一次
-      Circle.getCompanyCircle()
-      .success(function (data) {
-        $scope.circleContentList = data;
-        $scope.loadingStatus.hasInit = true;
-        if (data.length >= pageLength) {
-          $scope.loadingStatus.hasMore = true;
-        }
-        else {
-          $scope.loadingStatus.hasMore = false;
-        }
-      })
-      .error(function (data, status) {
-        if (status !== 404) {
-          alertError(data.msg || '获取失败');
-        }
-      });
-
-      $scope.refresh = function() {
-        var latestContentDate = $scope.circleContentList[0].content.post_date;
-        Circle.getCompanyCircle(latestContentDate, null)
-        .success(function (data) {
-          $scope.circleContentList = (data || []).concat($scope.circleContentList);
-          $scope.$broadcast('scroll.refreshComplete');
-        })
-        .error(function (data, status) {
-          if (status !== 404) {
-            alertError(data.msg || '获取失败');
-          }
-          $scope.$broadcast('scroll.refreshComplete');
-        });
-      };
-
-      $scope.loadMore = function () {
-        if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
-          return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
-        }
-        $scope.loadingStatus.loading = true;
-        var pos = $scope.circleContentList.length - 1;
-        var lastContentDate = $scope.circleContentList[pos].content.post_date;
-        Circle.getCompanyCircle(null, lastContentDate)
-        .success(function (data) {
-          $scope.circleContentList = $scope.circleContentList.concat(data);
-          $scope.loadingStatus.loading = false;
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-        })
-        .error(function (data, status) {
-          if (status !== 404) {
-            alertError(data.msg || '获取失败');
-          }
-          else {
-            $scope.loadingStatus.hasMore = false;
-          }
-          $scope.loadingStatus.loading = false;
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-        });
-      };
-
-      $scope.circlePswpId = 'circle_pswp_' + Date.now();
-
-      // 提取图片到一个数组里
-      $scope.$watch('circleContentList', function (newVal) {
+      // 复制图片地址到一个数组供预览大图用
+      var copyPhotosToPswp = function () {
         $scope.imagesForPswp = [];
         var id = 0;
-        for (var i = 0, circlesLen = newVal.length; i < circlesLen; i++) {
-          var circle = newVal[i];
+        for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
+          var circle = $scope.circleContentList[i];
           if (circle.content.photos && circle.content.photos.length > 0) {
             var pswpPhotos = [];
             for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
@@ -3836,9 +3610,98 @@ angular.module('donlerApp.controllers', [])
             $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
           }
         }
+      };
+
+      // 将赞和评论分别抽取出来
+      var pickAppreciateAndComments = function (circle) {
+        circle.appreciate = [];
+        circle.textComments = [];
+        for (var i = 0, commentsLen = circle.comments.length; i < commentsLen; i++) {
+          var comment = circle.comments[i];
+          switch (comment.kind) {
+          case 'appreciate':
+            circle.appreciate.push(comment);
+            break;
+          case 'comment':
+            circle.textComments.push(comment);
+            break;
+          }
+        }
+      };
+
+      // 先获取一次
+      Circle.getCompanyCircle()
+      .success(function (data) {
+        data.forEach(function (circle) {
+          pickAppreciateAndComments(circle);
+        });
+        $scope.circleContentList = data;
+        $scope.loadingStatus.hasInit = true;
+        if (data.length >= pageLength) {
+          $scope.loadingStatus.hasMore = true;
+        }
+        else {
+          $scope.loadingStatus.hasMore = false;
+        }
+        copyPhotosToPswp();
+      })
+      .error(function (data, status) {
+        if (status !== 404) {
+          ionicAlert(data.msg || '获取失败');
+        }
       });
 
-      $scope.circleContentDelete = function(e) {
+      $scope.refresh = function() {
+        var latestContentDate = $scope.circleContentList[0].content.post_date;
+        Circle.getCompanyCircle(latestContentDate, null)
+        .success(function (data) {
+          data.forEach(function (circle) {
+            pickAppreciateAndComments(circle);
+          });
+          $scope.circleContentList = (data || []).concat($scope.circleContentList);
+          copyPhotosToPswp();
+          $scope.$broadcast('scroll.refreshComplete');
+        })
+        .error(function (data, status) {
+          if (status !== 404) {
+            ionicAlert(data.msg || '获取失败');
+          }
+          $scope.$broadcast('scroll.refreshComplete');
+        });
+      };
+
+      $scope.loadMore = function () {
+        if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
+          return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
+        }
+        $scope.loadingStatus.loading = true;
+        var pos = $scope.circleContentList.length - 1;
+        var lastContentDate = $scope.circleContentList[pos].content.post_date;
+        Circle.getCompanyCircle(null, lastContentDate)
+        .success(function (data) {
+          data.forEach(function (circle) {
+            pickAppreciateAndComments(circle);
+          });
+          $scope.circleContentList = $scope.circleContentList.concat(data);
+          $scope.loadingStatus.loading = false;
+          copyPhotosToPswp();
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        })
+        .error(function (data, status) {
+          if (status !== 404) {
+            ionicAlert(data.msg || '获取失败');
+          }
+          else {
+            $scope.loadingStatus.hasMore = false;
+          }
+          $scope.loadingStatus.loading = false;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+      };
+
+      $scope.circlePswpId = 'circle_pswp_' + Date.now();
+
+      $scope.deleteCircleContent = function (circle) {
         var confirmPopup = $ionicPopup.confirm({
           title: '提示',
           template: '确定删除吗?',
@@ -3847,22 +3710,90 @@ angular.module('donlerApp.controllers', [])
         });
         confirmPopup.then(function(res) {
           if (res) {
-            var element = typeof e === 'object' ? e.target : document.getElementById(e);
-            var index = Tools.arrayObjectIndexOf($scope.circles, element.id, 'content._id');
+            var index = Tools.arrayObjectIndexOf($scope.circleContentList, circle.content._id, 'content._id');
 
-            Circle.deleteCompanyCircle(element.id, function(err, data) {
-              if(!err) {
-                $scope.circles.splice(index, 1);
-              } else {
-                // TODO:
-                // show the error in the phone screen
-                console.log('error');
-              }
-
-            })
+            Circle.deleteCompanyCircle(circle.content._id)
+              .success(function (data) {
+                $scope.circleContentList.splice(index, 1);
+                ionicAlert('删除成功');
+              })
+              .error(function (data) {
+                ionicAlert(data.msg || '删除失败');
+              });
           }
         });
-      }
+      };
+
+      $scope.toComment = function (circle) {
+        if (circle.isToComment === undefined) {
+          circle.isToComment = true;
+        }
+        else {
+          circle.isToComment = !circle.isToComment;
+        }
+      };
+
+      // 打开评论输入框
+      $scope.openCommentBox = function (circle) {
+        $scope.isCommenting = true;
+        $scope.targetCommentCircle = circle;
+        $scope.isOnlyToContent = true;
+      };
+
+      $scope.commentFormData = {
+        content: ''
+      };
+      // 发表评论
+      $scope.comment = function () {
+        var postData = {
+          kind: 'comment',
+          is_only_to_content: $scope.isOnlyToContent,
+          content: $scope.commentFormData.content
+        };
+        if ($scope.targetUserId) {
+          postData.target_user_id = $scope.targetUserId;
+        }
+        Circle.comment($scope.targetCommentCircle.content._id, postData)
+          .success(function (data) {
+            $scope.targetCommentCircle.textComments = [data.circleComment].concat($scope.targetCommentCircle.textComments);
+            $scope.stopComment();
+            $scope.commentFormData.content = '';
+            $scope.targetUserId = null;
+            $scope.commentPlaceholderText = '';
+            $scope.targetCommentCircle.isCommenting = false;
+            $scope.targetCommentCircle = null;
+          })
+          .error(function (data) {
+            ionicAlert(data.msg || '操作失败');
+          });
+      };
+
+      $scope.replyTo = function (circle, comment) {
+        $scope.isCommenting = true;
+        $scope.targetCommentCircle = circle;
+        $scope.isOnlyToContent = false;
+        $scope.targetUserId = comment.post_user_id;
+        $scope.commentPlaceholderText = '回复 ' + comment.post_user_id; // TODO
+      };
+
+      $scope.stopComment = function () {
+        $scope.isCommenting = false;
+      };
+
+      // 赞
+      $scope.appreciate = function (circle) {
+        Circle.comment(circle.content._id, {
+          kind: 'appreciate',
+          is_only_to_content: true
+        })
+          .success(function (data) {
+            circle.appreciate.push(data.circleComment);
+          })
+          .error(function (data) {
+            ionicAlert(data.msg || '操作失败');
+          });
+      };
+
     }
   ])
   .controller('CircleUploaderController', [
@@ -4032,7 +3963,7 @@ angular.module('donlerApp.controllers', [])
     //   }
     // }
     $scope.getCompetitionComments = function (index) {
-      
+
       // if($scope.loading) {
       //   $scope.$broadcast('scroll.infiniteScrollComplete');
       //   return;
@@ -4105,7 +4036,7 @@ angular.module('donlerApp.controllers', [])
     }
     getCompetitionMessage();
     $scope.getCompetitionComments();
-    $scope.commentContent='';
+    $scope.content='';
 
     $scope.userId = localStorage.id;
     $scope.isWriting = false;
@@ -4131,7 +4062,7 @@ angular.module('donlerApp.controllers', [])
           'photo': currentUser.photo,
           'nickname': currentUser.nickname
         },
-        content: $scope.commentContent,
+        content: $scope.content,
         loading: true
       };
       $scope.commentList.push(newComment);
@@ -4139,7 +4070,7 @@ angular.module('donlerApp.controllers', [])
       var commentData = {
         hostType: 'competition_message',
         hostId: $state.params.id,
-        content: $scope.commentContent
+        content: $scope.content
       }
       Comment.publishComment(commentData, function(err){
         if(err){
@@ -4148,83 +4079,16 @@ angular.module('donlerApp.controllers', [])
           //发送失败
           $scope.commentList[length-1].failed = true;
         }else{
-          $scope.commentContent = '';
+          $scope.content = '';
           $scope.resizeTextarea();
         }
       });
-    };
-
-
-    //表情
-    $scope.isShowEmotions = false;
-    $scope.showEmotions = function() {
-      $scope.isShowEmotions = true;
     };
 
     $scope.hideEmotions = function() {
       $scope.isShowEmotions = false;
     };
 
-    $scope.emojiList=[];
-
-    var emoji = ["laugh", "smile", "happy", "snag", "snaky", "heart_eyes", "kiss", "blush", "howl", "angry",
-    "blink", "tongue", "tired", "logy", "asquint", "embarassed", "cry", "laugh_cry", "sigh", "sweat",
-    "good", "yeah", "pray", "finger", "clap", "muscle", "bro", "ladybro", "flash", "sun",
-    "cat", "dog", "hog_nose", "horse", "plumpkin", "ghost", "present", "trollface", "diamond", "mahjong",
-    "hamburger", "fries", "ramen", "bread", "lollipop", "cherry", "cake", "icecream"];
-
-    var dict = {"laugh":"大笑","smile":"微笑","happy":"高兴","snag":"龇牙","snaky":"阴险","heart_eyes":"心心眼","kiss":"啵一个","blush":"脸红","howl":"鬼嚎","angry":"怒",
-    "blink":"眨眼","tongue":"吐舌","tired":"困","logy":"呆","asquint":"斜眼","embarassed":"尴尬","cry":"面条泪","laugh_cry":"笑cry","sigh":"叹气","sweat":"汗",
-    "good":"棒","yeah":"耶","pray":"祈祷","finger":"楼上","clap":"鼓掌","muscle":"肌肉","bro":"基友","ladybro":"闺蜜","flash":"闪电","sun":"太阳",
-    "cat":"猫咪","dog":"狗狗","hog_nose":"猪鼻","horse":"马","plumpkin":"南瓜","ghost":"鬼","present":"礼物","trollface":"贱笑","diamond":"钻石","mahjong":"红中",
-    "hamburger":"汉堡","fries":"薯条","ramen":"拉面","bread":"面包","lollipop":"棒棒糖","cherry":"樱桃","cake":"蛋糕","icecream":"冰激凌"};
-
-    for(var i =0; emoji.length>24 ;i++) {
-      $scope.emojiList.push(emoji.splice(24,24));
-    }
-    $scope.emojiList.unshift(emoji);
-
-    $scope.addEmotion = function(emotion) {
-      $scope.commentContent += '['+ dict[emotion] +']';
-      $scope.resizeTextarea();
-    };
-
-    // var ta = document.getElementById('ta');
-
-    //获取字符串真实长度，供计算高度用
-    var getRealLength = function(str) {
-      if(typeof(str) === 'string') {
-        var newstr =str.replace(/[\u0391-\uFFE5]/g,"aa");
-        return newstr.length;
-      }else {
-        return 0;
-      }
-    }
-    //重新计算输入框行数
-    $scope.resizeTextarea = function() {
-      if($scope.commentContent) {
-        var text = $scope.commentContent.split("\n");
-        var rows = text.length;
-        var originCols = ta.cols;
-        for(var i = 0; i<rows; i++) {
-          var rowText = i === 0 ? text[i] || text : text[i] || '';
-          var realLength = getRealLength(rowText);
-          if(realLength >= originCols) {
-            if(!text[i])
-              rows += Math.ceil(realLength/originCols);
-            else
-              rows = Math.ceil(realLength/originCols);
-          }
-        }
-        rows = Math.max(rows, 1);
-        rows = Math.min(rows, 3);
-        if(rows != ta.rows) {
-          ta.rows = rows;
-        }
-      }else {
-        ta.rows = 1;
-      }
-    };
   }])
   .controller('SearchOpponentController', ['$scope', '$state', 'CompetitionMessage', 'Team', 'INFO', function ($scope, $state, CompetitionMessage, Team, INFO) {
     $scope.hasSelected = false;

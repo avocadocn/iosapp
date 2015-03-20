@@ -568,3 +568,21 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   };
 })
+
+.directive('whenFocus', ['$timeout', function ($timeout) {
+  return {
+    restrict: 'A',
+    scope: {
+      whenFocus: '='
+    },
+    link: function (scope, ele, attrs, ctrl) {
+      scope.$watch('whenFocus', function (newVal) {
+        if (newVal) {
+          $timeout(function () {
+            ele[0].focus();
+          });
+        }
+      });
+    }
+  };
+}])
