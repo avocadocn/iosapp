@@ -2585,6 +2585,9 @@ a>.login .companies_list:activated {
 .rank_select .groups .group a .group_17 {
   background-position: -400px -200px;
 }
+.rank_table {
+  background-color: #fbfbfb;
+}
 .rank_table .belong {
   color: #3ca2e0;
 }
@@ -2602,9 +2605,6 @@ a>.login .companies_list:activated {
   text-decoration: none;
   color: #000;
   background-color: #fff;
-}
-.search_opponent .select_team .units {
-  background-color: #fbfbfb;
 }
 .search_opponent .select_team .units .unit {
   float: left;
