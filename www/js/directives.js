@@ -48,13 +48,14 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             }
             var photos = []; //pswp所需的全部photos对象
             var index = 0;
-            if(scope.photos){//非打开个人头像
+            if (scope.photos) {//非打开个人头像
               index = Tools.arrayObjectIndexOf(scope.photos, scope.photo._id, '_id');
               if (index === -1) { // 没找到则不打开大图
                 return;
               }
               photos = scope.photos;
-            }else{//打开个人头像
+            }
+            else {//打开个人头像
               var width = Math.min(INFO.screenWidth, INFO.screenHeight);
               photos.push({
                 src: CONFIG.STATIC_URL + scope.photo + '/' + width + '/' + width,
@@ -91,7 +92,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
             gallery.init();
             //有些地方需要进入相册,则增加此方法
-            if(scope.pswpPhotoAlbum){
+            if (scope.pswpPhotoAlbum) {
               scope.pswpPhotoAlbum.goToAlbum = function () {
                 gallery.close();
                 $location.url('/photo_album/' + scope.photoAlbumId + '/detail');
@@ -211,10 +212,13 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       scope: {
         campaign: '=',
         campaignIndex:'=',
-        campaignFilter:'@'
+        campaignFilter:'@',
+        pswpId: '=',
+        pswpPhotoAlbum: '='
       },
       templateUrl: './views/campaign-card.html',
       link: function (scope, element, attrs, ctrl) {
+        scope.pswpPhotoAlbumId = scope.campaign.photo_album._id;
         scope.STATIC_URL = CONFIG.STATIC_URL;
         scope.joinCampaign = function (campaign) {
           Campaign.join(campaign, localStorage.id, function (err, data) {
