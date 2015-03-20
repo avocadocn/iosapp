@@ -4,7 +4,6 @@ ion-view.competition_message_panel
     h1.title 挑战日志
     a.button.button-clear.button-positive(ng-if="sponsorLeader && competitionMessage.status=='accepted'" ng-click="sponsorCompetition()") 发活动
   ion-content
-    ion-refresher(on-refresh="getCompetitionComments()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .competition_message_detail(ng-if="competitionMessage")
       .row
         .col {{competitionMessage.create_time | beforeNow}}
@@ -32,12 +31,13 @@ ion-view.competition_message_panel
         .col(ng-click="voteCompetition(0)") {{competitionMessage.vote.units[0].positive}} 人支持
         .col(ng-click="voteCompetition(1)") {{competitionMessage.vote.units[1].positive}} 人支持
     .competition_message_comment
-      .row(ng-repeat="comment in commentList")
+      .row(ng-repeat="comment in commentList ")
         .col
           img.member_logo(ng-src="{{STATIC_URL + comment.poster.photo}}/40/40")
           p {{comment.poster.nickname}}
         .col(ng-bind-html="comment.content | emoji | unsafe")
         .col {{comment.create_date | date:"MM-dd HH:mm"}}
+    //- ion-infinite-scroll(ng-if="canloadMore()" on-infinite="getCompetitionComments(1)" distance="-10%")
   ion-footer-bar.comment_box(ng-show="oppositeLeader || sponsorLeader")
     form(name="comment_form")
       //- i.icon.ion-image(ng-click="showUploadActionSheet()")
@@ -51,3 +51,5 @@ ion-view.competition_message_panel
           .box.clearfix
             .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
               i(class="emoji {{'emoji_'+emotion}}" )
+
+

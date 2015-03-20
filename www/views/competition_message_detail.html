@@ -4,7 +4,6 @@
     <h1 class="title">挑战日志</h1><a ng-if="sponsorLeader &amp;&amp; competitionMessage.status=='accepted'" ng-click="sponsorCompetition()" class="button button-clear button-positive">发活动</a>
   </ion-header-bar>
   <ion-content>
-    <ion-refresher on-refresh="getCompetitionComments()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-if="competitionMessage" class="competition_message_detail">
       <div class="row">
         <div class="col">{{competitionMessage.create_time | beforeNow}}</div>
@@ -41,7 +40,7 @@
       </div>
     </div>
     <div class="competition_message_comment">
-      <div ng-repeat="comment in commentList" class="row">
+      <div ng-repeat="comment in commentList " class="row">
         <div class="col"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/>
           <p>{{comment.poster.nickname}}</p>
         </div>

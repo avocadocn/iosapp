@@ -1102,6 +1102,10 @@ a>.login .companies_list:activated {
   background: linear-gradient(top, #fff, #fbfbfb);
   margin-left: 0.8rem;
 }
+.discuss_detail .comments .comment .triangle_isosceles a {
+  text-decoration: none;
+  color: #676767;
+}
 .discuss_detail .comments .comment .triangle_isosceles:after {
   content: "";
   display: block;

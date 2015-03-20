@@ -563,10 +563,12 @@ angular.module('donlerApp.services', [])
           }
         }
       },
-      postChat: function(chatroomId, content, randomId, callback) {
-        $http.post(CONFIG.BASE_URL + '/chatrooms/'+chatroomId+'/chats',{
-          content: content,
-          randomId: randomId
+      postChat: function(postData, callback) {
+        $http.post(CONFIG.BASE_URL + '/chatrooms/'+postData.chatroomId+'/chats',{
+          content: postData.content,
+          randomId: postData.randomId,
+          chatType: postData.chatType,
+          recommendTeamId: postData.recommendTeamId
         }).success(function (data, status) {
           callback(null, data);
         }).error(function (data, status) {

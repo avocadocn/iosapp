@@ -796,7 +796,7 @@ angular.module('donlerApp.controllers', [])
       $scope.chatsList[chatsListIndex].push(newChat);
       $ionicScrollDelegate.scrollBottom();
 
-      Chat.postChat($scope.chatroomId, newChat.content, randomId, function(err, chat) {
+      Chat.postChat({chatroomId:$scope.chatroomId, content:newChat.content, randomId:randomId}, function(err, chat) {
         if(err) {
           console.log(err);
           var latestIndex = $scope.chatsList[chatsListIndex].length -1;
@@ -3918,7 +3918,7 @@ angular.module('donlerApp.controllers', [])
       getCompetitionLog();
     }
   }])
-  .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO', function ($scope, $state, $ionicModal, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
+  .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$timeout', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO', function ($scope, $state, $ionicModal, $ionicScrollDelegate, $timeout, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
     //评论获取
     $scope.commentList = [];
     $scope.topShowTime = [];
@@ -3946,19 +3946,45 @@ angular.module('donlerApp.controllers', [])
         }
       });
     }
-    $scope.getCompetitionComments = function () {
+    // $scope.canloadMore = function () {
+    //   if($scope.loading || $scope.loadFinished) {
+    //     return false;
+    //   }
+    //   else{
+    //     return true;
+    //   }
+    // }
+    $scope.getCompetitionComments = function (index) {
+      
+      // if($scope.loading) {
+      //   $scope.$broadcast('scroll.infiniteScrollComplete');
+      //   return;
+      // }
+      // $scope.loading = true;
       var queryData = {
         requestType: 'competition_message',
-        requestId: $state.params.id
+        requestId: $state.params.id,
+        limit: -1
+        // createDate:$scope.commentList.length>0 ?new Date($scope.commentList[$scope.commentList.length-1].create_date).valueOf():undefined
       }
       Comment.getComments(queryData,function (err,data) {
         if (err) {
           // todo
           console.log(err);
         } else {
-          $scope.commentList = data.comments;
+          // if($scope.commentList){
+          //   $scope.commentList = $scope.commentList.concat(data.comments);
+          // }
+          // else{
+            $scope.commentList = data.comments.reverse();
+          // }
+          // if($scope.commentList.length==0)
+          //   $scope.loadFinished = true;
         }
-        $scope.$broadcast('scroll.refreshComplete');
+        // $scope.$broadcast('scroll.infiniteScrollComplete');
+        // $timeout(function(){
+        //   $scope.loading = false;
+        // },1000);
       });
     }
     $scope.voteCompetition = function (index) {
@@ -4005,28 +4031,6 @@ angular.module('donlerApp.controllers', [])
     $scope.commentContent='';
 
     $scope.userId = localStorage.id;
-
-
-    var judgeTopShowTime = function() {
-      $scope.topShowTime.unshift(1);
-      if($scope.commentList.length>1) {
-        var preTime = new Date($scope.commentList[1][0].create_date);//上次的第一个
-        var length = $scope.commentList[0].length;
-        var nowTime = new Date($scope.commentList[0][length-1].create_date);//这次的最后一个
-        if(nowTime.getFullYear() != preTime.getFullYear()) {
-          $scope.topShowTime[1] = 1;
-        }else if(nowTime.getDay() != preTime.getDay()) {
-          $scope.topShowTime[1] = 2;
-        }else if(nowTime.getHours() != preTime.getHours()) {
-          $scope.topShowTime[1] = 2;
-        }else if(nowTime.getMinutes() != preTime.getMinutes()){
-          $scope.topShowTime[1] = 2;
-        }else{
-          $scope.topShowTime[1] = 0;
-        }
-      }
-    };
-
     $scope.isWriting = false;
     //获取新留言
     var comments_ele = document.getElementsByClassName('comments'); // 获取滚动条
@@ -4036,33 +4040,6 @@ angular.module('donlerApp.controllers', [])
     User.getData($scope.userId, function(err,data){
       currentUser = data;
     });
-
-    /* 是否需要显示时间()
-     * @params: index: 第几个comment
-     * 判断依据：与上一个评论时间是否在同一分钟||index为0
-     * return:
-     *   0 不用显示
-     *   1 显示年、月、日
-     *   2 显示月、日
-     */
-
-    $scope.needShowTime = function (index, comments) {
-      if(index===0){
-        return 1;
-      }else{
-        var preTime = new Date(comments[index-1].create_date);
-        var nowTime = new Date(comments[index].create_date);
-        if(nowTime.getFullYear() != preTime.getFullYear()) {
-          return 1;
-        }else if(nowTime.getDay() != preTime.getDay()) {
-          return 2;
-        }else if(nowTime.getHours() != preTime.getHours()) {
-          return 2;
-        }else if(nowTime.getMinutes() != preTime.getMinutes()){
-          return 2;
-        }
-      };
-    };
 
     //发表评论
     $scope.publishComment = function() {
@@ -4081,6 +4058,7 @@ angular.module('donlerApp.controllers', [])
         loading: true
       };
       $scope.commentList.push(newComment);
+      $ionicScrollDelegate.scrollBottom();
       var commentData = {
         hostType: 'competition_message',
         hostId: $state.params.id,
@@ -4283,10 +4261,17 @@ angular.module('donlerApp.controllers', [])
       })
     }
   }])
-  .controller('CompetitionTeamController', ['$scope', '$state', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', function ($scope, $state, CompetitionMessage, Team, INFO, Campaign) {
+  .controller('CompetitionTeamController', ['$scope', '$state', '$ionicHistory', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', 'Chat', function ($scope, $state, $ionicHistory, CompetitionMessage, Team, INFO, Campaign, Chat) {
     var fromTeamId = $state.params.fromTeamId;
     var targetTeamId = $state.params.targetTeamId;
     $scope.page = 1;
+    $scope.goBack = function() {
+      if ($ionicHistory.backView()) {
+        $ionicHistory.goBack()
+      } else {
+        $state.go('search_opponent');
+      }
+    }
     if(INFO.myTeams) {
       var myTeams = INFO.myTeams;
       for (var i = myTeams.length - 1; i >= 0; i--) {
@@ -4341,7 +4326,20 @@ angular.module('donlerApp.controllers', [])
       $state.go('competition_send');
     }
     $scope.recommend = function () {
-      // body...
+      var postData = {
+        chatroomId: fromTeamId,
+        content: $scope.targetTeam.name,
+        chatType: 'recommend_team',
+        recommendTeamId: targetTeamId
+      }
+      Chat.postChat(postData, function(err, data) {
+        if(err) {
+          console.log(err);
+        }
+        else{
+          alert('推荐成功！')
+        }
+      })
     }
   }])
   .controller('CompetitonSendController', ['$scope', '$state', '$ionicHistory', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', function ($scope, $state, $ionicHistory, CompetitionMessage, Team, INFO, Campaign) {
