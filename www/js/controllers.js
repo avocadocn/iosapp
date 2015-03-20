@@ -3607,186 +3607,180 @@ angular.module('donlerApp.controllers', [])
     getRank();
   }])
   .controller('CircleSendController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', 'Circle', function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, Circle) {
-      $scope.circle = {
-        content: ''
-      };
-      $scope.campaignId = $stateParams.campaignId;
-      $scope.unshow = true;
+    $scope.circle = {
+      content: ''
+    };
+    $scope.campaignId = $stateParams.campaignId;
+    $scope.unshow = true;
+    $scope.goBack = function() {
+      if ($ionicHistory.backView()) {
+        $ionicHistory.goBack()
+      } else {
+        $state.go('app.campaigns');
+      }
+    }
+    $scope.change = function() {
+      if (!$scope.circle.content) {
+        $scope.unshow = true;
+      } else {
+        $scope.unshow = false;
+      }
+      var element = document.getElementById('circle_content');
+      element.style.height = 'auto';
+      element.style.height = element.scrollHeight + "px";
+    }
+    $scope.circle_send_content = function() {
+      Circle.postCircleContent($scope.campaignId, $scope.circle.content, function(err, data) {
+        if (!err) {
+          console.log(data);
+          $state.go('circle_company');
+        } else {
+          console.log('error');
+        }
+      })
+    }
+  }])
+  .controller('CircleCompanyController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$timeout', 'Circle', 'User', 'INFO', 'Tools', 'CONFIG',
+    function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG) {
+
+      User.getData(localStorage.id, function(err, data) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.user = data;
+        }
+      });
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
-          $ionicHistory.goBack()
+          $ionicHistory.goBack();
         } else {
           $state.go('app.campaigns');
         }
-      }
-      $scope.change = function() {
-        if (!$scope.circle.content) {
-          $scope.unshow = true;
-        } else {
-          $scope.unshow = false;
+      };
+
+      // 用于保存已经获取到的同事圈内容
+      $scope.circleContentList = [];
+
+      $scope.loadingStatus = {
+        hasInit: false, // 是否已经获取了一次内容
+        hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
+        loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
+      };
+
+      var pageLength = 20; // 一次获取的数据量
+
+      var alertError = function (err) {
+        $ionicPopup.alert({
+          title: '提示',
+          template: err || '获取数据失败'
+        });
+      };
+
+      // 先获取一次
+      Circle.getCompanyCircle()
+      .success(function (data) {
+        $scope.circleContentList = data;
+        $scope.loadingStatus.hasInit = true;
+        if (data.length >= pageLength) {
+          $scope.loadingStatus.hasMore = true;
         }
-        var element = document.getElementById('circle_content');
-        element.style.height = 'auto';
-        element.style.height = element.scrollHeight + "px";
-      }
-      $scope.circle_send_content = function() {
-        Circle.postCircleContent($scope.campaignId, $scope.circle.content, function(err, data) {
-          if (!err) {
-            console.log(data);
-            $state.go('circle_company');
-          } else {
-            console.log('error');
-          }
+        else {
+          $scope.loadingStatus.hasMore = false;
+        }
+      })
+      .error(function (data) {
+        alertError(data.msg || '获取失败');
+      });
+
+      $scope.refresh = function() {
+        var latestContentDate = $scope.circleContentList[0].content.post_date;
+        Circle.getCompanyCircle(latestContentDate, null)
+        .success(function (data) {
+          $scope.circleContentList = (data || []).concat($scope.circleContentList);
+          $scope.$broadcast('scroll.refreshComplete');
         })
-      }
-    }])
-    // TODO:
-    // ion-infinite-scroll maybe have bug on conditon that the items is few.
-    //
-    .controller('CircleCompanyController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$timeout', 'Circle', 'User', 'INFO', 'Tools', 'CONFIG',
-      function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG) {
-        $scope.circles = [];
-        $scope.loadOptions = {
-          loadingNew: true,
-          loadingOld: false,
-          loadingFirst: true
-        };
-
-        User.getData(localStorage.id, function(err, data) {
-          if (err) {
-            // todo
-            console.log(err);
-          } else {
-            $scope.user = data;
+        .error(function (data, status) {
+          if (status !== 404) {
+            alertError(data.msg || '获取失败');
           }
+          $scope.$broadcast('scroll.refreshComplete');
         });
-        $scope.goBack = function() {
-          if ($ionicHistory.backView()) {
-            $ionicHistory.goBack();
-          } else {
-            $state.go('app.campaigns');
-          }
+      };
+
+      $scope.loadMore = function () {
+        if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading) {
+          return; // 如果没有更多内容或已经正在加载，则返回，防止连续的请求
         }
+        $scope.loadingStatus.loading = true;
 
-        $scope.refresh = function() {
-          if ($scope.loading == true) {
-            return;
-          }
-          var latestContentDate = INFO.circleCompanyInfo[0].content.post_date;
-          Circle.getCompanyCircle(latestContentDate, null, function(err, data) {
-            if (!err) {
-              $scope.circles = data.concat(INFO.circleCompanyInfo);
-              INFO.circleCompanyInfo = data.concat(INFO.circleCompanyInfo);
+        var pos = $scope.circleContentList.length - 1;
+        var lastContentDate = $scope.circleContentList[pos].content.post_date;
+        Circle.getCompanyCircle(null, lastContentDate)
+        .success(function (data) {
+          $scope.circleContentList = $scope.circleContentList.concat(data);
+          $scope.loadingStatus.loading = false;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        })
+        .error(function (data) {
+          alertError(data.msg || '获取失败');
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+      };
 
-            } else {
-              $scope.circles = INFO.circleCompanyInfo;
-            }
-            $scope.$broadcast('scroll.refreshComplete');
-          });
+      $scope.circlePswpId = 'circle_pswp_' + Date.now();
 
-        }
-
-        $scope.loadMore = function() {
-          if ($scope.loadOptions.loadingOld == true) {
-            $scope.$broadcast('scroll.infiniteScrollComplete');
-          } else {
-            $scope.loadOptions.loadingOld = true;
-
-            if (!INFO.circleCompanyInfo) {
-              // If there is no circle company info, query the them with no parameters.
-              Circle.getCompanyCircle(null, null, function(err, data) {
-                $scope.circles = data;
-                INFO.circleCompanyInfo = data;
-                $scope.loadOptions.loadingFirst = false;
-                $timeout(function() {
-                  $scope.loadOptions.loadingNew = false;
-                }, 1000);
+      // 提取图片到一个数组里
+      $scope.$watch('circleContentList', function (newVal) {
+        $scope.imagesForPswp = [];
+        var id = 0;
+        for (var i = 0, circlesLen = newVal.length; i < circlesLen; i++) {
+          var circle = newVal[i];
+          if (circle.content.photos && circle.content.photos.length > 0) {
+            var pswpPhotos = [];
+            for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
+              var photo = circle.content.photos[j];
+              photo._id = id;
+              pswpPhotos.push({
+                _id: photo._id,
+                w: photo.width || $scope.screenWidth,
+                h: photo.height || $scope.screenHeight,
+                src: CONFIG.STATIC_URL + photo.uri
               });
-            } else {
-              if ($scope.loadOptions.loadingFirst) {
-                // TODO:
-                // If there is some circle company info, query the newer ones with parameter(latestContentDate) and
-                // merge them with INFO.circleCompanyInfo.
-                // think twice: slice new INFO.circleCompanyInfo to new data whose num is limited to a constant(For example: 20).
-                $scope.circles = INFO.circleCompanyInfo;
-                $scope.loadOptions.loadingFirst = false;
-                $scope.loadOptions.loadingNew = false;
-              } else {
-                var pos = INFO.circleCompanyInfo.length - 1;
-                var lastContentDate = INFO.circleCompanyInfo[pos].content.post_date;
-                Circle.getCompanyCircle(null, lastContentDate, function(err, data) {
-                  if (!err) {
-                    $scope.circles = INFO.circleCompanyInfo.concat(data);
-                    INFO.circleCompanyInfo = $scope.circles;
-                  } else {
-                    $scope.circles = INFO.circleCompanyInfo;
-                  }
-                });
-              }
+              id++;
             }
-            $timeout(function() {
-              $scope.loadOptions.loadingOld = false;
-              $scope.$broadcast('scroll.infiniteScrollComplete');
-            }, 1000);
-            // Warning: the following code is incorrect.
-            // $scope.loadOptions.loadingOld = false;
-            // $scope.$broadcast('scroll.infiniteScrollComplete');
+            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
           }
         }
+      });
 
-        $scope.circlePswpId = 'circle_pswp_' + Date.now();
+      $scope.circleContentDelete = function(e) {
+        var confirmPopup = $ionicPopup.confirm({
+          title: '提示',
+          template: '确定删除吗?',
+          cancelText: '取消',
+          okText: '确定'
+        });
+        confirmPopup.then(function(res) {
+          if (res) {
+            var element = typeof e === 'object' ? e.target : document.getElementById(e);
+            var index = Tools.arrayObjectIndexOf($scope.circles, element.id, 'content._id');
 
-        // 提取图片到一个数组里
-        $scope.$watch('circles', function (newVal) {
-          $scope.imagesForPswp = [];
-          var id = 0;
-          for (var i = 0, circlesLen = newVal.length; i < circlesLen; i++) {
-            var circle = newVal[i];
-            if (circle.content.photos && circle.content.photos.length > 0) {
-              var pswpPhotos = [];
-              for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
-                var photo = circle.content.photos[j];
-                photo._id = id;
-                pswpPhotos.push({
-                  _id: photo._id,
-                  w: photo.width || $scope.screenWidth,
-                  h: photo.height || $scope.screenHeight,
-                  src: CONFIG.STATIC_URL + photo.uri
-                });
-                id++;
+            Circle.deleteCompanyCircle(element.id, function(err, data) {
+              if(!err) {
+                $scope.circles.splice(index, 1);
+              } else {
+                // TODO:
+                // show the error in the phone screen
+                console.log('error');
               }
-              $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-            }
+
+            })
           }
         });
-
-        $scope.circleContentDelete = function(e) {
-          var confirmPopup = $ionicPopup.confirm({
-            title: '提示',
-            template: '确定删除吗?',
-            cancelText: '取消',
-            okText: '确定'
-          });
-          confirmPopup.then(function(res) {
-            if (res) {
-              var element = typeof e === 'object' ? e.target : document.getElementById(e);
-              var index = Tools.arrayObjectIndexOf($scope.circles, element.id, 'content._id');
-
-              Circle.deleteCompanyCircle(element.id, function(err, data) {
-                if(!err) {
-                  $scope.circles.splice(index, 1);
-                } else {
-                  // TODO:
-                  // show the error in the phone screen
-                  console.log('error');
-                }
-
-              })
-            }
-          });
-        }
       }
-    ])
+    }
+  ])
   .controller('CircleUploaderController', [
     '$scope',
     '$ionicHistory',
@@ -3873,7 +3867,10 @@ angular.module('donlerApp.controllers', [])
         .then(null, function (response) {
           if (response instanceof Error) {
             console.log(response.stack);
-            alert(response || '发表失败');
+            $ionicPopup.alert({
+              title: '提示',
+              template: response.message || '发表失败'
+            });
           }
           else {
             var msg;

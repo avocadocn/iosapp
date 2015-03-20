@@ -1422,9 +1422,9 @@ angular.module('donlerApp.services', [])
        * 获取公司同事圈内容
        * @param  {Date|String}     latestContentDate 最新消息的发布时间(页面显示)
        * @param  {[Date|String]}   lastContentDate   最早消息的发布时间(页面显示)
-       * @param  {Function}        callback          返回函数 形式：callback(err)
+       * @return {HttpPromise}
        */
-      getCompanyCircle: function(latestContentDate, lastContentDate, callback) {
+      getCompanyCircle: function(latestContentDate, lastContentDate) {
         var url = CONFIG.BASE_URL + '/circle/company';
         if (latestContentDate && lastContentDate) {
           url = url + '?latest_content_date=' + latestContentDate + '&last_content_date=' + lastContentDate;
@@ -1433,13 +1433,7 @@ angular.module('donlerApp.services', [])
         } else if (!latestContentDate && lastContentDate) {
           url = url + '?last_content_date=' + lastContentDate;
         }
-        $http.get(url)
-          .success(function(data, status, headers, config) {
-            callback(null, data);
-          })
-          .error(function(data, status, headers, config) {
-            callback('error');
-          });
+        return $http.get(url);
       },
       /**
        * 删除公司同事圈内容
