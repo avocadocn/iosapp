@@ -3731,10 +3731,10 @@ angular.module('donlerApp.controllers', [])
 
       var pageLength = 20; // 一次获取的数据量
 
-      var alertError = function (err) {
+      var ionicAlert = function (err) {
         $ionicPopup.alert({
           title: '提示',
-          template: err || '获取数据失败'
+          template: err
         });
       };
 
@@ -3752,7 +3752,7 @@ angular.module('donlerApp.controllers', [])
       })
       .error(function (data, status) {
         if (status !== 404) {
-          alertError(data.msg || '获取失败');
+          ionicAlert(data.msg || '获取失败');
         }
       });
 
@@ -3765,7 +3765,7 @@ angular.module('donlerApp.controllers', [])
         })
         .error(function (data, status) {
           if (status !== 404) {
-            alertError(data.msg || '获取失败');
+            ionicAlert(data.msg || '获取失败');
           }
           $scope.$broadcast('scroll.refreshComplete');
         });
@@ -3786,7 +3786,7 @@ angular.module('donlerApp.controllers', [])
         })
         .error(function (data, status) {
           if (status !== 404) {
-            alertError(data.msg || '获取失败');
+            ionicAlert(data.msg || '获取失败');
           }
           else {
             $scope.loadingStatus.hasMore = false;
@@ -3822,7 +3822,7 @@ angular.module('donlerApp.controllers', [])
         }
       });
 
-      $scope.circleContentDelete = function(e) {
+      $scope.deleteCircleContent = function (circle) {
         var confirmPopup = $ionicPopup.confirm({
           title: '提示',
           template: '确定删除吗?',
@@ -3831,22 +3831,19 @@ angular.module('donlerApp.controllers', [])
         });
         confirmPopup.then(function(res) {
           if (res) {
-            var element = typeof e === 'object' ? e.target : document.getElementById(e);
-            var index = Tools.arrayObjectIndexOf($scope.circles, element.id, 'content._id');
+            var index = Tools.arrayObjectIndexOf($scope.circleContentList, circle.content._id, 'content._id');
 
-            Circle.deleteCompanyCircle(element.id, function(err, data) {
-              if(!err) {
-                $scope.circles.splice(index, 1);
-              } else {
-                // TODO:
-                // show the error in the phone screen
-                console.log('error');
-              }
-
-            })
+            Circle.deleteCompanyCircle(circle.content._id)
+              .success(function (data) {
+                $scope.circleContentList.splice(index, 1);
+                ionicAlert('删除成功');
+              })
+              .error(function (data) {
+                ionicAlert(data.msg || '删除失败');
+              });
           }
         });
-      }
+      };
     }
   ])
   .controller('CircleUploaderController', [
@@ -4016,7 +4013,7 @@ angular.module('donlerApp.controllers', [])
     //   }
     // }
     $scope.getCompetitionComments = function (index) {
-      
+
       // if($scope.loading) {
       //   $scope.$broadcast('scroll.infiniteScrollComplete');
       //   return;

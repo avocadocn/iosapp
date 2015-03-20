@@ -16,10 +16,10 @@ ion-view.circle_company
       .circle_info
         h2.user_name {{circle.user.nickname}}
         p.circle_content {{circle.content.content}}
-        div
-          img(ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo error-img photo="photo" pswp-id="circlePswpId" photos="imagesForPswp")
+        .image_box.clearfix
+          img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo error-img photo="photo" pswp-id="circlePswpId" photos="imagesForPswp")
         .icon_comment
-          i.circle_delete(ng-if="user._id == circle.user._id" ng-click="circleContentDelete($event)" id="{{circle.content._id}}") 删除
+          span.circle_delete(ng-if="user._id == circle.user._id" ng-click="deleteCircleContent(circle)") 删除
           i.ion_comment.circle_comment
     ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
 

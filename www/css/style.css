@@ -2506,9 +2506,19 @@ a>.login .companies_list:activated {
   height: 15px;
 }
 .dl_circle_company_card .circle_info .circle_delete {
-  font-size: 4px;
-  margin-left: 4px;
   color: #618bd7;
+}
+.dl_circle_company_card .image_box {
+  margin-top: 5px;
+  width: 210px;
+}
+.dl_circle_company_card .image_box .preview_img {
+  display: block;
+  float: left;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  width: 64px;
+  height: 64px;
 }
 .rank_select .groups .group {
   min-width: 50px;

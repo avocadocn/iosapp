@@ -1436,18 +1436,13 @@ angular.module('donlerApp.services', [])
       /**
        * 删除公司同事圈内容
        * @param  {String}   contentId 同事圈消息id
-       * @param  {Function} callback  返回函数 形式：callback(err)
+       * @returns  {HttpPromise}
        */
-      deleteCompanyCircle: function(contentId, callback) {
-        $http.delete(CONFIG.BASE_URL + '/circle_contents/' + contentId)
-          .success(function(data, status, headers, config) {
-            callback(null, data);
-          })
-          .error(function(data, status, headers, config) {
-            callback('error');
-          });
+      deleteCompanyCircle: function(contentId) {
+        return $http.delete(CONFIG.BASE_URL + '/circle_contents/' + contentId);
       },
-            /**
+
+      /**
        * 发布前的准备，创建一个处于等待状态的CircleContent
        * @param {String} campaignId 活动id
        * @param {String} content 文本内容
