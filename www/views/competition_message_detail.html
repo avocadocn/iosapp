@@ -50,17 +50,6 @@
     </div>
   </ion-content>
   <ion-footer-bar ng-show="oppositeLeader || sponsorLeader" class="comment_box">
-    <form name="comment_form">
-      <textarea id="ta" rows="1" cols="30" ng-model="commentContent" required="required" maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting = true;" ng-blur="isWriting=false;" ng-change="resizeTextarea()" class="comment_input"></textarea>
-      <button ng-click="showEmotions()" prevent-default="prevent-default" class="dl_button emotion_button"><i class="emoji emoji_tongue"></i></button>
-      <button ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid" class="publish_button">发言</button>
-      <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
-        <ion-slide ng-repeat="emoji in emojiList">
-          <div class="box clearfix">
-            <div ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emotion"><i class="emoji {{'emoji_'+emotion}}"></i></div>
-          </div>
-        </ion-slide>
-      </ion-slide-box>
-    </form>
+    <publish-box is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publishComment()"></publish-box>
   </ion-footer-bar>
 </ion-view>
