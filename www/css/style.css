@@ -639,10 +639,10 @@ body {
   font-size: 25px;
   color: #e74c3c;
 }
-.bar-footer {
+.bar-footer.comment_box {
   padding: 0;
 }
-.button-bar > .button {
+.button-bar.comment_box > .button {
   padding: 0;
 }
 .dl_button {
@@ -2463,7 +2463,7 @@ a>.login .companies_list:activated {
   right: 30px;
   padding: 2px;
 }
-.dl_circle_company_card {
+.circle_company .dl_circle_company_card {
   display: block;
   margin: 10px 10px 5px;
   padding: 10px;
@@ -2475,32 +2475,32 @@ a>.login .companies_list:activated {
   text-decoration: none;
   min-height: 80px;
 }
-.dl_circle_company_card .circle_company_logo {
+.circle_company .dl_circle_company_card .circle_company_logo {
   display: block;
   position: absolute;
   top: 10px;
   left: 10px;
 }
-.dl_circle_company_card .circle_info {
+.circle_company .dl_circle_company_card .circle_info {
   margin-left: 45px;
   color: #333;
   text-decoration: none;
 }
-.dl_circle_company_card .circle_info .user_name {
+.circle_company .dl_circle_company_card .circle_info .user_name {
   margin: 0;
   margin-top: 5px;
   font-size: 14px;
 }
-.dl_circle_company_card .circle_info .circle_content {
+.circle_company .dl_circle_company_card .circle_info .circle_content {
   margin: 0;
   margin-top: 5px;
   font-size: 14px;
 }
-.dl_circle_company_card .circle_info .image_box {
+.circle_company .dl_circle_company_card .circle_info .image_box {
   margin-top: 5px;
   width: 210px;
 }
-.dl_circle_company_card .circle_info .image_box .preview_img {
+.circle_company .dl_circle_company_card .circle_info .image_box .preview_img {
   display: block;
   float: left;
   margin-right: 5px;
@@ -2508,29 +2508,41 @@ a>.login .companies_list:activated {
   width: 64px;
   height: 64px;
 }
-.dl_circle_company_card .circle_info .icon_comment {
+.circle_company .dl_circle_company_card .circle_info .icon_comment {
   height: 15px;
 }
-.dl_circle_company_card .circle_info .circle_comment {
+.circle_company .dl_circle_company_card .circle_info .circle_comment {
   position: absolute;
   right: 10px;
   width: 15px;
   height: 15px;
 }
-.dl_circle_company_card .circle_info .comment_op {
+.circle_company .dl_circle_company_card .circle_info .comment_op {
   margin-top: 5px;
   text-align: right;
   color: #618bd7;
 }
-.dl_circle_company_card .circle_info .comment_op .divider {
+.circle_company .dl_circle_company_card .circle_info .comment_op .divider {
   margin: 0 5px;
 }
-.dl_circle_company_card .circle_info .comment_op .op {
+.circle_company .dl_circle_company_card .circle_info .comment_op .op {
   cursor: pointer;
 }
-.dl_circle_company_card .circle_comment_list {
+.circle_company .dl_circle_company_card .circle_comment_list {
   margin-left: 45px;
   color: #333;
+}
+.circle_company .comment_wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+.circle_company .circle_comment_box {
+  z-index: 101;
 }
 .rank_select .groups .group {
   min-width: 50px;

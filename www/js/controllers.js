@@ -3883,9 +3883,35 @@ angular.module('donlerApp.controllers', [])
         }
       };
 
-      // TODO: 评论
-      $scope.comment = function (circle) {
+      // 打开评论输入框
+      $scope.openCommentBox = function (circle) {
+        $scope.isCommenting = true;
+        $scope.targetCommentCircle = circle;
+      };
 
+      $scope.commentFormData = {
+        content: ''
+      };
+      // 发表评论
+      $scope.comment = function () {
+        Circle.comment($scope.targetCommentCircle.content._id, {
+          kind: 'comment',
+          is_only_to_content: true,
+          content: $scope.commentFormData.content
+        })
+          .success(function (data) {
+            $scope.targetCommentCircle.textComments = [data.circleComment].concat($scope.targetCommentCircle.textComments);
+            $scope.stopComment();
+            $scope.targetCommentCircle = null;
+            $scope.commentFormData.content = '';
+          })
+          .error(function (data) {
+            ionicAlert(data.msg || '操作失败');
+          });
+      };
+
+      $scope.stopComment = function () {
+        $scope.isCommenting = false;
       };
 
       // 赞

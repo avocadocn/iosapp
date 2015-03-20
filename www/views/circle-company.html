@@ -13,18 +13,25 @@
         <p class="circle_content">{{circle.content.content}}</p>
         <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo="open-photo" error-img="error-img" photo="photo" pswp-id="circlePswpId" photos="imagesForPswp" class="preview_img"/></div>
         <div class="icon_comment"><i ng-click="toComment(circle)" class="ion_comment circle_comment"></i></div>
-        <div ng-if="circle.isToComment" class="comment_op"><span ng-click="appreciate(circle)" class="op">赞</span><span class="divider">|</span><span class="op">评论</span><span class="divider">|</span><span ng-if="user._id == circle.user._id" ng-click="deleteCircleContent(circle)" class="op">删除</span></div>
+        <div ng-if="circle.isToComment" class="comment_op"><span ng-click="appreciate(circle)" class="op">赞</span><span class="divider">|</span><span ng-click="openCommentBox(circle)" class="op">评论</span><span class="divider">|</span><span ng-if="user._id == circle.user._id" ng-click="deleteCircleContent(circle)" class="op">删除</span></div>
       </div>
       <div class="circle_comment_list">
         <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><i class="ion-heart"></i><span ng-repeat="appr in circle.appreciate" class="appreciate">{{appr.post_user_id}}</span></div>
         <div ng-if="circle.textComments.length &gt; 0" class="comment_container">
-          <div ng-repeat="comment in circle.comments" class="comment">
+          <div ng-repeat="comment in circle.textComments" class="comment">
             <p>{{comment.content}}</p>
           </div>
         </div>
       </div></a>
     <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>
+  <div ng-if="isCommenting" ng-click="stopComment()" class="comment_wrap"></div>
+  <div ng-if="isCommenting" class="bar bar-footer item-input-inset circle_comment_box">
+    <div class="item-input-wrapper"><i class="icon ion-happy placeholder-icon"></i>
+      <input type="text" ng-model="commentFormData.content" when-focus="isCommenting" required="required"/>
+    </div>
+    <button ng-click="comment()" class="button button-clear">发表</button>
+  </div>
   <div tabindex="-1" role="dialog" aria-hidden="true" id="{{circlePswpId}}" class="pswp">
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
