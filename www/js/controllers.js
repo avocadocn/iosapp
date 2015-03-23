@@ -904,7 +904,7 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$timeout', 'Comment', 'User', 'INFO', 
+  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$timeout', 'Comment', 'User', 'INFO',
     function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, $timeout, Comment, User, INFO) {
     $scope.campaignId = $stateParams.id;
     $scope.campaignTitle = INFO.discussName;
@@ -950,7 +950,7 @@ angular.module('donlerApp.controllers', [])
     });
 
     $scope.isWriting = false;
-    
+
     //拉取历史讨论记录
     $scope.readHistory = function() {
       if(nextStartDate){//如果还有下一条
@@ -3757,7 +3757,7 @@ angular.module('donlerApp.controllers', [])
         $scope.targetCommentCircle = circle;
         $scope.isOnlyToContent = false;
         $scope.targetUserId = comment.post_user_id;
-        $scope.commentPlaceholderText = '回复 ' + comment.post_user_id; // TODO
+        $scope.commentPlaceholderText = '回复 ' + comment.poster.nickname;
       };
 
       $scope.stopComment = function () {

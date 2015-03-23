@@ -12,7 +12,7 @@ ion-view.circle_company
       a.circle_user_name {{user.nickname}}
       img.circle_user_image(ng-src="{{STATIC_URL + user.photo}}/70/70")
     a.dl_circle_company_card.clearfix(ng-repeat="circle in circleContentList" ng-cloak)
-      img.circle_company_logo(ng-src="{{STATIC_URL + circle.user.photo}}/32/32")
+      img.circle_company_logo(ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32")
       .circle_info
         h2.user_name {{circle.user.nickname}}
         p.circle_content {{circle.content.content}}
@@ -24,15 +24,16 @@ ion-view.circle_company
           span.op(ng-click="appreciate(circle)") 赞
           span.divider |
           span.op(ng-click="openCommentBox(circle)") 评论
-          span.divider |
-          span.op(ng-if="user._id == circle.user._id" ng-click="deleteCircleContent(circle)") 删除
+          span.divider(ng-if="user._id == circle.content.post_user_id") |
+          span.op(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
       .circle_comment_list
         .appreciate_container(ng-if="circle.appreciate.length > 0")
           i.ion-heart
-          span.appreciate(ng-repeat="appr in circle.appreciate") {{appr.post_user_id}}
+          span.appreciate(ng-repeat="appr in circle.appreciate") {{appr.poster.nickname}}
         .comment_container(ng-if="circle.textComments.length > 0")
           .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)")
-            p {{comment.content}}
+            span.nickname {{comment.poster.nickname}}:
+            span.content {{comment.content}}
     ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
   .comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
   
