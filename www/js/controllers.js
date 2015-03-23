@@ -3738,6 +3738,8 @@ angular.module('donlerApp.controllers', [])
         $scope.isCommenting = true;
         $scope.targetCommentCircle = circle;
         $scope.isOnlyToContent = true;
+        $scope.commentPlaceholderText = '';
+        $scope.targetUserId = null;
       };
 
       $scope.commentFormData = {
@@ -3760,7 +3762,6 @@ angular.module('donlerApp.controllers', [])
             $scope.commentFormData.content = '';
             $scope.targetUserId = null;
             $scope.commentPlaceholderText = '';
-            $scope.targetCommentCircle.isCommenting = false;
             $scope.targetCommentCircle = null;
           })
           .error(function (data) {
@@ -3771,13 +3772,21 @@ angular.module('donlerApp.controllers', [])
       $scope.replyTo = function (circle, comment) {
         $scope.isCommenting = true;
         $scope.targetCommentCircle = circle;
-        $scope.isOnlyToContent = false;
-        $scope.targetUserId = comment.post_user_id;
-        $scope.commentPlaceholderText = '回复 ' + comment.poster.nickname;
+        if (comment.post_user_id === $scope.user._id) {
+          // 将回复自己的评论转为回复内容
+          $scope.isOnlyToContent = true;
+          $scope.commentPlaceholderText = '';
+        }
+        else {
+          $scope.isOnlyToContent = false;
+          $scope.targetUserId = comment.post_user_id;
+          $scope.commentPlaceholderText = '回复 ' + comment.poster.nickname;
+        }
       };
 
       $scope.stopComment = function () {
         $scope.isCommenting = false;
+        $scope.targetCommentCircle.isToComment = false;
       };
 
       // 赞

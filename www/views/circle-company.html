@@ -18,7 +18,7 @@
       <div class="circle_comment_list">
         <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><i class="ion-heart"></i><span ng-repeat="appr in circle.appreciate" class="appreciate">{{appr.poster.nickname}}</span></div>
         <div ng-if="circle.textComments.length &gt; 0" class="comment_container">
-          <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" class="comment"><span class="nickname">{{comment.poster.nickname}}:</span><span class="content">{{comment.content}}</span></div>
+          <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" class="comment"><span class="nickname">{{comment.poster.nickname}}</span><span ng-if="!comment.is_only_to_content" ng-cloak="ng-cloak" class="replyto">&nbsp;回复&nbsp; {{comment.target.nickname}}</span><span class="colon">:</span><span class="content">{{comment.content}}</span></div>
         </div>
       </div></a>
     <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>

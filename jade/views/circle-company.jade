@@ -32,7 +32,9 @@ ion-view.circle_company
           span.appreciate(ng-repeat="appr in circle.appreciate") {{appr.poster.nickname}}
         .comment_container(ng-if="circle.textComments.length > 0")
           .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)")
-            span.nickname {{comment.poster.nickname}}:
+            span.nickname {{comment.poster.nickname}}
+            span.replyto(ng-if="!comment.is_only_to_content" ng-cloak) &nbsp;回复&nbsp; {{comment.target.nickname}}
+            span.colon :
             span.content {{comment.content}}
     ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
   .comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
