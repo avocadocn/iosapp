@@ -1,22 +1,10 @@
-ion-view.circle_company
+ion-view
   ion-header-bar
-    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title 同事圈
-
+    button.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title 详情
+  
   ion-content
-    ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping")
-    .loading_cover(ng-if="loadOptions.loadingNew" ng-cloak)
-      i.icon.ion-looping
-    .circle_company_image
-    .circle_user
-      a.circle_user_name {{user.nickname}}
-      img.circle_user_image(ng-src="{{STATIC_URL + user.photo}}/70/70")
-    
-    .remind.text-center(ng-if="remindComments.length > 0")
-      //- TODO: 临时的显示样式
-      a(ng-href="#/circle/circle_content/{{remindComments[0].targetContent._id}}") {{remindComments.length}}条新消息
-    
-    a.dl_circle_company_card.clearfix(ng-repeat="circle in circleContentList" ng-cloak)
+    .dl_circle_company_card.clearfix
       img.circle_company_logo(ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32")
       .circle_info
         h2.user_name {{circle.user.nickname}}
@@ -41,7 +29,7 @@ ion-view.circle_company
             span.replyto(ng-if="!comment.is_only_to_content" ng-cloak) &nbsp;回复&nbsp; {{comment.target.nickname}}
             span.colon :
             span.content {{comment.content}}
-    ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
+            
   .comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
   
   .bar.bar-footer.item-input-inset.circle_comment_box(ng-if="isCommenting")

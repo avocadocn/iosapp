@@ -1403,6 +1403,9 @@ angular.module('donlerApp.services', [])
      */
     var uploadImages = [];
 
+    // 上一次获取同事圈提醒的时间
+    var lastGetCompanyCircleRemindTime;
+
     return {
       /**
        * 发同事圈文字
@@ -1508,7 +1511,16 @@ angular.module('donlerApp.services', [])
        */
       comment: function (id, data) {
         return $http.post(CONFIG.BASE_URL + '/circle_contents/' + id + '/comments', data);
-      }
+      },
+
+      /**
+       * 获取新消息提醒
+       */
+      getRemind: function(queryData) {
+        return $http.get(CONFIG.BASE_URL + '/circle_reminds/comments', {params: queryData});
+      },
+
+      lastGetCompanyCircleRemindTime: lastGetCompanyCircleRemindTime
 
     };
 
