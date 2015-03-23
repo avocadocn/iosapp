@@ -17,10 +17,6 @@
         <div ng-cloak="ng-cloak" class="col">活动性质：{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}</div>
       </div>
       <div class="row">
-        <div class="col col-25">挑战词:</div>
-        <div ng-cloak="ng-cloak" ng-bind-html="competitionMessage.content" class="col"></div>
-      </div>
-      <div class="row">
         <div ng-cloak="ng-cloak" class="col">状态：{{competitionMessage.status | competitionMessageStatusFormat}}</div>
       </div>
       <div ng-if="oppositeLeader &amp;&amp; competitionMessage.status=='sent'" class="row">
@@ -40,6 +36,11 @@
       </div>
     </div>
     <div class="competition_message_comment">
+      <div class="row">
+        <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="member_logo"/></div>
+        <div ng-bind-html="competitionMessage.content | emoji | unsafe" class="col"></div>
+        <div class="col">{{competitionMessage.create_time | date:"MM-dd HH:mm"}}</div>
+      </div>
       <div ng-repeat="comment in commentList " class="row">
         <div class="col"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/>
           <p>{{comment.poster.nickname}}</p>

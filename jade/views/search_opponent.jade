@@ -5,7 +5,7 @@ ion-view.search_opponent
   ion-content(has-bouncing=false)
     .select_team(ng-if="!hasSelected")
       .units.clearfix
-        .unit(ng-repeat='team in myTeams' ng-class="{'leader':team.isLeader}" ng-click="selectTeam($index)")
+        .unit(ng-repeat="team in myTeams" ng-class="{'leader':team.isLeader}" ng-click="selectTeam($index)")
           img.logo(ng-src="{{STATIC_URL + team.logo}}/40/40")
           .text
             span.title {{team.name }}

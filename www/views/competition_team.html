@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div ng-if="competitions" class="row">
         <div class="col">
           <p>共同活动</p>
           <div ng-if="competitions.length==0" class="no_common_competitions">还没有</div>
@@ -60,8 +60,8 @@
       </div>
       <div class="row">
         <div class="col">
-          <button ng-click="createMessage()" ng-if="fromTeam.isLeader" class="button button-full button-positive">挑战</button>
-          <button ng-click="recommend()" ng-if="!fromTeam.isLeader" class="button button-full button-positive">推荐</button>
+          <button ng-click="showPopup(0)" ng-if="leadTeams.length&gt;0" class="button button-full button-positive">挑战</button>
+          <button ng-click="showPopup(1)" ng-if="memberTeams.length&gt;0" class="button button-full button-positive">推荐</button>
         </div>
       </div>
     </div>

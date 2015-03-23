@@ -305,7 +305,7 @@ angular.module('donlerApp.services', [])
         });
       },
       getCompetitionOfTeams:function(data, callback){
-        $http.get(CONFIG.BASE_URL + '/campaigns/competition/'+data.fromTeamId+'/'+data.targetTeamId, {
+        $http.get(CONFIG.BASE_URL + '/campaigns/competition/'+data.targetTeamId, {
           page: data.page
         })
         .success(function (data, status) {
@@ -822,10 +822,14 @@ angular.module('donlerApp.services', [])
        * @param {String} tid 小队id
        * @param {Function} callback 形式为function(err, team)
        */
-      getData: function (tid, callback) {
-        $http.get(CONFIG.BASE_URL + '/teams/' + tid)
+      getData: function (tid, callback,queryData) {
+        $http.get(CONFIG.BASE_URL + '/teams/' + tid,{
+          params:queryData
+        })
           .success(function (data, status, headers, config) {
-            currentTeam = data;
+            if(!queryData || !queryData.resultType || queryData.resultType!='simple'){
+              currentTeam = data;
+            }
             callback(null, data);
           })
 
@@ -1001,19 +1005,10 @@ angular.module('donlerApp.services', [])
             longitude: data.longitude
           }
         })
-        .success(function (data, status, headers, config) {
+        .success(function (data, status) {
           callback(null, data);
         })
-        .error(function (data, status, headers, config) {
-          callback(data ? data.msg:'网络连接错误');
-        });
-      },
-      getCompetitonTeam: function (fromTeamId, targetTeamId, callback) {
-        $http.get(CONFIG.BASE_URL + '/teams/competition/'+fromTeamId+'/'+targetTeamId)
-        .success(function (data, status, headers, config) {
-          callback(null, data);
-        })
-        .error(function (data, status, headers, config) {
+        .error(function (data, status) {
           callback(data ? data.msg:'网络连接错误');
         });
       }

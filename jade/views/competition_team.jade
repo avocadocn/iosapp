@@ -27,7 +27,7 @@ ion-view
           .home_courts(ng-if="targetTeam.homeCourts.length>0")
             .home_court(ng-repeat="homeCourt in targetTeam.homeCourts")
               span {{homeCourt.name}}
-      .row
+      .row(ng-if="competitions")
         .col
           p 共同活动
           .no_common_competitions(ng-if="competitions.length==0") 还没有
@@ -49,5 +49,5 @@ ion-view
               button.button.button-positive.button-small(ng-if="page<maxPage" ng-click="getCompetitionOfTeams()") 更多
       .row
         .col
-          button.button.button-full.button-positive(ng-click="createMessage()" ng-if="fromTeam.isLeader") 挑战
-          button.button.button-full.button-positive(ng-click="recommend()" ng-if="!fromTeam.isLeader") 推荐
+          button.button.button-full.button-positive(ng-click="showPopup(0)" ng-if="leadTeams.length>0") 挑战
+          button.button.button-full.button-positive(ng-click="showPopup(1)" ng-if="memberTeams.length>0") 推荐
