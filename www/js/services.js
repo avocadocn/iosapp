@@ -285,6 +285,7 @@ angular.module('donlerApp.services', [])
     }
   }])
   .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
+    var nowCampaign;
     return {
       /**
        * 获取所有活动
@@ -315,15 +316,22 @@ angular.module('donlerApp.services', [])
           callback(data ? data.msg:'网络连接错误');
         });
       },
-      get: function (id, callback) {
-        $http.get(CONFIG.BASE_URL + '/campaigns/' + id+'?populate=photo_album')
-        .success(function (data, status) {
-          callback(null,data);
-        })
-        .error(function (data, status) {
-          // todo
-          callback(data ? data.msg:'网络连接错误');
-        });
+      get: function (id, callback,reload) {
+        if(nowCampaign&&nowCampaign._id==id && !reload ) {
+          callback(null,nowCampaign);
+        }
+        else{
+          $http.get(CONFIG.BASE_URL + '/campaigns/' + id+'?populate=photo_album')
+          .success(function (data, status) {
+            nowCampaign = data;
+            callback(null,data);
+          })
+          .error(function (data, status) {
+            // todo
+            callback(data ? data.msg:'网络连接错误');
+          });
+        }
+
       },
       create: function (data, callback) {
         $http.post(CONFIG.BASE_URL + '/campaigns', data)
@@ -1050,6 +1058,7 @@ angular.module('donlerApp.services', [])
       }
     }])
   .factory('Message', ['$http', 'CONFIG', function ($http, CONFIG) {
+    var nowCampaignMessages;
     return {
 
       /**
@@ -1057,19 +1066,25 @@ angular.module('donlerApp.services', [])
        * @param {String} hostId campaignId
        * @param {Function} callback 形式为function(err, teams)
        */
-      getCampaignMessages: function (hostId, callback) {
-        var requestUrl = CONFIG.BASE_URL + '/messages?requestType=campaign&requestId=' + hostId;
-        $http.get(requestUrl)
-          .success(function (data, status, headers, config) {
-            callback(null, data);
-          })
-          .error(function (data, status, headers, config) {
-            if (status === 400) {
-              callback(data.msg);
-            } else {
-              callback('error');
-            }
-          })
+      getCampaignMessages: function (hostId, callback,reload) {
+        if(!reload && nowCampaignMessages&&nowCampaignMessages._id==hostId) {
+          callback(null,nowCampaignMessages);
+        }
+        else{
+          var requestUrl = CONFIG.BASE_URL + '/messages?requestType=campaign&requestId=' + hostId;
+          $http.get(requestUrl)
+            .success(function (data, status, headers, config) {
+              nowCampaignMessages = data;
+              callback(null, data);
+            })
+            .error(function (data, status, headers, config) {
+              if (status === 400) {
+                callback(data.msg);
+              } else {
+                callback('error');
+              }
+            })
+        }
       },
 
       /**

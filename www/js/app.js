@@ -236,6 +236,22 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CampaignDetailController',
         templateUrl: './views/campaign-detail.html'
       })
+      .state('campaigns_notice', {
+        url: '/campaign/notice/:id',
+        controller: 'CampaignNoticelController',
+        templateUrl: './views/campaign-notice.html'
+      })
+      .state('members', {
+        url: '/members/:memberType/:id',
+        controller: 'MemberController',
+        templateUrl: './views/members.html'
+      })
+
+      .state('location', {
+        url: '/location/:id',
+        controller: 'LocationController',
+        templateUrl: './views/location.html'
+      })
       .state('campaigns_edit', {
         url: '/campaign/edit/:id',
         controller: 'CampaignEditController',
@@ -372,17 +388,6 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/team/:teamId/family',
         controller: 'FamilyPhotoController',
         templateUrl: './views/family-photo.html'
-      })
-      .state('members', {
-        url: '/members/:memberType/:id',
-        controller: 'MemberController',
-        templateUrl: './views/members.html'
-      })
-
-      .state('location', {
-        url: '/location/:id',
-        controller: 'LocationController',
-        templateUrl: './views/location.html'
       })
       .state('photo_album_list', {
         url: '/photo_album/list/team/:teamId',

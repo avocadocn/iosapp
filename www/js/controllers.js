@@ -262,7 +262,6 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.campaigns');
       }
     };
-
     $scope.chooseUploadImages = function () {
       if (window.imagePicker) {
         window.imagePicker.getPictures(function(results) {
@@ -374,6 +373,27 @@ angular.module('donlerApp.controllers', [])
       $state.go('circle_send_content',{campaignId: campaignId});
       // $state.go('circle_company');
     };
+  }])
+
+  .controller('LocationController', ['$ionicHistory', '$scope', '$stateParams', 'INFO', function($ionicHistory, $scope, $stateParams, INFO) {
+    $scope.location = INFO.locationContent;
+    $scope.goBack = function() {
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
+      }
+    }
+  }])
+  .controller('CampaignNoticelController', ['$ionicHistory', '$scope', '$stateParams', '$ionicPopup', 'Campaign', 'Message', function($ionicHistory, $scope, $stateParams, $ionicPopup, Campaign, Message) {
+    Campaign.get($stateParams.id, function(err, data){
+      if(!err){
+        $scope.campaign = data;
+      }
+    });
+    Message.getCampaignMessages($stateParams.id, function(err, data){
+      if(!err){
+        $scope.notices = data;
+      }
+    });
     $scope.showPopup = function() {
       $scope.data = {};
 
@@ -436,6 +456,11 @@ angular.module('donlerApp.controllers', [])
         }
       });
      };
+    $scope.goBack = function() {
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
+      }
+    }
   }])
   .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team', function ($ionicHistory, $scope, $state, $ionicPopup, $ionicModal, $timeout, Campaign, INFO, Team) {
     $scope.campaignData ={
@@ -1160,7 +1185,6 @@ angular.module('donlerApp.controllers', [])
       });
     };
     $scope.loadMore = function() {
-      console.log('1');
       if($scope.loading){
         $scope.$broadcast('scroll.infiniteScrollComplete');
       }
@@ -3037,14 +3061,6 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('LocationController', ['$ionicHistory', '$scope', '$stateParams', 'INFO', function($ionicHistory, $scope, $stateParams, INFO) {
-    $scope.location = INFO.locationContent;
-    $scope.goBack = function() {
-      if($ionicHistory.backView()){
-        $ionicHistory.goBack()
-      }
-    }
-  }])
   .controller('TimelineController', ['$scope', '$stateParams', '$timeout', 'TimeLine', 'User', function ($scope, $stateParams, $timeout, TimeLine, User) {
     $scope.loadFinished = false;
     $scope.loading = false;
@@ -4186,7 +4202,7 @@ angular.module('donlerApp.controllers', [])
       })
     }
   }])
-  .controller('CompetitionTeamController', ['$scope', '$state', '$ionicHistory', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', 'Chat', function ($scope, $state, $ionicHistory, CompetitionMessage, Team, INFO, Campaign, Chat) {
+  .controller('CompetitionTeamController', ['$scope', '$state', '$ionicHistory', '$ionicPopup', 'Team', 'INFO', 'Campaign', 'Chat', function ($scope, $state, $ionicHistory, $ionicPopup, Team, INFO, Campaign, Chat) {
     var fromTeamId = $state.params.fromTeamId;
     var targetTeamId = $state.params.targetTeamId;
     $scope.page = 1;
@@ -4261,12 +4277,15 @@ angular.module('donlerApp.controllers', [])
           console.log(err);
         }
         else{
-          alert('推荐成功！')
+          $ionicPopup.alert({
+            title: '提示',
+            template: '推荐成功！'
+          });
         }
       })
     }
   }])
-  .controller('CompetitonSendController', ['$scope', '$state', '$ionicHistory', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', function ($scope, $state, $ionicHistory, CompetitionMessage, Team, INFO, Campaign) {
+  .controller('CompetitonSendController', ['$scope', '$state', '$ionicHistory', '$ionicPopup', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', function ($scope, $state, $ionicHistory, $ionicPopup, CompetitionMessage, Team, INFO, Campaign) {
     if(INFO.competitionMessageData) {
       var competitionMessageData = INFO.competitionMessageData;
       $scope.fromTeamId = competitionMessageData.fromTeamId;
@@ -4279,7 +4298,10 @@ angular.module('donlerApp.controllers', [])
       }
     }
     else{
-      alert('数据发送错误！')
+      $ionicPopup.alert({
+        title: '错误',
+        template: '数据发送错误！'
+      });
     }
     $scope.goBack = function() {
       if($ionicHistory.backView()){
@@ -4295,11 +4317,17 @@ angular.module('donlerApp.controllers', [])
     $scope.publishMessage = function () {
       CompetitionMessage.createCompetitionMessage($scope.messageData, function (err, data) {
         if(!err) {
-          alert(data.msg);
+          $ionicPopup.alert({
+            title: '提示',
+            template: data.msg
+          });
           $scope.goBack();
         }
         else{
-          alert(data.msg)
+          $ionicPopup.alert({
+            title: '错误',
+            template: data.msg
+          });
         }
       })
     }

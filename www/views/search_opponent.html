@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <div ng-if="!hasSelected" class="select_team">
-      <div class="units">
+      <div class="units clearfix">
         <div ng-repeat="team in myTeams" ng-class="{'leader':team.isLeader}" ng-click="selectTeam($index)" class="unit"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="logo"/>
           <div class="text"><span class="title">{{team.name }}</span></div>
           <button ng-if="team.isLeader" class="button button-small button-calm">为它选对手</button>
