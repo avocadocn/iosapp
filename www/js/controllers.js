@@ -3505,7 +3505,7 @@ angular.module('donlerApp.controllers', [])
           $scope.noRankTeams = [];
           if(data.team) {
             data.team.forEach(function(_team, index){
-              
+
               if(_team.rank>10 || _team.rank==0) {
                 $scope.noRankTeams.push(_team);
               }
@@ -3594,6 +3594,7 @@ angular.module('donlerApp.controllers', [])
           latest_content_date: $scope.circleContentList[0].content.post_date
         }).success(function(data) {
           $scope.remindComments = data;
+          $rootScope.remindList = data;
           Circle.lastGetCompanyCircleRemindTime = Date.now();
 
           // 更新对应circleContent的评论
@@ -3884,7 +3885,7 @@ angular.module('donlerApp.controllers', [])
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
         } else {
-          $state.go('circle_company');
+          $state.go('circle_reminds');
         }
       };
 
@@ -4028,6 +4029,23 @@ angular.module('donlerApp.controllers', [])
             ionicAlert(data.msg || '操作失败');
           });
       };
+
+    }
+  ])
+  .controller('CircleRemindsController', [
+    '$scope',
+    '$rootScope',
+    '$ionicHistory',
+    function($scope, $rootScope, $ionicHistory) {
+      $scope.goBack = function() {
+        if ($ionicHistory.backView()) {
+          $ionicHistory.goBack();
+        } else {
+          $state.go('circle_content');
+        }
+      };
+
+      $scope.remindList = $rootScope.remindList;
 
     }
   ])

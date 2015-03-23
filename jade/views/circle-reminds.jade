@@ -1,0 +1,14 @@
+ion-view
+  ion-header-bar
+    button.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title 消息提醒
+    
+  ion-content
+    
+    .list
+      a.item.item-avatar(ng-repeat="remind in remindList" ng-href="#/circle/circle_content/{{remind.targetContent._id}}")
+        img(ng-src="{{STATIC_URL + remind.poster.photo}}/128/128")
+        h2 {{remind.poster.nickname}}
+        p(ng-if="remind.kind === 'comment'" ng-cloak) {{remind.content}}
+        p(ng-if="remind.kind === 'appreciate'" ng-cloak)
+          i.ion-heart

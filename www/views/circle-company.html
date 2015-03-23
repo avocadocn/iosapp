@@ -1,14 +1,14 @@
 
 <ion-view class="circle_company">
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">同事圈</h1>
+    <h1 class="title">同事圈</h1><a href="#/circle/reminds" class="button icon ion_discuss_active"></a>
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping"></ion-refresher>
     <div ng-if="loadOptions.loadingNew" ng-cloak="ng-cloak" class="loading_cover"><i class="icon ion-looping"></i></div>
     <div class="circle_company_image"></div>
     <div class="circle_user"><a class="circle_user_name">{{user.nickname}}</a><img ng-src="{{STATIC_URL + user.photo}}/70/70" class="circle_user_image"/></div>
-    <div ng-if="remindComments.length &gt; 0" class="remind text-center"><a ng-href="#/circle/circle_content/{{remindComments[0].targetContent._id}}">{{remindComments.length}}条新消息</a>
+    <div ng-if="remindComments.length &gt; 0" class="remind text-center"><a href="#/circle/reminds">{{remindComments.length}}条新消息</a>
     </div><a ng-repeat="circle in circleContentList" ng-cloak="ng-cloak" class="dl_circle_company_card clearfix"><img ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32" class="circle_company_logo"/>
       <div class="circle_info">
         <h2 class="user_name">{{circle.user.nickname}}</h2>
