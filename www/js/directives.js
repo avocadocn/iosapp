@@ -118,6 +118,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     return {
       restrict: 'E',
       scope: {
+        isShowImg: '@',
         isShowEmotions: '=',
         content: '=',
         isWriting: '=',
@@ -130,6 +131,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         // console.log(scope.publish);
         //表情
         scope.isShowEmotions = false;
+        scope.isShowImg = scope.isShowImg ==undefined ? true :false;
         scope.showEmotions = function() {
           scope.isShowEmotions = true;
         };

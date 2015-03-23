@@ -2625,6 +2625,10 @@ a>.login .companies_list:activated {
 .rank_table {
   background-color: #fbfbfb;
 }
+.rank_table a {
+  text-decoration: none;
+  color: #000;
+}
 .rank_table .belong {
   color: #3ca2e0;
 }

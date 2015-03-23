@@ -455,7 +455,7 @@ angular.module('donlerApp.controllers', [])
           });
         }
       });
-     };
+    };
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
@@ -3505,9 +3505,12 @@ angular.module('donlerApp.controllers', [])
           $scope.noRankTeams = [];
           if(data.team) {
             data.team.forEach(function(_team, index){
-              $scope.rank.team[_team.rank-1].belong=true;
-              if(_team.rank>10) {
+              
+              if(_team.rank>10 || _team.rank==0) {
                 $scope.noRankTeams.push(_team);
+              }
+              else{
+                $scope.rank.team[_team.rank-1].belong=true;
               }
 
             });
@@ -4158,7 +4161,7 @@ angular.module('donlerApp.controllers', [])
       getCompetitionLog();
     }
   }])
-  .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$timeout', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO', function ($scope, $state, $ionicModal, $ionicScrollDelegate, $timeout, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
+  .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO', function ($scope, $state, $ionicModal, $ionicScrollDelegate, $ionicPopup, $timeout, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
     //评论获取
     $scope.commentList = [];
     $scope.topShowTime = [];
@@ -4230,26 +4233,33 @@ angular.module('donlerApp.controllers', [])
     $scope.voteCompetition = function (index) {
       var vote = $scope.competitionMessage.vote;
       var unit = vote.units[index];
-      if(unit.canVote) {
+      // if(unit.canVote) {
         Vote.vote(vote._id,unit.tid,function (err, vote) {
           if(err) {
-            console.log(err);
+            $ionicPopup.alert({
+              title: '错误',
+              template: err
+            });
           }
           else{
             $scope.competitionMessage.vote = formatVote(vote);
+            $ionicPopup.alert({
+              title: '提示',
+              template: '投票成功!'
+            });
           }
         })
-      }
-      else{
-        Vote.cancelVote(vote._id,unit.tid,function (err, vote) {
-          if(err) {
-            console.log(err);
-          }
-          else{
-            $scope.competitionMessage.vote = formatVote(vote);
-          }
-        })
-      }
+      // }
+      // else{
+      //   Vote.cancelVote(vote._id,unit.tid,function (err, vote) {
+      //     if(err) {
+      //       console.log(err);
+      //     }
+      //     else{
+      //       $scope.competitionMessage.vote = formatVote(vote);
+      //     }
+      //   })
+      // }
     }
     $scope.dealCompetition = function (action) {
       CompetitionMessage.dealCompetition($state.params.id, action, function (err,data) {
@@ -4322,7 +4332,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('SearchOpponentController', ['$scope', '$state', 'CompetitionMessage', 'Team', 'INFO', function ($scope, $state, CompetitionMessage, Team, INFO) {
+  .controller('SearchOpponentController', ['$scope', '$rootScope', '$state', 'CompetitionMessage', 'Team', 'INFO', function ($scope, $rootScope, $state, CompetitionMessage, Team, INFO) {
     $scope.hasSelected = false;
     $scope.keywords ='';
     var getMyTeams = function(callback) {
@@ -4330,15 +4340,21 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           // todo
           console.log(err);
+          $scope.myTeams =[];
         } else {
-          $scope.myTeams = teams;
-          INFO.myTeams = teams;
+
+          $scope.myTeams = teams.sort(function (last,next) {
+            return next.isLeader - last.isLeader;
+          });
+          INFO.myTeams = $scope.myTeams;
           callback && callback();
         }
       });
     };
     if(INFO.myTeams) {
-      $scope.myTeams = INFO.myTeams;
+      $scope.myTeams = INFO.myTeams.sort(function (last,next) {
+        return next.isLeader - last.isLeader;
+      });;
     }
     else{
       getMyTeams();
@@ -4360,6 +4376,7 @@ angular.module('donlerApp.controllers', [])
       else if(type == 'search'){
         queryData.key = $scope.keywords;
       }
+      $rootScope.showLoading();
       Team.getSearchTeam(queryData,function (err, data) {
         if(err) {
           console.log(err);
@@ -4374,6 +4391,7 @@ angular.module('donlerApp.controllers', [])
           }
           $scope.maxPage = data.maxPage;
         }
+        $rootScope.hideLoading();
       });
     }
     $scope.$watch('nowTab',function (newVal, oldVal) {
@@ -4429,13 +4447,11 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.gotTeamDetail = function (teamId) {
       $state.go('competition_team',{
-        fromTeamId: $scope.myTeam._id,
         targetTeamId: teamId
       })
     }
   }])
   .controller('CompetitionTeamController', ['$scope', '$state', '$ionicHistory', '$ionicPopup', 'Team', 'INFO', 'Campaign', 'Chat', function ($scope, $state, $ionicHistory, $ionicPopup, Team, INFO, Campaign, Chat) {
-    var fromTeamId = $state.params.fromTeamId;
     var targetTeamId = $state.params.targetTeamId;
     $scope.page = 1;
     $scope.goBack = function() {
@@ -4445,36 +4461,53 @@ angular.module('donlerApp.controllers', [])
         $state.go('search_opponent');
       }
     }
-    if(INFO.myTeams) {
-      var myTeams = INFO.myTeams;
-      for (var i = myTeams.length - 1; i >= 0; i--) {
-        if(myTeams[i]._id.toString()===fromTeamId) {
-          $scope.fromTeam = myTeams[i];
-          break;
+    var filterSameTeam = function (myTeams, groupType) {
+      $scope.sameTeams = myTeams.filter(function (team) {
+        return team._id!=targetTeamId &&groupType ===team.groupType;
+      });
+      $scope.leadTeams = [];
+      $scope.memberTeams = [];
+      $scope.sameTeams.forEach(function(team, index){
+        if(team.isLeader) {
+          $scope.leadTeams.push(team);
         }
-      };
-    }
-    else{
-      Team.getData(fromTeamId, function (err, team) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.fromTeam = team;
+        else{
+          $scope.memberTeams.push(team);
         }
       });
     }
+    var getSameTeam = function (groupType) {
+      if(INFO.myTeams) {
+        filterSameTeam(INFO.myTeams,groupType);
+      }
+      else{
+        Team.getList('user', localStorage.id, null, function (err, teams) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            INFO.myTeams = teams;
+            filterSameTeam(teams,groupType);
+          }
+        });
+      }
+    }
 
-    Team.getCompetitonTeam(fromTeamId, targetTeamId, function (err, team) {
+    Team.getData(targetTeamId, function (err, team) {
       if (err) {
         // todo
         console.log(err);
       } else {
         $scope.targetTeam = team;
+        getSameTeam(team.groupType);
+        $scope.isCompanyTeam = team.isCompanyTeam;
+        if(!team.isCompanyTeam) {
+          $scope.getCompetitionOfTeams();
+        }
       }
-    });
+    },{resultType:'simple'});
     $scope.getCompetitionOfTeams = function () {
-      Campaign.getCompetitionOfTeams({fromTeamId: fromTeamId, targetTeamId: targetTeamId,page: $scope.page}, function (err, data) {
+      Campaign.getCompetitionOfTeams({targetTeamId: targetTeamId,page: $scope.page}, function (err, data) {
         if (err) {
           // todo
           console.log(err);
@@ -4490,21 +4523,52 @@ angular.module('donlerApp.controllers', [])
         }
       })
     }
-    $scope.getCompetitionOfTeams();
-    $scope.createMessage = function () {
+    $scope.showPopup = function(index) {
+      var showText = [{text:'发挑战',teamText:'leadTeams',funText:'createMessage'},{text:'推荐',teamText:'memberTeams',funText:'recommend'}];
+      // $scope.selectTeam = $scope[showText[index].teamText][0];
+      $scope.selectTeam ={id:$scope[showText[index].teamText][0]._id};
+      var templatString = "<ion-radio ng-repeat='team in "+ showText[index].teamText+ "' ng-model='selectTeam.id' ng-value='team._id'>{{team.name}}</ion-radio>";
+      // An elaborate, custom popup
+      var myPopup = $ionicPopup.show({
+        template: templatString,
+        title: ' 选择要'+showText[index].text+'的小队',
+        // subTitle: '请输入公告内容',
+        scope: $scope,
+        buttons: [
+          { text: '取消' },
+          {
+            text: '<b>确定</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if (!$scope.selectTeam.id) {
+                e.preventDefault();
+              } else {
+                return $scope.selectTeam.id;
+              }
+            }
+          }
+        ]
+      });
+      myPopup.then(function(res) {
+        if(res) {
+          $scope[showText[index].funText](res);
+        }
+      });
+    };
+    $scope.createMessage = function (teamId) {
       INFO.competitionMessageData = {
-        fromTeamId: fromTeamId,
+        fromTeamId: teamId,
         targetTeam: $scope.targetTeam
       }
       $state.go('competition_send');
     }
-    $scope.recommend = function () {
+    $scope.recommend = function (teamId) {
       var postData = {
         content: $scope.targetTeam.name,
         chatType: 'recommend_team',
         recommendTeamId: targetTeamId
       }
-      Chat.postChat(fromTeamId, postData, function(err, data) {
+      Chat.postChat(teamId, postData, function(err, data) {
         if(err) {
           console.log(err);
         }
