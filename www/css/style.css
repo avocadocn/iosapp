@@ -2532,6 +2532,9 @@ a>.login .companies_list:activated {
   margin-left: 45px;
   color: #333;
 }
+.circle_company .dl_circle_company_card .circle_comment_list .comment .content {
+  margin-left: 10px;
+}
 .circle_company .comment_wrap {
   position: fixed;
   top: 0;

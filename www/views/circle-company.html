@@ -7,20 +7,18 @@
     <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping"></ion-refresher>
     <div ng-if="loadOptions.loadingNew" ng-cloak="ng-cloak" class="loading_cover"><i class="icon ion-looping"></i></div>
     <div class="circle_company_image"></div>
-    <div class="circle_user"><a class="circle_user_name">{{user.nickname}}</a><img ng-src="{{STATIC_URL + user.photo}}/70/70" class="circle_user_image"/></div><a ng-repeat="circle in circleContentList" ng-cloak="ng-cloak" class="dl_circle_company_card clearfix"><img ng-src="{{STATIC_URL + circle.user.photo}}/32/32" class="circle_company_logo"/>
+    <div class="circle_user"><a class="circle_user_name">{{user.nickname}}</a><img ng-src="{{STATIC_URL + user.photo}}/70/70" class="circle_user_image"/></div><a ng-repeat="circle in circleContentList" ng-cloak="ng-cloak" class="dl_circle_company_card clearfix"><img ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32" class="circle_company_logo"/>
       <div class="circle_info">
         <h2 class="user_name">{{circle.user.nickname}}</h2>
         <p class="circle_content">{{circle.content.content}}</p>
         <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo="open-photo" error-img="error-img" photo="photo" pswp-id="circlePswpId" photos="imagesForPswp" class="preview_img"/></div>
         <div class="icon_comment"><i ng-click="toComment(circle)" class="ion_comment circle_comment"></i></div>
-        <div ng-if="circle.isToComment" class="comment_op"><span ng-click="appreciate(circle)" class="op">赞</span><span class="divider">|</span><span ng-click="openCommentBox(circle)" class="op">评论</span><span class="divider">|</span><span ng-if="user._id == circle.user._id" ng-click="deleteCircleContent(circle)" class="op">删除</span></div>
+        <div ng-if="circle.isToComment" class="comment_op"><span ng-click="appreciate(circle)" class="op">赞</span><span class="divider">|</span><span ng-click="openCommentBox(circle)" class="op">评论</span><span ng-if="user._id == circle.content.post_user_id" class="divider">|</span><span ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="op">删除</span></div>
       </div>
       <div class="circle_comment_list">
-        <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><i class="ion-heart"></i><span ng-repeat="appr in circle.appreciate" class="appreciate">{{appr.post_user_id}}</span></div>
+        <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><i class="ion-heart"></i><span ng-repeat="appr in circle.appreciate" class="appreciate">{{appr.poster.nickname}}</span></div>
         <div ng-if="circle.textComments.length &gt; 0" class="comment_container">
-          <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" class="comment">
-            <p>{{comment.content}}</p>
-          </div>
+          <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" class="comment"><span class="nickname">{{comment.poster.nickname}}</span><span ng-if="!comment.is_only_to_content" ng-cloak="ng-cloak" class="replyto">&nbsp;回复&nbsp; {{comment.target.nickname}}</span><span class="colon">:</span><span class="content">{{comment.content}}</span></div>
         </div>
       </div></a>
     <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
