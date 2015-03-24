@@ -13,9 +13,8 @@ ion-view.circle_company
       a.circle_user_name {{user.nickname}}
       img.circle_user_image(ng-src="{{STATIC_URL + user.photo}}/70/70")
     
-    .remind.text-center(ng-if="remindComments.length > 0")
-      //- TODO: 临时的显示样式
-      a(href="#/circle/reminds") {{remindComments.length}}条新消息
+    div(ng-if="remindComments.length > 0")
+      a.remind_box(href="#/circle/reminds") {{remindComments.length}}条新消息
     
     a.dl_circle_company_card.clearfix(ng-repeat="circle in circleContentList" ng-cloak)
       img.circle_company_logo(ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32")

@@ -2463,6 +2463,17 @@ a>.login .companies_list:activated {
   right: 30px;
   padding: 2px;
 }
+.circle_company .remind_box {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  height: 36px;
+  line-height: 36px;
+  color: #fff;
+  background-color: #000;
+  text-align: center;
+  text-decoration: none;
+}
 .circle_company .comment_wrap {
   position: fixed;
   top: 0;
@@ -2474,6 +2485,16 @@ a>.login .companies_list:activated {
 }
 .circle_company .circle_comment_box {
   z-index: 101;
+}
+.circle_reminds_page .remind_item {
+  position: relative;
+}
+.circle_reminds_page .content_preview {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
 }
 .dl_circle_company_card {
   display: block;
