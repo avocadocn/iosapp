@@ -3594,7 +3594,10 @@ angular.module('donlerApp.controllers', [])
           latest_content_date: $scope.circleContentList[0].content.post_date
         }).success(function(data) {
           $scope.remindComments = data;
-          $rootScope.remindList = data;
+          if (!$rootScope.remindList) {
+            $rootScope.remindList = [];
+          }
+          $rootScope.remindList = $rootScope.remindList.concat(data);
           Circle.lastGetCompanyCircleRemindTime = Date.now();
 
           // 更新对应circleContent的评论
