@@ -3567,7 +3567,8 @@ angular.module('donlerApp.controllers', [])
     'INFO',
     'Tools',
     'CONFIG',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG) {
+    'Emoji',
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji) {
 
       User.getData(localStorage.id, function(err, data) {
         if (err) {
@@ -3812,6 +3813,26 @@ angular.module('donlerApp.controllers', [])
       $scope.commentFormData = {
         content: ''
       };
+
+      $scope.isShowEmotions = false;
+      $scope.showEmotions = function() {
+        $scope.isShowEmotions = true;
+      };
+      $scope.hideEmotions = function() {
+        $scope.isShowEmotions = false;
+      };
+      $scope.emojiList = [];
+      var emoji = Emoji.getEmojiList();
+      var dict = Emoji.getEmojiDict();
+
+      for(var i =0; emoji.length>24 ;i++) {
+        $scope.emojiList.push(emoji.splice(24,24));
+      }
+      $scope.emojiList.unshift(emoji);
+      $scope.addEmotion = function(emotion) {
+        $scope.commentFormData.content += '['+ dict[emotion] +']';
+      };
+
       // 发表评论
       $scope.comment = function () {
         var postData = {
@@ -3854,6 +3875,7 @@ angular.module('donlerApp.controllers', [])
       $scope.stopComment = function () {
         $scope.isCommenting = false;
         $scope.targetCommentCircle.isToComment = false;
+        $scope.hideEmotions();
       };
 
       // 赞

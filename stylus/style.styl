@@ -2156,6 +2156,35 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     background-color transparent
   .circle_comment_box
     z-index 101
+    &.show_emotion_box
+      bottom 160px
+
+  .emotion_box
+    position absolute
+    bottom 0
+    z-index 101
+    border-top 1px solid #ccc
+    padding 5px 0
+    width 100%
+    height 160px
+    float left
+    background-color #fff
+    .box
+      width 320px
+      padding 4px
+      margin auto
+      .emotion
+        padding 9px
+        float left
+        .emoji
+          margin-right 0
+          height 21px
+          width 21px
+          margin 0
+    .slider-pager
+      bottom 5px
+      .icon.ion-record
+        color col_blue
 
 .circle_reminds_page
   .remind_item
