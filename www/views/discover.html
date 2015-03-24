@@ -14,7 +14,7 @@
       </div>
       <div class="rank_table">
         <div ng-repeat="rankTeam in selectTeam.rankTeams" class="row">
-          <div class="col">{{rankTeam.score_rank.rank}}</div>
+          <div class="col">{{rankTeam.score_rank.rank? rankTeam.score_rank.rank :'暂无'}}</div>
           <div class="col"><img ng-src="{{STATIC_URL + rankTeam.logo}}/40/40" class="team_logo"/></div>
           <div class="col">{{rankTeam.name}}</div>
           <div class="col">{{rankTeam.score_rank.score || 0}}</div>

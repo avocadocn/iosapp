@@ -26,7 +26,7 @@ ion-view.discover(ng-controller="DiscoverController")
           select.select_info(ng-change="changeSelectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams")
       .rank_table
         .row(ng-repeat="rankTeam in selectTeam.rankTeams")
-          .col {{rankTeam.score_rank.rank}}
+          .col {{rankTeam.score_rank.rank? rankTeam.score_rank.rank :'暂无'}}
           .col: img.team_logo(ng-src="{{STATIC_URL + rankTeam.logo}}/40/40")
           .col {{rankTeam.name}}
           .col {{rankTeam.score_rank.score || 0}}

@@ -1228,60 +1228,53 @@ a>.login .companies_list:activated {
   height: auto;
   padding-top: 5px;
 }
-.comment_box .icon.ion-image {
-  font-size: 22px;
-  margin-top: -12px;
-  padding: 6% 10px 0;
-  float: left;
+.comment_box .publish_box {
+  display: flex;
 }
-.comment_box .comment_input {
-  float: left;
-  width: 68%;
-  margin-top: 3px;
+.comment_box .publish_box .icon.ion-image {
+  font-size: 22px;
+  width: 20px;
+  margin: auto 5px;
+}
+.comment_box .publish_box .comment_input {
+  flex: 1;
+  margin: 5px 0;
   padding-left: 5px;
   background-color: #fff;
-  border-radius: 3px;
-  padding-top: 5px;
   box-shadow: 0 0 0;
   border-radius: 3px;
   min-height: 28px;
+  max-height: 70px;
   resize: none;
-  margin-bottom: 5px;
+  overflow-y: auto;
 }
-.comment_box .emotion_button {
-  float: left;
+.comment_box .publish_box .emotion_button {
   background-color: transparent;
   width: 24px;
-  margin-left: 2px;
-  margin-top: -12px;
-  padding: 6% 0 0;
+  padding: 0;
+  line-height: 100%;
 }
-.comment_box .emotion_button .emoji {
+.comment_box .publish_box .emotion_button .emoji {
   vertical-align: baseline;
 }
-.comment_box button.publish_button[disabled] {
+.comment_box .publish_box button.publish_button[disabled] {
   color: #999 !important;
 }
-.comment_box .publish_button {
-  float: left;
+.comment_box .publish_box .publish_button {
   padding: 0;
   border: 0;
   background-color: transparent;
   color: #333;
-  text-align: cesfdgnter;
-  width: 3rem;
+  width: 30px;
   font-size: 14px;
-  line-height: 21px;
-  margin-top: -12px;
-  padding: 6% 0 5px;
   font-weight: 600;
+  line-height: 100%;
 }
 .comment_box .emotion_box {
   border-top: 1px solid #ccc;
   padding: 5px 0;
   width: 100%;
   height: 160px;
-  float: left;
   background-color: #fff;
 }
 .comment_box .emotion_box .box {
@@ -1304,6 +1297,9 @@ a>.login .companies_list:activated {
 }
 .comment_box .emotion_box .slider-pager .icon.ion-record {
   color: #3ca2e0;
+}
+.discuss_list .chat_pre {
+  max-height: 21px;
 }
 .discuss_list .list {
   padding-top: 0;
@@ -2638,6 +2634,9 @@ a>.login .companies_list:activated {
 .rank_table .no_rank_table {
   text-align: center;
 }
+.competition_message_panel {
+  background-color: #fff;
+}
 .competition_message_panel .competition_message_list .type_filter {
   text-align: center;
   padding: 10px 0;
@@ -2647,12 +2646,110 @@ a>.login .companies_list:activated {
   color: #000;
   background-color: #fff;
 }
+.competition_message_panel .competition_message_detail .teams {
+  margin-top: 10px;
+}
+.competition_message_panel .competition_message_detail .teams .team {
+  position: relative;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+}
+.competition_message_panel .competition_message_detail .teams .team:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 15px;
+  height: 30px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+  border-width: 30px 20px 0 0;
+}
+.competition_message_panel .competition_message_detail .teams .vs {
+  font-size: 16px;
+}
+.competition_message_panel .competition_message_detail .teams .sponsor_team {
+  background-color: #f00;
+}
+.competition_message_panel .competition_message_detail .teams .sponsor_team:before {
+  right: 0;
+  border-width: 30px 0 0 20px;
+}
+.competition_message_panel .competition_message_detail .teams .opposite_team {
+  background-color: #00f;
+}
+.competition_message_panel .competition_message_detail .teams .opposite_team:before {
+  left: 0;
+  border-width: 30px 20px 0 0;
+}
+.competition_message_panel .competition_message_detail .vote {
+  padding: 0 60px;
+  height: 50px;
+  position: relative;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team {
+  height: 3px;
+  margin-top: 23px;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team .vote_icon {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 100%;
+  border-style: solid;
+  border-width: 1px;
+  position: absolute;
+  top: 5px;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team .vote_icon .icon {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: inline-block;
+  font-size: 20px;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team .vote_num {
+  position: absolute;
+  width: 50px;
+  bottom: 0;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team:first-child {
+  text-align: left;
+  background-color: #f00;
+  float: left;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team:first-child .vote_icon {
+  left: 20px;
+  border-color: #f00;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team:first-child .vote_icon .icon {
+  color: #f00;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team:first-child .vote_num {
+  left: 60px;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team:last-child {
+  text-align: right;
+  background-color: #00f;
+  float: right;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team:last-child .vote_icon {
+  right: 20px;
+  border-color: #00f;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team:last-child .vote_icon .icon {
+  color: #00f;
+}
+.competition_message_panel .competition_message_detail .vote .vote_team:last-child .vote_num {
+  right: 60px;
+}
 .search_opponent .select_team .units .unit {
   float: left;
   width: 30%;
   padding: 10px;
   cursor: pointer;
-  background-color: #edebec;
+  background-color: #fff;
   border-radius: 5px;
   margin: 5px;
   border: 1px solid #3ca2e0;

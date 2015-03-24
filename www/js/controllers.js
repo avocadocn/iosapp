@@ -3943,10 +3943,12 @@ angular.module('donlerApp.controllers', [])
     $scope.commentList = [];
     $scope.topShowTime = [];
     var formatVote = function (vote) {
+      var totalVote = vote.units[0].positive +vote.units[1].positive;
       vote.units.forEach(function(unit, index){
         if(unit.positive==0 || unit.positive_member.indexOf(localStorage.id)==-1) {
           unit.canVote = true;
         }
+        unit.percent=totalVote ? unit.positive *100/totalVote :50;
       });
       return vote;
     }
@@ -3961,7 +3963,7 @@ angular.module('donlerApp.controllers', [])
           $scope.competitionMessage.content = $scope.competitionMessage.content.replace(/\n/g,"<br>");
           $scope.oppositeLeader = data.oppositeLeader;
           $scope.sponsorLeader = data.sponsorLeader;
-          formatVote($scope.competitionMessage.vote);
+          $scope.competitionMessage.vote = formatVote($scope.competitionMessage.vote);
           var ta = document.getElementById('ta');
         }
       });
@@ -4099,7 +4101,6 @@ angular.module('donlerApp.controllers', [])
           $scope.commentList[length-1].failed = true;
         }else{
           $scope.content = '';
-          $scope.resizeTextarea();
         }
       });
     };

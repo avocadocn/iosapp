@@ -1,8 +1,10 @@
 
-<form name="comment_form"><i ng-if="isShowImg" ng-click="showUploadActionSheet()" class="icon ion-image"></i>
-  <textarea id="ta" rows="1" cols="30" ng-model="content" required="required" maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting=false" ng-blur="isWriting=true" ng-change="resizeTextarea()" class="comment_input"></textarea>
-  <button ng-click="showEmotions()" prevent-default="prevent-default" class="dl_button emotion_button"><i class="emoji emoji_tongue"></i></button>
-  <button ng-click="publish();hideEmotions();resizeTextarea(1)" ng-disabled="comment_form.$invalid" class="publish_button">发言</button>
+<form name="comment_form">
+  <div class="publish_box"><i ng-if="status.isShowImg" ng-click="showUploadActionSheet()" class="icon ion-image"></i>
+    <div id="ta" ng-model="content" required="required" mix-maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting=false" ng-blur="isWriting=true" class="comment_input"></div>
+    <button ng-click="showEmotions()" prevent-default="prevent-default" class="dl_button emotion_button"><i class="emoji emoji_tongue"></i></button>
+    <button ng-click="publish();hideEmotions();resizeTextarea(1)" ng-disabled="comment_form.$invalid" class="publish_button">发言</button>
+  </div>
   <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
     <ion-slide ng-repeat="emoji in emojiList">
       <div class="box clearfix">

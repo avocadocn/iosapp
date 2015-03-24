@@ -25,32 +25,37 @@
           <button ng-click="dealCompetition('reject')" class="button button-assertive">拒绝</button>
         </div>
       </div>
-      <div class="row">
-        <div class="col">挑战方</div>
-        <div class="col">VS</div>
-        <div class="col">应战方</div>
+      <div class="row teams">
+        <div class="col team sponsor_team">挑战方</div>
+        <div class="col col-10 vs">VS</div>
+        <div class="col team opposite_team">应战方</div>
       </div>
-      <div class="row">
-        <div ng-click="voteCompetition(0)" class="col">{{competitionMessage.vote.units[0].positive}} 人支持</div>
-        <div ng-click="voteCompetition(1)" class="col">{{competitionMessage.vote.units[1].positive}} 人支持</div>
+      <div class="vote">
+        <div ng-repeat="unit in competitionMessage.vote.units" ng-style="{'width':unit.percent+'%'}" ng-click="voteCompetition($index)" class="vote_team">
+          <div class="vote_icon"><i class="icon ion-ios7-heart-outline"></i></div><span class="vote_num">{{unit.positive}} 人支持</span>
+        </div>
       </div>
     </div>
-    <div class="competition_message_comment">
+    <div ng-if="competitionMessage" class="competition_message_comment">
       <div class="row">
         <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="member_logo"/></div>
         <div ng-bind-html="competitionMessage.content | emoji | unsafe" class="col"></div>
         <div class="col">{{competitionMessage.create_time | date:"MM-dd HH:mm"}}</div>
       </div>
       <div ng-repeat="comment in commentList " class="row">
-        <div class="col"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/>
+        <div ng-if="comment.poster._id!==userId" class="col"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/>
           <p>{{comment.poster.nickname}}</p>
         </div>
+        <div ng-if="comment.poster._id===userId" class="col">{{comment.create_date | date:"MM-dd HH:mm"}}</div>
         <div ng-bind-html="comment.content | emoji | unsafe" class="col"></div>
-        <div class="col">{{comment.create_date | date:"MM-dd HH:mm"}}</div>
+        <div ng-if="comment.poster._id!==userId" class="col">{{comment.create_date | date:"MM-dd HH:mm"}}</div>
+        <div ng-if="comment.poster._id===userId" class="col"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/>
+          <p>{{comment.poster.nickname}}</p>
+        </div>
       </div>
     </div>
   </ion-content>
   <ion-footer-bar ng-show="oppositeLeader || sponsorLeader" class="comment_box">
-    <publish-box is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publishComment()"></publish-box>
+    <publish-box is-show-img="false" is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publishComment()"></publish-box>
   </ion-footer-bar>
 </ion-view>

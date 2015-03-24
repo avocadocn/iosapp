@@ -1067,55 +1067,46 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   display block
   height auto
   padding-top 5px
-  //- position relative
-  .icon.ion-image
-    font-size 22px
-    margin-top -12px
-    padding 6% 10px 0
-    float left
-  .comment_input
-    float left
-    width 68%
-    margin-top 3px
-    padding-left 5px
-    background-color #fff
-    border-radius 3px
-    padding-top 5px
-    box-shadow 0 0 0
-    border-radius 3px
-    min-height 28px
-    resize none
-    margin-bottom 5px
-  .emotion_button
-    float left
-    background-color transparent
-    width 24px
-    margin-left 2px
-    margin-top -12px
-    padding 6% 0 0
-    .emoji
-      vertical-align baseline
-  button.publish_button[disabled]
-    color col_darkGray !important
-  .publish_button
-    float left
-    padding 0
-    border 0
-    background-color transparent
-    color #333
-    text-align cesfdgnter
-    width 3rem
-    font-size 14px
-    line-height 21px
-    margin-top -12px
-    padding 6% 0 5px
-    font-weight 600
+  .publish_box
+    display flex
+    .icon.ion-image
+      font-size 22px
+      width 20px
+      margin auto 5px
+    .comment_input
+      flex 1
+      margin 5px 0
+      padding-left 5px
+      background-color #fff
+      box-shadow 0 0 0
+      border-radius 3px
+      min-height 28px
+      max-height 70px
+      resize none
+      overflow-y auto
+    .emotion_button
+      background-color transparent
+      width 24px
+      padding 0
+      line-height 100%
+      .emoji
+        vertical-align baseline
+    button.publish_button[disabled]
+      color col_darkGray !important
+    .publish_button
+      padding 0
+      border 0
+      background-color transparent
+      color #333
+      width 30px
+      font-size 14px
+      font-weight 600
+      line-height 100%
   .emotion_box
     border-top 1px solid #ccc
     padding 5px 0
     width 100%
     height 160px
-    float left
     background-color #fff
     .box
       width 320px
@@ -1136,6 +1127,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
 //-讨论列表页
 .discuss_list
+  .chat_pre
+    max-height 21px
   .list
     padding-top 0
     .item
@@ -2237,6 +2230,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   .no_rank_table
     text-align center
 .competition_message_panel
+  background-color white
   .competition_message_list
     .type_filter
       text-align center
@@ -2245,6 +2239,85 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       text-decoration none
       color black
       background-color white
+  .competition_message_detail
+    .teams
+      margin-top 10px
+      .team
+        position relative
+        color white
+        text-align center
+        font-size 14px
+        &:before
+          content: ""
+          position: absolute
+          top 0
+          width 15px
+          height 30px
+          border-style solid
+          border-color white transparent transparent transparent
+          border-width 30px 20px 0 0 
+      .vs
+        font-size 16px
+      .sponsor_team
+        background-color red
+        &:before
+          right 0
+          border-width 30px 0 0 20px
+      .opposite_team
+        background-color blue
+        &:before
+          left 0
+          border-width 30px 20px 0 0
+    .vote
+      padding 0 60px
+      height 50px
+      position relative
+      .vote_team
+        height 3px
+        margin-top 23px
+        .vote_icon
+          width 40px
+          height 40px
+          display inline-block
+          background-color #FFF
+          border-radius 100%
+          border-style solid
+          border-width 1px
+          position absolute
+          top 5px
+          .icon
+            position absolute
+            left 10px
+            top 10px
+            display inline-block
+            font-size 20px
+        .vote_num
+          position absolute
+          width 50px
+          bottom 0
+        &:first-child
+          text-align left
+          background-color red
+          float left
+          .vote_icon
+            left 20px
+            border-color red
+            .icon
+              color red
+          .vote_num
+            left 60px
+        &:last-child
+          text-align right
+          background-color blue
+          float right
+          .vote_icon
+            right 20px
+            border-color blue
+            .icon
+              color blue
+          .vote_num
+            right 60px
+            
 .search_opponent
   .select_team
     .units
@@ -2253,7 +2326,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         width 30%
         padding 10px
         cursor pointer
-        background-color #edebec
+        background-color white
         border-radius 5px
         margin 5px
         border 1px solid #3CA2E0

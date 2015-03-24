@@ -13,7 +13,7 @@ ion-view.discuss_list(ng-controller="DiscussListController")
         img(ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png")
         .red_spot(ng-if="chatroom.unread")
         h2 {{chatroom.name}}
-        p
+        p.chat_pre
           span(ng-show="chatroom.unread") [{{chatroom.unread}}条新消息] 
           span(ng-if="chatroom.latestChat") {{chatroom.latestChat.poster.nickname}}:
           span(ng-if="chatroom.latestChat" ng-bind-html=" chatroom.latestChat.content||'[图片]' | emoji | unsafe")

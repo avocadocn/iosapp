@@ -1,7 +1,71 @@
 'use strict';
 
 angular.module('donlerApp.directives', ['donlerApp.services'])
-
+  .directive('contenteditable',function() {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, element, attr, ngModel) {
+        var read;
+        if (!ngModel) {
+          return;
+        }
+        ngModel.$render = function() {
+          return element.html(ngModel.$viewValue);
+        };
+        var changeBind = function(e){
+          var htmlContent = element.html();
+          if (ngModel.$viewValue !== htmlContent ) {
+            if(htmlContent.replace(/<\/?[^>]*>/g, '').replace(/[\u4e00-\u9fa5]/g, '**').length>attr.mixMaxlength){
+              ngModel.$setValidity('mixlength', false);
+            }
+            else{
+              ngModel.$setValidity('mixlength', true);
+            }
+            return scope.$apply(read);
+          }
+        }
+        var clearStyle = function(e){
+          var before = e.currentTarget.innerHTML;
+          setTimeout(function(){
+              // get content after paste by a 100ms delay
+              var after = e.currentTarget.innerHTML;
+              // find the start and end position where the two differ
+              var pos1 = -1;
+              var pos2 = -1;
+              for (var i=0; i<after.length; i++) {
+                  if (pos1 == -1 && before.substr(i, 1) != after.substr(i, 1)) pos1 = i;
+                  if (pos2 == -1 && before.substr(before.length-i-1, 1) != after.substr(after.length-i-1, 1)) pos2 = i;
+              }
+              // the difference = pasted string with HTML:
+              var pasted = after.substr(pos1, after.length-pos2-pos1);
+              // strip the tags:
+              var replace = pasted.replace(/style\s*=(['\"\s]?)[^'\"]*?\1/gi,'').replace(/class\s*=(['\"\s]?)[^'\"]*?\1/gi,'');
+              // build clean content:
+              var replaced = after.substr(0, pos1)+replace+after.substr(pos1+pasted.length);
+              // replace the HTML mess with the plain content
+              //console.log(replaced);
+              e.currentTarget.innerHTML = replaced;
+              changeBind(e);
+          }, 100);
+        }
+        element.bind('focus', function() {
+          element.bind('input',changeBind);
+          element.bind('keydown',changeBind);
+          element.bind('paste', clearStyle);
+        });
+        element.bind('blur', function(e) {
+          element.unbind('input',changeBind);
+          element.unbind('keydown',changeBind);
+          element.unbind('paste', clearStyle);
+          changeBind(e);
+        });
+        return read = function() {
+          return ngModel.$setViewValue(element.html());
+        };
+      }
+    };
+  })
   .directive('scrollParent', function ($ionicScrollDelegate,$ionicGesture) {
     return {
         restrict: 'A',
@@ -130,8 +194,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
         // console.log(scope.publish);
         //表情
+        scope.status ={}
         scope.isShowEmotions = false;
-        scope.isShowImg = scope.isShowImg ==undefined ? true :false;
+        scope.status.isShowImg = (scope.isShowImg == 'false') ? false : true;
         scope.showEmotions = function() {
           scope.isShowEmotions = true;
         };
@@ -164,46 +229,46 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           scope.resizeTextarea();
         };
 
-        var ta = document.getElementById('ta');
+        // var ta = document.getElementById('ta');
 
         //获取字符串真实长度，供计算高度用
-        var getRealLength = function(str) {
-          if(typeof(str) === 'string') {
-            var newstr =str.replace(/[\u0391-\uFFE5]/g,"aa");
-            return newstr.length;
-          }else {
-            return 0;
-          }
-        };
+        // var getRealLength = function(str) {
+        //   if(typeof(str) === 'string') {
+        //     var newstr =str.replace(/[\u0391-\uFFE5]/g,"aa");
+        //     return newstr.length;
+        //   }else {
+        //     return 0;
+        //   }
+        // };
 
         //重新计算输入框行数
-        scope.resizeTextarea = function(row) {
-          if(row) {
-            ta.rows = 1;
-          }
-          else if(scope.content) {
-            var text = scope.content.split("\n");
-            var rows = text.length;
-            var originCols = ta.cols;
-            for(var i = 0; i<rows; i++) {
-              var rowText = i === 0 ? text[i] || text : text[i] || '';
-              var realLength = getRealLength(rowText);
-              if(realLength >= originCols) {
-                if(!text[i])
-                  rows += Math.ceil(realLength/originCols);
-                else
-                  rows = Math.ceil(realLength/originCols);
-              }
-            }
-            rows = Math.max(rows, 1);
-            rows = Math.min(rows, 3);
-            if(rows != ta.rows) {
-              ta.rows = rows;
-            }
-          }else {
-            ta.rows = 1;
-          }
-        };
+        // scope.resizeTextarea = function(row) {
+        //   if(row) {
+        //     ta.rows = 1;
+        //   }
+        //   else if(scope.content) {
+        //     var text = scope.content.split("\n");
+        //     var rows = text.length;
+        //     var originCols = ta.cols;
+        //     for(var i = 0; i<rows; i++) {
+        //       var rowText = i === 0 ? text[i] || text : text[i] || '';
+        //       var realLength = getRealLength(rowText);
+        //       if(realLength >= originCols) {
+        //         if(!text[i])
+        //           rows += Math.ceil(realLength/originCols);
+        //         else
+        //           rows = Math.ceil(realLength/originCols);
+        //       }
+        //     }
+        //     rows = Math.max(rows, 1);
+        //     rows = Math.min(rows, 3);
+        //     if(rows != ta.rows) {
+        //       ta.rows = rows;
+        //     }
+        //   }else {
+        //     ta.rows = 1;
+        //   }
+        // };
       }
     }
   }])

@@ -83,7 +83,7 @@
         <ul class="list"><a ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/><img ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png"/>
             <div ng-if="chatroom.unread" class="red_spot"></div>
             <h2>{{chatroom.name}}</h2>
-            <p><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息] </span><span ng-if="chatroom.latestChat">{{chatroom.latestChat.poster.nickname}}:</span><span ng-if="chatroom.latestChat" ng-bind-html=" chatroom.latestChat.content||'[图片]' | emoji | unsafe"></span></p></a></ul>
+            <p class="chat_pre"><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息] </span><span ng-if="chatroom.latestChat">{{chatroom.latestChat.poster.nickname}}:</span><span ng-if="chatroom.latestChat" ng-bind-html=" chatroom.latestChat.content||'[图片]' | emoji | unsafe"></span></p></a></ul>
       </ion-content>
     </ion-view>
   </ion-tab>
@@ -103,7 +103,7 @@
           </div>
           <div class="rank_table">
             <div ng-repeat="rankTeam in selectTeam.rankTeams" class="row">
-              <div class="col">{{rankTeam.score_rank.rank}}</div>
+              <div class="col">{{rankTeam.score_rank.rank? rankTeam.score_rank.rank :'暂无'}}</div>
               <div class="col"><img ng-src="{{STATIC_URL + rankTeam.logo}}/40/40" class="team_logo"/></div>
               <div class="col">{{rankTeam.name}}</div>
               <div class="col">{{rankTeam.score_rank.score || 0}}</div>
