@@ -2520,17 +2520,22 @@ a>.login .companies_list:activated {
   width: 64px;
   height: 64px;
 }
-.dl_circle_company_card .circle_info .icon_comment {
-  height: 15px;
+.dl_circle_company_card .circle_info .date_and_op {
+  margin-top: 5px;
 }
-.dl_circle_company_card .circle_info .circle_comment {
-  position: absolute;
-  right: 10px;
+.dl_circle_company_card .circle_info .date_and_op .date {
+  color: #999;
+}
+.dl_circle_company_card .circle_info .date_and_op .delete {
+  margin-left: 5px;
+  color: #618bd7;
+}
+.dl_circle_company_card .circle_info .date_and_op .op_icon {
+  float: right;
   width: 15px;
   height: 15px;
 }
 .dl_circle_company_card .circle_info .comment_op {
-  margin-top: 5px;
   text-align: right;
   color: #618bd7;
 }
@@ -2543,6 +2548,15 @@ a>.login .companies_list:activated {
 .dl_circle_company_card .circle_comment_list {
   margin-left: 45px;
   color: #333;
+}
+.dl_circle_company_card .circle_comment_list .appreciate_container {
+  margin-top: 5px;
+}
+.dl_circle_company_card .circle_comment_list .appreciate_container .appreciate {
+  margin-left: 5px;
+}
+.dl_circle_company_card .circle_comment_list .comment_container {
+  margin-top: 5px;
 }
 .dl_circle_company_card .circle_comment_list .comment .content {
   margin-left: 10px;
