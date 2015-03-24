@@ -3821,7 +3821,7 @@ angular.module('donlerApp.controllers', [])
         }
         Circle.comment($scope.targetCommentCircle.content._id, postData)
           .success(function (data) {
-            $scope.targetCommentCircle.textComments = [data.circleComment].concat($scope.targetCommentCircle.textComments);
+            $scope.targetCommentCircle.textComments.push(data.circleComment);
             $scope.stopComment();
             $scope.commentFormData.content = '';
             $scope.targetUserId = null;

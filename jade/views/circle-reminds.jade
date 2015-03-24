@@ -6,6 +6,8 @@ ion-view
   ion-content
     
     .list
+      .item(ng-if="remindList.length === 0")
+        p.text-center 没有新的提醒了
       a.item.item-avatar(ng-repeat="remind in remindList" ng-href="#/circle/circle_content/{{remind.targetContent._id}}")
         img(ng-src="{{STATIC_URL + remind.poster.photo}}/128/128")
         h2 {{remind.poster.nickname}}
