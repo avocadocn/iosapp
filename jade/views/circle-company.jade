@@ -1,4 +1,4 @@
-ion-view.circle_company
+ion-view.circle_company_page
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title 同事圈
@@ -53,7 +53,7 @@ ion-view.circle_company
     ion-slide(ng-repeat="emoji in emojiList")
       .box.clearfix
         .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
-          i(class="emoji {{'emoji_'+emotion}}" )
+          i(class="emoji {{'emoji_'+emotion}}")
 
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{circlePswpId}}")
     .pswp__bg

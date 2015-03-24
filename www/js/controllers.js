@@ -3598,7 +3598,7 @@ angular.module('donlerApp.controllers', [])
           if (!$rootScope.remindList) {
             $rootScope.remindList = [];
           }
-          $rootScope.remindList = $rootScope.remindList.concat(data);
+          $rootScope.remindList = data.concat($rootScope.remindList);
           Circle.lastGetCompanyCircleRemindTime = Date.now();
 
           // 更新对应circleContent的评论
@@ -3736,6 +3736,7 @@ angular.module('donlerApp.controllers', [])
           }
           $scope.$broadcast('scroll.refreshComplete');
         });
+        $scope.getRemind(); // 顺便获取一下最新提醒
       };
 
       $scope.loadMore = function () {
@@ -3905,7 +3906,8 @@ angular.module('donlerApp.controllers', [])
     'Tools',
     'CONFIG',
     '$ionicPopup',
-    function($ionicHistory, $scope, $rootScope, $state, Circle, User, Tools, CONFIG, $ionicPopup) {
+    'Emoji',
+    function($ionicHistory, $scope, $rootScope, $state, Circle, User, Tools, CONFIG, $ionicPopup, Emoji) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
@@ -3997,6 +3999,26 @@ angular.module('donlerApp.controllers', [])
       $scope.commentFormData = {
         content: ''
       };
+
+      $scope.isShowEmotions = false;
+      $scope.showEmotions = function() {
+        $scope.isShowEmotions = true;
+      };
+      $scope.hideEmotions = function() {
+        $scope.isShowEmotions = false;
+      };
+      $scope.emojiList = [];
+      var emoji = Emoji.getEmojiList();
+      var dict = Emoji.getEmojiDict();
+
+      for(var i =0; emoji.length>24 ;i++) {
+        $scope.emojiList.push(emoji.splice(24,24));
+      }
+      $scope.emojiList.unshift(emoji);
+      $scope.addEmotion = function(emotion) {
+        $scope.commentFormData.content += '['+ dict[emotion] +']';
+      };
+
       // 发表评论
       $scope.comment = function () {
         var postData = {
@@ -4009,7 +4031,7 @@ angular.module('donlerApp.controllers', [])
         }
         Circle.comment($scope.targetCommentCircle.content._id, postData)
           .success(function (data) {
-            $scope.targetCommentCircle.textComments = [data.circleComment].concat($scope.targetCommentCircle.textComments);
+            $scope.targetCommentCircle.textComments.push(data.circleComment);
             $scope.stopComment();
             $scope.commentFormData.content = '';
             $scope.targetUserId = null;
@@ -4039,6 +4061,7 @@ angular.module('donlerApp.controllers', [])
       $scope.stopComment = function () {
         $scope.isCommenting = false;
         $scope.targetCommentCircle.isToComment = false;
+        $scope.hideEmotions();
       };
 
       // 赞
