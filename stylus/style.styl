@@ -824,7 +824,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 //- 讨论页
 .discuss_detail
   background-image url('../img/discuss_bgd.jpg')
-  background-size 400px
+  background-size cover
   background-position center
   //-右icon
   //- ion-infinite-scroll
@@ -1069,11 +1069,21 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   padding-top 5px
   .publish_box
     display flex
+    display -webkit-box
+    display -webkit-flex
+    display -moz-box
+    display -moz-flex
+    display -ms-flexbox
     .icon.ion-image
       font-size 22px
       width 20px
       margin auto 5px
     .comment_input
+      -webkit-box-flex 1
+      -webkit-flex 1
+      -moz-box-flex 1
+      -moz-flex 1
+      -ms-flex 1
       flex 1
       margin 5px 0
       padding-left 5px
@@ -1084,6 +1094,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       max-height 70px
       resize none
       overflow-y auto
+      -webkit-user-select text
+      user-select text
     .emotion_button
       background-color transparent
       width 24px
@@ -2292,6 +2304,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   a
     text-decoration none
     color black
+    border-bottom 1px solid black
+    margin-bottom 5px
   .belong
     color #3ca2e0
   .top

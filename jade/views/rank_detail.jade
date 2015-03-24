@@ -3,6 +3,7 @@ ion-view
     a.button.icon.ion-chevron-left(href="#/rank/select") &nbsp;返回
     h1.title 排行榜
   ion-content
+    ion-refresher(on-refresh="getRank(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     .rank_table(ng-if="rank.team.length>0")
       a.row(ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-class="team.belong? 'belong': ''")
         .col(ng-class="$index<3 ? 'top': ''")

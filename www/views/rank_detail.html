@@ -4,6 +4,7 @@
     <h1 class="title">排行榜</h1>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher on-refresh="getRank(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <div ng-if="rank.team.length&gt;0" class="rank_table"><a ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-class="team.belong? 'belong': ''" class="row">
         <div ng-class="$index&lt;3 ? 'top': ''" class="col"><span ng-if="$index&lt;3">TOP</span><span>{{team.rank}}</span></div>
         <div class="col"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="team_logo"/></div>

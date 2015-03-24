@@ -4,6 +4,7 @@
     <h1 class="title">挑战日志</h1>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher on-refresh="getCompetitionLog(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <div class="competition_message_list">
       <div class="type_filter button-bar">
         <button ng-click="typeFilter('sponsor')" ng-class="messageType=='sponsor'?'button-positive':''" class="button button-small">发出</button>

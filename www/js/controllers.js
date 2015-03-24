@@ -3490,7 +3490,7 @@ angular.module('donlerApp.controllers', [])
     getTeamType();
   }])
   .controller('RankDetailController', ['$scope', '$state', 'Rank', function ($scope, $state, Rank) {
-    var getRank = function () {
+    $scope.getRank = function (refreshFlag) {
       var data = {
         gid: $state.params.gid,
         province: localStorage.province || '上海市',
@@ -3516,9 +3516,10 @@ angular.module('donlerApp.controllers', [])
             });
           }
         }
+        refreshFlag && $scope.$broadcast('scroll.refreshComplete');
       });
     }
-    getRank();
+    $scope.getRank();
   }])
   .controller('CircleSendController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', 'Circle', function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, Circle) {
     $scope.circle = {
@@ -4216,7 +4217,7 @@ angular.module('donlerApp.controllers', [])
   ])
   .controller('CompetitionMessageListController', ['$scope', '$state', 'CompetitionMessage', function ($scope, $state, CompetitionMessage) {
     $scope.messageType ='receive';
-    var getCompetitionLog = function () {
+    $scope.getCompetitionLog = function (refreshFlag) {
       var data = {
         messageType: $scope.messageType
       }
@@ -4227,12 +4228,13 @@ angular.module('donlerApp.controllers', [])
         } else {
           $scope.competitionMessages = data.messages;
         }
+        refreshFlag && $scope.$broadcast('scroll.refreshComplete');
       });
     }
-    getCompetitionLog();
+    $scope.getCompetitionLog();
     $scope.typeFilter = function (messageType) {
       $scope.messageType = messageType;
-      getCompetitionLog();
+      $scope.getCompetitionLog();
     }
   }])
   .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO', function ($scope, $state, $ionicModal, $ionicScrollDelegate, $ionicPopup, $timeout, CompetitionMessage, Comment, Vote, User, Upload, INFO) {

@@ -218,7 +218,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
         scope.addEmotion = function(emotion) {
           scope.content += '['+ dict[emotion] +']';
-          scope.resizeTextarea();
         };
 
         // var ta = document.getElementById('ta');

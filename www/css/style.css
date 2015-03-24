@@ -977,7 +977,7 @@ a>.login .companies_list:activated {
 }
 .discuss_detail {
   background-image: url("../img/discuss_bgd.jpg");
-  background-size: 400px;
+  background-size: cover;
   background-position: center;
 }
 .discuss_detail .icon-right {
@@ -1230,6 +1230,11 @@ a>.login .companies_list:activated {
 }
 .comment_box .publish_box {
   display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
 }
 .comment_box .publish_box .icon.ion-image {
   font-size: 22px;
@@ -1237,6 +1242,11 @@ a>.login .companies_list:activated {
   margin: auto 5px;
 }
 .comment_box .publish_box .comment_input {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
   flex: 1;
   margin: 5px 0;
   padding-left: 5px;
@@ -1247,6 +1257,8 @@ a>.login .companies_list:activated {
   max-height: 70px;
   resize: none;
   overflow-y: auto;
+  -webkit-user-select: text;
+  user-select: text;
 }
 .comment_box .publish_box .emotion_button {
   background-color: transparent;
@@ -2712,6 +2724,8 @@ a>.login .companies_list:activated {
 .rank_table a {
   text-decoration: none;
   color: #000;
+  border-bottom: 1px solid #000;
+  margin-bottom: 5px;
 }
 .rank_table .belong {
   color: #3ca2e0;
