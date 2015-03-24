@@ -3820,8 +3820,8 @@ angular.module('donlerApp.controllers', [])
       };
 
       $scope.isShowEmotions = false;
-      $scope.showEmotions = function() {
-        $scope.isShowEmotions = true;
+      $scope.toggleEmotions = function() {
+        $scope.isShowEmotions = !$scope.isShowEmotions;
       };
       $scope.hideEmotions = function() {
         $scope.isShowEmotions = false;
@@ -4009,8 +4009,8 @@ angular.module('donlerApp.controllers', [])
       };
 
       $scope.isShowEmotions = false;
-      $scope.showEmotions = function() {
-        $scope.isShowEmotions = true;
+      $scope.toggleEmotions = function() {
+        $scope.isShowEmotions = !$scope.isShowEmotions;
       };
       $scope.hideEmotions = function() {
         $scope.isShowEmotions = false;

@@ -2618,13 +2618,13 @@ a>.login .companies_list:activated {
 }
 .dl_circle_company_card .circle_comment_list .appreciate_container {
   margin-top: 5px;
-}
-.dl_circle_company_card .circle_comment_list .appreciate_container .appreciate {
-  margin-left: 5px;
   overflow: hidden;
   word-break: break-all;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.dl_circle_company_card .circle_comment_list .appreciate_container .appreciate {
+  margin-left: 5px;
 }
 .dl_circle_company_card .circle_comment_list .comment_container {
   margin-top: 5px;
