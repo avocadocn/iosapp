@@ -3586,6 +3586,10 @@ angular.module('donlerApp.controllers', [])
         }
       };
 
+      $scope.goToUserPage = function(id) {
+        $state.go('user_info', {userId: id});
+      };
+
       $scope.getRemind = function() {
         if (!$scope.circleContentList[0]) {
           return;
@@ -3914,6 +3918,10 @@ angular.module('donlerApp.controllers', [])
         } else {
           $state.go('circle_reminds');
         }
+      };
+
+      $scope.goToUserPage = function(id) {
+        $state.go('user_info', {userId: id});
       };
 
       User.getData(localStorage.id, function(err, data) {

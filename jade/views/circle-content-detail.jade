@@ -7,26 +7,27 @@ ion-view.circle_content_detail_page
     .dl_circle_company_card.clearfix
       img.circle_company_logo(ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32")
       .circle_info
-        h2.user_name {{circle.user.nickname}}
+        h2.user_name.link_name(ng-click="goToUserPage(circle.content.poster._id)") {{circle.content.poster.nickname}}
         p.circle_content {{circle.content.content}}
         .image_box.clearfix
           img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo error-img photo="photo" pswp-id="circlePswpId" photos="imagesForPswp")
-        .icon_comment
-          i.ion_comment.circle_comment(ng-click="toComment(circle)")
+        .date_and_op
+          span.date {{circle.content.post_date | beforeNow}}
+          span.delete(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
+          i.ion_comment.op_icon(ng-click="toComment(circle)")
         .comment_op(ng-if="circle.isToComment")
           span.op(ng-click="appreciate(circle)") 赞
           span.divider |
           span.op(ng-click="openCommentBox(circle)") 评论
-          span.divider(ng-if="user._id == circle.content.post_user_id") |
-          span.op(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
       .circle_comment_list
         .appreciate_container(ng-if="circle.appreciate.length > 0")
           i.ion-heart
-          span.appreciate(ng-repeat="appr in circle.appreciate") {{appr.poster.nickname}}
+          a.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-href="#/user/{{appr.poster._id}}") {{appr.poster.nickname}}
         .comment_container(ng-if="circle.textComments.length > 0")
           .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)")
-            span.nickname {{comment.poster.nickname}}
-            span.replyto(ng-if="!comment.is_only_to_content" ng-cloak) &nbsp;回复&nbsp; {{comment.target.nickname}}
+            span.nickname.link_name(ng-click="goToUserPage(comment.poster._id)" prevent-default) {{comment.poster.nickname}}
+            span.reply_text(ng-if="!comment.is_only_to_content" ng-cloak) 回复
+            span.reply_to.link_name(ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default ng-cloak) {{comment.target.nickname}}
             span.colon :
             span.content(ng-bind-html="comment.content | emoji | unsafe")
             

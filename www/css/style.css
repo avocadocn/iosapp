@@ -2552,6 +2552,10 @@ a>.login .companies_list:activated {
   text-decoration: none;
   min-height: 80px;
 }
+.dl_circle_company_card .link_name {
+  color: #618bd7;
+  text-decoration: none;
+}
 .dl_circle_company_card .circle_company_logo {
   display: block;
   position: absolute;
@@ -2565,12 +2569,10 @@ a>.login .companies_list:activated {
 }
 .dl_circle_company_card .circle_info .user_name {
   margin: 0;
-  margin-top: 5px;
   font-size: 14px;
 }
 .dl_circle_company_card .circle_info .circle_content {
   margin: 0;
-  margin-top: 5px;
   font-size: 14px;
 }
 .dl_circle_company_card .circle_info .image_box {
@@ -2619,12 +2621,19 @@ a>.login .companies_list:activated {
 }
 .dl_circle_company_card .circle_comment_list .appreciate_container .appreciate {
   margin-left: 5px;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .dl_circle_company_card .circle_comment_list .comment_container {
   margin-top: 5px;
 }
 .dl_circle_company_card .circle_comment_list .comment .content {
   margin-left: 10px;
+}
+.dl_circle_company_card .circle_comment_list .comment .reply_text {
+  margin: 0 5px;
 }
 .rank_select .groups .group {
   min-width: 50px;

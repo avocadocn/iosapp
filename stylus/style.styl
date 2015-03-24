@@ -2202,6 +2202,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   border-radius 5px
   text-decoration none
   min-height 80px
+  .link_name
+    color col_darkBlue
+    text-decoration none
   .circle_company_logo
     display block
     position absolute
@@ -2213,11 +2216,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     text-decoration none
     .user_name
       margin 0
-      margin-top 5px
       font-size 14px
     .circle_content
       margin 0
-      margin-top 5px
       font-size 14px
     .image_box
       margin-top 5px
@@ -2254,11 +2255,18 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       margin-top 5px
       .appreciate
         margin-left 5px
+        overflow hidden
+        word-break break-all
+        white-space nowrap
+        text-overflow ellipsis
     .comment_container
       margin-top 5px
     .comment
       .content
         margin-left 10px
+      .reply_text
+        margin 0 5px
+
 
 //选择小队类型
 .rank_select
