@@ -6,7 +6,7 @@
 
 angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize'])
 
-  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth) {
+  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth, Circle) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -94,6 +94,8 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
 
       INFO.screenWidth = window.innerWidth;
       INFO.screenHeight = window.innerHeight;
+
+      Circle.lastGetCompanyCircleRemindTime = Date.now();
 
     });
 
@@ -463,6 +465,16 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/circle/circle_company',
         controller: 'CircleCompanyController',
         templateUrl: './views/circle-company.html'
+      })
+      .state('circle_content_detail', {
+        url: '/circle/circle_content/:circleContentId',
+        controller: 'CircleContentDetailController',
+        templateUrl: './views/circle-content-detail.html'
+      })
+      .state('circle_reminds', {
+        url: '/circle/reminds',
+        controller: 'CircleRemindsController',
+        templateUrl: './views/circle-reminds.html'
       })
       .state('circle_uploader', {
         url: '/circle/uploader/:campaignId',

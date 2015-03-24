@@ -2103,7 +2103,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     height 100%
 
 // 公司同事圈页面
-.circle_company
+.circle_company_page
   .circle_company_image
     width 100%
     display block
@@ -2127,61 +2127,19 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       bottom 10px
       right 30px
       padding 2px
-  .dl_circle_company_card
-    dl_card()
-    position relative
-    border-radius 5px
-    text-decoration none
-    min-height 80px
-    .circle_company_logo
-      display block
-      position absolute
-      top 10px
-      left 10px
-    .circle_info
-      margin-left 45px
-      color col_black
-      text-decoration none
-      .user_name
-        margin 0
-        margin-top 5px
-        font-size 14px
-      .circle_content
-        margin 0
-        margin-top 5px
-        font-size 14px
-      .image_box
-        margin-top 5px
-        width 210px
-        .preview_img
-          display block
-          float left
-          margin-right 5px
-          margin-bottom 5px
-          width 64px
-          height 64px
-      .icon_comment
-        height 15px
-      .circle_comment
-        position absolute
-        right 10px
-        width 15px
-        height 15px
-      .comment_op
-        margin-top 5px
-        text-align right
-        color col_darkBlue
-        .divider
-          margin 0 5px
-        .op
-          cursor pointer
-    .circle_comment_list
-      margin-left 45px
-      color col_black
-      .comment
-        .content
-          margin-left 10px
 
+  .remind_box
+    display block
+    margin 0 auto
+    width 100px
+    height 36px
+    line-height 36px
+    color white
+    background-color black
+    text-align center
+    text-decoration none
+
+.circle_company_page, .circle_content_detail_page
   .comment_wrap
     position fixed
     top 0
@@ -2192,6 +2150,117 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     background-color transparent
   .circle_comment_box
     z-index 101
+    &.show_emotion_box
+      bottom 160px
+  .emotion_box
+    position absolute
+    bottom 0
+    z-index 101
+    border-top 1px solid #ccc
+    padding 5px 0
+    width 100%
+    height 160px
+    float left
+    background-color #fff
+    .box
+      width 320px
+      padding 4px
+      margin auto
+      .emotion
+        padding 9px
+        float left
+        .emoji
+          margin-right 0
+          height 21px
+          width 21px
+          margin 0
+    .slider-pager
+      bottom 5px
+      .icon.ion-record
+        color col_blue
+
+.circle_reminds_page
+  .remind_item
+    position relative
+  .content_preview
+    position absolute
+    top 16px
+    right 16px
+    width 40px
+    height 40px
+
+.dl_circle_company_card
+  dl_card()
+  position relative
+  border-radius 5px
+  text-decoration none
+  min-height 80px
+  .link_name
+    color col_darkBlue
+    text-decoration none
+  .circle_company_logo
+    display block
+    position absolute
+    top 10px
+    left 10px
+  .circle_info
+    margin-left 45px
+    color col_black
+    text-decoration none
+    .user_name
+      margin 0
+      font-size 14px
+    .circle_content
+      margin 0
+      font-size 14px
+    .image_box
+      margin-top 5px
+      width 210px
+      .preview_img
+        display block
+        float left
+        margin-right 5px
+        margin-bottom 5px
+        width 64px
+        height 64px
+    .date_and_op
+      margin-top 5px
+      .date
+        color col_darkGray
+      .delete
+        margin-left 5px
+        color col_darkBlue
+      .op_icon
+        float right
+        width 15px
+        height 15px
+    .comment_op
+      text-align right
+      color col_darkBlue
+      .divider
+        margin 0 5px
+      .op
+        cursor pointer
+  .circle_comment_list
+    margin-left 45px
+    color col_black
+    .appreciate_container
+      margin-top 5px
+      overflow hidden
+      word-break break-all
+      white-space nowrap
+      text-overflow ellipsis
+      .appreciate
+        margin-left 5px
+        
+    .comment_container
+      margin-top 5px
+    .comment
+      .content
+        margin-left 10px
+      .reply_text
+        margin 0 5px
+
 
 //选择小队类型
 .rank_select

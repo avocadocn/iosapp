@@ -1398,6 +1398,9 @@ angular.module('donlerApp.services', [])
      */
     var uploadImages = [];
 
+    // 上一次获取同事圈提醒的时间
+    var lastGetCompanyCircleRemindTime;
+
     return {
       /**
        * 发同事圈文字
@@ -1503,7 +1506,16 @@ angular.module('donlerApp.services', [])
        */
       comment: function (id, data) {
         return $http.post(CONFIG.BASE_URL + '/circle_contents/' + id + '/comments', data);
-      }
+      },
+
+      /**
+       * 获取新消息提醒
+       */
+      getRemind: function(queryData) {
+        return $http.get(CONFIG.BASE_URL + '/circle_reminds/comments', {params: queryData});
+      },
+
+      lastGetCompanyCircleRemindTime: lastGetCompanyCircleRemindTime
 
     };
 
@@ -1705,3 +1717,25 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
+  .factory('Emoji', function() {
+
+    return {
+
+      getEmojiList: function() {
+        return ["laugh", "smile", "happy", "snag", "snaky", "heart_eyes", "kiss", "blush", "howl", "angry",
+        "blink", "tongue", "tired", "logy", "asquint", "embarassed", "cry", "laugh_cry", "sigh", "sweat",
+        "good", "yeah", "pray", "finger", "clap", "muscle", "bro", "ladybro", "flash", "sun",
+        "cat", "dog", "hog_nose", "horse", "plumpkin", "ghost", "present", "trollface", "diamond", "mahjong",
+        "hamburger", "fries", "ramen", "bread", "lollipop", "cherry", "cake", "icecream"];
+      },
+
+      getEmojiDict: function() {
+        return {"laugh":"大笑","smile":"微笑","happy":"高兴","snag":"龇牙","snaky":"阴险","heart_eyes":"心心眼","kiss":"啵一个","blush":"脸红","howl":"鬼嚎","angry":"怒",
+        "blink":"眨眼","tongue":"吐舌","tired":"困","logy":"呆","asquint":"斜眼","embarassed":"尴尬","cry":"面条泪","laugh_cry":"笑cry","sigh":"叹气","sweat":"汗",
+        "good":"棒","yeah":"耶","pray":"祈祷","finger":"楼上","clap":"鼓掌","muscle":"肌肉","bro":"基友","ladybro":"闺蜜","flash":"闪电","sun":"太阳",
+        "cat":"猫咪","dog":"狗狗","hog_nose":"猪鼻","horse":"马","plumpkin":"南瓜","ghost":"鬼","present":"礼物","trollface":"贱笑","diamond":"钻石","mahjong":"红中",
+        "hamburger":"汉堡","fries":"薯条","ramen":"拉面","bread":"面包","lollipop":"棒棒糖","cherry":"樱桃","cake":"蛋糕","icecream":"冰激凌"};
+      }
+
+    };
+  })

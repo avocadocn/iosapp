@@ -1,22 +1,10 @@
-ion-view.circle_company_page
+ion-view.circle_content_detail_page
   ion-header-bar
-    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title 同事圈
-    a.button.icon.ion_discuss_active(href="#/circle/reminds")
-
+    button.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title 详情
+  
   ion-content
-    ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping")
-    .loading_cover(ng-if="loadOptions.loadingNew" ng-cloak)
-      i.icon.ion-looping
-    .circle_company_image
-    .circle_user
-      a.circle_user_name {{user.nickname}}
-      img.circle_user_image(ng-src="{{STATIC_URL + user.photo}}/70/70")
-    
-    div(ng-if="remindComments.length > 0")
-      a.remind_box(href="#/circle/reminds") {{remindComments.length}}条新消息
-    
-    .dl_circle_company_card.clearfix(ng-repeat="circle in circleContentList" ng-cloak)
+    .dl_circle_company_card.clearfix
       img.circle_company_logo(ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32")
       .circle_info
         h2.user_name.link_name(ng-click="goToUserPage(circle.content.poster._id)") {{circle.content.poster.nickname}}
@@ -42,7 +30,7 @@ ion-view.circle_company_page
             span.reply_to.link_name(ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default ng-cloak) {{comment.target.nickname}}
             span.colon :
             span.content(ng-bind-html="comment.content | emoji | unsafe")
-    ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
+            
   .comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
   
   .bar.bar-footer.item-input-inset.circle_comment_box(ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}")
