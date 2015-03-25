@@ -3644,7 +3644,7 @@ angular.module('donlerApp.controllers', [])
           return;
         }
         Circle.getRemind({
-          last_comment_date: Circle.lastGetCompanyCircleRemindTime,
+          last_comment_date: localStorage.lastGetCompanyCircleRemindTime,
           latest_content_date: $scope.circleContentList[0].content.post_date
         }).success(function(data) {
           $scope.remindComments = data;
@@ -3652,7 +3652,7 @@ angular.module('donlerApp.controllers', [])
             $rootScope.remindList = [];
           }
           $rootScope.remindList = data.concat($rootScope.remindList);
-          Circle.lastGetCompanyCircleRemindTime = Date.now();
+          localStorage.lastGetCompanyCircleRemindTime = Date.now();
 
           // 更新对应circleContent的评论
           $scope.remindComments.forEach(function (comment) {
@@ -3759,29 +3759,31 @@ angular.module('donlerApp.controllers', [])
         }
       };
 
-      // 先获取一次
-      Circle.getCompanyCircle()
-      .success(function (data) {
-        data.forEach(function (circle) {
-          pickAppreciateAndComments(circle);
+      if (isListPage) {
+        // 先获取一次
+        Circle.getCompanyCircle()
+        .success(function (data) {
+          data.forEach(function (circle) {
+            pickAppreciateAndComments(circle);
+          });
+          $scope.circleContentList = data;
+          $rootScope.circleContentList =  $scope.circleContentList;
+          $scope.loadingStatus.hasInit = true;
+          if (data.length >= pageLength) {
+            $scope.loadingStatus.hasMore = true;
+          }
+          else {
+            $scope.loadingStatus.hasMore = false;
+          }
+          copyPhotosToPswp();
+          $scope.getRemind(); // 进入页面时也获取一次提醒
+        })
+        .error(function (data, status) {
+          if (status !== 404) {
+            ionicAlert(data.msg || '获取失败');
+          }
         });
-        $scope.circleContentList = data;
-        $rootScope.circleContentList =  $scope.circleContentList;
-        $scope.loadingStatus.hasInit = true;
-        if (data.length >= pageLength) {
-          $scope.loadingStatus.hasMore = true;
-        }
-        else {
-          $scope.loadingStatus.hasMore = false;
-        }
-        copyPhotosToPswp();
-        $scope.getRemind(); // 进入页面时也获取一次提醒
-      })
-      .error(function (data, status) {
-        if (status !== 404) {
-          ionicAlert(data.msg || '获取失败');
-        }
-      });
+      }
 
       $scope.refresh = function() {
         var latestContentDate = $scope.circleContentList[0].content.post_date;

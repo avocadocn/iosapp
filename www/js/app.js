@@ -95,7 +95,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       INFO.screenWidth = window.innerWidth;
       INFO.screenHeight = window.innerHeight;
 
-      Circle.lastGetCompanyCircleRemindTime = Date.now();
+      if (!localStorage.lastGetCompanyCircleRemindTime) {
+        localStorage.lastGetCompanyCircleRemindTime = Date.now();
+      }
+
 
     });
 

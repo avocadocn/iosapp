@@ -41,9 +41,9 @@ angular.module('donlerApp.services', [])
     $httpProvider.defaults.headers["delete"] = {'Content-Type': 'application/json;charset=utf-8'};
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://www.55yali.com:3002',
-    STATIC_URL: 'http://www.55yali.com',
-    SOCKET_URL: 'http://www.55yali.com:3005',
+    BASE_URL: 'http://localhost:3002',
+    STATIC_URL: 'http://localhost:3000',
+    SOCKET_URL: 'http://localhost:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
   })
@@ -1398,9 +1398,6 @@ angular.module('donlerApp.services', [])
      */
     var uploadImages = [];
 
-    // 上一次获取同事圈提醒的时间
-    var lastGetCompanyCircleRemindTime;
-
     return {
       /**
        * 发同事圈文字
@@ -1522,9 +1519,7 @@ angular.module('donlerApp.services', [])
        */
       getRemind: function(queryData) {
         return $http.get(CONFIG.BASE_URL + '/circle_reminds/comments', {params: queryData});
-      },
-
-      lastGetCompanyCircleRemindTime: lastGetCompanyCircleRemindTime
+      }
 
     };
 
