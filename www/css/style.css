@@ -43,6 +43,7 @@ body {
   min-height: 32px;
   color: #676767;
   border-bottom: 1px solid #e2e2e2;
+  padding: 0;
 }
 .campaigns_container .campaign_filter .button.icon_blue {
   height: 31px;
@@ -1259,6 +1260,7 @@ a>.login .companies_list:activated {
   overflow-y: auto;
   -webkit-user-select: text;
   user-select: text;
+  font-size: 16px;
 }
 .comment_box .publish_box .emotion_button {
   background-color: transparent;
@@ -2662,7 +2664,7 @@ a>.login .companies_list:activated {
 .rank_select .groups .group a .img_contain {
   width: 50px;
   height: 50px;
-  background-image: url("/img/icons/groups_new.png");
+  background-image: url("../img/icons/groups_new.png");
   background-repeat: no-repeat;
   background-size: 600px 1500px;
   margin: 0 auto;
