@@ -5,7 +5,7 @@ ion-view.circle_company_page
     a.button.icon.ion_discuss_active(href="#/circle/reminds")
 
   ion-content
-    ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping")
+    ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     .loading_cover(ng-if="loadOptions.loadingNew" ng-cloak)
       i.icon.ion-looping
     .circle_company_image
@@ -29,7 +29,7 @@ ion-view.circle_company_page
           i.ion_comment.op_icon(ng-click="toComment(circle)")
         .comment_op(ng-if="circle.isToComment")
           span.op(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)") 赞
-          span.op(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)") 取消赞
+          span.op(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak) 取消赞
           span.divider |
           span.op(ng-click="openCommentBox(circle)") 评论
       .circle_comment_list

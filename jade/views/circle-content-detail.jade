@@ -16,7 +16,8 @@ ion-view.circle_content_detail_page
           span.delete(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
           i.ion_comment.op_icon(ng-click="toComment(circle)")
         .comment_op(ng-if="circle.isToComment")
-          span.op(ng-click="appreciate(circle)") 赞
+          span.op(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)") 赞
+          span.op(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak) 取消赞
           span.divider |
           span.op(ng-click="openCommentBox(circle)") 评论
       .circle_comment_list
@@ -24,7 +25,7 @@ ion-view.circle_content_detail_page
           i.ion-heart
           a.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-href="#/user/{{appr.poster._id}}") {{appr.poster.nickname}}
         .comment_container(ng-if="circle.textComments.length > 0")
-          .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)")
+          .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)")
             span.nickname.link_name(ng-click="goToUserPage(comment.poster._id)" prevent-default) {{comment.poster.nickname}}
             span.reply_text(ng-if="!comment.is_only_to_content" ng-cloak) 回复
             span.reply_to.link_name(ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default ng-cloak) {{comment.target.nickname}}
