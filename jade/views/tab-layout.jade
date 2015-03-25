@@ -8,11 +8,11 @@ ion-tabs.tabs-icon-top.app_tabs(ng-controller="TabController" ng-class="{'tabs-i
     <!-- Tab 2 content -->
     //- ion-nav-view(name="tab-discuss-list")
     include ./discuss-list
-  ion-tab(title="发现" icon-on="ion-help-buoy" icon-off="ion-help-buoy" href="#/app/discover")
+  ion-tab(title="发现" icon-on="ion-help-buoy" icon-off="ion-help-buoy" badge="hasNewDiscover" href="#/app/discover")
     <!-- Tab 2 content -->
     //- ion-nav-view(name="tab-discuss-list")
     include ./discover
-  ion-tab(title="公司" icon-on="ion_company_active" icon-off="ion_company" href="#/app/company")
+  ion-tab(title="公司" icon-on="ion_company_active" icon-off="ion_company" badge="hasNewCircle" href="#/app/company")
     <!-- Tab 3 content -->
     //- ion-nav-view(name="tab-discover")
     include ./company
