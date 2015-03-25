@@ -649,7 +649,7 @@ angular.module('donlerApp.controllers', [])
         }
       }
       if(hasnotRead === false) {
-        localStorage.hasNewComment = false;
+        $rootScope.hasNewComment = false;
       }
     };
 
@@ -673,7 +673,6 @@ angular.module('donlerApp.controllers', [])
     Socket.emit('enterRoom', $scope.chatroomId);
     $scope.chatsList = [];
     $scope.topShowTime = [];
-
     //---获取评论
     //各种获取评论，带nextDate是获取历史，带preDate是获取最新
     var getChats = function(nextDate, nextId, preDate, callback) {
@@ -1080,14 +1079,9 @@ angular.module('donlerApp.controllers', [])
   .controller('CompanyController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
     function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
     if($state.params.type) {
-      // if($state.params.type=='personal') {
-      //   $scope.teams = INFO.personalTeamList;
-      // }
-      // else {
       $scope.loading = true;
       $scope.teams = INFO.officialTeamList;
       $scope.loading = false;
-      // }
     }
     else {
       $scope.loading = true;
@@ -1575,27 +1569,22 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', function ($scope, $rootScope, $ionicHistory, Socket) {
     //每次进入页面判断是否有新评论没看
-    var judgeHasNew = function() {
-      $scope.hasNewComment = localStorage.hasNewComment === 'true'? true: false;
-      $scope.hasNewCircle = localStorage.hasNewCircle === 'true'? true: false;
-      $scope.hasNewDiscover = localStorage.hasNewDiscover === 'true'? true: false;
-    };
-    judgeHasNew();
+    $rootScope.newCircleComment = 0;
     //socket服务器推送通知
-    Socket.on('getNewChat', function() {
-      $scope.hasNewComment = true;
-      localStorage.hasNewComment = true;
+    Socket.on('getNewCircleContent', function(photo) {
+      $rootScope.hasNewCircle = true;
+      $rootScope.newContent = true;
+      $rootScope.newContentPhoto = photo;
     });
-
-    var newCircle = function(photo) {
-      $scope.hasNewCircle = true;
-      localStorage.hasNewCircle = true;
-    };
-    Socket.on('getNewCircleContent', newCircle);
-    Socket.on('getNewCircleComment', newCircle);
+    Socket.on('getNewCircleComment', function() {
+      $rootScope.hasNewCircle = true;
+      $rootScope.newCircleComment++
+    });
     Socket.on('newCompetitionMessage', function() {
-      $scope.hasNewDiscover = true;
-      localStorage.hasNewDiscover = true;
+      $rootScope.hasNewDiscover = true;
+    });
+    Socket.on('getNewChat', function() {
+      $rootScope.hasNewComment = true;
     });
 
     $scope.$on('$stateChangeStart',
@@ -1604,7 +1593,6 @@ angular.module('donlerApp.controllers', [])
           disableBack: true,
           historyRoot: true
         });
-        judgeHasNew();
         if (toState.name === 'app.campaigns') {
           if($rootScope.getCampaignList) { $rootScope.getCampaignList(); }
         }
@@ -3595,7 +3583,6 @@ angular.module('donlerApp.controllers', [])
     '$ionicActionSheet',
     'Image',
     function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji, $ionicActionSheet, Image) {
-
       User.getData(localStorage.id, function(err, data) {
         if (err) {
           // todo
@@ -3604,8 +3591,16 @@ angular.module('donlerApp.controllers', [])
           $scope.user = data;
         }
       });
-      localStorage.hasNewCircle = false;
 
+      var clearRedSpot = function () {
+        $rootScope.hasNewCircle = false;
+        $rootScope.newContent = false;
+        $rootScope.newContentPhoto = null;
+      };
+      clearRedSpot();
+      //todo -M
+      //监听跳转并clear
+      
       // 共享控制器，减少重复代码
       var isListPage = ($state.current.name === 'circle_company');
       if (isListPage) {
