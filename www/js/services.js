@@ -1509,6 +1509,15 @@ angular.module('donlerApp.services', [])
       },
 
       /**
+       * 删除评论或取消赞
+       * @param {String} id 评论或赞的id
+       * @return {HttpPromise}
+       */
+      deleteComment: function(id) {
+        return $http.delete(CONFIG.BASE_URL + '/circle_comments/' + id);
+      },
+
+      /**
        * 获取新消息提醒
        */
       getRemind: function(queryData) {

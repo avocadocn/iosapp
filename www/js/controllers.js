@@ -3569,7 +3569,8 @@ angular.module('donlerApp.controllers', [])
     'Tools',
     'CONFIG',
     'Emoji',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji) {
+    '$ionicActionSheet',
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji, $ionicActionSheet) {
 
       User.getData(localStorage.id, function(err, data) {
         if (err) {
@@ -3898,6 +3899,59 @@ angular.module('donlerApp.controllers', [])
           });
       };
 
+      var hideDeleteActionSheet;
+      $scope.commentOnHoldHandler = function(comment, ownerArray) {
+        if ($scope.user._id !== comment.poster._id) {
+          return;
+        }
+        hideDeleteActionSheet = $ionicActionSheet.show({
+          destructiveText: '删除',
+          cancelText: '取消',
+          cancel: function() {
+          },
+          destructiveButtonClicked: function() {
+            $scope.deleteComment(comment._id, ownerArray);
+          }
+        });
+      };
+
+      $scope.hasAppreciate = function(circle) {
+        for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
+          var appr = circle.appreciate[i];
+          if (appr.poster._id === $scope.user._id) {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      $scope.cancelAppreciate = function(circle) {
+        for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
+          var appr = circle.appreciate[i];
+          if (appr.poster._id === $scope.user._id) {
+            $scope.deleteComment(appr._id, circle.appreciate);
+          }
+        }
+      };
+
+      // 删除评论或赞
+      $scope.deleteComment = function(id, ownerArray) {
+        Circle.deleteComment(id)
+        .success(function(data) {
+          if (hideDeleteActionSheet) {
+            hideDeleteActionSheet();
+          }
+          for (var i = 0, arrLen = ownerArray.length; i < arrLen; i++) {
+            if (ownerArray[i]._id === id) {
+              ownerArray.splice(i, 1);
+              break;
+            }
+          }
+        })
+        .error(function(data) {
+          ionicAlert(data.msg || '删除失败');
+        });
+      };
 
     }
   ])
