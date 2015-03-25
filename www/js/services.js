@@ -42,7 +42,7 @@ angular.module('donlerApp.services', [])
   }])
   .constant('CONFIG', {
     BASE_URL: 'http://www.55yali.com:3002',
-    STATIC_URL: 'http://www.55yali.com:3000',
+    STATIC_URL: 'http://www.55yali.com',
     SOCKET_URL: 'http://www.55yali.com:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
@@ -1506,6 +1506,15 @@ angular.module('donlerApp.services', [])
        */
       comment: function (id, data) {
         return $http.post(CONFIG.BASE_URL + '/circle_contents/' + id + '/comments', data);
+      },
+
+      /**
+       * 删除评论或取消赞
+       * @param {String} id 评论或赞的id
+       * @return {HttpPromise}
+       */
+      deleteComment: function(id) {
+        return $http.delete(CONFIG.BASE_URL + '/circle_comments/' + id);
       },
 
       /**

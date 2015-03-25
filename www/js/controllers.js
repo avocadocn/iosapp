@@ -3577,7 +3577,8 @@ angular.module('donlerApp.controllers', [])
     'Tools',
     'CONFIG',
     'Emoji',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji) {
+    '$ionicActionSheet',
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji, $ionicActionSheet) {
 
       User.getData(localStorage.id, function(err, data) {
         if (err) {
@@ -3624,7 +3625,16 @@ angular.module('donlerApp.controllers', [])
                   if (!circle.appreciate) {
                     circle.appreciate = [];
                   }
-                  circle.appreciate.push(comment);
+                  var isAlreadyAppreciate = false;
+                  for (var j = 0, apprLen = circle.appreciate.length; j < apprLen; j++) {
+                    if (comment.poster._id === circle.appreciate[j].poster._id) {
+                      isAlreadyAppreciate = true;
+                      break;
+                    }
+                  }
+                  if (!isAlreadyAppreciate) {
+                    circle.appreciate.push(comment);
+                  }
                   break;
                 case 'comment':
                   if (!circle.textComments) {
@@ -3906,6 +3916,59 @@ angular.module('donlerApp.controllers', [])
           });
       };
 
+      var hideDeleteActionSheet;
+      $scope.commentOnHoldHandler = function(comment, ownerArray) {
+        if ($scope.user._id !== comment.poster._id) {
+          return;
+        }
+        hideDeleteActionSheet = $ionicActionSheet.show({
+          destructiveText: '删除',
+          cancelText: '取消',
+          cancel: function() {
+          },
+          destructiveButtonClicked: function() {
+            $scope.deleteComment(comment._id, ownerArray);
+          }
+        });
+      };
+
+      $scope.hasAppreciate = function(circle) {
+        for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
+          var appr = circle.appreciate[i];
+          if (appr.poster._id === $scope.user._id) {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      $scope.cancelAppreciate = function(circle) {
+        for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
+          var appr = circle.appreciate[i];
+          if (appr.poster._id === $scope.user._id) {
+            $scope.deleteComment(appr._id, circle.appreciate);
+          }
+        }
+      };
+
+      // 删除评论或赞
+      $scope.deleteComment = function(id, ownerArray) {
+        Circle.deleteComment(id)
+        .success(function(data) {
+          if (hideDeleteActionSheet) {
+            hideDeleteActionSheet();
+          }
+          for (var i = 0, arrLen = ownerArray.length; i < arrLen; i++) {
+            if (ownerArray[i]._id === id) {
+              ownerArray.splice(i, 1);
+              break;
+            }
+          }
+        })
+        .error(function(data) {
+          ionicAlert(data.msg || '删除失败');
+        });
+      };
 
     }
   ])
@@ -3920,7 +3983,8 @@ angular.module('donlerApp.controllers', [])
     'CONFIG',
     '$ionicPopup',
     'Emoji',
-    function($ionicHistory, $scope, $rootScope, $state, Circle, User, Tools, CONFIG, $ionicPopup, Emoji) {
+    '$ionicActionSheet',
+    function($ionicHistory, $scope, $rootScope, $state, Circle, User, Tools, CONFIG, $ionicPopup, Emoji, $ionicActionSheet) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
@@ -4093,6 +4157,60 @@ angular.module('donlerApp.controllers', [])
           .error(function (data) {
             ionicAlert(data.msg || '操作失败');
           });
+      };
+
+      var hideDeleteActionSheet;
+      $scope.commentOnHoldHandler = function(comment, ownerArray) {
+        if ($scope.user._id !== comment.poster._id) {
+          return;
+        }
+        hideDeleteActionSheet = $ionicActionSheet.show({
+          destructiveText: '删除',
+          cancelText: '取消',
+          cancel: function() {
+          },
+          destructiveButtonClicked: function() {
+            $scope.deleteComment(comment._id, ownerArray);
+          }
+        });
+      };
+
+      $scope.hasAppreciate = function(circle) {
+        for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
+          var appr = circle.appreciate[i];
+          if (appr.poster._id === $scope.user._id) {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      $scope.cancelAppreciate = function(circle) {
+        for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
+          var appr = circle.appreciate[i];
+          if (appr.poster._id === $scope.user._id) {
+            $scope.deleteComment(appr._id, circle.appreciate);
+          }
+        }
+      };
+
+      // 删除评论或赞
+      $scope.deleteComment = function(id, ownerArray) {
+        Circle.deleteComment(id)
+        .success(function(data) {
+          if (hideDeleteActionSheet) {
+            hideDeleteActionSheet();
+          }
+          for (var i = 0, arrLen = ownerArray.length; i < arrLen; i++) {
+            if (ownerArray[i]._id === id) {
+              ownerArray.splice(i, 1);
+              break;
+            }
+          }
+        })
+        .error(function(data) {
+          ionicAlert(data.msg || '删除失败');
+        });
       };
 
     }

@@ -4,7 +4,7 @@
     <h1 class="title">同事圈</h1><a href="#/circle/reminds" class="button icon ion_discuss_active"></a>
   </ion-header-bar>
   <ion-content>
-    <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping"></ion-refresher>
+    <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <div ng-if="loadOptions.loadingNew" ng-cloak="ng-cloak" class="loading_cover"><i class="icon ion-looping"></i></div>
     <div class="circle_company_image"></div>
     <div class="circle_user"><a class="circle_user_name">{{user.nickname}}</a><img ng-src="{{STATIC_URL + user.photo}}/70/70" class="circle_user_image"/></div>
@@ -14,13 +14,20 @@
         <h2 ng-click="goToUserPage(circle.content.poster._id)" class="user_name link_name">{{circle.content.poster.nickname}}</h2>
         <p class="circle_content">{{circle.content.content}}</p>
         <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo="open-photo" error-img="error-img" photo="photo" pswp-id="circlePswpId" photos="imagesForPswp" class="preview_img"/></div>
-        <div class="date_and_op"><span class="date">{{circle.content.post_date | beforeNow}}</span><span ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="delete">删除</span><i ng-click="toComment(circle)" class="ion_comment op_icon"></i></div>
-        <div ng-if="circle.isToComment" class="comment_op"><span ng-click="appreciate(circle)" class="op">赞</span><span class="divider">|</span><span ng-click="openCommentBox(circle)" class="op">评论</span></div>
+        <div class="date_and_op"><span class="date">{{circle.content.post_date | beforeNow}}</span><span ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="delete">删除</span><i ng-click="toComment(circle)" class="ion-chatbox-working op_icon"></i></div>
+        <div ng-if="circle.isToComment" class="comment_op clearfix">
+          <div class="op_box clearfix">
+            <div ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)" class="op_item"><i class="ion-heart"></i>&nbsp;赞</div>
+            <div ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak="ng-cloak" class="op_item"><i class="ion-heart"></i>&nbsp;取消</div>
+            <div class="op_divider"></div>
+            <div ng-click="openCommentBox(circle)" class="op_item"><i class="ion-chatbox-working"></i>&nbsp;评论</div>
+          </div>
+        </div>
       </div>
       <div class="circle_comment_list">
-        <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><i class="ion-heart"></i><a ng-repeat="appr in circle.appreciate" ng-href="#/user/{{appr.poster._id}}" class="appreciate link_name">{{appr.poster.nickname}}</a></div>
+        <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><i class="ion-heart appreciate_icon"></i><a ng-repeat="appr in circle.appreciate" ng-href="#/user/{{appr.poster._id}}" class="appreciate link_name">{{appr.poster.nickname}}</a></div>
         <div ng-if="circle.textComments.length &gt; 0" class="comment_container">
-          <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" class="comment"><span ng-click="goToUserPage(comment.poster._id)" prevent-default="prevent-default" class="nickname link_name">{{comment.poster.nickname}}</span><span ng-if="!comment.is_only_to_content" ng-cloak="ng-cloak" class="reply_text">回复</span><span ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default="prevent-default" ng-cloak="ng-cloak" class="reply_to link_name">{{comment.target.nickname}}</span><span class="colon">:</span><span ng-bind-html="comment.content | emoji | unsafe" class="content"></span></div>
+          <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)" class="comment"><span ng-click="goToUserPage(comment.poster._id)" prevent-default="prevent-default" class="nickname link_name">{{comment.poster.nickname}}</span><span ng-if="!comment.is_only_to_content" ng-cloak="ng-cloak" class="reply_text">回复</span><span ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default="prevent-default" ng-cloak="ng-cloak" class="reply_to link_name">{{comment.target.nickname}}</span><span class="colon">:</span><span ng-bind-html="comment.content | emoji | unsafe" class="content"></span></div>
         </div>
       </div>
     </div>

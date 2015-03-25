@@ -2,7 +2,6 @@
 <ion-view>
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 ng-cloak="ng-cloak" class="title">{{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</h1>
-    <button ng-click="chooseUploadImages()" class="button icon ion_discuss_active"></button>
   </ion-header-bar>
   <ion-content delegate-handle="detailScroll">
     <div class="card dl_card_detail">
@@ -23,7 +22,8 @@
         <p ng-if="campaign.member_max&amp;&amp;campaign.member_max!=0" class="dl_cp_member_max">人数上限：{{campaign.member_max}}</p>
         <p ng-if="campaign.member_min&amp;&amp;campaign.member_min!=0" class="dl_cp_member_min">人数下限：{{campaign.member_min}}</p>
         <button ng-if="campaign.active &amp;&amp; campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">立即参加</button>
-        <button ng-if="campaign.active &amp;&amp; campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-full dl_cp_quit">已经加入</button>
+        <button ng-if="campaign.active &amp;&amp; campaign.allow.quitCampaign" ng-click="chooseUploadImages()" class="button button-full dl_cp_join">发同事圈</button>
+        <button ng-if="campaign.active &amp;&amp; campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-full dl_cp_quit">已经加入        </button>
         <div class="dl_card_operator">
           <button ng-if="campaign.active &amp;&amp; campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)" class="button dl_cp_confirm">接受</button>
           <button ng-if="ccampaign.active &amp;&amp; ampaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)" class="button dl_cp_refuse">拒绝</button>
