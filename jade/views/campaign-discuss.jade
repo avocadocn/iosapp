@@ -27,6 +27,6 @@ ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
               i.icon.ion-alert-circled
               span 发送失败
 
-    ion-infinite-scroll(ng-if="!loading&&hasMore" on-infinite="readHistory()" distance="-2%")
+    ion-infinite-scroll(ng-if="!loading&&hasMore" icon="ion-looping" on-infinite="readHistory()" distance="-2%")
   ion-footer-bar.comment_box
     publish-box(is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publish()" )

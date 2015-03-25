@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <ion-infinite-scroll ng-if="!loading&amp;&amp;hasMore" on-infinite="readHistory()" distance="-2%"></ion-infinite-scroll>
+    <ion-infinite-scroll ng-if="!loading&amp;&amp;hasMore" icon="ion-looping" on-infinite="readHistory()" distance="-2%"></ion-infinite-scroll>
   </ion-content>
   <ion-footer-bar class="comment_box">
     <publish-box is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publish()"></publish-box>

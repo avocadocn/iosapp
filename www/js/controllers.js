@@ -1080,8 +1080,10 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-          $scope.teams = teams;
-          INFO.officialTeamList = teams;
+          $scope.teams = teams.sort(function (last,next) {
+            return next.hasJoined - last.hasJoined;
+          });
+          INFO.officialTeamList = $scope.teams;
           $scope.loading = false;
         }
       });
@@ -3442,17 +3444,18 @@ angular.module('donlerApp.controllers', [])
       });
     }
   }])
-  .controller('DiscoverController', ['$scope', '$state', 'Team', 'Rank', 'INFO',function ($scope, $state, Team, Rank, INFO) {
-    var getMyTeams = function(callback) {
+  .controller('DiscoverController', ['$scope', '$state', '$ionicSlideBoxDelegate', 'Team', 'Rank', 'INFO',function ($scope, $state, $ionicSlideBoxDelegate, Team, Rank, INFO) {
+    $scope.getMyTeams = function(refreshFlag) {
       Team.getList('user', localStorage.id, null, function (err, teams) {
         if (err) {
           // todo
           console.log(err);
         } else {
           $scope.teams = teams;
-          $scope.selectTeam = teams[0];
+          $scope.nowTeamIndex =0;
           INFO.myTeams = teams;
-          callback && callback();
+          $ionicSlideBoxDelegate.update();
+          refreshFlag && $scope.$broadcast('scroll.refreshComplete');
         }
       });
     };
@@ -3470,11 +3473,16 @@ angular.module('donlerApp.controllers', [])
         }
       });
     }
-    getMyTeams(getTeamRank);
-    $scope.changeSelectTeam = function (selectTeam) {
-      $scope.selectTeam = selectTeam;
-      getTeamRank();
+    $scope.$watch('nowTeamIndex',function (newVal) {
+      if(newVal!=undefined && $scope.teams.length>newVal) {
+        $scope.selectTeam = $scope.teams[newVal];
+        getTeamRank();
+      }
+    })
+    $scope.changeSelectTeam = function (flag) {
+      $scope.nowTeamIndex = $scope.nowTeamIndex +flag;
     }
+    $scope.getMyTeams();
   }])
   .controller('RankSelectController', ['$scope', '$state', 'Team', 'Rank', function ($scope, $state, Team, Rank) {
     var getTeamType = function () {

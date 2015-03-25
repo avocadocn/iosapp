@@ -2720,22 +2720,65 @@ a>.login .companies_list:activated {
 .rank_select .groups .group a .group_17 {
   background-position: -400px -200px;
 }
-.rank_table {
+.rank_panel .team_select {
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  background-color: #fff;
+  border-bottom: 1px solid #f2f2f2;
+}
+.rank_panel .team_select .team_container {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+  padding-top: 10px;
+}
+.rank_panel .team_select .team_container .team {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.rank_panel .team_select .team_container .team .team_name {
+  width: 100%;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.rank_panel .team_select .team_container .team .icon {
+  font-size: 30px;
+  position: absolute;
+  top: 10px;
+}
+.rank_panel .team_select .team_container .last_team .icon {
+  left: 0;
+}
+.rank_panel .team_select .team_container .next_team .icon {
+  right: 0;
+}
+.rank_panel .rank_table {
   background-color: #fbfbfb;
 }
-.rank_table a {
+.rank_panel .rank_table a {
   text-decoration: none;
   color: #000;
   border-bottom: 1px solid #000;
   margin-bottom: 5px;
 }
-.rank_table .belong {
+.rank_panel .rank_table .belong {
   color: #3ca2e0;
 }
-.rank_table .top {
+.rank_panel .rank_table .top {
   color: #f00;
 }
-.rank_table .no_rank_table {
+.rank_panel .rank_table .no_rank_table {
   text-align: center;
 }
 .competition_message_panel {

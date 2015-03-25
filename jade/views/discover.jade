@@ -5,6 +5,7 @@ ion-view.discover(ng-controller="DiscoverController")
     h1.title 发现
 
   ion-content
+    ion-refresher(on-refresh="getMyTeams(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     .discover_image
     .list
       a.item.item-icon-left.item-icon-right(href="#/discover/search_opponent")
@@ -20,10 +21,25 @@ ion-view.discover(ng-controller="DiscoverController")
         | 挑战日志
         i.icon.ion-chevron-right
     .rank_panel
-      .team_select
-        label.item.item-input.item-select
-          span.input-label 我的小队排名:
-          select.select_info(ng-change="changeSelectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams")
+      .team_select(ng-if="teams.length>0")
+        .team_container
+          .team.last_team(ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex>0")
+            i.icon.ion-ios7-arrow-back
+            img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex-1].logo}}/40/40")
+            .team_name {{teams[nowTeamIndex-1].name}}
+        .team_container
+          .team
+            img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex].logo}}/40/40")
+            .team_name {{teams[nowTeamIndex].name}}
+        .team_container
+          .team.next_team(ng-click="changeSelectTeam(1)"  ng-if="nowTeamIndex<teams.length-1")
+            img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex+1].logo}}/40/40")
+            .team_name {{teams[nowTeamIndex+1].name}}
+            i.icon.ion-ios7-arrow-forward
+      //- .team_select
+      //-   label.item.item-input.item-select
+      //-     span.input-label 我的小队排名:
+      //-     select.select_info(ng-change="changeSelectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams")
       .rank_table
         .row(ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank")
           .col {{rankTeam.score_rank.rank}}

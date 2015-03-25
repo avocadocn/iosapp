@@ -2301,19 +2301,58 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         for i in 0..16
           .group_{i+1}
             background-position i%6 * -100px floor(i/6) * -100px
-.rank_table
-  background-color #fbfbfb
-  a
-    text-decoration none
-    color black
-    border-bottom 1px solid black
-    margin-bottom 5px
-  .belong
-    color #3ca2e0
-  .top
-    color red
-  .no_rank_table
-    text-align center
+.rank_panel
+  .team_select
+    display flex
+    display -webkit-box
+    display -webkit-flex
+    display -moz-box
+    display -moz-flex
+    display -ms-flexbox
+    background-color white
+    border-bottom 1px solid #f2f2f2
+    .team_container
+      -webkit-box-flex 1
+      -webkit-flex 1
+      -moz-box-flex 1
+      -moz-flex 1
+      -ms-flex 1
+      flex 1
+      text-align center
+      padding-top 10px
+      .team
+        width 100%
+        height 100%
+        position relative
+        .team_name
+          width 100%
+          overflow hidden
+          word-break break-all
+          white-space nowrap
+          text-overflow ellipsis
+        .icon
+          font-size 30px
+          position absolute
+          top 10px
+      .last_team
+        .icon
+          left 0
+      .next_team
+        .icon
+          right 0
+  .rank_table
+    background-color #fbfbfb
+    a
+      text-decoration none
+      color black
+      border-bottom 1px solid black
+      margin-bottom 5px
+    .belong
+      color #3ca2e0
+    .top
+      color red
+    .no_rank_table
+      text-align center
 .competition_message_panel
   background-color white
   .competition_message_list

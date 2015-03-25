@@ -24,9 +24,9 @@ ion-view
     .rank_table(ng-if="noRankTeams.length>0")
       .row
         .col 我的小队
-      a.row(ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}")
+      a.row(ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-if="team.rank")
         .col
-          span {{team.rank==0 ?'暂无排名':team.rank}}
+          span {{team.rank}}
         .col
           img.team_logo(ng-src="{{STATIC_URL + team.logo}}/40/40")
         .col.col-50
