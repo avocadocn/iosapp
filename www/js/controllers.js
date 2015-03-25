@@ -3593,7 +3593,8 @@ angular.module('donlerApp.controllers', [])
     'CONFIG',
     'Emoji',
     '$ionicActionSheet',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji, $ionicActionSheet) {
+    'Image',
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji, $ionicActionSheet, Image) {
 
       User.getData(localStorage.id, function(err, data) {
         if (err) {
@@ -3639,11 +3640,12 @@ angular.module('donlerApp.controllers', [])
           for (var i = 0, photosLen = circle.content.photos.length; i < photosLen; i++) {
             var photo = circle.content.photos[i];
             photo._id = id;
+            var size = Image.getFitSize(photo.width, photo.height);
             pswpPhotos.push({
               _id: photo._id,
-              w: photo.width || $scope.screenWidth,
-              h: photo.height || $scope.screenHeight,
-              src: CONFIG.STATIC_URL + photo.uri
+              w: size.width * 2,
+              h: size.height * 2,
+              src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
             });
             id++;
           }
@@ -3745,11 +3747,12 @@ angular.module('donlerApp.controllers', [])
             for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
               var photo = circle.content.photos[j];
               photo._id = id;
+              var size = Image.getFitSize(photo.width, photo.height);
               pswpPhotos.push({
                 _id: photo._id,
-                w: photo.width || $scope.screenWidth,
-                h: photo.height || $scope.screenHeight,
-                src: CONFIG.STATIC_URL + photo.uri
+                w: size.width * 2,
+                h: size.height * 2,
+                src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
               });
               id++;
             }
