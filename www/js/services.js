@@ -42,7 +42,7 @@ angular.module('donlerApp.services', [])
   }])
   .constant('CONFIG', {
     BASE_URL: 'http://www.55yali.com:3002',
-    STATIC_URL: 'http://www.55yali.com',
+    STATIC_URL: 'http://www.55yali.com:3000',
     SOCKET_URL: 'http://www.55yali.com:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
