@@ -18,10 +18,10 @@ ion-view.circle_company_page
     div(ng-if="remindComments.length > 0")
       a.remind_box(href="#/circle/reminds") {{remindComments.length}}条新消息
     
-    +circleCampaignCard('circle in circleContentList')
+    +circleCampaignCard('circle in circleContentList', 'circlePswpId')
       
     ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
   
   //- 与ion-content同级
   +commentBox()
-  +pswp()
+  +pswp('circlePswpId')

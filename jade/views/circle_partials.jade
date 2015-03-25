@@ -1,10 +1,10 @@
-mixin circleCampaignCardInner()
+mixin circleCampaignCardInner(pswpIdName)
   img.circle_company_logo(ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32")
   .circle_info
     h2.user_name.link_name(ng-click="goToUserPage(circle.content.poster._id)") {{circle.content.poster.nickname}}
     p.circle_content {{circle.content.content}}
     .image_box.clearfix
-      img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo error-img photo="photo" pswp-id="circlePswpId" photos="imagesForPswp")
+      img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo error-img photo="photo" pswp-id="#{pswpIdName}" photos="imagesForPswp")
     .date_and_op
       span.date {{circle.content.post_date | beforeNow}}
       span.delete(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
@@ -33,13 +33,13 @@ mixin circleCampaignCardInner()
         span.colon :
         span.content(ng-bind-html="comment.content | emoji | unsafe")
 
-mixin circleCampaignCard(ngRepeatText)
+mixin circleCampaignCard(ngRepeatText, pswpIdName)
   if ngRepeatText
     .dl_circle_company_card.clearfix(ng-repeat="#{ngRepeatText}")
-      +circleCampaignCardInner()
+      +circleCampaignCardInner(pswpIdName)
   else
     .dl_circle_company_card.clearfix
-      +circleCampaignCardInner()
+      +circleCampaignCardInner(pswpIdName)
 
 mixin commentBox()
   .comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
@@ -55,8 +55,8 @@ mixin commentBox()
         .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
           i(class="emoji {{'emoji_'+emotion}}")
             
-mixin pswp()
-  .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{circlePswpId}}")
+mixin pswp(id)
+  .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{#{id}}}")
     .pswp__bg
     .pswp__scroll-wrap
       .pswp__container

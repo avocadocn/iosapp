@@ -3592,6 +3592,7 @@ angular.module('donlerApp.controllers', [])
       // 共享控制器，减少重复代码
       var isListPage = ($state.current.name === 'circle_company');
       if (isListPage) {
+        $scope.circlePswpId = 'circle_pswp_' + Date.now();
         $scope.goBack = function() {
           if ($ionicHistory.backView()) {
             $ionicHistory.goBack();
@@ -3612,7 +3613,7 @@ angular.module('donlerApp.controllers', [])
 
         var index = Tools.arrayObjectIndexOf($rootScope.circleContentList, $state.params.circleContentId, 'content._id');
         $scope.circle = $rootScope.circleContentList[index];
-        $scope.circlePswpId = 'circle_content_pswp_' + Date.now();
+        $scope.circleContentPswpId = 'circle_content_pswp_' + Date.now();
 
         $scope.imagesForPswp = [];
         var id = 0;
@@ -3831,7 +3832,7 @@ angular.module('donlerApp.controllers', [])
         });
       };
 
-      $scope.circlePswpId = 'circle_pswp_' + Date.now();
+
 
       $scope.deleteCircleContent = function (circle) {
         var confirmPopup = $ionicPopup.confirm({
