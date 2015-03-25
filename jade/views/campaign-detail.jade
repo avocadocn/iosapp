@@ -2,7 +2,7 @@ ion-view
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title(ng-cloak) {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
-    button.button.icon.ion_discuss_active(ng-click="chooseUploadImages()")
+    //-button.button.icon.ion_discuss_active(ng-click="chooseUploadImages()")
   ion-content(delegate-handle="detailScroll")
 
     .card.dl_card_detail
@@ -32,7 +32,8 @@ ion-view
         p.dl_cp_member_max(ng-if="campaign.member_max&&campaign.member_max!=0") 人数上限：{{campaign.member_max}}
         p.dl_cp_member_min(ng-if="campaign.member_min&&campaign.member_min!=0") 人数下限：{{campaign.member_min}}
         button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
-        button.button.button-full.dl_cp_quit(ng-if="campaign.active && campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入
+        button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.allow.quitCampaign"  ng-click="chooseUploadImages()") 发同事圈
+        button.button.button-full.dl_cp_quit(ng-if="campaign.active && campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入        
         .dl_card_operator
           button.button.dl_cp_confirm(ng-if="campaign.active && campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
           button.button.dl_cp_refuse(ng-if="ccampaign.active && ampaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝

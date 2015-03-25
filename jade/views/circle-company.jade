@@ -26,15 +26,22 @@ ion-view.circle_company_page
         .date_and_op
           span.date {{circle.content.post_date | beforeNow}}
           span.delete(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
-          i.ion_comment.op_icon(ng-click="toComment(circle)")
-        .comment_op(ng-if="circle.isToComment")
-          span.op(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)") 赞
-          span.op(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak) 取消赞
-          span.divider |
-          span.op(ng-click="openCommentBox(circle)") 评论
+          i.ion-chatbox-working.op_icon(ng-click="toComment(circle)")
+        .comment_op.clearfix(ng-if="circle.isToComment")
+          .op_box.clearfix
+            .op_item(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)")
+              i.ion-heart
+              | &nbsp;赞
+            .op_item(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak)
+              i.ion-heart
+              | &nbsp;取消
+            .op_divider
+            .op_item(ng-click="openCommentBox(circle)")
+              i.ion-chatbox-working
+              | &nbsp;评论
       .circle_comment_list
         .appreciate_container(ng-if="circle.appreciate.length > 0")
-          i.ion-heart
+          i.ion-heart.appreciate_icon
           a.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-href="#/user/{{appr.poster._id}}") {{appr.poster.nickname}}
         .comment_container(ng-if="circle.textComments.length > 0")
           .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)")
