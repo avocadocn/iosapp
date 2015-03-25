@@ -8,7 +8,7 @@ mixin circleCampaignCardInner(pswpIdName)
     .date_and_op
       span.date {{circle.content.post_date | beforeNow}}
       span.delete(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
-      i.ion-chatbox-working.op_icon(ng-click="toComment(circle)")
+      i.ion-chatbox-working.op_icon(ng-click="toggleComment(circle)")
     .comment_op.clearfix(ng-if="circle.isToComment")
       .op_box.clearfix
         .op_item(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)")

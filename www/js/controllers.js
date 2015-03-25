@@ -3878,7 +3878,11 @@ angular.module('donlerApp.controllers', [])
         });
       };
 
-      $scope.toComment = function (circle) {
+      $scope.toggleComment = function (circle) {
+        if ($scope.targetCommentCircle && $scope.targetCommentCircle.content._id !== circle.content._id) {
+          $scope.targetCommentCircle.isToComment = false;
+        }
+        $scope.targetCommentCircle = circle;
         if (circle.isToComment === undefined) {
           circle.isToComment = true;
         }
@@ -3890,7 +3894,6 @@ angular.module('donlerApp.controllers', [])
       // 打开评论输入框
       $scope.openCommentBox = function (circle) {
         $scope.isCommenting = true;
-        $scope.targetCommentCircle = circle;
         $scope.isOnlyToContent = true;
         $scope.commentPlaceholderText = '';
         $scope.targetUserId = null;
@@ -3936,7 +3939,6 @@ angular.module('donlerApp.controllers', [])
             $scope.commentFormData.content = '';
             $scope.targetUserId = null;
             $scope.commentPlaceholderText = '';
-            $scope.targetCommentCircle = null;
           })
           .error(function (data) {
             ionicAlert(data.msg || '操作失败');
@@ -3961,6 +3963,7 @@ angular.module('donlerApp.controllers', [])
       $scope.stopComment = function () {
         $scope.isCommenting = false;
         $scope.targetCommentCircle.isToComment = false;
+        $scope.targetCommentCircle = null;
         $scope.hideEmotions();
       };
 
@@ -3971,6 +3974,9 @@ angular.module('donlerApp.controllers', [])
           is_only_to_content: true
         })
           .success(function (data) {
+            $scope.targetCommentCircle.isToComment = false;
+            $scope.targetCommentCircle = null;
+            $scope.isCommenting = false;
             circle.appreciate.push(data.circleComment);
           })
           .error(function (data) {
@@ -4026,6 +4032,9 @@ angular.module('donlerApp.controllers', [])
               break;
             }
           }
+          $scope.targetCommentCircle.isToComment = false;
+          $scope.targetCommentCircle = null;
+          $scope.isCommenting = false;
         })
         .error(function(data) {
           ionicAlert(data.msg || '删除失败');
