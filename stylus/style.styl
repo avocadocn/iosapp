@@ -2300,6 +2300,11 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         color col_darkBlue
       .appreciate
         margin-left 5px
+        &:after
+          content ","
+        &:last-child
+          &:after
+            content ""
 
     .comment_container
       margin-top 5px

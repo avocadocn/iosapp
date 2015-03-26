@@ -2675,6 +2675,12 @@ a>.login .companies_list:activated {
 .dl_circle_company_card .circle_comment_list .appreciate_container .appreciate {
   margin-left: 5px;
 }
+.dl_circle_company_card .circle_comment_list .appreciate_container .appreciate:after {
+  content: ",";
+}
+.dl_circle_company_card .circle_comment_list .appreciate_container .appreciate:last-child:after {
+  content: "";
+}
 .dl_circle_company_card .circle_comment_list .comment_container {
   margin-top: 5px;
 }

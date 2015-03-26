@@ -3704,6 +3704,7 @@ angular.module('donlerApp.controllers', [])
             }
           });
         };
+
         $scope.getData();
 
 
@@ -4066,16 +4067,15 @@ angular.module('donlerApp.controllers', [])
     '$scope',
     '$rootScope',
     '$ionicHistory',
-    function($scope, $rootScope, $ionicHistory) {
+    '$state',
+    function($scope, $rootScope, $ionicHistory, $state) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
         } else {
-          $state.go('circle_content');
+          $state.go('circle_company');
         }
       };
-
-      $scope.remindList = $rootScope.remindList;
 
     }
   ])
