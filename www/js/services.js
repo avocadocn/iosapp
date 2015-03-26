@@ -1443,6 +1443,16 @@ angular.module('donlerApp.services', [])
         }
         return $http.get(url);
       },
+
+      /**
+       * 获取某个同事圈的内容
+       * @param {String} 内容id
+       * @return {HttpPromise}
+       */
+      getCircleContent: function(id) {
+        return $http.get(CONFIG.BASE_URL + '/circle_contents/' + id);
+      },
+
       /**
        * 删除公司同事圈内容
        * @param  {String}   contentId 同事圈消息id
