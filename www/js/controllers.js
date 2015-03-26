@@ -1570,6 +1570,7 @@ angular.module('donlerApp.controllers', [])
   .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', function ($scope, $rootScope, $ionicHistory, Socket) {
     //每次进入页面判断是否有新评论没看
     $rootScope.newCircleComment = 0;
+    $rootScope.unReadCircleCommentRemindCount = 0;
     //socket服务器推送通知
     Socket.on('getNewCircleContent', function(photo) {
       $rootScope.hasNewCircle = true;
@@ -1578,7 +1579,8 @@ angular.module('donlerApp.controllers', [])
     });
     Socket.on('getNewCircleComment', function() {
       $rootScope.hasNewCircle = true;
-      $rootScope.newCircleComment++
+      $rootScope.newCircleComment++;
+      $rootScope.unReadCircleCommentRemindCount++;
     });
     Socket.on('newCompetitionMessage', function() {
       $rootScope.hasNewDiscover = true;
@@ -3585,6 +3587,11 @@ angular.module('donlerApp.controllers', [])
     function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji, $ionicActionSheet, Image) {
       // 注意：这个控制器被详细页和列表页共享
 
+      // 初始化提醒列表
+      if (!$rootScope.remindList) {
+        $rootScope.remindList = [];
+      }
+
       var isListPage = ($state.current.name === 'circle_company');
 
       // 区分页面进行处理
@@ -3605,17 +3612,20 @@ angular.module('donlerApp.controllers', [])
           $rootScope.newContentPhoto = null;
           $rootScope.newCircleComment = 0;
         };
-        if (!$scope.remindCount) {
-          $scope.remindCount = 0;
-        }
-        $scope.remindCount += $rootScope.newCircleComment;
         clearRedSpot();
         //todo -M
         //监听跳转并clear
 
         $scope.goToRemindsPage = function() {
-          $scope.remindCount = 0;
-          $state.go('circle_reminds');
+          if ($rootScope.unReadCircleCommentRemindCount > 0) {
+            $scope.getRemind(function (hasNewRemind) {
+              if (hasNewRemind) {
+                $scope.getData();
+              }
+              $state.go('circle_reminds');
+            });
+          }
+          $rootScope.unReadCircleCommentRemindCount = 0;
         };
 
         $scope.circlePswpId = 'circle_pswp_' + Date.now();
@@ -3628,7 +3638,7 @@ angular.module('donlerApp.controllers', [])
         };
 
 
-        var getRemind = function(callback) {
+        $scope.getRemind = function(callback) {
           if (!$scope.circleContentList[0]) {
             return;
           }
@@ -3636,9 +3646,6 @@ angular.module('donlerApp.controllers', [])
             last_comment_date: localStorage.lastGetCompanyCircleRemindTime,
             latest_content_date: $scope.circleContentList[0].content.post_date
           }).success(function(data) {
-            if (!$rootScope.remindList) {
-              $rootScope.remindList = [];
-            }
             var newRemindList = data.slice();
             var removeIndexes = [];
             for (var i = 0, newRemindListLen = newRemindList.length; i < newRemindListLen; i++) {
@@ -3668,7 +3675,10 @@ angular.module('donlerApp.controllers', [])
           });
         };
 
-        var getData = function(callback) {
+        // 用于保存已经获取到的同事圈内容
+        $scope.circleContentList = [];
+
+        $scope.getData = function(callback) {
           // 先获取一次
           Circle.getCompanyCircle()
           .success(function (data) {
@@ -3676,7 +3686,6 @@ angular.module('donlerApp.controllers', [])
               $scope.pickAppreciateAndComments(circle);
             });
             $scope.circleContentList = data;
-            $rootScope.circleContentList = $scope.circleContentList;
             $scope.loadingStatus.hasInit = true;
             if (data.length >= pageLength) {
               $scope.loadingStatus.hasMore = true;
@@ -3694,12 +3703,9 @@ angular.module('donlerApp.controllers', [])
               ionicAlert(data.msg || '获取失败');
             }
           });
-        }
+        };
+        $scope.getData();
 
-        var hasGetDataOnce = false; // 是否获取过一次数据了，如果是，则先获取提醒，如果有提醒，再更新内容，否则直接先获取内容再获取提醒
-
-        // 用于保存已经获取到的同事圈内容
-        $scope.circleContentList = [];
 
         $scope.loadingStatus = {
           hasInit: false, // 是否已经获取了一次内容
@@ -3708,8 +3714,6 @@ angular.module('donlerApp.controllers', [])
         };
 
         var pageLength = 20; // 一次获取的数据量
-
-
 
         // 复制图片地址到一个数组供预览大图用
         var copyPhotosToPswp = function () {
@@ -3754,12 +3758,6 @@ angular.module('donlerApp.controllers', [])
             }
             $scope.$broadcast('scroll.refreshComplete');
           });
-          // 顺便获取一下最新提醒
-          getRemind(function (hasNewRemind) {
-            if (hasNewRemind) {
-              getData();
-            }
-          });
         };
 
         $scope.loadMore = function () {
@@ -3791,20 +3789,6 @@ angular.module('donlerApp.controllers', [])
           });
         };
 
-        if (!hasGetDataOnce) {
-          getData(function() {
-            getRemind();
-            hasGetDataOnce = true;
-          });
-        }
-        else {
-          getRemind(function (hasNewRemind) {
-            if (hasNewRemind) {
-              getData();
-            }
-          });
-        }
-
 
       }
 
@@ -3817,8 +3801,6 @@ angular.module('donlerApp.controllers', [])
           }
         };
 
-        // var index = Tools.arrayObjectIndexOf($rootScope.circleContentList, $state.params.circleContentId, 'content._id');
-        // $scope.circle = $rootScope.circleContentList[index];
         $scope.circleContentPswpId = 'circle_content_pswp_' + Date.now();
 
         Circle.getCircleContent($state.params.circleContentId).success(function(data) {
