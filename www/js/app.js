@@ -95,7 +95,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       INFO.screenWidth = window.innerWidth;
       INFO.screenHeight = window.innerHeight;
 
-      Circle.lastGetCompanyCircleRemindTime = Date.now();
+      if (!localStorage.lastGetCompanyCircleRemindTime) {
+        localStorage.lastGetCompanyCircleRemindTime = Date.now();
+      }
+
 
     });
 
@@ -468,7 +471,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('circle_content_detail', {
         url: '/circle/circle_content/:circleContentId',
-        controller: 'CircleContentDetailController',
+        controller: 'CircleCompanyController',
         templateUrl: './views/circle-content-detail.html'
       })
       .state('circle_reminds', {

@@ -1398,9 +1398,6 @@ angular.module('donlerApp.services', [])
      */
     var uploadImages = [];
 
-    // 上一次获取同事圈提醒的时间
-    var lastGetCompanyCircleRemindTime;
-
     return {
       /**
        * 发同事圈文字
@@ -1522,14 +1519,33 @@ angular.module('donlerApp.services', [])
        */
       getRemind: function(queryData) {
         return $http.get(CONFIG.BASE_URL + '/circle_reminds/comments', {params: queryData});
-      },
-
-      lastGetCompanyCircleRemindTime: lastGetCompanyCircleRemindTime
+      }
 
     };
 
   }])
-
+  .factory('Image', ['INFO', function(INFO) {
+    return {
+      getFitSize: function(width, height) {
+        var size = {
+          width: width || INFO.screenWidth,
+          height: height || INFO.screenHeight
+        };
+        if (width > INFO.screenWidth || height > INFO.screenHeight) {
+          var result = width * INFO.screenHeight - height * INFO.screenWidth;
+          if (result > 0) {
+            size.width = INFO.screenWidth;
+            size.height = Math.floor(size.width * height / width);
+          }
+          else {
+            size.height = INFO.screenHeight;
+            size.width = Math.floor(size.height * width / height);
+          }
+        }
+        return size;
+      }
+    };
+  }])
   .factory('Rank', ['$http', 'CONFIG', function ($http, CONFIG) {
     return {
 

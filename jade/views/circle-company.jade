@@ -1,3 +1,5 @@
+include ./circle_partials.jade
+
 ion-view.circle_company_page
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
@@ -16,72 +18,10 @@ ion-view.circle_company_page
     div(ng-if="remindComments.length > 0")
       a.remind_box(href="#/circle/reminds") {{remindComments.length}}条新消息
     
-    .dl_circle_company_card.clearfix(ng-repeat="circle in circleContentList" ng-cloak)
-      img.circle_company_logo(ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32")
-      .circle_info
-        h2.user_name.link_name(ng-click="goToUserPage(circle.content.poster._id)") {{circle.content.poster.nickname}}
-        p.circle_content {{circle.content.content}}
-        .image_box.clearfix
-          img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo error-img photo="photo" pswp-id="circlePswpId" photos="imagesForPswp")
-        .date_and_op
-          span.date {{circle.content.post_date | beforeNow}}
-          span.delete(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
-          i.ion-chatbox-working.op_icon(ng-click="toComment(circle)")
-        .comment_op.clearfix(ng-if="circle.isToComment")
-          .op_box.clearfix
-            .op_item(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)")
-              i.ion-heart
-              | &nbsp;赞
-            .op_item(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak)
-              i.ion-heart
-              | &nbsp;取消
-            .op_divider
-            .op_item(ng-click="openCommentBox(circle)")
-              i.ion-chatbox-working
-              | &nbsp;评论
-      .circle_comment_list
-        .appreciate_container(ng-if="circle.appreciate.length > 0")
-          i.ion-heart.appreciate_icon
-          a.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-href="#/user/{{appr.poster._id}}") {{appr.poster.nickname}}
-        .comment_container(ng-if="circle.textComments.length > 0")
-          .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)")
-            span.nickname.link_name(ng-click="goToUserPage(comment.poster._id)" prevent-default) {{comment.poster.nickname}}
-            span.reply_text(ng-if="!comment.is_only_to_content" ng-cloak) 回复
-            span.reply_to.link_name(ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default ng-cloak) {{comment.target.nickname}}
-            span.colon :
-            span.content(ng-bind-html="comment.content | emoji | unsafe")
+    +circleCampaignCard('circle in circleContentList', 'circlePswpId')
+      
     ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
-  .comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
   
-  .bar.bar-footer.item-input-inset.circle_comment_box(ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}")
-    .item-input-wrapper
-      i.icon.ion-happy.placeholder-icon(ng-click="toggleEmotions()")
-      input(type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" required)
-    button.button.button-clear(ng-click="comment()") 发表
-  ion-slide-box.emotion_box(ng-if="isShowEmotions")
-    ion-slide(ng-repeat="emoji in emojiList")
-      .box.clearfix
-        .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
-          i(class="emoji {{'emoji_'+emotion}}")
-
-  .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{circlePswpId}}")
-    .pswp__bg
-    .pswp__scroll-wrap
-      .pswp__container
-        .pswp__item
-        .pswp__item
-        .pswp__item
-      .pswp__ui.pswp__ui--hidden
-        .pswp__top-bar
-          .pswp__counter
-          button.pswp__button.pswp__button--close(title="关闭")
-          button.pswp__button.pswp__button--zoom(title="放大/缩小")
-            i.icon.ion-image
-          .pswp__preloader
-            .pswp__preloader__icn
-              .pswp__preloader__cut
-                .pswp__preloader__donut
-        button.pswp__button.pswp__button--arrow--left(title="上一张")
-        button.pswp__button.pswp__button--arrow--right(title="下一张")
-        .pswp__caption
-          .pswp__caption__center
+  //- 与ion-content同级
+  +commentBox()
+  +pswp('circlePswpId')
