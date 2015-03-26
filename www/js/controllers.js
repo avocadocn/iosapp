@@ -4197,6 +4197,9 @@ angular.module('donlerApp.controllers', [])
     $scope.moreCompetition = function (argument) {
       $scope.getCompetitionLog();
     }
+    $scope.$on('$ionicView.enter',function(scopes, states){
+      $scope.getCompetitionLog(true);
+    });
   }])
   .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO', function ($scope, $state, $ionicModal, $ionicScrollDelegate, $ionicPopup, $timeout, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
     //评论获取
@@ -4219,12 +4222,11 @@ angular.module('donlerApp.controllers', [])
           console.log(err);
         } else {
           $scope.competitionMessage = data.message;
-          $scope.competitionMessage.content = $scope.competitionMessage.content.replace(/\r\n/g,"<br>");
-          $scope.competitionMessage.content = $scope.competitionMessage.content.replace(/\n/g,"<br>");
+          $scope.competitionMessage.content = $scope.competitionMessage.content.replace(/(\r)?\n/g,"<br>");
           $scope.oppositeLeader = data.oppositeLeader;
           $scope.sponsorLeader = data.sponsorLeader;
           $scope.competitionMessage.vote = formatVote($scope.competitionMessage.vote);
-          var ta = document.getElementById('ta');
+          // var ta = document.getElementById('ta');
         }
       });
     }
