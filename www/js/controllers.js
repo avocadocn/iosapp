@@ -3596,6 +3596,7 @@ angular.module('donlerApp.controllers', [])
         $rootScope.hasNewCircle = false;
         $rootScope.newContent = false;
         $rootScope.newContentPhoto = null;
+        $rootScope.newCircleComment = 0;
       };
       clearRedSpot();
       //todo -M

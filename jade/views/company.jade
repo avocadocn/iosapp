@@ -10,7 +10,7 @@ ion-view.company(ng-controller="CompanyController")
       a.item.item-icon-left.item-icon-right(href="#/circle/circle_company")
         i.icon.ion-android-contacts
         | 同事圈
-        span.badge_dot(ng-if="hasNewCircle")
+        span.badge_dot(ng-if="newCircleComment") {{newCircleComment}}
         i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/company/teams/official")
         i.icon.ion_teams

@@ -1337,15 +1337,6 @@ a>.login .companies_list:activated {
 .item-avatar > img:first-child {
   border-radius: 0;
 }
-.badge_dot {
-  background-color: #ff5724;
-  width: 12px;
-  height: 12px;
-  bottom: 10px;
-  display: inline-block;
-  border-radius: 100%;
-  position: relative;
-}
 .discover .discover_image {
   width: 100%;
   display: block;
@@ -1369,6 +1360,15 @@ a>.login .companies_list:activated {
 .discover .list .item .item-note {
   color: #3ca2e0;
 }
+.discover .list .item .badge_dot {
+  background-color: #ff5724;
+  width: 12px;
+  height: 12px;
+  bottom: 10px;
+  display: inline-block;
+  border-radius: 100%;
+  position: relative;
+}
 .company .company_image {
   width: 100%;
   display: block;
@@ -1391,6 +1391,17 @@ a>.login .companies_list:activated {
 }
 .company .list .item .item-note {
   color: #3ca2e0;
+}
+.company .list .item .badge_dot {
+  background-color: #ff5724;
+  width: 20px;
+  height: 20px;
+  bottom: 10px;
+  display: inline-block;
+  border-radius: 100%;
+  position: relative;
+  color: #fff;
+  text-align: center;
 }
 .personal .list,
 .settings .list,
