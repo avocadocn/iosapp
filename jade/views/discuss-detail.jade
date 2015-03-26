@@ -50,6 +50,9 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
                     span 小队收到了一个新的挑战，快去看看吧
                 .triangle_isosceles(ng-switch-when=5)
                   a(ng-href="#/competition_message/detail/{{comment.competition_message._id}}")
+                    span 小队接受了一个挑战快去看看吧
+                .triangle_isosceles(ng-switch-when=6)
+                  a(ng-href="#/competition_message/detail/{{comment.competition_message._id}}")
                     span 小队发出的挑战被接受了快去看看吧
                 .triangle_isosceles(ng-switch-default ng-bind-html="comment.content | emoji | unsafe")
           .failed(ng-if="comment.failed" ng-cloak)
