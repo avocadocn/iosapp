@@ -3605,9 +3605,18 @@ angular.module('donlerApp.controllers', [])
           $rootScope.newContentPhoto = null;
           $rootScope.newCircleComment = 0;
         };
+        if (!$scope.remindCount) {
+          $scope.remindCount = 0;
+        }
+        $scope.remindCount += $rootScope.newCircleComment;
         clearRedSpot();
         //todo -M
         //监听跳转并clear
+
+        $scope.goToRemindsPage = function() {
+          $scope.remindCount = 0;
+          $state.go('circle_reminds');
+        };
 
         $scope.circlePswpId = 'circle_pswp_' + Date.now();
         $scope.goBack = function() {
@@ -3643,7 +3652,7 @@ angular.module('donlerApp.controllers', [])
             removeIndexes.forEach(function(index) {
               newRemindList.splice(index, 1);
             })
-            $scope.remindComments = newRemindList;
+
             $rootScope.remindList = newRemindList.concat($rootScope.remindList);
             localStorage.lastGetCompanyCircleRemindTime = Date.now();
 
