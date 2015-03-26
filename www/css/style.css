@@ -1105,7 +1105,7 @@ a>.login .companies_list:activated {
 }
 .discuss_detail .comments .comment .triangle_isosceles a {
   text-decoration: none;
-  color: #fff;
+  color: #000;
   display: block;
 }
 .discuss_detail .comments .comment .triangle_isosceles a .team_name {
@@ -1193,6 +1193,14 @@ a>.login .companies_list:activated {
 .discuss_detail .comments .putright .triangle_isosceles {
   margin-right: 0.4rem;
   background: #3ca2e0;
+}
+.discuss_detail .comments .putright .triangle_isosceles a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+.discuss_detail .comments .putright .triangle_isosceles a .team_name {
+  color: #676767;
 }
 .discuss_detail .comments .putright .triangle_isosceles:after {
   right: -0.7rem;

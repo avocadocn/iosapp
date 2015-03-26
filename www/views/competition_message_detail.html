@@ -1,6 +1,6 @@
 
 <ion-view class="competition_message_panel">
-  <ion-header-bar><a href="#/competition_message/list" class="button icon ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><a ng-click="goBack()" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">挑战日志</h1><a ng-if="sponsorLeader &amp;&amp; competitionMessage.status=='accepted'" ng-click="sponsorCompetition()" class="button button-clear button-positive">发活动</a>
   </ion-header-bar>
   <ion-content>
