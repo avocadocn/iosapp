@@ -3660,11 +3660,24 @@ angular.module('donlerApp.controllers', [])
           last_comment_date: localStorage.lastGetCompanyCircleRemindTime,
           latest_content_date: $scope.circleContentList[0].content.post_date
         }).success(function(data) {
-          $scope.remindComments = data;
           if (!$rootScope.remindList) {
             $rootScope.remindList = [];
           }
-          $rootScope.remindList = data.concat($rootScope.remindList);
+          var listForConcat = data.slice();
+          var removeIndexes = [];
+          for (var i = 0, listForConcatLen = listForConcat.length; i < listForConcatLen; i++) {
+            for (var j = 0, remindListLen = $rootScope.remindList.length; j < remindListLen; j++) {
+              if (listForConcat[i].kind === 'appreciate' && listForConcat[i].poster._id === $rootScope.remindList[j].poster._id) {
+                removeIndexes.push(i);
+                break;
+              }
+            }
+          }
+          removeIndexes.forEach(function(index) {
+            listForConcat.splice(index, 1);
+          })
+          $scope.remindComments = listForConcat;
+          $rootScope.remindList = listForConcat.concat($rootScope.remindList);
           localStorage.lastGetCompanyCircleRemindTime = Date.now();
 
           // 更新对应circleContent的评论
