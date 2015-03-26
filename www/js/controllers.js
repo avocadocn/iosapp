@@ -4215,7 +4215,16 @@ angular.module('donlerApp.controllers', [])
       $scope.getCompetitionLog(true);
     });
   }])
-  .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO', function ($scope, $state, $ionicModal, $ionicScrollDelegate, $ionicPopup, $timeout, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
+  .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', '$ionicHistory', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO',
+   function ($scope, $state, $ionicModal, $ionicScrollDelegate, $ionicPopup, $timeout, $ionicHistory, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
+    $scope.goBack = function() {
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack();
+      }
+      else {
+        $state.go('competition_message_list');
+      }
+    };
     //评论获取
     $scope.commentList = [];
     $scope.topShowTime = [];
@@ -4619,7 +4628,7 @@ angular.module('donlerApp.controllers', [])
     $scope.recommend = function (teamId) {
       var postData = {
         content: $scope.targetTeam.name,
-        chatType: 'recommend_team',
+        chatType: 2,
         recommendTeamId: targetTeamId
       }
       Chat.postChat(teamId, postData, function(err, data) {

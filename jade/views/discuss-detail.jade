@@ -29,19 +29,29 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
                   .box
                     img.img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo error-img)
                     img.img(ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180")
-          .comment.clearfix(ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" ng-cloak)
+          .comment.clearfix(ng-class="{putright: comment.poster._id == userId}" ng-cloak)
             a.logo(ng-href="#/user/{{comment.poster._id}}")
               img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
             .contents
               .name(ng-if="comment.poster._id !== userId" ng-cloak) {{comment.poster.nickname}}
               .name(ng-if="comment.poster._id == userId" ng-cloak) 我
-              .content
-                .triangle_isosceles(ng-if="comment.chat_type!=='recommend_team'" ng-bind-html="comment.content | emoji | unsafe")
-                .triangle_isosceles(ng-if="comment.chat_type==='recommend_team'")
-                  a(ng-href="#/competition/team/{{comment.recommend_teamid}}")
+              .content(ng-switch="comment.chat_type")
+                
+                .triangle_isosceles(ng-switch-when=2)
+                  a(ng-href="#/competition/team/{{comment.recommend_team}}")
                     span 我推荐了
                     span.team_name{{comment.content}}
                     span 小队给大家
+                .triangle_isosceles(ng-switch-when=3)
+                  a(ng-href="#/competition_message/detail/{{comment.competition_message._id}}")
+                    span 小队发了一个新的挑战，快去看看吧
+                .triangle_isosceles(ng-switch-when=4)
+                  a(ng-href="#/competition_message/detail/{{comment.competition_message._id}}")
+                    span 小队收到了一个新的挑战，快去看看吧
+                .triangle_isosceles(ng-switch-when=5)
+                  a(ng-href="#/competition_message/detail/{{comment.competition_message._id}}")
+                    span 小队发出的挑战被接受了快去看看吧
+                .triangle_isosceles(ng-switch-default ng-bind-html="comment.content | emoji | unsafe")
           .failed(ng-if="comment.failed" ng-cloak)
             .tip
               i.icon.ion-alert-circled
