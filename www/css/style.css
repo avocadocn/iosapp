@@ -1286,7 +1286,6 @@ a>.login .companies_list:activated {
   color: #333;
   width: 60px;
   font-size: 18px;
-  font-weight: 600;
   line-height: 100%;
 }
 .comment_box .emotion_box {
@@ -1392,6 +1391,17 @@ a>.login .companies_list:activated {
 }
 .company .list .item .item-note {
   color: #3ca2e0;
+}
+.company .list .item .badge_dot {
+  background-color: #ff5724;
+  width: 20px;
+  height: 20px;
+  bottom: 10px;
+  display: inline-block;
+  border-radius: 100%;
+  position: relative;
+  color: #fff;
+  text-align: center;
 }
 .personal .list,
 .settings .list,
@@ -3054,4 +3064,7 @@ a>.login .companies_list:activated {
   font-size: 22px;
   padding: 0;
   border: none;
+}
+.competition_team {
+  background-color: #fff;
 }
