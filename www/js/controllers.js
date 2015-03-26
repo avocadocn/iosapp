@@ -3673,7 +3673,7 @@ angular.module('donlerApp.controllers', [])
           Circle.getCompanyCircle()
           .success(function (data) {
             data.forEach(function (circle) {
-              pickAppreciateAndComments(circle);
+              $scope.pickAppreciateAndComments(circle);
             });
             $scope.circleContentList = data;
             $rootScope.circleContentList = $scope.circleContentList;
@@ -3736,29 +3736,13 @@ angular.module('donlerApp.controllers', [])
           }
         };
 
-        // 将赞和评论分别抽取出来
-        var pickAppreciateAndComments = function (circle) {
-          circle.appreciate = [];
-          circle.textComments = [];
-          for (var i = 0, commentsLen = circle.comments.length; i < commentsLen; i++) {
-            var comment = circle.comments[i];
-            switch (comment.kind) {
-            case 'appreciate':
-              circle.appreciate.push(comment);
-              break;
-            case 'comment':
-              circle.textComments.push(comment);
-              break;
-            }
-          }
-        };
 
         $scope.refresh = function() {
           var latestContentDate = $scope.circleContentList[0].content.post_date;
           Circle.getCompanyCircle(latestContentDate, null)
           .success(function (data) {
             data.forEach(function (circle) {
-              pickAppreciateAndComments(circle);
+              $scope.pickAppreciateAndComments(circle);
             });
             $scope.circleContentList = (data || []).concat($scope.circleContentList);
             copyPhotosToPswp();
@@ -3788,7 +3772,7 @@ angular.module('donlerApp.controllers', [])
           Circle.getCompanyCircle(null, lastContentDate)
           .success(function (data) {
             data.forEach(function (circle) {
-              pickAppreciateAndComments(circle);
+              $scope.pickAppreciateAndComments(circle);
             });
             $scope.circleContentList = $scope.circleContentList.concat(data);
             $scope.loadingStatus.loading = false;
@@ -3833,29 +3817,37 @@ angular.module('donlerApp.controllers', [])
           }
         };
 
-        var index = Tools.arrayObjectIndexOf($rootScope.circleContentList, $state.params.circleContentId, 'content._id');
-        $scope.circle = $rootScope.circleContentList[index];
+        // var index = Tools.arrayObjectIndexOf($rootScope.circleContentList, $state.params.circleContentId, 'content._id');
+        // $scope.circle = $rootScope.circleContentList[index];
         $scope.circleContentPswpId = 'circle_content_pswp_' + Date.now();
 
-        $scope.imagesForPswp = [];
-        var id = 0;
-        var circle = $scope.circle;
-        if (circle.content.photos && circle.content.photos.length > 0) {
-          var pswpPhotos = [];
-          for (var i = 0, photosLen = circle.content.photos.length; i < photosLen; i++) {
-            var photo = circle.content.photos[i];
-            photo._id = id;
-            var size = Image.getFitSize(photo.width, photo.height);
-            pswpPhotos.push({
-              _id: photo._id,
-              w: size.width * 2,
-              h: size.height * 2,
-              src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
-            });
-            id++;
+        Circle.getCircleContent($state.params.circleContentId).success(function(data) {
+          $scope.circle = data.circle;
+          $scope.pickAppreciateAndComments($scope.circle);
+          $scope.imagesForPswp = [];
+          var id = 0;
+          var circle = $scope.circle;
+          if (circle.content.photos && circle.content.photos.length > 0) {
+            var pswpPhotos = [];
+            for (var i = 0, photosLen = circle.content.photos.length; i < photosLen; i++) {
+              var photo = circle.content.photos[i];
+              photo._id = id;
+              var size = Image.getFitSize(photo.width, photo.height);
+              pswpPhotos.push({
+                _id: photo._id,
+                w: size.width * 2,
+                h: size.height * 2,
+                src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
+              });
+              id++;
+            }
+            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
           }
-          $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-        }
+        }).error(function(data) {
+          $scope.ionicAlert(data.msg || '获取失败'); // TODO 还需要考虑妥善处理，很可能会出现这条内容被删除了
+        })
+
+
       }
 
       // 两个页面会共同使用的方法，用于卡片操作等
@@ -3878,6 +3870,23 @@ angular.module('donlerApp.controllers', [])
 
         $scope.goToUserPage = function(id) {
           $state.go('user_info', {userId: id});
+        };
+
+        // 将赞和评论分别抽取出来
+        $scope.pickAppreciateAndComments = function (circle) {
+          circle.appreciate = [];
+          circle.textComments = [];
+          for (var i = 0, commentsLen = circle.comments.length; i < commentsLen; i++) {
+            var comment = circle.comments[i];
+            switch (comment.kind) {
+            case 'appreciate':
+              circle.appreciate.push(comment);
+              break;
+            case 'comment':
+              circle.textComments.push(comment);
+              break;
+            }
+          }
         };
 
         $scope.deleteCircleContent = function (circle) {
