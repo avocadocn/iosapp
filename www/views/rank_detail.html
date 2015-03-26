@@ -22,7 +22,7 @@
     <div ng-if="noRankTeams.length&gt;0" class="rank_table">
       <div class="row">
         <div class="col">我的小队</div>
-      </div><a ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-if="team.rank" class="row">
+      </div><a ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-if="team.rank" class="row team">
         <div class="col"><span>{{team.rank}}</span></div>
         <div class="col"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="team_logo"/></div>
         <div class="col col-50">

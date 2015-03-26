@@ -1105,6 +1105,10 @@ a>.login .companies_list:activated {
 }
 .discuss_detail .comments .comment .triangle_isosceles a {
   text-decoration: none;
+  color: #fff;
+  display: block;
+}
+.discuss_detail .comments .comment .triangle_isosceles a .team_name {
   color: #676767;
 }
 .discuss_detail .comments .comment .triangle_isosceles:after {
@@ -1264,9 +1268,10 @@ a>.login .companies_list:activated {
 }
 .comment_box .publish_box .emotion_button {
   background-color: transparent;
-  width: 24px;
+  width: 25px;
   padding: 0;
   line-height: 100%;
+  text-align: left;
 }
 .comment_box .publish_box .emotion_button .emoji {
   vertical-align: baseline;
@@ -1279,8 +1284,8 @@ a>.login .companies_list:activated {
   border: 0;
   background-color: transparent;
   color: #333;
-  width: 30px;
-  font-size: 14px;
+  width: 60px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 100%;
 }
@@ -1355,6 +1360,15 @@ a>.login .companies_list:activated {
 }
 .discover .list .item .item-note {
   color: #3ca2e0;
+}
+.discover .list .item .badge_dot {
+  background-color: #ff5724;
+  width: 12px;
+  height: 12px;
+  bottom: 10px;
+  display: inline-block;
+  border-radius: 100%;
+  position: relative;
 }
 .company .company_image {
   width: 100%;
@@ -2735,6 +2749,35 @@ a>.login .companies_list:activated {
 .rank_select .groups .group a .group_17 {
   background-position: -400px -200px;
 }
+.rank_table {
+  background-color: #fbfbfb;
+}
+.rank_table a {
+  text-decoration: none;
+  color: #000;
+  border-bottom: 1px solid #e2e2e2;
+  margin-bottom: 5px;
+}
+.rank_table .belong {
+  color: #3ca2e0;
+}
+.rank_table .top {
+  color: #f00;
+}
+.rank_table .no_rank_table {
+  text-align: center;
+}
+.rank_panel .team_logo {
+  width: 40px;
+  height: 40px;
+}
+.rank_panel .team_name {
+  width: 100%;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .rank_panel .team_select {
   display: flex;
   display: -webkit-box;
@@ -2760,13 +2803,6 @@ a>.login .companies_list:activated {
   height: 100%;
   position: relative;
 }
-.rank_panel .team_select .team_container .team .team_name {
-  width: 100%;
-  overflow: hidden;
-  word-break: break-all;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
 .rank_panel .team_select .team_container .team .icon {
   font-size: 30px;
   position: absolute;
@@ -2779,22 +2815,7 @@ a>.login .companies_list:activated {
   right: 0;
 }
 .rank_panel .rank_table {
-  background-color: #fbfbfb;
-}
-.rank_panel .rank_table a {
-  text-decoration: none;
-  color: #000;
-  border-bottom: 1px solid #000;
-  margin-bottom: 5px;
-}
-.rank_panel .rank_table .belong {
-  color: #3ca2e0;
-}
-.rank_panel .rank_table .top {
-  color: #f00;
-}
-.rank_panel .rank_table .no_rank_table {
-  text-align: center;
+  height: 290px;
 }
 .competition_message_panel {
   background-color: #fff;
@@ -2807,6 +2828,15 @@ a>.login .companies_list:activated {
   text-decoration: none;
   color: #000;
   background-color: #fff;
+}
+.competition_message_panel .competition_message_list .competition_message .dot {
+  width: 10px;
+  height: 10px;
+  background-color: #f00;
+  border-radius: 100%;
+}
+.competition_message_panel .competition_message_list .operator {
+  text-align: center;
 }
 .competition_message_panel .competition_message_detail .teams {
   margin-top: 10px;

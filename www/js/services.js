@@ -1605,16 +1605,12 @@ angular.module('donlerApp.services', [])
       },
       /**
        * 获取挑战信列表
-       * @param  {Object}   data     query的数据包括： sponsor， opposite，messageType
+       * @param  {Object}   data     query的数据包括： sponsor， opposite，messageType,page
        * @param  {Function} callback 回调函数
        */
       getCompetitionMessages: function (data, callback) {
         $http.get( CONFIG.BASE_URL + '/competition_messages', {
-          params: {
-            sponsor: data.sponsor,
-            opposite: data.opposite,
-            messageType: data.messageType
-          }
+          params: data
         })
         .success(function (data, status, headers, config) {
           callback(null, data);

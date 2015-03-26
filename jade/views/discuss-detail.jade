@@ -38,9 +38,10 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
               .content
                 .triangle_isosceles(ng-if="comment.chat_type!=='recommend_team'" ng-bind-html="comment.content | emoji | unsafe")
                 .triangle_isosceles(ng-if="comment.chat_type==='recommend_team'")
-                  span 我推荐了
-                  a(ng-href="#/competition/team/{{chatroomId}}/{{comment.recommend_teamid}}") {{comment.content}}
-                  span 小队给大家
+                  a(ng-href="#/competition/team/{{comment.recommend_teamid}}")
+                    span 我推荐了
+                    span.team_name{{comment.content}}
+                    span 小队给大家
           .failed(ng-if="comment.failed" ng-cloak)
             .tip
               i.icon.ion-alert-circled

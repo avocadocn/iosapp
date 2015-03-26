@@ -313,7 +313,7 @@ angular.module('donlerApp.controllers', [])
           $scope.campaign = data;
           setMembers();
         }
-      });
+      },true);
       Message.getCampaignMessages($state.params.id, function(err, data){
         if(!err){
           $scope.notices = data;
@@ -4341,18 +4341,26 @@ angular.module('donlerApp.controllers', [])
 
     }
   ])
-  .controller('CompetitionMessageListController', ['$scope', '$state', 'CompetitionMessage', function ($scope, $state, CompetitionMessage) {
+  .controller('CompetitionMessageListController', ['$scope', '$rootScope','$state', 'CompetitionMessage', function ($scope, $rootScope, $state, CompetitionMessage) {
     $scope.messageType ='receive';
+    $scope.page = 1;
     $scope.getCompetitionLog = function (refreshFlag) {
+      if(refreshFlag) {
+        $scope.page =1;
+      }
       var data = {
-        messageType: $scope.messageType
+        messageType: $scope.messageType,
+        page: $scope.page
       }
       CompetitionMessage.getCompetitionMessages(data,function (err,data) {
         if (err) {
           // todo
           console.log(err);
         } else {
-          $scope.competitionMessages = data.messages;
+          $scope.competitionMessages = $scope.page>1 ? $scope.competitionMessages.concat(data.messages): data.messages;
+          $scope.page++;
+          $scope.maxPage = data.maxPage;          
+          $rootScope.hasNewDiscover = data.unReadStatus;
         }
         refreshFlag && $scope.$broadcast('scroll.refreshComplete');
       });
@@ -4360,6 +4368,10 @@ angular.module('donlerApp.controllers', [])
     $scope.getCompetitionLog();
     $scope.typeFilter = function (messageType) {
       $scope.messageType = messageType;
+      $scope.page = 1;
+      $scope.getCompetitionLog();
+    }
+    $scope.moreCompetition = function (argument) {
       $scope.getCompetitionLog();
     }
   }])
@@ -4661,7 +4673,7 @@ angular.module('donlerApp.controllers', [])
       if ($ionicHistory.backView()) {
         $ionicHistory.goBack()
       } else {
-        $state.go('search_opponent');
+        $state.go('app.discover');
       }
     }
     var filterSameTeam = function (myTeams, groupType) {

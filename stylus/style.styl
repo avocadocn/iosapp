@@ -959,7 +959,10 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         margin-left 0.8rem
         a
           text-decoration none
-          color col_lightGray
+          color white
+          display block
+          .team_name
+            color col_lightGray
       .triangle_isosceles:after
         content ""
         display block
@@ -1100,9 +1103,10 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       font-size 16px
     .emotion_button
       background-color transparent
-      width 24px
+      width 25px
       padding 0
       line-height 100%
+      text-align left
       .emoji
         vertical-align baseline
     button.publish_button[disabled]
@@ -1112,8 +1116,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       border 0
       background-color transparent
       color #333
-      width 30px
-      font-size 14px
+      width 60px
+      font-size 18px
       font-weight 600
       line-height 100%
   .emotion_box
@@ -1180,6 +1184,14 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         padding-left 4px
       .item-note
         color col_blue
+      .badge_dot
+        background-color #FF5724
+        width 12px
+        height 12px
+        bottom 10px
+        display inline-block
+        border-radius 100%
+        position relative
 //公司页
 .company
   .company_image
@@ -2314,7 +2326,29 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         for i in 0..16
           .group_{i+1}
             background-position i%6 * -100px floor(i/6) * -100px
+.rank_table
+  background-color #fbfbfb
+  a
+    text-decoration none
+    color black
+    border-bottom 1px solid #e2e2e2
+    margin-bottom 5px
+  .belong
+      color #3ca2e0
+    .top
+      color red
+    .no_rank_table
+      text-align center
 .rank_panel
+  .team_logo
+    width 40px
+    height 40px
+  .team_name
+    width 100%
+    overflow hidden
+    word-break break-all
+    white-space nowrap
+    text-overflow ellipsis
   .team_select
     display flex
     display -webkit-box
@@ -2337,12 +2371,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         width 100%
         height 100%
         position relative
-        .team_name
-          width 100%
-          overflow hidden
-          word-break break-all
-          white-space nowrap
-          text-overflow ellipsis
         .icon
           font-size 30px
           position absolute
@@ -2354,18 +2382,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         .icon
           right 0
   .rank_table
-    background-color #fbfbfb
-    a
-      text-decoration none
-      color black
-      border-bottom 1px solid black
-      margin-bottom 5px
-    .belong
-      color #3ca2e0
-    .top
-      color red
-    .no_rank_table
-      text-align center
+    height 290px
 .competition_message_panel
   background-color white
   .competition_message_list
@@ -2376,6 +2393,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       text-decoration none
       color black
       background-color white
+      .dot
+        width 10px
+        height 10px
+        background-color red
+        border-radius 100%
+    .operator
+      text-align center
   .competition_message_detail
     .teams
       margin-top 10px

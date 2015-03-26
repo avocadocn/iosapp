@@ -6,7 +6,7 @@
   <ion-content>
     <ion-refresher on-refresh="getMyTeams(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <div class="discover_image"></div>
-    <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/rank/select" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>排行榜<i class="icon ion-chevron-right"></i></a><a href="#/competition_message/list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<i class="icon ion-chevron-right"></i></a></div>
+    <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/rank/select" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>排行榜<i class="icon ion-chevron-right"></i></a><a href="#/competition_message/list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<span ng-if="hasNewDiscover" class="badge_dot"></span><i class="icon ion-chevron-right"></i></a></div>
     <div class="rank_panel">
       <div ng-if="teams.length&gt;0" class="team_select">
         <div class="team_container">
@@ -25,15 +25,12 @@
           </div>
         </div>
       </div>
-      <div class="rank_table">
-        <div ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="row">
+      <div class="rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="row">
           <div class="col">{{rankTeam.score_rank.rank}}</div>
           <div class="col"><img ng-src="{{STATIC_URL + rankTeam.logo}}/40/40" class="team_logo"/></div>
-          <div class="col">{{rankTeam.name}}</div>
+          <div class="col team_name">{{rankTeam.name}}</div>
           <div class="col">{{rankTeam.score_rank.score || 0}}</div>
-          <div class="col">{{rankTeam.score_rank.winPercent}}</div>
-        </div>
-      </div>
+          <div class="col">{{rankTeam.score_rank.winPercent}}</div></a></div>
     </div>
   </ion-content>
 </ion-view>

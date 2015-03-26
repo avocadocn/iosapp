@@ -30,7 +30,7 @@
               <div ng-if="comment.poster._id == userId" ng-cloak="ng-cloak" class="name">我</div>
               <div class="content">
                 <div ng-if="comment.chat_type!=='recommend_team'" ng-bind-html="comment.content | emoji | unsafe" class="triangle_isosceles"></div>
-                <div ng-if="comment.chat_type==='recommend_team'" class="triangle_isosceles"><span>我推荐了</span><a ng-href="#/competition/team/{{chatroomId}}/{{comment.recommend_teamid}}">{{comment.content}}</a><span>小队给大家</span></div>
+                <div ng-if="comment.chat_type==='recommend_team'" class="triangle_isosceles"><a ng-href="#/competition/team/{{comment.recommend_teamid}}"><span>我推荐了</span><span class="team_name">{{comment.content}}</span><span>小队给大家</span></a></div>
               </div>
             </div>
           </div>
