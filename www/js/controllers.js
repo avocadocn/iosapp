@@ -570,7 +570,7 @@ angular.module('donlerApp.controllers', [])
           $scope.campaignData.tid = [$scope.selectTeam._id];
           $scope.campaignData.campaign_mold = $scope.selectMold.name;
         }
-        if($scope.competitionMessage.competition_type==2){
+        else if($scope.competitionMessage.competition_type==2){
           $scope.campaignData.campaign_mold = $scope.selectMold.name;
         }
         Campaign.create($scope.campaignData,function(err,data){
