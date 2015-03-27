@@ -3595,7 +3595,8 @@ angular.module('donlerApp.controllers', [])
     'Emoji',
     '$ionicActionSheet',
     'Image',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji, $ionicActionSheet, Image) {
+    '$ionicLoading',
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji, $ionicActionSheet, Image, $ionicLoading) {
       // 注意：这个控制器被详细页和列表页共享
 
       // 初始化提醒列表
@@ -3964,6 +3965,12 @@ angular.module('donlerApp.controllers', [])
             $scope.stopComment();
             return;
           }
+          $scope.isCommenting = false;
+          $scope.targetCommentCircle.isToComment = false;
+          $ionicLoading.show({
+            template: '发表中...',
+            duration: 5000
+          });
           var postData = {
             kind: 'comment',
             is_only_to_content: $scope.isOnlyToContent,
@@ -3972,9 +3979,11 @@ angular.module('donlerApp.controllers', [])
           if ($scope.targetUserId) {
             postData.target_user_id = $scope.targetUserId;
           }
+
           Circle.comment($scope.targetCommentCircle.content._id, postData)
             .success(function (data) {
               $scope.targetCommentCircle.textComments.push(data.circleComment);
+              $ionicLoading.hide();
               $scope.stopComment();
               $scope.commentFormData.content = '';
               $scope.targetUserId = null;
@@ -3983,6 +3992,7 @@ angular.module('donlerApp.controllers', [])
             .error(function (data) {
               $scope.ionicAlert(data.msg || '操作失败');
             });
+
         };
 
         $scope.replyTo = function (circle, comment) {
