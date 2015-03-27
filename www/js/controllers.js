@@ -253,7 +253,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'Circle', 'ScoreBoard', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO, Circle, ScoreBoard) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'Circle', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO, Circle) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -312,14 +312,9 @@ angular.module('donlerApp.controllers', [])
         if(!err){
           $scope.campaign = data;
           setMembers();
-          data.components.forEach(function(component, index){
+          data.components && data.components.forEach(function(component, index){
             if(component.name=='ScoreBoard') {
               $scope.scoreBoardId =component._id;
-              // ScoreBoard.getScore(component._id, function(err, data){
-              //   if(!err){
-              //     $scope.scoreBoard = data;
-              //   }
-              // });
             }
           });
         }
