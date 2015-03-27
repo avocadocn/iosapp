@@ -38,26 +38,63 @@ angular.module('donlerApp.filters', [])
     today.setHours(0);
     today.setMinutes(0);
     today.setSeconds(0);
-    //new Date(input) will invalidDate in safri
+    //new Date(input) will invalidDate in safari
     //must user new Date('2014-02-18T15:00:48'.replace(/\s/, 'T'))
     var date = new Date(input.replace(/\s/, 'T'));
     var intervalMilli = today.getTime() - date.getTime();
     var xcts = Math.floor(intervalMilli / (24 * 60 * 60 * 1000));
+    var now = Date.now();
+    var intervalMilliForNow = now - date.getTime();
     var result;
     if(xcts>1){
       result = xcts+'天前';
     }
-    else if (Math.floor(intervalMilli / (60 * 60 * 1000))>1) {
-      result = Math.floor(intervalMilli / (60 * 60 * 1000))+'小时前';
+    else if (Math.floor(intervalMilliForNow / (60 * 60 * 1000))>1) {
+      result = Math.floor(intervalMilliForNow / (60 * 60 * 1000))+'小时前';
     }
-    else if (Math.floor(intervalMilli / (60 * 1000))>1) {
-      result = Math.floor(intervalMilli / (60 * 1000))+'分前';
+    else if (Math.floor(intervalMilliForNow / (60 * 1000))>1) {
+      result = Math.floor(intervalMilliForNow / (60 * 1000))+'分前';
     }
     else{
       result = '刚刚';
     }
     return result;
-  }
+  };
+})
+.filter('circleBeforeNow', function($filter) {
+  return function(input) {
+    var today = new Date();
+    today.setHours(0);
+    today.setMinutes(0);
+    today.setSeconds(0);
+    var date = new Date(input);
+    var intervalMilliForDay = today.getTime() - date.getTime();
+    var distanceOfDays = Math.floor(intervalMilliForDay / (24 * 60 * 60 * 1000)) + 1; // 相差几天
+
+    var now = Date.now();
+    var intervalMilliForNow = now - date.getTime();
+
+    var result;
+    if(distanceOfDays > 2){
+      result = $filter('date')(input, 'M月d日');
+    }
+    else if (distanceOfDays === 2) {
+      result = '前天';
+    }
+    else if (distanceOfDays === 1) {
+      result = '昨天';
+    }
+    else if (Math.floor(intervalMilliForNow / (60 * 60 * 1000)) > 1) {
+      result = Math.floor(intervalMilliForNow / (60 * 60 * 1000)) + '小时前';
+    }
+    else if (Math.floor(intervalMilliForNow / (60 * 1000)) > 1) {
+      result = Math.floor(intervalMilliForNow / (60 * 1000)) + '分前';
+    }
+    else{
+      result = '刚刚';
+    }
+    return result;
+  };
 })
 .filter("unsafe", ['$sce', function($sce) {
   return function(val) {
