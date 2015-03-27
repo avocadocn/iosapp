@@ -16,7 +16,7 @@
         <h2 ng-click="goToUserPage(circle.content.poster._id)" class="user_name link_name">{{circle.content.poster.nickname}}</h2>
         <p class="circle_content">{{circle.content.content}}</p>
         <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo="open-photo" error-img="error-img" photo="photo" pswp-id="circlePswpId" photos="imagesForPswp" class="preview_img"/></div>
-        <div class="date_and_op"><span class="date">{{circle.content.post_date | beforeNow}}</span><span ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="delete">删除</span><i ng-click="toggleComment(circle)" class="ion-chatbox-working op_icon"></i></div>
+        <div class="date_and_op clearfix"><span class="date text_item">{{circle.content.post_date | beforeNow}}</span><span ng-if="circle.content.campaign_id" class="text_item">来自活动</span><a ng-if="circle.content.campaign_id" ng-href="#/campaign/detail/{{circle.content.campaign_id}}" class="link_name text_item campaign_name">{{circle.content.campaignTheme}}</a><span ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="delete text_item">删除</span><i ng-click="toggleComment(circle)" class="ion-chatbox-working op_icon"></i></div>
         <div ng-if="circle.isToComment" class="comment_op clearfix">
           <div class="op_box clearfix">
             <div ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)" class="op_item"><i class="ion-heart"></i>&nbsp;赞</div>
@@ -38,7 +38,7 @@
   <div ng-if="isCommenting" ng-click="stopComment()" class="comment_wrap"></div>
   <div ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}" class="bar bar-footer item-input-inset circle_comment_box">
     <form name="publishCommentForm" class="item-input-wrapper"><i ng-click="toggleEmotions()" class="icon ion-happy placeholder-icon"></i>
-      <input type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" mix-max-length="40"/>
+      <input type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" mix-max-length="80"/>
     </form>
     <button ng-click="comment()" ng-disabled="publishCommentForm.$invalid" class="button button-clear">发表</button>
   </div>

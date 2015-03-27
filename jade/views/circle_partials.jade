@@ -5,9 +5,11 @@ mixin circleCampaignCardInner(pswpIdName)
     p.circle_content {{circle.content.content}}
     .image_box.clearfix
       img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo error-img photo="photo" pswp-id="#{pswpIdName}" photos="imagesForPswp")
-    .date_and_op
-      span.date {{circle.content.post_date | beforeNow}}
-      span.delete(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
+    .date_and_op.clearfix
+      span.date.text_item {{circle.content.post_date | beforeNow}}
+      span.text_item(ng-if="circle.content.campaign_id") 来自活动
+      a.link_name.text_item.campaign_name(ng-if="circle.content.campaign_id" ng-href="#/campaign/detail/{{circle.content.campaign_id}}") {{circle.content.campaignTheme}}
+      span.delete.text_item(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
       i.ion-chatbox-working.op_icon(ng-click="toggleComment(circle)")
     .comment_op.clearfix(ng-if="circle.isToComment")
       .op_box.clearfix
