@@ -2632,11 +2632,25 @@ a>.login .companies_list:activated {
 .dl_circle_company_card .circle_info .date_and_op {
   margin-top: 5px;
 }
+.dl_circle_company_card .circle_info .date_and_op .text_item {
+  display: block;
+  float: left;
+  margin-left: 5px;
+}
+.dl_circle_company_card .circle_info .date_and_op .text_item:first-child {
+  margin-left: 0;
+}
 .dl_circle_company_card .circle_info .date_and_op .date {
   color: #999;
 }
+.dl_circle_company_card .circle_info .date_and_op .campaign_name {
+  max-width: 120px;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .dl_circle_company_card .circle_info .date_and_op .delete {
-  margin-left: 5px;
   color: #618bd7;
 }
 .dl_circle_company_card .circle_info .date_and_op .op_icon {
@@ -2644,7 +2658,6 @@ a>.login .companies_list:activated {
   width: 20px;
   font-size: 20px;
   text-align: center;
-  margin-top: -2px;
   color: #999;
 }
 .dl_circle_company_card .circle_info .comment_op {

@@ -3608,7 +3608,10 @@ angular.module('donlerApp.controllers', [])
         $rootScope.remindList = [];
       }
 
-      var isListPage = ($state.current.name === 'circle_company');
+      var hasInit = false;
+
+      // 用于保存已经获取到的同事圈内容
+      $scope.circleContentList = [];
 
       // 区分页面进行处理
       $scope.$on("$ionicView.enter", function(scopes, states) {
@@ -3628,7 +3631,6 @@ angular.module('donlerApp.controllers', [])
           $rootScope.newContentPhoto = null;
           $rootScope.newCircleComment = 0;
         };
-        clearRedSpot();
         //todo -M
         //监听跳转并clear
 
@@ -3691,9 +3693,6 @@ angular.module('donlerApp.controllers', [])
           });
         };
 
-        // 用于保存已经获取到的同事圈内容
-        $scope.circleContentList = [];
-
         $scope.getData = function(callback) {
           // 先获取一次
           Circle.getCompanyCircle()
@@ -3716,13 +3715,22 @@ angular.module('donlerApp.controllers', [])
           })
           .error(function (data, status) {
             if (status !== 404) {
-              ionicAlert(data.msg || '获取失败');
+              $scope.ionicAlert(data.msg || '获取失败');
             }
           });
         };
 
-        $scope.getData();
-
+        if (!hasInit) {
+          $scope.getData(function() {
+            hasInit = true;
+          });
+        }
+        else {
+          if ($rootScope.unReadCircleCommentRemindCount > 0 || $rootScope.newContent === true) {
+            $scope.getData();
+          }
+        }
+        clearRedSpot();
 
         $scope.loadingStatus = {
           hasInit: false, // 是否已经获取了一次内容
@@ -3957,6 +3965,10 @@ angular.module('donlerApp.controllers', [])
 
         // 发表评论
         $scope.comment = function () {
+          if (!$scope.commentFormData.content || $scope.commentFormData.content === '') {
+            $scope.stopComment();
+            return;
+          }
           var postData = {
             kind: 'comment',
             is_only_to_content: $scope.isOnlyToContent,

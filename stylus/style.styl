@@ -2266,17 +2266,27 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         height 64px
     .date_and_op
       margin-top 5px
+      .text_item
+        display block
+        float left
+        margin-left 5px
+        &:first-child
+          margin-left 0
       .date
         color col_darkGray
+      .campaign_name
+        max-width 120px
+        overflow hidden
+        word-break break-all
+        white-space nowrap
+        text-overflow ellipsis
       .delete
-        margin-left 5px
         color col_darkBlue
       .op_icon
         float right
         width 20px
         font-size 20px
         text-align center
-        margin-top -2px
         color col_darkGray
     .comment_op
       position relative
