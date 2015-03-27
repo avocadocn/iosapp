@@ -1770,3 +1770,91 @@ angular.module('donlerApp.services', [])
 
     };
   })
+  .factory('ScoreBoard', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+      /**
+       * 设置比分
+       * @param {String}   componetId 比分板ID
+       * @param {Obeject}   postData   {
+          "data": {
+            "scores": [
+              0,0
+            ],
+            "results": [
+              0,0
+            ]
+          },
+          "isInit": true
+        }
+       * @param {Function} callback   [description]
+       */
+      setScore: function (componetId, postData, callback) {
+        $http.post( CONFIG.BASE_URL + '/components/ScoreBoard/'+componetId,postData )
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 确认比分
+       * @param  {String}   componetId 比分板ID
+       * @param  {Function} callback   [description]
+       */
+      confirmScore: function (componetId, callback) {
+        $http.put( CONFIG.BASE_URL + '/components/ScoreBoard/'+componetId)
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 获取比分板信息
+       * @param  {String}   componetId 比分板ID
+       * @param  {Function} callback   [description]
+       */
+      getScore: function (componetId, callback) {
+        $http.get( CONFIG.BASE_URL + '/components/ScoreBoard/'+componetId)
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      },
+      /**
+       * 获取比分设置记录
+       * @param  {String}   componetId 比分板ID
+       * @param  {Function} callback   [description]
+       * @return {[type]}              [description]
+       */
+      getLogs: function (componetId, callback) {
+        $http.get( CONFIG.BASE_URL + '/components/ScoreBoard/logs/'+componetId)
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+          if (status === 400) {
+            callback(data.msg);
+          } else {
+            callback('error');
+          }
+        });
+      }
+    };
+  }])

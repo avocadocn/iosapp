@@ -644,3 +644,191 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   };
 }])
+.directive('scoreBoard', ['$rootScope', '$ionicPopup', 'CONFIG', 'ScoreBoard', function ($rootScope, $ionicPopup, CONFIG, ScoreBoard) {
+    return {
+      restrict: 'E',
+      scope: {
+        componentId: '='
+      },
+      templateUrl: './views/score-board.html',
+      link: function (scope, element, attrs, ctrl) {
+            /**
+         * 对于有编辑权限的用户的状态，可以是以下的值
+         * 'init' 初始状态，双发都没有设置比分
+         * 'waitConfirm' 等待对方确认
+         * 'toConfirm' 对方已设置比分，需要我方确认
+         * 'confirm' 双方已确认
+         * @type {String}
+         */
+        scope.STATIC_URL = CONFIG.STATIC_URL;
+        scope.leaderStatus = 'init';
+
+        /**
+         * 是否可以编辑比分板，确认后将无法编辑
+         * @type {Boolean}
+         */
+        scope.allowEdit = false;
+
+        /**
+         * 是否可以查看日志
+         * @type {Boolean}
+         */
+        scope.allowManage = false;
+
+        var getScoreBoardData = function () {
+          ScoreBoard.getScore(scope.componentId, function (err, scoreBoardData) {
+            if (err) {
+              $ionicPopup.alert({
+                title: '错误',
+                template: err
+              });
+            } else {
+              scope.scoreBoard = scoreBoardData;
+              scope.scores = [];
+              scope.results = [];
+              for (var i = 0; i < scope.scoreBoard.playingTeams.length; i++) {
+                var playingTeam = scope.scoreBoard.playingTeams[i];
+                scope.scores.push(playingTeam.score);
+                scope.results.push(playingTeam.result);
+                if (scope.scoreBoard.status === 1) {
+                  if (playingTeam.allowManage) {
+                    scope.allowEdit = true;
+                    if (playingTeam.confirm) {
+                      scope.leaderStatus = 'waitConfirm';
+                    } else {
+                      scope.leaderStatus = 'toConfirm';
+                    }
+                  }
+                } else if (scope.scoreBoard.status === 0) {
+                  if (playingTeam.allowManage) {
+                    scope.allowEdit = true;
+                  }
+                }
+
+                if (playingTeam.allowManage) {
+                  scope.allowManage = true;
+                }
+              }
+            }
+          });
+        };
+        getScoreBoardData();
+
+        scope.editing = false;
+
+        /**
+         * 设置胜负结果
+         * @param {Number} result -1, 0, 1
+         * @param {Number} index  0或1, $scope.results的索引
+         */
+        scope.setResult = function (result, index) {
+          if (index === 0) {
+            // 两队胜负值的和为0
+            scope.results[0] = result;
+            scope.results[1] = 0 - result;
+          } else if (index === 1) {
+            scope.results[0] = 0 - result;
+            scope.results[1] = result;
+          }
+        };
+
+        scope.toggleEdit = function () {
+          scope.editing = !scope.editing;
+        };
+
+        var finishEdit = function () {
+          scope.editing = false;
+          scope.scoreBoard.status === 1;
+          scope.leaderStatus = 'waitConfirm';
+          for (var i = 0; i < scope.scoreBoard.playingTeams.length; i++) {
+            var playingTeam = scope.scoreBoard.playingTeams[i];
+            playingTeam.score = scope.scores[i];
+            playingTeam.result = scope.results[i];
+          }
+        };
+
+        scope.initScore = function () {
+          ScoreBoard.setScore(scope.componentId, {
+            data:{
+              scores: scope.scores,
+              results: scope.results
+            },
+            isInit: true
+          }, function (err) {
+            if (err) {
+              $ionicPopup.alert({
+                title: '错误',
+                template: err
+              });
+            } else {
+              finishEdit();
+            }
+          })
+        };
+
+        scope.resetScore = function () {
+          ScoreBoard.resetScore(scope.componentId, {
+            data:{
+              scores: cope.scores,
+              results: scope.results
+            },
+            isInit: false
+          }, function (err) {
+            if (err) {
+              $ionicPopup.alert({
+                title: '错误',
+                template: err
+              });
+            } else {
+              finishEdit();
+            }
+          })
+        };
+
+        scope.confirmScore = function () {
+          var remindMsg = '提示：同意后将无法修改，确定要同意吗？';
+          var confirmPopup = $ionicPopup.confirm({
+            title: '提示',
+            template: remindMsg,
+            okText: '确定',
+            cancelText: '取消'
+          });
+          confirmPopup.then(function(res) {
+            if(res) {
+              ScoreBoard.confirmScore(scope.componentId, function (err) {
+                if (err) {
+                  $ionicPopup.alert({
+                    title: '错误',
+                    template: err
+                  });
+                } else {
+                  scope.scoreBoard.allConfirm = true;
+                  scope.leaderStatus = 'confirm';
+                  scope.scoreBoard.status = 2;
+                }
+              });
+            }
+          });
+        };
+
+        scope.showLogs = false;
+        scope.toggleLogs = function () {
+          if (!scope.showLogs) {
+            ScoreBoard.getLogs(scope.componentId, function (err, logs) {
+              if (err) {
+                $ionicPopup.alert({
+                  title: '错误',
+                  template: err
+                });
+              } else {
+                scope.logs = logs;
+                scope.showLogs = true;
+              }
+            });
+          } else {
+            scope.showLogs = false;
+          }
+        };
+      }
+    }
+  }])

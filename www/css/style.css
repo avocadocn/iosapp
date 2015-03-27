@@ -1108,7 +1108,7 @@ a>.login .companies_list:activated {
   color: #000;
   display: block;
 }
-.discuss_detail .comments .comment .triangle_isosceles a .team_name {
+.discuss_detail .comments .comment .triangle_isosceles a .link {
   color: #676767;
 }
 .discuss_detail .comments .comment .triangle_isosceles:after {
@@ -1199,7 +1199,7 @@ a>.login .companies_list:activated {
   color: #fff;
   display: block;
 }
-.discuss_detail .comments .putright .triangle_isosceles a .team_name {
+.discuss_detail .comments .putright .triangle_isosceles a .link {
   color: #676767;
 }
 .discuss_detail .comments .putright .triangle_isosceles:after {
@@ -3081,4 +3081,26 @@ a>.login .companies_list:activated {
 }
 .competition_team {
   background-color: #fff;
+}
+.score_board .score_board_operator {
+  text-align: center;
+}
+.score_board .score_board_footer {
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+}
+.score_board .score_board_footer .remind_text {
+  padding: 10px 0;
+  float: left;
+  width: 50%;
+}
+.score_board .score_board_footer .getlog {
+  color: #3ca2e0;
+  padding: 10px 0;
+  float: left;
+  width: 50%;
+}
+.score_board .logs .log .content {
+  font-size: 14px;
+  color: #3ca2e0;
 }

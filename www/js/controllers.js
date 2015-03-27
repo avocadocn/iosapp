@@ -253,7 +253,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'Circle', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO, Circle) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'Circle', 'ScoreBoard', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO, Circle, ScoreBoard) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -312,6 +312,16 @@ angular.module('donlerApp.controllers', [])
         if(!err){
           $scope.campaign = data;
           setMembers();
+          data.components.forEach(function(component, index){
+            if(component.name=='ScoreBoard') {
+              $scope.scoreBoardId =component._id;
+              // ScoreBoard.getScore(component._id, function(err, data){
+              //   if(!err){
+              //     $scope.scoreBoard = data;
+              //   }
+              // });
+            }
+          });
         }
       },true);
       Message.getCampaignMessages($state.params.id, function(err, data){
@@ -319,6 +329,7 @@ angular.module('donlerApp.controllers', [])
           $scope.notices = data;
         }
       });
+
     });
 
     $scope.join = function(id){
@@ -469,6 +480,18 @@ angular.module('donlerApp.controllers', [])
     $scope.isBusy = false;
     $scope.showMapFlag ==false;
     $scope.sponsorType = $state.params.type;
+    $scope.changeTeam = function(selectTeam) {
+      $scope.selectTeam =selectTeam;
+      Campaign.getMolds('team',selectTeam._id,function(err, molds){
+        if(!err){
+          $scope.campaign_molds = molds;
+          $scope.selectMold = molds[0];
+        }
+      })
+    }
+    $scope.changeMold = function(selectMold) {
+      $scope.selectMold = selectMold;
+    }
     if($scope.sponsorType=='competition') {
       $scope.competitionMessage = INFO.competitionMessage;
       $scope.campaignData.messageId = $scope.competitionMessage._id;
@@ -476,6 +499,9 @@ angular.module('donlerApp.controllers', [])
       $scope.campaignData.tid = [$scope.competitionMessage.sponsor_team._id,$scope.competitionMessage.opposite_team._id];
       if($scope.competitionMessage.competition_type==1){
         $scope.campaignData.campaign_mold = $scope.competitionMessage.sponsor_team.group_type;
+      }
+      else{
+        $scope.changeTeam($scope.competitionMessage.sponsor_team);
       }
     }
     else{
@@ -490,24 +516,11 @@ angular.module('donlerApp.controllers', [])
           $state.go('app.campaigns');
         }
       });
-      $scope.changeTeam = function(selectTeam) {
-        $scope.selectTeam =selectTeam;
-        Campaign.getMolds('team',selectTeam._id,function(err, molds){
-          if(!err){
-            $scope.campaign_molds = molds;
-            $scope.selectMold = molds[0];
-          }
-        })
-      }
-      $scope.changeMold = function(selectMold) {
-        $scope.selectMold = selectMold;
-      }
     }
     $ionicHistory.nextViewOptions({
       disableBack: true,
       historyRoot: true
     });
-
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -555,6 +568,9 @@ angular.module('donlerApp.controllers', [])
         if($scope.sponsorType!=='competition') {
           $scope.campaignData.cid = [$scope.selectTeam.cid];
           $scope.campaignData.tid = [$scope.selectTeam._id];
+          $scope.campaignData.campaign_mold = $scope.selectMold.name;
+        }
+        if($scope.competitionMessage.competition_type==2){
           $scope.campaignData.campaign_mold = $scope.selectMold.name;
         }
         Campaign.create($scope.campaignData,function(err,data){

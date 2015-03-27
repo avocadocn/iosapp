@@ -1,0 +1,46 @@
+
+<div class="card score_board dl_card_detail">
+  <div class="item dl_card_header"><span class="dl_card_title">比分</span></div><a ng-repeat="playingTeam in scoreBoard.playingTeams" class="item item-avatar"><img ng-src="{{STATIC_URL + playingTeam.logo}}/40/40" title="{{playingTeam.name}}" class="team_logo"/><span ng-bind="playingTeam.name" title="{{playingTeam.name}}" class="text team_name"></span>
+    <div ng-if="!editing &amp;&amp; scoreBoard.status!==0" ng-class="{'active': playingTeam.result===1}" class="show_score">
+      <div ng-if="playingTeam.score || playingTeam.score===0" ng-bind="playingTeam.score" class="score"></div>
+      <div class="result"> {{playingTeam.result | scoreResultFormat}}</div>
+    </div>
+    <div ng-if="editing" class="editing">
+      <input type="number" placeholder="{{playingTeam.score||'输入比分'}}" ng-model="scores[$index]" class="score"/>
+      <div class="results">
+        <button ng-click="setResult(1, $index)" ng-class="{'button-assertive': results[$index]===1}" class="button button-clear button-positive result">胜</button>
+        <button ng-click="setResult(0, $index)" ng-class="{'button-assertive': results[$index]===0}" class="button button-clear button-positive result">平</button>
+        <button ng-click="setResult(-1, $index)" ng-class="{'button-assertive': results[$index]===-1}" class="button button-clear button-positive result">负</button>
+      </div>
+    </div></a>
+  <div ng-if="allowEdit &amp;&amp; !editing &amp;&amp; leaderStatus==='init'" class="item score_board_operator">
+    <button ng-click="toggleEdit()" class="button button-clear button-positive operator">设置比分</button>
+  </div>
+  <div ng-if="allowEdit &amp;&amp; !editing &amp;&amp; leaderStatus==='toConfirm'" class="item score_board_operator">
+    <button ng-click="confirmScore()" class="button button-clear button-positive operator">同意</button>
+    <button ng-click="toggleEdit()" class="button button-clear button-positive operator cancel">不同意</button>
+  </div>
+  <div ng-if="allowEdit &amp;&amp; !editing &amp;&amp; leaderStatus==='waitConfirm'" class="item score_board_operator">
+    <button ng-click="toggleEdit()" class="operator">重新设置</button>
+  </div>
+  <div ng-if="allowEdit &amp;&amp; editing" class="item score_board_operator">
+    <button ng-if="scoreBoard.status===0" ng-click="initScore()" class="button button-clear button-positive operator">确认</button>
+    <button ng-if="scoreBoard.status===1" ng-click="resetScore()" class="button button-clear button-positive operator">确认</button>
+    <button ng-click="toggleEdit()" class="button button-clear button-positive operator cancel">取消</button>
+  </div>
+  <div class="item score_board_footer">
+    <div ng-if="scoreBoard.status===0" class="remind_text">等待队长设置比分</div>
+    <div ng-if="scoreBoard.status===1" class="remind_text">比分待确认</div>
+    <div ng-if="scoreBoard.status===2" class="remind_text">比分已确认</div>
+    <div ng-if="allowManage" ng-click="toggleLogs()" class="getlog">查看记录</div>
+  </div>
+  <div ng-if="showLogs" class="logs">
+    <div ng-repeat="log in logs" class="item log">
+      <p class="title">{{log.teamName}}&nbsp;{{log.date}}</p>
+      <p class="content">{{log.text}}</p>
+    </div>
+    <div ng-if="logs.length === 0" class="item log">
+      <p class="title text-center">没有修改记录</p>
+    </div>
+  </div>
+</div>

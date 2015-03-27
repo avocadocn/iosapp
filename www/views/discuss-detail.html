@@ -29,11 +29,11 @@
               <div ng-if="comment.poster._id !== userId" ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>
               <div ng-if="comment.poster._id == userId" ng-cloak="ng-cloak" class="name">我</div>
               <div ng-switch="comment.chat_type" class="content">
-                <div ng-switch-when="2" class="triangle_isosceles"><a ng-href="#/competition/team/{{comment.recommend_team}}"><span>我推荐了</span><span class="team_name">{{comment.content}}</span><span>小队给大家</span></a></div>
-                <div ng-switch-when="3" class="triangle_isosceles"><a ng-href="#/competition_message/detail/{{comment.competition_message._id}}"><span>小队发了一个新的挑战，快去看看吧</span></a></div>
-                <div ng-switch-when="4" class="triangle_isosceles"><a ng-href="#/competition_message/detail/{{comment.competition_message._id}}"><span>小队收到了一个新的挑战，快去看看吧</span></a></div>
-                <div ng-switch-when="5" class="triangle_isosceles"><a ng-href="#/competition_message/detail/{{comment.competition_message._id}}"><span>小队接受了一个挑战快去看看吧</span></a></div>
-                <div ng-switch-when="6" class="triangle_isosceles"><a ng-href="#/competition_message/detail/{{comment.competition_message._id}}"><span>小队发出的挑战被接受了快去看看吧</span></a></div>
+                <div ng-switch-when="2" class="triangle_isosceles"><a ng-href="#/competition/team/{{comment.recommend_team}}"><span>我推荐了</span><span class="link">{{comment.content}}</span><span>小队给大家</span></a></div>
+                <div ng-switch-when="3" class="triangle_isosceles"><a ng-href="#/competition_message/detail/{{comment.competition_message._id}}"><span class="link">小队发了一个新的挑战，快去看看吧</span></a></div>
+                <div ng-switch-when="4" class="triangle_isosceles"><a ng-href="#/competition_message/detail/{{comment.competition_message._id}}"><span class="link">小队收到了一个新的挑战，快去看看吧</span></a></div>
+                <div ng-switch-when="5" class="triangle_isosceles"><a ng-href="#/competition_message/detail/{{comment.competition_message._id}}"><span class="link">小队接受了一个挑战快去看看吧</span></a></div>
+                <div ng-switch-when="6" class="triangle_isosceles"><a ng-href="#/competition_message/detail/{{comment.competition_message._id}}"><span class="link">小队发出的挑战被接受了快去看看吧</span></a></div>
                 <div ng-switch-default="ng-switch-default" ng-bind-html="comment.content | emoji | unsafe" class="triangle_isosceles"></div>
               </div>
             </div>

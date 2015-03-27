@@ -83,4 +83,21 @@ angular.module('donlerApp.filters', [])
     }
     return result;
   };
-}]);
+}])
+.filter("scoreResultFormat", [function() {
+  return function(input) {
+    var result = '';
+    switch(input) {
+      case 1:
+        result = '胜';
+        break;
+      case 0:
+        result = '平';
+        break;
+      case -1:
+        result = '负';
+        break;
+    }
+    return result;
+  };
+}])
