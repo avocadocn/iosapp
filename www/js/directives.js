@@ -644,3 +644,23 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   };
 }])
+
+.directive('mixMaxLength', function() {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, ele, attrs, ngModel) {
+      scope.$watch(attrs.ngModel, function(newVal, oldVal) {
+        if (newVal) {
+          var resText = newVal.replace(/[\u4e00-\u9fa5]/g, '**');
+          if (resText.length > attrs.mixMaxLength) {
+            ngModel.$setValidity('mixlength', false);
+          }
+          else {
+            ngModel.$setValidity('mixlength', true);
+          }
+        }
+      });
+    }
+  };
+})

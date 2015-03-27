@@ -3615,7 +3615,6 @@ angular.module('donlerApp.controllers', [])
           $rootScope.newContentPhoto = null;
           $rootScope.newCircleComment = 0;
         };
-        clearRedSpot();
         //todo -M
         //监听跳转并clear
 
@@ -3711,10 +3710,11 @@ angular.module('donlerApp.controllers', [])
           });
         }
         else {
-          if ($rootScope.unReadCircleCommentRemindCount > 0) {
+          if ($rootScope.unReadCircleCommentRemindCount > 0 || $rootScope.newContent === true) {
             $scope.getData();
           }
         }
+        clearRedSpot();
 
         $scope.loadingStatus = {
           hasInit: false, // 是否已经获取了一次内容
@@ -3949,6 +3949,10 @@ angular.module('donlerApp.controllers', [])
 
         // 发表评论
         $scope.comment = function () {
+          if (!$scope.commentFormData.content || $scope.commentFormData.content === '') {
+            $scope.stopComment();
+            return;
+          }
           var postData = {
             kind: 'comment',
             is_only_to_content: $scope.isOnlyToContent,

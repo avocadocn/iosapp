@@ -32,10 +32,10 @@
   </ion-content>
   <div ng-if="isCommenting" ng-click="stopComment()" class="comment_wrap"></div>
   <div ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}" class="bar bar-footer item-input-inset circle_comment_box">
-    <div class="item-input-wrapper"><i ng-click="toggleEmotions()" class="icon ion-happy placeholder-icon"></i>
-      <input type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" required="required"/>
-    </div>
-    <button ng-click="comment()" class="button button-clear">发表</button>
+    <form name="publishCommentForm" class="item-input-wrapper"><i ng-click="toggleEmotions()" class="icon ion-happy placeholder-icon"></i>
+      <input type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" mix-max-length="40"/>
+    </form>
+    <button ng-click="comment()" ng-disabled="publishCommentForm.$invalid" class="button button-clear">发表</button>
   </div>
   <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
     <ion-slide ng-repeat="emoji in emojiList">

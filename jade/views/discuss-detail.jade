@@ -40,7 +40,7 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
                 .triangle_isosceles(ng-switch-when=2)
                   a(ng-href="#/competition/team/{{comment.recommend_team}}")
                     span 我推荐了
-                    span.team_name{{comment.content}}
+                    span.team_name {{comment.content}}
                     span 小队给大家
                 .triangle_isosceles(ng-switch-when=3)
                   a(ng-href="#/competition_message/detail/{{comment.competition_message._id}}")
