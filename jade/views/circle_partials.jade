@@ -47,7 +47,7 @@ mixin commentBox()
   .bar.bar-footer.item-input-inset.circle_comment_box(ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}")
     form.item-input-wrapper(name="publishCommentForm")
       i.icon.ion-happy.placeholder-icon(ng-click="toggleEmotions()")
-      input(type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" mix-max-length="40")
+      input(type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" mix-max-length="80")
     button.button.button-clear(ng-click="comment()" ng-disabled="publishCommentForm.$invalid") 发表
   ion-slide-box.emotion_box(ng-if="isShowEmotions")
     ion-slide(ng-repeat="emoji in emojiList")
