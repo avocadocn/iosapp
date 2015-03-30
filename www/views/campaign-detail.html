@@ -4,7 +4,7 @@
     <h1 ng-cloak="ng-cloak" class="title">{{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</h1>
   </ion-header-bar>
   <ion-content delegate-handle="detailScroll">
-    <div ng-if="campaign" class="card dl_card_detail">
+    <div class="card dl_card_detail">
       <div ng-if="campaign.campaign_unit.length==1" class="item dl_card_header"><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}" class="dl_team_logo"/></a>
         <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</h2><span ng-if="campaign.campaign_mold" class="campaign_mold">{{campaign.campaign_mold}}</span>
       </div>

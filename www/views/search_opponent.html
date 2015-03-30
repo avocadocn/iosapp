@@ -4,6 +4,7 @@
     <h1 class="title">发现</h1>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-if="!hasSelected" class="select_team">
       <div class="units clearfix">
         <div ng-repeat="team in myTeams" ng-class="{'leader':team.isLeader}" ng-click="selectTeam($index)" class="unit"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="logo"/>

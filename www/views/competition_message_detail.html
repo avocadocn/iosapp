@@ -54,8 +54,10 @@
         </div>
       </div>
     </div>
+    <div ng-show="oppositeLeader || sponsorLeader" class="operator">
+      <button ng-click="dealCompetition('accept')" class="button button-small button-positive">应战</button>
+    </div>
   </ion-content>
-  <ion-footer-bar ng-show="oppositeLeader || sponsorLeader" class="comment_box">
-    <publish-box is-show-img="false" is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publishComment()"></publish-box>
-  </ion-footer-bar>
+  
+  
 </ion-view>

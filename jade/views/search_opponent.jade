@@ -3,6 +3,7 @@ ion-view.search_opponent
     a.button.icon.ion-chevron-left(href="#/app/discover") &nbsp;返回
     h1.title 发现
   ion-content(has-bouncing=false)
+    ion-refresher(on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .select_team(ng-if="!hasSelected")
       .units.clearfix
         .unit(ng-repeat="team in myTeams" ng-class="{'leader':team.isLeader}" ng-click="selectTeam($index)")

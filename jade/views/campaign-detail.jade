@@ -5,7 +5,7 @@ ion-view
     //-button.button.icon.ion_discuss_active(ng-click="chooseUploadImages()")
   ion-content(delegate-handle="detailScroll")
 
-    .card.dl_card_detail(ng-if="campaign")
+    .card.dl_card_detail
       .item.dl_card_header(ng-if="campaign.campaign_unit.length==1")
         a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
           img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}")

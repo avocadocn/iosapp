@@ -1587,7 +1587,7 @@ angular.module('donlerApp.controllers', [])
         $rootScope.hasNewComment = data.newChat;
         $rootScope.hasNewDiscover = data.newDiscover;
         if(data.newCircleContent) {
-          $rootScope.newContent = {photo: data.post_user_id.photo};
+          $rootScope.newContent = {photo: data.newCircleContent.post_user_id.photo};
         }
         $rootScope.newCircleComment = data.newCircleComment;
       }
@@ -4456,7 +4456,7 @@ angular.module('donlerApp.controllers', [])
     if(INFO.myTeams) {
       $scope.myTeams = INFO.myTeams.sort(function (last,next) {
         return next.isLeader - last.isLeader;
-      });;
+      });
     }
     else{
       getMyTeams();
@@ -4495,6 +4495,16 @@ angular.module('donlerApp.controllers', [])
         }
         $rootScope.hideLoading();
       });
+    }
+    $scope.doRefresh = function (argument) {
+      if($scope.hasSelected) {
+        $scope.page =1;
+        getSearchTeam($scope.nowTab);
+      }
+      else{
+        getMyTeams();
+      }
+      $scope.$broadcast('scroll.refreshComplete');
     }
     $scope.$watch('nowTab',function (newVal, oldVal) {
       if(newVal &&newVal!='search' && newVal!=oldVal) {

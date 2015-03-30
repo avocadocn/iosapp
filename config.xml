@@ -18,6 +18,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="6000" />
     <preference name="orientation" value="portrait" />
+    <preference name="HideKeyboardFormAccessoryBar" value="true"/>
     <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true" />
     </feature>
@@ -37,6 +38,7 @@
     <feature name="Keyboard">
         <param name="ios-package" value="IonicKeyboard" onload="true" />
     </feature>
+
     <gap:plugin name="de.appplant.cordova.plugin.local-notification"/>
     <gap:plugin name="SaveToPhotoAlbum" value="SaveToPhotoAlbum" />
 

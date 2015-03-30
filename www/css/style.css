@@ -1404,12 +1404,11 @@ a>.login .companies_list:activated {
   background-color: #ff5724;
   width: 20px;
   height: 20px;
-  bottom: 10px;
   display: inline-block;
   border-radius: 100%;
-  position: relative;
   color: #fff;
   text-align: center;
+  margin-left: 10px;
 }
 .personal .list,
 .settings .list,

@@ -11,6 +11,7 @@ ion-view.company(ng-controller="CompanyController")
         i.icon.ion-android-contacts
         | 同事圈
         span.badge_dot(ng-if="newCircleComment") {{newCircleComment}}
+        img.badge_img(ng-if="newContent" ng-src="{{STATIC_URL + newContent.photo}}")
         i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/company/teams/official")
         i.icon.ion_teams

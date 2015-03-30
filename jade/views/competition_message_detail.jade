@@ -45,9 +45,10 @@ ion-view.competition_message_panel
         .col(ng-if="comment.poster._id===userId")
           img.member_logo(ng-src="{{STATIC_URL + comment.poster.photo}}/40/40")
           p {{comment.poster.nickname}}
-    //- ion-infinite-scroll(ng-if="canloadMore()" on-infinite="getCompetitionComments(1)" distance="-10%")
-  ion-footer-bar.comment_box(ng-show="oppositeLeader || sponsorLeader")
-    publish-box(is-show-img='false' is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publishComment()")
+    .operator(ng-show="oppositeLeader || sponsorLeader")
+      button.button.button-small.button-positive(ng-click="dealCompetition('accept')") 应战
+  //- ion-footer-bar
+  //-   publish-box(is-show-img='false' is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publishComment()")
 
 
 
