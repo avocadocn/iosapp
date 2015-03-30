@@ -680,6 +680,7 @@ angular.module('donlerApp.controllers', [])
     $scope.chatroomId = $stateParams.chatroomId;
     $scope.chatroomName = INFO.chatroomName;
     $scope.userId = localStorage.id;
+    $scope.cid = localStorage.cid;
     Socket.emit('quitRoom');
     Socket.emit('enterRoom', $scope.chatroomId);
     $scope.chatsList = [];

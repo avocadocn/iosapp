@@ -985,6 +985,13 @@ a>.login .companies_list:activated {
   width: 40px;
   margin-top: 3px;
 }
+.discuss_detail .ion_teams {
+  position: absolute;
+  min-height: 40px;
+  right: 10px;
+  top: 0;
+  margin-top: 0;
+}
 .discuss_detail .notice.show {
   display: block;
 }
