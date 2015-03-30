@@ -4269,6 +4269,8 @@ angular.module('donlerApp.controllers', [])
     //评论获取
     $scope.commentList = [];
     $scope.topShowTime = [];
+    $scope.data ={};
+    $scope.currentUser;
     var formatVote = function (vote) {
       var totalVote = vote.units[0].positive +vote.units[1].positive;
       vote.units.forEach(function(unit, index){
@@ -4294,47 +4296,51 @@ angular.module('donlerApp.controllers', [])
         }
       });
     }
-    // $scope.canloadMore = function () {
-    //   if($scope.loading || $scope.loadFinished) {
-    //     return false;
-    //   }
-    //   else{
-    //     return true;
-    //   }
-    // }
     $scope.getCompetitionComments = function (index) {
-
-      // if($scope.loading) {
-      //   $scope.$broadcast('scroll.infiniteScrollComplete');
-      //   return;
-      // }
-      // $scope.loading = true;
       var queryData = {
         requestType: 'competition_message',
         requestId: $state.params.id,
         limit: -1
-        // createDate:$scope.commentList.length>0 ?new Date($scope.commentList[$scope.commentList.length-1].create_date).valueOf():undefined
-      }
+        }
       Comment.getComments(queryData,function (err,data) {
         if (err) {
           // todo
           console.log(err);
         } else {
-          // if($scope.commentList){
-          //   $scope.commentList = $scope.commentList.concat(data.comments);
-          // }
-          // else{
             $scope.commentList = data.comments;
-          // }
-          // if($scope.commentList.length==0)
-          //   $scope.loadFinished = true;
         }
-        // $scope.$broadcast('scroll.infiniteScrollComplete');
-        // $timeout(function(){
-        //   $scope.loading = false;
-        // },1000);
       });
     }
+    $scope.showPopup = function() {
+      $scope.data = {};
+
+      // An elaborate, custom popup
+      var myPopup = $ionicPopup.show({
+        template: '<input placeholder="请输入评论内容" type="text" ng-model="data.content">',
+        title: '评论',
+        scope: $scope,
+        buttons: [
+          { text: '取消' },
+          {
+            text: '<b>保存</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              if (!$scope.data.content) {
+                //don't allow the user to close unless he enters wifi password
+                e.preventDefault();
+              } else {
+                return $scope.data.content;
+              }
+            }
+          }
+        ]
+      });
+      myPopup.then(function(res) {
+        if(res) {
+          $scope.publishComment();
+        }
+      });
+    };
     $scope.voteCompetition = function (index) {
       var vote = $scope.competitionMessage.vote;
       var unit = vote.units[index];
@@ -4381,21 +4387,6 @@ angular.module('donlerApp.controllers', [])
       INFO.competitionMessage = $scope.competitionMessage;
       $state.go('sponsor',{type:'competition'});
     }
-    getCompetitionMessage();
-    $scope.getCompetitionComments();
-    $scope.content='';
-
-    $scope.userId = localStorage.id;
-    $scope.isWriting = false;
-    //获取新留言
-    var comments_ele = document.getElementsByClassName('comments'); // 获取滚动条
-
-    //获取个人信息供发评论使用
-    var currentUser;
-    User.getData($scope.userId, function(err,data){
-      currentUser = data;
-    });
-
     //发表评论
     $scope.publishComment = function() {
       if(window.analytics){
@@ -4405,11 +4396,11 @@ angular.module('donlerApp.controllers', [])
       var newComment = {
         create_date: new Date(),
         poster: {
-          '_id': currentUser._id,
-          'photo': currentUser.photo,
-          'nickname': currentUser.nickname
+          '_id': $scope.currentUser._id,
+          'photo': $scope.currentUser.photo,
+          'nickname': $scope.currentUser.nickname
         },
-        content: $scope.content,
+        content: $scope.data.content,
         loading: true
       };
       $scope.commentList.push(newComment);
@@ -4417,7 +4408,7 @@ angular.module('donlerApp.controllers', [])
       var commentData = {
         hostType: 'competition_message',
         hostId: $state.params.id,
-        content: $scope.content
+        content: $scope.data.content
       }
       Comment.publishComment(commentData, function(err){
         if(err){
@@ -4426,7 +4417,7 @@ angular.module('donlerApp.controllers', [])
           //发送失败
           $scope.commentList[length-1].failed = true;
         }else{
-          $scope.content = '';
+          $scope.data.content = '';
         }
       });
     };
@@ -4434,7 +4425,24 @@ angular.module('donlerApp.controllers', [])
     $scope.hideEmotions = function() {
       $scope.isShowEmotions = false;
     };
+    $scope.doRefresh = function (refreshFlag) {
+      getCompetitionMessage();
+      $scope.getCompetitionComments();
+      $scope.content='';
 
+      $scope.userId = localStorage.id;
+      $scope.isWriting = false;
+      //获取新留言
+      var comments_ele = document.getElementsByClassName('comments'); // 获取滚动条
+
+      //获取个人信息供发评论使用
+      
+      User.getData($scope.userId, function(err,data){
+        $scope.currentUser = data;
+      });
+      refreshFlag && $scope.$broadcast('scroll.refreshComplete');
+    }
+    $scope.doRefresh();
   }])
   .controller('SearchOpponentController', ['$scope', '$rootScope', '$state', 'CompetitionMessage', 'Team', 'INFO', function ($scope, $rootScope, $state, CompetitionMessage, Team, INFO) {
     $scope.hasSelected = false;

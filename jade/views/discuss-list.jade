@@ -15,5 +15,6 @@ ion-view.discuss_list(ng-controller="DiscussListController")
         h2 {{chatroom.name}}
         p.chat_pre
           span(ng-show="chatroom.unread") [{{chatroom.unread}}条新消息] 
-          span(ng-if="chatroom.latestChat") {{chatroom.latestChat.poster.nickname}}:
-          span(ng-if="chatroom.latestChat" ng-bind-html=" chatroom.latestChat.content||'[图片]' | emoji | unsafe")
+          span(ng-if="chatroom.latestChat") {{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:
+          span(ng-if="chatroom.latestChat && chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content||'[图片]' | emoji | unsafe")
+          span(ng-if="chatroom.latestChat" ng-bind=" chatroom.latestChat.poster_team? '[提醒]':'[图片]'")

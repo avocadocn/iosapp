@@ -4,13 +4,14 @@
     <h1 class="title">挑战日志</h1><a ng-if="sponsorLeader &amp;&amp; competitionMessage.status=='accepted'" ng-click="sponsorCompetition()" class="button button-clear button-positive">发活动</a>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-if="competitionMessage" class="competition_message_detail">
       <div class="row">
         <div class="col">{{competitionMessage.create_time | beforeNow}}</div>
-        <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></div>
+        <div class="col"><a ng-href="#/team/{{competitionMessage.sponsor_team._id}}"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></a></div>
         <div class="col">{{competitionMessage.sponsor_team.name}}</div>
         <div class="col">VS</div>
-        <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/></div>
+        <div class="col"><a ng-href="#/team/{{competitionMessage.opposite_team._id}}"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/></a></div>
         <div class="col">{{competitionMessage.opposite_team.name}}</div>
       </div>
       <div class="row">
@@ -37,25 +38,28 @@
       </div>
     </div>
     <div ng-if="competitionMessage" class="competition_message_comment">
-      <div class="row">
-        <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="member_logo"/></div>
-        <div ng-bind-html="competitionMessage.content | emoji | unsafe" class="col"></div>
-        <div class="col">{{competitionMessage.create_time | date:"MM-dd HH:mm"}}</div>
-      </div>
-      <div ng-repeat="comment in commentList " class="row">
-        <div ng-if="comment.poster._id!==userId" class="col"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/>
-          <p>{{comment.poster.nickname}}</p>
+      <div class="comment clearfix">
+        <div class="comment_poster"><a ng-href="#/team/{{competitionMessage.sponsor_team._id}}"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></a>
+          <p>{{competitionMessage.create_date | date:"MM-dd HH:mm"}}</p>
         </div>
-        <div ng-if="comment.poster._id===userId" class="col">{{comment.create_date | date:"MM-dd HH:mm"}}</div>
-        <div ng-bind-html="comment.content | emoji | unsafe" class="col"></div>
-        <div ng-if="comment.poster._id!==userId" class="col">{{comment.create_date | date:"MM-dd HH:mm"}}</div>
-        <div ng-if="comment.poster._id===userId" class="col"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/>
+        <div class="comment_contents">
+          <p>{{competitionMessage.sponsor_team.name}}</p>
+          <div ng-bind-html="competitionMessage.content | emoji | unsafe" class="comment_content"></div>
+        </div>
+      </div>
+      <div ng-class="{'pull_right':comment.poster._id===userId}" ng-repeat="comment in commentList " class="comment clearfix">
+        <div class="comment_poster"><a ng-href="#/user/{{comment.poster._id}}"><img ng-src="{{STATIC_URL + comment.poster.photo}}/40/40" class="member_logo"/></a>
           <p>{{comment.poster.nickname}}</p>
+          <p>{{comment.create_date | date:"MM-dd HH:mm"}}</p>
+        </div>
+        <div class="comment_contents">
+          <p>{{comment.poster.nickname}}</p>
+          <div ng-bind-html="comment.content | emoji | unsafe" class="comment_content"></div>
         </div>
       </div>
     </div>
     <div ng-show="oppositeLeader || sponsorLeader" class="operator">
-      <button ng-click="dealCompetition('accept')" class="button button-small button-positive">应战</button>
+      <button ng-click="showPopup()" class="button button-small button-positive">发评论</button>
     </div>
   </ion-content>
   

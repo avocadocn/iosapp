@@ -2990,6 +2990,35 @@ a>.login .companies_list:activated {
 .competition_message_panel .competition_message_detail .vote .vote_team:last-child .vote_num {
   right: 60px;
 }
+.competition_message_panel .competition_message_comment .comment {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+.competition_message_panel .competition_message_comment .comment .comment_poster {
+  float: left;
+  width: 30%;
+}
+.competition_message_panel .competition_message_comment .comment .comment_contents {
+  float: left;
+  width: 60%;
+  background-color: #3ca2e0;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+}
+.competition_message_panel .competition_message_comment .comment.pull_right {
+  text-align: right;
+}
+.competition_message_panel .competition_message_comment .comment.pull_right .comment_poster {
+  float: right;
+}
+.competition_message_panel .competition_message_comment .comment.pull_right .comment_contents {
+  float: right;
+}
+.competition_message_panel .operator {
+  text-align: center;
+}
 .search_opponent .select_team .units .unit {
   float: left;
   width: 30%;
