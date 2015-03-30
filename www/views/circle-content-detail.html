@@ -10,7 +10,7 @@
         <div class="circle_info">
           <h2 ng-click="goToUserPage(circle.content.poster._id)" class="user_name link_name">{{circle.content.poster.nickname}}</h2>
           <div ng-controller="CircleContentController" class="circle_contents">
-            <textarea ng-model="circle.content.content" readonly="readonly"></textarea><a ng-if="showContentStatus.showOverAll" ng-click="showAllContent()" class="circle_overall">全文</a><a ng-if="showContentStatus.showPartial" ng-click="showPartialContent()" class="circle_partial">收起</a>
+            <textarea ng-model="circle.content.content" readonly="readonly" disabled="disabled"></textarea><a ng-if="showContentStatus.showOverAll" ng-click="showAllContent()" class="circle_overall">全文</a><a ng-if="showContentStatus.showPartial" ng-click="showPartialContent()" class="circle_partial">收起</a>
           </div>
           <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo="open-photo" error-img="error-img" photo="photo" pswp-id="circleContentPswpId" photos="imagesForPswp" class="preview_img"/></div>
           <div class="date_and_op clearfix"><span class="date text_item">{{circle.content.post_date | circleBeforeNow}}</span><span ng-if="circle.content.campaign_id" class="text_item">来自活动</span><a ng-if="circle.content.campaign_id" ng-href="#/campaign/detail/{{circle.content.campaign_id}}" class="link_name text_item campaign_name">{{circle.content.campaignTheme}}</a><span ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="delete text_item">删除</span><i ng-click="toggleComment(circle)" class="ion-chatbox-working op_icon"></i></div>
