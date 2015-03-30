@@ -1578,20 +1578,27 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', function ($scope, $rootScope, $ionicHistory, Socket) {
+  .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', 'Circle', function ($scope, $rootScope, $ionicHistory, Socket, Circle) {
     //每次进入页面判断是否有新评论没看
     $rootScope.newCircleComment = 0;
-    $rootScope.unReadCircleCommentRemindCount = 0;
+
+    Circle.getReminds(function(err, data) {
+      if(!err) {
+        $rootScope.hasNewComment = data.newChat;
+        $rootScope.hasNewDiscover = data.newDiscover;
+        if(data.newCircleContent) {
+          $rootScope.newContent = {photo: data.post_user_id.photo};
+        }
+        $rootScope.newCircleComment = data.newCircleComment;
+      }
+    })
+
     //socket服务器推送通知
     Socket.on('getNewCircleContent', function(photo) {
-      $rootScope.hasNewCircle = true;
-      $rootScope.newContent = true;
-      $rootScope.newContentPhoto = photo;
+      $rootScope.newContent = {photo: photo};
     });
     Socket.on('getNewCircleComment', function() {
-      $rootScope.hasNewCircle = true;
       $rootScope.newCircleComment++;
-      $rootScope.unReadCircleCommentRemindCount++;
     });
     Socket.on('newCompetitionMessage', function() {
       $rootScope.hasNewDiscover = true;
@@ -3622,24 +3629,11 @@ angular.module('donlerApp.controllers', [])
 
       function enterListPage() {
         var clearRedSpot = function () {
-          $rootScope.hasNewCircle = false;
-          $rootScope.newContent = false;
-          $rootScope.newContentPhoto = null;
-          $rootScope.newCircleComment = 0;
+          $rootScope.newContent = null;
         };
-        //todo -M
-        //监听跳转并clear
 
         $scope.goToRemindsPage = function() {
-          if ($rootScope.unReadCircleCommentRemindCount > 0) {
-            $scope.getRemind(function (hasNewRemind) {
-              if (hasNewRemind) {
-                $scope.getData();
-              }
-              $state.go('circle_reminds');
-            });
-          }
-          $rootScope.unReadCircleCommentRemindCount = 0;
+          $state.go('circle_reminds');
         };
 
         $scope.circlePswpId = 'circle_pswp_' + Date.now();
@@ -3651,48 +3645,11 @@ angular.module('donlerApp.controllers', [])
           }
         };
 
-
-        $scope.getRemind = function(callback) {
-          if (!$scope.circleContentList[0]) {
-            return;
-          }
-          Circle.getRemind({
-            last_comment_date: localStorage.lastGetCompanyCircleRemindTime,
-            latest_content_date: $scope.circleContentList[0].content.post_date
-          }).success(function(data) {
-            var newRemindList = data.slice();
-            var removeIndexes = [];
-            for (var i = 0, newRemindListLen = newRemindList.length; i < newRemindListLen; i++) {
-              for (var j = 0, remindListLen = $rootScope.remindList.length; j < remindListLen; j++) {
-                if (newRemindList[i].kind === 'appreciate' && newRemindList[i].poster._id === $rootScope.remindList[j].poster._id) {
-                  removeIndexes.push(i);
-                  break;
-                }
-              }
-            }
-            removeIndexes.forEach(function(index) {
-              newRemindList.splice(index, 1);
-            })
-
-            $rootScope.remindList = newRemindList.concat($rootScope.remindList);
-            localStorage.lastGetCompanyCircleRemindTime = Date.now();
-
-            if (callback) {
-              var hasNewRemind = (newRemindList.length > 0);
-              callback(hasNewRemind);
-            }
-
-          })
-          .error(function(data) {
-            console.log(data.msg || '获取提醒失败');
-            // TODO: 这里即使失败了也不必提醒用户
-          });
-        };
-
         $scope.getData = function(callback) {
           // 先获取一次
           Circle.getCompanyCircle()
           .success(function (data) {
+            localStorage.lastGetCircleTime = new Date();
             data.forEach(function (circle) {
               $scope.pickAppreciateAndComments(circle);
             });
@@ -3722,7 +3679,7 @@ angular.module('donlerApp.controllers', [])
           });
         }
         else {
-          if ($rootScope.unReadCircleCommentRemindCount > 0 || $rootScope.newContent === true) {
+          if ($rootScope.newCircleComment > 0 || $rootScope.newContent === true) {
             $scope.getData();
           }
         }
@@ -3766,6 +3723,7 @@ angular.module('donlerApp.controllers', [])
           var latestContentDate = $scope.circleContentList[0].content.post_date;
           Circle.getCompanyCircle(latestContentDate, null)
           .success(function (data) {
+            localStorage.lastGetCircleTime = new Date();
             data.forEach(function (circle) {
               $scope.pickAppreciateAndComments(circle);
             });
@@ -4101,7 +4059,41 @@ angular.module('donlerApp.controllers', [])
     '$rootScope',
     '$ionicHistory',
     '$state',
-    function($scope, $rootScope, $ionicHistory, $state) {
+    'Circle',
+    function($scope, $rootScope, $ionicHistory, $state, Circle) {
+      //每次进来以后获取新的reminds
+      $scope.$on("$ionicView.enter", function(scopes, states) {
+        $rootScope.newCircleComment = 0;
+        getRemind();
+      });
+
+      var getRemind = function() {
+        Circle.getRemindComments({
+          last_comment_date: localStorage.lastGetCompanyCircleRemindTime
+        }).success(function(data) {
+          var newRemindList = data.slice();
+          var removeIndexes = [];
+          for (var i = 0, newRemindListLen = newRemindList.length; i < newRemindListLen; i++) {
+            for (var j = 0, remindListLen = $scope.remindList.length; j < remindListLen; j++) {
+              if (newRemindList[i].kind === 'appreciate' && newRemindList[i].poster._id === $scope.remindList[j].poster._id) {
+                removeIndexes.push(i);
+                break;
+              }
+            }
+          }
+          for(var i= removeIndexes.length-1; i>=0; i--) {
+            newRemindList.splice(i,1);
+          }
+
+          $scope.remindList = newRemindList.concat($scope.remindList);
+          localStorage.lastGetCompanyCircleRemindTime = Date.now();
+        })
+        .error(function(data) {
+          console.log(data.msg || '获取提醒失败');
+          // TODO: 这里即使失败了也不必提醒用户
+        });
+      };
+
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();

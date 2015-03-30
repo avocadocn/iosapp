@@ -1527,8 +1527,21 @@ angular.module('donlerApp.services', [])
       /**
        * 获取新消息提醒
        */
-      getRemind: function(queryData) {
+      getRemindComments: function(queryData) {
         return $http.get(CONFIG.BASE_URL + '/circle_reminds/comments', {params: queryData});
+      },
+
+      getReminds: function(callback) {
+        $http.get(CONFIG.BASE_URL + '/circle_reminds', {
+          params: {
+            last_read_time: localStorage.lastGetCircleTime || new Date(),
+            last_comment_date: localStorage.lastGetCompanyCircleRemindTime || new Date()
+          }
+        }).success(function(data, status) {
+          callback(null, data);
+        }).error(function(data, status) {
+          callback('err');
+        });
       }
 
     };
