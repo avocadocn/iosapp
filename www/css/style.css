@@ -1473,6 +1473,9 @@ a>.login .companies_list:activated {
 .contacts .search_box input {
   background-color: #fff;
 }
+.contacts .bar {
+  padding: 0;
+}
 .settings_account a.item {
   color: #444;
 }
@@ -2553,6 +2556,7 @@ a>.login .companies_list:activated {
 .circle_company_page .circle_comment_box,
 .circle_content_detail_page .circle_comment_box {
   z-index: 101;
+  padding: 5px;
 }
 .circle_company_page .circle_comment_box.show_emotion_box,
 .circle_content_detail_page .circle_comment_box.show_emotion_box {
