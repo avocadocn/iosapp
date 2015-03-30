@@ -4099,20 +4099,23 @@ angular.module('donlerApp.controllers', [])
   .controller('CircleContentController', [
     '$scope',
     '$element',
-    function($scope, $element) {
+    '$document',
+    '$timeout',
+    function($scope, $element, $document, $timeout) {
       // 文本多行显示
       $scope.showContentStatus = {
         showOverAll: false,
         showPartial: false
       };
-      // console.log($element);
-      $element.ready(function() {
+
+      $element.children().ready(function() {
         var ele = $element.children()[0];
         if (ele.scrollHeight > 64) {
           ele.style.height = 'auto';
           ele.style.height = 64 + "px";
-          $scope.showContentStatus.showOverAll = true;
-          // console.log($element.children()[0].scrollHeight);
+          $timeout(function(){
+            $scope.showContentStatus.showOverAll = true;
+          }, 10);
         } else {
           ele.style.height = 'auto';
           ele.style.height = ele.scrollHeight + "px";
