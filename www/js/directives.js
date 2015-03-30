@@ -220,6 +220,16 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           scope.content += '['+ dict[emotion] +']';
         };
 
+        var textAreaEle = document.getElementById('ta');
+        scope.change = function() {
+          textAreaEle.style.height = 'auto';
+          textAreaEle.style.height = textAreaEle.scrollHeight + 'px';
+        };
+
+        scope.clear = function() {
+          textAreaEle.style.height = 'auto';
+        };
+
         // var ta = document.getElementById('ta');
 
         //获取字符串真实长度，供计算高度用
