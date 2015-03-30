@@ -680,6 +680,7 @@ angular.module('donlerApp.controllers', [])
     $scope.chatroomId = $stateParams.chatroomId;
     $scope.chatroomName = INFO.chatroomName;
     $scope.userId = localStorage.id;
+    $scope.cid = localStorage.cid;
     Socket.emit('quitRoom');
     Socket.emit('enterRoom', $scope.chatroomId);
     $scope.chatsList = [];
@@ -3621,14 +3622,13 @@ angular.module('donlerApp.controllers', [])
         var isListPage = (states.stateName === 'circle_company');
         if (isListPage) {
           enterListPage();
-        }
-        else {
+        } else {
           enterDetailPage();
         }
       });
 
       function enterListPage() {
-        var clearRedSpot = function () {
+        var clearRedSpot = function() {
           $rootScope.newContent = null;
         };
 
@@ -3648,37 +3648,35 @@ angular.module('donlerApp.controllers', [])
         $scope.getData = function(callback) {
           // 先获取一次
           Circle.getCompanyCircle()
-          .success(function (data) {
-            localStorage.lastGetCircleTime = new Date();
-            data.forEach(function (circle) {
-              $scope.pickAppreciateAndComments(circle);
+            .success(function(data) {
+              localStorage.lastGetCircleTime = new Date();
+              data.forEach(function(circle) {
+                $scope.pickAppreciateAndComments(circle);
+              });
+              $scope.circleContentList = data;
+              $scope.loadingStatus.hasInit = true;
+              if (data.length >= pageLength) {
+                $scope.loadingStatus.hasMore = true;
+              } else {
+                $scope.loadingStatus.hasMore = false;
+              }
+              copyPhotosToPswp();
+              if (callback) {
+                callback();
+              }
+            })
+            .error(function(data, status) {
+              if (status !== 404) {
+                $scope.ionicAlert(data.msg || '获取失败');
+              }
             });
-            $scope.circleContentList = data;
-            $scope.loadingStatus.hasInit = true;
-            if (data.length >= pageLength) {
-              $scope.loadingStatus.hasMore = true;
-            }
-            else {
-              $scope.loadingStatus.hasMore = false;
-            }
-            copyPhotosToPswp();
-            if (callback) {
-              callback();
-            }
-          })
-          .error(function (data, status) {
-            if (status !== 404) {
-              $scope.ionicAlert(data.msg || '获取失败');
-            }
-          });
         };
 
         if (!hasInit) {
           $scope.getData(function() {
             hasInit = true;
           });
-        }
-        else {
+        } else {
           if ($rootScope.newCircleComment > 0 || $rootScope.newContent === true) {
             $scope.getData();
           }
@@ -3694,7 +3692,7 @@ angular.module('donlerApp.controllers', [])
         var pageLength = 20; // 一次获取的数据量
 
         // 复制图片地址到一个数组供预览大图用
-        var copyPhotosToPswp = function () {
+        var copyPhotosToPswp = function() {
           $scope.imagesForPswp = [];
           var id = 0;
           for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
@@ -3722,26 +3720,26 @@ angular.module('donlerApp.controllers', [])
         $scope.refresh = function() {
           var latestContentDate = $scope.circleContentList[0].content.post_date;
           Circle.getCompanyCircle(latestContentDate, null)
-          .success(function (data, status) {
-            localStorage.lastGetCircleTime = new Date();
-            if(data.length) {
-              data.forEach(function (circle) {
-                $scope.pickAppreciateAndComments(circle);
-              });
-              $scope.circleContentList = (data || []).concat($scope.circleContentList);
-            }
-            copyPhotosToPswp();
-            $scope.$broadcast('scroll.refreshComplete');
-          })
-          .error(function (data, status) {
-            if (status !== 404) {
-              $scope.ionicAlert(data.msg || '获取失败');
-            }
-            $scope.$broadcast('scroll.refreshComplete');
-          });
+            .success(function(data, status) {
+              localStorage.lastGetCircleTime = new Date();
+              if (data.length) {
+                data.forEach(function(circle) {
+                  $scope.pickAppreciateAndComments(circle);
+                });
+                $scope.circleContentList = (data || []).concat($scope.circleContentList);
+              }
+              copyPhotosToPswp();
+              $scope.$broadcast('scroll.refreshComplete');
+            })
+            .error(function(data, status) {
+              if (status !== 404) {
+                $scope.ionicAlert(data.msg || '获取失败');
+              }
+              $scope.$broadcast('scroll.refreshComplete');
+            });
         };
 
-        $scope.loadMore = function () {
+        $scope.loadMore = function() {
           if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
             return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
           }
@@ -3749,25 +3747,27 @@ angular.module('donlerApp.controllers', [])
           var pos = $scope.circleContentList.length - 1;
           var lastContentDate = $scope.circleContentList[pos].content.post_date;
           Circle.getCompanyCircle(null, lastContentDate)
-          .success(function (data) {
-            data.forEach(function (circle) {
-              $scope.pickAppreciateAndComments(circle);
+            .success(function(data) {
+              if (data.length) {
+                data.forEach(function(circle) {
+                  $scope.pickAppreciateAndComments(circle);
+                });
+                $scope.circleContentList = $scope.circleContentList.concat(data);
+                $scope.loadingStatus.loading = false;
+                copyPhotosToPswp();
+              }
+
+              $scope.$broadcast('scroll.infiniteScrollComplete');
+            })
+            .error(function(data, status) {
+              if (status !== 404) {
+                $scope.ionicAlert(data.msg || '获取失败');
+              } else {
+                $scope.loadingStatus.hasMore = false;
+              }
+              $scope.loadingStatus.loading = false;
+              $scope.$broadcast('scroll.infiniteScrollComplete');
             });
-            $scope.circleContentList = $scope.circleContentList.concat(data);
-            $scope.loadingStatus.loading = false;
-            copyPhotosToPswp();
-            $scope.$broadcast('scroll.infiniteScrollComplete');
-          })
-          .error(function (data, status) {
-            if (status !== 404) {
-              $scope.ionicAlert(data.msg || '获取失败');
-            }
-            else {
-              $scope.loadingStatus.hasMore = false;
-            }
-            $scope.loadingStatus.loading = false;
-            $scope.$broadcast('scroll.infiniteScrollComplete');
-          });
         };
 
 
@@ -3832,27 +3832,29 @@ angular.module('donlerApp.controllers', [])
         };
 
         $scope.goToUserPage = function(id) {
-          $state.go('user_info', {userId: id});
+          $state.go('user_info', {
+            userId: id
+          });
         };
 
         // 将赞和评论分别抽取出来
-        $scope.pickAppreciateAndComments = function (circle) {
+        $scope.pickAppreciateAndComments = function(circle) {
           circle.appreciate = [];
           circle.textComments = [];
           for (var i = 0, commentsLen = circle.comments.length; i < commentsLen; i++) {
             var comment = circle.comments[i];
             switch (comment.kind) {
-            case 'appreciate':
-              circle.appreciate.push(comment);
-              break;
-            case 'comment':
-              circle.textComments.push(comment);
-              break;
+              case 'appreciate':
+                circle.appreciate.push(comment);
+                break;
+              case 'comment':
+                circle.textComments.push(comment);
+                break;
             }
           }
         };
 
-        $scope.deleteCircleContent = function (circle) {
+        $scope.deleteCircleContent = function(circle) {
           var confirmPopup = $ionicPopup.confirm({
             title: '提示',
             template: '确定删除吗?',
@@ -3864,32 +3866,31 @@ angular.module('donlerApp.controllers', [])
               var index = Tools.arrayObjectIndexOf($scope.circleContentList, circle.content._id, 'content._id');
 
               Circle.deleteCompanyCircle(circle.content._id)
-                .success(function (data) {
+                .success(function(data) {
                   $scope.circleContentList.splice(index, 1);
                   $scope.ionicAlert('删除成功');
                 })
-                .error(function (data) {
+                .error(function(data) {
                   $scope.ionicAlert(data.msg || '删除失败');
                 });
             }
           });
         };
 
-        $scope.toggleComment = function (circle) {
+        $scope.toggleComment = function(circle) {
           if ($scope.targetCommentCircle && $scope.targetCommentCircle.content._id !== circle.content._id) {
             $scope.targetCommentCircle.isToComment = false;
           }
           $scope.targetCommentCircle = circle;
           if (circle.isToComment === undefined) {
             circle.isToComment = true;
-          }
-          else {
+          } else {
             circle.isToComment = !circle.isToComment;
           }
         };
 
         // 打开评论输入框
-        $scope.openCommentBox = function (circle) {
+        $scope.openCommentBox = function(circle) {
           $scope.isCommenting = true;
           $scope.isOnlyToContent = true;
           $scope.commentPlaceholderText = '';
@@ -3911,16 +3912,16 @@ angular.module('donlerApp.controllers', [])
         var emoji = Emoji.getEmojiList();
         var dict = Emoji.getEmojiDict();
 
-        for(var i =0; emoji.length>24 ;i++) {
-          $scope.emojiList.push(emoji.splice(24,24));
+        for (var i = 0; emoji.length > 24; i++) {
+          $scope.emojiList.push(emoji.splice(24, 24));
         }
         $scope.emojiList.unshift(emoji);
         $scope.addEmotion = function(emotion) {
-          $scope.commentFormData.content += '['+ dict[emotion] +']';
+          $scope.commentFormData.content += '[' + dict[emotion] + ']';
         };
 
         // 发表评论
-        $scope.comment = function () {
+        $scope.comment = function() {
           if (!$scope.commentFormData.content || $scope.commentFormData.content === '') {
             $scope.stopComment();
             return;
@@ -3941,7 +3942,7 @@ angular.module('donlerApp.controllers', [])
           }
 
           Circle.comment($scope.targetCommentCircle.content._id, postData)
-            .success(function (data) {
+            .success(function(data) {
               $scope.targetCommentCircle.textComments.push(data.circleComment);
               $ionicLoading.hide();
               $scope.stopComment();
@@ -3949,28 +3950,27 @@ angular.module('donlerApp.controllers', [])
               $scope.targetUserId = null;
               $scope.commentPlaceholderText = '';
             })
-            .error(function (data) {
+            .error(function(data) {
               $scope.ionicAlert(data.msg || '操作失败');
             });
 
         };
 
-        $scope.replyTo = function (circle, comment) {
+        $scope.replyTo = function(circle, comment) {
           $scope.isCommenting = true;
           $scope.targetCommentCircle = circle;
           if (comment.post_user_id === $scope.user._id) {
             // 将回复自己的评论转为回复内容
             $scope.isOnlyToContent = true;
             $scope.commentPlaceholderText = '';
-          }
-          else {
+          } else {
             $scope.isOnlyToContent = false;
             $scope.targetUserId = comment.post_user_id;
             $scope.commentPlaceholderText = '回复 ' + comment.poster.nickname;
           }
         };
 
-        $scope.stopComment = function () {
+        $scope.stopComment = function() {
           $scope.isCommenting = false;
           $scope.targetCommentCircle.isToComment = false;
           $scope.targetCommentCircle = null;
@@ -3978,18 +3978,18 @@ angular.module('donlerApp.controllers', [])
         };
 
         // 赞
-        $scope.appreciate = function (circle) {
+        $scope.appreciate = function(circle) {
           Circle.comment(circle.content._id, {
-            kind: 'appreciate',
-            is_only_to_content: true
-          })
-            .success(function (data) {
+              kind: 'appreciate',
+              is_only_to_content: true
+            })
+            .success(function(data) {
               $scope.targetCommentCircle.isToComment = false;
               $scope.targetCommentCircle = null;
               $scope.isCommenting = false;
               circle.appreciate.push(data.circleComment);
             })
-            .error(function (data) {
+            .error(function(data) {
               $scope.ionicAlert(data.msg || '操作失败');
             });
         };
@@ -4002,8 +4002,7 @@ angular.module('donlerApp.controllers', [])
           hideDeleteActionSheet = $ionicActionSheet.show({
             destructiveText: '删除',
             cancelText: '取消',
-            cancel: function() {
-            },
+            cancel: function() {},
             destructiveButtonClicked: function() {
               $scope.deleteComment(comment._id, ownerArray);
             }
@@ -4032,23 +4031,23 @@ angular.module('donlerApp.controllers', [])
         // 删除评论或赞
         $scope.deleteComment = function(id, ownerArray) {
           Circle.deleteComment(id)
-          .success(function(data) {
-            if (hideDeleteActionSheet) {
-              hideDeleteActionSheet();
-            }
-            for (var i = 0, arrLen = ownerArray.length; i < arrLen; i++) {
-              if (ownerArray[i]._id === id) {
-                ownerArray.splice(i, 1);
-                break;
+            .success(function(data) {
+              if (hideDeleteActionSheet) {
+                hideDeleteActionSheet();
               }
-            }
-            $scope.targetCommentCircle.isToComment = false;
-            $scope.targetCommentCircle = null;
-            $scope.isCommenting = false;
-          })
-          .error(function(data) {
-            $scope.ionicAlert(data.msg || '删除失败');
-          });
+              for (var i = 0, arrLen = ownerArray.length; i < arrLen; i++) {
+                if (ownerArray[i]._id === id) {
+                  ownerArray.splice(i, 1);
+                  break;
+                }
+              }
+              $scope.targetCommentCircle.isToComment = false;
+              $scope.targetCommentCircle = null;
+              $scope.isCommenting = false;
+            })
+            .error(function(data) {
+              $scope.ionicAlert(data.msg || '删除失败');
+            });
         };
 
       }());
@@ -4095,7 +4094,53 @@ angular.module('donlerApp.controllers', [])
           // TODO: 这里即使失败了也不必提醒用户
         });
       };
+    }
+  ])
+  .controller('CircleContentController', [
+    '$scope',
+    '$element',
+    function($scope, $element) {
+      // 文本多行显示
+      $scope.showContentStatus = {
+        showOverAll: false,
+        showPartial: false
+      };
+      // console.log($element);
+      $element.ready(function() {
+        var ele = $element.children()[0];
+        if (ele.scrollHeight > 64) {
+          ele.style.height = 'auto';
+          ele.style.height = 64 + "px";
+          $scope.showContentStatus.showOverAll = true;
+          // console.log($element.children()[0].scrollHeight);
+        } else {
+          ele.style.height = 'auto';
+          ele.style.height = ele.scrollHeight + "px";
+        }
+      });
 
+      $scope.showAllContent = function() {
+        var element = $element.children()[0];
+        $scope.showContentStatus.showOverAll = false;
+        $scope.showContentStatus.showPartial = true;
+        element.style.height = 'auto';
+        element.style.height = element.scrollHeight + "px";
+      }
+
+      $scope.showPartialContent = function() {
+        var element = $element.children()[0];
+        $scope.showContentStatus.showOverAll = true;
+        $scope.showContentStatus.showPartial = false;
+        element.style.height = 'auto';
+        element.style.height = 64 + "px";
+      }
+    }
+  ])
+  .controller('CircleRemindsController', [
+    '$scope',
+    '$rootScope',
+    '$ionicHistory',
+    function($scope, $rootScope, $ionicHistory) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();

@@ -833,6 +833,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   .icon-right
     width 40px
     margin-top 3px
+  .ion_teams
+    position absolute
+    min-height 40px
+    right 10px
+    top 0
+    margin-top 0
+
   //- .balloon
   //-   position absolute
   //-   right 10px
@@ -1264,6 +1271,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       background-color #fff
     input
       background-color #fff
+  .bar
+    padding 0
 //-账号设置页
 .settings_account
   a.item
@@ -2205,6 +2214,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     background-color transparent
   .circle_comment_box
     z-index 101
+    padding 5px
     &.show_emotion_box
       bottom 160px
   .emotion_box
@@ -2243,7 +2253,15 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     right 16px
     width 40px
     height 40px
-
+.circle_overall, .circle_partial
+  color col_darkBlue
+.circle_contents
+  textarea[readonly]
+    overflow hidden
+    padding 0px
+    resize none
+    max-height 560px
+    background-color #fff
 .dl_circle_company_card
   dl_card()
   position relative

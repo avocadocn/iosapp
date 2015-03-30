@@ -3,13 +3,15 @@ mixin circleCampaignCardInner(pswpIdName)
   .circle_info
     h2.user_name.link_name(ng-click="goToUserPage(circle.content.poster._id)") {{circle.content.poster.nickname}}
     p.circle_content {{circle.content.content}}
+          //-   .circle_contents(ng-controller="CircleContentController")
+          //- textarea(ng-model="circle.content.content" readonly)
+          //- a.circle_overall(ng-if="showContentStatus.showOverAll" ng-click="showAllContent()") 全文
+          //- a.circle_partial(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
     .image_box.clearfix
       img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo error-img photo="photo" pswp-id="#{pswpIdName}" photos="imagesForPswp")
-    .date_and_op.clearfix
-      span.date.text_item {{circle.content.post_date | circleBeforeNow}}
-      span.text_item(ng-if="circle.content.campaign_id") 来自活动
-      a.link_name.text_item.campaign_name(ng-if="circle.content.campaign_id" ng-href="#/campaign/detail/{{circle.content.campaign_id}}") {{circle.content.campaignTheme}}
-      span.delete.text_item(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
+    .date_and_op
+      span.date {{circle.content.post_date | beforeNow}}
+      span.delete(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
       i.ion-chatbox-working.op_icon(ng-click="toggleComment(circle)")
     .comment_op.clearfix(ng-if="circle.isToComment")
       .op_box.clearfix
@@ -47,10 +49,10 @@ mixin commentBox()
   .comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
 
   .bar.bar-footer.item-input-inset.circle_comment_box(ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}")
-    form.item-input-wrapper(name="publishCommentForm")
+    .item-input-wrapper
       i.icon.ion-happy.placeholder-icon(ng-click="toggleEmotions()")
-      input(type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" mix-max-length="80")
-    button.button.button-clear(ng-click="comment()" ng-disabled="publishCommentForm.$invalid") 发表
+      input(type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" required)
+    button.button.button-clear(ng-click="comment()") 发表
   ion-slide-box.emotion_box(ng-if="isShowEmotions")
     ion-slide(ng-repeat="emoji in emojiList")
       .box.clearfix

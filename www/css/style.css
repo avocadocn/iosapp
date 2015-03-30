@@ -985,6 +985,13 @@ a>.login .companies_list:activated {
   width: 40px;
   margin-top: 3px;
 }
+.discuss_detail .ion_teams {
+  position: absolute;
+  min-height: 40px;
+  right: 10px;
+  top: 0;
+  margin-top: 0;
+}
 .discuss_detail .notice.show {
   display: block;
 }
@@ -1465,6 +1472,9 @@ a>.login .companies_list:activated {
 }
 .contacts .search_box input {
   background-color: #fff;
+}
+.contacts .bar {
+  padding: 0;
 }
 .settings_account a.item {
   color: #444;
@@ -2546,6 +2556,7 @@ a>.login .companies_list:activated {
 .circle_company_page .circle_comment_box,
 .circle_content_detail_page .circle_comment_box {
   z-index: 101;
+  padding: 5px;
 }
 .circle_company_page .circle_comment_box.show_emotion_box,
 .circle_content_detail_page .circle_comment_box.show_emotion_box {
@@ -2598,6 +2609,17 @@ a>.login .companies_list:activated {
   right: 16px;
   width: 40px;
   height: 40px;
+}
+.circle_overall,
+.circle_partial {
+  color: #618bd7;
+}
+.circle_contents textarea[readonly] {
+  overflow: hidden;
+  padding: 0px;
+  resize: none;
+  max-height: 560px;
+  background-color: #fff;
 }
 .dl_circle_company_card {
   display: block;
