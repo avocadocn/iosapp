@@ -3722,12 +3722,14 @@ angular.module('donlerApp.controllers', [])
         $scope.refresh = function() {
           var latestContentDate = $scope.circleContentList[0].content.post_date;
           Circle.getCompanyCircle(latestContentDate, null)
-          .success(function (data) {
+          .success(function (data, status) {
             localStorage.lastGetCircleTime = new Date();
-            data.forEach(function (circle) {
-              $scope.pickAppreciateAndComments(circle);
-            });
-            $scope.circleContentList = (data || []).concat($scope.circleContentList);
+            if(data.length) {
+              data.forEach(function (circle) {
+                $scope.pickAppreciateAndComments(circle);
+              });
+              $scope.circleContentList = (data || []).concat($scope.circleContentList);
+            }
             copyPhotosToPswp();
             $scope.$broadcast('scroll.refreshComplete');
           })

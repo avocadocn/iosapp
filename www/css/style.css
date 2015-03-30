@@ -1387,6 +1387,7 @@ a>.login .companies_list:activated {
 }
 .company .list .item:first-child {
   border-top: 0;
+  height: 54px;
 }
 .company .list .item .icon {
   width: 3rem;
@@ -1400,15 +1401,32 @@ a>.login .companies_list:activated {
 .company .list .item .item-note {
   color: #3ca2e0;
 }
-.company .list .item .badge_dot {
+.company .list .item .badge {
   background-color: #ff5724;
-  width: 20px;
-  height: 20px;
+  padding: 2px 6px 1px;
+  top: 17px;
+  font-size: 12px;
+  margin-left: 4px;
+  right: auto;
   display: inline-block;
+}
+.company .list .item .badge_image {
+  float: right;
+  margin-top: -6px;
+  position: relative;
+}
+.company .list .item .badge_image .red_spot {
+  background-color: #f48361;
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
   border-radius: 100%;
-  color: #fff;
-  text-align: center;
-  margin-left: 10px;
+  right: -0.5rem;
+  top: -0.5rem;
+}
+.company .list .item .badge_image .logo {
+  width: 34px;
+  height: 34px;
 }
 .personal .list,
 .settings .list,
@@ -2511,7 +2529,7 @@ a>.login .companies_list:activated {
   height: 36px;
   line-height: 36px;
   color: #fff;
-  background-color: #000;
+  background-color: #666;
   text-align: center;
   text-decoration: none;
 }

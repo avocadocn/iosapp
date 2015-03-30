@@ -15,8 +15,8 @@ ion-view.circle_company_page
       a.circle_user_name {{user.nickname}}
       img.circle_user_image(ng-src="{{STATIC_URL + user.photo}}/70/70")
     
-    div(ng-if="unReadCircleCommentRemindCount > 0")
-      .remind_box(ng-click="goToRemindsPage()") {{unReadCircleCommentRemindCount}}条新消息
+    div(ng-if="newCircleComment > 0")
+      .remind_box(ng-click="goToRemindsPage()") {{newCircleComment}}条新消息
     
     +circleCampaignCard('circle in circleContentList', 'circlePswpId')
       
