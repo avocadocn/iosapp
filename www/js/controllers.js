@@ -4138,6 +4138,10 @@ angular.module('donlerApp.controllers', [])
         content: ''
       };
 
+      $scope.formCtrl = {
+        unOverMax: true
+      };
+
       $scope.uploadFileURIs = Circle.getUploadImages();
 
       $scope.change = function() {

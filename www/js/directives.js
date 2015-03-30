@@ -630,11 +630,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 .directive('whenFocus', ['$timeout', function ($timeout) {
   return {
     restrict: 'A',
-    scope: {
-      whenFocus: '='
-    },
     link: function (scope, ele, attrs, ctrl) {
-      scope.$watch('whenFocus', function (newVal) {
+      scope.$watch(attrs.whenFocus, function (newVal) {
         if (newVal) {
           $timeout(function () {
             ele[0].focus();
@@ -838,15 +835,25 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 .directive('mixMaxLength', function() {
   return {
     restrict: 'A',
+    scope: {
+      mixMaxLengthValid: '=',
+      model: '=ngModel'
+    },
     require: 'ngModel',
     link: function(scope, ele, attrs, ngModel) {
-      scope.$watch(attrs.ngModel, function(newVal, oldVal) {
+      scope.$watch('model', function(newVal, oldVal) {
         if (newVal) {
           var resText = newVal.replace(/[\u4e00-\u9fa5]/g, '**');
           if (resText.length > attrs.mixMaxLength) {
+            if (scope.mixMaxLengthValid !== undefined) {
+              scope.mixMaxLengthValid = false;
+            }
             ngModel.$setValidity('mixlength', false);
           }
           else {
+            if (scope.mixMaxLengthValid !== undefined) {
+              scope.mixMaxLengthValid = true;
+            }
             ngModel.$setValidity('mixlength', true);
           }
         }
@@ -854,4 +861,3 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   };
 })
-
