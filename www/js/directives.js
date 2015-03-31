@@ -885,13 +885,10 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       onClickContentImg: '=', // 点击图片的事件
       staticUrl: '=' // 静态资源的baseUrl
     },
-    controller: function() {
-      this.currentCommentCircle = null; // 当前操作的circleContent，仅用于控制不出现多个展开的评论操作按钮组
-    },
     link: function(scope, ele, attrs, ctrl) {
 
       scope.currentCardIndex = 0;
-      scope.onCardClickCommentButton = function(placeHolderText, circle) {
+      scope.onClickCardCommentButton = function(placeHolderText, circle) {
         for (var i = 0, listLen = scope.circleList.length; i < listLen; i++) {
           if (scope.circleList[i].content._id === circle.content._id) {
             scope.currentCardIndex = i;
@@ -938,7 +935,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
 .directive('circleCard', ['Circle', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$state', function(Circle, $ionicPopup, $ionicLoading, $ionicActionSheet, $state) {
   return {
-    require: '^circleCardList',
     restrict: 'E',
     transclude: true,
     scope: {
@@ -976,10 +972,10 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       };
 
       scope.toggleComment = function() {
-        if (ctrl.currentCommentCircle && ctrl.currentCommentCircle !== scope.circle) {
-          ctrl.currentCommentCircle.isToComment = false;
-          ctrl.currentCommentCircle = scope.circle;
-        }
+        // if (ctrl.currentCommentCircle && ctrl.currentCommentCircle !== scope.circle) {
+        //   ctrl.currentCommentCircle.isToComment = false;
+        //   ctrl.currentCommentCircle = scope.circle;
+        // }
         scope.circle.isToComment = !scope.circle.isToComment;
       };
 

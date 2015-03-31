@@ -1542,6 +1542,22 @@ angular.module('donlerApp.services', [])
         }).error(function(data, status) {
           callback('err');
         });
+      },
+
+      pickAppreciateAndComments: function(circle) {
+        circle.appreciate = [];
+        circle.textComments = [];
+        for (var i = 0, commentsLen = circle.comments.length; i < commentsLen; i++) {
+          var comment = circle.comments[i];
+          switch (comment.kind) {
+            case 'appreciate':
+              circle.appreciate.push(comment);
+              break;
+            case 'comment':
+              circle.textComments.push(comment);
+              break;
+          }
+        }
       }
 
     };

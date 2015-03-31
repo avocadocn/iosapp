@@ -7,8 +7,8 @@ ion-view.circle_content_detail_page
   
   ion-content
     div(ng-if="circle")
-      +circleCampaignCard(null, 'circleContentPswpId')
+      circle-card(circle="circle" ctrl="circleCardCtrl" user="user" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-delete="onDelete" static-url="STATIC_URL")
   
   //- 与ion-content同级
-  +commentBox()
+  circle-comment-box(ctrl="circleCommentBoxCtrl" on-post="postComment")
   +pswp('circleContentPswpId')

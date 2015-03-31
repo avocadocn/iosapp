@@ -6,46 +6,10 @@
   </ion-header-bar>
   <ion-content>
     <div ng-if="circle">
-      <div class="dl_circle_company_card clearfix"><img ng-src="{{STATIC_URL + circle.content.poster.photo}}/32/32" class="circle_company_logo"/>
-        <div class="circle_info">
-          <h2 ng-click="goToUserPage(circle.content.poster._id)" class="user_name link_name">{{circle.content.poster.nickname}}</h2>
-          <div ng-controller="CircleContentController" class="circle_contents">
-            <textarea ng-model="circle.content.content" ng-readonly="true"></textarea><a ng-if="showContentStatus.showOverAll" ng-click="showAllContent()" class="circle_overall">全文</a><a ng-if="showContentStatus.showPartial" ng-click="showPartialContent()" class="circle_partial">收起</a>
-          </div>
-          <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{STATIC_URL + photo.uri}}/128/128" open-photo="open-photo" error-img="error-img" photo="photo" pswp-id="circleContentPswpId" photos="imagesForPswp" class="preview_img"/></div>
-          <div class="date_and_op"><span class="date">{{circle.content.post_date | beforeNow}}</span><span ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="delete">删除</span><i ng-click="toggleComment(circle)" class="ion-chatbox-working op_icon"></i></div>
-          <div ng-if="circle.isToComment" class="comment_op clearfix">
-            <div class="op_box clearfix">
-              <div ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)" class="op_item"><i class="ion-heart"></i>&nbsp;赞</div>
-              <div ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak="ng-cloak" class="op_item"><i class="ion-heart"></i>&nbsp;取消</div>
-              <div class="op_divider"></div>
-              <div ng-click="openCommentBox(circle)" class="op_item"><i class="ion-chatbox-working"></i>&nbsp;评论</div>
-            </div>
-          </div>
-        </div>
-        <div class="circle_comment_list">
-          <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><i class="ion-heart appreciate_icon"></i><a ng-repeat="appr in circle.appreciate" ng-href="#/user/{{appr.poster._id}}" class="appreciate link_name">{{appr.poster.nickname}}</a></div>
-          <div ng-if="circle.textComments.length &gt; 0" class="comment_container">
-            <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)" class="comment"><span ng-click="goToUserPage(comment.poster._id)" prevent-default="prevent-default" class="nickname link_name">{{comment.poster.nickname}}</span><span ng-if="!comment.is_only_to_content" ng-cloak="ng-cloak" class="reply_text">回复</span><span ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default="prevent-default" ng-cloak="ng-cloak" class="reply_to link_name">{{comment.target.nickname}}</span><span class="colon">:</span><span ng-bind-html="comment.content | emoji | unsafe" class="content"></span></div>
-          </div>
-        </div>
-      </div>
+      <circle-card circle="circle" ctrl="circleCardCtrl" user="user" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-delete="onDelete" static-url="STATIC_URL"></circle-card>
     </div>
   </ion-content>
-  <div ng-if="isCommenting" ng-click="stopComment()" class="comment_wrap"></div>
-  <div ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}" class="bar bar-footer item-input-inset circle_comment_box">
-    <div class="item-input-wrapper"><i ng-click="toggleEmotions()" class="icon ion-happy placeholder-icon"></i>
-      <input type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{commentPlaceholderText}}" required="required"/>
-    </div>
-    <button ng-click="comment()" class="button button-clear">发表</button>
-  </div>
-  <ion-slide-box ng-if="isShowEmotions" class="emotion_box">
-    <ion-slide ng-repeat="emoji in emojiList">
-      <div class="box clearfix">
-        <div ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emotion"><i class="emoji {{'emoji_'+emotion}}"></i></div>
-      </div>
-    </ion-slide>
-  </ion-slide-box>
+  <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment"></circle-comment-box>
   <div tabindex="-1" role="dialog" aria-hidden="true" id="{{circleContentPswpId}}" class="pswp">
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
