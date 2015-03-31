@@ -11,6 +11,9 @@ col_iconPurple = #6a73c6
 col_borderPurple = #806dd0
 col_textPurple = #9e6dd0
 col_lightGray = #676767
+col_bottomGray = #f7f7f7
+col_borderGray = #c9c9c9
+col_textBlack = #707070
 
 // mixins
 dl_card()
@@ -111,19 +114,13 @@ body
     .campaign_container
       .campaign_container_title
         font-size 16px
-        margin-left 1rem
-        padding-top 1rem
-        color col_blue
-        // &.icon_blue
-        //   color col_blue
-        // &.icon_darkBlue
-        //   color col_darkBlue
-        // &.icon_iconPurple
-        //   color col_iconPurple
-        // &.icon_borderPurple
-        //   color col_borderPurple
-        // &.icon_textPurple
-        //   color col_textPurple
+        background-color col_bottomGray
+        border 1px solid col_borderGray
+        border-top 0
+        padding 3px 10px
+        color #707070
+        font-size 11px
+
 .dl_card
   position relative
   dl_card()
@@ -140,7 +137,7 @@ body
       .dl_card_header_info
         width 100%
         padding-left 70px
-        padding-right 70px
+        //- padding-right 70px
         .dl_cp_name, .dl_cp_address
           margin 0
           width 100%
@@ -292,6 +289,94 @@ body
     .dl_cp_cancel
       display block
       margin 0 auto
+.dl_campaign_card
+  dl_card()
+  background-color #fff
+  margin 0
+  padding 10px
+  position relative
+  border-bottom 1px solid col_borderGray
+  box-shadow 0 0
+  .campaign_card
+    text-decoration none
+    padding 0
+    padding-top 10px
+    border-bottom 1px solid col_borderGray
+    .dl_card_header
+      height 26px
+      margin-bottom 10px
+      .dl_card_header_info
+        .dl_cp_name
+          font-size 24px
+          color #000
+          line-height 1
+          margin-bottom 0
+          font-weight 200
+      .dl_card_time
+        position absolute
+        right 10px
+        top 12px
+        .dl_cp_time_countdown
+          width 92px
+          height 22px
+          padding 2px 5px
+          padding-right 0
+          border 1px solid #959595
+          border-radius 5px
+          overflow hidden
+          .dl_cp_time_text
+            color col_textBlack
+            border-right 1px solid col_borderGray
+            padding-right 5px
+          .dl_cp_time_count
+            margin-left 5px
+            color col_textBlack
+    .dl_card_content
+      .dl_cp_logos
+        width 60px
+        height 60px
+        border-radius 5px
+        background-color col_bottomGray
+        float left
+        .dl_team_logo
+          width 60px
+          height 60px
+      .dl_cp_logos.2_logos
+        &:first-child
+          margin-right 2px
+        .dl_team_logo
+          width 29px
+          height 29px
+          float left
+      .dl_cp_texts
+        float left
+        .dl_cp_time,.dl_cp_address,.dl_cp_member
+          margin-bottom 6px
+          width 100%
+          height 16px
+          line-height 1
+          font-size 14px
+          color col_textBlack
+          padding-left 10px
+          //- .ion_time
+          //- .ion_address
+          //- .ion_member
+          .dl_cp_text
+            float left
+        .dl_cp_member
+          margin-bottom 0
+    .dl_card_footer
+      margin-top 10px
+      color #c9c9c9
+      .dl_team_name
+        float left
+      .dl_campaign_comment,.dl_campaign_circle,.dl_cp_time
+        float right
+        margin-right 10px
+        //- .ion_comment
+        //- .ion_circle
+      .dl_campaign_comment
+        margin-right 0
 .dl_card_detail
   dl_card()
   padding 0

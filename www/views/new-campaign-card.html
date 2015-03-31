@@ -1,0 +1,29 @@
+
+<div ng-class="{'remove':campaign.remove}" class="card dl_campaign_card campaign_card_container"><a ng-href="#/campaign/detail/{{campaign._id}}" class="campaign_card clearfix">
+    <div class="dl_card_header clearfix">
+      <div class="dl_card_header_info clearfix">
+        <h2 class="dl_cp_name">{{campaign.theme}}</h2>
+      </div>
+      <div ng-if="!campaign.is_end" class="dl_card_time">
+        <div class="dl_cp_time_countdown clearfix"><span class="dl_cp_time_text">{{campaign.is_start ? '距离结束':'距离开始'}}</span><span class="dl_cp_time_count">{{campaign.time_text}}</span></div>
+      </div>
+    </div>
+    <div class="dl_card_content clearfix">
+      <div class="dl_cp_logos {{campaign.campaign_unit.length}}_logos"><img ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo"/><span ng-if="campaign.campaign_type===4 || campaign.campaign_type===5">挑战</span><span ng-if="campaign.campaign_type===7">联谊 </span></div>
+      <div class="dl_cp_texts">
+        <p class="dl_cp_time"><i class="ion_time"></i><span class="dl_cp_text">{{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd HH:mm"}}</span></p>
+        <p class="dl_cp_address"><i class="ion_address"></i><span class="dl_cp_text">{{campaign.location.name}}</span></p>
+        <p class="dl_cp_member"><i class="ion_member"></i><span class="dl_cp_text">{{campaign.members_count || '0'}}</span></p>
+      </div>
+    </div>
+    <div ng-if="campaign.confirm_status===true" class="dl_card_footer clearfix">
+      <div ng-if="campaign.campaign_unit.length === 1" class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</div>
+      <div ng-if="campaign.campaign_unit.length === 2" class="dl_team_name">
+        {{campaign.campaign_unit[0].team.name}}
+        vs
+        {{campaign.campaign_unit[1].team.name}}
+      </div>
+      <div class="dl_campaign_comment clearfix"><i class="ion_comment"></i><span class="dl_card_footer_count">{{campaign.comment_sum}}</span></div>
+      <div class="dl_campaign_circle clearfix"><i class="ion_circle"></i><span class="dl_card_footer_count">{{campaign.circle_content_sum}}</span></div>
+      <div class="dl_cp_time clearfix">{{campaign.create_time | beforeNow}}发布</div>
+    </div></a></div>

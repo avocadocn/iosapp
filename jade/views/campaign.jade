@@ -2,14 +2,14 @@ ion-view(ng-controller="CampaignController")
   mixin campaignsContainer(containerTitle, items,itemsClass,orderByStr)
     .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
       .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" ng-cloak)
-        p #{containerTitle} {{#{items}.length}}
-      campaign-card(ng-repeat="campaign in #{items}" campaign="campaign" campaign-index="$index" campaign-filter="#{items}" pswp-id="pswpId" pswp-photo-album="pswpPhotoAlbum")
+        span #{containerTitle} {{#{items}.length}}
+      new-campaign-card(ng-repeat="campaign in #{items}" campaign="campaign" campaign-index="$index" campaign-filter="#{items}" pswp-id="pswpId" pswp-photo-album="pswpPhotoAlbum")
 
   ion-header-bar
 
-    a.button.icon.ion-calendar(href="#/calendar/campaigns")
+    a.button(href="#/calendar/campaigns") 日历
     h1.title 活动
-    a.button.icon.ion-plus(ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns")
+    a.button(ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns") 发布活动
 
   ion-content.campaigns_container.has-header(delegate-handle="mainScroll" overflow-scroll="true")
     

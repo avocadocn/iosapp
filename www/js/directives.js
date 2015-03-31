@@ -274,7 +274,86 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   }])
 
-  .directive('campaignCard', ['$rootScope', 'CONFIG', 'Campaign', 'INFO', 'Tools', '$location', function ($rootScope, CONFIG, Campaign, INFO, Tools, $location) {
+  //以下两个directive共用的controller
+  .controller( 'campaignCardController', ['$scope', '$rootScope', 'CONFIG', 'Campaign', 'INFO', function (scope, $rootScope, CONFIG, Campaign, INFO) {
+    scope.pswpPhotoAlbumId = scope.campaign.photo_album._id;
+    scope.STATIC_URL = CONFIG.STATIC_URL;
+    scope.joinCampaign = function (campaign) {
+      Campaign.join(campaign, localStorage.id, function (err, data) {
+        if (!err) {
+          // todo
+          scope.campaign.remove = true;
+          if(scope.campaignFilter){
+            $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
+          }
+          else {
+            scope.campaign = data;
+          }
+        }
+      });
+    };
+    scope.dealProvoke = function(campaignId, dealType){
+      //dealType:1接受，2拒绝，3取消
+      var dealTypeString = ['接受','拒绝','取消'];
+      var confirmPopup = $ionicPopup.confirm({
+        title: '确认',
+        template: '您确认要'+dealTypeString[dealType-1]+'该挑战吗?',
+        cancelText: '取消',
+        okText: '确认'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          Campaign.dealProvoke(campaignId, dealType, function(err, data){
+            if(!err){
+              scope.campaign.remove = true;
+              if(scope.campaignFilter){
+                $rootScope.$broadcast('updateCampaignList', { campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
+              }
+              else {
+                scope.campaign = data;
+              }
+            }
+          });
+        }
+      });
+      return false;
+    };
+
+    scope.addPhotos = function (photos) {
+      scope.photos = [];
+      photos.forEach(function (photo) {
+        var width = photo.width || INFO.screenWidth;
+        var height = photo.height || INFO.screenHeight;
+        var item = {
+          _id: photo._id,
+          src: CONFIG.STATIC_URL + photo.uri,
+          w: width,
+          h: height
+        };
+        if (photo.upload_user && photo.upload_date) {
+          item.title = '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm');
+        }
+        scope.photos.push(item);
+      });
+    };
+  }])
+
+  .directive('newCampaignCard', [function() {
+    return {
+      restrict: 'E',
+      scope: {
+        campaign: '=',
+        campaignIndex:'=',
+        campaignFilter:'@',
+        pswpId: '=',
+        pswpPhotoAlbum: '='
+      },
+      templateUrl: './views/new-campaign-card.html',
+      controller: 'campaignCardController'
+    }
+  }])
+
+  .directive('campaignCard', [function () {
     return {
       restrict: 'E',
       scope: {
@@ -285,68 +364,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         pswpPhotoAlbum: '='
       },
       templateUrl: './views/campaign-card.html',
-      link: function (scope, element, attrs, ctrl) {
-        scope.pswpPhotoAlbumId = scope.campaign.photo_album._id;
-        scope.STATIC_URL = CONFIG.STATIC_URL;
-        scope.joinCampaign = function (campaign) {
-          Campaign.join(campaign, localStorage.id, function (err, data) {
-            if (!err) {
-              // todo
-              scope.campaign.remove = true;
-              if(scope.campaignFilter){
-                $rootScope.$broadcast('updateCampaignList', { campaign:data,campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
-              }
-              else {
-                scope.campaign = data;
-              }
-            }
-          });
-        };
-        scope.dealProvoke = function(campaignId, dealType){
-          //dealType:1接受，2拒绝，3取消
-          var dealTypeString = ['接受','拒绝','取消'];
-          var confirmPopup = $ionicPopup.confirm({
-            title: '确认',
-            template: '您确认要'+dealTypeString[dealType-1]+'该挑战吗?',
-            cancelText: '取消',
-            okText: '确认'
-          });
-          confirmPopup.then(function(res) {
-            if(res) {
-              Campaign.dealProvoke(campaignId, dealType, function(err, data){
-                if(!err){
-                  scope.campaign.remove = true;
-                  if(scope.campaignFilter){
-                    $rootScope.$broadcast('updateCampaignList', { campaignFilter: scope.campaignFilter,campaignIndex: scope.campaignIndex});
-                  }
-                  else {
-                    scope.campaign = data;
-                  }
-                }
-              });
-            }
-          });
-          return false;
-        };
-
-        scope.addPhotos = function (photos) {
-          scope.photos = [];
-          photos.forEach(function (photo) {
-            var width = photo.width || INFO.screenWidth;
-            var height = photo.height || INFO.screenHeight;
-            var item = {
-              _id: photo._id,
-              src: CONFIG.STATIC_URL + photo.uri,
-              w: width,
-              h: height
-            };
-            if (photo.upload_user && photo.upload_date) {
-              item.title = '上传者: ' + photo.upload_user.name + '  上传时间: ' + moment(photo.upload_date).format('YYYY-MM-DD HH:mm');
-            }
-            scope.photos.push(item);
-          });
-        };
-      }
+      controller: 'campaignCardController'
     }
   }])
 
