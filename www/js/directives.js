@@ -871,3 +871,356 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   };
 })
+
+// 精彩瞬间卡片列表组件
+.directive('circleCardList', ['Circle', '$ionicActionSheet', '$ionicLoading', '$ionicPopup', function(Circle, $ionicActionSheet, $ionicLoading, $ionicPopup) {
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {
+      circleList: '=', // 数据数组
+      user: '=', // 用户数据
+      ctrl: '=', // 提供给外部的控制器
+      onClickCommentButton: '=', // 点击评论按钮或快速回复的事件
+      onClickContentImg: '=', // 点击图片的事件
+      staticUrl: '=' // 静态资源的baseUrl
+    },
+    controller: function() {
+      this.currentCommentCircle = null; // 当前操作的circleContent，仅用于控制不出现多个展开的评论操作按钮组
+    },
+    link: function(scope, ele, attrs, ctrl) {
+
+      scope.currentCardIndex = 0;
+      scope.onCardClickCommentButton = function(placeHolderText, circle) {
+        for (var i = 0, listLen = scope.circleList.length; i < listLen; i++) {
+          if (scope.circleList[i].content._id === circle.content._id) {
+            scope.currentCardIndex = i;
+            if (scope.onClickCommentButton) {
+              scope.onClickCommentButton(placeHolderText);
+            }
+            return;
+          }
+        }
+      };
+
+      scope.$watch('circleList', function(circleList) {
+        if (circleList) {
+          scope.ctrls = new Array(circleList.length);
+          for (var i = 0, ctrlsLen = scope.ctrls.length; i < ctrlsLen; i++) {
+            scope.ctrls[i] = {};
+          }
+        }
+      });
+
+      scope.$watch('ctrl', function(newVal) {
+        if (newVal) {
+          newVal.postComment = function(content) {
+            scope.ctrls[scope.currentCardIndex].postComment(content);
+          };
+        }
+      });
+
+      scope.removeFromList = function(id) {
+        for (var i = 0, listLen = scope.circleList.length; i < listLen; i++) {
+          if (scope.circleList[i].content._id === id) {
+            scope.circleList.splice(i, 1);
+            return;
+          }
+        }
+      };
+
+
+
+    },
+    templateUrl: './views/circle-card-list.html'
+  };
+}])
+
+.directive('circleCard', ['Circle', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$state', function(Circle, $ionicPopup, $ionicLoading, $ionicActionSheet, $state) {
+  return {
+    require: '^circleCardList',
+    restrict: 'E',
+    transclude: true,
+    scope: {
+      ctrl: '=', // 提供给外部的控制器
+      circle: '=', // circleContent数据
+      user: '=', // 用户数据
+      onClickCommentButton: '=', // 点击评论按钮或快速回复的事件
+      onClickContentImg: '=', // 点击图片的事件
+      onDelete: '=', // 删除整个circleContent时触发的事件
+      staticUrl: '=' // 静态资源的baseUrl
+    },
+    link: function(scope, ele, attrs, ctrl) {
+
+      var ionicAlert = function(msg) {
+        $ionicPopup.alert({
+          title: '提示',
+          template: msg
+        });
+      };
+
+      scope.goToUserPage = function(id) {
+        $state.go('user_info', {
+          userId: id
+        });
+      };
+
+      var isOnlyToContent = true;
+      var currentPlaceHolderText = '';
+      var targetUserId = null;
+
+      scope.clickImg = function(img) {
+        if (scope.onClickContentImg) {
+          scope.onClickContentImg(img);
+        }
+      };
+
+      scope.toggleComment = function() {
+        if (ctrl.currentCommentCircle && ctrl.currentCommentCircle !== scope.circle) {
+          ctrl.currentCommentCircle.isToComment = false;
+          ctrl.currentCommentCircle = scope.circle;
+        }
+        scope.circle.isToComment = !scope.circle.isToComment;
+      };
+
+      // 点击评论按钮
+      scope.commentToContent = function() {
+        var isOnlyToContent = true;
+        var currentPlaceHolderText = '';
+        var targetUserId = null;
+        if (scope.onClickCommentButton) {
+          scope.onClickCommentButton(currentPlaceHolderText, scope.circle);
+        }
+      };
+
+      // 回复
+      scope.replyTo = function(circle, comment) {
+        if (comment.post_user_id === scope.user._id) {
+          // 将回复自己的评论转为回复内容
+          isOnlyToContent = true;
+          currentPlaceHolderText = '';
+          targetUserId = null;
+        } else {
+          isOnlyToContent = false;
+          currentPlaceHolderText = '回复 ' + comment.poster.nickname;
+          targetUserId = comment.post_user_id;
+        }
+        if (scope.onClickCommentButton) {
+          scope.onClickCommentButton(currentPlaceHolderText, scope.circle);
+        }
+      };
+
+      // 是否赞过
+      scope.hasAppreciate = function(circle) {
+        for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
+          var appr = circle.appreciate[i];
+          if (appr.poster._id === scope.user._id) {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      // 赞
+      scope.appreciate = function(circle) {
+        Circle.comment(circle.content._id, {
+            kind: 'appreciate',
+            is_only_to_content: true
+          })
+          .success(function(data) {
+            circle.isToComment = false;
+            circle.appreciate.push(data.circleComment);
+          })
+          .error(function(data) {
+            ionicAlert(data.msg || '操作失败');
+          });
+      };
+
+      // 取消赞
+      scope.cancelAppreciate = function(circle) {
+        for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
+          var appr = circle.appreciate[i];
+          if (appr.poster._id === scope.user._id) {
+            scope.deleteComment(appr._id, circle.appreciate, function() {
+              circle.isToComment = false;
+            });
+          }
+        }
+      };
+
+      var hideDeleteActionSheet;
+      // 长按某条评论的事件处理
+      scope.commentOnHoldHandler = function(comment, ownerArray) {
+        if (scope.user._id !== comment.poster._id) {
+          return;
+        }
+        hideDeleteActionSheet = $ionicActionSheet.show({
+          destructiveText: '删除',
+          cancelText: '取消',
+          cancel: function() {},
+          destructiveButtonClicked: function() {
+            scope.deleteComment(comment._id, ownerArray);
+          }
+        });
+      };
+
+      // 删除评论或赞
+      scope.deleteComment = function(id, ownerArray, successCallback) {
+        Circle.deleteComment(id)
+          .success(function(data) {
+            if (hideDeleteActionSheet) {
+              hideDeleteActionSheet();
+            }
+            for (var i = 0, arrLen = ownerArray.length; i < arrLen; i++) {
+              if (ownerArray[i]._id === id) {
+                ownerArray.splice(i, 1);
+                break;
+              }
+            }
+            if (successCallback) {
+              successCallback();
+            }
+          })
+          .error(function(data) {
+            ionicAlert(data.msg || '删除失败');
+          });
+      };
+
+      // 删除整个circleContent
+      scope.deleteCircleContent = function(circle) {
+        var confirmPopup = $ionicPopup.confirm({
+          title: '提示',
+          template: '确定删除吗?',
+          cancelText: '取消',
+          okText: '确定'
+        });
+        confirmPopup.then(function(res) {
+          if (res) {
+            Circle.deleteCompanyCircle(circle.content._id)
+              .success(function(data) {
+                if (scope.onDelete) {
+                  scope.onDelete(circle.content._id);
+                }
+                ionicAlert('删除成功');
+              })
+              .error(function(data) {
+                ionicAlert(data.msg || '删除失败');
+              });
+          }
+        });
+      };
+
+      var postComment = function(content, callback) {
+        if (!content || content === '') {
+          if (callback) {
+            callback();
+          }
+          return;
+        }
+        scope.isCommenting = false;
+        scope.circle.isToComment = false;
+        $ionicLoading.show({
+          template: '发表中...',
+          duration: 5000
+        });
+        var postData = {
+          kind: 'comment',
+          is_only_to_content: isOnlyToContent,
+          content: content
+        };
+        if (targetUserId) {
+          postData.target_user_id = targetUserId;
+        }
+
+        Circle.comment(scope.circle.content._id, postData)
+          .success(function(data) {
+            scope.circle.textComments.push(data.circleComment);
+            $ionicLoading.hide();
+            targetUserId = null;
+            if (callback) {
+              callback();
+            }
+          })
+          .error(function(data) {
+            ionicAlert(data.msg || '操作失败');
+          });
+      };
+
+      scope.$watch('ctrl', function(newVal) {
+        if (newVal) {
+          newVal.postComment = postComment;
+        }
+      });
+
+    },
+    templateUrl: './views/circle-card.html'
+  };
+}])
+
+.directive('circleCommentBox', ['Emoji', function(Emoji) {
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {
+      ctrl: '=',
+      onPost: '=',
+      onStop: '=' // 取消评论时触发的事件
+    },
+    link: function(scope, ele, attrs, ctrl) {
+      scope.isCommenting = false;
+      scope.isShowEmotions = false;
+      scope.commentFormData = {
+        content: ''
+      };
+      scope.toggleEmotions = function() {
+        scope.isShowEmotions = !scope.isShowEmotions;
+      };
+      scope.hideEmotions = function() {
+        scope.isShowEmotions = false;
+      };
+
+      scope.emojiList = [];
+      var emoji = Emoji.getEmojiList();
+      var dict = Emoji.getEmojiDict();
+
+      for (var i = 0; emoji.length > 24; i++) {
+        scope.emojiList.push(emoji.splice(24, 24));
+      }
+      scope.emojiList.unshift(emoji);
+      scope.addEmotion = function(emotion) {
+        scope.commentFormData.content += '[' + dict[emotion] + ']';
+      };
+
+      scope.stopComment = function() {
+        scope.isCommenting = false;
+        scope.isShowEmotions = false;
+        if (scope.onStop) {
+          scope.onStop();
+        }
+      };
+
+      var setPlaceHolderText = function(text) {
+        scope.placeholderText = text;
+      };
+      var open = function() {
+        scope.isCommenting = true;
+      };
+
+      scope.postComment = function() {
+        if (scope.onPost) {
+          scope.onPost(scope.commentFormData.content);
+        }
+        scope.commentFormData.content = '';
+        scope.stopComment();
+      };
+
+      scope.$watch('ctrl', function(newVal) {
+        if (newVal) {
+          newVal.setPlaceHolderText = setPlaceHolderText;
+          newVal.open = open;
+        }
+      });
+    },
+    templateUrl: './views/circle-comment-box.html'
+  };
+}])

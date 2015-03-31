@@ -50,7 +50,7 @@ gulp.task('jade:compile', function(done) {
 });
 
 gulp.task('watch:jade', function() {
-  gulp.watch(paths.jade, ['jade:complie']);
+  gulp.watch(paths.jade, ['jade:compile']);
 });
 
 gulp.task('install', ['git-check'], function () {
