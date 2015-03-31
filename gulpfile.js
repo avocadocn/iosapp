@@ -15,6 +15,7 @@ var paths = {
 };
 
 gulp.task('default', ['stylus', 'jade']);
+gulp.task('fullwatch', ['stylus', 'watch:jade']);
 
 gulp.task('stylus', function (done) {
   gulp.src(paths.stylus)
@@ -37,6 +38,19 @@ gulp.task('jade', function (done) {
     }))
     .pipe(gulp.dest('./www/'))
     .on('end', done);
+});
+
+gulp.task('jade:compile', function(done) {
+  gulp.src(paths.jade)
+    .pipe(jade({
+      pretty: true
+    }))
+    .pipe(gulp.dest('./www/'))
+    .on('end', done);
+});
+
+gulp.task('watch:jade', function() {
+  gulp.watch(paths.jade, ['jade:complie']);
 });
 
 gulp.task('install', ['git-check'], function () {
