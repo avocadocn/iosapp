@@ -218,6 +218,7 @@ angular.module('donlerApp.controllers', [])
     };
     $scope.typeTitle = '所有活动';
     $scope.filter = function(filterType) {
+      $scope.popover.hide();
       $scope.nowType = filterType;
       $scope.typeTitle = filterMap[filterType];
       $timeout(function() {
