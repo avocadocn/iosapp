@@ -4316,6 +4316,7 @@ angular.module('donlerApp.controllers', [])
     $scope.topShowTime = [];
     $scope.data ={};
     $scope.currentUser;
+    $scope.cid = localStorage.cid;
     var formatVote = function (vote) {
       var totalVote = vote.units[0].positive +vote.units[1].positive;
       vote.units.forEach(function(unit, index){
@@ -4361,7 +4362,7 @@ angular.module('donlerApp.controllers', [])
 
       // An elaborate, custom popup
       var myPopup = $ionicPopup.show({
-        template: '<input placeholder="请输入评论内容" type="text" ng-model="data.content">',
+        template: '<textarea rows=4 placeholder="请输入评论内容" type="text" ng-model="data.content">',
         title: '评论',
         scope: $scope,
         buttons: [
@@ -4476,10 +4477,6 @@ angular.module('donlerApp.controllers', [])
       $scope.content='';
 
       $scope.userId = localStorage.id;
-      $scope.isWriting = false;
-      //获取新留言
-      var comments_ele = document.getElementsByClassName('comments'); // 获取滚动条
-
       //获取个人信息供发评论使用
       
       User.getData($scope.userId, function(err,data){
@@ -4749,6 +4746,7 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('CompetitonSendController', ['$scope', '$state', '$ionicHistory', '$ionicPopup', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', function ($scope, $state, $ionicHistory, $ionicPopup, CompetitionMessage, Team, INFO, Campaign) {
+    $scope.isPublish=false;
     if(INFO.competitionMessageData) {
       var competitionMessageData = INFO.competitionMessageData;
       $scope.fromTeamId = competitionMessageData.fromTeamId;
@@ -4778,6 +4776,9 @@ angular.module('donlerApp.controllers', [])
       }
     }
     $scope.publishMessage = function () {
+      if($scope.isPublish)
+        return;
+      $scope.isPublish =true;
       CompetitionMessage.createCompetitionMessage($scope.messageData, function (err, data) {
         if(!err) {
           $ionicPopup.alert({
@@ -4792,6 +4793,7 @@ angular.module('donlerApp.controllers', [])
             template: data.msg
           });
         }
+        $scope.isPublish =false;
       })
     }
   }])

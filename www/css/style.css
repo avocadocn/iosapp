@@ -3028,6 +3028,7 @@ a>.login .companies_list:activated {
   color: #fff;
   border-radius: 10px;
   padding: 10px;
+  font-size: 14px;
 }
 .competition_message_panel .competition_message_comment .comment.pull_right {
   text-align: right;
