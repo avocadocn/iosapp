@@ -175,10 +175,10 @@ angular.module('donlerApp.controllers', [])
         populate: 'photo_album'
       }, function (err, data) {
         if (!err) {
-          $scope.unStartCampaigns = $filter('orderBy')(data[0], 'start_time');
-          $scope.nowCampaigns = $filter('orderBy')(data[1], 'end_time');
-          $scope.newCampaigns = $filter('orderBy')(data[2], '-create_time');
-          $scope.provokes = $filter('orderBy')(data[3], '-create_time');
+          $scope.unStartCampaigns = data[0];
+          $scope.nowCampaigns = data[1];
+          $scope.newCampaigns = data[2];
+          $scope.provokes = data[3];
           if(data[0].length===0&&data[1].length===0&&data[2].length===0&&data[3].length===0){
             $scope.noCampaigns = true;
           }
