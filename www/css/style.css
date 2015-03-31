@@ -3019,11 +3019,18 @@ a>.login .companies_list:activated {
 }
 .competition_message_panel .competition_message_comment .comment .comment_poster {
   float: left;
-  width: 30%;
+  width: 20%;
+}
+.competition_message_panel .competition_message_comment .comment .comment_poster .team_name {
+  width: 90%;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .competition_message_panel .competition_message_comment .comment .comment_contents {
   float: left;
-  width: 60%;
+  width: 70%;
   background-color: #3ca2e0;
   color: #fff;
   border-radius: 10px;

@@ -514,7 +514,7 @@ angular.module('donlerApp.services', [])
           // 'randomId':data.randomId
         })
         .success(function (data, status) {
-          callback();
+          callback(null,data);
         }).error(function (data, status) {
           // todo
           callback('publish error');

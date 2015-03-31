@@ -4318,7 +4318,6 @@ angular.module('donlerApp.controllers', [])
     $scope.commentList = [];
     $scope.topShowTime = [];
     $scope.data ={};
-    $scope.currentUser;
     $scope.cid = localStorage.cid;
     var formatVote = function (vote) {
       var totalVote = vote.units[0].positive +vote.units[1].positive;
@@ -4356,14 +4355,17 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-            $scope.commentList = data.comments;
+          $scope.commentList = data.comments;
+          $scope.commentList.unshift({
+            content:$scope.competitionMessage.content,
+            create_date:$scope.competitionMessage.create_date,
+            poster_team: $scope.competitionMessage.sponsor_team
+          });
         }
       });
     }
     $scope.showPopup = function() {
       $scope.data = {};
-
-      // An elaborate, custom popup
       var myPopup = $ionicPopup.show({
         template: '<textarea rows=4 placeholder="请输入评论内容" type="text" ng-model="data.content">',
         title: '评论',
@@ -4441,50 +4443,24 @@ angular.module('donlerApp.controllers', [])
       if(window.analytics){
         window.analytics.trackEvent('Click', 'publishComment');
       }
-      //-创建一个新comment
-      var newComment = {
-        create_date: new Date(),
-        poster: {
-          '_id': $scope.currentUser._id,
-          'photo': $scope.currentUser.photo,
-          'nickname': $scope.currentUser.nickname
-        },
-        content: $scope.data.content,
-        loading: true
-      };
-      $scope.commentList.push(newComment);
-      $ionicScrollDelegate.scrollBottom();
       var commentData = {
         hostType: 'competition_message',
         hostId: $state.params.id,
         content: $scope.data.content
       }
-      Comment.publishComment(commentData, function(err){
+      Comment.publishComment(commentData, function(err,data){
         if(err){
           console.log(err);
-          var length =  $scope.commentList.length;
-          //发送失败
-          $scope.commentList[length-1].failed = true;
         }else{
           $scope.data.content = '';
+          $scope.commentList.push(data.comment);
         }
       });
-    };
-
-    $scope.hideEmotions = function() {
-      $scope.isShowEmotions = false;
     };
     $scope.doRefresh = function (refreshFlag) {
       getCompetitionMessage();
       $scope.getCompetitionComments();
-      $scope.content='';
-
-      $scope.userId = localStorage.id;
-      //获取个人信息供发评论使用
-      
-      User.getData($scope.userId, function(err,data){
-        $scope.currentUser = data;
-      });
+      $scope.data.content='';
       refreshFlag && $scope.$broadcast('scroll.refreshComplete');
     }
     $scope.doRefresh();

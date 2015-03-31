@@ -37,21 +37,12 @@ ion-view.competition_message_panel
             i.icon.ion-ios7-heart-outline
           span.vote_num {{unit.positive}} 人支持
     .competition_message_comment(ng-if="competitionMessage")
-      .comment.clearfix
+      .comment.clearfix(ng-class="{'pull_right':comment.poster_team._id===competitionMessage.opposite_team._id}" ng-repeat="comment in commentList ")
         .comment_poster
-          a(ng-if="cid===competitionMessage.sponsor_team.cid" ng-href="#/team/{{competitionMessage.sponsor_team._id}}")
-            img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40")
-          img.team_logo(ng-if="cid!==competitionMessage.sponsor_team.cid" ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40")
-          p {{competitionMessage.sponsor_team.name}}
-        .comment_contents
-          p {{competitionMessage.create_date | date:"MM-dd HH:mm"}}
-          .comment_content(ng-bind-html="competitionMessage.content | emoji | unsafe")
-      .comment.clearfix(ng-class="{'pull_right':comment.poster._id===userId}" ng-repeat="comment in commentList ")
-        .comment_poster
-          a(ng-if="cid===comment.poster.cid" ng-href="#/user/{{comment.poster._id}}")
-            img.member_logo(ng-src="{{STATIC_URL + comment.poster.photo}}/40/40")
-          img.member_logo(ng-if="cid!==comment.poster.cid" ng-src="{{STATIC_URL + comment.poster.photo}}/40/40")
-          p {{comment.poster.nickname}}
+          a(ng-if="cid===comment.poster_team.cid" ng-href="#/user/{{comment.poster_team._id}}")
+            img.team_logo(ng-src="{{STATIC_URL + comment.poster_team.logo}}/40/40")
+          img.team_logo(ng-if="cid!==comment.poster_team.cid" ng-src="{{STATIC_URL + comment.poster_team.logo}}/40/40")
+          p.team_name {{comment.poster_team.name}}
           
         .comment_contents
           p {{comment.create_date | date:"MM-dd HH:mm"}}
