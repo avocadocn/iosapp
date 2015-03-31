@@ -3777,6 +3777,7 @@ angular.module('donlerApp.controllers', [])
 
         $scope.circleCardListCtrl = {};
         $scope.circleCommentBoxCtrl = {};
+        $scope.pswpCtrl = {};
 
         $scope.openCommentBox = function(placeHolderText) {
           $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
@@ -3785,6 +3786,15 @@ angular.module('donlerApp.controllers', [])
 
         $scope.postComment = function(content) {
           $scope.circleCardListCtrl.postComment(content);
+        };
+
+        $scope.onClickContentImg = function(img) {
+          for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
+            if (img._id === $scope.imagesForPswp[i]._id) {
+              $scope.pswpCtrl.open(i);
+              break;
+            }
+          }
         };
 
       });
@@ -3857,6 +3867,7 @@ angular.module('donlerApp.controllers', [])
 
         $scope.circleCardCtrl = {};
         $scope.circleCommentBoxCtrl = {};
+        $scope.pswpCtrl = {};
 
         $scope.openCommentBox = function(placeHolderText) {
           $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
@@ -3869,6 +3880,15 @@ angular.module('donlerApp.controllers', [])
 
         $scope.onDelete = function() {
           $state.go('circle_company');
+        };
+
+        $scope.onClickContentImg = function(img) {
+          for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
+            if (img._id === $scope.imagesForPswp[i]._id) {
+              $scope.pswpCtrl.open(i);
+              break;
+            }
+          }
         };
 
       });

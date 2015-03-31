@@ -1220,3 +1220,48 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     templateUrl: './views/circle-comment-box.html'
   };
 }])
+
+.directive('photoSwipe', function() {
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {
+      photos: '=',
+      ctrl: '='
+    },
+    link: function(scope, ele, attrs, ctrl) {
+      var pswpEle = ele[0].querySelector('.pswp');
+
+      scope.$watch('photos', function(photos) {
+        // 初始化pwsp
+        scope.options = {
+          history: false,
+          focus: false,
+          index: 0,
+          showAnimationDuration: 0,
+          hideAnimationDuration: 0
+        };
+        scope.pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, photos, scope.options);
+        if (window.StatusBar) {
+          $cordovaStatusbar.hide();
+        }
+        scope.pwsp.listen('close', function() {
+          if (window.StatusBar) {
+            $cordovaStatusbar.show();
+          }
+        });
+      });
+
+      scope.$watch('ctrl', function(newVal) {
+        if (newVal) {
+          newVal.open = function(index) {
+            scope.options.index = index || 0;
+            scope.pwsp.init();
+          };
+        }
+      });
+
+    },
+    templateUrl: './views/photo-swipe-directive.html'
+  };
+});
