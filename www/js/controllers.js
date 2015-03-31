@@ -3490,9 +3490,6 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-          rankTeams.forEach(function(rankTeam, index){
-            rankTeam.score_rank.winPercent= (rankTeam.score_rank.win || 0)/(rankTeam.score_rank.win || 0  + rankTeam.score_rank.tie  || 0 + rankTeam.score_rank.lose || 0) || 0;
-          });
           $scope.selectTeam.rankTeams = rankTeams;
         }
       });
@@ -4273,6 +4270,7 @@ angular.module('donlerApp.controllers', [])
     $scope.getCompetitionLog = function (refreshFlag) {
       if(refreshFlag) {
         $scope.page =1;
+        $scope.competitionMessages =[]
       }
       var data = {
         messageType: $scope.messageType,
@@ -4291,10 +4289,10 @@ angular.module('donlerApp.controllers', [])
         refreshFlag && $scope.$broadcast('scroll.refreshComplete');
       });
     }
-    $scope.getCompetitionLog();
     $scope.typeFilter = function (messageType) {
       $scope.messageType = messageType;
       $scope.page = 1;
+      $scope.competitionMessages =[];
       $scope.getCompetitionLog();
     }
     $scope.moreCompetition = function (argument) {

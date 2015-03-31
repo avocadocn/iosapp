@@ -43,7 +43,6 @@ ion-view.competition_message_panel
             img.team_logo(ng-src="{{STATIC_URL + comment.poster_team.logo}}/40/40")
           img.team_logo(ng-if="cid!==comment.poster_team.cid" ng-src="{{STATIC_URL + comment.poster_team.logo}}/40/40")
           p.team_name {{comment.poster_team.name}}
-          
         .comment_contents
           p {{comment.create_date | date:"MM-dd HH:mm"}}
           .comment_content(ng-bind-html="comment.content | emoji | unsafe")

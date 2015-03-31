@@ -41,10 +41,19 @@ ion-view.discover(ng-controller="DiscoverController")
       //-   label.item.item-input.item-select
       //-     span.input-label 我的小队排名:
       //-     select.select_info(ng-change="changeSelectTeam(selectTeam)" ng-model="selectTeam" ng-options="team.name for team in teams")
+
       .rank_table
+        .row
+          .col 排名
+          .col logo
+          .col 小队名
+          .col 积分
+          .col
+           div 胜率
+           div (胜:平:负)
         a.row(ng-href="#/competition/team/{{rankTeam._id}}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank")
           .col {{rankTeam.score_rank.rank}}
           .col: img.team_logo(ng-src="{{STATIC_URL + rankTeam.logo}}/40/40")
           .col.team_name {{rankTeam.name}}
           .col {{rankTeam.score_rank.score || 0}}
-          .col {{rankTeam.score_rank.winPercent}}
+          .col {{rankTeam.score_rank.win}} : {{rankTeam.score_rank.tie}} : {{rankTeam.score_rank.lose}}

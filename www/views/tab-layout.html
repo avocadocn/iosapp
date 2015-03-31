@@ -114,12 +114,23 @@
               </div>
             </div>
           </div>
-          <div class="rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="row">
+          <div class="rank_table">
+            <div class="row">
+              <div class="col">排名</div>
+              <div class="col">logo</div>
+              <div class="col">小队名</div>
+              <div class="col">积分</div>
+              <div class="col">
+                <div>胜率</div>
+                <div>(胜:平:负)</div>
+              </div>
+            </div><a ng-href="#/competition/team/{{rankTeam._id}}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="row">
               <div class="col">{{rankTeam.score_rank.rank}}</div>
               <div class="col"><img ng-src="{{STATIC_URL + rankTeam.logo}}/40/40" class="team_logo"/></div>
               <div class="col team_name">{{rankTeam.name}}</div>
               <div class="col">{{rankTeam.score_rank.score || 0}}</div>
-              <div class="col">{{rankTeam.score_rank.winPercent}}</div></a></div>
+              <div class="col">{{rankTeam.score_rank.win}} : {{rankTeam.score_rank.tie}} : {{rankTeam.score_rank.lose}}</div></a>
+          </div>
         </div>
       </ion-content>
     </ion-view>
