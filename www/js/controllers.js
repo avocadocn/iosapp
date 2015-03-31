@@ -160,8 +160,8 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
-    function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$ionicPopover', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
+    function ($scope, $state, $timeout, $ionicPopup, $ionicPopover, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
     $scope.nowType = 'all';
     $scope.pswpPhotoAlbum = {};
     $scope.pswpId = 'campaigns' + Date.now();
@@ -202,8 +202,24 @@ angular.module('donlerApp.controllers', [])
         getCampaignList();
       }
     });
+    $ionicPopover.fromTemplateUrl('my-popover.html', {
+      scope: $scope,
+    }).then(function(popover) {
+      $scope.popover = popover;
+    });
+    $scope.showFilter = function($event){
+      $scope.popover.show($event);
+    };
+    var filterMap = {
+      'all' : '所有活动',
+      'newCampaigns' : '新活动',
+      'unStartCampaigns' : '即将开始的活动',
+      'nowCampaigns' : '正在进行的活动'
+    };
+    $scope.typeTitle = '所有活动';
     $scope.filter = function(filterType) {
       $scope.nowType = filterType;
+      $scope.typeTitle = filterMap[filterType];
       $timeout(function() {
         $ionicScrollDelegate.scrollTop(true);
       });

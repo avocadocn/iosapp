@@ -30,9 +30,6 @@ body {
 .title.title_have_right {
   margin-right: 30px;
 }
-.campaigns_container {
-  padding-bottom: 32px;
-}
 .campaigns_container .campaign_filter {
   height: 33px;
   background-color: #fff;
@@ -53,6 +50,7 @@ body {
 .campaigns_container .campaign_list {
   height: 100%;
   background-color: #e2e2e2;
+  margin-top: 0;
 }
 .campaigns_container .campaign_list .no_campaign {
   background-image: url("../img/no_new_campaign.png");
@@ -321,14 +319,14 @@ body {
   margin: 0;
   padding: 10px;
   position: relative;
-  border-bottom: 1px solid #c9c9c9;
+  border-bottom: 1px solid #ddd;
   box-shadow: 0 0;
 }
 .dl_campaign_card .campaign_card {
   text-decoration: none;
   padding: 0;
   padding-top: 10px;
-  border-bottom: 1px solid #c9c9c9;
+  border-bottom: 1px solid #ddd;
 }
 .dl_campaign_card .campaign_card .dl_card_header {
   height: 26px;
@@ -407,7 +405,7 @@ body {
 }
 .dl_campaign_card .campaign_card .dl_card_footer {
   margin-top: 10px;
-  color: #c9c9c9;
+  color: #c2c1c1;
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_team_name {
   float: left;
@@ -420,6 +418,12 @@ body {
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
   margin-right: 0;
+}
+.dl_divider {
+  height: 10px;
+  border: 1px solid #ddd;
+  border-top: 0;
+  background-color: #f7f7f7;
 }
 .dl_card_detail {
   display: block;
@@ -2087,6 +2091,10 @@ a>.login .companies_list:activated {
 .calendar_filter_popover {
   width: 80px;
   height: 105px;
+}
+.campaign_filter_popover {
+  width: 120px;
+  height: 140px;
 }
 .user_more_popover {
   width: 80px;

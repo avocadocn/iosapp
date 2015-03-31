@@ -47,7 +47,6 @@ body
 .title.title_have_right
   margin-right 30px
 .campaigns_container
-  padding-bottom 32px
   .campaign_filter
     height 33px
     background-color #ffffff
@@ -81,6 +80,7 @@ body
   .campaign_list
     height 100%
     background-color col_gray
+    margin-top 0
     .no_campaign
       background-image url('../img/no_new_campaign.png')
       width 100%
@@ -295,13 +295,13 @@ body
   margin 0
   padding 10px
   position relative
-  border-bottom 1px solid col_borderGray
+  border-bottom 1px solid #ddd
   box-shadow 0 0
   .campaign_card
     text-decoration none
     padding 0
     padding-top 10px
-    border-bottom 1px solid col_borderGray
+    border-bottom 1px solid #ddd
     .dl_card_header
       height 26px
       margin-bottom 10px
@@ -367,7 +367,7 @@ body
           margin-bottom 0
     .dl_card_footer
       margin-top 10px
-      color #c9c9c9
+      color #c2c1c1
       .dl_team_name
         float left
       .dl_campaign_comment,.dl_campaign_circle,.dl_cp_time
@@ -377,6 +377,11 @@ body
         //- .ion_circle
       .dl_campaign_comment
         margin-right 0
+.dl_divider
+  height 10px
+  border 1px solid #ddd
+  border-top 0
+  background-color col_bottomGray
 .dl_card_detail
   dl_card()
   padding 0
@@ -1788,6 +1793,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .calendar_filter_popover
   width 80px
   height 105px
+.campaign_filter_popover
+  width 120px
+  height 140px
 .user_more_popover
   width 80px
   height 46px

@@ -345,8 +345,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         campaign: '=',
         campaignIndex:'=',
         campaignFilter:'@',
-        pswpId: '=',
-        pswpPhotoAlbum: '='
+        isLast: '='
       },
       templateUrl: './views/new-campaign-card.html',
       controller: 'campaignCardController'
