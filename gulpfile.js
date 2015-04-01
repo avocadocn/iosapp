@@ -15,7 +15,7 @@ var paths = {
 };
 
 gulp.task('default', ['stylus', 'jade']);
-gulp.task('fullwatch', ['stylus', 'watch:jade']);
+gulp.task('fullwatch', ['stylus', 'jade:compile', 'watch:jade']);
 
 gulp.task('stylus', function (done) {
   gulp.src(paths.stylus)

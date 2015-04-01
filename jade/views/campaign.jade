@@ -3,22 +3,24 @@ ion-view(ng-controller="CampaignController")
     .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
       .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" ng-cloak)
         span #{containerTitle} {{#{items}.length}}
-      new-campaign-card(ng-repeat="campaign in #{items}" campaign="campaign" campaign-index="$index" campaign-filter="#{items}" pswp-id="pswpId" pswp-photo-album="pswpPhotoAlbum")
+      new-campaign-card(ng-repeat="campaign in #{items}" campaign="campaign" campaign-index="$index" campaign-filter="#{items}" is-last="$index===#{items}.length-1")
 
   ion-header-bar
 
-    a.button(href="#/calendar/campaigns") 日历
-    h1.title 活动
-    a.button(ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns") 发布活动
+    a.button.icon.ion-calendar(href="#/calendar/campaigns")
+    h1.title(ng-click="showFilter($event)")
+      span {{typeTitle}}
+      i.icon.ion-arrow-down-b
+    a.button.icon.ion-plus(ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns")
 
-  ion-content.campaigns_container.has-header(delegate-handle="mainScroll" overflow-scroll="true")
+  ion-content.campaigns_container(delegate-handle="mainScroll" overflow-scroll="true")
     
-    .button-bar.campaign_filter
-      a.button.button-clear(ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}") 所有
-      a.button.button-clear(ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}") 新活动
-      a.button.button-clear(ng-click="filter('provokes')" ng-class="{'icon_blue':nowType=='provokes'}") 挑战
-      a.button.button-clear(ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}") 进行中
-      a.button.button-clear(ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}") 即将
+    //- .campaign_filter
+    //-   a.button.button-clear(ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}") 所有
+    //-   a.button.button-clear(ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}") 新活动
+    //-   a.button.button-clear(ng-click="filter('provokes')" ng-class="{'icon_blue':nowType=='provokes'}") 挑战
+    //-   a.button.button-clear(ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}") 进行中
+    //-   a.button.button-clear(ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}") 即将
     ion-scroll.campaign_list
       ion-refresher(on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
       +campaignsContainer('未参加的新活动','newCampaigns','icon_darkBlue')
@@ -32,4 +34,10 @@ ion-view(ng-controller="CampaignController")
             a.team_link(href="#/discover/teams/") 发现
             span.tip_info 加入更多小队！
 
-  include ./photo-swipe
+script(id="my-popover.html" type="text/ng-template")
+  ion-popover-view.dl_popover.campaign_filter_popover
+    ion-content.dl_popover_content
+      .dl_popover_button(ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}") 所有活动
+      .dl_popover_button(ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}") 新活动
+      .dl_popover_button(ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}") 即将开始的活动
+      .dl_popover_button(ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}") 正在进行的活动

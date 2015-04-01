@@ -475,7 +475,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('circle_content_detail', {
         url: '/circle/circle_content/:circleContentId',
-        controller: 'CircleCompanyController',
+        controller: 'CircleContentDetailController',
         templateUrl: './views/circle-content-detail.html'
       })
       .state('circle_reminds', {

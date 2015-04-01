@@ -47,7 +47,6 @@ body
 .title.title_have_right
   margin-right 30px
 .campaigns_container
-  padding-bottom 32px
   .campaign_filter
     height 33px
     background-color #ffffff
@@ -81,6 +80,7 @@ body
   .campaign_list
     height 100%
     background-color col_gray
+    margin-top 0
     .no_campaign
       background-image url('../img/no_new_campaign.png')
       width 100%
@@ -295,13 +295,13 @@ body
   margin 0
   padding 10px
   position relative
-  border-bottom 1px solid col_borderGray
+  border-bottom 1px solid #ddd
   box-shadow 0 0
   .campaign_card
     text-decoration none
     padding 0
     padding-top 10px
-    border-bottom 1px solid col_borderGray
+    border-bottom 1px solid #ddd
     .dl_card_header
       height 26px
       margin-bottom 10px
@@ -354,27 +354,33 @@ body
           margin-bottom 6px
           width 100%
           height 16px
-          line-height 1
+          line-height 19px
           font-size 14px
           color col_textBlack
           padding-left 10px
-          //- .ion_time
-          //- .ion_address
-          //- .ion_member
+          .icon
+            float left
+            height 20px
+            width 20px
+            margin-right 10px
           .dl_cp_text
             float left
         .dl_cp_member
           margin-bottom 0
     .dl_card_footer
       margin-top 10px
-      color #c9c9c9
+      color #c2c1c1
       .dl_team_name
         float left
       .dl_campaign_comment,.dl_campaign_circle,.dl_cp_time
         float right
         margin-right 10px
-        //- .ion_comment
-        //- .ion_circle
+        .dl_card_footer_count
+          float left
+        .icon
+          float left
+          height 20px
+          width 20px
       .dl_campaign_comment
         margin-right 0
 .dl_campaign_detail
@@ -420,6 +426,12 @@ body
         color black
 
 // .dl_card_detail
+.dl_divider
+  height 10px
+  border 1px solid #ddd
+  border-top 0
+  background-color col_bottomGray
+.dl_card_detail
   dl_card()
   padding 0
   border-radius 5px
@@ -925,13 +937,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .ion_personal_active
   background-position -233px -50px
 
-.ion_member, .ion_comment, .ion_ballon, .ion_teams, .ion_team, .ion_foot, .ion_message, .ion_calendar, .ion_setting, .ion_invite_code
+.ion_member, .ion_comment, .ion_ballon, .ion_teams, .ion_team, .ion_foot, .ion_message, .ion_calendar, .ion_setting, .ion_invite_code, .ion_time, .ion_address, .ion_circle
   background-image url('../img/icon.png')
-  background-size 160px 200px
-.ion_member
-  background-position 0px -80px
-.ion_comment
-  background-position -40px -80px
+  background-size 160px 240px
+//- .ion_member
+//-   background-position 0px -80px
+//- .ion_comment
+//-   background-position -40px -80px
 .ion_ballon
   background-position -110px -65px
 .ion_teams
@@ -946,6 +958,16 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-position -30px -145px
 .ion_invite_code
   background-position 10px -25px
+.ion_time
+  background-position -80px -160px
+.ion_address
+  background-position -120px -160px
+.ion_member
+  background-position 0 -200px
+.ion_comment
+  background-position -80px -199px
+.ion_circle
+  background-position -40px -198px
 .emoji
   margin 0 0.1rem
   vertical-align middle
@@ -1830,6 +1852,13 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .calendar_filter_popover
   width 80px
   height 105px
+.campaign_filter_popover
+  width 140px
+  height 140px
+  .dl_popover_content
+    margin 10px
+    .dl_popover_button
+      border-bottom 0
 .user_more_popover
   width 80px
   height 46px

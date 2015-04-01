@@ -1,27 +1,26 @@
 
 <ion-view ng-controller="CampaignController">
-  <ion-header-bar><a href="#/calendar/campaigns" class="button">日历</a>
-    <h1 class="title">活动</h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button">发布活动</a>
+  <ion-header-bar><a href="#/calendar/campaigns" class="button icon ion-calendar"></a>
+    <h1 ng-click="showFilter($event)" class="title"><span>{{typeTitle}}</span><i class="icon ion-arrow-down-b"></i></h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
   </ion-header-bar>
-  <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container has-header">
-    <div class="button-bar campaign_filter"><a ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}" class="button button-clear">所有</a><a ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="filter('provokes')" ng-class="{'icon_blue':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
+  <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container">
     <ion-scroll class="campaign_list">
       <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
         <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container">
           <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>未参加的新活动 {{newCampaigns.length}}</span></div>
-          <new-campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns" pswp-id="pswpId" pswp-photo-album="pswpPhotoAlbum"></new-campaign-card>
+          <new-campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns" is-last="$index===newCampaigns.length-1"></new-campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
           <div ng-if="provokes.length&gt;0 || nowType=='provokes'" ng-cloak="ng-cloak" class="campaign_container_title"><span>挑战 {{provokes.length}}</span></div>
-          <new-campaign-card ng-repeat="campaign in provokes" campaign="campaign" campaign-index="$index" campaign-filter="provokes" pswp-id="pswpId" pswp-photo-album="pswpPhotoAlbum"></new-campaign-card>
+          <new-campaign-card ng-repeat="campaign in provokes" campaign="campaign" campaign-index="$index" campaign-filter="provokes" is-last="$index===provokes.length-1"></new-campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
           <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>进行中的活动 {{nowCampaigns.length}}</span></div>
-          <new-campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns" pswp-id="pswpId" pswp-photo-album="pswpPhotoAlbum"></new-campaign-card>
+          <new-campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns" is-last="$index===nowCampaigns.length-1"></new-campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
           <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>即将开始的活动 {{unStartCampaigns.length}}</span></div>
-          <new-campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns" pswp-id="pswpId" pswp-photo-album="pswpPhotoAlbum"></new-campaign-card>
+          <new-campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns" is-last="$index===unStartCampaigns.length-1"></new-campaign-card>
         </div>
       <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign">
         <div class="no_campaign_tip">
@@ -31,34 +30,14 @@
       </div>
     </ion-scroll>
   </ion-content>
-  <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
-    <div class="pswp__bg"></div>
-    <div class="pswp__scroll-wrap">
-      <div class="pswp__container">
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-      </div>
-      <div class="pswp__ui pswp__ui--hidden">
-        <div class="pswp__top-bar">
-          <div class="pswp__counter"></div>
-          <button title="关闭" class="pswp__button pswp__button--close"></button>
-          <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
-          <button ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
-          <div class="pswp__preloader">
-            <div class="pswp__preloader__icn">
-              <div class="pswp__preloader__cut">
-                <div class="pswp__preloader__donut"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button title="上一张" class="pswp__button pswp__button--arrow--left"></button>
-        <button title="下一张" class="pswp__button pswp__button--arrow--right"></button>
-        <div class="pswp__caption">
-          <div class="pswp__caption__center"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 </ion-view>
+<script id="my-popover.html" type="text/ng-template">
+  <ion-popover-view class="dl_popover campaign_filter_popover">
+    <ion-content class="dl_popover_content">
+      <div ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}" class="dl_popover_button">所有活动</div>
+      <div ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}" class="dl_popover_button">新活动</div>
+      <div ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}" class="dl_popover_button">即将开始的活动</div>
+      <div ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}" class="dl_popover_button">正在进行的活动</div>
+    </ion-content>
+  </ion-popover-view>
+</script>

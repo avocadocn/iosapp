@@ -30,9 +30,6 @@ body {
 .title.title_have_right {
   margin-right: 30px;
 }
-.campaigns_container {
-  padding-bottom: 32px;
-}
 .campaigns_container .campaign_filter {
   height: 33px;
   background-color: #fff;
@@ -53,6 +50,7 @@ body {
 .campaigns_container .campaign_list {
   height: 100%;
   background-color: #e2e2e2;
+  margin-top: 0;
 }
 .campaigns_container .campaign_list .no_campaign {
   background-image: url("../img/no_new_campaign.png");
@@ -321,14 +319,14 @@ body {
   margin: 0;
   padding: 10px;
   position: relative;
-  border-bottom: 1px solid #c9c9c9;
+  border-bottom: 1px solid #ddd;
   box-shadow: 0 0;
 }
 .dl_campaign_card .campaign_card {
   text-decoration: none;
   padding: 0;
   padding-top: 10px;
-  border-bottom: 1px solid #c9c9c9;
+  border-bottom: 1px solid #ddd;
 }
 .dl_campaign_card .campaign_card .dl_card_header {
   height: 26px;
@@ -392,10 +390,18 @@ body {
   margin-bottom: 6px;
   width: 100%;
   height: 16px;
-  line-height: 1;
+  line-height: 19px;
   font-size: 14px;
   color: #707070;
   padding-left: 10px;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .icon,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .icon,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .icon {
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
 }
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .dl_cp_text,
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .dl_cp_text,
@@ -407,7 +413,7 @@ body {
 }
 .dl_campaign_card .campaign_card .dl_card_footer {
   margin-top: 10px;
-  color: #c9c9c9;
+  color: #c2c1c1;
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_team_name {
   float: left;
@@ -417,6 +423,18 @@ body {
 .dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time {
   float: right;
   margin-right: 10px;
+}
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment .dl_card_footer_count,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .dl_card_footer_count,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .dl_card_footer_count {
+  float: left;
+}
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment .icon,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .icon,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .icon {
+  float: left;
+  height: 20px;
+  width: 20px;
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
   margin-right: 0;
@@ -469,15 +487,23 @@ body {
   text-decoration: none;
   color: #000;
 }
-display: block;
-margin: 10px 10px 5px;
-padding: 10px;
-box-shadow: 0 2px 0 #ccc;
-line-height: 18px;
-background-color: #fff;
-padding 0,
-border-radius 5px,
-.dl_card_header {
+.dl_divider {
+  height: 10px;
+  border: 1px solid #ddd;
+  border-top: 0;
+  background-color: #f7f7f7;
+}
+.dl_card_detail {
+  display: block;
+  margin: 10px 10px 5px;
+  padding: 10px;
+  box-shadow: 0 2px 0 #ccc;
+  line-height: 18px;
+  background-color: #fff;
+  padding: 0;
+  border-radius: 5px;
+}
+.dl_card_detail .dl_card_header {
   background-color: #3ca2e0;
   color: #fff;
   padding: 10px;
@@ -485,15 +511,11 @@ border-radius 5px,
   border-top-right-radius: 5px !important;
   border-top-left-radius: 5px !important;
 }
-padding 0 .dl_team_logo,
-border-radius 5px .dl_team_logo,
-.dl_card_header .dl_team_logo {
+.dl_card_detail .dl_card_header .dl_team_logo {
   float: left;
   border-radius: 5px;
 }
-padding 0 .dl_team_name,
-border-radius 5px .dl_team_name,
-.dl_card_header .dl_team_name {
+.dl_card_detail .dl_card_header .dl_team_name {
   color: #fff;
   float: left;
   margin: 0 0 0 10px;
@@ -503,9 +525,7 @@ border-radius 5px .dl_team_name,
   white-space: nowrap;
   width: 60%;
 }
-padding 0 .campaign_mold,
-border-radius 5px .campaign_mold,
-.dl_card_header .campaign_mold {
+.dl_card_detail .dl_card_header .campaign_mold {
   float: right;
   color: #3ca2e0;
   background-color: #fff;
@@ -513,48 +533,38 @@ border-radius 5px .campaign_mold,
   padding: 5px 10px;
   font-weight: bolder;
 }
-padding 0 .publish_notice,
-border-radius 5px .publish_notice,
-.dl_card_header .publish_notice {
+.dl_card_detail .dl_card_header .publish_notice {
   float: right;
   margin: 0 10px 0 0;
   line-height: 30px;
   padding-left: 20px;
 }
-padding 0 .dl_card_title,
-border-radius 5px .dl_card_title,
-.dl_card_header .dl_card_title {
+.dl_card_detail .dl_card_header .dl_card_title {
   margin: 0 0 0 10px;
   line-height: 30px;
 }
-padding 0 .dl_notice_container,
-border-radius 5px .dl_notice_container,
-.dl_card_header .dl_notice_container {
+.dl_card_detail .dl_card_header .dl_notice_container {
   padding: 10px;
 }
-padding 0 .dl_notice_container .dl_card_title,
-border-radius 5px .dl_notice_container .dl_card_title,
-.dl_card_header .dl_notice_container .dl_card_title {
+.dl_card_detail .dl_card_header .dl_notice_container .dl_card_title {
   margin: 0;
 }
-padding 0 .dl_notice_container .dl_notice_count,
-border-radius 5px .dl_notice_container .dl_notice_count,
-.dl_card_header .dl_notice_container .dl_notice_count {
+.dl_card_detail .dl_card_header .dl_notice_container .dl_notice_count {
   margin-left: 10px;
 }
-.dl_card_header_provoke .dl_team_logo_right {
+.dl_card_detail .dl_card_header_provoke .dl_team_logo_right {
   float: right;
 }
-.dl_card_header_provoke .dl_team_name {
+.dl_card_detail .dl_card_header_provoke .dl_team_name {
   width: 25%;
 }
-.dl_card_header_provoke .dl_team_vs {
+.dl_card_detail .dl_card_header_provoke .dl_team_vs {
   color: #fff;
   float: left;
   margin: 0 0 0 10px;
   line-height: 30px;
 }
-.dl_card_header_small {
+.dl_card_detail .dl_card_header_small {
   height: 25px;
   padding: 5px 10px;
   font-size: 12px;
@@ -563,13 +573,13 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   border-top-left-radius: 5px !important;
   border-top-right-radius: 5px !important;
 }
-.dl_card_body {
+.dl_card_detail .dl_card_body {
   padding: 10px;
 }
-.dl_card_body .dl_cp_name {
+.dl_card_detail .dl_card_body .dl_cp_name {
   margin-bottom: 10px;
 }
-.dl_card_body a.dl_cp_address {
+.dl_card_detail .dl_card_body a.dl_cp_address {
   display: inline-block;
   background-color: #efefef;
   padding: 10px;
@@ -578,19 +588,19 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   text-decoration: none;
   font-size: 14px;
 }
-.dl_card_body a.dl_cp_address .icon {
+.dl_card_detail .dl_card_body a.dl_cp_address .icon {
   margin-left: 5px;
 }
-.dl_card_body .dl_cp_time {
+.dl_card_detail .dl_card_body .dl_cp_time {
   margin-bottom: 10px;
 }
-.dl_card_body .dl_photo_alb {
+.dl_card_detail .dl_card_body .dl_photo_alb {
   white-space: nowrap;
 }
-.dl_card_body .dl_photo_alb .dl_cp_photo {
+.dl_card_detail .dl_card_body .dl_photo_alb .dl_cp_photo {
   margin-right: 5px;
 }
-.dl_card_body .dl_cp_join {
+.dl_card_detail .dl_card_body .dl_cp_join {
   min-height: 40px;
   height: 40px;
   border-radius: 5px;
@@ -598,7 +608,7 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   color: #fff;
   background-color: #3ca2e0;
 }
-.dl_card_body .dl_cp_quit {
+.dl_card_detail .dl_card_body .dl_cp_quit {
   min-height: 40px;
   height: 40px;
   border-radius: 5px;
@@ -606,9 +616,9 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   border: 1px solid #3ca2e0;
   background-color: #fff;
 }
-.dl_card_body .dl_cp_confirm,
-.dl_card_body .dl_cp_refuse,
-.dl_card_body .dl_cp_cancel {
+.dl_card_detail .dl_card_body .dl_cp_confirm,
+.dl_card_detail .dl_card_body .dl_cp_refuse,
+.dl_card_detail .dl_card_body .dl_cp_cancel {
   width: 48%;
   height: 40px;
   min-height: 40px;
@@ -618,23 +628,23 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   font-size: 14px;
   border-radius: 5px;
 }
-.dl_card_body .dl_cp_confirm {
+.dl_card_detail .dl_card_body .dl_cp_confirm {
   background-color: #6a73c6;
 }
-.dl_card_body .dl_cp_refuse {
+.dl_card_detail .dl_card_body .dl_cp_refuse {
   float: right;
 }
-.dl_card_body .dl_cp_cancel {
+.dl_card_detail .dl_card_body .dl_cp_cancel {
   display: block;
   margin: 0 auto;
 }
-.dl_card_footer {
+.dl_card_detail .dl_card_footer {
   height: 40px;
   padding: 0;
   border-bottom-left-radius: 5px !important;
   border-bottom-right-radius: 5px !important;
 }
-.dl_card_footer .col {
+.dl_card_detail .dl_card_footer .col {
   padding: 0;
   color: #999;
   text-align: center;
@@ -644,10 +654,10 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   line-height: 40px;
   border-right: 1px solid #ccc;
 }
-.dl_card_footer .col:last-child {
+.dl_card_detail .dl_card_footer .col:last-child {
   border-right: none;
 }
-.dl_card_footer .col .icon {
+.dl_card_detail .dl_card_footer .col .icon {
   display: inline-block;
   vertical-align: middle;
   margin-top: -2px;
@@ -655,7 +665,7 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   color: #3ca2e0;
   font-size: 16px;
 }
-.dl_card_footer .col .dl_icon {
+.dl_card_detail .dl_card_footer .col .dl_icon {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -663,14 +673,14 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   vertical-align: middle;
   margin-top: 3px;
 }
-.dl_card_footer .col .ion_member {
+.dl_card_detail .dl_card_footer .col .ion_member {
   background-position: 5px -148px;
 }
-.dl_cp_time_status {
+.dl_card_detail .dl_cp_time_status {
   color: #9e6dd0;
   margin-right: 10px;
 }
-.dl_cp_time_countdown {
+.dl_card_detail .dl_cp_time_countdown {
   margin-top: -6px;
   width: 70px;
   height: 30px;
@@ -681,8 +691,8 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   font-size: 16px;
   float: right;
 }
-.dl_cp_time_countdown .dl_cp_time_count,
-.dl_cp_time_countdown .dl_cp_time_unit {
+.dl_card_detail .dl_cp_time_countdown .dl_cp_time_count,
+.dl_card_detail .dl_cp_time_countdown .dl_cp_time_unit {
   display: block;
   float: left;
   width: 34px;
@@ -690,34 +700,34 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   line-height: 28px;
   text-align: center;
 }
-.dl_cp_time_countdown .dl_cp_time_count {
+.dl_card_detail .dl_cp_time_countdown .dl_cp_time_count {
   border-right: 1px solid #806dd0;
 }
-.dl_notice span {
+.dl_card_detail .dl_notice span {
   color: #999;
 }
-.dl_notice .dl_notice_sender {
+.dl_card_detail .dl_notice .dl_notice_sender {
   color: #3ca2e0;
 }
-.dl_notice .dl_notice_content {
+.dl_card_detail .dl_notice .dl_notice_content {
   margin-left: 10px;
 }
-.dl_card_member {
+.dl_card_detail .dl_card_member {
   background-color: #3ca2e0;
   padding: 6px 46px 2px 10px;
   border-radius: 5px !important;
   min-height: 50px;
 }
-.dl_card_member .dl_member {
+.dl_card_detail .dl_card_member .dl_member {
   position: relative;
 }
-.dl_card_member .dl_member .dl_member_logo {
+.dl_card_detail .dl_card_member .dl_member .dl_member_logo {
   border-radius: 5px;
   margin-right: 5px;
   width: 40px;
   height: 40px;
 }
-.dl_card_member .dl_member .dl_member_leader {
+.dl_card_detail .dl_card_member .dl_member .dl_member_leader {
   width: 20px;
   height: 20px;
   display: inline-block;
@@ -730,7 +740,7 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   background-size: 192px 240px;
   background-position: -45px -140px;
 }
-.dl_card_member .dl_card_more {
+.dl_card_detail .dl_card_member .dl_card_more {
   background-color: #3ca2e0;
   color: #fff;
   border: none;
@@ -739,15 +749,15 @@ border-radius 5px .dl_notice_container .dl_notice_count,
   right: 10px;
   line-height: 50px;
 }
-.dl_card_member .dl_card_more .icon {
+.dl_card_detail .dl_card_member .dl_card_more .icon {
   margin-left: 5px;
 }
-.dl_card_time {
+.dl_card_detail .dl_card_time {
   height: 50px;
   font-size: 14px;
   border-radius: 5px !important;
 }
-.item:last-child {
+.dl_card_detail .item:last-child {
   border-bottom-right-radius: 5px;
 }
 .dl_photo_album_card {
@@ -1115,15 +1125,12 @@ a>.login .companies_list:activated {
 .ion_message,
 .ion_calendar,
 .ion_setting,
-.ion_invite_code {
+.ion_invite_code,
+.ion_time,
+.ion_address,
+.ion_circle {
   background-image: url("../img/icon.png");
-  background-size: 160px 200px;
-}
-.ion_member {
-  background-position: 0px -80px;
-}
-.ion_comment {
-  background-position: -40px -80px;
+  background-size: 160px 240px;
 }
 .ion_ballon {
   background-position: -110px -65px;
@@ -1145,6 +1152,21 @@ a>.login .companies_list:activated {
 }
 .ion_invite_code {
   background-position: 10px -25px;
+}
+.ion_time {
+  background-position: -80px -160px;
+}
+.ion_address {
+  background-position: -120px -160px;
+}
+.ion_member {
+  background-position: 0 -200px;
+}
+.ion_comment {
+  background-position: -80px -199px;
+}
+.ion_circle {
+  background-position: -40px -198px;
 }
 .emoji {
   margin: 0 0.1rem;
@@ -2148,6 +2170,16 @@ a>.login .companies_list:activated {
 .calendar_filter_popover {
   width: 80px;
   height: 105px;
+}
+.campaign_filter_popover {
+  width: 140px;
+  height: 140px;
+}
+.campaign_filter_popover .dl_popover_content {
+  margin: 10px;
+}
+.campaign_filter_popover .dl_popover_content .dl_popover_button {
+  border-bottom: 0;
 }
 .user_more_popover {
   width: 80px;

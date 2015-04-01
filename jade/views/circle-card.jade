@@ -1,0 +1,41 @@
+.dl_circle_company_card.clearfix
+  img.circle_company_logo(ng-src="{{staticUrl + circle.content.poster.photo}}/32/32")
+  .circle_info
+    h2.user_name.link_name(ng-click="goToUserPage(circle.content.poster._id)") {{circle.content.poster.nickname}}
+    .circle_contents(ng-controller="CircleContentController")
+      textarea(ng-model="circle.content.content" ng-readonly="true")
+      a.circle_overall(ng-if="showContentStatus.showOverAll" ng-click="showAllContent()") 全文
+      a.circle_partial(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
+    //- p.circle_content {{circle.content.content}}
+
+    .image_box.clearfix
+      img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/128/128" error-img ng-click="clickImg(photo)")
+    .date_and_op.clearfix
+      span.date.text_item {{circle.content.post_date | circleBeforeNow}}
+      span.text_item(ng-if="circle.content.campaign_id") 来自活动
+      a.link_name.text_item.campaign_name(ng-if="circle.content.campaign_id" ng-href="#/campaign/detail/{{circle.content.campaign_id}}") {{circle.content.campaignTheme}}
+      span.delete.text_item(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
+      i.ion-chatbox-working.op_icon(ng-click="toggleComment()")
+    .comment_op.clearfix(ng-if="circle.isToComment")
+      .op_box.clearfix
+        .op_item(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)")
+          i.ion-heart
+          | &nbsp;赞
+        .op_item(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak)
+          i.ion-heart
+          | &nbsp;取消
+        .op_divider
+        .op_item(ng-click="commentToContent()")
+          i.ion-chatbox-working
+          | &nbsp;评论
+  .circle_comment_list
+    .appreciate_container(ng-if="circle.appreciate.length > 0")
+      i.ion-heart.appreciate_icon
+      a.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-href="#/user/{{appr.poster._id}}") {{appr.poster.nickname}}
+    .comment_container(ng-if="circle.textComments.length > 0")
+      .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)")
+        span.nickname.link_name(ng-click="goToUserPage(comment.poster._id)" prevent-default) {{comment.poster.nickname}}
+        span.reply_text(ng-if="!comment.is_only_to_content" ng-cloak) 回复
+        span.reply_to.link_name(ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default ng-cloak) {{comment.target.nickname}}
+        span.colon :
+        span.content(ng-bind-html="comment.content | emoji | unsafe")
