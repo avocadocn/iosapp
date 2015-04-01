@@ -30,6 +30,7 @@
           i.ion-chatbox-working
           | &nbsp;评论
     .circle_comment_list(ng-if="circle.appreciate.length > 0 || circle.textComments.length > 0")
+      .circle_triangle
       .appreciate_container(ng-if="circle.appreciate.length > 0")
         i.ion-heart.appreciate_icon
         span.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster._id)") {{appr.poster.nickname}}

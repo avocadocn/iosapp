@@ -2403,6 +2403,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     width 100%
     height 100%
 
+.circle_content_detail_page
+  background-color white
+
 // 公司、个人同事圈页面
 .circle_company_page, .circle_user_page
   .custom_ion_content
@@ -2416,6 +2419,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   .circle_user
     position relative
     margin-bottom 20px
+    z-index 1
     .circle_user_name
       position absolute
       top -25px
@@ -2512,6 +2516,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   text-decoration none
   min-height 80px
   padding 25px 10px 24px 10px
+  background-color white
   .link_name
     color col_link
     text-decoration none
@@ -2594,10 +2599,19 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         height 24px
         border-right 1px solid white
   .circle_comment_list
+    position relative
     margin-top 13px
     padding 6px 5px
     color col_mainText
     background-color col_bottomGray
+    .circle_triangle
+      position absolute
+      left 5px
+      top -10px
+      border-style solid
+      border-width 5px
+      border-color transparent
+      border-bottom-color col_bottomGray
     .appreciate_container
       overflow hidden
       word-break break-all
