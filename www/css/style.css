@@ -496,6 +496,8 @@ input:focus:-ms-input-placeholder {
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .icon,
 .dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .icon {
   float: left;
+  height: 18px;
+  width: 18px;
   margin-right: 5px;
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
@@ -638,6 +640,24 @@ input:focus:-ms-input-placeholder {
   margin: 0 15px;
   border-radius: 5px;
   height: 40px;
+}
+.notice_page {
+  background-color: #efefef;
+}
+.notice_page .list {
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+.notice_page .list .dl_notice_head {
+  height: 40px;
+  padding: 10px 16px;
+}
+.notice_page .list .dl_notice_head .time {
+  color: #202020;
+}
+.notice_page .list .dl_notice_head .tip {
+  color: #707070;
+  margin-left: 20px;
 }
 .dl_divider {
   height: 10px;

@@ -529,7 +529,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('CampaignNoticelController', ['$ionicHistory', '$scope', '$stateParams', '$ionicPopup', 'Campaign', 'Message', function($ionicHistory, $scope, $stateParams, $ionicPopup, Campaign, Message) {
+  .controller('CampaignNoticelController', ['$ionicHistory', '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'Campaign', 'Message', function($ionicHistory, $scope, $stateParams, $ionicModal, $ionicPopup, Campaign, Message) {
     Campaign.get($stateParams.id, function(err, data){
       if(!err){
         $scope.campaign = data;
@@ -540,68 +540,56 @@ angular.module('donlerApp.controllers', [])
         $scope.notices = data;
       }
     });
-    $scope.showPopup = function() {
-      $scope.data = {};
-
-      // An elaborate, custom popup
-      var myPopup = $ionicPopup.show({
-        template: '<input type="text" ng-model="data.message">',
-        title: '公告',
-        subTitle: '请输入公告内容',
-        scope: $scope,
-        buttons: [
-          { text: '取消' },
-          {
-            text: '<b>保存</b>',
-            type: 'button-positive',
-            onTap: function(e) {
-              if (!$scope.data.message) {
-                //don't allow the user to close unless he enters wifi password
-                e.preventDefault();
-              } else {
-                return $scope.data.message;
-              }
-            }
-          }
-        ]
-      });
-      myPopup.then(function(res) {
-        if(res) {
-          var messageData = {
-            type:'private',
-            caption:$scope.campaign.theme,
-            content:res,
-            specific_type:{
-              value: 3,
-              child_type: $scope.campaign.campaign_unit.length>1 ? 1 : 0,
-            },
-            campaignId:$scope.campaign._id
-          };
-          if(window.analytics){
-            window.analytics.trackEvent('Click', 'postCampaignMessage');
-          }
-          Message.postMessage( messageData, function(err, data){
+    $ionicModal.fromTemplateUrl('publish-notice.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.publishModal = modal;
+    });
+    $scope.showPublishSheet = function() {
+      $scope.publishModal.show();
+    };
+    $scope.cancelPublish = function() {
+      $scope.publishModal.hide();
+    };
+    $scope.data = {message:''};
+    $scope.publishNotice = function() {
+      var messageData = {
+        type:'private',
+        caption:$scope.campaign.theme,
+        content:$scope.data.message,
+        specific_type:{
+          value: 3,
+          child_type: $scope.campaign.campaign_unit.length>1 ? 1 : 0,
+        },
+        campaignId:$scope.campaign._id
+      };
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'postCampaignMessage');
+      }
+      Message.postMessage( messageData, function(err, data){
+        if(!err){
+          $ionicPopup.alert({
+            title: '提示',
+            template: '公告发布成功！'
+          });
+          Message.getCampaignMessages($stateParams.id, function(err, data){
             if(!err){
-              $ionicPopup.alert({
-                title: '提示',
-                template: '公告发布成功！'
-              });
-              Message.getCampaignMessages($state.params.id, function(err, data){
-                if(!err){
-                  $scope.notices = data;
-                }
-              });
+              $scope.notices = data;
             }
-            else{
-              $ionicPopup.alert({
-                title: '错误',
-                template: err
-              });
-            }
+            $scope.publishModal.hide();
+          });
+        }
+        else{
+          $ionicPopup.alert({
+            title: '错误',
+            template: err
           });
         }
       });
+      
     };
+
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
