@@ -14,6 +14,8 @@ col_lightGray = #676767
 col_bottomGray = #f7f7f7
 col_borderGray = #c9c9c9
 col_textBlack = #707070
+col_link = rgb(60, 162, 224)
+col_mainText = rgb(32, 32, 32)
 
 // mixins
 dl_card()
@@ -2338,29 +2340,30 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
 // 公司、个人同事圈页面
 .circle_company_page, .circle_user_page
+  .custom_ion_content
+    background white
   .circle_company_image
     width 100%
     display block
     background url('../img/discover.jpg') no-repeat
     background-size 100%
-    height 15rem
+    height 144px
   .circle_user
     position relative
-    height 20px
+    margin-bottom 20px
     .circle_user_name
       position absolute
-      bottom 30px
-      right 110px
+      top -25px
+      right 95px
       color #FFFFFF
       font-size 14px
       font-family Arial, Helvetica, sans-serif
     .circle_user_image
       display block
       position absolute
-      top auto
-      bottom 10px
-      right 30px
-      padding 2px
+      top -50px
+      right 5px
+      border 2px solid white
 
   .remind_box
     display block
@@ -2425,51 +2428,70 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .icon.ion-record
       color col_blue
 
+.dl_circle_card_list
+  display block
+  .circle_card_wrap
+    display block
+    border-top 1px solid col_gray
+    &:first-child
+      border-top none
 
-.dl_circle_company_card
-  dl_card()
+.dl_circle_card
   position relative
-  border-radius 5px
   text-decoration none
   min-height 80px
+  padding 25px 10px 24px 10px
   .link_name
-    color col_darkBlue
+    color col_link
     text-decoration none
   .circle_company_logo
     display block
     position absolute
-    top 10px
+    top 25px
     left 10px
+    width 40px
+    height 40px
   .circle_info
-    margin-left 45px
-    color col_black
+    margin-left 50px
+    color col_mainText
     text-decoration none
     .user_name
       margin 0
-      font-size 14px
-    .circle_overall, .circle_partial
-      color col_darkBlue
+      font-size 16px
+      line-height 16px
     .circle_content
+      margin-top 11px
       .content_text
+        padding 0
+        margin 0
         overflow hidden
-        padding 0px
-        margin-top 5px
         resize none
-        max-height 560px
-        background-color #fff
+        color col_mainText
+        background-color white
         font-size 14px
+        line-height 16px
     .image_box
-      margin-top 5px
-      width 210px
+      margin-top 14px
+      width 240px
       .preview_img
         display block
         float left
-        margin-right 5px
-        margin-bottom 5px
-        width 64px
-        height 64px
+        margin-right 4px
+        margin-bottom 4px
+        width 75px
+        height 75px
+    .campaign_link
+      margin 0
+      margin-top 7px
+      font-size 12px
+      max-width 320px
+      overflow hidden
+      word-break break-all
+      white-space nowrap
+      text-overflow ellipsis
     .date_and_op
       margin-top 5px
+      font-size 12px
       .text_item
         display block
         float left
@@ -2478,14 +2500,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           margin-left 0
       .date
         color col_darkGray
-      .campaign_name
-        max-width 120px
-        overflow hidden
-        word-break break-all
-        white-space nowrap
-        text-overflow ellipsis
-      .delete
-        color col_darkBlue
       .op_icon
         float right
         width 20px
@@ -2508,16 +2522,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         height 24px
         border-right 1px solid white
   .circle_comment_list
-    margin-left 45px
-    color col_black
+    margin-top 13px
+    padding 6px 5px
+    color col_mainText
+    background-color col_bottomGray
     .appreciate_container
-      margin-top 5px
       overflow hidden
       word-break break-all
       white-space nowrap
       text-overflow ellipsis
       .appreciate_icon
-        color col_darkBlue
+        color col_link
       .appreciate
         margin-left 5px
         &:after

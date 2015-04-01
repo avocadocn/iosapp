@@ -2728,24 +2728,28 @@ a>.login .companies_list:activated {
   width: 100%;
   height: 100%;
 }
+.circle_company_page .custom_ion_content,
+.circle_user_page .custom_ion_content {
+  background: #fff;
+}
 .circle_company_page .circle_company_image,
 .circle_user_page .circle_company_image {
   width: 100%;
   display: block;
   background: url("../img/discover.jpg") no-repeat;
   background-size: 100%;
-  height: 15rem;
+  height: 144px;
 }
 .circle_company_page .circle_user,
 .circle_user_page .circle_user {
   position: relative;
-  height: 20px;
+  margin-bottom: 20px;
 }
 .circle_company_page .circle_user .circle_user_name,
 .circle_user_page .circle_user .circle_user_name {
   position: absolute;
-  bottom: 30px;
-  right: 110px;
+  top: -25px;
+  right: 95px;
   color: #fff;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
@@ -2754,10 +2758,9 @@ a>.login .companies_list:activated {
 .circle_user_page .circle_user .circle_user_image {
   display: block;
   position: absolute;
-  top: auto;
-  bottom: 10px;
-  right: 30px;
-  padding: 2px;
+  top: -50px;
+  right: 5px;
+  border: 2px solid #fff;
 }
 .circle_company_page .remind_box,
 .circle_user_page .remind_box {
@@ -2829,142 +2832,151 @@ a>.login .companies_list:activated {
 .circle_emotion_box .slider-pager .icon.ion-record {
   color: #3ca2e0;
 }
-.dl_circle_company_card {
+.dl_circle_card_list {
   display: block;
-  margin: 10px 10px 5px;
-  padding: 10px;
-  box-shadow: 0 2px 0 #ccc;
-  line-height: 18px;
-  background-color: #fff;
+}
+.dl_circle_card_list .circle_card_wrap {
+  display: block;
+  border-top: 1px solid #e2e2e2;
+}
+.dl_circle_card_list .circle_card_wrap:first-child {
+  border-top: none;
+}
+.dl_circle_card {
   position: relative;
-  border-radius: 5px;
   text-decoration: none;
   min-height: 80px;
+  padding: 25px 10px 24px 10px;
 }
-.dl_circle_company_card .link_name {
-  color: #618bd7;
+.dl_circle_card .link_name {
+  color: #3ca2e0;
   text-decoration: none;
 }
-.dl_circle_company_card .circle_company_logo {
+.dl_circle_card .circle_company_logo {
   display: block;
   position: absolute;
-  top: 10px;
+  top: 25px;
   left: 10px;
+  width: 40px;
+  height: 40px;
 }
-.dl_circle_company_card .circle_info {
-  margin-left: 45px;
-  color: #333;
+.dl_circle_card .circle_info {
+  margin-left: 50px;
+  color: #202020;
   text-decoration: none;
 }
-.dl_circle_company_card .circle_info .user_name {
+.dl_circle_card .circle_info .user_name {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 16px;
 }
-.dl_circle_company_card .circle_info .circle_overall,
-.dl_circle_company_card .circle_info .circle_partial {
-  color: #618bd7;
+.dl_circle_card .circle_info .circle_content {
+  margin-top: 11px;
 }
-.dl_circle_company_card .circle_info .circle_content .content_text {
+.dl_circle_card .circle_info .circle_content .content_text {
+  padding: 0;
+  margin: 0;
   overflow: hidden;
-  padding: 0px;
-  margin-top: 5px;
   resize: none;
-  max-height: 560px;
+  color: #202020;
   background-color: #fff;
   font-size: 14px;
+  line-height: 16px;
 }
-.dl_circle_company_card .circle_info .image_box {
-  margin-top: 5px;
-  width: 210px;
+.dl_circle_card .circle_info .image_box {
+  margin-top: 14px;
+  width: 240px;
 }
-.dl_circle_company_card .circle_info .image_box .preview_img {
+.dl_circle_card .circle_info .image_box .preview_img {
   display: block;
   float: left;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  width: 64px;
-  height: 64px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  width: 75px;
+  height: 75px;
 }
-.dl_circle_company_card .circle_info .date_and_op {
-  margin-top: 5px;
-}
-.dl_circle_company_card .circle_info .date_and_op .text_item {
-  display: block;
-  float: left;
-  margin-left: 5px;
-}
-.dl_circle_company_card .circle_info .date_and_op .text_item:first-child {
-  margin-left: 0;
-}
-.dl_circle_company_card .circle_info .date_and_op .date {
-  color: #999;
-}
-.dl_circle_company_card .circle_info .date_and_op .campaign_name {
-  max-width: 120px;
+.dl_circle_card .circle_info .campaign_link {
+  margin: 0;
+  margin-top: 7px;
+  font-size: 12px;
+  max-width: 320px;
   overflow: hidden;
   word-break: break-all;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.dl_circle_company_card .circle_info .date_and_op .delete {
-  color: #618bd7;
+.dl_circle_card .circle_info .date_and_op {
+  margin-top: 5px;
+  font-size: 12px;
 }
-.dl_circle_company_card .circle_info .date_and_op .op_icon {
+.dl_circle_card .circle_info .date_and_op .text_item {
+  display: block;
+  float: left;
+  margin-left: 5px;
+}
+.dl_circle_card .circle_info .date_and_op .text_item:first-child {
+  margin-left: 0;
+}
+.dl_circle_card .circle_info .date_and_op .date {
+  color: #999;
+}
+.dl_circle_card .circle_info .date_and_op .op_icon {
   float: right;
   width: 20px;
   font-size: 20px;
   text-align: center;
   color: #999;
 }
-.dl_circle_company_card .circle_info .comment_op {
+.dl_circle_card .circle_info .comment_op {
   position: relative;
 }
-.dl_circle_company_card .circle_info .comment_op .op_box {
+.dl_circle_card .circle_info .comment_op .op_box {
   float: right;
   background-color: #999;
   color: #fff;
 }
-.dl_circle_company_card .circle_info .comment_op .op_item {
+.dl_circle_card .circle_info .comment_op .op_item {
   float: left;
   padding: 0 10px;
   line-height: 24px;
   font-size: 14px;
 }
-.dl_circle_company_card .circle_info .comment_op .op_divider {
+.dl_circle_card .circle_info .comment_op .op_divider {
   float: left;
   height: 24px;
   border-right: 1px solid #fff;
 }
-.dl_circle_company_card .circle_comment_list {
-  margin-left: 45px;
-  color: #333;
+.dl_circle_card .circle_comment_list {
+  margin-top: 13px;
+  padding: 6px 5px;
+  color: #202020;
+  background-color: #f7f7f7;
 }
-.dl_circle_company_card .circle_comment_list .appreciate_container {
-  margin-top: 5px;
+.dl_circle_card .circle_comment_list .appreciate_container {
   overflow: hidden;
   word-break: break-all;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.dl_circle_company_card .circle_comment_list .appreciate_container .appreciate_icon {
-  color: #618bd7;
+.dl_circle_card .circle_comment_list .appreciate_container .appreciate_icon {
+  color: #3ca2e0;
 }
-.dl_circle_company_card .circle_comment_list .appreciate_container .appreciate {
+.dl_circle_card .circle_comment_list .appreciate_container .appreciate {
   margin-left: 5px;
 }
-.dl_circle_company_card .circle_comment_list .appreciate_container .appreciate:after {
+.dl_circle_card .circle_comment_list .appreciate_container .appreciate:after {
   content: ",";
 }
-.dl_circle_company_card .circle_comment_list .appreciate_container .appreciate:last-child:after {
+.dl_circle_card .circle_comment_list .appreciate_container .appreciate:last-child:after {
   content: "";
 }
-.dl_circle_company_card .circle_comment_list .comment_container {
+.dl_circle_card .circle_comment_list .comment_container {
   margin-top: 5px;
 }
-.dl_circle_company_card .circle_comment_list .comment .content {
+.dl_circle_card .circle_comment_list .comment .content {
   margin-left: 10px;
 }
-.dl_circle_company_card .circle_comment_list .comment .reply_text {
+.dl_circle_card .circle_comment_list .comment .reply_text {
   margin: 0 5px;
 }
 .rank_select .groups .group {

@@ -1216,18 +1216,17 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         showPartial: false
       };
 
-      // TODO: 64是个什么神秘数字？？？
       var domEle = ele[0];
       var textArea = domEle.querySelector('.content_text');
-      if (textArea.scrollHeight > 64) {
+      var lineHeight = 16;
+      var maxLine = 6;
+      var maxHeight = lineHeight * maxLine;
+      if (textArea.scrollHeight > maxHeight) {
         textArea.style.height = 'auto';
-        textArea.style.height = 64 + 'px';
+        textArea.style.height = maxHeight + 'px';
         $timeout(function(){
           scope.showContentStatus.showOverAll = true;
         }, 10);
-      } else {
-        textArea.style.height = 'auto';
-        textArea.style.height = textArea.scrollHeight + 'px';
       }
 
       scope.showAllContent = function() {
@@ -1241,7 +1240,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         scope.showContentStatus.showOverAll = true;
         scope.showContentStatus.showPartial = false;
         textArea.style.height = 'auto';
-        textArea.style.height = 64 + 'px';
+        textArea.style.height = maxHeight + 'px';
       };
 
     },

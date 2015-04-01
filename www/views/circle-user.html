@@ -3,13 +3,13 @@
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">精彩瞬间</h1>
   </ion-header-bar>
-  <ion-content>
+  <ion-content class="custom_ion_content">
     <div class="circle_company_image"></div>
     <div class="circle_user"><a class="circle_user_name">{{user.nickname}}</a><img ng-src="{{STATIC_URL + user.photo}}/70/70" class="circle_user_image"/></div>
     <div ng-if="newCircleComment &gt; 0">
       <div ng-click="goToRemindsPage()" class="remind_box">{{newCircleComment}}条新消息</div>
     </div>
-    <circle-card-list circle-list="circleContentList" user="user" kind="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL"></circle-card-list>
+    <circle-card-list circle-list="circleContentList" user="user" kind="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL" class="dl_circle_card_list"></circle-card-list>
     <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>
   <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment"></circle-comment-box>
