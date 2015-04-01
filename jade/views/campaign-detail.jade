@@ -32,7 +32,7 @@ ion-view.dl_campaign_detail
         span 活动地点:&nbsp;
         span.cp_location {{campaign.location.name}}
         span.icon.icon_small.ion-chevron-right.button-clear
-      .item.campaign_footer(ng-if="!campaign.is_start && !campaign.allow.quitCampaign" ng-cloak)
+      .item.campaign_footer(ng-if="campaign && !campaign.is_start && !campaign.allow.quitCampaign" ng-cloak)
         a.footer_col(ng-href="#/members/campaign/{{campaign._id}}")
           i.ion_member.icon.icon_small
           span.member_num {{campaign.members_count}}
@@ -44,7 +44,7 @@ ion-view.dl_campaign_detail
       a.item.item_header(ng-href="#/campaign/notice/{{campaign._id}}")
         span 活动公告
         span.icon.icon_small.ion-chevron-right.button-clear
-      .item.item-text-wrap(ng-if="!campaign.is_start")
+      .item.item-text-wrap(ng-if="campaign && !campaign.is_start")
         span.dl_card_title 活动详情:
         p {{campaign.content ?campaign.content :'暂无'}}
       a.item.item_header(ng-if="campaign.is_start" ng-href="#/campaign/content/{{campaign._id}}")
