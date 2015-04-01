@@ -160,8 +160,8 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
-    function ($scope, $state, $timeout, $ionicPopup, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$ionicPopover', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
+    function ($scope, $state, $timeout, $ionicPopup, $ionicPopover, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
     $scope.nowType = 'all';
     $scope.pswpPhotoAlbum = {};
     $scope.pswpId = 'campaigns' + Date.now();
@@ -175,10 +175,10 @@ angular.module('donlerApp.controllers', [])
         populate: 'photo_album'
       }, function (err, data) {
         if (!err) {
-          $scope.unStartCampaigns = $filter('orderBy')(data[0], 'start_time');
-          $scope.nowCampaigns = $filter('orderBy')(data[1], 'end_time');
-          $scope.newCampaigns = $filter('orderBy')(data[2], '-create_time');
-          $scope.provokes = $filter('orderBy')(data[3], '-create_time');
+          $scope.unStartCampaigns = data[0];
+          $scope.nowCampaigns = data[1];
+          $scope.newCampaigns = data[2];
+          $scope.provokes = data[3];
           if(data[0].length===0&&data[1].length===0&&data[2].length===0&&data[3].length===0){
             $scope.noCampaigns = true;
           }
@@ -202,8 +202,25 @@ angular.module('donlerApp.controllers', [])
         getCampaignList();
       }
     });
+    $ionicPopover.fromTemplateUrl('my-popover.html', {
+      scope: $scope,
+    }).then(function(popover) {
+      $scope.popover = popover;
+    });
+    $scope.showFilter = function($event){
+      $scope.popover.show($event);
+    };
+    var filterMap = {
+      'all' : '所有活动',
+      'newCampaigns' : '新活动',
+      'unStartCampaigns' : '即将开始的活动',
+      'nowCampaigns' : '正在进行的活动'
+    };
+    $scope.typeTitle = '所有活动';
     $scope.filter = function(filterType) {
+      $scope.popover.hide();
       $scope.nowType = filterType;
+      $scope.typeTitle = filterMap[filterType];
       $timeout(function() {
         $ionicScrollDelegate.scrollTop(true);
       });
@@ -3490,9 +3507,6 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-          rankTeams.forEach(function(rankTeam, index){
-            rankTeam.score_rank.winPercent= (rankTeam.score_rank.win || 0)/(rankTeam.score_rank.win || 0  + rankTeam.score_rank.tie  || 0 + rankTeam.score_rank.lose || 0) || 0;
-          });
           $scope.selectTeam.rankTeams = rankTeams;
         }
       });
@@ -4110,6 +4124,7 @@ angular.module('donlerApp.controllers', [])
     $scope.getCompetitionLog = function (refreshFlag) {
       if(refreshFlag) {
         $scope.page =1;
+        $scope.competitionMessages =[]
       }
       var data = {
         messageType: $scope.messageType,
@@ -4128,10 +4143,10 @@ angular.module('donlerApp.controllers', [])
         refreshFlag && $scope.$broadcast('scroll.refreshComplete');
       });
     }
-    $scope.getCompetitionLog();
     $scope.typeFilter = function (messageType) {
       $scope.messageType = messageType;
       $scope.page = 1;
+      $scope.competitionMessages =[];
       $scope.getCompetitionLog();
     }
     $scope.moreCompetition = function (argument) {
@@ -4155,7 +4170,7 @@ angular.module('donlerApp.controllers', [])
     $scope.commentList = [];
     $scope.topShowTime = [];
     $scope.data ={};
-    $scope.currentUser;
+    $scope.cid = localStorage.cid;
     var formatVote = function (vote) {
       var totalVote = vote.units[0].positive +vote.units[1].positive;
       vote.units.forEach(function(unit, index){
@@ -4192,16 +4207,19 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-            $scope.commentList = data.comments;
+          $scope.commentList = data.comments;
+          $scope.commentList.unshift({
+            content:$scope.competitionMessage.content,
+            create_date:$scope.competitionMessage.create_date,
+            poster_team: $scope.competitionMessage.sponsor_team
+          });
         }
       });
     }
     $scope.showPopup = function() {
       $scope.data = {};
-
-      // An elaborate, custom popup
       var myPopup = $ionicPopup.show({
-        template: '<input placeholder="请输入评论内容" type="text" ng-model="data.content">',
+        template: '<textarea rows=4 placeholder="请输入评论内容" type="text" ng-model="data.content">',
         title: '评论',
         scope: $scope,
         buttons: [
@@ -4277,54 +4295,24 @@ angular.module('donlerApp.controllers', [])
       if(window.analytics){
         window.analytics.trackEvent('Click', 'publishComment');
       }
-      //-创建一个新comment
-      var newComment = {
-        create_date: new Date(),
-        poster: {
-          '_id': $scope.currentUser._id,
-          'photo': $scope.currentUser.photo,
-          'nickname': $scope.currentUser.nickname
-        },
-        content: $scope.data.content,
-        loading: true
-      };
-      $scope.commentList.push(newComment);
-      $ionicScrollDelegate.scrollBottom();
       var commentData = {
         hostType: 'competition_message',
         hostId: $state.params.id,
         content: $scope.data.content
       }
-      Comment.publishComment(commentData, function(err){
+      Comment.publishComment(commentData, function(err,data){
         if(err){
           console.log(err);
-          var length =  $scope.commentList.length;
-          //发送失败
-          $scope.commentList[length-1].failed = true;
         }else{
           $scope.data.content = '';
+          $scope.commentList.push(data.comment);
         }
       });
-    };
-
-    $scope.hideEmotions = function() {
-      $scope.isShowEmotions = false;
     };
     $scope.doRefresh = function (refreshFlag) {
       getCompetitionMessage();
       $scope.getCompetitionComments();
-      $scope.content='';
-
-      $scope.userId = localStorage.id;
-      $scope.isWriting = false;
-      //获取新留言
-      var comments_ele = document.getElementsByClassName('comments'); // 获取滚动条
-
-      //获取个人信息供发评论使用
-
-      User.getData($scope.userId, function(err,data){
-        $scope.currentUser = data;
-      });
+      $scope.data.content='';
       refreshFlag && $scope.$broadcast('scroll.refreshComplete');
     }
     $scope.doRefresh();
@@ -4589,6 +4577,7 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('CompetitonSendController', ['$scope', '$state', '$ionicHistory', '$ionicPopup', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', function ($scope, $state, $ionicHistory, $ionicPopup, CompetitionMessage, Team, INFO, Campaign) {
+    $scope.isPublish=false;
     if(INFO.competitionMessageData) {
       var competitionMessageData = INFO.competitionMessageData;
       $scope.fromTeamId = competitionMessageData.fromTeamId;
@@ -4618,6 +4607,9 @@ angular.module('donlerApp.controllers', [])
       }
     }
     $scope.publishMessage = function () {
+      if($scope.isPublish)
+        return;
+      $scope.isPublish =true;
       CompetitionMessage.createCompetitionMessage($scope.messageData, function (err, data) {
         if(!err) {
           $ionicPopup.alert({
@@ -4632,6 +4624,7 @@ angular.module('donlerApp.controllers', [])
             template: data.msg
           });
         }
+        $scope.isPublish =false;
       })
     }
   }])

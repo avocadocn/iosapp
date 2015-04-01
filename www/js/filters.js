@@ -49,10 +49,10 @@ angular.module('donlerApp.filters', [])
     if(xcts>1){
       result = xcts+'天前';
     }
-    else if (Math.floor(intervalMilliForNow / (60 * 60 * 1000))>1) {
+    else if (Math.floor(intervalMilliForNow / (60 * 60 * 1000))>=1) {
       result = Math.floor(intervalMilliForNow / (60 * 60 * 1000))+'小时前';
     }
-    else if (Math.floor(intervalMilliForNow / (60 * 1000))>1) {
+    else if (Math.floor(intervalMilliForNow / (60 * 1000))>=1) {
       result = Math.floor(intervalMilliForNow / (60 * 1000))+'分前';
     }
     else{
@@ -84,10 +84,10 @@ angular.module('donlerApp.filters', [])
     else if (distanceOfDays === 1) {
       result = '昨天';
     }
-    else if (Math.floor(intervalMilliForNow / (60 * 60 * 1000)) > 1) {
+    else if (Math.floor(intervalMilliForNow / (60 * 60 * 1000)) >= 1) {
       result = Math.floor(intervalMilliForNow / (60 * 60 * 1000)) + '小时前';
     }
-    else if (Math.floor(intervalMilliForNow / (60 * 1000)) > 1) {
+    else if (Math.floor(intervalMilliForNow / (60 * 1000)) >= 1) {
       result = Math.floor(intervalMilliForNow / (60 * 1000)) + '分前';
     }
     else{

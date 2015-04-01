@@ -30,9 +30,6 @@ body {
 .title.title_have_right {
   margin-right: 30px;
 }
-.campaigns_container {
-  padding-bottom: 32px;
-}
 .campaigns_container .campaign_filter {
   height: 33px;
   background-color: #fff;
@@ -53,6 +50,7 @@ body {
 .campaigns_container .campaign_list {
   height: 100%;
   background-color: #e2e2e2;
+  margin-top: 0;
 }
 .campaigns_container .campaign_list .no_campaign {
   background-image: url("../img/no_new_campaign.png");
@@ -91,9 +89,12 @@ body {
 }
 .campaigns_container .campaign_list .campaign_container .campaign_container_title {
   font-size: 16px;
-  margin-left: 1rem;
-  padding-top: 1rem;
-  color: #3ca2e0;
+  background-color: #f7f7f7;
+  border: 1px solid #c9c9c9;
+  border-top: 0;
+  padding: 3px 10px;
+  color: #707070;
+  font-size: 11px;
 }
 .dl_card {
   position: relative;
@@ -120,7 +121,6 @@ body {
 .dl_card .campaign_card .dl_card_header .dl_card_header_info {
   width: 100%;
   padding-left: 70px;
-  padding-right: 70px;
 }
 .dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_name,
 .dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_address {
@@ -307,6 +307,123 @@ body {
 .dl_card .campaign_card .dl_cp_cancel {
   display: block;
   margin: 0 auto;
+}
+.dl_campaign_card {
+  display: block;
+  margin: 10px 10px 5px;
+  padding: 10px;
+  box-shadow: 0 2px 0 #ccc;
+  line-height: 18px;
+  background-color: #fff;
+  background-color: #fff;
+  margin: 0;
+  padding: 10px;
+  position: relative;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 0;
+}
+.dl_campaign_card .campaign_card {
+  text-decoration: none;
+  padding: 0;
+  padding-top: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.dl_campaign_card .campaign_card .dl_card_header {
+  height: 26px;
+  margin-bottom: 10px;
+}
+.dl_campaign_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_name {
+  font-size: 24px;
+  color: #000;
+  line-height: 1;
+  margin-bottom: 0;
+  font-weight: 200;
+}
+.dl_campaign_card .campaign_card .dl_card_header .dl_card_time {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+}
+.dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown {
+  width: 92px;
+  height: 22px;
+  padding: 2px 5px;
+  padding-right: 0;
+  border: 1px solid #959595;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown .dl_cp_time_text {
+  color: #707070;
+  border-right: 1px solid #c9c9c9;
+  padding-right: 5px;
+}
+.dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown .dl_cp_time_count {
+  margin-left: 5px;
+  color: #707070;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  float: left;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .dl_team_logo {
+  width: 60px;
+  height: 60px;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos.2_logos:first-child {
+  margin-right: 2px;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos.2_logos .dl_team_logo {
+  width: 29px;
+  height: 29px;
+  float: left;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts {
+  float: left;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member {
+  margin-bottom: 6px;
+  width: 100%;
+  height: 16px;
+  line-height: 1;
+  font-size: 14px;
+  color: #707070;
+  padding-left: 10px;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .dl_cp_text,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .dl_cp_text,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .dl_cp_text {
+  float: left;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member {
+  margin-bottom: 0;
+}
+.dl_campaign_card .campaign_card .dl_card_footer {
+  margin-top: 10px;
+  color: #c2c1c1;
+}
+.dl_campaign_card .campaign_card .dl_card_footer .dl_team_name {
+  float: left;
+}
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time {
+  float: right;
+  margin-right: 10px;
+}
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
+  margin-right: 0;
+}
+.dl_divider {
+  height: 10px;
+  border: 1px solid #ddd;
+  border-top: 0;
+  background-color: #f7f7f7;
 }
 .dl_card_detail {
   display: block;
@@ -1975,6 +2092,10 @@ a>.login .companies_list:activated {
   width: 80px;
   height: 105px;
 }
+.campaign_filter_popover {
+  width: 120px;
+  height: 140px;
+}
 .user_more_popover {
   width: 80px;
   height: 46px;
@@ -3019,15 +3140,23 @@ a>.login .companies_list:activated {
 }
 .competition_message_panel .competition_message_comment .comment .comment_poster {
   float: left;
-  width: 30%;
+  width: 20%;
+}
+.competition_message_panel .competition_message_comment .comment .comment_poster .team_name {
+  width: 90%;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .competition_message_panel .competition_message_comment .comment .comment_contents {
   float: left;
-  width: 60%;
+  width: 70%;
   background-color: #3ca2e0;
   color: #fff;
   border-radius: 10px;
   padding: 10px;
+  font-size: 14px;
 }
 .competition_message_panel .competition_message_comment .comment.pull_right {
   text-align: right;
