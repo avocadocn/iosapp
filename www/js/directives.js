@@ -1221,7 +1221,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   };
 }])
 
-.directive('photoSwipe', function() {
+.directive('photoSwipe', ['$cordovaStatusbar', function($cordovaStatusbar) {
   return {
     restrict: 'E',
     transclude: true,
@@ -1232,31 +1232,26 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     link: function(scope, ele, attrs, ctrl) {
       var pswpEle = ele[0].querySelector('.pswp');
 
-      scope.$watch('photos', function(photos) {
-        // 初始化pwsp
-        scope.options = {
-          history: false,
-          focus: false,
-          index: 0,
-          showAnimationDuration: 0,
-          hideAnimationDuration: 0
-        };
-        scope.pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, photos, scope.options);
-        if (window.StatusBar) {
-          $cordovaStatusbar.hide();
-        }
-        scope.pwsp.listen('close', function() {
-          if (window.StatusBar) {
-            $cordovaStatusbar.show();
-          }
-        });
-      });
-
       scope.$watch('ctrl', function(newVal) {
         if (newVal) {
           newVal.open = function(index) {
-            scope.options.index = index || 0;
-            scope.pwsp.init();
+            var options = {
+              history: false,
+              focus: false,
+              index: index || 0,
+              showAnimationDuration: 0,
+              hideAnimationDuration: 0
+            };
+            var pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, scope.photos, options);
+            if (window.StatusBar) {
+              $cordovaStatusbar.hide();
+            }
+            pwsp.listen('close', function() {
+              if (window.StatusBar) {
+                $cordovaStatusbar.show();
+              }
+            });
+            pwsp.init();
           };
         }
       });
@@ -1264,4 +1259,4 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     },
     templateUrl: './views/photo-swipe-directive.html'
   };
-});
+}]);

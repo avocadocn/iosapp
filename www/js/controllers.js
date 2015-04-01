@@ -3600,11 +3600,8 @@ angular.module('donlerApp.controllers', [])
     'INFO',
     'Tools',
     'CONFIG',
-    'Emoji',
-    '$ionicActionSheet',
     'Image',
-    '$ionicLoading',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Emoji, $ionicActionSheet, Image, $ionicLoading) {
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, INFO, Tools, CONFIG, Image) {
       User.getData(localStorage.id, function(err, data) {
         if (err) {
           // todo
