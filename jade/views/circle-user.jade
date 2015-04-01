@@ -1,13 +1,9 @@
-ion-view.circle_company_page
+ion-view.circle_user_page
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title 精彩瞬间
-    a.button.icon.ion_discuss_active(href="#/circle/reminds")
 
   ion-content
-    ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
-    .loading_cover(ng-if="loadOptions.loadingNew" ng-cloak)
-      i.icon.ion-looping
     .circle_company_image
     .circle_user
       a.circle_user_name {{user.nickname}}

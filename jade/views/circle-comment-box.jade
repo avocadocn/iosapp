@@ -1,11 +1,11 @@
-.comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
+.circle_comment_wrap(ng-if="isCommenting" ng-click="stopComment()")
 
 form.bar.bar-footer.item-input-inset.circle_comment_box(name="commentForm" mix-max-length="80" ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}")
   .item-input-wrapper
     i.icon.ion-happy.placeholder-icon(ng-click="toggleEmotions()")
     input(type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{placeholderText}}" mix-max-length="80")
   button.button.button-clear(ng-click="postComment()" ng-disabled="commentForm.$invalid") 发表
-ion-slide-box.emotion_box(ng-if="isShowEmotions")
+ion-slide-box.circle_emotion_box(ng-if="isShowEmotions")
   ion-slide(ng-repeat="emoji in emojiList")
     .box.clearfix
       .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")

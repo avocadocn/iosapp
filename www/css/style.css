@@ -2728,18 +2728,21 @@ a>.login .companies_list:activated {
   width: 100%;
   height: 100%;
 }
-.circle_company_page .circle_company_image {
+.circle_company_page .circle_company_image,
+.circle_user_page .circle_company_image {
   width: 100%;
   display: block;
   background: url("../img/discover.jpg") no-repeat;
   background-size: 100%;
   height: 15rem;
 }
-.circle_company_page .circle_user {
+.circle_company_page .circle_user,
+.circle_user_page .circle_user {
   position: relative;
   height: 20px;
 }
-.circle_company_page .circle_user .circle_user_name {
+.circle_company_page .circle_user .circle_user_name,
+.circle_user_page .circle_user .circle_user_name {
   position: absolute;
   bottom: 30px;
   right: 110px;
@@ -2747,7 +2750,8 @@ a>.login .companies_list:activated {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
 }
-.circle_company_page .circle_user .circle_user_image {
+.circle_company_page .circle_user .circle_user_image,
+.circle_user_page .circle_user .circle_user_image {
   display: block;
   position: absolute;
   top: auto;
@@ -2755,7 +2759,8 @@ a>.login .companies_list:activated {
   right: 30px;
   padding: 2px;
 }
-.circle_company_page .remind_box {
+.circle_company_page .remind_box,
+.circle_user_page .remind_box {
   display: block;
   margin: 0 auto;
   width: 100px;
@@ -2766,8 +2771,17 @@ a>.login .companies_list:activated {
   text-align: center;
   text-decoration: none;
 }
-.circle_company_page .comment_wrap,
-.circle_content_detail_page .comment_wrap {
+.circle_reminds_page .remind_item {
+  position: relative;
+}
+.circle_reminds_page .content_preview {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+}
+.circle_comment_wrap {
   position: fixed;
   top: 0;
   left: 0;
@@ -2776,17 +2790,14 @@ a>.login .companies_list:activated {
   height: 100%;
   background-color: transparent;
 }
-.circle_company_page .circle_comment_box,
-.circle_content_detail_page .circle_comment_box {
+.circle_comment_box {
   z-index: 101;
   padding: 5px;
 }
-.circle_company_page .circle_comment_box.show_emotion_box,
-.circle_content_detail_page .circle_comment_box.show_emotion_box {
+.circle_comment_box.show_emotion_box {
   bottom: 160px;
 }
-.circle_company_page .emotion_box,
-.circle_content_detail_page .emotion_box {
+.circle_emotion_box {
   position: absolute;
   bottom: 0;
   z-index: 101;
@@ -2797,41 +2808,26 @@ a>.login .companies_list:activated {
   float: left;
   background-color: #fff;
 }
-.circle_company_page .emotion_box .box,
-.circle_content_detail_page .emotion_box .box {
+.circle_emotion_box .box {
   width: 320px;
   padding: 4px;
   margin: auto;
 }
-.circle_company_page .emotion_box .box .emotion,
-.circle_content_detail_page .emotion_box .box .emotion {
+.circle_emotion_box .box .emotion {
   padding: 9px;
   float: left;
 }
-.circle_company_page .emotion_box .box .emotion .emoji,
-.circle_content_detail_page .emotion_box .box .emotion .emoji {
+.circle_emotion_box .box .emotion .emoji {
   margin-right: 0;
   height: 21px;
   width: 21px;
   margin: 0;
 }
-.circle_company_page .emotion_box .slider-pager,
-.circle_content_detail_page .emotion_box .slider-pager {
+.circle_emotion_box .slider-pager {
   bottom: 5px;
 }
-.circle_company_page .emotion_box .slider-pager .icon.ion-record,
-.circle_content_detail_page .emotion_box .slider-pager .icon.ion-record {
+.circle_emotion_box .slider-pager .icon.ion-record {
   color: #3ca2e0;
-}
-.circle_reminds_page .remind_item {
-  position: relative;
-}
-.circle_reminds_page .content_preview {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 40px;
-  height: 40px;
 }
 .dl_circle_company_card {
   display: block;

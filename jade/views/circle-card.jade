@@ -30,7 +30,7 @@
   .circle_comment_list
     .appreciate_container(ng-if="circle.appreciate.length > 0")
       i.ion-heart.appreciate_icon
-      a.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-href="#/user/{{appr.poster._id}}") {{appr.poster.nickname}}
+      span.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster._id)") {{appr.poster.nickname}}
     .comment_container(ng-if="circle.textComments.length > 0")
       .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)")
         span.nickname.link_name(ng-click="goToUserPage(comment.poster._id)" prevent-default) {{comment.poster.nickname}}

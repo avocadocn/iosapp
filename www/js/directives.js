@@ -997,7 +997,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       };
 
       scope.goToUserPage = function(id) {
-        $state.go('user_info', {
+        $state.go('circle_user', {
           userId: id
         });
       };

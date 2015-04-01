@@ -2336,8 +2336,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     width 100%
     height 100%
 
-// 公司同事圈页面
-.circle_company_page
+// 公司、个人同事圈页面
+.circle_company_page, .circle_user_page
   .circle_company_image
     width 100%
     display block
@@ -2373,47 +2373,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     text-align center
     text-decoration none
 
-.circle_company_page, .circle_content_detail_page
-  .comment_wrap
-    position fixed
-    top 0
-    left 0
-    z-index 100
-    width 100%
-    height 100%
-    background-color transparent
-  .circle_comment_box
-    z-index 101
-    padding 5px
-    &.show_emotion_box
-      bottom 160px
-  .emotion_box
-    position absolute
-    bottom 0
-    z-index 101
-    border-top 1px solid #ccc
-    padding 5px 0
-    width 100%
-    height 160px
-    float left
-    background-color #fff
-    .box
-      width 320px
-      padding 4px
-      margin auto
-      .emotion
-        padding 9px
-        float left
-        .emoji
-          margin-right 0
-          height 21px
-          width 21px
-          margin 0
-    .slider-pager
-      bottom 5px
-      .icon.ion-record
-        color col_blue
-
+// 消息提醒页
 .circle_reminds_page
   .remind_item
     position relative
@@ -2423,6 +2383,49 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     right 16px
     width 40px
     height 40px
+
+// 评论组件
+.circle_comment_wrap
+  position fixed
+  top 0
+  left 0
+  z-index 100
+  width 100%
+  height 100%
+  background-color transparent
+.circle_comment_box
+  z-index 101
+  padding 5px
+  &.show_emotion_box
+    bottom 160px
+.circle_emotion_box
+  position absolute
+  bottom 0
+  z-index 101
+  border-top 1px solid #ccc
+  padding 5px 0
+  width 100%
+  height 160px
+  float left
+  background-color #fff
+  .box
+    width 320px
+    padding 4px
+    margin auto
+    .emotion
+      padding 9px
+      float left
+      .emoji
+        margin-right 0
+        height 21px
+        width 21px
+        margin 0
+  .slider-pager
+    bottom 5px
+    .icon.ion-record
+      color col_blue
+
+
 .dl_circle_company_card
   dl_card()
   position relative
