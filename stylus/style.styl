@@ -377,7 +377,49 @@ body
         //- .ion_circle
       .dl_campaign_comment
         margin-right 0
-.dl_card_detail
+.dl_campaign_detail
+  .campaign_detail
+    margin-top 10px
+    .campaign_info
+      background-color white
+      padding 15px 15px 15px 90px
+      color #666666
+      position relative
+      font-size 12px
+      .team_logo
+        position absolute
+        left 10px
+        top 15px
+        height 60px
+        width 60px
+        border-radius 5px
+      .team_name
+        font-size 14px
+        color #202020
+      .cp_member
+        .member_num
+          color #f07151
+    .item
+      padding 10px
+      font-size 14px
+      height 44px
+      color #202020
+    .cp_address
+      .cp_location
+        color #666666
+        font-size 12px
+      .ion-chevron-right
+        float right
+    .campaign_footer
+      .col
+        text-align center
+        &:first-child
+          border-right 1px solid #ccc
+      a
+        text-decoration none
+        color black
+
+// .dl_card_detail
   dl_card()
   padding 0
   border-radius 5px
@@ -590,7 +632,7 @@ body
     border-radius 5px !important
   .item:last-child
     border-bottom-right-radius 5px
-    border-bottom-left-radius 5px
+    // border-bottom-left-radius 5px
 .dl_photo_album_card
   dl_card()
   .card_header

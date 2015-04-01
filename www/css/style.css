@@ -421,17 +421,63 @@ body {
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
   margin-right: 0;
 }
-.dl_card_detail {
-  display: block;
-  margin: 10px 10px 5px;
-  padding: 10px;
-  box-shadow: 0 2px 0 #ccc;
-  line-height: 18px;
+.dl_campaign_detail .campaign_detail {
+  margin-top: 10px;
+}
+.dl_campaign_detail .campaign_detail .campaign_info {
   background-color: #fff;
-  padding: 0;
+  padding: 15px 15px 15px 90px;
+  color: #666;
+  position: relative;
+  font-size: 12px;
+}
+.dl_campaign_detail .campaign_detail .campaign_info .team_logo {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  height: 60px;
+  width: 60px;
   border-radius: 5px;
 }
-.dl_card_detail .dl_card_header {
+.dl_campaign_detail .campaign_detail .campaign_info .team_name {
+  font-size: 14px;
+  color: #202020;
+}
+.dl_campaign_detail .campaign_detail .campaign_info .cp_member .member_num {
+  color: #f07151;
+}
+.dl_campaign_detail .campaign_detail .item {
+  padding: 10px;
+  font-size: 14px;
+  height: 44px;
+  color: #202020;
+}
+.dl_campaign_detail .campaign_detail .cp_address .cp_location {
+  color: #666;
+  font-size: 12px;
+}
+.dl_campaign_detail .campaign_detail .cp_address .ion-chevron-right {
+  float: right;
+}
+.dl_campaign_detail .campaign_detail .campaign_footer .col {
+  text-align: center;
+}
+.dl_campaign_detail .campaign_detail .campaign_footer .col:first-child {
+  border-right: 1px solid #ccc;
+}
+.dl_campaign_detail .campaign_detail .campaign_footer a {
+  text-decoration: none;
+  color: #000;
+}
+display: block;
+margin: 10px 10px 5px;
+padding: 10px;
+box-shadow: 0 2px 0 #ccc;
+line-height: 18px;
+background-color: #fff;
+padding 0,
+border-radius 5px,
+.dl_card_header {
   background-color: #3ca2e0;
   color: #fff;
   padding: 10px;
@@ -439,11 +485,15 @@ body {
   border-top-right-radius: 5px !important;
   border-top-left-radius: 5px !important;
 }
-.dl_card_detail .dl_card_header .dl_team_logo {
+padding 0 .dl_team_logo,
+border-radius 5px .dl_team_logo,
+.dl_card_header .dl_team_logo {
   float: left;
   border-radius: 5px;
 }
-.dl_card_detail .dl_card_header .dl_team_name {
+padding 0 .dl_team_name,
+border-radius 5px .dl_team_name,
+.dl_card_header .dl_team_name {
   color: #fff;
   float: left;
   margin: 0 0 0 10px;
@@ -453,7 +503,9 @@ body {
   white-space: nowrap;
   width: 60%;
 }
-.dl_card_detail .dl_card_header .campaign_mold {
+padding 0 .campaign_mold,
+border-radius 5px .campaign_mold,
+.dl_card_header .campaign_mold {
   float: right;
   color: #3ca2e0;
   background-color: #fff;
@@ -461,38 +513,48 @@ body {
   padding: 5px 10px;
   font-weight: bolder;
 }
-.dl_card_detail .dl_card_header .publish_notice {
+padding 0 .publish_notice,
+border-radius 5px .publish_notice,
+.dl_card_header .publish_notice {
   float: right;
   margin: 0 10px 0 0;
   line-height: 30px;
   padding-left: 20px;
 }
-.dl_card_detail .dl_card_header .dl_card_title {
+padding 0 .dl_card_title,
+border-radius 5px .dl_card_title,
+.dl_card_header .dl_card_title {
   margin: 0 0 0 10px;
   line-height: 30px;
 }
-.dl_card_detail .dl_card_header .dl_notice_container {
+padding 0 .dl_notice_container,
+border-radius 5px .dl_notice_container,
+.dl_card_header .dl_notice_container {
   padding: 10px;
 }
-.dl_card_detail .dl_card_header .dl_notice_container .dl_card_title {
+padding 0 .dl_notice_container .dl_card_title,
+border-radius 5px .dl_notice_container .dl_card_title,
+.dl_card_header .dl_notice_container .dl_card_title {
   margin: 0;
 }
-.dl_card_detail .dl_card_header .dl_notice_container .dl_notice_count {
+padding 0 .dl_notice_container .dl_notice_count,
+border-radius 5px .dl_notice_container .dl_notice_count,
+.dl_card_header .dl_notice_container .dl_notice_count {
   margin-left: 10px;
 }
-.dl_card_detail .dl_card_header_provoke .dl_team_logo_right {
+.dl_card_header_provoke .dl_team_logo_right {
   float: right;
 }
-.dl_card_detail .dl_card_header_provoke .dl_team_name {
+.dl_card_header_provoke .dl_team_name {
   width: 25%;
 }
-.dl_card_detail .dl_card_header_provoke .dl_team_vs {
+.dl_card_header_provoke .dl_team_vs {
   color: #fff;
   float: left;
   margin: 0 0 0 10px;
   line-height: 30px;
 }
-.dl_card_detail .dl_card_header_small {
+.dl_card_header_small {
   height: 25px;
   padding: 5px 10px;
   font-size: 12px;
@@ -501,13 +563,13 @@ body {
   border-top-left-radius: 5px !important;
   border-top-right-radius: 5px !important;
 }
-.dl_card_detail .dl_card_body {
+.dl_card_body {
   padding: 10px;
 }
-.dl_card_detail .dl_card_body .dl_cp_name {
+.dl_card_body .dl_cp_name {
   margin-bottom: 10px;
 }
-.dl_card_detail .dl_card_body a.dl_cp_address {
+.dl_card_body a.dl_cp_address {
   display: inline-block;
   background-color: #efefef;
   padding: 10px;
@@ -516,19 +578,19 @@ body {
   text-decoration: none;
   font-size: 14px;
 }
-.dl_card_detail .dl_card_body a.dl_cp_address .icon {
+.dl_card_body a.dl_cp_address .icon {
   margin-left: 5px;
 }
-.dl_card_detail .dl_card_body .dl_cp_time {
+.dl_card_body .dl_cp_time {
   margin-bottom: 10px;
 }
-.dl_card_detail .dl_card_body .dl_photo_alb {
+.dl_card_body .dl_photo_alb {
   white-space: nowrap;
 }
-.dl_card_detail .dl_card_body .dl_photo_alb .dl_cp_photo {
+.dl_card_body .dl_photo_alb .dl_cp_photo {
   margin-right: 5px;
 }
-.dl_card_detail .dl_card_body .dl_cp_join {
+.dl_card_body .dl_cp_join {
   min-height: 40px;
   height: 40px;
   border-radius: 5px;
@@ -536,7 +598,7 @@ body {
   color: #fff;
   background-color: #3ca2e0;
 }
-.dl_card_detail .dl_card_body .dl_cp_quit {
+.dl_card_body .dl_cp_quit {
   min-height: 40px;
   height: 40px;
   border-radius: 5px;
@@ -544,9 +606,9 @@ body {
   border: 1px solid #3ca2e0;
   background-color: #fff;
 }
-.dl_card_detail .dl_card_body .dl_cp_confirm,
-.dl_card_detail .dl_card_body .dl_cp_refuse,
-.dl_card_detail .dl_card_body .dl_cp_cancel {
+.dl_card_body .dl_cp_confirm,
+.dl_card_body .dl_cp_refuse,
+.dl_card_body .dl_cp_cancel {
   width: 48%;
   height: 40px;
   min-height: 40px;
@@ -556,23 +618,23 @@ body {
   font-size: 14px;
   border-radius: 5px;
 }
-.dl_card_detail .dl_card_body .dl_cp_confirm {
+.dl_card_body .dl_cp_confirm {
   background-color: #6a73c6;
 }
-.dl_card_detail .dl_card_body .dl_cp_refuse {
+.dl_card_body .dl_cp_refuse {
   float: right;
 }
-.dl_card_detail .dl_card_body .dl_cp_cancel {
+.dl_card_body .dl_cp_cancel {
   display: block;
   margin: 0 auto;
 }
-.dl_card_detail .dl_card_footer {
+.dl_card_footer {
   height: 40px;
   padding: 0;
   border-bottom-left-radius: 5px !important;
   border-bottom-right-radius: 5px !important;
 }
-.dl_card_detail .dl_card_footer .col {
+.dl_card_footer .col {
   padding: 0;
   color: #999;
   text-align: center;
@@ -582,10 +644,10 @@ body {
   line-height: 40px;
   border-right: 1px solid #ccc;
 }
-.dl_card_detail .dl_card_footer .col:last-child {
+.dl_card_footer .col:last-child {
   border-right: none;
 }
-.dl_card_detail .dl_card_footer .col .icon {
+.dl_card_footer .col .icon {
   display: inline-block;
   vertical-align: middle;
   margin-top: -2px;
@@ -593,7 +655,7 @@ body {
   color: #3ca2e0;
   font-size: 16px;
 }
-.dl_card_detail .dl_card_footer .col .dl_icon {
+.dl_card_footer .col .dl_icon {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -601,14 +663,14 @@ body {
   vertical-align: middle;
   margin-top: 3px;
 }
-.dl_card_detail .dl_card_footer .col .ion_member {
+.dl_card_footer .col .ion_member {
   background-position: 5px -148px;
 }
-.dl_card_detail .dl_cp_time_status {
+.dl_cp_time_status {
   color: #9e6dd0;
   margin-right: 10px;
 }
-.dl_card_detail .dl_cp_time_countdown {
+.dl_cp_time_countdown {
   margin-top: -6px;
   width: 70px;
   height: 30px;
@@ -619,8 +681,8 @@ body {
   font-size: 16px;
   float: right;
 }
-.dl_card_detail .dl_cp_time_countdown .dl_cp_time_count,
-.dl_card_detail .dl_cp_time_countdown .dl_cp_time_unit {
+.dl_cp_time_countdown .dl_cp_time_count,
+.dl_cp_time_countdown .dl_cp_time_unit {
   display: block;
   float: left;
   width: 34px;
@@ -628,34 +690,34 @@ body {
   line-height: 28px;
   text-align: center;
 }
-.dl_card_detail .dl_cp_time_countdown .dl_cp_time_count {
+.dl_cp_time_countdown .dl_cp_time_count {
   border-right: 1px solid #806dd0;
 }
-.dl_card_detail .dl_notice span {
+.dl_notice span {
   color: #999;
 }
-.dl_card_detail .dl_notice .dl_notice_sender {
+.dl_notice .dl_notice_sender {
   color: #3ca2e0;
 }
-.dl_card_detail .dl_notice .dl_notice_content {
+.dl_notice .dl_notice_content {
   margin-left: 10px;
 }
-.dl_card_detail .dl_card_member {
+.dl_card_member {
   background-color: #3ca2e0;
   padding: 6px 46px 2px 10px;
   border-radius: 5px !important;
   min-height: 50px;
 }
-.dl_card_detail .dl_card_member .dl_member {
+.dl_card_member .dl_member {
   position: relative;
 }
-.dl_card_detail .dl_card_member .dl_member .dl_member_logo {
+.dl_card_member .dl_member .dl_member_logo {
   border-radius: 5px;
   margin-right: 5px;
   width: 40px;
   height: 40px;
 }
-.dl_card_detail .dl_card_member .dl_member .dl_member_leader {
+.dl_card_member .dl_member .dl_member_leader {
   width: 20px;
   height: 20px;
   display: inline-block;
@@ -668,7 +730,7 @@ body {
   background-size: 192px 240px;
   background-position: -45px -140px;
 }
-.dl_card_detail .dl_card_member .dl_card_more {
+.dl_card_member .dl_card_more {
   background-color: #3ca2e0;
   color: #fff;
   border: none;
@@ -677,17 +739,16 @@ body {
   right: 10px;
   line-height: 50px;
 }
-.dl_card_detail .dl_card_member .dl_card_more .icon {
+.dl_card_member .dl_card_more .icon {
   margin-left: 5px;
 }
-.dl_card_detail .dl_card_time {
+.dl_card_time {
   height: 50px;
   font-size: 14px;
   border-radius: 5px !important;
 }
-.dl_card_detail .item:last-child {
+.item:last-child {
   border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
 }
 .dl_photo_album_card {
   display: block;

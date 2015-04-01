@@ -1,100 +1,94 @@
-ion-view
+ion-view.dl_campaign_detail
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title(ng-cloak) {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
     //-button.button.icon.ion_discuss_active(ng-click="chooseUploadImages()")
   ion-content(delegate-handle="detailScroll")
-
-    .card.dl_card_detail
-      .item.dl_card_header(ng-if="campaign.campaign_unit.length==1")
-        a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
-          img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}")
-        h2.dl_team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
-        span.campaign_mold(ng-if="campaign.campaign_mold") {{campaign.campaign_mold}}
-      .item.dl_card_header.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2")
-        a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
-          img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}")
-        h2.dl_team_name {{campaign.campaign_unit[0].team.name}}
-        h2.dl_team_vs vs
-        h2.dl_team_name {{campaign.campaign_unit[1].team.name}}
-        a(ng-href="{{campaign.campaign_unit[1].team._id ? '#/team/'+ campaign.campaign_unit[1].team._id: ''}}")
-          img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/30/30'}}")
-      .item.item-text-wrap.dl_card_body
-        h2.dl_cp_name {{campaign.theme}}
-          a.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}")
-            span.icon.icon_small.ion-compose.button-clear
-        a.dl_cp_address(ng-if="campaign.location.coordinates.length==2" href="#/location/{{campaign._id}}") 活动地点：{{campaign.location.name}}
-          span.icon.icon_small.ion-chevron-right.button-clear
-        p.dl_cp_address(ng-if="campaign.location.coordinates.length==0") 活动地点：{{campaign.location.name}}
-        p.dl_cp_time 开始时间：{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
-        p.dl_cp_time 结束时间：{{campaign.end_time | date:"yyyy-MM-dd  HH:mm" }}
-        p.dl_cp_time 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  HH:mm"}}
-        p.dl_cp_member_max(ng-if="campaign.member_max&&campaign.member_max!=0") 人数上限：{{campaign.member_max}}
-        p.dl_cp_member_min(ng-if="campaign.member_min&&campaign.member_min!=0") 人数下限：{{campaign.member_min}}
-        button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
-        button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.join_flag === 1"  ng-click="chooseUploadImages()") 发同事圈
-        button.button.button-full.dl_cp_quit(ng-if="campaign.active && campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入        
-        .dl_card_operator
+    .campaign_detail
+      //- .item(ng-if="campaign.campaign_unit.length==1")
+      .campaign_info
+        //- a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
+        img.team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/40/40'}}")
+        .team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
+        .cp_time {{campaign.start_time | date:"MM-dd HH:mm"}} ~~{{campaign.end_time | date:"MM-dd  HH:mm" }}
+        .cp_member
+          span.member_num {{campaign.members_count}}
+          span.member_num {{campaign.member_max!=0 ?'| ' +campaign.member_max :''}}
+      .item.cp_address(ng-if="campaign.location.coordinates.length==2" href="#/location/{{campaign._id}}")
+        span 活动地点：
+        span.cp_location{{campaign.location.name}}
+        span.icon.icon_small.ion-chevron-right.button-clear
+      .item.cp_address(ng-if="campaign.location.coordinates.length==0")
+        span 活动地点：
+        span.cp_location{{campaign.location.name}}
+      //- .item.dl_card_header_provoke(ng-if="campaign.campaign_unit.length==2")
+      //-   a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
+      //-     img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}")
+      //-   h2.dl_team_name {{campaign.campaign_unit[0].team.name}}
+      //-   h2.dl_team_vs vs
+      //-   h2.dl_team_name {{campaign.campaign_unit[1].team.name}}
+      //-   a(ng-href="{{campaign.campaign_unit[1].team._id ? '#/team/'+ campaign.campaign_unit[1].team._id: ''}}")
+      //-     img.dl_team_logo.dl_team_logo_right(ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/30/30'}}")
+      //- .item.item-text-wrap.dl_card_body
+        //- h2.dl_cp_name {{campaign.theme}}
+        //-   a.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}")
+        //-     span.icon.icon_small.ion-compose.button-clear
+        //- a.dl_cp_address(ng-if="campaign.location.coordinates.length==2" href="#/location/{{campaign._id}}") 活动地点：{{campaign.location.name}}
+        //-   span.icon.icon_small.ion-chevron-right.button-clear
+        //- p.dl_cp_address(ng-if="campaign.location.coordinates.length==0") 活动地点：{{campaign.location.name}}
+        //- p.dl_cp_time 开始时间：{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}
+        //- p.dl_cp_time 结束时间：{{campaign.end_time | date:"yyyy-MM-dd  HH:mm" }}
+        //- p.dl_cp_time 报名截止：{{campaign.deadline | date:"yyyy-MM-dd  HH:mm"}}
+        //- p.dl_cp_member_max(ng-if="campaign.member_max&&campaign.member_max!=0") 人数上限：{{campaign.member_max}}
+        //- p.dl_cp_member_min(ng-if="campaign.member_min&&campaign.member_min!=0") 人数下限：{{campaign.member_min}}
+        //- button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 立即参加
+        //- button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.join_flag === 1"  ng-click="chooseUploadImages()") 发同事圈
+        //- button.button.button-full.dl_cp_quit(ng-if="campaign.active && campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入        
+        //- .dl_card_operator
           button.button.dl_cp_confirm(ng-if="campaign.active && campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)") 接受
           button.button.dl_cp_refuse(ng-if="ccampaign.active && ampaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)") 拒绝
-          button.button.dl_cp_cancel(ng-if="campaign.active && campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
+          //- button.button.dl_cp_cancel(ng-if="campaign.active && campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)") 取消
         ion-scroll(scroll-parent="detailScroll" parent-direction="y" direction="x" scrollbar-x="false")
           a.dl_photo_alb(ng-href="#/photo_album/{{campaign.photo_album._id}}/detail")
             img.dl_cp_photo(ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}")
-      .item.dl_card_footer.row
+      .item.row.campaign_footer
         a.col.dl_team_number(ng-href="#/members/campaign/{{campaign._id}}")
           i.ion_member.dl_icon
-          | 活动成员({{campaign.members_count}})
-        a.col.btn_upload_photo(ng-href="#/campaign/notice/{{campaign._id}}")
-          i.icon.ion-image
-          | {{notices.length}}公告
+          | {{campaign.members_count}} {{campaign.member_max!=0 ?'|' +campaign.member_max :''}}
+        //- a.col.btn_upload_photo(ng-href="#/campaign/notice/{{campaign._id}}")
+        //-   i.icon.ion-image
+        //-   | {{notices.length}}公告
         .col.dl_team_comment(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           i.icon.ion-chatbubble-working
-          | {{campaign.comment_sum}}条讨论
-    .card.dl_card_detail(ng-if="!campaign.is_end")
-      .item.dl_card_time
-        span.dl_cp_time_status {{campaign.is_start ? '正在进行' : '即将开始'}}
-        span.dl_cp_time_remind {{campaign.remind_text}}:
-        .dl_cp_time_countdown
-          span.dl_cp_time_count {{campaign.time_text.substr(0, campaign.time_text.length - 1)}}
-          span.dl_cp_time_unit {{campaign.time_text.substr(-1)}}
-    .card.dl_card_detail(ng-init="showAllNotice=false;" ng-if="notices.length>0 || campaign.allow.publishCampaignMessage")
-      .item.dl_card_header
-        span.dl_notice_container(ng-click="showAllNotice=!showAllNotice;")
-          span.dl_card_title 活动公告
-          span.dl_notice_count {{notices.length}}
-        a.publish_notice.icon.ion-plus(ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()")
-      a.item.item-avatar.dl_notice(ng-repeat="notice in notices" ng-if="showAllNotice || $index==0")
-        img(ng-src="{{STATIC_URL +notice.sender[0].photo}}")
-        h2
-          span.dl_notice_sender {{notice.sender[0].nickname}}
-          span :
-          span.dl_notice_content {{notice.content}}
-        p {{notice.post_date | date:"yyyy-MM-dd HH:mm" }}
-    .card.dl_card_detail(ng-if="campaign.members.length>0")
-      a.item.item-button-right.dl_card_member(href="#/members/campaign/{{campaign._id}}")
-        ion-scroll(direction="x")
-          span.dl_member(ng-repeat="member in campaign.members")
-            img.dl_member_logo(ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
-            span.dl_member_leader(ng-if="member.isLeader")
-
-        .dl_card_more
-          span {{campaign.members_count}}
-          i.icon.ion-chevron-right.icon_small
-    .card.dl_card_detail(ng-if="campaign.content")
-      .item.dl_card_header
-        span.dl_card_title 活动简介
+          | 讨论
+      //- .card.dl_card_detail(ng-if="!campaign.is_end")
+      //-   .item.dl_card_time
+      //-     span.dl_cp_time_status {{campaign.is_start ? '正在进行' : '即将开始'}}
+      //-     span.dl_cp_time_remind {{campaign.remind_text}}:
+      //-     .dl_cp_time_countdown
+      //-       span.dl_cp_time_count {{campaign.time_text.substr(0, campaign.time_text.length - 1)}}
+      //-       span.dl_cp_time_unit {{campaign.time_text.substr(-1)}}
+      .item.item-divider
+        span.dl_card_title 活动详情
       .item.item-text-wrap
         p {{campaign.content}}
-    //- .card.dl_card_detail(ng-if="scoreBoard")
-    //-   .item.dl_card_header
-    //-     span.dl_card_title 比分
-    //-     a.publish_notice(ng-if="scoreBoard.status!=2 && (scoreBoard.playingTeams[0].allowManage || scoreBoard.playingTeams[1].allowManage)" ng-click="setScore()") 设置比分
-    //-   .item.item-text-wrap
-    //-     a.item.item-avatar(ng-repeat="playingTeam in scoreBoard.playingTeams")
-    //-       img(ng-src="{{STATIC_URL +playingTeam.logo}}")
-    //-       h2
-    //-         span 比分:{{playingTeam.score}}
-    //-         span(ng-if="playingTeam.result!=undefined") 结果: {{playingTeam.result | scoreResultFormat}}
-    //-       p {{playingTeam.name}}
-    score-board(ng-if="scoreBoardId" component-id="scoreBoardId")
+      //- .list(ng-if="notices.length>0 || campaign.allow.publishCampaignMessage")
+      .item.item-divider 活动公告
+      .item.dl_notice
+        .dl_notice_content {{notice.content}}
+      .item.item-divider 精彩瞬间
+    //- .(ng-if="campaign.members.length>0")
+    //-   a.item.item-button-right.dl_card_member(href="#/members/campaign/{{campaign._id}}")
+    //-     ion-scroll(direction="x")
+    //-       span.dl_member(ng-repeat="member in campaign.members")
+    //-         img.dl_member_logo(ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
+    //-         span.dl_member_leader(ng-if="member.isLeader")
+
+    //-     .dl_card_more
+    //-       span {{campaign.members_count}}
+    //-       i.icon.ion-chevron-right.icon_small
+    //- score-board(ng-if="scoreBoardId" component-id="scoreBoardId")
+  ion-footer-bar
+    button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 报名参加
+    //- button.button.button-full.dl_cp_join(ng-if="campaign.active && campaign.join_flag === 1"  ng-click="chooseUploadImages()") 发同事圈
+    button.button.button-full.dl_cp_quit(ng-if="campaign.active && campaign.allow.quitCampaign"  ng-click="quit(campaign._id)") 已经加入

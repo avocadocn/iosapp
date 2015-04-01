@@ -1322,12 +1322,12 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('PersonalInviteCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', function ($scope, Company, $cordovaClipboard, $ionicPopup) {
+  .controller('PersonalInviteCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', 'CONFIG', function ($scope, Company, $cordovaClipboard, $ionicPopup, CONFIG) {
     Company.getInviteKey(localStorage.cid, function(msg, data){
       if(!msg){
         $scope.inviteKey = data.staffInviteCode;
         var qrcode = new QRCode("inviteKeyQrCode", {
-          text: "http://www.donler.com/users/invite?key="+data.staffInviteCode+"&cid="+localStorage.cid
+          text: CONFIG.STATIC_URL+"/users/invite?key="+data.staffInviteCode+"&cid="+localStorage.cid
         });
       }
     });
