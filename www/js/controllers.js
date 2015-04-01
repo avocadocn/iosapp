@@ -270,7 +270,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'Circle', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO, Circle) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG', 'Image', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO, User, Circle, CONFIG, Image) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -323,27 +323,6 @@ angular.module('donlerApp.controllers', [])
         $scope.campaign.members = $scope.campaign.members.concat(campaign_unit.member);
       });
     };
-
-    $scope.$on('$ionicView.enter',function(scopes, states){
-      Campaign.get($state.params.id, function(err, data){
-        if(!err){
-          $scope.campaign = data;
-          setMembers();
-          data.components && data.components.forEach(function(component, index){
-            if(component.name=='ScoreBoard') {
-              $scope.scoreBoardId =component._id;
-            }
-          });
-        }
-      },true);
-      Message.getCampaignMessages($state.params.id, function(err, data){
-        if(!err){
-          $scope.notices = data;
-        }
-      });
-
-    });
-
     $scope.join = function(id){
       if(window.analytics){
         window.analytics.trackEvent('Click', 'joinCampaign');
@@ -396,6 +375,148 @@ angular.module('donlerApp.controllers', [])
       $state.go('circle_send_content',{campaignId: campaignId});
       // $state.go('circle_company');
     };
+    $scope.ionicAlert = function(msg) {
+      $ionicPopup.alert({
+        title: '提示',
+        template: msg
+      });
+    };
+    //CIRCLE
+    $scope.loadMore = function() {
+      if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
+        return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
+      }
+      $scope.loadingStatus.loading = true;
+      var pos = $scope.circleContentList.length - 1;
+      var lastContentDate = $scope.circleContentList[pos].content.post_date;
+      Circle.getUserCircle($state.params.userId, {last_content_date: lastContentDate})
+        .success(function(data) {
+          if (data.length) {
+            data.forEach(function(circle) {
+              Circle.pickAppreciateAndComments(circle);
+            });
+            $scope.circleContentList = $scope.circleContentList.concat(data);
+            $scope.loadingStatus.loading = false;
+            copyPhotosToPswp();
+          }
+
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        })
+        .error(function(data, status) {
+          if (status !== 404) {
+            $scope.ionicAlert(data.msg || '获取失败');
+          } else {
+            $scope.loadingStatus.hasMore = false;
+          }
+          $scope.loadingStatus.loading = false;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+    };
+    $scope.openCommentBox = function(placeHolderText) {
+      $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
+      $scope.circleCommentBoxCtrl.open();
+    };
+
+    $scope.postComment = function(content) {
+      $scope.circleCardListCtrl.postComment(content);
+    };
+
+    $scope.stopComment = function() {
+      $scope.circleCardListCtrl.stopComment();
+    };
+
+    $scope.onClickContentImg = function(img) {
+      for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
+        if (img._id === $scope.imagesForPswp[i]._id) {
+          $scope.pswpCtrl.open(i);
+          break;
+        }
+      }
+    };
+
+    var pageLength = 20; // 一次获取的数据量
+
+    // 复制图片地址到一个数组供预览大图用
+    var copyPhotosToPswp = function() {
+      $scope.imagesForPswp = [];
+      var id = 0;
+      for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
+        var circle = $scope.circleContentList[i];
+        if (circle.content.photos && circle.content.photos.length > 0) {
+          var pswpPhotos = [];
+          for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
+            var photo = circle.content.photos[j];
+            photo._id = id;
+            var size = Image.getFitSize(photo.width, photo.height);
+            pswpPhotos.push({
+              _id: photo._id,
+              w: size.width * 2,
+              h: size.height * 2,
+              src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
+            });
+            id++;
+          }
+          $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
+        }
+      }
+    };
+    $scope.$on('$ionicView.enter',function(scopes, states){
+      Campaign.get($state.params.id, function(err, data){
+        if(!err){
+          $scope.campaign = data;
+          setMembers();
+          data.components && data.components.forEach(function(component, index){
+            if(component.name=='ScoreBoard') {
+              $scope.scoreBoardId =component._id;
+            }
+          });
+        }
+      },true);
+      Message.getCampaignMessages($state.params.id, function(err, data){
+        if(!err){
+          $scope.notices = data;
+        }
+      });
+      Circle.getCampaignCircle($state.params.id)
+      .success(function(data, status) {
+        if (data.length) {
+          data.forEach(function(circle) {
+            Circle.pickAppreciateAndComments(circle);
+          });
+          $scope.circleContentList = (data || []).concat($scope.circleContentList);
+        }
+        copyPhotosToPswp();
+        $scope.$broadcast('scroll.refreshComplete');
+      })
+      .error(function(data, status) {
+        if (status !== 404) {
+          $scope.ionicAlert(data.msg || '获取失败');
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+      // 用于保存已经获取到的同事圈内容
+      $scope.circleContentList = [];
+
+      User.getData(localStorage.id, function(err, data) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.user = data;
+        }
+      });
+      $scope.loadingStatus = {
+        hasInit: false, // 是否已经获取了一次内容
+        hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
+        loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
+      };
+      $scope.circleCardListCtrl = {};
+      $scope.circleCommentBoxCtrl = {};
+      $scope.pswpCtrl = {};
+
+
+    });
+
   }])
 
   .controller('LocationController', ['$ionicHistory', '$scope', '$stateParams', 'INFO', function($ionicHistory, $scope, $stateParams, INFO) {
@@ -479,6 +600,18 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
+    $scope.goBack = function() {
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack()
+      }
+    }
+  }])
+  .controller('CampaignContentController', ['$ionicHistory', '$scope', '$stateParams', 'Campaign', function($ionicHistory, $scope, $stateParams, Campaign) {
+    Campaign.get($stateParams.id, function(err, data){
+      if(!err){
+        $scope.campaign = data;
+      }
+    });
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()

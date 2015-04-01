@@ -506,19 +506,45 @@ input:focus:-ms-input-placeholder {
 }
 .dl_campaign_detail .campaign_detail .campaign_info {
   background-color: #fff;
-  padding: 15px 15px 15px 90px;
+  padding: 15px;
   color: #666;
   position: relative;
   font-size: 12px;
   line-height: 15px;
 }
-.dl_campaign_detail .campaign_detail .campaign_info .team_logo {
-  position: absolute;
-  left: 15px;
-  top: 15px;
-  height: 60px;
+.dl_campaign_detail .campaign_detail .campaign_info .cp_logos {
   width: 60px;
+  height: 60px;
   border-radius: 5px;
+  background-color: #f7f7f7;
+  float: left;
+  margin-right: 17px;
+}
+.dl_campaign_detail .campaign_detail .campaign_info .cp_logos .team_logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+.dl_campaign_detail .campaign_detail .campaign_info .cp_logos .provoke_label,
+.dl_campaign_detail .campaign_detail .campaign_info .cp_logos .fellowship_label {
+  width: 100%;
+  height: 14px;
+  color: #fff;
+  float: left;
+  text-align: center;
+  line-height: 14px;
+  background-color: #f48361;
+}
+.dl_campaign_detail .campaign_detail .campaign_info .cp_logos .fellowship_label {
+  background-color: #ffc053;
+}
+.dl_campaign_detail .campaign_detail .campaign_info .cp_logos.logos_2 .team_logo {
+  width: 29px;
+  height: 29px;
+  margin-top: 7px;
+  margin-bottom: 6px;
+  border-radius: 3px;
+  float: left;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .team_name {
   font-size: 14px;
@@ -537,8 +563,10 @@ input:focus:-ms-input-placeholder {
 .dl_campaign_detail .campaign_detail .item {
   padding: 15px;
   font-size: 14px;
-  height: 44px;
   color: #202020;
+}
+.dl_campaign_detail .campaign_detail .item.item_header {
+  height: 44px;
 }
 .dl_campaign_detail .campaign_detail .item .ion-chevron-right {
   float: right;
@@ -586,6 +614,7 @@ input:focus:-ms-input-placeholder {
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col .icon {
   display: inline-block;
   margin-right: 17px;
+  font-size: 16px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col .member_num {
   color: #f07151;
@@ -593,6 +622,11 @@ input:focus:-ms-input-placeholder {
 .dl_campaign_detail .campaign_detail .campaign_footer a {
   text-decoration: none;
   color: #000;
+}
+.dl_campaign_detail .campaign_detail .dl_circle_company_card {
+  margin: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #ccc;
 }
 .dl_campaign_detail .bar-footer {
   height: 50px;

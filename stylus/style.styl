@@ -440,18 +440,40 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     margin-top 10px
     .campaign_info
       background-color white
-      padding 15px 15px 15px 90px
+      padding 15px
       color #666666
       position relative
       font-size 12px
       line-height 15px
-      .team_logo
-        position absolute
-        left 15px
-        top 15px
-        height 60px
+      .cp_logos
         width 60px
+        height 60px
         border-radius 5px
+        background-color col_bottomGray
+        float left
+        margin-right 17px
+        .team_logo
+          width 60px
+          height 60px
+          border-radius 5px
+        .provoke_label, .fellowship_label
+          width 100%
+          height 14px
+          color #fff
+          float left
+          text-align center
+          line-height 14px
+          background-color #f48361
+        .fellowship_label
+          background-color #ffc053
+        &.logos_2
+          .team_logo
+            width 29px
+            height 29px
+            margin-top 7px
+            margin-bottom 6px
+            border-radius 3px
+            float left
       .team_name
         font-size 14px
         color #202020
@@ -466,8 +488,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .item
       padding 15px
       font-size 14px
-      height 44px
       color #202020
+      &.item_header
+        height 44px
       .ion-chevron-right
         float right
     .item-divider
@@ -507,11 +530,16 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         .icon
           display inline-block
           margin-right 17px
+          font-size 16px
         .member_num
           color #f07151
       a
         text-decoration none
         color black
+    .dl_circle_company_card
+      margin 0
+      border-radius 0
+      border-bottom 1px solid #CCC
   .bar-footer
     height 50px
     .dl_cp_join
