@@ -2423,15 +2423,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     right 16px
     width 40px
     height 40px
-.circle_overall, .circle_partial
-  color col_darkBlue
-.circle_contents
-  textarea[readonly]
-    overflow hidden
-    padding 0px
-    resize none
-    max-height 560px
-    background-color #fff
 .dl_circle_company_card
   dl_card()
   position relative
@@ -2453,9 +2444,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .user_name
       margin 0
       font-size 14px
+    .circle_overall, .circle_partial
+      color col_darkBlue
     .circle_content
-      margin 0
-      font-size 14px
+      .content_text
+        overflow hidden
+        padding 0px
+        margin-top 5px
+        resize none
+        max-height 560px
+        background-color #fff
+        font-size 14px
     .image_box
       margin-top 5px
       width 210px
@@ -2738,7 +2737,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           float right
         .comment_contents
           float right
-          
+
   .operator
     text-align center
 .search_opponent

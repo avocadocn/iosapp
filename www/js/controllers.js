@@ -3951,49 +3951,6 @@ angular.module('donlerApp.controllers', [])
       };
     }
   ])
-  .controller('CircleContentController', [
-    '$scope',
-    '$element',
-    '$document',
-    '$timeout',
-    function($scope, $element, $document, $timeout) {
-      // 文本多行显示
-      $scope.showContentStatus = {
-        showOverAll: false,
-        showPartial: false
-      };
-
-      $element.children().ready(function() {
-        var ele = $element.children()[0];
-        if (ele.scrollHeight > 64) {
-          ele.style.height = 'auto';
-          ele.style.height = 64 + "px";
-          $timeout(function(){
-            $scope.showContentStatus.showOverAll = true;
-          }, 10);
-        } else {
-          ele.style.height = 'auto';
-          ele.style.height = ele.scrollHeight + "px";
-        }
-      });
-
-      $scope.showAllContent = function() {
-        var element = $element.children()[0];
-        $scope.showContentStatus.showOverAll = false;
-        $scope.showContentStatus.showPartial = true;
-        element.style.height = 'auto';
-        element.style.height = element.scrollHeight + "px";
-      }
-
-      $scope.showPartialContent = function() {
-        var element = $element.children()[0];
-        $scope.showContentStatus.showOverAll = true;
-        $scope.showContentStatus.showPartial = false;
-        element.style.height = 'auto';
-        element.style.height = 64 + "px";
-      }
-    }
-  ])
   .controller('CircleRemindsController', [
     '$scope',
     '$rootScope',

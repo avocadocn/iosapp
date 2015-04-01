@@ -2833,17 +2833,6 @@ a>.login .companies_list:activated {
   width: 40px;
   height: 40px;
 }
-.circle_overall,
-.circle_partial {
-  color: #618bd7;
-}
-.circle_contents textarea[readonly] {
-  overflow: hidden;
-  padding: 0px;
-  resize: none;
-  max-height: 560px;
-  background-color: #fff;
-}
 .dl_circle_company_card {
   display: block;
   margin: 10px 10px 5px;
@@ -2875,8 +2864,17 @@ a>.login .companies_list:activated {
   margin: 0;
   font-size: 14px;
 }
-.dl_circle_company_card .circle_info .circle_content {
-  margin: 0;
+.dl_circle_company_card .circle_info .circle_overall,
+.dl_circle_company_card .circle_info .circle_partial {
+  color: #618bd7;
+}
+.dl_circle_company_card .circle_info .circle_content .content_text {
+  overflow: hidden;
+  padding: 0px;
+  margin-top: 5px;
+  resize: none;
+  max-height: 560px;
+  background-color: #fff;
   font-size: 14px;
 }
 .dl_circle_company_card .circle_info .image_box {

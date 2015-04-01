@@ -866,7 +866,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       mixMaxLengthValid: '=',
       model: '=ngModel'
     },
-    require: 'ngModel',
+    require: '?ngModel', // TODO: ngModel还是必要的，这里是为了解决一个奇怪的报错问题，先临时设置为可选的
     link: function(scope, ele, attrs, ngModel) {
       scope.$watch('model', function(newVal, oldVal) {
         if (newVal) {
@@ -903,7 +903,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       staticUrl: '=' // 静态资源的baseUrl
     },
     link: function(scope, ele, attrs, ctrl) {
-
       scope.lastCardIndex = null;
       scope.currentCardIndex = null;
       scope.onClickCardCommentButton = function(placeHolderText, circle) {
@@ -975,7 +974,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   };
 }])
 
-.directive('circleCard', ['Circle', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$state', function(Circle, $ionicPopup, $ionicLoading, $ionicActionSheet, $state) {
+.directive('circleCard', ['Circle', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$state', '$timeout', function(Circle, $ionicPopup, $ionicLoading, $ionicActionSheet, $state, $timeout) {
   return {
     restrict: 'E',
     transclude: true,
@@ -990,7 +989,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       staticUrl: '=' // 静态资源的baseUrl
     },
     link: function(scope, ele, attrs, ctrl) {
-
       var ionicAlert = function(msg) {
         $ionicPopup.alert({
           title: '提示',
@@ -1196,6 +1194,40 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           newVal.stopComment = scope.stopComment;
         }
       });
+
+      // 文本多行显示
+      scope.showContentStatus = {
+        showOverAll: false,
+        showPartial: false
+      };
+
+      // TODO: 64是个什么神秘数字？？？
+      var domEle = ele[0];
+      var textArea = domEle.querySelector('.content_text');
+      if (textArea.scrollHeight > 64) {
+        textArea.style.height = 'auto';
+        textArea.style.height = 64 + 'px';
+        $timeout(function(){
+          scope.showContentStatus.showOverAll = true;
+        }, 10);
+      } else {
+        textArea.style.height = 'auto';
+        textArea.style.height = textArea.scrollHeight + 'px';
+      }
+
+      scope.showAllContent = function() {
+        scope.showContentStatus.showOverAll = false;
+        scope.showContentStatus.showPartial = true;
+        textArea.style.height = 'auto';
+        textArea.style.height = textArea.scrollHeight + 'px';
+      };
+
+      scope.showPartialContent = function() {
+        scope.showContentStatus.showOverAll = true;
+        scope.showContentStatus.showPartial = false;
+        textArea.style.height = 'auto';
+        textArea.style.height = 64 + 'px';
+      };
 
     },
     templateUrl: './views/circle-card.html'

@@ -2,11 +2,10 @@
   img.circle_company_logo(ng-src="{{staticUrl + circle.content.poster.photo}}/32/32")
   .circle_info
     h2.user_name.link_name(ng-click="goToUserPage(circle.content.poster._id)") {{circle.content.poster.nickname}}
-    .circle_contents(ng-controller="CircleContentController")
-      textarea(ng-model="circle.content.content" ng-readonly="true")
+    .circle_content
+      textarea.content_text(ng-model="circle.content.content" ng-readonly="true")
       a.circle_overall(ng-if="showContentStatus.showOverAll" ng-click="showAllContent()") 全文
       a.circle_partial(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
-    //- p.circle_content {{circle.content.content}}
 
     .image_box.clearfix
       img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/128/128" error-img ng-click="clickImg(photo)")
