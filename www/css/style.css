@@ -390,10 +390,18 @@ body {
   margin-bottom: 6px;
   width: 100%;
   height: 16px;
-  line-height: 1;
+  line-height: 19px;
   font-size: 14px;
   color: #707070;
   padding-left: 10px;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .icon,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .icon,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .icon {
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
 }
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .dl_cp_text,
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .dl_cp_text,
@@ -415,6 +423,18 @@ body {
 .dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time {
   float: right;
   margin-right: 10px;
+}
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment .dl_card_footer_count,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .dl_card_footer_count,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .dl_card_footer_count {
+  float: left;
+}
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment .icon,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .icon,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .icon {
+  float: left;
+  height: 20px;
+  width: 20px;
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
   margin-right: 0;
@@ -1058,15 +1078,12 @@ a>.login .companies_list:activated {
 .ion_message,
 .ion_calendar,
 .ion_setting,
-.ion_invite_code {
+.ion_invite_code,
+.ion_time,
+.ion_address,
+.ion_circle {
   background-image: url("../img/icon.png");
-  background-size: 160px 200px;
-}
-.ion_member {
-  background-position: 0px -80px;
-}
-.ion_comment {
-  background-position: -40px -80px;
+  background-size: 160px 240px;
 }
 .ion_ballon {
   background-position: -110px -65px;
@@ -1088,6 +1105,21 @@ a>.login .companies_list:activated {
 }
 .ion_invite_code {
   background-position: 10px -25px;
+}
+.ion_time {
+  background-position: -80px -160px;
+}
+.ion_address {
+  background-position: -120px -160px;
+}
+.ion_member {
+  background-position: 0 -200px;
+}
+.ion_comment {
+  background-position: -80px -199px;
+}
+.ion_circle {
+  background-position: -40px -198px;
 }
 .emoji {
   margin: 0 0.1rem;
@@ -2093,8 +2125,14 @@ a>.login .companies_list:activated {
   height: 105px;
 }
 .campaign_filter_popover {
-  width: 120px;
+  width: 140px;
   height: 140px;
+}
+.campaign_filter_popover .dl_popover_content {
+  margin: 10px;
+}
+.campaign_filter_popover .dl_popover_content .dl_popover_button {
+  border-bottom: 0;
 }
 .user_more_popover {
   width: 80px;

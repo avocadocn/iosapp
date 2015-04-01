@@ -178,8 +178,8 @@ angular.module('donlerApp.controllers', [])
           $scope.unStartCampaigns = data[0];
           $scope.nowCampaigns = data[1];
           $scope.newCampaigns = data[2];
-          $scope.provokes = data[3];
-          if(data[0].length===0&&data[1].length===0&&data[2].length===0&&data[3].length===0){
+          // $scope.provokes = data[3];
+          if(data[0].length===0&&data[1].length===0&&data[2].length===0){
             $scope.noCampaigns = true;
           }
           else {
@@ -773,7 +773,7 @@ angular.module('donlerApp.controllers', [])
         var chats_ele = document.getElementsByClassName('comments'); // 获取滚动条
         data.randomId = null;
         var nowHeight =  $ionicScrollDelegate.getScrollPosition().top; //获取总高度
-        var scrollHeight = chats_ele[0].scrollHeight - (window.outerHeight-89); //获取当前所在位置
+        var scrollHeight = chats_ele.length ? chats_ele[0].scrollHeight - (window.outerHeight-89) : 0; //获取当前所在位置
         var isAtBottom = false;
         if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
         $scope.chatsList[chatListIndex].push(data);
