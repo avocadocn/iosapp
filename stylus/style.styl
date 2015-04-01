@@ -520,7 +520,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       margin 0 15px
       border-radius 5px
       height 40px
-      
+
 .dl_divider
   height 10px
   border 1px solid #ddd
@@ -2423,12 +2423,18 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       color #FFFFFF
       font-size 14px
       font-family Arial, Helvetica, sans-serif
-    .circle_user_image
+    .circle_user_image_wrap
       display block
       position absolute
       top -50px
       right 5px
-      border 2px solid white
+      padding 1px
+      background-color white
+      border 1px solid col_gray
+      .circle_user_image
+        display block
+        width 70px
+        height 70px
 
   .remind_box
     display block
@@ -2557,6 +2563,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .date_and_op
       margin-top 5px
       font-size 12px
+      line-height 12px
       .text_item
         display block
         float left
@@ -2567,8 +2574,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         color col_darkGray
       .op_icon
         float right
-        width 20px
-        font-size 20px
+        width 12px
+        font-size 12px
         text-align center
         color col_darkGray
     .comment_op
@@ -2606,8 +2613,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           &:after
             content ""
 
-    .comment_container
-      margin-top 5px
     .comment
       .content
         margin-left 10px

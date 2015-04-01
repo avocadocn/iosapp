@@ -7,7 +7,8 @@ ion-view.circle_user_page
     .circle_company_image
     .circle_user
       a.circle_user_name {{user.nickname}}
-      img.circle_user_image(ng-src="{{STATIC_URL + user.photo}}/70/70")
+      .circle_user_image_wrap
+        img.circle_user_image(ng-src="{{STATIC_URL + user.photo}}/70/70")
     
     div(ng-if="newCircleComment > 0")
       .remind_box(ng-click="goToRemindsPage()") {{newCircleComment}}条新消息

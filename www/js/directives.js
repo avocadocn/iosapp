@@ -1218,30 +1218,32 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
       var domEle = ele[0];
       var textArea = domEle.querySelector('.content_text');
-      var lineHeight = 16;
-      var maxLine = 6;
-      var maxHeight = lineHeight * maxLine;
-      if (textArea.scrollHeight > maxHeight) {
-        textArea.style.height = 'auto';
-        textArea.style.height = maxHeight + 'px';
-        $timeout(function(){
+      if (textArea) {
+        var lineHeight = 16;
+        var maxLine = 6;
+        var maxHeight = lineHeight * maxLine;
+        if (textArea.scrollHeight > maxHeight) {
+          textArea.style.height = 'auto';
+          textArea.style.height = maxHeight + 'px';
+          $timeout(function(){
+            scope.showContentStatus.showOverAll = true;
+          }, 10);
+        }
+
+        scope.showAllContent = function() {
+          scope.showContentStatus.showOverAll = false;
+          scope.showContentStatus.showPartial = true;
+          textArea.style.height = 'auto';
+          textArea.style.height = textArea.scrollHeight + 'px';
+        };
+
+        scope.showPartialContent = function() {
           scope.showContentStatus.showOverAll = true;
-        }, 10);
+          scope.showContentStatus.showPartial = false;
+          textArea.style.height = 'auto';
+          textArea.style.height = maxHeight + 'px';
+        };
       }
-
-      scope.showAllContent = function() {
-        scope.showContentStatus.showOverAll = false;
-        scope.showContentStatus.showPartial = true;
-        textArea.style.height = 'auto';
-        textArea.style.height = textArea.scrollHeight + 'px';
-      };
-
-      scope.showPartialContent = function() {
-        scope.showContentStatus.showOverAll = true;
-        scope.showContentStatus.showPartial = false;
-        textArea.style.height = 'auto';
-        textArea.style.height = maxHeight + 'px';
-      };
 
     },
     templateUrl: './views/circle-card.html'

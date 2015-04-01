@@ -2845,13 +2845,21 @@ a>.login .companies_list:activated {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
 }
-.circle_company_page .circle_user .circle_user_image,
-.circle_user_page .circle_user .circle_user_image {
+.circle_company_page .circle_user .circle_user_image_wrap,
+.circle_user_page .circle_user .circle_user_image_wrap {
   display: block;
   position: absolute;
   top: -50px;
   right: 5px;
-  border: 2px solid #fff;
+  padding: 1px;
+  background-color: #fff;
+  border: 1px solid #e2e2e2;
+}
+.circle_company_page .circle_user .circle_user_image_wrap .circle_user_image,
+.circle_user_page .circle_user .circle_user_image_wrap .circle_user_image {
+  display: block;
+  width: 70px;
+  height: 70px;
 }
 .circle_company_page .remind_box,
 .circle_user_page .remind_box {
@@ -2999,6 +3007,7 @@ a>.login .companies_list:activated {
 .dl_circle_card .circle_info .date_and_op {
   margin-top: 5px;
   font-size: 12px;
+  line-height: 12px;
 }
 .dl_circle_card .circle_info .date_and_op .text_item {
   display: block;
@@ -3013,8 +3022,8 @@ a>.login .companies_list:activated {
 }
 .dl_circle_card .circle_info .date_and_op .op_icon {
   float: right;
-  width: 20px;
-  font-size: 20px;
+  width: 12px;
+  font-size: 12px;
   text-align: center;
   color: #999;
 }
@@ -3060,9 +3069,6 @@ a>.login .companies_list:activated {
 }
 .dl_circle_card .circle_comment_list .appreciate_container .appreciate:last-child:after {
   content: "";
-}
-.dl_circle_card .circle_comment_list .comment_container {
-  margin-top: 5px;
 }
 .dl_circle_card .circle_comment_list .comment .content {
   margin-left: 10px;

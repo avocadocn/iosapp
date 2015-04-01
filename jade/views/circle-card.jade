@@ -7,7 +7,7 @@
     h2.user_name.link_name(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo") {{circle.content.companyInfo.info.name}}
     h2.user_name.link_name(ng-if="kind === 'user' && circle.content.teamInfo" ng-click="goToTeamPage(circle.content.teamInfo._id)") {{circle.content.teamInfo.name}}
     .circle_content
-      textarea.content_text(ng-model="circle.content.content" ng-readonly="true")
+      textarea.content_text(rows="1" ng-if="circle.content.content" ng-model="circle.content.content" ng-readonly="true")
       a.link_name(ng-if="showContentStatus.showOverAll" ng-click="showAllContent()") 全文
       a.link_name(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
     .image_box.clearfix

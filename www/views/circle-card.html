@@ -5,7 +5,7 @@
     <h2 ng-if="kind === 'user' &amp;&amp; !circle.content.teamInfo &amp;&amp; circle.content.companyInfo" class="user_name link_name">{{circle.content.companyInfo.info.name}}</h2>
     <h2 ng-if="kind === 'user' &amp;&amp; circle.content.teamInfo" ng-click="goToTeamPage(circle.content.teamInfo._id)" class="user_name link_name">{{circle.content.teamInfo.name}}</h2>
     <div class="circle_content">
-      <textarea ng-model="circle.content.content" ng-readonly="true" class="content_text"></textarea><a ng-if="showContentStatus.showOverAll" ng-click="showAllContent()" class="link_name">全文</a><a ng-if="showContentStatus.showPartial" ng-click="showPartialContent()" class="link_name">收起</a>
+      <textarea rows="1" ng-if="circle.content.content" ng-model="circle.content.content" ng-readonly="true" class="content_text"></textarea><a ng-if="showContentStatus.showOverAll" ng-click="showAllContent()" class="link_name">全文</a><a ng-if="showContentStatus.showPartial" ng-click="showPartialContent()" class="link_name">收起</a>
     </div>
     <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/150/150" error-img="error-img" ng-click="clickImg(photo)" class="preview_img"/></div>
     <p class="campaign_link"><a ng-if="circle.content.campaign_id" ng-href="#/campaign/detail/{{circle.content.campaign_id}}" class="link_name">{{circle.content.campaignTheme}}</a></p>

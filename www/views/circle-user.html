@@ -5,7 +5,9 @@
   </ion-header-bar>
   <ion-content class="custom_ion_content">
     <div class="circle_company_image"></div>
-    <div class="circle_user"><a class="circle_user_name">{{user.nickname}}</a><img ng-src="{{STATIC_URL + user.photo}}/70/70" class="circle_user_image"/></div>
+    <div class="circle_user"><a class="circle_user_name">{{user.nickname}}</a>
+      <div class="circle_user_image_wrap"><img ng-src="{{STATIC_URL + user.photo}}/70/70" class="circle_user_image"/></div>
+    </div>
     <div ng-if="newCircleComment &gt; 0">
       <div ng-click="goToRemindsPage()" class="remind_box">{{newCircleComment}}条新消息</div>
     </div>
