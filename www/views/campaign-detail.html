@@ -4,14 +4,14 @@
     <h1 ng-cloak="ng-cloak" class="title">{{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</h1><a ng-if="campaign.active &amp;&amp; campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}" class="button dl_cp_edit">编辑</a>
   </ion-header-bar>
   <ion-content delegate-handle="detailScroll">
-    <div class="campaign_detail">
-      <div ng-cloak="ng-cloak" class="campaign_info">
+    <div ng-cloak="ng-cloak" class="campaign_detail">
+      <div class="campaign_info">
         <div class="cp_logos logos_{{campaign.campaign_unit.length}}"><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="team_logo"/></a>
           <div ng-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="provoke_label"><span>挑战</span></div>
           <div ng-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"></a>
         </div>
-        <div class="team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</div>
-        <div class="cp_time"><i class="icon icon_small ion_time"></i><span>{{campaign.start_time | date:"MM-dd HH:mm"}} ~~{{campaign.end_time | date:"MM-dd  HH:mm" }}</span></div>
+        <div ng-bind="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name" class="team_name"></div>
+        <div class="cp_time"><i class="icon icon_small ion_time"></i><span ng-cloak="ng-cloak">{{campaign.start_time | date:"MM-dd HH:mm"}} ~~ {{campaign.end_time | date:"MM-dd  HH:mm" }}</span></div>
         <div ng-if="campaign.is_start" ng-cloak="ng-cloak" class="cp_member"><i class="icon icon_small ion_member"></i><span class="member_num">{{campaign.members_count}}</span><span class="member_num">{{campaign.member_max!=0 ? ' | ' + campaign.member_max :''}}</span></div>
         <div ng-if="!campaign.is_start" ng-cloak="ng-cloak" class="cp_address"><i class="icon icon_small ion_address"></i><span class="cp_location">{{campaign.location.name}}</span></div>
       </div>

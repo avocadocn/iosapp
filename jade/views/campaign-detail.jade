@@ -4,8 +4,8 @@ ion-view.dl_campaign_detail
     h1.title(ng-cloak) {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
     a.button.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}") 编辑
   ion-content(delegate-handle="detailScroll")
-    .campaign_detail
-      .campaign_info(ng-cloak)
+    .campaign_detail(ng-cloak)
+      .campaign_info
         .cp_logos(class="logos_{{campaign.campaign_unit.length}}")
           a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
             img.team_logo(ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60")
@@ -14,10 +14,10 @@ ion-view.dl_campaign_detail
           .fellowship_label(ng-if="campaign.campaign_type===7")
             span 联谊 
           a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
-        .team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
+        .team_name(ng-bind="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name")
         .cp_time
           i.icon.icon_small.ion_time
-          span {{campaign.start_time | date:"MM-dd HH:mm"}} ~~{{campaign.end_time | date:"MM-dd  HH:mm" }}
+          span(ng-cloak) {{campaign.start_time | date:"MM-dd HH:mm"}} ~~ {{campaign.end_time | date:"MM-dd  HH:mm" }}
         .cp_member(ng-if="campaign.is_start"  ng-cloak)
           i.icon.icon_small.ion_member
           span.member_num {{campaign.members_count}}

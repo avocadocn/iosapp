@@ -270,7 +270,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG', 'Image', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign, Message, INFO, User, Circle, CONFIG, Image) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG', 'Image', function ($ionicHistory, $rootScope, $scope, $state, $ionicPopup, Campaign, Message, INFO, User, Circle, CONFIG, Image) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -461,6 +461,7 @@ angular.module('donlerApp.controllers', [])
       }
     };
     $scope.$on('$ionicView.enter',function(scopes, states){
+      $rootScope.showLoading();
       Campaign.get($state.params.id, function(err, data){
         if(!err){
           $scope.campaign = data;
@@ -471,6 +472,7 @@ angular.module('donlerApp.controllers', [])
             }
           });
         }
+        $rootScope.hideLoading();
       },true);
       Message.getCampaignMessages($state.params.id, function(err, data){
         if(!err){

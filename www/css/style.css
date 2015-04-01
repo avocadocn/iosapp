@@ -511,6 +511,7 @@ input:focus:-ms-input-placeholder {
   position: relative;
   font-size: 12px;
   line-height: 15px;
+  height: 90px;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .cp_logos {
   width: 60px;
