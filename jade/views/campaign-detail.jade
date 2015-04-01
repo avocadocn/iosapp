@@ -5,9 +5,15 @@ ion-view.dl_campaign_detail
     a.button.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}") 编辑
   ion-content(delegate-handle="detailScroll")
     .campaign_detail
-      .campaign_info
-        a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
-          img.team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/40/40'}}")
+      .campaign_info(ng-cloak)
+        .cp_logos(class="logos_{{campaign.campaign_unit.length}}")
+          a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
+            img.team_logo(ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60")
+          .provoke_label(ng-if="campaign.campaign_type===4 || campaign.campaign_type===5")
+            span 挑战
+          .fellowship_label(ng-if="campaign.campaign_type===7")
+            span 联谊 
+          a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
         .team_name {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}
         .cp_time
           i.icon.icon_small.ion_time
@@ -22,11 +28,11 @@ ion-view.dl_campaign_detail
       //- 测试用
       .item.item-text-wrap
         button.button.button-small.button-positive(ng-click="chooseUploadImages()") 发同事圈
-      .item.cp_address(ng-if="campaign.is_start" href="#/location/{{campaign._id}}")
+      a.item.item_header.cp_address(ng-if="campaign.is_start || campaign.allow.quitCampaign" ng-href="#/location/{{campaign._id}}" ng-cloak)
         span 活动地点:&nbsp;
         span.cp_location {{campaign.location.name}}
         span.icon.icon_small.ion-chevron-right.button-clear
-      .item.campaign_footer(ng-if="!campaign.is_start && !campaign.allow.quitCampaign")
+      .item.campaign_footer(ng-if="!campaign.is_start && !campaign.allow.quitCampaign" ng-cloak)
         a.footer_col(ng-href="#/members/campaign/{{campaign._id}}")
           i.ion_member.icon.icon_small
           span.member_num {{campaign.members_count}}
@@ -35,13 +41,13 @@ ion-view.dl_campaign_detail
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           i.icon.ion-chatbubble-working
           span 讨论
-      .item
+      a.item.item_header(ng-href="#/campaign/notice/{{campaign._id}}")
         span 活动公告
         span.icon.icon_small.ion-chevron-right.button-clear
       .item.item-text-wrap(ng-if="!campaign.is_start")
         span.dl_card_title 活动详情:
-        p {{campaign.content}}
-      .item(ng-if="campaign.is_start")
+        p {{campaign.content ?campaign.content :'暂无'}}
+      a.item.item_header(ng-if="campaign.is_start" ng-href="#/campaign/content/{{campaign._id}}")
         span 活动详情
         span.icon.icon_small.ion-chevron-right.button-clear
       .item.campaign_footer(ng-if="!campaign.is_start && campaign.allow.quitCampaign")
@@ -51,21 +57,14 @@ ion-view.dl_campaign_detail
         .footer_col(ng-click="quit(campaign._id)")
           i.icon.ion-log-out
           span 退出
+      a.item(ng-if="campaign.is_start" ng-click="goDiscussDetail(campaign._id, campaign.theme)")
+        span 讨论
+        span.icon.icon_small.ion-chevron-right.button-clear
       .item.item-divider 精彩瞬间
-      .item.item-text-wrap
-       
-      //- .list(ng-if="notices.length>0 || campaign.allow.publishCampaignMessage")
-
-    //- .(ng-if="campaign.members.length>0")
-    //-   a.item.item-button-right.dl_card_member(href="#/members/campaign/{{campaign._id}}")
-    //-     ion-scroll(direction="x")
-    //-       span.dl_member(ng-repeat="member in campaign.members")
-    //-         img.dl_member_logo(ng-src="{{STATIC_URL +member.photo+'/40/40'}}")
-    //-         span.dl_member_leader(ng-if="member.isLeader")
-
-    //-     .dl_card_more
-    //-       span {{campaign.members_count}}
-    //-       i.icon.ion-chevron-right.icon_small
-    //- score-board(ng-if="scoreBoardId" component-id="scoreBoardId")
+      circle-card-list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL")
+      ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
+  //- 与ion-content同级
+  circle-comment-box(ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment")
+  photo-swipe(photos="imagesForPswp" ctrl="pswpCtrl")
   ion-footer-bar(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign")
     button.button.button-full.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 报名参加

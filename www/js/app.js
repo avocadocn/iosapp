@@ -250,6 +250,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CampaignNoticelController',
         templateUrl: './views/campaign-notice.html'
       })
+      .state('campaigns_content', {
+        url: '/campaign/content/:id',
+        controller: 'CampaignContentController',
+        templateUrl: './views/campaign-content.html'
+      })
       .state('members', {
         url: '/members/:memberType/:id',
         controller: 'MemberController',

@@ -3,7 +3,10 @@
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">活动公告</h1><a ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()" class="button publish_notice icon ion-plus"></a>
   </ion-header-bar>
-  <ion-content class="notice_page"><a ng-repeat="notice in notices" class="item item-avatar dl_notice"><img ng-src="{{STATIC_URL +notice.sender[0].photo}}"/>
+  <ion-content class="notice_page">
+    <div ng-repeat="notice in notices" class="item item-avatar dl_notice"><img ng-src="{{STATIC_URL +notice.sender[0].photo}}"/>
       <h2><span class="dl_notice_sender">{{notice.sender[0].nickname}}</span><span>:</span><span class="dl_notice_content">{{notice.content}}</span></h2>
-      <p>{{notice.post_date | date:"yyyy-MM-dd HH:mm" }}</p></a></ion-content>
+      <p>{{notice.post_date | date:"yyyy-MM-dd HH:mm" }}</p>
+    </div>
+  </ion-content>
 </ion-view>

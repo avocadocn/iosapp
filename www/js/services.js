@@ -1455,7 +1455,14 @@ angular.module('donlerApp.services', [])
           params: query
         });
       },
-
+      /**
+       * 获取活动的精彩瞬间（同事圈）的内容
+       * @param {String} id 活动id
+       * @return {HttpPromise}
+       */
+      getCampaignCircle: function(id) {
+        return $http.get(CONFIG.BASE_URL + '/circle/campaign/' + id);
+      },
       /**
        * 获取某个同事圈的内容
        * @param {String} 内容id
