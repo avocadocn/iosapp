@@ -23,7 +23,9 @@
           span.dl_cp_text {{campaign.location.name}}
         p.dl_cp_member
           i.icon.ion_member
-          span.dl_cp_text {{campaign.members_count || '0'}}
+          span.dl_cp_text.number {{campaign.members_count || '0'}} 
+          span.dl_cp_text(ng-show="campaign.member_max") &nbsp;|&nbsp;
+          span.dl_cp_text.number(ng-if="campaign.member_max") {{campaign.member_max}}
     .dl_card_footer.clearfix(ng-if="campaign.confirm_status===true")
       .dl_team_name(ng-if="campaign.campaign_unit.length === 1")
         | {{campaign.campaign_unit[0].team.name}}

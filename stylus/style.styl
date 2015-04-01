@@ -115,7 +115,7 @@ body
       .campaign_container_title
         font-size 16px
         background-color col_bottomGray
-        border 1px solid col_borderGray
+        border 1px solid #ddd
         border-top 0
         padding 3px 10px
         color #707070
@@ -368,19 +368,21 @@ body
           margin-bottom 6px
           width 100%
           height 16px
-          line-height 19px
+          line-height 1
           font-size 14px
           color col_textBlack
           padding-left 10px
           .icon
             float left
-            height 20px
-            width 20px
+            height 14px
+            width 14px
             margin-right 10px
           .dl_cp_text
             float left
         .dl_cp_member
           margin-bottom 0
+          .number
+              color #f48361
     .dl_card_footer
       margin-top 10px
       color #c2c1c1
@@ -393,8 +395,9 @@ body
           float left
         .icon
           float left
-          height 20px
-          width 20px
+          height 18px
+          width 18px
+          margin-right 5px
       .dl_campaign_comment
         margin-right 0
 .dl_campaign_detail
@@ -2225,37 +2228,51 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       width 100%
 
 .sponsor
-  background-color #fff
+  background-color #efefef
   .list
+    margin-top 10px
+    .row
+      align-items center
+      font-size 14px
+      color #202020
+      .col
+        text-align center
+      .col_sm
+        flex 0.3
+    .item
+      height 50px
+      .input-label
+        color #202020
+      .ion-chevron-down,.ion-chevron-up
+        color #ababab
+        font-size 18px
+    .item-input
+      .result
+        color #ababab
+      input::-webkit-input-placeholder
+        color #ababab
+      input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+        color #ababab
+      input:-ms-input-placeholder /* Internet Explorer 10+ */
+        color #ababab
+      .icon
+        width 20px
+        margin 10px 0
+    .introduce
+      height 108px
+      align-items baseline
+      textarea
+        width 65%
+        line-height 22px
+    .item-divider
+      min-height 16px
     .input-label
-      color col_darkGray
       padding-top 0
       padding-bottom 0
-    .item-label
-      margin 5px 20px
-      border none
-      padding 0
-    .item-input
-      margin 5px 20px
-      border 1px solid col_blue
-      border-radius 5px
-      color col_blue
-      textarea
-        color col_blue
-      input
-        height 22px
-        color col_blue
-        padding-top 2px
-      .introduce
-        color col_blue
-        &::-webkit-input-placeholder
-          color col_blue
     .item-select
       select
-        color col_blue
-        padding 7px 48px 7px 16px
-      &:after
-        color col_blue
+        padding 14px 48px 7px 16px
+    //-编辑活动
     .item-button
       margin 10px 20px
       .button
@@ -2267,7 +2284,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       .button_close
         background-color col_darkGray
         border none
-
 
 .pswp
   .dl_button_to_album

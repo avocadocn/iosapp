@@ -90,7 +90,7 @@ body {
 .campaigns_container .campaign_list .campaign_container .campaign_container_title {
   font-size: 16px;
   background-color: #f7f7f7;
-  border: 1px solid #c9c9c9;
+  border: 1px solid #ddd;
   border-top: 0;
   padding: 3px 10px;
   color: #707070;
@@ -407,7 +407,7 @@ body {
   margin-bottom: 6px;
   width: 100%;
   height: 16px;
-  line-height: 19px;
+  line-height: 1;
   font-size: 14px;
   color: #707070;
   padding-left: 10px;
@@ -416,8 +416,8 @@ body {
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .icon,
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .icon {
   float: left;
-  height: 20px;
-  width: 20px;
+  height: 14px;
+  width: 14px;
   margin-right: 10px;
 }
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .dl_cp_text,
@@ -427,6 +427,9 @@ body {
 }
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member {
   margin-bottom: 0;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .number {
+  color: #f48361;
 }
 .dl_campaign_card .campaign_card .dl_card_footer {
   margin-top: 10px;
@@ -450,8 +453,9 @@ body {
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .icon,
 .dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .icon {
   float: left;
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
+  margin-right: 5px;
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
   margin-right: 0;
@@ -2610,44 +2614,66 @@ a>.login .companies_list:activated {
   width: 100%;
 }
 .sponsor {
-  background-color: #fff;
+  background-color: #efefef;
+}
+.sponsor .list {
+  margin-top: 10px;
+}
+.sponsor .list .row {
+  align-items: center;
+  font-size: 14px;
+  color: #202020;
+}
+.sponsor .list .row .col {
+  text-align: center;
+}
+.sponsor .list .row .col_sm {
+  flex: 0.3;
+}
+.sponsor .list .item {
+  height: 50px;
+}
+.sponsor .list .item .input-label {
+  color: #202020;
+}
+.sponsor .list .item .ion-chevron-down,
+.sponsor .list .item .ion-chevron-up {
+  color: #ababab;
+  font-size: 18px;
+}
+.sponsor .list .item-input .result {
+  color: #ababab;
+}
+.sponsor .list .item-input input::-webkit-input-placeholder {
+  color: #ababab;
+}
+.sponsor .list .item-input input::-moz-placeholder {
+  color: #ababab;
+}
+.sponsor .list .item-input input:-ms-input-placeholder {
+  color: #ababab;
+}
+.sponsor .list .item-input .icon {
+  width: 20px;
+  margin: 10px 0;
+}
+.sponsor .list .introduce {
+  height: 108px;
+  align-items: baseline;
+}
+.sponsor .list .introduce textarea {
+  width: 65%;
+  line-height: 22px;
+}
+.sponsor .list .item-divider {
+  min-height: 16px;
 }
 .sponsor .list .input-label {
-  color: #999;
   padding-top: 0;
   padding-bottom: 0;
 }
-.sponsor .list .item-label {
-  margin: 5px 20px;
-  border: none;
-  padding: 0;
-}
-.sponsor .list .item-input {
-  margin: 5px 20px;
-  border: 1px solid #3ca2e0;
-  border-radius: 5px;
-  color: #3ca2e0;
-}
-.sponsor .list .item-input textarea {
-  color: #3ca2e0;
-}
-.sponsor .list .item-input input {
-  height: 22px;
-  color: #3ca2e0;
-  padding-top: 2px;
-}
-.sponsor .list .item-input .introduce {
-  color: #3ca2e0;
-}
-.sponsor .list .item-input .introduce::-webkit-input-placeholder {
-  color: #3ca2e0;
-}
 .sponsor .list .item-select select {
-  color: #3ca2e0;
-  padding: 7px 48px 7px 16px;
-}
-.sponsor .list .item-select:after {
-  color: #3ca2e0;
+  padding: 14px 48px 7px 16px;
 }
 .sponsor .list .item-button {
   margin: 10px 20px;
