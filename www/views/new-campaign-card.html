@@ -14,9 +14,9 @@
         <div ng-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div>
       </div>
       <div class="dl_cp_texts">
-        <p class="dl_cp_time"><i class="icon ion_time"></i><span class="dl_cp_text">{{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd HH:mm"}}</span></p>
-        <p class="dl_cp_address"><i class="icon ion_address"></i><span class="dl_cp_text">{{campaign.location.name}}</span></p>
-        <p class="dl_cp_member"><i class="icon ion_member"></i><span class="dl_cp_text">{{campaign.members_count || '0'}}</span></p>
+        <p class="dl_cp_time"><i class="icon icon_small ion_time"></i><span class="dl_cp_text">{{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd HH:mm"}}</span></p>
+        <p class="dl_cp_address"><i class="icon icon_small ion_address"></i><span class="dl_cp_text">{{campaign.location.name}}</span></p>
+        <p class="dl_cp_member"><i class="icon ion_member icon_small"></i><span class="dl_cp_text number">{{campaign.members_count || '0'}} </span><span ng-show="campaign.member_max" class="dl_cp_text">&nbsp;|&nbsp;</span><span ng-if="campaign.member_max" class="dl_cp_text number">{{campaign.member_max}}</span></p>
       </div>
     </div>
     <div ng-if="campaign.confirm_status===true" class="dl_card_footer clearfix">

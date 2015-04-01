@@ -6,48 +6,51 @@ form(name="sponsorForm" novalidate ng-init="showMore=false;")
       button.button.button-clear(ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()") 发布
     ion-content
       .list
+        //- .row(ng-if="sponsorType==='competition'")
+        //-   .col 挑战方
+        //-   .col VS
+        //-   .col 应战方
         .row(ng-if="sponsorType==='competition'")
-          .col 挑战方
-          .col VS
-          .col 应战方
-        .row(ng-if="sponsorType==='competition'")
-          .col: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40")
+          .col.col_sm: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40")
           .col {{competitionMessage.sponsor_team.name}}
-          .col VS
-          .col: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40")
+          .col.col_sm VS
+          .col.col_sm: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40")
           .col {{competitionMessage.opposite_team.name}}
         label.item.item-input.item-select(ng-if="sponsorType!=='competition'")
           span.input-label 小队
-          select(ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams")
+          select.result(ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams")
         label.item.item-input.item-select(ng-if="sponsorType!=='competition' || competitionMessage.competition_type==2")
           span.input-label 活动类型
-          select(ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds")
-        label.item.item-label
-          span.input-label 活动开始时间:
+          select.result(ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds")
+        .item-divider
         label.item.item-input
-          input(type="datetime-local" name="start_time" ng-model="campaignData.start_time" placeholder="活动开始时间" required)
-        label.item.item-label
-          span.input-label 活动结束时间:
+          span.input-label 开始时间:
+          input.result(type="datetime-local" name="start_time" ng-model="campaignData.start_time" placeholder="活动开始时间" required)
         label.item.item-input
-          input(type="datetime-local" name="end_time" ng-model="campaignData.end_time" required)
+          span.input-label 结束时间:
+          input.result(type="datetime-local" name="end_time" ng-model="campaignData.end_time" required)
         label.item.item-input.item-icon-right
-          input(type="text" name="location" ng-model="campaignData.location.name" placeholder="活动地点" required)
-          i.icon.ion-map(edit-map ng-disabled="campaignData.location.name" location-name="campaignData.location.name" location='campaignData.location' map-name="mapDetail")
+          span.input-label 地点
+          input.result(type="text" name="location" ng-model="campaignData.location.name" required)
+          i.icon.ion_address(edit-map ng-disabled="campaignData.location.name" location-name="campaignData.location.name" location='campaignData.location' map-name="mapDetail")
+        .item-divider
         label.item.item-input
-          input(type="text" name="theme" ng-model="campaignData.theme" placeholder="活动主题，限制14个字" ng-maxlength=14 required)
-        label.item.item-input
-          textarea(name="content" rows=5 ng-model="campaignData.content" placeholder="活动简介" ng-maxlength=2000)
-        label.item.item-divider(ng-click="showMore=!showMore;") 更多
-      .list(ng-if="showMore")
-        label.item.item-label
+          span.input-label 活动名称
+          input.result(type="text" name="theme" ng-model="campaignData.theme" placeholder="限制14个字" ng-maxlength=14 required)
+        label.item.item-input.introduce
+          span.input-label 活动简介
+          textarea.result(name="content" rows=4 ng-model="campaignData.content" placeholder="活动简介" ng-maxlength=2000)
+        .item-divider
+        label.item.item-icon-right(ng-click="showMore=!showMore;") 
+          span.input-label 更多
+          i.icon.ion-chevron-down(ng-if="!showMore")
+          i.icon.ion-chevron-up(ng-if="showMore")
+        label.item.item-input(ng-if="showMore")
           span.input-label 报名截止时间:
-        label.item.item-input
-          input#deadline(type="datetime-local" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间")
-        label.item.item-label
+          input.result#deadline(type="datetime-local" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间")
+        label.item.item-input(ng-if="showMore")
           span.input-label 报名人数上限:
-        label.item.item-input
-          input.arecode(type="number" name="member_max" ng-model="campaignData.member_max" min=0)
-        label.item.item-label
+          input.arecode.result(type="number" name="member_max" ng-model="campaignData.member_max" min=0)
+        label.item.item-input(ng-if="showMore")
           span.input-label 报名人数下限:
-        label.item.item-input
-          input.arecode(type="number" name="member_min" ng-model="campaignData.member_min" min=0)
+          input.arecode.result(type="number" name="member_min" ng-model="campaignData.member_min" min=0)
