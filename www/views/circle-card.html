@@ -1,7 +1,9 @@
 
-<div class="dl_circle_company_card clearfix"><img ng-src="{{staticUrl + circle.content.poster.photo}}/32/32" class="circle_company_logo"/>
+<div class="dl_circle_company_card clearfix"><img ng-if="kind === 'company'" ng-src="{{staticUrl + circle.content.poster.photo}}/32/32" ng-click="goToUserPage(circle.content.poster._id)" class="circle_company_logo"/><img ng-if="kind === 'user' &amp;&amp; !circle.content.teamInfo &amp;&amp; circle.content.companyInfo" ng-src="{{staticUrl + circle.content.companyInfo.info.logo}}/32/32" class="circle_company_logo"/><img ng-if="kind === 'user' &amp;&amp; circle.content.teamInfo" ng-src="{{staticUrl + circle.content.teamInfo.logo}}/32/32" ng-click="goToTeamPage(circle.content.teamInfo._id)" class="circle_company_logo"/>
   <div class="circle_info">
-    <h2 ng-click="goToUserPage(circle.content.poster._id)" class="user_name link_name">{{circle.content.poster.nickname}}</h2>
+    <h2 ng-if="kind === 'company'" ng-click="goToUserPage(circle.content.poster._id)" class="user_name link_name">{{circle.content.poster.nickname}}</h2>
+    <h2 ng-if="kind === 'user' &amp;&amp; !circle.content.teamInfo &amp;&amp; circle.content.companyInfo" class="user_name link_name">{{circle.content.companyInfo.info.name}}</h2>
+    <h2 ng-if="kind === 'user' &amp;&amp; circle.content.teamInfo" ng-click="goToTeamPage(circle.content.teamInfo._id)" class="user_name link_name">{{circle.content.teamInfo.name}}</h2>
     <div class="circle_content">
       <textarea ng-model="circle.content.content" ng-readonly="true" class="content_text"></textarea><a ng-if="showContentStatus.showOverAll" ng-click="showAllContent()" class="circle_overall">全文</a><a ng-if="showContentStatus.showPartial" ng-click="showPartialContent()" class="circle_partial">收起</a>
     </div>

@@ -900,9 +900,14 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       ctrl: '=', // 提供给外部的控制器
       onClickCommentButton: '=', // 点击评论按钮或快速回复的事件
       onClickContentImg: '=', // 点击图片的事件
-      staticUrl: '=' // 静态资源的baseUrl
+      staticUrl: '=', // 静态资源的baseUrl
+      kind: '@' // 卡片类型，默认为company,允许的值有company, user
     },
     link: function(scope, ele, attrs, ctrl) {
+      if (!scope.kind) {
+        scope.kind = 'company';
+      }
+
       scope.lastCardIndex = null;
       scope.currentCardIndex = null;
       scope.onClickCardCommentButton = function(placeHolderText, circle) {
@@ -986,9 +991,13 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       onClickContentImg: '=', // 点击图片的事件
       onOpenOperators: '=', // 打开点赞和评论的操作框
       onDelete: '=', // 删除整个circleContent时触发的事件
-      staticUrl: '=' // 静态资源的baseUrl
+      staticUrl: '=', // 静态资源的baseUrl
+      kind: '@' // 卡片类型，默认为company,允许的值有company, user
     },
     link: function(scope, ele, attrs, ctrl) {
+      if (!scope.kind) {
+        scope.kind = 'company';
+      }
       var ionicAlert = function(msg) {
         $ionicPopup.alert({
           title: '提示',
@@ -999,6 +1008,12 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       scope.goToUserPage = function(id) {
         $state.go('circle_user', {
           userId: id
+        });
+      };
+
+      scope.goToTeamPage = function(id) {
+        $state.go('team', {
+          teamId: id
         });
       };
 

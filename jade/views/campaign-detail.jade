@@ -2,7 +2,7 @@ ion-view.dl_campaign_detail
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title(ng-cloak) {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
-    //-button.button.icon.ion_discuss_active(ng-click="chooseUploadImages()")
+    button.button.icon.ion_discuss_active(ng-click="chooseUploadImages()")
   ion-content(delegate-handle="detailScroll")
     .campaign_detail
       //- .item(ng-if="campaign.campaign_unit.length==1")

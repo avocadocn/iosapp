@@ -1,12 +1,15 @@
 .dl_circle_company_card.clearfix
-  img.circle_company_logo(ng-src="{{staticUrl + circle.content.poster.photo}}/32/32")
+  img.circle_company_logo(ng-if="kind === 'company'" ng-src="{{staticUrl + circle.content.poster.photo}}/32/32" ng-click="goToUserPage(circle.content.poster._id)")
+  img.circle_company_logo(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo" ng-src="{{staticUrl + circle.content.companyInfo.info.logo}}/32/32")
+  img.circle_company_logo(ng-if="kind === 'user' && circle.content.teamInfo" ng-src="{{staticUrl + circle.content.teamInfo.logo}}/32/32" ng-click="goToTeamPage(circle.content.teamInfo._id)")
   .circle_info
-    h2.user_name.link_name(ng-click="goToUserPage(circle.content.poster._id)") {{circle.content.poster.nickname}}
+    h2.user_name.link_name(ng-if="kind === 'company'" ng-click="goToUserPage(circle.content.poster._id)") {{circle.content.poster.nickname}}
+    h2.user_name.link_name(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo") {{circle.content.companyInfo.info.name}}
+    h2.user_name.link_name(ng-if="kind === 'user' && circle.content.teamInfo" ng-click="goToTeamPage(circle.content.teamInfo._id)") {{circle.content.teamInfo.name}}
     .circle_content
       textarea.content_text(ng-model="circle.content.content" ng-readonly="true")
       a.circle_overall(ng-if="showContentStatus.showOverAll" ng-click="showAllContent()") 全文
       a.circle_partial(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
-
     .image_box.clearfix
       img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/128/128" error-img ng-click="clickImg(photo)")
     .date_and_op.clearfix
