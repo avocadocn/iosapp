@@ -904,14 +904,46 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     },
     link: function(scope, ele, attrs, ctrl) {
 
-      scope.currentCardIndex = 0;
+      scope.lastCardIndex = null;
+      scope.currentCardIndex = null;
       scope.onClickCardCommentButton = function(placeHolderText, circle) {
         for (var i = 0, listLen = scope.circleList.length; i < listLen; i++) {
           if (scope.circleList[i].content._id === circle.content._id) {
-            scope.currentCardIndex = i;
+            if (i !== scope.currentCardIndex) {
+              scope.lastCardIndex = scope.currentCardIndex;
+              scope.currentCardIndex = i;
+              if (scope.lastCardIndex !== null) {
+                scope.ctrls[scope.lastCardIndex].stopComment();
+              }
+            }
             if (scope.onClickCommentButton) {
               scope.onClickCommentButton(placeHolderText);
             }
+            return;
+          }
+        }
+      };
+
+      scope.closeLastCardOperators = function(circle) {
+        for (var i = 0, listLen = scope.circleList.length; i < listLen; i++) {
+          if (scope.circleList[i].content._id === circle.content._id) {
+            if (i !== scope.currentCardIndex) {
+              scope.lastCardIndex = scope.currentCardIndex;
+              scope.currentCardIndex = i;
+              if (scope.lastCardIndex !== null) {
+                scope.ctrls[scope.lastCardIndex].stopComment();
+              }
+            }
+
+            return;
+          }
+        }
+      };
+
+      scope.removeFromList = function(id) {
+        for (var i = 0, listLen = scope.circleList.length; i < listLen; i++) {
+          if (scope.circleList[i].content._id === id) {
+            scope.circleList.splice(i, 1);
             return;
           }
         }
@@ -931,18 +963,11 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           newVal.postComment = function(content) {
             scope.ctrls[scope.currentCardIndex].postComment(content);
           };
+          newVal.stopComment = function() {
+            scope.ctrls[scope.currentCardIndex].stopComment();
+          };
         }
       });
-
-      scope.removeFromList = function(id) {
-        for (var i = 0, listLen = scope.circleList.length; i < listLen; i++) {
-          if (scope.circleList[i].content._id === id) {
-            scope.circleList.splice(i, 1);
-            return;
-          }
-        }
-      };
-
 
 
     },
@@ -960,6 +985,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       user: '=', // 用户数据
       onClickCommentButton: '=', // 点击评论按钮或快速回复的事件
       onClickContentImg: '=', // 点击图片的事件
+      onOpenOperators: '=', // 打开点赞和评论的操作框
       onDelete: '=', // 删除整个circleContent时触发的事件
       staticUrl: '=' // 静态资源的baseUrl
     },
@@ -989,11 +1015,10 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       };
 
       scope.toggleComment = function() {
-        // if (ctrl.currentCommentCircle && ctrl.currentCommentCircle !== scope.circle) {
-        //   ctrl.currentCommentCircle.isToComment = false;
-        //   ctrl.currentCommentCircle = scope.circle;
-        // }
         scope.circle.isToComment = !scope.circle.isToComment;
+        if (scope.circle.isToComment === true && scope.onOpenOperators) {
+          scope.onOpenOperators(scope.circle);
+        }
       };
 
       // 点击评论按钮
@@ -1008,6 +1033,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
       // 回复
       scope.replyTo = function(circle, comment) {
+        scope.stopComment();
         if (comment.post_user_id === scope.user._id) {
           // 将回复自己的评论转为回复内容
           isOnlyToContent = true;
@@ -1123,7 +1149,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         });
       };
 
-      var postComment = function(content, callback) {
+      scope.postComment = function(content, callback) {
         if (!content || content === '') {
           if (callback) {
             callback();
@@ -1159,9 +1185,15 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           });
       };
 
+      scope.stopComment = function() {
+        scope.isCommenting = false;
+        scope.circle.isToComment = false;
+      };
+
       scope.$watch('ctrl', function(newVal) {
         if (newVal) {
-          newVal.postComment = postComment;
+          newVal.postComment = scope.postComment;
+          newVal.stopComment = scope.stopComment;
         }
       });
 

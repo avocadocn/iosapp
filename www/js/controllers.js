@@ -3799,6 +3799,10 @@ angular.module('donlerApp.controllers', [])
           $scope.circleCardListCtrl.postComment(content);
         };
 
+        $scope.stopComment = function() {
+          $scope.circleCardListCtrl.stopComment();
+        };
+
         $scope.onClickContentImg = function(img) {
           for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
             if (img._id === $scope.imagesForPswp[i]._id) {
