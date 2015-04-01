@@ -3,7 +3,7 @@
   <ion-tab title="活动" icon-on="ion_campaign_active" icon-off="ion_campaign" href="#/app/campaigns"><!-- Tab 1 content -->
     <ion-view ng-controller="CampaignController">
       <ion-header-bar><a href="#/calendar/campaigns" class="button icon ion-calendar"></a>
-        <h1 ng-click="showFilter($event)" class="title"><span>{{typeTitle}}</span><i class="icon ion-arrow-down-b"></i></h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
+        <h1 ng-click="showFilter($event)" class="title"><span>{{typeTitle}}&nbsp;</span><i class="icon ion-arrow-down-b"></i></h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
       </ion-header-bar>
       <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container">
         <ion-scroll class="campaign_list">

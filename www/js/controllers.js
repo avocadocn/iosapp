@@ -627,14 +627,6 @@ angular.module('donlerApp.controllers', [])
     };
     document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
 
-    var getChatrooms = function() {
-      Chat.getChatroomList(function (err, data) {
-        // console.log(data);
-        $scope.chatrooms = data;
-        getChatroomsUnread();
-      });
-    };
-    getChatrooms();
     var getChatroomsUnread = function() {
       Chat.getChatroomUnread(function (err, data) {
         var chatroomsLength = $scope.chatrooms.length;
@@ -648,6 +640,14 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
+    var getChatrooms = function() {
+      Chat.getChatroomList(function (err, data) {
+        // console.log(data);
+        $scope.chatrooms = data;
+        getChatroomsUnread();
+      });
+    };
+    getChatrooms();
     Socket.on('newChatroomChat', function (chat) {
       if($scope.chatrooms) {
         var index = Tools.arrayObjectIndexOf($scope.chatrooms, chat.chatroom_id, '_id');

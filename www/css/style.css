@@ -372,13 +372,30 @@ body {
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .dl_team_logo {
   width: 60px;
   height: 60px;
+  border-radius: 5px;
 }
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos.2_logos:first-child {
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .provoke_label,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label {
+  width: 100%;
+  height: 14px;
+  color: #fff;
+  float: left;
+  text-align: center;
+  line-height: 14px;
+  background-color: #f48361;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label {
+  background-color: #ffc053;
+}
+.dl_campaign_card .campaign_card .dl_card_content .logos_2:first-child {
   margin-right: 2px;
 }
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos.2_logos .dl_team_logo {
+.dl_campaign_card .campaign_card .dl_card_content .logos_2 .dl_team_logo {
   width: 29px;
   height: 29px;
+  margin-top: 7px;
+  margin-bottom: 6px;
+  border-radius: 3px;
   float: left;
 }
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts {

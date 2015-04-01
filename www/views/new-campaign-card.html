@@ -9,7 +9,10 @@
       </div>
     </div>
     <div class="dl_card_content clearfix">
-      <div class="dl_cp_logos {{campaign.campaign_unit.length}}_logos"><img ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo"/><span ng-if="campaign.campaign_type===4 || campaign.campaign_type===5">挑战</span><span ng-if="campaign.campaign_type===7">联谊 </span></div>
+      <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo"/>
+        <div ng-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="provoke_label"><span>挑战</span></div>
+        <div ng-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div>
+      </div>
       <div class="dl_cp_texts">
         <p class="dl_cp_time"><i class="icon ion_time"></i><span class="dl_cp_text">{{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd HH:mm"}}</span></p>
         <p class="dl_cp_address"><i class="icon ion_address"></i><span class="dl_cp_text">{{campaign.location.name}}</span></p>
