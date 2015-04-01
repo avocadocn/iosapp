@@ -16,13 +16,13 @@
           span 联谊 
       .dl_cp_texts
         p.dl_cp_time
-          i.icon.ion_time
+          i.icon.icon_small.ion_time
           span.dl_cp_text {{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd HH:mm"}}
         p.dl_cp_address
-          i.icon.ion_address
+          i.icon.icon_small.ion_address
           span.dl_cp_text {{campaign.location.name}}
         p.dl_cp_member
-          i.icon.ion_member
+          i.icon.ion_member.icon_small
           span.dl_cp_text.number {{campaign.members_count || '0'}} 
           span.dl_cp_text(ng-show="campaign.member_max") &nbsp;|&nbsp;
           span.dl_cp_text.number(ng-if="campaign.member_max") {{campaign.member_max}}

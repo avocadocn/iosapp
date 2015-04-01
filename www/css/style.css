@@ -10,6 +10,51 @@ body {
 .view {
   background-color: #e2e2e2;
 }
+input::-webkit-input-placeholder {
+  color: #3ca2e0;
+}
+input::-moz-placeholder {
+  color: #3ca2e0;
+}
+input:-ms-input-placeholder {
+  color: #3ca2e0;
+}
+input:focus::-webkit-input-placeholder textarea {
+  color: transparent;
+}
+input:focus::-moz-placeholder {
+  color: transparent;
+}
+input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+.bar {
+  border-bottom: 1px solid #ccc;
+}
+.bar .dl_title {
+  left: 70px !important;
+  right: 70px !important;
+}
+.bar .title + .button.ion_discuss_active:last-child {
+  right: 15px;
+  width: 30px;
+}
+.bar .button {
+  border: 0;
+  background-color: transparent;
+  color: #3ca2e0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 35px;
+}
+.bar .button.activated {
+  box-shadow: 0 0 0;
+  color: #ddd;
+}
+.bar .icon-left.button:before,
+.bar .icon-right.button:before {
+  font-size: 16px;
+}
 .clearfix:before,
 .clearfix:after {
   display: table;
@@ -416,8 +461,6 @@ body {
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .icon,
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .icon {
   float: left;
-  height: 14px;
-  width: 14px;
   margin-right: 10px;
 }
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .dl_cp_text,
@@ -453,8 +496,6 @@ body {
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .icon,
 .dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .icon {
   float: left;
-  height: 18px;
-  width: 18px;
   margin-right: 5px;
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
@@ -469,10 +510,11 @@ body {
   color: #666;
   position: relative;
   font-size: 12px;
+  line-height: 15px;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .team_logo {
   position: absolute;
-  left: 10px;
+  left: 15px;
   top: 15px;
   height: 60px;
   width: 60px;
@@ -481,32 +523,86 @@ body {
 .dl_campaign_detail .campaign_detail .campaign_info .team_name {
   font-size: 14px;
   color: #202020;
+  margin-bottom: 5px;
 }
-.dl_campaign_detail .campaign_detail .campaign_info .cp_member .member_num {
-  color: #f07151;
+.dl_campaign_detail .campaign_detail .campaign_info .cp_time {
+  margin-bottom: 5px;
+}
+.dl_campaign_detail .campaign_detail .campaign_info .ion_member,
+.dl_campaign_detail .campaign_detail .campaign_info .ion_time,
+.dl_campaign_detail .campaign_detail .campaign_info .ion_address {
+  float: left;
+  margin-right: 10px;
 }
 .dl_campaign_detail .campaign_detail .item {
-  padding: 10px;
+  padding: 15px;
   font-size: 14px;
   height: 44px;
   color: #202020;
+}
+.dl_campaign_detail .campaign_detail .item .ion-chevron-right {
+  float: right;
+}
+.dl_campaign_detail .campaign_detail .item-divider {
+  height: 30px;
+  padding: 5px 15px;
+}
+.dl_campaign_detail .campaign_detail .cp_member {
+  line-height: 16px;
+}
+.dl_campaign_detail .campaign_detail .cp_member .member_num {
+  color: #f07151;
 }
 .dl_campaign_detail .campaign_detail .cp_address .cp_location {
   color: #666;
   font-size: 12px;
 }
-.dl_campaign_detail .campaign_detail .cp_address .ion-chevron-right {
-  float: right;
+.dl_campaign_detail .campaign_detail .campaign_footer {
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  padding: 0;
+  height: 48px;
 }
-.dl_campaign_detail .campaign_detail .campaign_footer .col {
+.dl_campaign_detail .campaign_detail .campaign_footer .footer_col {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   text-align: center;
-}
-.dl_campaign_detail .campaign_detail .campaign_footer .col:first-child {
   border-right: 1px solid #ccc;
+  padding: 10px;
+  color: #666;
+  height: 100%;
+}
+.dl_campaign_detail .campaign_detail .campaign_footer .footer_col:last-child {
+  border-right: none;
+}
+.dl_campaign_detail .campaign_detail .campaign_footer .footer_col .icon {
+  display: inline-block;
+  margin-right: 17px;
+}
+.dl_campaign_detail .campaign_detail .campaign_footer .footer_col .member_num {
+  color: #f07151;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer a {
   text-decoration: none;
   color: #000;
+}
+.dl_campaign_detail .bar-footer {
+  height: 50px;
+}
+.dl_campaign_detail .bar-footer .dl_cp_join {
+  color: #fff;
+  background-color: #3ca2e0;
+  margin: 0 15px;
+  border-radius: 5px;
+  height: 40px;
 }
 .dl_divider {
   height: 10px;
@@ -867,51 +963,6 @@ body {
 .dl_button:hover {
   color: #fff;
 }
-input::-webkit-input-placeholder {
-  color: #3ca2e0;
-}
-input::-moz-placeholder {
-  color: #3ca2e0;
-}
-input:-ms-input-placeholder {
-  color: #3ca2e0;
-}
-input:focus::-webkit-input-placeholder textarea {
-  color: transparent;
-}
-input:focus::-moz-placeholder {
-  color: transparent;
-}
-input:focus:-ms-input-placeholder {
-  color: transparent;
-}
-.bar {
-  border-bottom: 1px solid #ccc;
-}
-.bar .dl_title {
-  left: 70px !important;
-  right: 70px !important;
-}
-.bar .title + .button.ion_discuss_active:last-child {
-  right: 15px;
-  width: 30px;
-}
-.bar .button {
-  border: 0;
-  background-color: transparent;
-  color: #3ca2e0;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 35px;
-}
-.bar .button.activated {
-  box-shadow: 0 0 0;
-  color: #ddd;
-}
-.bar .icon-left.button:before,
-.bar .icon-right.button:before {
-  font-size: 16px;
-}
 .login>.bar .icon-left.button:before,
 .login>.bar .icon-right.button:before {
   padding-left: 10px;
@@ -1188,6 +1239,20 @@ a>.login .companies_list:activated {
 }
 .ion_circle {
   background-position: -40px -198px;
+}
+.icon_small {
+  background-size: 130px 195px;
+  height: 16px;
+  width: 16px;
+}
+.icon_small.ion_member {
+  background-position: 0 -162px;
+}
+.icon_small.ion_time {
+  background-position: -64px -130px;
+}
+.icon_small.ion_address {
+  background-position: -96px -130px;
 }
 .emoji {
   margin: 0 0.1rem;

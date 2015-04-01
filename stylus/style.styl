@@ -31,7 +31,44 @@ body
   font-size 12px
 .pane, .view
   background-color col_gray
+//-input全局placeholder
+input::-webkit-input-placeholder
+  color col_blue
+input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+  color col_blue
+input:-ms-input-placeholder /* Internet Explorer 10+ */
+  color col_blue
 
+input:focus::-webkit-input-placeholder textarea /* WebKit browsers */
+  color transparent
+input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+  color transparent
+input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
+  color transparent
+
+//-通用bar
+.bar
+  border-bottom 1px solid #ccc
+  //title的button用的时{{}}绑定时会不居中，所有统一固定为70
+  .dl_title
+    left 70px !important
+    right 70px !important
+  .title + .button.ion_discuss_active:last-child
+    right 15px
+    width 30px
+  .button
+    border 0
+    background-color transparent
+    color col_blue
+    font-size 16px
+    font-weight 600
+    line-height 35px
+  .button.activated
+    box-shadow 0 0 0
+    color #ddd
+  .icon-left, .icon-right
+    &.button:before
+      font-size 16px
 .clearfix
   &:before, &:after
     display table
@@ -374,8 +411,6 @@ body
           padding-left 10px
           .icon
             float left
-            height 14px
-            width 14px
             margin-right 10px
           .dl_cp_text
             float left
@@ -395,8 +430,6 @@ body
           float left
         .icon
           float left
-          height 18px
-          width 18px
           margin-right 5px
       .dl_campaign_comment
         margin-right 0
@@ -409,9 +442,10 @@ body
       color #666666
       position relative
       font-size 12px
+      line-height 15px
       .team_logo
         position absolute
-        left 10px
+        left 15px
         top 15px
         height 60px
         width 60px
@@ -419,30 +453,72 @@ body
       .team_name
         font-size 14px
         color #202020
-      .cp_member
-        .member_num
-          color #f07151
+        margin-bottom 5px
+      .cp_time
+        margin-bottom 5px
+      .ion_member
+      .ion_time
+      .ion_address
+        float left
+        margin-right 10px
     .item
-      padding 10px
+      padding 15px
       font-size 14px
       height 44px
       color #202020
+      .ion-chevron-right
+        float right
+    .item-divider
+      height 30px
+      padding 5px 15px
+    .cp_member
+      line-height 16px
+      .member_num
+        color #f07151
     .cp_address
       .cp_location
         color #666666
         font-size 12px
-      .ion-chevron-right
-        float right
     .campaign_footer
-      .col
+      display flex
+      display -webkit-box
+      display -webkit-flex
+      display -moz-box
+      display -moz-flex
+      display -ms-flexbox
+      padding 0
+      height 48px
+      .footer_col
+        -webkit-box-flex 1
+        -webkit-flex 1
+        -moz-box-flex 1
+        -moz-flex 1
+        -ms-flex 1
+        flex 1
         text-align center
-        &:first-child
-          border-right 1px solid #ccc
+        border-right 1px solid #ccc
+        padding 10px
+        color #666666
+        height 100%
+        &:last-child
+          border-right none
+        .icon
+          display inline-block
+          margin-right 17px
+        .member_num
+          color #f07151
       a
         text-decoration none
         color black
-
-// .dl_card_detail
+  .bar-footer
+    height 50px
+    .dl_cp_join
+      color white
+      background-color col_blue
+      margin 0 15px
+      border-radius 5px
+      height 40px
+      
 .dl_divider
   height 10px
   border 1px solid #ddd
@@ -739,44 +815,7 @@ body
   &:hover
     color #fff
 
-//-input全局placeholder
-input::-webkit-input-placeholder
-  color col_blue
-input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-  color col_blue
-input:-ms-input-placeholder /* Internet Explorer 10+ */
-  color col_blue
 
-input:focus::-webkit-input-placeholder textarea /* WebKit browsers */
-  color transparent
-input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-  color transparent
-input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
-  color transparent
-
-//-通用bar
-.bar
-  border-bottom 1px solid #ccc
-  //title的button用的时{{}}绑定时会不居中，所有统一固定为70
-  .dl_title
-    left 70px !important
-    right 70px !important
-  .title + .button.ion_discuss_active:last-child
-    right 15px
-    width 30px
-  .button
-    border 0
-    background-color transparent
-    color col_blue
-    font-size 16px
-    font-weight 600
-    line-height 35px
-  .button.activated
-    box-shadow 0 0 0
-    color #ddd
-  .icon-left, .icon-right
-    &.button:before
-      font-size 16px
 .login>.bar
   .icon-left, .icon-right
     &.button:before
@@ -985,6 +1024,16 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   background-position -80px -199px
 .ion_circle
   background-position -40px -198px
+.icon_small
+  background-size 130px 195px
+  height 16px
+  width 16px
+  &.ion_member
+    background-position 0 -162px
+  &.ion_time
+    background-position -64px -130px
+  &.ion_address
+    background-position -96px -130px
 .emoji
   margin 0 0.1rem
   vertical-align middle
