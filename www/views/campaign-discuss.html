@@ -1,34 +1,33 @@
 
-<ion-view cache-view="false" title="{{campaignTitle}}" class="discuss_detail">
+<ion-view cache-view="false" title="{{campaignTitle}}" class="campaign_discuss">
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 ng-cloak="ng-cloak" class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a>
   </ion-header-bar>
   <ion-content>
-    <div ng-click="hideEmotions()" class="comments">
-      <div class="blocks">
-        <div ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack="ng-cloack" class="block">
-          <div ng-show="showTime &amp;&amp; ($index!==0||($index===0))" class="time_block">
-            <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0))" ng-cloak="ng-cloak" class="time">{{comment.create_date | date: 'yyyy'}}</span></p>
-            <p><span ng-cloak="ng-cloak" class="time">{{comment.create_date | date: 'M月dd日 HH:mm'}}</span></p>
-          </div>
-          <div ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" ng-cloak="ng-cloak" class="comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a>
-            <div class="contents">
-              <div ng-if="comment.poster._id !== userId" ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>
-              <div ng-if="comment.poster._id == userId" ng-cloak="ng-cloak" class="name">我</div>
-              <div class="content">
-                <div ng-bind-html="comment.content | emoji | unsafe" class="triangle_isosceles"></div>
-              </div>
-            </div>
-          </div>
-          <div ng-if="comment.failed" ng-cloak="ng-cloak" class="failed">
-            <div class="tip"><i class="icon ion-alert-circled"></i><span>发送失败</span></div>
-          </div>
+    <div class="list comments">
+      <div ng-repeat="comment in comments track by $index" ng-if="comment.content" ng-cloack="ng-cloack" class="item item-thumbnail-left comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/30/30'}}"/></a>
+        <div class="contents">
+          <div ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>
+          <div ng-bind-html="comment.content | emoji | unsafe" class="content"></div>
+          <div class="time"><span>{{comment.create_date | date: 'yyyy-M-dd HH:mm'}}</span></div>
         </div>
       </div>
+      <div class="item-button">
+        <button ng-if="hasMore &amp;&amp; !loading" ng-click="readHistory()" class="button button-full button-clear">点击查看更多</button><i ng-if="loading" class="icon ion-looping"></i>
+      </div>
+      <div class="item-button">
+        <button ng-click="showPublishSheet()" class="button button-full button_sponsor">留言</button>
+      </div>
     </div>
-    <ion-infinite-scroll ng-if="!loading&amp;&amp;hasMore" icon="ion-looping" on-infinite="readHistory()" distance="-2%"></ion-infinite-scroll>
   </ion-content>
-  <ion-footer-bar class="comment_box">
-    <publish-box is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publish()"></publish-box>
-  </ion-footer-bar>
+  <script id="publish-comment.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar><a ng-click="cancelPublish()" class="button icon-left ion-chevron-left">&nbsp;返回</a><a ng-disabled="!data.content" ng-click="publish()" class="button">发布</a></ion-header-bar>
+      <ion-content class="dl_publish">
+        <form class="publish_card">
+          <textarea ng-model="data.content" placeholder="正文（必填），1-140字" autofocus="autofocus" maxlength="140" rows="6"></textarea>
+        </form>
+      </ion-content>
+    </ion-modal-view>
+  </script>
 </ion-view>

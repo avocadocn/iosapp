@@ -1096,12 +1096,10 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$timeout', 'Comment', 'User', 'INFO',
-    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, $timeout, Comment, User, INFO) {
+  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$ionicModal', '$ionicPopup', 'Comment', 'User', 'INFO',
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, $ionicModal, $ionicPopup, Comment, User, INFO) {
     $scope.campaignId = $stateParams.id;
     $scope.campaignTitle = INFO.discussName;
-
-    $scope.content='';
     $scope.userId = localStorage.id;
 
     //ionichistory
@@ -1123,15 +1121,12 @@ angular.module('donlerApp.controllers', [])
       Comment.getComments(queryData, function(err, data){
         if(!err) {
           $scope.comments = $scope.comments.concat(data.comments);
-          nextStartDate = data.nextStartDate;
-          $scope.hasMore = nextStartDate ? true: false;
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-          $timeout(function() {
-            $scope.loading = false;
-          }, 1000);
+          $scope.hasMore = data.nextStartDate ? true: false;
+          $scope.loading = false;
         }
         else{
           console.log(err);
+          $scope.loading = false;
         }
       });
     };
@@ -1140,8 +1135,6 @@ angular.module('donlerApp.controllers', [])
       requestId: $scope.campaignId,
       limit: 20
     });
-
-    $scope.isWriting = false;
 
     //拉取历史讨论记录
     $scope.readHistory = function() {
@@ -1153,8 +1146,6 @@ angular.module('donlerApp.controllers', [])
           createDate: nextStartDate
         };
         getComments(queryData);
-      }else{//没下一条了~
-        $scope.$broadcast('scroll.infiniteScrollComplete');
       }
     };
 
@@ -1163,68 +1154,61 @@ angular.module('donlerApp.controllers', [])
     User.getData($scope.userId, function(err,data){
       currentUser = data;
     });
-
-    /* 是否需要显示时间()
-     * @params: index: 第几个comment
-     * 判断依据：与上一个评论时间是否在同一分钟||index为0
-     * return:
-     *   0 不用显示
-     *   1 显示年、月、日
-     *   2 显示月、日
-     */
-    $scope.needShowTime = function (index, comments) {
-      if(index===0){
-        return 1;
-      }else{
-        var preTime = new Date(comments[index-1].create_date);
-        var nowTime = new Date(comments[index].create_date);
-        if(nowTime.getFullYear() != preTime.getFullYear()) {
-          return 1;
-        }else if(nowTime.getDay() != preTime.getDay()) {
-          return 2;
-        }else if(nowTime.getHours() != preTime.getHours()) {
-          return 2;
-        }else if(nowTime.getMinutes() != preTime.getMinutes()){
-          return 2;
-        }
-      }
+    $ionicModal.fromTemplateUrl('publish-comment.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.publishModal = modal;
+    });
+    $scope.showPublishSheet = function() {
+      $scope.publishModal.show();
+    };
+    $scope.cancelPublish = function() {
+      $scope.publishModal.hide();
     };
 
+    $scope.data = {content:''};
     //发表评论
     $scope.publish = function() {
-      if(window.analytics){
-        window.analytics.trackEvent('Click', 'publishComment');
-      }
-      //-创建一个新comment
-      var newComment = {
-        create_date: new Date(),
-        poster: {
-          '_id': currentUser._id,
-          'photo': currentUser.photo,
-          'nickname': currentUser.nickname
-        },
-        content: $scope.content
-      };
-      $scope.comments.push(newComment);
-      $ionicScrollDelegate.scrollBottom();
-      Comment.publishComment({
-        'hostType': 'campaign',
-        'hostId': $scope.campaignId,
-        'content': $scope.content
-      }, function(err){
-        if(err){
-          console.log(err);
-          //发送失败
-          var length = $scope.comments.length;
-          $scope.comments[length-1].failed = true;
-        }else{
-          $scope.content = '';
+      // console.log($scope.content);
+      if($scope.data.content) {
+        if(window.analytics){
+          window.analytics.trackEvent('Click', 'publishComment');
         }
-      });
-    };
-
-    $scope.hideEmotions = function() {
-      $scope.isShowEmotions = false;
+        Comment.publishComment({
+          'hostType': 'campaign',
+          'hostId': $scope.campaignId,
+          'content': $scope.data.content
+        }, function(err){
+          if(err){
+            console.log(err);
+            //发送失败
+            $ionicPopup.alert({
+              title: '错误',
+              template: err
+            });
+          }else{
+            $ionicPopup.alert({
+              title: '提示',
+              template: '留言发布成功！'
+            });
+            //-创建一个新comment
+            var newComment = {
+              create_date: new Date(),
+              poster: {
+                '_id': currentUser._id,
+                'photo': currentUser.photo,
+                'nickname': currentUser.nickname
+              },
+              content: $scope.data.content
+            };
+            $scope.comments.push(newComment);
+            $ionicScrollDelegate.scrollBottom();
+            $scope.data.content = '';
+            $scope.publishModal.hide();
+          }
+        });
+      }
     };
 
   }])

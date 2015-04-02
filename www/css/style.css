@@ -1331,52 +1331,6 @@ a>.login .companies_list:activated {
   top: 0;
   margin-top: 0;
 }
-.discuss_detail .notice.show {
-  display: block;
-}
-.discuss_detail .notice {
-  display: none;
-  height: 85px;
-  position: absolute;
-  top: 5rem;
-  width: 90%;
-  margin: 5%;
-}
-.discuss_detail .notice .notice_cover {
-  background-color: #fff;
-  opacity: 0.8;
-  height: 85px;
-  z-index: 1;
-  border-radius: 3px;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-}
-.discuss_detail .notice .content {
-  z-index: 2;
-  padding: 10px;
-}
-.discuss_detail .notice .content .notice_title {
-  color: #3ca2e0;
-  float: left;
-  font-size: 14px;
-  font-weight: 600;
-}
-.discuss_detail .notice .content .notice_content {
-  color: #666;
-  width: 100%;
-  float: left;
-  font-size: 16px;
-  margin-top: 10px;
-}
-.discuss_detail .notice .content .close_button {
-  color: #3ca2e0;
-  background-color: transparent;
-  font-size: 20px;
-  line-height: 1;
-  padding: 0;
-}
 .discuss_detail .comments .time_block {
   text-align: center;
   width: 100%;
@@ -1690,6 +1644,56 @@ a>.login .companies_list:activated {
 }
 .item-avatar > img:first-child {
   border-radius: 0;
+}
+.campaign_discuss {
+  background-color: #f7f7f7;
+}
+.campaign_discuss .icon-right {
+  width: 40px;
+  margin-top: 3px;
+}
+.campaign_discuss .comments .comment {
+  padding: 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+.campaign_discuss .comments .comment .logo {
+  float: left;
+  margin-right: 10px;
+}
+.campaign_discuss .comments .comment .logo img {
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+}
+.campaign_discuss .comments .comment .contents {
+  float: left;
+}
+.campaign_discuss .comments .comment .contents .name {
+  color: #202020;
+  line-height: 1;
+  margin-bottom: 13px;
+  font-size: 16px;
+}
+.campaign_discuss .comments .comment .contents .content {
+  color: #666;
+  font-size: 14px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.campaign_discuss .comments .comment .contents .time {
+  color: #a2a2a2;
+  font-size: 12px;
+  line-height: 1;
+}
+.campaign_discuss .comments .item-button {
+  text-align: center;
+}
+.campaign_discuss .comments .item-button .ion-looping {
+  color: #a2a2a2;
+}
+.campaign_discuss .button-clear {
+  font-size: 14px;
 }
 .discover .discover_image {
   width: 100%;
@@ -2810,18 +2814,22 @@ a>.login .companies_list:activated {
 .sponsor .list .item-select select {
   padding: 14px 48px 7px 16px;
 }
-.sponsor .list .item-button {
+.sponsor .item-button,
+.campaign_discuss .item-button {
   margin: 10px 20px;
 }
-.sponsor .list .item-button .button {
+.sponsor .item-button .button,
+.campaign_discuss .item-button .button {
   width: 100%;
   border-radius: 5px;
 }
-.sponsor .list .item-button .button_sponsor {
+.sponsor .item-button .button_sponsor,
+.campaign_discuss .item-button .button_sponsor {
   background-color: #3ca2e0;
   color: #fff;
 }
-.sponsor .list .item-button .button_close {
+.sponsor .item-button .button_close,
+.campaign_discuss .item-button .button_close {
   background-color: #999;
   border: none;
 }
