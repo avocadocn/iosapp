@@ -133,13 +133,12 @@ input:focus:-ms-input-placeholder {
   padding-left: 11px;
 }
 .campaigns_container .campaign_list .campaign_container .campaign_container_title {
-  font-size: 16px;
   background-color: #f7f7f7;
   border: 1px solid #ddd;
   border-top: 0;
-  padding: 3px 10px;
+  padding: 6px 10px;
   color: #707070;
-  font-size: 11px;
+  font-size: 12px;
 }
 .dl_card {
   position: relative;
@@ -378,7 +377,7 @@ input:focus:-ms-input-placeholder {
   margin-bottom: 10px;
 }
 .dl_campaign_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_name {
-  font-size: 24px;
+  font-size: 16px;
   color: #000;
   line-height: 1;
   margin-bottom: 0;

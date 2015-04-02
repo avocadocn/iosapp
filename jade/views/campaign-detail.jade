@@ -18,10 +18,10 @@ ion-view.dl_campaign_detail
         .cp_time
           i.icon.icon_small.ion_time
           span(ng-cloak) {{campaign.start_time | date:"MM-dd HH:mm"}} ~~ {{campaign.end_time | date:"MM-dd  HH:mm" }}
-        .cp_member(ng-if="campaign.is_start"  ng-cloak)
+        .cp_member(ng-if="campaign.is_start" ng-cloak)
           i.icon.icon_small.ion_member
           span.member_num {{campaign.members_count}}
-          span.member_num {{campaign.member_max!=0 ? ' | ' + campaign.member_max :''}}
+          span.member_num(ng-if="campaign.member_max") &nbsp;|&nbsp;{{campaign.member_max}}
         .cp_address(ng-if="!campaign.is_start" ng-cloak)
           i.icon.icon_small.ion_address
           span.cp_location {{campaign.location.name}}
@@ -36,7 +36,7 @@ ion-view.dl_campaign_detail
         a.footer_col(ng-href="#/members/campaign/{{campaign._id}}")
           i.ion_member.icon.icon_small
           span.member_num {{campaign.members_count}}
-          span.member_split(ng-if="campaign.member_max!=0") |
+          span.member_split(ng-show="campaign.member_max!=0") &nbsp;|&nbsp;
           span.member_num(ng-if="campaign.member_max!=0") {{campaign.member_max}}
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           i.icon.ion-chatbubble-working
