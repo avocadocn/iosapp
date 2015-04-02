@@ -75,6 +75,124 @@ input:focus:-ms-input-placeholder {
 .title.title_have_right {
   margin-right: 30px;
 }
+.ion_campaign,
+.ion_campaign_active,
+.ion_discuss,
+.ion_discuss_active,
+.ion_company,
+.ion_company_active,
+.ion_personal,
+.ion_personal_active {
+  background-image: url("../img/nav_tab.png");
+  background-size: 300px 110px;
+}
+.ion_campaign {
+  background-position: 6px -7px;
+}
+.ion_campaign_active {
+  background-position: 6px -50px;
+}
+.ion_discuss {
+  background-position: -75px -7px;
+}
+.ion_discuss_active {
+  background-position: -75px -50px;
+}
+.ion_company {
+  background-position: -153px -7px;
+}
+.ion_company_active {
+  background-position: -153px -50px;
+}
+.ion_personal {
+  background-position: -233px -7px;
+}
+.ion_personal_active {
+  background-position: -233px -50px;
+}
+.dl_icon {
+  background-image: url("../img/icon.png");
+  background-size: 640px 240px;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  vertical-align: middle;
+}
+.ion_member,
+.ion_comment,
+.ion_ballon,
+.ion_teams,
+.ion_team,
+.ion_foot,
+.ion_message,
+.ion_calendar,
+.ion_setting,
+.ion_invite_code,
+.ion_time,
+.ion_address,
+.ion_circle {
+  background-image: url("../img/icon.png");
+  background-size: 640px 240px;
+}
+.ion_ballon {
+  background-position: -110px -65px;
+}
+.ion_teams {
+  background-position: -70px -62px;
+}
+.ion_foot {
+  background-position: -110px -103px;
+}
+.ion_message {
+  background-position: 10px -342px;
+}
+.ion_calendar {
+  background-position: -70px -103px;
+}
+.ion_setting {
+  background-position: -30px -145px;
+}
+.ion_invite_code {
+  background-position: 10px -25px;
+}
+.ion_time {
+  background-position: -80px -160px;
+}
+.ion_address {
+  background-position: -120px -160px;
+}
+.ion_member {
+  background-position: 0 -200px;
+}
+.ion_comment {
+  background-position: -320px -39px;
+}
+.ion_circle {
+  background-position: -559px -39px;
+}
+.ion_chat_circle {
+  background-position: -559px -39px;
+}
+.ion_chat_blue {
+  background-position: -79px -157px;
+}
+.ion_log_out {
+  background-position: -200px -160px;
+}
+.icon_small {
+  background-size: 520px 195px;
+  height: 16px;
+  width: 16px;
+}
+.icon_small.ion_member {
+  background-position: -228px -32px;
+}
+.icon_small.ion_time {
+  background-position: -325px -32px;
+}
+.icon_small.ion_address {
+  background-position: -389px -32px;
+}
 .campaigns_container .campaign_filter {
   height: 33px;
   background-color: #fff;
@@ -570,6 +688,7 @@ input:focus:-ms-input-placeholder {
 }
 .dl_campaign_detail .campaign_detail .item.item_header {
   height: 44px;
+  line-height: 16px;
 }
 .dl_campaign_detail .campaign_detail .item .ion-chevron-right {
   float: right;
@@ -583,6 +702,9 @@ input:focus:-ms-input-placeholder {
 }
 .dl_campaign_detail .campaign_detail .cp_member .member_num {
   color: #f07151;
+}
+.dl_campaign_detail .campaign_detail .cp_address .cp_location_title {
+  margin-right: 10px;
 }
 .dl_campaign_detail .campaign_detail .cp_address .cp_location {
   color: #666;
@@ -614,10 +736,9 @@ input:focus:-ms-input-placeholder {
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col:last-child {
   border-right: none;
 }
-.dl_campaign_detail .campaign_detail .campaign_footer .footer_col .icon {
+.dl_campaign_detail .campaign_detail .campaign_footer .footer_col .dl_icon {
   display: inline-block;
   margin-right: 17px;
-  font-size: 16px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col .member_num {
   color: #f07151;
@@ -1205,109 +1326,8 @@ a>.login .companies_list:activated {
   color: transparent;
   right: calc(50% - 20px);
 }
-.app_tabs > .tabs .tab-item-active .tab-title {
+.app_tabs > .tabs .tab-item.tab-item-active .tab-title {
   color: #3ca2e0;
-}
-.ion_campaign,
-.ion_campaign_active,
-.ion_discuss,
-.ion_discuss_active,
-.ion_company,
-.ion_company_active,
-.ion_personal,
-.ion_personal_active {
-  background-image: url("../img/nav_tab.png");
-  background-size: 300px 110px;
-}
-.ion_campaign {
-  background-position: 6px -7px;
-}
-.ion_campaign_active {
-  background-position: 6px -50px;
-}
-.ion_discuss {
-  background-position: -75px -7px;
-}
-.ion_discuss_active {
-  background-position: -75px -50px;
-}
-.ion_company {
-  background-position: -153px -7px;
-}
-.ion_company_active {
-  background-position: -153px -50px;
-}
-.ion_personal {
-  background-position: -233px -7px;
-}
-.ion_personal_active {
-  background-position: -233px -50px;
-}
-.ion_member,
-.ion_comment,
-.ion_ballon,
-.ion_teams,
-.ion_team,
-.ion_foot,
-.ion_message,
-.ion_calendar,
-.ion_setting,
-.ion_invite_code,
-.ion_time,
-.ion_address,
-.ion_circle {
-  background-image: url("../img/icon.png");
-  background-size: 160px 240px;
-}
-.ion_ballon {
-  background-position: -110px -65px;
-}
-.ion_teams {
-  background-position: -70px -62px;
-}
-.ion_foot {
-  background-position: -110px -103px;
-}
-.ion_message {
-  background-position: 10px -342px;
-}
-.ion_calendar {
-  background-position: -70px -103px;
-}
-.ion_setting {
-  background-position: -30px -145px;
-}
-.ion_invite_code {
-  background-position: 10px -25px;
-}
-.ion_time {
-  background-position: -80px -160px;
-}
-.ion_address {
-  background-position: -120px -160px;
-}
-.ion_member {
-  background-position: 0 -200px;
-}
-.ion_comment {
-  background-position: -80px -199px;
-}
-.ion_circle {
-  background-position: -40px -198px;
-}
-.icon_small {
-  background-size: 130px 195px;
-  height: 16px;
-  width: 16px;
-}
-.icon_small.ion_member {
-  background-position: 0 -162px;
-}
-.icon_small.ion_time {
-  background-position: -64px -130px;
-}
-.icon_small.ion_address {
-  background-position: -96px -130px;
 }
 .emoji {
   margin: 0 0.1rem;
@@ -3082,10 +3102,7 @@ a>.login .companies_list:activated {
 }
 .dl_circle_card .circle_info .date_and_op .op_icon {
   float: right;
-  width: 12px;
-  font-size: 12px;
-  text-align: center;
-  color: #999;
+  width: 23px;
 }
 .dl_circle_card .circle_info .comment_op {
   position: relative;

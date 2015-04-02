@@ -461,7 +461,6 @@ angular.module('donlerApp.controllers', [])
       }
     };
     $scope.$on('$ionicView.enter',function(scopes, states){
-      $rootScope.showLoading();
       Campaign.get($state.params.id, function(err, data){
         if(!err){
           $scope.campaign = data;
@@ -472,7 +471,6 @@ angular.module('donlerApp.controllers', [])
             }
           });
         }
-        $rootScope.hideLoading();
       },true);
       Message.getCampaignMessages($state.params.id, function(err, data){
         if(!err){

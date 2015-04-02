@@ -29,35 +29,35 @@ ion-view.dl_campaign_detail
       .item.item-text-wrap
         button.button.button-small.button-positive(ng-click="chooseUploadImages()") 发同事圈
       a.item.item_header.cp_address(ng-if="campaign.is_start || campaign.allow.quitCampaign" ng-href="#/location/{{campaign._id}}" ng-cloak)
-        span 活动地点:&nbsp;
+        span.cp_location_title 活动地点:
         span.cp_location {{campaign.location.name}}
         span.icon.icon_small.ion-chevron-right.button-clear
       .item.campaign_footer(ng-if="campaign && !campaign.is_start && !campaign.allow.quitCampaign" ng-cloak)
         a.footer_col(ng-href="#/members/campaign/{{campaign._id}}")
-          i.ion_member.icon.icon_small
+          i.ion_member.dl_icon.icon_small
           span.member_num {{campaign.members_count}}
           span.member_split(ng-if="campaign.member_max!=0") |
           span.member_num(ng-if="campaign.member_max!=0") {{campaign.member_max}}
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
-          i.icon.ion-chatbubble-working
+          i.dl_icon.ion_chat_circle
           span 讨论
       a.item.item_header(ng-href="#/campaign/notice/{{campaign._id}}")
         span 活动公告
         span.icon.icon_small.ion-chevron-right.button-clear
-      .item.item-text-wrap(ng-if="campaign && !campaign.is_start")
+      .item.item-text-wrap(ng-if="campaign && !campaign.is_start && !campaign.allow.quitCampaign")
         span.dl_card_title 活动详情:
         p {{campaign.content ?campaign.content :'暂无'}}
-      a.item.item_header(ng-if="campaign.is_start" ng-href="#/campaign/content/{{campaign._id}}")
+      a.item.item_header(ng-if="campaign.is_start || campaign.allow.quitCampaign" ng-href="#/campaign/content/{{campaign._id}}")
         span 活动详情
         span.icon.icon_small.ion-chevron-right.button-clear
       .item.campaign_footer(ng-if="!campaign.is_start && campaign.allow.quitCampaign")
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
-          i.icon.ion-chatbubble-working
+          i.dl_icon.ion_chat_circle
           span 讨论
         .footer_col(ng-click="quit(campaign._id)")
-          i.icon.ion-log-out
+          i.dl_icon.ion_log_out
           span 退出
-      a.item(ng-if="campaign.is_start" ng-click="goDiscussDetail(campaign._id, campaign.theme)")
+      a.item.item_header(ng-if="campaign.is_start" ng-click="goDiscussDetail(campaign._id, campaign.theme)")
         span 讨论
         span.icon.icon_small.ion-chevron-right.button-clear
       .item.item-divider 精彩瞬间
