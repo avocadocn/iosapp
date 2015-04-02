@@ -1,0 +1,24 @@
+
+<ion-modal-view class="circle_post_page">
+  <ion-header-bar><a ng-click="closeModal()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <button ng-click="publish()" form="publishForm" ng-disabled="uploadURIs.length === 0 || !formCtrl.unOverMax" class="button icon-right">发布</button>
+  </ion-header-bar>
+  <ion-content>
+    <form name="publishForm" class="card">
+      <div class="item">
+        <textarea rows="1" ng-model="publishFormData.content" ng-change="change()" ng-trim="false" mix-max-length="280" mix-max-length-valid="formCtrl.unOverMax" autofocus="autofocus" placeholder="精彩瞬间的故事" class="publish_content"></textarea>
+      </div>
+      <div class="item">
+        <div class="clearfix">
+          <div ng-repeat="uri in uploadURIs" square="square" class="preview_img_box"><img ng-src="{{uri}}" class="preview_img"/></div>
+          <div ng-click="add()" ng-if="canUploadMore" square="square" class="button_add">
+            <div font-size-range="80" class="button_inner"><i class="icon ion-plus"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <p ng-bind="campaign.theme"></p>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

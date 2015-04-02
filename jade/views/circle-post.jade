@@ -1,0 +1,19 @@
+ion-modal-view.circle_post_page
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="closeModal()") &nbsp;返回
+    button.button.icon-right(ng-click="publish()" form="publishForm" ng-disabled="uploadURIs.length === 0 || !formCtrl.unOverMax") 发布
+  ion-content
+    form.card(name="publishForm")
+      .item
+        textarea.publish_content(rows="1" ng-model="publishFormData.content" ng-change="change()" ng-trim="false" mix-max-length="280" mix-max-length-valid="formCtrl.unOverMax" autofocus placeholder="精彩瞬间的故事")
+      
+      .item
+        .clearfix
+          .preview_img_box(ng-repeat="uri in uploadURIs" square)
+            img.preview_img(ng-src="{{uri}}")
+          .button_add(ng-click="add()" ng-if="canUploadMore" square)
+            .button_inner(font-size-range="80")
+              i.icon.ion-plus
+              
+      .item
+        p(ng-bind="campaign.theme")

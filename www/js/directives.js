@@ -654,6 +654,18 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   };
 })
 
+.directive('fontSizeRange', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, ele, attrs, ctrl) {
+      var domEle = ele[0];
+      domEle.style.lineHeight = domEle.clientWidth + 'px';
+      domEle.style.fontSize = domEle.clientWidth * Number(attrs.fontSizeRange) / 100 + 'px';
+      console.log(domEle.clientWidth, domEle.style);
+    }
+  };
+})
+
 .directive('whenFocus', ['$timeout', function ($timeout) {
   return {
     restrict: 'A',
@@ -1096,6 +1108,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             scope.deleteComment(appr._id, circle.appreciate, function() {
               circle.isToComment = false;
             });
+            break;
           }
         }
       };
@@ -1361,4 +1374,235 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     },
     templateUrl: './views/photo-swipe-directive.html'
   };
-}]);
+}])
+
+// 发精彩瞬间
+.directive('postCircle', ['$q', '$ionicModal', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$cordovaCamera', '$cordovaFile', 'CommonHeaders', 'Circle', 'CONFIG', function($q, $ionicModal, $ionicPopup, $ionicLoading, $ionicActionSheet, $cordovaCamera, $cordovaFile, CommonHeaders, Circle, CONFIG) {
+  return {
+    restrict: 'A',
+    scope: {
+      campaign: '='
+    },
+    link: function(scope, ele, attrs, ctrl) {
+
+      scope.uploadURIs = [];
+      var maxUploadCount = 9;
+      var hasInit = false; // 是否初始化，即选过一次图片到达预览页面
+
+      var hideActionSheet; // it's a function
+
+      var actionSheetOptions = {
+        buttons: [{
+          text: '拍照'
+        }, {
+          text: '从本地图片中选择'
+        }],
+        titleText: '发图片到精彩瞬间',
+        cancelText: '取消',
+        buttonClicked: onClick
+      };
+
+      function showActionSheet() {
+        hideActionSheet = $ionicActionSheet.show(actionSheetOptions);
+      }
+
+      function takePhoto() {
+        var options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          encodingType: Camera.EncodingType.JPEG,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: true,
+          correctOrientation: true
+        };
+        return $cordovaCamera.getPicture(options);
+      }
+
+      function pickImages(maxCount) {
+        return $q(function(resolve, reject) {
+          window.imagePicker.getPictures(function(results) {
+            resolve(results);
+          }, function (err) {
+            reject(err);
+          }, {
+            maximumImagesCount: maxCount,
+            quality: 50 // 0~100
+          });
+        });
+      }
+
+      scope.canUploadMore = true; // 是否还能继续添加图片
+      function leftCount() {
+        return maxUploadCount - scope.uploadURIs.length;
+      }
+
+      function canUploadMore() {
+        return leftCount() > 0;
+      }
+
+      function onClick(index) {
+        if (index === 0) {
+          // take photo
+          takePhoto().then(function(uri) {
+            scope.uploadURIs.push(uri);
+            scope.canUploadMore = canUploadMore();
+            onChooseSuccess();
+          }).then(null, function(err) {
+            console.log(err);
+            if (err !== 'no image selected' && err !== 'Selection cancelled.') {
+              ionicAlert('抱歉，获取照片失败。');
+            }
+          });
+        }
+        else if (index === 1) {
+          // pick images
+          pickImages(leftCount()).then(function(uris) {
+            if (uris.length > 0) {
+              scope.uploadURIs = scope.uploadURIs.concat(uris);
+              scope.canUploadMore = canUploadMore();
+              onChooseSuccess();
+            }
+          }).then(null, function(err) {
+            console.log(err);
+            ionicAlert('抱歉，获取图片失败。');
+          });
+        }
+        return true;
+      }
+
+      function onChooseSuccess() {
+        if (!hasInit) {
+          openModal();
+          hasInit = true;
+        }
+        hideActionSheet();
+      }
+
+      function canChooseImages() {
+        return (window.Camera && window.imagePicker);
+      }
+
+      function add() {
+        if (canChooseImages()) {
+          showActionSheet();
+        }
+        else {
+          ionicAlert('抱歉，网页版暂不支持上传图片。');
+        }
+      }
+      scope.add = add;
+
+      var postModal;
+      function openModal() {
+        $ionicModal.fromTemplateUrl('./views/circle-post.html', {
+          scope: scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          postModal = modal;
+          postModal.show();
+        }).then(null, function(err) {
+          console.log(err.stack || err);
+        });
+      }
+
+      scope.closeModal = function () {
+        postModal.hide();
+        postModal.remove();
+        scope.uploadURIs = [];
+        scope.canUploadMore = true;
+        hasInit = false;
+      };
+
+      function ionicAlert(msg) {
+        $ionicPopup.alert({
+          title: '提示',
+          template: msg
+        });
+      }
+
+      ele.on('click', add);
+
+      /**
+       * 上传一张图片
+       * @params {String} uri 文件uri
+       * @params {String} circleContentId 对应的circleContent的id
+       * @returns {Promise}
+       */
+      function upload(uri, circleContentId) {
+        var addr = CONFIG.BASE_URL + '/files';
+        var headers = CommonHeaders.get();
+        headers['x-access-token'] = localStorage.accessToken;
+        var options = {
+          fileKey: 'files',
+          headers: headers,
+
+          // 此处有坑！！！这里只允许简单的键值对，允许字符串或数字类型，不可以是对象
+          // 估计是因为这里是使用上传插件，底层调用Object-C方法，为了逻辑简单不接受复杂的参数
+          params: {
+            owner_kind: 'CircleContent',
+            owner_id: circleContentId
+          }
+        };
+        return $cordovaFile.uploadFile(addr, uri, options);
+      }
+
+      scope.formCtrl = {
+        unOverMax: true
+      };
+      scope.publishFormData = {
+        content: ''
+      };
+      function reset() {
+        scope.formCtrl = {
+          unOverMax: true
+        };
+        scope.publishFormData = {
+          content: ''
+        };
+      }
+
+      scope.publish = function() {
+        var circleContentId;
+        Circle.preCreate(scope.campaign._id, scope.publishFormData.content)
+        .then(function (response) {
+          circleContentId = response.data.id;
+          var uploadPromises = scope.uploadURIs.map(function (uri) {
+            return upload(uri, circleContentId);
+          });
+          $ionicLoading.show({
+            template: '上传中...',
+            duration: 5000
+          });
+          return $q.all(uploadPromises);
+        })
+        .then(function (results) {
+          return Circle.active(circleContentId);
+        })
+        .then(function (response) {
+          $ionicLoading.hide();
+          scope.closeModal();
+          reset();
+          ionicAlert('发表成功');
+        })
+        .then(null, function (response) {
+          if (response instanceof Error) {
+            console.log(response.stack);
+            ionicAlert(response.message || '发表失败');
+          }
+          else {
+            var msg;
+            if (response && response.data && response.data.msg) {
+              msg = response.data.msg;
+            }
+            else {
+              msg = '发表失败';
+            }
+            ionicAlert(msg);
+          }
+        });
+      };
+
+    }
+  };
+}])

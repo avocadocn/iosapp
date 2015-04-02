@@ -279,22 +279,22 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.campaigns');
       }
     };
-    $scope.chooseUploadImages = function () {
-      if (window.imagePicker) {
-        window.imagePicker.getPictures(function(results) {
-          if (results.length === 0) {
-            return;
-          }
-          Circle.setUploadImages(results);
-          $state.go('circle_uploader', { campaignId: $state.params.id });
-        }, function (error) {
-          console.log('Error: ' + error);
-        }, {
-          maximumImagesCount: 9,
-          quality: 50 // 0~100
-        });
-      }
-    };
+    // $scope.chooseUploadImages = function () {
+    //   if (window.imagePicker) {
+    //     window.imagePicker.getPictures(function(results) {
+    //       if (results.length === 0) {
+    //         return;
+    //       }
+    //       Circle.setUploadImages(results);
+    //       $state.go('circle_uploader', { campaignId: $state.params.id });
+    //     }, function (error) {
+    //       console.log('Error: ' + error);
+    //     }, {
+    //       maximumImagesCount: 9,
+    //       quality: 50 // 0~100
+    //     });
+    //   }
+    // };
 
     var setMembers = function () {
       $scope.campaign.members =[];
