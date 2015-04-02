@@ -1096,6 +1096,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             scope.deleteComment(appr._id, circle.appreciate, function() {
               circle.isToComment = false;
             });
+            break;
           }
         }
       };
@@ -1361,4 +1362,155 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     },
     templateUrl: './views/photo-swipe-directive.html'
   };
-}]);
+}])
+
+// 发精彩瞬间
+.directive('postCircle', ['$q', '$ionicModal', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$cordovaCamera', '$cordovaFile', 'CommonHeaders', 'Circle', function($q, $ionicModal, $ionicPopup, $ionicLoading, $ionicActionSheet, $cordovaCamera, $cordovaFile, CommonHeaders, Circle) {
+  return {
+    restrict: 'A',
+    scope: {
+      campaignId: '='
+    },
+    link: function(scope, ele, attrs, ctrl) {
+
+      scope.uploadURIs = [];
+      var maxUploadCount = 9;
+      var hasInit = false; // 是否初始化，即选过一次图片到达预览页面
+
+      var hideActionSheet; // it's a function
+
+      var actionSheetOptions = {
+        buttons: [{
+          text: '拍照'
+        }, {
+          text: '从本地图片中选择'
+        }],
+        titleText: '发图片到精彩瞬间',
+        cancelText: '取消',
+        buttonClicked: onClick
+      };
+
+      function showActionSheet() {
+        hideActionSheet = $ionicActionSheet.show(actionSheetOptions);
+      }
+
+      function takePhoto() {
+        var options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          encodingType: Camera.EncodingType.JPEG,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: true,
+          correctOrientation: true
+        };
+        return $cordovaCamera.getPicture(options);
+      }
+
+      function pickImages(maxCount) {
+        return $q(function(resolve, reject) {
+          window.imagePicker.getPictures(function(results) {
+            resolve(results);
+          }, function (err) {
+            reject(err);
+          }, {
+            maximumImagesCount: maxCount,
+            quality: 50 // 0~100
+          });
+        });
+      }
+
+      scope.canUploadMore = true; // 是否还能继续添加图片
+      function leftCount() {
+        return maxUploadCount - scope.uploadURIs.length;
+      }
+
+      function canUploadMore() {
+        return leftCount() > 0;
+      }
+
+      function onClick(index) {
+        if (index === 0) {
+          // take photo
+          takePhoto().then(function(uri) {
+            scope.uploadURIs.push(uri);
+            scope.canUploadMore = canUploadMore();
+            onSuccess();
+          }).then(null, function(err) {
+            console.log(err, err.stack, err.message); // TODO FOR DEBUG
+            if (err !== 'no image selected' && err !== 'Selection cancelled.') {
+              ionicAlert('抱歉，获取照片失败。');
+            }
+          });
+        }
+        else if (index === 1) {
+          // pick images
+          pickImages(leftCount()).then(function(uris) {
+            if (uris.length > 0) {
+              scope.uploadURIs = scope.uploadURIs.concat(uris);
+              scope.canUploadMore = canUploadMore();
+              onSuccess();
+            }
+          }).then(null, function(err) {
+            console.log(err);
+            ionicAlert('抱歉，获取图片失败。');
+          });
+        }
+        return true;
+      }
+
+      function onSuccess() {
+        if (!hasInit) {
+          openModal();
+          hasInit = true;
+        }
+        hideActionSheet();
+      }
+
+      function canChooseImages() {
+        return (window.Camera && window.imagePicker);
+      }
+
+      function add() {
+        if (canChooseImages()) {
+          showActionSheet();
+        }
+        else {
+          ionicAlert('抱歉，网页版暂不支持上传图片。');
+        }
+      }
+      scope.add = add;
+
+      var postModal;
+      function openModal() {
+        $ionicModal.fromTemplateUrl('./views/circle-post.html', {
+          scope: scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          postModal = modal;
+          postModal.show();
+        }).then(null, function(err) {
+          console.log(err.stack || err);
+        });
+      }
+
+      scope.closeModal = function () {
+        postModal.hide();
+        postModal.remove();
+        scope.uploadURIs = [];
+        scope.canUploadMore = true;
+        hasInit = false;
+      };
+
+      function ionicAlert(msg) {
+        $ionicPopup.alert({
+          title: '提示',
+          template: msg
+        });
+      }
+
+      ele.on('click', add);
+
+    }
+  };
+}])

@@ -1,0 +1,16 @@
+ion-modal-view
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="closeModal()") &nbsp;返回
+    button.button.icon-right(ng-click="publish()" form="uploadForm" ng-disabled="uploadFileURIs.length === 0 || !formCtrl.unOverMax") 发布
+  ion-content.circle_uploader_page
+    .card
+      .item
+        form.circle_content_form(name="uploadForm")
+          textarea#circle_content(rows="1" ng-model="circleData.content" ng-change="change()" ng-trim="false" mix-max-length="80" mix-max-length-valid="formCtrl.unOverMax" autofocus placeholder="说点什么吧(40字以内)")
+          .content_border
+      
+      .item
+        .clearfix
+          .preview_img_box(ng-repeat="uri in uploadURIs" square)
+            img.preview_img(ng-src="{{uri}}")
+              

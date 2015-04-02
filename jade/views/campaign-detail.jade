@@ -27,7 +27,7 @@ ion-view.dl_campaign_detail
           span.cp_location {{campaign.location.name}}
       //- 测试用
       .item.item-text-wrap
-        button.button.button-small.button-positive(ng-click="chooseUploadImages()") 发同事圈
+        button.button.button-small.button-positive(post-circle) 发图片到精彩瞬间
       a.item.item_header.cp_address(ng-if="campaign.is_start || campaign.allow.quitCampaign" ng-href="#/location/{{campaign._id}}" ng-cloak)
         span 活动地点:&nbsp;
         span.cp_location {{campaign.location.name}}
