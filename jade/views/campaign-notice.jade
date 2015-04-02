@@ -16,8 +16,8 @@ ion-view
     ion-modal-view
       ion-header-bar
         a.button.icon-left.ion-chevron-left(ng-click="cancelPublish()") &nbsp;返回
-        a.button(ng-click="publishNotice()") 发布
+        a.button(ng-disabled="!data.message" ng-click="publishNotice()") 发布
       ion-content.dl_publish
         form.publish_card
-          textarea(ng-model="data.message" placeholder="正文（必填），15-140字" autofocus maxlength=140 rows=6)
+          textarea(ng-model="data.message" placeholder="正文（必填），10-140字" autofocus maxlength=140 rows=6)
 

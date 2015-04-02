@@ -1331,52 +1331,6 @@ a>.login .companies_list:activated {
   top: 0;
   margin-top: 0;
 }
-.discuss_detail .notice.show {
-  display: block;
-}
-.discuss_detail .notice {
-  display: none;
-  height: 85px;
-  position: absolute;
-  top: 5rem;
-  width: 90%;
-  margin: 5%;
-}
-.discuss_detail .notice .notice_cover {
-  background-color: #fff;
-  opacity: 0.8;
-  height: 85px;
-  z-index: 1;
-  border-radius: 3px;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-}
-.discuss_detail .notice .content {
-  z-index: 2;
-  padding: 10px;
-}
-.discuss_detail .notice .content .notice_title {
-  color: #3ca2e0;
-  float: left;
-  font-size: 14px;
-  font-weight: 600;
-}
-.discuss_detail .notice .content .notice_content {
-  color: #666;
-  width: 100%;
-  float: left;
-  font-size: 16px;
-  margin-top: 10px;
-}
-.discuss_detail .notice .content .close_button {
-  color: #3ca2e0;
-  background-color: transparent;
-  font-size: 20px;
-  line-height: 1;
-  padding: 0;
-}
 .discuss_detail .comments .time_block {
   text-align: center;
   width: 100%;
@@ -1691,16 +1645,139 @@ a>.login .companies_list:activated {
 .item-avatar > img:first-child {
   border-radius: 0;
 }
-.discover .discover_image {
-  width: 100%;
-  display: block;
-  background: url("../img/discover.jpg") no-repeat;
-  background-size: 100%;
-  height: 15rem;
-  margin-top: 10px;
+.campaign_discuss {
+  background-color: #f7f7f7;
 }
-.discover .list .item:first-child {
-  border-top: 0;
+.campaign_discuss .icon-right {
+  width: 40px;
+  margin-top: 3px;
+}
+.campaign_discuss .comments .comment {
+  padding: 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+.campaign_discuss .comments .comment .logo {
+  float: left;
+  margin-right: 10px;
+}
+.campaign_discuss .comments .comment .logo img {
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+}
+.campaign_discuss .comments .comment .contents {
+  float: left;
+}
+.campaign_discuss .comments .comment .contents .name {
+  color: #202020;
+  line-height: 1;
+  margin-bottom: 13px;
+  font-size: 16px;
+}
+.campaign_discuss .comments .comment .contents .content {
+  color: #666;
+  font-size: 14px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.campaign_discuss .comments .comment .contents .time {
+  color: #a2a2a2;
+  font-size: 12px;
+  line-height: 1;
+}
+.campaign_discuss .comments .item-button {
+  text-align: center;
+}
+.campaign_discuss .comments .item-button .ion-looping {
+  color: #a2a2a2;
+}
+.campaign_discuss .button-clear {
+  font-size: 14px;
+}
+.discover .rank_table,
+.rank_page .rank_table {
+  background-color: #fbfbfb;
+}
+.discover .rank_table .rank_line,
+.rank_page .rank_table .rank_line {
+  height: 54px;
+  width: 100%;
+  padding: 12px 0;
+  font-size: 12px;
+  line-height: 1;
+}
+.discover .rank_table .rank_line .team_logo,
+.rank_page .rank_table .rank_line .team_logo {
+  border-radius: 3px;
+  width: 30px;
+  height: 30px;
+}
+.discover .rank_table .rank_line .rank_col,
+.rank_page .rank_table .rank_line .rank_col,
+.discover .rank_table .rank_line .logo_col,
+.rank_page .rank_table .rank_line .logo_col,
+.discover .rank_table .rank_line .name_col,
+.rank_page .rank_table .rank_line .name_col,
+.discover .rank_table .rank_line .score_col,
+.rank_page .rank_table .rank_line .score_col {
+  float: left;
+}
+.discover .rank_table .rank_line .rank_col,
+.rank_page .rank_table .rank_line .rank_col {
+  width: 10%;
+  text-align: center;
+  padding-top: 8px;
+  color: #202020;
+}
+.discover .rank_table .rank_line .logo_col,
+.rank_page .rank_table .rank_line .logo_col {
+  width: 15%;
+}
+.discover .rank_table .rank_line .name_col,
+.rank_page .rank_table .rank_line .name_col {
+  width: 60%;
+}
+.discover .rank_table .rank_line .name_col .team_name,
+.rank_page .rank_table .rank_line .name_col .team_name {
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.discover .rank_table .rank_line .name_col .team_cname,
+.rank_page .rank_table .rank_line .name_col .team_cname {
+  color: #ababab;
+  font-size: 12px;
+}
+.discover .rank_table .rank_line .score_col,
+.rank_page .rank_table .rank_line .score_col {
+  padding-top: 8px;
+  width: 15%;
+  color: #666;
+}
+.discover .rank_table a,
+.rank_page .rank_table a {
+  text-decoration: none;
+  border-bottom: 1px solid #e2e2e2;
+  align-items: center;
+}
+.discover .rank_table .belong,
+.rank_page .rank_table .belong {
+  color: #3ca2e0;
+}
+.discover .rank_table .top,
+.rank_page .rank_table .top {
+  color: #f00;
+}
+.discover .rank_table .no_rank_table,
+.rank_page .rank_table .no_rank_table {
+  text-align: center;
+}
+.discover {
+  background-color: #f7f7f7;
+}
+.discover .list {
+  margin-top: 10px;
 }
 .discover .list .item .icon {
   width: 3rem;
@@ -1722,6 +1799,151 @@ a>.login .companies_list:activated {
   display: inline-block;
   border-radius: 100%;
   position: relative;
+}
+.discover .rank_panel {
+  border-top: 1px solid #ddd;
+  margin-top: 30px;
+}
+.discover .rank_panel .team_select {
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  background-color: #fff;
+  padding: 10px 20px;
+}
+.discover .rank_panel .team_select .team_container {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+}
+.discover .rank_panel .team_select .team_container .team {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.discover .rank_panel .team_select .team_container .team .icon {
+  font-size: 30px;
+  position: absolute;
+  top: 10px;
+  color: #ababab;
+}
+.discover .rank_panel .team_select .team_container .team .team_logo {
+  width: 35px;
+  height: 35px;
+  margin-top: 10px;
+  border-radius: 3px;
+}
+.discover .rank_panel .team_select .team_container .team .team_name {
+  width: 100%;
+  overflow: hidden;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #666;
+  font-size: 12px;
+}
+.discover .rank_panel .team_select .team_container .team.selected_team .team_logo {
+  width: 45px;
+  height: 45px;
+  margin-top: 0;
+}
+.discover .rank_panel .team_select .team_container .team.selected_team .team_name {
+  color: #202020;
+  font-size: 14px;
+}
+.discover .rank_panel .team_select .team_container .last_team .icon {
+  left: 0;
+}
+.discover .rank_panel .team_select .team_container .next_team {
+  margin-right: 10px;
+}
+.discover .rank_panel .team_select .team_container .next_team .icon {
+  right: 0;
+}
+.discover .rank_panel .rank_table {
+  margin-top: 0;
+}
+.rank_select .groups .group {
+  min-width: 50px;
+  float: left;
+  width: 25%;
+  text-align: center;
+  padding: 10px;
+}
+.rank_select .groups .group a {
+  text-decoration: none;
+}
+.rank_select .groups .group a label {
+  color: #000;
+}
+.rank_select .groups .group a label.active {
+  color: #3ca2e0;
+}
+.rank_select .groups .group a .img_contain {
+  width: 50px;
+  height: 50px;
+  background-image: url("../img/icons/groups_new.png");
+  background-repeat: no-repeat;
+  background-size: 600px 1500px;
+  margin: 0 auto;
+}
+.rank_select .groups .group a .group_1 {
+  background-position: 0px 0px;
+}
+.rank_select .groups .group a .group_2 {
+  background-position: -100px 0px;
+}
+.rank_select .groups .group a .group_3 {
+  background-position: -200px 0px;
+}
+.rank_select .groups .group a .group_4 {
+  background-position: -300px 0px;
+}
+.rank_select .groups .group a .group_5 {
+  background-position: -400px 0px;
+}
+.rank_select .groups .group a .group_6 {
+  background-position: -500px 0px;
+}
+.rank_select .groups .group a .group_7 {
+  background-position: 0px -100px;
+}
+.rank_select .groups .group a .group_8 {
+  background-position: -100px -100px;
+}
+.rank_select .groups .group a .group_9 {
+  background-position: -200px -100px;
+}
+.rank_select .groups .group a .group_10 {
+  background-position: -300px -100px;
+}
+.rank_select .groups .group a .group_11 {
+  background-position: -400px -100px;
+}
+.rank_select .groups .group a .group_12 {
+  background-position: -500px -100px;
+}
+.rank_select .groups .group a .group_13 {
+  background-position: 0px -200px;
+}
+.rank_select .groups .group a .group_14 {
+  background-position: -100px -200px;
+}
+.rank_select .groups .group a .group_15 {
+  background-position: -200px -200px;
+}
+.rank_select .groups .group a .group_16 {
+  background-position: -300px -200px;
+}
+.rank_select .groups .group a .group_17 {
+  background-position: -400px -200px;
 }
 .company .company_image {
   width: 100%;
@@ -2810,18 +3032,22 @@ a>.login .companies_list:activated {
 .sponsor .list .item-select select {
   padding: 14px 48px 7px 16px;
 }
-.sponsor .list .item-button {
+.sponsor .item-button,
+.campaign_discuss .item-button {
   margin: 10px 20px;
 }
-.sponsor .list .item-button .button {
+.sponsor .item-button .button,
+.campaign_discuss .item-button .button {
   width: 100%;
   border-radius: 5px;
 }
-.sponsor .list .item-button .button_sponsor {
+.sponsor .item-button .button_sponsor,
+.campaign_discuss .item-button .button_sponsor {
   background-color: #3ca2e0;
   color: #fff;
 }
-.sponsor .list .item-button .button_close {
+.sponsor .item-button .button_close,
+.campaign_discuss .item-button .button_close {
   background-color: #999;
   border: none;
 }
@@ -3177,149 +3403,6 @@ a>.login .companies_list:activated {
 }
 .dl_circle_card .circle_comment_list .comment .reply_text {
   margin: 0 5px;
-}
-.rank_select .groups .group {
-  min-width: 50px;
-  float: left;
-  width: 25%;
-  text-align: center;
-  padding: 10px;
-}
-.rank_select .groups .group a {
-  text-decoration: none;
-}
-.rank_select .groups .group a label {
-  color: #000;
-}
-.rank_select .groups .group a label.active {
-  color: #3ca2e0;
-}
-.rank_select .groups .group a .img_contain {
-  width: 50px;
-  height: 50px;
-  background-image: url("../img/icons/groups_new.png");
-  background-repeat: no-repeat;
-  background-size: 600px 1500px;
-  margin: 0 auto;
-}
-.rank_select .groups .group a .group_1 {
-  background-position: 0px 0px;
-}
-.rank_select .groups .group a .group_2 {
-  background-position: -100px 0px;
-}
-.rank_select .groups .group a .group_3 {
-  background-position: -200px 0px;
-}
-.rank_select .groups .group a .group_4 {
-  background-position: -300px 0px;
-}
-.rank_select .groups .group a .group_5 {
-  background-position: -400px 0px;
-}
-.rank_select .groups .group a .group_6 {
-  background-position: -500px 0px;
-}
-.rank_select .groups .group a .group_7 {
-  background-position: 0px -100px;
-}
-.rank_select .groups .group a .group_8 {
-  background-position: -100px -100px;
-}
-.rank_select .groups .group a .group_9 {
-  background-position: -200px -100px;
-}
-.rank_select .groups .group a .group_10 {
-  background-position: -300px -100px;
-}
-.rank_select .groups .group a .group_11 {
-  background-position: -400px -100px;
-}
-.rank_select .groups .group a .group_12 {
-  background-position: -500px -100px;
-}
-.rank_select .groups .group a .group_13 {
-  background-position: 0px -200px;
-}
-.rank_select .groups .group a .group_14 {
-  background-position: -100px -200px;
-}
-.rank_select .groups .group a .group_15 {
-  background-position: -200px -200px;
-}
-.rank_select .groups .group a .group_16 {
-  background-position: -300px -200px;
-}
-.rank_select .groups .group a .group_17 {
-  background-position: -400px -200px;
-}
-.rank_table {
-  background-color: #fbfbfb;
-}
-.rank_table a {
-  text-decoration: none;
-  color: #000;
-  border-bottom: 1px solid #e2e2e2;
-  margin-bottom: 5px;
-}
-.rank_table .belong {
-  color: #3ca2e0;
-}
-.rank_table .top {
-  color: #f00;
-}
-.rank_table .no_rank_table {
-  text-align: center;
-}
-.rank_panel .team_logo {
-  width: 40px;
-  height: 40px;
-}
-.rank_panel .team_name {
-  width: 100%;
-  overflow: hidden;
-  word-break: break-all;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.rank_panel .team_select {
-  display: flex;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  background-color: #fff;
-  border-bottom: 1px solid #f2f2f2;
-}
-.rank_panel .team_select .team_container {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -moz-box-flex: 1;
-  -moz-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  text-align: center;
-  padding-top: 10px;
-}
-.rank_panel .team_select .team_container .team {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-.rank_panel .team_select .team_container .team .icon {
-  font-size: 30px;
-  position: absolute;
-  top: 10px;
-}
-.rank_panel .team_select .team_container .last_team .icon {
-  left: 0;
-}
-.rank_panel .team_select .team_container .next_team .icon {
-  right: 0;
-}
-.rank_panel .rank_table {
-  height: 290px;
 }
 .competition_message_panel {
   background-color: #fff;

@@ -13,10 +13,10 @@
   </ion-content>
   <script id="publish-notice.html" type="text/ng-template">
     <ion-modal-view>
-      <ion-header-bar><a ng-click="cancelPublish()" class="button icon-left ion-chevron-left">&nbsp;返回</a><a ng-click="publishNotice()" class="button">发布</a></ion-header-bar>
+      <ion-header-bar><a ng-click="cancelPublish()" class="button icon-left ion-chevron-left">&nbsp;返回</a><a ng-disabled="!data.message" ng-click="publishNotice()" class="button">发布</a></ion-header-bar>
       <ion-content class="dl_publish">
         <form class="publish_card">
-          <textarea ng-model="data.message" placeholder="正文（必填），15-140字" autofocus="autofocus" maxlength="140" rows="6"></textarea>
+          <textarea ng-model="data.message" placeholder="正文（必填），10-140字" autofocus="autofocus" maxlength="140" rows="6"></textarea>
         </form>
       </ion-content>
     </ion-modal-view>
