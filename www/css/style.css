@@ -3021,6 +3021,7 @@ a>.login .companies_list:activated {
   min-height: 80px;
   padding: 25px 10px 24px 10px;
   background-color: #fff;
+  font-family: 'STHeiti';
 }
 .dl_circle_card .link_name {
   color: #3ca2e0;
@@ -3130,6 +3131,8 @@ a>.login .companies_list:activated {
   padding: 6px 5px;
   color: #202020;
   background-color: #f7f7f7;
+  font-size: 14px;
+  line-height: 18px;
 }
 .dl_circle_card .circle_comment_list .circle_triangle {
   position: absolute;

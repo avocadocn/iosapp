@@ -1047,7 +1047,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       // 回复
       scope.replyTo = function(circle, comment) {
         scope.stopComment();
-        if (comment.post_user_id === scope.user._id) {
+        if (comment.post_user_id === localStorage.id) {
           // 将回复自己的评论转为回复内容
           isOnlyToContent = true;
           currentPlaceHolderText = '';
@@ -1103,7 +1103,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       var hideDeleteActionSheet;
       // 长按某条评论的事件处理
       scope.commentOnHoldHandler = function(comment, ownerArray) {
-        if (scope.user._id !== comment.poster._id) {
+        if (localStorage.id !== comment.poster._id) {
           return;
         }
         hideDeleteActionSheet = $ionicActionSheet.show({

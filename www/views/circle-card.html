@@ -9,7 +9,7 @@
     </div>
     <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/150/150" error-img="error-img" ng-click="clickImg(photo)" class="preview_img"/></div>
     <p class="campaign_link"><a ng-if="circle.content.campaign_id" ng-href="#/campaign/detail/{{circle.content.campaign_id}}" class="link_name">{{circle.content.campaignTheme}}</a></p>
-    <div class="date_and_op clearfix"><span class="date text_item">{{circle.content.post_date | circleBeforeNow}}      </span><span ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="link_name text_item">删除</span><i ng-click="toggleComment()" class="ion-chatbox-working op_icon"></i></div>
+    <div class="date_and_op clearfix"><span class="date text_item">{{circle.content.post_date | circleBeforeNow}}      </span><span ng-if="localStorage.id === circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="link_name text_item">删除</span><i ng-click="toggleComment()" class="ion-chatbox-working op_icon"></i></div>
     <div ng-if="circle.isToComment" class="comment_op clearfix">
       <div class="op_box clearfix">
         <div ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)" class="op_item"><i class="ion-heart"></i>&nbsp;赞</div>

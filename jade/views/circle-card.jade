@@ -16,7 +16,7 @@
     p.campaign_link: a.link_name(ng-if="circle.content.campaign_id" ng-href="#/campaign/detail/{{circle.content.campaign_id}}") {{circle.content.campaignTheme}}
     .date_and_op.clearfix
       span.date.text_item {{circle.content.post_date | circleBeforeNow}}      
-      span.link_name.text_item(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
+      span.link_name.text_item(ng-if="localStorage.id === circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
       i.ion-chatbox-working.op_icon(ng-click="toggleComment()")
     .comment_op.clearfix(ng-if="circle.isToComment")
       .op_box.clearfix
