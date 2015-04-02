@@ -7,7 +7,8 @@
     h2.user_name.link_name(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo") {{circle.content.companyInfo.info.name}}
     h2.user_name.link_name(ng-if="kind === 'user' && circle.content.teamInfo" ng-click="goToTeamPage(circle.content.teamInfo._id)") {{circle.content.teamInfo.name}}
     .circle_content
-      textarea.content_text(rows="1" ng-if="circle.content.content" ng-model="circle.content.content" ng-readonly="true")
+      .content_text(ng-show="circle.content.content" ng-bind="circle.content.content")
+      span.ellipsis(ng-if="showContentStatus.showOverAll") ...
       a.link_name(ng-if="showContentStatus.showOverAll" ng-click="showAllContent()") 全文
       a.link_name(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
     .image_box.clearfix
@@ -32,7 +33,8 @@
     .circle_comment_list(ng-if="circle.appreciate.length > 0 || circle.textComments.length > 0")
       .circle_triangle
       .appreciate_container(ng-if="circle.appreciate.length > 0")
-        i.ion-heart.appreciate_icon
+        //-i.ion-heart.appreciate_icon
+        span.link_name @
         span.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster._id)") {{appr.poster.nickname}}
       .comment_container(ng-if="circle.textComments.length > 0")
         .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)")

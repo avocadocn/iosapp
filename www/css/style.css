@@ -3036,14 +3036,17 @@ a>.login .companies_list:activated {
   padding: 0;
   margin: 0;
   overflow: hidden;
-  resize: none;
   color: #202020;
   background-color: #fff;
   font-size: 14px;
-  line-height: 16px;
+  line-height: 18px;
+}
+.dl_circle_card .circle_info .circle_content .ellipsis {
+  color: #999;
+  margin-right: 5px;
 }
 .dl_circle_card .circle_info .image_box {
-  margin-top: 14px;
+  margin-top: 13px;
   width: 240px;
 }
 .dl_circle_card .circle_info .image_box .preview_img {
