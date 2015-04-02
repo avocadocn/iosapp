@@ -654,6 +654,18 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   };
 })
 
+.directive('fontSizeRange', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, ele, attrs, ctrl) {
+      var domEle = ele[0];
+      domEle.style.lineHeight = domEle.clientWidth + 'px';
+      domEle.style.fontSize = domEle.clientWidth * Number(attrs.fontSizeRange) / 100 + 'px';
+      console.log(domEle.clientWidth, domEle.style);
+    }
+  };
+})
+
 .directive('whenFocus', ['$timeout', function ($timeout) {
   return {
     restrict: 'A',
@@ -1365,11 +1377,11 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 }])
 
 // 发精彩瞬间
-.directive('postCircle', ['$q', '$ionicModal', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$cordovaCamera', '$cordovaFile', 'CommonHeaders', 'Circle', function($q, $ionicModal, $ionicPopup, $ionicLoading, $ionicActionSheet, $cordovaCamera, $cordovaFile, CommonHeaders, Circle) {
+.directive('postCircle', ['$q', '$ionicModal', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$cordovaCamera', '$cordovaFile', 'CommonHeaders', 'Circle', 'CONFIG', function($q, $ionicModal, $ionicPopup, $ionicLoading, $ionicActionSheet, $cordovaCamera, $cordovaFile, CommonHeaders, Circle, CONFIG) {
   return {
     restrict: 'A',
     scope: {
-      campaignId: '='
+      campaign: '='
     },
     link: function(scope, ele, attrs, ctrl) {
 
@@ -1435,9 +1447,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           takePhoto().then(function(uri) {
             scope.uploadURIs.push(uri);
             scope.canUploadMore = canUploadMore();
-            onSuccess();
+            onChooseSuccess();
           }).then(null, function(err) {
-            console.log(err, err.stack, err.message); // TODO FOR DEBUG
+            console.log(err);
             if (err !== 'no image selected' && err !== 'Selection cancelled.') {
               ionicAlert('抱歉，获取照片失败。');
             }
@@ -1449,7 +1461,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             if (uris.length > 0) {
               scope.uploadURIs = scope.uploadURIs.concat(uris);
               scope.canUploadMore = canUploadMore();
-              onSuccess();
+              onChooseSuccess();
             }
           }).then(null, function(err) {
             console.log(err);
@@ -1459,7 +1471,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         return true;
       }
 
-      function onSuccess() {
+      function onChooseSuccess() {
         if (!hasInit) {
           openModal();
           hasInit = true;
@@ -1510,6 +1522,86 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       }
 
       ele.on('click', add);
+
+      /**
+       * 上传一张图片
+       * @params {String} uri 文件uri
+       * @params {String} circleContentId 对应的circleContent的id
+       * @returns {Promise}
+       */
+      function upload(uri, circleContentId) {
+        var addr = CONFIG.BASE_URL + '/files';
+        var headers = CommonHeaders.get();
+        headers['x-access-token'] = localStorage.accessToken;
+        var options = {
+          fileKey: 'files',
+          headers: headers,
+
+          // 此处有坑！！！这里只允许简单的键值对，允许字符串或数字类型，不可以是对象
+          // 估计是因为这里是使用上传插件，底层调用Object-C方法，为了逻辑简单不接受复杂的参数
+          params: {
+            owner_kind: 'CircleContent',
+            owner_id: circleContentId
+          }
+        };
+        return $cordovaFile.uploadFile(addr, uri, options);
+      }
+
+      scope.formCtrl = {
+        unOverMax: true
+      };
+      scope.publishFormData = {
+        content: ''
+      };
+      function reset() {
+        scope.formCtrl = {
+          unOverMax: true
+        };
+        scope.publishFormData = {
+          content: ''
+        };
+      }
+
+      scope.publish = function() {
+        var circleContentId;
+        Circle.preCreate(scope.campaign._id, scope.publishFormData.content)
+        .then(function (response) {
+          circleContentId = response.data.id;
+          var uploadPromises = scope.uploadURIs.map(function (uri) {
+            return upload(uri, circleContentId);
+          });
+          $ionicLoading.show({
+            template: '上传中...',
+            duration: 5000
+          });
+          return $q.all(uploadPromises);
+        })
+        .then(function (results) {
+          return Circle.active(circleContentId);
+        })
+        .then(function (response) {
+          $ionicLoading.hide();
+          scope.closeModal();
+          reset();
+          ionicAlert('发表成功');
+        })
+        .then(null, function (response) {
+          if (response instanceof Error) {
+            console.log(response.stack);
+            ionicAlert(response.message || '发表失败');
+          }
+          else {
+            var msg;
+            if (response && response.data && response.data.msg) {
+              msg = response.data.msg;
+            }
+            else {
+              msg = '发表失败';
+            }
+            ionicAlert(msg);
+          }
+        });
+      };
 
     }
   };

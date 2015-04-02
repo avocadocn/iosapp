@@ -2855,8 +2855,7 @@ a>.login .companies_list:activated {
 .invite_key .ion-clipboard {
   color: #3ca2e0;
 }
-.circle_send_content_page .circle_content_form .content_border,
-.circle_uploader_page .circle_content_form .content_border {
+.circle_send_content_page .circle_content_form .content_border {
   padding-right: 6px;
   z-index: 1500;
   height: 5px;
@@ -2865,8 +2864,7 @@ a>.login .companies_list:activated {
   border-bottom: 1px solid #33b5e5;
   background-color: transparent;
 }
-.circle_send_content_page .circle_content_form textarea,
-.circle_uploader_page .circle_content_form textarea {
+.circle_send_content_page .circle_content_form textarea {
   overflow: hidden;
   height: auto;
   padding: 0px;
@@ -2875,19 +2873,32 @@ a>.login .companies_list:activated {
   margin: 0px 4px 2px;
   background-color: transparent;
 }
-.circle_send_content_page .circle_content {
-  margin: 20px 20px 10px;
+.circle_post_page .publish_content {
+  height: auto;
 }
-.circle_uploader_page .preview_img_box {
+.circle_post_page .button_add {
+  float: left;
+  padding: 5px;
+  width: 33.3333333333333%;
+}
+.circle_post_page .button_add .button_inner {
+  border: 1px solid #c9c9c9;
+  text-align: center;
+  color: #c9c9c9;
+}
+.circle_post_page .preview_img_box {
   display: block;
   position: relative;
   float: left;
   padding: 5px;
   width: 33.3333333333333%;
 }
-.circle_uploader_page .preview_img {
+.circle_post_page .preview_img {
   width: 100%;
   height: 100%;
+}
+.circle_send_content_page .circle_content {
+  margin: 20px 20px 10px;
 }
 .circle_content_detail_page {
   background-color: #fff;
