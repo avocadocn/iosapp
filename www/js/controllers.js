@@ -4196,6 +4196,13 @@ angular.module('donlerApp.controllers', [])
     '$state',
     'Circle',
     function($scope, $rootScope, $ionicHistory, $state, Circle) {
+      $scope.goBack = function() {
+        if ($ionicHistory.backView()) {
+          $ionicHistory.goBack();
+        } else {
+          $state.go('circle_company');
+        }
+      };
       //每次进来以后获取新的reminds
       $scope.$on("$ionicView.enter", function(scopes, states) {
         $rootScope.newCircleComment = 0;
@@ -4228,21 +4235,6 @@ angular.module('donlerApp.controllers', [])
           // TODO: 这里即使失败了也不必提醒用户
         });
       };
-    }
-  ])
-  .controller('CircleRemindsController', [
-    '$scope',
-    '$rootScope',
-    '$ionicHistory',
-    function($scope, $rootScope, $ionicHistory) {
-      $scope.goBack = function() {
-        if ($ionicHistory.backView()) {
-          $ionicHistory.goBack();
-        } else {
-          $state.go('circle_company');
-        }
-      };
-
     }
   ])
   .controller('CircleUploaderController', [
