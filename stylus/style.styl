@@ -47,7 +47,8 @@ input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
   color transparent
 input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   color transparent
-
+textarea
+  resize none
 //-通用bar
 .bar
   border-bottom 1px solid #ccc
@@ -1736,6 +1737,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       background-color col_blue
       font-size 16px
       font-weight 600
+//- 发公告、留言等popover样式
+.dl_publish
+  background-color #eee
+  .publish_card
+    background-color #fff
+    margin 10px 0
+    padding 11px 16px
+    border 1px solid #ddd
+    textarea
+      color #202020
+      line-height 20px
 // 日程
 .calendar
   margin 6px 4px

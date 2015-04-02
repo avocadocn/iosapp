@@ -28,6 +28,9 @@ input:focus::-moz-placeholder {
 input:focus:-ms-input-placeholder {
   color: transparent;
 }
+textarea {
+  resize: none;
+}
 .bar {
   border-bottom: 1px solid #ccc;
 }
@@ -2033,6 +2036,19 @@ a>.login .companies_list:activated {
   background-color: #3ca2e0;
   font-size: 16px;
   font-weight: 600;
+}
+.dl_publish {
+  background-color: #eee;
+}
+.dl_publish .publish_card {
+  background-color: #fff;
+  margin: 10px 0;
+  padding: 11px 16px;
+  border: 1px solid #ddd;
+}
+.dl_publish .publish_card textarea {
+  color: #202020;
+  line-height: 20px;
 }
 .calendar {
   margin: 6px 4px;
