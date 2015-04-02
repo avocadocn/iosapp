@@ -47,7 +47,8 @@ input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
   color transparent
 input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   color transparent
-
+textarea
+  resize none
 //-通用bar
 .bar
   border-bottom 1px solid #ccc
@@ -226,13 +227,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
             padding-left 11px
     .campaign_container
       .campaign_container_title
-        font-size 16px
         background-color col_bottomGray
         border 1px solid #ddd
         border-top 0
-        padding 3px 10px
+        padding 6px 10px
         color #707070
-        font-size 11px
+        font-size 12px
 
 .dl_card
   position relative
@@ -420,7 +420,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       margin-bottom 10px
       .dl_card_header_info
         .dl_cp_name
-          font-size 24px
+          font-size 16px
           color #000
           line-height 1
           margin-bottom 0
@@ -1134,46 +1134,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   //-     border-style solid
   //-     border-width 10px 10px 10px 0
   //-     border-color transparent #f48361
-  //-公告
-  .notice.show
-    display block
-  .notice
-    display none
-    height 85px
-    position absolute
-    top 5rem
-    width 90%
-    margin 5%
-    .notice_cover
-      background-color #fff
-      opacity 0.8
-      height 85px
-      z-index 1
-      border-radius 3px
-      position absolute
-      width 100%
-      left 0
-      top 0
-    .content
-      z-index 2
-      padding 10px
-      .notice_title
-        color col_blue
-        float left
-        font-size 14px
-        font-weight 600
-      .notice_content
-        color #666
-        width 100%
-        float left
-        font-size 16px
-        margin-top 10px
-      .close_button
-        color col_blue
-        background-color transparent
-        font-size 20px
-        line-height 1
-        padding 0
 
   //-评论列表
   .comments
@@ -1448,6 +1408,47 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         top 1rem
 .item-avatar > img:first-child
   border-radius 0
+
+//- 活动留言页
+.campaign_discuss
+  background-color #f7f7f7
+  .icon-right
+    width 40px
+    margin-top 3px
+  .comments
+    .comment
+      padding 16px
+      background-color #fff
+      border-bottom 1px solid #ddd
+      .logo
+        float left
+        margin-right 10px
+        img
+          width 30px
+          height 30px
+          border-radius 3px
+      .contents
+        float left
+        .name
+          color #202020
+          line-height 1
+          margin-bottom 13px
+          font-size 16px
+        .content
+          color #666
+          font-size 14px
+          line-height 1
+          margin-bottom 10px
+        .time
+          color #a2a2a2
+          font-size 12px
+          line-height 1
+    .item-button
+      text-align center
+      .ion-looping
+        color #a2a2a2
+  .button-clear
+    font-size 14px
 //-发现页
 //TODO:
 .discover
@@ -1752,6 +1753,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       background-color col_blue
       font-size 16px
       font-weight 600
+//- 发公告、留言等popover样式
+.dl_publish
+  background-color #eee
+  .publish_card
+    background-color #fff
+    margin 10px 0
+    padding 11px 16px
+    border 1px solid #ddd
+    textarea
+      color #202020
+      line-height 20px
 // 日程
 .calendar
   margin 6px 4px
@@ -2381,18 +2393,20 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .item-select
       select
         padding 14px 48px 7px 16px
-    //-编辑活动
-    .item-button
-      margin 10px 20px
-      .button
-        width 100%
-        border-radius 5px
-      .button_sponsor
-        background-color col_blue
-        color white
-      .button_close
-        background-color col_darkGray
-        border none
+
+//-通用发布按钮
+.sponsor, .campaign_discuss
+  .item-button
+    margin 10px 20px
+    .button
+      width 100%
+      border-radius 5px
+    .button_sponsor
+      background-color col_blue
+      color white
+    .button_close
+      background-color col_darkGray
+      border none
 
 .pswp
   .dl_button_to_album
@@ -2575,6 +2589,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   min-height 80px
   padding 25px 10px 24px 10px
   background-color white
+  font-family 'STHeiti'
   .link_name
     color col_link
     text-decoration none
@@ -2599,13 +2614,15 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         padding 0
         margin 0
         overflow hidden
-        resize none
         color col_mainText
         background-color white
         font-size 14px
-        line-height 16px
+        line-height 18px
+      .ellipsis
+        color col_darkGray
+        margin-right 5px
     .image_box
-      margin-top 14px
+      margin-top 13px
       width 240px
       .preview_img
         display block
@@ -2659,6 +2676,8 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     padding 6px 5px
     color col_mainText
     background-color col_bottomGray
+    font-size 14px
+    line-height 18px
     .circle_triangle
       position absolute
       left 5px

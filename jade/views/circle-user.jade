@@ -10,8 +10,6 @@ ion-view.circle_user_page
       .circle_user_image_wrap
         img.circle_user_image(ng-src="{{STATIC_URL + user.photo}}/70/70")
     
-    div(ng-if="newCircleComment > 0")
-      .remind_box(ng-click="goToRemindsPage()") {{newCircleComment}}条新消息
     
     circle-card-list.dl_circle_card_list(circle-list="circleContentList" user="user" kind="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL")
       

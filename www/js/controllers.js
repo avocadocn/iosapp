@@ -585,7 +585,7 @@ angular.module('donlerApp.controllers', [])
           });
         }
       });
-      
+
     };
 
     $scope.goBack = function() {
@@ -1094,12 +1094,10 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$timeout', 'Comment', 'User', 'INFO',
-    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, $timeout, Comment, User, INFO) {
+  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$ionicModal', '$ionicPopup', 'Comment', 'User', 'INFO',
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, $ionicModal, $ionicPopup, Comment, User, INFO) {
     $scope.campaignId = $stateParams.id;
     $scope.campaignTitle = INFO.discussName;
-
-    $scope.content='';
     $scope.userId = localStorage.id;
 
     //ionichistory
@@ -1121,15 +1119,12 @@ angular.module('donlerApp.controllers', [])
       Comment.getComments(queryData, function(err, data){
         if(!err) {
           $scope.comments = $scope.comments.concat(data.comments);
-          nextStartDate = data.nextStartDate;
-          $scope.hasMore = nextStartDate ? true: false;
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-          $timeout(function() {
-            $scope.loading = false;
-          }, 1000);
+          $scope.hasMore = data.nextStartDate ? true: false;
+          $scope.loading = false;
         }
         else{
           console.log(err);
+          $scope.loading = false;
         }
       });
     };
@@ -1138,8 +1133,6 @@ angular.module('donlerApp.controllers', [])
       requestId: $scope.campaignId,
       limit: 20
     });
-
-    $scope.isWriting = false;
 
     //拉取历史讨论记录
     $scope.readHistory = function() {
@@ -1151,8 +1144,6 @@ angular.module('donlerApp.controllers', [])
           createDate: nextStartDate
         };
         getComments(queryData);
-      }else{//没下一条了~
-        $scope.$broadcast('scroll.infiniteScrollComplete');
       }
     };
 
@@ -1161,68 +1152,61 @@ angular.module('donlerApp.controllers', [])
     User.getData($scope.userId, function(err,data){
       currentUser = data;
     });
-
-    /* 是否需要显示时间()
-     * @params: index: 第几个comment
-     * 判断依据：与上一个评论时间是否在同一分钟||index为0
-     * return:
-     *   0 不用显示
-     *   1 显示年、月、日
-     *   2 显示月、日
-     */
-    $scope.needShowTime = function (index, comments) {
-      if(index===0){
-        return 1;
-      }else{
-        var preTime = new Date(comments[index-1].create_date);
-        var nowTime = new Date(comments[index].create_date);
-        if(nowTime.getFullYear() != preTime.getFullYear()) {
-          return 1;
-        }else if(nowTime.getDay() != preTime.getDay()) {
-          return 2;
-        }else if(nowTime.getHours() != preTime.getHours()) {
-          return 2;
-        }else if(nowTime.getMinutes() != preTime.getMinutes()){
-          return 2;
-        }
-      }
+    $ionicModal.fromTemplateUrl('publish-comment.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.publishModal = modal;
+    });
+    $scope.showPublishSheet = function() {
+      $scope.publishModal.show();
+    };
+    $scope.cancelPublish = function() {
+      $scope.publishModal.hide();
     };
 
+    $scope.data = {content:''};
     //发表评论
     $scope.publish = function() {
-      if(window.analytics){
-        window.analytics.trackEvent('Click', 'publishComment');
-      }
-      //-创建一个新comment
-      var newComment = {
-        create_date: new Date(),
-        poster: {
-          '_id': currentUser._id,
-          'photo': currentUser.photo,
-          'nickname': currentUser.nickname
-        },
-        content: $scope.content
-      };
-      $scope.comments.push(newComment);
-      $ionicScrollDelegate.scrollBottom();
-      Comment.publishComment({
-        'hostType': 'campaign',
-        'hostId': $scope.campaignId,
-        'content': $scope.content
-      }, function(err){
-        if(err){
-          console.log(err);
-          //发送失败
-          var length = $scope.comments.length;
-          $scope.comments[length-1].failed = true;
-        }else{
-          $scope.content = '';
+      // console.log($scope.content);
+      if($scope.data.content) {
+        if(window.analytics){
+          window.analytics.trackEvent('Click', 'publishComment');
         }
-      });
-    };
-
-    $scope.hideEmotions = function() {
-      $scope.isShowEmotions = false;
+        Comment.publishComment({
+          'hostType': 'campaign',
+          'hostId': $scope.campaignId,
+          'content': $scope.data.content
+        }, function(err){
+          if(err){
+            console.log(err);
+            //发送失败
+            $ionicPopup.alert({
+              title: '错误',
+              template: err
+            });
+          }else{
+            $ionicPopup.alert({
+              title: '提示',
+              template: '留言发布成功！'
+            });
+            //-创建一个新comment
+            var newComment = {
+              create_date: new Date(),
+              poster: {
+                '_id': currentUser._id,
+                'photo': currentUser.photo,
+                'nickname': currentUser.nickname
+              },
+              content: $scope.data.content
+            };
+            $scope.comments.push(newComment);
+            $ionicScrollDelegate.scrollBottom();
+            $scope.data.content = '';
+            $scope.publishModal.hide();
+          }
+        });
+      }
     };
 
   }])
@@ -3763,48 +3747,161 @@ angular.module('donlerApp.controllers', [])
       // 用于保存已经获取到的同事圈内容
       $scope.circleContentList = [];
 
-      $scope.$on("$ionicView.enter", function(scopes, states) {
-        var clearRedSpot = function() {
-          $rootScope.newContent = null;
-        };
+      $scope.loadingStatus = {
+        hasInit: false, // 是否已经获取了一次内容
+        hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
+        loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
+      };
 
-        $scope.goToRemindsPage = function() {
-          $state.go('circle_reminds');
-        };
+      var pageLength = 20; // 一次获取的数据量
 
-        $scope.goBack = function() {
-          if ($ionicHistory.backView()) {
-            $ionicHistory.goBack();
-          } else {
-            $state.go('app.company');
+      // 复制图片地址到一个数组供预览大图用
+      var copyPhotosToPswp = function() {
+        $scope.imagesForPswp = [];
+        var id = 0;
+        for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
+          var circle = $scope.circleContentList[i];
+          if (circle.content.photos && circle.content.photos.length > 0) {
+            var pswpPhotos = [];
+            for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
+              var photo = circle.content.photos[j];
+              photo._id = id;
+              var size = Image.getFitSize(photo.width, photo.height);
+              pswpPhotos.push({
+                _id: photo._id,
+                w: size.width * 2,
+                h: size.height * 2,
+                src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
+              });
+              id++;
+            }
+            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
           }
-        };
+        }
+      };
 
-        $scope.getData = function(callback) {
-          // 先获取一次
-          Circle.getCompanyCircle()
-            .success(function(data) {
-              localStorage.lastGetCircleTime = new Date();
+      $scope.goToRemindsPage = function() {
+        $state.go('circle_reminds');
+      };
+
+      $scope.goBack = function() {
+        if ($ionicHistory.backView()) {
+          $ionicHistory.goBack();
+        } else {
+          $state.go('app.company');
+        }
+      };
+
+      $scope.getData = function(callback) {
+        // 先获取一次
+        Circle.getCompanyCircle()
+          .success(function(data) {
+            localStorage.lastGetCircleTime = new Date();
+            data.forEach(function(circle) {
+              Circle.pickAppreciateAndComments(circle);
+            });
+            $scope.circleContentList = data;
+            $scope.loadingStatus.hasInit = true;
+            if (data.length >= pageLength) {
+              $scope.loadingStatus.hasMore = true;
+            } else {
+              $scope.loadingStatus.hasMore = false;
+            }
+            copyPhotosToPswp();
+            if (callback) {
+              callback();
+            }
+          })
+          .error(function(data, status) {
+            if (status !== 404) {
+              $scope.ionicAlert(data.msg || '获取失败');
+            }
+          });
+      };
+
+      $scope.refresh = function() {
+        var latestContentDate = $scope.circleContentList[0].content.post_date;
+        Circle.getCompanyCircle(latestContentDate, null)
+          .success(function(data, status) {
+            localStorage.lastGetCircleTime = new Date();
+            if (data.length) {
               data.forEach(function(circle) {
                 Circle.pickAppreciateAndComments(circle);
               });
-              $scope.circleContentList = data;
-              $scope.loadingStatus.hasInit = true;
-              if (data.length >= pageLength) {
-                $scope.loadingStatus.hasMore = true;
-              } else {
-                $scope.loadingStatus.hasMore = false;
-              }
+              $scope.circleContentList = (data || []).concat($scope.circleContentList);
+            }
+            copyPhotosToPswp();
+            $scope.$broadcast('scroll.refreshComplete');
+          })
+          .error(function(data, status) {
+            if (status !== 404) {
+              $scope.ionicAlert(data.msg || '获取失败');
+            }
+            $scope.$broadcast('scroll.refreshComplete');
+          });
+      };
+
+      $scope.loadMore = function() {
+        if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
+          return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
+        }
+        $scope.loadingStatus.loading = true;
+        var pos = $scope.circleContentList.length - 1;
+        var lastContentDate = $scope.circleContentList[pos].content.post_date;
+        Circle.getCompanyCircle(null, lastContentDate)
+          .success(function(data) {
+            if (data.length) {
+              data.forEach(function(circle) {
+                Circle.pickAppreciateAndComments(circle);
+              });
+              $scope.circleContentList = $scope.circleContentList.concat(data);
+              $scope.loadingStatus.loading = false;
               copyPhotosToPswp();
-              if (callback) {
-                callback();
-              }
-            })
-            .error(function(data, status) {
-              if (status !== 404) {
-                $scope.ionicAlert(data.msg || '获取失败');
-              }
-            });
+            }
+
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          })
+          .error(function(data, status) {
+            if (status !== 404) {
+              $scope.ionicAlert(data.msg || '获取失败');
+            } else {
+              $scope.loadingStatus.hasMore = false;
+            }
+            $scope.loadingStatus.loading = false;
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          });
+      };
+
+
+      $scope.circleCardListCtrl = {};
+      $scope.circleCommentBoxCtrl = {};
+      $scope.pswpCtrl = {};
+
+      $scope.openCommentBox = function(placeHolderText) {
+        $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
+        $scope.circleCommentBoxCtrl.open();
+      };
+
+      $scope.postComment = function(content) {
+        $scope.circleCardListCtrl.postComment(content);
+      };
+
+      $scope.stopComment = function() {
+        $scope.circleCardListCtrl.stopComment();
+      };
+
+      $scope.onClickContentImg = function(img) {
+        for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
+          if (img._id === $scope.imagesForPswp[i]._id) {
+            $scope.pswpCtrl.open(i);
+            break;
+          }
+        }
+      };
+
+      $scope.$on("$ionicView.enter", function(scopes, states) {
+        var clearRedSpot = function() {
+          $rootScope.newContent = null;
         };
 
         if (!hasInit) {
@@ -3817,123 +3914,7 @@ angular.module('donlerApp.controllers', [])
           }
         }
         clearRedSpot();
-
-        $scope.loadingStatus = {
-          hasInit: false, // 是否已经获取了一次内容
-          hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
-          loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
-        };
-
-        var pageLength = 20; // 一次获取的数据量
-
-        // 复制图片地址到一个数组供预览大图用
-        var copyPhotosToPswp = function() {
-          $scope.imagesForPswp = [];
-          var id = 0;
-          for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
-            var circle = $scope.circleContentList[i];
-            if (circle.content.photos && circle.content.photos.length > 0) {
-              var pswpPhotos = [];
-              for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
-                var photo = circle.content.photos[j];
-                photo._id = id;
-                var size = Image.getFitSize(photo.width, photo.height);
-                pswpPhotos.push({
-                  _id: photo._id,
-                  w: size.width * 2,
-                  h: size.height * 2,
-                  src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
-                });
-                id++;
-              }
-              $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-            }
-          }
-        };
-
-
-        $scope.refresh = function() {
-          var latestContentDate = $scope.circleContentList[0].content.post_date;
-          Circle.getCompanyCircle(latestContentDate, null)
-            .success(function(data, status) {
-              localStorage.lastGetCircleTime = new Date();
-              if (data.length) {
-                data.forEach(function(circle) {
-                  Circle.pickAppreciateAndComments(circle);
-                });
-                $scope.circleContentList = (data || []).concat($scope.circleContentList);
-              }
-              copyPhotosToPswp();
-              $scope.$broadcast('scroll.refreshComplete');
-            })
-            .error(function(data, status) {
-              if (status !== 404) {
-                $scope.ionicAlert(data.msg || '获取失败');
-              }
-              $scope.$broadcast('scroll.refreshComplete');
-            });
-        };
-
-        $scope.loadMore = function() {
-          if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
-            return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
-          }
-          $scope.loadingStatus.loading = true;
-          var pos = $scope.circleContentList.length - 1;
-          var lastContentDate = $scope.circleContentList[pos].content.post_date;
-          Circle.getCompanyCircle(null, lastContentDate)
-            .success(function(data) {
-              if (data.length) {
-                data.forEach(function(circle) {
-                  Circle.pickAppreciateAndComments(circle);
-                });
-                $scope.circleContentList = $scope.circleContentList.concat(data);
-                $scope.loadingStatus.loading = false;
-                copyPhotosToPswp();
-              }
-
-              $scope.$broadcast('scroll.infiniteScrollComplete');
-            })
-            .error(function(data, status) {
-              if (status !== 404) {
-                $scope.ionicAlert(data.msg || '获取失败');
-              } else {
-                $scope.loadingStatus.hasMore = false;
-              }
-              $scope.loadingStatus.loading = false;
-              $scope.$broadcast('scroll.infiniteScrollComplete');
-            });
-        };
-
-
-        $scope.circleCardListCtrl = {};
-        $scope.circleCommentBoxCtrl = {};
-        $scope.pswpCtrl = {};
-
-        $scope.openCommentBox = function(placeHolderText) {
-          $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
-          $scope.circleCommentBoxCtrl.open();
-        };
-
-        $scope.postComment = function(content) {
-          $scope.circleCardListCtrl.postComment(content);
-        };
-
-        $scope.stopComment = function() {
-          $scope.circleCardListCtrl.stopComment();
-        };
-
-        $scope.onClickContentImg = function(img) {
-          for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
-            if (img._id === $scope.imagesForPswp[i]._id) {
-              $scope.pswpCtrl.open(i);
-              break;
-            }
-          }
-        };
-
       });
-
 
     }
   ])
@@ -3965,6 +3946,98 @@ angular.module('donlerApp.controllers', [])
           title: '提示',
           template: msg
         });
+      };
+
+      var pageLength = 20; // 一次获取的数据量
+
+      $scope.loadingStatus = {
+        hasInit: false, // 是否已经获取了一次内容
+        hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
+        loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
+      };
+
+
+      // 复制图片地址到一个数组供预览大图用
+      var copyPhotosToPswp = function() {
+        $scope.imagesForPswp = [];
+        var id = 0;
+        for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
+          var circle = $scope.circleContentList[i];
+          if (circle.content.photos && circle.content.photos.length > 0) {
+            var pswpPhotos = [];
+            for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
+              var photo = circle.content.photos[j];
+              photo._id = id;
+              var size = Image.getFitSize(photo.width, photo.height);
+              pswpPhotos.push({
+                _id: photo._id,
+                w: size.width * 2,
+                h: size.height * 2,
+                src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
+              });
+              id++;
+            }
+            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
+          }
+        }
+      };
+
+      $scope.loadMore = function() {
+        if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
+          return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
+        }
+        $scope.loadingStatus.loading = true;
+        var pos = $scope.circleContentList.length - 1;
+        var lastContentDate = $scope.circleContentList[pos].content.post_date;
+        Circle.getUserCircle($state.params.userId, {last_content_date: lastContentDate})
+          .success(function(data) {
+            if (data.length) {
+              data.forEach(function(circle) {
+                Circle.pickAppreciateAndComments(circle);
+              });
+              $scope.circleContentList = $scope.circleContentList.concat(data);
+              $scope.loadingStatus.loading = false;
+              copyPhotosToPswp();
+            }
+
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          })
+          .error(function(data, status) {
+            if (status !== 404) {
+              $scope.ionicAlert(data.msg || '获取失败');
+            } else {
+              $scope.loadingStatus.hasMore = false;
+            }
+            $scope.loadingStatus.loading = false;
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          });
+      };
+
+
+      $scope.circleCardListCtrl = {};
+      $scope.circleCommentBoxCtrl = {};
+      $scope.pswpCtrl = {};
+
+      $scope.openCommentBox = function(placeHolderText) {
+        $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
+        $scope.circleCommentBoxCtrl.open();
+      };
+
+      $scope.postComment = function(content) {
+        $scope.circleCardListCtrl.postComment(content);
+      };
+
+      $scope.stopComment = function() {
+        $scope.circleCardListCtrl.stopComment();
+      };
+
+      $scope.onClickContentImg = function(img) {
+        for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
+          if (img._id === $scope.imagesForPswp[i]._id) {
+            $scope.pswpCtrl.open(i);
+            break;
+          }
+        }
       };
 
 
@@ -4001,97 +4074,6 @@ angular.module('donlerApp.controllers', [])
               $scope.ionicAlert(data.msg || '获取失败');
             }
           });
-
-        $scope.loadingStatus = {
-          hasInit: false, // 是否已经获取了一次内容
-          hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
-          loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
-        };
-
-        var pageLength = 20; // 一次获取的数据量
-
-        // 复制图片地址到一个数组供预览大图用
-        var copyPhotosToPswp = function() {
-          $scope.imagesForPswp = [];
-          var id = 0;
-          for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
-            var circle = $scope.circleContentList[i];
-            if (circle.content.photos && circle.content.photos.length > 0) {
-              var pswpPhotos = [];
-              for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
-                var photo = circle.content.photos[j];
-                photo._id = id;
-                var size = Image.getFitSize(photo.width, photo.height);
-                pswpPhotos.push({
-                  _id: photo._id,
-                  w: size.width * 2,
-                  h: size.height * 2,
-                  src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
-                });
-                id++;
-              }
-              $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-            }
-          }
-        };
-
-        $scope.loadMore = function() {
-          if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
-            return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
-          }
-          $scope.loadingStatus.loading = true;
-          var pos = $scope.circleContentList.length - 1;
-          var lastContentDate = $scope.circleContentList[pos].content.post_date;
-          Circle.getUserCircle($state.params.userId, {last_content_date: lastContentDate})
-            .success(function(data) {
-              if (data.length) {
-                data.forEach(function(circle) {
-                  Circle.pickAppreciateAndComments(circle);
-                });
-                $scope.circleContentList = $scope.circleContentList.concat(data);
-                $scope.loadingStatus.loading = false;
-                copyPhotosToPswp();
-              }
-
-              $scope.$broadcast('scroll.infiniteScrollComplete');
-            })
-            .error(function(data, status) {
-              if (status !== 404) {
-                $scope.ionicAlert(data.msg || '获取失败');
-              } else {
-                $scope.loadingStatus.hasMore = false;
-              }
-              $scope.loadingStatus.loading = false;
-              $scope.$broadcast('scroll.infiniteScrollComplete');
-            });
-        };
-
-
-        $scope.circleCardListCtrl = {};
-        $scope.circleCommentBoxCtrl = {};
-        $scope.pswpCtrl = {};
-
-        $scope.openCommentBox = function(placeHolderText) {
-          $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
-          $scope.circleCommentBoxCtrl.open();
-        };
-
-        $scope.postComment = function(content) {
-          $scope.circleCardListCtrl.postComment(content);
-        };
-
-        $scope.stopComment = function() {
-          $scope.circleCardListCtrl.stopComment();
-        };
-
-        $scope.onClickContentImg = function(img) {
-          for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
-            if (img._id === $scope.imagesForPswp[i]._id) {
-              $scope.pswpCtrl.open(i);
-              break;
-            }
-          }
-        };
 
       });
 
@@ -4132,7 +4114,31 @@ angular.module('donlerApp.controllers', [])
         });
       };
 
-      $scope.circleContentPswpId = 'circle_content_pswp_' + Date.now();
+      $scope.circleCardCtrl = {};
+      $scope.circleCommentBoxCtrl = {};
+      $scope.pswpCtrl = {};
+
+      $scope.openCommentBox = function(placeHolderText) {
+        $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
+        $scope.circleCommentBoxCtrl.open();
+      };
+
+      $scope.postComment = function(content) {
+        $scope.circleCardCtrl.postComment(content);
+      };
+
+      $scope.onDelete = function() {
+        $state.go('circle_company');
+      };
+
+      $scope.onClickContentImg = function(img) {
+        for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
+          if (img._id === $scope.imagesForPswp[i]._id) {
+            $scope.pswpCtrl.open(i);
+            break;
+          }
+        }
+      };
 
       $scope.$on("$ionicView.enter", function(scopes, states) {
         Circle.getCircleContent($state.params.circleContentId).success(function(data) {
@@ -4161,32 +4167,6 @@ angular.module('donlerApp.controllers', [])
           $scope.ionicAlert(data.msg || '获取失败'); // TODO 还需要考虑妥善处理，很可能会出现这条内容被删除了
         });
 
-        $scope.circleCardCtrl = {};
-        $scope.circleCommentBoxCtrl = {};
-        $scope.pswpCtrl = {};
-
-        $scope.openCommentBox = function(placeHolderText) {
-          $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
-          $scope.circleCommentBoxCtrl.open();
-        };
-
-        $scope.postComment = function(content) {
-          $scope.circleCardCtrl.postComment(content);
-        };
-
-        $scope.onDelete = function() {
-          $state.go('circle_company');
-        };
-
-        $scope.onClickContentImg = function(img) {
-          for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
-            if (img._id === $scope.imagesForPswp[i]._id) {
-              $scope.pswpCtrl.open(i);
-              break;
-            }
-          }
-        };
-
       });
 
     }
@@ -4198,6 +4178,13 @@ angular.module('donlerApp.controllers', [])
     '$state',
     'Circle',
     function($scope, $rootScope, $ionicHistory, $state, Circle) {
+      $scope.goBack = function() {
+        if ($ionicHistory.backView()) {
+          $ionicHistory.goBack();
+        } else {
+          $state.go('circle_company');
+        }
+      };
       //每次进来以后获取新的reminds
       $scope.$on("$ionicView.enter", function(scopes, states) {
         $rootScope.newCircleComment = 0;
@@ -4230,21 +4217,6 @@ angular.module('donlerApp.controllers', [])
           // TODO: 这里即使失败了也不必提醒用户
         });
       };
-    }
-  ])
-  .controller('CircleRemindsController', [
-    '$scope',
-    '$rootScope',
-    '$ionicHistory',
-    function($scope, $rootScope, $ionicHistory) {
-      $scope.goBack = function() {
-        if ($ionicHistory.backView()) {
-          $ionicHistory.goBack();
-        } else {
-          $state.go('circle_company');
-        }
-      };
-
     }
   ])
   .controller('CircleUploaderController', [

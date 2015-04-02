@@ -1047,7 +1047,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       // 回复
       scope.replyTo = function(circle, comment) {
         scope.stopComment();
-        if (comment.post_user_id === scope.user._id) {
+        if (comment.post_user_id === localStorage.id) {
           // 将回复自己的评论转为回复内容
           isOnlyToContent = true;
           currentPlaceHolderText = '';
@@ -1103,7 +1103,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       var hideDeleteActionSheet;
       // 长按某条评论的事件处理
       scope.commentOnHoldHandler = function(comment, ownerArray) {
-        if (scope.user._id !== comment.poster._id) {
+        if (localStorage.id !== comment.poster._id) {
           return;
         }
         hideDeleteActionSheet = $ionicActionSheet.show({
@@ -1216,34 +1216,39 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         showPartial: false
       };
 
-      var domEle = ele[0];
-      var textArea = domEle.querySelector('.content_text');
-      if (textArea) {
-        var lineHeight = 16;
-        var maxLine = 6;
-        var maxHeight = lineHeight * maxLine;
-        if (textArea.scrollHeight > maxHeight) {
-          textArea.style.height = 'auto';
-          textArea.style.height = maxHeight + 'px';
-          $timeout(function(){
-            scope.showContentStatus.showOverAll = true;
-          }, 10);
+      scope.$watch('circle', function(newVal) {
+        if (newVal) {
+          var domEle = ele[0];
+          var textArea = domEle.querySelector('.content_text');
+          if (textArea) {
+            var lineHeight = 18;
+            var maxLine = 6;
+            var maxHeight = lineHeight * maxLine;
+            if (textArea.scrollHeight > maxHeight) {
+              textArea.style.height = 'auto';
+              textArea.style.height = maxHeight + 'px';
+              $timeout(function(){
+                scope.showContentStatus.showOverAll = true;
+              }, 10);
+            }
+
+            scope.showAllContent = function() {
+              scope.showContentStatus.showOverAll = false;
+              scope.showContentStatus.showPartial = true;
+              textArea.style.height = 'auto';
+              textArea.style.height = textArea.scrollHeight + 'px';
+            };
+
+            scope.showPartialContent = function() {
+              scope.showContentStatus.showOverAll = true;
+              scope.showContentStatus.showPartial = false;
+              textArea.style.height = 'auto';
+              textArea.style.height = maxHeight + 'px';
+            };
+          }
+
         }
-
-        scope.showAllContent = function() {
-          scope.showContentStatus.showOverAll = false;
-          scope.showContentStatus.showPartial = true;
-          textArea.style.height = 'auto';
-          textArea.style.height = textArea.scrollHeight + 'px';
-        };
-
-        scope.showPartialContent = function() {
-          scope.showContentStatus.showOverAll = true;
-          scope.showContentStatus.showPartial = false;
-          textArea.style.height = 'auto';
-          textArea.style.height = maxHeight + 'px';
-        };
-      }
+      });
 
     },
     templateUrl: './views/circle-card.html'

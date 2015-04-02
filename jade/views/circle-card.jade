@@ -7,7 +7,8 @@
     h2.user_name.link_name(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo") {{circle.content.companyInfo.info.name}}
     h2.user_name.link_name(ng-if="kind === 'user' && circle.content.teamInfo" ng-click="goToTeamPage(circle.content.teamInfo._id)") {{circle.content.teamInfo.name}}
     .circle_content
-      textarea.content_text(rows="1" ng-if="circle.content.content" ng-model="circle.content.content" ng-readonly="true")
+      .content_text(ng-show="circle.content.content" ng-bind="circle.content.content")
+      span.ellipsis(ng-if="showContentStatus.showOverAll") ...
       a.link_name(ng-if="showContentStatus.showOverAll" ng-click="showAllContent()") 全文
       a.link_name(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
     .image_box.clearfix
@@ -15,7 +16,7 @@
     p.campaign_link: a.link_name(ng-if="circle.content.campaign_id" ng-href="#/campaign/detail/{{circle.content.campaign_id}}") {{circle.content.campaignTheme}}
     .date_and_op.clearfix
       span.date.text_item {{circle.content.post_date | circleBeforeNow}}      
-      span.link_name.text_item(ng-if="user._id == circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
+      span.link_name.text_item(ng-if="localStorage.id === circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
       i.dl_icon.ion_chat_blue.op_icon(ng-click="toggleComment()")
     .comment_op.clearfix(ng-if="circle.isToComment")
       .op_box.clearfix
@@ -32,7 +33,8 @@
     .circle_comment_list(ng-if="circle.appreciate.length > 0 || circle.textComments.length > 0")
       .circle_triangle
       .appreciate_container(ng-if="circle.appreciate.length > 0")
-        i.ion-heart.appreciate_icon
+        //-i.ion-heart.appreciate_icon
+        span.link_name @
         span.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster._id)") {{appr.poster.nickname}}
       .comment_container(ng-if="circle.textComments.length > 0")
         .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)")
