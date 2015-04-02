@@ -1,21 +1,21 @@
 ion-tabs.tabs-icon-top.app_tabs(ng-controller="TabController" ng-class="{'tabs-item-hide': hideTabs}")
 
-  ion-tab(title="活动" icon-on="ion_campaign_active" icon-off="ion_campaign" href="#/app/campaigns")
+  ion-tab(title="活动" icon-on="dl_icon ion_campaign active" icon-off="dl_icon ion_campaign" href="#/app/campaigns")
     //- <!-- Tab 1 content -->
     //- ion-nav-view(name="tab-campaign")
     include ./campaign
-  ion-tab(title="讨论" icon-on="ion_discuss_active" icon-off="ion_discuss" badge="hasNewComment" href="#/app/discuss/list")
+  ion-tab(title="讨论" icon-on="dl_icon ion_discuss active" icon-off="dl_icon ion_discuss" badge="hasNewComment" href="#/app/discuss/list")
     //- <!-- Tab 2 content -->
     //- ion-nav-view(name="tab-discuss-list")
     include ./discuss-list
-  ion-tab(title="发现" icon-on="ion-help-buoy" icon-off="ion-help-buoy" badge="hasNewDiscover" href="#/app/discover")
+  ion-tab(title="发现" icon-on="dl_icon ion_discover active" icon-off="dl_icon ion_discover" badge="hasNewDiscover" href="#/app/discover")
     //- <!-- Tab 2 content -->
     //- ion-nav-view(name="tab-discuss-list")
     include ./discover
-  ion-tab(title="公司" icon-on="ion_company_active" icon-off="ion_company" badge="newContent || newCircleComment" href="#/app/company")
+  ion-tab(title="公司" icon-on="dl_icon ion_company active" icon-off="dl_icon ion_company" badge="newContent || newCircleComment" href="#/app/company")
     //- <!-- Tab 3 content -->
     //- ion-nav-view(name="tab-discover")
     include ./company
-  ion-tab(title="我的" icon-on="ion_personal_active" icon-off="ion_personal"  href="#/app/personal")
+  ion-tab(title="我的" icon-on="dl_icon ion_personal active" icon-off="dl_icon ion_personal" href="#/app/personal")
     //- ion-nav-view(name="tab-personal")
     include ./personal

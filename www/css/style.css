@@ -78,49 +78,6 @@ textarea {
 .title.title_have_right {
   margin-right: 30px;
 }
-.ion_campaign,
-.ion_campaign_active,
-.ion_discuss,
-.ion_discuss_active,
-.ion_company,
-.ion_company_active,
-.ion_personal,
-.ion_personal_active {
-  background-image: url("../img/nav_tab.png");
-  background-size: 300px 110px;
-}
-.ion_campaign {
-  background-position: 6px -7px;
-}
-.ion_campaign_active {
-  background-position: 6px -50px;
-}
-.ion_discuss {
-  background-position: -75px -7px;
-}
-.ion_discuss_active {
-  background-position: -75px -50px;
-}
-.ion_company {
-  background-position: -153px -7px;
-}
-.ion_company_active {
-  background-position: -153px -50px;
-}
-.ion_personal {
-  background-position: -233px -7px;
-}
-.ion_personal_active {
-  background-position: -233px -50px;
-}
-.dl_icon {
-  background-image: url("../img/icon.png");
-  background-size: 640px 240px;
-  display: inline-block;
-  height: 18px;
-  width: 18px;
-  vertical-align: middle;
-}
 .ion_member,
 .ion_comment,
 .ion_ballon,
@@ -136,6 +93,44 @@ textarea {
 .ion_circle {
   background-image: url("../img/icon.png");
   background-size: 640px 240px;
+}
+.dl_icon {
+  background-image: url("../img/icon.png");
+  background-size: 640px 240px;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+  vertical-align: middle;
+}
+.dl_icon.ion_campaign {
+  background-position: -173px -84px;
+}
+.dl_icon.ion_campaign.active {
+  background-position: 7px -490px;
+}
+.dl_icon.ion_discuss {
+  background-position: -487px -84px;
+}
+.dl_icon.ion_discuss.active {
+  background-position: -38px -490px;
+}
+.dl_icon.ion_discover {
+  background-position: -578px -84px;
+}
+.dl_icon.ion_discover.active {
+  background-position: -83px -490px;
+}
+.dl_icon.ion_company {
+  background-position: -218px -84px;
+}
+.dl_icon.ion_company.active {
+  background-position: -129px -490px;
+}
+.dl_icon.ion_personal {
+  background-position: -264px -85px;
+}
+.dl_icon.ion_personal.active {
+  background-position: -129px -445px;
 }
 .ion_ballon {
   background-position: -110px -65px;
@@ -710,7 +705,6 @@ textarea {
 }
 .dl_campaign_detail .campaign_detail .cp_address .cp_location {
   color: #666;
-  font-size: 12px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer {
   display: flex;
@@ -1316,10 +1310,14 @@ a>.login .companies_list:activated {
 }
 .app_tabs > .tabs .tab-item {
   position: relative;
+  opacity: 1;
 }
 .app_tabs > .tabs .tab-item .icon {
   width: 32px;
   height: 30px;
+}
+.app_tabs > .tabs .tab-item .dl_icon {
+  background-size: 720px 270px;
 }
 .app_tabs > .tabs .tab-item .badge {
   background-color: #ff5724;
@@ -1328,7 +1326,8 @@ a>.login .companies_list:activated {
   color: transparent;
   right: calc(50% - 20px);
 }
-.app_tabs > .tabs .tab-item.tab-item-active .tab-title {
+.app_tabs > .tabs .tab-item.tab-item-active,
+.app_tabs > .tabs .tab-item.active {
   color: #3ca2e0;
 }
 .emoji {

@@ -1,6 +1,6 @@
 
 <ion-tabs ng-controller="TabController" ng-class="{'tabs-item-hide': hideTabs}" class="tabs-icon-top app_tabs">
-  <ion-tab title="活动" icon-on="ion_campaign_active" icon-off="ion_campaign" href="#/app/campaigns">
+  <ion-tab title="活动" icon-on="dl_icon ion_campaign active" icon-off="dl_icon ion_campaign" href="#/app/campaigns">
     <ion-view ng-controller="CampaignController">
       <ion-header-bar><a href="#/calendar/campaigns" class="button icon ion-calendar"></a>
         <h1 ng-click="showFilter($event)" class="title"><span>{{typeTitle}}&nbsp;</span><i class="icon ion-arrow-down-b"></i></h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
@@ -44,7 +44,7 @@
       </ion-popover-view>
     </script>
   </ion-tab>
-  <ion-tab title="讨论" icon-on="ion_discuss_active" icon-off="ion_discuss" badge="hasNewComment" href="#/app/discuss/list">
+  <ion-tab title="讨论" icon-on="dl_icon ion_discuss active" icon-off="dl_icon ion_discuss" badge="hasNewComment" href="#/app/discuss/list">
     <ion-view ng-controller="DiscussListController" class="discuss_list">
       <ion-header-bar><a href="#/calendar/discuss_list" class="button icon ion-calendar"></a>
         <h1 class="title">讨论列表</h1>
@@ -58,7 +58,7 @@
       </ion-content>
     </ion-view>
   </ion-tab>
-  <ion-tab title="发现" icon-on="ion-help-buoy" icon-off="ion-help-buoy" badge="hasNewDiscover" href="#/app/discover">
+  <ion-tab title="发现" icon-on="dl_icon ion_discover active" icon-off="dl_icon ion_discover" badge="hasNewDiscover" href="#/app/discover">
     <ion-view ng-controller="DiscoverController" class="discover">
       <ion-header-bar>
         <h1 class="title">发现</h1>
@@ -105,7 +105,7 @@
       </ion-content>
     </ion-view>
   </ion-tab>
-  <ion-tab title="公司" icon-on="ion_company_active" icon-off="ion_company" badge="newContent || newCircleComment" href="#/app/company">
+  <ion-tab title="公司" icon-on="dl_icon ion_company active" icon-off="dl_icon ion_company" badge="newContent || newCircleComment" href="#/app/company">
     <ion-view ng-controller="CompanyController" class="company">
       <ion-header-bar>
         <h1 class="title">公司</h1>
@@ -120,7 +120,7 @@
       </ion-content>
     </ion-view>
   </ion-tab>
-  <ion-tab title="我的" icon-on="ion_personal_active" icon-off="ion_personal" href="#/app/personal">
+  <ion-tab title="我的" icon-on="dl_icon ion_personal active" icon-off="dl_icon ion_personal" href="#/app/personal">
     <ion-view ng-controller="PersonalController" class="personal">
       <ion-header-bar>
         <h1 class="title">我的</h1>

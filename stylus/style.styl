@@ -86,32 +86,7 @@ textarea
   opacity 0.9
 .title.title_have_right
   margin-right 30px
-.ion_campaign, .ion_campaign_active, .ion_discuss, .ion_discuss_active, .ion_company, .ion_company_active, .ion_personal, .ion_personal_active
-  background-image url('../img/nav_tab.png')
-  background-size 300px 110px
-.ion_campaign
-  background-position 6px -7px
-.ion_campaign_active
-  background-position 6px -50px
-.ion_discuss
-  background-position -75px -7px
-.ion_discuss_active
-  background-position -75px -50px
-.ion_company
-  background-position -153px -7px
-.ion_company_active
-  background-position -153px -50px
-.ion_personal
-  background-position -233px -7px
-.ion_personal_active
-  background-position -233px -50px
-.dl_icon
-  background-image url('../img/icon.png')
-  background-size 640px 240px
-  display inline-block
-  height 18px
-  width 18px
-  vertical-align middle
+
 .ion_member, .ion_comment, .ion_ballon, .ion_teams, .ion_team, .ion_foot, .ion_message, .ion_calendar, .ion_setting, .ion_invite_code, .ion_time, .ion_address, .ion_circle
   background-image url('../img/icon.png')
   background-size 640px 240px
@@ -119,6 +94,33 @@ textarea
 //-   background-position 0px -80px
 //- .ion_comment
 //-   background-position -40px -80px
+.dl_icon
+  background-image url('../img/icon.png')
+  background-size 640px 240px
+  display inline-block
+  height 18px
+  width 18px
+  vertical-align middle
+  &.ion_campaign
+    background-position -173px -84px
+    &.active
+      background-position 7px -490px
+  &.ion_discuss
+    background-position -487px -84px
+    &.active
+      background-position -38px -490px
+  &.ion_discover
+    background-position -578px -84px
+    &.active
+      background-position -83px -490px
+  &.ion_company
+    background-position -218px -84px
+    &.active
+      background-position -129px -490px
+  &.ion_personal
+    background-position -264px -85px
+    &.active
+      background-position -129px -445px
 .ion_ballon
   background-position -110px -65px
 .ion_teams
@@ -583,7 +585,6 @@ textarea
         margin-right 10px
       .cp_location
         color #666666
-        font-size 12px
     .campaign_footer
       display flex
       display -webkit-box
@@ -1082,18 +1083,21 @@ textarea
   color white
   .tab-item
     position relative
+    opacity 1
     .icon
       width 32px
       height 30px
+    .dl_icon
+      background-size 720px 270px
     .badge
       background-color #FF5724
       width 12px
       height 12px
       color transparent
       right calc(50% - 20px)
-    &.tab-item-active
-      .tab-title
-        color col_blue
+    &.tab-item-active,
+    &.active
+      color col_blue
 .emoji
   margin 0 0.1rem
   vertical-align middle
