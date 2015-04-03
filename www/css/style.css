@@ -1905,6 +1905,9 @@ a>.login .companies_list:activated {
 .rank_page .rank_table .rank_title .tip {
   text-align: center;
 }
+.rank_page .rank_table .rank_title a {
+  color: #444;
+}
 .rank_page .rank_table .rank_line {
   padding: 10px;
   height: 70px;

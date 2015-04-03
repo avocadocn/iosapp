@@ -7,7 +7,7 @@ ion-view.rank_page
     .list.rank_table(ng-if="rank.team.length>0")
       .item.rank_title
         .rank_name(ng-cloak) {{groupType}}小队排行榜
-        a.pull-right 积分规则
+        a.pull-right(href="#/rank/rules") 积分规则
       a.item.rank_line(ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-class="team.belong? 'belong': ''" ng-cloak)
         .rank_col(ng-class="$index<3 ? 'top': ''")
           .top_flag

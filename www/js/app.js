@@ -458,6 +458,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'RankDetailController',
         templateUrl: './views/rank_detail.html'
       })
+      .state('rank_rles', {
+        url: '/rank/rules',
+        controller: 'RankRulesController',
+        templateUrl: './views/rank_rules.html'
+      })
       .state('competition_message_list', {
         url: '/competition_message/list',
         controller: 'CompetitionMessageListController',

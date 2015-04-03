@@ -7,7 +7,7 @@
     <ion-refresher on-refresh="getRank(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <div ng-if="rank.team.length&gt;0" class="list rank_table">
       <div class="item rank_title">
-        <div ng-cloak="ng-cloak" class="rank_name">{{groupType}}小队排行榜</div><a class="pull-right">积分规则</a>
+        <div ng-cloak="ng-cloak" class="rank_name">{{groupType}}小队排行榜</div><a href="#/rank/rules" class="pull-right">积分规则</a>
       </div><a ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-class="team.belong? 'belong': ''" ng-cloak="ng-cloak" class="item rank_line">
         <div ng-class="$index&lt;3 ? 'top': ''" class="rank_col">
           <div class="top_flag"><span>{{team.rank}}</span></div>

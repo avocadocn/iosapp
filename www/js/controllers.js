@@ -3673,6 +3673,15 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.getRank();
   }])
+  .controller('RankRulesController', ['$ionicHistory', '$state', '$scope', function($ionicHistory, $state, $scope) {
+    $scope.goBack = function() {
+      if ($ionicHistory.backView()) {
+        $ionicHistory.goBack();
+      } else {
+        $state.go('rank_select');
+      }
+    }
+  }])
   .controller('CircleSendController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', 'Circle', function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, Circle) {
     $scope.circle = {
       content: ''
