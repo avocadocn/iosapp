@@ -106,7 +106,7 @@ textarea
     &.active
       background-position 7px -490px
   &.ion_discuss
-    background-position -487px -84px
+    background-position -488px -84px
     &.active
       background-position -38px -490px
   &.ion_discover
@@ -121,6 +121,12 @@ textarea
     background-position -264px -85px
     &.active
       background-position -129px -445px
+  &.ion_address
+    background-position -476px -35px
+  &.ion_member
+    background-position -240px -35px
+  &.ion_time
+    background-position -399px -35px
 .ion_ballon
   background-position -110px -65px
 .ion_teams
@@ -2476,6 +2482,7 @@ textarea
   dl_card()
   .map
     .map_img
+    .no_map
       width 100%
 
 .sponsor
@@ -2506,7 +2513,7 @@ textarea
         color #ababab
       input:-ms-input-placeholder /* Internet Explorer 10+ */
         color #ababab
-      .icon
+      .dl_icon
         width 20px
         margin 10px 0
     .introduce
@@ -2883,12 +2890,12 @@ textarea
       .vs
         font-size 16px
       .sponsor_team
-        background-color red
+        background-color #f75c5c
         &:before
           right 0
           border-width 30px 0 0 20px
       .opposite_team
-        background-color blue
+        background-color col_blue
         &:before
           left 0
           border-width 30px 20px 0 0

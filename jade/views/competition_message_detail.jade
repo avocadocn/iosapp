@@ -6,6 +6,10 @@ ion-view.competition_message_panel
   ion-content
     ion-refresher(on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .competition_message_detail(ng-if="competitionMessage")
+      .row.teams
+        .col.team.sponsor_team 挑战方
+        .col.col-10.vs VS
+        .col.team.opposite_team 应战方
       .row
         .col {{competitionMessage.create_time | beforeNow}}
         .col
@@ -27,10 +31,6 @@ ion-view.competition_message_panel
         .button-bar
           button.button.button-positive(ng-click="dealCompetition('accept')") 应战
           button.button.button-assertive(ng-click="dealCompetition('reject')") 拒绝
-      .row.teams
-        .col.team.sponsor_team 挑战方
-        .col.col-10.vs VS
-        .col.team.opposite_team 应战方
       .vote
         .vote_team(ng-repeat="unit in competitionMessage.vote.units" ng-style="{'width':unit.percent+'%'}" ng-click="voteCompetition($index)")
           .vote_icon

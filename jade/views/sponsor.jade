@@ -32,7 +32,7 @@ form(name="sponsorForm" novalidate ng-init="showMore=false;")
         label.item.item-input.item-icon-right
           span.input-label 地点
           input.result(type="text" name="location" ng-model="campaignData.location.name" required)
-          i.icon.ion_address(edit-map ng-disabled="campaignData.location.name" location-name="campaignData.location.name" location='campaignData.location' map-name="mapDetail")
+          i.icon.dl_icon.ion_address(edit-map ng-disabled="campaignData.location.name" location-name="campaignData.location.name" location='campaignData.location' map-name="mapDetail")
         .item-divider
         label.item.item-input
           span.input-label 活动名称

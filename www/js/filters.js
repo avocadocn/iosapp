@@ -46,7 +46,7 @@ angular.module('donlerApp.filters', [])
     var now = Date.now();
     var intervalMilliForNow = now - date.getTime();
     var result;
-    if(xcts>1){
+    if(xcts>=1){
       result = xcts+'天前';
     }
     else if (Math.floor(intervalMilliForNow / (60 * 60 * 1000))>=1) {

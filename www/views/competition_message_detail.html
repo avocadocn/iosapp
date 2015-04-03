@@ -6,6 +6,11 @@
   <ion-content>
     <ion-refresher on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-if="competitionMessage" class="competition_message_detail">
+      <div class="row teams">
+        <div class="col team sponsor_team">挑战方</div>
+        <div class="col col-10 vs">VS</div>
+        <div class="col team opposite_team">应战方</div>
+      </div>
       <div class="row">
         <div class="col">{{competitionMessage.create_time | beforeNow}}</div>
         <div class="col"><a ng-if="cid==competitionMessage.sponsor_team.cid" ng-href="#/team/{{competitionMessage.sponsor_team._id}}"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></a><img ng-if="cid!==competitionMessage.sponsor_team.cid" ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></div>
@@ -25,11 +30,6 @@
           <button ng-click="dealCompetition('accept')" class="button button-positive">应战</button>
           <button ng-click="dealCompetition('reject')" class="button button-assertive">拒绝</button>
         </div>
-      </div>
-      <div class="row teams">
-        <div class="col team sponsor_team">挑战方</div>
-        <div class="col col-10 vs">VS</div>
-        <div class="col team opposite_team">应战方</div>
       </div>
       <div class="vote">
         <div ng-repeat="unit in competitionMessage.vote.units" ng-style="{'width':unit.percent+'%'}" ng-click="voteCompetition($index)" class="vote_team">

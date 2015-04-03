@@ -109,7 +109,7 @@ textarea {
   background-position: 7px -490px;
 }
 .dl_icon.ion_discuss {
-  background-position: -487px -84px;
+  background-position: -488px -84px;
 }
 .dl_icon.ion_discuss.active {
   background-position: -38px -490px;
@@ -131,6 +131,15 @@ textarea {
 }
 .dl_icon.ion_personal.active {
   background-position: -129px -445px;
+}
+.dl_icon.ion_address {
+  background-position: -476px -35px;
+}
+.dl_icon.ion_member {
+  background-position: -240px -35px;
+}
+.dl_icon.ion_time {
+  background-position: -399px -35px;
 }
 .ion_ballon {
   background-position: -110px -65px;
@@ -2986,7 +2995,8 @@ a>.login .companies_list:activated {
   line-height: 18px;
   background-color: #fff;
 }
-.map_page .map .map_img {
+.map_page .map .map_img,
+.map_page .map .no_map {
   width: 100%;
 }
 .sponsor {
@@ -3029,7 +3039,7 @@ a>.login .companies_list:activated {
 .sponsor .list .item-input input:-ms-input-placeholder {
   color: #ababab;
 }
-.sponsor .list .item-input .icon {
+.sponsor .list .item-input .dl_icon {
   width: 20px;
   margin: 10px 0;
 }
@@ -3464,14 +3474,14 @@ a>.login .companies_list:activated {
   font-size: 16px;
 }
 .competition_message_panel .competition_message_detail .teams .sponsor_team {
-  background-color: #f00;
+  background-color: #f75c5c;
 }
 .competition_message_panel .competition_message_detail .teams .sponsor_team:before {
   right: 0;
   border-width: 30px 0 0 20px;
 }
 .competition_message_panel .competition_message_detail .teams .opposite_team {
-  background-color: #00f;
+  background-color: #3ca2e0;
 }
 .competition_message_panel .competition_message_detail .teams .opposite_team:before {
   left: 0;
