@@ -1995,30 +1995,42 @@ textarea
     border-top-left-radius 4px
     border-top-right-radius 4px
     .operator
-      background-color col_blue
+      // background-color col_blue
       color col_navGray
       border none
       margin 0
       border-top-left-radius 4px
       border-top-right-radius 4px
+      height 45px
+    .icon_blue
+      background-color transparent
+      color #3ca2e0
+    .icon_margin_left
+      margin-left 22px
+    .icon_margin_right
+      margin-right 22px
     .week
       position relative
-      background-color col_blue
-      background-image -webkit-linear-gradient(#57b4ec,col_blue)
+      height 27px
+      background-color rgb(255, 255, 255)
+      border-top 1px solid #ccc
+      border-bottom 1px solid #ccc
       .day
+        position relative
         float left
         width (100 / 7)%
-        height 20px
-        line-height 20px
-        color #fff
-        border-right solid 1px #2184bf
+        line-height 15px
+        color col_blue
+        margin-top 7px
     .date_list
       position relative
 
       .date_box
+        position relative
         float left
         width (100 / 7)%
         height 60px
+        border-top 1px solid #ccc
         border-right 1px solid #ccc
         border-bottom 1px solid #ccc
         &.other_month
@@ -2029,6 +2041,24 @@ textarea
           margin-left auto
           margin-right auto
           font-weight bold
+        .calendar_campaign_join
+          position absolute
+          color white
+          right 50%
+          bottom 0px
+          background-color #48bebc
+          width 50%
+          height 1.5rem
+          line-height 1.5rem
+        .calendar_campaign_unjoin
+          position absolute
+          color white
+          right 0px
+          bottom 0px
+          background-color #d46c93
+          width 50%
+          height 1.5rem
+          line-height 1.5rem
         .campaign_count
           margin-top 15%
           display inline-block
@@ -2039,11 +2069,10 @@ textarea
           height 1.5rem
           line-height 1.5rem
         &.current_day
-          background-color col_blue
+          background-color rgb(255, 255, 255)
           color white
-          border-top solid 1px #2184bf
           .date
-            color white
+            color col_blue
             border-radius 50px
           .campaign_count
             color col_blue
@@ -2107,6 +2136,24 @@ textarea
         margin-right auto
         font-weight bold
         font-size 16px
+      .calendar_campaign_join
+        position absolute
+        color white
+        right 50%
+        bottom 0px
+        background-color #48bebc
+        width 50%
+        height 1.5rem
+        line-height 1.5rem
+      .calendar_campaign_unjoin
+        position absolute
+        color white
+        right 0px
+        bottom 0px
+        background-color #d46c93
+        width 50%
+        height 1.5rem
+        line-height 1.5rem
       .calendar_campaign_count
         margin-top 15%
         display inline-block
@@ -2117,14 +2164,13 @@ textarea
         height 1.5rem
         line-height 1.5rem
       &.today
-        background-color col_blue
         .calendar_date
+          background-color col_blue
           color white
           border-radius 50px
         .calendar_campaign_count
           color col_blue
           background-color white
-
 
       .weekend
         color gray
@@ -2137,6 +2183,9 @@ textarea
     height 100%
     .no_campagin
       background-color col_navGray
+    .campaign_join
+      height 20px
+      color col_blue
     .calendar_campaign
       margin 0
       padding 0

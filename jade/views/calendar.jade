@@ -9,10 +9,10 @@ ion-view
       nav
         .operator.item.tabs(ng-if="view==='month'")
             .tab-item(ng-click="preMonth()")
-              i.icon.icon_small.ion-chevron-left
-            .tab-item {{ current_year }} - {{ current_month.format_month }}
+              i.icon.icon_small.icon_blue.icon_margin_left.ion-chevron-left
+            .tab-item.icon_blue {{ current_year }} - {{ current_month.format_month }}
             .tab-item(ng-click="nextMonth()")
-              i.icon.icon_small.ion-chevron-right
+              i.icon.icon_small.icon_blue.icon_margin_right.ion-chevron-right
           //- .pull-right(ng-if="view!=='year'")
           //-   .btn.today(ng-click="today()") 今天
         .week.text-center.clearfix(ng-if="view!=='year'")
@@ -26,7 +26,9 @@ ion-view
         .date_list.text-center.clearfix(ng-if="view==='day'")
           .date_box(ng-repeat="date in current_week_date" ng-class="{other_month: !date.is_current_month, today: date.is_today===true, current_day: date.is_current===true}" ng-click="dayView(date)") 
             .date {{ date.getDate() }}
-            span.campaign_count(ng-if="date.is_current_month && date.events.length>0") {{date.events.length}}
+            //- span.campaign_count(ng-if="date.is_current_month && date.events.length>0") {{date.events.length}}
+            span.calendar_campaign_join(ng-if="date.is_current_month && date.joined_events.length>0") {{date.joined_events.length}}
+            span.calendar_campaign_unjoin(ng-if="date.is_current_month && date.unjoined_events.length>0") {{date.unjoined_events.length}}
         //- .date_bar.text-center(ng-if="view==='day'"){{ current_day.format_date }}&nbsp;{{ current_day.format_day }}
       .calendar_box(ng-class="{full_box: view==='year'}")
         //- .calendar_year.clearfix(ng-if="view==='year'")
@@ -42,11 +44,14 @@ ion-view
                 .calendar_date {{ day.date }}
                 //- .event_unjoin(ng-if="day.has_event && !day.has_joined_event")
                 //- .event_joined(ng-if="day.has_joined_event")
-                span.calendar_campaign_count(ng-if="day.events.length>0") {{day.events.length}}
+                span.calendar_campaign_join(ng-if="day.joined_events.length>0") {{day.joined_events.length}}
+                span.calendar_campaign_unjoin(ng-if="day.unjoined_events.length>0") {{day.unjoined_events.length}}
+                //- span.calendar_campaign_count(ng-if="day.events.length>0") {{day.events.length}}
           div.text-center.today_container(ng-if="view!=='year'")
-            button.button.button-outline.button-positive.today(ng-click="today()") 今天
+            //- button.button.button-outline.button-positive.today(ng-click="today()") 今天
         ion-scroll.calendar_day.clearfix(detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preDay,nextDay" scrollbar-y="false" ng-if="view==='day'" auto-height="121")
           ion-list
+            //- .campaign_join 参加的活动
             ion-item.calendar_campaign(ng-repeat="campaign in current_day.campaigns")
               a.item.item-avatar(ng-class="{provoke: campaign.campaign_unit.length==2}" ng-href="#/campaign/detail/{{campaign._id}}")
                 img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/40/40'}}")
