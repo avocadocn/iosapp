@@ -9,7 +9,7 @@
       <div class="circle_owner_image_wrap"><img ng-src="{{STATIC_URL + team.logo}}/140/140" class="circle_owner_image"/></div>
     </div>
     <circle-card-list circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL" class="dl_circle_card_list"></circle-card-list>
-    <div ng-if="circleContentList.length === 0" ng-cloak="ng-cloak" class="no_moment_remind">该小队还没有成员发过精彩瞬间，快去活动页发表吧。</div>
+    <div ng-if="loadingStatus.hasInit &amp;&amp; circleContentList.length === 0" class="no_moment_remind">该小队还没有成员发过精彩瞬间，快去活动页发表吧。</div>
     <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>
   <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment"></circle-comment-box>

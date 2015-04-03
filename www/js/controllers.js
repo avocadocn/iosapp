@@ -3807,6 +3807,9 @@ angular.module('donlerApp.controllers', [])
             if (status !== 404) {
               $scope.ionicAlert(data.msg || '获取失败');
             }
+            else {
+              $scope.loadingStatus.hasInit = true;
+            }
           });
       };
 
@@ -4063,6 +4066,9 @@ angular.module('donlerApp.controllers', [])
             if (status !== 404) {
               $scope.ionicAlert(data.msg || '获取失败');
             }
+            else {
+              $scope.loadingStatus.hasInit = true;
+            }
           });
 
       });
@@ -4223,6 +4229,9 @@ angular.module('donlerApp.controllers', [])
           .error(function(data, status) {
             if (status !== 404) {
               $scope.ionicAlert(data.msg || '获取失败');
+            }
+            else {
+              $scope.loadingStatus.hasInit = true;
             }
           });
 
