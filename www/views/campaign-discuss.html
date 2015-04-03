@@ -13,6 +13,7 @@
         </div>
       </div>
       <div class="item-button">
+        <button ng-if="!loading &amp;&amp; comments.length===0" class="button button-full button-clear">暂无留言，快来抢沙发吧!</button>
         <button ng-if="hasMore &amp;&amp; !loading" ng-click="readHistory()" class="button button-full button-clear">点击查看更多</button><i ng-if="loading" class="icon ion-looping"></i>
       </div>
       <div class="item-button">

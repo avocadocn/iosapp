@@ -15,6 +15,7 @@ ion-view.campaign_discuss(cache-view="false" title="{{campaignTitle}}")
           .time
             span {{comment.create_date | date: 'yyyy-M-dd HH:mm'}}
       .item-button
+        button.button.button-full.button-clear(ng-if="!loading && comments.length===0") 暂无留言，快来抢沙发吧!
         button.button.button-full.button-clear(ng-if="hasMore && !loading" ng-click="readHistory()") 点击查看更多
         i.icon.ion-looping(ng-if="loading")
       .item-button
