@@ -3254,6 +3254,14 @@ a>.login .companies_list:activated {
 .circle_comment_box.show_emotion_box {
   bottom: 160px;
 }
+.circle_comment_box .emoji_click_wrap {
+  position: absolute;
+  left: 6px;
+  top: 7px;
+  width: 28px;
+  height: 28px;
+  z-index: 1;
+}
 .circle_emotion_box {
   position: absolute;
   bottom: 0;
@@ -3365,6 +3373,7 @@ a>.login .companies_list:activated {
   text-overflow: ellipsis;
 }
 .dl_circle_card .circle_info .date_and_op {
+  position: relative;
   margin-top: 5px;
   font-size: 12px;
   line-height: 12px;
@@ -3381,24 +3390,37 @@ a>.login .companies_list:activated {
   color: #999;
 }
 .dl_circle_card .circle_info .date_and_op .op_icon {
-  float: right;
+  position: absolute;
+  right: 0;
+  top: -4px;
   width: 23px;
 }
-.dl_circle_card .circle_info .comment_op {
-  position: relative;
+.dl_circle_card .circle_info .date_and_op .toggle_click_wrap {
+  position: absolute;
+  right: -10px;
+  top: -16px;
+  width: 44px;
+  height: 40px;
+  z-index: 1;
 }
-.dl_circle_card .circle_info .comment_op .op_box {
+.dl_circle_card .circle_info .date_and_op .comment_op {
+  position: absolute;
+  top: -7px;
+  right: 30px;
+  z-index: 1;
+}
+.dl_circle_card .circle_info .date_and_op .comment_op .op_box {
   float: right;
-  background-color: #999;
+  background-color: #3ca2e0;
   color: #fff;
 }
-.dl_circle_card .circle_info .comment_op .op_item {
+.dl_circle_card .circle_info .date_and_op .comment_op .op_item {
   float: left;
   padding: 0 10px;
   line-height: 24px;
   font-size: 14px;
 }
-.dl_circle_card .circle_info .comment_op .op_divider {
+.dl_circle_card .circle_info .date_and_op .comment_op .op_divider {
   float: left;
   height: 24px;
   border-right: 1px solid #fff;

@@ -2706,6 +2706,13 @@ textarea
   padding 5px
   &.show_emotion_box
     bottom 160px
+  .emoji_click_wrap
+    position absolute
+    left 6px
+    top 7px
+    width 28px
+    height 28px
+    z-index 1
 .circle_emotion_box
   position absolute
   bottom 0
@@ -2799,6 +2806,7 @@ textarea
       white-space nowrap
       text-overflow ellipsis
     .date_and_op
+      position relative
       margin-top 5px
       font-size 12px
       line-height 12px
@@ -2811,23 +2819,35 @@ textarea
       .date
         color col_darkGray
       .op_icon
-        float right
+        position absolute
+        right 0
+        top -4px
         width 23px
-    .comment_op
-      position relative
-      .op_box
-        float right
-        background-color col_darkGray
-        color white
-      .op_item
-        float left
-        padding 0 10px
-        line-height 24px
-        font-size 14px
-      .op_divider
-        float left
-        height 24px
-        border-right 1px solid white
+      .toggle_click_wrap
+        position absolute
+        right -10px
+        top -16px
+        width 44px
+        height 40px
+        z-index 1
+      .comment_op
+        position absolute
+        top -7px
+        right 30px
+        z-index 1
+        .op_box
+          float right
+          background-color col_link
+          color white
+        .op_item
+          float left
+          padding 0 10px
+          line-height 24px
+          font-size 14px
+        .op_divider
+          float left
+          height 24px
+          border-right 1px solid white
   .circle_comment_list
     position relative
     margin-top 13px
