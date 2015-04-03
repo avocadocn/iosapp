@@ -72,6 +72,9 @@ textarea
   .icon-left, .icon-right
     &.button:before
       font-size 16px
+  &.bar-header
+    .title
+      color #202020
 .clearfix
   &:before, &:after
     display table
@@ -96,7 +99,7 @@ textarea
 //-   background-position -40px -80px
 .dl_icon
   background-image url('../img/icon.png')
-  background-size 640px 240px
+  background-size 720px 270px
   display inline-block
   height 18px
   width 18px
@@ -122,11 +125,11 @@ textarea
     &.active
       background-position -129px -445px
   &.ion_address
-    background-position -476px -35px
+    background-position -538px -40px
   &.ion_member
-    background-position -240px -35px
+    background-position -316px -41px
   &.ion_time
-    background-position -399px -35px
+    background-position -450px -41px
 .ion_ballon
   background-position -110px -65px
 .ion_teams
@@ -167,7 +170,6 @@ textarea
     background-position -325px -32px
   &.ion_address
     background-position -389px -32px
-
 .campaigns_container
   .campaign_filter
     height 33px
@@ -1098,8 +1100,6 @@ textarea
     .icon
       width 32px
       height 30px
-    .dl_icon
-      background-size 720px 270px
     .badge
       background-color #FF5724
       width 12px
@@ -2968,37 +2968,56 @@ textarea
       text-align center
   .competition_message_detail
     .teams
-      margin-top 10px
+      padding 10px
+      text-align center
       .team
-        position relative
-        color white
-        text-align center
-        font-size 14px
-        &:before
-          content: ""
-          position: absolute
-          top 0
-          width 15px
-          height 30px
-          border-style solid
-          border-color white transparent transparent transparent
-          border-width 30px 20px 0 0
+        .team_title
+          position relative
+          color white
+          text-align center
+          font-size 14px
+          height 26px
+          &:before
+            content: ""
+            position: absolute
+            top 0
+            width 15px
+            height 26px
+            border-style solid
+            border-color white transparent transparent transparent
+            border-width 30px 20px 0 0
+        .team_content
+          padding 10px
+          .team_name
+            max-width 100%
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
+            margin-top 10px
+            font-size 14px
+          .team_logo
+            width 60px
+            height 60px
       .vs
         font-size 16px
+        min-width 42px
       .sponsor_team
-        background-color #f75c5c
-        &:before
-          right 0
-          border-width 30px 0 0 20px
+        .team_title
+          background-color #f75c5c
+          &:before
+            right 0
+            border-width 30px 0 0 20px
       .opposite_team
-        background-color col_blue
-        &:before
-          left 0
-          border-width 30px 20px 0 0
+        .team_title
+          background-color col_blue
+          &:before
+            left 0
+            border-width 30px 20px 0 0
     .vote
       padding 0 60px
       height 50px
       position relative
+      margin-bottom 15px
       .vote_team
         height 3px
         margin-top 23px
@@ -3018,6 +3037,8 @@ textarea
             top 10px
             display inline-block
             font-size 20px
+            width 20px
+            text-align center
         .vote_num
           position absolute
           width 50px
@@ -3044,37 +3065,63 @@ textarea
               color blue
           .vote_num
             right 60px
+    .competition_status
+      height 44px
+      text-align center
+      padding 14px
+      line-height 14px
   .competition_message_comment
+    .comment_title
+      height 25px
+      line-height 25px
+      font-size 14px
+      min-height 25px
+      padding 0 15px
     .comment
       width 100%
-      margin 10px 0
-      padding 10px
-      .comment_poster
+      padding 15px 17px
+      border-bottom 1px solid #ccc
+      color #666
+      padding-left 57px
+      position relative
+      .team_logo
+        width 30px
+        height 30px
+        position absolute
+        left 15px
+        top 17px
+        border-radius 5px
+      .comment_contents
         float left
-        width 20%
         .team_name
-          width 90%
           overflow hidden
           word-break break-all
           white-space nowrap
           text-overflow ellipsis
-      .comment_contents
-        float left
-        width 70%
-        background-color col_blue
-        color white
-        border-radius 10px
-        padding 10px
-        font-size 14px
+          font-size 16px
+          color black
+          margin-bottom 12px
+        .create_date
+          color #ababab
+        .comment_content
+          margin-bottom 16px
       &.pull_right
         text-align right
-        .comment_poster
-          float right
+        padding-right 57px
+        .team_logo
+          right 15px
+          left initial
         .comment_contents
           float right
 
   .operator
     text-align center
+    margin 10px 20px
+    .button_comment
+      background-color col_blue
+      color white
+      border-radius 5px
+      width 100%
 .search_opponent
   .select_team
     .units

@@ -58,6 +58,9 @@ textarea {
 .bar .icon-right.button:before {
   font-size: 16px;
 }
+.bar.bar-header .title {
+  color: #202020;
+}
 .clearfix:before,
 .clearfix:after {
   display: table;
@@ -96,7 +99,7 @@ textarea {
 }
 .dl_icon {
   background-image: url("../img/icon.png");
-  background-size: 640px 240px;
+  background-size: 720px 270px;
   display: inline-block;
   height: 18px;
   width: 18px;
@@ -133,13 +136,13 @@ textarea {
   background-position: -129px -445px;
 }
 .dl_icon.ion_address {
-  background-position: -476px -35px;
+  background-position: -538px -40px;
 }
 .dl_icon.ion_member {
-  background-position: -240px -35px;
+  background-position: -316px -41px;
 }
 .dl_icon.ion_time {
-  background-position: -399px -35px;
+  background-position: -450px -41px;
 }
 .ion_ballon {
   background-position: -110px -65px;
@@ -1329,9 +1332,6 @@ a>.login .companies_list:activated {
 .app_tabs > .tabs .tab-item .icon {
   width: 32px;
   height: 30px;
-}
-.app_tabs > .tabs .tab-item .dl_icon {
-  background-size: 720px 270px;
 }
 .app_tabs > .tabs .tab-item .badge {
   background-color: #ff5724;
@@ -3559,38 +3559,56 @@ a>.login .companies_list:activated {
   text-align: center;
 }
 .competition_message_panel .competition_message_detail .teams {
-  margin-top: 10px;
+  padding: 10px;
+  text-align: center;
 }
-.competition_message_panel .competition_message_detail .teams .team {
+.competition_message_panel .competition_message_detail .teams .team .team_title {
   position: relative;
   color: #fff;
   text-align: center;
   font-size: 14px;
+  height: 26px;
 }
-.competition_message_panel .competition_message_detail .teams .team:before {
+.competition_message_panel .competition_message_detail .teams .team .team_title:before {
   content: "";
   position: absolute;
   top: 0;
   width: 15px;
-  height: 30px;
+  height: 26px;
   border-style: solid;
   border-color: #fff transparent transparent transparent;
   border-width: 30px 20px 0 0;
 }
+.competition_message_panel .competition_message_detail .teams .team .team_content {
+  padding: 10px;
+}
+.competition_message_panel .competition_message_detail .teams .team .team_content .team_name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.competition_message_panel .competition_message_detail .teams .team .team_content .team_logo {
+  width: 60px;
+  height: 60px;
+}
 .competition_message_panel .competition_message_detail .teams .vs {
   font-size: 16px;
+  min-width: 42px;
 }
-.competition_message_panel .competition_message_detail .teams .sponsor_team {
+.competition_message_panel .competition_message_detail .teams .sponsor_team .team_title {
   background-color: #f75c5c;
 }
-.competition_message_panel .competition_message_detail .teams .sponsor_team:before {
+.competition_message_panel .competition_message_detail .teams .sponsor_team .team_title:before {
   right: 0;
   border-width: 30px 0 0 20px;
 }
-.competition_message_panel .competition_message_detail .teams .opposite_team {
+.competition_message_panel .competition_message_detail .teams .opposite_team .team_title {
   background-color: #3ca2e0;
 }
-.competition_message_panel .competition_message_detail .teams .opposite_team:before {
+.competition_message_panel .competition_message_detail .teams .opposite_team .team_title:before {
   left: 0;
   border-width: 30px 20px 0 0;
 }
@@ -3598,6 +3616,7 @@ a>.login .companies_list:activated {
   padding: 0 60px;
   height: 50px;
   position: relative;
+  margin-bottom: 15px;
 }
 .competition_message_panel .competition_message_detail .vote .vote_team {
   height: 3px;
@@ -3620,6 +3639,8 @@ a>.login .companies_list:activated {
   top: 10px;
   display: inline-block;
   font-size: 20px;
+  width: 20px;
+  text-align: center;
 }
 .competition_message_panel .competition_message_detail .vote .vote_team .vote_num {
   position: absolute;
@@ -3656,42 +3677,73 @@ a>.login .companies_list:activated {
 .competition_message_panel .competition_message_detail .vote .vote_team:last-child .vote_num {
   right: 60px;
 }
+.competition_message_panel .competition_message_detail .competition_status {
+  height: 44px;
+  text-align: center;
+  padding: 14px;
+  line-height: 14px;
+}
+.competition_message_panel .competition_message_comment .comment_title {
+  height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+  min-height: 25px;
+  padding: 0 15px;
+}
 .competition_message_panel .competition_message_comment .comment {
   width: 100%;
-  margin: 10px 0;
-  padding: 10px;
+  padding: 15px 17px;
+  border-bottom: 1px solid #ccc;
+  color: #666;
+  padding-left: 57px;
+  position: relative;
 }
-.competition_message_panel .competition_message_comment .comment .comment_poster {
+.competition_message_panel .competition_message_comment .comment .team_logo {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 15px;
+  top: 17px;
+  border-radius: 5px;
+}
+.competition_message_panel .competition_message_comment .comment .comment_contents {
   float: left;
-  width: 20%;
 }
-.competition_message_panel .competition_message_comment .comment .comment_poster .team_name {
-  width: 90%;
+.competition_message_panel .competition_message_comment .comment .comment_contents .team_name {
   overflow: hidden;
   word-break: break-all;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-size: 16px;
+  color: #000;
+  margin-bottom: 12px;
 }
-.competition_message_panel .competition_message_comment .comment .comment_contents {
-  float: left;
-  width: 70%;
-  background-color: #3ca2e0;
-  color: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 14px;
+.competition_message_panel .competition_message_comment .comment .comment_contents .create_date {
+  color: #ababab;
+}
+.competition_message_panel .competition_message_comment .comment .comment_contents .comment_content {
+  margin-bottom: 16px;
 }
 .competition_message_panel .competition_message_comment .comment.pull_right {
   text-align: right;
+  padding-right: 57px;
 }
-.competition_message_panel .competition_message_comment .comment.pull_right .comment_poster {
-  float: right;
+.competition_message_panel .competition_message_comment .comment.pull_right .team_logo {
+  right: 15px;
+  left: initial;
 }
 .competition_message_panel .competition_message_comment .comment.pull_right .comment_contents {
   float: right;
 }
 .competition_message_panel .operator {
   text-align: center;
+  margin: 10px 20px;
+}
+.competition_message_panel .operator .button_comment {
+  background-color: #3ca2e0;
+  color: #fff;
+  border-radius: 5px;
+  width: 100%;
 }
 .search_opponent .select_team .units .unit {
   float: left;

@@ -97,20 +97,26 @@ angular.module('donlerApp.filters', [])
   };
 }])
 .filter("competitionMessageStatusFormat", [function() {
-  return function(input) {
+  return function(input, statusText, sponsor) {
     var result = '';
     switch(input) {
       case 'sent':
-        result = '已发送请求';
+        result = '还有' +statusText+ (sponsor ?'等待对方回应':'可以进行回应');
         break;
       case 'accepted':
-        result = '接受未发活动';
+        result = '还有' +statusText+ (sponsor ?'发起活动':'等待对方发起活动');
         break;
       case 'rejected':
         result = '被拒绝';
         break;
       case 'competing':
         result = '已生成挑战';
+        break;
+      case 'deal_timeout':
+        result = '挑战因为7天没有进行响应，已经过期';
+        break;
+      case 'competion_timeout':
+        result = '挑战因为应战后7天没有发起活动，已经过期';
         break;
     }
     return result;

@@ -1,34 +1,24 @@
 
 <ion-view class="competition_message_panel">
   <ion-header-bar><a ng-click="goBack()" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">挑战日志</h1><a ng-if="sponsorLeader &amp;&amp; competitionMessage.status=='accepted'" ng-click="sponsorCompetition()" class="button button-clear button-positive">发活动</a>
+    <h1 class="title">挑战日志</h1>
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-if="competitionMessage" class="competition_message_detail">
       <div class="row teams">
-        <div class="col team sponsor_team">挑战方</div>
-        <div class="col col-10 vs">VS</div>
-        <div class="col team opposite_team">应战方</div>
-      </div>
-      <div class="row">
-        <div class="col">{{competitionMessage.create_time | beforeNow}}</div>
-        <div class="col"><a ng-if="cid==competitionMessage.sponsor_team.cid" ng-href="#/team/{{competitionMessage.sponsor_team._id}}"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></a><img ng-if="cid!==competitionMessage.sponsor_team.cid" ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></div>
-        <div class="col">{{competitionMessage.sponsor_team.name}}</div>
-        <div class="col">VS</div>
-        <div class="col"><a ng-if="cid==competitionMessage.opposite_team.cid" ng-href="#/team/{{competitionMessage.opposite_team._id}}"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/></a><img ng-if="cid!==competitionMessage.opposite_team.cid" ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/></div>
-        <div class="col">{{competitionMessage.opposite_team.name}}</div>
-      </div>
-      <div class="row">
-        <div ng-cloak="ng-cloak" class="col">活动性质：{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}</div>
-      </div>
-      <div class="row">
-        <div ng-cloak="ng-cloak" class="col">状态：{{competitionMessage.status | competitionMessageStatusFormat}}</div>
-      </div>
-      <div ng-if="oppositeLeader &amp;&amp; competitionMessage.status=='sent'" class="row">
-        <div class="button-bar">
-          <button ng-click="dealCompetition('accept')" class="button button-positive">应战</button>
-          <button ng-click="dealCompetition('reject')" class="button button-assertive">拒绝</button>
+        <div class="col team sponsor_team">
+          <div class="team_title">挑战方</div>
+          <div class="team_content"><a ng-if="cid==competitionMessage.sponsor_team.cid" ng-href="#/team/{{competitionMessage.sponsor_team._id}}"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60" class="team_logo"/></a><img ng-if="cid!==competitionMessage.sponsor_team.cid" ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/>
+            <div class="team_name">{{competitionMessage.sponsor_team.name}}</div>
+          </div>
+        </div>
+        <div ng-cloak="ng-cloak" class="col col-10 vs col-center">  {{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}</div>
+        <div class="col team opposite_team">
+          <div class="team_title">应战方</div>
+          <div class="team_content"><a ng-if="cid==competitionMessage.opposite_team.cid" ng-href="#/team/{{competitionMessage.opposite_team._id}}"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/></a><img ng-if="cid!==competitionMessage.opposite_team.cid" ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/>
+            <div class="team_name">{{competitionMessage.opposite_team.name}}</div>
+          </div>
         </div>
       </div>
       <div class="vote">
@@ -36,20 +26,24 @@
           <div class="vote_icon"><i class="icon ion-ios7-heart-outline"></i></div><span class="vote_num">{{unit.positive}} 人支持</span>
         </div>
       </div>
+      <div ng-cloak="ng-cloak" class="item competition_status">{{competitionMessage.status | competitionMessageStatusFormat :competitionMessage.status_text : competitionMessage.sponsor}}</div>
+      <div ng-if="oppositeLeader &amp;&amp;competitionMessage.status=='sent' || sponsorLeader &amp;&amp; competitionMessage.status=='accepted'" class="operator">
+        <button ng-if="oppositeLeader &amp;&amp; competitionMessage.status=='sent'" ng-click="dealCompetition('accept')" class="button button_comment">应战</button>
+        <button ng-if="sponsorLeader &amp;&amp; competitionMessage.status=='accepted'" ng-click="sponsorCompetition()" class="button button_comment">发起活动</button>
+      </div>
     </div>
     <div ng-if="competitionMessage" class="competition_message_comment">
-      <div ng-class="{'pull_right':comment.poster_team._id===competitionMessage.opposite_team._id}" ng-repeat="comment in commentList " class="comment clearfix">
-        <div class="comment_poster"><a ng-if="cid===comment.poster_team.cid" ng-href="#/user/{{comment.poster_team._id}}"><img ng-src="{{STATIC_URL + comment.poster_team.logo}}/40/40" class="team_logo"/></a><img ng-if="cid!==comment.poster_team.cid" ng-src="{{STATIC_URL + comment.poster_team.logo}}/40/40" class="team_logo"/>
-          <p class="team_name">{{comment.poster_team.name}}</p>
-        </div>
+      <div class="item item-divider comment_title"><span>讨论</span></div>
+      <div ng-class="{'pull_right':comment.poster_team._id===competitionMessage.opposite_team._id}" ng-repeat="comment in commentList " class="comment clearfix"><a ng-if="cid===comment.poster_team.cid" ng-href="#/user/{{comment.poster_team._id}}"><img ng-src="{{STATIC_URL + comment.poster_team.logo}}/30/30" class="team_logo"/></a><img ng-if="cid!==comment.poster_team.cid" ng-src="{{STATIC_URL + comment.poster_team.logo}}/30/30" class="team_logo"/>
         <div class="comment_contents">
-          <p>{{comment.create_date | date:"MM-dd HH:mm"}}</p>
+          <div class="team_name">{{comment.poster_team.name}}</div>
           <div ng-bind-html="comment.content | emoji | unsafe" class="comment_content"></div>
+          <div class="create_date">{{comment.create_date | date:"MM-dd HH:mm"}}</div>
         </div>
       </div>
     </div>
     <div ng-show="oppositeLeader || sponsorLeader" class="operator">
-      <button ng-click="showPopup()" class="button button-small button-calm">发评论</button>
+      <button ng-click="showPopup()" class="button button_comment">发评论</button>
     </div>
   </ion-content>
   
