@@ -3123,8 +3123,13 @@ a>.login .companies_list:activated {
   margin: 0px 4px 2px;
   background-color: transparent;
 }
+.circle_post_page {
+  background-color: #e2e2e2;
+}
 .circle_post_page .publish_content {
   height: auto;
+  padding: 5px;
+  margin-bottom: 20px;
 }
 .circle_post_page .button_add {
   float: left;
@@ -3146,6 +3151,11 @@ a>.login .companies_list:activated {
 .circle_post_page .preview_img {
   width: 100%;
   height: 100%;
+}
+.circle_post_page .circle_campaign_info {
+  padding: 0 16px;
+  line-height: 32px;
+  font-size: 18px;
 }
 .circle_send_content_page .circle_content {
   margin: 20px 20px 10px;
