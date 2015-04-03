@@ -130,6 +130,14 @@ textarea
     background-position -316px -41px
   &.ion_time
     background-position -450px -41px
+  &.ion_chat_circle
+    background-position -495px -45px
+  &.ion_member_small_blue
+    background-position 0 -134px
+  &.ion_member_small
+    background-position 0 -90px
+  &.ion_comment_small
+    background-position -46px -91px
 .ion_ballon
   background-position -110px -65px
 .ion_teams
@@ -154,10 +162,8 @@ textarea
   background-position -320px -39px
 .ion_circle
   background-position -559px -39px
-.ion_chat_circle
-  background-position -559px -39px
 .ion_chat_blue
-  background-position -79px -157px
+  background-position -90px -177px
 .ion_log_out
   background-position -200px -160px
 .icon_small
@@ -383,7 +389,7 @@ textarea
         top 0
         right 10px
         margin-left 10px
-      .ion_member, .ion_comment
+      .ion_member_small, .ion_comment_small
         display block
         float left
         margin-top 9px
@@ -619,11 +625,13 @@ textarea
         padding 10px
         color #666666
         height 100%
+        line-height 26px
         &:last-child
           border-right none
         .dl_icon
           display inline-block
           margin-right 17px
+          margin-top -3px
         .member_num
           color #f07151
       a
@@ -2965,16 +2973,43 @@ textarea
   .competition_message_list
     .type_filter
       text-align center
-      padding 10px 0
+      .button
+        border-bottom 2px solid #ccc
+        opacity 1
+        color #666
+        height 40px
+        &.active
+          color col_blue
+          border-bottom 2px solid col_blue
+      .splite
+        position: absolute
+        width 1px
+        height 35px
+        background-color #CCC
+        left 50%
+        top 5px
     .competition_message
       text-decoration none
-      color black
+      color #666
       background-color white
+      text-align center
+      .status_text
+        margin 10px 0
+        font-size 12px
+        color #202020
+      .create_time
+        font-size 10px
+      .team_name
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+        width 100%
       .dot
         width 10px
         height 10px
         background-color red
         border-radius 100%
+        display inline-block
     .operator
       text-align center
   .competition_message_detail

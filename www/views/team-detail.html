@@ -22,9 +22,9 @@
         <button prevent-default="prevent-default" ng-if="!team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak="ng-cloak" class="btn_join">立即加入</button><a ng-href="#/circle/circle_team/{{team._id}}" class="btn_join btn_moment">精彩瞬间</a>
       </div>
       <div class="info_footer row"><a ng-href="#/photo_album/list/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_upload_photo"><i class="icon ion-image"></i>上传照片</a><a ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_member">
-          <div class="ion_member"></div>{{team.memberCount}}名队员</a>
+          <div class="dl_icon ion_member_small_blue"></div>{{team.memberCount}}名队员</a>
         <div ng-if="team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_member">
-          <div class="ion_member"></div>{{team.memberCount}}名队员
+          <div class="dl_icon ion_member_small_blue"></div>{{team.memberCount}}名队员
         </div>
         <div class="col btn_cp">{{team.campaignCount}}个活动</div>
       </div>

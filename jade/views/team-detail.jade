@@ -29,10 +29,10 @@ ion-view
           i.icon.ion-image
           | 上传照片
         a.col.btn_member(ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak)
-          .ion_member
+          .dl_icon.ion_member_small_blue
           | {{team.memberCount}}名队员
         .col.btn_member(ng-if="team.isOtherCompanyTeam" ng-cloak)
-          .ion_member
+          .dl_icon.ion_member_small_blue
           | {{team.memberCount}}名队员
         .col.btn_cp {{team.campaignCount}}个活动
     .card.team_home_court

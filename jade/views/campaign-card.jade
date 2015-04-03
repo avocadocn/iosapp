@@ -39,10 +39,10 @@
       .dl_cp_time.clearfix
         | 发布于 {{campaign.create_time | beforeNow}}
       .dl_team_comment.clearfix
-        i.ion_comment
+        i.dl_icon.ion_comment_small
         span.dl_card_footer_count {{campaign.comment_sum}}
       .dl_team_number.clearfix
-        i.ion_member
+        i.dl_icon.ion_member_small
         span.dl_card_footer_count {{campaign.members_count || '0'}}
     .dl_card_footer.dl_card_footer_provoke(ng-if="campaign.confirm_status===false &&(campaign.allow.dealProvoke || campaign.allow.quitProvoke)")
       .clearfix
