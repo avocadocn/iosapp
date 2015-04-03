@@ -19,7 +19,7 @@
         <div ng-if="team.poster" class="team_des">创建人: {{team.poster.nickname}}</div>
         <div class="team_des">小队简介:<span ng-if="team.brief" ng-cloak="ng-cloak">{{team.brief}}</span><span ng-if="!team.brief" ng-cloak="ng-cloak">无</span></div>
         <button prevent-default="prevent-default" ng-if="team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak="ng-cloak" class="btn_joined">已加入小队</button>
-        <button prevent-default="prevent-default" ng-if="!team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak="ng-cloak" class="btn_join">立即加入</button>
+        <button prevent-default="prevent-default" ng-if="!team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak="ng-cloak" class="btn_join">立即加入</button><a ng-href="#/circle/circle_team/{{team._id}}" class="btn_join btn_moment">精彩瞬间</a>
       </div>
       <div class="info_footer row"><a ng-href="#/photo_album/list/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_upload_photo"><i class="icon ion-image"></i>上传照片</a><a ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_member">
           <div class="ion_member"></div>{{team.memberCount}}名队员</a>

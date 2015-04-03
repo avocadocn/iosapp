@@ -2271,6 +2271,10 @@ textarea
     .btn_join
       color white
       background-color col_blue
+    .btn_moment
+      line-height 40px
+      text-decoration none
+      font-size 14px
     .btn_joined
       color col_blue
       background-color white
@@ -2696,7 +2700,7 @@ textarea
   background-color white
 
 // 公司、个人同事圈页面
-.circle_company_page, .circle_user_page
+.circle_company_page, .circle_user_page, .circle_team_page
   .remind_icon
     background-size 720px 270px
     background-position -38px -489px !important
@@ -2705,24 +2709,24 @@ textarea
     border none
   .custom_ion_content
     background white
-  .circle_company_image
+  .circle_banner_image
     width 100%
     display block
     background url('../img/discover.jpg') no-repeat
     background-size 100%
     height 144px
-  .circle_user
+  .circle_owner
     position relative
     margin-bottom 20px
     z-index 1
-    .circle_user_name
+    .circle_owner_name
       position absolute
       top -30px
       right 95px
       color #FFFFFF
       font-size 14px
       font-family Arial, Helvetica, sans-serif
-    .circle_user_image_wrap
+    .circle_owner_image_wrap
       display block
       position absolute
       top -50px
@@ -2730,10 +2734,15 @@ textarea
       padding 1px
       background-color white
       border 1px solid col_gray
-      .circle_user_image
+      .circle_owner_image
         display block
         width 70px
         height 70px
+  .no_moment_remind
+    margin-top 35px
+    padding 10px
+    line-height 18px
+    font-size 14px
 
   .remind_box
     display block

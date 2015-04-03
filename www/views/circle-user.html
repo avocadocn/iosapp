@@ -4,11 +4,12 @@
     <h1 class="title">精彩瞬间</h1>
   </ion-header-bar>
   <ion-content class="custom_ion_content">
-    <div class="circle_company_image"></div>
-    <div class="circle_user"><a class="circle_user_name">{{user.nickname}}</a>
-      <div class="circle_user_image_wrap"><img ng-src="{{STATIC_URL + user.photo}}/70/70" class="circle_user_image"/></div>
+    <div class="circle_banner_image"></div>
+    <div class="circle_owner"><a class="circle_owner_name">{{user.nickname}}</a>
+      <div class="circle_owner_image_wrap"><img ng-src="{{STATIC_URL + user.photo}}/140/140" class="circle_owner_image"/></div>
     </div>
     <circle-card-list circle-list="circleContentList" user="user" kind="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL" class="dl_circle_card_list"></circle-card-list>
+    <div ng-if="circleContentList.length === 0" ng-cloak="ng-cloak" class="no_moment_remind">您还没有发过精彩瞬间，快去活动页发表吧。</div>
     <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
   </ion-content>
   <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment"></circle-comment-box>

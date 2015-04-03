@@ -23,6 +23,7 @@ ion-view
           span(ng-if="!team.brief" ng-cloak) 无
         button.btn_joined(prevent-default ng-if="team.hasJoined && !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak) 已加入小队
         button.btn_join(prevent-default ng-if="!team.hasJoined && !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak) 立即加入
+        a.btn_join.btn_moment(ng-href="#/circle/circle_team/{{team._id}}") 精彩瞬间
       .info_footer.row
         a.col.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak)
           i.icon.ion-image
@@ -71,4 +72,3 @@ ion-view
       campaign-card(ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId")
     ion-infinite-scroll(on-infinite="loadMore()" distance="1%" icon="ion-looping" ng-if="moreDataCanBeLoaded() && !team.isOtherCompanyTeam")
   include ./photo-swipe
-

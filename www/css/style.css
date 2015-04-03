@@ -2740,6 +2740,11 @@ a>.login .companies_list:activated {
   color: #fff;
   background-color: #3ca2e0;
 }
+.team_page .team_info .btn_moment {
+  line-height: 40px;
+  text-decoration: none;
+  font-size: 14px;
+}
 .team_page .team_info .btn_joined {
   color: #3ca2e0;
   background-color: #fff;
@@ -3238,7 +3243,8 @@ a>.login .companies_list:activated {
   background-color: #fff;
 }
 .circle_company_page .remind_icon,
-.circle_user_page .remind_icon {
+.circle_user_page .remind_icon,
+.circle_team_page .remind_icon {
   background-size: 720px 270px;
   background-position: -38px -489px !important;
   width: 32px;
@@ -3246,25 +3252,29 @@ a>.login .companies_list:activated {
   border: none;
 }
 .circle_company_page .custom_ion_content,
-.circle_user_page .custom_ion_content {
+.circle_user_page .custom_ion_content,
+.circle_team_page .custom_ion_content {
   background: #fff;
 }
-.circle_company_page .circle_company_image,
-.circle_user_page .circle_company_image {
+.circle_company_page .circle_banner_image,
+.circle_user_page .circle_banner_image,
+.circle_team_page .circle_banner_image {
   width: 100%;
   display: block;
   background: url("../img/discover.jpg") no-repeat;
   background-size: 100%;
   height: 144px;
 }
-.circle_company_page .circle_user,
-.circle_user_page .circle_user {
+.circle_company_page .circle_owner,
+.circle_user_page .circle_owner,
+.circle_team_page .circle_owner {
   position: relative;
   margin-bottom: 20px;
   z-index: 1;
 }
-.circle_company_page .circle_user .circle_user_name,
-.circle_user_page .circle_user .circle_user_name {
+.circle_company_page .circle_owner .circle_owner_name,
+.circle_user_page .circle_owner .circle_owner_name,
+.circle_team_page .circle_owner .circle_owner_name {
   position: absolute;
   top: -30px;
   right: 95px;
@@ -3272,8 +3282,9 @@ a>.login .companies_list:activated {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
 }
-.circle_company_page .circle_user .circle_user_image_wrap,
-.circle_user_page .circle_user .circle_user_image_wrap {
+.circle_company_page .circle_owner .circle_owner_image_wrap,
+.circle_user_page .circle_owner .circle_owner_image_wrap,
+.circle_team_page .circle_owner .circle_owner_image_wrap {
   display: block;
   position: absolute;
   top: -50px;
@@ -3282,14 +3293,24 @@ a>.login .companies_list:activated {
   background-color: #fff;
   border: 1px solid #e2e2e2;
 }
-.circle_company_page .circle_user .circle_user_image_wrap .circle_user_image,
-.circle_user_page .circle_user .circle_user_image_wrap .circle_user_image {
+.circle_company_page .circle_owner .circle_owner_image_wrap .circle_owner_image,
+.circle_user_page .circle_owner .circle_owner_image_wrap .circle_owner_image,
+.circle_team_page .circle_owner .circle_owner_image_wrap .circle_owner_image {
   display: block;
   width: 70px;
   height: 70px;
 }
+.circle_company_page .no_moment_remind,
+.circle_user_page .no_moment_remind,
+.circle_team_page .no_moment_remind {
+  margin-top: 35px;
+  padding: 10px;
+  line-height: 18px;
+  font-size: 14px;
+}
 .circle_company_page .remind_box,
-.circle_user_page .remind_box {
+.circle_user_page .remind_box,
+.circle_team_page .remind_box {
   display: block;
   margin: 0 auto;
   width: 100px;

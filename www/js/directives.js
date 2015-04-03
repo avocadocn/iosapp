@@ -1012,6 +1012,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       if (!scope.kind) {
         scope.kind = 'company';
       }
+
+      scope.uid = localStorage.id;
+
       var ionicAlert = function(msg) {
         $ionicPopup.alert({
           title: '提示',
@@ -1080,7 +1083,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       scope.hasAppreciate = function(circle) {
         for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
           var appr = circle.appreciate[i];
-          if (appr.poster._id === scope.user._id) {
+          if (appr.poster._id === localStorage.id) {
             return true;
           }
         }
@@ -1106,7 +1109,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       scope.cancelAppreciate = function(circle) {
         for (var i = 0, apprLen = circle.appreciate.length; i < apprLen; i++) {
           var appr = circle.appreciate[i];
-          if (appr.poster._id === scope.user._id) {
+          if (appr.poster._id === localStorage.id) {
             scope.deleteComment(appr._id, circle.appreciate, function() {
               circle.isToComment = false;
             });

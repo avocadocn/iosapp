@@ -1049,8 +1049,11 @@ angular.module('donlerApp.services', [])
           .error(function (data, status) {
             callback('error');
           });
+        },
+        getData: function(id) {
+          return $http.get(CONFIG.BASE_URL + '/companies/' + id);
         }
-      }
+      };
     }])
   .factory('Message', ['$http', 'CONFIG', function ($http, CONFIG) {
     var nowCampaignMessages;
@@ -1442,6 +1445,18 @@ angular.module('donlerApp.services', [])
           url = url + '?last_content_date=' + lastContentDate;
         }
         return $http.get(url);
+      },
+
+      /**
+       * 获取小队的精彩瞬间（同事圈）的内容
+       * @param {String} id 用户id
+       * @param {Object} query 查询条件
+       * @return {HttpPromise}
+       */
+      getTeamCircle: function(id, query) {
+        return $http.get(CONFIG.BASE_URL + '/circle/team/' + id, {
+          params: query
+        });
       },
 
       /**

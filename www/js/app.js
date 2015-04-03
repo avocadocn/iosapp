@@ -483,6 +483,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CircleCompanyController',
         templateUrl: './views/circle-company.html'
       })
+      .state('circle_team', {
+        url: '/circle/circle_team/:teamId',
+        controller: 'CircleTeamController',
+        templateUrl: './views/circle-team.html'
+      })
       .state('circle_user', {
         url: '/circle/circle_user/:userId',
         controller: 'CircleUserController',
