@@ -3173,6 +3173,14 @@ a>.login .companies_list:activated {
 .circle_content_detail_page {
   background-color: #fff;
 }
+.circle_company_page .remind_icon,
+.circle_user_page .remind_icon {
+  background-size: 720px 270px;
+  background-position: -38px -489px !important;
+  width: 32px;
+  box-shadow: none;
+  border: none;
+}
 .circle_company_page .custom_ion_content,
 .circle_user_page .custom_ion_content {
   background: #fff;
@@ -3194,7 +3202,7 @@ a>.login .companies_list:activated {
 .circle_company_page .circle_user .circle_user_name,
 .circle_user_page .circle_user .circle_user_name {
   position: absolute;
-  top: -25px;
+  top: -30px;
   right: 95px;
   color: #fff;
   font-size: 14px;
@@ -3335,7 +3343,7 @@ a>.login .companies_list:activated {
   line-height: 16px;
 }
 .dl_circle_card .circle_info .circle_content {
-  margin-top: 11px;
+  margin-top: 7px;
 }
 .dl_circle_card .circle_info .circle_content .content_text {
   padding: 0;
@@ -3351,7 +3359,7 @@ a>.login .companies_list:activated {
   margin-right: 5px;
 }
 .dl_circle_card .circle_info .image_box {
-  margin-top: 13px;
+  margin-top: 10px;
   width: 240px;
 }
 .dl_circle_card .circle_info .image_box .preview_img {
@@ -3366,6 +3374,7 @@ a>.login .companies_list:activated {
   margin: 0;
   margin-top: 7px;
   font-size: 12px;
+  line-height: 12px;
   max-width: 320px;
   overflow: hidden;
   word-break: break-all;
@@ -3374,7 +3383,7 @@ a>.login .companies_list:activated {
 }
 .dl_circle_card .circle_info .date_and_op {
   position: relative;
-  margin-top: 5px;
+  margin-top: 9px;
   font-size: 12px;
   line-height: 12px;
 }
