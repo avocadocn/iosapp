@@ -5,32 +5,36 @@
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="getRank(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-    <div ng-if="rank.team.length&gt;0" class="rank_table"><a ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-class="team.belong? 'belong': ''" class="row">
-        <div ng-class="$index&lt;3 ? 'top': ''" class="col"><span ng-if="$index&lt;3">TOP</span><span>{{team.rank}}</span></div>
-        <div class="col"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="team_logo"/></div>
-        <div class="col col-50">
-          <p>{{team.name}}</p>
-          <p>{{team.cname}}</p>
-          <p><span>{{team.member_num}} 人</span><span>胜率{{team.win}} : {{team.tie}} : {{team.lose}}</span></p>
+    <div ng-if="rank.team.length&gt;0" class="list rank_table">
+      <div class="item rank_title">
+        <div ng-cloak="ng-cloak" class="rank_name">{{groupType}}小队排行榜</div><a class="pull-right">积分规则</a>
+      </div><a ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-class="team.belong? 'belong': ''" ng-cloak="ng-cloak" class="item rank_line">
+        <div ng-class="$index&lt;3 ? 'top': ''" class="rank_col">
+          <div class="top_flag"><span>{{team.rank}}</span></div>
         </div>
-        <div class="col">{{team.score || 0}}分</div></a></div>
-    <div ng-if="!rank || rank.team.length==0" class="rank_table">
-      <div class="row">
-        <div class="col no_rank_table">目前没有该类型的小队排行</div>
+        <div class="logo_col"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="team_logo"/></div>
+        <div class="content_col">
+          <p class="team_name">{{team.name}}</p>
+          <p class="team_cname">{{team.cname}}</p>
+          <p class="others"><span>积分：{{team.score || 0}}</span><span class="activity_score">活跃度： {{team.activity_score}}</span><span class="odds_percent">胜率：{{team.odds_percent}}%</span></p>
+        </div></a>
+    </div>
+    <div ng-if="!rank || rank.team.length==0" class="list rank_table">
+      <div class="item rank_title">
+        <div class="tip">目前没有该类型的小队排行</div>
       </div>
     </div>
-    <div ng-if="noRankTeams.length&gt;0" class="rank_table">
-      <div class="row">
-        <div class="col">我的小队</div>
-      </div><a ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-if="team.rank" class="row team">
-        <div class="col"><span>{{team.rank}}</span></div>
-        <div class="col"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="team_logo"/></div>
-        <div class="col col-50">
-          <p>{{team.name}}</p>
-          <p>{{team.cname}}</p>
-          <p><span>{{team.member_num}} 人</span><span>胜率{{team.win}} : {{team.tie}} : {{team.lose}}</span></p>
-        </div>
-        <div class="col">{{team.score || 0}}分</div></a>
+    <div ng-if="noRankTeams.length&gt;0" class="list rank_table">
+      <div class="item rank_title">
+        <div class="rank_name">我的小队</div>
+      </div><a ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-if="team.rank" ng-cloak="ng-cloak" class="item rank_line">
+        <div class="rank_col"><span>{{team.rank}}</span></div>
+        <div class="logo_col"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="team_logo"/></div>
+        <div class="name_col">
+          <p class="team_name">{{team.name}}</p>
+          <p class="team_cname">{{team.cname}}</p>
+          <p class="others"><span>积分：{{team.score || 0}}</span><span class="activity_score">活跃度： {{team.activity_score}}</span><span class="odds_percent">胜率： {{team.odds_percent}}%</span></p>
+        </div></a>
     </div>
   </ion-content>
 </ion-view>

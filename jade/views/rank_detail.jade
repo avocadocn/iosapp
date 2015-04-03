@@ -4,35 +4,38 @@ ion-view.rank_page
     h1.title 排行榜
   ion-content
     ion-refresher(on-refresh="getRank(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
-    .rank_table(ng-if="rank.team.length>0")
-      a.row(ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-class="team.belong? 'belong': ''")
-        .col(ng-class="$index<3 ? 'top': ''")
-          span(ng-if="$index<3") TOP
-          span {{team.rank}}
-        .col
+    .list.rank_table(ng-if="rank.team.length>0")
+      .item.rank_title
+        .rank_name(ng-cloak) {{groupType}}小队排行榜
+        a.pull-right 积分规则
+      a.item.rank_line(ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-class="team.belong? 'belong': ''" ng-cloak)
+        .rank_col(ng-class="$index<3 ? 'top': ''")
+          .top_flag
+            span {{team.rank}}
+        .logo_col
           img.team_logo(ng-src="{{STATIC_URL + team.logo}}/40/40")
-        .col.col-50
-          p {{team.name}}
-          p {{team.cname}}
-          p
-           span {{team.member_num}} 人
-           span 胜率{{team.win}} : {{team.tie}} : {{team.lose}}
-        .col {{team.score || 0}}分
-    .rank_table(ng-if="!rank || rank.team.length==0")
-      .row
-        .col.no_rank_table 目前没有该类型的小队排行
-    .rank_table(ng-if="noRankTeams.length>0")
-      .row
-        .col 我的小队
-      a.row.team(ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-if="team.rank")
-        .col
+        .content_col
+          p.team_name {{team.name}}
+          p.team_cname {{team.cname}}
+          p.others
+            span 积分：{{team.score || 0}}
+            span.activity_score 活跃度： {{team.activity_score}}
+            span.odds_percent 胜率：{{team.odds_percent}}%
+    .list.rank_table(ng-if="!rank || rank.team.length==0")
+      .item.rank_title
+        .tip 目前没有该类型的小队排行
+    .list.rank_table(ng-if="noRankTeams.length>0")
+      .item.rank_title
+        .rank_name 我的小队
+      a.item.rank_line(ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-if="team.rank" ng-cloak)
+        .rank_col
           span {{team.rank}}
-        .col
+        .logo_col
           img.team_logo(ng-src="{{STATIC_URL + team.logo}}/40/40")
-        .col.col-50
-          p {{team.name}}
-          p {{team.cname}}
-          p
-            span {{team.member_num}} 人
-            span 胜率{{team.win}} : {{team.tie}} : {{team.lose}}
-        .col {{team.score || 0}}分
+        .name_col
+          p.team_name {{team.name}}
+          p.team_cname {{team.cname}}
+          p.others
+            span 积分：{{team.score || 0}}
+            span.activity_score 活跃度： {{team.activity_score}}
+            span.odds_percent 胜率： {{team.odds_percent}}%

@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <div class="groups">
-      <div ng-repeat="group in groups" class="group"><a href="#/rank/detail/{{group._id}}">
+      <div ng-repeat="group in groups" class="group"><a href="#/rank/detail/{{group._id}}/{{group.groupType}}">
           <div class="img_contain group_{{group._id}}"></div>
           <label for="{{group._id}}">{{group.groupType}}</label></a></div>
     </div>

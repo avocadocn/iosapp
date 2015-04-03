@@ -5,6 +5,6 @@ ion-view.rank_select
   ion-content
     .groups
       .group(ng-repeat='group in groups')
-        a(href="#/rank/detail/{{group._id}}")
+        a(href="#/rank/detail/{{group._id}}/{{group.groupType}}")
           .img_contain(class='group_'+'{{group._id}}')
           label(for='{{group._id}}') {{group.groupType}}

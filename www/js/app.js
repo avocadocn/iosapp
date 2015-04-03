@@ -454,7 +454,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         templateUrl: './views/rank_select.html'
       })
       .state('rank_detail', {
-        url: '/rank/detail/:gid',
+        url: '/rank/detail/:gid/:groupType',
         controller: 'RankDetailController',
         templateUrl: './views/rank_detail.html'
       })

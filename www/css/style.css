@@ -1739,6 +1739,7 @@ a>.login .companies_list:activated {
   padding: 12px 0;
   font-size: 12px;
   line-height: 1;
+  border-right: 0;
 }
 .discover .rank_table .rank_line .team_logo,
 .rank_page .rank_table .rank_line .team_logo {
@@ -1791,20 +1792,7 @@ a>.login .companies_list:activated {
 .discover .rank_table a,
 .rank_page .rank_table a {
   text-decoration: none;
-  border-bottom: 1px solid #e2e2e2;
   align-items: center;
-}
-.discover .rank_table .belong,
-.rank_page .rank_table .belong {
-  color: #3ca2e0;
-}
-.discover .rank_table .top,
-.rank_page .rank_table .top {
-  color: #f00;
-}
-.discover .rank_table .no_rank_table,
-.rank_page .rank_table .no_rank_table {
-  text-align: center;
 }
 .discover {
   background-color: #f7f7f7;
@@ -1903,80 +1891,153 @@ a>.login .companies_list:activated {
 .discover .rank_panel .rank_table {
   margin-top: 0;
 }
+.rank_page .rank_table .rank_title {
+  height: 27px;
+  padding: 8px 15px;
+  background-color: #f7f7f7;
+  font-size: 12px;
+  border-top: 0;
+  line-height: 1;
+}
+.rank_page .rank_table .rank_title .rank_name {
+  float: left;
+}
+.rank_page .rank_table .rank_title .tip {
+  text-align: center;
+}
+.rank_page .rank_table .rank_line {
+  padding: 10px;
+  height: 70px;
+}
+.rank_page .rank_table .rank_line .rank_col {
+  width: 35px;
+  padding: 18px 13px;
+  margin-right: 10px;
+  text-align: center;
+}
+.rank_page .rank_table .rank_line .logo_col {
+  width: 50px;
+}
+.rank_page .rank_table .rank_line .logo_col .team_logo {
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+}
+.rank_page .rank_table .rank_line .content_col {
+  float: left;
+  width: 60%;
+  margin-left: 15px;
+}
+.rank_page .rank_table .rank_line .content_col p {
+  font-size: 12px;
+  line-height: 1;
+  margin-bottom: 9px;
+}
+.rank_page .rank_table .rank_line .content_col p.others,
+.rank_page .rank_table .rank_line .content_col p.team_cname {
+  font-size: 10px;
+}
+.rank_page .rank_table .rank_line .content_col .team_name {
+  color: #202020;
+}
+.rank_page .rank_table .rank_line .content_col .others .activity_score,
+.rank_page .rank_table .rank_line .content_col .others .odds_percent {
+  margin-left: 10px;
+}
+.rank_page .rank_table .rank_line .top .top_flag {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  left: 15px;
+  top: 20px;
+  padding: 7px 9px;
+  background-color: #3ba2e0;
+  border-radius: 100%;
+  color: #fff;
+}
+.rank_page .rank_table .belong {
+  color: #3ca2e0;
+}
+.rank_page .rank_table .belong .no_rank_table {
+  text-align: center;
+}
 .rank_select .groups .group {
   min-width: 50px;
   float: left;
   width: 25%;
   text-align: center;
-  padding: 10px;
+  padding: 16px 18px 22px;
+  background-color: #fff;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 .rank_select .groups .group a {
   text-decoration: none;
 }
 .rank_select .groups .group a label {
-  color: #000;
+  color: #202020;
 }
 .rank_select .groups .group a label.active {
   color: #3ca2e0;
 }
 .rank_select .groups .group a .img_contain {
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
   background-image: url("../img/icons/groups_new.png");
   background-repeat: no-repeat;
-  background-size: 600px 1500px;
+  background-size: 300px 750px;
   margin: 0 auto;
 }
 .rank_select .groups .group a .group_1 {
   background-position: 0px 0px;
 }
 .rank_select .groups .group a .group_2 {
-  background-position: -100px 0px;
+  background-position: -50px 0px;
 }
 .rank_select .groups .group a .group_3 {
-  background-position: -200px 0px;
+  background-position: -100px 0px;
 }
 .rank_select .groups .group a .group_4 {
-  background-position: -300px 0px;
+  background-position: -150px 0px;
 }
 .rank_select .groups .group a .group_5 {
-  background-position: -400px 0px;
+  background-position: -200px 0px;
 }
 .rank_select .groups .group a .group_6 {
-  background-position: -500px 0px;
+  background-position: -250px 0px;
 }
 .rank_select .groups .group a .group_7 {
-  background-position: 0px -100px;
+  background-position: 0px -50px;
 }
 .rank_select .groups .group a .group_8 {
-  background-position: -100px -100px;
+  background-position: -50px -50px;
 }
 .rank_select .groups .group a .group_9 {
-  background-position: -200px -100px;
+  background-position: -100px -50px;
 }
 .rank_select .groups .group a .group_10 {
-  background-position: -300px -100px;
+  background-position: -150px -50px;
 }
 .rank_select .groups .group a .group_11 {
-  background-position: -400px -100px;
+  background-position: -200px -50px;
 }
 .rank_select .groups .group a .group_12 {
-  background-position: -500px -100px;
+  background-position: -250px -50px;
 }
 .rank_select .groups .group a .group_13 {
-  background-position: 0px -200px;
+  background-position: 0px -100px;
 }
 .rank_select .groups .group a .group_14 {
-  background-position: -100px -200px;
+  background-position: -50px -100px;
 }
 .rank_select .groups .group a .group_15 {
-  background-position: -200px -200px;
+  background-position: -100px -100px;
 }
 .rank_select .groups .group a .group_16 {
-  background-position: -300px -200px;
+  background-position: -150px -100px;
 }
 .rank_select .groups .group a .group_17 {
-  background-position: -400px -200px;
+  background-position: -200px -100px;
 }
 .company .company_image {
   width: 100%;

@@ -3646,7 +3646,9 @@ angular.module('donlerApp.controllers', [])
         gid: $state.params.gid,
         province: localStorage.province || '上海市',
         city: localStorage.city || '上海市'
-      }
+      };
+
+      $scope.groupType = $state.params.groupType;
       Rank.getRank(data,function (err,data) {
         if (err) {
           // todo
@@ -3656,11 +3658,10 @@ angular.module('donlerApp.controllers', [])
           $scope.noRankTeams = [];
           if(data.team) {
             data.team.forEach(function(_team, index){
-
-              if(_team.rank>10 || _team.rank==0) {
+              if(_team.rank>10) {
                 $scope.noRankTeams.push(_team);
               }
-              else{
+              else if(_team.rank>0) {
                 $scope.rank.team[_team.rank-1].belong=true;
               }
 

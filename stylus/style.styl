@@ -1474,6 +1474,7 @@ textarea
       padding 12px 0
       font-size 12px
       line-height 1
+      border-right 0
       .team_logo
         border-radius 3px
         width 30px
@@ -1502,14 +1503,8 @@ textarea
         color #666
     a
       text-decoration none
-      border-bottom 1px solid #e2e2e2
       align-items center
-    .belong
-        color #3ca2e0
-      .top
-        color red
-      .no_rank_table
-        text-align center
+    
 //-发现页
 .discover
   background-color #f7f7f7
@@ -1594,6 +1589,65 @@ textarea
       margin-top 0
       //- height 290px
 
+//- 排行榜详细页
+.rank_page
+  //-覆盖样式
+  .rank_table
+    .rank_title
+      height 27px
+      padding 8px 15px
+      background-color #f7f7f7
+      font-size 12px
+      border-top 0
+      line-height 1
+      .rank_name
+        float left
+      .tip
+        text-align center
+    .rank_line
+      padding 10px
+      height 70px
+      .rank_col
+        width 35px
+        padding 18px 13px
+        margin-right 10px
+        text-align center
+      .logo_col
+        width 50px
+        .team_logo
+          height 50px
+          width 50px
+          border-radius 5px
+      .content_col
+        float left
+        width 60%
+        margin-left 15px
+        p
+          font-size 12px
+          line-height 1
+          margin-bottom 9px
+        p.others, p.team_cname
+          font-size 10px
+        .team_name
+          color #202020
+        .others
+          .activity_score, .odds_percent
+            margin-left 10px
+      .top
+        .top_flag
+          width 25px
+          height 25px
+          position absolute
+          left 15px
+          top 20px
+          padding 7px 9px
+          background-color #3ba2e0
+          border-radius 100%
+          color #fff
+    .belong
+      color #3ca2e0
+      .no_rank_table
+        text-align center
 
 //-选择小队类型
 .rank_select
@@ -1603,23 +1657,26 @@ textarea
       float left
       width 25%
       text-align center
-      padding 10px
+      padding 16px 18px 22px
+      background-color #fff
+      border-right 1px solid #eee
+      border-bottom 1px solid #eee
       a
         text-decoration none
         label
-          color black
+          color #202020
           &.active
             color #3ca2e0
         .img_contain
-          width 50px
-          height 50px
+          width 25px
+          height 25px
           background-image url('../img/icons/groups_new.png')
           background-repeat no-repeat
-          background-size 600px 1500px
+          background-size 300px 750px
           margin 0 auto
         for i in 0..16
           .group_{i+1}
-            background-position i%6 * -100px floor(i/6) * -100px
+            background-position i%6 * -50px floor(i/6) * -50px
 
 //公司页
 .company
