@@ -492,10 +492,5 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/circle/reminds',
         controller: 'CircleRemindsController',
         templateUrl: './views/circle-reminds.html'
-      })
-      .state('circle_uploader', {
-        url: '/circle/uploader/:campaignId',
-        templateUrl: './views/circle_uploader.html',
-        controller: 'CircleUploaderController'
       });
   });

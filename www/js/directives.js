@@ -1564,6 +1564,12 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         };
       }
 
+      scope.change = function() {
+        var element = document.getElementById('circle_post_page_publish_content');
+        element.style.height = 'auto';
+        element.style.height = element.scrollHeight + "px";
+      };
+
       scope.publish = function() {
         var circleContentId;
         Circle.preCreate(scope.campaign._id, scope.publishFormData.content)

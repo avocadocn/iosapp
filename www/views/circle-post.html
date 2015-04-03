@@ -4,11 +4,9 @@
     <button ng-click="publish()" form="publishForm" ng-disabled="uploadURIs.length === 0 || !formCtrl.unOverMax" class="button icon-right">发布</button>
   </ion-header-bar>
   <ion-content>
-    <form name="publishForm" class="card">
+    <form name="publishForm" class="list">
       <div class="item">
-        <textarea rows="1" ng-model="publishFormData.content" ng-change="change()" ng-trim="false" mix-max-length="280" mix-max-length-valid="formCtrl.unOverMax" autofocus="autofocus" placeholder="精彩瞬间的故事" class="publish_content"></textarea>
-      </div>
-      <div class="item">
+        <textarea id="circle_post_page_publish_content" rows="1" ng-model="publishFormData.content" ng-change="change()" ng-trim="false" mix-max-length="2000" mix-max-length-valid="formCtrl.unOverMax" placeholder="精彩瞬间的故事" class="publish_content"></textarea>
         <div class="clearfix">
           <div ng-repeat="uri in uploadURIs" square="square" class="preview_img_box"><img ng-src="{{uri}}" class="preview_img"/></div>
           <div ng-click="add()" ng-if="canUploadMore" square="square" class="button_add">
@@ -16,9 +14,11 @@
           </div>
         </div>
       </div>
-      <div class="item">
+    </form>
+    <div class="list">
+      <div class="item circle_campaign_info">
         <p ng-bind="campaign.theme"></p>
       </div>
-    </form>
+    </div>
   </ion-content>
 </ion-modal-view>
