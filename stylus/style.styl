@@ -418,7 +418,7 @@ textarea
     padding-top 10px
     border-bottom 1px solid #ddd
     .dl_card_header
-      height 26px
+      height 20px
       margin-bottom 10px
       .dl_card_header_info
         .dl_cp_name
@@ -430,7 +430,7 @@ textarea
       .dl_card_time
         position absolute
         right 10px
-        top 12px
+        top 8px
         .dl_cp_time_countdown
           width 92px
           height 22px
@@ -494,6 +494,7 @@ textarea
             float left
         .dl_cp_member
           margin-bottom 0
+          line-height 16px
           .number
               color #f48361
     .dl_card_footer
@@ -501,6 +502,10 @@ textarea
       color #c2c1c1
       .dl_team_name
         float left
+        max-width 45%
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
       .dl_campaign_comment,.dl_campaign_circle,.dl_cp_time
         float right
         margin-right 10px
