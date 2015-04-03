@@ -34,26 +34,21 @@ angular.module('donlerApp.filters', [])
 })
 .filter('beforeNow', function() {
   return function(input) {
-    var today = new Date();
-    today.setHours(0);
-    today.setMinutes(0);
-    today.setSeconds(0);
     //new Date(input) will invalidDate in safari
     //must user new Date('2014-02-18T15:00:48'.replace(/\s/, 'T'))
     var date = new Date(input.replace(/\s/, 'T'));
-    var intervalMilli = today.getTime() - date.getTime();
-    var xcts = Math.floor(intervalMilli / (24 * 60 * 60 * 1000));
     var now = Date.now();
     var intervalMilliForNow = now - date.getTime();
+    var xcts = intervalMilliForNow / (24 * 60 * 60 * 1000);
     var result;
-    if(xcts>1){
-      result = xcts+'天前';
+    if(Math.floor(xcts)>=1){
+      result = Math.floor(xcts)+'天前';
     }
-    else if (Math.floor(intervalMilliForNow / (60 * 60 * 1000))>=1) {
-      result = Math.floor(intervalMilliForNow / (60 * 60 * 1000))+'小时前';
+    else if (Math.floor(xcts*24)>=1) {
+      result = Math.floor(xcts*24)+'小时前';
     }
-    else if (Math.floor(intervalMilliForNow / (60 * 1000))>=1) {
-      result = Math.floor(intervalMilliForNow / (60 * 1000))+'分前';
+    else if (Math.floor(xcts*24*60)>=1) {
+      result = Math.floor(xcts*24*60)+'分前';
     }
     else{
       result = '刚刚';
