@@ -6,45 +6,51 @@
   <ion-content>
     <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-if="!hasSelected" class="select_team">
-      <div class="units clearfix">
-        <div ng-repeat="team in myTeams" ng-class="{'leader':team.isLeader}" ng-click="selectTeam($index)" class="unit"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="logo"/>
-          <div class="text"><span class="title">{{team.name }}</span></div>
-          <button ng-if="team.isLeader" class="button button-small button-calm">为它选对手</button>
-          <button ng-if="!team.isLeader" class="button button-small button-calm">给它推荐对手</button>
+      <div ng-if="leadTeams.length&gt;0" class="item item-divider">为我管理的小队找对手</div>
+      <div ng-if="leadTeams.length&gt;0" class="units clearfix">
+        <div ng-repeat="team in leadTeams" ng-class="{'leader':team.isLeader}" ng-click="selectTeam(team.isLeader,$index)" class="unit"><img ng-src="{{STATIC_URL + team.logo}}/30/30" class="logo"/>
+          <div class="text">{{team.name }}</div>
+        </div>
+      </div>
+      <div ng-if="memberTeams.length&gt;0" class="item item-divider clear_both">为我参加的小队推荐对手</div>
+      <div ng-if="memberTeams.length&gt;0" class="units clearfix">
+        <div ng-repeat="team in memberTeams" ng-class="{'leader':team.isLeader}" ng-click="selectTeam(team.isLeader,$index)" class="unit"><img ng-src="{{STATIC_URL + team.logo}}/30/30" class="logo"/>
+          <div class="text">{{team.name }}</div>
         </div>
       </div>
     </div>
     <div ng-if="hasSelected" class="selected_team">
-      <div class="team"><img ng-src="{{STATIC_URL +myTeam.logo}}/40/40" class="logo"/>
+      <div class="team item now_team"><img ng-src="{{STATIC_URL +myTeam.logo}}/30/30" class="logo"/>
         <div class="text">
           <div class="tname">{{myTeam.name}}</div>
           <div class="type">{{myTeam.groupType}}</div>
-          <div class="leader">队长: {{myTeam.leaders[0].nickname}}</div>
         </div>
-        <button ng-click="changeTeam()" class="button button-small button-calm">更换小队</button>
+        <div class="operator">
+          <button ng-click="changeTeam()" class="button button-small button-clear change_team">更换小队</button>
+        </div>
       </div>
       <div class="tab_view">
         <ul class="nav">
           <li ng-class="{'active':nowTab=='sameCity'}" class="opponent_tab_style sameCity"><a ng-click="changeFilter('sameCity')"> <span>同城</span></a></li>
           <li ng-class="{'active':nowTab=='nearbyTeam'}" class="opponent_tab_style nearbyTeam"><a ng-click="changeFilter('nearbyTeam')"> <span>附近</span></a></li>
           <li ng-class="{'active':nowTab=='search'}" class="opponent_tab_style search"><a ng-click="changeFilter('search')"> 
-              <input ng-disabled="!myTeam" ng-model="$parent.keywords" placeholder="公司名字、小队名" class="searchOpponentInput"/>
+              <input ng-disabled="!myTeam" ng-model="$parent.keywords" placeholder="公司名字、小队名" class="search_opponent_input"/>
               <button ng-click="search()" class="search_button button icon ion-search"></button></a></li>
         </ul>
         <div class="tab_content">
           <div ng-if="teams.length&gt;0" class="teams">
-            <div ng-click="gotTeamDetail(team._id)" ng-repeat="team in teams" class="team"><img ng-src="{{STATIC_URL +team.logo}}/40/40" class="logo"/>
+            <div ng-click="gotTeamDetail(team._id)" ng-repeat="team in teams" class="team"><img ng-src="{{STATIC_URL +team.logo}}/45/45" class="logo"/>
               <div class="text">
                 <div class="tname">{{team.name}}</div>
                 <div class="leader">公司: {{team.cname}}</div>
-                <div class="rank">排名: {{team.score_rank.rank}}</div>
+                <div class="rank"><span>排名: {{team.rank}}</span><span>积分: {{team.score}}</span><span>活跃度: {{team.activity_score}}</span><span>胜率: {{team.odds_percent}}%</span></div>
               </div>
             </div>
           </div>
-          <div ng-if="teams.length==0" class="no_more_team">没有可以推荐的小队了</div>
+          <div ng-if="teams.length==0" class="no_more_team"><span>没有可以推荐的小队了</span></div>
           <div ng-if="teams.length&gt;0 &amp;&amp;page&lt;maxPage" class="operator">
-            <button ng-if="nowTab=='sameCity'" ng-click="changeRecommendTeam(nowTab)" class="button button-small button-calm">换一批</button>
-            <button ng-if="nowTab!=='sameCity'" ng-click="moreTeam(nowTab)" class="button button-small button-calm">显示更多</button>
+            <button ng-if="nowTab=='sameCity'" ng-click="changeRecommendTeam(nowTab)" class="button button-small button-clear">点击更换一批</button>
+            <button ng-if="nowTab!=='sameCity'" ng-click="moreTeam(nowTab)" class="button button-small button-clear">点击显示更多</button>
           </div>
         </div>
       </div>

@@ -4586,21 +4586,39 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           // todo
           console.log(err);
-          $scope.myTeams =[];
+          $scope.leadTeams = [];
+          $scope.memberTeams = [];
         } else {
-
-          $scope.myTeams = teams.sort(function (last,next) {
-            return next.isLeader - last.isLeader;
+          var leadTeams = [];
+          var memberTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else {
+              memberTeams.push(team);
+            }
           });
-          INFO.myTeams = $scope.myTeams;
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+          INFO.myTeams = teams;
           callback && callback();
         }
       });
     };
     if(INFO.myTeams) {
-      $scope.myTeams = INFO.myTeams.sort(function (last,next) {
-        return next.isLeader - last.isLeader;
+      var leadTeams = [];
+      var memberTeams = [];
+      INFO.myTeams.forEach(function(team) {
+        if(team.isLeader) {
+          leadTeams.push(team);
+        }
+        else {
+          memberTeams.push(team);
+        }
       });
+      $scope.leadTeams = leadTeams;
+      $scope.memberTeams = memberTeams;
     }
     else{
       getMyTeams();
@@ -4656,9 +4674,10 @@ angular.module('donlerApp.controllers', [])
         getSearchTeam(newVal);
       }
     });
-    $scope.selectTeam = function (index) {
+    $scope.selectTeam = function (isLeader, index) {
       $scope.hasSelected = true;
-      $scope.myTeam = $scope.myTeams[index];
+
+      $scope.myTeam = isLeader ? $scope.leadTeams[index] :$scope.memberTeams[index] ;
       $scope.nowTab = 'sameCity';
       $scope.coordinates =[];
       $scope.myTeam.homeCourts.forEach(function(homeCourt, index){

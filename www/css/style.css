@@ -3,12 +3,12 @@ html {
   font-size: 12px;
 }
 body {
-  background-color: #e2e2e2;
+  background-color: #f7f7f7;
   font-size: 12px;
 }
 .pane,
 .view {
-  background-color: #e2e2e2;
+  background-color: #f7f7f7;
 }
 input::-webkit-input-placeholder {
   color: #3ca2e0;
@@ -3857,33 +3857,29 @@ a>.login .companies_list:activated {
   border-radius: 5px;
   width: 100%;
 }
+.search_opponent .select_team .clear_both {
+  clear: both;
+}
+.search_opponent .select_team .units {
+  background-color: #fff;
+}
 .search_opponent .select_team .units .unit {
   float: left;
-  width: 30%;
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff;
-  border-radius: 5px;
-  margin: 5px;
-  border: 1px solid #3ca2e0;
-  box-shadow: 1px 1px 3px #c8cac7;
+  width: 33.333%;
+  border-right: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
   text-align: center;
-}
-.search_opponent .select_team .units .unit.leader {
-  border: 1px solid #f48361;
+  padding: 15px;
+  height: 90px;
 }
 .search_opponent .select_team .units .unit .logo {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
 }
-.search_opponent .select_team .units .unit .text .title {
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin-bottom: 10px;
-  float: left;
+.search_opponent .select_team .units .unit .text {
+  max-height: 38px;
+  overflow-y: hidden;
 }
 .search_opponent .select_team .units .unit .button {
   width: 100%;
@@ -3891,11 +3887,45 @@ a>.login .companies_list:activated {
   background-color: #ccc;
   box-shadow: 0 0 0;
 }
-.search_opponent .selected_team .team .logo {
-  width: 50px;
+.search_opponent .selected_team .team {
   height: 50px;
+  padding: 10px 15px;
+  position: relative;
+}
+.search_opponent .selected_team .team .logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
   margin-right: 10px;
-  float: left;
+  position: absolute;
+  left: 15px;
+  top: 10px;
+}
+.search_opponent .selected_team .team .text {
+  line-height: 15px;
+  color: #666;
+  font-size: 10px;
+  width: 100%;
+}
+.search_opponent .selected_team .team .text .tname {
+  font-size: 12px;
+  color: #202020;
+}
+.search_opponent .selected_team .team .operator {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  border-left: 1px solid #e2e2e2;
+  padding-left: 15px;
+}
+.search_opponent .selected_team .team .operator .change_team {
+  color: #3ca2e0;
+}
+.search_opponent .selected_team .team.now_team {
+  margin-top: 10px;
+}
+.search_opponent .selected_team .team.now_team .text {
+  padding: 0 40px;
 }
 .search_opponent .selected_team .tab_view {
   width: 100%;
@@ -3903,78 +3933,108 @@ a>.login .companies_list:activated {
   margin-top: 10px;
 }
 .search_opponent .selected_team .tab_view .tab_content {
-  padding: 50px 0 10px 0;
+  padding: 40px 0 0;
 }
 .search_opponent .selected_team .tab_view .tab_content .team {
   float: left;
   padding: 10px;
   text-decoration: none;
-  color: #3ca2e0;
   width: 100%;
-  background-color: #fff;
+  border-bottom: 1px solid #e2e2e2;
+  height: 65px;
 }
-.search_opponent .selected_team .tab_view .tab_content .operator {
+.search_opponent .selected_team .tab_view .tab_content .team .text {
+  padding-left: 60px;
+}
+.search_opponent .selected_team .tab_view .tab_content .team .text .rank span {
+  white-space: nowrap;
+  margin-right: 5px;
+}
+.search_opponent .selected_team .tab_view .tab_content .team .logo {
+  width: 45px;
+  height: 45px;
+}
+.search_opponent .selected_team .tab_view .tab_content .operator,
+.search_opponent .selected_team .tab_view .tab_content .no_more_team {
   clear: both;
   text-align: center;
+  background-color: #f7f7f7;
+  color: #b2b2b2;
+  font-size: 14px;
 }
-.search_opponent .selected_team .tab_view .opponent_tab_style {
-  width: 30%;
+.search_opponent .selected_team .tab_view .tab_content .no_more_team {
+  padding-top: 10px;
+}
+.search_opponent .selected_team .tab_view .nav {
+  border-bottom: 1px solid #e2e2e2;
+  float: left;
+  width: 100%;
+  height: 40px;
+}
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style {
   float: left;
   text-align: center;
-  background-color: #3ca2e0;
-  border-right: 1px solid #3ca2e0;
+  border-right: 1px solid #e2e2e2;
+  height: 100%;
 }
-.search_opponent .selected_team .tab_view .opponent_tab_style a {
-  font-size: 16px;
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style a {
+  font-size: 14px;
   height: 100%;
   padding: 10px;
   display: block;
-  color: #fff;
+  color: rgba(102,102,102,0.4);
 }
-.search_opponent .selected_team .tab_view .opponent_tab_style.active {
-  background-color: #fff;
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.active {
+  border-bottom: 2px solid #3ca2e0;
 }
-.search_opponent .selected_team .tab_view .opponent_tab_style.active a {
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.active a {
   color: #3ca2e0;
 }
-.search_opponent .selected_team .tab_view .sameCity {
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.sameCity {
   width: 25%;
 }
-.search_opponent .selected_team .tab_view .nearbyTeam {
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.nearbyTeam {
   width: 25%;
 }
-.search_opponent .selected_team .tab_view .nearbyTeam .nav_img {
-  width: 16px;
-}
-.search_opponent .selected_team .tab_view .search {
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.search {
   width: 50%;
   position: relative;
 }
-.search_opponent .selected_team .tab_view .search a {
-  padding: 5px;
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.search input::-webkit-input-placeholder {
+  color: #ababab;
 }
-.search_opponent .selected_team .tab_view .search .searchOpponentInput {
-  height: 30px;
-  width: 280px;
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.search input::-moz-placeholder {
+  color: #ababab;
+}
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.search input:-ms-input-placeholder {
+  color: #ababab;
+}
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.search a {
+  padding: 7px 10px;
+}
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.search .search_opponent_input {
+  height: 25px;
   border-radius: 5px;
-  border: 0;
+  border: 1px solid #e2e2e2;
   padding: 8px 10px;
-  color: #3ca2e0;
-  background-color: #e2e2e2;
+  color: #666;
+  font-size: 12px;
 }
-.search_opponent .selected_team .tab_view .search .search_button {
-  height: 30px;
-  min-height: 30px;
-  width: 30px;
-  min-width: 30px;
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.search .search_button {
+  height: 100%;
+  min-height: 14px;
+  width: 14px;
+  min-width: 14px;
   position: absolute;
-  right: 0;
+  right: 20px;
   top: 0;
   background-color: transparent;
-  color: #3ca2e0;
-  font-size: 22px;
+  color: #ababab;
   padding: 0;
   border: none;
+}
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style.search .search_button:before {
+  font-size: 18px;
 }
 .competition_team {
   background-color: #fff;
