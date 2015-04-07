@@ -3346,13 +3346,17 @@ a>.login .companies_list:activated {
 }
 .circle_reminds_page .remind_item {
   position: relative;
+  padding-right: 88px;
+}
+.circle_reminds_page .item_date {
+  color: #999;
 }
 .circle_reminds_page .content_preview {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 40px;
-  height: 40px;
+  width: 64px;
+  height: 64px;
 }
 .circle_comment_wrap {
   position: fixed;
