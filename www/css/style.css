@@ -1978,9 +1978,9 @@ a>.login .companies_list:activated {
 .rank_select .groups .group {
   min-width: 50px;
   float: left;
-  width: 25%;
+  width: 33.33333%;
   text-align: center;
-  padding: 16px 18px 22px;
+  padding: 19px 18px 22px;
   background-color: #fff;
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
@@ -2052,6 +2052,9 @@ a>.login .companies_list:activated {
 }
 .rank_select .groups .group a .group_17 {
   background-position: -200px -100px;
+}
+.rank_rules .list .card {
+  margin-top: 0;
 }
 .company .company_image {
   width: 100%;
