@@ -21,12 +21,6 @@
   "cordovaPlugins": [
     "org.apache.cordova.device",
     "org.apache.cordova.inappbrowser",
-    "org.apache.cordova.file",
-    "org.apache.cordova.file-transfer",
-    "org.apache.cordova.camera",
-    "org.apache.cordova.statusbar",
-    "de.appplant.cordova.plugin.local-notification",
-    "org.apache.cordova.geolocation",
-    "com.ionic.keyboard"
+    "org.apache.cordova.geolocation"
   ]
 }

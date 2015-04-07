@@ -7,9 +7,9 @@
     <div class="calendar">
       <nav>
         <div ng-if="view==='month'" class="operator item tabs">
-          <div ng-click="preMonth()" class="tab-item"><i class="icon icon_small icon_blue icon_margin_left ion-chevron-left"></i></div>
-          <div class="tab-item icon_blue">{{ current_year }} - {{ current_month.format_month }}</div>
-          <div ng-click="nextMonth()" class="tab-item"><i class="icon icon_small icon_blue icon_margin_right ion-chevron-right"></i></div>
+          <div ng-click="preMonth()" class="tab-item"><i class="icon icon_small ion-chevron-left"></i></div>
+          <div class="tab-item">{{ current_year }} - {{ current_month.format_month }}</div>
+          <div ng-click="nextMonth()" class="tab-item"><i class="icon icon_small ion-chevron-right"></i></div>
         </div>
         <div ng-if="view!=='year'" class="week text-center clearfix">
           <div class="day">日</div>
@@ -22,7 +22,7 @@
         </div>
         <div ng-if="view==='day'" class="date_list text-center clearfix">
           <div ng-repeat="date in current_week_date" ng-class="{other_month: !date.is_current_month, today: date.is_today===true, current_day: date.is_current===true}" ng-click="dayView(date)" class="date_box"> 
-            <div class="date">{{ date.getDate() }}</div><span ng-if="date.is_current_month &amp;&amp; date.joined_events.length&gt;0" class="calendar_campaign_join">{{date.joined_events.length}}</span><span ng-if="date.is_current_month &amp;&amp; date.unjoined_events.length&gt;0" class="calendar_campaign_unjoin">{{date.unjoined_events.length}}</span>
+            <div class="date">{{ date.getDate() }}</div><span ng-if="date.is_current_month &amp;&amp; date.events.length&gt;0" class="campaign_count">{{date.events.length}}</span>
           </div>
         </div>
       </nav>
@@ -31,11 +31,12 @@
           <ion-scroll direction="x" scrollbar-x="false">
             <div detect-gestures="detect-gestures" gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth" class="clearfix">
               <div ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true};day.first_day" class="calendar_day text-center">
-                <div class="calendar_date">{{ day.date }}</div><span ng-if="day.joined_events.length&gt;0" class="calendar_campaign_join">{{day.joined_events.length}}</span><span ng-if="day.unjoined_events.length&gt;0" class="calendar_campaign_unjoin">{{day.unjoined_events.length}}</span>
+                <div class="calendar_date">{{ day.date }}</div><span ng-if="day.events.length&gt;0" class="calendar_campaign_count">{{day.events.length}}</span>
               </div>
             </div>
           </ion-scroll>
           <div ng-if="view!=='year'" class="text-center today_container">
+            <button ng-click="today()" class="button button-outline button-positive today">今天</button>
           </div>
         </div>
         <ion-scroll detect-gestures="detect-gestures" gesture-type="swiperight,swipeleft" getsture-callback="preDay,nextDay" scrollbar-y="false" ng-if="view==='day'" auto-height="121" class="calendar_day clearfix">
