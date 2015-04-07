@@ -122,6 +122,30 @@ angular.module('donlerApp.filters', [])
     return result;
   };
 }])
+.filter("formatCompeitionStatus", [function() {
+  return function(input, sponsor) {
+    var result = '';
+    switch(input) {
+      case 'sent':
+        result = sponsor ?'等待对方同意':'新挑战';
+        break;
+      case 'accepted':
+        result = sponsor ?'对方已回应':'已回应';
+        break;
+      case 'rejected':
+        result = sponsor ?'对方已拒绝':'已拒绝';
+        break;
+      case 'competing':
+        result = '活动已发出';
+        break;
+      case 'deal_timeout':
+      case 'competion_timeout':
+        result = '已过期';
+        break;
+    }
+    return result;
+  };
+}])
 .filter("scoreResultFormat", [function() {
   return function(input) {
     var result = '';

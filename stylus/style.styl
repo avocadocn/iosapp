@@ -2980,13 +2980,13 @@ textarea
     .type_filter
       text-align center
       .button
-        border-bottom 2px solid #ccc
+        border-bottom 1px solid #ccc
         opacity 1
         color #666
         height 40px
         &.active
           color col_blue
-          border-bottom 2px solid col_blue
+          border-bottom 4px solid col_blue
       .splite
         position: absolute
         width 1px
@@ -2999,6 +2999,17 @@ textarea
       color #666
       background-color white
       text-align center
+      font-size 10px
+      .unread_status
+        .dot
+          width 10px
+          height 10px
+          background-color red
+          border-radius 100%
+          display inline-block
+          margin-top 15px
+      .text_left
+        text-align left
       .status_text
         margin 10px 0
         font-size 12px
@@ -3010,12 +3021,9 @@ textarea
         text-overflow ellipsis
         white-space nowrap
         width 100%
-      .dot
-        width 10px
-        height 10px
-        background-color red
-        border-radius 100%
-        display inline-block
+      .competition_type
+        min-width 40px
+        font-size 12px
     .operator
       text-align center
   .competition_message_detail

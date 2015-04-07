@@ -10,15 +10,15 @@ ion-view.competition_message_panel
         span.splite
         button.button.button-clear(ng-click="typeFilter('receive')" ng-class="messageType=='receive'?'active':''") 收到
       a.row.competition_message(ng-repeat="competitionMessage in competitionMessages" ng-href="#/competition_message/detail/{{competitionMessage._id}}")
-        .col.col-10
+        .col.col-10.unread_status
           .dot(ng-if="competitionMessage.unread")
-        .col.col-33
-          .status_text {{competitionMessage.status}}
+        .col.col-33.text_left
+          .status_text {{competitionMessage.status | formatCompeitionStatus:competitionMessage.isSponsor}}
           .create_time {{competitionMessage.create_time | date:'yyyy-M-dd HH:mm'}}
         .col
           img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40")
           .team_name {{competitionMessage.sponsor_team.name}}
-        .col.col-10.col-center(ng-bind="competitionMessage.competition_type==1 ? '挑战' :'联谊'")
+        .col.col-10.col-center.competition_type(ng-bind="competitionMessage.competition_type==1 ? '挑战' :'联谊'")
         .col
           img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40")
           .team_name {{competitionMessage.opposite_team.name}}

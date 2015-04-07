@@ -3582,14 +3582,14 @@ a>.login .companies_list:activated {
   text-align: center;
 }
 .competition_message_panel .competition_message_list .type_filter .button {
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
   opacity: 1;
   color: #666;
   height: 40px;
 }
 .competition_message_panel .competition_message_list .type_filter .button.active {
   color: #3ca2e0;
-  border-bottom: 2px solid #3ca2e0;
+  border-bottom: 4px solid #3ca2e0;
 }
 .competition_message_panel .competition_message_list .type_filter .splite {
   position: absolute;
@@ -3604,6 +3604,18 @@ a>.login .companies_list:activated {
   color: #666;
   background-color: #fff;
   text-align: center;
+  font-size: 10px;
+}
+.competition_message_panel .competition_message_list .competition_message .unread_status .dot {
+  width: 10px;
+  height: 10px;
+  background-color: #f00;
+  border-radius: 100%;
+  display: inline-block;
+  margin-top: 15px;
+}
+.competition_message_panel .competition_message_list .competition_message .text_left {
+  text-align: left;
 }
 .competition_message_panel .competition_message_list .competition_message .status_text {
   margin: 10px 0;
@@ -3619,12 +3631,9 @@ a>.login .companies_list:activated {
   white-space: nowrap;
   width: 100%;
 }
-.competition_message_panel .competition_message_list .competition_message .dot {
-  width: 10px;
-  height: 10px;
-  background-color: #f00;
-  border-radius: 100%;
-  display: inline-block;
+.competition_message_panel .competition_message_list .competition_message .competition_type {
+  min-width: 40px;
+  font-size: 12px;
 }
 .competition_message_panel .competition_message_list .operator {
   text-align: center;
