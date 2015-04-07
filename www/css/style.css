@@ -2144,18 +2144,35 @@ a>.login .companies_list:activated {
   display: block;
   top: 16px;
 }
-.contacts .search_box {
+.contacts .search_box,
+.map_select .search_box {
   width: 100%;
   background-color: #e2e2e2;
 }
-.contacts .search_box .item-input-wrapper {
+.contacts .search_box .item-input-wrapper,
+.map_select .search_box .item-input-wrapper {
   background-color: #fff;
 }
-.contacts .search_box input {
+.contacts .search_box input,
+.map_select .search_box input {
   background-color: #fff;
 }
 .contacts .bar {
   padding: 0;
+}
+.map_select {
+  background-color: #f7f7f7;
+}
+.map_select .search_box {
+  height: 40px;
+  padding: 9px;
+}
+.map_select .map_container {
+  height: 360px;
+}
+.map_select .name {
+  background-color: #fff;
+  padding: 5px;
 }
 .settings_account a.item {
   color: #444;
@@ -2230,6 +2247,9 @@ a>.login .companies_list:activated {
 .edit_info .list .item-input input {
   color: #3ca2e0;
 }
+.edit_info .list .item-input input[readonly] {
+  background-color: #fff;
+}
 .edit_info .list .item-input .introduce {
   color: #3ca2e0;
   resize: none;
@@ -2242,13 +2262,10 @@ a>.login .companies_list:activated {
   font-size: 16px;
   color: #666;
 }
-.edit_info .list .item-icon-right input {
-  z-index: 2;
-}
 .edit_info .list .item-icon-right .icon {
   color: #999;
   z-index: 1;
-  font-size: 24px;
+  font-size: 18px;
 }
 .edit_team_info .list {
   background-color: #fff;
@@ -3196,21 +3213,40 @@ a>.login .companies_list:activated {
   width: 100%;
 }
 .sponsor {
-  background-color: #efefef;
+  background-color: #f7f7f7;
 }
 .sponsor .list {
   margin-top: 10px;
 }
-.sponsor .list .row {
+.sponsor .list .competition {
   align-items: center;
   font-size: 14px;
   color: #202020;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  height: 92px;
+  padding: 15px;
 }
-.sponsor .list .row .col {
+.sponsor .list .competition .col {
   text-align: center;
 }
-.sponsor .list .row .col_sm {
-  flex: 0.3;
+.sponsor .list .competition .col_sm {
+  flex: 0.25;
+  padding: 0;
+}
+.sponsor .list .competition .col_center {
+  flex: 0.5;
+}
+.sponsor .list .competition .team_logo {
+  height: 60px;
+  width: 60px;
+  border-radius: 5px;
+}
+.sponsor .list .item-divider {
+  min-height: 10px;
+  height: 10px;
+  padding: 0;
 }
 .sponsor .list .item {
   height: 50px;
@@ -3218,8 +3254,7 @@ a>.login .companies_list:activated {
 .sponsor .list .item .input-label {
   color: #202020;
 }
-.sponsor .list .item .ion-chevron-down,
-.sponsor .list .item .ion-chevron-up {
+.sponsor .list .item .icon {
   color: #ababab;
   font-size: 18px;
 }
@@ -3235,6 +3270,9 @@ a>.login .companies_list:activated {
 .sponsor .list .item-input input:-ms-input-placeholder {
   color: #ababab;
 }
+.sponsor .list .item-input input[readonly] {
+  background-color: #fff;
+}
 .sponsor .list .item-input .dl_icon {
   width: 20px;
   margin: 10px 0;
@@ -3247,9 +3285,6 @@ a>.login .companies_list:activated {
   width: 65%;
   line-height: 22px;
 }
-.sponsor .list .item-divider {
-  min-height: 16px;
-}
 .sponsor .list .input-label {
   padding-top: 0;
   padding-bottom: 0;
@@ -3258,21 +3293,25 @@ a>.login .companies_list:activated {
   padding: 14px 48px 7px 16px;
 }
 .sponsor .item-button,
-.campaign_discuss .item-button {
+.campaign_discuss .item-button,
+.map_select .item-button {
   margin: 10px 20px;
 }
 .sponsor .item-button .button,
-.campaign_discuss .item-button .button {
+.campaign_discuss .item-button .button,
+.map_select .item-button .button {
   width: 100%;
   border-radius: 5px;
 }
 .sponsor .item-button .button_sponsor,
-.campaign_discuss .item-button .button_sponsor {
+.campaign_discuss .item-button .button_sponsor,
+.map_select .item-button .button_sponsor {
   background-color: #3ca2e0;
   color: #fff;
 }
 .sponsor .item-button .button_close,
-.campaign_discuss .item-button .button_close {
+.campaign_discuss .item-button .button_close,
+.map_select .item-button .button_close {
   background-color: #999;
   border: none;
 }
@@ -3282,9 +3321,6 @@ a>.login .companies_list:activated {
 }
 .pswp .dl_button_to_album .icon {
   font-size: 20px;
-}
-.map_container {
-  height: 400px;
 }
 .popup-container .popup {
   width: 100%;

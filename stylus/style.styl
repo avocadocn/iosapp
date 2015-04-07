@@ -1760,7 +1760,7 @@ textarea
       display block
       top 16px
 //-通讯录
-.contacts
+.contacts, .map_select
   .search_box
     width 100%
     background-color col_gray
@@ -1768,8 +1768,20 @@ textarea
       background-color #fff
     input
       background-color #fff
+.contacts
   .bar
     padding 0
+//- 地图选择样式
+.map_select
+  background-color col_bottomGray
+  .search_box
+    height 40px
+    padding 9px
+  .map_container
+    height 360px
+  .name
+    background-color #fff
+    padding 5px
 //-账号设置页
 .settings_account
   a.item
@@ -1833,31 +1845,11 @@ textarea
       padding 6px 20px 5px
       input
         color col_blue
+      input[readonly]
+        background-color #fff
       .introduce
         color col_blue
         resize none
-      //- .item
-      //-   padding 6px 20px 5px
-      //- .tags
-      //-   width 75%
-      //-   float right
-      //-   .tag
-      //-     float left
-      //-     display block
-      //-     margin-right 5px
-      //-     margin-bottom 0.5rem
-      //-     .content
-      //-       float left
-      //-       background-color col_blue
-      //-       height 30px
-      //-       padding 5px 6px
-      //-       color #fff
-      //-       font-size 14px
-      //-     .tag_delete
-      //-       float left
-      //-       background-color col_blue
-      //-       border-radius 0 4px 4px 0
-      //-       padding 0 0.5rem
     .item-radio
       .item-content
         padding 0 30px
@@ -1866,12 +1858,10 @@ textarea
         font-size 16px
         color #666
     .item-icon-right
-      input
-        z-index 2
       .icon
         color col_darkGray
         z-index 1
-        font-size 24px
+        font-size 18px
 //- HR编辑小队
 .edit_team_info
   .list
@@ -2659,22 +2649,38 @@ textarea
       width 100%
 
 .sponsor
-  background-color #efefef
+  background-color col_bottomGray
   .list
     margin-top 10px
-    .row
+    .competition
       align-items center
       font-size 14px
       color #202020
+      background-color #fff
+      border-top 1px solid #ddd
+      border-bottom 1px solid #ddd
+      height 92px
+      padding 15px
       .col
         text-align center
       .col_sm
-        flex 0.3
+        flex 0.25
+        padding 0
+      .col_center
+        flex 0.5
+      .team_logo
+        height 60px
+        width 60px
+        border-radius 5px
+    .item-divider
+      min-height 10px
+      height 10px
+      padding 0
     .item
       height 50px
       .input-label
         color #202020
-      .ion-chevron-down,.ion-chevron-up
+      .icon
         color #ababab
         font-size 18px
     .item-input
@@ -2686,6 +2692,8 @@ textarea
         color #ababab
       input:-ms-input-placeholder /* Internet Explorer 10+ */
         color #ababab
+      input[readonly]
+        background-color #fff
       .dl_icon
         width 20px
         margin 10px 0
@@ -2695,8 +2703,6 @@ textarea
       textarea
         width 65%
         line-height 22px
-    .item-divider
-      min-height 16px
     .input-label
       padding-top 0
       padding-bottom 0
@@ -2705,7 +2711,7 @@ textarea
         padding 14px 48px 7px 16px
 
 //-通用发布按钮
-.sponsor, .campaign_discuss
+.sponsor, .campaign_discuss ,.map_select
   .item-button
     margin 10px 20px
     .button
@@ -2724,8 +2730,7 @@ textarea
     color white
     .icon
       font-size 20px
-.map_container
-  height 400px
+
 .popup-container
   .popup
     width 100%

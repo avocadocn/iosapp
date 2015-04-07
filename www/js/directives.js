@@ -505,18 +505,33 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     restrict: 'AE',
     scope: {
       mapName: '@',
-      locationName:'=',
+      // locationName:'=',
       location: '='
     },
     link: function (scope, element, attrs, ctrl) {
       var city, marker, toolBar;
-      var modalController = $ionicModal.fromTemplate('<ion-modal-view><ion-header-bar><h1 class="title">地址选择</h1></ion-header-bar><ion-content><div id="{{mapName}}" class="map_container"></div><button ng-click="closeModal()" class="button button-full button-positive">确定</button></ion-content></ion-modal-view>', {
+      var modalController;
+      $ionicModal.fromTemplateUrl('./views/map-select.html', {
         scope: scope,
         animation: 'slide-in-up'
+      }).then(function(modal) {
+        modalController = modal;
       });
+      
       scope.$on('$destroy',function() {
         modalController.remove();
       });
+
+      scope.search = function (event) {
+        if(scope.location.name && ( !event || event.which ===13)) {
+          scope.MSearch.search(scope.location.name);
+        }else if(!event) {
+          $ionicPopup.alert({
+            title: '提示',
+            template: '请输入搜索地址'
+          });
+        }
+      };
 
       var placeSearchCallBack = function(data){
 
@@ -526,7 +541,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             title: '提示',
             template: '没有符合条件的地点，请重新输入'
           });
-          scope.closeModal();
           return;
         }
         var lngX = data.poiList.pois[0].location.getLng();
@@ -569,7 +583,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                 city:city
               });
               AMap.event.addListener(scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-              scope.MSearch.search(scope.locationName);
+              // scope.MSearch.search(scope.locationName);
             });
           }
           else {
@@ -589,7 +603,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                       city: city
                     });
                     AMap.event.addListener(scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-                    scope.MSearch.search(scope.locationName);
+                    // scope.MSearch.search(scope.locationName);
                   });
                 }
               });
@@ -600,7 +614,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                     pageIndex:1
                   });
                   AMap.event.addListener(scope.MSearch, "complete", placeSearchCallBack);//返回地点查询结果
-                  scope.MSearch.search(scope.locationName);
+                  // scope.MSearch.search(scope.locationName);
                 });
               });
               //自动获取用户IP，返回当前城市
@@ -615,25 +629,16 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         window.map_ready =true;
       }
       scope.showPopup = function() {
-        if(scope.locationName==''){
-          $ionicPopup.alert({
-            title: '提示',
-            template: '请输入地点'
-          });
-          return false;
+        modalController.show();
+        //加载地图
+        if(!window.map_ready){
+          window.map_initialize = scope.initialize;
+          var script = document.createElement("script");
+          script.src = "http://webapi.amap.com/maps?v=1.3&key=077eff0a89079f77e2893d6735c2f044&callback=map_initialize";
+          document.body.appendChild(script);
         }
         else{
-          modalController.show();
-          //加载地图
-          if(!window.map_ready){
-            window.map_initialize = scope.initialize;
-            var script = document.createElement("script");
-            script.src = "http://webapi.amap.com/maps?v=1.3&key=077eff0a89079f77e2893d6735c2f044&callback=map_initialize";
-            document.body.appendChild(script);
-          }
-          else{
-            scope.initialize();
-          }
+          scope.initialize();
         }
       }
       scope.closeModal = function() {
