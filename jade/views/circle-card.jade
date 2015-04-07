@@ -20,20 +20,21 @@
     .date_and_op.clearfix
       span.date.text_item {{circle.content.post_date | circleBeforeNow}}
       span.link_name.text_item(ng-if="uid === circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
-      i.dl_icon.ion_chat_blue.op_icon
+      i.op_icon.dl_icon.icon_small(ng-class="{'ion_comment_dot_horizontal_blue': !circle.isToComment, 'ion_comment_dot_horizontal_gray': circle.isToComment}")
       .toggle_click_wrap(ng-click="toggleComment()")
       .comment_op.clearfix(ng-if="circle.isToComment")
+        .op_bg_wrap
         .op_box.clearfix
           .op_item(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)")
-            i.ion-heart
-            | &nbsp;赞
+            i.op_item_icon.dl_icon.icon_small.ion_heart_outline
+            span.op_item_text 点赞
           .op_item(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak)
-            i.ion-heart
-            | &nbsp;取消
+            i.op_item_icon.dl_icon.icon_small.ion_heart_outline
+            span.op_item_text 取消
           .op_divider
           .op_item(ng-click="commentToContent()")
-            i.ion-chatbox-working
-            | &nbsp;评论
+            i.op_item_icon.dl_icon.icon_small.ion_comment_line_white
+            span.op_item_text 评论
     .circle_comment_list(ng-if="circle.appreciate.length > 0 || circle.textComments.length > 0")
       .circle_triangle
       .appreciate_container(ng-if="circle.appreciate.length > 0")
