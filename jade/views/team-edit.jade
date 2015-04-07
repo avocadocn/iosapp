@@ -18,14 +18,14 @@ ion-view.edit_info
       .item.item-input
         span.input-label 简介
         textarea.introduce(name="brief" ng-change="change()" maxlength="140" ng-model="formData.brief" ng-focus="toEditing()")
-      .item.item-input.item-button-right
+      .item.item-input.item-icon-right(edit-map location="formData.homeCourts[0]" map-name="homecourt0")
         span.input-label 主场1
-        input(type="text" name="homecourt0" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[0].name")
-        button.button.button-positive(edit-map location-name="formData.homeCourts[0].name" location="formData.homeCourts[0].loc" map-name="homecourt0") 地图
-      .item.item-input.item-button-right
+        input(type="text" name="homecourt0" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[0].name" readonly)
+        i.icon.ion-chevron-right
+      .item.item-input.item-icon-right(edit-map location="formData.homeCourts[1]" map-name="homecourt1")
         span.input-label 主场2
-        input(type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name")
-        button.button.button-positive(edit-map location-name="formData.homeCourts[1].name" location="formData.homeCourts[1].loc" map-name="homecourt1") 地图
+        input(type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name" readonly)
+        i.icon.ion-chevron-right
       a.item.item-input.item-icon-right(ng-href="#/team/{{team._id}}/family")
         span.input-label 修改小队封面
         i.icon.ion-chevron-right
