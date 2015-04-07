@@ -4181,7 +4181,11 @@ angular.module('donlerApp.controllers', [])
 
       var pageLength = 20; // 一次获取的数据量
 
-      
+      $scope.loadingStatus = {
+        hasInit: false, // 是否已经获取了一次内容
+        hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
+        loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
+      };
 
 
       // 复制图片地址到一个数组供预览大图用
@@ -4271,12 +4275,6 @@ angular.module('donlerApp.controllers', [])
       $scope.$on("$ionicView.enter", function(scopes, states) {
         // 用于保存已经获取到的同事圈内容
         $scope.circleContentList = [];
-
-        $scope.loadingStatus = {
-          hasInit: false, // 是否已经获取了一次内容
-          hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
-          loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
-        };
 
         User.getData($state.params.userId, function(err, data) {
           if (err) {

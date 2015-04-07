@@ -2179,77 +2179,58 @@ a>.login .companies_list:activated {
 }
 .personal .list {
   padding-top: 0;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
-.personal .list .icon_right {
-  right: 4px;
+.personal .list .item.item-avatar {
+  padding-bottom: 5px;
 }
-.personal .user_info {
-  margin-top: 10px;
-  font-family: 'Heiti';
+.personal .list .item.item-avatar h2 {
+  font-weight: 400;
+  margin-bottom: 5px;
 }
-.personal .user_info .item_user {
-  padding-top: 15px;
-  padding-bottom: 12px;
-}
-.personal .user_info .item_user .avatar_photo {
-  max-width: 45px;
-  max-height: 45px;
-  width: 45px;
-  height: 45px;
-  border-radius: 5px;
-}
-.personal .user_info .item_user .nickname {
-  font-size: 14px;
-  line-height: 24px;
-}
-.personal .user_info .item_user .introduce {
-  font-size: 12px;
-  line-height: 18px;
+.personal .list .item.item-avatar p {
+  margin-bottom: 5px;
   color: #999;
 }
-.personal .user_info .statistics {
+.personal .list .item.item-avatar .tags {
+  white-space: normal;
+}
+.personal .list .item.item-avatar .tags .tag {
+  padding: 2px;
+}
+.personal .list .item.item-icon-left .icon {
+  width: 3rem;
+}
+.personal .user_card>.item>.introduce {
+  white-space: normal;
+}
+.personal .user_card>.item>.introduce .title {
+  float: left;
+}
+.personal .user_card>.item>.introduce .content {
+  float: left;
+  width: 18rem;
+}
+.personal .statistics {
   text-align: center;
   padding: 0;
 }
-.personal .user_info .statistics .row {
+.personal .statistics .row {
   padding: 0;
 }
-.personal .user_info .statistics .row .col-33 {
+.personal .statistics .row .col-33 {
   border-left: 1px solid #ccc;
-  padding: 7px 0;
+  padding: 5px 0;
 }
-.personal .user_info .statistics .row .col-33 .number {
-  font-size: 12px;
-  line-height: 18px;
-  color: #202020;
+.personal .statistics .row .col-33 .number {
+  color: #222;
+  font-size: 16px;
 }
-.personal .user_info .statistics .row .col-33 .key {
-  font-size: 12px;
-  line-height: 18px;
-  color: #666;
-}
-.personal .user_info .statistics .row .col-33:first-child {
+.personal .statistics .row .col-33:first-child {
   border-left: 0;
 }
-.personal .user_info .statistics .row a {
+.personal .statistics .row a {
   text-decoration: none;
-}
-.personal .menu_list {
-  font-family: 'Heiti';
-}
-.personal .menu_list .item {
-  padding-top: 7px;
-  padding-bottom: 7px;
-  padding-left: 50px;
-  font-size: 14px;
-  line-height: 24px;
-}
-.personal .menu_list .item .icon_left {
-  width: 3rem;
-  margin-top: -8px;
-  margin-left: -6px;
 }
 .edit_info .list {
   padding-top: 10px;
