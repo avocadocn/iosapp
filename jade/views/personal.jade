@@ -4,12 +4,12 @@ ion-view.personal(ng-controller="PersonalController")
     h1.title 我的
 
   ion-content
-    .list
-      a.item.item-avatar.item-icon-right(href="#/personal/edit" ng-cloak)
-        img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80" prevent-default photo="user.photo" pswp-id="pswpId" open-photo)
-        h2 {{user.nickname}}
-        p(ng-if="user.introduce") 简介: {{user.introduce}}
-        i.icon.ion-chevron-right
+    .list.user_info
+      a.item.item-avatar.item-icon-right.item_user(href="#/personal/edit" ng-cloak)
+        img.avatar_photo(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/90/90" prevent-default photo="user.photo" pswp-id="pswpId" open-photo)
+        h2.nickname {{user.nickname}}
+        p.introduce(ng-if="user.introduce") 简介: {{user.introduce}}
+        i.icon.ion-chevron-right.icon_right
       .item.statistics(ng-cloak)
         .row
           a.col.col-33(href="#/personal/teams/")
@@ -20,34 +20,39 @@ ion-view.personal(ng-controller="PersonalController")
             p.key 活动
           .col.col-33
             p.number {{user.score}}
-            p.key 积分
-    .list
-      a.item.item-icon-left.item-icon-right(href="#/personal/teams/")
-        i.icon.ion_teams
-        | 我的小队
-        span.item-note {{user.tids.length}}
-        i.icon.ion-chevron-right
+            p.key 活跃度
+    .list.menu_list
+      //- a.item.item-icon-left.item-icon-right(href="#/personal/teams/")
+      //-   i.icon.ion_teams
+      //-   | 我的小队
+      //-   span.item-note {{user.tids.length}}
+      //-   i.icon.ion-chevron-right
+      a.item.item-icon-left.item-icon-right(href="#/personal/invitecode")
+        i.icon.ion_invite_code.icon_left
+        | 二维码
+        i.icon.ion-chevron-right.icon_right
+      a.item.item-icon-left.item-icon-right(ng-href="#/circle/circle_user/{{user._id}}")
+        i.icon.ion_invite_code.icon_left
+        | 我的相册
+        i.icon.ion-chevron-right.icon_right
       a.item.item-icon-left.item-icon-right(href="#/personal/timeline")
-        i.icon.ion_foot
+        i.icon.ion_foot.icon_left
         | 我的足迹
-        i.icon.ion-chevron-right
+        i.icon.ion-chevron-right.icon_right
       //- a.item.item-icon-left.item-icon-right(href="#/personal/messages")
       //-   i.icon.ion_message
       //-   | 我的站内信
       //-   span.item-note(ng-if="messagesCount && messagesCount>0") {{messagesCount}}
       //-   i.icon.ion-chevron-right
       a.item.item-icon-left.item-icon-right(href="#/calendar/personal")
-        i.icon.ion_calendar
+        i.icon.ion_calendar.icon_left
         | 我的日程
-        i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/personal/invitecode")
-        i.icon.ion_invite_code
-        | 激活码
-        i.icon.ion-chevron-right
+        i.icon.ion-chevron-right.icon_right
+    .list.menu_list
       a.item.item-icon-left.item-icon-right(href="#/settings")
-        i.icon.ion_setting
+        i.icon.ion_setting.icon_left
         | 设置
-        i.icon.ion-chevron-right
+        i.icon.ion-chevron-right.icon_right
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}")
     .pswp__bg
     .pswp__scroll-wrap
