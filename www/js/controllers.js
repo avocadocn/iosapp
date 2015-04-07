@@ -168,12 +168,14 @@ angular.module('donlerApp.controllers', [])
     $scope.showSponsorButton = localStorage.role =='LEADER';
     var getCampaignList = function() {
       $rootScope.showLoading();
+      
       Campaign.getList({
         requestType: 'user',
         requestId: localStorage.id,
         select_type: 0,
         populate: 'photo_album'
       }, function (err, data) {
+        $rootScope.hideLoading();
         if (!err) {
           $scope.unStartCampaigns = data[0];
           $scope.nowCampaigns = data[1];
@@ -192,7 +194,6 @@ angular.module('donlerApp.controllers', [])
             template: err
           });
         }
-        $rootScope.hideLoading();
       });
     };
     // 此处使用rootScope是为了解决切换tab时不能刷新的问题

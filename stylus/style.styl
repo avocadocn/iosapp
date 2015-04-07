@@ -139,6 +139,8 @@ textarea
     background-position 0 -90px
   &.ion_comment_small
     background-position -46px -91px
+  &.ion_log_out
+    background-position -225px -180px
 .ion_ballon
   background-position -110px -65px
 .ion_teams
@@ -542,6 +544,7 @@ textarea
 .dl_campaign_detail
   .campaign_detail
     margin-top 10px
+    color #666666
     .campaign_info
       background-color white
       padding 15px
@@ -600,8 +603,12 @@ textarea
       .ion-chevron-right
         float right
     .item-divider
-      height 30px
-      padding 5px 15px
+      height 40px
+      padding 10px 15px
+      &.circle
+        .ion-camera
+          float right
+          font-size 22px
     .cp_member
       line-height 16px
       .member_num
@@ -619,7 +626,7 @@ textarea
       display -moz-flex
       display -ms-flexbox
       padding 0
-      height 48px
+      height 70px
       .footer_col
         -webkit-box-flex 1
         -webkit-flex 1
@@ -636,9 +643,8 @@ textarea
         &:last-child
           border-right none
         .dl_icon
-          display inline-block
-          margin-right 17px
-          margin-top -3px
+          height 20px
+          width 20px
         .member_num
           color #f07151
       a
