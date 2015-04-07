@@ -4,7 +4,7 @@ ion-view.edit_info
     a.button.icon.ion-chevron-left(ng-if="!editing" ng-href="#/team/{{team._id}}" ng-cloak) &nbsp;返回
     button.button(ng-if="editing" ng-click="cancelEditing()" ng-cloak) 取消
     h1.title 编辑小队信息
-    button.button(ng-if="editing" ng-click="edit()" ng-disabled="!changed || editForm.$invalid" ng-cloak) 确定
+    button.button(ng-if="editing" ng-click="edit()" ng-disabled="editForm.$invalid" ng-cloak) 确定
 
   ion-content
     form.list(name="editForm")
@@ -18,11 +18,11 @@ ion-view.edit_info
       .item.item-input
         span.input-label 简介
         textarea.introduce(name="brief" ng-change="change()" maxlength="140" ng-model="formData.brief" ng-focus="toEditing()")
-      .item.item-input.item-icon-right(edit-map location="formData.homeCourts[0]" map-name="homecourt0")
+      .item.item-input.item-icon-right(edit-map location="formData.homeCourts[0]" map-name="homecourt0" changed="changed")
         span.input-label 主场1
         input(type="text" name="homecourt0" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[0].name" readonly)
         i.icon.ion-chevron-right
-      .item.item-input.item-icon-right(edit-map location="formData.homeCourts[1]" map-name="homecourt1")
+      .item.item-input.item-icon-right(edit-map location="formData.homeCourts[1]" map-name="homecourt1" changed="changed")
         span.input-label 主场2
         input(type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name" readonly)
         i.icon.ion-chevron-right

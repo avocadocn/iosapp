@@ -506,7 +506,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     scope: {
       mapName: '@',
       // locationName:'=',
-      location: '='
+      location: '=',
+      changed: '='
     },
     link: function (scope, element, attrs, ctrl) {
       var city, marker, toolBar;
@@ -521,6 +522,10 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       scope.$on('$destroy',function() {
         modalController.remove();
       });
+
+      scope.change = function() {
+        scope.changed = true;
+      };
 
       scope.search = function (event) {
         if(scope.location.name && ( !event || event.which ===13)) {
@@ -566,6 +571,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             raiseOnDrag: true
           };
           marker = new AMap.Marker(markerOption);
+          scope.changed = true;
         });
       };
       scope.initialize = function(){
@@ -575,6 +581,18 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             toolBar = new AMap.ToolBar();
             scope.locationmap.addControl(toolBar);
           });
+          if(scope.location.loc) {
+            var nowPoint = new AMap.LngLat(scope.location.loc.coordinates[0],scope.location.loc.coordinates[1]);
+            scope.locationmap.setZoomAndCenter(14, nowPoint);
+            var markerOption = {
+              map: scope.locationmap,
+              position: nowPoint,
+              raiseOnDrag: true
+            };
+            marker = new AMap.Marker(markerOption);
+            scope.locationmap.setFitView(marker);
+          }
+
           if(city){
             scope.locationmap.plugin(["AMap.PlaceSearch"], function() {
               scope.MSearch = new AMap.PlaceSearch({ //构造地点查询类

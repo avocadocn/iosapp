@@ -6,7 +6,7 @@ ion-modal-view.map_select
     .search_box.item-input-inset
       label.item-input-wrapper
         i.icon.ion-ios7-search.placeholder-icon
-        input(type="search" name="location" ng-model="location.name" ng-keypress="search($event)")
+        input(type="search" name="location" ng-model="location.name" ng-keypress="search($event)" ng-change="change()")
       button.button-clear(ng-click="search()") 搜索
     .map_container(id="{{mapName}}")
     .item-button
