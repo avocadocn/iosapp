@@ -1803,7 +1803,6 @@ angular.module('donlerApp.controllers', [])
         var month = date.getMonth();
         var mdate = moment(new Date(year, month));
         var offset = mdate.day(); // mdate.day(): Sunday as 0 and Saturday as 6
-        var lastMonthDays = mdate.day(); //days of last month to show
         var now = new Date();
         $scope.current_year = year;
         $scope.current_date = date;
@@ -1812,7 +1811,6 @@ angular.module('donlerApp.controllers', [])
           format_month: month + 1,
           days: []
         };
-        
         var month_dates = mdate.daysInMonth();
         Campaign.getList({
           requestType: 'user',
@@ -1833,16 +1831,15 @@ angular.module('donlerApp.controllers', [])
             month_data.days[i] = {
               full_date: new Date(year, month, i + 1),
               date: i + 1,
-              is_current_month: true,
               events: [],
               joined_events: [],
               unjoined_events: []
             };
             //由本月第一天，计算是星期几，决定位移量
-            // if (i === 0) {
-            //   month_data.days[0].first_day = 'offset_' + offset; // mdate.day(): Sunday as 0 and Saturday as 6
-            //   month_data.offset = month_data.days[0].first_day;
-            // }
+            if (i === 0) {
+              month_data.days[0].first_day = 'offset_' + offset; // mdate.day(): Sunday as 0 and Saturday as 6
+              month_data.offset = month_data.days[0].first_day;
+            }
             // 是否是周末
             if ((i + offset) % 7 === 6 || (i + offset) % 7 === 0)
               month_data.days[i].is_weekend = true;
@@ -1896,41 +1893,7 @@ angular.module('donlerApp.controllers', [])
             // campaign.format_start_time = moment(campaign.start_time).calendar();
             // campaign.format_end_time = moment(campaign.end_time).calendar();
           });
-          
-          if(lastMonthDays) {
-            var lastMonthDate;
-            if(month === 0) {
-              lastMonthDate = moment(new Date(year - 1, 11));
-            } else {
-              lastMonthDate = moment(new Date(year, month - 1));
-            }
-            var lastMonthDaysLength = lastMonthDate.daysInMonth();
-            for(var i = 0; i < lastMonthDays; i++) {
-              month_data.days.unshift({
-                full_date: null,
-                date: lastMonthDaysLength - i,
-                is_current_month: false,
-                events: [],
-                joined_events: [],
-                unjoined_events: []
-              });
-            }
-          }
-
-          var currentMonthLastDay = moment(new Date(year, month, mdate.daysInMonth())).day();
-          for(var i = 0; i < 6 - currentMonthLastDay; i++) {
-            month_data.days.push({
-              full_date: null,
-              date: i + 1,
-              is_current_month: false,
-              events: [],
-              joined_events: [],
-              unjoined_events: []
-            });
-          }
-
           $scope.current_month = month_data;
-
           if (!$scope.$$phase) {
             $scope.$apply();
           }
@@ -1948,10 +1911,6 @@ angular.module('donlerApp.controllers', [])
       var updateDay = $scope.updateDay = function(date) {
         var date = new Date(date);
         var now = new Date();
-        var year = date.getFullYear();
-        var month = date.getMonth();
-        var mdate = moment(new Date(year, month));
-        var lastMonthDays = mdate.day(); //days of last month to show
         $scope.view = 'day';
         if (date.getMonth() !== current.getMonth() || !$scope.campaigns) {
           updateMonth(date, function() {
@@ -1963,16 +1922,9 @@ angular.module('donlerApp.controllers', [])
           $scope.current_date = date;
           INFO.lastDate = date;
           var events = [];
-          var events_joined = [];
-          var events_unjoined = [];
-          $scope.current_month.days[current.getDate() + lastMonthDays - 1].events.forEach(function(event) {
+          $scope.current_month.days[current.getDate() - 1].events.forEach(function(event) {
             if ($scope.nowTypeIndex == 2 || $scope.nowTypeIndex == event.join_flag || $scope.nowTypeIndex == 0 && event.join_flag == -1) {
               events.push(event);
-              if (event.join_flag == 1) {
-                events_joined.push(event);
-              } else {
-                events_unjoined.push(event);
-              }
             }
           });
           var day = {
@@ -1980,9 +1932,7 @@ angular.module('donlerApp.controllers', [])
             past_flag: current < now,
             format_date: moment(current).format('ll'),
             format_day: moment(current).format('dddd'),
-            campaigns: events,
-            campaigins_joined: events_joined,
-            campaigins_unjoined: events_unjoined
+            campaigns: events
           };
 
           var temp = new Date(date);
@@ -1993,7 +1943,6 @@ angular.module('donlerApp.controllers', [])
             first_day_of_week.setDate(first_day_of_week.getDate() + 1);
             var week_date = $scope.current_week_date[i];
             var now = new Date();
-            week_date.is_current_month = false;
             if (week_date.getFullYear() === now.getFullYear() && week_date.getMonth() === now.getMonth() && week_date.getDate() === now.getDate()) {
               week_date.is_today = true;
             }
@@ -2005,7 +1954,7 @@ angular.module('donlerApp.controllers', [])
               var events = [];
               var joined_events = [];
               var unjoined_events = [];
-              $scope.current_month.days[week_date.getDate() + lastMonthDays - 1].events.forEach(function(event) {
+              $scope.current_month.days[week_date.getDate() - 1].events.forEach(function(event) {
                 if ($scope.nowTypeIndex == 2 || $scope.nowTypeIndex == event.join_flag) {
                   events.push(event);
                   if (event.join_flag == 1) {
@@ -2078,10 +2027,6 @@ angular.module('donlerApp.controllers', [])
        * @param  {Date} date
        */
       $scope.dayView = function(date) {
-        var date = new Date(date);
-        if(date.getMonth() !== current.getMonth()) {
-          return;
-        }
         updateDay(date);
         // $scope.day_cards = day;
         $scope.view = 'day';
@@ -3787,7 +3732,7 @@ angular.module('donlerApp.controllers', [])
     '$ionicActionSheet',
     'Image',
     'Company',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, Tools, CONFIG, Emoji, $ionicActionSheet, Image, Company) {
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, Tools, CONFIG, Image, Company) {
 
       Company.getData(localStorage.cid).success(function(data) {
         $scope.company = data;
@@ -4308,6 +4253,88 @@ angular.module('donlerApp.controllers', [])
               $scope.loadingStatus.hasInit = true;
             }
           });
+
+        for (var i = 0; emoji.length > 24; i++) {
+          $scope.emojiList.push(emoji.splice(24, 24));
+        }
+        $scope.emojiList.unshift(emoji);
+        $scope.addEmotion = function(emotion) {
+          $scope.commentFormData.content += '[' + dict[emotion] + ']';
+        };
+
+        // 发表评论
+        $scope.comment = function() {
+          if (!$scope.commentFormData.content || $scope.commentFormData.content === '') {
+            $scope.stopComment();
+            return;
+          }
+          $scope.isCommenting = false;
+          $scope.targetCommentCircle.isToComment = false;
+          $ionicLoading.show({
+            template: '发表中...',
+            duration: 5000
+          });
+          var postData = {
+            kind: 'comment',
+            is_only_to_content: $scope.isOnlyToContent,
+            content: $scope.commentFormData.content
+          };
+          if ($scope.targetUserId) {
+            postData.target_user_id = $scope.targetUserId;
+          }
+
+          Circle.comment($scope.targetCommentCircle.content._id, postData)
+            .success(function(data) {
+              $scope.targetCommentCircle.textComments.push(data.circleComment);
+              $ionicLoading.hide();
+              $scope.stopComment();
+              $scope.commentFormData.content = '';
+              $scope.targetUserId = null;
+              $scope.commentPlaceholderText = '';
+            })
+            .error(function(data) {
+              $scope.ionicAlert(data.msg || '操作失败');
+            });
+
+      $scope.circleCardCtrl = {};
+      $scope.circleCommentBoxCtrl = {};
+      $scope.pswpCtrl = {};
+
+      $scope.openCommentBox = function(placeHolderText) {
+        $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
+        $scope.circleCommentBoxCtrl.open();
+      };
+
+      $scope.postComment = function(content) {
+        $scope.circleCardCtrl.postComment(content);
+      };
+
+      $scope.onDelete = function() {
+        $state.go('circle_company');
+      };
+
+      $scope.onClickContentImg = function(img) {
+        for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
+          if (img._id === $scope.imagesForPswp[i]._id) {
+            $scope.pswpCtrl.open(i);
+            break;
+          }
+        }
+      };
+
+        $scope.replyTo = function(circle, comment) {
+          $scope.isCommenting = true;
+          $scope.targetCommentCircle = circle;
+          if (comment.post_user_id === $scope.user._id) {
+            // 将回复自己的评论转为回复内容
+            $scope.isOnlyToContent = true;
+            $scope.commentPlaceholderText = '';
+          } else {
+            $scope.isOnlyToContent = false;
+            $scope.targetUserId = comment.post_user_id;
+            $scope.commentPlaceholderText = '回复 ' + comment.poster.nickname;
+          }
+        };
       });
     }
   ])

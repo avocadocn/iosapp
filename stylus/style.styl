@@ -2033,8 +2033,6 @@ textarea
         border-top 1px solid #ccc
         border-right 1px solid #ccc
         border-bottom 1px solid #ccc
-        background-color #fbfbfb
-        color #999999
         &.other_month
           background-color #efefef
           color #ccc
@@ -2043,7 +2041,6 @@ textarea
           margin-left auto
           margin-right auto
           font-weight bold
-          font-size 16px
         .calendar_campaign_join
           position absolute
           color white
@@ -2130,12 +2127,9 @@ textarea
       float left
       width (100 / 7)%
       height 60px
-      background-color #efefef
+      background-color col_navGray
       border-bottom solid 1px #ccc
       border-right solid 1px #ccc
-      &.calendar_current_month
-        color #999999
-        background-color #fbfbfb
       .calendar_date
         margin-top 15%
         margin-left auto
@@ -2169,16 +2163,18 @@ textarea
         width 1.5rem
         height 1.5rem
         line-height 1.5rem
-
       &.today
         .calendar_date
-          color col_blue
+          background-color col_blue
+          color white
+          border-radius 50px
         .calendar_campaign_count
           color col_blue
           background-color white
 
       .weekend
         color gray
+
     for day in (0..6)
       .offset_{day}
         margin-left (100 * day / 7)%
@@ -2246,37 +2242,6 @@ textarea
               border-color transparent #43cee6 transparent transparent
               border-style solid
               border-width 0 20px 20px
-  .dl_card_footer
-    position relative
-    height 18px
-    line-height 18px
-    padding 0 0.833333rem
-    font-size 12px
-    color col_darkGray
-    width 100%
-    .dl_team_number
-      position absolute
-      top 0
-      right 50px
-    .dl_team_comment
-      position absolute
-      top 0
-      right 10px
-      margin-left 10px
-    .ion_member, .ion_comment
-      display block
-      float left
-      margin-top 2px
-      margin-right 5px
-      width 12px
-      height 12px
-    .dl_card_footer_count
-      display block
-      float left
-  .campaign_title_joined
-    color #48bebc
-  .campaign_title_unjoined
-    color #d46c93
 .dl_popover
   background-color rgba(0,0,0,0.7)
   border-radius 0 !important

@@ -2446,8 +2446,6 @@ a>.login .companies_list:activated {
   border-top: 1px solid #ccc;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
-  background-color: #fbfbfb;
-  color: #999;
 }
 .calendar nav .date_list .date_box.other_month {
   background-color: #efefef;
@@ -2458,7 +2456,6 @@ a>.login .companies_list:activated {
   margin-left: auto;
   margin-right: auto;
   font-weight: bold;
-  font-size: 16px;
 }
 .calendar nav .date_list .date_box .calendar_campaign_join {
   position: absolute;
@@ -2550,13 +2547,9 @@ a>.login .companies_list:activated {
   float: left;
   width: 14.285714285714286%;
   height: 60px;
-  background-color: #efefef;
+  background-color: #fbfbfb;
   border-bottom: solid 1px #ccc;
   border-right: solid 1px #ccc;
-}
-.calendar .calendar_month .calendar_day.calendar_current_month {
-  color: #999;
-  background-color: #fbfbfb;
 }
 .calendar .calendar_month .calendar_day .calendar_date {
   margin-top: 15%;
@@ -2596,7 +2589,9 @@ a>.login .companies_list:activated {
   line-height: 1.5rem;
 }
 .calendar .calendar_month .calendar_day.today .calendar_date {
-  color: #3ca2e0;
+  background-color: #3ca2e0;
+  color: #fff;
+  border-radius: 50px;
 }
 .calendar .calendar_month .calendar_day.today .calendar_campaign_count {
   color: #3ca2e0;
@@ -2706,45 +2701,6 @@ a>.login .companies_list:activated {
   border-color: transparent #43cee6 transparent transparent;
   border-style: solid;
   border-width: 0 20px 20px;
-}
-.calendar .dl_card_footer {
-  position: relative;
-  height: 18px;
-  line-height: 18px;
-  padding: 0 0.833333rem;
-  font-size: 12px;
-  color: #999;
-  width: 100%;
-}
-.calendar .dl_card_footer .dl_team_number {
-  position: absolute;
-  top: 0;
-  right: 50px;
-}
-.calendar .dl_card_footer .dl_team_comment {
-  position: absolute;
-  top: 0;
-  right: 10px;
-  margin-left: 10px;
-}
-.calendar .dl_card_footer .ion_member,
-.calendar .dl_card_footer .ion_comment {
-  display: block;
-  float: left;
-  margin-top: 2px;
-  margin-right: 5px;
-  width: 12px;
-  height: 12px;
-}
-.calendar .dl_card_footer .dl_card_footer_count {
-  display: block;
-  float: left;
-}
-.calendar .campaign_title_joined {
-  color: #48bebc;
-}
-.calendar .campaign_title_unjoined {
-  color: #d46c93;
 }
 .dl_popover {
   background-color: rgba(0,0,0,0.7);
