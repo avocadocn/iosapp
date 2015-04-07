@@ -3,14 +3,16 @@
   <ion-view class="sponsor">
     <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
       <h1 class="title">发活动</h1>
-      <button ng-disabled="sponsorForm.$invalid || isBusy || !campaignData.location" ng-click="sponsor()" class="button button-clear">发布</button>
+      <button ng-disabled="sponsorForm.$invalid || isBusy" ng-click="sponsor()" class="button button-clear">发布</button>
     </ion-header-bar>
     <ion-content>
       <div class="list">
-        <div ng-if="sponsorType==='competition'" class="row competition">
-          <div class="col col_sm"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60" class="team_logo"/></div>
-          <div class="col col_center">{{competitionMessage.competition_type===1 ? '挑战':'联谊'}}</div>
-          <div class="col col_sm"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/60/60" class="team_logo"/></div>
+        <div ng-if="sponsorType==='competition'" class="row">
+          <div class="col col_sm"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/></div>
+          <div class="col">{{competitionMessage.sponsor_team.name}}</div>
+          <div class="col col_sm">VS</div>
+          <div class="col col_sm"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/></div>
+          <div class="col">{{competitionMessage.opposite_team.name}}</div>
         </div>
         <label ng-if="sponsorType!=='competition'" class="item item-input item-select"><span class="input-label">小队</span>
           <select ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams" class="result"></select>
@@ -25,8 +27,8 @@
         <label class="item item-input"><span class="input-label">结束时间:</span>
           <input type="datetime-local" name="end_time" ng-model="campaignData.end_time" required="required" class="result"/>
         </label>
-        <label edit-map="edit-map" location="campaignData.location" map-name="mapDetail" class="item item-input item-icon-right"><span class="input-label">地点</span>
-          <input type="text" name="location" ng-model="campaignData.location.name" required="required" readonly="readonly" class="result"/><i class="icon ion-chevron-right"></i>
+        <label class="item item-input item-icon-right"><span class="input-label">地点</span>
+          <input type="text" name="location" ng-model="campaignData.location.name" required="required" class="result"/><i edit-map="edit-map" ng-disabled="campaignData.location.name" location-name="campaignData.location.name" location="campaignData.location" map-name="mapDetail" class="icon dl_icon ion_address"></i>
         </label>
         <div class="item-divider"></div>
         <label class="item item-input"><span class="input-label">活动名称</span>
