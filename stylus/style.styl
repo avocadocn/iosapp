@@ -51,6 +51,23 @@ textOverflow()
   overflow hidden
   text-overflow ellipsis
   white-space nowrap
+indentLine()
+  border-width 0
+  &:after
+    display block
+    position absolute
+    left 15px
+    bottom 0
+    width 100%
+    content ''
+    border 1px solid #ddd
+  &:first-child
+    border-top-width 1px
+  &:last-child
+    border-bottom-width 1px
+    &:after
+      content none
+      display none
 html
   font-size 12px
 body
@@ -1788,6 +1805,7 @@ textarea
   .menu_list
     .item
       padding-left 50px
+      indentLine()
     .icon_left
       width 3rem
       font-size 14px
@@ -1913,6 +1931,7 @@ textarea
     font-family 'Heiti'
     .item
       padding-left 50px
+      indentLine()
       .icon_left
         width 3rem
         margin-left -6px
