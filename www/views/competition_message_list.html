@@ -10,12 +10,11 @@
         <button ng-click="typeFilter('sponsor')" ng-class="messageType=='sponsor'?'active':''" class="button button-clear">发出</button><span class="splite"></span>
         <button ng-click="typeFilter('receive')" ng-class="messageType=='receive'?'active':''" class="button button-clear">收到</button>
       </div><a ng-repeat="competitionMessage in competitionMessages" ng-href="#/competition_message/detail/{{competitionMessage._id}}" class="row competition_message">
-        <div class="col col-10 unread_status">
-          <div ng-if="competitionMessage.unread" class="dot"></div>
-        </div>
-        <div class="col col-33 text_left">
-          <div class="status_text">{{competitionMessage.status | formatCompeitionStatus:competitionMessage.isSponsor}}</div>
-          <div class="create_time">{{competitionMessage.create_time | date:'yyyy-M-dd HH:mm'}}</div>
+        <div class="col col-33 text_left"><span ng-if="competitionMessage.unread" class="dot"></span>
+          <div class="status">
+            <div class="status_text">{{competitionMessage.status | formatCompeitionStatus:competitionMessage.isSponsor}}</div>
+            <div class="create_time">{{competitionMessage.create_time | date:'yyyy-M-dd HH:mm'}}</div>
+          </div>
         </div>
         <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40" class="team_logo"/>
           <div class="team_name">{{competitionMessage.sponsor_team.name}}</div>

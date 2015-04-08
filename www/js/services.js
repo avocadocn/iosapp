@@ -42,7 +42,7 @@ angular.module('donlerApp.services', [])
   }])
   .constant('CONFIG', {
     BASE_URL: 'http://www.55yali.com:3002',
-    STATIC_URL: 'http://www.55yali.com:3000',
+    STATIC_URL: 'http://www.55yali.com',
     SOCKET_URL: 'http://www.55yali.com:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
@@ -321,7 +321,7 @@ angular.module('donlerApp.services', [])
           callback(null,nowCampaign);
         }
         else{
-          $http.get(CONFIG.BASE_URL + '/campaigns/' + id+'?populate=photo_album')
+          $http.get(CONFIG.BASE_URL + '/campaigns/' + id)
           .success(function (data, status) {
             nowCampaign = data;
             callback(null,data);

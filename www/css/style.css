@@ -511,11 +511,11 @@ textarea {
 .dl_campaign_detail .campaign_detail .campaign_info {
   background-color: #fff;
   padding: 15px;
+  padding-bottom: 0;
   color: #666;
   position: relative;
-  font-size: 12px;
-  line-height: 15px;
-  height: 90px;
+  font-size: 14px;
+  height: 75px;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .cp_logos {
   width: 60px;
@@ -551,13 +551,14 @@ textarea {
   border-radius: 3px;
   float: left;
 }
-.dl_campaign_detail .campaign_detail .campaign_info .team_name {
-  font-size: 14px;
+.dl_campaign_detail .campaign_detail .campaign_info .campaign_theme {
+  font-size: 16px;
   color: #202020;
-  margin-bottom: 5px;
+  margin: 5px 0;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .cp_time {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  line-height: 15px;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .ion_member,
 .dl_campaign_detail .campaign_detail .campaign_info .ion_time,
@@ -565,14 +566,45 @@ textarea {
   float: left;
   margin-right: 10px;
 }
+.dl_campaign_detail .campaign_detail .campaign_status {
+  background-color: #fff;
+  padding: 5px 15px;
+  height: 30px;
+  color: #ababab;
+}
+.dl_campaign_detail .campaign_detail .campaign_status .status {
+  float: right;
+}
+.dl_campaign_detail .campaign_detail .campaign_status .status.now {
+  color: #13adb6;
+}
+.dl_campaign_detail .campaign_detail .campaign_status .status.unstart {
+  color: #3ca2df;
+}
+.dl_campaign_detail .campaign_detail .campaign_status .status.unjoin {
+  color: #f48361;
+}
 .dl_campaign_detail .campaign_detail .item {
   padding: 15px;
   font-size: 14px;
   color: #202020;
 }
+.dl_campaign_detail .campaign_detail .item.campaign_content .operator {
+  text-align: center;
+  padding-top: 5px;
+}
+.dl_campaign_detail .campaign_detail .item.campaign_content .operator .more_content {
+  color: #3ca2e0;
+  text-decoration: none;
+  font-size: 16px;
+}
 .dl_campaign_detail .campaign_detail .item.item_header {
   height: 44px;
   line-height: 16px;
+}
+.dl_campaign_detail .campaign_detail .item.item_header .title {
+  font-size: 16px;
+  margin-right: 20px;
 }
 .dl_campaign_detail .campaign_detail .item .ion-chevron-right {
   float: right;
@@ -591,9 +623,6 @@ textarea {
 .dl_campaign_detail .campaign_detail .cp_member .member_num {
   color: #f07151;
 }
-.dl_campaign_detail .campaign_detail .cp_address .cp_location_title {
-  margin-right: 10px;
-}
 .dl_campaign_detail .campaign_detail .cp_address .cp_location {
   color: #666;
 }
@@ -605,7 +634,7 @@ textarea {
   display: -ms-flexbox;
   display: flex;
   padding: 0;
-  height: 70px;
+  height: 40px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col {
   -webkit-box-flex: 1;
@@ -619,7 +648,7 @@ textarea {
   padding: 10px;
   color: #666;
   height: 100%;
-  line-height: 26px;
+  line-height: 20px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col:last-child {
   border-right: none;
@@ -644,12 +673,19 @@ textarea {
   height: 50px;
   border-top: 1px solid #ccc;
 }
-.dl_campaign_detail .bar-footer .dl_cp_join {
-  color: #fff;
-  background-color: #3ca2e0;
+.dl_campaign_detail .bar-footer .button {
   margin: 0 15px;
   border-radius: 5px;
   height: 40px;
+}
+.dl_campaign_detail .bar-footer .button.dl_cp_join {
+  color: #fff;
+  background-color: #3ca2e0;
+}
+.dl_campaign_detail .bar-footer .button.dl_cp_quit {
+  color: #666;
+  background-color: #fff;
+  border: 1px solid #ccc;
 }
 .notice_page {
   background-color: #efefef;
@@ -1200,6 +1236,7 @@ a>.login .companies_list:activated {
 .app_tabs > .tabs {
   background-color: #000;
   color: #fff;
+  background-size: 100% 0;
 }
 .app_tabs > .tabs .tab-item {
   position: relative;
@@ -1946,33 +1983,94 @@ a>.login .companies_list:activated {
 .rank_rules .list .card {
   margin-top: 0;
 }
-.company .company_image {
-  width: 100%;
+.tab_company_page {
+  font-family: 'Heiti';
+}
+.tab_company_page .list {
+  margin-top: 9px;
+  margin-bottom: 0;
+}
+.tab_company_page .company_info_item {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  height: 75px;
+}
+.tab_company_page .company_logo {
+  width: 45px !important;
+  height: 45px !important;
+  max-width: 45px !important;
+  max-height: 45px !important;
+  border-radius: 5px !important;
+}
+.tab_company_page .company_name {
+  color: #202020;
+  font-size: 14px;
+  line-height: 24px;
+}
+.tab_company_page .staff_item {
+  height: auto;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 36px;
+}
+.tab_company_page .staff_photo {
   display: block;
-  background: url("../img/discover.jpg") no-repeat;
-  background-size: 100%;
-  height: 15rem;
-  margin-top: 10px;
+  float: left;
+  margin-right: 15px;
+  width: 30px;
+  height: 30px;
 }
-.company .list .item:first-child {
-  height: 54px;
+.tab_company_page .more_text {
+  float: right;
+  color: #666;
+  font-size: 12px;
+  line-height: 30px;
 }
-.company .list .item .icon {
+.tab_company_page .icon_right {
+  right: 0;
+}
+.tab_company_page .icon.ion-chevron-right {
+  color: #ababab;
+}
+.tab_company_page .menu_list .item {
+  padding-left: 50px;
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.tab_company_page .menu_list .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.tab_company_page .menu_list .item:first-child {
+  border-top-width: 1px;
+}
+.tab_company_page .menu_list .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.tab_company_page .menu_list .item:last-child:after {
+  content: none;
+  display: none;
+}
+.tab_company_page .menu_list .icon_left {
   width: 3rem;
   font-size: 14px;
   color: #3ca2e0;
+  left: 7px;
 }
-.company .list .item .icon.ion-chevron-right {
-  color: #ababab;
-}
-.company .list .item .icon.ion-android-contacts {
+.tab_company_page .menu_list .ionic_icon {
   font-size: 22px;
   padding-left: 4px;
 }
-.company .list .item .item-note {
-  color: #ababab;
+.tab_company_page .menu_list .item-note {
+  color: #3ca2e0;
 }
-.company .list .item .badge {
+.tab_company_page .menu_list .badge {
   background-color: #ff5724;
   padding: 2px 6px 1px;
   top: 17px;
@@ -1981,12 +2079,13 @@ a>.login .companies_list:activated {
   right: auto;
   display: inline-block;
 }
-.company .list .item .badge_image {
-  float: right;
-  margin-top: -6px;
-  position: relative;
+.tab_company_page .menu_list .badge_image {
+  position: absolute;
+  right: 36px;
+  top: 4px;
+  height: 30px;
 }
-.company .list .item .badge_image .red_spot {
+.tab_company_page .menu_list .badge_image .red_spot {
   background-color: #f48361;
   position: absolute;
   width: 1rem;
@@ -1995,15 +2094,16 @@ a>.login .companies_list:activated {
   right: -0.5rem;
   top: -0.5rem;
 }
-.company .list .item .badge_image .logo {
-  width: 34px;
-  height: 34px;
+.tab_company_page .menu_list .badge_image .logo {
+  width: 30px;
+  height: 30px;
 }
 .personal .list,
 .settings .list,
 .about .list,
 .settings_account .list,
 .contacts .list,
+.tab_company_page .list,
 .company .list {
   margin-top: 10px;
 }
@@ -2012,6 +2112,7 @@ a>.login .companies_list:activated {
 .about .list .ion-chevron-right,
 .settings_account .list .ion-chevron-right,
 .contacts .list .ion-chevron-right,
+.tab_company_page .list .ion-chevron-right,
 .company .list .ion-chevron-right {
   font-size: 14px;
   color: #ccc;
@@ -2021,6 +2122,7 @@ a>.login .companies_list:activated {
 .about .list .ion-compose,
 .settings_account .list .ion-compose,
 .contacts .list .ion-compose,
+.tab_company_page .list .ion-compose,
 .company .list .ion-compose {
   color: #333;
   font-size: 20px;
@@ -2040,8 +2142,56 @@ a>.login .companies_list:activated {
 .map_select .search_box input {
   background-color: #fff;
 }
+.contacts {
+  font-family: 'Heiti';
+}
 .contacts .bar {
-  padding: 0;
+  border-bottom: none;
+}
+.contacts .user_list {
+  margin-top: 0;
+}
+.contacts .user_item {
+  padding-left: 77px;
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.contacts .user_item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.contacts .user_item:first-child {
+  border-top-width: 1px;
+}
+.contacts .user_item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.contacts .user_item:last-child:after {
+  content: none;
+  display: none;
+}
+.contacts .user_photo {
+  width: 45px !important;
+  height: 45px !important;
+  max-width: 45px !important;
+  max-height: 45px !important;
+  border-radius: 5px !important;
+}
+.contacts .nickname {
+  font-size: 14px;
+  line-height: 24px;
+  color: #202020;
+}
+.contacts .realname {
+  font-size: 12px;
+  line-height: 18px;
+  color: #666;
 }
 .map_select .search_box {
   height: 40px;
@@ -2120,15 +2270,32 @@ a>.login .companies_list:activated {
   font-family: 'Heiti';
 }
 .personal .menu_list .item {
-  padding-top: 7px;
-  padding-bottom: 7px;
   padding-left: 50px;
-  font-size: 14px;
-  line-height: 24px;
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.personal .menu_list .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.personal .menu_list .item:first-child {
+  border-top-width: 1px;
+}
+.personal .menu_list .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.personal .menu_list .item:last-child:after {
+  content: none;
+  display: none;
 }
 .personal .menu_list .item .icon_left {
   width: 3rem;
-  margin-top: -8px;
   margin-left: -6px;
 }
 .personal .user_header {
@@ -2146,16 +2313,20 @@ a>.login .companies_list:activated {
   position: relative;
   text-align: center;
   color: #fff;
-  padding-top: 30px;
+  padding-top: 35px;
   width: 100%;
   height: 190px;
+  text-shadow: 2px 2px 2px #000;
 }
 .personal .user_header .user_card .user_logo {
   border-radius: 100%;
   border: 3px solid #ccc;
+  height: 80px;
+  width: 80px;
 }
 .personal .user_header .user_card .user_name {
   font-size: 16px;
+  margin-top: 5px;
 }
 .personal .user_header .user_card .user_introduce {
   overflow: hidden;
@@ -2238,13 +2409,6 @@ a>.login .companies_list:activated {
   padding: 10px;
   text-align: center;
   color: #666;
-}
-.personal .user_header .tab_view .tab_content .calendar_container .calendar {
-  margin: 0;
-}
-.personal .user_header .tab_view .tab_content .calendar_container .calendar .calendar_campaign_join {
-  right: 25%;
-  bottom: 5px;
 }
 .edit_info .list {
   padding-top: 10px;
@@ -2355,7 +2519,6 @@ a>.login .companies_list:activated {
 }
 .settings .list {
   padding-top: 0;
-  border-bottom: 1px solid #ccc;
 }
 .settings .list:first-child {
   margin-bottom: 10px;
@@ -2369,6 +2532,7 @@ a>.login .companies_list:activated {
   border-top: 0;
   color: #f3835c;
   height: 50px;
+  border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
 .about .list {
@@ -2450,7 +2614,7 @@ a>.login .companies_list:activated {
   line-height: 20px;
 }
 .calendar {
-  margin: 6px 4px;
+  margin: 6px 0px;
   color: #999;
   height: 100%;
 }
@@ -2458,6 +2622,7 @@ a>.login .companies_list:activated {
   background-color: #f6f6f6;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  margin: 0px 4px;
 }
 .calendar nav .operator {
   color: #fbfbfb;
@@ -2502,7 +2667,7 @@ a>.login .companies_list:activated {
   height: 60px;
   border-top: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #ccc;
   background-color: #fbfbfb;
   color: #999;
 }
@@ -2766,6 +2931,11 @@ a>.login .companies_list:activated {
   border-style: solid;
   border-width: 0 20px 20px;
 }
+.calendar .calendar_day .calendar_campaign .calendar_divider {
+  height: 10px;
+  border-top: 0;
+  background-color: #f7f7f7;
+}
 .calendar .dl_card_footer {
   position: relative;
   height: 18px;
@@ -2801,9 +2971,19 @@ a>.login .companies_list:activated {
 }
 .calendar .campaign_title_joined {
   color: #48bebc;
+  margin-left: 15px;
 }
 .calendar .campaign_title_unjoined {
   color: #d46c93;
+  margin-left: 15px;
+}
+.calendar.other .calendar_month .calendar_day .calendar_campaign_join {
+  right: 25%;
+  bottom: 5px;
+}
+.calendar.other nav .date_list .date_box .calendar_campaign_join {
+  right: 25%;
+  bottom: 5px;
 }
 .dl_popover {
   background-color: rgba(0,0,0,0.7);
@@ -3357,11 +3537,32 @@ a>.login .companies_list:activated {
   -webkit-transform: translateY(500px) scale(0.1);
   -o-transform: translateY(500px) scale(0.1);
 }
-#inviteKeyQrCode img {
+.invite_key_qr_code img {
   margin: 0 auto;
 }
 .invite_key .ion-clipboard {
   color: #3ca2e0;
+}
+.personal_invite_code_page {
+  font-family: 'Heiti';
+}
+.personal_invite_code_page .list {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.personal_invite_code_page .item {
+  color: #202020;
+}
+.personal_invite_code_page .description_item {
+  height: 120px;
+}
+.personal_invite_code_page .invite_key_qr_code {
+  margin: auto;
+  width: 165px;
+  height: 165px;
+}
+.personal_invite_code_page .invite_key_qr_code img {
+  max-width: 100%;
 }
 .circle_send_content_page .circle_content_form .content_border {
   padding-right: 6px;
@@ -3589,7 +3790,7 @@ a>.login .companies_list:activated {
   font-family: 'STHeiti';
 }
 .dl_circle_card .link_name {
-  color: #3ca2e0;
+  color: #294a7e;
   text-decoration: none;
 }
 .dl_circle_card .circle_company_logo {
@@ -3648,6 +3849,10 @@ a>.login .companies_list:activated {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.dl_circle_card .circle_info .text_from {
+  color: #999;
+  margin-right: 5px;
 }
 .dl_circle_card .circle_info .date_and_op {
   position: relative;
@@ -3746,7 +3951,7 @@ a>.login .companies_list:activated {
   white-space: nowrap;
 }
 .dl_circle_card .circle_comment_list .appreciate_container .appreciate_icon {
-  color: #3ca2e0;
+  color: #294a7e;
 }
 .dl_circle_card .circle_comment_list .appreciate_container .appreciate {
   margin-left: 5px;
@@ -3794,7 +3999,7 @@ a>.login .companies_list:activated {
   text-align: center;
   font-size: 10px;
 }
-.competition_message_panel .competition_message_list .competition_message .unread_status .dot {
+.competition_message_panel .competition_message_list .competition_message .dot {
   width: 10px;
   height: 10px;
   background-color: #f00;
@@ -3836,6 +4041,7 @@ a>.login .companies_list:activated {
   text-align: center;
   font-size: 14px;
   height: 26px;
+  line-height: 26px;
 }
 .competition_message_panel .competition_message_detail .teams .team .team_title:before {
   content: "";

@@ -14,7 +14,7 @@ col_lightGray = #676767
 col_bottomGray = #f7f7f7
 col_borderGray = #c9c9c9
 col_textBlack = #707070
-col_link = rgb(60, 162, 224)
+col_link = #294a7e
 col_mainText = #202020
 col_textGray = #666666
 
@@ -51,6 +51,25 @@ textOverflow()
   overflow hidden
   text-overflow ellipsis
   white-space nowrap
+indentLine()
+  border-width 0
+  padding-bottom 17px
+  &:after
+    display block
+    position absolute
+    left 15px
+    bottom 0
+    width 100%
+    content ''
+    border 1px solid #ddd
+  &:first-child
+    border-top-width 1px
+  &:last-child
+    border-bottom-width 1px
+    padding-bottom 16px
+    &:after
+      content none
+      display none
 html
   font-size 12px
 body
@@ -432,11 +451,11 @@ textarea
     .campaign_info
       background-color white
       padding 15px
+      padding-bottom 0
       color #666666
       position relative
-      font-size 12px
-      line-height 15px
-      height 90px
+      font-size 14px
+      height 75px
       .cp_logos
         width 60px
         height 60px
@@ -466,24 +485,49 @@ textarea
             margin-bottom 6px
             border-radius 3px
             float left
-      .team_name
-        font-size 14px
+      .campaign_theme
+        font-size 16px
         color #202020
-        margin-bottom 5px
+        margin 5px 0
       .cp_time
-        margin-bottom 5px
+        margin-bottom 10px
+        line-height 15px
       .ion_member
       .ion_time
       .ion_address
         float left
         margin-right 10px
+    .campaign_status
+      background-color white
+      padding 5px 15px
+      height 30px
+      color #ababab
+      .status
+        float right
+        &.now
+          color #13adb6
+        &.unstart
+          color #3ca2df
+        &.unjoin
+          color #f48361
     .item
       padding 15px
       font-size 14px
       color #202020
+      &.campaign_content
+        .operator
+          text-align center
+          padding-top 5px
+          .more_content
+            color col_blue
+            text-decoration none
+            font-size 16px
       &.item_header
         height 44px
         line-height 16px
+        .title
+          font-size 16px
+          margin-right 20px
       .ion-chevron-right
         float right
     .item-divider
@@ -498,14 +542,12 @@ textarea
       .member_num
         color #f07151
     .cp_address
-      .cp_location_title
-        margin-right 10px
       .cp_location
         color #666666
     .campaign_footer
       displayFlex()
       padding 0
-      height 70px
+      height 40px
       .footer_col
         flexValue(1)
         text-align center
@@ -513,7 +555,7 @@ textarea
         padding 10px
         color #666666
         height 100%
-        line-height 26px
+        line-height 20px
         &:last-child
           border-right none
         .dl_icon
@@ -531,12 +573,17 @@ textarea
   .bar-footer
     height 50px
     border-top 1px solid #ccc
-    .dl_cp_join
-      color white
-      background-color col_blue
+    .button
       margin 0 15px
       border-radius 5px
       height 40px
+      &.dl_cp_join
+        color white
+        background-color col_blue
+      &.dl_cp_quit
+        color #666
+        background-color white
+        border 1px solid #ccc
 .notice_page
   background-color #efefef
   .list
@@ -988,6 +1035,7 @@ textarea
 .app_tabs > .tabs
   background-color #000
   color white
+  background-size 100% 0
   .tab-item
     position relative
     opacity 1
@@ -1582,54 +1630,85 @@ textarea
       margin-top 0
 
 //公司页
-.company
-  .company_image
-    width 100%
-    display block
-    background url('../img/discover.jpg') no-repeat
-    background-size 100%
-    height 15rem
-    margin-top 10px
+.tab_company_page
+  font-family 'Heiti'
   .list
+    margin-top 9px
+    margin-bottom 0
+  .company_info_item
+    padding-top 15px
+    padding-bottom 15px
+    height 75px
+  .company_logo
+    width 45px !important
+    height 45px !important
+    max-width 45px !important
+    max-height 45px !important
+    border-radius 5px !important
+  .company_name
+    color col_mainText
+    font-size 14px
+    line-height 24px
+  .staff_item
+    height auto
+    padding-top 12px
+    padding-bottom 12px
+    padding-right 36px
+  .staff_photo
+    display block
+    float left
+    margin-right 15px
+    width 30px
+    height 30px
+  .more_text
+    float right
+    color col_textGray
+    font-size 12px
+    line-height 30px
+  .icon_right
+    right 0
+  .icon.ion-chevron-right
+    color #ababab
+  .menu_list
     .item
-      &:first-child
-        height 54px
-      .icon
-        width 3rem
-        font-size 14px
-        color col_blue
-      .icon.ion-chevron-right
-        color #ababab
-      .icon.ion-android-contacts
-        font-size 22px
-        padding-left 4px
-      .item-note
-        color #ababab
-      .badge
-        background-color #FF5724
-        padding 2px 6px 1px
-        top 17px
-        font-size 12px
-        margin-left 4px
-        right auto
-        display inline-block
-      .badge_image
-        float right
-        margin-top -6px
-        position relative
-        .red_spot
-          background-color #f48361
-          position absolute
-          width 1rem
-          height 1rem
-          border-radius 100%
-          right -0.5rem
-          top -0.5rem
-        .logo
-          width 34px
-          height 34px
+      padding-left 50px
+      indentLine()
+    .icon_left
+      width 3rem
+      font-size 14px
+      color col_blue
+      left 7px
+    .ionic_icon
+      font-size 22px
+      padding-left 4px
+    .item-note
+      color col_blue
+    .badge
+      background-color #FF5724
+      padding 2px 6px 1px
+      top 17px
+      font-size 12px
+      margin-left 4px
+      right auto
+      display inline-block
+    .badge_image
+      position absolute
+      right 36px
+      top 4px
+      height 30px
+      .red_spot
+        background-color #f48361
+        position absolute
+        width 1rem
+        height 1rem
+        border-radius 100%
+        right -0.5rem
+        top -0.5rem
+      .logo
+        width 30px
+        height 30px
 //-我的等页面通用">"
-.personal, .settings, .about, .settings_account, .contacts, .company
+.personal, .settings, .about, .settings_account, .contacts, .tab_company_page, .company
   .list
     margin-top 10px
     .ion-chevron-right
@@ -1650,8 +1729,29 @@ textarea
     input
       background-color #fff
 .contacts
+  font-family 'Heiti'
   .bar
-    padding 0
+    border-bottom none
+  .user_list
+    margin-top 0
+  .user_item
+    padding-left 77px
+    indentLine()
+  .user_photo
+    width 45px !important
+    height 45px !important
+    max-width 45px !important
+    max-height 45px !important
+    border-radius 5px !important
+  .nickname
+    font-size 14px
+    line-height 24px
+    color col_mainText
+  .realname
+    font-size 12px
+    line-height 18px
+    color col_textGray
+
 //- 地图选择样式
 .map_select
   .search_box
@@ -1717,14 +1817,10 @@ textarea
   .menu_list
     font-family 'Heiti'
     .item
-      padding-top 7px
-      padding-bottom 7px
       padding-left 50px
-      font-size 14px
-      line-height 24px
+      indentLine()
       .icon_left
         width 3rem
-        margin-top -8px
         margin-left -6px
   //其他人看
   .user_header
@@ -1740,15 +1836,18 @@ textarea
       position relative
       text-align center
       color white
-      padding-top 30px
+      padding-top 35px
       width 100%
       height 190px
+      text-shadow 2px 2px 2px black
       .user_logo
         border-radius 100%
         border 3px solid #CCC
-        
+        height 80px
+        width 80px
       .user_name
         font-size 16px
+        margin-top 5px
       .user_introduce
         textOverflow()
         width 80%
@@ -1809,12 +1908,6 @@ textarea
               padding 10px
               text-align center
               color #666
-        .calendar_container
-          .calendar
-            margin 0
-            .calendar_campaign_join
-              right 25%
-              bottom 5px
 //-编辑个人信息页
 .edit_info
   .list
@@ -1922,7 +2015,6 @@ textarea
 .settings
   .list
     padding-top 0
-    border-bottom 1px solid #ccc
     &:first-child
       margin-bottom 10px
       margin-top 10px
@@ -1933,6 +2025,7 @@ textarea
     border-top 0
     color #f3835c
     height 50px
+    border-top 1px solid #ccc
     border-bottom 1px solid #ccc
 //- 关于
 .about
@@ -1991,13 +2084,14 @@ textarea
       line-height 20px
 // 日程
 .calendar
-  margin 6px 4px
+  margin 6px 0px
   color col_darkGray
   height 100%
   nav
     background-color rgb(246, 246, 246)
     border-top-left-radius 4px
     border-top-right-radius 4px
+    margin 0px 4px
     .operator
       // background-color col_blue
       color col_navGray
@@ -2036,7 +2130,7 @@ textarea
         height 60px
         border-top 1px solid #ccc
         border-right 1px solid #ccc
-        border-bottom 1px solid #ccc
+        border-bottom 2px solid #ccc
         background-color #fbfbfb
         color #999999
         &.other_month
@@ -2092,7 +2186,6 @@ textarea
 
     .date_bar
       margin 5px auto
-
   .full_box
     height 100%
 
@@ -2252,6 +2345,10 @@ textarea
               border-color transparent #43cee6 transparent transparent
               border-style solid
               border-width 0 20px 20px
+      .calendar_divider
+        height 10px
+        border-top 0
+        background-color col_bottomGray
   .dl_card_footer
     position relative
     height 18px
@@ -2281,8 +2378,22 @@ textarea
       float left
   .campaign_title_joined
     color #48bebc
+    margin-left 15px
   .campaign_title_unjoined
     color #d46c93
+    margin-left 15px
+  &.other
+    .calendar_month
+      .calendar_day
+        .calendar_campaign_join
+          right 25%
+          bottom 5px
+    nav
+      .date_list
+        .date_box
+          .calendar_campaign_join
+            right 25%
+            bottom 5px
 .dl_popover
   background-color rgba(0,0,0,0.7)
   border-radius 0 !important
@@ -2737,12 +2848,28 @@ textarea
   -moz-transform translateY(500px) scale(0.1) /* Firefox 4 */
   -webkit-transform translateY(500px) scale(0.1) /* Safari and Chrome */
   -o-transform translateY(500px) scale(0.1) /* Opera */
-#inviteKeyQrCode
+.invite_key_qr_code
   img
     margin 0 auto
 .invite_key
   .ion-clipboard
     color col_blue
+.personal_invite_code_page
+  font-family 'Heiti'
+  .list
+    margin-top 10px
+    margin-bottom 0
+  .item
+    color col_mainText
+  .description_item
+    height 120px
+  .invite_key_qr_code
+    margin auto
+    width 165px
+    height 165px
+    img
+      max-width 100%
+
 
 // 同事圈发文字或发图片附加文字样式
 .circle_send_content_page
@@ -2982,6 +3109,9 @@ textarea
       max-width 320px
       word-break break-all
       textOverflow()
+    .text_from
+      color col_darkGray
+      margin-right 5px
     .date_and_op
       position relative
       margin-top 9px
@@ -3103,14 +3233,13 @@ textarea
       background-color white
       text-align center
       font-size 10px
-      .unread_status
-        .dot
-          width 10px
-          height 10px
-          background-color red
-          border-radius 100%
-          display inline-block
-          margin-top 15px
+      .dot
+        width 10px
+        height 10px
+        background-color red
+        border-radius 100%
+        display inline-block
+        margin-top 15px
       .text_left
         text-align left
       .status_text
@@ -3138,6 +3267,7 @@ textarea
           text-align center
           font-size 14px
           height 26px
+          line-height 26px
           &:before
             content: ""
             position: absolute

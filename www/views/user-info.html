@@ -1,7 +1,7 @@
 
 <ion-view class="personal">
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 ng-model="user.nickname" class="title"></h1><a ng-click="showPopover($event)" class="button icon ion-more"></a>
+    <h1 ng-cloak="ng-cloak" class="title">{{user.nickname}}</h1><a ng-click="showPopover($event)" class="button icon ion-more"></a>
   </ion-header-bar>
   <ion-content>
     <div class="user_header"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/320/190" class="img_container"/>
@@ -29,7 +29,7 @@
             <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
           </div>
           <div ng-if="nowTab=='campaign'" class="calendar_container">
-            <div class="calendar">
+            <div class="calendar other">
               <nav>
                 <div ng-if="view==='month'" class="operator item tabs">
                   <div ng-click="preMonth()" class="tab-item"><i class="icon icon_small icon_blue icon_margin_left ion-chevron-left"></i></div>
