@@ -10,11 +10,10 @@
           <div ng-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="provoke_label"><span>挑战</span></div>
           <div ng-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"></a>
         </div>
-        <div class="team_name">{{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</div>
+        <div class="campaign_theme">{{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</div>
         <div class="cp_time"><i class="icon icon_small ion_time"></i><span ng-cloak="ng-cloak">{{campaign.start_time | date:"MM-dd HH:mm"}} ~~ {{campaign.end_time | date:"MM-dd  HH:mm" }}</span></div>
-        <div ng-if="campaign.is_start" ng-cloak="ng-cloak" class="cp_member"><i class="icon icon_small ion_member"></i><span class="member_num">{{campaign.members_count}}</span><span ng-if="campaign.member_max" class="member_num">&nbsp;|&nbsp;{{campaign.member_max}}</span></div>
-        <div ng-if="!campaign.is_start" ng-cloak="ng-cloak" class="cp_address"><i class="icon icon_small ion_address"></i><span class="cp_location">{{campaign.location.name}}</span></div>
-      </div><a ng-if="campaign.is_start || campaign.allow.quitCampaign" ng-href="#/location/{{campaign._id}}" ng-cloak="ng-cloak" class="item item_header cp_address"><span class="cp_location_title">活动地点:</span><span class="cp_location">{{campaign.location.name}}</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
+      </div>
+      <div class="campaign_status"><span class="dl_cp_time">{{campaign.create_time | beforeNow}}发布</span><span class="status">{{campaign.start_time | campaignStatus:campaign.end_time}}</span></div><a ng-if="campaign.is_start || campaign.allow.quitCampaign" ng-href="#/location/{{campaign._id}}" ng-cloak="ng-cloak" class="item item_header cp_address"><span class="cp_location_title">活动地点:</span><span class="cp_location">{{campaign.location.name}}</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
       <div ng-if="campaign &amp;&amp; !campaign.is_start &amp;&amp; !campaign.allow.quitCampaign" ng-cloak="ng-cloak" class="item campaign_footer"><a ng-href="#/members/campaign/{{campaign._id}}" class="footer_col">
           <div class="ion_member dl_icon icon_small"></div>
           <div class="footer_label">已报名({{campaign.members_count}})</div></a>

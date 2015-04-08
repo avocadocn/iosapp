@@ -599,7 +599,7 @@ textarea
             margin-bottom 6px
             border-radius 3px
             float left
-      .team_name
+      .campaign_theme
         font-size 14px
         color #202020
         margin-bottom 5px
@@ -610,6 +610,9 @@ textarea
       .ion_address
         float left
         margin-right 10px
+    .campaign_status
+      .status
+        float right
     .item
       padding 15px
       font-size 14px
@@ -1939,15 +1942,18 @@ textarea
       position relative
       text-align center
       color white
-      padding-top 30px
+      padding-top 35px
       width 100%
       height 190px
+      text-shadow 2px 2px 2px black
       .user_logo
         border-radius 100%
         border 3px solid #CCC
-        
+        height 80px
+        width 80px
       .user_name
         font-size 16px
+        margin-top 5px
       .user_introduce
         textOverflow()
         width 80%
@@ -2008,12 +2014,6 @@ textarea
               padding 10px
               text-align center
               color #666
-        .calendar_container
-          .calendar
-            margin 0
-            .calendar_campaign_join
-              right 25%
-              bottom 5px
 //-编辑个人信息页
 .edit_info
   .list
@@ -2292,7 +2292,6 @@ textarea
 
     .date_bar
       margin 5px auto
-
   .full_box
     height 100%
 
@@ -2489,6 +2488,18 @@ textarea
   .campaign_title_unjoined
     color #d46c93
     margin-left 15px
+  &.other
+    .calendar_month
+      .calendar_day
+        .calendar_campaign_join
+          right 25%
+          bottom 5px
+    nav
+      .date_list
+        .date_box
+          .calendar_campaign_join
+            right 25%
+            bottom 5px
 .dl_popover
   background-color rgba(0,0,0,0.7)
   border-radius 0 !important
@@ -3333,14 +3344,13 @@ textarea
       background-color white
       text-align center
       font-size 10px
-      .unread_status
-        .dot
-          width 10px
-          height 10px
-          background-color red
-          border-radius 100%
-          display inline-block
-          margin-top 15px
+      .dot
+        width 10px
+        height 10px
+        background-color red
+        border-radius 100%
+        display inline-block
+        margin-top 15px
       .text_left
         text-align left
       .status_text
@@ -3368,6 +3378,7 @@ textarea
           text-align center
           font-size 14px
           height 26px
+          line-height 26px
           &:before
             content: ""
             position: absolute

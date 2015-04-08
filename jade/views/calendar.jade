@@ -48,10 +48,9 @@ ion-view
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     a.button.icon_blue(ng-if="view==='day'" ng-click="back()") 关闭
-    h1.title.dl_title 我的日程
-    a.button.ion-chevron-down.icon-right(ng-click="showFilter($event)" ng-cloak) {{campaignTypes[nowTypeIndex].view || '所有'}}
-  ion-content(scroll='false' overflow-scroll="true")
-    .calendar
+    h1.title.dl_title(ng-cloak) {{pageType=='userinfo'?'他':'我'}}的日程
+  ion-content(scroll='false'  overflow-scroll="true")
+    .calendar(ng-class="{'other':pageType=='userinfo'}")
       nav
         .operator.item.tabs(ng-if="view==='month'")
             .tab-item(ng-click="preMonth()")
@@ -100,16 +99,3 @@ ion-view
             +campaignsContainer('参加的活动','current_day.campaigins_joined', 'joined')
             +campaignsContainer('未参加的活动','current_day.campaigins_unjoined', 'unjoined')
             .no_campagin.text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
-
-          //-     a.item.item-avatar(ng-class="{provoke: campaign.campaign_unit.length==2}" ng-href="#/campaign/detail/{{campaign._id}}")
-          //-       img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/40/40'}}")
-          //-       img.dl_team_logo.second_team(ng-if="campaign.campaign_unit.length==2" ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/40/40'}}")
-          //-       h2 {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].team.name}}{{campaign.campaign_unit[1] ? 'vs' +campaign.campaign_unit[1].team.name || campaign.campaign_unit[1].team.name :''}}
-          //-       p.dl_cp_name {{ campaign.theme }}
-          //-       p.flag(ng-if="current_day.past_flag" ng-class="{now:!campaign.finish}") {{ campaign.finish?'已经结束':'正在进行' }}
-          //-       p.flag(ng-if="!current_day.past_flag" ng-class="{join:campaign.join_flag==1}") {{ campaign.join_flag==1?'已参加':'未参加' }}
-          //- .no_campagin.text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
-script(id="my-popover.html" type="text/ng-template")
-  ion-popover-view.dl_popover.calendar_filter_popover
-    ion-content.dl_popover_content
-      .dl_popover_button(ng-repeat="campaignType in campaignTypes" ng-click="campaignFilter($index)") {{ campaignType.view}}

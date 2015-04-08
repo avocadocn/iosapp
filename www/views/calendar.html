@@ -2,10 +2,10 @@
 <ion-view>
 </ion-view>
 <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a><a ng-if="view==='day'" ng-click="back()" class="button icon_blue">关闭</a>
-  <h1 class="title dl_title">我的日程</h1><a ng-click="showFilter($event)" ng-cloak="ng-cloak" class="button ion-chevron-down icon-right">{{campaignTypes[nowTypeIndex].view || '所有'}}</a>
+  <h1 ng-cloak="ng-cloak" class="title dl_title">{{pageType=='userinfo'?'他':'我'}}的日程</h1>
 </ion-header-bar>
 <ion-content scroll="false" overflow-scroll="true">
-  <div class="calendar">
+  <div ng-class="{'other':pageType=='userinfo'}" class="calendar">
     <nav>
       <div ng-if="view==='month'" class="operator item tabs">
         <div ng-click="preMonth()" class="tab-item"><i class="icon icon_small icon_blue icon_margin_left ion-chevron-left"></i></div>
@@ -97,10 +97,3 @@
     </div>
   </div>
 </ion-content>
-<script id="my-popover.html" type="text/ng-template">
-  <ion-popover-view class="dl_popover calendar_filter_popover">
-    <ion-content class="dl_popover_content">
-      <div ng-repeat="campaignType in campaignTypes" ng-click="campaignFilter($index)" class="dl_popover_button">{{ campaignType.view}}</div>
-    </ion-content>
-  </ion-popover-view>
-</script>

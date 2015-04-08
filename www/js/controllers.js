@@ -1764,17 +1764,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('CalendarController', ['$scope', '$rootScope', '$state', '$ionicPopup', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
     function($scope, $rootScope, $state, $ionicPopup, $ionicPopover, $timeout, $ionicHistory, Campaign, INFO) {
-      $scope.nowTypeIndex = 2;
-      $scope.campaignTypes = [{
-        value: 'unjoined',
-        view: '未参加'
-      }, {
-        value: 'joined',
-        view: '已参加'
-      }, {
-        value: 'all',
-        view: '所有'
-      }];
+      $scope.pageType = $state.params.type;
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
@@ -1784,7 +1774,6 @@ angular.module('donlerApp.controllers', [])
       };
 
       moment.locale('zh-cn');
-      $scope.calendarBackUrl = INFO.calendarBackUrl;
       /**
        * 日历视图的状态，有年、月、日三种视图
        * 'year' or 'month' or 'day'
@@ -1846,11 +1835,10 @@ angular.module('donlerApp.controllers', [])
           format_month: month + 1,
           days: []
         };
-        
         var month_dates = mdate.daysInMonth();
         Campaign.getList({
           requestType: 'user',
-          requestId: localStorage.id,
+          requestId: $state.params.type =='userinfo' ? INFO.guestUserId :localStorage.id,
           from: new Date(year, month).getTime(),
           to: new Date(year, month + 1).getTime()
         }, function(err, data) {
@@ -1888,13 +1876,11 @@ angular.module('donlerApp.controllers', [])
             }
           }
           var dayOperate = function(i, campaign) {
-            if ($scope.nowTypeIndex == 2 || $scope.nowTypeIndex == campaign.join_flag || $scope.nowTypeIndex == 0 && campaign.join_flag == -1) {
-              month_data.days[i - 1].events.push(campaign);
-              if (campaign.join_flag == 1) {
-                month_data.days[i - 1].joined_events.push(campaign);
-              } else {
-                month_data.days[i - 1].unjoined_events.push(campaign);
-              }
+            month_data.days[i - 1].events.push(campaign);
+            if (campaign.join_flag == 1) {
+              month_data.days[i - 1].joined_events.push(campaign);
+            } else if($scope.pageType!=='userinfo'){
+              month_data.days[i - 1].unjoined_events.push(campaign);
             }
           };
           // 将活动及相关标记存入某天
@@ -2000,13 +1986,11 @@ angular.module('donlerApp.controllers', [])
           var events_joined = [];
           var events_unjoined = [];
           $scope.current_month.days[current.getDate() + lastMonthDays - 1].events.forEach(function(event) {
-            if ($scope.nowTypeIndex == 2 || $scope.nowTypeIndex == event.join_flag || $scope.nowTypeIndex == 0 && event.join_flag == -1) {
-              events.push(event);
-              if (event.join_flag == 1) {
-                events_joined.push(event);
-              } else {
-                events_unjoined.push(event);
-              }
+            events.push(event);
+            if (event.join_flag == 1) {
+              events_joined.push(event);
+            } else if($scope.pageType!=='userinfo') {
+              events_unjoined.push(event);
             }
           });
           var day = {
@@ -2040,13 +2024,11 @@ angular.module('donlerApp.controllers', [])
               var joined_events = [];
               var unjoined_events = [];
               $scope.current_month.days[week_date.getDate() + lastMonthDays - 1].events.forEach(function(event) {
-                if ($scope.nowTypeIndex == 2 || $scope.nowTypeIndex == event.join_flag) {
-                  events.push(event);
-                  if (event.join_flag == 1) {
-                    joined_events.push(event);
-                  } else {
-                    unjoined_events.push(event);
-                  }
+                events.push(event);
+                if (event.join_flag == 1) {
+                  joined_events.push(event);
+                } else if($scope.pageType!=='userinfo') {
+                  unjoined_events.push(event);
                 }
               });
               week_date.events = events;
@@ -2117,7 +2099,6 @@ angular.module('donlerApp.controllers', [])
           return;
         }
         updateDay(date);
-        // $scope.day_cards = day;
         $scope.view = 'day';
       };
 
@@ -2127,10 +2108,6 @@ angular.module('donlerApp.controllers', [])
         temp.setMonth(temp.getMonth() + 1);
         current = new Date(temp);
         updateMonth(temp);
-        // $scope.month_cards.push(updateMonth(temp));
-        // $timeout(function(){
-        //   $scope.removeMonth(0);
-        // },100);
       };
 
       $scope.preMonth = function() {
@@ -2138,55 +2115,21 @@ angular.module('donlerApp.controllers', [])
         temp.setMonth(temp.getMonth() - 1);
         current = new Date(temp);
         updateMonth(temp);
-        // $scope.month_cards.unshift(updateMonth(temp));
-        // $timeout(function(){
-        //   $scope.removeMonth(-1);
-        // },100);
       };
 
       $scope.nextDay = function() {
         var temp = $scope.current_date;
         temp.setDate(temp.getDate() + 1);
         updateDay(temp);
-        // $scope.day_cards = new_day;
       };
 
       $scope.preDay = function(day) {
         var temp = $scope.current_date;
         temp.setDate(temp.getDate() - 1);
         updateDay(temp);
-        // $scope.day_cards = new_day;
 
       };
 
-      // $scope.removeMonth = function(index) {
-      //   $scope.month_cards.splice(index, 1);
-      // };
-
-      // $scope.removeDay = function(index) {
-      //   $scope.day_cards.splice(index, 1);
-      // };
-      $ionicPopover.fromTemplateUrl('my-popover.html', {
-        scope: $scope,
-      }).then(function(popover) {
-        $scope.popover = popover;
-      });
-      $scope.showFilter = function($event) {
-        $scope.popover.show($event);
-      };
-      $scope.campaignFilter = function(index) {
-        $scope.nowTypeIndex = index;
-        $scope.popover.hide();
-        switch ($scope.view) {
-          case 'month':
-            updateMonth($scope.current_date);
-            break;
-          case 'day':
-            updateDay($scope.current_date);
-
-            break;
-        }
-      };
       if ($scope.view == 'month') {
         updateMonth(current);
       } else if ($scope.view == 'day') {
@@ -3692,6 +3635,16 @@ angular.module('donlerApp.controllers', [])
       temp.setMonth(temp.getMonth() - 1);
       current = new Date(temp);
       updateMonth(temp);
+    };
+    /**
+     * 进入日历的日视图
+     * @param  {Date} date
+     */
+    $scope.dayView = function(date) {
+      var date = new Date(date);
+      INFO.lastDate = date;
+      INFO.guestUserId = $stateParams.userId
+      $state.go('calendar',{type:'userinfo'})
     };
     var loadCalender = function () {
       moment.locale('zh-cn');

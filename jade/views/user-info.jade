@@ -1,7 +1,7 @@
 ion-view.personal
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title(ng-model="user.nickname")
+    h1.title(ng-cloak) {{user.nickname}}
     a.button.icon.ion-more(ng-click="showPopover($event)")
   ion-content
     .user_header
@@ -42,7 +42,7 @@ ion-view.personal
       
             ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
           .calendar_container(ng-if="nowTab=='campaign'")
-            .calendar
+            .calendar.other
               nav
                 .operator.item.tabs(ng-if="view==='month'")
                     .tab-item(ng-click="preMonth()")
