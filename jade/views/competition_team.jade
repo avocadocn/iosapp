@@ -1,53 +1,57 @@
-ion-view
+ion-view.competition_team_page
   ion-header-bar
     a.button.icon.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title 挑战小队
   ion-content
-    .competition_team
-      .row(ng-if="targetTeam" ng-cloak)
-        .col: img.team_logo(ng-src="{{STATIC_URL + targetTeam.logo}}/50/50")
-        .col.col-50
-          p {{targetTeam.name}}
-          p 活跃度: {{targetTeam.activityScore}}
-          p {{targetTeam.cname}}
-        .col
-          p {{targetTeam.memberCount}} 人
-          p 积分: {{targetTeam.score_rank.score || 0}}({{targetTeam.score_rank.win || 0}} 胜 {{targetTeam.score_rank.tie || 0}}平 {{targetTeam.score_rank.lose || 0}}负)
-      .row
-        .col
-          p
-            span 上次活动:
-            span(ng-if="targetTeam.last_campaign.start_time") {{ targetTeam.last_campaign.start_time | beforeNow}}
-            span(ng-if="!targetTeam.last_campaign.start_time") 无
-      .row
-        .col
-          p
-            span 小队主场:
-            span(ng-if="targetTeam.homeCourts.length==0") 无
-          .home_courts(ng-if="targetTeam.homeCourts.length>0")
-            .home_court(ng-repeat="homeCourt in targetTeam.homeCourts")
-              span {{homeCourt.name}}
-      .row(ng-if="competitions")
-        .col
-          p 共同活动
-          .no_common_competitions(ng-if="competitions.length==0") 还没有
-          .common_competitions(ng-if="competitions.length>0")
-            .common_competition(ng-repeat="competition in competitions")
-              .row
-                .col 挑战方
-                .col VS
-                .col 应战方
-              .row
-                .col(ng-repeat="playingTeam in competition.playing_teams")
-                  img(ng-src="{{STATIC_URL + playingTeam.logo}}/40/40")
-                  p {{playingTeam.name}}
-                  p {{playingTeam.score}}
-              .row
-                .col {{competition.create_date | beforeNow}}
-                .col(ng-if="competition.status!=2") 还未确认比分
-            .more
-              button.button.button-positive.button-small(ng-if="page<maxPage" ng-click="getCompetitionOfTeams()") 更多
-      .row
-        .col
-          button.button.button-full.button-positive(ng-click="showPopup(0)" ng-if="leadTeams.length>0") 挑战
-          button.button.button-full.button-positive(ng-click="showPopup(1)" ng-if="memberTeams.length>0") 推荐
+    .list.team_info
+      .item.item-avatar.item_team
+        img.team_logo(ng-src="{{STATIC_URL + targetTeam.logo}}/90/90")
+        h2.team_name(ng-bind="targetTeam.name")
+        p
+          span 公司:&nbsp;
+          span(ng-bind="targetTeam.cname")
+        p
+          span 积分:&nbsp;
+          span(ng-bind-template="{{targetTeam.score_rank.score || 0}}")
+          span 活跃度:&nbsp;
+          span(ng-bind="targetTeam.activityScore")
+          span 胜率:&nbsp;
+          span(ng-bind-template="{{targetTeam.rate}}%")
+    .list
+      .item
+        span 上次活动
+        span(ng-if="targetTeam.last_campaign.start_time") {{ targetTeam.last_campaign.start_time | beforeNow}}
+        span(ng-if="!targetTeam.last_campaign.start_time") 无
+      .item
+        span 小队主场
+        span(ng-if="targetTeam.homeCourts.length==0") 无
+        span.home_court(ng-if="targetTeam.homeCourts.length>0" ng-repeat="homeCourt in targetTeam.homeCourts" ng-bind="homeCourt.name")
+      .item
+        span.input-label 共同活动
+        span(ng-if="competitions.length==0") 无
+      .item
+        button.button.button-block.button-positive(ng-click="showPopup(0)" ng-if="leadTeams.length>0") 挑战
+        button.button.button-block.button-positive(ng-click="showPopup(1)" ng-if="memberTeams.length>0") 推荐
+
+
+    .row(ng-if="competitions")
+      .col
+        p 共同活动
+        .no_common_competitions(ng-if="competitions.length==0") 还没有
+        .common_competitions(ng-if="competitions.length>0")
+          .common_competition(ng-repeat="competition in competitions")
+            .row
+              .col 挑战方
+              .col VS
+              .col 应战方
+            .row
+              .col(ng-repeat="playingTeam in competition.playing_teams")
+                img(ng-src="{{STATIC_URL + playingTeam.logo}}/40/40")
+                p {{playingTeam.name}}
+                p {{playingTeam.score}}
+            .row
+              .col {{competition.create_date | beforeNow}}
+              .col(ng-if="competition.status!=2") 还未确认比分
+          .more
+            button.button.button-positive.button-small(ng-if="page<maxPage" ng-click="getCompetitionOfTeams()") 更多
+  

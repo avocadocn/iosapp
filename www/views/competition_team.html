@@ -1,67 +1,50 @@
 
-<ion-view>
+<ion-view class="competition_team_page">
   <ion-header-bar><a ng-click="goBack()" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">挑战小队</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="competition_team">
-      <div ng-if="targetTeam" ng-cloak="ng-cloak" class="row">
-        <div class="col"><img ng-src="{{STATIC_URL + targetTeam.logo}}/50/50" class="team_logo"/></div>
-        <div class="col col-50">
-          <p>{{targetTeam.name}}</p>
-          <p>活跃度: {{targetTeam.activityScore}}</p>
-          <p>{{targetTeam.cname}}</p>
-        </div>
-        <div class="col">
-          <p>{{targetTeam.memberCount}} 人</p>
-          <p>积分: {{targetTeam.score_rank.score || 0}}({{targetTeam.score_rank.win || 0}} 胜 {{targetTeam.score_rank.tie || 0}}平 {{targetTeam.score_rank.lose || 0}}负)</p>
-        </div>
+    <div class="list team_info">
+      <div class="item item-avatar item_team"><img ng-src="{{STATIC_URL + targetTeam.logo}}/90/90" class="team_logo"/>
+        <h2 ng-bind="targetTeam.name" class="team_name"></h2>
+        <p><span>公司:&nbsp;</span><span ng-bind="targetTeam.cname"></span></p>
+        <p><span>积分:&nbsp;</span><span ng-bind-template="{{targetTeam.score_rank.score || 0}}"></span><span>活跃度:&nbsp;</span><span ng-bind="targetTeam.activityScore"></span><span>胜率:&nbsp;</span><span ng-bind-template="{{targetTeam.rate}}%"></span></p>
       </div>
-      <div class="row">
-        <div class="col">
-          <p><span>上次活动:</span><span ng-if="targetTeam.last_campaign.start_time">{{ targetTeam.last_campaign.start_time | beforeNow}}</span><span ng-if="!targetTeam.last_campaign.start_time">无</span></p>
-        </div>
+    </div>
+    <div class="list">
+      <div class="item"><span>上次活动</span><span ng-if="targetTeam.last_campaign.start_time">{{ targetTeam.last_campaign.start_time | beforeNow}}</span><span ng-if="!targetTeam.last_campaign.start_time">无</span></div>
+      <div class="item"><span>小队主场</span><span ng-if="targetTeam.homeCourts.length==0">无</span><span ng-if="targetTeam.homeCourts.length&gt;0" ng-repeat="homeCourt in targetTeam.homeCourts" ng-bind="homeCourt.name" class="home_court"></span></div>
+      <div class="item"><span class="input-label">共同活动</span><span ng-if="competitions.length==0">无</span></div>
+      <div class="item">
+        <button ng-click="showPopup(0)" ng-if="leadTeams.length&gt;0" class="button button-block button-positive">挑战</button>
+        <button ng-click="showPopup(1)" ng-if="memberTeams.length&gt;0" class="button button-block button-positive">推荐</button>
       </div>
-      <div class="row">
-        <div class="col">
-          <p><span>小队主场:</span><span ng-if="targetTeam.homeCourts.length==0">无</span></p>
-          <div ng-if="targetTeam.homeCourts.length&gt;0" class="home_courts">
-            <div ng-repeat="homeCourt in targetTeam.homeCourts" class="home_court"><span>{{homeCourt.name}}</span></div>
-          </div>
-        </div>
-      </div>
-      <div ng-if="competitions" class="row">
-        <div class="col">
-          <p>共同活动</p>
-          <div ng-if="competitions.length==0" class="no_common_competitions">还没有</div>
-          <div ng-if="competitions.length&gt;0" class="common_competitions">
-            <div ng-repeat="competition in competitions" class="common_competition">
-              <div class="row">
-                <div class="col">挑战方</div>
-                <div class="col">VS</div>
-                <div class="col">应战方</div>
-              </div>
-              <div class="row">
-                <div ng-repeat="playingTeam in competition.playing_teams" class="col"><img ng-src="{{STATIC_URL + playingTeam.logo}}/40/40"/>
-                  <p>{{playingTeam.name}}</p>
-                  <p>{{playingTeam.score}}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">{{competition.create_date | beforeNow}}</div>
-                <div ng-if="competition.status!=2" class="col">还未确认比分</div>
+    </div>
+    <div ng-if="competitions" class="row">
+      <div class="col">
+        <p>共同活动</p>
+        <div ng-if="competitions.length==0" class="no_common_competitions">还没有</div>
+        <div ng-if="competitions.length&gt;0" class="common_competitions">
+          <div ng-repeat="competition in competitions" class="common_competition">
+            <div class="row">
+              <div class="col">挑战方</div>
+              <div class="col">VS</div>
+              <div class="col">应战方</div>
+            </div>
+            <div class="row">
+              <div ng-repeat="playingTeam in competition.playing_teams" class="col"><img ng-src="{{STATIC_URL + playingTeam.logo}}/40/40"/>
+                <p>{{playingTeam.name}}</p>
+                <p>{{playingTeam.score}}</p>
               </div>
             </div>
-            <div class="more">
-              <button ng-if="page&lt;maxPage" ng-click="getCompetitionOfTeams()" class="button button-positive button-small">更多</button>
+            <div class="row">
+              <div class="col">{{competition.create_date | beforeNow}}</div>
+              <div ng-if="competition.status!=2" class="col">还未确认比分</div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <button ng-click="showPopup(0)" ng-if="leadTeams.length&gt;0" class="button button-full button-positive">挑战</button>
-          <button ng-click="showPopup(1)" ng-if="memberTeams.length&gt;0" class="button button-full button-positive">推荐</button>
+          <div class="more">
+            <button ng-if="page&lt;maxPage" ng-click="getCompetitionOfTeams()" class="button button-positive button-small">更多</button>
+          </div>
         </div>
       </div>
     </div>

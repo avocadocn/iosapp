@@ -4197,8 +4197,8 @@ a>.login .companies_list:activated {
 .search_opponent .selected_team .tab_view .nav .opponent_tab_style.search .search_button:before {
   font-size: 18px;
 }
-.competition_team {
-  background-color: #fff;
+.competition_team_page {
+  width: auto;
 }
 .score_board .score_board_operator {
   text-align: center;

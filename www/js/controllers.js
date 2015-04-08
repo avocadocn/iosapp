@@ -4843,9 +4843,17 @@ angular.module('donlerApp.controllers', [])
         console.log(err);
       } else {
         $scope.targetTeam = team;
+        var score_rank = team.score_rank;
+        var totalCompetions = score_rank.win + score_rank.tie + score_rank.lose;
+        if (totalCompetions === 0) {
+          team.rate = 0;
+        }
+        else {
+          team.rate = score_rank.win / totalCompetions * 100;
+        }
         getSameTeam(team.groupType);
         $scope.isCompanyTeam = team.isCompanyTeam;
-        if(!team.isCompanyTeam) {
+        if (!team.isCompanyTeam) {
           $scope.getCompetitionOfTeams();
         }
       }
