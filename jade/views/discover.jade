@@ -40,7 +40,7 @@ ion-view.discover(ng-controller="DiscoverController")
       .list.rank_table
         a.item.rank_line.clearfix(ng-href="#/competition/team/{{rankTeam._id}}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank")
           .rank_col {{rankTeam.score_rank.rank}}
-          .logo_col: img.team_logo(ng-src="{{STATIC_URL + rankTeam.logo}}/40/40")
+          .logo_col: img.team_logo(ng-src="{{STATIC_URL + rankTeam.logo}}/45/45")
           .name_col
             p.team_name {{rankTeam.name}}
             p.team_cname {{rankTeam.cname}}

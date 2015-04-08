@@ -1704,6 +1704,8 @@ a>.login .companies_list:activated {
 }
 .item-avatar > img:first-child {
   border-radius: 0;
+  width: 45px;
+  height: 45px;
 }
 .campaign_discuss {
   background-color: #f7f7f7;
@@ -1761,18 +1763,18 @@ a>.login .companies_list:activated {
 }
 .discover .rank_table .rank_line,
 .rank_page .rank_table .rank_line {
-  height: 54px;
+  height: 67px;
   width: 100%;
-  padding: 12px 0;
-  font-size: 12px;
+  padding: 10px 0;
+  font-size: 14px;
   line-height: 1;
   border-right: 0;
 }
 .discover .rank_table .rank_line .team_logo,
 .rank_page .rank_table .rank_line .team_logo {
   border-radius: 3px;
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
 }
 .discover .rank_table .rank_line .rank_col,
 .rank_page .rank_table .rank_line .rank_col,
@@ -1788,7 +1790,7 @@ a>.login .companies_list:activated {
 .rank_page .rank_table .rank_line .rank_col {
   width: 10%;
   text-align: center;
-  padding-top: 8px;
+  padding-top: 15px;
   color: #202020;
 }
 .discover .rank_table .rank_line .logo_col,
@@ -1798,11 +1800,12 @@ a>.login .companies_list:activated {
 .discover .rank_table .rank_line .name_col,
 .rank_page .rank_table .rank_line .name_col {
   width: 60%;
+  padding-top: 15px;
 }
 .discover .rank_table .rank_line .name_col .team_name,
 .rank_page .rank_table .rank_line .name_col .team_name {
   color: #666;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 6px;
 }
 .discover .rank_table .rank_line .name_col .team_cname,
@@ -1812,7 +1815,7 @@ a>.login .companies_list:activated {
 }
 .discover .rank_table .rank_line .score_col,
 .rank_page .rank_table .rank_line .score_col {
-  padding-top: 8px;
+  padding-top: 15px;
   width: 15%;
   color: #666;
 }
@@ -1895,7 +1898,7 @@ a>.login .companies_list:activated {
   white-space: nowrap;
   text-overflow: ellipsis;
   color: #666;
-  font-size: 12px;
+  font-size: 14px;
 }
 .discover .rank_panel .team_select .team_container .team.selected_team .team_logo {
   width: 45px;
@@ -1903,8 +1906,8 @@ a>.login .companies_list:activated {
   margin-top: 0;
 }
 .discover .rank_panel .team_select .team_container .team.selected_team .team_name {
-  color: #202020;
   font-size: 14px;
+  font-weight: bold;
 }
 .discover .rank_panel .team_select .team_container .last_team .icon {
   left: 0;
@@ -4066,7 +4069,7 @@ a>.login .companies_list:activated {
   border-bottom: 1px solid #e2e2e2;
   text-align: center;
   padding: 15px;
-  height: 90px;
+  height: 96px;
 }
 .search_opponent .select_team .units .unit .logo {
   width: 30px;
@@ -4074,8 +4077,10 @@ a>.login .companies_list:activated {
   border-radius: 5px;
 }
 .search_opponent .select_team .units .unit .text {
-  max-height: 38px;
+  margin-top: 6px;
+  max-height: 18px;
   overflow-y: hidden;
+  font-size: 14px;
 }
 .search_opponent .select_team .units .unit .button {
   width: 100%;
@@ -4084,13 +4089,13 @@ a>.login .companies_list:activated {
   box-shadow: 0 0 0;
 }
 .search_opponent .selected_team .team {
-  height: 50px;
+  height: 65px;
   padding: 10px 15px;
   position: relative;
 }
 .search_opponent .selected_team .team .logo {
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
   border-radius: 5px;
   margin-right: 10px;
   position: absolute;
@@ -4104,13 +4109,13 @@ a>.login .companies_list:activated {
   width: 100%;
 }
 .search_opponent .selected_team .team .text .tname {
-  font-size: 12px;
+  font-size: 14px;
   color: #202020;
 }
 .search_opponent .selected_team .team .operator {
   position: absolute;
   right: 15px;
-  top: 10px;
+  top: 15px;
   border-left: 1px solid #e2e2e2;
   padding-left: 15px;
 }
@@ -4121,7 +4126,8 @@ a>.login .companies_list:activated {
   margin-top: 10px;
 }
 .search_opponent .selected_team .team.now_team .text {
-  padding: 0 40px;
+  margin-top: 15px;
+  padding: 0 60px;
 }
 .search_opponent .selected_team .tab_view {
   width: 100%;

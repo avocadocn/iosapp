@@ -1445,6 +1445,8 @@ textarea
         top 1rem
 .item-avatar > img:first-child
   border-radius 0
+  width 45px
+  height 45px
 
 //- 活动留言页
 .campaign_discuss
@@ -1486,48 +1488,48 @@ textarea
         color #a2a2a2
   .button-clear
     font-size 14px
-
+//-发现页
 .discover, .rank_page
   .rank_table
     background-color #fbfbfb
     .rank_line
-      height 54px
+      height 67px
       width 100%
-      padding 12px 0
-      font-size 12px
+      padding 10px 0
+      font-size 14px
       line-height 1
       border-right 0
       .team_logo
         border-radius 3px
-        width 30px
-        height 30px
+        width 45px
+        height 45px
       .rank_col,.logo_col,.name_col,.score_col
         float left
       .rank_col
         width 10%
         text-align center
-        padding-top 8px
+        padding-top 15px
         color #202020
       .logo_col
         width 15%
       .name_col
         width 60%
+        padding-top 15px
         .team_name
           color #666
-          font-size 12px
+          font-size 14px
           margin-bottom 6px
         .team_cname
           color #ababab
           font-size 12px
       .score_col
-        padding-top 8px
+        padding-top 15px
         width 15%
         color #666
     a
       text-decoration none
       align-items center
 
-//-发现页
 .discover
   background-color #f7f7f7
   .list
@@ -1591,15 +1593,15 @@ textarea
             white-space nowrap
             text-overflow ellipsis
             color #666
-            font-size 12px
+            font-size 14px
         .team.selected_team
           .team_logo
             width 45px
             height 45px
             margin-top 0
           .team_name
-            color #202020
             font-size 14px
+            font-weight bold
         .last_team
           .icon
             left 0
@@ -3351,6 +3353,7 @@ textarea
       color white
       border-radius 5px
       width 100%
+// 找对手
 .search_opponent
   .select_team
     .clear_both
@@ -3364,14 +3367,16 @@ textarea
         border-bottom 1px solid col_gray
         text-align center
         padding 15px
-        height 90px
+        height 96px
         .logo
           width 30px
           height 30px
           border-radius 5px
         .text
-          max-height 38px
+          margin-top 6px
+          max-height 18px
           overflow-y hidden
+          font-size 14px
         .button
           width 100%
           height 25px
@@ -3379,12 +3384,12 @@ textarea
           box-shadow 0 0 0
   .selected_team
     .team
-      height 50px
+      height 65px
       padding 10px 15px
       position relative
       .logo
-        width 30px
-        height 30px
+        width 45px
+        height 45px
         border-radius 5px
         margin-right 10px
         position absolute
@@ -3396,12 +3401,12 @@ textarea
         font-size 10px
         width 100%
         .tname
-          font-size 12px
+          font-size 14px
           color #202020
       .operator
         position absolute
         right 15px
-        top 10px
+        top 15px
         border-left 1px solid col_gray
         padding-left 15px
         .change_team
@@ -3409,7 +3414,8 @@ textarea
       &.now_team
         margin-top 10px
         .text
-          padding 0 40px
+          margin-top 15px
+          padding 0 60px
     .tab_view
       width 100%
       background-color #fff

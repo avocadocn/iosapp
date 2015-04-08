@@ -17,10 +17,10 @@ ion-view.search_opponent
           .text {{team.name }}
     .selected_team(ng-if="hasSelected")
       .team.item.now_team
-        img.logo(ng-src="{{STATIC_URL +myTeam.logo}}/30/30")
+        img.logo(ng-src="{{STATIC_URL +myTeam.logo}}/45/45")
         .text
           .tname {{myTeam.name}}
-          .type {{myTeam.groupType}}
+          //- .type {{myTeam.groupType}}
         .operator
           button.button.button-small.button-clear.change_team(ng-click="changeTeam()") 更换小队
       .tab_view
