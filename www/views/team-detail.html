@@ -7,62 +7,28 @@
     <div ng-style="familyMinHeight" class="team_header">
       <ion-slide-box ng-if="team.familyPhotos.length &gt; 1" ng-cloak="ng-cloak">
         <ion-slide ng-repeat="photo in team.familyPhotos"><img ng-src="{{STATIC_URL + photo.uri}}/640/380" class="team_family"/></ion-slide>
-      </ion-slide-box><img ng-if="team.familyPhotos.length === 1" ng-src="{{STATIC_URL + team.familyPhotos[0].uri}}/640/380" class="team_family"/><img ng-if="team.familyPhotos.length === 0" src="./img/family.png" class="team_family"/><img ng-if="team" ng-src="{{STATIC_URL + team.logo}}/130/130" class="logo"/>
+      </ion-slide-box><img ng-if="team.familyPhotos.length === 1" ng-src="{{STATIC_URL + team.familyPhotos[0].uri}}/640/380" class="team_family"/><img ng-if="team.familyPhotos.length === 0" src="./img/family.png" class="team_family"/>
     </div>
-    <div class="card team_info">
-      <div class="info_header clearfix">
-        <div class="team_name">{{team.name}}</div>
-        <div class="team_type">{{team.groupType}}</div>
+    <div class="team_info">
+      <div class="info_header clearfix"><img ng-if="team" ng-src="{{STATIC_URL + team.logo}}/80/80" class="logo"/>
+        <div class="info_content">
+          <div class="team_name">{{team.name}}</div>
+          <div class="team_brief"> <span class="title">简介:</span><span class="content">{{team.brief || '无'}}</span></div>
+        </div>
       </div>
       <div class="info_body">
+        <div class="score"><span>积分：{{team.score || 0}}</span><span class="activity_score">活跃度： {{team.activity_score}}</span><span class="odds_percent">胜率： {{team.odds_percent}}%</span></div>
         <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
-        <div ng-if="team.poster" class="team_des">创建人: {{team.poster.nickname}}</div>
-        <div class="team_des">小队简介:<span ng-if="team.brief" ng-cloak="ng-cloak">{{team.brief}}</span><span ng-if="!team.brief" ng-cloak="ng-cloak">无</span></div>
-        <button prevent-default="prevent-default" ng-if="team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak="ng-cloak" class="btn_joined">已加入小队</button>
-        <button prevent-default="prevent-default" ng-if="!team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak="ng-cloak" class="btn_join">立即加入</button><a ng-href="#/circle/circle_team/{{team._id}}" class="btn_join btn_moment">精彩瞬间</a>
-      </div>
-      <div class="info_footer row"><a ng-href="#/photo_album/list/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_upload_photo"><i class="icon ion-image"></i>上传照片</a><a ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_member">
-          <div class="dl_icon ion_member_small_blue"></div>{{team.memberCount}}名队员</a>
-        <div ng-if="team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="col btn_member">
-          <div class="dl_icon ion_member_small_blue"></div>{{team.memberCount}}名队员
+        <div class="operator"><a ng-href="" class="btn">找对手</a>
+          <button prevent-default="prevent-default" ng-if="team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak="ng-cloak" class="btn">已加入</button>
+          <button prevent-default="prevent-default" ng-if="!team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak="ng-cloak" class="btn">立即加入</button>
         </div>
-        <div class="col btn_cp">{{team.campaignCount}}个活动</div>
       </div>
+      <div class="item row members">
+        <div class="col"><span class="title">队长</span><img ng-if="team.leaders.length&gt;0" ng-src="{{STATIC_URL + team.leaders[0].photo}}/30/30" class="user_logo"/></div><a ng-href="#/members/team/{{team._id}}" class="col"><span>成员({{team.memberCount}}人)</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
+      </div>
+      <div ng-repeat="homeCourt in team.homeCourts" class="item home_court"><span class="title">主场{{$index==1?'一':'二'}}</span><span class="home_court">{{homeCourt.name || '他们很懒还没填写'}}</span></div><a ng-href="#/circle/circle_team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts ionic_icon icon_left"></i>精彩瞬间<i class="icon ion-chevron-right icon_right"></i></a><a href="#/team/circle" class="item item-icon-left item-icon-right"><i class="icon ion_ballon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
     </div>
-    <div class="card team_home_court">
-      <div class="row home_court_tabs">
-        <div ng-class="{'active': homeCourtIndex===0}" ng-click="selectHomeCourt(0)" class="col tab">主场一</div>
-        <div ng-class="{'active': homeCourtIndex===1}" ng-click="selectHomeCourt(1)" class="col tab">主场二</div>
-      </div>
-      <div ng-repeat="homeCourt in homeCourts" ng-if="homeCourtIndex==$index" class="map">
-        <div ng-if="!homeCourt.empty">
-          <static-map name="{{homeCourt.name}}" coordinates="homeCourt.loc.coordinates"></static-map>
-          <p ng-cloak="ng-cloak" ng-if="homeCourt.name" class="home_court_name">{{homeCourt.name}}</p>
-        </div>
-        <div ng-if="homeCourt.empty"><img src="./img/no_homecourt.png" class="no_homecourt"/></div>
-      </div>
-    </div>
-    <div class="card member_card"><a ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak">
-        <ion-scroll direction="x" scrollbar-x="false">
-          <div class="member_wrap"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45" class="member"/><span class="dl_member_leader"></span></div>
-          <div class="member_wrap"><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45" class="member"/></div>
-        </ion-scroll>
-        <div class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></div></a>
-      <div ng-if="team.isOtherCompanyTeam" ng-cloak="ng-cloak">
-        <ion-scroll direction="x" scrollbar-x="false">
-          <div class="member_wrap"><img ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45" class="member"/><span class="dl_member_leader"></span></div>
-          <div class="member_wrap"><img ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45" class="member"/></div>
-        </ion-scroll>
-        <div class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></div>
-      </div>
-    </div>
-    <div ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="list dl_campaign_group">
-      <div ng-repeat="campaign in campaigns track by $index">
-        <div ng-if="needShowTime($index)" class="item dl_campaign_timeline_date">{{campaign.create_time | date:'M月d日'}}</div>
-        <campaign-card campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId"></campaign-card>
-      </div>
-    </div>
-    <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-looping" ng-if="moreDataCanBeLoaded() &amp;&amp; !team.isOtherCompanyTeam"></ion-infinite-scroll>
   </ion-content>
   <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
     <div class="pswp__bg"></div>

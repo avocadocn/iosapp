@@ -10,66 +10,48 @@ ion-view
           img.team_family(ng-src="{{STATIC_URL + photo.uri}}/640/380")
       img.team_family(ng-if="team.familyPhotos.length === 1" ng-src="{{STATIC_URL + team.familyPhotos[0].uri}}/640/380")
       img.team_family(ng-if="team.familyPhotos.length === 0" src="./img/family.png")
-      img.logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/130/130")
-    .card.team_info
+    .team_info
       .info_header.clearfix
-        .team_name {{team.name}}
-        .team_type {{team.groupType}}
+        img.logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/80/80")
+        .info_content
+          .team_name {{team.name}}
+          .team_brief 
+            span.title 简介:
+            span.content {{team.brief || '无'}}
       .info_body
+        .score
+          span 积分：{{team.score || 0}}
+          span.activity_score 活跃度： {{team.activity_score}}
+          span.odds_percent 胜率： {{team.odds_percent}}%
         .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
-        .team_des(ng-if="team.poster") 创建人: {{team.poster.nickname}}
-        .team_des 小队简介:
-          span(ng-if="team.brief" ng-cloak) {{team.brief}}
-          span(ng-if="!team.brief" ng-cloak) 无
-        button.btn_joined(prevent-default ng-if="team.hasJoined && !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak) 已加入小队
-        button.btn_join(prevent-default ng-if="!team.hasJoined && !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak) 立即加入
-        a.btn_join.btn_moment(ng-href="#/circle/circle_team/{{team._id}}") 精彩瞬间
-      .info_footer.row
-        a.col.btn_upload_photo(ng-href="#/photo_album/list/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak)
-          i.icon.ion-image
-          | 上传照片
-        a.col.btn_member(ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak)
-          .dl_icon.ion_member_small_blue
-          | {{team.memberCount}}名队员
-        .col.btn_member(ng-if="team.isOtherCompanyTeam" ng-cloak)
-          .dl_icon.ion_member_small_blue
-          | {{team.memberCount}}名队员
-        .col.btn_cp {{team.campaignCount}}个活动
-    .card.team_home_court
-      .row.home_court_tabs
-        .col.tab(ng-class="{'active': homeCourtIndex===0}" ng-click="selectHomeCourt(0)") 主场一
-        .col.tab(ng-class="{'active': homeCourtIndex===1}" ng-click="selectHomeCourt(1)") 主场二
-      .map(ng-repeat="homeCourt in homeCourts" ng-if="homeCourtIndex==$index")
-        div(ng-if="!homeCourt.empty")
-          static-map(name="{{homeCourt.name}}" coordinates="homeCourt.loc.coordinates")
-          p.home_court_name(ng-cloak ng-if="homeCourt.name") {{homeCourt.name}}
-        div(ng-if="homeCourt.empty")
-          img.no_homecourt(src="./img/no_homecourt.png")
-    .card.member_card
-      a(ng-href="#/members/team/{{team._id}}" ng-if="!team.isOtherCompanyTeam" ng-cloak)
-        ion-scroll(direction="x" scrollbar-x="false")
-          .member_wrap
-            img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
-            span.dl_member_leader
-          .member_wrap
-            img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
-        .member_link
-          span.member_count {{team.memberCount}}&nbsp;
-          i.icon.ion-chevron-right
-      div(ng-if="team.isOtherCompanyTeam" ng-cloak)
-        ion-scroll(direction="x" scrollbar-x="false")
-          .member_wrap
-            img.member(ng-repeat="leader in team.leaders" ng-src="{{STATIC_URL + leader.photo}}/45/45")
-            span.dl_member_leader
-          .member_wrap
-            img.member(ng-repeat="member in team.members" ng-src="{{STATIC_URL + member.photo}}/45/45")
-        .member_link
-          span.member_count {{team.memberCount}}&nbsp;
-          i.icon.ion-chevron-right
+        .operator
+          a.btn(ng-href="") 找对手
+          button.btn(prevent-default ng-if="team.hasJoined && !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak) 已加入
+          button.btn(prevent-default ng-if="!team.hasJoined && !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak) 立即加入
+      .item.row.members
+        .col
+          span.title 队长
+          img.user_logo(ng-if="team.leaders.length>0" ng-src="{{STATIC_URL + team.leaders[0].photo}}/30/30")
+        a.col(ng-href="#/members/team/{{team._id}}")
+          span 成员({{team.memberCount}}人)
+          span.icon.icon_small.ion-chevron-right.button-clear
+      .item.home_court(ng-repeat="homeCourt in team.homeCourts")
+        span.title 主场{{$index==1?'一':'二'}}
+        span.home_court {{homeCourt.name || '他们很懒还没填写'}}
+      a.item.item-icon-left.item-icon-right(ng-href="#/circle/circle_team/{{team._id}}")
+        i.icon.ion-android-contacts.ionic_icon.icon_left
+        | 精彩瞬间
+        i.icon.ion-chevron-right.icon_right
+      a.item.item-icon-left.item-icon-right(href="#/team/circle")
+        i.icon.ion_ballon.icon_left
+        | 所有活动
+        i.icon.ion-chevron-right.icon_right
 
-    .list.dl_campaign_group(ng-if="!team.isOtherCompanyTeam" ng-cloak)
-      div(ng-repeat="campaign in campaigns track by $index")
-        .item.dl_campaign_timeline_date(ng-if="needShowTime($index)") {{campaign.create_time | date:'M月d日'}}
-        campaign-card(campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId")
-    ion-infinite-scroll(on-infinite="loadMore()" distance="1%" icon="ion-looping" ng-if="moreDataCanBeLoaded() && !team.isOtherCompanyTeam")
   include ./photo-swipe
+
+
+
+
+
+
+  
