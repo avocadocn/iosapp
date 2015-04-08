@@ -1726,24 +1726,24 @@ angular.module('donlerApp.controllers', [])
         }
     });
   }])
-  .controller('CalendarController',['$scope', '$rootScope', '$state', '$ionicPopup', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
+  .controller('CalendarController', ['$scope', '$rootScope', '$state', '$ionicPopup', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
     function($scope, $rootScope, $state, $ionicPopup, $ionicPopover, $timeout, $ionicHistory, Campaign, INFO) {
-      $scope.nowTypeIndex =2;
-      $scope.campaignTypes =[{
-        value:'unjoined',view:'未参加'
-      },
-      {
-        value:'joined',view:'已参加'
-      },
-      {
-        value:'all',view:'所有'
+      $scope.nowTypeIndex = 2;
+      $scope.campaignTypes = [{
+        value: 'unjoined',
+        view: '未参加'
+      }, {
+        value: 'joined',
+        view: '已参加'
+      }, {
+        value: 'all',
+        view: '所有'
       }];
       $scope.goBack = function() {
-        if($ionicHistory.backView()){
+        if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
-        }
-        else {
-          $state.go('app.'+$state.params.type);
+        } else {
+          $state.go('app.' + $state.params.type);
         }
       };
 
@@ -1795,28 +1795,30 @@ angular.module('donlerApp.controllers', [])
        * @param  {Date} date
        * @return {Object}
        */
-      var updateMonth = function(date,callback) {
+      var updateMonth = function(date, callback) {
         var date = new Date(date);
         var year = date.getFullYear();
         var month = date.getMonth();
         var mdate = moment(new Date(year, month));
-        var offset = mdate.day();// mdate.day(): Sunday as 0 and Saturday as 6
+        var offset = mdate.day(); // mdate.day(): Sunday as 0 and Saturday as 6
+        var lastMonthDays = mdate.day(); //days of last month to show
         var now = new Date();
         $scope.current_year = year;
         $scope.current_date = date;
         var month_data = {
           date: date,
-          format_month: month+1,
+          format_month: month + 1,
           days: []
         };
+        
         var month_dates = mdate.daysInMonth();
         Campaign.getList({
           requestType: 'user',
           requestId: localStorage.id,
-          from:new Date(year, month).getTime(),
-          to:new Date(year, month+1).getTime()
-        }, function (err, data) {
-          if(err){
+          from: new Date(year, month).getTime(),
+          to: new Date(year, month + 1).getTime()
+        }, function(err, data) {
+          if (err) {
             $ionicPopup.alert({
               title: '提示',
               template: err
@@ -1829,15 +1831,18 @@ angular.module('donlerApp.controllers', [])
             month_data.days[i] = {
               full_date: new Date(year, month, i + 1),
               date: i + 1,
-              events: []
+              is_current_month: true,
+              events: [],
+              joined_events: [],
+              unjoined_events: []
             };
             //由本月第一天，计算是星期几，决定位移量
-            if(i===0){
-              month_data.days[0].first_day = 'offset_' + offset; // mdate.day(): Sunday as 0 and Saturday as 6
-              month_data.offset = month_data.days[0].first_day;
-            }
+            // if (i === 0) {
+            //   month_data.days[0].first_day = 'offset_' + offset; // mdate.day(): Sunday as 0 and Saturday as 6
+            //   month_data.offset = month_data.days[0].first_day;
+            // }
             // 是否是周末
-            if((i+offset)%7===6||(i+offset)%7===0)
+            if ((i + offset) % 7 === 6 || (i + offset) % 7 === 0)
               month_data.days[i].is_weekend = true;
 
             // 是否是今天
@@ -1846,41 +1851,42 @@ angular.module('donlerApp.controllers', [])
               month_data.days[i].is_today = true;
             }
           }
-          var dayOperate = function (i,campaign) {
-            if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==campaign.join_flag ||$scope.nowTypeIndex==0&&campaign.join_flag==-1) {
-              month_data.days[i-1].events.push(campaign);
-              // month_data.days[i-1].has_event = true;
-              // if (campaign.is_joined) {
-              //   month_data.days[i-1].has_joined_event = true;
-              // }
+          var dayOperate = function(i, campaign) {
+            if ($scope.nowTypeIndex == 2 || $scope.nowTypeIndex == campaign.join_flag || $scope.nowTypeIndex == 0 && campaign.join_flag == -1) {
+              month_data.days[i - 1].events.push(campaign);
+              if (campaign.join_flag == 1) {
+                month_data.days[i - 1].joined_events.push(campaign);
+              } else {
+                month_data.days[i - 1].unjoined_events.push(campaign);
+              }
             }
           };
           // 将活动及相关标记存入某天
-          var month_start = new Date(year,month,1);
-          var month_end = new Date(year,month,1);
-          month_end.setMonth(month_end.getMonth()+1);
+          var month_start = new Date(year, month, 1);
+          var month_end = new Date(year, month, 1);
+          month_end.setMonth(month_end.getMonth() + 1);
           $scope.campaigns.forEach(function(campaign) {
             var start_time = new Date(campaign.start_time);
             var end_time = new Date(campaign.end_time);
-            if(start_time<=month_end&&end_time>=month_start){//如果活动'经过'本月
+            if (start_time <= month_end && end_time >= month_start) { //如果活动'经过'本月
               var day_start = start_time.getDate();
               var day_end = end_time.getDate();
               var month_day_end = month_end.getDate();
-              if(start_time>=month_start){//c>=a
-                if(end_time<=month_end){//d<=b 活动日
-                  for(i=day_start;i<day_end+1;i++)
-                    dayOperate(i,campaign);
-                }else{//d>b 开始日到月尾
-                  for(i=day_start;i<month_dates+1;i++)
-                    dayOperate(i,campaign);
+              if (start_time >= month_start) { //c>=a
+                if (end_time <= month_end) { //d<=b 活动日
+                  for (i = day_start; i < day_end + 1; i++)
+                    dayOperate(i, campaign);
+                } else { //d>b 开始日到月尾
+                  for (i = day_start; i < month_dates + 1; i++)
+                    dayOperate(i, campaign);
                 }
-              }else{//c<a
-                if(end_time<=month_end){//d<=b 月首到结束日
-                  for(i=1;i<day_end+1;i++)
-                    dayOperate(i,campaign);
-                }else{//d>b 每天
-                  for(i=1;i<month_dates+1;i++)
-                    dayOperate(i,campaign);
+              } else { //c<a
+                if (end_time <= month_end) { //d<=b 月首到结束日
+                  for (i = 1; i < day_end + 1; i++)
+                    dayOperate(i, campaign);
+                } else { //d>b 每天
+                  for (i = 1; i < month_dates + 1; i++)
+                    dayOperate(i, campaign);
 
                 }
               }
@@ -1888,8 +1894,42 @@ angular.module('donlerApp.controllers', [])
             // campaign.format_start_time = moment(campaign.start_time).calendar();
             // campaign.format_end_time = moment(campaign.end_time).calendar();
           });
+          
+          if(lastMonthDays) {
+            var lastMonthDate;
+            if(month === 0) {
+              lastMonthDate = moment(new Date(year - 1, 11));
+            } else {
+              lastMonthDate = moment(new Date(year, month - 1));
+            }
+            var lastMonthDaysLength = lastMonthDate.daysInMonth();
+            for(var i = 0; i < lastMonthDays; i++) {
+              month_data.days.unshift({
+                full_date: null,
+                date: lastMonthDaysLength - i,
+                is_current_month: false,
+                events: [],
+                joined_events: [],
+                unjoined_events: []
+              });
+            }
+          }
+
+          var currentMonthLastDay = moment(new Date(year, month, mdate.daysInMonth())).day();
+          for(var i = 0; i < 6 - currentMonthLastDay; i++) {
+            month_data.days.push({
+              full_date: null,
+              date: i + 1,
+              is_current_month: false,
+              events: [],
+              joined_events: [],
+              unjoined_events: []
+            });
+          }
+
           $scope.current_month = month_data;
-          if(!$scope.$$phase) {
+
+          if (!$scope.$$phase) {
             $scope.$apply();
           }
           callback && callback();
@@ -1906,29 +1946,41 @@ angular.module('donlerApp.controllers', [])
       var updateDay = $scope.updateDay = function(date) {
         var date = new Date(date);
         var now = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var mdate = moment(new Date(year, month));
+        var lastMonthDays = mdate.day(); //days of last month to show
         $scope.view = 'day';
         if (date.getMonth() !== current.getMonth() || !$scope.campaigns) {
-          updateMonth(date,function(){
+          updateMonth(date, function() {
             updateDay(date);
           });
           return false;
-        }
-        else {
+        } else {
           current = date;
-          $scope.current_date =date;
+          $scope.current_date = date;
           INFO.lastDate = date;
-          var events =[];
-          $scope.current_month.days[current.getDate() - 1].events.forEach(function(event){
-            if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag ||$scope.nowTypeIndex==0&&event.join_flag==-1) {
+          var events = [];
+          var events_joined = [];
+          var events_unjoined = [];
+          $scope.current_month.days[current.getDate() + lastMonthDays - 1].events.forEach(function(event) {
+            if ($scope.nowTypeIndex == 2 || $scope.nowTypeIndex == event.join_flag || $scope.nowTypeIndex == 0 && event.join_flag == -1) {
               events.push(event);
+              if (event.join_flag == 1) {
+                events_joined.push(event);
+              } else {
+                events_unjoined.push(event);
+              }
             }
           });
           var day = {
             date: current,
-            past_flag: current<now,
+            past_flag: current < now,
             format_date: moment(current).format('ll'),
             format_day: moment(current).format('dddd'),
-            campaigns: events
+            campaigns: events,
+            campaigins_joined: events_joined,
+            campaigins_unjoined: events_unjoined
           };
 
           var temp = new Date(date);
@@ -1939,6 +1991,7 @@ angular.module('donlerApp.controllers', [])
             first_day_of_week.setDate(first_day_of_week.getDate() + 1);
             var week_date = $scope.current_week_date[i];
             var now = new Date();
+            week_date.is_current_month = false;
             if (week_date.getFullYear() === now.getFullYear() && week_date.getMonth() === now.getMonth() && week_date.getDate() === now.getDate()) {
               week_date.is_today = true;
             }
@@ -1947,17 +2000,26 @@ angular.module('donlerApp.controllers', [])
               if (week_date.getDate() === current.getDate()) {
                 week_date.is_current = true;
               }
-              var events =[];
-              $scope.current_month.days[week_date.getDate() - 1].events.forEach(function(event){
-                if($scope.nowTypeIndex==2 ||$scope.nowTypeIndex==event.join_flag) {
+              var events = [];
+              var joined_events = [];
+              var unjoined_events = [];
+              $scope.current_month.days[week_date.getDate() + lastMonthDays - 1].events.forEach(function(event) {
+                if ($scope.nowTypeIndex == 2 || $scope.nowTypeIndex == event.join_flag) {
                   events.push(event);
+                  if (event.join_flag == 1) {
+                    joined_events.push(event);
+                  } else {
+                    unjoined_events.push(event);
+                  }
                 }
               });
               week_date.events = events;
+              week_date.joined_events = joined_events;
+              week_date.unjoined_events = unjoined_events;
             }
           }
           $scope.current_day = day;
-          if(!$scope.$$phase) {
+          if (!$scope.$$phase) {
             $scope.$apply();
           }
           // return day;
@@ -1967,13 +2029,13 @@ angular.module('donlerApp.controllers', [])
 
       $scope.back = function() {
         switch ($scope.view) {
-        case 'month':
-          $scope.view = 'year';
-          break;
-        case 'day':
-          $scope.view = 'month';
-          INFO.lastDate = null;
-          break;
+          case 'month':
+            $scope.view = 'year';
+            break;
+          case 'day':
+            $scope.view = 'month';
+            INFO.lastDate = null;
+            break;
         }
       };
 
@@ -1984,15 +2046,15 @@ angular.module('donlerApp.controllers', [])
       $scope.today = function() {
 
         switch ($scope.view) {
-        case 'month':
-          current = new Date();
-          $scope.month = updateMonth(current);
-          break;
-        case 'day':
-          var temp = new Date();
-          var day = updateDay(temp);
-          $scope.day_cards = [day];
-          break;
+          case 'month':
+            current = new Date();
+            $scope.month = updateMonth(current);
+            break;
+          case 'day':
+            var temp = new Date();
+            var day = updateDay(temp);
+            $scope.day_cards = [day];
+            break;
         }
 
       };
@@ -2014,6 +2076,10 @@ angular.module('donlerApp.controllers', [])
        * @param  {Date} date
        */
       $scope.dayView = function(date) {
+        var date = new Date(date);
+        if(date.getMonth() !== current.getMonth()) {
+          return;
+        }
         updateDay(date);
         // $scope.day_cards = day;
         $scope.view = 'day';
@@ -2065,34 +2131,34 @@ angular.module('donlerApp.controllers', [])
       //   $scope.day_cards.splice(index, 1);
       // };
       $ionicPopover.fromTemplateUrl('my-popover.html', {
-          scope: $scope,
-        }).then(function(popover) {
-          $scope.popover = popover;
-        });
-      $scope.showFilter = function($event){
+        scope: $scope,
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+      $scope.showFilter = function($event) {
         $scope.popover.show($event);
       };
-      $scope.campaignFilter = function(index){
+      $scope.campaignFilter = function(index) {
         $scope.nowTypeIndex = index;
         $scope.popover.hide();
         switch ($scope.view) {
-        case 'month':
-          updateMonth($scope.current_date);
-          break;
-        case 'day':
-          updateDay($scope.current_date);
+          case 'month':
+            updateMonth($scope.current_date);
+            break;
+          case 'day':
+            updateDay($scope.current_date);
 
-          break;
+            break;
         }
       };
-      if($scope.view=='month') {
+      if ($scope.view == 'month') {
         updateMonth(current);
-      }
-      else if($scope.view =='day') {
+      } else if ($scope.view == 'day') {
         updateDay(current);
       }
 
-  }])
+    }
+  ])
   .controller('PrivacyController', ['$scope', '$ionicNavBarDelegate', function ($scope, $ionicNavBarDelegate) {
     $scope.backHref = '#/settings/about';
   }])

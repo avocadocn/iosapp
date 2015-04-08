@@ -1,4 +1,50 @@
 ion-view
+    mixin campaignsContainer(containerTitle, items, titleClass)
+        .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" ng-cloak)
+          span(class="campaign_title_#{titleClass}") #{containerTitle}
+        ion-item.calendar_campaign(ng-repeat="campaign in #{items}")
+          .card.dl_campaign_card.campaign_card_container(ng-class="{'remove':campaign.remove}")
+            a.campaign_card.clearfix(ng-href="#/campaign/detail/{{campaign._id}}")
+              .dl_card_header.clearfix
+                .dl_card_header_info.clearfix
+                  h2.dl_cp_name {{campaign.theme}}
+                //- .dl_card_time(ng-if="!campaign.is_end")
+                //-   .dl_cp_time_countdown.clearfix
+                //-     span.dl_cp_time_text {{campaign.is_start ? '距离结束':'距离开始'}}
+                //-     span.dl_cp_time_count {{campaign.time_text}}
+              .dl_card_content.clearfix
+                .dl_cp_logos(class="logos_{{campaign.campaign_unit.length}}")
+                  img.dl_team_logo(ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60")
+                  .provoke_label(ng-if="campaign.campaign_type===4 || campaign.campaign_type===5")
+                    span 挑战
+                  .fellowship_label(ng-if="campaign.campaign_type===7")
+                    span 联谊 
+                .dl_cp_texts
+                  p.dl_cp_time
+                    i.icon.icon_small.ion_time
+                    span.dl_cp_text {{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd HH:mm"}}
+                  p.dl_cp_address
+                    i.icon.icon_small.ion_address
+                    span.dl_cp_text {{campaign.location.name}}
+                  p.dl_cp_member
+                    i.icon.ion_member.icon_small
+                    span.dl_cp_text.number {{campaign.members_count || '0'}} 
+                    span.dl_cp_text(ng-show="campaign.member_max") &nbsp;|&nbsp;
+                    span.dl_cp_text.number(ng-if="campaign.member_max") {{campaign.member_max}}
+              .dl_card_footer.clearfix(ng-if="campaign.confirm_status===true")
+                //- .dl_team_name(ng-if="campaign.campaign_unit.length === 1")
+                //-   | {{campaign.campaign_unit[0].team.name}}
+                //- .dl_team_name(ng-if="campaign.campaign_unit.length === 2")
+                //-   | {{campaign.campaign_unit[0].team.name}}
+                //-   | vs
+                //-   | {{campaign.campaign_unit[1].team.name}}
+                .dl_campaign_comment.clearfix
+                  i.icon.ion_comment
+                  span.dl_card_footer_count {{campaign.comment_sum}}
+                .dl_campaign_circle.clearfix
+                  i.icon.ion_circle
+                  span.dl_card_footer_count {{campaign.circle_content_sum}}
+          .dl_divider(ng-if="!($index===#{items}.length-1)")
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     a.button.icon_blue(ng-if="view==='day'" ng-click="back()") 关闭
@@ -9,10 +55,10 @@ ion-view
       nav
         .operator.item.tabs(ng-if="view==='month'")
             .tab-item(ng-click="preMonth()")
-              i.icon.icon_small.ion-chevron-left
-            .tab-item {{ current_year }} - {{ current_month.format_month }}
+              i.icon.icon_small.icon_blue.icon_margin_left.ion-chevron-left
+            .tab-item.icon_blue {{ current_year }} - {{ current_month.format_month }}
             .tab-item(ng-click="nextMonth()")
-              i.icon.icon_small.ion-chevron-right
+              i.icon.icon_small.icon_blue.icon_margin_right.ion-chevron-right
           //- .pull-right(ng-if="view!=='year'")
           //-   .btn.today(ng-click="today()") 今天
         .week.text-center.clearfix(ng-if="view!=='year'")
@@ -26,7 +72,9 @@ ion-view
         .date_list.text-center.clearfix(ng-if="view==='day'")
           .date_box(ng-repeat="date in current_week_date" ng-class="{other_month: !date.is_current_month, today: date.is_today===true, current_day: date.is_current===true}" ng-click="dayView(date)") 
             .date {{ date.getDate() }}
-            span.campaign_count(ng-if="date.is_current_month && date.events.length>0") {{date.events.length}}
+            //- span.campaign_count(ng-if="date.is_current_month && date.events.length>0") {{date.events.length}}
+            span.calendar_campaign_join(ng-if="date.is_current_month && date.joined_events.length>0") {{date.joined_events.length}}
+            span.calendar_campaign_unjoin(ng-if="date.is_current_month && date.unjoined_events.length>0") {{date.unjoined_events.length}}
         //- .date_bar.text-center(ng-if="view==='day'"){{ current_day.format_date }}&nbsp;{{ current_day.format_day }}
       .calendar_box(ng-class="{full_box: view==='year'}")
         //- .calendar_year.clearfix(ng-if="view==='year'")
@@ -38,24 +86,30 @@ ion-view
           ion-scroll(direction='x' scrollbar-x="false")
             .clearfix(detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth")
               //- .month(ng-class="month.offset"){{ month.format_month }}
-              .calendar_day.text-center(ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true};day.first_day")
-                .calendar_date {{ day.date }}
+              .calendar_day.text-center(ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true, calendar_current_month: day.is_current_month===true}")
+                .calendar_date {{ day.date }} 
                 //- .event_unjoin(ng-if="day.has_event && !day.has_joined_event")
                 //- .event_joined(ng-if="day.has_joined_event")
-                span.calendar_campaign_count(ng-if="day.events.length>0") {{day.events.length}}
+                span.calendar_campaign_join(ng-if="day.joined_events.length>0") {{day.joined_events.length}}
+                span.calendar_campaign_unjoin(ng-if="day.unjoined_events.length>0") {{day.unjoined_events.length}}
+                //- span.calendar_campaign_count(ng-if="day.events.length>0") {{day.events.length}}
           div.text-center.today_container(ng-if="view!=='year'")
-            button.button.button-outline.button-positive.today(ng-click="today()") 今天
+            //- button.button.button-outline.button-positive.today(ng-click="today()") 今天
         ion-scroll.calendar_day.clearfix(detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preDay,nextDay" scrollbar-y="false" ng-if="view==='day'" auto-height="121")
           ion-list
-            ion-item.calendar_campaign(ng-repeat="campaign in current_day.campaigns")
-              a.item.item-avatar(ng-class="{provoke: campaign.campaign_unit.length==2}" ng-href="#/campaign/detail/{{campaign._id}}")
-                img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/40/40'}}")
-                img.dl_team_logo.second_team(ng-if="campaign.campaign_unit.length==2" ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/40/40'}}")
-                h2 {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].team.name}}{{campaign.campaign_unit[1] ? 'vs' +campaign.campaign_unit[1].team.name || campaign.campaign_unit[1].team.name :''}}
-                p.dl_cp_name {{ campaign.theme }}
-                p.flag(ng-if="current_day.past_flag" ng-class="{now:!campaign.finish}") {{ campaign.finish?'已经结束':'正在进行' }}
-                p.flag(ng-if="!current_day.past_flag" ng-class="{join:campaign.join_flag==1}") {{ campaign.join_flag==1?'已参加':'未参加' }}
-          .no_campagin.text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
+            //- .campaign_join 参加的活动
+            +campaignsContainer('参加的活动','current_day.campaigins_joined', 'joined')
+            +campaignsContainer('未参加的活动','current_day.campaigins_unjoined', 'unjoined')
+            .no_campagin.text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
+
+          //-     a.item.item-avatar(ng-class="{provoke: campaign.campaign_unit.length==2}" ng-href="#/campaign/detail/{{campaign._id}}")
+          //-       img.dl_team_logo(ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/40/40'}}")
+          //-       img.dl_team_logo.second_team(ng-if="campaign.campaign_unit.length==2" ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/40/40'}}")
+          //-       h2 {{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].team.name}}{{campaign.campaign_unit[1] ? 'vs' +campaign.campaign_unit[1].team.name || campaign.campaign_unit[1].team.name :''}}
+          //-       p.dl_cp_name {{ campaign.theme }}
+          //-       p.flag(ng-if="current_day.past_flag" ng-class="{now:!campaign.finish}") {{ campaign.finish?'已经结束':'正在进行' }}
+          //-       p.flag(ng-if="!current_day.past_flag" ng-class="{join:campaign.join_flag==1}") {{ campaign.join_flag==1?'已参加':'未参加' }}
+          //- .no_campagin.text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
 script(id="my-popover.html" type="text/ng-template")
   ion-popover-view.dl_popover.calendar_filter_popover
     ion-content.dl_popover_content

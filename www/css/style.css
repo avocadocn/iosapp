@@ -2446,35 +2446,51 @@ a>.login .companies_list:activated {
   border-top-right-radius: 4px;
 }
 .calendar nav .operator {
-  background-color: #3ca2e0;
   color: #fbfbfb;
   border: none;
   margin: 0;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  height: 45px;
+}
+.calendar nav .icon_blue {
+  background-color: transparent;
+  color: #3ca2e0;
+}
+.calendar nav .icon_margin_left {
+  margin-left: 22px;
+}
+.calendar nav .icon_margin_right {
+  margin-right: 22px;
 }
 .calendar nav .week {
   position: relative;
-  background-color: #3ca2e0;
-  background-image: -webkit-linear-gradient(#57b4ec, #3ca2e0);
+  height: 27px;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 .calendar nav .week .day {
+  position: relative;
   float: left;
   width: 14.285714285714286%;
-  height: 20px;
-  line-height: 20px;
-  color: #fff;
-  border-right: solid 1px #2184bf;
+  line-height: 15px;
+  color: #3ca2e0;
+  margin-top: 7px;
 }
 .calendar nav .date_list {
   position: relative;
 }
 .calendar nav .date_list .date_box {
+  position: relative;
   float: left;
   width: 14.285714285714286%;
   height: 60px;
+  border-top: 1px solid #ccc;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
+  background-color: #fbfbfb;
+  color: #999;
 }
 .calendar nav .date_list .date_box.other_month {
   background-color: #efefef;
@@ -2485,6 +2501,27 @@ a>.login .companies_list:activated {
   margin-left: auto;
   margin-right: auto;
   font-weight: bold;
+  font-size: 16px;
+}
+.calendar nav .date_list .date_box .calendar_campaign_join {
+  position: absolute;
+  color: #fff;
+  right: 50%;
+  bottom: 0px;
+  background-color: #48bebc;
+  width: 50%;
+  height: 1.5rem;
+  line-height: 1.5rem;
+}
+.calendar nav .date_list .date_box .calendar_campaign_unjoin {
+  position: absolute;
+  color: #fff;
+  right: 0px;
+  bottom: 0px;
+  background-color: #d46c93;
+  width: 50%;
+  height: 1.5rem;
+  line-height: 1.5rem;
 }
 .calendar nav .date_list .date_box .campaign_count {
   margin-top: 15%;
@@ -2497,12 +2534,11 @@ a>.login .companies_list:activated {
   line-height: 1.5rem;
 }
 .calendar nav .date_list .date_box.current_day {
-  background-color: #3ca2e0;
+  background-color: #fff;
   color: #fff;
-  border-top: solid 1px #2184bf;
 }
 .calendar nav .date_list .date_box.current_day .date {
-  color: #fff;
+  color: #3ca2e0;
   border-radius: 50px;
 }
 .calendar nav .date_list .date_box.current_day .campaign_count {
@@ -2557,9 +2593,13 @@ a>.login .companies_list:activated {
   float: left;
   width: 14.285714285714286%;
   height: 60px;
-  background-color: #fbfbfb;
+  background-color: #efefef;
   border-bottom: solid 1px #ccc;
   border-right: solid 1px #ccc;
+}
+.calendar .calendar_month .calendar_day.calendar_current_month {
+  color: #999;
+  background-color: #fbfbfb;
 }
 .calendar .calendar_month .calendar_day .calendar_date {
   margin-top: 15%;
@@ -2567,6 +2607,26 @@ a>.login .companies_list:activated {
   margin-right: auto;
   font-weight: bold;
   font-size: 16px;
+}
+.calendar .calendar_month .calendar_day .calendar_campaign_join {
+  position: absolute;
+  color: #fff;
+  right: 50%;
+  bottom: 0px;
+  background-color: #48bebc;
+  width: 50%;
+  height: 1.5rem;
+  line-height: 1.5rem;
+}
+.calendar .calendar_month .calendar_day .calendar_campaign_unjoin {
+  position: absolute;
+  color: #fff;
+  right: 0px;
+  bottom: 0px;
+  background-color: #d46c93;
+  width: 50%;
+  height: 1.5rem;
+  line-height: 1.5rem;
 }
 .calendar .calendar_month .calendar_day .calendar_campaign_count {
   margin-top: 15%;
@@ -2578,12 +2638,8 @@ a>.login .companies_list:activated {
   height: 1.5rem;
   line-height: 1.5rem;
 }
-.calendar .calendar_month .calendar_day.today {
-  background-color: #3ca2e0;
-}
 .calendar .calendar_month .calendar_day.today .calendar_date {
-  color: #fff;
-  border-radius: 50px;
+  color: #3ca2e0;
 }
 .calendar .calendar_month .calendar_day.today .calendar_campaign_count {
   color: #3ca2e0;
@@ -2618,6 +2674,10 @@ a>.login .companies_list:activated {
 }
 .calendar .calendar_day .no_campagin {
   background-color: #fbfbfb;
+}
+.calendar .calendar_day .campaign_join {
+  height: 20px;
+  color: #3ca2e0;
 }
 .calendar .calendar_day .calendar_campaign {
   margin: 0;
@@ -2689,6 +2749,45 @@ a>.login .companies_list:activated {
   border-color: transparent #43cee6 transparent transparent;
   border-style: solid;
   border-width: 0 20px 20px;
+}
+.calendar .dl_card_footer {
+  position: relative;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 0.833333rem;
+  font-size: 12px;
+  color: #999;
+  width: 100%;
+}
+.calendar .dl_card_footer .dl_team_number {
+  position: absolute;
+  top: 0;
+  right: 50px;
+}
+.calendar .dl_card_footer .dl_team_comment {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  margin-left: 10px;
+}
+.calendar .dl_card_footer .ion_member,
+.calendar .dl_card_footer .ion_comment {
+  display: block;
+  float: left;
+  margin-top: 2px;
+  margin-right: 5px;
+  width: 12px;
+  height: 12px;
+}
+.calendar .dl_card_footer .dl_card_footer_count {
+  display: block;
+  float: left;
+}
+.calendar .campaign_title_joined {
+  color: #48bebc;
+}
+.calendar .campaign_title_unjoined {
+  color: #d46c93;
 }
 .dl_popover {
   background-color: rgba(0,0,0,0.7);
