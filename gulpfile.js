@@ -16,10 +16,23 @@ var paths = {
 
 gulp.task('default', ['stylus', 'jade']);
 gulp.task('fullwatch', ['stylus', 'jade:compile', 'watch:jade']);
+gulp.task('fast-compile', ['stylus:compile', 'jade:compile']);
 
 gulp.task('stylus', function (done) {
   gulp.src(paths.stylus)
     .pipe(watch(paths.stylus))
+    .pipe(stylus())
+    .pipe(gulp.dest('./www/css/'))
+    .pipe(minifyCss({
+      keepSpecialComments: 0
+    }))
+    .pipe(rename({ extname: '.min.css' }))
+    .pipe(gulp.dest('./www/css/'))
+    .on('end', done);
+});
+
+gulp.task('stylus:compile', function (done) {
+  gulp.src(paths.stylus)
     .pipe(stylus())
     .pipe(gulp.dest('./www/css/'))
     .pipe(minifyCss({
