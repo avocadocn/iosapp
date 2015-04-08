@@ -2155,12 +2155,7 @@ a>.login .companies_list:activated {
   right: 0;
 }
 .tab_company_page .menu_list .item {
-  padding-top: 6px;
-  padding-bottom: 6px;
   padding-left: 50px;
-  font-size: 14px;
-  line-height: 26px;
-  color: #666;
 }
 .tab_company_page .menu_list .icon_left {
   width: 3rem;
@@ -2171,9 +2166,6 @@ a>.login .companies_list:activated {
 .tab_company_page .menu_list .ionic_icon {
   font-size: 22px;
   padding-left: 4px;
-}
-.tab_company_page .menu_list .donler_icon {
-  margin-top: -8px;
 }
 .tab_company_page .menu_list .item-note {
   color: #3ca2e0;
@@ -2333,15 +2325,10 @@ a>.login .companies_list:activated {
   font-family: 'Heiti';
 }
 .personal .menu_list .item {
-  padding-top: 7px;
-  padding-bottom: 7px;
   padding-left: 50px;
-  font-size: 14px;
-  line-height: 24px;
 }
 .personal .menu_list .item .icon_left {
   width: 3rem;
-  margin-top: -8px;
   margin-left: -6px;
 }
 .personal .user_header {
