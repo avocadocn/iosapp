@@ -3330,8 +3330,20 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$ionicHistory', '$scope', '$rootScope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', 'CONFIG', 'INFO', function ($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopover, Tools, User, CONFIG, INFO) {
-
+  .controller('UserInfoController', ['$ionicHistory', '$scope', '$rootScope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', 'CONFIG', 'INFO', 'Team','Circle', 'Image', function ($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopover, Tools, User, CONFIG, INFO, Team, Circle, Image) {
+    $scope.nowTab ='team';
+    var getMyTeams = function() {
+      Team.getList('user', $state.params.userId || localStorage.id, null, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+          $scope.myTeams =[]
+        } else {
+          $scope.myTeams = teams;
+        }
+      });
+    };
+    getMyTeams();
     $ionicPopover.fromTemplateUrl('more-popover.html', {
         scope: $scope,
       }).then(function(popover) {
@@ -3349,7 +3361,126 @@ angular.module('donlerApp.controllers', [])
       $state.go('report_form',{userId: $scope.user._id});
       $scope.popover.hide();
     }
+    var pageLength = 20; // 一次获取的数据量
 
+      
+
+
+    // 复制图片地址到一个数组供预览大图用
+    var copyPhotosToPswp = function() {
+      $scope.imagesForPswp = [];
+      var id = 0;
+      for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
+        var circle = $scope.circleContentList[i];
+        if (circle.content.photos && circle.content.photos.length > 0) {
+          var pswpPhotos = [];
+          for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
+            var photo = circle.content.photos[j];
+            photo._id = id;
+            var size = Image.getFitSize(photo.width, photo.height);
+            pswpPhotos.push({
+              _id: photo._id,
+              w: size.width * 2,
+              h: size.height * 2,
+              src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
+            });
+            id++;
+          }
+          $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
+        }
+      }
+    };
+
+    $scope.loadMore = function() {
+      if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
+        return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
+      }
+      $scope.loadingStatus.loading = true;
+      var pos = $scope.circleContentList.length - 1;
+      var lastContentDate = $scope.circleContentList[pos].content.post_date;
+      Circle.getUserCircle($state.params.userId, {last_content_date: lastContentDate})
+        .success(function(data) {
+          if (data.length) {
+            data.forEach(function(circle) {
+              Circle.pickAppreciateAndComments(circle);
+            });
+            $scope.circleContentList = $scope.circleContentList.concat(data);
+            $scope.loadingStatus.loading = false;
+            copyPhotosToPswp();
+          }
+
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        })
+        .error(function(data, status) {
+          if (status !== 404) {
+            $scope.ionicAlert(data.msg || '获取失败');
+          } else {
+            $scope.loadingStatus.hasMore = false;
+          }
+          $scope.loadingStatus.loading = false;
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+    };
+
+
+    $scope.circleCardListCtrl = {};
+    $scope.circleCommentBoxCtrl = {};
+    $scope.pswpCtrl = {};
+
+    $scope.openCommentBox = function(placeHolderText) {
+      $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
+      $scope.circleCommentBoxCtrl.open();
+    };
+
+    $scope.postComment = function(content) {
+      $scope.circleCardListCtrl.postComment(content);
+    };
+
+    $scope.stopComment = function() {
+      $scope.circleCardListCtrl.stopComment();
+    };
+
+    $scope.onClickContentImg = function(img) {
+      for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
+        if (img._id === $scope.imagesForPswp[i]._id) {
+          $scope.pswpCtrl.open(i);
+          break;
+        }
+      }
+    };
+    // 用于保存已经获取到的同事圈内容
+    $scope.circleContentList = [];
+
+    $scope.loadingStatus = {
+      hasInit: false, // 是否已经获取了一次内容
+      hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
+      loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
+    };
+    var getCirecle=function () {
+      Circle.getUserCircle($state.params.userId)
+            .success(function(data) {
+              localStorage.lastGetCircleTime = new Date();
+              data.forEach(function(circle) {
+                Circle.pickAppreciateAndComments(circle);
+              });
+              $scope.circleContentList = data;
+              $scope.loadingStatus.hasInit = true;
+              if (data.length >= pageLength) {
+                $scope.loadingStatus.hasMore = true;
+              } else {
+                $scope.loadingStatus.hasMore = false;
+              }
+              copyPhotosToPswp();
+            })
+            .error(function(data, status) {
+              if (status !== 404) {
+                $scope.ionicAlert(data.msg || '获取失败');
+              }
+              else {
+                $scope.loadingStatus.hasInit = true;
+              }
+            });
+    }
     User.getData($stateParams.userId, function (err, data) {
       if (err) {
         // todo
@@ -3362,7 +3493,23 @@ angular.module('donlerApp.controllers', [])
         }
       }
     });
-
+    $scope.changeFilter = function (type) {
+      if(!type||$scope.nowTab==type)
+        return;
+      $scope.nowTab = type;
+      switch(type) {
+        case 'team':
+          getMyTeams();
+          break;
+        case 'circle':
+          getCirecle();
+          break;
+        case 'campaign':
+          
+          break;
+      }
+      
+    }
     $scope.pswpId = 'personal' + Date.now();
 
   }])

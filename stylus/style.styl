@@ -33,6 +33,20 @@ placeholderColor(colorValue)
     color colorValue
   input:-ms-input-placeholder /* Internet Explorer 10+ */
     color colorValue
+displayFlex()
+  display -webkit-box
+  display -webkit-flex
+  display -moz-box
+  display -moz-flex
+  display -ms-flexbox
+  display flex
+flexValue(value)
+  -webkit-box-flex value
+  -webkit-flex value
+  -moz-box-flex value
+  -moz-flex value
+  -ms-flex value
+  flex value
 html
   font-size 12px
 body
@@ -657,6 +671,7 @@ textarea
       border-bottom 1px solid #CCC
   .bar-footer
     height 50px
+    border-top 1px solid #ccc
     .dl_cp_join
       color white
       background-color col_blue
@@ -1855,7 +1870,84 @@ textarea
         width 3rem
         margin-top -8px
         margin-left -6px
-
+  //其他人看
+  .user_header
+    position relative
+    .img_container
+      position absolute
+      height 190px
+      -webkit-filter blur(4px)
+      -moz-filter blur(4px)
+      -ms-filter blur(4px)
+      filter blur(4px)
+    .user_card
+      position relative
+      text-align center
+      color white
+      padding-top 30px
+      width 100%
+      height 190px
+      .user_logo
+        border-radius 100%
+        border 3px solid #CCC
+      .user_name
+        font-size 16px
+      .user_introduce
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+        width 80%
+        margin 0 auto
+    .tab_view
+      position relative
+      .nav
+        border-bottom 1px solid col_gray
+        displayFlex()
+        width 100%
+        height 40px
+        background-color white
+        .tab_style
+          flexValue(1)
+          text-align center
+          height 100%
+          a
+            font-size 14px
+            height 30px
+            padding 10px
+            display block
+            color #666
+            margin 5px 0
+            padding 5px
+            border-right 1px solid col_gray
+          &.active
+            border-bottom 2px solid col_blue
+            a
+              color col_blue
+      .tab_content
+        .team_list
+          .dl_team_card
+            margin 0
+            box-shadow none
+            border-bottom 1px solid #CCC
+            border-radius 0
+            min-height 75px
+            height 75px
+            padding 15px
+            .team_logo
+              border-radius 5px
+              width 45px
+              height 45px
+              left 15px
+              top 15px
+            .team_info
+              color #666
+              .team_name
+                color #202020
+                margin-top 0
+                line-height 25px
+              .team_count
+                margin-top 0
+                line-height 20px
 //-编辑个人信息页
 .edit_info
   .list
@@ -1920,14 +2012,7 @@ textarea
           white-space nowrap
           font-size 12px
           //- text-overflow ellipsis
-//-别人的卡片
-.user_card
-  .tags
-    white-space normal
-    .tag
-      padding 2px
-  .tabs
-    border-top 1px solid col_gray !important
+
 
 // 我的小队页面
 .personal_team_list_page
@@ -1958,7 +2043,14 @@ textarea
     line-height 18px
   .info_item
     margin-right 10px
-
+//-别人的卡片
+// .user_card
+//   .tags
+//     white-space normal
+//     .tag
+//       padding 2px
+//   .tabs
+//     border-top 1px solid col_gray !important
 //-设置
 .settings
   .list
