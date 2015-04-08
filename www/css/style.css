@@ -2157,6 +2157,7 @@ a>.login .companies_list:activated {
 .tab_company_page .menu_list .item {
   padding-left: 50px;
   border-width: 0;
+  padding-bottom: 17px;
 }
 .tab_company_page .menu_list .item:after {
   display: block;
@@ -2172,6 +2173,7 @@ a>.login .companies_list:activated {
 }
 .tab_company_page .menu_list .item:last-child {
   border-bottom-width: 1px;
+  padding-bottom: 16px;
 }
 .tab_company_page .menu_list .item:last-child:after {
   content: none;
@@ -2347,6 +2349,7 @@ a>.login .companies_list:activated {
 .personal .menu_list .item {
   padding-left: 50px;
   border-width: 0;
+  padding-bottom: 17px;
 }
 .personal .menu_list .item:after {
   display: block;
@@ -2362,6 +2365,7 @@ a>.login .companies_list:activated {
 }
 .personal .menu_list .item:last-child {
   border-bottom-width: 1px;
+  padding-bottom: 16px;
 }
 .personal .menu_list .item:last-child:after {
   content: none;
@@ -2592,7 +2596,6 @@ a>.login .companies_list:activated {
 }
 .settings .list {
   padding-top: 0;
-  border-bottom: 1px solid #ccc;
 }
 .settings .list:first-child {
   margin-bottom: 10px;
@@ -2606,6 +2609,7 @@ a>.login .companies_list:activated {
   border-top: 0;
   color: #f3835c;
   height: 50px;
+  border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
 .about .list {

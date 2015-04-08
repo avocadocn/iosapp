@@ -1375,29 +1375,48 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     link: function(scope, ele, attrs, ctrl) {
       var pswpEle = ele[0].querySelector('.pswp');
 
-      scope.$watch('ctrl', function(newVal) {
-        if (newVal) {
-          newVal.open = function(index) {
-            var options = {
-              history: false,
-              focus: false,
-              index: index || 0,
-              showAnimationDuration: 0,
-              hideAnimationDuration: 0
-            };
-            var pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, scope.photos, options);
-            if (window.StatusBar) {
-              $cordovaStatusbar.hide();
-            }
-            pwsp.listen('close', function() {
-              if (window.StatusBar) {
-                $cordovaStatusbar.show();
-              }
-            });
-            pwsp.init();
+      if (scope.ctrl) {
+        scope.ctrl.open = function(index) {
+          var options = {
+            history: false,
+            focus: false,
+            index: index || 0,
+            showAnimationDuration: 0,
+            hideAnimationDuration: 0
           };
-        }
-      });
+          var pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, scope.photos, options);
+          if (window.StatusBar) {
+            $cordovaStatusbar.hide();
+          }
+          pwsp.listen('close', function() {
+            if (window.StatusBar) {
+              $cordovaStatusbar.show();
+            }
+          });
+          pwsp.init();
+        };
+
+        scope.ctrl.init = function(photos, index) {
+          var options = {
+            history: false,
+            focus: false,
+            index: index || 0,
+            showAnimationDuration: 0,
+            hideAnimationDuration: 0
+          };
+          var pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, photos, options);
+          if (window.StatusBar) {
+            $cordovaStatusbar.hide();
+          }
+          pwsp.listen('close', function() {
+            if (window.StatusBar) {
+              $cordovaStatusbar.show();
+            }
+          });
+          pwsp.init();
+        };
+
+      }
 
     },
     templateUrl: './views/photo-swipe-directive.html'
