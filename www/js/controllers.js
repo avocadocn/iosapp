@@ -63,6 +63,14 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
+    Company.getData(localStorage.cid)
+      .success(function(data) {
+        $scope.company = data;
+      })
+      .error(function(data) {
+        console.log(data);
+      });
+
   }])
   .controller('CreateTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
     $scope.backUrl = localStorage.userType==='company' ? '#/hr/team_page' : INFO.createTeamBackUrl;
