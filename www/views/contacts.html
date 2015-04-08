@@ -5,16 +5,16 @@
     <button ng-if="searching" ng-click="cancelSearch()" ng-cloak="ng-cloak" class="button button-clear">取消</button>
   </ion-header-bar>
   <ion-content>
-    <div class="list"><a ng-repeat="contact in contacts" href="#/user/{{contact._id}}" ng-cloak="ng-cloak" class="item item-icon-right"><span class="nickname">{{contact.nickname}}</span><span class="item-note email">{{contact.email}}</span><i class="icon ion-chevron-right"></i></a>
-      <div ng-if="message" ng-cloak="ng-cloak" class="item"><span>{{message}}</span></div>
-    </div>
-  </ion-content>
-  <ion-footer-bar ng-cloak="ng-cloak">
-    <div class="search_box item-input-inset">
+    <div class="bar bar-header search_box item-input-inset">
       <label class="item-input-wrapper"><i class="icon ion-ios7-search placeholder-icon"></i>
         <input type="search" ng-model="keyword.value" ng-keypress="search($event)"/>
       </label>
       <button ng-click="search()" class="button-clear">搜索</button>
     </div>
-  </ion-footer-bar>
+    <div class="list user_list"><a ng-repeat="contact in contacts" href="#/user/{{contact._id}}" ng-cloak="ng-cloak" class="item item-avatar item-icon-right user_item"><img ng-src="{{STATIC_URL + contact.photo}}/90/90" class="user_photo"/>
+        <h2 ng-bind="contact.nickname" class="nickname"></h2>
+        <p ng-bind="contact.realname" class="realname"></p><i class="icon ion-chevron-right"></i></a>
+      <div ng-if="message" ng-cloak="ng-cloak" class="item"><span>{{message}}</span></div>
+    </div>
+  </ion-content>
 </ion-view>

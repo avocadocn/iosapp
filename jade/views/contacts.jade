@@ -4,16 +4,18 @@ ion-view.contacts
     h1.title 同事
     button.button.button-clear(ng-if="searching" ng-click="cancelSearch()" ng-cloak) 取消
   ion-content
-    .list
-      a.item.item-icon-right(ng-repeat="contact in contacts" href="#/user/{{contact._id}}" ng-cloak)
-        span.nickname {{contact.nickname}}
-        span.item-note.email {{contact.email}}
-        i.icon.ion-chevron-right
-      .item(ng-if="message" ng-cloak)
-        span {{message}}
-  ion-footer-bar(ng-cloak)
-    .search_box.item-input-inset
+    .bar.bar-header.search_box.item-input-inset
       label.item-input-wrapper
         i.icon.ion-ios7-search.placeholder-icon
         input(type="search" ng-model="keyword.value" ng-keypress="search($event)")
       button.button-clear(ng-click="search()") 搜索
+    .list.user_list
+      a.item.item-avatar.item-icon-right.user_item(ng-repeat="contact in contacts" href="#/user/{{contact._id}}" ng-cloak)
+        img.user_photo(ng-src="{{STATIC_URL + contact.photo}}/90/90")
+        h2.nickname(ng-bind="contact.nickname")
+        p.realname(ng-bind="contact.realname")
+        //-span.item-note.email {{contact.email}}
+        i.icon.ion-chevron-right
+      .item(ng-if="message" ng-cloak)
+        span {{message}}
+
