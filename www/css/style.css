@@ -3717,11 +3717,32 @@ a>.login .companies_list:activated {
   -webkit-transform: translateY(500px) scale(0.1);
   -o-transform: translateY(500px) scale(0.1);
 }
-#inviteKeyQrCode img {
+.invite_key_qr_code img {
   margin: 0 auto;
 }
 .invite_key .ion-clipboard {
   color: #3ca2e0;
+}
+.personal_invite_code_page {
+  font-family: 'Heiti';
+}
+.personal_invite_code_page .list {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.personal_invite_code_page .item {
+  color: #202020;
+}
+.personal_invite_code_page .description_item {
+  height: 120px;
+}
+.personal_invite_code_page .invite_key_qr_code {
+  margin: auto;
+  width: 165px;
+  height: 165px;
+}
+.personal_invite_code_page .invite_key_qr_code img {
+  max-width: 100%;
 }
 .circle_send_content_page .circle_content_form .content_border {
   padding-right: 6px;
