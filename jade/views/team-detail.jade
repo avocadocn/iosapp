@@ -67,8 +67,9 @@ ion-view
           span.member_count {{team.memberCount}}&nbsp;
           i.icon.ion-chevron-right
 
-    .dl_campaign_group(ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam" ng-cloak)
-      p.dl_campaign_group_date {{group.date | date:'yyyy-MM'}}
-      campaign-card(ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId")
+    .list.dl_campaign_group(ng-if="!team.isOtherCompanyTeam" ng-cloak)
+      div(ng-repeat="campaign in campaigns track by $index")
+        .item.dl_campaign_timeline_date(ng-if="needShowTime($index)") {{campaign.create_time | date:'M月d日'}}
+        campaign-card(campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId")
     ion-infinite-scroll(on-infinite="loadMore()" distance="1%" icon="ion-looping" ng-if="moreDataCanBeLoaded() && !team.isOtherCompanyTeam")
   include ./photo-swipe

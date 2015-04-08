@@ -56,9 +56,11 @@
         <div class="member_link"><span class="member_count">{{team.memberCount}}&nbsp;</span><i class="icon ion-chevron-right"></i></div>
       </div>
     </div>
-    <div ng-repeat="group in campaignGroups" ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="dl_campaign_group">
-      <p class="dl_campaign_group_date">{{group.date | date:'yyyy-MM'}}</p>
-      <campaign-card ng-repeat="campaign in group.campaigns" campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId"></campaign-card>
+    <div ng-if="!team.isOtherCompanyTeam" ng-cloak="ng-cloak" class="list dl_campaign_group">
+      <div ng-repeat="campaign in campaigns track by $index">
+        <div ng-if="needShowTime($index)" class="item dl_campaign_timeline_date">{{campaign.create_time | date:'M月d日'}}</div>
+        <campaign-card campaign="campaign" pswp-photo-album="pswpPhotoAlbum" pswp-id="pswpId"></campaign-card>
+      </div>
     </div>
     <ion-infinite-scroll on-infinite="loadMore()" distance="1%" icon="ion-looping" ng-if="moreDataCanBeLoaded() &amp;&amp; !team.isOtherCompanyTeam"></ion-infinite-scroll>
   </ion-content>

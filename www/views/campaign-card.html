@@ -1,38 +1,18 @@
-
-<div ng-class="{'remove':campaign.remove}" class="card dl_card campaign_card_container"><a ng-href="#/campaign/detail/{{campaign._id}}" class="campaign_card">
-    <div ng-if="campaign.confirm_status===true" class="dl_card_header clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60" class="dl_team_logo"/>
-      <div class="dl_card_header_info clearfix">
-        <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-        <p class="dl_cp_address">时间: {{campaign.start_time | date:"MM-dd HH:mm"}} - {{campaign.end_time | date:"MM-dd HH:mm"}}</p>
-        <p class="dl_cp_address">地点: {{campaign.location.name}}</p>
+<a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
+  <div class="campaign_card clearfix">
+    <div class="dl_card_content clearfix">
+      <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo"/>
+        <div ng-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="provoke_label"><span>挑战</span></div>
+        <div ng-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div>
       </div>
-      <div class="dl_card_header_operator">
-        <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.allow.joinCompanyCampaign &amp;&amp; campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown_end">{{campaign.end_time | date:"yyyy-MM-dd HH:mm" | day}}&nbsp;结束</div>
-        <div ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" class="dl_cp_time_countdown_end">{{campaign.start_time | date:"yyyy-MM-dd HH:mm" | day}}&nbsp;开始</div>
-        <div ng-if="!campaign.allow.joinTeamCampaign &amp;&amp; !campaign.allow.joinCompanyCampaign &amp;&amp; !campaign.is_start &amp;&amp; !campaign.is_end" class="dl_cp_time_countdown clearfix"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
+      <div class="dl_cp_texts">
+        <p class="dl_cp_name"><span>{{campaign.theme}}</span></p>
+        <p class="dl_cp_time"><i class="icon icon_small ion_time"></i><span class="dl_cp_text">{{campaign.start_time | date:"HH:mm"}}</span></p>
+        <p class="dl_cp_address"><i class="icon icon_small ion_address"></i><span class="dl_cp_text">{{campaign.location.name}}</span></p>
+      </div>
+      <div class="dl_card_member">
+        <p class="dl_cp_member"><span class="dl_cp_text number">{{campaign.members_count || '0'}} </span></p>
+        <p>人</p>
       </div>
     </div>
-    <div ng-if="campaign.confirm_status===false" class="dl_card_header dl_card_header_provoke clearfix"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
-    <div ng-if="campaign.confirm_status===false || campaign.photo_album.photos.length&gt;0" class="dl_card_body">
-      <p ng-if="campaign.confirm_status===false" class="dl_provoke_info"><span class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</span>&nbsp;向&nbsp;<span class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</span>&nbsp;发起挑战</p>
-      <p ng-if="campaign.confirm_status===false" class="dl_cp_name">{{campaign.theme}}</p>
-      <div class="dl_photo_alb"><img prevent-default="prevent-default" ng-if="$index&lt;3" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" error-img="error-img" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="campaign.photo_album._id" ng-click="addPhotos(campaign.photo_album.photos)" open-photo="open-photo" class="dl_cp_photo"/></div>
-    </div>
-    <div ng-if="campaign.confirm_status===true" class="dl_card_footer clearfix">
-      <div ng-if="campaign.campaign_unit.length === 1" class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</div>
-      <div ng-if="campaign.campaign_unit.length === 2" class="dl_team_name">
-        {{campaign.campaign_unit[0].team.name}}
-        vs
-        {{campaign.campaign_unit[1].team.name}}
-      </div>
-      <div class="dl_cp_time clearfix">发布于 {{campaign.create_time | beforeNow}}</div>
-      <div class="dl_team_comment clearfix"><i class="dl_icon ion_comment_small"></i><span class="dl_card_footer_count">{{campaign.comment_sum}}</span></div>
-      <div class="dl_team_number clearfix"><i class="dl_icon ion_member_small"></i><span class="dl_card_footer_count">{{campaign.members_count || '0'}}</span></div>
-    </div>
-    <div ng-if="campaign.confirm_status===false &amp;&amp;(campaign.allow.dealProvoke || campaign.allow.quitProvoke)" class="dl_card_footer dl_card_footer_provoke">
-      <div class="clearfix">
-        <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)" class="dl_cp_confirm">接受</button>
-        <button prevent-default="prevent-default" ng-if="campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)" class="dl_cp_refuse">拒绝</button>
-        <button prevent-default="prevent-default" ng-if="campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)" class="dl_cp_cancel">取消</button>
-      </div>
-    </div></a></div>
+  </div></a>

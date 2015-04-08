@@ -7,32 +7,24 @@
     <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping"></ion-refresher>
     <div class="timeline_card">
       <div ng-repeat="campaign in timelinesRecord" class="dl_timeline">
-        <label ng-if="needShowTime($index)" class="dl_timeline_date">{{campaign.start_time | date:'yyyy-MM'}}</label>
-        <div class="card dl_card dl_timeline_card"><a ng-href="#/campaign/detail/{{campaign._id}}" class="campaign_card">
-            <div ng-if="campaign.campaign_unit.length===1" class="dl_card_header clearfix"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/45/45" class="dl_team_logo"/>
-              <div class="dl_card_header_info clearfix">
-                <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-                <p class="dl_cp_address">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
+        <div ng-if="needShowTime($index)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
+          <div class="campaign_card clearfix">
+            <div class="dl_card_content clearfix">
+              <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo"/>
+                <div ng-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="provoke_label"><span>挑战</span></div>
+                <div ng-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div>
+              </div>
+              <div class="dl_cp_texts">
+                <p class="dl_cp_name"><span>{{campaign.theme}}</span></p>
+                <p class="dl_cp_time"><i class="icon icon_small ion_time"></i><span class="dl_cp_text">{{campaign.start_time | date:"HH:mm"}}</span></p>
+                <p class="dl_cp_address"><i class="icon icon_small ion_address"></i><span class="dl_cp_text">{{campaign.location.name}}</span></p>
+              </div>
+              <div class="dl_card_member">
+                <p class="dl_cp_member"><span class="dl_cp_text number">{{campaign.members_count || '0'}} </span></p>
+                <p>人</p>
               </div>
             </div>
-            <div ng-if="campaign.campaign_unit.length===2" class="dl_card_header dl_card_header_provoke clearfix"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/45/45'}}" class="dl_team_logo"/><span class="dl_team_vs">vs</span><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/45/45'}}" class="dl_team_logo dl_team_logo_right"/></div>
-            <div class="dl_card_body">
-              <div ng-if="campaign.campaign_unit.length===2" class="dl_provoke_info">
-                <h2 class="dl_cp_name">{{campaign.theme}}</h2>
-                <p class="dl_cp_address">{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}} &nbsp; 至 &nbsp; {{campaign.end_time | date:"yyyy-MM-dd HH:mm"}}</p>
-              </div>
-              <div class="dl_photo_alb"><img ng-if="$index&lt;3" ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL + photo.uri}}/150/150" class="dl_cp_photo"/></div>
-            </div>
-            <div class="dl_card_footer clearfix">
-              <div ng-if="campaign.campaign_unit.length===1" class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</div>
-              <div ng-if="campaign.campaign_unit.length===2" class="dl_team_name">
-                {{campaign.campaign_unit[0].team.name}}
-                vs
-                {{campaign.campaign_unit[1].team.name}}
-              </div>
-              <div class="dl_team_comment clearfix"><i class="dl_icon ion_comment_small"></i><span class="dl_card_footer_count">{{campaign.comment_sum}}</span></div>
-              <div class="dl_team_number clearfix"><i class="dl_icon ion_member_small"></i><span class="dl_card_footer_count">{{campaign.members_count || '0'}}</span></div>
-            </div></a></div>
+          </div></a>
       </div>
     </div>
     <ion-infinite-scroll ng-if="!loading &amp;&amp; !loadFinished" icon="ion-looping" on-infinite="loadMore()" distance="-1%"></ion-infinite-scroll>

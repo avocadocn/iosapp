@@ -272,221 +272,21 @@ textarea
       .campaign_container_title
         border 1px solid #ddd
         border-top 0
-        padding 7px 10px
+        padding 8px 10px
         color #707070
         font-size 14px
         line-height 1
 
-.dl_card
-  position relative
-  dl_card()
-  padding 0
-  .campaign_card
-    display block
-    text-decoration none
-    .dl_cp_name
-      font-size 16px
-      color col_black
-    .dl_card_header
-      padding 0.833333rem
-      height 80px
-      .dl_card_header_info
-        width 100%
-        padding-left 70px
-        //- padding-right 70px
-        .dl_cp_name, .dl_cp_address
-          margin 0
-          width 100%
-          color col_blue
-          textOverflow()
-        .dl_cp_address
-          margin-top 6px
-          font-size 12px
-          color col_darkGray
-      .dl_card_header_operator
-        position absolute
-        right 10px
-        top 10px
-        .dl_btn_join
-          width 60px
-          height 30px
-          border-radius 5px
-          border none
-          color white
-          background-color col_blue
-        .dl_cp_time_countdown_end
-          color col_textPurple
-        .dl_cp_time_countdown
-          margin 0
-          width 70px
-          height 30px
-          line-height 30px
-          border 1px solid col_borderPurple
-          border-radius 5px
-          color col_textPurple
-          font-size 14px
-        .dl_cp_time_count, .dl_cp_time_unit
-          display block
-          float left
-          width 34px
-          height 28px
-          line-height 28px
-          text-align center
-        .dl_cp_time_count
-          border-right 1px solid col_borderPurple
-      .dl_team_logo
-        display block
-        position absolute
-        margin-right 10px
-        width 60px
-        height 60px
-        border-radius 5px
-    .dl_card_header_provoke
-      border-bottom 1px solid col_gray
-      height 65px
-      .dl_team_logo
-        position absolute
-        display block
-        left 0
-        top 0
-        margin 10px
-        width 45px
-        height 45px
-        border-radius 5px
-      .dl_team_logo_right
-        right 0
-        left initial
-      .dl_team_vs
-        margin 7.5px auto
-        height 30px
-        width 135px
-        display block
-        background-color col_darkBlue
-        border-radius 100%
-        color #fff
-        font-size 32px
-        line-height 24px
-        text-align center
-    .dl_card_body
-      .dl_photo_alb
-        white-space nowrap
-        .dl_cp_photo
-          margin-right 5px
-          width 96px
-          height 96px
-      .dl_cp_name
-        margin 10px
-      .dl_provoke_info
-        color col_black
-        margin 10px
-        .dl_team_name
-          color col_borderPurple
-        .dl_cp_name
-          margin-left 0
-        .dl_cp_address
-          color col_darkGray
-
-    .dl_card_footer
-      position relative
-      height 30px
-      line-height 30px
-      padding 0 0.833333rem
-      font-size 12px
-      color col_darkGray
-      width 100%
-      border-top 1px solid col_gray
-      .dl_team_name
-        width 100%
-        overflow hidden
-        text-overflow ellipsis
-        white-space nowrap
-        padding-right 160px
-      .dl_cp_time
-        position absolute
-        top 0
-        right 80px
-      .dl_team_number
-        position absolute
-        top 0
-        right 50px
-      .dl_team_comment
-        position absolute
-        top 0
-        right 10px
-        margin-left 10px
-      .ion_member_small, .ion_comment_small
-        display block
-        float left
-        margin-top 9px
-        margin-right 5px
-        width 12px
-        height 12px
-      .dl_card_footer_count
-        display block
-        float left
-    .dl_card_footer_provoke
-      padding 0.833333rem
-      height 50px
-      border-top 1px solid col_gray
-    .dl_cp_confirm, .dl_cp_refuse, .dl_cp_cancel
-      width 135px
-      height 30px
-      border none
-      color white
-      background-color col_darkGray
-      font-size 14px
-      border-radius 5px
-    .dl_cp_confirm
-      background-color col_iconPurple
-    .dl_cp_refuse
-      float right
-    .dl_cp_cancel
-      display block
-      margin 0 auto
-.dl_campaign_card
-  dl_card()
+//-两个卡片的共用样式
+.dl_timeline_card, .dl_campaign_card
   background-color #fff
   margin 0
-  padding 10px
+  padding 15px
   position relative
-  border-bottom 1px solid #ddd
-  box-shadow 0 0
+  box-shadow 0 0 0
   .campaign_card
     text-decoration none
     padding 0
-    padding-top 10px
-    border-bottom 1px solid #ddd
-    .dl_card_header
-      height 20px
-      margin-bottom 10px
-      .dl_card_header_info
-        .dl_cp_name
-          font-size 16px
-          color #000
-          line-height 1
-          margin-bottom 0
-          font-weight 200
-          max-width 205px
-          textOverflow()
-      .dl_card_time
-        position absolute
-        right 10px
-        top 8px
-        .dl_cp_time_countdown
-          width 92px
-          height 22px
-          padding 2px 5px
-          padding-right 0
-          border 1px solid #959595
-          border-radius 5px
-          overflow hidden
-          .dl_cp_time_text
-            color col_textBlack
-            border-right 1px solid col_borderGray
-            padding-right 5px
-          .dl_cp_time_count
-            margin-left 5px
-            color col_textBlack
     .dl_card_content
       .dl_cp_logos
         width 60px
@@ -520,7 +320,7 @@ textarea
           float left
       .dl_cp_texts
         float left
-        .dl_cp_time,.dl_cp_address,.dl_cp_member
+        .dl_cp_time,.dl_cp_address,.dl_cp_member,.dl_cp_name
           margin-bottom 6px
           width 100%
           height 16px
@@ -533,11 +333,79 @@ textarea
             margin-right 10px
           .dl_cp_text
             float left
+//-历史卡片
+.dl_timeline_card
+  margin-left 15px 
+  padding 10px 0
+  border-left 0px
+  margin-top -1px
+  //- border-bottom 1px solid #ddd
+  .campaign_card
+    .dl_card_content
+      .dl_cp_texts
+        width 55%
+        border-right 1px solid #ddd
+        .dl_cp_name
+          font-size 16px
+          margin-bottom 7px
+        .dl_cp_time,.dl_cp_address
+          color #999
+          margin-bottom 5px
+          .icon
+            margin-right 5px
+        .dl_cp_address
+          margin-bottom 0
+      .dl_card_member
+        width 24%
+        float left
+        text-align center
+        padding-top 10px
+        .dl_cp_member
+          font-size 16px
+
+//-活动列表卡片
+.dl_campaign_card
+  border-bottom 1px solid #ddd
+  .campaign_card
+    border-bottom 1px solid #ddd
+    .dl_card_header
+      height 20px
+      margin-bottom 10px
+      .dl_card_header_info
+        .dl_cp_name
+          font-size 16px
+          color #000
+          line-height 1
+          margin-bottom 0
+          font-weight 200
+          max-width 205px
+          textOverflow()
+      .dl_card_time
+        position absolute
+        right 10px
+        top 8px
+        .dl_cp_time_countdown
+          width 92px
+          height 22px
+          padding 2px 5px
+          padding-right 0
+          border 1px solid #959595
+          border-radius 5px
+          overflow hidden
+          .dl_cp_time_text
+            color col_textBlack
+            border-right 1px solid col_borderGray
+            padding-right 5px
+          .dl_cp_time_count
+            margin-left 5px
+            color col_textBlack
+    .dl_card_content
+      .dl_cp_texts
         .dl_cp_member
           margin-bottom 0
           line-height 16px
           .number
-              color #f48361
+            color #f48361
     .dl_card_footer
       margin-top 10px
       color #c2c1c1
@@ -2630,36 +2498,15 @@ textarea
       text-align center
       text-decoration none
 
-  .dl_campaign_group
-    .dl_campaign_group_date
-      margin 1rem
-      height 20px
-      background-color col_darkGray
-      color white
-      border-radius 5px
-      text-align center
-.dl_timeline
-  &:before
-    content ''
-    position absolute
-    top 0
-    bottom 70px
-    width 3px
-    background #ccc
-    left 50%
-  .dl_timeline_card
-    z-index 10
-  .dl_timeline_date
-    display block
-    margin 1rem auto
-    width 100px
-    height 20px
-    background-color #ccc
-    color white
-    border-radius 5px
-    text-align center
-    position relative
-    z-index 10
+//-timeline 卡片与小队timeline卡片共用时间样式
+.dl_campaign_group, .timeline_card
+  background-color #fff
+  .dl_campaign_timeline_date
+    background-color col_bottomGray
+    padding 7px 15px
+    font-size 12px
+    line-height 1
+
 .nomore_text
   margin 10px
   font-size 14px

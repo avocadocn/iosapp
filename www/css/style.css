@@ -283,241 +283,147 @@ textarea {
 .campaigns_container .campaign_list .campaign_container .campaign_container_title {
   border: 1px solid #ddd;
   border-top: 0;
-  padding: 7px 10px;
+  padding: 8px 10px;
   color: #707070;
   font-size: 14px;
   line-height: 1;
 }
-.dl_card {
-  position: relative;
-  display: block;
-  margin: 10px 10px 5px;
-  padding: 10px;
-  box-shadow: 0 2px 0 #ccc;
-  line-height: 18px;
+.dl_timeline_card,
+.dl_campaign_card {
   background-color: #fff;
+  margin: 0;
+  padding: 15px;
+  position: relative;
+  box-shadow: 0 0 0;
+}
+.dl_timeline_card .campaign_card,
+.dl_campaign_card .campaign_card {
+  text-decoration: none;
   padding: 0;
 }
-.dl_card .campaign_card {
-  display: block;
-  text-decoration: none;
-}
-.dl_card .campaign_card .dl_cp_name {
-  font-size: 16px;
-  color: #333;
-}
-.dl_card .campaign_card .dl_card_header {
-  padding: 0.833333rem;
-  height: 80px;
-}
-.dl_card .campaign_card .dl_card_header .dl_card_header_info {
-  width: 100%;
-  padding-left: 70px;
-}
-.dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_name,
-.dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_address {
-  margin: 0;
-  width: 100%;
-  color: #3ca2e0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.dl_card .campaign_card .dl_card_header .dl_card_header_info .dl_cp_address {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #999;
-}
-.dl_card .campaign_card .dl_card_header .dl_card_header_operator {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_btn_join {
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_logos,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos {
   width: 60px;
-  height: 30px;
+  height: 60px;
   border-radius: 5px;
-  border: none;
-  color: #fff;
-  background-color: #3ca2e0;
-}
-.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_countdown_end {
-  color: #9e6dd0;
-}
-.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_countdown {
-  margin: 0;
-  width: 70px;
-  height: 30px;
-  line-height: 30px;
-  border: 1px solid #806dd0;
-  border-radius: 5px;
-  color: #9e6dd0;
-  font-size: 14px;
-}
-.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_count,
-.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_unit {
-  display: block;
+  background-color: #f7f7f7;
   float: left;
-  width: 34px;
-  height: 28px;
-  line-height: 28px;
-  text-align: center;
 }
-.dl_card .campaign_card .dl_card_header .dl_card_header_operator .dl_cp_time_count {
-  border-right: 1px solid #806dd0;
-}
-.dl_card .campaign_card .dl_card_header .dl_team_logo {
-  display: block;
-  position: absolute;
-  margin-right: 10px;
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_logos .dl_team_logo,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .dl_team_logo {
   width: 60px;
   height: 60px;
   border-radius: 5px;
 }
-.dl_card .campaign_card .dl_card_header_provoke {
-  border-bottom: 1px solid #e2e2e2;
-  height: 65px;
-}
-.dl_card .campaign_card .dl_card_header_provoke .dl_team_logo {
-  position: absolute;
-  display: block;
-  left: 0;
-  top: 0;
-  margin: 10px;
-  width: 45px;
-  height: 45px;
-  border-radius: 5px;
-}
-.dl_card .campaign_card .dl_card_header_provoke .dl_team_logo_right {
-  right: 0;
-  left: initial;
-}
-.dl_card .campaign_card .dl_card_header_provoke .dl_team_vs {
-  margin: 7.5px auto;
-  height: 30px;
-  width: 135px;
-  display: block;
-  background-color: #618bd7;
-  border-radius: 100%;
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_logos .provoke_label,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .provoke_label,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label {
+  width: 100%;
+  height: 14px;
   color: #fff;
-  font-size: 32px;
-  line-height: 24px;
+  float: left;
   text-align: center;
+  line-height: 14px;
+  background-color: #f48361;
 }
-.dl_card .campaign_card .dl_card_body .dl_photo_alb {
-  white-space: nowrap;
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label {
+  background-color: #ffc053;
 }
-.dl_card .campaign_card .dl_card_body .dl_photo_alb .dl_cp_photo {
-  margin-right: 5px;
-  width: 96px;
-  height: 96px;
+.dl_timeline_card .campaign_card .dl_card_content .logos_2:first-child,
+.dl_campaign_card .campaign_card .dl_card_content .logos_2:first-child {
+  margin-right: 2px;
 }
-.dl_card .campaign_card .dl_card_body .dl_cp_name {
-  margin: 10px;
-}
-.dl_card .campaign_card .dl_card_body .dl_provoke_info {
-  color: #333;
-  margin: 10px;
-}
-.dl_card .campaign_card .dl_card_body .dl_provoke_info .dl_team_name {
-  color: #806dd0;
-}
-.dl_card .campaign_card .dl_card_body .dl_provoke_info .dl_cp_name {
-  margin-left: 0;
-}
-.dl_card .campaign_card .dl_card_body .dl_provoke_info .dl_cp_address {
-  color: #999;
-}
-.dl_card .campaign_card .dl_card_footer {
-  position: relative;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 0.833333rem;
-  font-size: 12px;
-  color: #999;
-  width: 100%;
-  border-top: 1px solid #e2e2e2;
-}
-.dl_card .campaign_card .dl_card_footer .dl_team_name {
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding-right: 160px;
-}
-.dl_card .campaign_card .dl_card_footer .dl_cp_time {
-  position: absolute;
-  top: 0;
-  right: 80px;
-}
-.dl_card .campaign_card .dl_card_footer .dl_team_number {
-  position: absolute;
-  top: 0;
-  right: 50px;
-}
-.dl_card .campaign_card .dl_card_footer .dl_team_comment {
-  position: absolute;
-  top: 0;
-  right: 10px;
-  margin-left: 10px;
-}
-.dl_card .campaign_card .dl_card_footer .ion_member_small,
-.dl_card .campaign_card .dl_card_footer .ion_comment_small {
-  display: block;
-  float: left;
-  margin-top: 9px;
-  margin-right: 5px;
-  width: 12px;
-  height: 12px;
-}
-.dl_card .campaign_card .dl_card_footer .dl_card_footer_count {
-  display: block;
+.dl_timeline_card .campaign_card .dl_card_content .logos_2 .dl_team_logo,
+.dl_campaign_card .campaign_card .dl_card_content .logos_2 .dl_team_logo {
+  width: 29px;
+  height: 29px;
+  margin-top: 7px;
+  margin-bottom: 6px;
+  border-radius: 3px;
   float: left;
 }
-.dl_card .campaign_card .dl_card_footer_provoke {
-  padding: 0.833333rem;
-  height: 50px;
-  border-top: 1px solid #e2e2e2;
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts {
+  float: left;
 }
-.dl_card .campaign_card .dl_cp_confirm,
-.dl_card .campaign_card .dl_cp_refuse,
-.dl_card .campaign_card .dl_cp_cancel {
-  width: 135px;
-  height: 30px;
-  border: none;
-  color: #fff;
-  background-color: #999;
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name {
+  margin-bottom: 6px;
+  width: 100%;
+  height: 16px;
+  line-height: 1;
   font-size: 14px;
-  border-radius: 5px;
+  color: #707070;
+  padding-left: 10px;
 }
-.dl_card .campaign_card .dl_cp_confirm {
-  background-color: #6a73c6;
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .icon,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .icon,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .icon,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .icon,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .icon,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .icon,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name .icon,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name .icon {
+  float: left;
+  margin-right: 10px;
 }
-.dl_card .campaign_card .dl_cp_refuse {
-  float: right;
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .dl_cp_text,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .dl_cp_text,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .dl_cp_text,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .dl_cp_text,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .dl_cp_text,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .dl_cp_text,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name .dl_cp_text,
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name .dl_cp_text {
+  float: left;
 }
-.dl_card .campaign_card .dl_cp_cancel {
-  display: block;
-  margin: 0 auto;
+.dl_timeline_card {
+  margin-left: 15px;
+  padding: 10px 0;
+  border-left: 0px;
+  margin-top: -1px;
+}
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts {
+  width: 55%;
+  border-right: 1px solid #ddd;
+}
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name {
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address {
+  color: #999;
+  margin-bottom: 5px;
+}
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .icon,
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .icon {
+  margin-right: 5px;
+}
+.dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address {
+  margin-bottom: 0;
+}
+.dl_timeline_card .campaign_card .dl_card_content .dl_card_member {
+  width: 24%;
+  float: left;
+  text-align: center;
+  padding-top: 10px;
+}
+.dl_timeline_card .campaign_card .dl_card_content .dl_card_member .dl_cp_member {
+  font-size: 16px;
 }
 .dl_campaign_card {
-  display: block;
-  margin: 10px 10px 5px;
-  padding: 10px;
-  box-shadow: 0 2px 0 #ccc;
-  line-height: 18px;
-  background-color: #fff;
-  background-color: #fff;
-  margin: 0;
-  padding: 10px;
-  position: relative;
   border-bottom: 1px solid #ddd;
-  box-shadow: 0 0;
 }
 .dl_campaign_card .campaign_card {
-  text-decoration: none;
-  padding: 0;
-  padding-top: 10px;
   border-bottom: 1px solid #ddd;
 }
 .dl_campaign_card .campaign_card .dl_card_header {
@@ -557,67 +463,6 @@ textarea {
 .dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown .dl_cp_time_count {
   margin-left: 5px;
   color: #707070;
-}
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos {
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-  background-color: #f7f7f7;
-  float: left;
-}
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .dl_team_logo {
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-}
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .provoke_label,
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label {
-  width: 100%;
-  height: 14px;
-  color: #fff;
-  float: left;
-  text-align: center;
-  line-height: 14px;
-  background-color: #f48361;
-}
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label {
-  background-color: #ffc053;
-}
-.dl_campaign_card .campaign_card .dl_card_content .logos_2:first-child {
-  margin-right: 2px;
-}
-.dl_campaign_card .campaign_card .dl_card_content .logos_2 .dl_team_logo {
-  width: 29px;
-  height: 29px;
-  margin-top: 7px;
-  margin-bottom: 6px;
-  border-radius: 3px;
-  float: left;
-}
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts {
-  float: left;
-}
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time,
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address,
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member {
-  margin-bottom: 6px;
-  width: 100%;
-  height: 16px;
-  line-height: 1;
-  font-size: 14px;
-  color: #707070;
-  padding-left: 10px;
-}
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .icon,
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .icon,
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .icon {
-  float: left;
-  margin-right: 10px;
-}
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_time .dl_cp_text,
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_address .dl_cp_text,
-.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .dl_cp_text {
-  float: left;
 }
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member {
   margin-bottom: 0;
@@ -3212,37 +3057,16 @@ a>.login .companies_list:activated {
   text-align: center;
   text-decoration: none;
 }
-.team_page .dl_campaign_group .dl_campaign_group_date {
-  margin: 1rem;
-  height: 20px;
-  background-color: #999;
-  color: #fff;
-  border-radius: 5px;
-  text-align: center;
+.dl_campaign_group,
+.timeline_card {
+  background-color: #fff;
 }
-.dl_timeline:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 70px;
-  width: 3px;
-  background: #ccc;
-  left: 50%;
-}
-.dl_timeline .dl_timeline_card {
-  z-index: 10;
-}
-.dl_timeline .dl_timeline_date {
-  display: block;
-  margin: 1rem auto;
-  width: 100px;
-  height: 20px;
-  background-color: #ccc;
-  color: #fff;
-  border-radius: 5px;
-  text-align: center;
-  position: relative;
-  z-index: 10;
+.dl_campaign_group .dl_campaign_timeline_date,
+.timeline_card .dl_campaign_timeline_date {
+  background-color: #f7f7f7;
+  padding: 7px 15px;
+  font-size: 12px;
+  line-height: 1;
 }
 .nomore_text {
   margin: 10px;

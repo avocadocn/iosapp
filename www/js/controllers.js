@@ -2628,57 +2628,7 @@ angular.module('donlerApp.controllers', [])
     var pageSize = 20;
     var nextCampaign;
 
-    /**
-     * 按日期分组后的活动
-     * [{
-     *   date: Date,
-     *   campaigns: [Object]
-     * }]
-     * @type {Array}
-     */
-    $scope.campaignGroups = [];
-
-    /**
-     * 获取该日期的分组，如果不存在，则新建一个
-     * @param  {Date} date 日期
-     * @return {Object}
-     */
-    var getGroup = function (date) {
-      for (var i = 0; i < $scope.campaignGroups.length; i++) {
-        var group = $scope.campaignGroups[i];
-        if (Tools.isTheSameMonth(group.date, date)) {
-          return group;
-        }
-      }
-      var group = {
-        date: date,
-        campaigns: []
-      };
-      $scope.campaignGroups.push(group);
-      $scope.campaignGroups.sort(function (a, b) {
-        return b.date > a.date;
-      });
-      return group;
-    };
-
-    // 将活动按开始时间分组
-    var addCampaignsToGroup = function (campaigns) {
-      var group;
-      for (var i = 0; i < campaigns.length; i++) {
-        var campaign = campaigns[i];
-        if (!group) {
-          group = getGroup(campaign.start_time);
-        } else {
-          if (!Tools.isTheSameMonth(group.date, campaign.start_time)) {
-            group.campaigns.sort(function (a, b) {
-              return b.start_time > a.start_time;
-            });
-            group = getGroup(campaign.start_time);
-          }
-        }
-        group.campaigns.push(campaign);
-      }
-    };
+    $scope.campaigns = [];
 
     $scope.getCampaigns = function (options) {
       Campaign.getList(options, function (err, campaigns) {
@@ -2689,12 +2639,30 @@ angular.module('donlerApp.controllers', [])
           $scope.lastCount = campaigns.length;
           $scope.firstLoad = false;
           $scope.loading = false;
-          var sliceLength = campaigns.length === pageSize + 1 ? pageSize : campaigns.length;
+          // var sliceLength = campaigns.length === pageSize + 1 ? pageSize : campaigns.length;
           nextCampaign = campaigns[campaigns.length - 1];
-          addCampaignsToGroup(campaigns.slice(0, sliceLength));
+          $scope.campaigns = $scope.campaigns.concat(campaigns);
+          // addCampaignsToGroup(campaigns.slice(0, sliceLength));
           $scope.$broadcast('scroll.infiniteScrollComplete');
         }
       });
+    };
+
+    $scope.needShowTime = function(index) {
+      if(index === 0) {
+        return true;
+      }else {
+        var preTime = new Date($scope.campaigns[index-1].start_time);
+        var nowTime = new Date($scope.campaigns[index].start_time);
+        // console.log(index,nowTime,preTime);
+        if(nowTime.getFullYear() != preTime.getFullYear()) {
+          return true;
+        }else if(nowTime.getDay() != preTime.getDay()) {
+          return true;
+        }else {
+          return false;
+        }
+      }
     };
 
     $scope.loadMore = function () {
@@ -3272,7 +3240,7 @@ angular.module('donlerApp.controllers', [])
       }else{
         var preTime = new Date($scope.timelinesRecord[index-1].start_time);
         var nowTime = new Date($scope.timelinesRecord[index].start_time);
-        return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
+        return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth() || nowTime.getDay() != preTime.getDay();
       };
     };
     $scope.doRefresh = function(){
