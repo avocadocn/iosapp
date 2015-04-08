@@ -465,6 +465,10 @@ textarea
           line-height 1
           margin-bottom 0
           font-weight 200
+          max-width 205px
+          overflow hidden
+          text-overflow ellipsis
+          white-space nowrap
       .dl_card_time
         position absolute
         right 10px
@@ -1911,6 +1915,7 @@ textarea
       .user_logo
         border-radius 100%
         border 3px solid #CCC
+        
       .user_name
         font-size 16px
       .user_introduce
@@ -1969,6 +1974,18 @@ textarea
               .team_count
                 margin-top 0
                 line-height 20px
+        .circle_list
+          .no_moment_remind
+              background-color white
+              padding 10px
+              text-align center
+              color #666
+        .calendar_container
+          .calendar
+            margin 0
+            .calendar_campaign_join
+              right 25%
+              bottom 5px
 //-编辑个人信息页
 .edit_info
   .list
@@ -2331,6 +2348,8 @@ textarea
       &.today
         .calendar_date
           color col_blue
+          font-size 24px
+          font-weight 900
         .calendar_campaign_count
           color col_blue
           background-color white

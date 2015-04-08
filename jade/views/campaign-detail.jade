@@ -1,7 +1,7 @@
 ion-view.dl_campaign_detail
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title(ng-cloak) {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
+    h1.title(ng-bind="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name")
     a.button.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}") 编辑
   ion-content(delegate-handle="detailScroll")
     .campaign_detail(ng-cloak)
@@ -14,7 +14,7 @@ ion-view.dl_campaign_detail
           .fellowship_label(ng-if="campaign.campaign_type===7")
             span 联谊 
           a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
-        .team_name(ng-bind="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name")
+        .team_name {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
         .cp_time
           i.icon.icon_small.ion_time
           span(ng-cloak) {{campaign.start_time | date:"MM-dd HH:mm"}} ~~ {{campaign.end_time | date:"MM-dd  HH:mm" }}
@@ -57,7 +57,7 @@ ion-view.dl_campaign_detail
         span.icon.icon_small.ion-chevron-right.button-clear
       .item.item-divider.circle
         span 精彩瞬间
-        i.icon.ion-camera(post-circle campaign="campaign")
+        i.icon.ion-camera(ng-if="campaign.join_flag==1" post-circle campaign="campaign")
       circle-card-list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL")
       ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
   //- 与ion-content同级

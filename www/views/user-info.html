@@ -28,7 +28,37 @@
             <div ng-if="loadingStatus.hasInit &amp;&amp; circleContentList.length === 0" class="no_moment_remind">您还没有发过精彩瞬间，快去活动页发表吧。</div>
             <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
           </div>
-          <div ng-if="nowTab=='campaign'" class="calender"></div>
+          <div ng-if="nowTab=='campaign'" class="calendar_container">
+            <div class="calendar">
+              <nav>
+                <div ng-if="view==='month'" class="operator item tabs">
+                  <div ng-click="preMonth()" class="tab-item"><i class="icon icon_small icon_blue icon_margin_left ion-chevron-left"></i></div>
+                  <div class="tab-item icon_blue">{{ current_year }} - {{ current_month.format_month }}</div>
+                  <div ng-click="nextMonth()" class="tab-item"><i class="icon icon_small icon_blue icon_margin_right ion-chevron-right"></i></div>
+                </div>
+                <div ng-if="view!=='year'" class="week text-center clearfix">
+                  <div class="day">日</div>
+                  <div class="day">一</div>
+                  <div class="day">二</div>
+                  <div class="day">三</div>
+                  <div class="day">四</div>
+                  <div class="day">五</div>
+                  <div class="day">六</div>
+                </div>
+              </nav>
+              <div ng-class="{full_box: view==='year'}" class="calendar_box">
+                <div ng-if="view==='month'" class="calendar_month clearfix">
+                  <ion-scroll direction="x" scrollbar-x="false">
+                    <div detect-gestures="detect-gestures" gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth" class="clearfix">
+                      <div ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true, calendar_current_month: day.is_current_month===true}" class="calendar_day text-center">
+                        <div class="calendar_date">{{ day.date }} </div><span ng-if="day.joined_events.length&gt;0" class="calendar_campaign_join">{{day.joined_events.length}}</span>
+                      </div>
+                    </div>
+                  </ion-scroll>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

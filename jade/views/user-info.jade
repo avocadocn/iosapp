@@ -41,8 +41,30 @@ ion-view.personal
               | 您还没有发过精彩瞬间，快去活动页发表吧。
       
             ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
-          .calender(ng-if="nowTab=='campaign'")
-  
+          .calendar_container(ng-if="nowTab=='campaign'")
+            .calendar
+              nav
+                .operator.item.tabs(ng-if="view==='month'")
+                    .tab-item(ng-click="preMonth()")
+                      i.icon.icon_small.icon_blue.icon_margin_left.ion-chevron-left
+                    .tab-item.icon_blue {{ current_year }} - {{ current_month.format_month }}
+                    .tab-item(ng-click="nextMonth()")
+                      i.icon.icon_small.icon_blue.icon_margin_right.ion-chevron-right
+                .week.text-center.clearfix(ng-if="view!=='year'")
+                  .day 日
+                  .day 一
+                  .day 二
+                  .day 三
+                  .day 四
+                  .day 五
+                  .day 六
+              .calendar_box(ng-class="{full_box: view==='year'}")
+                .calendar_month.clearfix(ng-if="view==='month'")
+                  ion-scroll(direction='x' scrollbar-x="false")
+                    .clearfix(detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth")
+                      .calendar_day.text-center(ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true, calendar_current_month: day.is_current_month===true}")
+                        .calendar_date {{ day.date }} 
+                        span.calendar_campaign_join(ng-if="day.joined_events.length>0") {{day.joined_events.length}}
   //- 与ion-content同级
   circle-comment-box(ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment")
   photo-swipe(photos="imagesForPswp" ctrl="pswpCtrl")

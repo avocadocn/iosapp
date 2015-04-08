@@ -531,6 +531,10 @@ textarea {
   line-height: 1;
   margin-bottom: 0;
   font-weight: 200;
+  max-width: 205px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .dl_campaign_card .campaign_card .dl_card_header .dl_card_time {
   position: absolute;
@@ -2389,6 +2393,19 @@ a>.login .companies_list:activated {
   margin-top: 0;
   line-height: 20px;
 }
+.personal .user_header .tab_view .tab_content .circle_list .no_moment_remind {
+  background-color: #fff;
+  padding: 10px;
+  text-align: center;
+  color: #666;
+}
+.personal .user_header .tab_view .tab_content .calendar_container .calendar {
+  margin: 0;
+}
+.personal .user_header .tab_view .tab_content .calendar_container .calendar .calendar_campaign_join {
+  right: 25%;
+  bottom: 5px;
+}
 .edit_info .list {
   padding-top: 10px;
 }
@@ -2797,6 +2814,8 @@ a>.login .companies_list:activated {
 }
 .calendar .calendar_month .calendar_day.today .calendar_date {
   color: #3ca2e0;
+  font-size: 24px;
+  font-weight: 900;
 }
 .calendar .calendar_month .calendar_day.today .calendar_campaign_count {
   color: #3ca2e0;
