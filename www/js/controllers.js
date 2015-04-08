@@ -1195,7 +1195,35 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CompanyController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
+  .controller('CompanyController', ['$scope', '$ionicPopup', 'Company', 'User', function($scope, $ionicPopup, Company, User) {
+    // 获取公司数据
+    Company.getData(localStorage.cid)
+      .success(function(data) {
+        $scope.company = data;
+      })
+      .error(function(data) {
+        $ionicPopup.alert({
+          title: '提示',
+          template: data.msg || '获取公司数据失败'
+        });
+      });
+
+    // 获取公司成员列表
+    User.getCompanyUsers(localStorage.cid, function(err, data) {
+      if (err) {
+        $ionicPopup.alert({
+          title: '提示',
+          template: err || '获取公司同事数据失败'
+        });
+      }
+      else {
+        $scope.staffList = data.slice(0, 3);
+      }
+    });
+
+  }])
+
+  .controller('CompanyTeamListController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
     function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
     if($state.params.type) {
       $scope.loading = true;

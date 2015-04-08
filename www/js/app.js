@@ -309,7 +309,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('company_teams', {
         url: '/company/teams/:type',
-        controller: 'CompanyController',
+        controller: 'CompanyTeamListController',
         templateUrl: './views/team-list.html'
       })
       .state('contacts', {

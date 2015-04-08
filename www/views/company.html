@@ -1,14 +1,19 @@
 
-<ion-view ng-controller="CompanyController" class="company">
+<ion-view ng-controller="CompanyController" class="tab_company_page">
   <ion-header-bar>
     <h1 class="title">公司</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="company_image"></div>
-    <div class="list"><a href="#/circle/circle_company" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>精彩瞬间<span ng-if="newCircleComment" class="badge badge-assertive">{{newCircleComment}}</span>
+    <div class="list">
+      <div class="item item-avatar company_info_item"><img ng-src="{{STATIC_URL + company.logo}}/90/90" class="company_logo"/>
+        <h2 ng-bind="company.shortName" class="company_name"></h2>
+      </div>
+    </div>
+    <div class="list"><a href="#/company/contacts" class="item item-icon-right clearfix staff_item"><img ng-repeat="staff in staffList" ng-src="{{STATIC_URL + staff.photo}}/60/60" class="staff_photo"/><span class="more_text">更多同事</span><i class="icon ion-chevron-right icon_right"></i></a></div>
+    <div class="list menu_list"><a href="#/circle/circle_company" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts ionic_icon icon_left"></i>精彩瞬间<span ng-if="newCircleComment" class="badge badge-assertive">{{newCircleComment}}</span>
         <div ng-if="newContent" class="badge_image">
-          <div class="red_spot"></div><img ng-src="{{STATIC_URL + newContent.photo}}" class="logo"/>
-        </div><i class="icon ion-chevron-right"></i></a><a href="#/company/teams/official" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>所有小队<span class="item-note">{{teams.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/company/contacts" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>通讯录<i class="icon ion-chevron-right"></i></a><a href="#/company/circle" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>所有活动<i class="icon ion-chevron-right"></i></a>
+          <div class="red_spot"></div><img ng-src="{{STATIC_URL + newContent.photo}}/60/60" class="logo"/>
+        </div><i class="icon ion-chevron-right icon_right"></i></a><a href="#/company/teams/official" class="item item-icon-left item-icon-right"><i class="icon ion_teams donler_icon icon_left"></i>全部小队<span class="item-note">{{teams.length}}</span><i class="icon ion-chevron-right icon_right"></i></a><a href="#/company/circle" class="item item-icon-left item-icon-right"><i class="icon ion_ballon donler_icon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
     </div>
   </ion-content>
 </ion-view>
