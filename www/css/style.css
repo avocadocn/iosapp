@@ -243,7 +243,6 @@ textarea {
 }
 .campaigns_container .campaign_list {
   height: 100%;
-  background-color: #e2e2e2;
   margin-top: 0;
 }
 .campaigns_container .campaign_list .no_campaign {
@@ -282,12 +281,12 @@ textarea {
   padding-left: 11px;
 }
 .campaigns_container .campaign_list .campaign_container .campaign_container_title {
-  background-color: #f7f7f7;
   border: 1px solid #ddd;
   border-top: 0;
-  padding: 6px 10px;
+  padding: 7px 10px;
   color: #707070;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 1;
 }
 .dl_card {
   position: relative;
@@ -754,12 +753,12 @@ textarea {
   color: #666;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer {
-  display: flex;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -moz-flex;
   display: -ms-flexbox;
+  display: flex;
   padding: 0;
   height: 70px;
 }
@@ -1607,12 +1606,12 @@ a>.login .companies_list:activated {
   padding-top: 5px;
 }
 .comment_box .publish_box {
-  display: flex;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -moz-flex;
   display: -ms-flexbox;
+  display: flex;
 }
 .comment_box .publish_box .icon.ion-image {
   font-size: 22px;
@@ -1737,9 +1736,6 @@ a>.login .companies_list:activated {
 .item-avatar > img:first-child {
   border-radius: 0;
 }
-.campaign_discuss {
-  background-color: #f7f7f7;
-}
 .campaign_discuss .icon-right {
   width: 40px;
   margin-top: 3px;
@@ -1854,9 +1850,6 @@ a>.login .companies_list:activated {
   text-decoration: none;
   align-items: center;
 }
-.discover {
-  background-color: #f7f7f7;
-}
 .discover .list {
   margin-top: 10px;
 }
@@ -1864,6 +1857,9 @@ a>.login .companies_list:activated {
   width: 3rem;
   font-size: 14px;
   color: #3ca2e0;
+}
+.discover .list .item .icon.ion-chevron-right {
+  color: #ababab;
 }
 .discover .list .item .icon.ion-android-contacts {
   font-size: 22px;
@@ -1886,12 +1882,12 @@ a>.login .companies_list:activated {
   margin-top: 30px;
 }
 .discover .rank_panel .team_select {
-  display: flex;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -moz-flex;
   display: -ms-flexbox;
+  display: flex;
   background-color: #fff;
   padding: 10px 20px;
 }
@@ -1910,9 +1906,9 @@ a>.login .companies_list:activated {
   position: relative;
 }
 .discover .rank_panel .team_select .team_container .team .icon {
-  font-size: 30px;
+  font-size: 22px;
   position: absolute;
-  top: 10px;
+  top: 17px;
   color: #ababab;
 }
 .discover .rank_panel .team_select .team_container .team .team_logo {
@@ -1937,7 +1933,7 @@ a>.login .companies_list:activated {
 }
 .discover .rank_panel .team_select .team_container .team.selected_team .team_name {
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 400;
 }
 .discover .rank_panel .team_select .team_container .last_team .icon {
   left: 0;
@@ -2114,7 +2110,6 @@ a>.login .companies_list:activated {
   margin-top: 10px;
 }
 .company .list .item:first-child {
-  border-top: 0;
   height: 54px;
 }
 .company .list .item .icon {
@@ -2122,12 +2117,15 @@ a>.login .companies_list:activated {
   font-size: 14px;
   color: #3ca2e0;
 }
+.company .list .item .icon.ion-chevron-right {
+  color: #ababab;
+}
 .company .list .item .icon.ion-android-contacts {
   font-size: 22px;
   padding-left: 4px;
 }
 .company .list .item .item-note {
-  color: #3ca2e0;
+  color: #ababab;
 }
 .company .list .item .badge {
   background-color: #ff5724;
@@ -2200,15 +2198,12 @@ a>.login .companies_list:activated {
 .contacts .bar {
   padding: 0;
 }
-.map_select {
-  background-color: #f7f7f7;
-}
 .map_select .search_box {
   height: 40px;
   padding: 9px;
 }
 .map_select .map_container {
-  height: 360px;
+  height: 400px;
 }
 .map_select .name {
   background-color: #fff;
@@ -4246,8 +4241,6 @@ a>.login .companies_list:activated {
   border-radius: 5px;
   margin-right: 10px;
   position: absolute;
-  left: 15px;
-  top: 15px;
 }
 .search_opponent .selected_team .team .text {
   line-height: 15px;

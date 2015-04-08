@@ -3979,7 +3979,7 @@ angular.module('donlerApp.controllers', [])
           console.log(err);
         } else {
           $scope.teams = teams;
-          $scope.nowTeamIndex =0;
+          $scope.nowTeamIndex =teams.length>1 ? 1:0;
           INFO.myTeams = teams;
           $ionicSlideBoxDelegate.update();
           refreshFlag && $scope.$broadcast('scroll.refreshComplete');

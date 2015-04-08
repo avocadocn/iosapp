@@ -237,7 +237,6 @@ textarea
       //   border-bottom 2px solid col_textPurple
   .campaign_list
     height 100%
-    background-color col_gray
     margin-top 0
     .no_campaign
       background-image url('../img/no_new_campaign.png')
@@ -271,12 +270,12 @@ textarea
             padding-left 11px
     .campaign_container
       .campaign_container_title
-        background-color col_bottomGray
         border 1px solid #ddd
         border-top 0
-        padding 6px 10px
+        padding 7px 10px
         color #707070
-        font-size 12px
+        font-size 14px
+        line-height 1
 
 .dl_card
   position relative
@@ -636,21 +635,11 @@ textarea
       .cp_location
         color #666666
     .campaign_footer
-      display flex
-      display -webkit-box
-      display -webkit-flex
-      display -moz-box
-      display -moz-flex
-      display -ms-flexbox
+      displayFlex()
       padding 0
       height 70px
       .footer_col
-        -webkit-box-flex 1
-        -webkit-flex 1
-        -moz-box-flex 1
-        -moz-flex 1
-        -ms-flex 1
-        flex 1
+        flexValue(1)
         text-align center
         border-right 1px solid #ccc
         padding 10px
@@ -1372,23 +1361,13 @@ textarea
   height auto
   padding-top 5px
   .publish_box
-    display flex
-    display -webkit-box
-    display -webkit-flex
-    display -moz-box
-    display -moz-flex
-    display -ms-flexbox
+    displayFlex()
     .icon.ion-image
       font-size 22px
       width 20px
       margin auto 5px
     .comment_input
-      -webkit-box-flex 1
-      -webkit-flex 1
-      -moz-box-flex 1
-      -moz-flex 1
-      -ms-flex 1
-      flex 1
+      flexValue(1)
       margin 5px 0
       padding-left 5px
       background-color #fff
@@ -1486,7 +1465,6 @@ textarea
 
 //- 活动留言页
 .campaign_discuss
-  background-color #f7f7f7
   .icon-right
     width 40px
     margin-top 3px
@@ -1567,7 +1545,6 @@ textarea
       align-items center
 
 .discover
-  background-color #f7f7f7
   .list
     margin-top 10px
     .item
@@ -1575,6 +1552,8 @@ textarea
         width 3rem
         font-size 14px
         color col_blue
+      .icon.ion-chevron-right
+        color #ababab
       .icon.ion-android-contacts
         font-size 22px
         padding-left 4px
@@ -1592,30 +1571,20 @@ textarea
     border-top 1px solid #ddd
     margin-top 30px
     .team_select
-      display flex
-      display -webkit-box
-      display -webkit-flex
-      display -moz-box
-      display -moz-flex
-      display -ms-flexbox
+      displayFlex()
       background-color white
       padding 10px 20px
       .team_container
-        -webkit-box-flex 1
-        -webkit-flex 1
-        -moz-box-flex 1
-        -moz-flex 1
-        -ms-flex 1
-        flex 1
+        flexValue(1)
         text-align center
         .team
           width 100%
           height 100%
           position relative
           .icon
-            font-size 30px
+            font-size 22px
             position absolute
-            top 10px
+            top 17px
             color #ababab
           .team_logo
             width 35px
@@ -1635,7 +1604,7 @@ textarea
             margin-top 0
           .team_name
             font-size 14px
-            font-weight bold
+            font-weight 400
         .last_team
           .icon
             left 0
@@ -1756,17 +1725,18 @@ textarea
   .list
     .item
       &:first-child
-        border-top 0
         height 54px
       .icon
         width 3rem
         font-size 14px
         color col_blue
+      .icon.ion-chevron-right
+        color #ababab
       .icon.ion-android-contacts
         font-size 22px
         padding-left 4px
       .item-note
-        color col_blue
+        color #ababab
       .badge
         background-color #FF5724
         padding 2px 6px 1px
@@ -1816,12 +1786,11 @@ textarea
     padding 0
 //- 地图选择样式
 .map_select
-  background-color col_bottomGray
   .search_box
     height 40px
     padding 9px
   .map_container
-    height 360px
+    height 400px
   .name
     background-color #fff
     padding 5px
@@ -3509,8 +3478,6 @@ textarea
         border-radius 5px
         margin-right 10px
         position absolute
-        left 15px
-        top 15px
       .text
         line-height 15px
         color #666
