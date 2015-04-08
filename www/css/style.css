@@ -2339,6 +2339,41 @@ a>.login .companies_list:activated {
 .user_card .tabs {
   border-top: 1px solid #e2e2e2 !important;
 }
+.personal_team_list_page {
+  font-family: 'Heiti';
+}
+.personal_team_list_page .team_list_item {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.personal_team_list_page .team_label {
+  font-size: 12px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  line-height: 18px;
+  min-height: 0;
+  color: #202020;
+}
+.personal_team_list_page .team_logo {
+  width: 45px !important;
+  height: 45px !important;
+  max-width: 45px !important;
+  max-height: 45px !important;
+  border-radius: 5px !important;
+}
+.personal_team_list_page .team_name {
+  font-size: 14px;
+  line-height: 24px;
+  color: #202020;
+}
+.personal_team_list_page .team_info {
+  color: #666;
+  font-size: 12px;
+  line-height: 18px;
+}
+.personal_team_list_page .info_item {
+  margin-right: 10px;
+}
 .settings .list {
   padding-top: 0;
   border-bottom: 1px solid #ccc;

@@ -1,20 +1,18 @@
 
-<ion-view>
+<ion-view class="personal_team_list_page">
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">{{myTeamFlag ?'我' :'他'}}的小队</h1>
+    <h1 ng-bind-template="{{myTeamFlag ? '我' : '他'}}的小队" class="title"></h1>
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <div ng-if="loading" ng-cloak="ng-cloak" class="loading_cover"><i class="icon ion-looping"></i></div>
-    <p ng-if="leadTeams.length&gt;0" ng-cloak="ng-cloak" class="dl_team_title">{{myTeamFlag ?'我' :'他'}}管理的小队</p><a ng-repeat="team in leadTeams" ng-href="#/team/{{team._id}}" ng-cloak="ng-cloak" class="dl_team_card clearfix"><img ng-src="{{STATIC_URL + team.logo}}/120/120" class="team_logo"/>
-      <div class="team_info">
-        <h2 class="team_name">{{team.name}}</h2>
-        <p class="team_count"><span class="team_member">队员：{{team.memberCount}}</span><span ng-if="team.score.campaign" class="team_cp_number">活动：{{team.score.campaign}}</span><span class="team_cp_number">积分：{{team.score.total}}</span></p>
-      </div></a>
-    <p ng-if="memberTeams.length&gt;0" ng-cloak="ng-cloak" class="dl_team_title">{{myTeamFlag ?'我' :'他'}}参加的小队</p><a ng-repeat="team in memberTeams" ng-href="#/team/{{team._id}}" ng-cloak="ng-cloak" class="dl_team_card clearfix"><img ng-src="{{STATIC_URL + team.logo}}/120/120" class="team_logo"/>
-      <div class="team_info">
-        <h2 class="team_name">{{team.name}}</h2>
-        <p class="team_count"><span class="team_member">队员：{{team.memberCount}}</span><span ng-if="team.campaignCount" class="team_cp_number">活动：{{team.campaignCount}}</span><span class="team_cp_number">积分：{{team.score.total}}</span></p>
-      </div></a>
+    <div class="list team_list">
+      <div ng-if="leadTeams.length&gt;0" ng-bind-template="{{myTeamFlag ?'我' :'他'}}管理的小队" class="item item-divider team_label"></div><a ng-repeat="team in leadTeams" ng-href="#/team/{{team._id}}" class="item item-avatar team_list_item"><img ng-src="{{STATIC_URL + team.logo}}/90/90" class="team_logo"/>
+        <h2 ng-bind="team.name" class="team_name"></h2>
+        <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}" class="info_item"></span><span ng-bind-template="积分: {{team.score.total}}" class="info_item"></span></p></a>
+      <div ng-if="memberTeams.length&gt;0" ng-bind-template="{{myTeamFlag ?'我' :'他'}}参加的小队" class="item item-divider team_label"></div><a ng-repeat="team in memberTeams" ng-href="#/team/{{team._id}}" class="item item-avatar team_list_item"><img ng-src="{{STATIC_URL + team.logo}}/90/90" class="team_logo"/>
+        <h2 ng-bind="team.name" class="team_name"></h2>
+        <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}" class="info_item"></span><span ng-bind-template="积分: {{team.score.total}}" class="info_item"></span></p></a>
+    </div>
   </ion-content>
 </ion-view>
