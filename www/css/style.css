@@ -2082,7 +2082,7 @@ a>.login .companies_list:activated {
 .tab_company_page .menu_list .badge_image {
   position: absolute;
   right: 36px;
-  top: 4px;
+  top: 10px;
   height: 30px;
 }
 .tab_company_page .menu_list .badge_image .red_spot {
@@ -4424,7 +4424,71 @@ a>.login .companies_list:activated {
   font-size: 18px;
 }
 .competition_team_page {
-  width: auto;
+  font-family: 'Heiti';
+}
+.competition_team_page .team_item {
+  padding-left: 77px;
+}
+.competition_team_page .team_item .team_logo {
+  width: 45px;
+  height: 45px;
+  max-width: 45px;
+  max-height: 45px;
+  border-radius: 5px;
+}
+.competition_team_page .team_name {
+  margin-top: -5px;
+  margin-bottom: 0;
+  color: #202020;
+  font-size: 14px;
+  line-height: 24px;
+}
+.competition_team_page .info_text {
+  margin: 0;
+  color: #666;
+  font-size: 12px;
+  line-height: 18px;
+}
+.competition_team_page .first_info_text {
+  margin-top: -2px;
+}
+.competition_team_page .team_info .text_label {
+  margin-right: 8px;
+}
+.competition_team_page .team_info .text_data {
+  margin-right: 10px;
+}
+.competition_team_page .campaign_info .item {
+  display: flex;
+  display: -webkit-flex;
+}
+.competition_team_page .campaign_info .text_label {
+  width: 60px;
+  font-size: 14px;
+  line-height: 24px;
+  color: #202020;
+}
+.competition_team_page .campaign_info .text_data {
+  flex: 1;
+  webkit-flex: 1;
+  font-size: 14px;
+  line-height: 24px;
+  color: #666;
+  text-align: center;
+}
+.competition_team_page .bar-footer {
+  height: 50px;
+}
+.competition_team_page .bottom_button {
+  display: block;
+  font-size: 16px;
+  height: 40px;
+  color: #fff;
+  background-color: #3ca2e0;
+  text-align: center;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
 }
 .score_board .score_board_operator {
   text-align: center;
