@@ -1690,11 +1690,19 @@ a>.login .companies_list:activated {
 }
 .discuss_list .list {
   padding-top: 0;
+  background-color: #fff;
 }
-.discuss_list .list .item {
+.discuss_list .list .custom_items {
+  margin-top: 1px;
+}
+.discuss_list .list .custom_items .item {
   position: relative;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-style: none;
+  border-width: 0px;
 }
-.discuss_list .list .item .red_spot {
+.discuss_list .list .custom_items .item .red_spot {
   background-color: #f48361;
   position: absolute;
   width: 1rem;
@@ -1703,10 +1711,27 @@ a>.login .companies_list:activated {
   left: 4rem;
   top: 1rem;
 }
-.item-avatar > img:first-child {
-  border-radius: 0;
+.discuss_list .list .custom_items .custom_border {
+  height: 2px;
+  border-bottom: 1px solid #ddd;
+}
+.discuss_list .list .custom_items .custom_border.non_last_custom_border {
+  margin-left: 15px;
+}
+.item-avatar_custom {
+  padding-left: 72px;
+  min-height: 72px;
+}
+.item-avatar_custom > img:first-child {
+  position: absolute;
+  top: 16px;
+  left: 15px;
   width: 45px;
   height: 45px;
+  border-radius: 4px;
+}
+.item-avatar > img:first-child {
+  border-radius: 0;
 }
 .campaign_discuss {
   background-color: #f7f7f7;

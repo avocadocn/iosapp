@@ -1448,20 +1448,41 @@ textarea
     max-height 21px
   .list
     padding-top 0
-    .item
-      position relative
-      .red_spot
-        background-color #f48361
-        position absolute
-        width 1rem
-        height 1rem
-        border-radius 100%
-        left 4rem
-        top 1rem
-.item-avatar > img:first-child
-  border-radius 0
+    background-color white
+    .custom_items
+      margin-top 1px
+      .item
+        position relative
+        padding-top 18px
+        padding-bottom 18px
+        border-style none
+        border-width 0px
+        .red_spot
+          background-color #f48361
+          position absolute
+          width 1rem
+          height 1rem
+          border-radius 100%
+          left 4rem
+          top 1rem
+      .custom_border
+        height 2px
+        border-bottom 1px solid #ddd
+        &.non_last_custom_border
+          margin-left 15px
+
+.item-avatar_custom
+  padding-left 72px
+  min-height 72px
+.item-avatar_custom > img:first-child
+  position absolute
+  top 16px
+  left 15px
   width 45px
   height 45px
+  border-radius 4px
+.item-avatar > img:first-child
+  border-radius 0
 
 //- 活动留言页
 .campaign_discuss
