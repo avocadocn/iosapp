@@ -1640,3 +1640,14 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   };
 }])
+.directive('autoHeight', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs, ctrl) {
+      var subHeight = parseInt(attrs.autoHeight);
+      var height = window.innerHeight - subHeight - 10;
+      element[0].style.height = height + 'px';
+      element[0].querySelector('.scroll').style.height = height + 'px';
+    }
+  };
+})

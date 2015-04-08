@@ -2660,7 +2660,7 @@ a>.login .companies_list:activated {
   line-height: 20px;
 }
 .calendar {
-  margin: 6px 4px;
+  margin: 6px 0px;
   color: #999;
   height: 100%;
 }
@@ -2668,6 +2668,7 @@ a>.login .companies_list:activated {
   background-color: #f6f6f6;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  margin: 0px 4px;
 }
 .calendar nav .operator {
   color: #fbfbfb;
@@ -2712,7 +2713,7 @@ a>.login .companies_list:activated {
   height: 60px;
   border-top: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 2px solid #ccc;
   background-color: #fbfbfb;
   color: #999;
 }
@@ -2976,6 +2977,11 @@ a>.login .companies_list:activated {
   border-style: solid;
   border-width: 0 20px 20px;
 }
+.calendar .calendar_day .calendar_campaign .calendar_divider {
+  height: 10px;
+  border-top: 0;
+  background-color: #f7f7f7;
+}
 .calendar .dl_card_footer {
   position: relative;
   height: 18px;
@@ -3011,9 +3017,11 @@ a>.login .companies_list:activated {
 }
 .calendar .campaign_title_joined {
   color: #48bebc;
+  margin-left: 15px;
 }
 .calendar .campaign_title_unjoined {
   color: #d46c93;
+  margin-left: 15px;
 }
 .dl_popover {
   background-color: rgba(0,0,0,0.7);

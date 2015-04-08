@@ -2190,13 +2190,14 @@ textarea
       line-height 20px
 // 日程
 .calendar
-  margin 6px 4px
+  margin 6px 0px
   color col_darkGray
   height 100%
   nav
     background-color rgb(246, 246, 246)
     border-top-left-radius 4px
     border-top-right-radius 4px
+    margin 0px 4px
     .operator
       // background-color col_blue
       color col_navGray
@@ -2235,7 +2236,7 @@ textarea
         height 60px
         border-top 1px solid #ccc
         border-right 1px solid #ccc
-        border-bottom 1px solid #ccc
+        border-bottom 2px solid #ccc
         background-color #fbfbfb
         color #999999
         &.other_month
@@ -2451,6 +2452,10 @@ textarea
               border-color transparent #43cee6 transparent transparent
               border-style solid
               border-width 0 20px 20px
+      .calendar_divider
+        height 10px
+        border-top 0
+        background-color col_bottomGray
   .dl_card_footer
     position relative
     height 18px
@@ -2480,8 +2485,10 @@ textarea
       float left
   .campaign_title_joined
     color #48bebc
+    margin-left 15px
   .campaign_title_unjoined
     color #d46c93
+    margin-left 15px
 .dl_popover
   background-color rgba(0,0,0,0.7)
   border-radius 0 !important

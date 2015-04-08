@@ -4,7 +4,7 @@
 <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a><a ng-if="view==='day'" ng-click="back()" class="button icon_blue">关闭</a>
   <h1 class="title dl_title">我的日程</h1><a ng-click="showFilter($event)" ng-cloak="ng-cloak" class="button ion-chevron-down icon-right">{{campaignTypes[nowTypeIndex].view || '所有'}}</a>
 </ion-header-bar>
-<ion-content scroll="false">
+<ion-content scroll="false" overflow-scroll="true">
   <div class="calendar">
     <nav>
       <div ng-if="view==='month'" class="operator item tabs">
@@ -64,7 +64,7 @@
                     <div class="dl_campaign_comment clearfix"><i class="icon ion_comment"></i><span class="dl_card_footer_count">{{campaign.comment_sum}}</span></div>
                     <div class="dl_campaign_circle clearfix"><i class="icon ion_circle"></i><span class="dl_card_footer_count">{{campaign.circle_content_sum}}</span></div>
                   </div></a></div>
-              <div ng-if="!($index===current_day.campaigins_joined.length-1)" class="dl_divider"></div>
+              <div ng-if="!($index===current_day.campaigins_joined.length-1)" class="calendar_divider"></div>
             </ion-item>
             <div ng-if="current_day.campaigins_unjoined.length&gt;0 || nowType=='current_day.campaigins_unjoined'" ng-cloak="ng-cloak" class="campaign_container_title"><span class="campaign_title_unjoined">未参加的活动</span></div>
             <ion-item ng-repeat="campaign in current_day.campaigins_unjoined" class="calendar_campaign">
@@ -89,7 +89,7 @@
                     <div class="dl_campaign_comment clearfix"><i class="icon ion_comment"></i><span class="dl_card_footer_count">{{campaign.comment_sum}}</span></div>
                     <div class="dl_campaign_circle clearfix"><i class="icon ion_circle"></i><span class="dl_card_footer_count">{{campaign.circle_content_sum}}</span></div>
                   </div></a></div>
-              <div ng-if="!($index===current_day.campaigins_unjoined.length-1)" class="dl_divider"></div>
+              <div ng-if="!($index===current_day.campaigins_unjoined.length-1)" class="calendar_divider"></div>
             </ion-item>
           <div ng-if="current_day.campaigns.length === 0" class="no_campagin text-center">今天没有活动哦</div>
         </ion-list>

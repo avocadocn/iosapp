@@ -44,13 +44,13 @@ ion-view
                 .dl_campaign_circle.clearfix
                   i.icon.ion_circle
                   span.dl_card_footer_count {{campaign.circle_content_sum}}
-          .dl_divider(ng-if="!($index===#{items}.length-1)")
+          .calendar_divider(ng-if="!($index===#{items}.length-1)")
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     a.button.icon_blue(ng-if="view==='day'" ng-click="back()") 关闭
     h1.title.dl_title 我的日程
     a.button.ion-chevron-down.icon-right(ng-click="showFilter($event)" ng-cloak) {{campaignTypes[nowTypeIndex].view || '所有'}}
-  ion-content(scroll='false')
+  ion-content(scroll='false' overflow-scroll="true")
     .calendar
       nav
         .operator.item.tabs(ng-if="view==='month'")
@@ -97,7 +97,6 @@ ion-view
             //- button.button.button-outline.button-positive.today(ng-click="today()") 今天
         ion-scroll.calendar_day.clearfix(detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preDay,nextDay" scrollbar-y="false" ng-if="view==='day'" auto-height="121")
           ion-list
-            //- .campaign_join 参加的活动
             +campaignsContainer('参加的活动','current_day.campaigins_joined', 'joined')
             +campaignsContainer('未参加的活动','current_day.campaigins_unjoined', 'unjoined')
             .no_campagin.text-center(ng-if="current_day.campaigns.length === 0") 今天没有活动哦
