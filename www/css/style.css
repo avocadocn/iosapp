@@ -1825,18 +1825,18 @@ a>.login .companies_list:activated {
 }
 .discover .rank_table .rank_line .logo_col,
 .rank_page .rank_table .rank_line .logo_col {
-  width: 15%;
+  width: 20%;
 }
 .discover .rank_table .rank_line .name_col,
 .rank_page .rank_table .rank_line .name_col {
   width: 60%;
-  padding-top: 15px;
+  padding-top: 2px;
 }
 .discover .rank_table .rank_line .name_col .team_name,
 .rank_page .rank_table .rank_line .name_col .team_name {
   color: #666;
   font-size: 14px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 .discover .rank_table .rank_line .name_col .team_cname,
 .rank_page .rank_table .rank_line .name_col .team_cname {
@@ -1846,7 +1846,7 @@ a>.login .companies_list:activated {
 .discover .rank_table .rank_line .score_col,
 .rank_page .rank_table .rank_line .score_col {
   padding-top: 15px;
-  width: 15%;
+  width: 10%;
   color: #666;
 }
 .discover .rank_table a,
@@ -4194,8 +4194,14 @@ a>.login .companies_list:activated {
   border-radius: 5px;
   width: 100%;
 }
+.search_opponent .select_team .item-divider {
+  padding: 7px 16px;
+  line-height: 1;
+  color: #202020;
+}
 .search_opponent .select_team .clear_both {
   clear: both;
+  border-top: 0;
 }
 .search_opponent .select_team .units {
   background-color: #fff;
@@ -4206,19 +4212,22 @@ a>.login .companies_list:activated {
   border-right: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
   text-align: center;
-  padding: 15px;
+  padding: 15px 5px;
   height: 96px;
 }
 .search_opponent .select_team .units .unit .logo {
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
   border-radius: 5px;
 }
 .search_opponent .select_team .units .unit .text {
-  margin-top: 6px;
-  max-height: 18px;
-  overflow-y: hidden;
+  line-height: 1;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 14px;
+  color: #666;
 }
 .search_opponent .select_team .units .unit .button {
   width: 100%;
@@ -4238,17 +4247,18 @@ a>.login .companies_list:activated {
   margin-right: 10px;
   position: absolute;
   left: 15px;
-  top: 10px;
+  top: 15px;
 }
 .search_opponent .selected_team .team .text {
   line-height: 15px;
   color: #666;
-  font-size: 10px;
+  font-size: 12px;
   width: 100%;
 }
 .search_opponent .selected_team .team .text .tname {
   font-size: 14px;
   color: #202020;
+  margin-bottom: 5px;
 }
 .search_opponent .selected_team .team .operator {
   position: absolute;
@@ -4257,14 +4267,23 @@ a>.login .companies_list:activated {
   border-left: 1px solid #e2e2e2;
   padding-left: 15px;
 }
+.search_opponent .selected_team .team .operator p {
+  margin-bottom: 0;
+  color: #3ca2e0;
+  text-align: center;
+  line-height: 1;
+  font-size: 14px;
+}
 .search_opponent .selected_team .team .operator .change_team {
   color: #3ca2e0;
+  min-height: 20px;
+  height: 20px;
 }
 .search_opponent .selected_team .team.now_team {
   margin-top: 10px;
 }
 .search_opponent .selected_team .team.now_team .text {
-  margin-top: 15px;
+  margin-top: 5px;
   padding: 0 60px;
 }
 .search_opponent .selected_team .tab_view {
@@ -4277,22 +4296,27 @@ a>.login .companies_list:activated {
 }
 .search_opponent .selected_team .tab_view .tab_content .team {
   float: left;
-  padding: 10px;
+  padding: 15px;
   text-decoration: none;
   width: 100%;
   border-bottom: 1px solid #e2e2e2;
-  height: 65px;
+  height: 90px;
 }
 .search_opponent .selected_team .tab_view .tab_content .team .text {
-  padding-left: 60px;
+  padding-left: 75px;
 }
 .search_opponent .selected_team .tab_view .tab_content .team .text .rank span {
   white-space: nowrap;
   margin-right: 5px;
 }
+.search_opponent .selected_team .tab_view .tab_content .team .text .rank,
+.search_opponent .selected_team .tab_view .tab_content .team .text .leader {
+  font-size: 12px;
+  margin-top: 7px;
+}
 .search_opponent .selected_team .tab_view .tab_content .team .logo {
-  width: 45px;
-  height: 45px;
+  width: 60px;
+  height: 60px;
 }
 .search_opponent .selected_team .tab_view .tab_content .operator,
 .search_opponent .selected_team .tab_view .tab_content .no_more_team {

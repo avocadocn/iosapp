@@ -4979,7 +4979,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('SearchOpponentController', ['$scope', '$rootScope', '$state', 'CompetitionMessage', 'Team', 'INFO', function ($scope, $rootScope, $state, CompetitionMessage, Team, INFO) {
     $scope.hasSelected = false;
-    $scope.keywords ='';
+    $scope.keywords ={value:''};
     var getMyTeams = function(callback) {
       Team.getList('user', localStorage.id, null, function (err, teams) {
         if (err) {
@@ -5037,7 +5037,7 @@ angular.module('donlerApp.controllers', [])
         queryData.longitude = $scope.coordinates[0];
       }
       else if(type == 'search'){
-        queryData.key = $scope.keywords;
+        queryData.key = $scope.keywords.value;
       }
       $rootScope.showLoading();
       Team.getSearchTeam(queryData,function (err, data) {
