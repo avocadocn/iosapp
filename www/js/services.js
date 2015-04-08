@@ -321,7 +321,7 @@ angular.module('donlerApp.services', [])
           callback(null,nowCampaign);
         }
         else{
-          $http.get(CONFIG.BASE_URL + '/campaigns/' + id+'?populate=photo_album')
+          $http.get(CONFIG.BASE_URL + '/campaigns/' + id)
           .success(function (data, status) {
             nowCampaign = data;
             callback(null,data);

@@ -584,11 +584,11 @@ textarea
     .campaign_info
       background-color white
       padding 15px
+      padding-bottom 0
       color #666666
       position relative
-      font-size 12px
-      line-height 15px
-      height 90px
+      font-size 14px
+      height 75px
       .cp_logos
         width 60px
         height 60px
@@ -619,26 +619,48 @@ textarea
             border-radius 3px
             float left
       .campaign_theme
-        font-size 14px
+        font-size 16px
         color #202020
-        margin-bottom 5px
+        margin 5px 0
       .cp_time
-        margin-bottom 5px
+        margin-bottom 10px
+        line-height 15px
       .ion_member
       .ion_time
       .ion_address
         float left
         margin-right 10px
     .campaign_status
+      background-color white
+      padding 5px 15px
+      height 30px
+      color #ababab
       .status
         float right
+        &.now
+          color #13adb6
+        &.unstart
+          color #3ca2df
+        &.unjoin
+          color #f48361
     .item
       padding 15px
       font-size 14px
       color #202020
+      &.campaign_content
+        .operator
+          text-align center
+          padding-top 5px
+          .more_content
+            color col_blue
+            text-decoration none
+            font-size 16px
       &.item_header
         height 44px
         line-height 16px
+        .title
+          font-size 16px
+          margin-right 20px
       .ion-chevron-right
         float right
     .item-divider
@@ -653,8 +675,6 @@ textarea
       .member_num
         color #f07151
     .cp_address
-      .cp_location_title
-        margin-right 10px
       .cp_location
         color #666666
     .campaign_footer
@@ -665,7 +685,7 @@ textarea
       display -moz-flex
       display -ms-flexbox
       padding 0
-      height 70px
+      height 40px
       .footer_col
         -webkit-box-flex 1
         -webkit-flex 1
@@ -678,7 +698,7 @@ textarea
         padding 10px
         color #666666
         height 100%
-        line-height 26px
+        line-height 20px
         &:last-child
           border-right none
         .dl_icon
@@ -696,12 +716,17 @@ textarea
   .bar-footer
     height 50px
     border-top 1px solid #ccc
-    .dl_cp_join
-      color white
-      background-color col_blue
+    .button
       margin 0 15px
       border-radius 5px
       height 40px
+      &.dl_cp_join
+        color white
+        background-color col_blue
+      &.dl_cp_quit
+        color #666
+        background-color white
+        border 1px solid #ccc
 .notice_page
   background-color #efefef
   .list
@@ -1153,6 +1178,7 @@ textarea
 .app_tabs > .tabs
   background-color #000
   color white
+  background-size 100% 0
   .tab-item
     position relative
     opacity 1

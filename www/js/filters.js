@@ -34,6 +34,8 @@ angular.module('donlerApp.filters', [])
 })
 .filter('beforeNow', function() {
   return function(input) {
+    if(!input)
+      return ''
     //new Date(input) will invalidDate in safari
     //must user new Date('2014-02-18T15:00:48'.replace(/\s/, 'T'))
     var date = new Date(input.replace(/\s/, 'T'));
@@ -60,6 +62,8 @@ angular.module('donlerApp.filters', [])
   return function(input,endTime) {
     //new Date(input) will invalidDate in safari
     //must user new Date('2014-02-18T15:00:48'.replace(/\s/, 'T'))
+    if(!input)
+      return ''
     var start = new Date(input.replace(/\s/, 'T'));
     var end = new Date(endTime.replace(/\s/, 'T'));
     var now = Date.now();

@@ -667,11 +667,11 @@ textarea {
 .dl_campaign_detail .campaign_detail .campaign_info {
   background-color: #fff;
   padding: 15px;
+  padding-bottom: 0;
   color: #666;
   position: relative;
-  font-size: 12px;
-  line-height: 15px;
-  height: 90px;
+  font-size: 14px;
+  height: 75px;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .cp_logos {
   width: 60px;
@@ -708,12 +708,13 @@ textarea {
   float: left;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .campaign_theme {
-  font-size: 14px;
+  font-size: 16px;
   color: #202020;
-  margin-bottom: 5px;
+  margin: 5px 0;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .cp_time {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  line-height: 15px;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .ion_member,
 .dl_campaign_detail .campaign_detail .campaign_info .ion_time,
@@ -721,17 +722,45 @@ textarea {
   float: left;
   margin-right: 10px;
 }
+.dl_campaign_detail .campaign_detail .campaign_status {
+  background-color: #fff;
+  padding: 5px 15px;
+  height: 30px;
+  color: #ababab;
+}
 .dl_campaign_detail .campaign_detail .campaign_status .status {
   float: right;
+}
+.dl_campaign_detail .campaign_detail .campaign_status .status.now {
+  color: #13adb6;
+}
+.dl_campaign_detail .campaign_detail .campaign_status .status.unstart {
+  color: #3ca2df;
+}
+.dl_campaign_detail .campaign_detail .campaign_status .status.unjoin {
+  color: #f48361;
 }
 .dl_campaign_detail .campaign_detail .item {
   padding: 15px;
   font-size: 14px;
   color: #202020;
 }
+.dl_campaign_detail .campaign_detail .item.campaign_content .operator {
+  text-align: center;
+  padding-top: 5px;
+}
+.dl_campaign_detail .campaign_detail .item.campaign_content .operator .more_content {
+  color: #3ca2e0;
+  text-decoration: none;
+  font-size: 16px;
+}
 .dl_campaign_detail .campaign_detail .item.item_header {
   height: 44px;
   line-height: 16px;
+}
+.dl_campaign_detail .campaign_detail .item.item_header .title {
+  font-size: 16px;
+  margin-right: 20px;
 }
 .dl_campaign_detail .campaign_detail .item .ion-chevron-right {
   float: right;
@@ -750,9 +779,6 @@ textarea {
 .dl_campaign_detail .campaign_detail .cp_member .member_num {
   color: #f07151;
 }
-.dl_campaign_detail .campaign_detail .cp_address .cp_location_title {
-  margin-right: 10px;
-}
 .dl_campaign_detail .campaign_detail .cp_address .cp_location {
   color: #666;
 }
@@ -764,7 +790,7 @@ textarea {
   display: -moz-flex;
   display: -ms-flexbox;
   padding: 0;
-  height: 70px;
+  height: 40px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col {
   -webkit-box-flex: 1;
@@ -778,7 +804,7 @@ textarea {
   padding: 10px;
   color: #666;
   height: 100%;
-  line-height: 26px;
+  line-height: 20px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col:last-child {
   border-right: none;
@@ -803,12 +829,19 @@ textarea {
   height: 50px;
   border-top: 1px solid #ccc;
 }
-.dl_campaign_detail .bar-footer .dl_cp_join {
-  color: #fff;
-  background-color: #3ca2e0;
+.dl_campaign_detail .bar-footer .button {
   margin: 0 15px;
   border-radius: 5px;
   height: 40px;
+}
+.dl_campaign_detail .bar-footer .button.dl_cp_join {
+  color: #fff;
+  background-color: #3ca2e0;
+}
+.dl_campaign_detail .bar-footer .button.dl_cp_quit {
+  color: #666;
+  background-color: #fff;
+  border: 1px solid #ccc;
 }
 .notice_page {
   background-color: #efefef;
@@ -1359,6 +1392,7 @@ a>.login .companies_list:activated {
 .app_tabs > .tabs {
   background-color: #000;
   color: #fff;
+  background-size: 100% 0;
 }
 .app_tabs > .tabs .tab-item {
   position: relative;

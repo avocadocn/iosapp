@@ -180,8 +180,7 @@ angular.module('donlerApp.controllers', [])
       Campaign.getList({
         requestType: 'user',
         requestId: localStorage.id,
-        select_type: 0,
-        populate: 'photo_album'
+        select_type: 0
       }, function (err, data) {
         $rootScope.hideLoading();
         if (!err) {
