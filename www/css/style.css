@@ -233,7 +233,7 @@ textarea {
   line-height: 30px;
   min-height: 32px;
   color: #676767;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid #f2f2f5;
   padding: 0;
 }
 .campaigns_container .campaign_filter .button.icon_blue {
@@ -1073,7 +1073,7 @@ textarea {
   padding-right: 10px;
 }
 .home {
-  background-color: #e2e2e2;
+  background-color: #f2f2f5;
 }
 .home .slider {
   height: 100%;
@@ -1482,7 +1482,7 @@ a>.login .companies_list:activated {
 }
 .comment_box {
   color: #333;
-  background-color: #e2e2e2;
+  background-color: #f2f2f5;
   display: block;
   height: auto;
   padding-top: 5px;
@@ -2131,7 +2131,7 @@ a>.login .companies_list:activated {
 .contacts .search_box,
 .map_select .search_box {
   width: 100%;
-  background-color: #e2e2e2;
+  background-color: #f2f2f5;
 }
 .contacts .search_box .item-input-wrapper,
 .map_select .search_box .item-input-wrapper {
@@ -2340,7 +2340,7 @@ a>.login .companies_list:activated {
   position: relative;
 }
 .personal .user_header .tab_view .nav {
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid #f2f2f5;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -2369,7 +2369,7 @@ a>.login .companies_list:activated {
   color: #666;
   margin: 5px 0;
   padding: 5px;
-  border-right: 1px solid #e2e2e2;
+  border-right: 1px solid #f2f2f5;
 }
 .personal .user_header .tab_view .nav .tab_style.active {
   border-bottom: 2px solid #3ca2e0;
@@ -3142,7 +3142,7 @@ a>.login .companies_list:activated {
   position: relative;
   padding: 0;
   height: 40px;
-  border-top: 1px solid #e2e2e2;
+  border-top: 1px solid #f2f2f5;
 }
 .team_page .team_info .info_footer .icon {
   display: inline-block;
@@ -3619,7 +3619,7 @@ a>.login .companies_list:activated {
   right: 5px;
   padding: 1px;
   background-color: #fff;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #f2f2f5;
 }
 .circle_company_page .circle_owner .circle_owner_image_wrap .circle_owner_image,
 .circle_user_page .circle_owner .circle_owner_image_wrap .circle_owner_image,
@@ -3724,7 +3724,7 @@ a>.login .companies_list:activated {
 }
 .dl_circle_card_list .circle_card_wrap {
   display: block;
-  border-top: 1px solid #e2e2e2;
+  border-top: 1px solid #f2f2f5;
 }
 .dl_circle_card_list .circle_card_wrap:first-child {
   border-top: none;
@@ -4182,8 +4182,8 @@ a>.login .companies_list:activated {
 .search_opponent .select_team .units .unit {
   float: left;
   width: 33.333%;
-  border-right: 1px solid #e2e2e2;
-  border-bottom: 1px solid #e2e2e2;
+  border-right: 1px solid #f2f2f5;
+  border-bottom: 1px solid #f2f2f5;
   text-align: center;
   padding: 15px 5px;
   height: 96px;
@@ -4235,7 +4235,7 @@ a>.login .companies_list:activated {
   position: absolute;
   right: 15px;
   top: 15px;
-  border-left: 1px solid #e2e2e2;
+  border-left: 1px solid #f2f2f5;
   padding-left: 15px;
 }
 .search_opponent .selected_team .team .operator p {
@@ -4270,7 +4270,7 @@ a>.login .companies_list:activated {
   padding: 15px;
   text-decoration: none;
   width: 100%;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid #f2f2f5;
   height: 90px;
 }
 .search_opponent .selected_team .tab_view .tab_content .team .text {
@@ -4301,7 +4301,7 @@ a>.login .companies_list:activated {
   padding-top: 10px;
 }
 .search_opponent .selected_team .tab_view .nav {
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid #f2f2f5;
   float: left;
   width: 100%;
   height: 40px;
@@ -4309,7 +4309,7 @@ a>.login .companies_list:activated {
 .search_opponent .selected_team .tab_view .nav .opponent_tab_style {
   float: left;
   text-align: center;
-  border-right: 1px solid #e2e2e2;
+  border-right: 1px solid #f2f2f5;
   height: 100%;
 }
 .search_opponent .selected_team .tab_view .nav .opponent_tab_style a {
@@ -4350,7 +4350,7 @@ a>.login .companies_list:activated {
 .search_opponent .selected_team .tab_view .nav .opponent_tab_style.search .search_opponent_input {
   height: 25px;
   border-radius: 5px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #f2f2f5;
   padding: 8px 10px;
   color: #666;
   font-size: 12px;
