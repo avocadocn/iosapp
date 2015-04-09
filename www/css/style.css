@@ -2154,6 +2154,15 @@ a>.login .companies_list:activated {
   display: block;
   top: 16px;
 }
+.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
+  margin-top: -1px !important;
+}
+.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header:not(.bar-subheader).item-input-inset input {
+  margin-top: -1px !important;
+}
+.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header:not(.bar-subheader) > * {
+  margin-top: -1px !important;
+}
 .contacts .search_box,
 .map_select .search_box {
   width: 100%;
