@@ -31,8 +31,11 @@ input:focus:-ms-input-placeholder {
 textarea {
   resize: none;
 }
+.item {
+  border-color: #e3e3e3;
+}
 .bar {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #e3e3e3;
 }
 .bar .dl_title {
   left: 70px !important;
@@ -324,9 +327,8 @@ textarea {
   color: #fff;
   float: left;
   text-align: center;
-  line-height: 15px;
+  line-height: 14px;
   background-color: #f48361;
-  font-size: 14px;
 }
 .dl_timeline_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label,
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label {
@@ -450,15 +452,17 @@ textarea {
 .dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown {
   width: 92px;
   height: 22px;
-  padding: 2px 5px;
+  padding: 0;
   padding-right: 0;
-  border: 1px solid #959595;
+  border: 1px solid #e3e3e3;
   border-radius: 5px;
   overflow: hidden;
+  line-height: 20px;
+  text-align: center;
 }
 .dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown .dl_cp_time_text {
   color: #707070;
-  border-right: 1px solid #c9c9c9;
+  border-right: 1px solid #e3e3e3;
   padding-right: 5px;
 }
 .dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown .dl_cp_time_count {
@@ -1599,7 +1603,7 @@ a>.login .companies_list:activated {
 }
 .discuss_list .list .custom_items .custom_border {
   height: 2px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e3e3e3;
 }
 .discuss_list .list .custom_items .custom_border.non_last_custom_border {
   margin-left: 15px;
