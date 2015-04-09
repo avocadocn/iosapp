@@ -4827,7 +4827,6 @@ angular.module('donlerApp.controllers', [])
     })
     
     var getSearchTeam = function (type,addFlag) {
-      console.log(1);
       var queryData = {
         type: type,
         tid: $scope.myTeam._id,
@@ -4882,12 +4881,14 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.gotTeamDetail = function (teamId) {
       $state.go('competition_team',{
-        targetTeamId: teamId
+        targetTeamId: teamId,
+        fromTeamId: $state.params.tid
       })
     }
   }])
   .controller('CompetitionTeamController', ['$scope', '$state', '$ionicHistory', '$ionicPopup', 'Team', 'INFO', 'Campaign', 'Chat', function ($scope, $state, $ionicHistory, $ionicPopup, Team, INFO, Campaign, Chat) {
     var targetTeamId = $state.params.targetTeamId;
+    var fromTeamId = $state.params.fromTeamId;
     $scope.page = 1;
     $scope.goBack = function() {
       if ($ionicHistory.backView()) {
@@ -4900,6 +4901,11 @@ angular.module('donlerApp.controllers', [])
       $scope.sameTeams = myTeams.filter(function (team) {
         return team._id!=targetTeamId &&groupType ===team.groupType;
       });
+      if(fromTeamId) {
+        $scope.sameTeams = $scope.sameTeams.filter(function (team) {
+          return team._id.toString() === fromTeamId;
+        });
+      }
       $scope.leadTeams = [];
       $scope.memberTeams = [];
       $scope.sameTeams.forEach(function(team, index){
@@ -4963,7 +4969,7 @@ angular.module('donlerApp.controllers', [])
       }
     },{resultType:'simple'});
     $scope.getCompetitionOfTeams = function () {
-      Campaign.getCompetitionOfTeams({targetTeamId: targetTeamId,page: $scope.page}, function (err, data) {
+      Campaign.getCompetitionOfTeams({targetTeamId: targetTeamId, fromTeamId:fromTeamId ,page: $scope.page}, function (err, data) {
         if (err) {
           // todo
           console.log(err);

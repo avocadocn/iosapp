@@ -305,7 +305,11 @@ angular.module('donlerApp.services', [])
         });
       },
       getCompetitionOfTeams:function(data, callback){
-        $http.get(CONFIG.BASE_URL + '/campaigns/competition/'+data.targetTeamId, {
+        var link = CONFIG.BASE_URL + '/campaigns/competition/'+data.targetTeamId;
+        if(data.fromTeamId) {
+          link = link.concat('/'+data.fromTeamId);
+        }
+        $http.get(link, {
           page: data.page
         })
         .success(function (data, status) {

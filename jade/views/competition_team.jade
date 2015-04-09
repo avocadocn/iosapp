@@ -4,7 +4,7 @@ ion-view.competition_team_page
     h1.title 挑战小队
   ion-content
     .list.team_info
-      .item.item-avatar.team_item
+      .item.item-avatar.team_item(ng-cloak ng-if="targetTeam")
         img.team_logo(ng-src="{{STATIC_URL + targetTeam.logo}}/90/90")
         h2.team_name(ng-bind="targetTeam.name")
         p.info_text.first_info_text
@@ -20,8 +20,8 @@ ion-view.competition_team_page
     .list.campaign_info
       .item
         span.text_label 上次活动
-        span.text_data(ng-if="targetTeam.last_campaign.start_time") {{ targetTeam.last_campaign.start_time | beforeNow}}
-        span.text_data(ng-if="!targetTeam.last_campaign.start_time") 无
+        span.text_data(ng-if="targetTeam.last_campaign.start_time" ng-cloak) {{ targetTeam.last_campaign.start_time | beforeNow}}
+        span.text_data(ng-if="!targetTeam.last_campaign.start_time" ng-cloak) 无
       .item
         span.text_label 小队主场
         span.text_data(ng-bind="targetTeam.homeCourtText")
@@ -29,7 +29,7 @@ ion-view.competition_team_page
       .item.together_campaign
         span.text_label 共同活动
         span.text_data(ng-show="!competitions || !competitions.length") 无
-      .dl_timeline(ng-repeat="campaign in competitions")
+      .dl_timeline(ng-repeat="campaign in competitions" ng-cloak)
         .item.dl_campaign_timeline_date(ng-if="needShowTime($index)") {{campaign.start_time | date:'M月d日'}}
         include ./campaign-card
   .bar.bar-footer(ng-cloak ng-show="targetTeam && !targetTeam.isCompanyTeam")

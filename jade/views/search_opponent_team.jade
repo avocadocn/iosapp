@@ -5,13 +5,13 @@ ion-view.search_opponent
   ion-content(has-bouncing=false)
     ion-refresher(on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .selected_team
-      .team.item.now_team
+      .team.item.now_team(ng-cloak ng-if="myTeam")
         img.logo(ng-src="{{STATIC_URL +myTeam.logo}}/45/45")
         .text
           .tname {{myTeam.name}}
           .type 
-            span 积分: {{myTeam.score_rank.score}} &nbsp;&nbsp;
-            span 活跃度: {{myTeam.score.total}}
+            span 积分: {{myTeam.score}} &nbsp;&nbsp;
+            span 活跃度: {{myTeam.activity_score}}
           //- .type {{myTeam.groupType}}
         a.operator(ng-href="#/discover/search_opponent")
           p: i.icon.ion-arrow-swap

@@ -8,7 +8,7 @@
     <div ng-if="rank.team.length&gt;0" class="list rank_table">
       <div class="item rank_title">
         <div ng-cloak="ng-cloak" class="rank_name">{{groupType}}小队排行榜</div><a href="#/rank/rules" class="pull-right">积分规则</a>
-      </div><a ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-class="team.belong? 'belong': ''" ng-cloak="ng-cloak" class="item rank_line">
+      </div><a ng-repeat="team in rank.team | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}/" ng-class="team.belong? 'belong': ''" ng-cloak="ng-cloak" class="item rank_line">
         <div ng-class="$index&lt;3 ? 'top': ''" class="rank_col">
           <div class="top_flag"><span>{{team.rank}}</span></div>
         </div>
@@ -27,7 +27,7 @@
     <div ng-if="noRankTeams.length&gt;0" class="list rank_table">
       <div class="item rank_title">
         <div class="rank_name">我的小队</div>
-      </div><a ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}" ng-if="team.rank" ng-cloak="ng-cloak" class="item rank_line">
+      </div><a ng-repeat="team in noRankTeams | orderBy : 'rank'" ng-href="#/competition/team/{{team._id}}/" ng-if="team.rank" ng-cloak="ng-cloak" class="item rank_line">
         <div class="rank_col"><span>{{team.rank}}</span></div>
         <div class="logo_col"><img ng-src="{{STATIC_URL + team.logo}}/40/40" class="team_logo"/></div>
         <div class="name_col">

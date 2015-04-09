@@ -5,19 +5,19 @@
   </ion-header-bar>
   <ion-content>
     <div class="list team_info">
-      <div class="item item-avatar team_item"><img ng-src="{{STATIC_URL + targetTeam.logo}}/90/90" class="team_logo"/>
+      <div ng-cloak="ng-cloak" ng-if="targetTeam" class="item item-avatar team_item"><img ng-src="{{STATIC_URL + targetTeam.logo}}/90/90" class="team_logo"/>
         <h2 ng-bind="targetTeam.name" class="team_name"></h2>
         <p class="info_text first_info_text"><span class="text_label">公司:</span><span ng-bind="targetTeam.cname" class="text_data"></span></p>
         <p class="info_text"><span class="text_label">积分:</span><span ng-bind-template="{{targetTeam.score_rank.score || 0}}" class="text_data"></span><span class="text_label">活跃度:</span><span ng-bind="targetTeam.activityScore" class="text_data"></span><span class="text_label">胜率:</span><span ng-bind-template="{{targetTeam.rate}}%" class="text_data"></span></p>
       </div>
     </div>
     <div class="list campaign_info">
-      <div class="item"><span class="text_label">上次活动</span><span ng-if="targetTeam.last_campaign.start_time" class="text_data">{{ targetTeam.last_campaign.start_time | beforeNow}}</span><span ng-if="!targetTeam.last_campaign.start_time" class="text_data">无</span></div>
+      <div class="item"><span class="text_label">上次活动</span><span ng-if="targetTeam.last_campaign.start_time" ng-cloak="ng-cloak" class="text_data">{{ targetTeam.last_campaign.start_time | beforeNow}}</span><span ng-if="!targetTeam.last_campaign.start_time" ng-cloak="ng-cloak" class="text_data">无</span></div>
       <div class="item"><span class="text_label">小队主场</span><span ng-bind="targetTeam.homeCourtText" class="text_data"></span></div>
     </div>
     <div ng-cloak="ng-cloak" ng-show="targetTeam &amp;&amp; !targetTeam.isCompanyTeam" class="list competition_timeline_card">
       <div class="item together_campaign"><span class="text_label">共同活动</span><span ng-show="!competitions || !competitions.length" class="text_data">无</span></div>
-      <div ng-repeat="campaign in competitions" class="dl_timeline">
+      <div ng-repeat="campaign in competitions" ng-cloak="ng-cloak" class="dl_timeline">
         <div ng-if="needShowTime($index)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
           <div class="campaign_card clearfix">
             <div class="dl_card_content clearfix">
