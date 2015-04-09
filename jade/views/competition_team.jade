@@ -25,13 +25,13 @@ ion-view.competition_team_page
       .item
         span.text_label 小队主场
         span.text_data(ng-bind="targetTeam.homeCourtText")
-    .list.competition_timeline_card(ng-cloak ng-show="targetTeam && !targetTeam.isCompanyteam")
+    .list.competition_timeline_card(ng-cloak ng-show="targetTeam && !targetTeam.isCompanyTeam")
       .item.together_campaign
         span.text_label 共同活动
-        span.text_data(ng-if="!competitions") 无
+        span.text_data(ng-show="!competitions || !competitions.length") 无
       .dl_timeline(ng-repeat="campaign in competitions")
         .item.dl_campaign_timeline_date(ng-if="needShowTime($index)") {{campaign.start_time | date:'M月d日'}}
         include ./campaign-card
-  .bar.bar-footer(ng-cloak ng-show="targetTeam && !targetTeam.isCompanyteam")
+  .bar.bar-footer(ng-cloak ng-show="targetTeam && !targetTeam.isCompanyTeam")
     button.bottom_button(ng-click="showPopup(0)" ng-if="leadTeams.length>0") 挑战
-    button.bottom_button(ng-click="showPopup(1)" ng-if="memberTeams.length>0") 推荐
+    button.bottom_button(ng-click="showPopup(1)" ng-if="leadTeams.length===0 && memberTeams.length>0") 推荐

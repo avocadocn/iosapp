@@ -15,8 +15,8 @@
       <div class="item"><span class="text_label">上次活动</span><span ng-if="targetTeam.last_campaign.start_time" class="text_data">{{ targetTeam.last_campaign.start_time | beforeNow}}</span><span ng-if="!targetTeam.last_campaign.start_time" class="text_data">无</span></div>
       <div class="item"><span class="text_label">小队主场</span><span ng-bind="targetTeam.homeCourtText" class="text_data"></span></div>
     </div>
-    <div ng-cloak="ng-cloak" ng-show="targetTeam &amp;&amp; !targetTeam.isCompanyteam" class="list competition_timeline_card">
-      <div class="item together_campaign"><span class="text_label">共同活动</span><span ng-if="!competitions" class="text_data">无</span></div>
+    <div ng-cloak="ng-cloak" ng-show="targetTeam &amp;&amp; !targetTeam.isCompanyTeam" class="list competition_timeline_card">
+      <div class="item together_campaign"><span class="text_label">共同活动</span><span ng-show="!competitions || !competitions.length" class="text_data">无</span></div>
       <div ng-repeat="campaign in competitions" class="dl_timeline">
         <div ng-if="needShowTime($index)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
           <div class="campaign_card clearfix">
@@ -39,8 +39,8 @@
       </div>
     </div>
   </ion-content>
-  <div ng-cloak="ng-cloak" ng-show="targetTeam &amp;&amp; !targetTeam.isCompanyteam" class="bar bar-footer">
+  <div ng-cloak="ng-cloak" ng-show="targetTeam &amp;&amp; !targetTeam.isCompanyTeam" class="bar bar-footer">
     <button ng-click="showPopup(0)" ng-if="leadTeams.length&gt;0" class="bottom_button">挑战</button>
-    <button ng-click="showPopup(1)" ng-if="memberTeams.length&gt;0" class="bottom_button">推荐</button>
+    <button ng-click="showPopup(1)" ng-if="leadTeams.length===0 &amp;&amp; memberTeams.length&gt;0" class="bottom_button">推荐</button>
   </div>
 </ion-view>
