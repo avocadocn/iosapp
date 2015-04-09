@@ -284,7 +284,7 @@ textarea {
   padding-left: 11px;
 }
 .campaigns_container .campaign_list .campaign_container .campaign_container_title {
-  border: 1px solid #ddd;
+  border: 1px solid #e3e3e3;
   border-top: 0;
   padding: 8px 10px;
   color: #707070;
@@ -424,10 +424,10 @@ textarea {
   font-size: 16px;
 }
 .dl_campaign_card {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e3e3e3;
 }
 .dl_campaign_card .campaign_card {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e3e3e3;
 }
 .dl_campaign_card .campaign_card .dl_card_header {
   height: 20px;
@@ -712,7 +712,7 @@ textarea {
 }
 .dl_divider {
   height: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #e3e3e3;
   border-top: 0;
   background-color: #f7f7f7;
 }
