@@ -999,17 +999,16 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         }
       });
 
-      scope.$watch('ctrl', function(newVal) {
-        if (newVal) {
-          newVal.postComment = function(content) {
+      scope.$watch('ctrl', function(ctrl) {
+        if (ctrl) {
+          ctrl.postComment = function(content) {
             scope.ctrls[scope.currentCardIndex].postComment(content);
           };
-          newVal.stopComment = function() {
+          ctrl.stopComment = function() {
             scope.ctrls[scope.currentCardIndex].stopComment();
           };
         }
       });
-
 
     },
     templateUrl: './views/circle-card-list.html'
@@ -1061,9 +1060,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       var currentPlaceHolderText = '';
       var targetUserId = null;
 
-      scope.clickImg = function(img) {
+      scope.clickImg = function(images, img) {
         if (scope.onClickContentImg) {
-          scope.onClickContentImg(img);
+          scope.onClickContentImg(images, img);
         }
       };
 
@@ -1244,10 +1243,10 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         scope.circle.isToComment = false;
       };
 
-      scope.$watch('ctrl', function(newVal) {
-        if (newVal) {
-          newVal.postComment = scope.postComment;
-          newVal.stopComment = scope.stopComment;
+      scope.$watch('ctrl', function(ctrl) {
+        if (ctrl) {
+          ctrl.postComment = scope.postComment;
+          ctrl.stopComment = scope.stopComment;
         }
       });
 
@@ -1364,7 +1363,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   };
 }])
 
-.directive('photoSwipe', ['$cordovaStatusbar', function($cordovaStatusbar) {
+.directive('photoSwipe', ['$cordovaStatusbar', 'Image', 'CONFIG', function($cordovaStatusbar, ImageService, CONFIG) {
   return {
     restrict: 'E',
     transclude: true,
@@ -1375,48 +1374,78 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     link: function(scope, ele, attrs, ctrl) {
       var pswpEle = ele[0].querySelector('.pswp');
 
-      if (scope.ctrl) {
-        scope.ctrl.open = function(index) {
-          var options = {
-            history: false,
-            focus: false,
-            index: index || 0,
-            showAnimationDuration: 0,
-            hideAnimationDuration: 0
-          };
-          var pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, scope.photos, options);
-          if (window.StatusBar) {
-            $cordovaStatusbar.hide();
-          }
-          pwsp.listen('close', function() {
-            if (window.StatusBar) {
-              $cordovaStatusbar.show();
-            }
-          });
-          pwsp.init();
+      /**
+       * 打开，用于固定的集合
+       * @param  {Number} index 照片的索引
+       */
+      var open = function(index) {
+        var options = {
+          history: false,
+          focus: false,
+          index: index || 0,
+          showAnimationDuration: 0,
+          hideAnimationDuration: 0
         };
-
-        scope.ctrl.init = function(photos, index) {
-          var options = {
-            history: false,
-            focus: false,
-            index: index || 0,
-            showAnimationDuration: 0,
-            hideAnimationDuration: 0
-          };
-          var pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, photos, options);
+        var pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, scope.photos, options);
+        if (window.StatusBar) {
+          $cordovaStatusbar.hide();
+        }
+        pwsp.listen('close', function() {
           if (window.StatusBar) {
-            $cordovaStatusbar.hide();
+            $cordovaStatusbar.show();
           }
-          pwsp.listen('close', function() {
-            if (window.StatusBar) {
-              $cordovaStatusbar.show();
-            }
-          });
-          pwsp.init();
-        };
+        });
+        pwsp.init();
+      };
 
-      }
+      /**
+       * 初始化并打开，用于非固定集合
+       * @param  {Array} photos 未处理的照片对角数组
+       * @param  {Object} photo  需要打开的查看大图的照片
+       */
+      var init = function(photos, photo) {
+        var index = photos.indexOf(photo); // 这里可以直接使用数组的indexOf方法
+        if (index < 0) {
+          index = 0;
+        }
+
+        // 复制photos并添加属性
+        var pswpPhotos = [];
+        for (var i = 0, photosLen = photos.length; i < photosLen; i++) {
+          var photo = photos[i];
+          var size = ImageService.getFitSize(photo.width, photo.height);
+          pswpPhotos.push({
+            w: size.width * 2,
+            h: size.height * 2,
+            src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
+          });
+        }
+
+        var options = {
+          history: false,
+          focus: false,
+          index: index,
+          showAnimationDuration: 0,
+          hideAnimationDuration: 0
+        };
+        var pwsp = new PhotoSwipe(pswpEle, PhotoSwipeUI_Default, pswpPhotos, options);
+        if (window.StatusBar) {
+          $cordovaStatusbar.hide();
+        }
+        pwsp.listen('close', function() {
+          if (window.StatusBar) {
+            $cordovaStatusbar.show();
+          }
+        });
+        pwsp.init();
+      };
+
+      scope.$watch('ctrl', function(ctrl) {
+        if (ctrl) {
+          ctrl.open = open;
+          ctrl.init = init;
+        }
+      });
 
     },
     templateUrl: './views/photo-swipe-directive.html'

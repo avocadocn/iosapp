@@ -278,7 +278,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG', 'Image', function ($ionicHistory, $rootScope, $scope, $state, $ionicPopup, Campaign, Message, INFO, User, Circle, CONFIG, Image) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG', function ($ionicHistory, $rootScope, $scope, $state, $ionicPopup, Campaign, Message, INFO, User, Circle, CONFIG) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -389,7 +389,6 @@ angular.module('donlerApp.controllers', [])
             });
             $scope.circleContentList = $scope.circleContentList.concat(data);
             $scope.loadingStatus.loading = false;
-            copyPhotosToPswp();
           }
 
           $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -404,54 +403,10 @@ angular.module('donlerApp.controllers', [])
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
     };
-    $scope.openCommentBox = function(placeHolderText) {
-      $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
-      $scope.circleCommentBoxCtrl.open();
-    };
-
-    $scope.postComment = function(content) {
-      $scope.circleCardListCtrl.postComment(content);
-    };
-
-    $scope.stopComment = function() {
-      $scope.circleCardListCtrl.stopComment();
-    };
-
-    $scope.onClickContentImg = function(img) {
-      for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
-        if (img._id === $scope.imagesForPswp[i]._id) {
-          $scope.pswpCtrl.open(i);
-          break;
-        }
-      }
-    };
+    
 
     var pageLength = 20; // 一次获取的数据量
 
-    // 复制图片地址到一个数组供预览大图用
-    var copyPhotosToPswp = function() {
-      $scope.imagesForPswp = [];
-      var id = 0;
-      for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
-        var circle = $scope.circleContentList[i];
-        if (circle.content.photos && circle.content.photos.length > 0) {
-          var pswpPhotos = [];
-          for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
-            var photo = circle.content.photos[j];
-            photo._id = id;
-            var size = Image.getFitSize(photo.width, photo.height);
-            pswpPhotos.push({
-              _id: photo._id,
-              w: size.width * 2,
-              h: size.height * 2,
-              src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
-            });
-            id++;
-          }
-          $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-        }
-      }
-    };
     $scope.$on('$ionicView.enter',function(scopes, states){
       Campaign.get($state.params.id, function(err, data){
         if(!err){
@@ -477,7 +432,6 @@ angular.module('donlerApp.controllers', [])
           });
           $scope.circleContentList = (data || []).concat($scope.circleContentList);
         }
-        copyPhotosToPswp();
         $scope.$broadcast('scroll.refreshComplete');
       })
       .error(function(data, status) {
@@ -506,6 +460,22 @@ angular.module('donlerApp.controllers', [])
       $scope.circleCommentBoxCtrl = {};
       $scope.pswpCtrl = {};
 
+      $scope.openCommentBox = function(placeHolderText) {
+        $scope.circleCommentBoxCtrl.setPlaceHolderText(placeHolderText);
+        $scope.circleCommentBoxCtrl.open();
+      };
+
+      $scope.postComment = function(content) {
+        $scope.circleCardListCtrl.postComment(content);
+      };
+
+      $scope.stopComment = function() {
+        $scope.circleCardListCtrl.stopComment();
+      };
+
+      $scope.onClickContentImg = function(images, img) {
+        $scope.pswpCtrl.init(images, img);
+      };
 
     });
 
@@ -3267,7 +3237,7 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$ionicHistory', '$scope', '$rootScope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', 'CONFIG', 'INFO', 'Team','Circle', 'Image', 'Campaign',function ($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopover, Tools, User, CONFIG, INFO, Team, Circle, Image, Campaign) {
+  .controller('UserInfoController', ['$ionicHistory', '$scope', '$rootScope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', 'CONFIG', 'INFO', 'Team','Circle', 'Campaign',function ($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopover, Tools, User, CONFIG, INFO, Team, Circle, Campaign) {
     $scope.nowTab ='team';
     var getMyTeams = function() {
       Team.getList('user', $state.params.userId || localStorage.id, null, function (err, teams) {
@@ -3300,34 +3270,6 @@ angular.module('donlerApp.controllers', [])
     }
     var pageLength = 20; // 一次获取的数据量
 
-      
-
-
-    // 复制图片地址到一个数组供预览大图用
-    var copyPhotosToPswp = function() {
-      $scope.imagesForPswp = [];
-      var id = 0;
-      for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
-        var circle = $scope.circleContentList[i];
-        if (circle.content.photos && circle.content.photos.length > 0) {
-          var pswpPhotos = [];
-          for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
-            var photo = circle.content.photos[j];
-            photo._id = id;
-            var size = Image.getFitSize(photo.width, photo.height);
-            pswpPhotos.push({
-              _id: photo._id,
-              w: size.width * 2,
-              h: size.height * 2,
-              src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
-            });
-            id++;
-          }
-          $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-        }
-      }
-    };
-
     $scope.loadMore = function() {
       if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
         return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
@@ -3343,7 +3285,6 @@ angular.module('donlerApp.controllers', [])
             });
             $scope.circleContentList = $scope.circleContentList.concat(data);
             $scope.loadingStatus.loading = false;
-            copyPhotosToPswp();
           }
 
           $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -3377,13 +3318,8 @@ angular.module('donlerApp.controllers', [])
       $scope.circleCardListCtrl.stopComment();
     };
 
-    $scope.onClickContentImg = function(img) {
-      for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
-        if (img._id === $scope.imagesForPswp[i]._id) {
-          $scope.pswpCtrl.open(i);
-          break;
-        }
-      }
+    $scope.onClickContentImg = function(images, img) {
+      $scope.pswpCtrl.init(images, img);
     };
     // 用于保存已经获取到的同事圈内容
     $scope.circleContentList = [];
@@ -3395,28 +3331,27 @@ angular.module('donlerApp.controllers', [])
     };
     var getCirecle=function () {
       Circle.getUserCircle($state.params.userId)
-            .success(function(data) {
-              localStorage.lastGetCircleTime = new Date();
-              data.forEach(function(circle) {
-                Circle.pickAppreciateAndComments(circle);
-              });
-              $scope.circleContentList = data;
-              $scope.loadingStatus.hasInit = true;
-              if (data.length >= pageLength) {
-                $scope.loadingStatus.hasMore = true;
-              } else {
-                $scope.loadingStatus.hasMore = false;
-              }
-              copyPhotosToPswp();
-            })
-            .error(function(data, status) {
-              if (status !== 404) {
-                $scope.ionicAlert(data.msg || '获取失败');
-              }
-              else {
-                $scope.loadingStatus.hasInit = true;
-              }
-            });
+        .success(function(data) {
+          localStorage.lastGetCircleTime = new Date();
+          data.forEach(function(circle) {
+            Circle.pickAppreciateAndComments(circle);
+          });
+          $scope.circleContentList = data;
+          $scope.loadingStatus.hasInit = true;
+          if (data.length >= pageLength) {
+            $scope.loadingStatus.hasMore = true;
+          } else {
+            $scope.loadingStatus.hasMore = false;
+          }
+        })
+        .error(function(data, status) {
+          if (status !== 404) {
+            $scope.ionicAlert(data.msg || '获取失败');
+          }
+          else {
+            $scope.loadingStatus.hasInit = true;
+          }
+        });
     }
     User.getData($stateParams.userId, function (err, data) {
       if (err) {
@@ -4054,10 +3989,8 @@ angular.module('donlerApp.controllers', [])
     '$timeout',
     'Circle',
     'Tools',
-    'CONFIG',
-    'Image',
     'Company',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, Tools, CONFIG, Image, Company) {
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, Tools, Company) {
 
       Company.getData(localStorage.cid).success(function(data) {
         $scope.company = data;
@@ -4090,31 +4023,6 @@ angular.module('donlerApp.controllers', [])
 
       var pageLength = 20; // 一次获取的数据量
 
-      // 复制图片地址到一个数组供预览大图用
-      var copyPhotosToPswp = function() {
-        $scope.imagesForPswp = [];
-        var id = 0;
-        for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
-          var circle = $scope.circleContentList[i];
-          if (circle.content.photos && circle.content.photos.length > 0) {
-            var pswpPhotos = [];
-            for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
-              var photo = circle.content.photos[j];
-              photo._id = id;
-              var size = Image.getFitSize(photo.width, photo.height);
-              pswpPhotos.push({
-                _id: photo._id,
-                w: size.width * 2,
-                h: size.height * 2,
-                src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
-              });
-              id++;
-            }
-            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-          }
-        }
-      };
-
       $scope.goToRemindsPage = function() {
         if ($rootScope.newCircleComment > 0 || $rootScope.newContent === true) {
           $scope.getData();
@@ -4145,7 +4053,7 @@ angular.module('donlerApp.controllers', [])
             } else {
               $scope.loadingStatus.hasMore = false;
             }
-            copyPhotosToPswp();
+
             if (callback) {
               callback();
             }
@@ -4171,7 +4079,6 @@ angular.module('donlerApp.controllers', [])
               });
               $scope.circleContentList = (data || []).concat($scope.circleContentList);
             }
-            copyPhotosToPswp();
             $scope.$broadcast('scroll.refreshComplete');
           })
           .error(function(data, status) {
@@ -4196,7 +4103,6 @@ angular.module('donlerApp.controllers', [])
                 Circle.pickAppreciateAndComments(circle);
               });
               $scope.circleContentList = $scope.circleContentList.concat(data);
-              copyPhotosToPswp();
             }
             else {
               $scope.loadingStatus.hasMore = false;
@@ -4233,13 +4139,8 @@ angular.module('donlerApp.controllers', [])
         $scope.circleCardListCtrl.stopComment();
       };
 
-      $scope.onClickContentImg = function(img) {
-        for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
-          if (img._id === $scope.imagesForPswp[i]._id) {
-            $scope.pswpCtrl.open(i);
-            break;
-          }
-        }
+      $scope.onClickContentImg = function(images, img) {
+        $scope.pswpCtrl.init(images, img);
       };
 
       $scope.$on("$ionicView.enter", function(scopes, states) {
@@ -4271,10 +4172,8 @@ angular.module('donlerApp.controllers', [])
     '$timeout',
     'Circle',
     'Tools',
-    'CONFIG',
-    'Image',
     'Team',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, Tools, CONFIG, Image, Team) {
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, Tools, Team) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
@@ -4304,32 +4203,6 @@ angular.module('donlerApp.controllers', [])
         loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
       };
 
-
-      // 复制图片地址到一个数组供预览大图用
-      var copyPhotosToPswp = function() {
-        $scope.imagesForPswp = [];
-        var id = 0;
-        for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
-          var circle = $scope.circleContentList[i];
-          if (circle.content.photos && circle.content.photos.length > 0) {
-            var pswpPhotos = [];
-            for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
-              var photo = circle.content.photos[j];
-              photo._id = id;
-              var size = Image.getFitSize(photo.width, photo.height);
-              pswpPhotos.push({
-                _id: photo._id,
-                w: size.width * 2,
-                h: size.height * 2,
-                src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
-              });
-              id++;
-            }
-            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-          }
-        }
-      };
-
       $scope.loadMore = function() {
         if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
           return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
@@ -4345,7 +4218,6 @@ angular.module('donlerApp.controllers', [])
               });
               $scope.circleContentList = $scope.circleContentList.concat(data);
               $scope.loadingStatus.loading = false;
-              copyPhotosToPswp();
             }
 
             $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -4379,13 +4251,8 @@ angular.module('donlerApp.controllers', [])
         $scope.circleCardListCtrl.stopComment();
       };
 
-      $scope.onClickContentImg = function(img) {
-        for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
-          if (img._id === $scope.imagesForPswp[i]._id) {
-            $scope.pswpCtrl.open(i);
-            break;
-          }
-        }
+      $scope.onClickContentImg = function(images, img) {
+        $scope.pswpCtrl.init(images, img);
       };
 
       $scope.$on("$ionicView.enter", function(scopes, states) {
@@ -4407,7 +4274,6 @@ angular.module('donlerApp.controllers', [])
             } else {
               $scope.loadingStatus.hasMore = false;
             }
-            copyPhotosToPswp();
           })
           .error(function(data, status) {
             if (status !== 404) {
@@ -4434,9 +4300,7 @@ angular.module('donlerApp.controllers', [])
     'Circle',
     'User',
     'Tools',
-    'CONFIG',
-    'Image',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, Tools, CONFIG, Image) {
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, Tools) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
@@ -4454,34 +4318,6 @@ angular.module('donlerApp.controllers', [])
 
       var pageLength = 20; // 一次获取的数据量
 
-      
-
-
-      // 复制图片地址到一个数组供预览大图用
-      var copyPhotosToPswp = function() {
-        $scope.imagesForPswp = [];
-        var id = 0;
-        for (var i = 0, circlesLen = $scope.circleContentList.length; i < circlesLen; i++) {
-          var circle = $scope.circleContentList[i];
-          if (circle.content.photos && circle.content.photos.length > 0) {
-            var pswpPhotos = [];
-            for (var j = 0, photosLen = circle.content.photos.length; j < photosLen; j++) {
-              var photo = circle.content.photos[j];
-              photo._id = id;
-              var size = Image.getFitSize(photo.width, photo.height);
-              pswpPhotos.push({
-                _id: photo._id,
-                w: size.width * 2,
-                h: size.height * 2,
-                src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
-              });
-              id++;
-            }
-            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-          }
-        }
-      };
-
       $scope.loadMore = function() {
         if (!$scope.loadingStatus.hasMore || $scope.loadingStatus.loading || !$scope.loadingStatus.hasInit) {
           return; // 如果没有更多内容或已经正在加载或是还没有获取过一次数据，则返回，防止连续的请求
@@ -4497,7 +4333,6 @@ angular.module('donlerApp.controllers', [])
               });
               $scope.circleContentList = $scope.circleContentList.concat(data);
               $scope.loadingStatus.loading = false;
-              copyPhotosToPswp();
             }
 
             $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -4531,13 +4366,8 @@ angular.module('donlerApp.controllers', [])
         $scope.circleCardListCtrl.stopComment();
       };
 
-      $scope.onClickContentImg = function(img) {
-        for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
-          if (img._id === $scope.imagesForPswp[i]._id) {
-            $scope.pswpCtrl.open(i);
-            break;
-          }
-        }
+      $scope.onClickContentImg = function(images, img) {
+        $scope.pswpCtrl.init(images, img);
       };
 
 
@@ -4573,7 +4403,6 @@ angular.module('donlerApp.controllers', [])
             } else {
               $scope.loadingStatus.hasMore = false;
             }
-            copyPhotosToPswp();
           })
           .error(function(data, status) {
             if (status !== 404) {
@@ -4595,10 +4424,8 @@ angular.module('donlerApp.controllers', [])
     '$state',
     '$ionicPopup',
     'Circle',
-    'CONFIG',
     'User',
-    'Image',
-    function($scope, $ionicHistory, $state, $ionicPopup, Circle, CONFIG, User, Image) {
+    function($scope, $ionicHistory, $state, $ionicPopup, Circle, User) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
@@ -4640,38 +4467,14 @@ angular.module('donlerApp.controllers', [])
         $state.go('circle_company');
       };
 
-      $scope.onClickContentImg = function(img) {
-        for (var i = 0, imagesLen = $scope.imagesForPswp.length; i < imagesLen; i++) {
-          if (img._id === $scope.imagesForPswp[i]._id) {
-            $scope.pswpCtrl.open(i);
-            break;
-          }
-        }
+      $scope.onClickContentImg = function(images, img) {
+        $scope.pswpCtrl.init(images, img);
       };
 
       $scope.$on("$ionicView.enter", function(scopes, states) {
         Circle.getCircleContent($state.params.circleContentId).success(function(data) {
           $scope.circle = data.circle;
           Circle.pickAppreciateAndComments($scope.circle);
-          $scope.imagesForPswp = [];
-          var id = 0;
-          var circle = $scope.circle;
-          if (circle.content.photos && circle.content.photos.length > 0) {
-            var pswpPhotos = [];
-            for (var i = 0, photosLen = circle.content.photos.length; i < photosLen; i++) {
-              var photo = circle.content.photos[i];
-              photo._id = id;
-              var size = Image.getFitSize(photo.width, photo.height);
-              pswpPhotos.push({
-                _id: photo._id,
-                w: size.width * 2,
-                h: size.height * 2,
-                src: CONFIG.STATIC_URL + photo.uri + '/' + size.width * 2 + '/' + size.height * 2
-              });
-              id++;
-            }
-            $scope.imagesForPswp = $scope.imagesForPswp.concat(pswpPhotos);
-          }
         }).error(function(data) {
           $scope.ionicAlert(data.msg || '获取失败'); // TODO 还需要考虑妥善处理，很可能会出现这条内容被删除了
         });

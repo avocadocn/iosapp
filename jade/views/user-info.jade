@@ -67,7 +67,7 @@ ion-view.personal
                         span.calendar_campaign_join(ng-if="day.joined_events.length>0") {{day.joined_events.length}}
   //- 与ion-content同级
   circle-comment-box(ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment")
-  photo-swipe(photos="imagesForPswp" ctrl="pswpCtrl")
+  photo-swipe(ctrl="pswpCtrl")
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}")
     .pswp__bg
     .pswp__scroll-wrap

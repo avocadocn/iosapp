@@ -15,7 +15,7 @@
       a.link_name(ng-if="showContentStatus.showOverAll" ng-click="showAllContent()") 全文
       a.link_name(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
     .image_box.clearfix
-      img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/150/150" error-img ng-click="clickImg(photo)")
+      img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/150/150" error-img ng-click="clickImg(circle.content.photos, photo)")
     p.campaign_link(ng-if="circle.content.campaign_id")
       span.text_from 来自活动
       a.link_name(ng-href="#/campaign/detail/{{circle.content.campaign_id}}" ng-bind="circle.content.campaignTheme")

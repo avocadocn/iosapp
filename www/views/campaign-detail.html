@@ -27,7 +27,7 @@
     </div>
   </ion-content>
   <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment"></circle-comment-box>
-  <photo-swipe photos="imagesForPswp" ctrl="pswpCtrl"></photo-swipe>
+  <photo-swipe ctrl="pswpCtrl"></photo-swipe>
   <ion-footer-bar ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign ||campaign.allow.quitCampaign">
     <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">报名参加</button>
     <button ng-if="campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-full dl_cp_quit">已经参加</button>
