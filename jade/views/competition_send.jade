@@ -1,25 +1,33 @@
-ion-view
+ion-view.competition_message_panel
   ion-header-bar
     a.button.icon.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title 发送挑战信
-    a.button.button-clear.button-positive(ng-click="publishMessage()") &nbsp;发送
+    a.button.button-clear.button-positive(ng-click="publishMessage()") &nbsp;发布
   ion-content
-    .competition_send
-      .row(ng-cloak)
-        .col: img.team_logo(ng-src="{{STATIC_URL + targetTeam.logo}}/50/50")
-        .col.col-50
-          p {{targetTeam.name}}
-          p 活跃度: {{targetTeam.activityScore}}
-          p {{targetTeam.cname}}
-        .col
-          p {{targetTeam.memberCount}} 人
-          p 积分: {{targetTeam.score_rank.score || 0}}({{targetTeam.score_rank.win || 0}} 胜 {{targetTeam.score_rank.tie || 0}}平 {{targetTeam.score_rank.lose || 0}}负)
-      .row
-        .col 类型：
-          input(type="radio" ng-model="messageData.type" value="1" name="type")
-          span 挑战
-          input(type="radio" ng-model="messageData.type" value="2" name="type")
-          span 联谊
-      .row
-        .col
-          textarea(ng-model="messageData.content" rows=5 required maxlength=200)
+    .competition_send.competition_message_detail
+      .row.teams
+        .col.team.sponsor_team
+          .team_title 发起方
+          .team_content
+            a(ng-if="cid==fromTeam.cid" ng-href="#/team/{{fromTeam._id}}")
+              img.team_logo(ng-src="{{STATIC_URL + fromTeam.logo}}/60/60")
+            img.team_logo(ng-if="cid!==fromTeam.cid" ng-src="{{STATIC_URL + fromTeam.logo}}/40/40")
+            .team_name {{fromTeam.name}}
+        .col.col-10.vs.col-center(ng-cloak)
+          span.competition_type {{messageData.type==1 ? '挑战' :'联谊'}}
+        .col.team.opposite_team
+          .team_title 接受方
+          .team_content
+            a(ng-if="cid==targetTeam.cid" ng-href="#/team/{{targetTeam._id}}")
+              img.team_logo(ng-src="{{STATIC_URL + targetTeam.logo}}/40/40")
+            img.team_logo(ng-if="cid!==targetTeam.cid" ng-src="{{STATIC_URL + targetTeam.logo}}/40/40")
+            .team_name {{targetTeam.name}}
+      .item.item-divider 选择活动类型
+      ion-radio.competition_type_select(ng-model="messageData.type" name="type" value="2")
+        span.type_content 联谊
+        span.tips 没有积分
+      ion-radio.competition_type_select(ng-model="messageData.type" name="type" value="1")
+        span.type_content 挑战
+        span.tips 有积分，胜3分，平1分，负0分
+      .item
+        textarea(ng-model="messageData.content" rows=5 placeholder="写点什么给对方把吧：建议先约一下时间、地点，在对方接受您的挑战后，就可以发起活动啦" required maxlength=200)

@@ -13,7 +13,8 @@ ion-view.competition_message_panel
               img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60")
             img.team_logo(ng-if="cid!==competitionMessage.sponsor_team.cid" ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/40/40")
             .team_name {{competitionMessage.sponsor_team.name}}
-        .col.col-10.vs.col-center(ng-cloak)   {{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}
+        .col.col-10.vs.col-center(ng-cloak)
+          span.competition_type {{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}
         .col.team.opposite_team
           .team_title 接受方
           .team_content

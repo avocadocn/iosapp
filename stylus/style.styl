@@ -3228,9 +3228,12 @@ textarea
     .operator
       text-align center
   .competition_message_detail
+    border-top 1px solid #ccc
     .teams
-      padding 10px
+      padding 15px
       text-align center
+      .col
+        padding 0
       .team
         .team_title
           position relative
@@ -3240,24 +3243,25 @@ textarea
           height 26px
           line-height 26px
           &:before
-            content: ""
-            position: absolute
+            content ""
+            position absolute
             top 0
             width 15px
             height 26px
             border-style solid
             border-color white transparent transparent transparent
-            border-width 30px 20px 0 0
         .team_content
-          padding 10px
+          padding 15px 15px 0 15px
+          padding-
           .team_name
             max-width 100%
             textOverflow()
-            margin-top 10px
+            margin-top 5px
             font-size 14px
           .team_logo
             width 60px
             height 60px
+            border-radius 5px
       .vs
         font-size 16px
         min-width 42px
@@ -3266,13 +3270,13 @@ textarea
           background-color #f75c5c
           &:before
             right 0
-            border-width 30px 0 0 20px
+            border-width 26px 0 0 20px
       .opposite_team
         .team_title
           background-color col_blue
           &:before
             left 0
-            border-width 30px 20px 0 0
+            border-width 26px 20px 0 0
     .vote
       padding 0 60px
       height 50px
@@ -3330,6 +3334,20 @@ textarea
       text-align center
       padding 14px
       line-height 14px
+    .competition_type_select
+      .item-content
+        padding-right 30px
+        .type_content
+          margin-right 45px
+        .tips
+          font-size 14px
+          color #ababab
+      .ion-checkmark
+        font-size 16px
+        padding 15px
+        color col_blue
+    .item
+      color col_textGray
   .competition_message_comment
     .comment_title
       height 25px
@@ -3371,7 +3389,6 @@ textarea
           left initial
         .comment_contents
           float right
-
   .operator
     text-align center
     margin 10px 20px

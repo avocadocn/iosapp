@@ -13,7 +13,7 @@
             <div class="team_name">{{competitionMessage.sponsor_team.name}}</div>
           </div>
         </div>
-        <div ng-cloak="ng-cloak" class="col col-10 vs col-center">  {{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}</div>
+        <div ng-cloak="ng-cloak" class="col col-10 vs col-center"><span class="competition_type">{{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}</span></div>
         <div class="col team opposite_team">
           <div class="team_title">接受方</div>
           <div class="team_content"><a ng-if="cid==competitionMessage.opposite_team.cid" ng-href="#/team/{{competitionMessage.opposite_team._id}}"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/></a><img ng-if="cid!==competitionMessage.opposite_team.cid" ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/40/40" class="team_logo"/>

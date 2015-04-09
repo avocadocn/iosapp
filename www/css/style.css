@@ -4025,9 +4025,15 @@ a>.login .companies_list:activated {
 .competition_message_panel .competition_message_list .operator {
   text-align: center;
 }
+.competition_message_panel .competition_message_detail {
+  border-top: 1px solid #ccc;
+}
 .competition_message_panel .competition_message_detail .teams {
-  padding: 10px;
+  padding: 15px;
   text-align: center;
+}
+.competition_message_panel .competition_message_detail .teams .col {
+  padding: 0;
 }
 .competition_message_panel .competition_message_detail .teams .team .team_title {
   position: relative;
@@ -4045,22 +4051,23 @@ a>.login .companies_list:activated {
   height: 26px;
   border-style: solid;
   border-color: #fff transparent transparent transparent;
-  border-width: 30px 20px 0 0;
 }
 .competition_message_panel .competition_message_detail .teams .team .team_content {
-  padding: 10px;
+  padding: 15px 15px 0 15px;
 }
+.competition_message_panel .competition_message_detail .teams .team .team_content padding-,
 .competition_message_panel .competition_message_detail .teams .team .team_content .team_name {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 14px;
 }
 .competition_message_panel .competition_message_detail .teams .team .team_content .team_logo {
   width: 60px;
   height: 60px;
+  border-radius: 5px;
 }
 .competition_message_panel .competition_message_detail .teams .vs {
   font-size: 16px;
@@ -4071,14 +4078,14 @@ a>.login .companies_list:activated {
 }
 .competition_message_panel .competition_message_detail .teams .sponsor_team .team_title:before {
   right: 0;
-  border-width: 30px 0 0 20px;
+  border-width: 26px 0 0 20px;
 }
 .competition_message_panel .competition_message_detail .teams .opposite_team .team_title {
   background-color: #3ca2e0;
 }
 .competition_message_panel .competition_message_detail .teams .opposite_team .team_title:before {
   left: 0;
-  border-width: 30px 20px 0 0;
+  border-width: 26px 20px 0 0;
 }
 .competition_message_panel .competition_message_detail .vote {
   padding: 0 60px;
@@ -4150,6 +4157,24 @@ a>.login .companies_list:activated {
   text-align: center;
   padding: 14px;
   line-height: 14px;
+}
+.competition_message_panel .competition_message_detail .competition_type_select .item-content {
+  padding-right: 30px;
+}
+.competition_message_panel .competition_message_detail .competition_type_select .item-content .type_content {
+  margin-right: 45px;
+}
+.competition_message_panel .competition_message_detail .competition_type_select .item-content .tips {
+  font-size: 14px;
+  color: #ababab;
+}
+.competition_message_panel .competition_message_detail .competition_type_select .ion-checkmark {
+  font-size: 16px;
+  padding: 15px;
+  color: #3ca2e0;
+}
+.competition_message_panel .competition_message_detail .item {
+  color: #666;
 }
 .competition_message_panel .competition_message_comment .comment_title {
   height: 25px;
