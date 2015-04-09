@@ -46,7 +46,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('HrHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', function ($scope, $state, CompanyAuth, CommonHeaders) {
+  .controller('HrHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', 'Company', function ($scope, $state, CompanyAuth, CommonHeaders,Company) {
 
     $scope.logout = function () {
       if(window.analytics){
