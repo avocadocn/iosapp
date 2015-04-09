@@ -2154,13 +2154,13 @@ a>.login .companies_list:activated {
   display: block;
   top: 16px;
 }
-.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
+.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header.search_box:not(.bar-subheader).item-input-inset .item-input-wrapper {
   margin-top: -1px !important;
 }
-.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header:not(.bar-subheader).item-input-inset input {
+.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header.search_box:not(.bar-subheader).item-input-inset input {
   margin-top: -1px !important;
 }
-.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header:not(.bar-subheader) > * {
+.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header.search_box:not(.bar-subheader) > * {
   margin-top: -1px !important;
 }
 .contacts .search_box,
