@@ -24,7 +24,7 @@
               </div>
             </div>
           </div>
-          <div ng-class="{putright: comment.poster._id == userId}" ng-cloak="ng-cloak" class="comment clearfix"><a ng-if="comment.poster" ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a><a ng-if="comment.poster_team" ng-href="#/team/{{comment.poster_team._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster_team.logo+ '/45/45'}}"/></a>
+          <div ng-if="comment.chat_type!==1 || comment.content" ng-class="{putright: comment.poster._id == userId}" ng-cloak="ng-cloak" class="comment clearfix"><a ng-if="comment.poster" ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a><a ng-if="comment.poster_team" ng-href="#/team/{{comment.poster_team._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster_team.logo+ '/45/45'}}"/></a>
             <div class="contents">
               <div ng-if="comment.poster_team" ng-cloak="ng-cloak" class="name">{{comment.poster_team.name}}</div>
               <div ng-if="comment.poster &amp;&amp;comment.poster._id !== userId" ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>

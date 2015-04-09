@@ -30,7 +30,7 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
                   .box
                     img.img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo error-img)
                     img.img(ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180")
-          .comment.clearfix(ng-class="{putright: comment.poster._id == userId}" ng-cloak)
+          .comment.clearfix(ng-if="comment.chat_type!==1 || comment.content" ng-class="{putright: comment.poster._id == userId}" ng-cloak)
             a.logo(ng-if="comment.poster" ng-href="#/user/{{comment.poster._id}}")
               img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
             a.logo(ng-if="comment.poster_team" ng-href="#/team/{{comment.poster_team._id}}")
