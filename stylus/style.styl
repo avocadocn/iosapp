@@ -1825,7 +1825,10 @@ textarea
     position relative
     .img_container
       position absolute
-      height 190px
+      height 200px
+      width 104%
+      left -5px
+      top -5px
       -webkit-filter blur(4px)
       -moz-filter blur(4px)
       -ms-filter blur(4px)
@@ -1840,7 +1843,7 @@ textarea
       text-shadow 2px 2px 2px black
       .user_logo
         border-radius 100%
-        border 3px solid #CCC
+        border 3px solid #efefef
         height 80px
         width 80px
       .user_name
@@ -2459,7 +2462,7 @@ textarea
       .info_content
         position absolute
         left 110px
-        top -20px
+        top -30px
         .team_name
           font-size 16px
           text-shadow 2px 2px 3px black
@@ -2486,7 +2489,7 @@ textarea
           background-color white
           color #666
           padding 5px 15px
-          border 1px solid #CCC
+          border 1px solid #efefef
           border-radius 5px
           margin 0 25px
           min-width 50px
@@ -2528,10 +2531,11 @@ textarea
     .icon
       width 3rem
       font-size 14px
-      color col_blue
-      .icon.ion-android-contacts
+      color #666
+      &.ion-android-contacts
         font-size 22px
         padding-left 4px
+        color col_blue
 //-timeline 卡片与小队timeline卡片共用时间样式
 .dl_campaign_group, .timeline_card
   background-color #fff
@@ -2577,44 +2581,41 @@ textarea
 
 .member_page
   .member_group
-    margin 0.833333rem
-  .member_group_name
-    display block
-    margin 0 0.833333rem
-    border 1px solid col_darkGray
-    color col_darkGray
-    background-color white
-    text-align center
-    border-radius 5px
-    font-size 12px
-  .member
-    position relative
-    margin 0.833333rem 0.833333rem 0
-    float left
-    text-decoration none
-  .member_photo
-    display block
-    width 55px
-    height 55px
-    border-radius 5px
-  .dl_member_leader
-    width 20px
-    height 20px
-    display inline-block
-    position absolute
-    right 0
-    bottom 23px
-    background-color #fbc441
-    border-radius 100%
-    background-image url('../img/icon.png')
-    background-size 192px 240px
-    background-position -45px -140px
-  .member_name
-    margin 3px auto 0
-    width 50px
-    text-align center
-    color col_black
-    textOverflow()
+    .member_group_name
+      color #666
+      font-size 14px
+      padding 5px 15px
+    .members
+      background-color white
+      border 1px solid #ccc
+      .member
+        position relative
+        margin 0.833333rem 0.833333rem 0
+        float left
+        text-decoration none
+      .member_photo
+        display block
+        width 45px
+        height 45px
+        border-radius 5px
+      .dl_member_leader
+        width 20px
+        height 20px
+        display inline-block
+        position absolute
+        right 0
+        bottom 23px
+        background-color #fbc441
+        border-radius 100%
+        background-image url('../img/icon.png')
+        background-size 192px 240px
+        background-position -45px -140px
+      .member_name
+        margin 3px auto 0
+        width 45px
+        text-align center
+        color col_black
+        textOverflow()
 
 .photo_album_detail_page
   .hidden_figcaption

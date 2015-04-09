@@ -8,14 +8,18 @@ ion-view.personal(ng-controller="PersonalController")
       a.item.item-avatar.item-icon-right.item_user(href="#/personal/edit" ng-cloak)
         img.avatar_photo(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/90/90" prevent-default photo="user.photo" pswp-id="pswpId" open-photo)
         h2.nickname {{user.nickname}}
-        p.introduce(ng-if="user.introduce") 简介: {{user.introduce}}
+        p 公司：{{user.company.name}}
+        p(ng-if="user.department" ng-cloak) 部门：{{user.department.name}}
+        p(ng-if="!user.department" ng-cloak) 部门：无
+        p(ng-cloak) 手机：{{user.phone || '-'}}
+        p(ng-cloak) 邮箱：{{user.email}}
         i.icon.ion-chevron-right.icon_right
       .item.statistics(ng-cloak)
         .row
           a.col.col-33(href="#/personal/teams/")
             p.number {{user.tids.length}}
             p.key 小队
-          a.col.col-33(href="#/personal/timeline")
+          a.col.col-33(href="#/campaign/all/user/{{user._id}}")
             p.number {{user.campaignCount}}
             p.key 活动
           .col.col-33

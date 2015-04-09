@@ -1296,11 +1296,22 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CompanyCircleController', ['$scope', '$timeout', 'TimeLine', 'INFO', function ($scope, $timeout, TimeLine, INFO) {
+  .controller('AllCampaignController', ['$scope', '$state', '$timeout', '$ionicHistory', 'TimeLine', 'INFO', function ($scope, $state, $timeout, $ionicHistory, TimeLine, INFO) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
     $scope.page = 0;
+    $scope.goBack = function() {
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack();
+      }
+      else if($state.params.type=='company'){
+        $state.go('app.company');
+      }
+      else{
+        $state.go('app.personal');
+      }
+    };
     // 是否需要显示时间
     $scope.needShowTime = function (index) {
       if(index===0){
@@ -1314,7 +1325,7 @@ angular.module('donlerApp.controllers', [])
     $scope.doRefresh = function(){
       $scope.page = 0;
       $scope.loadFinished = false;
-      TimeLine.getTimelines('company', '0', $scope.page, function (err, timelineData) {
+      TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, timelineData) {
         if (err) {
           // todo
           console.log(err);
@@ -1337,7 +1348,7 @@ angular.module('donlerApp.controllers', [])
       else{
         $scope.page++;
         $scope.loading = true;
-        TimeLine.getTimelines('company', '0', $scope.page, function (err, timelineData) {
+        TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, timelineData) {
           if (err) {
             // todo
             console.log(err);

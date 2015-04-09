@@ -27,7 +27,7 @@
       <div class="item row members">
         <div class="col"><span class="title">队长</span><img ng-if="team.leaders.length&gt;0" ng-src="{{STATIC_URL + team.leaders[0].photo}}/30/30" class="user_logo"/></div><a ng-href="#/members/team/{{team._id}}" class="col"><span>成员({{team.memberCount}}人)</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
       </div>
-      <div ng-repeat="homeCourt in team.homeCourts" class="item home_court"><span class="title">主场{{$index==1?'一':'二'}}</span><span class="home_court">{{homeCourt.name || '他们很懒还没填写'}}</span></div><a ng-href="#/circle/circle_team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts ionic_icon icon_left"></i>精彩瞬间<i class="icon ion-chevron-right icon_right"></i></a><a href="#/team/circle" class="item item-icon-left item-icon-right"><i class="icon ion_ballon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
+      <div ng-repeat="homeCourt in team.homeCourts" class="item home_court"><span class="title">主场{{$index==1?'一':'二'}}</span><span class="home_court">{{homeCourt.name || '他们很懒还没填写'}}</span></div><a ng-href="#/circle/circle_team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts ionic_icon icon_left"></i>精彩瞬间<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion_ballon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
     </div>
   </ion-content>
   <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">

@@ -5,16 +5,6 @@
   </ion-header-bar>
   <ion-content delegate-handle="mainScroll">
     <ion-refresher refreshing-icon="ion-looping" on-refresh="doRefresh()"></ion-refresher>
-    <div class="card">
-      <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/45/45"/>
-        <h2>{{user.nickname}}</h2>
-        <p>公司：{{user.company.name}}</p>
-        <p ng-if="user.department" ng-cloak="ng-cloak">部门：{{user.department.name}}</p>
-        <p ng-if="!user.department" ng-cloak="ng-cloak">部门：无</p>
-        <p ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
-        <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p>
-      </div>
-    </div>
     <div class="list timeline_card">
       <div ng-repeat="campaign in timelinesRecord" class="dl_timeline">
         <div ng-if="needShowTime($index)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">

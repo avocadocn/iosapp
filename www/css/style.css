@@ -2301,7 +2301,10 @@ a>.login .companies_list:activated {
 }
 .personal .user_header .img_container {
   position: absolute;
-  height: 190px;
+  height: 200px;
+  width: 104%;
+  left: -5px;
+  top: -5px;
   -webkit-filter: blur(4px);
   -moz-filter: blur(4px);
   -ms-filter: blur(4px);
@@ -2318,7 +2321,7 @@ a>.login .companies_list:activated {
 }
 .personal .user_header .user_card .user_logo {
   border-radius: 100%;
-  border: 3px solid #ccc;
+  border: 3px solid #efefef;
   height: 80px;
   width: 80px;
 }
@@ -3058,7 +3061,7 @@ a>.login .companies_list:activated {
 .team_page .team_info .info_header .info_content {
   position: absolute;
   left: 110px;
-  top: -20px;
+  top: -30px;
 }
 .team_page .team_info .info_header .info_content .team_name {
   font-size: 16px;
@@ -3101,7 +3104,7 @@ a>.login .companies_list:activated {
   background-color: #fff;
   color: #666;
   padding: 5px 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #efefef;
   border-radius: 5px;
   margin: 0 25px;
   min-width: 50px;
@@ -3152,11 +3155,12 @@ a>.login .companies_list:activated {
 .team_page .team_info .icon {
   width: 3rem;
   font-size: 14px;
-  color: #3ca2e0;
+  color: #666;
 }
-.team_page .team_info .icon .icon.ion-android-contacts {
+.team_page .team_info .icon.ion-android-contacts {
   font-size: 22px;
   padding-left: 4px;
+  color: #3ca2e0;
 }
 .dl_campaign_group,
 .timeline_card {
@@ -3207,32 +3211,28 @@ a>.login .companies_list:activated {
   font-size: 14px;
   text-align: center;
 }
-.member_page .member_group {
-  margin: 0.833333rem;
+.member_page .member_group .member_group_name {
+  color: #666;
+  font-size: 14px;
+  padding: 5px 15px;
 }
-.member_page .member_group_name {
-  display: block;
-  margin: 0 0.833333rem;
-  border: 1px solid #999;
-  color: #999;
+.member_page .member_group .members {
   background-color: #fff;
-  text-align: center;
-  border-radius: 5px;
-  font-size: 12px;
+  border: 1px solid #ccc;
 }
-.member_page .member {
+.member_page .member_group .members .member {
   position: relative;
   margin: 0.833333rem 0.833333rem 0;
   float: left;
   text-decoration: none;
 }
-.member_page .member_photo {
+.member_page .member_group .members .member_photo {
   display: block;
-  width: 55px;
-  height: 55px;
+  width: 45px;
+  height: 45px;
   border-radius: 5px;
 }
-.member_page .dl_member_leader {
+.member_page .member_group .members .dl_member_leader {
   width: 20px;
   height: 20px;
   display: inline-block;
@@ -3245,9 +3245,9 @@ a>.login .companies_list:activated {
   background-size: 192px 240px;
   background-position: -45px -140px;
 }
-.member_page .member_name {
+.member_page .member_group .members .member_name {
   margin: 3px auto 0;
-  width: 50px;
+  width: 45px;
   text-align: center;
   color: #333;
   overflow: hidden;

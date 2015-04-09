@@ -302,9 +302,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         // controller: 'CompanyController',
         templateUrl: './views/company.html'
       })
-      .state('company_circle', {
-        url: '/company/circle',
-        controller: 'CompanyCircleController',
+      .state('all_campaign', {
+        url: '/campaign/all/:type/:id',
+        controller: 'AllCampaignController',
         templateUrl: './views/colleague-circle.html'
       })
       .state('company_teams', {
