@@ -696,16 +696,14 @@ angular.module('donlerApp.controllers', [])
       if(!states.stateName){
         //? todo -M 可能需要到缓存里取什么...
         Socket.emit('enterRoom', localStorage.id);
-        if(INFO.needUpdateDiscussList) {
-          getChatroomsUnread();
-        }
+        getChatrooms(INFO.needUpdateDiscussList);
       }
     });
     var comeBack = function() {
       if($state.$current.name==='app.discuss_list') {
         Socket.emit('quitRoom');
         Socket.emit('enterRoom', localStorage.id);
-        getChatroomsUnread();
+        getChatrooms(true);
       }
     };
     document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
@@ -721,16 +719,21 @@ angular.module('donlerApp.controllers', [])
             }
           }
         }
+        INFO.needUpdateDiscussList = false;
       });
     };
-    var getChatrooms = function() {
-      Chat.getChatroomList(function (err, data) {
-        // console.log(data);
+    //force为true强制刷新 以下几种情况需要强制刷新：
+    //1.用户手动刷新
+    //2.用户切到过后台
+    //3.刚进controller
+    var getChatrooms = function(force) {
+      Chat.getChatroomList(force ,function (err, data) {
         $scope.chatrooms = data;
-        getChatroomsUnread();
+        if(force)
+          getChatroomsUnread();
       });
     };
-    getChatrooms();
+    getChatrooms(true);
     Socket.on('newChatroomChat', function (chat) {
       if($scope.chatrooms) {
         var index = Tools.arrayObjectIndexOf($scope.chatrooms, chat.chatroom_id, '_id');
@@ -747,7 +750,7 @@ angular.module('donlerApp.controllers', [])
 
     //以防万一，给个刷新接口。
     $scope.refresh = function() {
-      getChatrooms();
+      getChatrooms(true);
       $scope.$broadcast('scroll.refreshComplete');
     };
 
@@ -848,7 +851,7 @@ angular.module('donlerApp.controllers', [])
           if($scope.chatsList[chatListIndex][i].randomId === data.randomId){
             data.randomId = null;
             addPhotos(data);
-            $scope.chatsList[chatListIndex][i] = data;
+            // $scope.chatsList[chatListIndex][i] = data;
             break;
           }
         }
@@ -863,6 +866,8 @@ angular.module('donlerApp.controllers', [])
         addPhotos(data);
         if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
       }
+      //更新chatroomList缓存
+      Chat.updateChatroomList(data);
     })
     //从后台切回来要刷新及进room
     var comeBackFromBackground = function() {
@@ -1047,7 +1052,8 @@ angular.module('donlerApp.controllers', [])
         });
       }
     };
-
+    //进来也标记一下，否则可能在退出时来不及.
+    Chat.readChat($scope.chatroomId);
     //离开此页时标记读过
     $scope.$on('$destroy',function() {
       Chat.readChat($scope.chatroomId);
@@ -1637,13 +1643,14 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('SettingsController', ['$scope', '$state', '$ionicHistory', 'UserAuth', 'User', 'CommonHeaders', function ($scope, $state, $ionicHistory, UserAuth, User, CommonHeaders) {
+  .controller('SettingsController', ['$scope', '$state', '$ionicHistory', 'UserAuth', 'User', 'CommonHeaders', 'Chat', function ($scope, $state, $ionicHistory, UserAuth, User, CommonHeaders, Chat) {
 
     $scope.logout = function () {
       if(window.analytics){
         window.analytics.trackEvent('Click', 'userLogOut');
       }
       User.clearCurrentUser();
+      Chat.clearChatroomList();
       UserAuth.logout(function (err) {
         if (err) {
           // todo
@@ -1687,7 +1694,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', 'Circle', function ($scope, $rootScope, $ionicHistory, Socket, Circle) {
+  .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', 'Circle', 'INFO', 'Chat', function ($scope, $rootScope, $ionicHistory, Socket, Circle, INFO, Chat) {
     //每次进入页面判断是否有新评论没看
     $rootScope.newCircleComment = 0;
 
@@ -1712,9 +1719,11 @@ angular.module('donlerApp.controllers', [])
     Socket.on('newCompetitionMessage', function() {
       $rootScope.hasNewDiscover = true;
     });
-    Socket.on('getNewChat', function() {
+    Socket.on('getNewChat', function(chat) {
       $rootScope.hasNewComment = true;
+      Chat.updateChatroomList(chat);
     });
+
 
     $scope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {

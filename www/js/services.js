@@ -527,10 +527,11 @@ angular.module('donlerApp.services', [])
     return {
       /**
        * 获取聊天室列表
+       * @param  {boolean} force 是否要强制刷新
        * @param  {Function} callback 形如function(err, list)
        */
-      getChatroomList: function(callback) {
-        if(chatroomList) {
+      getChatroomList: function(force,callback) {
+        if(chatroomList && !force) {
           callback(null, chatroomList);
           return;
         }
@@ -586,13 +587,13 @@ angular.module('donlerApp.services', [])
        * @return {[type]}              [description]
        */
       readChat: function(chatroomId, callback) {
-        $http.post(CONFIG.BASE_URL +'/chatrooms/actions/read',{chatRoomIds:[chatroomId]});
         if(chatroomList) {
           var index = Tools.arrayObjectIndexOf(chatroomList,chatroomId,'_id');
           if(index>-1) {
             chatroomList[index].unread = 0;
           }
         }
+        $http.post(CONFIG.BASE_URL +'/chatrooms/actions/read',{chatRoomIds:[chatroomId]});
       },
       /**
        * 保存当前chatroomList(离开列表页时)
@@ -608,8 +609,23 @@ angular.module('donlerApp.services', [])
       updateChatroomList: function(chat) {
         if(chatroomList) {
           var index = Tools.arrayObjectIndexOf(chatroomList,chat.chatroom_id,'_id');
-          if(index>-1) chatroomList[index].unread ++;
+          if(index>-1) {
+            if(chat.poster._id.toString()!=localStorage.id) {
+              chatroomList[index].unread ++;
+            }
+            chatroomList[index].latestChat = chat;
+            //移到最前
+            var temp = chatroomList[index];
+            chatroomList.splice(index, 1);
+            chatroomList.unshift(temp);
+          }
         }
+      },
+      /**
+       * 退出登录清除
+       */
+      clearChatroomList: function() {
+        chatroomList = null;
       }
     }
   }])

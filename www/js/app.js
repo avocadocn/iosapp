@@ -107,22 +107,23 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
     });
 
     $ionicPlatform.on('resume', function () {
-       if (localStorage.userType) {
-         if (localStorage.userType === 'user') {
-           UserAuth.refreshToken(function (err) {
-             if (err) {
-               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
-             }
-           });
-         }
-         else if (localStorage.userType === 'company') {
-           CompanyAuth.refreshToken(function (err) {
-             if (err) {
-               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
-             }
-           });
-         }
-       }
+      if (localStorage.userType) {
+        if (localStorage.userType === 'user') {
+          UserAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+          });
+          INFO.needUpdateDiscussList = true; //从后台回来，可能需要强制刷新评论列表
+        }
+        else if (localStorage.userType === 'company') {
+          CompanyAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+          });
+        }
+      }
     });
     $rootScope.showLoading = function() {
       $ionicLoading.show({
