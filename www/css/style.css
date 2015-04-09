@@ -4025,9 +4025,6 @@ a>.login .companies_list:activated {
 .competition_message_panel .competition_message_list .operator {
   text-align: center;
 }
-.competition_message_panel .competition_message_detail {
-  border-top: 1px solid #ccc;
-}
 .competition_message_panel .competition_message_detail .teams {
   padding: 15px;
   text-align: center;
@@ -4055,7 +4052,6 @@ a>.login .companies_list:activated {
 .competition_message_panel .competition_message_detail .teams .team .team_content {
   padding: 15px 15px 0 15px;
 }
-.competition_message_panel .competition_message_detail .teams .team .team_content padding-,
 .competition_message_panel .competition_message_detail .teams .team .team_content .team_name {
   max-width: 100%;
   overflow: hidden;
