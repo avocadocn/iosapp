@@ -1,7 +1,7 @@
 .dl_circle_card.clearfix(ng-click="clickBlank()")
   a.focus_on_show_comment_op(href="#" ng-blur="hideCommentOperators()")
   a.focus_on_hide_comment_op(href="#")
-  img.circle_company_logo.lazyload(data-src="{{staticUrl + circle.content.poster.photo}}/40/40" ng-click="goToUserPage(circle.content.poster._id)")
+  img.circle_company_logo.lazyload(data-src="{{staticUrl + circle.content.poster.photo}}/80/80" ng-click="goToUserPage(circle.content.poster._id)")
   //- 注：之前让个人的精彩瞬间显示活动对应的小队和公司信息，现在不需要，暂且注释，待需求稳定后移除注释代码
   //-img.circle_company_logo(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo" ng-src="{{staticUrl + circle.content.companyInfo.info.logo}}/32/32")
   //-img.circle_company_logo(ng-if="kind === 'user' && circle.content.teamInfo" ng-src="{{staticUrl + circle.content.teamInfo.logo}}/40/40" ng-click="goToTeamPage(circle.content.teamInfo._id)")
