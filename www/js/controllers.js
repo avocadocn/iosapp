@@ -4116,6 +4116,9 @@ angular.module('donlerApp.controllers', [])
       };
 
       $scope.goToRemindsPage = function() {
+        if ($rootScope.newCircleComment > 0 || $rootScope.newContent === true) {
+          $scope.getData();
+        }
         $state.go('circle_reminds');
       };
 

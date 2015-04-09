@@ -1983,9 +1983,6 @@ a>.login .companies_list:activated {
 .rank_rules .list .card {
   margin-top: 0;
 }
-.tab_company_page {
-  font-family: 'Heiti';
-}
 .tab_company_page .list {
   margin-bottom: 0;
 }
@@ -2141,9 +2138,6 @@ a>.login .companies_list:activated {
 .map_select .search_box input {
   background-color: #fff;
 }
-.contacts {
-  font-family: 'Heiti';
-}
 .contacts .bar {
   border-bottom: none;
 }
@@ -2215,7 +2209,6 @@ a>.login .companies_list:activated {
 }
 .personal .user_info {
   margin-top: 10px;
-  font-family: 'Heiti';
 }
 .personal .user_info .item_user {
   padding-top: 15px;
@@ -2263,9 +2256,6 @@ a>.login .companies_list:activated {
 }
 .personal .user_info .statistics .row a {
   text-decoration: none;
-}
-.personal .menu_list {
-  font-family: 'Heiti';
 }
 .personal .menu_list .item {
   padding-left: 50px;
@@ -2482,9 +2472,6 @@ a>.login .companies_list:activated {
   overflow: hidden;
   white-space: nowrap;
   font-size: 12px;
-}
-.personal_team_list_page {
-  font-family: 'Heiti';
 }
 .personal_team_list_page .team_list_item {
   padding-top: 15px;
@@ -3491,9 +3478,6 @@ a>.login .companies_list:activated {
 .invite_key .ion-clipboard {
   color: #3ca2e0;
 }
-.personal_invite_code_page {
-  font-family: 'Heiti';
-}
 .personal_invite_code_page .list {
   margin-top: 10px;
   margin-bottom: 0;
@@ -3645,9 +3629,11 @@ a>.login .companies_list:activated {
   height: 36px;
   line-height: 36px;
   color: #fff;
-  background-color: #666;
+  background-color: #000;
+  opacity: 0.7;
   text-align: center;
   text-decoration: none;
+  border-radius: 5px;
 }
 .circle_reminds_page .remind_item {
   position: relative;
@@ -4370,9 +4356,6 @@ a>.login .companies_list:activated {
 }
 .search_opponent .selected_team .tab_view .nav .opponent_tab_style.search .search_button:before {
   font-size: 18px;
-}
-.competition_team_page {
-  font-family: 'Heiti';
 }
 .competition_team_page .team_item {
   padding-left: 77px;
