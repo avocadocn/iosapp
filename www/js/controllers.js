@@ -1202,29 +1202,34 @@ angular.module('donlerApp.controllers', [])
 
   .controller('CompanyTeamListController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
 
-    Team.getList('company', null, false, function (err, teams) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.teams = teams.sort(function (last,next) {
-          return next.hasJoined - last.hasJoined;
-        });
-      }
-    });
-
-    $scope.refresh = function() {
+    $scope.refresh = function(unRefreshFlag) {
       Team.getList('company', null, false, function (err, teams) {
         if (err) {
           // todo
           console.log(err);
         } else {
-          $scope.teams = teams;
+          var leadTeams = [];
+          var memberTeams = [];
+          var unJoinTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else if(team.hasJoined){
+              memberTeams.push(team);
+            }
+            else {
+              unJoinTeams.push(team);
+            }
+          });
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+          $scope.unJoinTeams = unJoinTeams;
         }
-        $scope.$broadcast('scroll.refreshComplete');
+        unRefreshFlag ||  $scope.$broadcast('scroll.refreshComplete');
       });
     };
-
+    $scope.refresh(true);
     $scope.joinTeam = function(tid, index) {
       if(window.analytics){
         window.analytics.trackEvent('Click', 'joinTeamInAllTeam');
