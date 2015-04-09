@@ -1735,6 +1735,30 @@ a>.login .companies_list:activated {
 .discover .list {
   margin-top: 10px;
 }
+.discover .list .item {
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.discover .list .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.discover .list .item:first-child {
+  border-top-width: 1px;
+}
+.discover .list .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.discover .list .item:last-child:after {
+  content: none;
+  display: none;
+}
 .discover .list .item .icon {
   width: 3rem;
   font-size: 14px;
@@ -1891,7 +1915,7 @@ a>.login .companies_list:activated {
   position: absolute;
   left: 15px;
   top: 20px;
-  padding: 7px 9px;
+  padding: 5px 9px 7px;
   background-color: #3ba2e0;
   border-radius: 100%;
   color: #fff;
