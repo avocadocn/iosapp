@@ -937,6 +937,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       ctrl: '=', // 提供给外部的控制器
       onClickCommentButton: '=', // 点击评论按钮或快速回复的事件
       onClickContentImg: '=', // 点击图片的事件
+      onClickBlank: '=', // 点击空白区域的事件
       staticUrl: '=', // 静态资源的baseUrl
       kind: '@' // 卡片类型，默认为company,允许的值有company, user
     },
@@ -965,22 +966,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         }
       };
 
-      scope.closeLastCardOperators = function(circle) {
-        for (var i = 0, listLen = scope.circleList.length; i < listLen; i++) {
-          if (scope.circleList[i].content._id === circle.content._id) {
-            if (i !== scope.currentCardIndex) {
-              scope.lastCardIndex = scope.currentCardIndex;
-              scope.currentCardIndex = i;
-              if (scope.lastCardIndex !== null) {
-                scope.ctrls[scope.lastCardIndex].stopComment();
-              }
-            }
-
-            return;
-          }
-        }
-      };
-
       scope.removeFromList = function(id) {
         for (var i = 0, listLen = scope.circleList.length; i < listLen; i++) {
           if (scope.circleList[i].content._id === id) {
@@ -1004,9 +989,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           ctrl.postComment = function(content) {
             scope.ctrls[scope.currentCardIndex].postComment(content);
           };
-          ctrl.stopComment = function() {
-            scope.ctrls[scope.currentCardIndex].stopComment();
-          };
         }
       });
 
@@ -1025,7 +1007,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       user: '=', // 用户数据
       onClickCommentButton: '=', // 点击评论按钮或快速回复的事件
       onClickContentImg: '=', // 点击图片的事件
-      onOpenOperators: '=', // 打开点赞和评论的操作框
+      onClickBlank: '=', // 点击空白区域的事件
       onDelete: '=', // 删除整个circleContent时触发的事件
       staticUrl: '=', // 静态资源的baseUrl
       kind: '@' // 卡片类型，默认为company,允许的值有company, user
@@ -1066,11 +1048,31 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         }
       };
 
+      var focusLinkOnShow = ele[0].querySelector('.focus_on_show_comment_op');
+      var focusLinkOnHide = ele[0].querySelector('.focus_on_hide_comment_op');
       scope.toggleComment = function() {
         scope.circle.isToComment = !scope.circle.isToComment;
-        if (scope.circle.isToComment === true && scope.onOpenOperators) {
-          scope.onOpenOperators(scope.circle);
+        if (scope.circle.isToComment === true) {
+          focusLinkOnShow.focus();
         }
+        else {
+          focusLinkOnHide.focus();
+        }
+      };
+
+      scope.hideCommentOperators = function() {
+        scope.circle.isToComment = false;
+      };
+
+      scope.focusToHide = function() {
+        focusLinkOnHide.focus();
+      };
+
+      scope.clickBlank = function() {
+        if (scope.onClickBlank) {
+          scope.onClickBlank();
+        }
+        focusLinkOnHide.focus();
       };
 
       // 点击评论按钮
@@ -1301,8 +1303,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     transclude: true,
     scope: {
       ctrl: '=',
-      onPost: '=',
-      onStop: '=' // 取消评论时触发的事件
+      onPost: '='
     },
     link: function(scope, ele, attrs, ctrl) {
       scope.isCommenting = false;
@@ -1332,9 +1333,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       scope.stopComment = function() {
         scope.isCommenting = false;
         scope.isShowEmotions = false;
-        if (scope.onStop) {
-          scope.onStop();
-        }
       };
 
       var setPlaceHolderText = function(text) {
@@ -1352,10 +1350,11 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         scope.stopComment();
       };
 
-      scope.$watch('ctrl', function(newVal) {
-        if (newVal) {
-          newVal.setPlaceHolderText = setPlaceHolderText;
-          newVal.open = open;
+      scope.$watch('ctrl', function(ctrl) {
+        if (ctrl) {
+          ctrl.setPlaceHolderText = setPlaceHolderText;
+          ctrl.open = open;
+          ctrl.stopComment = scope.stopComment;
         }
       });
     },

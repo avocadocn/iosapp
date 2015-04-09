@@ -1,5 +1,5 @@
 
-<div class="dl_circle_card clearfix"><img ng-if="kind === 'company'" ng-src="{{staticUrl + circle.content.poster.photo}}/40/40" ng-click="goToUserPage(circle.content.poster._id)" class="circle_company_logo"/><img ng-if="kind === 'user' &amp;&amp; !circle.content.teamInfo &amp;&amp; circle.content.companyInfo" ng-src="{{staticUrl + circle.content.companyInfo.info.logo}}/32/32" class="circle_company_logo"/><img ng-if="kind === 'user' &amp;&amp; circle.content.teamInfo" ng-src="{{staticUrl + circle.content.teamInfo.logo}}/40/40" ng-click="goToTeamPage(circle.content.teamInfo._id)" class="circle_company_logo"/>
+<div ng-click="clickBlank()" class="dl_circle_card clearfix"><a href="#" ng-blur="hideCommentOperators()" class="focus_on_show_comment_op"></a><a href="#" class="focus_on_hide_comment_op"></a><img ng-if="kind === 'company'" ng-src="{{staticUrl + circle.content.poster.photo}}/40/40" ng-click="goToUserPage(circle.content.poster._id)" class="circle_company_logo"/><img ng-if="kind === 'user' &amp;&amp; !circle.content.teamInfo &amp;&amp; circle.content.companyInfo" ng-src="{{staticUrl + circle.content.companyInfo.info.logo}}/32/32" class="circle_company_logo"/><img ng-if="kind === 'user' &amp;&amp; circle.content.teamInfo" ng-src="{{staticUrl + circle.content.teamInfo.logo}}/40/40" ng-click="goToTeamPage(circle.content.teamInfo._id)" class="circle_company_logo"/>
   <div class="circle_info">
     <h2 ng-if="kind === 'company'" class="user_name link_name"><span ng-click="goToUserPage(circle.content.poster._id)" ng-bind="circle.content.poster.nickname"></span></h2>
     <h2 ng-if="kind === 'user' &amp;&amp; !circle.content.teamInfo &amp;&amp; circle.content.companyInfo" class="user_name link_name"><span ng-bind="circle.content.companyInfo.info.name"></span></h2>
@@ -7,26 +7,26 @@
     <div class="circle_content">
       <div ng-show="circle.content.content" ng-bind="circle.content.content" class="content_text"></div><span ng-if="showContentStatus.showOverAll" class="ellipsis">...</span><a ng-if="showContentStatus.showOverAll" ng-click="showAllContent()" class="link_name">全文</a><a ng-if="showContentStatus.showPartial" ng-click="showPartialContent()" class="link_name">收起</a>
     </div>
-    <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/150/150" error-img="error-img" ng-click="clickImg(circle.content.photos, photo)" class="preview_img"/></div>
-    <p ng-if="circle.content.campaign_id" class="campaign_link"><span class="text_from">来自活动</span><a ng-href="#/campaign/detail/{{circle.content.campaign_id}}" ng-bind="circle.content.campaignTheme" class="link_name"></a></p>
-    <div class="date_and_op clearfix"><span class="date text_item">{{circle.content.post_date | circleBeforeNow}}</span><span ng-if="uid === circle.content.post_user_id" ng-click="deleteCircleContent(circle)" class="link_name text_item">删除</span><i ng-class="{'ion_comment_dot_horizontal_blue': !circle.isToComment, 'ion_comment_dot_horizontal_gray': circle.isToComment}" class="op_icon dl_icon icon_small"></i>
-      <div ng-click="toggleComment()" class="toggle_click_wrap"></div>
+    <div class="image_box clearfix"><img ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/150/150" error-img="error-img" ng-click="clickImg(circle.content.photos, photo)" prevent-default="prevent-default" class="preview_img"/></div>
+    <p ng-if="circle.content.campaign_id" class="campaign_link"><span class="text_from">来自活动</span><a ng-href="#/campaign/detail/{{circle.content.campaign_id}}" ng-bind="circle.content.campaignTheme" prevent-default="prevent-default" class="link_name"></a></p>
+    <div class="date_and_op clearfix"><span class="date text_item">{{circle.content.post_date | circleBeforeNow}}</span><span ng-if="uid === circle.content.post_user_id" ng-click="deleteCircleContent(circle)" prevent-default="prevent-default" class="link_name text_item">删除</span><i ng-class="{'ion_comment_dot_horizontal_blue': !circle.isToComment, 'ion_comment_dot_horizontal_gray': circle.isToComment}" class="op_icon dl_icon icon_small"></i>
+      <div ng-click="toggleComment()" prevent-default="prevent-default" class="toggle_click_wrap"></div>
       <div ng-if="circle.isToComment" class="comment_op clearfix">
         <div class="op_bg_wrap"></div>
         <div class="op_box clearfix">
-          <div ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)" class="op_item"><i class="op_item_icon dl_icon icon_small ion_heart_outline"></i><span class="op_item_text">点赞</span></div>
-          <div ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak="ng-cloak" class="op_item"><i class="op_item_icon dl_icon icon_small ion_heart_outline"></i><span class="op_item_text">取消</span></div>
+          <div ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)" prevent-default="prevent-default" class="op_item"><i class="op_item_icon dl_icon icon_small ion_heart_outline"></i><span class="op_item_text">点赞</span></div>
+          <div ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" prevent-default="prevent-default" class="op_item"><i class="op_item_icon dl_icon icon_small ion_heart_outline"></i><span class="op_item_text">取消</span></div>
           <div class="op_divider"></div>
-          <div ng-click="commentToContent()" class="op_item"><i class="op_item_icon dl_icon icon_small ion_comment_line_white"></i><span class="op_item_text">评论</span></div>
+          <div ng-click="commentToContent()" prevent-default="prevent-default" class="op_item"><i class="op_item_icon dl_icon icon_small ion_comment_line_white"></i><span class="op_item_text">评论</span></div>
         </div>
       </div>
     </div>
     <div ng-if="circle.appreciate.length &gt; 0 || circle.textComments.length &gt; 0" class="circle_comment_list">
       <div class="circle_triangle"></div>
-      <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><span class="link_name">@</span><span ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster._id)" ng-bind="appr.poster.nickname" class="appreciate link_name"></span>
+      <div ng-if="circle.appreciate.length &gt; 0" class="appreciate_container"><span class="link_name">@</span><span ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster._id)" prevent-default="prevent-default" ng-bind="appr.poster.nickname" class="appreciate link_name"></span>
       </div>
       <div ng-if="circle.textComments.length &gt; 0" class="comment_container">
-        <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)" class="comment"><span ng-click="goToUserPage(comment.poster._id)" prevent-default="prevent-default" ng-bind="comment.poster.nickname" class="nickname link_name"></span><span ng-if="!comment.is_only_to_content" ng-cloak="ng-cloak" class="reply_text">回复</span><span ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default="prevent-default" ng-bind="comment.target.nickname" class="reply_to link_name"></span><span class="colon">:</span><span ng-bind-html="comment.content | emoji | unsafe" class="content"></span></div>
+        <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)" prevent-default="prevent-default" class="comment"><span ng-click="goToUserPage(comment.poster._id)" prevent-default="prevent-default" ng-bind="comment.poster.nickname" class="nickname link_name"></span><span ng-if="!comment.is_only_to_content" ng-cloak="ng-cloak" class="reply_text">回复</span><span ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default="prevent-default" ng-bind="comment.target.nickname" class="reply_to link_name"></span><span class="colon">:</span><span ng-bind-html="comment.content | emoji | unsafe" class="content"></span></div>
       </div>
     </div>
   </div>

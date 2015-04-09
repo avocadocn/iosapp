@@ -6,9 +6,9 @@
   </ion-header-bar>
   <ion-content>
     <div ng-if="circle">
-      <circle-card circle="circle" ctrl="circleCardCtrl" user="user" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-delete="onDelete" static-url="STATIC_URL"></circle-card>
+      <circle-card circle="circle" ctrl="circleCardCtrl" user="user" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" on-delete="onDelete" static-url="STATIC_URL"></circle-card>
     </div>
   </ion-content>
-  <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment"></circle-comment-box>
+  <circle-comment-box ctrl="circleCommentBoxCtrl"></circle-comment-box>
   <photo-swipe ctrl="pswpCtrl"></photo-swipe>
 </ion-view>

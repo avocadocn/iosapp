@@ -3688,15 +3688,6 @@ a>.login .companies_list:activated {
   width: 64px;
   height: 64px;
 }
-.circle_comment_wrap {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-}
 .circle_comment_box {
   z-index: 101;
   padding: 5px;
@@ -3755,12 +3746,21 @@ a>.login .companies_list:activated {
   border-top: none;
 }
 .dl_circle_card {
+  display: block;
   position: relative;
   text-decoration: none;
   min-height: 80px;
   padding: 25px 10px 24px 10px;
   background-color: #fff;
-  font-family: 'STHeiti';
+}
+.dl_circle_card .focus_on_show_comment_op,
+.dl_circle_card .focus_on_hide_comment_op {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  left: 20px;
+  top: 40px;
 }
 .dl_circle_card .link_name {
   color: #294a7e;
@@ -3773,6 +3773,7 @@ a>.login .companies_list:activated {
   left: 10px;
   width: 40px;
   height: 40px;
+  z-index: 1;
 }
 .dl_circle_card .circle_info {
   margin-left: 50px;

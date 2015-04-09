@@ -10,7 +10,7 @@ ion-view.circle_team_page
       .circle_owner_image_wrap
         img.circle_owner_image(ng-src="{{STATIC_URL + team.logo}}/140/140")
     
-    circle-card-list.dl_circle_card_list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL")
+    circle-card-list.dl_circle_card_list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL")
     
     .no_moment_remind(ng-if="loadingStatus.hasInit && circleContentList.length === 0")
       | 该小队还没有成员发过精彩瞬间，快去活动页发表吧。
@@ -18,5 +18,5 @@ ion-view.circle_team_page
     ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
   
   //- 与ion-content同级
-  circle-comment-box(ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment")
+  circle-comment-box(ctrl="circleCommentBoxCtrl" on-post="postComment")
   photo-swipe(ctrl="pswpCtrl")

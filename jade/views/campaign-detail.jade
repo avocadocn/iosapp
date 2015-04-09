@@ -42,10 +42,10 @@ ion-view.dl_campaign_detail
       .item.item-divider.circle(ng-if="circleContentList.length>0||campaign.join_flag==1")
         span 精彩瞬间
         i.icon.ion-camera(ng-if="campaign.join_flag==1" post-circle campaign="campaign")
-      circle-card-list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL")
+      circle-card-list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL")
       ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
   //- 与ion-content同级
-  circle-comment-box(ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment")
+  circle-comment-box(ctrl="circleCommentBoxCtrl" on-post="postComment")
   photo-swipe(ctrl="pswpCtrl")
   ion-footer-bar(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign ||campaign.allow.quitCampaign")
     button.button.button-full.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 报名参加

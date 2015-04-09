@@ -1,4 +1,6 @@
-.dl_circle_card.clearfix
+.dl_circle_card.clearfix(ng-click="clickBlank()")
+  a.focus_on_show_comment_op(href="#" ng-blur="hideCommentOperators()")
+  a.focus_on_hide_comment_op(href="#")
   img.circle_company_logo(ng-if="kind === 'company'" ng-src="{{staticUrl + circle.content.poster.photo}}/40/40" ng-click="goToUserPage(circle.content.poster._id)")
   img.circle_company_logo(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo" ng-src="{{staticUrl + circle.content.companyInfo.info.logo}}/32/32")
   img.circle_company_logo(ng-if="kind === 'user' && circle.content.teamInfo" ng-src="{{staticUrl + circle.content.teamInfo.logo}}/40/40" ng-click="goToTeamPage(circle.content.teamInfo._id)")
@@ -15,26 +17,26 @@
       a.link_name(ng-if="showContentStatus.showOverAll" ng-click="showAllContent()") 全文
       a.link_name(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
     .image_box.clearfix
-      img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/150/150" error-img ng-click="clickImg(circle.content.photos, photo)")
+      img.preview_img(ng-repeat="photo in circle.content.photos" ng-src="{{staticUrl + photo.uri}}/150/150" error-img ng-click="clickImg(circle.content.photos, photo)" prevent-default)
     p.campaign_link(ng-if="circle.content.campaign_id")
       span.text_from 来自活动
-      a.link_name(ng-href="#/campaign/detail/{{circle.content.campaign_id}}" ng-bind="circle.content.campaignTheme")
+      a.link_name(ng-href="#/campaign/detail/{{circle.content.campaign_id}}" ng-bind="circle.content.campaignTheme" prevent-default)
     .date_and_op.clearfix
       span.date.text_item {{circle.content.post_date | circleBeforeNow}}
-      span.link_name.text_item(ng-if="uid === circle.content.post_user_id" ng-click="deleteCircleContent(circle)") 删除
+      span.link_name.text_item(ng-if="uid === circle.content.post_user_id" ng-click="deleteCircleContent(circle)" prevent-default) 删除
       i.op_icon.dl_icon.icon_small(ng-class="{'ion_comment_dot_horizontal_blue': !circle.isToComment, 'ion_comment_dot_horizontal_gray': circle.isToComment}")
-      .toggle_click_wrap(ng-click="toggleComment()")
+      .toggle_click_wrap(ng-click="toggleComment()" prevent-default)
       .comment_op.clearfix(ng-if="circle.isToComment")
         .op_bg_wrap
         .op_box.clearfix
-          .op_item(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)")
+          .op_item(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)" prevent-default)
             i.op_item_icon.dl_icon.icon_small.ion_heart_outline
             span.op_item_text 点赞
-          .op_item(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" ng-cloak)
+          .op_item(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" prevent-default)
             i.op_item_icon.dl_icon.icon_small.ion_heart_outline
             span.op_item_text 取消
           .op_divider
-          .op_item(ng-click="commentToContent()")
+          .op_item(ng-click="commentToContent()" prevent-default)
             i.op_item_icon.dl_icon.icon_small.ion_comment_line_white
             span.op_item_text 评论
     .circle_comment_list(ng-if="circle.appreciate.length > 0 || circle.textComments.length > 0")
@@ -42,9 +44,9 @@
       .appreciate_container(ng-if="circle.appreciate.length > 0")
         //-i.ion-heart.appreciate_icon
         span.link_name @
-        span.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster._id)" ng-bind="appr.poster.nickname")
+        span.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster._id)" prevent-default ng-bind="appr.poster.nickname")
       .comment_container(ng-if="circle.textComments.length > 0")
-        .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)")
+        .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)" prevent-default)
           span.nickname.link_name(ng-click="goToUserPage(comment.poster._id)" prevent-default ng-bind="comment.poster.nickname")
           span.reply_text(ng-if="!comment.is_only_to_content" ng-cloak) 回复
           span.reply_to.link_name(ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default ng-bind="comment.target.nickname")

@@ -469,8 +469,8 @@ angular.module('donlerApp.controllers', [])
         $scope.circleCardListCtrl.postComment(content);
       };
 
-      $scope.stopComment = function() {
-        $scope.circleCardListCtrl.stopComment();
+      $scope.clickBlank = function() {
+        $scope.circleCommentBoxCtrl.stopComment();
       };
 
       $scope.onClickContentImg = function(images, img) {
@@ -4135,8 +4135,8 @@ angular.module('donlerApp.controllers', [])
         $scope.circleCardListCtrl.postComment(content);
       };
 
-      $scope.stopComment = function() {
-        $scope.circleCardListCtrl.stopComment();
+      $scope.clickBlank = function() {
+        $scope.circleCommentBoxCtrl.stopComment();
       };
 
       $scope.onClickContentImg = function(images, img) {
@@ -4247,8 +4247,8 @@ angular.module('donlerApp.controllers', [])
         $scope.circleCardListCtrl.postComment(content);
       };
 
-      $scope.stopComment = function() {
-        $scope.circleCardListCtrl.stopComment();
+      $scope.clickBlank = function() {
+        $scope.circleCommentBoxCtrl.stopComment();
       };
 
       $scope.onClickContentImg = function(images, img) {
@@ -4362,8 +4362,8 @@ angular.module('donlerApp.controllers', [])
         $scope.circleCardListCtrl.postComment(content);
       };
 
-      $scope.stopComment = function() {
-        $scope.circleCardListCtrl.stopComment();
+      $scope.clickBlank = function() {
+        $scope.circleCommentBoxCtrl.stopComment();
       };
 
       $scope.onClickContentImg = function(images, img) {
@@ -4465,6 +4465,10 @@ angular.module('donlerApp.controllers', [])
 
       $scope.onDelete = function() {
         $state.go('circle_company');
+      };
+
+      $scope.clickBlank = function() {
+        $scope.circleCommentBoxCtrl.stopComment();
       };
 
       $scope.onClickContentImg = function(images, img) {

@@ -22,11 +22,11 @@
         <div ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="footer_col"><i class="dl_icon ion_chat_circle"></i><span class="footer_label">活动讨论</span></div>
       </div>
       <div ng-if="circleContentList.length&gt;0||campaign.join_flag==1" class="item item-divider circle"><span>精彩瞬间</span><i ng-if="campaign.join_flag==1" post-circle="post-circle" campaign="campaign" class="icon ion-camera"></i></div>
-      <circle-card-list circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL"></circle-card-list>
+      <circle-card-list circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL"></circle-card-list>
       <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
     </div>
   </ion-content>
-  <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment"></circle-comment-box>
+  <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment"></circle-comment-box>
   <photo-swipe ctrl="pswpCtrl"></photo-swipe>
   <ion-footer-bar ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign ||campaign.allow.quitCampaign">
     <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">报名参加</button>
