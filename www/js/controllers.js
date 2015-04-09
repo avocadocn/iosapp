@@ -4927,9 +4927,7 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.doRefresh();
   }])
-  .controller('SearchOpponentController', ['$scope', '$rootScope', '$state', 'CompetitionMessage', 'Team', 'INFO', function ($scope, $rootScope, $state, CompetitionMessage, Team, INFO) {
-    $scope.hasSelected = false;
-    $scope.keywords ={value:''};
+  .controller('SearchOpponentController', ['$scope', '$rootScope', '$state', 'Team', 'INFO', function ($scope, $rootScope, $state, Team, INFO) {
     var getMyTeams = function(callback) {
       Team.getList('user', localStorage.id, null, function (err, teams) {
         if (err) {
@@ -4972,7 +4970,61 @@ angular.module('donlerApp.controllers', [])
     else{
       getMyTeams();
     }
+    $scope.doRefresh = function () {
+      getMyTeams(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+      
+    }
+  }])
+  .controller('SearchOpponentTeamController', ['$scope', '$rootScope', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $rootScope, $state, $ionicHistory, Team, INFO) {
+    $scope.keywords ={value:''};
+    $scope.coordinates =[];
+    $scope.goBack = function() {
+      if($ionicHistory.backView()){
+        $ionicHistory.goBack();
+      }
+      else {
+        $state.go('search_opponent');
+      }
+    };
+    $scope.$watch('nowTab',function (newVal, oldVal) {
+      if(newVal &&newVal!='search' && newVal!=oldVal) {
+        $scope.page =1;
+        getSearchTeam(newVal);
+      }
+    });
+    Team.getData($state.params.tid,function (err, data) {
+      if(err) {
+        consloe.log(err)
+      }
+      else{
+        $scope.myTeam = data;
+        $scope.myTeam.homeCourts.forEach(function(homeCourt, index){
+          if(homeCourt.loc.coordinates && homeCourt.loc.coordinates.length==2) {
+            $scope.coordinates = homeCourt.loc.coordinates;
+          }
+        });
+        //获取坐标
+        if($scope.coordinates.length==0) {
+          var onSuccess = function(position) {
+            $scope.coordinates = [position.coords.longitude,position.coords.latitude];
+          };
+          var onError = function(error) {
+             console.log('code: '    + error.code    + '\n' +
+                    'message: ' + error.message + '\n');
+          }
+
+          if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(onSuccess, onError);
+          }
+        }
+        $scope.nowTab = 'sameCity';
+      }
+    })
+    
     var getSearchTeam = function (type,addFlag) {
+      console.log(1);
       var queryData = {
         type: type,
         tid: $scope.myTeam._id,
@@ -4989,7 +5041,6 @@ angular.module('donlerApp.controllers', [])
       else if(type == 'search'){
         queryData.key = $scope.keywords.value;
       }
-      $rootScope.showLoading();
       Team.getSearchTeam(queryData,function (err, data) {
         if(err) {
           console.log(err);
@@ -5004,55 +5055,12 @@ angular.module('donlerApp.controllers', [])
           }
           $scope.maxPage = data.maxPage;
         }
-        $rootScope.hideLoading();
       });
     }
     $scope.doRefresh = function (argument) {
-      if($scope.hasSelected) {
-        $scope.page =1;
-        getSearchTeam($scope.nowTab);
-      }
-      else{
-        getMyTeams();
-      }
+      $scope.page =1;
+      getSearchTeam($scope.nowTab);
       $scope.$broadcast('scroll.refreshComplete');
-    }
-    $scope.$watch('nowTab',function (newVal, oldVal) {
-      if(newVal &&newVal!='search' && newVal!=oldVal) {
-        $scope.page =1;
-        getSearchTeam(newVal);
-      }
-    });
-    $scope.selectTeam = function (isLeader, index) {
-      $scope.hasSelected = true;
-
-      $scope.myTeam = isLeader ? $scope.leadTeams[index] :$scope.memberTeams[index] ;
-      $scope.nowTab = 'sameCity';
-      $scope.coordinates =[];
-      $scope.myTeam.homeCourts.forEach(function(homeCourt, index){
-        if(homeCourt.loc.coordinates && homeCourt.loc.coordinates.length==2) {
-          $scope.coordinates = homeCourt.loc.coordinates;
-        }
-      });
-      //获取坐标
-      if($scope.coordinates.length==0) {
-        var onSuccess = function(position) {
-          $scope.coordinates = [position.coords.longitude,position.coords.latitude];
-        };
-        function onError(error) {
-           console.log('code: '    + error.code    + '\n' +
-                  'message: ' + error.message + '\n');
-        }
-
-        if(navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(onSuccess, onError);
-        }
-      }
-    }
-    $scope.changeTeam = function () {
-      $scope.hasSelected = false;
-      $scope.myTeam = null;
-      $scope.nowTab = null;
     }
     $scope.changeFilter = function (filter) {
       $scope.nowTab = filter;

@@ -438,6 +438,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'SearchOpponentController',
         templateUrl: './views/search_opponent.html'
       })
+      .state('search_opponent_team', {
+        url: '/discover/search_opponent/:tid',
+        controller: 'SearchOpponentTeamController',
+        templateUrl: './views/search_opponent_team.html'
+      })
       .state('competition_team', {
         url: '/competition/team/:targetTeamId',
         controller: 'CompetitionTeamController',

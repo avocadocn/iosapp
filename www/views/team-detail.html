@@ -17,9 +17,9 @@
         </div>
       </div>
       <div class="info_body">
-        <div class="score"><span>积分：{{team.score || 0}}</span><span class="activity_score">活跃度： {{team.activity_score}}</span><span class="odds_percent">胜率： {{team.odds_percent}}%</span></div>
-        <div class="start_time">成立时间: {{team.createTime | date:'yyyy-MM-dd'}}</div>
-        <div class="operator"><a ng-href="" class="btn">找对手</a>
+        <div class="score"><span>积分:{{team.score || 0}}</span><span class="activity_score">活跃度:{{team.activity_score}}</span><span class="odds_percent">胜率:{{team.odds_percent}}%</span></div>
+        <div class="start_time">成立时间:{{team.createTime | date:'yyyy-MM-dd'}}</div>
+        <div class="operator"><a ng-href="#/discover/search_opponent/{{team._id}}" class="btn">找对手</a>
           <button prevent-default="prevent-default" ng-if="team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak="ng-cloak" class="btn">已加入</button>
           <button prevent-default="prevent-default" ng-if="!team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak="ng-cloak" class="btn">立即加入</button>
         </div>
@@ -27,7 +27,7 @@
       <div class="item row members">
         <div class="col"><span class="title">队长</span><img ng-if="team.leaders.length&gt;0" ng-src="{{STATIC_URL + team.leaders[0].photo}}/30/30" class="user_logo"/></div><a ng-href="#/members/team/{{team._id}}" class="col"><span>成员({{team.memberCount}}人)</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
       </div>
-      <div ng-repeat="homeCourt in team.homeCourts" class="item home_court"><span class="title">主场{{$index==1?'一':'二'}}</span><span class="home_court">{{homeCourt.name || '他们很懒还没填写'}}</span></div><a ng-href="#/circle/circle_team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts ionic_icon icon_left"></i>精彩瞬间<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion_ballon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
+      <div ng-repeat="homeCourt in team.homeCourts" class="item home_court"><span class="title">主场{{$index==1?'一':'二'}}</span><span class="home_court_name">{{homeCourt.name || '他们很懒还没填写'}}</span></div><a ng-href="#/circle/circle_team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts ionic_icon icon_left"></i>精彩瞬间<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion_ballon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
     </div>
   </ion-content>
 </ion-view>

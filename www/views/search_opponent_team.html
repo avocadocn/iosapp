@@ -1,0 +1,45 @@
+
+<ion-view class="search_opponent">
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">找对手</h1>
+  </ion-header-bar>
+  <ion-content>
+    <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
+    <div class="selected_team">
+      <div class="team item now_team"><img ng-src="{{STATIC_URL +myTeam.logo}}/45/45" class="logo"/>
+        <div class="text">
+          <div class="tname">{{myTeam.name}}</div>
+          <div class="type"> <span>积分: {{myTeam.score_rank.score}} &nbsp;&nbsp;</span><span>活跃度: {{myTeam.score.total}}</span></div>
+        </div><a ng-href="#/discover/search_opponent" class="operator">
+          <p><i class="icon ion-arrow-swap"></i></p>
+          <button class="button button-small button-clear change_team">更换小队</button></a>
+      </div>
+      <div class="tab_view">
+        <ul class="nav">
+          <li ng-class="{'active':nowTab=='sameCity'}" class="opponent_tab_style sameCity"><a ng-click="changeFilter('sameCity')"> <span>同城</span></a></li>
+          <li ng-class="{'active':nowTab=='nearbyTeam'}" class="opponent_tab_style nearbyTeam"><a ng-click="changeFilter('nearbyTeam')"> <span>附近</span></a></li>
+          <li ng-class="{'active':nowTab=='search'}" class="opponent_tab_style search"><a ng-click="changeFilter('search')"> 
+              <input ng-disabled="!myTeam" ng-model="keywords.value" placeholder="公司名字、小队名" class="search_opponent_input"/>
+              <button ng-click="search()" class="search_button button icon ion-search"></button></a></li>
+        </ul>
+        <div class="tab_content">
+          <div ng-if="teams.length&gt;0" class="teams">
+            <div ng-click="gotTeamDetail(team._id)" ng-repeat="team in teams" class="team"><img ng-src="{{STATIC_URL +team.logo}}/60/60" class="logo"/>
+              <div class="text">
+                <div class="tname">{{team.name}}</div>
+                <div class="leader">公司: {{team.cname}}</div>
+                <div class="rank"><span>积分: {{team.score}}</span><span>活跃度: {{team.activity_score}}</span></div>
+              </div>
+            </div>
+          </div>
+          <div ng-if="teams.length===0" class="no_more_team"><span>没有可以推荐的小队了</span></div>
+          <div ng-if="page===maxPage &amp;&amp; teams.length!==0" class="no_more_team"><span>没有更多可推荐小队</span></div>
+          <div ng-if="teams.length&gt;0 &amp;&amp;page&lt;maxPage" class="operator">
+            <button ng-if="nowTab=='sameCity'" ng-click="changeRecommendTeam(nowTab)" class="button button-small button-clear">点击更换一批</button>
+            <button ng-if="nowTab!=='sameCity'" ng-click="moreTeam(nowTab)" class="button button-small button-clear">点击显示更多</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

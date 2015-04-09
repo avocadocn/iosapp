@@ -3063,7 +3063,7 @@ a>.login .companies_list:activated {
 .team_page .team_info .info_header .logo {
   position: absolute;
   left: 15px;
-  top: -30px;
+  top: -40px;
   border-radius: 5px;
   width: 80px;
   height: 80px;
@@ -3120,6 +3120,10 @@ a>.login .companies_list:activated {
   margin: 0 25px;
   min-width: 50px;
   text-align: center;
+  text-decoration: none;
+}
+.team_page .team_info .info_body .score span {
+  margin-right: 10px;
 }
 .team_page .team_info .members {
   font-size: 14px;
@@ -3146,8 +3150,14 @@ a>.login .companies_list:activated {
 .team_page .team_info .members .col:first-child {
   border-right: 1px solid #e2e2e2;
 }
+.team_page .team_info .home_court {
+  font-size: 14px;
+}
 .team_page .team_info .home_court .title {
   margin-right: 20px;
+}
+.team_page .team_info .home_court .home_court_name {
+  color: #666;
 }
 .team_page .team_info .info_footer {
   position: relative;
@@ -4197,6 +4207,7 @@ a>.login .companies_list:activated {
   text-align: center;
   padding: 15px 5px;
   height: 96px;
+  text-decoration: none;
 }
 .search_opponent .select_team .units .unit .logo {
   width: 45px;

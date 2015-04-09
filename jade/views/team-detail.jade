@@ -20,12 +20,12 @@ ion-view
             span.content {{team.brief || '无'}}
       .info_body
         .score
-          span 积分：{{team.score || 0}}
-          span.activity_score 活跃度： {{team.activity_score}}
-          span.odds_percent 胜率： {{team.odds_percent}}%
-        .start_time 成立时间: {{team.createTime | date:'yyyy-MM-dd'}}
+          span 积分:{{team.score || 0}}
+          span.activity_score 活跃度:{{team.activity_score}}
+          span.odds_percent 胜率:{{team.odds_percent}}%
+        .start_time 成立时间:{{team.createTime | date:'yyyy-MM-dd'}}
         .operator
-          a.btn(ng-href="") 找对手
+          a.btn(ng-href="#/discover/search_opponent/{{team._id}}") 找对手
           button.btn(prevent-default ng-if="team.hasJoined && !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak) 已加入
           button.btn(prevent-default ng-if="!team.hasJoined && !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak) 立即加入
       .item.row.members
@@ -37,7 +37,7 @@ ion-view
           span.icon.icon_small.ion-chevron-right.button-clear
       .item.home_court(ng-repeat="homeCourt in team.homeCourts")
         span.title 主场{{$index==1?'一':'二'}}
-        span.home_court {{homeCourt.name || '他们很懒还没填写'}}
+        span.home_court_name {{homeCourt.name || '他们很懒还没填写'}}
       a.item.item-icon-left.item-icon-right(ng-href="#/circle/circle_team/{{team._id}}")
         i.icon.ion-android-contacts.ionic_icon.icon_left
         | 精彩瞬间
