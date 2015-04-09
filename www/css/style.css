@@ -4323,7 +4323,7 @@ a>.login .companies_list:activated {
   height: 100%;
   padding: 10px;
   display: block;
-  color: rgba(102,102,102,0.4);
+  color: #666;
 }
 .search_opponent .selected_team .tab_view .nav .opponent_tab_style.active {
   border-bottom: 2px solid #3ca2e0;
