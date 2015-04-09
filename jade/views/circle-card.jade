@@ -1,13 +1,13 @@
 .dl_circle_card.clearfix(ng-click="clickBlank()")
   a.focus_on_show_comment_op(href="#" ng-blur="hideCommentOperators()")
   a.focus_on_hide_comment_op(href="#")
-  img.circle_company_logo.lazyload(data-src="{{staticUrl + circle.content.poster.photo}}/80/80" ng-click="goToUserPage(circle.content.poster._id)")
+  img.circle_company_logo.lazyload(data-src="{{staticUrl + circle.content.poster.photo}}/80/80" ng-click="goToUserPage(circle.content.poster)")
   //- 注：之前让个人的精彩瞬间显示活动对应的小队和公司信息，现在不需要，暂且注释，待需求稳定后移除注释代码
   //-img.circle_company_logo(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo" ng-src="{{staticUrl + circle.content.companyInfo.info.logo}}/32/32")
   //-img.circle_company_logo(ng-if="kind === 'user' && circle.content.teamInfo" ng-src="{{staticUrl + circle.content.teamInfo.logo}}/40/40" ng-click="goToTeamPage(circle.content.teamInfo._id)")
   .circle_info
     h2.user_name.link_name
-      span(ng-click="goToUserPage(circle.content.poster._id)" ng-bind="circle.content.poster.nickname")
+      span(ng-click="goToUserPage(circle.content.poster)" ng-bind="circle.content.poster.nickname")
     //-h2.user_name.link_name(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo")
       span(ng-bind="circle.content.companyInfo.info.name")
     //-h2.user_name.link_name(ng-if="kind === 'user' && circle.content.teamInfo")
@@ -21,7 +21,7 @@
       img.preview_img.lazyload(ng-repeat="photo in circle.content.photos" data-src="{{staticUrl + photo.uri}}/150/150" error-img ng-click="clickImg(circle.content.photos, photo)" prevent-default)
     p.campaign_link(ng-if="circle.content.campaign_id")
       span.text_from 来自活动
-      a.link_name(ng-href="#/campaign/detail/{{circle.content.campaign_id}}" ng-bind="circle.content.campaignTheme" prevent-default)
+      span.link_name(ng-click="goToCampaignPage(circle.content.campaign_id)" ng-bind="circle.content.campaignTheme" prevent-default)
     .date_and_op.clearfix
       span.date.text_item {{circle.content.post_date | circleBeforeNow}}
       span.link_name.text_item(ng-if="uid === circle.content.post_user_id" ng-click="deleteCircleContent(circle)" prevent-default) 删除
@@ -45,11 +45,11 @@
       .appreciate_container(ng-if="circle.appreciate.length > 0")
         //-i.ion-heart.appreciate_icon
         span.link_name @
-        span.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster._id)" prevent-default ng-bind="appr.poster.nickname")
+        span.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster)" prevent-default ng-bind="appr.poster.nickname")
       .comment_container(ng-if="circle.textComments.length > 0")
         .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)" prevent-default)
-          span.nickname.link_name(ng-click="goToUserPage(comment.poster._id)" prevent-default ng-bind="comment.poster.nickname")
+          span.nickname.link_name(ng-click="goToUserPage(comment.poster)" prevent-default ng-bind="comment.poster.nickname")
           span.reply_text(ng-if="!comment.is_only_to_content" ng-cloak) 回复
-          span.reply_to.link_name(ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target._id)" prevent-default ng-bind="comment.target.nickname")
+          span.reply_to.link_name(ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target)" prevent-default ng-bind="comment.target.nickname")
           span.colon :
           span.content(ng-bind-html="comment.content | emoji | unsafe")

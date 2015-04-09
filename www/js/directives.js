@@ -1026,10 +1026,18 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         });
       };
 
-      scope.goToUserPage = function(id) {
-        $state.go('user_info', {
-          userId: id
+      scope.goToCampaignPage = function(id) {
+        $state.go('campaigns_detail', {
+          id: id
         });
+      };
+
+      scope.goToUserPage = function(user) {
+        if (user.cid === localStorage.cid) {
+          $state.go('user_info', {
+            userId: user._id
+          });
+        }
       };
 
       scope.goToTeamPage = function(id) {
