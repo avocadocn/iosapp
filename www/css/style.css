@@ -35,7 +35,7 @@ textarea {
   border-color: #e3e3e3;
 }
 .bar {
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: 0;
 }
 .bar .dl_title {
   left: 70px !important;
