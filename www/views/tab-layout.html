@@ -55,7 +55,7 @@
           <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/><img ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png"/>
               <div ng-if="chatroom.unread" class="red_spot"></div>
               <h2>{{chatroom.name}}</h2>
-              <p class="chat_pre"><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息] </span><span ng-if="chatroom.latestChat">{{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:</span><span ng-if="chatroom.latestChat &amp;&amp; chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content||'[图片]' | emoji | unsafe"></span><span ng-if="chatroom.latestChat" ng-bind=" chatroom.latestChat.poster_team? '[提醒]':'[图片]'"></span></p></a>
+              <p ng-if="chatroom.latestChat" ng-cloak="ng-cloak" class="chat_pre"><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息] </span><span>{{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:</span><span ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe"></span><span ng-if="!chatroom.latestChat.content">{{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}</span></p></a>
             <div ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}" class="custom_border"></div>
           </div>
         </ul>
