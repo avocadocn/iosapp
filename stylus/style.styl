@@ -3171,6 +3171,8 @@ textarea
         opacity 1
         color col_textGray
         height 40px
+        min-height 40px
+        line-height 40px
         &.active
           color col_blue
           border-bottom 4px solid col_blue
@@ -3186,7 +3188,10 @@ textarea
       color col_textGray
       background-color white
       text-align center
-      font-size 10px
+      font-size 12px
+      border-bottom 1px solid #ccc
+      height 68px
+      margin-top 0
       .dot
         width 10px
         height 10px
@@ -3197,7 +3202,7 @@ textarea
       .text_left
         text-align left
       .status_text
-        margin 10px 0
+        margin 7px 0
         font-size 12px
         color col_mainText
       .create_time
@@ -3205,6 +3210,11 @@ textarea
       .team_name
         textOverflow()
         width 100%
+        line-height 14px
+      .team_logo
+        width 30px
+        height 30px
+        border-radius 5px
       .competition_type
         min-width 40px
         font-size 12px
