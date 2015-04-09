@@ -3163,33 +3163,27 @@ a>.login .companies_list:activated {
   color: #3ca2e0;
 }
 .dl_campaign_group,
-.timeline_card {
+.timeline_card,
+.competition_timeline_card {
   background-color: #fff;
 }
 .dl_campaign_group .dl_campaign_timeline_date,
-.timeline_card .dl_campaign_timeline_date {
+.timeline_card .dl_campaign_timeline_date,
+.competition_timeline_card .dl_campaign_timeline_date {
   background-color: #f7f7f7;
   padding: 7px 15px;
   font-size: 12px;
   line-height: 1;
 }
 .dl_campaign_group .dl_campaign_group .dl_campaign_group_date,
-.timeline_card .dl_campaign_group .dl_campaign_group_date {
+.timeline_card .dl_campaign_group .dl_campaign_group_date,
+.competition_timeline_card .dl_campaign_group .dl_campaign_group_date {
   margin: 1rem;
   height: 20px;
   background-color: #999;
   color: #fff;
   border-radius: 5px;
   text-align: center;
-}
-.dl_timeline:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 70px;
-  width: 3px;
-  background: #ccc;
-  left: 50%;
 }
 .dl_timeline .dl_timeline_card {
   z-index: 10;
@@ -4427,6 +4421,27 @@ a>.login .companies_list:activated {
   webkit-flex: 1;
   font-size: 14px;
   line-height: 24px;
+  color: #666;
+  text-align: center;
+}
+.competition_team_page .competition_timeline_card .together_campaign {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.competition_team_page .competition_timeline_card .text_label {
+  width: 60px;
+}
+.competition_team_page .competition_timeline_card .text_data {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   color: #666;
   text-align: center;
 }

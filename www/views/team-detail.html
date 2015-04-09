@@ -30,34 +30,4 @@
       <div ng-repeat="homeCourt in team.homeCourts" class="item home_court"><span class="title">主场{{$index==1?'一':'二'}}</span><span class="home_court">{{homeCourt.name || '他们很懒还没填写'}}</span></div><a ng-href="#/circle/circle_team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts ionic_icon icon_left"></i>精彩瞬间<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion_ballon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
     </div>
   </ion-content>
-  <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
-    <div class="pswp__bg"></div>
-    <div class="pswp__scroll-wrap">
-      <div class="pswp__container">
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-      </div>
-      <div class="pswp__ui pswp__ui--hidden">
-        <div class="pswp__top-bar">
-          <div class="pswp__counter"></div>
-          <button title="关闭" class="pswp__button pswp__button--close"></button>
-          <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
-          <button ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
-          <div class="pswp__preloader">
-            <div class="pswp__preloader__icn">
-              <div class="pswp__preloader__cut">
-                <div class="pswp__preloader__donut"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button title="上一张" class="pswp__button pswp__button--arrow--left"></button>
-        <button title="下一张" class="pswp__button pswp__button--arrow--right"></button>
-        <div class="pswp__caption">
-          <div class="pswp__caption__center"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 </ion-view>

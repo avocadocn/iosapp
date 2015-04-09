@@ -2537,7 +2537,7 @@ textarea
         padding-left 4px
         color col_blue
 //-timeline 卡片与小队timeline卡片共用时间样式
-.dl_campaign_group, .timeline_card
+.dl_campaign_group, .timeline_card ,.competition_timeline_card
   background-color #fff
   .dl_campaign_timeline_date
     background-color col_bottomGray
@@ -2553,14 +2553,6 @@ textarea
       border-radius 5px
       text-align center
 .dl_timeline
-  &:before
-    content ''
-    position absolute
-    top 0
-    bottom 70px
-    width 3px
-    background #ccc
-    left 50%
   .dl_timeline_card
     z-index 10
   .dl_timeline_date
@@ -3564,6 +3556,15 @@ textarea
       webkit-flex 1
       font-size 14px
       line-height 24px
+      color col_textGray
+      text-align center
+  .competition_timeline_card
+    .together_campaign
+      displayFlex()
+    .text_label
+      width 60px
+    .text_data
+      flexValue(1)
       color col_textGray
       text-align center
   .bar-footer
