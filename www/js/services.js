@@ -1052,6 +1052,15 @@ angular.module('donlerApp.services', [])
         },
         getData: function(id) {
           return $http.get(CONFIG.BASE_URL + '/companies/' + id);
+        },
+        edit: function(cid, postData, callback) {
+          $http.put(CONFIG.BASE_URL + '/companies/' + cid, postData)
+          .success(function (data, status) {
+            callback(null);
+          })
+          .error(function (data, status) {
+            callback('error');
+          });          
         }
       };
     }])

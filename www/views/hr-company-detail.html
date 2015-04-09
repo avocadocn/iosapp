@@ -1,0 +1,13 @@
+
+<ion-view class="company">
+  <ion-header-bar><a ng-href="#/hr/home" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 ng-bind="company.name" class="title"></h1><a ng-href="#/hr/company_edit" ng-cloak="ng-cloak" class="button">编辑</a>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <div class="item item-avatar company_info_item"><img ng-src="{{STATIC_URL + company.logo}}/90/90" class="company_logo"/>
+        <h2 ng-bind="company.shortName" class="company_name"></h2>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

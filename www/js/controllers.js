@@ -2329,6 +2329,143 @@ angular.module('donlerApp.controllers', [])
       $state.go('hr_editTeam',{teamId:team._id});
     };
   }])
+  // hr查看公司资料
+  .controller('HrCompanyController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
+    // 获取公司数据
+    Company.getData(localStorage.id)
+      .success(function(data) {
+        $scope.company = data;
+      })
+      .error(function(data) {
+        $ionicPopup.alert({
+          title: '提示',
+          template: data.msg || '获取公司数据失败'
+        });
+      });
+
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // 为true或undefined时获取公司数据
+      if (INFO.hasModifiedCompany !== false) {
+        INFO.hasModifiedCompany = false;
+        Company.getData(localStorage.id)
+          .success(function(data) {
+            $scope.company = data;
+          })
+          .error(function(data) {
+            $ionicPopup.alert({
+              title: '提示',
+              template: data.msg || '获取公司数据失败'
+            });
+          });
+      }
+    });
+  }])
+  // hr编辑公司资料
+  .controller('HrCompanyEditController', ['$scope', '$state', '$stateParams', '$ionicPopup', 'INFO', 'Company', 'Upload', 'CONFIG', 
+    function ($scope, $state, $stateParams, $ionicPopup, INFO, Company, Upload, CONFIG) {
+    // 获取公司数据
+    Company.getData(localStorage.id)
+      .success(function(data) {
+        $scope.company = data;
+        $scope.formData = {
+          intro: $scope.company.intro || ''
+        };
+      })
+      .error(function(data) {
+        $ionicPopup.alert({
+          title: '提示',
+          template: data.msg || '获取公司数据失败'
+        });
+      });
+
+    $scope.editing = false;
+
+    var updateFormData = function () {
+      $scope.formData = {
+        intro: $scope.company.intro || ''
+      };
+    };
+
+    $scope.toEditing = function () {
+      if ($scope.editing === false) {
+        updateFormData();
+        $scope.editing = true;
+      }
+    };
+    $scope.cancelEditing = function () {
+      if ($scope.editing === true) {
+        updateFormData();
+        $scope.editing = false;
+      }
+    };
+
+    var refreshCompanyData = function (callback) {
+      Company.getData(localStorage.id)
+      .success(function (data, status) {
+        $scope.company = data;
+        callback && callback(data);
+      })
+      .error(function (data, status) {
+        callback('error');
+      });
+    };
+    
+    $scope.changed = false;
+    $scope.change = function() {
+      $scope.changed = true;
+    };
+
+    $scope.edit = function () {
+      if (!$scope.changed) {
+        $scope.editing = false;
+        return;
+      }
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'leaderEditTeam');
+      }
+      $scope.editingLock = true;
+      Company.edit(localStorage.id, $scope.formData, function (err) {
+        if (err) {
+          $ionicPopup.alert({
+            title: '编辑失败',
+            template: err
+          });
+        } else {
+          refreshCompanyData(function (data) {
+            updateFormData();
+            $scope.editingLock = false;
+          });
+          $scope.editing = false;
+        }
+      });
+    };
+
+    $scope.showUploadActionSheet = function () {
+      Upload.getPicture(true, function (err, imageURI) {//取图
+        if(!err) {
+          var addr = CONFIG.BASE_URL + '/companies/' + localStorage.id;
+          Upload.upload('logo', addr, {imageURI:imageURI}, function(err) {//上传
+            if(window.analytics){
+              window.analytics.trackEvent('Click', 'hrEditCompanyLogo');
+            }
+            if(!err){
+              var successAlert = $ionicPopup.alert({
+                title: '提示',
+                template: '修改logo成功'
+              });
+              INFO.hasModifiedCompany = true;
+              refreshCompanyData();
+            } else {
+              $ionicPopup.alert({
+                title: '提示',
+                template: '修改失败，请重试'
+              });
+            }
+          });
+        }
+      });
+    };
+  }])
   //-hr编辑小队信息
   .controller('HrEditTeamController', ['$scope', '$ionicPopup', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, INFO, Team, User) {
     $scope.formData = {name: INFO.team.name};
