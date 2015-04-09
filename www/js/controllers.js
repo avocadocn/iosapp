@@ -1230,37 +1230,18 @@ angular.module('donlerApp.controllers', [])
 
   }])
 
-  .controller('CompanyTeamListController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO',
-    function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
-    if($state.params.type) {
-      $scope.loading = true;
-      $scope.teams = INFO.officialTeamList;
-      $scope.loading = false;
-    }
-    else {
-      $scope.loading = true;
-      Team.getList('company', null, false, function (err, teams) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.teams = teams.sort(function (last,next) {
-            return next.hasJoined - last.hasJoined;
-          });
-          INFO.officialTeamList = $scope.teams;
-          $scope.loading = false;
-        }
-      });
-      // Team.getList('company', null, true, function (err, teams) {
-      //   if (err) {
-      //     // todo
-      //     console.log(err);
-      //   } else {
-      //     $scope.personalTeams = teams;
-      //     INFO.personalTeamList = teams;
-      //   }
-      // });
-    }
+  .controller('CompanyTeamListController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
+
+    Team.getList('company', null, false, function (err, teams) {
+      if (err) {
+        // todo
+        console.log(err);
+      } else {
+        $scope.teams = teams.sort(function (last,next) {
+          return next.hasJoined - last.hasJoined;
+        });
+      }
+    });
 
     $scope.refresh = function() {
       Team.getList('company', null, false, function (err, teams) {
@@ -1269,7 +1250,6 @@ angular.module('donlerApp.controllers', [])
           console.log(err);
         } else {
           $scope.teams = teams;
-          INFO.officialTeamList = teams;
         }
         $scope.$broadcast('scroll.refreshComplete');
       });

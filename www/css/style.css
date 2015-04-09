@@ -1987,7 +1987,6 @@ a>.login .companies_list:activated {
   font-family: 'Heiti';
 }
 .tab_company_page .list {
-  margin-top: 9px;
   margin-bottom: 0;
 }
 .tab_company_page .company_info_item {
@@ -2209,8 +2208,7 @@ a>.login .companies_list:activated {
 }
 .personal .list {
   padding-top: 0;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 0;
 }
 .personal .list .icon_right {
   right: 4px;
