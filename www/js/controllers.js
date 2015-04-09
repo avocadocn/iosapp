@@ -63,7 +63,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
 
-    Company.getData(localStorage.cid)
+    Company.getData(localStorage.id)
       .success(function(data) {
         $scope.company = data;
       })

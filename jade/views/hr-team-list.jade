@@ -12,5 +12,5 @@ ion-view.company
         p 状态: {{team.active? '正常':'关闭'}} 
         p 成员: {{team.memberCount}}
         p 积分: {{team.score.total}}
-        p 队长: {{team.leader.length>0?team.leader[0].nickname:'暂无'}}
+        p 队长: {{team.leader.length? team.leader[0].nickname:'暂无'}}
         i.icon.ion-compose

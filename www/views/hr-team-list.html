@@ -10,6 +10,6 @@
         <p>状态: {{team.active? '正常':'关闭'}} </p>
         <p>成员: {{team.memberCount}}</p>
         <p>积分: {{team.score.total}}</p>
-        <p>队长: {{team.leader.length>0?team.leader[0].nickname:'暂无'}}</p><i class="icon ion-compose"></i></a></ul>
+        <p>队长: {{team.leader.length? team.leader[0].nickname:'暂无'}}</p><i class="icon ion-compose"></i></a></ul>
   </ion-content>
 </ion-view>
