@@ -1,7 +1,7 @@
 ion-view.edit_info
 
   ion-header-bar
-    a.button.icon.ion-chevron-left(ng-if="!editing" ng-href="#/hr/company_detail" ng-cloak) &nbsp;返回
+    a.button.icon.ion-chevron-left(ng-if="!editing" ng-href="#/hr/home" ng-cloak) &nbsp;返回
     button.button(ng-if="editing" ng-click="cancelEditing()" ng-cloak) 取消
     h1.title 编辑公司信息
     button.button(ng-if="editing" ng-click="edit()" ng-disabled="editForm.$invalid" ng-cloak) 确定
@@ -18,17 +18,6 @@ ion-view.edit_info
       .item.item-input
         span.input-label 简介
         textarea.introduce(name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()")
-      //- .item.item-input.item-icon-right(edit-map location="formData.homeCourts[0]" map-name="homecourt0" changed="changed")
-      //-   span.input-label 主场1
-      //-   input(type="text" name="homecourt0" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[0].name" readonly)
-      //-   i.icon.ion-chevron-right
-      //- .item.item-input.item-icon-right(edit-map location="formData.homeCourts[1]" map-name="homecourt1" changed="changed")
-      //-   span.input-label 主场2
-      //-   input(type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name" readonly)
-      //-   i.icon.ion-chevron-right
-      //- a.item.item-input.item-icon-right(ng-href="#")
-      //-   span.input-label 修改公司封面
-      //-   i.icon.ion-chevron-right
       .item.item-thumbnail-right.item-icon-right(ng-click="showUploadActionSheetForCompanyCover()")
         img(ng-src="{{STATIC_URL + company.cover}}/160/160")
         h2 公司封面

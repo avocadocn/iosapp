@@ -1970,7 +1970,7 @@ textarea
       span
         float left
       .leader_logo
-        float left
+        float lefthr
         height 20px
         width 20px
         margin-right 10px
@@ -1997,6 +1997,71 @@ textarea
           font-size 12px
           //- text-overflow ellipsis
 
+//- HR公司主页
+.hr_company_page
+  .company_header
+    position relative
+    .company_cover
+      width 100%
+  .company_info
+    padding-top 0
+    padding-bottom 0
+    border-radius 5px
+    .info_header
+      position relative
+      padding 0 1rem
+      height 55px
+      color white
+      background-color white
+      .logo
+        position absolute
+        left 15px
+        top -40px
+        border-radius 5px
+        width 80px
+        height 80px
+        border 2px solid #ccc
+      .info_content
+        position absolute
+        left 110px
+        top -30px
+        .company_name
+          font-size 16px
+          text-shadow 2px 2px 3px black
+          line-height 30px
+        .company_brief
+          font-size 14px
+          color col_textGray
+    .company_member_num, .company_team_num
+      position absolute
+      right 50px
+      color #c4c4c4
+    .info_body
+      padding 15px
+      position relative 
+      z-index 2
+      background-color white
+      border-top 1px solid #e2e2e2
+      border-bottom 1px solid #e2e2e2
+      font-size 14px
+      color col_textGray
+    .icon
+      width 3rem
+      font-size 14px
+      color col_textGray
+      &.ion-android-contacts
+        font-size 22px
+        padding-left 4px
+        color col_blue
+  .bar-footer
+    height 50px
+    border-top 1px solid #ccc
+    .button
+      margin 0 15px
+      border-radius 5px
+      border 1px solid #e2e2e2
+      height 40px
+      color col_blue
 
 // 我的小队页面
 .personal_team_list_page

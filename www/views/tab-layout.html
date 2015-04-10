@@ -8,15 +8,15 @@
       <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container">
         <ion-scroll class="campaign_list">
           <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-                <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container cp_unjoin">
+                <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container 'cp_unjoin'">
                   <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>未参加的新活动 {{newCampaigns.length}}</span></div>
                   <new-campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns" is-last="$index===newCampaigns.length-1"></new-campaign-card>
                 </div>
-                <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container cp_now">
+                <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container 'cp_now'">
                   <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>进行中的活动 {{nowCampaigns.length}}</span></div>
                   <new-campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns" is-last="$index===nowCampaigns.length-1"></new-campaign-card>
                 </div>
-                <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container cp_unstart">
+                <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container 'cp_unstart'">
                   <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>即将开始的活动 {{unStartCampaigns.length}}</span></div>
                   <new-campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns" is-last="$index===unStartCampaigns.length-1"></new-campaign-card>
                 </div>

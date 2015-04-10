@@ -2495,7 +2495,7 @@ a>.login .companies_list:activated {
   float: left;
 }
 .edit_team_info .list .leader .leader_logo {
-  float: left;
+  float: lefthr;
   height: 20px;
   width: 20px;
   margin-right: 10px;
@@ -2524,6 +2524,84 @@ a>.login .companies_list:activated {
   overflow: hidden;
   white-space: nowrap;
   font-size: 12px;
+}
+.hr_company_page .company_header {
+  position: relative;
+}
+.hr_company_page .company_header .company_cover {
+  width: 100%;
+}
+.hr_company_page .company_info {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 5px;
+}
+.hr_company_page .company_info .info_header {
+  position: relative;
+  padding: 0 1rem;
+  height: 55px;
+  color: #fff;
+  background-color: #fff;
+}
+.hr_company_page .company_info .info_header .logo {
+  position: absolute;
+  left: 15px;
+  top: -40px;
+  border-radius: 5px;
+  width: 80px;
+  height: 80px;
+  border: 2px solid #ccc;
+}
+.hr_company_page .company_info .info_header .info_content {
+  position: absolute;
+  left: 110px;
+  top: -30px;
+}
+.hr_company_page .company_info .info_header .info_content .company_name {
+  font-size: 16px;
+  text-shadow: 2px 2px 3px #000;
+  line-height: 30px;
+}
+.hr_company_page .company_info .info_header .info_content .company_brief {
+  font-size: 14px;
+  color: #666;
+}
+.hr_company_page .company_info .company_member_num,
+.hr_company_page .company_info .company_team_num {
+  position: absolute;
+  right: 50px;
+  color: #c4c4c4;
+}
+.hr_company_page .company_info .info_body {
+  padding: 15px;
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  font-size: 14px;
+  color: #666;
+}
+.hr_company_page .company_info .icon {
+  width: 3rem;
+  font-size: 14px;
+  color: #666;
+}
+.hr_company_page .company_info .icon.ion-android-contacts {
+  font-size: 22px;
+  padding-left: 4px;
+  color: #3ca2e0;
+}
+.hr_company_page .bar-footer {
+  height: 50px;
+  border-top: 1px solid #ccc;
+}
+.hr_company_page .bar-footer .button {
+  margin: 0 15px;
+  border-radius: 5px;
+  border: 1px solid #e2e2e2;
+  height: 40px;
+  color: #3ca2e0;
 }
 .personal_team_list_page .team_list_item {
   padding-top: 15px;

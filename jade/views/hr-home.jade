@@ -1,16 +1,30 @@
-ion-view.company
+ion-view.hr_company_page
   ion-header-bar
-    h1.title(ng-bind="company.name")
+    h1.title {{company.name}}
   ion-content
-    .list
-      a.item.item-icon-right(href="#/hr/active_code")
-        | 员工验证码
-        i.icon.ion-chevron-right
-      a.item.item-icon-right(href="#/hr/team_page")
-        | 公司小队
-        i.icon.ion-chevron-right
-      a.item.item-icon-right(href="#/hr/company_detail")
+    .company_header(ng-style="familyMinHeight")
+      img.company_cover(ng-src="{{STATIC_URL + company.cover}}/640/380")
+    .company_info
+      .info_header.clearfix
+        img.logo(ng-src="{{STATIC_URL + company.logo}}/80/80")
+        .info_content
+          .company_name {{company.name}}
+          .company_brief 
+            span.title 简介:
+            span.content {{company.intro || '无'}}
+      a.item.item-icon-right(href="#/hr/company_edit")
         | 公司资料
         i.icon.ion-chevron-right
-    button.button.button-block.button-light.quit_button(ng-click="logout()") 退出登录
-
+      a.item.item-icon-right(href="#/hr/team_page")
+        | 成员
+        span.company_member_num {{company.memberNumber}}
+        i.icon.ion-chevron-right
+      a.item.item-icon-right(href="#/hr/active_code")
+        | 邀请新成员
+        i.icon.ion-chevron-right
+      a.item.item-icon-right(href="#/hr/team_page")
+        | 小队
+        span.company_team_num {{company.teamNumber}}
+        i.icon.ion-chevron-right
+  ion-footer-bar
+    button.button.button-full.hr_logout(ng-click="logout()") 退出登录
