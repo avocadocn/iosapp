@@ -1648,45 +1648,78 @@ textarea
   .list
     .card
       margin-top 0
-
+//-我的等页面通用">"
+.personal, .settings, .about, .settings_account, .contacts, .tab_company_page, .company
+  .list
+    margin-top 10px
+    .ion-chevron-right
+      font-size 14px
+      color #ccc
+    .ion-compose
+      color #333
+      font-size 20px
+      display block
+      top 16px
 //公司页
 .tab_company_page
+  .company_header
+    position relative
+    height 190px
+    .company_family
+      width 100%
+  .company_info
+    padding-top 0
+    padding-bottom 0
+    border-radius 5px
+    .info_header
+      position relative
+      padding 0 1rem
+      height 55px
+      color white
+      background-color white
+      .logo
+        position absolute
+        left 15px
+        top -40px
+        border-radius 5px
+        width 80px
+        height 80px
+        border 2px solid #ccc
+      .info_content
+        position absolute
+        left 110px
+        top -30px
+        .company_name
+          font-size 16px
+          text-shadow 2px 2px 3px black
+          line-height 30px
+          color white
+        .company_brief
+          font-size 14px
+          color col_textGray
   .list
     margin-bottom 0
-  .company_info_item
-    padding-top 15px
-    padding-bottom 15px
-    height 75px
-  .company_logo
-    width 45px !important
-    height 45px !important
-    max-width 45px !important
-    max-height 45px !important
-    border-radius 5px !important
-  .company_name
-    color col_mainText
-    font-size 14px
-    line-height 24px
-  .staff_item
-    height auto
-    padding-top 12px
-    padding-bottom 12px
-    padding-right 36px
-  .staff_photo
-    display block
-    float left
-    margin-right 15px
-    width 30px
-    height 30px
-  .more_text
-    float right
-    color col_textGray
-    font-size 12px
-    line-height 30px
-  .icon_right
-    right 0
-  .icon.ion-chevron-right
-    color #ababab
+    margin-top 0
+    .staff_item
+      height auto
+      padding-top 12px
+      padding-bottom 12px
+      padding-right 36px
+      .staff_photo
+        display block
+        float left
+        margin-right 15px
+        width 30px
+        height 30px
+      .more_text
+        float right
+        color col_textGray
+        font-size 12px
+        line-height 30px
+    .icon_right
+      right 0
+    .icon.ion-chevron-right
+      color #ababab
   .menu_list
     .item
       padding-left 50px
@@ -1725,18 +1758,7 @@ textarea
       .logo
         width 30px
         height 30px
-//-我的等页面通用">"
-.personal, .settings, .about, .settings_account, .contacts, .tab_company_page, .company
-  .list
-    margin-top 10px
-    .ion-chevron-right
-      font-size 14px
-      color #ccc
-    .ion-compose
-      color #333
-      font-size 20px
-      display block
-      top 16px
+
 //-通讯录
 .platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header.search_box:not(.bar-subheader).item-input-inset 
     .item-input-wrapper

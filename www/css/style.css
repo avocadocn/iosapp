@@ -2026,49 +2026,107 @@ a>.login .companies_list:activated {
 .rank_rules .list .card {
   margin-top: 0;
 }
+.personal .list,
+.settings .list,
+.about .list,
+.settings_account .list,
+.contacts .list,
+.tab_company_page .list,
+.company .list {
+  margin-top: 10px;
+}
+.personal .list .ion-chevron-right,
+.settings .list .ion-chevron-right,
+.about .list .ion-chevron-right,
+.settings_account .list .ion-chevron-right,
+.contacts .list .ion-chevron-right,
+.tab_company_page .list .ion-chevron-right,
+.company .list .ion-chevron-right {
+  font-size: 14px;
+  color: #ccc;
+}
+.personal .list .ion-compose,
+.settings .list .ion-compose,
+.about .list .ion-compose,
+.settings_account .list .ion-compose,
+.contacts .list .ion-compose,
+.tab_company_page .list .ion-compose,
+.company .list .ion-compose {
+  color: #333;
+  font-size: 20px;
+  display: block;
+  top: 16px;
+}
+.tab_company_page .company_header {
+  position: relative;
+  height: 190px;
+}
+.tab_company_page .company_header .company_family {
+  width: 100%;
+}
+.tab_company_page .company_info {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 5px;
+}
+.tab_company_page .company_info .info_header {
+  position: relative;
+  padding: 0 1rem;
+  height: 55px;
+  color: #fff;
+  background-color: #fff;
+}
+.tab_company_page .company_info .info_header .logo {
+  position: absolute;
+  left: 15px;
+  top: -40px;
+  border-radius: 5px;
+  width: 80px;
+  height: 80px;
+  border: 2px solid #ccc;
+}
+.tab_company_page .company_info .info_header .info_content {
+  position: absolute;
+  left: 110px;
+  top: -30px;
+}
+.tab_company_page .company_info .info_header .info_content .company_name {
+  font-size: 16px;
+  text-shadow: 2px 2px 3px #000;
+  line-height: 30px;
+  color: #fff;
+}
+.tab_company_page .company_info .info_header .info_content .company_brief {
+  font-size: 14px;
+  color: #666;
+}
 .tab_company_page .list {
   margin-bottom: 0;
+  margin-top: 0;
 }
-.tab_company_page .company_info_item {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  height: 75px;
-}
-.tab_company_page .company_logo {
-  width: 45px !important;
-  height: 45px !important;
-  max-width: 45px !important;
-  max-height: 45px !important;
-  border-radius: 5px !important;
-}
-.tab_company_page .company_name {
-  color: #202020;
-  font-size: 14px;
-  line-height: 24px;
-}
-.tab_company_page .staff_item {
+.tab_company_page .list .staff_item {
   height: auto;
   padding-top: 12px;
   padding-bottom: 12px;
   padding-right: 36px;
 }
-.tab_company_page .staff_photo {
+.tab_company_page .list .staff_item .staff_photo {
   display: block;
   float: left;
   margin-right: 15px;
   width: 30px;
   height: 30px;
 }
-.tab_company_page .more_text {
+.tab_company_page .list .staff_item .more_text {
   float: right;
   color: #666;
   font-size: 12px;
   line-height: 30px;
 }
-.tab_company_page .icon_right {
+.tab_company_page .list .icon_right {
   right: 0;
 }
-.tab_company_page .icon.ion-chevron-right {
+.tab_company_page .list .icon.ion-chevron-right {
   color: #ababab;
 }
 .tab_company_page .menu_list .item {
@@ -2136,37 +2194,6 @@ a>.login .companies_list:activated {
 .tab_company_page .menu_list .badge_image .logo {
   width: 30px;
   height: 30px;
-}
-.personal .list,
-.settings .list,
-.about .list,
-.settings_account .list,
-.contacts .list,
-.tab_company_page .list,
-.company .list {
-  margin-top: 10px;
-}
-.personal .list .ion-chevron-right,
-.settings .list .ion-chevron-right,
-.about .list .ion-chevron-right,
-.settings_account .list .ion-chevron-right,
-.contacts .list .ion-chevron-right,
-.tab_company_page .list .ion-chevron-right,
-.company .list .ion-chevron-right {
-  font-size: 14px;
-  color: #ccc;
-}
-.personal .list .ion-compose,
-.settings .list .ion-compose,
-.about .list .ion-compose,
-.settings_account .list .ion-compose,
-.contacts .list .ion-compose,
-.tab_company_page .list .ion-compose,
-.company .list .ion-compose {
-  color: #333;
-  font-size: 20px;
-  display: block;
-  top: 16px;
 }
 .platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header.search_box:not(.bar-subheader).item-input-inset .item-input-wrapper {
   margin-top: -1px !important;

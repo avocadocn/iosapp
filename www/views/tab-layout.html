@@ -8,15 +8,15 @@
       <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container">
         <ion-scroll class="campaign_list">
           <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-                <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container 'cp_unjoin'">
+                <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container cp_unjoin">
                   <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>未参加的新活动 {{newCampaigns.length}}</span></div>
                   <new-campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns" is-last="$index===newCampaigns.length-1"></new-campaign-card>
                 </div>
-                <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container 'cp_now'">
+                <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container cp_now">
                   <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>进行中的活动 {{nowCampaigns.length}}</span></div>
                   <new-campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns" is-last="$index===nowCampaigns.length-1"></new-campaign-card>
                 </div>
-                <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container 'cp_unstart'">
+                <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container cp_unstart">
                   <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>即将开始的活动 {{unStartCampaigns.length}}</span></div>
                   <new-campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns" is-last="$index===unStartCampaigns.length-1"></new-campaign-card>
                 </div>
@@ -101,10 +101,15 @@
       <ion-header-bar>
         <h1 class="title">公司</h1>
       </ion-header-bar>
-      <ion-content>
-        <div class="list">
-          <div class="item item-avatar company_info_item"><img ng-src="{{STATIC_URL + company.logo}}/90/90" class="company_logo"/>
-            <h2 ng-bind="company.shortName" class="company_name"></h2>
+      <ion-content has-bouncing="false">
+        <div ng-style="familyMinHeight" class="company_header"><img ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380" class="company_family"/><img ng-if="!company.cover" src="./img/family.png" class="company_family"/>
+        </div>
+        <div class="company_info">
+          <div class="info_header clearfix"><img ng-if="company" ng-src="{{STATIC_URL + team.logo}}/80/80" class="logo"/>
+            <div class="info_content">
+              <div class="company_name">{{company.shortName}}</div>
+              <div class="company_brief"> <span class="title">简介:</span><span class="content">{{company.intro || '无'}}</span></div>
+            </div>
           </div>
         </div>
         <div class="list"><a href="#/company/contacts" class="item item-icon-right clearfix staff_item"><img ng-repeat="staff in staffList" ng-src="{{STATIC_URL + staff.photo}}/60/60" class="staff_photo"/><span class="more_text">更多同事</span><i class="icon ion-chevron-right icon_right"></i></a></div>

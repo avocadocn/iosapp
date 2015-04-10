@@ -3,11 +3,21 @@ ion-view.tab_company_page(ng-controller="CompanyController")
   ion-header-bar
     h1.title 公司
 
-  ion-content
-    .list
-      .item.item-avatar.company_info_item
-        img.company_logo(ng-src="{{STATIC_URL + company.logo}}/90/90")
-        h2.company_name(ng-bind="company.shortName")
+  ion-content(has-bouncing="false")
+    .company_header(ng-style="familyMinHeight")
+      //- ion-slide-box(ng-if="team.familyPhotos.length > 1" ng-cloak)
+      //-   ion-slide(ng-repeat="photo in team.familyPhotos")
+      //-     img.company_family(ng-src="{{STATIC_URL + photo.uri}}/640/380")
+      img.company_family(ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380")
+      img.company_family(ng-if="!company.cover" src="./img/family.png")
+    .company_info
+      .info_header.clearfix
+        img.logo(ng-if="company" ng-src="{{STATIC_URL + team.logo}}/80/80")
+        .info_content
+          .company_name {{company.shortName}}
+          .company_brief 
+            span.title 简介:
+            span.content {{company.intro || '无'}}
     .list
       a.item.item-icon-right.clearfix.staff_item(href="#/company/contacts")
         img.staff_photo(ng-repeat="staff in staffList" ng-src="{{STATIC_URL + staff.photo}}/60/60")
