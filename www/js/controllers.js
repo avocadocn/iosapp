@@ -694,7 +694,6 @@ angular.module('donlerApp.controllers', [])
     //先在缓存里取
     $rootScope.$on( "$ionicView.enter", function ( scopes, states ) {
       if(!states.stateName){
-        //? todo -M 可能需要到缓存里取什么...
         Socket.emit('enterRoom', localStorage.id);
         getChatrooms(INFO.needUpdateDiscussList);
       }
@@ -734,19 +733,21 @@ angular.module('donlerApp.controllers', [])
       });
     };
     getChatrooms(true);
-    Socket.on('newChatroomChat', function (chat) {
-      if($scope.chatrooms) {
-        var index = Tools.arrayObjectIndexOf($scope.chatrooms, chat.chatroom_id, '_id');
-        if(index>-1) {
-          $scope.chatrooms[index].unread ++;
-          $scope.chatrooms[index].latestChat = chat;
-          //升到第一个
-          var temp = $scope.chatrooms[index];
-          $scope.chatrooms.splice(index, 1);
-          $scope.chatrooms.unshift(temp);
-        }
-      }
-    });
+
+    //由于Tabcontroller已作更新，故此处不必更新
+    // Socket.on('newChatroomChat', function (chat) {
+    //   if($scope.chatrooms) {
+    //     var index = Tools.arrayObjectIndexOf($scope.chatrooms, chat.chatroom_id, '_id');
+    //     if(index>-1) {
+    //       // $scope.chatrooms[index].unread ++;
+    //       // $scope.chatrooms[index].latestChat = chat;
+    //       //升到第一个
+    //       // var temp = $scope.chatrooms[index];
+    //       // $scope.chatrooms.splice(index, 1);
+    //       // $scope.chatrooms.unshift(temp);
+    //     }
+    //   }
+    // });
 
     //以防万一，给个刷新接口。
     $scope.refresh = function() {
@@ -851,7 +852,7 @@ angular.module('donlerApp.controllers', [])
           if($scope.chatsList[chatListIndex][i].randomId === data.randomId){
             data.randomId = null;
             addPhotos(data);
-            // $scope.chatsList[chatListIndex][i] = data;
+            $scope.chatsList[chatListIndex][i] = data;
             break;
           }
         }
@@ -1008,7 +1009,8 @@ angular.module('donlerApp.controllers', [])
           'photo': currentUser.photo,
           'nickname': currentUser.nickname
         },
-        photos: [{uri:$scope.previewImg}]
+        photos: [{uri:$scope.previewImg}],
+        chat_type : 1
       };
       var chatsListIndex = $scope.chatsList.length -1;
       $scope.chatsList[chatsListIndex].push(newChat);
