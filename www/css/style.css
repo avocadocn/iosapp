@@ -639,7 +639,7 @@ textarea {
   display: -ms-flexbox;
   display: flex;
   padding: 0;
-  height: 40px;
+  height: 44px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col {
   -webkit-box-flex: 1;
@@ -653,7 +653,7 @@ textarea {
   padding: 10px;
   color: #666;
   height: 100%;
-  line-height: 20px;
+  line-height: 24px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col:last-child {
   border-right: none;

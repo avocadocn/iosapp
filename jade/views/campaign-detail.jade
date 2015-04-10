@@ -25,10 +25,10 @@ ion-view.dl_campaign_detail
         span.title 地点
         span.cp_location(ng-cloak)  {{campaign.location.name}}
         span.icon.icon_small.ion-chevron-right.button-clear
-      a.item.item_header(ng-if="campaign.notices.length>0 || campaign.allow.publishCampaignMessage" ng-href="#/campaign/notice/{{campaign._id}}")
+      a.item.item_header(ng-if="!campaign.is_end && (campaign.notices.length>0 || campaign.allow.publishCampaignMessage)" ng-href="#/campaign/notice/{{campaign._id}}")
         span.title 公告
         span.icon.icon_small.ion-chevron-right.button-clear
-      .item.item-text-wrap.campaign_content(ng-if="campaign && !campaign.is_start && !campaign.allow.quitCampaign")
+      .item.item-text-wrap.campaign_content
         p(ng-cloak)  {{campaign.content ?campaign.content :'暂无'}}
         .operator
           a.more_content(ng-if="campaign.content" ng-href="#/campaign/content/{{campaign._id}}")  更多活动详情
@@ -39,7 +39,7 @@ ion-view.dl_campaign_detail
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           i.dl_icon.ion_chat_circle
           span.footer_label 活动讨论
-      .item.item-divider.circle(ng-if="circleContentList.length>0||campaign.join_flag==1")
+      .item.item-divider.circle
         span 精彩瞬间
         i.icon.ion-camera(ng-if="campaign.join_flag==1" post-circle campaign="campaign")
       circle-card-list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL")
