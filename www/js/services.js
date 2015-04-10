@@ -1396,13 +1396,15 @@ angular.module('donlerApp.services', [])
         if(source==='discuss') {
           options.params= {randomId: data.randomId};
         }
-        else if(source==='photo'|| source === 'logo') {
+        else if(source==='photo'|| source === 'logo' || source === 'cover') {
           options.httpMethod = 'PUT';
         }
         if(source === 'logo') {
           options.fileKey = 'logo';//为什么这个这么特别= -
         }
-
+        if(source === 'cover') {
+          options.fileKey = 'cover';//为什么这个这么特别= -
+        }
         $ionicLoading.show({
           template: '上传中',
           duration: 5000

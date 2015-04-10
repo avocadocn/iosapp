@@ -2479,6 +2479,30 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
+    $scope.showUploadActionSheetForCompanyCover = function () {
+      Upload.getPicture(true, function (err, imageURI) {//取图
+        if(!err) {
+          var addr = CONFIG.BASE_URL + '/companies/' + localStorage.id + '/companyCover';
+          Upload.upload('cover', addr, {imageURI:imageURI}, function(err) {//上传
+            if(window.analytics){
+              window.analytics.trackEvent('Click', 'hrEditCompanyCover');
+            }
+            if(!err){
+              var successAlert = $ionicPopup.alert({
+                title: '提示',
+                template: '修改封面成功'
+              });
+              refreshCompanyData();
+            } else {
+              $ionicPopup.alert({
+                title: '提示',
+                template: '修改失败，请重试'
+              });
+            }
+          });
+        }
+      });
+    };
   }])
   //-hr编辑小队信息
   .controller('HrEditTeamController', ['$scope', '$ionicPopup', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, INFO, Team, User) {
