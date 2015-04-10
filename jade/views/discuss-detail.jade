@@ -36,29 +36,20 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
             a.logo(ng-if="comment.poster_team" ng-href="#/team/{{comment.poster_team._id}}")
               img(ng-src="{{STATIC_URL +comment.poster_team.logo+ '/45/45'}}")
             .contents
-              .name(ng-if="comment.poster_team" ng-cloak) {{comment.poster_team.name}}
+              //- .name(ng-if="comment.poster_team" ng-cloak) {{comment.poster_team.name}}
               .name(ng-if="comment.poster &&comment.poster._id !== userId" ng-cloak) {{comment.poster.nickname}}
               .name(ng-if="comment.poster && comment.poster._id == userId" ng-cloak) 我
-              .content(ng-switch="comment.chat_type")
-                
-                .triangle_isosceles(ng-switch-when=2)
-                  a(ng-href="#/competition/team/{{comment.recommend_team}}")
-                    span 我推荐了
-                    span.link {{comment.content}}
-                    span 小队给大家
-                .triangle_isosceles(ng-switch-when=3)
-                  a(ng-href="#/competition_message/detail/{{comment.competition_message}}")
-                    span.link 小队发了一个新的挑战，快去看看吧
-                .triangle_isosceles(ng-switch-when=4)
-                  a(ng-href="#/competition_message/detail/{{comment.competition_message}}")
-                    span.link 小队收到了一个新的挑战，快去看看吧
-                .triangle_isosceles(ng-switch-when=5)
-                  a(ng-href="#/competition_message/detail/{{comment.competition_message}}")
-                    span.link 小队接受了一个挑战快去看看吧
-                .triangle_isosceles(ng-switch-when=6)
-                  a(ng-href="#/competition_message/detail/{{comment.competition_message}}")
-                    span.link 小队发出的挑战被接受了快去看看吧
-                .triangle_isosceles(ng-switch-default ng-bind-html="comment.content | emoji | unsafe")
+              .remind_box.clearfix(ng-if="comment.chat_type>1")
+                a.no_underline(ng-href="{{ comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id : '#/competition_message/detail/' + comment.competition_message }}")
+                  .remind_box_head
+                    span {{comment.chat_type | remindWordsFormat : comment.competition_type}}
+                  .remind_box_content.clearfix
+                    .team_logo: img.team_logo(ng-src="{{STATIC_URL +comment.opponent_team.logo + '/45/45'}}")
+                    .text
+                      .tname {{comment.opponent_team.name}}
+                      .cname {{comment.opponent_team.cname}}
+              .content(ng-if="comment.chat_type===1")
+                .triangle_isosceles(ng-bind-html="comment.content | emoji | unsafe")
           .failed(ng-if="comment.failed" ng-cloak)
             .tip
               i.icon.ion-alert-circled

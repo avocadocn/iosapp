@@ -188,3 +188,27 @@ angular.module('donlerApp.filters', [])
     return result;
   };
 }])
+.filter("remindWordsFormat", [function() {
+  return function(input, compType) {
+    var result = '';
+    var comptext = compType===1 ? '挑战' : '联谊';
+    switch(input) {
+      case 2 :
+        result = '我发现了一个不错的小队';
+        break;
+      case 3 :
+        result = '我发出了一个' + comptext;
+        break;
+      case 4 :
+        result = '我收到了一个' + comptext;
+        break;
+      case 5 :
+        result = '我接受了一个' + comptext;
+        break;
+      case 6 :
+        result = '我发起的' + comptext + '被接受了';
+        break;
+    }
+    return result;
+  }
+}])

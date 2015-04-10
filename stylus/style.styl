@@ -93,6 +93,8 @@ textarea
   resize none
 .item
   border-color col_boderlighttGray
+a.no_underline
+  text-decoration none
 //-通用bar
 .bar
   border-bottom 0
@@ -1167,7 +1169,42 @@ textarea
           max-width 100%
           padding 2px 7px
           line-height 22px
-
+        .remind_box
+          border 1px solid #ddd
+          border-radius 3px
+          text-decoration none
+          background-color #fff
+          float left
+          margin-left 10px
+          width 93%
+          .remind_box_head
+            border-bottom 1px solid #ddd
+            color col_mainText
+            text-decoration none
+            padding 5px 10px
+            font-size 14px
+          .remind_box_content
+            padding 5px
+            padding-left 10px
+            .team_logo
+              float left
+              width 45px
+              height 45px
+              border-radius 5px
+            .text
+              float left
+              padding 5px
+              line-height 1
+              width 14rem
+              .tname
+                font-size 14px
+                color col_mainText
+                textOverflow()
+              .cname
+                margin-top 8px
+                font-size 12px
+                color col_lightGray
+                textOverflow()
       .triangle_isosceles
         position relative
         padding 0.5rem 1rem
