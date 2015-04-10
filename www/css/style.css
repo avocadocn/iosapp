@@ -1781,13 +1781,13 @@ a>.login .companies_list:activated {
 }
 .discover .rank_table .rank_line .name_col .team_name,
 .rank_page .rank_table .rank_line .name_col .team_name {
-  color: #666;
+  color: #202020;
   font-size: 14px;
   margin-bottom: 10px;
 }
 .discover .rank_table .rank_line .name_col .team_cname,
 .rank_page .rank_table .rank_line .name_col .team_cname {
-  color: #ababab;
+  color: #666;
   font-size: 12px;
 }
 .discover .rank_table .rank_line .score_col,
@@ -1803,30 +1803,6 @@ a>.login .companies_list:activated {
 }
 .discover .list {
   margin-top: 10px;
-}
-.discover .list .item {
-  border-width: 0;
-  padding-bottom: 17px;
-}
-.discover .list .item:after {
-  display: block;
-  position: absolute;
-  left: 15px;
-  bottom: 0;
-  width: 100%;
-  content: '';
-  border: 1px solid #ddd;
-}
-.discover .list .item:first-child {
-  border-top-width: 1px;
-}
-.discover .list .item:last-child {
-  border-bottom-width: 1px;
-  padding-bottom: 16px;
-}
-.discover .list .item:last-child:after {
-  content: none;
-  display: none;
 }
 .discover .list .item .icon {
   width: 3rem;
@@ -1855,6 +1831,27 @@ a>.login .companies_list:activated {
 .discover .rank_panel {
   border-top: 1px solid #ddd;
   margin-top: 30px;
+}
+.discover .rank_panel .rank {
+  background-color: #f48361;
+  padding: 10px 15px;
+  border: 0;
+}
+.discover .rank_panel .rank .rank_title {
+  float: left;
+  color: #fff;
+  line-height: 26px;
+}
+.discover .rank_panel .rank .rank_button {
+  float: right;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #666;
+  padding: 5px;
+  height: 26px;
+  min-height: 25px;
+  line-height: 1;
+  border: 0;
 }
 .discover .rank_panel .team_select {
   display: -webkit-box;
@@ -1909,6 +1906,7 @@ a>.login .companies_list:activated {
 .discover .rank_panel .team_select .team_container .team.selected_team .team_name {
   font-size: 14px;
   font-weight: 400;
+  color: #202020;
 }
 .discover .rank_panel .team_select .team_container .last_team .icon {
   left: 0;
@@ -1921,6 +1919,17 @@ a>.login .companies_list:activated {
 }
 .discover .rank_panel .rank_table {
   margin-top: 0;
+  border-top: 1px solid #d7d7d7;
+}
+.discover .rank_panel .rank_table .rank_line {
+  background-color: #faf9f9;
+  border: 0;
+}
+.discover .rank_panel .rank_table .rank_line .rank_col {
+  font-size: 16px;
+}
+.discover .rank_panel .rank_table .rank_line.single_line {
+  background-color: #f2f2f2;
 }
 .rank_page .rank_table .rank_title {
   height: 27px;

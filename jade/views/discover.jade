@@ -17,11 +17,14 @@ ion-view.discover(ng-controller="DiscoverController")
         | 挑战日志
         span.badge_dot(ng-if="hasNewDiscover")
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/rank/select")
-        i.icon.ion-android-contacts
-        | 排行榜
-        i.icon.ion-chevron-right
+      //- a.item.item-icon-left.item-icon-right(href="#/rank/select")
+      //-   i.icon.ion-android-contacts
+      //-   | 排行榜
+      //-   i.icon.ion-chevron-right
     .rank_panel
+      .item.rank
+        span.rank_title 排行榜
+        a.button.rank_button.no_underline(href="#/rank/select") 查看全部类型
       .team_select(ng-if="teams.length>0")
         .team_container
           .team.last_team(ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex>0")
@@ -38,7 +41,7 @@ ion-view.discover(ng-controller="DiscoverController")
             .team_name {{teams[nowTeamIndex+1].name}}
             i.icon.ion-ios7-arrow-forward
       .list.rank_table
-        a.item.rank_line.clearfix(ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank")
+        a.item.rank_line.clearfix(ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank")
           .rank_col {{rankTeam.score_rank.rank}}
           .logo_col: img.team_logo(ng-src="{{STATIC_URL + rankTeam.logo}}/45/45")
           .name_col

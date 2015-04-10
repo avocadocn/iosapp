@@ -1502,11 +1502,11 @@ a.no_underline
         width 60%
         padding-top 2px
         .team_name
-          color col_textGray
+          color col_mainText
           font-size 14px
           margin-bottom 10px
         .team_cname
-          color #ababab
+          color col_textGray
           font-size 12px
       .score_col
         padding-top 15px
@@ -1520,7 +1520,6 @@ a.no_underline
   .list
     margin-top 10px
     .item
-      indentLine()
       .icon
         width 3rem
         font-size 14px
@@ -1543,6 +1542,24 @@ a.no_underline
   .rank_panel
     border-top 1px solid #ddd
     margin-top 30px
+    .rank
+      background-color #f48361
+      padding 10px 15px
+      border 0
+      .rank_title
+        float left
+        color #fff
+        line-height 26px
+      .rank_button
+        float right
+        background-color #fff
+        border-radius 5px
+        color col_textGray
+        padding 5px
+        height 26px
+        min-height 25px
+        line-height 1
+        border 0
     .team_select
       displayFlex()
       background-color white
@@ -1578,6 +1595,7 @@ a.no_underline
           .team_name
             font-size 14px
             font-weight 400
+            color col_mainText
         .last_team
           .icon
             left 0
@@ -1587,7 +1605,15 @@ a.no_underline
             right 0
     .rank_table
       margin-top 0
-      //- height 290px
+      border-top 1px solid #d7d7d7
+      .rank_line
+        background-color #faf9f9
+        border 0
+        .rank_col
+          font-size 16px
+      .rank_line.single_line
+        background-color #f2f2f2
+
 
 //- 排行榜详细页
 .rank_page
@@ -1606,6 +1632,7 @@ a.no_underline
         text-align center
       a
         color #444
+
     .rank_line
       padding 10px
       height 70px

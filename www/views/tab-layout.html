@@ -65,8 +65,10 @@
       </ion-header-bar>
       <ion-content>
         <ion-refresher on-refresh="getMyTeams(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-        <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/competition_message/list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<span ng-if="hasNewDiscover" class="badge_dot"></span><i class="icon ion-chevron-right"></i></a><a href="#/rank/select" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>排行榜<i class="icon ion-chevron-right"></i></a></div>
+        <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/competition_message/list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<span ng-if="hasNewDiscover" class="badge_dot"></span><i class="icon ion-chevron-right"></i></a>
+        </div>
         <div class="rank_panel">
+          <div class="item rank"><span class="rank_title">排行榜</span><a href="#/rank/select" class="button rank_button no_underline">查看全部类型</a></div>
           <div ng-if="teams.length&gt;0" class="team_select">
             <div class="team_container">
               <div ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex&gt;0" class="team last_team"><i class="icon ion-ios7-arrow-back"></i><img ng-src="{{STATIC_URL + teams[nowTeamIndex-1].logo}}/45/45" class="team_logo"/>
@@ -84,7 +86,7 @@
               </div>
             </div>
           </div>
-          <div class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
+          <div class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
               <div class="rank_col">{{rankTeam.score_rank.rank}}</div>
               <div class="logo_col"><img ng-src="{{STATIC_URL + rankTeam.logo}}/45/45" class="team_logo"/></div>
               <div class="name_col">
