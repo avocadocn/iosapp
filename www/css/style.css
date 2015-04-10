@@ -291,6 +291,18 @@ textarea {
   font-size: 14px;
   line-height: 1;
 }
+.campaigns_container .campaign_list .campaign_container.cp_unjoin .campaign_container_title,
+.campaigns_container .campaign_list .campaign_container.cp_unjoin .dl_cp_time_countdown {
+  color: #f48361;
+}
+.campaigns_container .campaign_list .campaign_container.cp_now .campaign_container_title,
+.campaigns_container .campaign_list .campaign_container.cp_now .dl_cp_time_countdown {
+  color: #13adb6;
+}
+.campaigns_container .campaign_list .campaign_container.cp_unstart .campaign_container_title,
+.campaigns_container .campaign_list .campaign_container.cp_unstart .dl_cp_time_countdown {
+  color: #3ca2df;
+}
 .dl_timeline_card,
 .dl_campaign_card {
   background-color: #fff;
@@ -309,7 +321,7 @@ textarea {
   width: 60px;
   height: 60px;
   border-radius: 5px;
-  background-color: #f7f7f7;
+  background-color: #e3e3e3;
   float: left;
 }
 .dl_timeline_card .campaign_card .dl_card_content .dl_cp_logos .dl_team_logo,
@@ -461,13 +473,11 @@ textarea {
   text-align: center;
 }
 .dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown .dl_cp_time_text {
-  color: #707070;
   border-right: 1px solid #e3e3e3;
   padding-right: 5px;
 }
 .dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown .dl_cp_time_count {
   margin-left: 5px;
-  color: #707070;
 }
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member {
   margin-bottom: 0;
@@ -593,6 +603,10 @@ textarea {
   padding: 15px;
   font-size: 14px;
   color: #202020;
+}
+.dl_campaign_detail .campaign_detail .item.campaign_content .content_simple {
+  max-height: 60px;
+  overflow-y: hidden;
 }
 .dl_campaign_detail .campaign_detail .item.campaign_content .operator {
   text-align: center;

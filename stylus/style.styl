@@ -18,7 +18,9 @@ col_link = #294a7e
 col_mainText = #202020
 col_textGray = #666666
 col_boderlighttGray = #e3e3e3
-
+col_now = #13adb6
+col_unstart = #3ca2df
+col_unjoin = #f48361
 // mixins
 dl_card()
   display block
@@ -298,7 +300,18 @@ textarea
         color #707070
         font-size 14px
         line-height 1
-
+      //未参加的新活动
+      &.cp_unjoin
+        .campaign_container_title, .dl_cp_time_countdown
+          color col_unjoin
+      //进行中的活动
+      &.cp_now
+        .campaign_container_title, .dl_cp_time_countdown
+          color col_now
+      //即将开始的活动
+      &.cp_unstart
+        .campaign_container_title, .dl_cp_time_countdown
+          color col_unstart
 //-两个卡片的共用样式
 .dl_timeline_card, .dl_campaign_card
   background-color #fff
@@ -314,7 +327,7 @@ textarea
         width 60px
         height 60px
         border-radius 5px
-        background-color col_bottomGray
+        background-color col_boderlighttGray
         float left
         .dl_team_logo
           width 60px
@@ -417,12 +430,10 @@ textarea
           line-height 20px
           text-align center
           .dl_cp_time_text
-            color col_textBlack
             border-right 1px solid col_boderlighttGray
             padding-right 5px
           .dl_cp_time_count
             margin-left 5px
-            color col_textBlack
     .dl_card_content
       .dl_cp_texts
         .dl_cp_member
@@ -510,16 +521,19 @@ textarea
       .status
         float right
         &.now
-          color #13adb6
+          color col_now
         &.unstart
-          color #3ca2df
+          color col_unstart
         &.unjoin
-          color #f48361
+          color col_unjoin
     .item
       padding 15px
       font-size 14px
       color col_mainText
       &.campaign_content
+        .content_simple
+          max-height 60px
+          overflow-y hidden
         .operator
           text-align center
           padding-top 5px

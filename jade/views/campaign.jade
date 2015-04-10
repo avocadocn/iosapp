@@ -1,6 +1,6 @@
 ion-view(ng-controller="CampaignController")
   mixin campaignsContainer(containerTitle, items,itemsClass,orderByStr)
-    .campaign_container(ng-if="nowType=='all'||nowType=='#{items}'")
+    .campaign_container(class="'#{itemsClass}'" ng-if="nowType=='all'||nowType=='#{items}'")
       .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" ng-cloak)
         span #{containerTitle} {{#{items}.length}}
       new-campaign-card(ng-repeat="campaign in #{items}" campaign="campaign" campaign-index="$index" campaign-filter="#{items}" is-last="$index===#{items}.length-1")
@@ -23,10 +23,9 @@ ion-view(ng-controller="CampaignController")
     //-   a.button.button-clear(ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}") 即将
     ion-scroll.campaign_list
       ion-refresher(on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
-      +campaignsContainer('未参加的新活动','newCampaigns','icon_darkBlue')
-      +campaignsContainer('挑战','provokes','icon_iconPurple')
-      +campaignsContainer('进行中的活动','nowCampaigns','icon_borderPurple')
-      +campaignsContainer('即将开始的活动','unStartCampaigns','icon_textPurple')
+      +campaignsContainer('未参加的新活动','newCampaigns','cp_unjoin')
+      +campaignsContainer('进行中的活动','nowCampaigns','cp_now')
+      +campaignsContainer('即将开始的活动','unStartCampaigns','cp_unstart')
       .no_campaign(ng-if="noCampaigns" ng-cloak)
         .no_campaign_tip
           p 没有活动怎么办?
@@ -37,7 +36,7 @@ ion-view(ng-controller="CampaignController")
 script(id="my-popover.html" type="text/ng-template")
   ion-popover-view.dl_popover.campaign_filter_popover
     ion-content.dl_popover_content
-      .dl_popover_button(ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}") 所有活动
-      .dl_popover_button(ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}") 新活动
-      .dl_popover_button(ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}") 即将开始的活动
+      .dl_popover_button(ng-click="filter('all')") 所有活动
+      .dl_popover_button(ng-click="filter('newCampaigns')") 新活动
+      .dl_popover_button(ng-click="filter('unStartCampaigns')") 即将开始的活动
       .dl_popover_button(ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}") 正在进行的活动

@@ -29,7 +29,7 @@ ion-view.dl_campaign_detail
         span.title 公告
         span.icon.icon_small.ion-chevron-right.button-clear
       .item.item-text-wrap.campaign_content
-        p(ng-cloak)  {{campaign.content ?campaign.content :'暂无'}}
+        p.content_simple(ng-cloak)  {{campaign.content ?campaign.content :'暂无'}}
         .operator
           a.more_content(ng-if="campaign.content" ng-href="#/campaign/content/{{campaign._id}}")  更多活动详情
       .item.campaign_footer

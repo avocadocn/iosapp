@@ -15,7 +15,7 @@
       </div>
       <div class="campaign_status"><span ng-cloak="ng-cloak" class="dl_cp_time">{{campaign.create_time | beforeNow}}发布</span><span ng-class="{'now':campaign.is_start&amp;&amp;!campaign.is_end,'unstart':!campaign.is_start,'unjoin':campaign.join_flag!=1}" class="status">{{campaign.start_time | campaignStatus:campaign.end_time}}</span></div><a ng-href="#/location/{{campaign._id}}" class="item item_header cp_address"><span class="title">地点</span><span ng-cloak="ng-cloak" class="cp_location"> {{campaign.location.name}}</span><span class="icon icon_small ion-chevron-right button-clear"></span></a><a ng-if="!campaign.is_end &amp;&amp; (campaign.notices.length&gt;0 || campaign.allow.publishCampaignMessage)" ng-href="#/campaign/notice/{{campaign._id}}" class="item item_header"><span class="title">公告</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
       <div class="item item-text-wrap campaign_content">
-        <p ng-cloak="ng-cloak"> {{campaign.content ?campaign.content :'暂无'}}</p>
+        <p ng-cloak="ng-cloak" class="content_simple"> {{campaign.content ?campaign.content :'暂无'}}</p>
         <div class="operator"><a ng-if="campaign.content" ng-href="#/campaign/content/{{campaign._id}}" class="more_content"> 更多活动详情</a></div>
       </div>
       <div class="item campaign_footer"><a ng-href="#/members/campaign/{{campaign._id}}" class="footer_col"><i class="ion_member dl_icon icon_small"></i><span ng-cloak="ng-cloak" class="footer_label"> 已报名({{campaign.members_count}})</span></a>

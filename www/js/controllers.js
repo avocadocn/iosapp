@@ -338,26 +338,35 @@ angular.module('donlerApp.controllers', [])
       return false;
     };
     $scope.quit = function(id){
-      if(window.analytics){
-        window.analytics.trackEvent('Click', 'quitCampaign');
-      }
-      Campaign.quit(id,localStorage.id, function(err, data){
-        if(!err){
-          $scope.campaign = data;
-          setMembers();
-          $ionicPopup.alert({
-            title: '提示',
-            template: '退出成功'
-          });
-        }
-        else {
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
+      var quitConfirm = $ionicPopup.confirm({
+          title: '提示',
+          template: '确定退出活动吗？',
+          okText: '确定',
+          cancelText: '取消'
+        });
+      quitConfirm.then(function (res) {
+        if (res) {
+          if(window.analytics){
+            window.analytics.trackEvent('Click', 'quitCampaign');
+          }
+          Campaign.quit(id,localStorage.id, function(err, data){
+            if(!err){
+              $scope.campaign = data;
+              setMembers();
+              $ionicPopup.alert({
+                title: '提示',
+                template: '退出成功'
+              });
+            }
+            else {
+              $ionicPopup.alert({
+                title: '错误',
+                template: err
+              });
+            }
           });
         }
       });
-      return false;
     };
     $scope.goDiscussDetail = function(campaignId, campaignTheme) {
       INFO.discussName = campaignTheme;
