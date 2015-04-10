@@ -5175,6 +5175,22 @@ angular.module('donlerApp.controllers', [])
         }
       })
     }
+    $scope.needShowTime = function(index) {
+      if(index === 0) {
+        return true;
+      }else {
+        var preTime = new Date($scope.competitions[index-1].start_time);
+        var nowTime = new Date($scope.competitions[index].start_time);
+        // console.log(index,nowTime,preTime);
+        if(nowTime.getFullYear() != preTime.getFullYear()) {
+          return true;
+        }else if(nowTime.getDay() != preTime.getDay()) {
+          return true;
+        }else {
+          return false;
+        }
+      }
+    }
     $scope.showPopup = function(index) {
 
       var showText = [{text:'发挑战',teamText:'leadTeams',funText:'createMessage'},{text:'推荐',teamText:'memberTeams',funText:'recommend'}];
@@ -5217,7 +5233,7 @@ angular.module('donlerApp.controllers', [])
         targetTeam: $scope.targetTeam
       }
       $state.go('competition_send');
-    }
+    };
     $scope.recommend = function (team) {
       var postData = {
         content: $scope.targetTeam.name,
@@ -5235,7 +5251,7 @@ angular.module('donlerApp.controllers', [])
           });
         }
       })
-    }
+    };
   }])
   .controller('CompetitonSendController', ['$scope', '$state', '$ionicHistory', '$ionicPopup', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', function ($scope, $state, $ionicHistory, $ionicPopup, CompetitionMessage, Team, INFO, Campaign) {
     $scope.isPublish=false;
