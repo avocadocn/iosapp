@@ -2932,10 +2932,10 @@ angular.module('donlerApp.controllers', [])
     };
 
     $scope.edit = function () {
-      if (!$scope.changed) {
-        $scope.editing = false;
-        return;
-      }
+      // if (!$scope.changed) {
+      //   $scope.editing = false;
+      //   return;
+      // }
       if(window.analytics){
         window.analytics.trackEvent('Click', 'leaderEditTeam');
       }
@@ -2953,6 +2953,10 @@ angular.module('donlerApp.controllers', [])
             $scope.editingLock = false;
           });
           $scope.editing = false;
+          $ionicPopup.alert({
+            title: '编辑成功',
+            template: err
+          });
         }
       });
     };

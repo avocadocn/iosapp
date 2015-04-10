@@ -581,7 +581,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             toolBar = new AMap.ToolBar();
             scope.locationmap.addControl(toolBar);
           });
-          if(scope.location.loc) {
+          if(scope.location.loc && scope.location.loc.coordinates) {
             var nowPoint = new AMap.LngLat(scope.location.loc.coordinates[0],scope.location.loc.coordinates[1]);
             scope.locationmap.setZoomAndCenter(14, nowPoint);
             var markerOption = {
