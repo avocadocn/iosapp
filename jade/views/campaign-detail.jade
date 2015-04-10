@@ -31,7 +31,7 @@ ion-view.dl_campaign_detail
       .item.item-text-wrap.campaign_content
         p.content_simple(ng-cloak)  {{campaign.content ?campaign.content :'暂无'}}
         .operator
-          a.more_content(ng-if="campaign.content" ng-href="#/campaign/content/{{campaign._id}}")  更多活动详情
+          a.more_content(ng-href="#/campaign/content/{{campaign._id}}")  更多活动详情
       .item.campaign_footer
         a.footer_col(ng-href="#/members/campaign/{{campaign._id}}")
           i.ion_member.dl_icon.icon_small
@@ -39,6 +39,7 @@ ion-view.dl_campaign_detail
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           i.dl_icon.ion_chat_circle
           span.footer_label 活动讨论
+      score-board(ng-if="scoreBoardId" component-id="scoreBoardId")
       .item.item-divider.circle
         span 精彩瞬间
         i.icon.ion-camera(ng-if="campaign.join_flag==1" post-circle campaign="campaign")

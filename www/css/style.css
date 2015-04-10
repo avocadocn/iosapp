@@ -525,6 +525,7 @@ a.no_underline {
 .dl_campaign_detail .campaign_detail {
   margin-top: 10px;
   color: #666;
+  padding-bottom: 50px;
 }
 .dl_campaign_detail .campaign_detail .campaign_info {
   background-color: #fff;
@@ -3413,6 +3414,9 @@ a>.login .companies_list:activated {
   position: relative;
   z-index: 10;
 }
+.dl_timeline:last-child .dl_timeline_card {
+  border-bottom: none;
+}
 .nomore_text {
   margin: 10px;
   font-size: 14px;
@@ -4620,49 +4624,52 @@ a>.login .companies_list:activated {
 .search_opponent .selected_team .tab_view .nav .opponent_tab_style.search .search_button:before {
   font-size: 18px;
 }
-.competition_team_page .team_item {
+.competition_team_page .competition_team {
+  padding-bottom: 50px;
+}
+.competition_team_page .competition_team .team_item {
   padding-left: 77px;
 }
-.competition_team_page .team_item .team_logo {
+.competition_team_page .competition_team .team_item .team_logo {
   width: 45px;
   height: 45px;
   max-width: 45px;
   max-height: 45px;
   border-radius: 5px;
 }
-.competition_team_page .team_name {
+.competition_team_page .competition_team .team_name {
   margin-top: -5px;
   margin-bottom: 0;
   color: #202020;
   font-size: 14px;
   line-height: 24px;
 }
-.competition_team_page .info_text {
+.competition_team_page .competition_team .info_text {
   margin: 0;
   color: #666;
   font-size: 12px;
   line-height: 18px;
 }
-.competition_team_page .first_info_text {
+.competition_team_page .competition_team .first_info_text {
   margin-top: -2px;
 }
-.competition_team_page .team_info .text_label {
+.competition_team_page .competition_team .team_info .text_label {
   margin-right: 8px;
 }
-.competition_team_page .team_info .text_data {
+.competition_team_page .competition_team .team_info .text_data {
   margin-right: 10px;
 }
-.competition_team_page .campaign_info .item {
+.competition_team_page .competition_team .campaign_info .item {
   display: flex;
   display: -webkit-flex;
 }
-.competition_team_page .campaign_info .text_label {
+.competition_team_page .competition_team .campaign_info .text_label {
   width: 60px;
   font-size: 14px;
   line-height: 24px;
   color: #202020;
 }
-.competition_team_page .campaign_info .text_data {
+.competition_team_page .competition_team .campaign_info .text_data {
   flex: 1;
   webkit-flex: 1;
   font-size: 14px;
@@ -4670,7 +4677,7 @@ a>.login .companies_list:activated {
   color: #666;
   text-align: center;
 }
-.competition_team_page .competition_timeline_card .together_campaign {
+.competition_team_page .competition_team .competition_timeline_card .together_campaign {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -4678,10 +4685,10 @@ a>.login .companies_list:activated {
   display: -ms-flexbox;
   display: flex;
 }
-.competition_team_page .competition_timeline_card .text_label {
+.competition_team_page .competition_team .competition_timeline_card .text_label {
   width: 60px;
 }
-.competition_team_page .competition_timeline_card .text_data {
+.competition_team_page .competition_team .competition_timeline_card .text_data {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -moz-box-flex: 1;
@@ -4694,7 +4701,7 @@ a>.login .companies_list:activated {
 .competition_team_page .bar-footer {
   height: 50px;
 }
-.competition_team_page .bottom_button {
+.competition_team_page .bar-footer .bottom_button {
   display: block;
   font-size: 16px;
   height: 40px;
@@ -4705,25 +4712,104 @@ a>.login .companies_list:activated {
   border: none;
   border-radius: 5px;
 }
-.score_board .score_board_operator {
-  text-align: center;
+.score_board .item {
+  height: 44px;
 }
-.score_board .score_board_footer {
+.score_board .item.score_board_operator {
   text-align: center;
-  border-bottom: 2px solid #ddd;
+  padding: 10px 15px;
 }
-.score_board .score_board_footer .remind_text {
+.score_board .item.score_board_operator .operator {
+  min-height: 24px;
+}
+.score_board .item.play_team {
+  padding: 15px 15px 15px 65px;
+  height: 70px;
+}
+.score_board .item.play_team .team_logo {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 15px;
+  top: 15px;
+}
+.score_board .item.play_team .team_name {
+  font-size: 14px;
+}
+.score_board .item.play_team .show_score .score {
+  float: left;
+  width: 80px;
+}
+.score_board .item.play_team .show_score .result {
+  float: left;
+}
+.score_board .item.play_team .editing .score {
+  float: left;
+  width: 80px;
+}
+.score_board .item.play_team .editing .results {
+  float: left;
+}
+.score_board .item.score_board_footer {
+  text-align: center;
+  padding: 0;
+}
+.score_board .item.score_board_footer .remind_text {
   padding: 10px 0;
   float: left;
   width: 50%;
 }
-.score_board .score_board_footer .getlog {
+.score_board .item.score_board_footer .getlog {
   color: #3ca2e0;
   padding: 10px 0;
   float: left;
   width: 50%;
 }
-.score_board .logs .log .content {
+.score_board .item.logs .log .content {
   font-size: 14px;
   color: #3ca2e0;
+}
+.campaign_content_page .content_page {
+  padding-top: 10px;
+}
+.campaign_content_page .content_page .item {
+  height: 40px;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.campaign_content_page .content_page .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.campaign_content_page .content_page .item:first-child {
+  border-top-width: 1px;
+}
+.campaign_content_page .content_page .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.campaign_content_page .content_page .item:last-child:after {
+  content: none;
+  display: none;
+}
+.campaign_content_page .content_page .item .title {
+  display: inline-block;
+  width: 110px;
+  color: #202020;
+}
+.campaign_content_page .content_page .item .content {
+  color: #ababab;
+}
+.campaign_content_page .content_page .item.has_content {
+  height: initial;
+}
+.campaign_content_page .content_page .item.has_content .content {
+  white-space: normal;
 }

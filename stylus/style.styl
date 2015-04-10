@@ -17,6 +17,7 @@ col_textBlack = #707070
 col_link = #294a7e
 col_mainText = #202020
 col_textGray = #666666
+col_textLight = #ababab
 col_boderlighttGray = #e3e3e3
 col_now = #13adb6
 col_unstart = #3ca2df
@@ -466,6 +467,7 @@ a.no_underline
   .campaign_detail
     margin-top 10px
     color col_textGray
+    padding-bottom 50px
     .campaign_info
       background-color white
       padding 15px
@@ -519,7 +521,7 @@ a.no_underline
       background-color white
       padding 5px 15px
       height 30px
-      color #ababab
+      color col_textLight
       .status
         float right
         &.now
@@ -1525,7 +1527,7 @@ a.no_underline
         font-size 14px
         color col_blue
       .icon.ion-chevron-right
-        color #ababab
+        color col_textLight
       .icon.ion-android-contacts
         font-size 22px
         padding-left 4px
@@ -1575,7 +1577,7 @@ a.no_underline
             font-size 22px
             position absolute
             top 17px
-            color #ababab
+            color col_textLight
           .team_logo
             width 35px
             height 35px
@@ -1783,7 +1785,7 @@ a.no_underline
     .icon_right
       right 0
     .icon.ion-chevron-right
-      color #ababab
+      color col_textLight
   .menu_list
     .item
       padding-left 50px
@@ -2746,6 +2748,9 @@ a.no_underline
     text-align center
     position relative
     z-index 10
+  &:last-child
+    .dl_timeline_card
+      border-bottom none
 .nomore_text
   margin 10px
   font-size 14px
@@ -2908,17 +2913,17 @@ a.no_underline
       .input-label
         color col_mainText
       .icon
-        color #ababab
+        color col_textLight
         font-size 18px
     .item-input
       .result
-        color #ababab
+        color col_textLight
       input::-webkit-input-placeholder
-        color #ababab
+        color col_textLight
       input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-        color #ababab
+        color col_textLight
       input:-ms-input-placeholder /* Internet Explorer 10+ */
-        color #ababab
+        color col_textLight
       input[readonly]
         background-color #fff
       .dl_icon
@@ -3504,7 +3509,7 @@ a.no_underline
           margin-right 45px
         .tips
           font-size 14px
-          color #ababab
+          color col_textLight
       .ion-checkmark
         font-size 16px
         padding 15px
@@ -3541,7 +3546,7 @@ a.no_underline
           color black
           margin-bottom 12px
         .create_date
-          color #ababab
+          color col_textLight
         .comment_content
           margin-bottom 16px
       &.pull_right
@@ -3698,7 +3703,7 @@ a.no_underline
           &.search
             width 50%
             position relative
-            placeholderColor(#ababab)
+            placeholderColor(col_textLight)
             a
               padding 7px 10px
             .search_opponent_input
@@ -3717,94 +3722,142 @@ a.no_underline
               right 20px
               top 0
               background-color transparent
-              color #ababab
+              color col_textLight
               padding 0
               border none
               &:before
                 font-size 18px
 .competition_team_page
-  .team_item
-    padding-left 77px
-    .team_logo
-      width 45px
-      height 45px
-      max-width 45px
-      max-height 45px
-      border-radius 5px
-  .team_name
-    margin-top -5px
-    margin-bottom 0
-    color col_mainText
-    font-size 14px
-    line-height 24px
-  .info_text
-    margin 0
-    color col_textGray
-    font-size 12px
-    line-height 18px
-  .first_info_text
-    margin-top -2px
-  .team_info
-    .text_label
-      margin-right 8px
-    .text_data
-      margin-right 10px
-  .campaign_info
-    .item
-      display flex
-      display -webkit-flex
-    .text_label
-      width 60px
-      font-size 14px
-      line-height 24px
+  .competition_team
+    padding-bottom 50px
+    .team_item
+      padding-left 77px
+      .team_logo
+        width 45px
+        height 45px
+        max-width 45px
+        max-height 45px
+        border-radius 5px
+    .team_name
+      margin-top -5px
+      margin-bottom 0
       color col_mainText
-    .text_data
-      flex 1
-      webkit-flex 1
       font-size 14px
       line-height 24px
+    .info_text
+      margin 0
       color col_textGray
-      text-align center
-  .competition_timeline_card
-    .together_campaign
-      displayFlex()
-    .text_label
-      width 60px
-    .text_data
-      flexValue(1)
-      color col_textGray
-      text-align center
+      font-size 12px
+      line-height 18px
+    .first_info_text
+      margin-top -2px
+    .team_info
+      .text_label
+        margin-right 8px
+      .text_data
+        margin-right 10px
+    .campaign_info
+      .item
+        display flex
+        display -webkit-flex
+      .text_label
+        width 60px
+        font-size 14px
+        line-height 24px
+        color col_mainText
+      .text_data
+        flex 1
+        webkit-flex 1
+        font-size 14px
+        line-height 24px
+        color col_textGray
+        text-align center
+    .competition_timeline_card
+      .together_campaign
+        displayFlex()
+      .text_label
+        width 60px
+      .text_data
+        flexValue(1)
+        color col_textGray
+        text-align center
   .bar-footer
     height 50px
-  .bottom_button
-    display block
-    font-size 16px
-    height 40px
-    color white
-    background-color col_blue
-    text-align center
-    width 100%
-    border none
-    border-radius 5px
+    .bottom_button
+      display block
+      font-size 16px
+      height 40px
+      color white
+      background-color col_blue
+      text-align center
+      width 100%
+      border none
+      border-radius 5px
 
 
 .score_board
-  .score_board_operator
-    text-align center
-  .score_board_footer
-    text-align center
-    border-bottom 2px solid #ddd
-    .remind_text
-      padding 10px 0
-      float left
-      width 50%
-    .getlog
-      color col_blue
-      padding 10px 0
-      float left
-      width 50%
-  .logs
-    .log
-      .content
+  .item
+    height 44px
+    &.score_board_operator
+      text-align center
+      padding 10px 15px
+      .operator
+        min-height 24px
+    &.play_team
+      padding 15px 15px 15px 65px
+      height 70px
+      .team_logo
+        position absolute 
+        width 40px
+        height 40px
+        left 15px
+        top 15px
+      .team_name
         font-size 14px
+      .show_score
+        .score
+          float left
+          width 80px
+        .result
+          float left
+      .editing
+        .score
+          float left
+          width 80px
+        .results
+          float left
+    &.score_board_footer
+      text-align center
+      padding 0
+      .remind_text
+        padding 10px 0
+        float left
+        width 50%
+      .getlog
         color col_blue
+        padding 10px 0
+        float left
+        width 50%
+    &.logs
+      .log
+        .content
+          font-size 14px
+          color col_blue
+.campaign_content_page
+  .content_page
+    padding-top 10px
+    .item
+      height 40px
+      padding 10px 15px
+      font-size 14px
+      indentLine()
+      .title
+        display inline-block
+        width 110px
+        color col_mainText
+      .content
+        color col_textLight
+      &.has_content
+        height initial
+        .content
+          white-space normal

@@ -12,7 +12,7 @@ ion-view.tab_company_page(ng-controller="CompanyController")
       img.company_family(ng-if="!company.cover" src="./img/family.png")
     .company_info
       .info_header.clearfix
-        img.logo(ng-if="company" ng-src="{{STATIC_URL + team.logo}}/80/80")
+        img.logo(ng-if="company" ng-src="{{STATIC_URL + company.logo}}/80/80")
         .info_content
           .company_name {{company.shortName}}
           .company_brief 

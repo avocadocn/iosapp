@@ -7,7 +7,7 @@
     <div ng-style="familyMinHeight" class="company_header"><img ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380" class="company_family"/><img ng-if="!company.cover" src="./img/family.png" class="company_family"/>
     </div>
     <div class="company_info">
-      <div class="info_header clearfix"><img ng-if="company" ng-src="{{STATIC_URL + team.logo}}/80/80" class="logo"/>
+      <div class="info_header clearfix"><img ng-if="company" ng-src="{{STATIC_URL + company.logo}}/80/80" class="logo"/>
         <div class="info_content">
           <div class="company_name">{{company.shortName}}</div>
           <div class="company_brief"> <span class="title">简介:</span><span class="content">{{company.intro || '无'}}</span></div>

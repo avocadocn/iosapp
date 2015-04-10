@@ -1,9 +1,9 @@
-.card.score_board.dl_card_detail
-  .item.dl_card_header
-    span.dl_card_title 比分
-  a.item.item-avatar(ng-repeat="playingTeam in scoreBoard.playingTeams")
+.score_board
+  .item
+    span.title 比分
+  .item.play_team(ng-repeat="playingTeam in scoreBoard.playingTeams")
     img.team_logo(ng-src="{{STATIC_URL + playingTeam.logo}}/40/40" title="{{playingTeam.name}}")
-    span.text.team_name(ng-bind="playingTeam.name" title="{{playingTeam.name}}")
+    .team_name(ng-bind="playingTeam.name" title="{{playingTeam.name}}")
     .show_score(ng-if="!editing && scoreBoard.status!==0" ng-class="{'active': playingTeam.result===1}")
       .score(ng-if="playingTeam.score || playingTeam.score===0" ng-bind="playingTeam.score")
       .result  {{playingTeam.result | scoreResultFormat}}
@@ -19,7 +19,7 @@
     button.button.button-clear.button-positive.operator(ng-click="confirmScore()") 同意
     button.button.button-clear.button-positive.operator.cancel(ng-click="toggleEdit()") 不同意
   .item.score_board_operator(ng-if="allowEdit && !editing && leaderStatus==='waitConfirm'")
-    button.operator(ng-click="toggleEdit()") 重新设置
+    button.operator.button.button-small.button-clear(ng-click="toggleEdit()") 重新设置
   .item.score_board_operator(ng-if="allowEdit && editing")
     button.button.button-clear.button-positive.operator(ng-if="scoreBoard.status===0" ng-click="initScore()") 确认
     button.button.button-clear.button-positive.operator(ng-if="scoreBoard.status===1" ng-click="resetScore()") 确认

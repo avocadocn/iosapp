@@ -1,6 +1,8 @@
 
-<div class="card score_board dl_card_detail">
-  <div class="item dl_card_header"><span class="dl_card_title">比分</span></div><a ng-repeat="playingTeam in scoreBoard.playingTeams" class="item item-avatar"><img ng-src="{{STATIC_URL + playingTeam.logo}}/40/40" title="{{playingTeam.name}}" class="team_logo"/><span ng-bind="playingTeam.name" title="{{playingTeam.name}}" class="text team_name"></span>
+<div class="score_board">
+  <div class="item"><span class="title">比分</span></div>
+  <div ng-repeat="playingTeam in scoreBoard.playingTeams" class="item play_team"><img ng-src="{{STATIC_URL + playingTeam.logo}}/40/40" title="{{playingTeam.name}}" class="team_logo"/>
+    <div ng-bind="playingTeam.name" title="{{playingTeam.name}}" class="team_name"></div>
     <div ng-if="!editing &amp;&amp; scoreBoard.status!==0" ng-class="{'active': playingTeam.result===1}" class="show_score">
       <div ng-if="playingTeam.score || playingTeam.score===0" ng-bind="playingTeam.score" class="score"></div>
       <div class="result"> {{playingTeam.result | scoreResultFormat}}</div>
@@ -12,7 +14,8 @@
         <button ng-click="setResult(0, $index)" ng-class="{'button-assertive': results[$index]===0}" class="button button-clear button-positive result">平</button>
         <button ng-click="setResult(-1, $index)" ng-class="{'button-assertive': results[$index]===-1}" class="button button-clear button-positive result">负</button>
       </div>
-    </div></a>
+    </div>
+  </div>
   <div ng-if="allowEdit &amp;&amp; !editing &amp;&amp; leaderStatus==='init'" class="item score_board_operator">
     <button ng-click="toggleEdit()" class="button button-clear button-positive operator">设置比分</button>
   </div>
@@ -21,7 +24,7 @@
     <button ng-click="toggleEdit()" class="button button-clear button-positive operator cancel">不同意</button>
   </div>
   <div ng-if="allowEdit &amp;&amp; !editing &amp;&amp; leaderStatus==='waitConfirm'" class="item score_board_operator">
-    <button ng-click="toggleEdit()" class="operator">重新设置</button>
+    <button ng-click="toggleEdit()" class="operator button button-small button-clear">重新设置</button>
   </div>
   <div ng-if="allowEdit &amp;&amp; editing" class="item score_board_operator">
     <button ng-if="scoreBoard.status===0" ng-click="initScore()" class="button button-clear button-positive operator">确认</button>

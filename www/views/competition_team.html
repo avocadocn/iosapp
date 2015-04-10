@@ -4,38 +4,40 @@
     <h1 class="title">挑战小队</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="list team_info">
-      <div ng-cloak="ng-cloak" ng-if="targetTeam" class="item item-avatar team_item"><img ng-src="{{STATIC_URL + targetTeam.logo}}/90/90" class="team_logo"/>
-        <h2 ng-bind="targetTeam.name" class="team_name"></h2>
-        <p class="info_text first_info_text"><span class="text_label">公司:</span><span ng-bind="targetTeam.cname" class="text_data"></span></p>
-        <p class="info_text"><span class="text_label">积分:</span><span ng-bind-template="{{targetTeam.score_rank.score || 0}}" class="text_data"></span><span class="text_label">活跃度:</span><span ng-bind="targetTeam.activityScore" class="text_data"></span><span class="text_label">胜率:</span><span ng-bind-template="{{targetTeam.rate}}%" class="text_data"></span></p>
+    <div class="competition_team">
+      <div class="list team_info">
+        <div ng-cloak="ng-cloak" ng-if="targetTeam" class="item item-avatar team_item"><img ng-src="{{STATIC_URL + targetTeam.logo}}/90/90" class="team_logo"/>
+          <h2 ng-bind="targetTeam.name" class="team_name"></h2>
+          <p class="info_text first_info_text"><span class="text_label">公司:</span><span ng-bind="targetTeam.cname" class="text_data"></span></p>
+          <p class="info_text"><span class="text_label">积分:</span><span ng-bind-template="{{targetTeam.score_rank.score || 0}}" class="text_data"></span><span class="text_label">活跃度:</span><span ng-bind="targetTeam.activityScore" class="text_data"></span><span class="text_label">胜率:</span><span ng-bind-template="{{targetTeam.rate}}%" class="text_data"></span></p>
+        </div>
       </div>
-    </div>
-    <div class="list campaign_info">
-      <div class="item"><span class="text_label">上次活动</span><span ng-if="targetTeam.last_campaign.start_time" ng-cloak="ng-cloak" class="text_data">{{ targetTeam.last_campaign.start_time | beforeNow}}</span><span ng-if="!targetTeam.last_campaign.start_time" ng-cloak="ng-cloak" class="text_data">无</span></div>
-      <div class="item"><span class="text_label">小队主场</span><span ng-bind="targetTeam.homeCourtText" class="text_data"></span></div>
-    </div>
-    <div ng-cloak="ng-cloak" ng-show="targetTeam &amp;&amp; !targetTeam.isCompanyTeam" class="list competition_timeline_card">
-      <div class="item together_campaign"><span class="text_label">共同活动</span><span ng-show="!competitions || !competitions.length" class="text_data">无</span></div>
-      <div ng-repeat="campaign in competitions" ng-cloak="ng-cloak" class="dl_timeline">
-        <div ng-if="needShowTime($index)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
-          <div class="campaign_card clearfix">
-            <div class="dl_card_content clearfix">
-              <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" data-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo lazyload"/>
-                <div ng-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="provoke_label"><span>挑战</span></div>
-                <div ng-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div>
+      <div class="list campaign_info">
+        <div class="item"><span class="text_label">上次活动</span><span ng-if="targetTeam.last_campaign.start_time" ng-cloak="ng-cloak" class="text_data">{{ targetTeam.last_campaign.start_time | beforeNow}}</span><span ng-if="!targetTeam.last_campaign.start_time" ng-cloak="ng-cloak" class="text_data">无</span></div>
+        <div class="item"><span class="text_label">小队主场</span><span ng-bind="targetTeam.homeCourtText" class="text_data"></span></div>
+      </div>
+      <div ng-cloak="ng-cloak" ng-show="targetTeam &amp;&amp; !targetTeam.isCompanyTeam" class="list competition_timeline_card">
+        <div class="item together_campaign"><span class="text_label">共同活动</span><span ng-show="!competitions || !competitions.length" class="text_data">无</span></div>
+        <div ng-repeat="campaign in competitions" ng-cloak="ng-cloak" class="dl_timeline">
+          <div ng-if="needShowTime($index)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
+            <div class="campaign_card clearfix">
+              <div class="dl_card_content clearfix">
+                <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" data-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo lazyload"/>
+                  <div ng-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="provoke_label"><span>挑战</span></div>
+                  <div ng-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div>
+                </div>
+                <div class="dl_cp_texts">
+                  <p class="dl_cp_name"><span>{{campaign.theme}}</span></p>
+                  <p class="dl_cp_time"><i class="icon icon_small ion_time"></i><span class="dl_cp_text">{{campaign.start_time | date:"HH:mm"}}</span></p>
+                  <p class="dl_cp_address"><i class="icon icon_small ion_address"></i><span class="dl_cp_text">{{campaign.location.name}}</span></p>
+                </div>
+                <div class="dl_card_member">
+                  <p class="dl_cp_member"><span class="dl_cp_text number">{{campaign.members_count || '0'}} </span></p>
+                  <p>人</p>
+                </div>
               </div>
-              <div class="dl_cp_texts">
-                <p class="dl_cp_name"><span>{{campaign.theme}}</span></p>
-                <p class="dl_cp_time"><i class="icon icon_small ion_time"></i><span class="dl_cp_text">{{campaign.start_time | date:"HH:mm"}}</span></p>
-                <p class="dl_cp_address"><i class="icon icon_small ion_address"></i><span class="dl_cp_text">{{campaign.location.name}}</span></p>
-              </div>
-              <div class="dl_card_member">
-                <p class="dl_cp_member"><span class="dl_cp_text number">{{campaign.members_count || '0'}} </span></p>
-                <p>人</p>
-              </div>
-            </div>
-          </div></a>
+            </div></a>
+        </div>
       </div>
     </div>
   </ion-content>

@@ -566,9 +566,32 @@ angular.module('donlerApp.controllers', [])
     }
   }])
   .controller('CampaignContentController', ['$ionicHistory', '$scope', '$stateParams', 'Campaign', function($ionicHistory, $scope, $stateParams, Campaign) {
+    var setMembers = function () {
+      $scope.campaign.members =[];
+      $scope.memberContents = [];
+      $scope.campaign.campaign_unit.forEach(function(campaign_unit){
+        if(campaign_unit.team){
+          var content = {
+            name:campaign_unit.team.name,
+            members:campaign_unit.member
+          };
+          if (campaign_unit.company._id !== localStorage.cid) {
+            content.isOtherCompany = true;
+          }
+          $scope.memberContents.push(content);
+        }
+        else {
+          $scope.memberContents.push({
+            name:campaign_unit.company.name,
+            members:campaign_unit.member
+          });
+        }
+      });
+    };
     Campaign.get($stateParams.id, function(err, data){
       if(!err){
         $scope.campaign = data;
+        setMembers();
       }
     });
     $scope.goBack = function() {
@@ -1315,7 +1338,7 @@ angular.module('donlerApp.controllers', [])
       }
     };
     $scope.doRefresh = function(){
-      $scope.page = 0;
+      $scope.page = 1;
       $scope.loadFinished = false;
       TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, timelineData) {
         if (err) {
