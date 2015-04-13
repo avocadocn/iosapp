@@ -2581,8 +2581,19 @@ a>.login .companies_list:activated {
   z-index: 1;
   font-size: 18px;
 }
+.edit_team_info .team-name {
+  margin-bottom: 0px;
+}
+.edit_team_info .team-name input {
+  font-size: 16px;
+}
 .edit_team_info .list {
-  background-color: #fff;
+  margin-top: 10px;
+}
+.edit_team_info .list .team-edit-label {
+  padding-left: 15px;
+  padding-top: 10px;
+  font-size: 16px;
 }
 .edit_team_info .list .leader span {
   float: left;
@@ -2597,6 +2608,9 @@ a>.login .companies_list:activated {
   border: 1px solid #3ca2e0;
   border-radius: 5px;
   margin: 5px 16px;
+}
+.edit_team_info .list .people {
+  margin-top: 10px;
 }
 .edit_team_info .list .people .person {
   float: left;
@@ -2617,6 +2631,11 @@ a>.login .companies_list:activated {
   overflow: hidden;
   white-space: nowrap;
   font-size: 12px;
+}
+.team-sheet {
+  font-size: 16px;
+  margin: 5px 0px;
+  color: #3ca2e0;
 }
 .hr_company_page .company_header {
   position: relative;
@@ -2656,6 +2675,12 @@ a>.login .companies_list:activated {
 }
 .hr_company_page .company_info .item:last-child {
   border-bottom: 1px solid #ddd;
+}
+.hr_company_page .company_info .item .hr_company_edit {
+  position: absolute;
+  right: 45px;
+  font-size: 14px;
+  color: #c4c4c4;
 }
 .hr_company_page .company_info .info_header {
   position: relative;
@@ -2814,6 +2839,11 @@ a>.login .companies_list:activated {
 }
 .hr-team-page .item-label {
   margin: 10px 0px 0px;
+}
+.hr-team-page .item .icon {
+  width: 3rem;
+  font-size: 14px;
+  color: #666;
 }
 .hr-team-page .list {
   padding: 0px;

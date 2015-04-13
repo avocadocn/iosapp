@@ -2056,8 +2056,18 @@ a.no_underline
         font-size 18px
 //- HR编辑小队
 .edit_team_info
+
+  .team-name
+    margin-bottom 0px
+    input
+      font-size 16px
   .list
-    background-color #fff
+    margin-top 10px
+    // background-color #fff
+    .team-edit-label
+      padding-left 15px
+      padding-top 10px
+      font-size 16px
     .leader
       span
         float left
@@ -2071,6 +2081,7 @@ a.no_underline
       border-radius 5px
       margin 5px 16px
     .people
+      margin-top 10px
       .person
         float left
         width 25%
@@ -2088,7 +2099,10 @@ a.no_underline
           white-space nowrap
           font-size 12px
           //- text-overflow ellipsis
-
+.team-sheet
+  font-size 16px
+  margin 5px 0px
+  color col_blue
 //- HR公司主页
 .hr_company_page
   .company_header
@@ -2104,6 +2118,11 @@ a.no_underline
       indentLine()
       &:last-child
         border-bottom 1px solid #ddd
+      .hr_company_edit
+        position absolute
+        right 45px
+        font-size 14px
+        color #c4c4c4
     .info_header
       position relative
       padding 0 1rem
@@ -2238,6 +2257,11 @@ a.no_underline
 .hr-team-page
   .item-label
     margin 10px 0px 0px
+  .item
+    .icon
+      width 3rem
+      font-size 14px
+      color col_textGray
   .list
     padding 0px
     margin-top 1px
@@ -2263,6 +2287,7 @@ a.no_underline
           top 0px
           font-size 14px
           color #666
+
     .item-avatar-custom
       padding-left 72px
       min-height 72px

@@ -2384,6 +2384,18 @@ angular.module('donlerApp.controllers', [])
       }
     });
 
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // 为true或undefined时获取公司数据
+      if (INFO.hasModifiedTeam !== false) {
+        INFO.hasModifiedTeam = false;
+        Company.getTeams(localStorage.id, 'team', $stateParams.type, function(msg, data) {
+          if(!msg){
+            $scope.teams = data;
+          }
+        });
+      }
+    });
+
     $scope.editTeam = function (team) {
       INFO.team = team;
       $state.go('hr_editTeam',{teamId:team._id});
@@ -2603,7 +2615,7 @@ angular.module('donlerApp.controllers', [])
     };
   }])
   //-hr编辑小队信息
-  .controller('HrEditTeamController', ['$scope', '$ionicPopup', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, INFO, Team, User) {
+  .controller('HrEditTeamController', ['$scope', '$ionicPopup', '$ionicActionSheet', '$timeout', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, $ionicActionSheet, $timeout, INFO, Team, User) {
     $scope.formData = {name: INFO.team.name};
     $scope.memberName = {};
     var teamMembersBackup = [];//切换组员、公司成员用 全部组员备份
@@ -2613,7 +2625,7 @@ angular.module('donlerApp.controllers', [])
       Team.getMembers(INFO.team._id, function(err, team){
         originLeader = team.leaders[0];
         $scope.nowLeader = team.leaders[0];
-
+        $scope.newLeader = team.leaders[0];
         $scope.members = team.members;//前端
         teamMembersBackup = team.members;
         $scope.isShowTeam = true;
@@ -2654,9 +2666,38 @@ angular.module('donlerApp.controllers', [])
       });
 
     };
+
     $scope.point = function (person) {//指定某人为队长
-      $scope.nowLeader = person;
+      $scope.newLeader = person;
+      var confirmSheet = $ionicActionSheet.show({
+        buttons: [{
+          text: '确定'
+        }, ],
+        titleText: '你确定更换队长吗?',
+        cancelText: '取消',
+        cancel: function() {
+          $scope.newLeader = $scope.nowLeader;
+          return true;
+        },
+        buttonClicked: function(index) {
+          $scope.formData.leader = $scope.newLeader;
+          Team.edit(INFO.team._id, $scope.formData, function(err) {
+            if (err) {
+              $ionicPopup.alert({
+                title: '编辑失败',
+                template: err
+              });
+            } else {
+              getTeamMembers();
+              $scope.nowLeader = person;
+              INFO.hasModifiedTeam = true;
+            }
+          });
+          return true;
+        }
+      });
     };
+
     $scope.showTeamMember = function () {//显示小队成员
       $scope.isShowTeam = true;
       $scope.members = teamMembersBackup;
@@ -2682,6 +2723,7 @@ angular.module('donlerApp.controllers', [])
 
     $scope.change = function() {
       $scope.editing = true;
+      
     };
 
     $scope.search = function(keyEvent) {

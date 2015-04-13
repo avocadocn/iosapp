@@ -3,25 +3,18 @@
   <ion-header-bar><a ng-if="!editing" ng-href="#/hr/team_page" ng-cloak="ng-cloak" class="button icon ion-chevron-left">&nbsp;返回</a>
     <button ng-if="editing" ng-click="cancelEditing()" ng-cloak="ng-cloak" class="button">取消</button>
     <h1 class="title">编辑小队信息</h1>
-    <button ng-if="editing" ng-click="edit()" ng-disabled="!editing || editForm.$invalid" ng-cloak="ng-cloak" class="button">确定</button>
   </ion-header-bar>
   <ion-content>
-    <form name="editForm" class="list">
+    <form name="editForm" class="list team-name">
       <div class="item item-input"><span class="input-label">小队名称</span>
         <input type="text" name="name" ng-change="change()" placeholder="小队名称上限20字" maxlength="20" ng-model="formData.name" ng-focus="toEditing()" required="required"/>
       </div>
     </form>
     <div class="list">
-      <div class="item item-input"><span class="input-label">队长管理</span>
-        <button ng-if="!isShowTeam" ng-click="showTeamMember()" ng-cloak="ng-cloak" class="dl_button pull-right">显示组员</button>
-        <button ng-if="isShowTeam" ng-click="showCompanyMember()" ng-cloak="ng-cloak" class="dl_button pull-right">显示公司成员</button>
-      </div>
       <div class="item item-input leader"><span class="input-label">现任队长</span><img ng-if="nowLeader" ng-src="{{STATIC_URL + nowLeader.photo + '/40/40'}}" ng-cloak="ng-cloak" class="leader_logo"/><span ng-if="nowLeader" ng-cloak="ng-cloak">{{nowLeader.nickname}}</span><span ng-if="!nowLeader" ng-cloak="ng-cloak">暂无队长</span></div>
-      <div class="item item-input search">
-        <input type="text" placeholder="搜索成员" ng-model="memberName.value" ng-keypress="search($event)"/><i ng-click="search()" class="icon ion-search placeholder-icon dl_search_icon"></i>
-      </div>
+      <div class="team-edit-label">点击头像更换队长</div>
       <div class="item people">
-        <div ng-repeat="person in members track by $index" ng-click="point(person);change()" ng-cloak="ng-cloak" class="person"><img ng-src="{{STATIC_URL + person.photo + '/50/50'}}" ng-class="{'selected':person._id==nowLeader._id}" class="photo"/>
+        <div ng-repeat="person in members track by $index" ng-click="point(person)" ng-cloak="ng-cloak" class="person"><img ng-src="{{STATIC_URL + person.photo + '/50/50'}}" ng-class="{'selected':person._id==newLeader._id}" class="photo"/>
           <div class="name">{{person.nickname}}</div>
         </div>
       </div>

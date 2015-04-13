@@ -4,28 +4,29 @@ ion-view.edit_team_info
     a.button.icon.ion-chevron-left(ng-if="!editing" ng-href="#/hr/team_page" ng-cloak) &nbsp;返回
     button.button(ng-if="editing" ng-click="cancelEditing()" ng-cloak) 取消
     h1.title 编辑小队信息
-    button.button(ng-if="editing" ng-click="edit()" ng-disabled="!editing || editForm.$invalid" ng-cloak) 确定
+    //- button.button(ng-if="editing" ng-click="edit()" ng-disabled="!editing || editForm.$invalid" ng-cloak) 确定
 
   ion-content
-    form.list(name="editForm")
+    form.list.team-name(name="editForm")
       .item.item-input
         span.input-label 小队名称
         input(type="text" name="name" ng-change="change()" placeholder="小队名称上限20字" maxlength="20" ng-model="formData.name" ng-focus="toEditing()" required)
     .list
-      .item.item-input
-        span.input-label 队长管理
-        //-现任队长logo
-        button.dl_button.pull-right(ng-if="!isShowTeam" ng-click="showTeamMember()" ng-cloak) 显示组员
-        button.dl_button.pull-right(ng-if="isShowTeam" ng-click="showCompanyMember()" ng-cloak) 显示公司成员
+      //- .item.item-input
+      //-   span.input-label 队长管理
+      //-   //-现任队长logo
+      //-   button.dl_button.pull-right(ng-if="!isShowTeam" ng-click="showTeamMember()" ng-cloak) 显示组员
+      //-   button.dl_button.pull-right(ng-if="isShowTeam" ng-click="showCompanyMember()" ng-cloak) 显示公司成员
       .item.item-input.leader
         span.input-label 现任队长
         img.leader_logo(ng-if="nowLeader" ng-src="{{STATIC_URL + nowLeader.photo + '/40/40'}}" ng-cloak)
         span(ng-if="nowLeader" ng-cloak) {{nowLeader.nickname}}
         span(ng-if="!nowLeader" ng-cloak) 暂无队长
-      .item.item-input.search
-        input(type="text" placeholder="搜索成员" ng-model="memberName.value" ng-keypress="search($event)" )
-        i.icon.ion-search.placeholder-icon.dl_search_icon(ng-click="search()")
+      .team-edit-label 点击头像更换队长
+      //- .item.item-input.search
+      //-   input(type="text" placeholder="搜索成员" ng-model="memberName.value" ng-keypress="search($event)" )
+      //-   i.icon.ion-search.placeholder-icon.dl_search_icon(ng-click="search()")
       .item.people
-        .person(ng-repeat="person in members track by $index" ng-click="point(person);change()" ng-cloak)
-          img.photo(ng-src="{{STATIC_URL + person.photo + '/50/50'}}" ng-class="{'selected':person._id==nowLeader._id}")
+        .person(ng-repeat="person in members track by $index" ng-click="point(person)" ng-cloak)
+          img.photo(ng-src="{{STATIC_URL + person.photo + '/50/50'}}" ng-class="{'selected':person._id==newLeader._id}")
           .name {{person.nickname}}
