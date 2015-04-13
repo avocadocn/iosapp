@@ -2097,12 +2097,25 @@ a.no_underline
     padding-top 0
     padding-bottom 0
     border-radius 5px
+    .item
+      border none
+      indentLine()
+      &:last-child
+        border-bottom 1px solid #ddd
     .info_header
       position relative
       padding 0 1rem
       height 55px
       color white
       background-color white
+      &:after
+        display block
+        position absolute
+        margin-left -12px
+        bottom 0
+        width 100%
+        content ''
+        border 1px solid #ddd
       .logo
         position absolute
         left 15px
@@ -2225,8 +2238,13 @@ a.no_underline
     margin 10px 0px 0px
   .list
     padding 0px
+    margin-top 1px
     .item
       position relative
+      border none
+      indentLine()
+      &:last-child
+        border-bottom 1px solid #ddd
       .team-name
         max-width 200px
       .team-status

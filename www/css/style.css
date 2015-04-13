@@ -2627,12 +2627,49 @@ a>.login .companies_list:activated {
   padding-bottom: 0;
   border-radius: 5px;
 }
+.hr_company_page .company_info .item {
+  border: none;
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.hr_company_page .company_info .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.hr_company_page .company_info .item:first-child {
+  border-top-width: 1px;
+}
+.hr_company_page .company_info .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.hr_company_page .company_info .item:last-child:after {
+  content: none;
+  display: none;
+}
+.hr_company_page .company_info .item:last-child {
+  border-bottom: 1px solid #ddd;
+}
 .hr_company_page .company_info .info_header {
   position: relative;
   padding: 0 1rem;
   height: 55px;
   color: #fff;
   background-color: #fff;
+}
+.hr_company_page .company_info .info_header:after {
+  display: block;
+  position: absolute;
+  margin-left: -12px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
 }
 .hr_company_page .company_info .info_header .logo {
   position: absolute;
@@ -2778,9 +2815,36 @@ a>.login .companies_list:activated {
 }
 .hr-team-page .list {
   padding: 0px;
+  margin-top: 1px;
 }
 .hr-team-page .list .item {
   position: relative;
+  border: none;
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.hr-team-page .list .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.hr-team-page .list .item:first-child {
+  border-top-width: 1px;
+}
+.hr-team-page .list .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.hr-team-page .list .item:last-child:after {
+  content: none;
+  display: none;
+}
+.hr-team-page .list .item:last-child {
+  border-bottom: 1px solid #ddd;
 }
 .hr-team-page .list .item .team-name {
   max-width: 200px;
