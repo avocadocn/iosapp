@@ -3905,6 +3905,8 @@ a>.login .companies_list:activated {
 }
 .invite_key_qr_code img {
   margin: 0 auto;
+  width: 165px;
+  height: 165px;
 }
 .invite_key .ion-clipboard {
   color: #3ca2e0;
