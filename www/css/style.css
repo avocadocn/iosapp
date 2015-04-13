@@ -4139,6 +4139,7 @@ a>.login .companies_list:activated {
 .dl_circle_card .link_name {
   color: #294a7e;
   text-decoration: none;
+  font-weight: bold;
 }
 .dl_circle_card .circle_company_logo {
   display: block;
@@ -4281,7 +4282,7 @@ a>.login .companies_list:activated {
   color: #202020;
   background-color: #f7f7f7;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 20px;
 }
 .dl_circle_card .circle_comment_list .circle_triangle {
   position: absolute;
@@ -4309,6 +4310,10 @@ a>.login .companies_list:activated {
 }
 .dl_circle_card .circle_comment_list .appreciate_container .appreciate:last-child:after {
   content: "";
+}
+.dl_circle_card .circle_comment_list .comment_divider {
+  margin: 5px 0;
+  border-top: 1px dashed #999;
 }
 .dl_circle_card .circle_comment_list .comment .content {
   margin-left: 10px;
