@@ -2169,6 +2169,7 @@ a>.login .companies_list:activated {
   padding-top: 12px;
   padding-bottom: 12px;
   padding-right: 36px;
+  border-bottom: 0;
 }
 .tab_company_page .list .staff_item .staff_photo {
   display: block;

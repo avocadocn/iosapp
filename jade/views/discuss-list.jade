@@ -13,10 +13,10 @@ ion-view.discuss_list(ng-controller="DiscussListController")
           img(ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}")
           img(ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png")
           .red_spot(ng-if="chatroom.unread")
-          h2 {{chatroom.name}}
+          h2(ng-cloak) {{chatroom.name}}
           p.chat_pre(ng-if="chatroom.latestChat" ng-cloak)
             span(ng-show="chatroom.unread") [{{chatroom.unread}}条新消息] 
-            span {{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:
-            span(ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe")
-            span(ng-if="!chatroom.latestChat.content") {{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}
+            span(ng-cloak) {{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:
+            span(ng-cloak ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe")
+            span(ng-cloak ng-if="!chatroom.latestChat.content") {{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}
         .custom_border(ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}")

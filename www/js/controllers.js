@@ -5082,7 +5082,7 @@ angular.module('donlerApp.controllers', [])
     });
     Team.getData($state.params.tid,function (err, data) {
       if(err) {
-        consloe.log(err)
+        console.log(err)
       }
       else{
         $scope.myTeam = data;
