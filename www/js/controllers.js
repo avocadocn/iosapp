@@ -2393,7 +2393,7 @@ angular.module('donlerApp.controllers', [])
     };
   }])
   // hr查看同事资料
-  .controller('HrColleagueListController', ['$scope', '$state', '$stateParams', 'INFO', 'User', function ($scope, $state, $stateParams, INFO, User) {
+  .controller('HrColleagueListController', ['$scope', 'INFO', 'User', 'Tools', function ($scope, INFO, User, Tools) {
     var contactsBackup = [];
     $scope.keyword = {value:''};
     //获取公司联系人
@@ -2424,14 +2424,14 @@ angular.module('donlerApp.controllers', [])
             find = true;
           }
         }
-        // for(var i=0; i<length; i++) {//找email里含关键字的
-        //   if(contactsBackup[i].email.indexOf(keyword) > -1) {
-        //     if(Tools.arrayObjectIndexOf($scope.contacts,contactsBackup[i]._id,'_id')===-1) {
-        //       $scope.contacts.push(contactsBackup[i]);
-        //       find = true;
-        //     }
-        //   }
-        // }
+        for(var i=0; i<length; i++) {//找email里含关键字的
+          if(contactsBackup[i].email.indexOf(keyword) > -1) {
+            if(Tools.arrayObjectIndexOf($scope.contacts,contactsBackup[i]._id,'_id')===-1) {
+              $scope.contacts.push(contactsBackup[i]);
+              find = true;
+            }
+          }
+        }
         if(find === false) {
           $scope.message = '未查找到相关同事';
         }else{

@@ -12,9 +12,9 @@ ion-view.contacts
     .list.user_list
       a.item.item-avatar.item-icon-right.user_item(ng-repeat="contact in contacts" ng-cloak)
         img.user_photo(ng-src="{{STATIC_URL + contact.photo}}/90/90")
-        h2.nickname(ng-bind="contact.nickname")
-        p.realname(ng-bind="contact.realname")
-        span.item-note.email {{contact.email}}
+        h2.nickname(ng-cloak) {{contact.nickname}} 
+          span(ng-if="contact.realname") ({{contact.realname}})
+        p.realname(ng-cloak) {{contact.email}}
         //- i.icon.ion-chevron-right
       .item(ng-if="message" ng-cloak)
         span {{message}}
