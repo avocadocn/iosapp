@@ -3225,19 +3225,19 @@ a.no_underline
           border-radius 5px
     .vs
       font-size 16px
-      min-width 42px
+      max-width 30px
     .sponsor_team
       .team_title
         background-color #f75c5c
         &:before
           right 0
-          border-width 26px 0 0 20px
+          border-width 26px 0 0 15px
     .opposite_team
       .team_title
         background-color col_blue
         &:before
           left 0
-          border-width 26px 20px 0 0
+          border-width 26px 15px 0 0
     .vs_title
       position absolute
       left 50%
@@ -3248,10 +3248,10 @@ a.no_underline
         position relative
       .v
         color #f75c5c
-        left -15px
+        left -12px
       .s
         color col_blue
-        left -5px
+        left -8px
 // 公司、个人同事圈页面
 .circle_company_page, .circle_user_page, .circle_team_page
   .remind_icon
@@ -3955,9 +3955,17 @@ a.no_underline
     height 44px
     &.score_board_operator
       text-align center
-      padding 10px 15px
-      .operator
-        min-height 24px
+      padding 6px 15px
+      height 50px
+      .button
+        background-color col_blue
+        color white
+        border-radius 5px
+        width 100%
+        min-height 38px
+        height 38px
+      .cancel
+        background-color col_lightGray
     &.play_team
       padding 15px 15px 15px 65px
       height 70px
@@ -3987,7 +3995,7 @@ a.no_underline
       .remind_text
         padding 10px 0
         float left
-        width 50%
+        width 100%
       .getlog
         color col_blue
         padding 10px 0
@@ -4000,15 +4008,34 @@ a.no_underline
           color col_blue
     &.competition_teams
       height initial
+      position relative
+      .team
+        position relative
+        .team_content
+          .score
+            position absolute
+            top 50%
+            font-size 24px
+        &.sponsor_team
+          .score
+            right 0
+        &.opposite_team
+          .score
+            left 0
       .vs
+        position relative
         .score
           font-size 24px
+          position absolute
+          top 50%
+          left 40%
         .set_score
           color col_blue
+          position relative
+          left -50%
   .tab_view
     width 100%
     background-color #fff
-    margin-top 10px
     .nav
       border-bottom 1px solid col_gray
       float left
@@ -4018,7 +4045,7 @@ a.no_underline
         float left
         text-align center
         border-right 1px solid col_gray
-        height 100%
+        height 40px
         width 50%
         a
           font-size 14px
@@ -4030,6 +4057,16 @@ a.no_underline
           border-bottom 2px solid col_blue
           a
             color col_blue
+  .input_score
+    .input-label
+      width 20%
+    input
+      width 75%
+      color col_textLight
+      &[disabled]
+        background-color transparent
+    input::-webkit-input-placeholder
+      color col_textLight
 .campaign_content_page
   .content_page
     padding-top 10px

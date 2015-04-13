@@ -4029,21 +4029,21 @@ a>.login .companies_list:activated {
 }
 .competition_teams .vs {
   font-size: 16px;
-  min-width: 42px;
+  max-width: 30px;
 }
 .competition_teams .sponsor_team .team_title {
   background-color: #f75c5c;
 }
 .competition_teams .sponsor_team .team_title:before {
   right: 0;
-  border-width: 26px 0 0 20px;
+  border-width: 26px 0 0 15px;
 }
 .competition_teams .opposite_team .team_title {
   background-color: #3ca2e0;
 }
 .competition_teams .opposite_team .team_title:before {
   left: 0;
-  border-width: 26px 20px 0 0;
+  border-width: 26px 15px 0 0;
 }
 .competition_teams .vs_title {
   position: absolute;
@@ -4057,11 +4057,11 @@ a>.login .companies_list:activated {
 }
 .competition_teams .vs_title .v {
   color: #f75c5c;
-  left: -15px;
+  left: -12px;
 }
 .competition_teams .vs_title .s {
   color: #3ca2e0;
-  left: -5px;
+  left: -8px;
 }
 .circle_company_page .remind_icon,
 .circle_user_page .remind_icon,
@@ -4943,10 +4943,19 @@ a>.login .companies_list:activated {
 }
 .score_board .item.score_board_operator {
   text-align: center;
-  padding: 10px 15px;
+  padding: 6px 15px;
+  height: 50px;
 }
-.score_board .item.score_board_operator .operator {
-  min-height: 24px;
+.score_board .item.score_board_operator .button {
+  background-color: #3ca2e0;
+  color: #fff;
+  border-radius: 5px;
+  width: 100%;
+  min-height: 38px;
+  height: 38px;
+}
+.score_board .item.score_board_operator .cancel {
+  background-color: #676767;
 }
 .score_board .item.play_team {
   padding: 15px 15px 15px 65px;
@@ -4983,7 +4992,7 @@ a>.login .companies_list:activated {
 .score_board .item.score_board_footer .remind_text {
   padding: 10px 0;
   float: left;
-  width: 50%;
+  width: 100%;
 }
 .score_board .item.score_board_footer .getlog {
   color: #3ca2e0;
@@ -4997,17 +5006,39 @@ a>.login .companies_list:activated {
 }
 .score_board .item.competition_teams {
   height: initial;
+  position: relative;
+}
+.score_board .item.competition_teams .team {
+  position: relative;
+}
+.score_board .item.competition_teams .team .team_content .score {
+  position: absolute;
+  top: 50%;
+  font-size: 24px;
+}
+.score_board .item.competition_teams .team.sponsor_team .score {
+  right: 0;
+}
+.score_board .item.competition_teams .team.opposite_team .score {
+  left: 0;
+}
+.score_board .item.competition_teams .vs {
+  position: relative;
 }
 .score_board .item.competition_teams .vs .score {
   font-size: 24px;
+  position: absolute;
+  top: 50%;
+  left: 40%;
 }
 .score_board .item.competition_teams .vs .set_score {
   color: #3ca2e0;
+  position: relative;
+  left: -50%;
 }
 .score_board .tab_view {
   width: 100%;
   background-color: #fff;
-  margin-top: 10px;
 }
 .score_board .tab_view .nav {
   border-bottom: 1px solid #f2f2f5;
@@ -5019,7 +5050,7 @@ a>.login .companies_list:activated {
   float: left;
   text-align: center;
   border-right: 1px solid #f2f2f5;
-  height: 100%;
+  height: 40px;
   width: 50%;
 }
 .score_board .tab_view .nav .tab_style a {
@@ -5034,6 +5065,19 @@ a>.login .companies_list:activated {
 }
 .score_board .tab_view .nav .tab_style.active a {
   color: #3ca2e0;
+}
+.score_board .input_score .input-label {
+  width: 20%;
+}
+.score_board .input_score input {
+  width: 75%;
+  color: #ababab;
+}
+.score_board .input_score input[disabled] {
+  background-color: transparent;
+}
+.score_board .input_score input::-webkit-input-placeholder {
+  color: #ababab;
 }
 .campaign_content_page .content_page {
   padding-top: 10px;

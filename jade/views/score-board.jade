@@ -1,20 +1,25 @@
 .score_board
   .item.row.competition_teams
+    .vs_title
+      span.v V
+      span.s S
     .col.team.sponsor_team
-      .vs_title
-        span.v V
-        span.s S
       .team_title
         span 发起方
       .team_content
         img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo}}/40/40")
         .team_name {{scoreBoard.playingTeams[0].name}}
+        .score(ng-if="scoreBoard.status==2 && results[0]==undefined && scores[0]!=undefined") {{scores[0]}}
+        .score(ng-if="scoreBoard.status==2 && results[0]!=undefined") {{results[0] | scoreResultFormat}}
     .col.col-10.vs.col-center(ng-cloak)
-      span.score(ng-if="scoreBoard.status==2&&!allowEdit") {{scoreBoard.status==2 ?scoreBoard.playingTeams[0].score + ':' + scoreBoard.playingTeams[1].score:'暂无'}}
-      a.no_underline.set_score(ng-if="scoreBoard.status!==2&&allowEdit" ng-click="showEdit()") 设比分
+      span.score(ng-if="scoreBoard.status==2&&!allowEdit&&results[0]==undefined &&scores[0]==undefined") 暂无
+      span.score(ng-if="scoreBoard.status==2 &&(scoreBoard.scores.length>=0 ||results.length>0)") :
+      a.no_underline.set_score(ng-if="scoreBoard.status!==2&&allowEdit&&results[0]!=undefined &&scores[0]!=undefined" ng-click="showEdit()") 设比分
     .col.team.opposite_team
       .team_title
         span 接受方
       .team_content
         img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo}}/40/40")
         .team_name {{scoreBoard.playingTeams[1].name}}
+        .score(ng-if="scoreBoard.status==2 &&results[1]==undefined && scores[1]!=undefined") {{scores[1]}}
+        .score(ng-if="scoreBoard.status==2 &&results[1]!=undefined") {{results[1] | scoreResultFormat}}

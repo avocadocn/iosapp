@@ -730,7 +730,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
          * @type {Boolean}
          */
         scope.allowEdit = false;
-
+        scope.editing = false;
         /**
          * 是否可以查看日志
          * @type {Boolean}
@@ -738,7 +738,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         scope.allowManage = false;
         scope.nowTab ='score';
         scope.changeFilter = function (nowTab) {
-          scope.nowTab=nowTab;
+          if(scope.editing)
+            scope.nowTab=nowTab;
         }
         var getScoreBoardData = function () {
           ScoreBoard.getScore(scope.componentId, function (err, scoreBoardData) {
@@ -767,6 +768,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                 } else if (scope.scoreBoard.status === 0) {
                   if (playingTeam.allowManage) {
                     scope.allowEdit = true;
+                    scope.editing = true;
                   }
                 }
 
@@ -796,9 +798,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           });
         };
         getScoreBoardData();
-
-        scope.editing = false;
-        
         /**
          * 设置胜负结果
          * @param {Number} result -1, 0, 1
@@ -836,26 +835,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
               scores: scope.scores,
               results: scope.results
             },
-            isInit: true
-          }, function (err) {
-            if (err) {
-              $ionicPopup.alert({
-                title: '错误',
-                template: err
-              });
-            } else {
-              finishEdit();
-            }
-          })
-        };
-
-        scope.resetScore = function () {
-          ScoreBoard.resetScore(scope.componentId, {
-            data:{
-              scores: cope.scores,
-              results: scope.results
-            },
-            isInit: false
+            isInit: scope.scoreBoard.status==0
           }, function (err) {
             if (err) {
               $ionicPopup.alert({
