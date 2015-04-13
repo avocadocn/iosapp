@@ -5,7 +5,7 @@ ion-view.competition_message_panel
   ion-content
     ion-refresher(on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .competition_message_detail(ng-if="competitionMessage")
-      .row.teams
+      .row.competition_teams
         .col.team.sponsor_team
           .team_title 发起方
           .team_content

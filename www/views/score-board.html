@@ -1,6 +1,20 @@
 
 <div class="score_board">
-  <div class="item"><span class="title">比分</span></div>
+  <div class="item row competition_teams">
+    <div class="col team sponsor_team">
+      <div class="team_title"><span>发起方</span><span>v</span></div>
+      <div class="team_content"><img ng-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo}}/40/40" class="team_logo"/>
+        <div class="team_name">{{scoreBoard.playingTeams[0].name}}</div>
+      </div>
+    </div>
+    <div ng-cloak="ng-cloak" class="col col-10 vs col-center">{{scoreBoard.playingTeams[1].score + ':' + scoreBoard.playingTeams[1].score}}</div>
+    <div class="col team opposite_team">
+      <div class="team_title"><span>接受方</span><span>s</span></div>
+      <div class="team_content"><img ng-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo}}/40/40" class="team_logo"/>
+        <div class="team_name">{{scoreBoard.playingTeams[1].name}}</div>
+      </div>
+    </div>
+  </div>
   <div ng-repeat="playingTeam in scoreBoard.playingTeams" class="item play_team"><img ng-src="{{STATIC_URL + playingTeam.logo}}/40/40" title="{{playingTeam.name}}" class="team_logo"/>
     <div ng-bind="playingTeam.name" title="{{playingTeam.name}}" class="team_name"></div>
     <div ng-if="!editing &amp;&amp; scoreBoard.status!==0" ng-class="{'active': playingTeam.result===1}" class="show_score">

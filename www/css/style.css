@@ -2189,6 +2189,9 @@ a>.login .companies_list:activated {
 .tab_company_page .list .icon.ion-chevron-right {
   color: #ababab;
 }
+.tab_company_page .menu_list {
+  margin-top: 10px;
+}
 .tab_company_page .menu_list .item {
   padding-left: 50px;
   border-width: 0;
@@ -3905,6 +3908,64 @@ a>.login .companies_list:activated {
 .circle_content_detail_page {
   background-color: #fff;
 }
+.competition_teams {
+  padding: 15px;
+  text-align: center;
+}
+.competition_teams .col {
+  padding: 0;
+}
+.competition_teams .team .team_title {
+  position: relative;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  height: 26px;
+  line-height: 26px;
+}
+.competition_teams .team .team_title:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 15px;
+  height: 26px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+.competition_teams .team .team_content {
+  padding: 15px 15px 0 15px;
+}
+.competition_teams .team .team_content .team_name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 5px;
+  font-size: 14px;
+}
+.competition_teams .team .team_content .team_logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+.competition_teams .vs {
+  font-size: 16px;
+  min-width: 42px;
+}
+.competition_teams .sponsor_team .team_title {
+  background-color: #f75c5c;
+}
+.competition_teams .sponsor_team .team_title:before {
+  right: 0;
+  border-width: 26px 0 0 20px;
+}
+.competition_teams .opposite_team .team_title {
+  background-color: #3ca2e0;
+}
+.competition_teams .opposite_team .team_title:before {
+  left: 0;
+  border-width: 26px 20px 0 0;
+}
 .circle_company_page .remind_icon,
 .circle_user_page .remind_icon,
 .circle_team_page .remind_icon {
@@ -4327,64 +4388,6 @@ a>.login .companies_list:activated {
 }
 .competition_message_panel .competition_message_list .operator {
   text-align: center;
-}
-.competition_message_panel .competition_message_detail .teams {
-  padding: 15px;
-  text-align: center;
-}
-.competition_message_panel .competition_message_detail .teams .col {
-  padding: 0;
-}
-.competition_message_panel .competition_message_detail .teams .team .team_title {
-  position: relative;
-  color: #fff;
-  text-align: center;
-  font-size: 14px;
-  height: 26px;
-  line-height: 26px;
-}
-.competition_message_panel .competition_message_detail .teams .team .team_title:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 15px;
-  height: 26px;
-  border-style: solid;
-  border-color: #fff transparent transparent transparent;
-}
-.competition_message_panel .competition_message_detail .teams .team .team_content {
-  padding: 15px 15px 0 15px;
-}
-.competition_message_panel .competition_message_detail .teams .team .team_content .team_name {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin-top: 5px;
-  font-size: 14px;
-}
-.competition_message_panel .competition_message_detail .teams .team .team_content .team_logo {
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
-}
-.competition_message_panel .competition_message_detail .teams .vs {
-  font-size: 16px;
-  min-width: 42px;
-}
-.competition_message_panel .competition_message_detail .teams .sponsor_team .team_title {
-  background-color: #f75c5c;
-}
-.competition_message_panel .competition_message_detail .teams .sponsor_team .team_title:before {
-  right: 0;
-  border-width: 26px 0 0 20px;
-}
-.competition_message_panel .competition_message_detail .teams .opposite_team .team_title {
-  background-color: #3ca2e0;
-}
-.competition_message_panel .competition_message_detail .teams .opposite_team .team_title:before {
-  left: 0;
-  border-width: 26px 20px 0 0;
 }
 .competition_message_panel .competition_message_detail .vote {
   padding: 0 60px;
@@ -4889,6 +4892,12 @@ a>.login .companies_list:activated {
 .score_board .item.logs .log .content {
   font-size: 14px;
   color: #3ca2e0;
+}
+.score_board .item.competition_teams {
+  height: initial;
+}
+.score_board .item.competition_teams .vs {
+  font-size: 24px;
 }
 .campaign_content_page .content_page {
   padding-top: 10px;

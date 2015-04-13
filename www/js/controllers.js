@@ -5345,7 +5345,7 @@ angular.module('donlerApp.controllers', [])
         else{
           $ionicPopup.alert({
             title: '错误',
-            template: data.msg
+            template: err
           });
         }
         $scope.isPublish =false;

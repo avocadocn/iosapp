@@ -1,6 +1,20 @@
 .score_board
-  .item
-    span.title 比分
+  .item.row.competition_teams
+    .col.team.sponsor_team
+      .team_title
+        span 发起方
+        span v
+      .team_content
+        img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo}}/40/40")
+        .team_name {{scoreBoard.playingTeams[0].name}}
+    .col.col-10.vs.col-center(ng-cloak) {{scoreBoard.playingTeams[1].score + ':' + scoreBoard.playingTeams[1].score}}
+    .col.team.opposite_team
+      .team_title
+        span 接受方
+        span s
+      .team_content
+        img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo}}/40/40")
+        .team_name {{scoreBoard.playingTeams[1].name}}
   .item.play_team(ng-repeat="playingTeam in scoreBoard.playingTeams")
     img.team_logo(ng-src="{{STATIC_URL + playingTeam.logo}}/40/40" title="{{playingTeam.name}}")
     .team_name(ng-bind="playingTeam.name" title="{{playingTeam.name}}")
@@ -35,4 +49,3 @@
       p.content {{log.text}}
     .item.log(ng-if="logs.length === 0")
       p.title.text-center 没有修改记录
-  
