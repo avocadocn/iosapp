@@ -1,0 +1,63 @@
+ion-modal-view
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="closeModal()") &nbsp;返回
+    h1.title 比分确认
+  ion-content.score_board
+    .item.row.competition_teams
+      .col.team.sponsor_team
+        .vs_title
+          span.v V
+          span.s S
+        .team_title
+          span 发起方
+        .team_content
+          img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo}}/40/40")
+          .team_name {{scoreBoard.playingTeams[0].name}}
+      .col.col-10.vs.col-center(ng-cloak)
+        span {{scoreBoard.status==2 ?scoreBoard.playingTeams[0].score + ':' + scoreBoard.playingTeams[1].score:''}}
+        a.no_link
+      .col.team.opposite_team
+        .team_title
+          span 接受方
+        .team_content
+          img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo}}/40/40")
+          .team_name {{scoreBoard.playingTeams[1].name}}
+    .tab_view
+      .nav
+        .tab_style(ng-class="{'active':nowTab=='score'}")
+          a(ng-click="changeFilter('score')") 
+            span 输入比分
+        .tab_style(ng-class="{'active':nowTab=='result'}")
+          a(ng-click="changeFilter('result')") 
+            span 输入结果
+    label.item.input_score.item-input(ng-repeat="playingTeam in scoreBoard.playingTeams" ng-if="nowTab=='score'")
+      span.input-label {{$index==0 ?'发起方':'接受方'}}
+      input.result(type="number" name="theme" placeholder="{{playingTeam.score||'输入比分'}}" ng-model="scores[$index]")
+    label.item.input_score.item-input(ng-repeat="playingTeam in scoreBoard.playingTeams" ng-if="nowTab=='result'")
+      span.input-label {{$index==0 ?'发起方':'接受方'}}
+      .results
+        button.button.button-clear.button-positive.result(ng-click="setResult(1, $index)" ng-class="{'button-assertive': results[$index]===1}") 胜
+        button.button.button-clear.button-positive.result(ng-click="setResult(0, $index)" ng-class="{'button-assertive': results[$index]===0}") 平
+        button.button.button-clear.button-positive.result(ng-click="setResult(-1, $index)" ng-class="{'button-assertive': results[$index]===-1}") 负
+    .item.score_board_operator(ng-if="allowEdit && !editing && leaderStatus==='init'")
+      button.button.button-clear.button-positive.operator(ng-click="toggleEdit()") 设置比分
+    .item.score_board_operator(ng-if="allowEdit && !editing && leaderStatus==='toConfirm'")
+      button.button.button-clear.button-positive.operator(ng-click="confirmScore()") 同意
+      button.button.button-clear.button-positive.operator.cancel(ng-click="toggleEdit()") 不同意
+    .item.score_board_operator(ng-if="allowEdit && !editing && leaderStatus==='waitConfirm'")
+      button.operator.button.button-small.button-clear(ng-click="toggleEdit()") 重新设置
+    .item.score_board_operator(ng-if="allowEdit && editing")
+      button.button.button-clear.button-positive.operator(ng-if="scoreBoard.status===0" ng-click="initScore()") 确认
+      button.button.button-clear.button-positive.operator(ng-if="scoreBoard.status===1" ng-click="resetScore()") 确认
+      button.button.button-clear.button-positive.operator.cancel(ng-click="toggleEdit()") 取消
+    .item.score_board_footer
+      .remind_text(ng-if="scoreBoard.status===0") 等待队长设置比分
+      .remind_text(ng-if="scoreBoard.status===1") 比分待确认
+      .remind_text(ng-if="scoreBoard.status===2") 比分已确认
+      .getlog(ng-if="allowManage" ng-click="toggleLogs()") 查看记录
+    .logs(ng-if="showLogs")
+      .item.log(ng-repeat="log in logs")
+        p.title {{log.teamName}}&nbsp;{{log.date}}
+        p.content {{log.text}}
+      .item.log(ng-if="logs.length === 0")
+        p.title.text-center 没有修改记录

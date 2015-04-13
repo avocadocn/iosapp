@@ -2,62 +2,18 @@
 <div class="score_board">
   <div class="item row competition_teams">
     <div class="col team sponsor_team">
-      <div class="team_title"><span>发起方</span><span>v</span></div>
+      <div class="vs_title"><span class="v">V</span><span class="s">S</span></div>
+      <div class="team_title"><span>发起方</span></div>
       <div class="team_content"><img ng-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo}}/40/40" class="team_logo"/>
         <div class="team_name">{{scoreBoard.playingTeams[0].name}}</div>
       </div>
     </div>
-    <div ng-cloak="ng-cloak" class="col col-10 vs col-center">{{scoreBoard.playingTeams[1].score + ':' + scoreBoard.playingTeams[1].score}}</div>
+    <div ng-cloak="ng-cloak" class="col col-10 vs col-center"><span ng-if="scoreBoard.status==2&amp;&amp;!allowEdit" class="score">{{scoreBoard.status==2 ?scoreBoard.playingTeams[0].score + ':' + scoreBoard.playingTeams[1].score:'暂无'}}</span><a ng-if="scoreBoard.status!==2&amp;&amp;allowEdit" ng-click="showEdit()" class="no_underline set_score">设比分</a></div>
     <div class="col team opposite_team">
-      <div class="team_title"><span>接受方</span><span>s</span></div>
+      <div class="team_title"><span>接受方</span></div>
       <div class="team_content"><img ng-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo}}/40/40" class="team_logo"/>
         <div class="team_name">{{scoreBoard.playingTeams[1].name}}</div>
       </div>
-    </div>
-  </div>
-  <div ng-repeat="playingTeam in scoreBoard.playingTeams" class="item play_team"><img ng-src="{{STATIC_URL + playingTeam.logo}}/40/40" title="{{playingTeam.name}}" class="team_logo"/>
-    <div ng-bind="playingTeam.name" title="{{playingTeam.name}}" class="team_name"></div>
-    <div ng-if="!editing &amp;&amp; scoreBoard.status!==0" ng-class="{'active': playingTeam.result===1}" class="show_score">
-      <div ng-if="playingTeam.score || playingTeam.score===0" ng-bind="playingTeam.score" class="score"></div>
-      <div class="result"> {{playingTeam.result | scoreResultFormat}}</div>
-    </div>
-    <div ng-if="editing" class="editing">
-      <input type="number" placeholder="{{playingTeam.score||'输入比分'}}" ng-model="scores[$index]" class="score"/>
-      <div class="results">
-        <button ng-click="setResult(1, $index)" ng-class="{'button-assertive': results[$index]===1}" class="button button-clear button-positive result">胜</button>
-        <button ng-click="setResult(0, $index)" ng-class="{'button-assertive': results[$index]===0}" class="button button-clear button-positive result">平</button>
-        <button ng-click="setResult(-1, $index)" ng-class="{'button-assertive': results[$index]===-1}" class="button button-clear button-positive result">负</button>
-      </div>
-    </div>
-  </div>
-  <div ng-if="allowEdit &amp;&amp; !editing &amp;&amp; leaderStatus==='init'" class="item score_board_operator">
-    <button ng-click="toggleEdit()" class="button button-clear button-positive operator">设置比分</button>
-  </div>
-  <div ng-if="allowEdit &amp;&amp; !editing &amp;&amp; leaderStatus==='toConfirm'" class="item score_board_operator">
-    <button ng-click="confirmScore()" class="button button-clear button-positive operator">同意</button>
-    <button ng-click="toggleEdit()" class="button button-clear button-positive operator cancel">不同意</button>
-  </div>
-  <div ng-if="allowEdit &amp;&amp; !editing &amp;&amp; leaderStatus==='waitConfirm'" class="item score_board_operator">
-    <button ng-click="toggleEdit()" class="operator button button-small button-clear">重新设置</button>
-  </div>
-  <div ng-if="allowEdit &amp;&amp; editing" class="item score_board_operator">
-    <button ng-if="scoreBoard.status===0" ng-click="initScore()" class="button button-clear button-positive operator">确认</button>
-    <button ng-if="scoreBoard.status===1" ng-click="resetScore()" class="button button-clear button-positive operator">确认</button>
-    <button ng-click="toggleEdit()" class="button button-clear button-positive operator cancel">取消</button>
-  </div>
-  <div class="item score_board_footer">
-    <div ng-if="scoreBoard.status===0" class="remind_text">等待队长设置比分</div>
-    <div ng-if="scoreBoard.status===1" class="remind_text">比分待确认</div>
-    <div ng-if="scoreBoard.status===2" class="remind_text">比分已确认</div>
-    <div ng-if="allowManage" ng-click="toggleLogs()" class="getlog">查看记录</div>
-  </div>
-  <div ng-if="showLogs" class="logs">
-    <div ng-repeat="log in logs" class="item log">
-      <p class="title">{{log.teamName}}&nbsp;{{log.date}}</p>
-      <p class="content">{{log.text}}</p>
-    </div>
-    <div ng-if="logs.length === 0" class="item log">
-      <p class="title text-center">没有修改记录</p>
     </div>
   </div>
 </div>

@@ -1372,10 +1372,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
     $scope.loadMore = function() {
-      if($scope.loading){
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-      }
-      else{
+      if(!$scope.loading){
         $scope.page++;
         $scope.loading = true;
         TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, timelineData) {
@@ -1391,13 +1388,11 @@ angular.module('donlerApp.controllers', [])
               $scope.loadFinished = true;
             }
           }
-          $timeout(function() {
-            $scope.loading = false;
-          }, 1000);
-          $scope.$broadcast('scroll.infiniteScrollComplete');
+          $scope.loading = false;
         });
       }
     };
+    $scope.loadMore()
   }])
   .controller('ContactsController', ['$scope', 'User', 'INFO', 'Tools', function ($scope, User, INFO, Tools) {
     var contactsBackup = [];
@@ -4818,6 +4813,7 @@ angular.module('donlerApp.controllers', [])
   .controller('CompetitionMessageListController', ['$scope', '$rootScope','$state', 'CompetitionMessage', function ($scope, $rootScope, $state, CompetitionMessage) {
     $scope.messageType ='receive';
     $scope.page = 1;
+    $scope.loading = false;
     $scope.getCompetitionLog = function (refreshFlag) {
       if(refreshFlag) {
         $scope.page =1;
@@ -4827,6 +4823,7 @@ angular.module('donlerApp.controllers', [])
         messageType: $scope.messageType,
         page: $scope.page
       }
+      $scope.loading = true;
       CompetitionMessage.getCompetitionMessages(data,function (err,data) {
         if (err) {
           // todo
@@ -4837,8 +4834,13 @@ angular.module('donlerApp.controllers', [])
           $scope.maxPage = data.maxPage;
           $rootScope.hasNewDiscover = data.unReadStatus;
         }
+        $scope.loading = false;
         refreshFlag && $scope.$broadcast('scroll.refreshComplete');
       });
+    }
+    $scope.goDetail = function (index) {
+      $scope.competitionMessages[index].unread =false;
+      $state.go('competition_message_detail',{id:$scope.competitionMessages[index]._id},{reload:true})
     }
     $scope.typeFilter = function (messageType) {
       $scope.messageType = messageType;
@@ -4849,9 +4851,7 @@ angular.module('donlerApp.controllers', [])
     $scope.moreCompetition = function (argument) {
       $scope.getCompetitionLog();
     }
-    $scope.$on('$ionicView.enter',function(scopes, states){
-      $scope.getCompetitionLog(true);
-    });
+    $scope.getCompetitionLog();
   }])
   .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', '$ionicHistory', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO',
    function ($scope, $state, $ionicModal, $ionicScrollDelegate, $ionicPopup, $timeout, $ionicHistory, CompetitionMessage, Comment, Vote, User, Upload, INFO) {

@@ -3979,6 +3979,24 @@ a>.login .companies_list:activated {
   left: 0;
   border-width: 26px 20px 0 0;
 }
+.competition_teams .vs_title {
+  position: absolute;
+  left: 50%;
+  font-size: 16px;
+  top: 18px;
+}
+.competition_teams .vs_title span {
+  display: inline-block;
+  position: relative;
+}
+.competition_teams .vs_title .v {
+  color: #f75c5c;
+  left: -15px;
+}
+.competition_teams .vs_title .s {
+  color: #3ca2e0;
+  left: -5px;
+}
 .circle_company_page .remind_icon,
 .circle_user_page .remind_icon,
 .circle_team_page .remind_icon {
@@ -4375,7 +4393,9 @@ a>.login .companies_list:activated {
   background-color: #f00;
   border-radius: 100%;
   display: inline-block;
-  margin-top: 15px;
+  margin-top: 12px;
+  float: left;
+  margin-right: 10px;
 }
 .competition_message_panel .competition_message_list .competition_message .text_left {
   text-align: left;
@@ -4406,6 +4426,7 @@ a>.login .companies_list:activated {
 }
 .competition_message_panel .competition_message_list .operator {
   text-align: center;
+  color: #666;
 }
 .competition_message_panel .competition_message_detail .vote {
   padding: 0 60px;
@@ -4914,8 +4935,42 @@ a>.login .companies_list:activated {
 .score_board .item.competition_teams {
   height: initial;
 }
-.score_board .item.competition_teams .vs {
+.score_board .item.competition_teams .vs .score {
   font-size: 24px;
+}
+.score_board .item.competition_teams .vs .set_score {
+  color: #3ca2e0;
+}
+.score_board .tab_view {
+  width: 100%;
+  background-color: #fff;
+  margin-top: 10px;
+}
+.score_board .tab_view .nav {
+  border-bottom: 1px solid #f2f2f5;
+  float: left;
+  width: 100%;
+  height: 40px;
+}
+.score_board .tab_view .nav .tab_style {
+  float: left;
+  text-align: center;
+  border-right: 1px solid #f2f2f5;
+  height: 100%;
+  width: 50%;
+}
+.score_board .tab_view .nav .tab_style a {
+  font-size: 14px;
+  height: 100%;
+  padding: 10px;
+  display: block;
+  color: #666;
+}
+.score_board .tab_view .nav .tab_style.active {
+  border-bottom: 2px solid #3ca2e0;
+}
+.score_board .tab_view .nav .tab_style.active a {
+  color: #3ca2e0;
 }
 .campaign_content_page .content_page {
   padding-top: 10px;
@@ -4960,4 +5015,11 @@ a>.login .companies_list:activated {
 }
 .campaign_content_page .content_page .item.has_content .content {
   white-space: normal;
+}
+.all_campaigns .operator {
+  padding: 10px 15px;
+  text-align: center;
+}
+.all_campaigns .operator .show_more {
+  color: #666;
 }

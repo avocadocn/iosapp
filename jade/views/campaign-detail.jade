@@ -39,7 +39,7 @@ ion-view.dl_campaign_detail
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           i.dl_icon.ion_chat_circle
           span.footer_label 活动讨论
-      score-board(ng-if="scoreBoardId" component-id="scoreBoardId")
+      score-board(ng-if="campaign.is_end && scoreBoardId" component-id="scoreBoardId")
       .item.item-divider.circle
         span 精彩瞬间
         i.icon.ion-camera(ng-if="campaign.join_flag==1" post-circle campaign="campaign")

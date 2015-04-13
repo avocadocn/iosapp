@@ -706,7 +706,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   };
 }])
 
-.directive('scoreBoard', ['$rootScope', '$ionicPopup', 'CONFIG', 'ScoreBoard', function ($rootScope, $ionicPopup, CONFIG, ScoreBoard) {
+.directive('scoreBoard', ['$rootScope', '$ionicPopup', '$ionicModal', 'CONFIG', 'ScoreBoard', function ($rootScope, $ionicPopup, $ionicModal, CONFIG, ScoreBoard) {
     return {
       restrict: 'E',
       scope: {
@@ -736,7 +736,10 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
          * @type {Boolean}
          */
         scope.allowManage = false;
-
+        scope.nowTab ='score';
+        scope.changeFilter = function (nowTab) {
+          scope.nowTab=nowTab;
+        }
         var getScoreBoardData = function () {
           ScoreBoard.getScore(scope.componentId, function (err, scoreBoardData) {
             if (err) {
@@ -771,13 +774,31 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                   scope.allowManage = true;
                 }
               }
+              if(scope.allowEdit) {
+                $ionicModal.fromTemplateUrl('./views/score-board-edit.html', {
+                  scope: scope,
+                  animation: 'slide-in-up'
+                }).then(function(modal) {
+                  scope.editModal = modal;
+                });
+                scope.closeModal = function() {
+                  scope.editModal.hide();
+                };
+
+                scope.$on('$destroy',function() {
+                  scope.editModal.remove();
+                });
+                scope.showEdit = function() {
+                  scope.editModal.show();
+                }
+              }
             }
           });
         };
         getScoreBoardData();
 
         scope.editing = false;
-
+        
         /**
          * 设置胜负结果
          * @param {Number} result -1, 0, 1
@@ -894,8 +915,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       }
     }
   }])
-
-
 .directive('mixMaxLength', function() {
   return {
     restrict: 'A',

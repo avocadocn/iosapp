@@ -9,7 +9,7 @@ ion-view.competition_message_panel
         button.button.button-clear(ng-click="typeFilter('sponsor')" ng-class="messageType=='sponsor'?'active':''") 发出
         span.splite
         button.button.button-clear(ng-click="typeFilter('receive')" ng-class="messageType=='receive'?'active':''") 收到
-      a.row.competition_message(ng-repeat="competitionMessage in competitionMessages" ng-href="#/competition_message/detail/{{competitionMessage._id}}")
+      a.row.competition_message(ng-repeat="competitionMessage in competitionMessages" ng-click="goDetail($index)")
         .col.col-33.text_left
           span.dot(ng-if="competitionMessage.unread")
           .status
@@ -23,4 +23,5 @@ ion-view.competition_message_panel
           img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/30/30")
           .team_name {{competitionMessage.opposite_team.name}}
       .operator(ng-if="competitionMessages.length>0 &&page<=maxPage")
-        button.button.button-small.button-calm(ng-click="moreCompetition()") 显示更多
+        span.loading.ion-looping(ng-if="loading")
+        a.no_underline.show_more(ng-if="!loading && page<=maxPage" ng-click="moreCompetition()") 加载更多

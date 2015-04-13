@@ -9,7 +9,7 @@
       <div class="type_filter button-bar">
         <button ng-click="typeFilter('sponsor')" ng-class="messageType=='sponsor'?'active':''" class="button button-clear">发出</button><span class="splite"></span>
         <button ng-click="typeFilter('receive')" ng-class="messageType=='receive'?'active':''" class="button button-clear">收到</button>
-      </div><a ng-repeat="competitionMessage in competitionMessages" ng-href="#/competition_message/detail/{{competitionMessage._id}}" class="row competition_message">
+      </div><a ng-repeat="competitionMessage in competitionMessages" ng-click="goDetail($index)" class="row competition_message">
         <div class="col col-33 text_left"><span ng-if="competitionMessage.unread" class="dot"></span>
           <div class="status">
             <div class="status_text">{{competitionMessage.status | formatCompeitionStatus:competitionMessage.isSponsor}}</div>
@@ -23,9 +23,7 @@
         <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/30/30" class="team_logo"/>
           <div class="team_name">{{competitionMessage.opposite_team.name}}</div>
         </div></a>
-      <div ng-if="competitionMessages.length&gt;0 &amp;&amp;page&lt;=maxPage" class="operator">
-        <button ng-click="moreCompetition()" class="button button-small button-calm">显示更多</button>
-      </div>
+      <div ng-if="competitionMessages.length&gt;0 &amp;&amp;page&lt;=maxPage" class="operator"><span ng-if="loading" class="loading ion-looping"></span><a ng-if="!loading &amp;&amp; page&lt;=maxPage" ng-click="moreCompetition()" class="no_underline show_more">加载更多</a></div>
     </div>
   </ion-content>
 </ion-view>
