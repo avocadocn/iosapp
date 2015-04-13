@@ -2392,6 +2392,56 @@ angular.module('donlerApp.controllers', [])
       $state.go('hr_editTeam',{teamId:team._id});
     };
   }])
+  // hr查看同事资料
+  .controller('HrColleagueListController', ['$scope', '$state', '$stateParams', 'INFO', 'User', function ($scope, $state, $stateParams, INFO, User) {
+    var contactsBackup = [];
+    $scope.keyword = {value:''};
+    //获取公司联系人
+    User.getCompanyUsers(localStorage.id,function(msg, data){
+      if(!msg) {
+        $scope.contacts = data;
+        contactsBackup = data;
+      }
+    });
+    $scope.cancelSearch = function () {
+      $scope.contacts = contactsBackup;//还原
+      $scope.searching = false;
+      $scope.keyword.value = '';
+      $scope.message = '';
+    };
+    $scope.search = function (event) {
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'searchContacts');
+      }
+      var keyword = $scope.keyword.value;
+      if(keyword && (!event || event.which===13)) {
+        $scope.contacts = [];
+        var length = contactsBackup.length;
+        var find = false;
+        for(var i=0; i<length; i++) {//找名字里含关键字的
+          if(contactsBackup[i].nickname.indexOf(keyword) > -1) {
+            $scope.contacts.push(contactsBackup[i]);
+            find = true;
+          }
+        }
+        // for(var i=0; i<length; i++) {//找email里含关键字的
+        //   if(contactsBackup[i].email.indexOf(keyword) > -1) {
+        //     if(Tools.arrayObjectIndexOf($scope.contacts,contactsBackup[i]._id,'_id')===-1) {
+        //       $scope.contacts.push(contactsBackup[i]);
+        //       find = true;
+        //     }
+        //   }
+        // }
+        if(find === false) {
+          $scope.message = '未查找到相关同事';
+        }else{
+          $scope.message = '';
+        }
+        $scope.searching = true;
+      }
+     
+    };
+  }])
   // hr查看公司资料
   .controller('HrCompanyController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
     // 获取公司数据

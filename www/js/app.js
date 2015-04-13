@@ -193,6 +193,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'HrCompanyEditController',
         templateUrl: './views/hr-company-edit.html'
       })
+      .state('hr_colleagueList', {
+        url: '/hr/colleague_list',
+        controller: 'HrColleagueListController',
+        templateUrl: './views/hr-colleague-list.html'
+      })
       .state('user_forget', {
         url: '/user/forget',
         controller: 'UserForgetController',
