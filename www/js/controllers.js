@@ -2593,6 +2593,7 @@ angular.module('donlerApp.controllers', [])
                 template: '修改封面成功'
               });
               refreshCompanyData();
+              INFO.hasModifiedCompany = true;
             } else {
               $ionicPopup.alert({
                 title: '提示',
