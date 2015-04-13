@@ -152,10 +152,10 @@ angular.module('donlerApp.filters', [])
     var result = '';
     switch(input) {
       case 'sent':
-        result = sponsor ?'等待对方同意':'新挑战';
+        result = sponsor ?'等待对方接受':'未处理';
         break;
       case 'accepted':
-        result = sponsor ?'对方已回应':'已回应';
+        result = sponsor ?'接受挑战':'请发活动';
         break;
       case 'rejected':
         result = sponsor ?'对方已拒绝':'已拒绝';
