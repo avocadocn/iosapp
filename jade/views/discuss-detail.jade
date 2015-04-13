@@ -38,7 +38,7 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
             .contents
               //- .name(ng-if="comment.poster_team" ng-cloak) {{comment.poster_team.name}}
               .name(ng-if="comment.poster &&comment.poster._id !== userId" ng-cloak) {{comment.poster.nickname}}
-              .name(ng-if="comment.poster && comment.poster._id == userId" ng-cloak) 我
+              .name(ng-if="comment.poster && comment.poster._id == userId && competition_message.chat_type===1" ng-cloak) 我
               .remind_box.clearfix(ng-if="comment.chat_type>1")
                 a.no_underline(ng-href="{{ comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id : '#/competition_message/detail/' + comment.competition_message }}")
                   .remind_box_head

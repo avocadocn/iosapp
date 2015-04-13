@@ -5286,6 +5286,10 @@ angular.module('donlerApp.controllers', [])
       Chat.postChat(team._id, postData, function(err, data) {
         if(err) {
           console.log(err);
+          $ionicPopup.alert({
+            title: '提示',
+            template: '推荐失败！'
+          });
         }
         else{
           $ionicPopup.alert({
