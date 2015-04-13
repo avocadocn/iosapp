@@ -230,6 +230,17 @@ a.no_underline {
 .icon_small.ion_heart_outline {
   background-position: -226px -97px;
 }
+.action-sheet .action-sheet-group .action-sheet-title {
+  padding: 50px 10px;
+  font-size: 16px;
+  height: 120px;
+}
+.action-sheet .action-sheet-group .button {
+  color: #3ca2df;
+}
+.action-sheet .action-sheet-group:last-child .button {
+  color: #666;
+}
 .campaigns_container .campaign_filter {
   height: 33px;
   background-color: #fff;

@@ -293,7 +293,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$ionicPopup', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG', function ($ionicHistory, $rootScope, $scope, $state, $ionicPopup, Campaign, Message, INFO, User, Circle, CONFIG) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$ionicPopup', '$ionicActionSheet', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG', function ($ionicHistory, $rootScope, $scope, $state, $ionicPopup, $ionicActionSheet, Campaign, Message, INFO, User, Circle, CONFIG) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -353,35 +353,40 @@ angular.module('donlerApp.controllers', [])
       return false;
     };
     $scope.quit = function(id){
-      var quitConfirm = $ionicPopup.confirm({
-          title: '提示',
-          template: '确定退出活动吗？',
-          okText: '确定',
-          cancelText: '取消'
-        });
-      quitConfirm.then(function (res) {
-        if (res) {
-          if(window.analytics){
-            window.analytics.trackEvent('Click', 'quitCampaign');
+      var hideSheet = $ionicActionSheet.show({
+        buttons: [
+         { text: '确定' }
+        ],
+        titleText: '确定退出活动吗？',
+        cancelText: '取消',
+        cancel: function() {
+          hideSheet();
+        },
+        buttonClicked: function(index) {
+          if(index==0){
+            if(window.analytics){
+              window.analytics.trackEvent('Click', 'quitCampaign');
+            }
+            Campaign.quit(id,localStorage.id, function(err, data){
+              if(!err){
+                $scope.campaign = data;
+                setMembers();
+                $ionicPopup.alert({
+                  title: '提示',
+                  template: '退出成功',
+                  okText: '确定'
+                });
+              }
+              else {
+                $ionicPopup.alert({
+                  title: '错误',
+                  template: err
+                });
+              }
+            });
           }
-          Campaign.quit(id,localStorage.id, function(err, data){
-            if(!err){
-              $scope.campaign = data;
-              setMembers();
-              $ionicPopup.alert({
-                title: '提示',
-                template: '退出成功'
-              });
-            }
-            else {
-              $ionicPopup.alert({
-                title: '错误',
-                template: err
-              });
-            }
-          });
         }
-      });
+     });
     };
     $scope.goDiscussDetail = function(campaignId, campaignTheme) {
       INFO.discussName = campaignTheme;
