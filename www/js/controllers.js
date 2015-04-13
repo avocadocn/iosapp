@@ -1326,7 +1326,8 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('AllCampaignController', ['$scope', '$state', '$timeout', '$ionicHistory', 'TimeLine', 'INFO', function ($scope, $state, $timeout, $ionicHistory, TimeLine, INFO) {
+  .controller('AllCampaignController', ['$scope', '$state', '$timeout', '$ionicHistory', '$ionicScrollDelegate', 'TimeLine', 'INFO',
+   function ($scope, $state, $timeout, $ionicHistory, $ionicScrollDelegate, TimeLine, INFO) {
     $scope.loadFinished = false;
     $scope.loading = false;
     $scope.timelinesRecord =[];
@@ -1389,6 +1390,7 @@ angular.module('donlerApp.controllers', [])
             }
           }
           $scope.loading = false;
+          $ionicScrollDelegate.$getByHandle("mainScroll").resize();
         });
       }
     };
@@ -4838,7 +4840,8 @@ angular.module('donlerApp.controllers', [])
       };
     }
   ])
-  .controller('CompetitionMessageListController', ['$scope', '$rootScope','$state', 'CompetitionMessage', function ($scope, $rootScope, $state, CompetitionMessage) {
+  .controller('CompetitionMessageListController', ['$scope', '$rootScope','$state', '$ionicScrollDelegate', 'CompetitionMessage',
+   function ($scope, $rootScope, $state, $ionicScrollDelegate, CompetitionMessage) {
     $scope.messageType ='receive';
     $scope.page = 1;
     $scope.loading = false;
@@ -4864,6 +4867,7 @@ angular.module('donlerApp.controllers', [])
         }
         $scope.loading = false;
         refreshFlag && $scope.$broadcast('scroll.refreshComplete');
+        $ionicScrollDelegate.$getByHandle("mainScroll").resize();
       });
     }
     $scope.goDetail = function (index) {

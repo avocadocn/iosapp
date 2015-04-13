@@ -3,12 +3,12 @@
   <ion-header-bar><a href="#/app/discover" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">挑战日志</h1>
   </ion-header-bar>
-  <ion-content>
+  <ion-content delegate-handle="mainScroll">
     <ion-refresher on-refresh="getCompetitionLog(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <div class="competition_message_list">
       <div class="type_filter button-bar">
-        <button ng-click="typeFilter('sponsor')" ng-class="messageType=='sponsor'?'active':''" class="button button-clear">发出</button><span class="splite"></span>
-        <button ng-click="typeFilter('receive')" ng-class="messageType=='receive'?'active':''" class="button button-clear">收到</button>
+        <button ng-click="typeFilter('receive')" ng-class="messageType=='receive'?'active':''" class="button button-clear">收到</button><span class="splite"></span>
+        <button ng-click="typeFilter('sponsor')" ng-class="messageType=='sponsor'?'active':''" class="button button-clear">发出</button>
       </div><a ng-repeat="competitionMessage in competitionMessages" ng-click="goDetail($index)" class="row competition_message">
         <div class="col col-33 text_left"><span ng-if="competitionMessage.unread" class="dot"></span>
           <div class="status">
@@ -23,7 +23,7 @@
         <div class="col"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/30/30" class="team_logo"/>
           <div class="team_name">{{competitionMessage.opposite_team.name}}</div>
         </div></a>
-      <div ng-if="competitionMessages.length&gt;0 &amp;&amp;page&lt;=maxPage" class="operator"><span ng-if="loading" class="loading ion-looping"></span><a ng-if="!loading &amp;&amp; page&lt;=maxPage" ng-click="moreCompetition()" class="no_underline show_more">加载更多</a></div>
+      <div ng-if="competitionMessages.length&gt;0 &amp;&amp;page&lt;=maxPage" class="operator"><span ng-if="loading" class="loading">正在加载...</span><a ng-if="!loading &amp;&amp; page&lt;=maxPage" ng-click="moreCompetition()" class="no_underline show_more">点击加载更多</a></div>
     </div>
   </ion-content>
 </ion-view>

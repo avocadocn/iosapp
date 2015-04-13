@@ -9,7 +9,7 @@ ion-view.all_campaigns
       include ./timeline-card
     //- ion-infinite-scroll(ng-if="!loading && !loadFinished" icon="ion-looping" on-infinite="loadMore()" distance="-1%")
     .operator
-      span.loading.ion-looping(ng-if="loading")
-      a.no_underline.show_more(ng-if="!loading && !loadFinished" ng-click="loadMore()") 加载更多
+      span.loading(ng-if="loading") 正在加载...
+      a.no_underline.show_more(ng-if="!loading && !loadFinished" ng-click="loadMore()") 点击加载更多
     .nomore_text(ng-if="loadFinished") 没有更多的足迹
 

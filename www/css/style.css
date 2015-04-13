@@ -4471,9 +4471,6 @@ a>.login .companies_list:activated {
   font-size: 12px;
   color: #202020;
 }
-.competition_message_panel .competition_message_list .competition_message .create_time {
-  font-size: 10px;
-}
 .competition_message_panel .competition_message_list .competition_message .team_name {
   overflow: hidden;
   text-overflow: ellipsis;
