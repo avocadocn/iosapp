@@ -21,7 +21,8 @@
       </div>
       <div edit-map="edit-map" location="formData.homeCourts[1]" map-name="homecourt1" changed="changed" class="item item-input item-icon-right"><span class="input-label">主场2</span>
         <input type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name" readonly="readonly"/><i class="icon ion-chevron-right"></i>
-      </div><a ng-href="#/team/{{team._id}}/family" class="item item-input item-icon-right"><span class="input-label">修改小队封面</span><i class="icon ion-chevron-right"></i></a>
+      </div>
+      <div ng-click="showUploadFamilyActionSheet()" class="item item-input item-icon-right"><span class="input-label">修改小队封面</span><i class="icon ion-chevron-right"></i></div>
     </form>
   </ion-content>
 </ion-view>

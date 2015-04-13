@@ -3071,6 +3071,34 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
+
+    // 修改小队封面
+    $scope.showUploadFamilyActionSheet = function() {
+      Upload.getPicture(false, function(err, imageURI) {
+        if (!err) {
+          if(window.analytics){
+            window.analytics.trackEvent('Click', 'uploadFamilyPhoto');
+          }
+          var addr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
+          Upload.upload('family', addr, {imageURI: imageURI}, function(err) {
+            if(!err) {
+              var successAlert = $ionicPopup.alert({
+                title: '提示',
+                template: '修改成功'
+              });
+              refreshTeamData();
+            }
+            else {
+              $ionicPopup.alert({
+                title: '提示',
+                template: '修改失败，请重试'
+              });
+            }
+          });
+        }
+      });
+    };
+
   }])
 
   .controller('PhotoAlbumListController', ['$scope', '$stateParams', 'PhotoAlbum', 'Team', 'INFO',

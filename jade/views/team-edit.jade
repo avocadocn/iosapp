@@ -26,6 +26,6 @@ ion-view.edit_info
         span.input-label 主场2
         input(type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name" readonly)
         i.icon.ion-chevron-right
-      a.item.item-input.item-icon-right(ng-href="#/team/{{team._id}}/family")
+      .item.item-input.item-icon-right(ng-click="showUploadFamilyActionSheet()")
         span.input-label 修改小队封面
         i.icon.ion-chevron-right

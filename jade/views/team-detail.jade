@@ -5,10 +5,10 @@ ion-view
     a.button(ng-if="team.isLeader" ng-href="#/team/{{team._id}}/edit" ng-cloak) 编辑
   ion-content.team_page
     .team_header(ng-style="familyMinHeight")
-      ion-slide-box(ng-if="team.familyPhotos.length > 1" ng-cloak)
+      //-ion-slide-box(ng-if="team.familyPhotos.length > 1" ng-cloak)
         ion-slide(ng-repeat="photo in team.familyPhotos")
           img.team_family(ng-src="{{STATIC_URL + photo.uri}}/640/380")
-      img.team_family(ng-if="team.familyPhotos.length === 1" ng-src="{{STATIC_URL + team.familyPhotos[0].uri}}/640/380")
+      img.team_family(ng-if="team.familyPhotos.length >= 1" ng-src="{{STATIC_URL + team.familyPhotos[team.familyPhotos.length-1].uri}}/640/380")
       img.team_family(ng-if="team.familyPhotos.length === 0" src="./img/family.png")
     .team_info
       .info_header.clearfix
