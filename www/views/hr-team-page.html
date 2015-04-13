@@ -1,17 +1,15 @@
 
-<ion-view class="company">
+<ion-view class="hr-team-page">
   <ion-header-bar><a href="#/hr/home" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">公司小队</h1>
   </ion-header-bar>
-  <ion-content>
-    <div class="card list"><a href="#/hr/create_team" class="item">新建小队</a></div>
-    <div class="card list"><a href="#/hr/team_list/all" class="item item-icon-right">所有小队<i class="icon ion-chevron-right"></i></a></div>
-    <ul class="list"><a ng-repeat="team in teams" ng-click="editTeam(team)" class="item item-avatar item-icon-right"><img ng-src="{{STATIC_URL + team.logo + '/45/45'}}"/>
-        <h2>{{team.name}}</h2>
+  <ion-content><a href="#/hr/create_team" class="item item-label">新建小队</a><a class="item item-label">所有小队</a>
+    <ul class="list"><a ng-repeat="team in teams" ng-click="editTeam(team)" class="item item-avatar-custom item-icon-right"><img ng-src="{{STATIC_URL + team.logo + '/45/45'}}"/>
+        <h2 class="team-name">{{team.name}}</h2>
+        <p class="team-status">状态: {{team.active? '正常':'关闭'}} </p>
         <p>类型: {{team.groupType}}</p>
-        <p>状态: {{team.active? '正常':'关闭'}} </p>
-        <p>成员: {{team.memberCount}}</p>
-        <p>积分: {{team.score.total}}</p>
-        <p>队长: {{team.leader.length? team.leader[0].nickname:'暂无'}}</p><i class="icon ion-compose"></i></a></ul>
+        <div class="team-member">
+          <p class="team-leader">队长: {{team.leader.length? team.leader[0].nickname:'暂无'}} </p><i class="team-member-num">成员: {{team.memberCount}}</i>
+        </div></a></ul>
   </ion-content>
 </ion-view>

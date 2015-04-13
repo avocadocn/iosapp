@@ -2769,6 +2769,48 @@ a>.login .companies_list:activated {
   font-size: 14px;
   color: #666;
 }
+.hr-team-page .item-label {
+  margin: 10px 0px 0px;
+}
+.hr-team-page .list {
+  padding: 0px;
+}
+.hr-team-page .list .item {
+  position: relative;
+}
+.hr-team-page .list .item .team-name {
+  max-width: 200px;
+}
+.hr-team-page .list .item .team-status {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+.hr-team-page .list .item .team-member {
+  position: relative;
+}
+.hr-team-page .list .item .team-member .team-leader {
+  max-width: 80px;
+}
+.hr-team-page .list .item .team-member .team-member-num {
+  position: absolute;
+  left: 90px;
+  top: 0px;
+  font-size: 14px;
+  color: #666;
+}
+.hr-team-page .list .item-avatar-custom {
+  padding-left: 72px;
+  min-height: 72px;
+}
+.hr-team-page .list .item-avatar-custom > img:first-child {
+  position: absolute;
+  top: 16px;
+  left: 15px;
+  width: 45px;
+  height: 45px;
+  border-radius: 0px;
+}
 .personal_team_list_page .team_list_item {
   padding-top: 15px;
   padding-bottom: 15px;

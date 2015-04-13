@@ -1,23 +1,23 @@
-ion-view.company
+ion-view.hr-team-page
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/hr/home") &nbsp;返回
     h1.title 公司小队
   ion-content
-    .card.list
-      a.item(href="#/hr/create_team")
-        | 新建小队
-    .card.list
-      a.item.item-icon-right(href="#/hr/team_list/all")
-        | 所有小队
-        i.icon.ion-chevron-right
+    a.item.item-label(href="#/hr/create_team")
+      | 新建小队
+    a.item.item-label
+      | 所有小队
     ul.list
-      a.item.item-avatar.item-icon-right(ng-repeat="team in teams" ng-click="editTeam(team)")
+      a.item.item-avatar-custom.item-icon-right(ng-repeat="team in teams" ng-click="editTeam(team)")
         img(ng-src="{{STATIC_URL + team.logo + '/45/45'}}")
-        h2 {{team.name}}
+        h2.team-name {{team.name}}
+        p.team-status 状态: {{team.active? '正常':'关闭'}} 
         p 类型: {{team.groupType}}
+        .team-member
+          p.team-leader 队长: {{team.leader.length? team.leader[0].nickname:'暂无'}} 
+          i.team-member-num 成员: {{team.memberCount}}
         //- p 队长: todo
-        p 状态: {{team.active? '正常':'关闭'}} 
-        p 成员: {{team.memberCount}}
-        p 积分: {{team.score.total}}
-        p 队长: {{team.leader.length? team.leader[0].nickname:'暂无'}}
-        i.icon.ion-compose
+        
+        //- p 积分: {{team.score.total}}
+
+        //- i.icon.ion-compose

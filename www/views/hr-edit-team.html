@@ -1,6 +1,6 @@
 
 <ion-view class="edit_team_info">
-  <ion-header-bar><a ng-if="!editing" ng-href="#/hr/team_list/all" ng-cloak="ng-cloak" class="button icon ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><a ng-if="!editing" ng-href="#/hr/team_page" ng-cloak="ng-cloak" class="button icon ion-chevron-left">&nbsp;返回</a>
     <button ng-if="editing" ng-click="cancelEditing()" ng-cloak="ng-cloak" class="button">取消</button>
     <h1 class="title">编辑小队信息</h1>
     <button ng-if="editing" ng-click="edit()" ng-disabled="!editing || editForm.$invalid" ng-cloak="ng-cloak" class="button">确定</button>
