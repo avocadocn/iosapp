@@ -5,7 +5,13 @@
   </ion-header-bar>
   <ion-content>
     <div class="card list"><a href="#/hr/create_team" class="item">新建小队</a></div>
-    <div class="card list"><a href="#/hr/team_list/all" class="item item-icon-right">所有小队<i class="icon ion-chevron-right"></i></a>
-    </div>
+    <div class="card list"><a href="#/hr/team_list/all" class="item item-icon-right">所有小队<i class="icon ion-chevron-right"></i></a></div>
+    <ul class="list"><a ng-repeat="team in teams" ng-click="editTeam(team)" class="item item-avatar item-icon-right"><img ng-src="{{STATIC_URL + team.logo + '/45/45'}}"/>
+        <h2>{{team.name}}</h2>
+        <p>类型: {{team.groupType}}</p>
+        <p>状态: {{team.active? '正常':'关闭'}} </p>
+        <p>成员: {{team.memberCount}}</p>
+        <p>积分: {{team.score.total}}</p>
+        <p>队长: {{team.leader.length? team.leader[0].nickname:'暂无'}}</p><i class="icon ion-compose"></i></a></ul>
   </ion-content>
 </ion-view>

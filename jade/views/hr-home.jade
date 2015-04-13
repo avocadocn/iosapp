@@ -1,7 +1,7 @@
 ion-view.hr_company_page
   ion-header-bar
     h1.title {{company.name}}
-  ion-content
+  ion-content(scroll="false")
     .company_header(ng-style="familyMinHeight")
       img.company_cover(ng-src="{{STATIC_URL + company.cover}}/640/380")
     .company_info

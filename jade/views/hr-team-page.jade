@@ -10,9 +10,14 @@ ion-view.company
       a.item.item-icon-right(href="#/hr/team_list/all")
         | 所有小队
         i.icon.ion-chevron-right
-      //- a.item.item-icon-right(href="#/hr/team_list/official")
-      //-   | 官方小队
-      //-   i.icon.ion-chevron-right
-      //- a.item.item-icon-right(href="#/hr/team_list/unofficial")
-      //-   | 个人小队
-      //-   i.icon.ion-chevron-right
+    ul.list
+      a.item.item-avatar.item-icon-right(ng-repeat="team in teams" ng-click="editTeam(team)")
+        img(ng-src="{{STATIC_URL + team.logo + '/45/45'}}")
+        h2 {{team.name}}
+        p 类型: {{team.groupType}}
+        //- p 队长: todo
+        p 状态: {{team.active? '正常':'关闭'}} 
+        p 成员: {{team.memberCount}}
+        p 积分: {{team.score.total}}
+        p 队长: {{team.leader.length? team.leader[0].nickname:'暂无'}}
+        i.icon.ion-compose

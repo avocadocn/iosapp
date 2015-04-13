@@ -2150,7 +2150,73 @@ a.no_underline
       border 1px solid #e2e2e2
       height 40px
       color col_blue
-
+//- HR编辑公司
+.edit_company_info
+  .company_name
+    position relative
+    height 45px
+    margin-top 10px
+    margin-bottom 1px
+    .item
+      padding 12px 15px
+      margin 1px 0px
+      &:after
+        display block
+        position absolute
+        left 15px
+        bottom 0
+        width 100%
+        content ''
+        border-top 1px solid #ddd
+      .title, .content
+        font-size 14px
+      .content
+        margin-left 20px
+        color col_textGray
+  .item-icon-right
+    position relative
+    padding 15px
+    height 90px
+    margin 0px
+    border 0px
+    &:after
+      display block
+      position absolute
+      left 15px
+      bottom 0
+      width 100%
+      content ''
+      border-top 1px solid #ddd
+    .icon
+      color col_darkGray
+      z-index 1
+      font-size 18px
+    .company_logo
+      font-size 14px
+      margin-top 23px
+      width 100px
+  .item-icon-right > img:first-child
+    position absolute
+    right 50px
+    width 60px
+    height 60px
+  .item-input
+    position relative
+    height 90px
+    margin 0px
+    padding 15px
+    border none
+    border-bottom 1px solid #ddd
+    .input-label
+      position absolute
+      color black
+      top 5px
+      font-size 14px
+    textarea
+      margin-left 30px
+      width 100%
+      font-size 14px
+      color col_textGray
 // 我的小队页面
 .personal_team_list_page
   .team_list_item

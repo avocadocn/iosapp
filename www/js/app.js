@@ -165,6 +165,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('hr_teamPage', {
         url: '/hr/team_page',
+        controller: 'HrTeamController',
         templateUrl: './views/hr-team-page.html'
       })
       .state('hr_teamList', {

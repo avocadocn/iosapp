@@ -46,7 +46,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('HrHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', 'Company', function ($scope, $state, CompanyAuth, CommonHeaders,Company) {
+  .controller('HrHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', 'Company', 'INFO', function ($scope, $state, CompanyAuth, CommonHeaders, Company, INFO) {
 
     $scope.logout = function () {
       if(window.analytics){
@@ -70,7 +70,22 @@ angular.module('donlerApp.controllers', [])
       .error(function(data) {
         console.log(data);
       });
-
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // 为true或undefined时获取公司数据
+      if (INFO.hasModifiedCompany !== false) {
+        INFO.hasModifiedCompany = false;
+        Company.getData(localStorage.id)
+          .success(function(data) {
+            $scope.company = data;
+          })
+          .error(function(data) {
+            $ionicPopup.alert({
+              title: '提示',
+              template: data.msg || '获取公司数据失败'
+            });
+          });
+      }
+    });
   }])
   .controller('CreateTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
     $scope.backUrl = localStorage.userType==='company' ? '#/hr/team_page' : INFO.createTeamBackUrl;
@@ -2482,6 +2497,7 @@ angular.module('donlerApp.controllers', [])
           refreshCompanyData(function (data) {
             updateFormData();
             $scope.editingLock = false;
+            INFO.hasModifiedCompany = true;
           });
           $scope.editing = false;
         }

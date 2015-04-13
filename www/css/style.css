@@ -2690,6 +2690,85 @@ a>.login .companies_list:activated {
   height: 40px;
   color: #3ca2e0;
 }
+.edit_company_info .company_name {
+  position: relative;
+  height: 45px;
+  margin-top: 10px;
+  margin-bottom: 1px;
+}
+.edit_company_info .company_name .item {
+  padding: 12px 15px;
+  margin: 1px 0px;
+}
+.edit_company_info .company_name .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border-top: 1px solid #ddd;
+}
+.edit_company_info .company_name .item .title,
+.edit_company_info .company_name .item .content {
+  font-size: 14px;
+}
+.edit_company_info .company_name .item .content {
+  margin-left: 20px;
+  color: #666;
+}
+.edit_company_info .item-icon-right {
+  position: relative;
+  padding: 15px;
+  height: 90px;
+  margin: 0px;
+  border: 0px;
+}
+.edit_company_info .item-icon-right:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border-top: 1px solid #ddd;
+}
+.edit_company_info .item-icon-right .icon {
+  color: #999;
+  z-index: 1;
+  font-size: 18px;
+}
+.edit_company_info .item-icon-right .company_logo {
+  font-size: 14px;
+  margin-top: 23px;
+  width: 100px;
+}
+.edit_company_info .item-icon-right > img:first-child {
+  position: absolute;
+  right: 50px;
+  width: 60px;
+  height: 60px;
+}
+.edit_company_info .item-input {
+  position: relative;
+  height: 90px;
+  margin: 0px;
+  padding: 15px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+.edit_company_info .item-input .input-label {
+  position: absolute;
+  color: #000;
+  top: 5px;
+  font-size: 14px;
+}
+.edit_company_info .item-input textarea {
+  margin-left: 30px;
+  width: 100%;
+  font-size: 14px;
+  color: #666;
+}
 .personal_team_list_page .team_list_item {
   padding-top: 15px;
   padding-bottom: 15px;

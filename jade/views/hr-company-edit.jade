@@ -1,24 +1,28 @@
-ion-view.edit_info
+ion-view.edit_company_info
 
   ion-header-bar
     a.button.icon.ion-chevron-left(ng-if="!editing" ng-href="#/hr/home" ng-cloak) &nbsp;返回
     button.button(ng-if="editing" ng-click="cancelEditing()" ng-cloak) 取消
     h1.title 编辑公司信息
-    button.button(ng-if="editing" ng-click="edit()" ng-disabled="editForm.$invalid" ng-cloak) 确定
+    button.button(ng-if="editing" ng-click="edit()" ng-disabled="intro.$invalid" ng-cloak) 确定
 
-  ion-content
-    form.list(name="editForm")
-      .item.item-thumbnail-right.item-icon-right(ng-click="showUploadActionSheet()")
-        img(ng-src="{{STATIC_URL + company.logo}}/160/160")
-        h2 公司logo
-        i.icon.ion-chevron-right
-      .item.item-input
-        span.input-label 公司名称
-        input(type="text" name="nickname" maxlength="20" ng-model="company.name" required readonly)
-      .item.item-input
-        span.input-label 简介
-        textarea.introduce(name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()")
-      .item.item-thumbnail-right.item-icon-right(ng-click="showUploadActionSheetForCompanyCover()")
-        img(ng-src="{{STATIC_URL + company.cover}}/160/160")
-        h2 公司封面
-        i.icon.ion-chevron-right
+  ion-content(scroll="false")
+    .company_name
+      a.item
+        span.title 公司名称
+        span.content {{company.name || '无'}}
+    .item.item-icon-right(ng-click="showUploadActionSheet()")
+      img(ng-src="{{STATIC_URL + company.logo}}/60/60")
+      h2.company_logo 公司logo
+      i.icon.ion-chevron-right
+    .item.item-icon-right(ng-click="showUploadActionSheetForCompanyCover()")
+      img(ng-src="{{STATIC_URL + company.cover}}/60/60")
+      h2.company_logo 公司封面
+      i.icon.ion-chevron-right
+    .item.item-input
+      span.input-label 简介
+      textarea.introduce(name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()")
+    //- form(name="editForm")
+    //-   .item.item-input
+    //-     span.input-label 简介
+    //-     textarea.introduce(name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()")
