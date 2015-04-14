@@ -185,22 +185,21 @@ angular.module('donlerApp.controllers', [])
     $scope.pswpPhotoAlbum = {};
     $scope.pswpId = 'campaigns' + Date.now();
     $scope.showSponsorButton = localStorage.role =='LEADER';
-    var getCampaignList = function() {
-      $rootScope.showLoading();
-      
+    var getCampaignList = function(loading, callBack) {
+      loading && $rootScope.showLoading();
       Campaign.getList({
         requestType: 'user',
         requestId: localStorage.id,
         select_type: 0
       }, function (err, data) {
-        $rootScope.hideLoading();
+        loading && $rootScope.hideLoading();
         if (!err) {
           $scope.unStartCampaigns = data[0];
           $scope.nowCampaigns = data[1];
           $scope.newCampaigns = data[2];
           // $scope.provokes = data[3];
           $scope.finishedCampaigns = data[3];
-          if(data[0].length===0&&data[1].length===0&&data[2].length===0){
+          if(data[0].length===0&&data[1].length===0&&data[2].length===0&&data[3].length===0){
             $scope.noCampaigns = true;
           }
           else {
@@ -210,13 +209,14 @@ angular.module('donlerApp.controllers', [])
         else {
           $rootScope.showAction({titleText:err});
         }
+        callBack &&callBack();
       });
     };
     // 此处使用rootScope是为了解决切换tab时不能刷新的问题
     $rootScope.getCampaignList = getCampaignList;
     $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
       if(!states.stateName && $state.$current.name === 'app.campaigns'){
-        getCampaignList();
+        getCampaignList(true);
       }
     });
     $ionicPopover.fromTemplateUrl('my-popover.html', {
@@ -260,30 +260,9 @@ angular.module('donlerApp.controllers', [])
       },300);
     });
     $scope.doRefresh = function(){
-      Campaign.getList({
-        requestType: 'user',
-        requestId: localStorage.id,
-        select_type: 0,
-        populate: 'photo_album'
-      }, function (err, data) {
-        if (!err) {
-          $scope.unStartCampaigns = $filter('orderBy')(data[0], 'start_time');
-          $scope.nowCampaigns = $filter('orderBy')(data[1], 'end_time');
-          $scope.newCampaigns = $filter('orderBy')(data[2], '-create_time');
-          // $scope.provokes = $filter('orderBy')(data[3], '-create_time');
-          $scope.finishedCampaigns = $filter('orderBy')(data[3], 'end_time');
-          if(data[0].length===0&&data[1].length===0&&data[2].length===0&&data[3].length===0){
-            $scope.noCampaigns = true;
-          }
-          else {
-            $scope.noCampaigns = false;
-          }
-        }
-        else{
-          $rootScope.showAction({titleText:err});
-        }
+      getCampaignList(false, function () {
         $scope.$broadcast('scroll.refreshComplete');
-      });
+      })
     };
   }])
   .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG',
