@@ -46,7 +46,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('HrHomeController', ['$scope', '$state', 'CompanyAuth', 'CommonHeaders', 'Company', 'INFO', function ($scope, $state, CompanyAuth, CommonHeaders, Company, INFO) {
+  .controller('HrHomeController', ['$scope', '$state', '$rootScope', 'CompanyAuth', 'CommonHeaders', 'Company', 'INFO', function ($scope, $state, $ionicActionSheet, CompanyAuth, CommonHeaders, Company, INFO) {
 
     $scope.logout = function () {
       if(window.analytics){
@@ -79,15 +79,13 @@ angular.module('donlerApp.controllers', [])
             $scope.company = data;
           })
           .error(function(data) {
-            $ionicPopup.alert({
-              title: '提示',
-              template: data.msg || '获取公司数据失败'
-            });
+            $rootScope.showAction({titleText:data.msg || '获取公司数据失败'});
           });
       }
     });
   }])
-  .controller('CreateTeamController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'INFO', 'Team', function ($scope, $rootScope, $state, $ionicPopup, INFO, Team) {
+  .controller('CreateTeamController', ['$scope', '$rootScope', '$state', 'INFO', 'Team',
+   function ($scope, $rootScope, $state, INFO, Team) {
     $scope.backUrl = localStorage.userType==='company' ? '#/hr/team_page' : INFO.createTeamBackUrl;
     $scope.isBusy = false;
     $scope.teamName = {};
@@ -97,10 +95,7 @@ angular.module('donlerApp.controllers', [])
         $scope.selectType = data[0];
       }
       else {
-        $ionicPopup.alert({
-          title: '错误',
-          template: err
-        });
+        $rootScope.showAction({titleText:err});
       }
     });
     $scope.changeGroupType = function(selectType) {
@@ -131,10 +126,7 @@ angular.module('donlerApp.controllers', [])
               $state.go('hr_teamPage');
           }
           else{
-            $ionicPopup.alert({
-              title: '错误',
-              template: err
-            });
+            $rootScope.showAction({titleText:err});
           }
         });
       }
@@ -183,8 +175,8 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$ionicPopup', '$ionicPopover', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
-    function ($scope, $state, $timeout, $ionicPopup, $ionicPopover, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$rootScope', '$ionicPopover', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
+    function ($scope, $state, $timeout, $ionicActionSheet, $ionicPopover, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
     $scope.nowType = 'all';
     $scope.pswpPhotoAlbum = {};
     $scope.pswpId = 'campaigns' + Date.now();
@@ -211,10 +203,7 @@ angular.module('donlerApp.controllers', [])
           }
         }
         else {
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+          $rootScope.showAction({titleText:err});
         }
       });
     };
@@ -284,16 +273,14 @@ angular.module('donlerApp.controllers', [])
           }
         }
         else{
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+          $rootScope.showAction({titleText:err});
         }
         $scope.$broadcast('scroll.refreshComplete');
       });
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$ionicPopup', '$ionicActionSheet', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG', function ($ionicHistory, $rootScope, $scope, $state, $ionicPopup, $ionicActionSheet, Campaign, Message, INFO, User, Circle, CONFIG) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG',
+   function ($ionicHistory, $rootScope, $scope, $state, Campaign, Message, INFO, User, Circle, CONFIG) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -338,55 +325,30 @@ angular.module('donlerApp.controllers', [])
         if(!err){
           $scope.campaign = data;
           setMembers();
-          $ionicPopup.alert({
-            title: '提示',
-            template: '参加成功'
-          });
+          $rootScope.showAction({titleText:'参加成功'})
         }
         else {
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }
       });
       return false;
     };
     $scope.quit = function(id){
-      var hideSheet = $ionicActionSheet.show({
-        buttons: [
-         { text: '确定' }
-        ],
-        titleText: '确定退出活动吗？',
-        cancelText: '取消',
-        cancel: function() {
-          hideSheet();
-        },
-        buttonClicked: function(index) {
-          if(index==0){
-            if(window.analytics){
-              window.analytics.trackEvent('Click', 'quitCampaign');
-            }
-            Campaign.quit(id,localStorage.id, function(err, data){
-              if(!err){
-                $scope.campaign = data;
-                setMembers();
-                $ionicPopup.alert({
-                  title: '提示',
-                  template: '退出成功',
-                  okText: '确定'
-                });
-              }
-              else {
-                $ionicPopup.alert({
-                  title: '错误',
-                  template: err
-                });
-              }
-            });
-          }
+      $rootScope.showAction({type:2,titleText:'确定退出活动吗？',fun:function () {
+        if(window.analytics){
+          window.analytics.trackEvent('Click', 'quitCampaign');
         }
-     });
+        Campaign.quit(id,localStorage.id, function(err, data){
+          if(!err){
+            $scope.campaign = data;
+            setMembers();
+            $rootScope.showAction({titleText:'退出成功'})
+          }
+          else {
+            $rootScope.showAction({titleText:err})
+          }
+        });
+      }});
     };
     $scope.goDiscussDetail = function(campaignId, campaignTheme) {
       INFO.discussName = campaignTheme;
@@ -395,12 +357,6 @@ angular.module('donlerApp.controllers', [])
     $scope.goSendCircle = function(campaignId) {
       $state.go('circle_send_content',{campaignId: campaignId});
       // $state.go('circle_company');
-    };
-    $scope.ionicAlert = function(msg) {
-      $ionicPopup.alert({
-        title: '提示',
-        template: msg
-      });
     };
     //CIRCLE
     $scope.loadMore = function() {
@@ -424,7 +380,7 @@ angular.module('donlerApp.controllers', [])
         })
         .error(function(data, status) {
           if (status !== 404) {
-            $scope.ionicAlert(data.msg || '获取失败');
+            $rootScope.showAction({titleText:'获取失败'})
           } else {
             $scope.loadingStatus.hasMore = false;
           }
@@ -465,7 +421,7 @@ angular.module('donlerApp.controllers', [])
       })
       .error(function(data, status) {
         if (status !== 404) {
-          $scope.ionicAlert(data.msg || '获取失败');
+          $rootScope.showAction({titleText:data.msg || '获取失败'})
         }
         $scope.$broadcast('scroll.refreshComplete');
       });
@@ -518,7 +474,8 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('CampaignNoticelController', ['$ionicHistory', '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'Campaign', 'Message', function($ionicHistory, $scope, $stateParams, $ionicModal, $ionicPopup, Campaign, Message) {
+  .controller('CampaignNoticelController', ['$ionicHistory', '$scope', '$stateParams', '$ionicModal', '$rootScope', 'Campaign', 'Message',
+   function($ionicHistory, $scope, $stateParams, $ionicModal, $rootScope, Campaign, Message) {
     Campaign.get($stateParams.id, function(err, data){
       if(!err){
         $scope.campaign = data;
@@ -558,10 +515,7 @@ angular.module('donlerApp.controllers', [])
       }
       Message.postMessage( messageData, function(err, data){
         if(!err){
-          $ionicPopup.alert({
-            title: '提示',
-            template: '公告发布成功！'
-          });
+          $rootScope.showAction({titleText:'公告发布成功！'})
           Message.getCampaignMessages($stateParams.id, function(err, data){
             if(!err){
               $scope.notices = data;
@@ -570,10 +524,7 @@ angular.module('donlerApp.controllers', [])
           });
         }
         else{
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+           $rootScope.showAction({titleText:err})
         }
       });
 
@@ -620,7 +571,8 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team', function ($ionicHistory, $scope, $state, $ionicPopup, $ionicModal, $timeout, Campaign, INFO, Team) {
+  .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$rootScope', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team',
+   function ($ionicHistory, $scope, $state, $rootScope, $ionicModal, $timeout, Campaign, INFO, Team) {
     $scope.campaignData ={
       location : {}
     };
@@ -702,10 +654,7 @@ angular.module('donlerApp.controllers', [])
 
       }
       else if(errMsg ){
-        $ionicPopup.alert({
-          title: '提示',
-          template: errMsg
-        });
+        $rootScope.showAction({titleText:errMsg})
       }
       else {
         if(window.analytics){
@@ -722,17 +671,10 @@ angular.module('donlerApp.controllers', [])
         }
         Campaign.create($scope.campaignData,function(err,data){
           if(!err){
-            // $ionicPopup.alert({
-            //   title: '提示',
-            //   template: '活动发布成功！'
-            // });
             $state.go('campaigns_detail',{id:data.campaign_id});
           }
           else{
-            $ionicPopup.alert({
-              title: '提示',
-              template: err
-            });
+             $rootScope.showAction({titleText:err})
           }
           $scope.isBusy = false;
         });
@@ -831,8 +773,8 @@ angular.module('donlerApp.controllers', [])
       Chat.saveChatroomList($scope.chatrooms);
     });
   }])
-  .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Chat', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', '$ionicPopup', 'Upload', '$ionicModal',
-    function ($scope, $state, $stateParams, $ionicScrollDelegate, Chat, Socket, User, Tools, CONFIG, INFO, $ionicPopup, Upload, $ionicModal) {
+  .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Chat', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', 'Upload', '$ionicModal',
+    function ($scope, $state, $stateParams, $ionicScrollDelegate, Chat, Socket, User, Tools, CONFIG, INFO, Upload, $ionicModal) {
     $scope.chatroomId = $stateParams.chatroomId;
     $scope.chatroomName = INFO.chatroomName;
     $scope.userId = localStorage.id;
@@ -1116,8 +1058,8 @@ angular.module('donlerApp.controllers', [])
 
 
   }])
-  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$ionicModal', '$ionicPopup', 'Comment', 'User', 'INFO',
-    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, $ionicModal, $ionicPopup, Comment, User, INFO) {
+  .controller('DiscussDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$ionicModal', '$rootScope', 'Comment', 'User', 'INFO',
+    function ($ionicHistory, $scope, $state, $stateParams, $ionicScrollDelegate, $ionicModal, $rootScope, Comment, User, INFO) {
     $scope.campaignId = $stateParams.id;
     $scope.campaignTitle = INFO.discussName;
     $scope.userId = localStorage.id;
@@ -1203,15 +1145,9 @@ angular.module('donlerApp.controllers', [])
           if(err){
             console.log(err);
             //发送失败
-            $ionicPopup.alert({
-              title: '错误',
-              template: err
-            });
+            $rootScope.showAction({titleText:err})
           }else{
-            $ionicPopup.alert({
-              title: '提示',
-              template: '留言发布成功！'
-            });
+            $rootScope.showAction({titleText:'留言发布成功！'})
             //-创建一个新comment
             var newComment = {
               create_date: new Date(),
@@ -1232,26 +1168,20 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('CompanyController', ['$scope', '$ionicPopup', 'Company', 'User', function($scope, $ionicPopup, Company, User) {
+  .controller('CompanyController', ['$scope', '$rootScope', 'Company', 'User', function($scope, $rootScope, Company, User) {
     // 获取公司数据
     Company.getData(localStorage.cid)
       .success(function(data) {
         $scope.company = data;
       })
       .error(function(data) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: data.msg || '获取公司数据失败'
-        });
+        $rootScope.showAction({titleText:data.msg || '获取公司数据失败'})
       });
 
     // 获取公司成员列表
     User.getCompanyUsers(localStorage.cid, function(err, data) {
       if (err) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: err || '获取公司同事数据失败'
-        });
+        $rootScope.showAction({titleText:err || '获取公司同事数据失败'})
       }
       else {
         $scope.staffList = data.slice(0, 3);
@@ -1260,7 +1190,7 @@ angular.module('donlerApp.controllers', [])
 
   }])
 
-  .controller('CompanyTeamListController', ['$scope', '$ionicPopup', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $ionicPopup, $state, $ionicHistory, Team, INFO) {
+  .controller('CompanyTeamListController', ['$scope', '$rootScope', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $rootScope, $state, $ionicHistory, Team, INFO) {
 
     $scope.refresh = function(unRefreshFlag) {
       Team.getList('company', null, false, function (err, teams) {
@@ -1296,17 +1226,11 @@ angular.module('donlerApp.controllers', [])
       }
       Team.joinTeam(tid, localStorage.id, function(err, data) {
         if(!err) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: '加入成功'
-          });
+          $rootScope.showAction({titleText:'加入成功'})
           $scope.teams[index].hasJoined = true;
         }
         else {
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }
       });
     };
@@ -1316,17 +1240,11 @@ angular.module('donlerApp.controllers', [])
       }
       Team.quitTeam(tid, localStorage.id, function(err, data) {
         if(!err) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: '退出成功'
-          });
+          $rootScope.showAction({titleText:'退出成功'})
           $scope.teams[index].hasJoined = false;
         }
         else {
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }
       });
     };
@@ -1337,6 +1255,17 @@ angular.module('donlerApp.controllers', [])
     $scope.loading = false;
     $scope.timelinesRecord =[];
     $scope.page = 0;
+    switch($state.params.type) {
+      case 'company':
+        $scope.title='所有活动';
+        break;
+      case 'team':
+        $scope.title='小队所有活动';
+        break;
+      case 'user':
+        $scope.title='个人足迹';
+        break;
+    }
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -1487,7 +1416,8 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('PersonalInviteCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', 'CONFIG', function ($scope, Company, $cordovaClipboard, $ionicPopup, CONFIG) {
+  .controller('PersonalInviteCodeController', ['$scope', 'Company', '$cordovaClipboard', '$rootScope', 'CONFIG',
+   function ($scope, Company, $cordovaClipboard, $rootScope, CONFIG) {
     Company.getInviteKey(localStorage.cid, function(msg, data){
       if(!msg){
         $scope.inviteKey = data.staffInviteCode;
@@ -1504,31 +1434,22 @@ angular.module('donlerApp.controllers', [])
       $cordovaClipboard
       .copy($scope.inviteKey)
       .then(function () {
-        $ionicPopup.alert({
-          title: '提示',
-          template: '验证码已成功复制到剪贴板'
-        });
+        $rootScope.showAction({titleText:'验证码已成功复制到剪贴板'})
       }, function () {
-        $ionicPopup.alert({
-          title: '提示',
-          template: '复制验证码到剪贴板失败'
-        });
+        $rootScope.showAction({titleText:'复制验证码到剪贴板失败'})
       });
     };
 
   }])
-  .controller('PersonalEditController', ['$scope', '$state', '$ionicPopup', '$ionicHistory', 'User', 'CONFIG', 'Upload',
-    function ($scope, $state, $ionicPopup, $ionicHistory, User, CONFIG, Upload) {
+  .controller('PersonalEditController', ['$scope', '$state', '$rootScope', '$ionicHistory', 'User', 'CONFIG', 'Upload',
+    function ($scope, $state, $rootScope, $ionicHistory, User, CONFIG, Upload) {
 
     var birthdayInput = document.getElementById('birthday');
 
     $scope.$on('$ionicView.enter', function (scopes, states) {
       User.getData(localStorage.id, function (err, data) {
         if (err) {
-          $ionicPopup.alert({
-            title: '获取个人信息失败',
-            template: err
-          });
+          $rootScope.showAction({titleText:'获取个人信息失败'})
         } else {
           $scope.user = data;
           $scope.formData = {
@@ -1551,10 +1472,7 @@ angular.module('donlerApp.controllers', [])
       $scope.user.tags.splice(index,1);
       User.editData($scope.user._id, {deleteTag:tag}, function(err) {
         if(err) {
-          $ionicPopup.alert({
-            title: '删除失败',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }
       });
     };
@@ -1565,10 +1483,7 @@ angular.module('donlerApp.controllers', [])
       }
       User.editData($scope.user._id, $scope.formData, function (err) {
         if (err) {
-          $ionicPopup.alert({
-            title: '编辑失败',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         } else {
           //暂时么有tag
           // if($scope.formData.tag) {
@@ -1595,18 +1510,12 @@ angular.module('donlerApp.controllers', [])
               $ionicHistory.clearHistory();
               $ionicHistory.clearCache();
               User.clearCurrentUser();
-              var successAlert = $ionicPopup.alert({
-                title: '提示',
-                template: '修改头像成功'
-              });
+              $rootScope.showAction({titleText:'修改头像成功'})
               successAlert.then(function () {
                 $state.go('app.personal');
               });
             }else {
-              $ionicPopup.alert({
-                title: '提示',
-                template: '修改失败，请重试'
-              });
+              $rootScope.showAction({titleText:'修改失败，请重试'})
             }
           });
         }
@@ -1728,7 +1637,7 @@ angular.module('donlerApp.controllers', [])
       User.editData(localStorage.id, $scope.user, function(msg){});
     };
   }])
-  .controller('PasswordController', ['$scope', '$rootScope', '$ionicPopup', 'User', function($scope, $rootScope, $ionicPopup, User) {
+  .controller('PasswordController', ['$scope', '$rootScope', '$rootScope', 'User', function($scope, $rootScope, $rootScope, User) {
     $scope.pswData = {};
     $scope.changePwd = function() {
       $rootScope.showLoading();
@@ -1738,9 +1647,9 @@ angular.module('donlerApp.controllers', [])
       User.editData(localStorage.id, $scope.pswData, function(msg) {
         $rootScope.hideLoading();
         if(msg){
-          $ionicPopup.alert({title:'修改失败',template:msg});
+          $rootScope.showAction({titleText:msg})
         }else{
-          $ionicPopup.alert({title:'修改成功'});
+          $rootScope.showAction({titleText:'修改成功'})
         }
       });
     };
@@ -1787,8 +1696,8 @@ angular.module('donlerApp.controllers', [])
         }
     });
   }])
-  .controller('CalendarController', ['$scope', '$rootScope', '$state', '$ionicPopup', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
-    function($scope, $rootScope, $state, $ionicPopup, $ionicPopover, $timeout, $ionicHistory, Campaign, INFO) {
+  .controller('CalendarController', ['$scope', '$rootScope', '$state', '$rootScope', '$ionicPopover', '$timeout', '$ionicHistory', 'Campaign', 'INFO',
+    function($scope, $rootScope, $state, $rootScope, $ionicPopover, $timeout, $ionicHistory, Campaign, INFO) {
       $scope.pageType = $state.params.type;
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
@@ -1868,10 +1777,7 @@ angular.module('donlerApp.controllers', [])
           to: new Date(year, month + 1).getTime()
         }, function(err, data) {
           if (err) {
-            $ionicPopup.alert({
-              title: '提示',
-              template: err
-            });
+            $rootScope.showAction({titleText:err})
             return;
           }
           $scope.campaigns = data;
@@ -2172,7 +2078,7 @@ angular.module('donlerApp.controllers', [])
   .controller('UserRegPrivacyController', ['$scope', '$ionicNavBarDelegate', 'INFO', function ($scope, $ionicNavBarDelegate, INFO) {
     $scope.backHref = '#/register/user/post_detail/' + INFO.companyId;
   }])
-  .controller('HrSignupController' ,['$scope', '$state', '$rootScope', '$ionicPopup', 'CompanySignup', 'CONFIG', function ($scope, $state, $rootScope, $ionicPopup, CompanySignup, CONFIG) {
+  .controller('HrSignupController' ,['$scope', '$state', '$rootScope', 'CompanySignup', 'CONFIG', function ($scope, $state, $rootScope, CompanySignup, CONFIG) {
     //for region
     var region_url = CONFIG.BASE_URL + '/region';
     // var region_url = "http://192.168.2.107:3002/region";
@@ -2208,10 +2114,7 @@ angular.module('donlerApp.controllers', [])
       CompanySignup.signup(data, function(err){
         $rootScope.hideLoading();
         if(err){
-          $ionicPopup.alert({
-            title: '验证失败',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }else{
           $state.go('register_company_wait');
         }
@@ -2302,7 +2205,7 @@ angular.module('donlerApp.controllers', [])
       }
     };
   }])
-  .controller('UserRegisterDetailController', ['$scope', '$rootScope', '$state', '$ionicPopup', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, $ionicPopup, UserSignup, INFO) {
+  .controller('UserRegisterDetailController', ['$scope', '$rootScope', '$state', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, UserSignup, INFO) {
     $scope.data = {};
     $scope.data.cid = INFO.companyId;
     $scope.data.email = INFO.email;
@@ -2317,10 +2220,7 @@ angular.module('donlerApp.controllers', [])
         if(!msg){
           $state.go('register_user_waitEmail');
         }else{
-          $ionicPopup.alert({
-            title: '失败',
-            template: msg
-          });
+          $rootScope.showAction({titleText:msg})
         }
       });
     };
@@ -2340,7 +2240,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('HrActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$ionicPopup', function ($scope, Company, $cordovaClipboard, $ionicPopup) {
+  .controller('HrActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$rootScope', function ($scope, Company, $cordovaClipboard, $rootScope) {
     Company.getInviteKey(localStorage.id, function(msg, data){
       if(!msg){
         $scope.inviteKey = data.staffInviteCode;
@@ -2357,15 +2257,9 @@ angular.module('donlerApp.controllers', [])
       $cordovaClipboard
       .copy($scope.inviteKey)
       .then(function () {
-        $ionicPopup.alert({
-          title: '提示',
-          template: '验证码已成功复制到剪贴板'
-        });
+        $rootScope.showAction({titleText:'验证码已成功复制到剪贴板'})
       }, function () {
-        $ionicPopup.alert({
-          title: '提示',
-          template: '复制验证码到剪贴板失败'
-        });
+        $rootScope.showAction({titleText:'复制验证码到剪贴板失败'})
       });
     };
 
@@ -2457,17 +2351,14 @@ angular.module('donlerApp.controllers', [])
     };
   }])
   // hr查看公司资料
-  .controller('HrCompanyController', ['$scope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $state, $stateParams, INFO, Company) {
+  .controller('HrCompanyController', ['$scope', '$rootScope', '$state', '$stateParams', 'INFO', 'Company', function ($scope, $rootScope, $state, $stateParams, INFO, Company) {
     // 获取公司数据
     Company.getData(localStorage.id)
       .success(function(data) {
         $scope.company = data;
       })
       .error(function(data) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: data.msg || '获取公司数据失败'
-        });
+        $rootScope.showAction({titleText:data.msg || '获取公司数据失败'})
       });
 
     $scope.$on('$ionicView.enter', function(scopes, states) {
@@ -2479,17 +2370,14 @@ angular.module('donlerApp.controllers', [])
             $scope.company = data;
           })
           .error(function(data) {
-            $ionicPopup.alert({
-              title: '提示',
-              template: data.msg || '获取公司数据失败'
-            });
+            $rootScope.showAction({titleText:data.msg || '获取公司数据失败'})
           });
       }
     });
   }])
   // hr编辑公司资料
-  .controller('HrCompanyEditController', ['$scope', '$state', '$stateParams', '$ionicPopup', 'INFO', 'Company', 'Upload', 'CONFIG', 
-    function ($scope, $state, $stateParams, $ionicPopup, INFO, Company, Upload, CONFIG) {
+  .controller('HrCompanyEditController', ['$scope', '$state', '$stateParams', '$rootScope', 'INFO', 'Company', 'Upload', 'CONFIG', 
+    function ($scope, $state, $stateParams, $rootScope, INFO, Company, Upload, CONFIG) {
     // 获取公司数据
     Company.getData(localStorage.id)
       .success(function(data) {
@@ -2499,10 +2387,7 @@ angular.module('donlerApp.controllers', [])
         };
       })
       .error(function(data) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: data.msg || '获取公司数据失败'
-        });
+       $rootScope.showAction({titleText:data.msg || '获取公司数据失败'})
       });
 
     $scope.editing = false;
@@ -2553,10 +2438,7 @@ angular.module('donlerApp.controllers', [])
       $scope.editingLock = true;
       Company.edit(localStorage.id, $scope.formData, function (err) {
         if (err) {
-          $ionicPopup.alert({
-            title: '编辑失败',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         } else {
           refreshCompanyData(function (data) {
             updateFormData();
@@ -2577,17 +2459,11 @@ angular.module('donlerApp.controllers', [])
               window.analytics.trackEvent('Click', 'hrEditCompanyLogo');
             }
             if(!err){
-              var successAlert = $ionicPopup.alert({
-                title: '提示',
-                template: '修改logo成功'
-              });
+              $rootScope.showAction({titleText:'修改logo成功'})
               INFO.hasModifiedCompany = true;
               refreshCompanyData();
             } else {
-              $ionicPopup.alert({
-                title: '提示',
-                template: '修改失败，请重试'
-              });
+              $rootScope.showAction({titleText:'修改失败，请重试'})
             }
           });
         }
@@ -2602,17 +2478,11 @@ angular.module('donlerApp.controllers', [])
               window.analytics.trackEvent('Click', 'hrEditCompanyCover');
             }
             if(!err){
-              var successAlert = $ionicPopup.alert({
-                title: '提示',
-                template: '修改封面成功'
-              });
+              $rootScope.showAction({titleText:'修改封面成功'})
               refreshCompanyData();
               INFO.hasModifiedCompany = true;
             } else {
-              $ionicPopup.alert({
-                title: '提示',
-                template: '修改失败，请重试'
-              });
+              $rootScope.showAction({titleText:'修改失败，请重试'})
             }
           });
         }
@@ -2620,7 +2490,7 @@ angular.module('donlerApp.controllers', [])
     };
   }])
   //-hr编辑小队信息
-  .controller('HrEditTeamController', ['$scope', '$ionicPopup', '$ionicActionSheet', '$timeout', 'INFO', 'Team', 'User', function ($scope, $ionicPopup, $ionicActionSheet, $timeout, INFO, Team, User) {
+  .controller('HrEditTeamController', ['$scope', '$rootScope', '$ionicActionSheet', '$timeout', 'INFO', 'Team', 'User', function ($scope, $rootScope, $ionicActionSheet, $timeout, INFO, Team, User) {
     $scope.formData = {name: INFO.team.name};
     $scope.memberName = {};
     var teamMembersBackup = [];//切换组员、公司成员用 全部组员备份
@@ -2657,14 +2527,9 @@ angular.module('donlerApp.controllers', [])
       //if success getTeamMembers();
       Team.edit(INFO.team._id, $scope.formData, function(err) {
         if(err) {
-          $ionicPopup.alert({
-            title: '编辑失败',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }else{
-          $ionicPopup.alert({
-            title: '编辑成功'
-          });
+          $rootScope.showAction({titleText:'编辑成功'})
           getTeamMembers();
           $scope.editing = false;
         }
@@ -2674,17 +2539,11 @@ angular.module('donlerApp.controllers', [])
 
     $scope.point = function (person) {//指定某人为队长
       $scope.newLeader = person;
-      var confirmSheet = $ionicActionSheet.show({
-        buttons: [{
-          text: '确定'
-        }, ],
-        titleText: '你确定更换队长吗?',
-        cancelText: '取消',
-        cancel: function() {
+      $rootScope.showAction({type:1,titleText:'你确定更换队长吗?',
+        cancelFun:function () {
           $scope.newLeader = $scope.nowLeader;
-          return true;
         },
-        buttonClicked: function(index) {
+        fun:function () {
           $scope.formData.leader = $scope.newLeader;
           Team.edit(INFO.team._id, $scope.formData, function(err) {
             if (err) {
@@ -2698,9 +2557,8 @@ angular.module('donlerApp.controllers', [])
               INFO.hasModifiedTeam = true;
             }
           });
-          return true;
         }
-      });
+      })
     };
 
     $scope.showTeamMember = function () {//显示小队成员
@@ -2756,7 +2614,7 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('FeedbackController', ['$scope', '$rootScope', '$ionicPopup', 'User', function ($scope, $rootScope, $ionicPopup, User) {
+  .controller('FeedbackController', ['$scope', '$rootScope', '$rootScope', 'User', function ($scope, $rootScope, $rootScope, User) {
     $scope.opinion = {};
     $scope.feedback = function () {
       $rootScope.showLoading();
@@ -2765,17 +2623,17 @@ angular.module('donlerApp.controllers', [])
       }
       User.feedback($scope.opinion.content, function(msg) {
         if(msg){
-          $ionicPopup.alert({title:'发送错误',template:'发送错误请重试。'});
+          $rootScope.showAction({titleText:'发送错误请重试。'})
         }else{
-          $ionicPopup.alert({title:'发送成功',template:'感谢您的反馈。'});
+          $rootScope.showAction({titleText:'感谢您的反馈。'})
           $scope.opinion.content = '';
-
         }
         $rootScope.hideLoading();
       });
     };
   }])
-  .controller('TeamController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$stateParams', '$ionicPopup', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', 'User', function ($ionicHistory, $rootScope, $scope, $state, $stateParams, $ionicPopup, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate, User) {
+  .controller('TeamController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$stateParams', '$rootScope', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', 'User', 
+    function ($ionicHistory, $rootScope, $scope, $state, $stateParams, $rootScope, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate, User) {
     var teamId = $stateParams.teamId;
     $scope.goBack = function() {
       if($ionicHistory.backView()){
@@ -2824,17 +2682,11 @@ angular.module('donlerApp.controllers', [])
     $scope.updatePersonalTeam = function (tid) {
       Team.updatePersonalTeam(tid, function (err, data) {
         if (!err) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: data.msg
-          });
+          $rootScope.showAction({titleText:data.msg})
           $scope.team.level = data.level;
         }
         else {
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }
       });
     };
@@ -2844,17 +2696,11 @@ angular.module('donlerApp.controllers', [])
       }
       Team.joinTeam(tid, localStorage.id, function (err, data) {
         if (!err) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: '加入成功'
-          });
+          $rootScope.showAction({titleText:'加入成功'})
           $scope.team.hasJoined = true;
         }
         else {
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }
       });
     };
@@ -2864,17 +2710,11 @@ angular.module('donlerApp.controllers', [])
       }
       Team.quitTeam(tid, localStorage.id, function (err, data) {
         if (!err) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: '退出成功'
-          });
+          $rootScope.showAction({titleText:'退出成功'})
           $scope.team.hasJoined = false;
         }
         else {
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }
       });
     };
@@ -2970,8 +2810,8 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('TeamEditController', ['$scope', '$ionicModal', '$ionicPopup', '$ionicHistory', '$stateParams', 'Team', 'CONFIG', 'INFO', 'Upload',
-    function ($scope, $ionicModal, $ionicPopup, $ionicHistory, $stateParams, Team, CONFIG, INFO, Upload) {
+  .controller('TeamEditController', ['$scope', '$ionicModal', '$rootScope', '$ionicHistory', '$stateParams', 'Team', 'CONFIG', 'INFO', 'Upload',
+    function ($scope, $ionicModal, $rootScope, $ionicHistory, $stateParams, Team, CONFIG, INFO, Upload) {
     $scope.STATIC_URL = CONFIG.STATIC_URL;
     $scope.team = Team.getCurrentTeam();
 
@@ -3076,10 +2916,7 @@ angular.module('donlerApp.controllers', [])
       $scope.editingLock = true;
       Team.edit($scope.team._id, $scope.formData, function (err) {
         if (err) {
-          $ionicPopup.alert({
-            title: '编辑失败',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         } else {
           INFO.hasModifiedTeam = true;
           refreshTeamData(function (team) {
@@ -3087,10 +2924,7 @@ angular.module('donlerApp.controllers', [])
             $scope.editingLock = false;
           });
           $scope.editing = false;
-          $ionicPopup.alert({
-            title: '编辑成功',
-            template: err
-          });
+          $rootScope.showAction({titleText:'编辑成功'})
         }
       });
     };
@@ -3105,16 +2939,10 @@ angular.module('donlerApp.controllers', [])
               window.analytics.trackEvent('Click', 'leaderEditTeamLogo');
             }
             if(!err){
-              var successAlert = $ionicPopup.alert({
-                title: '提示',
-                template: '修改logo成功'
-              });
+              $rootScope.showAction({titleText:'修改logo成功'})
               refreshTeamData();
             } else {
-              $ionicPopup.alert({
-                title: '提示',
-                template: '修改失败，请重试'
-              });
+              $rootScope.showAction({titleText:'修改失败，请重试'})
             }
           });
         }
@@ -3131,17 +2959,11 @@ angular.module('donlerApp.controllers', [])
           var addr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
           Upload.upload('family', addr, {imageURI: imageURI}, function(err) {
             if(!err) {
-              var successAlert = $ionicPopup.alert({
-                title: '提示',
-                template: '修改成功'
-              });
+              $rootScope.showAction({titleText:'修改成功'})
               refreshTeamData();
             }
             else {
-              $ionicPopup.alert({
-                title: '提示',
-                template: '修改失败，请重试'
-              });
+              $rootScope.showAction({titleText:'修改失败，请重试'})
             }
           });
         }
@@ -3233,8 +3055,8 @@ angular.module('donlerApp.controllers', [])
       };
 
   }])
-  .controller('PhotoAlbumDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', '$ionicModal', '$ionicLoading', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'Upload',
-    function ($ionicHistory, $scope, $state, $stateParams, $ionicPopup, $ionicModal, $ionicLoading, PhotoAlbum, Tools, INFO, CONFIG, Upload) {
+  .controller('PhotoAlbumDetailController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$rootScope', '$ionicModal', '$ionicLoading', 'PhotoAlbum', 'Tools', 'INFO', 'CONFIG', 'Upload',
+    function ($ionicHistory, $scope, $state, $stateParams, $rootScope, $ionicModal, $ionicLoading, PhotoAlbum, Tools, INFO, CONFIG, Upload) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
 
@@ -3341,25 +3163,20 @@ angular.module('donlerApp.controllers', [])
         var data = {randomId: randomId, imageURI:$scope.previewImg};
         Upload.upload('photoAlbum', addr, data, function(err) {
           if(!err) {
-            var successAlert = $ionicPopup.alert({
-              title: '提示',
-              template: '上传照片成功'
-            });
-            successAlert.then(function () {
-              $scope.confirmUploadModal.hide();
-              getPhotos();
-            });
+            $rootScope.showAction({titleText:'上传照片成功',
+              cancelFun:function () {
+                $scope.confirmUploadModal.hide();
+                getPhotos();
+              }
+            })
           } else {
-            $ionicPopup.alert({
-              title: '提示',
-              template: '上传失败，请重试'
-            });
+            $rootScope.showAction({titleText:'上传失败，请重试'})
           }
         });
       };
   }])
-  .controller('FamilyPhotoController', ['$ionicHistory', '$rootScope', '$scope', '$stateParams', '$ionicPopup', '$ionicModal', '$ionicLoading', 'INFO', 'Team', 'CONFIG', 'Tools', 'Upload',
-    function ($ionicHistory, $rootScope, $scope, $stateParams, $ionicPopup, $ionicModal, $ionicLoading, INFO, Team, CONFIG, Tools, Upload) {
+  .controller('FamilyPhotoController', ['$ionicHistory', '$rootScope', '$scope', '$stateParams', '$ionicPopup', '$ionicModal', '$ionicLoading', '$ionicActionSheet', 'INFO', 'Team', 'CONFIG', 'Tools', 'Upload',
+    function ($ionicHistory, $rootScope, $scope, $stateParams, $ionicPopup, $ionicModal, $ionicLoading, $ionicActionSheet, INFO, Team, CONFIG, Tools, Upload) {
       $scope.screenWidth = INFO.screenWidth;
       $scope.screenHeight = INFO.screenHeight;
       $scope.team = Team.getCurrentTeam();
@@ -3397,15 +3214,8 @@ angular.module('donlerApp.controllers', [])
         if (!$scope.team.isLeader) {
           return;
         }
-
-        var deleteConfirm = $ionicPopup.confirm({
-          title: '提示',
-          template: '确定要从封面中移除这张照片吗？',
-          okText: '确定',
-          cancelText: '取消'
-        });
-        deleteConfirm.then(function (res) {
-          if (res) {
+        $rootScope.showAction({type:1,titleText:'确定要从封面中移除这张照片吗？',
+          fun:function () {
             if(window.analytics){
               window.analytics.trackEvent('Click', 'toggleSelectFamilyPhoto');
             }
@@ -3419,7 +3229,7 @@ angular.module('donlerApp.controllers', [])
               }
             });
           }
-        });
+        })
       };
 
       $scope.editing = false;
@@ -3458,20 +3268,15 @@ angular.module('donlerApp.controllers', [])
         var addr = CONFIG.BASE_URL + '/teams/' + $scope.team._id + '/family_photos';
         Upload.upload('family', addr, {imageURI:$scope.previewImg}, function(err) {
           if(!err) {
-            var successAlert = $ionicPopup.alert({
-              title: '提示',
-              template: '上传照片成功'
-            });
-            successAlert.then(function () {
-              $scope.confirmUploadModal.hide();
-              getFamilyPhotos();
-            });
+            $rootScope.showAction({titleText:'上传照片成功',
+              cancelFun:function () {
+                $scope.confirmUploadModal.hide();
+                getPhotos();
+              }
+            })
           }else {
             $scope.confirmUploadModal.hide();
-            $ionicPopup.alert({
-              title: '提示',
-              template: '上传失败，请重试'
-            });
+            $rootScope.showAction({titleText:'上传失败，请重试'})
           }
         });
       };
@@ -3643,7 +3448,7 @@ angular.module('donlerApp.controllers', [])
         })
         .error(function(data, status) {
           if (status !== 404) {
-            $scope.ionicAlert(data.msg || '获取失败');
+            $rootScope.showAction({titleText:data.msg || '获取失败'})
           } else {
             $scope.loadingStatus.hasMore = false;
           }
@@ -3698,7 +3503,7 @@ angular.module('donlerApp.controllers', [])
         })
         .error(function(data, status) {
           if (status !== 404) {
-            $scope.ionicAlert(data.msg || '获取失败');
+            $rootScope.showAction({titleText:data.msg || '获取失败'})
           }
           else {
             $scope.loadingStatus.hasInit = true;
@@ -3747,10 +3552,7 @@ angular.module('donlerApp.controllers', [])
         to: new Date(year, month + 1).getTime()
       }, function(err, data) {
         if (err) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
           return;
         }
         $scope.campaigns = data;
@@ -4018,7 +3820,8 @@ angular.module('donlerApp.controllers', [])
     });
 
   }])
-  .controller('ReportController', ['$ionicHistory', '$scope', '$stateParams', '$ionicPopup', 'Report', function ($ionicHistory, $scope, $stateParams, $ionicPopup, Report) {
+  .controller('ReportController', ['$ionicHistory', '$scope', '$stateParams', '$rootScope', 'Report',
+   function ($ionicHistory, $scope, $stateParams, $rootScope, Report) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack()
@@ -4071,25 +3874,18 @@ angular.module('donlerApp.controllers', [])
           if (err) {
             // todo
             console.log(err);
-            $ionicPopup.alert({
-              title: '错误',
-              template: err
-            });
-
+            $rootScope.showAction({titleText:err})
           } else {
-            $ionicPopup.alert({
-              title: '提示',
-              template:'举报成功！'
-            });
+            $rootScope.showAction({titleText:'举报成功！'})
           }
           $scope.isBusy = false;
         });
       }
-
     }
 
   }])
-  .controller('CampaignEditController', ['$ionicHistory', '$scope', '$state', '$ionicPopup', 'Campaign', function ($ionicHistory, $scope, $state, $ionicPopup, Campaign) {
+  .controller('CampaignEditController', ['$ionicHistory', '$scope', '$state', '$rootScope', 'Campaign',
+   function ($ionicHistory, $scope, $state, $rootScope, Campaign) {
     $scope.isBusy = false;
     $scope.campaignData ={};
     var deadLineInput = document.getElementById('deadline');
@@ -4134,22 +3930,13 @@ angular.module('donlerApp.controllers', [])
         }
         $scope.campaignData.deadline = $scope.campaignData.deadline;
         if($scope.campaignData.member_min > $scope.campaignData.member_max) {
-          $ionicPopup.alert({
-            title: '错误',
-            template: '人数下限不能大于上限，请重新填写'
-          });
+          $rootScope.showAction({titleText:'人数下限不能大于上限，请重新填写'})
         }
         else if($scope.campaignData.deadline > $scope.campaignData.end_time ) {
-          $ionicPopup.alert({
-            title: '错误',
-            template: '报名截止时间不能晚于结束时间'+$scope.campaignData.end_time
-          });
+          $rootScope.showAction({titleText:'报名截止时间不能晚于结束时间'+$scope.campaignData.end_time})
         }
         else if($scope.campaignData.deadline < new Date()) {
-          $ionicPopup.alert({
-            title: '错误',
-            template: '报名截止时间不能比现在更早'
-          });
+          $rootScope.showAction({titleText:'报名截止时间不能比现在更早'})
         }
         else {
           $scope.isBusy = true;
@@ -4157,16 +3944,10 @@ angular.module('donlerApp.controllers', [])
             if (err) {
               // todo
               console.log(err);
-              $ionicPopup.alert({
-                title: '错误',
-                template: err
-              });
+              $rootScope.showAction({titleText:err})
 
             } else {
-              $ionicPopup.alert({
-                title: '提示',
-                template:'修改成功'
-              });
+              $rootScope.showAction({titleText:'修改成功'})
               $state.go('campaigns_detail',{id:$state.params.id});
             }
             $scope.isBusy = false;
@@ -4175,34 +3956,22 @@ angular.module('donlerApp.controllers', [])
       }
     }
     $scope.closeCampaign = function() {
-      var confirmPopup = $ionicPopup.confirm({
-        title: '确认',
-        template: '关闭后将无法再次打开，您确认要关闭该活动吗?',
-        cancelText: '取消',
-        okText: '确认'
-      });
-      confirmPopup.then(function(res) {
-        if(res) {
+      $rootScope.showAction({type:1,titleText:'关闭后将无法再次打开，您确认要关闭该活动吗?',
+        fun:function () {
           if(window.analytics){
             window.analytics.trackEvent('Click', 'closeCampaign');
           }
           Campaign.close($state.params.id,function(err,data) {
             if(!err){
-              $ionicPopup.alert({
-                title: '提示',
-                template: '关闭成功'
-              });
+              $rootScope.showAction({titleText:'关闭成功'})
               $state.go('campaigns_detail',{id:$state.params.id});
             }
             else {
-              $ionicPopup.alert({
-                title: '错误',
-                template: err
-              });
+              $rootScope.showAction({titleText:err})
             }
           });
         }
-      });
+      })
     }
   }])
   .controller('DiscoverController', ['$scope', '$state', '$ionicSlideBoxDelegate', 'Team', 'Rank', 'INFO',function ($scope, $state, $ionicSlideBoxDelegate, Team, Rank, INFO) {
@@ -4297,7 +4066,8 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('CircleSendController', ['$ionicHistory', '$scope', '$state', '$stateParams', '$ionicPopup', 'Circle', function($ionicHistory, $scope, $state, $stateParams, $ionicPopup, Circle) {
+  .controller('CircleSendController', ['$ionicHistory', '$scope', '$state', '$stateParams', 'Circle',
+   function($ionicHistory, $scope, $state, $stateParams, Circle) {
     $scope.circle = {
       content: ''
     };
@@ -4337,25 +4107,18 @@ angular.module('donlerApp.controllers', [])
     '$rootScope',
     '$state',
     '$stateParams',
-    '$ionicPopup',
+    '$rootScope',
     '$timeout',
     'Circle',
     'Tools',
     'Company',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, Tools, Company) {
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $rootScope, $timeout, Circle, Tools, Company) {
 
       Company.getData(localStorage.cid).success(function(data) {
         $scope.company = data;
       }).error(function(data) {
         console.log(data.msg || '获取数据失败'); // 这里没必要提示用户
       });
-
-      $scope.ionicAlert = function(msg) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: msg
-        });
-      };
 
       // 初始化提醒列表
       if (!$rootScope.remindList) {
@@ -4520,25 +4283,17 @@ angular.module('donlerApp.controllers', [])
     '$rootScope',
     '$state',
     '$stateParams',
-    '$ionicPopup',
     '$timeout',
     'Circle',
     'Tools',
     'Team',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, Tools, Team) {
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $timeout, Circle, Tools, Team) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
         } else {
           $state.go('app.personal');
         }
-      };
-
-      $scope.ionicAlert = function(msg) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: msg
-        });
       };
 
       Team.getData($state.params.teamId, function(err, team) {
@@ -4576,7 +4331,7 @@ angular.module('donlerApp.controllers', [])
           })
           .error(function(data, status) {
             if (status !== 404) {
-              $scope.ionicAlert(data.msg || '获取失败');
+              $rootScope.showAction({titleText:data.msg || '获取失败'})
             } else {
               $scope.loadingStatus.hasMore = false;
             }
@@ -4629,7 +4384,7 @@ angular.module('donlerApp.controllers', [])
           })
           .error(function(data, status) {
             if (status !== 404) {
-              $scope.ionicAlert(data.msg || '获取失败');
+              $rootScope.showAction({titleText:data.msg || '获取失败'})
             }
             else {
               $scope.loadingStatus.hasInit = true;
@@ -4647,25 +4402,17 @@ angular.module('donlerApp.controllers', [])
     '$rootScope',
     '$state',
     '$stateParams',
-    '$ionicPopup',
     '$timeout',
     'Circle',
     'User',
     'Tools',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopup, $timeout, Circle, User, Tools) {
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $timeout, Circle, User, Tools) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
         } else {
           $state.go('app.personal');
         }
-      };
-
-      $scope.ionicAlert = function(msg) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: msg
-        });
       };
 
       var pageLength = 20; // 一次获取的数据量
@@ -4691,7 +4438,7 @@ angular.module('donlerApp.controllers', [])
           })
           .error(function(data, status) {
             if (status !== 404) {
-              $scope.ionicAlert(data.msg || '获取失败');
+              $rootScope.showAction({titleText:data.msg || '获取失败'})
             } else {
               $scope.loadingStatus.hasMore = false;
             }
@@ -4758,7 +4505,7 @@ angular.module('donlerApp.controllers', [])
           })
           .error(function(data, status) {
             if (status !== 404) {
-              $scope.ionicAlert(data.msg || '获取失败');
+              $rootScope.showAction({titleText:data.msg || '获取失败'})
             }
             else {
               $scope.loadingStatus.hasInit = true;
@@ -4774,10 +4521,10 @@ angular.module('donlerApp.controllers', [])
     '$scope',
     '$ionicHistory',
     '$state',
-    '$ionicPopup',
+    '$rootScope',
     'Circle',
     'User',
-    function($scope, $ionicHistory, $state, $ionicPopup, Circle, User) {
+    function($scope, $ionicHistory, $state, $rootScope, Circle, User) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
@@ -4794,13 +4541,6 @@ angular.module('donlerApp.controllers', [])
           $scope.user = data;
         }
       });
-
-      $scope.ionicAlert = function(msg) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: msg
-        });
-      };
 
       $scope.circleCardCtrl = {};
       $scope.circleCommentBoxCtrl = {};
@@ -4832,7 +4572,7 @@ angular.module('donlerApp.controllers', [])
           $scope.circle = data.circle;
           Circle.pickAppreciateAndComments($scope.circle);
         }).error(function(data) {
-          $scope.ionicAlert(data.msg || '获取失败'); // TODO 还需要考虑妥善处理，很可能会出现这条内容被删除了
+          $rootScope.showAction({titleText:data.msg || '获取失败'}) // TODO 还需要考虑妥善处理，很可能会出现这条内容被删除了
         });
 
       });
@@ -5040,17 +4780,11 @@ angular.module('donlerApp.controllers', [])
       // if(unit.canVote) {
         Vote.vote(vote._id,unit.tid,function (err, vote) {
           if(err) {
-            $ionicPopup.alert({
-              title: '错误',
-              template: err
-            });
+            $rootScope.showAction({titleText:err})
           }
           else{
             $scope.competitionMessage.vote = formatVote(vote);
-            $ionicPopup.alert({
-              title: '提示',
-              template: '投票成功!'
-            });
+            $rootScope.showAction({titleText:'投票成功!'})
           }
         })
       // }
@@ -5071,7 +4805,7 @@ angular.module('donlerApp.controllers', [])
           // todo
           console.log(err);
         } else {
-          alert('挑战处理成功!');
+          $rootScope.showAction({titleText:'挑战处理成功!'})
           $scope.competitionMessage.status =action+'ed';
           INFO.competitionMessageDetail=$scope.competitionMessage;
         }
@@ -5264,7 +4998,8 @@ angular.module('donlerApp.controllers', [])
       })
     }
   }])
-  .controller('CompetitionTeamController', ['$scope', '$state', '$ionicHistory', '$ionicPopup', 'Team', 'INFO', 'Campaign', 'Chat', function ($scope, $state, $ionicHistory, $ionicPopup, Team, INFO, Campaign, Chat) {
+  .controller('CompetitionTeamController', ['$scope', '$rootScope', '$state', '$ionicHistory', '$ionicPopup', 'Team', 'INFO', 'Campaign', 'Chat',
+   function ($scope, $rootScope, $state, $ionicHistory, $ionicPopup, Team, INFO, Campaign, Chat) {
     var targetTeamId = $state.params.targetTeamId;
     var fromTeamId = $state.params.fromTeamId;
     $scope.page = 1;
@@ -5431,21 +5166,16 @@ angular.module('donlerApp.controllers', [])
       Chat.postChat(team._id, postData, function(err, data) {
         if(err) {
           console.log(err);
-          $ionicPopup.alert({
-            title: '提示',
-            template: '推荐失败！'
-          });
+          $rootScope.showAction({titleText:'推荐失败!'})
         }
         else{
-          $ionicPopup.alert({
-            title: '提示',
-            template: '推荐成功！'
-          });
+          $rootScope.showAction({titleText:'推荐成功!'})
         }
       })
     };
   }])
-  .controller('CompetitonSendController', ['$scope', '$state', '$ionicHistory', '$ionicPopup', 'CompetitionMessage', 'Team', 'INFO', 'Campaign', function ($scope, $state, $ionicHistory, $ionicPopup, CompetitionMessage, Team, INFO, Campaign) {
+  .controller('CompetitonSendController', ['$scope', '$rootScope', '$state', '$ionicHistory', '$ionicPopup', 'CompetitionMessage', 'Team', 'INFO', 'Campaign',
+   function ($scope, $rootScope, $state, $ionicHistory, $ionicPopup, CompetitionMessage, Team, INFO, Campaign) {
     $scope.isPublish=false;
     if(INFO.competitionMessageData) {
       var competitionMessageData = INFO.competitionMessageData;
@@ -5459,10 +5189,7 @@ angular.module('donlerApp.controllers', [])
       }
     }
     else{
-      $ionicPopup.alert({
-        title: '错误',
-        template: '数据发送错误！'
-      });
+      $rootScope.showAction({titleText:'数据发送错误！!'})
     }
     $scope.goBack = function() {
       if($ionicHistory.backView()){
@@ -5481,17 +5208,11 @@ angular.module('donlerApp.controllers', [])
       $scope.isPublish =true;
       CompetitionMessage.createCompetitionMessage($scope.messageData, function (err, data) {
         if(!err) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: data.msg
-          });
+          $rootScope.showAction({titleText:data.msg})
           $scope.goBack();
         }
         else{
-          $ionicPopup.alert({
-            title: '错误',
-            template: err
-          });
+          $rootScope.showAction({titleText:err})
         }
         $scope.isPublish =false;
       })

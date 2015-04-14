@@ -6,7 +6,7 @@
 
 angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize'])
 
-  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth, Circle) {
+  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicActionSheet, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth, Circle) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -133,6 +133,43 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
     $rootScope.hideLoading = function(){
       $ionicLoading.hide();
     };
+    /**
+     * [showAction 通用提醒框]
+     * @param  {Object} option type,titleText,fun,cancelText,cancelFun
+     * type:0 alert, 1 confirm
+     */
+    $rootScope.showAction = function (option) {
+      if(option.type){
+        var hideSheet = $ionicActionSheet.show({
+          buttons: [
+           { text: '确定' }
+          ],
+          titleText: option.titleText||'',
+          cancelText: option.cancelText||'取消',
+          cancel: function() {
+            option.cancelFun && option.cancelFun();
+            hideSheet();
+          },
+          buttonClicked: function(index) {
+            hideSheet();
+            option.fun && option.fun();
+            
+          }
+        });
+      }
+      else{
+        var hideSheet = $ionicActionSheet.show({
+          titleText: option.titleText||'',
+          cancelText: option.cancelText||'确定',
+          cancel: function() {
+            hideSheet();
+            option.cancelFun && option.cancelFun();
+            
+          }
+        });
+      }
+      
+    }
   }).config(function ($stateProvider,$ionicConfigProvider) {//@:ios
     $ionicConfigProvider.views.transition('none');
 
@@ -324,7 +361,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       .state('all_campaign', {
         url: '/campaign/all/:type/:id',
         controller: 'AllCampaignController',
-        templateUrl: './views/colleague-circle.html'
+        templateUrl: './views/all-campaigns.html'
       })
       .state('company_teams', {
         url: '/company/teams/:type',
