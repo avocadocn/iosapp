@@ -38,8 +38,9 @@ ion-view
       .item.home_court(ng-repeat="homeCourt in team.homeCourts")
         span.title 主场{{$index==1?'一':'二'}}
         span.home_court_name {{homeCourt.name || '他们很懒还没填写'}}
-      a.item.item-icon-left.item-icon-right(ng-href="#/circle/circle_team/{{team._id}}")
-        i.icon.ion-android-contacts.ionic_icon.icon_left
+      a.item.item-icon-right(ng-href="#/circle/circle_team/{{team._id}}")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#picture")
         | 精彩瞬间
         i.icon.ion-chevron-right.icon_right
       a.item.item-icon-left.item-icon-right(ng-href="#/campaign/all/team/{{team._id}}")

@@ -31,12 +31,14 @@ ion-view.personal(ng-controller="PersonalController")
       //-   | 我的小队
       //-   span.item-note {{user.tids.length}}
       //-   i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/personal/invitecode")
-        i.icon.ion_invite_code.icon_left
+      a.item.item-icon-right(href="#/personal/invitecode")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#erweima")
         | 二维码
         i.icon.ion-chevron-right.icon_right
-      a.item.item-icon-left.item-icon-right(ng-href="#/circle/circle_user/{{user._id}}")
-        i.icon.ion_invite_code.icon_left
+      a.item.item-icon-right(ng-href="#/circle/circle_user/{{user._id}}")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#picture")
         | 我的相册
         i.icon.ion-chevron-right.icon_right
       a.item.item-icon-left.item-icon-right(ng-href="#/campaign/all/user/{{user._id}}")

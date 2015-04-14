@@ -128,6 +128,21 @@ a.no_underline
     content " "
   &:after
     clear both
+
+// 默认的svg icon大小
+.svg_icon
+  width 20px
+  height 20px
+  fill col_blue
+  vertical-align middle
+
+.svg_item_icon
+  margin-bottom 2px
+  margin-right 14px
+
+.svg_nav_icon
+  margin-bottom 5px
+
 .icon.icon_small
   font-size 16px !important
   &:before
@@ -334,6 +349,12 @@ a.no_underline
   padding 15px
   position relative
   box-shadow 0 0 0
+  .cp_info_icon
+    float left
+    width 14px
+    height 14px
+    margin-right 10px
+    fill col_darkGray
   .campaign_card
     text-decoration none
     padding 0
@@ -385,11 +406,13 @@ a.no_underline
             float left
 //-历史卡片
 .dl_timeline_card
-  margin-left 15px 
+  margin-left 15px
   padding 10px 0
   border-left 0px
   margin-top -1px
   //- border-bottom 1px solid #ddd
+  .cp_info_icon
+    margin-right 5px
   .campaign_card
     .dl_card_content
       .dl_cp_texts
@@ -473,6 +496,12 @@ a.no_underline
           height 18px
           width 18px
           margin-right 5px
+        .cp_footer_icon
+          float left
+          width 18px
+          height 18px
+          margin-right 5px
+          fill col_darkGray
       .dl_campaign_comment
         margin-right 0
 .dl_campaign_detail
@@ -524,6 +553,12 @@ a.no_underline
       .cp_time
         margin-bottom 10px
         line-height 15px
+        .svg_icon
+          float left
+          margin-right 10px
+          width 14px
+          height 14px
+          fill col_darkGray
       .ion_member
       .ion_time
       .ion_address
@@ -596,11 +631,20 @@ a.no_underline
         .dl_icon
           height 20px
           width 20px
+        .svg_icon
+          width 18px
+          height 18px
+          margin-right 2px
+          margin-bottom 2px
+          fill col_darkGray
         .member_num
           color #f07151
       a
         text-decoration none
         color black
+    .circle
+      .svg_icon
+        float right
     .dl_circle_card
       margin 0
       border-radius 0
@@ -1804,8 +1848,9 @@ a.no_underline
   .menu_list
     margin-top 10px
     .item
-      padding-left 50px
       indentLine()
+    .item.item-icon-left
+      padding-left 50px
     .icon_left
       width 3rem
       font-size 14px
@@ -1942,11 +1987,12 @@ a.no_underline
           text-decoration none
   .menu_list
     .item
-      padding-left 50px
       indentLine()
-      .icon_left
-        width 3rem
-        margin-left -6px
+    .icon_left
+      width 3rem
+      margin-left -6px
+    .item.item-icon-left
+      padding-left 50px
   //其他人看
   .user_header
     position relative

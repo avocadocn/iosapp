@@ -1,35 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>动梨活动助理</title>
-    <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <link rel="stylesheet" href="lib/ionic/release/css/ionic.css">
-    <link rel="stylesheet" href="lib/photoswipe/dist/photoswipe.css">
-    <link rel="stylesheet" href="lib/photoswipe/dist/default-skin/default-skin.css">
-    <link rel="stylesheet" href="lib/angular-emoji-filter-hd-thin/dist/emoji.min.css">
-    <link href="css/style.css" rel="stylesheet">
-    <script src="lib/ionic/release/js/ionic.bundle.js"></script>
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <script src="cordova.js"></script>
-    <script src="lib/photoswipe/dist/photoswipe.min.js"></script>
-    <script src="lib/photoswipe/dist/photoswipe-ui-default.min.js"></script>
-    <script src="lib/lazysizes/lazysizes.min.js"></script>
-    <script src="lib/linkage-selector/linkage-selector.js"></script>
-    <script src="lib/angular-emoji-filter-hd-thin/dist/emoji.min.js"></script>
-    <script src="lib/moment/moment.js"></script>
-    <script src="lib/moment/locale/zh-cn.js"></script>
-    <script src="js/qrcode.min.js"></script>
-    <script src="js/socket.io.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/directives.js"></script>
-    <script src="js/filters.js"></script>
-  </head>
-  <body ng-app="donlerApp">
-    <ion-nav-view></ion-nav-view><svg>
+<svg>
     <symbol id="album" viewBox="-14.226 -11.958 28.452 23.915">
         <path d="M-11.71-2.329l6.395,6.051L2.04-4.542l4.473,4.554l5.198-5.417l-1.175-1.297L6.574-2.65l-3.26-3.271l1.975-2.243 L4.03-9.446L-5.43,0.798l-4.961-4.589L-11.71-2.329L-11.71-2.329z M2.021,0.128c1.546,0,2.799,1.253,2.799,2.799 c0,1.545-1.253,2.798-2.799,2.798c-1.545,0-2.798-1.253-2.798-2.798C-0.777,1.381,0.476,0.128,2.021,0.128L2.021,0.128z M2.021,1.165c0.974,0,1.762,0.789,1.762,1.762c0,0.975-0.789,1.764-1.762,1.764S0.259,3.9,0.259,2.927 C0.259,1.954,1.048,1.165,2.021,1.165z" transform="matrix(1 0 0 -1 0 0)"></path>
         <polygon stroke-width="0.216" stroke-miterlimit="22.9256" points="-14.118,11.85 14.118,11.85 14.118,-5.452 12.357,-5.452 12.357,10.373 -12.357,10.373 -12.357,-10.373 12.357,-10.373 12.357,-7.945 14.118,-7.945 14.118,-11.85 -14.118,-11.85 " transform="matrix(1 0 0 -1 0 0)"></polygon>
@@ -105,5 +74,3 @@
         <path stroke-width="0.216" stroke-miterlimit="22.9256" d="M-4.599-14.193H-16.64 c0,5.515,3.705,10.16,8.76,11.59c-3.164,1.312-5.39,4.43-5.39,8.066c0,4.821,3.909,8.73,8.73,8.73s8.73-3.909,8.73-8.73 c0-3.658-2.25-6.789-5.439-8.088c5.02-1.452,8.691-6.081,8.691-11.568H-4.599z" transform="matrix(1 0 0 -1 0 0)"></path>
     </symbol>
 </svg>
-  </body>
-</html>

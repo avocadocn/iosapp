@@ -11,10 +11,14 @@ a.item.dl_timeline_card.campaign_card_container(ng-class="{'remove':campaign.rem
         p.dl_cp_name
           span {{campaign.theme}}
         p.dl_cp_time
-          i.icon.icon_small.ion_time
+          //-i.icon.icon_small.ion_time
+          svg.svg_icon.cp_info_icon
+            use(xlink:href="#time")
           span.dl_cp_text {{campaign.start_time | date:"HH:mm"}}
         p.dl_cp_address
-          i.icon.icon_small.ion_address
+          //-i.icon.icon_small.ion_address
+          svg.svg_icon.cp_info_icon
+            use(xlink:href="#location")
           span.dl_cp_text {{campaign.location.name}}
       .dl_card_member
         p.dl_cp_member

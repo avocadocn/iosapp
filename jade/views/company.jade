@@ -24,8 +24,9 @@ ion-view.tab_company_page(ng-controller="CompanyController")
         span.more_text 更多同事
         i.icon.ion-chevron-right.icon_right
     .list.menu_list
-      a.item.item-icon-left.item-icon-right(href="#/circle/circle_company")
-        i.icon.ion-android-contacts.ionic_icon.icon_left
+      a.item.item-icon-right(href="#/circle/circle_company")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#picture")
         | 精彩瞬间
         span.badge.badge-assertive(ng-if="newCircleComment") {{newCircleComment}}
         .badge_image(ng-if="newContent")

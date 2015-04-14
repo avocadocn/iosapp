@@ -11,6 +11,7 @@ var jade = require('gulp-jade');
 
 var paths = {
   jade: ['./jade/**/*.jade'],
+  jadeFullWatch: ['./jade/**/*.jade', './www/img/icon-for-jade-include.svg'],
   stylus: ['./stylus/**/*.styl']
 };
 
@@ -63,7 +64,7 @@ gulp.task('jade:compile', function(done) {
 });
 
 gulp.task('watch:jade', function() {
-  gulp.watch(paths.jade, ['jade:compile']);
+  gulp.watch(paths.jadeFullWatch, ['jade:compile']);
 });
 
 gulp.task('install', ['git-check'], function () {

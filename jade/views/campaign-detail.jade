@@ -16,7 +16,9 @@ ion-view.dl_campaign_detail
           a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
         .campaign_theme(ng-cloak)  {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
         .cp_time
-          //- i.icon.icon_small.ion_time
+          //-i.icon.icon_small.ion_time
+          svg.svg_icon
+            use(xlink:href="#time")
           span(ng-cloak) {{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd  HH:mm" }}
       .campaign_status
         span.dl_cp_time(ng-cloak) {{campaign.create_time | beforeNow}}发布
@@ -34,15 +36,21 @@ ion-view.dl_campaign_detail
           a.more_content(ng-href="#/campaign/content/{{campaign._id}}")  更多活动详情
       .item.campaign_footer
         a.footer_col(ng-href="#/members/campaign/{{campaign._id}}")
-          i.ion_member.dl_icon.icon_small
+          //- i.ion_member.dl_icon.icon_small
+          svg.svg_icon
+            use(xlink:href="#renshu")
           span.footer_label(ng-cloak)  已报名({{campaign.members_count}})
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
-          i.dl_icon.ion_chat_circle
+          //- i.dl_icon.ion_chat_circle
+          svg.svg_icon
+            use(xlink:href="#discussion")
           span.footer_label 活动讨论
       score-board(ng-if="campaign.is_end && scoreBoardId" component-id="scoreBoardId")
       .item.item-divider.circle
         span 精彩瞬间
-        i.icon.ion-camera(ng-if="campaign.join_flag==1" post-circle campaign="campaign")
+        svg.svg_icon(ng-if="campaign.join_flag==1" post-circle campaign="campaign")
+          use(xlink:href="#camera")
+        //- i.icon.ion-camera(ng-if="campaign.join_flag==1" post-circle campaign="campaign")
       circle-card-list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL")
       ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
   //- 与ion-content同级

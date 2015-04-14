@@ -115,7 +115,10 @@
           </div>
         </div>
         <div class="list"><a href="#/company/contacts" class="item item-icon-right clearfix staff_item"><img ng-repeat="staff in staffList" ng-src="{{STATIC_URL + staff.photo}}/60/60" class="staff_photo"/><span class="more_text">更多同事</span><i class="icon ion-chevron-right icon_right"></i></a></div>
-        <div class="list menu_list"><a href="#/circle/circle_company" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts ionic_icon icon_left"></i>精彩瞬间<span ng-if="newCircleComment" class="badge badge-assertive">{{newCircleComment}}</span>
+        <div class="list menu_list"><a href="#/circle/circle_company" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#picture"></use>
+            </svg>精彩瞬间<span ng-if="newCircleComment" class="badge badge-assertive">{{newCircleComment}}</span>
             <div ng-if="newContent" class="badge_image">
               <div class="red_spot"></div><img ng-src="{{STATIC_URL + newContent.photo}}/60/60" class="logo"/>
             </div><i class="icon ion-chevron-right icon_right"></i></a><a href="#/company/teams/official" class="item item-icon-left item-icon-right"><i class="icon ion_teams icon_left"></i>全部小队<span class="item-note">{{teams.length}}</span><i class="icon ion-chevron-right icon_right"></i></a><a href="#/campaign/all/company/0" class="item item-icon-left item-icon-right"><i class="icon ion_ballon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
@@ -149,7 +152,13 @@
             </div>
           </div>
         </div>
-        <div class="list menu_list"><a href="#/personal/invitecode" class="item item-icon-left item-icon-right"><i class="icon ion_invite_code icon_left"></i>二维码<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/circle/circle_user/{{user._id}}" class="item item-icon-left item-icon-right"><i class="icon ion_invite_code icon_left"></i>我的相册<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/user/{{user._id}}" class="item item-icon-left item-icon-right"><i class="icon ion_foot icon_left"></i>我的足迹<i class="icon ion-chevron-right icon_right"></i></a><a href="#/calendar/personal" class="item item-icon-left item-icon-right"><i class="icon ion_calendar icon_left"></i>我的日程<i class="icon ion-chevron-right icon_right"></i></a>
+        <div class="list menu_list"><a href="#/personal/invitecode" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#erweima"></use>
+            </svg>二维码<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/circle/circle_user/{{user._id}}" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#picture"></use>
+            </svg>我的相册<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/user/{{user._id}}" class="item item-icon-left item-icon-right"><i class="icon ion_foot icon_left"></i>我的足迹<i class="icon ion-chevron-right icon_right"></i></a><a href="#/calendar/personal" class="item item-icon-left item-icon-right"><i class="icon ion_calendar icon_left"></i>我的日程<i class="icon ion-chevron-right icon_right"></i></a>
         </div>
         <div class="list menu_list"><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting icon_left"></i>设置<i class="icon ion-chevron-right icon_right"></i></a></div>
       </ion-content>
