@@ -2376,8 +2376,7 @@ angular.module('donlerApp.controllers', [])
     });
   }])
   // hr编辑公司资料
-  .controller('HrCompanyEditController', ['$scope', '$state', '$stateParams', '$rootScope', 'INFO', 'Company', 'Upload', 'CONFIG', 
-    function ($scope, $state, $stateParams, $rootScope, INFO, Company, Upload, CONFIG) {
+  .controller('HrCompanyEditController', ['$scope', '$state', '$stateParams', '$rootScope', 'INFO', 'Company', 'Upload', 'CONFIG', function ($scope, $state, $stateParams, $rootScope, INFO, Company, Upload, CONFIG) {
     // 获取公司数据
     Company.getData(localStorage.id)
       .success(function(data) {
@@ -2387,9 +2386,10 @@ angular.module('donlerApp.controllers', [])
         };
       })
       .error(function(data) {
-       $rootScope.showAction({titleText:data.msg || '获取公司数据失败'})
+        $rootScope.showAction({titleText:data.msg || '获取公司数据失败'});
       });
 
+    var introduceTextarea = document.getElementById('edit_company_introduce_textarea');
     $scope.editing = false;
 
     var updateFormData = function () {
@@ -2403,12 +2403,14 @@ angular.module('donlerApp.controllers', [])
         updateFormData();
         $scope.editing = true;
       }
+      $scope.change();
     };
     $scope.cancelEditing = function () {
       if ($scope.editing === true) {
         updateFormData();
         $scope.editing = false;
       }
+      $scope.change();
     };
 
     var refreshCompanyData = function (callback) {
@@ -2421,13 +2423,16 @@ angular.module('donlerApp.controllers', [])
         callback('error');
       });
     };
-    
+
     $scope.changed = false;
     $scope.change = function() {
       $scope.changed = true;
+      introduceTextarea.style.height = 'auto';
+      introduceTextarea.style.height = introduceTextarea.scrollHeight + "px";
     };
 
     $scope.edit = function () {
+      $scope.change();
       if (!$scope.changed) {
         $scope.editing = false;
         return;
@@ -2440,10 +2445,7 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           $rootScope.showAction({titleText:err})
         } else {
-          // $ionicPopup.alert({
-          //   title: '编辑成功',
-          //   template: err
-          // });
+          $rootScope.showAction({titleText: '编辑成功'});
           refreshCompanyData(function (data) {
             updateFormData();
             $scope.editingLock = false;

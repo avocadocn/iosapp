@@ -2266,20 +2266,19 @@ a.no_underline
       color col_blue
 //- HR编辑公司
 .edit_company_info
-  .company_name
-    position relative
-    height 45px
+  .edit_list
     margin-top 10px
-    .item
-      padding 10px 15px
-
   .item
-    .title, .content
-      font-size 14px
-    .content
-      margin-left 20px
-      color col_textGray
+    font-size 14px
     indentLine()
+  .company_name_item
+    position relative
+    .title
+      display inline-block
+      width 80px
+      color black
+    .content
+      color col_textGray
   .item-icon-right
     position relative
     padding 15px
@@ -2297,21 +2296,16 @@ a.no_underline
     right 50px
     width 60px
     height 60px
-  .item-input
-    position relative
-    height 90px
-    margin 0px
-    padding 15px
+  .introduce_item
+    padding-bottom 8px
     .input-label
-      position absolute
+      font-size 14px
+      width 80px
       color black
-      top 5px
-      font-size 14px
-    textarea
-      margin-left 30px
-      width 100%
-      font-size 14px
+    .introduce
+      height 60px
       color col_textGray
+
 //-HR小队主页
 .hr-team-page
   .item-label

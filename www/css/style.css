@@ -2846,25 +2846,13 @@ a>.login .companies_list:activated {
   height: 40px;
   color: #3ca2e0;
 }
-.edit_company_info .company_name {
-  position: relative;
-  height: 45px;
+.edit_company_info .edit_list {
   margin-top: 10px;
 }
-.edit_company_info .company_name .item {
-  padding: 10px 15px;
-}
 .edit_company_info .item {
+  font-size: 14px;
   border-width: 0;
   padding-bottom: 17px;
-}
-.edit_company_info .item .title,
-.edit_company_info .item .content {
-  font-size: 14px;
-}
-.edit_company_info .item .content {
-  margin-left: 20px;
-  color: #666;
 }
 .edit_company_info .item:after {
   display: block;
@@ -2885,6 +2873,17 @@ a>.login .companies_list:activated {
 .edit_company_info .item:last-child:after {
   content: none;
   display: none;
+}
+.edit_company_info .company_name_item {
+  position: relative;
+}
+.edit_company_info .company_name_item .title {
+  display: inline-block;
+  width: 80px;
+  color: #000;
+}
+.edit_company_info .company_name_item .content {
+  color: #666;
 }
 .edit_company_info .item-icon-right {
   position: relative;
@@ -2907,22 +2906,16 @@ a>.login .companies_list:activated {
   width: 60px;
   height: 60px;
 }
-.edit_company_info .item-input {
-  position: relative;
-  height: 90px;
-  margin: 0px;
-  padding: 15px;
+.edit_company_info .introduce_item {
+  padding-bottom: 8px;
 }
-.edit_company_info .item-input .input-label {
-  position: absolute;
+.edit_company_info .introduce_item .input-label {
+  font-size: 14px;
+  width: 80px;
   color: #000;
-  top: 5px;
-  font-size: 14px;
 }
-.edit_company_info .item-input textarea {
-  margin-left: 30px;
-  width: 100%;
-  font-size: 14px;
+.edit_company_info .introduce_item .introduce {
+  height: 60px;
   color: #666;
 }
 .hr-team-page .item-label {
