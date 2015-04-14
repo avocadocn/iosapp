@@ -13,7 +13,8 @@ ion-view.edit_company_info
         span.content {{company.name || '无'}}
       .item.item-input.introduce_item
         span.input-label 简介
-        textarea.introduce#edit_company_introduce_textarea(name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()" ng-trim="false")
+        textarea.introduce#edit_company_introduce_textarea(ng-show="editing" name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-trim="false")
+        .introduce(ng-if="!editing" ng-bind="company.intro" ng-click="toEditing()" ng-cloak)
       .item.item-icon-right(ng-click="showUploadActionSheet()")
         img(ng-src="{{STATIC_URL + company.logo}}/120/120")
         h2.company_logo 公司logo

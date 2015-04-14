@@ -15,9 +15,9 @@ ion-view.tab_company_page(ng-controller="CompanyController")
         img.logo(ng-if="company" ng-src="{{STATIC_URL + company.logo}}/160/160")
         .info_content
           .company_name {{company.shortName}}
-          .company_brief 
-            span.title 简介:
-            span.content {{company.intro || '无'}}
+        .company_brief
+          span.title 简介:
+          span.content {{company.intro || '无'}}
     .list
       a.item.item-icon-right.clearfix.staff_item(href="#/company/contacts")
         img.staff_photo(ng-repeat="staff in staffList" ng-src="{{STATIC_URL + staff.photo}}/60/60")

@@ -419,7 +419,8 @@ a.no_underline
             float left
             margin-right 10px
           .dl_cp_text
-            float left
+            //-float left
+            textOverflow()
 //-历史卡片
 .dl_timeline_card
   padding 10px 0 10px 15px
@@ -1839,9 +1840,11 @@ a.no_underline
     .info_header
       position relative
       padding 0 1rem
-      height 55px
       color white
       background-color white
+      padding-left 110px
+      padding-top 5px
+      padding-bottom 5px
       .logo
         position absolute
         left 15px
@@ -1859,9 +1862,11 @@ a.no_underline
           text-shadow 2px 2px 3px black
           line-height 30px
           color white
-        .company_brief
-          font-size 14px
-          color col_textGray
+      .company_brief
+        font-size 14px
+        color col_textGray
+        .title
+          margin-right 5px
   .list
     margin-bottom 0
     margin-top 0
@@ -2222,20 +2227,16 @@ a.no_underline
         right 45px
         font-size 14px
         color #c4c4c4
+    .item.first_item
+      border-top 1px solid #ddd
     .info_header
       position relative
       padding 0 1rem
-      height 55px
       color white
       background-color white
-      &:after
-        display block
-        position absolute
-        margin-left -12px
-        bottom 0
-        width 100%
-        content ''
-        border 1px solid #ddd
+      padding-left 110px
+      padding-top 5px
+      padding-bottom 5px
       .logo
         position absolute
         left 15px
@@ -2252,9 +2253,11 @@ a.no_underline
           font-size 16px
           text-shadow 2px 2px 3px black
           line-height 30px
-        .company_brief
-          font-size 14px
-          color col_textGray
+      .company_brief
+        font-size 14px
+        color col_textGray
+        .title
+          margin-right 5px
     .company_member_num, .company_team_num
       position absolute
       right 50px
@@ -2324,8 +2327,10 @@ a.no_underline
       width 80px
       color black
     .introduce
-      height 60px
+      white-space normal
       color col_textGray
+      font-size 14px
+      line-height 20px
 
 //-HR小队主页
 .hr-team-page

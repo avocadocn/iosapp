@@ -2402,15 +2402,15 @@ angular.module('donlerApp.controllers', [])
       if ($scope.editing === false) {
         updateFormData();
         $scope.editing = true;
+        introduceTextarea.focus();
       }
-      $scope.change();
+      //$scope.change();
     };
     $scope.cancelEditing = function () {
       if ($scope.editing === true) {
         updateFormData();
         $scope.editing = false;
       }
-      $scope.change();
     };
 
     var refreshCompanyData = function (callback) {

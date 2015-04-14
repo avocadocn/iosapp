@@ -449,7 +449,9 @@ a.no_underline {
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .dl_cp_text,
 .dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name .dl_cp_text,
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name .dl_cp_text {
-  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .dl_timeline_card {
   padding: 10px 0 10px 15px;
@@ -2274,9 +2276,11 @@ a>.login .companies_list:activated {
 .tab_company_page .company_info .info_header {
   position: relative;
   padding: 0 1rem;
-  height: 55px;
   color: #fff;
   background-color: #fff;
+  padding-left: 110px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .tab_company_page .company_info .info_header .logo {
   position: absolute;
@@ -2298,9 +2302,12 @@ a>.login .companies_list:activated {
   line-height: 30px;
   color: #fff;
 }
-.tab_company_page .company_info .info_header .info_content .company_brief {
+.tab_company_page .company_info .info_header .company_brief {
   font-size: 14px;
   color: #666;
+}
+.tab_company_page .company_info .info_header .company_brief .title {
+  margin-right: 5px;
 }
 .tab_company_page .list {
   margin-bottom: 0;
@@ -2826,21 +2833,17 @@ a>.login .companies_list:activated {
   font-size: 14px;
   color: #c4c4c4;
 }
+.hr_company_page .company_info .item.first_item {
+  border-top: 1px solid #ddd;
+}
 .hr_company_page .company_info .info_header {
   position: relative;
   padding: 0 1rem;
-  height: 55px;
   color: #fff;
   background-color: #fff;
-}
-.hr_company_page .company_info .info_header:after {
-  display: block;
-  position: absolute;
-  margin-left: -12px;
-  bottom: 0;
-  width: 100%;
-  content: '';
-  border: 1px solid #ddd;
+  padding-left: 110px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .hr_company_page .company_info .info_header .logo {
   position: absolute;
@@ -2861,9 +2864,12 @@ a>.login .companies_list:activated {
   text-shadow: 2px 2px 3px #000;
   line-height: 30px;
 }
-.hr_company_page .company_info .info_header .info_content .company_brief {
+.hr_company_page .company_info .info_header .company_brief {
   font-size: 14px;
   color: #666;
+}
+.hr_company_page .company_info .info_header .company_brief .title {
+  margin-right: 5px;
 }
 .hr_company_page .company_info .company_member_num,
 .hr_company_page .company_info .company_team_num {
@@ -2971,8 +2977,10 @@ a>.login .companies_list:activated {
   color: #000;
 }
 .edit_company_info .introduce_item .introduce {
-  height: 60px;
+  white-space: normal;
   color: #666;
+  font-size: 14px;
+  line-height: 20px;
 }
 .hr-team-page .item-label {
   margin: 10px 0px 0px;
