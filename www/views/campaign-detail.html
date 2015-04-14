@@ -32,7 +32,7 @@
       </div>
       <div class="campaign_items"><a ng-href="#/campaign/content/{{campaign._id}}" class="item item_header cp_time">
           <svg class="svg_icon">
-            <use xlink:href="#time"></use>
+            <use xlink:href="#xiangqing"></use>
           </svg><span>活动详情</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
         <div ng-if="campaign.content" class="item item-text-wrap campaign_content">
           <p ng-cloak="ng-cloak" class="content_simple"> {{campaign.content}}</p>
@@ -40,11 +40,11 @@
       </div>
       <div class="item campaign_footer"><a ng-href="#/members/campaign/{{campaign._id}}" class="footer_col">
           <svg class="svg_icon">
-            <use xlink:href="#renshu"></use>
+            <use xlink:href="#yibaoming"></use>
           </svg><span ng-cloak="ng-cloak" class="footer_label"> 已报名({{campaign.members_count}})</span></a>
         <div ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="footer_col">
           <svg class="svg_icon discussion_icon">
-            <use xlink:href="#discussion"></use>
+            <use xlink:href="#taolun"></use>
           </svg><span class="footer_label">活动讨论</span>
         </div>
       </div>

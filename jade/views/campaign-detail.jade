@@ -44,7 +44,7 @@ ion-view.dl_campaign_detail
       .campaign_items
         a.item.item_header.cp_time(ng-href="#/campaign/content/{{campaign._id}}")
           svg.svg_icon
-            use(xlink:href="#time")
+            use(xlink:href="#xiangqing")
           span 活动详情
           span.icon.icon_small.ion-chevron-right.button-clear
         .item.item-text-wrap.campaign_content(ng-if="campaign.content")
@@ -53,12 +53,12 @@ ion-view.dl_campaign_detail
         a.footer_col(ng-href="#/members/campaign/{{campaign._id}}")
           //- i.ion_member.dl_icon.icon_small
           svg.svg_icon
-            use(xlink:href="#renshu")
+            use(xlink:href="#yibaoming")
           span.footer_label(ng-cloak)  已报名({{campaign.members_count}})
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           //- i.dl_icon.ion_chat_circle
           svg.svg_icon.discussion_icon
-            use(xlink:href="#discussion")
+            use(xlink:href="#taolun")
           span.footer_label 活动讨论
       .item.item-divider.circle
         span 精彩瞬间
