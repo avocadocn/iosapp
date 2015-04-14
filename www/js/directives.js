@@ -724,7 +724,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     return {
       restrict: 'E',
       scope: {
-        componentId: '='
+        componentId: '=',
+        campaign:'='
       },
       templateUrl: './views/score-board.html',
       link: function (scope, element, attrs, ctrl) {
@@ -840,7 +841,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             }
           });
         };
-        getScoreBoardData();
+        scope.componentId && getScoreBoardData();
         /**
          * 设置胜负结果
          * @param {Number} result -1, 0, 1

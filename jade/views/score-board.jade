@@ -7,19 +7,20 @@
       .team_title
         span 发起方
       .team_content
-        img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo}}/40/40")
-        .team_name {{scoreBoard.playingTeams[0].name}}
-        .score(ng-if="scoreBoard.status==2 && results[0]==undefined && scores[0]!=undefined") {{scores[0]}}
-        .score(ng-if="scoreBoard.status==2 && results[0]!=undefined") {{results[0] | scoreResultFormat}}
+        img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo || campaign.campaign_unit[0].team.logo}}/40/40")
+        .team_name {{scoreBoard.playingTeams[0].name || campaign.campaign_unit[0].team.name}}
+        .score(ng-if="componentId&& scoreBoard.status==2 && results[0]==undefined && scores[0]!=undefined") {{scores[0]}}
+        .score(ng-if="componentId&& scoreBoard.status==2 && results[0]!=undefined") {{results[0] | scoreResultFormat}}
     .col.col-10.vs.col-center(ng-cloak)
-      span.score(ng-if="scoreBoard.status==2&&!allowEdit&&results[0]==undefined &&scores[0]==undefined") 暂无
+      span.provoke_label(ng-if="componentId&& !campaign.is_end") 挑战
+      span.fellowship_label(ng-if="!componentId") 联谊 
       span.score(ng-if="scoreBoard.status==2 &&(scoreBoard.scores.length>=0 ||results.length>0)") :
-      a.no_underline.set_score(ng-if="scoreBoard.status!==2&&allowEdit&&results[0]!=undefined &&scores[0]!=undefined" ng-click="showEdit()") 设比分
+      a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& scoreBoard.status==0" ng-click="showEdit()") 设比分
     .col.team.opposite_team
       .team_title
         span 接受方
       .team_content
-        img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo}}/40/40")
-        .team_name {{scoreBoard.playingTeams[1].name}}
-        .score(ng-if="scoreBoard.status==2 &&results[1]==undefined && scores[1]!=undefined") {{scores[1]}}
-        .score(ng-if="scoreBoard.status==2 &&results[1]!=undefined") {{results[1] | scoreResultFormat}}
+        img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo|| campaign.campaign_unit[1].team.logo}}/40/40")
+        .team_name {{scoreBoard.playingTeams[1].name || campaign.campaign_unit[1].team.name}}
+        .score(ng-if="componentId&& scoreBoard.status==2 &&results[1]==undefined && scores[1]!=undefined") {{scores[1]}}
+        .score(ng-if="componentId&& scoreBoard.status==2 &&results[1]!=undefined") {{results[1] | scoreResultFormat}}

@@ -302,11 +302,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CampaignDetailController',
         templateUrl: './views/campaign-detail.html'
       })
-      .state('campaigns_notice', {
-        url: '/campaign/notice/:id',
-        controller: 'CampaignNoticelController',
-        templateUrl: './views/campaign-notice.html'
-      })
+      // .state('campaigns_notice', {
+      //   url: '/campaign/notice/:id',
+      //   controller: 'CampaignNoticelController',
+      //   templateUrl: './views/campaign-notice.html'
+      // })
       .state('campaigns_content', {
         url: '/campaign/content/:id',
         controller: 'CampaignContentController',

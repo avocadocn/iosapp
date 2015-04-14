@@ -6,7 +6,8 @@ ion-view.dl_campaign_detail
   ion-content(delegate-handle="detailScroll")
     ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")
     .campaign_detail(ng-if="campaign")
-      .campaign_info
+      score-board(ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign")
+      .campaign_info(ng-if="campaign.campaign_unit.length==1" )
         .cp_logos(class="logos_{{campaign.campaign_unit.length}}")
           a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
             img.team_logo(ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60")
@@ -24,13 +25,19 @@ ion-view.dl_campaign_detail
       .campaign_status
         span.dl_cp_time(ng-cloak) {{campaign.create_time | beforeNow}}发布
         span.status(ng-class="{'now':campaign.is_start&&!campaign.is_end,'unstart':!campaign.is_start,'unjoin':campaign.join_flag!=1}") {{campaign.start_time | campaignStatus:campaign.end_time}}
+      .item.item_header.campaign_theme(ng-if="scoreBoardId")
+        span.title 主题
+        span(ng-cloak)  {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
+      .item.item_header.cp_time(ng-if="scoreBoardId")
+        span.title 时间
+        span(ng-cloak) {{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd  HH:mm" }}
       a.item.item_header.cp_address(ng-href="#/location/{{campaign._id}}")
         span.title 地点
         span.cp_location(ng-cloak)  {{campaign.location.name}}
         span.icon.icon_small.ion-chevron-right.button-clear
-      a.item.item_header(ng-if="!campaign.is_end && (campaign.notices.length>0 || campaign.allow.publishCampaignMessage)" ng-href="#/campaign/notice/{{campaign._id}}")
-        span.title 公告
-        span.icon.icon_small.ion-chevron-right.button-clear
+      //- a.item.item_header(ng-if="!campaign.is_end && (campaign.notices.length>0 || campaign.allow.publishCampaignMessage)" ng-href="#/campaign/notice/{{campaign._id}}")
+      //-   span.title 公告
+      //-   span.icon.icon_small.ion-chevron-right.button-clear
       .item.item-text-wrap.campaign_content
         p.content_simple(ng-cloak)  {{campaign.content ?campaign.content :'暂无'}}
         .operator
@@ -46,7 +53,6 @@ ion-view.dl_campaign_detail
           svg.svg_icon.discussion_icon
             use(xlink:href="#discussion")
           span.footer_label 活动讨论
-      score-board(ng-if="campaign.is_end && scoreBoardId" component-id="scoreBoardId")
       .item.item-divider.circle
         span 精彩瞬间
         svg.svg_icon(ng-if="campaign.join_flag==1" post-circle campaign="campaign" after-post="doRefresh()")
