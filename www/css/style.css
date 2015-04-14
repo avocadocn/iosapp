@@ -695,15 +695,33 @@ a.no_underline {
 .dl_campaign_detail .campaign_detail .campaign_info.campaign_info_2 .campaign_cname {
   height: 40px;
 }
+.dl_campaign_detail .campaign_detail .campaign_info.campaign_info_2 .score_board {
+  background-color: #f1f3f5;
+  border-radius: 5px;
+  padding: 5px 15px;
+  height: 30px;
+  color: #3ca2df;
+  margin-left: -170px;
+  margin-top: 10px;
+  text-align: center;
+}
+.dl_campaign_detail .campaign_detail .campaign_info.campaign_info_2 .score_board .set_score {
+  width: 100%;
+  height: 100%;
+}
 .dl_campaign_detail .campaign_detail .item {
   padding: 10px 15px;
   font-size: 14px;
   color: #666;
   height: 40px;
 }
+.dl_campaign_detail .campaign_detail .item.campaign_content {
+  height: 65px;
+}
 .dl_campaign_detail .campaign_detail .item.campaign_content .content_simple {
   max-height: 60px;
   overflow-y: hidden;
+  line-height: 24px;
 }
 .dl_campaign_detail .campaign_detail .item.campaign_content .operator {
   text-align: center;
@@ -825,6 +843,9 @@ a.no_underline {
 }
 .dl_campaign_detail .campaign_detail .circle .svg_icon {
   float: right;
+  height: 24px;
+  width: 24px;
+  margin-top: -4px;
 }
 .dl_campaign_detail .campaign_detail .dl_circle_card {
   margin: 0;

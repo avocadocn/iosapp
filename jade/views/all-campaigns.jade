@@ -7,7 +7,7 @@ ion-view.all_campaigns
       //- .campaign_container_title(ng-if="#{items}.length>0 && title!=='个人足迹'" ng-cloak)
       //-   span #{containerTitle} {{#{items}.length}}
       .dl_timeline(ng-repeat="campaign in #{items}")
-        .item.dl_campaign_timeline_date(ng-if="needShowTime($index, #{items})") {{campaign.start_time | date:'M月d日'}}
+        .item.dl_campaign_timeline_date(ng-if="needShowTime($index, #{items})") {{campaign.start_time | date:'yyyy年M月d日'}}
         include ./campaign-card
 
   ion-content(delegate-handle="mainScroll")

@@ -8,7 +8,7 @@
     <div ng-if="title!=='个人足迹'" class="timeline_card">
         <div class="campaign_container cp_unjoin">
           <div ng-repeat="campaign in newCampaigns" class="dl_timeline">
-            <div ng-if="needShowTime($index, newCampaigns)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
+            <div ng-if="needShowTime($index, newCampaigns)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'yyyy年M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
               <div class="campaign_card clearfix">
                 <div class="dl_card_content clearfix">
                   <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" data-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo lazyload"/>
@@ -38,7 +38,7 @@
         </div>
         <div class="campaign_container cp_now">
           <div ng-repeat="campaign in nowCampaigns" class="dl_timeline">
-            <div ng-if="needShowTime($index, nowCampaigns)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
+            <div ng-if="needShowTime($index, nowCampaigns)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'yyyy年M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
               <div class="campaign_card clearfix">
                 <div class="dl_card_content clearfix">
                   <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" data-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo lazyload"/>
@@ -70,7 +70,7 @@
     <div class="timeline_card">
         <div class="campaign_container cp_finished">
           <div ng-repeat="campaign in finishedCampaigns" class="dl_timeline">
-            <div ng-if="needShowTime($index, finishedCampaigns)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
+            <div ng-if="needShowTime($index, finishedCampaigns)" class="item dl_campaign_timeline_date">{{campaign.start_time | date:'yyyy年M月d日'}}</div><a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
               <div class="campaign_card clearfix">
                 <div class="dl_card_content clearfix">
                   <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" data-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo lazyload"/>

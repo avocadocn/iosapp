@@ -26,7 +26,8 @@ ion-view.dl_campaign_detail
             img.team_logo.team_logo_2(ng-src="{{STATIC_URL + (campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)}}/60/60")
         .campaign_tname {{campaign.campaign_unit[1].team.name}}
         .campaign_cname {{campaign.campaign_unit[1].company.name}}
-        .campaign_status
+        score-board(ng-if="scoreBoardId&&campaign.is_end" component-id="scoreBoardId" campaign="campaign")
+        .campaign_status(ng-if="!scoreBoardId||!campaign.is_end")
           span.status(ng-class="{'now':campaign.is_start&&!campaign.is_end,'unstart':!campaign.is_start,'unjoin':campaign.join_flag!=1}") {{campaign.is_start | campaignStatus:campaign.is_end}}
       .campaign_items
         .item.item_header.cp_time
