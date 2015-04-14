@@ -570,6 +570,11 @@ a.no_underline {
   margin-right: 5px;
   fill: #999;
 }
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment .comment_icon,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .comment_icon,
+.dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .comment_icon {
+  margin-top: 1px;
+}
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
   margin-right: 0;
 }
@@ -744,6 +749,9 @@ a.no_underline {
   margin-right: 2px;
   margin-bottom: 2px;
   fill: #999;
+}
+.dl_campaign_detail .campaign_detail .campaign_footer .footer_col .discussion_icon {
+  margin-right: 6px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col .member_num {
   color: #f07151;
