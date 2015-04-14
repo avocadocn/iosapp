@@ -59,23 +59,16 @@ angular.module('donlerApp.filters', [])
   };
 })
 .filter('campaignStatus', function() {
-  return function(input,endTime) {
-    //new Date(input) will invalidDate in safari
-    //must user new Date('2014-02-18T15:00:48'.replace(/\s/, 'T'))
-    if(!input)
-      return ''
-    var start = new Date(input.replace(/\s/, 'T'));
-    var end = new Date(endTime.replace(/\s/, 'T'));
-    var now = Date.now();
+  return function(startFlag,endFlag) {
     var result = '';
-    if(start>now){
-      result ='活动未开始'
+    if(endFlag){
+      result ='已结束'
     }
-    else if(end>now){
-      result ='活动正在进行'
+    else if(startFlag){
+      result ='正在进行'
     }
     else{
-      result ='活动已结束'
+      result ='未开始'
     }
     return result;
   };
