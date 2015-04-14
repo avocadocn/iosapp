@@ -246,6 +246,13 @@ a.no_underline
     background-position -195px -128px
   &.ion_heart_outline
     background-position -226px -97px
+
+.dl_bottom_operator
+  display block
+  text-align center
+  padding 15px
+  color col_textGray
+
 //自定义actionSheet样式
 .action-sheet
   .action-sheet-group
@@ -365,6 +372,7 @@ a.no_underline
         border-radius 5px
         background-color col_boderlighttGray
         float left
+        overflow hidden
         .dl_team_logo
           width 60px
           height 60px
@@ -389,6 +397,7 @@ a.no_underline
           margin-bottom 6px
           border-radius 3px
           float left
+          margin-right 1px
       .dl_cp_texts
         float left
         .dl_cp_time,.dl_cp_address,.dl_cp_member,.dl_cp_name
@@ -406,8 +415,7 @@ a.no_underline
             float left
 //-历史卡片
 .dl_timeline_card
-  margin-left 15px
-  padding 10px 0
+  padding 10px 0 10px 15px
   border-left 0px
   margin-top -1px
   //- border-bottom 1px solid #ddd
@@ -2969,10 +2977,6 @@ a.no_underline
   &:last-child
     .dl_timeline_card
       border-bottom none
-.nomore_text
-  margin 10px
-  font-size 14px
-  text-align center
 
 .member_page
   .member_group
@@ -4007,12 +4011,14 @@ a.no_underline
       .text_data
         margin-right 10px
     .campaign_info
+      margin-bottom 0
+      border-bottom 0
       .item
         display flex
         display -webkit-flex
       .text_label
         width 60px
-        font-size 14px
+        font-size 16px
         line-height 24px
         color col_mainText
       .text_data
@@ -4024,13 +4030,7 @@ a.no_underline
         text-align center
     .competition_timeline_card
       .together_campaign
-        displayFlex()
-      .text_label
-        width 60px
-      .text_data
-        flexValue(1)
-        color col_textGray
-        text-align center
+        border-top 0
   .bar-footer
     height 50px
     .bottom_button
@@ -4180,9 +4180,3 @@ a.no_underline
         height initial
         .content
           white-space normal
-.all_campaigns
-  .operator
-    padding 10px 15px
-    text-align center
-    .show_more
-      color col_textGray

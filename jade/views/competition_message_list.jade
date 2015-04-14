@@ -22,6 +22,7 @@ ion-view.competition_message_panel
         .col.col_team
           img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/45/45")
         .col.col-center.team_name {{competitionMessage.opposite_team.name}}
-      .operator(ng-if="competitionMessages.length>0 &&page<=maxPage")
-        span.loading(ng-if="loading") 正在加载...
-        a.no_underline.show_more(ng-if="!loading && page<=maxPage" ng-click="moreCompetition()") 点击加载更多
+      a.dl_bottom_operator.no_underline.show_more(ng-if="competitionMessages.length>0 &&page<=maxPage && !loading && page<=maxPage" ng-click="moreCompetition()")
+        span 点击加载更多
+      .dl_bottom_operator(ng-if="loading")
+        span.loading 正在加载...

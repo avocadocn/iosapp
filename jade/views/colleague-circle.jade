@@ -8,8 +8,9 @@ ion-view.all_campaigns
     .timeline_card
       include ./timeline-card
     //- ion-infinite-scroll(ng-if="!loading && !loadFinished" icon="ion-looping" on-infinite="loadMore()" distance="-1%")
-    .operator
-      span.loading(ng-if="loading") 正在加载...
-      a.no_underline.show_more(ng-if="!loading && !loadFinished" ng-click="loadMore()") 点击加载更多
-    .nomore_text(ng-if="loadFinished") 没有更多的足迹
+    a.dl_bottom_operator.no_underline.show_more.clearfix(ng-if="!loading && !loadFinished" ng-click="loadMore()") 
+      span 点击加载更多
+    .dl_bottom_operator(ng-if="loading")
+      span.loading 正在加载...
+    .dl_bottom_operator(ng-if="loadFinished") 没有更多的足迹
 
