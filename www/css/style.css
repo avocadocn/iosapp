@@ -3822,9 +3822,14 @@ a>.login .companies_list:activated {
   background-color: #fff;
   border: 1px solid #ccc;
 }
+.member_page .member_group .members .member_wrap {
+  width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .member_page .member_group .members .member {
   position: relative;
-  margin: 0.833333rem 0.833333rem 0;
+  margin: 10px 10px 0;
   float: left;
   text-decoration: none;
 }
@@ -4511,6 +4516,7 @@ a>.login .companies_list:activated {
   position: absolute;
   right: 0;
   top: -4px;
+  fill: #294a7e;
 }
 .dl_circle_card .circle_info .date_and_op .op_icon.active {
   fill: #999;
