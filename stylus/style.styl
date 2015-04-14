@@ -3532,9 +3532,9 @@ a.no_underline
       .op_icon
         position absolute
         right 0
-        top -2px
-        width 23px
-        height 22px
+        top -4px
+      .op_icon.active
+        fill col_darkGray
       .toggle_click_wrap
         position absolute
         right -10px
@@ -3569,6 +3569,13 @@ a.no_underline
           line-height 40px
           font-size 14px
           text-align center
+          .svg_icon
+            width 14px
+            height 14px
+            fill white
+            margin-bottom 2px
+          .appreciate_icon
+            stroke white
         .op_item_text
           margin-left 5px
         .op_divider
@@ -3596,7 +3603,11 @@ a.no_underline
       word-break break-all
       textOverflow()
       .appreciate_icon
-        color col_link
+        width 14px
+        height 14px
+        margin-left 1px
+        margin-bottom 2px
+        stroke col_link
       .appreciate
         margin-left 5px
         &:after
@@ -3606,8 +3617,7 @@ a.no_underline
             content ""
     .comment_divider
       margin 5px 0
-      border-top 1px dashed col_darkGray
-    .comment
+      border-top 1px solid white
       .content
         margin-left 10px
       .reply_text

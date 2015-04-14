@@ -25,26 +25,36 @@
     .date_and_op.clearfix
       span.date.text_item {{circle.content.post_date | circleBeforeNow}}
       span.link_name.text_item(ng-if="uid === circle.content.post_user_id" ng-click="deleteCircleContent(circle)" prevent-default) 删除
-      i.op_icon.dl_icon.icon_small(ng-class="{'ion_comment_dot_horizontal_blue': !circle.isToComment, 'ion_comment_dot_horizontal_gray': circle.isToComment}")
+      //- i.op_icon.dl_icon.icon_small(ng-class="{'ion_comment_dot_horizontal_blue': !circle.isToComment, 'ion_comment_dot_horizontal_gray': circle.isToComment}")
+      svg.svg_icon.op_icon(ng-class="{'active': circle.isToComment}")
+        use(xlink:href="#plun")
       .toggle_click_wrap(ng-click="toggleComment()" prevent-default)
       .comment_op.clearfix(ng-if="circle.isToComment")
         .op_bg_wrap
         .op_box.clearfix
           .op_item(ng-if="!hasAppreciate(circle)" ng-click="appreciate(circle)" prevent-default)
-            i.op_item_icon.dl_icon.icon_small.ion_heart_outline
+            //- i.op_item_icon.dl_icon.icon_small.ion_heart_outline
+            svg.svg_icon.appreciate_icon
+              use(xlink:href="#appreciate")
             span.op_item_text 点赞
           .op_item(ng-if="hasAppreciate(circle)" ng-click="cancelAppreciate(circle)" prevent-default)
-            i.op_item_icon.dl_icon.icon_small.ion_heart_outline
+            //- i.op_item_icon.dl_icon.icon_small.ion_heart_outline
+            svg.svg_icon.appreciate_icon
+              use(xlink:href="#appreciate")
             span.op_item_text 取消
           .op_divider
           .op_item(ng-click="commentToContent()" prevent-default)
-            i.op_item_icon.dl_icon.icon_small.ion_comment_line_white
+            //- i.op_item_icon.dl_icon.icon_small.ion_comment_line_white
+            svg.svg_icon
+              use(xlink:href="#discussion")
             span.op_item_text 评论
     .circle_comment_list(ng-if="circle.appreciate.length > 0 || circle.textComments.length > 0")
       .circle_triangle
       .appreciate_container(ng-if="circle.appreciate.length > 0")
         //-i.ion-heart.appreciate_icon
-        span.link_name @
+        //-span.link_name @
+        svg.svg_icon.appreciate_icon
+          use(xlink:href="#appreciate")
         span.appreciate.link_name(ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster)" prevent-default ng-bind="appr.poster.nickname")
       .comment_divider
       .comment_container(ng-if="circle.textComments.length > 0")

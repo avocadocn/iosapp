@@ -4427,9 +4427,10 @@ a>.login .companies_list:activated {
 .dl_circle_card .circle_info .date_and_op .op_icon {
   position: absolute;
   right: 0;
-  top: -2px;
-  width: 23px;
-  height: 22px;
+  top: -4px;
+}
+.dl_circle_card .circle_info .date_and_op .op_icon.active {
+  fill: #999;
 }
 .dl_circle_card .circle_info .date_and_op .toggle_click_wrap {
   position: absolute;
@@ -4470,6 +4471,15 @@ a>.login .companies_list:activated {
   font-size: 14px;
   text-align: center;
 }
+.dl_circle_card .circle_info .date_and_op .comment_op .op_item .svg_icon {
+  width: 14px;
+  height: 14px;
+  fill: #fff;
+  margin-bottom: 2px;
+}
+.dl_circle_card .circle_info .date_and_op .comment_op .op_item .appreciate_icon {
+  stroke: #fff;
+}
 .dl_circle_card .circle_info .date_and_op .comment_op .op_item_text {
   margin-left: 5px;
 }
@@ -4504,7 +4514,11 @@ a>.login .companies_list:activated {
   white-space: nowrap;
 }
 .dl_circle_card .circle_comment_list .appreciate_container .appreciate_icon {
-  color: #294a7e;
+  width: 14px;
+  height: 14px;
+  margin-left: 1px;
+  margin-bottom: 2px;
+  stroke: #294a7e;
 }
 .dl_circle_card .circle_comment_list .appreciate_container .appreciate {
   margin-left: 5px;
@@ -4517,12 +4531,12 @@ a>.login .companies_list:activated {
 }
 .dl_circle_card .circle_comment_list .comment_divider {
   margin: 5px 0;
-  border-top: 1px dashed #999;
+  border-top: 1px solid #fff;
 }
-.dl_circle_card .circle_comment_list .comment .content {
+.dl_circle_card .circle_comment_list .comment_divider .content {
   margin-left: 10px;
 }
-.dl_circle_card .circle_comment_list .comment .reply_text {
+.dl_circle_card .circle_comment_list .comment_divider .reply_text {
   margin: 0 5px;
 }
 .competition_message_panel {
