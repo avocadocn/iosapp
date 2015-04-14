@@ -5021,8 +5021,12 @@ a>.login .companies_list:activated {
   border-bottom: 0;
 }
 .competition_team_page .competition_team .campaign_info .item {
-  display: flex;
+  display: -webkit-box;
   display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 .competition_team_page .competition_team .campaign_info .text_label {
   width: 60px;
@@ -5031,8 +5035,12 @@ a>.login .companies_list:activated {
   color: #202020;
 }
 .competition_team_page .competition_team .campaign_info .text_data {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
   flex: 1;
-  webkit-flex: 1;
   font-size: 14px;
   line-height: 24px;
   color: #666;

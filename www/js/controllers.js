@@ -4933,13 +4933,15 @@ angular.module('donlerApp.controllers', [])
     $scope.getCompetitionLog();
     $scope.$on( "$ionicView.enter", function( scopes, states ) {
       var hasNewDiscover =false;
-      $scope.competitionMessages.forEach(function(element, index){
-        if(INFO.competitionMessageDetail && element._id==INFO.competitionMessageDetail._id){
-          element.status = INFO.competitionMessageDetail.status;
-        }
-        hasNewDiscover = hasNewDiscover || element.unread;
-      });
-      $rootScope.hasNewDiscover = hasNewDiscover;
+      if($scope.competitionMessages && $scope.competitionMessages.length) {
+        $scope.competitionMessages.forEach(function(element, index){
+          if(INFO.competitionMessageDetail && element._id==INFO.competitionMessageDetail._id){
+            element.status = INFO.competitionMessageDetail.status;
+          }
+          hasNewDiscover = hasNewDiscover || element.unread;
+        });
+        $rootScope.hasNewDiscover = hasNewDiscover;
+      }
     });
   }])
   .controller('CompetitionMessageDetailController', ['$rootScope', '$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', '$ionicHistory', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO',

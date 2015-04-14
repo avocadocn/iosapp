@@ -33,7 +33,7 @@ ion-view.competition_team_page
         .dl_timeline(ng-repeat="campaign in competitions" ng-cloak)
           //- .item.dl_campaign_timeline_date(ng-if="needShowTime($index)") {{campaign.start_time | date:'M月d日'}}
           include ./together-campaign-card
-        .item.item-divider.together_campaign(ng-if="!competitions || !competitions.length")
+        .dl_bottom_operator(ng-if="!competitions || !competitions.length")
           span 无共同活动
   .bar.bar-footer(ng-cloak ng-show="targetTeam && !targetTeam.isCompanyTeam")
     button.bottom_button(ng-click="showPopup(0)" ng-if="leadTeams.length>0") 挑战
