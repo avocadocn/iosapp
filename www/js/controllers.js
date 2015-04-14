@@ -3742,7 +3742,7 @@ angular.module('donlerApp.controllers', [])
       var month_dates = mdate.daysInMonth();
       Campaign.getList({
         requestType: 'user',
-        requestId: localStorage.id,
+        requestId: $stateParams.userId,
         from: new Date(year, month).getTime(),
         to: new Date(year, month + 1).getTime()
       }, function(err, data) {
@@ -3785,9 +3785,9 @@ angular.module('donlerApp.controllers', [])
             if (campaign.join_flag == 1) {
               month_data.days[i - 1].joined_events.push(campaign);
             }
-             else {
-              month_data.days[i - 1].unjoined_events.push(campaign);
-            }
+            //  else {
+            //   month_data.days[i - 1].unjoined_events.push(campaign);
+            // }
           }
         };
         // 将活动及相关标记存入某天
@@ -4931,6 +4931,18 @@ angular.module('donlerApp.controllers', [])
       $scope.getCompetitionLog();
     }
     $scope.getCompetitionLog();
+    $scope.$on('updateMessageList', function(event, args) {
+      $timeout(function(){
+        if(args.competitionMessage){
+          $scope.competitionMessages.forEach(function(element, index){
+            if(element._id==args.competitionMessage._id){
+              element.status = args.competitionMessage.status;
+            }
+            $rootScope.hasNewDiscover = data.unReadStatus;
+          });
+        }
+      },300);
+    });
   }])
   .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', '$ionicHistory', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO',
    function ($scope, $state, $ionicModal, $ionicScrollDelegate, $ionicPopup, $timeout, $ionicHistory, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
@@ -5060,6 +5072,7 @@ angular.module('donlerApp.controllers', [])
         } else {
           alert('挑战处理成功!');
           $scope.competitionMessage.status =action+'ed';
+          $rootScope.$broadcast('updateMessageList', { competitionMessage:$scope.competitionMessage});
         }
       });
     }

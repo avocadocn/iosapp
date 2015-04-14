@@ -698,6 +698,7 @@ a.no_underline {
 }
 .dl_campaign_detail .campaign_detail .cp_address .cp_location {
   color: #666;
+  font-size: 16px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer {
   display: -webkit-box;
@@ -3913,6 +3914,7 @@ a>.login .companies_list:activated {
 }
 .sponsor .list .item {
   height: 50px;
+  line-height: 18px;
 }
 .sponsor .list .item .input-label {
   color: #202020;
