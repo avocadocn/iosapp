@@ -1430,7 +1430,7 @@ angular.module('donlerApp.controllers', [])
       if(!msg){
         $scope.inviteKey = data.staffInviteCode;
         var qrcode = new QRCode("inviteKeyQrCode", {
-          text: CONFIG.STATIC_URL+"/users/invite?key="+data.staffInviteCode+"&cid="+localStorage.cid+"&uid="+localStorage.id
+          text: CONFIG.STATIC_URL+"/users/inviteQR?key="+data.staffInviteCode+"&cid="+localStorage.cid+"&uid="+localStorage.id
         });
       }
     });
