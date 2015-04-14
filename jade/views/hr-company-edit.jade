@@ -7,10 +7,13 @@ ion-view.edit_company_info
     button.button(ng-if="editing" ng-click="edit()" ng-disabled="intro.$invalid" ng-cloak) 确定
 
   ion-content(scroll="false")
-    .company_name
-      a.item
-        span.title 公司名称
-        span.content {{company.name || '无'}}
+    //- .company_name
+    .item.company_name
+      span.title 公司名称
+      span.content {{company.name || '无'}}
+    .item.item-input
+      span.input-label 简介
+      textarea.introduce(name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()")
     .item.item-icon-right(ng-click="showUploadActionSheet()")
       img(ng-src="{{STATIC_URL + company.logo}}/60/60")
       h2.company_logo 公司logo
@@ -19,9 +22,7 @@ ion-view.edit_company_info
       img(ng-src="{{STATIC_URL + company.cover}}/60/60")
       h2.company_logo 公司封面
       i.icon.ion-chevron-right
-    .item.item-input
-      span.input-label 简介
-      textarea.introduce(name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()")
+
     //- form(name="editForm")
     //-   .item.item-input
     //-     span.input-label 简介

@@ -2448,10 +2448,10 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           $rootScope.showAction({titleText:err})
         } else {
-          $ionicPopup.alert({
-            title: '编辑成功',
-            template: err
-          });
+          // $ionicPopup.alert({
+          //   title: '编辑成功',
+          //   template: err
+          // });
           refreshCompanyData(function (data) {
             updateFormData();
             $scope.editingLock = false;

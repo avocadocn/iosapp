@@ -6,15 +6,15 @@
     <button ng-if="editing" ng-click="edit()" ng-disabled="intro.$invalid" ng-cloak="ng-cloak" class="button">确定</button>
   </ion-header-bar>
   <ion-content scroll="false">
-    <div class="company_name"><a class="item"><span class="title">公司名称</span><span class="content">{{company.name || '无'}}</span></a></div>
+    <div class="item company_name"><span class="title">公司名称</span><span class="content">{{company.name || '无'}}</span></div>
+    <div class="item item-input"><span class="input-label">简介</span>
+      <textarea name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()" class="introduce"></textarea>
+    </div>
     <div ng-click="showUploadActionSheet()" class="item item-icon-right"><img ng-src="{{STATIC_URL + company.logo}}/60/60"/>
       <h2 class="company_logo">公司logo</h2><i class="icon ion-chevron-right"></i>
     </div>
     <div ng-click="showUploadActionSheetForCompanyCover()" class="item item-icon-right"><img ng-src="{{STATIC_URL + company.cover}}/60/60"/>
       <h2 class="company_logo">公司封面</h2><i class="icon ion-chevron-right"></i>
-    </div>
-    <div class="item item-input"><span class="input-label">简介</span>
-      <textarea name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()" class="introduce"></textarea>
     </div>
   </ion-content>
 </ion-view>

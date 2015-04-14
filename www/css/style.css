@@ -2842,44 +2842,46 @@ a>.login .companies_list:activated {
   position: relative;
   height: 45px;
   margin-top: 10px;
-  margin-bottom: 1px;
 }
 .edit_company_info .company_name .item {
-  padding: 12px 15px;
-  margin: 1px 0px;
+  padding: 10px 15px;
 }
-.edit_company_info .company_name .item:after {
+.edit_company_info .item {
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.edit_company_info .item .title,
+.edit_company_info .item .content {
+  font-size: 14px;
+}
+.edit_company_info .item .content {
+  margin-left: 20px;
+  color: #666;
+}
+.edit_company_info .item:after {
   display: block;
   position: absolute;
   left: 15px;
   bottom: 0;
   width: 100%;
   content: '';
-  border-top: 1px solid #ddd;
+  border: 1px solid #ddd;
 }
-.edit_company_info .company_name .item .title,
-.edit_company_info .company_name .item .content {
-  font-size: 14px;
+.edit_company_info .item:first-child {
+  border-top-width: 1px;
 }
-.edit_company_info .company_name .item .content {
-  margin-left: 20px;
-  color: #666;
+.edit_company_info .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.edit_company_info .item:last-child:after {
+  content: none;
+  display: none;
 }
 .edit_company_info .item-icon-right {
   position: relative;
   padding: 15px;
   height: 90px;
-  margin: 0px;
-  border: 0px;
-}
-.edit_company_info .item-icon-right:after {
-  display: block;
-  position: absolute;
-  left: 15px;
-  bottom: 0;
-  width: 100%;
-  content: '';
-  border-top: 1px solid #ddd;
 }
 .edit_company_info .item-icon-right .icon {
   color: #999;
@@ -2902,8 +2904,6 @@ a>.login .companies_list:activated {
   height: 90px;
   margin: 0px;
   padding: 15px;
-  border: none;
-  border-bottom: 1px solid #ddd;
 }
 .edit_company_info .item-input .input-label {
   position: absolute;

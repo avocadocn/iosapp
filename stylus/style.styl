@@ -2263,37 +2263,20 @@ a.no_underline
     position relative
     height 45px
     margin-top 10px
-    margin-bottom 1px
     .item
-      padding 12px 15px
-      margin 1px 0px
-      &:after
-        display block
-        position absolute
-        left 15px
-        bottom 0
-        width 100%
-        content ''
-        border-top 1px solid #ddd
-      .title, .content
-        font-size 14px
-      .content
-        margin-left 20px
-        color col_textGray
+      padding 10px 15px
+
+  .item
+    .title, .content
+      font-size 14px
+    .content
+      margin-left 20px
+      color col_textGray
+    indentLine()
   .item-icon-right
     position relative
     padding 15px
     height 90px
-    margin 0px
-    border 0px
-    &:after
-      display block
-      position absolute
-      left 15px
-      bottom 0
-      width 100%
-      content ''
-      border-top 1px solid #ddd
     .icon
       color col_darkGray
       z-index 1
@@ -2312,8 +2295,6 @@ a.no_underline
     height 90px
     margin 0px
     padding 15px
-    border none
-    border-bottom 1px solid #ddd
     .input-label
       position absolute
       color black
