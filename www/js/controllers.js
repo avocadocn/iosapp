@@ -72,8 +72,9 @@ angular.module('donlerApp.controllers', [])
       });
     $scope.$on('$ionicView.enter', function(scopes, states) {
       // 为true或undefined时获取公司数据
-      if (INFO.hasModifiedCompany !== false) {
+      if (INFO.hasModifiedCompany !== false || INFO.updateHrHome !== false) {
         INFO.hasModifiedCompany = false;
+        INFO.updateHrHome = false;
         Company.getData(localStorage.id)
           .success(function(data) {
             $scope.company = data;
@@ -122,8 +123,11 @@ angular.module('donlerApp.controllers', [])
           if(!err){
             if(localStorage.userType==='user')
               $state.go('team',{teamId:data.teamId});
-            else
+            else {
+              INFO.hasModifiedTeam = true;
+              INFO.updateHrHome = true;
               $state.go('hr_teamPage');
+            }
           }
           else{
             $rootScope.showAction({titleText:err});
@@ -2440,6 +2444,10 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           $rootScope.showAction({titleText:err})
         } else {
+          $ionicPopup.alert({
+            title: '编辑成功',
+            template: err
+          });
           refreshCompanyData(function (data) {
             updateFormData();
             $scope.editingLock = false;
