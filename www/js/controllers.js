@@ -199,6 +199,7 @@ angular.module('donlerApp.controllers', [])
           $scope.nowCampaigns = data[1];
           $scope.newCampaigns = data[2];
           // $scope.provokes = data[3];
+          $scope.finishedCampaigns = data[3];
           if(data[0].length===0&&data[1].length===0&&data[2].length===0){
             $scope.noCampaigns = true;
           }
@@ -1286,6 +1287,7 @@ angular.module('donlerApp.controllers', [])
       }
     };
     // 是否需要显示时间
+    // todo function(index, items) -M
     $scope.needShowTime = function (index) {
       if(index===0){
         return true;
@@ -1295,6 +1297,7 @@ angular.module('donlerApp.controllers', [])
         return nowTime.getDate() != preTime.getDate() || nowTime.getMonth() != preTime.getMonth()|| nowTime.getFullYear() != preTime.getFullYear() ;
       }
     };
+    //todo
     $scope.doRefresh = function(){
       $scope.page = 1;
       $scope.loadFinished = false;
@@ -1314,6 +1317,7 @@ angular.module('donlerApp.controllers', [])
         $scope.$broadcast('scroll.refreshComplete');
       });
     };
+    //todo
     $scope.loadMore = function() {
       if(!$scope.loading){
         $scope.page++;
