@@ -1355,7 +1355,7 @@ angular.module('donlerApp.controllers', [])
       }else{
         var preTime = new Date($scope.timelinesRecord[index-1].start_time);
         var nowTime = new Date($scope.timelinesRecord[index].start_time);
-        return nowTime.getFullYear() != preTime.getFullYear() || nowTime.getMonth() != preTime.getMonth();
+        return nowTime.getDate() != preTime.getDate() || nowTime.getMonth() != preTime.getMonth()|| nowTime.getFullYear() != preTime.getFullYear() ;
       }
     };
     $scope.doRefresh = function(){
