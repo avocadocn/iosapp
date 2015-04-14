@@ -3716,8 +3716,33 @@ a>.login .companies_list:activated {
 .team_page .latest_campaign_item {
   color: #202020;
 }
+.team_page .latest_campaign_info_item.first_item {
+  border-top: 1px solid #ddd;
+}
 .team_page .latest_campaign_info_item {
+  border-width: 0;
+  padding-bottom: 17px;
   color: #999;
+}
+.team_page .latest_campaign_info_item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.team_page .latest_campaign_info_item:first-child {
+  border-top-width: 1px;
+}
+.team_page .latest_campaign_info_item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.team_page .latest_campaign_info_item:last-child:after {
+  content: none;
+  display: none;
 }
 .team_page .latest_campaign_info_item .svg_icon {
   fill: #999;
