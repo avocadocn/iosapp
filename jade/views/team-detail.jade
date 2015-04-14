@@ -27,7 +27,12 @@ ion-view.team_page
           use(xlink:href="#suoyouhuodong")
         | 近期活动
         i.icon.ion-chevron-right.icon_right
-      //- todo three campaigns
+      a.item.latest_campaign_info_item(ng-repeat="campaign in latestCampaigns" ng-href="#/campaign/detail/{{campaign._id}}")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#time")
+        span.cp_time(ng-bind-template="{{campaign.start_time | date:'MM-dd'}}")
+        span.cp_theme(ng-bind="campaign.theme")
+
     .list
       .item.row.item-icon-right.members_item
         .col

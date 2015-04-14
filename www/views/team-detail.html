@@ -16,7 +16,10 @@
       </div><a ng-href="#/campaign/all/team/{{team._id}}" class="item item-icon-right latest_campaign_item">
         <svg class="svg_icon svg_item_icon">
           <use xlink:href="#suoyouhuodong"></use>
-        </svg>近期活动<i class="icon ion-chevron-right icon_right"></i></a>
+        </svg>近期活动<i class="icon ion-chevron-right icon_right"></i></a><a ng-repeat="campaign in latestCampaigns" ng-href="#/campaign/detail/{{campaign._id}}" class="item latest_campaign_info_item">
+        <svg class="svg_icon svg_item_icon">
+          <use xlink:href="#time"></use>
+        </svg><span ng-bind-template="{{campaign.start_time | date:'MM-dd'}}" class="cp_time"></span><span ng-bind="campaign.theme" class="cp_theme"></span></a>
     </div>
     <div class="list">
       <div class="item row item-icon-right members_item">

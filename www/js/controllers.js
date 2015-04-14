@@ -2638,19 +2638,13 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('TeamController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$stateParams', '$rootScope', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', 'User', 
-    function ($ionicHistory, $rootScope, $scope, $state, $stateParams, $rootScope, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate, User) {
+  .controller('TeamController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$stateParams', '$rootScope', '$window', 'Team', 'Campaign', 'Tools', 'INFO', '$ionicSlideBoxDelegate', 'User', function ($ionicHistory, $rootScope, $scope, $state, $stateParams, $rootScope, $window, Team, Campaign, Tools, INFO, $ionicSlideBoxDelegate, User) {
     var teamId = $stateParams.teamId;
+    
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
       }
-    };
-    $scope.pswpId = 'team' + Date.now();
-    $scope.pswpPhotoAlbum = {};
-
-    $scope.familyMinHeight = {
-      height: (INFO.screenWidth * 190 / 320) + 'px'
     };
 
     // 已登录的用户获取自己的信息不是异步过程
@@ -2679,10 +2673,25 @@ angular.module('donlerApp.controllers', [])
                 empty: true
               });
             }
-            $ionicSlideBoxDelegate.update();
           }
         });
       }
+
+      var latestCount = 3;
+      var options = {
+        requestType: 'team',
+        requestId: teamId,
+        sortBy: '-start_time -_id',
+        limit: latestCount
+      };
+      Campaign.getList(options, function (err, campaigns) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.latestCampaigns = campaigns;
+        }
+      });
     });
 
     $scope.updatePersonalTeam = function (tid) {
@@ -2727,93 +2736,6 @@ angular.module('donlerApp.controllers', [])
     $scope.selectHomeCourt = function (index) {
       $scope.homeCourtIndex = index;
     };
-
-    $scope.firstLoad = true;
-    $scope.lastCount;
-    var pageSize = 20;
-    var nextCampaign;
-
-    $scope.campaigns = [];
-
-    $scope.getCampaigns = function (options) {
-      Campaign.getList(options, function (err, campaigns) {
-        if (err) {
-          // todo
-          console.log(err);
-        } else {
-          $scope.lastCount = campaigns.length;
-          $scope.firstLoad = false;
-          $scope.loading = false;
-          // var sliceLength = campaigns.length === pageSize + 1 ? pageSize : campaigns.length;
-          nextCampaign = campaigns[campaigns.length - 1];
-          $scope.campaigns = $scope.campaigns.concat(campaigns);
-          // addCampaignsToGroup(campaigns.slice(0, sliceLength));
-          $scope.$broadcast('scroll.infiniteScrollComplete');
-        }
-      });
-    };
-
-    $scope.needShowTime = function(index) {
-      if(index === 0) {
-        return true;
-      }else {
-        var preTime = new Date($scope.campaigns[index-1].start_time);
-        var nowTime = new Date($scope.campaigns[index].start_time);
-        // console.log(index,nowTime,preTime);
-        if(nowTime.getFullYear() != preTime.getFullYear()) {
-          return true;
-        }else if(nowTime.getDay() != preTime.getDay()) {
-          return true;
-        }else {
-          return false;
-        }
-      }
-    };
-
-    $scope.loadMore = function () {
-      // ionic bug, loadmore会意外地执行两次，现在并无好的解决方案，故只要开始加载就设置标记阻止再次执行
-      if ($scope.loading == true) {
-        return;
-      }
-      if ($scope.firstLoad) {
-        $scope.loading = true;
-        var options = {
-          requestType: 'team',
-          requestId: teamId,
-          populate: 'photo_album',
-          sortBy: '-start_time -_id',
-          limit: pageSize + 1
-        };
-        $scope.getCampaigns(options);
-      } else {
-        if ($scope.lastCount >= pageSize) {
-          $scope.loading = true;
-          var startTime = new Date(nextCampaign.start_time);
-          var nextPageStartId = nextCampaign._id;
-          options = {
-            requestType: 'team',
-            requestId: teamId,
-            populate: 'photo_album',
-            sortBy: '-start_time -_id',
-            limit: pageSize + 1,
-            to: startTime.valueOf(),
-            nextPageStartId: nextPageStartId
-          };
-          $scope.getCampaigns(options);
-        }
-      }
-    };
-
-    $scope.moreDataCanBeLoaded = function () {
-      if (!$scope.firstLoad && $scope.lastCount < pageSize) {
-        return false;
-      } else {
-        return true;
-      }
-    };
-    $scope.$on('$stateChangeSuccess', function() {
-      $scope.loadMore();
-    });
 
   }])
   .controller('TeamEditController', ['$scope', '$ionicModal', '$rootScope', '$ionicHistory', '$stateParams', 'Team', 'CONFIG', 'INFO', 'Upload',

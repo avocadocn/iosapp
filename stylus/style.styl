@@ -2845,7 +2845,8 @@ a.no_underline
       width 70px
       height 70px
       border-radius 5px
-      border 2px solid #ccc
+      border 1px solid #ccc
+      box-shadow 2px 2px 2px #ccc, 2px -2px 2px #ccc, -2px -2px 2px #ccc, -2px 2px 2px #ccc
     .team_name
       margin 0
       font-size 16px
@@ -2881,7 +2882,12 @@ a.no_underline
       color col_blue
   .latest_campaign_item
     color col_mainText
-  
+  .latest_campaign_info_item
+    color col_darkGray
+    .svg_icon
+      fill col_darkGray
+    .cp_time
+      margin-right 30px
   .members_item
     font-size 14px
     height 54px
@@ -2903,6 +2909,7 @@ a.no_underline
         border-right 1px solid #e2e2e2
 
   .home_court_item
+    indentLine()
     displayFlex()
     .title
       width 60px

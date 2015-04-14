@@ -3578,7 +3578,8 @@ a>.login .companies_list:activated {
   width: 70px;
   height: 70px;
   border-radius: 5px;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 2px #ccc, 2px -2px 2px #ccc, -2px -2px 2px #ccc, -2px 2px 2px #ccc;
 }
 .team_page .team_info_item .team_name {
   margin: 0;
@@ -3633,6 +3634,15 @@ a>.login .companies_list:activated {
 .team_page .latest_campaign_item {
   color: #202020;
 }
+.team_page .latest_campaign_info_item {
+  color: #999;
+}
+.team_page .latest_campaign_info_item .svg_icon {
+  fill: #999;
+}
+.team_page .latest_campaign_info_item .cp_time {
+  margin-right: 30px;
+}
 .team_page .members_item {
   font-size: 14px;
   height: 54px;
@@ -3659,12 +3669,34 @@ a>.login .companies_list:activated {
   border-right: 1px solid #e2e2e2;
 }
 .team_page .home_court_item {
+  border-width: 0;
+  padding-bottom: 17px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -moz-flex;
   display: -ms-flexbox;
   display: flex;
+}
+.team_page .home_court_item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.team_page .home_court_item:first-child {
+  border-top-width: 1px;
+}
+.team_page .home_court_item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.team_page .home_court_item:last-child:after {
+  content: none;
+  display: none;
 }
 .team_page .home_court_item .title {
   width: 60px;
