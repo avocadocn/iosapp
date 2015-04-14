@@ -27,12 +27,9 @@
                   <div ng-if="finishedCampaigns.length&gt;0 || nowType=='finishedCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>刚结束的活动 {{finishedCampaigns.length}}</span></div>
                   <new-campaign-card ng-repeat="campaign in finishedCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="finishedCampaigns" is-last="$index===finishedCampaigns.length-1"></new-campaign-card>
                 </div>
-          <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign">
-            <div class="no_campaign_tip">
-              <p>没有活动怎么办?</p>
-              <p><a href="#/discover/teams/" class="team_link">发现</a><span class="tip_info">加入更多小队！</span></p>
-            </div>
-          </div>
+          <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
+              <p>没有活动怎么办?选择您感兴趣的小队参加更多活动</p>
+              <p class="button_container"><span class="tip_info">点击</span><span class="team_link">全部小队</span></p></a></div>
         </ion-scroll>
       </ion-content>
     </ion-view>

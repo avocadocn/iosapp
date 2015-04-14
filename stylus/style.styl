@@ -300,7 +300,7 @@ a.no_underline
     height 100%
     margin-top 0
     .no_campaign
-      background-image url('../img/no_new_campaign.png')
+      background-image url('../img/no_campaign.png')
       width 100%
       height 100%
       background-repeat no-repeat
@@ -308,27 +308,34 @@ a.no_underline
       background-size contain
       .no_campaign_tip
         position absolute
-        top 10px
-        left 10px
+        top 15%
+        right 15px
         font-size 14px
+        background-color #27B2BC
+        border-radius 5px
+        color white
+        width 250px
+        padding 10px
+        box-shadow 1px 1px 5px #888
         p
-          margin 6px 1px
+          margin 0
           .team_link
             margin 0
-            color #FFF
-            background-color #3498DB
+            color #27B2BC
+            background-color white
             border none
             position relative
-            font-size 12px
             text-align center
             vertical-align middle
             display inline-block
             cursor pointer
             border-radius 5px
-            padding 7px 11px
+            padding 5px 10px
             text-decoration none
           .tip_info
-            padding-left 11px
+            padding-right 10px
+          &.button_container
+            text-align right
     .campaign_container
       .campaign_container_title
         border 1px solid col_boderlighttGray

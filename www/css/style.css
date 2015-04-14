@@ -282,7 +282,7 @@ a.no_underline {
   margin-top: 0;
 }
 .campaigns_container .campaign_list .no_campaign {
-  background-image: url("../img/no_new_campaign.png");
+  background-image: url("../img/no_campaign.png");
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
@@ -291,30 +291,38 @@ a.no_underline {
 }
 .campaigns_container .campaign_list .no_campaign .no_campaign_tip {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 15%;
+  right: 15px;
   font-size: 14px;
+  background-color: #27b2bc;
+  border-radius: 5px;
+  color: #fff;
+  width: 250px;
+  padding: 10px;
+  box-shadow: 1px 1px 5px #888;
 }
 .campaigns_container .campaign_list .no_campaign .no_campaign_tip p {
-  margin: 6px 1px;
+  margin: 0;
 }
 .campaigns_container .campaign_list .no_campaign .no_campaign_tip p .team_link {
   margin: 0;
-  color: #fff;
-  background-color: #3498db;
+  color: #27b2bc;
+  background-color: #fff;
   border: none;
   position: relative;
-  font-size: 12px;
   text-align: center;
   vertical-align: middle;
   display: inline-block;
   cursor: pointer;
   border-radius: 5px;
-  padding: 7px 11px;
+  padding: 5px 10px;
   text-decoration: none;
 }
 .campaigns_container .campaign_list .no_campaign .no_campaign_tip p .tip_info {
-  padding-left: 11px;
+  padding-right: 10px;
+}
+.campaigns_container .campaign_list .no_campaign .no_campaign_tip p.button_container {
+  text-align: right;
 }
 .campaigns_container .campaign_list .campaign_container .campaign_container_title {
   border: 1px solid #e3e3e3;

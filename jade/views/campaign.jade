@@ -30,11 +30,11 @@ ion-view(ng-controller="CampaignController")
       +campaignsContainer('即将开始的活动','unStartCampaigns','cp_unstart')
       +campaignsContainer('刚结束的活动', 'finishedCampaigns', 'cp_finished')
       .no_campaign(ng-if="noCampaigns" ng-cloak)
-        .no_campaign_tip
-          p 没有活动怎么办?
-          p
-            a.team_link(href="#/discover/teams/") 发现
-            span.tip_info 加入更多小队！
+        a.no_campaign_tip.no_underline(href="#/company/teams/official")
+          p 没有活动怎么办?选择您感兴趣的小队参加更多活动
+          p.button_container
+            span.tip_info 点击
+            span.team_link 全部小队
 
 script(id="my-popover.html" type="text/ng-template")
   ion-popover-view.dl_popover.campaign_filter_popover
