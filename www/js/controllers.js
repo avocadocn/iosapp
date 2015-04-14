@@ -1241,7 +1241,9 @@ angular.module('donlerApp.controllers', [])
    function ($scope, $state, $timeout, $ionicHistory, $ionicScrollDelegate, TimeLine, INFO) {
     $scope.loadFinished = false;
     $scope.loading = false;
-    $scope.timelinesRecord =[];
+    $scope.newCampaigns = [];
+    $scope.nowCampaigns = [];
+    $scope.finishedCampaigns = [];
     $scope.page = 0;
     switch($state.params.type) {
       case 'company':
@@ -1266,28 +1268,31 @@ angular.module('donlerApp.controllers', [])
       }
     };
     // 是否需要显示时间
-    // todo function(index, items) -M
-    $scope.needShowTime = function (index) {
+    $scope.needShowTime = function (index, items) {
       if(index===0){
         return true;
       }else{
-        var preTime = new Date($scope.timelinesRecord[index-1].start_time);
-        var nowTime = new Date($scope.timelinesRecord[index].start_time);
+        var preTime = new Date(items[index-1].start_time);
+        var nowTime = new Date(items[index].start_time);
         return nowTime.getDate() != preTime.getDate() || nowTime.getMonth() != preTime.getMonth()|| nowTime.getFullYear() != preTime.getFullYear() ;
       }
     };
-    //todo
+
     $scope.doRefresh = function(){
       $scope.page = 1;
       $scope.loadFinished = false;
-      TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, timelineData) {
+      TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, campaignsData) {
         if (err) {
           // todo
           console.log(err);
           $scope.loadFinished = true;
         } else {
-          if(timelineData.length>0) {
-            $scope.timelinesRecord = timelineData;
+          if(campaignsData.length>1) {
+            $scope.newCampaigns = campaignsData[1];
+            $scope.nowCampaigns = campaignsData[2];
+          }
+          if(campaignsData[0].length>0) {
+            $scope.timelinesRecord = campaignsData[0];
           }
           else {
             $scope.loadFinished = true;
@@ -1296,19 +1301,23 @@ angular.module('donlerApp.controllers', [])
         $scope.$broadcast('scroll.refreshComplete');
       });
     };
-    //todo
     $scope.loadMore = function() {
       if(!$scope.loading){
         $scope.page++;
         $scope.loading = true;
-        TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, timelineData) {
+        TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, campaignsData) {
           if (err) {
             // todo
             console.log(err);
             $scope.loadFinished = true;
           } else {
-            if(timelineData.length>0) {
-              $scope.timelinesRecord = $scope.timelinesRecord.concat(timelineData);
+            //第一次加载 且不是个人足迹页
+            if(campaignsData.length>1) {
+              $scope.newCampaigns = campaignsData[1];
+              $scope.nowCampaigns = campaignsData[2];
+            }
+            if(campaignsData[0].length>0) {
+              $scope.finishedCampaigns = $scope.finishedCampaigns.concat(campaignsData[0]);
             }
             else {
               $scope.loadFinished = true;
