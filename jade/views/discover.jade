@@ -8,12 +8,14 @@ ion-view.discover(ng-controller="DiscoverController")
     ion-refresher(on-refresh="getMyTeams(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     //- .discover_image
     .list
-      a.item.item-icon-left.item-icon-right(href="#/discover/search_opponent")
-        i.icon.ion_teams
+      a.item.item-icon-right(href="#/discover/search_opponent")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#zhaoduishou")
         | 找对手
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/competition_message/list")
-        i.icon.ion_ballon
+      a.item.item-icon-right(href="#/competition_message/list")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#tiaozhanrizhi")
         | 挑战日志
         span.badge_dot(ng-if="hasNewDiscover")
         i.icon.ion-chevron-right

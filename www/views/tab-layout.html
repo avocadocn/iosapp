@@ -2,7 +2,10 @@
 <ion-tabs ng-controller="TabController" ng-class="{'tabs-item-hide': hideTabs}" class="tabs-icon-top app_tabs">
   <ion-tab title="活动" icon-on="dl_icon ion_campaign active" icon="dl_icon ion_campaign" href="#/app/campaigns">
     <ion-view ng-controller="CampaignController">
-      <ion-header-bar><a href="#/calendar/campaigns" class="button icon ion-calendar"></a>
+      <ion-header-bar><a href="#/calendar/campaigns" class="button">
+          <svg class="svg_icon svg_nav_icon">
+            <use xlink:href="#richeng"></use>
+          </svg></a>
         <h1 ng-click="showFilter($event)" class="title"><span>{{typeTitle}}&nbsp;</span><i class="icon ion-arrow-down-b"></i></h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
       </ion-header-bar>
       <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container">
@@ -65,7 +68,13 @@
       </ion-header-bar>
       <ion-content>
         <ion-refresher on-refresh="getMyTeams(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-        <div class="list"><a href="#/discover/search_opponent" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>找对手<i class="icon ion-chevron-right"></i></a><a href="#/competition_message/list" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>挑战日志<span ng-if="hasNewDiscover" class="badge_dot"></span><i class="icon ion-chevron-right"></i></a>
+        <div class="list"><a href="#/discover/search_opponent" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#zhaoduishou"></use>
+            </svg>找对手<i class="icon ion-chevron-right"></i></a><a href="#/competition_message/list" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#tiaozhanrizhi"></use>
+            </svg>挑战日志<span ng-if="hasNewDiscover" class="badge_dot"></span><i class="icon ion-chevron-right"></i></a>
         </div>
         <div class="rank_panel">
           <div class="item rank"><span class="rank_title">排行榜</span><a href="#/rank/select" class="button rank_button no_underline">查看全部类型</a></div>
@@ -121,7 +130,13 @@
             </svg>精彩瞬间<span ng-if="newCircleComment" class="badge badge-assertive">{{newCircleComment}}</span>
             <div ng-if="newContent" class="badge_image">
               <div class="red_spot"></div><img ng-src="{{STATIC_URL + newContent.photo}}/60/60" class="logo"/>
-            </div><i class="icon ion-chevron-right icon_right"></i></a><a href="#/company/teams/official" class="item item-icon-left item-icon-right"><i class="icon ion_teams icon_left"></i>全部小队<span class="item-note">{{teams.length}}</span><i class="icon ion-chevron-right icon_right"></i></a><a href="#/campaign/all/company/0" class="item item-icon-left item-icon-right"><i class="icon ion_ballon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
+            </div><i class="icon ion-chevron-right icon_right"></i></a><a href="#/company/teams/official" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#suoyouxiaodui"></use>
+            </svg>全部小队<span class="item-note">{{teams.length}}</span><i class="icon ion-chevron-right icon_right"></i></a><a href="#/campaign/all/company/0" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#suoyouhuodong"></use>
+            </svg>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
         </div>
       </ion-content>
     </ion-view>
@@ -158,9 +173,18 @@
             </svg>二维码<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/circle/circle_user/{{user._id}}" class="item item-icon-right">
             <svg class="svg_icon svg_item_icon">
               <use xlink:href="#picture"></use>
-            </svg>我的相册<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/user/{{user._id}}" class="item item-icon-left item-icon-right"><i class="icon ion_foot icon_left"></i>我的足迹<i class="icon ion-chevron-right icon_right"></i></a><a href="#/calendar/personal" class="item item-icon-left item-icon-right"><i class="icon ion_calendar icon_left"></i>我的日程<i class="icon ion-chevron-right icon_right"></i></a>
+            </svg>我的相册<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/user/{{user._id}}" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#zuji"></use>
+            </svg>我的足迹<i class="icon ion-chevron-right icon_right"></i></a><a href="#/calendar/personal" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#richeng"></use>
+            </svg>我的日程<i class="icon ion-chevron-right icon_right"></i></a>
         </div>
-        <div class="list menu_list"><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting icon_left"></i>设置<i class="icon ion-chevron-right icon_right"></i></a></div>
+        <div class="list menu_list"><a href="#/settings" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#setting"></use>
+            </svg>设置<i class="icon ion-chevron-right icon_right"></i></a></div>
       </ion-content>
       <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" class="pswp">
         <div class="pswp__bg"></div>

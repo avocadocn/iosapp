@@ -7,7 +7,9 @@ ion-view(ng-controller="CampaignController")
 
   ion-header-bar
 
-    a.button.icon.ion-calendar(href="#/calendar/campaigns")
+    a.button(href="#/calendar/campaigns")
+      svg.svg_icon.svg_nav_icon
+        use(xlink:href="#richeng")
     h1.title(ng-click="showFilter($event)")
       span {{typeTitle}}&nbsp;
       i.icon.ion-arrow-down-b

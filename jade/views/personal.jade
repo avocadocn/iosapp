@@ -41,8 +41,9 @@ ion-view.personal(ng-controller="PersonalController")
           use(xlink:href="#picture")
         | 我的相册
         i.icon.ion-chevron-right.icon_right
-      a.item.item-icon-left.item-icon-right(ng-href="#/campaign/all/user/{{user._id}}")
-        i.icon.ion_foot.icon_left
+      a.item.item-icon-right(ng-href="#/campaign/all/user/{{user._id}}")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#zuji")
         | 我的足迹
         i.icon.ion-chevron-right.icon_right
       //- a.item.item-icon-left.item-icon-right(href="#/personal/messages")
@@ -50,13 +51,15 @@ ion-view.personal(ng-controller="PersonalController")
       //-   | 我的站内信
       //-   span.item-note(ng-if="messagesCount && messagesCount>0") {{messagesCount}}
       //-   i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/calendar/personal")
-        i.icon.ion_calendar.icon_left
+      a.item.item-icon-right(href="#/calendar/personal")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#richeng")
         | 我的日程
         i.icon.ion-chevron-right.icon_right
     .list.menu_list
-      a.item.item-icon-left.item-icon-right(href="#/settings")
-        i.icon.ion_setting.icon_left
+      a.item.item-icon-right(href="#/settings")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#setting")
         | 设置
         i.icon.ion-chevron-right.icon_right
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}")

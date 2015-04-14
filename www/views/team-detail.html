@@ -27,7 +27,10 @@
       <div ng-repeat="homeCourt in team.homeCourts" class="item home_court"><span class="title">主场{{$index==1?'一':'二'}}</span><span class="home_court_name">{{homeCourt.name || '他们很懒还没填写'}}</span></div><a ng-href="#/circle/circle_team/{{team._id}}" class="item item-icon-right">
         <svg class="svg_icon svg_item_icon">
           <use xlink:href="#picture"></use>
-        </svg>精彩瞬间<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/team/{{team._id}}" class="item item-icon-left item-icon-right"><i class="icon ion_ballon icon_left"></i>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
+        </svg>精彩瞬间<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/team/{{team._id}}" class="item item-icon-right">
+        <svg class="svg_icon svg_item_icon">
+          <use xlink:href="#suoyouhuodong"></use>
+        </svg>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
     </div>
   </ion-content>
 </ion-view>

@@ -33,13 +33,15 @@ ion-view.tab_company_page(ng-controller="CompanyController")
           .red_spot
           img.logo(ng-src="{{STATIC_URL + newContent.photo}}/60/60")
         i.icon.ion-chevron-right.icon_right
-      a.item.item-icon-left.item-icon-right(href="#/company/teams/official")
-        i.icon.ion_teams.icon_left
+      a.item.item-icon-right(href="#/company/teams/official")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#suoyouxiaodui")
         | 全部小队
         span.item-note {{teams.length}}
         i.icon.ion-chevron-right.icon_right
-      a.item.item-icon-left.item-icon-right(href="#/campaign/all/company/0")
-        i.icon.ion_ballon.icon_left
+      a.item.item-icon-right(href="#/campaign/all/company/0")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#suoyouhuodong")
         | 所有活动
         i.icon.ion-chevron-right.icon_right
       //- a.item.item-icon-left.item-icon-right(href="#/company/teams/personal")
