@@ -255,10 +255,10 @@ a.no_underline {
   height: 120px;
 }
 .action-sheet .action-sheet-group .button {
-  color: #3ca2df;
-}
-.action-sheet .action-sheet-group:last-child .button {
   color: #666;
+}
+.action-sheet .action-sheet-group:first-child .button {
+  color: #3ca2df;
 }
 .campaigns_container .campaign_filter {
   height: 33px;

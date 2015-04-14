@@ -275,7 +275,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 }])
 
 //以下两个directive共用的controller
-.controller( 'campaignCardController', ['$scope', '$rootScope', 'CONFIG', 'Campaign', 'INFO', function (scope, $rootScope, CONFIG, Campaign, INFO) {
+.controller( 'campaignCardController', ['$scope', '$rootScope', '$ionicActionSheet', 'CONFIG', 'Campaign', 'INFO',
+ function (scope, $rootScope, $ionicActionSheet, CONFIG, Campaign, INFO) {
   scope.pswpPhotoAlbumId = scope.campaign.photo_album._id;
   scope.STATIC_URL = CONFIG.STATIC_URL;
   scope.joinCampaign = function (campaign) {
@@ -295,14 +296,17 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   scope.dealProvoke = function(campaignId, dealType){
     //dealType:1接受，2拒绝，3取消
     var dealTypeString = ['接受','拒绝','取消'];
-    var confirmPopup = $ionicPopup.confirm({
-      title: '确认',
-      template: '您确认要'+dealTypeString[dealType-1]+'该挑战吗?',
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+       { text: '确认' }
+      ],
+      titleText: '您确认要'+dealTypeString[dealType-1]+'该挑战吗?',
       cancelText: '取消',
-      okText: '确认'
-    });
-    confirmPopup.then(function(res) {
-      if(res) {
+      cancel: function() {
+        hideSheet();
+      },
+      buttonClicked: function(index) {
+        hideSheet();
         Campaign.dealProvoke(campaignId, dealType, function(err, data){
           if(!err){
             scope.campaign.remove = true;
@@ -500,7 +504,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   }
 }])
 
-.directive('editMap',['$ionicModal', '$ionicPopup', function($ionicModal, $ionicPopup){
+.directive('editMap',['$ionicModal', '$ionicActionSheet', function($ionicModal, $ionicActionSheet){
   return {
     restrict: 'AE',
     scope: {
@@ -531,9 +535,14 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         if(scope.location.name && ( !event || event.which ===13)) {
           scope.MSearch.search(scope.location.name);
         }else if(!event) {
-          $ionicPopup.alert({
-            title: '提示',
-            template: '请输入搜索地址'
+          var hideSheet = $ionicActionSheet.show({
+            titleText: '请输入搜索地址',
+            buttons: [
+             { text: '确定' }
+            ],
+            buttonClicked: function() {
+              hideSheet();
+            }
           });
         }
       };
@@ -542,9 +551,14 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
         scope.locationmap.clearMap();
         if(data.poiList.pois.length==0){
-          $ionicPopup.alert({
-            title: '提示',
-            template: '没有符合条件的地点，请重新输入'
+          var hideSheet = $ionicActionSheet.show({
+            titleText: '没有符合条件的地点，请重新输入',
+            buttons: [
+             { text: '确定' }
+            ],
+            buttonClicked: function() {
+              hideSheet();
+            }
           });
           return;
         }
@@ -706,7 +720,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   };
 }])
 
-.directive('scoreBoard', ['$rootScope', '$ionicPopup', '$ionicModal', 'CONFIG', 'ScoreBoard', function ($rootScope, $ionicPopup, $ionicModal, CONFIG, ScoreBoard) {
+.directive('scoreBoard', ['$rootScope', '$ionicActionSheet', '$ionicModal', 'CONFIG', 'ScoreBoard', function ($rootScope, $ionicActionSheet, $ionicModal, CONFIG, ScoreBoard) {
     return {
       restrict: 'E',
       scope: {
@@ -714,6 +728,38 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       },
       templateUrl: './views/score-board.html',
       link: function (scope, element, attrs, ctrl) {
+        scope.showAction = function (option) {
+          if(option.type){
+            var hideSheet = $ionicActionSheet.show({
+              buttons: [
+               { text: '确定' }
+              ],
+              titleText: option.titleText||'',
+              cancelText: option.cancelText||'取消',
+              cancel: function() {
+                option.cancelFun && option.cancelFun();
+                hideSheet();
+              },
+              buttonClicked: function(index) {
+                hideSheet();
+                option.fun && option.fun();
+                
+              }
+            });
+          }
+          else{
+            var hideSheet = $ionicActionSheet.show({
+              titleText: option.titleText||'',
+              buttons: [
+               { text: '确定' }
+              ],
+              buttonClicked: function() {
+                hideSheet();
+                option.cancelFun && option.cancelFun();
+              }
+            });
+          }
+        }
             /**
          * 对于有编辑权限的用户的状态，可以是以下的值
          * 'init' 初始状态，双发都没有设置比分
@@ -744,10 +790,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         var getScoreBoardData = function () {
           ScoreBoard.getScore(scope.componentId, function (err, scoreBoardData) {
             if (err) {
-              $ionicPopup.alert({
-                title: '错误',
-                template: err
-              });
+              scope.showAction({titleText:err})
             } else {
               scope.scoreBoard = scoreBoardData;
               scope.scores = [];
@@ -838,10 +881,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             isInit: scope.scoreBoard.status==0
           }, function (err) {
             if (err) {
-              $ionicPopup.alert({
-                title: '错误',
-                template: err
-              });
+              scope.showAction({titleText:err})
             } else {
               finishEdit();
             }
@@ -850,20 +890,11 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
         scope.confirmScore = function () {
           var remindMsg = '提示：同意后将无法修改，确定要同意吗？';
-          var confirmPopup = $ionicPopup.confirm({
-            title: '提示',
-            template: remindMsg,
-            okText: '确定',
-            cancelText: '取消'
-          });
-          confirmPopup.then(function(res) {
-            if(res) {
+          scope.showAction({type:1,titleText:remindMsg,
+            fun:function () {
               ScoreBoard.confirmScore(scope.componentId, function (err) {
                 if (err) {
-                  $ionicPopup.alert({
-                    title: '错误',
-                    template: err
-                  });
+                  scope.showAction({titleText:err})
                 } else {
                   scope.scoreBoard.allConfirm = true;
                   scope.leaderStatus = 'confirm';
@@ -871,7 +902,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                 }
               });
             }
-          });
+          })
         };
 
         scope.showLogs = false;
@@ -879,10 +910,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           if (!scope.showLogs) {
             ScoreBoard.getLogs(scope.componentId, function (err, logs) {
               if (err) {
-                $ionicPopup.alert({
-                  title: '错误',
-                  template: err
-                });
+                scope.showAction({titleText:err})
               } else {
                 scope.logs = logs;
                 scope.showLogs = true;
@@ -926,7 +954,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 })
 
 // 精彩瞬间卡片列表组件
-.directive('circleCardList', ['Circle', '$ionicActionSheet', '$ionicLoading', '$ionicPopup', function(Circle, $ionicActionSheet, $ionicLoading, $ionicPopup) {
+.directive('circleCardList', ['Circle', function(Circle) {
   return {
     restrict: 'E',
     transclude: true,
@@ -996,7 +1024,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   };
 }])
 
-.directive('circleCard', ['Circle', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$state', '$timeout', function(Circle, $ionicPopup, $ionicLoading, $ionicActionSheet, $state, $timeout) {
+.directive('circleCard', ['Circle', '$ionicLoading', '$ionicActionSheet', '$state', '$timeout', function(Circle, $ionicLoading, $ionicActionSheet, $state, $timeout) {
   return {
     restrict: 'E',
     transclude: true,
@@ -1015,15 +1043,40 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       if (!scope.kind) {
         scope.kind = 'company';
       }
-
+      scope.showAction = function (option) {
+        if(option.type){
+          var hideSheet = $ionicActionSheet.show({
+            buttons: [
+             { text: '确定' }
+            ],
+            titleText: option.titleText||'',
+            cancelText: option.cancelText||'取消',
+            cancel: function() {
+              option.cancelFun && option.cancelFun();
+              hideSheet();
+            },
+            buttonClicked: function(index) {
+              hideSheet();
+              option.fun && option.fun();
+              
+            }
+          });
+        }
+        else{
+          var hideSheet = $ionicActionSheet.show({
+            titleText: option.titleText||'',
+            buttons: [
+             { text: '确定' }
+            ],
+            buttonClicked: function() {
+              hideSheet();
+              option.cancelFun && option.cancelFun();
+            }
+          });
+        }
+        
+      }
       scope.uid = localStorage.id;
-
-      var ionicAlert = function(msg) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: msg
-        });
-      };
 
       scope.goToCampaignPage = function(id) {
         $state.go('campaigns_detail', {
@@ -1132,7 +1185,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             circle.appreciate.push(data.circleComment);
           })
           .error(function(data) {
-            ionicAlert(data.msg || '操作失败');
+            scope.showAction({titleText:data.msg || '操作失败'})
           });
       };
 
@@ -1183,32 +1236,24 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             }
           })
           .error(function(data) {
-            ionicAlert(data.msg || '删除失败');
+            scope.showAction({titleText:data.msg || '删除失败'})
           });
       };
 
       // 删除整个circleContent
       scope.deleteCircleContent = function(circle) {
-        var confirmPopup = $ionicPopup.confirm({
-          title: '提示',
-          template: '确定删除吗?',
-          cancelText: '取消',
-          okText: '确定'
-        });
-        confirmPopup.then(function(res) {
-          if (res) {
-            Circle.deleteCompanyCircle(circle.content._id)
-              .success(function(data) {
-                if (scope.onDelete) {
-                  scope.onDelete(circle.content._id);
-                }
-                ionicAlert('删除成功');
-              })
-              .error(function(data) {
-                ionicAlert(data.msg || '删除失败');
-              });
-          }
-        });
+        scope.showAction({type:1,titleText:'确定删除吗?',fun:function () {
+          Circle.deleteCompanyCircle(circle.content._id)
+            .success(function(data) {
+              if (scope.onDelete) {
+                scope.onDelete(circle.content._id);
+              }
+              scope.showAction({titleText:'删除成功'});
+            })
+            .error(function(data) {
+              scope.showAction({titleText:data.msg || '删除失败'});
+            });
+        }})
       };
 
       scope.postComment = function(content, callback) {
@@ -1243,7 +1288,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             }
           })
           .error(function(data) {
-            ionicAlert(data.msg || '操作失败');
+            scope.showAction({titleText:data.msg || '操作失败'});
           });
       };
 
@@ -1459,11 +1504,12 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 }])
 
 // 发精彩瞬间
-.directive('postCircle', ['$q', '$ionicModal', '$ionicPopup', '$ionicLoading', '$ionicActionSheet', '$cordovaCamera', '$cordovaFile', 'CommonHeaders', 'Circle', 'CONFIG', function($q, $ionicModal, $ionicPopup, $ionicLoading, $ionicActionSheet, $cordovaCamera, $cordovaFile, CommonHeaders, Circle, CONFIG) {
+.directive('postCircle', ['$q', '$ionicModal', '$ionicLoading', '$ionicActionSheet', '$cordovaCamera', '$cordovaFile', 'CommonHeaders', 'Circle', 'CONFIG', function($q, $ionicModal, $ionicLoading, $ionicActionSheet, $cordovaCamera, $cordovaFile, CommonHeaders, Circle, CONFIG) {
   return {
     restrict: 'A',
     scope: {
-      campaign: '='
+      campaign: '=',
+      afterPost:'&'
     },
     link: function(scope, ele, attrs, ctrl) {
 
@@ -1483,7 +1529,38 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         cancelText: '取消',
         buttonClicked: onClick
       };
-
+      var showAction = function (option) {
+        if(option.type){
+          var hideSheet = $ionicActionSheet.show({
+            buttons: [
+             { text: '确定' }
+            ],
+            titleText: option.titleText||'',
+            cancelText: option.cancelText||'取消',
+            cancel: function() {
+              option.cancelFun && option.cancelFun();
+              hideSheet();
+            },
+            buttonClicked: function(index) {
+              hideSheet();
+              option.fun && option.fun();
+              
+            }
+          });
+        }
+        else{
+          var hideSheet = $ionicActionSheet.show({
+            titleText: option.titleText||'',
+            buttons: [
+             { text: '确定' }
+            ],
+            buttonClicked: function() {
+              hideSheet();
+              option.cancelFun && option.cancelFun();
+            }
+          });
+        }
+      }
       function showActionSheet() {
         hideActionSheet = $ionicActionSheet.show(actionSheetOptions);
       }
@@ -1533,7 +1610,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           }).then(null, function(err) {
             console.log(err);
             if (err !== 'no image selected' && err !== 'Selection cancelled.') {
-              ionicAlert('抱歉，获取照片失败。');
+              showAction({titleText:'抱歉，获取照片失败。'});
             }
           });
         }
@@ -1547,7 +1624,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             }
           }).then(null, function(err) {
             console.log(err);
-            ionicAlert('抱歉，获取图片失败。');
+            showAction({titleText:'抱歉，获取图片失败。'});
           });
         }
         return true;
@@ -1570,7 +1647,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           showActionSheet();
         }
         else {
-          ionicAlert('抱歉，网页版暂不支持上传图片。');
+          showAction({titleText:'抱歉，网页版暂不支持上传图片。'});
         }
       }
       scope.add = add;
@@ -1595,13 +1672,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         scope.canUploadMore = true;
         hasInit = false;
       };
-
-      function ionicAlert(msg) {
-        $ionicPopup.alert({
-          title: '提示',
-          template: msg
-        });
-      }
 
       ele.on('click', add);
 
@@ -1671,12 +1741,13 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           $ionicLoading.hide();
           scope.closeModal();
           reset();
-          ionicAlert('发表成功');
+          scope.afterPost &&scope.afterPost();
+          showAction({titleText:'发表成功'});
         })
         .then(null, function (response) {
           if (response instanceof Error) {
             console.log(response.stack);
-            ionicAlert(response.message || '发表失败');
+            showAction({titleText:response.message || '发表失败'});
           }
           else {
             var msg;
@@ -1686,7 +1757,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             else {
               msg = '发表失败';
             }
-            ionicAlert(msg);
+            showAction({titleText:msg});
           }
         });
       };

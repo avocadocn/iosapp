@@ -4,6 +4,7 @@
     <h1 ng-bind="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name" class="title"></h1><a ng-if="campaign.active &amp;&amp; campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}" class="button dl_cp_edit">编辑</a>
   </ion-header-bar>
   <ion-content delegate-handle="detailScroll">
+    <ion-refresher refreshing-icon="ion-looping" on-refresh="doRefresh()"></ion-refresher>
     <div ng-if="campaign" class="campaign_detail">
       <div class="campaign_info">
         <div class="cp_logos logos_{{campaign.campaign_unit.length}}"><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" ng-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="team_logo"/></a>
@@ -34,7 +35,7 @@
       </div>
       <score-board ng-if="campaign.is_end &amp;&amp; scoreBoardId" component-id="scoreBoardId"></score-board>
       <div class="item item-divider circle"><span>精彩瞬间</span>
-        <svg ng-if="campaign.join_flag==1" post-circle="post-circle" campaign="campaign" class="svg_icon">
+        <svg ng-if="campaign.join_flag==1" post-circle="post-circle" campaign="campaign" after-post="doRefresh()" class="svg_icon">
           <use xlink:href="#camera"></use>
         </svg>
       </div>

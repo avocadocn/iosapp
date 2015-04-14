@@ -160,11 +160,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       else{
         var hideSheet = $ionicActionSheet.show({
           titleText: option.titleText||'',
-          cancelText: option.cancelText||'确定',
-          cancel: function() {
+          buttons: [
+           { text: '确定' }
+          ],
+          buttonClicked: function() {
             hideSheet();
             option.cancelFun && option.cancelFun();
-            
           }
         });
       }

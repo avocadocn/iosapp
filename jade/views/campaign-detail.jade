@@ -4,6 +4,7 @@ ion-view.dl_campaign_detail
     h1.title(ng-bind="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name")
     a.button.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}") 编辑
   ion-content(delegate-handle="detailScroll")
+    ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")
     .campaign_detail(ng-if="campaign")
       .campaign_info
         .cp_logos(class="logos_{{campaign.campaign_unit.length}}")
@@ -48,7 +49,7 @@ ion-view.dl_campaign_detail
       score-board(ng-if="campaign.is_end && scoreBoardId" component-id="scoreBoardId")
       .item.item-divider.circle
         span 精彩瞬间
-        svg.svg_icon(ng-if="campaign.join_flag==1" post-circle campaign="campaign")
+        svg.svg_icon(ng-if="campaign.join_flag==1" post-circle campaign="campaign" after-post="doRefresh()")
           use(xlink:href="#camera")
         //- i.icon.ion-camera(ng-if="campaign.join_flag==1" post-circle campaign="campaign")
       circle-card-list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL")

@@ -295,7 +295,9 @@ angular.module('donlerApp.controllers', [])
         $state.go('app.campaigns');
       }
     };
-
+    $scope.doRefresh= function () {
+      $state.reload();
+    }
     var setMembers = function () {
       $scope.campaign.members =[];
       var memberContent = [];
@@ -5218,8 +5220,10 @@ angular.module('donlerApp.controllers', [])
       $scope.isPublish =true;
       CompetitionMessage.createCompetitionMessage($scope.messageData, function (err, data) {
         if(!err) {
-          $rootScope.showAction({titleText:data.msg})
-          $scope.goBack();
+          $rootScope.showAction({titleText:data.msg,canelFun:function () {
+            $scope.goBack();
+          }})
+          
         }
         else{
           $rootScope.showAction({titleText:err})
