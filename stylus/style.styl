@@ -1793,7 +1793,7 @@ a.no_underline
     .card
       margin-top 0
 //-我的等页面通用">"
-.personal, .settings, .about, .settings_account, .contacts, .tab_company_page, .company
+.personal, .settings, .about, .settings_account, .contacts, .tab_company_page, .company, .team_page
   .list
     margin-top 10px
     .ion-chevron-right
@@ -2824,112 +2824,93 @@ a.no_underline
 
 // 小队主页
 .team_page
-  .team_header
-    position relative
-    .team_family
+  .list
+    margin-top 10px
+    margin-bottom 0
+    &:first-child
+      margin-top 0
+  .cover_item
+    padding 0
+    height 150px
+    overflow hidden
+    .cover_img
       width 100%
-  .team_info
-    padding-top 0
-    padding-bottom 0
-    border-radius 5px
-    .info_header
-      position relative
-      padding 0 1rem
-      height 55px
-      color white
-      background-color white
-      .logo
-        position absolute
-        left 15px
-        top -40px
-        border-radius 5px
-        width 80px
-        height 80px
-        border 2px solid #ccc
-      .info_content
-        position absolute
-        left 110px
-        top -30px
-        .team_name
-          font-size 16px
-          text-shadow 2px 2px 3px black
-          line-height 30px
-        .team_brief
-          font-size 14px
-          color col_textGray
-    .info_body
-      padding 15px
-      position relative 
-      z-index 2
-      background-color white
-      border-top 1px solid #e2e2e2
-      border-bottom 1px solid #e2e2e2
-      font-size 14px
+  .team_info_item
+    padding-left 102px
+    padding-top 6px
+    .team_logo
+      position absolute
+      top 16px
+      left 16px
+      width 70px
+      height 70px
+      border-radius 5px
+      border 2px solid #ccc
+    .team_name
+      margin 0
+      font-size 16px
+      line-height 28px
+      color col_mainText
+    .team_info
+      margin 0
+      font-size 12px
+      line-height 18px
       color col_textGray
-      .start_time
-        margin-top 5px
-      .operator
-        displayFlex()
-        margin-top 10px
-        .btn
-          flexValue(1)
-          background-color white
-          color col_textGray
-          padding 5px 15px
-          border 1px solid #efefef
-          border-radius 5px
-          margin 0 25px
-          min-width 50px
-          text-align center
-          text-decoration none
-      .score
-        span
-          margin-right 10px
-    .members
-      font-size 14px
-      height 50px
-      .col
-        text-decoration none
-        color col_textGray
-        line-height 30px
-        padding-left 15px
-        .title
-          float left
-          margin-right 20px
-        .user_logo
-          height 30px
-          width 30px
-          border-radius 5px
-        .ion-chevron-right
-          float right
-        &:first-child
-          border-right 1px solid #e2e2e2
-    .home_court
-      font-size 14px
-      .title
-        margin-right 20px
-      .home_court_name
-        color col_textGray
-    .info_footer
-      position relative
+    .info_data
+      margin-left 5px
+      margin-right 10px
+    .op_btn_group
+      margin-top 5px
+      displayFlex()
+    .op_btn
+      flexValue(1)
+      margin 0
+      margin-right 10px
       padding 0
-      height 40px
-      border-top 1px solid col_gray
-      .icon
-        display inline-block
-        vertical-align middle
-        margin-top -2px
-        margin-right 5px
-        color col_blue
-        font-size 16px
-    .icon
-      width 3rem
       font-size 14px
+      line-height 32px
+      border-radius 5px
       color col_textGray
-      &.ion-android-contacts
-        font-size 22px
-        padding-left 4px
-        color col_blue
+      background-color col_gray
+      border 1px solid col_boderlighttGray
+      text-decoration none
+      text-align center
+      &:last-child
+        margin-right 0
+    .find_opponent_btn
+      color col_blue
+  .latest_campaign_item
+    color col_mainText
+  
+  .members_item
+    font-size 14px
+    height 54px
+    .col
+      text-decoration none
+      color col_textGray
+      line-height 30px
+      padding-left 15px
+      .title
+        float left
+        margin-right 20px
+      .user_logo
+        height 30px
+        width 30px
+        border-radius 5px
+      .icon_right
+        right 10px
+      &:first-child
+        border-right 1px solid #e2e2e2
+
+  .home_court_item
+    displayFlex()
+    .title
+      width 60px
+    .home_court_name
+      flexValue(1)
+      text-align center
+      color col_darkGray
+
 //-timeline 卡片与小队timeline卡片共用时间样式
 .dl_campaign_group, .timeline_card ,.competition_timeline_card
   background-color #fff

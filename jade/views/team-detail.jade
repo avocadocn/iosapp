@@ -1,50 +1,50 @@
-ion-view
+ion-view.team_page
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title {{team.name}}
     a.button(ng-if="team.isLeader" ng-href="#/team/{{team._id}}/edit" ng-cloak) 编辑
-  ion-content.team_page
-    .team_header(ng-style="familyMinHeight")
-      //-ion-slide-box(ng-if="team.familyPhotos.length > 1" ng-cloak)
-        ion-slide(ng-repeat="photo in team.familyPhotos")
-          img.team_family(ng-src="{{STATIC_URL + photo.uri}}/640/380")
-      img.team_family(ng-if="team.familyPhotos.length >= 1" ng-src="{{STATIC_URL + team.familyPhotos[team.familyPhotos.length-1].uri}}/640/380")
-      img.team_family(ng-if="team.familyPhotos.length === 0" src="./img/family.png")
-    .team_info
-      .info_header.clearfix
-        img.logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/80/80")
-        .info_content
-          .team_name {{team.name}}
-          .team_brief 
-            span.title 简介:
-            span.content {{team.brief || '无'}}
-      .info_body
-        .score
-          span 积分:{{team.score || 0}}
-          span.activity_score 活跃度:{{team.activity_score}}
-          span.odds_percent 胜率:{{team.odds_percent}}%
-        .start_time 成立时间:{{team.createTime | date:'yyyy-MM-dd'}}
-        .operator
-          a.btn(ng-href="#/discover/search_opponent/{{team._id}}") 找对手
-          button.btn(prevent-default ng-if="team.hasJoined && !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak) 已加入
-          button.btn(prevent-default ng-if="!team.hasJoined && !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak) 立即加入
-      .item.row.members
+  ion-content
+    .list
+      .item.cover_item
+        img.cover_img(ng-if="team.familyPhotos.length >= 1" ng-src="{{STATIC_URL + team.familyPhotos[team.familyPhotos.length-1].uri}}/640/300")
+        img.cover_img(ng-if="team.familyPhotos.length === 0" src="./img/family.png")
+      .item.team_info_item
+        img.team_logo(ng-if="team" ng-src="{{STATIC_URL + team.logo}}/140/140")
+        h2.team_name(ng-bind="team.name")
+        p.team_info
+          span.info_label 积分:
+          span.info_data(ng-bind-template="{{team.score || 0}}")
+          span.info_label 活跃度:
+          span.info_data(ng-bind-template="{{team.activity_score || 0}}")
+          span.info_label 胜率:
+          span.info_data(ng-bind-template="{{team.odds_percent || 0}}%")
+        .op_btn_group
+          a.op_btn.find_opponent_btn(ng-href="#/discover/search_opponent/{{team._id}}") 找对手
+          button.op_btn.join_btn(ng-if="!team.hasJoined && !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak) 立即加入
+          button.op_btn.quit_btn(ng-if="team.hasJoined && !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak) 已加入
+      a.item.item-icon-right.latest_campaign_item(ng-href="#/campaign/all/team/{{team._id}}")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#suoyouhuodong")
+        | 近期活动
+        i.icon.ion-chevron-right.icon_right
+      //- todo three campaigns
+    .list
+      .item.row.item-icon-right.members_item
         .col
           span.title 队长
           img.user_logo(ng-if="team.leaders.length>0" ng-src="{{STATIC_URL + team.leaders[0].photo}}/30/30")
         a.col(ng-href="#/members/team/{{team._id}}")
-          span 成员({{team.memberCount}}人)
-          span.icon.icon_small.ion-chevron-right.button-clear
-      .item.home_court(ng-repeat="homeCourt in team.homeCourts")
-        span.title 主场{{$index==1?'一':'二'}}
-        span.home_court_name {{homeCourt.name || '他们很懒还没填写'}}
+          span(ng-bind-template="成员({{team.memberCount}}人)")
+        i.icon.ion-chevron-right.icon_right
+    .list
+      .item.item-icon-right.home_court_item(ng-repeat="homeCourt in team.homeCourts")
+        span.title(ng-bind-template="主场{{$index==1 ? '一' : '二'}}:")
+        span.home_court_name(ng-bind-template="{{homeCourt.name || '他们很懒还没填写'}}")
+        i.icon.ion-chevron-right.icon_right
+    .list
       a.item.item-icon-right(ng-href="#/circle/circle_team/{{team._id}}")
         svg.svg_icon.svg_item_icon
-          use(xlink:href="#picture")
+          use(xlink:href="#jincaisunjian")
         | 精彩瞬间
         i.icon.ion-chevron-right.icon_right
-      a.item.item-icon-right(ng-href="#/campaign/all/team/{{team._id}}")
-        svg.svg_icon.svg_item_icon
-          use(xlink:href="#suoyouhuodong")
-        | 所有活动
-        i.icon.ion-chevron-right.icon_right
+

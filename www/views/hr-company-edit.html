@@ -11,10 +11,10 @@
       <div class="item item-input introduce_item"><span class="input-label">简介</span>
         <textarea id="edit_company_introduce_textarea" name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-focus="toEditing()" ng-trim="false" class="introduce"></textarea>
       </div>
-      <div ng-click="showUploadActionSheet()" class="item item-icon-right"><img ng-src="{{STATIC_URL + company.logo}}/60/60"/>
+      <div ng-click="showUploadActionSheet()" class="item item-icon-right"><img ng-src="{{STATIC_URL + company.logo}}/120/120"/>
         <h2 class="company_logo">公司logo</h2><i class="icon ion-chevron-right"></i>
       </div>
-      <div ng-click="showUploadActionSheetForCompanyCover()" class="item item-icon-right"><img ng-src="{{STATIC_URL + company.cover}}/60/60"/>
+      <div ng-click="showUploadActionSheetForCompanyCover()" class="item item-icon-right"><img ng-src="{{STATIC_URL + company.cover}}/120/120"/>
         <h2 class="company_logo">公司封面</h2><i class="icon ion-chevron-right"></i>
       </div>
     </div>

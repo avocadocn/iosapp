@@ -7,7 +7,7 @@
     <div ng-style="familyMinHeight" class="company_header"><img ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380" class="company_family"/><img ng-if="!company.cover" src="./img/family.png" class="company_family"/>
     </div>
     <div class="company_info">
-      <div class="info_header clearfix"><img ng-if="company" ng-src="{{STATIC_URL + company.logo}}/80/80" class="logo"/>
+      <div class="info_header clearfix"><img ng-if="company" ng-src="{{STATIC_URL + company.logo}}/160/160" class="logo"/>
         <div class="info_content">
           <div class="company_name">{{company.shortName}}</div>
           <div class="company_brief"> <span class="title">简介:</span><span class="content">{{company.intro || '无'}}</span></div>
@@ -17,7 +17,7 @@
     <div class="list"><a href="#/company/contacts" class="item item-icon-right clearfix staff_item"><img ng-repeat="staff in staffList" ng-src="{{STATIC_URL + staff.photo}}/60/60" class="staff_photo"/><span class="more_text">更多同事</span><i class="icon ion-chevron-right icon_right"></i></a></div>
     <div class="list menu_list"><a href="#/circle/circle_company" class="item item-icon-right">
         <svg class="svg_icon svg_item_icon">
-          <use xlink:href="#picture"></use>
+          <use xlink:href="#jincaisunjian"></use>
         </svg>精彩瞬间<span ng-if="newCircleComment" class="badge badge-assertive">{{newCircleComment}}</span>
         <div ng-if="newContent" class="badge_image">
           <div class="red_spot"></div><img ng-src="{{STATIC_URL + newContent.photo}}/60/60" class="logo"/>

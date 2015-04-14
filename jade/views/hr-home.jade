@@ -6,10 +6,10 @@ ion-view.hr_company_page
       img.company_cover(ng-src="{{STATIC_URL + company.cover}}/640/380")
     .company_info
       .info_header.clearfix
-        img.logo(ng-src="{{STATIC_URL + company.logo}}/80/80")
+        img.logo(ng-src="{{STATIC_URL + company.logo}}/160/160")
         .info_content
           .company_name {{company.name}}
-          .company_brief 
+          .company_brief
             span.title 简介:
             span.content {{company.intro || '无'}}
       a.item.item-icon-right(href="#/hr/company_edit")

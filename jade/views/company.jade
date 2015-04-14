@@ -12,7 +12,7 @@ ion-view.tab_company_page(ng-controller="CompanyController")
       img.company_family(ng-if="!company.cover" src="./img/family.png")
     .company_info
       .info_header.clearfix
-        img.logo(ng-if="company" ng-src="{{STATIC_URL + company.logo}}/80/80")
+        img.logo(ng-if="company" ng-src="{{STATIC_URL + company.logo}}/160/160")
         .info_content
           .company_name {{company.shortName}}
           .company_brief 
@@ -26,7 +26,7 @@ ion-view.tab_company_page(ng-controller="CompanyController")
     .list.menu_list
       a.item.item-icon-right(href="#/circle/circle_company")
         svg.svg_icon.svg_item_icon
-          use(xlink:href="#picture")
+          use(xlink:href="#jincaisunjian")
         | 精彩瞬间
         span.badge.badge-assertive(ng-if="newCircleComment") {{newCircleComment}}
         .badge_image(ng-if="newContent")
