@@ -28,6 +28,7 @@ ion-view(ng-controller="CampaignController")
       +campaignsContainer('未参加的新活动','newCampaigns','cp_unjoin')
       +campaignsContainer('进行中的活动','nowCampaigns','cp_now')
       +campaignsContainer('即将开始的活动','unStartCampaigns','cp_unstart')
+      +campaignsContainer('刚结束的活动', 'finishedCampaigns', 'cp_finished')
       .no_campaign(ng-if="noCampaigns" ng-cloak)
         .no_campaign_tip
           p 没有活动怎么办?
@@ -42,3 +43,4 @@ script(id="my-popover.html" type="text/ng-template")
       button.dl_popover_button(ng-click="filter('newCampaigns')") 新活动
       button.dl_popover_button(ng-click="filter('unStartCampaigns')") 即将开始的活动
       button.dl_popover_button(ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}") 正在进行的活动
+      button.dl_popover_button(ng-click="filter('finishedCampaigns')") 刚刚结束的活动

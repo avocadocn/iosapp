@@ -230,7 +230,8 @@ angular.module('donlerApp.controllers', [])
       'all' : '所有活动',
       'newCampaigns' : '新活动',
       'unStartCampaigns' : '即将开始的活动',
-      'nowCampaigns' : '正在进行的活动'
+      'nowCampaigns' : '正在进行的活动',
+      'finishedCampaigns' : '刚结束的活动'
     };
     $scope.typeTitle = '所有活动';
     $scope.filter = function(filterType) {
@@ -268,7 +269,8 @@ angular.module('donlerApp.controllers', [])
           $scope.unStartCampaigns = $filter('orderBy')(data[0], 'start_time');
           $scope.nowCampaigns = $filter('orderBy')(data[1], 'end_time');
           $scope.newCampaigns = $filter('orderBy')(data[2], '-create_time');
-          $scope.provokes = $filter('orderBy')(data[3], '-create_time');
+          // $scope.provokes = $filter('orderBy')(data[3], '-create_time');
+          $scope.finishedCampaigns = $filter('orderBy')(data[3], 'end_time');
           if(data[0].length===0&&data[1].length===0&&data[2].length===0&&data[3].length===0){
             $scope.noCampaigns = true;
           }
@@ -578,7 +580,7 @@ angular.module('donlerApp.controllers', [])
   .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$rootScope', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team',
    function ($ionicHistory, $scope, $state, $rootScope, $ionicModal, $timeout, Campaign, INFO, Team) {
     $scope.campaignData ={
-      location : {}
+      location : {name:''}
     };
     $scope.isBusy = false;
     $scope.showMapFlag ==false;
