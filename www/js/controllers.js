@@ -4887,8 +4887,8 @@ angular.module('donlerApp.controllers', [])
       };
     }
   ])
-  .controller('CompetitionMessageListController', ['$scope', '$rootScope','$state', '$ionicScrollDelegate', 'CompetitionMessage',
-   function ($scope, $rootScope, $state, $ionicScrollDelegate, CompetitionMessage) {
+  .controller('CompetitionMessageListController', ['$scope', '$rootScope','$state', '$ionicScrollDelegate', 'CompetitionMessage','INFO',
+   function ($scope, $rootScope, $state, $ionicScrollDelegate, CompetitionMessage,INFO) {
     $scope.messageType ='receive';
     $scope.page = 1;
     $scope.loading = false;
@@ -4931,21 +4931,20 @@ angular.module('donlerApp.controllers', [])
       $scope.getCompetitionLog();
     }
     $scope.getCompetitionLog();
-    $scope.$on('updateMessageList', function(event, args) {
-      $timeout(function(){
-        if(args.competitionMessage){
-          $scope.competitionMessages.forEach(function(element, index){
-            if(element._id==args.competitionMessage._id){
-              element.status = args.competitionMessage.status;
-            }
-            $rootScope.hasNewDiscover = data.unReadStatus;
-          });
+    $scope.$on( "$ionicView.enter", function( scopes, states ) {
+      var hasNewDiscover =false;
+      $scope.competitionMessages.forEach(function(element, index){
+        if(INFO.competitionMessageDetail && element._id==INFO.competitionMessageDetail._id){
+          element.status = INFO.competitionMessageDetail.status;
         }
-      },300);
+        hasNewDiscover = hasNewDiscover || element.unread;
+      });
+      $rootScope.hasNewDiscover = hasNewDiscover;
     });
   }])
-  .controller('CompetitionMessageDetailController', ['$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', '$ionicHistory', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO',
-   function ($scope, $state, $ionicModal, $ionicScrollDelegate, $ionicPopup, $timeout, $ionicHistory, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
+  .controller('CompetitionMessageDetailController', ['$rootScope', '$scope', '$state', '$ionicModal', '$ionicScrollDelegate', '$ionicPopup', '$timeout', '$ionicHistory', 'CompetitionMessage', 'Comment', 'Vote', 'User', 'Upload', 'INFO',
+   function ($rootScope, $scope, $state, $ionicModal, $ionicScrollDelegate, $ionicPopup, $timeout, $ionicHistory, CompetitionMessage, Comment, Vote, User, Upload, INFO) {
+    INFO.competitionMessageDetail = undefined;
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -5072,7 +5071,7 @@ angular.module('donlerApp.controllers', [])
         } else {
           alert('挑战处理成功!');
           $scope.competitionMessage.status =action+'ed';
-          $rootScope.$broadcast('updateMessageList', { competitionMessage:$scope.competitionMessage});
+          INFO.competitionMessageDetail=$scope.competitionMessage;
         }
       });
     }
