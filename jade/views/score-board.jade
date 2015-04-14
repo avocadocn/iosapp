@@ -15,7 +15,8 @@
       span.provoke_label(ng-if="componentId&& !campaign.is_end") 挑战
       span.fellowship_label(ng-if="!componentId") 联谊 
       span.score(ng-if="scoreBoard.status==2 &&(scoreBoard.scores.length>=0 ||results.length>0)") :
-      a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& scoreBoard.status==0" ng-click="showEdit()") 设比分
+      span.set_score(ng-if="componentId&& campaign.is_end&& !allowEdit&& scoreBoard.status==1") 等待确认
+      a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status<2" ng-click="showEdit()") 设比分
     .col.team.opposite_team
       .team_title
         span 接受方
