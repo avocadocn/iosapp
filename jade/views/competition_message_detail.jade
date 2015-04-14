@@ -26,7 +26,7 @@ ion-view.competition_message_panel
           .vote_icon
             i.icon.ion-ios7-heart-outline
           span.vote_num {{unit.positive}} 人支持
-      .item.competition_status(ng-cloak) {{competitionMessage.status | competitionMessageStatusFormat :competitionMessage.status_text : competitionMessage.sponsor}}
+      .item.competition_status(ng-cloak) {{competitionMessage.status | competitionMessageStatusFormat :competitionMessage.status_text : sponsor}}
       .operator(ng-if="oppositeLeader &&competitionMessage.status=='sent' || sponsorLeader && competitionMessage.status=='accepted'")
         button.button.button_comment(ng-if="oppositeLeader && competitionMessage.status=='sent'" ng-click="dealCompetition('accept')") 应战
         //- button.button.button-assertive(ng-click="dealCompetition('reject')") 拒绝

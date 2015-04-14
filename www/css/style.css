@@ -4493,14 +4493,30 @@ a>.login .companies_list:activated {
   text-align: center;
   font-size: 12px;
   border-bottom: 1px solid #ccc;
-  padding: 10px 15px;
+  padding: 10px 5px 10px 15px;
   margin-top: 0;
   height: 67px;
+}
+.competition_message_panel .competition_message_list .competition_message .col_status {
+  -webkit-box-flex: 0 0 27%;
+  -webkit-flex: 0 0 27%;
+  -moz-box-flex: 0 0 27%;
+  -moz-flex: 0 0 27%;
+  -ms-flex: 0 0 27%;
+  flex: 0 0 27%;
+}
+.competition_message_panel .competition_message_list .competition_message .col_team {
+  -webkit-box-flex: 0 0 17%;
+  -webkit-flex: 0 0 17%;
+  -moz-box-flex: 0 0 17%;
+  -moz-flex: 0 0 17%;
+  -ms-flex: 0 0 17%;
+  flex: 0 0 17%;
 }
 .competition_message_panel .competition_message_list .competition_message .col {
   padding: 0;
 }
-.competition_message_panel .competition_message_list .competition_message .dot {
+.competition_message_panel .competition_message_list .competition_message .col .dot {
   width: 10px;
   height: 10px;
   background-color: #f00;
@@ -4513,10 +4529,10 @@ a>.login .companies_list:activated {
 .competition_message_panel .competition_message_list .competition_message .text_left {
   text-align: left;
 }
-.competition_message_panel .competition_message_list .competition_message .status {
+.competition_message_panel .competition_message_list .competition_message .text_left .status {
   float: left;
 }
-.competition_message_panel .competition_message_list .competition_message .status .status_text {
+.competition_message_panel .competition_message_list .competition_message .text_left .status .status_text {
   font-size: 14px;
   color: #202020;
   margin-bottom: 5px;

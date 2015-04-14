@@ -129,7 +129,7 @@ angular.module('donlerApp.filters', [])
         result = '还有' +statusText+ (sponsor ?'等待对方回应':'可以进行回应');
         break;
       case 'accepted':
-        result = '还有' +statusText+ (sponsor ?'发起活动':'等待对方发起活动');
+        result = sponsor ? '还有' +statusText+ '发起活动':'等待对方发起活动';
         break;
       case 'rejected':
         result = '被拒绝';
@@ -152,16 +152,16 @@ angular.module('donlerApp.filters', [])
     var result = '';
     switch(input) {
       case 'sent':
-        result = sponsor ?'等待对方接受':'未处理';
+        result = sponsor ?'等待回应':'未处理';
         break;
       case 'accepted':
-        result = sponsor ?'接受挑战':'请发活动';
+        result = sponsor ?'请发活动':'接受挑战';
         break;
       case 'rejected':
-        result = sponsor ?'对方已拒绝':'已拒绝';
+        result = sponsor ?'已拒绝':'已拒绝';
         break;
       case 'competing':
-        result = '活动已发出';
+        result = '活动已发';
         break;
       case 'deal_timeout':
       case 'competion_timeout':

@@ -26,7 +26,7 @@
           <div class="vote_icon"><i class="icon ion-ios7-heart-outline"></i></div><span class="vote_num">{{unit.positive}} 人支持</span>
         </div>
       </div>
-      <div ng-cloak="ng-cloak" class="item competition_status">{{competitionMessage.status | competitionMessageStatusFormat :competitionMessage.status_text : competitionMessage.sponsor}}</div>
+      <div ng-cloak="ng-cloak" class="item competition_status">{{competitionMessage.status | competitionMessageStatusFormat :competitionMessage.status_text : sponsor}}</div>
       <div ng-if="oppositeLeader &amp;&amp;competitionMessage.status=='sent' || sponsorLeader &amp;&amp; competitionMessage.status=='accepted'" class="operator">
         <button ng-if="oppositeLeader &amp;&amp; competitionMessage.status=='sent'" ng-click="dealCompetition('accept')" class="button button_comment">应战</button>
         <button ng-if="sponsorLeader &amp;&amp; competitionMessage.status=='accepted'" ng-click="sponsorCompetition()" class="button button_comment">发起活动</button>

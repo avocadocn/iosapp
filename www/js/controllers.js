@@ -4967,6 +4967,7 @@ angular.module('donlerApp.controllers', [])
           $scope.competitionMessage.content = $scope.competitionMessage.content.replace(/(\r)?\n/g,"<br>");
           $scope.oppositeLeader = data.oppositeLeader;
           $scope.sponsorLeader = data.sponsorLeader;
+          $scope.sponsor = data.sponsor;
           $scope.competitionMessage.vote = formatVote($scope.competitionMessage.vote);
           // var ta = document.getElementById('ta');
         }
