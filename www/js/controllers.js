@@ -46,7 +46,8 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('HrHomeController', ['$scope', '$state', '$rootScope', 'CompanyAuth', 'CommonHeaders', 'Company', 'INFO', function ($scope, $state, $rootScope, CompanyAuth, CommonHeaders, Company, INFO) {
+  .controller('HrHomeController', ['$scope', '$state', '$rootScope', '$ionicScrollDelegate', 'CompanyAuth', 'CommonHeaders', 'Company', 'INFO', 
+    function ($scope, $state, $rootScope, $ionicScrollDelegate, CompanyAuth, CommonHeaders, Company, INFO) {
 
     $scope.logout = function () {
       if(window.analytics){
@@ -77,6 +78,12 @@ angular.module('donlerApp.controllers', [])
       .error(function(data) {
         console.log(data);
       });
+
+    $scope.toggleGuide = function() {
+      $scope.hiding = !$scope.hiding;
+      $ionicScrollDelegate.$getByHandle("mainScroll").resize();
+    };
+
     $scope.$on('$ionicView.enter', function(scopes, states) {
       // 为true或undefined时获取公司数据
       if (INFO.hasModifiedCompany !== false || INFO.updateHrHome !== false) {

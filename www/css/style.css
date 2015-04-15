@@ -2929,6 +2929,26 @@ a>.login .companies_list:activated {
 .hr_company_page .company_info .info_header .company_brief .title {
   margin-right: 5px;
 }
+.hr_company_page .company_info .guide {
+  padding-bottom: 7px;
+}
+.hr_company_page .company_info .guide p {
+  white-space: normal;
+  margin-bottom: 5px;
+}
+.hr_company_page .company_info .guide .title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.hr_company_page .company_info .guide .icon {
+  position: absolute;
+  right: 2px;
+}
+.hr_company_page .company_info .hr_logout {
+  margin: 0;
+  padding: 5px;
+  height: 54px;
+}
 .hr_company_page .company_info .company_member_num,
 .hr_company_page .company_info .company_team_num {
   position: absolute;
