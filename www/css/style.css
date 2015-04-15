@@ -2645,7 +2645,6 @@ a>.login .companies_list:activated {
 }
 .personal .user_header .img_container {
   position: absolute;
-  height: 200px;
   width: 104%;
   left: -5px;
   top: -5px;
