@@ -43,7 +43,7 @@ ion-view.team_page
         i.icon.ion-chevron-right.icon_right
     .list
       .item.item-icon-right.home_court_item(ng-repeat="homeCourt in team.homeCourts")
-        span.title(ng-bind-template="主场{{$index==1 ? '一' : '二'}}:")
+        span.title(ng-bind-template="主场{{$index===0 ? '一' : '二'}}:")
         span.home_court_name(ng-bind-template="{{homeCourt.name || '他们很懒还没填写'}}")
         i.icon.ion-chevron-right.icon_right
     .list

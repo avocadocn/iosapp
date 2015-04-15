@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="list">
-      <div ng-repeat="homeCourt in team.homeCourts" class="item item-icon-right home_court_item"><span ng-bind-template="主场{{$index==1 ? '一' : '二'}}:" class="title"></span><span ng-bind-template="{{homeCourt.name || '他们很懒还没填写'}}" class="home_court_name"></span><i class="icon ion-chevron-right icon_right"></i></div>
+      <div ng-repeat="homeCourt in team.homeCourts" class="item item-icon-right home_court_item"><span ng-bind-template="主场{{$index===0 ? '一' : '二'}}:" class="title"></span><span ng-bind-template="{{homeCourt.name || '他们很懒还没填写'}}" class="home_court_name"></span><i class="icon ion-chevron-right icon_right"></i></div>
     </div>
     <div class="list"><a ng-href="#/circle/circle_team/{{team._id}}" class="item item-icon-right">
         <svg class="svg_icon svg_item_icon">
