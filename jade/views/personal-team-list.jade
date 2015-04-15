@@ -23,7 +23,7 @@ ion-view.personal_team_list_page
       +teamList('leadTeams')
       .item.item-divider.team_label(ng-if="memberTeams.length>0" ng-bind-template="{{myTeamFlag ?'我' :'他'}}参加的小队")
       +teamList('memberTeams')
-    .no_campaign(ng-if="!leadTeams.length && !memberTeams.length" ng-cloak)
+    .no_campaign(ng-if="loadFinished && !leadTeams.length && !memberTeams.length" ng-cloak)
       a.no_campaign_tip.no_underline(href="#/company/teams/official")
         p 没有加入小队?
         p 加入小队后与同事尽情讨论吧!

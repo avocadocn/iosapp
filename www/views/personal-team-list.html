@@ -14,7 +14,7 @@
         <h2 ng-bind="team.name" class="team_name"></h2>
         <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}" class="info_item"></span><span ng-bind-template="积分: {{team.score.total}}" class="info_item"></span></p></a>
     </div>
-    <div ng-if="!leadTeams.length &amp;&amp; !memberTeams.length" ng-cloak="ng-cloak" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
+    <div ng-if="loadFinished &amp;&amp; !leadTeams.length &amp;&amp; !memberTeams.length" ng-cloak="ng-cloak" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
         <p>没有加入小队?</p>
         <p>加入小队后与同事尽情讨论吧!</p>
         <p class="button_container"><span class="team_link">全部小队</span>

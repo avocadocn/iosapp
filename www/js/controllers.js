@@ -725,6 +725,7 @@ angular.module('donlerApp.controllers', [])
     var getChatrooms = function(force) {
       Chat.getChatroomList(force ,function (err, data) {
         $scope.chatrooms = data;
+        $scope.loadFinished = true;
         if(force)
           getChatroomsUnread();
       });
@@ -1597,6 +1598,7 @@ angular.module('donlerApp.controllers', [])
           $scope.leadTeams = leadTeams;
           $scope.memberTeams = memberTeams;
           $scope.loading = false;
+          $scope.loadFinished = true;
         }
       });
     };

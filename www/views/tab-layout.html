@@ -65,7 +65,7 @@
             <div ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}" class="custom_border"></div>
           </div>
         </ul>
-        <div ng-cloak="ng-cloak" ng-if="!chatrooms.length" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
+        <div ng-cloak="ng-cloak" ng-if="loadFinished &amp;&amp; !chatrooms.length" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
             <p>没有参加小队?</p>
             <p>参加小队后一起讨论吧！</p>
             <p class="button_container"><span class="team_link">全部小队</span>
