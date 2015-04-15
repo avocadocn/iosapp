@@ -1428,7 +1428,8 @@ a>.login .companies_list:activated {
   width: 25%;
   float: left;
 }
-.login .signup_form .ng-dirty.ng-invalid {
+.login .signup_form .ng-dirty.ng-invalid,
+.login .signup_form input.error {
   background-color: #fcebeb;
 }
 .pull-right {

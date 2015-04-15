@@ -12,16 +12,16 @@ ion-view.login
       //-     input(type="email" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required)
       .list.list-inset
         label.item.item-input
-          input(type="text" ng-model="data.nickname" placeholder="昵称" required)
+          input(ng-class="{error:nicknameError}" ng-focus="check('none')" type="text" ng-model="data.nickname" placeholder="*昵称" required)
       .list.list-inset
         label.item.item-input
-          input(type="password" ng-model="data.password" ng-minlength=6 placeholder="密码(至少6位)" required)
+          input(ng-class="{error:passError}" ng-focus="check('nickname')" type="password" ng-model="data.password" ng-minlength=6 placeholder="*密码(至少6位)" required)
       .list.list-inset
         label.item.item-input
-          input(type="password" ng-model="data.passconf" placeholder="密码确认" match="data.password" required)
+          input(ng-class="{error:passConfError}" ng-focus="check('pass')" type="password" ng-model="data.passconf" placeholder="*密码确认" match="data.password" required)
       .list.list-inset
         label.item.item-input
-          input(type="text" ng-model="data.realname" placeholder="真实姓名" required)
+          input(ng-class="{error:nameError}" ng-focus="check('passConf')" type="text" ng-model="data.realname" placeholder="*真实姓名" required)
       //- .list.list-inset
       //-   label.item.item-input
       //-     input(type="text" placeholder="部门")
@@ -30,7 +30,7 @@ ion-view.login
           input(type="text" ng-model="data.phone" placeholder="手机号码(选填)")
       .list.list-inset
         label.item.item-input
-          input(type="text" ng-model="data.inviteKey" placeholder="公司专属8位激活码" ng-change="checkInvitekey()" required)
+          input(ng-focus="check('name')" type="text" ng-model="data.inviteKey" placeholder="*公司专属8位激活码" ng-change="checkInvitekey()" required)
       .tip_msg
         p.gray_msg(ng-if="!invitekeyCheck") 为了保证每一个动梨用户都是真实可靠的，请您向HR或同事索要激活码。
         p.gray_msg(ng-if="invitekeyCheck===1") 激活码验证成功

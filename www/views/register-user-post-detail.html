@@ -8,22 +8,22 @@
     <form name="user_signup_form" novalidate="novalidate" class="signup_form">
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" ng-model="data.nickname" placeholder="昵称" required="required"/>
+          <input ng-class="{error:nicknameError}" ng-focus="check('none')" type="text" ng-model="data.nickname" placeholder="*昵称" required="required"/>
         </label>
       </div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="password" ng-model="data.password" ng-minlength="6" placeholder="密码(至少6位)" required="required"/>
+          <input ng-class="{error:passError}" ng-focus="check('nickname')" type="password" ng-model="data.password" ng-minlength="6" placeholder="*密码(至少6位)" required="required"/>
         </label>
       </div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="password" ng-model="data.passconf" placeholder="密码确认" match="data.password" required="required"/>
+          <input ng-class="{error:passConfError}" ng-focus="check('pass')" type="password" ng-model="data.passconf" placeholder="*密码确认" match="data.password" required="required"/>
         </label>
       </div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" ng-model="data.realname" placeholder="真实姓名" required="required"/>
+          <input ng-class="{error:nameError}" ng-focus="check('passConf')" type="text" ng-model="data.realname" placeholder="*真实姓名" required="required"/>
         </label>
       </div>
       <div class="list list-inset">
@@ -33,7 +33,7 @@
       </div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" ng-model="data.inviteKey" placeholder="公司专属8位激活码" ng-change="checkInvitekey()" required="required"/>
+          <input ng-focus="check('name')" type="text" ng-model="data.inviteKey" placeholder="*公司专属8位激活码" ng-change="checkInvitekey()" required="required"/>
         </label>
       </div>
       <div class="tip_msg">

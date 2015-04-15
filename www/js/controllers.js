@@ -2141,7 +2141,38 @@ angular.module('donlerApp.controllers', [])
           $scope.name_check = true;
         });
       }
-    }
+    };
+    $scope.check = function(content) {
+      switch(content) {
+        case 'none' :
+          $scope.nameError = false;
+          break;
+        case 'name' :
+          $scope.addressError = false;
+          if(!$scope.name) $scope.nameError = true;
+          break;
+        case 'address':
+          $scope.contactsError = false;
+          if(!$scope.address) $scope.addressError = true;
+          break;
+        case 'contacts':
+          $scope.addressError = false;
+          if(!$scope.contacts) $scope.contactsError = true;
+          break;
+        case 'area':
+          $scope.telError = false;
+          if(!$scope.areacode) $scope.areaError = true;
+          break;
+        case 'tel':
+          $scope.mailError = false;
+          if(!$scope.tel) $scope.telError = true;
+          break;
+        case 'email':
+          if(!$scope.email) $scope.emailError = true;
+          break;
+      }
+    };
+
   }])
   .controller('UserSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
     // $scope.keypress = function(keyEvent) {
@@ -2226,6 +2257,29 @@ angular.module('donlerApp.controllers', [])
         });
       }else{
         $scope.invitekeyCheck = false;
+      }
+    };
+
+    $scope.check = function(content) {
+      switch(content) {
+        case 'none' :
+          $scope.nicknameError = false;
+          break;
+        case 'nickname' :
+          $scope.passError = false;
+          if(!$scope.data.nickname) $scope.nicknameError = true;
+          break;
+        case 'pass':
+          $scope.passConfError = false;
+          if(!$scope.data.password) $scope.passError = true;
+          break;
+        case 'passConf':
+          $scope.nameError = false;
+          if(!$scope.data.passconf) $scope.passConfError = true;
+          break;
+        case 'name':
+          if(!$scope.data.areacode) $scope.nameError = true;
+          break;
       }
     };
 
