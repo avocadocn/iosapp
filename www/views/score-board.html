@@ -2,5 +2,5 @@
 <div class="score_board">
   <div ng-if="componentId&amp;&amp; scoreBoard.status==2 &amp;&amp; results[0]==undefined &amp;&amp; scores[0]!=undefined" class="score">{{scores[0]}}:{{scores[1]}}</div>
   <div ng-if="componentId&amp;&amp; scoreBoard.status==2 &amp;&amp; results[0]!=undefined" class="score">{{results[0] | scoreResultFormat}}:{{results[1] | scoreResultFormat}}</div>
-  <div ng-if="componentId&amp;&amp; campaign.is_end&amp;&amp; !allowEdit&amp;&amp; scoreBoard.status==1" class="score">等待确认比分</div><a ng-if="componentId&amp;&amp; campaign.is_end&amp;&amp; allowEdit&amp;&amp; scoreBoard.status==0" ng-click="showEdit()" class="no_underline set_score">设置比分</a><a ng-if="componentId&amp;&amp; campaign.is_end&amp;&amp; allowEdit&amp;&amp; scoreBoard.status==1" ng-click="showEdit()" class="no_underline set_score">确认比分</a>
+  <div ng-if="componentId&amp;&amp; campaign.is_end&amp;&amp; !allowEdit&amp;&amp; scoreBoard.status!==2" class="set_score">等待确认比分</div><a ng-if="componentId&amp;&amp; campaign.is_end&amp;&amp; allowEdit&amp;&amp; scoreBoard.status==0" ng-click="showEdit()" class="no_underline set_score">设置比分</a><a ng-if="componentId&amp;&amp; campaign.is_end&amp;&amp; allowEdit&amp;&amp; scoreBoard.status==1" ng-click="showEdit()" class="no_underline set_score">{{leaderStatus=='waitConfirm'?'等待确认比分':'确认比分'}}</a>
 </div>

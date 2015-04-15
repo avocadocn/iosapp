@@ -278,6 +278,7 @@ angular.module('donlerApp.controllers', [])
     $scope.doRefresh= function () {
       $state.reload();
     }
+    $scope.cid = localStorage.cid;
     var setMembers = function () {
       $scope.campaign.members =[];
       var memberContent = [];

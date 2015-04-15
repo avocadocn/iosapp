@@ -1,6 +1,6 @@
 .score_board
   .score(ng-if="componentId&& scoreBoard.status==2 && results[0]==undefined && scores[0]!=undefined") {{scores[0]}}:{{scores[1]}}
   .score(ng-if="componentId&& scoreBoard.status==2 && results[0]!=undefined") {{results[0] | scoreResultFormat}}:{{results[1] | scoreResultFormat}}
-  .score(ng-if="componentId&& campaign.is_end&& !allowEdit&& scoreBoard.status==1") 等待确认比分
+  .set_score(ng-if="componentId&& campaign.is_end&& !allowEdit&& scoreBoard.status!==2") 等待确认比分
   a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status==0" ng-click="showEdit()") 设置比分
-  a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status==1" ng-click="showEdit()") 确认比分
+  a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status==1" ng-click="showEdit()") {{leaderStatus=='waitConfirm'?'等待确认比分':'确认比分'}}

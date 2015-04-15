@@ -864,7 +864,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
         var finishEdit = function () {
           scope.editing = false;
-          scope.scoreBoard.status === 1;
+          scope.scoreBoard.status = 1;
           scope.leaderStatus = 'waitConfirm';
           for (var i = 0; i < scope.scoreBoard.playingTeams.length; i++) {
             var playingTeam = scope.scoreBoard.playingTeams[i];
