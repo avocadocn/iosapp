@@ -1242,9 +1242,7 @@ angular.module('donlerApp.controllers', [])
    function ($scope, $state, $timeout, $ionicHistory, $ionicScrollDelegate, TimeLine, INFO) {
     $scope.loadFinished = false;
     $scope.loading = false;
-    $scope.newCampaigns = [];
-    $scope.nowCampaigns = [];
-    $scope.finishedCampaigns = [];
+    $scope.timelinesRecord = [];
     $scope.page = 0;
     switch($state.params.type) {
       case 'company':
@@ -1269,12 +1267,12 @@ angular.module('donlerApp.controllers', [])
       }
     };
     // 是否需要显示时间
-    $scope.needShowTime = function (index, items) {
+    $scope.needShowTime = function (index) {
       if(index===0){
         return true;
       }else{
-        var preTime = new Date(items[index-1].start_time);
-        var nowTime = new Date(items[index].start_time);
+        var preTime = new Date($scope.timelinesRecord[index-1].start_time);
+        var nowTime = new Date($scope.timelinesRecord[index].start_time);
         return nowTime.getDate() != preTime.getDate() || nowTime.getMonth() != preTime.getMonth()|| nowTime.getFullYear() != preTime.getFullYear() ;
       }
     };
@@ -1288,12 +1286,8 @@ angular.module('donlerApp.controllers', [])
           console.log(err);
           $scope.loadFinished = true;
         } else {
-          if(campaignsData.length>1) {
-            $scope.newCampaigns = campaignsData[1];
-            $scope.nowCampaigns = campaignsData[2];
-          }
-          if(campaignsData[0].length>0) {
-            $scope.timelinesRecord = campaignsData[0];
+          if(campaignsData.length>0) {
+            $scope.timelinesRecord = campaignsData;
           }
           else {
             $scope.loadFinished = true;
@@ -1312,13 +1306,8 @@ angular.module('donlerApp.controllers', [])
             console.log(err);
             $scope.loadFinished = true;
           } else {
-            //第一次加载 且不是个人足迹页
-            if(campaignsData.length>1) {
-              $scope.newCampaigns = campaignsData[1];
-              $scope.nowCampaigns = campaignsData[2];
-            }
-            if(campaignsData[0].length>0) {
-              $scope.finishedCampaigns = $scope.finishedCampaigns.concat(campaignsData[0]);
+            if(campaignsData.length>0) {
+              $scope.timelinesRecord = $scope.timelinesRecord.concat(campaignsData);
             }
             else {
               $scope.loadFinished = true;
@@ -1329,7 +1318,7 @@ angular.module('donlerApp.controllers', [])
         });
       }
     };
-    $scope.loadMore()
+    $scope.loadMore();
   }])
   .controller('ContactsController', ['$scope', 'User', 'INFO', 'Tools', function ($scope, User, INFO, Tools) {
     var contactsBackup = [];

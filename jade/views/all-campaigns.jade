@@ -2,21 +2,13 @@ ion-view.all_campaigns
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
     h1.title(ng-cloack) {{title}}
-  mixin campaignsContainer(containerTitle, items, itemsClass)
-    .campaign_container(class="#{itemsClass}")
-      //- .campaign_container_title(ng-if="#{items}.length>0 && title!=='个人足迹'" ng-cloak)
-      //-   span #{containerTitle} {{#{items}.length}}
-      .dl_timeline(ng-repeat="campaign in #{items}")
-        .item.dl_campaign_timeline_date(ng-if="needShowTime($index, #{items})") {{campaign.start_time | date:'yyyy年M月d日'}}
-        include ./campaign-card
 
   ion-content(delegate-handle="mainScroll")
     ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")
-    .timeline_card(ng-if="title!=='个人足迹'")
-      +campaignsContainer('未开始的活动','newCampaigns', 'cp_unjoin')
-      +campaignsContainer('进行中的活动','nowCampaigns', 'cp_now')
     .timeline_card
-      +campaignsContainer('已结束的活动','finishedCampaigns', 'cp_finished')
+      .dl_timeline(ng-repeat="campaign in timelinesRecord")
+        .item.dl_campaign_timeline_date(ng-if="needShowTime($index)") {{campaign.start_time | date:'yyyy年M月d日'}}
+        include ./campaign-card
     //- ion-infinite-scroll(ng-if="!loading && !loadFinished" icon="ion-looping" on-infinite="loadMore()" distance="-1%")
     a.dl_bottom_operator.no_underline.show_more.clearfix(ng-if="!loading && !loadFinished" ng-click="loadMore()") 
       span 点击加载更多
