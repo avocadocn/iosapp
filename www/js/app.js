@@ -171,6 +171,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       }
       
     }
+
   }).config(function ($stateProvider,$ionicConfigProvider) {//@:ios
     $ionicConfigProvider.views.transition('none');
 

@@ -1648,6 +1648,32 @@ angular.module('donlerApp.controllers', [])
     //每次进入页面判断是否有新评论没看
     $rootScope.newCircleComment = 0;
 
+    var tabsEle = document.querySelector('.app_tabs .tab-nav');
+
+    var createSvg = function(id) {
+      var svgEle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svgEle.classList.add('svg_icon');
+      svgEle.classList.add('svg_tab_icon');
+      var useEle = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      useEle.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#' + id);
+      svgEle.appendChild(useEle);
+      return svgEle;
+    };
+
+    var insertSvgToTabItem = function(tabClass, svgId) {
+      var tabItemCampaignEle = tabsEle.querySelector('a.' + tabClass);
+      tabItemCampaignEle.insertBefore(createSvg(svgId), tabItemCampaignEle.childNodes[0]);
+    };
+
+    setTimeout(function() {
+      insertSvgToTabItem('tab_item_campaign', 'huodong');
+      insertSvgToTabItem('tab_item_discuss', 'discussion');
+      insertSvgToTabItem('tab_item_discover', 'discover');
+      insertSvgToTabItem('tab_item_company', 'company');
+      insertSvgToTabItem('tab_item_personal', 'mine');
+    });
+
+
     Circle.getReminds(function(err, data) {
       if(!err) {
         $rootScope.hasNewComment = data.newChat;
