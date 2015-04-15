@@ -15,3 +15,5 @@ ion-view.search_opponent
         a.unit(ng-repeat="team in memberTeams" ng-class="{'leader':team.isLeader}" ng-href="#/discover/search_opponent/{{team._id}}")
           img.logo(ng-src="{{STATIC_URL + team.logo}}/45/45")
           .text {{team.name }}
+    .dl_bottom_operator
+      span 您加入小队后才可以找对手

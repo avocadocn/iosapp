@@ -9,7 +9,7 @@ ion-view.discuss_list(ng-controller="DiscussListController")
 
   ion-content
     ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
-    ul.list
+    ul.list(ng-if="chatrooms.length")
       .custom_items(ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak)
         a.item.item-avatar_custom
           img(ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}")
@@ -22,3 +22,10 @@ ion-view.discuss_list(ng-controller="DiscussListController")
             span(ng-cloak ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe")
             span(ng-cloak ng-if="!chatroom.latestChat.content") {{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}
         .custom_border(ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}")
+    .no_campaign(ng-if="!chatrooms.length")
+      a.no_campaign_tip.no_underline(href="#/company/teams/official")
+          p 没有小队?
+          p 选择您感兴趣的小队一起讨论吧！
+          p.button_container
+            //- span.tip_info 点击
+            span.team_link 全部小队

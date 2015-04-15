@@ -32,14 +32,14 @@
           </div>
         </div>
       </div>
-      <div class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
+      <div ng-if="teams.length" class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
           <div class="rank_col">{{rankTeam.score_rank.rank}}</div>
           <div class="logo_col"><img ng-src="{{STATIC_URL + rankTeam.logo}}/45/45" class="team_logo"/></div>
           <div class="name_col">
             <p class="team_name">{{rankTeam.name}}</p>
             <p class="team_cname">{{rankTeam.cname}}</p>
           </div>
-          <div class="score_col">{{rankTeam.score_rank.score || 0}}</div></a></div>
+          <div class="score_col">{{rankTeam.score_rank.score || 0}}</div></a></div><a ng-if="!teams.length" href="#/company/teams/official" class="dl_bottom_operator"><span>请加入小队后查看小队排行榜</span></a>
     </div>
   </ion-content>
 </ion-view>

@@ -264,6 +264,7 @@ a.no_underline
   text-align center
   padding 15px
   color col_textGray
+  text-decoration none
 
 //自定义actionSheet样式
 .action-sheet
@@ -277,6 +278,43 @@ a.no_underline
     &:first-child
       .button
         color col_unstart
+.no_campaign
+  background-image url('../img/no_campaign.png')
+  width 100%
+  height 100%
+  background-repeat no-repeat
+  position relative
+  background-size contain
+  .no_campaign_tip
+    position absolute
+    top 15%
+    right 15px
+    font-size 14px
+    background-color #27B2BC
+    border-radius 5px
+    color white
+    width 250px
+    padding 10px
+    box-shadow 1px 1px 5px #888
+    p
+      margin 0
+      .team_link
+        margin 0
+        color #27B2BC
+        background-color white
+        border none
+        position relative
+        text-align center
+        vertical-align middle
+        display inline-block
+        cursor pointer
+        border-radius 5px
+        padding 5px 10px
+        text-decoration none
+      .tip_info
+        padding-right 10px
+      &.button_container
+        text-align right
 .campaigns_container
   .campaign_filter
     height 33px
@@ -311,43 +349,7 @@ a.no_underline
   .campaign_list
     height 100%
     margin-top 0
-    .no_campaign
-      background-image url('../img/no_campaign.png')
-      width 100%
-      height 100%
-      background-repeat no-repeat
-      position relative
-      background-size contain
-      .no_campaign_tip
-        position absolute
-        top 15%
-        right 15px
-        font-size 14px
-        background-color #27B2BC
-        border-radius 5px
-        color white
-        width 250px
-        padding 10px
-        box-shadow 1px 1px 5px #888
-        p
-          margin 0
-          .team_link
-            margin 0
-            color #27B2BC
-            background-color white
-            border none
-            position relative
-            text-align center
-            vertical-align middle
-            display inline-block
-            cursor pointer
-            border-radius 5px
-            padding 5px 10px
-            text-decoration none
-          .tip_info
-            padding-right 10px
-          &.button_container
-            text-align right
+    
     .campaign_container
       .campaign_container_title
         border 1px solid col_boderlighttGray
@@ -1539,6 +1541,8 @@ a.no_underline
 
 //-讨论列表页
 .discuss_list
+  .scroll
+    height 100%
   .chat_pre
     max-height 21px
   .list
@@ -2443,6 +2447,8 @@ a.no_underline
       
 // 我的小队页面
 .personal_team_list_page
+  .scroll
+    height 100%
   .team_list_item
     padding-top 15px
     padding-bottom 15px
