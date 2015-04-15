@@ -4169,20 +4169,21 @@ angular.module('donlerApp.controllers', [])
         // 先获取一次
         Circle.getCompanyCircle()
           .success(function(data) {
-            localStorage.lastGetCircleTime = new Date();
-            data.forEach(function(circle) {
-              Circle.pickAppreciateAndComments(circle);
-            });
-            $scope.circleContentList = data;
-            $scope.loadingStatus.hasInit = true;
-            if (data.length >= pageLength) {
-              $scope.loadingStatus.hasMore = true;
-            } else {
-              $scope.loadingStatus.hasMore = false;
-            }
-
-            if (callback) {
-              callback();
+            if(data.length > 0) {
+              localStorage.lastGetCircleTime = new Date();
+              data.forEach(function(circle) {
+                Circle.pickAppreciateAndComments(circle);
+              });
+              $scope.circleContentList = data;
+              $scope.loadingStatus.hasInit = true;
+              if (data.length >= pageLength) {
+                $scope.loadingStatus.hasMore = true;
+              } else {
+                $scope.loadingStatus.hasMore = false;
+              }
+              if (callback) {
+                callback();
+              }
             }
           })
           .error(function(data, status) {
@@ -4196,6 +4197,10 @@ angular.module('donlerApp.controllers', [])
       };
 
       $scope.refresh = function() {
+        if($scope.circleContentList[0] === undefined) {
+          $scope.$broadcast('scroll.refreshComplete');
+          return;
+        }
         var latestContentDate = $scope.circleContentList[0].content.post_date;
         Circle.getCompanyCircle(latestContentDate, null)
           .success(function(data, status) {
