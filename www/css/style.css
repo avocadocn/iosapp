@@ -3913,6 +3913,7 @@ a>.login .companies_list:activated {
   width: 45px;
   height: 45px;
   border-radius: 5px;
+  margin: 0 auto;
 }
 .member_page .member_group .members .dl_member_leader {
   width: 20px;
