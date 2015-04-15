@@ -682,7 +682,7 @@ a.no_underline {
 }
 .dl_campaign_detail .campaign_detail .campaign_info.campaign_info_2 .competition_type {
   position: absolute;
-  left: 82px;
+  left: 81px;
   top: 35px;
   color: #f48361;
 }
@@ -1550,6 +1550,7 @@ a>.login .companies_list:activated {
   width: 45px;
   height: 45px;
   border-radius: 5px;
+  background-color: #f7f7f7;
 }
 .discuss_detail .comments .comment .contents .remind_box .remind_box_content .text {
   float: left;
@@ -1915,6 +1916,7 @@ a>.login .companies_list:activated {
   border-radius: 3px;
   width: 45px;
   height: 45px;
+  background-color: #f7f7f7;
 }
 .discover .rank_table .rank_line .rank_col,
 .rank_page .rank_table .rank_line .rank_col,
@@ -2065,6 +2067,7 @@ a>.login .companies_list:activated {
   width: 45px;
   height: 45px;
   margin-top: 0;
+  background-color: #f7f7f7;
 }
 .discover .rank_panel .team_select .team_container .team.selected_team .team_name {
   font-size: 14px;
@@ -2128,6 +2131,7 @@ a>.login .companies_list:activated {
   height: 50px;
   width: 50px;
   border-radius: 5px;
+  background-color: #f7f7f7;
 }
 .rank_page .rank_table .rank_line .content_col {
   float: left;
@@ -2311,6 +2315,7 @@ a>.login .companies_list:activated {
   width: 80px;
   height: 80px;
   border: 2px solid #ccc;
+  background-color: #f7f7f7;
 }
 .tab_company_page .company_info .info_header .info_content {
   position: absolute;
@@ -2347,6 +2352,7 @@ a>.login .companies_list:activated {
   margin-right: 15px;
   width: 30px;
   height: 30px;
+  background-color: #f7f7f7;
 }
 .tab_company_page .list .staff_item .more_text {
   float: right;
@@ -4698,7 +4704,7 @@ a>.login .companies_list:activated {
 .competition_message_panel .competition_message_list .type_filter .splite {
   position: absolute;
   width: 1px;
-  height: 35px;
+  height: 30px;
   background-color: #ccc;
   left: 50%;
   top: 5px;

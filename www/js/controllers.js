@@ -391,7 +391,6 @@ angular.module('donlerApp.controllers', [])
               $scope.scoreBoardId =component._id;
             }
           });
-          console.log($scope.scoreBoardId);
         }
       },true);
       Message.getCampaignMessages($state.params.id, function(err, data){
