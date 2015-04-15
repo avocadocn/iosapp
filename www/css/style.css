@@ -3865,19 +3865,22 @@ a>.login .companies_list:activated {
   padding: 5px 15px;
 }
 .member_page .member_group .members {
+  position: relative;
   background-color: #fff;
   border: 1px solid #ccc;
 }
-.member_page .member_group .members .member_wrap {
-  width: 260px;
-  margin-left: auto;
-  margin-right: auto;
-}
 .member_page .member_group .members .member {
   position: relative;
-  margin: 10px 10px 0;
+  width: 25%;
   float: left;
   text-decoration: none;
+}
+.member_page .member_group .members .member_inner {
+  position: relative;
+  width: 45px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
 }
 .member_page .member_group .members .member_photo {
   display: block;
