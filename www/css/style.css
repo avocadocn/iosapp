@@ -2306,6 +2306,7 @@ a>.login .companies_list:activated {
   padding-left: 110px;
   padding-top: 5px;
   padding-bottom: 5px;
+  min-height: 50px;
 }
 .tab_company_page .company_info .info_header .logo {
   position: absolute;
@@ -2871,6 +2872,7 @@ a>.login .companies_list:activated {
   padding-left: 110px;
   padding-top: 5px;
   padding-bottom: 5px;
+  min-height: 50px;
 }
 .hr_company_page .company_info .info_header .logo {
   position: absolute;
