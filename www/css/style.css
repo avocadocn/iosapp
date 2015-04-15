@@ -2333,7 +2333,7 @@ a>.login .companies_list:activated {
   border-radius: 5px;
   width: 80px;
   height: 80px;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   background-color: #f7f7f7;
 }
 .tab_company_page .company_info .info_header .info_content {
