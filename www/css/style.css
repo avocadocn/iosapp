@@ -2946,7 +2946,6 @@ a>.login .companies_list:activated {
 }
 .hr_company_page .bar-footer {
   height: 50px;
-  border-top: 1px solid #ccc;
 }
 .hr_company_page .bar-footer .button {
   margin: 0 15px;

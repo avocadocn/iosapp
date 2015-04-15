@@ -46,21 +46,28 @@ angular.module('donlerApp.controllers', [])
     };
 
   }])
-  .controller('HrHomeController', ['$scope', '$state', '$rootScope', 'CompanyAuth', 'CommonHeaders', 'Company', 'INFO', function ($scope, $state, $ionicActionSheet, CompanyAuth, CommonHeaders, Company, INFO) {
+  .controller('HrHomeController', ['$scope', '$state', '$rootScope', 'CompanyAuth', 'CommonHeaders', 'Company', 'INFO', function ($scope, $state, $rootScope, CompanyAuth, CommonHeaders, Company, INFO) {
 
     $scope.logout = function () {
       if(window.analytics){
         window.analytics.trackEvent('Click', 'hrLogOut');
       }
-      CompanyAuth.logout(function (err) {
-        if (err) {
-          // todo
-          console.log(err);
-          $state.go('login');
-        } else {
-          $state.go('home');
+      $rootScope.showAction({
+        type: 1,
+        titleText: '你确定退出吗?',
+        fun: function() {
+          CompanyAuth.logout(function (err) {
+            if (err) {
+              // todo
+              console.log(err);
+              $state.go('login');
+            } else {
+              $state.go('home');
+            }
+          });
         }
-      });
+      })
+
     };
 
     Company.getData(localStorage.id)
