@@ -22,7 +22,7 @@
         <div class="col col_team"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/45/45" class="team_logo"/></div>
         <div class="col col-center team_name">{{competitionMessage.opposite_team.name}}</div></a><a ng-if="competitionMessages.length&gt;0 &amp;&amp;page&lt;=maxPage &amp;&amp; !loading &amp;&amp; page&lt;=maxPage" ng-click="moreCompetition()" class="dl_bottom_operator no_underline show_more"><span>点击加载更多</span></a>
       <div ng-if="loading" class="dl_bottom_operator"><span class="loading">正在加载...</span></div>
-      <div ng-if="!competitionMessages.length" ng-claok="ng-claok" class="dl_bottom_operator"><span>您还没有收到/发出挑战日志。</span></div>
+      <div ng-if="!loading &amp;&amp; !competitionMessages.length" ng-claok="ng-claok" class="dl_bottom_operator"><span>您还没有收到/发出挑战日志。</span></div>
     </div>
   </ion-content>
 </ion-view>
