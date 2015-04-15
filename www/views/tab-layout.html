@@ -57,7 +57,7 @@
       </ion-header-bar>
       <ion-content>
         <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-        <ul ng-if="chatrooms.length" class="list">
+        <ul ng-cloak="ng-cloak" ng-if="chatrooms.length" class="list">
           <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/><img ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png"/>
               <div ng-if="chatroom.unread" class="red_spot"></div>
               <h2 ng-cloak="ng-cloak">{{chatroom.name}}</h2>
@@ -65,9 +65,9 @@
             <div ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}" class="custom_border"></div>
           </div>
         </ul>
-        <div ng-if="!chatrooms.length" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
-            <p>没有小队?</p>
-            <p>选择您感兴趣的小队一起讨论吧！</p>
+        <div ng-cloak="ng-cloak" ng-if="!chatrooms.length" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
+            <p>没有参加小队?</p>
+            <p>参加小队后一起讨论吧！</p>
             <p class="button_container"><span class="team_link">全部小队</span>
             </p></a></div>
       </ion-content>
@@ -90,7 +90,7 @@
         </div>
         <div class="rank_panel">
           <div class="item rank"><span class="rank_title">排行榜</span><a href="#/rank/select" class="button rank_button no_underline">查看全部类型</a></div>
-          <div ng-if="teams.length&gt;0" class="team_select">
+          <div ng-if="teams.length&gt;0" ng-cloak="ng-cloak" class="team_select">
             <div class="team_container">
               <div ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex&gt;0" class="team last_team"><i class="icon ion-ios7-arrow-back"></i><img ng-src="{{STATIC_URL + teams[nowTeamIndex-1].logo}}/45/45" class="team_logo"/>
                 <div class="team_name">{{teams[nowTeamIndex-1].name}}</div>
@@ -107,14 +107,14 @@
               </div>
             </div>
           </div>
-          <div ng-if="teams.length" class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
+          <div ng-if="teams.length" ng-cloak="ng-cloak" class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
               <div class="rank_col">{{rankTeam.score_rank.rank}}</div>
               <div class="logo_col"><img ng-src="{{STATIC_URL + rankTeam.logo}}/45/45" class="team_logo"/></div>
               <div class="name_col">
                 <p class="team_name">{{rankTeam.name}}</p>
                 <p class="team_cname">{{rankTeam.cname}}</p>
               </div>
-              <div class="score_col">{{rankTeam.score_rank.score || 0}}</div></a></div><a ng-if="!teams.length" href="#/company/teams/official" class="dl_bottom_operator"><span>请加入小队后查看小队排行榜</span></a>
+              <div class="score_col">{{rankTeam.score_rank.score || 0}}</div></a></div><a ng-if="!teams.length" href="#/company/teams/official" ng-cloak="ng-cloak" class="dl_bottom_operator"><span>请加入小队后查看小队排行榜</span></a>
         </div>
       </ion-content>
     </ion-view>

@@ -1,7 +1,7 @@
 
 <ion-view class="all_campaigns">
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 ng-cloack="ng-cloack" class="title">{{title}}</h1>
+    <h1 ng-cloak="ng-cloak" class="title">{{title}}</h1>
   </ion-header-bar>
   <ion-content delegate-handle="mainScroll">
     <ion-refresher refreshing-icon="ion-looping" on-refresh="doRefresh()"></ion-refresher>
@@ -36,6 +36,6 @@
       </div>
     </div><a ng-if="!loading &amp;&amp; !loadFinished" ng-click="loadMore()" class="dl_bottom_operator no_underline show_more clearfix"> <span>点击加载更多</span></a>
     <div ng-if="loading" class="dl_bottom_operator"><span class="loading">正在加载...</span></div>
-    <div ng-if="loadFinished" class="dl_bottom_operator">没有更多的足迹</div>
+    <div ng-if="loadFinished||!timelinesRecord.length" ng-cloak="ng-cloak" class="dl_bottom_operator">没有更多的活动</div>
   </ion-content>
 </ion-view>

@@ -14,7 +14,7 @@ ion-view.circle_user_page
     circle-card-list.dl_circle_card_list(circle-list="circleContentList" user="user" kind="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL")
       
     .no_moment_remind(ng-if="loadingStatus.hasInit && circleContentList.length === 0")
-      | 您还没有发过精彩瞬间，快去活动页发表吧。
+      | 请参加活动，把您的精彩记录下来吧!
       
     ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
   

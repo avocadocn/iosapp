@@ -13,6 +13,6 @@
       <div ng-if="memberTeams.length&gt;0" class="units clearfix"><a ng-repeat="team in memberTeams" ng-class="{'leader':team.isLeader}" ng-href="#/discover/search_opponent/{{team._id}}" class="unit"><img ng-src="{{STATIC_URL + team.logo}}/45/45" class="logo"/>
           <div class="text">{{team.name }}</div></a></div>
     </div>
-    <div class="dl_bottom_operator"><span>您加入小队后才可以找对手</span></div>
+    <div ng-if="!leadTeams.length &amp;&amp; !memberTeams.length" ng-cloak="ng-cloak" class="dl_bottom_operator"><span>您加入小队后才可以找对手</span></div>
   </ion-content>
 </ion-view>

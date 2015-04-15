@@ -27,7 +27,7 @@ ion-view.discover(ng-controller="DiscoverController")
       .item.rank
         span.rank_title 排行榜
         a.button.rank_button.no_underline(href="#/rank/select") 查看全部类型
-      .team_select(ng-if="teams.length>0")
+      .team_select(ng-if="teams.length>0" ng-cloak)
         .team_container
           .team.last_team(ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex>0")
             i.icon.ion-ios7-arrow-back
@@ -42,7 +42,7 @@ ion-view.discover(ng-controller="DiscoverController")
             img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex+1].logo}}/45/45")
             .team_name {{teams[nowTeamIndex+1].name}}
             i.icon.ion-ios7-arrow-forward
-      .list.rank_table(ng-if="teams.length")
+      .list.rank_table(ng-if="teams.length" ng-cloak)
         a.item.rank_line.clearfix(ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank")
           .rank_col {{rankTeam.score_rank.rank}}
           .logo_col: img.team_logo(ng-src="{{STATIC_URL + rankTeam.logo}}/45/45")
@@ -51,5 +51,5 @@ ion-view.discover(ng-controller="DiscoverController")
             p.team_cname {{rankTeam.cname}}
           .score_col {{rankTeam.score_rank.score || 0}}
           //- .col {{rankTeam.score_rank.win}} : {{rankTeam.score_rank.tie}} : {{rankTeam.score_rank.lose}}
-      a.dl_bottom_operator(ng-if="!teams.length" href="#/company/teams/official")
+      a.dl_bottom_operator(ng-if="!teams.length" href="#/company/teams/official" ng-cloak)
         span 请加入小队后查看小队排行榜

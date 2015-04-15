@@ -26,5 +26,5 @@ ion-view.competition_message_panel
         span 点击加载更多
       .dl_bottom_operator(ng-if="loading")
         span.loading 正在加载...
-      .dl_bottom_operator(ng-if="!competitionMessages.length")
+      .dl_bottom_operator(ng-if="!competitionMessages.length" ng-claok)
         span 您还没有收到/发出挑战日志。
