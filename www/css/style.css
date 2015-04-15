@@ -94,9 +94,11 @@ a.no_underline {
   width: 22px;
   height: 22px;
   fill: #fff;
+  stroke: #fff;
 }
 .tab-item-active .svg_tab_icon {
   fill: #3ca2e0;
+  stroke: #3ca2e0;
 }
 .icon.icon_small {
   font-size: 16px !important;
