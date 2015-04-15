@@ -6,7 +6,9 @@ ion-view.dl_campaign_detail
   ion-content(delegate-handle="detailScroll")
     ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")
     .campaign_detail(ng-if="campaign")
-      //- score-board(ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign")
+      .item.item_header.campaign_theme(ng-if="campaign.campaign_unit.length==2")
+        span(ng-bind="campaign.theme")
+      score-board(ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign")
       .campaign_info(ng-if="campaign.campaign_unit.length==1" )
         .cp_logos(class="logos_{{campaign.campaign_unit.length}}")
           a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
@@ -15,19 +17,6 @@ ion-view.dl_campaign_detail
         .operator
           button.button.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 马上参加
         .campaign_status
-          span.status(ng-class="{'now':campaign.is_start&&!campaign.is_end,'unstart':!campaign.is_start,'unjoin':campaign.join_flag!=1}") {{campaign.is_start | campaignStatus:campaign.is_end}}
-      .campaign_info.campaign_info_2(ng-if="campaign.campaign_unit.length==2" )
-        .cp_logos
-          a(ng-href="{{campaign.campaign_unit[0].company._id ==cid? '#/team/'+ campaign.campaign_unit[0].team._id:'#/competition/team/'+campaign.campaign_unit[0].team._id+'/'}}")
-            img.team_logo(ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60")
-          span.competition_type(ng-if="campaign.campaign_type===4 || campaign.campaign_type===5") 挑战
-          span.competition_type(ng-if="campaign.campaign_type===7") 联谊
-          a(ng-href="{{campaign.campaign_unit[1].company._id ==cid? '#/team/'+ campaign.campaign_unit[1].team._id:'#/competition/team/'+campaign.campaign_unit[1].team._id+'/'}}")
-            img.team_logo.team_logo_2(ng-src="{{STATIC_URL + (campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)}}/60/60")
-        .campaign_tname {{campaign.campaign_unit[1].team.name}}
-        .campaign_cname {{campaign.campaign_unit[1].company.name}}
-        score-board(ng-if="scoreBoardId&&campaign.is_end" component-id="scoreBoardId" campaign="campaign")
-        .campaign_status(ng-if="!scoreBoardId||!campaign.is_end")
           span.status(ng-class="{'now':campaign.is_start&&!campaign.is_end,'unstart':!campaign.is_start,'unjoin':campaign.join_flag!=1}") {{campaign.is_start | campaignStatus:campaign.is_end}}
       .campaign_items
         .item.item_header.cp_time

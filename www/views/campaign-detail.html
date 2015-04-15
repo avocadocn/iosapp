@@ -6,6 +6,8 @@
   <ion-content delegate-handle="detailScroll">
     <ion-refresher refreshing-icon="ion-looping" on-refresh="doRefresh()"></ion-refresher>
     <div ng-if="campaign" class="campaign_detail">
+      <div ng-if="campaign.campaign_unit.length==2" class="item item_header campaign_theme"><span ng-bind="campaign.theme"></span></div>
+      <score-board ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign"></score-board>
       <div ng-if="campaign.campaign_unit.length==1" class="campaign_info">
         <div class="cp_logos logos_{{campaign.campaign_unit.length}}"><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60" class="team_logo"/></a></div>
         <div ng-cloak="ng-cloak" class="campaign_theme"> {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</div>
@@ -13,13 +15,6 @@
           <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button dl_cp_join">马上参加</button>
         </div>
         <div class="campaign_status"><span ng-class="{'now':campaign.is_start&amp;&amp;!campaign.is_end,'unstart':!campaign.is_start,'unjoin':campaign.join_flag!=1}" class="status">{{campaign.is_start | campaignStatus:campaign.is_end}}</span></div>
-      </div>
-      <div ng-if="campaign.campaign_unit.length==2" class="campaign_info campaign_info_2">
-        <div class="cp_logos"><a ng-href="{{campaign.campaign_unit[0].company._id ==cid? '#/team/'+ campaign.campaign_unit[0].team._id:'#/competition/team/'+campaign.campaign_unit[0].team._id+'/'}}"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60" class="team_logo"/></a><span ng-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="competition_type">挑战</span><span ng-if="campaign.campaign_type===7" class="competition_type">联谊</span><a ng-href="{{campaign.campaign_unit[1].company._id ==cid? '#/team/'+ campaign.campaign_unit[1].team._id:'#/competition/team/'+campaign.campaign_unit[1].team._id+'/'}}"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)}}/60/60" class="team_logo team_logo_2"/></a></div>
-        <div class="campaign_tname">{{campaign.campaign_unit[1].team.name}}</div>
-        <div class="campaign_cname">{{campaign.campaign_unit[1].company.name}}</div>
-        <score-board ng-if="scoreBoardId&amp;&amp;campaign.is_end" component-id="scoreBoardId" campaign="campaign"></score-board>
-        <div ng-if="!scoreBoardId||!campaign.is_end" class="campaign_status"><span ng-class="{'now':campaign.is_start&amp;&amp;!campaign.is_end,'unstart':!campaign.is_start,'unjoin':campaign.join_flag!=1}" class="status">{{campaign.is_start | campaignStatus:campaign.is_end}}</span></div>
       </div>
       <div class="campaign_items">
         <div class="item item_header cp_time">

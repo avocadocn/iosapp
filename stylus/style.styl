@@ -545,10 +545,6 @@ a.no_underline
           background-color col_bottomGray
           position absolute
           left 15px
-      .campaign_theme
-        font-size 16px
-        color col_mainText
-        margin 5px 0
       .cp_time
         margin-bottom 10px
         line-height 15px
@@ -565,7 +561,7 @@ a.no_underline
         margin-right 10px
       .operator
         text-align right
-        height 35px
+        height 45px
         .button
           padding 0 20px
           min-height 35px
@@ -586,6 +582,8 @@ a.no_underline
         margin-left -75px
         margin-top 10px
         text-align center
+        .set_score
+          color col_unstart
         .status
           &.now
             color col_now
@@ -593,34 +591,45 @@ a.no_underline
             color col_unstart
           &.unjoin
             color col_unjoin
+          &.end
+            color col_textLight
       &.campaign_info_2
-        padding-left 185px
-        .team_logo_2
-          left 115px
+        height 155px
+        padding 15px
+        .cp_logos
+          height 90px
+          .team
+            float left
+            width 40%
+            text-align center
+            color col_textGray
+            &.team_2
+              float right
+            .team_logo
+              position initial
+            .team_name
+              textOverflow()
+          .score
+            position absolute
+            left 50%
+            top 40px
+            font-size 24px
+            margin-left -60px
+            width 120px
+            text-align center
+            .result
+              display inline-block
+              width 56px
         .campaign_status
-          margin-left -170px
+          margin-left 0
         .competition_type
           position absolute
           left 81px
           top 35px
           color col_unjoin
-        .campaign_tname
-          margin-bottom 5px
-          textOverflow()
-        .campaign_cname
-          height 40px
-        .score_board
-          background-color #f1f3f5
-          border-radius 5px
-          padding 5px 15px
-          height 30px
-          color col_unstart
-          margin-left -170px
-          margin-top 10px
-          text-align center
-          .set_score
-            width 100%
-            height 100%
+        .set_score
+          width 100%
+          height 100%
     .item
       padding 10px 15px
       font-size 14px
@@ -645,6 +654,9 @@ a.no_underline
         .title
           font-size 16px
           margin-right 20px
+        &.campaign_theme
+          font-size 18px
+          color col_mainText
       .ion-chevron-right
         float right
     .item-divider
