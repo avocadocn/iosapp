@@ -2170,9 +2170,9 @@ a.no_underline
       .tab_content
         .team_list
           .dl_team_card
-            margin 0
+            indentLine()
+            margin -1px
             box-shadow none
-            border-bottom 1px solid #CCC
             border-radius 0
             min-height 75px
             height 75px
@@ -2969,7 +2969,7 @@ a.no_underline
       height 70px
       border-radius 5px
       border 1px solid #ccc
-      box-shadow 2px 2px 2px #ccc, 2px -2px 2px #ccc, -2px -2px 2px #ccc, -2px 2px 2px #ccc
+      box-shadow 0px 0px 30px #999
     .team_name
       margin 0
       font-size 16px
@@ -3002,7 +3002,8 @@ a.no_underline
       &:last-child
         margin-right 0
     .find_opponent_btn
-      color col_blue
+      color white
+      background-color #EB6B4F
   .latest_campaign_item
     color col_mainText
   .latest_campaign_info_item.first_item
@@ -3977,14 +3978,14 @@ a.no_underline
 .search_opponent
   .select_team
     .item-divider
-      padding 7px 16px
+      padding 10px 15px
       line-height 1
       color col_mainText
+      border none
     .clear_both
       clear both
       border-top 0
     .units
-      background-color white
       .unit
         float left
         width 33.333%
@@ -3994,6 +3995,7 @@ a.no_underline
         padding 15px 5px
         height 96px
         text-decoration none
+        background-color white
         .logo
           width 45px
           height 45px
@@ -4085,15 +4087,28 @@ a.no_underline
         .no_more_team
           padding-top 10px
       .nav
-        border-bottom 1px solid col_gray
         float left
         width 100%
         height 40px
         .opponent_tab_style
           float left
           text-align center
-          border-right 1px solid col_gray
+          border-bottom 1px solid col_gray
           height 100%
+          position relative
+          &:after
+            display block
+            position absolute
+            right 0
+            top 25%
+            height 50%
+            content ''
+            width 1px
+            background-color col_gray
+          &:last-child
+            &:after
+              content none
+              display none
           a
             font-size 14px
             height 100%

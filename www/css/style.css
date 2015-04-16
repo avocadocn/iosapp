@@ -2791,13 +2791,34 @@ a>.login .companies_list:activated {
   color: #3ca2e0;
 }
 .personal .user_header .tab_view .tab_content .team_list .dl_team_card {
-  margin: 0;
+  border-width: 0;
+  padding-bottom: 17px;
+  margin: -1px;
   box-shadow: none;
-  border-bottom: 1px solid #ccc;
   border-radius: 0;
   min-height: 75px;
   height: 75px;
   padding: 15px;
+}
+.personal .user_header .tab_view .tab_content .team_list .dl_team_card:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.personal .user_header .tab_view .tab_content .team_list .dl_team_card:first-child {
+  border-top-width: 1px;
+}
+.personal .user_header .tab_view .tab_content .team_list .dl_team_card:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.personal .user_header .tab_view .tab_content .team_list .dl_team_card:last-child:after {
+  content: none;
+  display: none;
 }
 .personal .user_header .tab_view .tab_content .team_list .dl_team_card .team_logo {
   border-radius: 5px;
@@ -3844,7 +3865,7 @@ a>.login .companies_list:activated {
   height: 70px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  box-shadow: 2px 2px 2px #ccc, 2px -2px 2px #ccc, -2px -2px 2px #ccc, -2px 2px 2px #ccc;
+  box-shadow: 0px 0px 30px #999;
 }
 .team_page .team_info_item .team_name {
   margin: 0;
@@ -3894,7 +3915,8 @@ a>.login .companies_list:activated {
   margin-right: 0;
 }
 .team_page .team_info_item .find_opponent_btn {
-  color: #3ca2e0;
+  color: #fff;
+  background-color: #eb6b4f;
 }
 .team_page .latest_campaign_item {
   color: #202020;
@@ -5239,16 +5261,14 @@ a>.login .companies_list:activated {
   width: 100%;
 }
 .search_opponent .select_team .item-divider {
-  padding: 7px 16px;
+  padding: 10px 15px;
   line-height: 1;
   color: #202020;
+  border: none;
 }
 .search_opponent .select_team .clear_both {
   clear: both;
   border-top: 0;
-}
-.search_opponent .select_team .units {
-  background-color: #fff;
 }
 .search_opponent .select_team .units .unit {
   float: left;
@@ -5259,6 +5279,7 @@ a>.login .companies_list:activated {
   padding: 15px 5px;
   height: 96px;
   text-decoration: none;
+  background-color: #fff;
 }
 .search_opponent .select_team .units .unit .logo {
   width: 45px;
@@ -5376,7 +5397,6 @@ a>.login .companies_list:activated {
   padding-top: 10px;
 }
 .search_opponent .selected_team .tab_view .nav {
-  border-bottom: 1px solid #f2f2f5;
   float: left;
   width: 100%;
   height: 40px;
@@ -5384,8 +5404,23 @@ a>.login .companies_list:activated {
 .search_opponent .selected_team .tab_view .nav .opponent_tab_style {
   float: left;
   text-align: center;
-  border-right: 1px solid #f2f2f5;
+  border-bottom: 1px solid #f2f2f5;
   height: 100%;
+  position: relative;
+}
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style:after {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  content: '';
+  width: 1px;
+  background-color: #f2f2f5;
+}
+.search_opponent .selected_team .tab_view .nav .opponent_tab_style:last-child:after {
+  content: none;
+  display: none;
 }
 .search_opponent .selected_team .tab_view .nav .opponent_tab_style a {
   font-size: 14px;
