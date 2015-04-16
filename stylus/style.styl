@@ -410,8 +410,6 @@ a.no_underline
         .fellowship_label
           background-color #ffc053
       .logos_2
-        &:first-child
-          margin-right 2px
         .dl_team_logo
           width 29px
           height 29px
@@ -419,7 +417,8 @@ a.no_underline
           margin-bottom 6px
           border-radius 3px
           float left
-          margin-right 1px
+          &:first-child
+            margin-right 2px
       .dl_cp_texts
         float left
         .dl_cp_time,.dl_cp_address,.dl_cp_member,.dl_cp_name
@@ -529,12 +528,13 @@ a.no_underline
           margin-right 5px
         .cp_footer_icon
           float left
-          width 18px
-          height 18px
+          width 14px
+          height 14px
           margin-right 5px
-          fill col_darkGray
+          margin-top 2px
+          fill col_textLight
         .comment_icon
-          margin-top 1px
+          margin-top 3px
       .dl_campaign_comment
         margin-right 0
 .dl_campaign_detail
@@ -647,12 +647,13 @@ a.no_underline
           width 100%
           height 100%
     .item
-      padding 10px 15px
+      padding 14px 15px
       font-size 14px
       color col_textGray
-      height 40px
+      height 44px
       &.campaign_content
         height 65px
+        padding-top 10px
         .content_simple
           max-height 50px
           overflow-y hidden
@@ -700,9 +701,10 @@ a.no_underline
         margin-right 15px
       .cp_time
         border-top-width 1px
-      .cp_address
-        .cp_location
-          font-size 16px
+      .item_title
+        font-size 16px
+        .svg_icon
+          margin-top -4px
     .cp_member
       line-height 16px
       .member_num
@@ -1221,10 +1223,11 @@ a.no_underline
       height 30px
     .badge
       background-color #FF5724
-      width 12px
-      height 12px
+      width 10px
+      height 10px
+      padding 0
       color transparent
-      right calc(50% - 20px)
+      right calc(50% - 18px)
     &.tab-item-active,
     &.active
       color col_blue
@@ -1239,13 +1242,16 @@ a.no_underline
   .icon-right
     width 40px
     margin-top 3px
-  .ion_teams
+  .teams_icon
     position absolute
     min-height 40px
     right 10px
     top 0
     margin-top 0
-
+    .svg_icon
+      margin-top 7px
+      width 24px
+      height 24px
   //- .balloon
   //-   position absolute
   //-   right 10px
@@ -1488,11 +1494,12 @@ a.no_underline
   padding-top 5px
   .publish_box
     displayFlex()
-    .icon.ion-image
+    .svg_icon
       font-size 22px
       width 22px
       padding-left 2px
       margin auto 5px
+      fill black
     .comment_input
       flexValue(1)
       margin 5px 0
@@ -1513,8 +1520,8 @@ a.no_underline
       padding 0 2px
       line-height 100%
       text-align left
-      .emoji
-        vertical-align baseline
+      .svg_icon
+        margin-left 0
     button.publish_button[disabled]
       color col_darkGray !important
     .publish_button
@@ -2579,7 +2586,6 @@ a.no_underline
     background-color rgb(246, 246, 246)
     border-top-left-radius 4px
     border-top-right-radius 4px
-    margin 0px 4px
     .operator
       // background-color col_blue
       color col_navGray
@@ -3257,8 +3263,27 @@ a.no_underline
       padding-top 0
       padding-bottom 0
     .item-select
+      border-width 0
+      padding-bottom 17px
+      &:before
+        display block
+        position absolute
+        left 15px
+        bottom 0
+        width 100%
+        content ''
+        border 1px solid col_borderLight
+      &:last-child
+        border-bottom-width 1px
+        padding-bottom 16px
+        &:before
+          content none
+          display none
       select
         padding 14px 48px 7px 16px
+    &.indentLine
+      .item
+        indentLine()
 
 //-通用发布按钮
 .sponsor, .campaign_discuss ,.map_select

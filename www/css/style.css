@@ -409,10 +409,6 @@ a.no_underline {
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos .fellowship_label {
   background-color: #ffc053;
 }
-.dl_timeline_card .campaign_card .dl_card_content .logos_2:first-child,
-.dl_campaign_card .campaign_card .dl_card_content .logos_2:first-child {
-  margin-right: 2px;
-}
 .dl_timeline_card .campaign_card .dl_card_content .logos_2 .dl_team_logo,
 .dl_campaign_card .campaign_card .dl_card_content .logos_2 .dl_team_logo {
   width: 29px;
@@ -421,7 +417,10 @@ a.no_underline {
   margin-bottom: 6px;
   border-radius: 3px;
   float: left;
-  margin-right: 1px;
+}
+.dl_timeline_card .campaign_card .dl_card_content .logos_2 .dl_team_logo:first-child,
+.dl_campaign_card .campaign_card .dl_card_content .logos_2 .dl_team_logo:first-child {
+  margin-right: 2px;
 }
 .dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts,
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts {
@@ -588,15 +587,16 @@ a.no_underline {
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .cp_footer_icon,
 .dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .cp_footer_icon {
   float: left;
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   margin-right: 5px;
-  fill: #999;
+  margin-top: 2px;
+  fill: #ababab;
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment .comment_icon,
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_circle .comment_icon,
 .dl_campaign_card .campaign_card .dl_card_footer .dl_cp_time .comment_icon {
-  margin-top: 1px;
+  margin-top: 3px;
 }
 .dl_campaign_card .campaign_card .dl_card_footer .dl_campaign_comment {
   margin-right: 0;
@@ -737,13 +737,14 @@ a.no_underline {
   height: 100%;
 }
 .dl_campaign_detail .campaign_detail .item {
-  padding: 10px 15px;
+  padding: 14px 15px;
   font-size: 14px;
   color: #666;
-  height: 40px;
+  height: 44px;
 }
 .dl_campaign_detail .campaign_detail .item.campaign_content {
   height: 65px;
+  padding-top: 10px;
 }
 .dl_campaign_detail .campaign_detail .item.campaign_content .content_simple {
   max-height: 50px;
@@ -825,8 +826,11 @@ a.no_underline {
 .dl_campaign_detail .campaign_detail .campaign_items .cp_time {
   border-top-width: 1px;
 }
-.dl_campaign_detail .campaign_detail .campaign_items .cp_address .cp_location {
+.dl_campaign_detail .campaign_detail .campaign_items .item_title {
   font-size: 16px;
+}
+.dl_campaign_detail .campaign_detail .campaign_items .item_title .svg_icon {
+  margin-top: -4px;
 }
 .dl_campaign_detail .campaign_detail .cp_member {
   line-height: 16px;
@@ -1471,10 +1475,11 @@ a>.login .companies_list:activated {
 }
 .app_tabs > .tabs .tab-item .badge {
   background-color: #ff5724;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
+  padding: 0;
   color: transparent;
-  right: calc(50% - 20px);
+  right: calc(50% - 18px);
 }
 .app_tabs > .tabs .tab-item.tab-item-active,
 .app_tabs > .tabs .tab-item.active {
@@ -1493,12 +1498,17 @@ a>.login .companies_list:activated {
   width: 40px;
   margin-top: 3px;
 }
-.discuss_detail .ion_teams {
+.discuss_detail .teams_icon {
   position: absolute;
   min-height: 40px;
   right: 10px;
   top: 0;
   margin-top: 0;
+}
+.discuss_detail .teams_icon .svg_icon {
+  margin-top: 7px;
+  width: 24px;
+  height: 24px;
 }
 .discuss_detail .comments .time_block {
   text-align: center;
@@ -1766,11 +1776,12 @@ a>.login .companies_list:activated {
   display: -ms-flexbox;
   display: flex;
 }
-.comment_box .publish_box .icon.ion-image {
+.comment_box .publish_box .svg_icon {
   font-size: 22px;
   width: 22px;
   padding-left: 2px;
   margin: auto 5px;
+  fill: #000;
 }
 .comment_box .publish_box .comment_input {
   -webkit-box-flex: 1;
@@ -1799,8 +1810,8 @@ a>.login .companies_list:activated {
   line-height: 100%;
   text-align: left;
 }
-.comment_box .publish_box .emotion_button .emoji {
-  vertical-align: baseline;
+.comment_box .publish_box .emotion_button .svg_icon {
+  margin-left: 0;
 }
 .comment_box .publish_box button.publish_button[disabled] {
   color: #999 !important;
@@ -3338,7 +3349,6 @@ a>.login .companies_list:activated {
   background-color: #f6f6f6;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  margin: 0px 4px;
 }
 .calendar nav .operator {
   color: #fbfbfb;
@@ -4225,8 +4235,53 @@ a>.login .companies_list:activated {
   padding-top: 0;
   padding-bottom: 0;
 }
+.sponsor .list .item-select {
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.sponsor .list .item-select:before {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.sponsor .list .item-select:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.sponsor .list .item-select:last-child:before {
+  content: none;
+  display: none;
+}
 .sponsor .list .item-select select {
   padding: 14px 48px 7px 16px;
+}
+.sponsor .list.indentLine .item {
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.sponsor .list.indentLine .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.sponsor .list.indentLine .item:first-child {
+  border-top-width: 1px;
+}
+.sponsor .list.indentLine .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.sponsor .list.indentLine .item:last-child:after {
+  content: none;
+  display: none;
 }
 .sponsor .item-button,
 .campaign_discuss .item-button,

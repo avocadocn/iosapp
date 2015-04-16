@@ -2,7 +2,9 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
   ion-header-bar
     a.button.icon-left.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
     h1.title(ng-cloak) {{chatroomName}}
-    a.ion_teams.icon-right(ng-if="chatroomId!==cid" href="#/team/{{chatroomId}}")
+    a.teams_icon.icon-right(ng-if="chatroomId!==cid" href="#/team/{{chatroomId}}")
+      svg.svg_icon
+        use(xlink:href="#suoyouxiaodui")
   //- .balloon.has-footer(ng-if="newCommentNumber" ng-click="toBottom()" ng-cloak) 
   //-   span(ng-cloak) {{newCommentNumber}}
   //-   .triangle

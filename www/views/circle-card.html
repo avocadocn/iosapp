@@ -41,7 +41,7 @@
           <use xlink:href="#appreciate"></use>
         </svg><span ng-repeat="appr in circle.appreciate" ng-click="goToUserPage(appr.poster)" prevent-default="prevent-default" ng-bind="appr.poster.nickname" class="appreciate link_name"></span>
       </div>
-      <div class="comment_divider"></div>
+      <div ng-if="circle.appreciate.length &gt; 0&amp;&amp;circle.textComments.length &gt; 0" class="comment_divider"></div>
       <div ng-if="circle.textComments.length &gt; 0" class="comment_container">
         <div ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)" prevent-default="prevent-default" class="comment"><span ng-click="goToUserPage(comment.poster)" prevent-default="prevent-default" ng-bind="comment.poster.nickname" class="nickname link_name"></span><span ng-if="!comment.is_only_to_content" ng-cloak="ng-cloak" class="reply_text">回复</span><span ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target)" prevent-default="prevent-default" ng-bind="comment.target.nickname" class="reply_to link_name"></span><span class="colon">:</span><span ng-bind-html="comment.content | emoji | unsafe" class="content"></span></div>
       </div>

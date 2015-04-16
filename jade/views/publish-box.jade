@@ -1,8 +1,10 @@
 form(name="comment_form")
   .publish_box
-    i.icon.ion-image(ng-if="status.isShowImg" ng-click="showUploadActionSheet()")
+    svg.svg_icon(ng-if="status.isShowImg" ng-click="showUploadActionSheet()")
+      use(xlink:href="#picture")
     button.dl_button.emotion_button(ng-click="showEmotions()" prevent-default)
-      i.emoji.emoji_tongue
+      svg.svg_icon
+        use(xlink:href="#smile")
     textarea.comment_input#ta(rows="1" ng-model="content" ng-change="change()" mix-max-length="280" ng-trim="false" required ng-focus="hideEmotions();isWriting=false" ng-blur="isWriting=true")
     button.publish_button(ng-click="publish();hideEmotions();resizeTextarea(1);clear()" ng-disabled="comment_form.$invalid") 发言
 

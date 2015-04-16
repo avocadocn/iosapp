@@ -18,7 +18,8 @@
         <label ng-if="sponsorType!=='competition' || competitionMessage.competition_type==2" class="item item-input item-select"><span class="input-label">活动类型</span>
           <select ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds" class="result"></select>
         </label>
-        <div class="item-divider"></div>
+      </div>
+      <div class="list indentLine">
         <label class="item item-input"><span class="input-label">开始时间:</span>
           <input type="datetime-local" name="start_time" ng-model="campaignData.start_time" placeholder="活动开始时间" required="required" class="result"/>
         </label>
@@ -28,14 +29,16 @@
         <label edit-map="edit-map" location="campaignData.location" map-name="mapDetail" changed="changed" class="item item-input item-icon-right"><span class="input-label">地点</span>
           <input type="text" name="location" ng-model="campaignData.location.name" required="required" readonly="readonly" class="result"/><i class="icon ion-chevron-right"></i>
         </label>
-        <div class="item-divider"></div>
+      </div>
+      <div class="list indentLine">
         <label class="item item-input"><span class="input-label">活动名称</span>
           <input type="text" name="theme" ng-model="campaignData.theme" placeholder="限制14个字" ng-maxlength="14" required="required" class="result"/>
         </label>
         <label class="item item-input introduce"><span class="input-label">活动简介</span>
           <textarea name="content" rows="4" ng-model="campaignData.content" placeholder="活动简介" ng-maxlength="2000" class="result"></textarea>
         </label>
-        <div class="item-divider"></div>
+      </div>
+      <div class="list indentLine">
         <label ng-click="showMore=!showMore;" class="item item-icon-right"> <span class="input-label">更多</span><i ng-if="!showMore" class="icon ion-chevron-down"></i><i ng-if="showMore" class="icon ion-chevron-up"></i></label>
         <label ng-if="showMore" class="item item-input"><span class="input-label">报名截止时间:</span>
           <input id="deadline" type="datetime-local" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间" class="result"/>

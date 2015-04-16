@@ -26,13 +26,13 @@ ion-view.dl_campaign_detail
         a.item.item_header.cp_address(ng-href="#/location/{{campaign._id}}")
           svg.svg_icon.cp_info_icon
             use(xlink:href="#location")
-          span.cp_location(ng-cloak)  {{campaign.location.name}}
+          span.cp_location(ng-cloak) {{campaign.location.name}}
           span.icon.icon_small.ion-chevron-right.button-clear
       //- a.item.item_header(ng-if="!campaign.is_end && (campaign.notices.length>0 || campaign.allow.publishCampaignMessage)" ng-href="#/campaign/notice/{{campaign._id}}")
       //-   span.title 公告
       //-   span.icon.icon_small.ion-chevron-right.button-clear
       .campaign_items
-        a.item.item_header.cp_time(ng-href="#/campaign/content/{{campaign._id}}")
+        a.item.item_header.item_title(ng-href="#/campaign/content/{{campaign._id}}")
           svg.svg_icon
             use(xlink:href="#xiangqing")
           span 活动详情

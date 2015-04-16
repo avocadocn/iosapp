@@ -16,7 +16,7 @@ form(name="sponsorForm" novalidate ng-init="showMore=false;")
         label.item.item-input.item-select(ng-if="sponsorType!=='competition' || competitionMessage.competition_type==2")
           span.input-label 活动类型
           select.result(ng-change="changeMold(selectMold)" ng-model="selectMold" ng-options="mold.name for mold in campaign_molds")
-        .item-divider
+      .list.indentLine
         label.item.item-input
           span.input-label 开始时间:
           input.result(type="datetime-local" name="start_time" ng-model="campaignData.start_time" placeholder="活动开始时间" required)
@@ -27,14 +27,14 @@ form(name="sponsorForm" novalidate ng-init="showMore=false;")
           span.input-label 地点
           input.result(type="text" name="location" ng-model="campaignData.location.name" required readonly)
           i.icon.ion-chevron-right
-        .item-divider
+      .list.indentLine
         label.item.item-input
           span.input-label 活动名称
           input.result(type="text" name="theme" ng-model="campaignData.theme" placeholder="限制14个字" ng-maxlength=14 required)
         label.item.item-input.introduce
           span.input-label 活动简介
           textarea.result(name="content" rows=4 ng-model="campaignData.content" placeholder="活动简介" ng-maxlength=2000)
-        .item-divider
+      .list.indentLine
         label.item.item-icon-right(ng-click="showMore=!showMore;") 
           span.input-label 更多
           i.icon.ion-chevron-down(ng-if="!showMore")

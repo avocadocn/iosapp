@@ -18,11 +18,12 @@ ion-view.personal_team_list_page
     .loading_cover(ng-if="loading" ng-cloak)
       i.icon.ion-looping
 
-    .list.team_list(ng-if="leadTeams.length || memberTeams.length")
+    .list.team_list(ng-if="leadTeams.length")
       .item.item-divider.team_label(ng-if="leadTeams.length>0" ng-bind-template="{{myTeamFlag ?'我' :'他'}}管理的小队")
       +teamList('leadTeams')
-      .item.item-divider.team_label(ng-if="memberTeams.length>0" ng-bind-template="{{myTeamFlag ?'我' :'他'}}参加的小队")
-      +teamList('memberTeams')
+    .list.team_list(ng-if="memberTeams.length")
+      .item.item-divider.team_label(ng-if="leadTeams.length>0" ng-bind-template="{{myTeamFlag ?'我' :'他'}}管理的小队")
+      +teamList('leadTeams')
     .no_campaign(ng-if="loadFinished && !leadTeams.length && !memberTeams.length" ng-cloak)
       a.no_campaign_tip.no_underline(href="#/company/teams/official")
         p 没有加入小队?

@@ -1,7 +1,14 @@
 
 <form name="comment_form">
-  <div class="publish_box"><i ng-if="status.isShowImg" ng-click="showUploadActionSheet()" class="icon ion-image"></i>
-    <button ng-click="showEmotions()" prevent-default="prevent-default" class="dl_button emotion_button"><i class="emoji emoji_tongue"></i></button>
+  <div class="publish_box">
+    <svg ng-if="status.isShowImg" ng-click="showUploadActionSheet()" class="svg_icon">
+      <use xlink:href="#picture"></use>
+    </svg>
+    <button ng-click="showEmotions()" prevent-default="prevent-default" class="dl_button emotion_button">
+      <svg class="svg_icon">
+        <use xlink:href="#smile"></use>
+      </svg>
+    </button>
     <textarea id="ta" rows="1" ng-model="content" ng-change="change()" mix-max-length="280" ng-trim="false" required="required" ng-focus="hideEmotions();isWriting=false" ng-blur="isWriting=true" class="comment_input"></textarea>
     <button ng-click="publish();hideEmotions();resizeTextarea(1);clear()" ng-disabled="comment_form.$invalid" class="publish_button">发言</button>
   </div>

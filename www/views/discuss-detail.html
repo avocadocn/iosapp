@@ -1,7 +1,10 @@
 
 <ion-view cache-view="false" title="{{chatroomName}}" class="discuss_detail">
   <ion-header-bar><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 ng-cloak="ng-cloak" class="title">{{chatroomName}}</h1><a ng-if="chatroomId!==cid" href="#/team/{{chatroomId}}" class="ion_teams icon-right"></a>
+    <h1 ng-cloak="ng-cloak" class="title">{{chatroomName}}</h1><a ng-if="chatroomId!==cid" href="#/team/{{chatroomId}}" class="teams_icon icon-right">
+      <svg class="svg_icon">
+        <use xlink:href="#suoyouxiaodui"></use>
+      </svg></a>
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
