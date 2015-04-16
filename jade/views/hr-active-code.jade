@@ -1,13 +1,13 @@
-ion-view
+ion-view.hr_active_code
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/hr/home") &nbsp;返回
     h1.title 员工验证码
   ion-content
-    .card.list.invite_key
+    .list.invite_key
       .item.item-text-wrap
         | 为了保证只有您的同事可以注册加入公司，活动助理需要对申请加入的用户进行的身份验证，
         | 我们设定了三种方式完成注册：
-    .card.list.invite_key
+    .list.invite_key
       .item.item-text-wrap
         | 1、激活码+邮箱方式
       .item.item-text-wrap
@@ -16,14 +16,13 @@ ion-view
         | {{inviteKey}}
         i.icon.ion-clipboard(ng-click="copy()")
       
-    .card.list.invite_key
+    .list.invite_key
       .item.item-text-wrap
         | 2、扫描企业二维码注册+邮箱方式
       .item.item-text-wrap
         | 扫描企业二维码，使用贵公司指定后缀地址的邮箱即可快速完成注册；
-      .item
         #inviteKeyQrCode.invite_key_qr_code
-    .card.list.invite_key
+    .list.invite_key
       .item.item-text-wrap
         | 3、扫描同事二维码注册+邮箱方式
       .item.item-text-wrap

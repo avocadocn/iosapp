@@ -4,14 +4,14 @@
     <h1 class="title">{{company.name}}</h1>
   </ion-header-bar>
   <ion-content delegate-handle="mainScroll">
-    <div ng-style="familyMinHeight" class="company_header"><img ng-src="{{STATIC_URL + company.cover}}/640/380" class="company_cover"/></div>
+    <div ng-style="familyMinHeight" class="company_header"><img ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380" class="company_cover"/><img ng-if="!company.cover" src="./img/company_cover.png" class="company_cover"/></div>
     <div class="company_info">
       <div class="info_header clearfix"><img ng-src="{{STATIC_URL + company.logo}}/160/160" class="logo"/>
         <div class="info_content">
           <div class="company_name">{{company.name}}</div>
         </div>
         <div class="company_brief"><span class="title">简介:</span><span class="content">{{company.intro || '无'}}</span></div>
-      </div><a href="#/hr/company_edit" class="item item-icon-right first_item">公司资料<i class="hr_company_edit">编辑</i><i class="icon ion-chevron-right"></i></a><a href="#/hr/colleague_list" class="item item-icon-right">成员<span class="company_member_num">{{company.memberNumber}}</span><i class="icon ion-chevron-right"></i></a><a href="#/hr/active_code" class="item item-icon-right">邀请新成员<i class="icon ion-chevron-right"></i></a><a href="#/hr/team_page" class="item item-icon-right">小队<span class="company_team_num">{{company.teamNumber}}</span><i class="icon ion-chevron-right"></i></a>
+      </div><a href="#/hr/company_edit" class="item item-icon-right first_item">公司资料<i class="icon ion-chevron-right"></i></a><a href="#/hr/colleague_list" class="item item-icon-right">成员<span class="company_member_num">{{company.memberNumber}}</span><i class="icon ion-chevron-right"></i></a><a href="#/hr/active_code" class="item item-icon-right">邀请新成员<i class="icon ion-chevron-right"></i></a><a href="#/hr/team_page" class="item item-icon-right">小队<span class="company_team_num">{{company.teamNumber}}</span><i class="icon ion-chevron-right"></i></a>
       <div class="item guide">
         <p class="title"><span>动梨使用指南</span><i ng-if="!hiding" ng-click="toggleGuide()" class="icon ion-chevron-up pull-right"></i><i ng-if="hiding" ng-click="toggleGuide()" class="icon ion-chevron-down pull-right"></i></p>
         <div ng-if="!hiding">
@@ -24,6 +24,8 @@
           <p>更多的管理功能及统计信息，欢迎您登陆www.donler.com。</p>
         </div>
       </div>
+    </div>
+    <div class="operator">
       <button ng-click="logout()" class="item button button-full hr_logout">退出登录</button>
     </div>
   </ion-content>

@@ -3,7 +3,8 @@ ion-view.hr_company_page
     h1.title {{company.name}}
   ion-content(delegate-handle="mainScroll")
     .company_header(ng-style="familyMinHeight")
-      img.company_cover(ng-src="{{STATIC_URL + company.cover}}/640/380")
+      img.company_cover(ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380")
+      img.company_cover(ng-if="!company.cover" src="./img/company_cover.png")
     .company_info
       .info_header.clearfix
         img.logo(ng-src="{{STATIC_URL + company.logo}}/160/160")
@@ -14,7 +15,6 @@ ion-view.hr_company_page
           span.content {{company.intro || '无'}}
       a.item.item-icon-right.first_item(href="#/hr/company_edit")
         | 公司资料
-        i.hr_company_edit 编辑
         i.icon.ion-chevron-right
       a.item.item-icon-right(href="#/hr/colleague_list")
         | 成员
@@ -40,6 +40,7 @@ ion-view.hr_company_page
           p 第三步，请点击“邀请新成员”邀请同事们加入吧；
           p 第四步，点击“小队”选择您要管理的小队进行队长任命。
           p 更多的管理功能及统计信息，欢迎您登陆www.donler.com。
+    .operator
       button.item.button.button-full.hr_logout(ng-click="logout()") 退出登录
   //- ion-footer-bar
   //-   button.button.button-full.hr_logout(ng-click="logout()") 退出登录

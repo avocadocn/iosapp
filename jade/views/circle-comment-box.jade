@@ -1,6 +1,7 @@
 form.bar.bar-footer.item-input-inset.circle_comment_box(name="commentForm" mix-max-length="80" ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}")
   .item-input-wrapper
-    i.icon.ion-happy.placeholder-icon
+    svg.svg_icon
+      use(xlink:href="#smile")
     .emoji_click_wrap(ng-click="toggleEmotions()")
     input(type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{placeholderText}}" mix-max-length="80")
   button.button.button-clear(ng-click="postComment()" ng-disabled="commentForm.$invalid") 发表

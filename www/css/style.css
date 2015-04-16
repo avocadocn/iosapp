@@ -2595,8 +2595,30 @@ a>.login .companies_list:activated {
   background-color: #fff;
   padding: 5px;
 }
-.settings_account a.item {
+.settings_account .item {
+  border-width: 0;
+  padding-bottom: 17px;
   color: #444;
+}
+.settings_account .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.settings_account .item:first-child {
+  border-top-width: 1px;
+}
+.settings_account .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.settings_account .item:last-child:after {
+  content: none;
+  display: none;
 }
 .personal .list {
   padding-top: 0;
@@ -2906,6 +2928,7 @@ a>.login .companies_list:activated {
   padding-top: 0;
   padding-bottom: 0;
   border-radius: 5px;
+  margin-top: -6px;
 }
 .hr_company_page .company_info .item {
   border: none;
@@ -2995,11 +3018,6 @@ a>.login .companies_list:activated {
   position: absolute;
   right: 2px;
 }
-.hr_company_page .company_info .hr_logout {
-  margin: 0;
-  padding: 5px;
-  height: 54px;
-}
 .hr_company_page .company_info .company_member_num,
 .hr_company_page .company_info .company_team_num {
   position: absolute;
@@ -3025,6 +3043,16 @@ a>.login .companies_list:activated {
   font-size: 22px;
   padding-left: 4px;
   color: #3ca2e0;
+}
+.hr_company_page .operator {
+  margin-top: 10px;
+}
+.hr_company_page .operator .hr_logout {
+  margin: 0;
+  padding: 5px;
+  height: 54px;
+  background-color: #fff;
+  color: #f3835c;
 }
 .hr_company_page .bar-footer {
   height: 50px;
@@ -3110,25 +3138,25 @@ a>.login .companies_list:activated {
   font-size: 14px;
   line-height: 20px;
 }
-.hr-team-page .item-label {
+.hr_team_page .item-label {
   margin: 10px 0px 0px;
 }
-.hr-team-page .item .icon {
+.hr_team_page .item .icon {
   width: 3rem;
   font-size: 14px;
   color: #666;
 }
-.hr-team-page .list {
+.hr_team_page .list {
   padding: 0px;
   margin-top: 1px;
 }
-.hr-team-page .list .item {
+.hr_team_page .list .item {
   position: relative;
   border: none;
   border-width: 0;
   padding-bottom: 17px;
 }
-.hr-team-page .list .item:after {
+.hr_team_page .list .item:after {
   display: block;
   position: absolute;
   left: 15px;
@@ -3137,52 +3165,51 @@ a>.login .companies_list:activated {
   content: '';
   border: 1px solid #ddd;
 }
-.hr-team-page .list .item:first-child {
+.hr_team_page .list .item:first-child {
   border-top-width: 1px;
 }
-.hr-team-page .list .item:last-child {
+.hr_team_page .list .item:last-child {
   border-bottom-width: 1px;
   padding-bottom: 16px;
 }
-.hr-team-page .list .item:last-child:after {
+.hr_team_page .list .item:last-child:after {
   content: none;
   display: none;
 }
-.hr-team-page .list .item:last-child {
+.hr_team_page .list .item:last-child {
   border-bottom: 1px solid #ddd;
 }
-.hr-team-page .list .item .team-name {
+.hr_team_page .list .item .team-name {
   max-width: 200px;
 }
-.hr-team-page .list .item .team-status {
+.hr_team_page .list .item .team-status {
   position: absolute;
   top: 16px;
   right: 10px;
 }
-.hr-team-page .list .item .team-member {
+.hr_team_page .list .item .team-member {
   position: relative;
 }
-.hr-team-page .list .item .team-member .team-leader {
+.hr_team_page .list .item .team-member .team-leader {
   max-width: 80px;
 }
-.hr-team-page .list .item .team-member .team-member-num {
+.hr_team_page .list .item .team-member .team-member-num {
   position: absolute;
   left: 90px;
   top: 0px;
   font-size: 14px;
   color: #666;
 }
-.hr-team-page .list .item-avatar-custom {
-  padding-left: 72px;
-  min-height: 72px;
+.hr_team_page .list .item-avatar-custom {
+  padding: 15px 15px 15px 90px;
 }
-.hr-team-page .list .item-avatar-custom > img:first-child {
+.hr_team_page .list .item-avatar-custom > img:first-child {
   position: absolute;
   top: 16px;
   left: 15px;
-  width: 45px;
-  height: 45px;
-  border-radius: 0px;
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
 }
 .personal_team_list_page .scroll {
   height: 100%;
@@ -3252,20 +3279,41 @@ a>.login .companies_list:activated {
   margin-top: 10px;
 }
 .settings .list .item {
+  border-width: 0;
+  padding-bottom: 17px;
   color: #333;
   padding-left: 20px;
+}
+.settings .list .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.settings .list .item:first-child {
+  border-top-width: 1px;
+}
+.settings .list .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.settings .list .item:last-child:after {
+  content: none;
+  display: none;
 }
 .settings .quit_button {
   border-top: 0;
   color: #f3835c;
   height: 50px;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 .about .list {
   color: #666;
   font-weight: 600;
-  border-bottom: 1px solid #ccc;
 }
 .about .list .item {
   padding-left: 20px;
@@ -3965,6 +4013,7 @@ a>.login .companies_list:activated {
   padding: 7px 15px;
   font-size: 12px;
   line-height: 1;
+  border-bottom-width: 2px;
 }
 .dl_campaign_group .dl_campaign_group .dl_campaign_group_date,
 .timeline_card .dl_campaign_group .dl_campaign_group_date,
@@ -3976,8 +4025,39 @@ a>.login .companies_list:activated {
   border-radius: 5px;
   text-align: center;
 }
+.dl_timeline {
+  position: relative;
+  border-width: 0;
+  padding-bottom: 17px;
+  padding-bottom: 1px;
+}
+.dl_timeline:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.dl_timeline:first-child {
+  border-top-width: 1px;
+}
+.dl_timeline:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.dl_timeline:last-child:after {
+  content: none;
+  display: none;
+}
+.dl_timeline:after {
+  z-index: 11;
+  border-top: none;
+}
 .dl_timeline .dl_timeline_card {
   z-index: 10;
+  border: none;
 }
 .dl_timeline .dl_timeline_date {
   display: block;
@@ -4339,18 +4419,44 @@ a>.login .companies_list:activated {
   margin-top: 10px;
   margin-bottom: 0;
 }
-.personal_invite_code_page .item {
+.personal_invite_code_page .list .item {
   color: #202020;
+  border-width: 0;
+  padding-bottom: 17px;
 }
-.personal_invite_code_page .description_item {
-  height: 120px;
+.personal_invite_code_page .list .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
 }
-.personal_invite_code_page .invite_key_qr_code {
+.personal_invite_code_page .list .item:first-child {
+  border-top-width: 1px;
+}
+.personal_invite_code_page .list .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.personal_invite_code_page .list .item:last-child:after {
+  content: none;
+  display: none;
+}
+.personal_invite_code_page .list .item.header {
+  padding: 10px 15px;
+  height: 44px;
+}
+.personal_invite_code_page .list .description_item {
+  height: 90px;
+}
+.personal_invite_code_page .list .invite_key_qr_code {
   margin: auto;
   width: 165px;
   height: 165px;
 }
-.personal_invite_code_page .invite_key_qr_code img {
+.personal_invite_code_page .list .invite_key_qr_code img {
   max-width: 100%;
 }
 .circle_send_content_page .circle_content_form .content_border {
@@ -5605,4 +5711,31 @@ a>.login .companies_list:activated {
 }
 .campaign_content_page .content_page .item.has_content .content {
   white-space: normal;
+}
+.hr_active_code .list .item {
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.hr_active_code .list .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.hr_active_code .list .item:first-child {
+  border-top-width: 1px;
+}
+.hr_active_code .list .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.hr_active_code .list .item:last-child:after {
+  content: none;
+  display: none;
+}
+.hr_active_code .list .item .invite_key_qr_code {
+  margin-top: 16px;
 }

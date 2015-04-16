@@ -1,28 +1,27 @@
 
-<ion-view>
+<ion-view class="hr_active_code">
   <ion-header-bar><a href="#/hr/home" class="button icon ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">员工验证码</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="card list invite_key">
+    <div class="list invite_key">
       <div class="item item-text-wrap">
         为了保证只有您的同事可以注册加入公司，活动助理需要对申请加入的用户进行的身份验证，
         我们设定了三种方式完成注册：
       </div>
     </div>
-    <div class="card list invite_key">
+    <div class="list invite_key">
       <div class="item item-text-wrap">1、激活码+邮箱方式</div>
       <div class="item item-text-wrap">使用贵公司指定后缀地址的邮箱进行注册，配合贵公司的激活码完成注册</div>
       <div ng-cloak="ng-cloak" class="item item-icon-right">{{inviteKey}}<i ng-click="copy()" class="icon ion-clipboard"></i></div>
     </div>
-    <div class="card list invite_key">
+    <div class="list invite_key">
       <div class="item item-text-wrap">2、扫描企业二维码注册+邮箱方式</div>
-      <div class="item item-text-wrap">扫描企业二维码，使用贵公司指定后缀地址的邮箱即可快速完成注册；</div>
-      <div class="item">
+      <div class="item item-text-wrap">扫描企业二维码，使用贵公司指定后缀地址的邮箱即可快速完成注册；
         <div id="inviteKeyQrCode" class="invite_key_qr_code"></div>
       </div>
     </div>
-    <div class="card list invite_key">
+    <div class="list invite_key">
       <div class="item item-text-wrap">3、扫描同事二维码注册+邮箱方式</div>
       <div class="item item-text-wrap">扫描已完成用户的二维码，使用贵公司指定后缀地址的邮箱即可快速完成注册；</div>
     </div>

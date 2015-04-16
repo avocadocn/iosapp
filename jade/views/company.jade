@@ -9,7 +9,7 @@ ion-view.tab_company_page(ng-controller="CompanyController")
       //-   ion-slide(ng-repeat="photo in team.familyPhotos")
       //-     img.company_family(ng-src="{{STATIC_URL + photo.uri}}/640/380")
       img.company_family(ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380")
-      img.company_family(ng-if="!company.cover" src="./img/family.png")
+      img.company_family(ng-if="!company.cover" src="./img/company_cover.png")
     .company_info
       .info_header.clearfix
         img.logo(ng-if="company" ng-src="{{STATIC_URL + company.logo}}/160/160")

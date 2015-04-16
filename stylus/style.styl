@@ -2051,7 +2051,8 @@ a.no_underline
     padding 5px
 //-账号设置页
 .settings_account
-  a.item
+  .item
+    indentLine()
     color #444
 //-我的
 .personal
@@ -2288,6 +2289,7 @@ a.no_underline
     padding-top 0
     padding-bottom 0
     border-radius 5px
+    margin-top -6px
     .item
       border none
       indentLine()
@@ -2341,10 +2343,6 @@ a.no_underline
       .icon
         position absolute
         right 2px
-    .hr_logout
-      margin 0
-      padding 5px
-      height 54px
     .company_member_num, .company_team_num
       position absolute
       right 50px
@@ -2366,6 +2364,14 @@ a.no_underline
         font-size 22px
         padding-left 4px
         color col_blue
+  .operator
+    margin-top 10px
+    .hr_logout
+      margin 0
+      padding 5px
+      height 54px
+      background-color white
+      color #f3835c
   .bar-footer
     height 50px
     // border-top 1px solid #ccc
@@ -2420,7 +2426,7 @@ a.no_underline
       line-height 20px
 
 //-HR小队主页
-.hr-team-page
+.hr_team_page
   .item-label
     margin 10px 0px 0px
   .item
@@ -2455,15 +2461,14 @@ a.no_underline
           color #666
 
     .item-avatar-custom
-      padding-left 72px
-      min-height 72px
+      padding 15px 15px 15px 90px
     .item-avatar-custom > img:first-child
       position absolute
       top 16px
       left 15px
-      width 45px
-      height 45px
-      border-radius 0px
+      width 60px
+      height 60px
+      border-radius 5px
       
 // 我的小队页面
 .personal_team_list_page
@@ -2514,20 +2519,20 @@ a.no_underline
       margin-bottom 10px
       margin-top 10px
     .item
+      indentLine()
       color #333
       padding-left 20px
   .quit_button
     border-top 0
     color #f3835c
     height 50px
-    border-top 1px solid #ccc
-    border-bottom 1px solid #ccc
+    border-top 1px solid col_borderLight
+    border-bottom 1px solid col_borderLight
 //- 关于
 .about
   .list
     color col_textGray
     font-weight 600
-    border-bottom 1px solid #ccc
     .item
       padding-left 20px
   .about_title
@@ -3047,6 +3052,7 @@ a.no_underline
     padding 7px 15px
     font-size 12px
     line-height 1
+    border-bottom-width 2px
   .dl_campaign_group
     .dl_campaign_group_date
       margin 1rem
@@ -3056,8 +3062,15 @@ a.no_underline
       border-radius 5px
       text-align center
 .dl_timeline
+  position relative
+  indentLine()
+  padding-bottom 1px
+  &:after
+    z-index 11
+    border-top none
   .dl_timeline_card
     z-index 10
+    border none
   .dl_timeline_date
     display block
     margin 1rem auto
@@ -3333,16 +3346,20 @@ a.no_underline
   .list
     margin-top 10px
     margin-bottom 0
-  .item
-    color col_mainText
-  .description_item
-    height 120px
-  .invite_key_qr_code
-    margin auto
-    width 165px
-    height 165px
-    img
-      max-width 100%
+    .item
+      color col_mainText
+      indentLine()
+      &.header
+        padding 10px 15px
+        height 44px
+    .description_item
+      height 90px
+    .invite_key_qr_code
+      margin auto
+      width 165px
+      height 165px
+      img
+        max-width 100%
 
 
 // 同事圈发文字或发图片附加文字样式
@@ -4314,3 +4331,10 @@ a.no_underline
         height initial
         .content
           white-space normal
+//hr邀请码
+.hr_active_code
+  .list
+    .item
+      indentLine()
+      .invite_key_qr_code
+        margin-top 16px
