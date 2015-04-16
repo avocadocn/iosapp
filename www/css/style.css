@@ -737,10 +737,10 @@ a.no_underline {
   height: 100%;
 }
 .dl_campaign_detail .campaign_detail .item {
-  padding: 14px 15px;
-  font-size: 14px;
+  padding: 20px 15px;
+  font-size: 16px;
   color: #666;
-  height: 44px;
+  height: 56px;
 }
 .dl_campaign_detail .campaign_detail .item.campaign_content {
   height: 65px;
@@ -822,6 +822,7 @@ a.no_underline {
 .dl_campaign_detail .campaign_detail .campaign_items .svg_icon {
   fill: #ababab;
   margin-right: 15px;
+  margin-top: -4px;
 }
 .dl_campaign_detail .campaign_detail .campaign_items .cp_time {
   border-top-width: 1px;
@@ -2538,6 +2539,7 @@ a>.login .companies_list:activated {
 }
 .contacts .bar {
   border-bottom: none;
+  padding-left: 15px;
 }
 .contacts .user_list {
   margin-top: 0;
@@ -4339,7 +4341,6 @@ a>.login .companies_list:activated {
 }
 .sponsor .list .item-select {
   border-width: 0;
-  padding-bottom: 17px;
 }
 .sponsor .list .item-select:before {
   display: block;
@@ -4352,7 +4353,6 @@ a>.login .companies_list:activated {
 }
 .sponsor .list .item-select:last-child {
   border-bottom-width: 1px;
-  padding-bottom: 16px;
 }
 .sponsor .list .item-select:last-child:before {
   content: none;
@@ -4364,6 +4364,7 @@ a>.login .companies_list:activated {
 .sponsor .list.indentLine .item {
   border-width: 0;
   padding-bottom: 17px;
+  padding-bottom: 5px;
 }
 .sponsor .list.indentLine .item:after {
   display: block;
@@ -4384,6 +4385,9 @@ a>.login .companies_list:activated {
 .sponsor .list.indentLine .item:last-child:after {
   content: none;
   display: none;
+}
+.sponsor .list.indentLine .item:last-child {
+  padding-bottom: 5px;
 }
 .sponsor .item-button,
 .campaign_discuss .item-button,

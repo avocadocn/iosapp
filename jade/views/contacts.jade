@@ -6,8 +6,8 @@ ion-view.contacts
   ion-content
     .bar.bar-header.search_box.item-input-inset
       label.item-input-wrapper
-        i.icon.ion-ios7-search.placeholder-icon
         input(type="search" ng-model="keyword.value" ng-keypress="search($event)")
+        i.icon.ion-ios7-search.placeholder-icon
       button.button-clear(ng-click="search()") 搜索
     .list.user_list
       a.item.item-avatar.item-icon-right.user_item(ng-repeat="contact in contacts" href="#/user/{{contact._id}}" ng-cloak)

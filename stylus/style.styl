@@ -647,10 +647,10 @@ a.no_underline
           width 100%
           height 100%
     .item
-      padding 14px 15px
-      font-size 14px
+      padding 20px 15px
+      font-size 16px
       color col_textGray
-      height 44px
+      height 56px
       &.campaign_content
         height 65px
         padding-top 10px
@@ -699,6 +699,7 @@ a.no_underline
       .svg_icon
         fill col_textLight
         margin-right 15px
+        margin-top -4px
       .cp_time
         border-top-width 1px
       .item_title
@@ -2019,6 +2020,7 @@ a.no_underline
 .contacts
   .bar
     border-bottom none
+    padding-left 15px
   .user_list
     margin-top 0
   .user_item
@@ -3278,7 +3280,6 @@ a.no_underline
       padding-bottom 0
     .item-select
       border-width 0
-      padding-bottom 17px
       &:before
         display block
         position absolute
@@ -3289,7 +3290,6 @@ a.no_underline
         border 1px solid col_borderLight
       &:last-child
         border-bottom-width 1px
-        padding-bottom 16px
         &:before
           content none
           display none
@@ -3298,6 +3298,9 @@ a.no_underline
     &.indentLine
       .item
         indentLine()
+        padding-bottom 5px
+        &:last-child
+          padding-bottom 5px
 
 //-通用发布按钮
 .sponsor, .campaign_discuss ,.map_select

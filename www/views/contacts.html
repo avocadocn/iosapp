@@ -6,8 +6,8 @@
   </ion-header-bar>
   <ion-content>
     <div class="bar bar-header search_box item-input-inset">
-      <label class="item-input-wrapper"><i class="icon ion-ios7-search placeholder-icon"></i>
-        <input type="search" ng-model="keyword.value" ng-keypress="search($event)"/>
+      <label class="item-input-wrapper">
+        <input type="search" ng-model="keyword.value" ng-keypress="search($event)"/><i class="icon ion-ios7-search placeholder-icon"></i>
       </label>
       <button ng-click="search()" class="button-clear">搜索</button>
     </div>
