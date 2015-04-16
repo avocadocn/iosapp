@@ -7,12 +7,18 @@
     <div ng-repeat="memberContent in memberContents" ng-if="memberContent.members.length&gt;0" class="member_group">
       <div class="member_group_name">{{memberContent.name}}</div>
       <div ng-if="!memberContent.isOtherCompany" ng-cloak="ng-cloak" class="members clearfix"><a ng-repeat="member in memberContent.members" ng-href="#/user/{{member._id}}" class="member">
-          <div class="member_inner"><img ng-src="{{STATIC_URL + member.photo}}/90/90" class="member_photo"/><span ng-if="member.isLeader" ng-cloak="ng-cloak" class="dl_member_leader"></span>
+          <div class="member_inner"><img ng-src="{{STATIC_URL + member.photo}}/90/90" class="member_photo"/>
+            <svg ng-if="member.isLeader" class="svg_icon dl_member_leader">
+              <use xlink:href="#star"></use>
+            </svg>
             <p class="member_name">{{member.nickname}}</p>
           </div></a></div>
       <div ng-if="memberContent.isOtherCompany" ng-cloak="ng-cloak" class="members clearfix">
         <div ng-repeat="member in memberContent.members" class="member">
-          <div class="member_inner"><img ng-src="{{STATIC_URL + member.photo}}/90/90" class="member_photo"/><span ng-if="member.isLeader" ng-cloak="ng-cloak" class="dl_member_leader"></span>
+          <div class="member_inner"><img ng-src="{{STATIC_URL + member.photo}}/90/90" class="member_photo"/>
+            <svg ng-if="member.isLeader" class="svg_icon dl_member_leader">
+              <use xlink:href="#star"></use>
+            </svg>
             <p class="member_name">{{member.nickname}}</p>
           </div>
         </div>

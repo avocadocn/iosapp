@@ -3954,17 +3954,15 @@ a>.login .companies_list:activated {
   margin: 0 auto;
 }
 .member_page .member_group .members .dl_member_leader {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   display: inline-block;
   position: absolute;
-  right: 0;
-  bottom: 23px;
-  background-color: #fbc441;
+  right: -5px;
+  bottom: 18px;
+  background-color: #ffb502;
   border-radius: 100%;
-  background-image: url("../img/icon.png");
-  background-size: 192px 240px;
-  background-position: -45px -140px;
+  fill: #fff;
 }
 .member_page .member_group .members .member_name {
   margin: 3px auto 0;
@@ -5413,7 +5411,6 @@ a>.login .companies_list:activated {
 }
 .score_board .input_score input {
   width: 75%;
-  color: #ababab;
 }
 .score_board .input_score input[disabled] {
   background-color: transparent;

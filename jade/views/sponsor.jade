@@ -23,7 +23,7 @@ form(name="sponsorForm" novalidate ng-init="showMore=false;")
         label.item.item-input
           span.input-label 结束时间:
           input.result(type="datetime-local" name="end_time" ng-model="campaignData.end_time" required)
-        label.item.item-input.item-icon-right(edit-map location='campaignData.location' map-name="mapDetail")
+        label.item.item-input.item-icon-right(edit-map location='campaignData.location' map-name="mapDetail" changed="changed")
           span.input-label 地点
           input.result(type="text" name="location" ng-model="campaignData.location.name" required readonly)
           i.icon.ion-chevron-right
