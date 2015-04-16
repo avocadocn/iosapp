@@ -22,6 +22,7 @@ col_boderlighttGray = #e3e3e3
 col_now = #13adb6
 col_unstart = #3ca2df
 col_unjoin = #f48361
+col_borderLight =#ddd
 // mixins
 dl_card()
   display block
@@ -65,7 +66,7 @@ indentLine()
     bottom 0
     width 100%
     content ''
-    border 1px solid #ddd
+    border 1px solid col_borderLight
   &:first-child
     border-top-width 1px
   &:last-child
@@ -447,7 +448,7 @@ a.no_underline
     .dl_card_content
       .dl_cp_texts
         width 55%
-        border-right 1px solid #ddd
+        border-right 1px solid col_borderLight
         .dl_cp_name
           font-size 16px
           margin-bottom 7px
@@ -550,6 +551,7 @@ a.no_underline
       position relative
       font-size 14px
       height 130px
+      border-bottom 1px solid col_borderLight
       .cp_logos
         .team_logo
           width 60px
@@ -652,7 +654,7 @@ a.no_underline
       &.campaign_content
         height 65px
         .content_simple
-          max-height 60px
+          max-height 50px
           overflow-y hidden
           line-height 24px
         .operator
@@ -669,8 +671,17 @@ a.no_underline
           font-size 16px
           margin-right 20px
         &.campaign_theme
-          font-size 18px
+          font-size 16px
           color col_mainText
+          border-bottom-width 0
+          &:after
+            display block
+            position absolute
+            left 15px
+            bottom 0
+            width 100%
+            content ''
+            border-bottom 1px solid col_borderLight
       .ion-chevron-right
         float right
     .item-divider
@@ -700,12 +711,12 @@ a.no_underline
     .campaign_footer
       displayFlex()
       padding 0
-      height 40px
+      height 47px
       .footer_col
         flexValue(1)
         text-align center
         border-right 1px solid #ccc
-        padding 7px 15px
+        padding 10px 15px
         color col_textGray
         height 100%
         line-height 24px
@@ -715,13 +726,11 @@ a.no_underline
           height 20px
           width 20px
         .svg_icon
-          width 18px
-          height 18px
-          margin-right 2px
+          width 20px
+          height 20px
+          margin-right 8px
           margin-bottom 2px
           fill col_darkGray
-        .discussion_icon
-          margin-right 6px
         .member_num
           color #f07151
       a
@@ -1314,7 +1323,7 @@ a.no_underline
           padding 4px 7px
           line-height 24px
         .remind_box
-          border 1px solid #ddd
+          border 1px solid col_borderLight
           border-radius 3px
           text-decoration none
           background-color #fff
@@ -1322,7 +1331,7 @@ a.no_underline
           margin-left 10px
           width 93%
           .remind_box_head
-            border-bottom 1px solid #ddd
+            border-bottom 1px solid col_borderLight
             color col_mainText
             text-decoration none
             padding 5px 10px
@@ -1592,7 +1601,7 @@ a.no_underline
     .comment
       padding 16px
       background-color #fff
-      border-bottom 1px solid #ddd
+      border-bottom 1px solid col_borderLight
       .logo
         float left
         margin-right 10px
@@ -1669,6 +1678,7 @@ a.no_underline
   .list
     margin-top 10px
     .item
+      indentLine()
       .icon
         width 3rem
         font-size 14px
@@ -1689,7 +1699,7 @@ a.no_underline
         border-radius 100%
         position relative
   .rank_panel
-    border-top 1px solid #ddd
+    border-top 1px solid col_borderLight
     margin-top 30px
     .rank
       background-color #f48361
@@ -1926,7 +1936,6 @@ a.no_underline
       padding-top 12px
       padding-bottom 12px
       padding-right 36px
-      border-bottom 0
       .staff_photo
         display block
         float left
@@ -2047,17 +2056,19 @@ a.no_underline
   .user_info
     margin-top 10px
     .item_user
-      padding-top 15px
-      padding-bottom 12px
+      padding 15px 15px 15px 90px
+      height 90px
       .avatar_photo
-        max-width 45px
-        max-height 45px
-        width 45px
-        height 45px
+        position absolute
+        left 15px
+        width 60px
+        height 60px
         border-radius 5px
       .nickname
         font-size 14px
         line-height 24px
+        margin-top 10px
+        margin-bottom 0
       .introduce
         font-size 12px
         line-height 18px
@@ -2209,6 +2220,8 @@ a.no_underline
         color col_darkGray
         z-index 1
         font-size 18px
+    .save
+      background-color col_blue
 //- HR编辑小队
 .edit_team_info
 
@@ -2272,14 +2285,14 @@ a.no_underline
       border none
       indentLine()
       &:last-child
-        border-bottom 1px solid #ddd
+        border-bottom 1px solid col_borderLight
       .hr_company_edit
         position absolute
         right 45px
         font-size 14px
         color #c4c4c4
     .item.first_item
-      border-top 1px solid #ddd
+      border-top 1px solid col_borderLight
     .info_header
       position relative
       padding 0 1rem
@@ -2416,7 +2429,7 @@ a.no_underline
       border none
       indentLine()
       &:last-child
-        border-bottom 1px solid #ddd
+        border-bottom 1px solid col_borderLight
       .team-name
         max-width 200px
       .team-status
@@ -2449,9 +2462,11 @@ a.no_underline
 .personal_team_list_page
   .scroll
     height 100%
+  .team_list
+    margin-bottom 0
   .team_list_item
-    padding-top 15px
-    padding-bottom 15px
+    padding-top 15px 0 15px 75px
+    indentLine()
   .team_label
     font-size 12px
     padding-top 3px
@@ -2459,6 +2474,7 @@ a.no_underline
     line-height 18px
     min-height 0
     color col_mainText
+    border-width 0 0 2px 0
   .team_logo
     width 45px !important
     height 45px !important
@@ -2550,7 +2566,7 @@ a.no_underline
     background-color #fff
     margin 10px 0
     padding 11px 16px
-    border 1px solid #ddd
+    border 1px solid col_borderLight
     textarea
       color #202020
       line-height 20px
@@ -2979,7 +2995,7 @@ a.no_underline
   .latest_campaign_item
     color col_mainText
   .latest_campaign_info_item.first_item
-    border-top 1px solid #ddd
+    border-top 1px solid col_borderLight
   .latest_campaign_info_item
     indentLine()
     color col_darkGray
@@ -3190,8 +3206,8 @@ a.no_underline
       font-size 14px
       color col_mainText
       background-color #fff
-      border-top 1px solid #ddd
-      border-bottom 1px solid #ddd
+      border-top 1px solid col_borderLight
+      border-bottom 1px solid col_borderLight
       height 92px
       padding 15px
       .col
@@ -3725,12 +3741,13 @@ a.no_underline
     .type_filter
       text-align center
       .button
-        border-bottom 1px solid #ccc
         opacity 1
         color col_textGray
         height 40px
         min-height 40px
         line-height 40px
+        border-width 1px 0 0
+        border-color col_borderLight
         &.active
           color col_blue
           border-bottom 4px solid col_blue
@@ -3738,7 +3755,7 @@ a.no_underline
         position absolute
         width 1px
         height 30px
-        background-color #CCC
+        background-color col_borderLight
         left 50%
         top 5px
     .competition_message
@@ -3747,10 +3764,15 @@ a.no_underline
       background-color white
       text-align center
       font-size 12px
-      border-bottom 1px solid #ccc
       padding 10px 5px 10px 15px
       margin-top 0
       height 67px
+      position relative
+      border-color col_borderLight
+      border-style solid
+      indentLine()
+      &:after
+        border-top-width 0
       .col_status
         flexValue(0 0 27%)
       .col_team

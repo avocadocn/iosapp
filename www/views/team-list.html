@@ -10,9 +10,13 @@
       <div ng-if="leadTeams.length&gt;0" class="item item-divider team_label">管理的小队</div><a ng-repeat="team in leadTeams" ng-href="#/team/{{team._id}}" class="item item-avatar team_list_item"><img ng-src="{{STATIC_URL + team.logo}}/90/90" class="team_logo"/>
         <h2 ng-bind="team.name" class="team_name"></h2>
         <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}" class="info_item"></span><span ng-bind-template="积分: {{team.score.total}}" class="info_item"></span></p></a>
+    </div>
+    <div class="list team_list">
       <div ng-if="memberTeams.length&gt;0" class="item item-divider team_label">参加的小队</div><a ng-repeat="team in memberTeams" ng-href="#/team/{{team._id}}" class="item item-avatar team_list_item"><img ng-src="{{STATIC_URL + team.logo}}/90/90" class="team_logo"/>
         <h2 ng-bind="team.name" class="team_name"></h2>
         <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}" class="info_item"></span><span ng-bind-template="积分: {{team.score.total}}" class="info_item"></span></p></a>
+    </div>
+    <div class="list team_list">
       <div ng-if="unJoinTeams.length&gt;0" class="item item-divider team_label">未参加的小队</div><a ng-repeat="team in unJoinTeams" ng-href="#/team/{{team._id}}" class="item item-avatar team_list_item"><img ng-src="{{STATIC_URL + team.logo}}/90/90" class="team_logo"/>
         <h2 ng-bind="team.name" class="team_name"></h2>
         <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}" class="info_item"></span><span ng-bind-template="积分: {{team.score.total}}" class="info_item"></span></p></a>

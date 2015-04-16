@@ -5080,19 +5080,19 @@ angular.module('donlerApp.controllers', [])
         else {
           team.rate = score_rank.win / totalCompetions * 100;
         }
-        var homeCourtText = '';
-        if (team.homeCourts.length === 0) {
-          homeCourtText = '无';
-        }
-        else {
-          for (var i = 0; i < team.homeCourts.length; i++) {
-            if (i !== 0) {
-              homeCourtText += '、';
-            }
-            homeCourtText += team.homeCourts[i].name;
-          }
-        }
-        team.homeCourtText = homeCourtText;
+        // var homeCourtText = '';
+        // if (team.homeCourts.length === 0) {
+        //   homeCourtText = '无';
+        // }
+        // else {
+        //   for (var i = 0; i < team.homeCourts.length; i++) {
+        //     if (i !== 0) {
+        //       homeCourtText += '、';
+        //     }
+        //     homeCourtText += team.homeCourts[i].name;
+        //   }
+        // }
+        // team.homeCourtText = homeCourtText;
         getSameTeam(team.groupType);
         $scope.isCompanyTeam = team.isCompanyTeam;
         if (!team.isCompanyTeam) {

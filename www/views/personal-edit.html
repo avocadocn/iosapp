@@ -28,7 +28,7 @@
         <textarea id="ta" rows="1" cols="24" placeholder="个人简介至长40字" name="introduce" ng-change="change();resizeTextarea()" maxlength="40" ng-model="formData.introduce" class="introduce"></textarea>
       </div>
       <div class="padding">
-        <button ng-disabled="unchanged || editForm.$invalid" ng-click="edit()" class="button button-block button-positive">确定</button>
+        <button ng-disabled="unchanged || editForm.$invalid" ng-click="edit()" class="button button-block save">确定</button>
       </div>
     </form>
   </ion-content>

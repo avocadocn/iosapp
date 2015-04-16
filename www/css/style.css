@@ -615,6 +615,7 @@ a.no_underline {
   position: relative;
   font-size: 14px;
   height: 130px;
+  border-bottom: 1px solid #ddd;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .cp_logos .team_logo {
   width: 60px;
@@ -745,7 +746,7 @@ a.no_underline {
   height: 65px;
 }
 .dl_campaign_detail .campaign_detail .item.campaign_content .content_simple {
-  max-height: 60px;
+  max-height: 50px;
   overflow-y: hidden;
   line-height: 24px;
 }
@@ -766,8 +767,18 @@ a.no_underline {
   margin-right: 20px;
 }
 .dl_campaign_detail .campaign_detail .item.item_header.campaign_theme {
-  font-size: 18px;
+  font-size: 16px;
   color: #202020;
+  border-bottom-width: 0;
+}
+.dl_campaign_detail .campaign_detail .item.item_header.campaign_theme:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border-bottom: 1px solid #ddd;
 }
 .dl_campaign_detail .campaign_detail .item .ion-chevron-right {
   float: right;
@@ -831,7 +842,7 @@ a.no_underline {
   display: -ms-flexbox;
   display: flex;
   padding: 0;
-  height: 40px;
+  height: 47px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col {
   -webkit-box-flex: 1;
@@ -842,7 +853,7 @@ a.no_underline {
   flex: 1;
   text-align: center;
   border-right: 1px solid #ccc;
-  padding: 7px 15px;
+  padding: 10px 15px;
   color: #666;
   height: 100%;
   line-height: 24px;
@@ -855,14 +866,11 @@ a.no_underline {
   width: 20px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col .svg_icon {
-  width: 18px;
-  height: 18px;
-  margin-right: 2px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
   margin-bottom: 2px;
   fill: #999;
-}
-.dl_campaign_detail .campaign_detail .campaign_footer .footer_col .discussion_icon {
-  margin-right: 6px;
 }
 .dl_campaign_detail .campaign_detail .campaign_footer .footer_col .member_num {
   color: #f07151;
@@ -2003,6 +2011,30 @@ a>.login .companies_list:activated {
 .discover .list {
   margin-top: 10px;
 }
+.discover .list .item {
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.discover .list .item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.discover .list .item:first-child {
+  border-top-width: 1px;
+}
+.discover .list .item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.discover .list .item:last-child:after {
+  content: none;
+  display: none;
+}
 .discover .list .item .icon {
   width: 3rem;
   font-size: 14px;
@@ -2379,7 +2411,6 @@ a>.login .companies_list:activated {
   padding-top: 12px;
   padding-bottom: 12px;
   padding-right: 36px;
-  border-bottom: 0;
 }
 .tab_company_page .list .staff_item .staff_photo {
   display: block;
@@ -2567,19 +2598,21 @@ a>.login .companies_list:activated {
   margin-top: 10px;
 }
 .personal .user_info .item_user {
-  padding-top: 15px;
-  padding-bottom: 12px;
+  padding: 15px 15px 15px 90px;
+  height: 90px;
 }
 .personal .user_info .item_user .avatar_photo {
-  max-width: 45px;
-  max-height: 45px;
-  width: 45px;
-  height: 45px;
+  position: absolute;
+  left: 15px;
+  width: 60px;
+  height: 60px;
   border-radius: 5px;
 }
 .personal .user_info .item_user .nickname {
   font-size: 14px;
   line-height: 24px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 .personal .user_info .item_user .introduce {
   font-size: 12px;
@@ -2792,6 +2825,9 @@ a>.login .companies_list:activated {
   color: #999;
   z-index: 1;
   font-size: 18px;
+}
+.edit_info .list .save {
+  background-color: #3ca2e0;
 }
 .edit_team_info .team-name {
   margin-bottom: 0px;
@@ -3140,9 +3176,33 @@ a>.login .companies_list:activated {
 .personal_team_list_page .scroll {
   height: 100%;
 }
+.personal_team_list_page .team_list {
+  margin-bottom: 0;
+}
 .personal_team_list_page .team_list_item {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 15px 0 15px 75px;
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.personal_team_list_page .team_list_item:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.personal_team_list_page .team_list_item:first-child {
+  border-top-width: 1px;
+}
+.personal_team_list_page .team_list_item:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.personal_team_list_page .team_list_item:last-child:after {
+  content: none;
+  display: none;
 }
 .personal_team_list_page .team_label {
   font-size: 12px;
@@ -3151,6 +3211,7 @@ a>.login .companies_list:activated {
   line-height: 18px;
   min-height: 0;
   color: #202020;
+  border-width: 0 0 2px 0;
 }
 .personal_team_list_page .team_logo {
   width: 45px !important;
@@ -4747,12 +4808,13 @@ a>.login .companies_list:activated {
   text-align: center;
 }
 .competition_message_panel .competition_message_list .type_filter .button {
-  border-bottom: 1px solid #ccc;
   opacity: 1;
   color: #666;
   height: 40px;
   min-height: 40px;
   line-height: 40px;
+  border-width: 1px 0 0;
+  border-color: #ddd;
 }
 .competition_message_panel .competition_message_list .type_filter .button.active {
   color: #3ca2e0;
@@ -4762,7 +4824,7 @@ a>.login .companies_list:activated {
   position: absolute;
   width: 1px;
   height: 30px;
-  background-color: #ccc;
+  background-color: #ddd;
   left: 50%;
   top: 5px;
 }
@@ -4772,10 +4834,37 @@ a>.login .companies_list:activated {
   background-color: #fff;
   text-align: center;
   font-size: 12px;
-  border-bottom: 1px solid #ccc;
   padding: 10px 5px 10px 15px;
   margin-top: 0;
   height: 67px;
+  position: relative;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0;
+  padding-bottom: 17px;
+}
+.competition_message_panel .competition_message_list .competition_message:after {
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  width: 100%;
+  content: '';
+  border: 1px solid #ddd;
+}
+.competition_message_panel .competition_message_list .competition_message:first-child {
+  border-top-width: 1px;
+}
+.competition_message_panel .competition_message_list .competition_message:last-child {
+  border-bottom-width: 1px;
+  padding-bottom: 16px;
+}
+.competition_message_panel .competition_message_list .competition_message:last-child:after {
+  content: none;
+  display: none;
+}
+.competition_message_panel .competition_message_list .competition_message:after {
+  border-top-width: 0;
 }
 .competition_message_panel .competition_message_list .competition_message .col_status {
   -webkit-box-flex: 0 0 27%;

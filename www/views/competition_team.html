@@ -14,7 +14,8 @@
       </div>
       <div class="list campaign_info">
         <div class="item"><span class="text_label">上次活动</span><span ng-if="targetTeam.last_campaign.start_time" ng-cloak="ng-cloak" class="text_data">{{ targetTeam.last_campaign.start_time | beforeNow}}</span><span ng-if="!targetTeam.last_campaign.start_time" ng-cloak="ng-cloak" class="text_data">无</span></div>
-        <div class="item"><span class="text_label">小队主场</span><span ng-bind="targetTeam.homeCourtText" class="text_data"></span></div>
+        <div ng-if="targetTeam.homeCourts.length&gt;0" class="item"><span class="text_label">小队主场一</span><span ng-bind="targetTeam.homeCourts[0].name" class="text_data"></span></div>
+        <div ng-if="targetTeam.homeCourts.length&gt;1" class="item"><span class="text_label">小队主场二</span><span ng-bind="targetTeam.homeCourts[1].name" class="text_data"></span></div>
       </div>
       <div ng-cloak="ng-cloak" ng-show="targetTeam &amp;&amp; !targetTeam.isCompanyTeam" class="list competition_timeline_card">
         <div class="item item-divider together_campaign"><span>共同活动</span>
