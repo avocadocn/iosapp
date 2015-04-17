@@ -29,7 +29,49 @@
     <script src="js/filters.js"></script>
   </head>
   <body ng-app="donlerApp">
-    <ion-nav-view></ion-nav-view><svg>
+    <div class="loading_svg"><svg viewBox="0 0 64 64">
+    <g stroke-width="4" stroke-linecap="round">
+        <line y1="17" y2="29" transform="translate(32,32) rotate(180)">
+            <animate attributeName="stroke-opacity" dur="750ms" values="1;.85;.7;.65;.55;.45;.35;.25;.15;.1;0;1" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(210)">
+            <animate attributeName="stroke-opacity" dur="750ms" values="0;1;.85;.7;.65;.55;.45;.35;.25;.15;.1;0" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(240)">
+            <animate attributeName="stroke-opacity" dur="750ms" values=".1;0;1;.85;.7;.65;.55;.45;.35;.25;.15;.1" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(270)">
+            <animate attributeName="stroke-opacity" dur="750ms" values=".15;.1;0;1;.85;.7;.65;.55;.45;.35;.25;.15" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(300)">
+            <animate attributeName="stroke-opacity" dur="750ms" values=".25;.15;.1;0;1;.85;.7;.65;.55;.45;.35;.25" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(330)">
+            <animate attributeName="stroke-opacity" dur="750ms" values=".35;.25;.15;.1;0;1;.85;.7;.65;.55;.45;.35" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(0)">
+            <animate attributeName="stroke-opacity" dur="750ms" values=".45;.35;.25;.15;.1;0;1;.85;.7;.65;.55;.45" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(30)">
+            <animate attributeName="stroke-opacity" dur="750ms" values=".55;.45;.35;.25;.15;.1;0;1;.85;.7;.65;.55" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(60)">
+            <animate attributeName="stroke-opacity" dur="750ms" values=".65;.55;.45;.35;.25;.15;.1;0;1;.85;.7;.65" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(90)">
+            <animate attributeName="stroke-opacity" dur="750ms" values=".7;.65;.55;.45;.35;.25;.15;.1;0;1;.85;.7" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(120)">
+            <animate attributeName="stroke-opacity" dur="750ms" values=".85;.7;.65;.55;.45;.35;.25;.15;.1;0;1;.85" repeatCount="indefinite"></animate>
+        </line>
+        <line y1="17" y2="29" transform="translate(32,32) rotate(150)">
+            <animate attributeName="stroke-opacity" dur="750ms" values="1;.85;.7;.65;.55;.45;.35;.25;.15;.1;0;1" repeatCount="indefinite"></animate>
+        </line>
+    </g>
+</svg>
+    </div>
+    <ion-nav-view></ion-nav-view>
+    <div class="svg_container"><svg>
     <symbol id="album" viewBox="-14.226 -11.958 28.451 23.916">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M-11.71-2.328l6.395,6.051l7.355-8.266l4.473,4.555l5.197-5.418 l-1.174-1.297L6.574-2.65l-3.26-3.272l1.975-2.243l-1.259-1.28L-5.43,0.798l-4.961-4.589L-11.71-2.328L-11.71-2.328z M2.021,0.129 c1.546,0,2.799,1.252,2.799,2.799c0,1.545-1.253,2.798-2.799,2.798c-1.545,0-2.798-1.253-2.798-2.798 C-0.777,1.381,0.476,0.129,2.021,0.129L2.021,0.129z M2.021,1.165c0.974,0,1.762,0.788,1.762,1.763 c0,0.973-0.789,1.762-1.762,1.762c-0.973,0-1.762-0.789-1.762-1.762C0.259,1.953,1.048,1.165,2.021,1.165z" transform="matrix(1 0 0 -1 0 0)"></path>
         <polygon fill-rule="evenodd" clip-rule="evenodd" stroke="#ababab" stroke-width="0.216" stroke-miterlimit="22.9256" points=" -14.118,11.85 14.118,11.85 14.118,-5.451 12.357,-5.451 12.357,10.373 -12.358,10.373 -12.358,-10.373 12.357,-10.373 12.357,-7.945 14.118,-7.945 14.118,-11.85 -14.118,-11.85 " transform="matrix(1 0 0 -1 0 0)"></polygon>
@@ -191,5 +233,6 @@
     </symbol>
     <path fill="#44A7DE" stroke="#44A7DE" stroke-width="0.216" stroke-miterlimit="22.9256" d="M84.219,233.488H73.263 c0-5.513,3.705-10.16,8.76-11.588c-3.164-1.313-5.39-4.43-5.39-8.068c0-4.819,3.909-8.729,8.729-8.729 c4.821,0,8.73,3.909,8.73,8.729c0,3.639-2.225,6.754-5.387,8.066c-3.499,0.398-6.217,3.371-6.217,6.977 C82.491,230.64,83.142,232.254,84.219,233.488L84.219,233.488z M86.946,233.925l-0.131-0.059l-0.92,2.035l0.86,0.384l0.92-2.035 l-0.122-0.055c2.838,1.079,6.058-0.234,7.313-3.041c1.299-2.909-0.007-6.32-2.914-7.619c-2.909-1.299-6.32,0.005-7.62,2.915 C83.078,229.256,84.249,232.531,86.946,233.925L86.946,233.925z M87.578,233.325c2.498,1.116,5.428-0.005,6.544-2.503 c1.114-2.498-0.005-5.428-2.503-6.544s-5.43,0.005-6.544,2.503C83.959,229.28,85.08,232.21,87.578,233.325z"></path>
 </svg>
+    </div>
   </body>
 </html>

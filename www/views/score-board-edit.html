@@ -41,7 +41,7 @@
       </div>
     </div>
     <div ng-if="allowEdit &amp;&amp; editing" class="item score_board_operator">
-      <button ng-click="initScore()" class="button">确认</button>
+      <button ng-click="initScore()" ng-disabled="checkScore()" class="button">确认</button>
     </div>
     <div ng-if="allowEdit &amp;&amp; !editing &amp;&amp; leaderStatus==='toConfirm'" class="item score_board_operator">
       <button ng-click="confirmScore()" class="button">同意</button>

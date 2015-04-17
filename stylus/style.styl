@@ -129,6 +129,26 @@ a.no_underline
     content " "
   &:after
     clear both
+    
+.loading_svg
+  position absolute
+  top 0
+  z-index -1
+  width 100%
+  height 100%
+  display -webkit-flex
+  display flex
+  -webkit-align-items center
+  align-items center
+  -webkit-justify-content center
+  justify-content center
+  svg
+    width 32px
+    height 32px
+    stroke gray
+
+.svg_container
+  display none
 
 // 默认的svg icon大小
 .svg_icon
@@ -1216,7 +1236,7 @@ a.no_underline
   background-color #000
   color white
   background-size 100% 0
-  border none
+  border-bottom none//@:android
   .tab-item
     position relative
     opacity 1
@@ -2914,10 +2934,34 @@ a.no_underline
           .calendar_campaign_join
             right 25%
             bottom 5px
+//@:android
+.platform-android
+  .popover-backdrop.active
+    .dl_popover
+      margin-top 12px
+      background-color rgba(0,0,0,0.7)
+    .popover-arrow
+      width 30px
+      height 19px
+      overflow hidden
+      display block
+      position absolute
+      &:after
+        position absolute
+        top 12px
+        left 5px
+        width 20px
+        height 20px
+        border-radius 3px
+        content ''
+        -webkit-transform rotate(-45deg)
+        transform rotate(-45deg)
+        background-color rgba(0,0,0,0.7) !important
 .dl_popover
   background-color rgba(0,0,0,0.7)
   border-radius 0 !important
   .dl_popover_content
+    margin 8px 10px//@:android
     .dl_popover_button
       color white
       height 30px
@@ -2936,7 +2980,6 @@ a.no_underline
   width 140px
   height 195px
   .dl_popover_content
-    margin 10px
     border-radius 0 !important
     .dl_popover_button
       background-color transparent
