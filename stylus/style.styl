@@ -2159,6 +2159,19 @@ a.no_underline
           flexValue(1)
           text-align center
           height 100%
+          position relative
+          &:after
+            content ''
+            position absolute
+            right 0
+            top 25%
+            height 20px
+            width 1px
+            background-color col_gray
+          &:last-child
+            &:after
+              content none
+              display none
           a
             font-size 14px
             height 30px
@@ -2173,7 +2186,10 @@ a.no_underline
             a
               color col_blue
       .tab_content
+        height 50px
+        background-color col_bottomGray
         .team_list
+          margin-top 1px
           .dl_team_card
             indentLine()
             margin -1px
@@ -2203,6 +2219,9 @@ a.no_underline
               padding 10px
               text-align center
               color col_textGray
+        .calendar_container
+          .calendar
+            margin-top 0
 //-编辑个人信息页
 .edit_info
   .list
@@ -3801,13 +3820,15 @@ a.no_underline
         &.active
           color col_blue
           border-bottom 4px solid col_blue
-      .splite
-        position absolute
-        width 1px
-        height 30px
-        background-color col_borderLight
-        left 50%
-        top 5px
+      &:first-child
+        &:after
+          content ''
+          position absolute
+          width 1px
+          height 20px
+          background-color col_borderLight
+          left 50%
+          top 25%
     .competition_message
       text-decoration none
       color col_textGray

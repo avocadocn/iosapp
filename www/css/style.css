@@ -2778,6 +2778,20 @@ a>.login .companies_list:activated {
   flex: 1;
   text-align: center;
   height: 100%;
+  position: relative;
+}
+.personal .user_header .tab_view .nav .tab_style:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 20px;
+  width: 1px;
+  background-color: #f2f2f5;
+}
+.personal .user_header .tab_view .nav .tab_style:last-child:after {
+  content: none;
+  display: none;
 }
 .personal .user_header .tab_view .nav .tab_style a {
   font-size: 14px;
@@ -2794,6 +2808,13 @@ a>.login .companies_list:activated {
 }
 .personal .user_header .tab_view .nav .tab_style.active a {
   color: #3ca2e0;
+}
+.personal .user_header .tab_view .tab_content {
+  height: 50px;
+  background-color: #f7f7f7;
+}
+.personal .user_header .tab_view .tab_content .team_list {
+  margin-top: 1px;
 }
 .personal .user_header .tab_view .tab_content .team_list .dl_team_card {
   border-width: 0;
@@ -2849,6 +2870,9 @@ a>.login .companies_list:activated {
   padding: 10px;
   text-align: center;
   color: #666;
+}
+.personal .user_header .tab_view .tab_content .calendar_container .calendar {
+  margin-top: 0;
 }
 .edit_info .list {
   padding-top: 10px;
@@ -5013,13 +5037,14 @@ a>.login .companies_list:activated {
   color: #3ca2e0;
   border-bottom: 4px solid #3ca2e0;
 }
-.competition_message_panel .competition_message_list .type_filter .splite {
+.competition_message_panel .competition_message_list .type_filter:first-child:after {
+  content: '';
   position: absolute;
   width: 1px;
-  height: 30px;
+  height: 20px;
   background-color: #ddd;
   left: 50%;
-  top: 5px;
+  top: 25%;
 }
 .competition_message_panel .competition_message_list .competition_message {
   text-decoration: none;
