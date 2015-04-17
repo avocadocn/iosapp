@@ -789,6 +789,16 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           if(scope.editing)
             scope.nowTab=nowTab;
         }
+        scope.checkScore = function () {
+          switch(scope.nowTab) {
+            case 'score':
+              return scope.scores[0]==undefined || scope.scores[1]==undefined;
+              break;
+            case 'result':
+              return scope.results[0]==undefined || scope.results[1]==undefined;
+              break;
+          }
+        }
         var getScoreBoardData = function () {
           ScoreBoard.getScore(scope.componentId, function (err, scoreBoardData) {
             if (err) {
@@ -797,6 +807,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
               scope.scoreBoard = scoreBoardData;
               scope.scores = [];
               scope.results = [];
+              scope.allow
               for (var i = 0; i < scope.scoreBoard.playingTeams.length; i++) {
                 var playingTeam = scope.scoreBoard.playingTeams[i];
                 scope.scores.push(playingTeam.score);
@@ -848,6 +859,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         scope.componentId && getScoreBoardData();
         scope.$watch('reloadFlag',function (newVal) {
           if(newVal){
+            scope.editing = false;
+            scope.allowEdit = false;
+            scope.allowManage = false;
             if(scope.editModal){
               scope.editModal.remove();
             }
