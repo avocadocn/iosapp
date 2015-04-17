@@ -725,7 +725,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       restrict: 'E',
       scope: {
         componentId: '=',
-        campaign:'='
+        campaign:'=',
+        reloadFlag:'='
       },
       templateUrl: './views/score-board.html',
       link: function (scope, element, attrs, ctrl) {
@@ -838,10 +839,16 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                   scope.editModal.show();
                 }
               }
+              console.log(1);
             }
           });
         };
         scope.componentId && getScoreBoardData();
+        scope.$watch('reloadFlag',function (newVal) {
+          if(newVal){
+            scope.componentId && getScoreBoardData();
+          }
+        })
         /**
          * 设置胜负结果
          * @param {Number} result -1, 0, 1

@@ -7,7 +7,7 @@
     <ion-refresher refreshing-icon="ion-looping" on-refresh="doRefresh()"></ion-refresher>
     <div ng-if="campaign" class="campaign_detail">
       <div ng-if="campaign.campaign_unit.length==2" class="item item_header campaign_theme"><span ng-bind="campaign.theme"></span></div>
-      <score-board ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign"></score-board>
+      <score-board ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign" reload-flag="reloadFlag"></score-board>
       <div ng-if="campaign.campaign_unit.length==1" class="campaign_info">
         <div class="cp_logos logos_{{campaign.campaign_unit.length}}"><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60" class="team_logo"/></a></div>
         <div ng-cloak="ng-cloak" class="campaign_theme"> {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</div>

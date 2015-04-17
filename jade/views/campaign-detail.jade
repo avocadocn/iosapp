@@ -8,7 +8,7 @@ ion-view.dl_campaign_detail
     .campaign_detail(ng-if="campaign")
       .item.item_header.campaign_theme(ng-if="campaign.campaign_unit.length==2")
         span(ng-bind="campaign.theme")
-      score-board(ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign")
+      score-board(ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign" reload-flag="reloadFlag")
       .campaign_info(ng-if="campaign.campaign_unit.length==1" )
         .cp_logos(class="logos_{{campaign.campaign_unit.length}}")
           a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")

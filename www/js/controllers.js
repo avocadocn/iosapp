@@ -291,6 +291,7 @@ angular.module('donlerApp.controllers', [])
     };
     $scope.doRefresh= function () {
       $state.reload();
+      $scope.reloadFlag= !!$scope.scoreBoardId;
     }
     $scope.cid = localStorage.cid;
     var setMembers = function () {
@@ -403,6 +404,7 @@ angular.module('donlerApp.controllers', [])
           data.components && data.components.forEach(function(component, index){
             if(component.name=='ScoreBoard') {
               $scope.scoreBoardId =component._id;
+              $scope.reloadFlag= false;
             }
           });
         }
