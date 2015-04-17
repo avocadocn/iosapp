@@ -1,0 +1,26 @@
+a.item.dl_timeline_card.campaign_card_container(ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}")
+  .campaign_card.clearfix
+    .dl_card_content.clearfix
+      .dl_cp_logos(class="logos_{{campaign.campaign_unit.length}}")
+        img.dl_team_logo.lazyload(ng-repeat="campaign_unit in campaign.campaign_unit" data-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60")
+        .provoke_label(ng-if="campaign.campaign_type===4 || campaign.campaign_type===5")
+          span 挑战
+        .fellowship_label(ng-if="campaign.campaign_type===7")
+          span 联谊 
+      .dl_cp_texts
+        p.dl_cp_name
+          span {{campaign.theme}}
+        p.dl_cp_time
+          //-i.icon.icon_small.ion_time
+          svg.svg_icon.cp_info_icon
+            use(xlink:href="#time")
+          span.dl_cp_text {{campaign.start_time | date:"M月d日"}}
+        p.dl_cp_address
+          //-i.icon.icon_small.ion_address
+          svg.svg_icon.cp_info_icon
+            use(xlink:href="#location")
+          span.dl_cp_text {{campaign.location.name}}
+      .dl_card_member
+        p.dl_cp_member
+          span.dl_cp_text.number {{campaign.members_count || '0'}} 
+        p 人

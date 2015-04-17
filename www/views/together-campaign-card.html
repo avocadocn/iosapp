@@ -1,0 +1,26 @@
+<a ng-class="{'remove':campaign.remove}" ng-href="#/campaign/detail/{{campaign._id}}" class="item dl_timeline_card campaign_card_container">
+  <div class="campaign_card clearfix">
+    <div class="dl_card_content clearfix">
+      <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" data-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)}}/60/60" class="dl_team_logo lazyload"/>
+        <div ng-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="provoke_label"><span>挑战</span></div>
+        <div ng-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div>
+      </div>
+      <div class="dl_cp_texts">
+        <p class="dl_cp_name"><span>{{campaign.theme}}</span></p>
+        <p class="dl_cp_time">
+          <svg class="svg_icon cp_info_icon">
+            <use xlink:href="#time"></use>
+          </svg><span class="dl_cp_text">{{campaign.start_time | date:"M月d日"}}</span>
+        </p>
+        <p class="dl_cp_address">
+          <svg class="svg_icon cp_info_icon">
+            <use xlink:href="#location"></use>
+          </svg><span class="dl_cp_text">{{campaign.location.name}}</span>
+        </p>
+      </div>
+      <div class="dl_card_member">
+        <p class="dl_cp_member"><span class="dl_cp_text number">{{campaign.members_count || '0'}} </span></p>
+        <p>人</p>
+      </div>
+    </div>
+  </div></a>

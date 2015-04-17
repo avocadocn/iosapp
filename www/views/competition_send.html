@@ -1,0 +1,31 @@
+
+<ion-view class="competition_message_panel">
+  <ion-header-bar><a ng-click="goBack()" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">发送挑战信</h1><a ng-click="publishMessage()" class="button button-clear button-positive">&nbsp;发布</a>
+  </ion-header-bar>
+  <ion-content>
+    <div class="competition_send competition_message_detail">
+      <div class="row competition_teams">
+        <div class="col team sponsor_team">
+          <div class="team_title">发起方</div>
+          <div class="team_content"><a ng-if="cid==fromTeam.cid" ng-href="#/team/{{fromTeam._id}}"><img ng-src="{{STATIC_URL + fromTeam.logo}}/60/60" class="team_logo"/></a><img ng-if="cid!==fromTeam.cid" ng-src="{{STATIC_URL + fromTeam.logo}}/40/40" class="team_logo"/>
+            <div class="team_name">{{fromTeam.name}}</div>
+          </div>
+        </div>
+        <div ng-cloak="ng-cloak" class="col col-10 vs col-center"><span class="competition_type">{{messageData.type==1 ? '挑战' :'联谊'}}</span></div>
+        <div class="col team opposite_team">
+          <div class="team_title">接受方</div>
+          <div class="team_content"><a ng-if="cid==targetTeam.cid" ng-href="#/team/{{targetTeam._id}}"><img ng-src="{{STATIC_URL + targetTeam.logo}}/40/40" class="team_logo"/></a><img ng-if="cid!==targetTeam.cid" ng-src="{{STATIC_URL + targetTeam.logo}}/40/40" class="team_logo"/>
+            <div class="team_name">{{targetTeam.name}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="item item-divider">选择活动类型</div>
+      <ion-radio ng-model="messageData.type" name="type" value="2" class="competition_type_select"><span class="type_content">联谊</span><span class="tips">没有积分</span></ion-radio>
+      <ion-radio ng-model="messageData.type" name="type" value="1" class="competition_type_select"><span class="type_content">挑战</span><span class="tips">有积分，胜3分，平1分，负0分</span></ion-radio>
+      <div class="item">
+        <textarea ng-model="messageData.content" rows="5" placeholder="写点什么给对方把吧：建议先约一下时间、地点，在对方接受您的挑战后，就可以发起活动啦" required="required" maxlength="200"></textarea>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

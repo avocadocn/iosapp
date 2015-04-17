@@ -1,22 +1,18 @@
-ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
+ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
   ion-header-bar
-    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title(ng-cloak) {{campaignTitle}}
-    a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
-  .notice(ng-class="{show:showNotice===true}" ng-show="!hideNotice&&notification" ng-cloak)
-    .notice_cover(ng-cloak)
-    .content(ng-cloak)
-      span.notice_title 活动公告
-      button.dl_button.close_button.pull-right(ng-click="hideNotice=true") &times;
-      span.notice_content(ng-cloak) {{noticeSender}}:{{notification}}
+    a.button.icon-left.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
+    h1.title(ng-cloak) {{chatroomName}}
+    a.teams_icon.icon-right(ng-if="chatroomId!==cid" href="#/team/{{chatroomId}}")
+      svg.svg_icon
+        use(xlink:href="#suoyouxiaodui")
   //- .balloon.has-footer(ng-if="newCommentNumber" ng-click="toBottom()" ng-cloak) 
   //-   span(ng-cloak) {{newCommentNumber}}
   //-   .triangle
   ion-content
     ion-refresher(on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .comments(ng-click="hideEmotions()")
-      .blocks(ng-repeat="comments in commentList track by $index" id="comment{{$index}}")
-        .block(ng-repeat="comment in comments track by $index" ng-init="showTime=needShowTime($index,comments)" ng-cloack)
+      .blocks(ng-repeat="chats in chatsList track by $index" id="chats{{$index}}")
+        .block(ng-repeat="comment in chats track by $index" ng-init="showTime=needShowTime($index,chats)" ng-cloack)
           .time_block(ng-show="showTime && ($index!==0||($index===0&&topShowTime[$parent.$index]))")
             p
               span.time(ng-show="showTime===1 && ($index!==0||($index===0&&topShowTime[$parent.$index]===1))" ng-cloak) {{comment.create_date | date: 'yyyy'}}
@@ -36,35 +32,33 @@ ion-view.discuss_detail(cache-view="false" title="{{campaignTitle}}")
                   .box
                     img.img(ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo error-img)
                     img.img(ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180")
-          .comment.clearfix(ng-class="{putright: comment.poster._id == userId}" ng-if="comment.content" ng-cloak)
-            a.logo(ng-href="#/user/{{comment.poster._id}}")
+          .comment.clearfix(ng-if="comment.chat_type!==1 || comment.content" ng-class="{putright: comment.poster._id == userId}" ng-cloak)
+            a.logo(ng-if="comment.poster && !comment.poster_team" ng-href="#/user/{{comment.poster._id}}")
               img(ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
+            a.logo(ng-if="comment.poster_team" ng-href="#/team/{{comment.poster_team._id}}")
+              img(ng-src="{{STATIC_URL +comment.poster_team.logo+ '/45/45'}}")
             .contents
-              .name(ng-if="comment.poster._id !== userId" ng-cloak) {{comment.poster.nickname}}
-              .name(ng-if="comment.poster._id == userId" ng-cloak) 我
-              .content
+              //- .name(ng-if="comment.poster_team" ng-cloak) {{comment.poster_team.name}}
+              .name(ng-if="comment.poster &&comment.poster._id !== userId" ng-cloak) {{comment.poster.nickname}}
+              .name(ng-if="comment.poster && comment.poster._id == userId && competition_message.chat_type===1" ng-cloak) 我
+              .remind_box.clearfix(ng-if="comment.chat_type>1")
+                a.no_underline(ng-href="{{ comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id : comment.chat_type===7?'#/campaign/detail/'+comment.campaign:'#/competition_message/detail/' + comment.competition_message }}")
+                  .remind_box_head
+                    span {{comment.chat_type | remindWordsFormat : comment.competition_type}}
+                  .remind_box_content.clearfix
+                    .team_logo: img.team_logo(ng-src="{{STATIC_URL +comment.opponent_team.logo + '/45/45'}}")
+                    .text
+                      .tname {{comment.opponent_team.name}}
+                      .cname {{comment.opponent_team.cname}}
+              .content(ng-if="comment.chat_type===1")
                 .triangle_isosceles(ng-bind-html="comment.content | emoji | unsafe")
           .failed(ng-if="comment.failed" ng-cloak)
             .tip
               i.icon.ion-alert-circled
               span 发送失败
 
-    //- ion-infinite-scroll(ng-if="!loading" on-infinite="refresh()" distance="-5%")
   ion-footer-bar.comment_box
-    form(name="comment_form")
-      i.icon.ion-image(ng-click="showUploadActionSheet()")
-      .input_area
-        textarea#ta.comment_input(rows="1" cols="32" ng-model="commentContent" required ng-maxlength="140" contentEditable="true" ng-focus="hideEmotions();isWriting=true;" ng-blur="isWriting=false;" ng-change="resizeTextarea()")
-        button.dl_button.emotion_button(ng-click="showEmotions()" prevent-default)
-          i.emoji.emoji_tongue
-        .input_bottom
-      button.publish_button(ng-click="hideEmotions();publishComment()" ng-disabled="comment_form.$invalid") 发言
-
-      ion-slide-box.emotion_box(ng-if="isShowEmotions")
-        ion-slide(ng-repeat="emoji in emojiList")
-          .box.clearfix
-            .emotion(ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)")
-              i(class="emoji {{'emoji_'+emotion}}" )
+    publish-box(is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publish()" show-upload-action-sheet="showUploadActionSheet()")
 
   script(id="confirm-upload-modal.html" type="text/ng-template")
     ion-modal-view

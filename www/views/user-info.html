@@ -1,40 +1,70 @@
 
 <ion-view class="personal">
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">用户信息</h1><a ng-click="showPopover($event)" class="button icon ion-more"></a>
+    <h1 ng-cloak="ng-cloak" class="title">{{user.nickname}}</h1><a ng-click="showPopover($event)" class="button icon ion-more"></a>
   </ion-header-bar>
   <ion-content>
-    <div class="card user_card">
-      <div class="item item-avatar"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/90/90" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo"/>
-        <h2>{{user.nickname}}</h2>
-        <p ng-cloak="ng-cloak">姓名: {{user.realname || '-'}}</p>
+    <div class="user_header"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/330/200" class="img_container"/>
+      <div class="user_card"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo" class="user_logo"/>
+        <div ng-cloak="ng-cloak" class="user_name">{{user.nickname}}
+        </div>
+        <div ng-cloak="ng-cloak" class="user_realname">{{user.department.name}}&nbsp;&nbsp; {{user.realname || '-'}}</div>
+        <div ng-cloak="ng-cloak" class="user_introduce">简介:{{user.introduce || '无'}}</div>
       </div>
-      <div ng-cloak="ng-cloak" class="item statistics">
-        <div class="row"><a ng-href="#/personal/teams/{{user._id}}" class="col col-33">
-            <p class="number">{{user.tids.length}}</p>
-            <p class="key">小队</p></a><a ng-href="#/user/{{user._id}}/timeline" class="col col-33">
-            <p class="number">{{user.campaignCount}}</p>
-            <p class="key">活动</p></a>
-          <div class="col col-33">
-            <p class="number">{{user.score}}</p>
-            <p class="key">积分</p>
+      <div class="tab_view">
+        <div class="nav">
+          <div ng-class="{'active':nowTab=='team'}" class="tab_style"><a ng-click="changeFilter('team')"> <span>参加的小队</span></a></div>
+          <div ng-class="{'active':nowTab=='circle'}" class="tab_style"><a ng-click="changeFilter('circle')"> <span>精彩瞬间</span></a></div>
+          <div ng-class="{'active':nowTab=='campaign'}" class="tab_style"><a ng-click="changeFilter('campaign')"> <span>活动</span></a></div>
+        </div>
+        <div class="tab_content">
+          <div ng-if="nowTab=='team'" class="team_list"><a ng-repeat="team in myTeams" ng-href="#/team/{{team._id}}" ng-cloak="ng-cloak" class="dl_team_card clearfix"><img ng-src="{{STATIC_URL + team.logo}}/120/120" class="team_logo"/>
+              <div class="team_info">
+                <h2 class="team_name">{{team.name}}</h2>
+                <p class="team_count"><span class="team_member">队员：{{team.memberCount}}</span><span ng-if="team.campaignCount" class="team_cp_number">活动：{{team.campaignCount}}</span><span class="team_cp_number">积分：{{team.score.total}}</span></p>
+              </div></a></div>
+          <div ng-if="nowTab=='circle'" class="circle_list">
+            <circle-card-list circle-list="circleContentList" user="user" kind="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL" class="dl_circle_card_list"></circle-card-list>
+            <div ng-if="loadingStatus.hasInit &amp;&amp; circleContentList.length === 0" class="no_moment_remind">您还没有发过精彩瞬间，快去活动页发表吧。</div>
+            <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+          </div>
+          <div ng-if="nowTab=='campaign'" class="calendar_container">
+            <div class="calendar other">
+              <nav>
+                <div ng-if="view==='month'" class="operator item tabs">
+                  <div ng-click="preMonth()" class="tab-item"><i class="icon icon_small icon_blue icon_margin_left ion-chevron-left"></i></div>
+                  <div class="tab-item icon_blue">{{ current_year }} - {{ current_month.format_month }}</div>
+                  <div ng-click="nextMonth()" class="tab-item"><i class="icon icon_small icon_blue icon_margin_right ion-chevron-right"></i></div>
+                </div>
+                <div ng-if="view!=='year'" class="week text-center clearfix">
+                  <div class="day">日</div>
+                  <div class="day">一</div>
+                  <div class="day">二</div>
+                  <div class="day">三</div>
+                  <div class="day">四</div>
+                  <div class="day">五</div>
+                  <div class="day">六</div>
+                </div>
+              </nav>
+              <div ng-class="{full_box: view==='year'}" class="calendar_box">
+                <div ng-if="view==='month'" class="calendar_month clearfix">
+                  <ion-scroll direction="x" scrollbar-x="false">
+                    <div detect-gestures="detect-gestures" gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth" class="clearfix">
+                      <div ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true, calendar_current_month: day.is_current_month===true}" class="calendar_day text-center">
+                        <div class="calendar_date">{{ day.date }} </div><span ng-if="day.joined_events.length&gt;0" class="calendar_campaign_join">{{day.joined_events.length}}</span>
+                      </div>
+                    </div>
+                  </ion-scroll>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="item">
-        <p ng-if="user.introduce" ng-cloak="ng-cloak" class="introduce"><span class="title">简介：</span><span class="content">{{user.introduce}}</span></p>
-        <p ng-if="user.department" ng-cloak="ng-cloak">部门：{{user.department.name}}</p>
-        <p ng-if="!user.department" ng-cloak="ng-cloak">部门：无</p>
-        <p ng-if="user.sex">性别：{{user.sex}}</p>
-        <p ng-if="user.birthday" ng-cloak="ng-cloak">生日：{{user.birthday | date:'yyyy-MM-dd'}}</p>
-        <p ng-if="constellation">星座：{{constellation}}</p>
-        <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p>
-        <p ng-cloak="ng-cloak">手机：{{user.phone || '-'}}</p>
-        <p ng-if="user.qq">Q Q ：{{user.qq}}</p>
-      </div>
-      <div class="item tabs"><a ng-href="#/user/{{user._id}}/timeline" class="tab-item">活动足迹</a></div>
     </div>
   </ion-content>
+  <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment"></circle-comment-box>
+  <photo-swipe ctrl="pswpCtrl"></photo-swipe>
   <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" class="pswp">
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">

@@ -1,0 +1,16 @@
+ion-view.circle_reminds_page
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title 消息提醒
+  ion-content
+    .list
+      .item(ng-if="remindList.length === 0")
+        p.text-center 没有新的提醒了
+      a.item.item-avatar.remind_item(ng-repeat="remind in remindList" ng-href="#/circle/circle_content/{{remind.targetContent._id}}")
+        img(ng-src="{{STATIC_URL + remind.poster.photo}}/128/128")
+        h2 {{remind.poster.nickname}}
+        p(ng-if="remind.kind === 'comment'" ng-cloak ng-bind="remind.content")
+        p(ng-if="remind.kind === 'appreciate'" ng-cloak)
+          i.ion-heart
+        p.item_date(ng-bind-template="{{remind.post_date | circleBeforeNow}}")
+        img.content_preview(ng-if="remind.targetContent.photos && remind.targetContent.photos.length > 0" ng-src="{{STATIC_URL + remind.targetContent.photos[0].uri}}/128/128")

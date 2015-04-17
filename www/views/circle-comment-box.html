@@ -1,0 +1,18 @@
+
+<form name="commentForm" mix-max-length="80" ng-if="isCommenting" ng-class="{'show_emotion_box': isShowEmotions}" class="bar bar-footer item-input-inset circle_comment_box">
+  <div class="item-input-wrapper">
+    <svg class="svg_icon">
+      <use xlink:href="#smile"></use>
+    </svg>
+    <div ng-click="toggleEmotions()" class="emoji_click_wrap"></div>
+    <input type="text" ng-model="commentFormData.content" when-focus="isCommenting" ng-focus="hideEmotions()" placeholder="{{placeholderText}}" mix-max-length="80"/>
+  </div>
+  <button ng-click="postComment()" ng-disabled="commentForm.$invalid" class="button button-clear">发表</button>
+</form>
+<ion-slide-box ng-if="isShowEmotions" class="circle_emotion_box">
+  <ion-slide ng-repeat="emoji in emojiList">
+    <div class="box clearfix">
+      <div ng-repeat="emotion in emoji" ng-click="addEmotion(emotion)" class="emotion"><i class="emoji {{'emoji_'+emotion}}"></i></div>
+    </div>
+  </ion-slide>
+</ion-slide-box>

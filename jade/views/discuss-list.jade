@@ -1,30 +1,31 @@
 ion-view.discuss_list(ng-controller="DiscussListController")
 
   ion-header-bar
-    a.button.icon.ion-calendar(href="#/calendar/discuss_list")
+    a.button(href="#/calendar/discuss_list")
+      svg.svg_icon.svg_nav_icon
+        use(xlink:href="#richeng")
     h1.title 讨论列表
     //- a.button.icon.ion-plus(href="#/campaign/sponsor/discuss_list")
 
   ion-content
     ion-refresher(on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
-    ul.list
-      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index<unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak)
-        img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
-        .red_spot(ng-if="commentCampaign.unread")
-        h2 {{commentCampaign.theme}}
-        p
-          span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
-          span(ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe") 
-      a.item.item-avatar(ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined" ng-click="")
-        img.unjoined(src="img/icons/unjoined_discuss.png")
-        .red_spot(ng-if="newUnjoined")
-        h2 其它小队讨论
-        p
-          span {{latestUnjoinedCampaign.theme}}
-      a.item.item-avatar(ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index>=unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak)
-        img(ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}")
-        .red_spot(ng-if="commentCampaign.unread")
-        h2 {{commentCampaign.theme}}
-        p
-          span(ng-show="commentCampaign.unread") [{{commentCampaign.unread}}条新评论]
-          span(ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe") 
+    ul.list(ng-cloak ng-if="chatrooms.length")
+      .custom_items(ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak)
+        a.item.item-avatar_custom
+          img(ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}")
+          img(ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png")
+          .red_spot(ng-if="chatroom.unread")
+          h2(ng-cloak) {{chatroom.name}}
+          p.chat_pre(ng-if="chatroom.latestChat" ng-cloak)
+            span(ng-show="chatroom.unread") [{{chatroom.unread}}条新消息] 
+            span(ng-cloak) {{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:
+            span(ng-cloak ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe")
+            span(ng-cloak ng-if="!chatroom.latestChat.content") {{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}
+        .custom_border(ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}")
+    .no_campaign(ng-cloak ng-if="loadFinished && !chatrooms.length")
+      a.no_campaign_tip.no_underline(href="#/company/teams/official")
+          p 没有参加小队?
+          p 参加小队后一起讨论吧！
+          p.button_container
+            //- span.tip_info 点击
+            span.team_link 全部小队

@@ -1,0 +1,18 @@
+
+<ion-view class="search_opponent">
+  <ion-header-bar><a href="#/app/discover" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">找对手</h1>
+  </ion-header-bar>
+  <ion-content>
+    <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
+    <div class="select_team">
+      <div ng-if="leadTeams.length&gt;0" class="item item-divider">为我管理的小队找对手</div>
+      <div ng-if="leadTeams.length&gt;0" class="units clearfix"><a ng-repeat="team in leadTeams" ng-class="{'leader':team.isLeader}" ng-href="#/discover/search_opponent/{{team._id}}" class="unit"><img ng-src="{{STATIC_URL + team.logo}}/45/45" class="logo"/>
+          <div class="text">{{team.name }}</div></a></div>
+      <div ng-if="memberTeams.length&gt;0" class="item item-divider clear_both">为我参加的小队推荐对手</div>
+      <div ng-if="memberTeams.length&gt;0" class="units clearfix"><a ng-repeat="team in memberTeams" ng-class="{'leader':team.isLeader}" ng-href="#/discover/search_opponent/{{team._id}}" class="unit"><img ng-src="{{STATIC_URL + team.logo}}/45/45" class="logo"/>
+          <div class="text">{{team.name }}</div></a></div>
+    </div>
+    <div ng-if="!leadTeams.length &amp;&amp; !memberTeams.length" ng-cloak="ng-cloak" class="dl_bottom_operator"><span>您加入小队后才可以找对手</span></div>
+  </ion-content>
+</ion-view>

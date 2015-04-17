@@ -1,20 +1,16 @@
 
-<ion-view>
+<ion-view class="personal_invite_code_page">
   <ion-header-bar><a href="#/app/personal" class="button icon ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">激活码</h1>
+    <h1 class="title">二维码</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="card list invite_key">
-      <div class="item item-text-wrap">动梨活动助理是一个需要严格的身份验证的应用，您有两种方法来邀请您的同事进行注册：</div>
+    <div class="list">
+      <div class="item item-text-wrap description_item">动梨是一个要求严格身份验证的社区，您的同事可以扫描您的二维码名片，使用与您相同后缀的的企业邮箱完成注册。</div>
     </div>
-    <div class="card list invite_key">
-      <div class="item item-text-wrap">1、分享该激活码给同事，在app或者网站上进行注册</div>
-      <div ng-cloak="ng-cloak" class="item item-icon-right">{{inviteKey}}<i ng-click="copy()" class="icon ion-clipboard"></i></div>
-    </div>
-    <div class="card list invite_key">
-      <div class="item item-text-wrap">2、扫一扫无需输入激活码直接注册</div>
+    <div class="list">
+      <div class="item header">扫一扫直接注册</div>
       <div class="item">
-        <div id="inviteKeyQrCode"></div>
+        <div id="inviteKeyQrCode" class="invite_key_qr_code"></div>
       </div>
     </div>
   </ion-content>

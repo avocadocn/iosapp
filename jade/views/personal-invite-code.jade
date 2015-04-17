@@ -1,21 +1,13 @@
-ion-view
+ion-view.personal_invite_code_page
   ion-header-bar
     a.button.icon.ion-chevron-left(href="#/app/personal") &nbsp;返回
-    h1.title 激活码
+    h1.title 二维码
   ion-content
-    .card.list.invite_key
-      .item.item-text-wrap
-        | 动梨活动助理是一个需要严格的身份验证的应用，您有两种方法来邀请您的同事进行注册：
-    .card.list.invite_key
-      .item.item-text-wrap
-        | 1、分享该激活码给同事，在app或者网站上进行注册
-      .item.item-icon-right(ng-cloak)
-        | {{inviteKey}}
-        i.icon.ion-clipboard(ng-click="copy()")
-      
-    .card.list.invite_key
-      .item.item-text-wrap
-        | 2、扫一扫无需输入激活码直接注册
+    .list
+      .item.item-text-wrap.description_item
+        | 动梨是一个要求严格身份验证的社区，您的同事可以扫描您的二维码名片，使用与您相同后缀的的企业邮箱完成注册。
+    .list
+      .item.header
+        | 扫一扫直接注册
       .item
-        #inviteKeyQrCode
-      
+        #inviteKeyQrCode.invite_key_qr_code

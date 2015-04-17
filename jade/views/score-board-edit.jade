@@ -1,0 +1,54 @@
+ion-modal-view
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="closeModal()") &nbsp;返回
+    h1.title 比分确认
+  ion-content.score_board
+    .item.row.competition_teams
+      .vs_title
+        span.v V
+        span.s S
+      .col.team.sponsor_team
+        .team_title
+          span 发起方
+        .team_content
+          img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo}}/40/40")
+          .team_name {{scoreBoard.playingTeams[0].name}}
+          .score(ng-if="scoreBoard.status==2 && results[0]==undefined && scores[0]!=undefined") {{scores[0]}}
+          .score(ng-if="scoreBoard.status==2 && results[0]!=undefined") {{results[0] | scoreResultFormat}}
+      .col.col-10.vs.col-center(ng-cloak)
+        span.score(ng-if="scoreBoard.status==2 &&(scoreBoard.scores.length>=0 ||results.length>0)") :
+      .col.team.opposite_team
+        .team_title
+          span 接受方
+        .team_content
+          img.team_logo(ng-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo}}/40/40")
+          .team_name {{scoreBoard.playingTeams[1].name}}
+          .score(ng-if="scoreBoard.status==2 &&results[1]==undefined && scores[1]!=undefined") {{scores[1]}}
+          .score(ng-if="scoreBoard.status==2 &&results[1]!=undefined") {{results[1] | scoreResultFormat}}
+    .tab_view
+      .nav
+        .tab_style(ng-class="{'active':nowTab=='score'}")
+          a(ng-click="changeFilter('score')") 
+            span 输入比分
+        .tab_style(ng-class="{'active':nowTab=='result'}")
+          a(ng-click="changeFilter('result')") 
+            span 输入结果
+    label.item.input_score.item-input(ng-repeat="playingTeam in scoreBoard.playingTeams" ng-if="nowTab=='score'")
+      span.input-label {{$index==0 ?'发起方':'接受方'}}
+      input.result(type="number" name="theme" placeholder="{{playingTeam.score||'输入比分'}}" ng-model="scores[$index]" ng-disabled="!editing")
+    .item.input_score.item-input(ng-repeat="playingTeam in scoreBoard.playingTeams" ng-if="nowTab=='result'")
+      span.input-label {{$index==0 ?'发起方':'接受方'}}
+      .results
+        button.button.button-clear.result(ng-disabled="!editing" ng-click="setResult(1, $index)" ng-class="{'button-assertive': results[$index]===1}") 胜
+        button.button.button-clear.result(ng-disabled="!editing" ng-click="setResult(0, $index)" ng-class="{'button-assertive': results[$index]===0}") 平
+        button.button.button-clear.result(ng-disabled="!editing" ng-click="setResult(-1, $index)" ng-class="{'button-assertive': results[$index]===-1}") 负
+    .item.score_board_operator(ng-if="allowEdit && editing")
+      button.button(ng-click="initScore()") 确认
+    .item.score_board_operator(ng-if="allowEdit && !editing && leaderStatus==='toConfirm'")
+      button.button(ng-click="confirmScore()") 同意
+    .item.score_board_operator(ng-if="allowEdit && !editing && leaderStatus==='toConfirm'")
+      button.button.cancel(ng-click="toggleEdit()") 不同意
+    .item.score_board_footer
+      .remind_text(ng-if="scoreBoard.status===0") 等待设置比分
+      .remind_text(ng-if="scoreBoard.status===1") 比分待确认
+      .remind_text(ng-if="scoreBoard.status===2") 比分已确认

@@ -1,0 +1,14 @@
+
+<ion-view class="circle_content_detail_page">
+  <ion-header-bar>
+    <button ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</button>
+    <h1 class="title">详情</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div ng-if="circle">
+      <circle-card circle="circle" ctrl="circleCardCtrl" user="user" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" on-delete="onDelete" static-url="STATIC_URL"></circle-card>
+    </div>
+  </ion-content>
+  <circle-comment-box ctrl="circleCommentBoxCtrl"></circle-comment-box>
+  <photo-swipe ctrl="pswpCtrl"></photo-swipe>
+</ion-view>

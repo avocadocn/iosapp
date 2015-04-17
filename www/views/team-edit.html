@@ -3,7 +3,7 @@
   <ion-header-bar><a ng-if="!editing" ng-href="#/team/{{team._id}}" ng-cloak="ng-cloak" class="button icon ion-chevron-left">&nbsp;返回</a>
     <button ng-if="editing" ng-click="cancelEditing()" ng-cloak="ng-cloak" class="button">取消</button>
     <h1 class="title">编辑小队信息</h1>
-    <button ng-if="editing" ng-click="edit()" ng-disabled="!changed || editForm.$invalid" ng-cloak="ng-cloak" class="button">确定</button>
+    <button ng-if="editing" ng-click="edit()" ng-disabled="editForm.$invalid" ng-cloak="ng-cloak" class="button">确定</button>
   </ion-header-bar>
   <ion-content>
     <form name="editForm" class="list">
@@ -16,14 +16,13 @@
       <div class="item item-input"><span class="input-label">简介</span>
         <textarea name="brief" ng-change="change()" maxlength="140" ng-model="formData.brief" ng-focus="toEditing()" class="introduce"></textarea>
       </div>
-      <div class="item item-input item-button-right"><span class="input-label">主场1</span>
-        <input type="text" name="homecourt0" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[0].name"/>
-        <button edit-map="edit-map" location-name="formData.homeCourts[0].name" location="formData.homeCourts[0].loc" map-name="homecourt0" class="button button-positive">地图</button>
+      <div edit-map="edit-map" location="formData.homeCourts[0]" map-name="homecourt0" changed="changed" class="item item-input item-icon-right"><span class="input-label">主场1</span>
+        <input type="text" name="homecourt0" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[0].name" readonly="readonly"/><i class="icon ion-chevron-right"></i>
       </div>
-      <div class="item item-input item-button-right"><span class="input-label">主场2</span>
-        <input type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name"/>
-        <button edit-map="edit-map" location-name="formData.homeCourts[1].name" location="formData.homeCourts[1].loc" map-name="homecourt1" class="button button-positive">地图</button>
-      </div><a ng-href="#/team/{{team._id}}/family" class="item item-input item-icon-right"><span class="input-label">修改小队封面</span><i class="icon ion-chevron-right"></i></a>
+      <div edit-map="edit-map" location="formData.homeCourts[1]" map-name="homecourt1" changed="changed" class="item item-input item-icon-right"><span class="input-label">主场2</span>
+        <input type="text" name="homecourt1" ng-change="change()" ng-focus="toEditing()" ng-model="formData.homeCourts[1].name" readonly="readonly"/><i class="icon ion-chevron-right"></i>
+      </div>
+      <div ng-click="showUploadFamilyActionSheet()" class="item item-input item-icon-right"><span class="input-label">修改小队封面</span><i class="icon ion-chevron-right"></i></div>
     </form>
   </ion-content>
 </ion-view>

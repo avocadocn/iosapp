@@ -1,0 +1,25 @@
+
+<ion-view class="circle_company_page">
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">精彩瞬间</h1><a href="#/circle/reminds" class="button">
+      <svg class="svg_icon svg_nav_icon">
+        <use xlink:href="#discussion"></use>
+      </svg></a>
+  </ion-header-bar>
+  <ion-content class="custom_ion_content">
+    <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
+    <div ng-if="loadOptions.loadingNew" ng-cloak="ng-cloak" class="loading_cover"><i class="icon ion-looping"></i></div>
+    <div class="circle_banner_image"></div>
+    <div class="circle_owner"><a ng-bind="company.shortName" class="circle_owner_name"></a>
+      <div class="circle_owner_image_wrap"><img ng-src="{{STATIC_URL + company.logo}}/140/140" class="circle_owner_image"/></div>
+    </div>
+    <div ng-if="newCircleComment &gt; 0">
+      <div ng-click="goToRemindsPage()" class="remind_box">{{newCircleComment}}条新消息</div>
+    </div>
+    <circle-card-list circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL" class="dl_circle_card_list"></circle-card-list>
+    <div ng-if="loadingStatus.hasInit &amp;&amp; circleContentList.length === 0" ng-cloak="ng-cloak" class="no_moment_remind">暂时还没有精彩瞬间。</div>
+    <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
+  </ion-content>
+  <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment"></circle-comment-box>
+  <photo-swipe ctrl="pswpCtrl"></photo-swipe>
+</ion-view>

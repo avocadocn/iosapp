@@ -1,0 +1,17 @@
+ion-view.all_campaigns
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title(ng-cloak) {{title}}
+
+  ion-content(delegate-handle="mainScroll")
+    ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")
+    .timeline_card
+      .dl_timeline(ng-repeat="campaign in timelinesRecord")
+        .item.dl_campaign_timeline_date(ng-if="needShowTime($index)") {{campaign.start_time | date:'yyyy年M月d日'}}
+        include ./campaign-card
+    //- ion-infinite-scroll(ng-if="!loading && !loadFinished" icon="ion-looping" on-infinite="loadMore()" distance="-1%")
+    a.dl_bottom_operator.no_underline.show_more.clearfix(ng-if="!loading && !loadFinished" ng-click="loadMore()") 
+      span 点击加载更多
+    .dl_bottom_operator(ng-if="loading")
+      span.loading 正在加载...
+    .dl_bottom_operator(ng-if="loadFinished||!timelinesRecord.length" ng-cloak) 没有更多的活动

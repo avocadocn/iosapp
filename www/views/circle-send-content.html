@@ -1,0 +1,15 @@
+
+<ion-view>
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">发表文字</h1>
+    <button ng-disabled="unshow" ng-click="circle_send_content()" class="button icon-right">发送</button>
+  </ion-header-bar>
+  <ion-content class="circle_send_content_page">
+    <div class="circle_content">
+      <form id="circle_send_content_form" enctype="multipart/form-data" class="circle_content_form">
+        <textarea id="circle_content" name="content" rows="1" ng-model="circle.content" ng-change="change()" ng-trim="false" required="required" autofocus="autofocus"></textarea>
+        <div class="content_border"></div>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>

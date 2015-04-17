@@ -4,51 +4,64 @@ ion-view.personal(ng-controller="PersonalController")
     h1.title 我的
 
   ion-content
-    .list
-      a.item.item-avatar.item-icon-right(href="#/personal/edit" ng-cloak)
-        img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80" prevent-default photo="user.photo" pswp-id="pswpId" open-photo)
-        h2 {{user.nickname}}
-        p(ng-if="user.introduce") 简介: {{user.introduce}}
-        i.icon.ion-chevron-right
+    .list.user_info
+      a.item.item-icon-right.item_user(href="#/personal/edit" ng-cloak)
+        img.avatar_photo(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/120/120" prevent-default photo="user.photo" pswp-id="pswpId" open-photo)
+        h2.nickname {{user.nickname}}
+        //- p 公司：{{user.company.name}}
+        //- p(ng-if="user.department" ng-cloak) 部门：{{user.department.name}}
+        //- p(ng-if="!user.department" ng-cloak) 部门：无
+        //- p(ng-cloak) 手机：{{user.phone || '-'}}
+        p(ng-cloak) 邮箱：{{user.email}}
+        i.icon.ion-chevron-right.icon_right
       .item.statistics(ng-cloak)
         .row
           a.col.col-33(href="#/personal/teams/")
             p.number {{user.tids.length}}
             p.key 小队
-          a.col.col-33(href="#/personal/timeline")
+          a.col.col-33(href="#/campaign/all/user/{{user._id}}")
             p.number {{user.campaignCount}}
             p.key 活动
           .col.col-33
             p.number {{user.score}}
-            p.key 积分
-    .list
-      a.item.item-icon-left.item-icon-right(href="#/personal/teams/")
-        i.icon.ion_teams
-        | 我的小队
-        span.item-note {{user.tids.length}}
-        i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/personal/timeline")
-        i.icon.ion_foot
+            p.key 活跃度
+    .list.menu_list
+      //- a.item.item-icon-left.item-icon-right(href="#/personal/teams/")
+      //-   i.icon.ion_teams
+      //-   | 我的小队
+      //-   span.item-note {{user.tids.length}}
+      //-   i.icon.ion-chevron-right
+      a.item.item-icon-right(href="#/personal/invitecode")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#erweima")
+        | 二维码
+        i.icon.ion-chevron-right.icon_right
+      a.item.item-icon-right(ng-href="#/circle/circle_user/{{user._id}}")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#picture")
+        | 我的相册
+        i.icon.ion-chevron-right.icon_right
+      a.item.item-icon-right(ng-href="#/campaign/all/user/{{user._id}}")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#zuji")
         | 我的足迹
-        i.icon.ion-chevron-right
+        i.icon.ion-chevron-right.icon_right
       //- a.item.item-icon-left.item-icon-right(href="#/personal/messages")
       //-   i.icon.ion_message
       //-   | 我的站内信
       //-   span.item-note(ng-if="messagesCount && messagesCount>0") {{messagesCount}}
       //-   i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/calendar/personal")
-        i.icon.ion_calendar
+      a.item.item-icon-right(href="#/calendar/personal")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#richeng")
         | 我的日程
-        i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/personal/invitecode")
-        i.icon.ion_invite_code
-        | 邀请码
-        i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/settings")
-        i.icon.ion_setting
+        i.icon.ion-chevron-right.icon_right
+    .list.menu_list
+      a.item.item-icon-right(href="#/settings")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#setting3")
         | 设置
-        i.icon.ion-chevron-right
-
+        i.icon.ion-chevron-right.icon_right
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}")
     .pswp__bg
     .pswp__scroll-wrap

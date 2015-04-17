@@ -6,13 +6,20 @@
 
 angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize'])
 
-  .run(function ($ionicPlatform, $state, $ionicLoading, $ionicPopup, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth) {
+  .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicActionSheet, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth, Circle) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
-      // if (window.cordova && window.cordova.plugins.Keyboard) {
-      //   cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      // }
+      if (window.cordova && window.cordova.plugins.Keyboard) {
+        window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      }
+
+      if(window.analytics) {
+        window.analytics.startTrackerWithId('UA-52353216-2');
+        if(localStorage.id){
+          window.analytics.setUserId(localStorage.id);
+        }
+      }
       $ionicPlatform.registerBackButtonAction(function (event) {
       if ( $state.$current.name.indexOf('app.')==0 || $state.$current.name=='company_home' || $state.$current.name=='home'){
         // H/W BACK button is disabled for these states (these views)
@@ -24,12 +31,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           navigator.app.backHistory();
         }
       }, 100);
-      if(window.analytics) {
-        window.analytics.startTrackerWithId('UA-52353216-2');
-        if(localStorage.id){
-          window.analytics.setUserId(localStorage.id);
-        }
-      }
+
       $rootScope.$on('$stateChangeSuccess',
         function (event, toState, toParams, fromState, fromParams) {
           var nowHash = window.location.hash;
@@ -37,11 +39,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
             window.analytics.trackView(window.location.hash);
           }
       });
-
       if (window.StatusBar) {
         StatusBar.styleDefault();
       }
-
+      $rootScope.STATIC_URL = CONFIG.STATIC_URL;
       //@:android
       var onCloudPushRegistered = function(info) {
         INFO.pushInfo = {
@@ -58,7 +59,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       if(typeof bdPushNotification !='undefined'){
         bdPushNotification.init("pSGg3PHKgD7vdah7eHDydQOu");
       }
-      $rootScope.STATIC_URL = CONFIG.STATIC_URL;
+
 
       if (typeof device !== 'undefined') {
         CommonHeaders.set({
@@ -68,15 +69,14 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           'x-version': device.version
         });
       }
-
       if (localStorage.userType) {
         if (localStorage.userType === 'user') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
           UserAuth.refreshToken(function (err) {
-            if (err) {
-              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
-            }
-            $state.go('app.campaigns');
+             if (err) {
+               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+             }
+             $state.go('app.campaigns');
           });
         } else if (localStorage.userType === 'company') {
           $http.defaults.headers.common['x-access-token'] = localStorage.accessToken;
@@ -84,7 +84,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
             if (err) {
               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
             }
-            $state.go('company_home');
+            $state.go('hr_home');
           });
         }
       } else {
@@ -94,27 +94,32 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       INFO.screenWidth = window.innerWidth;
       INFO.screenHeight = window.innerHeight;
 
+      if (!localStorage.lastGetCompanyCircleRemindTime) {
+        localStorage.lastGetCompanyCircleRemindTime = Date.now();
+      }
+
+
     });
 
     $ionicPlatform.on('resume', function () {
-       if (localStorage.userType) {
-         if (localStorage.userType === 'user') {
-           UserAuth.refreshToken(function (err) {
-             if (err) {
-               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
-             }
-           });
-         }
-         else if (localStorage.userType === 'company') {
-           CompanyAuth.refreshToken(function (err) {
-             if (err) {
-               console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
-             }
-           });
-         }
-       }
+      if (localStorage.userType) {
+        if (localStorage.userType === 'user') {
+          UserAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+          });
+          INFO.needUpdateDiscussList = true; //从后台回来，可能需要强制刷新评论列表
+        }
+        else if (localStorage.userType === 'company') {
+          CompanyAuth.refreshToken(function (err) {
+            if (err) {
+              console.log(err); // 这里没有必要去处理错误，输出供调试即可。失败了仅仅是不能更新token，且没有应对办法，没必要提示用户。
+            }
+          });
+        }
+      }
     });
-
     $rootScope.showLoading = function() {
       $ionicLoading.show({
         template: '<i class="icon ion-looping"></i>正在加载'
@@ -123,9 +128,50 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
     $rootScope.hideLoading = function(){
       $ionicLoading.hide();
     };
-  }).config(function ($stateProvider, $ionicConfigProvider) {//@:android
+    /**
+     * [showAction 通用提醒框]
+     * @param  {Object} option type,titleText,fun,cancelText,cancelFun
+     * type:0 alert, 1 confirm
+     */
+    $rootScope.showAction = function (option) {
+      if(option.type){
+        var hideSheet = $ionicActionSheet.show({
+          buttons: [
+           { text: '确定' }
+          ],
+          titleText: option.titleText||'',
+          cancelText: option.cancelText||'取消',
+          cancel: function() {
+            option.cancelFun && option.cancelFun();
+            hideSheet();
+          },
+          buttonClicked: function(index) {
+            hideSheet();
+            option.fun && option.fun();
+            
+          }
+        });
+      }
+      else{
+        var hideSheet = $ionicActionSheet.show({
+          titleText: option.titleText||'',
+          buttons: [
+           { text: '确定' }
+          ],
+          buttonClicked: function() {
+            hideSheet();
+            option.cancelFun && option.cancelFun();
+          }
+        });
+      }
+      
+    }
+
+  }).config(function ($stateProvider,$ionicConfigProvider) {
+    $ionicConfigProvider.views.transition('none');
     $ionicConfigProvider.tabs.position('bottom');//@:android
     $ionicConfigProvider.navBar.alignTitle('center');//@:android
+
     $stateProvider
       .state('home', {
         url: '/home',
@@ -137,40 +183,56 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'UserLoginController',
         templateUrl: './views/user-login.html'
       })
-      .state('company_login', {
+      .state('hr_login', {
         cache: false,
-        url: '/company/login',
-        controller: 'CompanyLoginController',
-        templateUrl: './views/company-login.html'
+        url: '/hr/login',
+        controller: 'HrLoginController',
+        templateUrl: './views/hr-login.html'
       })
-      .state('company_home', {
-        url: '/company/home',
-        controller: 'CompanyHomeController',
-        templateUrl: './views/company-home.html'
+      .state('hr_home', {
+        url: '/hr/home',
+        controller: 'HrHomeController',
+        templateUrl: './views/hr-home.html'
       })
-      .state('company_activeCode', {
-        url: '/company/active_code',
-        controller: 'CompanyActiveCodeController',
-        templateUrl: './views/company-active-code.html'
+      .state('hr_activeCode', {
+        url: '/hr/active_code',
+        controller: 'HrActiveCodeController',
+        templateUrl: './views/hr-active-code.html'
       })
-      .state('company_teamPage', {
-        url: '/company/team_page',
-        templateUrl: './views/company-team-page.html'
+      .state('hr_teamPage', {
+        url: '/hr/team_page',
+        controller: 'HrTeamController',
+        templateUrl: './views/hr-team-page.html'
       })
-      .state('company_teamList', {
-        url: '/company/team_list/:type',
-        controller: 'CompanyTeamController',
-        templateUrl: './views/company-team-list.html'
+      .state('hr_teamList', {
+        url: '/hr/team_list/:type',
+        controller: 'HrTeamController',
+        templateUrl: './views/hr-team-list.html'
       })
-      .state('company_editTeam', {
-        url: '/company/edit_team/:teamId',
-        controller: 'companyEditTeamController',
-        templateUrl: './views/company-edit-team.html'
+      .state('hr_editTeam', {
+        url: '/hr/edit_team/:teamId',
+        controller: 'HrEditTeamController',
+        templateUrl: './views/hr-edit-team.html'
       })
-      .state('company_forget', {
-        url: '/company/forget',
-        controller: 'CompanyForgetController',
-        templateUrl: './views/company-forget.html'
+      .state('hr_forget', {
+        url: '/hr/forget',
+        controller: 'HrForgetController',
+        templateUrl: './views/hr-forget.html'
+      })
+      .state('hr_companyDetail', {
+        url: '/hr/company_detail',
+        controller: 'HrCompanyController',
+        templateUrl: './views/hr-company-detail.html'
+      })
+      .state('hr_companyEdit', {
+        url: '/hr/company_edit',
+        controller: 'HrCompanyEditController',
+        templateUrl: './views/hr-company-edit.html'
+      })
+      .state('hr_colleagueList', {
+        url: '/hr/colleague_list',
+        controller: 'HrColleagueListController',
+        templateUrl: './views/hr-colleague-list.html'
       })
       .state('user_forget', {
         url: '/user/forget',
@@ -183,7 +245,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_company_law', {
         url: '/register/company/law',
-        controller: 'compRegPrivacyController',
+        controller: 'CompRegPrivacyController',
         templateUrl: './views/privacy.html'
       })
       .state('register_company_wait', {
@@ -192,12 +254,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_user_searchCompany', {
         url: '/register/user/search_company',
-        controller:'userSearchCompanyController',
+        controller:'UserSearchCompanyController',
         templateUrl: './views/register-user-search-company.html'
       })
       .state('register_user_postDetail', {
         url: '/register/user/post_detail/:cid',
-        controller: 'userRegisterDetailController',
+        controller: 'UserRegisterDetailController',
         templateUrl: './views/register-user-post-detail.html'
       })
       .state('register_user_remind_activate', {
@@ -214,7 +276,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_user_law', {
         url: '/register/user/law',
-        controller: 'userRegPrivacyController',
+        controller: 'UserRegPrivacyController',
         templateUrl: './views/privacy.html'
       })
       .state('app', {
@@ -225,7 +287,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('privacy', {
         url: '/settings/about/privacy',
-        controller: 'privacyController',
+        controller: 'PrivacyController',
         templateUrl: './views/privacy.html'
       })
       .state('app.campaigns', {
@@ -238,10 +300,36 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'CampaignDetailController',
         templateUrl: './views/campaign-detail.html'
       })
+      // .state('campaigns_notice', {
+      //   url: '/campaign/notice/:id',
+      //   controller: 'CampaignNoticelController',
+      //   templateUrl: './views/campaign-notice.html'
+      // })
+      .state('campaigns_content', {
+        url: '/campaign/content/:id',
+        controller: 'CampaignContentController',
+        templateUrl: './views/campaign-content.html'
+      })
+      .state('members', {
+        url: '/members/:memberType/:id',
+        controller: 'MemberController',
+        templateUrl: './views/members.html'
+      })
+
+      .state('location', {
+        url: '/location/:id',
+        controller: 'LocationController',
+        templateUrl: './views/location.html'
+      })
       .state('campaigns_edit', {
         url: '/campaign/edit/:id',
         controller: 'CampaignEditController',
         templateUrl: './views/campaign-edit.html'
+      })
+      .state('campaigns_discuss', {
+        url: '/campaign/discuss/:id',
+        controller: 'DiscussDetailController',
+        templateUrl: './views/campaign-discuss.html'
       })
       .state('sponsor', {
         cache: false,
@@ -251,41 +339,36 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('app.discuss_list', {
         url: '/discuss/list',
-        // controller: 'DiscussListController',
+        controller: 'DiscussListController',
         templateUrl: './views/discuss-list.html'
       })
-      .state('unjoined_discuss_list', {
-        url: '/discuss/list/unjoined',
-        controller: 'UnjoinedDiscussController',
-        templateUrl: './views/unjoined-discuss-list.html'
-      })
-      .state('discuss_detail', {
-        url: '/discuss/detail/:campaignId',
-        controller: 'DiscussDetailController',
+      .state('chat', {
+        url: '/chat/:chatroomId',
+        controller: 'ChatroomDetailController',
         templateUrl: './views/discuss-detail.html'
       })
       .state('create_team',{
-        url: '/company/create_team',
-        controller: 'createTeamController',
+        url: '/hr/create_team',
+        controller: 'CreateTeamController',
         templateUrl: './views/create-team.html'
       })
-      .state('app.discover', {
-        url: '/discover',
-        // controller: 'DiscoverController',
-        templateUrl: './views/discover.html'
+      .state('app.company', {
+        url: '/company',
+        // controller: 'CompanyController',
+        templateUrl: './views/company.html'
       })
-      .state('discover_circle', {
-        url: '/discover/circle',
-        controller: 'DiscoverCircleController',
-        templateUrl: './views/colleague-circle.html'
+      .state('all_campaign', {
+        url: '/campaign/all/:type/:id',
+        controller: 'AllCampaignController',
+        templateUrl: './views/all-campaigns.html'
       })
-      .state('discover_teams', {
-        url: '/discover/teams/:type',
-        controller: 'DiscoverController',
+      .state('company_teams', {
+        url: '/company/teams/:type',
+        controller: 'CompanyTeamListController',
         templateUrl: './views/team-list.html'
       })
       .state('contacts', {
-        url: '/discover/contacts',
+        url: '/company/contacts',
         controller: 'ContactsController',
         templateUrl: './views/contacts.html'
       })
@@ -375,17 +458,6 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller: 'FamilyPhotoController',
         templateUrl: './views/family-photo.html'
       })
-      .state('members', {
-        url: '/members/:memberType/:id',
-        controller: 'MemberController',
-        templateUrl: './views/members.html'
-      })
-
-      .state('location', {
-        url: '/location/:id',
-        controller: 'LocationController',
-        templateUrl: './views/location.html'
-      })
       .state('photo_album_list', {
         url: '/photo_album/list/team/:teamId',
         controller: 'PhotoAlbumListController',
@@ -410,5 +482,85 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/report/:userId',
         controller: 'ReportController',
         templateUrl: './views/report.html'
+      })
+      .state('app.discover', {
+        url: '/discover',
+        // controller: 'DiscoverController',
+        templateUrl: './views/discover.html'
+      })
+      .state('search_opponent', {
+        url: '/discover/search_opponent',
+        controller: 'SearchOpponentController',
+        templateUrl: './views/search_opponent.html'
+      })
+      .state('search_opponent_team', {
+        url: '/discover/search_opponent/:tid',
+        controller: 'SearchOpponentTeamController',
+        templateUrl: './views/search_opponent_team.html'
+      })
+      .state('competition_team', {
+        url: '/competition/team/:targetTeamId/:fromTeamId',
+        controller: 'CompetitionTeamController',
+        templateUrl: './views/competition_team.html'
+      })
+      .state('competition_send', {
+        url: '/competition/send',
+        controller: 'CompetitonSendController',
+        templateUrl: './views/competition_send.html'
+      })
+      .state('rank_select', {
+        url: '/rank/select',
+        controller: 'RankSelectController',
+        templateUrl: './views/rank_select.html'
+      })
+      .state('rank_detail', {
+        url: '/rank/detail/:gid/:groupType',
+        controller: 'RankDetailController',
+        templateUrl: './views/rank_detail.html'
+      })
+      .state('rank_rles', {
+        url: '/rank/rules',
+        controller: 'RankRulesController',
+        templateUrl: './views/rank_rules.html'
+      })
+      .state('competition_message_list', {
+        url: '/competition_message/list',
+        controller: 'CompetitionMessageListController',
+        templateUrl: './views/competition_message_list.html'
+      })
+      .state('competition_message_detail', {
+        url: '/competition_message/detail/:id',
+        controller: 'CompetitionMessageDetailController',
+        templateUrl: './views/competition_message_detail.html'
+      })
+      .state('circle_send_content', {
+        url: '/circle/circle_send_content/:campaignId',
+        controller: 'CircleSendController',
+        templateUrl: './views/circle-send-content.html'
+      })
+      .state('circle_company', {
+        url: '/circle/circle_company',
+        controller: 'CircleCompanyController',
+        templateUrl: './views/circle-company.html'
+      })
+      .state('circle_team', {
+        url: '/circle/circle_team/:teamId',
+        controller: 'CircleTeamController',
+        templateUrl: './views/circle-team.html'
+      })
+      .state('circle_user', {
+        url: '/circle/circle_user/:userId',
+        controller: 'CircleUserController',
+        templateUrl: './views/circle-user.html'
+      })
+      .state('circle_content_detail', {
+        url: '/circle/circle_content/:circleContentId',
+        controller: 'CircleContentDetailController',
+        templateUrl: './views/circle-content-detail.html'
+      })
+      .state('circle_reminds', {
+        url: '/circle/reminds',
+        controller: 'CircleRemindsController',
+        templateUrl: './views/circle-reminds.html'
       });
   });

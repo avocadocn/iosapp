@@ -3,7 +3,7 @@
 // colors
 col_black = #333333
 col_navGray = #fbfbfb
-col_gray = #e2e2e2
+col_gray = #f2f2f5
 col_darkGray = #999999
 col_blue = #3ca2e0
 col_darkBlue = #618bd7
@@ -11,7 +11,18 @@ col_iconPurple = #6a73c6
 col_borderPurple = #806dd0
 col_textPurple = #9e6dd0
 col_lightGray = #676767
-
+col_bottomGray = #f7f7f7
+col_borderGray = #c9c9c9
+col_textBlack = #707070
+col_link = #294a7e
+col_mainText = #202020
+col_textGray = #666666
+col_textLight = #ababab
+col_boderlighttGray = #e3e3e3
+col_now = #13adb6
+col_unstart = #3ca2df
+col_unjoin = #f48361
+col_borderLight =#ddd
 // mixins
 dl_card()
   display block
@@ -20,21 +31,131 @@ dl_card()
   box-shadow 0 2px 0 rgba(204, 204, 204, 1)
   line-height 18px
   background-color #fff
-
+placeholderColor(colorValue)
+  input::-webkit-input-placeholder
+    color colorValue
+  input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+    color colorValue
+  input:-ms-input-placeholder /* Internet Explorer 10+ */
+    color colorValue
+displayFlex()
+  display -webkit-box
+  display -webkit-flex
+  display -moz-box
+  display -moz-flex
+  display -ms-flexbox
+  display flex
+flexValue(value)
+  -webkit-box-flex value
+  -webkit-flex value
+  -moz-box-flex value
+  -moz-flex value
+  -ms-flex value
+  flex value
+textOverflow()
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+indentLine()
+  border-width 0
+  padding-bottom 17px
+  &:after
+    display block
+    position absolute
+    left 15px
+    bottom 0
+    width 100%
+    content ''
+    border 1px solid col_borderLight
+  &:first-child
+    border-top-width 1px
+  &:last-child
+    border-bottom-width 1px
+    padding-bottom 16px
+    &:after
+      content none
+      display none
 html
   font-size 12px
 body
-  background-color col_gray
+  background-color col_bottomGray
   font-size 12px
 .pane, .view
-  background-color col_gray
-
+  background-color col_bottomGray
+//-input全局placeholder
+placeholderColor(col_blue)
+  
+input:focus::-webkit-input-placeholder textarea /* WebKit browsers */
+  color transparent
+input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+  color transparent
+input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
+  color transparent
+textarea
+  resize none
+.item
+  border-color col_boderlighttGray
+a.no_underline
+  text-decoration none
+//-通用bar
+.bar
+  border-bottom 0
+  //title的button用的时{{}}绑定时会不居中，所有统一固定为70
+  .dl_title
+    left 70px !important
+    right 70px !important
+  .title + .button.ion_discuss_active:last-child
+    right 15px
+    width 30px
+  .button
+    border 0
+    background-color transparent
+    color col_blue
+    font-size 16px
+    font-weight 600
+    line-height 35px
+  .button.activated
+    box-shadow 0 0 0
+    color #ddd
+  .icon-left, .icon-right
+    &.button:before
+      font-size 16px
+  &.bar-header
+    .title
+      color col_mainText
 .clearfix
   &:before, &:after
     display table
     content " "
   &:after
     clear both
+
+// 默认的svg icon大小
+.svg_icon
+  width 20px
+  height 20px
+  fill col_blue
+  vertical-align middle
+
+.svg_item_icon
+  margin-bottom 2px
+  margin-right 14px
+
+.svg_nav_icon
+  margin-bottom 5px
+
+.svg_tab_icon
+  display block
+  margin 4px auto
+  width 22px
+  height 22px
+  fill white
+  stroke white
+.tab-item-active
+  .svg_tab_icon
+    fill col_blue
+    stroke col_blue
+
 .icon.icon_small
   font-size 16px !important
   &:before
@@ -43,8 +164,159 @@ body
   opacity 0.9
 .title.title_have_right
   margin-right 30px
+
+.ion_member, .ion_comment, .ion_ballon, .ion_teams, .ion_team, .ion_foot, .ion_message, .ion_calendar, .ion_setting, .ion_invite_code, .ion_time, .ion_address, .ion_circle
+  background-image url('../img/icon.png')
+  background-size 640px 240px
+//- .ion_member
+//-   background-position 0px -80px
+//- .ion_comment
+//-   background-position -40px -80px
+.dl_icon
+  background-image url('../img/icon.png')
+  background-size 720px 270px
+  display inline-block
+  height 18px
+  width 18px
+  vertical-align middle
+  &.ion_campaign
+    background-position -173px -84px
+    &.active
+      background-position 7px -490px
+  &.ion_discuss
+    background-position -488px -84px
+    &.active
+      background-position -38px -490px
+  &.ion_discover
+    background-position -578px -84px
+    &.active
+      background-position -83px -490px
+  &.ion_company
+    background-position -218px -84px
+    &.active
+      background-position -129px -490px
+  &.ion_personal
+    background-position -264px -85px
+    &.active
+      background-position -129px -445px
+  &.ion_address
+    background-position -538px -40px
+  &.ion_member
+    background-position -316px -41px
+  &.ion_time
+    background-position -450px -41px
+  &.ion_chat_circle
+    background-position -495px -45px
+  &.ion_member_small_blue
+    background-position 0 -134px
+  &.ion_member_small
+    background-position 0 -90px
+  &.ion_comment_small
+    background-position -46px -91px
+  &.ion_log_out
+    background-position -225px -180px
+.ion_ballon
+  background-position -110px -65px
+.ion_teams
+  background-position -70px -62px
+.ion_foot
+  background-position -110px -103px
+.ion_message
+  background-position 10px -342px
+.ion_calendar
+  background-position -70px -103px
+.ion_setting
+  background-position -30px -145px
+.ion_invite_code
+  background-position 10px -25px
+.ion_time
+  background-position -80px -160px
+.ion_address
+  background-position -120px -160px
+.ion_member
+  background-position 0 -200px
+.ion_comment
+  background-position -320px -39px
+.ion_circle
+  background-position -559px -39px
+.ion_log_out
+  background-position -200px -160px
+.icon_small
+  background-size 520px 195px
+  height 16px
+  width 16px
+  &.ion_member
+    background-position -228px -32px
+  &.ion_time
+    background-position -325px -32px
+  &.ion_address
+    background-position -389px -32px
+  &.ion_comment_line_white
+    background-position -292px -64px
+  &.ion_comment_dot_horizontal_gray
+    background-position -195px -96px
+  &.ion_comment_dot_horizontal_blue
+    background-position -195px -128px
+  &.ion_heart_outline
+    background-position -226px -97px
+
+.dl_bottom_operator
+  display block
+  text-align center
+  padding 15px
+  color col_textGray
+  text-decoration none
+
+//自定义actionSheet样式
+.action-sheet
+  .action-sheet-group
+    .action-sheet-title
+      padding 50px 10px
+      font-size 16px
+      height 120px
+    .button
+      color col_textGray
+    &:first-child
+      .button
+        color col_unstart
+.no_campaign
+  background-image url('../img/no_campaign.png')
+  width 100%
+  height 100%
+  background-repeat no-repeat
+  position relative
+  background-size contain
+  .no_campaign_tip
+    position absolute
+    top 15%
+    right 15px
+    font-size 14px
+    background-color #27B2BC
+    border-radius 5px
+    color white
+    width 250px
+    padding 10px
+    box-shadow 1px 1px 5px #888
+    p
+      margin 0
+      .team_link
+        margin 0
+        color #27B2BC
+        background-color white
+        border none
+        position relative
+        text-align center
+        vertical-align middle
+        display inline-block
+        cursor pointer
+        border-radius 5px
+        padding 5px 10px
+        text-decoration none
+      .tip_info
+        padding-right 10px
+      &.button_container
+        text-align right
 .campaigns_container
-  padding-bottom 32px
   .campaign_filter
     height 33px
     background-color #ffffff
@@ -54,6 +326,7 @@ body
       min-height 32px
       color col_lightGray
       border-bottom 1px solid col_gray
+      padding 0
       &.icon_blue
         height 31px
         color col_blue
@@ -73,226 +346,440 @@ body
       // &.icon_textPurple
       //   height 31px
       //   color col_textPurple
-        // border-bottom 2px solid col_textPurple
+      //   border-bottom 2px solid col_textPurple
   .campaign_list
     height 100%
-    background-color col_gray
-    .no_campaign
-      background-image url('../img/no_new_campaign.png')
-      width 100%
-      height 100%
-      background-repeat no-repeat
-      position relative
-      background-size contain
-      .no_campaign_tip
-        position absolute
-        top 10px
-        left 10px
-        font-size 14px
-        p
-          margin 6px 1px
-          .team_link
-            margin 0
-            color #FFF
-            background-color #3498DB
-            border none
-            position relative
-            font-size 12px
-            text-align center
-            vertical-align middle
-            display inline-block
-            cursor pointer
-            border-radius 5px
-            padding 7px 11px
-            text-decoration none
-          .tip_info
-            padding-left 11px
+    margin-top 0
+    
     .campaign_container
       .campaign_container_title
-        font-size 16px
-        margin-left 1rem
-        padding-top 1rem
-        color col_blue
-        // &.icon_blue
-        //   color col_blue
-        // &.icon_darkBlue
-        //   color col_darkBlue
-        // &.icon_iconPurple
-        //   color col_iconPurple
-        // &.icon_borderPurple
-        //   color col_borderPurple
-        // &.icon_textPurple
-        //   color col_textPurple
-
-.dl_card
+        border 1px solid col_boderlighttGray
+        border-top 0
+        padding 8px 10px
+        color #707070
+        font-size 14px
+        line-height 1
+      //未参加的新活动
+      &.cp_unjoin
+        .campaign_container_title, .dl_cp_time_countdown
+          color col_unjoin
+      //进行中的活动
+      &.cp_now
+        .campaign_container_title, .dl_cp_time_countdown
+          color col_now
+      //即将开始的活动
+      &.cp_unstart
+        .campaign_container_title, .dl_cp_time_countdown
+          color col_unstart
+//-两个卡片的共用样式
+.dl_timeline_card, .dl_campaign_card
+  background-color #fff
+  margin 0
+  padding 15px
   position relative
-  dl_card()
-  padding 0
+  box-shadow 0 0 0
+  .cp_info_icon
+    float left
+    width 14px
+    height 14px
+    margin-right 10px
+    fill col_darkGray
   .campaign_card
-    display block
     text-decoration none
-    .dl_cp_name
-      font-size 16px
-      color col_black
-    .dl_card_header
-      padding 0.833333rem
-      height 80px
-      .dl_card_header_info
-        width 100%
-        padding-left 70px
-        padding-right 70px
-        .dl_cp_name, .dl_cp_address
-          margin 0
-          width 100%
-          overflow hidden
-          text-overflow ellipsis
-          white-space nowrap
-          color col_blue
-
-        .dl_cp_address
-          margin-top 6px
-          font-size 12px
-          color col_darkGray
-      .dl_card_header_operator
-        position absolute
-        right 10px
-        top 10px
-        .dl_btn_join
-          width 60px
-          height 30px
-          border-radius 5px
-          border none
-          color white
-          background-color col_blue
-        .dl_cp_time_countdown_end
-          color col_textPurple
-        .dl_cp_time_countdown
-          margin 0
-          width 70px
-          height 30px
-          line-height 30px
-          border 1px solid col_borderPurple
-          border-radius 5px
-          color col_textPurple
-          font-size 14px
-        .dl_cp_time_count, .dl_cp_time_unit
-          display block
-          float left
-          width 34px
-          height 28px
-          line-height 28px
-          text-align center
-        .dl_cp_time_count
-          border-right 1px solid col_borderPurple
-      .dl_team_logo
-        display block
-        position absolute
-        margin-right 10px
+    padding 0
+    .dl_card_content
+      .dl_cp_logos
         width 60px
         height 60px
         border-radius 5px
-    .dl_card_header_provoke
-      border-bottom 1px solid col_gray
-      height 65px
-      .dl_team_logo
-        position absolute
-        display block
-        left 0
-        top 0
-        margin 10px
-        width 45px
-        height 45px
-        border-radius 5px
-      .dl_team_logo_right
-        right 0
-        left initial
-      .dl_team_vs
-        margin 7.5px auto
-        height 30px
-        width 135px
-        display block
-        background-color col_darkBlue
-        border-radius 100%
-        color #fff
-        font-size 32px
-        line-height 24px
-        text-align center
-    .dl_card_body
-      .dl_photo_alb
-        white-space nowrap
-        .dl_cp_photo
-          margin-right 5px
-          width 96px
-          height 96px
-      .dl_cp_name
-        margin 10px
-      .dl_provoke_info
-        color col_black
-        margin 10px
-        .dl_team_name
-          color col_borderPurple
-        .dl_cp_name
-          margin-left 0
-        .dl_cp_address
-          color col_darkGray
-        
-    .dl_card_footer
-      position relative
-      height 30px
-      line-height 30px
-      padding 0 0.833333rem
-      font-size 12px
-      color col_darkGray
-      width 100%
-      border-top 1px solid col_gray
-      .dl_team_name
-        width 100%
+        background-color col_boderlighttGray
+        float left
         overflow hidden
-        text-overflow ellipsis
-        white-space nowrap
-        padding-right 160px
-      .dl_cp_time
+        .dl_team_logo
+          width 60px
+          height 60px
+          border-radius 5px
+        .provoke_label,.fellowship_label
+          width 100%
+          height 14px
+          color #fff
+          float left
+          text-align center
+          line-height 14px
+          background-color #f48361
+        .fellowship_label
+          background-color #ffc053
+      .logos_2
+        .dl_team_logo
+          width 29px
+          height 29px
+          margin-top 7px
+          margin-bottom 6px
+          border-radius 3px
+          float left
+          &:first-child
+            margin-right 2px
+      .dl_cp_texts
+        float left
+        .dl_cp_time,.dl_cp_address,.dl_cp_member,.dl_cp_name
+          margin-bottom 6px
+          width 100%
+          height 16px
+          line-height 1
+          font-size 14px
+          color col_textBlack
+          padding-left 10px
+          .icon
+            float left
+            margin-right 10px
+          .dl_cp_text
+            //-float left
+            textOverflow()
+//-历史卡片
+.dl_timeline_card
+  padding 10px 0 10px 15px
+  border-left 0px
+  margin-top -1px
+  //- border-bottom 1px solid #ddd
+  .cp_info_icon
+    margin-right 5px
+  .campaign_card
+    .dl_card_content
+      .dl_cp_texts
+        width 55%
+        border-right 1px solid col_borderLight
+        .dl_cp_name
+          font-size 16px
+          margin-bottom 7px
+        .dl_cp_time,.dl_cp_address
+          color #999
+          margin-bottom 5px
+          .icon
+            margin-right 5px
+        .dl_cp_address
+          margin-bottom 0
+      .dl_card_member
+        width 24%
+        float left
+        text-align center
+        padding-top 10px
+        .dl_cp_member
+          font-size 16px
+
+//-活动列表卡片
+.dl_campaign_card
+  border-bottom 1px solid col_boderlighttGray
+  .campaign_card
+    border-bottom 1px solid col_boderlighttGray
+    .dl_card_header
+      height 20px
+      margin-bottom 10px
+      .dl_card_header_info
+        .dl_cp_name
+          font-size 16px
+          color #000
+          line-height 1
+          margin-bottom 0
+          font-weight 200
+          max-width 205px
+          textOverflow()
+      .dl_card_time
         position absolute
-        top 0
-        right 80px
-      .dl_team_number
-        position absolute
-        top 0
-        right 50px
-      .dl_team_comment
-        position absolute
-        top 0
         right 10px
-        margin-left 10px
-      .ion_member, .ion_comment
-        display block
+        top 8px
+        .dl_cp_time_countdown
+          width 92px
+          height 22px
+          padding 0
+          padding-right 0
+          border 1px solid col_boderlighttGray
+          border-radius 5px
+          overflow hidden
+          line-height 20px
+          text-align center
+          .dl_cp_time_text
+            border-right 1px solid col_boderlighttGray
+            padding-right 5px
+          .dl_cp_time_count
+            margin-left 5px
+    .dl_card_content
+      .dl_cp_texts
+        .dl_cp_member
+          margin-bottom 0
+          line-height 16px
+          .number
+            color #f48361
+    .dl_card_footer
+      margin-top 10px
+      color #c2c1c1
+      .dl_team_name
         float left
-        margin-top 9px
-        margin-right 5px
-        width 12px
-        height 12px
-      .dl_card_footer_count
-        display block
-        float left
-    .dl_card_footer_provoke
-      padding 0.833333rem
-      height 50px
-      border-top 1px solid col_gray
-    .dl_cp_confirm, .dl_cp_refuse, .dl_cp_cancel
-      width 135px
-      height 30px
-      border none
-      color white
-      background-color col_darkGray
+        max-width 45%
+        textOverflow()
+      .dl_campaign_comment,.dl_campaign_circle,.dl_cp_time
+        float right
+        margin-right 10px
+        .dl_card_footer_count
+          float left
+        .icon
+          float left
+          height 18px
+          width 18px
+          margin-right 5px
+        .cp_footer_icon
+          float left
+          width 14px
+          height 14px
+          margin-right 5px
+          margin-top 2px
+          fill col_textLight
+        .comment_icon
+          margin-top 3px
+      .dl_campaign_comment
+        margin-right 0
+.dl_campaign_detail
+  .campaign_detail
+    margin-top 10px
+    color col_textGray
+    padding-bottom 50px
+    .campaign_info
+      background-color white
+      padding 15px
+      padding-left 90px
+      padding-bottom 0
+      color col_textGray
+      position relative
       font-size 14px
+      height 130px
+      border-bottom 1px solid col_borderLight
+      .cp_logos
+        .team_logo
+          width 60px
+          height 60px
+          border-radius 5px
+          border-radius 5px
+          background-color col_bottomGray
+          position absolute
+          left 15px
+      .cp_time
+        margin-bottom 10px
+        line-height 15px
+        .svg_icon
+          float left
+          margin-right 10px
+          width 14px
+          height 14px
+          fill col_darkGray
+      .ion_member
+      .ion_time
+      .ion_address
+        float left
+        margin-right 10px
+      .operator
+        text-align right
+        height 45px
+        .button
+          padding 0 20px
+          min-height 35px
+          height 35px
+          line-height 35px
+          border-radius 5px
+          color white
+          border none
+          &.dl_cp_join
+            background-color #ee6f55
+          &.dl_cp_quit
+            background-color col_borderGray
+      .campaign_status
+        background-color #FFF9EB
+        padding 5px 15px
+        height 30px
+        color col_textLight
+        margin-left -75px
+        margin-top 10px
+        text-align center
+        .set_score
+          color col_unstart
+        .status
+          &.now
+            color col_now
+          &.unstart
+            color col_unstart
+          &.unjoin
+            color col_unjoin
+          &.end
+            color col_textLight
+      &.campaign_info_2
+        height 155px
+        padding 15px
+        .cp_logos
+          height 90px
+          .team
+            float left
+            width 40%
+            text-align center
+            color col_textGray
+            &.team_2
+              float right
+            .team_logo
+              position initial
+            .team_name
+              textOverflow()
+          .score
+            position absolute
+            left 50%
+            top 40px
+            font-size 24px
+            margin-left -60px
+            width 120px
+            text-align center
+            .result
+              display inline-block
+              width 56px
+        .campaign_status
+          margin-left 0
+        .competition_type
+          position absolute
+          left 81px
+          top 35px
+          color col_unjoin
+        .set_score
+          width 100%
+          height 100%
+    .item
+      padding 20px 15px
+      font-size 16px
+      color col_textGray
+      height 56px
+      &.campaign_content
+        height 65px
+        padding-top 10px
+        .content_simple
+          max-height 50px
+          overflow-y hidden
+          line-height 24px
+        .operator
+          text-align center
+          padding-top 5px
+          .more_content
+            color col_blue
+            text-decoration none
+            font-size 14px
+      &.item_header
+        //- height 44px
+        line-height 16px
+        .title
+          font-size 16px
+          margin-right 20px
+        &.campaign_theme
+          font-size 16px
+          color col_mainText
+          border-bottom-width 0
+          &:after
+            display block
+            position absolute
+            left 15px
+            bottom 0
+            width 100%
+            content ''
+            border-bottom 1px solid col_borderLight
+      .ion-chevron-right
+        float right
+    .item-divider
+      height 40px
+      padding 10px 15px
+      &.circle
+        .ion-camera
+          float right
+          font-size 22px
+    .campaign_items
+      margin-top 10px
+      .item
+        indentLine()
+      .svg_icon
+        fill col_textLight
+        margin-right 15px
+        margin-top -4px
+      .cp_time
+        border-top-width 1px
+      .item_title
+        font-size 16px
+        .svg_icon
+          margin-top -4px
+    .cp_member
+      line-height 16px
+      .member_num
+        color #f07151
+
+    .campaign_footer
+      displayFlex()
+      padding 0
+      height 47px
+      .footer_col
+        flexValue(1)
+        text-align center
+        border-right 1px solid #ccc
+        padding 10px 15px
+        color col_textGray
+        height 100%
+        line-height 24px
+        &:last-child
+          border-right none
+        .dl_icon
+          height 20px
+          width 20px
+        .svg_icon
+          width 20px
+          height 20px
+          margin-right 8px
+          margin-bottom 2px
+          fill col_darkGray
+        .member_num
+          color #f07151
+      a
+        text-decoration none
+        color black
+    .circle
+      .svg_icon
+        float right
+        height 24px
+        width 24px
+        margin-top -4px
+    .dl_circle_card
+      margin 0
+      border-radius 0
+      border-bottom 1px solid #CCC
+  .bar-footer
+    height 54px
+    .button
+      margin 0 15px
       border-radius 5px
-    .dl_cp_confirm
-      background-color col_iconPurple
-    .dl_cp_refuse
-      float right
-    .dl_cp_cancel
-      display block
-      margin 0 auto
+      height 45px
+      &.dl_cp_join
+        color white
+        background-color col_blue
+      &.dl_cp_quit
+        color col_textGray
+        background-color white
+        border 1px solid #ccc
+.notice_page
+  background-color #efefef
+  .list
+    margin-bottom 0
+    margin-top 10px
+    .dl_notice_head
+      height 40px
+      padding 10px 16px
+      .time
+        color col_mainText
+      .tip
+        color #707070
+        margin-left 20px
+.dl_divider
+  height 10px
+  border 1px solid col_boderlighttGray
+  border-top 0
+  background-color col_bottomGray
 .dl_card_detail
   dl_card()
   padding 0
@@ -312,9 +799,7 @@ body
       float left
       margin 0 0 0 10px
       line-height 30px
-      overflow hidden
-      text-overflow ellipsis
-      white-space nowrap
+      textOverflow()
       width 60%
     .campaign_mold
       float right
@@ -506,16 +991,14 @@ body
     border-radius 5px !important
   .item:last-child
     border-bottom-right-radius 5px
-    border-bottom-left-radius 5px
+    // border-bottom-left-radius 5px
 .dl_photo_album_card
   dl_card()
   .card_header
     height 20px
-    width 100%//@:android
-    display inline-block//@:android
-
   .header_title
-    width 100%//@:android
+    float left
+    margin 0
     font-size 12px
     line-height 20px
     color col_black
@@ -561,9 +1044,9 @@ body
       color #e74c3c // todo
 
 
-.bar-footer
+.bar-footer.comment_box
   padding 0
-.button-bar > .button
+.button-bar.comment_box > .button
   padding 0
 //   color col_darkGray
 // .button
@@ -586,44 +1069,7 @@ body
   &:hover
     color #fff
 
-//-input全局placeholder
-input::-webkit-input-placeholder
-  color col_blue
-input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-  color col_blue
-input:-ms-input-placeholder /* Internet Explorer 10+ */
-  color col_blue
 
-input:focus::-webkit-input-placeholder textarea /* WebKit browsers */
-  color transparent
-input:focus::-moz-placeholder /* Mozilla Firefox 4 to 18 */
-  color transparent
-input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
-  color transparent
-
-//-通用bar
-.bar
-  border-bottom 1px solid #ccc
-  //title的button用的时{{}}绑定时会不居中，所有统一固定为70
-  .dl_title
-    left 70px !important
-    right 70px !important
-  .title + .button.ion_discuss_active:last-child
-    right 15px
-    width 30px
-  .button
-    border 0
-    background-color transparent
-    color col_blue
-    font-size 16px
-    font-weight 600
-    line-height 35px
-  .button.activated
-    box-shadow 0 0 0
-    color #ddd
-  .icon-left, .icon-right
-    &.button:before
-      font-size 16px
 .login>.bar
   .icon-left, .icon-right
     &.button:before
@@ -642,10 +1088,12 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       height 100%
       background url('../img/index_1.gif') center no-repeat
       background-size 401px
+      background-color #e2e2e2
     .page_2
       height 100%
       background url('../img/index_2.gif') center no-repeat
       background-size 320px
+      background-color #e2e2e2
   .slider-pager
     bottom 90px
     .active>.icon.ion-record
@@ -700,7 +1148,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       line-height 40px
     .dkblue_button
       background-color col_darkBlue
-    
+
   //-words
   .links, .tip_msg
     margin 0 20px
@@ -711,7 +1159,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     .gray_msg
       color col_darkGray
     .black_msg
-      color #666
+      color col_textGray
       font-weight 600
     .blue_msg
       color col_blue
@@ -760,83 +1208,52 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       input.extension
         width 25%
         float left
-    .ng-dirty.ng-invalid
+    .ng-dirty.ng-invalid, input.error
       background-color #FCEBEB
 .pull-right
   float right
 .app_tabs > .tabs
   background-color #000
   color white
-  border-bottom none//@:android
+  background-size 100% 0
+  border none
   .tab-item
     position relative
+    opacity 1
     .icon
       width 32px
       height 30px
     .badge
       background-color #FF5724
-      width 12px
-      height 12px
+      width 10px
+      height 10px
+      padding 0
       color transparent
-      right calc(50% - 20px)
-  .tab-item-active
-    .tab-title
+      right calc(50% - 18px)
+    &.tab-item-active,
+    &.active
       color col_blue
-.ion_campaign, .ion_campaign_active, .ion_discuss, .ion_discuss_active, .ion_discover, .ion_discover_active, .ion_personal, .ion_personal_active
-  background-image url('../img/nav_tab.png')
-  background-size 300px 110px
-.ion_campaign
-  background-position 6px -7px
-.ion_campaign_active
-  background-position 6px -50px
-.ion_discuss
-  background-position -75px -7px
-.ion_discuss_active
-  background-position -75px -50px
-.ion_discover
-  background-position -153px -7px
-.ion_discover_active
-  background-position -153px -50px
-.ion_personal
-  background-position -233px -7px
-.ion_personal_active
-  background-position -233px -50px
-
-.ion_member, .ion_comment, .ion_ballon, .ion_teams, .ion_team, .ion_foot, .ion_message, .ion_calendar, .ion_setting, .ion_invite_code
-  background-image url('../img/icon.png')
-  background-size 160px 200px
-.ion_member
-  background-position 0px -80px
-.ion_comment
-  background-position -40px -80px
-.ion_ballon
-  background-position -110px -65px
-.ion_teams
-  background-position -70px -62px
-.ion_foot
-  background-position -110px -103px
-.ion_message
-  background-position 10px -342px
-.ion_calendar
-  background-position -70px -103px
-.ion_setting
-  background-position -30px -145px
-.ion_invite_code
-  background-position 10px -25px
 .emoji
   margin 0 0.1rem
   vertical-align middle
 //- 讨论页
 .discuss_detail
   background-image url('../img/discuss_bgd.jpg')
-  background-size 400px
+  background-size cover
   background-position center
-  //-右icon
-  //- ion-infinite-scroll
-  //-   height 20px
   .icon-right
     width 40px
     margin-top 3px
+  .teams_icon
+    position absolute
+    min-height 40px
+    right 10px
+    top 0
+    margin-top 0
+    .svg_icon
+      margin-top 7px
+      width 24px
+      height 24px
   //- .balloon
   //-   position absolute
   //-   right 10px
@@ -856,131 +1273,6 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   //-     border-style solid
   //-     border-width 10px 10px 10px 0
   //-     border-color transparent #f48361
-  //-公告
-  .notice.show
-    display block
-  .notice
-    display none
-    height 85px
-    position absolute
-    top 5rem
-    width 90%
-    margin 5%
-    .notice_cover
-      background-color #fff
-      opacity 0.8
-      height 85px
-      z-index 1
-      border-radius 3px
-      position absolute
-      width 100%
-      left 0
-      top 0
-    .content
-      z-index 2
-      padding 10px
-      .notice_title
-        color col_blue
-        float left
-        font-size 14px
-        font-weight 600
-      .notice_content
-        color #666
-        width 100%
-        float left
-        font-size 16px
-        margin-top 10px
-      .close_button
-        color col_blue
-        background-color transparent
-        font-size 20px
-        line-height 1
-        padding 0
-  //-发评论
-  .comment_box
-    color #333
-    background-color #fff
-    display block
-    height auto
-    padding-top 3px
-    //- position relative
-    .icon.ion-image
-      font-size 22px
-      margin-top -12px
-      padding 6% 10px 0
-      float left
-    .input_area
-      width 75%
-      float left
-      min-height 3rem
-      .comment_input
-        float left
-        width 90%
-        margin-top 8px
-        padding-left 5px
-        padding-right 0
-        padding-bottom 0
-        background-color transparent
-        box-shadow 0 0 0
-        border-radius 3px
-        min-height 2rem
-        margin-bottom -2px
-        resize none
-      .input_bottom
-        float left
-        height 4px
-        width 100%
-        border 1px solid #666
-        border-top 0
-        margin-bottom 5px
-      .emotion_button
-        float left
-        background-color transparent
-        width 24px
-        margin-top -12px
-        padding 7% 0 0
-        line-height 1
-        .emoji
-          vertical-align baseline
-          margin-right 2px
-    button.publish_button[disabled]
-      color col_darkGray !important
-    .publish_button
-      float left
-      padding 0
-      border 0
-      background-color transparent
-      color #333
-      text-align cesfdgnter
-      width 3rem
-      font-size 14px
-      line-height 21px
-      margin-top -12px
-      padding 6% 0 5px
-      font-weight 600
-    .emotion_box
-      border-top 1px solid #ccc
-      padding 5px 0
-      width 100%
-      height 160px
-      float left
-      background-color #fff
-      .box
-        width 320px
-        padding 4px
-        margin auto
-        .emotion
-          padding 9px
-          float left
-          .emoji
-            margin-right 0
-            height 21px
-            width 21px
-            margin 0
-      .slider-pager
-        bottom 5px
-        .icon.ion-record
-          color col_blue
 
   //-评论列表
   .comments
@@ -1035,18 +1327,60 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           display inline-block
           font-size 16px
           color col_lightGray
-          max-width 100%
-          padding 2px 7px
-          line-height 22px
-
+          max-width 84%
+          padding 4px 7px
+          line-height 24px
+        .remind_box
+          border 1px solid col_borderLight
+          border-radius 3px
+          text-decoration none
+          background-color #fff
+          float left
+          margin-left 10px
+          width 93%
+          .remind_box_head
+            border-bottom 1px solid col_borderLight
+            color col_mainText
+            text-decoration none
+            padding 5px 10px
+            font-size 14px
+          .remind_box_content
+            padding 5px
+            padding-left 10px
+            .team_logo
+              float left
+              width 45px
+              height 45px
+              border-radius 5px
+              background-color col_bottomGray
+            .text
+              float left
+              padding 5px
+              line-height 1
+              width 14rem
+              .tname
+                font-size 14px
+                color col_mainText
+                textOverflow()
+              .cname
+                margin-top 8px
+                font-size 12px
+                color col_textGray
+                textOverflow()
       .triangle_isosceles
         position relative
         padding 0.5rem 1rem
         background #fff
-        border-radius 5px
+        border-radius 10px
         background linear-gradient(top, #fff, #fbfbfb)
         margin-left 0.8rem
-      .triangle_isosceles:after 
+        a
+          text-decoration none
+          color black
+          display block
+          .link
+            color col_lightGray
+      .triangle_isosceles:after
         content ""
         display block
         position absolute
@@ -1114,11 +1448,17 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         .content
           color #fff
           float right
-      .triangle_isosceles 
+      .triangle_isosceles
         margin-right 0.4rem
         background col_blue
-      .triangle_isosceles:after 
-        
+        a
+          text-decoration none
+          color white
+          display block
+          .link
+            color col_lightGray
+      .triangle_isosceles:after
+
         right -0.7rem
         left auto
         bottom auto
@@ -1147,48 +1487,403 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
             left auto
             border none
             right -10px
+//-发评论
+.comment_box
+  color #333
+  background-color col_gray
+  display block
+  height auto
+  padding-top 5px
+  .publish_box
+    displayFlex()
+    .svg_icon
+      font-size 22px
+      width 22px
+      padding-left 2px
+      margin auto 5px
+      fill black
+    .comment_input
+      flexValue(1)
+      margin 5px 0
+      padding-left 5px
+      background-color #fff
+      box-shadow 0 0 0
+      border-radius 3px
+      min-height 28px
+      max-height 70px
+      resize none
+      overflow-y auto
+      -webkit-user-select text
+      user-select text
+      font-size 16px
+    .emotion_button
+      background-color transparent
+      width 30px
+      padding 0 2px
+      line-height 100%
+      text-align left
+      .svg_icon
+        margin-left 0
+    button.publish_button[disabled]
+      color col_darkGray !important
+    .publish_button
+      padding 0
+      border 0
+      background-color transparent
+      color #333
+      width 55px
+      font-size 18px
+      line-height 100%
+  .emotion_box
+    border-top 1px solid #ccc
+    padding 5px 0
+    width 100%
+    height 160px
+    background-color #fff
+    .box
+      width 320px
+      padding 4px
+      margin auto
+      .emotion
+        padding 9px
+        float left
+        .emoji
+          margin-right 0
+          height 21px
+          width 21px
+          margin 0
+    .slider-pager
+      bottom 5px
+      .icon.ion-record
+        color col_blue
 
-          
 //-讨论列表页
 .discuss_list
+  .scroll
+    height 100%
+  .chat_pre
+    max-height 21px
   .list
     padding-top 0
-    .item
-      position relative
-      .red_spot
-        background-color #f48361
-        position absolute
-        width 1rem
-        height 1rem
-        border-radius 100%
-        left 4rem
-        top 1rem
+    background-color white
+    .custom_items
+      margin-top 1px
+      .item
+        position relative
+        padding-top 18px
+        padding-bottom 18px
+        border-style none
+        border-width 0px
+        .red_spot
+          background-color #f48361
+          position absolute
+          width 1rem
+          height 1rem
+          border-radius 100%
+          left 4rem
+          top 1rem
+      .custom_border
+        height 2px
+        border-bottom 1px solid col_boderlighttGray
+        &.non_last_custom_border
+          margin-left 15px
+
+.item-avatar_custom
+  padding-left 72px
+  min-height 72px
+.item-avatar_custom > img:first-child
+  position absolute
+  top 16px
+  left 15px
+  width 45px
+  height 45px
+  border-radius 4px
 .item-avatar > img:first-child
   border-radius 0
+
+//- 活动留言页
+.campaign_discuss
+  .icon-right
+    width 40px
+    margin-top 3px
+  .comments
+    .comment
+      padding 16px
+      background-color #fff
+      border-bottom 1px solid col_borderLight
+      .logo
+        float left
+        margin-right 10px
+        img
+          width 30px
+          height 30px
+          border-radius 3px
+      .contents
+        float left
+        .name
+          color #202020
+          line-height 1
+          margin-bottom 13px
+          font-size 16px
+        .content
+          color #666
+          font-size 14px
+          line-height 1
+          margin-bottom 10px
+        .time
+          color #a2a2a2
+          font-size 12px
+          line-height 1
+    .item-button
+      text-align center
+      .ion-looping
+        color #a2a2a2
+  .button-clear
+    font-size 14px
 //-发现页
+.discover, .rank_page
+  .rank_table
+    background-color #fbfbfb
+    .rank_line
+      height 67px
+      width 100%
+      padding 10px 0
+      font-size 14px
+      line-height 1
+      border-right 0
+      .team_logo
+        border-radius 3px
+        width 45px
+        height 45px
+        background-color col_bottomGray
+      .rank_col,.logo_col,.name_col,.score_col
+        float left
+      .rank_col
+        width 10%
+        text-align center
+        padding-top 15px
+        color col_mainText
+      .logo_col
+        width 20%
+      .name_col
+        width 60%
+        padding-top 2px
+        .team_name
+          color col_mainText
+          font-size 14px
+          margin-bottom 10px
+        .team_cname
+          color col_textGray
+          font-size 12px
+      .score_col
+        padding-top 15px
+        width 10%
+        color col_textGray
+    a
+      text-decoration none
+      align-items center
+
 .discover
-  .discover_image
-    width 100%
-    display block
-    background url('../img/discover.jpg') no-repeat
-    background-size 100%
-    height 15rem
-    margin-top 10px
   .list
+    margin-top 10px
     .item
-      &:first-child
-        border-top 0
+      indentLine()
       .icon
         width 3rem
         font-size 14px
         color col_blue
+      .icon.ion-chevron-right
+        color col_textLight
       .icon.ion-android-contacts
         font-size 22px
         padding-left 4px
       .item-note
         color col_blue
+      .badge_dot
+        background-color #FF5724
+        width 12px
+        height 12px
+        bottom 10px
+        display inline-block
+        border-radius 100%
+        position relative
+  .rank_panel
+    border-top 1px solid col_borderLight
+    margin-top 30px
+    .rank
+      background-color #f48361
+      padding 10px 15px
+      border 0
+      .rank_title
+        float left
+        color #fff
+        line-height 26px
+      .rank_button
+        float right
+        background-color #fff
+        border-radius 5px
+        color col_textGray
+        padding 5px
+        height 26px
+        min-height 25px
+        line-height 1
+        border 0
+    .team_select
+      displayFlex()
+      background-color white
+      padding 10px 20px
+      .team_container
+        flexValue(1)
+        text-align center
+        .team
+          width 100%
+          height 100%
+          position relative
+          .icon
+            font-size 22px
+            position absolute
+            top 17px
+            color col_textLight
+          .team_logo
+            width 35px
+            height 35px
+            margin-top 10px
+            border-radius 3px
+          .team_name
+            width 100%
+            word-break break-all
+            textOverflow()
+            color col_textGray
+            font-size 14px
+        .team.selected_team
+          .team_logo
+            width 45px
+            height 45px
+            margin-top 0
+            background-color col_bottomGray
+          .team_name
+            font-size 14px
+            font-weight 400
+            color col_mainText
+        .last_team
+          .icon
+            left 0
+        .next_team
+          margin-right 10px
+          .icon
+            right 0
+    .rank_table
+      margin-top 0
+      border-top 1px solid #d7d7d7
+      .rank_line
+        background-color #faf9f9
+        border 0
+        .rank_col
+          font-size 16px
+      .rank_line.single_line
+        background-color #f2f2f2
+
+
+//- 排行榜详细页
+.rank_page
+  //-覆盖样式
+  .rank_table
+    .rank_title
+      height 27px
+      padding 8px 15px
+      background-color #f7f7f7
+      font-size 12px
+      border-top 0
+      line-height 1
+      .rank_name
+        float left
+      .tip
+        text-align center
+      a
+        color #444
+
+    .rank_line
+      padding 10px
+      height 70px
+      .rank_col
+        width 35px
+        padding 18px 13px
+        margin-right 10px
+        text-align center
+      .logo_col
+        width 50px
+        .team_logo
+          height 50px
+          width 50px
+          border-radius 5px
+          background-color col_bottomGray
+      .content_col
+        float left
+        width 60%
+        margin-left 15px
+        p
+          font-size 12px
+          line-height 1
+          margin-bottom 9px
+        p.others, p.team_cname
+          font-size 10px
+        .team_name
+          color col_mainText
+        .others
+          .activity_score, .odds_percent
+            margin-left 10px
+      .top
+        .top_flag
+          width 25px
+          height 25px
+          position absolute
+          left 15px
+          top 20px
+          padding 5px 9px 7px
+          background-color #3ba2e0
+          border-radius 100%
+          color #fff
+    .belong
+      color #3ca2e0
+      .no_rank_table
+        text-align center
+
+//-选择小队类型
+.rank_select
+  .groups
+    .group
+      min-width 50px
+      float left
+      width 33.33333%
+      text-align center
+      padding 19px 18px 22px
+      background-color #fff
+      border-right 1px solid #eee
+      border-bottom 1px solid #eee
+      a
+        text-decoration none
+        label
+          color col_mainText
+          &.active
+            color #3ca2e0
+        .img_contain
+          width 25px
+          height 25px
+          background-image url('../img/icons/groups_new.png')
+          background-repeat no-repeat
+          background-size 300px 750px
+          margin 0 auto
+        for i in 0..16
+          .group_{i+1}
+            background-position i%6 * -50px floor(i/6) * -50px
+
+//-
+.rank_rules
+  .list
+    .card
+      margin-top 0
 //-我的等页面通用">"
-.personal, .settings, .about, .settings_account, .contacts, .company
+.personal, .settings, .about, .settings_account, .contacts, .tab_company_page, .company, .team_page
   .list
     margin-top 10px
     .ion-chevron-right
@@ -1199,8 +1894,123 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       font-size 20px
       display block
       top 16px
+//公司页
+.tab_company_page
+  .company_header
+    position relative
+    height 190px
+    .company_family
+      width 100%
+  .company_info
+    padding-top 0
+    padding-bottom 0
+    border-radius 5px
+    .info_header
+      position relative
+      padding 0 1rem
+      color white
+      background-color white
+      padding-left 110px
+      padding-top 5px
+      padding-bottom 5px
+      min-height 50px
+      .logo
+        position absolute
+        left 15px
+        top -40px
+        border-radius 5px
+        width 80px
+        height 80px
+        border 1px solid #ccc
+        background-color col_bottomGray
+      .info_content
+        position absolute
+        left 110px
+        top -30px
+        .company_name
+          font-size 16px
+          text-shadow 2px 2px 3px black
+          line-height 30px
+          color white
+      .company_brief
+        font-size 14px
+        color col_textGray
+        .title
+          margin-right 5px
+  .list
+    margin-bottom 0
+    margin-top 0
+    .staff_item
+      height auto
+      padding-top 12px
+      padding-bottom 12px
+      padding-right 36px
+      .staff_photo
+        display block
+        float left
+        margin-right 15px
+        width 30px
+        height 30px
+        background-color col_bottomGray
+      .more_text
+        float right
+        color col_textGray
+        font-size 12px
+        line-height 30px
+    .icon_right
+      right 0
+    .icon.ion-chevron-right
+      color col_textLight
+  .menu_list
+    margin-top 10px
+    .item
+      indentLine()
+    .item.item-icon-left
+      padding-left 50px
+    .icon_left
+      width 3rem
+      font-size 14px
+      color col_blue
+      left 7px
+    .ionic_icon
+      font-size 22px
+      padding-left 4px
+    .item-note
+      color col_blue
+    .badge
+      background-color #FF5724
+      padding 2px 6px 1px
+      top 17px
+      font-size 12px
+      margin-left 4px
+      right auto
+      display inline-block
+    .badge_image
+      position absolute
+      right 36px
+      top 10px
+      height 30px
+      .red_spot
+        background-color #f48361
+        position absolute
+        width 1rem
+        height 1rem
+        border-radius 100%
+        right -0.5rem
+        top -0.5rem
+      .logo
+        width 30px
+        height 30px
+
 //-通讯录
-.contacts
+.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header.search_box:not(.bar-subheader).item-input-inset 
+    .item-input-wrapper
+      margin-top -1px !important
+    input
+      margin-top -1px !important
+.platform-ios.platform-cordova:not(.fullscreen) .contacts .bar-header.search_box:not(.bar-subheader) > *
+  margin-top -1px !important
+.contacts, .map_select
   .search_box
     width 100%
     background-color col_gray
@@ -1208,56 +2018,207 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       background-color #fff
     input
       background-color #fff
+.contacts
+  .bar
+    border-bottom none
+    padding-left 15px
+  .user_list
+    margin-top 0
+  .user_item
+    padding-left 77px
+    indentLine()
+  .user_photo
+    width 45px !important
+    height 45px !important
+    max-width 45px !important
+    max-height 45px !important
+    border-radius 5px !important
+  .nickname
+    font-size 14px
+    line-height 24px
+    color col_mainText
+  .realname
+    font-size 12px
+    line-height 18px
+    color col_textGray
+
+//- 地图选择样式
+.map_select
+  .search_box
+    height 40px
+    padding 9px
+  .map_container
+    height 400px
+  .name
+    background-color #fff
+    padding 5px
 //-账号设置页
 .settings_account
-  a.item
+  .item
+    indentLine()
     color #444
 //-我的
 .personal
   .list
     padding-top 0
-    margin-bottom 10px
-    .item.item-avatar
-      h2
-        font-weight 400
-        margin-bottom 5px
-      padding-bottom 5px
-      p
-        margin-bottom 5px
+    margin-bottom 0
+    .icon_right
+      right 4px
+  .user_info
+    margin-top 10px
+    .item_user
+      padding 15px 15px 15px 90px
+      height 90px
+      .avatar_photo
+        position absolute
+        left 15px
+        width 60px
+        height 60px
+        border-radius 5px
+      .nickname
+        font-size 14px
+        line-height 24px
+        margin-top 10px
+        margin-bottom 0
+      .introduce
+        font-size 12px
+        line-height 18px
         color col_darkGray
-      .tags
-        white-space normal
-        .tag
-          padding 2px
-    .item.item-icon-left
-      .icon
-        width 3rem
-  .user_card>.item>.introduce
-    white-space normal
-    .title
-      float left
-    .content
-      float left
-      width 82%
-  .statistics
-    text-align center
-    padding 0
-    .row
+    .statistics
+      text-align center
       padding 0
-      .col-33
-        border-left 1px solid #ccc
-        padding 5px 0
-        //- .key
-        //-   color #aaa
-        .number
-          color #222
-          font-size 16px
-      .col-33
-        &:first-child
-          border-left 0
-      a
-        text-decoration none
-
+      .row
+        padding 0
+        .col-33
+          border-left 1px solid #ccc
+          padding 7px 0
+          .number
+            font-size 12px
+            line-height 18px
+            color col_mainText
+          .key
+            font-size 12px
+            line-height 18px
+            color col_textGray
+        .col-33
+          &:first-child
+            border-left 0
+        a
+          text-decoration none
+  .menu_list
+    .item
+      indentLine()
+    .icon_left
+      width 3rem
+      margin-left -6px
+    .item.item-icon-left
+      padding-left 50px
+  //其他人看
+  .user_header
+    position relative
+    .img_container
+      position absolute
+      width 104%
+      left -5px
+      top -5px
+      -webkit-filter blur(4px)
+      -moz-filter blur(4px)
+      -ms-filter blur(4px)
+      filter blur(4px)
+    .user_card
+      position relative
+      text-align center
+      color white
+      padding-top 35px
+      width 100%
+      height 190px
+      text-shadow 2px 2px 2px black
+      .user_logo
+        border-radius 100%
+        border 3px solid #efefef
+        height 80px
+        width 80px
+      .user_name
+        font-size 16px
+        margin-top 5px
+      .user_introduce
+        textOverflow()
+        width 80%
+        margin 0 auto
+    .tab_view
+      position relative
+      .nav
+        border-bottom 1px solid col_gray
+        displayFlex()
+        width 100%
+        height 40px
+        background-color white
+        .tab_style
+          flexValue(1)
+          text-align center
+          height 100%
+          position relative
+          &:after
+            content ''
+            position absolute
+            right 0
+            top 25%
+            height 20px
+            width 1px
+            background-color col_gray
+          &:last-child
+            &:after
+              content none
+              display none
+          a
+            font-size 14px
+            height 30px
+            padding 10px
+            display block
+            color col_textGray
+            margin 5px 0
+            padding 5px
+          &.active
+            border-bottom 2px solid col_blue
+            a
+              color col_blue
+      .tab_content
+        height 50px
+        background-color col_bottomGray
+        .team_list
+          margin-top 1px
+          .dl_team_card
+            indentLine()
+            margin -1px
+            box-shadow none
+            border-radius 0
+            min-height 75px
+            height 75px
+            padding 15px
+            .team_logo
+              border-radius 5px
+              width 45px
+              height 45px
+              left 15px
+              top 15px
+            .team_info
+              color col_textGray
+              .team_name
+                color col_mainText
+                margin-top 0
+                line-height 25px
+              .team_count
+                margin-top 0
+                line-height 20px
+        .circle_list
+          .no_moment_remind
+              background-color white
+              padding 10px
+              text-align center
+              color col_textGray
+        .calendar_container
+          .calendar
+            margin-top 0
 //-编辑个人信息页
 .edit_info
   .list
@@ -1271,54 +2232,44 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       padding 6px 20px 5px
       input
         color col_blue
+      input[readonly]
+        background-color #fff
       .introduce
         color col_blue
         resize none
-      //- .item
-      //-   padding 6px 20px 5px
-      //- .tags
-      //-   width 75%
-      //-   float right
-      //-   .tag
-      //-     float left
-      //-     display block
-      //-     margin-right 5px
-      //-     margin-bottom 0.5rem
-      //-     .content
-      //-       float left
-      //-       background-color col_blue
-      //-       height 30px
-      //-       padding 5px 6px
-      //-       color #fff
-      //-       font-size 14px
-      //-     .tag_delete
-      //-       float left
-      //-       background-color col_blue
-      //-       border-radius 0 4px 4px 0
-      //-       padding 0 0.5rem
     .item-radio
       .item-content
         padding 0 30px
       .radio-icon
         padding 0 5px
         font-size 16px
-        color #666
+        color col_textGray
     .item-icon-right
-      input
-        z-index 2
       .icon
         color col_darkGray
         z-index 1
-        font-size 24px
+        font-size 18px
+    .save
+      background-color col_blue
 //- HR编辑小队
 .edit_team_info
+
+  .team-name
+    margin-bottom 0px
+    input
+      font-size 16px
   .list
-    background-color #fff
+    margin-top 10px
+    // background-color #fff
+    .team-edit-label
+      padding-left 15px
+      padding-top 10px
+      font-size 16px
     .leader
       span
         float left
       .leader_logo
-        float left
+        float lefthr
         height 20px
         width 20px
         margin-right 10px
@@ -1327,6 +2278,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       border-radius 5px
       margin 5px 16px
     .people
+      margin-top 10px
       .person
         float left
         width 25%
@@ -1344,36 +2296,264 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           white-space nowrap
           font-size 12px
           //- text-overflow ellipsis
+.team-sheet
+  font-size 16px
+  margin 5px 0px
+  color col_blue
+//- HR公司主页
+.hr_company_page
+  .company_header
+    position relative
+    .company_cover
+      width 100%
+  .company_info
+    padding-top 0
+    padding-bottom 0
+    border-radius 5px
+    margin-top -6px
+    .item
+      border none
+      indentLine()
+      &:last-child
+        border-bottom 1px solid col_borderLight
+      .hr_company_edit
+        position absolute
+        right 45px
+        font-size 14px
+        color #c4c4c4
+    .item.first_item
+      border-top 1px solid col_borderLight
+    .info_header
+      position relative
+      padding 0 1rem
+      color white
+      background-color white
+      padding-left 110px
+      padding-top 5px
+      padding-bottom 5px
+      min-height 50px
+      .logo
+        position absolute
+        left 15px
+        top -40px
+        border-radius 5px
+        width 80px
+        height 80px
+        border 2px solid #ccc
+      .info_content
+        position absolute
+        left 110px
+        top -30px
+        .company_name
+          font-size 16px
+          text-shadow 2px 2px 3px black
+          line-height 30px
+      .company_brief
+        font-size 14px
+        color col_textGray
+        .title
+          margin-right 5px
+    .guide
+      padding-bottom 7px
+      p
+        white-space normal
+        margin-bottom 5px
+      .title
+        font-size 16px
+        margin-bottom 10px
+      .icon
+        position absolute
+        right 2px
+    .company_member_num, .company_team_num
+      position absolute
+      right 50px
+      color #c4c4c4
+    .info_body
+      padding 15px
+      position relative 
+      z-index 2
+      background-color white
+      border-top 1px solid #e2e2e2
+      border-bottom 1px solid #e2e2e2
+      font-size 14px
+      color col_textGray
+    .icon
+      width 3rem
+      font-size 14px
+      color col_textGray
+      &.ion-android-contacts
+        font-size 22px
+        padding-left 4px
+        color col_blue
+  .operator
+    margin-top 10px
+    .hr_logout
+      margin 0
+      padding 5px
+      height 54px
+      background-color white
+      color #f3835c
+  .bar-footer
+    height 50px
+    // border-top 1px solid #ccc
+    .button
+      margin 0 15px
+      border-radius 5px
+      border 1px solid #e2e2e2
+      height 40px
+      color col_blue
+//- HR编辑公司
+.edit_company_info
+  .edit_list
+    margin-top 10px
+  .item
+    font-size 14px
+    indentLine()
+  .company_name_item
+    position relative
+    .title
+      display inline-block
+      width 80px
+      color black
+    .content
+      color col_textGray
+  .item-icon-right
+    position relative
+    padding 15px
+    height 90px
+    .icon
+      color col_darkGray
+      z-index 1
+      font-size 18px
+    .company_logo
+      font-size 14px
+      margin-top 23px
+      width 100px
+  .item-icon-right > img:first-child
+    position absolute
+    right 50px
+    width 60px
+    height 60px
+  .introduce_item
+    padding-bottom 8px
+    .input-label
+      font-size 14px
+      width 80px
+      color black
+    .introduce
+      white-space normal
+      color col_textGray
+      font-size 14px
+      line-height 20px
+
+//-HR小队主页
+.hr_team_page
+  .item-label
+    margin 10px 0px 0px
+  .item
+    .icon
+      width 3rem
+      font-size 14px
+      color col_textGray
+  .list
+    padding 0px
+    margin-top 1px
+    .item
+      position relative
+      border none
+      indentLine()
+      &:last-child
+        border-bottom 1px solid col_borderLight
+      .team-name
+        max-width 200px
+      .team-status
+        position absolute
+        top 16px
+        right 10px
+      .team-member
+        position relative
+        .team-leader
+          max-width 80px
+        .team-member-num
+          position absolute
+          left 90px
+          top 0px
+          font-size 14px
+          color #666
+
+    .item-avatar-custom
+      padding 15px 15px 15px 90px
+    .item-avatar-custom > img:first-child
+      position absolute
+      top 16px
+      left 15px
+      width 60px
+      height 60px
+      border-radius 5px
+      
+// 我的小队页面
+.personal_team_list_page
+  .scroll
+    height 100%
+  .team_list
+    margin-bottom 0
+  .team_list_item
+    padding-top 15px 0 15px 75px
+    indentLine()
+  .team_label
+    font-size 12px
+    padding-top 3px
+    padding-bottom 3px
+    line-height 18px
+    min-height 0
+    color col_mainText
+    border-width 0 0 2px 0
+  .team_logo
+    width 45px !important
+    height 45px !important
+    max-width 45px !important
+    max-height 45px !important
+    border-radius 5px !important
+  .team_name
+    font-size 14px
+    line-height 24px
+    color col_mainText
+  .team_info
+    color col_textGray
+    font-size 12px
+    line-height 18px
+  .info_item
+    margin-right 10px
 //-别人的卡片
-.user_card
-  .tags
-    white-space normal
-    .tag
-      padding 2px
-  .tabs
-    border-top 1px solid col_gray !important
+// .user_card
+//   .tags
+//     white-space normal
+//     .tag
+//       padding 2px
+//   .tabs
+//     border-top 1px solid col_gray !important
 //-设置
 .settings
   .list
     padding-top 0
-    border-bottom 1px solid #ccc
     &:first-child
       margin-bottom 10px
       margin-top 10px
     .item
+      indentLine()
       color #333
       padding-left 20px
   .quit_button
     border-top 0
     color #f3835c
     height 50px
-    border-bottom 1px solid #ccc
+    border-top 1px solid col_borderLight
+    border-bottom 1px solid col_borderLight
 //- 关于
 .about
   .list
-    color #666
+    color col_textGray
     font-weight 600
-    border-bottom 1px solid #ccc
     .item
       padding-left 20px
   .about_title
@@ -1412,9 +2592,20 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       background-color col_blue
       font-size 16px
       font-weight 600
+//- 发公告、留言等popover样式
+.dl_publish
+  background-color #eee
+  .publish_card
+    background-color #fff
+    margin 10px 0
+    padding 11px 16px
+    border 1px solid col_borderLight
+    textarea
+      color #202020
+      line-height 20px
 // 日程
 .calendar
-  margin 6px 4px
+  margin 6px 0px
   color col_darkGray
   height 100%
   nav
@@ -1422,32 +2613,46 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     border-top-left-radius 4px
     border-top-right-radius 4px
     .operator
-      background-color col_blue
+      // background-color col_blue
       color col_navGray
       border none
       margin 0
       border-top-left-radius 4px
       border-top-right-radius 4px
+      height 45px
+    .icon_blue
+      background-color transparent
+      color #3ca2e0
+    .icon_margin_left
+      margin-left 22px
+    .icon_margin_right
+      margin-right 22px
     .week
       position relative
-      background-color col_blue
-      background-image -webkit-linear-gradient(#57b4ec,col_blue)
+      height 27px
+      background-color rgb(255, 255, 255)
+      border-top 1px solid #ccc
+      border-bottom 1px solid #ccc
       .day
+        position relative
         float left
         width (100 / 7)%
-        height 20px
-        line-height 20px
-        color #fff
-        border-right solid 1px #2184bf
+        line-height 15px
+        color col_blue
+        margin-top 7px
     .date_list
       position relative
 
       .date_box
+        position relative
         float left
         width (100 / 7)%
         height 60px
+        border-top 1px solid #ccc
         border-right 1px solid #ccc
-        border-bottom 1px solid #ccc
+        border-bottom 2px solid #ccc
+        background-color #fbfbfb
+        color #999999
         &.other_month
           background-color #efefef
           color #ccc
@@ -1456,6 +2661,25 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           margin-left auto
           margin-right auto
           font-weight bold
+          font-size 16px
+        .calendar_campaign_join
+          position absolute
+          color white
+          right 50%
+          bottom 0px
+          background-color #48bebc
+          width 50%
+          height 1.5rem
+          line-height 1.5rem
+        .calendar_campaign_unjoin
+          position absolute
+          color white
+          right 0px
+          bottom 0px
+          background-color #d46c93
+          width 50%
+          height 1.5rem
+          line-height 1.5rem
         .campaign_count
           margin-top 15%
           display inline-block
@@ -1466,24 +2690,22 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
           height 1.5rem
           line-height 1.5rem
         &.current_day
-          background-color col_blue
+          background-color rgb(255, 255, 255)
           color white
-          border-top solid 1px #2184bf
           .date
-            color white
+            color col_blue
             border-radius 50px
           .campaign_count
             color col_blue
             background-color white
 
-        
+
 
         // .current_day.today
         //   background-color themeColor
 
     .date_bar
       margin 5px auto
-
   .full_box
     height 100%
 
@@ -1525,15 +2747,36 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       float left
       width (100 / 7)%
       height 60px
-      background-color col_navGray
+      background-color #efefef
       border-bottom solid 1px #ccc
       border-right solid 1px #ccc
+      &.calendar_current_month
+        color #999999
+        background-color #fbfbfb
       .calendar_date
         margin-top 15%
         margin-left auto
         margin-right auto
         font-weight bold
         font-size 16px
+      .calendar_campaign_join
+        position absolute
+        color white
+        right 50%
+        bottom 0px
+        background-color #48bebc
+        width 50%
+        height 1.5rem
+        line-height 1.5rem
+      .calendar_campaign_unjoin
+        position absolute
+        color white
+        right 0px
+        bottom 0px
+        background-color #d46c93
+        width 50%
+        height 1.5rem
+        line-height 1.5rem
       .calendar_campaign_count
         margin-top 15%
         display inline-block
@@ -1543,19 +2786,18 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
         width 1.5rem
         height 1.5rem
         line-height 1.5rem
+
       &.today
-        background-color col_blue
         .calendar_date
-          color white
-          border-radius 50px
+          color col_blue
+          font-size 24px
+          font-weight 900
         .calendar_campaign_count
           color col_blue
           background-color white
 
-        
       .weekend
         color gray
-
     for day in (0..6)
       .offset_{day}
         margin-left (100 * day / 7)%
@@ -1564,6 +2806,9 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     height 100%
     .no_campagin
       background-color col_navGray
+    .campaign_join
+      height 20px
+      color col_blue
     .calendar_campaign
       margin 0
       padding 0
@@ -1620,35 +2865,59 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
               border-color transparent #43cee6 transparent transparent
               border-style solid
               border-width 0 20px 20px
-//@:android
-.platform-android
-  .popover-backdrop.active
-    .dl_popover
-      margin-top 12px
-      background-color rgba(0,0,0,0.7)
-    .popover-arrow
+      .calendar_divider
+        height 10px
+        border-top 0
+        background-color col_bottomGray
+  .dl_card_footer
+    position relative
+    height 18px
+    line-height 18px
+    padding 0 0.833333rem
+    font-size 12px
+    color col_darkGray
+    width 100%
+    .dl_team_number
       position absolute
+      top 0
+      right 50px
+    .dl_team_comment
+      position absolute
+      top 0
+      right 10px
+      margin-left 10px
+    .ion_member, .ion_comment
       display block
-      width 30px
-      height 19px
-      overflow hidden
-      left 50px !important
-      &:after
-        position absolute
-        top 12px
-        left 5px
-        width 20px
-        height 20px
-        border-radius 3px
-        content ''
-        -webkit-transform rotate(-45deg)
-        transform rotate(-45deg)
-        background-color rgba(0,0,0,0.7) !important
+      float left
+      margin-top 2px
+      margin-right 5px
+      width 12px
+      height 12px
+    .dl_card_footer_count
+      display block
+      float left
+  .campaign_title_joined
+    color #48bebc
+    margin-left 15px
+  .campaign_title_unjoined
+    color #d46c93
+    margin-left 15px
+  &.other
+    .calendar_month
+      .calendar_day
+        .calendar_campaign_join
+          right 25%
+          bottom 5px
+    nav
+      .date_list
+        .date_box
+          .calendar_campaign_join
+            right 25%
+            bottom 5px
 .dl_popover
   background-color rgba(0,0,0,0.7)
   border-radius 0 !important
   .dl_popover_content
-    margin 8px 0//@:android
     .dl_popover_button
       color white
       height 30px
@@ -1663,6 +2932,24 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 .calendar_filter_popover
   width 80px
   height 105px
+.campaign_filter_popover
+  width 140px
+  height 195px
+  .dl_popover_content
+    margin 10px
+    border-radius 0 !important
+    .dl_popover_button
+      background-color transparent
+      border 0
+      border-bottom 0
+      line-height 35px
+      height 35px
+      font-weight 700
+      text-align left
+      padding-left 10px
+      width 100%
+    .dl_popover_button.activated
+      background-color #aaa
 .user_more_popover
   width 80px
   height 46px
@@ -1680,175 +2967,114 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
 // 小队主页
 .team_page
-  .team_header
-    position relative
-    .team_family
+  .list
+    margin-top 10px
+    margin-bottom 0
+    &:first-child
+      margin-top 0
+  .cover_item
+    padding 0
+    height 150px
+    overflow hidden
+    .cover_img
       width 100%
-    .logo
+      margin-top -15%
+  .team_info_item
+    padding-left 102px
+    padding-top 6px
+    .team_logo
       position absolute
-      left 20px
-      bottom 15px
+      top 16px
+      left 16px
+      width 70px
+      height 70px
       border-radius 5px
-      width 65px
-      height 65px
-      border 3px solid white
-  .team_info
-    padding-top 0
-    padding-bottom 0
-    border-radius 5px
-    .info_header
-      position relative
-      padding 0 1rem
-      height 50px
-      color white
-      background-color col_blue
+      border 1px solid #ccc
+      box-shadow 0px 0px 30px #999
     .team_name
-      float left
+      margin 0
       font-size 16px
-      line-height 50px
-    .team_type
-      float right
-      margin 10px 0
-      padding 0 1rem
+      line-height 28px
+      color col_mainText
+    .team_info
+      margin 0
       font-size 12px
-      line-height 30px
-      color col_blue
-      background-color white
-      border-radius 5px
-    .info_body
-      padding 1rem
-    .start_time, .team_des
-      font-size 14px
-      color col_black
-    .team_des
+      line-height 18px
+      color col_textGray
+    .info_data
+      margin-left 5px
+      margin-right 10px
+    .op_btn_group
       margin-top 5px
-    .btn_join, .btn_joined
-      display block
-      width 100%
+      displayFlex()
+    .op_btn
+      flexValue(1)
       margin 0
-      margin-top 15px
-      padding 0 1rem
-      border 0
-      height 40px
-      text-align center
-      cursor pointer
-      text-overflow ellipsis
+      margin-right 10px
+      padding 0
+      font-size 14px
+      line-height 32px
       border-radius 5px
-    .btn_join
-      color white
-      background-color col_blue
-    .btn_joined
-      color col_blue
-      background-color white
-      border 1px solid col_blue
-    .info_footer
-      position relative
-      padding 0
-      height 40px
-      border-top 1px solid col_gray
-      .icon
-        display inline-block
-        vertical-align middle
-        margin-top -2px
-        margin-right 5px
-        color col_blue
-        font-size 16px
-    .ion_member
-      display inline-block
-      width 24px
-      height 24px
-      background-size 200px
-      background-position 5px -148px
-      vertical-align middle
-      margin-top 3px
-    .btn_member, .btn_cp
-      border-left 1px solid col_gray
-    .btn_upload_photo, .btn_member, .btn_cp
-      padding 0
-      color col_darkGray
-      text-align center
+      color col_textGray
+      background-color col_gray
+      border 1px solid col_boderlighttGray
       text-decoration none
-      cursor pointer
-      font-size 12px
-      line-height 40px
-
-  .team_home_court
-    padding-top 0
-    padding-bottom 0
-    border-radius 5px
-    .home_court_tabs
-      padding 0
-      height 35px
-    .tab
       text-align center
-      padding 0
-      line-height 35px
-      font-size 16px
-      color col_blue
-      background-color white
-    .tab.active
+      &:last-child
+        margin-right 0
+    .find_opponent_btn
       color white
-      background-color col_blue
-    .map_wrap
-      display block
-    .map_img
-      display block
-      width 100%
-    .home_court_name
-      padding 0 1rem
-      margin 0
-      height 30px
-      font-size 16px
+      background-color #EB6B4F
+  .latest_campaign_item
+    color col_mainText
+  .latest_campaign_info_item.first_item
+    border-top 1px solid col_borderLight
+  .latest_campaign_info_item
+    indentLine()
+    color col_darkGray
+    .svg_icon
+      fill col_darkGray
+    .cp_time
+      margin-right 30px
+  .members_item
+    font-size 14px
+    height 54px
+    .col
+      text-decoration none
+      color col_textGray
       line-height 30px
-      color col_black
-    .no_homecourt
-      max-width 100%
-      display block
+      padding-left 15px
+      .title
+        float left
+        margin-right 20px
+      .user_logo
+        height 30px
+        width 30px
+        border-radius 5px
+      .icon_right
+        right 10px
+      &:first-child
+        border-right 1px solid #e2e2e2
 
-  .member_card
-    position relative
-    background-color col_blue
-    height 60px
-    padding 0 1rem
-    border-radius 5px
-    .member_wrap
-      position relative
-      height 60px
-      line-height 60px
-      float left
-    .member
-      margin 10px 0
-      margin-right 5px
-      width 40px
-      height 40px
-      border-radius 5px
-    .dl_member_leader
-      width 20px
-      height 20px
-      display inline-block
-      position absolute
-      right 5px
-      bottom 9px
-      background-color #fbc441
-      border-radius 100%
-      background-image url('../img/icon.png')
-      background-size 192px 240px
-      background-position -45px -140px
-    .member_link
-      position absolute
-      top 0
-      right 0
-      width 40px
-      height 60px
-      display block
-      border-radius 5px
-      background-color col_blue
-      color white
-      line-height 60px
-      font-size 12px
+  .home_court_item
+    indentLine()
+    displayFlex()
+    .title
+      width 60px
+    .home_court_name
+      flexValue(1)
       text-align center
-      text-decoration none
+      color col_darkGray
 
+//-timeline 卡片与小队timeline卡片共用时间样式
+.dl_campaign_group, .timeline_card ,.competition_timeline_card
+  background-color #fff
+  .dl_campaign_timeline_date
+    background-color col_bottomGray
+    padding 7px 15px
+    font-size 12px
+    line-height 1
+    border-bottom-width 2px
   .dl_campaign_group
     .dl_campaign_group_date
       margin 1rem
@@ -1858,16 +3084,15 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       border-radius 5px
       text-align center
 .dl_timeline
-  &:before
-    content ''
-    position absolute
-    top 0
-    bottom 70px
-    width 3px
-    background #ccc
-    left 50%
+  position relative
+  indentLine()
+  padding-bottom 1px
+  &:after
+    z-index 11
+    border-top none
   .dl_timeline_card
     z-index 10
+    border none
   .dl_timeline_date
     display block
     margin 1rem auto
@@ -1879,53 +3104,53 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     text-align center
     position relative
     z-index 10
-.nomore_text
-  margin 10px
-  font-size 14px
-  text-align center
-  
+  &:last-child
+    .dl_timeline_card
+      border-bottom none
+
 .member_page
   .member_group
-    margin 0.833333rem
-  .member_group_name
-    display block
-    margin 0 0.833333rem
-    border 1px solid col_darkGray
-    color col_darkGray
-    background-color white
-    text-align center
-    border-radius 5px
-    font-size 12px
-  .member
-    position relative
-    margin 0.833333rem 0.833333rem 0
-    float left
-    text-decoration none
-  .member_photo
-    display block
-    width 55px
-    height 55px
-    border-radius 5px
-  .dl_member_leader
-    width 20px
-    height 20px
-    display inline-block
-    position absolute
-    right 0
-    bottom 23px
-    background-color #fbc441
-    border-radius 100%
-    background-image url('../img/icon.png')
-    background-size 192px 240px
-    background-position -45px -140px
-  .member_name
-    margin 3px auto 0
-    width 50px
-    text-align center
-    color col_black
-    overflow hidden
-    text-overflow ellipsis
-    white-space nowrap
+    .member_group_name
+      color col_textGray
+      font-size 14px
+      padding 5px 15px
+    .members
+      position relative
+      background-color white
+      border 1px solid #ccc
+      .member
+        position relative
+        width 25%
+        float left
+        text-decoration none
+      .member_inner
+        position relative
+        width 45px
+        margin-left auto
+        margin-right auto
+        padding-top 10px
+      .member_photo
+        display block
+        width 45px
+        height 45px
+        border-radius 5px
+        margin 0 auto
+      .dl_member_leader
+        width 18px
+        height 18px
+        display inline-block
+        position absolute
+        right -5px
+        bottom 18px
+        background-color #ffb502
+        border-radius 100%
+        fill white
+      .member_name
+        margin 3px auto 0
+        width 45px
+        text-align center
+        color col_black
+        textOverflow()
 
 .photo_album_detail_page
   .hidden_figcaption
@@ -1966,9 +3191,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
       margin-left 10px
     .team_name, .team_cp_title, .team_cp_number
       max-width 100%
-      overflow hidden
-      text-overflow ellipsis
-      white-space nowrap
+      textOverflow()
 .all_team_list_page
   .dl_team_card
     .team_logo
@@ -2012,49 +3235,106 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
   dl_card()
   .map
     .map_img
+    .no_map
       width 100%
 
 .sponsor
-  background-color #fff
+  background-color col_bottomGray
   .list
+    margin-top 10px
+    .competition
+      align-items center
+      font-size 14px
+      color col_mainText
+      background-color #fff
+      border-top 1px solid col_borderLight
+      border-bottom 1px solid col_borderLight
+      height 92px
+      padding 15px
+      .col
+        text-align center
+      .col_sm
+        flex 0.25
+        padding 0
+      .col_center
+        flex 0.5
+      .team_logo
+        height 60px
+        width 60px
+        border-radius 5px
+    .item-divider
+      min-height 10px
+      height 10px
+      padding 0
+    .item
+      height 50px
+      line-height 18px
+      .input-label
+        color col_mainText
+      .icon
+        color col_textLight
+        font-size 18px
+    .item-input
+      border-top-width 0
+      .result
+        color col_textLight
+      input::-webkit-input-placeholder
+        color col_textLight
+      input::-moz-placeholder /* Mozilla Firefox 4 to 18 */
+        color col_textLight
+      input:-ms-input-placeholder /* Internet Explorer 10+ */
+        color col_textLight
+      input[readonly]
+        background-color #fff
+      .dl_icon
+        width 20px
+        margin 10px 0
+    .introduce
+      height 108px
+      align-items baseline
+      textarea
+        width 65%
+        line-height 22px
     .input-label
-      color col_darkGray
       padding-top 0
       padding-bottom 0
-    .item-label
-      margin 5px 20px
-      border none
-      padding 0
-    .item-input
-      margin 5px 20px
-      border 1px solid col_blue
-      border-radius 5px
-      input
-        height 22px
-        color col_blue
-        padding-top 2px
-      .introduce
-        color col_blue
-        &::-webkit-input-placeholder
-          color col_blue
     .item-select
-      select
-        color col_blue
-        padding 7px 48px 7px 16px
-      &:after
-        color col_blue
-    .item-button
-      margin 10px 20px
-      .button
+      border-width 0
+      &:before
+        display block
+        position absolute
+        left 15px
+        bottom 0
         width 100%
-        border-radius 5px
-      .button_sponsor
-        background-color col_blue
-        color white
-      .button_close
-        background-color col_darkGray
-        border none
+        content ''
+        border 1px solid col_borderLight
+      &:last-child
+        border-bottom-width 1px
+        &:before
+          content none
+          display none
+      select
+        padding 14px 48px 7px 16px
+    &.indentLine
+      .item
+        indentLine()
+        padding-bottom 5px
+        &:last-child
+          padding-bottom 5px
 
+//-通用发布按钮
+.sponsor, .campaign_discuss ,.map_select
+  .item-button
+    margin 10px 20px
+    .button
+      width 100%
+      border-radius 5px
+    .button_sponsor
+      background-color col_blue
+      color white
+    .button_close
+      background-color col_darkGray
+      border none
 
 .pswp
   .dl_button_to_album
@@ -2062,8 +3342,7 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
     color white
     .icon
       font-size 20px
-.map_container
-  height 400px
+
 .popup-container
   .popup
     width 100%
@@ -2075,13 +3354,1028 @@ input:focus:-ms-input-placeholder /* Internet Explorer 10+ */
 
 
 .campaign_card_container.remove
-  transform translateY(500px) scale(0.1) 
+  transform translateY(500px) scale(0.1)
   -moz-transform translateY(500px) scale(0.1) /* Firefox 4 */
   -webkit-transform translateY(500px) scale(0.1) /* Safari and Chrome */
   -o-transform translateY(500px) scale(0.1) /* Opera */
-
-#inviteKeyQrCode
+.invite_key_qr_code
   img
     margin 0 auto
-.pswp__counter
-  width 70px
+    width 165px
+    height 165px
+.invite_key
+  .ion-clipboard
+    color col_blue
+.personal_invite_code_page
+  .list
+    margin-top 10px
+    margin-bottom 0
+    .item
+      color col_mainText
+      indentLine()
+      &.header
+        padding 10px 15px
+        height 44px
+    .description_item
+      height 90px
+    .invite_key_qr_code
+      margin auto
+      width 165px
+      height 165px
+      img
+        max-width 100%
+
+
+// 同事圈发文字或发图片附加文字样式
+.circle_send_content_page
+  .circle_content_form
+    .content_border
+      padding-right 6px
+      z-index 1500
+      height 5px
+      border-left 1px solid #33B5E5
+      border-right 1px solid #33B5E5
+      border-bottom 1px solid #33B5E5
+      background-color transparent
+    textarea
+      overflow hidden
+      height auto
+      padding 0px
+      resize none
+      max-height 560px
+      margin 0px 4px 2px
+      background-color transparent
+
+.circle_post_page
+  background-color #e2e2e2 // ionic 默认背景色
+  .publish_content
+    height auto
+    padding 5px
+    margin-bottom 20px
+  .button_add
+    float left
+    padding 5px
+    width (1 / 3 * 100)%
+    .button_inner
+      border 1px solid col_borderGray
+      text-align center
+      color col_borderGray
+  .preview_img_box
+    display block
+    position relative
+    float left
+    padding 5px
+    width (1 / 3 * 100)%
+  .preview_img
+    width 100%
+    height 100%
+  .circle_campaign_info
+    padding 0 16px
+    line-height 32px
+    font-size 18px
+
+// 同事圈发送文字页面
+.circle_send_content_page
+  .circle_content
+    margin 20px 20px 10px
+
+.circle_content_detail_page
+  background-color white
+//通用对战样式
+
+.competition_teams
+    padding 15px
+    text-align center
+    .col
+      padding 0
+    .team
+      .team_title
+        position relative
+        color white
+        text-align center
+        font-size 14px
+        height 26px
+        line-height 26px
+        &:before
+          content ""
+          position absolute
+          top 0
+          width 15px
+          height 26px
+          border-style solid
+          border-color white transparent transparent transparent
+      .team_content
+        padding 15px 15px 0 15px
+        .team_name
+          max-width 100%
+          textOverflow()
+          margin-top 5px
+          font-size 14px
+        .team_logo
+          width 60px
+          height 60px
+          border-radius 5px
+    .vs
+      font-size 16px
+      max-width 30px
+    .sponsor_team
+      .team_title
+        background-color #f75c5c
+        &:before
+          right 0
+          border-width 26px 0 0 15px
+    .opposite_team
+      .team_title
+        background-color col_blue
+        &:before
+          left 0
+          border-width 26px 15px 0 0
+    .vs_title
+      position absolute
+      left 50%
+      font-size 16px
+      top 18px
+      span
+        display inline-block
+        position relative
+      .v
+        color #f75c5c
+        left -12px
+      .s
+        color col_blue
+        left -8px
+// 公司、个人同事圈页面
+.circle_company_page, .circle_user_page, .circle_team_page
+  .remind_icon
+    background-size 720px 270px
+    background-position -38px -489px !important
+    width 32px
+    box-shadow none
+    border none
+  .custom_ion_content
+    background white
+  .circle_banner_image
+    width 100%
+    display block
+    background url('../img/discover.jpg') no-repeat
+    background-size 100%
+    height 144px
+  .circle_owner
+    position relative
+    margin-bottom 20px
+    z-index 1
+    .circle_owner_name
+      position absolute
+      top -30px
+      right 95px
+      color #FFFFFF
+      font-size 14px
+      font-family Arial, Helvetica, sans-serif
+    .circle_owner_image_wrap
+      display block
+      position absolute
+      top -50px
+      right 5px
+      padding 1px
+      background-color white
+      border 1px solid col_gray
+      .circle_owner_image
+        display block
+        width 70px
+        height 70px
+  .no_moment_remind
+    margin-top 35px
+    padding 10px
+    line-height 18px
+    font-size 14px
+
+  .remind_box
+    display block
+    margin 0 auto
+    width 100px
+    height 36px
+    line-height 36px
+    color white
+    background-color black
+    opacity 0.7
+    text-align center
+    text-decoration none
+    border-radius 5px
+
+// 消息提醒页
+.circle_reminds_page
+  .remind_item
+    position relative
+    padding-right 88px
+  .item_date
+    color col_darkGray
+  .content_preview
+    position absolute
+    top 16px
+    right 16px
+    width 64px
+    height 64px
+
+// 评论组件
+.circle_comment_box
+  z-index 101
+  padding 5px
+  &.show_emotion_box
+    bottom 160px
+  .emoji_click_wrap
+    position absolute
+    left 6px
+    top 7px
+    width 28px
+    height 28px
+    z-index 1
+.circle_emotion_box
+  position absolute
+  bottom 0
+  z-index 101
+  border-top 1px solid #ccc
+  padding 5px 0
+  width 100%
+  height 160px
+  float left
+  background-color #fff
+  .box
+    width 320px
+    padding 4px
+    margin auto
+    .emotion
+      padding 9px
+      float left
+      .emoji
+        margin-right 0
+        height 21px
+        width 21px
+        margin 0
+  .slider-pager
+    bottom 5px
+    .icon.ion-record
+      color col_blue
+
+.dl_circle_card_list
+  display block
+  .circle_card_wrap
+    display block
+    border-top 1px solid col_gray
+    &:first-child
+      border-top none
+
+.dl_circle_card
+  display block
+  position relative
+  text-decoration none
+  min-height 80px
+  padding 25px 10px 24px 10px
+  background-color white
+  .focus_on_show_comment_op, .focus_on_hide_comment_op
+    position absolute
+    opacity 0
+    width 1px
+    height 1px
+    left 20px
+    top 40px
+  .link_name
+    color col_link
+    text-decoration none
+    font-weight bold
+  .circle_company_logo
+    display block
+    position absolute
+    top 25px
+    left 10px
+    width 40px
+    height 40px
+    z-index 1
+  .circle_info
+    margin-left 50px
+    color col_mainText
+    text-decoration none
+    .user_name
+      margin 0
+      font-size 16px
+      line-height 16px
+    .circle_content
+      margin-top 7px
+      .content_text
+        padding 0
+        margin 0
+        overflow hidden
+        color col_mainText
+        background-color white
+        font-size 14px
+        line-height 18px
+      .ellipsis
+        color col_darkGray
+        margin-right 5px
+    .image_box
+      margin-top 10px
+      width 240px
+      .preview_img
+        display block
+        float left
+        margin-right 4px
+        margin-bottom 4px
+        width 75px
+        height 75px
+    .campaign_link
+      margin 0
+      margin-top 7px
+      font-size 12px
+      line-height 12px
+      max-width 320px
+      word-break break-all
+      textOverflow()
+    .text_from
+      color col_darkGray
+      margin-right 5px
+    .date_and_op
+      position relative
+      margin-top 9px
+      font-size 12px
+      line-height 12px
+      .text_item
+        display block
+        float left
+        margin-left 5px
+        &:first-child
+          margin-left 0
+      .date
+        color col_darkGray
+      .op_icon
+        position absolute
+        right 0
+        top -4px
+        fill col_link
+      .op_icon.active
+        fill col_darkGray
+      .toggle_click_wrap
+        position absolute
+        right -10px
+        top -16px
+        width 44px
+        height 40px
+        z-index 1
+      .comment_op
+        position absolute
+        top -14px
+        right 30px
+        z-index 1
+        .op_bg_wrap
+          position absolute
+          width 181px
+          height 40px
+          top 0
+          right 0
+          background-color black
+          opacity 0.7
+          border-radius 6px
+          z-index -1
+        .op_box
+          float right
+          width 181px
+          height 40px
+          color white
+        .op_item
+          float left
+          padding 0 10px
+          width 90px
+          line-height 40px
+          font-size 14px
+          text-align center
+          .svg_icon
+            width 14px
+            height 14px
+            fill white
+            margin-bottom 2px
+          .appreciate_icon
+            stroke white
+        .op_item_text
+          margin-left 5px
+        .op_divider
+          float left
+          margin 6px 0
+          height 28px
+          border-right 1px solid col_mainText
+  .circle_comment_list
+    position relative
+    margin-top 13px
+    padding 6px 5px
+    color col_mainText
+    background-color col_bottomGray
+    font-size 14px
+    line-height 20px
+    .circle_triangle
+      position absolute
+      left 5px
+      top -10px
+      border-style solid
+      border-width 5px
+      border-color transparent
+      border-bottom-color col_bottomGray
+    .appreciate_container
+      word-break break-all
+      textOverflow()
+      .appreciate_icon
+        width 14px
+        height 14px
+        margin-left 1px
+        margin-bottom 2px
+        stroke col_link
+      .appreciate
+        margin-left 5px
+        &:after
+          content ","
+        &:last-child
+          &:after
+            content ""
+    .comment_divider
+      margin 5px 0
+      border-top 1px solid white
+      .content
+        margin-left 10px
+      .reply_text
+        margin 0 5px
+
+//- 挑战日志页
+.competition_message_panel
+  background-color white
+  .competition_message_list
+    .type_filter
+      text-align center
+      position relative
+      .button
+        opacity 1
+        color col_textGray
+        height 40px
+        min-height 40px
+        line-height 40px
+        border-width 1px 0 0
+        border-color col_borderLight
+        &.active
+          color col_blue
+          border-bottom 4px solid col_blue
+      &:first-child
+        &:after
+          content ''
+          position absolute
+          width 1px
+          height 20px
+          background-color col_borderLight
+          left 50%
+          top 25%
+    .competition_message
+      text-decoration none
+      color col_textGray
+      background-color white
+      text-align center
+      font-size 12px
+      padding 10px 5px 10px 15px
+      margin-top 0
+      height 67px
+      position relative
+      border-color col_borderLight
+      border-style solid
+      indentLine()
+      &:after
+        border-top-width 0
+      .col_status
+        flexValue(0 0 27%)
+      .col_team
+        flexValue(0 0 17%)
+      .col
+        padding 0
+        .dot
+          width 10px
+          height 10px
+          background-color red
+          border-radius 100%
+          display inline-block
+          margin-top 6px
+          float left
+          margin-right 10px
+      .text_left
+        text-align left
+        .status
+          float left
+          .status_text
+            font-size 14px
+            color col_mainText
+            margin-bottom 5px
+      .team_name
+        textOverflow()
+        width 100%
+        line-height 14px
+      .team_logo
+        width 45px
+        height 45px
+        border-radius 5px
+      .competition_type
+        min-width 40px
+        font-size 12px
+    .operator
+      text-align center
+      color col_textGray
+  .competition_message_detail
+    .vote
+      padding 0 60px
+      height 50px
+      position relative
+      margin-bottom 15px
+      .vote_team
+        height 3px
+        margin-top 23px
+        .vote_icon
+          width 40px
+          height 40px
+          display inline-block
+          background-color #FFF
+          border-radius 100%
+          border-style solid
+          border-width 1px
+          position absolute
+          top 5px
+          .icon
+            position absolute
+            left 10px
+            top 10px
+            display inline-block
+            font-size 20px
+            width 20px
+            text-align center
+        .vote_num
+          position absolute
+          width 50px
+          bottom 0
+        &:first-child
+          text-align left
+          background-color red
+          float left
+          .vote_icon
+            left 20px
+            border-color red
+            .icon
+              color red
+          .vote_num
+            left 60px
+        &:last-child
+          text-align right
+          background-color blue
+          float right
+          .vote_icon
+            right 20px
+            border-color blue
+            .icon
+              color blue
+          .vote_num
+            right 60px
+    .competition_status
+      height 44px
+      text-align center
+      padding 14px
+      line-height 14px
+    .competition_type_select
+      .item-content
+        padding-right 30px
+        .type_content
+          margin-right 45px
+        .tips
+          font-size 14px
+          color col_textLight
+      .ion-checkmark
+        font-size 16px
+        padding 15px
+        color col_blue
+    .item
+      color col_textGray
+  .competition_message_comment
+    .comment_title
+      height 25px
+      line-height 25px
+      font-size 14px
+      min-height 25px
+      padding 0 15px
+    .comment
+      width 100%
+      padding 15px 17px
+      border-bottom 1px solid #ccc
+      color col_textGray
+      padding-left 57px
+      position relative
+      .team_logo
+        width 30px
+        height 30px
+        position absolute
+        left 15px
+        top 17px
+        border-radius 5px
+      .comment_contents
+        float left
+        .team_name
+          textOverflow()
+          word-break break-all
+          font-size 16px
+          color black
+          margin-bottom 12px
+        .create_date
+          color col_textLight
+        .comment_content
+          margin-bottom 16px
+      &.pull_right
+        text-align right
+        padding-right 57px
+        .team_logo
+          right 15px
+          left initial
+        .comment_contents
+          float right
+  .operator
+    text-align center
+    margin 10px 20px
+    .button_comment
+      background-color col_blue
+      color white
+      border-radius 5px
+      width 100%
+// 找对手
+.search_opponent
+  .select_team
+    .item-divider
+      padding 10px 15px
+      line-height 1
+      color col_mainText
+      border none
+    .clear_both
+      clear both
+      border-top 0
+    .units
+      .unit
+        float left
+        width 33.333%
+        border-right 1px solid col_gray
+        border-bottom 1px solid col_gray
+        text-align center
+        padding 15px 5px
+        height 96px
+        text-decoration none
+        background-color white
+        .logo
+          width 45px
+          height 45px
+          border-radius 5px
+        .text
+          line-height 1
+          margin-top 2px
+          textOverflow()
+          font-size 14px
+          color col_textGray
+        .button
+          width 100%
+          height 25px
+          background-color #ccc
+          box-shadow 0 0 0
+  .selected_team
+    .team
+      height 65px
+      padding 10px 15px
+      position relative
+      .logo
+        width 45px
+        height 45px
+        border-radius 5px
+        margin-right 10px
+        position absolute
+      .text
+        line-height 15px
+        color col_textGray
+        font-size 12px
+        width 100%
+        .tname
+          font-size 14px
+          color col_mainText
+          margin-bottom 5px
+          textOverflow()
+      .operator
+        position absolute
+        right 15px
+        top 15px
+        border-left 1px solid col_gray
+        padding-left 15px
+        p
+          margin-bottom 0
+          color col_blue
+          text-align center
+          line-height 1
+          font-size 14px
+        .change_team
+          color col_blue
+          min-height 20px
+          height 20px
+      &.now_team
+        margin-top 10px
+        .text
+          margin-top 5px
+          padding 0 80px 0 60px
+    .tab_view
+      width 100%
+      background-color #fff
+      margin-top 10px
+      .tab_content
+        padding 40px 0 0
+        .team
+          float left
+          padding 15px
+          text-decoration none
+          width 100%
+          border-bottom 1px solid col_gray
+          height 90px
+          .text
+            padding-left 75px
+            .rank
+              span
+                white-space nowrap
+                margin-right 5px
+            .rank, .leader
+              font-size 12px
+              margin-top 7px
+          .logo
+            width 60px
+            height 60px
+        .operator, .no_more_team
+          clear both
+          text-align center
+          background-color col_bottomGray
+          color #B2B2B2
+          font-size 14px
+        .no_more_team
+          padding-top 10px
+      .nav
+        float left
+        width 100%
+        height 40px
+        .opponent_tab_style
+          float left
+          text-align center
+          border-bottom 1px solid col_gray
+          height 100%
+          position relative
+          &:after
+            display block
+            position absolute
+            right 0
+            top 25%
+            height 50%
+            content ''
+            width 1px
+            background-color col_gray
+          &:last-child
+            &:after
+              content none
+              display none
+          a
+            font-size 14px
+            height 100%
+            padding 10px
+            display block
+            color col_textGray
+          &.active
+            border-bottom 2px solid col_blue
+            a
+              color col_blue
+          &.sameCity
+            width 25%
+          &.nearbyTeam
+            width 25%
+          &.search
+            width 50%
+            position relative
+            placeholderColor(col_textLight)
+            a
+              padding 7px 10px
+            .search_opponent_input
+              height 25px
+              border-radius 5px
+              border 1px solid col_gray
+              padding 8px 10px
+              color col_textGray
+              font-size 12px
+            .search_button
+              height 100%
+              min-height 14px
+              width 14px
+              min-width 14px
+              position absolute
+              right 20px
+              top 0
+              background-color transparent
+              color col_textLight
+              padding 0
+              border none
+              &:before
+                font-size 18px
+.competition_team_page
+  .competition_team
+    padding-bottom 50px
+    .team_item
+      padding-left 77px
+      .team_logo
+        width 45px
+        height 45px
+        max-width 45px
+        max-height 45px
+        border-radius 5px
+    .team_name
+      margin-top -5px
+      margin-bottom 0
+      color col_mainText
+      font-size 14px
+      line-height 24px
+    .info_text
+      margin 0
+      color col_textGray
+      font-size 12px
+      line-height 18px
+    .first_info_text
+      margin-top -2px
+    .team_info
+      .text_label
+        margin-right 8px
+      .text_data
+        margin-right 10px
+    .campaign_info
+      margin-bottom 0
+      border-bottom 0
+      .item
+        displayFlex()
+      .text_label
+        width 60px
+        font-size 16px
+        line-height 24px
+        color col_mainText
+      .text_data
+        flexValue(1)
+        font-size 14px
+        line-height 24px
+        color col_textGray
+        text-align center
+    .competition_timeline_card
+      .together_campaign
+        border-top 0
+  .bar-footer
+    height 50px
+    .bottom_button
+      display block
+      font-size 16px
+      height 40px
+      color white
+      background-color col_blue
+      text-align center
+      width 100%
+      border none
+      border-radius 5px
+
+
+.score_board
+  .item
+    height 44px
+    &.score_board_operator
+      text-align center
+      padding 6px 15px
+      height 50px
+      .button
+        background-color col_blue
+        color white
+        border-radius 5px
+        width 100%
+        min-height 38px
+        height 38px
+      .cancel
+        background-color col_lightGray
+    &.play_team
+      padding 15px 15px 15px 65px
+      height 70px
+      .team_logo
+        position absolute 
+        width 40px
+        height 40px
+        left 15px
+        top 15px
+      .team_name
+        font-size 14px
+      .show_score
+        .score
+          float left
+          width 80px
+        .result
+          float left
+      .editing
+        .score
+          float left
+          width 80px
+        .results
+          float left
+    &.score_board_footer
+      text-align center
+      padding 0
+      .remind_text
+        padding 10px 0
+        float left
+        width 100%
+      .getlog
+        color col_blue
+        padding 10px 0
+        float left
+        width 50%
+    &.logs
+      .log
+        .content
+          font-size 14px
+          color col_blue
+    &.competition_teams
+      height initial
+      position relative
+      .team
+        position relative
+        .team_content
+          .score
+            position absolute
+            top 50%
+            font-size 24px
+        &.sponsor_team
+          .score
+            right 0
+        &.opposite_team
+          .score
+            left 0
+      .vs
+        position relative
+        .score
+          font-size 24px
+          position absolute
+          top 50%
+          left 40%
+        .set_score
+          color col_blue
+          position relative
+          left -50%
+  .tab_view
+    width 100%
+    background-color #fff
+    .nav
+      border-bottom 1px solid col_gray
+      float left
+      width 100%
+      height 40px
+      .tab_style
+        float left
+        text-align center
+        border-right 1px solid col_gray
+        height 40px
+        width 50%
+        a
+          font-size 14px
+          height 100%
+          padding 10px
+          display block
+          color col_textGray
+        &.active
+          border-bottom 2px solid col_blue
+          a
+            color col_blue
+  .input_score
+    .input-label
+      width 20%
+    input
+      width 75%
+      &[disabled]
+        background-color transparent
+    input::-webkit-input-placeholder
+      color col_textLight
+.campaign_content_page
+  .content_page
+    padding-top 10px
+    .item
+      height 40px
+      padding 10px 15px
+      font-size 14px
+      indentLine()
+      .title
+        display inline-block
+        width 110px
+        color col_mainText
+      .content
+        color col_textLight
+      &.has_content
+        height initial
+        .content
+          white-space normal
+//hr邀请码
+.hr_active_code
+  .list
+    .item
+      indentLine()
+      .invite_key_qr_code
+        margin-top 16px

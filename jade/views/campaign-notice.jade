@@ -1,0 +1,23 @@
+ion-view
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title 活动公告
+    a.button.publish_notice.icon.ion-plus(ng-if="campaign.allow.publishCampaignMessage" ng-click="showPublishSheet()")
+  ion-content.notice_page
+    .list(ng-repeat="notice in notices")
+      .item.dl_notice_head
+        //- img(ng-src="{{STATIC_URL +notice.sender[0].photo}}")
+        p 
+          span.time {{notice.post_date | date:"yyyy年MM月dd日" }}
+          span.tip (活动公告)
+      .item.dl_notice_content
+        span.dl_notice_content {{notice.content}}
+  script(id="publish-notice.html" type="text/ng-template")
+    ion-modal-view
+      ion-header-bar
+        a.button.icon-left.ion-chevron-left(ng-click="cancelPublish()") &nbsp;返回
+        a.button(ng-disabled="!data.message" ng-click="publishNotice()") 发布
+      ion-content.dl_publish
+        form.publish_card
+          textarea(ng-model="data.message" placeholder="正文（必填），10-140字" autofocus maxlength=140 rows=6)
+

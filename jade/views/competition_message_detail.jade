@@ -1,0 +1,49 @@
+ion-view.competition_message_panel
+  ion-header-bar
+    a.button.icon.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title 挑战日志
+  ion-content
+    ion-refresher(on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
+    .competition_message_detail(ng-if="competitionMessage")
+      .row.competition_teams
+        .col.team.sponsor_team
+          .team_title 发起方
+          .team_content
+            a(ng-href="#/competition/team/{{competitionMessage.sponsor_team._id}}/")
+              img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60")
+            .team_name {{competitionMessage.sponsor_team.name}}
+        .col.col-10.vs.col-center(ng-cloak)   {{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}
+        .col.team.opposite_team
+          .team_title 接受方
+          .team_content
+            a(ng-href="#/competition/team/{{competitionMessage.opposite_team._id}}/")
+              img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/60/60")
+            .team_name {{competitionMessage.opposite_team.name}}
+      .vote
+        .vote_team(ng-repeat="unit in competitionMessage.vote.units" ng-style="{'width':unit.percent+'%'}" ng-click="voteCompetition($index)")
+          .vote_icon
+            i.icon.ion-ios7-heart-outline
+          span.vote_num {{unit.positive}} 人支持
+      .item.competition_status(ng-cloak) {{competitionMessage.status | competitionMessageStatusFormat :competitionMessage.status_text : sponsor}}
+      .operator(ng-if="oppositeLeader &&competitionMessage.status=='sent' || sponsorLeader && competitionMessage.status=='accepted'")
+        button.button.button_comment(ng-if="oppositeLeader && competitionMessage.status=='sent'" ng-click="dealCompetition('accept')") 应战
+        //- button.button.button-assertive(ng-click="dealCompetition('reject')") 拒绝
+        button.button.button_comment(ng-if="sponsorLeader && competitionMessage.status=='accepted'" ng-click="sponsorCompetition()") 发起活动
+    .competition_message_comment(ng-if="competitionMessage")
+      .item.item-divider.comment_title
+        span 讨论
+      .comment.clearfix(ng-class="{'pull_right':comment.poster_team._id===competitionMessage.opposite_team._id}" ng-repeat="comment in commentList ")
+        a(ng-if="cid===comment.poster_team.cid" ng-href="#/user/{{comment.poster_team._id}}")
+          img.team_logo(ng-src="{{STATIC_URL + comment.poster_team.logo}}/30/30")
+        img.team_logo(ng-if="cid!==comment.poster_team.cid" ng-src="{{STATIC_URL + comment.poster_team.logo}}/30/30")
+        .comment_contents
+          .team_name {{comment.poster_team.name}}
+          .comment_content(ng-bind-html="comment.content | emoji | unsafe")
+          .create_date {{comment.create_date | date:"MM-dd HH:mm"}}
+    .operator(ng-show="oppositeLeader || sponsorLeader")
+      button.button.button_comment(ng-click="showPopup()") 发评论
+  //- ion-footer-bar
+  //-   publish-box(is-show-img='false' is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publishComment()")
+
+
+

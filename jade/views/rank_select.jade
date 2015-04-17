@@ -1,0 +1,10 @@
+ion-view.rank_select
+  ion-header-bar
+    a.button.icon.ion-chevron-left(href="#/app/discover") &nbsp;返回
+    h1.title 排行榜
+  ion-content
+    .groups
+      .group(ng-repeat='group in groups')
+        a(href="#/rank/detail/{{group._id}}/{{group.groupType}}")
+          .img_contain(class='group_'+'{{group._id}}')
+          label(for='{{group._id}}') {{group.groupType}}

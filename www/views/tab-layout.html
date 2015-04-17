@@ -1,134 +1,198 @@
 
 <ion-tabs ng-controller="TabController" ng-class="{'tabs-item-hide': hideTabs}" class="tabs-icon-top app_tabs">
-  <ion-tab title="活动" icon-on="ion_campaign_active" icon-off="ion_campaign" href="#/app/campaigns"><!-- Tab 1 content -->
+  <ion-tab title="活动" href="#/app/campaigns" class="tab_item_campaign">
     <ion-view ng-controller="CampaignController">
-      <ion-header-bar><a href="#/calendar/campaigns" class="button icon ion-calendar"></a>
-        <h1 class="title">活动</h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
+      <ion-header-bar><a href="#/calendar/campaigns" class="button">
+          <svg class="svg_icon svg_nav_icon">
+            <use xlink:href="#richeng"></use>
+          </svg></a>
+        <h1 ng-click="showFilter($event)" class="title"><span>{{typeTitle}}&nbsp;</span><i class="icon ion-arrow-down-b"></i></h1><a ng-if="showSponsorButton" href="#/campaign/sponsor/campaigns" class="button icon ion-plus"></a>
       </ion-header-bar>
-      <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container has-header">
-        <div class="button-bar campaign_filter"><a ng-click="filter('all')" ng-class="{'icon_blue':nowType=='all'}" class="button button-clear">所有</a><a ng-click="filter('newCampaigns')" ng-class="{'icon_blue':nowType=='newCampaigns'}" class="button button-clear">新活动</a><a ng-click="filter('provokes')" ng-class="{'icon_blue':nowType=='provokes'}" class="button button-clear">挑战</a><a ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}" class="button button-clear">进行中</a><a ng-click="filter('unStartCampaigns')" ng-class="{'icon_blue':nowType=='unStartCampaigns'}" class="button button-clear">即将</a></div>
-        <ion-scroll has-bouncing="true" class="campaign_list">
+      <ion-content delegate-handle="mainScroll" overflow-scroll="true" class="campaigns_container">
+        <ion-scroll class="campaign_list">
           <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-                <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container">
-                  <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
-                    <p>未参加的新活动 {{newCampaigns.length}}</p>
-                  </div>
-                  <campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns"></campaign-card>
+                <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container cp_unjoin">
+                  <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>未参加的新活动 {{newCampaigns.length}}</span></div>
+                  <new-campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns" is-last="$index===newCampaigns.length-1"></new-campaign-card>
                 </div>
-                <div ng-if="nowType=='all'||nowType=='provokes'" class="campaign_container">
-                  <div ng-if="provokes.length&gt;0 || nowType=='provokes'" ng-cloak="ng-cloak" class="campaign_container_title">
-                    <p>挑战 {{provokes.length}}</p>
-                  </div>
-                  <campaign-card ng-repeat="campaign in provokes" campaign="campaign" campaign-index="$index" campaign-filter="provokes"></campaign-card>
+                <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container cp_now">
+                  <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>进行中的活动 {{nowCampaigns.length}}</span></div>
+                  <new-campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns" is-last="$index===nowCampaigns.length-1"></new-campaign-card>
                 </div>
-                <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container">
-                  <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
-                    <p>进行中的活动 {{nowCampaigns.length}}</p>
-                  </div>
-                  <campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns"></campaign-card>
+                <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container cp_unstart">
+                  <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>即将开始的活动 {{unStartCampaigns.length}}</span></div>
+                  <new-campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns" is-last="$index===unStartCampaigns.length-1"></new-campaign-card>
                 </div>
-                <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container">
-                  <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title">
-                    <p>即将开始的活动 {{unStartCampaigns.length}}</p>
-                  </div>
-                  <campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns"></campaign-card>
+                <div ng-if="nowType=='all'||nowType=='finishedCampaigns'" class="campaign_container cp_finished">
+                  <div ng-if="finishedCampaigns.length&gt;0 || nowType=='finishedCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>刚结束的活动 {{finishedCampaigns.length}}</span></div>
+                  <new-campaign-card ng-repeat="campaign in finishedCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="finishedCampaigns" is-last="$index===finishedCampaigns.length-1"></new-campaign-card>
                 </div>
-          <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign">
-            <div class="no_campaign_tip">
-              <p>没有活动怎么办?</p>
-              <p><a href="#/discover/teams/" class="team_link">发现</a><span class="tip_info">加入更多小队！</span></p>
-            </div>
-          </div>
+          <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
+              <p>没有活动?</p>
+              <p>加入更多的小队吧！</p>
+              <p class="button_container"><span class="team_link">全部小队</span>
+              </p></a></div>
         </ion-scroll>
       </ion-content>
-      <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" pswp-photo-album="pswpPhotoAlbum" class="pswp">
-        <div class="pswp__bg"></div>
-        <div class="pswp__scroll-wrap">
-          <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-          </div>
-          <div class="pswp__ui pswp__ui--hidden">
-            <div class="pswp__top-bar">
-              <div class="pswp__counter"></div>
-              <button title="关闭" class="pswp__button pswp__button--close"></button>
-              <button title="放大/缩小" class="pswp__button pswp__button--zoom"></button>
-              <button ng-if="pswpPhotoAlbum" ng-click="pswpPhotoAlbum.goToAlbum()" title="查看相册" class="pswp__button dl_button_to_album"><i class="icon ion-image"></i></button>
-              <div class="pswp__preloader">
-                <div class="pswp__preloader__icn">
-                  <div class="pswp__preloader__cut">
-                    <div class="pswp__preloader__donut"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button title="上一张" class="pswp__button pswp__button--arrow--left"></button>
-            <button title="下一张" class="pswp__button pswp__button--arrow--right"></button>
-            <div class="pswp__caption">
-              <div class="pswp__caption__center"></div>
-            </div>
-          </div>
-        </div>
-      </div>
     </ion-view>
+    <script id="my-popover.html" type="text/ng-template">
+      <ion-popover-view class="dl_popover campaign_filter_popover">
+        <ion-content class="dl_popover_content">
+          <button ng-click="filter('all')" class="dl_popover_button">所有活动</button>
+          <button ng-click="filter('newCampaigns')" class="dl_popover_button">新活动</button>
+          <button ng-click="filter('unStartCampaigns')" class="dl_popover_button">即将开始的活动</button>
+          <button ng-click="filter('nowCampaigns')" ng-class="{'icon_blue':nowType=='nowCampaigns'}" class="dl_popover_button">正在进行的活动</button>
+          <button ng-click="filter('finishedCampaigns')" class="dl_popover_button">刚结束的活动</button>
+        </ion-content>
+      </ion-popover-view>
+    </script>
   </ion-tab>
-  <ion-tab title="讨论" icon-on="ion_discuss_active" icon-off="ion_discuss" badge="hasNewComment" href="#/app/discuss/list"><!-- Tab 2 content -->
+  <ion-tab title="讨论" badge="hasNewComment" href="#/app/discuss/list" class="tab_item_discuss">
     <ion-view ng-controller="DiscussListController" class="discuss_list">
-      <ion-header-bar><a href="#/calendar/discuss_list" class="button icon ion-calendar"></a>
+      <ion-header-bar><a href="#/calendar/discuss_list" class="button">
+          <svg class="svg_icon svg_nav_icon">
+            <use xlink:href="#richeng"></use>
+          </svg></a>
         <h1 class="title">讨论列表</h1>
       </ion-header-bar>
       <ion-content>
         <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-        <ul class="list"><a ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index&lt;unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}"/>
-            <div ng-if="commentCampaign.unread" class="red_spot"></div>
-            <h2>{{commentCampaign.theme}}</h2>
-            <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe"> </span></p></a><a ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined" ng-click="" class="item item-avatar"><img src="img/icons/unjoined_discuss.png" class="unjoined"/>
-            <div ng-if="newUnjoined" class="red_spot"></div>
-            <h2>其它小队讨论</h2>
-            <p><span>{{latestUnjoinedCampaign.theme}}</span></p></a><a ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index&gt;=unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}"/>
-            <div ng-if="commentCampaign.unread" class="red_spot"></div>
-            <h2>{{commentCampaign.theme}}</h2>
-            <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe"> </span></p></a></ul>
+        <ul ng-cloak="ng-cloak" ng-if="chatrooms.length" class="list">
+          <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/><img ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png"/>
+              <div ng-if="chatroom.unread" class="red_spot"></div>
+              <h2 ng-cloak="ng-cloak">{{chatroom.name}}</h2>
+              <p ng-if="chatroom.latestChat" ng-cloak="ng-cloak" class="chat_pre"><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息] </span><span ng-cloak="ng-cloak">{{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:</span><span ng-cloak="ng-cloak" ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe"></span><span ng-cloak="ng-cloak" ng-if="!chatroom.latestChat.content">{{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}</span></p></a>
+            <div ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}" class="custom_border"></div>
+          </div>
+        </ul>
+        <div ng-cloak="ng-cloak" ng-if="loadFinished &amp;&amp; !chatrooms.length" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
+            <p>没有参加小队?</p>
+            <p>参加小队后一起讨论吧！</p>
+            <p class="button_container"><span class="team_link">全部小队</span>
+            </p></a></div>
       </ion-content>
     </ion-view>
   </ion-tab>
-  <ion-tab title="公司" icon-on="ion_discover_active" icon-off="ion_discover" href="#/app/discover"><!-- Tab 3 content -->
+  <ion-tab title="发现" badge="hasNewDiscover" href="#/app/discover" class="tab_item_discover">
     <ion-view ng-controller="DiscoverController" class="discover">
       <ion-header-bar>
         <h1 class="title">发现</h1>
       </ion-header-bar>
       <ion-content>
-        <div class="discover_image"></div>
-        <div class="list"><a href="#/discover/teams/official" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>所有小队<span class="item-note">{{teams.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/discover/contacts" class="item item-icon-left item-icon-right"><i class="icon ion-android-contacts"></i>通讯录<i class="icon ion-chevron-right"></i></a><a href="#/discover/circle" class="item item-icon-left item-icon-right"><i class="icon ion_ballon"></i>所有活动<i class="icon ion-chevron-right"></i></a>
+        <ion-refresher on-refresh="getMyTeams(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
+        <div class="list"><a href="#/discover/search_opponent" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#zhaoduishou"></use>
+            </svg>找对手<i class="icon ion-chevron-right"></i></a><a href="#/competition_message/list" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#tiaozhanrizhi"></use>
+            </svg>挑战日志<span ng-if="hasNewDiscover" class="badge_dot"></span><i class="icon ion-chevron-right"></i></a>
+        </div>
+        <div class="rank_panel">
+          <div class="item rank"><span class="rank_title">排行榜</span><a href="#/rank/select" class="button rank_button no_underline">查看全部类型</a></div>
+          <div ng-if="teams.length&gt;0" ng-cloak="ng-cloak" class="team_select">
+            <div class="team_container">
+              <div ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex&gt;0" class="team last_team"><i class="icon ion-ios7-arrow-back"></i><img ng-src="{{STATIC_URL + teams[nowTeamIndex-1].logo}}/45/45" class="team_logo"/>
+                <div class="team_name">{{teams[nowTeamIndex-1].name}}</div>
+              </div>
+            </div>
+            <div class="team_container">
+              <div class="team selected_team"><img ng-src="{{STATIC_URL + teams[nowTeamIndex].logo}}/45/45" class="team_logo"/>
+                <div class="team_name">{{teams[nowTeamIndex].name}}</div>
+              </div>
+            </div>
+            <div class="team_container">
+              <div ng-click="changeSelectTeam(1)" ng-if="nowTeamIndex&lt;teams.length-1" class="team next_team"><img ng-src="{{STATIC_URL + teams[nowTeamIndex+1].logo}}/45/45" class="team_logo"/>
+                <div class="team_name">{{teams[nowTeamIndex+1].name}}</div><i class="icon ion-ios7-arrow-forward"></i>
+              </div>
+            </div>
+          </div>
+          <div ng-if="teams.length" ng-cloak="ng-cloak" class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
+              <div class="rank_col">{{rankTeam.score_rank.rank}}</div>
+              <div class="logo_col"><img ng-src="{{STATIC_URL + rankTeam.logo}}/45/45" class="team_logo"/></div>
+              <div class="name_col">
+                <p class="team_name">{{rankTeam.name}}</p>
+                <p class="team_cname">{{rankTeam.cname}}</p>
+              </div>
+              <div class="score_col">{{rankTeam.score_rank.score || 0}}</div></a></div><a ng-if="!teams.length" href="#/company/teams/official" ng-cloak="ng-cloak" class="dl_bottom_operator"><span>请加入小队后查看小队排行榜</span></a>
         </div>
       </ion-content>
     </ion-view>
   </ion-tab>
-  <ion-tab title="我的" icon-on="ion_personal_active" icon-off="ion_personal" href="#/app/personal">
+  <ion-tab title="公司" badge="newContent || newCircleComment" href="#/app/company" class="tab_item_company">
+    <ion-view ng-controller="CompanyController" class="tab_company_page">
+      <ion-header-bar>
+        <h1 class="title">公司</h1>
+      </ion-header-bar>
+      <ion-content>
+        <div ng-style="familyMinHeight" class="company_header"><img ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380" class="company_family"/><img ng-if="!company.cover" src="./img/company_cover.png" class="company_family"/>
+        </div>
+        <div class="company_info">
+          <div class="info_header clearfix"><img ng-if="company" ng-src="{{STATIC_URL + company.logo}}/160/160" class="logo"/>
+            <div class="info_content">
+              <div class="company_name">{{company.shortName}}</div>
+            </div>
+            <div class="company_brief"><span class="title">简介:</span><span class="content">{{company.intro || '无'}}</span></div>
+          </div>
+        </div>
+        <div class="list"><a href="#/company/contacts" class="item item-icon-right clearfix staff_item"><img ng-repeat="staff in staffList" ng-src="{{STATIC_URL + staff.photo}}/60/60" class="staff_photo"/><span class="more_text">更多同事</span><i class="icon ion-chevron-right icon_right"></i></a></div>
+        <div class="list menu_list"><a href="#/circle/circle_company" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#jincaisunjian"></use>
+            </svg>精彩瞬间<span ng-if="newCircleComment" class="badge badge-assertive">{{newCircleComment}}</span>
+            <div ng-if="newContent" class="badge_image">
+              <div class="red_spot"></div><img ng-src="{{STATIC_URL + newContent.photo}}/60/60" class="logo"/>
+            </div><i class="icon ion-chevron-right icon_right"></i></a><a href="#/company/teams/official" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#suoyouxiaodui"></use>
+            </svg>全部小队<span class="item-note">{{teams.length}}</span><i class="icon ion-chevron-right icon_right"></i></a><a href="#/campaign/all/company/0" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#suoyouhuodong"></use>
+            </svg>所有活动<i class="icon ion-chevron-right icon_right"></i></a>
+        </div>
+      </ion-content>
+    </ion-view>
+  </ion-tab>
+  <ion-tab title="我的" href="#/app/personal" class="tab_item_personal">
     <ion-view ng-controller="PersonalController" class="personal">
       <ion-header-bar>
         <h1 class="title">我的</h1>
       </ion-header-bar>
       <ion-content>
-        <div class="list"><a href="#/personal/edit" ng-cloak="ng-cloak" class="item item-avatar item-icon-right"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo"/>
-            <h2>{{user.nickname}}</h2>
-            <p ng-if="user.introduce">简介: {{user.introduce}}</p><i class="icon ion-chevron-right"></i></a>
+        <div class="list user_info"><a href="#/personal/edit" ng-cloak="ng-cloak" class="item item-icon-right item_user"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/120/120" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo" class="avatar_photo"/>
+            <h2 class="nickname">{{user.nickname}}</h2>
+            <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p><i class="icon ion-chevron-right icon_right"></i></a>
           <div ng-cloak="ng-cloak" class="item statistics">
             <div class="row"><a href="#/personal/teams/" class="col col-33">
                 <p class="number">{{user.tids.length}}</p>
-                <p class="key">小队</p></a><a href="#/personal/timeline" class="col col-33">
+                <p class="key">小队</p></a><a href="#/campaign/all/user/{{user._id}}" class="col col-33">
                 <p class="number">{{user.campaignCount}}</p>
                 <p class="key">活动</p></a>
               <div class="col col-33">
                 <p class="number">{{user.score}}</p>
-                <p class="key">积分</p>
+                <p class="key">活跃度</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="list"><a href="#/personal/teams/" class="item item-icon-left item-icon-right"><i class="icon ion_teams"></i>我的小队<span class="item-note">{{user.tids.length}}</span><i class="icon ion-chevron-right"></i></a><a href="#/personal/timeline" class="item item-icon-left item-icon-right"><i class="icon ion_foot"></i>我的足迹<i class="icon ion-chevron-right"></i></a><a href="#/calendar/personal" class="item item-icon-left item-icon-right"><i class="icon ion_calendar"></i>我的日程<i class="icon ion-chevron-right"></i></a><a href="#/personal/invitecode" class="item item-icon-left item-icon-right"><i class="icon ion_invite_code"></i>邀请码<i class="icon ion-chevron-right"></i></a><a href="#/settings" class="item item-icon-left item-icon-right"><i class="icon ion_setting"></i>设置<i class="icon ion-chevron-right"></i></a>
+        <div class="list menu_list"><a href="#/personal/invitecode" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#erweima"></use>
+            </svg>二维码<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/circle/circle_user/{{user._id}}" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#picture"></use>
+            </svg>我的相册<i class="icon ion-chevron-right icon_right"></i></a><a ng-href="#/campaign/all/user/{{user._id}}" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#zuji"></use>
+            </svg>我的足迹<i class="icon ion-chevron-right icon_right"></i></a><a href="#/calendar/personal" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#richeng"></use>
+            </svg>我的日程<i class="icon ion-chevron-right icon_right"></i></a>
         </div>
+        <div class="list menu_list"><a href="#/settings" class="item item-icon-right">
+            <svg class="svg_icon svg_item_icon">
+              <use xlink:href="#setting3"></use>
+            </svg>设置<i class="icon ion-chevron-right icon_right"></i></a></div>
       </ion-content>
       <div tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}" class="pswp">
         <div class="pswp__bg"></div>

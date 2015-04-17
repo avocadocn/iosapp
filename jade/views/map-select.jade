@@ -1,0 +1,13 @@
+ion-modal-view.map_select
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="closeModal()") &nbsp;返回
+    h1.title 地址选择
+  ion-content
+    .search_box.item-input-inset
+      label.item-input-wrapper
+        i.icon.ion-ios7-search.placeholder-icon
+        input(type="search" name="location" ng-model="location.name" ng-keypress="search($event)" ng-change="change()")
+      button.button-clear(ng-click="search()") 搜索
+    .map_container(id="{{mapName}}")
+    .item-button
+      button.button.button-full.button_sponsor(ng-click="closeModal()") 确定

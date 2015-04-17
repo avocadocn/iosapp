@@ -1,0 +1,43 @@
+ion-view.campaign_content_page
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title(ng-bind="campaign.theme")
+  ion-content
+    .content_page
+      .item(ng-if="campaign.start_time")
+        span.title 开始时间
+        span.content {{campaign.start_time | date:'yyyy-MM-dd HH:mm'}}
+      .item(ng-if="campaign.end_time")
+        span.title 结束时间
+        span.content {{campaign.end_time | date:'yyyy-MM-dd HH:mm'}}
+      .item(ng-if="campaign.location")
+        span.title 地点
+        span.content {{campaign.location.name}}
+      .item(ng-if="campaign.deadline")
+        span.title 报名截止时间
+        span.content {{campaign.deadline| date:'yyyy-MM-dd HH:mm'}}
+      .item(ng-if="campaign.member_max>0")
+        span.title 报名截止人数
+        span.content {{campaign.member_max}}
+      .item(ng-if="campaign.member_min>0")
+        span.title 报名最少人数
+        span.content {{campaign.member_min}}
+      .item.has_content(ng-if="campaign.content")
+        span.title 简介
+        .content {{campaign.content}}
+    .member_page
+      .item.item-divider 已报名成员
+      .member_group(ng-repeat="memberContent in memberContents" ng-if="memberContent.members.length>0")
+        .member_group_name {{memberContent.name}}
+        .members.clearfix(ng-if="!memberContent.isOtherCompany" ng-cloak)
+          a.member(ng-repeat="member in memberContent.members" ng-href="#/user/{{member._id}}")
+            .member_inner
+              img.member_photo(ng-src="{{STATIC_URL + member.photo}}/45/45")
+              span.dl_member_leader(ng-if="member.isLeader" ng-cloak)
+              p.member_name {{member.nickname}}
+        .members.clearfix(ng-if="memberContent.isOtherCompany" ng-cloak)
+          .member(ng-repeat="member in memberContent.members")
+            .member_inner
+              img.member_photo(ng-src="{{STATIC_URL + member.photo}}/45/45")
+              span.dl_member_leader(ng-if="member.isLeader" ng-cloak)
+              p.member_name {{member.nickname}}

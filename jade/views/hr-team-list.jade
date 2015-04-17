@@ -1,0 +1,16 @@
+ion-view.company
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-href="#/hr/team_page") &nbsp;返回
+    h1.title {{title}}
+  ion-content
+    ul.list
+      a.item.item-avatar.item-icon-right(ng-repeat="team in teams" ng-click="editTeam(team)")
+        img(ng-src="{{STATIC_URL + team.logo + '/45/45'}}")
+        h2 {{team.name}}
+        p 类型: {{team.groupType}}
+        //- p 队长: todo
+        p 状态: {{team.active? '正常':'关闭'}} 
+        p 成员: {{team.memberCount}}
+        p 积分: {{team.score.total}}
+        p 队长: {{team.leader.length? team.leader[0].nickname:'暂无'}}
+        i.icon.ion-compose

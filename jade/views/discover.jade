@@ -1,27 +1,55 @@
-
 ion-view.discover(ng-controller="DiscoverController")
 
   ion-header-bar
-    h1.title 公司
+
+    h1.title 发现
 
   ion-content
-    .discover_image
+    ion-refresher(on-refresh="getMyTeams(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
+    //- .discover_image
     .list
-      a.item.item-icon-left.item-icon-right(href="#/discover/teams/official")
-        i.icon.ion_teams
-        | 所有小队
-        span.item-note {{teams.length}}
+      a.item.item-icon-right(href="#/discover/search_opponent")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#zhaoduishou")
+        | 找对手
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/discover/contacts")
-        i.icon.ion-android-contacts
-        | 通讯录
+      a.item.item-icon-right(href="#/competition_message/list")
+        svg.svg_icon.svg_item_icon
+          use(xlink:href="#tiaozhanrizhi")
+        | 挑战日志
+        span.badge_dot(ng-if="hasNewDiscover")
         i.icon.ion-chevron-right
-      a.item.item-icon-left.item-icon-right(href="#/discover/circle")
-        i.icon.ion_ballon
-        | 所有活动
-        i.icon.ion-chevron-right
-      //- a.item.item-icon-left.item-icon-right(href="#/discover/teams/personal")
-      //-   i.icon.ion_teams
-      //-   | 个人小队
-      //-   span.item-note {{personalTeams.length}}
+      //- a.item.item-icon-left.item-icon-right(href="#/rank/select")
+      //-   i.icon.ion-android-contacts
+      //-   | 排行榜
       //-   i.icon.ion-chevron-right
+    .rank_panel
+      .item.rank
+        span.rank_title 排行榜
+        a.button.rank_button.no_underline(href="#/rank/select") 查看全部类型
+      .team_select(ng-if="teams.length>0" ng-cloak)
+        .team_container
+          .team.last_team(ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex>0")
+            i.icon.ion-ios7-arrow-back
+            img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex-1].logo}}/45/45")
+            .team_name {{teams[nowTeamIndex-1].name}}
+        .team_container
+          .team.selected_team
+            img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex].logo}}/45/45")
+            .team_name {{teams[nowTeamIndex].name}}
+        .team_container
+          .team.next_team(ng-click="changeSelectTeam(1)"  ng-if="nowTeamIndex<teams.length-1")
+            img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex+1].logo}}/45/45")
+            .team_name {{teams[nowTeamIndex+1].name}}
+            i.icon.ion-ios7-arrow-forward
+      .list.rank_table(ng-if="teams.length" ng-cloak)
+        a.item.rank_line.clearfix(ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank")
+          .rank_col {{rankTeam.score_rank.rank}}
+          .logo_col: img.team_logo(ng-src="{{STATIC_URL + rankTeam.logo}}/45/45")
+          .name_col
+            p.team_name {{rankTeam.name}}
+            p.team_cname {{rankTeam.cname}}
+          .score_col {{rankTeam.score_rank.score || 0}}
+          //- .col {{rankTeam.score_rank.win}} : {{rankTeam.score_rank.tie}} : {{rankTeam.score_rank.lose}}
+      a.dl_bottom_operator(ng-if="!teams.length" href="#/company/teams/official" ng-cloak)
+        span 请加入小队后查看小队排行榜

@@ -1,0 +1,12 @@
+ion-view.circle_content_detail_page
+  ion-header-bar
+    button.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title 详情
+  
+  ion-content
+    div(ng-if="circle")
+      circle-card(circle="circle" ctrl="circleCardCtrl" user="user" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" on-delete="onDelete" static-url="STATIC_URL")
+  
+  //- 与ion-content同级
+  circle-comment-box(ctrl="circleCommentBoxCtrl")
+  photo-swipe(ctrl="pswpCtrl")

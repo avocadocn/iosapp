@@ -1,0 +1,23 @@
+
+<ion-view class="edit_company_info">
+  <ion-header-bar><a ng-if="!editing" ng-href="#/hr/home" ng-cloak="ng-cloak" class="button icon ion-chevron-left">&nbsp;返回</a>
+    <button ng-if="editing" ng-click="cancelEditing()" ng-cloak="ng-cloak" class="button">取消</button>
+    <h1 class="title">编辑公司信息</h1>
+    <button ng-if="editing" ng-click="edit()" ng-disabled="intro.$invalid" ng-cloak="ng-cloak" class="button">确定</button>
+  </ion-header-bar>
+  <ion-content scroll="false">
+    <div class="list edit_list">
+      <div class="item company_name_item"><span class="title">公司名称</span><span class="content">{{company.name || '无'}}</span></div>
+      <div class="item item-input introduce_item"><span class="input-label">简介</span>
+        <textarea id="edit_company_introduce_textarea" ng-show="editing" name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-trim="false" class="introduce"></textarea>
+        <div ng-if="!editing" ng-bind="company.intro" ng-click="toEditing()" ng-cloak="ng-cloak" class="introduce"></div>
+      </div>
+      <div ng-click="showUploadActionSheet()" class="item item-icon-right"><img ng-src="{{STATIC_URL + company.logo}}/120/120"/>
+        <h2 class="company_logo">公司logo</h2><i class="icon ion-chevron-right"></i>
+      </div>
+      <div ng-click="showUploadActionSheetForCompanyCover()" class="item item-icon-right"><img ng-src="{{STATIC_URL + company.cover}}/120/120"/>
+        <h2 class="company_logo">公司封面</h2><i class="icon ion-chevron-right"></i>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,19 +1,25 @@
 
 <ion-view ng-controller="DiscussListController" class="discuss_list">
-  <ion-header-bar><a href="#/calendar/discuss_list" class="button icon ion-calendar"></a>
+  <ion-header-bar><a href="#/calendar/discuss_list" class="button">
+      <svg class="svg_icon svg_nav_icon">
+        <use xlink:href="#richeng"></use>
+      </svg></a>
     <h1 class="title">讨论列表</h1>
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-    <ul class="list"><a ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index&lt;unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}"/>
-        <div ng-if="commentCampaign.unread" class="red_spot"></div>
-        <h2>{{commentCampaign.theme}}</h2>
-        <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe"> </span></p></a><a ng-if="latestUnjoinedCampaign" ng-href="#/discuss/list/unjoined" ng-click="" class="item item-avatar"><img src="img/icons/unjoined_discuss.png" class="unjoined"/>
-        <div ng-if="newUnjoined" class="red_spot"></div>
-        <h2>其它小队讨论</h2>
-        <p><span>{{latestUnjoinedCampaign.theme}}</span></p></a><a ng-repeat="commentCampaign in commentCampaigns track by $index" ng-show="$index&gt;=unjoinedIndex" ng-click="goDetail(commentCampaign._id, commentCampaign.theme, $index)" ng-cloak="ng-cloak" class="item item-avatar"><img ng-src="{{STATIC_URL + commentCampaign.logo + '/45/45'}}"/>
-        <div ng-if="commentCampaign.unread" class="red_spot"></div>
-        <h2>{{commentCampaign.theme}}</h2>
-        <p><span ng-show="commentCampaign.unread">[{{commentCampaign.unread}}条新评论]</span><span ng-bind-html="commentCampaign.latestComment.content || '[图片]' | emoji | unsafe"> </span></p></a></ul>
+    <ul ng-cloak="ng-cloak" ng-if="chatrooms.length" class="list">
+      <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/><img ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png"/>
+          <div ng-if="chatroom.unread" class="red_spot"></div>
+          <h2 ng-cloak="ng-cloak">{{chatroom.name}}</h2>
+          <p ng-if="chatroom.latestChat" ng-cloak="ng-cloak" class="chat_pre"><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息] </span><span ng-cloak="ng-cloak">{{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:</span><span ng-cloak="ng-cloak" ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe"></span><span ng-cloak="ng-cloak" ng-if="!chatroom.latestChat.content">{{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}</span></p></a>
+        <div ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}" class="custom_border"></div>
+      </div>
+    </ul>
+    <div ng-cloak="ng-cloak" ng-if="loadFinished &amp;&amp; !chatrooms.length" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
+        <p>没有参加小队?</p>
+        <p>参加小队后一起讨论吧！</p>
+        <p class="button_container"><span class="team_link">全部小队</span>
+        </p></a></div>
   </ion-content>
 </ion-view>

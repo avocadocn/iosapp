@@ -1,0 +1,43 @@
+ion-view.competition_team_page
+  ion-header-bar
+    a.button.icon.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title 挑战小队
+  ion-content
+    .competition_team
+      .list.team_info
+        .item.item-avatar.team_item(ng-cloak ng-if="targetTeam")
+          img.team_logo(ng-src="{{STATIC_URL + targetTeam.logo}}/90/90")
+          h2.team_name(ng-bind="targetTeam.name")
+          p.info_text.first_info_text
+            span.text_label 公司:
+            span.text_data(ng-bind="targetTeam.cname")
+          p.info_text
+            span.text_label 积分:
+            span.text_data(ng-bind-template="{{targetTeam.score_rank.score || 0}}")
+            span.text_label 活跃度:
+            span.text_data(ng-bind="targetTeam.activityScore")
+            span.text_label 胜率:
+            span.text_data(ng-bind-template="{{targetTeam.rate}}%")
+      .list.campaign_info
+        .item
+          span.text_label 上次活动
+          span.text_data(ng-if="targetTeam.last_campaign.start_time" ng-cloak) {{ targetTeam.last_campaign.start_time | beforeNow}}
+          span.text_data(ng-if="!targetTeam.last_campaign.start_time" ng-cloak) 无
+        .item(ng-if="targetTeam.homeCourts.length>0")
+          span.text_label 小队主场一
+          span.text_data(ng-bind="targetTeam.homeCourts[0].name")
+        .item(ng-if="targetTeam.homeCourts.length>1")
+          span.text_label 小队主场二
+          span.text_data(ng-bind="targetTeam.homeCourts[1].name")
+      .list.competition_timeline_card(ng-cloak ng-show="targetTeam && !targetTeam.isCompanyTeam")
+        .item.item-divider.together_campaign
+          span 共同活动
+          //- span.text_data(ng-show="!competitions || !competitions.length") 无
+        .dl_timeline(ng-repeat="campaign in competitions" ng-cloak)
+          //- .item.dl_campaign_timeline_date(ng-if="needShowTime($index)") {{campaign.start_time | date:'M月d日'}}
+          include ./together-campaign-card
+        .dl_bottom_operator(ng-if="!competitions || !competitions.length")
+          span 无共同活动
+  .bar.bar-footer(ng-cloak ng-show="targetTeam && !targetTeam.isCompanyTeam")
+    button.bottom_button(ng-click="showPopup(0)" ng-if="leadTeams.length>0") 挑战
+    button.bottom_button(ng-click="showPopup(1)" ng-if="leadTeams.length===0 && memberTeams.length>0") 推荐

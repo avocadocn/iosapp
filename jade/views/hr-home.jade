@@ -1,0 +1,46 @@
+ion-view.hr_company_page
+  ion-header-bar
+    h1.title {{company.name}}
+  ion-content(delegate-handle="mainScroll")
+    .company_header(ng-style="familyMinHeight")
+      img.company_cover(ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380")
+      img.company_cover(ng-if="!company.cover" src="./img/company_cover.png")
+    .company_info
+      .info_header.clearfix
+        img.logo(ng-src="{{STATIC_URL + company.logo}}/160/160")
+        .info_content
+          .company_name {{company.name}}
+        .company_brief
+          span.title 简介:
+          span.content {{company.intro || '无'}}
+      a.item.item-icon-right.first_item(href="#/hr/company_edit")
+        | 公司资料
+        i.icon.ion-chevron-right
+      a.item.item-icon-right(href="#/hr/colleague_list")
+        | 成员
+        span.company_member_num {{company.memberNumber}}
+        i.icon.ion-chevron-right
+      a.item.item-icon-right(href="#/hr/active_code")
+        | 邀请新成员
+        i.icon.ion-chevron-right
+      a.item.item-icon-right(href="#/hr/team_page")
+        | 小队
+        span.company_team_num {{company.teamNumber}}
+        i.icon.ion-chevron-right
+      .item.guide
+        p.title
+          span 动梨使用指南
+          i.icon.ion-chevron-up.pull-right(ng-if="!hiding" ng-click="toggleGuide()")
+          i.icon.ion-chevron-down.pull-right(ng-if="hiding" ng-click="toggleGuide()")
+        div(ng-if="!hiding")
+          p 欢迎您使用动梨来管理贵公司的员工活动，建议登陆动梨网页版(www.donler.com)，体验更丰富的管理及统计功能；
+          p 在APP上，您也可以按照下面的四步来完成前期的工作。
+          p 第一步，点击“公司资料”，完善关于公司的信息；
+          p 第二步，点击“小队-新建小队”，选择类型，建立不同的兴趣小队；
+          p 第三步，请点击“邀请新成员”邀请同事们加入吧；
+          p 第四步，点击“小队”选择您要管理的小队进行队长任命。
+          p 更多的管理功能及统计信息，欢迎您登陆www.donler.com。
+    .operator
+      button.item.button.button-full.hr_logout(ng-click="logout()") 退出登录
+  //- ion-footer-bar
+  //-   button.button.button-full.hr_logout(ng-click="logout()") 退出登录

@@ -1,13 +1,13 @@
 
 <ion-view class="login">
   <ion-header-bar><a href="#/register/user/search_company" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 class="title">企业注册</h1><a href="#/company/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
+    <h1 class="title">企业注册</h1><a href="#/hr/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
   </ion-header-bar>
   <ion-content>
-    <form ng-controller="companySignupController" name="company_signup_form" novalidate="novalidate" class="signup_form">
+    <form ng-controller="HrSignupController" name="company_signup_form" novalidate="novalidate" class="signup_form">
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" name="name" ng-model="name" placeholder="公司全称" ng-blur="nameCheck()" required="required"/>
+          <input ng-class="{error:nameError}" ng-focus="check('none')" type="text" name="name" ng-model="name" placeholder="*公司全称" ng-blur="nameCheck()" required="required"/>
         </label>
       </div>
       <div ng-if="name_check&amp;&amp;name_repeat" class="tip_msg"><span class="gray_msg">此公司名已被注册，请直接以个人身份注册。</span></div>
@@ -18,28 +18,28 @@
       </div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" name="address" ng-model="address" placeholder="详细地址" required="required"/>
+          <input ng-class="{error:addressError}" ng-focus="check('name')" type="text" name="address" ng-model="address" placeholder="*详细地址" required="required"/>
         </label>
       </div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" name="contacts" ng-model="contacts" placeholder="联系人姓名" required="required"/>
+          <input ng-class="{error:contactsError}" ng-focus="check('address')" type="text" name="contacts" ng-model="contacts" placeholder="*联系人姓名" required="required"/>
         </label>
       </div>
       <div class="dl_list">
-        <input type="number" name="areacode" ng-model="areacode" placeholder="区号" ng-minlength="3" ng-maxlength="4" required="required" class="arecode"/>
-        <input type="number" name="tel" ng-model="tel" placeholder="电话" required="required" class="number"/>
+        <input ng-class="{error:areaError}" ng-focus="check('contacts')" type="number" name="areacode" ng-model="areacode" placeholder="*区号" ng-minlength="3" ng-maxlength="4" required="required" class="arecode"/>
+        <input ng-class="{error:telError}" ng-focus="check('area')" type="number" name="tel" ng-model="tel" placeholder="*电话" required="required" class="number"/>
         <input type="number" name="extension" ng-model="extension" placeholder="分机" class="extension"/>
       </div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="email" name="email" ng-model="email" placeholder="电子邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
+          <input ng-class="{error:emailError}" ng-focus="check('tel')" type="email" name="email" ng-model="email" placeholder="*电子邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required="required"/>
         </label>
       </div>
       <div ng-if="mail_check" class="tip_msg gray_msg">{{mail_msg}}</div>
       <div class="list list-inset">
         <label class="item item-input">
-          <input type="text" name="phone" ng-model="phone" placeholder="手机号码" ng-minlength="11" ng-maxlength="11" required="required"/>
+          <input ng-focus="check('email')" type="text" name="phone" ng-model="phone" placeholder="*手机号码" ng-minlength="11" ng-maxlength="11" required="required"/>
         </label>
       </div>
       <div class="tip_msg"><span class="gray_msg">点击注册即代表同意</span><a href="#/register/company/law" class="blue_msg">《法律声明》及《隐私政策》</a></div>

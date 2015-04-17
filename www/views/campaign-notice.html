@@ -1,0 +1,24 @@
+
+<ion-view>
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">活动公告</h1><a ng-if="campaign.allow.publishCampaignMessage" ng-click="showPublishSheet()" class="button publish_notice icon ion-plus"></a>
+  </ion-header-bar>
+  <ion-content class="notice_page">
+    <div ng-repeat="notice in notices" class="list">
+      <div class="item dl_notice_head">
+        <p> <span class="time">{{notice.post_date | date:"yyyy年MM月dd日" }}</span><span class="tip">(活动公告)</span></p>
+      </div>
+      <div class="item dl_notice_content"><span class="dl_notice_content">{{notice.content}}</span></div>
+    </div>
+  </ion-content>
+  <script id="publish-notice.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar><a ng-click="cancelPublish()" class="button icon-left ion-chevron-left">&nbsp;返回</a><a ng-disabled="!data.message" ng-click="publishNotice()" class="button">发布</a></ion-header-bar>
+      <ion-content class="dl_publish">
+        <form class="publish_card">
+          <textarea ng-model="data.message" placeholder="正文（必填），10-140字" autofocus="autofocus" maxlength="140" rows="6"></textarea>
+        </form>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</ion-view>

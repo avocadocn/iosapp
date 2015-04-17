@@ -1,57 +1,62 @@
 
-<ion-view>
+<ion-view class="dl_campaign_detail">
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 ng-cloak="ng-cloak" class="title">{{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</h1><a ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="button icon ion_discuss_active"></a>
+    <h1 ng-bind="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name" class="title"></h1><a ng-if="campaign.active &amp;&amp; campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}" class="button dl_cp_edit">编辑</a>
   </ion-header-bar>
   <ion-content delegate-handle="detailScroll">
-    <div class="card dl_card_detail">
-      <div ng-if="campaign.campaign_unit.length==1" class="item dl_card_header"><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}" class="dl_team_logo"/></a>
-        <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name}}</h2><span ng-if="campaign.campaign_mold" class="campaign_mold">{{campaign.campaign_mold}}</span>
-      </div>
-      <div ng-if="campaign.campaign_unit.length==2" class="item dl_card_header dl_card_header_provoke"><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/30/30'}}" class="dl_team_logo"/></a>
-        <h2 class="dl_team_name">{{campaign.campaign_unit[0].team.name}}</h2>
-        <h2 class="dl_team_vs">vs</h2>
-        <h2 class="dl_team_name">{{campaign.campaign_unit[1].team.name}}</h2><a ng-href="{{campaign.campaign_unit[1].team._id ? '#/team/'+ campaign.campaign_unit[1].team._id: ''}}"><img ng-src="{{STATIC_URL +(campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)+'/30/30'}}" class="dl_team_logo dl_team_logo_right"/></a>
-      </div>
-      <div class="item item-text-wrap dl_card_body">
-        <h2 class="dl_cp_name">{{campaign.theme}}<a ng-if="campaign.active &amp;&amp; campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}" class="dl_cp_edit"><span class="icon icon_small ion-compose button-clear"></span></a></h2><a ng-if="campaign.location.coordinates.length==2" href="#/location/{{campaign._id}}" class="dl_cp_address">活动地点：{{campaign.location.name}}<span class="icon icon_small ion-chevron-right button-clear"></span></a>
-        <p ng-if="campaign.location.coordinates.length==0" class="dl_cp_address">活动地点：{{campaign.location.name}}</p>
-        <p class="dl_cp_time">开始时间：{{campaign.start_time | date:"yyyy-MM-dd HH:mm"}}</p>
-        <p class="dl_cp_time">结束时间：{{campaign.end_time | date:"yyyy-MM-dd  HH:mm" }}</p>
-        <p class="dl_cp_time">报名截止：{{campaign.deadline | date:"yyyy-MM-dd  HH:mm"}}</p>
-        <p ng-if="campaign.member_max&amp;&amp;campaign.member_max!=0" class="dl_cp_member_max">人数上限：{{campaign.member_max}}</p>
-        <p ng-if="campaign.member_min&amp;&amp;campaign.member_min!=0" class="dl_cp_member_min">人数下限：{{campaign.member_min}}</p>
-        <button ng-if="campaign.active &amp;&amp; campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">立即参加</button>
-        <button ng-if="campaign.active &amp;&amp; campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-full dl_cp_quit">已经加入</button>
-        <div class="dl_card_operator">
-          <button ng-if="campaign.active &amp;&amp; campaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 1)" class="button dl_cp_confirm">接受</button>
-          <button ng-if="ccampaign.active &amp;&amp; ampaign.allow.dealProvoke" ng-click="dealProvoke(campaign._id, 2)" class="button dl_cp_refuse">拒绝</button>
-          <button ng-if="campaign.active &amp;&amp; campaign.allow.quitProvoke" ng-click="dealProvoke(campaign._id, 3)" class="button dl_cp_cancel">取消</button>
+    <ion-refresher refreshing-icon="ion-looping" on-refresh="doRefresh()"></ion-refresher>
+    <div ng-if="campaign" class="campaign_detail">
+      <div ng-if="campaign.campaign_unit.length==2" class="item item_header campaign_theme"><span ng-bind="campaign.theme"></span></div>
+      <score-board ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign" reload-flag="reloadFlag"></score-board>
+      <div ng-if="campaign.campaign_unit.length==1" class="campaign_info">
+        <div class="cp_logos logos_{{campaign.campaign_unit.length}}"><a ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}"><img ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60" class="team_logo"/></a></div>
+        <div ng-cloak="ng-cloak" class="campaign_theme"> {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}</div>
+        <div class="operator">
+          <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button dl_cp_join">马上参加</button>
         </div>
-        <ion-scroll scroll-parent="detailScroll" parent-direction="y" direction="x" scrollbar-x="false"><a ng-href="#/photo_album/{{campaign.photo_album._id}}/detail" class="dl_photo_alb"><img ng-repeat="photo in campaign.photo_album.photos" ng-src="{{STATIC_URL +photo.uri+'/150/150'}}" class="dl_cp_photo"/></a></ion-scroll>
+        <div class="campaign_status"><span ng-class="{'now':campaign.is_start&amp;&amp;!campaign.is_end,'unstart':!campaign.is_start,'unjoin':campaign.join_flag!=1}" class="status">{{campaign.is_start | campaignStatus:campaign.is_end}}</span></div>
       </div>
-      <div class="item dl_card_footer row"><a ng-href="#/photo_album/{{campaign.photo_album._id}}/detail" class="col btn_upload_photo"><i class="icon ion-image"></i>上传图片</a><a ng-href="#/members/campaign/{{campaign._id}}" class="col dl_team_number"><i class="ion_member dl_icon"></i>活动成员({{campaign.members_count}})</a>
-        <div ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="col dl_team_comment"><i class="icon ion-chatbubble-working"></i>{{campaign.comment_sum}}条讨论</div>
+      <div class="campaign_items">
+        <div class="item item_header cp_time">
+          <svg class="svg_icon">
+            <use xlink:href="#time"></use>
+          </svg><span ng-cloak="ng-cloak">{{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd  HH:mm" }}</span>
+        </div><a ng-href="#/location/{{campaign._id}}" class="item item_header cp_address">
+          <svg class="svg_icon cp_info_icon">
+            <use xlink:href="#location"></use>
+          </svg><span ng-cloak="ng-cloak" class="cp_location">{{campaign.location.name}}</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
       </div>
-    </div>
-    <div ng-if="!campaign.is_end" class="card dl_card_detail">
-      <div class="item dl_card_time"><span class="dl_cp_time_status">{{campaign.is_start ? '正在进行' : '即将开始'}}</span><span class="dl_cp_time_remind">{{campaign.remind_text}}:</span>
-        <div class="dl_cp_time_countdown"><span class="dl_cp_time_count">{{campaign.time_text.substr(0, campaign.time_text.length - 1)}}</span><span class="dl_cp_time_unit">{{campaign.time_text.substr(-1)}}</span></div>
+      <div class="campaign_items"><a ng-href="#/campaign/content/{{campaign._id}}" class="item item_header item_title">
+          <svg class="svg_icon">
+            <use xlink:href="#xiangqing"></use>
+          </svg><span>活动详情</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
+        <div ng-if="campaign.content" class="item item-text-wrap campaign_content">
+          <p ng-cloak="ng-cloak" class="content_simple"> {{campaign.content}}</p>
+        </div>
       </div>
-    </div>
-    <div ng-init="showAllNotice=false;" ng-if="notices.length&gt;0 || campaign.allow.publishCampaignMessage" class="card dl_card_detail">
-      <div class="item dl_card_header"><span ng-click="showAllNotice=!showAllNotice;" class="dl_notice_container"><span class="dl_card_title">活动公告</span><span class="dl_notice_count">{{notices.length}}</span></span><a ng-if="campaign.allow.publishCampaignMessage" ng-click="showPopup()" class="publish_notice icon ion-plus"></a></div><a ng-repeat="notice in notices" ng-if="showAllNotice || $index==0" class="item item-avatar dl_notice"><img ng-src="{{STATIC_URL +notice.sender[0].photo}}"/>
-        <h2><span class="dl_notice_sender">{{notice.sender[0].nickname}}</span><span>:</span><span class="dl_notice_content">{{notice.content}}</span></h2>
-        <p>{{notice.post_date | date:"yyyy-MM-dd HH:mm" }}</p></a>
-    </div>
-    <div ng-if="campaign.members.length&gt;0" class="card dl_card_detail"><a href="#/members/campaign/{{campaign._id}}" class="item item-button-right dl_card_member">
-        <ion-scroll direction="x"><span ng-repeat="member in campaign.members" class="dl_member"><img ng-src="{{STATIC_URL +member.photo+'/40/40'}}" class="dl_member_logo"/><span ng-if="member.isLeader" class="dl_member_leader"></span></span></ion-scroll>
-        <div class="dl_card_more"><span>{{campaign.members_count}}</span><i class="icon ion-chevron-right icon_small"></i></div></a></div>
-    <div ng-if="campaign.content" class="card dl_card_detail">
-      <div class="item dl_card_header"><span class="dl_card_title">活动简介</span></div>
-      <div class="item item-text-wrap">
-        <p>{{campaign.content}}</p>
+      <div class="item campaign_footer"><a ng-href="#/members/campaign/{{campaign._id}}" class="footer_col">
+          <svg class="svg_icon">
+            <use xlink:href="#yibaoming"></use>
+          </svg><span ng-cloak="ng-cloak" class="footer_label">已报名({{campaign.members_count}})</span></a>
+        <div ng-click="goDiscussDetail(campaign._id, campaign.theme)" class="footer_col">
+          <svg class="svg_icon discussion_icon">
+            <use xlink:href="#taolun"></use>
+          </svg><span class="footer_label">活动讨论</span>
+        </div>
       </div>
+      <div class="item item-divider circle"><span>精彩瞬间</span>
+        <svg ng-if="campaign.join_flag==1" post-circle="post-circle" campaign="campaign" after-post="doRefresh()" class="svg_icon">
+          <use xlink:href="#camera"></use>
+        </svg>
+      </div>
+      <circle-card-list circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL"></circle-card-list>
+      <ion-infinite-scroll ng-if="loadingStatus.hasMore &amp;&amp; loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
     </div>
   </ion-content>
+  <circle-comment-box ctrl="circleCommentBoxCtrl" on-post="postComment"></circle-comment-box>
+  <photo-swipe ctrl="pswpCtrl"></photo-swipe>
+  <ion-footer-bar ng-if="campaign.active &amp;&amp;(campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign ||campaign.allow.quitCampaign)">
+    <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button button-full dl_cp_join">报名参加</button>
+    <button ng-if="campaign.allow.quitCampaign" ng-click="quit(campaign._id)" class="button button-full dl_cp_quit">已经参加</button>
+  </ion-footer-bar>
 </ion-view>

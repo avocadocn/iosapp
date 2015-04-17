@@ -1,0 +1,34 @@
+
+<ion-view cache-view="false" title="{{campaignTitle}}" class="campaign_discuss">
+  <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 ng-cloak="ng-cloak" class="title">{{campaignTitle}}</h1><a href="#/campaign/detail/{{campaignId}}" class="button icon-right ion_campaign_active"></a>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list comments">
+      <div ng-repeat="comment in comments track by $index" ng-if="comment.content" ng-cloack="ng-cloack" class="item item-thumbnail-left comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/30/30'}}"/></a>
+        <div class="contents">
+          <div ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>
+          <div ng-bind-html="comment.content | emoji | unsafe" class="content"></div>
+          <div class="time"><span>{{comment.create_date | date: 'yyyy-M-dd HH:mm'}}</span></div>
+        </div>
+      </div>
+      <div class="item-button">
+        <button ng-if="!loading &amp;&amp; comments.length===0" class="button button-full button-clear">暂无留言，快来抢沙发吧!</button>
+        <button ng-if="hasMore &amp;&amp; !loading" ng-click="readHistory()" class="button button-full button-clear">点击查看更多</button><i ng-if="loading" class="icon ion-looping"></i>
+      </div>
+      <div class="item-button">
+        <button ng-click="showPublishSheet()" class="button button-full button_sponsor">留言</button>
+      </div>
+    </div>
+  </ion-content>
+  <script id="publish-comment.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar><a ng-click="cancelPublish()" class="button icon-left ion-chevron-left">&nbsp;返回</a><a ng-disabled="!data.content" ng-click="publish()" class="button">发布</a></ion-header-bar>
+      <ion-content class="dl_publish">
+        <form class="publish_card">
+          <textarea ng-model="data.content" placeholder="正文（必填），1-140字" autofocus="autofocus" maxlength="140" rows="6"></textarea>
+        </form>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</ion-view>

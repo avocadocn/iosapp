@@ -1,43 +1,73 @@
 ion-view.personal
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title 用户信息
+    h1.title(ng-cloak) {{user.nickname}}
     a.button.icon.ion-more(ng-click="showPopover($event)")
   ion-content
-    .card.user_card
-      .item.item-avatar
-        img(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/90/90" prevent-default photo="user.photo" pswp-id="pswpId" open-photo)
-        h2 {{user.nickname}}
-        p(ng-cloak) 姓名: {{user.realname || '-'}}
-      .item.statistics(ng-cloak)
-        .row
-          a.col.col-33(ng-href="#/personal/teams/{{user._id}}")
-            p.number {{user.tids.length}}
-            p.key 小队
-          a.col.col-33(ng-href="#/user/{{user._id}}/timeline")
-            p.number {{user.campaignCount}}
-            p.key 活动
-          .col.col-33
-            p.number {{user.score}}
-            p.key 积分
-      .item
-        //- p(ng-if="user.realname" ng-cloak) 姓名：{{user.realname}}
-        p.introduce(ng-if="user.introduce" ng-cloak)
-          span.title 简介：
-          span.content {{user.introduce}}
-        p(ng-if="user.department" ng-cloak) 部门：{{user.department.name}}
-        p(ng-if="!user.department" ng-cloak) 部门：无
-        p(ng-if="user.sex") 性别：{{user.sex}}
-        p(ng-if="user.birthday" ng-cloak) 生日：{{user.birthday | date:'yyyy-MM-dd'}}
-        p(ng-if="constellation") 星座：{{constellation}}
-        p(ng-cloak) 邮箱：{{user.email}}
-        p(ng-cloak) 手机：{{user.phone || '-'}}
-        p(ng-if="user.qq") Q Q ：{{user.qq}}
-        //- p.tags(ng-if="user.tags" ng-cloak) 个人标签:
-        //-   span.tag(ng-repeat="tag in user.tags") {{tag}}
-      .item.tabs
-        a.tab-item(ng-href="#/user/{{user._id}}/timeline") 活动足迹
-
+    .user_header
+      img.img_container(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/330/200")
+      .user_card
+        img.user_logo(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80" prevent-default photo="user.photo" pswp-id="pswpId" open-photo)
+        .user_name(ng-cloak) {{user.nickname}}
+          //- p(ng-cloak) 简介: {{user.introduce || '-'}}
+        .user_realname(ng-cloak) {{user.department.name}}&nbsp;&nbsp; {{user.realname || '-'}}
+        .user_introduce(ng-cloak) 简介:{{user.introduce || '无'}}
+      .tab_view
+        .nav
+          .tab_style(ng-class="{'active':nowTab=='team'}")
+            a(ng-click="changeFilter('team')") 
+              span 参加的小队
+          .tab_style(ng-class="{'active':nowTab=='circle'}")
+            a(ng-click="changeFilter('circle')") 
+              span 精彩瞬间
+          .tab_style(ng-class="{'active':nowTab=='campaign'}")
+            a(ng-click="changeFilter('campaign')") 
+              span 活动
+        .tab_content
+          .team_list(ng-if="nowTab=='team'")
+            a.dl_team_card.clearfix(ng-repeat="team in myTeams" ng-href="#/team/{{team._id}}" ng-cloak)
+              img.team_logo(ng-src="{{STATIC_URL + team.logo}}/120/120")
+              .team_info
+                h2.team_name {{team.name}}
+                //-p.team_cp_title {{team.lastCampaign._id ? team.lastCampaign.theme:'近期没有活动'}}
+                p.team_count
+                  span.team_member 队员：{{team.memberCount}}
+                  span.team_cp_number(ng-if="team.campaignCount") 活动：{{team.campaignCount}}
+                  span.team_cp_number 积分：{{team.score.total}}
+          .circle_list(ng-if="nowTab=='circle'")
+            circle-card-list.dl_circle_card_list(circle-list="circleContentList" user="user" kind="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL")
+      
+            .no_moment_remind(ng-if="loadingStatus.hasInit && circleContentList.length === 0")
+              | 您还没有发过精彩瞬间，快去活动页发表吧。
+      
+            ion-infinite-scroll(ng-if="loadingStatus.hasMore && loadingStatus.hasInit" icon="ion-looping" on-infinite="loadMore()" distance="1%")
+          .calendar_container(ng-if="nowTab=='campaign'")
+            .calendar.other
+              nav
+                .operator.item.tabs(ng-if="view==='month'")
+                    .tab-item(ng-click="preMonth()")
+                      i.icon.icon_small.icon_blue.icon_margin_left.ion-chevron-left
+                    .tab-item.icon_blue {{ current_year }} - {{ current_month.format_month }}
+                    .tab-item(ng-click="nextMonth()")
+                      i.icon.icon_small.icon_blue.icon_margin_right.ion-chevron-right
+                .week.text-center.clearfix(ng-if="view!=='year'")
+                  .day 日
+                  .day 一
+                  .day 二
+                  .day 三
+                  .day 四
+                  .day 五
+                  .day 六
+              .calendar_box(ng-class="{full_box: view==='year'}")
+                .calendar_month.clearfix(ng-if="view==='month'")
+                  ion-scroll(direction='x' scrollbar-x="false")
+                    .clearfix(detect-gestures gesture-type="swiperight,swipeleft" getsture-callback="preMonth,nextMonth")
+                      .calendar_day.text-center(ng-repeat="day in current_month.days" ng-click="dayView(day.full_date)" ng-class="{weekend: day.is_weekend===true, today: day.is_today===true, calendar_current_month: day.is_current_month===true}")
+                        .calendar_date {{ day.date }} 
+                        span.calendar_campaign_join(ng-if="day.joined_events.length>0") {{day.joined_events.length}}
+  //- 与ion-content同级
+  circle-comment-box(ctrl="circleCommentBoxCtrl" on-post="postComment" on-stop="stopComment")
+  photo-swipe(ctrl="pswpCtrl")
   .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}")
     .pswp__bg
     .pswp__scroll-wrap

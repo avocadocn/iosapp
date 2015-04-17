@@ -1,0 +1,30 @@
+ion-view.campaign_discuss(cache-view="false" title="{{campaignTitle}}")
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
+    h1.title(ng-cloak) {{campaignTitle}}
+    a.button.icon-right.ion_campaign_active(href="#/campaign/detail/{{campaignId}}")
+
+  ion-content
+    .list.comments
+      .item.item-thumbnail-left.comment.clearfix(ng-repeat="comment in comments track by $index" ng-if="comment.content" ng-cloack)
+        a.logo(ng-href="#/user/{{comment.poster._id}}")
+          img(ng-src="{{STATIC_URL +comment.poster.photo+ '/30/30'}}")
+        .contents
+          .name(ng-cloak) {{comment.poster.nickname}}
+          .content(ng-bind-html="comment.content | emoji | unsafe")
+          .time
+            span {{comment.create_date | date: 'yyyy-M-dd HH:mm'}}
+      .item-button
+        button.button.button-full.button-clear(ng-if="!loading && comments.length===0") 暂无留言，快来抢沙发吧!
+        button.button.button-full.button-clear(ng-if="hasMore && !loading" ng-click="readHistory()") 点击查看更多
+        i.icon.ion-looping(ng-if="loading")
+      .item-button
+        button.button.button-full.button_sponsor(ng-click="showPublishSheet()") 留言
+  script(id="publish-comment.html" type="text/ng-template")
+    ion-modal-view
+      ion-header-bar
+        a.button.icon-left.ion-chevron-left(ng-click="cancelPublish()") &nbsp;返回
+        a.button(ng-disabled="!data.content" ng-click="publish()") 发布
+      ion-content.dl_publish
+        form.publish_card
+          textarea(ng-model="data.content" placeholder="正文（必填），1-140字" autofocus maxlength=140 rows=6)
