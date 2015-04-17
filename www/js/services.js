@@ -1712,14 +1712,10 @@ angular.module('donlerApp.services', [])
           callback(null, data);
         })
         .error(function (data, status, headers, config) {
-          if (status === 400) {
-            callback(data.msg);
-          } else {
-            callback('error');
-          }
+          callback(data.msg?data.msg:'error');
         });
       },
-      /**
+      /** 
        * 获取挑战信列表
        * @param  {Object}   data     query的数据包括： sponsor， opposite，messageType,page
        * @param  {Function} callback 回调函数
