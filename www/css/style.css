@@ -75,6 +75,9 @@ a.no_underline {
 .clearfix:after {
   clear: both;
 }
+.svg_container {
+  display: none;
+}
 .svg_icon {
   width: 20px;
   height: 20px;
