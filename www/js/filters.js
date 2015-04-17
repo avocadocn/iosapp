@@ -201,6 +201,9 @@ angular.module('donlerApp.filters', [])
       case 6 :
         result = '我们发起的' + comptext + '被接受了';
         break;
+      case 7 :
+        result = '我们有一个比赛的比分确认了';
+        break;
     }
     return result;
   }

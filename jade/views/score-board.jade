@@ -1,20 +1,20 @@
-.campaign_info.campaign_info_2
+.campaign_info.campaign_info_2(ng-cloak)
   .cp_logos
     a.no_underline.team(ng-href="{{campaign.campaign_unit[0].company._id ==cid? '#/team/'+ campaign.campaign_unit[0].team._id:'#/competition/team/'+campaign.campaign_unit[0].team._id+'/'}}")
       img.team_logo(ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60")
       .team_name(ng-bind="campaign.campaign_unit[0].team.name")
-    .score(ng-if="componentId&& scoreBoard.status>0 && results[0]==undefined && scores[0]!=undefined")
+    .score(ng-if="componentId&& scoreBoard.status==2 && results[0]==undefined && scores[0]!=undefined")
       span.result {{scores[0]}}
       span :
       span.result {{scores[1]}}
-    .score(ng-if="componentId&& scoreBoard.status>0 && results[0]!=undefined")
+    .score(ng-if="componentId&& scoreBoard.status==2 && results[0]!=undefined")
       span.result {{results[0] | scoreResultFormat}}
       span :
       span.result {{results[1] | scoreResultFormat}}
     a.no_underline.team.team_2(ng-href="{{campaign.campaign_unit[1].company._id ==cid? '#/team/'+ campaign.campaign_unit[1].team._id:'#/competition/team/'+campaign.campaign_unit[1].team._id+'/'}}")
       img.team_logo.team_logo_2(ng-src="{{STATIC_URL + (campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)}}/60/60")
       .team_name(ng-bind="campaign.campaign_unit[1].team.name")
-  .campaign_status(ng-if="componentId&&campaign.is_end&&scoreBoard.status!==2")
+  .campaign_status(ng-if="componentId&&campaign.is_end&&(scoreBoard.status==1||scoreBoard.status==0)")
     .set_score(ng-if="componentId&& campaign.is_end&& !allowEdit&& scoreBoard.status!==2") 等待队长确认比分
     a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status==0" ng-click="showEdit()") 设置比分
     a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status==1" ng-click="showEdit()") {{leaderStatus=='waitConfirm'?'等待确认比分':'确认比分'}}

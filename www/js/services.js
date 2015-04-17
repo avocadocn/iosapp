@@ -1883,7 +1883,7 @@ angular.module('donlerApp.services', [])
           if (status === 400) {
             callback(data.msg);
           } else {
-            callback('error');
+            callback(data.msg?data.msg:'错误');
           }
         });
       },
@@ -1901,7 +1901,7 @@ angular.module('donlerApp.services', [])
           if (status === 400) {
             callback(data.msg);
           } else {
-            callback('error');
+            callback(data.msg?data.msg:'错误');
           }
         });
       },
@@ -1919,7 +1919,7 @@ angular.module('donlerApp.services', [])
           if (status === 400) {
             callback(data.msg);
           } else {
-            callback('error');
+            callback(data.msg?data.msg:'错误');
           }
         });
       },
@@ -1938,7 +1938,7 @@ angular.module('donlerApp.services', [])
           if (status === 400) {
             callback(data.msg);
           } else {
-            callback('error');
+            callback(data.msg?data.msg:'错误');
           }
         });
       }

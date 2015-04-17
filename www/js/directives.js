@@ -801,6 +801,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                 var playingTeam = scope.scoreBoard.playingTeams[i];
                 scope.scores.push(playingTeam.score);
                 scope.results.push(playingTeam.result);
+                if(playingTeam.result!=undefined){
+                   scope.nowTab ='result';
+                }
                 if (scope.scoreBoard.status === 1) {
                   if (playingTeam.allowManage) {
                     scope.allowEdit = true;
@@ -839,13 +842,15 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                   scope.editModal.show();
                 }
               }
-              console.log(1);
             }
           });
         };
         scope.componentId && getScoreBoardData();
         scope.$watch('reloadFlag',function (newVal) {
           if(newVal){
+            if(scope.editModal){
+              scope.editModal.remove();
+            }
             scope.componentId && getScoreBoardData();
           }
         })

@@ -426,7 +426,7 @@ angular.module('donlerApp.controllers', [])
       })
       .error(function(data, status) {
         if (status !== 404) {
-          $rootScope.showAction({titleText:data.msg || '获取失败'})
+          $rootScope.showAction({titleText:data.msg ?data.msg: '获取失败'})
         }
         $scope.$broadcast('scroll.refreshComplete');
       });
@@ -842,7 +842,6 @@ angular.module('donlerApp.controllers', [])
     };
     //socket来了新评论
     Socket.on('newChat', function(data) {
-      // console.log(data);
       //如果是自己发的看看是不是取消loading就行.
       var chatListIndex = $scope.chatsList.length -1;
       if(data.poster._id === currentUser._id && data.randomId) {

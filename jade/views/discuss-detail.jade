@@ -42,7 +42,7 @@ ion-view.discuss_detail(cache-view="false" title="{{chatroomName}}")
               .name(ng-if="comment.poster &&comment.poster._id !== userId" ng-cloak) {{comment.poster.nickname}}
               .name(ng-if="comment.poster && comment.poster._id == userId && competition_message.chat_type===1" ng-cloak) 我
               .remind_box.clearfix(ng-if="comment.chat_type>1")
-                a.no_underline(ng-href="{{ comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id : '#/competition_message/detail/' + comment.competition_message }}")
+                a.no_underline(ng-href="{{ comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id : comment.chat_type===7?'#/campaign/detail/'+comment.campaign:'#/competition_message/detail/' + comment.competition_message }}")
                   .remind_box_head
                     span {{comment.chat_type | remindWordsFormat : comment.competition_type}}
                   .remind_box_content.clearfix
