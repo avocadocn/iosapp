@@ -4308,6 +4308,9 @@ a>.login .companies_list:activated {
   color: #ababab;
   font-size: 18px;
 }
+.sponsor .list .item-input {
+  border-top-width: 0;
+}
 .sponsor .list .item-input .result {
   color: #ababab;
 }
