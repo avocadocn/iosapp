@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.donler.app" version="1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.donler.app" version="1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
   <name>Donler</name>
   <description>
       动梨活动助理
@@ -17,7 +17,12 @@
   <feature name="StatusBar">
     <param name="android-package" value="CDVStatusBar" onload="true"/>
   </feature>
-   <platform name="android">
+  <plugin name="LaunchMyApp" value="nl.xservices.plugins.LaunchMyApp"/>
+  <gap:config-file platform="android" parent="/manifest/application"> <activity android:launchMode="singleTask" /> </gap:config-file>
+  <gap:plugin name="nl.x-services.plugins.launchmyapp">
+    <param name="URL_SCHEME" value="donlerapp" />
+  </gap:plugin>
+  <platform name="android">
       <!-- <preference name="Fullscreen" value="true" /> -->
       <preference name="SplashScreen" value="screen"/>
       <icon src="icons/android/drawable-ldpi/donler.png" density="ldpi" />
@@ -34,5 +39,6 @@
       <splash src="splash/android/drawable-xhdpi/screen.png" density="port-ldpi"/>
       <splash src="splash/android/drawable-xhdpi/screen.png" density="port-mdpi"/>
       <splash src="splash/android/drawable-xhdpi/screen.png" density="port-xhdpi"/>
+     
     </platform>
 </widget>

@@ -31,7 +31,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           navigator.app.backHistory();
         }
       }, 100);
-
+      window.handleOpenURL = function (url) {
+        console.log(url);
+        // $state.go(url);
+      }
       $rootScope.$on('$stateChangeSuccess',
         function (event, toState, toParams, fromState, fromParams) {
           var nowHash = window.location.hash;
