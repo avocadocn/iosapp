@@ -60,6 +60,7 @@
       .comment_container(ng-if="circle.textComments.length > 0")
         .comment(ng-repeat="comment in circle.textComments" ng-click="replyTo(circle, comment)" on-hold="commentOnHoldHandler(comment, circle.textComments)" prevent-default)
           span.nickname.link_name(ng-click="goToUserPage(comment.poster)" prevent-default ng-bind="comment.poster.nickname")
+          span.nickname.link_name(ng-if="user.company._id!=comment.poster.cid && comment.poster.company_official_name") ({{comment.poster.company_official_name}})
           span.reply_text(ng-if="!comment.is_only_to_content" ng-cloak) 回复
           span.reply_to.link_name(ng-if="!comment.is_only_to_content" ng-click="goToUserPage(comment.target)" prevent-default ng-bind="comment.target.nickname")
           span.colon :

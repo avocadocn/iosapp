@@ -14,4 +14,4 @@ ion-view.all_campaigns
       span 点击加载更多
     .dl_bottom_operator(ng-if="loading")
       span.loading 正在加载...
-    .dl_bottom_operator(ng-if="loadFinished||!timelinesRecord.length" ng-cloak) 没有更多的活动
+    .dl_bottom_operator(ng-if="!loading&&loadFinished&&!timelinesRecord.length" ng-cloak) 没有更多的活动

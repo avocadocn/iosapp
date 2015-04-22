@@ -36,6 +36,6 @@
       </div>
     </div><a ng-if="!loading &amp;&amp; !loadFinished" ng-click="loadMore()" class="dl_bottom_operator no_underline show_more clearfix"> <span>点击加载更多</span></a>
     <div ng-if="loading" class="dl_bottom_operator"><span class="loading">正在加载...</span></div>
-    <div ng-if="loadFinished||!timelinesRecord.length" ng-cloak="ng-cloak" class="dl_bottom_operator">没有更多的活动</div>
+    <div ng-if="!loading&amp;&amp;loadFinished&amp;&amp;!timelinesRecord.length" ng-cloak="ng-cloak" class="dl_bottom_operator">没有更多的活动</div>
   </ion-content>
 </ion-view>
