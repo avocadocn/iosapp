@@ -65,6 +65,10 @@ version="1.0.1">
 					<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
 					<action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
 					<action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+					<action android:name="android.intent.action.MEDIA_MOUNTED" />
+					<action android:name="android.intent.action.USER_PRESENT" />
+					<action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+					<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
 				</intent-filter>
 			</receiver>
 			<receiver android:name="com.baidu.android.pushservice.RegistrationReceiver"
@@ -86,6 +90,8 @@ version="1.0.1">
 					<action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
 				</intent-filter>
 			</service>
+		<service android:name="com.baidu.android.pushservice.CommandService"
+android:exported="true" />
 			<!-- push结束 -->
 		</config-file>
 		<source-file src="src/android/PushNotification.java" target-dir="src/com/donler/plugin/bdpushnotification" />
@@ -93,7 +99,7 @@ version="1.0.1">
 		<source-file src="src/android/armeabi/libbdpush_V2_2.so" target-dir="libs/armeabi" />
 		<source-file src="src/android/mips/libbdpush_V2_2.so" target-dir="libs/mips" />
 		<!--        <source-file src="src/android/x86/libbdpush_V1_0.so" target-dir="libs/x86" />-->
-		<source-file src="src/android/pushservice-4.3.0.4.jar" target-dir="libs" />
+		<source-file src="src/android/pushservice-4.4.0.71.jar" target-dir="libs" />
 		<source-file src="src/android/res/drawable-hdpi/bpush_gray_logo.png" target-dir="res/drawable-hdpi"/>
 		<source-file src="src/android/res/drawable-hdpi/bpush_list_item_bg.9.png" target-dir="res/drawable-hdpi"/>
 		<source-file src="src/android/res/drawable-hdpi/bpush_message_prompt.png" target-dir="res/drawable-hdpi"/>

@@ -982,6 +982,7 @@ angular.module('donlerApp.controllers', [])
     $scope.showUploadActionSheet =function() {
       Upload.getPicture(false, function (err, imageURI) {
         if(!err){
+          console.log(imageURI);
           $scope.previewImg = imageURI;
           $scope.confirmUploadModal.show();
         }

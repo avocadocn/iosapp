@@ -14,14 +14,16 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="orientation" value="portrait" />
+
   <feature name="StatusBar">
     <param name="android-package" value="CDVStatusBar" onload="true"/>
   </feature>
   <plugin name="LaunchMyApp" value="nl.xservices.plugins.LaunchMyApp"/>
-  <gap:config-file platform="android" parent="/manifest/application"> <activity android:launchMode="singleTask" /> </gap:config-file>
+  <params name="URL_SCHEME" value="donler" />
+<!--   <gap:config-file platform="android" parent="/manifest/application"> <activity android:launchMode="singleTask" /> </gap:config-file>
   <gap:plugin name="nl.x-services.plugins.launchmyapp">
-    <param name="URL_SCHEME" value="donlerapp" />
-  </gap:plugin>
+    <param name="URL_SCHEME" value="donler" />
+  </gap:plugin> -->
   <platform name="android">
       <!-- <preference name="Fullscreen" value="true" /> -->
       <preference name="SplashScreen" value="screen"/>

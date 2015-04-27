@@ -104,7 +104,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 		try{ 
 			// String notifyString = "通知点击 title=\"" + title + "\" description=\""
 			// 	+ description + "\" customContent=" + customContentString;
-			// Log.v("donler", notifyString);
+			Log.v("donler", customContentString);
 			PushNotification.fireEvent("NotificationClicked",customContentString);
 			// 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
 			// if (!TextUtils.isEmpty(customContentString)) {

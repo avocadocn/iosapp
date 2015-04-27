@@ -1529,7 +1529,7 @@ a>.login .companies_list:activated {
   margin-top: 0;
 }
 .discuss_detail .teams_icon .svg_icon {
-  margin-top: 7px;
+  margin-top: 9px;
   width: 24px;
   height: 24px;
 }
@@ -1825,6 +1825,7 @@ a>.login .companies_list:activated {
   -webkit-user-select: text;
   user-select: text;
   font-size: 16px;
+  line-height: 20px;
 }
 .comment_box .publish_box .emotion_button {
   background-color: transparent;

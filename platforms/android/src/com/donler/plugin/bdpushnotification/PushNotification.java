@@ -208,12 +208,17 @@ public class PushNotification extends CordovaPlugin
    */
   private static void deviceready () {
       deviceready = true;
+      try{
+        for (String js : eventQueue) {
+            webView.sendJavascript(js);
+        }
 
-      for (String js : eventQueue) {
-          webView.sendJavascript(js);
+        eventQueue.clear();
       }
-
-      eventQueue.clear();
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
   }
   /**
    * Fires the given event.
@@ -223,12 +228,19 @@ public class PushNotification extends CordovaPlugin
    */
   public static void fireEvent (String event, String json) {
       String js     = "setTimeout('bdPushNotification.on" + event + "(" +json + ")',0)";
-
-      if (deviceready == false) {
-          eventQueue.add(js);
-      } else {
-          webView.sendJavascript(js);
+      Log.d("fire", json);
+      try{
+        if (deviceready == false) {
+            eventQueue.add(js);
+        } else {
+            webView.sendJavascript(js);
+        }
       }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+
   }
 
 }

@@ -1329,10 +1329,11 @@ angular.module('donlerApp.services', [])
             sourceType = Camera.PictureSourceType.CAMERA;
             save = true;
           }
-
+          //@:android
+          //destinationType必须为DATA_URL，否则不能预览
           var options = {
             quality: 50,
-            destinationType: Camera.DestinationType.FILE_URI,
+            destinationType: Camera.DestinationType.DATA_URL,//@:android
             sourceType: sourceType,
             encodingType: Camera.EncodingType.JPEG,
             popoverOptions: CameraPopoverOptions,
@@ -1346,7 +1347,7 @@ angular.module('donlerApp.services', [])
           }
 
           $cordovaCamera.getPicture(options).then(function(imageURI) {
-            callback(null, imageURI);
+            callback(null, "data:image/jpeg;base64," + imageURI);//@:android
           }, function(err) {
             if (err !== 'no image selected' && err !=='Selection cancelled.') {
               $ionicPopup.alert({

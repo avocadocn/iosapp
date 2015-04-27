@@ -25,7 +25,7 @@ bdPushNotification.prototype.customSuccess = {};
 bdPushNotification.prototype.customFail = {};
 
 bdPushNotification.prototype.init = function(api_key) {
-	//alert(api_key);
+	// alert(api_key);
 	// customSuccess = success;
 	// customFail = fail;
 	exec(bdPushNotification.successFn, bdPushNotification.failureFn, 'bdPushNotification', 'init', [api_key]);
@@ -62,7 +62,7 @@ bdPushNotification.prototype.init = function(api_key) {
 // };
 
 bdPushNotification.prototype.successFn = function(info) {
-	//alert(JSON.stringify(info));
+	// alert(JSON.stringify(info));
 	if (info) {
 		// customSuccess(info);
 		bdPushNotification.registered = true;
@@ -71,6 +71,7 @@ bdPushNotification.prototype.successFn = function(info) {
 };
 
 bdPushNotification.prototype.failureFn = function(info) {
+  alert(JSON.stringify(info)+'2');
 	bdPushNotification.registered = false;
 };
 

@@ -223,7 +223,6 @@ public class PushNotification extends CordovaPlugin
    */
   public static void fireEvent (String event, String json) {
       String js     = "setTimeout('bdPushNotification.on" + event + "(" +json + ")',0)";
-
       if (deviceready == false) {
           eventQueue.add(js);
       } else {
