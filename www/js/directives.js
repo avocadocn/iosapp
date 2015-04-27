@@ -799,7 +799,14 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
               break;
           }
         }
-        var getScoreBoardData = function () {
+        scope.doRefresh = function() {
+          scope.editing = false;
+          scope.allowEdit = false;
+          scope.allowManage = false;
+          scope.componentId && getScoreBoardData(true);
+          scope.$broadcast('scroll.refreshComplete');
+        }
+        var getScoreBoardData = function (refreshFlag) {
           ScoreBoard.getScore(scope.componentId, function (err, scoreBoardData) {
             if (err) {
               scope.showAction({titleText:err})
@@ -835,7 +842,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                   scope.allowManage = true;
                 }
               }
-              if(scope.allowEdit) {
+              if(scope.allowEdit && !refreshFlag) {
                 $ionicModal.fromTemplateUrl('./views/score-board-edit.html', {
                   scope: scope,
                   animation: 'slide-in-up'
@@ -862,9 +869,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
             scope.editing = false;
             scope.allowEdit = false;
             scope.allowManage = false;
-            if(scope.editModal){
-              scope.editModal.remove();
-            }
+            // if(scope.editModal){
+            //   scope.editModal.remove();
+            // }
             scope.componentId && getScoreBoardData();
           }
         })
@@ -900,11 +907,15 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         };
 
         scope.initScore = function () {
+          var data = {};
+          if(scope.nowTab==='score') {
+            data.scores = scope.scores;
+          }
+          else {
+            data.results = scope.results;
+          }
           ScoreBoard.setScore(scope.componentId, {
-            data:{
-              scores: scope.scores,
-              results: scope.results
-            },
+            data: data,
             isInit: scope.scoreBoard.status==0
           }, function (err) {
             if (err) {

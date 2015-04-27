@@ -4,6 +4,7 @@
     <h1 class="title">比分确认</h1>
   </ion-header-bar>
   <ion-content class="score_board">
+    <ion-refresher refreshing-icon="ion-looping" on-refresh="doRefresh()"></ion-refresher>
     <div class="item row competition_teams">
       <div class="vs_title"><span class="v">V</span><span class="s">S</span></div>
       <div class="col team sponsor_team">
@@ -50,9 +51,9 @@
       <button ng-click="toggleEdit()" class="button cancel">不同意</button>
     </div>
     <div class="item score_board_footer">
-      <div ng-if="scoreBoard.status===0" class="remind_text">等待设置比分</div>
-      <div ng-if="scoreBoard.status===1" class="remind_text">比分待确认</div>
-      <div ng-if="scoreBoard.status===2" class="remind_text">比分已确认</div>
+      <div ng-if="scoreBoard.status===0" class="remind_text">等待设置结果</div>
+      <div ng-if="scoreBoard.status===1" class="remind_text">比赛结果待确认</div>
+      <div ng-if="scoreBoard.status===2" class="remind_text">比赛结果已确认</div>
     </div>
   </ion-content>
 </ion-modal-view>
