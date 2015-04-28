@@ -1530,7 +1530,7 @@ a>.login .companies_list:activated {
 }
 .discuss_detail .icon-right {
   width: 25px;
-  margin-top: 3px;
+  margin-top: 0px;
 }
 .discuss_detail .teams_icon {
   position: absolute;
@@ -1539,7 +1539,7 @@ a>.login .companies_list:activated {
   top: 0;
 }
 .discuss_detail .teams_icon .svg_icon {
-  margin-top: 9px;
+  margin-top: 10px;
   width: 24px;
   height: 24px;
 }
