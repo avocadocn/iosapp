@@ -71,7 +71,7 @@ bdPushNotification.prototype.successFn = function(info) {
 };
 
 bdPushNotification.prototype.failureFn = function(info) {
-  alert(JSON.stringify(info)+'2');
+  // alert(JSON.stringify(info));
 	bdPushNotification.registered = false;
 };
 

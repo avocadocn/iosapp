@@ -52,7 +52,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           channel_id:info.channel_id,
           user_id: info.user_id
         }
-        console.log(info,info.channel_id,info.user_id);
+        // console.log(info,info.channel_id,info.user_id);
         bdPushNotification.onNotificationClicked = function(pushMessage) {
           $state.go('campaigns_detail',{ 'id': pushMessage.campaignId });
         }

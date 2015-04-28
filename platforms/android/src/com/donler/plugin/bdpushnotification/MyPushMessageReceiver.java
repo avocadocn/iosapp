@@ -12,6 +12,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
 import org.apache.cordova.CordovaPlugin;
@@ -67,7 +70,17 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 		// 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
 		if (errorCode == 0) {
 			// Utils.setBind(context, true);
-			
+			 JSONObject value = new JSONObject();
+		     
+		     try {
+		    	 value.put("appid", appid);
+			     value.put("channel_id", channelId);
+				 value.put("user_id", userId);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 PushNotification.fireEvent("BindSuccess",value);
 			// 写入/data/data/pkg/login.tmp让js调取
 			// String fileName = "login.tmp";
 			// String content =  userId + "=.=" + channelId;
@@ -104,7 +117,7 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 		try{ 
 			// String notifyString = "通知点击 title=\"" + title + "\" description=\""
 			// 	+ description + "\" customContent=" + customContentString;
-			Log.v("donler", customContentString);
+			// Log.v("donler", notifyString);
 			PushNotification.fireEvent("NotificationClicked",customContentString);
 			// 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
 			// if (!TextUtils.isEmpty(customContentString)) {
