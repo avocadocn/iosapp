@@ -218,6 +218,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
       scope.addEmotion = function(emotion) {
         scope.content += '['+ dict[emotion] +']';
+        scope.change();
       };
 
       var textAreaEle = document.getElementById('ta');

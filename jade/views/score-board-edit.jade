@@ -26,6 +26,8 @@ ion-modal-view
           .team_name {{scoreBoard.playingTeams[1].name}}
           .score(ng-if="scoreBoard.status==2 &&results[1]==undefined && scores[1]!=undefined") {{scores[1]}}
           .score(ng-if="scoreBoard.status==2 &&results[1]!=undefined") {{results[1] | scoreResultFormat}}
+    .item.tip(ng-if="scoreBoard.status===0" ng-cloak)
+      span 提交比赛结果等待对方确认后，将会获得积分，若双方三天内不提交，则不获得积分。
     .tab_view
       .nav
         .tab_style(ng-class="{'active':nowTab=='score'}")
@@ -51,5 +53,7 @@ ion-modal-view
       button.button.cancel(ng-click="toggleEdit()") 不同意
     .item.score_board_footer
       .remind_text(ng-if="scoreBoard.status===0") 等待设置结果
-      .remind_text(ng-if="scoreBoard.status===1") 比赛结果待确认
+      .remind_text(ng-if="scoreBoard.status===1") 
+        p 比赛结果待确认
+        p 若3天内对方不应答即视此结果为最终结果
       .remind_text(ng-if="scoreBoard.status===2") 比赛结果已确认
