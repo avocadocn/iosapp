@@ -15,8 +15,8 @@
       img.team_logo.team_logo_2(ng-src="{{STATIC_URL + (campaign.campaign_unit[1].team.logo || campaign.campaign_unit[1].company.logo)}}/60/60")
       .team_name(ng-bind="campaign.campaign_unit[1].team.name")
   .campaign_status(ng-if="componentId&&campaign.is_end&&(scoreBoard.status==1||scoreBoard.status==0)")
-    .set_score(ng-if="componentId&& campaign.is_end&& !allowEdit&& scoreBoard.status!==2") 等待队长确认比分
-    a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status==0" ng-click="showEdit()") 设置比分
-    a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status==1" ng-click="showEdit()") {{leaderStatus=='waitConfirm'?'等待确认比分':'确认比分'}}
+    .set_score(ng-if="componentId&& campaign.is_end&& !allowEdit&& (scoreBoard.status===0 || scoreBoard.status===1)") 等待队长确认结果
+    a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status==0" ng-click="showEdit()") 提交比赛结果
+    a.no_underline.set_score(ng-if="componentId&& campaign.is_end&& allowEdit&& scoreBoard.status==1" ng-click="showEdit()") {{leaderStatus=='waitConfirm'?'等待对方确认':'对方已提交结果,请确认'}}
   .campaign_status(ng-if="!componentId||!campaign.is_end||scoreBoard.status==2 ")
     span.status(ng-class="{'end':campaign.is_end,'now':campaign.is_start&&!campaign.is_end,'unstart':!campaign.is_start,'unjoin':campaign.join_flag!=1}") {{campaign.is_start | campaignStatus:campaign.is_end}}

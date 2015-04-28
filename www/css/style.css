@@ -482,6 +482,8 @@ a.no_underline {
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member .dl_cp_text,
 .dl_timeline_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name .dl_cp_text,
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_name .dl_cp_text {
+  float: left;
+  max-width: 89%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -566,6 +568,16 @@ a.no_underline {
 }
 .dl_campaign_card .campaign_card .dl_card_header .dl_card_time .dl_cp_time_countdown .dl_cp_time_count {
   margin-left: 5px;
+}
+.dl_campaign_card .campaign_card .dl_card_content {
+  padding-left: 60px;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_logos {
+  position: absolute;
+  left: 15px;
+}
+.dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts {
+  width: 100%;
 }
 .dl_campaign_card .campaign_card .dl_card_content .dl_cp_texts .dl_cp_member {
   margin-bottom: 0;
@@ -1518,7 +1530,7 @@ a>.login .companies_list:activated {
   background-position: center;
 }
 .discuss_detail .icon-right {
-  width: 40px;
+  width: 25px;
   margin-top: 3px;
 }
 .discuss_detail .teams_icon {
@@ -1526,7 +1538,6 @@ a>.login .companies_list:activated {
   min-height: 40px;
   right: 10px;
   top: 0;
-  margin-top: 0;
 }
 .discuss_detail .teams_icon .svg_icon {
   margin-top: 9px;
@@ -5692,6 +5703,7 @@ a>.login .companies_list:activated {
 .score_board .item.score_board_footer {
   text-align: center;
   padding: 0;
+  height: auto;
 }
 .score_board .item.score_board_footer .remind_text {
   padding: 10px 0;
@@ -5703,6 +5715,12 @@ a>.login .companies_list:activated {
   padding: 10px 0;
   float: left;
   width: 50%;
+}
+.score_board .item.tip {
+  text-align: center;
+  color: #676767;
+  height: auto;
+  white-space: normal;
 }
 .score_board .item.logs .log .content {
   font-size: 14px;
@@ -5852,4 +5870,7 @@ a>.login .companies_list:activated {
 }
 .hr_active_code .list .item .invite_key_qr_code {
   margin-top: 16px;
+}
+.pswp__counter {
+  width: 100px;
 }

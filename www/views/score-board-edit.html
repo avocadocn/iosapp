@@ -4,6 +4,7 @@
     <h1 class="title">比分确认</h1>
   </ion-header-bar>
   <ion-content class="score_board">
+    <ion-refresher refreshing-icon="ion-looping" on-refresh="doRefresh()"></ion-refresher>
     <div class="item row competition_teams">
       <div class="vs_title"><span class="v">V</span><span class="s">S</span></div>
       <div class="col team sponsor_team">
@@ -24,6 +25,7 @@
         </div>
       </div>
     </div>
+    <div ng-if="scoreBoard.status===0" ng-cloak="ng-cloak" class="item tip"><span>提交比赛结果等待对方确认后，将会获得积分，若双方三天内不提交，则不获得积分。</span></div>
     <div class="tab_view">
       <div class="nav">
         <div ng-class="{'active':nowTab=='score'}" class="tab_style"><a ng-click="changeFilter('score')"> <span>输入比分</span></a></div>
@@ -50,9 +52,12 @@
       <button ng-click="toggleEdit()" class="button cancel">不同意</button>
     </div>
     <div class="item score_board_footer">
-      <div ng-if="scoreBoard.status===0" class="remind_text">等待设置比分</div>
-      <div ng-if="scoreBoard.status===1" class="remind_text">比分待确认</div>
-      <div ng-if="scoreBoard.status===2" class="remind_text">比分已确认</div>
+      <div ng-if="scoreBoard.status===0" class="remind_text">等待设置结果</div>
+      <div ng-if="scoreBoard.status===1" class="remind_text"> 
+        <p>比赛结果待确认</p>
+        <p>若3天内对方不应答即视此结果为最终结果</p>
+      </div>
+      <div ng-if="scoreBoard.status===2" class="remind_text">比赛结果已确认</div>
     </div>
   </ion-content>
 </ion-modal-view>
