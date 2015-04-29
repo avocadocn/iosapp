@@ -701,7 +701,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       var domEle = ele[0];
       domEle.style.lineHeight = domEle.clientWidth + 'px';
       domEle.style.fontSize = domEle.clientWidth * Number(attrs.fontSizeRange) / 100 + 'px';
-      console.log(domEle.clientWidth, domEle.style);
     }
   };
 })
