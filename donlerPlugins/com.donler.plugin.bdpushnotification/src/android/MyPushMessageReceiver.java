@@ -15,7 +15,7 @@ import android.util.Log;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import org.json.simple.JSONObject;
+
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
@@ -70,16 +70,17 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
 		// 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
 		if (errorCode == 0) {
 			// Utils.setBind(context, true);
-				JSONObject value = new JSONObject();
-		    try {
-		    	value.put("appid", appid);
-			    value.put("channel_id", channelId);
-				  value.put("user_id", userId);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				PushNotification.fireEvent("BindSuccess",value);
+			 JSONObject value = new JSONObject();
+		     
+		     try {
+		    	 value.put("appid", appid);
+			     value.put("channel_id", channelId);
+				 value.put("user_id", userId);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 PushNotification.fireEvent("BindSuccess",value);
 			// 写入/data/data/pkg/login.tmp让js调取
 			// String fileName = "login.tmp";
 			// String content =  userId + "=.=" + channelId;

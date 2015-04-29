@@ -30,16 +30,16 @@ import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 public class PushNotification extends CordovaPlugin
 {
-	protected static Boolean isInBackground = true;
-	private   static Boolean deviceready = false;
-	private   static ArrayList<String> eventQueue = new ArrayList<String>();
-	private BroadcastReceiver receiver = null;
+  protected static Boolean isInBackground = true;
+  private   static Boolean deviceready = false;
+  private   static ArrayList<String> eventQueue = new ArrayList<String>();
+  private BroadcastReceiver receiver = null;
   private static CallbackContext pushCallbackContext = null;
   private   static CordovaWebView webView = null;
   public static final String ACTION_RESPONSE = "bccsclient.action.RESPONSE";
-	public static final String RESPONSE_METHOD = "method";
-	public static final String RESPONSE_CONTENT = "content";
-	public static final String RESPONSE_ERRCODE = "errcode";
+  public static final String RESPONSE_METHOD = "method";
+  public static final String RESPONSE_CONTENT = "content";
+  public static final String RESPONSE_ERRCODE = "errcode";
 
   @Override
   public void initialize (CordovaInterface cordova, CordovaWebView webView) {
@@ -48,12 +48,12 @@ public class PushNotification extends CordovaPlugin
       PushNotification.webView = super.webView;
   }
 
-	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException
-	{
-		if(action.equals("init"))
-		{
-			
-			this.pushCallbackContext = callbackContext;
+  public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException
+  {
+    if(action.equals("init"))
+    {
+      
+      this.pushCallbackContext = callbackContext;
       IntentFilter intentFilter = new IntentFilter();
       intentFilter.addAction(PushConstants.ACTION_RECEIVE);
       if (this.receiver == null)
@@ -63,10 +63,10 @@ public class PushNotification extends CordovaPlugin
               @Override
               public void onReceive(Context context, Intent intent)
               {
-            		if (intent.getAction().equals(PushConstants.ACTION_RECEIVE))
-            		{
-            			sendPushInfo(context, intent);
-            		}
+                if (intent.getAction().equals(PushConstants.ACTION_RECEIVE))
+                {
+                  sendPushInfo(context, intent);
+                }
               }
           };
           cordova.getActivity().registerReceiver(this.receiver, intentFilter);
@@ -77,13 +77,13 @@ public class PushNotification extends CordovaPlugin
         callbackContext.sendPluginResult(pluginResult);
       PushManager.startWork(cordova.getActivity().getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, args.getString(0));
         return true;
-		}else if (action.equals("getInfo")) {
+    }else if (action.equals("getInfo")) {
         JSONObject r = new JSONObject();
         SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(cordova.getActivity());
-		//appId = sp.getString("appid", "");
-		/*channelId = sp.getString("channel_id", "");
-		clientId = sp.getString("user_id", "");*/	
+        .getDefaultSharedPreferences(cordova.getActivity());
+    //appId = sp.getString("appid", "");
+    /*channelId = sp.getString("channel_id", "");
+    clientId = sp.getString("user_id", "");*/ 
         r.put("appId", sp.getString("appid", ""));
         r.put("channelId",sp.getString("channel_id", ""));
         r.put("clientId", sp.getString("user_id", ""));
@@ -108,40 +108,40 @@ public class PushNotification extends CordovaPlugin
           }
         });
     }
-		return false;
-	}
-	
-	private void sendPushInfo(Context context, Intent intent)
-	{
-		String content = "";
-		JSONObject info = null;
-		if (intent.getByteArrayExtra(PushConstants.EXTRA_CONTENT) != null)
-		{
-			content = new String(intent.getByteArrayExtra(PushConstants.EXTRA_CONTENT));
-			try
-			{
-				info = (JSONObject)new JSONObject(content).get("response_params");
-				info.put("deviceType", 3);
-				
-				SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
-				Editor editor = sp.edit();
-				editor.putString("appid", info.getString("appid"));
-				editor.putString("channel_id", info.getString("channel_id"));
-				editor.putString("user_id", info.getString("user_id"));
+    return false;
+  }
+  
+  private void sendPushInfo(Context context, Intent intent)
+  {
+    String content = "";
+    JSONObject info = null;
+    if (intent.getByteArrayExtra(PushConstants.EXTRA_CONTENT) != null)
+    {
+      content = new String(intent.getByteArrayExtra(PushConstants.EXTRA_CONTENT));
+      try
+      {
+        info = (JSONObject)new JSONObject(content).get("response_params");
+        info.put("deviceType", 3);
+        
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
+        Editor editor = sp.edit();
+        editor.putString("appid", info.getString("appid"));
+        editor.putString("channel_id", info.getString("channel_id"));
+        editor.putString("user_id", info.getString("user_id"));
 
-				editor.commit();
-			}
-			catch (JSONException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		if (this.pushCallbackContext != null) 
-		{
-	        PluginResult result = new PluginResult(PluginResult.Status.OK, info);
-	        result.setKeepCallback(false);
-	        this.pushCallbackContext.sendPluginResult(result);
-		}
+        editor.commit();
+      }
+      catch (JSONException e)
+      {
+        e.printStackTrace();
+      }
+    }
+    if (this.pushCallbackContext != null) 
+    {
+          PluginResult result = new PluginResult(PluginResult.Status.OK, info);
+          result.setKeepCallback(false);
+          this.pushCallbackContext.sendPluginResult(result);
+    }
     if (this.receiver != null) {
         try {
             this.cordova.getActivity().unregisterReceiver(this.receiver);
