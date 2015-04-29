@@ -800,7 +800,14 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
               break;
           }
         }
-        var getScoreBoardData = function () {
+        scope.doRefresh = function() {
+          scope.editing = false;
+          scope.allowEdit = false;
+          scope.allowManage = false;
+          scope.componentId && getScoreBoardData(true);
+          scope.$broadcast('scroll.refreshComplete');
+        }
+        var getScoreBoardData = function (refreshFlag) {
           ScoreBoard.getScore(scope.componentId, function (err, scoreBoardData) {
             if (err) {
               scope.showAction({titleText:err})
@@ -808,6 +815,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
               scope.scoreBoard = scoreBoardData;
               scope.scores = [];
               scope.results = [];
+              // scope.allow
               for (var i = 0; i < scope.scoreBoard.playingTeams.length; i++) {
                 var playingTeam = scope.scoreBoard.playingTeams[i];
                 scope.scores.push(playingTeam.score);
@@ -835,7 +843,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                   scope.allowManage = true;
                 }
               }
-              if(scope.allowEdit) {
+              if(scope.allowEdit && !refreshFlag) {
                 $ionicModal.fromTemplateUrl('./views/score-board-edit.html', {
                   scope: scope,
                   animation: 'slide-in-up'
