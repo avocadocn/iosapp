@@ -758,6 +758,8 @@ a.no_underline {
 }
 .dl_campaign_detail .campaign_detail .campaign_info.campaign_info_2 .campaign_status {
   margin-left: 0;
+  float: left;
+  width: 100%;
 }
 .dl_campaign_detail .campaign_detail .campaign_info.campaign_info_2 .competition_type {
   position: absolute;

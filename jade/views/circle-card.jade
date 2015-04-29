@@ -8,6 +8,7 @@
   .circle_info
     h2.user_name.link_name
       span(ng-click="goToUserPage(circle.content.poster)" ng-bind="circle.content.poster.nickname")
+      span(ng-if="circle.content.poster.cid !== user.company._id" ng-cloak) ({{circle.content.poster.company_official_name}})
     //-h2.user_name.link_name(ng-if="kind === 'user' && !circle.content.teamInfo && circle.content.companyInfo")
       span(ng-bind="circle.content.companyInfo.info.name")
     //-h2.user_name.link_name(ng-if="kind === 'user' && circle.content.teamInfo")
@@ -19,7 +20,7 @@
       a.link_name(ng-if="showContentStatus.showPartial" ng-click="showPartialContent()") 收起
     .image_box.clearfix
       img.preview_img.lazyload(ng-repeat="photo in circle.content.photos" data-src="{{staticUrl + photo.uri}}/150/150" error-img ng-click="clickImg(circle.content.photos, photo)" prevent-default)
-    p.campaign_link(ng-if="circle.content.campaign_id")
+    p.campaign_link(ng-if="circle.content.campaign_id && circle.content.campaignTheme")
       span.text_from 来自活动
       span.link_name(ng-click="goToCampaignPage(circle.content.campaign_id)" ng-bind="circle.content.campaignTheme" prevent-default)
     .date_and_op.clearfix
