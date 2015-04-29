@@ -28,7 +28,7 @@ ion-modal-view
           .score(ng-if="scoreBoard.status==2 &&results[1]!=undefined") {{results[1] | scoreResultFormat}}
     .item.tip(ng-if="scoreBoard.status===0" ng-cloak)
       span 提交比赛结果等待对方确认后，将会获得积分，若双方三天内不提交，则不获得积分。
-    .tab_view
+    .tab_view(ng-if="scoreBoard.status===0 || editing")
       .nav
         .tab_style(ng-class="{'active':nowTab=='score'}")
           a(ng-click="changeFilter('score')") 
@@ -46,7 +46,7 @@ ion-modal-view
         button.button.button-clear.result(ng-disabled="!editing" ng-click="setResult(0, $index)" ng-class="{'button-assertive': results[$index]===0}") 平
         button.button.button-clear.result(ng-disabled="!editing" ng-click="setResult(-1, $index)" ng-class="{'button-assertive': results[$index]===-1}") 负
     .item.score_board_operator(ng-if="allowEdit && editing")
-      button.button(ng-click="initScore()" ng-disabled="checkScore()") 确认
+      button.button(ng-click="initScore()" ng-disabled="checkScore()") 提交
     .item.score_board_operator(ng-if="allowEdit && !editing && leaderStatus==='toConfirm'")
       button.button(ng-click="confirmScore()") 同意
     .item.score_board_operator(ng-if="allowEdit && !editing && leaderStatus==='toConfirm'")

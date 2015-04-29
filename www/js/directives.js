@@ -701,7 +701,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       var domEle = ele[0];
       domEle.style.lineHeight = domEle.clientWidth + 'px';
       domEle.style.fontSize = domEle.clientWidth * Number(attrs.fontSizeRange) / 100 + 'px';
-      console.log(domEle.clientWidth, domEle.style);
+      // console.log(domEle.clientWidth, domEle.style);
     }
   };
 })
@@ -901,11 +901,15 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         };
 
         scope.initScore = function () {
+          var data = {};
+          if(scope.nowTab==='score') {
+            data.scores = scope.scores;
+          }
+          else {
+            data.results = scope.results;
+          }
           ScoreBoard.setScore(scope.componentId, {
-            data:{
-              scores: scope.scores,
-              results: scope.results
-            },
+            data: data,
             isInit: scope.scoreBoard.status==0
           }, function (err) {
             if (err) {

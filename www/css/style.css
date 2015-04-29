@@ -758,6 +758,8 @@ a.no_underline {
 }
 .dl_campaign_detail .campaign_detail .campaign_info.campaign_info_2 .campaign_status {
   margin-left: 0;
+  float: left;
+  width: 100%;
 }
 .dl_campaign_detail .campaign_detail .campaign_info.campaign_info_2 .competition_type {
   position: absolute;
@@ -4610,7 +4612,7 @@ a>.login .companies_list:activated {
   position: relative;
   float: left;
   padding: 5px;
-  width: 33.3333333333333%;
+  width: 33%;
 }
 .circle_post_page .preview_img {
   width: 100%;

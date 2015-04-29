@@ -4128,12 +4128,17 @@ angular.module('donlerApp.controllers', [])
     'Circle',
     'Tools',
     'Company',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $rootScope, $timeout, Circle, Tools, Company) {
+    'User',
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $rootScope, $timeout, Circle, Tools, Company, User) {
 
       Company.getData(localStorage.cid).success(function(data) {
         $scope.company = data;
       }).error(function(data) {
         console.log(data.msg || '获取数据失败'); // 这里没必要提示用户
+      });
+
+      User.getData(localStorage.id,function(err, data) {
+        $scope.user = data;
       });
 
       // 初始化提醒列表
@@ -4308,7 +4313,8 @@ angular.module('donlerApp.controllers', [])
     'Circle',
     'Tools',
     'Team',
-    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $timeout, Circle, Tools, Team) {
+    'User',
+    function($ionicHistory, $scope, $rootScope, $state, $stateParams, $timeout, Circle, Tools, Team, User) {
       $scope.goBack = function() {
         if ($ionicHistory.backView()) {
           $ionicHistory.goBack();
@@ -4322,6 +4328,10 @@ angular.module('donlerApp.controllers', [])
           $scope.team = team;
         }
       }, {resultType: 'simple'});
+
+      User.getData(localStorage.id, function(err, user) {
+        $scope.user = user;
+      });
 
       var pageLength = 20; // 一次获取的数据量
 
