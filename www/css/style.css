@@ -688,6 +688,7 @@ a.no_underline {
   border-radius: 5px;
   color: #fff;
   border: none;
+  margin-top: 5px;
 }
 .dl_campaign_detail .campaign_detail .campaign_info .operator .button.dl_cp_join {
   background-color: #ee6f55;
