@@ -4,6 +4,7 @@ ion-view.tab_company_page(ng-controller="CompanyController")
     h1.title 公司
 
   ion-content
+    ion-refresher(on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     .company_header(ng-style="familyMinHeight")
       //- ion-slide-box(ng-if="team.familyPhotos.length > 1" ng-cloak)
       //-   ion-slide(ng-repeat="photo in team.familyPhotos")

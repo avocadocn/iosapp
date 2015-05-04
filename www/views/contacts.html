@@ -5,6 +5,7 @@
     <button ng-if="searching" ng-click="cancelSearch()" ng-cloak="ng-cloak" class="button button-clear">取消</button>
   </ion-header-bar>
   <ion-content>
+    <ion-refresher on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
     <div class="bar bar-header search_box item-input-inset">
       <label class="item-input-wrapper">
         <input type="search" ng-model="keyword.value" ng-keypress="search($event)"/><i class="icon ion-ios7-search placeholder-icon"></i>

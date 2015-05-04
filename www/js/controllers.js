@@ -1175,25 +1175,34 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('CompanyController', ['$scope', '$rootScope', 'Company', 'User', function($scope, $rootScope, Company, User) {
-    // 获取公司数据
-    Company.getData(localStorage.cid)
-      .success(function(data) {
-        $scope.company = data;
-      })
-      .error(function(data) {
-        $rootScope.showAction({titleText:data.msg || '获取公司数据失败'})
+    
+    $scope.doRefresh = function (refreshFlag) {
+      // 获取公司数据
+      Company.getData(localStorage.cid)
+        .success(function(data) {
+          $scope.company = data;
+          if(refreshFlag){
+            $scope.$broadcast('scroll.refreshComplete');
+          }
+        })
+        .error(function(data) {
+          $rootScope.showAction({titleText:data.msg || '获取公司数据失败'})
+          if(refreshFlag){
+            $scope.$broadcast('scroll.refreshComplete');
+          }
+        });
+
+      // 获取公司成员列表
+      User.getCompanyUsers(localStorage.cid, function(err, data) {
+        if (err) {
+          $rootScope.showAction({titleText:err || '获取公司同事数据失败'})
+        }
+        else {
+          $scope.staffList = data.slice(0, 3);
+        }
       });
-
-    // 获取公司成员列表
-    User.getCompanyUsers(localStorage.cid, function(err, data) {
-      if (err) {
-        $rootScope.showAction({titleText:err || '获取公司同事数据失败'})
-      }
-      else {
-        $scope.staffList = data.slice(0, 3);
-      }
-    });
-
+    }
+    $scope.doRefresh();
   }])
 
   .controller('CompanyTeamListController', ['$scope', '$rootScope', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $rootScope, $state, $ionicHistory, Team, INFO) {
@@ -1340,17 +1349,24 @@ angular.module('donlerApp.controllers', [])
   .controller('ContactsController', ['$scope', 'User', 'INFO', 'Tools', function ($scope, User, INFO, Tools) {
     var contactsBackup = [];
     $scope.keyword = {value:''};
-    //获取公司联系人
-    User.getCompanyUsers(localStorage.cid,function(msg, data){
-      if(!msg) {
-        $scope.contacts = data;
-        contactsBackup = data;
-      }
-    });
+    
     $scope.cancelSearch = function () {
       $scope.contacts = contactsBackup;//还原
       $scope.searching = false;
     };
+    $scope.doRefresh = function (refreshFlag) {
+      //获取公司联系人
+      User.getCompanyUsers(localStorage.cid,function(msg, data){
+        if(!msg) {
+          $scope.contacts = data;
+          contactsBackup = data;
+        }
+        if(refreshFlag){
+          $scope.$broadcast('scroll.refreshComplete');
+        }
+      });
+    }
+    $scope.doRefresh();
     $scope.search = function (event) {
       if(window.analytics){
         window.analytics.trackEvent('Click', 'searchContacts');
@@ -1517,14 +1533,16 @@ angular.module('donlerApp.controllers', [])
               $ionicHistory.clearHistory();
               $ionicHistory.clearCache();
               User.clearCurrentUser();
-              $rootScope.showAction({titleText:'修改头像成功'})
-              successAlert.then(function () {
+              $rootScope.showAction({titleText:'修改头像成功','cancelFun':function () {
                 $state.go('app.personal');
-              });
+              }})
             }else {
               $rootScope.showAction({titleText:'修改失败，请重试'})
             }
           });
+        }
+        else{
+          $rootScope.showAction({titleText:'获取图片失败'})
         }
       });
     };
@@ -1662,7 +1680,7 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', 'Circle', 'INFO', 'Chat', function ($scope, $rootScope, $ionicHistory, Socket, Circle, INFO, Chat) {
+  .controller('TabController', ['$scope', '$rootScope', '$ionicHistory', 'Socket', 'Circle', 'INFO', 'Chat', '$timeout', function ($scope, $rootScope, $ionicHistory, Socket, Circle, INFO, Chat,$timeout) {
     //每次进入页面判断是否有新评论没看
     $rootScope.newCircleComment = 0;
 
@@ -1670,8 +1688,7 @@ angular.module('donlerApp.controllers', [])
 
     var createSvg = function(id) {
       var svgEle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svgEle.classList.add('svg_icon');
-      svgEle.classList.add('svg_tab_icon');
+      svgEle.setAttribute('class', svgEle.getAttribute('class') + ' svg_icon svg_tab_icon');
       var useEle = document.createElementNS('http://www.w3.org/2000/svg', 'use');
       useEle.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#' + id);
       svgEle.appendChild(useEle);
@@ -1683,13 +1700,13 @@ angular.module('donlerApp.controllers', [])
       tabItemCampaignEle.insertBefore(createSvg(svgId), tabItemCampaignEle.childNodes[0]);
     };
 
-    setTimeout(function() {
+    $timeout(function() {
       insertSvgToTabItem('tab_item_campaign', 'huodong');
       insertSvgToTabItem('tab_item_discuss', 'discussion');
       insertSvgToTabItem('tab_item_discover', 'discover');
       insertSvgToTabItem('tab_item_company', 'company');
       insertSvgToTabItem('tab_item_personal', 'mine');
-    });
+    },0);
 
 
     Circle.getReminds(function(err, data) {

@@ -1,21 +1,24 @@
 angular.module('donlerApp.services', [])
-  .factory('myInterceptor', ['$q', '$location', function($q, $location) {
+  .factory('myInterceptor', ['$q', '$location', '$rootScope', function($q, $location,$rootScope) {
       var signOut = function(){
         var isLogin = true;
         var path = $location.path();
-        if (path ==='/users/login' || path ==='/hr/login') {
+        if (path ==='/user/login' || path ==='/hr/login') {
           isLogin = false;
         }
         if (isLogin) {
-          var userType = localStorage.userType;
-          if (userType === 'company') {
-            $location.path('/hr/login');
-          } else {
-            $location.path('/user/login');
-          }
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('userType');
-          localStorage.removeItem('id');
+          $rootScope.showAction({titleText:'您的登录已经过期或者您的设备在其他设备上登录，请重新登录！',cancelFun:function () {
+            var userType = localStorage.userType;
+            if (userType === 'company') {
+              $location.path('/hr/login');
+            } else {
+              $location.path('/user/login');
+            }
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userType');
+            localStorage.removeItem('id');
+          }});
+          
         }
       }
       var requestInterceptor = {
@@ -1314,7 +1317,7 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
-  .factory('Upload', ['$cordovaFile', '$ionicModal', '$ionicActionSheet', '$ionicLoading', '$cordovaCamera', 'CommonHeaders', function($cordovaFile, $ionicModal, $ionicActionSheet, $ionicLoading, $cordovaCamera, CommonHeaders) {
+  .factory('Upload', ['$cordovaFile', '$ionicModal', '$ionicActionSheet', '$ionicLoading', '$cordovaCamera', 'CommonHeaders', '$rootScope', function($cordovaFile, $ionicModal, $ionicActionSheet, $ionicLoading, $cordovaCamera, CommonHeaders,$rootScope) {
     return {
       /**
        * 用户选择图片接口
@@ -1350,10 +1353,7 @@ angular.module('donlerApp.services', [])
             callback(null, "data:image/jpeg;base64," + imageURI);//@:android
           }, function(err) {
             if (err !== 'no image selected' && err !=='Selection cancelled.') {
-              $ionicPopup.alert({
-                title: '获取照片失败',
-                template: err
-              });
+              $rootScope.showAction({titleText:'获取照片失败,请选择正确类型的图片'})
             }
             callback(err);
           });

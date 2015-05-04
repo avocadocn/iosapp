@@ -22,6 +22,7 @@ package com.donler.app;
 import android.os.Bundle;
 import org.apache.cordova.*;
 
+
 public class CordovaApp extends CordovaActivity
 {
     @Override
