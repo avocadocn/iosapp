@@ -4,6 +4,7 @@ ion-view.contacts
     h1.title 同事
     button.button.button-clear(ng-if="searching" ng-click="cancelSearch()" ng-cloak) 取消
   ion-content
+    ion-refresher(on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     .bar.bar-header.search_box.item-input-inset
       label.item-input-wrapper
         input(type="search" ng-model="keyword.value" ng-keypress="search($event)")

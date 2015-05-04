@@ -1174,24 +1174,34 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('CompanyController', ['$scope', '$rootScope', 'Company', 'User', function($scope, $rootScope, Company, User) {
-    // 获取公司数据
-    Company.getData(localStorage.cid)
-      .success(function(data) {
-        $scope.company = data;
-      })
-      .error(function(data) {
-        $rootScope.showAction({titleText:data.msg || '获取公司数据失败'})
-      });
+    
+    $scope.doRefresh = function (refreshFlag) {
+      // 获取公司数据
+      Company.getData(localStorage.cid)
+        .success(function(data) {
+          $scope.company = data;
+          if(refreshFlag){
+            $scope.$broadcast('scroll.refreshComplete');
+          }
+        })
+        .error(function(data) {
+          $rootScope.showAction({titleText:data.msg || '获取公司数据失败'})
+          if(refreshFlag){
+            $scope.$broadcast('scroll.refreshComplete');
+          }
+        });
 
-    // 获取公司成员列表
-    User.getCompanyUsers(localStorage.cid, function(err, data) {
-      if (err) {
-        $rootScope.showAction({titleText:err || '获取公司同事数据失败'})
-      }
-      else {
-        $scope.staffList = data.slice(0, 3);
-      }
-    });
+      // 获取公司成员列表
+      User.getCompanyUsers(localStorage.cid, function(err, data) {
+        if (err) {
+          $rootScope.showAction({titleText:err || '获取公司同事数据失败'})
+        }
+        else {
+          $scope.staffList = data.slice(0, 3);
+        }
+      });
+    }
+    $scope.doRefresh();
 
   }])
 
@@ -1339,13 +1349,20 @@ angular.module('donlerApp.controllers', [])
   .controller('ContactsController', ['$scope', 'User', 'INFO', 'Tools', function ($scope, User, INFO, Tools) {
     var contactsBackup = [];
     $scope.keyword = {value:''};
-    //获取公司联系人
-    User.getCompanyUsers(localStorage.cid,function(msg, data){
-      if(!msg) {
-        $scope.contacts = data;
-        contactsBackup = data;
-      }
-    });
+    $scope.doRefresh = function (refreshFlag) {
+      //获取公司联系人
+      User.getCompanyUsers(localStorage.cid,function(msg, data){
+        if(!msg) {
+          $scope.contacts = data;
+          contactsBackup = data;
+        }
+        if(refreshFlag){
+          $scope.$broadcast('scroll.refreshComplete');
+        }
+      });
+    }
+    $scope.doRefresh();
+
     $scope.cancelSearch = function () {
       $scope.contacts = contactsBackup;//还原
       $scope.searching = false;
@@ -1516,14 +1533,16 @@ angular.module('donlerApp.controllers', [])
               $ionicHistory.clearHistory();
               $ionicHistory.clearCache();
               User.clearCurrentUser();
-              $rootScope.showAction({titleText:'修改头像成功'})
-              successAlert.then(function () {
+              $rootScope.showAction({titleText:'修改头像成功','cancelFun':function () {
                 $state.go('app.personal');
-              });
+              }});
             }else {
               $rootScope.showAction({titleText:'修改失败，请重试'})
             }
           });
+        }
+        else {
+          $rootScope.showAction({titleText:'获取图片失败'})
         }
       });
     };

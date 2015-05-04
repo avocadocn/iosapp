@@ -151,8 +151,8 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
             hideSheet();
           },
           buttonClicked: function(index) {
-            hideSheet();
             option.fun && option.fun();
+            hideSheet();
             
           }
         });
@@ -164,8 +164,8 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
            { text: '确定' }
           ],
           buttonClicked: function() {
-            hideSheet();
             option.cancelFun && option.cancelFun();
+            hideSheet();
           }
         });
       }

@@ -490,7 +490,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       name: '@',
       coordinates: '='
     },
-    template: '<a ng-if="coordinates.length==2" href="#" ng-click="linkMap()" class="map_wrap"><img ng-src="http://restapi.amap.com/v3/staticmap?location={{coordinates[0]}},{{coordinates[1]}}&amp;zoom=15&amp;size={{width}}*{{height}}&amp;markers=mid,,A:{{coordinates[0]}},{{coordinates[1]}}&amp;labels={{name}},2,0,12,0xffffff,0x3498db:{{coordinates[0]}},{{coordinates[1]}}&amp;key=077eff0a89079f77e2893d6735c2f044" class="map_img"/></a><img class="no_map" ng-if="coordinates.length==0" ng-src="../img/nomap.jpg"/>',
+    template: '<a ng-if="coordinates.length==2" href="#" ng-click="linkMap()" class="map_wrap"><img ng-src="http://restapi.amap.com/v3/staticmap?location={{coordinates[0]}},{{coordinates[1]}}&amp;zoom=15&amp;size={{width}}*{{height}}&amp;markers=mid,,A:{{coordinates[0]}},{{coordinates[1]}}&amp;labels={{name}},2,0,12,0xffffff,0x3498db:{{coordinates[0]}},{{coordinates[1]}}&amp;key=077eff0a89079f77e2893d6735c2f044" class="map_img"/></a><img class="no_map" ng-if="coordinates.length==0" ng-src="img/nomap.jpg"/>',
     link: function (scope, element, attrs, ctrl) {
       scope.width = INFO.screenWidth;
       scope.height = INFO.screenHeight -40;
