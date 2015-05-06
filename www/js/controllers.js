@@ -4224,28 +4224,9 @@ angular.module('donlerApp.controllers', [])
       };
 
       $scope.refresh = function() {
-        if($scope.circleContentList[0] === undefined) {
+        $scope.getData(function() {
           $scope.$broadcast('scroll.refreshComplete');
-          return;
-        }
-        var latestContentDate = $scope.circleContentList[0].content.post_date;
-        Circle.getCompanyCircle(latestContentDate, null)
-          .success(function(data, status) {
-            localStorage.lastGetCircleTime = new Date();
-            if (data.length) {
-              data.forEach(function(circle) {
-                Circle.pickAppreciateAndComments(circle);
-              });
-              $scope.circleContentList = (data || []).concat($scope.circleContentList);
-            }
-            $scope.$broadcast('scroll.refreshComplete');
-          })
-          .error(function(data, status) {
-            if (status !== 404) {
-              $scope.ionicAlert(data.msg || '获取失败');
-            }
-            $scope.$broadcast('scroll.refreshComplete');
-          });
+        });
       };
 
       $scope.loadMore = function() {

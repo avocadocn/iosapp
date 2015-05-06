@@ -5027,12 +5027,6 @@ a>.login .companies_list:activated {
   border-color: transparent;
   border-bottom-color: #f7f7f7;
 }
-.dl_circle_card .circle_comment_list .appreciate_container {
-  word-break: break-all;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 .dl_circle_card .circle_comment_list .appreciate_container .appreciate_icon {
   width: 14px;
   height: 14px;
