@@ -907,11 +907,7 @@ angular.module('donlerApp.services', [])
             User.clearCurrentUser();
           })
           .error(function (data, status, headers, config) {
-            if (status === 400) {
-              callback(data.msg);
-            } else {
-              callback('error');
-            }
+            callback((data && data.msg) || '操作失败，这可能是网络问题或服务器错误');
           });
       },
       quitTeam: function(tid, uid, callback) {
@@ -931,11 +927,7 @@ angular.module('donlerApp.services', [])
               User.clearCurrentUser();
             })
             .error(function (data, status, headers, config) {
-              if (status === 400) {
-                callback(data.msg);
-              } else {
-                callback('error');
-              }
+              callback((data && data.msg) || '操作失败，这可能是网络问题或服务器错误');
             });
         };
       },
