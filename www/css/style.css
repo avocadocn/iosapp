@@ -3184,16 +3184,23 @@ a>.login .companies_list:activated {
   content: none;
   display: none;
 }
-.edit_company_info .company_name_item {
-  position: relative;
-}
-.edit_company_info .company_name_item .title {
+.edit_company_info .item .title {
   display: inline-block;
   width: 80px;
   color: #000;
+  font-size: 14px;
+}
+.edit_company_info .company_name_item {
+  position: relative;
 }
 .edit_company_info .company_name_item .content {
   color: #666;
+}
+.edit_company_info .company_name_item .input-label {
+  width: 80px;
+}
+.edit_company_info .company_name_item .short_name {
+  border: none;
 }
 .edit_company_info .item-icon-right {
   position: relative;

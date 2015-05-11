@@ -11,10 +11,14 @@ ion-view.edit_company_info
       .item.company_name_item
         span.title 公司名称
         span.content {{company.name || '无'}}
-      .item.item-input.introduce_item
-        span.input-label 简介
+      .item.item-input.company_name_item(ng-click="toEditing('shortName')")
+        span.title 公司简称
+        input.short_name#edit_company_short_name(ng-show="editing" name="short_name" maxlength="14" ng-model="formData.name")
+        .short_name(ng-if="!editing" ng-bind="company.shortName"  ng-cloak)
+      .item.item-input.introduce_item(ng-click="toEditing('intro')")
+        span.title 简介
         textarea.introduce#edit_company_introduce_textarea(ng-show="editing" name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-trim="false")
-        .introduce(ng-if="!editing" ng-bind="company.intro" ng-click="toEditing()" ng-cloak)
+        .introduce(ng-if="!editing" ng-bind="company.intro" ng-cloak)
       .item.item-icon-right(ng-click="showUploadActionSheet()")
         img(ng-src="{{STATIC_URL + company.logo}}/120/120")
         h2.company_logo 公司logo

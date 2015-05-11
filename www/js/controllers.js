@@ -2488,7 +2488,8 @@ angular.module('donlerApp.controllers', [])
       .success(function(data) {
         $scope.company = data;
         $scope.formData = {
-          intro: $scope.company.intro || ''
+          intro: $scope.company.intro || '',
+          name: $scope.company.shortName || ''
         };
       })
       .error(function(data) {
@@ -2496,19 +2497,26 @@ angular.module('donlerApp.controllers', [])
       });
 
     var introduceTextarea = document.getElementById('edit_company_introduce_textarea');
+    var shortNameInput = document.getElementById('edit_company_short_name');
     $scope.editing = false;
 
     var updateFormData = function () {
       $scope.formData = {
-        intro: $scope.company.intro || ''
+        intro: $scope.company.intro || '',
+        name: $scope.company.shortName || ''
       };
     };
 
-    $scope.toEditing = function () {
+    $scope.toEditing = function (item) {
       if ($scope.editing === false) {
-        updateFormData();
         $scope.editing = true;
-        introduceTextarea.focus();
+        if(item==='shortName'){
+          shortNameInput.focus();
+        }
+        else{
+          introduceTextarea.focus();
+        }
+        
       }
       //$scope.change();
     };
