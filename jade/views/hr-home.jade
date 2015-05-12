@@ -1,4 +1,5 @@
 ion-view.hr_company_page
+  .hr_guide(ng-if="company.guide_step==0" ng-click="hidenGuide()")
   ion-header-bar
     h1.title {{company.name}}
   ion-content(delegate-handle="mainScroll")
@@ -28,10 +29,10 @@ ion-view.hr_company_page
         span.company_team_num {{company.teamNumber}}
         i.icon.ion-chevron-right
       .item.guide
-        p.title
+        p.title(ng-click="toggleGuide()")
           span 动梨使用指南
-          i.icon.ion-chevron-up.pull-right(ng-if="!hiding" ng-click="toggleGuide()")
-          i.icon.ion-chevron-down.pull-right(ng-if="hiding" ng-click="toggleGuide()")
+          i.icon.ion-chevron-up.pull-right(ng-if="!hiding")
+          i.icon.ion-chevron-down.pull-right(ng-if="hiding" )
         div(ng-if="!hiding")
           p 欢迎您使用动梨来管理贵公司的员工活动，建议登陆动梨网页版(www.donler.com)，体验更丰富的管理及统计功能；
           p 在APP上，您也可以按照下面的四步来完成前期的工作。

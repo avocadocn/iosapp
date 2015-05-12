@@ -4,15 +4,16 @@
     <button ng-if="editing" ng-click="cancelEditing()" ng-cloak="ng-cloak" class="button">取消</button>
     <h1 class="title">编辑公司信息</h1>
     <button ng-if="editing" ng-click="edit()" ng-disabled="intro.$invalid" ng-cloak="ng-cloak" class="button">确定</button>
+    <button ng-if="!editing" ng-click="toEditing()" ng-cloak="ng-cloak" class="button">编辑</button>
   </ion-header-bar>
   <ion-content scroll="false">
     <div class="list edit_list">
       <div class="item company_name_item"><span class="title">公司名称</span><span class="content">{{company.name || '无'}}</span></div>
-      <div ng-click="toEditing('shortName')" class="item item-input company_name_item"><span class="title">公司简称</span>
+      <div class="item item-input company_name_item"><span class="title">公司简称</span>
         <input id="edit_company_short_name" ng-show="editing" name="short_name" maxlength="14" ng-model="formData.name" class="short_name"/>
         <div ng-if="!editing" ng-bind="company.shortName" ng-cloak="ng-cloak" class="short_name"></div>
       </div>
-      <div ng-click="toEditing('intro')" class="item item-input introduce_item"><span class="title">简介</span>
+      <div class="item item-input introduce_item"><span class="title">简介</span>
         <textarea id="edit_company_introduce_textarea" ng-show="editing" name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-trim="false" class="introduce"></textarea>
         <div ng-if="!editing" ng-bind="company.intro" ng-cloak="ng-cloak" class="introduce"></div>
       </div>

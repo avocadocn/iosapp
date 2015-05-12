@@ -70,20 +70,20 @@ angular.module('donlerApp.controllers', [])
       })
 
     };
-
-    Company.getData(localStorage.id)
-      .success(function(data) {
-        $scope.company = data;
-      })
-      .error(function(data) {
-        console.log(data);
-      });
-
     $scope.toggleGuide = function() {
       $scope.hiding = !$scope.hiding;
       $ionicScrollDelegate.$getByHandle("mainScroll").resize();
     };
-
+    $scope.hidenGuide = function () {
+      $scope.company.guide_step = 1;
+      Company.edit(localStorage.id,{guide_step:1})
+          .success(function(data) {
+            
+          })
+          .error(function(data) {
+            console.log('err');
+          });
+    }
     $scope.$on('$ionicView.enter', function(scopes, states) {
       // 为true或undefined时获取公司数据
       if (INFO.hasModifiedCompany !== false || INFO.updateHrHome !== false) {
@@ -2614,12 +2614,12 @@ angular.module('donlerApp.controllers', [])
     $scope.toEditing = function (item) {
       if ($scope.editing === false) {
         $scope.editing = true;
-        if(item==='shortName'){
-          shortNameInput.focus();
-        }
-        else{
-          introduceTextarea.focus();
-        }
+        // if(item==='shortName'){
+        //   shortNameInput.focus();
+        // }
+        // else{
+        //   introduceTextarea.focus();
+        // }
         
       }
       //$scope.change();
