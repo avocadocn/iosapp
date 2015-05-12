@@ -5998,6 +5998,7 @@ a>.login .companies_list:activated {
   position: relative;
 }
 .login .register_company_list .board .companies .company {
+  position: relative;
   width: 100%;
   margin-bottom: 12px;
   padding: 8px 5px;
@@ -6008,8 +6009,9 @@ a>.login .companies_list:activated {
   font-size: 14px;
 }
 .login .register_company_list .board .companies .company .fa {
+  position: absolute;
   color: #ccc;
-  margin-top: 3px;
+  right: 5%;
 }
 .login .register_company_list .board .companies .company .text {
   width: 95%;
@@ -6026,14 +6028,15 @@ a>.login .companies_list:activated {
 .login .register_company_list .board .companies .nextPage {
   right: 0;
 }
-.login .register_company_list .board .fa-reply {
+.login .register_company_list .board .ion-reply {
   margin-left: 30px;
+  margin-top: -10px;
   position: absolute;
   color: #fff;
-  font-size: 20px;
+  font-size: 30px;
 }
 .login .register_company_list .register_bottom {
-  background-image: url("/img/register/dl_signup_bg_2.gif");
+  background-image: url("/img/register/dl_signup_bg_2.png");
   background-size: cover;
   background-repeat: no-repeat;
   height: 161px;

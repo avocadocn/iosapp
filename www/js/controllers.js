@@ -2292,6 +2292,10 @@ angular.module('donlerApp.controllers', [])
         // $scope.searched = true;
       });
     };
+    $scope.preStep = function() {
+      $scope.companyEmail.value = '';
+       $scope.active = '';
+    }
     // var mailCheck = function(callback) {
     //   if($scope.companyEmail.value){
     //     UserSignup.validate($scope.companyEmail.value, null, null, function (msg, data) {

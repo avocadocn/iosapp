@@ -17,11 +17,11 @@ ion-view.login
       img.logo(src="./img/register/dl_logo_signup.png")
     .board
       img.search_title(src="/img/register/dl_signup_search_title.png")
-      i.fa.fa-reply(ng-click="preStep()")
+      i.fa.ion-reply(ng-click="preStep()")
       .companies
         .company(ng-repeat="company in companies" ng-click="goDetail(company)")
           span {{company.name}}
-          i.fa.fa-chevron-right.pull-right
+          i.fa.ion-chevron-right
         span.prePage(ng-click="prePage()" ng-if="hasPrevious") 上一页
         span.nextPage(ng-click="nextPage()" ng-if="hasNext") 下一页
     .register_bottom
