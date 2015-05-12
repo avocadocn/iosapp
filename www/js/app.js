@@ -246,6 +246,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/register/company',
         templateUrl: './views/register-company.html'
       })
+      .state('register_login', {
+        url: '/register/login',
+        templateUrl: './views/register-login.html'
+      })
       .state('register_company_law', {
         url: '/register/company/law',
         controller: 'CompRegPrivacyController',

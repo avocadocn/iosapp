@@ -2242,41 +2242,90 @@ angular.module('donlerApp.controllers', [])
     //     $scope.searchCompany();
     //   }
     // };
-    $scope.companyEmail = {};
-    var mailCheck = function(callback) {
-      if($scope.companyEmail.value){
-        UserSignup.validate($scope.companyEmail.value, null, null, function (msg, data) {
-          $scope.active=data.active;
-          if(msg){
-            $scope.mail_msg = '您输入的邮箱有误';
-            callback(false);
-          }else{
-            callback($scope.active);
-            $scope.mail_msg = null;
-          }
-          $scope.mail_check = true;
-        });
-      }else{
-        $scope.mail_check = false;
-        $scope.mail_msg = '您输入的邮箱有误';
-        callback(false);
+    var pattern = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+    $scope.checkMail = function(keyEvent) {
+      if ((!keyEvent || keyEvent.which === 13) && $scope.companyEmail.value) {
+        var reg = (pattern.test($scope.companyEmail.value))
+        if (reg) {
+          $scope.loading = true;
+          UserSignup.validate($scope.companyEmail.value, null, null, function(msg, data) {
+            // $scope.active = data.active;
+            if(data.active == 1) { //未注册过
+              $scope.active = 1;
+              searchCompany();
+            } else if(data.active == 2) { //邮箱注册但未激活
+              $state.go('register_user_waitEmail');
+            } else { // 邮箱已激活、并注册完毕
+              $state.go('register_login');
+            }
+          });
+
+          // $http.post('/users/mailCheck', {
+          //     login_email: $scope.email
+          //   })
+          //   .success(function(data, status) {
+          //     $scope.loading = false;
+          //     if (data.active === 1) { //未注册过
+          //       $scope.step = 2;
+          //       checkCompany();
+          //       // searchCompany();
+          //     } else {
+          //       //暂时没有重发邮件就直接告知已注册过
+          //       $scope.step = 6;
+          //       if (data.active === 2) {
+          //         $scope.notVerified = true;
+          //       }
+          //     }
+          //   });
+        } else {
+          $scope.companyEmail.value = '';
+        }
       }
     };
-    $scope.searchCompany = function() {
-      if(window.analytics){
-        window.analytics.trackEvent('Click', 'searchCompany');
-      }
-      mailCheck(function(active){
-        if(active===1){
-          UserSignup.searchCompany($scope.companyEmail.value, function(msg, data){
-            if(!msg){
-              $scope.companies = data;
-            }
-            $scope.searched = true;
-          });
+
+    $scope.companyEmail = {};
+    var searchCompany = function() {
+      UserSignup.searchCompany($scope.companyEmail.value, function(msg, data) {
+        if (!msg) {
+          $scope.companies = data;
         }
+        // $scope.searched = true;
       });
     };
+    // var mailCheck = function(callback) {
+    //   if($scope.companyEmail.value){
+    //     UserSignup.validate($scope.companyEmail.value, null, null, function (msg, data) {
+    //       $scope.active=data.active;
+    //       if(msg){
+    //         $scope.mail_msg = '您输入的邮箱有误';
+    //         callback(false);
+    //       }else{
+    //         callback($scope.active);
+    //         $scope.mail_msg = null;
+    //       }
+    //       $scope.mail_check = true;
+    //     });
+    //   }else{
+    //     $scope.mail_check = false;
+    //     $scope.mail_msg = '您输入的邮箱有误';
+    //     callback(false);
+    //   }
+    // };
+    // $scope.searchCompany = function() {
+    //   if(window.analytics){
+    //     window.analytics.trackEvent('Click', 'searchCompany');
+    //   }
+    //   mailCheck(function(active){
+    //     if(active===1){
+    //       UserSignup.searchCompany($scope.companyEmail.value, function(msg, data){
+    //         if(!msg){
+    //           $scope.companies = data;
+    //         }
+    //         $scope.searched = true;
+    //       });
+    //     }
+    //   });
+    // };
     $scope.goDetail = function(company) {
       INFO.companyId = company._id;
       INFO.companyName = company.name;
@@ -2312,6 +2361,7 @@ angular.module('donlerApp.controllers', [])
       if($scope.data.inviteKey && $scope.data.inviteKey.length===8){
         UserSignup.validate(null, INFO.companyId, $scope.data.inviteKey, function (msg, data) {
           if(!msg){
+            console.log(data.invitekeyCheck);
             $scope.invitekeyCheck=data.invitekeyCheck;
           }else{
             $scope.invitekeyCheck=2;

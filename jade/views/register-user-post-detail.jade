@@ -3,40 +3,88 @@ ion-view.login
     a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
     h1.title 个人注册
     a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
-  ion-content
-    .list.list-inset.tip_msg
-      span.large_tip.black_msg {{companyName}}
-    form.signup_form(name="user_signup_form" novalidate)
-      //- .list.list-inset
-      //-   label.item.item-input
-      //-     input(type="email" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required)
-      .list.list-inset
-        label.item.item-input
-          input(ng-class="{error:nicknameError}" ng-focus="check('none')" type="text" ng-model="data.nickname" placeholder="*昵称" required)
-      .list.list-inset
-        label.item.item-input
-          input(ng-class="{error:passError}" ng-focus="check('nickname')" type="password" ng-model="data.password" ng-minlength=6 placeholder="*密码(至少6位)" required)
-      .list.list-inset
-        label.item.item-input
-          input(ng-class="{error:passConfError}" ng-focus="check('pass')" type="password" ng-model="data.passconf" placeholder="*密码确认" match="data.password" required)
-      .list.list-inset
-        label.item.item-input
-          input(ng-class="{error:nameError}" ng-focus="check('passConf')" type="text" ng-model="data.realname" placeholder="*真实姓名" required)
-      //- .list.list-inset
-      //-   label.item.item-input
-      //-     input(type="text" placeholder="部门")
-      .list.list-inset
-        label.item.item-input
-          input(type="text" ng-model="data.phone" placeholder="手机号码(选填)")
-      .list.list-inset
-        label.item.item-input
-          input(ng-focus="check('name')" type="text" ng-model="data.inviteKey" placeholder="*公司专属8位激活码" ng-change="checkInvitekey()" required)
-      .tip_msg
-        p.gray_msg(ng-if="!invitekeyCheck") 为了保证每一个动梨用户都是真实可靠的，请您向HR或同事索要激活码。
-        p.gray_msg(ng-if="invitekeyCheck===1") 激活码验证成功
-        p.gray_msg(ng-if="invitekeyCheck===2") 激活码填写错误
-        p
-          span.gray_msg 点击注册即代表同意
-          a.blue_msg(href="#/register/user/law") 《法律声明》及《隐私政策》
-      .list.list-inset
-        button.button.dl_button.login_button(ng-disabled="invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()") 个人注册
+  ion-content.register_user_post_detail(scroll="false")
+    .register_header
+      img.logo(src="./img/register/dl_logo_signup.png")
+    .register_body
+      .board
+        .company_input_box
+          form(role="form" name='active_form')
+            .register_container.company_name.clearfix
+              .register_label 
+                label *企业名称:
+              .register_company_name {{companyName}}
+            //- .signup_container.clearfix(ng-hide="true")
+            //-   .sinup_label 
+            //-     label *企业邮箱:
+            //-   .sinup_input
+            //-     input(type="text" name="email" ng-model="userInfo.email" readonly)
+            .register_container.clearfix
+              .register_label 
+                label *邀请码:
+              .register_input
+                input(type="text" placeholder="向同事索要8位邀请码" name="inviteKey" ng-model="data.inviteKey" ng-minlength=8 ng-maxlength=8 ng-change="checkInvitekey()" required)
+              .key_tips
+                i.fa.fa-check.active(ng-if="invitekeyCheck===1")
+                i.fa.fa-close.inactive(ng-if="invitekeyCheck===2")
+            .register_container.clearfix
+              .register_label 
+                label *昵称:
+              .register_input
+                input(type="text" name="nickname" ng-model="data.nickname" required)
+            .register_container.clearfix
+              .register_label 
+                label *真实姓名:
+              .register_input
+                input(type="text" name="realname" ng-model="data.realname" required)
+            .register_container.clearfix
+              .register_label 
+                label *密码:
+              .register_input
+                input(type="password" name="password" ng-model="data.password" ng-minlength=6 required)
+            .register_container.clearfix
+              .register_label 
+              .register_input
+                label 点击注册即代表同意
+                a 服务条款
+              .register_container
+                .register_label 
+                .register_input
+                  button.dl_button.register_button(ng-click="signup()" ng-disabled="active_form.$invalid || invitekeyCheck === 2 || !invitekeyCheck") 免费注册个人账号
+      .register_bottom
+    //- .list.list-inset.tip_msg
+    //-   span.large_tip.black_msg {{companyName}}
+    //- form.signup_form(name="user_signup_form" novalidate)
+    //-   //- .list.list-inset
+    //-   //-   label.item.item-input
+    //-   //-     input(type="email" ng-model="data.email" placeholder="企业邮箱" ng-blur="mailCheck()" ng-change="mailRegCheck()" required)
+    //-   .list.list-inset
+    //-     label.item.item-input
+    //-       input(ng-class="{error:nicknameError}" ng-focus="check('none')" type="text" ng-model="data.nickname" placeholder="*昵称" required)
+    //-   .list.list-inset
+    //-     label.item.item-input
+    //-       input(ng-class="{error:passError}" ng-focus="check('nickname')" type="password" ng-model="data.password" ng-minlength=6 placeholder="*密码(至少6位)" required)
+    //-   .list.list-inset
+    //-     label.item.item-input
+    //-       input(ng-class="{error:passConfError}" ng-focus="check('pass')" type="password" ng-model="data.passconf" placeholder="*密码确认" match="data.password" required)
+    //-   .list.list-inset
+    //-     label.item.item-input
+    //-       input(ng-class="{error:nameError}" ng-focus="check('passConf')" type="text" ng-model="data.realname" placeholder="*真实姓名" required)
+    //-   //- .list.list-inset
+    //-   //-   label.item.item-input
+    //-   //-     input(type="text" placeholder="部门")
+    //-   .list.list-inset
+    //-     label.item.item-input
+    //-       input(type="text" ng-model="data.phone" placeholder="手机号码(选填)")
+    //-   .list.list-inset
+    //-     label.item.item-input
+    //-       input(ng-focus="check('name')" type="text" ng-model="data.inviteKey" placeholder="*公司专属8位激活码" ng-change="checkInvitekey()" required)
+    //-   .tip_msg
+    //-     p.gray_msg(ng-if="!invitekeyCheck") 为了保证每一个动梨用户都是真实可靠的，请您向HR或同事索要激活码。
+    //-     p.gray_msg(ng-if="invitekeyCheck===1") 激活码验证成功
+    //-     p.gray_msg(ng-if="invitekeyCheck===2") 激活码填写错误
+    //-     p
+    //-       span.gray_msg 点击注册即代表同意
+    //-       a.blue_msg(href="#/register/user/law") 《法律声明》及《隐私政策》
+    //-   .list.list-inset
+    //-     button.button.dl_button.login_button(ng-disabled="invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()") 个人注册

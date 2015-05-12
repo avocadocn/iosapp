@@ -4421,3 +4421,265 @@ a.no_underline
       indentLine()
       .invite_key_qr_code
         margin-top 16px
+//注册界面
+.login
+  .register_search_company
+    background-color #46aaf5
+    background-image url('/img/register/dl_signup_man.gif')
+    background-size 128px 234.5px
+    background-repeat no-repeat
+    background-position bottom left
+    .register_header
+      width 100%
+      padding 5px 10px
+      .logo
+        width 70%
+        margin-left 10%
+        margin-top 20px
+        max-width 337px
+    .register_body
+      width 100%
+      margin 5% auto 0
+      padding 0 5%
+      max-width 539px
+      .board
+        background-image url('/img/register/dl_signup_board.gif')
+        background-size contain
+        background-repeat no-repeat
+        padding 32% 10%
+        input
+          border-radius 5px
+          width 90%
+          height 34px
+          display block
+          margin auto
+          border 1px solid #eee
+          font-size 14px
+          padding 2px 10px
+          color #b2b2b2
+        .search
+          width 75px
+          height 30px
+          float right
+          margin-right 5%
+          background-image url('/img/register/dl_signup_search.png')
+          background-size contain
+          background-color transparent
+          background-repeat no-repeat
+          margin-top 7%
+    .register_bottom
+      width 100%
+      min-height 265px
+      margin-top 5%
+      .register_cloud
+        width 55%
+        max-width 367px
+        float right
+        margin-right 5%
+  .register_wait_active
+    background-color #fe8915
+    .register_header
+      width 100%
+      padding 5px 10px
+      .logo
+        width 70%
+        margin-left 10%
+        margin-top 20px
+        max-width 337px
+    .register_body
+      .board
+        width 100%
+        max-width 585px
+        padding-bottom 75%
+        background-image url('/img/register/dl_signup_graph.gif')
+        background-repeat no-repeat
+        background-size contain
+        margin auto
+        margin-top 10%
+        padding-left 20%
+        .board_content
+          padding 26% 10px 30px 65px
+          text-align center
+          img
+            width 100%
+            display block
+            margin auto
+          .signin
+            max-width 345px
+          .nomail
+            max-width 220px
+          .resend
+            width 50%
+            max-width 80px
+            margin-top 10px  
+  .register_company_list
+    width 100%
+    min-height 450px
+    background-color #FFD54B
+    background-image url('/img/register/dl_signup_paper.gif')
+    background-size 241.5px 338.5px
+    background-repeat no-repeat
+    background-position-y 100px
+    background-position-x center
+    .register_header
+      width 100%
+      padding 5px 10px
+      .logo
+        width 70%
+        margin-left 10%
+        margin-top 20px
+        max-width 337px
+    .board
+      width 241.5px
+      padding 50px 15px 0
+      margin auto
+      .search_title
+        width 121.5px
+      .companies
+        margin-top 30px
+        height 200px
+        position relative
+        .company
+          width 100%
+          margin-bottom 12px
+          padding 8px 5px
+          border-radius 5px
+          background-color #fff
+          display flex
+          color #666
+          font-size 14px
+          .fa
+            color #ccc
+            margin-top 3px
+          .text
+            width 95%
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
+        .prePage, .nextPage
+          color #fff
+          position absolute
+          bottom 0
+        .nextPage
+          right 0
+      .fa-reply
+        margin-left 30px
+        position absolute
+        color #fff
+        font-size 20px
+    .register_bottom
+      background-image url('/img/register/dl_signup_bg_2.gif')
+      background-size cover
+      background-repeat no-repeat
+      height 161px
+      width 293.5px
+      margin auto
+      padding-top 10px
+      .notfound
+        width 116px
+        margin-left 53px
+        margin-top 13px
+      .organize
+        width 120px
+        height 40px
+        float right
+        background-color transparent
+  .register_user_post_detail
+    width 100%
+    background-color #2cc3c7
+    background-image url('/img/register/dl_signup_sun.gif')
+    background-repeat no-repeat
+    background-size 212.5px 78.5px
+    background-position 90% 30px
+    .register_header
+      width 100%
+      padding 5px 10px
+      .logo
+        width 70%
+        margin-left 10%
+        margin-top 20px
+        max-width 337px
+    .register_body
+      placeholderColor(#ccc)
+      .board
+        margin 14px auto 0
+        width 95%
+        min-width 305px
+        min-height 430px
+        padding 10% 0 20%
+        background-image url('/img/register/dl_signup_input_box.png')
+        background-size contain
+        background-position center
+        background-repeat no-repeat
+        .company_input_box
+          width 50%
+          min-width 260px
+          max-width 370px
+          margin auto
+          .register_container
+            margin-top 3%
+            clear both
+            .register_label
+              width 30%
+              padding 6px
+              float left
+              label
+                float right
+                font-size 14px
+                color #ccc
+                font-weight 100
+            .register_company_name, .register_company_email
+              float right
+              padding 7px 0px
+              font-size 14px
+              width 70%
+              overflow hidden
+              text-overflow ellipsis
+              white-space nowrap
+            .register_input
+              float right
+              width 70%
+              input
+                border-radius 5px
+                width 90%
+                height 34px
+                display block
+                border 1px solid #eee
+                font-size 14px
+                background-color #f3f7eb
+                padding 0px 5px
+                color #b2b2b2
+                
+              a 
+                color #2cc3c7
+              .register_button
+                position relative
+                display inline-block
+                border-radius 5px
+                width 150px
+                height 30px
+                font-size 14px
+                color #fff
+                background-color #2cc3c7
+                &:disabled
+                  opacity .65
+            .key_tips
+              float right
+              position relative
+              margin-right 25px
+              margin-top -25px
+              .active
+                color #3ca2e0
+              .inactive
+                color #f48361
+          .register_container.company_name
+            margin-top 5px
+            line-height 1
+      .register_bottom
+        background-image url('/img/register/dl_signup_dog.gif')
+        min-height 120px
+        min-width 320px
+        margin auto
+        background-size contain
+        background-repeat no-repeat
+        background-position-x center

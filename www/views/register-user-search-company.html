@@ -3,27 +3,22 @@
   <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">注册</h1><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
   </ion-header-bar>
-  <ion-content>
-    <form name="search_form">
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input type="email" placeholder="输入您的公司邮箱" ng-model="companyEmail.value" required="required"/><i class="icon ion-search placeholder-icon dl_search_icon"></i>
-        </label>
+  <ion-content scroll="false" ng-show="active !== 1" class="register_search_company">
+    <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
+    <div class="register_body">
+      <div class="board">
+        <input type="email" ng-model="companyEmail.value" ng-keypress="checkMail($event)" placeholder="请输入您的企业邮箱" required="required"/><a ng-click="checkMail()" ng-disabled="loading" class="search"></a>
       </div>
-      <div ng-if="!searched&amp;&amp;!active" class="tip_msg">
-        <p class="gray_msg">请在上方输入您的企业邮箱，进行搜索。</p>
-      </div>
-      <div ng-show="active||mail_msg" class="tip_msg"><span ng-show="active===2" class="gray_msg">该邮箱已注册过但尚未激活，请到邮箱查收邮件。</span><span ng-show="active===3" class="blue_msg medium_tip">该邮箱已注册，请点击右上角直接登录。</span><span ng-show="mail_msg" class="gray_msg">{{mail_msg}}</span>
-      </div>
-      <div class="list list-inset">
-        <button ng-disabled="search_form.$invalid" ng-click="searchCompany()" class="button dl_button login_button">查找您的企业</button>
-      </div>
-    </form>
-    <div ng-if="searched &amp;&amp; companies.length" class="list"><a ng-repeat="company in companies" ng-click="goDetail(company)" class="item item-icon-right companies_list">{{company.name}}<i class="icon ion-chevron-right"></i></a></div>
-    <div ng-if="searched" class="tip_msg">
-      <p class="medium_tip gray_msg">没有您的公司？</p>
-      <p class="medium_tip blue_msg">将动梨推荐给您的HR 或者进行企业注册&nbsp;↓</p>
+      <div class="register_bottom"><img src="/img/register/dl_signup_cloud.gif" class="register_cloud"/></div>
     </div>
-    <div class="links"><a href="#/register/company" class="medium_tip dkblue_msg pull-right">企业注册</a></div>
+  </ion-content>
+  <ion-content scroll="false" ng-show="active === 1" class="register_company_list">
+    <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
+    <div class="board"><img src="/img/register/dl_signup_search_title.png" class="search_title"/><i ng-click="preStep()" class="fa fa-reply"></i>
+      <div class="companies">
+        <div ng-repeat="company in companies" ng-click="goDetail(company)" class="company"><span>{{company.name}}</span><i class="fa fa-chevron-right pull-right"></i></div><span ng-click="prePage()" ng-if="hasPrevious" class="prePage">上一页</span><span ng-click="nextPage()" ng-if="hasNext" class="nextPage">下一页</span>
+      </div>
+    </div>
+    <div class="register_bottom"><img src="/img/register/dl_signup_notfound.png" class="notfound"/><a ng-click="organize()" class="organize"></a></div>
   </ion-content>
 </ion-view>

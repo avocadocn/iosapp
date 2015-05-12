@@ -5858,3 +5858,322 @@ a>.login .companies_list:activated {
 .hr_active_code .list .item .invite_key_qr_code {
   margin-top: 16px;
 }
+.login .register_search_company {
+  background-color: #46aaf5;
+  background-image: url("/img/register/dl_signup_man.gif");
+  background-size: 128px 234.5px;
+  background-repeat: no-repeat;
+  background-position: bottom left;
+}
+.login .register_search_company .register_header {
+  width: 100%;
+  padding: 5px 10px;
+}
+.login .register_search_company .register_header .logo {
+  width: 70%;
+  margin-left: 10%;
+  margin-top: 20px;
+  max-width: 337px;
+}
+.login .register_search_company .register_body {
+  width: 100%;
+  margin: 5% auto 0;
+  padding: 0 5%;
+  max-width: 539px;
+}
+.login .register_search_company .register_body .board {
+  background-image: url("/img/register/dl_signup_board.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 32% 10%;
+}
+.login .register_search_company .register_body .board input {
+  border-radius: 5px;
+  width: 90%;
+  height: 34px;
+  display: block;
+  margin: auto;
+  border: 1px solid #eee;
+  font-size: 14px;
+  padding: 2px 10px;
+  color: #b2b2b2;
+}
+.login .register_search_company .register_body .board .search {
+  width: 75px;
+  height: 30px;
+  float: right;
+  margin-right: 5%;
+  background-image: url("/img/register/dl_signup_search.png");
+  background-size: contain;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  margin-top: 7%;
+}
+.login .register_search_company .register_bottom {
+  width: 100%;
+  min-height: 265px;
+  margin-top: 5%;
+}
+.login .register_search_company .register_bottom .register_cloud {
+  width: 55%;
+  max-width: 367px;
+  float: right;
+  margin-right: 5%;
+}
+.login .register_wait_active {
+  background-color: #fe8915;
+}
+.login .register_wait_active .register_header {
+  width: 100%;
+  padding: 5px 10px;
+}
+.login .register_wait_active .register_header .logo {
+  width: 70%;
+  margin-left: 10%;
+  margin-top: 20px;
+  max-width: 337px;
+}
+.login .register_wait_active .register_body .board {
+  width: 100%;
+  max-width: 585px;
+  padding-bottom: 75%;
+  background-image: url("/img/register/dl_signup_graph.gif");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: auto;
+  margin-top: 10%;
+  padding-left: 20%;
+}
+.login .register_wait_active .register_body .board .board_content {
+  padding: 26% 10px 30px 65px;
+  text-align: center;
+}
+.login .register_wait_active .register_body .board .board_content img {
+  width: 100%;
+  display: block;
+  margin: auto;
+}
+.login .register_wait_active .register_body .board .board_content .signin {
+  max-width: 345px;
+}
+.login .register_wait_active .register_body .board .board_content .nomail {
+  max-width: 220px;
+}
+.login .register_wait_active .register_body .board .board_content .resend {
+  width: 50%;
+  max-width: 80px;
+  margin-top: 10px;
+}
+.login .register_company_list {
+  width: 100%;
+  min-height: 450px;
+  background-color: #ffd54b;
+  background-image: url("/img/register/dl_signup_paper.gif");
+  background-size: 241.5px 338.5px;
+  background-repeat: no-repeat;
+  background-position-y: 100px;
+  background-position-x: center;
+}
+.login .register_company_list .register_header {
+  width: 100%;
+  padding: 5px 10px;
+}
+.login .register_company_list .register_header .logo {
+  width: 70%;
+  margin-left: 10%;
+  margin-top: 20px;
+  max-width: 337px;
+}
+.login .register_company_list .board {
+  width: 241.5px;
+  padding: 50px 15px 0;
+  margin: auto;
+}
+.login .register_company_list .board .search_title {
+  width: 121.5px;
+}
+.login .register_company_list .board .companies {
+  margin-top: 30px;
+  height: 200px;
+  position: relative;
+}
+.login .register_company_list .board .companies .company {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 8px 5px;
+  border-radius: 5px;
+  background-color: #fff;
+  display: flex;
+  color: #666;
+  font-size: 14px;
+}
+.login .register_company_list .board .companies .company .fa {
+  color: #ccc;
+  margin-top: 3px;
+}
+.login .register_company_list .board .companies .company .text {
+  width: 95%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.login .register_company_list .board .companies .prePage,
+.login .register_company_list .board .companies .nextPage {
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+}
+.login .register_company_list .board .companies .nextPage {
+  right: 0;
+}
+.login .register_company_list .board .fa-reply {
+  margin-left: 30px;
+  position: absolute;
+  color: #fff;
+  font-size: 20px;
+}
+.login .register_company_list .register_bottom {
+  background-image: url("/img/register/dl_signup_bg_2.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 161px;
+  width: 293.5px;
+  margin: auto;
+  padding-top: 10px;
+}
+.login .register_company_list .register_bottom .notfound {
+  width: 116px;
+  margin-left: 53px;
+  margin-top: 13px;
+}
+.login .register_company_list .register_bottom .organize {
+  width: 120px;
+  height: 40px;
+  float: right;
+  background-color: transparent;
+}
+.login .register_user_post_detail {
+  width: 100%;
+  background-color: #2cc3c7;
+  background-image: url("/img/register/dl_signup_sun.gif");
+  background-repeat: no-repeat;
+  background-size: 212.5px 78.5px;
+  background-position: 90% 30px;
+}
+.login .register_user_post_detail .register_header {
+  width: 100%;
+  padding: 5px 10px;
+}
+.login .register_user_post_detail .register_header .logo {
+  width: 70%;
+  margin-left: 10%;
+  margin-top: 20px;
+  max-width: 337px;
+}
+.login .register_user_post_detail .register_body input::-webkit-input-placeholder {
+  color: #ccc;
+}
+.login .register_user_post_detail .register_body input::-moz-placeholder {
+  color: #ccc;
+}
+.login .register_user_post_detail .register_body input:-ms-input-placeholder {
+  color: #ccc;
+}
+.login .register_user_post_detail .register_body .board {
+  margin: 14px auto 0;
+  width: 95%;
+  min-width: 305px;
+  min-height: 430px;
+  padding: 10% 0 20%;
+  background-image: url("/img/register/dl_signup_input_box.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.login .register_user_post_detail .register_body .board .company_input_box {
+  width: 50%;
+  min-width: 260px;
+  max-width: 370px;
+  margin: auto;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container {
+  margin-top: 3%;
+  clear: both;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .register_label {
+  width: 30%;
+  padding: 6px;
+  float: left;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .register_label label {
+  float: right;
+  font-size: 14px;
+  color: #ccc;
+  font-weight: 100;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .register_company_name,
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .register_company_email {
+  float: right;
+  padding: 7px 0px;
+  font-size: 14px;
+  width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .register_input {
+  float: right;
+  width: 70%;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .register_input input {
+  border-radius: 5px;
+  width: 90%;
+  height: 34px;
+  display: block;
+  border: 1px solid #eee;
+  font-size: 14px;
+  background-color: #f3f7eb;
+  padding: 0px 5px;
+  color: #b2b2b2;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .register_input a {
+  color: #2cc3c7;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .register_input .register_button {
+  position: relative;
+  display: inline-block;
+  border-radius: 5px;
+  width: 150px;
+  height: 30px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #2cc3c7;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .register_input .register_button:disabled {
+  opacity: 0.65;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .key_tips {
+  float: right;
+  position: relative;
+  margin-right: 25px;
+  margin-top: -25px;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .key_tips .active {
+  color: #3ca2e0;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container .key_tips .inactive {
+  color: #f48361;
+}
+.login .register_user_post_detail .register_body .board .company_input_box .register_container.company_name {
+  margin-top: 5px;
+  line-height: 1;
+}
+.login .register_user_post_detail .register_body .register_bottom {
+  background-image: url("/img/register/dl_signup_dog.gif");
+  min-height: 120px;
+  min-width: 320px;
+  margin: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: center;
+}

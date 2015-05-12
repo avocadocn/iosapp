@@ -1,0 +1,14 @@
+ion-view.login
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    h1.title 直接登录
+    a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
+  ion-content.register_wait_active(scroll="false")
+    .register_header
+      img.logo(src="./img/register/dl_logo_signup.png")
+    .register_body
+      .board
+        .board_content
+          //- 邮箱已注册，直接登录
+          a(href="#/user/login")
+            img.signin(src="/img/register/dl_signup_signin.png")
