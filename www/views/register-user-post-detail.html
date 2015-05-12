@@ -15,14 +15,14 @@
               </div>
               <div class="register_company_name">{{companyName}}</div>
             </div>
-            <div class="register_container clearfix">
+            <div ng-if="!hideInviteKey" class="register_container clearfix">
               <div class="register_label"> 
                 <label>*邀请码:</label>
               </div>
               <div class="register_input">
                 <input type="text" placeholder="向同事索要8位邀请码" name="inviteKey" ng-model="data.inviteKey" ng-minlength="8" ng-maxlength="8" ng-change="checkInvitekey()" required="required"/>
+                <div class="key_tips"><i ng-if="invitekeyCheck===1" class="fa ion-checkmark-round active"></i><i ng-if="invitekeyCheck===2" class="fa ion-close-round inactive"></i></div>
               </div>
-              <div class="key_tips"><i ng-if="invitekeyCheck===1" class="fa fa-check active"></i><i ng-if="invitekeyCheck===2" class="fa fa-close inactive"></i></div>
             </div>
             <div class="register_container clearfix">
               <div class="register_label"> 

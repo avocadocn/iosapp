@@ -2252,10 +2252,15 @@ angular.module('donlerApp.controllers', [])
             // $scope.active = data.active;
             if(data.active == 1) { //未注册过
               $scope.active = 1;
+              $scope.hideInviteKey = data.hideInviteKey;
               searchCompany();
             } else if(data.active == 2) { //邮箱注册但未激活
+              $scope.companyEmail.value = '';
+              $scope.active = '';
               $state.go('register_user_waitEmail');
             } else { // 邮箱已激活、并注册完毕
+              $scope.companyEmail.value = '';
+              $scope.active = '';
               $state.go('register_login');
             }
           });
@@ -2294,7 +2299,7 @@ angular.module('donlerApp.controllers', [])
     };
     $scope.preStep = function() {
       $scope.companyEmail.value = '';
-       $scope.active = '';
+      $scope.active = '';
     }
     // var mailCheck = function(callback) {
     //   if($scope.companyEmail.value){
@@ -2334,7 +2339,10 @@ angular.module('donlerApp.controllers', [])
       INFO.companyId = company._id;
       INFO.companyName = company.name;
       INFO.email = $scope.companyEmail.value;
+      INFO.hideInviteKey = $scope.hideInviteKey;
       if(company.mail_active){
+        $scope.companyEmail.value = '';
+        $scope.active = '';
         $state.go('register_user_postDetail',{cid:company._id});
       }else{
         $state.go('register_user_remind_activate');
@@ -2346,6 +2354,10 @@ angular.module('donlerApp.controllers', [])
     $scope.data.cid = INFO.companyId;
     $scope.data.email = INFO.email;
     $scope.companyName = INFO.companyName;
+    $scope.hideInviteKey = INFO.hideInviteKey;
+    if($scope.hideInviteKey) {
+      $scope.invitekeyCheck = 1;
+    }
     $scope.signup = function() {
       $rootScope.showLoading();
       if(window.analytics){
@@ -2354,7 +2366,7 @@ angular.module('donlerApp.controllers', [])
       UserSignup.signup($scope.data, function(msg, data) {
         $rootScope.hideLoading();
         if(!msg){
-          $state.go('register_user_waitEmail');
+          $state.go('register_user_success');
         }else{
           $rootScope.showAction({titleText:msg})
         }
@@ -2365,7 +2377,6 @@ angular.module('donlerApp.controllers', [])
       if($scope.data.inviteKey && $scope.data.inviteKey.length===8){
         UserSignup.validate(null, INFO.companyId, $scope.data.inviteKey, function (msg, data) {
           if(!msg){
-            console.log(data.invitekeyCheck);
             $scope.invitekeyCheck=data.invitekeyCheck;
           }else{
             $scope.invitekeyCheck=2;
@@ -2376,28 +2387,28 @@ angular.module('donlerApp.controllers', [])
       }
     };
 
-    $scope.check = function(content) {
-      switch(content) {
-        case 'none' :
-          $scope.nicknameError = false;
-          break;
-        case 'nickname' :
-          $scope.passError = false;
-          if(!$scope.data.nickname) $scope.nicknameError = true;
-          break;
-        case 'pass':
-          $scope.passConfError = false;
-          if(!$scope.data.password) $scope.passError = true;
-          break;
-        case 'passConf':
-          $scope.nameError = false;
-          if(!$scope.data.passconf) $scope.passConfError = true;
-          break;
-        case 'name':
-          if(!$scope.data.areacode) $scope.nameError = true;
-          break;
-      }
-    };
+    // $scope.check = function(content) {
+    //   switch(content) {
+    //     case 'none' :
+    //       $scope.nicknameError = false;
+    //       break;
+    //     case 'nickname' :
+    //       $scope.passError = false;
+    //       if(!$scope.data.nickname) $scope.nicknameError = true;
+    //       break;
+    //     case 'pass':
+    //       $scope.passConfError = false;
+    //       if(!$scope.data.password) $scope.passError = true;
+    //       break;
+    //     case 'passConf':
+    //       $scope.nameError = false;
+    //       if(!$scope.data.passconf) $scope.passConfError = true;
+    //       break;
+    //     case 'name':
+    //       if(!$scope.data.areacode) $scope.nameError = true;
+    //       break;
+    //   }
+    // };
 
   }])
   .controller('HrActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$rootScope', function ($scope, Company, $cordovaClipboard, $rootScope) {

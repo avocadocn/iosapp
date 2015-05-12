@@ -19,14 +19,14 @@ ion-view.login
             //-     label *企业邮箱:
             //-   .sinup_input
             //-     input(type="text" name="email" ng-model="userInfo.email" readonly)
-            .register_container.clearfix
+            .register_container.clearfix(ng-if="!hideInviteKey")
               .register_label 
                 label *邀请码:
               .register_input
                 input(type="text" placeholder="向同事索要8位邀请码" name="inviteKey" ng-model="data.inviteKey" ng-minlength=8 ng-maxlength=8 ng-change="checkInvitekey()" required)
-              .key_tips
-                i.fa.fa-check.active(ng-if="invitekeyCheck===1")
-                i.fa.fa-close.inactive(ng-if="invitekeyCheck===2")
+                .key_tips
+                  i.fa.ion-checkmark-round.active(ng-if="invitekeyCheck===1")
+                  i.fa.ion-close-round.inactive(ng-if="invitekeyCheck===2")
             .register_container.clearfix
               .register_label 
                 label *昵称:
