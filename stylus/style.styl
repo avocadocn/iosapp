@@ -4459,6 +4459,7 @@ a.no_underline
         margin-top 20px
         max-width 337px
     .register_body
+      placeholderColor(#ccc)
       width 100%
       margin 5% auto 0
       padding 0 5%
@@ -4794,6 +4795,22 @@ a.no_underline
           margin-bottom 15px
         .select_line
           margin auto
+          .left
+            float left
+            width 5%
+            height 3px
+            background-color #fff
+          .middle
+            margin-top 1px
+            float left
+            width 90%
+            height 1px
+            background-color #fff
+          .right
+            float right
+            width 5%
+            height 3px
+            background-color #fff
         .organize_btn      
           display inline-block
           border-radius 5px
@@ -4814,3 +4831,120 @@ a.no_underline
       background-repeat no-repeat
       margin auto
       padding-top 10px
+  .register_company
+    width 100%
+    background-color #ef6767
+    background-image url('/img/register/dl_signup_bg_3.gif')
+    background-size 320px 568px
+    background-repeat repeat
+    .register_header
+      width 100%
+      padding 5px 10px
+      .logo
+        width 70%
+        margin-left 10%
+        margin-top 20px
+        max-width 337px
+    .register_body
+      placeholderColor(#ccc)
+      .input_box
+        margin auto
+        padding 0 8%
+        .board
+          background-image url('/img/register/dl_signup_board_2.gif')
+          padding 40% 10%
+          background-size contain
+          background-repeat no-repeat
+          form
+            background-color #fff
+          input
+            background-image none
+            background-color #f2f5ea
+            border-radius 5px
+            width 90%
+            height 40px
+            display block
+            margin 0% auto 6%
+            border 1px solid #eee
+            font-size 14px
+            padding 2px 10px
+            color #b2b2b2
+          p
+            width 90%
+            margin auto
+          .email
+            background-color #eee
+          .form-group
+            width 90%
+            margin 0 auto 6%
+            .select_cover
+              width 32%
+              background-image url('/img/register/dl_select_triangle.png')
+              background-size 10.5px 9px
+              background-position-x 93%
+              background-position-y 12px
+              background-repeat no-repeat
+              background-color #f2f5ea
+              margin-right 1.5%
+              overflow hidden
+              border-radius 5px
+              border 1px solid #eee
+              float left
+              height 34px
+              select
+                width 120%
+                height 34px
+                border 0
+                background-image none
+                background-color transparent
+                color #b2b2b2
+            .select_cover[last-child]
+              margin-right 0
+            button
+              border-radius 5px
+              padding 7px 10px
+              width 48%
+            .btn-success
+              display inline-block
+              border-radius 5px
+              width 48%
+              height 32px
+              margin auto
+              font-size 14px
+              color #fff
+              padding 7px 10px
+              text-align center
+              background-color #5cb85c
+              border-color #5cb85c
+            .btn-info
+              display inline-block
+              border-radius 5px
+              width 48%
+              height 32px
+              margin-left 4%
+              font-size 14px
+              color #fff
+              padding 7px 10px
+              text-align center
+              background-color #5bc0de
+              border-color #5bc0de
+          .next_step
+            float right
+            margin-right 5%
+            width 85px
+            height 34px
+            border-radius 5px
+            color #fff
+            background-color #5cb85c
+            border-color #4cae4c
+            font-size 14px
+            text-align center
+            padding 5px 0px
+            &:disabled
+              opacity 0.1
+      .signup_bottom
+        background-image url('/img/register/dl_signup_woman.gif')
+        background-size 200.5px 208.5px
+        background-repeat no-repeat
+        background-position bottom left
+        margin-top -10%

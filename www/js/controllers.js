@@ -2130,20 +2130,81 @@ angular.module('donlerApp.controllers', [])
   .controller('UserRegPrivacyController', ['$scope', '$ionicNavBarDelegate', 'INFO', function ($scope, $ionicNavBarDelegate, INFO) {
     $scope.backHref = '#/register/user/post_detail/' + INFO.companyId;
   }])
-  .controller('HrSignupController' ,['$scope', '$state', '$rootScope', 'CompanySignup', 'CONFIG', function ($scope, $state, $rootScope, CompanySignup, CONFIG) {
-    //for region
-    var region_url = CONFIG.BASE_URL + '/region';
-    // var region_url = "http://192.168.2.107:3002/region";
-    var selector_elem = document.getElementById('selector');
-    selector_elem.dataset.src = region_url;
-    $scope.province = '安徽省';
-    $scope.city = '安庆市';
-    $scope.district = '大观区';
-    var selector = new LinkageSelector(selector_elem, function(selectValues) {
-      $scope.province = selectValues[0];
-      $scope.city = selectValues[1];
-      $scope.district = selectValues[2];
+  .controller('HrSignupController' ,['$scope', '$state', '$rootScope', 'CompanySignup', 'Region', 'CONFIG', 'INFO', function ($scope, $state, $rootScope, CompanySignup, Region, CONFIG, INFO) {
+    // //for region
+    // var region_url = CONFIG.BASE_URL + '/region';
+    // // var region_url = "http://192.168.2.107:3002/region";
+    // var selector_elem = document.getElementById('selector');
+    // selector_elem.dataset.src = region_url;
+    // $scope.province = '安徽省';
+    // $scope.city = '安庆市';
+    // $scope.district = '大观区';
+    // var selector = new LinkageSelector(selector_elem, function(selectValues) {
+    //   $scope.province = selectValues[0];
+    //   $scope.city = selectValues[1];
+    //   $scope.district = selectValues[2];
+    // });
+    var arrayObjectIndexOf = function (myArray, searchTerm, property) {
+      var _property = property.split('.');
+      for(var i = 0, len = myArray.length; i < len; i++) {
+        var item = myArray[i];
+        _property.forEach( function (_pro) {
+          item = item[_pro];
+        });
+        if (item.toString() === searchTerm.toString()) return i;
+      }
+      return -1;
+    }
+
+    $scope.email = INFO.email;
+    Region.getRegion(function(status, data) {
+      $scope.provinces = data.data;
+      $scope.province = $scope.provinces[0];
+      changeProvince();
+      Region.getCurrentRegion(function(status, data) {
+        var detail = data.content.address_detail;
+        var province = detail.province;
+        var city = detail.city;
+        var district = detail.district;
+        if (province) {
+          var provinceIndex = arrayObjectIndexOf($scope.provinces, province, 'value');
+          if (provinceIndex > -1) {
+            $scope.province = $scope.provinces[provinceIndex];
+            changeProvince();
+            if (city) {
+              var cityIndex = arrayObjectIndexOf($scope.cities, city, 'value');
+              if (cityIndex > -1) {
+                $scope.city = $scope.cities[cityIndex];
+                changeCity();
+                if (district) {
+                  var districtIndex = arrayObjectIndexOf($scope.districts, district, 'value');
+                  $scope.district = $scope.districts[districtIndex];
+                }
+              }
+            }
+          }
+        }
+      });
     });
+
+    var changeProvince = function() {
+      $scope.cities = $scope.province.data;
+      $scope.city = $scope.cities[0];
+      changeCity();
+    }
+    var changeCity = function() {
+      $scope.districts = $scope.city.data;
+      $scope.district = $scope.districts[0];
+    }
+    $scope.selcetProvince = function(province) {
+      $scope.province = province;
+      changeProvince();
+    };
+    $scope.selectCity = function(city) {
+      $scope.city = city;
+      changeCity();
+    };
+
     //提交表单数据
     $scope.signup = function() {
       $rootScope.showLoading();
@@ -2155,14 +2216,9 @@ angular.module('donlerApp.controllers', [])
         province: $scope.province,
         city: $scope.city,
         district: $scope.district,
-        address: $scope.address,
-        contacts: $scope.contacts,
-        areacode: $scope.areacode,
-        tel: $scope.tel,
-        extension: $scope.extension,
         email: $scope.email,
-        phone: $scope.phone
       };
+
       CompanySignup.signup(data, function(err){
         $rootScope.hideLoading();
         if(err){
@@ -2192,6 +2248,24 @@ angular.module('donlerApp.controllers', [])
         });
       }
     };
+
+    // $scope.checkOfficeName = function() {
+    //   if ($scope.companyName) {
+    //     $http.post('/company/officialNameCheck', {
+    //       name: $scope.companyName,
+    //       domain: $scope.email.split('@')[1]
+    //     }).success(function(data, status) {
+    //       if (data.result) {
+    //         $scope.recommandCompany = {
+    //           _id: data.cid,
+    //           name: $scope.companyName
+    //         };
+    //         $scope.domain = data.domain;
+    //       }
+    //     });
+    //   }
+    // };
+    // TODO
     $scope.nameCheck = function() {
       if($scope.name) {
         CompanySignup.validate(null, $scope.name, function(msg){
@@ -2204,36 +2278,37 @@ angular.module('donlerApp.controllers', [])
         });
       }
     };
-    $scope.check = function(content) {
-      switch(content) {
-        case 'none' :
-          $scope.nameError = false;
-          break;
-        case 'name' :
-          $scope.addressError = false;
-          if(!$scope.name) $scope.nameError = true;
-          break;
-        case 'address':
-          $scope.contactsError = false;
-          if(!$scope.address) $scope.addressError = true;
-          break;
-        case 'contacts':
-          $scope.addressError = false;
-          if(!$scope.contacts) $scope.contactsError = true;
-          break;
-        case 'area':
-          $scope.telError = false;
-          if(!$scope.areacode) $scope.areaError = true;
-          break;
-        case 'tel':
-          $scope.mailError = false;
-          if(!$scope.tel) $scope.telError = true;
-          break;
-        case 'email':
-          if(!$scope.email) $scope.emailError = true;
-          break;
-      }
-    };
+
+    // $scope.check = function(content) {
+    //   switch(content) {
+    //     case 'none' :
+    //       $scope.nameError = false;
+    //       break;
+    //     case 'name' :
+    //       $scope.addressError = false;
+    //       if(!$scope.name) $scope.nameError = true;
+    //       break;
+    //     case 'address':
+    //       $scope.contactsError = false;
+    //       if(!$scope.address) $scope.addressError = true;
+    //       break;
+    //     case 'contacts':
+    //       $scope.addressError = false;
+    //       if(!$scope.contacts) $scope.contactsError = true;
+    //       break;
+    //     case 'area':
+    //       $scope.telError = false;
+    //       if(!$scope.areacode) $scope.areaError = true;
+    //       break;
+    //     case 'tel':
+    //       $scope.mailError = false;
+    //       if(!$scope.tel) $scope.telError = true;
+    //       break;
+    //     case 'email':
+    //       if(!$scope.email) $scope.emailError = true;
+    //       break;
+    //   }
+    // };
 
   }])
   .controller('UserSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
@@ -2373,6 +2448,7 @@ angular.module('donlerApp.controllers', [])
     // };
     $scope.organize = function() {
       $state.go('register_company');
+      INFO.email = $scope.companyEmail.value;
     }
     $scope.goDetail = function(company) {
       INFO.companyId = company._id;

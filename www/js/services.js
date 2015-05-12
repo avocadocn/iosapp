@@ -43,9 +43,12 @@ angular.module('donlerApp.services', [])
     $httpProvider.defaults.headers["delete"] = {'Content-Type': 'application/json;charset=utf-8'};
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://www.donler.com:3002',
-    STATIC_URL: 'http://www.donler.com',
-    SOCKET_URL: 'http://www.donler.com:3005',
+    // BASE_URL: 'http://www.donler.com:3002',
+    // STATIC_URL: 'http://www.donler.com',
+    // SOCKET_URL: 'http://www.donler.com:3005',
+    BASE_URL: 'http://localhost:3002',
+    STATIC_URL: 'http://localhost',
+    SOCKET_URL: 'http://localhost:3005',
     APP_ID: 'id1a2b3c4d5e6f',
     API_KEY: 'key1a2b3c4d5e6f'
   })
@@ -1931,6 +1934,27 @@ angular.module('donlerApp.services', [])
           } else {
             callback(data.msg?data.msg:'错误');
           }
+        });
+      }
+    };
+  }])
+  .factory('Region', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+      getRegion: function (callback) {
+        $http.get( CONFIG.BASE_URL + '/region')
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+        });
+      },
+      getCurrentRegion: function(callback) {
+        $http.jsonp('http://api.map.baidu.com/location/ip?ak=krPnXlL3wNORRa1KYN1RAx3c&callback=JSON_CALLBACK')
+        .success(function(data, status) {
+          callback(null, data);
+        })
+        .error(function(data, status) {
+
         });
       }
     };
