@@ -12,7 +12,7 @@
       <div class="register_bottom"><img src="/img/register/dl_signup_cloud.gif" class="register_cloud"/></div>
     </div>
   </ion-content>
-  <ion-content scroll="false" ng-show="active === 1" class="register_company_list">
+  <ion-content scroll="false" ng-show="active === 1 &amp;&amp; hasFindCompany" class="register_company_list">
     <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
     <div class="board"><img src="/img/register/dl_signup_search_title.png" class="search_title"/><i ng-click="preStep()" class="fa ion-reply"></i>
       <div class="companies">
@@ -20,5 +20,21 @@
       </div>
     </div>
     <div class="register_bottom"><img src="/img/register/dl_signup_notfound.png" class="notfound"/><a ng-click="organize()" class="organize"></a></div>
+  </ion-content>
+  <ion-content scroll="false" ng-show="active === 1 &amp;&amp; !hasFindCompany" class="register_company_notfound">
+    <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
+    <div class="board clearfix"><i ng-click="preStep()" class="fa ion-reply"></i>
+      <div class="board_content">
+        <div class="not_found">
+          <p>很抱歉，没有找到您的公司</p>
+        </div>
+        <div class="select_line">
+          <div class="left"></div>
+          <div class="middle"></div>
+          <div class="right"></div>
+        </div><a ng-click="organize()" class="button organize_btn">我来组织吧</a>
+      </div>
+    </div>
+    <div class="signup_bottom_3"></div>
   </ion-content>
 </ion-view>

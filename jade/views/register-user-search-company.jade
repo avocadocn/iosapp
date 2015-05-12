@@ -12,7 +12,7 @@ ion-view.login
         a.search(ng-click="checkMail()" ng-disabled="loading")
       .register_bottom
         img.register_cloud(src="/img/register/dl_signup_cloud.gif")
-  ion-content.register_company_list(scroll="false" ng-show="active === 1")
+  ion-content.register_company_list(scroll="false" ng-show="active === 1 && hasFindCompany")
     .register_header
       img.logo(src="./img/register/dl_logo_signup.png")
     .board
@@ -27,6 +27,20 @@ ion-view.login
     .register_bottom
       img.notfound(src="/img/register/dl_signup_notfound.png")
       a.organize(ng-click="organize()")
+  ion-content.register_company_notfound(scroll="false" ng-show="active === 1 && !hasFindCompany")
+    .register_header
+      img.logo(src="./img/register/dl_logo_signup.png")
+    .board.clearfix
+        i.fa.ion-reply(ng-click="preStep()")
+        .board_content
+          .not_found
+            p 很抱歉，没有找到您的公司
+          .select_line
+            .left
+            .middle
+            .right
+          a.button.organize_btn(ng-click="organize()") 我来组织吧
+      .signup_bottom_3
     //- form(name="search_form")
     //-   .list.list-inset
     //-     label.item.item-input

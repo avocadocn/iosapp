@@ -2292,8 +2292,10 @@ angular.module('donlerApp.controllers', [])
       UserSignup.searchCompany($scope.companyEmail.value, 1, 4, function(msg, data) {
         if (!msg) {
           if(data.companies.length === 0) {
-            console.log('12');
+            $scope.hasFindCompany = false;
+            $scope.active = 1;
           } else {
+            $scope.hasFindCompany = true;
             $scope.active = 1;
             $scope.page = 1;
             $scope.companies = data.companies;
@@ -2308,6 +2310,7 @@ angular.module('donlerApp.controllers', [])
     $scope.preStep = function() {
       $scope.companyEmail.value = '';
       $scope.active = '';
+      $scope.hasFindCompany = false;
     }
 
     $scope.nextPage = function() {
@@ -2368,6 +2371,9 @@ angular.module('donlerApp.controllers', [])
     //     }
     //   });
     // };
+    $scope.organize = function() {
+      $state.go('register_company');
+    }
     $scope.goDetail = function(company) {
       INFO.companyId = company._id;
       INFO.companyName = company.name;
