@@ -2251,7 +2251,6 @@ angular.module('donlerApp.controllers', [])
           UserSignup.validate($scope.companyEmail.value, null, null, function(msg, data) {
             // $scope.active = data.active;
             if(data.active == 1) { //未注册过
-              $scope.active = 1;
               $scope.hideInviteKey = data.hideInviteKey;
               searchCompany();
             } else if(data.active == 2) { //邮箱注册但未激活
@@ -2290,9 +2289,18 @@ angular.module('donlerApp.controllers', [])
 
     $scope.companyEmail = {};
     var searchCompany = function() {
-      UserSignup.searchCompany($scope.companyEmail.value, function(msg, data) {
+      UserSignup.searchCompany($scope.companyEmail.value, 1, 4, function(msg, data) {
         if (!msg) {
-          $scope.companies = data;
+          if(data.companies.length === 0) {
+            console.log('12');
+          } else {
+            $scope.active = 1;
+            $scope.page = 1;
+            $scope.companies = data.companies;
+            if($scope.page === data.pageCount) {$scope.hasNext = false;}
+            else { $scope.hasNext = true; }
+            $scope.hasPrevious = false;
+          }
         }
         // $scope.searched = true;
       });
@@ -2301,6 +2309,31 @@ angular.module('donlerApp.controllers', [])
       $scope.companyEmail.value = '';
       $scope.active = '';
     }
+
+    $scope.nextPage = function() {
+      if($scope.hasNext) {
+        UserSignup.searchCompany($scope.companyEmail.value, $scope.page + 1, 4, function(msg, data) {
+          if (!msg) {
+            $scope.page ++;
+            $scope.companies = data.companies;
+            if($scope.page === data.pageCount) {$scope.hasNext = false;}
+            $scope.hasPrevious = true;
+          }
+        });
+      }
+    };
+    $scope.prePage = function() {
+      if($scope.hasPrevious) {
+        UserSignup.searchCompany($scope.companyEmail.value, $scope.page - 1, 4, function(msg, data) {
+          if (!msg) {
+            $scope.companies=data.companies;
+            $scope.hasNext = true;
+            $scope.page--;
+            if($scope.page===1) {$scope.hasPrevious = false;}
+          }
+        });
+      }
+    };
     // var mailCheck = function(callback) {
     //   if($scope.companyEmail.value){
     //     UserSignup.validate($scope.companyEmail.value, null, null, function (msg, data) {

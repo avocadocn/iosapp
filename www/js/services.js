@@ -271,8 +271,8 @@ angular.module('donlerApp.services', [])
           callback(data.msg);
         });
       },
-      searchCompany: function (email, callback) {
-        $http.post(CONFIG.BASE_URL + '/search/companies', {'email':email})
+      searchCompany: function (email, page, limit, callback) {
+        $http.post(CONFIG.BASE_URL + '/search/companies', {'email':email, 'page': page, 'limit': limit})
         .success(function (data, status) {
           callback(null,data);
         }).error(function (data, status) {
