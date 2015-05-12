@@ -71,18 +71,20 @@ angular.module('donlerApp.controllers', [])
 
     };
 
-    Company.getData(localStorage.id)
-      .success(function(data) {
-        $scope.company = data;
-      })
-      .error(function(data) {
-        console.log(data);
-      });
-
     $scope.toggleGuide = function() {
       $scope.hiding = !$scope.hiding;
       $ionicScrollDelegate.$getByHandle("mainScroll").resize();
     };
+    $scope.hidenGuide = function () {
+      $scope.company.guide_step = 1;
+      Company.edit(localStorage.id,{guide_step:1})
+          .success(function(data) {
+            
+          })
+          .error(function(data) {
+            console.log('err');
+          });
+    }
 
     $scope.$on('$ionicView.enter', function(scopes, states) {
       // 为true或undefined时获取公司数据
@@ -2487,7 +2489,8 @@ angular.module('donlerApp.controllers', [])
       .success(function(data) {
         $scope.company = data;
         $scope.formData = {
-          intro: $scope.company.intro || ''
+          intro: $scope.company.intro || '',
+          name: $scope.company.shortName || ''
         };
       })
       .error(function(data) {
@@ -2495,21 +2498,26 @@ angular.module('donlerApp.controllers', [])
       });
 
     var introduceTextarea = document.getElementById('edit_company_introduce_textarea');
+    var shortNameInput = document.getElementById('edit_company_short_name');
     $scope.editing = false;
 
     var updateFormData = function () {
       $scope.formData = {
-        intro: $scope.company.intro || ''
+        intro: $scope.company.intro || '',
+        name: $scope.company.shortName || ''
       };
     };
 
     $scope.toEditing = function () {
       if ($scope.editing === false) {
-        updateFormData();
         $scope.editing = true;
-        introduceTextarea.focus();
+        // if(item==='shortName'){
+        //   shortNameInput.focus();
+        // }
+        // else{
+        //   introduceTextarea.focus();
+        // }
       }
-      //$scope.change();
     };
     $scope.cancelEditing = function () {
       if ($scope.editing === true) {

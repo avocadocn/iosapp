@@ -5,16 +5,20 @@ ion-view.edit_company_info
     button.button(ng-if="editing" ng-click="cancelEditing()" ng-cloak) 取消
     h1.title 编辑公司信息
     button.button(ng-if="editing" ng-click="edit()" ng-disabled="intro.$invalid" ng-cloak) 确定
-
+    button.button(ng-if="!editing" ng-click="toEditing()" ng-cloak) 编辑
   ion-content(scroll="false")
     .list.edit_list
       .item.company_name_item
         span.title 公司名称
         span.content {{company.name || '无'}}
+      .item.item-input.company_name_item
+        span.title 公司简称
+        input.short_name#edit_company_short_name(ng-show="editing" name="short_name" maxlength="14" ng-model="formData.name")
+        .short_name(ng-if="!editing" ng-bind="company.shortName"  ng-cloak)
       .item.item-input.introduce_item
-        span.input-label 简介
+        span.title 简介
         textarea.introduce#edit_company_introduce_textarea(ng-show="editing" name="intro" ng-change="change()" maxlength="140" ng-model="formData.intro" ng-trim="false")
-        .introduce(ng-if="!editing" ng-bind="company.intro" ng-click="toEditing()" ng-cloak)
+        .introduce(ng-if="!editing" ng-bind="company.intro" ng-cloak)
       .item.item-icon-right(ng-click="showUploadActionSheet()")
         img(ng-src="{{STATIC_URL + company.logo}}/120/120")
         h2.company_logo 公司logo
