@@ -2509,6 +2509,7 @@ angular.module('donlerApp.controllers', [])
       $scope.invitekeyCheck = 1;
     }
     $scope.signup = function() {
+      console.log($scope.data);
       $rootScope.showLoading();
       if(window.analytics){
         window.analytics.trackEvent('Click', 'userSignUp');

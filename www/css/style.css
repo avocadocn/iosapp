@@ -6489,9 +6489,10 @@ a>.login .companies_list:activated {
   font-size: 14px;
   text-align: center;
   padding: 5px 0px;
+  border-width: 0;
 }
 .login .register_company .register_body .input_box .board .next_step:disabled {
-  opacity: 0.1;
+  opacity: 0.5;
 }
 .login .register_company .register_body .signup_bottom {
   background-image: url("/img/register/dl_signup_woman.gif");
@@ -6569,6 +6570,7 @@ a>.login .companies_list:activated {
   padding: 4px 16px;
   background-color: #94cd3e;
   color: #fff;
+  border-width: 0;
 }
 .login .register_company_team .board .groups {
   width: 256px;
