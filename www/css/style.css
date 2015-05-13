@@ -5884,7 +5884,7 @@ a>.login .companies_list:activated {
 }
 .login .register_search_company {
   background-color: #46aaf5;
-  background-image: url("/img/register/dl_signup_man.gif");
+  background-image: url("../img/register/dl_signup_man.gif");
   background-size: 128px 234.5px;
   background-repeat: no-repeat;
   background-position: bottom left;
@@ -5915,7 +5915,7 @@ a>.login .companies_list:activated {
   color: #ccc;
 }
 .login .register_search_company .register_body .board {
-  background-image: url("/img/register/dl_signup_board.gif");
+  background-image: url("../img/register/dl_signup_board.gif");
   background-size: contain;
   background-repeat: no-repeat;
   padding: 32% 10%;
@@ -5936,7 +5936,7 @@ a>.login .companies_list:activated {
   height: 30px;
   float: right;
   margin-right: 5%;
-  background-image: url("/img/register/dl_signup_search.png");
+  background-image: url("../img/register/dl_signup_search.png");
   background-size: contain;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -5970,7 +5970,7 @@ a>.login .companies_list:activated {
   width: 100%;
   max-width: 585px;
   padding-bottom: 75%;
-  background-image: url("/img/register/dl_signup_graph.gif");
+  background-image: url("../img/register/dl_signup_graph.gif");
   background-repeat: no-repeat;
   background-size: contain;
   margin: auto;
@@ -6001,7 +6001,7 @@ a>.login .companies_list:activated {
   width: 100%;
   min-height: 450px;
   background-color: #ffd54b;
-  background-image: url("/img/register/dl_signup_paper.gif");
+  background-image: url("../img/register/dl_signup_paper.gif");
   background-size: 241.5px 338.5px;
   background-repeat: no-repeat;
   background-position-y: 100px;
@@ -6069,7 +6069,7 @@ a>.login .companies_list:activated {
   font-size: 30px;
 }
 .login .register_company_list .register_bottom {
-  background-image: url("/img/register/dl_signup_bg_2.png");
+  background-image: url("../img/register/dl_signup_bg_2.png");
   background-size: cover;
   background-repeat: no-repeat;
   height: 161px;
@@ -6091,7 +6091,7 @@ a>.login .companies_list:activated {
 .login .register_user_post_detail {
   width: 100%;
   background-color: #2cc3c7;
-  background-image: url("/img/register/dl_signup_sun.gif");
+  background-image: url("../img/register/dl_signup_sun.gif");
   background-repeat: no-repeat;
   background-size: 212.5px 78.5px;
   background-position: 90% 30px;
@@ -6121,7 +6121,7 @@ a>.login .companies_list:activated {
   min-width: 305px;
   min-height: 430px;
   padding: 10% 0 20%;
-  background-image: url("/img/register/dl_signup_input_box.png");
+  background-image: url("../img/register/dl_signup_input_box.png");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -6204,7 +6204,7 @@ a>.login .companies_list:activated {
   line-height: 1;
 }
 .login .register_user_post_detail .register_body .register_bottom {
-  background-image: url("/img/register/dl_signup_dog.gif");
+  background-image: url("../img/register/dl_signup_dog.gif");
   min-height: 120px;
   min-width: 320px;
   margin: auto;
@@ -6214,7 +6214,7 @@ a>.login .companies_list:activated {
 }
 .login .register_user_success {
   width: 100%;
-  background-image: url("/img/signup/dl_signup_bg_5.png");
+  background-image: url("../img/signup/dl_signup_bg_5.png");
   background-size: cover;
   background-color: #32bde5;
 }
@@ -6232,7 +6232,7 @@ a>.login .companies_list:activated {
   margin: 45px auto;
   width: 240px;
   height: 280px;
-  background-image: url("/img/register/dl_signup_box_5.png");
+  background-image: url("../img/register/dl_signup_box_5.png");
   background-size: 240px 280px;
   background-repeat: no-repeat;
 }
@@ -6272,7 +6272,7 @@ a>.login .companies_list:activated {
   width: 100%;
   min-height: 450px;
   background-color: #ffd54b;
-  background-image: url("/img/register/dl_signup_paper.gif");
+  background-image: url("../img/register/dl_signup_paper.gif");
   background-size: 241.5px 338.5px;
   background-repeat: no-repeat;
   background-position-y: 100px;
@@ -6351,7 +6351,7 @@ a>.login .companies_list:activated {
 .login .register_company_notfound .signup_bottom_3 {
   width: 299.5px;
   height: 199.5px;
-  background-image: url("/img/register/dl_signup_bg_4.png");
+  background-image: url("../img/register/dl_signup_bg_4.png");
   background-size: cover;
   background-repeat: no-repeat;
   margin: auto;
@@ -6360,7 +6360,7 @@ a>.login .companies_list:activated {
 .login .register_company {
   width: 100%;
   background-color: #ef6767;
-  background-image: url("/img/register/dl_signup_bg_3.gif");
+  background-image: url("../img/register/dl_signup_bg_3.gif");
   background-size: 320px 568px;
   background-repeat: repeat;
 }
@@ -6388,7 +6388,7 @@ a>.login .companies_list:activated {
   padding: 0 8%;
 }
 .login .register_company .register_body .input_box .board {
-  background-image: url("/img/register/dl_signup_board_2.gif");
+  background-image: url("../img/register/dl_signup_board_2.gif");
   padding: 40% 10%;
   background-size: contain;
   background-repeat: no-repeat;
@@ -6422,7 +6422,7 @@ a>.login .companies_list:activated {
 }
 .login .register_company .register_body .input_box .board .form-group .select_cover {
   width: 32%;
-  background-image: url("/img/register/dl_select_triangle.png");
+  background-image: url("../img/register/dl_select_triangle.png");
   background-size: 10.5px 9px;
   background-position-x: 93%;
   background-position-y: 12px;
@@ -6495,7 +6495,7 @@ a>.login .companies_list:activated {
   opacity: 0.5;
 }
 .login .register_company .register_body .signup_bottom {
-  background-image: url("/img/register/dl_signup_woman.gif");
+  background-image: url("../img/register/dl_signup_woman.gif");
   background-size: 200.5px 208.5px;
   background-repeat: no-repeat;
   background-position: bottom left;
@@ -6504,7 +6504,7 @@ a>.login .companies_list:activated {
 .login .register_company_team {
   width: 100%;
   background-color: #46aaf5;
-  background-image: url("/img/register/dl_signup_paper_plane.gif");
+  background-image: url("../img/register/dl_signup_paper_plane.gif");
   background-size: 118.5px 77.5px;
   background-repeat: no-repeat;
   background-position-x: 95%;
@@ -6585,7 +6585,7 @@ a>.login .companies_list:activated {
 .login .register_company_team .board .groups .group .img_contain {
   width: 50px;
   height: 50px;
-  background-image: url("/img/register/dl_signup_groups.png");
+  background-image: url("../img/register/dl_signup_groups.png");
   background-repeat: no-repeat;
   background-size: 240px 240px;
   margin: 10px 7px;
