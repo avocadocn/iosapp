@@ -576,8 +576,8 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$rootScope', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team',
-   function ($ionicHistory, $scope, $state, $rootScope, $ionicModal, $timeout, Campaign, INFO, Team) {
+  .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$rootScope', '$ionicModal', '$timeout', '$ionicScrollDelegate', 'Campaign', 'INFO', 'Team',
+   function ($ionicHistory, $scope, $state, $rootScope, $ionicModal, $timeout, $ionicScrollDelegate, Campaign, INFO, Team) {
     $scope.campaignData ={
       location : {name:''}
     };
@@ -625,6 +625,10 @@ angular.module('donlerApp.controllers', [])
       disableBack: true,
       historyRoot: true
     });
+    $scope.toggleShowMore = function () {
+      $scope.showMore = !$scope.showMore;
+      $ionicScrollDelegate.resize()
+    }
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();

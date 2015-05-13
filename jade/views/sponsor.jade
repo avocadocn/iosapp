@@ -35,7 +35,7 @@ form(name="sponsorForm" novalidate ng-init="showMore=false;")
           span.input-label 活动简介
           textarea.result(name="content" rows=4 ng-model="campaignData.content" placeholder="活动简介" ng-maxlength=2000)
       .list.indentLine
-        label.item.item-icon-right(ng-click="showMore=!showMore;") 
+        label.item.item-icon-right(ng-click="toggleShowMore()") 
           span.input-label 更多
           i.icon.ion-chevron-down(ng-if="!showMore")
           i.icon.ion-chevron-up(ng-if="showMore")
