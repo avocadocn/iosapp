@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-    <div ng-style="familyMinHeight" class="company_header"><img ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380" class="company_family"/><img ng-if="!company.cover" src="./img/company_cover.png" class="company_family"/>
+    <div ng-style="familyMinHeight" class="company_header"><img ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380" class="company_family"/><img ng-if="company &amp;&amp; !company.cover" src="./img/company_cover.png" class="company_family"/>
     </div>
     <div class="company_info">
       <div class="info_header clearfix"><img ng-if="company" ng-src="{{STATIC_URL + company.logo}}/160/160" class="logo"/>
