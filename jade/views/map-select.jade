@@ -8,6 +8,6 @@ ion-modal-view.map_select
         i.icon.ion-ios7-search.placeholder-icon
         input(type="search" name="location" ng-model="location.name" ng-keypress="search($event)" ng-change="change()")
       button.button-clear(ng-click="search()") 搜索
-    .map_container(id="{{mapName}}")
+    .map_container(id="{{mapName}}" ng-style="{'width':width,'height':height+'px'}")
     .item-button
       button.button.button-full.button_sponsor(ng-click="closeModal()") 确定

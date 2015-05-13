@@ -183,7 +183,7 @@ angular.module('donlerApp.services', [])
             callback();
           })
           .error(function (data, status) {
-            callback(data.msg);
+            callback(data ? data.msg : '网络连接错误');
           });
       },
 
@@ -210,6 +210,10 @@ angular.module('donlerApp.services', [])
           })
           .error(function (data, status) {
             // todo
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userType');
+            localStorage.removeItem('id');
+            $http.defaults.headers.common['x-access-token'] = null;
             callback('error');
           });
       }
@@ -239,7 +243,7 @@ angular.module('donlerApp.services', [])
             else
               callback(data.msg);
           }).error(function (data, status) {
-            callback(data.msg);
+            callback(data ? data.msg:'网络连接错误');
           });
         }
 
@@ -254,7 +258,7 @@ angular.module('donlerApp.services', [])
         .success(function (data, status) {
           callback();
         }).error(function (data, status) {
-          callback(data.msg);
+          callback(data ? data.msg:'网络连接错误');
         });
       }
     }
@@ -266,7 +270,7 @@ angular.module('donlerApp.services', [])
         .success(function (data, status) {
           callback(null,data);
         }).error(function (data, status) {
-          callback(data.msg);
+          callback(data ? data.msg:'网络连接错误');
         });
       },
       searchCompany: function (email, callback) {
@@ -274,7 +278,7 @@ angular.module('donlerApp.services', [])
         .success(function (data, status) {
           callback(null,data);
         }).error(function (data, status) {
-          callback(data.msg);
+          callback(data ? data.msg:'网络连接错误');
         });
       },
       signup: function(data, callback) {
@@ -282,7 +286,7 @@ angular.module('donlerApp.services', [])
         .success(function (data, status) {
           callback();
         }).error(function (data, status) {
-          callback(data.msg);
+          callback(data ? data.msg:'网络连接错误');
         });
       }
     }

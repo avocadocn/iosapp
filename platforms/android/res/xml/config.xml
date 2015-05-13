@@ -43,6 +43,10 @@
         <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <preference name="SplashScreen" value="screen" />
     <icon density="ldpi" src="icons/android/drawable-ldpi/donler.png" />
     <icon density="mdpi" src="icons/android/drawable-mdpi/donler.png" />

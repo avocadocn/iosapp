@@ -505,7 +505,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
   }
 }])
 
-.directive('editMap',['$ionicModal', '$ionicActionSheet', function($ionicModal, $ionicActionSheet){
+.directive('editMap',['$ionicModal', '$ionicActionSheet', 'INFO',function($ionicModal, $ionicActionSheet, INFO){
   return {
     restrict: 'AE',
     scope: {
@@ -517,6 +517,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     link: function (scope, element, attrs, ctrl) {
       var city, marker, toolBar;
       var modalController;
+      scope.height = INFO.screenHeight -150;
       $ionicModal.fromTemplateUrl('./views/map-select.html', {
         scope: scope,
         animation: 'slide-in-up'

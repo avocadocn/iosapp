@@ -30,12 +30,12 @@ form(name="sponsorForm" novalidate ng-init="showMore=false;")
       .list.indentLine
         label.item.item-input
           span.input-label 活动名称
-          input.result(type="text" name="theme" ng-model="campaignData.theme" placeholder="限制14个字" ng-maxlength=14 required)
+          input.result(type="text" name="theme" ng-model="campaignData.theme" placeholder="限制14个字" ng-maxlength=14 maxlength=14 required)
         label.item.item-input.introduce
           span.input-label 活动简介
           textarea.result(name="content" rows=4 ng-model="campaignData.content" placeholder="活动简介" ng-maxlength=2000)
       .list.indentLine
-        label.item.item-icon-right(ng-click="showMore=!showMore;") 
+        label.item.item-icon-right(ng-click="toggleShowMore()") 
           span.input-label 更多
           i.icon.ion-chevron-down(ng-if="!showMore")
           i.icon.ion-chevron-up(ng-if="showMore")

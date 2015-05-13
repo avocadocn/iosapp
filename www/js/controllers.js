@@ -78,12 +78,12 @@ angular.module('donlerApp.controllers', [])
     $scope.hidenGuide = function () {
       $scope.company.guide_step = 1;
       Company.edit(localStorage.id,{guide_step:1})
-          .success(function(data) {
-            
-          })
-          .error(function(data) {
-            console.log('err');
-          });
+        .success(function(data) {
+          
+        })
+        .error(function(data) {
+          console.log('err');
+        });
     }
 
     $scope.$on('$ionicView.enter', function(scopes, states) {
@@ -96,7 +96,7 @@ angular.module('donlerApp.controllers', [])
             $scope.company = data;
           })
           .error(function(data) {
-            $rootScope.showAction({titleText:data.msg || '获取公司数据失败'});
+            $rootScope.showAction({titleText:data ? data.msg : '获取公司数据失败'});
           });
       }
     });
@@ -578,8 +578,8 @@ angular.module('donlerApp.controllers', [])
       }
     }
   }])
-  .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$rootScope', '$ionicModal', '$timeout', 'Campaign', 'INFO', 'Team',
-   function ($ionicHistory, $scope, $state, $rootScope, $ionicModal, $timeout, Campaign, INFO, Team) {
+  .controller('SponsorController', ['$ionicHistory', '$scope', '$state', '$rootScope', '$ionicModal', '$timeout', '$ionicScrollDelegate', 'Campaign', 'INFO', 'Team',
+   function ($ionicHistory, $scope, $state, $rootScope, $ionicModal, $timeout, $ionicScrollDelegate, Campaign, INFO, Team) {
     $scope.campaignData ={
       location : {name:''}
     };
@@ -627,6 +627,10 @@ angular.module('donlerApp.controllers', [])
       disableBack: true,
       historyRoot: true
     });
+    $scope.toggleShowMore = function () {
+      $scope.showMore = !$scope.showMore;
+      $ionicScrollDelegate.resize()
+    }
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
