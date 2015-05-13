@@ -247,6 +247,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller:'HrSignupController',
         templateUrl: './views/register-company.html'
       })
+      .state('register_company_team', {
+        url: '/register/company/team',
+        controller:'HrSignupTeamController',
+        templateUrl: './views/register-company-team.html'
+      })
       .state('register_login', {
         url: '/register/login',
         templateUrl: './views/register-login.html'

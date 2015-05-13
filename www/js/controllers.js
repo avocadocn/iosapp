@@ -2207,26 +2207,27 @@ angular.module('donlerApp.controllers', [])
 
     //提交表单数据
     $scope.signup = function() {
-      $rootScope.showLoading();
-      if(window.analytics){
-        window.analytics.trackEvent('Click', 'companySignUp');
-      }
-      var data = {
-        name: $scope.name,
-        province: $scope.province,
-        city: $scope.city,
-        district: $scope.district,
-        email: $scope.email,
-      };
-
-      CompanySignup.signup(data, function(err){
-        $rootScope.hideLoading();
-        if(err){
-          $rootScope.showAction({titleText:err})
-        }else{
-          $state.go('register_company_wait');
-        }
-      });
+      $state.go('register_company_team');
+      // $rootScope.showLoading();
+      // if(window.analytics){
+      //   window.analytics.trackEvent('Click', 'companySignUp');
+      // }
+      // var data = {
+      //   name: $scope.name,
+      //   province: $scope.province,
+      //   city: $scope.city,
+      //   district: $scope.district,
+      //   email: $scope.email,
+      // };
+      
+      // CompanySignup.signup(data, function(err){
+      //   $rootScope.hideLoading();
+      //   if(err){
+      //     $rootScope.showAction({titleText:err})
+      //   }else{
+      //     $state.go('register_company_wait');
+      //   }
+      // });
     };
     //validate
     var pattern =  /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
@@ -2311,6 +2312,36 @@ angular.module('donlerApp.controllers', [])
     // };
 
   }])
+  .controller('HrSignupTeamController', ['$scope', '$state', '$rootScope', 'CompanySignup', 'Team', 'CONFIG', 'INFO', function($scope, $state, $rootScope, CompanySignup, Team, CONFIG, INFO) {
+    Team.getGroupsList(function(status, data) {
+      console.log(data);
+      $scope.groups = data.splice(0, 16);
+    });
+    $scope.selectType = function(index) {
+      $scope.groups[index].selected = !$scope.groups[index].selected;
+    };
+
+    $scope.createTeams = function() {
+      var selectedGroups = $scope.groups.filter(function(group) {
+        return group.selected === true;
+      });
+      console.log(selectedGroups);
+      // $http.post('/company/quickCreateTeams',{
+      //   groups: selectedGroups,
+      //   uid: uid
+      // }).success(function(data, status) {
+      //   // console.log(data);
+      //   $scope.step = 5;
+      //   $location.hash('5');
+      //   if(data.result){
+      //     $scope.emailDomain = $scope.email.split('@')[1];
+      //   }
+      // })
+      // .error(function(data, status) {
+      //   alert('创建失败');
+      // })
+    }
+  }])
   .controller('UserSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
     // $scope.keypress = function(keyEvent) {
     //   if (keyEvent.which === 13) {
@@ -2366,7 +2397,7 @@ angular.module('donlerApp.controllers', [])
     var searchCompany = function() {
       UserSignup.searchCompany($scope.companyEmail.value, 1, 4, function(msg, data) {
         if (!msg) {
-          if(data.companies.length === 0) {
+          if(data.companies === undefined || data.companies.length === 0) {
             $scope.hasFindCompany = false;
             $scope.active = 1;
           } else {

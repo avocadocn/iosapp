@@ -6500,3 +6500,186 @@ a>.login .companies_list:activated {
   background-position: bottom left;
   margin-top: -10%;
 }
+.login .register_company_team {
+  width: 100%;
+  background-color: #46aaf5;
+  background-image: url("/img/register/dl_signup_paper_plane.gif");
+  background-size: 118.5px 77.5px;
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 10px;
+}
+.login .register_company_team .register_header {
+  width: 100%;
+  padding: 5px 10px;
+}
+.login .register_company_team .register_header .logo {
+  width: 70%;
+  margin-left: 10%;
+  margin-top: 20px;
+  max-width: 337px;
+}
+.login .register_company_team .board {
+  margin: 30px 10%;
+}
+.login .register_company_team .board .select_line {
+  margin-top: 5px;
+}
+.login .register_company_team .board .select_line .left {
+  float: left;
+  width: 5%;
+  height: 3px;
+  background-color: #fff;
+}
+.login .register_company_team .board .select_line .middle {
+  margin-top: 1px;
+  float: left;
+  width: 90%;
+  height: 1px;
+  background-color: #fff;
+}
+.login .register_company_team .board .select_line .right {
+  float: right;
+  width: 5%;
+  height: 3px;
+  background-color: #fff;
+}
+.login .register_company_team .board .fa-hand-o-right {
+  color: #fff;
+  float: left;
+  font-size: 16px;
+  margin-right: 5px;
+}
+.login .register_company_team .board .select_label {
+  color: #fff;
+  font-size: 16px;
+  font-weight: normal;
+}
+.login .register_company_team .board .register_button {
+  clear: both;
+}
+.login .register_company_team .board .register_button .register_team_button {
+  float: right;
+  width: 64px;
+  height: 30px;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  padding: 4px 16px;
+  background-color: #94cd3e;
+  color: #fff;
+}
+.login .register_company_team .board .groups {
+  width: 256px;
+  clear: both;
+  margin: 0px auto;
+}
+.login .register_company_team .board .groups .group {
+  float: left;
+  text-align: center;
+  cursor: pointer;
+}
+.login .register_company_team .board .groups .group .img_contain {
+  width: 50px;
+  height: 50px;
+  background-image: url("/img/register/dl_signup_groups.png");
+  background-repeat: no-repeat;
+  background-size: 240px 240px;
+  margin: 10px 7px;
+  padding: 0px;
+}
+.login .register_company_team .board .groups .group .group_1 {
+  background-position: 9px 8px;
+}
+.login .register_company_team .board .groups .group .group_2 {
+  background-position: -51px 8px;
+}
+.login .register_company_team .board .groups .group .group_3 {
+  background-position: -111px 8px;
+}
+.login .register_company_team .board .groups .group .group_4 {
+  background-position: -171px 8px;
+}
+.login .register_company_team .board .groups .group .group_5 {
+  background-position: 9px -52px;
+}
+.login .register_company_team .board .groups .group .group_6 {
+  background-position: -51px -52px;
+}
+.login .register_company_team .board .groups .group .group_7 {
+  background-position: -111px -52px;
+}
+.login .register_company_team .board .groups .group .group_8 {
+  background-position: -171px -52px;
+}
+.login .register_company_team .board .groups .group .group_9 {
+  background-position: 9px -112px;
+}
+.login .register_company_team .board .groups .group .group_10 {
+  background-position: -51px -112px;
+}
+.login .register_company_team .board .groups .group .group_11 {
+  background-position: -111px -112px;
+}
+.login .register_company_team .board .groups .group .group_12 {
+  background-position: -171px -112px;
+}
+.login .register_company_team .board .groups .group .group_13 {
+  background-position: 9px -172px;
+}
+.login .register_company_team .board .groups .group .group_14 {
+  background-position: -51px -172px;
+}
+.login .register_company_team .board .groups .group .group_15 {
+  background-position: -111px -172px;
+}
+.login .register_company_team .board .groups .group .group_16 {
+  background-position: -171px -172px;
+}
+.login .register_company_team .board .groups .group .group_17 {
+  background-position: 9px -232px;
+}
+.login .register_company_team .board .groups .group .group_3 {
+  background-position: -111px 10px;
+}
+.login .register_company_team .board .groups .group .group_5 {
+  background-position: 3px -52px;
+}
+.login .register_company_team .board .groups .group .group_4 {
+  background-position: -177px 10px;
+}
+.login .register_company_team .board .groups .group .group_6 {
+  background-position: -53px -52px;
+}
+.login .register_company_team .board .groups .group .group_8 {
+  background-position: -168px -52px;
+}
+.login .register_company_team .board .groups .group .group_9 {
+  background-position: 3px -108px;
+}
+.login .register_company_team .board .groups .group .group_15 {
+  background-position: -113px -172px;
+}
+.login .register_company_team .board .groups .group .shadow {
+  margin: -10px auto 0px;
+  width: 35px;
+  height: 5px;
+  background: #3788c7;
+  border-radius: 100%;
+}
+.login .register_company_team .board .groups .group .shadow.active {
+  background: #46aaf5;
+}
+.login .register_company_team .board .groups .group label {
+  color: #fff;
+  font-size: 12px;
+}
+.login .register_company_team .board .groups .group.active {
+  color: #94cd3e;
+}
+.login .register_company_team .board .groups .group.active .img_contain {
+  border: 1px solid #fff;
+  border-radius: 100%;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}

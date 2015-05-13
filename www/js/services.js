@@ -979,6 +979,17 @@ angular.module('donlerApp.services', [])
             callback('error');
           });
       },
+      // 获取供注册企业新建小队用的全部类型group
+      getGroupsList: function(callback) {
+        $http.get(CONFIG.BASE_URL + '/groups/list')
+          .success(function (data, status, headers, config) {
+            console.log(data);
+            callback(null, data);
+          })
+          .error(function (data, status, headers, config) {
+            callback('error');
+          });
+      },
 
       createTeam: function(data, callback) {
         $http.post(CONFIG.BASE_URL + '/teams', data)
