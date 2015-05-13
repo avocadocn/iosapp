@@ -281,6 +281,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_user_waitEmail', {
         url: '/register/user/wait_email',
+        controller:'ResendEamilController',
         templateUrl: './views/register-user-wait-email.html'
       })
       .state('register_success', {

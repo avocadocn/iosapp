@@ -232,16 +232,15 @@ angular.module('donlerApp.services', [])
         if(!email&&!name) {
           callback('参数错误');
         }else{
-          if(email)
+          if(email && !name)
             data = {email: email};
-          else
+          else if(!email && name)
             data = {name: name};
+          else
+            data = {email: email, name: name};
           $http.post(CONFIG.BASE_URL + '/companies/validate',data)
           .success(function (data, status) {
-            if(data.validate)
-              callback();
-            else
-              callback(data.msg);
+            callback(data.msg, data);
           }).error(function (data, status) {
             callback(data ? data.msg : '网络连接错误');
           });
@@ -313,7 +312,15 @@ angular.module('donlerApp.services', [])
       signup: function(data, callback) {
         $http.post(CONFIG.BASE_URL + '/users', data)
         .success(function (data, status) {
-          callback();
+          callback(null);
+        }).error(function (data, status) {
+          callback(data ? data.msg : '网络连接错误');
+        });
+      },
+      resendActiveEmail: function(data, callback) {
+        $http.post(CONFIG.BASE_URL + '/users/resend/activeEmail', data)
+        .success(function (data, status) {
+          callback(null);
         }).error(function (data, status) {
           callback(data ? data.msg : '网络连接错误');
         });
