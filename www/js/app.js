@@ -283,9 +283,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/register/user/wait_email',
         templateUrl: './views/register-user-wait-email.html'
       })
-      .state('register_user_success', {
-        url: '/register/user/success',
-        templateUrl: './views/register-user-success.html'
+      .state('register_success', {
+        url: '/register/success',
+        templateUrl: './views/register-success.html'
       })
       .state('register_user_activeCode', {
         url: '/register/user/active_code',

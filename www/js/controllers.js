@@ -2313,7 +2313,7 @@ angular.module('donlerApp.controllers', [])
 
   }])
   .controller('HrSignupTeamController', ['$scope', '$state', '$rootScope', 'CompanySignup', 'Team', 'CONFIG', 'INFO', function($scope, $state, $rootScope, CompanySignup, Team, CONFIG, INFO) {
-    Team.getGroupsList(function(status, data) {
+    Team.getGroups(function(status, data) {
       console.log(data);
       $scope.groups = data.splice(0, 16);
     });
@@ -2326,6 +2326,7 @@ angular.module('donlerApp.controllers', [])
         return group.selected === true;
       });
       console.log(selectedGroups);
+      $state.go('register_success');
       // $http.post('/company/quickCreateTeams',{
       //   groups: selectedGroups,
       //   uid: uid
@@ -2512,7 +2513,7 @@ angular.module('donlerApp.controllers', [])
       UserSignup.signup($scope.data, function(msg, data) {
         $rootScope.hideLoading();
         if(!msg){
-          $state.go('register_user_success');
+          $state.go('register_success');
         }else{
           $rootScope.showAction({titleText:msg})
         }
