@@ -10,7 +10,7 @@
       </label>
       <button ng-click="search()" class="button-clear">搜索</button>
     </div>
-    <div id="{{mapName}}" class="map_container"></div>
+    <div id="{{mapName}}" ng-style="{'width':width,'height':height+'px'}" class="map_container"></div>
     <div class="item-button">
       <button ng-click="closeModal()" class="button button-full button_sponsor">确定</button>
     </div>

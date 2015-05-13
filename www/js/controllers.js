@@ -61,7 +61,7 @@ angular.module('donlerApp.controllers', [])
             if (err) {
               // todo
               console.log(err);
-              $state.go('login');
+              $state.go('hr_login');
             } else {
               $state.go('home');
             }
@@ -77,12 +77,12 @@ angular.module('donlerApp.controllers', [])
     $scope.hidenGuide = function () {
       $scope.company.guide_step = 1;
       Company.edit(localStorage.id,{guide_step:1})
-          .success(function(data) {
-            
-          })
-          .error(function(data) {
-            console.log('err');
-          });
+        .success(function(data) {
+          
+        })
+        .error(function(data) {
+          console.log('err');
+        });
     }
     $scope.$on('$ionicView.enter', function(scopes, states) {
       // 为true或undefined时获取公司数据
@@ -94,7 +94,7 @@ angular.module('donlerApp.controllers', [])
             $scope.company = data;
           })
           .error(function(data) {
-            $rootScope.showAction({titleText:data.msg || '获取公司数据失败'});
+            $rootScope.showAction({titleText:data ? data.msg: '获取公司数据失败'});
           });
       }
     });
