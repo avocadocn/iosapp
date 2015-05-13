@@ -25,7 +25,8 @@
                 <select ng-model="district" ng-options="district.value for district in districts"></select>
               </div>
             </div>
-            <input type="password" ng-model="$parent.password" placeholder="密码" ng-show="!recommandCompany" ng-minlength="6"/><a ng-if="!recommandCompany" ng-click="signup()" ng-disabled="company_signup_form.$invalid" class="next_step">下一步</a>
+            <input type="password" ng-model="$parent.password" placeholder="密码" ng-show="!recommandCompany" ng-minlength="6" required="required"/>
+            <button ng-if="!recommandCompany" ng-click="signup()" ng-disabled="company_signup_form.$invalid" class="next_step">下一步</button>
           </form>
         </div>
       </div>

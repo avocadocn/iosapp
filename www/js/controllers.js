@@ -2223,11 +2223,12 @@ angular.module('donlerApp.controllers', [])
         email: $scope.email,
         password: $scope.password
       };
-      CompanySignup.quickSignup(data, function(err){
+      CompanySignup.quickSignup(data, function(err, data){
         $rootScope.hideLoading();
         if(err){
           $rootScope.showAction({titleText:err})
         }else{
+          INFO.uid = data.uid;
           $state.go('register_company_team');
         }
       });
@@ -2320,6 +2321,7 @@ angular.module('donlerApp.controllers', [])
       console.log(data);
       $scope.groups = data.splice(0, 16);
     });
+    $scope.uid = INFO.uid;
     $scope.selectType = function(index) {
       $scope.groups[index].selected = !$scope.groups[index].selected;
     };
@@ -2328,7 +2330,6 @@ angular.module('donlerApp.controllers', [])
       var selectedGroups = $scope.groups.filter(function(group) {
         return group.selected === true;
       });
-      console.log(selectedGroups);
       $state.go('register_success');
       // $http.post('/company/quickCreateTeams',{
       //   groups: selectedGroups,
@@ -2509,7 +2510,6 @@ angular.module('donlerApp.controllers', [])
       $scope.invitekeyCheck = 1;
     }
     $scope.signup = function() {
-      console.log($scope.data);
       $rootScope.showLoading();
       if(window.analytics){
         window.analytics.trackEvent('Click', 'userSignUp');

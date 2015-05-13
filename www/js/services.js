@@ -271,7 +271,7 @@ angular.module('donlerApp.services', [])
       quickSignup: function(data, callback) {
         $http.post(CONFIG.BASE_URL + '/companies/quickRegister', data)
         .success(function (data, status) {
-          callback();
+          callback(null, data);
         }).error(function (data, status) {
           callback(data ? data.msg : '网络连接错误');
         });
