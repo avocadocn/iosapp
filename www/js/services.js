@@ -255,6 +255,21 @@ angular.module('donlerApp.services', [])
         }).error(function (data, status) {
           callback(data.msg);
         });
+      },
+
+      /**
+       * [quickSignup description] 快速注册
+       * @param  {[type]}   data     [description]
+       * @param  {Function} callback [description]
+       * @return {[type]}            [description]
+       */
+      quickSignup: function(data, callback) {
+        $http.post(CONFIG.BASE_URL + '/companies/quickRegister', data)
+        .success(function (data, status) {
+          callback();
+        }).error(function (data, status) {
+          callback(data.msg);
+        });
       }
     }
   }])

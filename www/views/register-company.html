@@ -9,7 +9,7 @@
       <div class="input_box">
         <div class="board">
           <form name="company_signup_form" novalidate="novalidate">
-            <input ng-model="name" placeholder="公司名称" ng-blur="nameCheck()" required="required"/>
+            <input ng-model="$parent.name" placeholder="公司名称" ng-blur="nameCheck()" required="required"/>
             <p ng-if="recommandCompany &amp;&amp; !domain"> <span>检测到同名公司，不过您的邮箱后缀不对哦，换公司邮箱搜索试试?</span></p>
             <div ng-if="recommandCompany &amp;&amp; !domain" class="form-group"> <a ng-click="changeEmail()" class="btn-success">换邮箱</a><a ng-click="ignoreRecommand()" class="btn-info">继续注册</a></div>
             <p ng-if="recommandCompany &amp;&amp; domain"><span>检测到同名公司</span></p>
@@ -25,7 +25,7 @@
                 <select ng-model="district" ng-options="district.value for district in districts"></select>
               </div>
             </div>
-            <input type="password" ng-model="password" placeholder="密码" ng-show="!recommandCompany" ng-minlength="6"/><a ng-if="!recommandCompany" ng-click="signup()" ng-disabled="company_signup_form.$invalid" class="next_step">下一步</a>
+            <input type="password" ng-model="$parent.password" placeholder="密码" ng-show="!recommandCompany" ng-minlength="6"/><a ng-if="!recommandCompany" ng-click="signup()" ng-disabled="company_signup_form.$invalid" class="next_step">下一步</a>
           </form>
         </div>
       </div>

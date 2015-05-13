@@ -11,7 +11,7 @@ ion-view.login
         .board
           form(name="company_signup_form" novalidate)
             //- input.email(ng-model="email" required readonly)
-            input(ng-model="name" placeholder="公司名称" ng-blur="nameCheck()" required)
+            input(ng-model="$parent.name" placeholder="公司名称" ng-blur="nameCheck()" required)
             //- 同名&&email后缀正确
             p(ng-if="recommandCompany && !domain") 
               span 检测到同名公司，不过您的邮箱后缀不对哦，换公司邮箱搜索试试?
@@ -31,7 +31,7 @@ ion-view.login
                 select(ng-model="city" ng-options="city.value for city in cities" ng-change="selectCity(city)")
               .select_cover(last-child)
                 select(ng-model="district" ng-options="district.value for district in districts")
-            input(type="password" ng-model="password" placeholder="密码" ng-show="!recommandCompany" ng-minlength=6)
+            input(type="password" ng-model="$parent.password" placeholder="密码" ng-show="!recommandCompany" ng-minlength=6)
             a.next_step(ng-if="!recommandCompany" ng-click="signup()" ng-disabled="company_signup_form.$invalid") 下一步
       .signup_bottom
     //- form.signup_form(name="company_signup_form" novalidate)

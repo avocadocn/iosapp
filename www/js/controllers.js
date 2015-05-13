@@ -2207,27 +2207,26 @@ angular.module('donlerApp.controllers', [])
 
     //提交表单数据
     $scope.signup = function() {
-      $state.go('register_company_team');
-      // $rootScope.showLoading();
-      // if(window.analytics){
-      //   window.analytics.trackEvent('Click', 'companySignUp');
-      // }
-      // var data = {
-      //   name: $scope.name,
-      //   province: $scope.province,
-      //   city: $scope.city,
-      //   district: $scope.district,
-      //   email: $scope.email,
-      // };
-      
-      // CompanySignup.signup(data, function(err){
-      //   $rootScope.hideLoading();
-      //   if(err){
-      //     $rootScope.showAction({titleText:err})
-      //   }else{
-      //     $state.go('register_company_wait');
-      //   }
-      // });
+      $rootScope.showLoading();
+      if(window.analytics){
+        window.analytics.trackEvent('Click', 'companySignUp');
+      }
+      var data = {
+        name: $scope.name,
+        province: $scope.province.value,
+        city: $scope.city.value,
+        district: $scope.district.value,
+        email: $scope.email,
+        password: $scope.password
+      };
+      CompanySignup.quickSignup(data, function(err){
+        $rootScope.hideLoading();
+        if(err){
+          $rootScope.showAction({titleText:err})
+        }else{
+          $state.go('register_company_team');
+        }
+      });
     };
     //validate
     var pattern =  /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
