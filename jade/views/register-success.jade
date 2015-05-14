@@ -3,14 +3,15 @@ ion-view.login
     a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
     h1.title 注册成功
     a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
-  ion-content.register_user_success(scroll="false")
-    .register_header
-      img.logo(src="./img/register/dl_logo_signup.png")
-    .register_body
-      .board
-        .board_content
-          img.register_success(src="./img/register/dl_signup_success.png")
-          p.email_tip 去邮箱查找激活邮件
-          a.email_link(target="_blank" ng-href="message://")
-            span 打开ios邮箱
-            i.fa.ion-chevron-right
+  ion-content.register_user_success
+    .register
+      .register_header
+        img.logo(src="./img/register/dl_logo_signup.png")
+      .register_body
+        .board
+          .board_content
+            img.register_success(src="./img/register/dl_signup_success.png")
+            p.email_tip 去邮箱查找激活邮件
+            a.email_link(target="_blank" ng-href="message://")
+              span 去邮箱
+              i.fa.ion-chevron-right

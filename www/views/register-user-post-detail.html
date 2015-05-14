@@ -3,67 +3,69 @@
   <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">个人注册</h1><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
   </ion-header-bar>
-  <ion-content scroll="false" class="register_user_post_detail">
-    <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
-    <div class="register_body">
-      <div class="board">
-        <div class="company_input_box">
-          <form role="form" name="active_form">
-            <div class="register_container company_name clearfix">
-              <div class="register_label"> 
-                <label>*企业名称:</label>
+  <ion-content class="register_user_post_detail">
+    <div class="register">
+      <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
+      <div class="register_body">
+        <div class="board">
+          <div class="company_input_box">
+            <form role="form" name="active_form">
+              <div class="register_container company_name clearfix">
+                <div class="register_label"> 
+                  <label>*企业名称:</label>
+                </div>
+                <div class="register_company_name">{{companyName}}</div>
               </div>
-              <div class="register_company_name">{{companyName}}</div>
-            </div>
-            <div ng-if="!hideInviteKey" class="register_container clearfix">
-              <div class="register_label"> 
-                <label>*邀请码:</label>
-              </div>
-              <div class="register_input">
-                <input type="text" placeholder="向同事索要8位邀请码" name="inviteKey" ng-model="data.inviteKey" ng-minlength="8" ng-maxlength="8" ng-change="checkInvitekey()" required="required"/>
-                <div class="key_tips"><i ng-if="invitekeyCheck===1" class="fa ion-checkmark-round active"></i><i ng-if="invitekeyCheck===2" class="fa ion-close-round inactive"></i></div>
-              </div>
-            </div>
-            <div class="register_container clearfix">
-              <div class="register_label"> 
-                <label>*昵称:</label>
-              </div>
-              <div class="register_input">
-                <input type="text" name="nickname" ng-model="data.nickname" required="required"/>
-              </div>
-            </div>
-            <div class="register_container clearfix">
-              <div class="register_label"> 
-                <label>*真实姓名:</label>
-              </div>
-              <div class="register_input">
-                <input type="text" name="realname" ng-model="data.realname" required="required"/>
-              </div>
-            </div>
-            <div class="register_container clearfix">
-              <div class="register_label"> 
-                <label>*密码:</label>
-              </div>
-              <div class="register_input">
-                <input type="password" name="password" ng-model="data.password" ng-minlength="6" required="required"/>
-              </div>
-            </div>
-            <div class="register_container clearfix">
-              <div class="register_label"> </div>
-              <div class="register_input">
-                <label>点击注册即代表同意</label><a>服务条款</a>
-              </div>
-              <div class="register_container">
-                <div class="register_label"> </div>
+              <div ng-if="!hideInviteKey" class="register_container clearfix">
+                <div class="register_label"> 
+                  <label>*邀请码:</label>
+                </div>
                 <div class="register_input">
-                  <button ng-click="signup()" ng-disabled="active_form.$invalid || invitekeyCheck === 2 || !invitekeyCheck" class="dl_button register_button">免费注册个人账号</button>
+                  <input type="text" placeholder="向同事索要8位邀请码" name="inviteKey" ng-model="data.inviteKey" ng-minlength="8" ng-maxlength="8" ng-change="checkInvitekey()" required="required"/>
+                  <div class="key_tips"><i ng-if="invitekeyCheck===1" class="fa ion-checkmark-round active"></i><i ng-if="invitekeyCheck===2" class="fa ion-close-round inactive"></i></div>
                 </div>
               </div>
-            </div>
-          </form>
+              <div class="register_container clearfix">
+                <div class="register_label"> 
+                  <label>*昵称:</label>
+                </div>
+                <div class="register_input">
+                  <input type="text" name="nickname" ng-model="data.nickname" required="required"/>
+                </div>
+              </div>
+              <div class="register_container clearfix">
+                <div class="register_label"> 
+                  <label>*真实姓名:</label>
+                </div>
+                <div class="register_input">
+                  <input type="text" name="realname" ng-model="data.realname" required="required"/>
+                </div>
+              </div>
+              <div class="register_container clearfix">
+                <div class="register_label"> 
+                  <label>*密码:</label>
+                </div>
+                <div class="register_input">
+                  <input type="password" name="password" ng-model="data.password" ng-minlength="6" required="required"/>
+                </div>
+              </div>
+              <div class="register_container clearfix">
+                <div class="register_label"> </div>
+                <div class="register_input">
+                  <label>点击注册即代表同意</label><a>服务条款</a>
+                </div>
+                <div class="register_container">
+                  <div class="register_label"> </div>
+                  <div class="register_input">
+                    <button ng-click="signup()" ng-disabled="active_form.$invalid || invitekeyCheck === 2 || !invitekeyCheck" class="dl_button register_button">免费注册个人账号</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+        <div class="register_bottom"></div>
       </div>
-      <div class="register_bottom"></div>
     </div>
   </ion-content>
 </ion-view>

@@ -1,0 +1,21 @@
+ion-view.login
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    h1.title 注册
+    a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
+  ion-content.register_company_list
+    .register
+      .register_header
+        img.logo(src="./img/register/dl_logo_signup.png")
+      .board
+        img.search_title(src="./img/register/dl_signup_search_title.png")
+        i.fa.ion-reply(ng-click="preStep()")
+        .companies
+          .company(ng-repeat="company in companies" ng-click="goDetail(company)")
+            span {{company.name}}
+            i.fa.ion-chevron-right
+          span.prePage(ng-click="prePage()" ng-if="hasPrevious") 上一页
+          span.nextPage(ng-click="nextPage()" ng-if="hasNext") 下一页
+      .register_bottom
+        img.notfound(src="./img/register/dl_signup_notfound.png")
+        a.organize(ng-click="organize()")

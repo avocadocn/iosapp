@@ -3,52 +3,53 @@ ion-view.login
     a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
     h1.title 个人注册
     a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
-  ion-content.register_user_post_detail(scroll="false")
-    .register_header
-      img.logo(src="./img/register/dl_logo_signup.png")
-    .register_body
-      .board
-        .company_input_box
-          form(role="form" name='active_form')
-            .register_container.company_name.clearfix
-              .register_label 
-                label *企业名称:
-              .register_company_name {{companyName}}
-            //- .signup_container.clearfix(ng-hide="true")
-            //-   .sinup_label 
-            //-     label *企业邮箱:
-            //-   .sinup_input
-            //-     input(type="text" name="email" ng-model="userInfo.email" readonly)
-            .register_container.clearfix(ng-if="!hideInviteKey")
-              .register_label 
-                label *邀请码:
-              .register_input
-                input(type="text" placeholder="向同事索要8位邀请码" name="inviteKey" ng-model="data.inviteKey" ng-minlength=8 ng-maxlength=8 ng-change="checkInvitekey()" required)
-                .key_tips
-                  i.fa.ion-checkmark-round.active(ng-if="invitekeyCheck===1")
-                  i.fa.ion-close-round.inactive(ng-if="invitekeyCheck===2")
-            .register_container.clearfix
-              .register_label 
-                label *昵称:
-              .register_input
-                input(type="text" name="nickname" ng-model="data.nickname" required)
-            .register_container.clearfix
-              .register_label 
-                label *真实姓名:
-              .register_input
-                input(type="text" name="realname" ng-model="data.realname" required)
-            .register_container.clearfix
-              .register_label 
-                label *密码:
-              .register_input
-                input(type="password" name="password" ng-model="data.password" ng-minlength=6 required)
-            .register_container.clearfix
-              .register_label 
-              .register_input
-                label 点击注册即代表同意
-                a 服务条款
-              .register_container
+  ion-content.register_user_post_detail
+    .register
+      .register_header
+        img.logo(src="./img/register/dl_logo_signup.png")
+      .register_body
+        .board
+          .company_input_box
+            form(role="form" name='active_form')
+              .register_container.company_name.clearfix
+                .register_label 
+                  label *企业名称:
+                .register_company_name {{companyName}}
+              //- .signup_container.clearfix(ng-hide="true")
+              //-   .sinup_label 
+              //-     label *企业邮箱:
+              //-   .sinup_input
+              //-     input(type="text" name="email" ng-model="userInfo.email" readonly)
+              .register_container.clearfix(ng-if="!hideInviteKey")
+                .register_label 
+                  label *邀请码:
+                .register_input
+                  input(type="text" placeholder="向同事索要8位邀请码" name="inviteKey" ng-model="data.inviteKey" ng-minlength=8 ng-maxlength=8 ng-change="checkInvitekey()" required)
+                  .key_tips
+                    i.fa.ion-checkmark-round.active(ng-if="invitekeyCheck===1")
+                    i.fa.ion-close-round.inactive(ng-if="invitekeyCheck===2")
+              .register_container.clearfix
+                .register_label 
+                  label *昵称:
+                .register_input
+                  input(type="text" name="nickname" ng-model="data.nickname" required)
+              .register_container.clearfix
+                .register_label 
+                  label *真实姓名:
+                .register_input
+                  input(type="text" name="realname" ng-model="data.realname" required)
+              .register_container.clearfix
+                .register_label 
+                  label *密码:
+                .register_input
+                  input(type="password" name="password" ng-model="data.password" ng-minlength=6 required)
+              .register_container.clearfix
                 .register_label 
                 .register_input
-                  button.dl_button.register_button(ng-click="signup()" ng-disabled="active_form.$invalid || invitekeyCheck === 2 || !invitekeyCheck") 免费注册个人账号
-      .register_bottom
+                  label 点击注册即代表同意
+                  a 服务条款
+                .register_container
+                  .register_label 
+                  .register_input
+                    button.dl_button.register_button(ng-click="signup()" ng-disabled="active_form.$invalid || invitekeyCheck === 2 || !invitekeyCheck") 免费注册个人账号
+        .register_bottom

@@ -2137,6 +2137,10 @@ angular.module('donlerApp.controllers', [])
   .controller('HrSignupController' ,['$scope', '$state', '$rootScope', 'CompanySignup', 'Region', 'CONFIG', 'INFO', function ($scope, $state, $rootScope, CompanySignup, Region, CONFIG, INFO) {
     $scope.$on('$ionicView.enter', function(scopes, states) {
       $scope.email = INFO.email;
+      $scope.recommandCompany = null;
+      $scope.name = '';
+      $scope.password = '';
+      // console.log($scope.email);
     });
     var arrayObjectIndexOf = function (myArray, searchTerm, property) {
       var _property = property.split('.');
@@ -2219,31 +2223,30 @@ angular.module('donlerApp.controllers', [])
           $rootScope.showAction({titleText:err})
         }else{
           INFO.uid = data.uid;
-          INFO.signupCompany = true;
           $state.go('register_company_team');
         }
       });
     };
-    //validate
-    var pattern =  /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
-    $scope.reg = true;
-    $scope.mailRegCheck = function() {
-      $scope.reg = (pattern.test($scope.email));
-    };
-    $scope.mailCheck = function() {
-      if($scope.reg&&$scope.email){
-        CompanySignup.validate($scope.email, null, function(msg){
-          if(!msg){
-            $scope.mail_error = false;
-            $scope.mail_msg = '该邮箱可以使用';
-          }else{
-            $scope.mail_error = true;
-            $scope.mail_msg = '该邮箱已存在或您输入的邮箱有误'
-          }
-          $scope.mail_check = true;
-        });
-      }
-    };
+    // //validate
+    // var pattern =  /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+    // $scope.reg = true;
+    // $scope.mailRegCheck = function() {
+    //   $scope.reg = (pattern.test($scope.email));
+    // };
+    // $scope.mailCheck = function() {
+    //   if($scope.reg&&$scope.email){
+    //     CompanySignup.validate($scope.email, null, function(msg){
+    //       if(!msg){
+    //         $scope.mail_error = false;
+    //         $scope.mail_msg = '该邮箱可以使用';
+    //       }else{
+    //         $scope.mail_error = true;
+    //         $scope.mail_msg = '该邮箱已存在或您输入的邮箱有误'
+    //       }
+    //       $scope.mail_check = true;
+    //     });
+    //   }
+    // };
 
     $scope.nameCheck = function() {
       if($scope.name) {
@@ -2265,7 +2268,6 @@ angular.module('donlerApp.controllers', [])
       $scope.recommandCompany = null;
     };
     $scope.changeEmail = function() {
-      INFO.changeEmail = true;
       $state.go('register_user_searchCompany');
     };
 
@@ -2304,16 +2306,20 @@ angular.module('donlerApp.controllers', [])
                 titleText: err
               })
             } else {
-              INFO.signupCompanyTeam = true;
               $state.go('register_success');
             }
         });
     }
   }])
   .controller('ResendEamilController', ['$scope', '$state', '$rootScope', 'UserSignup', 'Team', 'CONFIG', 'INFO', function($scope, $state, $rootScope, UserSignup, Team, CONFIG, INFO) {
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // console.log(INFO.emailActive);
+      $scope.email = INFO.emailActive;
+    });
+    
     $scope.resend = function() {
       $rootScope.showLoading();
-      UserSignup.resendActiveEmail({email: INFO.emailActive}, function(msg, data) {
+      UserSignup.resendActiveEmail({email: $scope.email}, function(msg, data) {
         $rootScope.hideLoading();
         if(!msg) {
           $state.go('register_success');
@@ -2325,16 +2331,9 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('UserSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
     $scope.$on('$ionicView.enter', function(scopes, states) {
-      if(INFO.changeEmail || INFO.signupCompany || INFO.signupCompanyTeam || INFO.signupUser) {
-        INFO.changeEmail = false;
-        INFO.signupCompany = false;
-        INFO.signupCompanyTeam = false;
-        INFO.signupUser = false;
-        $scope.active = '';
         $scope.companyEmail.value = '';
-      }
     });
-
+    $scope.companyEmail = {};
     var pattern = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
     $scope.checkMail = function(keyEvent) {
       if ((!keyEvent || keyEvent.which === 13) && $scope.companyEmail.value) {
@@ -2342,19 +2341,18 @@ angular.module('donlerApp.controllers', [])
         if (reg) {
           $scope.loading = true;
           UserSignup.validate($scope.companyEmail.value, null, null, function(msg, data) {
+            $scope.loading = false;
             if(data.active == 1) { //未注册过
-              $scope.hideInviteKey = data.hideInviteKey;
+              INFO.hideInviteKey = data.hideInviteKey;
+              INFO.email = $scope.companyEmail.value;
               searchCompany();
             } else if(data.active == 2) { //邮箱注册但未激活
               INFO.emailActive = $scope.companyEmail.value;
-              $scope.companyEmail.value = '';
-              $scope.active = '';
               $state.go('register_user_waitEmail');
             } else { // 邮箱已激活、并注册完毕
-              $scope.companyEmail.value = '';
-              $scope.active = '';
               $state.go('register_login');
             }
+
           });
         } else {
           $scope.companyEmail.value = '';
@@ -2362,35 +2360,47 @@ angular.module('donlerApp.controllers', [])
       }
     };
 
-    $scope.companyEmail = {};
     var searchCompany = function() {
       UserSignup.searchCompany($scope.companyEmail.value, 1, 4, function(msg, data) {
         if (!msg) {
           if(data.companies === undefined || data.companies.length === 0) {
-            $scope.hasFindCompany = false;
-            $scope.active = 1;
+            $state.go('register_company_notfound');
           } else {
-            $scope.hasFindCompany = true;
-            $scope.active = 1;
+            $state.go('register_company_list');
+          }
+        }
+      });
+    };
+  }])
+  .controller('RegisterCompanyListController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // console.log(INFO.email);
+      $scope.email = INFO.email;
+      UserSignup.searchCompany(INFO.email, 1, 4, function(msg, data) {
+        if (!msg) {
+          if (data.companies === undefined || data.companies.length === 0) {
+            $state.go('register_company_notfound');
+          } else {
             $scope.page = 1;
             $scope.companies = data.companies;
-            if($scope.page === data.pageCount) {$scope.hasNext = false;}
-            else { $scope.hasNext = true; }
+            if ($scope.page === data.pageCount) {
+              $scope.hasNext = false;
+            } else {
+              $scope.hasNext = true;
+            }
             $scope.hasPrevious = false;
           }
         }
-        // $scope.searched = true;
       });
-    };
+    });
+
     $scope.preStep = function() {
-      $scope.companyEmail.value = '';
-      $scope.active = '';
-      $scope.hasFindCompany = false;
+      $state.go('register_user_searchCompany');
     }
 
     $scope.nextPage = function() {
       if($scope.hasNext) {
-        UserSignup.searchCompany($scope.companyEmail.value, $scope.page + 1, 4, function(msg, data) {
+        UserSignup.searchCompany($scope.email, $scope.page + 1, 4, function(msg, data) {
           if (!msg) {
             $scope.page ++;
             $scope.companies = data.companies;
@@ -2402,7 +2412,7 @@ angular.module('donlerApp.controllers', [])
     };
     $scope.prePage = function() {
       if($scope.hasPrevious) {
-        UserSignup.searchCompany($scope.companyEmail.value, $scope.page - 1, 4, function(msg, data) {
+        UserSignup.searchCompany($scope.email, $scope.page - 1, 4, function(msg, data) {
           if (!msg) {
             $scope.companies=data.companies;
             $scope.hasNext = true;
@@ -2414,31 +2424,38 @@ angular.module('donlerApp.controllers', [])
     };
     $scope.organize = function() {
       $state.go('register_company');
-      INFO.email = $scope.companyEmail.value;
     }
     $scope.goDetail = function(company) {
       INFO.companyId = company._id;
       INFO.companyName = company.name;
-      INFO.email = $scope.companyEmail.value;
-      INFO.hideInviteKey = $scope.hideInviteKey;
       if(company.mail_active){
-        $scope.companyEmail.value = '';
-        $scope.active = '';
         $state.go('register_user_postDetail',{cid:company._id});
       }else{
         $state.go('register_user_remind_activate');
       }
     };
   }])
-  .controller('UserRegisterDetailController', ['$scope', '$rootScope', '$state', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, UserSignup, INFO) {
-    $scope.data = {};
-    $scope.data.cid = INFO.companyId;
-    $scope.data.email = INFO.email;
-    $scope.companyName = INFO.companyName;
-    $scope.hideInviteKey = INFO.hideInviteKey;
-    if($scope.hideInviteKey) {
-      $scope.invitekeyCheck = 1;
+  .controller('RegisterCompanyNotFoundController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
+    // console.log(INFO.email);
+    $scope.organize = function() {
+      $state.go('register_company');
     }
+    $scope.preStep = function() {
+      $state.go('register_user_searchCompany');
+    }
+  }])
+  .controller('UserRegisterDetailController', ['$scope', '$rootScope', '$state', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, UserSignup, INFO) {
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // console.log(INFO.email);
+      $scope.data = {};
+      $scope.data.cid = INFO.companyId;
+      $scope.data.email = INFO.email;
+      $scope.companyName = INFO.companyName;
+      $scope.hideInviteKey = INFO.hideInviteKey;
+      if ($scope.hideInviteKey) {
+        $scope.invitekeyCheck = 1;
+      }
+    });
     $scope.signup = function() {
       $rootScope.showLoading();
       if(window.analytics){
@@ -2447,7 +2464,6 @@ angular.module('donlerApp.controllers', [])
       UserSignup.signup($scope.data, function(msg, data) {
         $rootScope.hideLoading();
         if(!msg){
-          INFO.signupUser = true;
           $state.go('register_success');
         }else{
           $rootScope.showAction({titleText:msg})

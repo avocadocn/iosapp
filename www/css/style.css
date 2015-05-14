@@ -5882,7 +5882,7 @@ a>.login .companies_list:activated {
 .hr_active_code .list .item .invite_key_qr_code {
   margin-top: 16px;
 }
-.login .register_search_company {
+.login .register_search_company .register {
   background-color: #46aaf5;
   background-image: url("../img/register/dl_signup_man.gif");
   background-size: 128px 234.5px;
@@ -6001,6 +6001,8 @@ a>.login .companies_list:activated {
   width: 100%;
   min-height: 450px;
   background-color: #ffd54b;
+}
+.login .register_company_list .register {
   background-image: url("../img/register/dl_signup_paper.gif");
   background-size: 241.5px 338.5px;
   background-repeat: no-repeat;
@@ -6090,6 +6092,8 @@ a>.login .companies_list:activated {
 }
 .login .register_user_post_detail {
   width: 100%;
+}
+.login .register_user_post_detail .register {
   background-color: #2cc3c7;
   background-image: url("../img/register/dl_signup_sun.gif");
   background-repeat: no-repeat;
@@ -6214,9 +6218,11 @@ a>.login .companies_list:activated {
 }
 .login .register_user_success {
   width: 100%;
+  background-color: #32bde5;
+}
+.login .register_user_success .register {
   background-image: url("../img/signup/dl_signup_bg_5.png");
   background-size: cover;
-  background-color: #32bde5;
 }
 .login .register_user_success .register_header {
   width: 100%;
@@ -6272,6 +6278,8 @@ a>.login .companies_list:activated {
   width: 100%;
   min-height: 450px;
   background-color: #ffd54b;
+}
+.login .register_company_notfound .register {
   background-image: url("../img/register/dl_signup_paper.gif");
   background-size: 241.5px 338.5px;
   background-repeat: no-repeat;
@@ -6359,6 +6367,8 @@ a>.login .companies_list:activated {
 }
 .login .register_company {
   width: 100%;
+}
+.login .register_company .register {
   background-color: #ef6767;
   background-image: url("../img/register/dl_signup_bg_3.gif");
   background-size: 320px 568px;
@@ -6495,6 +6505,7 @@ a>.login .companies_list:activated {
   opacity: 0.5;
 }
 .login .register_company .register_body .signup_bottom {
+  min-height: 265px;
   background-image: url("../img/register/dl_signup_woman.gif");
   background-size: 200.5px 208.5px;
   background-repeat: no-repeat;
@@ -6504,6 +6515,8 @@ a>.login .companies_list:activated {
 .login .register_company_team {
   width: 100%;
   background-color: #46aaf5;
+}
+.login .register_company_team .register {
   background-image: url("../img/register/dl_signup_paper_plane.gif");
   background-size: 118.5px 77.5px;
   background-repeat: no-repeat;

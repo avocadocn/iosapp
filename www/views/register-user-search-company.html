@@ -3,38 +3,15 @@
   <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">注册</h1><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
   </ion-header-bar>
-  <ion-content scroll="false" ng-show="active !== 1" class="register_search_company">
-    <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
-    <div class="register_body">
-      <div class="board">
-        <input type="email" ng-model="companyEmail.value" ng-keypress="checkMail($event)" placeholder="请输入您的企业邮箱" required="required"/><a ng-click="checkMail()" ng-disabled="loading" class="search"></a>
-      </div>
-      <div class="register_bottom"><img src="./img/register/dl_signup_cloud.gif" class="register_cloud"/></div>
-    </div>
-  </ion-content>
-  <ion-content scroll="false" ng-show="active === 1 &amp;&amp; hasFindCompany" class="register_company_list">
-    <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
-    <div class="board"><img src="./img/register/dl_signup_search_title.png" class="search_title"/><i ng-click="preStep()" class="fa ion-reply"></i>
-      <div class="companies">
-        <div ng-repeat="company in companies" ng-click="goDetail(company)" class="company"><span>{{company.name}}</span><i class="fa ion-chevron-right"></i></div><span ng-click="prePage()" ng-if="hasPrevious" class="prePage">上一页</span><span ng-click="nextPage()" ng-if="hasNext" class="nextPage">下一页</span>
-      </div>
-    </div>
-    <div class="register_bottom"><img src="./img/register/dl_signup_notfound.png" class="notfound"/><a ng-click="organize()" class="organize"></a></div>
-  </ion-content>
-  <ion-content scroll="false" ng-show="active === 1 &amp;&amp; !hasFindCompany" class="register_company_notfound">
-    <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
-    <div class="board clearfix"><i ng-click="preStep()" class="fa ion-reply"></i>
-      <div class="board_content">
-        <div class="not_found">
-          <p>很抱歉，没有找到您的公司</p>
+  <ion-content class="register_search_company">
+    <div class="register">
+      <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
+      <div class="register_body">
+        <div class="board">
+          <input type="email" ng-model="companyEmail.value" ng-keypress="checkMail($event)" placeholder="请输入您的企业邮箱" required="required"/><a ng-click="checkMail()" ng-disabled="loading" class="search"></a>
         </div>
-        <div class="select_line">
-          <div class="left"></div>
-          <div class="middle"></div>
-          <div class="right"></div>
-        </div><a ng-click="organize()" class="button organize_btn">我来组织吧</a>
+        <div class="register_bottom"><img src="./img/register/dl_signup_cloud.gif" class="register_cloud"/></div>
       </div>
     </div>
-    <div class="signup_bottom_3"></div>
   </ion-content>
 </ion-view>
