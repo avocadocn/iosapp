@@ -6216,25 +6216,25 @@ a>.login .companies_list:activated {
   background-repeat: no-repeat;
   background-position-x: center;
 }
-.login .register_user_success {
+.login .register_success {
   width: 100%;
   background-color: #32bde5;
 }
-.login .register_user_success .register {
+.login .register_success .register {
   background-image: url("../img/signup/dl_signup_bg_5.png");
   background-size: cover;
 }
-.login .register_user_success .register_header {
+.login .register_success .register_header {
   width: 100%;
   padding: 5px 10px;
 }
-.login .register_user_success .register_header .logo {
+.login .register_success .register_header .logo {
   width: 70%;
   margin-left: 10%;
   margin-top: 20px;
   max-width: 337px;
 }
-.login .register_user_success .register_body .board {
+.login .register_success .register_body .board {
   margin: 45px auto;
   width: 240px;
   height: 280px;
@@ -6242,23 +6242,23 @@ a>.login .companies_list:activated {
   background-size: 240px 280px;
   background-repeat: no-repeat;
 }
-.login .register_user_success .register_body .board .board_content {
+.login .register_success .register_body .board .board_content {
   width: 100%;
   padding: 20px 20%;
   height: 100%;
   font-size: 16px;
   text-align: center;
 }
-.login .register_user_success .register_body .board .board_content .email_tip {
+.login .register_success .register_body .board .board_content .email_tip {
   text-align: center;
   color: #666;
   padding: 10px 0;
   margin: 0;
 }
-.login .register_user_success .register_body .board .board_content .register_success {
+.login .register_success .register_body .board .board_content .register_success {
   width: 100%;
 }
-.login .register_user_success .register_body .board .board_content .email_link {
+.login .register_success .register_body .board .board_content .email_link {
   display: inline-block;
   background-color: #f5c421;
   width: 100%;
@@ -6269,7 +6269,7 @@ a>.login .companies_list:activated {
   font-size: 18px;
   box-shadow: 2px 2px 2px #999;
 }
-.login .register_user_success .register_body .board .board_content .email_link .fa {
+.login .register_success .register_body .board .board_content .email_link .fa {
   float: right;
   line-height: 40px;
   padding-right: 10px;
