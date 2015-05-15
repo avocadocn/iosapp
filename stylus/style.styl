@@ -4469,7 +4469,7 @@ a.no_underline
         background-image url('../img/register/dl_signup_board.gif')
         background-size contain
         background-repeat no-repeat
-        padding 32% 10%
+        padding 30% 10% 15%
         input
           border-radius 5px
           width 90%
@@ -4495,7 +4495,7 @@ a.no_underline
     .register_bottom
       width 100%
       min-height 265px
-      margin-top 5%
+      //- margin-top 5%
       .register_cloud
         width 55%
         max-width 367px
@@ -4609,12 +4609,7 @@ a.no_underline
         background-color transparent
   .register_user_post_detail
     width 100%
-    .register
-      background-color #2cc3c7
-      background-image url('../img/register/dl_signup_sun.gif')
-      background-repeat no-repeat
-      background-size 212.5px 78.5px
-      background-position 90% 30px
+    background-color #2cc3c7
     .register_header
       width 100%
       padding 5px 10px
@@ -4629,19 +4624,17 @@ a.no_underline
         margin 14px auto 0
         width 95%
         min-width 305px
-        min-height 430px
-        padding 10% 0 20%
-        background-image url('../img/register/dl_signup_input_box.png')
-        background-size contain
-        background-position center
-        background-repeat no-repeat
+        min-height 300px
+        padding 10% 0 10%
+        background-color #2AC464
+        border-radius 10px
         .company_input_box
           width 50%
           min-width 260px
           max-width 370px
           margin auto
           .register_container
-            margin-top 3%
+            margin-top 5%
             clear both
             .register_label
               width 30%
@@ -4650,19 +4643,21 @@ a.no_underline
               label
                 float right
                 font-size 14px
-                color #ccc
+                color #fff
                 font-weight 100
             .register_company_name, .register_company_email
               float right
               padding 7px 0px
               font-size 14px
               width 70%
-              overflow hidden
-              text-overflow ellipsis
-              white-space nowrap
+              textOverflow()
+              color #666
             .register_input
               float right
               width 70%
+              label
+                color #fff
+                font-size 12px
               input
                 border-radius 5px
                 width 90%
@@ -4673,9 +4668,8 @@ a.no_underline
                 background-color #f3f7eb
                 padding 0px 5px
                 color #b2b2b2
-                
               a 
-                color #2cc3c7
+                color #28689b
               .register_button
                 position relative
                 display inline-block
@@ -4684,9 +4678,11 @@ a.no_underline
                 height 30px
                 font-size 14px
                 color #fff
-                background-color #2cc3c7
+                background-color #ff9f41
+                box-shadow 1px 1px 2px rgba(1,1,1,.3)
+                margin-top 10px
                 &:disabled
-                  opacity .65
+                  opacity .9
             .key_tips
               float right
               margin-right 25px
@@ -4698,6 +4694,8 @@ a.no_underline
           .register_container.company_name
             margin-top 5px
             line-height 1
+            .register_label ,.register_company_name
+              padding-bottom 0
       .register_bottom
         background-image url('../img/register/dl_signup_dog.gif')
         min-height 120px

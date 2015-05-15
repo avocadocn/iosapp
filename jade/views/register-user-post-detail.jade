@@ -14,7 +14,7 @@ ion-view.login
               .register_container.company_name.clearfix
                 .register_label 
                   label *企业名称:
-                .register_company_name {{companyName}}
+                .register_company_name(ng-cloak) {{companyName}}
               //- .signup_container.clearfix(ng-hide="true")
               //-   .sinup_label 
               //-     label *企业邮箱:
@@ -51,5 +51,5 @@ ion-view.login
                 .register_container
                   .register_label 
                   .register_input
-                    button.dl_button.register_button(ng-click="signup()" ng-disabled="active_form.$invalid || invitekeyCheck === 2 || !invitekeyCheck") 免费注册个人账号
-        .register_bottom
+                    button.dl_button.register_button(ng-click="signup()" ng-disabled="active_form.$invalid || (invitekeyCheck !==1 && !invitekeyCheck)") 免费注册个人账号
+        //- .register_bottom

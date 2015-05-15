@@ -14,7 +14,7 @@
                 <div class="register_label"> 
                   <label>*企业名称:</label>
                 </div>
-                <div class="register_company_name">{{companyName}}</div>
+                <div ng-cloak="ng-cloak" class="register_company_name">{{companyName}}</div>
               </div>
               <div ng-if="!hideInviteKey" class="register_container clearfix">
                 <div class="register_label"> 
@@ -57,14 +57,13 @@
                 <div class="register_container">
                   <div class="register_label"> </div>
                   <div class="register_input">
-                    <button ng-click="signup()" ng-disabled="active_form.$invalid || invitekeyCheck === 2 || !invitekeyCheck" class="dl_button register_button">免费注册个人账号</button>
+                    <button ng-click="signup()" ng-disabled="active_form.$invalid || (invitekeyCheck !==1 &amp;&amp; !invitekeyCheck)" class="dl_button register_button">免费注册个人账号</button>
                   </div>
                 </div>
               </div>
             </form>
           </div>
         </div>
-        <div class="register_bottom"></div>
       </div>
     </div>
   </ion-content>
