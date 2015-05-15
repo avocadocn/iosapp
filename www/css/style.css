@@ -5932,15 +5932,17 @@ a>.login .companies_list:activated {
   color: #b2b2b2;
 }
 .login .register_search_company .register_body .board .search {
-  width: 75px;
-  height: 30px;
-  float: right;
-  margin-right: 5%;
-  background-image: url("../img/register/dl_signup_search.png");
-  background-size: contain;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  margin-top: 7%;
+  display: inline-block;
+  text-align: center;
+  padding: 7px 0px;
+  width: 70%;
+  height: 34px;
+  margin: 5% 15% 0;
+  color: #fff;
+  background-color: #00a8ff;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 1px 1px 2px rgba(1,1,1,0.3);
 }
 .login .register_search_company .register_bottom {
   width: 100%;
