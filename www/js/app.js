@@ -277,7 +277,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_company_notfound', {
         url: '/register/company/notfound',
-        controller:'RegisterCompanyNotFoundController',
+        controller:'HrSignupController',
         templateUrl: './views/register-company-notfound.html'
       })
       .state('register_user_postDetail', {

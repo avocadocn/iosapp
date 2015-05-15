@@ -2277,7 +2277,9 @@ angular.module('donlerApp.controllers', [])
       INFO.email = $scope.email;
       $state.go('register_user_postDetail',{cid:company._id});
     };
-
+    $scope.preStep = function() {
+      $state.go('register_user_searchCompany');
+    }
   }])
   .controller('HrSignupTeamController', ['$scope', '$state', '$rootScope', 'CompanySignup', 'Team', 'CONFIG', 'INFO', function($scope, $state, $rootScope, CompanySignup, Team, CONFIG, INFO) {
     $scope.$on('$ionicView.enter', function(scopes, states) {
@@ -2434,15 +2436,6 @@ angular.module('donlerApp.controllers', [])
         $state.go('register_user_remind_activate');
       }
     };
-  }])
-  .controller('RegisterCompanyNotFoundController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
-    // console.log(INFO.email);
-    $scope.organize = function() {
-      $state.go('register_company');
-    }
-    $scope.preStep = function() {
-      $state.go('register_user_searchCompany');
-    }
   }])
   .controller('UserRegisterDetailController', ['$scope', '$rootScope', '$state', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, UserSignup, INFO) {
     $scope.$on('$ionicView.enter', function(scopes, states) {
