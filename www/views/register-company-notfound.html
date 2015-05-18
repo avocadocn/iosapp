@@ -1,0 +1,46 @@
+
+<ion-view class="login">
+  <ion-header-bar><a href="#/register/user/search_company" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 class="title">注册</h1><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
+  </ion-header-bar>
+  <ion-content class="register_company_notfound">
+    <div class="register">
+      <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/></div>
+      <div class="register_body">
+        <div class="board clearfix"><img src="./img/register/dl_signup_comeon.png" class="not_found"/>
+          <div class="board_content clearfix">
+            <div class="input_box">
+              <div class="board_company">
+                <form name="companyForm" novalidate="novalidate">
+                  <p class="email_line clearfix"><span class="username">账号:</span><span ng-cloak="ng-cloak" class="email">{{email}}</span></p>
+                  <input type="password" ng-model="$parent.password" placeholder="密码(至少6位)" ng-show="!recommandCompany" ng-minlength="6" required="required"/>
+                  <input ng-model="$parent.name" placeholder="公司名称" ng-blur="nameCheck()" required="required"/>
+                  <p ng-if="recommandCompany &amp;&amp; !domain"> <span>检测到同名公司，不过您的邮箱后缀不对哦，换公司邮箱搜索试试?</span></p>
+                  <div ng-if="recommandCompany &amp;&amp; !domain" class="form-group"> <a ng-click="changeEmail()" class="btn-success">换邮箱</a><a ng-click="ignoreRecommand()" class="btn-info">继续注册</a></div>
+                  <p ng-if="recommandCompany &amp;&amp; domain"><span>检测到同名公司</span></p>
+                  <div ng-if="recommandCompany &amp;&amp; domain" class="form-group"> 
+                    <button ng-click="select(recommandCompany)" class="btn-success">点击加入</button>
+                    <button ng-click="ignoreRecommand()" class="btn-info">继续注册</button>
+                  </div>
+                  <div ng-if="!recommandCompany" class="form-group clearfix">
+                    <div class="select_cover">
+                      <select ng-model="province" ng-options="province.value for province in provinces" ng-change="selcetProvince(province)"></select>
+                    </div>
+                    <div class="select_cover">
+                      <select ng-model="city" ng-options="city.value for city in cities" ng-change="selectCity(city)"></select>
+                    </div>
+                    <div last-child="last-child" class="select_cover">
+                      <select ng-model="district" ng-options="district.value for district in districts"></select>
+                    </div>
+                  </div>
+                  <button ng-if="!recommandCompany" ng-click="signup()" ng-disabled="companyForm.$invalid" class="next_step btn-success">下一步</button>
+                </form>
+              </div>
+            </div>
+            <div class="signup_bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,29 @@
+ion-view.login
+  ion-header-bar
+    //- a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
+    h1.title 建立小队
+    //- a.button.icon-right.ion-chevron-right(href="#/hr/login") 登录&nbsp;
+  ion-content.register_company_team
+    .register
+      //- .register_header
+      //-   img.logo(src="./img/register/dl_logo_signup.png")
+      .register_body
+        .board
+          i.fa.fa-hand-o-right
+          .select_label 选择您感兴趣的项目
+          .select_line
+            .left
+            .middle
+            .right
+          .groups.clearfix
+            .group(ng-repeat='group in groups' ng-class="{'active':group.selected}" ng-click="selectType($index)")
+              .img_contain(class='group_'+'{{group._id}}' )
+              .shadow(ng-class="{'active': group.selected}")
+              //- input.hidden(type='radio' name='group' id='{{group._id}}' value='{{group._id}}' ng-model='newTeam._id' required)
+              label(for='{{group._id}}') {{group.groupType}}
+          .select_line
+            .left
+            .middle
+            .right
+          .register_button
+            a.register_team_button(ng-click="createTeams()") 完成

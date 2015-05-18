@@ -1,5 +1,5 @@
 angular.module('donlerApp.services', [])
-  .factory('myInterceptor', ['$q', '$location', '$rootScope', function($q, $location,$rootScope) {
+  .factory('myInterceptor', ['$q', '$location', '$rootScope', function($q, $location, $rootScope) {
       var signOut = function(){
         var isLogin = true;
         var path = $location.path();
@@ -18,7 +18,6 @@ angular.module('donlerApp.services', [])
             localStorage.removeItem('userType');
             localStorage.removeItem('id');
           }});
-          
         }
       }
       var requestInterceptor = {
@@ -232,18 +231,17 @@ angular.module('donlerApp.services', [])
         if(!email&&!name) {
           callback('参数错误');
         }else{
-          if(email)
+          if(email && !name)
             data = {email: email};
-          else
+          else if(!email && name)
             data = {name: name};
+          else
+            data = {email: email, name: name};
           $http.post(CONFIG.BASE_URL + '/companies/validate',data)
           .success(function (data, status) {
-            if(data.validate)
-              callback();
-            else
-              callback(data.msg);
+            callback(data.msg, data);
           }).error(function (data, status) {
-            callback(data ? data.msg:'网络连接错误');
+            callback(data ? data.msg : '网络连接错误');
           });
         }
 
@@ -258,7 +256,36 @@ angular.module('donlerApp.services', [])
         .success(function (data, status) {
           callback();
         }).error(function (data, status) {
-          callback(data ? data.msg:'网络连接错误');
+          callback(data.msg);
+        });
+      },
+
+      /**
+       * [quickSignup description] 快速注册
+       * @param  {[type]}   data     [description]
+       * @param  {Function} callback [description]
+       * @return {[type]}            [description]
+       */
+      quickSignup: function(data, callback) {
+        $http.post(CONFIG.BASE_URL + '/companies/quickRegister', data)
+        .success(function (data, status) {
+          callback(null, data);
+        }).error(function (data, status) {
+          callback(data ? data.msg : '网络连接错误');
+        });
+      },
+      /**
+       * [quickSignupTeams description] 快速注册小队
+       * @param  {[type]}   data     [description]
+       * @param  {Function} callback [description]
+       * @return {[type]}            [description]
+       */
+      quickSignupTeams: function(data, callback) {
+        $http.post(CONFIG.BASE_URL + '/companies/quickRegisterTeams', data)
+        .success(function (data, status) {
+          callback(null, data);
+        }).error(function (data, status) {
+          callback(data ? data.msg : '网络连接错误');
         });
       }
     }
@@ -270,23 +297,31 @@ angular.module('donlerApp.services', [])
         .success(function (data, status) {
           callback(null,data);
         }).error(function (data, status) {
-          callback(data ? data.msg:'网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
-      searchCompany: function (email, callback) {
-        $http.post(CONFIG.BASE_URL + '/search/companies', {'email':email})
+      searchCompany: function (email, page, limit, callback) {
+        $http.post(CONFIG.BASE_URL + '/search/companies', {'email':email, 'page': page, 'limit': limit})
         .success(function (data, status) {
           callback(null,data);
         }).error(function (data, status) {
-          callback(data ? data.msg:'网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
         });
       },
       signup: function(data, callback) {
         $http.post(CONFIG.BASE_URL + '/users', data)
         .success(function (data, status) {
-          callback();
+          callback(null);
         }).error(function (data, status) {
-          callback(data ? data.msg:'网络连接错误');
+          callback(data ? data.msg : '网络连接错误');
+        });
+      },
+      resendActiveEmail: function(data, callback) {
+        $http.post(CONFIG.BASE_URL + '/users/resend/activeEmail', data)
+        .success(function (data, status) {
+          callback(null);
+        }).error(function (data, status) {
+          callback(data ? data.msg : '网络连接错误');
         });
       }
     }
@@ -1313,7 +1348,7 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
-  .factory('Upload', ['$cordovaFile', '$ionicModal', '$ionicActionSheet', '$ionicLoading', '$cordovaCamera', 'CommonHeaders', '$rootScope', function($cordovaFile, $ionicModal, $ionicActionSheet, $ionicLoading, $cordovaCamera, CommonHeaders,$rootScope) {
+  .factory('Upload', ['$cordovaFile', '$ionicModal', '$ionicActionSheet', '$ionicLoading', '$cordovaCamera', 'CommonHeaders', '$rootScope', function($cordovaFile, $ionicModal, $ionicActionSheet, $ionicLoading, $cordovaCamera, CommonHeaders, $rootScope) {
     return {
       /**
        * 用户选择图片接口
@@ -1937,6 +1972,27 @@ angular.module('donlerApp.services', [])
           } else {
             callback(data.msg?data.msg:'错误');
           }
+        });
+      }
+    };
+  }])
+  .factory('Region', ['$http', 'CONFIG', function ($http, CONFIG) {
+    return {
+      getRegion: function (callback) {
+        $http.get( CONFIG.BASE_URL + '/region')
+        .success(function (data, status, headers, config) {
+          callback(null, data);
+        })
+        .error(function (data, status, headers, config) {
+        });
+      },
+      getCurrentRegion: function(callback) {
+        $http.jsonp('http://api.map.baidu.com/location/ip?ak=krPnXlL3wNORRa1KYN1RAx3c&callback=JSON_CALLBACK')
+        .success(function(data, status) {
+          callback(null, data);
+        })
+        .error(function(data, status) {
+
         });
       }
     };

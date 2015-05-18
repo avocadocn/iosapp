@@ -150,8 +150,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
             hideSheet();
           },
           buttonClicked: function(index) {
-            option.fun && option.fun();
             hideSheet();
+            option.fun && option.fun();
+            
           }
         });
       }
@@ -162,8 +163,8 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
            { text: '确定' }
           ],
           buttonClicked: function() {
-            option.cancelFun && option.cancelFun();
             hideSheet();
+            option.cancelFun && option.cancelFun();
           }
         });
       }
@@ -244,7 +245,17 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_company', {
         url: '/register/company',
+        controller:'HrSignupController',
         templateUrl: './views/register-company.html'
+      })
+      .state('register_company_team', {
+        url: '/register/company/team',
+        controller:'HrSignupTeamController',
+        templateUrl: './views/register-company-team.html'
+      })
+      .state('register_login', {
+        url: '/register/login',
+        templateUrl: './views/register-login.html'
       })
       .state('register_company_law', {
         url: '/register/company/law',
@@ -260,6 +271,16 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         controller:'UserSearchCompanyController',
         templateUrl: './views/register-user-search-company.html'
       })
+      .state('register_company_list', {
+        url: '/register/company/list',
+        controller:'RegisterCompanyListController',
+        templateUrl: './views/register-company-list.html'
+      })
+      .state('register_company_notfound', {
+        url: '/register/company/notfound',
+        controller:'HrSignupController',
+        templateUrl: './views/register-company-notfound.html'
+      })
       .state('register_user_postDetail', {
         url: '/register/user/post_detail/:cid',
         controller: 'UserRegisterDetailController',
@@ -271,7 +292,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_user_waitEmail', {
         url: '/register/user/wait_email',
+        controller:'ResendEamilController',
         templateUrl: './views/register-user-wait-email.html'
+      })
+      .state('register_success', {
+        url: '/register/success',
+        templateUrl: './views/register-success.html'
       })
       .state('register_user_activeCode', {
         url: '/register/user/active_code',

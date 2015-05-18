@@ -61,7 +61,7 @@ angular.module('donlerApp.controllers', [])
             if (err) {
               // todo
               console.log(err);
-              $state.go('login');
+              $state.go('hr_login');
             } else {
               $state.go('home');
             }
@@ -70,7 +70,6 @@ angular.module('donlerApp.controllers', [])
       })
 
     };
-
     $scope.toggleGuide = function() {
       $scope.hiding = !$scope.hiding;
       $ionicScrollDelegate.$getByHandle("mainScroll").resize();
@@ -85,7 +84,6 @@ angular.module('donlerApp.controllers', [])
           console.log('err');
         });
     }
-
     $scope.$on('$ionicView.enter', function(scopes, states) {
       // 为true或undefined时获取公司数据
       if (INFO.hasModifiedCompany !== false || INFO.updateHrHome !== false) {
@@ -96,7 +94,7 @@ angular.module('donlerApp.controllers', [])
             $scope.company = data;
           })
           .error(function(data) {
-            $rootScope.showAction({titleText:data ? data.msg : '获取公司数据失败'});
+            $rootScope.showAction({titleText:data ? data.msg: '获取公司数据失败'});
           });
       }
     });
@@ -988,7 +986,6 @@ angular.module('donlerApp.controllers', [])
     $scope.showUploadActionSheet =function() {
       Upload.getPicture(false, function (err, imageURI) {
         if(!err){
-          console.log(imageURI);
           $scope.previewImg = imageURI;
           $scope.confirmUploadModal.show();
         }
@@ -1209,6 +1206,7 @@ angular.module('donlerApp.controllers', [])
       });
     }
     $scope.doRefresh();
+
   }])
 
   .controller('CompanyTeamListController', ['$scope', '$rootScope', '$state', '$ionicHistory', 'Team', 'INFO', function ($scope, $rootScope, $state, $ionicHistory, Team, INFO) {
@@ -1355,11 +1353,6 @@ angular.module('donlerApp.controllers', [])
   .controller('ContactsController', ['$scope', 'User', 'INFO', 'Tools', function ($scope, User, INFO, Tools) {
     var contactsBackup = [];
     $scope.keyword = {value:''};
-    
-    $scope.cancelSearch = function () {
-      $scope.contacts = contactsBackup;//还原
-      $scope.searching = false;
-    };
     $scope.doRefresh = function (refreshFlag) {
       //获取公司联系人
       User.getCompanyUsers(localStorage.cid,function(msg, data){
@@ -1373,6 +1366,11 @@ angular.module('donlerApp.controllers', [])
       });
     }
     $scope.doRefresh();
+
+    $scope.cancelSearch = function () {
+      $scope.contacts = contactsBackup;//还原
+      $scope.searching = false;
+    };
     $scope.search = function (event) {
       if(window.analytics){
         window.analytics.trackEvent('Click', 'searchContacts');
@@ -1541,13 +1539,13 @@ angular.module('donlerApp.controllers', [])
               User.clearCurrentUser();
               $rootScope.showAction({titleText:'修改头像成功','cancelFun':function () {
                 $state.go('app.personal');
-              }})
+              }});
             }else {
               $rootScope.showAction({titleText:'修改失败，请重试'})
             }
           });
         }
-        else{
+        else {
           $rootScope.showAction({titleText:'获取图片失败'})
         }
       });
@@ -2135,20 +2133,75 @@ angular.module('donlerApp.controllers', [])
   .controller('UserRegPrivacyController', ['$scope', '$ionicNavBarDelegate', 'INFO', function ($scope, $ionicNavBarDelegate, INFO) {
     $scope.backHref = '#/register/user/post_detail/' + INFO.companyId;
   }])
-  .controller('HrSignupController' ,['$scope', '$state', '$rootScope', 'CompanySignup', 'CONFIG', function ($scope, $state, $rootScope, CompanySignup, CONFIG) {
-    //for region
-    var region_url = CONFIG.BASE_URL + '/region';
-    // var region_url = "http://192.168.2.107:3002/region";
-    var selector_elem = document.getElementById('selector');
-    selector_elem.dataset.src = region_url;
-    $scope.province = '安徽省';
-    $scope.city = '安庆市';
-    $scope.district = '大观区';
-    var selector = new LinkageSelector(selector_elem, function(selectValues) {
-      $scope.province = selectValues[0];
-      $scope.city = selectValues[1];
-      $scope.district = selectValues[2];
+  .controller('HrSignupController' ,['$scope', '$state', '$rootScope', 'CompanySignup', 'Region', 'CONFIG', 'INFO', function ($scope, $state, $rootScope, CompanySignup, Region, CONFIG, INFO) {
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      $scope.email = INFO.email;
+      $scope.recommandCompany = null;
+      $scope.name = '';
+      $scope.password = '';
+      // console.log($scope.email);
     });
+    var arrayObjectIndexOf = function (myArray, searchTerm, property) {
+      var _property = property.split('.');
+      for(var i = 0, len = myArray.length; i < len; i++) {
+        var item = myArray[i];
+        _property.forEach( function (_pro) {
+          item = item[_pro];
+        });
+        if (item.toString() === searchTerm.toString()) return i;
+      }
+      return -1;
+    }
+
+    
+    Region.getRegion(function(status, data) {
+      $scope.provinces = data.data;
+      $scope.province = $scope.provinces[0];
+      changeProvince();
+      Region.getCurrentRegion(function(status, data) {
+        var detail = data.content.address_detail;
+        var province = detail.province;
+        var city = detail.city;
+        var district = detail.district;
+        if (province) {
+          var provinceIndex = arrayObjectIndexOf($scope.provinces, province, 'value');
+          if (provinceIndex > -1) {
+            $scope.province = $scope.provinces[provinceIndex];
+            changeProvince();
+            if (city) {
+              var cityIndex = arrayObjectIndexOf($scope.cities, city, 'value');
+              if (cityIndex > -1) {
+                $scope.city = $scope.cities[cityIndex];
+                changeCity();
+                if (district) {
+                  var districtIndex = arrayObjectIndexOf($scope.districts, district, 'value');
+                  $scope.district = $scope.districts[districtIndex];
+                }
+              }
+            }
+          }
+        }
+      });
+    });
+
+    var changeProvince = function() {
+      $scope.cities = $scope.province.data;
+      $scope.city = $scope.cities[0];
+      changeCity();
+    }
+    var changeCity = function() {
+      $scope.districts = $scope.city.data;
+      $scope.district = $scope.districts[0];
+    }
+    $scope.selcetProvince = function(province) {
+      $scope.province = province;
+      changeProvince();
+    };
+    $scope.selectCity = function(city) {
+      $scope.city = city;
+      changeCity();
+    };
+
     //提交表单数据
     $scope.signup = function() {
       $rootScope.showLoading();
@@ -2157,135 +2210,225 @@ angular.module('donlerApp.controllers', [])
       }
       var data = {
         name: $scope.name,
-        province: $scope.province,
-        city: $scope.city,
-        district: $scope.district,
-        address: $scope.address,
-        contacts: $scope.contacts,
-        areacode: $scope.areacode,
-        tel: $scope.tel,
-        extension: $scope.extension,
+        province: $scope.province.value,
+        city: $scope.city.value,
+        district: $scope.district.value,
         email: $scope.email,
-        phone: $scope.phone
+        password: $scope.password
       };
-      CompanySignup.signup(data, function(err){
+      CompanySignup.quickSignup(data, function(err, data){
         $rootScope.hideLoading();
         if(err){
           $rootScope.showAction({titleText:err})
         }else{
-          $state.go('register_company_wait');
+          INFO.uid = data.uid;
+          $state.go('register_company_team');
         }
       });
     };
-    //validate
-    var pattern =  /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
-    $scope.reg = true;
-    $scope.mailRegCheck = function() {
-      $scope.reg = (pattern.test($scope.email));
-    };
-    $scope.mailCheck = function() {
-      if($scope.reg&&$scope.email){
-        CompanySignup.validate($scope.email, null, function(msg){
-          if(!msg){
-            $scope.mail_error = false;
-            $scope.mail_msg = '该邮箱可以使用';
-          }else{
-            $scope.mail_error = true;
-            $scope.mail_msg = '该邮箱已存在或您输入的邮箱有误'
-          }
-          $scope.mail_check = true;
-        });
-      }
-    };
+    // //validate
+    // var pattern =  /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+    // $scope.reg = true;
+    // $scope.mailRegCheck = function() {
+    //   $scope.reg = (pattern.test($scope.email));
+    // };
+    // $scope.mailCheck = function() {
+    //   if($scope.reg&&$scope.email){
+    //     CompanySignup.validate($scope.email, null, function(msg){
+    //       if(!msg){
+    //         $scope.mail_error = false;
+    //         $scope.mail_msg = '该邮箱可以使用';
+    //       }else{
+    //         $scope.mail_error = true;
+    //         $scope.mail_msg = '该邮箱已存在或您输入的邮箱有误'
+    //       }
+    //       $scope.mail_check = true;
+    //     });
+    //   }
+    // };
+
     $scope.nameCheck = function() {
       if($scope.name) {
-        CompanySignup.validate(null, $scope.name, function(msg){
-          if(msg) {
-            $scope.name_repeat = true;
-          }else{
-            $scope.name_repeat = false;
+        CompanySignup.validate($scope.email, $scope.name, function(msg, data){
+          if(data.validate !== undefined && data.validate === 0) {
+            $scope.recommandCompany = {
+              _id: data.cid,
+              name: $scope.name
+            };
+            $scope.domain = data.domain;
+          } else if(data.validate !== undefined && data.validate === 3) {
+            $scope.recommandCompany = '';
           }
-          $scope.name_check = true;
         });
-      }
-    };
-    $scope.check = function(content) {
-      switch(content) {
-        case 'none' :
-          $scope.nameError = false;
-          break;
-        case 'name' :
-          $scope.addressError = false;
-          if(!$scope.name) $scope.nameError = true;
-          break;
-        case 'address':
-          $scope.contactsError = false;
-          if(!$scope.address) $scope.addressError = true;
-          break;
-        case 'contacts':
-          $scope.addressError = false;
-          if(!$scope.contacts) $scope.contactsError = true;
-          break;
-        case 'area':
-          $scope.telError = false;
-          if(!$scope.areacode) $scope.areaError = true;
-          break;
-        case 'tel':
-          $scope.mailError = false;
-          if(!$scope.tel) $scope.telError = true;
-          break;
-        case 'email':
-          if(!$scope.email) $scope.emailError = true;
-          break;
       }
     };
 
-  }])
-  .controller('UserSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
-    // $scope.keypress = function(keyEvent) {
-    //   if (keyEvent.which === 13) {
-    //     $scope.searchCompany();
-    //   }
-    // };
-    $scope.companyEmail = {};
-    var mailCheck = function(callback) {
-      if($scope.companyEmail.value){
-        UserSignup.validate($scope.companyEmail.value, null, null, function (msg, data) {
-          $scope.active=data.active;
-          if(msg){
-            $scope.mail_msg = '您输入的邮箱有误';
-            callback(false);
-          }else{
-            callback($scope.active);
-            $scope.mail_msg = null;
-          }
-          $scope.mail_check = true;
-        });
-      }else{
-        $scope.mail_check = false;
-        $scope.mail_msg = '您输入的邮箱有误';
-        callback(false);
-      }
+    $scope.ignoreRecommand = function() {
+      $scope.recommandCompany = null;
     };
-    $scope.searchCompany = function() {
-      if(window.analytics){
-        window.analytics.trackEvent('Click', 'searchCompany');
-      }
-      mailCheck(function(active){
-        if(active===1){
-          UserSignup.searchCompany($scope.companyEmail.value, function(msg, data){
-            if(!msg){
-              $scope.companies = data;
+    $scope.changeEmail = function() {
+      $state.go('register_user_searchCompany');
+    };
+
+    $scope.select = function(company) {
+      INFO.companyId = company._id;
+      INFO.companyName = company.name;
+      INFO.email = $scope.email;
+      $state.go('register_user_postDetail',{cid:company._id});
+    };
+    $scope.preStep = function() {
+      $state.go('register_user_searchCompany');
+    }
+  }])
+  .controller('HrSignupTeamController', ['$scope', '$state', '$rootScope', 'CompanySignup', 'Team', 'CONFIG', 'INFO', function($scope, $state, $rootScope, CompanySignup, Team, CONFIG, INFO) {
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      Team.getGroups(function(status, data) {
+        $scope.groups = data.splice(0, 16);
+      });
+      $scope.uid = INFO.uid;
+    });
+    
+    $scope.selectType = function(index) {
+      $scope.groups[index].selected = !$scope.groups[index].selected;
+    };
+
+    $scope.createTeams = function() {
+      $rootScope.showLoading();
+      var selectedGroups = $scope.groups.filter(function(group) {
+        return group.selected === true;
+      });
+      CompanySignup.quickSignupTeams({
+            groups: selectedGroups,
+            uid: $scope.uid
+          }, function(err, data) {
+            $rootScope.hideLoading();
+            if (err) {
+              $rootScope.showAction({
+                titleText: err
+              })
+            } else {
+              $state.go('register_success');
             }
-            $scope.searched = true;
-          });
+        });
+    }
+  }])
+  .controller('ResendEamilController', ['$scope', '$state', '$rootScope', 'UserSignup', 'Team', 'CONFIG', 'INFO', function($scope, $state, $rootScope, UserSignup, Team, CONFIG, INFO) {
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // console.log(INFO.emailActive);
+      $scope.email = INFO.emailActive;
+    });
+    
+    $scope.resend = function() {
+      $rootScope.showLoading();
+      UserSignup.resendActiveEmail({email: $scope.email}, function(msg, data) {
+        $rootScope.hideLoading();
+        if(!msg) {
+          $state.go('register_success');
+        } else {
+          $rootScope.showAction({titleText:msg})
         }
       });
     };
+  }])
+  .controller('UserSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+        $scope.companyEmail.value = '';
+    });
+    $scope.companyEmail = {};
+    var pattern = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+    $scope.checkMail = function(keyEvent) {
+      if ((!keyEvent || keyEvent.which === 13) && $scope.companyEmail.value) {
+        var reg = (pattern.test($scope.companyEmail.value))
+        if (reg) {
+          $scope.loading = true;
+          UserSignup.validate($scope.companyEmail.value, null, null, function(msg, data) {
+            $scope.loading = false;
+            if(data.active == 1) { //未注册过
+              INFO.hideInviteKey = data.hideInviteKey;
+              INFO.email = $scope.companyEmail.value;
+              searchCompany();
+            } else if(data.active == 2) { //邮箱注册但未激活
+              INFO.emailActive = $scope.companyEmail.value;
+              $state.go('register_user_waitEmail');
+            } else { // 邮箱已激活、并注册完毕
+              $state.go('register_login');
+            }
+
+          });
+        } else {
+          $scope.companyEmail.value = '';
+        }
+      }
+    };
+
+    var searchCompany = function() {
+      UserSignup.searchCompany($scope.companyEmail.value, 1, 4, function(msg, data) {
+        if (!msg) {
+          if(data.companies === undefined || data.companies.length === 0) {
+            $state.go('register_company_notfound');
+          } else {
+            $state.go('register_company_list');
+          }
+        }
+      });
+    };
+  }])
+  .controller('RegisterCompanyListController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // console.log(INFO.email);
+      $scope.email = INFO.email;
+      UserSignup.searchCompany(INFO.email, 1, 4, function(msg, data) {
+        if (!msg) {
+          if (data.companies === undefined || data.companies.length === 0) {
+            $state.go('register_company_notfound');
+          } else {
+            $scope.page = 1;
+            $scope.companies = data.companies;
+            if ($scope.page === data.pageCount) {
+              $scope.hasNext = false;
+            } else {
+              $scope.hasNext = true;
+            }
+            $scope.hasPrevious = false;
+          }
+        }
+      });
+    });
+
+    $scope.preStep = function() {
+      $state.go('register_user_searchCompany');
+    }
+
+    $scope.nextPage = function() {
+      if($scope.hasNext) {
+        UserSignup.searchCompany($scope.email, $scope.page + 1, 4, function(msg, data) {
+          if (!msg) {
+            $scope.page ++;
+            $scope.companies = data.companies;
+            if($scope.page === data.pageCount) {$scope.hasNext = false;}
+            $scope.hasPrevious = true;
+          }
+        });
+      }
+    };
+    $scope.prePage = function() {
+      if($scope.hasPrevious) {
+        UserSignup.searchCompany($scope.email, $scope.page - 1, 4, function(msg, data) {
+          if (!msg) {
+            $scope.companies=data.companies;
+            $scope.hasNext = true;
+            $scope.page--;
+            if($scope.page===1) {$scope.hasPrevious = false;}
+          }
+        });
+      }
+    };
+    $scope.organize = function() {
+      $state.go('register_company');
+    }
     $scope.goDetail = function(company) {
       INFO.companyId = company._id;
       INFO.companyName = company.name;
-      INFO.email = $scope.companyEmail.value;
       if(company.mail_active){
         $state.go('register_user_postDetail',{cid:company._id});
       }else{
@@ -2294,10 +2437,17 @@ angular.module('donlerApp.controllers', [])
     };
   }])
   .controller('UserRegisterDetailController', ['$scope', '$rootScope', '$state', 'UserSignup', 'INFO', function ($scope, $rootScope, $state, UserSignup, INFO) {
-    $scope.data = {};
-    $scope.data.cid = INFO.companyId;
-    $scope.data.email = INFO.email;
-    $scope.companyName = INFO.companyName;
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // console.log(INFO.email);
+      $scope.data = {};
+      $scope.data.cid = INFO.companyId;
+      $scope.data.email = INFO.email;
+      $scope.companyName = INFO.companyName;
+      $scope.hideInviteKey = INFO.hideInviteKey;
+      if ($scope.hideInviteKey) {
+        $scope.invitekeyCheck = 1;
+      }
+    });
     $scope.signup = function() {
       $rootScope.showLoading();
       if(window.analytics){
@@ -2306,7 +2456,7 @@ angular.module('donlerApp.controllers', [])
       UserSignup.signup($scope.data, function(msg, data) {
         $rootScope.hideLoading();
         if(!msg){
-          $state.go('register_user_waitEmail');
+          $state.go('register_success');
         }else{
           $rootScope.showAction({titleText:msg})
         }
@@ -2326,30 +2476,6 @@ angular.module('donlerApp.controllers', [])
         $scope.invitekeyCheck = false;
       }
     };
-
-    $scope.check = function(content) {
-      switch(content) {
-        case 'none' :
-          $scope.nicknameError = false;
-          break;
-        case 'nickname' :
-          $scope.passError = false;
-          if(!$scope.data.nickname) $scope.nicknameError = true;
-          break;
-        case 'pass':
-          $scope.passConfError = false;
-          if(!$scope.data.password) $scope.passError = true;
-          break;
-        case 'passConf':
-          $scope.nameError = false;
-          if(!$scope.data.passconf) $scope.passConfError = true;
-          break;
-        case 'name':
-          if(!$scope.data.areacode) $scope.nameError = true;
-          break;
-      }
-    };
-
   }])
   .controller('HrActiveCodeController', ['$scope', 'Company', '$cordovaClipboard', '$rootScope', function ($scope, Company, $cordovaClipboard, $rootScope) {
     Company.getInviteKey(localStorage.id, function(msg, data){
@@ -2512,7 +2638,7 @@ angular.module('donlerApp.controllers', [])
       };
     };
 
-    $scope.toEditing = function () {
+    $scope.toEditing = function (item) {
       if ($scope.editing === false) {
         $scope.editing = true;
         // if(item==='shortName'){
@@ -2521,7 +2647,9 @@ angular.module('donlerApp.controllers', [])
         // else{
         //   introduceTextarea.focus();
         // }
+        
       }
+      //$scope.change();
     };
     $scope.cancelEditing = function () {
       if ($scope.editing === true) {
@@ -4341,7 +4469,7 @@ angular.module('donlerApp.controllers', [])
 
       User.getData(localStorage.id, function(err, user) {
         $scope.user = user;
-      });
+      })
 
       var pageLength = 20; // 一次获取的数据量
 

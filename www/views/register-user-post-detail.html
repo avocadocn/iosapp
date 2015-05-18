@@ -1,50 +1,70 @@
 
 <ion-view class="login">
-  <ion-header-bar><a href="#/home" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+  <ion-header-bar><a href="#/register/company/list" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">个人注册</h1><a href="#/user/login" class="button icon-right ion-chevron-right">登录&nbsp;</a>
   </ion-header-bar>
-  <ion-content>
-    <div class="list list-inset tip_msg"><span class="large_tip black_msg">{{companyName}}</span></div>
-    <form name="user_signup_form" novalidate="novalidate" class="signup_form">
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input ng-class="{error:nicknameError}" ng-focus="check('none')" type="text" ng-model="data.nickname" placeholder="*昵称" required="required"/>
-        </label>
+  <ion-content class="register_user_post_detail">
+    <div class="register">
+      <div class="register_header"><img src="./img/register/dl_logo_signup.png" class="logo"/><img src="./img/register/dl_signup_universe.png" class="universe"/></div>
+      <div class="register_body">
+        <div class="board">
+          <div class="company_input_box">
+            <form role="form" name="active_form">
+              <div class="register_container company_name clearfix">
+                <div class="register_label"> 
+                  <label>*企业名称:</label>
+                </div>
+                <div ng-cloak="ng-cloak" class="register_company_name">{{companyName}}</div>
+              </div>
+              <div ng-if="!hideInviteKey" class="register_container clearfix">
+                <div class="register_label"> 
+                  <label>*邀请码:</label>
+                </div>
+                <div class="register_input">
+                  <input type="text" placeholder="向同事索要8位邀请码" name="inviteKey" ng-model="data.inviteKey" ng-minlength="8" ng-maxlength="8" ng-change="checkInvitekey()" required="required"/>
+                  <div class="key_tips"><i ng-if="invitekeyCheck===1" class="fa ion-checkmark-round active"></i><i ng-if="invitekeyCheck===2" class="fa ion-close-round inactive"></i></div>
+                </div>
+              </div>
+              <div class="register_container clearfix">
+                <div class="register_label"> 
+                  <label>*昵称:</label>
+                </div>
+                <div class="register_input">
+                  <input type="text" name="nickname" ng-model="data.nickname" required="required"/>
+                </div>
+              </div>
+              <div class="register_container clearfix">
+                <div class="register_label"> 
+                  <label>*真实姓名:</label>
+                </div>
+                <div class="register_input">
+                  <input type="text" name="realname" ng-model="data.realname" required="required"/>
+                </div>
+              </div>
+              <div class="register_container clearfix">
+                <div class="register_label"> 
+                  <label>*密码:</label>
+                </div>
+                <div class="register_input">
+                  <input type="password" name="password" ng-model="data.password" ng-minlength="6" required="required"/>
+                </div>
+              </div>
+              <div class="register_container clearfix">
+                <div class="register_label"> </div>
+                <div class="register_input">
+                  <label>点击注册即代表同意</label><a>服务条款</a>
+                </div>
+                <div class="register_container">
+                  <div class="register_label"> </div>
+                  <div class="register_input">
+                    <button ng-click="signup()" ng-disabled="active_form.$invalid || (invitekeyCheck !==1 &amp;&amp; !invitekeyCheck)" class="dl_button register_button">免费注册个人账号</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input ng-class="{error:passError}" ng-focus="check('nickname')" type="password" ng-model="data.password" ng-minlength="6" placeholder="*密码(至少6位)" required="required"/>
-        </label>
-      </div>
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input ng-class="{error:passConfError}" ng-focus="check('pass')" type="password" ng-model="data.passconf" placeholder="*密码确认" match="data.password" required="required"/>
-        </label>
-      </div>
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input ng-class="{error:nameError}" ng-focus="check('passConf')" type="text" ng-model="data.realname" placeholder="*真实姓名" required="required"/>
-        </label>
-      </div>
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input type="text" ng-model="data.phone" placeholder="手机号码(选填)"/>
-        </label>
-      </div>
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input ng-focus="check('name')" type="text" ng-model="data.inviteKey" placeholder="*公司专属8位激活码" ng-change="checkInvitekey()" required="required"/>
-        </label>
-      </div>
-      <div class="tip_msg">
-        <p ng-if="!invitekeyCheck" class="gray_msg">为了保证每一个动梨用户都是真实可靠的，请您向HR或同事索要激活码。</p>
-        <p ng-if="invitekeyCheck===1" class="gray_msg">激活码验证成功</p>
-        <p ng-if="invitekeyCheck===2" class="gray_msg">激活码填写错误</p>
-        <p><span class="gray_msg">点击注册即代表同意</span><a href="#/register/user/law" class="blue_msg">《法律声明》及《隐私政策》</a></p>
-      </div>
-      <div class="list list-inset">
-        <button ng-disabled="invitekeyCheck!==1 || user_signup_form.$invalid" ng-click="signup()" class="button dl_button login_button">个人注册</button>
-      </div>
-    </form>
+    </div>
   </ion-content>
 </ion-view>

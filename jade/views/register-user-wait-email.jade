@@ -3,7 +3,18 @@ ion-view.login
     a.button.icon-left.ion-chevron-left(href="#/home") &nbsp;返回
     h1.title 等待激活
     a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
-  ion-content
-    .list.list-inset.tip_msg
-      p.medium_tip.black_msg 请到您的邮箱查阅来自动梨的邮件，您需要点击邮件中的确认链接来完成注册。
+  ion-content.register_wait_active(scroll="false")
+    .register_header
+      img.logo(src="./img/register/dl_logo_signup.png")
+    .register_body
+      .board
+        .board_content
+          //- //- 邮箱已注册，直接登录
+          //- a(href="/index/appdownload" ng-if="!emailDomain && !notVerified")
+          //-   img.signin(src="/img/signup/dl_signup_signin.png")
+          //- 重发激活信
+          img.nomail(src="./img/register/dl_signup_nomail.png" )
+          img.resend(src="./img/register/dl_signup_resend.png" ng-click="resend()")
+    //- .list.list-inset.tip_msg
+    //-   p.medium_tip.black_msg 请到您的邮箱查阅来自动梨的邮件，您需要点击邮件中的确认链接来完成注册。
     //- a.button.button-outline 点击登录邮箱

@@ -1,0 +1,17 @@
+ion-view.login
+  ion-header-bar
+    a.button.icon-left.ion-chevron-left(href="#/register/user/search_company") &nbsp;返回
+    h1.title 注册
+    a.button.icon-right.ion-chevron-right(href="#/user/login") 登录&nbsp;
+  ion-content.register_company_notfound
+    .register
+      .register_header
+        img.logo(src="./img/register/dl_logo_signup.png")
+      .register_body
+        .board.clearfix
+          img.not_found(src="./img/register/dl_signup_comeon.png")
+          //- .not_found
+          //-   p 你比同事先到，快来注册！
+          .board_content.clearfix
+            include ./register-company-detail
+          //- .signup_bottom_3

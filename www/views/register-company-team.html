@@ -1,0 +1,33 @@
+
+<ion-view class="login">
+  <ion-header-bar>
+    <h1 class="title">建立小队</h1>
+  </ion-header-bar>
+  <ion-content class="register_company_team">
+    <div class="register">
+      <div class="register_body">
+        <div class="board"><i class="fa fa-hand-o-right"></i>
+          <div class="select_label">选择您感兴趣的项目</div>
+          <div class="select_line">
+            <div class="left"></div>
+            <div class="middle"></div>
+            <div class="right"></div>
+          </div>
+          <div class="groups clearfix">
+            <div ng-repeat="group in groups" ng-class="{'active':group.selected}" ng-click="selectType($index)" class="group">
+              <div class="img_contain group_{{group._id}}"></div>
+              <div ng-class="{'active': group.selected}" class="shadow"></div>
+              <label for="{{group._id}}">{{group.groupType}}</label>
+            </div>
+          </div>
+          <div class="select_line">
+            <div class="left"></div>
+            <div class="middle"></div>
+            <div class="right"></div>
+          </div>
+          <div class="register_button"><a ng-click="createTeams()" class="register_team_button">完成</a></div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
