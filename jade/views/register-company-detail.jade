@@ -5,7 +5,7 @@
         span.username 账号:
         span.email(ng-cloak) {{email}}
       //- input.email(ng-model="email" required readonly)
-      input(type="password" ng-model="$parent.password" placeholder="密码" ng-show="!recommandCompany" ng-minlength=6 required)
+      input(type="password" ng-model="$parent.password" placeholder="密码(至少6位)" ng-show="!recommandCompany" ng-minlength=6 required)
       input(ng-model="$parent.name" placeholder="公司名称" ng-blur="nameCheck()" required)
       //- 同名&&email后缀正确
       p(ng-if="recommandCompany && !domain") 
@@ -17,8 +17,8 @@
       p(ng-if="recommandCompany && domain")
         span 检测到同名公司
       .form-group(ng-if="recommandCompany && domain") 
-        a.btn-success(ng-click="select(recommandCompany)") 点击加入
-        a.btn-info(ng-click="ignoreRecommand()") 继续注册
+        button.btn-success(ng-click="select(recommandCompany)") 点击加入
+        button.btn-info(ng-click="ignoreRecommand()") 继续注册
       .form-group.clearfix(ng-if="!recommandCompany")
         .select_cover
           select(ng-model="province" ng-options="province.value for province in provinces" ng-change="selcetProvince(province)")

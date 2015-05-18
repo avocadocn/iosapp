@@ -31,7 +31,7 @@
             <div class="contents">
               <div ng-if="comment.poster &amp;&amp;comment.poster._id !== userId" ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>
               <div ng-if="comment.poster &amp;&amp; comment.poster._id == userId &amp;&amp; competition_message.chat_type===1" ng-cloak="ng-cloak" class="name">我</div>
-              <div ng-if="comment.chat_type&gt;1" class="remind_box clearfix"><a ng-href="{{ comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id : comment.chat_type===7?'#/campaign/detail/'+comment.campaign:'#/competition_message/detail/' + comment.competition_message }}" class="no_underline">
+              <div ng-if="comment.chat_type&gt;1" class="remind_box clearfix"><a ng-href="{{ comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id +'/': comment.chat_type===7?'#/campaign/detail/'+comment.campaign:'#/competition_message/detail/' + comment.competition_message }}" class="no_underline">
                   <div class="remind_box_head"><span>{{comment.chat_type | remindWordsFormat : comment.competition_type}}</span></div>
                   <div class="remind_box_content clearfix">
                     <div class="team_logo"><img ng-src="{{STATIC_URL +comment.opponent_team.logo + '/45/45'}}" class="team_logo"/></div>
