@@ -193,12 +193,24 @@ angular.module('donlerApp.controllers', [])
       });
     };
   }])
-  .controller('CampaignController', ['$scope', '$state', '$timeout', '$rootScope', '$ionicPopover', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO',
-    function ($scope, $state, $timeout, $ionicActionSheet, $ionicPopover, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO) {
+  .controller('CampaignController', ['$scope', '$state', '$timeout', '$rootScope', '$ionicPopover', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO','UserAuth',
+    function ($scope, $state, $timeout, $ionicActionSheet, $ionicPopover, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO,UserAuth) {
     $scope.nowType = 'all';
     $scope.pswpPhotoAlbum = {};
     $scope.pswpId = 'campaigns' + Date.now();
     $scope.showSponsorButton = localStorage.role =='LEADER';
+    $scope.showhrGuide = localStorage.guide_step ==0;
+    $scope.hidenGuide = function () {
+      UserAuth.logout(function (err) {
+        if(!err){
+          localStorage.guide_step = 1;
+          $state.go('hr_login')
+        }
+        else{
+          console.log(err);
+        }
+      })
+    }
     var getCampaignList = function(loading, callBack) {
       loading && $rootScope.showLoading();
       Campaign.getList({

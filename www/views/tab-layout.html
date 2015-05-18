@@ -2,6 +2,7 @@
 <ion-tabs ng-controller="TabController" ng-class="{'tabs-item-hide': hideTabs}" class="tabs-icon-top app_tabs">
   <ion-tab title="活动" href="#/app/campaigns" class="tab_item_campaign">
     <ion-view ng-controller="CampaignController">
+      <div ng-if="showhrGuide" ng-click="hidenGuide()" class="hr_guide_user"></div>
       <ion-header-bar><a href="#/calendar/campaigns" class="button">
           <svg class="svg_icon svg_nav_icon">
             <use xlink:href="#richeng"></use>
@@ -107,7 +108,7 @@
               </div>
             </div>
           </div>
-          <div ng-if="teams.length" ng-cloak="ng-cloak" class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
+          <div ng-if="teams.length" class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
               <div bo-text="rankTeam.score_rank.rank" class="rank_col"></div>
               <div class="logo_col"><img bo-src="STATIC_URL + rankTeam.logo+'/45/45'" class="team_logo"/></div>
               <div class="name_col">

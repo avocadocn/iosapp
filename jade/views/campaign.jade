@@ -4,7 +4,7 @@ ion-view(ng-controller="CampaignController")
       .campaign_container_title(ng-if="#{items}.length>0 || nowType=='#{items}'" ng-cloak)
         span #{containerTitle} {{#{items}.length}}
       new-campaign-card(bindonce='#{items}' ng-repeat="campaign in #{items} track by campaign._id" campaign="campaign" campaign-index="$index" campaign-filter="#{items}" is-last="$index===#{items}.length-1")
-
+  .hr_guide_user(ng-if="showhrGuide" ng-click="hidenGuide()")
   ion-header-bar
 
     a.button(href="#/calendar/campaigns")

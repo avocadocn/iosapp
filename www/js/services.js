@@ -122,6 +122,7 @@ angular.module('donlerApp.services', [])
             localStorage.id = data.id;
             localStorage.cid = data.cid;
             localStorage.role = data.role;
+            localStorage.guide_step = data.guide_step;
             $http.defaults.headers.common['x-access-token'] = data.token;
             Socket.login();
             if(window.analytics){
@@ -155,6 +156,7 @@ angular.module('donlerApp.services', [])
             localStorage.removeItem('id');
             localStorage.removeItem('cid');
             localStorage.removeItem('role');
+            localStorage.removeItem('guide_step');
             $http.defaults.headers.common['x-access-token'] = null;
             callback();
           })
