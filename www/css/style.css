@@ -3019,7 +3019,7 @@ a>.login .companies_list:activated {
   left: 0;
   top: 0;
   opacity: 0.6;
-  background-position: 0;
+  background-position: 0 20px;
   background-color: #000;
   background-repeat: no-repeat;
 }
@@ -3171,12 +3171,12 @@ a>.login .companies_list:activated {
 }
 @media (max-width: 400px) {
   .hr_company_page .hr_guide {
-    background-position: 0 -20px;
+    background-position: 0 5px;
   }
 }
 @media (max-width: 350px) {
   .hr_company_page .hr_guide {
-    background-position: 0 -50px;
+    background-position: 0 -30px;
   }
 }
 .edit_company_info .edit_list {
