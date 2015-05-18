@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize'])
+angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize','pasvaz.bindonce'])
 
   .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicActionSheet, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth, Circle) {
     $ionicPlatform.ready(function () {

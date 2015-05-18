@@ -8,11 +8,11 @@
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-    <ul ng-cloak="ng-cloak" ng-if="chatrooms.length" class="list">
-      <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img ng-if="chatroom.kind==='team'" ng-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/><img ng-if="chatroom.kind==='company'" ng-src="img/icons/unjoined_discuss.png"/>
+    <ul bindonce="chatrooms" ng-if="chatrooms.length" class="list">
+      <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img bo-if="chatroom.kind==='team'" bo-src="STATIC_URL + chatroom.logo + '/45/45'"/><img bo-if="chatroom.kind==='company'" src="img/icons/unjoined_discuss.png"/>
           <div ng-if="chatroom.unread" class="red_spot"></div>
-          <h2 ng-cloak="ng-cloak">{{chatroom.name}}</h2>
-          <p ng-if="chatroom.latestChat" ng-cloak="ng-cloak" class="chat_pre"><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息] </span><span ng-cloak="ng-cloak">{{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:</span><span ng-cloak="ng-cloak" ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe"></span><span ng-cloak="ng-cloak" ng-if="!chatroom.latestChat.content">{{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}</span></p></a>
+          <h2 bo-text="chatroom.name"></h2>
+          <p ng-if="chatroom.latestChat" ng-cloak="ng-cloak" class="chat_pre"><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息]</span><span ng-cloak="ng-cloak">{{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:</span><span ng-cloak="ng-cloak" ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe"></span><span ng-cloak="ng-cloak" ng-if="!chatroom.latestChat.content">{{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}</span></p></a>
         <div ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}" class="custom_border"></div>
       </div>
     </ul>

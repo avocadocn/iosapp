@@ -3,33 +3,33 @@
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 class="title">{{team.name}}</h1><a ng-if="team.isLeader" ng-href="#/team/{{team._id}}/edit" ng-cloak="ng-cloak" class="button">编辑</a>
   </ion-header-bar>
-  <ion-content>
+  <ion-content bindonce="team">
     <div class="list">
-      <div class="item cover_item"><img ng-if="team.familyPhotos.length &gt;= 1" ng-src="{{STATIC_URL + team.familyPhotos[team.familyPhotos.length-1].uri}}/640/300" class="cover_img"/><img ng-if="team.familyPhotos.length === 0" src="./img/family.png" class="cover_img"/></div>
-      <div class="item team_info_item"><img ng-if="team" ng-src="{{STATIC_URL + team.logo}}/140/140" class="team_logo"/>
-        <h2 ng-bind="team.name" class="team_name"></h2>
-        <p class="team_info"><span class="info_label">积分:</span><span ng-bind-template="{{team.score || 0}}" class="info_data"></span><span class="info_label">活跃度:</span><span ng-bind-template="{{team.activity_score || 0}}" class="info_data"></span><span class="info_label">胜率:</span><span ng-bind-template="{{team.odds_percent || 0}}%" class="info_data"></span></p>
-        <div class="op_btn_group"><a ng-href="#/discover/search_opponent/{{team._id}}" class="op_btn find_opponent_btn">找对手</a>
-          <button ng-if="!team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" ng-cloak="ng-cloak" class="op_btn join_btn">立即加入</button>
-          <button ng-if="team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" ng-cloak="ng-cloak" class="op_btn quit_btn">已加入</button>
+      <div class="item cover_item"><img ng-if="team.familyPhotos.length &gt;= 1" bo-src="STATIC_URL + team.familyPhotos[team.familyPhotos.length-1].uri+'/640/300'" class="cover_img"/><img ng-if="team.familyPhotos.length === 0" src="./img/family.png" class="cover_img"/></div>
+      <div class="item team_info_item"><img ng-if="team" bo-src="STATIC_URL + team.logo+'/140/140'" class="team_logo"/>
+        <h2 bo-text="team.name" class="team_name"></h2>
+        <p class="team_info"><span class="info_label">积分:</span><span bo-text="team.score || 0" class="info_data"></span><span class="info_label">活跃度:</span><span bo-text="team.activity_score || 0" class="info_data"></span><span class="info_label">胜率:</span><span bo-text="(team.odds_percent || 0)+'%'" class="info_data"></span></p>
+        <div class="op_btn_group"><a bo-href="'#/discover/search_opponent/'+team._id" class="op_btn find_opponent_btn">找对手</a>
+          <button ng-if="!team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="joinTeam(team._id)" class="op_btn join_btn">立即加入</button>
+          <button ng-if="team.hasJoined &amp;&amp; !team.isOtherCompanyTeam" ng-click="quitTeam(team._id)" class="op_btn quit_btn">已加入</button>
         </div>
-      </div><a ng-href="#/campaign/all/team/{{team._id}}" class="item item-icon-right latest_campaign_item">
+      </div><a bo-href="'#/campaign/all/team/'+team._id" class="item item-icon-right latest_campaign_item">
         <svg class="svg_icon svg_item_icon">
           <use xlink:href="#suoyouhuodong"></use>
-        </svg>近期活动<i class="icon ion-chevron-right icon_right"></i></a><a ng-repeat="campaign in latestCampaigns" ng-class="{'first_item': $index===0}" ng-href="#/campaign/detail/{{campaign._id}}" class="item latest_campaign_info_item">
+        </svg>近期活动<i class="icon ion-chevron-right icon_right"></i></a><a ng-repeat="campaign in latestCampaigns" bo-class="{'first_item': $index===0}" bo-href="'#/campaign/detail/'+campaign._id" class="item latest_campaign_info_item">
         <svg class="svg_icon svg_item_icon">
           <use xlink:href="#time"></use>
-        </svg><span ng-bind-template="{{campaign.start_time | date:'MM-dd'}}" class="cp_time"></span><span ng-bind="campaign.theme" class="cp_theme"></span></a>
+        </svg><span bo-text="campaign.start_time | date:'MM-dd'" class="cp_time"></span><span bo-text="campaign.theme" class="cp_theme"></span></a>
     </div>
     <div class="list">
       <div class="item row item-icon-right members_item">
-        <div class="col"><span class="title">队长</span><img ng-if="team.leaders.length&gt;0" ng-src="{{STATIC_URL + team.leaders[0].photo}}/30/30" class="user_logo"/></div><a ng-href="#/members/team/{{team._id}}" class="col"><span ng-bind-template="成员({{team.memberCount}}人)"></span></a><i class="icon ion-chevron-right icon_right"></i>
+        <div class="col"><span class="title">队长</span><img ng-if="team.leaders.length&gt;0" bo-src="STATIC_URL + team.leaders[0].photo+'/30/30'" class="user_logo"/></div><a bo-href="'#/members/team/'+team._id" class="col"><span bo-text="'成员('+team.memberCount+'人)'"></span></a><i class="icon ion-chevron-right icon_right"></i>
       </div>
     </div>
     <div class="list">
-      <div ng-repeat="homeCourt in team.homeCourts" class="item item-icon-right home_court_item"><span ng-bind-template="主场{{$index===0 ? '一' : '二'}}:" class="title"></span><span ng-bind-template="{{homeCourt.name || '他们很懒还没填写'}}" class="home_court_name"></span><i class="icon ion-chevron-right icon_right"></i></div>
+      <div ng-repeat="homeCourt in team.homeCourts" ng-click="goLocation($index)" class="item item-icon-right home_court_item"><span bo-text="'主场'+($index===0 ? '一' : '二')+':'" class="title"></span><span bo-text="homeCourt.name || '他们很懒还没填写'" class="home_court_name"></span><i bo-if="homeCourt.loc" class="icon ion-chevron-right icon_right"></i></div>
     </div>
-    <div class="list"><a ng-href="#/circle/circle_team/{{team._id}}" class="item item-icon-right">
+    <div class="list"><a bo-href="'#/circle/circle_team/'+team._id" class="item item-icon-right">
         <svg class="svg_icon svg_item_icon">
           <use xlink:href="#jincaisunjian"></use>
         </svg>精彩瞬间<i class="icon ion-chevron-right icon_right"></i></a></div>

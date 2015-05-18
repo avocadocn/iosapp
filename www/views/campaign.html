@@ -11,19 +11,19 @@
       <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
         <div ng-if="nowType=='all'||nowType=='newCampaigns'" class="campaign_container cp_unjoin">
           <div ng-if="newCampaigns.length&gt;0 || nowType=='newCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>未参加的新活动 {{newCampaigns.length}}</span></div>
-          <new-campaign-card ng-repeat="campaign in newCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns" is-last="$index===newCampaigns.length-1"></new-campaign-card>
+          <new-campaign-card bindonce="newCampaigns" ng-repeat="campaign in newCampaigns track by campaign._id" campaign="campaign" campaign-index="$index" campaign-filter="newCampaigns" is-last="$index===newCampaigns.length-1"></new-campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='nowCampaigns'" class="campaign_container cp_now">
           <div ng-if="nowCampaigns.length&gt;0 || nowType=='nowCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>进行中的活动 {{nowCampaigns.length}}</span></div>
-          <new-campaign-card ng-repeat="campaign in nowCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns" is-last="$index===nowCampaigns.length-1"></new-campaign-card>
+          <new-campaign-card bindonce="nowCampaigns" ng-repeat="campaign in nowCampaigns track by campaign._id" campaign="campaign" campaign-index="$index" campaign-filter="nowCampaigns" is-last="$index===nowCampaigns.length-1"></new-campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='unStartCampaigns'" class="campaign_container cp_unstart">
           <div ng-if="unStartCampaigns.length&gt;0 || nowType=='unStartCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>即将开始的活动 {{unStartCampaigns.length}}</span></div>
-          <new-campaign-card ng-repeat="campaign in unStartCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns" is-last="$index===unStartCampaigns.length-1"></new-campaign-card>
+          <new-campaign-card bindonce="unStartCampaigns" ng-repeat="campaign in unStartCampaigns track by campaign._id" campaign="campaign" campaign-index="$index" campaign-filter="unStartCampaigns" is-last="$index===unStartCampaigns.length-1"></new-campaign-card>
         </div>
         <div ng-if="nowType=='all'||nowType=='finishedCampaigns'" class="campaign_container cp_finished">
           <div ng-if="finishedCampaigns.length&gt;0 || nowType=='finishedCampaigns'" ng-cloak="ng-cloak" class="campaign_container_title"><span>刚结束的活动 {{finishedCampaigns.length}}</span></div>
-          <new-campaign-card ng-repeat="campaign in finishedCampaigns" campaign="campaign" campaign-index="$index" campaign-filter="finishedCampaigns" is-last="$index===finishedCampaigns.length-1"></new-campaign-card>
+          <new-campaign-card bindonce="finishedCampaigns" ng-repeat="campaign in finishedCampaigns track by campaign._id" campaign="campaign" campaign-index="$index" campaign-filter="finishedCampaigns" is-last="$index===finishedCampaigns.length-1"></new-campaign-card>
         </div>
       <div ng-if="noCampaigns" ng-cloak="ng-cloak" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
           <p>没有活动?</p>

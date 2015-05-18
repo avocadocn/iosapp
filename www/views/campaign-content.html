@@ -3,30 +3,36 @@
   <ion-header-bar><a ng-click="goBack()" class="button icon-left ion-chevron-left">&nbsp;返回</a>
     <h1 ng-bind="campaign.theme" class="title"></h1>
   </ion-header-bar>
-  <ion-content>
+  <ion-content bindonce="campaign">
     <div class="content_page">
-      <div ng-if="campaign.start_time" class="item"><span class="title">开始时间</span><span class="content">{{campaign.start_time | date:'yyyy-MM-dd HH:mm'}}</span></div>
-      <div ng-if="campaign.end_time" class="item"><span class="title">结束时间</span><span class="content">{{campaign.end_time | date:'yyyy-MM-dd HH:mm'}}</span></div>
-      <div ng-if="campaign.location" class="item"><span class="title">地点</span><span class="content">{{campaign.location.name}}</span></div>
-      <div ng-if="campaign.deadline" class="item"><span class="title">报名截止时间</span><span class="content">{{campaign.deadline| date:'yyyy-MM-dd HH:mm'}}</span></div>
-      <div ng-if="campaign.member_max&gt;0" class="item"><span class="title">报名截止人数</span><span class="content">{{campaign.member_max}}</span></div>
-      <div ng-if="campaign.member_min&gt;0" class="item"><span class="title">报名最少人数</span><span class="content">{{campaign.member_min}}</span></div>
-      <div ng-if="campaign.content" class="item has_content"><span class="title">简介</span>
-        <div class="content">{{campaign.content}}</div>
+      <div bo-if="campaign.start_time" class="item"><span class="title">开始时间</span><span bo-text="campaign.start_time | date:'yyyy-MM-dd HH:mm'" class="content"></span></div>
+      <div bo-if="campaign.end_time" class="item"><span class="title">结束时间</span><span bo-text="campaign.end_time | date:'yyyy-MM-dd HH:mm'" class="content"></span></div>
+      <div bo-if="campaign.location" class="item"><span class="title">地点</span><span bo-text="campaign.location.name" class="content"></span></div>
+      <div bo-if="campaign.deadline" class="item"><span class="title">报名截止时间</span><span bo-text="campaign.deadline| date:'yyyy-MM-dd HH:mm'" class="content"></span></div>
+      <div bo-if="campaign.member_max&gt;0" class="item"><span class="title">报名截止人数</span><span bo-text="campaign.member_max" class="content"></span></div>
+      <div bo-if="campaign.member_min&gt;0" class="item"><span class="title">报名最少人数</span><span bo-text="campaign.member_min" class="content"></span></div>
+      <div bo-if="campaign.content" class="item has_content"><span class="title">简介</span>
+        <div bo-text="campaign.content" class="content"></div>
       </div>
     </div>
     <div class="member_page">
       <div class="item item-divider">已报名成员</div>
       <div ng-repeat="memberContent in memberContents" ng-if="memberContent.members.length&gt;0" class="member_group">
-        <div class="member_group_name">{{memberContent.name}}</div>
-        <div ng-if="!memberContent.isOtherCompany" ng-cloak="ng-cloak" class="members clearfix"><a ng-repeat="member in memberContent.members" ng-href="#/user/{{member._id}}" class="member">
-            <div class="member_inner"><img ng-src="{{STATIC_URL + member.photo}}/45/45" class="member_photo"/><span ng-if="member.isLeader" ng-cloak="ng-cloak" class="dl_member_leader"></span>
-              <p class="member_name">{{member.nickname}}</p>
+        <div bo-text="memberContent.name" class="member_group_name"></div>
+        <div bo-if="!memberContent.isOtherCompany" class="members clearfix"><a ng-repeat="member in memberContent.members" bo-href="'#/user/'+member._id" class="member">
+            <div class="member_inner"><img bo-src="STATIC_URL + member.photo+'/45/45'" class="member_photo"/><span bo-if="member.isLeader" class="dl_member_leader"></span>
+              <svg bo-if="member.isLeader" class="svg_icon dl_member_leader">
+                <use xlink:href="#star"></use>
+              </svg>
+              <p bo-text="member.nickname" class="member_name"></p>
             </div></a></div>
-        <div ng-if="memberContent.isOtherCompany" ng-cloak="ng-cloak" class="members clearfix">
+        <div bo-if="memberContent.isOtherCompany" class="members clearfix">
           <div ng-repeat="member in memberContent.members" class="member">
-            <div class="member_inner"><img ng-src="{{STATIC_URL + member.photo}}/45/45" class="member_photo"/><span ng-if="member.isLeader" ng-cloak="ng-cloak" class="dl_member_leader"></span>
-              <p class="member_name">{{member.nickname}}</p>
+            <div class="member_inner"><img bo-src="STATIC_URL + member.photo+'/45/45'" class="member_photo"/><span bo-if="member.isLeader" class="dl_member_leader"></span>
+              <svg bo-if="member.isLeader" class="svg_icon dl_member_leader">
+                <use xlink:href="#star"></use>
+              </svg>
+              <p bo-text="member.nickname" class="member_name"></p>
             </div>
           </div>
         </div>

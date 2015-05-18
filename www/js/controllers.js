@@ -2912,6 +2912,7 @@ angular.module('donlerApp.controllers', [])
               $scope.team.isOtherCompanyTeam = true;
             }
             INFO.memberContent = [team];
+            
             $scope.homeCourtIndex = 0;
             $scope.homeCourts = team.homeCourts;
             while ($scope.homeCourts.length < 2) {
@@ -2939,7 +2940,14 @@ angular.module('donlerApp.controllers', [])
         }
       });
     });
-
+    $scope.goLocation = function (index) {
+      var homecourt = $scope.homeCourts[index]
+      if(!homecourt || !homecourt.loc){
+        return;
+      }
+      INFO.locationContent = {name:homecourt.name,coordinates:homecourt.loc.coordinates};
+      $state.go('location',{id:homecourt._id})
+    }
     $scope.updatePersonalTeam = function (tid) {
       Team.updatePersonalTeam(tid, function (err, data) {
         if (!err) {
