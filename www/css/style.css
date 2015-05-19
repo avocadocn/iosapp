@@ -3181,6 +3181,18 @@ a>.login .companies_list:activated {
     background-position: 0 -50px;
   }
 }
+.hr_guide_user {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/hr_guide_user.gif");
+  z-index: 11;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+  background-size: cover;
+  background-color: #000;
+}
 .edit_company_info .edit_list {
   margin-top: 10px;
 }

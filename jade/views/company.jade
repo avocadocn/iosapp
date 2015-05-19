@@ -3,7 +3,7 @@ ion-view.tab_company_page(ng-controller="CompanyController")
   ion-header-bar
     h1.title 公司
 
-  ion-content
+  ion-content(bindonce="company")
     ion-refresher(on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     .company_header(ng-style="familyMinHeight")
       //- ion-slide-box(ng-if="team.familyPhotos.length > 1" ng-cloak)
@@ -13,15 +13,15 @@ ion-view.tab_company_page(ng-controller="CompanyController")
       img.company_family(ng-if="company && !company.cover" src="./img/company_cover.png")
     .company_info
       .info_header.clearfix
-        img.logo(ng-if="company" ng-src="{{STATIC_URL + company.logo}}/160/160")
+        img.logo(bo-src="STATIC_URL + company.logo+'/160/160'")
         .info_content
-          .company_name {{company.shortName}}
+          .company_name(bo-text="company.shortName")
         .company_brief
           span.title 简介:
-          span.content {{company.intro || '无'}}
+          span.content(bo-text="company.intro || '无'")
     .list
       a.item.item-icon-right.clearfix.staff_item(href="#/company/contacts")
-        img.staff_photo(ng-repeat="staff in staffList" ng-src="{{STATIC_URL + staff.photo}}/60/60")
+        img.staff_photo(ng-repeat="staff in staffList" bo-src="STATIC_URL + staff.photo+'/60/60'")
         span.more_text 更多同事
         i.icon.ion-chevron-right.icon_right
     .list.menu_list
@@ -38,7 +38,7 @@ ion-view.tab_company_page(ng-controller="CompanyController")
         svg.svg_icon.svg_item_icon
           use(xlink:href="#suoyouxiaodui")
         | 全部小队
-        span.item-note {{teams.length}}
+        span.item-note(ng-bind="teams.length")
         i.icon.ion-chevron-right.icon_right
       a.item.item-icon-right(href="#/campaign/all/company/0")
         svg.svg_icon.svg_item_icon

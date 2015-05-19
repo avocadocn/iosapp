@@ -1,7 +1,7 @@
 ion-view.all_campaigns
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title(ng-cloak) {{title}}
+    h1.title(ng-bind='title')
 
   ion-content(delegate-handle="mainScroll")
     ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")

@@ -1,46 +1,46 @@
 
-<ion-view cache-view="false" title="{{chatroomName}}" class="discuss_detail">
-  <ion-header-bar><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 ng-cloak="ng-cloak" class="title">{{chatroomName}}</h1><a ng-if="chatroomId!==cid" href="#/team/{{chatroomId}}" class="teams_icon icon-right">
+<ion-view cache-view="false" class="discuss_detail">
+  <ion-header-bar bindonce="chatroomName"><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a>
+    <h1 bo-text="chatroomName" class="title"></h1><a bo-if="chatroomId!==cid" href="#/team/{{chatroomId}}" class="teams_icon icon-right">
       <svg class="svg_icon">
         <use xlink:href="#suoyouxiaodui"></use>
       </svg></a>
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
-    <div ng-click="hideEmotions()" class="comments">
+    <div ng-click="hideEmotions()" bindonce="chatsList" class="comments">
       <div ng-repeat="chats in chatsList track by $index" id="chats{{$index}}" class="blocks">
-        <div ng-repeat="comment in chats track by $index" ng-init="showTime=needShowTime($index,chats)" ng-cloack="ng-cloack" class="block">
+        <div ng-repeat="comment in chats track by $index" ng-init="showTime=needShowTime($index,chats)" class="block">
           <div ng-show="showTime &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]))" class="time_block">
-            <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]===1))" ng-cloak="ng-cloak" class="time">{{comment.create_date | date: 'yyyy'}}</span></p>
-            <p><span ng-cloak="ng-cloak" class="time">{{comment.create_date | date: 'M月dd日 HH:mm'}}</span></p>
+            <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]===1))" bo-text="comment.create_date | date: 'yyyy'" class="time"></span></p>
+            <p><span bo-text="(comment.create_date | date: 'M月dd日 HH:mm')" class="time"></span></p>
           </div>
-          <div ng-repeat="photo in comment.photos" ng-class="{putright: comment.poster._id == userId}" ng-cloak="ng-cloak" class="comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a>
+          <div ng-repeat="photo in comment.photos" bo-class="{'putright': comment.poster._id == userId}" class="comment clearfix"><a bo-href="'#/user/'+comment.poster._id" class="logo"><img bo-src="STATIC_URL +comment.poster.photo+ '/45/45'"/></a>
             <div class="contents">
-              <div ng-if="comment.poster._id !== userId" ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>
-              <div ng-if="comment.poster._id == userId" ng-cloak="ng-cloak" class="name">我</div>
+              <div bo-if="comment.poster._id !== userId" bo-text="comment.poster.nickname" class="name"></div>
+              <div bo-if="comment.poster._id == userId" class="name">我</div>
               <div class="content">
                 <div class="triangle_isosceles triangle_img">
-                  <div class="tr"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img="error-img" width="180" height="180" ng-cloak="ng-cloak"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" error-img="error-img" width="180" height="180" ng-cloak="ng-cloak"/></div>
-                  <div class="box"><img ng-if="!comment.randomId" ng-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" error-img="error-img" class="img"/><img ng-if="comment.randomId" ng-src="{{photo.uri}}" width="180" height="180" class="img"/></div>
+                  <div class="tr"><img ng-if="!comment.randomId" bo-src="STATIC_URL +photo.uri+ '/360/360'" error-img="error-img" width="180" height="180"/><img ng-if="comment.randomId" bo-src="photo.uri" error-img="error-img" width="180" height="180"/></div>
+                  <div class="box"><img ng-if="!comment.randomId" bo-src="STATIC_URL +photo.uri+ '/360/360'" width="180" height="180" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" error-img="error-img" class="img"/><img ng-if="comment.randomId" bo-src="photo.uri" width="180" height="180" class="img"/></div>
                 </div>
               </div>
             </div>
           </div>
-          <div ng-if="comment.chat_type!==1 || comment.content" ng-class="{putright: comment.poster._id == userId}" ng-cloak="ng-cloak" class="comment clearfix"><a ng-if="comment.poster &amp;&amp; !comment.poster_team" ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}"/></a><a ng-if="comment.poster_team" ng-href="#/team/{{comment.poster_team._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster_team.logo+ '/45/45'}}"/></a>
+          <div bo-if="comment.chat_type!==1 || comment.content" bo-class="{'putright': comment.poster._id == userId}" class="comment clearfix"><a bo-if="comment.poster &amp;&amp; !comment.poster_team" ng-href="#/user/{{comment.poster._id}}" class="logo"><img bo-src="STATIC_URL +comment.poster.photo+ '/45/45'"/></a><a bo-if="comment.poster_team" bo-href="'#/team/'+comment.poster_team._id" class="logo"><img bo-src="STATIC_URL +comment.poster_team.logo+ '/45/45'"/></a>
             <div class="contents">
-              <div ng-if="comment.poster &amp;&amp;comment.poster._id !== userId" ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>
-              <div ng-if="comment.poster &amp;&amp; comment.poster._id == userId &amp;&amp; competition_message.chat_type===1" ng-cloak="ng-cloak" class="name">我</div>
-              <div ng-if="comment.chat_type&gt;1" class="remind_box clearfix"><a ng-href="{{ comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id : comment.chat_type===7?'#/campaign/detail/'+comment.campaign:'#/competition_message/detail/' + comment.competition_message }}" class="no_underline">
-                  <div class="remind_box_head"><span>{{comment.chat_type | remindWordsFormat : comment.competition_type}}</span></div>
+              <div bo-if="comment.poster &amp;&amp;comment.poster._id !== userId" bo-text="comment.poster.nickname" class="name"></div>
+              <div bo-if="comment.poster &amp;&amp; comment.poster._id == userId &amp;&amp; competition_message.chat_type===1" class="name">我</div>
+              <div bo-if="comment.chat_type&gt;1" class="remind_box clearfix"><a bo-href="comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id +'/': comment.chat_type===7?'#/campaign/detail/'+comment.campaign:'#/competition_message/detail/' + comment.competition_message" class="no_underline">
+                  <div class="remind_box_head"><span bo-text="comment.chat_type | remindWordsFormat : comment.competition_type"></span></div>
                   <div class="remind_box_content clearfix">
-                    <div class="team_logo"><img ng-src="{{STATIC_URL +comment.opponent_team.logo + '/45/45'}}" class="team_logo"/></div>
+                    <div class="team_logo"><img bo-src="STATIC_URL +comment.opponent_team.logo + '/45/45'" class="team_logo"/></div>
                     <div class="text">
-                      <div class="tname">{{comment.opponent_team.name}}</div>
-                      <div class="cname">{{comment.opponent_team.cname}}</div>
+                      <div bo-text="comment.opponent_team.name" class="tname"></div>
+                      <div bo-text="comment.opponent_team.cname" class="cname"></div>
                     </div>
                   </div></a></div>
-              <div ng-if="comment.chat_type===1" class="content">
+              <div bo-if="comment.chat_type===1" class="content">
                 <div ng-bind-html="comment.content | emoji | unsafe" class="triangle_isosceles"></div>
               </div>
             </div>

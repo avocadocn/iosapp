@@ -1,19 +1,19 @@
-ion-view.dl_campaign_detail
+ion-view.dl_campaign_detail(bindonce='campaign')
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="goBack()") &nbsp;返回
-    h1.title(ng-bind="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name")
+    h1.title(bo-text="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name")
     a.button.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}") 编辑
   ion-content(delegate-handle="detailScroll")
     ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")
-    .campaign_detail(ng-if="campaign")
-      .item.item_header.campaign_theme(ng-if="campaign.campaign_unit.length==2")
-        span(ng-bind="campaign.theme")
-      score-board(ng-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign" reload-flag="reloadFlag")
-      .campaign_info(ng-if="campaign.campaign_unit.length==1" )
+    .campaign_detail
+      .item.item_header.campaign_theme(bo-if="campaign.campaign_unit.length==2")
+        span(bo-text="campaign.theme")
+      score-board(bo-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign" reload-flag="reloadFlag")
+      .campaign_info(bo-if="campaign.campaign_unit.length==1" )
         .cp_logos(class="logos_{{campaign.campaign_unit.length}}")
-          a(ng-href="{{campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''}}")
-            img.team_logo(ng-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)}}/60/60")
-        .campaign_theme(ng-cloak)  {{campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')}}
+          a(bo-href="campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''")
+            img.team_logo(bo-src="STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/60/60'")
+        .campaign_theme(ng-bind="campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')")
         .operator
           button.button.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 马上参加
         .campaign_status
@@ -22,29 +22,29 @@ ion-view.dl_campaign_detail
         .item.item_header.cp_time
           svg.svg_icon
             use(xlink:href="#time")
-          span(ng-cloak) {{campaign.start_time | date:"MM-dd HH:mm"}} ~ {{campaign.end_time | date:"MM-dd  HH:mm" }}
-        a.item.item_header.cp_address(ng-href="#/location/{{campaign._id}}")
+          span(bo-text="(campaign.start_time | date:'MM-dd HH:mm') +'~' + (campaign.end_time | date:'MM-dd  HH:mm')")
+        a.item.item_header.cp_address(bo-href="'#/location/'+campaign._id")
           svg.svg_icon.cp_info_icon
             use(xlink:href="#location")
-          span.cp_location(ng-cloak) {{campaign.location.name}}
+          span.cp_location(bo-text="campaign.location.name")
           span.icon.icon_small.ion-chevron-right.button-clear
       //- a.item.item_header(ng-if="!campaign.is_end && (campaign.notices.length>0 || campaign.allow.publishCampaignMessage)" ng-href="#/campaign/notice/{{campaign._id}}")
       //-   span.title 公告
       //-   span.icon.icon_small.ion-chevron-right.button-clear
       .campaign_items
-        a.item.item_header.item_title(ng-href="#/campaign/content/{{campaign._id}}")
+        a.item.item_header.item_title(bo-href="'#/campaign/content/'+campaign._id")
           svg.svg_icon
             use(xlink:href="#xiangqing")
           span 活动详情
           span.icon.icon_small.ion-chevron-right.button-clear
         .item.item-text-wrap.campaign_content(ng-if="campaign.content")
-          p.content_simple(ng-cloak)  {{campaign.content}}
+          p.content_simple(ng-bind="campaign.content")
       .item.campaign_footer
-        a.footer_col(ng-href="#/members/campaign/{{campaign._id}}")
+        a.footer_col(bo-href="'#/members/campaign/'+campaign._id")
           //- i.ion_member.dl_icon.icon_small
           svg.svg_icon
             use(xlink:href="#yibaoming")
-          span.footer_label(ng-cloak) 已报名({{campaign.members_count}})
+          span.footer_label(bo-text="'已报名('+campaign.members_count+')'")
         .footer_col(ng-click="goDiscussDetail(campaign._id, campaign.theme)")
           //- i.dl_icon.ion_chat_circle
           svg.svg_icon.discussion_icon
