@@ -37,7 +37,7 @@ ion-view.dl_campaign_detail(bindonce='campaign')
             use(xlink:href="#xiangqing")
           span 活动详情
           span.icon.icon_small.ion-chevron-right.button-clear
-        .item.item-text-wrap.campaign_content(bo-if="campaign.content")
+        .item.item-text-wrap.campaign_content(ng-if="campaign.content")
           p.content_simple(ng-bind="campaign.content")
       .item.campaign_footer
         a.footer_col(bo-href="'#/members/campaign/'+campaign._id")
