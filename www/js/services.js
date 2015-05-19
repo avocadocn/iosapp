@@ -1999,3 +1999,43 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
+  .factory('Persistence', function($q) {
+    //persistence.store.memory.config(persistence);  
+
+    persistence.store.cordovasql.config(
+      persistence,
+      'donler',
+      '1.0',                // DB version
+      'donler_db',          // DB display name
+      5 * 1024 * 1024,        // DB size
+      0                       // SQLitePlugin Background processing disabled
+    );
+
+    var entities = {};
+
+    entities.Playlist = persistence.define('Playlist', {
+      title: 'TEXT'
+    });
+
+    persistence.debug = true;
+    persistence.schemaSync();
+
+    return {
+      Entities: entities,
+
+      add: function(playlist) {
+        persistence.add(playlist);
+        persistence.flush();
+      },
+      
+      getAllPlaylists: function() {
+        var defer = $q.defer();
+
+        entities.Playlist.all().list(null, function (playlists) {
+          defer.resolve(playlists);
+        });
+
+        return defer.promise;
+      }
+    };
+  })
