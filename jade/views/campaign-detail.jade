@@ -13,7 +13,7 @@ ion-view.dl_campaign_detail(bindonce='campaign')
         .cp_logos(class="logos_{{campaign.campaign_unit.length}}")
           a(bo-href="campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''")
             img.team_logo(bo-src="STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/60/60'")
-        .campaign_theme(bo-text="campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')")
+        .campaign_theme(ng-bind="campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')")
         .operator
           button.button.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 马上参加
         .campaign_status
@@ -37,8 +37,8 @@ ion-view.dl_campaign_detail(bindonce='campaign')
             use(xlink:href="#xiangqing")
           span 活动详情
           span.icon.icon_small.ion-chevron-right.button-clear
-        .item.item-text-wrap.campaign_content(ng-if="campaign.content")
-          p.content_simple(bo-text="campaign.content")
+        .item.item-text-wrap.campaign_content(bo-if="campaign.content")
+          p.content_simple(ng-bind="campaign.content")
       .item.campaign_footer
         a.footer_col(bo-href="'#/members/campaign/'+campaign._id")
           //- i.ion_member.dl_icon.icon_small

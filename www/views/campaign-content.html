@@ -8,11 +8,11 @@
       <div bo-if="campaign.start_time" class="item"><span class="title">开始时间</span><span bo-text="campaign.start_time | date:'yyyy-MM-dd HH:mm'" class="content"></span></div>
       <div bo-if="campaign.end_time" class="item"><span class="title">结束时间</span><span bo-text="campaign.end_time | date:'yyyy-MM-dd HH:mm'" class="content"></span></div>
       <div bo-if="campaign.location" class="item"><span class="title">地点</span><span bo-text="campaign.location.name" class="content"></span></div>
-      <div bo-if="campaign.deadline" class="item"><span class="title">报名截止时间</span><span bo-text="campaign.deadline| date:'yyyy-MM-dd HH:mm'" class="content"></span></div>
-      <div bo-if="campaign.member_max&gt;0" class="item"><span class="title">报名截止人数</span><span bo-text="campaign.member_max" class="content"></span></div>
-      <div bo-if="campaign.member_min&gt;0" class="item"><span class="title">报名最少人数</span><span bo-text="campaign.member_min" class="content"></span></div>
-      <div bo-if="campaign.content" class="item has_content"><span class="title">简介</span>
-        <div bo-text="campaign.content" class="content"></div>
+      <div ng-if="campaign.deadline" class="item"><span class="title">报名截止时间</span><span ng-bind="campaign.deadline| date:'yyyy-MM-dd HH:mm'" class="content"></span></div>
+      <div ng-if="campaign.member_max&gt;0" class="item"><span class="title">报名截止人数</span><span ng-bind="campaign.member_max" class="content"></span></div>
+      <div ng-if="campaign.member_min&gt;0" class="item"><span class="title">报名最少人数</span><span ng-bind="campaign.member_min" class="content"></span></div>
+      <div ng-if="campaign.content" class="item has_content"><span class="title">简介</span>
+        <div ng-bind="campaign.content" class="content"></div>
       </div>
     </div>
     <div class="member_page">

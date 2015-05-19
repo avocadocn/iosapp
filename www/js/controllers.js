@@ -93,8 +93,8 @@ angular.module('donlerApp.controllers', [])
           .success(function(data) {
             $scope.company = data;
           })
-          .error(function(data) {
-            $rootScope.showAction({titleText:data ? data.msg: '获取公司数据失败'});
+          .error(function(data,status) {
+            if(status!==401) $rootScope.showAction({titleText:data ? data.msg: '获取公司数据失败'});
           });
       }
     });
@@ -233,7 +233,9 @@ angular.module('donlerApp.controllers', [])
           }
         }
         else {
-          $rootScope.showAction({titleText:err});
+          if (data !== 401) {
+            $rootScope.showAction({titleText:err});
+          };
         }
         callBack &&callBack();
       });

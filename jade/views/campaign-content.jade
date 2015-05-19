@@ -13,18 +13,18 @@ ion-view.campaign_content_page
       .item(bo-if="campaign.location")
         span.title 地点
         span.content(bo-text="campaign.location.name")
-      .item(bo-if="campaign.deadline")
+      .item(ng-if="campaign.deadline")
         span.title 报名截止时间
-        span.content(bo-text="campaign.deadline| date:'yyyy-MM-dd HH:mm'")
-      .item(bo-if="campaign.member_max>0")
+        span.content(ng-bind="campaign.deadline| date:'yyyy-MM-dd HH:mm'")
+      .item(ng-if="campaign.member_max>0")
         span.title 报名截止人数
-        span.content(bo-text="campaign.member_max")
-      .item(bo-if="campaign.member_min>0")
+        span.content(ng-bind="campaign.member_max")
+      .item(ng-if="campaign.member_min>0")
         span.title 报名最少人数
-        span.content(bo-text="campaign.member_min")
-      .item.has_content(bo-if="campaign.content")
+        span.content(ng-bind="campaign.member_min")
+      .item.has_content(ng-if="campaign.content")
         span.title 简介
-        .content(bo-text="campaign.content")
+        .content(ng-bind="campaign.content")
     .member_page
       .item.item-divider 已报名成员
       .member_group(ng-repeat="memberContent in memberContents" ng-if="memberContent.members.length>0")

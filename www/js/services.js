@@ -346,7 +346,7 @@ angular.module('donlerApp.services', [])
         })
         .error(function (data, status) {
           // todo
-          callback(data ? data.msg:'网络连接错误');
+          callback(data ? data.msg:'网络连接错误',status);
         });
       },
       getCompetitionOfTeams:function(data, callback){

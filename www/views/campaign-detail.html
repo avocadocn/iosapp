@@ -10,7 +10,7 @@
       <score-board bo-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign" reload-flag="reloadFlag"></score-board>
       <div bo-if="campaign.campaign_unit.length==1" class="campaign_info">
         <div class="cp_logos logos_{{campaign.campaign_unit.length}}"><a bo-href="campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''"><img bo-src="STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/60/60'" class="team_logo"/></a></div>
-        <div bo-text="campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')" class="campaign_theme"></div>
+        <div ng-bind="campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')" class="campaign_theme"></div>
         <div class="operator">
           <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button dl_cp_join">马上参加</button>
         </div>
@@ -30,8 +30,8 @@
           <svg class="svg_icon">
             <use xlink:href="#xiangqing"></use>
           </svg><span>活动详情</span><span class="icon icon_small ion-chevron-right button-clear"></span></a>
-        <div ng-if="campaign.content" class="item item-text-wrap campaign_content">
-          <p bo-text="campaign.content" class="content_simple"></p>
+        <div bo-if="campaign.content" class="item item-text-wrap campaign_content">
+          <p ng-bind="campaign.content" class="content_simple"></p>
         </div>
       </div>
       <div class="item campaign_footer"><a bo-href="'#/members/campaign/'+campaign._id" class="footer_col">

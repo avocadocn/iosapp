@@ -4,7 +4,7 @@ ion-view.sponsor
     h1.title 活动编辑
   ion-content
     form(name="editCampaignForm" novalidate)
-      .list
+      .list.indentLine
         label.item.item-input
           span.input-label 报名截止时间
           input.result#deadline(type="datetime-local" name="deadline" ng-model="campaignData.deadline" placeholder="报名截止时间")
@@ -17,7 +17,7 @@ ion-view.sponsor
         label.item.item-input.introduce
           span.input-label 活动简介
           textarea.introduce.result(placeholder="简介" name="content" ng-model="campaignData.content" maxlength="2000")
-        .item-button
-          button.button.button-full.button_sponsor(ng-disabled="editCampaignForm.$invalid || isBusy" ng-click="editCampaign()") 修改
-        .item-button
-          button.button.button-full.button_close(ng-click="closeCampaign()") 关闭活动
+      .item-button
+        button.button.button-full.button_sponsor(ng-disabled="editCampaignForm.$invalid || isBusy" ng-click="editCampaign()") 修改
+      .item-button
+        button.button.button-full.button_close(ng-click="closeCampaign()") 关闭活动
