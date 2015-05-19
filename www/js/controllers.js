@@ -2330,7 +2330,7 @@ angular.module('donlerApp.controllers', [])
   .controller('ResendEamilController', ['$scope', '$state', '$rootScope', 'UserSignup', 'Team', 'CONFIG', 'INFO', function($scope, $state, $rootScope, UserSignup, Team, CONFIG, INFO) {
     $scope.$on('$ionicView.enter', function(scopes, states) {
       // console.log(INFO.emailActive);
-      $scope.email = INFO.emailActive;
+      $scope.email = INFO.email;
     });
     
     $scope.resend = function() {
@@ -2344,6 +2344,12 @@ angular.module('donlerApp.controllers', [])
         }
       });
     };
+  }])
+  .controller('RegisterSuccessController', ['$scope', 'INFO', function($scope, INFO) {
+    $scope.$on('$ionicView.enter', function(scopes, states) {
+      // console.log(INFO.emailActive);
+      $scope.domain = INFO.email.split('@')[1];
+    });
   }])
   .controller('UserSearchCompanyController', ['$scope', '$state', 'UserSignup','INFO', function ($scope, $state, UserSignup, INFO) {
     $scope.$on('$ionicView.enter', function(scopes, states) {
@@ -2363,7 +2369,7 @@ angular.module('donlerApp.controllers', [])
               INFO.email = $scope.companyEmail.value;
               searchCompany();
             } else if(data.active == 2) { //邮箱注册但未激活
-              INFO.emailActive = $scope.companyEmail.value;
+              INFO.email = $scope.companyEmail.value;
               $state.go('register_user_waitEmail');
             } else { // 邮箱已激活、并注册完毕
               $state.go('register_login');

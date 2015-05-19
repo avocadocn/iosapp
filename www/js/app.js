@@ -297,6 +297,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       })
       .state('register_success', {
         url: '/register/success',
+        controller: 'RegisterSuccessController',
         templateUrl: './views/register-success.html'
       })
       .state('register_user_activeCode', {
