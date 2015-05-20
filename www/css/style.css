@@ -3027,6 +3027,7 @@ a>.login .companies_list:activated {
 }
 .hr_company_page .company_header {
   position: relative;
+  height: 220px;
 }
 .hr_company_page .company_header .company_cover {
   width: 100%;
