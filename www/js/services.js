@@ -662,7 +662,7 @@ angular.module('donlerApp.services', [])
             //移到最前
             var temp = chatroomList[index];
             chatroomList.splice(index, 1);
-            chatroomList.unshift(temp);
+            chatroomList.unshift(temp); 
           }
         }
       },
@@ -2013,8 +2013,10 @@ angular.module('donlerApp.services', [])
 
     var entities = {};
 
-    entities.Playlist = persistence.define('Playlist', {
-      title: 'TEXT'
+    entities.ChatRoom = persistence.define('ChatRoom', {
+      name: 'TEXT',
+      chatroomeid:'TEXT',
+      timehash:'TEXT'
     });
 
     persistence.debug = true;
@@ -2023,19 +2025,32 @@ angular.module('donlerApp.services', [])
     return {
       Entities: entities,
 
-      add: function(playlist) {
-        persistence.add(playlist);
-        persistence.flush();
+      add: function(data, callback) {
+        persistence.add(data);
+        persistence.flush(callback);
       },
       
-      getAllPlaylists: function() {
+      get: function(item,filter, callback) {
         var defer = $q.defer();
 
-        entities.Playlist.all().list(null, function (playlists) {
-          defer.resolve(playlists);
+        entities[item].all().filter(filter, function (data) {
+          defer.resolve(data);
         });
-
         return defer.promise;
+      },
+      edit: function(filter, data, callback){
+
+        entities[item].all().filter(filter[0],filter[1],filter[2]).one(function(item){
+          for(var i in data) {
+            item.i = data[i];
+          }
+          persistence.flush(callback);
+        });
+      },
+      delete: function(filter, callback){
+        entities[item].filter(ilter[0],filter[1],filter[2]).destroyAll(function(){
+          persistence.flush(callback);
+        });
       }
     };
   })
