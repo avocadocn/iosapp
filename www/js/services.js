@@ -3,21 +3,22 @@ angular.module('donlerApp.services', [])
       var signOut = function(){
         var isLogin = true;
         var path = $location.path();
+        var fun = function () {
+          var userType = localStorage.userType;
+          if (userType === 'company') {
+            $location.path('/hr/login');
+          } else {
+            $location.path('/user/login');
+          }
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('userType');
+          localStorage.removeItem('id');
+        }
         if (path ==='/user/login' || path ==='/hr/login') {
           isLogin = false;
         }
         if (isLogin) {
-          $rootScope.showAction({titleText:'您的登录已经过期或者您的设备在其他设备上登录，请重新登录！',cancelFun:function () {
-            var userType = localStorage.userType;
-            if (userType === 'company') {
-              $location.path('/hr/login');
-            } else {
-              $location.path('/user/login');
-            }
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('userType');
-            localStorage.removeItem('id');
-          }});
+          $rootScope.showAction({titleText:'您的登录已经过期或者您的设备在其他设备上登录，请重新登录！',cancelFun:fun});
         }
       }
       var requestInterceptor = {
@@ -26,13 +27,19 @@ angular.module('donlerApp.services', [])
           {
             signOut();
           }
-          return $q.reject(rejection);
+          else{
+            return $q.reject(rejection);
+          }
+          
         },
         'response': function (response) {
           if (response.status == 401) {
             signOut();
-          };
-          return response || $q.when(response);
+          }
+          else{
+            return response || $q.when(response);
+          }
+          
         }
       };
 

@@ -166,6 +166,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           buttonClicked: function() {
             option.cancelFun && option.cancelFun();
             hideSheet();
+          },
+          cancel: function() {
+            option.cancelFun && option.cancelFun();
+            hideSheet();
           }
         });
       }
