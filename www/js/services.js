@@ -20,18 +20,19 @@ angular.module('donlerApp.services', [])
         if (isLogin) {
           $rootScope.showAction({titleText:'您的登录已经过期或者您的设备在其他设备上登录，请重新登录！',cancelFun:fun});
         }
-        return !isLogin;
       }
       var requestInterceptor = {
         'responseError': function(rejection) {
-          if (rejection.status !== 401 || signOut()) {
-            return $q.reject(rejection);
+          if (rejection.status == 401) {
+            signOut()
           }
+          return $q.reject(rejection);
         },
         'response': function (response) {
-          if (response.status !== 401 || signOut()) {
-            return response || $q.when(response);
+          if (response.status == 401) {
+            signOut()
           }
+          return response || $q.when(response);
         }
       };
 
