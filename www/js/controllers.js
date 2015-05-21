@@ -76,13 +76,11 @@ angular.module('donlerApp.controllers', [])
     };
     $scope.hidenGuide = function () {
       $scope.company.guide_step = 1;
-      Company.edit(localStorage.id,{guide_step:1})
-        .success(function(data) {
-          
-        })
-        .error(function(data) {
+      Company.edit(localStorage.id,{guide_step:1},function (err) {
+        if(err){
           console.log('err');
-        });
+        }
+      });
     }
     $scope.$on('$ionicView.enter', function(scopes, states) {
       // 为true或undefined时获取公司数据

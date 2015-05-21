@@ -20,23 +20,17 @@ angular.module('donlerApp.services', [])
         if (isLogin) {
           $rootScope.showAction({titleText:'您的登录已经过期或者您的设备在其他设备上登录，请重新登录！',cancelFun:fun});
         }
+        return !isLogin;
       }
       var requestInterceptor = {
         'responseError': function(rejection) {
-          if (rejection.status == 401)
-          {
-            signOut();
-          }
-          else{
+          if (rejection.status !== 401 || signOut()) {
             return $q.reject(rejection);
           }
           
         },
         'response': function (response) {
-          if (response.status == 401) {
-            signOut();
-          }
-          else{
+          if (response.status !== 401 || signOut()) {
             return response || $q.when(response);
           }
           
@@ -70,6 +64,70 @@ angular.module('donlerApp.services', [])
     team:'',//hr编辑小队用
     needUpdateDiscussList:false //供判断是否需要更新discussList
   })
+  .factory('Persistence', ['$q', 'CONFIG', function($q,CONFIG) {
+    //persistence.store.memory.config(persistence);  
+    persistence.store.cordovasql.config(
+      persistence,
+      'donler',
+      '1.0',                // DB version
+      'donler_db',          // DB display name
+      5 * 1024 * 1024,        // DB size
+      0                       // SQLitePlugin Background processing disabled
+    );
+
+    var entities = {};
+
+    entities.Hash = persistence.define('Hash', {
+      name: 'TEXT',
+      timehash:'INT'
+    });
+    entities.ChatRoom = persistence.define('ChatRoom', {
+      uid:'TEXT',
+      name: 'TEXT',
+      _id:'TEXT',
+      logo:'TEXT',
+      timehash:'INT'
+    });
+    entities.Hash.index('name');
+    entities.ChatRoom.index('_id');
+    persistence.debug = true;
+    persistence.schemaSync();
+
+    return {
+      Entities: entities,
+
+      add: function(data, callback) {
+        persistence.add(data);
+        persistence.flush(callback);
+      },
+      
+      get: function(item,filter, callback) {
+        var defer = $q.defer();
+        var queryCollection = entities[item].all()
+        if(filer){
+          queryCollection = queryCollection.filter(filter[0],filter[1],filter[2])
+        }
+        queryCollection.list(null, function (data) {
+          defer.resolve(data);
+        });
+        return defer.promise;
+      },
+      edit: function(filter, data, callback){
+
+        entities[item].all().filter(filter[0],filter[1],filter[2]).one(function(item){
+          for(var i in data) {
+            item.i = data[i];
+          }
+          persistence.flush(callback);
+        });
+      },
+      delete: function(filter, callback){
+        entities[item].filter(ilter[0],filter[1],filter[2]).destroyAll(function(){
+          persistence.flush(callback);
+        });
+      }
+    };
+  }])
   .factory('CommonHeaders', ['$http', 'CONFIG', function ($http, CONFIG) {
 
     return {
@@ -574,7 +632,7 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-  .factory('Chat', ['$http', 'CONFIG', 'Tools', function ($http, CONFIG, Tools) {
+  .factory('Chat', ['$http', 'CONFIG', 'Tools', 'Persistence',function ($http, CONFIG, Tools,Persistence) {
     var chatroomList;//缓存chatroomList
     return {
       /**
@@ -591,6 +649,24 @@ angular.module('donlerApp.services', [])
         .success(function (data, status) {
           callback(null,data.chatroomList);
           chatroomList = data.chatroomList;
+          // var _length= chatroomList.length;
+          // var timehash = new Date().valueOf();
+          // for ( var i = 0; i < _length; i++) {
+            
+          //   Persistence.get('ChatRoom',['_id','=',chatroomList[i]._id]).then(function (data) {
+          //     console.log(data);
+          //   })
+          //   .then(null,function (error) {
+          //     var chatRoom = new Persistence.Entities.ChatRoom();
+          //     chatRoom._id = chatroomList[i]._id;
+          //     chatRoom.name = chatroomList[i].name;
+          //     chatRoom.logo = chatroomList[i].logo;
+          //     chatRoom.timehash = timehash;
+          //     Persistence.add(chatRoom);
+          //     console.log(error);
+          //   })
+            
+          // }
         }).error(function (data, status) {
           callback('列表获取错误');
         });
@@ -2006,58 +2082,4 @@ angular.module('donlerApp.services', [])
       }
     };
   }])
-  .factory('Persistence', function($q) {
-    //persistence.store.memory.config(persistence);  
-
-    persistence.store.cordovasql.config(
-      persistence,
-      'donler',
-      '1.0',                // DB version
-      'donler_db',          // DB display name
-      5 * 1024 * 1024,        // DB size
-      0                       // SQLitePlugin Background processing disabled
-    );
-
-    var entities = {};
-
-    entities.ChatRoom = persistence.define('ChatRoom', {
-      name: 'TEXT',
-      chatroomeid:'TEXT',
-      timehash:'TEXT'
-    });
-
-    persistence.debug = true;
-    persistence.schemaSync();
-
-    return {
-      Entities: entities,
-
-      add: function(data, callback) {
-        persistence.add(data);
-        persistence.flush(callback);
-      },
-      
-      get: function(item,filter, callback) {
-        var defer = $q.defer();
-
-        entities[item].all().filter(filter, function (data) {
-          defer.resolve(data);
-        });
-        return defer.promise;
-      },
-      edit: function(filter, data, callback){
-
-        entities[item].all().filter(filter[0],filter[1],filter[2]).one(function(item){
-          for(var i in data) {
-            item.i = data[i];
-          }
-          persistence.flush(callback);
-        });
-      },
-      delete: function(filter, callback){
-        entities[item].filter(ilter[0],filter[1],filter[2]).destroyAll(function(){
-          persistence.flush(callback);
-        });
-      }
-    };
-  })
+ 
