@@ -6,10 +6,10 @@ ion-view.team_page
   ion-content(bindonce="team")
     .list
       .item.cover_item
-        img.cover_img(ng-if="team.familyPhotos.length >= 1" bo-src="STATIC_URL + team.familyPhotos[team.familyPhotos.length-1].uri+'/640/300'")
+        img.cover_img(ng-if="team.familyPhotos.length >= 1" img-cache ic-src="{{STATIC_URL + team.familyPhotos[team.familyPhotos.length-1].uri+'/640/300'}}")
         img.cover_img(ng-if="team.familyPhotos.length === 0" src="./img/family.png")
       .item.team_info_item
-        img.team_logo(ng-if="team" bo-src="STATIC_URL + team.logo+'/140/140'")
+        img.team_logo(ng-if="team" img-cache ic-src="STATIC_URL + team.logo+'/140/140'")
         h2.team_name(bo-text="team.name")
         p.team_info
           span.info_label 积分:
@@ -37,7 +37,7 @@ ion-view.team_page
       .item.row.item-icon-right.members_item
         .col
           span.title 队长
-          img.user_logo(ng-if="team.leaders.length>0" bo-src="STATIC_URL + team.leaders[0].photo+'/30/30'")
+          img.user_logo(ng-if="team.leaders.length>0" img-cache ic-src="{{STATIC_URL + team.leaders[0].photo+'/30/30'}}")
         a.col(bo-href="'#/members/team/'+team._id")
           span(bo-text="'成员('+team.memberCount+'人)'")
         i.icon.ion-chevron-right.icon_right

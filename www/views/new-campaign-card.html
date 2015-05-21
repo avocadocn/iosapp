@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="dl_card_content clearfix">
-      <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" bo-src="STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)+'/60/60'" class="dl_team_logo"/>
+      <div class="dl_cp_logos logos_{{campaign.campaign_unit.length}}"><img ng-repeat="campaign_unit in campaign.campaign_unit" img-cache="img-cache" ic-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)+'/60/60'}}" class="dl_team_logo"/>
         <div bo-if="campaign.campaign_type===4 || campaign.campaign_type===5" class="provoke_label"><span>挑战</span></div>
         <div bo-if="campaign.campaign_type===7" class="fellowship_label"><span>联谊 </span></div>
       </div>

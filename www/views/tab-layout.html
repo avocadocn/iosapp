@@ -59,7 +59,7 @@
       <ion-content>
         <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
         <ul bindonce="chatrooms" ng-if="chatrooms.length" class="list">
-          <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img bo-if="chatroom.kind==='team'" bo-src="STATIC_URL + chatroom.logo + '/45/45'"/><img bo-if="chatroom.kind==='company'" src="img/icons/unjoined_discuss.png"/>
+          <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img bo-if="chatroom.kind==='team'" img-cache="img-cache" ic-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/><img bo-if="chatroom.kind==='company'" src="img/icons/unjoined_discuss.png"/>
               <div ng-if="chatroom.unread" class="red_spot"></div>
               <h2 bo-text="chatroom.name"></h2>
               <p ng-if="chatroom.latestChat" ng-cloak="ng-cloak" class="chat_pre"><span ng-show="chatroom.unread">[{{chatroom.unread}}条新消息]</span><span ng-cloak="ng-cloak">{{chatroom.latestChat.poster.nickname || chatroom.latestChat.poster.name}}:</span><span ng-cloak="ng-cloak" ng-if="chatroom.latestChat.content" ng-bind-html=" chatroom.latestChat.content | emoji | unsafe"></span><span ng-cloak="ng-cloak" ng-if="!chatroom.latestChat.content">{{chatroom.latestChat.photos.length? '[图片]':'[提醒]'}}</span></p></a>
@@ -93,24 +93,24 @@
           <div class="item rank"><span class="rank_title">排行榜</span><a href="#/rank/select" class="button rank_button no_underline">查看全部类型</a></div>
           <div ng-if="teams.length&gt;0" class="team_select">
             <div class="team_container">
-              <div ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex&gt;0" class="team last_team"><i class="icon ion-ios7-arrow-back"></i><img ng-src="{{STATIC_URL + teams[nowTeamIndex-1].logo}}/45/45" class="team_logo"/>
+              <div ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex&gt;0" class="team last_team"><i class="icon ion-ios7-arrow-back"></i><img img-cache="img-cache" ic-src="{{STATIC_URL + teams[nowTeamIndex-1].logo}}/45/45" class="team_logo"/>
                 <div ng-bind="teams[nowTeamIndex-1].name" class="team_name"></div>
               </div>
             </div>
             <div class="team_container">
-              <div class="team selected_team"><img ng-src="{{STATIC_URL + teams[nowTeamIndex].logo}}/45/45" class="team_logo"/>
+              <div class="team selected_team"><img img-cache="img-cache" ic-src="{{STATIC_URL + teams[nowTeamIndex].logo}}/45/45" class="team_logo"/>
                 <div ng-bind="teams[nowTeamIndex].name" class="team_name"></div>
               </div>
             </div>
             <div class="team_container">
-              <div ng-click="changeSelectTeam(1)" ng-if="nowTeamIndex&lt;teams.length-1" class="team next_team"><img ng-src="{{STATIC_URL + teams[nowTeamIndex+1].logo}}/45/45" class="team_logo"/>
+              <div ng-click="changeSelectTeam(1)" ng-if="nowTeamIndex&lt;teams.length-1" class="team next_team"><img img-cache="img-cache" ic-src="{{STATIC_URL + teams[nowTeamIndex+1].logo}}/45/45" class="team_logo"/>
                 <div ng-bind="teams[nowTeamIndex+1].name" class="team_name"></div><i class="icon ion-ios7-arrow-forward"></i>
               </div>
             </div>
           </div>
           <div ng-if="teams.length" class="list rank_table"><a ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank" class="item rank_line clearfix">
               <div bo-text="rankTeam.score_rank.rank" class="rank_col"></div>
-              <div class="logo_col"><img bo-src="STATIC_URL + rankTeam.logo+'/45/45'" class="team_logo"/></div>
+              <div class="logo_col"><img img-cache="img-cache" ic-src="{{STATIC_URL + rankTeam.logo+'/45/45'}}" class="team_logo"/></div>
               <div class="name_col">
                 <p bo-text="rankTeam.name" class="team_name"></p>
                 <p bo-text="rankTeam.cname" class="team_cname"></p>
@@ -127,23 +127,23 @@
       </ion-header-bar>
       <ion-content bindonce="company">
         <ion-refresher on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-        <div ng-style="familyMinHeight" class="company_header"><img ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380" class="company_family"/><img ng-if="company &amp;&amp; !company.cover" src="./img/company_cover.png" class="company_family"/>
+        <div ng-style="familyMinHeight" class="company_header"><img ng-if="company.cover" img-cache="img-cache" ic-src="{{STATIC_URL + company.cover}}/640/380" class="company_family"/><img ng-if="company &amp;&amp; !company.cover" src="./img/company_cover.png" class="company_family"/>
         </div>
         <div class="company_info">
-          <div class="info_header clearfix"><img bo-src="STATIC_URL + company.logo+'/160/160'" class="logo"/>
+          <div class="info_header clearfix"><img ng-if="company" img-cache="img-cache" ic-src="{{STATIC_URL + company.logo+'/160/160'}}" class="logo"/>
             <div class="info_content">
               <div bo-text="company.shortName" class="company_name"></div>
             </div>
             <div class="company_brief"><span class="title">简介:</span><span bo-text="company.intro || '无'" class="content"></span></div>
           </div>
         </div>
-        <div class="list"><a href="#/company/contacts" class="item item-icon-right clearfix staff_item"><img ng-repeat="staff in staffList" bo-src="STATIC_URL + staff.photo+'/60/60'" class="staff_photo"/><span class="more_text">更多同事</span><i class="icon ion-chevron-right icon_right"></i></a></div>
+        <div class="list"><a href="#/company/contacts" class="item item-icon-right clearfix staff_item"><img ng-repeat="staff in staffList" img-cache="img-cache" ic-src="{{STATIC_URL + staff.photo+'/60/60'}}" class="staff_photo"/><span class="more_text">更多同事</span><i class="icon ion-chevron-right icon_right"></i></a></div>
         <div class="list menu_list"><a href="#/circle/circle_company" class="item item-icon-right">
             <svg class="svg_icon svg_item_icon">
               <use xlink:href="#jincaisunjian"></use>
             </svg>精彩瞬间<span ng-if="newCircleComment" class="badge badge-assertive">{{newCircleComment}}</span>
             <div ng-if="newContent" class="badge_image">
-              <div class="red_spot"></div><img ng-src="{{STATIC_URL + newContent.photo}}/60/60" class="logo"/>
+              <div class="red_spot"></div><img img-cache="img-cache" ic-src="{{STATIC_URL + newContent.photo}}/60/60" class="logo"/>
             </div><i class="icon ion-chevron-right icon_right"></i></a><a href="#/company/teams/official" class="item item-icon-right">
             <svg class="svg_icon svg_item_icon">
               <use xlink:href="#suoyouxiaodui"></use>
@@ -162,7 +162,7 @@
       </ion-header-bar>
       <ion-content>
         <ion-refresher on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-        <div class="list user_info"><a href="#/personal/edit" ng-cloak="ng-cloak" class="item item-icon-right item_user"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/120/120" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo" class="avatar_photo"/>
+        <div class="list user_info"><a href="#/personal/edit" ng-cloak="ng-cloak" class="item item-icon-right item_user"><img ng-if="user" img-cache="img-cache" ic-src="{{STATIC_URL + user.photo}}/120/120" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo" class="avatar_photo"/>
             <h2 class="nickname">{{user.nickname}}</h2>
             <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p><i class="icon ion-chevron-right icon_right"></i></a>
           <div ng-cloak="ng-cloak" class="item statistics">

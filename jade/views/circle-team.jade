@@ -8,7 +8,7 @@ ion-view.circle_team_page
     .circle_owner
       a.circle_owner_name {{team.name}}
       .circle_owner_image_wrap
-        img.circle_owner_image(ng-src="{{STATIC_URL + team.logo}}/140/140")
+        img.circle_owner_image(ng-if="team" img-cache ic-src="{{STATIC_URL + team.logo}}/140/140")
     
     circle-card-list.dl_circle_card_list(circle-list="circleContentList" user="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL")
     

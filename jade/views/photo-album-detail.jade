@@ -9,7 +9,7 @@ ion-view
       .card_header.clearfix
         p.header_title {{group.date | date:'yyyy年MM月dd日'}}
       .dl_gallery.clearfix
-        img.photo(ng-repeat="photo in group.photos" ng-src="{{STATIC_URL + photo.uri}}/65/65" photo="photo" pswp-id="pswpId" photos="photos" open-photo)
+        img.photo(ng-repeat="photo in group.photos" img-cache ic-src="{{STATIC_URL + photo.uri}}/65/65" photo="photo" pswp-id="pswpId" photos="photos" open-photo)
     .list(ng-if="photoGroups.length === 0")
       .item 该相册还没有照片，快来上传吧。
 
@@ -22,6 +22,6 @@ ion-view
       ion-content
         .card
           .item.item-image
-            img(ng-src="{{previewImg}}")
+            img(img-cache ic-src="{{previewImg}}")
 
  include ./photo-swipe

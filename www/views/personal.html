@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="doRefresh(true)" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-    <div class="list user_info"><a href="#/personal/edit" ng-cloak="ng-cloak" class="item item-icon-right item_user"><img ng-if="user" ng-src="{{STATIC_URL + user.photo}}/120/120" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo" class="avatar_photo"/>
+    <div class="list user_info"><a href="#/personal/edit" ng-cloak="ng-cloak" class="item item-icon-right item_user"><img ng-if="user" img-cache="img-cache" ic-src="{{STATIC_URL + user.photo}}/120/120" prevent-default="prevent-default" photo="user.photo" pswp-id="pswpId" open-photo="open-photo" class="avatar_photo"/>
         <h2 class="nickname">{{user.nickname}}</h2>
         <p ng-cloak="ng-cloak">邮箱：{{user.email}}</p><i class="icon ion-chevron-right icon_right"></i></a>
       <div ng-cloak="ng-cloak" class="item statistics">

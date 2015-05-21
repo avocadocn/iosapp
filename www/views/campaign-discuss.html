@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
     <div class="list comments">
-      <div ng-repeat="comment in comments track by $index" ng-if="comment.content" ng-cloack="ng-cloack" class="item item-thumbnail-left comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img ng-src="{{STATIC_URL +comment.poster.photo+ '/30/30'}}"/></a>
+      <div ng-repeat="comment in comments track by $index" ng-if="comment.content" ng-cloack="ng-cloack" class="item item-thumbnail-left comment clearfix"><a ng-href="#/user/{{comment.poster._id}}" class="logo"><img img-cache="img-cache" ic-src="{{STATIC_URL +comment.poster.photo+ '/30/30'}}"/></a>
         <div class="contents">
           <div ng-cloak="ng-cloak" class="name">{{comment.poster.nickname}}</div>
           <div ng-bind-html="comment.content | emoji | unsafe" class="content"></div>

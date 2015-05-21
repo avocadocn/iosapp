@@ -12,7 +12,7 @@ ion-view.contacts
       button.button-clear(ng-click="search()") 搜索
     .list.user_list
       a.item.item-avatar.item-icon-right.user_item(ng-repeat="contact in contacts" href="#/user/{{contact._id}}" ng-cloak)
-        img.user_photo(ng-src="{{STATIC_URL + contact.photo}}/90/90")
+        img.user_photo(img-cache ic-src="{{STATIC_URL + contact.photo}}/90/90")
         h2.nickname(ng-cloak) {{contact.nickname}} 
           span(ng-if="contact.realname") ({{contact.realname}})
         p.realname(ng-cloak) {{contact.email}}

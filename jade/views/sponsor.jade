@@ -7,9 +7,9 @@ form(name="sponsorForm" novalidate ng-init="showMore=false;")
     ion-content
       .list
         .row.competition(ng-if="sponsorType==='competition'")
-          .col.col_sm: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60")
+          .col.col_sm: img.team_logo(img-cache ic-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60")
           .col.col_center {{competitionMessage.competition_type===1 ? '挑战':'联谊'}}
-          .col.col_sm: img.team_logo(ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/60/60")
+          .col.col_sm: img.team_logo(img-cache ic-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/60/60")
         label.item.item-input.item-select(ng-if="sponsorType!=='competition'")
           span.input-label 小队
           select.result(ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams")

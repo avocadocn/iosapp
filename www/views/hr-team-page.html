@@ -4,7 +4,7 @@
     <h1 class="title">公司小队</h1>
   </ion-header-bar>
   <ion-content><a href="#/hr/create_team" class="item item-icon-right item-label">新建小队<i class="icon ion-chevron-right"></i></a><a class="item item-label">所有小队</a>
-    <ul class="list"><a ng-repeat="team in teams" ng-click="editTeam(team)" class="item item-avatar-custom item-icon-right"><img ng-src="{{STATIC_URL + team.logo + '/45/45'}}"/>
+    <ul class="list"><a ng-repeat="team in teams" ng-click="editTeam(team)" class="item item-avatar-custom item-icon-right"><img img-cache="img-cache" ic-src="{{STATIC_URL + team.logo + '/45/45'}}"/>
         <h2 class="team-name">{{team.name}}</h2>
         <p class="team-status">状态: {{team.active? '正常':'关闭'}} </p>
         <p>类型: {{team.groupType}}</p>

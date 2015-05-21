@@ -8,12 +8,12 @@ ion-view
       .card_header.clearfix
         p.header_title 小队封面&nbsp;({{familyPhotoLength}})
       .clearfix
-        img.photo(ng-repeat="photo in familyPhotos" ng-src="{{STATIC_URL + photo.uri}}/65/65")
+        img.photo(ng-repeat="photo in familyPhotos" img-cache ic-src="{{STATIC_URL + photo.uri}}/65/65")
 
     a.dl_photo_album_card(ng-repeat="photoAlbum in photoAlbums" ng-href="#/photo_album/{{photoAlbum._id}}/detail")
       .card_header.clearfix
         p.header_title {{photoAlbum.name}}&nbsp;({{photoAlbum.photoCount}})
       .clearfix
-        img.photo(ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/65/65")
+        img.photo(ng-repeat="photo in photoAlbum.latestPhotos" img-cache ic-src="{{STATIC_URL + photo.uri}}/65/65")
 
     ion-infinite-scroll(on-infinite="loadMore()" distance="-1%" icon="ion-looping" ng-if="moreDataCanBeLoaded()")

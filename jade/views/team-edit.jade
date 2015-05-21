@@ -9,7 +9,7 @@ ion-view.edit_info
   ion-content
     form.list(name="editForm")
       .item.item-thumbnail-right.item-icon-right(ng-click="showUploadActionSheet()")
-        img(ng-src="{{STATIC_URL + team.logo}}/160/160")
+        img(ng-if="team" img-cache ic-src="{{STATIC_URL + team.logo}}/160/160")
         h2 小队logo
         i.icon.ion-chevron-right
       .item.item-input

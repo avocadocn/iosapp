@@ -8,14 +8,14 @@
       <div class="row competition_teams">
         <div class="col team sponsor_team">
           <div class="team_title">发起方</div>
-          <div class="team_content"><a ng-if="cid==fromTeam.cid" ng-href="#/team/{{fromTeam._id}}"><img ng-src="{{STATIC_URL + fromTeam.logo}}/60/60" class="team_logo"/></a><img ng-if="cid!==fromTeam.cid" ng-src="{{STATIC_URL + fromTeam.logo}}/40/40" class="team_logo"/>
+          <div class="team_content"><a ng-if="cid==fromTeam.cid" ng-href="#/team/{{fromTeam._id}}"><img img-cache="img-cache" ic-src="{{STATIC_URL + fromTeam.logo}}/60/60" class="team_logo"/></a><img ng-if="cid!==fromTeam.cid" img-cache="img-cache" ic-src="{{STATIC_URL + fromTeam.logo}}/40/40" class="team_logo"/>
             <div class="team_name">{{fromTeam.name}}</div>
           </div>
         </div>
         <div ng-cloak="ng-cloak" class="col col-10 vs col-center"><span class="competition_type">{{messageData.type==1 ? '挑战' :'联谊'}}</span></div>
         <div class="col team opposite_team">
           <div class="team_title">接受方</div>
-          <div class="team_content"><a ng-if="cid==targetTeam.cid" ng-href="#/team/{{targetTeam._id}}"><img ng-src="{{STATIC_URL + targetTeam.logo}}/40/40" class="team_logo"/></a><img ng-if="cid!==targetTeam.cid" ng-src="{{STATIC_URL + targetTeam.logo}}/40/40" class="team_logo"/>
+          <div class="team_content"><a ng-if="cid==targetTeam.cid" ng-href="#/team/{{targetTeam._id}}"><img img-cache="img-cache" ic-src="{{STATIC_URL + targetTeam.logo}}/40/40" class="team_logo"/></a><img ng-if="cid!==targetTeam.cid" img-cache="img-cache" ic-src="{{STATIC_URL + targetTeam.logo}}/40/40" class="team_logo"/>
             <div class="team_name">{{targetTeam.name}}</div>
           </div>
         </div>

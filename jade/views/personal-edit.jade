@@ -7,7 +7,7 @@ ion-view.edit_info
   ion-content
     form.list(name="editForm")
       .item.item-thumbnail-right(ng-click="showUploadActionSheet()")
-        img(ng-src="{{STATIC_URL + user.photo}}/160/160")
+        img(ng-if="user" img-cache ic-src="{{STATIC_URL + user.photo}}/160/160")
         h2 头像
       .item.item-input
         span.input-label 昵称

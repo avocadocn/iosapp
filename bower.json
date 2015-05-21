@@ -11,6 +11,8 @@
     "angular-emoji-filter-hd-thin": "https://github.com/maggie03230/angular-emoji-filter-hd-thin.git",
     "lazysizes": "~1.0.1",
     "angular-bindonce": "~0.3.3",
-    "persistence": "~0.3.0"
+    "persistence": "~0.3.0",
+    "imgcache.js": "0.7.5",
+    "angular-imgcache.js": "0.1.0"
   }
 }

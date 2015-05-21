@@ -9,7 +9,7 @@
       <div class="vs_title"><span class="v">V</span><span class="s">S</span></div>
       <div class="col team sponsor_team">
         <div class="team_title"><span>发起方</span></div>
-        <div class="team_content"><img ng-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo}}/40/40" class="team_logo"/>
+        <div class="team_content"><img img-cache="img-cache" ic-src="{{STATIC_URL + scoreBoard.playingTeams[0].logo}}/40/40" class="team_logo"/>
           <div class="team_name">{{scoreBoard.playingTeams[0].name}}</div>
           <div ng-if="scoreBoard.status==2 &amp;&amp; results[0]==undefined &amp;&amp; scores[0]!=undefined" class="score">{{scores[0]}}</div>
           <div ng-if="scoreBoard.status==2 &amp;&amp; results[0]!=undefined" class="score">{{results[0] | scoreResultFormat}}</div>
@@ -18,7 +18,7 @@
       <div ng-cloak="ng-cloak" class="col col-10 vs col-center"><span ng-if="scoreBoard.status==2 &amp;&amp;(scoreBoard.scores.length&gt;=0 ||results.length&gt;0)" class="score">:</span></div>
       <div class="col team opposite_team">
         <div class="team_title"><span>接受方</span></div>
-        <div class="team_content"><img ng-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo}}/40/40" class="team_logo"/>
+        <div class="team_content"><img img-cache="img-cache" ic-src="{{STATIC_URL + scoreBoard.playingTeams[1].logo}}/40/40" class="team_logo"/>
           <div class="team_name">{{scoreBoard.playingTeams[1].name}}</div>
           <div ng-if="scoreBoard.status==2 &amp;&amp;results[1]==undefined &amp;&amp; scores[1]!=undefined" class="score">{{scores[1]}}</div>
           <div ng-if="scoreBoard.status==2 &amp;&amp;results[1]!=undefined" class="score">{{results[1] | scoreResultFormat}}</div>

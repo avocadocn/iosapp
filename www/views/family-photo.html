@@ -9,7 +9,7 @@
         <p class="header_title">小队封面({{familyPhotos.length}})</p>
       </div>
       <div class="clearfix">
-        <div ng-repeat="photo in familyPhotos" class="photo_wrap"><img ng-src="{{STATIC_URL + photo.uri}}/60/60" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" class="family_photo"/>
+        <div ng-repeat="photo in familyPhotos" class="photo_wrap"><img img-cache="img-cache" ic-src="{{STATIC_URL + photo.uri}}/60/60" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" class="family_photo"/>
           <div ng-if="editing" ng-cloak="ng-cloak" ng-click="toggleSelect($index)" class="delete_op_wrap">
             <div class="delete_icon_background"></div>
             <div class="delete_icon icon ion-minus-circled"></div>
@@ -31,7 +31,7 @@
       </ion-header-bar>
       <ion-content>
         <div class="card">
-          <div class="item item-image"><img ng-src="{{previewImg}}"/></div>
+          <div class="item item-image"><img img-cache="img-cache" ic-src="{{previewImg}}"/></div>
         </div>
       </ion-content>
     </ion-modal-view>

@@ -10,8 +10,8 @@ ion-view.competition_message_panel
           .team_title 发起方
           .team_content
             a(ng-if="cid==fromTeam.cid" ng-href="#/team/{{fromTeam._id}}")
-              img.team_logo(ng-src="{{STATIC_URL + fromTeam.logo}}/60/60")
-            img.team_logo(ng-if="cid!==fromTeam.cid" ng-src="{{STATIC_URL + fromTeam.logo}}/40/40")
+              img.team_logo(img-cache ic-src="{{STATIC_URL + fromTeam.logo}}/60/60")
+            img.team_logo(ng-if="cid!==fromTeam.cid" img-cache ic-src="{{STATIC_URL + fromTeam.logo}}/40/40")
             .team_name {{fromTeam.name}}
         .col.col-10.vs.col-center(ng-cloak)
           span.competition_type {{messageData.type==1 ? '挑战' :'联谊'}}
@@ -19,8 +19,8 @@ ion-view.competition_message_panel
           .team_title 接受方
           .team_content
             a(ng-if="cid==targetTeam.cid" ng-href="#/team/{{targetTeam._id}}")
-              img.team_logo(ng-src="{{STATIC_URL + targetTeam.logo}}/40/40")
-            img.team_logo(ng-if="cid!==targetTeam.cid" ng-src="{{STATIC_URL + targetTeam.logo}}/40/40")
+              img.team_logo(img-cache ic-src="{{STATIC_URL + targetTeam.logo}}/40/40")
+            img.team_logo(ng-if="cid!==targetTeam.cid" img-cache ic-src="{{STATIC_URL + targetTeam.logo}}/40/40")
             .team_name {{targetTeam.name}}
       .item.item-divider 选择活动类型
       ion-radio.competition_type_select(ng-model="messageData.type" name="type" value="2")

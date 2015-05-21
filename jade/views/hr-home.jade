@@ -4,11 +4,11 @@ ion-view.hr_company_page
     h1.title {{company.name}}
   ion-content(delegate-handle="mainScroll")
     .company_header(ng-style="familyMinHeight")
-      img.company_cover(ng-if="company.cover" ng-src="{{STATIC_URL + company.cover}}/640/380")
+      img.company_cover(ng-if="company.cover" img-cache ic-src="{{STATIC_URL + company.cover}}/640/380")
       img.company_cover(ng-if="!company.cover" src="./img/company_cover.png")
     .company_info
       .info_header.clearfix
-        img.logo(ng-src="{{STATIC_URL + company.logo}}/160/160")
+        img.logo(ng-if="company" img-cache ic-src="{{STATIC_URL + company.logo}}/160/160")
         .info_content
           .company_name {{company.name}}
         .company_brief

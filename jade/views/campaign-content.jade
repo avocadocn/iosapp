@@ -32,7 +32,7 @@ ion-view.campaign_content_page
         .members.clearfix(bo-if="!memberContent.isOtherCompany")
           a.member(ng-repeat="member in memberContent.members" bo-href="'#/user/'+member._id")
             .member_inner
-              img.member_photo(bo-src="STATIC_URL + member.photo+'/45/45'")
+              img.member_photo(img-cache ic-src="{{STATIC_URL + member.photo+'/45/45'}}")
               span.dl_member_leader(bo-if="member.isLeader")
               svg.svg_icon.dl_member_leader(bo-if="member.isLeader")
                 use(xlink:href="#star")
@@ -40,7 +40,7 @@ ion-view.campaign_content_page
         .members.clearfix(bo-if="memberContent.isOtherCompany")
           .member(ng-repeat="member in memberContent.members")
             .member_inner
-              img.member_photo(bo-src="STATIC_URL + member.photo+'/45/45'")
+              img.member_photo(img-cache ic-src="{{STATIC_URL + member.photo+'/45/45'}}")
               span.dl_member_leader(bo-if="member.isLeader")
               svg.svg_icon.dl_member_leader(bo-if="member.isLeader")
                 use(xlink:href="#star")

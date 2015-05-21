@@ -12,7 +12,7 @@ ion-view.dl_campaign_detail(bindonce='campaign')
       .campaign_info(bo-if="campaign.campaign_unit.length==1" )
         .cp_logos(class="logos_{{campaign.campaign_unit.length}}")
           a(bo-href="campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''")
-            img.team_logo(bo-src="STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/60/60'")
+            img.team_logo(img-cache ic-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/60/60'}}")
         .campaign_theme(ng-bind="campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')")
         .operator
           button.button.dl_cp_join(ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign"  ng-click="join(campaign._id)") 马上参加

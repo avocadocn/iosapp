@@ -6,7 +6,7 @@
   <ion-content class="custom_ion_content">
     <div class="circle_banner_image"></div>
     <div class="circle_owner"><a class="circle_owner_name">{{user.nickname}}</a>
-      <div class="circle_owner_image_wrap"><img ng-src="{{STATIC_URL + user.photo}}/140/140" class="circle_owner_image"/></div>
+      <div class="circle_owner_image_wrap"><img ng-if="user" img-cache="img-cache" ic-src="{{STATIC_URL + user.photo}}/140/140" class="circle_owner_image"/></div>
     </div>
     <circle-card-list circle-list="circleContentList" user="user" kind="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" on-click-blank="clickBlank" static-url="STATIC_URL" class="dl_circle_card_list"></circle-card-list>
     <div ng-if="loadingStatus.hasInit &amp;&amp; circleContentList.length === 0" class="no_moment_remind">请参加活动，把您的精彩记录下来吧!</div>

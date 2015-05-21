@@ -20,23 +20,24 @@ ion-view.discuss_detail(cache-view="false")
               span.time(bo-text="(comment.create_date | date: 'M月dd日 HH:mm')")
           .comment.clearfix(ng-repeat="photo in comment.photos" bo-class="{'putright': comment.poster._id == userId}")
             a.logo(bo-href="'#/user/'+comment.poster._id")
-              img(bo-src="STATIC_URL +comment.poster.photo+ '/45/45'")
+              img(img-cache ic-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
             .contents
               .name(bo-if="comment.poster._id !== userId" bo-text="comment.poster.nickname")
               .name(bo-if="comment.poster._id == userId") 我
               .content
                 .triangle_isosceles.triangle_img
                   .tr
-                    img(ng-if="!comment.randomId" bo-src="STATIC_URL +photo.uri+ '/360/360'" error-img width="180" height="180")
-                    img(ng-if="comment.randomId" bo-src="photo.uri" error-img width="180" height="180")
-                  .box
-                    img.img(ng-if="!comment.randomId" bo-src="STATIC_URL +photo.uri+ '/360/360'" width="180" height="180" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo error-img)
-                    img.img(ng-if="comment.randomId" bo-src="photo.uri" width="180" height="180")
+                    img(ng-if="!comment.randomId" img-cache ic-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img width="180" height="180")
+                    img(ng-if="comment.randomId" img-cache ic-src="photo.uri" error-img width="180" height="180")
+                  .box(ng-if="!comment.randomId" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo)
+                    img.img(img-cache ic-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180"  error-img)
+                  .box(ng-if="comment.randomId")
+                    img.img(img-cache ic-src="{{photo.uri}}" width="180" height="180")
           .comment.clearfix(bo-if="comment.chat_type!==1 || comment.content" bo-class="{'putright': comment.poster._id == userId}")
             a.logo(bo-if="comment.poster && !comment.poster_team" ng-href="#/user/{{comment.poster._id}}")
-              img(bo-src="STATIC_URL +comment.poster.photo+ '/45/45'")
+              img(img-cache ic-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
             a.logo(bo-if="comment.poster_team" bo-href="'#/team/'+comment.poster_team._id")
-              img(bo-src="STATIC_URL +comment.poster_team.logo+ '/45/45'")
+              img(img-cache ic-src="{{STATIC_URL +comment.poster_team.logo+ '/45/45'}}")
             .contents
               //- .name(ng-if="comment.poster_team" ng-cloak) {{comment.poster_team.name}}
               .name(bo-if="comment.poster &&comment.poster._id !== userId" bo-text="comment.poster.nickname")
@@ -46,7 +47,7 @@ ion-view.discuss_detail(cache-view="false")
                   .remind_box_head
                     span(bo-text="comment.chat_type | remindWordsFormat : comment.competition_type")
                   .remind_box_content.clearfix
-                    .team_logo: img.team_logo(bo-src="STATIC_URL +comment.opponent_team.logo + '/45/45'")
+                    .team_logo: img.team_logo(img-cache ic-src="{{STATIC_URL +comment.opponent_team.logo + '/45/45'}}")
                     .text
                       .tname(bo-text="comment.opponent_team.name")
                       .cname(bo-text="comment.opponent_team.cname")
@@ -69,5 +70,5 @@ ion-view.discuss_detail(cache-view="false")
       ion-content
         .card
           .item.item-image
-            img(ng-src="{{previewImg}}")
+            img(img-cache ic-src="{{previewImg}}")
   include ./photo-swipe

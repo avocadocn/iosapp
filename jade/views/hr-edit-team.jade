@@ -19,7 +19,7 @@ ion-view.edit_team_info
       //-   button.dl_button.pull-right(ng-if="isShowTeam" ng-click="showCompanyMember()" ng-cloak) 显示公司成员
       .item.item-input.leader
         span.input-label 现任队长
-        img.leader_logo(ng-if="nowLeader" ng-src="{{STATIC_URL + nowLeader.photo + '/40/40'}}" ng-cloak)
+        img.leader_logo(ng-if="nowLeader" img-cache ic-src="{{STATIC_URL + nowLeader.photo + '/40/40'}}" ng-cloak)
         span(ng-if="nowLeader" ng-cloak) {{nowLeader.nickname}}
         span(ng-if="!nowLeader" ng-cloak) 暂无队长
       .team-edit-label 点击头像更换队长
@@ -28,5 +28,5 @@ ion-view.edit_team_info
       //-   i.icon.ion-search.placeholder-icon.dl_search_icon(ng-click="search()")
       .item.people
         .person(ng-repeat="person in members track by $index" ng-click="point(person)" ng-cloak)
-          img.photo(ng-src="{{STATIC_URL + person.photo + '/50/50'}}" ng-class="{'selected':person._id==newLeader._id}")
+          img.photo(img-cache ic-src="{{STATIC_URL + person.photo + '/50/50'}}" ng-class="{'selected':person._id==newLeader._id}")
           .name {{person.nickname}}

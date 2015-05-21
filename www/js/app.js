@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize','pasvaz.bindonce'])
+angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'donlerApp.services', 'donlerApp.filters', 'donlerApp.directives', 'maggie.emoji', 'ngSanitize','pasvaz.bindonce', 'ImgCache'])
 
   .run(function ($ionicPlatform, $state, $cordovaPush, $ionicLoading, $ionicActionSheet, $http, $rootScope, CommonHeaders, CONFIG, INFO, UserAuth, CompanyAuth, Circle) {
     $ionicPlatform.ready(function () {
@@ -20,6 +20,10 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           window.analytics.setUserId(localStorage.id);
         }
       }
+
+      //init ImgCache
+      ImgCache.$init();
+
       $rootScope.$on('$stateChangeSuccess',
         function (event, toState, toParams, fromState, fromParams) {
           var nowHash = window.location.hash;
@@ -176,7 +180,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       
     }
 
-  }).config(function ($stateProvider,$ionicConfigProvider) {//@:ios
+  }).config(function ($stateProvider,$ionicConfigProvider, ImgCacheProvider) {//@:ios
     $ionicConfigProvider.views.transition('none');
 
     $stateProvider
@@ -594,5 +598,9 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         url: '/circle/reminds',
         controller: 'CircleRemindsController',
         templateUrl: './views/circle-reminds.html'
+      });
+      ImgCacheProvider.setOptions({
+        usePersistentCache: true,
+        localCacheFolder: 'donlerImgCache'
       });
   });

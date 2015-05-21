@@ -11,7 +11,7 @@
       </label>
       <button ng-click="search()" class="button-clear">搜索</button>
     </div>
-    <div class="list user_list"><a ng-repeat="contact in contacts" ng-cloak="ng-cloak" class="item item-avatar item-icon-right user_item"><img ng-src="{{STATIC_URL + contact.photo}}/90/90" class="user_photo"/>
+    <div class="list user_list"><a ng-repeat="contact in contacts" ng-cloak="ng-cloak" class="item item-avatar item-icon-right user_item"><img img-cache="img-cache" ic-src="{{STATIC_URL + contact.photo}}/90/90" class="user_photo"/>
         <h2 ng-cloak="ng-cloak" class="nickname">{{contact.nickname}} <span ng-if="contact.realname">({{contact.realname}})</span></h2>
         <p ng-cloak="ng-cloak" class="realname">{{contact.email}}</p></a>
       <div ng-if="message" ng-cloak="ng-cloak" class="item"><span>{{message}}</span></div>

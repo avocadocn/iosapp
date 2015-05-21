@@ -5,9 +5,9 @@ ion-view.personal
     a.button.icon.ion-more(ng-click="showPopover($event)")
   ion-content
     .user_header
-      img.img_container(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/330/200")
+      img.img_container(ng-if="user" img-cache ic-src="{{STATIC_URL + user.photo}}/330/200")
       .user_card
-        img.user_logo(ng-if="user" ng-src="{{STATIC_URL + user.photo}}/80/80" prevent-default photo="user.photo" pswp-id="pswpId" open-photo)
+        img.user_logo(ng-if="user" img-cache ic-src="{{STATIC_URL + user.photo}}/80/80" prevent-default photo="user.photo" pswp-id="pswpId" open-photo)
         .user_name(ng-cloak) {{user.nickname}}
           //- p(ng-cloak) 简介: {{user.introduce || '-'}}
         .user_realname(ng-cloak) {{user.department.name}}&nbsp;&nbsp; {{user.realname || '-'}}
@@ -26,7 +26,7 @@ ion-view.personal
         .tab_content
           .team_list(ng-if="nowTab=='team'")
             a.dl_team_card.clearfix(ng-repeat="team in myTeams" ng-href="#/team/{{team._id}}" ng-cloak)
-              img.team_logo(ng-src="{{STATIC_URL + team.logo}}/120/120")
+              img.team_logo(img-cache ic-src="{{STATIC_URL + team.logo}}/120/120")
               .team_info
                 h2.team_name {{team.name}}
                 //-p.team_cp_title {{team.lastCampaign._id ? team.lastCampaign.theme:'近期没有活动'}}

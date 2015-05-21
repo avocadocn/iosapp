@@ -7,10 +7,10 @@ ion-view.circle_reminds_page
       .item(ng-if="remindList.length === 0")
         p.text-center 没有新的提醒了
       a.item.item-avatar.remind_item(ng-repeat="remind in remindList" bo-href="'#/circle/circle_content/'+remind.targetContent._id")
-        img(bo-src="STATIC_URL + remind.poster.photo+'/128/128'")
+        img(img-cache ic-src="{{STATIC_URL + remind.poster.photo+'/128/128'}}")
         h2(bo-text="remind.poster.nickname")
         p(bo-if="remind.kind === 'comment'" bo-text="remind.content")
         p(bo-if="remind.kind === 'appreciate'")
           i.ion-heart
         p.item_date(bo-text="remind.post_date | circleBeforeNow")
-        img.content_preview(bo-if="remind.targetContent.photos && remind.targetContent.photos.length > 0" bo-src="STATIC_URL + remind.targetContent.photos[0].uri+'/128/128'")
+        img.content_preview(bo-if="remind.targetContent.photos && remind.targetContent.photos.length > 0" img-cache ic-src="STATIC_URL + remind.targetContent.photos[0].uri+'/128/128'")

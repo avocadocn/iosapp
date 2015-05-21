@@ -10,7 +10,7 @@ ion-view.hr_team_page
       | 所有小队
     ul.list
       a.item.item-avatar-custom.item-icon-right(ng-repeat="team in teams" ng-click="editTeam(team)")
-        img(ng-src="{{STATIC_URL + team.logo + '/45/45'}}")
+        img(img-cache ic-src="{{STATIC_URL + team.logo + '/45/45'}}")
         h2.team-name {{team.name}}
         p.team-status 状态: {{team.active? '正常':'关闭'}} 
         p 类型: {{team.groupType}}

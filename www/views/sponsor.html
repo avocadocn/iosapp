@@ -8,9 +8,9 @@
     <ion-content>
       <div class="list">
         <div ng-if="sponsorType==='competition'" class="row competition">
-          <div class="col col_sm"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60" class="team_logo"/></div>
+          <div class="col col_sm"><img img-cache="img-cache" ic-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60" class="team_logo"/></div>
           <div class="col col_center">{{competitionMessage.competition_type===1 ? '挑战':'联谊'}}</div>
-          <div class="col col_sm"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/60/60" class="team_logo"/></div>
+          <div class="col col_sm"><img img-cache="img-cache" ic-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/60/60" class="team_logo"/></div>
         </div>
         <label ng-if="sponsorType!=='competition'" class="item item-input item-select"><span class="input-label">小队</span>
           <select ng-change="changeTeam(selectTeam)" ng-model="selectTeam" ng-options="ledTeam as ledTeam.name for ledTeam in leadTeams" class="result"></select>

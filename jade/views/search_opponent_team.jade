@@ -6,7 +6,7 @@ ion-view.search_opponent
     ion-refresher(on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .selected_team
       .team.item.now_team(ng-cloak ng-if="myTeam")
-        img.logo(ng-src="{{STATIC_URL +myTeam.logo}}/45/45")
+        img.logo(img-cache ic-src="{{STATIC_URL +myTeam.logo}}/45/45")
         .text
           .tname {{myTeam.name}}
           .type 
@@ -31,7 +31,7 @@ ion-view.search_opponent
         .tab_content
           .teams(ng-if="teams.length>0")
             .team(ng-click="gotTeamDetail(team._id)" ng-repeat="team in teams")
-              img.logo(ng-src="{{STATIC_URL +team.logo}}/60/60")
+              img.logo(img-cache ic-src="{{STATIC_URL +team.logo}}/60/60")
               .text
                 .tname {{team.name}}
                 .leader 公司: {{team.cname}}

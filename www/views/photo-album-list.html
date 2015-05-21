@@ -8,11 +8,11 @@
       <div class="card_header clearfix">
         <p class="header_title">小队封面&nbsp;({{familyPhotoLength}})</p>
       </div>
-      <div class="clearfix"><img ng-repeat="photo in familyPhotos" ng-src="{{STATIC_URL + photo.uri}}/65/65" class="photo"/></div></a><a ng-repeat="photoAlbum in photoAlbums" ng-href="#/photo_album/{{photoAlbum._id}}/detail" class="dl_photo_album_card">
+      <div class="clearfix"><img ng-repeat="photo in familyPhotos" img-cache="img-cache" ic-src="{{STATIC_URL + photo.uri}}/65/65" class="photo"/></div></a><a ng-repeat="photoAlbum in photoAlbums" ng-href="#/photo_album/{{photoAlbum._id}}/detail" class="dl_photo_album_card">
       <div class="card_header clearfix">
         <p class="header_title">{{photoAlbum.name}}&nbsp;({{photoAlbum.photoCount}})</p>
       </div>
-      <div class="clearfix"><img ng-repeat="photo in photoAlbum.latestPhotos" ng-src="{{STATIC_URL + photo.uri}}/65/65" class="photo"/></div></a>
+      <div class="clearfix"><img ng-repeat="photo in photoAlbum.latestPhotos" img-cache="img-cache" ic-src="{{STATIC_URL + photo.uri}}/65/65" class="photo"/></div></a>
     <ion-infinite-scroll on-infinite="loadMore()" distance="-1%" icon="ion-looping" ng-if="moreDataCanBeLoaded()"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

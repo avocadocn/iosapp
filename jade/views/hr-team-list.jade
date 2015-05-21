@@ -5,7 +5,7 @@ ion-view.company
   ion-content
     ul.list
       a.item.item-avatar.item-icon-right(ng-repeat="team in teams" ng-click="editTeam(team)")
-        img(ng-src="{{STATIC_URL + team.logo + '/45/45'}}")
+        img(img-cache ic-src="{{STATIC_URL + team.logo + '/45/45'}}")
         h2 {{team.name}}
         p 类型: {{team.groupType}}
         //- p 队长: todo

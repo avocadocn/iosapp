@@ -12,7 +12,7 @@ ion-view.discuss_list(ng-controller="DiscussListController")
     ul.list(bindonce='chatrooms' ng-if="chatrooms.length")
       .custom_items(ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak)
         a.item.item-avatar_custom
-          img(bo-if="chatroom.kind==='team'" bo-src="STATIC_URL + chatroom.logo + '/45/45'")
+          img(bo-if="chatroom.kind==='team'" img-cache ic-src="{{STATIC_URL + chatroom.logo + '/45/45'}}")
           img(bo-if="chatroom.kind==='company'" src="img/icons/unjoined_discuss.png")
           .red_spot(ng-if="chatroom.unread")
           h2(bo-text="chatroom.name")

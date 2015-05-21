@@ -9,14 +9,14 @@
       <div class="row competition_teams">
         <div class="col team sponsor_team">
           <div class="team_title">发起方</div>
-          <div class="team_content"><a ng-href="#/competition/team/{{competitionMessage.sponsor_team._id}}/"><img ng-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60" class="team_logo"/></a>
+          <div class="team_content"><a ng-href="#/competition/team/{{competitionMessage.sponsor_team._id}}/"><img img-cache="img-cache" ic-src="{{STATIC_URL + competitionMessage.sponsor_team.logo}}/60/60" class="team_logo"/></a>
             <div class="team_name">{{competitionMessage.sponsor_team.name}}</div>
           </div>
         </div>
         <div ng-cloak="ng-cloak" class="col col-10 vs col-center">  {{competitionMessage.competition_type==1 ? '挑战' :'联谊'}}</div>
         <div class="col team opposite_team">
           <div class="team_title">接受方</div>
-          <div class="team_content"><a ng-href="#/competition/team/{{competitionMessage.opposite_team._id}}/"><img ng-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/60/60" class="team_logo"/></a>
+          <div class="team_content"><a ng-href="#/competition/team/{{competitionMessage.opposite_team._id}}/"><img img-cache="img-cache" ic-src="{{STATIC_URL + competitionMessage.opposite_team.logo}}/60/60" class="team_logo"/></a>
             <div class="team_name">{{competitionMessage.opposite_team.name}}</div>
           </div>
         </div>
@@ -34,7 +34,7 @@
     </div>
     <div ng-if="competitionMessage" class="competition_message_comment">
       <div class="item item-divider comment_title"><span>讨论</span></div>
-      <div ng-class="{'pull_right':comment.poster_team._id===competitionMessage.opposite_team._id}" ng-repeat="comment in commentList " class="comment clearfix"><a ng-if="cid===comment.poster_team.cid" ng-href="#/user/{{comment.poster_team._id}}"><img ng-src="{{STATIC_URL + comment.poster_team.logo}}/30/30" class="team_logo"/></a><img ng-if="cid!==comment.poster_team.cid" ng-src="{{STATIC_URL + comment.poster_team.logo}}/30/30" class="team_logo"/>
+      <div ng-class="{'pull_right':comment.poster_team._id===competitionMessage.opposite_team._id}" ng-repeat="comment in commentList " class="comment clearfix"><a ng-if="cid===comment.poster_team.cid" ng-href="#/user/{{comment.poster_team._id}}"><img img-cache="img-cache" ic-src="{{STATIC_URL + comment.poster_team.logo}}/30/30" class="team_logo"/></a><img ng-if="cid!==comment.poster_team.cid" img-cache="img-cache" ic-src="{{STATIC_URL + comment.poster_team.logo}}/30/30" class="team_logo"/>
         <div class="comment_contents">
           <div class="team_name">{{comment.poster_team.name}}</div>
           <div ng-bind-html="comment.content | emoji | unsafe" class="comment_content"></div>

@@ -31,21 +31,21 @@ ion-view.discover(ng-controller="DiscoverController")
         .team_container
           .team.last_team(ng-click="changeSelectTeam(-1)" ng-if="nowTeamIndex>0")
             i.icon.ion-ios7-arrow-back
-            img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex-1].logo}}/45/45")
+            img.team_logo( img-cache ic-src="{{STATIC_URL + teams[nowTeamIndex-1].logo}}/45/45")
             .team_name(ng-bind="teams[nowTeamIndex-1].name")
         .team_container
           .team.selected_team
-            img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex].logo}}/45/45")
+            img.team_logo(img-cache ic-src="{{STATIC_URL + teams[nowTeamIndex].logo}}/45/45")
             .team_name(ng-bind="teams[nowTeamIndex].name")
         .team_container
           .team.next_team(ng-click="changeSelectTeam(1)"  ng-if="nowTeamIndex<teams.length-1")
-            img.team_logo(ng-src="{{STATIC_URL + teams[nowTeamIndex+1].logo}}/45/45")
+            img.team_logo(img-cache ic-src="{{STATIC_URL + teams[nowTeamIndex+1].logo}}/45/45")
             .team_name(ng-bind="teams[nowTeamIndex+1].name")
             i.icon.ion-ios7-arrow-forward
       .list.rank_table(ng-if="teams.length")
         a.item.rank_line.clearfix(ng-href="#/competition/team/{{rankTeam._id}}/{{teams[nowTeamIndex]._id}}" ng-class="{single_line:$index%2===0}" ng-repeat="rankTeam in selectTeam.rankTeams" ng-if="rankTeam.score_rank.rank")
           .rank_col(bo-text="rankTeam.score_rank.rank")
-          .logo_col: img.team_logo(bo-src="STATIC_URL + rankTeam.logo+'/45/45'")
+          .logo_col: img.team_logo(img-cache ic-src="{{STATIC_URL + rankTeam.logo+'/45/45'}}")
           .name_col
             p.team_name(bo-text="rankTeam.name")
             p.team_cname(bo-text="rankTeam.cname")

@@ -9,7 +9,7 @@ ion-view
         p.header_title 小队封面({{familyPhotos.length}})
       .clearfix
         .photo_wrap(ng-repeat="photo in familyPhotos")
-          img.family_photo(ng-src="{{STATIC_URL + photo.uri}}/60/60" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo)
+          img.family_photo(img-cache ic-src="{{STATIC_URL + photo.uri}}/60/60" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo)
           .delete_op_wrap(ng-if="editing" ng-cloak ng-click="toggleSelect($index)")
             .delete_icon_background
             .delete_icon.icon.ion-minus-circled
@@ -26,7 +26,7 @@ ion-view
       ion-content
         .card
           .item.item-image
-            img(ng-src="{{previewImg}}")
+            img(img-cache ic-src="{{previewImg}}")
 
 .pswp(tabindex="-1" role="dialog" aria-hidden="true" id="{{pswpId}}")
   .pswp__bg

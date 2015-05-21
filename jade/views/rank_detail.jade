@@ -13,7 +13,7 @@ ion-view.rank_page
           .top_flag
             span {{team.rank}}
         .logo_col
-          img.team_logo(ng-src="{{STATIC_URL + team.logo}}/40/40")
+          img.team_logo(img-cache ic-src="{{STATIC_URL + team.logo}}/40/40")
         .content_col
           p.team_name {{team.name}}
           p.team_cname {{team.cname}}
@@ -31,7 +31,7 @@ ion-view.rank_page
         .rank_col
           span {{team.rank}}
         .logo_col
-          img.team_logo(ng-src="{{STATIC_URL + team.logo}}/40/40")
+          img.team_logo(img-cache ic-src="{{STATIC_URL + team.logo}}/40/40")
         .name_col
           p.team_name {{team.name}}
           p.team_cname {{team.cname}}

@@ -8,12 +8,12 @@ ion-view.search_opponent
       .item.item-divider(ng-if="leadTeams.length>0") 为我管理的小队找对手
       .units.clearfix(ng-if="leadTeams.length>0")
         a.unit(ng-repeat="team in leadTeams" ng-class="{'leader':team.isLeader}" ng-href="#/discover/search_opponent/{{team._id}}")
-          img.logo(ng-src="{{STATIC_URL + team.logo}}/45/45")
+          img.logo(img-cache ic-src="{{STATIC_URL + team.logo}}/45/45")
           .text {{team.name }}
       .item.item-divider.clear_both(ng-if="memberTeams.length>0") 为我参加的小队推荐对手
       .units.clearfix(ng-if="memberTeams.length>0")
         a.unit(ng-repeat="team in memberTeams" ng-class="{'leader':team.isLeader}" ng-href="#/discover/search_opponent/{{team._id}}")
-          img.logo(ng-src="{{STATIC_URL + team.logo}}/45/45")
+          img.logo(img-cache ic-src="{{STATIC_URL + team.logo}}/45/45")
           .text {{team.name }}
     .dl_bottom_operator(ng-if="!leadTeams.length && !memberTeams.length" ng-cloak)
       span 您加入小队后才可以找对手

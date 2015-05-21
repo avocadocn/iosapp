@@ -9,7 +9,7 @@
       <div bo-if="campaign.campaign_unit.length==2" class="item item_header campaign_theme"><span bo-text="campaign.theme"></span></div>
       <score-board bo-if="campaign.campaign_unit.length==2" component-id="scoreBoardId" campaign="campaign" reload-flag="reloadFlag"></score-board>
       <div bo-if="campaign.campaign_unit.length==1" class="campaign_info">
-        <div class="cp_logos logos_{{campaign.campaign_unit.length}}"><a bo-href="campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''"><img bo-src="STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/60/60'" class="team_logo"/></a></div>
+        <div class="cp_logos logos_{{campaign.campaign_unit.length}}"><a bo-href="campaign.campaign_unit[0].team._id ? '#/team/'+ campaign.campaign_unit[0].team._id: ''"><img img-cache="img-cache" ic-src="{{STATIC_URL + (campaign.campaign_unit[0].team.logo || campaign.campaign_unit[0].company.logo)+'/60/60'}}" class="team_logo"/></a></div>
         <div ng-bind="campaign.theme + (!campaign || campaign.active ? '' : '(已关闭)')" class="campaign_theme"></div>
         <div class="operator">
           <button ng-if="campaign.allow.joinTeamCampaign || campaign.allow.joinCompanyCampaign" ng-click="join(campaign._id)" class="button dl_cp_join">马上参加</button>

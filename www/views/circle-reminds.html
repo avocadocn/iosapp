@@ -7,11 +7,11 @@
     <div bindonce="remindList" class="list">
       <div ng-if="remindList.length === 0" class="item">
         <p class="text-center">没有新的提醒了</p>
-      </div><a ng-repeat="remind in remindList" bo-href="'#/circle/circle_content/'+remind.targetContent._id" class="item item-avatar remind_item"><img bo-src="STATIC_URL + remind.poster.photo+'/128/128'"/>
+      </div><a ng-repeat="remind in remindList" bo-href="'#/circle/circle_content/'+remind.targetContent._id" class="item item-avatar remind_item"><img img-cache="img-cache" ic-src="{{STATIC_URL + remind.poster.photo+'/128/128'}}"/>
         <h2 bo-text="remind.poster.nickname"></h2>
         <p bo-if="remind.kind === 'comment'" bo-text="remind.content"></p>
         <p bo-if="remind.kind === 'appreciate'"><i class="ion-heart"></i></p>
-        <p bo-text="remind.post_date | circleBeforeNow" class="item_date"></p><img bo-if="remind.targetContent.photos &amp;&amp; remind.targetContent.photos.length &gt; 0" bo-src="STATIC_URL + remind.targetContent.photos[0].uri+'/128/128'" class="content_preview"/></a>
+        <p bo-text="remind.post_date | circleBeforeNow" class="item_date"></p><img bo-if="remind.targetContent.photos &amp;&amp; remind.targetContent.photos.length &gt; 0" img-cache="img-cache" ic-src="STATIC_URL + remind.targetContent.photos[0].uri+'/128/128'" class="content_preview"/></a>
     </div>
   </ion-content>
 </ion-view>

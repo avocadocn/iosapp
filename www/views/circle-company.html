@@ -11,7 +11,7 @@
     <div ng-if="loadOptions.loadingNew" ng-cloak="ng-cloak" class="loading_cover"><i class="icon ion-looping"></i></div>
     <div class="circle_banner_image"></div>
     <div class="circle_owner"><a ng-bind="company.shortName" class="circle_owner_name"></a>
-      <div class="circle_owner_image_wrap"><img ng-src="{{STATIC_URL + company.logo}}/140/140" class="circle_owner_image"/></div>
+      <div class="circle_owner_image_wrap"><img ng-if="company" img-cache="img-cache" ic-src="{{STATIC_URL + company.logo}}/140/140" class="circle_owner_image"/></div>
     </div>
     <div ng-if="newCircleComment &gt; 0">
       <div ng-click="goToRemindsPage()" class="remind_box">{{newCircleComment}}条新消息</div>

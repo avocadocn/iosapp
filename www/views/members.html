@@ -7,7 +7,7 @@
     <div ng-repeat="memberContent in memberContents" ng-if="memberContent.members.length&gt;0" bindonce="memberContents" class="member_group">
       <div bo-text="memberContent.name" class="member_group_name"></div>
       <div bo-if="!memberContent.isOtherCompany" class="members clearfix"><a ng-repeat="member in memberContent.members" bo-href="'#/user/'+member._id" class="member">
-          <div class="member_inner"><img bo-src="STATIC_URL + member.photo+'/90/90'" class="member_photo"/>
+          <div class="member_inner"><img img-cache="img-cache" ic-src="{{STATIC_URL + member.photo+'/90/90'}}" class="member_photo"/>
             <svg bo-if="member.isLeader" class="svg_icon dl_member_leader">
               <use xlink:href="#star"></use>
             </svg>
@@ -15,7 +15,7 @@
           </div></a></div>
       <div bo-if="memberContent.isOtherCompany" class="members clearfix">
         <div ng-repeat="member in memberContent.members" class="member">
-          <div class="member_inner"><img bo-src="STATIC_URL + member.photo+'/90/90'" class="member_photo"/>
+          <div class="member_inner"><img img-cache="img-cache" ic-src="{{STATIC_URL + member.photo+'/90/90'}}" class="member_photo"/>
             <svg bo-if="member.isLeader" class="svg_icon dl_member_leader">
               <use xlink:href="#star"></use>
             </svg>

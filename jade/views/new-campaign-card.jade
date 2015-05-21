@@ -9,7 +9,7 @@
           span.dl_cp_time_count(bo-text="campaign.time_text")
     .dl_card_content.clearfix
       .dl_cp_logos(class="logos_{{campaign.campaign_unit.length}}")
-        img.dl_team_logo(ng-repeat="campaign_unit in campaign.campaign_unit" bo-src="STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)+'/60/60'")
+        img.dl_team_logo(ng-repeat="campaign_unit in campaign.campaign_unit" img-cache ic-src="{{STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)+'/60/60'}}")
         .provoke_label(bo-if="campaign.campaign_type===4 || campaign.campaign_type===5")
           span 挑战
         .fellowship_label(bo-if="campaign.campaign_type===7")

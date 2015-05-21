@@ -6,7 +6,7 @@ ion-view.competition_team_page
     .competition_team
       .list.team_info
         .item.item-avatar.team_item(ng-cloak ng-if="targetTeam")
-          img.team_logo(ng-src="{{STATIC_URL + targetTeam.logo}}/90/90")
+          img.team_logo(img-cache ic-src="{{STATIC_URL + targetTeam.logo}}/90/90")
           h2.team_name(ng-bind="targetTeam.name")
           p.info_text.first_info_text
             span.text_label 公司:

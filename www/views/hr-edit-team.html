@@ -11,10 +11,10 @@
       </div>
     </form>
     <div class="list">
-      <div class="item item-input leader"><span class="input-label">现任队长</span><img ng-if="nowLeader" ng-src="{{STATIC_URL + nowLeader.photo + '/40/40'}}" ng-cloak="ng-cloak" class="leader_logo"/><span ng-if="nowLeader" ng-cloak="ng-cloak">{{nowLeader.nickname}}</span><span ng-if="!nowLeader" ng-cloak="ng-cloak">暂无队长</span></div>
+      <div class="item item-input leader"><span class="input-label">现任队长</span><img ng-if="nowLeader" img-cache="img-cache" ic-src="{{STATIC_URL + nowLeader.photo + '/40/40'}}" ng-cloak="ng-cloak" class="leader_logo"/><span ng-if="nowLeader" ng-cloak="ng-cloak">{{nowLeader.nickname}}</span><span ng-if="!nowLeader" ng-cloak="ng-cloak">暂无队长</span></div>
       <div class="team-edit-label">点击头像更换队长</div>
       <div class="item people">
-        <div ng-repeat="person in members track by $index" ng-click="point(person)" ng-cloak="ng-cloak" class="person"><img ng-src="{{STATIC_URL + person.photo + '/50/50'}}" ng-class="{'selected':person._id==newLeader._id}" class="photo"/>
+        <div ng-repeat="person in members track by $index" ng-click="point(person)" ng-cloak="ng-cloak" class="person"><img img-cache="img-cache" ic-src="{{STATIC_URL + person.photo + '/50/50'}}" ng-class="{'selected':person._id==newLeader._id}" class="photo"/>
           <div class="name">{{person.nickname}}</div>
         </div>
       </div>

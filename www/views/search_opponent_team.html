@@ -6,7 +6,7 @@
   <ion-content>
     <ion-refresher on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div class="selected_team">
-      <div ng-cloak="ng-cloak" ng-if="myTeam" class="team item now_team"><img ng-src="{{STATIC_URL +myTeam.logo}}/45/45" class="logo"/>
+      <div ng-cloak="ng-cloak" ng-if="myTeam" class="team item now_team"><img img-cache="img-cache" ic-src="{{STATIC_URL +myTeam.logo}}/45/45" class="logo"/>
         <div class="text">
           <div class="tname">{{myTeam.name}}</div>
           <div class="type"> <span>积分: {{myTeam.score}} &nbsp;&nbsp;</span><span>活跃度: {{myTeam.activity_score}}</span></div>
@@ -24,7 +24,7 @@
         </ul>
         <div class="tab_content">
           <div ng-if="teams.length&gt;0" class="teams">
-            <div ng-click="gotTeamDetail(team._id)" ng-repeat="team in teams" class="team"><img ng-src="{{STATIC_URL +team.logo}}/60/60" class="logo"/>
+            <div ng-click="gotTeamDetail(team._id)" ng-repeat="team in teams" class="team"><img img-cache="img-cache" ic-src="{{STATIC_URL +team.logo}}/60/60" class="logo"/>
               <div class="text">
                 <div class="tname">{{team.name}}</div>
                 <div class="leader">公司: {{team.cname}}</div>
