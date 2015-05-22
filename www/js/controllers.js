@@ -747,17 +747,7 @@ angular.module('donlerApp.controllers', [])
         if(force)
           getChatroomsUnread();
       },function (err, data) {
-        var dataLength = data.length;
-        for(var i=0; i<dataLength; i++) {
-          var index = Tools.arrayObjectIndexOf($scope.chatrooms, data[i]._id, '_id');
-          if(index>-1) {
-            $scope.chatrooms[index] = data[i];
-          }
-          else{
-            $scope.chatrooms.push(data[i])
-          }
-          
-        };
+        $scope.chatrooms = data;
       });
     };
     getChatrooms(true);

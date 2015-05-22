@@ -81,14 +81,56 @@ angular.module('donlerApp.services', [])
       timehash:'INT'
     });
     entities.ChatRoom = persistence.define('ChatRoom', {
-      uid:'TEXT',
       name: 'TEXT',
       _id:'TEXT',
       logo:'TEXT',
+      kind:'TEXT'
+    });
+    entities.Chat = persistence.define('Chat', {
+      _id:'TEXT',
+      create_date:'DATE',
+      opponent_team:'TEXT',
+      status:'TEXT'
+    });
+    entities.User = persistence.define('User', {
+      _id:'TEXT',
+      nickname:'TEXT',
+      photo:'TEXT',
       timehash:'INT'
+    });
+    entities.Team = persistence.define('Team', {
+      _id:'TEXT',
+      name:'TEXT',
+      logo:'TEXT',
+      cname:'TEXT',
+      timehash:'INT'
+    });
+    entities.Company = persistence.define('Company', {
+      _id:'TEXT',
+      address:'TEXT',
+      logo:'TEXT',
+      name:'TEXT',
+      cover:'TEXT',
+      city:'TEXT',
+      shortName:'TEXT',
+      timehash:'INT'
+    });
+    entities.Photo = persistence.define('Photo', {
+      _id:'TEXT',
+      height:'INT',
+      uri:'TEXT',
+      width:'INT'
     });
     entities.Hash.index('name');
     entities.ChatRoom.index('_id');
+    entities.Chat.index('_id');
+    entities.User.index('_id');
+    entities.Team.index('_id');
+    entities.Photo.index('_id');
+    entities.ChatRoom.hasMany('chats', entities.Chat, 'chatroom_id');
+    entities.User.hasOne('chats', entities.Chat, 'poster');
+    entities.Team.hasOne('chats', entities.Chat, 'poster_team');
+    entities.Chat.hasOne('photo', entities.Photo, 'chat_id');
     persistence.debug = false;//debug模式开关
     persistence.schemaSync();
 
@@ -127,10 +169,10 @@ angular.module('donlerApp.services', [])
         entities[item].all().filter(filter[0],filter[1],filter[2]).one(function(entity){
           if(entity){
             for(var i in data) {
-              entity.i = data[i];
+              entity[i] = data[i];
             }
-            persistence.flush(function (data) {
-              defer.resolve(data);
+            persistence.flush(function () {
+              defer.resolve(entity);
             });
           }
           else{
@@ -667,54 +709,38 @@ angular.module('donlerApp.services', [])
           callback(null, chatroomList);
           return;
         }
-        var timehash = new Date().valueOf();
-        Persistence.getOne('Hash',['name','=','ChatRoom']).then(function (hash) {
-          if(!hash){
-            hash = new Persistence.Entities.Hash();
-            hash.name ='ChatRoom';
-            hash.timehash = timehash;
-            Persistence.add(hash);
-          }
-          Persistence.get('ChatRoom',null).then(function (data) {
-             callback(null,data);
-             chatroomList = data;
-             console.log(data);
-          })
-          .then(null,function (error) {
-            console.log(error);
-            callback(error);
-          })
-          $http.get(CONFIG.BASE_URL + '/chatrooms', {params:{timeStamp:hash.timehash}})
-          .success(function (data, status) {
-            var dataLength = data.chatroomList.length;
-            for(var i=0; i<dataLength; i++) {
-              var index = Tools.arrayObjectIndexOf(chatroomList, data.chatroomList[i]._id, '_id');
-              if(index>-1) {
-                chatroomList[index] = data.chatroomList[i];
-                Persistence.edit('ChatRoom',['_id','=',data.chatroomList[i]._id],data.chatroomList[i])
-                .then(null,function (error) {
-                  console.log(error);
-                })
-              }
-              else{
-                chatroomList.push(data.chatroomList[i])
-                var chatRoom = new Persistence.Entities.ChatRoom();
-                chatRoom._id = data.chatroomList[i]._id;
-                chatRoom.name = data.chatroomList[i].name;
-                chatRoom.logo = data.chatroomList[i].logo;
-                chatRoom.timehash = timehash;
-                Persistence.add(chatRoom);
-              }
-            };
-            hcallback(null,data.chatroomList);
-        }).error(function (data, status) {
-          callback('列表获取错误');
+        Persistence.get('ChatRoom',null).then(function (data) {
+           callback(null,data);
+           chatroomList = data;
+        })
+        $http.get(CONFIG.BASE_URL + '/chatrooms', {params:{timeStamp:hash ? hash.timehash:null}})
+        .success(function (data, status) {
+          var dataLength = data.chatroomList.length;
+          for(var i=0; i<dataLength; i++) {
+            var index = Tools.arrayObjectIndexOf(chatroomList, data.chatroomList[i]._id, '_id');
+            if(index>-1) {
+              chatroomList[index] = data.chatroomList[i];
+              Persistence.edit('ChatRoom',['_id','=',data.chatroomList[i]._id],data.chatroomList[i])
+              .then(null,function (error) {
+                console.log(error);
+              })
+            }
+            else{
+              chatroomList.push(data.chatroomList[i])
+              var chatRoom = new Persistence.Entities.ChatRoom();
+              chatRoom._id = data.chatroomList[i]._id;
+              chatRoom.name = data.chatroomList[i].name;
+              chatRoom.logo = data.chatroomList[i].logo;
+              chatRoom.kind = data.chatroomList[i].kind;
+              chatRoom.timehash = timehash;
+              Persistence.add(chatRoom);
+            }
+          };
+          hcallback(null,data.chatroomList);
+        })
+        .error(function (data, status) {
+          hcallback('列表获取错误');
         });
-        })
-        .then(null,function (error) {
-          console.log(error);
-        })
-        
       },
 
       getChatroomUnread: function(callback) {
