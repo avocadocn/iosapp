@@ -713,7 +713,7 @@ angular.module('donlerApp.services', [])
            callback(null,data);
            chatroomList = data;
         })
-        $http.get(CONFIG.BASE_URL + '/chatrooms', {params:{timeStamp:hash ? hash.timehash:null}})
+        $http.get(CONFIG.BASE_URL + '/chatrooms')
         .success(function (data, status) {
           var dataLength = data.chatroomList.length;
           for(var i=0; i<dataLength; i++) {
@@ -732,7 +732,6 @@ angular.module('donlerApp.services', [])
               chatRoom.name = data.chatroomList[i].name;
               chatRoom.logo = data.chatroomList[i].logo;
               chatRoom.kind = data.chatroomList[i].kind;
-              chatRoom.timehash = timehash;
               Persistence.add(chatRoom);
             }
           };
