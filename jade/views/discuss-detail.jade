@@ -50,7 +50,7 @@ ion-view.discuss_detail(cache-view="false")
                     .text
                       .tname(bo-text="comment.opponent_team.name")
                       .cname(bo-text="comment.opponent_team.cname")
-              .content(bo-if="comment.chat_type===1")
+              .content(bo-if="comment.chat_type===1 || !comment.chat_type")
                 .triangle_isosceles(ng-bind-html="comment.content | emoji | unsafe")
           .failed(ng-if="comment.failed" ng-cloak)
             .tip
