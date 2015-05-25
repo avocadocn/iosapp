@@ -38,7 +38,7 @@ ion-view.dl_campaign_detail(bindonce='campaign')
           span 活动详情
           span.icon.icon_small.ion-chevron-right.button-clear
         .item.item-text-wrap.campaign_content(ng-if="campaign.content")
-          p.content_simple(ng-bind="campaign.content")
+          p.content_simple(ng-bind-html="campaign.content")
       .item.campaign_footer
         a.footer_col(bo-href="'#/members/campaign/'+campaign._id")
           //- i.ion_member.dl_icon.icon_small
