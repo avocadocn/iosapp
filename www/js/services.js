@@ -89,8 +89,11 @@ angular.module('donlerApp.services', [])
     entities.Chat = persistence.define('Chat', {
       _id:'TEXT',
       create_date:'DATE',
-      opponent_team:'TEXT',
-      status:'TEXT'
+      status:'TEXT',
+      chatroom_id:'TEXT',
+      chat_type:'INT',
+      photos:'JSON',
+      content:'Text'
     });
     entities.User = persistence.define('User', {
       _id:'TEXT',
@@ -115,58 +118,61 @@ angular.module('donlerApp.services', [])
       shortName:'TEXT',
       timehash:'INT'
     });
-    entities.Photo = persistence.define('Photo', {
-      _id:'TEXT',
-      height:'INT',
-      uri:'TEXT',
-      width:'INT'
-    });
     entities.Hash.index('name');
     entities.ChatRoom.index('_id');
     entities.Chat.index('_id');
     entities.User.index('_id');
     entities.Team.index('_id');
-    entities.Photo.index('_id');
-    entities.ChatRoom.hasMany('chats', entities.Chat, 'chatroom_id');
-    entities.User.hasOne('chats', entities.Chat, 'poster');
-    entities.Team.hasOne('chats', entities.Chat, 'poster_team');
-    entities.Chat.hasOne('photo', entities.Photo, 'chat_id');
+    entities.User.hasMany('chats', entities.Chat, 'poster');
+    entities.Team.hasMany('chats', entities.Chat, 'poster_team');
+    entities.Team.hasMany('chats', entities.Chat, 'opponent_team');
     persistence.debug = false;//debug模式开关
     persistence.schemaSync();
 
     return {
       Entities: entities,
-
+      /**
+       * 添加数据
+       * @param {Entities}   data     需要添加的数据
+       * @param {Function} callback  回调函数
+       */
       add: function(data, callback) {
         persistence.add(data);
         persistence.flush(callback);
       },
-      
-      get: function(item,filter) {
+      /**
+       * 查询列表
+       * @param  {[type]} queryCollection 查询集合，可以包括，limit,filter,prefetch,skip等条件
+       * @return {promise}                 promise
+       */
+      get: function(queryCollection) {
         var defer = $q.defer();
-        var queryCollection = entities[item].all()
-        if(filter){
-          queryCollection = queryCollection.filter(filter[0],filter[1],filter[2])
-        }
         queryCollection.list(null, function (data) {
           defer.resolve(data);
         });
         return defer.promise;
       },
-      getOne: function(item,filter) {
+      /**
+       * 查询单个数据
+       * @param  {[type]} queryCollection 查询集合，可以包括，limit,filter,prefetch,skip等条件
+       * @return {promise}                 promise
+       */
+      getOne: function(queryCollection) {
         var defer = $q.defer();
-        var queryCollection = entities[item].all()
-        if(filter){
-          queryCollection = queryCollection.filter(filter[0],filter[1],filter[2])
-        }
         queryCollection.one(function (data) {
           defer.resolve(data);
         });
         return defer.promise;
       },
-      edit: function(item,filter, data){
+      /**
+       * 编辑数据
+       * @param  {queryCollection} queryCollection 查询集合，可以包括，limit,filter,prefetch,skip等条件
+       * @param  {Object} data            修改的数据对象
+       * @return {promise}                 promise
+       */
+      edit: function(queryCollection, data){
         var defer = $q.defer();
-        entities[item].all().filter(filter[0],filter[1],filter[2]).one(function(entity){
+        queryCollection.one(function(entity){
           if(entity){
             for(var i in data) {
               entity[i] = data[i];
@@ -176,16 +182,21 @@ angular.module('donlerApp.services', [])
             });
           }
           else{
-            defer.reject(entity);
+            defer.reject(404);
           }
         });
         return defer.promise;
       },
-      delete: function(item, filter){
+      /**
+       * 删除数据
+       * @param  {queryCollection} queryCollection 查询集合，可以包括，limit,filter,prefetch,skip等条件
+       * @return {promise}                 promise
+       */
+      delete: function(queryCollection){
         var defer = $q.defer();
-        entities[item].filter(ilter[0],filter[1],filter[2]).destroyAll(function(){
-          persistence.flush(function (data) {
-            defer.resolve(data);
+        queryCollection.destroyAll(function(){
+          persistence.flush(function () {
+            defer.resolve(true);
           });
         });
         return defer.promise;
@@ -709,37 +720,39 @@ angular.module('donlerApp.services', [])
           callback(null, chatroomList);
           return;
         }
-        Persistence.get('ChatRoom',null).then(function (data) {
-           callback(null,data);
-           chatroomList = data;
+        Persistence.get(Persistence.Entities.ChatRoom.all()).then(function (data) {
+          callback(null,data);
+          chatroomList = data;
+          $http.get(CONFIG.BASE_URL + '/chatrooms')
+          .success(function (data, status) {
+            var dataLength = data.chatroomList.length;
+            for(var i=0; i<dataLength; i++) {
+              var index = Tools.arrayObjectIndexOf(chatroomList, data.chatroomList[i]._id, '_id');
+              if(index>-1) {
+                chatroomList[index] = data.chatroomList[i];
+                var chatRoomCollection = Persistence.Entities.ChatRoom.all().filter('_id','=',data.chatroomList[i]._id)
+                Persistence.edit(chatRoomCollection,data.chatroomList[i])
+                .then(null,function (error) {
+                  console.log(error);
+                })
+              }
+              else{
+                chatroomList.push(data.chatroomList[i])
+                var chatRoom = new Persistence.Entities.ChatRoom();
+                chatRoom._id = data.chatroomList[i]._id;
+                chatRoom.name = data.chatroomList[i].name;
+                chatRoom.logo = data.chatroomList[i].logo;
+                chatRoom.kind = data.chatroomList[i].kind;
+                Persistence.add(chatRoom);
+              }
+            };
+            hcallback(null,data.chatroomList);
+          })
+          .error(function (data, status) {
+            hcallback('列表获取错误');
+          });
         })
-        $http.get(CONFIG.BASE_URL + '/chatrooms')
-        .success(function (data, status) {
-          var dataLength = data.chatroomList.length;
-          for(var i=0; i<dataLength; i++) {
-            var index = Tools.arrayObjectIndexOf(chatroomList, data.chatroomList[i]._id, '_id');
-            if(index>-1) {
-              chatroomList[index] = data.chatroomList[i];
-              Persistence.edit('ChatRoom',['_id','=',data.chatroomList[i]._id],data.chatroomList[i])
-              .then(null,function (error) {
-                console.log(error);
-              })
-            }
-            else{
-              chatroomList.push(data.chatroomList[i])
-              var chatRoom = new Persistence.Entities.ChatRoom();
-              chatRoom._id = data.chatroomList[i]._id;
-              chatRoom.name = data.chatroomList[i].name;
-              chatRoom.logo = data.chatroomList[i].logo;
-              chatRoom.kind = data.chatroomList[i].kind;
-              Persistence.add(chatRoom);
-            }
-          };
-          hcallback(null,data.chatroomList);
-        })
-        .error(function (data, status) {
-          hcallback('列表获取错误');
-        });
+        
       },
 
       getChatroomUnread: function(callback) {
@@ -755,13 +768,69 @@ angular.module('donlerApp.services', [])
        * @param  {Object}   params  查询query:{chatroom,nextDate,nextId}
        * @param  {Function} callback 形如:function(err,data)
        */
-      getChats: function(params, callback) {
+      getChats: function(params, callback,hcallback) {
+        var chatCollect = Persistence.Entities.Chat.all().filter('chatroom_id','=',params.chatroom).order("create_date", false).limit(20)
+        Persistence.get(chatCollect).then(function (data) {
+           callback(null,{chats:data});
+        })
+        var addChat= function (_chat) {
+          var chat= new Persistence.Entities.Chat();
+          chat._id=_chat._id;
+          chat.create_date=_chat.create_date;
+          chat.status=_chat.status;
+          chat.chatroom_id=_chat.chatroom_id;
+          chat.chat_type=_chat.chat_type;
+          chat.content =_chat.content;
+          chat.photos = _chat.photos;
+          if(_chat.poster) {
+            Persistence.getOne(Persistence.Entities.User.all().filter('_id','=',_chat.poster._id))
+            .then(function (user) {
+              if(user){
+                chat.poster = user;
+              }
+              else {
+                console.log(_chat.poster,_chat.poster_team);
+                user= new Persistence.Entities.User();
+                user._id=_chat.poster._id;
+                user.nickname=_chat.poster.nickname;
+                user.photo=_chat.poster.photo;
+                Persistence.add(user);
+                chat.poster = user;
+                
+              }
+              Persistence.add(chat);
+            })
+          }
+          else if(_chat.poster_team) {
+            Persistence.getOne(Persistence.Entities.Team.all().filter('_id','=',_chat.poster_team._id))
+            .then(function (team) {
+              if(team){
+                chat.poster_team = team;
+              }
+              else{
+                team= new Persistence.Entities.Team();
+                team._id=_chat.poster_team._id;
+                team.logo=_chat.poster_team.logo;
+                team.name=_chat.poster_team.name;
+                Persistence.add(team);
+                chat.poster_team = team;
+              }
+              Persistence.add(chat);
+            })
+          }
+        }
         $http.get(CONFIG.BASE_URL +'/chats',{
           params:params
         }).success(function (data, status) {
-          callback(null, data);
+          var dataLength = data.chats.length;
+          var chat =[];
+          var _chat =[]
+          for(var i=0; i<dataLength; i++) {
+            addChat(data.chats[i]);
+          };
+          hcallback(null,data);
         }).error(function (data, status) {
-          callback('获取聊天失败');
+          hcallback('获取聊天失败');
         });
         if(chatroomList) {
           var index = Tools.arrayObjectIndexOf(chatroomList, params.chatroom,'_id');

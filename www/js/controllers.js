@@ -824,6 +824,17 @@ angular.module('donlerApp.controllers', [])
           }
           data.chats.forEach(addPhotos);
           judgeTopShowTime();
+        }
+      },function (err, data) {
+        if(!err) {
+          if(!nextDate) {
+            $scope.chatsList.push(data.chats.reverse());
+          }
+          else {
+            $scope.chatsList.unshift(data.chats.reverse());
+          }
+          data.chats.forEach(addPhotos);
+          judgeTopShowTime();
           $scope.nextDate = data.nextDate;
           $scope.nextId = data.nextId;
           callback && callback();
