@@ -1,11 +1,11 @@
 mixin teamList(repeatCollection)
-  a.item.item-avatar.team_list_item(ng-repeat="team in #{repeatCollection}" ng-href="#/team/{{team._id}}")
-    img.team_logo(ng-src="{{STATIC_URL + team.logo}}/90/90")
-    h2.team_name(ng-bind="team.name")
+  a.item.item-avatar.team_list_item(bindonce="team" ng-repeat="team in #{repeatCollection}" bo-href="'#/team/'+team._id")
+    img.team_logo(bo-src="STATIC_URL + team.logo+'/90/90'")
+    h2.team_name(bo-text="team.name")
     p.team_info
-      span.info_item(ng-bind-template="队员: {{team.memberCount}}")
-      span.info_item(ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}")
-      span.info_item(ng-bind-template="积分: {{team.score.total}}")
+      span.info_item(bo-text="'队员:'+team.memberCount")
+      span.info_item(bo-if="team.score.campaign" bo-text="'活动:'+team.campaignCount")
+      span.info_item(bo-text="'活跃度:'+team.score.total")
 ion-view.personal_team_list_page
   ion-header-bar
     a.button.icon-left.ion-chevron-left(href="#/app/company") &nbsp;返回
