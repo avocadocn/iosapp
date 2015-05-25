@@ -40,7 +40,7 @@
                       <div bo-text="comment.opponent_team.cname" class="cname"></div>
                     </div>
                   </div></a></div>
-              <div bo-if="comment.chat_type===1" class="content">
+              <div bo-if="comment.chat_type===1 || !comment.chat_type" class="content">
                 <div ng-bind-html="comment.content | emoji | unsafe" class="triangle_isosceles"></div>
               </div>
             </div>
