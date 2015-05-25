@@ -12,7 +12,7 @@
       <div ng-if="campaign.member_max&gt;0" class="item"><span class="title">报名截止人数</span><span ng-bind="campaign.member_max" class="content"></span></div>
       <div ng-if="campaign.member_min&gt;0" class="item"><span class="title">报名最少人数</span><span ng-bind="campaign.member_min" class="content"></span></div>
       <div ng-if="campaign.content" class="item has_content"><span class="title">简介</span>
-        <div ng-bind="campaign.content" class="content"></div>
+        <div ng-bind-html="campaign.content" class="content"></div>
       </div>
     </div>
     <div class="member_page">
