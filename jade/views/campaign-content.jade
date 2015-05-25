@@ -24,7 +24,7 @@ ion-view.campaign_content_page
         span.content(ng-bind="campaign.member_min")
       .item.has_content(ng-if="campaign.content")
         span.title 简介
-        .content(ng-bind="campaign.content")
+        .content(ng-bind-html="campaign.content")
     .member_page
       .item.item-divider 已报名成员
       .member_group(ng-repeat="memberContent in memberContents" ng-if="memberContent.members.length>0")
