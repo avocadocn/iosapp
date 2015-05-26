@@ -1368,7 +1368,7 @@ angular.module('donlerApp.services', [])
           //@:android
           //destinationType必须为DATA_URL，否则不能预览
           var options = {
-            quality: 50,
+            quality: 100,
             destinationType: Camera.DestinationType.DATA_URL,//@:android
             sourceType: sourceType,
             encodingType: Camera.EncodingType.JPEG,
@@ -1378,8 +1378,8 @@ angular.module('donlerApp.services', [])
           };
           if(needEdit) {
             options.allowEdit = true;
-            options.targetWidth = 256;
-            options.targetHeight = 256;
+            options.targetWidth = 512;
+            options.targetHeight = 512;
           }
 
           $cordovaCamera.getPicture(options).then(function(imageURI) {
@@ -1424,7 +1424,8 @@ angular.module('donlerApp.services', [])
           fileKey: 'photo',
           httpMethod: 'POST',
           headers: headers,
-          mimeType: 'image/jpeg'
+          mimeType: 'image/jpeg',
+          timeout: 5000
         };
 
         if(source==='discuss') {
@@ -1440,18 +1441,19 @@ angular.module('donlerApp.services', [])
           options.fileKey = 'cover';//为什么这个这么特别= -
         }
         $ionicLoading.show({
-          template: '上传中',
-          duration: 5000
+          template: '上传中'
         });
-
-        $cordovaFile.uploadFile(addr, data.imageURI, options)
-        .then(function(result) {
-          $ionicLoading.hide();
-          callback();
-        }, function(err) {//发送失败
-          $ionicLoading.hide();
-          callback(err);
-        });
+        setTimeout(function(){
+          $cordovaFile.uploadFile(addr, data.imageURI, options)
+          .then(function(result) {
+            $ionicLoading.hide();
+            callback();
+          }, function(err) {//发送失败
+            $ionicLoading.hide();
+            callback(err);
+          });
+        }, 0);
+        
       }
     }
 

@@ -1587,6 +1587,8 @@ a>.login .companies_list:activated {
 }
 .discuss_detail .comments .comment .logo img {
   float: left;
+  width: 45px;
+  height: 45px;
 }
 .discuss_detail .comments .comment .contents {
   float: left;
@@ -1744,6 +1746,8 @@ a>.login .companies_list:activated {
 }
 .discuss_detail .comments .putright .logo img {
   float: right;
+  width: 45px;
+  height: 45px;
 }
 .discuss_detail .comments .putright .contents {
   float: right;

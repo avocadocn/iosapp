@@ -20,7 +20,7 @@ ion-view.discuss_detail(cache-view="false")
               span.time(bo-text="(comment.create_date | date: 'M月dd日 HH:mm')")
           .comment.clearfix(ng-repeat="photo in comment.photos" bo-class="{'putright': comment.poster._id == userId}")
             a.logo(bo-href="'#/user/'+comment.poster._id")
-              img(bo-src="STATIC_URL +comment.poster.photo+ '/45/45'")
+              img(bo-src="STATIC_URL +comment.poster.photo+ '/90/90'")
             .contents
               .name(bo-if="comment.poster._id !== userId" bo-text="comment.poster.nickname")
               .name(bo-if="comment.poster._id == userId") 我
@@ -34,9 +34,9 @@ ion-view.discuss_detail(cache-view="false")
                     img.img(ng-if="comment.randomId" bo-src="photo.uri" width="180" height="180")
           .comment.clearfix(bo-if="comment.chat_type!==1 || comment.content" bo-class="{'putright': comment.poster._id == userId}")
             a.logo(bo-if="comment.poster && !comment.poster_team" ng-href="#/user/{{comment.poster._id}}")
-              img(bo-src="STATIC_URL +comment.poster.photo+ '/45/45'")
+              img(bo-src="STATIC_URL +comment.poster.photo+ '/90/90'")
             a.logo(bo-if="comment.poster_team" bo-href="'#/team/'+comment.poster_team._id")
-              img(bo-src="STATIC_URL +comment.poster_team.logo+ '/45/45'")
+              img(bo-src="STATIC_URL +comment.poster_team.logo+ '/90/90'")
             .contents
               //- .name(ng-if="comment.poster_team" ng-cloak) {{comment.poster_team.name}}
               .name(bo-if="comment.poster &&comment.poster._id !== userId" bo-text="comment.poster.nickname")
@@ -46,7 +46,7 @@ ion-view.discuss_detail(cache-view="false")
                   .remind_box_head
                     span(bo-text="comment.chat_type | remindWordsFormat : comment.competition_type")
                   .remind_box_content.clearfix
-                    .team_logo: img.team_logo(bo-src="STATIC_URL +comment.opponent_team.logo + '/45/45'")
+                    .team_logo: img.team_logo(bo-src="STATIC_URL +comment.opponent_team.logo + '/90/90'")
                     .text
                       .tname(bo-text="comment.opponent_team.name")
                       .cname(bo-text="comment.opponent_team.cname")
