@@ -2934,6 +2934,15 @@ angular.module('donlerApp.controllers', [])
                 empty: true
               });
             }
+            if(!team.active) {
+              $rootScope.showAction({titleText: '该小队已被关闭', cancelFun: function() {
+                if ($ionicHistory.backView()) {
+                  $ionicHistory.goBack()
+                } else {
+                  $state.go('company_teams');
+                }
+              }});
+            }
           }
         });
       }
