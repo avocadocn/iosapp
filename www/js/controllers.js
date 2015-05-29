@@ -4179,7 +4179,7 @@ angular.module('donlerApp.controllers', [])
       })
     }
   }])
-  .controller('DiscoverController', ['$scope', '$state', '$ionicSlideBoxDelegate', 'Team', 'Rank', 'INFO',function ($scope, $state, $ionicSlideBoxDelegate, Team, Rank, INFO) {
+  .controller('DiscoverController', ['$scope', '$state', '$rootScope', '$ionicSlideBoxDelegate', 'Team', 'Rank', 'INFO',function ($scope, $state, $rootScope, $ionicSlideBoxDelegate, Team, Rank, INFO) {
     $scope.getMyTeams = function(refreshFlag) {
       Team.getList('user', localStorage.id, null, function (err, teams) {
         if (err) {
@@ -4215,6 +4215,12 @@ angular.module('donlerApp.controllers', [])
       $scope.nowTeamIndex = $scope.nowTeamIndex +flag;
     }
     $scope.getMyTeams();
+    $rootScope.$on("$ionicView.enter", function(scopes, states) {
+      if (!states.stateName && $state.$current.name === 'app.discover' && INFO.discoverTeamListChanged) {
+        $scope.getMyTeams();
+        INFO.discoverTeamListChanged = false;
+      }
+    });
   }])
   .controller('RankSelectController', ['$scope', '$state', 'Team', 'Rank', function ($scope, $state, Team, Rank) {
     var getTeamType = function () {
@@ -5247,41 +5253,56 @@ angular.module('donlerApp.controllers', [])
         });
       }
     }
-
-    Team.getData(targetTeamId, function (err, team) {
-      if (err) {
-        // todo
-        console.log(err);
-      } else {
-        $scope.targetTeam = team;
-        var score_rank = team.score_rank;
-        var totalCompetions = score_rank.win + score_rank.tie + score_rank.lose;
-        if (totalCompetions === 0) {
-          team.rate = 0;
+    $scope.$on("$ionicView.enter", function(scopes, states) {
+      Team.getData(targetTeamId, function(err, team) {
+        if (err) {
+          // todohgh
+          console.log(err);
+        } else {
+          $scope.targetTeam = team;
+          var score_rank = team.score_rank;
+          var totalCompetions = score_rank.win + score_rank.tie + score_rank.lose;
+          if (totalCompetions === 0) {
+            team.rate = 0;
+          } else {
+            team.rate = score_rank.win / totalCompetions * 100;
+          }
+          // var homeCourtText = '';
+          // if (team.homeCourts.length === 0) {
+          //   homeCourtText = '无';
+          // }
+          // else {
+          //   for (var i = 0; i < team.homeCourts.length; i++) {
+          //     if (i !== 0) {
+          //       homeCourtText += '、';
+          //     }
+          //     homeCourtText += team.homeCourts[i].name;
+          //   }
+          // }
+          // team.homeCourtText = homeCourtText;
+          getSameTeam(team.groupType);
+          $scope.isCompanyTeam = team.isCompanyTeam;
+          if (!team.isCompanyTeam) {
+            $scope.getCompetitionOfTeams();
+          }
+          if(!team.active) {
+            INFO.discoverTeamListChanged = true;
+            $rootScope.showAction({
+              titleText: '该小队已被关闭',
+              cancelFun: function() {
+                if ($ionicHistory.backView()) {
+                  $ionicHistory.goBack()
+                } else {
+                  $state.go('app.discover');
+                }
+              }
+            });
+          }
         }
-        else {
-          team.rate = score_rank.win / totalCompetions * 100;
-        }
-        // var homeCourtText = '';
-        // if (team.homeCourts.length === 0) {
-        //   homeCourtText = '无';
-        // }
-        // else {
-        //   for (var i = 0; i < team.homeCourts.length; i++) {
-        //     if (i !== 0) {
-        //       homeCourtText += '、';
-        //     }
-        //     homeCourtText += team.homeCourts[i].name;
-        //   }
-        // }
-        // team.homeCourtText = homeCourtText;
-        getSameTeam(team.groupType);
-        $scope.isCompanyTeam = team.isCompanyTeam;
-        if (!team.isCompanyTeam) {
-          $scope.getCompetitionOfTeams();
-        }
-      }
-    },{resultType:'simple'});
+      }, {
+        resultType: 'simple'
+      });
+    });
     $scope.getCompetitionOfTeams = function () {
       Campaign.getCompetitionOfTeams({targetTeamId: targetTeamId, fromTeamId:fromTeamId ,page: $scope.page}, function (err, data) {
         if (err) {
