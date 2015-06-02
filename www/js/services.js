@@ -43,7 +43,7 @@ angular.module('donlerApp.services', [])
     $httpProvider.defaults.headers["delete"] = {'Content-Type': 'application/json;charset=utf-8'};
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://www.donler.com:3002',
+    BASE_URL: 'http://www.donler.com:3002/v1_4',
     STATIC_URL: 'http://www.donler.com',
     SOCKET_URL: 'http://www.donler.com:3005',
     APP_ID: 'id1a2b3c4d5e6f',
@@ -118,10 +118,19 @@ angular.module('donlerApp.services', [])
       shortName:'TEXT',
       timehash:'INT'
     });
+    entities.User1 = persistence.define('User1', {
+      _id:'TEXT',
+      realname:'TEXT',
+      nickname:'TEXT',
+      email:'TEXT',
+      photo:'TEXT'
+    });
+
     entities.Hash.index('name');
     entities.ChatRoom.index('_id');
     entities.Chat.index('_id');
     entities.User.index('_id');
+    entities.User1.index('_id');
     entities.Team.index('_id');
     entities.User.hasMany('chats', entities.Chat, 'poster');
     entities.Team.hasMany('chats', entities.Chat, 'poster_team');
@@ -959,8 +968,10 @@ angular.module('donlerApp.services', [])
 
     };
   }])
-  .factory('User', ['$http', 'CONFIG', function ($http, CONFIG) {
+  .factory('User', ['$http', 'CONFIG', 'Persistence', 'Tools', function ($http, CONFIG, Persistence, Tools) {
     var currentUser;//存下自己的数据，我的、发评论时用
+    var hashUser;
+    var userData;
     return {
       /**
        * 获取用户数据
@@ -1045,14 +1056,76 @@ angular.module('donlerApp.services', [])
        * @param  {String}   cid  公司id
        * @param  {Function} callback 获取后的回调函数，形式为function(err, data)
        */
-      getCompanyUsers: function(cid, callback) {
-        $http.get(CONFIG.BASE_URL + '/users/list/' + cid)
-        .success(function (data, status) {
-          callback(null, data);
+      getCompanyUsers: function(cid, callback, hcallback) {
+        Persistence.get(Persistence.Entities.User1.all()).then(function (data) {
+          callback(null,data);
+          userData = data;
+          Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'User1'))
+          .then(function(hash) {
+            hashUser = hash;
+            var url = CONFIG.BASE_URL + '/users/list/' + cid;
+            if(hash) {
+              url += ('?timehash=' + hash.timehash);
+            }
+            $http.get(url)
+            .success(function(data, status) {
+              if(data.length) {
+                var maxTime = -1;
+                data.forEach(function(user) {
+                  var index = Tools.arrayObjectIndexOf(userData, user._id, '_id');
+
+                  if(index > -1) {
+                    if(!user.active) {
+                      userData.splice(index, 1);
+                      Persistence.Entities.User1.all().filter('_id','=', user._id).destroyAll();
+                    } else {
+                      userData[index] = user;
+                      var userCollection = Persistence.Entities.User1.all().filter('_id','=',user._id);
+                      Persistence.edit(userCollection, user)
+                        .then(null, function(error) {
+                          console.log(error);
+                        })
+                    }
+                  } else {
+                    if(user.active) {
+                      userData.push(user);
+                      var _user = new Persistence.Entities.User1();
+                      _user._id = user._id;
+                      _user.email = user.email;
+                      _user.nickname = user.nickname;
+                      _user.photo = user.photo;
+                      _user.realname = user.realname;
+                      persistence.add(_user);
+                    }
+                  }
+
+                  var date = (new Date(user.timeHash)).valueOf();
+                  if(date > maxTime) {
+                    maxTime = date;
+                  }
+                })
+                data = userData;
+                console.log(data);
+                if(hashUser) {
+                  hashUser.timehash = maxTime;
+                } else {
+                  var hash = new Persistence.Entities.Hash();
+                  hash.name = 'User1';
+                  hash.timehash = maxTime;
+                  persistence.add(hash);
+                }
+                persistence.flush();
+                hcallback(null, data);
+              } else {
+                hcallback('no new data');
+              }
+            })
+            .error(function(data, status) {
+              hcallback(data ? data.msg : 'error');
+            });
+          })
+
         })
-        .error(function (data, status) {
-          callback(data.msg);
-        });
       },
 
       clearCurrentUser: function() {

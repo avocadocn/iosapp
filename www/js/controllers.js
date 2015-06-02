@@ -1228,6 +1228,12 @@ angular.module('donlerApp.controllers', [])
         else {
           $scope.staffList = data.slice(0, 3);
         }
+      }, function(err, data) {
+        if(err) {
+          console.log(err);
+        } else {
+          $scope.staffList = data.slice(0, 3);
+        }
       });
     }
     $scope.doRefresh();
@@ -1381,6 +1387,14 @@ angular.module('donlerApp.controllers', [])
     $scope.doRefresh = function (refreshFlag) {
       //获取公司联系人
       User.getCompanyUsers(localStorage.cid,function(msg, data){
+        if(!msg) {
+          $scope.contacts = data;
+          contactsBackup = data;
+        }
+        // if(refreshFlag){
+        //   $scope.$broadcast('scroll.refreshComplete');
+        // }
+      }, function(msg, data) {
         if(!msg) {
           $scope.contacts = data;
           contactsBackup = data;
@@ -2573,6 +2587,12 @@ angular.module('donlerApp.controllers', [])
         $scope.contacts = data;
         contactsBackup = data;
       }
+    }, function(msg, data) {
+      if(!msg) {
+        console.log(data);
+        $scope.contacts = data;
+        contactsBackup = data;
+      }
     });
     $scope.cancelSearch = function () {
       $scope.contacts = contactsBackup;//还原
@@ -2849,8 +2869,12 @@ angular.module('donlerApp.controllers', [])
         User.getCompanyUsers(localStorage.id, function (err, data) {
           allMembers = data;
           $scope.members = allMembers;
-          getAllMembers = true;
+          // getAllMembers = true;
           // membersBackup = allMembers
+        }, function(err, data) {
+          allMembers = data;
+          $scope.members = allMembers;
+          getAllMembers = true;
         });
       }
       //获取过了就去把members置为allMembers
