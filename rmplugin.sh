@@ -9,6 +9,7 @@ ionic plugin rm https://github.com/VersoSolutions/CordovaClipboard
 ionic plugin rm org.apache.cordova.statusbar
 ionic plugin rm https://github.com/danwilson/google-analytics-plugin.git
 ionic plugin rm https://github.com/wymsee/cordova-imagePicker.git
+ionic plugin rm https://github.com/maggie03230/cordova-imagePicker.git
 ionic plugin rm org.apache.cordova.geolocation
 ionic plugin rm com.ionic.keyboard
 ionic plugin rm io.litehelpers.cordova.sqlite
