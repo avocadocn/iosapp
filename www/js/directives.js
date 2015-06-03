@@ -1720,7 +1720,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
        * @params {String} circleContentId 对应的circleContent的id
        * @returns {Promise}
        */
-      function upload(uri, circleContentId, index) {
+      function upload(uri, circleContentId) {
         var addr = CONFIG.BASE_URL + '/files';
         var headers = CommonHeaders.get();
         headers['x-access-token'] = localStorage.accessToken;
@@ -1732,8 +1732,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           // 估计是因为这里是使用上传插件，底层调用Object-C方法，为了逻辑简单不接受复杂的参数
           params: {
             owner_kind: 'CircleContent',
-            owner_id: circleContentId,
-            index: index
+            owner_id: circleContentId
           }
         };
         return $cordovaFile.uploadFile(addr, uri, options);
@@ -1765,8 +1764,8 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         Circle.preCreate(scope.campaign._id, scope.publishFormData.content)
         .then(function (response) {
           circleContentId = response.data.id;
-          var uploadPromises = scope.uploadURIs.map(function (uri, index) {
-            return upload(uri, circleContentId, index);
+          var uploadPromises = scope.uploadURIs.map(function (uri) {
+            return upload(uri, circleContentId);
           });
           $ionicLoading.show({
             template: '上传中...',
