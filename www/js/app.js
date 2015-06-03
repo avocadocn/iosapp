@@ -603,5 +603,4 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
         usePersistentCache: true,
         localCacheFolder: 'donlerImgCache'
       });
-      ImgCacheProvider.manualInit = true;
   });
