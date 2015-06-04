@@ -18,7 +18,8 @@ ion-view.personal(ng-controller="PersonalController")
       .item.statistics(ng-cloak)
         .row
           a.col.col-33(href="#/personal/teams/")
-            p.number {{user.tids.length}}
+            //- user.tids.length - 1 because of there is a virtual team.
+            p.number {{user.tids.length - 1}} 
             p.key 小队
           a.col.col-33(href="#/campaign/all/user/{{user._id}}")
             p.number {{user.campaignCount}}

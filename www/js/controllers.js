@@ -1477,7 +1477,7 @@ angular.module('donlerApp.controllers', [])
         getUser();
       }
     });
-    var getUser = function() {
+    var getUser = function(refresh) {
       User.getData(localStorage.id, function (err, data) {
         if (err) {
           // todo
@@ -1489,10 +1489,15 @@ angular.module('donlerApp.controllers', [])
             $scope.constellation = Tools.birthdayToConstellation(birthday.getMonth() + 1, birthday.getDate());
           }
         }
+        if(refresh) {
+          $scope.$broadcast('scroll.refreshComplete');
+        }
       });
     };
-    getUser();
 
+    $scope.doRefresh = function(refresh) {
+      getUser(refresh);
+    };
 
     $scope.pswpId = 'personal' + Date.now();
 
