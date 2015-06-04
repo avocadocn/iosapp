@@ -9,12 +9,12 @@
     <div ng-if="leadTeams.length" class="list team_list">
       <div ng-if="leadTeams.length&gt;0" ng-bind-template="{{myTeamFlag ?'我' :'他'}}管理的小队" class="item item-divider team_label"></div><a ng-repeat="team in leadTeams" ng-href="#/team/{{team._id}}" class="item item-avatar team_list_item"><img img-cache="img-cache" ic-src="{{STATIC_URL + team.logo}}/90/90" class="team_logo"/>
         <h2 ng-bind="team.name" class="team_name"></h2>
-        <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}" class="info_item"></span><span ng-bind-template="积分: {{team.score.total}}" class="info_item"></span></p></a>
+        <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.campaignScore" ng-bind-template="活动: {{team.campaignScore}}" class="info_item"></span><span ng-bind-template="积分: {{team.totalScore}}" class="info_item"></span></p></a>
     </div>
     <div ng-if="memberTeams.length" class="list team_list">
       <div ng-if="memberTeams.length&gt;0" ng-bind-template="{{myTeamFlag ?'我' :'他'}}参加的小队" class="item item-divider team_label"></div><a ng-repeat="team in memberTeams" ng-href="#/team/{{team._id}}" class="item item-avatar team_list_item"><img img-cache="img-cache" ic-src="{{STATIC_URL + team.logo}}/90/90" class="team_logo"/>
         <h2 ng-bind="team.name" class="team_name"></h2>
-        <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}" class="info_item"></span><span ng-bind-template="积分: {{team.score.total}}" class="info_item"></span></p></a>
+        <p class="team_info"><span ng-bind-template="队员: {{team.memberCount}}" class="info_item"></span><span ng-if="team.campaignScore" ng-bind-template="活动: {{team.campaignScore}}" class="info_item"></span><span ng-bind-template="积分: {{team.totalScore}}" class="info_item"></span></p></a>
     </div>
     <div ng-if="loadFinished &amp;&amp; !leadTeams.length &amp;&amp; !memberTeams.length" ng-cloak="ng-cloak" class="no_campaign"><a href="#/company/teams/official" class="no_campaign_tip no_underline">
         <p>没有加入小队?</p>

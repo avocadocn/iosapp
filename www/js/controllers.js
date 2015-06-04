@@ -1266,6 +1266,30 @@ angular.module('donlerApp.controllers', [])
           $scope.memberTeams = memberTeams;
           $scope.unJoinTeams = unJoinTeams;
         }
+        // unRefreshFlag ||  $scope.$broadcast('scroll.refreshComplete');
+      }, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          var leadTeams = [];
+          var memberTeams = [];
+          var unJoinTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else if(team.hasJoined){
+              memberTeams.push(team);
+            }
+            else {
+              unJoinTeams.push(team);
+            }
+          });
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+          $scope.unJoinTeams = unJoinTeams;
+        }
         unRefreshFlag ||  $scope.$broadcast('scroll.refreshComplete');
       });
     };
@@ -1643,6 +1667,27 @@ angular.module('donlerApp.controllers', [])
 
     var getMyTeams = function() {
       Team.getList('user', $state.params.userId || localStorage.id, null, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+          $scope.loading = false;
+        } else {
+          var leadTeams = [];
+          var memberTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else {
+              memberTeams.push(team);
+            }
+          });
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+          $scope.loading = false;
+          $scope.loadFinished = true;
+        }
+      }, function (err, teams) {
         if (err) {
           // todo
           console.log(err);
@@ -3636,6 +3681,13 @@ angular.module('donlerApp.controllers', [])
         } else {
           $scope.myTeams = teams;
         }
+      }, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.myTeams = teams;
+        }
       });
     };
     getMyTeams();
@@ -4215,9 +4267,20 @@ angular.module('donlerApp.controllers', [])
           $scope.teams = teams;
           $scope.nowTeamIndex =teams.length>1 ? 1:0;
           INFO.myTeams = teams;
-          $ionicSlideBoxDelegate.update();
-          refreshFlag && $scope.$broadcast('scroll.refreshComplete');
+          // $ionicSlideBoxDelegate.update();
+          // refreshFlag && $scope.$broadcast('scroll.refreshComplete');
         }
+      }, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.teams = teams;
+          $scope.nowTeamIndex =teams.length>1 ? 1:0;
+          INFO.myTeams = teams;
+        }
+        $ionicSlideBoxDelegate.update();
+        refreshFlag && $scope.$broadcast('scroll.refreshComplete');
       });
     };
     var getTeamRank = function () {
@@ -5093,6 +5156,26 @@ angular.module('donlerApp.controllers', [])
           INFO.myTeams = teams;
           callback && callback();
         }
+      }, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          var leadTeams = [];
+          var memberTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else {
+              memberTeams.push(team);
+            }
+          });
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+          INFO.myTeams = teams;
+          callback && callback();
+        }
       });
     };
     if(INFO.myTeams) {
@@ -5263,6 +5346,14 @@ angular.module('donlerApp.controllers', [])
       }
       else{
         Team.getList('user', localStorage.id, null, function (err, teams) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            INFO.myTeams = teams;
+            filterSameTeam(teams,groupType);
+          }
+        }, function (err, teams) {
           if (err) {
             // todo
             console.log(err);

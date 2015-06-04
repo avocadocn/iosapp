@@ -4,8 +4,8 @@ mixin teamList(repeatCollection)
     h2.team_name(ng-bind="team.name")
     p.team_info
       span.info_item(ng-bind-template="队员: {{team.memberCount}}")
-      span.info_item(ng-if="team.score.campaign" ng-bind-template="活动: {{team.score.campaign}}")
-      span.info_item(ng-bind-template="积分: {{team.score.total}}")
+      span.info_item(ng-if="team.campaignScore" ng-bind-template="活动: {{team.campaignScore}}")
+      span.info_item(ng-bind-template="积分: {{team.totalScore}}")
 ion-view.personal_team_list_page
   ion-header-bar
     a.button.icon-left.ion-chevron-left(href="#/app/company") &nbsp;返回

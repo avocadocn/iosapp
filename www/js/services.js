@@ -118,6 +118,7 @@ angular.module('donlerApp.services', [])
       shortName:'TEXT',
       timehash:'INT'
     });
+
     entities.User1 = persistence.define('User1', {
       _id:'TEXT',
       realname:'TEXT',
@@ -126,11 +127,40 @@ angular.module('donlerApp.services', [])
       photo:'TEXT'
     });
 
+    entities.Team1 = persistence.define('Team1', {
+      _id:'TEXT',
+      active:'BOOL',
+      name:'TEXT',
+      logo:'TEXT',
+      leader:'TEXT',
+      groupType:'TEXT',
+      memberCount: 'INT',
+      campaignCount: 'INT',
+      totalScore:'INT',
+      campaignScore:'INT',
+      isLeader:'BOOL',
+      hasJoined:'BOOL'
+    });
+    // user <---> team relationship table
+    // entities.UT = persistence.define('UT', {
+    //   uid:'TEXT',
+    //   tid:'TEXT',
+    //   isLeader: 'BOOL',
+    //   hasJoined: 'BOOL'
+    // });
+
+    
     entities.Hash.index('name');
     entities.ChatRoom.index('_id');
     entities.Chat.index('_id');
     entities.User.index('_id');
+
     entities.User1.index('_id');
+    entities.Team1.index('_id');
+
+    // entities.UT.index(['uid', 'tid'], {unique:true});
+    // entities.UT.hasOne('tid', entities.Team1, '_id');
+
     entities.Team.index('_id');
     entities.User.hasMany('chats', entities.Chat, 'poster');
     entities.Team.hasMany('chats', entities.Chat, 'poster_team');
@@ -1077,7 +1107,11 @@ angular.module('donlerApp.services', [])
                   if(index > -1) {
                     if(!user.active) {
                       userData.splice(index, 1);
-                      Persistence.Entities.User1.all().filter('_id','=', user._id).destroyAll();
+                      var userDeletedCollection = Persistence.Entities.User1.all().filter('_id','=', user._id);
+                      Persistence.delete(userDeletedCollection)
+                        .then(null, function(error) {
+                          console.log(error);
+                        })
                     } else {
                       userData[index] = user;
                       var userCollection = Persistence.Entities.User1.all().filter('_id','=',user._id);
@@ -1095,7 +1129,7 @@ angular.module('donlerApp.services', [])
                       _user.nickname = user.nickname;
                       _user.photo = user.photo;
                       _user.realname = user.realname;
-                      persistence.add(_user);
+                      Persistence.add(_user);
                     }
                   }
 
@@ -1108,13 +1142,17 @@ angular.module('donlerApp.services', [])
                 console.log(data);
                 if(hashUser) {
                   hashUser.timehash = maxTime;
+                  var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'User1');
+                  Persistence.edit(hashCollection, hashUser)
+                    .then(null, function(error) {
+                      console.log(error);
+                    })
                 } else {
                   var hash = new Persistence.Entities.Hash();
                   hash.name = 'User1';
                   hash.timehash = maxTime;
-                  persistence.add(hash);
+                  Persistence.add(hash);
                 }
-                persistence.flush();
                 hcallback(null, data);
               } else {
                 hcallback('no new data');
@@ -1135,13 +1173,16 @@ angular.module('donlerApp.services', [])
     };
 
   }])
-  .factory('Team', ['$http', '$ionicActionSheet', 'CONFIG', 'User', function ($http, $ionicActionSheet, CONFIG, User) {
+  .factory('Team', ['$http', '$ionicActionSheet', 'CONFIG', 'User', 'Persistence', 'Tools', function ($http, $ionicActionSheet, CONFIG, User, Persistence, Tools) {
 
     /**
      * 每调用Team.getData方法时，会将小队数据保存到这个变量中，在进入小队子页面时不必再去请求小队数据，
      * 同时也避免了使用rootScope
      */
     var currentTeam;
+    var teamData;
+    var hashTeam;
+    var hashCollection;
 
     return {
 
@@ -1152,25 +1193,119 @@ angular.module('donlerApp.services', [])
        * @param {Function} callback 形式为function(err, teams)
        * @param {Object} other gid,personalFlag
        */
-      getList: function (hostType, hostId, personalFlag, callback) {
-        var requestUrl = CONFIG.BASE_URL + '/teams';
-        $http.get(requestUrl,{
-          params:{
-            hostType: hostType,
-            hostId: hostId,
-            personalFlag: personalFlag
+      getList: function (hostType, hostId, personalFlag, callback, hcallback) {
+        if(!hostId || hostId === localStorage.id.toString()) {
+          var teamCollection = Persistence.Entities.Team1.all();
+          if(hostType === 'user') {
+            teamCollection = teamCollection.filter('hasJoined','=', true);
+            hashCollection = Persistence.Entities.Hash.all().filter('name','=', 'userTeam'); // for personal team update
+          } else {
+            hashCollection = Persistence.Entities.Hash.all().filter('name','=', 'companyTeam'); // for company team update
           }
-        })
-          .success(function (data, status, headers, config) {
-            callback(null, data);
-          })
-          .error(function (data, status, headers, config) {
-            if (status === 400) {
-              callback(data.msg);
-            } else {
-              callback('error');
-            }
+          Persistence.get(teamCollection).then(function (data) {
+            callback(null,data);
+            teamData = data;
+            Persistence.getOne(hashCollection)
+            .then(function(hash) {
+              hashTeam = hash;
+
+              var url = CONFIG.BASE_URL + '/teams';
+              if(hash) {
+                url += ('?timehash=' + hash.timehash);
+              }
+              $http.get(url, {
+                  params: {
+                    hostType: hostType,
+                    hostId: hostId,
+                    personalFlag: personalFlag
+                  }
+                })
+                .success(function(data, status) {
+                  if (data.length) {
+                    var maxTime = -1;
+                    data.forEach(function(team) {
+                      var index = Tools.arrayObjectIndexOf(teamData, team._id, '_id');
+
+                      if (index > -1) {
+                        if (!team.active) {
+                          teamData.splice(index, 1);
+                          var userDeletedCollection = Persistence.Entities.Team1.all().filter('_id', '=', team._id);
+                          Persistence.delete(userDeletedCollection)
+                            .then(null, function(error) {
+                              console.log(error);
+                            })
+                        } else {
+                          teamData[index] = team;
+                          var userCollection = Persistence.Entities.Team1.all().filter('_id', '=', team._id);
+                          Persistence.edit(userCollection, team)
+                            .then(null, function(error) {
+                              console.log(error);
+                            })
+                        }
+                      } else {
+                        if (team.active) {
+                          teamData.push(team);
+                          var _team = new Persistence.Entities.Team1();
+                          _team._id = team._id;
+                          _team.active = team.active;
+                          _team.name = team.name;
+                          _team.logo = team.logo;
+                          _team.leader = team.leader;
+                          _team.groupType = team.groupType;
+                          _team.memberCount = team.memberCount;
+                          _team.totalScore = team.totalScore;
+                          _team.campaignScore = team.campaignScore;
+                          _team.isLeader = team.isLeader;
+                          _team.hasJoined = team.hasJoined;
+                          _team.campaignCount = team.campaignCount;
+                          Persistence.add(_team);
+                        }
+                      }
+
+                      var date = (new Date(team.timeHash)).valueOf();
+                      if (date > maxTime) {
+                        maxTime = date;
+                      }
+                    })
+                    data = teamData;
+                    if (hashTeam) {
+                      hashTeam.timehash = maxTime;
+                      Persistence.edit(hashCollection, hashTeam)
+                        .then(null, function(error) {
+                          console.log(error);
+                        })
+                    } else {
+                      var hash = new Persistence.Entities.Hash();
+                      hash.name = hostType + 'Team';
+                      hash.timehash = maxTime;
+                      Persistence.add(hash);
+                    }
+                    hcallback(null, data);
+                  } else {
+                    hcallback('no new data');
+                  }
+                })
+                .error(function(data, status) {
+                  hcallback(data ? data.msg : 'error');
+                });
+            })
+
           });
+        } else {
+          $http.get(CONFIG.BASE_URL + '/teams', {
+              params: {
+                hostType: hostType,
+                hostId: hostId,
+                personalFlag: personalFlag
+              }
+            })
+            .success(function(data, status) {
+              callback(null, data);
+            })
+            .error(function(data, status) {
+              callback(data ? data.msg : 'error');
+            });
+        }
       },
 
       /**
