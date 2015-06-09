@@ -214,9 +214,9 @@ angular.module('donlerApp.controllers', [])
       Campaign.getList({
         requestType: 'user',
         requestId: localStorage.id,
-        select_type: 0
+        select_type: 0,
+        sqlite: 1
       }, function (err, data) {
-        loading && $rootScope.hideLoading();
         if (!err) {
           $scope.unStartCampaigns = data[0];
           $scope.nowCampaigns = data[1];
@@ -230,10 +230,22 @@ angular.module('donlerApp.controllers', [])
             $scope.noCampaigns = false;
           }
         }
-        else {
-          if (data !== 401) {
-            $rootScope.showAction({titleText:err});
-          };
+        // callBack &&callBack();
+      }, function(err, data) {
+        loading && $rootScope.hideLoading();
+
+        if (!err) {
+          $scope.unStartCampaigns = data[0];
+          $scope.nowCampaigns = data[1];
+          $scope.newCampaigns = data[2];
+          // $scope.provokes = data[3];
+          $scope.finishedCampaigns = data[3];
+          if(data[0].length===0&&data[1].length===0&&data[2].length===0&&data[3].length===0){
+            $scope.noCampaigns = true;
+          }
+          else {
+            $scope.noCampaigns = false;
+          }
         }
         callBack &&callBack();
       });

@@ -5,7 +5,7 @@
         <h2 bo-text="campaign.theme" class="dl_cp_name"></h2>
       </div>
       <div ng-if="!campaign.is_end" class="dl_card_time">
-        <div class="dl_cp_time_countdown clearfix"><span bo-text="campaign.is_start ? '距离结束':'距离开始'" class="dl_cp_time_text"></span><span bo-text="campaign.time_text" class="dl_cp_time_count"></span></div>
+        <div class="dl_cp_time_countdown clearfix"><span ng-bind="campaign.remind_text" class="dl_cp_time_text"></span><span ng-bind="campaign.time_text" class="dl_cp_time_count"></span></div>
       </div>
     </div>
     <div class="dl_card_content clearfix">
@@ -22,7 +22,7 @@
         <p class="dl_cp_address">
           <svg class="svg_icon cp_info_icon">
             <use xlink:href="#location"></use>
-          </svg><span bo-text="campaign.location.name" class="dl_cp_text"></span>
+          </svg><span bo-text="campaign.address" class="dl_cp_text"></span>
         </p>
         <p class="dl_cp_member">
           <svg class="svg_icon cp_info_icon">

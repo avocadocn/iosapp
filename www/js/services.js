@@ -141,6 +141,29 @@ angular.module('donlerApp.services', [])
       isLeader:'BOOL',
       hasJoined:'BOOL'
     });
+
+    entities.Campaign = persistence.define('Campaign', {
+      _id:'TEXT',
+      active:'BOOL', //- the field reserved for HR. If common users and HR have separated databases, it's redundant for common users.
+      theme:'TEXT',
+      is_start:'BOOL',
+      is_end:'BOOL',
+      // time_text:'TEXT',
+      campaign_unit:'TEXT', //- set the field of campaign_unit with string, because of the sqlite does not support array and the campaign_unit from server is a array.
+      photo_album:'TEXT',
+      campaign_type:'INT',
+      start_time:'DATE',
+      end_time:'DATE',
+      create_time:'DATE',
+      address:'TEXT',
+      members_count:'INT',
+      member_max:'INT',
+      confirm_status:'BOOL',
+      comment_sum:'INT',
+      circle_content_sum:'INT',
+      type:"INT" //- the function of this field: filter the campaign's status(start soon(join), running, end, start soon(unjoin))  
+    });
+    
     // user <---> team relationship table
     // entities.UT = persistence.define('UT', {
     //   uid:'TEXT',
@@ -157,7 +180,8 @@ angular.module('donlerApp.services', [])
 
     entities.User1.index('_id');
     entities.Team1.index('_id');
-
+    entities.Campaign.index('_id');
+    
     // entities.UT.index(['uid', 'tid'], {unique:true});
     // entities.UT.hasOne('tid', entities.Team1, '_id');
 
@@ -508,25 +532,360 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-  .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
+  .factory('Campaign', ['$http', 'CONFIG', 'Tools', 'Persistence', function ($http, CONFIG, Tools, Persistence) {
     var nowCampaign;
+    var campaignData;
+    var hashCampaign;
+    var cloneData;
+    /**
+     * Filter used for filter the campaigns from sqlite
+     */
+    var unStartCampaignFilter = function(campaign) {
+      if(campaign.type === 1) {
+        return true;
+      }
+      return false;
+    }
+
+    var nowCampaignFilter = function(campaign) {
+      if(campaign.type === 2) {
+        return true;
+      }
+      return false;
+    }
+    var newCampaignFilter = function(campaign) {
+      if(campaign.type === 3) {
+        return true;
+      }
+      return false;
+    }
+    var finishedCampaignFilter = function(campaign) {
+      if(campaign.type === 4) {
+        return true;
+      }
+      return false;
+    }
+    /**
+     * parseCampaign the function parses the string to object or json and generates the useful text.
+     * @param  {[campaign]} arr 
+     * @return {[campaign]}     
+     */
+    var parseCampaign = function(arr) {
+      arr.forEach(function(campaign) {
+        if(campaign.campaign_unit) {
+          campaign.campaign_unit = JSON.parse(campaign.campaign_unit);
+        }
+        if(campaign.photo_album) {
+          campaign.photo_album = JSON.parse(campaign.photo_album);
+        }
+        var startTime = new Date(campaign.start_time);
+        var endTime = new Date(campaign.end_time);
+
+        campaign.time_text = (Tools.formatCampaignTime(startTime, endTime)).time_text;
+        campaign.remind_text = (Tools.formatCampaignTime(startTime, endTime)).remind_text;
+
+      });
+      return arr;
+    }
+    /**
+     * stringifyCampaignUnit convert campaign unit object to string
+     * @param  {object} obj campaign unit object
+     * @return {string}     campaign unit string
+     */
+    var stringifyCampaignUnit = function(obj) {
+      if(obj) {
+        return JSON.stringify(obj);
+      }
+      return null;
+    }
+    /**
+     * stringifyCampaignAlbum convert campaign album json to string
+     * @param  {json} obj campaign album json
+     * @return {string}     campaign album string
+     */
+    var stringifyCampaignAlbum = function(obj) {
+      if(obj) {
+        return JSON.stringify(obj);
+      }
+      return null;
+    }
+    /**
+     * compareFunction used for sort
+     */
+    var compareFunction = {
+      startTimeAsc: function(a, b) {
+        return new Date(a.create_time) - new Date(b.create_time);
+      },
+      startTimeDesc : function(a, b) {
+        return new Date(b.start_time) - new Date(a.start_time);
+      },
+      endTimeAsc : function(a, b) {
+        return new Date(a.end_time) - new Date(b.end_time);
+      },
+      endTimeDesc : function(a, b) {
+        return new Date(b.end_time) - new Date(a.end_time);
+      },
+      createTimeDesc: function(a, b) {
+        return new Date(b.create_time) - new Date(a.create_time);
+      }
+    };
+    /**
+     * handleCampaignArray handle the new data from server
+     * @param  {[campaign]} srcArr  data's array from server
+     * @param  {[campaign]} destArr the array of campaignData
+     * @param  {int}        type    campaign's type(reference entities.Campaign)
+     * @param  {json}       t       used for max hash time
+     */
+    var handleCampaignArray = function(srcArr, destArr, type, t) {
+      if(srcArr.length === 0) {
+        return;
+      }
+      srcArr.forEach(function(campaign) {
+
+        var index = Tools.arrayObjectIndexOf(cloneData, campaign._id, '_id');
+        
+        if (index > -1) {
+          var pos = cloneData[index].type - 1;
+          var destIndex = Tools.arrayObjectIndexOf(campaignData[pos], campaign._id, '_id');
+          if(campaign.active) {
+            if (cloneData[index].type !== type) {
+              campaignData[pos].splice(destIndex, 1);
+              destArr.push(campaign);
+            } else {
+              destArr[destIndex] = campaign;
+            }
+
+            var clone = JSON.parse(JSON.stringify(campaign));
+            clone.campaign_unit = stringifyCampaignUnit(clone.campaign_unit);
+            clone.photo_album = stringifyCampaignUnit(clone.photo_album);
+            clone.type = type;
+
+            var campaignCollection = Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id);
+            Persistence.edit(campaignCollection, clone)
+            .then(null, function(error) {
+              console.log(error);
+            })
+          } else {
+            campaignData[pos].splice(destIndex, 1);
+            var campaignCollection = Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id);
+            Persistence.delete(campaignCollection)
+            .then(null, function(error) {
+              console.log(error);
+            })
+          }
+
+        } else {
+          if(campaign.active) {
+            destArr.push(campaign);
+
+            var _campaign = new Persistence.Entities.Campaign();
+            _campaign._id = campaign._id;
+            _campaign.active = campaign.active;
+            _campaign.theme = campaign.theme;
+            _campaign.is_start = campaign.is_start;
+            _campaign.is_end = campaign.is_end;
+            // _campaign.time_text = campaign.time_text;
+            _campaign.campaign_unit = stringifyCampaignUnit(campaign.campaign_unit);
+            _campaign.photo_album = stringifyCampaignAlbum(campaign.photo_album);
+            _campaign.campaign_type = campaign.campaign_type;
+            _campaign.start_time = campaign.start_time;
+            _campaign.end_time = campaign.end_time;
+            _campaign.create_time = campaign.create_time;
+            _campaign.address = campaign.address;
+            _campaign.members_count = campaign.members_count;
+            _campaign.member_max = campaign.member_max;
+            _campaign.confirm_status = campaign.confirm_status;
+            _campaign.comment_sum = campaign.comment_sum;
+            _campaign.circle_content_sum = campaign.circle_content_sum;
+            _campaign.type = type;
+            Persistence.add(_campaign);
+          }
+        }
+
+        var date = (new Date(campaign.timeHash)).valueOf();
+        if (date > t.max) {
+          t.max = date;
+        }
+      })
+    }
+    /**
+     * updateCampaign function
+     */
+    var updateCampaign = {
+      unStartCampaign: function(campaign, type) {
+        Persistence.getOne(Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id))
+        .then(function(campaign) {
+          campaign.type = type;
+          persistence.flush();
+        })
+      },
+      nowCampaign: function(campaign) {
+        Persistence.getOne(Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id))
+        .then(function(campaign) {
+          campaign.type = 4;
+          persistence.flush();
+        })
+      },
+      newCampaign: function(campaign) {
+        Persistence.delete(Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id))
+        .then(null, function(error) {
+          console.log(error);
+        })
+      }
+    };
+    /**
+     * updateCampaignArray -> update campaign status
+     * @param  arr  campaign array
+     * @param  type campaign's type(reference entities.Campaign)
+     */
+    var updateCampaignArray = function(arr, type) {
+      var length = arr.length;
+      switch(type) {
+        case 1:
+          for (var i = 0; i < length; i++) {
+            if ((new Date(arr[i].end_time)) <= Date.now()) {
+              updateCampaign.unStartCampaign(arr[i], 4);
+              campaignData[3].push(arr[i]);
+              arr.splice(i, 1);
+            } else if((new Date(arr[i].start_time)) <= Date.now()) {
+              updateCampaign.unStartCampaign(arr[i], 2);
+              campaignData[1].push(arr[i]);
+              arr.splice(i, 1);
+            }
+          }
+          break;
+        case 2:
+          for (var i = 0; i < length; i++) {
+            if ((new Date(arr[i].end_time)) <= Date.now()) {
+              updateCampaign.nowCampaign(arr[i]);
+              campaignData[3].push(arr[i]);
+              arr.splice(i, 1);
+            }
+          }
+          break;
+        case 3:
+          for (var i = 0; i < length; i++) {
+            if ((new Date(arr[i].end_time)) <= Date.now()) {
+              updateCampaign.newCampaign(arr[i]);
+              arr.splice(i, 1);
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    }
+
     return {
       /**
        * 获取所有活动
        * @param {Object} params 请求参数，参见api /campaigns说明
        * @param {Function} callback
        */
-      getList:function(params, callback){
-        $http.get(CONFIG.BASE_URL + '/campaigns', {
-          params: params
-        })
-        .success(function (data, status) {
-          callback(null,data);
-        })
-        .error(function (data, status) {
-          // todo
-          callback(data ? data.msg:'网络连接错误',status);
-        });
+      getList:function(params, callback, hcallback){
+        if(params.sqlite) {
+          Persistence.get(Persistence.Entities.Campaign.all().order('start_time', false)).then(function (_data) {
+            var data = [];
+            //- clone the array deeply
+            var clone = JSON.parse(JSON.stringify(_data));
+            //- clone the array deeply 
+            cloneData = JSON.parse(JSON.stringify(_data));
+            //- TODO simplify the operation
+            data.push(parseCampaign(clone.filter(unStartCampaignFilter)));
+            data.push(parseCampaign(clone.filter(nowCampaignFilter)));
+            data.push(parseCampaign(clone.filter(newCampaignFilter)));
+            data.push(parseCampaign(clone.filter(finishedCampaignFilter)));
+
+            // console.log(clone);
+            // console.log(_data);
+
+            callback(null, data);
+            campaignData = data;
+            Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'Campaign'))
+            .then(function(hash) {
+              hashCampaign = hash;
+              var url = CONFIG.BASE_URL + '/campaigns';
+              if(hash) {
+                url += ('?timehash=' + hash.timehash);
+              }
+              $http.get(url, {
+                params: params
+              })
+              .success(function (data, status) {
+                var timeObject = {max: -1}; //- use object not number
+                // console.log(data);
+                //- handle the new data
+                data.forEach(function(arr, index) {
+                  handleCampaignArray(arr, campaignData[index], index + 1, timeObject);
+                });
+                //- update campaign (mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
+                campaignData.forEach(function(arr, index) {
+                  updateCampaignArray(arr, index + 1);
+                });
+                //- sort campaign order by time
+                campaignData.forEach(function(arr, index) {
+                  switch(index) {
+                    case 0:
+                      arr.sort(compareFunction.startTimeAsc);
+                      break;
+                    case 1:
+                      arr.sort(compareFunction.endTimeAsc);
+                      break;
+                    default:
+                      arr.sort(compareFunction.createTimeDesc);
+                  }
+                })
+
+                data = campaignData;
+                //- can't use Persistence's delete function, because of queryCollection's incorrectness(can't get correct queryCollection)
+                //- can't use skip, because of skip(n) behaves nothing
+                Persistence.Entities.Campaign.all().filter('type', '=', 4).order('end_time', false).list(null, function(results) {
+                  results.slice(5).forEach(function(result) {
+                    //- TODO remove the element from data[3]
+                    Persistence.delete(Persistence.Entities.Campaign.all().filter('_id', '=', result._id))
+                    .then(null, function(error) {
+                      console.log(error);
+                    })
+                  })
+                })
+
+                if (timeObject.max !== -1) {
+                  if (hashCampaign) {
+                    hashCampaign.timehash = timeObject.max;
+                    var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'Campaign');
+                    Persistence.edit(hashCollection, hashCampaign)
+                      .then(null, function(error) {
+                        console.log(error);
+                      })
+                  } else {
+                    var hash = new Persistence.Entities.Hash();
+                    hash.name = 'Campaign';
+                    hash.timehash = timeObject.max;
+                    Persistence.add(hash);
+                  }
+                  hcallback(null, data);
+                } else {
+                  hcallback('no new data');
+                }
+
+              })
+              .error(function (data, status) {
+                hcallback(data ? data.msg:'网络连接错误' || 'error');
+              });
+            });
+          });
+        } else {
+          $http.get(CONFIG.BASE_URL + '/campaigns', {
+            params: params
+          })
+          .success(function(data, status) {
+            callback(null, data);
+          })
+          .error(function(data, status) {
+            callback(data ? data.msg : '网络连接错误' || 'error');
+          });
+        }
+
       },
       getCompetitionOfTeams:function(data, callback){
         $http.get(CONFIG.BASE_URL + '/campaigns/competition/'+data.targetTeamId, {
@@ -993,6 +1352,57 @@ angular.module('donlerApp.services', [])
         var d = [20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22];
         var i = mon * 2 - (day < d[mon - 1] ? 2 : 0);
         return s.substring(i, i + 2) + "座";
+      },
+
+      formatCampaignTime: function(start_time, end_time) {
+        var remind_text, time_text, start_flag;
+        var now = new Date();
+        var diff_end = now - end_time;
+        if (diff_end >= 0) {
+          // 活动已结束
+          remind_text = '活动已结束';
+          time_text = '';
+          start_flag = -1;
+        } else {
+          // 活动未结束
+          var temp_start_time = new Date(start_time);
+          var during = moment.duration(moment(now).diff(temp_start_time));
+          // 活动已开始
+          if (during >= 0) {
+            start_flag = 1;
+            remind_text = '距离结束';
+            var temp_end_time = new Date(end_time);
+            var during = moment.duration(moment(now).diff(temp_end_time));
+          } else {
+            // 活动未开始
+            start_flag = 0;
+            remind_text = '距离开始';
+          }
+          var years = Math.abs(during.years());
+          var months = Math.abs(during.months());
+          var days = Math.floor(Math.abs(during.asDays()));
+          var hours = Math.abs(during.hours());
+          var minutes = Math.abs(during.minutes());
+          var seconds = Math.abs(during.seconds());
+          if (years >= 1) {
+            time_text = years + '年';
+          } else if (months >= 1) {
+            time_text = months + '月';
+          } else if (days >= 1) {
+            time_text = days + '天';
+          } else if (hours >= 1) {
+            time_text = hours + '时';
+          } else if (minutes >= 1) {
+            time_text = minutes + '分';
+          } else {
+            time_text = seconds + '秒';
+          }
+        }
+        return {
+          start_flag: start_flag,
+          remind_text: remind_text,
+          time_text: time_text
+        };
       }
 
 
@@ -1139,7 +1549,6 @@ angular.module('donlerApp.services', [])
                   }
                 })
                 data = userData;
-                console.log(data);
                 if(hashUser) {
                   hashUser.timehash = maxTime;
                   var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'User1');
