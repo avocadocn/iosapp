@@ -176,7 +176,7 @@ angular.module('donlerApp.services', [])
     entities.User.hasMany('chats' , entities.Chat, 'poster');
     entities.Team.hasMany('chats', entities.Chat, 'poster_team');
     entities.Team.hasMany('chats', entities.Chat, 'opponent_team');
-    persistence.debug = true;//debug模式开关
+    persistence.debug = false;//debug模式开关
     persistence.schemaSync();
 
     return {
@@ -697,7 +697,7 @@ angular.module('donlerApp.services', [])
       switch(type) {
         case 1:
           arr = arr.filter(function(campaign) {
-            console.log('1');
+            // console.log('1');
             if((new Date(campaign.end_time)) <= now) {
               updateCampaign.unStartCampaign(campaign, 4);
               campaignData[3].push(campaign);
@@ -709,7 +709,7 @@ angular.module('donlerApp.services', [])
             }
             return true;
           });
-          console.log('11');
+          // console.log('11');
           break;
         case 2:
           arr = arr.filter(function(campaign) {
@@ -754,7 +754,7 @@ angular.module('donlerApp.services', [])
             data.push(parseCampaign(_data.filter(newCampaignFilter)));
             data.push(parseCampaign(_data.filter(finishedCampaignFilter)));
 
-            console.log(_data);
+            // console.log(_data);
             data.forEach(function(arr, index) {
               switch (index) {
                 case 0:
@@ -768,6 +768,7 @@ angular.module('donlerApp.services', [])
               }
             })
             callback(null, data);
+            // console.log(data);
             campaignData = data;
             Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerCampaign'))
             .then(function(hash) {
@@ -781,7 +782,7 @@ angular.module('donlerApp.services', [])
               })
               .success(function (data, status) {
                 var timeObject = {max: -1}; //- use object not number
-                console.log(data);
+                // console.log(data);
                 //- handle the new data
                 data.forEach(function(arr, index) {
                   handleCampaignArray(arr, campaignData[index], index + 1, timeObject);
