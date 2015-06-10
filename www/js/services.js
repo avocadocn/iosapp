@@ -561,8 +561,9 @@ angular.module('donlerApp.services', [])
       arr.forEach(function(campaign) {
         var startTime = new Date(campaign.start_time);
         var endTime = new Date(campaign.end_time);
-        campaign.time_text = (Tools.formatCampaignTime(startTime, endTime)).time_text;
-        campaign.remind_text = (Tools.formatCampaignTime(startTime, endTime)).remind_text;
+        var textJson = Tools.formatCampaignTime(startTime, endTime);
+        campaign.time_text = textJson.time_text;
+        campaign.remind_text = textJson.remind_text;
       });
       return arr;
     }
@@ -692,37 +693,42 @@ angular.module('donlerApp.services', [])
      * @param  type campaign's type(reference entities.Campaign)
      */
     var updateCampaignArray = function(arr, type) {
-      var length = arr.length;
+      var now = Date.now();
       switch(type) {
         case 1:
-          for (var i = 0; i < length; i++) {
-            if ((new Date(arr[i].end_time)) <= Date.now()) {
-              updateCampaign.unStartCampaign(arr[i], 4);
-              campaignData[3].push(arr[i]);
-              arr.splice(i, 1);
-            } else if((new Date(arr[i].start_time)) <= Date.now()) {
-              updateCampaign.unStartCampaign(arr[i], 2);
-              campaignData[1].push(arr[i]);
-              arr.splice(i, 1);
+          arr = arr.filter(function(campaign) {
+            console.log('1');
+            if((new Date(campaign.end_time)) <= now) {
+              updateCampaign.unStartCampaign(campaign, 4);
+              campaignData[3].push(campaign);
+              return false;
+            } else if((new Date(campaign.start_time)) <= now) {
+              updateCampaign.unStartCampaign(campaign, 2);
+              campaignData[1].push(campaign);
+              return false;
             }
-          }
+            return true;
+          });
+          console.log('11');
           break;
         case 2:
-          for (var i = 0; i < length; i++) {
-            if ((new Date(arr[i].end_time)) <= Date.now()) {
-              updateCampaign.nowCampaign(arr[i]);
-              campaignData[3].push(arr[i]);
-              arr.splice(i, 1);
+          arr = arr.filter(function(campaign) {
+            if((new Date(campaign.end_time)) <= now) {
+              updateCampaign.nowCampaign(campaign);
+              campaignData[3].push(campaign);
+              return false;
             }
-          }
+            return true;
+          });
           break;
         case 3:
-          for (var i = 0; i < length; i++) {
-            if ((new Date(arr[i].end_time)) <= Date.now()) {
-              updateCampaign.newCampaign(arr[i]);
-              arr.splice(i, 1);
+          arr = arr.filter(function(campaign) {
+            if((new Date(campaign.end_time)) <= now) {
+              updateCampaign.newCampaign(campaign);
+              return false;
             }
-          }
+            return true;
+          });
           break;
         default:
           break;
@@ -737,7 +743,7 @@ angular.module('donlerApp.services', [])
        */
       getList:function(params, callback, hcallback){
         if(params.sqlite) {
-          Persistence.get(Persistence.Entities.DonlerCampaign.all().order('start_time', false)).then(function (_data) {
+          Persistence.get(Persistence.Entities.DonlerCampaign.all().order('create_time', false)).then(function (_data) {
             var data = [];
 
             cloneData = _data;
@@ -749,7 +755,18 @@ angular.module('donlerApp.services', [])
             data.push(parseCampaign(_data.filter(finishedCampaignFilter)));
 
             console.log(_data);
-
+            data.forEach(function(arr, index) {
+              switch (index) {
+                case 0:
+                  arr.sort(compareFunction.startTimeAsc);
+                  break;
+                case 1:
+                  arr.sort(compareFunction.endTimeAsc);
+                  break;
+                default:
+                  break;
+              }
+            })
             callback(null, data);
             campaignData = data;
             Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerCampaign'))
