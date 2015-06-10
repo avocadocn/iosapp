@@ -24,14 +24,14 @@
           //-i.icon.icon_small.ion_address
           svg.svg_icon.cp_info_icon
             use(xlink:href="#location")
-          span.dl_cp_text(bo-text="campaign.address")
+          span.dl_cp_text(bo-text="campaign.location.name")
         p.dl_cp_member
           //-i.icon.ion_member.icon_small
           svg.svg_icon.cp_info_icon
             use(xlink:href="#renshu")
           span.dl_cp_text.number(ng-bind="campaign.members_count || '0'")
-          span.dl_cp_text(bo-show="campaign.member_max") &nbsp;|&nbsp;
-          span.dl_cp_text.number(bo-if="campaign.member_max" bo-text="campaign.member_max")
+          span.dl_cp_text(ng-show="campaign.member_max") &nbsp;|&nbsp;
+          span.dl_cp_text.number(ng-if="campaign.member_max" ng-bind="campaign.member_max")
     .dl_card_footer.clearfix(ng-if="campaign.confirm_status===true")
       .dl_team_name(bo-if="campaign.campaign_unit.length === 1" bo-text="campaign.campaign_unit[0].team.name")
       .dl_team_name(bo-if="campaign.campaign_unit.length === 2" bo-text="campaign.campaign_unit[0].team.name+'vs'+campaign.campaign_unit[1].team.name")

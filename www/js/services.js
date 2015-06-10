@@ -119,7 +119,7 @@ angular.module('donlerApp.services', [])
       timehash:'INT'
     });
 
-    entities.User1 = persistence.define('User1', {
+    entities.DonlerUser = persistence.define('DonlerUser', {
       _id:'TEXT',
       realname:'TEXT',
       nickname:'TEXT',
@@ -127,35 +127,33 @@ angular.module('donlerApp.services', [])
       photo:'TEXT'
     });
 
-    entities.Team1 = persistence.define('Team1', {
+    entities.DonlerTeam = persistence.define('DonlerTeam', {
       _id:'TEXT',
       active:'BOOL',
       name:'TEXT',
       logo:'TEXT',
-      leader:'TEXT',
       groupType:'TEXT',
       memberCount: 'INT',
       campaignCount: 'INT',
-      totalScore:'INT',
-      campaignScore:'INT',
+      leaders:'JSON',
+      score:'JSON',
       isLeader:'BOOL',
       hasJoined:'BOOL'
     });
 
-    entities.Campaign = persistence.define('Campaign', {
+    entities.DonlerCampaign = persistence.define('DonlerCampaign', {
       _id:'TEXT',
       active:'BOOL', //- the field reserved for HR. If common users and HR have separated databases, it's redundant for common users.
       theme:'TEXT',
       is_start:'BOOL',
       is_end:'BOOL',
-      // time_text:'TEXT',
-      campaign_unit:'TEXT', //- set the field of campaign_unit with string, because of the sqlite does not support array and the campaign_unit from server is a array.
-      photo_album:'TEXT',
+      campaign_unit:'JSON',
+      photo_album:'JSON',
       campaign_type:'INT',
       start_time:'DATE',
       end_time:'DATE',
       create_time:'DATE',
-      address:'TEXT',
+      location: 'JSON',
       members_count:'INT',
       member_max:'INT',
       confirm_status:'BOOL',
@@ -163,14 +161,6 @@ angular.module('donlerApp.services', [])
       circle_content_sum:'INT',
       type:"INT" //- the function of this field: filter the campaign's status(start soon(join), running, end, start soon(unjoin))  
     });
-    
-    // user <---> team relationship table
-    // entities.UT = persistence.define('UT', {
-    //   uid:'TEXT',
-    //   tid:'TEXT',
-    //   isLeader: 'BOOL',
-    //   hasJoined: 'BOOL'
-    // });
 
     
     entities.Hash.index('name');
@@ -178,18 +168,15 @@ angular.module('donlerApp.services', [])
     entities.Chat.index('_id');
     entities.User.index('_id');
 
-    entities.User1.index('_id');
-    entities.Team1.index('_id');
-    entities.Campaign.index('_id');
-    
-    // entities.UT.index(['uid', 'tid'], {unique:true});
-    // entities.UT.hasOne('tid', entities.Team1, '_id');
+    entities.DonlerUser.index('_id');
+    entities.DonlerTeam.index('_id');
+    entities.DonlerCampaign.index('_id');
 
     entities.Team.index('_id');
-    entities.User.hasMany('chats', entities.Chat, 'poster');
+    entities.User.hasMany('chats' , entities.Chat, 'poster');
     entities.Team.hasMany('chats', entities.Chat, 'poster_team');
     entities.Team.hasMany('chats', entities.Chat, 'opponent_team');
-    persistence.debug = false;//debug模式开关
+    persistence.debug = true;//debug模式开关
     persistence.schemaSync();
 
     return {
@@ -566,48 +553,18 @@ angular.module('donlerApp.services', [])
       return false;
     }
     /**
-     * parseCampaign the function parses the string to object or json and generates the useful text.
+     * parseCampaign the function generates the useful text.
      * @param  {[campaign]} arr 
      * @return {[campaign]}     
      */
     var parseCampaign = function(arr) {
       arr.forEach(function(campaign) {
-        if(campaign.campaign_unit) {
-          campaign.campaign_unit = JSON.parse(campaign.campaign_unit);
-        }
-        if(campaign.photo_album) {
-          campaign.photo_album = JSON.parse(campaign.photo_album);
-        }
         var startTime = new Date(campaign.start_time);
         var endTime = new Date(campaign.end_time);
-
         campaign.time_text = (Tools.formatCampaignTime(startTime, endTime)).time_text;
         campaign.remind_text = (Tools.formatCampaignTime(startTime, endTime)).remind_text;
-
       });
       return arr;
-    }
-    /**
-     * stringifyCampaignUnit convert campaign unit object to string
-     * @param  {object} obj campaign unit object
-     * @return {string}     campaign unit string
-     */
-    var stringifyCampaignUnit = function(obj) {
-      if(obj) {
-        return JSON.stringify(obj);
-      }
-      return null;
-    }
-    /**
-     * stringifyCampaignAlbum convert campaign album json to string
-     * @param  {json} obj campaign album json
-     * @return {string}     campaign album string
-     */
-    var stringifyCampaignAlbum = function(obj) {
-      if(obj) {
-        return JSON.stringify(obj);
-      }
-      return null;
     }
     /**
      * compareFunction used for sort
@@ -655,19 +612,16 @@ angular.module('donlerApp.services', [])
               destArr[destIndex] = campaign;
             }
 
-            var clone = JSON.parse(JSON.stringify(campaign));
-            clone.campaign_unit = stringifyCampaignUnit(clone.campaign_unit);
-            clone.photo_album = stringifyCampaignUnit(clone.photo_album);
-            clone.type = type;
+            campaign.type = type;
 
-            var campaignCollection = Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id);
-            Persistence.edit(campaignCollection, clone)
+            var campaignCollection = Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id);
+            Persistence.edit(campaignCollection, campaign)
             .then(null, function(error) {
               console.log(error);
             })
           } else {
             campaignData[pos].splice(destIndex, 1);
-            var campaignCollection = Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id);
+            var campaignCollection = Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id);
             Persistence.delete(campaignCollection)
             .then(null, function(error) {
               console.log(error);
@@ -678,20 +632,19 @@ angular.module('donlerApp.services', [])
           if(campaign.active) {
             destArr.push(campaign);
 
-            var _campaign = new Persistence.Entities.Campaign();
+            var _campaign = new Persistence.Entities.DonlerCampaign();
             _campaign._id = campaign._id;
             _campaign.active = campaign.active;
             _campaign.theme = campaign.theme;
             _campaign.is_start = campaign.is_start;
             _campaign.is_end = campaign.is_end;
-            // _campaign.time_text = campaign.time_text;
-            _campaign.campaign_unit = stringifyCampaignUnit(campaign.campaign_unit);
-            _campaign.photo_album = stringifyCampaignAlbum(campaign.photo_album);
+            _campaign.campaign_unit = campaign.campaign_unit;
+            _campaign.photo_album = campaign.photo_album;
             _campaign.campaign_type = campaign.campaign_type;
             _campaign.start_time = campaign.start_time;
             _campaign.end_time = campaign.end_time;
             _campaign.create_time = campaign.create_time;
-            _campaign.address = campaign.address;
+            _campaign.location = campaign.location;
             _campaign.members_count = campaign.members_count;
             _campaign.member_max = campaign.member_max;
             _campaign.confirm_status = campaign.confirm_status;
@@ -713,21 +666,21 @@ angular.module('donlerApp.services', [])
      */
     var updateCampaign = {
       unStartCampaign: function(campaign, type) {
-        Persistence.getOne(Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id))
+        Persistence.getOne(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
         .then(function(campaign) {
           campaign.type = type;
           persistence.flush();
         })
       },
       nowCampaign: function(campaign) {
-        Persistence.getOne(Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id))
+        Persistence.getOne(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
         .then(function(campaign) {
           campaign.type = 4;
           persistence.flush();
         })
       },
       newCampaign: function(campaign) {
-        Persistence.delete(Persistence.Entities.Campaign.all().filter('_id', '=', campaign._id))
+        Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
         .then(null, function(error) {
           console.log(error);
         })
@@ -784,24 +737,22 @@ angular.module('donlerApp.services', [])
        */
       getList:function(params, callback, hcallback){
         if(params.sqlite) {
-          Persistence.get(Persistence.Entities.Campaign.all().order('start_time', false)).then(function (_data) {
+          Persistence.get(Persistence.Entities.DonlerCampaign.all().order('start_time', false)).then(function (_data) {
             var data = [];
-            //- clone the array deeply
-            var clone = JSON.parse(JSON.stringify(_data));
-            //- clone the array deeply 
-            cloneData = JSON.parse(JSON.stringify(_data));
-            //- TODO simplify the operation
-            data.push(parseCampaign(clone.filter(unStartCampaignFilter)));
-            data.push(parseCampaign(clone.filter(nowCampaignFilter)));
-            data.push(parseCampaign(clone.filter(newCampaignFilter)));
-            data.push(parseCampaign(clone.filter(finishedCampaignFilter)));
 
-            // console.log(clone);
-            // console.log(_data);
+            cloneData = _data;
+
+            //- TODO simplify the operation
+            data.push(parseCampaign(_data.filter(unStartCampaignFilter)));
+            data.push(parseCampaign(_data.filter(nowCampaignFilter)));
+            data.push(parseCampaign(_data.filter(newCampaignFilter)));
+            data.push(parseCampaign(_data.filter(finishedCampaignFilter)));
+
+            console.log(_data);
 
             callback(null, data);
             campaignData = data;
-            Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'Campaign'))
+            Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerCampaign'))
             .then(function(hash) {
               hashCampaign = hash;
               var url = CONFIG.BASE_URL + '/campaigns';
@@ -813,7 +764,7 @@ angular.module('donlerApp.services', [])
               })
               .success(function (data, status) {
                 var timeObject = {max: -1}; //- use object not number
-                // console.log(data);
+                console.log(data);
                 //- handle the new data
                 data.forEach(function(arr, index) {
                   handleCampaignArray(arr, campaignData[index], index + 1, timeObject);
@@ -839,10 +790,10 @@ angular.module('donlerApp.services', [])
                 data = campaignData;
                 //- can't use Persistence's delete function, because of queryCollection's incorrectness(can't get correct queryCollection)
                 //- can't use skip, because of skip(n) behaves nothing
-                Persistence.Entities.Campaign.all().filter('type', '=', 4).order('end_time', false).list(null, function(results) {
+                Persistence.Entities.DonlerCampaign.all().filter('type', '=', 4).order('end_time', false).list(null, function(results) {
                   results.slice(5).forEach(function(result) {
                     //- TODO remove the element from data[3]
-                    Persistence.delete(Persistence.Entities.Campaign.all().filter('_id', '=', result._id))
+                    Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', result._id))
                     .then(null, function(error) {
                       console.log(error);
                     })
@@ -852,14 +803,14 @@ angular.module('donlerApp.services', [])
                 if (timeObject.max !== -1) {
                   if (hashCampaign) {
                     hashCampaign.timehash = timeObject.max;
-                    var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'Campaign');
+                    var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'DonlerCampaign');
                     Persistence.edit(hashCollection, hashCampaign)
                       .then(null, function(error) {
                         console.log(error);
                       })
                   } else {
                     var hash = new Persistence.Entities.Hash();
-                    hash.name = 'Campaign';
+                    hash.name = 'DonlerCampaign';
                     hash.timehash = timeObject.max;
                     Persistence.add(hash);
                   }
@@ -1497,10 +1448,10 @@ angular.module('donlerApp.services', [])
        * @param  {Function} callback 获取后的回调函数，形式为function(err, data)
        */
       getCompanyUsers: function(cid, callback, hcallback) {
-        Persistence.get(Persistence.Entities.User1.all()).then(function (data) {
+        Persistence.get(Persistence.Entities.DonlerUser.all()).then(function (data) {
           callback(null,data);
           userData = data;
-          Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'User1'))
+          Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerUser'))
           .then(function(hash) {
             hashUser = hash;
             var url = CONFIG.BASE_URL + '/users/list/' + cid;
@@ -1517,14 +1468,14 @@ angular.module('donlerApp.services', [])
                   if(index > -1) {
                     if(!user.active) {
                       userData.splice(index, 1);
-                      var userDeletedCollection = Persistence.Entities.User1.all().filter('_id','=', user._id);
+                      var userDeletedCollection = Persistence.Entities.DonlerUser.all().filter('_id','=', user._id);
                       Persistence.delete(userDeletedCollection)
                         .then(null, function(error) {
                           console.log(error);
                         })
                     } else {
                       userData[index] = user;
-                      var userCollection = Persistence.Entities.User1.all().filter('_id','=',user._id);
+                      var userCollection = Persistence.Entities.DonlerUser.all().filter('_id','=',user._id);
                       Persistence.edit(userCollection, user)
                         .then(null, function(error) {
                           console.log(error);
@@ -1533,7 +1484,7 @@ angular.module('donlerApp.services', [])
                   } else {
                     if(user.active) {
                       userData.push(user);
-                      var _user = new Persistence.Entities.User1();
+                      var _user = new Persistence.Entities.DonlerUser();
                       _user._id = user._id;
                       _user.email = user.email;
                       _user.nickname = user.nickname;
@@ -1551,14 +1502,14 @@ angular.module('donlerApp.services', [])
                 data = userData;
                 if(hashUser) {
                   hashUser.timehash = maxTime;
-                  var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'User1');
+                  var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'DonlerUser');
                   Persistence.edit(hashCollection, hashUser)
                     .then(null, function(error) {
                       console.log(error);
                     })
                 } else {
                   var hash = new Persistence.Entities.Hash();
-                  hash.name = 'User1';
+                  hash.name = 'DonlerUser';
                   hash.timehash = maxTime;
                   Persistence.add(hash);
                 }
@@ -1604,7 +1555,7 @@ angular.module('donlerApp.services', [])
        */
       getList: function (hostType, hostId, personalFlag, callback, hcallback) {
         if(!hostId || hostId === localStorage.id.toString()) {
-          var teamCollection = Persistence.Entities.Team1.all();
+          var teamCollection = Persistence.Entities.DonlerTeam.all();
           if(hostType === 'user') {
             teamCollection = teamCollection.filter('hasJoined','=', true);
             hashCollection = Persistence.Entities.Hash.all().filter('name','=', 'userTeam'); // for personal team update
@@ -1638,14 +1589,14 @@ angular.module('donlerApp.services', [])
                       if (index > -1) {
                         if (!team.active) {
                           teamData.splice(index, 1);
-                          var userDeletedCollection = Persistence.Entities.Team1.all().filter('_id', '=', team._id);
+                          var userDeletedCollection = Persistence.Entities.DonlerTeam.all().filter('_id', '=', team._id);
                           Persistence.delete(userDeletedCollection)
                             .then(null, function(error) {
                               console.log(error);
                             })
                         } else {
                           teamData[index] = team;
-                          var userCollection = Persistence.Entities.Team1.all().filter('_id', '=', team._id);
+                          var userCollection = Persistence.Entities.DonlerTeam.all().filter('_id', '=', team._id);
                           Persistence.edit(userCollection, team)
                             .then(null, function(error) {
                               console.log(error);
@@ -1654,16 +1605,15 @@ angular.module('donlerApp.services', [])
                       } else {
                         if (team.active) {
                           teamData.push(team);
-                          var _team = new Persistence.Entities.Team1();
+                          var _team = new Persistence.Entities.DonlerTeam();
                           _team._id = team._id;
                           _team.active = team.active;
                           _team.name = team.name;
                           _team.logo = team.logo;
-                          _team.leader = team.leader;
+                          _team.leaders = team.leaders;
+                          _team.score = team.score;
                           _team.groupType = team.groupType;
                           _team.memberCount = team.memberCount;
-                          _team.totalScore = team.totalScore;
-                          _team.campaignScore = team.campaignScore;
                           _team.isLeader = team.isLeader;
                           _team.hasJoined = team.hasJoined;
                           _team.campaignCount = team.campaignCount;

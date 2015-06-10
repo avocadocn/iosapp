@@ -33,7 +33,7 @@ ion-view.personal
                 p.team_count
                   span.team_member 队员：{{team.memberCount}}
                   span.team_cp_number(ng-if="team.campaignCount") 活动：{{team.campaignCount}}
-                  span.team_cp_number 积分：{{team.totalScore}}
+                  span.team_cp_number 积分：{{team.score.total}}
           .circle_list(ng-if="nowTab=='circle'")
             circle-card-list.dl_circle_card_list(circle-list="circleContentList" user="user" kind="user" ctrl="circleCardListCtrl" on-click-comment-button="openCommentBox" on-click-content-img="onClickContentImg" static-url="STATIC_URL")
       

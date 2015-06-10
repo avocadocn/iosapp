@@ -22,12 +22,12 @@
         <p class="dl_cp_address">
           <svg class="svg_icon cp_info_icon">
             <use xlink:href="#location"></use>
-          </svg><span bo-text="campaign.address" class="dl_cp_text"></span>
+          </svg><span bo-text="campaign.location.name" class="dl_cp_text"></span>
         </p>
         <p class="dl_cp_member">
           <svg class="svg_icon cp_info_icon">
             <use xlink:href="#renshu"></use>
-          </svg><span ng-bind="campaign.members_count || '0'" class="dl_cp_text number"></span><span bo-show="campaign.member_max" class="dl_cp_text">&nbsp;|&nbsp;</span><span bo-if="campaign.member_max" bo-text="campaign.member_max" class="dl_cp_text number"></span>
+          </svg><span ng-bind="campaign.members_count || '0'" class="dl_cp_text number"></span><span ng-show="campaign.member_max" class="dl_cp_text">&nbsp;|&nbsp;</span><span ng-if="campaign.member_max" ng-bind="campaign.member_max" class="dl_cp_text number"></span>
         </p>
       </div>
     </div>
