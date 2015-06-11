@@ -2726,6 +2726,9 @@ a>.login .companies_list:activated {
 .personal .user_info .statistics .row a {
   text-decoration: none;
 }
+.personal .menu_list {
+  margin-top: 10px;
+}
 .personal .menu_list .item {
   border-width: 0;
   padding-bottom: 17px;

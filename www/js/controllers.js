@@ -1377,7 +1377,7 @@ angular.module('donlerApp.controllers', [])
     $scope.doRefresh = function(){
       $scope.page = 1;
       $scope.loadFinished = false;
-      TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, campaignsData) {
+      TimeLine.getTimelines($state.params.type, $state.params.id || localStorage.id, $scope.page, function (err, campaignsData) {
         if (err) {
           // todo
           console.log(err);
@@ -1397,7 +1397,7 @@ angular.module('donlerApp.controllers', [])
       if(!$scope.loading){
         $scope.page++;
         $scope.loading = true;
-        TimeLine.getTimelines($state.params.type, $state.params.id, $scope.page, function (err, campaignsData) {
+        TimeLine.getTimelines($state.params.type, $state.params.id || localStorage.id, $scope.page, function (err, campaignsData) {
           if (err) {
             // todo
             console.log(err);
@@ -4731,7 +4731,7 @@ angular.module('donlerApp.controllers', [])
         $scope.loadingStatus.loading = true;
         var pos = $scope.circleContentList.length - 1;
         var lastContentDate = $scope.circleContentList[pos].content.post_date;
-        Circle.getUserCircle($state.params.userId, {last_content_date: lastContentDate})
+        Circle.getUserCircle($state.params.userId || localStorage.id, {last_content_date: lastContentDate})
           .success(function(data) {
             if (data.length) {
               data.forEach(function(circle) {
@@ -4787,7 +4787,7 @@ angular.module('donlerApp.controllers', [])
           loading: false // 是否正在加载更多，如果是，则会保护防止连续请求
         };
 
-        User.getData($state.params.userId, function(err, data) {
+        User.getData($state.params.userId || localStorage.id, function(err, data) {
           if (err) {
             // todo
             console.log(err);
@@ -4796,7 +4796,7 @@ angular.module('donlerApp.controllers', [])
           }
         });
 
-        Circle.getUserCircle($state.params.userId)
+        Circle.getUserCircle($state.params.userId || localStorage.id)
           .success(function(data) {
             localStorage.lastGetCircleTime = new Date();
             data.forEach(function(circle) {
