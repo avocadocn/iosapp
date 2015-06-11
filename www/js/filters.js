@@ -38,7 +38,12 @@ angular.module('donlerApp.filters', [])
       return ''
     //new Date(input) will invalidDate in safari
     //must user new Date('2014-02-18T15:00:48'.replace(/\s/, 'T'))
-    var date = new Date(input.replace(/\s/, 'T'));
+    if(typeof(input) === 'object') {
+      var date = new Date(input);
+    } else {
+      var date = new Date(input.replace(/\s/, 'T'));
+    }
+
     var now = Date.now();
     var intervalMilliForNow = now - date.getTime();
     var xcts = intervalMilliForNow / (24 * 60 * 60 * 1000);
