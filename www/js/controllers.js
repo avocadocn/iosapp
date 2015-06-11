@@ -192,7 +192,7 @@ angular.module('donlerApp.controllers', [])
     };
   }])
   .controller('CampaignController', ['$scope', '$state', '$timeout', '$rootScope', '$ionicPopover', '$rootScope', '$ionicScrollDelegate','$ionicHistory', '$filter', 'Campaign', 'INFO','UserAuth',
-    function ($scope, $state, $timeout, $ionicActionSheet, $ionicPopover, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO,UserAuth) {
+    function ($scope, $state, $timeout, $ionicActionSheet, $ionicPopover, $rootScope, $ionicScrollDelegate, $ionicHistory,  $filter, Campaign, INFO, UserAuth) {
     $scope.nowType = 'all';
     $scope.pswpPhotoAlbum = {};
     $scope.pswpId = 'campaigns' + Date.now();
@@ -252,12 +252,13 @@ angular.module('donlerApp.controllers', [])
     };
     // 此处使用rootScope是为了解决切换tab时不能刷新的问题
     $rootScope.getCampaignList = getCampaignList;
-    getCampaignList(true);
-    // $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
-    //   if(!states.stateName && $state.$current.name === 'app.campaigns'){
-    //     getCampaignList(true);
-    //   }
-    // });
+    // getCampaignList(true);
+    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
+      if(!states.stateName && $state.$current.name === 'app.campaigns' && !INFO.backFromCampaignDetail){
+        getCampaignList(true);
+        INFO.backFromCampaignDetail = false;
+      }
+    });
     $ionicPopover.fromTemplateUrl('my-popover.html', {
       scope: $scope,
     }).then(function(popover) {
@@ -495,6 +496,7 @@ angular.module('donlerApp.controllers', [])
 
     $scope.$on('$ionicView.enter',function(scopes, states){
       $rootScope.showLoading();
+      INFO.backFromCampaignDetail = true;
       // 用于保存已经获取到的同事圈内容
       $scope.circleContentList = [];
       $scope.loadingStatus = {
