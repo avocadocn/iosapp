@@ -252,11 +252,12 @@ angular.module('donlerApp.controllers', [])
     };
     // 此处使用rootScope是为了解决切换tab时不能刷新的问题
     $rootScope.getCampaignList = getCampaignList;
-    $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
-      if(!states.stateName && $state.$current.name === 'app.campaigns'){
-        getCampaignList(true);
-      }
-    });
+    getCampaignList(true);
+    // $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
+    //   if(!states.stateName && $state.$current.name === 'app.campaigns'){
+    //     getCampaignList(true);
+    //   }
+    // });
     $ionicPopover.fromTemplateUrl('my-popover.html', {
       scope: $scope,
     }).then(function(popover) {
@@ -303,8 +304,8 @@ angular.module('donlerApp.controllers', [])
       })
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG',
-   function ($ionicHistory, $rootScope, $scope, $state, Campaign, Message, INFO, User, Circle, CONFIG) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$q', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG',
+   function ($ionicHistory, $rootScope, $scope, $state, $q, Campaign, Message, INFO, User, Circle, CONFIG) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -314,7 +315,15 @@ angular.module('donlerApp.controllers', [])
       }
     };
     $scope.doRefresh= function () {
-      $state.reload();
+      var promises = [];
+      getCampaigData(promises);
+      getMessageData(promises);
+      getCircleData(promises);
+      getUserData(promises);
+      $q.all(promises).then(function() {
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+
       $scope.reloadFlag= !!$scope.scoreBoardId;
     }
     $scope.cid = localStorage.cid;
@@ -420,7 +429,8 @@ angular.module('donlerApp.controllers', [])
 
     var pageLength = 20; // 一次获取的数据量
 
-    $scope.$on('$ionicView.enter',function(scopes, states){
+    var getCampaigData = function(promises) {
+      var deferred = $q.defer();
       Campaign.get($state.params.id, function(err, data){
         if(!err){
           $scope.campaign = data;
@@ -431,13 +441,25 @@ angular.module('donlerApp.controllers', [])
               $scope.reloadFlag= false;
             }
           });
+          deferred.resolve();
         }
       },true);
+      promises.push(deferred.promise);
+    };
+
+    var getMessageData = function(promises) {
+      var deferred = $q.defer();
       Message.getCampaignMessages($state.params.id, function(err, data){
         if(!err){
           $scope.notices = data;
+          deferred.resolve();
         }
       });
+      promises.push(deferred.promise);
+    };
+
+    var getCircleData = function(promises) {
+      var deferred = $q.defer();
       Circle.getCampaignCircle($state.params.id)
       .success(function(data, status) {
         if (data.length) {
@@ -446,17 +468,19 @@ angular.module('donlerApp.controllers', [])
           });
           $scope.circleContentList = (data || []).concat($scope.circleContentList);
         }
-        $scope.$broadcast('scroll.refreshComplete');
+        deferred.resolve();
       })
       .error(function(data, status) {
         if (status !== 404) {
           $rootScope.showAction({titleText:data.msg ?data.msg: '获取失败'})
         }
-        $scope.$broadcast('scroll.refreshComplete');
+        deferred.resolve();
       });
-      // 用于保存已经获取到的同事圈内容
-      $scope.circleContentList = [];
+      promises.push(deferred.promise);
+    };
 
+    var getUserData = function(promises) {
+      var deferred = $q.defer();
       User.getData(localStorage.id, function(err, data) {
         if (err) {
           // todo
@@ -464,7 +488,15 @@ angular.module('donlerApp.controllers', [])
         } else {
           $scope.user = data;
         }
+        deferred.resolve();
       });
+      promises.push(deferred.promise);
+    };
+
+    $scope.$on('$ionicView.enter',function(scopes, states){
+      $rootScope.showLoading();
+      // 用于保存已经获取到的同事圈内容
+      $scope.circleContentList = [];
       $scope.loadingStatus = {
         hasInit: false, // 是否已经获取了一次内容
         hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
@@ -491,6 +523,56 @@ angular.module('donlerApp.controllers', [])
         $scope.pswpCtrl.init(images, img);
       };
 
+      var promises = [];
+      getCampaigData(promises);
+      getMessageData(promises);
+      getCircleData(promises);
+      getUserData(promises);
+      $q.all(promises).then(function() {
+        $rootScope.hideLoading();
+      });
+      // Campaign.get($state.params.id, function(err, data){
+      //   if(!err){
+      //     $scope.campaign = data;
+      //     setMembers();
+      //     data.components && data.components.forEach(function(component, index){
+      //       if(component.name=='ScoreBoard') {
+      //         $scope.scoreBoardId =component._id;
+      //         $scope.reloadFlag= false;
+      //       }
+      //     });
+      //   }
+      // },true);
+      // Message.getCampaignMessages($state.params.id, function(err, data){
+      //   if(!err){
+      //     $scope.notices = data;
+      //   }
+      // });
+      // Circle.getCampaignCircle($state.params.id)
+      // .success(function(data, status) {
+      //   if (data.length) {
+      //     data.forEach(function(circle) {
+      //       Circle.pickAppreciateAndComments(circle);
+      //     });
+      //     $scope.circleContentList = (data || []).concat($scope.circleContentList);
+      //   }
+      //   $scope.$broadcast('scroll.refreshComplete');
+      // })
+      // .error(function(data, status) {
+      //   if (status !== 404) {
+      //     $rootScope.showAction({titleText:data.msg ?data.msg: '获取失败'})
+      //   }
+      //   $scope.$broadcast('scroll.refreshComplete');
+      // });
+
+      // User.getData(localStorage.id, function(err, data) {
+      //   if (err) {
+      //     // todo
+      //     console.log(err);
+      //   } else {
+      //     $scope.user = data;
+      //   }
+      // });
     });
 
   }])

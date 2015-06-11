@@ -4,7 +4,7 @@ ion-view.dl_campaign_detail(bindonce='campaign')
     h1.title(bo-text="campaign.campaign_unit[0].team.name || campaign.campaign_unit[0].company.name")
     a.button.dl_cp_edit(ng-if="campaign.active && campaign.allow.editTeamCampaign || campaign.allow.editCompanyCampaign" href="#/campaign/edit/{{campaign._id}}") 编辑
   ion-content(delegate-handle="detailScroll")
-    ion-refresher(refreshing-icon="ion-looping" on-refresh="doRefresh()")
+    ion-refresher(on-refresh="doRefresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中...")
     .campaign_detail
       .item.item_header.campaign_theme(bo-if="campaign.campaign_unit.length==2")
         span(bo-text="campaign.theme")
