@@ -172,11 +172,14 @@ a.no_underline
   height 22px
   fill white
   stroke white
-.tab-item-active
+.tab-item-active, .tab-item.activated
   .svg_tab_icon
     fill col_blue
     stroke col_blue
-
+.tab-item-active.tab-item-active-remove
+  .svg_tab_icon
+    fill white
+    stroke white
 .icon.icon_small
   font-size 16px !important
   &:before
@@ -1265,8 +1268,11 @@ a.no_underline
       color transparent
       right calc(50% - 18px)
     &.tab-item-active,
+    &.activated,
     &.active
       color col_blue
+    &.tab-item-active.tab-item-active-remove
+      color white
 .emoji
   margin 0 0.1rem
   vertical-align middle

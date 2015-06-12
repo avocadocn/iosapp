@@ -117,9 +117,14 @@ a.no_underline {
   fill: #fff;
   stroke: #fff;
 }
-.tab-item-active .svg_tab_icon {
+.tab-item-active .svg_tab_icon,
+.tab-item.activated .svg_tab_icon {
   fill: #3ca2e0;
   stroke: #3ca2e0;
+}
+.tab-item-active.tab-item-active-remove .svg_tab_icon {
+  fill: #fff;
+  stroke: #fff;
 }
 .icon.icon_small {
   font-size: 16px !important;
@@ -1528,8 +1533,12 @@ a>.login .companies_list:activated {
   right: calc(50% - 18px);
 }
 .app_tabs > .tabs .tab-item.tab-item-active,
+.app_tabs > .tabs .tab-item.activated,
 .app_tabs > .tabs .tab-item.active {
   color: #3ca2e0;
+}
+.app_tabs > .tabs .tab-item.tab-item-active.tab-item-active-remove {
+  color: #fff;
 }
 .emoji {
   margin: 0 0.1rem;
