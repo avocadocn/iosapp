@@ -118,7 +118,7 @@ a.no_underline {
   stroke: #fff;
 }
 .tab-item-active .svg_tab_icon,
-.tab-item.activated .svg_tab_icon {
+.tab-item.tab-item-active-add .svg_tab_icon {
   fill: #3ca2e0;
   stroke: #3ca2e0;
 }
@@ -1533,7 +1533,7 @@ a>.login .companies_list:activated {
   right: calc(50% - 18px);
 }
 .app_tabs > .tabs .tab-item.tab-item-active,
-.app_tabs > .tabs .tab-item.activated,
+.app_tabs > .tabs .tab-item.tab-item.tab-item-active-add,
 .app_tabs > .tabs .tab-item.active {
   color: #3ca2e0;
 }
