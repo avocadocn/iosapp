@@ -137,6 +137,11 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
     $rootScope.hideLoading = function(){
       $ionicLoading.hide();
     };
+    $rootScope.showLoginLoading = function() {
+      $ionicLoading.show({
+        template: '<i class="icon ion-looping"></i>登陆中'
+      });
+    };
     /**
      * [showAction 通用提醒框]
      * @param  {Object} option type,titleText,fun,cancelText,cancelFun
