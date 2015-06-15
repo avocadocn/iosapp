@@ -1553,6 +1553,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     link: function(scope, ele, attrs, ctrl) {
 
       scope.uploadURIs = [];
+      scope.loading = false;
       var maxUploadCount = 9;
       var hasInit = false; // 是否初始化，即选过一次图片到达预览页面
 
@@ -1762,6 +1763,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
 
       scope.publish = function() {
         var circleContentId;
+        scope.loading = true;
         Circle.preCreate(scope.campaign._id, scope.publishFormData.content)
         .then(function (response) {
           circleContentId = response.data.id;
@@ -1778,6 +1780,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           return Circle.active(circleContentId);
         })
         .then(function (response) {
+          scope.loading = false;
           $ionicLoading.hide();
           scope.closeModal();
           reset();
@@ -1785,6 +1788,7 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           showAction({titleText:'发表成功'});
         })
         .then(null, function (response) {
+          scope.loading = false;
           if (response instanceof Error) {
             console.log(response.stack);
             showAction({titleText:response.message || '发表失败'});

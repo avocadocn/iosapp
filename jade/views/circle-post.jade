@@ -1,7 +1,7 @@
 ion-modal-view.circle_post_page
   ion-header-bar
     a.button.icon-left.ion-chevron-left(ng-click="closeModal()") &nbsp;返回
-    button.button.icon-right(ng-click="publish()" form="publishForm" ng-disabled="uploadURIs.length === 0 || !formCtrl.unOverMax") 发布
+    button.button.icon-right(ng-click="publish()" form="publishForm" ng-disabled="uploadURIs.length === 0 || !formCtrl.unOverMax || loading") 发布
   ion-content
     form.list(name="publishForm")
       .item

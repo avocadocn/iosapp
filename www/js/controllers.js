@@ -469,7 +469,7 @@ angular.module('donlerApp.controllers', [])
           data.forEach(function(circle) {
             Circle.pickAppreciateAndComments(circle);
           });
-          $scope.circleContentList = (data || []).concat($scope.circleContentList);
+          $scope.circleContentList = data || []; //(data || []).concat($scope.circleContentList);
         }
         deferred.resolve();
       })
