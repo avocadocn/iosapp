@@ -520,7 +520,7 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-  .factory('Campaign', ['$http', 'CONFIG', 'Tools', 'Persistence', function ($http, CONFIG, Tools, Persistence) {
+  .factory('Campaign', ['$http', 'CONFIG', 'Tools', 'Persistence', '$q', function ($http, CONFIG, Tools, Persistence, $q) {
     var nowCampaign;
     var campaignData;
     var hashCampaign;
@@ -772,82 +772,185 @@ angular.module('donlerApp.services', [])
        * @param {Object} params 请求参数，参见api /campaigns说明
        * @param {Function} callback
        */
-      getList:function(params, callback, hcallback){
+      getList:function(params, callback, hcallback) {
         if(params.sqlite) {
-          Persistence.get(Persistence.Entities.DonlerCampaign.all().order('create_time', false)).then(function (_data) {
-            dataArray = [];
 
-            cloneData = _data;
+          var getCampaignDataFromSqlite = function(promises, callback) {
+            var deferred = $q.defer();
+            Persistence.get(Persistence.Entities.DonlerCampaign.all().order('create_time', false)).then(function(_data) {
+              dataArray = [];
 
-            //- TODO simplify the operation
-            dataArray.push(parseCampaign(_data.filter(unStartCampaignFilter)));
-            dataArray.push(parseCampaign(_data.filter(nowCampaignFilter)));
-            dataArray.push(parseCampaign(_data.filter(newCampaignFilter)));
-            dataArray.push(parseCampaign(_data.filter(finishedCampaignFilter)));
-            //- update campaign(mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
-            for(var i = 0; i < dataArray.length; i++) {
-              dataArray[i] = updateCampaignArray(dataArray[i], i + 1);
-            }
-            //- sort campaign order by time
-            sortCampaignArray(dataArray);
-            //- limit the number of finished campaign -> number(5)
-            removeFinishedCampaign();
+              cloneData = _data;
 
-            callback(null, dataArray);
-            // console.log(data);
-            campaignData = dataArray;
-            Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerCampaign'))
-            .then(function(hash) {
-              hashCampaign = hash;
-              var url = CONFIG.BASE_URL + '/campaigns';
-              if(hash) {
-                url += ('?timehash=' + hash.timehash);
+              //- TODO simplify the operation
+              dataArray.push(parseCampaign(_data.filter(unStartCampaignFilter)));
+              dataArray.push(parseCampaign(_data.filter(nowCampaignFilter)));
+              dataArray.push(parseCampaign(_data.filter(newCampaignFilter)));
+              dataArray.push(parseCampaign(_data.filter(finishedCampaignFilter)));
+              //- update campaign(mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
+              for (var i = 0; i < dataArray.length; i++) {
+                dataArray[i] = updateCampaignArray(dataArray[i], i + 1);
               }
-              $http.get(url, {
-                params: params
-              })
-              .success(function (data, status) {
-                var timeObject = {max: -1}; //- use object not number
+              //- sort campaign order by time
+              sortCampaignArray(dataArray);
+              //- limit the number of finished campaign -> number(5)
+              removeFinishedCampaign();
 
-                //- handle the new data
-                data.forEach(function(arr, index) {
-                  handleCampaignArray(arr, campaignData[index], index + 1, timeObject);
-                });
-                //- update campaign (mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
-                // for (var i = 0; i < data.length; i++) {
-                //   data[i] = updateCampaignArray(data[i], i + 1);
-                // }
-                if (timeObject.max !== -1) {
-                  //- sort campaign order by time
-                  sortCampaignArray(campaignData);
-
-                  data = campaignData;
-                  //- limit the number of finished campaign -> number(5)
-                  removeFinishedCampaign();
-
-                  if (hashCampaign) {
-                    hashCampaign.timehash = timeObject.max;
-                    var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'DonlerCampaign');
-                    Persistence.edit(hashCollection, hashCampaign)
-                      .then(null, function(error) {
-                        console.log(error);
-                      })
-                  } else {
-                    var hash = new Persistence.Entities.Hash();
-                    hash.name = 'DonlerCampaign';
-                    hash.timehash = timeObject.max;
-                    Persistence.add(hash);
-                  }
-                  hcallback(null, data);
-                } else {
-                  hcallback('no new data');
-                }
-              })
-              .error(function (data, status) {
-                hcallback(data ? data.msg:'网络连接错误' || 'error');
-              });
+              callback(null, dataArray);
+              // console.log(data);
+              campaignData = dataArray;
+              deferred.resolve();
             });
+            promises.push(deferred.promise);
+          };
+
+          var getCampaignNewDataFromServer = function(promises) {
+            var deferred = $q.defer();
+            Persistence.getOne(Persistence.Entities.Hash.all().filter('name', '=', 'DonlerCampaign'))
+              .then(function(hash) {
+                hashCampaign = hash;
+                var url = CONFIG.BASE_URL + '/campaigns';
+                if (hash) {
+                  url += ('?timehash=' + hash.timehash);
+                }
+                $http.get(url, {
+                    params: params
+                  })
+                  .success(function(data, status) {
+                    deferred.resolve(data);
+                  })
+                  .error(function(data, status) {
+                    deferred.resolve(null);
+                  });
+              });
+              promises.push(deferred.promise);
+          };
+
+          var promises = [];
+          getCampaignNewDataFromServer(promises);
+          getCampaignDataFromSqlite(promises, function(err, data) {
+            callback(err, data);
           });
+          
+          $q.all(promises).then(function(res) {
+            console.log(res);
+            if (res[0] === null) {
+              hcallback(data ? data.msg : '网络连接错误' || 'error');
+            } else {
+              var data = res[0];
+              var timeObject = {
+                max: -1
+              }; //- use object not number
+
+              //- handle the new data
+              data.forEach(function(arr, index) {
+                handleCampaignArray(arr, campaignData[index], index + 1, timeObject);
+              });
+              //- update campaign (mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
+              // for (var i = 0; i < data.length; i++) {
+              //   data[i] = updateCampaignArray(data[i], i + 1);
+              // }
+              if (timeObject.max !== -1) {
+                //- sort campaign order by time
+                sortCampaignArray(campaignData);
+
+                data = campaignData;
+                //- limit the number of finished campaign -> number(5)
+                removeFinishedCampaign();
+
+                if (hashCampaign) {
+                  hashCampaign.timehash = timeObject.max;
+                  var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'DonlerCampaign');
+                  Persistence.edit(hashCollection, hashCampaign)
+                    .then(null, function(error) {
+                      console.log(error);
+                    })
+                } else {
+                  var hash = new Persistence.Entities.Hash();
+                  hash.name = 'DonlerCampaign';
+                  hash.timehash = timeObject.max;
+                  Persistence.add(hash);
+                }
+                hcallback(null, data);
+              } else {
+                hcallback('no new data');
+              }
+            }
+          });
+          // Persistence.get(Persistence.Entities.DonlerCampaign.all().order('create_time', false)).then(function (_data) {
+          //   dataArray = [];
+
+          //   cloneData = _data;
+
+          //   //- TODO simplify the operation
+          //   dataArray.push(parseCampaign(_data.filter(unStartCampaignFilter)));
+          //   dataArray.push(parseCampaign(_data.filter(nowCampaignFilter)));
+          //   dataArray.push(parseCampaign(_data.filter(newCampaignFilter)));
+          //   dataArray.push(parseCampaign(_data.filter(finishedCampaignFilter)));
+          //   //- update campaign(mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
+          //   for(var i = 0; i < dataArray.length; i++) {
+          //     dataArray[i] = updateCampaignArray(dataArray[i], i + 1);
+          //   }
+          //   //- sort campaign order by time
+          //   sortCampaignArray(dataArray);
+          //   //- limit the number of finished campaign -> number(5)
+          //   removeFinishedCampaign();
+
+          //   callback(null, dataArray);
+          //   // console.log(data);
+          //   campaignData = dataArray;
+          //   Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerCampaign'))
+          //   .then(function(hash) {
+          //     hashCampaign = hash;
+          //     var url = CONFIG.BASE_URL + '/campaigns';
+          //     if(hash) {
+          //       url += ('?timehash=' + hash.timehash);
+          //     }
+          //     $http.get(url, {
+          //       params: params
+          //     })
+          //     .success(function (data, status) {
+          //       var timeObject = {max: -1}; //- use object not number
+
+          //       //- handle the new data
+          //       data.forEach(function(arr, index) {
+          //         handleCampaignArray(arr, campaignData[index], index + 1, timeObject);
+          //       });
+          //       //- update campaign (mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
+          //       // for (var i = 0; i < data.length; i++) {
+          //       //   data[i] = updateCampaignArray(data[i], i + 1);
+          //       // }
+          //       if (timeObject.max !== -1) {
+          //         //- sort campaign order by time
+          //         sortCampaignArray(campaignData);
+
+          //         data = campaignData;
+          //         //- limit the number of finished campaign -> number(5)
+          //         removeFinishedCampaign();
+
+          //         if (hashCampaign) {
+          //           hashCampaign.timehash = timeObject.max;
+          //           var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'DonlerCampaign');
+          //           Persistence.edit(hashCollection, hashCampaign)
+          //             .then(null, function(error) {
+          //               console.log(error);
+          //             })
+          //         } else {
+          //           var hash = new Persistence.Entities.Hash();
+          //           hash.name = 'DonlerCampaign';
+          //           hash.timehash = timeObject.max;
+          //           Persistence.add(hash);
+          //         }
+          //         hcallback(null, data);
+          //       } else {
+          //         hcallback('no new data');
+          //       }
+          //     })
+          //     .error(function (data, status) {
+          //       hcallback(data ? data.msg:'网络连接错误' || 'error');
+          //     });
+          //   });
+          // });
         } else {
           $http.get(CONFIG.BASE_URL + '/campaigns', {
             params: params
