@@ -363,6 +363,7 @@ angular.module('donlerApp.controllers', [])
       }
       Campaign.join($scope.campaign,localStorage.id, function(err, data){
         if(!err){
+          INFO.backFromCampaignDetail = false;
           $scope.campaign = data;
           setMembers();
           $rootScope.showAction({titleText:'参加成功'})
@@ -380,6 +381,7 @@ angular.module('donlerApp.controllers', [])
         }
         Campaign.quit(id,localStorage.id, function(err, data){
           if(!err){
+            INFO.backFromCampaignDetail = false;
             $scope.campaign = data;
             setMembers();
             $rootScope.showAction({titleText:'退出成功'})
