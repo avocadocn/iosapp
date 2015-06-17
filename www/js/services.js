@@ -525,6 +525,7 @@ angular.module('donlerApp.services', [])
     var campaignData;
     var hashCampaign;
     var cloneData;
+    var dataArray;
     /**
      * Filter used for filter the campaigns from sqlite
      */
@@ -533,26 +534,26 @@ angular.module('donlerApp.services', [])
         return true;
       }
       return false;
-    }
+    };
 
     var nowCampaignFilter = function(campaign) {
       if(campaign.type === 2) {
         return true;
       }
       return false;
-    }
+    };
     var newCampaignFilter = function(campaign) {
       if(campaign.type === 3) {
         return true;
       }
       return false;
-    }
+    };
     var finishedCampaignFilter = function(campaign) {
       if(campaign.type === 4) {
         return true;
       }
       return false;
-    }
+    };
     /**
      * parseCampaign the function generates the useful text.
      * @param  {[campaign]} arr 
@@ -563,11 +564,12 @@ angular.module('donlerApp.services', [])
         var startTime = new Date(campaign.start_time);
         var endTime = new Date(campaign.end_time);
         var textJson = Tools.formatCampaignTime(startTime, endTime);
+        campaign.is_end = textJson.start_flag === -1 ? true : false;
         campaign.time_text = textJson.time_text;
         campaign.remind_text = textJson.remind_text;
       });
       return arr;
-    }
+    };
     /**
      * compareFunction used for sort
      */
@@ -633,7 +635,6 @@ angular.module('donlerApp.services', [])
         } else {
           if(campaign.active) {
             destArr.push(campaign);
-
             var _campaign = new Persistence.Entities.DonlerCampaign();
             _campaign._id = campaign._id;
             _campaign.active = campaign.active;
@@ -662,7 +663,7 @@ angular.module('donlerApp.services', [])
           t.max = date;
         }
       })
-    }
+    };
     /**
      * updateCampaign function
      */
@@ -697,33 +698,31 @@ angular.module('donlerApp.services', [])
       var now = Date.now();
       switch(type) {
         case 1:
-          arr = arr.filter(function(campaign) {
-            // console.log('1');
+          return arr.filter(function(campaign) {
             if((new Date(campaign.end_time)) <= now) {
               updateCampaign.unStartCampaign(campaign, 4);
-              campaignData[3].push(campaign);
+              dataArray[3].push(campaign);
               return false;
             } else if((new Date(campaign.start_time)) <= now) {
               updateCampaign.unStartCampaign(campaign, 2);
-              campaignData[1].push(campaign);
+              dataArray[1].push(campaign);
               return false;
             }
             return true;
           });
-          // console.log('11');
           break;
         case 2:
-          arr = arr.filter(function(campaign) {
+          return arr.filter(function(campaign) {
             if((new Date(campaign.end_time)) <= now) {
               updateCampaign.nowCampaign(campaign);
-              campaignData[3].push(campaign);
+              dataArray[3].push(campaign);
               return false;
             }
             return true;
           });
           break;
         case 3:
-          arr = arr.filter(function(campaign) {
+          return arr.filter(function(campaign) {
             if((new Date(campaign.end_time)) <= now) {
               updateCampaign.newCampaign(campaign);
               return false;
@@ -732,10 +731,41 @@ angular.module('donlerApp.services', [])
           });
           break;
         default:
+          return arr;
           break;
       }
-    }
-
+    };
+    var sortCampaignArray = function(array) {
+      array.forEach(function(arr, index) {
+        switch (index) {
+          case 0:
+            arr.sort(compareFunction.startTimeAsc);
+            break;
+          case 1:
+            arr.sort(compareFunction.endTimeAsc);
+            break;
+          default:
+            arr.sort(compareFunction.createTimeDesc);
+            break;
+        }
+      });
+    };
+    /**
+     * limit the number of finished campaign -> number(5)
+     */
+    var removeFinishedCampaign = function() {
+      //- can't use Persistence's delete function, because of queryCollection's incorrectness(can't get correct queryCollection)
+      //- can't use skip, because of skip(n) behaves nothing
+      Persistence.Entities.DonlerCampaign.all().filter('type', '=', 4).order('end_time', false).list(null, function(results) {
+        results.slice(5).forEach(function(result) {
+          //- TODO remove the element from data[3]
+          Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', result._id))
+            .then(null, function(error) {
+              console.log(error);
+            })
+        });
+      });
+    };
     return {
       /**
        * 获取所有活动
@@ -745,32 +775,27 @@ angular.module('donlerApp.services', [])
       getList:function(params, callback, hcallback){
         if(params.sqlite) {
           Persistence.get(Persistence.Entities.DonlerCampaign.all().order('create_time', false)).then(function (_data) {
-            var data = [];
+            dataArray = [];
 
             cloneData = _data;
 
             //- TODO simplify the operation
-            data.push(parseCampaign(_data.filter(unStartCampaignFilter)));
-            data.push(parseCampaign(_data.filter(nowCampaignFilter)));
-            data.push(parseCampaign(_data.filter(newCampaignFilter)));
-            data.push(parseCampaign(_data.filter(finishedCampaignFilter)));
+            dataArray.push(parseCampaign(_data.filter(unStartCampaignFilter)));
+            dataArray.push(parseCampaign(_data.filter(nowCampaignFilter)));
+            dataArray.push(parseCampaign(_data.filter(newCampaignFilter)));
+            dataArray.push(parseCampaign(_data.filter(finishedCampaignFilter)));
+            //- update campaign(mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
+            for(var i = 0; i < dataArray.length; i++) {
+              dataArray[i] = updateCampaignArray(dataArray[i], i + 1);
+            }
+            //- sort campaign order by time
+            sortCampaignArray(dataArray);
+            //- limit the number of finished campaign -> number(5)
+            removeFinishedCampaign();
 
-            // console.log(_data);
-            data.forEach(function(arr, index) {
-              switch (index) {
-                case 0:
-                  arr.sort(compareFunction.startTimeAsc);
-                  break;
-                case 1:
-                  arr.sort(compareFunction.endTimeAsc);
-                  break;
-                default:
-                  break;
-              }
-            })
-            callback(null, data);
+            callback(null, dataArray);
             // console.log(data);
-            campaignData = data;
+            campaignData = dataArray;
             Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerCampaign'))
             .then(function(hash) {
               hashCampaign = hash;
@@ -783,43 +808,23 @@ angular.module('donlerApp.services', [])
               })
               .success(function (data, status) {
                 var timeObject = {max: -1}; //- use object not number
-                // console.log(data);
+
                 //- handle the new data
                 data.forEach(function(arr, index) {
                   handleCampaignArray(arr, campaignData[index], index + 1, timeObject);
                 });
                 //- update campaign (mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
-                campaignData.forEach(function(arr, index) {
-                  updateCampaignArray(arr, index + 1);
-                });
-                //- sort campaign order by time
-                campaignData.forEach(function(arr, index) {
-                  switch(index) {
-                    case 0:
-                      arr.sort(compareFunction.startTimeAsc);
-                      break;
-                    case 1:
-                      arr.sort(compareFunction.endTimeAsc);
-                      break;
-                    default:
-                      arr.sort(compareFunction.createTimeDesc);
-                  }
-                })
-
-                data = campaignData;
-                //- can't use Persistence's delete function, because of queryCollection's incorrectness(can't get correct queryCollection)
-                //- can't use skip, because of skip(n) behaves nothing
-                Persistence.Entities.DonlerCampaign.all().filter('type', '=', 4).order('end_time', false).list(null, function(results) {
-                  results.slice(5).forEach(function(result) {
-                    //- TODO remove the element from data[3]
-                    Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', result._id))
-                    .then(null, function(error) {
-                      console.log(error);
-                    })
-                  })
-                })
-
+                // for (var i = 0; i < data.length; i++) {
+                //   data[i] = updateCampaignArray(data[i], i + 1);
+                // }
                 if (timeObject.max !== -1) {
+                  //- sort campaign order by time
+                  sortCampaignArray(campaignData);
+
+                  data = campaignData;
+                  //- limit the number of finished campaign -> number(5)
+                  removeFinishedCampaign();
+
                   if (hashCampaign) {
                     hashCampaign.timehash = timeObject.max;
                     var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'DonlerCampaign');
@@ -837,7 +842,6 @@ angular.module('donlerApp.services', [])
                 } else {
                   hcallback('no new data');
                 }
-
               })
               .error(function (data, status) {
                 hcallback(data ? data.msg:'网络连接错误' || 'error');
