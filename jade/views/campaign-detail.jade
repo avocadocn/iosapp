@@ -22,7 +22,7 @@ ion-view.dl_campaign_detail(bindonce='campaign')
         .item.item_header.cp_time
           svg.svg_icon
             use(xlink:href="#time")
-          span(bo-text="(campaign.start_time | date:'MM-dd HH:mm') +'~' + (campaign.end_time | date:'MM-dd  HH:mm')")
+          span(ng-bind="(campaign.start_time | date:'MM-dd HH:mm') +'~' + (campaign.end_time | date:'MM-dd  HH:mm')")
         a.item.item_header.cp_address(bo-href="'#/location/'+campaign._id")
           svg.svg_icon.cp_info_icon
             use(xlink:href="#location")

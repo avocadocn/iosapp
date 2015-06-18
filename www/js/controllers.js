@@ -256,8 +256,9 @@ angular.module('donlerApp.controllers', [])
     // 此处使用rootScope是为了解决切换tab时不能刷新的问题
     $rootScope.getCampaignList = getCampaignList;
     $rootScope.$on( "$ionicView.enter", function( scopes, states ) {
-      if(!states.stateName && $state.$current.name === 'app.campaigns'){
+      if(!states.stateName && $state.$current.name === 'app.campaigns' && !INFO.backFromCampaignDetail){
         getCampaignList(true);
+        INFO.backFromCampaignDetail = false;
       }
     });
     $ionicPopover.fromTemplateUrl('my-popover.html', {
@@ -306,8 +307,8 @@ angular.module('donlerApp.controllers', [])
       })
     };
   }])
-  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG',
-   function ($ionicHistory, $rootScope, $scope, $state, Campaign, Message, INFO, User, Circle, CONFIG) {
+  .controller('CampaignDetailController', ['$ionicHistory', '$rootScope', '$scope', '$state', '$q', 'Campaign', 'Message', 'INFO', 'User', 'Circle', 'CONFIG',
+   function ($ionicHistory, $rootScope, $scope, $state, $q, Campaign, Message, INFO, User, Circle, CONFIG) {
     $scope.goBack = function() {
       if($ionicHistory.backView()){
         $ionicHistory.goBack();
@@ -317,7 +318,18 @@ angular.module('donlerApp.controllers', [])
       }
     };
     $scope.doRefresh= function () {
-      $state.reload();
+      var promises = [];
+      getCampaigData(promises);
+      getMessageData(promises);
+      getCircleData(promises);
+      getUserData(promises);
+      $q.all(promises).then(function(res) {
+        $scope.$broadcast('scroll.refreshComplete');
+        if(res[0] === 'error' || res[1] === 'error' || res[2] === 'error' || res[3] === 'error') {
+          $rootScope.showAction({titleText:'获取失败'});
+        }
+      });
+
       $scope.reloadFlag= !!$scope.scoreBoardId;
     }
     $scope.cid = localStorage.cid;
@@ -354,6 +366,7 @@ angular.module('donlerApp.controllers', [])
       }
       Campaign.join($scope.campaign,localStorage.id, function(err, data){
         if(!err){
+          INFO.backFromCampaignDetail = false;
           $scope.campaign = data;
           setMembers();
           $rootScope.showAction({titleText:'参加成功'})
@@ -371,6 +384,7 @@ angular.module('donlerApp.controllers', [])
         }
         Campaign.quit(id,localStorage.id, function(err, data){
           if(!err){
+            INFO.backFromCampaignDetail = false;
             $scope.campaign = data;
             setMembers();
             $rootScope.showAction({titleText:'退出成功'})
@@ -422,8 +436,9 @@ angular.module('donlerApp.controllers', [])
     
 
     var pageLength = 20; // 一次获取的数据量
-
-    $scope.$on('$ionicView.enter',function(scopes, states){
+    
+    var getCampaigData = function(promises) {
+      var deferred = $q.defer();
       Campaign.get($state.params.id, function(err, data){
         if(!err){
           $scope.campaign = data;
@@ -434,40 +449,80 @@ angular.module('donlerApp.controllers', [])
               $scope.reloadFlag= false;
             }
           });
+          deferred.resolve();
+        } else {
+          deferred.resolve('error');
         }
       },true);
+      promises.push(deferred.promise);
+    };
+
+    var getMessageData = function(promises) {
+      var deferred = $q.defer();
       Message.getCampaignMessages($state.params.id, function(err, data){
         if(!err){
           $scope.notices = data;
+          deferred.resolve();
+        } else {
+          deferred.resolve('error');
         }
       });
+      promises.push(deferred.promise);
+    };
+
+    var getCircleData = function(promises) {
+      var deferred = $q.defer();
       Circle.getCampaignCircle($state.params.id)
       .success(function(data, status) {
         if (data.length) {
           data.forEach(function(circle) {
             Circle.pickAppreciateAndComments(circle);
           });
-          $scope.circleContentList = (data || []).concat($scope.circleContentList);
+          $scope.circleContentList = data || []; //(data || []).concat($scope.circleContentList);
         }
-        $scope.$broadcast('scroll.refreshComplete');
+        deferred.resolve();
       })
       .error(function(data, status) {
         if (status !== 404) {
-          $rootScope.showAction({titleText:data.msg ?data.msg: '获取失败'})
+          deferred.resolve('error');
         }
-        $scope.$broadcast('scroll.refreshComplete');
+        deferred.resolve();
       });
-      // 用于保存已经获取到的同事圈内容
-      $scope.circleContentList = [];
+      promises.push(deferred.promise);
+    };
 
+    var getUserData = function(promises) {
+      var deferred = $q.defer();
       User.getData(localStorage.id, function(err, data) {
         if (err) {
           // todo
           console.log(err);
+          deferred.resolve('error');
         } else {
           $scope.user = data;
+          deferred.resolve();
         }
       });
+      promises.push(deferred.promise);
+    };
+
+    $scope.$on('$ionicView.enter',function(scopes, states){
+      $rootScope.showLoading();
+      INFO.backFromCampaignDetail = true;
+      var promises = [];
+
+      getCampaigData(promises);
+      getMessageData(promises);
+      getCircleData(promises);
+      getUserData(promises);
+      $q.all(promises).then(function(res) {
+        $rootScope.hideLoading();
+        if(res[0] === 'error' || res[1] === 'error' || res[2] === 'error' || res[3] === 'error') {
+          $rootScope.showAction({titleText:'获取失败'});
+        }
+      });
+      // 用于保存已经获取到的同事圈内容
+      $scope.circleContentList = [];
       $scope.loadingStatus = {
         hasInit: false, // 是否已经获取了一次内容
         hasMore: false, // 是否还有更多内容，决定infinite-scroll是否在存在
@@ -493,7 +548,6 @@ angular.module('donlerApp.controllers', [])
       $scope.onClickContentImg = function(images, img) {
         $scope.pswpCtrl.init(images, img);
       };
-
     });
 
   }])

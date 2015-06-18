@@ -61,7 +61,8 @@ angular.module('donlerApp.services', [])
     screenWidth: 320,
     screenHeight: 568,
     team:'',//hr编辑小队用
-    needUpdateDiscussList:false //供判断是否需要更新discussList
+    needUpdateDiscussList:false, //供判断是否需要更新discussList
+    backFromCampaignDetail: false //供活动列表页面判断是否刷新，若从活动详情页转到活动列表，则不刷新，其余情况，均刷新
   })
   .factory('Persistence', ['$q', 'CONFIG', function($q,CONFIG) {
     //persistence.store.memory.config(persistence);  

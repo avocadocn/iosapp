@@ -20,7 +20,7 @@
         <div class="item item_header cp_time">
           <svg class="svg_icon">
             <use xlink:href="#time"></use>
-          </svg><span bo-text="(campaign.start_time | date:'MM-dd HH:mm') +'~' + (campaign.end_time | date:'MM-dd  HH:mm')"></span>
+          </svg><span ng-bind="(campaign.start_time | date:'MM-dd HH:mm') +'~' + (campaign.end_time | date:'MM-dd  HH:mm')"></span>
         </div><a bo-href="'#/location/'+campaign._id" class="item item_header cp_address">
           <svg class="svg_icon cp_info_icon">
             <use xlink:href="#location"></use>
