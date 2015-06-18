@@ -2,17 +2,19 @@ angular.module('donlerApp.controllers', [])
 
   .controller('AppContoller', ['$scope', function ($scope) {
   }])
-  .controller('UserLoginController', ['$scope', 'CommonHeaders', '$state', '$ionicHistory', 'UserAuth', function ($scope, CommonHeaders, $state, $ionicHistory, UserAuth) {
+  .controller('UserLoginController', ['$scope', '$rootScope', 'CommonHeaders', '$state', '$ionicHistory', 'UserAuth', function ($scope, $rootScope, CommonHeaders, $state, $ionicHistory, UserAuth) {
     $scope.loginData = {
       email: '',
       password: ''
     };
 
     $scope.login = function () {
+      $rootScope.showLoginLoading();
       if(window.analytics){
         window.analytics.trackEvent('Click', 'userLogin');
       }
       UserAuth.login($scope.loginData.email, $scope.loginData.password, function (msg) {
+        $rootScope.hideLoading();
         if (msg) {
           $scope.msg = msg;
         } else {
@@ -1533,7 +1535,7 @@ angular.module('donlerApp.controllers', [])
         getUser();
       }
     });
-    var getUser = function() {
+    var getUser = function(refresh) {
       User.getData(localStorage.id, function (err, data) {
         if (err) {
           // todo
@@ -1545,10 +1547,15 @@ angular.module('donlerApp.controllers', [])
             $scope.constellation = Tools.birthdayToConstellation(birthday.getMonth() + 1, birthday.getDate());
           }
         }
+        if(refresh) {
+          $scope.$broadcast('scroll.refreshComplete');
+        }
       });
     };
-    getUser();
 
+    $scope.doRefresh = function(refresh) {
+      getUser(refresh);
+    };
 
     $scope.pswpId = 'personal' + Date.now();
 
