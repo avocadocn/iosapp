@@ -323,8 +323,11 @@ angular.module('donlerApp.controllers', [])
       getMessageData(promises);
       getCircleData(promises);
       getUserData(promises);
-      $q.all(promises).then(function() {
+      $q.all(promises).then(function(res) {
         $scope.$broadcast('scroll.refreshComplete');
+        if(res[0] === 'error' || res[1] === 'error' || res[2] === 'error' || res[3] === 'error') {
+          $rootScope.showAction({titleText:'获取失败'});
+        }
       });
 
       $scope.reloadFlag= !!$scope.scoreBoardId;
@@ -447,6 +450,8 @@ angular.module('donlerApp.controllers', [])
             }
           });
           deferred.resolve();
+        } else {
+          deferred.resolve('error');
         }
       },true);
       promises.push(deferred.promise);
@@ -458,6 +463,8 @@ angular.module('donlerApp.controllers', [])
         if(!err){
           $scope.notices = data;
           deferred.resolve();
+        } else {
+          deferred.resolve('error');
         }
       });
       promises.push(deferred.promise);
@@ -477,7 +484,7 @@ angular.module('donlerApp.controllers', [])
       })
       .error(function(data, status) {
         if (status !== 404) {
-          $rootScope.showAction({titleText:data.msg ?data.msg: '获取失败'})
+          deferred.resolve('error');
         }
         deferred.resolve();
       });
@@ -490,10 +497,11 @@ angular.module('donlerApp.controllers', [])
         if (err) {
           // todo
           console.log(err);
+          deferred.resolve('error');
         } else {
           $scope.user = data;
+          deferred.resolve();
         }
-        deferred.resolve();
       });
       promises.push(deferred.promise);
     };
@@ -534,8 +542,11 @@ angular.module('donlerApp.controllers', [])
       getMessageData(promises);
       getCircleData(promises);
       getUserData(promises);
-      $q.all(promises).then(function() {
+      $q.all(promises).then(function(res) {
         $rootScope.hideLoading();
+        if(res[0] === 'error' || res[1] === 'error' || res[2] === 'error' || res[3] === 'error') {
+          $rootScope.showAction({titleText:'获取失败'});
+        }
       });
       // Campaign.get($state.params.id, function(err, data){
       //   if(!err){
