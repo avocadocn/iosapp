@@ -43,7 +43,7 @@ angular.module('donlerApp.services', [])
     $httpProvider.defaults.headers["delete"] = {'Content-Type': 'application/json;charset=utf-8'};
   }])
   .constant('CONFIG', {
-    BASE_URL: 'http://www.donler.com:3002',
+    BASE_URL: 'http://www.donler.com:3002/v1_4',
     STATIC_URL: 'http://www.donler.com',
     SOCKET_URL: 'http://www.donler.com:3005',
     APP_ID: 'id1a2b3c4d5e6f',
@@ -63,6 +63,196 @@ angular.module('donlerApp.services', [])
     team:'',//hr编辑小队用
     needUpdateDiscussList:false //供判断是否需要更新discussList
   })
+  .factory('Persistence', ['$q', 'CONFIG', function($q,CONFIG) {
+    //persistence.store.memory.config(persistence);  
+    persistence.store.cordovasql.config(
+      persistence,
+      'donler',
+      '1.0',                // DB version
+      'donler_db',          // DB display name
+      5 * 1024 * 1024,        // DB size
+      0                       // SQLitePlugin Background processing disabled
+    );
+
+    var entities = {};
+
+    entities.Hash = persistence.define('Hash', {
+      name: 'TEXT',
+      timehash:'INT'
+    });
+    entities.ChatRoom = persistence.define('ChatRoom', {
+      name: 'TEXT',
+      _id:'TEXT',
+      logo:'TEXT',
+      kind:'TEXT'
+    });
+    entities.Chat = persistence.define('Chat', {
+      _id:'TEXT',
+      create_date:'DATE',
+      status:'TEXT',
+      chatroom_id:'TEXT',
+      chat_type:'INT',
+      photos:'JSON',
+      content:'Text'
+    });
+    entities.User = persistence.define('User', {
+      _id:'TEXT',
+      nickname:'TEXT',
+      photo:'TEXT',
+      timehash:'INT'
+    });
+    entities.Team = persistence.define('Team', {
+      _id:'TEXT',
+      name:'TEXT',
+      logo:'TEXT',
+      cname:'TEXT',
+      timehash:'INT'
+    });
+    entities.Company = persistence.define('Company', {
+      _id:'TEXT',
+      address:'TEXT',
+      logo:'TEXT',
+      name:'TEXT',
+      cover:'TEXT',
+      city:'TEXT',
+      shortName:'TEXT',
+      timehash:'INT'
+    });
+
+    entities.DonlerUser = persistence.define('DonlerUser', {
+      _id:'TEXT',
+      realname:'TEXT',
+      nickname:'TEXT',
+      email:'TEXT',
+      photo:'TEXT'
+    });
+
+    entities.DonlerTeam = persistence.define('DonlerTeam', {
+      _id:'TEXT',
+      active:'BOOL',
+      name:'TEXT',
+      logo:'TEXT',
+      groupType:'TEXT',
+      memberCount: 'INT',
+      campaignCount: 'INT',
+      leaders:'JSON',
+      score:'JSON',
+      isLeader:'BOOL',
+      hasJoined:'BOOL'
+    });
+
+    entities.DonlerCampaign = persistence.define('DonlerCampaign', {
+      _id:'TEXT',
+      active:'BOOL', //- the field reserved for HR. If common users and HR have separated databases, it's redundant for common users.
+      theme:'TEXT',
+      is_start:'BOOL',
+      is_end:'BOOL',
+      campaign_unit:'JSON',
+      photo_album:'JSON',
+      campaign_type:'INT',
+      start_time:'DATE',
+      end_time:'DATE',
+      create_time:'DATE',
+      location: 'JSON',
+      members_count:'INT',
+      member_max:'INT',
+      confirm_status:'BOOL',
+      comment_sum:'INT',
+      circle_content_sum:'INT',
+      type:"INT" //- the function of this field: filter the campaign's status(start soon(join), running, end, start soon(unjoin))  
+    });
+
+    
+    entities.Hash.index('name');
+    entities.ChatRoom.index('_id');
+    entities.Chat.index('_id');
+    entities.User.index('_id');
+
+    entities.DonlerUser.index('_id');
+    entities.DonlerTeam.index('_id');
+    entities.DonlerCampaign.index('_id');
+
+    entities.Team.index('_id');
+    entities.User.hasMany('chats' , entities.Chat, 'poster');
+    entities.Team.hasMany('chats', entities.Chat, 'poster_team');
+    entities.Team.hasMany('chats', entities.Chat, 'opponent_team');
+    persistence.debug = false;//debug模式开关
+    persistence.schemaSync();
+
+    return {
+      Entities: entities,
+      /**
+       * 添加数据
+       * @param {Entities}   data     需要添加的数据
+       * @param {Function} callback  回调函数
+       */
+      add: function(data, callback) {
+        persistence.add(data);
+        persistence.flush(callback);
+      },
+      /**
+       * 查询列表
+       * @param  {[type]} queryCollection 查询集合，可以包括，limit,filter,prefetch,skip等条件
+       * @return {promise}                 promise
+       */
+      get: function(queryCollection) {
+        var defer = $q.defer();
+        queryCollection.list(null, function (data) {
+          defer.resolve(data);
+        });
+        return defer.promise;
+      },
+      /**
+       * 查询单个数据
+       * @param  {[type]} queryCollection 查询集合，可以包括，limit,filter,prefetch,skip等条件
+       * @return {promise}                 promise
+       */
+      getOne: function(queryCollection) {
+        var defer = $q.defer();
+        queryCollection.one(function (data) {
+          defer.resolve(data);
+        });
+        return defer.promise;
+      },
+      /**
+       * 编辑数据
+       * @param  {queryCollection} queryCollection 查询集合，可以包括，limit,filter,prefetch,skip等条件
+       * @param  {Object} data            修改的数据对象
+       * @return {promise}                 promise
+       */
+      edit: function(queryCollection, data){
+        var defer = $q.defer();
+        queryCollection.one(function(entity){
+          if(entity){
+            for(var i in data) {
+              entity[i] = data[i];
+            }
+            persistence.flush(function () {
+              defer.resolve(entity);
+            });
+          }
+          else{
+            defer.reject(404);
+          }
+        });
+        return defer.promise;
+      },
+      /**
+       * 删除数据
+       * @param  {queryCollection} queryCollection 查询集合，可以包括，limit,filter,prefetch,skip等条件
+       * @return {promise}                 promise
+       */
+      delete: function(queryCollection){
+        var defer = $q.defer();
+        queryCollection.destroyAll(function(){
+          persistence.flush(function () {
+            defer.resolve(true);
+          });
+        });
+        return defer.promise;
+      }
+    };
+  }])
   .factory('CommonHeaders', ['$http', 'CONFIG', function ($http, CONFIG) {
 
     return {
@@ -328,25 +518,375 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-  .factory('Campaign', ['$http', 'CONFIG', function ($http, CONFIG) {
+.factory('Campaign', ['$http', 'CONFIG', 'Tools', 'Persistence', '$q', function ($http, CONFIG, Tools, Persistence, $q) {
     var nowCampaign;
+    var campaignData;
+    var hashCampaign;
+    var cloneData;
+    var dataArray;
+    /**
+     * Filter used for filter the campaigns from sqlite
+     */
+    var unStartCampaignFilter = function(campaign) {
+      if(campaign.type === 1) {
+        return true;
+      }
+      return false;
+    };
+
+    var nowCampaignFilter = function(campaign) {
+      if(campaign.type === 2) {
+        return true;
+      }
+      return false;
+    };
+    var newCampaignFilter = function(campaign) {
+      if(campaign.type === 3) {
+        return true;
+      }
+      return false;
+    };
+    var finishedCampaignFilter = function(campaign) {
+      if(campaign.type === 4) {
+        return true;
+      }
+      return false;
+    };
+    /**
+     * parseCampaign the function generates the useful text.
+     * @param  {[campaign]} arr 
+     * @return {[campaign]}     
+     */
+    var parseCampaign = function(arr) {
+      arr.forEach(function(campaign) {
+        var startTime = new Date(campaign.start_time);
+        var endTime = new Date(campaign.end_time);
+        var textJson = Tools.formatCampaignTime(startTime, endTime);
+        campaign.is_end = textJson.start_flag === -1 ? true : false;
+        campaign.time_text = textJson.time_text;
+        campaign.remind_text = textJson.remind_text;
+      });
+      return arr;
+    };
+    /**
+     * compareFunction used for sort
+     */
+    var compareFunction = {
+      startTimeAsc: function(a, b) {
+        return new Date(a.create_time) - new Date(b.create_time);
+      },
+      startTimeDesc : function(a, b) {
+        return new Date(b.start_time) - new Date(a.start_time);
+      },
+      endTimeAsc : function(a, b) {
+        return new Date(a.end_time) - new Date(b.end_time);
+      },
+      endTimeDesc : function(a, b) {
+        return new Date(b.end_time) - new Date(a.end_time);
+      },
+      createTimeDesc: function(a, b) {
+        return new Date(b.create_time) - new Date(a.create_time);
+      }
+    };
+    /**
+     * handleCampaignArray handle the new data from server
+     * @param  {[campaign]} srcArr  data's array from server
+     * @param  {[campaign]} destArr the array of campaignData
+     * @param  {int}        type    campaign's type(reference entities.Campaign)
+     * @param  {json}       t       used for max hash time
+     */
+    var handleCampaignArray = function(srcArr, destArr, type, t) {
+      if(srcArr.length === 0) {
+        return;
+      }
+      srcArr.forEach(function(campaign) {
+
+        var index = Tools.arrayObjectIndexOf(cloneData, campaign._id, '_id');
+        
+        if (index > -1) {
+          var pos = cloneData[index].type - 1;
+          var destIndex = Tools.arrayObjectIndexOf(campaignData[pos], campaign._id, '_id');
+          if(campaign.active) {
+            if (cloneData[index].type !== type) {
+              campaignData[pos].splice(destIndex, 1);
+              destArr.push(campaign);
+            } else {
+              destArr[destIndex] = campaign;
+            }
+
+            campaign.type = type;
+
+            var campaignCollection = Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id);
+            Persistence.edit(campaignCollection, campaign)
+            .then(null, function(error) {
+              console.log(error);
+            })
+          } else {
+            campaignData[pos].splice(destIndex, 1);
+            var campaignCollection = Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id);
+            Persistence.delete(campaignCollection)
+            .then(null, function(error) {
+              console.log(error);
+            })
+          }
+
+        } else {
+          if(campaign.active) {
+            destArr.push(campaign);
+            var _campaign = new Persistence.Entities.DonlerCampaign();
+            _campaign._id = campaign._id;
+            _campaign.active = campaign.active;
+            _campaign.theme = campaign.theme;
+            _campaign.is_start = campaign.is_start;
+            _campaign.is_end = campaign.is_end;
+            _campaign.campaign_unit = campaign.campaign_unit;
+            _campaign.photo_album = campaign.photo_album;
+            _campaign.campaign_type = campaign.campaign_type;
+            _campaign.start_time = campaign.start_time;
+            _campaign.end_time = campaign.end_time;
+            _campaign.create_time = campaign.create_time;
+            _campaign.location = campaign.location;
+            _campaign.members_count = campaign.members_count;
+            _campaign.member_max = campaign.member_max;
+            _campaign.confirm_status = campaign.confirm_status;
+            _campaign.comment_sum = campaign.comment_sum;
+            _campaign.circle_content_sum = campaign.circle_content_sum;
+            _campaign.type = type;
+            Persistence.add(_campaign);
+          }
+        }
+
+        var date = (new Date(campaign.timeHash)).valueOf();
+        if (date > t.max) {
+          t.max = date;
+        }
+      })
+    };
+    /**
+     * updateCampaign function
+     */
+    var updateCampaign = {
+      unStartCampaign: function(campaign, type) {
+        Persistence.getOne(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
+        .then(function(campaign) {
+          campaign.type = type;
+          persistence.flush();
+        })
+      },
+      nowCampaign: function(campaign) {
+        Persistence.getOne(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
+        .then(function(campaign) {
+          campaign.type = 4;
+          persistence.flush();
+        })
+      },
+      newCampaign: function(campaign) {
+        Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
+        .then(null, function(error) {
+          console.log(error);
+        })
+      }
+    };
+    /**
+     * updateCampaignArray -> update campaign status
+     * @param  arr  campaign array
+     * @param  type campaign's type(reference entities.Campaign)
+     */
+    var updateCampaignArray = function(arr, type) {
+      var now = Date.now();
+      switch(type) {
+        case 1:
+          return arr.filter(function(campaign) {
+            if((new Date(campaign.end_time)) <= now) {
+              updateCampaign.unStartCampaign(campaign, 4);
+              dataArray[3].push(campaign);
+              return false;
+            } else if((new Date(campaign.start_time)) <= now) {
+              updateCampaign.unStartCampaign(campaign, 2);
+              dataArray[1].push(campaign);
+              return false;
+            }
+            return true;
+          });
+          break;
+        case 2:
+          return arr.filter(function(campaign) {
+            if((new Date(campaign.end_time)) <= now) {
+              updateCampaign.nowCampaign(campaign);
+              dataArray[3].push(campaign);
+              return false;
+            }
+            return true;
+          });
+          break;
+        case 3:
+          return arr.filter(function(campaign) {
+            if((new Date(campaign.end_time)) <= now) {
+              updateCampaign.newCampaign(campaign);
+              return false;
+            }
+            return true;
+          });
+          break;
+        default:
+          return arr;
+          break;
+      }
+    };
+    var sortCampaignArray = function(array) {
+      array.forEach(function(arr, index) {
+        switch (index) {
+          case 0:
+            arr.sort(compareFunction.startTimeAsc);
+            break;
+          case 1:
+            arr.sort(compareFunction.endTimeAsc);
+            break;
+          default:
+            arr.sort(compareFunction.createTimeDesc);
+            break;
+        }
+      });
+    };
+    /**
+     * limit the number of finished campaign -> number(5)
+     */
+    var removeFinishedCampaign = function() {
+      //- can't use Persistence's delete function, because of queryCollection's incorrectness(can't get correct queryCollection)
+      //- can't use skip, because of skip(n) behaves nothing
+      Persistence.Entities.DonlerCampaign.all().filter('type', '=', 4).order('end_time', false).list(null, function(results) {
+        results.slice(5).forEach(function(result) {
+          //- TODO remove the element from data[3]
+          Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', result._id))
+            .then(null, function(error) {
+              console.log(error);
+            })
+        });
+      });
+    };
     return {
       /**
        * 获取所有活动
        * @param {Object} params 请求参数，参见api /campaigns说明
        * @param {Function} callback
        */
-      getList:function(params, callback){
-        $http.get(CONFIG.BASE_URL + '/campaigns', {
-          params: params
-        })
-        .success(function (data, status) {
-          callback(null,data);
-        })
-        .error(function (data, status) {
-          // todo
-          callback(data ? data.msg:'网络连接错误',status);
-        });
+      getList:function(params, callback, hcallback) {
+        if(params.sqlite) {
+
+          var getCampaignDataFromSqlite = function(promises, callback) {
+            var deferred = $q.defer();
+            Persistence.get(Persistence.Entities.DonlerCampaign.all().order('create_time', false)).then(function(_data) {
+              dataArray = [];
+
+              cloneData = _data;
+
+              //- TODO simplify the operation
+              dataArray.push(parseCampaign(_data.filter(unStartCampaignFilter)));
+              dataArray.push(parseCampaign(_data.filter(nowCampaignFilter)));
+              dataArray.push(parseCampaign(_data.filter(newCampaignFilter)));
+              dataArray.push(parseCampaign(_data.filter(finishedCampaignFilter)));
+              //- update campaign(mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
+              for (var i = 0; i < dataArray.length; i++) {
+                dataArray[i] = updateCampaignArray(dataArray[i], i + 1);
+              }
+              //- sort campaign order by time
+              sortCampaignArray(dataArray);
+              //- limit the number of finished campaign -> number(5)
+              removeFinishedCampaign();
+
+              callback(null, dataArray);
+              // console.log(data);
+              campaignData = dataArray;
+              deferred.resolve();
+            });
+            promises.push(deferred.promise);
+          };
+
+          var getCampaignNewDataFromServer = function(promises) {
+            var deferred = $q.defer();
+            Persistence.getOne(Persistence.Entities.Hash.all().filter('name', '=', 'DonlerCampaign'))
+              .then(function(hash) {
+                hashCampaign = hash;
+                var url = CONFIG.BASE_URL + '/campaigns';
+                if (hash) {
+                  url += ('?timehash=' + hash.timehash);
+                }
+                $http.get(url, {
+                    params: params
+                  })
+                  .success(function(data, status) {
+                    deferred.resolve(data);
+                  })
+                  .error(function(data, status) {
+                    deferred.resolve(null);
+                  });
+              });
+              promises.push(deferred.promise);
+          };
+
+          var promises = [];
+          getCampaignNewDataFromServer(promises);
+          getCampaignDataFromSqlite(promises, function(err, data) {
+            callback(err, data);
+          });
+          
+          $q.all(promises).then(function(res) {
+            // console.log(res);
+            if (res[0] === null) {
+              hcallback(data ? data.msg : '网络连接错误' || 'error');
+            } else {
+              var data = res[0];
+              var timeObject = {
+                max: -1
+              }; //- use object not number
+
+              //- handle the new data
+              data.forEach(function(arr, index) {
+                handleCampaignArray(arr, campaignData[index], index + 1, timeObject);
+              });
+              //- update campaign (mainly for campaign status(进行中、即将开始) because status change don't affect the timeHash in the server and front app change info via timeHash)
+              // for (var i = 0; i < data.length; i++) {
+              //   data[i] = updateCampaignArray(data[i], i + 1);
+              // }
+              if (timeObject.max !== -1) {
+                //- sort campaign order by time
+                sortCampaignArray(campaignData);
+
+                data = campaignData;
+                //- limit the number of finished campaign -> number(5)
+                removeFinishedCampaign();
+
+                if (hashCampaign) {
+                  hashCampaign.timehash = timeObject.max;
+                  var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'DonlerCampaign');
+                  Persistence.edit(hashCollection, hashCampaign)
+                    .then(null, function(error) {
+                      console.log(error);
+                    })
+                } else {
+                  var hash = new Persistence.Entities.Hash();
+                  hash.name = 'DonlerCampaign';
+                  hash.timehash = timeObject.max;
+                  Persistence.add(hash);
+                }
+                hcallback(null, data);
+              } else {
+                hcallback('no new data');
+              }
+            }
+          });
+        } else {
+          $http.get(CONFIG.BASE_URL + '/campaigns', {
+            params: params
+          })
+          .success(function(data, status) {
+            callback(null, data);
+          })
+          .error(function(data, status) {
+            callback(data ? data.msg : '网络连接错误' || 'error');
+          });
+        }
+
       },
       getCompetitionOfTeams:function(data, callback){
         $http.get(CONFIG.BASE_URL + '/campaigns/competition/'+data.targetTeamId, {
@@ -731,13 +1271,64 @@ angular.module('donlerApp.services', [])
         var d = [20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22];
         var i = mon * 2 - (day < d[mon - 1] ? 2 : 0);
         return s.substring(i, i + 2) + "座";
+      },
+
+      formatCampaignTime: function(start_time, end_time) {
+        var remind_text, time_text, start_flag;
+        var now = new Date();
+        var diff_end = now - end_time;
+        if (diff_end >= 0) {
+          // 活动已结束
+          remind_text = '活动已结束';
+          time_text = '';
+          start_flag = -1;
+        } else {
+          // 活动未结束
+          var temp_start_time = new Date(start_time);
+          var during = moment.duration(moment(now).diff(temp_start_time));
+          // 活动已开始
+          if (during >= 0) {
+            start_flag = 1;
+            remind_text = '距离结束';
+            var temp_end_time = new Date(end_time);
+            var during = moment.duration(moment(now).diff(temp_end_time));
+          } else {
+            // 活动未开始
+            start_flag = 0;
+            remind_text = '距离开始';
+          }
+          var years = Math.abs(during.years());
+          var months = Math.abs(during.months());
+          var days = Math.floor(Math.abs(during.asDays()));
+          var hours = Math.abs(during.hours());
+          var minutes = Math.abs(during.minutes());
+          var seconds = Math.abs(during.seconds());
+          if (years >= 1) {
+            time_text = years + '年';
+          } else if (months >= 1) {
+            time_text = months + '月';
+          } else if (days >= 1) {
+            time_text = days + '天';
+          } else if (hours >= 1) {
+            time_text = hours + '时';
+          } else if (minutes >= 1) {
+            time_text = minutes + '分';
+          } else {
+            time_text = seconds + '秒';
+          }
+        }
+        return {
+          start_flag: start_flag,
+          remind_text: remind_text,
+          time_text: time_text
+        };
       }
-
-
     };
   }])
-  .factory('User', ['$http', 'CONFIG', function ($http, CONFIG) {
+  .factory('User', ['$http', 'CONFIG', 'Persistence', 'Tools', function ($http, CONFIG, Persistence, Tools) {
     var currentUser;//存下自己的数据，我的、发评论时用
+    var hashUser;
+    var userData;
     return {
       /**
        * 获取用户数据
@@ -822,15 +1413,93 @@ angular.module('donlerApp.services', [])
        * @param  {String}   cid  公司id
        * @param  {Function} callback 获取后的回调函数，形式为function(err, data)
        */
-      getCompanyUsers: function(cid, callback) {
-        $http.get(CONFIG.BASE_URL + '/users/list/' + cid)
-        .success(function (data, status) {
-          callback(null, data);
+      getCompanyUsers: function(cid, callback, hcallback) {
+        Persistence.get(Persistence.Entities.DonlerUser.all()).then(function (data) {
+          callback(null,data);
+          userData = data;
+          Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerUser'))
+          .then(function(hash) {
+            hashUser = hash;
+            var url = CONFIG.BASE_URL + '/users/list/' + cid;
+            if(hash) {
+              url += ('?timehash=' + hash.timehash);
+            }
+            $http.get(url)
+            .success(function(data, status) {
+              if(data.length) {
+                var maxTime = -1;
+                data.forEach(function(user) {
+                  var index = Tools.arrayObjectIndexOf(userData, user._id, '_id');
+
+                  if(index > -1) {
+                    if(!user.active) {
+                      userData.splice(index, 1);
+                      var userDeletedCollection = Persistence.Entities.DonlerUser.all().filter('_id','=', user._id);
+                      Persistence.delete(userDeletedCollection)
+                        .then(null, function(error) {
+                          console.log(error);
+                        })
+                    } else {
+                      userData[index] = user;
+                      var userCollection = Persistence.Entities.DonlerUser.all().filter('_id','=',user._id);
+                      Persistence.edit(userCollection, user)
+                        .then(null, function(error) {
+                          console.log(error);
+                        })
+                    }
+                  } else {
+                    if(user.active) {
+                      userData.push(user);
+                      var _user = new Persistence.Entities.DonlerUser();
+                      _user._id = user._id;
+                      _user.email = user.email;
+                      _user.nickname = user.nickname;
+                      _user.photo = user.photo;
+                      _user.realname = user.realname;
+                      Persistence.add(_user);
+                    }
+                  }
+
+                  var date = (new Date(user.timeHash)).valueOf();
+                  if(date > maxTime) {
+                    maxTime = date;
+                  }
+                })
+                data = userData;
+                if(hashUser) {
+                  hashUser.timehash = maxTime;
+                  var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'DonlerUser');
+                  Persistence.edit(hashCollection, hashUser)
+                    .then(null, function(error) {
+                      console.log(error);
+                    })
+                } else {
+                  var hash = new Persistence.Entities.Hash();
+                  hash.name = 'DonlerUser';
+                  hash.timehash = maxTime;
+                  Persistence.add(hash);
+                }
+                hcallback(null, data);
+              } else {
+                hcallback('no new data');
+              }
+            })
+            .error(function(data, status) {
+              hcallback(data ? data.msg : 'error');
+            });
+          })
+
         })
-        .error(function (data, status) {
-          callback(data.msg);
-        });
       },
+      // getCompanyUsers: function(cid, callback) {
+      //   $http.get(CONFIG.BASE_URL + '/users/list/' + cid)
+      //   .success(function (data, status) {
+      //     callback(null, data);
+      //   })
+      //   .error(function (data, status) {
+      //     callback(data.msg);
+      //   });
+      // },
 
       clearCurrentUser: function() {
         currentUser = null;
@@ -839,13 +1508,16 @@ angular.module('donlerApp.services', [])
     };
 
   }])
-  .factory('Team', ['$http', '$ionicActionSheet', 'CONFIG', 'User', function ($http, $ionicActionSheet, CONFIG, User) {
+  .factory('Team', ['$http', '$ionicActionSheet', 'CONFIG', 'User', 'Persistence', 'Tools', function ($http, $ionicActionSheet, CONFIG, User, Persistence, Tools) {
 
     /**
      * 每调用Team.getData方法时，会将小队数据保存到这个变量中，在进入小队子页面时不必再去请求小队数据，
      * 同时也避免了使用rootScope
      */
     var currentTeam;
+    var teamData;
+    var hashTeam;
+    var hashCollection;
 
     return {
 
@@ -856,25 +1528,118 @@ angular.module('donlerApp.services', [])
        * @param {Function} callback 形式为function(err, teams)
        * @param {Object} other gid,personalFlag
        */
-      getList: function (hostType, hostId, personalFlag, callback) {
-        var requestUrl = CONFIG.BASE_URL + '/teams';
-        $http.get(requestUrl,{
-          params:{
-            hostType: hostType,
-            hostId: hostId,
-            personalFlag: personalFlag
+      getList: function (hostType, hostId, personalFlag, callback, hcallback) {
+        if(!hostId || hostId === localStorage.id.toString()) {
+          var teamCollection = Persistence.Entities.DonlerTeam.all();
+          if(hostType === 'user') {
+            teamCollection = teamCollection.filter('hasJoined','=', true);
+            hashCollection = Persistence.Entities.Hash.all().filter('name','=', 'userTeam'); // for personal team update
+          } else {
+            hashCollection = Persistence.Entities.Hash.all().filter('name','=', 'companyTeam'); // for company team update
           }
-        })
-          .success(function (data, status, headers, config) {
-            callback(null, data);
-          })
-          .error(function (data, status, headers, config) {
-            if (status === 400) {
-              callback(data.msg);
-            } else {
-              callback('error');
-            }
+          Persistence.get(teamCollection).then(function (data) {
+            callback(null,data);
+            teamData = data;
+            Persistence.getOne(hashCollection)
+            .then(function(hash) {
+              hashTeam = hash;
+
+              var url = CONFIG.BASE_URL + '/teams';
+              if(hash) {
+                url += ('?timehash=' + hash.timehash);
+              }
+              $http.get(url, {
+                  params: {
+                    hostType: hostType,
+                    hostId: hostId,
+                    personalFlag: personalFlag
+                  }
+                })
+                .success(function(data, status) {
+                  if (data.length) {
+                    var maxTime = -1;
+                    data.forEach(function(team) {
+                      var index = Tools.arrayObjectIndexOf(teamData, team._id, '_id');
+
+                      if (index > -1) {
+                        if (!team.active) {
+                          teamData.splice(index, 1);
+                          var userDeletedCollection = Persistence.Entities.DonlerTeam.all().filter('_id', '=', team._id);
+                          Persistence.delete(userDeletedCollection)
+                            .then(null, function(error) {
+                              console.log(error);
+                            })
+                        } else {
+                          teamData[index] = team;
+                          var userCollection = Persistence.Entities.DonlerTeam.all().filter('_id', '=', team._id);
+                          Persistence.edit(userCollection, team)
+                            .then(null, function(error) {
+                              console.log(error);
+                            })
+                        }
+                      } else {
+                        if (team.active) {
+                          teamData.push(team);
+                          var _team = new Persistence.Entities.DonlerTeam();
+                          _team._id = team._id;
+                          _team.active = team.active;
+                          _team.name = team.name;
+                          _team.logo = team.logo;
+                          _team.leaders = team.leaders;
+                          _team.score = team.score;
+                          _team.groupType = team.groupType;
+                          _team.memberCount = team.memberCount;
+                          _team.isLeader = team.isLeader;
+                          _team.hasJoined = team.hasJoined;
+                          _team.campaignCount = team.campaignCount;
+                          Persistence.add(_team);
+                        }
+                      }
+
+                      var date = (new Date(team.timeHash)).valueOf();
+                      if (date > maxTime) {
+                        maxTime = date;
+                      }
+                    })
+                    data = teamData;
+                    if (hashTeam) {
+                      hashTeam.timehash = maxTime;
+                      Persistence.edit(hashCollection, hashTeam)
+                        .then(null, function(error) {
+                          console.log(error);
+                        })
+                    } else {
+                      var hash = new Persistence.Entities.Hash();
+                      hash.name = hostType + 'Team';
+                      hash.timehash = maxTime;
+                      Persistence.add(hash);
+                    }
+                    hcallback(null, data);
+                  } else {
+                    hcallback('no new data');
+                  }
+                })
+                .error(function(data, status) {
+                  hcallback(data ? data.msg : 'error');
+                });
+            })
+
           });
+        } else {
+          $http.get(CONFIG.BASE_URL + '/teams', {
+              params: {
+                hostType: hostType,
+                hostId: hostId,
+                personalFlag: personalFlag
+              }
+            })
+            .success(function(data, status) {
+              callback(null, data);
+            })
+            .error(function(data, status) {
+              callback(data ? data.msg : 'error');
+            });
+        }
       },
 
       /**

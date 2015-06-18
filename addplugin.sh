@@ -11,3 +11,4 @@ ionic plugin add https://github.com/maggie03230/cordova-imagePicker.git
 ionic plugin add org.apache.cordova.geolocation
 ionic plugin add com.ionic.keyboard
 ionic plugin add https://github.com/EddyVerbruggen/LaunchMyApp-PhoneGap-Plugin.git --variable URL_SCHEME=donler
+ionic plugin add io.litehelpers.cordova.sqlite

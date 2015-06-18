@@ -5,8 +5,8 @@
         h2.dl_cp_name(bo-text="campaign.theme")
       .dl_card_time(ng-if="!campaign.is_end")
         .dl_cp_time_countdown.clearfix
-          span.dl_cp_time_text(bo-text="campaign.is_start ? '距离结束':'距离开始'")
-          span.dl_cp_time_count(bo-text="campaign.time_text")
+          span.dl_cp_time_text(ng-bind="campaign.remind_text")
+          span.dl_cp_time_count(ng-bind="campaign.time_text")
     .dl_card_content.clearfix
       .dl_cp_logos(class="logos_{{campaign.campaign_unit.length}}")
         img.dl_team_logo(ng-repeat="campaign_unit in campaign.campaign_unit" bo-src="STATIC_URL + (campaign_unit.team.logo || campaign_unit.company.logo)+'/60/60'")

@@ -217,9 +217,9 @@ angular.module('donlerApp.controllers', [])
       Campaign.getList({
         requestType: 'user',
         requestId: localStorage.id,
-        select_type: 0
+        select_type: 0,
+        sqlite: 1
       }, function (err, data) {
-        loading && $rootScope.hideLoading();
         if (!err) {
           $scope.unStartCampaigns = data[0];
           $scope.nowCampaigns = data[1];
@@ -233,10 +233,22 @@ angular.module('donlerApp.controllers', [])
             $scope.noCampaigns = false;
           }
         }
-        else {
-          if (data !== 401) {
-            $rootScope.showAction({titleText:err});
-          };
+        // callBack &&callBack();
+      }, function(err, data) {
+        loading && $rootScope.hideLoading();
+
+        if (!err) {
+          $scope.unStartCampaigns = data[0];
+          $scope.nowCampaigns = data[1];
+          $scope.newCampaigns = data[2];
+          // $scope.provokes = data[3];
+          $scope.finishedCampaigns = data[3];
+          if(data[0].length===0&&data[1].length===0&&data[2].length===0&&data[3].length===0){
+            $scope.noCampaigns = true;
+          }
+          else {
+            $scope.noCampaigns = false;
+          }
         }
         callBack &&callBack();
       });
@@ -1218,6 +1230,12 @@ angular.module('donlerApp.controllers', [])
         else {
           $scope.staffList = data.slice(0, 3);
         }
+      }, function(err, data) {
+        if(err) {
+          console.log(err);
+        } else {
+          $scope.staffList = data.slice(0, 3);
+        }
       });
     }
     $scope.doRefresh();
@@ -1228,6 +1246,30 @@ angular.module('donlerApp.controllers', [])
 
     $scope.refresh = function(unRefreshFlag) {
       Team.getList('company', null, false, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          var leadTeams = [];
+          var memberTeams = [];
+          var unJoinTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else if(team.hasJoined){
+              memberTeams.push(team);
+            }
+            else {
+              unJoinTeams.push(team);
+            }
+          });
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+          $scope.unJoinTeams = unJoinTeams;
+        }
+        // unRefreshFlag ||  $scope.$broadcast('scroll.refreshComplete');
+      }, function (err, teams) {
         if (err) {
           // todo
           console.log(err);
@@ -1371,6 +1413,14 @@ angular.module('donlerApp.controllers', [])
     $scope.doRefresh = function (refreshFlag) {
       //获取公司联系人
       User.getCompanyUsers(localStorage.cid,function(msg, data){
+        if(!msg) {
+          $scope.contacts = data;
+          contactsBackup = data;
+        }
+        // if(refreshFlag){
+        //   $scope.$broadcast('scroll.refreshComplete');
+        // }
+      }, function(msg, data) {
         if(!msg) {
           $scope.contacts = data;
           contactsBackup = data;
@@ -1619,6 +1669,27 @@ angular.module('donlerApp.controllers', [])
 
     var getMyTeams = function() {
       Team.getList('user', $state.params.userId || localStorage.id, null, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+          $scope.loading = false;
+        } else {
+          var leadTeams = [];
+          var memberTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else {
+              memberTeams.push(team);
+            }
+          });
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+          $scope.loading = false;
+          $scope.loadFinished = true;
+        }
+      }, function (err, teams) {
         if (err) {
           // todo
           console.log(err);
@@ -2568,6 +2639,12 @@ angular.module('donlerApp.controllers', [])
         $scope.contacts = data;
         contactsBackup = data;
       }
+    }, function(msg, data) {
+      if(!msg) {
+        console.log(data);
+        $scope.contacts = data;
+        contactsBackup = data;
+      }
     });
     $scope.cancelSearch = function () {
       $scope.contacts = contactsBackup;//还原
@@ -2844,8 +2921,12 @@ angular.module('donlerApp.controllers', [])
         User.getCompanyUsers(localStorage.id, function (err, data) {
           allMembers = data;
           $scope.members = allMembers;
-          getAllMembers = true;
+          // getAllMembers = true;
           // membersBackup = allMembers
+        }, function(err, data) {
+          allMembers = data;
+          $scope.members = allMembers;
+          getAllMembers = true;
         });
       }
       //获取过了就去把members置为allMembers
@@ -3607,6 +3688,13 @@ angular.module('donlerApp.controllers', [])
         } else {
           $scope.myTeams = teams;
         }
+      }, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.myTeams = teams;
+        }
       });
     };
     getMyTeams();
@@ -4186,9 +4274,20 @@ angular.module('donlerApp.controllers', [])
           $scope.teams = teams;
           $scope.nowTeamIndex =teams.length>1 ? 1:0;
           INFO.myTeams = teams;
-          $ionicSlideBoxDelegate.update();
-          refreshFlag && $scope.$broadcast('scroll.refreshComplete');
+          // $ionicSlideBoxDelegate.update();
+          // refreshFlag && $scope.$broadcast('scroll.refreshComplete');
         }
+      }, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          $scope.teams = teams;
+          $scope.nowTeamIndex =teams.length>1 ? 1:0;
+          INFO.myTeams = teams;
+        }
+        $ionicSlideBoxDelegate.update();
+        refreshFlag && $scope.$broadcast('scroll.refreshComplete');
       });
     };
     var getTeamRank = function () {
@@ -5064,6 +5163,26 @@ angular.module('donlerApp.controllers', [])
           INFO.myTeams = teams;
           callback && callback();
         }
+      }, function (err, teams) {
+        if (err) {
+          // todo
+          console.log(err);
+        } else {
+          var leadTeams = [];
+          var memberTeams = [];
+          teams.forEach(function(team) {
+            if(team.isLeader) {
+              leadTeams.push(team);
+            }
+            else {
+              memberTeams.push(team);
+            }
+          });
+          $scope.leadTeams = leadTeams;
+          $scope.memberTeams = memberTeams;
+          INFO.myTeams = teams;
+          callback && callback();
+        }
       });
     };
     if(INFO.myTeams) {
@@ -5234,6 +5353,14 @@ angular.module('donlerApp.controllers', [])
       }
       else{
         Team.getList('user', localStorage.id, null, function (err, teams) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            INFO.myTeams = teams;
+            filterSameTeam(teams,groupType);
+          }
+        }, function (err, teams) {
           if (err) {
             // todo
             console.log(err);
