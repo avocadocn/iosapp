@@ -7,6 +7,9 @@
     <feature name="bdPushNotification">
         <param name="android-package" value="com.donler.plugin.bdpushnotification.PushNotification" />
     </feature>
+    <feature name="Easemob">
+        <param name="android-package" value="com.donler.plugin.easemob.Easemob" />
+    </feature>
     <feature name="Keyboard">
         <param name="android-package" value="com.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
@@ -39,12 +42,12 @@
     <feature name="InAppBrowser">
         <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
-    <feature name="StatusBar">
-        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
-        <param name="onload" value="true" />
-    </feature>
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
         <param name="onload" value="true" />
     </feature>
     <preference name="SplashScreen" value="screen" />

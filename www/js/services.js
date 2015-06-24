@@ -316,6 +316,7 @@ angular.module('donlerApp.services', [])
             localStorage.guide_step = data.guide_step;
             $http.defaults.headers.common['x-access-token'] = data.token;
             Socket.login();
+            easemob.login(null,null,[data.id,data.id]);
             if(window.analytics){
               window.analytics.setUserId(data.id);
             }
@@ -349,6 +350,7 @@ angular.module('donlerApp.services', [])
             localStorage.removeItem('role');
             localStorage.removeItem('guide_step');
             $http.defaults.headers.common['x-access-token'] = null;
+            easemob.logout();
             callback();
           })
           .error(function (data, status) {

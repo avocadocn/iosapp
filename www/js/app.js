@@ -31,6 +31,7 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           navigator.app.backHistory();
         }
       }, 100);
+      easemob.init();
       window.handleOpenURL = function (url) {
         console.log(url);
         // $state.go(url);

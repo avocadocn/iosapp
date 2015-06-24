@@ -8,9 +8,9 @@
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
-    <div ng-click="hideEmotions()" bindonce="chatsList" class="comments">
-      <div ng-repeat="chats in chatsList track by $index" id="chats{{$index}}" class="blocks">
-        <div ng-repeat="comment in chats track by $index" ng-init="showTime=needShowTime($index,chats)" class="block">
+    <div ng-click="hideEmotions()" bindonce="chatsList" class="comments"><span>{{showMsg}}</span>
+      <div class="blocks">
+        <div ng-repeat="comment in chatsList track by $index" ng-init="showTime=needShowTime($index,chatsList)" class="block">
           <div ng-show="showTime &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]))" class="time_block">
             <p><span ng-show="showTime===1 &amp;&amp; ($index!==0||($index===0&amp;&amp;topShowTime[$parent.$index]===1))" bo-text="comment.create_date | date: 'yyyy'" class="time"></span></p>
             <p><span bo-text="(comment.create_date | date: 'M月dd日 HH:mm')" class="time"></span></p>

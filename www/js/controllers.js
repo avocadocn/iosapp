@@ -774,50 +774,78 @@ angular.module('donlerApp.controllers', [])
 
     };
   }])
-  .controller('DiscussListController', ['$scope', '$rootScope', '$ionicHistory', 'Chat', '$state', 'Socket', 'Tools', 'INFO',
-    function ($scope, $rootScope, $ionicHistory, Chat, $state, Socket, Tools, INFO) { //标为全部已读???
-    Socket.emit('enterRoom', localStorage.id);
-    //先在缓存里取
-    $rootScope.$on( "$ionicView.enter", function ( scopes, states ) {
-      if(!states.stateName){
-        Socket.emit('enterRoom', localStorage.id);
-        getChatrooms(INFO.needUpdateDiscussList);
-      }
-    });
-    var comeBack = function() {
-      if($state.$current.name==='app.discuss_list') {
-        Socket.emit('quitRoom');
-        Socket.emit('enterRoom', localStorage.id);
-        getChatrooms(true);
-      }
-    };
-    document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
+  .controller('DiscussListController', ['$scope', '$rootScope', '$ionicHistory', 'Chat', '$state', 'Socket', 'Tools', 'INFO', 'Team',
+    function ($scope, $rootScope, $ionicHistory, Chat, $state, Socket, Tools, INFO, Team) { //标为全部已读???
+    // Socket.emit('enterRoom', localStorage.id);
+    // //先在缓存里取
+    // $rootScope.$on( "$ionicView.enter", function ( scopes, states ) {
+    //   if(!states.stateName){
+    //     Socket.emit('enterRoom', localStorage.id);
+    //     getChatrooms(INFO.needUpdateDiscussList);
+    //   }
+    // });
+    // var comeBack = function() {
+    //   if($state.$current.name==='app.discuss_list') {
+    //     Socket.emit('quitRoom');
+    //     Socket.emit('enterRoom', localStorage.id);
+    //     getChatrooms(true);
+    //   }
+    // };
+    // document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
 
     var getChatroomsUnread = function() {
-      Chat.getChatroomUnread(function (err, data) {
-        var chatroomsLength = $scope.chatrooms.length;
-        if(data.length && $scope.chatrooms) {
-          for(var i=0; i<data.length; i++) {
-            var index = Tools.arrayObjectIndexOf($scope.chatrooms, data[i]._id, '_id');
-            if(index>-1) {
-              $scope.chatrooms[index].unread = data[i].unread;
-            }
-          }
-        }
-        INFO.needUpdateDiscussList = false;
+      // Chat.getChatroomUnread(function (err, data) {
+      //   var chatroomsLength = $scope.chatrooms.length;
+      //   if(data.length && $scope.chatrooms) {
+      //     for(var i=0; i<data.length; i++) {
+      //       var index = Tools.arrayObjectIndexOf($scope.chatrooms, data[i]._id, '_id');
+      //       if(index>-1) {
+              
+      //       }
+      //     }
+      //   }
+      //   INFO.needUpdateDiscussList = false;
+      // });
+      $scope.chatrooms.forEach(function(element, index){
+        easemob.getUnreadMsgCount(function (unRead) {
+          $scope.chatrooms[index].unread = unRead;
+          // alert(unRead)
+        },function (argument) {
+          console.log(argument);
+        },[$scope.chatrooms[index].id]);
       });
+      
+      
     };
     //force为true强制刷新 以下几种情况需要强制刷新：
     //1.用户手动刷新
     //2.用户切到过后台
     //3.刚进controller
     var getChatrooms = function(force) {
-      Chat.getChatroomList(force ,function (err, data) {
-        $scope.chatrooms = data;
+      easemob.getGroups(function (data) {
+        // alert(data[0].logo);
+        Team.getList('company', null, false, function (err, teams) {
+          if (err) {
+            // todo
+            console.log(err);
+          } else {
+            for(var i = 0; i < data.length; i++) {
+              var index = Tools.arrayObjectIndexOf(teams, data[i].name, '_id');
+              if(index > -1) {
+                data[i].logo = teams[index].logo;
+                data[i].name = teams[index].name;
+              }
+            }
+            $scope.chatrooms = data;
+          }
+        });
+
         $scope.loadFinished = true;
         if(force)
           getChatroomsUnread();
-      });
+      },function (error) {
+        console.log(error);
+      },[true])
     };
     getChatrooms(true);
 
@@ -859,7 +887,7 @@ angular.module('donlerApp.controllers', [])
       INFO.chatroomName = chatroom.name;
       $scope.chatrooms[index].unread = 0;
       checkAllRead();
-      $state.go('chat',{chatroomId: chatroom._id});
+      $state.go('chat',{chatroomId: chatroom.id});
     };
     //离开时缓存
     $scope.$on('$destroy',function() {
@@ -900,9 +928,9 @@ angular.module('donlerApp.controllers', [])
       });
     };
     //刚进来的时候获取第一页评论
-    getChats(null,null,null,function() {
-      $ionicScrollDelegate.scrollBottom();
-    });
+    // getChats(null,null,null,function() {
+    //   $ionicScrollDelegate.scrollBottom();
+    // });
     //获取更老的评论
     $scope.readHistory = function() {
       if($scope.nextDate) {
@@ -997,6 +1025,7 @@ angular.module('donlerApp.controllers', [])
      *   2 显示月、日
      */
     $scope.needShowTime = function (index, chats) {
+      alert(index);
       if(index===0){
         return 1;
       }else{
@@ -1041,17 +1070,31 @@ angular.module('donlerApp.controllers', [])
         // 不用loading原因: 用了某个loading旋转以后聊天的外框css会有问题...
       };
       $scope.content = '';
-      var chatsListIndex = $scope.chatsList.length-1;
-      $scope.chatsList[chatsListIndex].push(newChat);
+      var chatsListIndex = $scope.chatsList.length;
+      if(chatsListIndex > 0) {
+        chatsListIndex = chatsListIndex - 1;
+      }
+      $scope.chatsList.push(newChat);
       $ionicScrollDelegate.scrollBottom();
 
-      Chat.postChat($scope.chatroomId, {content:newChat.content, randomId:randomId}, function(err, chat) {
-        if(err) {
-          console.log(err);
-          var latestIndex = $scope.chatsList[chatsListIndex].length -1;
-          $scope.chatsList[chatsListIndex][latestIndex].failed = true;
-        }
-      });
+      easemob.chat(function(argument) {
+        // alert('success');
+        $scope.showMsg = argument;
+      }, function(argument) {
+        //- TODO
+      }, [{
+      chatType:'group',
+      target:$scope.chatroomId,
+      contentType:'TXT',
+      content:{'text':newChat.content}
+      }]);
+      // Chat.postChat($scope.chatroomId, {content:newChat.content, randomId:randomId}, function(err, chat) {
+      //   if(err) {
+      //     console.log(err);
+      //     var latestIndex = $scope.chatsList[chatsListIndex].length -1;
+      //     $scope.chatsList[chatsListIndex][latestIndex].failed = true;
+      //   }
+      // });
     };
 
     $scope.hideEmotions = function() {
