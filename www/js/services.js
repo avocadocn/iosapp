@@ -528,250 +528,7 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Campaign', ['$http', 'CONFIG', 'Tools', 'Persistence', '$q', function ($http, CONFIG, Tools, Persistence, $q) {
     var nowCampaign;
-    var campaignData;
-    var hashCampaign;
-    var cloneData;
-    var dataArray;
-    /**
-     * Filter used for filter the campaigns from sqlite
-     */
-    var unStartCampaignFilter = function(campaign) {
-      if(campaign.type === 1) {
-        return true;
-      }
-      return false;
-    };
 
-    var nowCampaignFilter = function(campaign) {
-      if(campaign.type === 2) {
-        return true;
-      }
-      return false;
-    };
-    var newCampaignFilter = function(campaign) {
-      if(campaign.type === 3) {
-        return true;
-      }
-      return false;
-    };
-    var finishedCampaignFilter = function(campaign) {
-      if(campaign.type === 4) {
-        return true;
-      }
-      return false;
-    };
-    /**
-     * parseCampaign the function generates the useful text.
-     * @param  {[campaign]} arr 
-     * @return {[campaign]}     
-     */
-    var parseCampaign = function(arr) {
-      arr.forEach(function(campaign) {
-        var startTime = new Date(campaign.start_time);
-        var endTime = new Date(campaign.end_time);
-        var textJson = Tools.formatCampaignTime(startTime, endTime);
-        campaign.is_end = textJson.start_flag === -1 ? true : false;
-        campaign.time_text = textJson.time_text;
-        campaign.remind_text = textJson.remind_text;
-      });
-      return arr;
-    };
-    /**
-     * compareFunction used for sort
-     */
-    var compareFunction = {
-      startTimeAsc: function(a, b) {
-        return new Date(a.create_time) - new Date(b.create_time);
-      },
-      startTimeDesc : function(a, b) {
-        return new Date(b.start_time) - new Date(a.start_time);
-      },
-      endTimeAsc : function(a, b) {
-        return new Date(a.end_time) - new Date(b.end_time);
-      },
-      endTimeDesc : function(a, b) {
-        return new Date(b.end_time) - new Date(a.end_time);
-      },
-      createTimeDesc: function(a, b) {
-        return new Date(b.create_time) - new Date(a.create_time);
-      }
-    };
-    /**
-     * handleCampaignArray handle the new data from server
-     * @param  {[campaign]} srcArr  data's array from server
-     * @param  {[campaign]} destArr the array of campaignData
-     * @param  {int}        type    campaign's type(reference entities.Campaign)
-     * @param  {json}       t       used for max hash time
-     */
-    var handleCampaignArray = function(srcArr, destArr, type, t) {
-      if(srcArr.length === 0) {
-        return;
-      }
-      srcArr.forEach(function(campaign) {
-
-        var index = Tools.arrayObjectIndexOf(cloneData, campaign._id, '_id');
-        
-        if (index > -1) {
-          var pos = cloneData[index].type - 1;
-          var destIndex = Tools.arrayObjectIndexOf(campaignData[pos], campaign._id, '_id');
-          if(campaign.active) {
-            if (cloneData[index].type !== type) {
-              campaignData[pos].splice(destIndex, 1);
-              destArr.push(campaign);
-            } else {
-              destArr[destIndex] = campaign;
-            }
-
-            campaign.type = type;
-
-            var campaignCollection = Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id);
-            Persistence.edit(campaignCollection, campaign)
-            .then(null, function(error) {
-              console.log(error);
-            })
-          } else {
-            campaignData[pos].splice(destIndex, 1);
-            var campaignCollection = Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id);
-            Persistence.delete(campaignCollection)
-            .then(null, function(error) {
-              console.log(error);
-            })
-          }
-
-        } else {
-          if(campaign.active) {
-            destArr.push(campaign);
-            var _campaign = new Persistence.Entities.DonlerCampaign();
-            _campaign._id = campaign._id;
-            _campaign.active = campaign.active;
-            _campaign.theme = campaign.theme;
-            _campaign.is_start = campaign.is_start;
-            _campaign.is_end = campaign.is_end;
-            _campaign.campaign_unit = campaign.campaign_unit;
-            _campaign.photo_album = campaign.photo_album;
-            _campaign.campaign_type = campaign.campaign_type;
-            _campaign.start_time = campaign.start_time;
-            _campaign.end_time = campaign.end_time;
-            _campaign.create_time = campaign.create_time;
-            _campaign.location = campaign.location;
-            _campaign.members_count = campaign.members_count;
-            _campaign.member_max = campaign.member_max;
-            _campaign.confirm_status = campaign.confirm_status;
-            _campaign.comment_sum = campaign.comment_sum;
-            _campaign.circle_content_sum = campaign.circle_content_sum;
-            _campaign.type = type;
-            Persistence.add(_campaign);
-          }
-        }
-
-        var date = (new Date(campaign.timeHash)).valueOf();
-        if (date > t.max) {
-          t.max = date;
-        }
-      })
-    };
-    /**
-     * updateCampaign function
-     */
-    var updateCampaign = {
-      unStartCampaign: function(campaign, type) {
-        Persistence.getOne(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
-        .then(function(campaign) {
-          campaign.type = type;
-          persistence.flush();
-        })
-      },
-      nowCampaign: function(campaign) {
-        Persistence.getOne(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
-        .then(function(campaign) {
-          campaign.type = 4;
-          persistence.flush();
-        })
-      },
-      newCampaign: function(campaign) {
-        Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
-        .then(null, function(error) {
-          console.log(error);
-        })
-      }
-    };
-    /**
-     * updateCampaignArray -> update campaign status
-     * @param  arr  campaign array
-     * @param  type campaign's type(reference entities.Campaign)
-     */
-    var updateCampaignArray = function(arr, type) {
-      var now = Date.now();
-      switch(type) {
-        case 1:
-          return arr.filter(function(campaign) {
-            if((new Date(campaign.end_time)) <= now) {
-              updateCampaign.unStartCampaign(campaign, 4);
-              dataArray[3].push(campaign);
-              return false;
-            } else if((new Date(campaign.start_time)) <= now) {
-              updateCampaign.unStartCampaign(campaign, 2);
-              dataArray[1].push(campaign);
-              return false;
-            }
-            return true;
-          });
-          break;
-        case 2:
-          return arr.filter(function(campaign) {
-            if((new Date(campaign.end_time)) <= now) {
-              updateCampaign.nowCampaign(campaign);
-              dataArray[3].push(campaign);
-              return false;
-            }
-            return true;
-          });
-          break;
-        case 3:
-          return arr.filter(function(campaign) {
-            if((new Date(campaign.end_time)) <= now) {
-              updateCampaign.newCampaign(campaign);
-              return false;
-            }
-            return true;
-          });
-          break;
-        default:
-          return arr;
-          break;
-      }
-    };
-    var sortCampaignArray = function(array) {
-      array.forEach(function(arr, index) {
-        switch (index) {
-          case 0:
-            arr.sort(compareFunction.startTimeAsc);
-            break;
-          case 1:
-            arr.sort(compareFunction.endTimeAsc);
-            break;
-          default:
-            arr.sort(compareFunction.createTimeDesc);
-            break;
-        }
-      });
-    };
-    /**
-     * limit the number of finished campaign -> number(5)
-     */
-    var removeFinishedCampaign = function() {
-      //- can't use Persistence's delete function, because of queryCollection's incorrectness(can't get correct queryCollection)
-      //- can't use skip, because of skip(n) behaves nothing
-      Persistence.Entities.DonlerCampaign.all().filter('type', '=', 4).order('end_time', false).list(null, function(results) {
-        results.slice(5).forEach(function(result) {
-          //- TODO remove the element from data[3]
-          Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', result._id))
-            .then(null, function(error) {
-              console.log(error);
-            })
-        });
-      });
-    };
     return {
       /**
        * 获取所有活动
@@ -780,6 +537,250 @@ angular.module('donlerApp.services', [])
        */
       getList:function(params, callback, hcallback) {
         if(params.sqlite) {
+          var hashCampaign;
+          var campaignData;
+          var cloneData;
+          var dataArray;
+          /**
+           * Filter used for filter the campaigns from sqlite
+           */
+          var unStartCampaignFilter = function(campaign) {
+            if(campaign.type === 1) {
+              return true;
+            }
+            return false;
+          };
+
+          var nowCampaignFilter = function(campaign) {
+            if(campaign.type === 2) {
+              return true;
+            }
+            return false;
+          };
+          var newCampaignFilter = function(campaign) {
+            if(campaign.type === 3) {
+              return true;
+            }
+            return false;
+          };
+          var finishedCampaignFilter = function(campaign) {
+            if(campaign.type === 4) {
+              return true;
+            }
+            return false;
+          };
+          /**
+           * parseCampaign the function generates the useful text.
+           * @param  {[campaign]} arr 
+           * @return {[campaign]}     
+           */
+          var parseCampaign = function(arr) {
+            arr.forEach(function(campaign) {
+              var startTime = new Date(campaign.start_time);
+              var endTime = new Date(campaign.end_time);
+              var textJson = Tools.formatCampaignTime(startTime, endTime);
+              campaign.is_end = textJson.start_flag === -1 ? true : false;
+              campaign.time_text = textJson.time_text;
+              campaign.remind_text = textJson.remind_text;
+            });
+            return arr;
+          };
+          /**
+           * compareFunction used for sort
+           */
+          var compareFunction = {
+            startTimeAsc: function(a, b) {
+              return new Date(a.create_time) - new Date(b.create_time);
+            },
+            startTimeDesc : function(a, b) {
+              return new Date(b.start_time) - new Date(a.start_time);
+            },
+            endTimeAsc : function(a, b) {
+              return new Date(a.end_time) - new Date(b.end_time);
+            },
+            endTimeDesc : function(a, b) {
+              return new Date(b.end_time) - new Date(a.end_time);
+            },
+            createTimeDesc: function(a, b) {
+              return new Date(b.create_time) - new Date(a.create_time);
+            }
+          };
+          /**
+           * handleCampaignArray handle the new data from server
+           * @param  {[campaign]} srcArr  data's array from server
+           * @param  {[campaign]} destArr the array of campaignData
+           * @param  {int}        type    campaign's type(reference entities.Campaign)
+           * @param  {json}       t       used for max hash time
+           */
+          var handleCampaignArray = function(srcArr, destArr, type, t) {
+            if(srcArr.length === 0) {
+              return;
+            }
+            srcArr.forEach(function(campaign) {
+
+              var index = Tools.arrayObjectIndexOf(cloneData, campaign._id, '_id');
+              
+              if (index > -1) {
+                var pos = cloneData[index].type - 1;
+                var destIndex = Tools.arrayObjectIndexOf(campaignData[pos], campaign._id, '_id');
+                if(campaign.active) {
+                  if (cloneData[index].type !== type) {
+                    campaignData[pos].splice(destIndex, 1);
+                    destArr.push(campaign);
+                  } else {
+                    destArr[destIndex] = campaign;
+                  }
+
+                  campaign.type = type;
+
+                  var campaignCollection = Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id);
+                  Persistence.edit(campaignCollection, campaign)
+                  .then(null, function(error) {
+                    // console.log(error);
+                  })
+                } else {
+                  campaignData[pos].splice(destIndex, 1);
+                  var campaignCollection = Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id);
+                  Persistence.delete(campaignCollection)
+                  .then(null, function(error) {
+                    console.log(error);
+                  })
+                }
+
+              } else {
+                if(campaign.active) {
+                  destArr.push(campaign);
+                  var _campaign = new Persistence.Entities.DonlerCampaign();
+                  _campaign._id = campaign._id;
+                  _campaign.active = campaign.active;
+                  _campaign.theme = campaign.theme;
+                  _campaign.is_start = campaign.is_start;
+                  _campaign.is_end = campaign.is_end;
+                  _campaign.campaign_unit = campaign.campaign_unit;
+                  _campaign.photo_album = campaign.photo_album;
+                  _campaign.campaign_type = campaign.campaign_type;
+                  _campaign.start_time = campaign.start_time;
+                  _campaign.end_time = campaign.end_time;
+                  _campaign.create_time = campaign.create_time;
+                  _campaign.location = campaign.location;
+                  _campaign.members_count = campaign.members_count;
+                  _campaign.member_max = campaign.member_max;
+                  _campaign.confirm_status = campaign.confirm_status;
+                  _campaign.comment_sum = campaign.comment_sum;
+                  _campaign.circle_content_sum = campaign.circle_content_sum;
+                  _campaign.type = type;
+                  Persistence.add(_campaign);
+                }
+              }
+
+              var date = (new Date(campaign.timeHash)).valueOf();
+              if (date > t.max) {
+                t.max = date;
+              }
+            })
+          };
+          /**
+           * updateCampaign function
+           */
+          var updateCampaign = {
+            unStartCampaign: function(campaign, type) {
+              Persistence.getOne(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
+              .then(function(campaign) {
+                campaign.type = type;
+                persistence.flush();
+              })
+            },
+            nowCampaign: function(campaign) {
+              Persistence.getOne(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
+              .then(function(campaign) {
+                campaign.type = 4;
+                persistence.flush();
+              })
+            },
+            newCampaign: function(campaign) {
+              Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', campaign._id))
+              .then(null, function(error) {
+                console.log(error);
+              })
+            }
+          };
+          /**
+           * updateCampaignArray -> update campaign status
+           * @param  arr  campaign array
+           * @param  type campaign's type(reference entities.Campaign)
+           */
+          var updateCampaignArray = function(arr, type) {
+            var now = Date.now();
+            switch(type) {
+              case 1:
+                return arr.filter(function(campaign) {
+                  if((new Date(campaign.end_time)) <= now) {
+                    updateCampaign.unStartCampaign(campaign, 4);
+                    dataArray[3].push(campaign);
+                    return false;
+                  } else if((new Date(campaign.start_time)) <= now) {
+                    updateCampaign.unStartCampaign(campaign, 2);
+                    dataArray[1].push(campaign);
+                    return false;
+                  }
+                  return true;
+                });
+                break;
+              case 2:
+                return arr.filter(function(campaign) {
+                  if((new Date(campaign.end_time)) <= now) {
+                    updateCampaign.nowCampaign(campaign);
+                    dataArray[3].push(campaign);
+                    return false;
+                  }
+                  return true;
+                });
+                break;
+              case 3:
+                return arr.filter(function(campaign) {
+                  if((new Date(campaign.end_time)) <= now) {
+                    updateCampaign.newCampaign(campaign);
+                    return false;
+                  }
+                  return true;
+                });
+                break;
+              default:
+                return arr;
+                break;
+            }
+          };
+          var sortCampaignArray = function(array) {
+            array.forEach(function(arr, index) {
+              switch (index) {
+                case 0:
+                  arr.sort(compareFunction.startTimeAsc);
+                  break;
+                case 1:
+                  arr.sort(compareFunction.endTimeAsc);
+                  break;
+                default:
+                  arr.sort(compareFunction.createTimeDesc);
+                  break;
+              }
+            });
+          };
+          /**
+           * limit the number of finished campaign -> number(5)
+           */
+          var removeFinishedCampaign = function() {
+            //- can't use Persistence's delete function, because of queryCollection's incorrectness(can't get correct queryCollection)
+            //- can't use skip, because of skip(n) behaves nothing
+            Persistence.Entities.DonlerCampaign.all().filter('type', '=', 4).order('end_time', false).list(null, function(results) {
+              results.slice(5).forEach(function(result) {
+                //- TODO remove the element from data[3]
+                Persistence.delete(Persistence.Entities.DonlerCampaign.all().filter('_id', '=', result._id))
+                  .then(null, function(error) {
+                    console.log(error);
+                  })
+              });
+            });
+          };
 
           var getCampaignDataFromSqlite = function(promises, callback) {
             var deferred = $q.defer();
@@ -839,7 +840,6 @@ angular.module('donlerApp.services', [])
           });
           
           $q.all(promises).then(function(res) {
-            console.log(res);
             if (res[0] === null) {
               hcallback(data ? data.msg : '网络连接错误' || 'error');
             } else {
@@ -1391,8 +1391,6 @@ angular.module('donlerApp.services', [])
   }])
   .factory('User', ['$http', 'CONFIG', 'Persistence', 'Tools', function ($http, CONFIG, Persistence, Tools) {
     var currentUser;//存下自己的数据，我的、发评论时用
-    var hashUser;
-    var userData;
     return {
       /**
        * 获取用户数据
@@ -1480,10 +1478,10 @@ angular.module('donlerApp.services', [])
       getCompanyUsers: function(cid, callback, hcallback) {
         Persistence.get(Persistence.Entities.DonlerUser.all()).then(function (data) {
           callback(null,data);
-          userData = data;
+          var userData = data;
           Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerUser'))
           .then(function(hash) {
-            hashUser = hash;
+            var hashUser = hash;
             var url = CONFIG.BASE_URL + '/users/list/' + cid;
             if(hash) {
               url += ('?timehash=' + hash.timehash);
@@ -1570,9 +1568,6 @@ angular.module('donlerApp.services', [])
      * 同时也避免了使用rootScope
      */
     var currentTeam;
-    var teamData;
-    var hashTeam;
-    var hashCollection;
 
     return {
 
@@ -1586,6 +1581,7 @@ angular.module('donlerApp.services', [])
       getList: function (hostType, hostId, personalFlag, callback, hcallback) {
         if(!hostId || hostId === localStorage.id.toString()) {
           var teamCollection = Persistence.Entities.DonlerTeam.all();
+          var hashCollection;
           if(hostType === 'user') {
             teamCollection = teamCollection.filter('hasJoined','=', true);
             hashCollection = Persistence.Entities.Hash.all().filter('name','=', 'userTeam'); // for personal team update
@@ -1594,10 +1590,10 @@ angular.module('donlerApp.services', [])
           }
           Persistence.get(teamCollection).then(function (data) {
             callback(null,data);
-            teamData = data;
+            var teamData = data;
             Persistence.getOne(hashCollection)
             .then(function(hash) {
-              hashTeam = hash;
+              var hashTeam = hash;
 
               var url = CONFIG.BASE_URL + '/teams';
               if(hash) {
