@@ -24,6 +24,8 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       //init ImgCache
       ImgCache.$init();
 
+      easemob.init();
+
       $rootScope.$on('$stateChangeSuccess',
         function (event, toState, toParams, fromState, fromParams) {
           var nowHash = window.location.hash;

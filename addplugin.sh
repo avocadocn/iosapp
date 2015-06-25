@@ -12,3 +12,4 @@ ionic plugin add https://github.com/maggie03230/cordova-imagePicker.git
 ionic plugin add org.apache.cordova.geolocation
 ionic plugin add com.ionic.keyboard
 ionic plugin add io.litehelpers.cordova.sqlite
+ionic plugin add https://github.com/afeidonler/easemob_plugin.git

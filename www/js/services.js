@@ -81,21 +81,21 @@ angular.module('donlerApp.services', [])
       name: 'TEXT',
       timehash:'INT'
     });
-    entities.ChatRoom = persistence.define('ChatRoom', {
-      name: 'TEXT',
-      _id:'TEXT',
-      logo:'TEXT',
-      kind:'TEXT'
-    });
-    entities.Chat = persistence.define('Chat', {
-      _id:'TEXT',
-      create_date:'DATE',
-      status:'TEXT',
-      chatroom_id:'TEXT',
-      chat_type:'INT',
-      photos:'JSON',
-      content:'Text'
-    });
+    // entities.ChatRoom = persistence.define('ChatRoom', {
+    //   name: 'TEXT',
+    //   _id:'TEXT',
+    //   logo:'TEXT',
+    //   kind:'TEXT'
+    // });
+    // entities.Chat = persistence.define('Chat', {
+    //   _id:'TEXT',
+    //   create_date:'DATE',
+    //   status:'TEXT',
+    //   chatroom_id:'TEXT',
+    //   chat_type:'INT',
+    //   photos:'JSON',
+    //   content:'Text'
+    // });
     entities.User = persistence.define('User', {
       _id:'TEXT',
       nickname:'TEXT',
@@ -165,8 +165,8 @@ angular.module('donlerApp.services', [])
 
     
     entities.Hash.index('name');
-    entities.ChatRoom.index('_id');
-    entities.Chat.index('_id');
+    // entities.ChatRoom.index('_id');
+    // entities.Chat.index('_id');
     entities.User.index('_id');
 
     entities.DonlerUser.index('_id');
@@ -174,9 +174,9 @@ angular.module('donlerApp.services', [])
     entities.DonlerCampaign.index('_id');
 
     entities.Team.index('_id');
-    entities.User.hasMany('chats' , entities.Chat, 'poster');
-    entities.Team.hasMany('chats', entities.Chat, 'poster_team');
-    entities.Team.hasMany('chats', entities.Chat, 'opponent_team');
+    // entities.User.hasMany('chats' , entities.Chat, 'poster');
+    // entities.Team.hasMany('chats', entities.Chat, 'poster_team');
+    // entities.Team.hasMany('chats', entities.Chat, 'opponent_team');
     persistence.debug = false;//debug模式开关
     persistence.schemaSync();
 
@@ -308,6 +308,11 @@ angular.module('donlerApp.services', [])
           pushInfo:INFO.pushInfo
         })
           .success(function (data, status) {
+            easemob.login(function (augument) {
+              console.log('登录成功');
+            }, function(argument) {
+              console.log('登录失败');
+            },[data.id, data.id]);
             localStorage.accessToken = data.token;
             localStorage.userType = 'user';
             localStorage.id = data.id;
@@ -340,6 +345,7 @@ angular.module('donlerApp.services', [])
 
       logout: function (callback) {
         Socket.logout();
+        easemob.logout();
         $http.post(CONFIG.BASE_URL + '/users/logout')
           .success(function (data, status) {
             localStorage.removeItem('accessToken');
@@ -1106,6 +1112,15 @@ angular.module('donlerApp.services', [])
     }
   }])
 
+  .factory('Easemob', ['$rootScope','CONFIG', function socket($rootScope, CONFIG) {
+    return {
+      on: function(name, callback) {
+        
+      }
+    }
+      
+  }])
+
   .factory('Socket', ['$rootScope','CONFIG', function socket($rootScope, CONFIG) {
     var token = localStorage.accessToken;
     var socket;
@@ -1191,52 +1206,11 @@ angular.module('donlerApp.services', [])
        * @param  {Function} callback 形如function(err, list)
        */
       getChatroomList: function(force,callback,hcallback) {
-        if(chatroomList && !force) {
-          callback(null, chatroomList);
-          return;
-        }
-        Persistence.get(Persistence.Entities.ChatRoom.all()).then(function (data) {
-          callback(null,data);
-          chatroomList = data;
-          $http.get(CONFIG.BASE_URL + '/chatrooms')
-          .success(function (data, status) {
-            var dataLength = data.chatroomList.length;
-            for(var i=0; i<dataLength; i++) {
-              var index = Tools.arrayObjectIndexOf(chatroomList, data.chatroomList[i]._id, '_id');
-              if(index>-1) {
-                chatroomList[index] = data.chatroomList[i];
-                var chatRoomCollection = Persistence.Entities.ChatRoom.all().filter('_id','=',data.chatroomList[i]._id)
-                Persistence.edit(chatRoomCollection,data.chatroomList[i])
-                .then(null,function (error) {
-                  console.log(error);
-                })
-              }
-              else{
-                chatroomList.push(data.chatroomList[i])
-                var chatRoom = new Persistence.Entities.ChatRoom();
-                chatRoom._id = data.chatroomList[i]._id;
-                chatRoom.name = data.chatroomList[i].name;
-                chatRoom.logo = data.chatroomList[i].logo;
-                chatRoom.kind = data.chatroomList[i].kind;
-                Persistence.add(chatRoom);
-              }
-            };
-            hcallback(null,data.chatroomList);
-          })
-          .error(function (data, status) {
-            hcallback('列表获取错误');
-          });
-        })
-        
+        //先取会话，[排序]，后加上没有加入会话的小队.
       },
 
       getChatroomUnread: function(callback) {
-        $http.get(CONFIG.BASE_URL + '/chatrooms/unread')
-        .success(function (data, status) {
-          callback(null,data.chatrooms);
-        }).error(function (data, status) {
-          callback('列表获取错误');
-        });
+        //不需要了
       },
       /**
        * 获取某聊天室的聊天记录
@@ -1244,98 +1218,27 @@ angular.module('donlerApp.services', [])
        * @param  {Function} callback 形如:function(err,data)
        */
       getChats: function(params, callback,hcallback) {
-        var chatCollect = Persistence.Entities.Chat.all().filter('chatroom_id','=',params.chatroom).order("create_date", false).limit(20)
-        Persistence.get(chatCollect).then(function (data) {
-           callback(null,{chats:data});
-        })
-        var addChat= function (_chat) {
-          var chat= new Persistence.Entities.Chat();
-          chat._id=_chat._id;
-          chat.create_date=_chat.create_date;
-          chat.status=_chat.status;
-          chat.chatroom_id=_chat.chatroom_id;
-          chat.chat_type=_chat.chat_type;
-          chat.content =_chat.content;
-          chat.photos = _chat.photos;
-          if(_chat.poster) {
-            Persistence.getOne(Persistence.Entities.User.all().filter('_id','=',_chat.poster._id))
-            .then(function (user) {
-              if(user){
-                chat.poster = user;
-              }
-              else {
-                console.log(_chat.poster,_chat.poster_team);
-                user= new Persistence.Entities.User();
-                user._id=_chat.poster._id;
-                user.nickname=_chat.poster.nickname;
-                user.photo=_chat.poster.photo;
-                Persistence.add(user);
-                chat.poster = user;
-                
-              }
-              Persistence.add(chat);
-            })
-          }
-          else if(_chat.poster_team) {
-            Persistence.getOne(Persistence.Entities.Team.all().filter('_id','=',_chat.poster_team._id))
-            .then(function (team) {
-              if(team){
-                chat.poster_team = team;
-              }
-              else{
-                team= new Persistence.Entities.Team();
-                team._id=_chat.poster_team._id;
-                team.logo=_chat.poster_team.logo;
-                team.name=_chat.poster_team.name;
-                Persistence.add(team);
-                chat.poster_team = team;
-              }
-              Persistence.add(chat);
-            })
-          }
-        }
-        $http.get(CONFIG.BASE_URL +'/chats',{
-          params:params
-        }).success(function (data, status) {
-          var dataLength = data.chats.length;
-          var chat =[];
-          var _chat =[]
-          for(var i=0; i<dataLength; i++) {
-            addChat(data.chats[i]);
-          };
-          hcallback(null,data);
-        }).error(function (data, status) {
-          hcallback('获取聊天失败');
-        });
-        if(chatroomList) {
-          var index = Tools.arrayObjectIndexOf(chatroomList, params.chatroom,'_id');
-          if(index>-1) {
-            chatroomList[index].unread = 0;
-          }
-        }
+        
       },
+
+      /**
+       * 发布聊天
+       * @param  {[type]}   chatroomId [description]
+       * @param  {[type]}   postData   [description]
+       * @param  {Function} callback   [description]
+       * @return {[type]}              [description]
+       */
       postChat: function(chatroomId, postData, callback) {
-        $http.post(CONFIG.BASE_URL + '/chatrooms/'+chatroomId+'/chats', postData)
-        .success(function (data, status) {
-          callback(null, data);
-        }).error(function (data, status) {
-          callback('发送失败');
-        });
+        
       },
       /**
-       * [readChat description]
+       * 出聊天室触发
        * @param  {[type]}   chatroomId [description]
        * @param  {Function} callback   [description]
        * @return {[type]}              [description]
        */
       readChat: function(chatroomId, callback) {
-        if(chatroomList) {
-          var index = Tools.arrayObjectIndexOf(chatroomList,chatroomId,'_id');
-          if(index>-1) {
-            chatroomList[index].unread = 0;
-          }
-        }
-        $http.post(CONFIG.BASE_URL +'/chatrooms/actions/read',{chatRoomIds:[chatroomId]});
+        
       },
       /**
        * 保存当前chatroomList(离开列表页时)
@@ -1346,6 +1249,7 @@ angular.module('donlerApp.services', [])
       },
       /**
        * 当socket来了数据时更新缓存chatroomList
+       * todo 改为后台来了消息
        * @param  {Object} chat
        */
       updateChatroomList: function(chat) {
@@ -1778,18 +1682,18 @@ angular.module('donlerApp.services', [])
           });
         } else {
           $http.get(CONFIG.BASE_URL + '/teams', {
-              params: {
-                hostType: hostType,
-                hostId: hostId,
-                personalFlag: personalFlag
-              }
-            })
-            .success(function(data, status) {
-              callback(null, data);
-            })
-            .error(function(data, status) {
-              callback(data ? data.msg : 'error');
-            });
+            params: {
+              hostType: hostType,
+              hostId: hostId,
+              personalFlag: personalFlag
+            }
+          })
+          .success(function(data, status) {
+            callback(null, data);
+          })
+          .error(function(data, status) {
+            callback(data ? data.msg : 'error');
+          });
         }
       },
 

@@ -816,7 +816,7 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('DiscussListController', ['$scope', '$rootScope', '$ionicHistory', 'Chat', '$state', 'Socket', 'Tools', 'INFO',
     function ($scope, $rootScope, $ionicHistory, Chat, $state, Socket, Tools, INFO) { //标为全部已读???
-    Socket.emit('enterRoom', localStorage.id);
+    //Socket.emit('enterRoom', localStorage.id);
     //先在缓存里取
     $rootScope.$on( "$ionicView.enter", function ( scopes, states ) {
       if(!states.stateName){

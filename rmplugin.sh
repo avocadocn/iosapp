@@ -13,3 +13,4 @@ ionic plugin rm https://github.com/maggie03230/cordova-imagePicker.git
 ionic plugin rm org.apache.cordova.geolocation
 ionic plugin rm com.ionic.keyboard
 ionic plugin rm io.litehelpers.cordova.sqlite
+ionic plugin rm https://github.com/afeidonler/easemob_plugin.git
