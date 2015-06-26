@@ -820,14 +820,11 @@ angular.module('donlerApp.controllers', [])
     //先在缓存里取
     $rootScope.$on( "$ionicView.enter", function ( scopes, states ) {
       if(!states.stateName){
-        Socket.emit('enterRoom', localStorage.id);
         getChatrooms(true);
       }
     });
     var comeBack = function() {
       if($state.$current.name==='app.discuss_list') {
-        Socket.emit('quitRoom');
-        Socket.emit('enterRoom', localStorage.id);
         getChatrooms(true);
       }
     };

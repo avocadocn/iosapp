@@ -1288,7 +1288,7 @@ angular.module('donlerApp.services', [])
               callback(err, resultList);
             }, function(err, teams) {
               //更新http来的小队
-              if(teams.length) {
+              if(!err && teams.length) {
                 resultList = addMissingTeams(resultList, teams);
                 hcallback(err, resultList);
                 chatroomList = resultList;
@@ -1735,6 +1735,7 @@ angular.module('donlerApp.services', [])
                           _team.isLeader = team.isLeader;
                           _team.hasJoined = team.hasJoined;
                           _team.campaignCount = team.campaignCount;
+                          _team.easemobId = team.easemobId;
                           Persistence.add(_team);
                         }
                       }
