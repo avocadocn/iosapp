@@ -11,49 +11,39 @@ ion-view.discuss_detail(cache-view="false")
   ion-content
     ion-refresher(on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .comments(ng-click="hideEmotions()" bindonce="chatsList")
-      .blocks(ng-repeat="chats in chatsList track by $index" id="chats{{$index}}")
-        .block(ng-repeat="comment in chats track by $index" ng-init="showTime=needShowTime($index,chats)")
-          .time_block(ng-show="showTime && ($index!==0||($index===0&&topShowTime[$parent.$index]))")
+      .blocks
+        .block(ng-repeat="chat in chatsList track by $index" ng-init="showTime=needShowTime($index)")
+          .time_block(ng-show="showTime")
             p
-              span.time(ng-show="showTime===1 && ($index!==0||($index===0&&topShowTime[$parent.$index]===1))" bo-text="comment.create_date | date: 'yyyy'")
+              span.time(ng-show="showTime===1" bo-text="chat.msgTime | date: 'yyyy'")
             p
-              span.time(bo-text="(comment.create_date | date: 'M月dd日 HH:mm')")
-          .comment.clearfix(ng-repeat="photo in comment.photos" bo-class="{'putright': comment.poster._id == userId}")
-            a.logo(bo-href="'#/user/'+comment.poster._id")
-              img(img-cache ic-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
+              span.time(bo-text="(chat.msgTime | date: 'M月dd日 HH:mm')")
+          //- .comment.clearfix(ng-repeat="photo in chat.photos" bo-class="{'putright': chat.poster._id == userId}")
+          //-   a.logo(bo-href="'#/user/'+chat.poster._id")
+          //-     img(img-cache ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}")
+          //-   .contents
+          //-     .name(bo-if="chat.poster._id !== userId" bo-text="chat.poster.nickname")
+          //-     .name(bo-if="chat.poster._id == userId") 我
+          //-     .content
+          //-       .triangle_isosceles.triangle_img
+          //-         .tr
+          //-           img(ng-if="!chat.randomId" img-cache ic-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img width="180" height="180")
+          //-           img(ng-if="chat.randomId" img-cache ic-src="photo.uri" error-img width="180" height="180")
+          //-         .box(ng-if="!chat.randomId" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo)
+          //-           img.img(img-cache ic-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180"  error-img)
+          //-         .box(ng-if="chat.randomId")
+          //-           img.img(img-cache ic-src="{{photo.uri}}" width="180" height="180")
+          .comment.clearfix(bo-class="{'putright': chat.from == userId}")
+            a.logo(bo-if="chat.poster && !chat.poster_team" ng-href="#/user/{{chat.poster._id}}")
+              img(img-cache ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}")
+            a.logo(bo-if="chat.poster_team" bo-href="'#/team/'+chat.poster_team._id")
+              img(img-cache ic-src="{{STATIC_URL +chat.poster_team.logo+ '/45/45'}}")
             .contents
-              .name(bo-if="comment.poster._id !== userId" bo-text="comment.poster.nickname")
-              .name(bo-if="comment.poster._id == userId") 我
+              .name(bo-if="chat.from !== userId" bo-text="chat.from")
+              .name(bo-if="chat.from == userId") 我
               .content
-                .triangle_isosceles.triangle_img
-                  .tr
-                    img(ng-if="!comment.randomId" img-cache ic-src="{{STATIC_URL +photo.uri+ '/360/360'}}" error-img width="180" height="180")
-                    img(ng-if="comment.randomId" img-cache ic-src="photo.uri" error-img width="180" height="180")
-                  .box(ng-if="!comment.randomId" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo)
-                    img.img(img-cache ic-src="{{STATIC_URL +photo.uri+ '/360/360'}}" width="180" height="180"  error-img)
-                  .box(ng-if="comment.randomId")
-                    img.img(img-cache ic-src="{{photo.uri}}" width="180" height="180")
-          .comment.clearfix(bo-if="comment.chat_type!==1 || comment.content" bo-class="{'putright': comment.poster._id == userId}")
-            a.logo(bo-if="comment.poster && !comment.poster_team" ng-href="#/user/{{comment.poster._id}}")
-              img(img-cache ic-src="{{STATIC_URL +comment.poster.photo+ '/45/45'}}")
-            a.logo(bo-if="comment.poster_team" bo-href="'#/team/'+comment.poster_team._id")
-              img(img-cache ic-src="{{STATIC_URL +comment.poster_team.logo+ '/45/45'}}")
-            .contents
-              //- .name(ng-if="comment.poster_team" ng-cloak) {{comment.poster_team.name}}
-              .name(bo-if="comment.poster &&comment.poster._id !== userId" bo-text="comment.poster.nickname")
-              .name(bo-if="comment.poster && comment.poster._id == userId && competition_message.chat_type===1") 我
-              .remind_box.clearfix(bo-if="comment.chat_type>1")
-                a.no_underline(bo-href="comment.chat_type===2 ? '#/competition/team/' + comment.opponent_team._id +'/': comment.chat_type===7?'#/campaign/detail/'+comment.campaign:'#/competition_message/detail/' + comment.competition_message")
-                  .remind_box_head
-                    span(bo-text="comment.chat_type | remindWordsFormat : comment.competition_type")
-                  .remind_box_content.clearfix
-                    .team_logo: img.team_logo(img-cache ic-src="{{STATIC_URL +comment.opponent_team.logo + '/45/45'}}")
-                    .text
-                      .tname(bo-text="comment.opponent_team.name")
-                      .cname(bo-text="comment.opponent_team.cname")
-              .content(bo-if="comment.chat_type===1")
-                .triangle_isosceles(ng-bind-html="comment.content | emoji | unsafe")
-          .failed(ng-if="comment.failed" ng-cloak)
+                .triangle_isosceles(ng-bind-html="chat.body.text | emoji | unsafe")
+          .failed(ng-if="chat.status=='failed'" ng-cloak)
             .tip
               i.icon.ion-alert-circled
               span 发送失败

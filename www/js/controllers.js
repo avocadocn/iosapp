@@ -883,57 +883,51 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Chat', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', 'Upload', '$ionicModal',
     function ($scope, $state, $stateParams, $ionicScrollDelegate, Chat, Socket, User, Tools, CONFIG, INFO, Upload, $ionicModal) {
+    var chatRoom = {
+      easemobId:$stateParams.chatroomId,
+      groupId:"53aa701011fd597b3e1be25a",
+      logo:"/img/group/logo/2015-4/1429778191399.jpeg",
+      type:"group",
+      name:"动梨足球队"
+    }
     $scope.chatroomId = $stateParams.chatroomId;
-    $scope.chatroomName = INFO.chatroomName;
+    $scope.chatroomName = chatRoom.name;
     $scope.userId = localStorage.id;
     $scope.cid = localStorage.cid;
-    Socket.emit('quitRoom');
-    Socket.emit('enterRoom', $scope.chatroomId);
+    // Socket.emit('quitRoom');
+    // Socket.emit('enterRoom', $scope.chatroomId);
     $scope.chatsList = [];
-    $scope.topShowTime = [];
     //---获取评论
-    //各种获取评论，带nextDate是获取历史，带preDate是获取最新
-    var getChats = function(nextDate, nextId, preDate, callback) {
-      var params = {chatroom: $scope.chatroomId};
-      if(nextDate) {params.nextDate = nextDate;}
-      if(nextId) {params.nextId = nextId;}
-      if(preDate) {params.preDate = preDate;}
-      Chat.getChats(params, function(err, data) {
-        if(!err) {
-          if(!nextDate) {
-            $scope.chatsList.push(data.chats.reverse());
-          }
-          else {
-            $scope.chatsList.unshift(data.chats.reverse());
-          }
-          data.chats.forEach(addPhotos);
-          judgeTopShowTime();
+    //各种获取评论，带nextId是获取历史
+    var getChats = function(nextId, callback) {
+      var param = [chatRoom.type,chatRoom.easemobId];
+      if(nextId){
+        param.push(nextId);
+      }
+      easemob.getMessages(function (chats) {
+        if(nextId) {
+          $scope.chatsList = chats.concat($scope.chatsList);
         }
-      },function (err, data) {
-        if(!err) {
-          if(!nextDate) {
-            $scope.chatsList.push(data.chats.reverse());
-          }
-          else {
-            $scope.chatsList.unshift(data.chats.reverse());
-          }
-          data.chats.forEach(addPhotos);
-          judgeTopShowTime();
-          $scope.nextDate = data.nextDate;
-          $scope.nextId = data.nextId;
-          callback && callback();
+        else {
+          $scope.chatsList=chats;
         }
-      });
+        if(chats.length>0) {
+          $scope.nextId = chats[0].msgId;
+        }
+        // chats.forEach(addPhotos);
+      },function (error) {
+        alert(error);
+        console.log(error);
+      },param);
     };
     //刚进来的时候获取第一页评论
-    getChats(null,null,null,function() {
+    getChats(null,function() {
       $ionicScrollDelegate.scrollBottom();
     });
     //获取更老的评论
     $scope.readHistory = function() {
-      if($scope.nextDate) {
-        $scope.topShowTime.push();
-        getChats($scope.nextDate, $scope.nextId, null, function() {
+      if($scope.nextId) {
+        getChats($scope.nextId, function() {
           $scope.$broadcast('scroll.refreshComplete');
           $ionicScrollDelegate.scrollTo(0,1350);//此数值仅在发的评论为1行时有效...
           //如果需要精确定位到刚才的地方，需要jquery
@@ -943,77 +937,33 @@ angular.module('donlerApp.controllers', [])
         $scope.$broadcast('scroll.refreshComplete');
       }
     };
-    //获取比现在的第一条更新的所有讨论
-    var refreshChat = function () {
-      $scope.startRefresh = true;
-      var latestCreateDate = null;
-      if($scope.chatsList.length && $scope.chatsList[0][0]) {
-        var latestChatIndex = $scope.chatsList[0].length-1;
-        latestCreateDate = $scope.chatsList[0][latestChatIndex].create_date;
-      }
-      getChats(null, null, latestCreateDate);
-    };
     //socket来了新评论
-    Socket.on('newChat', function(data) {
-      //如果是自己发的看看是不是取消loading就行.
-      var chatListIndex = $scope.chatsList.length -1;
-      if(data.poster._id === currentUser._id && data.randomId) {
-        //-找到那条自己发的
-        var length = $scope.chatsList[chatListIndex].length;
-        for(var i = length-1; i>=0; i--){
-          if($scope.chatsList[chatListIndex][i].randomId === data.randomId){
-            data.randomId = null;
-            addPhotos(data);
-            $scope.chatsList[chatListIndex][i] = data;
-            break;
-          }
-        }
-      }else{
-        var chats_ele = document.getElementsByClassName('comments'); // 获取滚动条
-        data.randomId = null;
-        var nowHeight =  $ionicScrollDelegate.getScrollPosition().top; //获取总高度
-        var scrollHeight = chats_ele.length ? chats_ele[0].scrollHeight - (window.outerHeight-89) : 0; //获取当前所在位置
-        var isAtBottom = false;
-        if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
-        $scope.chatsList[chatListIndex].push(data);
-        addPhotos(data);
-        if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
-      }
-      //更新chatroomList缓存
-      Chat.updateChatroomList(data);
-    })
-    //从后台切回来要刷新及进room
-    var comeBackFromBackground = function() {
-      if($state.$current.name === 'chat' && $scope.chatroomId === $state.params.chatroomId) {
-        Socket.emit('quitRoom');
-        Socket.emit('enterRoom', $scope.chatroomId); //以防回来以后接收不到
-        //更新刚才一段时间内的新评论
-        refreshChat();
-      }
-    };
-    document.addEventListener('resume',comeBackFromBackground, false);
-
-    //---判断时间
-    //判断顶部时间是否需要显示
-    var judgeTopShowTime = function() {
-      $scope.topShowTime.unshift(1);
-      if($scope.chatsList.length>1) {
-        var preTime = new Date($scope.chatsList[1][0].create_date);//上次的第一个
-        var length = $scope.chatsList[0].length;
-        var nowTime = new Date($scope.chatsList[0][length-1].create_date);//这次的最后一个
-        if(nowTime.getFullYear() != preTime.getFullYear()) {
-          $scope.topShowTime[1] = 1;
-        }else if(nowTime.getDay() != preTime.getDay()) {
-          $scope.topShowTime[1] = 2;
-        }else if(nowTime.getHours() != preTime.getHours()) {
-          $scope.topShowTime[1] = 2;
-        }else if(nowTime.getMinutes() != preTime.getMinutes()){
-          $scope.topShowTime[1] = 2;
-        }else{
-          $scope.topShowTime[1] = 0;
-        }
-      }
-    };
+    // Socket.on('newChat', function(data) {
+    //   //如果是自己发的看看是不是取消loading就行.
+    //   var chatListIndex = $scope.chatsList.length -1;
+    //   if(data.poster._id === currentUser._id && data.randomId) {
+    //     //-找到那条自己发的
+    //     var length = $scope.chatsList[chatListIndex].length;
+    //     for(var i = length-1; i>=0; i--){
+    //       if($scope.chatsList[chatListIndex][i].randomId === data.randomId){
+    //         data.randomId = null;
+    //         addPhotos(data);
+    //         $scope.chatsList[chatListIndex][i] = data;
+    //         break;
+    //       }
+    //     }
+    //   }else{
+    //     var chats_ele = document.getElementsByClassName('comments'); // 获取滚动条
+    //     data.randomId = null;
+    //     var nowHeight =  $ionicScrollDelegate.getScrollPosition().top; //获取总高度
+    //     var scrollHeight = chats_ele.length ? chats_ele[0].scrollHeight - (window.outerHeight-89) : 0; //获取当前所在位置
+    //     var isAtBottom = false;
+    //     if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
+    //     $scope.chatsList[chatListIndex].push(data);
+    //     addPhotos(data);
+    //     if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
+    //   }
+    // })
     /* 是否需要显示时间()
      * @params: index: 第几个chat
      * 判断依据：与上一个评论时间是否在同一分钟||index为0
@@ -1022,12 +972,12 @@ angular.module('donlerApp.controllers', [])
      *   1 显示年、月、日
      *   2 显示月、日
      */
-    $scope.needShowTime = function (index, chats) {
+    $scope.needShowTime = function (index) {
       if(index===0){
         return 1;
       }else{
-        var preTime = new Date(chats[index-1].create_date);
-        var nowTime = new Date(chats[index].create_date);
+        var preTime = new Date($scope.chatsList[index-1].msgTime);
+        var nowTime = new Date($scope.chatsList[index].msgTime);
         if(nowTime.getFullYear() != preTime.getFullYear()) {
           return 1;
         }else if(nowTime.getDay() != preTime.getDay()) {
@@ -1067,17 +1017,22 @@ angular.module('donlerApp.controllers', [])
         // 不用loading原因: 用了某个loading旋转以后聊天的外框css会有问题...
       };
       $scope.content = '';
-      var chatsListIndex = $scope.chatsList.length-1;
-      $scope.chatsList[chatsListIndex].push(newChat);
+      $scope.chatsList.push(newChat);
       $ionicScrollDelegate.scrollBottom();
-
-      Chat.postChat($scope.chatroomId, {content:newChat.content, randomId:randomId}, function(err, chat) {
-        if(err) {
-          console.log(err);
-          var latestIndex = $scope.chatsList[chatsListIndex].length -1;
-          $scope.chatsList[chatsListIndex][latestIndex].failed = true;
-        }
-      });
+      var chatListLength =$scope.chatsList.length;
+      easemob.chat(function (chat) {
+        console.log(chat);
+        $scope.chatsList[chatListLength-1] = chat;
+        $scope.$digest();
+      },function (chat) {
+        $scope.chatsList[chatListLength-1] = chat;
+        $scope.$digest();
+      },[{
+        chatType:chatRoom.type,
+        target:$scope.chatroomId,
+        contentType:'TXT',
+        content:{'text':$scope.content}
+        }])
     };
 
     $scope.hideEmotions = function() {

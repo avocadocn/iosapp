@@ -95,19 +95,19 @@ angular.module('donlerApp.services', [])
     //   photos:'JSON',
     //   content:'Text'
     // });
-    entities.User = persistence.define('User', {
-      _id:'TEXT',
-      nickname:'TEXT',
-      photo:'TEXT',
-      timehash:'INT'
-    });
-    entities.Team = persistence.define('Team', {
-      _id:'TEXT',
-      name:'TEXT',
-      logo:'TEXT',
-      cname:'TEXT',
-      timehash:'INT'
-    });
+    // entities.User = persistence.define('User', {
+    //   _id:'TEXT',
+    //   nickname:'TEXT',
+    //   photo:'TEXT',
+    //   timehash:'INT'
+    // });
+    // entities.Team = persistence.define('Team', {
+    //   _id:'TEXT',
+    //   name:'TEXT',
+    //   logo:'TEXT',
+    //   cname:'TEXT',
+    //   timehash:'INT'
+    // });
     entities.Company = persistence.define('Company', {
       _id:'TEXT',
       address:'TEXT',
@@ -167,13 +167,13 @@ angular.module('donlerApp.services', [])
     entities.Hash.index('name');
     // entities.ChatRoom.index('_id');
     // entities.Chat.index('_id');
-    entities.User.index('_id');
+    // entities.User.index('_id');
 
     entities.DonlerUser.index('_id');
     entities.DonlerTeam.index('_id');
     entities.DonlerCampaign.index('_id');
 
-    entities.Team.index('_id');
+    // entities.Team.index('_id');
     // entities.User.hasMany('chats' , entities.Chat, 'poster');
     // entities.Team.hasMany('chats', entities.Chat, 'poster_team');
     // entities.Team.hasMany('chats', entities.Chat, 'opponent_team');
