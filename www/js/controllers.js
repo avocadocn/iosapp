@@ -867,7 +867,8 @@ angular.module('donlerApp.controllers', [])
         'teamId': chatroom.teamId,
         'easemobId': chatroom.easemobId,
         'logo':chatroom.logo,
-        'name': chatroom.name
+        'name': chatroom.name,
+        'isGroup':chatroom.isGroup
       };
       $scope.chatrooms[index].unreadMessagesCount = 0;
       checkAllRead();
@@ -880,24 +881,25 @@ angular.module('donlerApp.controllers', [])
   }])
   .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Chat', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', 'Upload', '$ionicModal',
     function ($scope, $state, $stateParams, $ionicScrollDelegate, Chat, Socket, User, Tools, CONFIG, INFO, Upload, $ionicModal) {
-    var chatRoom = {
-      easemobId:$stateParams.chatroomId,
-      groupId:"53aa701011fd597b3e1be25a",
-      logo:"/img/group/logo/2015-4/1429778191399.jpeg",
-      type:"group",
-      name:"动梨足球队"
-    }
-    $scope.chatroomId = $stateParams.chatroomId;
-    $scope.chatroomName = chatRoom.name;
+    $scope.chatRoom = INFO.chatroom;
+    $scope.chatRoom.type = INFO.chatroom.isGroup?'group':single;
     $scope.userId = localStorage.id;
     $scope.cid = localStorage.cid;
     // Socket.emit('quitRoom');
     // Socket.emit('enterRoom', $scope.chatroomId);
     $scope.chatsList = [];
+    $scope.$on('ReciveMessage',
+      function (event, chat) {
+        if(chat.to===$scope.chatRoom.easemobId){
+          $scope.chatsList.push(chat);
+          console.log(chat.to,$scope.chatRoom.easemobId);
+          $scope.$digest();
+        }
+    });
     //---获取评论
     //各种获取评论，带nextId是获取历史
     var getChats = function(nextId, callback) {
-      var param = [chatRoom.type,chatRoom.easemobId];
+      var param = [$scope.chatRoom.type,$scope.chatRoom.easemobId];
       if(nextId){
         param.push(nextId);
       }
@@ -911,7 +913,8 @@ angular.module('donlerApp.controllers', [])
         if(chats.length>0) {
           $scope.nextId = chats[0].msgId;
         }
-        // chats.forEach(addPhotos);
+        chats.forEach(addPhotos);
+        callback();
       },function (error) {
         alert(error);
         console.log(error);
@@ -992,8 +995,14 @@ angular.module('donlerApp.controllers', [])
     $scope.content = '';
     //获取自己的资料供发的时候用
     var currentUser;
+    var poster;
     User.getData($scope.userId, function(err,data){
       currentUser = data;
+      poster = {
+        '_id': currentUser._id,
+        'photo': currentUser.photo,
+        'nickname': currentUser.nickname
+      }
     });
     //发布文字消息
     $scope.publish = function() {
@@ -1002,34 +1011,36 @@ angular.module('donlerApp.controllers', [])
       // }
       var randomId = Math.floor(Math.random()*100);
       var newChat = {
-        create_date: new Date(),
-        poster: {
-          '_id': currentUser._id,
-          'photo': currentUser.photo,
-          'nickname': currentUser.nickname
-        },
+        msgTime: new Date(),
+        from:currentUser._id,
+        poster: poster,
         content: $scope.content,
         randomId: randomId
         // loading: true
         // 不用loading原因: 用了某个loading旋转以后聊天的外框css会有问题...
       };
-      $scope.content = '';
+      var updateChat = function (chat) {
+        console.log(chat);
+        var length = $scope.chatsList.length;
+        for(var i = length-1; i>=0; i--){
+          if($scope.chatsList[i].randomId === randomId){
+            $scope.chatsList[i] = chat;
+            $scope.chatsList[i].poster = poster;
+            break;
+          }
+        }
+      }
       $scope.chatsList.push(newChat);
       $ionicScrollDelegate.scrollBottom();
       var chatListLength =$scope.chatsList.length;
-      easemob.chat(function (chat) {
-        console.log(chat);
-        $scope.chatsList[chatListLength-1] = chat;
-        $scope.$digest();
-      },function (chat) {
-        $scope.chatsList[chatListLength-1] = chat;
-        $scope.$digest();
-      },[{
-        chatType:chatRoom.type,
-        target:$scope.chatroomId,
+      easemob.chat(updateChat,updateChat,[{
+        chatType:$scope.chatRoom.type,
+        target:$scope.chatRoom.easemobId,
         contentType:'TXT',
         content:{'text':$scope.content}
-        }])
+        }]
+      )
+      $scope.content = '';
     };
 
     $scope.hideEmotions = function() {
@@ -1066,36 +1077,34 @@ angular.module('donlerApp.controllers', [])
       //-创建一个新chat
       var newChat = {
         randomId: randomId,
-        chatroom_id: $scope.chatroom_id,
-        create_date: new Date(),
-        poster: {
-          '_id': currentUser._id,
-          'photo': currentUser.photo,
-          'nickname': currentUser.nickname
-        },
+        chatroom_id: $scope.chatRoom.easemobId,
+        from: currentUser._id,
+        msgTime: new Date(),
+        poster: poster,
         photos: [{uri:$scope.previewImg}],
         chat_type : 1
       };
-      var chatsListIndex = $scope.chatsList.length -1;
-      $scope.chatsList[chatsListIndex].push(newChat);
+      $scope.chatsList.push(newChat);
       $ionicScrollDelegate.scrollBottom();
-      //上传
-      var data = {randomId: randomId, imageURI:$scope.previewImg};
-      var addr = CONFIG.BASE_URL + '/chatrooms/' + $scope.chatroomId + '/chats/';
-      Upload.upload('discuss', addr, data, function(err) {
-        if(!err) {
-          $scope.confirmUploadModal.hide();
-        } else {//发送失败
-          $scope.confirmUploadModal.hide();
-          var length = $scope.chatsList[chatListIndex].length;
-          for(var i = length-1; i>=0; i--){
-            if($scope.chatsList[chatListIndex][i].randomId === data.randomId){
-              $scope.chatsList[chatListIndex][i].failed = true;
-              break;
-            }
+      var updateChat = function (chat) {
+        $scope.confirmUploadModal.hide();
+        var length = $scope.chatsList.length;
+        for(var i = length-1; i>=0; i--){
+          if($scope.chatsList[i].randomId === randomId){
+            $scope.chatsList[i] = chat;
+            $scope.chatsList[i].poster = poster;
+            break;
           }
         }
-      });
+        console.log(chat);
+      }
+      easemob.chat(updateChat,updateChat,[{
+        chatType:$scope.chatRoom.type,
+        target:$scope.chatRoom.easemobId,
+        contentType:'IMAGE',
+        content:{'filePath':$scope.previewImg}
+        }]
+      );
     };
 
     //for pswp
@@ -1103,19 +1112,17 @@ angular.module('donlerApp.controllers', [])
     $scope.pswpPhotoAlbum = {};
     $scope.photos = [];
     var addPhotos = function (chat) {
-      if (chat.photos && chat.photos.length > 0) {
-        chat.photos.forEach(function (photo) {
-          var width = photo.width || INFO.screenWidth;
-          var height = photo.height || INFO.screenHeight;
-          var item = {
-            _id: photo._id,
-            src: CONFIG.STATIC_URL + photo.uri,
-            w: width,
-            h: height
-          };
-          item.title = '上传者: ' + chat.poster.nickname + '  上传时间: ' + moment(chat.create_date).format('YYYY-MM-DD HH:mm');
-          $scope.photos.push(item);
-        });
+      if (chat.type==='IMAGE') {
+        var width = chat.body.width || INFO.screenWidth;
+        var height = chat.body.height || INFO.screenHeight;
+        var item = {
+          _id: chat.msgId,
+          src: chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl,
+          w: width,
+          h: height
+        };
+        item.title = '上传者: ' + chat.poster.nickname + '  上传时间: ' + moment(chat.msgTime).format('YYYY-MM-DD HH:mm');
+        $scope.photos.push(item);
       }
     };
     //进来也标记一下，否则可能在退出时来不及.
@@ -1265,7 +1272,7 @@ angular.module('donlerApp.controllers', [])
           $scope.staffList = data.slice(0, 3);
         }
       }, function(err, data) {
-        if(err) {
+        if(err || data.length==0) {
           console.log(err);
         } else {
           $scope.staffList = data.slice(0, 3);
@@ -1455,7 +1462,7 @@ angular.module('donlerApp.controllers', [])
         //   $scope.$broadcast('scroll.refreshComplete');
         // }
       }, function(msg, data) {
-        if(!msg) {
+        if(!msg &&data.length>0) {
           $scope.contacts = data;
           contactsBackup = data;
         }
@@ -2674,8 +2681,7 @@ angular.module('donlerApp.controllers', [])
         contactsBackup = data;
       }
     }, function(msg, data) {
-      if(!msg) {
-        console.log(data);
+      if(!msg &&data.length>0) {
         $scope.contacts = data;
         contactsBackup = data;
       }
@@ -2958,8 +2964,10 @@ angular.module('donlerApp.controllers', [])
           // getAllMembers = true;
           // membersBackup = allMembers
         }, function(err, data) {
-          allMembers = data;
-          $scope.members = allMembers;
+          if(data.length>0) {
+            allMembers = data;
+            $scope.members = allMembers;
+          }
           getAllMembers = true;
         });
       }
@@ -3723,7 +3731,7 @@ angular.module('donlerApp.controllers', [])
           $scope.myTeams = teams;
         }
       }, function (err, teams) {
-        if (err) {
+        if (err || teams.length==0) {
           // todo
           console.log(err);
         } else {
@@ -4312,7 +4320,7 @@ angular.module('donlerApp.controllers', [])
           // refreshFlag && $scope.$broadcast('scroll.refreshComplete');
         }
       }, function (err, teams) {
-        if (err) {
+        if (err || teams.length==0) {
           // todo
           console.log(err);
         } else {
@@ -5198,7 +5206,7 @@ angular.module('donlerApp.controllers', [])
           callback && callback();
         }
       }, function (err, teams) {
-        if (err) {
+        if (err || teams.length==0) {
           // todo
           console.log(err);
         } else {
@@ -5395,7 +5403,7 @@ angular.module('donlerApp.controllers', [])
             filterSameTeam(teams,groupType);
           }
         }, function (err, teams) {
-          if (err) {
+          if (err || teams.length==0) {
             // todo
             console.log(err);
           } else {

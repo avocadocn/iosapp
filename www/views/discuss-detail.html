@@ -15,7 +15,20 @@
             <p><span ng-show="showTime===1" bo-text="chat.msgTime | date: 'yyyy'" class="time"></span></p>
             <p><span bo-text="(chat.msgTime | date: 'M月dd日 HH:mm')" class="time"></span></p>
           </div>
-          <div bo-class="{'putright': chat.from == userId}" class="comment clearfix"><a bo-if="chat.poster &amp;&amp; !chat.poster_team" ng-href="#/user/{{chat.poster._id}}" class="logo"><img img-cache="img-cache" ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}"/></a><a bo-if="chat.poster_team" bo-href="'#/team/'+chat.poster_team._id" class="logo"><img img-cache="img-cache" ic-src="{{STATIC_URL +chat.poster_team.logo+ '/45/45'}}"/></a>
+          <div ng-if="chat.type==='IMAGE'" bo-class="{'putright': chat.poster._id == userId}" class="comment clearfix"><a bo-href="'#/user/'+chat.poster._id" class="logo"><img img-cache="img-cache" ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}"/></a>
+            <div class="contents">
+              <div bo-if="chat.poster._id !== userId" bo-text="chat.poster.nickname" class="name"></div>
+              <div bo-if="chat.poster._id == userId" class="name">我</div>
+              <div class="content">
+                <div class="triangle_isosceles triangle_img">
+                  <div class="tr"><img ng-if="!chat.randomId" ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" error-img="error-img" width="180" height="180"/><img ng-if="chat.randomId" ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" error-img="error-img" width="180" height="180"/></div>
+                  <div ng-if="!chat.randomId" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" class="box"><img ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" width="180" height="180" error-img="error-img" class="img"/></div>
+                  <div ng-if="chat.randomId" class="box"><img ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" width="180" height="180" class="img"/></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-if="chat.type=='TXT'" bo-class="{'putright': chat.from == userId}" class="comment clearfix"><a bo-if="chat.poster &amp;&amp; !chat.poster_team" ng-href="#/user/{{chat.poster._id}}" class="logo"><img img-cache="img-cache" ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}"/></a><a bo-if="chat.poster_team" bo-href="'#/team/'+chat.poster_team._id" class="logo"><img img-cache="img-cache" ic-src="{{STATIC_URL +chat.poster_team.logo+ '/45/45'}}"/></a>
             <div class="contents">
               <div bo-if="chat.from !== userId" bo-text="chat.from" class="name"></div>
               <div bo-if="chat.from == userId" class="name">我</div>
@@ -24,7 +37,7 @@
               </div>
             </div>
           </div>
-          <div ng-if="chat.status=='failed'" ng-cloak="ng-cloak" class="failed">
+          <div ng-if="chat.status==='FAIL'" ng-cloak="ng-cloak" class="failed">
             <div class="tip"><i class="icon ion-alert-circled"></i><span>发送失败</span></div>
           </div>
         </div>

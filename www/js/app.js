@@ -25,7 +25,12 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       ImgCache.$init();
 
       easemob.init();
-
+      easemob.onReciveMessage = function (chat) {
+        $rootScope.$broadcast('ReciveMessage', chat);
+      }
+      easemob.onReciveOfflineMessage = function (chats) {
+        $rootScope.$broadcast('ReciveOfflineMessage', { chats:chats});
+      }
       $rootScope.$on('$stateChangeSuccess',
         function (event, toState, toParams, fromState, fromParams) {
           var nowHash = window.location.hash;

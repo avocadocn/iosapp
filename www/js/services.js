@@ -1635,7 +1635,7 @@ angular.module('donlerApp.services', [])
                 }
                 hcallback(null, data);
               } else {
-                hcallback('no new data');
+                hcallback(null, []);
               }
             })
             .error(function(data, status) {
@@ -1760,7 +1760,7 @@ angular.module('donlerApp.services', [])
                     }
                     hcallback(null, data);
                   } else {
-                    hcallback('no new data');
+                    hcallback(null, []);
                   }
                 })
                 .error(function(data, status) {
