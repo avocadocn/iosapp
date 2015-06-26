@@ -61,7 +61,6 @@ angular.module('donlerApp.services', [])
     screenWidth: 320,
     screenHeight: 568,
     team:'',//hr编辑小队用
-    needUpdateDiscussList:false, //供判断是否需要更新discussList
     backFromCampaignDetail: false //供活动列表页面判断是否刷新，若从活动详情页转到活动列表，则不刷新，其余情况，均刷新
   })
   .factory('Persistence', ['$q', 'CONFIG', function($q,CONFIG) {
@@ -139,7 +138,8 @@ angular.module('donlerApp.services', [])
       leaders:'JSON',
       score:'JSON',
       isLeader:'BOOL',
-      hasJoined:'BOOL'
+      hasJoined:'BOOL',
+      easemobId: 'TEXT'
     });
 
     entities.DonlerCampaign = persistence.define('DonlerCampaign', {
@@ -337,6 +337,11 @@ angular.module('donlerApp.services', [])
             localStorage.accessToken = data.newToken;
             $http.defaults.headers.common['x-access-token'] = data.newToken;
             callback();
+            easemob.login(function (augument) {
+              console.log('登录成功');
+            }, function(argument) {
+              console.log('登录失败');
+            },[localStorage.id, localStorage.id]);
           })
           .error(function (data) {
             callback(data);
@@ -1197,16 +1202,103 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-  .factory('Chat', ['$http', 'CONFIG', 'Tools', 'Persistence',function ($http, CONFIG, Tools,Persistence) {
+  .factory('Chat', ['$http', 'CONFIG', 'Tools', 'Team', 'User', function ($http, CONFIG, Tools, Team, User) {
     var chatroomList = [];//缓存chatroomList
+
+    var addMissingTeams = function(conversations, teams) {
+      // var promised = teams.map(function(team) {
+      //   var index = Tools.arrayObjectIndexOf(conversations, teams[i].easemobId, 'chatter');
+      //   if(index === -1) {
+      //     var tempConv = {
+      //       'groupId': teams[i]._id,
+      //       'easemobId': teams[i].easemobId,
+      //       'logo':teams[i].logo,
+      //       'name': teams[i].name
+      //       //'unreadMessagesCount': 0
+      //     };
+      //     resultConversations.push(tempConv);
+      //   }
+      //   else {
+      //     resultConversations[index].groupId = teams[i].logo;
+      //     resultConversations[index].easemobId = teams[i].easemobId;
+      //     resultConversations[index].logo = teams[i].logo;
+      //     resultConversations[index].name = teams[i].name;
+      //     var latestMessage = resultConversations[index].latestMessage;
+      //     if(latestMessage) {
+      //       User.getData(latestMessage.from, function(err, user) {
+      //         if(!err) latestMessage.nickname = user.nickname;
+      //       });
+      //     }
+      //   }
+      // })
+      //遍历teams, conversations里有的就加logo,name和easemobId，没有就创建一个塞进去
+      var resultConversations = conversations.slice(0);
+      for(var i=teams.length-1; i>=0; i--){
+        var index = -1;
+        if(conversations.length > 0){
+          console.log(teams[i]);
+          index = Tools.arrayObjectIndexOf(conversations, teams[i].easemobId, 'chatter');
+        }
+        if(index === -1) {
+          var tempConv = {
+            'chatter': teams[i].easemobId,
+            'teamId': teams[i]._id,
+            'easemobId': teams[i].easemobId,
+            'logo': teams[i].logo,
+            'name': teams[i].name
+            //'unreadMessagesCount': 0
+          };
+          resultConversations.push(tempConv);
+        }
+        else {
+          resultConversations[index].teamId = teams[i]._id;
+          resultConversations[index].easemobId = teams[i].easemobId;
+          resultConversations[index].logo = teams[i].logo;
+          resultConversations[index].name = teams[i].name;
+          var latestMessage = resultConversations[index].latestMessage;
+          if(latestMessage) {
+            //添加user name todo
+            latestMessage.posterNickname = '';
+          }
+        }
+      }
+      return resultConversations;
+    }
     return {
       /**
        * 获取聊天室列表
        * @param  {boolean} force 是否要强制刷新
        * @param  {Function} callback 形如function(err, list)
        */
-      getChatroomList: function(force,callback,hcallback) {
+      getChatroomList: function(force, callback, hcallback) {
         //先取会话，[排序]，后加上没有加入会话的小队.
+        if(!force && chatroomList.length) {
+          callback(null, chatroomList);
+        }
+        else {
+          var conversations =[];
+          var resultList = [];
+          easemob.getAllConversations(function(arguments) {
+            //success 
+            conversations = arguments;
+            //暂不排序;
+            Team.getList('user', localStorage.id, false, function(err, teams){
+              //往conversations里加没有的
+              resultList = addMissingTeams(conversations, teams);
+              callback(err, resultList);
+            }, function(err, teams) {
+              //更新http来的小队
+              if(teams.length) {
+                resultList = addMissingTeams(resultList, teams);
+                hcallback(err, resultList);
+                chatroomList = resultList;
+              }
+            });
+          },function(arguments) {
+            //fail
+            callback(arguments);
+          });
+        }
       },
 
       getChatroomUnread: function(callback) {

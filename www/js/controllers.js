@@ -821,7 +821,7 @@ angular.module('donlerApp.controllers', [])
     $rootScope.$on( "$ionicView.enter", function ( scopes, states ) {
       if(!states.stateName){
         Socket.emit('enterRoom', localStorage.id);
-        getChatrooms(INFO.needUpdateDiscussList);
+        getChatrooms(true);
       }
     });
     var comeBack = function() {
@@ -831,54 +831,22 @@ angular.module('donlerApp.controllers', [])
         getChatrooms(true);
       }
     };
-    document.addEventListener('resume',comeBack, false);//从后台切回来要刷新及进room
+    document.addEventListener('resume', comeBack, false);//从后台切回来要刷新及进room
 
-    var getChatroomsUnread = function() {
-      Chat.getChatroomUnread(function (err, data) {
-        var chatroomsLength = $scope.chatrooms.length;
-        if(data.length && $scope.chatrooms) {
-          for(var i=0; i<data.length; i++) {
-            var index = Tools.arrayObjectIndexOf($scope.chatrooms, data[i]._id, '_id');
-            if(index>-1) {
-              $scope.chatrooms[index].unread = data[i].unread;
-            }
-          }
-        }
-        INFO.needUpdateDiscussList = false;
-      });
-    };
     //force为true强制刷新 以下几种情况需要强制刷新：
     //1.用户手动刷新
     //2.用户切到过后台
     //3.刚进controller
     var getChatrooms = function(force) {
-      Chat.getChatroomList(force ,function (err, data) {
+      Chat.getChatroomList(force, function (err, data){
         $scope.chatrooms = data;
-        $scope.loadFinished = true;
-        if(force)
-          getChatroomsUnread();
-      },function (err, data) {
+      }, function (err, data) {
         $scope.chatrooms = data;
       });
     };
     getChatrooms(true);
 
-    //由于Tabcontroller已作更新，故此处不必更新
-    // Socket.on('newChatroomChat', function (chat) {
-    //   if($scope.chatrooms) {
-    //     var index = Tools.arrayObjectIndexOf($scope.chatrooms, chat.chatroom_id, '_id');
-    //     if(index>-1) {
-    //       // $scope.chatrooms[index].unread ++;
-    //       // $scope.chatrooms[index].latestChat = chat;
-    //       //升到第一个
-    //       // var temp = $scope.chatrooms[index];
-    //       // $scope.chatrooms.splice(index, 1);
-    //       // $scope.chatrooms.unshift(temp);
-    //     }
-    //   }
-    // });
-
-    //以防万一，给个刷新接口。
+    //刷新接口
     $scope.refresh = function() {
       getChatrooms(true);
       $scope.$broadcast('scroll.refreshComplete');
@@ -888,7 +856,7 @@ angular.module('donlerApp.controllers', [])
     var checkAllRead = function() {
       var hasnotRead = false;
       for (var i = $scope.chatrooms.length - 1; i >= 0; i--) {
-        if($scope.chatrooms[i].unread) {
+        if($scope.chatrooms[i].unreadMessagesCount) {
           hasnotRead = true;
         }
       }
@@ -898,10 +866,15 @@ angular.module('donlerApp.controllers', [])
     };
 
     $scope.goDetail = function(chatroom, index) {
-      INFO.chatroomName = chatroom.name;
-      $scope.chatrooms[index].unread = 0;
+      INFO.chatroom = {
+        'teamId': chatroom.teamId,
+        'easemobId': chatroom.easemobId,
+        'logo':chatroom.logo,
+        'name': chatroom.name
+      };
+      $scope.chatrooms[index].unreadMessagesCount = 0;
       checkAllRead();
-      $state.go('chat',{chatroomId: chatroom._id});
+      $state.go('chat',{chatroomId: chatroom.easemobId});
     };
     //离开时缓存
     $scope.$on('$destroy',function() {
