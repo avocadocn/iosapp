@@ -8,10 +8,10 @@
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="refresh()" refreshing-icon="ion-looping" pulling-text="下拉刷新" refreshing-text="刷新中..."></ion-refresher>
-    <ul bindonce="chatrooms" class="list">
-      <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img bo-if="chatroom.teamId" img-cache="img-cache" ic-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/>
+    <ul ng-if="chatrooms" class="list">
+      <div ng-repeat="chatroom in chatrooms track by $index" ng-click="goDetail(chatroom, $index)" ng-cloak="ng-cloak" class="custom_items"><a class="item item-avatar_custom"><img ng-if="chatroom.teamId" img-cache="img-cache" ic-src="{{STATIC_URL + chatroom.logo + '/45/45'}}"/>
           <div ng-if="chatroom.unreadMessagesCount" class="red_spot"></div>
-          <h2 bo-text="chatroom.name"></h2>
+          <h2 ng-bind="chatroom.name"></h2>
           <p ng-if="chatroom.latestMessage" ng-cloak="ng-cloak" class="chat_pre"><span ng-show="chatroom.unreadMessagesCount">[{{chatroom.unreadMessagesCount}}条新消息]</span><span ng-cloak="ng-cloak">{{chatroom.latestMessage.posterNickname}}:</span><span ng-cloak="ng-cloak" ng-if="!chatroom.latestMessage.type || chatroom.latestMessage.type==='TXT'" ng-bind-html=" chatroom.latestMessage.body.text | emoji | unsafe"></span><span ng-cloak="ng-cloak" ng-if="chatroom.latestMessage.type==='IMAGE'">{{'[图片]'}}</span><span ng-cloak="ng-cloak" ng-if="chatroom.latestMessage.type==='VOICE'">{{'[语音]'}}</span>
           </p></a>
         <div ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}" class="custom_border"></div>

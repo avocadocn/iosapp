@@ -1236,7 +1236,6 @@ angular.module('donlerApp.services', [])
       for(var i=teams.length-1; i>=0; i--){
         var index = -1;
         if(conversations.length > 0){
-          console.log(teams[i]);
           index = Tools.arrayObjectIndexOf(conversations, teams[i].easemobId, 'chatter');
         }
         if(index === -1) {
@@ -1245,7 +1244,8 @@ angular.module('donlerApp.services', [])
             'teamId': teams[i]._id,
             'easemobId': teams[i].easemobId,
             'logo': teams[i].logo,
-            'name': teams[i].name
+            'name': teams[i].name,
+            'isGroup': true
             //'unreadMessagesCount': 0
           };
           resultConversations.push(tempConv);
