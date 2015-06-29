@@ -5,9 +5,11 @@ form(name="comment_form")
     button.dl_button.emotion_button(ng-click="showEmotions()" prevent-default)
       svg.svg_icon
         use(xlink:href="#smile")
-    textarea.comment_input#ta(rows="1" ng-model="content" ng-change="change()" mix-max-length="280" ng-trim="false" required ng-focus="hideEmotions();isWriting=false" ng-blur="isWriting=true")
-    button.publish_button(ng-click="publish();hideEmotions();resizeTextarea(1);clear()" ng-disabled="comment_form.$invalid") 发言
-
+    textarea.comment_input#ta(rows="1" name="content" ng-model="content" ng-change="change()" mix-max-length="280" ng-trim="false" required ng-focus="hideEmotions();isWriting=false" ng-blur="isWriting=true")
+    button.publish_button(ng-show="comment_form.content.$valid" ng-click="publish();hideEmotions();resizeTextarea(1);clear()" ng-disabled="comment_form.$invalid") 发言
+    button.dl_button.record_button#recordButton(ng-show="comment_form.content.$invalid" prevent-default)
+      svg.svg_icon
+        use(xlink:href="#setting")
   ion-slide-box.emotion_box(ng-if="isShowEmotions")
     ion-slide(ng-repeat="emoji in emojiList")
       .box.clearfix

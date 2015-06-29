@@ -1202,9 +1202,9 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-  .factory('Chat', ['$http', 'CONFIG', 'Tools', 'Team', 'User', function ($http, CONFIG, Tools, Team, User) {
+  .factory('Chat', ['$http', 'CONFIG', 'Tools', 'Team', 'User', 'Persistence', function ($http, CONFIG, Tools, Team, User, Persistence) {
     var chatroomList = [];//缓存chatroomList
-
+    var chatUserList = [];//缓存chatUserList
     var addMissingTeams = function(conversations, teams) {
       // var promised = teams.map(function(team) {
       //   var index = Tools.arrayObjectIndexOf(conversations, teams[i].easemobId, 'chatter');
@@ -1364,6 +1364,25 @@ angular.module('donlerApp.services', [])
        */
       clearChatroomList: function() {
         chatroomList = null;
+      },
+      getChatUser: function (uid,callback) {
+        var index = Tools.arrayObjectIndexOf(chatUserList,uid,'_id');
+        if(index>-1){
+          console.log(1);
+          callback(null,chatUserList[index]);
+        }
+        else{
+          console.log(2);
+          var userCollection = Persistence.Entities.DonlerUser.all().filter('_id','=',uid);
+          Persistence.getOne(userCollection)
+          .then(function(user) {
+              callback(null,user);
+            })
+          .then(null, function(error) {
+            console.log(error);
+          });
+        }
+        
       }
     }
   }])
@@ -1645,7 +1664,89 @@ angular.module('donlerApp.services', [])
 
         })
       },
+      /**
+       * 获取公司成员
+       * @param  {String}   id  个人id
+       * @param  {Function} callback 获取后的回调函数，形式为function(err, data)
+       */
+      getCompanyUser: function(id, callback) {
+        Persistence.get(Persistence.Entities.DonlerUser.all()).then(function (data) {
+          callback(null,data);
+          var userData = data;
+          Persistence.getOne(Persistence.Entities.Hash.all().filter('name','=', 'DonlerUser'))
+          .then(function(hash) {
+            var hashUser = hash;
+            var url = CONFIG.BASE_URL + '/users/list/' + cid;
+            if(hash) {
+              url += ('?timehash=' + hash.timehash);
+            }
+            $http.get(url)
+            .success(function(data, status) {
+              if(data.length) {
+                var maxTime = -1;
+                data.forEach(function(user) {
+                  var index = Tools.arrayObjectIndexOf(userData, user._id, '_id');
 
+                  if(index > -1) {
+                    if(!user.active) {
+                      userData.splice(index, 1);
+                      var userDeletedCollection = Persistence.Entities.DonlerUser.all().filter('_id','=', user._id);
+                      Persistence.delete(userDeletedCollection)
+                        .then(null, function(error) {
+                          console.log(error);
+                        })
+                    } else {
+                      userData[index] = user;
+                      var userCollection = Persistence.Entities.DonlerUser.all().filter('_id','=',user._id);
+                      Persistence.edit(userCollection, user)
+                        .then(null, function(error) {
+                          console.log(error);
+                        })
+                    }
+                  } else {
+                    if(user.active) {
+                      userData.push(user);
+                      var _user = new Persistence.Entities.DonlerUser();
+                      _user._id = user._id;
+                      _user.email = user.email;
+                      _user.nickname = user.nickname;
+                      _user.photo = user.photo;
+                      _user.realname = user.realname;
+                      Persistence.add(_user);
+                    }
+                  }
+
+                  var date = (new Date(user.timeHash)).valueOf();
+                  if(date > maxTime) {
+                    maxTime = date;
+                  }
+                })
+                data = userData;
+                if(hashUser) {
+                  hashUser.timehash = maxTime;
+                  var hashCollection = Persistence.Entities.Hash.all().filter('name', '=', 'DonlerUser');
+                  Persistence.edit(hashCollection, hashUser)
+                    .then(null, function(error) {
+                      console.log(error);
+                    })
+                } else {
+                  var hash = new Persistence.Entities.Hash();
+                  hash.name = 'DonlerUser';
+                  hash.timehash = maxTime;
+                  Persistence.add(hash);
+                }
+                hcallback(null, data);
+              } else {
+                hcallback(null, []);
+              }
+            })
+            .error(function(data, status) {
+              hcallback(data ? data.msg : 'error');
+            });
+          })
+
+        })
+      },
       clearCurrentUser: function() {
         currentUser = null;
       }

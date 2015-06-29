@@ -1,10 +1,13 @@
 ion-view.discuss_detail(cache-view="false")
-  ion-header-bar(bindonce="chatroomName")
+  ion-header-bar(bindonce="chatRoom")
     a.button.icon-left.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
-    h1.title(bo-text="chatroomName")
-    a.teams_icon.icon-right(bo-if="chatroomId!==cid" href="#/team/{{chatroomId}}")
+    h1.title(bo-text="chatRoom.name")
+    a.teams_icon.icon-right(bo-if="chatRoom.isGroup && chatRoom.easemobId!==cid" href="#/team/{{chatRoom.easemobId}}")
       svg.svg_icon
         use(xlink:href="#suoyouxiaodui")
+    a.teams_icon.icon-right(bo-if="chatRoom && !chatRoom.isGroup" href="#/user/{{chatRoom.easemobId}}") user
+      //- svg.svg_icon
+      //-   use(xlink:href="#suoyouxiaodui")
   //- .balloon.has-footer(ng-if="newCommentNumber" ng-click="toBottom()" ng-cloak) 
   //-   span(ng-cloak) {{newCommentNumber}}
   //-   .triangle
@@ -18,13 +21,13 @@ ion-view.discuss_detail(cache-view="false")
               span.time(ng-show="showTime===1" bo-text="chat.msgTime | date: 'yyyy'")
             p
               span.time(bo-text="(chat.msgTime | date: 'M月dd日 HH:mm')")
-          .comment.clearfix(ng-if="chat.type==='IMAGE'" bo-class="{'putright': chat.poster._id == userId}")
-            a.logo(bo-href="'#/user/'+chat.poster._id")
+          .comment.clearfix(bo-class="{'putright': chat.poster._id == userId}")
+            a.logo(ng-href="#/user/{{chat.poster._id}}")
               img(img-cache ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}")
-            .contents
-              .name(bo-if="chat.poster._id !== userId" bo-text="chat.poster.nickname")
-              .name(bo-if="chat.poster._id == userId") 我
-              .content
+            .contents(ng-switch="chat.type")
+              .name(bo-if="chat.from !== userId" ng-text="chat.nickname")
+              .name(bo-if="chat.from == userId") 我
+              .content(ng-switch-when="IMAGE")
                 .triangle_isosceles.triangle_img
                   .tr
                     img(ng-if="!chat.randomId" ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" error-img width="180" height="180")
@@ -33,15 +36,9 @@ ion-view.discuss_detail(cache-view="false")
                     img.img(ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}"  width="180" height="180"  error-img)
                   .box(ng-if="chat.randomId")
                     img.img(ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}"  width="180" height="180")
-          .comment.clearfix(ng-if="chat.type=='TXT'" bo-class="{'putright': chat.from == userId}")
-            a.logo(bo-if="chat.poster && !chat.poster_team" ng-href="#/user/{{chat.poster._id}}")
-              img(img-cache ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}")
-            a.logo(bo-if="chat.poster_team" bo-href="'#/team/'+chat.poster_team._id")
-              img(img-cache ic-src="{{STATIC_URL +chat.poster_team.logo+ '/45/45'}}")
-            .contents
-              .name(bo-if="chat.from !== userId" bo-text="chat.from")
-              .name(bo-if="chat.from == userId") 我
-              .content
+              .content(ng-switch-when="VOICE")
+                audio-box(body="chat.body")
+              .content(ng-switch-default)
                 .triangle_isosceles(ng-bind-html="chat.body.text | emoji | unsafe")
           .failed(ng-if="chat.status==='FAIL'" ng-cloak)
             .tip
@@ -49,7 +46,7 @@ ion-view.discuss_detail(cache-view="false")
               span 发送失败
 
   ion-footer-bar.comment_box
-    publish-box(is-show-emotions="isShowEmotions" is-writing="isWriting" content="content" publish="publish()" show-upload-action-sheet="showUploadActionSheet()")
+    publish-box(is-show-emotions="isShowEmotions" is-writing="isWriting" target="{{chatRoom.easemobId}}" content="content" publish="publish()" record-end="recordEnd()" show-upload-action-sheet="showUploadActionSheet()")
 
   script(id="confirm-upload-modal.html" type="text/ng-template")
     ion-modal-view

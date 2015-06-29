@@ -28,8 +28,8 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
       easemob.onReciveMessage = function (chat) {
         $rootScope.$broadcast('ReciveMessage', chat);
       }
-      easemob.onReciveOfflineMessage = function (chats) {
-        $rootScope.$broadcast('ReciveOfflineMessage', { chats:chats});
+      easemob.onReciveOfflineMessages = function (chats) {
+        $rootScope.$broadcast('ReciveOfflineMessages', chats);
       }
       $rootScope.$on('$stateChangeSuccess',
         function (event, toState, toParams, fromState, fromParams) {

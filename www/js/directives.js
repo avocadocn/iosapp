@@ -187,7 +187,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       content: '=',
       isWriting: '=',
       publish: '&',
-      showUploadActionSheet: '&'
+      showUploadActionSheet: '&',
+      target:'@',
+      recordEnd: '&'
     },
     templateUrl: './views/publish-box.html',
     link: function (scope, element, attrs, ctrl) {
@@ -204,7 +206,21 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       scope.hideEmotions = function() {
         scope.isShowEmotions = false;
       };
-
+      var recordButton = angular.element(element[0].querySelector('#recordButton'))[0];
+      var dragupGesture,releaseGesture;
+      function recordEndCallBack(){
+        ionic.offGesture(releaseGesture, "release", recordEndCallBack);
+        scope.recordEnd && scope.recordEnd();
+      }
+      function recordStartCallback(){
+        easemob.recordStart([scope.target])
+        dragupGesture = ionic.onGesture("dragup", recordCancelCallback, recordButton);
+        releaseGesture = ionic.onGesture("release", recordEndCallBack, recordButton);
+      }
+      function recordCancelCallback(){
+        ionic.offGesture(dragupGesture, "dragup", recordCancelCallback)
+      }
+      ionic.onGesture("hold", recordStartCallback, recordButton);
       scope.emojiList=[];
 
       var emoji = Emoji.getEmojiList();
@@ -274,7 +290,94 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   }
 }])
+.directive('audioBox', [function() {
+  return {
+    restrict: 'E',
+    scope: {
+      body: '='
+    },
+    templateUrl: './views/audio-box.html',
+    link: function (scope, element, attrs, ctrl) {
+      var my_media = null;
+      var mediaTimer = null;
+      function playAudio(body) {
+        var url = body.localUrl ?('file://'+body.localUrl):body.remoteUrl;
+        // Create Media object from src
+        my_media = new Media(url, mediaOnSuccess, mediaOnError);
+        // Play audio
+        my_media.play();
+        // Update my_media position every second
+        if (mediaTimer != null) {
+          mediaTimer =null;
+        }
+        mediaTimer = setInterval(function() {
+          // get my_media position
+          my_media.getCurrentPosition(
+            // success callback
+            function(position) {
+              if (position > -1) {
+                  body.position = position;
+              }
+              else{
+                body.play =false;
+              }
+            },
+            // error callback
+            function(e) {
+              console.log("Error getting pos=" + e);
+              body.position = 0;
+            }
+          );
+        }, 1000);
+      }
+      // onSuccess Callback
+      //
+      function mediaOnSuccess() {
+        console.log("playAudio():Audio Success");
+        my_media.stop();
+        my_media.release();
+      }
 
+      // onError Callback
+      //
+      function mediaOnError(error) {
+        console.log('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+        my_media.stop();
+        my_media.release();
+      }
+      // Pause audio
+      //
+      function pauseAudio() {
+        if (my_media) {
+          my_media.pause();
+        }
+      }
+
+      // Stop audio
+      //
+      function stopAudio() {
+        if (my_media) {
+          my_media.stop();
+          my_media.release();
+        }
+        clearInterval(mediaTimer);
+        mediaTimer = null;
+      }
+
+      scope.toggleVoice = function (body) {
+        if(!body.play){
+          playAudio(body);
+          body.isListened =true;
+        }
+        else{
+          stopAudio();
+        }
+      
+      }
+    }
+  }
+}])
 //以下两个directive共用的controller
 .controller( 'campaignCardController', ['$scope', '$rootScope', '$ionicActionSheet', 'CONFIG', 'Campaign', 'INFO',
  function (scope, $rootScope, $ionicActionSheet, CONFIG, Campaign, INFO) {
