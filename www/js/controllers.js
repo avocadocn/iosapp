@@ -886,11 +886,24 @@ angular.module('donlerApp.controllers', [])
     $scope.userId = localStorage.id;
     $scope.cid = localStorage.cid;
     $scope.chatsList = [];
+    $scope.userList = {};
     function dealReceiveMessage (chat) {
       if(chat.to===$scope.chatRoom.easemobId){
-          $scope.chatsList.push(chat);
-          console.log(chat.to,$scope.chatRoom.easemobId);
+        formatChat(chat)
+        if(chat.from===$scope.userId) {
+          console.log(chat);
+          var index = Tools.arrayObjectIndexOf($scope.chatsList,chat.msgTime,"msgTime");
+          console.log(index);
+          if(index>-1){
+            var _chat = $scope.chatsList[index];
+            _chat.status= chat.status;
+          }
         }
+        else{
+          $scope.chatsList.push(chat);
+        }
+        
+      }
     }
     $scope.$on('ReciveMessage',
       function (event, chat) {
@@ -899,59 +912,55 @@ angular.module('donlerApp.controllers', [])
     });
     $scope.$on('ReciveMessages',
       function (event, chats) {
-        chats.forEach(function(chat, index){
-          dealReceiveMessage(chat);
-        });
+        chats.forEach(dealReceiveMessage);
         $scope.$digest();
     });
     var formatChat = function (chat) {
-      Chat.getChatUser(chat.from,function (err,user) {
-        chat.poster = user;
-        if (chat.type==='IMAGE') {
-          var width = chat.body.width || INFO.screenWidth;
-          var height = chat.body.height || INFO.screenHeight;
-          var item = {
-            _id: chat.msgId,
-            src: chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl,
-            w: width,
-            h: height
-          };
-          item.title = '上传者: ' + chat.poster.nickname + '  上传时间: ' + moment(chat.msgTime).format('YYYY-MM-DD HH:mm');
-          $scope.photos.push(item);
-        }
-      });
+      if($scope.userList[chat.from]){
+        chat.poster = $scope.userList[chat.from];
+      }
+      else{
+        $scope.userList[chat.from]={_id:chat.from};
+        Chat.getChatUser(chat.from,function (err,user) {
+          if(err)
+            console.log(err);
+          chat.poster = user;
+          $scope.userList[chat.from].nickname = user.nickname;
+          $scope.userList[chat.from].photo = user.photo;
+          $scope.userList[chat.from].realname = user.realname;
+          if (chat.type==='IMAGE') {
+            var width = chat.body.width || INFO.screenWidth;
+            var height = chat.body.height || INFO.screenHeight;
+            var item = {
+              _id: chat.msgId,
+              src: chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl,
+              w: width,
+              h: height
+            };
+            item.title = '上传者: ' + chat.poster.nickname + '  上传时间: ' + moment(chat.msgTime).format('YYYY-MM-DD HH:mm');
+            $scope.photos.push(item);
+          }
+        });
+      }
+      
     };
     var updateChat = function (chat) {
-      var length = $scope.chatsList.length;
-      for(var i = length-1; i>=0; i--){
-        if($scope.chatsList[i].randomId === randomId){
-          $scope.chatsList[i] = chat;
-          $scope.chatsList[i].poster = poster;
-          break;
-        }
-      }
+      console.log(chat);
+      formatChat(chat);
+      $scope.chatsList.push(chat);
+      $ionicScrollDelegate.scrollBottom();
     }
     $scope.recordEnd = function () {
-      console.log('end');
       // if(window.analytics){
       //   window.analytics.trackEvent('Click', 'publishComment');
       // }
-      var randomId = Math.floor(Math.random()*100);
-      var newChat = {
-        msgTime: new Date(),
-        from:currentUser._id,
-        poster: poster,
-        randomId: randomId
-      };
-      $scope.chatsList.push(newChat);
-      $ionicScrollDelegate.scrollBottom();
       easemob.recordEnd(updateChat,updateChat,[$scope.chatRoom.type, $scope.chatRoom.easemobId])
     }
     //进来也标记一下，否则可能在退出时来不及.
-    easemob.resetUnreadMsgCount(function(){console.log('success');},function(){console.log('error');},[$scope.chatRoom.type,$scope.chatRoom.easemobId])
+    easemob.resetUnreadMsgCount(function(){},function(){},[$scope.chatRoom.type,$scope.chatRoom.easemobId])
     //离开此页时标记读过
     $scope.$on('$destroy',function() {
-      easemob.resetUnreadMsgCount(function(){console.log('success');},function(){console.log('error');},[$scope.chatRoom.type,$scope.chatRoom.easemobId])
+      easemob.resetUnreadMsgCount(function(){},function(){},[$scope.chatRoom.type,$scope.chatRoom.easemobId])
       $scope.confirmUploadModal.remove();
     });
      
@@ -963,7 +972,7 @@ angular.module('donlerApp.controllers', [])
         param.push(nextId);
       }
       easemob.getMessages(function (chats) {
-
+        chats.forEach(formatChat);
         if(nextId) {
           $scope.chatsList.unshift.apply($scope.chatsList, chats );
         }
@@ -973,8 +982,7 @@ angular.module('donlerApp.controllers', [])
         if(chats.length>0) {
           $scope.nextId = chats[0].msgId;
         }
-        chats.forEach(formatChat);
-        callback();
+        callback &&callback();
       },function (error) {
         alert(error);
         console.log(error);
@@ -1070,16 +1078,7 @@ angular.module('donlerApp.controllers', [])
       // if(window.analytics){
       //   window.analytics.trackEvent('Click', 'publishComment');
       // }
-      var randomId = Math.floor(Math.random()*100);
-      var newChat = {
-        msgTime: new Date(),
-        from:currentUser._id,
-        poster: poster,
-        content: $scope.content,
-        randomId: randomId
-      };
-      $scope.chatsList.push(newChat);
-      $ionicScrollDelegate.scrollBottom();
+      
       easemob.chat(updateChat,updateChat,[{
         chatType:$scope.chatRoom.type,
         target:$scope.chatRoom.easemobId,
@@ -1119,30 +1118,7 @@ angular.module('donlerApp.controllers', [])
       // if(window.analytics){
       //   window.analytics.trackEvent('Click', 'uploadImg');
       // }
-      //-生成随机id
-      var randomId = Math.floor(Math.random()*100);
-      //-创建一个新chat
-      var newChat = {
-        randomId: randomId,
-        chatroom_id: $scope.chatRoom.easemobId,
-        from: currentUser._id,
-        msgTime: new Date(),
-        poster: poster,
-        body: {localUrl:$scope.previewImg}
-      };
-      $scope.chatsList.push(newChat);
-      $ionicScrollDelegate.scrollBottom();
-      var updateChat = function (chat) {
-        $scope.confirmUploadModal.hide();
-        var length = $scope.chatsList.length;
-        for(var i = length-1; i>=0; i--){
-          if($scope.chatsList[i].randomId === randomId){
-            $scope.chatsList[i] = chat;
-            $scope.chatsList[i].poster = poster;
-            break;
-          }
-        }
-      }
+      $scope.confirmUploadModal.hide();
       easemob.chat(updateChat,updateChat,[{
         chatType:$scope.chatRoom.type,
         target:$scope.chatRoom.easemobId,

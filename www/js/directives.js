@@ -365,10 +365,10 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         mediaTimer = null;
       }
 
-      scope.toggleVoice = function (body) {
-        if(!body.play){
-          playAudio(body);
-          body.isListened =true;
+      scope.toggleVoice = function () {
+        if(!scope.body.play){
+          playAudio(scope.body);
+          scope.body.isListened =true;
         }
         else{
           stopAudio();

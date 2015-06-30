@@ -21,21 +21,18 @@ ion-view.discuss_detail(cache-view="false")
               span.time(ng-show="showTime===1" bo-text="chat.msgTime | date: 'yyyy'")
             p
               span.time(bo-text="(chat.msgTime | date: 'M月dd日 HH:mm')")
-          .comment.clearfix(bo-class="{'putright': chat.poster._id == userId}")
+          .comment.clearfix(bo-class="{'putright': chat.from === userId}")
             a.logo(ng-href="#/user/{{chat.poster._id}}")
               img(img-cache ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}")
             .contents(ng-switch="chat.type")
-              .name(bo-if="chat.from !== userId" ng-text="chat.nickname")
-              .name(bo-if="chat.from == userId") 我
+              .name(bo-if="chat.from !== userId" ng-bind="chat.poster.nickname")
+              .name(bo-if="chat.from === userId") 我
               .content(ng-switch-when="IMAGE")
                 .triangle_isosceles.triangle_img
                   .tr
-                    img(ng-if="!chat.randomId" ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" error-img width="180" height="180")
-                    img(ng-if="chat.randomId" ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}"  error-img width="180" height="180")
-                  .box(ng-if="!chat.randomId" photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo)
+                    img(ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" error-img width="180" height="180")
+                  .box(photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo)
                     img.img(ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}"  width="180" height="180"  error-img)
-                  .box(ng-if="chat.randomId")
-                    img.img(ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}"  width="180" height="180")
               .content(ng-switch-when="VOICE")
                 audio-box(body="chat.body")
               .content(ng-switch-default)
@@ -44,6 +41,9 @@ ion-view.discuss_detail(cache-view="false")
             .tip
               i.icon.ion-alert-circled
               span 发送失败
+          .failed(ng-if="chat.status==='INPROGRESS'" ng-cloak)
+            .tip
+              i.icon.ion-looping
 
   ion-footer-bar.comment_box
     publish-box(is-show-emotions="isShowEmotions" is-writing="isWriting" target="{{chatRoom.easemobId}}" content="content" publish="publish()" record-end="recordEnd()" show-upload-action-sheet="showUploadActionSheet()")

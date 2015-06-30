@@ -299,7 +299,7 @@ angular.module('donlerApp.services', [])
     };
 
   }])
-  .factory('UserAuth', ['$http', 'CONFIG', 'Socket', 'INFO', function ($http, CONFIG, Socket, INFO) {
+  .factory('UserAuth', ['$http', 'CONFIG', 'Socket', 'INFO', 'User', function ($http, CONFIG, Socket, INFO, User) {
     return {
       login: function (email, password, callback) {
         $http.post(CONFIG.BASE_URL + '/users/login', {
@@ -321,6 +321,7 @@ angular.module('donlerApp.services', [])
             localStorage.guide_step = data.guide_step;
             $http.defaults.headers.common['x-access-token'] = data.token;
             Socket.login();
+            User.getCompanyUsers(localStorage.cid,function(msg, data){}, function(msg, data) {});
             if(window.analytics){
               window.analytics.setUserId(data.id);
             }
@@ -1204,35 +1205,51 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Chat', ['$http', 'CONFIG', 'Tools', 'Team', 'User', 'Persistence', function ($http, CONFIG, Tools, Team, User, Persistence) {
     var chatroomList = [];//缓存chatroomList
-    var chatUserList = [];//缓存chatUserList
+    function _getChatUser(uid,callback) {
+      var userCollection = Persistence.Entities.DonlerUser.all().filter('_id','=',uid);
+      Persistence.getOne(userCollection)
+      .then(function(user) {
+        if(user){
+          callback(null,user);
+        }
+        else{
+          callback("empty");
+        }
+      })
+      .then(null, function(error) {
+        callback(error);
+        console.log(error);
+      });
+      
+    }
+    function formatUserConversation (conversation) {
+      if(conversation.isGroup) {
+        var latestMessage = conversation.latestMessage;
+        if(latestMessage &&latestMessage.from!==localStorage.id) {
+          _getChatUser(latestMessage.from,function (err,user) {
+            if(err)
+              console.log(err);
+            latestMessage.poster = user;
+          });
+        }
+      }
+      else {
+        _getChatUser(conversation.chatter,function (err,user) {
+          if(err)
+            console.log(err);
+          conversation.easemobId = user._id;
+          conversation.logo = user.photo;
+          conversation.name = user.nickname;
+          var latestMessage = conversation.latestMessage;
+          if(latestMessage &&latestMessage.from!==localStorage.id) {
+            latestMessage.poster = user;
+          }
+        });
+      }
+    }
     var addMissingTeams = function(conversations, teams) {
-      // var promised = teams.map(function(team) {
-      //   var index = Tools.arrayObjectIndexOf(conversations, teams[i].easemobId, 'chatter');
-      //   if(index === -1) {
-      //     var tempConv = {
-      //       'groupId': teams[i]._id,
-      //       'easemobId': teams[i].easemobId,
-      //       'logo':teams[i].logo,
-      //       'name': teams[i].name
-      //       //'unreadMessagesCount': 0
-      //     };
-      //     resultConversations.push(tempConv);
-      //   }
-      //   else {
-      //     resultConversations[index].groupId = teams[i].logo;
-      //     resultConversations[index].easemobId = teams[i].easemobId;
-      //     resultConversations[index].logo = teams[i].logo;
-      //     resultConversations[index].name = teams[i].name;
-      //     var latestMessage = resultConversations[index].latestMessage;
-      //     if(latestMessage) {
-      //       User.getData(latestMessage.from, function(err, user) {
-      //         if(!err) latestMessage.nickname = user.nickname;
-      //       });
-      //     }
-      //   }
-      // })
       //遍历teams, conversations里有的就加logo,name和easemobId，没有就创建一个塞进去
-      var resultConversations = conversations.slice(0);
+      // var resultConversations = conversations.slice(0);
       for(var i=teams.length-1; i>=0; i--){
         var index = -1;
         if(conversations.length > 0){
@@ -1248,21 +1265,24 @@ angular.module('donlerApp.services', [])
             'isGroup': true
             //'unreadMessagesCount': 0
           };
-          resultConversations.push(tempConv);
+          conversations.push(tempConv);
         }
         else {
-          resultConversations[index].teamId = teams[i]._id;
-          resultConversations[index].easemobId = teams[i].easemobId;
-          resultConversations[index].logo = teams[i].logo;
-          resultConversations[index].name = teams[i].name;
-          var latestMessage = resultConversations[index].latestMessage;
+          conversations[index].teamId = teams[i]._id;
+          conversations[index].easemobId = teams[i].easemobId;
+          conversations[index].logo = teams[i].logo;
+          conversations[index].name = teams[i].name;
+          var latestMessage = conversations[index].latestMessage;
           if(latestMessage) {
-            //添加user name todo
-            latestMessage.posterNickname = '';
+            _getChatUser(latestMessage.from,function (err,user) {
+              if(err)
+                console.log(err);
+              latestMessage.poster=user;
+            });
+            
           }
         }
       }
-      return resultConversations;
     }
     return {
       /**
@@ -1284,14 +1304,15 @@ angular.module('donlerApp.services', [])
             //暂不排序;
             Team.getList('user', localStorage.id, false, function(err, teams){
               //往conversations里加没有的
-              resultList = addMissingTeams(conversations, teams);
-              callback(err, resultList);
+              addMissingTeams(conversations, teams);
+              conversations.forEach(formatUserConversation);
+              callback(err, conversations);
             }, function(err, teams) {
               //更新http来的小队
               if(!err && teams.length) {
-                resultList = addMissingTeams(resultList, teams);
-                hcallback(err, resultList);
-                chatroomList = resultList;
+                addMissingTeams(conversations, teams);
+                hcallback(err, conversations);
+                chatroomList = conversations;
               }
             });
           },function(arguments) {
@@ -1365,25 +1386,7 @@ angular.module('donlerApp.services', [])
       clearChatroomList: function() {
         chatroomList = null;
       },
-      getChatUser: function (uid,callback) {
-        var index = Tools.arrayObjectIndexOf(chatUserList,uid,'_id');
-        if(index>-1){
-          console.log(1);
-          callback(null,chatUserList[index]);
-        }
-        else{
-          console.log(2);
-          var userCollection = Persistence.Entities.DonlerUser.all().filter('_id','=',uid);
-          Persistence.getOne(userCollection)
-          .then(function(user) {
-              callback(null,user);
-            })
-          .then(null, function(error) {
-            console.log(error);
-          });
-        }
-        
-      }
+      getChatUser: _getChatUser
     }
   }])
   .factory('Tools', [function () {
