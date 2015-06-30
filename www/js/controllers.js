@@ -823,6 +823,29 @@ angular.module('donlerApp.controllers', [])
         getChatrooms(true);
       }
     });
+    function formatChat(chat) {
+      if($scope.userList[chat.from]){
+        chat.poster = $scope.userList[chat.from];
+      }
+      else{
+        $scope.userList[chat.from]={_id:chat.from};
+        Chat.getChatUser(chat.from,function (err,user) {
+          if(err)
+            console.log(err);
+          chat.poster = user;
+        });
+      }
+      
+    };
+    $scope.$on('ReciveMessage',
+      function (event, chat) {
+        console.log(chat);
+        Chat.updateChatroomList(chat);
+    });
+    $scope.$on('ReciveOfflineMessages',
+      function (event, chats) {
+        getChatrooms(true);
+    });
     var comeBack = function() {
       if($state.$current.name==='app.discuss_list') {
         getChatrooms(true);
@@ -874,10 +897,6 @@ angular.module('donlerApp.controllers', [])
       checkAllRead();
       $state.go('chat',{chatroomId: chatroom.easemobId});
     };
-    //离开时缓存
-    $scope.$on('$destroy',function() {
-      Chat.saveChatroomList($scope.chatrooms);
-    });
   }])
   .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Chat', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', 'Upload', '$ionicModal',
     function ($scope, $state, $stateParams, $ionicScrollDelegate, Chat, Socket, User, Tools, CONFIG, INFO, Upload, $ionicModal) {
@@ -888,18 +907,16 @@ angular.module('donlerApp.controllers', [])
     $scope.chatsList = [];
     $scope.userList = {};
     function dealReceiveMessage (chat) {
-      if(chat.to===$scope.chatRoom.easemobId){
-        formatChat(chat)
+      if(chat.to===$scope.chatRoom.easemobId || !chat.isGroup &&chat.from===$scope.chatRoom.easemobId){
         if(chat.from===$scope.userId) {
-          console.log(chat);
           var index = Tools.arrayObjectIndexOf($scope.chatsList,chat.msgTime,"msgTime");
-          console.log(index);
           if(index>-1){
             var _chat = $scope.chatsList[index];
             _chat.status= chat.status;
           }
         }
         else{
+          formatChat(chat);
           $scope.chatsList.push(chat);
         }
         
@@ -910,7 +927,7 @@ angular.module('donlerApp.controllers', [])
         dealReceiveMessage(chat);
         $scope.$digest();
     });
-    $scope.$on('ReciveMessages',
+    $scope.$on('ReciveOfflineMessages',
       function (event, chats) {
         chats.forEach(dealReceiveMessage);
         $scope.$digest();
@@ -945,7 +962,6 @@ angular.module('donlerApp.controllers', [])
       
     };
     var updateChat = function (chat) {
-      console.log(chat);
       formatChat(chat);
       $scope.chatsList.push(chat);
       $ionicScrollDelegate.scrollBottom();
@@ -1866,11 +1882,14 @@ angular.module('donlerApp.controllers', [])
     Socket.on('newCompetitionMessage', function() {
       $rootScope.hasNewDiscover = true;
     });
-    Socket.on('getNewChat', function(chat) {
-      $rootScope.hasNewComment = true;
-      Chat.updateChatroomList(chat);
+    $scope.$on('ReciveMessage',
+      function (event, chat) {
+        $rootScope.hasNewComment++;
     });
-
+    $scope.$on('ReciveOfflineMessages',
+      function (event, chats) {
+        $rootScope.hasNewComment+=chats.length;
+    });
 
     $scope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {

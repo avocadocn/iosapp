@@ -1914,6 +1914,9 @@ a>.login .companies_list:activated {
 .discuss_list .chat_pre {
   max-height: 21px;
 }
+.discuss_list .chat_pre .time {
+  float: right;
+}
 .discuss_list .list {
   padding-top: 0;
   background-color: #fff;

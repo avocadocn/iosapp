@@ -2,15 +2,12 @@ ion-view.discuss_detail(cache-view="false")
   ion-header-bar(bindonce="chatRoom")
     a.button.icon-left.ion-chevron-left(href="#/app/discuss/list") &nbsp;返回
     h1.title(bo-text="chatRoom.name")
-    a.teams_icon.icon-right(bo-if="chatRoom.isGroup && chatRoom.easemobId!==cid" href="#/team/{{chatRoom.easemobId}}")
+    a.teams_icon.icon-right(bo-if="chatRoom.isGroup && chatRoom.easemobId!==cid" href="#/team/{{chatRoom.teamId}}")
       svg.svg_icon
         use(xlink:href="#suoyouxiaodui")
-    a.teams_icon.icon-right(bo-if="chatRoom && !chatRoom.isGroup" href="#/user/{{chatRoom.easemobId}}") user
-      //- svg.svg_icon
-      //-   use(xlink:href="#suoyouxiaodui")
-  //- .balloon.has-footer(ng-if="newCommentNumber" ng-click="toBottom()" ng-cloak) 
-  //-   span(ng-cloak) {{newCommentNumber}}
-  //-   .triangle
+    a.teams_icon.icon-right(bo-if="chatRoom && !chatRoom.isGroup" href="#/user/{{chatRoom.easemobId}}")
+      svg.svg_icon
+        use(xlink:href="#suoyouxiaodui")
   ion-content
     ion-refresher(on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中...")
     .comments(ng-click="hideEmotions()" bindonce="chatsList")

@@ -1,10 +1,13 @@
 
 <ion-view cache-view="false" class="discuss_detail">
   <ion-header-bar bindonce="chatRoom"><a href="#/app/discuss/list" class="button icon-left ion-chevron-left">&nbsp;返回</a>
-    <h1 bo-text="chatRoom.name" class="title"></h1><a bo-if="chatRoom.isGroup &amp;&amp; chatRoom.easemobId!==cid" href="#/team/{{chatRoom.easemobId}}" class="teams_icon icon-right">
+    <h1 bo-text="chatRoom.name" class="title"></h1><a bo-if="chatRoom.isGroup &amp;&amp; chatRoom.easemobId!==cid" href="#/team/{{chatRoom.teamId}}" class="teams_icon icon-right">
       <svg class="svg_icon">
         <use xlink:href="#suoyouxiaodui"></use>
-      </svg></a><a bo-if="chatRoom &amp;&amp; !chatRoom.isGroup" href="#/user/{{chatRoom.easemobId}}" class="teams_icon icon-right">user</a>
+      </svg></a><a bo-if="chatRoom &amp;&amp; !chatRoom.isGroup" href="#/user/{{chatRoom.easemobId}}" class="teams_icon icon-right">
+      <svg class="svg_icon">
+        <use xlink:href="#suoyouxiaodui"></use>
+      </svg></a>
   </ion-header-bar>
   <ion-content>
     <ion-refresher on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>

@@ -24,7 +24,7 @@ ion-view.discuss_list(ng-controller="DiscussListController")
             span(ng-cloak ng-if="!chatroom.latestMessage.type || chatroom.latestMessage.type==='TXT'" ng-bind-html=" chatroom.latestMessage.body.text | emoji | unsafe")
             span(ng-cloak ng-if="chatroom.latestMessage.type==='IMAGE'") {{'[图片]'}}
             span(ng-cloak ng-if="chatroom.latestMessage.type==='VOICE'") {{'[语音]'}}
-            span.time(bo-text="(chatroom.latestMessage.msgTime | date: 'M月dd日 HH:mm')")
+            span.time {{chatroom.latestMessage.msgTime | date: 'M月dd日 HH:mm'}}
         .custom_border(ng-class="{non_last_custom_border: $index!==chatrooms.length - 1}")
     .no_campaign(ng-cloak ng-if="loadFinished && !chatrooms.length")
       a.no_campaign_tip.no_underline(href="#/company/teams/official")

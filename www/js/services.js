@@ -1117,16 +1117,6 @@ angular.module('donlerApp.services', [])
       }
     }
   }])
-
-  .factory('Easemob', ['$rootScope','CONFIG', function socket($rootScope, CONFIG) {
-    return {
-      on: function(name, callback) {
-        
-      }
-    }
-      
-  }])
-
   .factory('Socket', ['$rootScope','CONFIG', function socket($rootScope, CONFIG) {
     var token = localStorage.accessToken;
     var socket;
@@ -1222,7 +1212,7 @@ angular.module('donlerApp.services', [])
       });
       
     }
-    function formatUserConversation (conversation) {
+    function formatConversation (conversation) {
       if(conversation.isGroup) {
         var latestMessage = conversation.latestMessage;
         if(latestMessage &&latestMessage.from!==localStorage.id) {
@@ -1305,7 +1295,7 @@ angular.module('donlerApp.services', [])
             Team.getList('user', localStorage.id, false, function(err, teams){
               //往conversations里加没有的
               addMissingTeams(conversations, teams);
-              conversations.forEach(formatUserConversation);
+              conversations.forEach(formatConversation);
               callback(err, conversations);
             }, function(err, teams) {
               //更新http来的小队
@@ -1367,16 +1357,21 @@ angular.module('donlerApp.services', [])
        */
       updateChatroomList: function(chat) {
         if(chatroomList) {
-          var index = Tools.arrayObjectIndexOf(chatroomList,chat.chatroom_id,'_id');
+          var index = Tools.arrayObjectIndexOf(chatroomList,chat.easemobId,'easemobId');
           if(index>-1) {
-            if(chat.poster._id.toString()!=localStorage.id) {
+            if(chat.from!=localStorage.id) {
               chatroomList[index].unread ++;
             }
-            chatroomList[index].latestChat = chat;
+            _getChatUser(chat.from,function (err,user) {
+              if(err)
+                console.log(err);
+              chat.poster=user;
+            });
+            chatroomList[index].latestMessage = chat;
             //移到最前
             var temp = chatroomList[index];
             chatroomList.splice(index, 1);
-            chatroomList.unshift(temp); 
+            chatroomList.unshift(temp);
           }
         }
       },

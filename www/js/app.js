@@ -189,7 +189,6 @@ angular.module('donlerApp', ['ionic', 'ngCordova', 'donlerApp.controllers', 'don
           }
         });
       }
-      
     }
 
   }).config(function ($stateProvider,$ionicConfigProvider, ImgCacheProvider) {//@:ios
