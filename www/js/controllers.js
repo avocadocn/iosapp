@@ -898,8 +898,8 @@ angular.module('donlerApp.controllers', [])
       $state.go('chat',{chatroomId: chatroom.easemobId});
     };
   }])
-  .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', 'Chat', 'Socket', 'User', 'Tools', 'CONFIG', 'INFO', 'Upload', '$ionicModal',
-    function ($scope, $state, $stateParams, $ionicScrollDelegate, Chat, Socket, User, Tools, CONFIG, INFO, Upload, $ionicModal) {
+  .controller('ChatroomDetailController', ['$scope', '$state', '$stateParams', '$ionicScrollDelegate', '$timeout', 'Chat', 'User', 'Tools', 'INFO', 'Upload', '$ionicModal',
+    function ($scope, $state, $stateParams, $ionicScrollDelegate, $timeout, Chat, User, Tools, INFO, Upload, $ionicModal) {
     $scope.chatRoom = INFO.chatroom;
     $scope.chatRoom.type = INFO.chatroom.isGroup?'group':'single';
     $scope.userId = localStorage.id;
@@ -967,9 +967,6 @@ angular.module('donlerApp.controllers', [])
       $ionicScrollDelegate.scrollBottom();
     }
     $scope.recordEnd = function () {
-      // if(window.analytics){
-      //   window.analytics.trackEvent('Click', 'publishComment');
-      // }
       easemob.recordEnd(updateChat,updateChat,[$scope.chatRoom.type, $scope.chatRoom.easemobId])
     }
     //进来也标记一下，否则可能在退出时来不及.
@@ -979,6 +976,41 @@ angular.module('donlerApp.controllers', [])
       easemob.resetUnreadMsgCount(function(){},function(){},[$scope.chatRoom.type,$scope.chatRoom.easemobId])
       $scope.confirmUploadModal.remove();
     });
+
+    //记录当前正在播放的chat的body对象
+    var isPlayingBody = null;
+
+    function playAudio (body) {
+      var url = body.localUrl ? body.localUrl:body.remoteUrl;
+      easemob.playRecord(null,null,url);
+      //定时
+      $timeout(function() {
+        if(body.isPlaying) {
+          isPlayingBody = null;
+        }
+        body.isPlaying = false;
+      }, body.duration*1000);
+    };
+
+    function stopAudio () {
+      easemob.stopPlayRecord();
+      isPlayingBody = null;
+    }
+    $scope.toggleVoice = function (body) {
+      if(!body.isPlaying){
+        if(isPlayingBody) {//有其它的在播放
+          isPlayingBody.isPlaying = false;
+          isPlayingBody= null;
+        }
+        playAudio(body);
+        body.isPlaying = true;
+        body.isListened = true;
+        isPlayingBody = body;
+      }
+      else{
+        stopAudio();
+      }
+    }
      
     //---获取评论
     //各种获取评论，带nextId是获取历史
