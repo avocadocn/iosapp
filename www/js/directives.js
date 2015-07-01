@@ -178,6 +178,99 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     }
   }
 }])
+.directive('chatPhoto',['$location', '$ionicModal', '$rootScope', '$cordovaStatusbar', 'Tools', 'CONFIG', 'INFO', function($location, $ionicModal, $rootScope, $cordovaStatusbar, Tools, CONFIG, INFO) {
+  return {
+    restrict: 'A',
+    scope: {
+      pswpId: '=',
+      photo: '=',
+      photos: '=',
+      pswpPhotoAlbum: '=',
+      photoAlbumId: '=',
+      chatType: '=',
+      target: '='
+    },
+    link: function (scope, element, attrs, ctrl) {
+      element[0].onclick = function() {
+        try {
+          var pswpElement ; //页面元素
+          if (scope.pswpId) {//有的时候设置了pswpId,directive里会拿不到，所以用搜索.pswp类的方法
+            pswpElement = document.querySelector('#' + scope.pswpId);
+          } else {
+            pswpElement = document.querySelectorAll('.pswp')[0];
+          }
+          var photos = []; //pswp所需的全部photos对象
+          var index = 0;
+          index = Tools.arrayObjectIndexOf(scope.photos, scope.photo.msgId, '_id');
+          if (index === -1) { // 没找到则不打开大图
+            return;
+          }
+          photos = scope.photos;
+          //初始化gallery
+          var options = {
+            history: false,
+            focus: false,
+            index: index,
+            showAnimationDuration: 0,
+            hideAnimationDuration: 0
+          };
+          var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, photos, options);
+          $rootScope.hideTabs = true;
+          if (window.StatusBar) {
+            $cordovaStatusbar.hide();
+          }
+
+          if (!$rootScope.$$phase) {
+            $rootScope.$digest();
+          }
+          gallery.listen('gettingData', function(index, item) {
+            if( item.downloadStatus >1 ) {
+              easemob.downloadMessage(function (chat) {
+                item.src= chat.body.localUrl;
+                item.w= chat.body.width;
+                item.h= chat.body.height;
+                item.downloadStatus = chat.body.attachmentDownloadStatus;
+                console.log(item);
+                gallery.invalidateCurrItems();
+                gallery.updateSize(true);
+              },function (chat) {
+              },[scope.chatType, scope.target, scope.photo.msgId])
+            }
+          });
+          gallery.listen('close', function() {
+            $rootScope.hideTabs = false;
+            if (window.StatusBar) {
+              $cordovaStatusbar.show();
+            }
+            if (!$rootScope.$$phase) {
+              $rootScope.$digest();
+            }
+          });
+
+          gallery.init();
+          //有些地方需要进入相册,则增加此方法
+          if (scope.pswpPhotoAlbum) {
+            scope.pswpPhotoAlbum.goToAlbum = function () {
+              gallery.close();
+              $location.url('/photo_album/' + scope.photoAlbumId + '/detail');
+            };
+          }
+        } catch (e) {
+          console.log(e.stack);
+          gallery.close();
+          $rootScope.hideTabs = false;
+          if (window.StatusBar) {
+            $cordovaStatusbar.show();
+          }
+          if (!$rootScope.$$phase) {
+            $rootScope.$digest();
+          }
+        }
+
+      };
+    }
+  }
+}])
 .directive('publishBox', ['CONFIG', 'Emoji', function(CONFIG, Emoji) {
   return {
     restrict: 'E',

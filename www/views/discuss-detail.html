@@ -24,8 +24,8 @@
               <div bo-if="chat.from === userId" class="name">我</div>
               <div ng-switch-when="IMAGE" class="content">
                 <div class="triangle_isosceles triangle_img">
-                  <div class="tr"><img ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" error-img="error-img" width="180" height="180"/></div>
-                  <div photo="chat" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" class="box"><img ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" width="180" height="180" error-img="error-img" class="img"/></div>
+                  <div class="tr"><img ng-src="{{chat.body.thumbnailUrl}}" error-img="error-img" width="180" height="180"/></div>
+                  <div photo="chat" chat-type="chatRoom.type" target="chatRoom.easemobId" pswp-id="pswpId" photos="photos" photo-album-id="photoAlbumId" chat-photo="chat-photo" class="box"><img ng-src="{{chat.body.thumbnailUrl}}" width="180" height="180" error-img="error-img" class="img"/></div>
                 </div>
               </div>
               <div ng-switch-when="VOICE" class="content">
