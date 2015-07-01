@@ -20,7 +20,7 @@ ion-view.discuss_detail(cache-view="false")
               span.time(bo-text="(chat.msgTime | date: 'M月dd日 HH:mm')")
           .comment.clearfix(bo-class="{'putright': chat.from === userId}")
             a.logo(ng-href="#/user/{{chat.poster._id}}")
-              img(img-cache ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}")
+              img(ng-if="chat.poster.photo" img-cache ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}")
             .contents(ng-switch="chat.type")
               .name(bo-if="chat.from !== userId" ng-bind="chat.poster.nickname")
               .name(bo-if="chat.from === userId") 我
@@ -28,7 +28,7 @@ ion-view.discuss_detail(cache-view="false")
                 .triangle_isosceles.triangle_img
                   .tr
                     img(ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" error-img width="180" height="180")
-                  .box(photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo)
+                  .box(photo="chat" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo)
                     img.img(ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}"  width="180" height="180"  error-img)
               .content(ng-switch-when="VOICE")
                 button(ng-click="toggleVoice(chat.body)") {{chat.body.duration}}'

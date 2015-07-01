@@ -18,14 +18,14 @@
             <p><span ng-show="showTime===1" bo-text="chat.msgTime | date: 'yyyy'" class="time"></span></p>
             <p><span bo-text="(chat.msgTime | date: 'M月dd日 HH:mm')" class="time"></span></p>
           </div>
-          <div bo-class="{'putright': chat.from === userId}" class="comment clearfix"><a ng-href="#/user/{{chat.poster._id}}" class="logo"><img img-cache="img-cache" ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}"/></a>
+          <div bo-class="{'putright': chat.from === userId}" class="comment clearfix"><a ng-href="#/user/{{chat.poster._id}}" class="logo"><img ng-if="chat.poster.photo" img-cache="img-cache" ic-src="{{STATIC_URL +chat.poster.photo+ '/45/45'}}"/></a>
             <div ng-switch="chat.type" class="contents">
               <div bo-if="chat.from !== userId" ng-bind="chat.poster.nickname" class="name"></div>
               <div bo-if="chat.from === userId" class="name">我</div>
               <div ng-switch-when="IMAGE" class="content">
                 <div class="triangle_isosceles triangle_img">
                   <div class="tr"><img ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" error-img="error-img" width="180" height="180"/></div>
-                  <div photo="photo" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" class="box"><img ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" width="180" height="180" error-img="error-img" class="img"/></div>
+                  <div photo="chat" pswp-id="pswpId" photos="photos" pswp-photo-album="pswpPhotoAlbum" photo-album-id="photoAlbumId" open-photo="open-photo" class="box"><img ng-src="{{chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl}}" width="180" height="180" error-img="error-img" class="img"/></div>
                 </div>
               </div>
               <div ng-switch-when="VOICE" class="content">

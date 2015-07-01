@@ -1297,12 +1297,12 @@ angular.module('donlerApp.services', [])
               addMissingTeams(conversations, teams);
               conversations.forEach(formatConversation);
               callback(err, conversations);
+              chatroomList = conversations;
             }, function(err, teams) {
               //更新http来的小队
               if(!err && teams.length) {
                 addMissingTeams(conversations, teams);
                 hcallback(err, conversations);
-                chatroomList = conversations;
               }
             });
           },function(arguments) {
@@ -1357,22 +1357,24 @@ angular.module('donlerApp.services', [])
        */
       updateChatroomList: function(chat) {
         if(chatroomList) {
-          var index = Tools.arrayObjectIndexOf(chatroomList,chat.easemobId,'easemobId');
-          if(index>-1) {
-            if(chat.from!=localStorage.id) {
-              chatroomList[index].unread ++;
+          var length = chatroomList.length;
+          for (var i = 0; i <length; i++) {
+            var chatroom = chatroomList[i];
+            if(chat.to === chatroom.easemobId || chat.chatType==="Chat" && chat.from ===chatroom.easemobId) {
+              if(chat.from !== localStorage.id) {
+                chatroom.unreadMessagesCount++;
+              }
+              _getChatUser(chat.from,function (err,user) {
+                if(err)
+                  console.log(err);
+                chat.poster=user;
+              });
+              chatroom.latestMessage = chat;
+              //移到最前
+              chatroomList.splice(i, 1);
+              chatroomList.unshift(chatroom);
             }
-            _getChatUser(chat.from,function (err,user) {
-              if(err)
-                console.log(err);
-              chat.poster=user;
-            });
-            chatroomList[index].latestMessage = chat;
-            //移到最前
-            var temp = chatroomList[index];
-            chatroomList.splice(index, 1);
-            chatroomList.unshift(temp);
-          }
+          };
         }
       },
       /**
@@ -1386,14 +1388,14 @@ angular.module('donlerApp.services', [])
   }])
   .factory('Tools', [function () {
     return{
-      arrayObjectIndexOf: function (myArray, searchTerm, property) {
+      arrayObjectIndexOf: function (myArray, searchIterm, property) {
         var _property = property.split('.');
         for(var i = 0, len = myArray.length; i < len; i++) {
           var item = myArray[i];
           _property.forEach( function (_pro) {
             item = item[_pro];
           });
-          if (item.toString() === searchTerm.toString()) return i;
+          if (item === searchIterm) return i;
         }
         return -1;
       },

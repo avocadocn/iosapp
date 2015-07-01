@@ -839,7 +839,6 @@ angular.module('donlerApp.controllers', [])
     };
     $scope.$on('ReciveMessage',
       function (event, chat) {
-        console.log(chat);
         Chat.updateChatroomList(chat);
     });
     $scope.$on('ReciveOfflineMessages',
@@ -939,24 +938,39 @@ angular.module('donlerApp.controllers', [])
       else{
         $scope.userList[chat.from]={_id:chat.from};
         Chat.getChatUser(chat.from,function (err,user) {
-          if(err)
+          if(err) {
             console.log(err);
-          chat.poster = user;
-          $scope.userList[chat.from].nickname = user.nickname;
-          $scope.userList[chat.from].photo = user.photo;
-          $scope.userList[chat.from].realname = user.realname;
-          if (chat.type==='IMAGE') {
-            var width = chat.body.width || INFO.screenWidth;
-            var height = chat.body.height || INFO.screenHeight;
-            var item = {
-              _id: chat.msgId,
-              src: chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl,
-              w: width,
-              h: height
-            };
-            item.title = '上传者: ' + chat.poster.nickname + '  上传时间: ' + moment(chat.msgTime).format('YYYY-MM-DD HH:mm');
-            $scope.photos.push(item);
+            if (chat.type==='IMAGE') {
+              var width = chat.body.width || INFO.screenWidth;
+              var height = chat.body.height || INFO.screenHeight;
+              var item = {
+                _id: chat.msgId,
+                src: chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl,
+                w: width,
+                h: height
+              };
+              $scope.photos.push(item);
+            }
           }
+          else {
+            chat.poster = user;
+            $scope.userList[chat.from].nickname = user.nickname;
+            $scope.userList[chat.from].photo = user.photo;
+            $scope.userList[chat.from].realname = user.realname;
+            if (chat.type==='IMAGE') {
+              var width = chat.body.width || INFO.screenWidth;
+              var height = chat.body.height || INFO.screenHeight;
+              var item = {
+                _id: chat.msgId,
+                src: chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl,
+                w: width,
+                h: height
+              };
+              item.title = '上传者: ' + chat.poster.nickname + '  上传时间: ' + moment(chat.msgTime).format('YYYY-MM-DD HH:mm');
+              $scope.photos.push(item);
+            }
+          }
+          
         });
       }
       
@@ -970,10 +984,10 @@ angular.module('donlerApp.controllers', [])
       easemob.recordEnd(updateChat,updateChat,[$scope.chatRoom.type, $scope.chatRoom.easemobId])
     }
     //进来也标记一下，否则可能在退出时来不及.
-    easemob.resetUnreadMsgCount(function(){},function(){},[$scope.chatRoom.type,$scope.chatRoom.easemobId])
+    easemob.resetUnreadMsgCount(null,null,[$scope.chatRoom.type,$scope.chatRoom.easemobId])
     //离开此页时标记读过
     $scope.$on('$destroy',function() {
-      easemob.resetUnreadMsgCount(function(){},function(){},[$scope.chatRoom.type,$scope.chatRoom.easemobId])
+      easemob.resetUnreadMsgCount(null,null,[$scope.chatRoom.type,$scope.chatRoom.easemobId])
       $scope.confirmUploadModal.remove();
     });
 
@@ -1054,33 +1068,6 @@ angular.module('donlerApp.controllers', [])
         $scope.$broadcast('scroll.refreshComplete');
       }
     };
-    //socket来了新评论
-    // Socket.on('newChat', function(data) {
-    //   //如果是自己发的看看是不是取消loading就行.
-    //   var chatListIndex = $scope.chatsList.length -1;
-    //   if(data.poster._id === currentUser._id && data.randomId) {
-    //     //-找到那条自己发的
-    //     var length = $scope.chatsList[chatListIndex].length;
-    //     for(var i = length-1; i>=0; i--){
-    //       if($scope.chatsList[chatListIndex][i].randomId === data.randomId){
-    //         data.randomId = null;
-    //         addPhotos(data);
-    //         $scope.chatsList[chatListIndex][i] = data;
-    //         break;
-    //       }
-    //     }
-    //   }else{
-    //     var chats_ele = document.getElementsByClassName('comments'); // 获取滚动条
-    //     data.randomId = null;
-    //     var nowHeight =  $ionicScrollDelegate.getScrollPosition().top; //获取总高度
-    //     var scrollHeight = chats_ele.length ? chats_ele[0].scrollHeight - (window.outerHeight-89) : 0; //获取当前所在位置
-    //     var isAtBottom = false;
-    //     if(scrollHeight - nowHeight < 50 ) isAtBottom = true;
-    //     $scope.chatsList[chatListIndex].push(data);
-    //     addPhotos(data);
-    //     if( isAtBottom && !$scope.isWriting) $ionicScrollDelegate.scrollBottom();
-    //   }
-    // })
     /* 是否需要显示时间()
      * @params: index: 第几个chat
      * 判断依据：与上一个评论时间是否在同一分钟||index为0
@@ -1110,17 +1097,6 @@ angular.module('donlerApp.controllers', [])
     //---发聊天
     $scope.isShowEmotions = false;
     $scope.content = '';
-    //获取自己的资料供发的时候用
-    var currentUser;
-    var poster;
-    User.getData($scope.userId, function(err,data){
-      currentUser = data;
-      poster = {
-        '_id': currentUser._id,
-        'photo': currentUser.photo,
-        'nickname': currentUser.nickname
-      }
-    });
     //发布文字消息
     $scope.publish = function() {
       // if(window.analytics){
@@ -1166,12 +1142,18 @@ angular.module('donlerApp.controllers', [])
       // if(window.analytics){
       //   window.analytics.trackEvent('Click', 'uploadImg');
       // }
+      if($scope.uploading) return;
+      $scope.uploading = true;
       $scope.confirmUploadModal.hide();
+      var _updateChat = function (chat) {
+        updateChat(chat);
+        $scope.uploading = false;
+      }
       easemob.chat(updateChat,updateChat,[{
-        chatType:$scope.chatRoom.type,
-        target:$scope.chatRoom.easemobId,
-        contentType:'IMAGE',
-        content:{'filePath':$scope.previewImg}
+        chatType: $scope.chatRoom.type,
+        target: $scope.chatRoom.easemobId,
+        contentType: 'IMAGE',
+        content: {'filePath': $scope.previewImg}
         }]
       );
     };

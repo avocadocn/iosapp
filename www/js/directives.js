@@ -218,7 +218,9 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
         releaseGesture = ionic.onGesture("release", recordEndCallBack, recordButton);
       }
       function recordCancelCallback(){
-        ionic.offGesture(dragupGesture, "dragup", recordCancelCallback)
+        ionic.offGesture(releaseGesture, "release", recordEndCallBack);
+        ionic.offGesture(dragupGesture, "dragup", recordCancelCallback);
+        easemob.recordCancel();
       }
       ionic.onGesture("hold", recordStartCallback, recordButton);
       scope.emojiList=[];
