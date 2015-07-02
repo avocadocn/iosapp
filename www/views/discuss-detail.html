@@ -29,7 +29,7 @@
                 </div>
               </div>
               <div ng-switch-when="VOICE" class="content">
-                <button ng-click="toggleVoice(chat.body)">{{chat.body.duration}}'<span ng-if="chat.body.isPlaying">...</span><span ng-if="!chat.body.isPlaying"></span></button>
+                <button ng-click="toggleVoice(chat)">{{chat.body.duration}}'<span ng-if="chat.body.isPlaying">...</span><span ng-if="!chat.body.isPlaying"></span><span>{{chat.body.isListened}}</span></button>
               </div>
               <div ng-switch-default="ng-switch-default" class="content">
                 <div ng-bind-html="chat.body.text | emoji | unsafe" class="triangle_isosceles"></div>

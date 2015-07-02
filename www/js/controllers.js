@@ -1011,16 +1011,23 @@ angular.module('donlerApp.controllers', [])
     //记录当前正在播放的chat的body对象
     var isPlayingBody = null;
 
-    function playAudio (body) {
-      var url = body.localUrl ? body.localUrl:body.remoteUrl;
-      easemob.playRecord(null,null,url);
+    function playAudio (chat) {
+      console.log(chat);
+      var url = chat.body.localUrl ? chat.body.localUrl:body.remoteUrl;
+      var params = {
+        chatType: $scope.chatRoom.type,
+        target:$scope.chatRoom.easemobId, //目标用户的用户名或群的id
+        msgId: chat.msgId, //消息的id
+        path: url
+      };
+      easemob.playRecord(null,null,[params]);
       //定时
       $timeout(function() {
-        if(body.isPlaying) {
+        if(chat.body.isPlaying) {
           isPlayingBody = null;
         }
-        body.isPlaying = false;
-      }, body.duration*1000);
+        chat.body.isPlaying = false;
+      }, chat.body.duration*1000);
     };
 
     function stopAudio () {

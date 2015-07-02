@@ -31,9 +31,10 @@ ion-view.discuss_detail(cache-view="false")
                   .box(photo="chat" chat-type="chatRoom.type" target="chatRoom.easemobId" pswp-id="pswpId" photos="photos" photo-album-id="photoAlbumId" chat-photo)
                     img.img(ng-src="{{chat.body.thumbnailUrl}}"  width="180" height="180"  error-img)
               .content(ng-switch-when="VOICE")
-                button(ng-click="toggleVoice(chat.body)") {{chat.body.duration}}'
+                button(ng-click="toggleVoice(chat)") {{chat.body.duration}}'
                   span(ng-if="chat.body.isPlaying") ...
                   span(ng-if="!chat.body.isPlaying")
+                  span {{chat.body.isListened}}
               .content(ng-switch-default)
                 .triangle_isosceles(ng-bind-html="chat.body.text | emoji | unsafe")
           .failed(ng-if="chat.status==='FAIL'" ng-cloak)
