@@ -230,7 +230,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
                 item.w= chat.body.width;
                 item.h= chat.body.height;
                 item.downloadStatus = chat.body.attachmentDownloadStatus;
-                console.log(item);
                 gallery.invalidateCurrItems();
                 gallery.updateSize(true);
               },function (chat) {
@@ -248,13 +247,6 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
           });
 
           gallery.init();
-          //有些地方需要进入相册,则增加此方法
-          if (scope.pswpPhotoAlbum) {
-            scope.pswpPhotoAlbum.goToAlbum = function () {
-              gallery.close();
-              $location.url('/photo_album/' + scope.photoAlbumId + '/detail');
-            };
-          }
         } catch (e) {
           console.log(e.stack);
           gallery.close();
@@ -1927,6 +1919,33 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
       var height = window.innerHeight - subHeight - 10;
       element[0].style.height = height + 'px';
       element[0].querySelector('.scroll').style.height = height + 'px';
+    }
+  };
+})
+.directive('setSize', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs, ctrl) {
+
+      var max = 180;
+      var width = attrs.width;
+      var height = attrs.height;
+      var woffset = attrs.woffset ? attrs.woffset :0;
+      var hoffset = attrs.hoffset ? attrs.hoffset :0;
+      if(width>height && width>max){
+        var times = width/max;
+        width = max;
+        height = height *times;
+      }
+      else if(height> width && height>max){
+        var times = height/max;
+        height = max;
+        width = width *times;
+      }
+      width += parseFloat(woffset);
+      height += parseFloat(hoffset);
+      element[0].style.width = width + 'px';
+      element[0].style.height = height + 'px';
     }
   };
 })

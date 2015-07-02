@@ -27,9 +27,9 @@ ion-view.discuss_detail(cache-view="false")
               .content(ng-switch-when="IMAGE")
                 .triangle_isosceles.triangle_img
                   .tr
-                    img(ng-src="{{chat.body.thumbnailUrl}}" error-img width="180" height="180")
-                  .box(photo="chat" chat-type="chatRoom.type" target="chatRoom.easemobId" pswp-id="pswpId" photos="photos" photo-album-id="photoAlbumId" chat-photo)
-                    img.img(ng-src="{{chat.body.thumbnailUrl}}"  width="180" height="180"  error-img)
+                    img(ng-src="{{chat.body.thumbnailUrl}}" error-img width={{chat.body.thumbnailWidth*2}} height={{chat.body.thumbnailHeight*2}} set-size)
+                  .box(width={{chat.body.thumbnailWidth*2}} height={{chat.body.thumbnailHeight*2}} woffset=-10 hoffset=-10 photo="chat" chat-type="chatRoom.type" target="chatRoom.easemobId" pswp-id="pswpId" photos="photos" photo-album-id="photoAlbumId" set-size chat-photo)
+                    img.img(ng-src="{{chat.body.thumbnailUrl}}" width={{chat.body.thumbnailWidth*2}} height={{chat.body.thumbnailHeight*2}} set-size error-img)
               .content(ng-switch-when="VOICE")
                 button(ng-click="toggleVoice(chat)") {{chat.body.duration}}'
                   span(ng-if="chat.body.isPlaying") ...

@@ -939,7 +939,8 @@ angular.module('donlerApp.controllers', [])
       if (chat.type==='IMAGE') {
         var item = {
           _id: chat.msgId,
-          downloadStatus: chat.body.attachmentDownloadStatus
+          downloadStatus: chat.body.attachmentDownloadStatus,
+          title: '上传时间: ' + moment(chat.msgTime).format('YYYY-MM-DD HH:mm')
         };
         if(chat.body.attachmentDownloadStatus>1){
           item.src = chat.body.thumbnailUrl;
@@ -951,35 +952,22 @@ angular.module('donlerApp.controllers', [])
           item.w = chat.body.width;
           item.h = chat.body.height;
         }
-        item.title = '上传时间: ' + moment(chat.msgTime).format('YYYY-MM-DD HH:mm');
         $scope.photos.push(item);
       }
     }
     var formatChat = function (chat) {
+      addPhoto(chat);
       if($scope.userList[chat.from]){
         chat.poster = $scope.userList[chat.from];
-        addPhoto(chat);
       }
       else{
         $scope.userList[chat.from]={_id:chat.from};
         Chat.getChatUser(chat.from,function (err,user) {
           if(err) {
             console.log(err);
-            if (chat.type==='IMAGE') {
-              var width = chat.body.width || INFO.screenWidth;
-              var height = chat.body.height || INFO.screenHeight;
-              var item = {
-                _id: chat.msgId,
-                src: chat.body.localUrl?chat.body.localUrl:chat.body.thumbnailUrl,
-                w: width,
-                h: height
-              };
-              $scope.photos.push(item);
-            }
           }
           else {
             chat.poster = user;
-            addPhoto(chat);
             $scope.userList[chat.from].nickname = user.nickname;
             $scope.userList[chat.from].photo = user.photo;
             $scope.userList[chat.from].realname = user.realname;
@@ -1173,7 +1161,7 @@ angular.module('donlerApp.controllers', [])
         updateChat(chat);
         $scope.uploading = false;
       }
-      easemob.chat(updateChat,updateChat,[{
+      easemob.chat(_updateChat,_updateChat,[{
         chatType: $scope.chatRoom.type,
         target: $scope.chatRoom.easemobId,
         contentType: 'IMAGE',
@@ -3774,7 +3762,8 @@ angular.module('donlerApp.controllers', [])
       }
     });
   }])
-  .controller('UserInfoController', ['$ionicHistory', '$scope', '$rootScope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', 'CONFIG', 'INFO', 'Team','Circle', 'Campaign',function ($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopover, Tools, User, CONFIG, INFO, Team, Circle, Campaign) {
+  .controller('UserInfoController', ['$ionicHistory', '$scope', '$rootScope', '$state', '$stateParams', '$ionicPopover', 'Tools', 'User', 'CONFIG', 'INFO', 'Team','Circle', 'Campaign', 'Chat',
+    function ($ionicHistory, $scope, $rootScope, $state, $stateParams, $ionicPopover, Tools, User, CONFIG, INFO, Team, Circle, Campaign, Chat) {
     $scope.nowTab ='team';
     var getMyTeams = function() {
       Team.getList('user', $state.params.userId || localStorage.id, null, function (err, teams) {
@@ -3810,6 +3799,17 @@ angular.module('donlerApp.controllers', [])
     }
     $scope.showReportForm = function() {
       $state.go('report_form',{userId: $scope.user._id});
+      $scope.popover.hide();
+    }
+    $scope.goChat = function () {
+      INFO.chatroom = {
+        'easemobId': $scope.user._id,
+        'logo':$scope.user.photo,
+        'name': $scope.user.nickname,
+        'isGroup':false
+      };
+      $state.go('chat',{chatroomId: $scope.user._id});
+      
       $scope.popover.hide();
     }
     var pageLength = 20; // 一次获取的数据量
