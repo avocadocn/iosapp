@@ -1000,7 +1000,6 @@ angular.module('donlerApp.controllers', [])
     var isPlayingBody = null;
 
     function playAudio (chat) {
-      console.log(chat);
       var url = chat.body.localUrl ? chat.body.localUrl:body.remoteUrl;
       var params = {
         chatType: $scope.chatRoom.type,

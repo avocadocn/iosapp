@@ -27,14 +27,14 @@ ion-view.discuss_detail(cache-view="false")
               .content(ng-switch-when="IMAGE")
                 .triangle_isosceles.triangle_img
                   .tr
-                    img(ng-src="{{chat.body.thumbnailUrl}}" error-img width={{chat.body.thumbnailWidth*2}} height={{chat.body.thumbnailHeight*2}} set-size)
-                  .box(width={{chat.body.thumbnailWidth*2}} height={{chat.body.thumbnailHeight*2}} woffset=-10 hoffset=-10 photo="chat" chat-type="chatRoom.type" target="chatRoom.easemobId" pswp-id="pswpId" photos="photos" photo-album-id="photoAlbumId" set-size chat-photo)
-                    img.img(ng-src="{{chat.body.thumbnailUrl}}" width={{chat.body.thumbnailWidth*2}} height={{chat.body.thumbnailHeight*2}} set-size error-img)
+                    img(ng-src="{{chat.body.thumbnailUrl}}" error-img width="{{chat.body.thumbnailWidth}}" height="{{chat.body.thumbnailHeight}}" set-size)
+                  .box(width="{{chat.body.thumbnailWidth}}" height="{{chat.body.thumbnailHeight}}" woffset=-10 hoffset=-10 photo="chat" chat-type="chatRoom.type" target="chatRoom.easemobId" pswp-id="pswpId" photos="photos" photo-album-id="photoAlbumId" set-size chat-photo)
+                    img.img(ng-src="{{chat.body.thumbnailUrl}}" width="{{chat.body.thumbnailWidth}}" height="{{chat.body.thumbnailHeight}}" set-size error-img)
               .content(ng-switch-when="VOICE")
-                button(ng-click="toggleVoice(chat)") {{chat.body.duration}}'
+                button.voice_button(ng-click="toggleVoice(chat)") {{chat.body.duration}}'
                   span(ng-if="chat.body.isPlaying") ...
                   span(ng-if="!chat.body.isPlaying")
-                  span {{chat.body.isListened}}
+                .red_spot(ng-if="chat.from !== userId && !chat.body.isListened")
               .content(ng-switch-default)
                 .triangle_isosceles(ng-bind-html="chat.body.text | emoji | unsafe")
           .failed(ng-if="chat.status==='FAIL'" ng-cloak)

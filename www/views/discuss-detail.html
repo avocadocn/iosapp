@@ -24,12 +24,13 @@
               <div bo-if="chat.from === userId" class="name">我</div>
               <div ng-switch-when="IMAGE" class="content">
                 <div class="triangle_isosceles triangle_img">
-                  <div class="tr"><img ng-src="{{chat.body.thumbnailUrl}}" error-img="error-img" width="{{chat.body.thumbnailWidth*2}}" height="{{chat.body.thumbnailHeight*2}}" set-size="set-size"/></div>
-                  <div width="{{chat.body.thumbnailWidth*2}}" height="{{chat.body.thumbnailHeight*2}}" woffset="-10" hoffset="-10" photo="chat" chat-type="chatRoom.type" target="chatRoom.easemobId" pswp-id="pswpId" photos="photos" photo-album-id="photoAlbumId" set-size="set-size" chat-photo="chat-photo" class="box"><img ng-src="{{chat.body.thumbnailUrl}}" width="{{chat.body.thumbnailWidth*2}}" height="{{chat.body.thumbnailHeight*2}}" set-size="set-size" error-img="error-img" class="img"/></div>
+                  <div class="tr"><img ng-src="{{chat.body.thumbnailUrl}}" error-img="error-img" width="{{chat.body.thumbnailWidth}}" height="{{chat.body.thumbnailHeight}}" set-size="set-size"/></div>
+                  <div width="{{chat.body.thumbnailWidth}}" height="{{chat.body.thumbnailHeight}}" woffset="-10" hoffset="-10" photo="chat" chat-type="chatRoom.type" target="chatRoom.easemobId" pswp-id="pswpId" photos="photos" photo-album-id="photoAlbumId" set-size="set-size" chat-photo="chat-photo" class="box"><img ng-src="{{chat.body.thumbnailUrl}}" width="{{chat.body.thumbnailWidth}}" height="{{chat.body.thumbnailHeight}}" set-size="set-size" error-img="error-img" class="img"/></div>
                 </div>
               </div>
               <div ng-switch-when="VOICE" class="content">
-                <button ng-click="toggleVoice(chat)">{{chat.body.duration}}'<span ng-if="chat.body.isPlaying">...</span><span ng-if="!chat.body.isPlaying"></span><span>{{chat.body.isListened}}</span></button>
+                <button ng-click="toggleVoice(chat)" class="voice_button">{{chat.body.duration}}'<span ng-if="chat.body.isPlaying">...</span><span ng-if="!chat.body.isPlaying"></span></button>
+                <div ng-if="chat.from !== userId &amp;&amp; !chat.body.isListened" class="red_spot"></div>
               </div>
               <div ng-switch-default="ng-switch-default" class="content">
                 <div ng-bind-html="chat.body.text | emoji | unsafe" class="triangle_isosceles"></div>

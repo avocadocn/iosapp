@@ -1628,6 +1628,18 @@ a>.login .companies_list:activated {
   padding: 4px 7px;
   line-height: 24px;
 }
+.discuss_detail .comments .comment .contents .content .voice_button {
+  float: left;
+}
+.discuss_detail .comments .comment .contents .content .red_spot {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: #e55736;
+  float: left;
+  margin-top: 8px;
+  margin-left: 8px;
+}
 .discuss_detail .comments .comment .contents .remind_box {
   border: 1px solid #ddd;
   border-radius: 3px;
