@@ -905,6 +905,7 @@ angular.module('donlerApp.controllers', [])
     $scope.cid = localStorage.cid;
     $scope.chatsList = [];
     $scope.userList = {};
+    $scope.moreHistory = true;
     function dealReceiveMessage (chat) {
       if(chat.to===$scope.chatRoom.easemobId || !chat.isGroup &&chat.from===$scope.chatRoom.easemobId){
         if(chat.from===$scope.userId) {
@@ -1054,6 +1055,9 @@ angular.module('donlerApp.controllers', [])
         }
         if(chats.length>0) {
           $scope.nextId = chats[0].msgId;
+        }
+        else{
+          $scope.moreHistory = false;
         }
         callback &&callback();
       },function (error) {

@@ -1928,19 +1928,19 @@ angular.module('donlerApp.directives', ['donlerApp.services'])
     link: function (scope, element, attrs, ctrl) {
 
       var max = 180;
-      var width = attrs.width;
-      var height = attrs.height;
-      var woffset = attrs.woffset ? attrs.woffset :0;
-      var hoffset = attrs.hoffset ? attrs.hoffset :0;
+      var width = parseFloat(attrs.width);
+      var height = parseFloat(attrs.height);
+      var woffset = attrs.woffset ? parseFloat(attrs.woffset) :0;
+      var hoffset = attrs.hoffset ? parseFloat(attrs.hoffset) :0;
       if(width>height && width>max){
-        var times = width/max;
+        var times = max / width;
         width = max;
         height = height *times;
       }
       else if(height> width && height>max){
-        var times = height/max;
+        var times = max/height;
         height = max;
-        width = width *times;
+        width = width * times;
       }
       width += parseFloat(woffset);
       height += parseFloat(hoffset);

@@ -1805,14 +1805,12 @@ a>.login .companies_list:activated {
 }
 .discuss_detail .comments .putright .triangle_img .tr {
   top: 10px;
-  left: 162px;
+  left: 142px;
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 .discuss_detail .comments .putright .triangle_img .tr img {
-  top: -19px;
-  left: -33px;
   -webkit-transform-origin: 106px -129px;
   -ms-transform-origin: 106px -129px;
   transform-origin: 106px -129px;

@@ -10,7 +10,7 @@
       </svg></a>
   </ion-header-bar>
   <ion-content>
-    <ion-refresher on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
+    <ion-refresher ng-if="moreHistory" on-refresh="readHistory()" refreshing-icon="ion-looping" pulling-text="下拉读取历史记录" refreshing-text="读取中..."></ion-refresher>
     <div ng-click="hideEmotions()" bindonce="chatsList" class="comments">
       <div class="blocks">
         <div ng-repeat="chat in chatsList track by $index" ng-init="showTime=needShowTime($index)" class="block">
