@@ -22,12 +22,12 @@
     UIWindow *window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window = window;
     
-//    MainController *main = [[MainController alloc]init];
-//    window.rootViewController = main;
-    AvatarViewController *controller = [[AvatarViewController alloc]init];
-    
-    
-    window.rootViewController = controller;
+    MainController *main = [[MainController alloc]init];
+    window.rootViewController = main;
+//    AvatarViewController *controller = [[AvatarViewController alloc]init];
+//    
+//    
+//    window.rootViewController = controller;
     
     [window makeKeyAndVisible];
     
