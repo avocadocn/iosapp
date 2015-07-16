@@ -6,10 +6,11 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
-#import "AcitvitysShowView.h"
+#import "ActivitysShowView.h"
 #import "CircleImageView.h"
 
-@implementation AcitvitysShowView
+
+@implementation ActivitysShowView
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -44,14 +45,15 @@
     CGFloat y = 0;
     for (int i = 0; i < count; i++) {
         CGFloat x = i * width;
-        UIView *view = self.subviews[i];
-        [view setFrame:CGRectMake(x, y, width, height)];
+        UIButton *btn = self.subviews[i];
+        [btn setFrame:CGRectMake(x, y, width, height)];
+        [btn setTag:(i + 1) * 100];
         
-        CircleImageView *civ = view.subviews[0];
+        CircleImageView *civ = btn.subviews[0];
         civ.centerX = width / 2;
         civ.centerY = height / 2 - 8;
         
-        UILabel *label = view.subviews[1];
+        UILabel *label = btn.subviews[1];
         label.centerX = width / 2;
         label.y = CGRectGetMaxY(civ.frame) + 5;
     }
@@ -62,7 +64,7 @@
   
     
     // itemView
-    UIView *item = [[UIView alloc]init];
+    UIButton *item = [UIButton buttonWithType:UIButtonTypeCustom];
     [item setBackgroundColor:[UIColor whiteColor]];
     
     // 圆形icon
@@ -84,9 +86,33 @@
     
     
     [self addSubview:item];
+    [item addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
     
+}
+
+-(void)btnClick:(UIButton *)sender{
+    switch (sender.tag) {
+        case 100: // 男神榜
+            [self.delegate activitysShowView:self btnClickedByIndex:0];
+            break;
+            
+        case 200: // 女神榜
+            [self.delegate activitysShowView:self btnClickedByIndex:1];
+            break;
+        
+        case 300: // 人气榜
+            [self.delegate activitysShowView:self btnClickedByIndex:2];
+            break;
+        
+        case 400: // 什么活动
+            [self.delegate activitysShowView:self btnClickedByIndex:3];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 @end

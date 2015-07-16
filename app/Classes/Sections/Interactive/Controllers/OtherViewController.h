@@ -1,5 +1,5 @@
 //
-//  AcitvitysShowView.h
+//  OtherViewController.h
 //  app
 //
 //  Created by 张加胜 on 15/7/16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AcitvitysShowView : UIView
+@interface OtherViewController : UIViewController
 
 @end

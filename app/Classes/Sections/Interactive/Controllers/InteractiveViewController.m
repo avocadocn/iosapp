@@ -7,8 +7,10 @@
 //
 
 #import "InteractiveViewController.h"
-#import "AcitvitysShowView.h"
-@interface InteractiveViewController ()
+#import "ActivitysShowView.h"
+#import "ActivitysTableController.h"
+#import "OtherViewController.h"
+@interface InteractiveViewController ()<ActivitysShowViewDelegate>
 
 @property (nonatomic ,strong) UICollectionView *avatarCV;
 @end
@@ -19,16 +21,50 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    AcitvitysShowView *asv = [[AcitvitysShowView alloc]init];
+    ActivitysShowView *asv = [[ActivitysShowView alloc]init];
     asv.y += 64;
+    
+    // 设置代理
+    [asv setDelegate:self];
     [self.view addSubview:asv];
     
-    UITableView *tableView = [[UITableView alloc]init];
+    ActivitysTableController *atc = [[ActivitysTableController alloc]init];
+    atc.view.y = CGRectGetMaxY(asv.frame);
+    
+    
+    [self.view addSubview:atc.view];
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)activitysShowView:(ActivitysShowView *)activitysShowView btnClickedByIndex:(NSInteger)index{
+    switch (index) {
+        case 0: // 男神
+            break;
+        case 1: // 女神
+           
+            break;
+        case 2: // 人气
+            
+            break;
+        case 3: // 什么活动
+        {
+            OtherViewController *controller = [[OtherViewController alloc]init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+
+           
+            break;
+            
+        
+        default:
+            break;
+    }
 }
 
 /*
