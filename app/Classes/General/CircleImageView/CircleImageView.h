@@ -13,5 +13,5 @@
 
 
 // 构造。
-+(instancetype)circleImageViewWithImage:(UIImage *)image radius:(CGFloat)radius;
++(instancetype)circleImageViewWithImage:(UIImage *)image diameter:(CGFloat)diameter;
 @end

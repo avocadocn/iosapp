@@ -7,8 +7,7 @@
 //
 
 #import "InteractiveViewController.h"
-#import "CircleImageView.h"
-#import "CircleImageView.h"
+#import "AcitvitysShowView.h"
 @interface InteractiveViewController ()
 
 @property (nonatomic ,strong) UICollectionView *avatarCV;
@@ -20,7 +19,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-   
+    AcitvitysShowView *asv = [[AcitvitysShowView alloc]init];
+    asv.y += 64;
+    [self.view addSubview:asv];
+    
+    UITableView *tableView = [[UITableView alloc]init];
 }
 
 - (void)didReceiveMemoryWarning {
