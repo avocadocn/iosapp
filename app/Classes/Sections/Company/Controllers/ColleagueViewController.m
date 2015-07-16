@@ -1,28 +1,32 @@
 //
-//  AttentionViewController.m
-//  DonDemo
+//  ColleagueViewController.m
+//  app
 //
-//  Created by jason on 15/7/10.
-//  Copyright (c) 2015年 jason. All rights reserved.
+//  Created by 申家 on 15/7/16.
+//  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
-#import "AttentionViewController.h"
-
-@interface AttentionViewController ()
+#import "ColleagueViewController.h"
+#import "ColleagueViewCell.h"
+@interface ColleagueViewController ()
 
 @end
 
-@implementation AttentionViewController
+@implementation ColleagueViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
+    [self builtInterface];
+}
+
+- (void)builtInterface
+{
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 /*
