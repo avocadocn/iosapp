@@ -10,6 +10,8 @@
 
 @interface CircleImageView : UIImageView
 
-@property(strong,nonatomic)UIImage *img;
 
+
+// 构造。
++(instancetype)circleImageViewWithImage:(UIImage *)image radius:(CGFloat)radius;
 @end

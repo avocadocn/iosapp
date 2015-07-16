@@ -8,6 +8,7 @@
 
 #import "InteractiveViewController.h"
 #import "CircleImageView.h"
+#import "CircleImageView.h"
 @interface InteractiveViewController ()
 
 @property (nonatomic ,strong) UICollectionView *avatarCV;
@@ -19,8 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-
+   
 }
 
 - (void)didReceiveMemoryWarning {

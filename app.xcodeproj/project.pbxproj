@@ -11,10 +11,7 @@
 		9649B4E41B5649AC00A7F355 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9649B4E21B5649AC00A7F355 /* LaunchScreen.xib */; };
 		9649B4F01B5649AC00A7F355 /* appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B4EF1B5649AC00A7F355 /* appTests.m */; };
 		9649B5371B564DE000A7F355 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B4FC1B564DE000A7F355 /* AppDelegate.m */; };
-		9649B5381B564DE000A7F355 /* AvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5001B564DE000A7F355 /* AvatarCell.m */; };
-		9649B5391B564DE000A7F355 /* AvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5021B564DE000A7F355 /* AvatarViewController.m */; };
 		9649B53A1B564DE000A7F355 /* CircleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5051B564DE000A7F355 /* CircleImageView.m */; };
-		9649B53B1B564DE000A7F355 /* CircleImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9649B5061B564DE000A7F355 /* CircleImageView.xib */; };
 		9649B53C1B564DE000A7F355 /* AttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B50F1B564DE000A7F355 /* AttentionViewController.m */; };
 		9649B53D1B564DE000A7F355 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5151B564DE000A7F355 /* ChatViewController.m */; };
 		9649B53E1B564DE000A7F355 /* CompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B51B1B564DE000A7F355 /* CompanyViewController.m */; };
@@ -55,13 +52,8 @@
 		9649B4EF1B5649AC00A7F355 /* appTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = appTests.m; sourceTree = "<group>"; };
 		9649B4FB1B564DE000A7F355 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9649B4FC1B564DE000A7F355 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9649B4FF1B564DE000A7F355 /* AvatarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarCell.h; sourceTree = "<group>"; };
-		9649B5001B564DE000A7F355 /* AvatarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarCell.m; sourceTree = "<group>"; };
-		9649B5011B564DE000A7F355 /* AvatarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarViewController.h; sourceTree = "<group>"; };
-		9649B5021B564DE000A7F355 /* AvatarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarViewController.m; sourceTree = "<group>"; };
 		9649B5041B564DE000A7F355 /* CircleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleImageView.h; sourceTree = "<group>"; };
 		9649B5051B564DE000A7F355 /* CircleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleImageView.m; sourceTree = "<group>"; };
-		9649B5061B564DE000A7F355 /* CircleImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircleImageView.xib; sourceTree = "<group>"; };
 		9649B5081B564DE000A7F355 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		9649B50E1B564DE000A7F355 /* AttentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionViewController.h; sourceTree = "<group>"; };
 		9649B50F1B564DE000A7F355 /* AttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttentionViewController.m; sourceTree = "<group>"; };
@@ -215,21 +207,9 @@
 		9649B4FD1B564DE000A7F355 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				9649B4FE1B564DE000A7F355 /* AvatarCollectionView */,
 				9649B5031B564DE000A7F355 /* CircleImageView */,
 			);
 			path = General;
-			sourceTree = "<group>";
-		};
-		9649B4FE1B564DE000A7F355 /* AvatarCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				9649B4FF1B564DE000A7F355 /* AvatarCell.h */,
-				9649B5001B564DE000A7F355 /* AvatarCell.m */,
-				9649B5011B564DE000A7F355 /* AvatarViewController.h */,
-				9649B5021B564DE000A7F355 /* AvatarViewController.m */,
-			);
-			path = AvatarCollectionView;
 			sourceTree = "<group>";
 		};
 		9649B5031B564DE000A7F355 /* CircleImageView */ = {
@@ -237,7 +217,6 @@
 			children = (
 				9649B5041B564DE000A7F355 /* CircleImageView.h */,
 				9649B5051B564DE000A7F355 /* CircleImageView.m */,
-				9649B5061B564DE000A7F355 /* CircleImageView.xib */,
 			);
 			path = CircleImageView;
 			sourceTree = "<group>";
