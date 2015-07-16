@@ -28,6 +28,7 @@
 		A4311F551B577BE1004401B4 /* ColleagueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F541B577BE1004401B4 /* ColleagueViewController.m */; };
 		A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F5A1B577D50004401B4 /* ColleagueViewCell.m */; };
 		A4311F5D1B577D50004401B4 /* ColleagueViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4311F5B1B577D50004401B4 /* ColleagueViewCell.xib */; };
+		A4A009C21B579F5B005AC35F /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A4A009C11B579F5B005AC35F /* 2.jpg */; };
 		C2BB2F66A5C16197F6FD8E9D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9388089A6ADF54035C56E5D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		A4311F591B577D50004401B4 /* ColleagueViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColleagueViewCell.h; sourceTree = "<group>"; };
 		A4311F5A1B577D50004401B4 /* ColleagueViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColleagueViewCell.m; sourceTree = "<group>"; };
 		A4311F5B1B577D50004401B4 /* ColleagueViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColleagueViewCell.xib; sourceTree = "<group>"; };
+		A4A009C11B579F5B005AC35F /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		C836FD3FBA4AB74B0A650FF1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D9388089A6ADF54035C56E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -184,6 +186,7 @@
 		9649B4F91B564DE000A7F355 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A4A009C01B579EEC005AC35F /* Temporary */,
 				9649B4FA1B564DE000A7F355 /* AppDelegate */,
 				9649B4FD1B564DE000A7F355 /* General */,
 				9649B5071B564DE000A7F355 /* Helpers */,
@@ -477,6 +480,14 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		A4A009C01B579EEC005AC35F /* Temporary */ = {
+			isa = PBXGroup;
+			children = (
+				A4A009C11B579F5B005AC35F /* 2.jpg */,
+			);
+			name = Temporary;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -561,8 +572,8 @@
 			files = (
 				9649B5471B565E5900A7F355 /* CompanyViewController.storyboard in Resources */,
 				9649B4E41B5649AC00A7F355 /* LaunchScreen.xib in Resources */,
+				A4A009C21B579F5B005AC35F /* 2.jpg in Resources */,
 				A4311F5D1B577D50004401B4 /* ColleagueViewCell.xib in Resources */,
-				9649B53B1B564DE000A7F355 /* CircleImageView.xib in Resources */,
 				9649B4E11B5649AC00A7F355 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,12 +631,10 @@
 				9649B53A1B564DE000A7F355 /* CircleImageView.m in Sources */,
 				9649B5401B564DE000A7F355 /* MainController.m in Sources */,
 				A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */,
-				9649B5391B564DE000A7F355 /* AvatarViewController.m in Sources */,
 				9649B53E1B564DE000A7F355 /* CompanyViewController.m in Sources */,
 				9649B53F1B564DE000A7F355 /* InteractiveViewController.m in Sources */,
 				9649B53D1B564DE000A7F355 /* ChatViewController.m in Sources */,
 				A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */,
-				9649B5381B564DE000A7F355 /* AvatarCell.m in Sources */,
 				9649B5421B564DE000A7F355 /* ProfileViewController.m in Sources */,
 				9649B53C1B564DE000A7F355 /* AttentionViewController.m in Sources */,
 				A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */,

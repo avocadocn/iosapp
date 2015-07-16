@@ -9,7 +9,7 @@
 #import "CompanySmallCell.h"
 #import "PrefixHeader.pch"
 #import "CompanyDetailCell.h"
-
+#import "ColleagueViewController.h"
 //typedef NS_ENUM(NSInteger, EnumOfCellTitleState){
 //    EnumOfCellTitleStateNo,
 //    EnumOfCellTitleStateYes
@@ -21,6 +21,13 @@
 @end
 
 @implementation CompanySmallCell
+
+- (void)sendValueForTouch:(NSInteger)num
+{
+//    ColleagueViewController *colleague = [[ColleagueViewController alloc]init];
+//    UIViewController *view = self.superview;
+//    [view.navigationController pushViewController:colleague animated:YES];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -56,7 +63,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CompanyDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DetailCell" forIndexPath:indexPath];
-    
     return cell;
 }
 //小 cell 的数量 ,根据数组中的元素数量决定

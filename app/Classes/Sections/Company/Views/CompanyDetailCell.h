@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+
 //公司界面详细的小cell
 @interface CompanyDetailCell : UICollectionViewCell
+
 
 @end

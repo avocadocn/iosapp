@@ -11,7 +11,8 @@
 #import "CompanySmallCell.h"
 #import "PrefixHeader.pch"
 #import "CompanyHeader.h"
-
+#import "CompanyDetailCell.h"
+#import "ColleagueViewController.h"
 @interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @end
@@ -39,8 +40,14 @@
     [self.BigCollection registerClass:[CompanyHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BigHeader"];
     
     [self.view addSubview:self.BigCollection];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jumpPageAction:) name:@"JumpController" object:nil];  //  接受跳转通知
 }
-
+- (void)jumpPageAction:(NSNotification *)noti //用来跳转页面的通知
+{
+    ColleagueViewController *coll = [[ColleagueViewController alloc]init];
+    [self.navigationController pushViewController:coll animated:YES];
+}
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(DLScreenWidth, DLScreenWidth / 3.5 + 30);
@@ -57,10 +64,7 @@
 {
     CompanyHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BigHeader" forIndexPath:indexPath];
     
-    
-    
     return header;
-    
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return 3;

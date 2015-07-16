@@ -8,12 +8,11 @@
 
 #import "CompanyDetailCell.h"
 #import <ReactiveCocoa.h>
-
+#import "ColleagueViewController.h"
+#import "CompanyViewController.h"
 
 
 @implementation CompanyDetailCell
-
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -35,13 +34,13 @@
     
     [self addSubview:view];
     
-    
-    
 }
 
 //通过 view 进行页面的跳转
 - (void)ViewTapAction:(UITapGestureRecognizer *)tap
 {
-    
+    //注册通知
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"JumpController" object:nil userInfo:dic];
 }
 @end

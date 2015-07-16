@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ColleagueViewCell">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collCell" id="gTV-IL-0wX" customClass="ColleagueViewCell">
             <rect key="frame" x="0.0" y="0.0" width="381" height="250"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -72,7 +72,8 @@
                 <outlet property="ColleaguePhoto" destination="mkb-fQ-8kN" id="f6v-XJ-3CX"/>
                 <outlet property="ColleagueWord" destination="er8-JR-bCC" id="OWA-w6-mU7"/>
                 <outlet property="commentButton" destination="Y2O-cH-u2b" id="UHh-WI-e12"/>
-                <outlet property="praiseButton" destination="q2c-VD-Vg7" id="X4G-xH-sCP"/>
+                <outlet property="commondButton" destination="Y2O-cH-u2b" id="jEB-3g-DK9"/>
+                <outlet property="praiseButton" destination="q2c-VD-Vg7" id="R18-70-C4a"/>
                 <outlet property="timeLabel" destination="bh9-Nt-md3" id="MsJ-hE-Jie"/>
             </connections>
             <point key="canvasLocation" x="363.5" y="402"/>

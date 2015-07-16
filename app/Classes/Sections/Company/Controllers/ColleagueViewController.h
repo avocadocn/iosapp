@@ -11,5 +11,6 @@
 @interface ColleagueViewController : UIViewController
 @property (nonatomic, strong)UICollectionView *ColleagueCollection; //同事大collectionView
 
+@property (nonatomic, strong)NSMutableArray *modelArray;
 
 @end
