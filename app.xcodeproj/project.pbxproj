@@ -22,6 +22,11 @@
 		9649B5451B564DE000A7F355 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5351B564DE000A7F355 /* UIView+Extension.m */; };
 		9649B5471B565E5900A7F355 /* CompanyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9649B5461B565E5900A7F355 /* CompanyViewController.storyboard */; };
 		9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5501B5663CE00A7F355 /* Test1ViewController.m */; };
+		96D23E221B5784910079193C /* ActivitysShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E211B5784910079193C /* ActivitysShowView.m */; };
+		96D23E271B5798660079193C /* ActivitysTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E261B5798660079193C /* ActivitysTableController.m */; };
+		96D23E2D1B57A2890079193C /* OtherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E2C1B57A2890079193C /* OtherViewController.m */; };
+		96D23E301B57A5870079193C /* DLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E2F1B57A5870079193C /* DLNavigationController.m */; };
+		96D23E331B57A6DC0079193C /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */; };
 		A4311F4B1B574748004401B4 /* CompanySmallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F491B574748004401B4 /* CompanySmallCell.m */; };
 		A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F4E1B57565A004401B4 /* CompanyDetailCell.m */; };
 		A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F511B575F37004401B4 /* CompanyHeader.m */; };
@@ -74,6 +79,16 @@
 		9649B5461B565E5900A7F355 /* CompanyViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CompanyViewController.storyboard; sourceTree = "<group>"; };
 		9649B54F1B5663CE00A7F355 /* Test1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test1ViewController.h; sourceTree = "<group>"; };
 		9649B5501B5663CE00A7F355 /* Test1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test1ViewController.m; sourceTree = "<group>"; };
+		96D23E201B5784910079193C /* ActivitysShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitysShowView.h; sourceTree = "<group>"; };
+		96D23E211B5784910079193C /* ActivitysShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitysShowView.m; sourceTree = "<group>"; };
+		96D23E251B5798660079193C /* ActivitysTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitysTableController.h; sourceTree = "<group>"; };
+		96D23E261B5798660079193C /* ActivitysTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitysTableController.m; sourceTree = "<group>"; };
+		96D23E2B1B57A2890079193C /* OtherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherViewController.h; sourceTree = "<group>"; };
+		96D23E2C1B57A2890079193C /* OtherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherViewController.m; sourceTree = "<group>"; };
+		96D23E2E1B57A5870079193C /* DLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNavigationController.h; sourceTree = "<group>"; };
+		96D23E2F1B57A5870079193C /* DLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNavigationController.m; sourceTree = "<group>"; };
+		96D23E311B57A6DC0079193C /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
+		96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
 		A4311F481B574748004401B4 /* CompanySmallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySmallCell.h; sourceTree = "<group>"; };
 		A4311F491B574748004401B4 /* CompanySmallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySmallCell.m; sourceTree = "<group>"; };
 		A4311F4D1B57565A004401B4 /* CompanyDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyDetailCell.h; sourceTree = "<group>"; };
@@ -373,9 +388,9 @@
 		9649B51E1B564DE000A7F355 /* Interactive */ = {
 			isa = PBXGroup;
 			children = (
+				96D23E1F1B5784910079193C /* View */,
 				9649B51F1B564DE000A7F355 /* Controllers */,
 				9649B5221B564DE000A7F355 /* Models */,
-				9649B5231B564DE000A7F355 /* Views */,
 			);
 			path = Interactive;
 			sourceTree = "<group>";
@@ -385,6 +400,10 @@
 			children = (
 				9649B5201B564DE000A7F355 /* InteractiveViewController.h */,
 				9649B5211B564DE000A7F355 /* InteractiveViewController.m */,
+				96D23E251B5798660079193C /* ActivitysTableController.h */,
+				96D23E261B5798660079193C /* ActivitysTableController.m */,
+				96D23E2B1B57A2890079193C /* OtherViewController.h */,
+				96D23E2C1B57A2890079193C /* OtherViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -394,13 +413,6 @@
 			children = (
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		9649B5231B564DE000A7F355 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		9649B5241B564DE000A7F355 /* Main */ = {
@@ -417,6 +429,8 @@
 			children = (
 				9649B5261B564DE000A7F355 /* MainController.h */,
 				9649B5271B564DE000A7F355 /* MainController.m */,
+				96D23E2E1B57A5870079193C /* DLNavigationController.h */,
+				96D23E2F1B57A5870079193C /* DLNavigationController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -467,6 +481,8 @@
 		9649B5331B564DE000A7F355 /* Categorys */ = {
 			isa = PBXGroup;
 			children = (
+				96D23E311B57A6DC0079193C /* UIBarButtonItem+Extension.h */,
+				96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */,
 				9649B5341B564DE000A7F355 /* UIView+Extension.h */,
 				9649B5351B564DE000A7F355 /* UIView+Extension.m */,
 			);
@@ -628,6 +644,7 @@
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
 				9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */,
 				9649B5451B564DE000A7F355 /* UIView+Extension.m in Sources */,
+				96D23E221B5784910079193C /* ActivitysShowView.m in Sources */,
 				9649B53A1B564DE000A7F355 /* CircleImageView.m in Sources */,
 				9649B5401B564DE000A7F355 /* MainController.m in Sources */,
 				A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */,
@@ -637,10 +654,14 @@
 				A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */,
 				9649B5421B564DE000A7F355 /* ProfileViewController.m in Sources */,
 				9649B53C1B564DE000A7F355 /* AttentionViewController.m in Sources */,
+				96D23E271B5798660079193C /* ActivitysTableController.m in Sources */,
 				A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */,
+				96D23E331B57A6DC0079193C /* UIBarButtonItem+Extension.m in Sources */,
 				9649B5371B564DE000A7F355 /* AppDelegate.m in Sources */,
+				96D23E2D1B57A2890079193C /* OtherViewController.m in Sources */,
 				A4311F4B1B574748004401B4 /* CompanySmallCell.m in Sources */,
 				A4311F551B577BE1004401B4 /* ColleagueViewController.m in Sources */,
+				96D23E301B57A5870079193C /* DLNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

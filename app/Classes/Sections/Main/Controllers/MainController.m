@@ -12,6 +12,7 @@
 #import "CompanyViewController.h"
 #import "AttentionViewController.h"
 #import "ProfileViewController.h"
+#import "DLNavigationController.h"
 
 
 @interface MainController ()
@@ -23,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     
     
     // 添加主页面VC
@@ -47,7 +49,7 @@
 - (void)addOneTabWithVC:(UIViewController *)viewController title:(NSString *)title{
     viewController.title = title;
     [viewController.view setBackgroundColor:[UIColor whiteColor]];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:viewController];
+    DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:viewController];
     [self addChildViewController:nav];
     
 }
