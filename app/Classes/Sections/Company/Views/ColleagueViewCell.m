@@ -29,7 +29,7 @@
     self.layer.masksToBounds = YES;
     self.layer.borderWidth = 1;
     self.layer.borderColor = [UIColor colorWithWhite:.5 alpha:.5].CGColor;
-    CircleImageView *imageView = [CircleImageView circleImageViewWithImage:[UIImage imageNamed:@"2.jpg"] radius:45];
+    CircleImageView *imageView = [CircleImageView circleImageViewWithImage:[UIImage imageNamed:@"2.jpg"] diameter:45];
     imageView.frame = CGRectMake(8, 8, 45, 45);
     [self addSubview:imageView];
     

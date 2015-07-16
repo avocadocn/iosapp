@@ -23,16 +23,17 @@
 }
 */
 
-+(instancetype)circleImageViewWithImage:(UIImage *)image radius:(CGFloat)radius{
++(instancetype)circleImageViewWithImage:(UIImage *)image diameter:(CGFloat)diameter{
     CircleImageView *cv = [[CircleImageView alloc]init];
     [cv setImage:image];
     
-    [cv.layer setCornerRadius:radius / 2];
+    [cv.layer setCornerRadius:diameter / 2];
     cv.layer.masksToBounds = YES;
     
-    cv.size = CGSizeMake(radius, radius);
+    cv.size = CGSizeMake(diameter, diameter);
     return cv;
 }
+
 
 
 
