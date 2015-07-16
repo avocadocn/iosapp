@@ -8,6 +8,11 @@
 
 #import "CircleImageView.h"
 
+
+@interface CircleImageView()
+
+
+@end
 @implementation CircleImageView
 
 /*
@@ -18,21 +23,18 @@
 }
 */
 
-
-/*
- 默认传入的图片为正方形
- */
--(void)setImg:(UIImage *)img{
-    _img = img;
-    self.image = img;
-    CGFloat height = img.size.height;
-    [self.layer setCornerRadius:height / 2];
-    self.layer.masksToBounds = YES;
-    self.width = height;
-    self.height = height;
-    // NSLog(@"%@",NSStringFromCGRect(self.frame));
++(instancetype)circleImageViewWithImage:(UIImage *)image radius:(CGFloat)radius{
+    CircleImageView *cv = [[CircleImageView alloc]init];
+    [cv setImage:image];
     
+    [cv.layer setCornerRadius:radius / 2];
+    cv.layer.masksToBounds = YES;
+    
+    cv.size = CGSizeMake(radius, radius);
+    return cv;
 }
+
+
 
 
 @end

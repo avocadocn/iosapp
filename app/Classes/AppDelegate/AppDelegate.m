@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "MainController.h"
-#import "AvatarViewController.h"
 
 @interface AppDelegate ()
 
@@ -24,10 +23,7 @@
     
     MainController *main = [[MainController alloc]init];
     window.rootViewController = main;
-//    AvatarViewController *controller = [[AvatarViewController alloc]init];
-//    
-//    
-//    window.rootViewController = controller;
+
     
     [window makeKeyAndVisible];
     
