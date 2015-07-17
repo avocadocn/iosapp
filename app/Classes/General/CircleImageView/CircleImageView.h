@@ -14,4 +14,7 @@
 
 // 构造。
 +(instancetype)circleImageViewWithImage:(UIImage *)image diameter:(CGFloat)diameter;
+
+
+
 @end

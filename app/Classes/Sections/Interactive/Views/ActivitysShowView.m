@@ -10,6 +10,7 @@
 #import "CircleImageView.h"
 
 
+
 @implementation ActivitysShowView
 
 /*
@@ -39,6 +40,10 @@
 
 -(void)layoutSubviews{
     // NSLog(@"%@",self.subviews[0]);
+    
+    
+    
+    // 计算尺寸
     NSUInteger count = self.subviews.count;
     CGFloat width = DLScreenWidth / count;
     CGFloat height = 100;
