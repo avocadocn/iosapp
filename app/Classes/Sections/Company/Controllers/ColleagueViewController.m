@@ -8,8 +8,10 @@
 
 #import "ColleagueViewController.h"
 #import "ColleagueViewCell.h"
+#import "ConditionController.h"
+
 #import <Masonry.h>
-@interface ColleagueViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -25,47 +27,57 @@
 {
     [self makeFalse];
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.minimumLineSpacing = 15;
-    self.ColleagueCollection = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(stateAction)];
+    
+    self.ColleagueCollection = [[UITableView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.ColleagueCollection.delegate = self;
     self.ColleagueCollection.dataSource = self;
     [self.ColleagueCollection setBackgroundColor:[UIColor colorWithWhite:.93 alpha:1]];
     self.title = @"同事圈";
-    [self.ColleagueCollection registerClass:[ColleagueViewCell class] forCellWithReuseIdentifier:@"ColleagueCell"];
+    [self.ColleagueCollection registerClass:[ColleagueViewCell class] forCellReuseIdentifier:@"tableCell"];
+    self.ColleagueCollection.separatorColor = [UIColor clearColor];
+    
     [self.view addSubview:self.ColleagueCollection];
     
 }
-
+- (void)stateAction
+{
+    // 及时状态 页面
+    ConditionController *state = [[ConditionController alloc]init];
+    [self.navigationController pushViewController:state animated:YES];
+    
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ColleagueViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell"];
+    
+    NSString *str = [NSString stringWithFormat:@"%ld",cell.num];
+    [self.modelArray insertObject:str atIndex:indexPath.row];
+    return cell;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.modelArray count];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *str = [self.modelArray objectAtIndex:indexPath.row];
+    NSInteger num = [str integerValue];
+    NSInteger a = (num +2 )/ 3;
+//    NSLog(@"%ld     %ld", num, a);
+    return 120 + a * (DLScreenWidth / 5 + 10);  // 根据图片的高度返回行数
+}
 - (void)makeFalse
 {
     self.modelArray = [NSMutableArray array];
     for (int i = 0; i < 10; i++) {  //制造假数据
+        @autoreleasepool {
         int d = arc4random() % 10;
         
         NSString *str = [NSString stringWithFormat:@"%d", d];
         [self.modelArray addObject:str];
+        }
     }
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"%@", collectionViewLayout);
-    
-    return CGSizeMake(DLScreenWidth - 20,DLScreenWidth / 2); //这个的判断
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    ColleagueViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ColleagueCell" forIndexPath:indexPath];
-    
-    return cell;
-}
-
-//暂时有十个动态
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return self.modelArray.count;
 }
 
 - (void)didReceiveMemoryWarning {

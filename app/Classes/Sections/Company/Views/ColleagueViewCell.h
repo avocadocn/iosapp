@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ColleagueViewCell : UICollectionViewCell
+@interface ColleagueViewCell : UITableViewCell
 @property (strong, nonatomic)  UIImageView *ColleaguePhoto;
 @property (strong, nonatomic)  UILabel *ColleagueNick; // 同事名称
 @property (strong, nonatomic)  UILabel *timeLabel;  // 事件时间
@@ -20,5 +20,5 @@
 @property (nonatomic , strong)NSArray *array;
 @property (nonatomic, assign)NSIndexPath *indexPath;  //用来对应的取数组的 indexPath   已经 撤销
 @property (nonatomic, copy)NSString *name;  // 存放假的数据
-
+@property (nonatomic, assign)NSInteger num;
 @end
