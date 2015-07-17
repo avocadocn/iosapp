@@ -8,19 +8,28 @@
 
 #import "InteractiveViewController.h"
 #import "ActivitysShowView.h"
-#import "ActivitysTableController.h"
-#import "OtherViewController.h"
-@interface InteractiveViewController ()<ActivitysShowViewDelegate>
+
+#import "CurrentActivitysShowCell.h"
+
+#import "OtherController.h"
+@interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic ,strong) UICollectionView *avatarCV;
+@property (nonatomic ,strong) UITableView *tableView;
+
 @end
 
 @implementation InteractiveViewController
 
+static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // 设置背景颜色
+    [self.view setBackgroundColor:RGB(235, 235, 235)];
+    
+    // 上方活动展示view
     ActivitysShowView *asv = [[ActivitysShowView alloc]init];
     asv.y += 64;
     
@@ -28,13 +37,27 @@
     [asv setDelegate:self];
     [self.view addSubview:asv];
     
-    ActivitysTableController *atc = [[ActivitysTableController alloc]init];
-    atc.view.y = CGRectGetMaxY(asv.frame);
+    NSLog(@"%@",[UIApplication sharedApplication].keyWindow.rootViewController);
+    
+    // 活动展示table
+    UITableView *tableView = [[UITableView alloc]init];
+    [tableView registerClass:[CurrentActivitysShowCell class] forCellReuseIdentifier:ID];
+    [tableView setFrame:self.view.frame];
+    tableView.y = CGRectGetMaxY(asv.frame);
+    tableView.height = DLScreenHeight - tableView.y - 50;
+    [tableView setContentInset:UIEdgeInsetsMake(0, 0, 10, 0)];
+    
+    tableView.showsVerticalScrollIndicator = NO;
+    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [tableView setBackgroundColor:self.view.backgroundColor];
+    
+    [tableView setDelegate:self];
+    [tableView setDataSource:self];
+    
+     [self.view addSubview:tableView];
+     self.tableView = tableView;
     
     
-    [self.view addSubview:atc.view];
-    
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,8 +77,12 @@
             break;
         case 3: // 什么活动
         {
-            OtherViewController *controller = [[OtherViewController alloc]init];
+//            OtherActivityController *controller = [[OtherActivityController alloc]init];
+//            [self.navigationController pushViewController:controller animated:YES];
+            OtherController *controller = [[OtherController alloc]init];
             [self.navigationController pushViewController:controller animated:YES];
+//            ActivitysTableController *controller = [[ActivitysTableController alloc]init];
+//            [self.navigationController pushViewController:controller animated:YES];
         }
 
            
@@ -66,6 +93,31 @@
             break;
     }
 }
+
+
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 20;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CurrentActivitysShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 150;
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
 
 /*
 #pragma mark - Navigation
