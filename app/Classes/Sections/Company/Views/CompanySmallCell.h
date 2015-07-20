@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface CompanySmallCell : UICollectionViewCell
-@property (strong, nonatomic) UICollectionView *SmallCollection;
-@property (strong, nonatomic) UILabel *TitleLabel;
-
+@property (strong, nonatomic) UICollectionView *SmallCollection;  //  横划 CollectionView
+@property (strong, nonatomic) UILabel *TitleLabel;   //"标题 Label"
+@property (strong, nonatomic) UIView *TitleView;  //标题 View
 // 纵向的扁平 cell
 
 - (void)interCellWithModelArray:(NSArray *)modelArray;

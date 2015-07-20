@@ -9,7 +9,9 @@
 #import "ConditionController.h"
 #import <ReactiveCocoa.h>
 #import <Masonry.h>
-
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "ChoosePhotoController.h"
+#import "ChoosePhotoView.h"
 #define WID ((DLScreenWidth - 20) / 4.0)
 
 @interface ConditionController ()<UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -42,13 +44,13 @@
         return [RACSignal empty];
     }];
     
-    
     UIButton *completeButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
 //    [completeButton setBackgroundColor:[UIColor greenColor]];
     UILabel *completeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
     completeLabel.text = @"完成";
     completeLabel.textAlignment = NSTextAlignmentRight;
     [completeButton addSubview:completeLabel];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:completeButton];
     
     self.speakTextView = [UITextView new];
@@ -58,7 +60,7 @@
     self.speakTextView.allowsEditingTextAttributes = YES;
     self.speakTextView.text = @"这一刻的想法...";
     [self.view addSubview:self.speakTextView];
-
+    
     [self.speakTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.view.mas_top);
         make.left.mas_equalTo(self.view).with.offset(10);
@@ -66,27 +68,22 @@
         make.height.mas_equalTo(120);
     }];
     
-    self.selectPhotoView = [UIView new];
-    self.selectPhotoView.backgroundColor = [UIColor blackColor];
+    self.selectPhotoView = [ChoosePhotoView new];
+    self.selectPhotoView.backgroundColor = [UIColor blueColor];
     [self.view addSubview:self.selectPhotoView];
-    
+    self.selectPhotoView.view = self;
     [self.selectPhotoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.speakTextView.mas_bottom);
         make.left.mas_equalTo(self.speakTextView.mas_left);
         make.size.mas_equalTo(CGSizeMake(DLScreenWidth - 20, WID + 20));
     }];
-    self.addButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.addButton addTarget:self action:@selector(photoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.addButton setBackgroundColor:[UIColor whiteColor]];
-    [self.selectPhotoView addSubview:self.addButton];
-    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.selectPhotoView).with.offset(5);
-        make.left.mas_equalTo(self.selectPhotoView).with.offset(5);
-        make.size.mas_equalTo(CGSizeMake(WID - 5, WID - 5));
-    }];
 }
 - (void)photoButtonAction:(UIButton *)sender
 {
+    ChoosePhotoController *photo = [ChoosePhotoController shareStateOfController];
+    [self.navigationController pushViewController:photo animated:YES];
+    
+/*    调用系统相册
     //调用类方法判断当前设备是否存在图片库
     self.photoArray = [NSMutableArray array];
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
@@ -99,17 +96,22 @@
     } else {
         NSLog(@"没有图片库");
     }
+*/
+    
 }
+
+
 // 跳转页面 选择照片
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     // info 是存所选取的图片的信息的字典
 //    [picker dismissViewControllerAnimated:YES completion:nil];
-    NSLog(@"选中");
+//    NSLog(@"选中");
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
     [self.photoArray addObject:image];
     
-    NSLog(@"%@", info);
+//    NSLog(@"%@", info);
     
 }
 
@@ -117,7 +119,10 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     NSInteger temp = [self.photoArray count];
-//    self.selectPhotoView.height = 25 + WID * (temp - 2) / 4;  //为什么不能改变坐标?
+    if (temp < 9)
+    {
+        
+    }
     
     self.selectPhotoView.backgroundColor = [UIColor whiteColor];
     for (int i = 0; i < temp; i++) {
@@ -145,15 +150,19 @@
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
 }
+
+
+
 - (void)deleteButtonAction:(UIButton *)sender
 {
     [self.photoArray removeObjectAtIndex:(sender.tag - 1)];
+    self.selectPhotoView.frame = CGRectMake(10, self.speakTextView.frame.origin.y + self.speakTextView.frame.size.height, DLScreenWidth - 20, WID * [self.photoArray count]);
     
     for (UIImage *image in self.photoArray) {
         @autoreleasepool {
-            [self.selectPhotoView removeFromSuperview];
-            self.selectPhotoView = [UIView new];
+            
             
             
         }
