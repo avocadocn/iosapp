@@ -30,12 +30,12 @@
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    NSLog(@"000");
+   // NSLog(@"000");
     NSArray *nibs = [[NSBundle mainBundle ]loadNibNamed:@"CurrentActivitysShowCell" owner:self options:nil];
     if (nibs.count > 0) {
         self = nibs.firstObject;
         // self.width = DLScreenWidth;
-         NSLog(@"%@",self.nameLabel);
+         // NSLog(@"%@",self.nameLabel);
         // 设置圆角矩形
         [self.container.layer setCornerRadius:4.0f];
         [self.container.layer setMasksToBounds:YES];

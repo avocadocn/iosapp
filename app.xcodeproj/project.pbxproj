@@ -15,6 +15,11 @@
 		961053541B590C31002D62A3 /* OtherSegmentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9610534E1B590C31002D62A3 /* OtherSegmentButton.m */; };
 		961053581B590C70002D62A3 /* OtherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053571B590C70002D62A3 /* OtherController.m */; };
 		9610535B1B590C96002D62A3 /* InteractiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9610535A1B590C96002D62A3 /* InteractiveViewController.m */; };
+		9610535E1B5C9317002D62A3 /* RankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9610535D1B5C9317002D62A3 /* RankController.m */; };
+		961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053601B5C9550002D62A3 /* RankShowViewCell.m */; };
+		961053641B5C9C51002D62A3 /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053631B5C9C51002D62A3 /* LineLayout.m */; };
+		961053671B5CDA89002D62A3 /* DetailActivityShowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053661B5CDA89002D62A3 /* DetailActivityShowController.m */; };
+		9610536A1B5CDB0B002D62A3 /* DetailActivityShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053691B5CDB0B002D62A3 /* DetailActivityShowView.m */; };
 		9649B4E11B5649AC00A7F355 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9649B4E01B5649AC00A7F355 /* Images.xcassets */; };
 		9649B4E41B5649AC00A7F355 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9649B4E21B5649AC00A7F355 /* LaunchScreen.xib */; };
 		9649B4F01B5649AC00A7F355 /* appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B4EF1B5649AC00A7F355 /* appTests.m */; };
@@ -73,6 +78,16 @@
 		961053571B590C70002D62A3 /* OtherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherController.m; sourceTree = "<group>"; };
 		961053591B590C96002D62A3 /* InteractiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractiveViewController.h; sourceTree = "<group>"; };
 		9610535A1B590C96002D62A3 /* InteractiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractiveViewController.m; sourceTree = "<group>"; };
+		9610535C1B5C9317002D62A3 /* RankController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankController.h; sourceTree = "<group>"; };
+		9610535D1B5C9317002D62A3 /* RankController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankController.m; sourceTree = "<group>"; };
+		9610535F1B5C9550002D62A3 /* RankShowViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankShowViewCell.h; sourceTree = "<group>"; };
+		961053601B5C9550002D62A3 /* RankShowViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankShowViewCell.m; sourceTree = "<group>"; };
+		961053621B5C9C51002D62A3 /* LineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineLayout.h; sourceTree = "<group>"; };
+		961053631B5C9C51002D62A3 /* LineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineLayout.m; sourceTree = "<group>"; };
+		961053651B5CDA89002D62A3 /* DetailActivityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailActivityShowController.h; sourceTree = "<group>"; };
+		961053661B5CDA89002D62A3 /* DetailActivityShowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailActivityShowController.m; sourceTree = "<group>"; };
+		961053681B5CDB0B002D62A3 /* DetailActivityShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailActivityShowView.h; sourceTree = "<group>"; };
+		961053691B5CDB0B002D62A3 /* DetailActivityShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailActivityShowView.m; sourceTree = "<group>"; };
 		9649B4D01B5649AC00A7F355 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9649B4D41B5649AC00A7F355 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9649B4E01B5649AC00A7F355 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -184,6 +199,12 @@
 				9610534C1B590C31002D62A3 /* OtherActivityShowCell.xib */,
 				9610534D1B590C31002D62A3 /* OtherSegmentButton.h */,
 				9610534E1B590C31002D62A3 /* OtherSegmentButton.m */,
+				9610535F1B5C9550002D62A3 /* RankShowViewCell.h */,
+				961053601B5C9550002D62A3 /* RankShowViewCell.m */,
+				961053621B5C9C51002D62A3 /* LineLayout.h */,
+				961053631B5C9C51002D62A3 /* LineLayout.m */,
+				961053681B5CDB0B002D62A3 /* DetailActivityShowView.h */,
+				961053691B5CDB0B002D62A3 /* DetailActivityShowView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -195,6 +216,10 @@
 				9610535A1B590C96002D62A3 /* InteractiveViewController.m */,
 				961053561B590C70002D62A3 /* OtherController.h */,
 				961053571B590C70002D62A3 /* OtherController.m */,
+				9610535C1B5C9317002D62A3 /* RankController.h */,
+				9610535D1B5C9317002D62A3 /* RankController.m */,
+				961053651B5CDA89002D62A3 /* DetailActivityShowController.h */,
+				961053661B5CDA89002D62A3 /* DetailActivityShowController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -693,14 +718,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				961053641B5C9C51002D62A3 /* LineLayout.m in Sources */,
 				961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */,
+				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
 				9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */,
 				9610535B1B590C96002D62A3 /* InteractiveViewController.m in Sources */,
 				9649B5451B564DE000A7F355 /* UIView+Extension.m in Sources */,
+				9610536A1B5CDB0B002D62A3 /* DetailActivityShowView.m in Sources */,
 				9649B53A1B564DE000A7F355 /* CircleImageView.m in Sources */,
 				961053541B590C31002D62A3 /* OtherSegmentButton.m in Sources */,
 				961053581B590C70002D62A3 /* OtherController.m in Sources */,
+				961053671B5CDA89002D62A3 /* DetailActivityShowController.m in Sources */,
 				9649B5401B564DE000A7F355 /* MainController.m in Sources */,
 				9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */,
 				A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */,
@@ -709,6 +738,7 @@
 				A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */,
 				A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */,
 				9649B5421B564DE000A7F355 /* ProfileViewController.m in Sources */,
+				9610535E1B5C9317002D62A3 /* RankController.m in Sources */,
 				9649B53C1B564DE000A7F355 /* AttentionViewController.m in Sources */,
 				A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */,
 				961053521B590C31002D62A3 /* OtherActivityShowCell.m in Sources */,

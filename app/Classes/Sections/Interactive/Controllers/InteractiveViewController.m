@@ -4,7 +4,7 @@
 //
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
-//
+//  主页面
 
 #import "InteractiveViewController.h"
 #import "ActivitysShowView.h"
@@ -12,10 +12,15 @@
 #import "CurrentActivitysShowCell.h"
 
 #import "OtherController.h"
+#import "RankController.h"
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic ,strong) UICollectionView *avatarCV;
+@property (nonatomic ,strong) ActivitysShowView *asv;
+@property (atomic,assign)BOOL asvHidden ;
 @property (nonatomic ,strong) UITableView *tableView;
+@property (nonatomic ,assign) CGPoint currentPoint;
+@property (nonatomic ,assign) CGPoint startPoint;
+@property (nonatomic ,assign) CGRect asvFrame;
 
 @end
 
@@ -37,7 +42,9 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [asv setDelegate:self];
     [self.view addSubview:asv];
     
-    NSLog(@"%@",[UIApplication sharedApplication].keyWindow.rootViewController);
+    self.asv = asv;
+    
+  //  NSLog(@"%@",[UIApplication sharedApplication].keyWindow.rootViewController);
     
     // 活动展示table
     UITableView *tableView = [[UITableView alloc]init];
@@ -57,8 +64,64 @@ static NSString * const ID = @"CurrentActivitysShowCell";
      [self.view addSubview:tableView];
      self.tableView = tableView;
     
+    self.asvFrame = self.asv.frame;
+    self.asvHidden = NO;
     
 }
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    self.startPoint = scrollView.contentOffset;
+}
+
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    NSLog(@"%@",NSStringFromCGPoint(velocity));
+    if (velocity.y > 0.0f) {
+        if (self.asvHidden == NO) {
+            [self hiddenASV];
+            return;
+        }
+        
+        
+    }else if (velocity.y < -0.6f){
+        if (self.asvHidden == YES) {
+            [self showASV];
+            return;
+        }
+        
+    }
+    self.currentPoint = scrollView.contentOffset;
+    if (self.currentPoint.y - self.startPoint.y > 0) {
+        if (self.asvHidden == NO) {
+            [self hiddenASV];
+        }
+        
+        return;
+    }
+    
+    
+}
+
+-(void)hiddenASV{
+    self.asvHidden = YES;
+    [UIView animateWithDuration:0.3f animations:^{
+        self.asv.y -= 100;
+        self.tableView.y -= 100;
+        self.tableView.height +=100;
+    }];
+}
+-(void)showASV{
+    self.asvHidden = NO;
+[UIView animateWithDuration:0.3f animations:^{
+    self.asv.y += 100;
+    self.tableView.y += 100;
+    self.tableView.height -= 100;
+
+}];
+}
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -68,6 +131,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 -(void)activitysShowView:(ActivitysShowView *)activitysShowView btnClickedByIndex:(NSInteger)index{
     switch (index) {
         case 0: // 男神
+        {
+            RankController *controller = [[RankController alloc]init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
             break;
         case 1: // 女神
            
@@ -77,12 +144,9 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             break;
         case 3: // 什么活动
         {
-//            OtherActivityController *controller = [[OtherActivityController alloc]init];
-//            [self.navigationController pushViewController:controller animated:YES];
+
             OtherController *controller = [[OtherController alloc]init];
             [self.navigationController pushViewController:controller animated:YES];
-//            ActivitysTableController *controller = [[ActivitysTableController alloc]init];
-//            [self.navigationController pushViewController:controller animated:YES];
         }
 
            
