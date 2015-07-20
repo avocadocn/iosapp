@@ -4,12 +4,13 @@
 //
 //  Created by 张加胜 on 15/7/17.
 //  Copyright (c) 2015年 Donler. All rights reserved.
-//
+//  什么活动页面
 
 #import "OtherController.h"
 #import "OtherSegmentButton.h"
 
 #import "OtherActivityShowCell.h"
+#import "DetailActivityShowController.h"
 
 @interface OtherController ()<UITableViewDataSource,UITableViewDelegate>
 @property(strong,nonatomic)UITableView *tableView;
@@ -43,7 +44,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 74, DLScreenWidth, 25)];
     [view setBackgroundColor:[UIColor whiteColor]];
     OtherSegmentButton *btn = [OtherSegmentButton buttonWithType:UIButtonTypeCustom];
-    NSLog(@"%f--%f",btn.centerY,view.centerY);
+    // NSLog(@"%f--%f",btn.centerY,view.centerY);
     btn.y += (view.height - btn.height) / 2.0;
     btn.x += 8.0f;
     [btn setName:@"热门活动"];
@@ -68,7 +69,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     [tableView setDataSource:self];
     [self.view addSubview:tableView];
     self.tableView = tableView;
-    NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
+    // NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
 }
 
 #pragma mark - Table view data source
@@ -109,8 +110,9 @@ static NSString * const ID = @"OtherActivityShowCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    //    OtherActivityShowCell *cell = (OtherActivityShowCell *)[tableView cellForRowAtIndexPath:indexPath];
-    //    NSLog(@"%@",cell.subviews[0]);
+    
+    DetailActivityShowController *controller = [[DetailActivityShowController alloc]init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 
