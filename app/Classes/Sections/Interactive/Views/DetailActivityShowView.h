@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DetailActivityShowView : UIScrollView
+@interface DetailActivityShowView : UIView
 
 
 @end
