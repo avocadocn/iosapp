@@ -8,9 +8,8 @@
 
 #import "DLNavigationController.h"
 #import "UIBarButtonItem+Extension.h"
-#import "DLNavigationBar.h"
+#import "ChoosePhotoController.h"
 #import "DSNavigationBar.h"
-
 @interface DLNavigationController ()
 
 @end
