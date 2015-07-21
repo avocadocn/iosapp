@@ -51,32 +51,49 @@ typedef NS_ENUM(NSInteger, TouchEvent)
         self.insertButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.insertButton setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
         
+        // button 的点击事件
         self.insertButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
             NSString *str = choose.selectNumLabel.text;
             NSInteger inte = [str integerValue];
             
             if (self.CellTouchState == TouchEventNo) {  //没有被点击过
                 if (inte != 9) {
-                [self.insertButton setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
-                    [choose.photoArray insertObject:self.imageView.image atIndex:inte];
-                inte ++;
-                NSString *strs = [NSString stringWithFormat:@"%ld", inte];
-                choose.selectNumLabel.text = strs;
-                self.CellTouchState = TouchEventYes;
+                    [self.insertButton setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
+                    //  [choose.selectArray insertObject:self.imageView.image atIndex:inte];
+                    [choose.selectArray addObject:self.imageView.image];
+                    
+                    inte ++;
+                    NSString *strs = [NSString stringWithFormat:@"%ld", inte];
+                    choose.selectNumLabel.text = strs;
+                    self.CellTouchState = TouchEventYes;
                 }
-                 else
+                else
                  {
                      UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"请选取九张" message: nil
                                                                 delegate:self cancelButtonTitle:@"返回" otherButtonTitles:nil, nil];
                      [al show];
                  }  //显示提示
-            } else  ///被点击过了
+            } else  ///被点击过了 要移除
             {
                 [self.insertButton setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
-                    inte --;
+                inte --;
                 
-                    NSString * strs = [NSString stringWithFormat:@"%ld", inte];
-                choose.selectNumLabel.text = strs;
+                
+                NSInteger num = 0;
+                for (NSInteger  i = 0; i < [choose.selectArray count]; i++) {
+                    UIImage *image = [choose.selectArray objectAtIndex:i];
+                    if ([image isEqual:self.imageView.image]) {  //是同一张图片
+                        
+                        NSLog(@"%@", image);
+                        num = i;
+                        break;
+                    }
+                }
+                
+                [choose.selectArray removeObjectAtIndex:num];
+                
+                NSString * strs = [NSString stringWithFormat:@"%ld", inte];
+                choose.selectNumLabel.text = strs; //设置红色标签的文字
                 
                 self.CellTouchState = TouchEventNo;
             }

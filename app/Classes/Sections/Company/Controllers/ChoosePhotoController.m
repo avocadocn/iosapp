@@ -12,8 +12,7 @@
 #import <Masonry.h>
 #import "photoHeader.h"
 #import <ReactiveCocoa.h>
-
-
+#import "ConditionController.h"
 
 @interface ChoosePhotoController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -144,6 +143,7 @@ static ChoosePhotoController *choose = nil;
     
     // 走到这一步读取完所有相册
     NSLog(@"%@", self.photoArray);
+    self.selectArray = [NSMutableArray array];
     
     [self.photoCollection reloadData];
 }
@@ -193,19 +193,24 @@ static ChoosePhotoController *choose = nil;
     [imageview addSubview:self.selectNumLabel];
     
     UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [returnButton setTintColor:[UIColor lightGrayColor]];
-    [returnButton setTitle:@"返回" forState: UIControlStateNormal];
+    [returnButton setTintColor:[UIColor colorWithRed:.9 green:.4 blue:.4 alpha:1]];
+    [returnButton setTitle:@"完成" forState: UIControlStateNormal];
     returnButton.frame = CGRectMake(0, 0, 45, 25);
+//    [returnButton setBackgroundColor:[UIColor blackColor]];
     returnButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         
+        // 开始排序
         
+        NSLog(@"返回按钮被点击");
         [self.navigationController popViewControllerAnimated:YES];
         // 铺照片界面
-        [self.delegate arrangeStartWithArray:self.photoArray];
+        [self.delegate arrangeStartWithArray:self.selectArray];
         
         return [RACSignal empty];
     }];
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:returnButton];
+    
     
 }
 // 要显示的 section 的个数
