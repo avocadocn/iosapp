@@ -8,6 +8,8 @@
 
 #import "DLNavigationController.h"
 #import "UIBarButtonItem+Extension.h"
+#import "DLNavigationBar.h"
+#import "DSNavigationBar.h"
 
 @interface DLNavigationController ()
 
@@ -32,12 +34,21 @@
     disableTextAttrs[NSForegroundColorAttributeName] = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:0.7];
     disableTextAttrs[NSFontAttributeName] = textAttrs[NSFontAttributeName];
     [item setTitleTextAttributes:disableTextAttrs forState:UIControlStateDisabled];
+    
+//    // 设置整个项目所有的导航栏
+//    UINavigationBar *bar = [UINavigationBar appearance];
+  
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:[UIColor whiteColor]];
+    [array addObject:[UIColor lightGrayColor]];
+    DSNavigationBar *bar = [[DSNavigationBar alloc]init];
+    [bar setNavigationBarWithColors:array];
+      [self setValue:bar forKey:@"navigationBar"];
 }
 
 /**

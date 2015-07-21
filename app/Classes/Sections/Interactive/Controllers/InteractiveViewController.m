@@ -107,6 +107,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         self.asv.y -= 100;
         self.tableView.y -= 100;
         self.tableView.height +=100;
+        self.asv.alpha = 0;
     }];
 }
 -(void)showASV{
@@ -115,6 +116,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     self.asv.y += 100;
     self.tableView.y += 100;
     self.tableView.height -= 100;
+    self.asv.alpha = 1;
 
 }];
 }

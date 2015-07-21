@@ -19,7 +19,7 @@
         self.itemSize = CGSizeMake(ITEM_SIZE, ITEM_SIZE);
         self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
        self.sectionInset = UIEdgeInsetsMake(100, DLScreenWidth / 2 - ITEM_SIZE / 2, 100, DLScreenWidth / 2 - ITEM_SIZE / 2);
-        self.minimumLineSpacing = 50.0;
+        self.minimumLineSpacing = -150;
          // self.sectionInset = UIEdgeInsetsMake(100, 100, 100, 100);
         
 
@@ -36,15 +36,18 @@
     CGRect targetRect = CGRectMake(proposedContentOffset.x, 0.0, self.collectionView.bounds.size.width, self.collectionView.bounds.size.height);
     NSArray* array = [super layoutAttributesForElementsInRect:targetRect];
     
+    
     //对当前屏幕中的UICollectionViewLayoutAttributes逐个与屏幕中心进行比较，找出最接近中心的一个
     for (UICollectionViewLayoutAttributes* layoutAttributes in array) {
         //NSLog(@"%@",layoutAttributes);
         
-        NSLog(@"%@",NSStringFromCGPoint(layoutAttributes.center));
+        // NSLog(@"%@",NSStringFromCGPoint(layoutAttributes.center));
         CGFloat itemHorizontalCenter = layoutAttributes.center.x;
         if (ABS(itemHorizontalCenter - horizontalCenter) < ABS(offsetAdjustment)) {
             offsetAdjustment = itemHorizontalCenter - horizontalCenter;
         }
+        
+        
     }
     return CGPointMake(proposedContentOffset.x + offsetAdjustment , proposedContentOffset.y);
 }
@@ -57,7 +60,7 @@
     CGRect visibleRect;
     visibleRect.origin = self.collectionView.contentOffset;
     visibleRect.size = self.collectionView.bounds.size;
-    
+    NSInteger zIndex = 1;
     for (UICollectionViewLayoutAttributes* attributes in array) {
         if (CGRectIntersectsRect(attributes.frame, rect)) {
             CGFloat distance = CGRectGetMidX(visibleRect) - attributes.center.x;
@@ -65,7 +68,9 @@
             if (ABS(distance) < ACTIVE_DISTANCE) {
                 CGFloat zoom = 1 + ZOOM_FACTOR*(1 - ABS(normalizedDistance));
                 attributes.transform3D = CATransform3DMakeScale(zoom, zoom, 1.0);
-                attributes.zIndex = 1;
+                attributes.zIndex = -(++zIndex);
+                // NSLog(@"%zd",zIndex);
+                NSLog(@"%f--%f",attributes.center.x,DLScreenWidth / 2);
             }
         }
        
