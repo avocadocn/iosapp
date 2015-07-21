@@ -20,7 +20,6 @@
 // 浏览量
 @property (weak, nonatomic) IBOutlet UILabel *glanceNumberLabel;
 
-
 @end
 
 @implementation CurrentActivitysShowCell
@@ -40,12 +39,11 @@
         [self.container.layer setCornerRadius:4.0f];
         [self.container.layer setMasksToBounds:YES];
         
-        
         UIImage *img = [UIImage imageNamed:@"1"];
         [self.avatar setImage:img];
         [self.avatar.layer setCornerRadius:self.avatar.size.height /2];
         [self.avatar.layer setMasksToBounds:YES];
-       
+        
     }
     return self;
 
