@@ -7,6 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ChoosePhotoView;
+
+@protocol ChoosePhotoViewDelegate <NSObject>
+
+@optional
+
+- (void)ChoosePhotoView:(ChoosePhotoView *)chooseView withFrame:(CGRect)frame;
+
+@end
 
 @interface ChoosePhotoView : UIView
 
@@ -17,5 +26,9 @@
 @property (nonatomic, strong)NSMutableArray *componentArray;   //元件库
 
 @property (nonatomic, strong)UIViewController *view;
+
+@property (nonatomic, strong)NSMutableArray *imagePhotoArray;  //存放已经添加的 image 图片 ,防止浪费内存
+
+@property (nonatomic, assign)id <ChoosePhotoViewDelegate>delegate;
 
 @end

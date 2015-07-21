@@ -26,5 +26,10 @@
 
 @property (nonatomic, strong)id<ArrangeState>delegate;
 
+@property (nonatomic, strong)NSMutableArray *selectArray;  //传递选择图片的数组
+
 + (ChoosePhotoController *)shareStateOfController;
+
+
+
 @end
