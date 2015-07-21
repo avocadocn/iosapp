@@ -69,6 +69,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    NSLog(@"%f",self.navigationController.navigationBar.height);
+}
+
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     self.startPoint = scrollView.contentOffset;
 }
@@ -100,24 +104,51 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     
 }
-
+/**
+ *  隐藏asv
+ */
 -(void)hiddenASV{
     self.asvHidden = YES;
-    [UIView animateWithDuration:0.3f animations:^{
-        self.asv.y -= 100;
-        self.tableView.y -= 100;
-        self.tableView.height +=100;
+//    [UIView animateWithDuration:0.3f animations:^{
+//        self.asv.y -= 100 + 44;
+//        self.tableView.y -= 100 + 44;
+//        self.tableView.height +=100 + 44;
+//        self.asv.alpha = 0;
+//        self.navigationController.navigationBar.height = 0;
+//    }];
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        self.asv.y -= 100 + 44;
+        self.tableView.y -= 100 + 44;
+        self.tableView.height +=100 + 44;
         self.asv.alpha = 0;
+
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1f animations:^{
+             self.navigationController.navigationBar.height = 0;
+        }];
     }];
 }
+
+/**
+ *  显示asv
+ */
 -(void)showASV{
     self.asvHidden = NO;
-[UIView animateWithDuration:0.3f animations:^{
-    self.asv.y += 100;
-    self.tableView.y += 100;
-    self.tableView.height -= 100;
-    self.asv.alpha = 1;
+[UIView animateWithDuration:0.1f animations:^{
+   
+     self.navigationController.navigationBar.height = 44;
+    self.asv.y +=  44;
+    self.tableView.y += 44;
+    self.tableView.height -= 44;
 
+} completion:^(BOOL finished) {
+    [UIView animateWithDuration:0.2f animations:^{
+        self.asv.y += 100 ;
+        self.tableView.y += 100 ;
+        self.tableView.height -= 100 ;
+        self.asv.alpha = 1;
+    }];
 }];
 }
 

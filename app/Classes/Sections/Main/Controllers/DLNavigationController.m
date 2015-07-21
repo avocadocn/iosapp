@@ -42,12 +42,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSMutableArray *array = [NSMutableArray array];
-    [array addObject:[UIColor whiteColor]];
-    [array addObject:[UIColor lightGrayColor]];
-    DSNavigationBar *bar = [[DSNavigationBar alloc]init];
-    [bar setNavigationBarWithColors:array];
-      [self setValue:bar forKey:@"navigationBar"];
+//    NSMutableArray *array = [NSMutableArray array];
+//    [array addObject:[UIColor whiteColor]];
+//    [array addObject:[UIColor lightGrayColor]];
+//    DSNavigationBar *bar = [[DSNavigationBar alloc]init];
+//    [bar setNavigationBarWithColors:array];
+//      [self setValue:bar forKey:@"navigationBar"];
 }
 
 /**
