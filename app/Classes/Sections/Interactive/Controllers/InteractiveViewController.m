@@ -70,7 +70,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    NSLog(@"%f",self.navigationController.navigationBar.height);
+   // NSLog(@"%f",self.navigationController.navigationBar.height);
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -78,7 +78,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    NSLog(@"%@",NSStringFromCGPoint(velocity));
+    // NSLog(@"%@",NSStringFromCGPoint(velocity));
     if (velocity.y > 0.0f) {
         if (self.asvHidden == NO) {
             [self hiddenASV];
@@ -165,7 +165,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     switch (index) {
         case 0: // 男神
         {
-            RankController *controller = [[RankController alloc]init];
+            RankController *controller = [[RankController alloc]initWithFrame:CGRectMake(0, 0, 400, 400)];
+            
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;

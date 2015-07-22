@@ -9,36 +9,70 @@
 #import "RankController.h"
 #import "RankShowViewCell.h"
 #import "LineLayout.h"
+#import "RankItemLayoutAttr.h"
+
+#import "RankItemCell.h"
 
 @interface RankController ()
+
+@property(strong,nonatomic) LineLayout *layout;
+
 
 @end
 
 @implementation RankController
 
 static NSString * const reuseIdentifier = @"Cell";
-
--(void)loadView{
+-(instancetype)initWithFrame:(CGRect)frame{
     LineLayout *layout = [[LineLayout alloc]init];
+    self = [super initWithCollectionViewLayout:layout];
     
-    self.collectionView = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
-    
-    
-    
-  
-    
-    //[self.collectionView setContentInset:UIEdgeInsetsMake(10, 100, 10, 100)];
-   // [self.collectionView setContentInset:UIEdgeInsetsMake(0, 0, 0, 100)];
+    if (self) {
+        
+        [self.collectionView setFrame:frame];
+        self.layout = layout;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(valueChange:) name:kLineLayoutAttrChange object:nil];
+        // NSLog(@"%@",self.layout);
+    }
+    return self;
 }
+
+//-(void)loadView{
+//    LineLayout *layout = [[LineLayout alloc]init];
+//    
+//    self.collectionView = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
+//    
+//    self.layout = layout;
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(valueChange:) name:kLineLayoutAttrChange object:nil];
+//}
+
+
+-(void)viewDidLayoutSubviews{
+    
+    [self.layout layoutAttributesForElementsInRect:self.view.bounds];
+}
+
+-(void)valueChange:(NSNotification *)sender{
+    
+    RankItemLayoutAttr *attr = sender.object;
+    RankItemCell *cell = (RankItemCell *)[self.collectionView cellForItemAtIndexPath:attr.indexPath];
+    cell.coverView.alpha = attr.equivocation;
+
+    // [self.layout shouldInvalidateLayoutForBoundsChange:CGRectZero];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+   
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    [self.collectionView registerClass:[RankShowViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[RankItemCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self.collectionView setBackgroundColor:[UIColor redColor]];
     
@@ -63,23 +97,27 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete method implementation -- Return the number of sections
+
     return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete method implementation -- Return the number of items in the section
-    return 10;
+    
+    return 20;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    RankShowViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
+    RankItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    // NSLog(@"---%@",[self.layout layoutAttributesForItemAtIndexPath:indexPath]);
     // Configure the cell
+    
     
     return cell;
 }
+
+
+
 
 
 

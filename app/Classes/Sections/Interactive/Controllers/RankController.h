@@ -10,4 +10,6 @@
 
 @interface RankController : UICollectionViewController
 
+
+-(instancetype)initWithFrame:(CGRect)frame;
 @end
