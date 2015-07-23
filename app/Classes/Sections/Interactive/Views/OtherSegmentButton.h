@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OtherSegmentButton : UIButton
+@interface OtherSegmentButton : UIView
 
 
 @property(strong,nonatomic)NSString *name;

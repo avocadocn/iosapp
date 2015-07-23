@@ -26,11 +26,15 @@
     return self;
 }
 
+-(void)setTitles:(NSArray *)titles{
+    _titles = titles;
+    self.control.sectionTitles = titles;
+}
 
 -(void)setupSegmentedControl{
     HMSegmentedControl *control = [[HMSegmentedControl alloc]initWithFrame:self.frame];
     control.sectionTitles = @[@"热门", @"活动", @"投票", @"求助"];
-    control.selectedSegmentIndex = 1;
+    control.selectedSegmentIndex = 0;
     control.backgroundColor = [UIColor clearColor];
     UIFont *font = [UIFont systemFontOfSize:12.0f];
     control.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor] , NSFontAttributeName : font};
@@ -43,12 +47,22 @@
     control.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     control.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     [control setIndexChangeBlock:^(NSInteger index) {
-        NSLog(@"index change");
+       
+        self.didChangedIndex(index);
     }];
+    
+
     [self addSubview:control];
     
     self.control = control;
     
+}
+
+
+
+-(void)setCurrentPage:(NSInteger)currentPage{
+    _currentPage = currentPage;
+    self.control.selectedSegmentIndex = currentPage;
 }
 
 @end

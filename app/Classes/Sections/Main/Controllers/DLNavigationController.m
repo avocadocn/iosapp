@@ -10,7 +10,7 @@
 #import "UIBarButtonItem+Extension.h"
 #import "ChoosePhotoController.h"
 #import "DSNavigationBar.h"
-@interface DLNavigationController ()
+@interface DLNavigationController ()<UIGestureRecognizerDelegate>
 
 @end
 
@@ -39,15 +39,29 @@
   
 }
 
+//- (void)viewDidLoad
+//{
+//    [super viewDidLoad];
+////    NSMutableArray *array = [NSMutableArray array];
+////    [array addObject:[UIColor whiteColor]];
+////    [array addObject:[UIColor lightGrayColor]];
+////    DSNavigationBar *bar = [[DSNavigationBar alloc]init];
+////    [bar setNavigationBarWithColors:array];
+////      [self setValue:bar forKey:@"navigationBar"];
+//}
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    NSMutableArray *array = [NSMutableArray array];
-//    [array addObject:[UIColor whiteColor]];
-//    [array addObject:[UIColor lightGrayColor]];
-//    DSNavigationBar *bar = [[DSNavigationBar alloc]init];
-//    [bar setNavigationBarWithColors:array];
-//      [self setValue:bar forKey:@"navigationBar"];
+    // Do any additional setup after loading the view.
+    
+    __weak typeof (self) weakSelf = self;
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.interactivePopGestureRecognizer.delegate = weakSelf;
+        
+    }
 }
 
 /**

@@ -28,21 +28,34 @@
 
 -(void)setName:(NSString *)name{
     _name = name;
-    [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.font = [UIFont systemFontOfSize:14];
-    [self setTitle:name forState:UIControlStateNormal];
-    [self setTitle:name forState:UIControlStateHighlighted];
-    UIImage *leftImage =  [UIImage imageNamed:@"line"];
-    [self setImage:leftImage forState:UIControlStateNormal];
-    [self setImage:leftImage forState:UIControlStateHighlighted];
-    [self setBackgroundColor:[UIColor whiteColor]];
+    
+    
+    // 左侧线段
+    UIImage *line = [UIImage imageNamed:@"line"];
+    UIImageView *lineView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 3, 15)];
+    lineView.x = 4;
+    lineView.centerY = self.centerY;
+    [lineView setImage:line];
+    
+    
+    UILabel *label = [[UILabel alloc]init];
+    label.textColor = [UIColor blackColor];
+    label.text = name;
+    CGFloat offset =CGRectGetMaxX(lineView.frame) + 6;
+    [label setFrame:CGRectMake(offset , 0, self.size.width - offset, 23)];
+    label.centerY = self.centerY;
+    [label setFont:[UIFont systemFontOfSize:15]];
+    
+    
+    
+    
+    [self addSubview:lineView];
+    [self addSubview:label];
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-     // zNSLog(@"%@",NSStringFromUIEdgeInsets(self.imageEdgeInsets));
-    self.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 12);
-}
+   }
 
 
 @end

@@ -42,7 +42,11 @@ static NSString * const ID = @"OtherActivityShowCell";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [tableView setFrame:self.view.frame];
-//    [tableView setContentInset:UIEdgeInsetsMake(-64, 0, 20, 0)];
+    
+    tableView.height -= 64;
+    
+    [tableView setBackgroundColor:[UIColor whiteColor]];
+   [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
     [tableView setShowsVerticalScrollIndicator:NO];
     [tableView setDelegate:self];
     [tableView setDataSource:self];
@@ -68,11 +72,12 @@ static NSString * const ID = @"OtherActivityShowCell";
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 25)];
     [view setBackgroundColor:[UIColor whiteColor]];
-    OtherSegmentButton *btn = [OtherSegmentButton buttonWithType:UIButtonTypeCustom];
+    OtherSegmentButton *btn = [[OtherSegmentButton alloc]init];
     // NSLog(@"%f--%f",btn.centerY,view.centerY);
     btn.y += (view.height - btn.height) / 2.0;
     btn.x += 8.0f;
-    [btn setName:@"热门活动"];
+    
+    [btn setName:self.title];
     
     // NSLog(@"%@",NSStringFromCGRect(btn.frame));
     [view addSubview:btn];

@@ -174,16 +174,34 @@ static NSString * const ID = @"CurrentActivitysShowCell";
            
             break;
         case 2: // 人气
-        {
-            ActivityShowTableController *controller = [[ActivityShowTableController alloc]init];
-            [self.navigationController pushViewController:controller animated:YES];
-        }
+        
             break;
         case 3: // 什么活动
         {
 
-            OtherController *controller = [[OtherController alloc]init];
-            [self.navigationController pushViewController:controller animated:YES];
+            OtherController *twitterPaggingViewer = [[OtherController alloc]init];
+            
+            
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithCapacity:7];
+            
+            NSArray *titles = @[@"热门", @"活动", @"求助", @"投票"];
+            
+            [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
+                ActivityShowTableController *tableViewController = [[ActivityShowTableController alloc] init];
+                tableViewController.title = title;
+                [viewControllers addObject:tableViewController];
+            }];
+            [titles enumerateObjectsUsingBlock:^(NSDictionary* dic, NSUInteger idx, BOOL *stop) {
+                
+            }];
+            twitterPaggingViewer.viewControllers = viewControllers;
+            
+            twitterPaggingViewer.didChangedPageCompleted = ^(NSInteger cuurentPage, NSString *title) {
+               //  NSLog(@"cuurentPage : %ld on title : %@", (long)cuurentPage, title);
+            };
+
+            
+            [self.navigationController pushViewController:twitterPaggingViewer animated:YES];
         }
 
            
