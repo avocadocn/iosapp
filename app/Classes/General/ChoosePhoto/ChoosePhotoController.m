@@ -231,6 +231,7 @@ static ChoosePhotoController *choose = nil;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"photoCell" forIndexPath:indexPath];
+    
 //    [cell setBackgroundColor:[UIColor blueColor]];
     NSDictionary *dic = [self.photoArray objectAtIndex:indexPath.section];
     NSArray *array = [dic objectForKey:@"array"];

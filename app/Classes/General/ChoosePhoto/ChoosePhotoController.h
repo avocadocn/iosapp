@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+/*
+ 用法:
+ 1: 使用单例的方法对其进行初始化
+ 2:设置要选取的照片的数量
+ 3:遵循 ArrangeState 协议,执行arrangeStartWithArray:方法来对取得的图片的数组进行操作
+ */
+
+
 @protocol ArrangeState <NSObject>
 
 - (void)arrangeStartWithArray:(NSMutableArray *)array;
@@ -28,8 +36,8 @@
 
 @property (nonatomic, strong)NSMutableArray *selectArray;  //传递选择图片的数组
 
+@property (nonatomic, assign)NSInteger allowSelectNum;  //允许选择的数量
+
 + (ChoosePhotoController *)shareStateOfController;
-
-
 
 @end

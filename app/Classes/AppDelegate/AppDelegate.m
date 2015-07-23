@@ -8,8 +8,11 @@
 
 #import "AppDelegate.h"
 #import "MainController.h"
+#import <Masonry.h>
+#import <ReactiveCocoa.h>
+#import "CheckViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
 
@@ -17,17 +20,122 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    UIWindow *window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    self.window = window;
+    
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window setBackgroundColor:[UIColor whiteColor]];
+    
+//    UIScrollView *scrollview = [self builtScrollview];
+//    [self.window addSubview:scrollview];
+    [self.window makeKeyAndVisible];
     
     MainController *main = [[MainController alloc]init];
-    window.rootViewController = main;
-
-    
-    [window makeKeyAndVisible];
+    self.window.rootViewController = main;
     
     return YES;
+}
+
+- (UIScrollView *)builtScrollview
+{
+    UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    scrollview.contentSize = CGSizeMake(DLScreenWidth * 4, 0);
+    scrollview.pagingEnabled = YES;
+    CGFloat red = arc4random() %100 / 100.0;
+    CGFloat blue = arc4random() %100 / 100.0;
+    CGFloat yellow = arc4random() %100 / 100.0;
+    scrollview.backgroundColor = [UIColor colorWithRed:red green:blue blue:yellow alpha:1];
+    for (int i = 1; i < 5; i++) {
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((i - 1) * DLScreenWidth, 0, DLScreenWidth, DLScreenHeight)];
+        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"welcome-%d", i]];
+        [scrollview addSubview:imageView];
+    }
+    
+    // 登录/注册逻辑 View  小元件都放在上面
+    UIView *loginLogicView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth * 3, 0, DLScreenWidth, DLScreenHeight)];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(registerTapAction:)];
+    [loginLogicView addGestureRecognizer:tap];
+    
+        [scrollview addSubview:loginLogicView];
+
+    self.mailBoxTextField = [UITextField new];
+    self.mailBoxTextField.placeholder = @"请输入您的邮箱...";
+    [self.mailBoxTextField placeholder];
+    self.mailBoxTextField.font = [UIFont systemFontOfSize:20];
+    self.mailBoxTextField.textColor = [UIColor whiteColor];
+    [loginLogicView addSubview:self.mailBoxTextField];
+    [self.mailBoxTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(loginLogicView).with.offset(0);
+        make.size.mas_equalTo(CGSizeMake(300, 30));
+    }];
+    
+    RAC(tap, enabled) = [RACSignal combineLatest:@[self.mailBoxTextField.rac_textSignal] reduce:^(NSString *mailStr){
+        return @(mailStr.length >= 6);
+    }];
+    
+    UIButton *loginButton = [self builttingButtonWithTitle:@"登录" tag:1];
+    
+    [loginLogicView addSubview:loginButton];
+    [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(loginLogicView).with.offset(0);
+        make.size.mas_equalTo(CGSizeMake(DLScreenWidth, 55));
+        make.centerX.mas_equalTo(loginLogicView.mas_centerX);
+    }];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jumpPageAction:) name:@"loseView" object:nil];  //  接受返回通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeViewAction:) name:@"loginAccount" object:nil];  //  接受返回通知
+
+    
+    return scrollview;
+}
+- (void)jumpPageAction:(UIButton *)sender
+{
+    [self.window setRootViewController:nil];
+}
+- (void)changeViewAction:(UIButton *)sender
+{
+    MainController *main = [[MainController alloc]init];
+    self.window.rootViewController = main;
+
+}
+- (void)registerTapAction:(UITapGestureRecognizer *)tap  //注册的点击事件
+{
+    CheckViewController *check = [[CheckViewController alloc]init];
+    check.mailURL = self.mailBoxTextField.text;
+    
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:check];
+    self.window.rootViewController = nav;
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"开始");
+}
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    NSLog(@"结束");
+}
+//button 的便利构造器
+- (UIButton *)builttingButtonWithTitle:(NSString *)str tag:(NSInteger)tag
+{
+    @autoreleasepool {
+        
+        UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeSystem];  //登陆 button
+        [loginButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        loginButton.tag = tag;
+        [loginButton setTitle:str forState:UIControlStateNormal];
+        [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        [loginButton setBackgroundColor:[UIColor colorWithRed:.4 green:.5 blue:1 alpha:.8]];
+        
+        return loginButton;
+    }
+}
+
+- (void)buttonAction:(UIButton *)sender  //登录逻辑
+{
+//        MainController *main = [[MainController alloc]init];
+//        self.window.rootViewController = main;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
