@@ -64,6 +64,10 @@
 		A45056181B60D2110075E39D /* welcome-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A45056141B60D2110075E39D /* welcome-1.png */; };
 		A45056191B60D2110075E39D /* welcome-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A45056151B60D2110075E39D /* welcome-2.png */; };
 		A450561A1B60D2110075E39D /* welcome-3.png in Resources */ = {isa = PBXBuildFile; fileRef = A45056161B60D2110075E39D /* welcome-3.png */; };
+		A450561D1B60EF980075E39D /* RankItemLayoutAttr.m in Sources */ = {isa = PBXBuildFile; fileRef = A450561C1B60EF980075E39D /* RankItemLayoutAttr.m */; };
+		A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFCF1B5F5E7900F7DE60 /* RankItemCell.m */; };
+		A450561F1B60F01F0075E39D /* DSNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFCA1B5E4AAE00F7DE60 /* DSNavigationBar.m */; };
+		A45056201B60F0270075E39D /* DLNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFC71B5E416900F7DE60 /* DLNavigationBar.m */; };
 		A4651D3D1B58DFAE008BAEE8 /* No.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D3B1B58DFAE008BAEE8 /* No.png */; };
 		A4651D3E1B58DFAE008BAEE8 /* OK.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D3C1B58DFAE008BAEE8 /* OK.png */; };
 		A4651D401B58DFB9008BAEE8 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D3F1B58DFB9008BAEE8 /* 2.png */; };
@@ -155,7 +159,6 @@
 		9649B5501B5663CE00A7F355 /* Test1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test1ViewController.m; sourceTree = "<group>"; };
 		96D20EAD1B5F97F300102D18 /* RankListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankListController.h; sourceTree = "<group>"; };
 		96D20EAE1B5F97F300102D18 /* RankListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankListController.m; sourceTree = "<group>"; };
-		96D20EB21B5F9AE500102D18 /* NotificationMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
 		96D20EB61B60AE5D00102D18 /* DLNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNavBar.h; sourceTree = "<group>"; };
 		96D20EB71B60AE5D00102D18 /* DLNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNavBar.m; sourceTree = "<group>"; };
 		96D20EB91B60C4EE00102D18 /* ActivityShowTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityShowTableController.h; sourceTree = "<group>"; };
@@ -203,6 +206,9 @@
 		A45056141B60D2110075E39D /* welcome-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome-1.png"; sourceTree = "<group>"; };
 		A45056151B60D2110075E39D /* welcome-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome-2.png"; sourceTree = "<group>"; };
 		A45056161B60D2110075E39D /* welcome-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome-3.png"; sourceTree = "<group>"; };
+		A450561B1B60EF980075E39D /* RankItemLayoutAttr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RankItemLayoutAttr.h; path = ../Views/RankItemLayoutAttr.h; sourceTree = "<group>"; };
+		A450561C1B60EF980075E39D /* RankItemLayoutAttr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RankItemLayoutAttr.m; path = ../Views/RankItemLayoutAttr.m; sourceTree = "<group>"; };
+		A45056221B60F1B80075E39D /* NotificationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
 		A4651D3B1B58DFAE008BAEE8 /* No.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = No.png; sourceTree = "<group>"; };
 		A4651D3C1B58DFAE008BAEE8 /* OK.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OK.png; sourceTree = "<group>"; };
 		A4651D3F1B58DFB9008BAEE8 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -297,8 +303,6 @@
 				9612CFCE1B5F5E7900F7DE60 /* RankItemCell.h */,
 				9612CFCF1B5F5E7900F7DE60 /* RankItemCell.m */,
 				9612CFD01B5F5E7900F7DE60 /* RankItemCell.xib */,
-				96FDA1ED1B5F640B00CD6A65 /* RankItemLayoutAttr.h */,
-				96FDA1EE1B5F640B00CD6A65 /* RankItemLayoutAttr.m */,
 				96D20EB61B60AE5D00102D18 /* DLNavBar.h */,
 				96D20EB71B60AE5D00102D18 /* DLNavBar.m */,
 			);
@@ -320,6 +324,8 @@
 				96D20EAE1B5F97F300102D18 /* RankListController.m */,
 				96D20EB91B60C4EE00102D18 /* ActivityShowTableController.h */,
 				96D20EBA1B60C4EE00102D18 /* ActivityShowTableController.m */,
+				A450561B1B60EF980075E39D /* RankItemLayoutAttr.h */,
+				A450561C1B60EF980075E39D /* RankItemLayoutAttr.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -395,7 +401,7 @@
 		9649B4F91B564DE000A7F355 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				96D20EB11B5F9AC700102D18 /* Macro */,
+				A45056211B60F1B80075E39D /* Macro */,
 				A4A009C01B579EEC005AC35F /* Temporary */,
 				9649B4FA1B564DE000A7F355 /* AppDelegate */,
 				9649B4FD1B564DE000A7F355 /* General */,
@@ -726,6 +732,14 @@
 			path = CircleImageView;
 			sourceTree = "<group>";
 		};
+		A45056211B60F1B80075E39D /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				A45056221B60F1B80075E39D /* NotificationMacro.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
 		A4A009C01B579EEC005AC35F /* Temporary */ = {
 			isa = PBXGroup;
 			children = (
@@ -878,7 +892,6 @@
 				A4651D3E1B58DFAE008BAEE8 /* OK.png in Resources */,
 				A4A009C21B579F5B005AC35F /* 2.jpg in Resources */,
 				A4C7BE341B5E3D9D00473787 /* insert.png in Resources */,
-				9612CFD21B5F5E7900F7DE60 /* RankItemCell.xib in Resources */,
 				A4651D871B58F8C6008BAEE8 /* delete-circular.png in Resources */,
 				A45056121B60CDBD0075E39D /* CompanyRegisterViewController.xib in Resources */,
 				A450561A1B60D2110075E39D /* welcome-3.png in Resources */,
@@ -942,10 +955,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9612CFCD1B5E51B100F7DE60 /* DSNavigationBar.m in Sources */,
+				A45056201B60F0270075E39D /* DLNavigationBar.m in Sources */,
+				A450561F1B60F01F0075E39D /* DSNavigationBar.m in Sources */,
+				A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */,
 				A41CF0DE1B5D02DA005C21EF /* RankController.m in Sources */,
 				961053641B5C9C51002D62A3 /* LineLayout.m in Sources */,
 				961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */,
+				A450561D1B60EF980075E39D /* RankItemLayoutAttr.m in Sources */,
 				A41993231B5F95AB0086EAAE /* CompanyTableViewCell.m in Sources */,
 				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
 				A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */,
@@ -969,7 +985,6 @@
 				9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */,
 				A4F315671B5E4BFB00126C8A /* PhotoCell.m in Sources */,
 				A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */,
-				9612CFD11B5F5E7900F7DE60 /* RankItemCell.m in Sources */,
 				9649B53E1B564DE000A7F355 /* CompanyViewController.m in Sources */,
 				9649B53D1B564DE000A7F355 /* ChatViewController.m in Sources */,
 				A41993281B5F95C50086EAAE /* RegisterViewController.m in Sources */,
@@ -977,7 +992,6 @@
 				A41993221B5F95AB0086EAAE /* CompanyModel.m in Sources */,
 				A4F315651B5E4BFB00126C8A /* ChoosePhotoController.m in Sources */,
 				A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */,
-				96FDA1EF1B5F640B00CD6A65 /* RankItemLayoutAttr.m in Sources */,
 				9649B5421B564DE000A7F355 /* ProfileViewController.m in Sources */,
 				9649B53C1B564DE000A7F355 /* AttentionViewController.m in Sources */,
 				A4F3156A1B5E4BFB00126C8A /* PhotoShouCell.m in Sources */,
