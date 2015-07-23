@@ -165,7 +165,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     switch (index) {
         case 0: // 男神
         {
-            RankController *controller = [[RankController alloc]initWithFrame:CGRectMake(0, 0, 400, 400)];
+            RankController *controller = [[RankController alloc]initWithFrame:[UIScreen mainScreen].bounds];
             
             [self.navigationController pushViewController:controller animated:YES];
         }

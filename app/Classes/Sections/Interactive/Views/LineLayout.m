@@ -8,9 +8,9 @@
 
 #import "LineLayout.h"
 #import "RankItemLayoutAttr.h"
-#define ITEM_SIZE 200
+#define ITEM_SIZE 150
 #define ACTIVE_DISTANCE 300
-#define ZOOM_FACTOR 0.3
+#define ZOOM_FACTOR 0.8
 
 
 @interface LineLayout()
@@ -28,8 +28,8 @@
         self.scrollDirection = UICollectionViewScrollDirectionVertical;
         self.itemSize = CGSizeMake(ITEM_SIZE, ITEM_SIZE);
 //        self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-       self.sectionInset = UIEdgeInsetsMake((DLScreenHeight - ITEM_SIZE) / 2 - 64,0,(DLScreenHeight -ITEM_SIZE) / 2,0);
-        self.minimumLineSpacing = -100.0;
+       self.sectionInset = UIEdgeInsetsMake((DLScreenHeight - ITEM_SIZE) / 2 - 64 ,100,(DLScreenHeight -ITEM_SIZE) / 2,20);
+        self.minimumLineSpacing = -50.0;
         self.gapLength = ITEM_SIZE + self.minimumLineSpacing;
         // self.sectionInset = UIEdgeInsetsMake(100, 100, 100, 100);
         self.currentIndex = 0;

@@ -51,6 +51,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)viewDidLayoutSubviews{
     
     [self.layout layoutAttributesForElementsInRect:self.view.bounds];
+     
 }
 
 -(void)valueChange:(NSNotification *)sender{
