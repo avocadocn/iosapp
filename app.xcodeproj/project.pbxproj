@@ -36,6 +36,8 @@
 		9649B5471B565E5900A7F355 /* CompanyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9649B5461B565E5900A7F355 /* CompanyViewController.storyboard */; };
 		9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5501B5663CE00A7F355 /* Test1ViewController.m */; };
 		96D20EAF1B5F97F300102D18 /* RankListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EAE1B5F97F300102D18 /* RankListController.m */; };
+		96D20EB81B60AE5D00102D18 /* DLNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EB71B60AE5D00102D18 /* DLNavBar.m */; };
+		96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EBA1B60C4EE00102D18 /* ActivityShowTableController.m */; };
 		96D23E301B57A5870079193C /* DLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E2F1B57A5870079193C /* DLNavigationController.m */; };
 		96D23E331B57A6DC0079193C /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */; };
 		96FDA1EF1B5F640B00CD6A65 /* RankItemLayoutAttr.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FDA1EE1B5F640B00CD6A65 /* RankItemLayoutAttr.m */; };
@@ -139,6 +141,10 @@
 		96D20EAD1B5F97F300102D18 /* RankListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankListController.h; sourceTree = "<group>"; };
 		96D20EAE1B5F97F300102D18 /* RankListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankListController.m; sourceTree = "<group>"; };
 		96D20EB21B5F9AE500102D18 /* NotificationMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
+		96D20EB61B60AE5D00102D18 /* DLNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNavBar.h; sourceTree = "<group>"; };
+		96D20EB71B60AE5D00102D18 /* DLNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNavBar.m; sourceTree = "<group>"; };
+		96D20EB91B60C4EE00102D18 /* ActivityShowTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityShowTableController.h; sourceTree = "<group>"; };
+		96D20EBA1B60C4EE00102D18 /* ActivityShowTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityShowTableController.m; sourceTree = "<group>"; };
 		96D23E2E1B57A5870079193C /* DLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNavigationController.h; sourceTree = "<group>"; };
 		96D23E2F1B57A5870079193C /* DLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNavigationController.m; sourceTree = "<group>"; };
 		96D23E311B57A6DC0079193C /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
@@ -252,6 +258,8 @@
 				9612CFD01B5F5E7900F7DE60 /* RankItemCell.xib */,
 				96FDA1ED1B5F640B00CD6A65 /* RankItemLayoutAttr.h */,
 				96FDA1EE1B5F640B00CD6A65 /* RankItemLayoutAttr.m */,
+				96D20EB61B60AE5D00102D18 /* DLNavBar.h */,
+				96D20EB71B60AE5D00102D18 /* DLNavBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -269,6 +277,8 @@
 				961053661B5CDA89002D62A3 /* DetailActivityShowController.m */,
 				96D20EAD1B5F97F300102D18 /* RankListController.h */,
 				96D20EAE1B5F97F300102D18 /* RankListController.m */,
+				96D20EB91B60C4EE00102D18 /* ActivityShowTableController.h */,
+				96D20EBA1B60C4EE00102D18 /* ActivityShowTableController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -803,6 +813,8 @@
 				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
 				9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */,
+				96D20EB81B60AE5D00102D18 /* DLNavBar.m in Sources */,
+				96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */,
 				96D20EAF1B5F97F300102D18 /* RankListController.m in Sources */,
 				9610535B1B590C96002D62A3 /* InteractiveViewController.m in Sources */,
 				9649B5451B564DE000A7F355 /* UIView+Extension.m in Sources */,

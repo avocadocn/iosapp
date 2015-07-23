@@ -8,7 +8,7 @@
 
 #import "InteractiveViewController.h"
 #import "ActivitysShowView.h"
-
+#import "ActivityShowTableController.h"
 #import "CurrentActivitysShowCell.h"
 
 #import "OtherController.h"
@@ -174,7 +174,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
            
             break;
         case 2: // 人气
-            
+        {
+            ActivityShowTableController *controller = [[ActivityShowTableController alloc]init];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
             break;
         case 3: // 什么活动
         {

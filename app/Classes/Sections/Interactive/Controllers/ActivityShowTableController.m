@@ -1,64 +1,35 @@
 //
-//  OtherController.m
+//  ActivityShowTableController.m
 //  app
 //
-//  Created by 张加胜 on 15/7/17.
+//  Created by 张加胜 on 15/7/23.
 //  Copyright (c) 2015年 Donler. All rights reserved.
-//  什么活动页面
+//
 
-#import "OtherController.h"
-#import "OtherSegmentButton.h"
-#import "DLNavBar.h"
+#import "ActivityShowTableController.h"
 #import "OtherActivityShowCell.h"
+#import "OtherSegmentButton.h"
 #import "DetailActivityShowController.h"
 
+@interface ActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
+@property(nonatomic,strong) UITableView *tableView;
 
-typedef NS_ENUM(NSInteger, XHSlideType) {
-    XHSlideTypeLeft = 0,
-    XHSlideTypeRight = 1,
-};
-
-
-@interface OtherController ()<UITableViewDataSource,UITableViewDelegate>
-@property(strong,nonatomic)UITableView *tableView;
-
-@property(strong,nonatomic)UIScrollView *scrollView;
 @end
 
-@implementation OtherController
+@implementation ActivityShowTableController
+
 
 static NSString * const ID = @"OtherActivityShowCell";
 
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.title = @"其他活动";
-    [self.view setBackgroundColor:RGB(235, 235, 235)];
-    
-    // 添加标签视图
-    [self addTitleSegmentView];
-    
-   
-    // 添加活动展示table
-    [self addActivitysShowTable];
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
+        [self addActivitysShowTable];
+    }
+    return self;
 }
-
-
-
-
-/**
- *  添加导航栏标题
- */
--(void)addTitleSegmentView{
-  
-    DLNavBar *bar = [[DLNavBar alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth * 2 / 3, 44)];
-    self.navigationItem.titleView = bar;
-    
-   }
-
-
 
 /**
  *  添加活动展示table
@@ -70,8 +41,8 @@ static NSString * const ID = @"OtherActivityShowCell";
     // 设置分割线样式
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [tableView setFrame:CGRectMake(0 , 64 + 10, DLScreenWidth, DLScreenHeight - 64 -10)];
-      [tableView setContentInset:UIEdgeInsetsMake(-64, 0, 20, 0)];
+    [tableView setFrame:self.view.frame];
+//    [tableView setContentInset:UIEdgeInsetsMake(-64, 0, 20, 0)];
     [tableView setShowsVerticalScrollIndicator:NO];
     [tableView setDelegate:self];
     [tableView setDataSource:self];
@@ -83,13 +54,13 @@ static NSString * const ID = @"OtherActivityShowCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     // Return the number of rows in the section.
     return 6;
 }
@@ -105,7 +76,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     // NSLog(@"%@",NSStringFromCGRect(btn.frame));
     [view addSubview:btn];
-//    [self.view addSubview:view];
+    //    [self.view addSubview:view];
     return view;
 }
 
@@ -141,6 +112,8 @@ static NSString * const ID = @"OtherActivityShowCell";
     DetailActivityShowController *controller = [[DetailActivityShowController alloc]init];
     [self.navigationController pushViewController:controller animated:YES];
 }
+
+
 
 
 @end
