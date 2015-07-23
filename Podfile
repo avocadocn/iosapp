@@ -10,3 +10,5 @@ pod 'AFNetworking', '~> 2.5.4'
 pod 'ReactiveCocoa'
 
 pod 'Masonry'
+
+pod 'HMSegmentedControl'

@@ -8,7 +8,7 @@
 
 #import "InteractiveViewController.h"
 #import "ActivitysShowView.h"
-
+#import "ActivityShowTableController.h"
 #import "CurrentActivitysShowCell.h"
 
 #import "OtherController.h"
@@ -69,12 +69,16 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+   // NSLog(@"%f",self.navigationController.navigationBar.height);
+}
+
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     self.startPoint = scrollView.contentOffset;
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    NSLog(@"%@",NSStringFromCGPoint(velocity));
+    // NSLog(@"%@",NSStringFromCGPoint(velocity));
     if (velocity.y > 0.0f) {
         if (self.asvHidden == NO) {
             [self hiddenASV];
@@ -100,22 +104,51 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     
 }
-
+/**
+ *  隐藏asv
+ */
 -(void)hiddenASV{
     self.asvHidden = YES;
-    [UIView animateWithDuration:0.3f animations:^{
-        self.asv.y -= 100;
-        self.tableView.y -= 100;
-        self.tableView.height +=100;
+//    [UIView animateWithDuration:0.3f animations:^{
+//        self.asv.y -= 100 + 44;
+//        self.tableView.y -= 100 + 44;
+//        self.tableView.height +=100 + 44;
+//        self.asv.alpha = 0;
+//        self.navigationController.navigationBar.height = 0;
+//    }];
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        self.asv.y -= 100 + 44;
+        self.tableView.y -= 100 + 44;
+        self.tableView.height +=100 + 44;
+        self.asv.alpha = 0;
+
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.1f animations:^{
+             self.navigationController.navigationBar.height = 0;
+        }];
     }];
 }
+
+/**
+ *  显示asv
+ */
 -(void)showASV{
     self.asvHidden = NO;
-[UIView animateWithDuration:0.3f animations:^{
-    self.asv.y += 100;
-    self.tableView.y += 100;
-    self.tableView.height -= 100;
+[UIView animateWithDuration:0.1f animations:^{
+   
+     self.navigationController.navigationBar.height = 44;
+    self.asv.y +=  44;
+    self.tableView.y += 44;
+    self.tableView.height -= 44;
 
+} completion:^(BOOL finished) {
+    [UIView animateWithDuration:0.2f animations:^{
+        self.asv.y += 100 ;
+        self.tableView.y += 100 ;
+        self.tableView.height -= 100 ;
+        self.asv.alpha = 1;
+    }];
 }];
 }
 
@@ -132,7 +165,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     switch (index) {
         case 0: // 男神
         {
-            RankController *controller = [[RankController alloc]init];
+            RankController *controller = [[RankController alloc]initWithFrame:[UIScreen mainScreen].bounds];
+            
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
@@ -140,13 +174,34 @@ static NSString * const ID = @"CurrentActivitysShowCell";
            
             break;
         case 2: // 人气
-            
+        
             break;
         case 3: // 什么活动
         {
 
-            OtherController *controller = [[OtherController alloc]init];
-            [self.navigationController pushViewController:controller animated:YES];
+            OtherController *twitterPaggingViewer = [[OtherController alloc]init];
+            
+            
+            NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithCapacity:7];
+            
+            NSArray *titles = @[@"热门", @"活动", @"求助", @"投票"];
+            
+            [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
+                ActivityShowTableController *tableViewController = [[ActivityShowTableController alloc] init];
+                tableViewController.title = title;
+                [viewControllers addObject:tableViewController];
+            }];
+            [titles enumerateObjectsUsingBlock:^(NSDictionary* dic, NSUInteger idx, BOOL *stop) {
+                
+            }];
+            twitterPaggingViewer.viewControllers = viewControllers;
+            
+            twitterPaggingViewer.didChangedPageCompleted = ^(NSInteger cuurentPage, NSString *title) {
+               //  NSLog(@"cuurentPage : %ld on title : %@", (long)cuurentPage, title);
+            };
+
+            
+            [self.navigationController pushViewController:twitterPaggingViewer animated:YES];
         }
 
            

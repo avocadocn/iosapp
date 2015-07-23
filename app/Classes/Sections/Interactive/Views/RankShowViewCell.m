@@ -15,7 +15,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setFrame:CGRectMake(0, 0, 40, 40)];
-        [self setBackgroundColor:[UIColor blackColor]];
+        [self setBackgroundColor:DLRandomColor];
+        
     }
     return self;
 }
