@@ -108,6 +108,9 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:kLineLayoutAttrChange object:attributes];
                 
             }
+            if (ABS(distance) > 150) {
+                attributes.hidden = YES;
+            }
         }
     }
     return array;

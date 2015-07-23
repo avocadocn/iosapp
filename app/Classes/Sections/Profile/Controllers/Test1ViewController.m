@@ -19,7 +19,18 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"test";
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    UISwipeGestureRecognizer *gesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(wantToLeft:)];
+    
+    
+    [gesture setDirection:UISwipeGestureRecognizerDirectionRight];
+    
+    [self.view addGestureRecognizer:gesture];
 }
+
+-(void)wantToLeft:(id)sender{
+    NSLog(@"---");
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

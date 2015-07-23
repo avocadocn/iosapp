@@ -40,7 +40,7 @@
     control.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor] , NSFontAttributeName : font};
     
     //[control setSelectionIndicatorEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [control setSelectionIndicatorEdgeInsets:UIEdgeInsetsMake(3, 0, 0, 0)];
+    [control setSelectionIndicatorEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     control.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor orangeColor]};
     control.selectionIndicatorColor = [UIColor orangeColor];
     control.selectionIndicatorHeight = 2.5;

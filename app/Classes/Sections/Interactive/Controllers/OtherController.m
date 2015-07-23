@@ -64,8 +64,10 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     [self reloadData];
 
-
+    
 }
+
+
 
 
 
@@ -260,6 +262,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 #pragma mark - PanGesture Handle Method
 
 - (void)panGestureRecognizerHandle:(UIPanGestureRecognizer *)panGestureRecognizer {
+    
     /*
      CGPoint contentOffset = self.paggingScrollView.contentOffset;
      
@@ -300,7 +303,9 @@ static NSString * const ID = @"OtherActivityShowCell";
      default:
      break;
      }
-     */
+     
+    */
+    
 }
 
 #pragma mark - Block Call Back Method
@@ -361,6 +366,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     // 根据当前的x坐标和页宽度计算出当前页数
     self.currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    
 }
 
 #pragma mark - KVO
