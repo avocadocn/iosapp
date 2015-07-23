@@ -19,5 +19,8 @@
 #define DLRandomColor RGB(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
 #define GrayBackgroundColor RGB(235, 235, 235)
 #import "UIView+Extension.h"
-#import "NotificationMacro.h"
+
+#define DLSBackgroundColor [UIColor colorWithWhite:.9 alpha:1];
+
+
 #endif

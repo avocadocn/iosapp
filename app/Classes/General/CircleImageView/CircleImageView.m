@@ -8,20 +8,12 @@
 
 #import "CircleImageView.h"
 
-
 @interface CircleImageView()
 
 
 @end
 @implementation CircleImageView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 +(instancetype)circleImageViewWithImage:(UIImage *)image diameter:(CGFloat)diameter{
     CircleImageView *cv = [[CircleImageView alloc]init];
@@ -33,8 +25,5 @@
     cv.size = CGSizeMake(diameter, diameter);
     return cv;
 }
-
-
-
 
 @end

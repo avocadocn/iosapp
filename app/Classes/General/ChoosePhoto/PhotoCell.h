@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong)UIButton *insertButton;
 
+@property (nonatomic, assign)NSInteger selectNum;
+
 @end
