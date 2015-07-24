@@ -35,6 +35,8 @@
 		96D20EAF1B5F97F300102D18 /* RankListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EAE1B5F97F300102D18 /* RankListController.m */; };
 		96D20EB81B60AE5D00102D18 /* DLNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EB71B60AE5D00102D18 /* DLNavBar.m */; };
 		96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EBA1B60C4EE00102D18 /* ActivityShowTableController.m */; };
+		96D20EC01B6203A100102D18 /* HitTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EBF1B6203A100102D18 /* HitTestView.m */; };
+		96D20EC31B620A8200102D18 /* PaggingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EC21B620A8200102D18 /* PaggingScrollView.m */; };
 		96D23E301B57A5870079193C /* DLNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E2F1B57A5870079193C /* DLNavigationController.m */; };
 		96D23E331B57A6DC0079193C /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */; };
 		A41993211B5F95AB0086EAAE /* CheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41993181B5F95AB0086EAAE /* CheckViewController.m */; };
@@ -163,6 +165,10 @@
 		96D20EB71B60AE5D00102D18 /* DLNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNavBar.m; sourceTree = "<group>"; };
 		96D20EB91B60C4EE00102D18 /* ActivityShowTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityShowTableController.h; sourceTree = "<group>"; };
 		96D20EBA1B60C4EE00102D18 /* ActivityShowTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityShowTableController.m; sourceTree = "<group>"; };
+		96D20EBE1B6203A100102D18 /* HitTestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HitTestView.h; sourceTree = "<group>"; };
+		96D20EBF1B6203A100102D18 /* HitTestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitTestView.m; sourceTree = "<group>"; };
+		96D20EC11B620A8200102D18 /* PaggingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaggingScrollView.h; sourceTree = "<group>"; };
+		96D20EC21B620A8200102D18 /* PaggingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaggingScrollView.m; sourceTree = "<group>"; };
 		96D23E2E1B57A5870079193C /* DLNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNavigationController.h; sourceTree = "<group>"; };
 		96D23E2F1B57A5870079193C /* DLNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNavigationController.m; sourceTree = "<group>"; };
 		96D23E311B57A6DC0079193C /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
@@ -305,6 +311,8 @@
 				9612CFD01B5F5E7900F7DE60 /* RankItemCell.xib */,
 				96D20EB61B60AE5D00102D18 /* DLNavBar.h */,
 				96D20EB71B60AE5D00102D18 /* DLNavBar.m */,
+				96D20EC11B620A8200102D18 /* PaggingScrollView.h */,
+				96D20EC21B620A8200102D18 /* PaggingScrollView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -619,9 +627,9 @@
 		9649B5291B564DE000A7F355 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				96D20EBC1B62038200102D18 /* Models */,
+				96D20EBD1B62038200102D18 /* Views */,
 				9649B52A1B564DE000A7F355 /* Controllers */,
-				9649B5301B564DE000A7F355 /* Models */,
-				9649B5311B564DE000A7F355 /* Views */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -635,20 +643,6 @@
 				9649B5501B5663CE00A7F355 /* Test1ViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		9649B5301B564DE000A7F355 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		9649B5311B564DE000A7F355 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		9649B5321B564DE000A7F355 /* Vendors */ = {
@@ -675,6 +669,22 @@
 			children = (
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		96D20EBC1B62038200102D18 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		96D20EBD1B62038200102D18 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				96D20EBE1B6203A100102D18 /* HitTestView.h */,
+				96D20EBF1B6203A100102D18 /* HitTestView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		A41993151B5F95AB0086EAAE /* LoginAndRegister */ = {
@@ -956,9 +966,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A45056201B60F0270075E39D /* DLNavigationBar.m in Sources */,
+				96D20EC31B620A8200102D18 /* PaggingScrollView.m in Sources */,
 				A450561F1B60F01F0075E39D /* DSNavigationBar.m in Sources */,
 				A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */,
 				A41CF0DE1B5D02DA005C21EF /* RankController.m in Sources */,
+				96D20EC01B6203A100102D18 /* HitTestView.m in Sources */,
 				961053641B5C9C51002D62A3 /* LineLayout.m in Sources */,
 				961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */,
 				A450561D1B60EF980075E39D /* RankItemLayoutAttr.m in Sources */,
