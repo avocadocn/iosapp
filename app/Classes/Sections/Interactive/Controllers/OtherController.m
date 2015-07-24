@@ -11,6 +11,7 @@
 #import "DLNavBar.h"
 #import "OtherActivityShowCell.h"
 #import "DetailActivityShowController.h"
+#import "PaggingScrollView.h"
 
 
 typedef NS_ENUM(NSInteger, XHSlideType) {
@@ -26,7 +27,7 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
  *  显示内容的容器
  */
 @property (nonatomic, strong) UIView *centerContainerView;
-@property (nonatomic, strong) UIScrollView *paggingScrollView;
+@property (nonatomic, strong) PaggingScrollView *paggingScrollView;
 
 /**
  *  显示title集合的容器
@@ -64,8 +65,9 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     [self reloadData];
 
-
+    
 }
+
 
 
 
@@ -147,7 +149,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 
 - (UIScrollView *)paggingScrollView {
     if (!_paggingScrollView) {
-        _paggingScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+        _paggingScrollView = [[PaggingScrollView alloc] initWithFrame:self.view.bounds];
         _paggingScrollView.bounces = NO;
         _paggingScrollView.pagingEnabled = YES;
         [_paggingScrollView setScrollsToTop:NO];
@@ -258,8 +260,8 @@ static NSString * const ID = @"OtherActivityShowCell";
 }
 
 #pragma mark - PanGesture Handle Method
-
 - (void)panGestureRecognizerHandle:(UIPanGestureRecognizer *)panGestureRecognizer {
+   
     /*
      CGPoint contentOffset = self.paggingScrollView.contentOffset;
      
@@ -300,7 +302,9 @@ static NSString * const ID = @"OtherActivityShowCell";
      default:
      break;
      }
-     */
+     
+    */
+    
 }
 
 #pragma mark - Block Call Back Method
@@ -353,6 +357,8 @@ static NSString * const ID = @"OtherActivityShowCell";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
    // self.paggingNavbar.contentOffset = scrollView.contentOffset;
+  
+    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -361,6 +367,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     // 根据当前的x坐标和页宽度计算出当前页数
     self.currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    
 }
 
 #pragma mark - KVO
@@ -370,7 +377,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 }
 
 
-
+#pragma touch
 
 
 

@@ -7,6 +7,7 @@
 //
 
 #import "Test1ViewController.h"
+#import "HitTestView.h"
 
 @interface Test1ViewController ()
 
@@ -19,6 +20,16 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"test";
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    
+    HitTestView *testView = [[HitTestView alloc]initWithFrame:CGRectMake(100, 100, 200, 200)];
+    [testView setBackgroundColor:[UIColor yellowColor]];
+    [self.view addSubview:testView];
+}
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    NSLog(@"controller touch");
 }
 
 - (void)didReceiveMemoryWarning {

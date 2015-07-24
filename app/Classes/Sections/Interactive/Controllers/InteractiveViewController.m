@@ -197,7 +197,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             twitterPaggingViewer.viewControllers = viewControllers;
             
             twitterPaggingViewer.didChangedPageCompleted = ^(NSInteger cuurentPage, NSString *title) {
-               //  NSLog(@"cuurentPage : %ld on title : %@", (long)cuurentPage, title);
+              
             };
 
             

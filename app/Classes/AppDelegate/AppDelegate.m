@@ -31,6 +31,8 @@
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
     
+    //修改控制器的statusBar样式,需要注意在info.plist里配置一下
+    [application setStatusBarStyle:UIStatusBarStyleDefault];
     return YES;
 }
 
