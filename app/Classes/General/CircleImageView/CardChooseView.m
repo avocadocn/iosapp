@@ -115,7 +115,7 @@ static NSInteger height = 45;
         
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:.2 animations:^{
-            [self.maskView setBackgroundColor:[UIColor colorWithWhite:.5 alpha:.5]];
+            [self.maskView setBackgroundColor:[UIColor colorWithWhite:.1 alpha:.5]];
         }];
     }];
 }

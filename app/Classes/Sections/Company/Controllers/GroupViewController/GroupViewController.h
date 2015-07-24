@@ -10,4 +10,8 @@
 
 @interface GroupViewController : UIViewController
 
+@property (nonatomic, strong)UICollectionView *groupListCollection;
+
+@property (nonatomic, strong)NSMutableArray *modelArray;
+
 @end

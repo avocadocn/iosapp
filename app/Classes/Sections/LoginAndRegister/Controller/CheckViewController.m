@@ -127,10 +127,12 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (!(indexPath.row == [self.modelArray count])) {
     RegisterViewController *regi = [[RegisterViewController alloc]init];
     CompanyModel *model = [self.modelArray objectAtIndex:indexPath.row];
     regi.enterpriseName = [NSString stringWithFormat:@"%@", model.company];
     [self.navigationController pushViewController:regi animated:YES];
+    }
 }
 
 - (void)skipButtonAction:(UIButton *)sender

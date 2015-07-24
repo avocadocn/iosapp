@@ -8,6 +8,8 @@
 
 #import "CompanyHeader.h"
 
+#import "GroupViewController.h"
+
 // 公司页面的header
 @implementation CompanyHeader
 
@@ -46,6 +48,8 @@
 }
 - (void)addressTapAction:(UITapGestureRecognizer *)tap
 {
+    GroupViewController *group = [[GroupViewController alloc]init];
+    [self.viewCon.navigationController pushViewController:group animated:YES];
     
 }
 - (void)groupTapAction:(UITapGestureRecognizer *)tap

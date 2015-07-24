@@ -11,7 +11,6 @@
 #import "CompanySmallCell.h"
 #import "PrefixHeader.pch"
 #import "CompanyHeader.h"
-#import "CompanyDetailCell.h"
 #import "ColleagueViewController.h"
 @interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -62,7 +61,7 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     CompanyHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BigHeader" forIndexPath:indexPath];
-    
+    header.viewCon = self;
     return header;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

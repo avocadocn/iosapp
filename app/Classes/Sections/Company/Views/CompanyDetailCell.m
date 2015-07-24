@@ -39,5 +39,8 @@
 //通过 view 进行页面的跳转
 - (void)ViewTapAction:(UITapGestureRecognizer *)tap
 {
-    }
+    
+    
+    
+}
 @end

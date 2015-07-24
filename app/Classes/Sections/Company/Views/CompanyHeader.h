@@ -11,5 +11,9 @@
 @interface CompanyHeader : UICollectionReusableView
 
 @property (nonatomic, strong)UILabel *groupLabel;
+
 @property (nonatomic, strong)UILabel *AddressBookLabel;
+
+@property (nonatomic, strong)UIViewController *viewCon;
+
 @end

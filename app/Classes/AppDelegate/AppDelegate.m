@@ -11,7 +11,7 @@
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
 #import "CheckViewController.h"
-
+#import "LoginViewController.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
@@ -53,9 +53,8 @@
     UIView *loginLogicView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth * 3, 0, DLScreenWidth, DLScreenHeight)];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(registerTapAction:)];
-    [loginLogicView addGestureRecognizer:tap];
-    
-        [scrollview addSubview:loginLogicView];
+    [loginLogicView addGestureRecognizer:tap];   //需要进行传值
+    [scrollview addSubview:loginLogicView];
 
     self.mailBoxTextField = [UITextField new];
     self.mailBoxTextField.placeholder = @"请输入您的邮箱...";
@@ -73,6 +72,8 @@
     }];
     
     UIButton *loginButton = [self builttingButtonWithTitle:@"登录" tag:1];
+    
+    [loginButton addTarget:self action:@selector(loginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [loginLogicView addSubview:loginButton];
     [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -97,10 +98,18 @@
     self.window.rootViewController = main;
 
 }
+
+- (void)loginButtonAction:(UIButton *)sender
+{
+    LoginViewController *login = [[LoginViewController alloc]init];
+    
+    [self.window setRootViewController:login];
+}
+
 - (void)registerTapAction:(UITapGestureRecognizer *)tap  //注册的点击事件
 {
     CheckViewController *check = [[CheckViewController alloc]init];
-    check.mailURL = self.mailBoxTextField.text;
+    check.mailURL = self.mailBoxTextField.text;  //接受到的邮箱内容
     
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:check];
     self.window.rootViewController = nav;

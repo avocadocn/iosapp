@@ -1,3 +1,4 @@
+
 //
 //  RegisterViewController.h
 //  app
@@ -8,6 +9,12 @@
 
 #import <UIKit/UIKit.h>
 
+
+typedef NS_ENUM(NSInteger, UserRegisterState) {
+    UserRegisterForCompany,          // 帮公司注册,公司邮箱传递过来,皆可设定
+    UserRegisterStateForFoundCompany,  //找到公司, 公司邮件固定,名称固定, 昵称,性别,密码自定义
+};
+
 typedef NS_ENUM(NSInteger, UserSex){
     UserSexMan,
     UserSexWoman
@@ -17,14 +24,17 @@ typedef NS_ENUM(NSInteger, UserSex){
 
 @property (nonatomic, copy)NSString *enterpriseName;
 
-@property (weak, nonatomic) IBOutlet UIButton *userPhotoImageView;
-@property (weak, nonatomic) IBOutlet UITextField *enterpriseNameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *userNickNameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *userPasswordTextField;
-@property (weak, nonatomic) IBOutlet UIButton *loginButton;
-@property (weak, nonatomic) IBOutlet UIButton *manButton;
-@property (weak, nonatomic) IBOutlet UIButton *womanButton;
+@property (strong, nonatomic)UIButton *userPhotoImageView;
+@property (strong, nonatomic)UITextField *enterpriseNameTextField;
+@property (strong, nonatomic)UITextField *userNickNameTextField;
+@property (strong, nonatomic)UITextField *userPasswordTextField;
+@property (strong, nonatomic)UIButton *loginButton;
+@property (strong, nonatomic)UIButton *manButton;
+@property (strong, nonatomic)UIButton *womanButton;
+@property (strong, nonatomic)UITextField *companyMailTextField;
 
 @property (assign, nonatomic) UserSex sex;
+
+@property (nonatomic, copy)NSString *comMail;
 
 @end
