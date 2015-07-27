@@ -165,29 +165,29 @@
 
 - (void)userLoginAction:(id)sender {
     
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+//    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    
+//    NSString *str = @"http://192.168.2.113:3002/v2_0/users";
+//    
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setObject:self.comMail forKey:@"email"];
+////    [dic setObject:self.userPasswordTextField.text forKey:@"password"];
+////    [dic setObject:self.userNickNameTextField.text forKey:@"nickname"];
+//    
+//    [manger POST:str parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        
+//    } success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSData *data = [NSData dataWithData:responseObject];
+//        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        NSLog(@"%@", dataDic);
+//    
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSLog(@"请求数据失败, 原因为:%@", error);
+//    }];
     
-    NSString *str = @"http://192.168.2.113:3002/v2_0/users";
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:self.comMail forKey:@"email"];
-    [dic setObject:self.userPasswordTextField.text forKey:@"password"];
-    [dic setObject:self.userNickNameTextField.text forKey:@"nickname"];
-    
-    [manger POST:str parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSData *data = [NSData dataWithData:responseObject];
-        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"%@", dataDic);
-    
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"请求数据失败, 原因为:%@", error);
-    }];
-    
-//    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"注册" forKey:@"name"];
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"loginAccount" object:nil userInfo:dic];
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"注册" forKey:@"name"];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"loginAccount" object:nil userInfo:dic];
 }
 
 - (void)userSexAction:(UIButton *)sender {
