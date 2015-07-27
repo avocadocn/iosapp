@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, UserSex){
 
 @interface RegisterViewController : UIViewController
 
-@property (nonatomic, copy)NSString *enterpriseName;
+@property (nonatomic, copy)NSString *enterpriseName; // 公司名字
 
 @property (strong, nonatomic)UIButton *userPhotoImageView;
 @property (strong, nonatomic)UITextField *enterpriseNameTextField;
@@ -35,6 +35,6 @@ typedef NS_ENUM(NSInteger, UserSex){
 
 @property (assign, nonatomic) UserSex sex;
 
-@property (nonatomic, copy)NSString *comMail;
+@property (nonatomic, copy)NSString *comMail;  //公司邮箱
 
 @end

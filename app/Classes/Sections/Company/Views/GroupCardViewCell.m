@@ -33,16 +33,16 @@
         make.top.mas_equalTo(self.mas_top);
         make.left.mas_equalTo(self.mas_left);
         make.right.mas_equalTo(self.mas_right);
-        make.height.mas_equalTo(self.width / 1.3392);
+        make.height.mas_equalTo(80);
     }];
     
     self.colorView = [UIView new];
     [self addSubview:self.colorView];
     [self.colorView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_top);
+        make.top.mas_equalTo(self.groupImageView.mas_bottom);
         make.left.mas_equalTo(self.mas_left);
         make.right.mas_equalTo(self.mas_right);
-        make.height.mas_equalTo(15);
+        make.height.mas_equalTo(10);
     }];
     
     self.groupIntroLabel = [UILabel new];
@@ -56,10 +56,18 @@
         make.right.mas_equalTo(self.mas_right);
     }];
     
-    [self setBackgroundColor:[UIColor blackColor]];
+//    [self setBackgroundColor:[UIColor blackColor]];
     
+    [self.groupImageView sd_setImageWithURL:[NSURL URLWithString:@"http://img.cache.itlily.com/tdb/song/a5/60/1381978129.jpg"]]; // 图片
+    CGFloat red = arc4random() % 100 / 100.0;
+    CGFloat blue = arc4random() % 100 / 100.0;
+    CGFloat green = arc4random() % 100 / 100.0;
+    self.colorView.backgroundColor = [UIColor colorWithRed:red green:blue blue:green alpha:1];
     
-    
+    self.groupIntroLabel.text = @"空军建军节";
+    self.groupIntroLabel.font = [UIFont systemFontOfSize:14];
+    self.groupIntroLabel.textAlignment = NSTextAlignmentCenter;
+    [self setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)cellReconsitutionWithModel:(GroupCardModel *)model

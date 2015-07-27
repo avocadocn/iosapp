@@ -256,6 +256,12 @@ static ChoosePhotoController *choose = nil;
     return header;
 }
 
+- (void)popViewController{
+    [self.delegate arrangeStartWithArray:self.selectArray];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     NSDictionary *dic = [self.photoArray objectAtIndex:section];

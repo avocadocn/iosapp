@@ -10,7 +10,7 @@
 
 @interface CheckViewController : UIViewController
 
-@property (nonatomic, weak)NSString *mailURL;
+@property (nonatomic, copy)NSString *mailURL;
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
 

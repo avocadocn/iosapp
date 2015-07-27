@@ -24,12 +24,12 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     
-//    UIScrollView *scrollview = [self builtScrollview];
-//    [self.window addSubview:scrollview];
+    UIScrollView *scrollview = [self builtScrollview];
+    [self.window addSubview:scrollview];
     [self.window makeKeyAndVisible];
     
-    MainController *main = [[MainController alloc]init];
-    self.window.rootViewController = main;
+//    MainController *main = [[MainController alloc]init];
+//    self.window.rootViewController = main;
     
     //修改控制器的statusBar样式,需要注意在info.plist里配置一下
     [application setStatusBarStyle:UIStatusBarStyleDefault];
@@ -110,13 +110,27 @@
 
 - (void)registerTapAction:(UITapGestureRecognizer *)tap  //注册的点击事件
 {
-    CheckViewController *check = [[CheckViewController alloc]init];
-    check.mailURL = self.mailBoxTextField.text;  //接受到的邮箱内容
+    // 邮箱格式的判断
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:check];
-    self.window.rootViewController = nav;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     
+    BOOL mailFormat = [emailTest evaluateWithObject:self.mailBoxTextField.text];
+
+    
+    if (mailFormat) { //正确的邮箱格式
+        CheckViewController *check = [[CheckViewController alloc]init];
+        check.mailURL = [NSString stringWithFormat:@"%@", self.mailBoxTextField.text];  //接受到的邮箱内容
+        
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:check];
+        self.window.rootViewController = nav;
+    } else
+    {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"你给的邮箱格式不正确" message: nil delegate:self cancelButtonTitle:@"返回" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {

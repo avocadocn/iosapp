@@ -6,10 +6,12 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
+
 #import "PhotoCell.h"
 #import "ChoosePhotoController.h"
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
+
 
 typedef NS_ENUM(NSInteger, TouchEvent)
 {
@@ -17,11 +19,15 @@ typedef NS_ENUM(NSInteger, TouchEvent)
     TouchEventYes
 };
 
+
+
 @interface PhotoCell ()
 @property (nonatomic, assign)TouchEvent CellTouchState;
+
 @end
 
 @implementation PhotoCell
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -55,6 +61,11 @@ typedef NS_ENUM(NSInteger, TouchEvent)
         self.insertButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
             NSString *str = choose.selectNumLabel.text;
             NSInteger inte = [str integerValue];
+            
+            if (choose.allowSelectNum == 1) {
+                [choose.selectArray addObject:self.imageView.image];
+                [choose popViewController];
+            }
             
             if (self.CellTouchState == TouchEventNo) {  //没有被点击过
                 if (inte != 9) {

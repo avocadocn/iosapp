@@ -50,6 +50,7 @@
     self.groupListCollection = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
     [self.groupListCollection setBackgroundColor:[UIColor whiteColor]];
     [self.groupListCollection registerClass:[GroupCardViewCell class] forCellWithReuseIdentifier:@"groupCardCell"];
+    self.groupListCollection.backgroundColor = DLSBackgroundColor;
     self.groupListCollection.delegate = self;
     self.groupListCollection.dataSource = self;
     [self.view addSubview:self.groupListCollection];

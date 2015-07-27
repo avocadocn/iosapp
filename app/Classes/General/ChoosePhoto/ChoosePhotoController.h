@@ -40,4 +40,6 @@
 
 + (ChoosePhotoController *)shareStateOfController;
 
+- (void)popViewController;// 当选择数量为1时,选取返回;
+
 @end

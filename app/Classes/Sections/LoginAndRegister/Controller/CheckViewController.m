@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self makeFlaseData];
-//    [self requestNet];
+    //    [self requestNet];
     [self builtInterface];
 }
 - (void)makeFlaseData
@@ -116,22 +116,25 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
         [cell setCompanyCellWithModel:model];
         return cell;
     }
-     else
-     {
-         LoginMailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"loginMail"];
-         [cell.skipButton addTarget:self action:@selector(skipButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-         return cell;
-     }
+    else
+    {
+        LoginMailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"loginMail"];
+        [cell.skipButton addTarget:self action:@selector(skipButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (!(indexPath.row == [self.modelArray count])) {
-    RegisterViewController *regi = [[RegisterViewController alloc]init];
-    CompanyModel *model = [self.modelArray objectAtIndex:indexPath.row];
-    regi.enterpriseName = [NSString stringWithFormat:@"%@", model.company];
-    [self.navigationController pushViewController:regi animated:YES];
+        RegisterViewController *regi = [[RegisterViewController alloc]init];
+        regi.comMail = self.mailURL;
+        regi.enterpriseName = @"上海动梨科技有限公司";
+        
+        CompanyModel *model = [self.modelArray objectAtIndex:indexPath.row];
+        regi.enterpriseName = [NSString stringWithFormat:@"%@", model.company];
+        [self.navigationController pushViewController:regi animated:YES];
     }
 }
 
@@ -150,16 +153,17 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 
 - (void)cardActionWithButton:(UIButton *)sender
 {
-    switch (sender.tag) {
+    switch (sender.tag) {  //公司账户已存在
         case 1:{
             
-            CompanyRegisterViewController *comReg = [[CompanyRegisterViewController alloc]init];
+            RegisterViewController *comReg = [[RegisterViewController alloc]init];
             [self.navigationController pushViewController:comReg animated:YES];
             break;
         }
         case 2:
         {  //个人账号
             RegisterViewController *reg = [[RegisterViewController alloc]init];
+            reg.comMail = self.mailURL;
             [self.navigationController pushViewController:reg animated:YES];
             break;
         }
