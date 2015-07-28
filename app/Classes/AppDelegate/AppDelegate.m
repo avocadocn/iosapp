@@ -12,6 +12,7 @@
 #import <ReactiveCocoa.h>
 #import "CheckViewController.h"
 #import "LoginViewController.h"
+
 @interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
@@ -20,6 +21,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
