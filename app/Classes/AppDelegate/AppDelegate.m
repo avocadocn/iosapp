@@ -12,6 +12,8 @@
 #import <ReactiveCocoa.h>
 #import "CheckViewController.h"
 #import "LoginViewController.h"
+#import "RouteManager.h"
+#import "RouteInfoModel.h"
 
 @interface AppDelegate ()<UIScrollViewDelegate>
 
@@ -22,7 +24,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    
+    RouteManager *mag = [RouteManager sharedManager];
+    RouteInfoModel *model  = mag.routeDict[@"Login"];
+    NSLog(@"%@",model.routeURL);
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
