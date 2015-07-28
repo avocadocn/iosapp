@@ -8,6 +8,7 @@
 
 #import "RouteManager.h"
 #import "RouteInfoModel.h"
+#import "RouteInfoModel.h"
 
 @implementation RouteManager
 
@@ -23,17 +24,17 @@ static dispatch_once_t predicate;
     return sharedRouteManagerInstance;
 }
 
--(NSMutableArray *)routeArray{
-    if (_routeArray == nil) {
-        _routeArray = [NSMutableArray array];
+-(NSMutableDictionary *)routeDict{
+    if (_routeDict == nil) {
+        _routeDict = [NSMutableDictionary dictionary];
         NSString *path = [[NSBundle mainBundle]pathForResource:@"RouteInfo"  ofType:@"plist"];
         NSArray *arr = [NSArray arrayWithContentsOfFile:path];
         for (NSDictionary *dict in arr) {
             RouteInfoModel *model = [RouteInfoModel infoModelWithDict:dict];
-            [_routeArray addObject:model];
+            [_routeDict setObject:model forKey:model.routeName];
         }
     }
-    return _routeArray;
+    return _routeDict;
 }
 
 

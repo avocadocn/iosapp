@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+
+/**
+    RouteManager *mag = [RouteManager sharedManager];
+    RouteInfoModel *model  = mag.routeDict[@"Login"];
+    NSLog(@"%@",model.routeURL);
+ */
 @interface RouteManager : NSObject
 
 /**
@@ -18,6 +24,6 @@
 + (RouteManager *)sharedManager;
 
 
-@property (strong,nonatomic) NSMutableArray *routeArray;
+@property (strong,nonatomic) NSMutableDictionary *routeDict;
 
 @end
