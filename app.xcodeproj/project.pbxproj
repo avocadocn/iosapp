@@ -95,6 +95,21 @@
 		96CF90F91B67345C001759E2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96CF90F71B67345C001759E2 /* Localizable.strings */; };
 		96CF91651B6734B8001759E2 /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91621B6734B8001759E2 /* libEaseMobClientSDK.a */; };
 		96CF91661B6734B8001759E2 /* EaseMob.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96CF91641B6734B8001759E2 /* EaseMob.bundle */; };
+		96CF91681B673E0D001759E2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91671B673E0D001759E2 /* CoreData.framework */; };
+		96CF916A1B673E19001759E2 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91691B673E19001759E2 /* libc++.dylib */; };
+		96CF916C1B673E28001759E2 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF916B1B673E28001759E2 /* libstdc++.6.0.9.dylib */; };
+		96CF916E1B673E39001759E2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF916D1B673E39001759E2 /* libsqlite3.dylib */; };
+		96CF91701B673E43001759E2 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF916F1B673E43001759E2 /* CoreText.framework */; };
+		96CF91721B673E48001759E2 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91711B673E48001759E2 /* ImageIO.framework */; };
+		96CF91741B673E50001759E2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91731B673E50001759E2 /* MapKit.framework */; };
+		96CF91761B673E59001759E2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91751B673E59001759E2 /* CoreLocation.framework */; };
+		96CF91781B673E6B001759E2 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91771B673E6B001759E2 /* libresolv.dylib */; };
+		96CF917A1B673E80001759E2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91791B673E80001759E2 /* MobileCoreServices.framework */; };
+		96CF917C1B673E8A001759E2 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF917B1B673E8A001759E2 /* libiconv.dylib */; };
+		96CF917E1B673E92001759E2 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF917D1B673E92001759E2 /* AddressBook.framework */; };
+		96CF91801B673E99001759E2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF917F1B673E99001759E2 /* CFNetwork.framework */; };
+		96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91811B673EA2001759E2 /* libz.dylib */; };
+		96CF91841B673EA9001759E2 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91831B673EA9001759E2 /* libxml2.dylib */; };
 		96D20EAF1B5F97F300102D18 /* RankListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EAE1B5F97F300102D18 /* RankListController.m */; };
 		96D20EB81B60AE5D00102D18 /* DLNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EB71B60AE5D00102D18 /* DLNavBar.m */; };
 		96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EBA1B60C4EE00102D18 /* ActivityShowTableController.m */; };
@@ -443,6 +458,21 @@
 		96CF91601B6734B8001759E2 /* EMErrorDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMErrorDefs.h; sourceTree = "<group>"; };
 		96CF91621B6734B8001759E2 /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
 		96CF91641B6734B8001759E2 /* EaseMob.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseMob.bundle; sourceTree = "<group>"; };
+		96CF91671B673E0D001759E2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		96CF91691B673E19001759E2 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		96CF916B1B673E28001759E2 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
+		96CF916D1B673E39001759E2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		96CF916F1B673E43001759E2 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		96CF91711B673E48001759E2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		96CF91731B673E50001759E2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		96CF91751B673E59001759E2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		96CF91771B673E6B001759E2 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		96CF91791B673E80001759E2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		96CF917B1B673E8A001759E2 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		96CF917D1B673E92001759E2 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		96CF917F1B673E99001759E2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		96CF91811B673EA2001759E2 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		96CF91831B673EA9001759E2 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		96D20EAD1B5F97F300102D18 /* RankListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankListController.h; sourceTree = "<group>"; };
 		96D20EAE1B5F97F300102D18 /* RankListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankListController.m; sourceTree = "<group>"; };
 		96D20EB61B60AE5D00102D18 /* DLNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNavBar.h; sourceTree = "<group>"; };
@@ -540,7 +570,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96CF91841B673EA9001759E2 /* libxml2.dylib in Frameworks */,
+				96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */,
+				96CF91801B673E99001759E2 /* CFNetwork.framework in Frameworks */,
+				96CF917E1B673E92001759E2 /* AddressBook.framework in Frameworks */,
+				96CF917C1B673E8A001759E2 /* libiconv.dylib in Frameworks */,
+				96CF917A1B673E80001759E2 /* MobileCoreServices.framework in Frameworks */,
 				A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */,
+				96CF91781B673E6B001759E2 /* libresolv.dylib in Frameworks */,
+				96CF91761B673E59001759E2 /* CoreLocation.framework in Frameworks */,
+				96CF91741B673E50001759E2 /* MapKit.framework in Frameworks */,
+				96CF91721B673E48001759E2 /* ImageIO.framework in Frameworks */,
+				96CF91701B673E43001759E2 /* CoreText.framework in Frameworks */,
+				96CF916E1B673E39001759E2 /* libsqlite3.dylib in Frameworks */,
+				96CF916C1B673E28001759E2 /* libstdc++.6.0.9.dylib in Frameworks */,
+				96CF916A1B673E19001759E2 /* libc++.dylib in Frameworks */,
+				96CF91681B673E0D001759E2 /* CoreData.framework in Frameworks */,
 				A41CF0D21B5CC0B7005C21EF /* AssetsLibrary.framework in Frameworks */,
 				96CF91651B6734B8001759E2 /* libEaseMobClientSDK.a in Frameworks */,
 				C2BB2F66A5C16197F6FD8E9D /* libPods.a in Frameworks */,
@@ -572,6 +617,21 @@
 		528AD80964192770FD7E639E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96CF91831B673EA9001759E2 /* libxml2.dylib */,
+				96CF91811B673EA2001759E2 /* libz.dylib */,
+				96CF917F1B673E99001759E2 /* CFNetwork.framework */,
+				96CF917D1B673E92001759E2 /* AddressBook.framework */,
+				96CF917B1B673E8A001759E2 /* libiconv.dylib */,
+				96CF91791B673E80001759E2 /* MobileCoreServices.framework */,
+				96CF91771B673E6B001759E2 /* libresolv.dylib */,
+				96CF91751B673E59001759E2 /* CoreLocation.framework */,
+				96CF91731B673E50001759E2 /* MapKit.framework */,
+				96CF91711B673E48001759E2 /* ImageIO.framework */,
+				96CF916F1B673E43001759E2 /* CoreText.framework */,
+				96CF916D1B673E39001759E2 /* libsqlite3.dylib */,
+				96CF916B1B673E28001759E2 /* libstdc++.6.0.9.dylib */,
+				96CF91691B673E19001759E2 /* libc++.dylib */,
+				96CF91671B673E0D001759E2 /* CoreData.framework */,
 				A422697B1B672388001B4DE6 /* SystemConfiguration.framework */,
 				A41CF0D11B5CC0B7005C21EF /* AssetsLibrary.framework */,
 				D9388089A6ADF54035C56E5D /* libPods.a */,

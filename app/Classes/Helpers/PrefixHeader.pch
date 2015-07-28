@@ -20,6 +20,7 @@
 #define GrayBackgroundColor RGB(235, 235, 235)
 #import "UIView+Extension.h"
 #import "NotificationMacro.h"
+#import "EaseMob.h"
 
 #define DLSBackgroundColor [UIColor colorWithWhite:.9 alpha:1];
 
