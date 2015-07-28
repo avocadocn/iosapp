@@ -9,5 +9,19 @@
 #import <UIKit/UIKit.h>
 
 @interface MainController : UITabBarController
+{
+    EMConnectionState _connectionState;
+}
+
+
+- (void)jumpToChatList;
+
+- (void)setupUntreatedApplyCount;
+
+- (void)networkChanged:(EMConnectionState)connectionState;
+
+- (void)didReceiveLocalNotification:(UILocalNotification *)notification;
+
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password;
 
 @end

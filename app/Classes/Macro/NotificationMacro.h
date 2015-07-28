@@ -10,4 +10,5 @@
 #define app_NotificationMacro_h
 
 #define kLineLayoutAttrChange @"kLineLayoutAttrChange"
+#define KNOTIFICATION_LOGINCHANGE @"loginStateChange"
 #endif

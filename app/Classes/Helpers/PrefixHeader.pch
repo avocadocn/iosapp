@@ -13,14 +13,25 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 #define DLScreenWidth [UIScreen mainScreen].bounds.size.width
 #define DLScreenHeight [UIScreen mainScreen].bounds.size.height
 #define RGB(r,g,b) [UIColor colorWithRed:( r ) / 255.0 green:( g ) / 255.0 blue:( b ) / 255.0 alpha:1]
+
 #define DLRandomColor RGB(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
+
 #define GrayBackgroundColor RGB(235, 235, 235)
+#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+
 #import "UIView+Extension.h"
 #import "NotificationMacro.h"
 #import "EaseMob.h"
+#import "EMAlertView.h"
+#import "UIViewController+DismissKeyboard.h"
+#import "UIViewController+HUD.h"
+#import "TTGlobalUICommon.h"
+
 
 #define DLSBackgroundColor [UIColor colorWithWhite:.9 alpha:1];
 

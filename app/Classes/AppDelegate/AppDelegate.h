@@ -7,12 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApplyViewController.h"
+#import "MainController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate,IChatManagerDelegate>
+{
+    EMConnectionState _connectionState;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) UITextField *mailBoxTextField;
 
+
+@property (strong, nonatomic) MainController *mainController;
 @end
 

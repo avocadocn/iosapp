@@ -7,13 +7,15 @@
 //
 
 #import "AppDelegate.h"
-#import "MainController.h"
+
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
 #import "CheckViewController.h"
 #import "LoginViewController.h"
 #import "RouteManager.h"
 #import "RouteInfoModel.h"
+
+#import "AppDelegate+EaseMob.h"
 
 @interface AppDelegate ()<UIScrollViewDelegate>
 
@@ -23,25 +25,49 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    RouteManager *mag = [RouteManager sharedManager];
-    RouteInfoModel *model  = mag.routeDict[@"Login"];
-    NSLog(@"%@",model.routeURL);
+  
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     
-    UIScrollView *scrollview = [self builtScrollview];
-    [self.window addSubview:scrollview];
+//    UIScrollView *scrollview = [self builtScrollview];
+//    [self.window addSubview:scrollview];
+//    [self.window makeKeyAndVisible];
+    
+       //修改控制器的statusBar样式,需要注意在info.plist里配置一下
+    [application setStatusBarStyle:UIStatusBarStyleDefault];
+    
+    // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
+    [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
+    
+    MainController *main = [[MainController alloc]init];
+    self.window.rootViewController = main;
     [self.window makeKeyAndVisible];
     
-//    MainController *main = [[MainController alloc]init];
-//    self.window.rootViewController = main;
-    
-    //修改控制器的statusBar样式,需要注意在info.plist里配置一下
-    [application setStatusBarStyle:UIStatusBarStyleDefault];
+    self.mainController = main;
+    // 登陆
+    [self.mainController loginWithUsername:@"789" password:@"789"];
+
     return YES;
 }
+
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    if (_mainController) {
+        [_mainController jumpToChatList];
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    if (_mainController) {
+        [_mainController didReceiveLocalNotification:notification];
+    }
+}
+
+
+
 
 - (UIScrollView *)builtScrollview
 {
@@ -170,26 +196,5 @@
 //        self.window.rootViewController = main;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
 
 @end
