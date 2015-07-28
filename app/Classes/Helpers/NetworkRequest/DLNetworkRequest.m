@@ -9,11 +9,33 @@
 #import "DLNetworkRequest.h"
 #import "RouteManager.h"
 #import "RouteInfoModel.h"
+#import <ReactiveCocoa.h>
 
 @implementation DLNetworkRequest
 
+// 路由请求 需要一个请求的网址 网络请求的类型 请求的参数
+- (void)dlRouteNetWorkWithNetName:(NSString *)name andRequestType:(NSString *)type paramter:(id)paramter
+{
+    self.dictinary = [NSDictionary dictionary];
+    
+    RouteManager *route = [RouteManager sharedManager];
+    RouteInfoModel *model = [route getModelWithNetName:name];
+    NSString *str = model.routeURL;
+    
+    if ([type isEqualToString:@"POST"]) {
+        [self dlPOSTNetRequestWithString:str andParameters:paramter];
+    }
+    else if ([type isEqualToString:@"GET"])
+    {
+        [self dlGETNetRequestWithString:str andParameters:paramter];
+    }
+     //写了一个plist文件,用单例读取这个plist文件,把plist文件里的小字典转成model,把model放进route的routeDict字典里, key值为model的routeName值
+    
+}
+
+
 // Post 请求
-- (NSDictionary *)dlPOSTNetRequestWithString:(NSString *)str andParameters:(id)parameters
+- (void)dlPOSTNetRequestWithString:(NSString *)str andParameters:(id)parameters
 {
     str = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
@@ -21,16 +43,16 @@
     [manger POST:str parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         NSData *data = [NSData dataWithData:responseObject];
         
-        self.dictinary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        [self.delegate sendParsingWithDictionary:dic];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", error);
-        [self judgeNetWorkConnection];
+//        [self judgeNetWorkConnection];
     }];
-    
-    return self.dictinary;
 }
 
-- (NSDictionary *)dlGETNetRequestWithString:(NSString *)str andParameters:(id)parameters
+// GET 请求
+- (void)dlGETNetRequestWithString:(NSString *)str andParameters:(id)parameters
 {
     str = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
@@ -38,13 +60,14 @@
     [manger GET:str parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         NSData *data = [NSData dataWithData:responseObject];
         
-        self.dictinary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        [self.delegate sendParsingWithDictionary:dic];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", error);
-        [self judgeNetWorkConnection];
+//        [self judgeNetWorkConnection];
     }];
-    return self.dictinary;
 }
+
 
 // 判断网络
 

@@ -37,4 +37,6 @@ typedef NS_ENUM(NSInteger, UserSex){
 
 @property (nonatomic, copy)NSString *comMail;  //公司邮箱
 
+@property (nonatomic, copy)NSString *invite;
+
 @end

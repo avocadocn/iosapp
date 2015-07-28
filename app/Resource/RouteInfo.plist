@@ -6,13 +6,31 @@
 		<key>routeName</key>
 		<string>Login</string>
 		<key>routeURL</key>
-		<string>http://192.168.2.113:3002/v2_0/users/:username</string>
+		<string>http://192.168.2.110:3002/v2_0/users/username</string>
 	</dict>
 	<dict>
 		<key>routeName</key>
 		<string>Register</string>
 		<key>routeURL</key>
-		<string>http://192.168.2.113:3002/v2_0/users/</string>
+		<string>http://192.168.2.110:3002/v2_0/users</string>
 	</dict>
+	<dict>
+		<key>routeName</key>
+		<string>Companies</string>
+		<key>routeURL</key>
+		<string>http://192.168.2.110:3002/v2_0/companies</string>
+	</dict>
+    <dict>
+        <key>routeName</key>
+        <string>companyQuickRegister</string>
+        <key>routeURL</key>
+        <string>http://192.168.2.110:3002/v2_0/companies/quickRegister</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>userLogin</string>
+        <key>routeURL</key>
+        <string>http://192.168.2.110:3002/v2_0/users/login</string>
+    </dict>
 </array>
 </plist>

@@ -10,4 +10,11 @@
 
 @interface CompanyRegisterViewController : UIViewController
 
+@property (nonatomic, strong)UIButton *companyLogoButton;
+
+@property (nonatomic, strong)UIButton *loginButton;
+@property (nonatomic, strong)UITextField *companyNameTextField;
+@property (nonatomic, strong)UITextField *companyPasswordTextField;
+
+@property (nonatomic, copy)NSString *companyEmail;
 @end

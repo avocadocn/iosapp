@@ -8,9 +8,10 @@
 
 #import "LoginViewController.h"
 #import <Masonry.h>
+#import "DLNetworkRequest.h"
 
 
-@interface LoginViewController ()
+@interface LoginViewController ()<DLNetworkRequestDelegate>
 
 @end
 
@@ -69,6 +70,7 @@
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor orangeColor]];
     [self.view addSubview:button];
+    [button addTarget:self action:@selector(loginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.passwordTextField.mas_bottom).offset(30);
@@ -76,13 +78,28 @@
         make.right.mas_equalTo(view.mas_right);
         make.height.mas_equalTo(view.height / 2.0 + 5);
     }];
-    
 }
-
+- (void)loginButtonAction:(UIButton *)sender
+{
+    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
+    request.delegate = self;
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:@"afei@55yali.com" forKey:@"email"];
+    [dic setObject:@"55yali" forKey:@"password"];
+    NSDictionary *pushInfo = [NSDictionary dictionaryWithObjects:@[@"did1a2b3c4d5e6f", @"dwadadw", @"dwadawd"] forKeys:@[@"ios_token", @"user_id", @"channel_id"]];
+    [dic setObject:pushInfo forKey:@"pushInfo"];
+    
+    [request dlRouteNetWorkWithNetName:@"userLogin" andRequestType:@"POST" paramter:dic];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)sendParsingWithDictionary:(NSDictionary *)dictionary
+{
+    NSLog(@"%@", dictionary);
 }
 
 /*

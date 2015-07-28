@@ -10,12 +10,24 @@
 
 #import <AFNetworking.h>
 
+
+@protocol DLNetworkRequestDelegate <NSObject>
+
+- (void)sendParsingWithDictionary:(NSDictionary *)dictionary;
+
+@end
+
 @interface DLNetworkRequest : NSObject
 
 @property (nonatomic, strong)NSDictionary *dictinary;
 
-- (NSDictionary *)dlPOSTNetRequestWithString:(NSString *)str andParameters:(id)parameters;
+@property (nonatomic, assign)id <DLNetworkRequestDelegate>delegate;
 
-- (NSDictionary *)dlGETNetRequestWithString:(NSString *)str andParameters:(id)parameters;
+- (void)dlPOSTNetRequestWithString:(NSString *)str andParameters:(id)parameters;
+
+- (void)dlGETNetRequestWithString:(NSString *)str andParameters:(id)parameters;
+
+- (void)dlRouteNetWorkWithNetName:(NSString *)name andRequestType:(NSString *)type paramter:(id)paramter;
+
 
 @end

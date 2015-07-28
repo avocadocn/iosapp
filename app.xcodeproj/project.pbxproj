@@ -81,6 +81,8 @@
 		A4651D401B58DFB9008BAEE8 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D3F1B58DFB9008BAEE8 /* 2.png */; };
 		A4651D421B58DFC7008BAEE8 /* addImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D411B58DFC7008BAEE8 /* addImage.png */; };
 		A4651D871B58F8C6008BAEE8 /* delete-circular.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D861B58F8C6008BAEE8 /* delete-circular.png */; };
+		A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = A47F50371B67765600955052 /* CompanyEmailComplete.m */; };
+		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
 		A481A1F21B65C6C100845046 /* PaggingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EC21B620A8200102D18 /* PaggingScrollView.m */; };
 		A4A009C21B579F5B005AC35F /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A4A009C11B579F5B005AC35F /* 2.jpg */; };
 		A4C7BE341B5E3D9D00473787 /* insert.png in Resources */ = {isa = PBXBuildFile; fileRef = A4C7BE331B5E3D9D00473787 /* insert.png */; };
@@ -241,6 +243,9 @@
 		A4651D3F1B58DFB9008BAEE8 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		A4651D411B58DFC7008BAEE8 /* addImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addImage.png; sourceTree = "<group>"; };
 		A4651D861B58F8C6008BAEE8 /* delete-circular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete-circular.png"; sourceTree = "<group>"; };
+		A47F50361B67765600955052 /* CompanyEmailComplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyEmailComplete.h; sourceTree = "<group>"; };
+		A47F50371B67765600955052 /* CompanyEmailComplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyEmailComplete.m; sourceTree = "<group>"; };
+		A47F50381B67765600955052 /* CompanyEmailComplete.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyEmailComplete.xib; sourceTree = "<group>"; };
 		A4A009C11B579F5B005AC35F /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		A4C7BE331B5E3D9D00473787 /* insert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = insert.png; sourceTree = "<group>"; };
 		A4F315591B5E4BFB00126C8A /* ChoosePhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePhotoController.h; sourceTree = "<group>"; };
@@ -742,6 +747,9 @@
 				A450560F1B60CDBD0075E39D /* CompanyRegisterViewController.m */,
 				A459C4C91B6242A2003D32C8 /* LoginViewController.h */,
 				A459C4CA1B6242A2003D32C8 /* LoginViewController.m */,
+				A47F50361B67765600955052 /* CompanyEmailComplete.h */,
+				A47F50371B67765600955052 /* CompanyEmailComplete.m */,
+				A47F50381B67765600955052 /* CompanyEmailComplete.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -950,6 +958,7 @@
 				A4651D871B58F8C6008BAEE8 /* delete-circular.png in Resources */,
 				A450561A1B60D2110075E39D /* welcome-3.png in Resources */,
 				A41CF0DA1B5CE155005C21EF /* mark.png in Resources */,
+				A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */,
 				A45056191B60D2110075E39D /* welcome-2.png in Resources */,
 				A4311F5D1B577D50004401B4 /* ColleagueViewCell.xib in Resources */,
 				A4651D3D1B58DFAE008BAEE8 /* No.png in Resources */,
@@ -1045,6 +1054,7 @@
 				9649B5401B564DE000A7F355 /* MainController.m in Sources */,
 				9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */,
 				A4F315671B5E4BFB00126C8A /* PhotoCell.m in Sources */,
+				A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */,
 				A459C4CB1B6242A2003D32C8 /* LoginViewController.m in Sources */,
 				A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */,
 				9649B53E1B564DE000A7F355 /* CompanyViewController.m in Sources */,

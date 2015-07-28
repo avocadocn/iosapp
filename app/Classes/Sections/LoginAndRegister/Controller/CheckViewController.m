@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 
 - (void)skipButtonAction:(UIButton *)sender
 {
-    CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"企业账号",@"个人账号"]];
+    CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"个人账号", @"企业账号"]];
     card.delegate = self;
     [self.view addSubview:card];
     [card show];
@@ -161,9 +161,9 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
             break;
         }
         case 2:
-        {  //个人账号
-            RegisterViewController *reg = [[RegisterViewController alloc]init];
-            reg.comMail = self.mailURL;
+        {  //公司账号
+            CompanyRegisterViewController *reg = [[CompanyRegisterViewController alloc]init];
+            reg.companyEmail = [NSString stringWithFormat:@"%@", self.mailURL];
             [self.navigationController pushViewController:reg animated:YES];
             break;
         }
