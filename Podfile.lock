@@ -23,6 +23,7 @@ PODS:
   - HMSegmentedControl (1.5.2)
   - Masonry (0.6.2)
   - MBProgressHUD (0.9.1)
+  - MJExtension (2.4.4)
   - MJRefresh (2.2.0)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
@@ -40,6 +41,7 @@ DEPENDENCIES:
   - HMSegmentedControl
   - Masonry
   - MBProgressHUD (~> 0.9.1)
+  - MJExtension (~> 2.4.4)
   - MJRefresh
   - ReactiveCocoa
   - SDWebImage (~> 3.7)
@@ -49,8 +51,9 @@ SPEC CHECKSUMS:
   HMSegmentedControl: 83b9686022d2176fb6457d2bdb61e5d6393fed7d
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MJExtension: fabc9e6084f14363ed6828490a98ee516c9cbbfe
   MJRefresh: 65a2bf14abb6feeaed8696aa1551f70e15ab0a08
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

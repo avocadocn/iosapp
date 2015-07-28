@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+    <dict>
+		<key>routeName</key>
+		<string>Login</string>
+		<key>routeURL</key>
+        <string>http://192.168.2.113:3002/v2_0/users/:username</string>
+	</dict>
+    <dict>
+        <key>routeName</key>
+        <string>Register</string>
+        <key>routeURL</key>
+        <string>http://192.168.2.113:3002/v2_0/users/</string>
+    </dict>
+</array>
+</plist>

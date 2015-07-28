@@ -1,4 +1,4 @@
-platform :ios, '6.1'
+platform :ios, '7.1'
 pod 'SDWebImage', '~>3.7'
 
 pod 'MJRefresh'
@@ -12,3 +12,5 @@ pod 'ReactiveCocoa'
 pod 'Masonry'
 
 pod 'HMSegmentedControl'
+
+pod 'MJExtension', '~> 2.4.4'
