@@ -13,7 +13,7 @@
 /**
  *  获取单例的方法
  *
- *  @return <#return value description#>
+ *  @return return value description
  */
 + (RouteManager *)sharedManager;
 

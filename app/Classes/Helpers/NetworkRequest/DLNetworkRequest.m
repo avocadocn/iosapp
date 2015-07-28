@@ -7,6 +7,8 @@
 //
 
 #import "DLNetworkRequest.h"
+#import "RouteManager.h"
+#import "RouteInfoModel.h"
 
 @implementation DLNetworkRequest
 
@@ -24,6 +26,7 @@
         NSLog(@"%@", error);
         [self judgeNetWorkConnection];
     }];
+    
     return self.dictinary;
 }
 

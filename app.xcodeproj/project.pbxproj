@@ -52,8 +52,8 @@
 		A41CF0D21B5CC0B7005C21EF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A41CF0D11B5CC0B7005C21EF /* AssetsLibrary.framework */; };
 		A41CF0DA1B5CE155005C21EF /* mark.png in Resources */ = {isa = PBXBuildFile; fileRef = A41CF0D91B5CE155005C21EF /* mark.png */; };
 		A41CF0DE1B5D02DA005C21EF /* RankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9610535D1B5C9317002D62A3 /* RankController.m */; };
-		A422697A1B671D7E001B4DE6 /* DLNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A42269791B671D7E001B4DE6 /* DLNetworkRequest.m */; };
 		A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A422697B1B672388001B4DE6 /* SystemConfiguration.framework */; };
+		A42269811B672B31001B4DE6 /* DLNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A42269801B672B31001B4DE6 /* DLNetworkRequest.m */; };
 		A4311F4B1B574748004401B4 /* CompanySmallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F491B574748004401B4 /* CompanySmallCell.m */; };
 		A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F4E1B57565A004401B4 /* CompanyDetailCell.m */; };
 		A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F511B575F37004401B4 /* CompanyHeader.m */; };
@@ -167,7 +167,7 @@
 		9649B54F1B5663CE00A7F355 /* Test1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test1ViewController.h; sourceTree = "<group>"; };
 		9649B5501B5663CE00A7F355 /* Test1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test1ViewController.m; sourceTree = "<group>"; };
 		96CF8EFD1B671E93001759E2 /* RouteInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RouteInfo.plist; sourceTree = "<group>"; };
-		96CF8EFF1B671F5B001759E2 /* RouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteManager.h; sourceTree = "<group>"; };
+		96CF8EFF1B671F5B001759E2 /* RouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RouteManager.h; path = ../../Helpers/RouteManager.h; sourceTree = "<group>"; };
 		96CF8F001B671F5B001759E2 /* RouteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteManager.m; sourceTree = "<group>"; };
 		96CF8F091B672374001759E2 /* RouteInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteInfoModel.h; sourceTree = "<group>"; };
 		96CF8F0A1B672374001759E2 /* RouteInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteInfoModel.m; sourceTree = "<group>"; };
@@ -199,9 +199,9 @@
 		A419932D1B5F99910086EAAE /* gray-man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray-man.png"; sourceTree = "<group>"; };
 		A41CF0D11B5CC0B7005C21EF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		A41CF0D91B5CE155005C21EF /* mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mark.png; sourceTree = "<group>"; };
-		A42269781B671D7E001B4DE6 /* DLNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNetworkRequest.h; sourceTree = "<group>"; };
-		A42269791B671D7E001B4DE6 /* DLNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNetworkRequest.m; sourceTree = "<group>"; };
 		A422697B1B672388001B4DE6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A422697F1B672B31001B4DE6 /* DLNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNetworkRequest.h; sourceTree = "<group>"; };
+		A42269801B672B31001B4DE6 /* DLNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNetworkRequest.m; sourceTree = "<group>"; };
 		A4311F481B574748004401B4 /* CompanySmallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySmallCell.h; sourceTree = "<group>"; };
 		A4311F491B574748004401B4 /* CompanySmallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySmallCell.m; sourceTree = "<group>"; };
 		A4311F4D1B57565A004401B4 /* CompanyDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyDetailCell.h; sourceTree = "<group>"; };
@@ -458,7 +458,6 @@
 		9649B4FD1B564DE000A7F355 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				A42269741B671CBA001B4DE6 /* NetworkRequest */,
 				A450560A1B608D9E0075E39D /* CardChooseView */,
 				A4F315581B5E4BFB00126C8A /* ChoosePhoto */,
 				9649B5031B564DE000A7F355 /* CircleImageView */,
@@ -478,8 +477,8 @@
 		9649B5071B564DE000A7F355 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A422697E1B672B31001B4DE6 /* NetworkRequest */,
 				9649B5081B564DE000A7F355 /* PrefixHeader.pch */,
-				96CF8EFF1B671F5B001759E2 /* RouteManager.h */,
 				96CF8F001B671F5B001759E2 /* RouteManager.m */,
 			);
 			path = Helpers;
@@ -767,13 +766,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		A42269741B671CBA001B4DE6 /* NetworkRequest */ = {
+		A422697E1B672B31001B4DE6 /* NetworkRequest */ = {
 			isa = PBXGroup;
 			children = (
-				A42269781B671D7E001B4DE6 /* DLNetworkRequest.h */,
-				A42269791B671D7E001B4DE6 /* DLNetworkRequest.m */,
+				A422697F1B672B31001B4DE6 /* DLNetworkRequest.h */,
+				A42269801B672B31001B4DE6 /* DLNetworkRequest.m */,
 			);
-			name = NetworkRequest;
+			path = NetworkRequest;
 			sourceTree = "<group>";
 		};
 		A450560A1B608D9E0075E39D /* CardChooseView */ = {
@@ -820,6 +819,7 @@
 		A4F315581B5E4BFB00126C8A /* ChoosePhoto */ = {
 			isa = PBXGroup;
 			children = (
+				96CF8EFF1B671F5B001759E2 /* RouteManager.h */,
 				A4F315591B5E4BFB00126C8A /* ChoosePhotoController.h */,
 				A4F3155A1B5E4BFB00126C8A /* ChoosePhotoController.m */,
 				A4F3155B1B5E4BFB00126C8A /* ChoosePhotoView.h */,
@@ -1032,12 +1032,12 @@
 				96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */,
 				96D20EAF1B5F97F300102D18 /* RankListController.m in Sources */,
 				9610535B1B590C96002D62A3 /* InteractiveViewController.m in Sources */,
+				A42269811B672B31001B4DE6 /* DLNetworkRequest.m in Sources */,
 				9649B5451B564DE000A7F355 /* UIView+Extension.m in Sources */,
 				9610536A1B5CDB0B002D62A3 /* DetailActivityShowView.m in Sources */,
 				9649B53A1B564DE000A7F355 /* CircleImageView.m in Sources */,
 				A4F315681B5E4BFB00126C8A /* photoHeader.m in Sources */,
 				961053541B590C31002D62A3 /* OtherSegmentButton.m in Sources */,
-				A422697A1B671D7E001B4DE6 /* DLNetworkRequest.m in Sources */,
 				A41993241B5F95AB0086EAAE /* LoginMailTableViewCell.m in Sources */,
 				961053581B590C70002D62A3 /* OtherController.m in Sources */,
 				961053671B5CDA89002D62A3 /* DetailActivityShowController.m in Sources */,
