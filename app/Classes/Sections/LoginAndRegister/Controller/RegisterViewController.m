@@ -12,7 +12,7 @@
 #import <ReactiveCocoa.h>
 #import <Masonry.h>
 #import <AFNetworking.h>
-
+#import "DLNetworkRequest.h"
 
 @interface RegisterViewController ()<CardChooseViewDelegate, ArrangeState>
 
@@ -165,29 +165,37 @@
 
 - (void)userLoginAction:(id)sender {
     
-//    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-//    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    
-//    NSString *str = @"http://192.168.2.113:3002/v2_0/users";
-//    
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    [dic setObject:self.comMail forKey:@"email"];
-////    [dic setObject:self.userPasswordTextField.text forKey:@"password"];
-////    [dic setObject:self.userNickNameTextField.text forKey:@"nickname"];
-//    
-//    [manger POST:str parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSString *str = @"http://192.168.2.110:3002/v2_0/users";
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:@"53aa6fc011fd597b3e1be250" forKey:@"cid"];
+    [dic setObject:self.comMail forKey:@"email"];
+    [dic setObject:self.userNickNameTextField.text forKey:@"nickname"];
+    [dic setObject:self.userPasswordTextField.text forKey:@"password"];
+    
+    if (self.sex == UserSexMan) {
+        [dic setObject:@"1" forKey:@"gender"];
+    } else
+    {
+        [dic setObject:@"0" forKey:@"gender"];
+    }
+    
+//    [manger POST:str parameters:dic success:^(NSURLSessionDataTask *task, id responseObject) {
 //        
-//    } success:^(NSURLSessionDataTask *task, id responseObject) {
 //        NSData *data = [NSData dataWithData:responseObject];
 //        NSDictionary *dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        NSLog(@"%@", dataDic);
-//    
+//        NSLog(@"请求的数据为%@", dataDic);
 //    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        NSLog(@"请求数据失败, 原因为:%@", error);
+//        NSLog(@"请求数据失败, 原因为 %@", error);
 //    }];
     
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"注册" forKey:@"name"];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"loginAccount" object:nil userInfo:dic];
+    DLNetworkRequest *requset = [[DLNetworkRequest alloc]init];
+    NSDictionary *datadic = [requset dlPOSTNetRequestWithString:str andParameters:dic];
+    NSLog(@"请求到的网络数据为 %@", datadic);
+    
 }
 
 - (void)userSexAction:(UIButton *)sender {

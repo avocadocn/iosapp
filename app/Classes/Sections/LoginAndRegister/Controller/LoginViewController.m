@@ -29,7 +29,7 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(10, 200, DLScreenWidth - 20, 70)];
     [view setBackgroundColor:[UIColor whiteColor]];
     
-    NSInteger num = 10;
+//    NSInteger num = 10;
 //    [view mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.mas_equalTo(self.view.mas_left).offset(num);
 //        make.right.mas_equalTo(self.view.mas_right).offset(-num);
