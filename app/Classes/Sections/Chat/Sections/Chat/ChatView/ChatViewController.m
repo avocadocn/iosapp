@@ -448,6 +448,7 @@
     return _chatToolBar;
 }
 
+
 - (UIImagePickerController *)imagePicker
 {
     if (_imagePicker == nil) {

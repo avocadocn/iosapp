@@ -37,16 +37,23 @@
        //修改控制器的statusBar样式,需要注意在info.plist里配置一下
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
-    // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
-    [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
     
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
     [self.window makeKeyAndVisible];
     
+    
     self.mainController = main;
+    
+    
+    // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
+    [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
+
     // 登陆
-    [self.mainController loginWithUsername:@"789" password:@"789"];
+    if ( ![[EaseMob sharedInstance].chatManager isAutoLoginEnabled]) {
+        [self.mainController loginWithUsername:@"456" password:@"456"];
+    }
+    
 
     return YES;
 }
@@ -54,9 +61,14 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if (_mainController) {
-        [_mainController jumpToChatList];
-    }
+    
+  
+   
+//
+//    if (_mainController) {
+//        [_mainController jumpToChatList];
+//    }
+    
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification

@@ -358,17 +358,28 @@
 // 打印收到的apns信息
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSError *parseError = nil;
-    NSData  *jsonData = [NSJSONSerialization dataWithJSONObject:userInfo
-                                                        options:NSJSONWritingPrettyPrinted error:&parseError];
-    NSString *str =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"apns.content", @"Apns content")
-                                                    message:str
-                                                   delegate:nil
-                                          cancelButtonTitle:NSLocalizedString(@"ok", @"OK")
-                                          otherButtonTitles:nil];
-    [alert show];
+    
+    
+    if (self.mainController) {
+        [self.mainController jumpToChatList];
+    }
+    
+     /**
+     *  以下为打印apns信息代码
+     */
+//    NSError *parseError = nil;
+//    NSData  *jsonData = [NSJSONSerialization dataWithJSONObject:userInfo
+//                                                        options:NSJSONWritingPrettyPrinted error:&parseError];
+//    NSString *str =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+//    
+   
+    //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"apns.content", @"Apns content")
+//                                                    message:str
+//                                                   delegate:nil
+//                                          cancelButtonTitle:NSLocalizedString(@"ok", @"OK")
+//                                          otherButtonTitles:nil];
+//    [alert show];
 
 }
 

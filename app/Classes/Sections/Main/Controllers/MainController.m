@@ -49,13 +49,13 @@ static NSString *kGroupName = @"GroupName";
 
 @implementation MainController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     // 添加主页面VC
     [self setUpTabbar];
-   
     
     [self registerNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUntreatedApplyCount) name:@"setupUntreatedApplyCount" object:nil];
@@ -90,6 +90,7 @@ static NSString *kGroupName = @"GroupName";
                                                         password:password
                                                       completion:
      ^(NSDictionary *loginInfo, EMError *error) {
+         
          
 //         [self hideHud];
          if (loginInfo && !error) {
@@ -744,15 +745,14 @@ static NSString *kGroupName = @"GroupName";
 
 - (void)jumpToChatList
 {
-    if ([self.navigationController.topViewController isKindOfClass:[ChatViewController class]]) {
-        ChatViewController *chatController = (ChatViewController *)self.navigationController.topViewController;
-        [chatController hideImagePicker];
-    }
-    else if(_chatListVC)
+    if(_chatListVC)
     {
-        [self.navigationController popToViewController:self animated:NO];
-        [self setSelectedViewController:_chatListVC];
+        self.selectedIndex = 1;
+        
+        
     }
+    
+   
 }
 
 - (EMConversationType)conversationTypeFromMessageType:(EMMessageType)type
@@ -779,83 +779,60 @@ static NSString *kGroupName = @"GroupName";
     NSDictionary *userInfo = notification.userInfo;
     if (userInfo)
     {
-        if ([self.navigationController.topViewController isKindOfClass:[ChatViewController class]]) {
-            ChatViewController *chatController = (ChatViewController *)self.navigationController.topViewController;
+        
+        DLNavigationController *nav = (DLNavigationController *)self.selectedViewController;
+        
+         NSString *conversationChatter = userInfo[kConversationChatter];
+        
+        
+        if ([nav.topViewController isKindOfClass:[ChatViewController class]]) {
+            ChatViewController *chatController = (ChatViewController *)nav.topViewController;
             [chatController hideImagePicker];
+            
         }
         
-        NSArray *viewControllers = self.navigationController.viewControllers;
-        [viewControllers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-            if (obj != self)
+        // 回到chatListViewController的nav中
+        NSArray *currentSelectedSubs = nav.childViewControllers;
+        if (![currentSelectedSubs.firstObject isKindOfClass:[ChatListViewController class]]) {
+            self.selectedIndex = 1;
+        }
+        
+        ChatViewController *chatViewController;
+        EMMessageType messageType = [userInfo[kMessageType] intValue];
+        chatViewController = [[ChatViewController alloc] initWithChatter:conversationChatter conversationType:[self conversationTypeFromMessageType:messageType]];
+        switch (messageType) {
+            case eMessageTypeGroupChat:
             {
-                if (![obj isKindOfClass:[ChatViewController class]])
-                {
-                    [self.navigationController popViewControllerAnimated:NO];
-                }
-                else
-                {
-                    NSString *conversationChatter = userInfo[kConversationChatter];
-                    ChatViewController *chatViewController = (ChatViewController *)obj;
-                    if (![chatViewController.chatter isEqualToString:conversationChatter])
-                    {
-                        [self.navigationController popViewControllerAnimated:NO];
-                        EMMessageType messageType = [userInfo[kMessageType] intValue];
-                        chatViewController = [[ChatViewController alloc] initWithChatter:conversationChatter conversationType:[self conversationTypeFromMessageType:messageType]];
-                        switch (messageType) {
-                            case eMessageTypeGroupChat:
-                            {
-                                NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-                                for (EMGroup *group in groupArray) {
-                                    if ([group.groupId isEqualToString:conversationChatter]) {
-                                        chatViewController.title = group.groupSubject;
-                                        break;
-                                    }
-                                }
-                            }
-                                break;
-                            default:
-                                chatViewController.title = conversationChatter;
-                                break;
-                        }
-                        [self.navigationController pushViewController:chatViewController animated:NO];
-                    }
-                    *stop= YES;
-                }
-            }
-            else
-            {
-                ChatViewController *chatViewController = (ChatViewController *)obj;
-                NSString *conversationChatter = userInfo[kConversationChatter];
-                EMMessageType messageType = [userInfo[kMessageType] intValue];
-                chatViewController = [[ChatViewController alloc] initWithChatter:conversationChatter conversationType:[self conversationTypeFromMessageType:messageType]];
-                switch (messageType) {
-                    case eMessageTypeGroupChat:
-                    {
-                        NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-                        for (EMGroup *group in groupArray) {
-                            if ([group.groupId isEqualToString:conversationChatter]) {
-                                chatViewController.title = group.groupSubject;
-                                break;
-                            }
-                        }
-                    }
+                NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+                for (EMGroup *group in groupArray) {
+                    if ([group.groupId isEqualToString:conversationChatter]) {
+                        chatViewController.title = group.groupSubject;
                         break;
-                    default:
-                        chatViewController.title = conversationChatter;
-                        break;
+                    }
                 }
-                [self.navigationController pushViewController:chatViewController animated:NO];
+                
+                break;
             }
-        }];
-    }
-    else if (_chatListVC)
-    {
-        [self.navigationController popToViewController:self animated:NO];
-        [self setSelectedViewController:_chatListVC];
+            default:
+                chatViewController.title = conversationChatter;
+                break;
+        }
+        
+
+        if ([currentSelectedSubs.lastObject isKindOfClass:[ChatViewController class]]) {
+            ChatViewController *beforeChatVC = (ChatViewController *)currentSelectedSubs.lastObject;
+            
+            if ([beforeChatVC.chatter isEqualToString:conversationChatter]){
+                return;
+            }else{
+                [(DLNavigationController *)self.selectedViewController popViewControllerAnimated:NO];
+            }
+        }
+        
+        // 跳转
+        [(DLNavigationController *)self.selectedViewController pushViewController:chatViewController animated:NO];
     }
 }
-
-
 
 
 @end
