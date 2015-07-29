@@ -10,7 +10,7 @@
 #import "RouteManager.h"
 #import "RouteInfoModel.h"
 #import <ReactiveCocoa.h>
-
+#define ROUDEADDRESS "http://192.168.2.109:3002/v2_0"
 @implementation DLNetworkRequest
 
 // 路由请求 需要一个请求的网址 网络请求的类型 请求的参数
@@ -20,7 +20,8 @@
     
     RouteManager *route = [RouteManager sharedManager];
     RouteInfoModel *model = [route getModelWithNetName:name];
-    NSString *str = model.routeURL;
+    NSString *str = [NSString stringWithFormat:@"%s%@", ROUDEADDRESS, model.routeURL];
+    
     
     if ([type isEqualToString:@"POST"]) {
         [self dlPOSTNetRequestWithString:str andParameters:paramter];
@@ -29,10 +30,10 @@
     {
         [self dlGETNetRequestWithString:str andParameters:paramter];
     }
-     //写了一个plist文件,用单例读取这个plist文件,把plist文件里的小字典转成model,把model放进route的routeDict字典里, key值为model的routeName值
+    
+//     写了一个plist文件,用单例读取这个plist文件,把plist文件里的小字典转成model,把model放进route的routeDict字典里, key值为model的routeName值
     
 }
-
 
 // Post 请求
 - (void)dlPOSTNetRequestWithString:(NSString *)str andParameters:(id)parameters
@@ -40,15 +41,43 @@
     str = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manger POST:str parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    
+//    [manger POST:str parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSData *data = [NSData dataWithData:responseObject];
+//        
+//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        [self.delegate sendParsingWithDictionary:dic];
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSLog(@"%@", error);
+////        [self judgeNetWorkConnection];
+//    }];
+    
+    if ([parameters objectForKey:@"imageArray"]){
+        self.imageArray = [parameters objectForKey:@"imageArray"];
+        [parameters removeObjectForKey:@"imageArray"];
+    }
+    
+    [manger POST:str parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        if (self.imageArray){
+            NSInteger i = 0;
+            for (NSDictionary *dic in self.imageArray) {
+                [formData appendPartWithFileData:[dic objectForKey:@"data"] name:[dic objectForKey:@"name"] fileName:[NSString stringWithFormat:@"DonlerImage %ld", i] mimeType:@"image/jpeg"];
+                i++;
+            }
+        }
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSData *data = [NSData dataWithData:responseObject];
         
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         [self.delegate sendParsingWithDictionary:dic];
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", error);
-//        [self judgeNetWorkConnection];
+        
+//                [self judgeNetWorkConnection];
     }];
+    
+    
 }
 
 // GET 请求
@@ -64,13 +93,13 @@
         [self.delegate sendParsingWithDictionary:dic];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", error);
+        
 //        [self judgeNetWorkConnection];
     }];
 }
 
 
 // 判断网络
-
 - (void)judgeNetWorkConnection
 {
     

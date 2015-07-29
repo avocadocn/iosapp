@@ -25,9 +25,9 @@ typedef NS_ENUM(NSInteger, UserSex){
 @property (nonatomic, copy)NSString *enterpriseName; // 公司名字
 
 @property (strong, nonatomic)UIButton *userPhotoImageView;
-@property (strong, nonatomic)UITextField *enterpriseNameTextField;
+@property (strong, nonatomic)UITextField *enterpriseNameTextField;  //公司名字
 @property (strong, nonatomic)UITextField *userNickNameTextField;
-@property (strong, nonatomic)UITextField *userPasswordTextField;
+@property (strong, nonatomic)UITextField *userPasswordTextField; //用户密码
 @property (strong, nonatomic)UIButton *loginButton;
 @property (strong, nonatomic)UIButton *manButton;
 @property (strong, nonatomic)UIButton *womanButton;
@@ -38,5 +38,11 @@ typedef NS_ENUM(NSInteger, UserSex){
 @property (nonatomic, copy)NSString *comMail;  //公司邮箱
 
 @property (nonatomic, copy)NSString *invite;
+
+@property (nonatomic, strong)UIImage *userImage;
+
+// 如果是公司已存在的话 调用此方法来给公司名字赋值并且使其不可被改变
+- (void)builtEnterTextNameWithString:(NSString *)str;
+
 
 @end

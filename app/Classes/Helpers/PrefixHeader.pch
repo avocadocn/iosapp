@@ -23,4 +23,12 @@
 
 #define DLSBackgroundColor [UIColor colorWithWhite:.9 alpha:1];
 
+
+
+
+
+
+static NSString * user_token = nil;
+
+
 #endif

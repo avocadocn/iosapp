@@ -23,6 +23,8 @@
 
 @property (nonatomic, assign)id <DLNetworkRequestDelegate>delegate;
 
+@property (nonatomic, strong)NSArray *imageArray;
+
 - (void)dlPOSTNetRequestWithString:(NSString *)str andParameters:(id)parameters;
 
 - (void)dlGETNetRequestWithString:(NSString *)str andParameters:(id)parameters;

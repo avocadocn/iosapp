@@ -60,9 +60,9 @@
 		A4311F551B577BE1004401B4 /* ColleagueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F541B577BE1004401B4 /* ColleagueViewController.m */; };
 		A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F5A1B577D50004401B4 /* ColleagueViewCell.m */; };
 		A4311F5D1B577D50004401B4 /* ColleagueViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4311F5B1B577D50004401B4 /* ColleagueViewCell.xib */; };
+		A439ED421B68DA9E006B3CAC /* GuidePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A439ED411B68DA9E006B3CAC /* GuidePageViewController.m */; };
 		A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43E36B61B58C55500AA2FC7 /* ConditionController.m */; };
 		A450560D1B608F250075E39D /* CardChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = A450560C1B608F250075E39D /* CardChooseView.m */; };
-		A45056111B60CDBD0075E39D /* CompanyRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A450560F1B60CDBD0075E39D /* CompanyRegisterViewController.m */; };
 		A45056171B60D2110075E39D /* welcome-4.png in Resources */ = {isa = PBXBuildFile; fileRef = A45056131B60D2110075E39D /* welcome-4.png */; };
 		A45056181B60D2110075E39D /* welcome-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A45056141B60D2110075E39D /* welcome-1.png */; };
 		A45056191B60D2110075E39D /* welcome-2.png in Resources */ = {isa = PBXBuildFile; fileRef = A45056151B60D2110075E39D /* welcome-2.png */; };
@@ -75,7 +75,6 @@
 		A459C4C51B62305D003D32C8 /* GroupCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4C41B62305D003D32C8 /* GroupCardModel.m */; };
 		A459C4C81B623F40003D32C8 /* GroupCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4C71B623F40003D32C8 /* GroupCardViewCell.m */; };
 		A459C4CB1B6242A2003D32C8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4CA1B6242A2003D32C8 /* LoginViewController.m */; };
-		A459C4CE1B624311003D32C8 /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4CD1B624311003D32C8 /* GuideViewController.m */; };
 		A4651D3D1B58DFAE008BAEE8 /* No.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D3B1B58DFAE008BAEE8 /* No.png */; };
 		A4651D3E1B58DFAE008BAEE8 /* OK.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D3C1B58DFAE008BAEE8 /* OK.png */; };
 		A4651D401B58DFB9008BAEE8 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D3F1B58DFB9008BAEE8 /* 2.png */; };
@@ -215,12 +214,12 @@
 		A4311F591B577D50004401B4 /* ColleagueViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColleagueViewCell.h; sourceTree = "<group>"; };
 		A4311F5A1B577D50004401B4 /* ColleagueViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColleagueViewCell.m; sourceTree = "<group>"; };
 		A4311F5B1B577D50004401B4 /* ColleagueViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColleagueViewCell.xib; sourceTree = "<group>"; };
+		A439ED401B68DA9E006B3CAC /* GuidePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidePageViewController.h; sourceTree = "<group>"; };
+		A439ED411B68DA9E006B3CAC /* GuidePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidePageViewController.m; sourceTree = "<group>"; };
 		A43E36B51B58C55500AA2FC7 /* ConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionController.h; sourceTree = "<group>"; };
 		A43E36B61B58C55500AA2FC7 /* ConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionController.m; sourceTree = "<group>"; };
 		A450560B1B608F250075E39D /* CardChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardChooseView.h; sourceTree = "<group>"; };
 		A450560C1B608F250075E39D /* CardChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardChooseView.m; sourceTree = "<group>"; };
-		A450560E1B60CDBD0075E39D /* CompanyRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyRegisterViewController.h; sourceTree = "<group>"; };
-		A450560F1B60CDBD0075E39D /* CompanyRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyRegisterViewController.m; sourceTree = "<group>"; };
 		A45056131B60D2110075E39D /* welcome-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome-4.png"; sourceTree = "<group>"; };
 		A45056141B60D2110075E39D /* welcome-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome-1.png"; sourceTree = "<group>"; };
 		A45056151B60D2110075E39D /* welcome-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome-2.png"; sourceTree = "<group>"; };
@@ -236,8 +235,6 @@
 		A459C4C71B623F40003D32C8 /* GroupCardViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCardViewCell.m; sourceTree = "<group>"; };
 		A459C4C91B6242A2003D32C8 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		A459C4CA1B6242A2003D32C8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		A459C4CC1B624311003D32C8 /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
-		A459C4CD1B624311003D32C8 /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
 		A4651D3B1B58DFAE008BAEE8 /* No.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = No.png; sourceTree = "<group>"; };
 		A4651D3C1B58DFAE008BAEE8 /* OK.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OK.png; sourceTree = "<group>"; };
 		A4651D3F1B58DFB9008BAEE8 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
@@ -454,8 +451,6 @@
 			children = (
 				9649B4FB1B564DE000A7F355 /* AppDelegate.h */,
 				9649B4FC1B564DE000A7F355 /* AppDelegate.m */,
-				A459C4CC1B624311003D32C8 /* GuideViewController.h */,
-				A459C4CD1B624311003D32C8 /* GuideViewController.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -743,13 +738,13 @@
 				A41993181B5F95AB0086EAAE /* CheckViewController.m */,
 				A459C4BD1B620C88003D32C8 /* RegisterViewController.h */,
 				A459C4BE1B620C88003D32C8 /* RegisterViewController.m */,
-				A450560E1B60CDBD0075E39D /* CompanyRegisterViewController.h */,
-				A450560F1B60CDBD0075E39D /* CompanyRegisterViewController.m */,
 				A459C4C91B6242A2003D32C8 /* LoginViewController.h */,
 				A459C4CA1B6242A2003D32C8 /* LoginViewController.m */,
 				A47F50361B67765600955052 /* CompanyEmailComplete.h */,
 				A47F50371B67765600955052 /* CompanyEmailComplete.m */,
 				A47F50381B67765600955052 /* CompanyEmailComplete.xib */,
+				A439ED401B68DA9E006B3CAC /* GuidePageViewController.h */,
+				A439ED411B68DA9E006B3CAC /* GuidePageViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1020,7 +1015,6 @@
 				A481A1F21B65C6C100845046 /* PaggingScrollView.m in Sources */,
 				A45056201B60F0270075E39D /* DLNavigationBar.m in Sources */,
 				A459C4C81B623F40003D32C8 /* GroupCardViewCell.m in Sources */,
-				A459C4CE1B624311003D32C8 /* GuideViewController.m in Sources */,
 				A459C4BF1B620C88003D32C8 /* RegisterViewController.m in Sources */,
 				A450561F1B60F01F0075E39D /* DSNavigationBar.m in Sources */,
 				A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */,
@@ -1032,6 +1026,7 @@
 				A41993231B5F95AB0086EAAE /* CompanyTableViewCell.m in Sources */,
 				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
 				A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */,
+				A439ED421B68DA9E006B3CAC /* GuidePageViewController.m in Sources */,
 				A4F315661B5E4BFB00126C8A /* ChoosePhotoView.m in Sources */,
 				96CF8F0B1B672374001759E2 /* RouteInfoModel.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
@@ -1066,7 +1061,6 @@
 				9649B5421B564DE000A7F355 /* ProfileViewController.m in Sources */,
 				9649B53C1B564DE000A7F355 /* AttentionViewController.m in Sources */,
 				A4F3156A1B5E4BFB00126C8A /* PhotoShouCell.m in Sources */,
-				A45056111B60CDBD0075E39D /* CompanyRegisterViewController.m in Sources */,
 				96CF8F011B671F5B001759E2 /* RouteManager.m in Sources */,
 				A4F315691B5E4BFB00126C8A /* PhotoPlayController.m in Sources */,
 				A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */,

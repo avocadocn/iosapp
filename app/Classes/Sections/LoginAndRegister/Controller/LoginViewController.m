@@ -11,7 +11,7 @@
 #import "DLNetworkRequest.h"
 
 
-@interface LoginViewController ()<DLNetworkRequestDelegate>
+@interface LoginViewController ()<DLNetworkRequestDelegate, UITextFieldDelegate>
 
 @end
 
@@ -42,19 +42,22 @@
     
     self.mailTextField = [UITextField new];
     self.mailTextField.placeholder = @"domomchon@donler.com";
-    [self.mailTextField placeholder];
+    [self.mailTextField placeholder]; self.mailTextField.delegate = self;
     [view addSubview:self.mailTextField];
     
     [self.mailTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(view.mas_top);
         make.right.mas_equalTo(view.mas_right);
         make.width.mas_equalTo(view.width - view.height / 2.0);
+       
         make.bottom.mas_equalTo(view.mas_bottom).offset(- view.height / 2.0 - 1);
     }];
     
     self.passwordTextField = [UITextField new];
     self.passwordTextField.placeholder = @"请输入密码";
     [self.passwordTextField placeholder];
+    self.passwordTextField.delegate = self;
+    self.passwordTextField.secureTextEntry = YES;
     [view addSubview:self.passwordTextField];
     
     [self.passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -84,9 +87,9 @@
     DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
     request.delegate = self;
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"afei@55yali.com" forKey:@"email"];
-    [dic setObject:@"55yali" forKey:@"password"];
-    NSDictionary *pushInfo = [NSDictionary dictionaryWithObjects:@[@"did1a2b3c4d5e6f", @"dwadadw", @"dwadawd"] forKeys:@[@"ios_token", @"user_id", @"channel_id"]];
+    [dic setObject:self.mailTextField.text forKey:@"email"];
+    [dic setObject:self.passwordTextField.text forKey:@"password"];
+    NSDictionary *pushInfo = [NSDictionary dictionaryWithObjects:@[user_token, @"dwadadw", @"dwadawd"] forKeys:@[@"ios_token", @"user_id", @"channel_id"]];
     [dic setObject:pushInfo forKey:@"pushInfo"];
     
     [request dlRouteNetWorkWithNetName:@"userLogin" andRequestType:@"POST" paramter:dic];
@@ -101,6 +104,20 @@
 {
     NSLog(@"%@", dictionary);
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    if (toBeString.length > 11) {
+        textField.text = [toBeString substringToIndex:11];
+        
+        return NO;
+    }
+    return YES;
+    
+}
+
 
 /*
 #pragma mark - Navigation
