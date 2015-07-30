@@ -31,6 +31,17 @@
 		9649B5451B564DE000A7F355 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5351B564DE000A7F355 /* UIView+Extension.m */; };
 		9649B5471B565E5900A7F355 /* CompanyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9649B5461B565E5900A7F355 /* CompanyViewController.storyboard */; };
 		9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5501B5663CE00A7F355 /* Test1ViewController.m */; };
+		968B152D1B69DF87004A26C0 /* rankListItem-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B152B1B69DF87004A26C0 /* rankListItem-normal.png */; };
+		968B152E1B69DF87004A26C0 /* rankListItem-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B152C1B69DF87004A26C0 /* rankListItem-selected.png */; };
+		968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15301B69F4C9004A26C0 /* RankItemTableViewcell.m */; };
+		968B15331B69F4C9004A26C0 /* RankItemTableViewcell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15311B69F4C9004A26C0 /* RankItemTableViewcell.xib */; };
+		968B15361B6A1156004A26C0 /* RankBottomShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15351B6A1156004A26C0 /* RankBottomShowView.m */; };
+		968B15381B6A1174004A26C0 /* RankBottomShowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15371B6A1174004A26C0 /* RankBottomShowView.xib */; };
+		968B153C1B6A16AD004A26C0 /* RankLoveHeart_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B15391B6A16AD004A26C0 /* RankLoveHeart_empty.png */; };
+		968B153D1B6A16AD004A26C0 /* RankLoveHeart_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B153A1B6A16AD004A26C0 /* RankLoveHeart_gray.png */; };
+		968B153E1B6A16AD004A26C0 /* RankLoveHeart_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B153B1B6A16AD004A26C0 /* RankLoveHeart_red.png */; };
+		968B15411B6A2ABB004A26C0 /* RankItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15401B6A2ABB004A26C0 /* RankItemView.m */; };
+		968B15431B6A2ADC004A26C0 /* RankItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15421B6A2ADC004A26C0 /* RankItemView.xib */; };
 		96CF8EFE1B671E93001759E2 /* RouteInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96CF8EFD1B671E93001759E2 /* RouteInfo.plist */; };
 		96CF8F011B671F5B001759E2 /* RouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF8F001B671F5B001759E2 /* RouteManager.m */; };
 		96CF8F0B1B672374001759E2 /* RouteInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF8F0A1B672374001759E2 /* RouteInfoModel.m */; };
@@ -506,6 +517,20 @@
 		9649B5461B565E5900A7F355 /* CompanyViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CompanyViewController.storyboard; sourceTree = "<group>"; };
 		9649B54F1B5663CE00A7F355 /* Test1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test1ViewController.h; sourceTree = "<group>"; };
 		9649B5501B5663CE00A7F355 /* Test1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test1ViewController.m; sourceTree = "<group>"; };
+		968B152B1B69DF87004A26C0 /* rankListItem-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rankListItem-normal.png"; sourceTree = "<group>"; };
+		968B152C1B69DF87004A26C0 /* rankListItem-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rankListItem-selected.png"; sourceTree = "<group>"; };
+		968B152F1B69F4C9004A26C0 /* RankItemTableViewcell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankItemTableViewcell.h; sourceTree = "<group>"; };
+		968B15301B69F4C9004A26C0 /* RankItemTableViewcell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankItemTableViewcell.m; sourceTree = "<group>"; };
+		968B15311B69F4C9004A26C0 /* RankItemTableViewcell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemTableViewcell.xib; sourceTree = "<group>"; };
+		968B15341B6A1156004A26C0 /* RankBottomShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankBottomShowView.h; sourceTree = "<group>"; };
+		968B15351B6A1156004A26C0 /* RankBottomShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankBottomShowView.m; sourceTree = "<group>"; };
+		968B15371B6A1174004A26C0 /* RankBottomShowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankBottomShowView.xib; sourceTree = "<group>"; };
+		968B15391B6A16AD004A26C0 /* RankLoveHeart_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RankLoveHeart_empty.png; sourceTree = "<group>"; };
+		968B153A1B6A16AD004A26C0 /* RankLoveHeart_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RankLoveHeart_gray.png; sourceTree = "<group>"; };
+		968B153B1B6A16AD004A26C0 /* RankLoveHeart_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RankLoveHeart_red.png; sourceTree = "<group>"; };
+		968B153F1B6A2ABB004A26C0 /* RankItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankItemView.h; sourceTree = "<group>"; };
+		968B15401B6A2ABB004A26C0 /* RankItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankItemView.m; sourceTree = "<group>"; };
+		968B15421B6A2ADC004A26C0 /* RankItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemView.xib; sourceTree = "<group>"; };
 		96CF8EFD1B671E93001759E2 /* RouteInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RouteInfo.plist; sourceTree = "<group>"; };
 		96CF8EFF1B671F5B001759E2 /* RouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteManager.h; sourceTree = "<group>"; };
 		96CF8F001B671F5B001759E2 /* RouteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteManager.m; sourceTree = "<group>"; };
@@ -1278,6 +1303,15 @@
 				96D20EB71B60AE5D00102D18 /* DLNavBar.m */,
 				96D20EC11B620A8200102D18 /* PaggingScrollView.h */,
 				96D20EC21B620A8200102D18 /* PaggingScrollView.m */,
+				968B152F1B69F4C9004A26C0 /* RankItemTableViewcell.h */,
+				968B15301B69F4C9004A26C0 /* RankItemTableViewcell.m */,
+				968B15311B69F4C9004A26C0 /* RankItemTableViewcell.xib */,
+				968B15341B6A1156004A26C0 /* RankBottomShowView.h */,
+				968B15351B6A1156004A26C0 /* RankBottomShowView.m */,
+				968B15371B6A1174004A26C0 /* RankBottomShowView.xib */,
+				968B153F1B6A2ABB004A26C0 /* RankItemView.h */,
+				968B15401B6A2ABB004A26C0 /* RankItemView.m */,
+				968B15421B6A2ADC004A26C0 /* RankItemView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1648,10 +1682,23 @@
 		9649B5361B564DE000A7F355 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				968B152A1B69DF87004A26C0 /* RankList */,
 				96CF90F71B67345C001759E2 /* Localizable.strings */,
 				96CF8EFD1B671E93001759E2 /* RouteInfo.plist */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		968B152A1B69DF87004A26C0 /* RankList */ = {
+			isa = PBXGroup;
+			children = (
+				968B15391B6A16AD004A26C0 /* RankLoveHeart_empty.png */,
+				968B153A1B6A16AD004A26C0 /* RankLoveHeart_gray.png */,
+				968B153B1B6A16AD004A26C0 /* RankLoveHeart_red.png */,
+				968B152B1B69DF87004A26C0 /* rankListItem-normal.png */,
+				968B152C1B69DF87004A26C0 /* rankListItem-selected.png */,
+			);
+			path = RankList;
 			sourceTree = "<group>";
 		};
 		96CF8F051B6722EF001759E2 /* Models */ = {
@@ -3087,6 +3134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96CF94761B674B54001759E2 /* tabbarSelectBg.png in Resources */,
+				968B153D1B6A16AD004A26C0 /* RankLoveHeart_gray.png in Resources */,
 				96CF93E21B674B54001759E2 /* VoiceSearchFeedback014@2x.png in Resources */,
 				96CF94331B674B54001759E2 /* chatBar_more_location.png in Resources */,
 				96CF93EE1B674B54001759E2 /* VoiceSearchFeedback020@2x.png in Resources */,
@@ -3104,6 +3152,7 @@
 				96CF94651B674B54001759E2 /* groupPublicHeader@2x.png in Resources */,
 				96CF94711B674B54001759E2 /* tabbar_setting@2x.png in Resources */,
 				96CF93C51B674B54001759E2 /* chatFire_audioPlaying3.png in Resources */,
+				968B15381B6A1174004A26C0 /* RankBottomShowView.xib in Resources */,
 				96CF94621B674B54001759E2 /* group_participant_add@2x.png in Resources */,
 				96CF945B1B674B54001759E2 /* group_detail@2x.png in Resources */,
 				96CF93CB1B674B54001759E2 /* VoiceSearchFeedback003.png in Resources */,
@@ -3112,9 +3161,11 @@
 				96CF942F1B674B54001759E2 /* chatBar_more_camera.png in Resources */,
 				96CF94481B674B54001759E2 /* chat_sender_audio_playing_000.png in Resources */,
 				96CF94131B674B54001759E2 /* chatBar_keyboard.png in Resources */,
+				968B152E1B69DF87004A26C0 /* rankListItem-selected.png in Resources */,
 				96CF94231B674B54001759E2 /* chatBar_colorMore_audioCall@2x.png in Resources */,
 				96CF93DD1B674B54001759E2 /* VoiceSearchFeedback012.png in Resources */,
 				96CF93C31B674B54001759E2 /* chatFire_audioPlaying2.png in Resources */,
+				968B153E1B6A16AD004A26C0 /* RankLoveHeart_red.png in Resources */,
 				96CF94881B67501B001759E2 /* sr_refresh@2X.png in Resources */,
 				96CF943D1B674B54001759E2 /* chat_receiver_audio_playing000@2x.png in Resources */,
 				96CF93C91B674B54001759E2 /* VoiceSearchFeedback002.png in Resources */,
@@ -3212,10 +3263,12 @@
 				96CF93E41B674B54001759E2 /* VoiceSearchFeedback015@2x.png in Resources */,
 				96CF94341B674B54001759E2 /* chatBar_more_location@2x.png in Resources */,
 				96CF93D51B674B54001759E2 /* VoiceSearchFeedback008.png in Resources */,
+				968B15431B6A2ADC004A26C0 /* RankItemView.xib in Resources */,
 				96CF93B91B674B54001759E2 /* 29.png in Resources */,
 				96CF93F01B674B54001759E2 /* call_out@2x.png in Resources */,
 				96CF94091B674B54001759E2 /* chat_location_preview.png in Resources */,
 				A450561A1B60D2110075E39D /* welcome-3.png in Resources */,
+				968B153C1B6A16AD004A26C0 /* RankLoveHeart_empty.png in Resources */,
 				96CF93F11B674B54001759E2 /* call_out_h.png in Resources */,
 				96CF94571B674B54001759E2 /* password@2x.png in Resources */,
 				96CF946A1B674B54001759E2 /* tabbar_chatsHL.png in Resources */,
@@ -3271,6 +3324,7 @@
 				96CF93C61B674B54001759E2 /* chatFire_audioPlaying3@2x.png in Resources */,
 				96CF94301B674B54001759E2 /* chatBar_more_camera@2x.png in Resources */,
 				96CF93E81B674B54001759E2 /* VoiceSearchFeedback017@2x.png in Resources */,
+				968B152D1B69DF87004A26C0 /* rankListItem-normal.png in Resources */,
 				A41993301B5F99910086EAAE /* man.png in Resources */,
 				961053531B590C31002D62A3 /* OtherActivityShowCell.xib in Resources */,
 				96CF93EC1B674B54001759E2 /* VoiceSearchFeedback019@2x.png in Resources */,
@@ -3284,6 +3338,7 @@
 				96CF94171B674B54001759E2 /* chatBar_more.png in Resources */,
 				96CF93C11B674B54001759E2 /* chatFire_audioPlaying1.png in Resources */,
 				96CF941B1B674B54001759E2 /* chatBar_record.png in Resources */,
+				968B15331B69F4C9004A26C0 /* RankItemTableViewcell.xib in Resources */,
 				96CF93FF1B674B54001759E2 /* chatBar_more_faceSelected.png in Resources */,
 				96CF94431B674B54001759E2 /* chat_receiver_audio_playing003@2x.png in Resources */,
 				96CF93DA1B674B54001759E2 /* VoiceSearchFeedback010@2x.png in Resources */,
@@ -3376,6 +3431,7 @@
 				96D20EC01B6203A100102D18 /* HitTestView.m in Sources */,
 				96CF90E71B673422001759E2 /* THProgressView.m in Sources */,
 				96CF937D1B674B54001759E2 /* UIResponder+Router.m in Sources */,
+				968B15411B6A2ABB004A26C0 /* RankItemView.m in Sources */,
 				96CF93901B674B54001759E2 /* EMChatTextBubbleView.m in Sources */,
 				96CF93AD1B674B54001759E2 /* RobotManager.m in Sources */,
 				96CF90CD1B673422001759E2 /* EMSDWebImageDownloaderOperation.m in Sources */,
@@ -3399,6 +3455,7 @@
 				96CF947B1B674B54001759E2 /* DebugViewController.m in Sources */,
 				A4F315661B5E4BFB00126C8A /* ChoosePhotoView.m in Sources */,
 				96CF90BD1B673422001759E2 /* EMAlertView.m in Sources */,
+				968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */,
 				96CF947A1B674B54001759E2 /* BlackListViewController.m in Sources */,
 				96CF8F0B1B672374001759E2 /* RouteInfoModel.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
@@ -3522,6 +3579,7 @@
 				96CF93881B674B54001759E2 /* DXFaceView.m in Sources */,
 				A41993211B5F95AB0086EAAE /* CheckViewController.m in Sources */,
 				96CF90B61B673422001759E2 /* EMAudioPlayerUtil.m in Sources */,
+				968B15361B6A1156004A26C0 /* RankBottomShowView.m in Sources */,
 				96CF90CA1B673422001759E2 /* EMSDWebImageCompat.m in Sources */,
 				96CF90E51B673422001759E2 /* PSTGridLayoutSection.m in Sources */,
 				9649B5371B564DE000A7F355 /* AppDelegate.m in Sources */,

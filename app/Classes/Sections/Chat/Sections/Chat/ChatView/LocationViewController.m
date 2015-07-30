@@ -105,6 +105,7 @@ static LocationViewController *defaultLocation = nil;
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    _mapView = nil;
     [super viewWillDisappear:animated];
 }
 

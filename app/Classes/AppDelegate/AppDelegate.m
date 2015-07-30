@@ -51,7 +51,7 @@
 
     // 登陆
     if ( ![[EaseMob sharedInstance].chatManager isAutoLoginEnabled]) {
-        [self.mainController loginWithUsername:@"456" password:@"456"];
+        [self.mainController loginWithUsername:@"789" password:@"789"];
     }
     
 

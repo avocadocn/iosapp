@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <iCarousel.h>
 
-@interface RankListController : UIViewController
+typedef enum : NSUInteger {
+    RankListTypeMenGod = 7, // 男神
+    RankListTypeWomenGod, // 女神
+    RankListTypePopularity, // 人气榜
+} RankListType;
+
+@interface RankListController : UIViewController <iCarouselDataSource,iCarouselDelegate,UITableViewDataSource,UITableViewDelegate>
+
+-(instancetype)initWithRankListType:(RankListType)rankListType;
 
 @end

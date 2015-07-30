@@ -12,7 +12,7 @@
 #import "CurrentActivitysShowCell.h"
 
 #import "OtherController.h"
-#import "RankController.h"
+#import "RankListController.h"
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic ,strong) ActivitysShowView *asv;
@@ -165,16 +165,24 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     switch (index) {
         case 0: // 男神
         {
-            RankController *controller = [[RankController alloc]initWithFrame:[UIScreen mainScreen].bounds];
+            RankListController  *controller =  [[RankListController alloc]initWithRankListType:RankListTypeMenGod];
             
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
         case 1: // 女神
-           
+        {
+            RankListController  *controller =  [[RankListController alloc]initWithRankListType:RankListTypeWomenGod];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+        }
             break;
         case 2: // 人气
-        
+        {
+            RankListController  *controller =  [[RankListController alloc]initWithRankListType:RankListTypePopularity];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+        }
             break;
         case 3: // 什么活动
         {

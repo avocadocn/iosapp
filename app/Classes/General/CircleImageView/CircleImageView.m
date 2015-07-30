@@ -15,6 +15,7 @@
 @implementation CircleImageView
 
 
+
 +(instancetype)circleImageViewWithImage:(UIImage *)image diameter:(CGFloat)diameter{
     CircleImageView *cv = [[CircleImageView alloc]init];
     [cv setImage:image];
