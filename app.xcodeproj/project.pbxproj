@@ -41,7 +41,6 @@
 		968B153E1B6A16AD004A26C0 /* RankLoveHeart_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B153B1B6A16AD004A26C0 /* RankLoveHeart_red.png */; };
 		968B15411B6A2ABB004A26C0 /* RankItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15401B6A2ABB004A26C0 /* RankItemView.m */; };
 		968B15431B6A2ADC004A26C0 /* RankItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15421B6A2ADC004A26C0 /* RankItemView.xib */; };
-		969616C71B6B58BE002FC24C /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 969616C61B6B58BE002FC24C /* libEaseMobClientSDK.a */; };
 		969616C91B6B5A7D002FC24C /* ChoosePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155C1B5E4BFB00126C8A /* ChoosePhotoView.m */; };
 		969616CB1B6B5ABC002FC24C /* ChoosePhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155A1B5E4BFB00126C8A /* ChoosePhotoController.m */; };
 		969616CC1B6B5ADF002FC24C /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF922C1B674B53001759E2 /* DXFaceView.m */; };
@@ -440,6 +439,7 @@
 		A46DCEF01B69F1060049C999 /* mzx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A46DCEEF1B69F1060049C999 /* mzx.jpg */; };
 		A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = A47F50371B67765600955052 /* CompanyEmailComplete.m */; };
 		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
+		A480778F1B6B76CF000F11D1 /* appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B4EF1B5649AC00A7F355 /* appTests.m */; };
 		A481A1F21B65C6C100845046 /* PaggingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EC21B620A8200102D18 /* PaggingScrollView.m */; };
 		A4A009C21B579F5B005AC35F /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A4A009C11B579F5B005AC35F /* 2.jpg */; };
 		A4C7BE341B5E3D9D00473787 /* insert.png in Resources */ = {isa = PBXBuildFile; fileRef = A4C7BE331B5E3D9D00473787 /* insert.png */; };
@@ -1184,6 +1184,7 @@
 		A47F50361B67765600955052 /* CompanyEmailComplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyEmailComplete.h; sourceTree = "<group>"; };
 		A47F50371B67765600955052 /* CompanyEmailComplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyEmailComplete.m; sourceTree = "<group>"; };
 		A47F50381B67765600955052 /* CompanyEmailComplete.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyEmailComplete.xib; sourceTree = "<group>"; };
+		A48077901B6B77BD000F11D1 /* EaseMob.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = EaseMob.bundle; path = app/Classes/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/EaseMobSDK/resources/EaseMob.bundle; sourceTree = "<group>"; };
 		A4A009C11B579F5B005AC35F /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		A4C7BE331B5E3D9D00473787 /* insert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = insert.png; sourceTree = "<group>"; };
 		A4F315591B5E4BFB00126C8A /* ChoosePhotoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePhotoController.h; sourceTree = "<group>"; };
@@ -1211,7 +1212,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				969616C71B6B58BE002FC24C /* libEaseMobClientSDK.a in Frameworks */,
 				96CF91841B673EA9001759E2 /* libxml2.dylib in Frameworks */,
 				96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */,
 				96CF91801B673E99001759E2 /* CFNetwork.framework in Frameworks */,
@@ -1258,6 +1258,7 @@
 		528AD80964192770FD7E639E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A48077901B6B77BD000F11D1 /* EaseMob.bundle */,
 				96CF91831B673EA9001759E2 /* libxml2.dylib */,
 				96CF91811B673EA2001759E2 /* libz.dylib */,
 				96CF917F1B673E99001759E2 /* CFNetwork.framework */,
@@ -2933,7 +2934,6 @@
 			isa = PBXGroup;
 			children = (
 				A41993161B5F95AB0086EAAE /* Controller */,
-				A41993191B5F95AB0086EAAE /* model */,
 				A419931C1B5F95AB0086EAAE /* View */,
 			);
 			path = LoginAndRegister;
@@ -2955,13 +2955,6 @@
 				A439ED411B68DA9E006B3CAC /* GuidePageViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		A41993191B5F95AB0086EAAE /* model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = model;
 			sourceTree = "<group>";
 		};
 		A419931C1B5F95AB0086EAAE /* View */ = {
@@ -3430,6 +3423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A480778F1B6B76CF000F11D1 /* appTests.m in Sources */,
 				969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */,
 				969616D41B6B5FBD002FC24C /* UserDataTon.m in Sources */,
 				969616D31B6B5F0C002FC24C /* UIView+Extension.m in Sources */,
@@ -3749,6 +3743,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3770,6 +3765,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

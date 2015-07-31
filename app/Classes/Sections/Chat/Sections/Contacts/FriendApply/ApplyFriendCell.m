@@ -88,8 +88,7 @@
     }
 }
 
-- (void)refuseFriend
-{
+- (void)refuseFriendr{
     if(_delegate && [_delegate respondsToSelector:@selector(applyCellRefuseFriendAtIndexPath:)])
     {
         [_delegate applyCellRefuseFriendAtIndexPath:self.indexPath];
