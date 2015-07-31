@@ -25,6 +25,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
     
+    
     GuidePageViewController *guide = [[GuidePageViewController alloc]init];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:guide];
     

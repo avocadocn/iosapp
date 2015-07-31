@@ -88,7 +88,8 @@
     request.delegate = self;
     [request dlRouteNetWorkWithNetName:@"companyInformation" andRequestType:@"GET" paramter:array];
     //在这儿进行三次网络请求
-    [request dlRouteNetWorkWithNetName:@"circleCompany" andRequestType:@"GET" paramter:nil];
+    
+    
     
 }
 
