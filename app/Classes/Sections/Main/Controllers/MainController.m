@@ -35,7 +35,7 @@ static NSString *kGroupName = @"GroupName";
 {
     ChatListViewController *_chatListVC;
     ContactsViewController *_contactsVC;
-    SettingsViewController *_settingsVC;
+//    SettingsViewController *_settingsVC;
     //    __weak CallViewController *_callController;
     
     UIBarButtonItem *_addFriendItem;
@@ -132,13 +132,13 @@ static NSString *kGroupName = @"GroupName";
     ContactsViewController *contactsVC = [[ContactsViewController alloc]init];
     [self addOneTabWithVC:contactsVC title:@"通讯录"];
     _contactsVC = contactsVC;
-//    
-//    ProfileViewController *profileVC = [[ProfileViewController alloc]init];
-//    [self addOneTabWithVC:profileVC title:@"我"];
     
-    SettingsViewController *settingsVC = [[SettingsViewController alloc]init];
-    [self addOneTabWithVC:settingsVC title:@"设置"];
-    _settingsVC = settingsVC;
+    ProfileViewController *profileVC = [[ProfileViewController alloc]init];
+    [self addOneTabWithVC:profileVC title:@"我"];
+    
+//    SettingsViewController *settingsVC = [[SettingsViewController alloc]init];
+//    [self addOneTabWithVC:settingsVC title:@"设置"];
+//    _settingsVC = settingsVC;
 }
 
 - (void)addOneTabWithVC:(UIViewController *)viewController title:(NSString *)title{

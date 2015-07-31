@@ -144,7 +144,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
 }
 
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index{
-    RankBottomShowView *bottomView = (RankBottomShowView *)self.bottomShowView;
+//    RankBottomShowView *bottomView = (RankBottomShowView *)self.bottomShowView;
    
     
 }
@@ -167,7 +167,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
         }
         case iCarouselOptionRadius:
         {
-            return 250;
+//            return 250;
+            return DLScreenHeight * 0.3;
         }
         case iCarouselOptionSpacing:
         {
