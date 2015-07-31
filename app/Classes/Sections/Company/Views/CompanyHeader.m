@@ -41,6 +41,7 @@
     self.groupLabel.textAlignment = 1;
     self.groupLabel.textColor = [UIColor colorWithWhite:.2 alpha:.5];
     
+    
     UITapGestureRecognizer *groupTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(groupTapAction:)];
     [self.groupLabel addGestureRecognizer:groupTap];
     [self addSubview:self.groupLabel];
