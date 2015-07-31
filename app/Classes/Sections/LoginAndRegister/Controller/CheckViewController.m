@@ -14,37 +14,49 @@
 #import "LoginMailTableViewCell.h"
 #import "RegisterViewController.h"
 #import "CardChooseView.h"
-#import "CompanyRegisterViewController.h"
+//#import "CompanyRegisterViewController.h"
 #import <ReactiveCocoa.h>
-
+#import "DLNetworkRequest.h"
 typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     SelectStateOfCompanyNo,
     SelectStateOfCompanyYes
 };
 
-@interface CheckViewController ()<UITableViewDataSource, UITableViewDelegate, CardChooseViewDelegate>
+@interface CheckViewController ()<UITableViewDataSource, UITableViewDelegate, CardChooseViewDelegate, DLNetworkRequestDelegate>
 
 @end
 
 @implementation CheckViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self makeFlaseData];
-    //    [self requestNet];
-    [self builtInterface];
-}
-- (void)makeFlaseData
+
+- (void)requestNetWithSuffix:(NSString *)str
 {
-    self.modelArray = [NSMutableArray array];
-    NSInteger num = arc4random()% 20;
-    for (NSInteger i = 0; i < num; i++) {
+    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:str forKey:@"email"];
+    request.delegate = self;
+    [request dlRouteNetWorkWithNetName:@"companySearch" andRequestType:@"POST" paramter:dic];
+    
+}
+
+- (void)sendParsingWithDictionary:(NSDictionary *)dictionary
+{
+    if (!self.modelArray) {
+        self.modelArray = [NSMutableArray array];
+    }
+    NSArray *array = [dictionary objectForKey:@"companies"];
+    for (NSDictionary *dic in array) {
         CompanyModel *model = [[CompanyModel alloc]init];
-        model.company = @"上海动梨科技有限公司";
-        model.title = @"简介";
-        model.imageString = @"http://3p.pic.ttdtweb.com/online.dongting.com/imgcache/paihang/1398247929.jpg";
+        [model setValuesForKeysWithDictionary:dic];
         [self.modelArray addObject:model];
     }
+    [self.companyTableView reloadData];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    //    [self requestNet];
+    [self builtInterface];
 }
 
 - (void)requestNet
@@ -67,12 +79,13 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     self.title = @"找到";
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.frame = CGRectMake(0, 0, 100, 30);
+    button.frame = CGRectMake(0, 0, 30, 30);
     [button setTitle:@"返回" forState: UIControlStateNormal];
     button.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         
-        NSDictionary *dic = [NSDictionary dictionaryWithObject:@"失去RootView" forKey:@"name"];
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"loseView" object:nil userInfo:dic];
+        self.navigationController.navigationBarHidden = YES;
+        [self.navigationController popViewControllerAnimated:YES];
+
         return [RACSignal empty];
     }];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
@@ -127,23 +140,30 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CompanyModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    
     if (!(indexPath.row == [self.modelArray count])) {
         RegisterViewController *regi = [[RegisterViewController alloc]init];
         regi.comMail = self.mailURL;
-        regi.enterpriseName = @"上海动梨科技有限公司";
-        
+        regi.companyCid = [NSString stringWithFormat:@"%@", model.ID];
         CompanyModel *model = [self.modelArray objectAtIndex:indexPath.row];
-        regi.enterpriseName = [NSString stringWithFormat:@"%@", model.company];
+        [regi builtEnterTextNameWithString:model.name];
         [self.navigationController pushViewController:regi animated:YES];
     }
 }
 
 - (void)skipButtonAction:(UIButton *)sender
 {
-    CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"企业账号",@"个人账号"]];
-    card.delegate = self;
-    [self.view addSubview:card];
-    [card show];
+//    CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"个人账号", @"企业账号"]];
+//    card.delegate = self;
+//    [self.view addSubview:card];
+//    [card show];
+    
+    RegisterViewController *reg = [[RegisterViewController alloc]init];
+    reg.comMail = [NSString stringWithFormat:@"%@", self.mailURL];  //注册是没有公司名的
+    
+    [self.navigationController pushViewController:reg animated:YES];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -161,10 +181,10 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
             break;
         }
         case 2:
-        {  //个人账号
-            RegisterViewController *reg = [[RegisterViewController alloc]init];
-            reg.comMail = self.mailURL;
-            [self.navigationController pushViewController:reg animated:YES];
+        {  //公司账号
+//            CompanyRegisterViewController *reg = [[CompanyRegisterViewController alloc]init];
+//            reg.companyEmail = [NSString stringWithFormat:@"%@", self.mailURL];
+//            [self.navigationController pushViewController:reg animated:YES];
             break;
         }
         case 3:
@@ -172,7 +192,6 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
         default:
             break;
     }
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

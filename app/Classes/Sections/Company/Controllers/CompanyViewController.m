@@ -12,7 +12,12 @@
 #import "PrefixHeader.pch"
 #import "CompanyHeader.h"
 #import "ColleagueViewController.h"
-@interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+#import "DLNetworkRequest.h"
+#import "PrefixHeader.pch"
+#import "UserDataTon.h"
+#import "CompanyModel.h"
+
+@interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DLNetworkRequestDelegate>
 
 @end
 
@@ -21,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self requestNet];
     [self builtInterface]; //铺设截面
     
 }
@@ -72,7 +77,39 @@
     [super didReceiveMemoryWarning];
 }
 
+//  公司网络请求
+- (void)requestNet
+{
+    UserDataTon *user = [UserDataTon shareState];
+    
+    NSArray *array = [NSArray arrayWithObject:user.company_cid];
+    
+    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
+    request.delegate = self;
+    [request dlRouteNetWorkWithNetName:@"companyInformation" andRequestType:@"GET" paramter:array];
+    //在这儿进行三次网络请求
+    
+    
+    
+}
 
+//成功
+- (void)sendParsingWithDictionary:(NSDictionary *)dictionary
+{
+    if (!self.modelArray) {
+        self.modelArray = [NSMutableArray array];
+    }
+    NSLog(@"%@", dictionary);
+    CompanyModel *model = [[CompanyModel alloc]init];
+    
+    [model setValuesForKeysWithDictionary:dictionary];
+    [self.modelArray addObject:model];
+    
+}
+- (void)sendErrorWithDictionary:(NSDictionary *)dictionary
+{
+    NSLog(@"%@", [dictionary objectForKey:@"msg"]);
+}
 
 /*
 #pragma mark - Navigation

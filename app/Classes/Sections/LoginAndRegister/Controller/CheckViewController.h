@@ -16,4 +16,8 @@
 
 @property (nonatomic, strong)UITableView *companyTableView;
 
+- (void)requestNetWithSuffix:(NSString *)str;
+
+
+
 @end

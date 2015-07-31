@@ -19,9 +19,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"详情";
-    [self.view setBackgroundColor:RGB(235.0, 234.0, 236.0)];
-    DetailActivityShowView *detailView = [[DetailActivityShowView alloc]init];
-    [self.view addSubview:detailView];
+    [self.view setBackgroundColor:RGB(235.0, 234.0, 236.0)];  
+//    DetailActivityShowView *detailView = [[DetailActivityShowView alloc]init];
+//    [self.view addSubview:detailView];
 }
 
 - (void)didReceiveMemoryWarning {

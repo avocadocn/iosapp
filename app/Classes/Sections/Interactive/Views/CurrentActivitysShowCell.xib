@@ -150,7 +150,7 @@
                 <outlet property="nameLabel" destination="fdv-fa-mCj" id="7FZ-CM-fvc"/>
                 <outlet property="publishTimeLabel" destination="4Id-8v-ZwL" id="5rJ-tX-Qtz"/>
             </connections>
-            <point key="canvasLocation" x="288.5" y="307.5"/>
+            <point key="canvasLocation" x="583.5" y="287.5"/>
         </tableViewCell>
     </objects>
     <resources>

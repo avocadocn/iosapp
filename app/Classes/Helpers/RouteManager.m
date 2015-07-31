@@ -8,7 +8,6 @@
 
 #import "RouteManager.h"
 #import "RouteInfoModel.h"
-#import "RouteInfoModel.h"
 
 @implementation RouteManager
 
@@ -22,6 +21,12 @@ static dispatch_once_t predicate;
         sharedRouteManagerInstance = [[self alloc] init];
     });
     return sharedRouteManagerInstance;
+}
+
+- (RouteInfoModel *)getModelWithNetName:(NSString *)str
+{
+    RouteInfoModel *model = [self.routeDict objectForKey:str];
+    return model;
 }
 
 -(NSMutableDictionary *)routeDict{

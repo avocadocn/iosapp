@@ -14,5 +14,6 @@
 
 @property (nonatomic, strong)UICollectionView *BigCollection;
 
+@property (nonatomic, strong)NSMutableArray *modelArray;
 
 @end

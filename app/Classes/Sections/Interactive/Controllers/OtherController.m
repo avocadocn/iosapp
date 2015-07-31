@@ -13,13 +13,12 @@
 #import "DetailActivityShowController.h"
 #import "PaggingScrollView.h"
 
-
 typedef NS_ENUM(NSInteger, XHSlideType) {
     XHSlideTypeLeft = 0,
     XHSlideTypeRight = 1,
 };
 
-
+ //  横划集合视图
 @interface OtherController ()<UIScrollViewDelegate>
 
 
@@ -55,7 +54,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     // Do any additional setup after loading the view from its nib.
     self.title = @"其他活动";
 //    [self.view setBackgroundColor:RGB(235, 235, 235)];
-    [self.view setBackgroundColor:GrayBackgroundColor];
+    [self.view setBackgroundColor:[UIColor yellowColor]];
     
     // 添加标签视图
     [self addTitleSegmentView];

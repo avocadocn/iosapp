@@ -85,10 +85,8 @@ static ChoosePhotoController *choose = nil;
                     if (second == thred) {
 //                        NSLog(@"扫描完成");
                         [self reloadCollectionWithArray:array mutableArray:mutableArray];
-                        
+   
                     }
-                    
-                    
                 } failureBlock:^(NSError *error) {
                     //                    NSLog(@"%@", error);
                 }];

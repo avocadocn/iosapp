@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class RouteInfoModel;
 
 /**
     RouteManager *mag = [RouteManager sharedManager];
@@ -23,6 +23,7 @@
  */
 + (RouteManager *)sharedManager;
 
+- (RouteInfoModel *)getModelWithNetName:(NSString *)str;
 
 @property (strong,nonatomic) NSMutableDictionary *routeDict;
 

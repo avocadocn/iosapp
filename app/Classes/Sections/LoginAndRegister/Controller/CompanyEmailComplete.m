@@ -1,31 +1,44 @@
 //
-//  GuideViewController.m
+//  CompanyEmailComplete.m
 //  app
 //
-//  Created by 申家 on 15/7/24.
+//  Created by 申家 on 15/7/28.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
-#import "GuideViewController.h"
+#import "CompanyEmailComplete.h"
+#import "RegisterViewController.h"
 
-@interface GuideViewController ()
+
+@interface CompanyEmailComplete ()
 
 @end
 
-@implementation GuideViewController
+@implementation CompanyEmailComplete
+//- (instancetype)initWithString:(NSString *)str
+//{
+//    self = [super init];
+//    if (self) {
+//    }
+//    return self;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
+- (IBAction)completeButtonAction:(id)sender {
+    RegisterViewController *regi = [[RegisterViewController alloc]init];
+    
+    regi.comMail = self.comEmail;
+    regi.invite = self.inviteKey;
+    
+    [self.navigationController pushViewController:regi animated:YES];
+}
 
 /*
 #pragma mark - Navigation

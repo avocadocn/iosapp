@@ -8,9 +8,12 @@
 
 #import "LoginViewController.h"
 #import <Masonry.h>
+#import "DLNetworkRequest.h"
 
+#import "UserDataTon.h"
+#import <ReactiveCocoa.h>
 
-@interface LoginViewController ()
+@interface LoginViewController ()<DLNetworkRequestDelegate, UITextFieldDelegate>
 
 @end
 
@@ -29,31 +32,37 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(10, 200, DLScreenWidth - 20, 70)];
     [view setBackgroundColor:[UIColor whiteColor]];
     
-//    NSInteger num = 10;
-//    [view mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self.view.mas_left).offset(num);
-//        make.right.mas_equalTo(self.view.mas_right).offset(-num);
-//        make.top.mas_equalTo(self.view.mas_top).offset(250);
-//        make.height.mas_equalTo(60);
-//    }];
-    
+    UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    returnButton.frame = CGRectMake(0, 0, 30, 30);
+    [returnButton setTitle:@"返回" forState: UIControlStateNormal];
+    returnButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        
+        self.navigationController.navigationBarHidden = YES;
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        return [RACSignal empty];
+    }];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:returnButton];
     
     
     self.mailTextField = [UITextField new];
     self.mailTextField.placeholder = @"domomchon@donler.com";
-    [self.mailTextField placeholder];
+    [self.mailTextField placeholder]; self.mailTextField.delegate = self;
     [view addSubview:self.mailTextField];
     
     [self.mailTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(view.mas_top);
         make.right.mas_equalTo(view.mas_right);
         make.width.mas_equalTo(view.width - view.height / 2.0);
+       
         make.bottom.mas_equalTo(view.mas_bottom).offset(- view.height / 2.0 - 1);
     }];
     
     self.passwordTextField = [UITextField new];
     self.passwordTextField.placeholder = @"请输入密码";
     [self.passwordTextField placeholder];
+    self.passwordTextField.delegate = self;
+    self.passwordTextField.secureTextEntry = YES;
     [view addSubview:self.passwordTextField];
     
     [self.passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,6 +78,7 @@
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor orangeColor]];
     [self.view addSubview:button];
+    [button addTarget:self action:@selector(loginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.passwordTextField.mas_bottom).offset(30);
@@ -76,14 +86,56 @@
         make.right.mas_equalTo(view.mas_right);
         make.height.mas_equalTo(view.height / 2.0 + 5);
     }];
-    
 }
-
+- (void)loginButtonAction:(UIButton *)sender
+{
+    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
+    request.delegate = self;
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:self.mailTextField.text forKey:@"email"];
+    [dic setObject:self.passwordTextField.text forKey:@"password"];
+    
+    [request dlRouteNetWorkWithNetName:@"userLogin" andRequestType:@"POST" paramter:dic];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)sendParsingWithDictionary:(NSDictionary *)dictionary
+{
+    UserDataTon *ton = [UserDataTon shareState];
+    
+    ton.company_cid = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"cid"]];
+    ton.user_id = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"id"]];
+    ton.user_token = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"token"]];
+    
+    //注册通知
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
+
+}
+- (void)sendErrorWithDictionary:(NSDictionary *)dictionary
+{
+    NSString *str = [dictionary objectForKey:@"msg"];
+    
+    UIAlertView *al = [[UIAlertView alloc]initWithTitle:str message:nil delegate:self cancelButtonTitle:@"重试" otherButtonTitles: nil, nil];
+    [al show];
+}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+//    
+//    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+//    
+//    if (toBeString.length > 11) {
+//        textField.text = [toBeString substringToIndex:11];
+//        
+//        return NO;
+//    }
+//    return YES;
+//    
+//}
+
 
 /*
 #pragma mark - Navigation

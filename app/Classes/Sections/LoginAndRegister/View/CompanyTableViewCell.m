@@ -9,7 +9,7 @@
 #import "CompanyTableViewCell.h"
 #import <Masonry.h>
 #import "CompanyModel.h"
-#import <UIImageView+WebCache.h>
+#import "UIImageView+DLGetWebImage.h"
 #import <ReactiveCocoa.h>
 
 @implementation CompanyTableViewCell
@@ -101,12 +101,10 @@
 
 - (void)setCompanyCellWithModel:(CompanyModel *)model
 {
-    NSString *imageUrl = [model.imageString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self.companyImageView dlGetRouteWebImageWithString:model.logo placeholderImage:nil];
     
-    [self.companyImageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
-    
-    self.companyNameLabel.text = model.company;
-    self.companySynopsnsLabel.text = model.title;
+    self.companyNameLabel.text = model.name;
+//    self.companySynopsnsLabel.text = model.;
     
 }
 @end
