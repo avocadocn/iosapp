@@ -33,33 +33,30 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 {
     DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:str forKey:@"domain"];
+    [dic setObject:str forKey:@"email"];
     request.delegate = self;
-    [request dlRouteNetWorkWithNetName:@"companySearch" andRequestType:@"GET" paramter:dic];
+    [request dlRouteNetWorkWithNetName:@"companySearch" andRequestType:@"POST" paramter:dic];
     
 }
 
 - (void)sendParsingWithDictionary:(NSDictionary *)dictionary
 {
-    NSLog(@"%@", dictionary);
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self makeFlaseData];
-    //    [self requestNet];
-    [self builtInterface];
-}
-- (void)makeFlaseData
-{
-    self.modelArray = [NSMutableArray array];
-    NSInteger num = arc4random()% 20;
-    for (NSInteger i = 0; i < num; i++) {
+    if (!self.modelArray) {
+        self.modelArray = [NSMutableArray array];
+    }
+    NSArray *array = [dictionary objectForKey:@"companies"];
+    for (NSDictionary *dic in array) {
         CompanyModel *model = [[CompanyModel alloc]init];
-        model.company = @"上海动梨科技有限公司";
-        model.title = @"简介";
-        model.imageString = @"http://3p.pic.ttdtweb.com/online.dongting.com/imgcache/paihang/1398247929.jpg";
+        [model setValuesForKeysWithDictionary:dic];
         [self.modelArray addObject:model];
     }
+    [self.companyTableView reloadData];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    //    [self requestNet];
+    [self builtInterface];
 }
 
 - (void)requestNet
@@ -86,8 +83,9 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     [button setTitle:@"返回" forState: UIControlStateNormal];
     button.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         
+        self.navigationController.navigationBarHidden = YES;
         [self.navigationController popViewControllerAnimated:YES];
-        
+
         return [RACSignal empty];
     }];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
@@ -142,11 +140,14 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CompanyModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    
     if (!(indexPath.row == [self.modelArray count])) {
         RegisterViewController *regi = [[RegisterViewController alloc]init];
         regi.comMail = self.mailURL;
+        regi.companyCid = [NSString stringWithFormat:@"%@", model.ID];
         CompanyModel *model = [self.modelArray objectAtIndex:indexPath.row];
-        [regi builtEnterTextNameWithString:model.company];
+        [regi builtEnterTextNameWithString:model.name];
         [self.navigationController pushViewController:regi animated:YES];
     }
 }
@@ -162,8 +163,6 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     reg.comMail = [NSString stringWithFormat:@"%@", self.mailURL];  //注册是没有公司名的
     
     [self.navigationController pushViewController:reg animated:YES];
-
-    
     
 }
 
@@ -193,7 +192,6 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
         default:
             break;
     }
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -12,6 +12,8 @@
 #import <ReactiveCocoa.h>
 #import <Masonry.h>
 #import "DLNetworkRequest.h"
+#import "UserDataTon.h"
+
 
 @interface RegisterViewController ()<CardChooseViewDelegate, ArrangeState, DLNetworkRequestDelegate>
 
@@ -91,14 +93,13 @@
         make.top.mas_equalTo(self.view.mas_bottom).offset(-150);
     }];
     
-    RAC(self.loginButton, enabled) = [RACSignal combineLatest:@[self.enterpriseNameTextField.rac_textSignal, self.userPasswordTextField.rac_textSignal] reduce:^(NSString * UserNick, NSString *userPassword){
-        return @(UserNick.length > 6 && userPassword.length > 6);
-    }];  //长度统统大于6
+//    RAC(self.loginButton, enabled) = [RACSignal combineLatest:@[self.enterpriseNameTextField.rac_textSignal, self.userPasswordTextField.rac_textSignal] reduce:^(NSString * UserNick, NSString *userPassword){
+//        return @(UserNick.length > 6 && userPassword.length > 6);
+//    }];  //长度统统大于6
     
     
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    
     
     if (self.enterpriseName) {
         
@@ -167,7 +168,7 @@
 - (void)userLoginAction:(id)sender {
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"53aa6fc011fd597b3e1be250" forKey:@"cid"];
+    [dic setObject:self.companyCid forKey:@"cid"];
     [dic setObject:self.comMail forKey:@"email"];
     [dic setObject:self.userPasswordTextField.text forKey:@"password"];
     
@@ -178,14 +179,15 @@
         [dic setObject:@"0" forKey:@"gender"];
     }
     
-    if (self.userImage) {
+    if (!self.userImage) {
+        self.userImage = [UIImage imageNamed:@"mzx.jpg"];
+    }
         NSMutableDictionary *smDic = [NSMutableDictionary dictionary];
         NSData *data = UIImagePNGRepresentation(self.userImage);
         [smDic setObject:data forKey:@"data"];
         [smDic setObject:@"photo" forKey:@"name"];
         NSArray *array = [NSArray arrayWithObject:smDic];
         [dic setObject:array forKey:@"imageArray"];
-    }
     
     DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
     [request dlRouteNetWorkWithNetName:@"Register" andRequestType:@"POST" paramter:dic];
@@ -208,14 +210,16 @@
     {
         [dic setObject:@"0" forKey:@"gender"];
     }
-    if (self.userImage) {
-        NSMutableDictionary *smDic = [NSMutableDictionary dictionary];
-        NSData *data = UIImagePNGRepresentation(self.userImage);
-        [smDic setObject:data forKey:@"data"];
-        [smDic setObject:@"photo" forKey:@"name"];
-        NSArray *array = [NSArray arrayWithObject:smDic];
-        [dic setObject:array forKey:@"imageArray"];
+    if (!self.userImage) {
+        self.userImage = [UIImage imageNamed:@"mzx.jpg"];
     }
+    NSMutableDictionary *smDic = [NSMutableDictionary dictionary];
+    NSData *data = UIImagePNGRepresentation(self.userImage);
+    [smDic setObject:data forKey:@"data"];
+    [smDic setObject:@"photo" forKey:@"name"];
+    NSArray *array = [NSArray arrayWithObject:smDic];
+    [dic setObject:array forKey:@"imageArray"];
+    
     DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
     [request dlRouteNetWorkWithNetName:@"companyQuickRegister" andRequestType:@"POST" paramter:dic];
     request.delegate = self;
@@ -226,7 +230,16 @@
 
 - (void)sendParsingWithDictionary:(NSDictionary *)dictionary
 {
-    NSLog(@"获得的数据为%@", dictionary);
+    UserDataTon *user = [UserDataTon shareState];
+    
+    NSLog(@"注册成功 获得的数据为%@", dictionary);
+    user.company_uid = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"uid"]];
+    
+    //注册通知
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
+    
+    
 }
 
 - (void)userSexAction:(UIButton *)sender {

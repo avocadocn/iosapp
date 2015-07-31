@@ -23,12 +23,6 @@
 
 #define DLSBackgroundColor [UIColor colorWithWhite:.9 alpha:1];
 
-
-
-
-
-
-static NSString * user_token = nil;
-
+#define ROUDEADDRESS "http://192.168.2.109:3002/v2_0"
 
 #endif

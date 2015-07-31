@@ -30,15 +30,21 @@
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:guide];
     
     [self.window setRootViewController:nav];
-//    MainController *main = [[MainController alloc]init];
-//    self.window.rootViewController = main;
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jumpPageAction:) name:@"changeRootViewController" object:nil];  //  接受跳转通知
     
     //修改控制器的statusBar样式,需要注意在info.plist里配置一下
     [self.window makeKeyAndVisible];
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     return YES;
 }
+- (void)jumpPageAction:(UIButton *)sender
+{
+    [self.window setRootViewController:nil];
+    
+    MainController *main = [[MainController alloc]init];
 
+    self.window.rootViewController = main;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

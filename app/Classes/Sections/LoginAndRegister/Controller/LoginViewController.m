@@ -10,6 +10,8 @@
 #import <Masonry.h>
 #import "DLNetworkRequest.h"
 
+#import "UserDataTon.h"
+#import <ReactiveCocoa.h>
 
 @interface LoginViewController ()<DLNetworkRequestDelegate, UITextFieldDelegate>
 
@@ -30,14 +32,17 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(10, 200, DLScreenWidth - 20, 70)];
     [view setBackgroundColor:[UIColor whiteColor]];
     
-//    NSInteger num = 10;
-//    [view mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self.view.mas_left).offset(num);
-//        make.right.mas_equalTo(self.view.mas_right).offset(-num);
-//        make.top.mas_equalTo(self.view.mas_top).offset(250);
-//        make.height.mas_equalTo(60);
-//    }];
-    
+    UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    returnButton.frame = CGRectMake(0, 0, 30, 30);
+    [returnButton setTitle:@"返回" forState: UIControlStateNormal];
+    returnButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        
+        self.navigationController.navigationBarHidden = YES;
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        return [RACSignal empty];
+    }];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:returnButton];
     
     
     self.mailTextField = [UITextField new];
@@ -89,8 +94,6 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:self.mailTextField.text forKey:@"email"];
     [dic setObject:self.passwordTextField.text forKey:@"password"];
-    NSDictionary *pushInfo = [NSDictionary dictionaryWithObjects:@[user_token, @"dwadadw", @"dwadawd"] forKeys:@[@"ios_token", @"user_id", @"channel_id"]];
-    [dic setObject:pushInfo forKey:@"pushInfo"];
     
     [request dlRouteNetWorkWithNetName:@"userLogin" andRequestType:@"POST" paramter:dic];
 }
@@ -102,21 +105,36 @@
 
 - (void)sendParsingWithDictionary:(NSDictionary *)dictionary
 {
-    NSLog(@"%@", dictionary);
-}
+    UserDataTon *ton = [UserDataTon shareState];
+    
+    ton.company_cid = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"cid"]];
+    ton.user_id = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"id"]];
+    ton.user_token = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"token"]];
+    
+    //注册通知
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    
-    if (toBeString.length > 11) {
-        textField.text = [toBeString substringToIndex:11];
-        
-        return NO;
-    }
-    return YES;
-    
 }
+- (void)sendErrorWithDictionary:(NSDictionary *)dictionary
+{
+    NSString *str = [dictionary objectForKey:@"msg"];
+    
+    UIAlertView *al = [[UIAlertView alloc]initWithTitle:str message:nil delegate:self cancelButtonTitle:@"重试" otherButtonTitles: nil, nil];
+    [al show];
+}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+//    
+//    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+//    
+//    if (toBeString.length > 11) {
+//        textField.text = [toBeString substringToIndex:11];
+//        
+//        return NO;
+//    }
+//    return YES;
+//    
+//}
 
 
 /*

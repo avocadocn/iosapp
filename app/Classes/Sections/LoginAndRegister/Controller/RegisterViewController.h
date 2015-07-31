@@ -41,6 +41,9 @@ typedef NS_ENUM(NSInteger, UserSex){
 
 @property (nonatomic, strong)UIImage *userImage;
 
+@property (nonatomic, copy)NSString *companyCid;
+
+
 // 如果是公司已存在的话 调用此方法来给公司名字赋值并且使其不可被改变
 - (void)builtEnterTextNameWithString:(NSString *)str;
 

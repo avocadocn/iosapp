@@ -37,7 +37,9 @@
 
 - (UIScrollView *)builtScrollview
 {
-    UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+//    UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
+    UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, -20, DLScreenWidth, DLScreenHeight + 20)];
     scrollview.contentSize = CGSizeMake(DLScreenWidth * 4, 0);
     scrollview.pagingEnabled = YES;
     CGFloat red = arc4random() %100 / 100.0;
@@ -93,6 +95,7 @@
 
 - (void)changeViewAction:(UIButton *)sender
 {
+    
 }
 
 - (void)loginButtonAction:(UIButton *)sender
@@ -112,13 +115,12 @@
     
     BOOL mailFormat = [emailTest evaluateWithObject:self.mailBoxTextField.text];
     
-    
     if (mailFormat) { //正确的邮箱格式
         CheckViewController *check = [[CheckViewController alloc]init];
         check.mailURL = [NSString stringWithFormat:@"%@", self.mailBoxTextField.text];  //接受到的邮箱内容
         NSArray *array = [check.mailURL componentsSeparatedByString:@"@"];
         NSString *str = [array lastObject];
-        [check requestNetWithSuffix:str];
+        [check requestNetWithSuffix:check.mailURL];
         
         [self.navigationController pushViewController:check animated:YES];
         self.navigationController.navigationBarHidden = NO;

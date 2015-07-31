@@ -16,12 +16,6 @@
 	</dict>
 	<dict>
 		<key>routeName</key>
-		<string>Companies</string>
-		<key>routeURL</key>
-		<string>/companies</string>
-	</dict>
-	<dict>
-		<key>routeName</key>
 		<string>companyQuickRegister</string>
 		<key>routeURL</key>
 		<string>/companies/quickRegister</string>
@@ -32,11 +26,17 @@
 		<key>routeURL</key>
 		<string>/users/login</string>
 	</dict>
-    <dict>
+	<dict>
+		<key>routeName</key>
+		<string>companySearch</string>
+		<key>routeURL</key>
+		<string>/search/companies</string>
+	</dict>
+	<dict>
         <key>routeName</key>
-        <string>companySearch</string>
-        <key>routeURL</key>
-        <string>/companies</string>
-    </dict>
+        <string>companyInformation</string>
+		<key>routeURL</key>
+		<string>/companies/parameter0</string>
+	</dict>
 </array>
 </plist>

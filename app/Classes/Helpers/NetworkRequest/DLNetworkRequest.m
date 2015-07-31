@@ -10,7 +10,20 @@
 #import "RouteManager.h"
 #import "RouteInfoModel.h"
 #import <ReactiveCocoa.h>
-#define ROUDEADDRESS "http://192.168.2.109:3002/v2_0"
+#import "UserDataTon.h"
+
+/*
+ 类的使用方法: 路由请求时
+        参数   网址 (NSString) 输入要进行的网络请求在 RouteInfo.plist 文件里的 RouteName, 找到要请求的网址进行拼接
+              请求类型 (NSString) POST  /   GET
+              请求参数  POST: (NSDictionary)  key value 形式
+                       GET: (NSArray)要使用的参数一一排列存进数组里
+ 
+ RouteInfo.plist 文件的写法: POST 网址:http://192.168.2.109:3002/v2_0/users/login   存储/users/login 为routeURL
+                            GET  网址:http://192.168.2.109:3002/v2_0/companies/53aa6fc011fd597b3e1be250
+                                      存储/companies/parameter0  (把需要的参数按照 parameter(参数下标) 格式存进 routeURL 里)
+ */
+
 @implementation DLNetworkRequest
 
 // 路由请求 需要一个请求的网址 网络请求的类型 请求的参数
@@ -22,16 +35,35 @@
     RouteInfoModel *model = [route getModelWithNetName:name];
     NSString *str = [NSString stringWithFormat:@"%s%@", ROUDEADDRESS, model.routeURL];
     
-    
-    if ([type isEqualToString:@"POST"]) {
-        [self dlPOSTNetRequestWithString:str andParameters:paramter];
+    NSLog(@"请求的网址为: %@", str);
+    NSLog(@"请求的数据为: %@", paramter);
+    if ([paramter isKindOfClass:[NSDictionary class]] && [paramter objectForKey:@"imageArray"]) {  //存在照片的话
+        self.imageArray = [paramter objectForKey:@"imageArray"];
+        
+        [self dlPOSTUploadingWithString:str andParamters:paramter];
+    } else {
+        
+//        if ([type isEqualToString:@"POST"]) {
+            [self dlPOSTNetRequestWithString:str andParameters:paramter];
+//        }
     }
-    else if ([type isEqualToString:@"GET"])
+    
+    
+    if ([type isEqualToString:@"GET"])
     {
-        [self dlGETNetRequestWithString:str andParameters:paramter];
+        NSInteger i = 0;
+        NSMutableString *mutableString = [[NSMutableString alloc]init];
+        for (NSString *para in paramter) {
+            mutableString = (NSMutableString *)[str stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"parameter%ld", i] withString:para];
+            NSLog(@"GET 请求的网址为:%@", mutableString);
+            i++;
+        }
+        
+        [self dlGETNetRequestWithString:mutableString andParameters:nil];
     }
     
-//     写了一个plist文件,用单例读取这个plist文件,把plist文件里的小字典转成model,把model放进route的routeDict字典里, key值为model的routeName值
+    
+    //     写了一个plist文件,用单例读取这个plist文件,把plist文件里的小字典转成model,把model放进route的routeDict字典里, key值为model的routeName值
     
 }
 
@@ -42,22 +74,68 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-//    [manger POST:str parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSData *data = [NSData dataWithData:responseObject];
-//        
-//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        [self.delegate sendParsingWithDictionary:dic];
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        NSLog(@"%@", error);
-////        [self judgeNetWorkConnection];
-//    }];
+    UserDataTon *use = [UserDataTon shareState];
+    if (use.user_token) {
+        [manger.requestSerializer setValue:use.user_token forHTTPHeaderField:@"x-access-token"];
+    }
+    [manger POST:str parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSData *data = [NSData dataWithData:responseObject];
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        [self.delegate sendParsingWithDictionary:dic];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+        //        NSDictionary *arrarDic = error.userInfo;
+        
+        // 看错误代码
+        //        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        
+        NSData *errordata = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        if (errordata) {
+            NSDictionary *serializedData = [NSJSONSerialization JSONObjectWithData:errordata options:kNilOptions error:nil];
+            [self.delegate sendErrorWithDictionary:serializedData];
+        }
+        
+    }];
     
-    if ([parameters objectForKey:@"imageArray"]){
-        self.imageArray = [parameters objectForKey:@"imageArray"];
-        [parameters removeObjectForKey:@"imageArray"];
+}
+
+// GET 请求
+- (void)dlGETNetRequestWithString:(NSString *)str andParameters:(id)parameters
+{
+    str = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
+    UserDataTon *use = [UserDataTon shareState];
+    if (use.user_token) {
+        [manger.requestSerializer setValue:use.user_token forHTTPHeaderField:@"x-access-token"];
     }
     
-    [manger POST:str parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manger GET:str parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSData *data = [NSData dataWithData:responseObject];
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        [self.delegate sendParsingWithDictionary:dic];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@", error);
+        
+        NSData *errordata = error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+        NSDictionary *serializedData = [NSJSONSerialization JSONObjectWithData:errordata options:kNilOptions error:nil];
+        [self.delegate sendErrorWithDictionary:serializedData];
+    }];
+}
+
+- (void)dlPOSTUploadingWithString:(NSString *)str andParamters:(id)paramters
+{
+    str = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
+    UserDataTon *use = [UserDataTon shareState];
+    if (use.user_token) {
+        [manger.requestSerializer setValue:use.user_token forHTTPHeaderField:@"x-access-token"];
+    }
+    
+    [manger POST:str parameters:paramters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         if (self.imageArray){
             NSInteger i = 0;
             for (NSDictionary *dic in self.imageArray) {
@@ -74,30 +152,10 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", error);
         
-//                [self judgeNetWorkConnection];
+        //                [self judgeNetWorkConnection];
     }];
     
-    
 }
-
-// GET 请求
-- (void)dlGETNetRequestWithString:(NSString *)str andParameters:(id)parameters
-{
-    str = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    manger.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manger GET:str parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSData *data = [NSData dataWithData:responseObject];
-        
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        [self.delegate sendParsingWithDictionary:dic];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@", error);
-        
-//        [self judgeNetWorkConnection];
-    }];
-}
-
 
 // 判断网络
 - (void)judgeNetWorkConnection

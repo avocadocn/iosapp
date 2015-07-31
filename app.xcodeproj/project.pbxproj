@@ -71,6 +71,7 @@
 		A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFCF1B5F5E7900F7DE60 /* RankItemCell.m */; };
 		A450561F1B60F01F0075E39D /* DSNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFCA1B5E4AAE00F7DE60 /* DSNavigationBar.m */; };
 		A45056201B60F0270075E39D /* DLNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFC71B5E416900F7DE60 /* DLNavigationBar.m */; };
+		A45565DF1B6B1B2400DBEC44 /* CompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A45565DE1B6B1B2400DBEC44 /* CompanyModel.m */; };
 		A459C4BF1B620C88003D32C8 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4BE1B620C88003D32C8 /* RegisterViewController.m */; };
 		A459C4C51B62305D003D32C8 /* GroupCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4C41B62305D003D32C8 /* GroupCardModel.m */; };
 		A459C4C81B623F40003D32C8 /* GroupCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4C71B623F40003D32C8 /* GroupCardViewCell.m */; };
@@ -80,6 +81,9 @@
 		A4651D401B58DFB9008BAEE8 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D3F1B58DFB9008BAEE8 /* 2.png */; };
 		A4651D421B58DFC7008BAEE8 /* addImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D411B58DFC7008BAEE8 /* addImage.png */; };
 		A4651D871B58F8C6008BAEE8 /* delete-circular.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D861B58F8C6008BAEE8 /* delete-circular.png */; };
+		A46DCEEE1B69E0460049C999 /* UIImageView+DLGetWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A46DCEED1B69E0460049C999 /* UIImageView+DLGetWebImage.m */; };
+		A46DCEF01B69F1060049C999 /* mzx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A46DCEEF1B69F1060049C999 /* mzx.jpg */; };
+		A46DCEF31B6A1E9D0049C999 /* UserDataTon.m in Sources */ = {isa = PBXBuildFile; fileRef = A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */; };
 		A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = A47F50371B67765600955052 /* CompanyEmailComplete.m */; };
 		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
 		A481A1F21B65C6C100845046 /* PaggingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EC21B620A8200102D18 /* PaggingScrollView.m */; };
@@ -227,6 +231,8 @@
 		A450561B1B60EF980075E39D /* RankItemLayoutAttr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RankItemLayoutAttr.h; path = ../Views/RankItemLayoutAttr.h; sourceTree = "<group>"; };
 		A450561C1B60EF980075E39D /* RankItemLayoutAttr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RankItemLayoutAttr.m; path = ../Views/RankItemLayoutAttr.m; sourceTree = "<group>"; };
 		A45056221B60F1B80075E39D /* NotificationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
+		A45565DD1B6B1B2400DBEC44 /* CompanyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyModel.h; sourceTree = "<group>"; };
+		A45565DE1B6B1B2400DBEC44 /* CompanyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyModel.m; sourceTree = "<group>"; };
 		A459C4BD1B620C88003D32C8 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		A459C4BE1B620C88003D32C8 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		A459C4C31B62305D003D32C8 /* GroupCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardModel.h; sourceTree = "<group>"; };
@@ -240,6 +246,11 @@
 		A4651D3F1B58DFB9008BAEE8 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		A4651D411B58DFC7008BAEE8 /* addImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addImage.png; sourceTree = "<group>"; };
 		A4651D861B58F8C6008BAEE8 /* delete-circular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete-circular.png"; sourceTree = "<group>"; };
+		A46DCEEC1B69E0460049C999 /* UIImageView+DLGetWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+DLGetWebImage.h"; sourceTree = "<group>"; };
+		A46DCEED1B69E0460049C999 /* UIImageView+DLGetWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+DLGetWebImage.m"; sourceTree = "<group>"; };
+		A46DCEEF1B69F1060049C999 /* mzx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mzx.jpg; sourceTree = "<group>"; };
+		A46DCEF11B6A1E9D0049C999 /* UserDataTon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataTon.h; sourceTree = "<group>"; };
+		A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataTon.m; sourceTree = "<group>"; };
 		A47F50361B67765600955052 /* CompanyEmailComplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyEmailComplete.h; sourceTree = "<group>"; };
 		A47F50371B67765600955052 /* CompanyEmailComplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyEmailComplete.m; sourceTree = "<group>"; };
 		A47F50381B67765600955052 /* CompanyEmailComplete.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyEmailComplete.xib; sourceTree = "<group>"; };
@@ -595,6 +606,8 @@
 			children = (
 				A459C4C31B62305D003D32C8 /* GroupCardModel.h */,
 				A459C4C41B62305D003D32C8 /* GroupCardModel.m */,
+				A45565DD1B6B1B2400DBEC44 /* CompanyModel.h */,
+				A45565DE1B6B1B2400DBEC44 /* CompanyModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -701,6 +714,8 @@
 			children = (
 				96CF8F091B672374001759E2 /* RouteInfoModel.h */,
 				96CF8F0A1B672374001759E2 /* RouteInfoModel.m */,
+				A46DCEF11B6A1E9D0049C999 /* UserDataTon.h */,
+				A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -774,6 +789,8 @@
 			children = (
 				A422697F1B672B31001B4DE6 /* DLNetworkRequest.h */,
 				A42269801B672B31001B4DE6 /* DLNetworkRequest.m */,
+				A46DCEEC1B69E0460049C999 /* UIImageView+DLGetWebImage.h */,
+				A46DCEED1B69E0460049C999 /* UIImageView+DLGetWebImage.m */,
 			);
 			path = NetworkRequest;
 			sourceTree = "<group>";
@@ -803,8 +820,9 @@
 				A45056151B60D2110075E39D /* welcome-2.png */,
 				A45056161B60D2110075E39D /* welcome-3.png */,
 				A45056131B60D2110075E39D /* welcome-4.png */,
-				A4A009C11B579F5B005AC35F /* 2.jpg */,
 				A4651D3B1B58DFAE008BAEE8 /* No.png */,
+				A4A009C11B579F5B005AC35F /* 2.jpg */,
+				A46DCEEF1B69F1060049C999 /* mzx.jpg */,
 				A4651D3F1B58DFB9008BAEE8 /* 2.png */,
 				A4651D411B58DFC7008BAEE8 /* addImage.png */,
 				A4C7BE331B5E3D9D00473787 /* insert.png */,
@@ -960,6 +978,7 @@
 				A41993311B5F99910086EAAE /* gray-man.png in Resources */,
 				9649B4E11B5649AC00A7F355 /* Images.xcassets in Resources */,
 				A41993301B5F99910086EAAE /* man.png in Resources */,
+				A46DCEF01B69F1060049C999 /* mzx.jpg in Resources */,
 				961053531B590C31002D62A3 /* OtherActivityShowCell.xib in Resources */,
 				A4651D421B58DFC7008BAEE8 /* addImage.png in Resources */,
 			);
@@ -1022,6 +1041,7 @@
 				96D20EC01B6203A100102D18 /* HitTestView.m in Sources */,
 				961053641B5C9C51002D62A3 /* LineLayout.m in Sources */,
 				961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */,
+				A46DCEF31B6A1E9D0049C999 /* UserDataTon.m in Sources */,
 				A450561D1B60EF980075E39D /* RankItemLayoutAttr.m in Sources */,
 				A41993231B5F95AB0086EAAE /* CompanyTableViewCell.m in Sources */,
 				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
@@ -1065,6 +1085,8 @@
 				A4F315691B5E4BFB00126C8A /* PhotoPlayController.m in Sources */,
 				A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */,
 				961053521B590C31002D62A3 /* OtherActivityShowCell.m in Sources */,
+				A45565DF1B6B1B2400DBEC44 /* CompanyModel.m in Sources */,
+				A46DCEEE1B69E0460049C999 /* UIImageView+DLGetWebImage.m in Sources */,
 				96D23E331B57A6DC0079193C /* UIBarButtonItem+Extension.m in Sources */,
 				A41993211B5F95AB0086EAAE /* CheckViewController.m in Sources */,
 				9649B5371B564DE000A7F355 /* AppDelegate.m in Sources */,
