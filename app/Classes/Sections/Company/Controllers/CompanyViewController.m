@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self requestNet];
+//    [self requestNet];
     [self builtInterface]; //铺设截面
     
 }
