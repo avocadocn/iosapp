@@ -30,7 +30,7 @@
     self.modelArray = [NSMutableArray array];
     NSInteger inte = arc4random() % 15;
     for (int i = 0; i < inte; i++) {
-        NSString *str = @"我的滑板鞋时尚时尚最时尚";
+        NSString *str = @"空军建军节";
         [self.modelArray addObject:str];
     }
 }
@@ -45,8 +45,6 @@
 //    layout.minimumLineSpacing = interval;
     layout.sectionInset = UIEdgeInsetsMake(interval, interval , interval, interval);
     
-    
-    
     self.groupListCollection = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
     [self.groupListCollection setBackgroundColor:[UIColor whiteColor]];
     [self.groupListCollection registerClass:[GroupCardViewCell class] forCellWithReuseIdentifier:@"groupCardCell"];
@@ -54,9 +52,6 @@
     self.groupListCollection.delegate = self;
     self.groupListCollection.dataSource = self;
     [self.view addSubview:self.groupListCollection];
-    
-    
-    
     
 }
 
@@ -80,13 +75,19 @@
     return [self.modelArray count];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"点击");
+}
+
+
 /*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+ In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+     Get the new view controller using [segue destinationViewController].
+     Pass the selected object to the new view controller.
 }
 */
 

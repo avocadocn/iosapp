@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+//通讯录
+
 @interface AddressViewController : UIViewController
+
+@property (nonatomic, strong)UITableView *myTableView;
+
+@property (nonatomic, strong)UISearchBar *searchColleague;
+
+@property (nonatomic, strong)NSMutableArray *modelArray;
+
+@property (nonatomic, strong)UITextField *addressSearch;
+
+
+
+
 
 @end

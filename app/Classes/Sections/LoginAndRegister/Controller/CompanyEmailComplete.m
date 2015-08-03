@@ -15,6 +15,7 @@
 @end
 
 @implementation CompanyEmailComplete
+
 //- (instancetype)initWithString:(NSString *)str
 //{
 //    self = [super init];
