@@ -41,6 +41,7 @@
 		968B153E1B6A16AD004A26C0 /* RankLoveHeart_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B153B1B6A16AD004A26C0 /* RankLoveHeart_red.png */; };
 		968B15411B6A2ABB004A26C0 /* RankItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15401B6A2ABB004A26C0 /* RankItemView.m */; };
 		968B15431B6A2ADC004A26C0 /* RankItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15421B6A2ADC004A26C0 /* RankItemView.xib */; };
+		969616C71B6B58BE002FC24C /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 969616C61B6B58BE002FC24C /* libEaseMobClientSDK.a */; };
 		969616C91B6B5A7D002FC24C /* ChoosePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155C1B5E4BFB00126C8A /* ChoosePhotoView.m */; };
 		969616CB1B6B5ABC002FC24C /* ChoosePhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155A1B5E4BFB00126C8A /* ChoosePhotoController.m */; };
 		969616CC1B6B5ADF002FC24C /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF922C1B674B53001759E2 /* DXFaceView.m */; };
@@ -2944,6 +2945,7 @@
 			isa = PBXGroup;
 			children = (
 				A41993161B5F95AB0086EAAE /* Controller */,
+				A41993191B5F95AB0086EAAE /* model */,
 				A419931C1B5F95AB0086EAAE /* View */,
 			);
 			path = LoginAndRegister;
@@ -2967,6 +2969,13 @@
 				A46448EF1B6F416E00AA621E /* ColleaguesInformationController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		A41993191B5F95AB0086EAAE /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		A419931C1B5F95AB0086EAAE /* View */ = {
@@ -3788,7 +3797,6 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3812,7 +3820,6 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(PLATFORM_DIR)/Developer/Library/Frameworks";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
