@@ -192,7 +192,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             
             NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithCapacity:7];
             
-            NSArray *titles = @[@"热门", @"活动", @"求助", @"投票"];
+            NSArray *titles = @[ @"活动", @"求助", @"投票"];
             
             [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
                 ActivityShowTableController *tableViewController = [[ActivityShowTableController alloc] init];

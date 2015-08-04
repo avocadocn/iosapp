@@ -33,16 +33,16 @@
 
 -(void)setupSegmentedControl{
     HMSegmentedControl *control = [[HMSegmentedControl alloc]initWithFrame:self.frame];
-    control.sectionTitles = @[@"热门", @"活动", @"投票", @"求助"];
+    // control.sectionTitles = @[@"热门", @"活动", @"投票", @"求助"];
     control.selectedSegmentIndex = 0;
     control.backgroundColor = [UIColor clearColor];
-    UIFont *font = [UIFont systemFontOfSize:12.0f];
+    UIFont *font = [UIFont systemFontOfSize:14.0f];
     control.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor] , NSFontAttributeName : font};
     
     //[control setSelectionIndicatorEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [control setSelectionIndicatorEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    control.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor orangeColor]};
-    control.selectionIndicatorColor = [UIColor orangeColor];
+    control.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : RGB(253, 185, 0)};
+    control.selectionIndicatorColor = RGB(253, 185, 0);
     control.selectionIndicatorHeight = 2.5;
     control.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     control.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;

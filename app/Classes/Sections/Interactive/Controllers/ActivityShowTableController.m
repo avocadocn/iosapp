@@ -27,6 +27,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     if (self) {
         
         [self addActivitysShowTable];
+        [self.view setBackgroundColor:RGB(230, 230, 230)];
     }
     return self;
 }
@@ -45,8 +46,8 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     tableView.height -= 64;
     
-    [tableView setBackgroundColor:[UIColor whiteColor]];
-   [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+    [tableView setBackgroundColor:self.view.backgroundColor];
+    [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
     [tableView setShowsVerticalScrollIndicator:NO];
     [tableView setDelegate:self];
     [tableView setDataSource:self];
@@ -60,30 +61,16 @@ static NSString * const ID = @"OtherActivityShowCell";
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     // Return the number of sections.
-    return 1;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-    return 6;
+    return 1;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 25)];
-    [view setBackgroundColor:[UIColor whiteColor]];
-    OtherSegmentButton *btn = [[OtherSegmentButton alloc]init];
-    // NSLog(@"%f--%f",btn.centerY,view.centerY);
-    btn.y += (view.height - btn.height) / 2.0;
-    btn.x += 8.0f;
-    
-    [btn setName:self.title];
-    
-    // NSLog(@"%@",NSStringFromCGRect(btn.frame));
-    [view addSubview:btn];
-    //    [self.view addSubview:view];
-    return view;
-}
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -102,12 +89,9 @@ static NSString * const ID = @"OtherActivityShowCell";
 }
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 25;
-}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150;
+    return 290 * DLScreenWidth / 375;
 }
 
 #pragma mark - delegate
