@@ -23,9 +23,9 @@ static dispatch_once_t predicate;
     return sharedRouteManagerInstance;
 }
 
-- (RouteInfoModel *)getModelWithNetName:(NSString *)str
+- (RouteInfoModel *)getModelWithRouteName:(NSString *)routeName
 {
-    RouteInfoModel *model = [self.routeDict objectForKey:str];
+    RouteInfoModel *model = [self.routeDict objectForKey:routeName];
     return model;
 }
 

@@ -32,7 +32,7 @@
     self.dictinary = [NSDictionary dictionary];
     
     RouteManager *route = [RouteManager sharedManager];
-    RouteInfoModel *model = [route getModelWithNetName:name];
+    RouteInfoModel *model = [route getModelWithRouteName:name];
     NSString *str = [NSString stringWithFormat:@"%s%@", ROUDEADDRESS, model.routeURL];
     
     NSLog(@"请求的网址为: %@", str);
@@ -140,6 +140,7 @@
             NSInteger i = 0;
             for (NSDictionary *dic in self.imageArray) {
                 [formData appendPartWithFileData:[dic objectForKey:@"data"] name:[dic objectForKey:@"name"] fileName:[NSString stringWithFormat:@"DonlerImage %ld", i] mimeType:@"image/jpeg"];
+                
                 i++;
             }
         }

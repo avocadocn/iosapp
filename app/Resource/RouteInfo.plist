@@ -25,6 +25,8 @@
 		<string>userLogin</string>
 		<key>routeURL</key>
 		<string>/users/login</string>
+        <key>routeMethod</key>
+        <string>POST</string>
 	</dict>
 	<dict>
 		<key>routeName</key>
@@ -33,10 +35,43 @@
 		<string>/search/companies</string>
 	</dict>
 	<dict>
-        <key>routeName</key>
-        <string>companyInformation</string>
+		<key>routeName</key>
+		<string>companyInformation</string>
 		<key>routeURL</key>
 		<string>/companies/parameter0</string>
 	</dict>
+    <dict>
+        <key>routeName</key>
+        <string>testRoute</string>
+        <key>routeURL</key>
+        <string>/companies/</string>
+        <key>routeMethod</key>
+        <string>POST</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>getUserInfo</string>
+        <key>routeURL</key>
+        <string>/users/:userId</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>modifyUserInfo</string>
+        <key>routeURL</key>
+        <string>/users/:userId</string>
+        <key>routeMethod</key>
+        <string>PUT</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>getUserphotoAlbums</string>
+        <key>routeURL</key>
+        <string>/users/:userId/photos</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    
 </array>
 </plist>

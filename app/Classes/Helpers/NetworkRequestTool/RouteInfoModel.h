@@ -20,5 +20,10 @@
  */
 @property (copy,nonatomic) NSString *routeName;
 
+/**
+ *  路由请求方法
+ */
+@property (copy,nonatomic) NSString *routeMethod;
+
 + (instancetype)infoModelWithDict:(NSDictionary *)dict;
 @end

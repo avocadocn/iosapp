@@ -19,4 +19,8 @@
     return model;
 }
 
+-(NSString *)description{
+    return [NSString stringWithFormat:@"routeName:%@,routeUrl:%@,routeMethod:%@",self.routeName,self.routeURL,self.routeMethod];
+}
+
 @end
