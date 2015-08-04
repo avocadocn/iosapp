@@ -453,6 +453,7 @@
 		A481A1F21B65C6C100845046 /* PaggingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EC21B620A8200102D18 /* PaggingScrollView.m */; };
 		A48B1B5A1B707E0A0049237E /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48B1B591B707E0A0049237E /* AddressViewController.m */; };
 		A48B1B5D1B7081420049237E /* FolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48B1B5C1B7081420049237E /* FolderViewController.m */; };
+		A48B1B601B7088960049237E /* CuntomFolderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A48B1B5F1B7088960049237E /* CuntomFolderView.m */; };
 		A49205751B6F0B5000F16346 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205741B6F0B5000F16346 /* AddressTableViewCell.m */; };
 		A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205781B6F0BAC00F16346 /* GroupCardViewCell.m */; };
 		A4A009C21B579F5B005AC35F /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A4A009C11B579F5B005AC35F /* 2.jpg */; };
@@ -1220,6 +1221,8 @@
 		A48B1B591B707E0A0049237E /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		A48B1B5B1B7081420049237E /* FolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderViewController.h; sourceTree = "<group>"; };
 		A48B1B5C1B7081420049237E /* FolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderViewController.m; sourceTree = "<group>"; };
+		A48B1B5E1B7088960049237E /* CuntomFolderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CuntomFolderView.h; sourceTree = "<group>"; };
+		A48B1B5F1B7088960049237E /* CuntomFolderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CuntomFolderView.m; sourceTree = "<group>"; };
 		A49205731B6F0B5000F16346 /* AddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTableViewCell.h; sourceTree = "<group>"; };
 		A49205741B6F0B5000F16346 /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
 		A49205771B6F0BAC00F16346 /* GroupCardViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardViewCell.h; sourceTree = "<group>"; };
@@ -3100,6 +3103,8 @@
 			children = (
 				A49205731B6F0B5000F16346 /* AddressTableViewCell.h */,
 				A49205741B6F0B5000F16346 /* AddressTableViewCell.m */,
+				A48B1B5E1B7088960049237E /* CuntomFolderView.h */,
+				A48B1B5F1B7088960049237E /* CuntomFolderView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -3594,6 +3599,7 @@
 				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
 				96CF90D91B673422001759E2 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				96CF93AF1B674B54001759E2 /* EMSearchBar.m in Sources */,
+				A48B1B601B7088960049237E /* CuntomFolderView.m in Sources */,
 				A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */,
 				96CF93971B674B54001759E2 /* MessageReadManager.m in Sources */,
 				96CF947B1B674B54001759E2 /* DebugViewController.m in Sources */,

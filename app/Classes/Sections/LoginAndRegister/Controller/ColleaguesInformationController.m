@@ -9,6 +9,8 @@
 #import "ColleaguesInformationController.h"
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
+#import "FolderViewController.h"
+
 
 static NSInteger tagNum = 1;
 
@@ -21,13 +23,15 @@ static NSInteger tagNum = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    NSInteger num = 55;
+    tagNum = 1;
+    CGFloat num = DLScreenWidth / (320 / 55.0);
     
     [self builtScrollPhotoView];
     
-    [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"关系"] imageArray:nil andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:400];
-    [self builtInterfaceWithNameArray:@[@"聊天", @"关心"] imageArray: nil andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:400 + num * 1.85];
+    CGFloat height = DLScreenHeight / (568 / 400.0);
+    
+    [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"关系"] imageArray:nil andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:height];
+    [self builtInterfaceWithNameArray:@[@"聊天", @"关心"] imageArray: nil andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:height + num * 1.85];
     
 //    self.navigationController.navigationBar.alpha = 0.0;
     
@@ -131,9 +135,13 @@ static NSInteger tagNum = 1;
 - (void)imageViewAction:(UITapGestureRecognizer *)tap
 {
     switch (tap.view.tag) {
-        case 1:
-            NSLog(@"资料");
+        case 1:{
+            
+            FolderViewController *folder = [[FolderViewController alloc]init];
+            [self.navigationController pushViewController:folder animated:YES];
+            
             break;
+        }
         case 2:
             NSLog(@"动态");
             break;
