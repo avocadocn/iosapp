@@ -17,6 +17,8 @@
 //#import "CompanyRegisterViewController.h"
 #import <ReactiveCocoa.h>
 #import "DLNetworkRequest.h"
+#import "RestfulAPIRequestTool.h"
+
 typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     SelectStateOfCompanyNo,
     SelectStateOfCompanyYes
@@ -31,11 +33,20 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 
 - (void)requestNetWithSuffix:(NSString *)str
 {
-    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:str forKey:@"email"];
-    request.delegate = self;
-    [request dlRouteNetWorkWithNetName:@"companySearch" andRequestType:@"POST" paramter:dic];
+//    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setObject:str forKey:@"email"];
+//    request.delegate = self;
+//    [request dlRouteNetWorkWithNetName:@"companySearch" andRequestType:@"POST" paramter:dic];
+    
+    CompanyModel *company = [[CompanyModel alloc]init];
+    [company setValue:str forKey:@"email"];
+    
+    [RestfulAPIRequestTool routeName:@"companySearch" requestModel:company useKeys:@[@"email"] success:^(id json) {
+        NSLog(@"成功, %@", json);
+    } failure:^(id errorJson) {
+        NSLog(@"失败, %@", errorJson);
+    }];
     
 }
 

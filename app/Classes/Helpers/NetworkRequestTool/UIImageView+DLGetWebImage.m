@@ -13,7 +13,7 @@
 
 - (void)dlGetRouteWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image
 {
-    NSString *roude = [NSString stringWithFormat:@"%s", ROUDEADDRESS];  //字符串拼接
+    NSString *roude = [NSString stringWithFormat:@"%@", ROUDEADDRESS];  //字符串拼接
     
     NSString *urlStr = [roude stringByReplacingOccurrencesOfString:@"3002/v2_0" withString:[NSString stringWithFormat:@"3000%@", str]];
     
@@ -26,11 +26,5 @@
 {
     [self sd_setImageWithURL:url placeholderImage:image];
 }
-
-
-
-
-
-
 
 @end

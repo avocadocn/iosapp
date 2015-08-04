@@ -47,7 +47,7 @@ static AFHTTPSessionManager *_mgr;
  */
 +(void)load{
     _routeManager = [RouteManager sharedManager];
-    _mgr = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:BaseUrl]];
+    _mgr = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:ROUDEADDRESS]];
     _mgr.responseSerializer  = [AFHTTPResponseSerializer serializer];
     if ([AccountTool account].token) {
         [_mgr.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];

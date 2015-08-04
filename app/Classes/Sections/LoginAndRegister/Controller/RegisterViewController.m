@@ -13,6 +13,8 @@
 #import <Masonry.h>
 #import "DLNetworkRequest.h"
 #import "UserDataTon.h"
+#import "RestfulAPIRequestTool.h"
+#import "CompanyModel.h"
 
 
 @interface RegisterViewController ()<CardChooseViewDelegate, ArrangeState, DLNetworkRequestDelegate>
@@ -193,6 +195,14 @@
     [request dlRouteNetWorkWithNetName:@"Register" andRequestType:@"POST" paramter:dic];
     request.delegate = self;
     
+//    
+//    [RestfulAPIRequestTool routeName:@"companyQuickRegister" requestModel:@"" useKeys:@[] success:^(id json) {
+//        
+//    } failure:^(id errorJson) {
+//        
+//    }];
+    
+    
 }
 
 //公司注册
@@ -204,25 +214,37 @@
     [dic setObject:self.userPasswordTextField.text forKey:@"password"];
     
     
-    if (self.sex == UserSexMan) {
-        [dic setObject:@"1" forKey:@"gender"];
-    } else
-    {
-        [dic setObject:@"0" forKey:@"gender"];
-    }
-    if (!self.userImage) {
-        self.userImage = [UIImage imageNamed:@"mzx.jpg"];
-    }
-    NSMutableDictionary *smDic = [NSMutableDictionary dictionary];
-    NSData *data = UIImagePNGRepresentation(self.userImage);
-    [smDic setObject:data forKey:@"data"];
-    [smDic setObject:@"photo" forKey:@"name"];
-    NSArray *array = [NSArray arrayWithObject:smDic];
-    [dic setObject:array forKey:@"imageArray"];
+//    if (self.sex == UserSexMan) {
+//        [dic setObject:@"1" forKey:@"gender"];
+//    } else
+//    {
+//        [dic setObject:@"0" forKey:@"gender"];
+//    }
+//    if (!self.userImage) {
+//        self.userImage = [UIImage imageNamed:@"mzx.jpg"];
+//    }
+//    NSMutableDictionary *smDic = [NSMutableDictionary dictionary];
+//    NSData *data = UIImagePNGRepresentation(self.userImage);
+//    [smDic setObject:data forKey:@"data"];
+//    [smDic setObject:@"photo" forKey:@"name"];
+//    NSArray *array = [NSArray arrayWithObject:smDic];
+//    [dic setObject:array forKey:@"imageArray"];
     
-    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
-    [request dlRouteNetWorkWithNetName:@"companyQuickRegister" andRequestType:@"POST" paramter:dic];
-    request.delegate = self;
+//    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
+//    [request dlRouteNetWorkWithNetName:@"companyQuickRegister" andRequestType:@"POST" paramter:dic];
+//    request.delegate = self;
+    
+    
+    CompanyModel *model = [[CompanyModel alloc]init];
+    [model setValuesForKeysWithDictionary:dic];
+    
+    [RestfulAPIRequestTool routeName:@"companyQuickRegister" requestModel:model useKeys:@[@"name",@"email",@"password"] success:^(id json) {
+        NSLog(@"成功, %@", json);
+    } failure:^(id errorJson) {
+        NSLog(@"失败, %@", errorJson);
+    }];
+    
+    
     
 }
 
@@ -240,6 +262,11 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
     
     
+}
+
+- (void)sendErrorWithDictionary:(NSDictionary *)dictionary
+{
+    NSLog(@"注册失败,失败原因为:%@", dictionary);
 }
 
 - (void)userSexAction:(UIButton *)sender {

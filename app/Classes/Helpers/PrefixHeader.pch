@@ -37,8 +37,8 @@
 
 #define DLSBackgroundColor [UIColor colorWithWhite:.9 alpha:1];
 
-#define ROUDEADDRESS "http://192.168.2.109:3002/v2_0"
+#define ROUDEADDRESS @"http://192.168.2.112:3002/v2_0"
 
-#define BaseUrl @"http://www.donler.com:3302"
+#define BaseUrl @"http://192.168.2.112:3002/v2_0"
 
 #endif

@@ -33,7 +33,7 @@
     
     RouteManager *route = [RouteManager sharedManager];
     RouteInfoModel *model = [route getModelWithRouteName:name];
-    NSString *str = [NSString stringWithFormat:@"%s%@", ROUDEADDRESS, model.routeURL];
+    NSString *str = [NSString stringWithFormat:@"%@%@", ROUDEADDRESS, model.routeURL];
     
     NSLog(@"请求的网址为: %@", str);
     NSLog(@"请求的数据为: %@", paramter);
@@ -202,10 +202,6 @@
         
     }];
 }
-
-
-
-
 
 
 @end
