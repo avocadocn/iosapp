@@ -47,7 +47,10 @@ static AFHTTPSessionManager *_mgr;
  */
 +(void)load{
     _routeManager = [RouteManager sharedManager];
-    _mgr = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:ROUDEADDRESS]];
+    
+    NSURL *baseUrl = [NSURL URLWithString:ROUDEADDRESS];
+//    _mgr = [[AFHTTPSessionManager alloc]initWithBaseURL:baseUrl];
+    _mgr = [[AFHTTPSessionManager alloc]init];
     _mgr.responseSerializer  = [AFHTTPResponseSerializer serializer];
     if ([AccountTool account].token) {
         [_mgr.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];
@@ -107,13 +110,15 @@ static AFHTTPSessionManager *_mgr;
     
     
     
+    routeUrl = [NSString stringWithFormat:@"%@%@",ROUDEADDRESS,routeUrl];
+    
+    
     switch (type) {
         case RequsetMethodTypeGET:
             [self get:routeUrl params:mutableParamsDict success:success failure:failure];
             break;
         
         case RequsetMethodTypePOST:
-            
             if (uploadFlag == YES) {
                 [self upload:routeUrl params:mutableParamsDict success:success failure:failure];
             }else{
@@ -145,7 +150,7 @@ static AFHTTPSessionManager *_mgr;
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
+        
         if (failure) {
             failure([self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]]);
         }
@@ -155,13 +160,21 @@ static AFHTTPSessionManager *_mgr;
 + (void)post:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure
 {
     
+    
+    
     // 发送post请求
     [_mgr POST:url parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        
         if (success) {
             success([self dataToJsonObject:responseObject]);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+        NSLog(@"%@",_mgr.baseURL);
+        NSLog(@"%@",error);
         if (failure) {
+            
+            
             failure([self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]]);
         }
     }];
@@ -174,7 +187,7 @@ static AFHTTPSessionManager *_mgr;
     [_mgr POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
         [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSLog(@"%@ - ----- -- -%@",key,obj);
+            
             if ([obj isKindOfClass:[NSArray class]]) {
                 NSArray *fileArray = (NSArray *)obj;
                 NSInteger *index = 0;

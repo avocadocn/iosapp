@@ -8,6 +8,8 @@
 
 #import "Test1ViewController.h"
 #import "HitTestView.h"
+#import "RestfulAPIRequestTool.h"
+#import "CompanyModel.h"
 
 @interface Test1ViewController ()
 
@@ -22,20 +24,10 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     
-    HitTestView *testView = [[HitTestView alloc]initWithFrame:CGRectMake(100, 100, 200, 200)];
-    [testView setBackgroundColor:[UIColor yellowColor]];
-    [self.view addSubview:testView];
+
 }
 
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    NSLog(@"controller touch");
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 /*
 #pragma mark - Navigation
