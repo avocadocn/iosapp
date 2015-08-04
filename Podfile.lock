@@ -36,6 +36,7 @@ PODS:
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
+  - SOCKit (1.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
@@ -47,6 +48,7 @@ DEPENDENCIES:
   - MJRefresh
   - ReactiveCocoa
   - SDWebImage (~> 3.7)
+  - SOCKit (~> 1.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -58,5 +60,6 @@ SPEC CHECKSUMS:
   MJRefresh: 65a2bf14abb6feeaed8696aa1551f70e15ab0a08
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  SOCKit: c7376ac262bea9115b8f749358f762522a47d392
 
 COCOAPODS: 0.37.2

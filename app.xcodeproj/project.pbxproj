@@ -30,6 +30,16 @@
 		9649B5421B564DE000A7F355 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B52C1B564DE000A7F355 /* ProfileViewController.m */; };
 		9649B5471B565E5900A7F355 /* CompanyViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9649B5461B565E5900A7F355 /* CompanyViewController.storyboard */; };
 		9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5501B5663CE00A7F355 /* Test1ViewController.m */; };
+		967439A41B7058B3004334A4 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439A31B7058B3004334A4 /* Foundation+Log.m */; };
+		967439B81B705908004334A4 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439A71B705907004334A4 /* Account.m */; };
+		967439B91B705908004334A4 /* AccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439A91B705907004334A4 /* AccountTool.m */; };
+		967439BA1B705908004334A4 /* DLNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439AB1B705907004334A4 /* DLNetworkRequest.m */; };
+		967439BB1B705908004334A4 /* FixTemplateRouteTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439AD1B705907004334A4 /* FixTemplateRouteTool.m */; };
+		967439BC1B705908004334A4 /* RestfulAPIRequestTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439AF1B705907004334A4 /* RestfulAPIRequestTool.m */; };
+		967439BD1B705908004334A4 /* RouteInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439B11B705907004334A4 /* RouteInfoModel.m */; };
+		967439BE1B705908004334A4 /* RouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439B31B705907004334A4 /* RouteManager.m */; };
+		967439BF1B705908004334A4 /* UIImageView+DLGetWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439B51B705907004334A4 /* UIImageView+DLGetWebImage.m */; };
+		967439C01B705908004334A4 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 967439B71B705908004334A4 /* User.m */; };
 		968B152D1B69DF87004A26C0 /* rankListItem-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B152B1B69DF87004A26C0 /* rankListItem-normal.png */; };
 		968B152E1B69DF87004A26C0 /* rankListItem-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B152C1B69DF87004A26C0 /* rankListItem-selected.png */; };
 		968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15301B69F4C9004A26C0 /* RankItemTableViewcell.m */; };
@@ -41,7 +51,6 @@
 		968B153E1B6A16AD004A26C0 /* RankLoveHeart_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 968B153B1B6A16AD004A26C0 /* RankLoveHeart_red.png */; };
 		968B15411B6A2ABB004A26C0 /* RankItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15401B6A2ABB004A26C0 /* RankItemView.m */; };
 		968B15431B6A2ADC004A26C0 /* RankItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15421B6A2ADC004A26C0 /* RankItemView.xib */; };
-		969616C71B6B58BE002FC24C /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 969616C61B6B58BE002FC24C /* libEaseMobClientSDK.a */; };
 		969616C91B6B5A7D002FC24C /* ChoosePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155C1B5E4BFB00126C8A /* ChoosePhotoView.m */; };
 		969616CB1B6B5ABC002FC24C /* ChoosePhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155A1B5E4BFB00126C8A /* ChoosePhotoController.m */; };
 		969616CC1B6B5ADF002FC24C /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF922C1B674B53001759E2 /* DXFaceView.m */; };
@@ -55,8 +64,6 @@
 		969616D41B6B5FBD002FC24C /* UserDataTon.m in Sources */ = {isa = PBXBuildFile; fileRef = A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */; };
 		969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */; };
 		96CF8EFE1B671E93001759E2 /* RouteInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96CF8EFD1B671E93001759E2 /* RouteInfo.plist */; };
-		96CF8F011B671F5B001759E2 /* RouteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF8F001B671F5B001759E2 /* RouteManager.m */; };
-		96CF8F0B1B672374001759E2 /* RouteInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF8F0A1B672374001759E2 /* RouteInfoModel.m */; };
 		96CF90B61B673422001759E2 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF902D1B673422001759E2 /* EMAudioPlayerUtil.m */; };
 		96CF90B71B673422001759E2 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF902F1B673422001759E2 /* EMAudioRecorderUtil.m */; };
 		96CF90B81B673422001759E2 /* EMCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF90311B673422001759E2 /* EMCDDeviceManager+Media.m */; };
@@ -408,7 +415,6 @@
 		A41CF0DA1B5CE155005C21EF /* mark.png in Resources */ = {isa = PBXBuildFile; fileRef = A41CF0D91B5CE155005C21EF /* mark.png */; };
 		A41CF0DE1B5D02DA005C21EF /* RankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9610535D1B5C9317002D62A3 /* RankController.m */; };
 		A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A422697B1B672388001B4DE6 /* SystemConfiguration.framework */; };
-		A42269811B672B31001B4DE6 /* DLNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A42269801B672B31001B4DE6 /* DLNetworkRequest.m */; };
 		A4311F4B1B574748004401B4 /* CompanySmallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F491B574748004401B4 /* CompanySmallCell.m */; };
 		A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F4E1B57565A004401B4 /* CompanyDetailCell.m */; };
 		A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F511B575F37004401B4 /* CompanyHeader.m */; };
@@ -437,7 +443,6 @@
 		A4651D401B58DFB9008BAEE8 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D3F1B58DFB9008BAEE8 /* 2.png */; };
 		A4651D421B58DFC7008BAEE8 /* addImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D411B58DFC7008BAEE8 /* addImage.png */; };
 		A4651D871B58F8C6008BAEE8 /* delete-circular.png in Resources */ = {isa = PBXBuildFile; fileRef = A4651D861B58F8C6008BAEE8 /* delete-circular.png */; };
-		A46DCEEE1B69E0460049C999 /* UIImageView+DLGetWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A46DCEED1B69E0460049C999 /* UIImageView+DLGetWebImage.m */; };
 		A46DCEF01B69F1060049C999 /* mzx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A46DCEEF1B69F1060049C999 /* mzx.jpg */; };
 		A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = A47F50371B67765600955052 /* CompanyEmailComplete.m */; };
 		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
@@ -525,6 +530,26 @@
 		9649B5461B565E5900A7F355 /* CompanyViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CompanyViewController.storyboard; sourceTree = "<group>"; };
 		9649B54F1B5663CE00A7F355 /* Test1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test1ViewController.h; sourceTree = "<group>"; };
 		9649B5501B5663CE00A7F355 /* Test1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test1ViewController.m; sourceTree = "<group>"; };
+		967439A21B7058B3004334A4 /* Foundation+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Foundation+Log.h"; sourceTree = "<group>"; };
+		967439A31B7058B3004334A4 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
+		967439A61B705907004334A4 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		967439A71B705907004334A4 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		967439A81B705907004334A4 /* AccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountTool.h; sourceTree = "<group>"; };
+		967439A91B705907004334A4 /* AccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTool.m; sourceTree = "<group>"; };
+		967439AA1B705907004334A4 /* DLNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNetworkRequest.h; sourceTree = "<group>"; };
+		967439AB1B705907004334A4 /* DLNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNetworkRequest.m; sourceTree = "<group>"; };
+		967439AC1B705907004334A4 /* FixTemplateRouteTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixTemplateRouteTool.h; sourceTree = "<group>"; };
+		967439AD1B705907004334A4 /* FixTemplateRouteTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixTemplateRouteTool.m; sourceTree = "<group>"; };
+		967439AE1B705907004334A4 /* RestfulAPIRequestTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestfulAPIRequestTool.h; sourceTree = "<group>"; };
+		967439AF1B705907004334A4 /* RestfulAPIRequestTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestfulAPIRequestTool.m; sourceTree = "<group>"; };
+		967439B01B705907004334A4 /* RouteInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteInfoModel.h; sourceTree = "<group>"; };
+		967439B11B705907004334A4 /* RouteInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteInfoModel.m; sourceTree = "<group>"; };
+		967439B21B705907004334A4 /* RouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteManager.h; sourceTree = "<group>"; };
+		967439B31B705907004334A4 /* RouteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteManager.m; sourceTree = "<group>"; };
+		967439B41B705907004334A4 /* UIImageView+DLGetWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+DLGetWebImage.h"; sourceTree = "<group>"; };
+		967439B51B705907004334A4 /* UIImageView+DLGetWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+DLGetWebImage.m"; sourceTree = "<group>"; };
+		967439B61B705907004334A4 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		967439B71B705908004334A4 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		968B152B1B69DF87004A26C0 /* rankListItem-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rankListItem-normal.png"; sourceTree = "<group>"; };
 		968B152C1B69DF87004A26C0 /* rankListItem-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rankListItem-selected.png"; sourceTree = "<group>"; };
 		968B152F1B69F4C9004A26C0 /* RankItemTableViewcell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankItemTableViewcell.h; sourceTree = "<group>"; };
@@ -541,10 +566,6 @@
 		968B15421B6A2ADC004A26C0 /* RankItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemView.xib; sourceTree = "<group>"; };
 		969616C61B6B58BE002FC24C /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
 		96CF8EFD1B671E93001759E2 /* RouteInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RouteInfo.plist; sourceTree = "<group>"; };
-		96CF8EFF1B671F5B001759E2 /* RouteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteManager.h; sourceTree = "<group>"; };
-		96CF8F001B671F5B001759E2 /* RouteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteManager.m; sourceTree = "<group>"; };
-		96CF8F091B672374001759E2 /* RouteInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteInfoModel.h; sourceTree = "<group>"; };
-		96CF8F0A1B672374001759E2 /* RouteInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteInfoModel.m; sourceTree = "<group>"; };
 		96CF90281B673422001759E2 /* EMCDDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerDelegate.h; sourceTree = "<group>"; };
 		96CF90291B673422001759E2 /* EMCDDeviceManagerProximitySensorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerProximitySensorDelegate.h; sourceTree = "<group>"; };
 		96CF902B1B673422001759E2 /* DemoErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoErrorCode.h; sourceTree = "<group>"; };
@@ -1139,8 +1160,6 @@
 		A41CF0D11B5CC0B7005C21EF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		A41CF0D91B5CE155005C21EF /* mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mark.png; sourceTree = "<group>"; };
 		A422697B1B672388001B4DE6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		A422697F1B672B31001B4DE6 /* DLNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNetworkRequest.h; sourceTree = "<group>"; };
-		A42269801B672B31001B4DE6 /* DLNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNetworkRequest.m; sourceTree = "<group>"; };
 		A4311F481B574748004401B4 /* CompanySmallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySmallCell.h; sourceTree = "<group>"; };
 		A4311F491B574748004401B4 /* CompanySmallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySmallCell.m; sourceTree = "<group>"; };
 		A4311F4D1B57565A004401B4 /* CompanyDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyDetailCell.h; sourceTree = "<group>"; };
@@ -1182,8 +1201,6 @@
 		A4651D3F1B58DFB9008BAEE8 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		A4651D411B58DFC7008BAEE8 /* addImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addImage.png; sourceTree = "<group>"; };
 		A4651D861B58F8C6008BAEE8 /* delete-circular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete-circular.png"; sourceTree = "<group>"; };
-		A46DCEEC1B69E0460049C999 /* UIImageView+DLGetWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+DLGetWebImage.h"; sourceTree = "<group>"; };
-		A46DCEED1B69E0460049C999 /* UIImageView+DLGetWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+DLGetWebImage.m"; sourceTree = "<group>"; };
 		A46DCEEF1B69F1060049C999 /* mzx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mzx.jpg; sourceTree = "<group>"; };
 		A46DCEF11B6A1E9D0049C999 /* UserDataTon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataTon.h; sourceTree = "<group>"; };
 		A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataTon.m; sourceTree = "<group>"; };
@@ -1479,10 +1496,8 @@
 		9649B5071B564DE000A7F355 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				A422697E1B672B31001B4DE6 /* NetworkRequest */,
+				967439A51B705907004334A4 /* NetworkRequestTool */,
 				9649B5081B564DE000A7F355 /* PrefixHeader.pch */,
-				96CF8EFF1B671F5B001759E2 /* RouteManager.h */,
-				96CF8F001B671F5B001759E2 /* RouteManager.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1693,6 +1708,8 @@
 		9649B5331B564DE000A7F355 /* Categorys */ = {
 			isa = PBXGroup;
 			children = (
+				967439A21B7058B3004334A4 /* Foundation+Log.h */,
+				967439A31B7058B3004334A4 /* Foundation+Log.m */,
 				96D23E311B57A6DC0079193C /* UIBarButtonItem+Extension.h */,
 				96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */,
 				9649B5341B564DE000A7F355 /* UIView+Extension.h */,
@@ -1709,6 +1726,31 @@
 				96CF8EFD1B671E93001759E2 /* RouteInfo.plist */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		967439A51B705907004334A4 /* NetworkRequestTool */ = {
+			isa = PBXGroup;
+			children = (
+				967439A61B705907004334A4 /* Account.h */,
+				967439A71B705907004334A4 /* Account.m */,
+				967439A81B705907004334A4 /* AccountTool.h */,
+				967439A91B705907004334A4 /* AccountTool.m */,
+				967439AA1B705907004334A4 /* DLNetworkRequest.h */,
+				967439AB1B705907004334A4 /* DLNetworkRequest.m */,
+				967439AC1B705907004334A4 /* FixTemplateRouteTool.h */,
+				967439AD1B705907004334A4 /* FixTemplateRouteTool.m */,
+				967439AE1B705907004334A4 /* RestfulAPIRequestTool.h */,
+				967439AF1B705907004334A4 /* RestfulAPIRequestTool.m */,
+				967439B01B705907004334A4 /* RouteInfoModel.h */,
+				967439B11B705907004334A4 /* RouteInfoModel.m */,
+				967439B21B705907004334A4 /* RouteManager.h */,
+				967439B31B705907004334A4 /* RouteManager.m */,
+				967439B41B705907004334A4 /* UIImageView+DLGetWebImage.h */,
+				967439B51B705907004334A4 /* UIImageView+DLGetWebImage.m */,
+				967439B61B705907004334A4 /* User.h */,
+				967439B71B705908004334A4 /* User.m */,
+			);
+			path = NetworkRequestTool;
 			sourceTree = "<group>";
 		};
 		968B152A1B69DF87004A26C0 /* RankList */ = {
@@ -1734,8 +1776,6 @@
 		96CF8F051B6722EF001759E2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				96CF8F091B672374001759E2 /* RouteInfoModel.h */,
-				96CF8F0A1B672374001759E2 /* RouteInfoModel.m */,
 				A46DCEF11B6A1E9D0049C999 /* UserDataTon.h */,
 				A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */,
 			);
@@ -2989,17 +3029,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		A422697E1B672B31001B4DE6 /* NetworkRequest */ = {
-			isa = PBXGroup;
-			children = (
-				A422697F1B672B31001B4DE6 /* DLNetworkRequest.h */,
-				A42269801B672B31001B4DE6 /* DLNetworkRequest.m */,
-				A46DCEEC1B69E0460049C999 /* UIImageView+DLGetWebImage.h */,
-				A46DCEED1B69E0460049C999 /* UIImageView+DLGetWebImage.m */,
-			);
-			path = NetworkRequest;
-			sourceTree = "<group>";
-		};
 		A450560A1B608D9E0075E39D /* CardChooseView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3483,6 +3512,7 @@
 				969616CF1B6B5CC5002FC24C /* InvitationManager.m in Sources */,
 				969616CE1B6B5C96002FC24C /* ContactsViewController.m in Sources */,
 				969616CD1B6B5AF6002FC24C /* EMChatTimeCell.m in Sources */,
+				967439B91B705908004334A4 /* AccountTool.m in Sources */,
 				969616CC1B6B5ADF002FC24C /* DXFaceView.m in Sources */,
 				969616CB1B6B5ABC002FC24C /* ChoosePhotoController.m in Sources */,
 				969616C91B6B5A7D002FC24C /* ChoosePhotoView.m in Sources */,
@@ -3514,6 +3544,7 @@
 				A450561D1B60EF980075E39D /* RankItemLayoutAttr.m in Sources */,
 				96CF93B51B674B54001759E2 /* EMSearchDisplayController.m in Sources */,
 				A41993231B5F95AB0086EAAE /* CompanyTableViewCell.m in Sources */,
+				967439BC1B705908004334A4 /* RestfulAPIRequestTool.m in Sources */,
 				96CF90E41B673422001759E2 /* PSTGridLayoutRow.m in Sources */,
 				96CF939A1B674B54001759E2 /* ContactView.m in Sources */,
 				96CF93B41B674B54001759E2 /* EMNavigationController.m in Sources */,
@@ -3529,10 +3560,10 @@
 				96CF90BD1B673422001759E2 /* EMAlertView.m in Sources */,
 				968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */,
 				96CF947A1B674B54001759E2 /* BlackListViewController.m in Sources */,
-				96CF8F0B1B672374001759E2 /* RouteInfoModel.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
 				9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */,
 				96CF90C71B673422001759E2 /* MWZoomingScrollView.m in Sources */,
+				967439A41B7058B3004334A4 /* Foundation+Log.m in Sources */,
 				96CF93841B674B54001759E2 /* ChatViewController.m in Sources */,
 				96CF90D31B673422001759E2 /* UIImage+EMGIF.m in Sources */,
 				A459C4C51B62305D003D32C8 /* GroupCardModel.m in Sources */,
@@ -3553,17 +3584,20 @@
 				96CF90C31B673422001759E2 /* MWPhoto.m in Sources */,
 				96CF90DC1B673422001759E2 /* PSTCollectionViewController.m in Sources */,
 				96CF918A1B674193001759E2 /* AppDelegate+UMeng.m in Sources */,
-				A42269811B672B31001B4DE6 /* DLNetworkRequest.m in Sources */,
 				96CF93A11B674B54001759E2 /* PublicGroupListViewController.m in Sources */,
 				96CF948A1B67501B001759E2 /* SRSlimeView.m in Sources */,
+				967439BE1B705908004334A4 /* RouteManager.m in Sources */,
 				9610536A1B5CDB0B002D62A3 /* DetailActivityShowView.m in Sources */,
+				967439BA1B705908004334A4 /* DLNetworkRequest.m in Sources */,
 				96CF937A1B674B54001759E2 /* NSDate+Category.m in Sources */,
 				96CF93851B674B54001759E2 /* ConvertToCommonEmoticonsHelper.m in Sources */,
+				967439C01B705908004334A4 /* User.m in Sources */,
 				A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */,
 				96CF93911B674B54001759E2 /* EMChatVideoBubbleView.m in Sources */,
 				96CF93AB1B674B54001759E2 /* RealtimeSearchUtil.m in Sources */,
 				96CF93A41B674B54001759E2 /* MyChatroomListViewController.m in Sources */,
 				9649B53A1B564DE000A7F355 /* CircleImageView.m in Sources */,
+				967439BF1B705908004334A4 /* UIImageView+DLGetWebImage.m in Sources */,
 				A4F315681B5E4BFB00126C8A /* photoHeader.m in Sources */,
 				96CF90E31B673422001759E2 /* PSTGridLayoutItem.m in Sources */,
 				96CF90B91B673422001759E2 /* EMCDDeviceManager+Microphone.m in Sources */,
@@ -3598,6 +3632,7 @@
 				96CF90C21B673422001759E2 /* MWGridViewController.m in Sources */,
 				96CF90BE1B673422001759E2 /* Emoji.m in Sources */,
 				96CF93B31B674B54001759E2 /* EMChooseViewController.m in Sources */,
+				967439BD1B705908004334A4 /* RouteInfoModel.m in Sources */,
 				96CF93A81B674B54001759E2 /* AddFriendViewController.m in Sources */,
 				96CF938D1B674B54001759E2 /* EMChatBaseBubbleView.m in Sources */,
 				A46448F11B6F416E00AA621E /* ColleaguesInformationController.m in Sources */,
@@ -3614,6 +3649,7 @@
 				A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */,
 				96CF938B1B674B54001759E2 /* DXRecordView.m in Sources */,
 				96CF90EA1B673422001759E2 /* amrFileCodec.mm in Sources */,
+				967439B81B705908004334A4 /* Account.m in Sources */,
 				96CF93941B674B54001759E2 /* EMChatViewCell.m in Sources */,
 				96CF938F1B674B54001759E2 /* EMChatLocationBubbleView.m in Sources */,
 				96CF90BC1B673422001759E2 /* EMCDDeviceManagerBase.m in Sources */,
@@ -3628,7 +3664,6 @@
 				96CF90DD1B673422001759E2 /* PSTCollectionViewData.m in Sources */,
 				96CF90C11B673422001759E2 /* MWGridCell.m in Sources */,
 				96CF93A21B674B54001759E2 /* ChatroomDetailViewController.m in Sources */,
-				96CF8F011B671F5B001759E2 /* RouteManager.m in Sources */,
 				96CF93B11B674B54001759E2 /* EMRemarkImageView.m in Sources */,
 				96CF93A71B674B54001759E2 /* AddFriendCell.m in Sources */,
 				96CF93861B674B54001759E2 /* LocationViewController.m in Sources */,
@@ -3643,7 +3678,7 @@
 				96CF939E1B674B54001759E2 /* GroupSettingViewController.m in Sources */,
 				96CF93801B674B54001759E2 /* ChatListCell.m in Sources */,
 				A45565DF1B6B1B2400DBEC44 /* CompanyModel.m in Sources */,
-				A46DCEEE1B69E0460049C999 /* UIImageView+DLGetWebImage.m in Sources */,
+				967439BB1B705908004334A4 /* FixTemplateRouteTool.m in Sources */,
 				A41993211B5F95AB0086EAAE /* CheckViewController.m in Sources */,
 				96CF90B61B673422001759E2 /* EMAudioPlayerUtil.m in Sources */,
 				968B15361B6A1156004A26C0 /* RankBottomShowView.m in Sources */,

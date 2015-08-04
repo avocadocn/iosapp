@@ -23,7 +23,7 @@
  */
 + (RouteManager *)sharedManager;
 
-- (RouteInfoModel *)getModelWithNetName:(NSString *)str;
+- (RouteInfoModel *)getModelWithRouteName:(NSString *)routeName;
 
 @property (strong,nonatomic) NSMutableDictionary *routeDict;
 
