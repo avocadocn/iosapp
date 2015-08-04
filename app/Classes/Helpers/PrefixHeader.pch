@@ -39,6 +39,6 @@
 
 #define ROUDEADDRESS @"http://192.168.2.112:3002/v2_0"
 
-#define BaseUrl @"www"
+#define BaseUrl @"http://192.168.2.112:3002/v2_0"
 
 #endif
