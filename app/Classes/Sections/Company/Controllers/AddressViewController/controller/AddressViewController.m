@@ -97,6 +97,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     //找到相对应的资料model,跳到相对应的资料页面
     AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
     ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
