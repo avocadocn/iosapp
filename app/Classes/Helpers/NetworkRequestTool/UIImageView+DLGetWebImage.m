@@ -27,10 +27,4 @@
     [self sd_setImageWithURL:url placeholderImage:image];
 }
 
-
-
-
-
-
-
 @end

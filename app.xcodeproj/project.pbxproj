@@ -448,6 +448,8 @@
 		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
 		A48077941B6B86EF000F11D1 /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A48077931B6B86EF000F11D1 /* libEaseMobClientSDK.a */; };
 		A481A1F21B65C6C100845046 /* PaggingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D20EC21B620A8200102D18 /* PaggingScrollView.m */; };
+		A48B1B5A1B707E0A0049237E /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48B1B591B707E0A0049237E /* AddressViewController.m */; };
+		A48B1B5D1B7081420049237E /* FolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48B1B5C1B7081420049237E /* FolderViewController.m */; };
 		A49205751B6F0B5000F16346 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205741B6F0B5000F16346 /* AddressTableViewCell.m */; };
 		A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205781B6F0BAC00F16346 /* GroupCardViewCell.m */; };
 		A4A009C21B579F5B005AC35F /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A4A009C11B579F5B005AC35F /* 2.jpg */; };
@@ -456,7 +458,6 @@
 		A4F315681B5E4BFB00126C8A /* photoHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315601B5E4BFB00126C8A /* photoHeader.m */; };
 		A4F315691B5E4BFB00126C8A /* PhotoPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315621B5E4BFB00126C8A /* PhotoPlayController.m */; };
 		A4F3156A1B5E4BFB00126C8A /* PhotoShouCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315641B5E4BFB00126C8A /* PhotoShouCell.m */; };
-		A4F315701B5E4F6100126C8A /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3156F1B5E4F6100126C8A /* AddressViewController.m */; };
 		A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315721B5E4F7A00126C8A /* GroupViewController.m */; };
 		C2BB2F66A5C16197F6FD8E9D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9388089A6ADF54035C56E5D /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -1209,6 +1210,10 @@
 		A47F50381B67765600955052 /* CompanyEmailComplete.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyEmailComplete.xib; sourceTree = "<group>"; };
 		A48077901B6B77BD000F11D1 /* EaseMob.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = EaseMob.bundle; path = app/Classes/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/Vendors/EaseMobSDK/resources/EaseMob.bundle; sourceTree = "<group>"; };
 		A48077931B6B86EF000F11D1 /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libEaseMobClientSDK.a; path = app/Classes/Vendors/EaseMobSDK/lib/libEaseMobClientSDK.a; sourceTree = "<group>"; };
+		A48B1B581B707E0A0049237E /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
+		A48B1B591B707E0A0049237E /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+		A48B1B5B1B7081420049237E /* FolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FolderViewController.h; sourceTree = "<group>"; };
+		A48B1B5C1B7081420049237E /* FolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FolderViewController.m; sourceTree = "<group>"; };
 		A49205731B6F0B5000F16346 /* AddressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressTableViewCell.h; sourceTree = "<group>"; };
 		A49205741B6F0B5000F16346 /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
 		A49205771B6F0BAC00F16346 /* GroupCardViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardViewCell.h; sourceTree = "<group>"; };
@@ -1227,8 +1232,6 @@
 		A4F315621B5E4BFB00126C8A /* PhotoPlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoPlayController.m; sourceTree = "<group>"; };
 		A4F315631B5E4BFB00126C8A /* PhotoShouCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoShouCell.h; sourceTree = "<group>"; };
 		A4F315641B5E4BFB00126C8A /* PhotoShouCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoShouCell.m; sourceTree = "<group>"; };
-		A4F3156E1B5E4F6100126C8A /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
-		A4F3156F1B5E4F6100126C8A /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		A4F315711B5E4F7A00126C8A /* GroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupViewController.h; sourceTree = "<group>"; };
 		A4F315721B5E4F7A00126C8A /* GroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupViewController.m; sourceTree = "<group>"; };
 		C836FD3FBA4AB74B0A650FF1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -3056,6 +3059,17 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		A48B1B571B707E0A0049237E /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				A48B1B581B707E0A0049237E /* AddressViewController.h */,
+				A48B1B591B707E0A0049237E /* AddressViewController.m */,
+				A48B1B5B1B7081420049237E /* FolderViewController.h */,
+				A48B1B5C1B7081420049237E /* FolderViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
 		A49205721B6F0B0900F16346 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -3120,10 +3134,9 @@
 		A4F3156C1B5E4F4E00126C8A /* AddressViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A48B1B571B707E0A0049237E /* controller */,
 				A46448E71B6F31DC00AA621E /* model */,
 				A49205721B6F0B0900F16346 /* view */,
-				A4F3156E1B5E4F6100126C8A /* AddressViewController.h */,
-				A4F3156F1B5E4F6100126C8A /* AddressViewController.m */,
 			);
 			path = AddressViewController;
 			sourceTree = "<group>";
@@ -3572,6 +3585,7 @@
 				96CF90C81B673422001759E2 /* DACircularProgressView.m in Sources */,
 				96CF91891B674193001759E2 /* AppDelegate+EaseMob.m in Sources */,
 				96D20EB81B60AE5D00102D18 /* DLNavBar.m in Sources */,
+				A48B1B5A1B707E0A0049237E /* AddressViewController.m in Sources */,
 				96CF93AA1B674B54001759E2 /* ApplyViewController.m in Sources */,
 				96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */,
 				96CF947D1B674B54001759E2 /* PushNotificationViewController.m in Sources */,
@@ -3615,7 +3629,6 @@
 				96CF90B71B673422001759E2 /* EMAudioRecorderUtil.m in Sources */,
 				961053671B5CDA89002D62A3 /* DetailActivityShowController.m in Sources */,
 				96CF90D01B673422001759E2 /* MKAnnotationView+EMWebCache.m in Sources */,
-				A4F315701B5E4F6100126C8A /* AddressViewController.m in Sources */,
 				96CF937C1B674B54001759E2 /* NSString+Valid.m in Sources */,
 				A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */,
 				9649B5401B564DE000A7F355 /* MainController.m in Sources */,
@@ -3667,6 +3680,7 @@
 				96CF93B11B674B54001759E2 /* EMRemarkImageView.m in Sources */,
 				96CF93A71B674B54001759E2 /* AddFriendCell.m in Sources */,
 				96CF93861B674B54001759E2 /* LocationViewController.m in Sources */,
+				A48B1B5D1B7081420049237E /* FolderViewController.m in Sources */,
 				96CF90B81B673422001759E2 /* EMCDDeviceManager+Media.m in Sources */,
 				A4F315691B5E4BFB00126C8A /* PhotoPlayController.m in Sources */,
 				96CF90DA1B673422001759E2 /* PSTCollectionView.m in Sources */,

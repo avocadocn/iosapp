@@ -12,6 +12,8 @@
 
 #import "UserDataTon.h"
 #import <ReactiveCocoa.h>
+#import "Account.h"
+#import "RestfulAPIRequestTool.h"
 
 @interface LoginViewController ()<DLNetworkRequestDelegate, UITextFieldDelegate>
 
@@ -73,14 +75,14 @@
     }];
     [self.view addSubview:view];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:@"登录" forState: UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor orangeColor]];
-    [self.view addSubview:button];
-    [button addTarget:self action:@selector(loginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [loginButton setTitle:@"登录" forState: UIControlStateNormal];
+    [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [loginButton setBackgroundColor:[UIColor orangeColor]];
+    [self.view addSubview:loginButton];
+    [loginButton addTarget:self action:@selector(loginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+    [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.passwordTextField.mas_bottom).offset(30);
         make.left.mas_equalTo(view.mas_left);
         make.right.mas_equalTo(view.mas_right);
@@ -89,13 +91,25 @@
 }
 - (void)loginButtonAction:(UIButton *)sender
 {
-    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
-    request.delegate = self;
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:self.mailTextField.text forKey:@"email"];
-    [dic setObject:self.passwordTextField.text forKey:@"password"];
+//    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
+//    request.delegate = self;
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setObject:self.mailTextField.text forKey:@"email"];
+//    [dic setObject:self.passwordTextField.text forKey:@"password"];
+//    
+//    [request dlRouteNetWorkWithNetName:@"userLogin" andRequestType:@"POST" paramter:dic];
+    Account *acc = [[Account alloc]init];
+    acc.email = @"afei@55yali.com";
+    acc.password = @"55yali";
     
-    [request dlRouteNetWorkWithNetName:@"userLogin" andRequestType:@"POST" paramter:dic];
+    
+    [RestfulAPIRequestTool routeName:@"userLogin" requestModel:acc useKeys:@[@"email", @"password"] success:^(id json) {
+        NSLog(@"成功, 数据位%@", json);
+    } failure:^(id errorJson) {
+        NSLog(@"失败, 请求到的数据为%@", errorJson);
+    }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

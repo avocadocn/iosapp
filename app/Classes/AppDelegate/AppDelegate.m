@@ -28,20 +28,17 @@
     
        //修改控制器的statusBar样式,需要注意在info.plist里配置一下
     [application setStatusBarStyle:UIStatusBarStyleDefault];
-    
-    
+    /*
+    GuidePageViewController *gu = [[GuidePageViewController alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
+    [self.window setRootViewController:nav];
+    */
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
     [self.window makeKeyAndVisible];
-       self.mainController = main;
+//       self.mainController = main;
     
-    // 初始化环信sdk
-    [self setupEaseMobWith:application withOptions:launchOptions];
-
-    //修改控制器的statusBar样式,需要注意在info.plist里配置一下
     
-    [application setStatusBarStyle:UIStatusBarStyleDefault];
-
     return YES;
 }
 
