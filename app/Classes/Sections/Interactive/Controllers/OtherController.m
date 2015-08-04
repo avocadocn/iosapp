@@ -53,8 +53,8 @@ static NSString * const ID = @"OtherActivityShowCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"其他活动";
-//    [self.view setBackgroundColor:RGB(235, 235, 235)];
-    [self.view setBackgroundColor:[UIColor yellowColor]];
+    [self.view setBackgroundColor:RGB(235, 235, 235)];
+//    [self.view setBackgroundColor:[UIColor yellowColor]];
     
     // 添加标签视图
     [self addTitleSegmentView];

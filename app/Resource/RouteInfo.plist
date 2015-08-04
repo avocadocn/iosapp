@@ -19,6 +19,8 @@
 		<string>companyQuickRegister</string>
 		<key>routeURL</key>
 		<string>/companies/quickRegister</string>
+        <key>routeMethod</key>
+        <string>POST</string>
 	</dict>
 	<dict>
 		<key>routeName</key>
@@ -33,6 +35,8 @@
 		<string>companySearch</string>
 		<key>routeURL</key>
 		<string>/search/companies</string>
+        <key>routeMethod</key>
+        <string>POST</string>
 	</dict>
 	<dict>
 		<key>routeName</key>

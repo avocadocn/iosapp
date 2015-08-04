@@ -22,5 +22,10 @@
 @property (nonatomic, copy)NSString *province;   //省份
 @property (nonatomic, copy)NSString *shortName;  //公司简称
 @property (nonatomic, copy)NSString *sttaffInviteCode;  //给该公司用户的邀请码
+@property (nonatomic, copy) NSString *gender;
+
+@property (nonatomic, copy) NSString *email;
+@property (nonatomic, copy) NSString *password;
+@property (nonatomic, copy) NSArray *imageArray;
 
 @end
