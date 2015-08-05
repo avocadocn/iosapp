@@ -10,4 +10,16 @@
 
 @implementation AddressBookModel
 
+
+
+
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if ([key isEqualToString:@"_id"]) {
+        self.ID = value;
+    }
+}
+
+
 @end

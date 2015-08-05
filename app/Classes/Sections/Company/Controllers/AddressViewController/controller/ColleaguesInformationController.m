@@ -10,7 +10,7 @@
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
 #import "FolderViewController.h"
-
+#import "PersonalDynamicController.h"
 
 static NSInteger tagNum = 1;
 
@@ -32,8 +32,6 @@ static NSInteger tagNum = 1;
     
     [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"关系"] imageArray:nil andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:height];
     [self builtInterfaceWithNameArray:@[@"聊天", @"关心"] imageArray: nil andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:height + num * 1.85];
-    
-//    self.navigationController.navigationBar.alpha = 0.0;
     
 }
 
@@ -142,9 +140,13 @@ static NSInteger tagNum = 1;
             
             break;
         }
-        case 2:
-            NSLog(@"动态");
+        case 2:{
+            // 个人动态页面
+            PersonalDynamicController *dynamic = [[PersonalDynamicController alloc]init];
+            [self.navigationController pushViewController:dynamic animated:YES];
+            
             break;
+        }
         case 3:
             NSLog(@"关系");
             break;

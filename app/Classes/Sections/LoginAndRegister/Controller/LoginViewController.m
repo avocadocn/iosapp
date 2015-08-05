@@ -14,6 +14,8 @@
 #import <ReactiveCocoa.h>
 #import "Account.h"
 #import "RestfulAPIRequestTool.h"
+#import "Account.h"  // 负责账户 model
+#import "AccountTool.h"  // 负责账户的存取
 
 @interface LoginViewController ()<DLNetworkRequestDelegate, UITextFieldDelegate>
 
@@ -104,11 +106,26 @@
     
     
     [RestfulAPIRequestTool routeName:@"userLogin" requestModel:acc useKeys:@[@"email", @"password"] success:^(id json) {
-        NSLog(@"成功, 数据位%@", json);
+        
+        // 存取用户值
+        
+        Account *acca =[[Account alloc]init];
+        
+        [acca setKeyValues:json];
+        [AccountTool saveAccount:acca];
+        
+        NSLog(@"%@", acca);
+        
+        
+        //注册通知
+        NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
+        
+        
+        
     } failure:^(id errorJson) {
         NSLog(@"失败, 请求到的数据为%@", errorJson);
     }];
-    
     
 }
 

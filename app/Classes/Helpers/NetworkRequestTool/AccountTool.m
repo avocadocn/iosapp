@@ -15,15 +15,14 @@
 
 @implementation AccountTool
 
-+(void)saveAccount:(Account *)account{
++ (void)saveAccount:(Account *)account{
     // 自定义对象的存储必须用NSKeyedArchiver，不再有什么writeToFile方法
     [NSKeyedArchiver archiveRootObject:account toFile:AccountPath];
 }
 
-+(Account *)account{
++ (Account *)account{
     // 加载模型
     Account *account = [NSKeyedUnarchiver unarchiveObjectWithFile:AccountPath];
-    
     
     return account;
 

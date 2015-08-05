@@ -20,6 +20,6 @@
  *  @param success      成功后的回调
  *  @param failure      失败后的回调
  */
-+(void)routeName:(NSString *)routeName requestModel:(id)requestModel useKeys:(NSArray *)keysArray success:(void (^)(id json))success failure:(void (^)(id errorJson))failure;
++ (void)routeName:(NSString *)routeName requestModel:(id)requestModel useKeys:(NSArray *)keysArray success:(void (^)(id json))success failure:(void (^)(id errorJson))failure;
 
 @end

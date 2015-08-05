@@ -13,6 +13,8 @@
 		<string>Register</string>
 		<key>routeURL</key>
 		<string>/users</string>
+        <key>routeMethod</key>
+        <string>POST</string>
 	</dict>
 	<dict>
 		<key>routeName</key>
@@ -76,6 +78,14 @@
         <key>routeMethod</key>
         <string>GET</string>
     </dict>
-    
+    <dict>
+        <key>routeName</key>
+        <string>getCompanyAddressBook</string>
+        <key>routeURL</key>
+        <string>/users/list/:companyId</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+
 </array>
 </plist>

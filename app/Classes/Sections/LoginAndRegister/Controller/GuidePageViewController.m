@@ -118,8 +118,8 @@
     if (mailFormat) { //正确的邮箱格式
         CheckViewController *check = [[CheckViewController alloc]init];
         check.mailURL = [NSString stringWithFormat:@"%@", self.mailBoxTextField.text];  //接受到的邮箱内容
-        NSArray *array = [check.mailURL componentsSeparatedByString:@"@"];
-        NSString *str = [array lastObject];
+//        NSArray *array = [check.mailURL componentsSeparatedByString:@"@"];
+//        NSString *str = [array lastObject];
         [check requestNetWithSuffix:check.mailURL];
         
         [self.navigationController pushViewController:check animated:YES];
@@ -163,7 +163,6 @@
     //        MainController *main = [[MainController alloc]init];
     //        self.window.rootViewController = main;
 }
-
 
 
 /*
