@@ -28,7 +28,6 @@ static NSInteger num = 0;
     num = 0;
     [self builtTitleView];  // 设置资料照片
     [self builtInformationView];  //设置资料 label
-    
 }
 
 - (void)builtTitleView // 照片和选择照片

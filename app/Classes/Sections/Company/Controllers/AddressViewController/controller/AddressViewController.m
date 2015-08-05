@@ -12,6 +12,10 @@
 #import "AddressTableViewCell.h"
 #import "AddressBookModel.h"
 #import "ColleaguesInformationController.h"
+#import "RestfulAPIRequestTool.h"
+#import "ChineseToPinyin.h"
+
+
 @interface AddressViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @end
@@ -20,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    [self requestNet];
     [self builtInterFace];
 }
 - (void)builtInterFace
@@ -28,7 +32,8 @@
     self.title = @"公司通讯录";
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
-/*
+
+    /*
     self.searchColleague = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, 30)];
     self.searchColleague.layer.borderWidth = 2;
     
@@ -39,9 +44,9 @@
     
     self.searchColleague.delegate = self;
     
-//    [self.searchColleague setBackgroundColor:[UIColor greenColor]];
+    //[self.searchColleague setBackgroundColor:[UIColor greenColor]];
     [self.view addSubview:self.searchColleague];
-  */
+     */
     
     self.addressSearch = [[UITextField alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, 40)];
     self.addressSearch.textAlignment = NSTextAlignmentCenter;
@@ -58,7 +63,37 @@
     self.myTableView.sectionIndexColor = [UIColor blackColor];
     [self.view addSubview:self.myTableView];
     
+}
+
+- (void)requestNet
+{
+    AddressBookModel *model = [[AddressBookModel alloc]init];
     
+    [model setCompanyId:@"53aa6fc011fd597b3e1be250"];
+    
+    [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
+        NSLog(@"获取数据成功, 获取到的数据为: %@", json);
+        
+        [self relodaViewWithData:json];
+    
+    } failure:^(id errorJson) {
+        NSLog(@"获取数据失败, 失败原因为: %@", errorJson);
+    }];
+}
+
+- (void)relodaViewWithData:(id)json
+{
+    if (!self.modelArray) {
+        self.modelArray = [NSMutableArray array];
+    }
+    
+    for (NSDictionary *dic in json) {
+        NSString *str = [NSString stringWithFormat:@"%@", [dic objectForKey:@"realname"]];
+        
+        NSString *pinyin = [ChineseToPinyin pinyinFromChineseString:str];
+        
+        NSLog(@"获取到的名字为 %@", pinyin);
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

@@ -26,6 +26,9 @@
 
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *password;
-@property (nonatomic, copy) NSArray *imageArray;
+@property (nonatomic, strong)NSMutableArray *imageArray;
+
+@property (nonatomic, copy)NSString *cid;
+
 
 @end

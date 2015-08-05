@@ -45,7 +45,7 @@ static AFHTTPSessionManager *_mgr;
 /**
  *  类加载时对静态属性的配置
  */
-+(void)load{
++ (void)load{
     _routeManager = [RouteManager sharedManager];
     
     NSURL *baseUrl = [NSURL URLWithString:ROUDEADDRESS];
@@ -58,8 +58,7 @@ static AFHTTPSessionManager *_mgr;
 }
 
 
-
-+(void)routeName:(NSString *)routeName requestModel:(id)requestModel useKeys:(NSArray *)keysArray success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
++ (void)routeName:(NSString *)routeName requestModel:(id)requestModel useKeys:(NSArray *)keysArray success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
     
     
     __block BOOL uploadFlag = NO;

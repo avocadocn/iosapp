@@ -11,6 +11,12 @@
 #import "DLNetworkRequest.h"
 #import "GuidePageViewController.h" //引导页
 #import "AppDelegate+EaseMob.h"
+#import "Account.h"
+#import "AccountTool.h"
+
+//测试用
+#import "PersonalDynamicController.h"
+
 
 @interface AppDelegate ()<UIScrollViewDelegate>
 
@@ -28,18 +34,30 @@
     
        //修改控制器的statusBar样式,需要注意在info.plist里配置一下
     [application setStatusBarStyle:UIStatusBarStyleDefault];
-    /*
+    
     GuidePageViewController *gu = [[GuidePageViewController alloc]init];
+    
+//    PersonalDynamicController *gu = [[PersonalDynamicController alloc]init];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
     [self.window setRootViewController:nav];
-    */
+    
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultCenterAction:) name:@"changeRootViewController" object:nil];
+    
+    /*
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
-    [self.window makeKeyAndVisible];
 //       self.mainController = main;
+    */
     
-    
+    [self.window makeKeyAndVisible];
     return YES;
+}
+- (void)defaultCenterAction:(id)sender
+{
+    MainController *main = [[MainController alloc]init];
+    [self.window setRootViewController:main];
+    
 }
 
 /**
@@ -51,7 +69,6 @@
 -(void)setupEaseMobWith:(UIApplication *)application withOptions:(NSDictionary *)launchOptions{
     // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
-
     
     // 登陆
     if ( ![[EaseMob sharedInstance].chatManager isAutoLoginEnabled]) {

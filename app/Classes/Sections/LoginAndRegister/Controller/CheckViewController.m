@@ -43,9 +43,9 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     [company setValue:str forKey:@"email"];
     
     [RestfulAPIRequestTool routeName:@"companySearch" requestModel:company useKeys:@[@"email"] success:^(id json) {
-        NSLog(@"成功, %@", json);
+        [self sendParsingWithDictionary:json];
     } failure:^(id errorJson) {
-        NSLog(@"失败, %@", errorJson);
+        [self sendErrorWithDictionary:errorJson];
     }];
     
 }

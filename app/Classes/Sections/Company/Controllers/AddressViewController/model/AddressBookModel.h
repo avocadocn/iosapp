@@ -10,4 +10,20 @@
 
 @interface AddressBookModel : NSObject
 
+@property (nonatomic, copy)NSString *companyId;
+
+@property (nonatomic, copy)NSString *emial;
+
+@property (nonatomic, copy)NSString *ID;
+
+@property (nonatomic, copy)NSString *active;
+
+@property (nonatomic, copy)NSString *photo;
+
+@property (nonatomic, copy)NSString *realname;
+
+@property (nonatomic, copy)NSString *timeHash;
+
+@property (nonatomic, copy)NSString *nickname;
+
 @end
