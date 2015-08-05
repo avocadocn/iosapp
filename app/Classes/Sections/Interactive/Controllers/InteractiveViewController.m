@@ -245,7 +245,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 149 * DLScreenWidth / 375;
+    return 149 ;
 }
 
 
