@@ -13,6 +13,8 @@
 
 #import "OtherController.h"
 #import "RankListController.h"
+
+#import "VoteTableController.h"
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic ,strong) ActivitysShowView *asv;
@@ -48,7 +50,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     // 活动展示table
     UITableView *tableView = [[UITableView alloc]init];
-    [tableView registerClass:[CurrentActivitysShowCell class] forCellReuseIdentifier:ID];
+//    [tableView registerClass:[CurrentActivitysShowCell class] forCellReuseIdentifier:ID];
+    [tableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     [tableView setFrame:self.view.frame];
     tableView.y = CGRectGetMaxY(asv.frame);
     tableView.height = DLScreenHeight - tableView.y - 50;
@@ -109,23 +112,16 @@ static NSString * const ID = @"CurrentActivitysShowCell";
  */
 -(void)hiddenASV{
     self.asvHidden = YES;
-//    [UIView animateWithDuration:0.3f animations:^{
-//        self.asv.y -= 100 + 44;
-//        self.tableView.y -= 100 + 44;
-//        self.tableView.height +=100 + 44;
-//        self.asv.alpha = 0;
-//        self.navigationController.navigationBar.height = 0;
-//    }];
-    
+
     [UIView animateWithDuration:0.2f animations:^{
-        self.asv.y -= 100 + 44;
-        self.tableView.y -= 100 + 44;
-        self.tableView.height +=100 + 44;
+        self.asv.y -= 100;
+        self.tableView.y -= 100 ;
+        self.tableView.height +=100;
         self.asv.alpha = 0;
 
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.1f animations:^{
-             self.navigationController.navigationBar.height = 0;
+//             self.navigationController.navigationBar.height = 0;
         }];
     }];
 }
@@ -135,19 +131,15 @@ static NSString * const ID = @"CurrentActivitysShowCell";
  */
 -(void)showASV{
     self.asvHidden = NO;
-[UIView animateWithDuration:0.1f animations:^{
-   
-     self.navigationController.navigationBar.height = 44;
-    self.asv.y +=  44;
-    self.tableView.y += 44;
-    self.tableView.height -= 44;
-
+[UIView animateWithDuration:0.2f animations:^{
+    self.asv.alpha = 1;
+    self.asv.y += 100 ;
+    self.tableView.y += 100 ;
+    self.tableView.height -= 100 ;
+    
 } completion:^(BOOL finished) {
     [UIView animateWithDuration:0.2f animations:^{
-        self.asv.y += 100 ;
-        self.tableView.y += 100 ;
-        self.tableView.height -= 100 ;
-        self.asv.alpha = 1;
+        
     }];
 }];
 }
@@ -192,7 +184,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             
             NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithCapacity:7];
             
-            NSArray *titles = @[@"热门", @"活动", @"求助", @"投票"];
+            NSArray *titles = @[ @"活动", @"求助", @"投票"];
             
             [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
                 ActivityShowTableController *tableViewController = [[ActivityShowTableController alloc] init];
@@ -223,26 +215,53 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 
 
 
+#pragma mark - tableView的代理方法
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 20;
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CurrentActivitysShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+    
+    if (indexPath.row == 0) {
+        cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_activity_icon"];
+        cell.InteractiveTitle.text = @"活动进行中";
+        cell.InteractiveTitle.text = @"快来捡肥皂吧";
+    }else if (indexPath.row == 1){
+        cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_vote_icon"];
+        cell.InteractiveTitle.text = @"投票进行中";
+        cell.InteractiveTitle.text = @"你觉得我美么";
+    }else if (indexPath.row == 2){
+        cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_help_icon"];
+        cell.InteractiveTitle.text = @"求助进行中";
+        cell.InteractiveTitle.text = @"刚锅锅怎么样才会爱我？";
+    }
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 150;
+    return 149 * DLScreenWidth / 375;
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    if (indexPath.row == 0) {
+        VoteTableController *voteController = [[VoteTableController alloc]init];
+        [self.navigationController pushViewController:voteController animated:YES];
+    }
+    
+    
+    
+    
+    
+
 }
 
 

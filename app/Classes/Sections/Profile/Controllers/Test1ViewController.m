@@ -23,7 +23,6 @@
     self.title = @"test";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    
 
 }
 

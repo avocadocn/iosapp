@@ -151,7 +151,7 @@ static AFHTTPSessionManager *_mgr;
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         if (failure) {
-            failure([self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]]);
+            failure([self resolveFailureWith:error]);
         }
     }];
 }
@@ -172,9 +172,7 @@ static AFHTTPSessionManager *_mgr;
         NSLog(@"%@",_mgr.baseURL);
         NSLog(@"%@",error);
         if (failure) {
-            
-            
-            failure([self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]]);
+            failure([self resolveFailureWith:error]);
         }
     }];
 }
@@ -204,7 +202,7 @@ static AFHTTPSessionManager *_mgr;
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (failure) {
-            failure([self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]]);
+            failure([self resolveFailureWith:error]);
         }
     }];
 }
@@ -221,7 +219,7 @@ static AFHTTPSessionManager *_mgr;
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (failure) {
-            failure([self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]]);
+            failure([self resolveFailureWith:error]);
         }
     }];
 }
@@ -235,11 +233,19 @@ static AFHTTPSessionManager *_mgr;
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (failure) {
-            failure([self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]]);
+            failure([self resolveFailureWith:error]);
         }
     }];
 }
 
+
++ (id)resolveFailureWith:(NSError *)error{
+   id errorJson =  [self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]];
+    if (!errorJson) {
+        TTAlert(@"服务器连接失败");
+    }
+    return errorJson;
+}
 
 /**
  *  data转jsonObject
@@ -248,7 +254,7 @@ static AFHTTPSessionManager *_mgr;
  *
  *  @return JsonObject
  */
-+(id)dataToJsonObject:(id)responseObject{
++ (id)dataToJsonObject:(id)responseObject{
     NSData *data = [NSData dataWithData:responseObject];
     id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     return json;

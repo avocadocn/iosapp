@@ -53,7 +53,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"其他活动";
-    [self.view setBackgroundColor:RGB(235, 235, 235)];
+    [self.view setBackgroundColor:RGB(230, 230, 230)];
 //    [self.view setBackgroundColor:[UIColor yellowColor]];
     
     // 添加标签视图
@@ -116,7 +116,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     [self.viewControllers enumerateObjectsUsingBlock:^(UIViewController *viewController, NSUInteger idx, BOOL *stop) {
         CGRect contentViewFrame = viewController.view.bounds;
-        contentViewFrame.origin.y = 10;
+        contentViewFrame.origin.y = 0;
         contentViewFrame.origin.x = idx * CGRectGetWidth(self.view.bounds);
         viewController.view.frame = contentViewFrame;
         [self.paggingScrollView addSubview:viewController.view];
@@ -217,7 +217,6 @@ static NSString * const ID = @"OtherActivityShowCell";
     self = [super init];
     if (self) {
         self.leftViewController = leftViewController;
-        
         self.rightViewController = rightViewController;
     }
     return self;
@@ -225,7 +224,6 @@ static NSString * const ID = @"OtherActivityShowCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     // Ensure that the paggingScrollView is the correct height.
     // This facilitates situations where the XHTwitterPaggingViewer is shown within
     // a UITabBarController.

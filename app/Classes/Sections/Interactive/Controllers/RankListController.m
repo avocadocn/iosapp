@@ -42,7 +42,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
         if (!self.items) {
             self.items = [NSMutableArray array];
         }
-        for (NSInteger i = 0; i < 10; i++) {
+        for (NSInteger i = 0; i < 20; i++) {
             [self.items addObject:[NSNumber numberWithInteger:i]];
             }
     }
@@ -84,6 +84,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
     carousel.vertical = YES;
     carousel.type = iCarouselTypeRotary;
     carousel.clipsToBounds = YES;
+    NSLog(@"%f",carousel.offsetMultiplier);
     
     [self.view addSubview:carousel];
     
@@ -149,31 +150,50 @@ static NSString * const ID =  @"RankItemTableViewcell";
     
 }
 
+
 - (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
 {
+    
+    
+    
     switch (option)
     {
         case iCarouselOptionWrap:
         {
             return YES;
         }
-        case iCarouselOptionFadeMax:
-        {
-            return value;
-        }
+            
+      
         case iCarouselOptionArc:
         {
-            return 2 * M_PI;
+            return  2 * M_PI;
         }
         case iCarouselOptionRadius:
         {
 //            return 250;
             return DLScreenHeight * 0.3;
         }
-        case iCarouselOptionSpacing:
-        {
-            return 0.462524;
+      
+        case iCarouselOptionVisibleItems:{
+            return 7;
         }
+            
+        case iCarouselOptionSpacing:{
+            return 1;
+        }
+            
+        case iCarouselOptionFadeMin:
+        {
+            return 0.5;
+        }
+        case iCarouselOptionFadeMax:{
+            return 0.5;
+        }
+            
+        case iCarouselOptionFadeMinAlpha:{
+            return 0.3;
+        }
+        
         default:
         {
             return value;
