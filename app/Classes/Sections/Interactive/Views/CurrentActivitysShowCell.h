@@ -10,5 +10,19 @@
 
 @interface CurrentActivitysShowCell : UITableViewCell
 
+/**
+ *  互动类型的imageview
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *InteractiveTypeIcon;
+
+/**
+ *  互动标题
+ */
+@property (weak, nonatomic) IBOutlet UILabel *InteractiveTitle;
+
+/**
+ *  互动正文内容
+ */
+@property (weak, nonatomic) IBOutlet UILabel *InteractiveText;
 @end
 

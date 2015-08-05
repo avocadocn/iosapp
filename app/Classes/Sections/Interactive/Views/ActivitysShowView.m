@@ -32,7 +32,7 @@
         [self addOneItemWithImage:[UIImage imageNamed:@"1"] label:@"男神榜"];
         [self addOneItemWithImage:[UIImage imageNamed:@"1"] label:@"女神榜"];
         [self addOneItemWithImage:[UIImage imageNamed:@"1"] label:@"人气榜"];
-        [self addOneItemWithImage:[UIImage imageNamed:@"1"] label:@"什么活动"];
+        [self addOneItemWithImage:[UIImage imageNamed:@"1"] label:@"其他"];
     }
     return self;
 }
