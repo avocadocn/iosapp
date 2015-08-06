@@ -16,6 +16,10 @@
 
 #import "VoteTableController.h"
 #import "HelpTableViewController.h"
+
+#import <LGPlusButtonsView.h>
+#import <LGDrawer.h>
+
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic ,strong) ActivitysShowView *asv;
@@ -24,6 +28,11 @@
 @property (nonatomic ,assign) CGPoint currentPoint;
 @property (nonatomic ,assign) CGPoint startPoint;
 @property (nonatomic ,assign) CGRect asvFrame;
+
+/**
+ *  path菜单
+ */
+@property (strong, nonatomic) LGPlusButtonsView *plusButtonsView;
 
 @end
 
@@ -38,6 +47,18 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self.view setBackgroundColor:RGB(235, 235, 235)];
     
     // 上方活动展示view
+    [self setupActivitysShowView];
+    
+  //  NSLog(@"%@",[UIApplication sharedApplication].keyWindow.rootViewController);
+    
+    // 活动展示table
+    [self setupActivityShowTableView];
+    
+    [self addLGPlusButtonsView];
+}
+
+-(void)setupActivitysShowView{
+    // 上方活动展示view
     ActivitysShowView *asv = [[ActivitysShowView alloc]init];
     asv.y += 64;
     
@@ -46,15 +67,14 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self.view addSubview:asv];
     
     self.asv = asv;
-    
-  //  NSLog(@"%@",[UIApplication sharedApplication].keyWindow.rootViewController);
-    
-    // 活动展示table
+}
+
+-(void)setupActivityShowTableView{
     UITableView *tableView = [[UITableView alloc]init];
-//    [tableView registerClass:[CurrentActivitysShowCell class] forCellReuseIdentifier:ID];
+    //    [tableView registerClass:[CurrentActivitysShowCell class] forCellReuseIdentifier:ID];
     [tableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     [tableView setFrame:self.view.frame];
-    tableView.y = CGRectGetMaxY(asv.frame);
+    tableView.y = CGRectGetMaxY(self.asv.frame);
     tableView.height = DLScreenHeight - tableView.y - 50;
     [tableView setContentInset:UIEdgeInsetsMake(0, 0, 10, 0)];
     
@@ -65,17 +85,86 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [tableView setDelegate:self];
     [tableView setDataSource:self];
     
-     [self.view addSubview:tableView];
-     self.tableView = tableView;
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
     
     self.asvFrame = self.asv.frame;
     self.asvHidden = NO;
-    
 }
 
--(void)viewDidAppear:(BOOL)animated{
-   // NSLog(@"%f",self.navigationController.navigationBar.height);
+
+/**
+ * 添加plusButtonView
+ */
+-(void)addLGPlusButtonsView{
+    _plusButtonsView = [[LGPlusButtonsView alloc] initWithView:self.tableView
+                                               numberOfButtons:3
+                                               showsPlusButton:YES
+                                                 actionHandler:^(LGPlusButtonsView *plusButtonView, NSString *title, NSString *description, NSUInteger index)
+                        {
+                            NSLog(@"%@, %@, %i", title, description, (int)index);
+                        }
+                                       plusButtonActionHandler:nil];
+    
+    [_plusButtonsView setButtonsTitles:@[@"+", @"1", @"2", @"3"] forState:UIControlStateNormal];
+    [_plusButtonsView setDescriptionsTexts:@[@"", @"Button One description", @"Button Two description", @"Button Three description"]];
+    _plusButtonsView.position = LGPlusButtonsViewPositionBottomRight;
+    _plusButtonsView.showWhenScrolling = YES;
+    _plusButtonsView.appearingAnimationType = LGPlusButtonsAppearingAnimationTypeCrossDissolveAndSlideVertical;
+    _plusButtonsView.buttonsAppearingAnimationType = LGPlusButtonsAppearingAnimationTypeCrossDissolveAndSlideHorizontal;
+    _plusButtonsView.plusButtonAnimationType = LGPlusButtonAnimationTypeRotate;
+    [_plusButtonsView setButtonsTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_plusButtonsView setButtonsAdjustsImageWhenHighlighted:NO];
+    
+    [_plusButtonsView showAnimated:NO completionHandler:nil];
 }
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    CGFloat shadowBlur = 3.f;
+    CGFloat buttonSide = 48.f;
+    CGFloat buttonsFontSize =  30.f ;
+    CGFloat plusButtonFontSize = buttonsFontSize*1.5;
+    
+    _plusButtonsView.contentInset = UIEdgeInsetsMake(shadowBlur, shadowBlur, shadowBlur, shadowBlur);
+    [_plusButtonsView setButtonsTitleFont:[UIFont boldSystemFontOfSize:buttonsFontSize]];
+    
+    _plusButtonsView.plusButton.titleLabel.font = [UIFont systemFontOfSize:plusButtonFontSize];
+    _plusButtonsView.plusButton.titleOffset = CGPointMake(0.f, -plusButtonFontSize*0.1);
+    
+    UIImage *circleImageNormal = [LGDrawer drawEllipseWithImageSize:CGSizeMake(buttonSide, buttonSide)
+                                                               size:CGSizeMake(buttonSide-shadowBlur*2, buttonSide-shadowBlur*2)
+                                                             offset:CGPointZero
+                                                             rotate:0.f
+                                                    backgroundColor:nil
+                                                          fillColor:[UIColor colorWithRed:0.f green:0.5 blue:1.f alpha:1.f]
+                                                        strokeColor:nil
+                                                    strokeThickness:0.f
+                                                         strokeDash:nil
+                                                         strokeType:LGDrawerStrokeTypeInside
+                                                        shadowColor:[UIColor colorWithWhite:0.f alpha:0.5]
+                                                       shadowOffset:CGPointZero
+                                                         shadowBlur:shadowBlur];
+    
+    UIImage *circleImageHighlighted = [LGDrawer drawEllipseWithImageSize:CGSizeMake(buttonSide, buttonSide)
+                                                                    size:CGSizeMake(buttonSide-shadowBlur*2, buttonSide-shadowBlur*2)
+                                                                  offset:CGPointZero
+                                                                  rotate:0.f
+                                                         backgroundColor:nil
+                                                               fillColor:[UIColor colorWithRed:0.2 green:0.7 blue:1.f alpha:1.f]
+                                                             strokeColor:nil
+                                                         strokeThickness:0.f
+                                                              strokeDash:nil
+                                                              strokeType:LGDrawerStrokeTypeInside
+                                                             shadowColor:[UIColor colorWithWhite:0.f alpha:0.5]
+                                                            shadowOffset:CGPointZero
+                                                              shadowBlur:shadowBlur];
+    
+    [_plusButtonsView setButtonsImage:circleImageNormal forState:UIControlStateNormal];
+    [_plusButtonsView setButtonsImage:circleImageHighlighted forState:UIControlStateHighlighted];
+    [_plusButtonsView setButtonsImage:circleImageHighlighted forState:UIControlStateHighlighted|UIControlStateSelected];
+}
+
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     self.startPoint = scrollView.contentOffset;
@@ -102,7 +191,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         if (self.asvHidden == NO) {
             [self hiddenASV];
         }
-        
         return;
     }
     
@@ -204,8 +292,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             
             [self.navigationController pushViewController:twitterPaggingViewer animated:YES];
         }
-
-           
             break;
             
         
@@ -261,11 +347,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         [self.navigationController pushViewController:helpController animated:YES];
     }
     
-    
-    
-    
-    
-
 }
 
 
