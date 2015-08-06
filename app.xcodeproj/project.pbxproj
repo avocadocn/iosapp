@@ -1466,6 +1466,8 @@
 				967A06371B71F352007BA757 /* VoteTableController.m */,
 				96C9FFAF1B737508008B71CE /* HelpTableViewController.h */,
 				96C9FFB01B737508008B71CE /* HelpTableViewController.m */,
+				A44D40061B7300C200B10DFB /* LaunchEventController.h */,
+				A44D40071B7300C200B10DFB /* LaunchEventController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
