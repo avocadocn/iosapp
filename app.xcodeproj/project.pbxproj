@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960DCFAE1B732D38009F5D75 /* VoteOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 960DCFAD1B732D38009F5D75 /* VoteOptionsView.m */; };
+		960DCFB11B732E59009F5D75 /* VoteAnimatedOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 960DCFB01B732E59009F5D75 /* VoteAnimatedOptionView.m */; };
 		9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053461B590C31002D62A3 /* ActivitysShowView.m */; };
 		961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053481B590C31002D62A3 /* CurrentActivitysShowCell.m */; };
 		961053511B590C31002D62A3 /* CurrentActivitysShowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961053491B590C31002D62A3 /* CurrentActivitysShowCell.xib */; };
@@ -52,9 +54,12 @@
 		967A062F1B71E2C9007BA757 /* Interactive_help_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A062C1B71E2C9007BA757 /* Interactive_help_icon.png */; };
 		967A06301B71E2C9007BA757 /* Interactive_vote_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A062D1B71E2C9007BA757 /* Interactive_vote_icon.png */; };
 		967A06341B71F22D007BA757 /* VoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06321B71F22D007BA757 /* VoteTableViewCell.m */; };
-		967A06351B71F22D007BA757 /* VoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967A06331B71F22D007BA757 /* VoteTableViewCell.xib */; };
 		967A06381B71F352007BA757 /* VoteTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06371B71F352007BA757 /* VoteTableController.m */; };
 		967A063B1B71FBDB007BA757 /* Interactive_vote_downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A063A1B71FBDB007BA757 /* Interactive_vote_downArrow.png */; };
+		967A063D1B72FEF3007BA757 /* Interactive_vote_downView.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A063C1B72FEF3007BA757 /* Interactive_vote_downView.png */; };
+		967A06411B7303C2007BA757 /* VoteInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06401B7303C2007BA757 /* VoteInfoModel.m */; };
+		967A06441B7304F7007BA757 /* VoteOptionsInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06431B7304F7007BA757 /* VoteOptionsInfoModel.m */; };
+		967A06471B732578007BA757 /* VoteCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06461B732578007BA757 /* VoteCellFrame.m */; };
 		968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15301B69F4C9004A26C0 /* RankItemTableViewcell.m */; };
 		968B15331B69F4C9004A26C0 /* RankItemTableViewcell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15311B69F4C9004A26C0 /* RankItemTableViewcell.xib */; };
 		968B15361B6A1156004A26C0 /* RankBottomShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15351B6A1156004A26C0 /* RankBottomShowView.m */; };
@@ -492,6 +497,10 @@
 
 /* Begin PBXFileReference section */
 		10F0C3979CC574166680CAB5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		960DCFAC1B732D38009F5D75 /* VoteOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteOptionsView.h; sourceTree = "<group>"; };
+		960DCFAD1B732D38009F5D75 /* VoteOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteOptionsView.m; sourceTree = "<group>"; };
+		960DCFAF1B732E59009F5D75 /* VoteAnimatedOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteAnimatedOptionView.h; sourceTree = "<group>"; };
+		960DCFB01B732E59009F5D75 /* VoteAnimatedOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteAnimatedOptionView.m; sourceTree = "<group>"; };
 		961053451B590C31002D62A3 /* ActivitysShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitysShowView.h; sourceTree = "<group>"; };
 		961053461B590C31002D62A3 /* ActivitysShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitysShowView.m; sourceTree = "<group>"; };
 		961053471B590C31002D62A3 /* CurrentActivitysShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentActivitysShowCell.h; sourceTree = "<group>"; };
@@ -582,10 +591,16 @@
 		967A062D1B71E2C9007BA757 /* Interactive_vote_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interactive_vote_icon.png; sourceTree = "<group>"; };
 		967A06311B71F22D007BA757 /* VoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTableViewCell.h; sourceTree = "<group>"; };
 		967A06321B71F22D007BA757 /* VoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTableViewCell.m; sourceTree = "<group>"; };
-		967A06331B71F22D007BA757 /* VoteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoteTableViewCell.xib; sourceTree = "<group>"; };
 		967A06361B71F352007BA757 /* VoteTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTableController.h; sourceTree = "<group>"; };
 		967A06371B71F352007BA757 /* VoteTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTableController.m; sourceTree = "<group>"; };
 		967A063A1B71FBDB007BA757 /* Interactive_vote_downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interactive_vote_downArrow.png; sourceTree = "<group>"; };
+		967A063C1B72FEF3007BA757 /* Interactive_vote_downView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interactive_vote_downView.png; sourceTree = "<group>"; };
+		967A063F1B7303C2007BA757 /* VoteInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteInfoModel.h; sourceTree = "<group>"; };
+		967A06401B7303C2007BA757 /* VoteInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteInfoModel.m; sourceTree = "<group>"; };
+		967A06421B7304F7007BA757 /* VoteOptionsInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteOptionsInfoModel.h; sourceTree = "<group>"; };
+		967A06431B7304F7007BA757 /* VoteOptionsInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteOptionsInfoModel.m; sourceTree = "<group>"; };
+		967A06451B732578007BA757 /* VoteCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteCellFrame.h; sourceTree = "<group>"; };
+		967A06461B732578007BA757 /* VoteCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteCellFrame.m; sourceTree = "<group>"; };
 		968B152F1B69F4C9004A26C0 /* RankItemTableViewcell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankItemTableViewcell.h; sourceTree = "<group>"; };
 		968B15301B69F4C9004A26C0 /* RankItemTableViewcell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankItemTableViewcell.m; sourceTree = "<group>"; };
 		968B15311B69F4C9004A26C0 /* RankItemTableViewcell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemTableViewcell.xib; sourceTree = "<group>"; };
@@ -1357,13 +1372,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		961053431B590C31002D62A3 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		961053441B590C31002D62A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1401,7 +1409,10 @@
 				968B15421B6A2ADC004A26C0 /* RankItemView.xib */,
 				967A06311B71F22D007BA757 /* VoteTableViewCell.h */,
 				967A06321B71F22D007BA757 /* VoteTableViewCell.m */,
-				967A06331B71F22D007BA757 /* VoteTableViewCell.xib */,
+				960DCFAC1B732D38009F5D75 /* VoteOptionsView.h */,
+				960DCFAD1B732D38009F5D75 /* VoteOptionsView.m */,
+				960DCFAF1B732E59009F5D75 /* VoteAnimatedOptionView.h */,
+				960DCFB01B732E59009F5D75 /* VoteAnimatedOptionView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1692,8 +1703,8 @@
 		9649B51E1B564DE000A7F355 /* Interactive */ = {
 			isa = PBXGroup;
 			children = (
+				967A063E1B7303BA007BA757 /* Models */,
 				961053551B590C70002D62A3 /* Controllers */,
-				961053431B590C31002D62A3 /* Models */,
 				961053441B590C31002D62A3 /* Views */,
 			);
 			path = Interactive;
@@ -1854,9 +1865,23 @@
 		967A06391B71FBDB007BA757 /* Vote */ = {
 			isa = PBXGroup;
 			children = (
+				967A063C1B72FEF3007BA757 /* Interactive_vote_downView.png */,
 				967A063A1B71FBDB007BA757 /* Interactive_vote_downArrow.png */,
 			);
 			path = Vote;
+			sourceTree = "<group>";
+		};
+		967A063E1B7303BA007BA757 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				967A063F1B7303C2007BA757 /* VoteInfoModel.h */,
+				967A06401B7303C2007BA757 /* VoteInfoModel.m */,
+				967A06421B7304F7007BA757 /* VoteOptionsInfoModel.h */,
+				967A06431B7304F7007BA757 /* VoteOptionsInfoModel.m */,
+				967A06451B732578007BA757 /* VoteCellFrame.h */,
+				967A06461B732578007BA757 /* VoteCellFrame.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		969616C51B6B58BE002FC24C /* lib */ = {
@@ -3402,7 +3427,6 @@
 				96CF93CD1B674B54001759E2 /* VoiceSearchFeedback004.png in Resources */,
 				9649B5471B565E5900A7F355 /* CompanyViewController.storyboard in Resources */,
 				96CF94291B674B54001759E2 /* chatBar_colorMore_photo@2x.png in Resources */,
-				967A06351B71F22D007BA757 /* VoteTableViewCell.xib in Resources */,
 				96CF93EB1B674B54001759E2 /* VoiceSearchFeedback019.png in Resources */,
 				96CF94021B674B54001759E2 /* chatBar_textBg@2x.png in Resources */,
 				96CF93CE1B674B54001759E2 /* VoiceSearchFeedback004@2x.png in Resources */,
@@ -3572,6 +3596,7 @@
 				96CF93781B674B54001759E2 /* callRing.mp3 in Resources */,
 				96CF94401B674B54001759E2 /* chat_receiver_audio_playing002.png in Resources */,
 				967439CB1B70A27A004334A4 /* otherActivity_location.png in Resources */,
+				967A063D1B72FEF3007BA757 /* Interactive_vote_downView.png in Resources */,
 				96CF94061B674B54001759E2 /* chat_location_detail_disclosure@2x.png in Resources */,
 				96CF94591B674B54001759E2 /* back@2x.png in Resources */,
 				A4651D421B58DFC7008BAEE8 /* addImage.png in Resources */,
@@ -3666,6 +3691,7 @@
 				961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */,
 				96CF937F1B674B54001759E2 /* UIViewController+HUD.m in Sources */,
 				A450561D1B60EF980075E39D /* RankItemLayoutAttr.m in Sources */,
+				967A06411B7303C2007BA757 /* VoteInfoModel.m in Sources */,
 				96CF93B51B674B54001759E2 /* EMSearchDisplayController.m in Sources */,
 				A41993231B5F95AB0086EAAE /* CompanyTableViewCell.m in Sources */,
 				967439BC1B705908004334A4 /* RestfulAPIRequestTool.m in Sources */,
@@ -3737,6 +3763,7 @@
 				96CF94781B674B54001759E2 /* RobotListViewController.m in Sources */,
 				A41993241B5F95AB0086EAAE /* LoginMailTableViewCell.m in Sources */,
 				96CF90CB1B673422001759E2 /* EMSDWebImageDecoder.m in Sources */,
+				960DCFAE1B732D38009F5D75 /* VoteOptionsView.m in Sources */,
 				96CF93991B674B54001759E2 /* ContactSelectionViewController.m in Sources */,
 				967A06381B71F352007BA757 /* VoteTableController.m in Sources */,
 				96CF90E11B673422001759E2 /* PSTCollectionViewUpdateItem.m in Sources */,
@@ -3745,6 +3772,7 @@
 				961053581B590C70002D62A3 /* OtherController.m in Sources */,
 				96CF90B71B673422001759E2 /* EMAudioRecorderUtil.m in Sources */,
 				961053671B5CDA89002D62A3 /* DetailActivityShowController.m in Sources */,
+				960DCFB11B732E59009F5D75 /* VoteAnimatedOptionView.m in Sources */,
 				96CF90D01B673422001759E2 /* MKAnnotationView+EMWebCache.m in Sources */,
 				96CF937C1B674B54001759E2 /* NSString+Valid.m in Sources */,
 				A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */,
@@ -3755,6 +3783,7 @@
 				A459C4CB1B6242A2003D32C8 /* LoginViewController.m in Sources */,
 				A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */,
 				96CF94891B67501B001759E2 /* SRRefreshView.m in Sources */,
+				967A06471B732578007BA757 /* VoteCellFrame.m in Sources */,
 				A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */,
 				9649B53E1B564DE000A7F355 /* CompanyViewController.m in Sources */,
 				96CF93871B674B54001759E2 /* DXMessageToolBar.m in Sources */,
@@ -3762,6 +3791,7 @@
 				96CF90C21B673422001759E2 /* MWGridViewController.m in Sources */,
 				96CF90BE1B673422001759E2 /* Emoji.m in Sources */,
 				96CF93B31B674B54001759E2 /* EMChooseViewController.m in Sources */,
+				967A06441B7304F7007BA757 /* VoteOptionsInfoModel.m in Sources */,
 				967439BD1B705908004334A4 /* RouteInfoModel.m in Sources */,
 				96CF93A81B674B54001759E2 /* AddFriendViewController.m in Sources */,
 				96CF938D1B674B54001759E2 /* EMChatBaseBubbleView.m in Sources */,

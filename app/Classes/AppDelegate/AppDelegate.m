@@ -35,20 +35,20 @@
        //修改控制器的statusBar样式,需要注意在info.plist里配置一下
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
-    GuidePageViewController *gu = [[GuidePageViewController alloc]init];
+//    GuidePageViewController *gu = [[GuidePageViewController alloc]init];
+//    
+////    PersonalDynamicController *gu = [[PersonalDynamicController alloc]init];
+//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
+//    [self.window setRootViewController:nav];
+//    
+////    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultCenterAction:) name:@"changeRootViewController" object:nil];
+//    
     
-//    PersonalDynamicController *gu = [[PersonalDynamicController alloc]init];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
-    [self.window setRootViewController:nav];
-    
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultCenterAction:) name:@"changeRootViewController" object:nil];
-    
-    /*
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
 //       self.mainController = main;
-    */
+    
     
     [self.window makeKeyAndVisible];
     return YES;
