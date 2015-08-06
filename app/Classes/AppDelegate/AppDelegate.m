@@ -13,6 +13,8 @@
 #import "AppDelegate+EaseMob.h"
 #import "Account.h"
 #import "AccountTool.h"
+#import "LaunchEventController.h"
+
 
 //测试用
 #import "PersonalDynamicController.h"
@@ -35,9 +37,15 @@
        //修改控制器的statusBar样式,需要注意在info.plist里配置一下
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
+    // 登陆界面
     GuidePageViewController *gu = [[GuidePageViewController alloc]init];
-    
+    // 动态界面  测试
 //    PersonalDynamicController *gu = [[PersonalDynamicController alloc]init];
+    
+    
+//    LaunchEventController *gu = [[LaunchEventController alloc]init];
+    
+    
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
     [self.window setRootViewController:nav];
     
