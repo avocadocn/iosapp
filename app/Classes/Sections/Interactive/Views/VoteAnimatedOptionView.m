@@ -130,8 +130,7 @@
 }
 
 -(void)btnClicked:(id)sender{
-    [NSNotificationCenter defaultCenter] postNotificationName:<#(NSString *)#> object:<#(id)#>
-}
+   }
 
 
 -(void)setOptionName:(NSString *)optionName{

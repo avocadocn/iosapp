@@ -11,5 +11,5 @@
 
 #define kLineLayoutAttrChange @"kLineLayoutAttrChange"
 #define KNOTIFICATION_LOGINCHANGE @"loginStateChange"
-#define kOption
+
 #endif
