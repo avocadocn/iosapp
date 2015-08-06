@@ -22,5 +22,8 @@
 
 @property (nonatomic, strong)UITableView *remindTimeTableView;  //没有提醒
 
+@property (nonatomic, strong)UIView *remindView;
+
+@property (nonatomic, strong)UIButton *chooseButton;
 
 @end

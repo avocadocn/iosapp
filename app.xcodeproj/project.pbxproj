@@ -59,7 +59,6 @@
 		967A063D1B72FEF3007BA757 /* Interactive_vote_downView.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A063C1B72FEF3007BA757 /* Interactive_vote_downView.png */; };
 		967A06411B7303C2007BA757 /* VoteInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06401B7303C2007BA757 /* VoteInfoModel.m */; };
 		967A06441B7304F7007BA757 /* VoteOptionsInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06431B7304F7007BA757 /* VoteOptionsInfoModel.m */; };
-		967A06471B732578007BA757 /* VoteCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06461B732578007BA757 /* VoteCellFrame.m */; };
 		968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15301B69F4C9004A26C0 /* RankItemTableViewcell.m */; };
 		968B15331B69F4C9004A26C0 /* RankItemTableViewcell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15311B69F4C9004A26C0 /* RankItemTableViewcell.xib */; };
 		968B15361B6A1156004A26C0 /* RankBottomShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15351B6A1156004A26C0 /* RankBottomShowView.m */; };
@@ -451,6 +450,7 @@
 		A44D40481B733CAB00B10DFB /* disappear.png in Resources */ = {isa = PBXBuildFile; fileRef = A44D40471B733CAB00B10DFB /* disappear.png */; };
 		A44D404A1B73647700B10DFB /* fold.png in Resources */ = {isa = PBXBuildFile; fileRef = A44D40491B73647700B10DFB /* fold.png */; };
 		A44D404D1B7368EA00B10DFB /* EventRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A44D404C1B7368EA00B10DFB /* EventRemindCell.m */; };
+		A44D404E1B7374DE00B10DFB /* VoteCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06461B732578007BA757 /* VoteCellFrame.m */; };
 		A450560D1B608F250075E39D /* CardChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = A450560C1B608F250075E39D /* CardChooseView.m */; };
 		A45056171B60D2110075E39D /* welcome-4.png in Resources */ = {isa = PBXBuildFile; fileRef = A45056131B60D2110075E39D /* welcome-4.png */; };
 		A45056181B60D2110075E39D /* welcome-1.png in Resources */ = {isa = PBXBuildFile; fileRef = A45056141B60D2110075E39D /* welcome-1.png */; };
@@ -3683,6 +3683,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A44D404E1B7374DE00B10DFB /* VoteCellFrame.m in Sources */,
 				969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */,
 				969616D41B6B5FBD002FC24C /* UserDataTon.m in Sources */,
 				969616D31B6B5F0C002FC24C /* UIView+Extension.m in Sources */,
