@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VoteInfoModel.h"
+
+#import "VoteCellFrame.h"
 
 @interface VoteTableViewCell : UITableViewCell
+
+
+/**
+ *  投票的尺寸
+ */
+@property (nonatomic, strong) VoteCellFrame *voteCellFrame;
 
 @end

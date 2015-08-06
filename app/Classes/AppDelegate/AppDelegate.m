@@ -56,7 +56,7 @@
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
 //       self.mainController = main;
-    */
+    
     
     [self.window makeKeyAndVisible];
     return YES;

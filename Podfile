@@ -18,3 +18,5 @@ pod 'MJExtension', '~> 2.4.4'
 pod 'iCarousel', '~> 1.8.1'
 
 pod 'SOCKit', '~> 1.1'
+
+pod 'pop', '~> 1.0.7'
