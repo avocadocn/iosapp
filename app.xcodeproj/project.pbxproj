@@ -78,6 +78,10 @@
 		969616D31B6B5F0C002FC24C /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5351B564DE000A7F355 /* UIView+Extension.m */; };
 		969616D41B6B5FBD002FC24C /* UserDataTon.m in Sources */ = {isa = PBXBuildFile; fileRef = A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */; };
 		969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */; };
+		96C9FFB11B737508008B71CE /* HelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFB01B737508008B71CE /* HelpTableViewController.m */; };
+		96C9FFB51B737539008B71CE /* HelpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFB31B737539008B71CE /* HelpTableViewCell.m */; };
+		96C9FFB91B73760B008B71CE /* HelpCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFB81B73760B008B71CE /* HelpCellFrame.m */; };
+		96C9FFBC1B737622008B71CE /* HelpInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFBB1B737622008B71CE /* HelpInfoModel.m */; };
 		96CF8EFE1B671E93001759E2 /* RouteInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96CF8EFD1B671E93001759E2 /* RouteInfo.plist */; };
 		96CF90B61B673422001759E2 /* EMAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF902D1B673422001759E2 /* EMAudioPlayerUtil.m */; };
 		96CF90B71B673422001759E2 /* EMAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF902F1B673422001759E2 /* EMAudioRecorderUtil.m */; };
@@ -611,6 +615,14 @@
 		968B15401B6A2ABB004A26C0 /* RankItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankItemView.m; sourceTree = "<group>"; };
 		968B15421B6A2ADC004A26C0 /* RankItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemView.xib; sourceTree = "<group>"; };
 		969616C61B6B58BE002FC24C /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
+		96C9FFAF1B737508008B71CE /* HelpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpTableViewController.h; sourceTree = "<group>"; };
+		96C9FFB01B737508008B71CE /* HelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpTableViewController.m; sourceTree = "<group>"; };
+		96C9FFB21B737539008B71CE /* HelpTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpTableViewCell.h; sourceTree = "<group>"; };
+		96C9FFB31B737539008B71CE /* HelpTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpTableViewCell.m; sourceTree = "<group>"; };
+		96C9FFB71B73760B008B71CE /* HelpCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpCellFrame.h; sourceTree = "<group>"; };
+		96C9FFB81B73760B008B71CE /* HelpCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpCellFrame.m; sourceTree = "<group>"; };
+		96C9FFBA1B737622008B71CE /* HelpInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpInfoModel.h; sourceTree = "<group>"; };
+		96C9FFBB1B737622008B71CE /* HelpInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpInfoModel.m; sourceTree = "<group>"; };
 		96CF8EFD1B671E93001759E2 /* RouteInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RouteInfo.plist; sourceTree = "<group>"; };
 		96CF90281B673422001759E2 /* EMCDDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerDelegate.h; sourceTree = "<group>"; };
 		96CF90291B673422001759E2 /* EMCDDeviceManagerProximitySensorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCDDeviceManagerProximitySensorDelegate.h; sourceTree = "<group>"; };
@@ -1413,6 +1425,8 @@
 				960DCFAD1B732D38009F5D75 /* VoteOptionsView.m */,
 				960DCFAF1B732E59009F5D75 /* VoteAnimatedOptionView.h */,
 				960DCFB01B732E59009F5D75 /* VoteAnimatedOptionView.m */,
+				96C9FFB21B737539008B71CE /* HelpTableViewCell.h */,
+				96C9FFB31B737539008B71CE /* HelpTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1436,6 +1450,8 @@
 				A450561C1B60EF980075E39D /* RankItemLayoutAttr.m */,
 				967A06361B71F352007BA757 /* VoteTableController.h */,
 				967A06371B71F352007BA757 /* VoteTableController.m */,
+				96C9FFAF1B737508008B71CE /* HelpTableViewController.h */,
+				96C9FFB01B737508008B71CE /* HelpTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1880,6 +1896,10 @@
 				967A06431B7304F7007BA757 /* VoteOptionsInfoModel.m */,
 				967A06451B732578007BA757 /* VoteCellFrame.h */,
 				967A06461B732578007BA757 /* VoteCellFrame.m */,
+				96C9FFB71B73760B008B71CE /* HelpCellFrame.h */,
+				96C9FFB81B73760B008B71CE /* HelpCellFrame.m */,
+				96C9FFBA1B737622008B71CE /* HelpInfoModel.h */,
+				96C9FFBB1B737622008B71CE /* HelpInfoModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3666,6 +3686,7 @@
 				969616CB1B6B5ABC002FC24C /* ChoosePhotoController.m in Sources */,
 				969616C91B6B5A7D002FC24C /* ChoosePhotoView.m in Sources */,
 				A481A1F21B65C6C100845046 /* PaggingScrollView.m in Sources */,
+				96C9FFB51B737539008B71CE /* HelpTableViewCell.m in Sources */,
 				A45056201B60F0270075E39D /* DLNavigationBar.m in Sources */,
 				96CF90BA1B673422001759E2 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				96CF937E1B674B54001759E2 /* UIViewController+DismissKeyboard.m in Sources */,
@@ -3676,6 +3697,7 @@
 				A450561F1B60F01F0075E39D /* DSNavigationBar.m in Sources */,
 				96CF947E1B674B54001759E2 /* SettingsViewController.m in Sources */,
 				A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */,
+				96C9FFB11B737508008B71CE /* HelpTableViewController.m in Sources */,
 				A41CF0DE1B5D02DA005C21EF /* RankController.m in Sources */,
 				96CF93891B674B54001759E2 /* FacialView.m in Sources */,
 				96CF93811B674B54001759E2 /* ChatListViewController.m in Sources */,
@@ -3852,12 +3874,14 @@
 				96CF90DE1B673422001759E2 /* PSTCollectionViewFlowLayout.m in Sources */,
 				A450560D1B608F250075E39D /* CardChooseView.m in Sources */,
 				96CF90C61B673422001759E2 /* MWTapDetectingView.m in Sources */,
+				96C9FFBC1B737622008B71CE /* HelpInfoModel.m in Sources */,
 				96CF937B1B674B54001759E2 /* NSDateFormatter+Category.m in Sources */,
 				96CF90BB1B673422001759E2 /* EMCDDeviceManager+Remind.m in Sources */,
 				96CF90D81B673422001759E2 /* UIView+EMWebCacheOperation.m in Sources */,
 				96CF90EB1B673422001759E2 /* wav.mm in Sources */,
 				96CF938E1B674B54001759E2 /* EMChatImageBubbleView.m in Sources */,
 				96CF90DF1B673422001759E2 /* PSTCollectionViewItemKey.m in Sources */,
+				96C9FFB91B73760B008B71CE /* HelpCellFrame.m in Sources */,
 				96CF93AE1B674B54001759E2 /* BaseTableViewCell.m in Sources */,
 				96CF939C1B674B54001759E2 /* GroupBansViewController.m in Sources */,
 				A4311F551B577BE1004401B4 /* ColleagueViewController.m in Sources */,

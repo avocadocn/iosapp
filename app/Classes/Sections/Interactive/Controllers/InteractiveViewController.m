@@ -15,6 +15,7 @@
 #import "RankListController.h"
 
 #import "VoteTableController.h"
+#import "HelpTableViewController.h"
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic ,strong) ActivitysShowView *asv;
@@ -231,15 +232,15 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     if (indexPath.row == 0) {
         cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_activity_icon"];
         cell.InteractiveTitle.text = @"活动进行中";
-        cell.InteractiveTitle.text = @"快来捡肥皂吧";
+        cell.InteractiveText.text = @"快来捡肥皂吧";
     }else if (indexPath.row == 1){
         cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_vote_icon"];
         cell.InteractiveTitle.text = @"投票进行中";
-        cell.InteractiveTitle.text = @"你觉得我美么";
+        cell.InteractiveText.text = @"你觉得我美么";
     }else if (indexPath.row == 2){
         cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_help_icon"];
         cell.InteractiveTitle.text = @"求助进行中";
-        cell.InteractiveTitle.text = @"刚锅锅怎么样才会爱我？";
+        cell.InteractiveText.text = @"刚锅锅怎么样才会爱我？";
     }
     return cell;
 }
@@ -252,9 +253,12 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    if (indexPath.row == 0) {
+    if (indexPath.row == 1) {
         VoteTableController *voteController = [[VoteTableController alloc]init];
         [self.navigationController pushViewController:voteController animated:YES];
+    }else if (indexPath.row == 2){
+        HelpTableViewController *helpController = [[HelpTableViewController alloc]init];
+        [self.navigationController pushViewController:helpController animated:YES];
     }
     
     
