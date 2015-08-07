@@ -5,7 +5,7 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //
-
+#import "ChoosePhotoController.h"
 #import "MainController.h"
 #import "InteractiveViewController.h"
 #import "ChatViewController.h"
@@ -22,7 +22,8 @@
 #import "CallViewController.h"
 #import "EMCDDeviceManager.h"
 #import "RobotManager.h"
-
+#import "PublishSeekHelp.h"
+#import "RepeaterGroupController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -55,6 +56,8 @@ static NSString *kGroupName = @"GroupName";
     // Do any additional setup after loading the view.
     
     // 添加主页面VC
+    
+    ChoosePhotoController *choose = [ChoosePhotoController shareStateOfController];
     [self setUpTabbar];
     
     [self registerNotifications];
@@ -126,12 +129,12 @@ static NSString *kGroupName = @"GroupName";
     CompanyViewController *companyVC = [[CompanyViewController alloc]init];
     [self addOneTabWithVC:companyVC title:@"公司"];
     
-//    AttentionViewController *attentionVC = [[AttentionViewController alloc]init];
-//    [self addOneTabWithVC:attentionVC title:@"关注"];
+    AttentionViewController *attentionVC = [[AttentionViewController alloc]init];
+    [self addOneTabWithVC:attentionVC title:@"关注"];
     
-    ContactsViewController *contactsVC = [[ContactsViewController alloc]init];
-    [self addOneTabWithVC:contactsVC title:@"通讯录"];
-    _contactsVC = contactsVC;
+//    ContactsViewController *contactsVC = [[ContactsViewController alloc]init];
+//    [self addOneTabWithVC:contactsVC title:@"通讯录"];
+//    _contactsVC = contactsVC;
     
     ProfileViewController *profileVC = [[ProfileViewController alloc]init];
     [self addOneTabWithVC:profileVC title:@"我"];
@@ -139,6 +142,14 @@ static NSString *kGroupName = @"GroupName";
 //    SettingsViewController *settingsVC = [[SettingsViewController alloc]init];
 //    [self addOneTabWithVC:settingsVC title:@"设置"];
 //    _settingsVC = settingsVC;
+    
+//        
+//    PublishSeekHelp *pub = [[PublishSeekHelp alloc]init];
+//    [self addOneTabWithVC:pub title:@"投票"];
+    
+//    RepeaterGroupController *rep = [[RepeaterGroupController alloc]init];
+//    [self addOneTabWithVC:rep title:@"转发"];
+    
 }
 
 - (void)addOneTabWithVC:(UIViewController *)viewController title:(NSString *)title{

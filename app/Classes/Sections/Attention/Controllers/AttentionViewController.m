@@ -7,8 +7,10 @@
 //
 
 #import "AttentionViewController.h"
+#import "AttentionViewCell.h"
 
-@interface AttentionViewController ()
+
+@interface AttentionViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -16,8 +18,66 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self makeFalseValue];
+    [self builtInterface];
     
+}
+- (void)makeFalseValue
+{
+    self.modelArray = [NSMutableArray array];
+    
+    for (int i = 0; i < 18; i++) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:[UIImage imageNamed:@"1"] forKey:@"image"];
+        [dic setObject:@"杨彤彤" forKey:@"name"];
+        [dic setObject:@"专注 滑板鞋" forKey:@"work"];
+        [self.modelArray addObject:dic];
+    }
+
+}
+
+- (void)builtInterface{
+    
+    self.attentionTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight) style:UITableViewStylePlain];
+    self.attentionTableView.delegate = self;
+    self.attentionTableView.dataSource = self;
+    
+//    [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"cell"];
+    
+    [self.attentionTableView registerNib:[UINib nibWithNibName:@"AttentionViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cell"];
+    
+    
+    [self.view addSubview:self.attentionTableView];
+    
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AttentionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    NSDictionary *dic = [self.modelArray objectAtIndex:indexPath.row];
+    
+    [cell cellBuiltWithModel:dic];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return  [self.modelArray count];
+}
+    
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
 }
 
 - (void)didReceiveMemoryWarning {

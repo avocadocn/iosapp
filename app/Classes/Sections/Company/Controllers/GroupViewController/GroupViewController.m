@@ -41,8 +41,6 @@
     NSInteger interval = 10;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-//    layout.minimumInteritemSpacing = interval;
-//    layout.minimumLineSpacing = interval;
     layout.sectionInset = UIEdgeInsetsMake(interval, interval , interval, interval);
     
     self.groupListCollection = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
@@ -57,7 +55,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(85, 135);
+    return CGSizeMake(DLMultipleWidth(111.0), DLMultipleHeight(126.0));
 }
 
 

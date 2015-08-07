@@ -26,4 +26,8 @@
 
 @property (nonatomic, strong)UIButton *chooseButton;
 
+@property (nonatomic, strong)NSIndexPath *indexPathController;
+
+@property (nonatomic, strong)UIView *tableView;
+
 @end

@@ -10,6 +10,8 @@
 #import "EventRemindCell.h"
 #import <Masonry.h>
 #import "DLDatePickerView.h"
+#import "IndexpathButton.h"
+
 typedef NS_ENUM(NSInteger, RemindTableState){
     RemindTableStateNo,
     RemindTableStateYes
@@ -287,13 +289,49 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     
     imageView.image = [UIImage imageNamed:@"fold"];
     
-    self.remindTimeTableView = [[UITableView alloc]initWithFrame:CGRectMake(0 ,DLMultipleHeight(50.0), DLScreenWidth, 0) style:UITableViewStylePlain];
-    self.remindTimeTableView.delegate = self;
-    self.remindTimeTableView.dataSource = self;
-    
-    [self.remindTimeTableView registerClass:[EventRemindCell class] forCellReuseIdentifier:@"eventCoverCell"];
-    [self.remindView addSubview:self.remindTimeTableView];
+//    self.remindTimeTableView = [[UITableView alloc]initWithFrame:CGRectMake(0 ,DLMultipleHeight(50.0), DLScreenWidth, 0) style:UITableViewStylePlain];
+//    self.remindTimeTableView.delegate = self;
+//    self.remindTimeTableView.dataSource = self;
+//    
+//    [self.remindTimeTableView registerClass:[EventRemindCell class] forCellReuseIdentifier:@"eventCoverCell"];
+//    [self.remindView addSubview:self.remindTimeTableView];
     self.state = RemindTableStateNo;
+    
+    self.tableView = [[UIView alloc]initWithFrame:CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, 0)];
+    NSInteger i = 1;
+    /*
+   for (NSString *str in self.remindTitleArray) {
+        UIView *smailview = [UIView new];
+        smailview.frame = CGRectMake(0, i * DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(50.0));
+        UIButton *selectButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [selectButton setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
+        [selectButton addTarget:self action:@selector(selectButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [smailview addSubview: selectButton];
+        
+        
+        UILabel * remindTimeLabel = [UILabel new];
+        remindTimeLabel.text = str;
+        remindTimeLabel.font = [UIFont systemFontOfSize:15];
+       
+        [smailview addSubview:remindTimeLabel];
+        
+        i++;
+       
+       [self.tableView addSubview:smailview];
+       [selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.centerY.mas_equalTo(self.tableView.mas_centerY);
+           make.left.mas_equalTo(smailview.mas_left).offset(DLMultipleWidth(11));
+           make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(24.0), DLMultipleWidth(24.0)));
+       }];
+       [remindTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.top.mas_equalTo(selectButton.mas_top);
+           make.left.mas_equalTo(selectButton.mas_right).offset(12);
+           make.width.mas_equalTo(100);
+           make.bottom.mas_equalTo(selectButton.mas_bottom);
+       }];
+
+    }
+    */
 }
 
 - (void)foldButtonAction:(UIButton *)sender
@@ -303,7 +341,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         [UIView animateWithDuration:.4 animations:^{
             self.remindView.height = DLMultipleHeight(400.0);
             
-            self.remindTimeTableView.frame = CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(350.0));
+            self.tableView.frame = CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(350.0));
             self.eventScroll.contentSize = CGSizeMake(0, DLMultipleHeight(730.0));
             
         }];
@@ -314,7 +352,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
             
         
         self.remindView.height = DLMultipleHeight(50.0);
-        self.remindTimeTableView.frame = CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, 0);
+        self.tableView.frame = CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, 0);
         self.eventScroll.contentSize = CGSizeMake(0, DLMultipleHeight(667));
         
         }];
@@ -371,10 +409,30 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 {
     EventRemindCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCoverCell" forIndexPath:indexPath];
     [cell builtInterfaceWithArray:self.remindTitleArray andIndexpath:indexPath];
+//    [cell.selectButton addTarget:self action:@selector(selectButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
-
+- (void)selectButtonAction:(IndexpathButton *)sender
+{
+    
+//    if (self.indexPathController == sender.indexpath) {
+//        [sender ]
+//    } else {
+//        [sender setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
+//    }
+    
+    self.indexPathController = sender.buttonindexPath;
+    NSLog(@"%@", sender.buttonindexPath);
+    if (sender.buttonindexPath == self.indexPathController) {
+        [sender setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
+    } else {
+        [sender setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
+    }
+    
+//    [sender setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
+    
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

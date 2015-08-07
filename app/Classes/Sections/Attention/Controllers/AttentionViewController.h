@@ -10,4 +10,8 @@
 
 @interface AttentionViewController : UIViewController
 
+@property (nonatomic, strong)UITableView *attentionTableView;
+
+@property (nonatomic, strong)NSMutableArray *modelArray;
+
 @end

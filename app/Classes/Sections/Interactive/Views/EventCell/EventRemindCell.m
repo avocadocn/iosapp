@@ -8,7 +8,7 @@
 
 #import "EventRemindCell.h"
 #import <Masonry.h>
-
+#import "IndexpathButton.h"
 
 @implementation EventRemindCell
 
@@ -28,7 +28,7 @@
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    self.selectButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.selectButton = [IndexpathButton buttonWithType:UIButtonTypeSystem];
     [self.selectButton setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
     [self.selectButton addTarget:self action:@selector(selectButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.selectButton];
@@ -51,17 +51,41 @@
         make.bottom.mas_equalTo(self.selectButton.mas_bottom);
     }];
 }
-- (void)selectButtonAction:(UIButton *)sender
+
+
+- (void)selectButtonAction:(IndexpathButton *)sender
 {
-    [sender setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
+    
+    //    if (self.indexPathController == sender.indexpath) {
+    //        [sender ]
+    //    } else {
+    //        [sender setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
+    //    }
+    
+    NSLog(@"%@", sender.buttonindexPath);
+    if (sender.buttonindexPath == self.indexpath) {
+        [sender setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
+    } else {
+        [sender setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
+    }
+    
+//        [sender setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
+    
 }
+
+
+
 - (void)builtInterfaceWithArray:(NSMutableArray *)array andIndexpath:(NSIndexPath *)indexpath
 {
+    self.indexpath = indexpath;
+    self.selectButton.buttonindexPath = indexpath;
     self.remindTimeLabel.text = [array objectAtIndex:indexpath.row];
 }
 
-
-
+//- (BOOL)judgeStateOfButtonStateWithIndexPath:(NSIndexPath *)indexpath
+//{
+//    
+//}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
