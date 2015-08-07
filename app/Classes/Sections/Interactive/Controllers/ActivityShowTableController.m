@@ -21,6 +21,7 @@
 
 static NSString * const ID = @"OtherActivityShowCell";
 
+
 - (instancetype)init
 {
     self = [super init];
@@ -30,6 +31,10 @@ static NSString * const ID = @"OtherActivityShowCell";
         [self.view setBackgroundColor:RGB(230, 230, 230)];
     }
     return self;
+}
+
+-(void)viewDidLoad{
+    self.title = @"活动";
 }
 
 /**

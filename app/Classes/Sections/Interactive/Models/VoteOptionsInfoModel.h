@@ -21,4 +21,9 @@
  */
 @property (nonatomic, assign) NSInteger optionCount;
 
+/**
+ *  是否投过票
+ */
+@property (nonatomic, assign,getter=hasVoted) BOOL voted;
+
 @end

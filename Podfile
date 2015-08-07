@@ -20,3 +20,7 @@ pod 'iCarousel', '~> 1.8.1'
 pod 'SOCKit', '~> 1.1'
 
 pod 'pop', '~> 1.0.7'
+
+pod 'LGPlusButtonsView', '~> 1.0.0'
+pod 'LGDrawer', '~> 1.0.0'
+
