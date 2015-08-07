@@ -10,6 +10,7 @@
 #import "HelpTableViewCell.h"
 #import "HelpCellFrame.h"
 #import "HelpInfoModel.h"
+#import "CommentsViewController.h"
 
 @interface HelpTableViewController ()
 
@@ -82,13 +83,20 @@ static NSString * const ID = @"HelpTableViewCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HelpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     cell.helpCellFrame = self.helpFrames[indexPath.row];
-    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return ((HelpCellFrame *)self.helpFrames[indexPath.row]).cellHeight;
 }
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CommentsViewController *commentsController = [[CommentsViewController alloc]init];
+    [self.navigationController pushViewController:commentsController animated:YES];
+}
+
 
 
 

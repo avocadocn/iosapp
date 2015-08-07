@@ -11,6 +11,7 @@
 #import "VoteCellFrame.h"
 #import "VoteInfoModel.h"
 #import "VoteOptionsInfoModel.h"
+#import "CommentsViewController.h"
 
 @interface VoteTableController ()
 /**
@@ -26,6 +27,8 @@
 static NSString * const ID = @"VoteTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"投票";
     
     [self.tableView setBackgroundColor:RGB(235, 235, 235)];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -51,7 +54,7 @@ static NSString * const ID = @"VoteTableViewCell";
             VoteInfoModel *voteInfoModel = [[VoteInfoModel alloc]init];
         voteInfoModel.name = [NSString stringWithFormat:@"杨同%zd",i];
         voteInfoModel.time = @"7分钟前 来自 动梨基地";
-        voteInfoModel.voteImageURL = @"callBg";
+        voteInfoModel.voteImageURL = @"DaiMeng.jpg";
         voteInfoModel.voteText = @"杨彤美么";
         voteInfoModel.avatarURL = @"1";
         voteInfoModel.voteCount = 100;
@@ -104,5 +107,10 @@ static NSString * const ID = @"VoteTableViewCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return ((VoteCellFrame *)self.voteFrames[indexPath.row]).cellHeight;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CommentsViewController *commentsController = [[CommentsViewController alloc]init];
+    [self.navigationController pushViewController:commentsController animated:YES];
 }
 @end

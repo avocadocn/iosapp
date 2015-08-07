@@ -100,7 +100,7 @@
     voteContentLabel.font = VoteCellContentFont;
     [voteContentLabel setNumberOfLines:0];
     [voteContentLabel setLineBreakMode:NSLineBreakByCharWrapping];
-    [voteContentLabel setBackgroundColor:[UIColor yellowColor]];
+    [voteContentLabel setBackgroundColor:[UIColor whiteColor]];
     [voteContainer addSubview:voteContentLabel];
     self.voteContentLabel = voteContentLabel;
     

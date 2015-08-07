@@ -85,7 +85,7 @@
     helpContentLabel.font = HelpCellContentFont;
     [helpContentLabel setNumberOfLines:0];
     [helpContentLabel setLineBreakMode:NSLineBreakByCharWrapping];
-    [helpContentLabel setBackgroundColor:[UIColor yellowColor]];
+    [helpContentLabel setBackgroundColor:[UIColor whiteColor]];
     [helpContainer addSubview:helpContentLabel];
     self.helpContentLabel = helpContentLabel;
     

@@ -10,6 +10,7 @@
 #import "ActivitysShowView.h"
 #import "ActivityShowTableController.h"
 #import "CurrentActivitysShowCell.h"
+#import "ActivityShowTableController.h"
 
 #import "OtherController.h"
 #import "RankListController.h"
@@ -107,7 +108,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
                                        plusButtonActionHandler:nil];
     
     [_plusButtonsView setButtonsTitles:@[@"+", @"1", @"2", @"3"] forState:UIControlStateNormal];
-    [_plusButtonsView setDescriptionsTexts:@[@"", @"Button One description", @"Button Two description", @"Button Three description"]];
+    
+    [_plusButtonsView setDescriptionsTexts:@[@"", @"求助", @"投票", @"活动"]];
     _plusButtonsView.position = LGPlusButtonsViewPositionBottomRight;
     _plusButtonsView.showWhenScrolling = YES;
     _plusButtonsView.appearingAnimationType = LGPlusButtonsAppearingAnimationTypeCrossDissolveAndSlideVertical;
@@ -345,6 +347,9 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     }else if (indexPath.row == 2){
         HelpTableViewController *helpController = [[HelpTableViewController alloc]init];
         [self.navigationController pushViewController:helpController animated:YES];
+    }else if (indexPath.row == 0){
+        ActivityShowTableController *activityController = [[ActivityShowTableController alloc]init];
+        [self.navigationController pushViewController:activityController animated:YES];
     }
     
 }

@@ -21,6 +21,12 @@
 		961053641B5C9C51002D62A3 /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053631B5C9C51002D62A3 /* LineLayout.m */; };
 		961053671B5CDA89002D62A3 /* DetailActivityShowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053661B5CDA89002D62A3 /* DetailActivityShowController.m */; };
 		9610536A1B5CDB0B002D62A3 /* DetailActivityShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053691B5CDB0B002D62A3 /* DetailActivityShowView.m */; };
+		9635AF511B748AE400BE92B5 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635AF501B748AE400BE92B5 /* CommentsViewController.m */; };
+		9635AF551B748B0800BE92B5 /* CommentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635AF531B748B0800BE92B5 /* CommentViewCell.m */; };
+		9635AF561B748B0800BE92B5 /* CommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9635AF541B748B0800BE92B5 /* CommentViewCell.xib */; };
+		9635AF591B748D5C00BE92B5 /* CommentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635AF581B748D5C00BE92B5 /* CommentsModel.m */; };
+		9635AF5C1B74A11F00BE92B5 /* CustomKeyBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635AF5B1B74A11F00BE92B5 /* CustomKeyBoard.m */; };
+		9635AF5E1B74A13500BE92B5 /* CustomKeyBoard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9635AF5D1B74A13500BE92B5 /* CustomKeyBoard.xib */; };
 		9649B4E11B5649AC00A7F355 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9649B4E01B5649AC00A7F355 /* Images.xcassets */; };
 		9649B4F01B5649AC00A7F355 /* appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B4EF1B5649AC00A7F355 /* appTests.m */; };
 		9649B5371B564DE000A7F355 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B4FC1B564DE000A7F355 /* AppDelegate.m */; };
@@ -541,6 +547,16 @@
 		9612CFCE1B5F5E7900F7DE60 /* RankItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankItemCell.h; sourceTree = "<group>"; };
 		9612CFCF1B5F5E7900F7DE60 /* RankItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankItemCell.m; sourceTree = "<group>"; };
 		9612CFD01B5F5E7900F7DE60 /* RankItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemCell.xib; sourceTree = "<group>"; };
+		9635AF4F1B748AE400BE92B5 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		9635AF501B748AE400BE92B5 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
+		9635AF521B748B0800BE92B5 /* CommentViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewCell.h; sourceTree = "<group>"; };
+		9635AF531B748B0800BE92B5 /* CommentViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewCell.m; sourceTree = "<group>"; };
+		9635AF541B748B0800BE92B5 /* CommentViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentViewCell.xib; sourceTree = "<group>"; };
+		9635AF571B748D5C00BE92B5 /* CommentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsModel.h; sourceTree = "<group>"; };
+		9635AF581B748D5C00BE92B5 /* CommentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsModel.m; sourceTree = "<group>"; };
+		9635AF5A1B74A11F00BE92B5 /* CustomKeyBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomKeyBoard.h; sourceTree = "<group>"; };
+		9635AF5B1B74A11F00BE92B5 /* CustomKeyBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomKeyBoard.m; sourceTree = "<group>"; };
+		9635AF5D1B74A13500BE92B5 /* CustomKeyBoard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomKeyBoard.xib; sourceTree = "<group>"; };
 		9649B4D01B5649AC00A7F355 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9649B4D41B5649AC00A7F355 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9649B4E01B5649AC00A7F355 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -1441,6 +1457,12 @@
 				960DCFB01B732E59009F5D75 /* VoteAnimatedOptionView.m */,
 				96C9FFB21B737539008B71CE /* HelpTableViewCell.h */,
 				96C9FFB31B737539008B71CE /* HelpTableViewCell.m */,
+				9635AF521B748B0800BE92B5 /* CommentViewCell.h */,
+				9635AF531B748B0800BE92B5 /* CommentViewCell.m */,
+				9635AF541B748B0800BE92B5 /* CommentViewCell.xib */,
+				9635AF5A1B74A11F00BE92B5 /* CustomKeyBoard.h */,
+				9635AF5B1B74A11F00BE92B5 /* CustomKeyBoard.m */,
+				9635AF5D1B74A13500BE92B5 /* CustomKeyBoard.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1468,6 +1490,8 @@
 				96C9FFB01B737508008B71CE /* HelpTableViewController.m */,
 				A44D40061B7300C200B10DFB /* LaunchEventController.h */,
 				A44D40071B7300C200B10DFB /* LaunchEventController.m */,
+				9635AF4F1B748AE400BE92B5 /* CommentsViewController.h */,
+				9635AF501B748AE400BE92B5 /* CommentsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1916,6 +1940,8 @@
 				96C9FFB81B73760B008B71CE /* HelpCellFrame.m */,
 				96C9FFBA1B737622008B71CE /* HelpInfoModel.h */,
 				96C9FFBB1B737622008B71CE /* HelpInfoModel.m */,
+				9635AF571B748D5C00BE92B5 /* CommentsModel.h */,
+				9635AF581B748D5C00BE92B5 /* CommentsModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3510,6 +3536,7 @@
 				96CF94321B674B54001759E2 /* chatBar_more_cameraSelected@2x.png in Resources */,
 				96CF94721B674B54001759E2 /* tabbar_settingHL.png in Resources */,
 				96CF93F41B674B54001759E2 /* call_silence@2x.png in Resources */,
+				9635AF5E1B74A13500BE92B5 /* CustomKeyBoard.xib in Resources */,
 				96CF93C41B674B54001759E2 /* chatFire_audioPlaying2@2x.png in Resources */,
 				A4651D3E1B58DFAE008BAEE8 /* OK.png in Resources */,
 				96CF93DC1B674B54001759E2 /* VoiceSearchFeedback011@2x.png in Resources */,
@@ -3589,6 +3616,7 @@
 				96CF94271B674B54001759E2 /* chatBar_colorMore_location@2x.png in Resources */,
 				96CF93CA1B674B54001759E2 /* VoiceSearchFeedback002@2x.png in Resources */,
 				96CF940E1B674B54001759E2 /* messageSendFail@2x.png in Resources */,
+				9635AF561B748B0800BE92B5 /* CommentViewCell.xib in Resources */,
 				A41993311B5F99910086EAAE /* gray-man.png in Resources */,
 				967A062E1B71E2C9007BA757 /* Interactive_activity_icon.png in Resources */,
 				9649B4E11B5649AC00A7F355 /* Images.xcassets in Resources */,
@@ -3831,6 +3859,7 @@
 				960DCFB11B732E59009F5D75 /* VoteAnimatedOptionView.m in Sources */,
 				96CF90D01B673422001759E2 /* MKAnnotationView+EMWebCache.m in Sources */,
 				96CF937C1B674B54001759E2 /* NSString+Valid.m in Sources */,
+				9635AF551B748B0800BE92B5 /* CommentViewCell.m in Sources */,
 				A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */,
 				9649B5401B564DE000A7F355 /* MainController.m in Sources */,
 				9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */,
@@ -3839,6 +3868,7 @@
 				A459C4CB1B6242A2003D32C8 /* LoginViewController.m in Sources */,
 				A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */,
 				96CF94891B67501B001759E2 /* SRRefreshView.m in Sources */,
+				9635AF591B748D5C00BE92B5 /* CommentsModel.m in Sources */,
 				A44D404D1B7368EA00B10DFB /* EventRemindCell.m in Sources */,
 				A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */,
 				9649B53E1B564DE000A7F355 /* CompanyViewController.m in Sources */,
@@ -3875,6 +3905,7 @@
 				96CF90D51B673422001759E2 /* UIImage+EMWebP.m in Sources */,
 				A4F3156A1B5E4BFB00126C8A /* PhotoShouCell.m in Sources */,
 				96CF939D1B674B54001759E2 /* GroupListViewController.m in Sources */,
+				9635AF511B748AE400BE92B5 /* CommentsViewController.m in Sources */,
 				96CF93981B674B54001759E2 /* ChatGroupDetailViewController.m in Sources */,
 				A434C6091B71DB22009643CD /* ColleaguesInformationController.m in Sources */,
 				96CF90DD1B673422001759E2 /* PSTCollectionViewData.m in Sources */,
@@ -3921,6 +3952,7 @@
 				A4311F551B577BE1004401B4 /* ColleagueViewController.m in Sources */,
 				96D23E301B57A5870079193C /* DLNavigationController.m in Sources */,
 				96CF93A31B674B54001759E2 /* ChatroomListViewController.m in Sources */,
+				9635AF5C1B74A11F00BE92B5 /* CustomKeyBoard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

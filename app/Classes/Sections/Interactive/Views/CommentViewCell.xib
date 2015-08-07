@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="81" id="KGk-i7-Jjw" customClass="CommentViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="81"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rpo-8g-Xn0" userLabel="avatar">
+                        <rect key="frame" x="8" y="8" width="36" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="36" id="Njf-IP-156"/>
+                            <constraint firstAttribute="height" constant="36" id="bxG-Kr-iha"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="肥猫猫" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wde-5b-PM4" userLabel="name">
+                        <rect key="frame" x="57" y="8" width="310" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="pFn-ng-TST"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.2666666667" green="0.16862745100000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="adsfasdfasdfasdfadsfasdfasdfasdfadsfasdfasdfasdfadsfasdfasdfasdfadsfasdfasdfasdf" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzE-KP-wyy" userLabel="comment">
+                        <rect key="frame" x="57" y="25" width="310" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="43" id="UcH-7R-BqB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OzE-KP-wyy" firstAttribute="leading" secondItem="Rpo-8g-Xn0" secondAttribute="trailing" constant="13" id="0Is-2i-Gvn"/>
+                    <constraint firstItem="Rpo-8g-Xn0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="MDS-b2-3Ik"/>
+                    <constraint firstItem="Rpo-8g-Xn0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Ref-B5-Xgp"/>
+                    <constraint firstAttribute="trailing" secondItem="OzE-KP-wyy" secondAttribute="trailing" constant="8" id="Rsw-D7-KNK"/>
+                    <constraint firstAttribute="trailing" secondItem="Wde-5b-PM4" secondAttribute="trailing" constant="8" id="Wj1-aA-Y8m"/>
+                    <constraint firstItem="Wde-5b-PM4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="bRd-nf-sJL"/>
+                    <constraint firstItem="Wde-5b-PM4" firstAttribute="leading" secondItem="Rpo-8g-Xn0" secondAttribute="trailing" constant="13" id="bVM-Ab-c4L"/>
+                    <constraint firstItem="OzE-KP-wyy" firstAttribute="top" secondItem="Wde-5b-PM4" secondAttribute="bottom" constant="3" id="zLV-fu-FFO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatar" destination="Rpo-8g-Xn0" id="EAs-sV-wVY"/>
+                <outlet property="comment" destination="OzE-KP-wyy" id="NlP-nZ-MEo"/>
+                <outlet property="commentLabelHeight" destination="UcH-7R-BqB" id="BLg-ch-vYr"/>
+                <outlet property="name" destination="Wde-5b-PM4" id="ZCD-tm-gj4"/>
+            </connections>
+            <point key="canvasLocation" x="324.5" y="528.5"/>
+        </tableViewCell>
+    </objects>
+</document>
