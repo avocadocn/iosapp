@@ -51,14 +51,24 @@
     [off setMonth:12];
     [off setDay:0];
     [off setHour:0];
-    [off setHour:0];
+//    [off setHour:0];
     
     NSDate *maxDate = [gregorian dateByAddingComponents:off toDate:localDate options:0];
-    NSDate *adate = [NSDate date];
+    NSDate *date = [NSDate date];
     
-    self.picker.minimumDate = adate;
-    self.picker.maximumDate = maxDate;
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
     
+    NSInteger interval = [zone secondsFromGMTForDate:date];
+    
+    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
+    
+    if (!self.minDate){
+    
+        self.picker.minimumDate = localeDate;}
+    if (!self.maxDate) {
+        
+        self.picker.maximumDate = maxDate;
+    }
     
     [self.picker setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:self.picker];
@@ -69,6 +79,14 @@
     }];
     
 }
+
+- (void)reloadWithMaxDate:(NSDate *)maxDate minDate:(NSDate *)minDate dateMode:(UIDatePickerMode)mode
+{
+    self.picker.datePickerMode = mode;
+    self.picker.maximumDate = maxDate;
+    self.picker.minimumDate = minDate;
+}
+
 
 - (void)show  //出现
 {

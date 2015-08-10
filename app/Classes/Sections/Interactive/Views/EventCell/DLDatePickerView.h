@@ -24,7 +24,14 @@
 
 @property (nonatomic, assign)NSInteger tempTag;
 
+@property (nonatomic, copy)NSDate *maxDate;
+
+@property (nonatomic, copy)NSDate *minDate;
+
 - (void)show;
-
-
+/**
+ *
+ * 自定义 datepickerview, 写在 show 前面
+ */
+- (void)reloadWithMaxDate:(NSDate *)maxDate minDate:(NSDate *)minDate dateMode:(UIDatePickerMode)mode;
 @end

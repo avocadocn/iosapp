@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface TableHeaderView : UIView
+
+@property (nonatomic, strong)CIFilter *filter;
+
+@property (nonatomic, strong)CIContext *context;
+
+@property (nonatomic, strong)UILabel *headerTitleLabel;
+
+@property (nonatomic, strong)UILabel *headerSingLabel;
+
 - (instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image;
 
 - (void)tableViewHeaderViewWithImage:(UIImage *)image;

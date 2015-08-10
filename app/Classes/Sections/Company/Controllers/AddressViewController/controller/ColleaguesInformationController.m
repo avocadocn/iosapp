@@ -23,6 +23,7 @@ static NSInteger tagNum = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     tagNum = 1;
     CGFloat num = DLScreenWidth / (320 / 55.0);
     
