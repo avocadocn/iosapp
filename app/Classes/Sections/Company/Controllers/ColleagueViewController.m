@@ -29,15 +29,15 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(stateAction)];
     
-    self.ColleagueCollection = [[UITableView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    self.ColleagueCollection.delegate = self;
-    self.ColleagueCollection.dataSource = self;
-    [self.ColleagueCollection setBackgroundColor:[UIColor colorWithWhite:.93 alpha:1]];
+    self.colleagueTable = [[UITableView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.colleagueTable.delegate = self;
+    self.colleagueTable.dataSource = self;
+    [self.colleagueTable setBackgroundColor:[UIColor colorWithWhite:.93 alpha:1]];
     self.title = @"同事圈";
-    [self.ColleagueCollection registerClass:[ColleagueViewCell class] forCellReuseIdentifier:@"tableCell"];
-    self.ColleagueCollection.separatorColor = [UIColor clearColor];
+    [self.colleagueTable registerClass:[ColleagueViewCell class] forCellReuseIdentifier:@"tableCell"];
+    self.colleagueTable.separatorColor = [UIColor clearColor];
     
-    [self.view addSubview:self.ColleagueCollection];
+    [self.view addSubview:self.colleagueTable];
     
 }
 - (void)stateAction

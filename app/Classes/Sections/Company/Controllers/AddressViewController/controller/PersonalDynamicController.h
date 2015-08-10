@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TableHeaderView;
+
 
 @interface PersonalDynamicController : UIViewController
 
 @property (nonatomic, strong)UITableView *dynamicTableView;
 
+@property (nonatomic, strong)TableHeaderView *header;
+
+@property (nonatomic, strong)NSMutableArray *modelArray;
 
 @end

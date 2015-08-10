@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ColleagueViewController : UIViewController
-@property (nonatomic, strong)UITableView *ColleagueCollection; //同事大collectionView
+@property (nonatomic, strong)UITableView *colleagueTable; //同事大collectionView
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
 

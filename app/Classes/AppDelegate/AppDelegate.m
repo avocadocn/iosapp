@@ -41,6 +41,12 @@
 //    GuidePageViewController *gu = [[GuidePageViewController alloc]init];
     // 动态界面  测试
 //    PersonalDynamicController *gu = [[PersonalDynamicController alloc]init];
+//    
+//    LaunchEventController *gu = [[LaunchEventController alloc]init];
+//    
+//    
+//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
+//    [self.window setRootViewController:nav];
     
 //    LaunchEventController *gu = [[LaunchEventController alloc]init];
     
@@ -53,6 +59,7 @@
     
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
+       self.mainController = main;
 //       self.mainController = main;
     
     

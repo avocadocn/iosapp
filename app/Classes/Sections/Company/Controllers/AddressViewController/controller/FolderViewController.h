@@ -16,6 +16,8 @@ typedef NS_ENUM(NSInteger, EnumOfEditButton) {
 
 @interface FolderViewController : UIViewController
 
+@property (nonatomic, strong)UILabel *editLabel;
+
 @property (nonatomic, assign)EnumOfEditButton buttonState;
 
 @property (nonatomic, strong)UIImageView *folderPhotoImage;  //照片
@@ -40,6 +42,6 @@ typedef NS_ENUM(NSInteger, EnumOfEditButton) {
 
 @property (nonatomic, strong)UITableView *informationTableView;
 
-@property (nonatomic, strong)NSMutableArray *componentArray;
+@property (nonatomic, strong)NSArray *companyArray;
 
 @end

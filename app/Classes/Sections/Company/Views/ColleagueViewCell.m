@@ -127,4 +127,9 @@
     }];
 }
 
+- (void)reloadCellWithModel:(id)model
+{
+    
+}
+
 @end
