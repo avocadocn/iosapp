@@ -65,8 +65,6 @@
     self.headerTitleLabel.textColor = [UIColor whiteColor];
     self.headerTitleLabel.attributedText = [self attributeString:@"刚锅锅的小彤彤"];
     
-    
-    
     UIView *lineView = [UIView new];
     [lineView setBackgroundColor:[UIColor colorWithWhite:.5 alpha:.5]];
     

@@ -19,7 +19,9 @@
 @property (nonatomic, strong)ALAssetsLibrary *library;
 
 @end
+
 static ChoosePhotoController *choose = nil;
+
 @implementation ChoosePhotoController
 
 - (void)viewDidLoad
