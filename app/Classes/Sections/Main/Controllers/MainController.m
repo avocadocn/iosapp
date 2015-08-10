@@ -24,6 +24,7 @@
 #import "RobotManager.h"
 #import "PublishSeekHelp.h"
 #import "RepeaterGroupController.h"
+#import "Test1ViewController.h"
 
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
@@ -136,8 +137,11 @@ static NSString *kGroupName = @"GroupName";
 //    [self addOneTabWithVC:contactsVC title:@"通讯录"];
 //    _contactsVC = contactsVC;
     
-    ProfileViewController *profileVC = [[ProfileViewController alloc]init];
-    [self addOneTabWithVC:profileVC title:@"我"];
+//    ProfileViewController *profileVC = [[ProfileViewController alloc]init];
+//    [self addOneTabWithVC:profileVC title:@"我"];
+    
+    Test1ViewController *testVC = [[Test1ViewController alloc]init];
+    [self addOneTabWithVC:testVC title:@"测试"];
     
 //    SettingsViewController *settingsVC = [[SettingsViewController alloc]init];
 //    [self addOneTabWithVC:settingsVC title:@"设置"];

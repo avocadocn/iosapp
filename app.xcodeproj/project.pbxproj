@@ -21,7 +21,6 @@
 		961053641B5C9C51002D62A3 /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053631B5C9C51002D62A3 /* LineLayout.m */; };
 		961053671B5CDA89002D62A3 /* DetailActivityShowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053661B5CDA89002D62A3 /* DetailActivityShowController.m */; };
 		9610536A1B5CDB0B002D62A3 /* DetailActivityShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053691B5CDB0B002D62A3 /* DetailActivityShowView.m */; };
-		9635AF511B748AE400BE92B5 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635AF501B748AE400BE92B5 /* CommentsViewController.m */; };
 		9635AF551B748B0800BE92B5 /* CommentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635AF531B748B0800BE92B5 /* CommentViewCell.m */; };
 		9635AF561B748B0800BE92B5 /* CommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9635AF541B748B0800BE92B5 /* CommentViewCell.xib */; };
 		9635AF591B748D5C00BE92B5 /* CommentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635AF581B748D5C00BE92B5 /* CommentsModel.m */; };
@@ -83,6 +82,10 @@
 		969616D31B6B5F0C002FC24C /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9649B5351B564DE000A7F355 /* UIView+Extension.m */; };
 		969616D41B6B5FBD002FC24C /* UserDataTon.m in Sources */ = {isa = PBXBuildFile; fileRef = A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */; };
 		969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */; };
+		96AA191B1B787061008E4CA3 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA191A1B787061008E4CA3 /* CommentsViewController.m */; };
+		96AA191E1B787105008E4CA3 /* ProfileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA191D1B787105008E4CA3 /* ProfileButton.m */; };
+		96AA19201B78711E008E4CA3 /* ProfileButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AA191F1B78711E008E4CA3 /* ProfileButton.xib */; };
+		96AA19231B787F7F008E4CA3 /* TeamHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA19221B787F7F008E4CA3 /* TeamHomePageController.m */; };
 		96C9FFB11B737508008B71CE /* HelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFB01B737508008B71CE /* HelpTableViewController.m */; };
 		96C9FFB51B737539008B71CE /* HelpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFB31B737539008B71CE /* HelpTableViewCell.m */; };
 		96C9FFB91B73760B008B71CE /* HelpCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFB81B73760B008B71CE /* HelpCellFrame.m */; };
@@ -558,8 +561,6 @@
 		9612CFCE1B5F5E7900F7DE60 /* RankItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankItemCell.h; sourceTree = "<group>"; };
 		9612CFCF1B5F5E7900F7DE60 /* RankItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankItemCell.m; sourceTree = "<group>"; };
 		9612CFD01B5F5E7900F7DE60 /* RankItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemCell.xib; sourceTree = "<group>"; };
-		9635AF4F1B748AE400BE92B5 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
-		9635AF501B748AE400BE92B5 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		9635AF521B748B0800BE92B5 /* CommentViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewCell.h; sourceTree = "<group>"; };
 		9635AF531B748B0800BE92B5 /* CommentViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewCell.m; sourceTree = "<group>"; };
 		9635AF541B748B0800BE92B5 /* CommentViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentViewCell.xib; sourceTree = "<group>"; };
@@ -647,6 +648,13 @@
 		968B15401B6A2ABB004A26C0 /* RankItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankItemView.m; sourceTree = "<group>"; };
 		968B15421B6A2ADC004A26C0 /* RankItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemView.xib; sourceTree = "<group>"; };
 		969616C61B6B58BE002FC24C /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
+		96AA19191B787061008E4CA3 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		96AA191A1B787061008E4CA3 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
+		96AA191C1B787105008E4CA3 /* ProfileButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileButton.h; sourceTree = "<group>"; };
+		96AA191D1B787105008E4CA3 /* ProfileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileButton.m; sourceTree = "<group>"; };
+		96AA191F1B78711E008E4CA3 /* ProfileButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileButton.xib; sourceTree = "<group>"; };
+		96AA19211B787F7F008E4CA3 /* TeamHomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamHomePageController.h; sourceTree = "<group>"; };
+		96AA19221B787F7F008E4CA3 /* TeamHomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHomePageController.m; sourceTree = "<group>"; };
 		96C9FFAF1B737508008B71CE /* HelpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpTableViewController.h; sourceTree = "<group>"; };
 		96C9FFB01B737508008B71CE /* HelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpTableViewController.m; sourceTree = "<group>"; };
 		96C9FFB21B737539008B71CE /* HelpTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpTableViewCell.h; sourceTree = "<group>"; };
@@ -1507,6 +1515,8 @@
 				9610535A1B590C96002D62A3 /* InteractiveViewController.m */,
 				961053561B590C70002D62A3 /* OtherController.h */,
 				961053571B590C70002D62A3 /* OtherController.m */,
+				96AA19191B787061008E4CA3 /* CommentsViewController.h */,
+				96AA191A1B787061008E4CA3 /* CommentsViewController.m */,
 				9610535C1B5C9317002D62A3 /* RankController.h */,
 				9610535D1B5C9317002D62A3 /* RankController.m */,
 				961053651B5CDA89002D62A3 /* DetailActivityShowController.h */,
@@ -1846,6 +1856,8 @@
 				9649B52C1B564DE000A7F355 /* ProfileViewController.m */,
 				9649B54F1B5663CE00A7F355 /* Test1ViewController.h */,
 				9649B5501B5663CE00A7F355 /* Test1ViewController.m */,
+				96AA19211B787F7F008E4CA3 /* TeamHomePageController.h */,
+				96AA19221B787F7F008E4CA3 /* TeamHomePageController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3200,6 +3212,9 @@
 			children = (
 				96D20EBE1B6203A100102D18 /* HitTestView.h */,
 				96D20EBF1B6203A100102D18 /* HitTestView.m */,
+				96AA191C1B787105008E4CA3 /* ProfileButton.h */,
+				96AA191D1B787105008E4CA3 /* ProfileButton.m */,
+				96AA191F1B78711E008E4CA3 /* ProfileButton.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3575,6 +3590,7 @@
 				96CF93D31B674B54001759E2 /* VoiceSearchFeedback007.png in Resources */,
 				96CF940F1B674B54001759E2 /* chatBar_face.png in Resources */,
 				A4651D401B58DFB9008BAEE8 /* 2.png in Resources */,
+				96AA19201B78711E008E4CA3 /* ProfileButton.xib in Resources */,
 				96CF94191B674B54001759E2 /* chatBar_moreSelected.png in Resources */,
 				96CF944A1B674B54001759E2 /* chat_sender_audio_playing_001.png in Resources */,
 				96CF8EFE1B671E93001759E2 /* RouteInfo.plist in Resources */,
@@ -3821,6 +3837,7 @@
 				96CF93901B674B54001759E2 /* EMChatTextBubbleView.m in Sources */,
 				96CF93AD1B674B54001759E2 /* RobotManager.m in Sources */,
 				A43F86301B744AF60086D078 /* PublishVoteController.m in Sources */,
+				96AA191E1B787105008E4CA3 /* ProfileButton.m in Sources */,
 				96CF90CD1B673422001759E2 /* EMSDWebImageDownloaderOperation.m in Sources */,
 				961053641B5C9C51002D62A3 /* LineLayout.m in Sources */,
 				961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */,
@@ -3846,6 +3863,7 @@
 				96CF947B1B674B54001759E2 /* DebugViewController.m in Sources */,
 				A439ED421B68DA9E006B3CAC /* GuidePageViewController.m in Sources */,
 				96CF90BD1B673422001759E2 /* EMAlertView.m in Sources */,
+				96AA191B1B787061008E4CA3 /* CommentsViewController.m in Sources */,
 				968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */,
 				96CF947A1B674B54001759E2 /* BlackListViewController.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
@@ -3881,6 +3899,7 @@
 				967439BA1B705908004334A4 /* DLNetworkRequest.m in Sources */,
 				96CF937A1B674B54001759E2 /* NSDate+Category.m in Sources */,
 				967A06341B71F22D007BA757 /* VoteTableViewCell.m in Sources */,
+				96AA19231B787F7F008E4CA3 /* TeamHomePageController.m in Sources */,
 				96CF93851B674B54001759E2 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				967439C01B705908004334A4 /* User.m in Sources */,
 				A434C6141B71F17E009643CD /* TableHeaderView.m in Sources */,
@@ -3961,7 +3980,6 @@
 				96CF90D51B673422001759E2 /* UIImage+EMWebP.m in Sources */,
 				A4F3156A1B5E4BFB00126C8A /* PhotoShouCell.m in Sources */,
 				96CF939D1B674B54001759E2 /* GroupListViewController.m in Sources */,
-				9635AF511B748AE400BE92B5 /* CommentsViewController.m in Sources */,
 				96CF93981B674B54001759E2 /* ChatGroupDetailViewController.m in Sources */,
 				A434C6091B71DB22009643CD /* ColleaguesInformationController.m in Sources */,
 				A43F86331B7453D30086D078 /* optionsView.m in Sources */,

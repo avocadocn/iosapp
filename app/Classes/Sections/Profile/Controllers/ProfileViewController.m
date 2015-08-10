@@ -8,8 +8,15 @@
 
 #import "ProfileViewController.h"
 #import "Test1ViewController.h"
+#import "ProfileButton.h"
 
-@interface ProfileViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface ProfileViewController ()
+
+
+/**
+ *  顶部按钮容器
+ */
+@property (nonatomic, strong) UIView *container;
 
 @end
 
@@ -18,53 +25,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-#pragma mark - 数据源方法
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    [self setupProfileButton];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(btnClicked:) name:kProfileButtonClicked object:nil];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 20;
+-(void)btnClicked:(NSNotification *)notification{
+    NSLog(@"%@",notification.object);
 }
 
-- (UITableViewCell * )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *ID = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+-(void)setupProfileButton{
+    NSArray *btnsName = @[@"我的信息",@"群组",@"礼物",@"互动",@"投票",@"求助"];
+    
+    UIView *container = [[UIView alloc]init];
+    [container setFrame:CGRectMake(0, 64, DLScreenWidth, 180 / 375 * DLScreenWidth)];
+    
+    for (NSInteger i = 0; i<btnsName.count; i++) {
+        
+        ProfileButton *btn = [[ProfileButton alloc]init];
+        [container addSubview:btn];
+        [btn.descriptionLabel setText:btnsName[i]];
+        
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"test-data-%zd",indexPath.row];
-    return cell;
-}
-
-
-#pragma mark - 代理方法
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Test1ViewController *test1VC = [[Test1ViewController alloc]init];
-   
     
-    [self.navigationController pushViewController:test1VC animated:YES];
+    
+    [self.view addSubview:container];
+    
+    self.container = container;
+
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)viewWillLayoutSubviews{
+    NSArray *subViews = self.container.subviews;
+    NSInteger itemCountPerLine = 3;
+    CGFloat itemWidth = DLScreenWidth / 3;
+    CGFloat itemHeight = 90.0 / 125.0 * itemWidth ;
+    
+    for (NSInteger i = 0; i < subViews.count; i++) {
+        UIButton *btn = subViews[i];
+        btn.x = i % itemCountPerLine * itemWidth;
+        btn.y = i / itemCountPerLine * itemHeight;
+        btn.width = itemWidth;
+        btn.height = itemHeight;
+    }
 }
-*/
+
 
 @end

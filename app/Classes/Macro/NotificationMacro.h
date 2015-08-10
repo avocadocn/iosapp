@@ -12,4 +12,7 @@
 #define kLineLayoutAttrChange @"kLineLayoutAttrChange"
 #define KNOTIFICATION_LOGINCHANGE @"loginStateChange"
 
+// 设置界面中的按钮点击
+#define kProfileButtonClicked @"kProfileButtonClicked"
+
 #endif
