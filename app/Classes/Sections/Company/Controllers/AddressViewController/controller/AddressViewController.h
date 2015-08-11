@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong)UITextField *addressSearch;
 
-
+@property (nonatomic, strong)NSMutableDictionary *wordDic;
 
 
 

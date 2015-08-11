@@ -15,4 +15,8 @@
 @property (nonatomic, strong)UIPageControl *pag;
 
 
+@property (nonatomic, strong)UIButton *attentionButton;
+
+
+
 @end

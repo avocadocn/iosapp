@@ -33,7 +33,6 @@
         [dic setObject:@"专注 滑板鞋" forKey:@"work"];
         [self.modelArray addObject:dic];
     }
-
 }
 
 - (void)builtInterface{
@@ -68,6 +67,7 @@
     
     
     
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -77,12 +77,11 @@
     
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return DLMultipleHeight(67.0);
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*
