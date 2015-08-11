@@ -49,7 +49,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     [tableView setFrame:self.view.frame];
     
-    tableView.height -= 64;
+    //tableView.height -= 64;
     
     [tableView setBackgroundColor:self.view.backgroundColor];
     [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];

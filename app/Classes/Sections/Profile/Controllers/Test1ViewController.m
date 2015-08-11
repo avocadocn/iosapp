@@ -7,7 +7,6 @@
 //
 
 #import "Test1ViewController.h"
-#import "HitTestView.h"
 #import "RestfulAPIRequestTool.h"
 #import "CompanyModel.h"
 #import "TeamHomePageController.h"

@@ -137,11 +137,11 @@ static NSString *kGroupName = @"GroupName";
 //    [self addOneTabWithVC:contactsVC title:@"通讯录"];
 //    _contactsVC = contactsVC;
     
-//    ProfileViewController *profileVC = [[ProfileViewController alloc]init];
-//    [self addOneTabWithVC:profileVC title:@"我"];
+    ProfileViewController *profileVC = [[ProfileViewController alloc]init];
+    [self addOneTabWithVC:profileVC title:@"我的"];
     
-    Test1ViewController *testVC = [[Test1ViewController alloc]init];
-    [self addOneTabWithVC:testVC title:@"测试"];
+//    Test1ViewController *testVC = [[Test1ViewController alloc]init];
+//    [self addOneTabWithVC:testVC title:@"测试"];
     
 //    SettingsViewController *settingsVC = [[SettingsViewController alloc]init];
 //    [self addOneTabWithVC:settingsVC title:@"设置"];
