@@ -451,6 +451,8 @@
 		A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A422697B1B672388001B4DE6 /* SystemConfiguration.framework */; };
 		A42D7EB21B784C6A00F791DA /* white.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A42D7EB11B784C6A00F791DA /* white.jpg */; };
 		A42D7EB41B785AF700F791DA /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = A42D7EB31B785AF700F791DA /* mask.png */; };
+		A42D7EEF1B78B31400F791DA /* CircleContextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A42D7EEE1B78B31400F791DA /* CircleContextModel.m */; };
+		A42D7EF21B78B32900F791DA /* CircleCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A42D7EF11B78B32900F791DA /* CircleCommentModel.m */; };
 		A4311F4B1B574748004401B4 /* CompanySmallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F491B574748004401B4 /* CompanySmallCell.m */; };
 		A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F4E1B57565A004401B4 /* CompanyDetailCell.m */; };
 		A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F511B575F37004401B4 /* CompanyHeader.m */; };
@@ -1275,6 +1277,10 @@
 		A422697B1B672388001B4DE6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A42D7EB11B784C6A00F791DA /* white.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = white.jpg; sourceTree = "<group>"; };
 		A42D7EB31B785AF700F791DA /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask.png; sourceTree = "<group>"; };
+		A42D7EED1B78B31400F791DA /* CircleContextModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleContextModel.h; sourceTree = "<group>"; };
+		A42D7EEE1B78B31400F791DA /* CircleContextModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleContextModel.m; sourceTree = "<group>"; };
+		A42D7EF01B78B32900F791DA /* CircleCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCommentModel.h; sourceTree = "<group>"; };
+		A42D7EF11B78B32900F791DA /* CircleCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCommentModel.m; sourceTree = "<group>"; };
 		A4311F481B574748004401B4 /* CompanySmallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySmallCell.h; sourceTree = "<group>"; };
 		A4311F491B574748004401B4 /* CompanySmallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySmallCell.m; sourceTree = "<group>"; };
 		A4311F4D1B57565A004401B4 /* CompanyDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyDetailCell.h; sourceTree = "<group>"; };
@@ -1807,6 +1813,10 @@
 				A459C4C41B62305D003D32C8 /* GroupCardModel.m */,
 				A45565DD1B6B1B2400DBEC44 /* CompanyModel.h */,
 				A45565DE1B6B1B2400DBEC44 /* CompanyModel.m */,
+				A42D7EED1B78B31400F791DA /* CircleContextModel.h */,
+				A42D7EEE1B78B31400F791DA /* CircleContextModel.m */,
+				A42D7EF01B78B32900F791DA /* CircleCommentModel.h */,
+				A42D7EF11B78B32900F791DA /* CircleCommentModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3961,6 +3971,8 @@
 				9649B53A1B564DE000A7F355 /* CircleImageView.m in Sources */,
 				967439BF1B705908004334A4 /* UIImageView+DLGetWebImage.m in Sources */,
 				A4F315681B5E4BFB00126C8A /* photoHeader.m in Sources */,
+				A42D7EF21B78B32900F791DA /* CircleCommentModel.m in Sources */,
+				A42D7EEF1B78B31400F791DA /* CircleContextModel.m in Sources */,
 				96CF90E31B673422001759E2 /* PSTGridLayoutItem.m in Sources */,
 				96CF90B91B673422001759E2 /* EMCDDeviceManager+Microphone.m in Sources */,
 				961053541B590C31002D62A3 /* OtherSegmentButton.m in Sources */,
@@ -4211,7 +4223,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -4235,7 +4248,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

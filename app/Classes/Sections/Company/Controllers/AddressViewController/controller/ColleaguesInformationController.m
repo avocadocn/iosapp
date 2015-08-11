@@ -61,7 +61,7 @@ static NSInteger tagNum = 1;
     self.pag = [UIPageControl new];
     self.pag.backgroundColor = [UIColor colorWithWhite:.1 alpha:.2];
     self.pag.numberOfPages = [self.photoArray count];
-    
+    self.pag.userInteractionEnabled = NO;
     
     
     [self.view addSubview:self.pag];
@@ -72,19 +72,35 @@ static NSInteger tagNum = 1;
         make.height.mas_equalTo(DLScreenHeight / 15.159);
     }];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    [button setTitle:@"＋关注" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [self.pag addSubview:button];
-    
-    button.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    if (!self.attentionButton) {
+        self.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
         
-        NSLog(@"关注");
+        [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
+    } else
+    {
+        [self.attentionButton setTitle:@"-取消关注" forState:UIControlStateNormal];
+    }
+    
+    [self.attentionButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.view addSubview:self.attentionButton];
+    
+    self.attentionButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        
+        if ([[self.attentionButton currentTitle] isEqualToString:@"+关注"]) {
+            NSLog(@"关注");
+            
+            [self.attentionButton setTitle:@"-取消关注" forState:UIControlStateNormal];
+        } else
+        {
+            
+            NSLog(@"取消关注");
+            [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
+        }
+        
         return [RACSignal empty];
     }];
     
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.attentionButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.pag.mas_right);
         make.top.mas_equalTo(self.pag.mas_top);
         make.bottom.mas_equalTo(self.pag.mas_bottom);

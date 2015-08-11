@@ -41,7 +41,7 @@
     NSInteger interval = 10;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.sectionInset = UIEdgeInsetsMake(interval, interval , interval, interval);
+    layout.sectionInset = UIEdgeInsetsMake(interval, 5.0 , interval, (interval / 2.0));
     
     self.groupListCollection = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
     [self.groupListCollection setBackgroundColor:[UIColor whiteColor]];
