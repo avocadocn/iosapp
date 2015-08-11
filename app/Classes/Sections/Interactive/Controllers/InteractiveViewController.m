@@ -17,11 +17,10 @@
 
 #import "VoteTableController.h"
 #import "HelpTableViewController.h"
+#import <DCPathButton.h>
 
-#import <LGPlusButtonsView.h>
-#import <LGDrawer.h>
 
-@interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate>
 
 @property (nonatomic ,strong) ActivitysShowView *asv;
 @property (atomic,assign)BOOL asvHidden ;
@@ -33,7 +32,7 @@
 /**
  *  path菜单
  */
-@property (strong, nonatomic) LGPlusButtonsView *plusButtonsView;
+@property (strong, nonatomic) DCPathButton *plusButton;
 
 @end
 
@@ -55,7 +54,84 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     // 活动展示table
     [self setupActivityShowTableView];
     
-    [self addLGPlusButtonsView];
+    
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    // 弹出式菜单
+    [self setupPathButton];
+}
+
+
+-(void)setupPathButton{
+    DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"chooser-button-tab"]
+                                                         highlightedImage:[UIImage imageNamed:@"chooser-button-tab-highlighted"]];
+    dcPathButton.delegate = self;
+    
+    // Configure item buttons
+    //
+    DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-music"]
+                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-music-highlighted"]
+                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
+                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
+    
+    DCPathItemButton *itemButton_2 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-place"]
+                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-place-highlighted"]
+                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
+                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
+    
+    DCPathItemButton *itemButton_3 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-camera"]
+                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-camera-highlighted"]
+                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
+                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
+    
+    DCPathItemButton *itemButton_4 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-thought"]
+                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-thought-highlighted"]
+                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
+                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
+    
+    DCPathItemButton *itemButton_5 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-sleep"]
+                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-sleep-highlighted"]
+                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
+                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
+    
+    // Add the item button into the center button
+    //
+    [dcPathButton addPathItems:@[itemButton_1,
+                                 itemButton_2,
+                                 itemButton_3,
+                                 itemButton_4,
+                                 itemButton_5
+                                 ]];
+    
+    // Change the bloom radius, default is 105.0f
+    //
+    dcPathButton.bloomRadius = 100.0f;
+    
+   
+    // Setting the DCButton appearance
+    //
+    dcPathButton.allowSounds = YES;
+    dcPathButton.allowCenterButtonRotation = YES;
+    
+    dcPathButton.bottomViewColor = [UIColor grayColor];
+    
+    dcPathButton.bloomDirection = kDCPathButtonBloomDirectionTopLeft;
+    dcPathButton.dcButtonCenter = CGPointMake(DLScreenWidth - 25,DLScreenHeight - 100);
+    
+    [self.view addSubview:dcPathButton];
+    
+}
+
+
+#pragma mark - pathbutton 的代理方法
+-(void)pathButton:(DCPathButton *)dcPathButton clickItemButtonAtIndex:(NSUInteger)itemButtonIndex{
+    NSLog(@"%zd",itemButtonIndex);
+}
+
+-(void)willPresentDCPathButtonItems:(DCPathButton *)dcPathButton{
+    // self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)setupActivitysShowView{
@@ -94,78 +170,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 }
 
 
-/**
- * 添加plusButtonView
- */
--(void)addLGPlusButtonsView{
-    _plusButtonsView = [[LGPlusButtonsView alloc] initWithView:self.tableView
-                                               numberOfButtons:3
-                                               showsPlusButton:YES
-                                                 actionHandler:^(LGPlusButtonsView *plusButtonView, NSString *title, NSString *description, NSUInteger index)
-                        {
-                            NSLog(@"%@, %@, %i", title, description, (int)index);
-                        }
-                                       plusButtonActionHandler:nil];
-    
-    [_plusButtonsView setButtonsTitles:@[@"+", @"1", @"2", @"3"] forState:UIControlStateNormal];
-    
-    [_plusButtonsView setDescriptionsTexts:@[@"", @"求助", @"投票", @"活动"]];
-    _plusButtonsView.position = LGPlusButtonsViewPositionBottomRight;
-    _plusButtonsView.showWhenScrolling = YES;
-    _plusButtonsView.appearingAnimationType = LGPlusButtonsAppearingAnimationTypeCrossDissolveAndSlideVertical;
-    _plusButtonsView.buttonsAppearingAnimationType = LGPlusButtonsAppearingAnimationTypeCrossDissolveAndSlideHorizontal;
-    _plusButtonsView.plusButtonAnimationType = LGPlusButtonAnimationTypeRotate;
-    [_plusButtonsView setButtonsTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_plusButtonsView setButtonsAdjustsImageWhenHighlighted:NO];
-    
-    [_plusButtonsView showAnimated:NO completionHandler:nil];
-}
 
 
--(void)viewWillAppear:(BOOL)animated{
-    CGFloat shadowBlur = 3.f;
-    CGFloat buttonSide = 48.f;
-    CGFloat buttonsFontSize =  30.f ;
-    CGFloat plusButtonFontSize = buttonsFontSize*1.5;
-    
-    _plusButtonsView.contentInset = UIEdgeInsetsMake(shadowBlur, shadowBlur, shadowBlur, shadowBlur);
-    [_plusButtonsView setButtonsTitleFont:[UIFont boldSystemFontOfSize:buttonsFontSize]];
-    
-    _plusButtonsView.plusButton.titleLabel.font = [UIFont systemFontOfSize:plusButtonFontSize];
-    _plusButtonsView.plusButton.titleOffset = CGPointMake(0.f, -plusButtonFontSize*0.1);
-    
-    UIImage *circleImageNormal = [LGDrawer drawEllipseWithImageSize:CGSizeMake(buttonSide, buttonSide)
-                                                               size:CGSizeMake(buttonSide-shadowBlur*2, buttonSide-shadowBlur*2)
-                                                             offset:CGPointZero
-                                                             rotate:0.f
-                                                    backgroundColor:nil
-                                                          fillColor:[UIColor colorWithRed:0.f green:0.5 blue:1.f alpha:1.f]
-                                                        strokeColor:nil
-                                                    strokeThickness:0.f
-                                                         strokeDash:nil
-                                                         strokeType:LGDrawerStrokeTypeInside
-                                                        shadowColor:[UIColor colorWithWhite:0.f alpha:0.5]
-                                                       shadowOffset:CGPointZero
-                                                         shadowBlur:shadowBlur];
-    
-    UIImage *circleImageHighlighted = [LGDrawer drawEllipseWithImageSize:CGSizeMake(buttonSide, buttonSide)
-                                                                    size:CGSizeMake(buttonSide-shadowBlur*2, buttonSide-shadowBlur*2)
-                                                                  offset:CGPointZero
-                                                                  rotate:0.f
-                                                         backgroundColor:nil
-                                                               fillColor:[UIColor colorWithRed:0.2 green:0.7 blue:1.f alpha:1.f]
-                                                             strokeColor:nil
-                                                         strokeThickness:0.f
-                                                              strokeDash:nil
-                                                              strokeType:LGDrawerStrokeTypeInside
-                                                             shadowColor:[UIColor colorWithWhite:0.f alpha:0.5]
-                                                            shadowOffset:CGPointZero
-                                                              shadowBlur:shadowBlur];
-    
-    [_plusButtonsView setButtonsImage:circleImageNormal forState:UIControlStateNormal];
-    [_plusButtonsView setButtonsImage:circleImageHighlighted forState:UIControlStateHighlighted];
-    [_plusButtonsView setButtonsImage:circleImageHighlighted forState:UIControlStateHighlighted|UIControlStateSelected];
-}
 
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -353,6 +359,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     }
     
 }
+
 
 
 /*
