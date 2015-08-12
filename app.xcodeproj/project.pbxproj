@@ -76,6 +76,8 @@
 		968C273A1B7B0F7600950581 /* CustomMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C27381B7B0F7600950581 /* CustomMemberTableViewCell.m */; };
 		968C273B1B7B0F7600950581 /* CustomMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968C27391B7B0F7600950581 /* CustomMemberTableViewCell.xib */; };
 		968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C273D1B7B2DDE00950581 /* TeamSettingViewController.m */; };
+		968C27421B7B2FC600950581 /* CustomSettingAvatarTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C27401B7B2FC600950581 /* CustomSettingAvatarTableCell.m */; };
+		968C27431B7B2FC600950581 /* CustomSettingAvatarTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968C27411B7B2FC600950581 /* CustomSettingAvatarTableCell.xib */; };
 		969616C91B6B5A7D002FC24C /* ChoosePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155C1B5E4BFB00126C8A /* ChoosePhotoView.m */; };
 		969616CB1B6B5ABC002FC24C /* ChoosePhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155A1B5E4BFB00126C8A /* ChoosePhotoController.m */; };
 		969616CC1B6B5ADF002FC24C /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF922C1B674B53001759E2 /* DXFaceView.m */; };
@@ -673,6 +675,9 @@
 		968C27391B7B0F7600950581 /* CustomMemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomMemberTableViewCell.xib; sourceTree = "<group>"; };
 		968C273C1B7B2DDE00950581 /* TeamSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamSettingViewController.h; sourceTree = "<group>"; };
 		968C273D1B7B2DDE00950581 /* TeamSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamSettingViewController.m; sourceTree = "<group>"; };
+		968C273F1B7B2FC600950581 /* CustomSettingAvatarTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSettingAvatarTableCell.h; sourceTree = "<group>"; };
+		968C27401B7B2FC600950581 /* CustomSettingAvatarTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSettingAvatarTableCell.m; sourceTree = "<group>"; };
+		968C27411B7B2FC600950581 /* CustomSettingAvatarTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSettingAvatarTableCell.xib; sourceTree = "<group>"; };
 		969616C61B6B58BE002FC24C /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
 		96AA19191B787061008E4CA3 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
 		96AA191A1B787061008E4CA3 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
@@ -2063,6 +2068,9 @@
 				968C27391B7B0F7600950581 /* CustomMemberTableViewCell.xib */,
 				968C273C1B7B2DDE00950581 /* TeamSettingViewController.h */,
 				968C273D1B7B2DDE00950581 /* TeamSettingViewController.m */,
+				968C273F1B7B2FC600950581 /* CustomSettingAvatarTableCell.h */,
+				968C27401B7B2FC600950581 /* CustomSettingAvatarTableCell.m */,
+				968C27411B7B2FC600950581 /* CustomSettingAvatarTableCell.xib */,
 			);
 			path = Team;
 			sourceTree = "<group>";
@@ -3729,6 +3737,7 @@
 				96CF94611B674B54001759E2 /* group_joinpublicgroup@2x.png in Resources */,
 				96AA19721B79C193008E4CA3 /* profile_menu_qrcode.png in Resources */,
 				96CF94771B674B54001759E2 /* tabbarSelectBg@2x.png in Resources */,
+				968C27431B7B2FC600950581 /* CustomSettingAvatarTableCell.xib in Resources */,
 				96CF94111B674B54001759E2 /* chatBar_faceSelected.png in Resources */,
 				96CF93E41B674B54001759E2 /* VoiceSearchFeedback015@2x.png in Resources */,
 				96CF94341B674B54001759E2 /* chatBar_more_location@2x.png in Resources */,
@@ -3961,6 +3970,7 @@
 				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
 				96CF90D91B673422001759E2 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				96CF93AF1B674B54001759E2 /* EMSearchBar.m in Sources */,
+				968C27421B7B2FC600950581 /* CustomSettingAvatarTableCell.m in Sources */,
 				A43F86381B7487DB0086D078 /* PublishSeekHelp.m in Sources */,
 				A48B1B601B7088960049237E /* CuntomFolderView.m in Sources */,
 				A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */,

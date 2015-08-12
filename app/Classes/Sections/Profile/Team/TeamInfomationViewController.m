@@ -9,6 +9,7 @@
 #import "TeamInfomationViewController.h"
 #import "CustomMarginSettingTableViewCell.h"
 #import "CustomMemberTableViewCell.h"
+#import "TeamSettingViewController.h"
 
 
 // 每一行item的个数
@@ -157,11 +158,18 @@ static NSString * const memberCell = @"memberCell";
     return 1;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        TeamSettingViewController *settingController = [[TeamSettingViewController alloc]initWithIdentity:kTeamIdentityMaster];
+        [self.navigationController pushViewController:settingController animated:YES];
+    }
+}
+
 
 #pragma mark - setter方法
 -(void)setMemberInfos:(NSArray *)memberInfos{
     _memberInfos = memberInfos;
-
+ 
 }
 
 @end

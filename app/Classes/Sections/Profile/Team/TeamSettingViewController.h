@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TeamSettingViewController : UIViewController
+typedef enum : NSUInteger {
+    kTeamIdentityMaster, // 群主
+    kTeamIdentityMember, // 成员
+} kTeamIdentity;
+
+@interface TeamSettingViewController : UITableViewController
+
+-(instancetype)initWithIdentity:(kTeamIdentity)identity;
 
 @end
