@@ -10,6 +10,9 @@
 
 @interface CircleContextModel : NSObject
 
+
+// 朋友圈单个消息
+
 @property (nonatomic, copy)NSString *ID;  //消息 id
 
 @property (nonatomic, copy)NSString *cid; //公司 id
@@ -25,8 +28,6 @@
 @property (nonatomic, copy)NSString *status; //消息状态
 
 @property (nonatomic, copy)NSArray *commentUsers;  //参与过评论的用户的id
-
-
 
 
 @end

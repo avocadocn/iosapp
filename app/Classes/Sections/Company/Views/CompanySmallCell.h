@@ -11,9 +11,13 @@
 @interface CompanySmallCell : UICollectionViewCell
 @property (strong, nonatomic) UICollectionView *SmallCollection;  //  横划 CollectionView
 @property (strong, nonatomic) UILabel *TitleLabel;   //"标题 Label"
-@property (strong, nonatomic) UIView *TitleView;  //标题 View
+@property (strong, nonatomic) UIView *TitleView;  //标题  汉子们还没想好去哪玩吗?还不过来看看
 // 纵向的扁平 cell
 
-- (void)interCellWithModelArray:(NSArray *)modelArray;
+- (void)interCellWithModelArray:(id)model;
+
+
+
+
 
 @end
