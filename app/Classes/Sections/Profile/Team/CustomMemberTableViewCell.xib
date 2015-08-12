@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="216" id="KGk-i7-Jjw" customClass="CustomMemberTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="j99-7R-qyd">
+                        <rect key="frame" x="8" y="40" width="359" height="172"/>
+                        <color key="backgroundColor" red="1" green="0.3850841203" blue="0.45561684409999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="172" id="amA-l6-5J9"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="6" minimumInteritemSpacing="6" id="8nh-4T-26g">
+                            <size key="itemSize" width="40" height="40"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="KGk-i7-Jjw" id="Spi-N5-7rA"/>
+                            <outlet property="delegate" destination="KGk-i7-Jjw" id="9VV-l3-NDs"/>
+                        </connections>
+                    </collectionView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="成员" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jY-2m-nJK">
+                        <rect key="frame" x="15" y="9" width="28" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="St8-4W-FfZ"/>
+                            <constraint firstAttribute="height" constant="14" id="nfF-UH-P6R"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="j99-7R-qyd" secondAttribute="trailing" constant="8" id="Ja1-R9-zZ2"/>
+                    <constraint firstItem="9jY-2m-nJK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="NRs-pU-S0R"/>
+                    <constraint firstItem="j99-7R-qyd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="wbp-P6-pLR"/>
+                    <constraint firstItem="9jY-2m-nJK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="xPo-ZQ-EWq"/>
+                    <constraint firstItem="j99-7R-qyd" firstAttribute="top" secondItem="9jY-2m-nJK" secondAttribute="bottom" constant="17" id="zfX-t8-qmu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="collectionHeight" destination="amA-l6-5J9" id="1Dc-EX-TLd"/>
+                <outlet property="iconCollectionView" destination="j99-7R-qyd" id="edH-Tp-S8d"/>
+                <outlet property="layout" destination="8nh-4T-26g" id="lK0-bw-ZYz"/>
+            </connections>
+            <point key="canvasLocation" x="325.5" y="268"/>
+        </tableViewCell>
+    </objects>
+</document>

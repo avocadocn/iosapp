@@ -22,3 +22,5 @@ pod 'SOCKit', '~> 1.1'
 pod 'pop', '~> 1.0.7'
 
 pod 'DCPathButton', '~> 2.1'
+
+pod 'FMDB', '~> 2.5'

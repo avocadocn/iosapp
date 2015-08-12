@@ -70,6 +70,12 @@
 		968B15381B6A1174004A26C0 /* RankBottomShowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15371B6A1174004A26C0 /* RankBottomShowView.xib */; };
 		968B15411B6A2ABB004A26C0 /* RankItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15401B6A2ABB004A26C0 /* RankItemView.m */; };
 		968B15431B6A2ADC004A26C0 /* RankItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15421B6A2ADC004A26C0 /* RankItemView.xib */; };
+		968C27301B7AF5E900950581 /* TeamHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C272F1B7AF5E900950581 /* TeamHomePageController.m */; };
+		968C27331B7AF64600950581 /* TeamInfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C27321B7AF64600950581 /* TeamInfomationViewController.m */; };
+		968C27361B7B047F00950581 /* CustomMarginSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C27351B7B047F00950581 /* CustomMarginSettingTableViewCell.m */; };
+		968C273A1B7B0F7600950581 /* CustomMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C27381B7B0F7600950581 /* CustomMemberTableViewCell.m */; };
+		968C273B1B7B0F7600950581 /* CustomMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968C27391B7B0F7600950581 /* CustomMemberTableViewCell.xib */; };
+		968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C273D1B7B2DDE00950581 /* TeamSettingViewController.m */; };
 		969616C91B6B5A7D002FC24C /* ChoosePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155C1B5E4BFB00126C8A /* ChoosePhotoView.m */; };
 		969616CB1B6B5ABC002FC24C /* ChoosePhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155A1B5E4BFB00126C8A /* ChoosePhotoController.m */; };
 		969616CC1B6B5ADF002FC24C /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF922C1B674B53001759E2 /* DXFaceView.m */; };
@@ -83,7 +89,6 @@
 		969616D41B6B5FBD002FC24C /* UserDataTon.m in Sources */ = {isa = PBXBuildFile; fileRef = A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */; };
 		969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D23E321B57A6DC0079193C /* UIBarButtonItem+Extension.m */; };
 		96AA191B1B787061008E4CA3 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA191A1B787061008E4CA3 /* CommentsViewController.m */; };
-		96AA19231B787F7F008E4CA3 /* TeamHomePageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA19221B787F7F008E4CA3 /* TeamHomePageController.m */; };
 		96AA195C1B799896008E4CA3 /* MenuCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA195B1B799896008E4CA3 /* MenuCollectionController.m */; };
 		96AA19601B7998B9008E4CA3 /* MenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA195E1B7998B9008E4CA3 /* MenuCollectionViewCell.m */; };
 		96AA19611B7998B9008E4CA3 /* MenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AA195F1B7998B9008E4CA3 /* MenuCollectionViewCell.xib */; };
@@ -92,6 +97,7 @@
 		96AA19711B79C193008E4CA3 /* profile_menu_invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA196E1B79C193008E4CA3 /* profile_menu_invite.png */; };
 		96AA19721B79C193008E4CA3 /* profile_menu_qrcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA196F1B79C193008E4CA3 /* profile_menu_qrcode.png */; };
 		96AA19731B79C193008E4CA3 /* profile_menu_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA19701B79C193008E4CA3 /* profile_menu_setting.png */; };
+		96AA197B1B79EBFA008E4CA3 /* AddressBookSqliteTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA197A1B79EBFA008E4CA3 /* AddressBookSqliteTool.m */; };
 		96C9FFB11B737508008B71CE /* HelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFB01B737508008B71CE /* HelpTableViewController.m */; };
 		96C9FFB51B737539008B71CE /* HelpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFB31B737539008B71CE /* HelpTableViewCell.m */; };
 		96C9FFB91B73760B008B71CE /* HelpCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C9FFB81B73760B008B71CE /* HelpCellFrame.m */; };
@@ -656,11 +662,20 @@
 		968B153F1B6A2ABB004A26C0 /* RankItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankItemView.h; sourceTree = "<group>"; };
 		968B15401B6A2ABB004A26C0 /* RankItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankItemView.m; sourceTree = "<group>"; };
 		968B15421B6A2ADC004A26C0 /* RankItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemView.xib; sourceTree = "<group>"; };
+		968C272E1B7AF5E900950581 /* TeamHomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamHomePageController.h; sourceTree = "<group>"; };
+		968C272F1B7AF5E900950581 /* TeamHomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHomePageController.m; sourceTree = "<group>"; };
+		968C27311B7AF64600950581 /* TeamInfomationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamInfomationViewController.h; sourceTree = "<group>"; };
+		968C27321B7AF64600950581 /* TeamInfomationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamInfomationViewController.m; sourceTree = "<group>"; };
+		968C27341B7B047F00950581 /* CustomMarginSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMarginSettingTableViewCell.h; sourceTree = "<group>"; };
+		968C27351B7B047F00950581 /* CustomMarginSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMarginSettingTableViewCell.m; sourceTree = "<group>"; };
+		968C27371B7B0F7600950581 /* CustomMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMemberTableViewCell.h; sourceTree = "<group>"; };
+		968C27381B7B0F7600950581 /* CustomMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMemberTableViewCell.m; sourceTree = "<group>"; };
+		968C27391B7B0F7600950581 /* CustomMemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomMemberTableViewCell.xib; sourceTree = "<group>"; };
+		968C273C1B7B2DDE00950581 /* TeamSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamSettingViewController.h; sourceTree = "<group>"; };
+		968C273D1B7B2DDE00950581 /* TeamSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamSettingViewController.m; sourceTree = "<group>"; };
 		969616C61B6B58BE002FC24C /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
 		96AA19191B787061008E4CA3 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
 		96AA191A1B787061008E4CA3 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
-		96AA19211B787F7F008E4CA3 /* TeamHomePageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamHomePageController.h; sourceTree = "<group>"; };
-		96AA19221B787F7F008E4CA3 /* TeamHomePageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHomePageController.m; sourceTree = "<group>"; };
 		96AA195A1B799896008E4CA3 /* MenuCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCollectionController.h; sourceTree = "<group>"; };
 		96AA195B1B799896008E4CA3 /* MenuCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCollectionController.m; sourceTree = "<group>"; };
 		96AA195D1B7998B9008E4CA3 /* MenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCollectionViewCell.h; sourceTree = "<group>"; };
@@ -672,6 +687,8 @@
 		96AA196E1B79C193008E4CA3 /* profile_menu_invite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_menu_invite.png; sourceTree = "<group>"; };
 		96AA196F1B79C193008E4CA3 /* profile_menu_qrcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_menu_qrcode.png; sourceTree = "<group>"; };
 		96AA19701B79C193008E4CA3 /* profile_menu_setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_menu_setting.png; sourceTree = "<group>"; };
+		96AA19791B79EBFA008E4CA3 /* AddressBookSqliteTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookSqliteTool.h; sourceTree = "<group>"; };
+		96AA197A1B79EBFA008E4CA3 /* AddressBookSqliteTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookSqliteTool.m; sourceTree = "<group>"; };
 		96C9FFAF1B737508008B71CE /* HelpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpTableViewController.h; sourceTree = "<group>"; };
 		96C9FFB01B737508008B71CE /* HelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpTableViewController.m; sourceTree = "<group>"; };
 		96C9FFB21B737539008B71CE /* HelpTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpTableViewCell.h; sourceTree = "<group>"; };
@@ -1690,6 +1707,7 @@
 		9649B5071B564DE000A7F355 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				96AA19781B79EBB6008E4CA3 /* AddressBookTool */,
 				967439A51B705907004334A4 /* NetworkRequestTool */,
 				9649B5081B564DE000A7F355 /* PrefixHeader.pch */,
 			);
@@ -1871,6 +1889,7 @@
 		9649B5291B564DE000A7F355 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				968C272D1B7AF5E900950581 /* Team */,
 				96D20EBC1B62038200102D18 /* Models */,
 				96D20EBD1B62038200102D18 /* Views */,
 				9649B52A1B564DE000A7F355 /* Controllers */,
@@ -1885,8 +1904,6 @@
 				9649B52C1B564DE000A7F355 /* ProfileViewController.m */,
 				9649B54F1B5663CE00A7F355 /* Test1ViewController.h */,
 				9649B5501B5663CE00A7F355 /* Test1ViewController.m */,
-				96AA19211B787F7F008E4CA3 /* TeamHomePageController.h */,
-				96AA19221B787F7F008E4CA3 /* TeamHomePageController.m */,
 				96AA195A1B799896008E4CA3 /* MenuCollectionController.h */,
 				96AA195B1B799896008E4CA3 /* MenuCollectionController.m */,
 			);
@@ -2032,6 +2049,24 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		968C272D1B7AF5E900950581 /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				968C272E1B7AF5E900950581 /* TeamHomePageController.h */,
+				968C272F1B7AF5E900950581 /* TeamHomePageController.m */,
+				968C27311B7AF64600950581 /* TeamInfomationViewController.h */,
+				968C27321B7AF64600950581 /* TeamInfomationViewController.m */,
+				968C27341B7B047F00950581 /* CustomMarginSettingTableViewCell.h */,
+				968C27351B7B047F00950581 /* CustomMarginSettingTableViewCell.m */,
+				968C27371B7B0F7600950581 /* CustomMemberTableViewCell.h */,
+				968C27381B7B0F7600950581 /* CustomMemberTableViewCell.m */,
+				968C27391B7B0F7600950581 /* CustomMemberTableViewCell.xib */,
+				968C273C1B7B2DDE00950581 /* TeamSettingViewController.h */,
+				968C273D1B7B2DDE00950581 /* TeamSettingViewController.m */,
+			);
+			path = Team;
+			sourceTree = "<group>";
+		};
 		969616C51B6B58BE002FC24C /* lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -2056,6 +2091,15 @@
 				96AA19701B79C193008E4CA3 /* profile_menu_setting.png */,
 			);
 			path = Menu;
+			sourceTree = "<group>";
+		};
+		96AA19781B79EBB6008E4CA3 /* AddressBookTool */ = {
+			isa = PBXGroup;
+			children = (
+				96AA19791B79EBFA008E4CA3 /* AddressBookSqliteTool.h */,
+				96AA197A1B79EBFA008E4CA3 /* AddressBookSqliteTool.m */,
+			);
+			path = AddressBookTool;
 			sourceTree = "<group>";
 		};
 		96CF8F051B6722EF001759E2 /* Models */ = {
@@ -3652,6 +3696,7 @@
 				96CF93E01B674B54001759E2 /* VoiceSearchFeedback013@2x.png in Resources */,
 				A45056171B60D2110075E39D /* welcome-4.png in Resources */,
 				96CF94321B674B54001759E2 /* chatBar_more_cameraSelected@2x.png in Resources */,
+				968C273B1B7B0F7600950581 /* CustomMemberTableViewCell.xib in Resources */,
 				96CF94721B674B54001759E2 /* tabbar_settingHL.png in Resources */,
 				96CF93F41B674B54001759E2 /* call_silence@2x.png in Resources */,
 				9635AF5E1B74A13500BE92B5 /* CustomKeyBoard.xib in Resources */,
@@ -3861,6 +3906,7 @@
 				969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */,
 				969616D41B6B5FBD002FC24C /* UserDataTon.m in Sources */,
 				969616D31B6B5F0C002FC24C /* UIView+Extension.m in Sources */,
+				968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */,
 				969616D21B6B5D4D002FC24C /* PSTCollectionViewCell.m in Sources */,
 				969616D11B6B5D25002FC24C /* EMChatViewBaseCell.m in Sources */,
 				969616D01B6B5D03002FC24C /* BaseViewController.m in Sources */,
@@ -3938,6 +3984,7 @@
 				96CF91891B674193001759E2 /* AppDelegate+EaseMob.m in Sources */,
 				96D20EB81B60AE5D00102D18 /* DLNavBar.m in Sources */,
 				A48B1B5A1B707E0A0049237E /* AddressViewController.m in Sources */,
+				968C27331B7AF64600950581 /* TeamInfomationViewController.m in Sources */,
 				96CF93AA1B674B54001759E2 /* ApplyViewController.m in Sources */,
 				96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */,
 				96CF947D1B674B54001759E2 /* PushNotificationViewController.m in Sources */,
@@ -3959,7 +4006,6 @@
 				967439BA1B705908004334A4 /* DLNetworkRequest.m in Sources */,
 				96CF937A1B674B54001759E2 /* NSDate+Category.m in Sources */,
 				967A06341B71F22D007BA757 /* VoteTableViewCell.m in Sources */,
-				96AA19231B787F7F008E4CA3 /* TeamHomePageController.m in Sources */,
 				96CF93851B674B54001759E2 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				967439C01B705908004334A4 /* User.m in Sources */,
 				A434C6141B71F17E009643CD /* TableHeaderView.m in Sources */,
@@ -3997,6 +4043,7 @@
 				96CF937C1B674B54001759E2 /* NSString+Valid.m in Sources */,
 				9635AF551B748B0800BE92B5 /* CommentViewCell.m in Sources */,
 				A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */,
+				968C273A1B7B0F7600950581 /* CustomMemberTableViewCell.m in Sources */,
 				9649B5401B564DE000A7F355 /* MainController.m in Sources */,
 				9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */,
 				96CF90C51B673422001759E2 /* MWTapDetectingImageView.m in Sources */,
@@ -4026,8 +4073,10 @@
 				96CF90D41B673422001759E2 /* UIImage+EMMultiFormat.m in Sources */,
 				96CF90E01B673422001759E2 /* PSTCollectionViewLayout.m in Sources */,
 				96CF93A91B674B54001759E2 /* ApplyFriendCell.m in Sources */,
+				968C27301B7AF5E900950581 /* TeamHomePageController.m in Sources */,
 				96CF93821B674B54001759E2 /* ChatSendHelper.m in Sources */,
 				A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */,
+				968C27361B7B047F00950581 /* CustomMarginSettingTableViewCell.m in Sources */,
 				96CF938B1B674B54001759E2 /* DXRecordView.m in Sources */,
 				A45727081B74BE2400A27B79 /* photoSectionHeader.m in Sources */,
 				96CF90EA1B673422001759E2 /* amrFileCodec.mm in Sources */,
@@ -4059,6 +4108,7 @@
 				96CF90DA1B673422001759E2 /* PSTCollectionView.m in Sources */,
 				96CF93B01B674B54001759E2 /* EMTextView.m in Sources */,
 				96CF90C41B673422001759E2 /* MWPhotoBrowser.m in Sources */,
+				96AA197B1B79EBFA008E4CA3 /* AddressBookSqliteTool.m in Sources */,
 				A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */,
 				96CF90D61B673422001759E2 /* UIImageView+EMHighlightedWebCache.m in Sources */,
 				961053521B590C31002D62A3 /* OtherActivityShowCell.m in Sources */,
