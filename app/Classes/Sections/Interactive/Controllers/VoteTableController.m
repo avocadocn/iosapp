@@ -101,6 +101,7 @@ static NSString * const ID = @"VoteTableViewCell";
     
     [cell setVoteCellFrame:self.voteFrames[indexPath.row]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     return cell;
 }
 

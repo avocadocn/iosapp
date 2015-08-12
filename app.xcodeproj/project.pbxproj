@@ -78,6 +78,8 @@
 		968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C273D1B7B2DDE00950581 /* TeamSettingViewController.m */; };
 		968C27421B7B2FC600950581 /* CustomSettingAvatarTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C27401B7B2FC600950581 /* CustomSettingAvatarTableCell.m */; };
 		968C27431B7B2FC600950581 /* CustomSettingAvatarTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968C27411B7B2FC600950581 /* CustomSettingAvatarTableCell.xib */; };
+		968C27461B7B43BE00950581 /* VoteBottomToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 968C27451B7B43BE00950581 /* VoteBottomToolBar.m */; };
+		968C27481B7B43D500950581 /* VoteBottomToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968C27471B7B43D500950581 /* VoteBottomToolBar.xib */; };
 		969616C91B6B5A7D002FC24C /* ChoosePhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155C1B5E4BFB00126C8A /* ChoosePhotoView.m */; };
 		969616CB1B6B5ABC002FC24C /* ChoosePhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F3155A1B5E4BFB00126C8A /* ChoosePhotoController.m */; };
 		969616CC1B6B5ADF002FC24C /* DXFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF922C1B674B53001759E2 /* DXFaceView.m */; };
@@ -678,6 +680,9 @@
 		968C273F1B7B2FC600950581 /* CustomSettingAvatarTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSettingAvatarTableCell.h; sourceTree = "<group>"; };
 		968C27401B7B2FC600950581 /* CustomSettingAvatarTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSettingAvatarTableCell.m; sourceTree = "<group>"; };
 		968C27411B7B2FC600950581 /* CustomSettingAvatarTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSettingAvatarTableCell.xib; sourceTree = "<group>"; };
+		968C27441B7B43BE00950581 /* VoteBottomToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteBottomToolBar.h; sourceTree = "<group>"; };
+		968C27451B7B43BE00950581 /* VoteBottomToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteBottomToolBar.m; sourceTree = "<group>"; };
+		968C27471B7B43D500950581 /* VoteBottomToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoteBottomToolBar.xib; sourceTree = "<group>"; };
 		969616C61B6B58BE002FC24C /* libEaseMobClientSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDK.a; sourceTree = "<group>"; };
 		96AA19191B787061008E4CA3 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
 		96AA191A1B787061008E4CA3 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
@@ -1549,6 +1554,9 @@
 				9635AF5A1B74A11F00BE92B5 /* CustomKeyBoard.h */,
 				9635AF5B1B74A11F00BE92B5 /* CustomKeyBoard.m */,
 				9635AF5D1B74A13500BE92B5 /* CustomKeyBoard.xib */,
+				968C27441B7B43BE00950581 /* VoteBottomToolBar.h */,
+				968C27451B7B43BE00950581 /* VoteBottomToolBar.m */,
+				968C27471B7B43D500950581 /* VoteBottomToolBar.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3682,6 +3690,7 @@
 				96CF941D1B674B54001759E2 /* chatBar_recordBg.png in Resources */,
 				96CF93CC1B674B54001759E2 /* VoiceSearchFeedback003@2x.png in Resources */,
 				96CF94671B674B54001759E2 /* newFriends@2x.png in Resources */,
+				968C27481B7B43D500950581 /* VoteBottomToolBar.xib in Resources */,
 				96CF93F51B674B54001759E2 /* call_silence_h.png in Resources */,
 				96CF93FE1B674B54001759E2 /* chatBar_more_face@2x.png in Resources */,
 				96CF93ED1B674B54001759E2 /* VoiceSearchFeedback020.png in Resources */,
@@ -3995,6 +4004,7 @@
 				96D20EB81B60AE5D00102D18 /* DLNavBar.m in Sources */,
 				A48B1B5A1B707E0A0049237E /* AddressViewController.m in Sources */,
 				968C27331B7AF64600950581 /* TeamInfomationViewController.m in Sources */,
+				968C27461B7B43BE00950581 /* VoteBottomToolBar.m in Sources */,
 				96CF93AA1B674B54001759E2 /* ApplyViewController.m in Sources */,
 				96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */,
 				96CF947D1B674B54001759E2 /* PushNotificationViewController.m in Sources */,
