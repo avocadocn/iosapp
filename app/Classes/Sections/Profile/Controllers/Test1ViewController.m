@@ -7,9 +7,9 @@
 //
 
 #import "Test1ViewController.h"
-#import "HitTestView.h"
 #import "RestfulAPIRequestTool.h"
 #import "CompanyModel.h"
+#import "TeamHomePageController.h"
 
 @interface Test1ViewController ()
 
@@ -20,10 +20,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"test";
+    
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
+    
 
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    TeamHomePageController *teamHomePage = [[TeamHomePageController alloc]init];
+    [self.navigationController pushViewController:teamHomePage animated:YES];
 }
 
 

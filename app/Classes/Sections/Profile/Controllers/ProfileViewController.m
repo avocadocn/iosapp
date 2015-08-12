@@ -8,63 +8,162 @@
 
 #import "ProfileViewController.h"
 #import "Test1ViewController.h"
+#import "MenuCollectionController.h"
+#import "ProfileTableViewCell.h"
+#import "FolderViewController.h"
+#import "ActivityShowTableController.h"
+#import "VoteTableController.h"
+#import "HelpTableViewController.h"
 
-@interface ProfileViewController () <UITableViewDataSource,UITableViewDelegate>
+
+@interface ProfileViewController () <UITableViewDataSource,UITableViewDelegate,MenuCollectionControllerDelegate>
+
+
+@property (nonatomic, strong) MenuCollectionController *menuController;
+
+@property (nonatomic, strong) UITableView *tableView;
+
+
 
 @end
 
 @implementation ProfileViewController
 
+static NSString * const ID = @"ProfileTableViewCell";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-#pragma mark - 数据源方法
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
     
+   
+    // Do any additional setup after loading the view.
+    
+    // 初始化顶部的CollectionView
+    [self setupMenuCollectionController];
+    
+    // 初始化菜单选项
+    [self setupMenuTableView];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 20;
+-(void)viewWillAppear:(BOOL)animated{
+     [self.view setBackgroundColor:GrayBackgroundColor];
 }
 
-- (UITableViewCell * )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *ID = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+
+
+-(void)setupMenuCollectionController{
+    MenuCollectionController *menuController = [[MenuCollectionController alloc]init];
+    menuController.view.y += 64;
+    [menuController setDelegate:self];
+    [self.view addSubview:menuController.view];
+    self.menuController = menuController;
+}
+
+-(void)setupMenuTableView{
+    UITableView *tableView = [[UITableView alloc]init];
+    [tableView setFrame:CGRectMake(0, CGRectGetMaxY(self.menuController.view.frame) + 25, DLScreenWidth, 4 * 50 + 15)];
+    [tableView setBackgroundColor:GrayBackgroundColor];
+    [tableView setBounces:NO];
+    [tableView setDataSource:self];
+    [tableView setDelegate:self];
+    [tableView registerNib:[UINib nibWithNibName:@"ProfileTableViewCell" bundle:nil] forCellReuseIdentifier:ID];
+    [tableView setScrollEnabled:NO];
+    
+    [self.view addSubview:tableView];
+    self.tableView = tableView;
+}
+
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section == 0) {
+        return 3;
+    }else{
+        return 1;
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"test-data-%zd",indexPath.row];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+    if (indexPath.section == 1) {
+        cell.menuCellIconWidth.constant = 0;
+        cell.menuCellName.text = @"喜欢的话就给我们评价吧";
+    }else if (indexPath.section == 0){
+        switch (indexPath.row) {
+            case 0:
+                cell.menuCellName.text = @"邀请";
+                [cell.menuCellIcon setImage:[UIImage imageNamed:@"profile_menu_invite"]];
+                break;
+            case 1:
+                cell.menuCellName.text = @"二维码";
+                 [cell.menuCellIcon setImage:[UIImage imageNamed:@"profile_menu_qrcode"]];
+                break;
+            case 2:
+                cell.menuCellName.text = @"设置";
+                 [cell.menuCellIcon setImage:[UIImage imageNamed:@"profile_menu_setting"]];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+}
 
-#pragma mark - 代理方法
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return @" ";
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 1) {
+        return 15;
+    }else{
+        return 0;
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Test1ViewController *test1VC = [[Test1ViewController alloc]init];
-   
+}
+
+#pragma mark - MenuCollectionController代理方法
+-(void)collectionController:(MenuCollectionController *)collectionController didSelectedItemAtIndex:(NSInteger)index{
+    UIViewController *controller;
+    switch (index) {
+        case 0: // 我的信息
+            controller = [[FolderViewController alloc]init];
+            break;
+        case 1: // 群组
+            // controller = [[FolderViewController alloc]init];
+            break;
+        case 2: // 礼物
+            //controller = [[FolderViewController alloc]init];
+            break;
+        case 3: // 活动
+            controller = [[ActivityShowTableController alloc]init];
+            break;
+        case 4: // 投票
+            controller = [[VoteTableController alloc]init];
+            break;
+        case 5: // 求助
+            controller = [[HelpTableViewController alloc]init];
+            break;
+        default:
+            break;
+    }
     
-    [self.navigationController pushViewController:test1VC animated:YES];
+    if (controller) {
+         [self.navigationController pushViewController:controller animated:YES];
+    }
+    
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
