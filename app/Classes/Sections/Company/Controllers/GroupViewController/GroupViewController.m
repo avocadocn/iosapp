@@ -11,7 +11,7 @@
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
 #import "GroupCardViewCell.h"
-
+#import "GroupSelectCell.h"
 
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
       
@@ -46,6 +46,8 @@
     self.groupListCollection = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
     [self.groupListCollection setBackgroundColor:[UIColor whiteColor]];
     [self.groupListCollection registerClass:[GroupCardViewCell class] forCellWithReuseIdentifier:@"groupCardCell"];
+    [self.groupListCollection registerClass:[GroupSelectCell class] forCellWithReuseIdentifier:@"selectCell"];
+    
     self.groupListCollection.backgroundColor = DLSBackgroundColor;
     self.groupListCollection.delegate = self;
     self.groupListCollection.dataSource = self;
@@ -65,12 +67,25 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GroupCardViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
-    return cell;
+    if (indexPath.row < [self.modelArray count]) {
+        GroupCardViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
+        
+        return cell;
+        
+    } else
+        
+    {
+        GroupSelectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"selectCell" forIndexPath:indexPath];
+        return cell;
+    }
+    
+    
+    
+    return nil;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.modelArray count];
+    return [self.modelArray count] + 1;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

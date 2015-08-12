@@ -16,6 +16,8 @@
 #import "PrefixHeader.pch"
 #import "UserDataTon.h"
 #import "CompanyModel.h"
+#import "PersonReportController.h"
+
 
 @interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DLNetworkRequestDelegate>
 
@@ -46,11 +48,26 @@
     [self.view addSubview:self.BigCollection];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jumpPageAction:) name:@"JumpController" object:nil];  //  接受跳转通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jumpPageAction:) name:@"PersonReport" object:nil];  //
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jumpPageAction:) name:@"HappyBrithday" object:nil];  //
+    
 }
 - (void)jumpPageAction:(NSNotification *)noti //用来跳转页面的通知
 {
-    ColleagueViewController *coll = [[ColleagueViewController alloc]init];
-    [self.navigationController pushViewController:coll animated:YES];
+    NSString *str = [NSString stringWithFormat:@"%@", noti.name];
+    if ([str isEqualToString:@"JumpController"]) {
+        ColleagueViewController *coll = [[ColleagueViewController alloc]init];
+        [self.navigationController pushViewController:coll animated:YES];
+    } else if ([str isEqualToString:@"PersonReport"])
+    {
+        PersonReportController *report = [[PersonReportController alloc]init];
+        [self.navigationController pushViewController:report animated:YES];
+    } else if ([str isEqualToString:@"HappyBrithday"])
+    {
+        NSLog(@"生日祝福");
+    }
+    
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
