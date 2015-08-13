@@ -9,6 +9,7 @@
 #import "VoteTableViewCell.h"
 #import "VoteOptionsView.h"
 #import "VoteInfoModel.h"
+#import "VoteBottomToolBar.h"
 
 @interface VoteTableViewCell()
 
@@ -110,9 +111,38 @@
     [voteContainer addSubview:optionsView];
     self.optionsView = optionsView;
     
+    
+    // 添加已投票btn
+    UIButton *voteInfosBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [voteInfosBtn setTitle:@"已投票" forState:UIControlStateNormal];
+    voteInfosBtn.x = 12;
+    voteInfosBtn.y = 0;
+    voteInfosBtn.width = 60;
+    voteInfosBtn.height = 44;
+    
+    // 添加转发btn
+    UIButton *retweedBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [retweedBtn setTitle:@"转发" forState:UIControlStateNormal];
+    retweedBtn.x = DLScreenWidth - 80;
+    retweedBtn.y = 0;
+    retweedBtn.width = 40;
+    retweedBtn.height = 44;
+    
+    // 添加评论btn
+    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [commentBtn setTitle:@"评论" forState:UIControlStateNormal];
+    commentBtn.x = DLScreenWidth - 40;
+    commentBtn.y = 0;
+    commentBtn.width = 40;
+    commentBtn.height = 44;
+    
+    
     // 工具条
     UIView *bottomToolBar = [[UIView alloc]init];
-    [bottomToolBar setBackgroundColor:[UIColor blueColor]];
+    [bottomToolBar setBackgroundColor:[UIColor grayColor]];
+    [bottomToolBar addSubview:voteInfosBtn];
+    [bottomToolBar addSubview:retweedBtn];
+    [bottomToolBar addSubview:commentBtn];
     [voteContainer addSubview:bottomToolBar];
     self.bottomToolBar = bottomToolBar;
     
@@ -155,6 +185,8 @@
     [self.optionsView setOptions:model.options];
     
     [self.bottomToolBar setFrame:voteCellFrame.bottomToolBarF];
+    
+
   
     [self.voteContainer setFrame:voteCellFrame.voteContainerF];
 }

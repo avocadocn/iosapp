@@ -21,6 +21,11 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - DCPathButton (2.1.1)
+  - FMDB (2.5):
+    - FMDB/standard (= 2.5)
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
   - HMSegmentedControl (1.5.2)
   - iCarousel (1.8.1)
   - Masonry (0.6.2)
@@ -43,6 +48,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
   - DCPathButton (~> 2.1)
+  - FMDB (~> 2.5)
   - HMSegmentedControl
   - iCarousel (~> 1.8.1)
   - Masonry
@@ -57,6 +63,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   DCPathButton: dec05806c3c4516215a98babfe0a00762f7bc9f2
+  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   HMSegmentedControl: 83b9686022d2176fb6457d2bdb61e5d6393fed7d
   iCarousel: dace1cb858e3f4dc2614bee3201041247f82feda
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be

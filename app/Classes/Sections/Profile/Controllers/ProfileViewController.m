@@ -14,6 +14,7 @@
 #import "ActivityShowTableController.h"
 #import "VoteTableController.h"
 #import "HelpTableViewController.h"
+#import "TeamHomePageController.h"
 
 
 @interface ProfileViewController () <UITableViewDataSource,UITableViewDelegate,MenuCollectionControllerDelegate>
@@ -141,7 +142,7 @@ static NSString * const ID = @"ProfileTableViewCell";
             controller = [[FolderViewController alloc]init];
             break;
         case 1: // 群组
-            // controller = [[FolderViewController alloc]init];
+             controller = [[TeamHomePageController alloc]init];
             break;
         case 2: // 礼物
             //controller = [[FolderViewController alloc]init];
