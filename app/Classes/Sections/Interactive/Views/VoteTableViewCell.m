@@ -10,6 +10,11 @@
 #import "VoteOptionsView.h"
 #import "VoteInfoModel.h"
 #import "VoteBottomToolBar.h"
+#import <ReactiveCocoa.h>
+#import "VoteInfoTableViewController.h"
+#import "VoteTableController.h"
+#import "TeamSettingViewController.h"
+#import "CommentsViewController.h"
 
 @interface VoteTableViewCell()
 
@@ -120,6 +125,18 @@
     voteInfosBtn.width = 60;
     voteInfosBtn.height = 44;
     
+    // 此处使用rac 监听按钮的点击事件
+    RACSignal *voteInfosSignal = [voteInfosBtn rac_signalForControlEvents:UIControlEventTouchDown];
+    [voteInfosSignal subscribeNext:^(id x) {
+        VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+        
+        // **********************************************
+        // 此处由于代理 以及 通知的使用均不合适，所以在这边我采用了cell所处的viewController的类方法 \
+        返回一个单例的navigationController， 这样方便在cell的任何子控件调用，已推出新的viewcontroller
+        // **********************************************
+        [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
+    }];
+    
     // 添加转发btn
     UIButton *retweedBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [retweedBtn setTitle:@"转发" forState:UIControlStateNormal];
@@ -135,6 +152,13 @@
     commentBtn.y = 0;
     commentBtn.width = 40;
     commentBtn.height = 44;
+    
+    RACSignal *commentBtnSignal = [commentBtn rac_signalForControlEvents:UIControlEventTouchDown];
+    [commentBtnSignal subscribeNext:^(id x) {
+       
+        CommentsViewController *controller = [[CommentsViewController alloc]init];
+        [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
+    }];
     
     
     // 工具条

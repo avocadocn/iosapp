@@ -64,6 +64,7 @@
 		967A063D1B72FEF3007BA757 /* Interactive_vote_downView.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A063C1B72FEF3007BA757 /* Interactive_vote_downView.png */; };
 		967A06411B7303C2007BA757 /* VoteInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06401B7303C2007BA757 /* VoteInfoModel.m */; };
 		967A06441B7304F7007BA757 /* VoteOptionsInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06431B7304F7007BA757 /* VoteOptionsInfoModel.m */; };
+		967C62CA1B7C72220065F318 /* VoteInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967C62C81B7C72220065F318 /* VoteInfoTableViewController.m */; };
 		968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15301B69F4C9004A26C0 /* RankItemTableViewcell.m */; };
 		968B15331B69F4C9004A26C0 /* RankItemTableViewcell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968B15311B69F4C9004A26C0 /* RankItemTableViewcell.xib */; };
 		968B15361B6A1156004A26C0 /* RankBottomShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968B15351B6A1156004A26C0 /* RankBottomShowView.m */; };
@@ -520,7 +521,6 @@
 		A46D4AFB1B79F1BA00177577 /* insert.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D4AFA1B79F1BA00177577 /* insert.png */; };
 		A46D4B081B7A034900177577 /* PersonReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46D4B071B7A034900177577 /* PersonReportController.m */; };
 		A46DCEF01B69F1060049C999 /* mzx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A46DCEEF1B69F1060049C999 /* mzx.jpg */; };
-		A46E0B641B783C180002854F /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46E0B631B783C180002854F /* CommentsViewController.m */; };
 		A47521C41B7B103C00EB5BF2 /* HMWaterflowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A47521BF1B7B103C00EB5BF2 /* HMWaterflowLayout.m */; };
 		A47521C51B7B103C00EB5BF2 /* HMShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A47521C11B7B103C00EB5BF2 /* HMShopCell.m */; };
 		A47521C61B7B103C00EB5BF2 /* HMShop.m in Sources */ = {isa = PBXBuildFile; fileRef = A47521C31B7B103C00EB5BF2 /* HMShop.m */; };
@@ -673,6 +673,8 @@
 		967A06431B7304F7007BA757 /* VoteOptionsInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteOptionsInfoModel.m; sourceTree = "<group>"; };
 		967A06451B732578007BA757 /* VoteCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteCellFrame.h; sourceTree = "<group>"; };
 		967A06461B732578007BA757 /* VoteCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteCellFrame.m; sourceTree = "<group>"; };
+		967C62C71B7C72220065F318 /* VoteInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteInfoTableViewController.h; sourceTree = "<group>"; };
+		967C62C81B7C72220065F318 /* VoteInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteInfoTableViewController.m; sourceTree = "<group>"; };
 		968B152F1B69F4C9004A26C0 /* RankItemTableViewcell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankItemTableViewcell.h; sourceTree = "<group>"; };
 		968B15301B69F4C9004A26C0 /* RankItemTableViewcell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankItemTableViewcell.m; sourceTree = "<group>"; };
 		968B15311B69F4C9004A26C0 /* RankItemTableViewcell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RankItemTableViewcell.xib; sourceTree = "<group>"; };
@@ -1633,6 +1635,8 @@
 				A43F86371B7487DB0086D078 /* PublishSeekHelp.m */,
 				A45727031B74BA0500A27B79 /* RepeaterGroupController.h */,
 				A45727041B74BA0500A27B79 /* RepeaterGroupController.m */,
+				967C62C71B7C72220065F318 /* VoteInfoTableViewController.h */,
+				967C62C81B7C72220065F318 /* VoteInfoTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4027,6 +4031,7 @@
 				A4DD81321B7B3F94004505C9 /* CommandView.m in Sources */,
 				969616D41B6B5FBD002FC24C /* UserDataTon.m in Sources */,
 				969616D31B6B5F0C002FC24C /* UIView+Extension.m in Sources */,
+				967C62CA1B7C72220065F318 /* VoteInfoTableViewController.m in Sources */,
 				968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */,
 				969616D21B6B5D4D002FC24C /* PSTCollectionViewCell.m in Sources */,
 				969616D11B6B5D25002FC24C /* EMChatViewBaseCell.m in Sources */,

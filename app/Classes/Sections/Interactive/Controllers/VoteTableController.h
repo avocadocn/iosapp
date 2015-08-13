@@ -10,6 +10,6 @@
 
 @interface VoteTableController : UITableViewController
 
-
++(UINavigationController *)shareNavigation;
 
 @end
