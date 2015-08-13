@@ -17,6 +17,7 @@
 #import "UserDataTon.h"
 #import "CompanyModel.h"
 #import "PersonReportController.h"
+#import "BrithdayBlessController.h"
 
 
 @interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DLNetworkRequestDelegate>
@@ -65,6 +66,9 @@
         [self.navigationController pushViewController:report animated:YES];
     } else if ([str isEqualToString:@"HappyBrithday"])
     {
+        BrithdayBlessController *brith = [[BrithdayBlessController alloc]init];
+        [self.navigationController pushViewController:brith animated:YES];
+        
         NSLog(@"生日祝福");
     }
     
@@ -105,8 +109,6 @@
     request.delegate = self;
     [request dlRouteNetWorkWithNetName:@"companyInformation" andRequestType:@"GET" paramter:array];
     //在这儿进行三次网络请求
-    
-    
     
 }
 

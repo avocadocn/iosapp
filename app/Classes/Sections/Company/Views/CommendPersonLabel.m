@@ -10,9 +10,9 @@
 
 @implementation CommendPersonLabel
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithId:(NSString *)str
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
         [self builtInterface];
     }
@@ -21,7 +21,7 @@
 
 - (void)builtInterface
 {
-    
+    self.textColor = [UIColor colorWithRed:.1 green:.1 blue:.8 alpha:1];
 }
 
 @end
