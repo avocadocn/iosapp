@@ -10,6 +10,7 @@
 #import "PrefixHeader.pch"
 #import "CompanyDetailCell.h"
 #import "ColleagueViewController.h"
+
 #import <Masonry.h>
 
 static NSInteger indexNum = 0;

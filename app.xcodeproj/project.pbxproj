@@ -519,7 +519,6 @@
 		A46D4AF61B79E32C00177577 /* company1.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D4AF51B79E32C00177577 /* company1.png */; };
 		A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46D4AF81B79ED8400177577 /* GroupSelectCell.m */; };
 		A46D4AFB1B79F1BA00177577 /* insert.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D4AFA1B79F1BA00177577 /* insert.png */; };
-		A46D4B081B7A034900177577 /* PersonReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46D4B071B7A034900177577 /* PersonReportController.m */; };
 		A46DCEF01B69F1060049C999 /* mzx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A46DCEEF1B69F1060049C999 /* mzx.jpg */; };
 		A47521C41B7B103C00EB5BF2 /* HMWaterflowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A47521BF1B7B103C00EB5BF2 /* HMWaterflowLayout.m */; };
 		A47521C51B7B103C00EB5BF2 /* HMShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A47521C11B7B103C00EB5BF2 /* HMShopCell.m */; };
@@ -546,6 +545,12 @@
 		A4F315691B5E4BFB00126C8A /* PhotoPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315621B5E4BFB00126C8A /* PhotoPlayController.m */; };
 		A4F3156A1B5E4BFB00126C8A /* PhotoShouCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315641B5E4BFB00126C8A /* PhotoShouCell.m */; };
 		A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315721B5E4F7A00126C8A /* GroupViewController.m */; };
+		A4F594F71B7C7C740088D9CC /* PersonReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F594ED1B7C7C740088D9CC /* PersonReportController.m */; };
+		A4F594F81B7C7C740088D9CC /* 1.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4F594F01B7C7C740088D9CC /* 1.plist */; };
+		A4F594F91B7C7C740088D9CC /* HMShop.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F594F21B7C7C740088D9CC /* HMShop.m */; };
+		A4F594FA1B7C7C740088D9CC /* HMShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F594F41B7C7C740088D9CC /* HMShopCell.m */; };
+		A4F594FB1B7C7C740088D9CC /* HMWaterflowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F594F61B7C7C740088D9CC /* HMWaterflowLayout.m */; };
+		A4F595021B7C7D970088D9CC /* BrithdayBlessController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F595011B7C7D970088D9CC /* BrithdayBlessController.m */; };
 		C2BB2F66A5C16197F6FD8E9D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9388089A6ADF54035C56E5D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -1410,20 +1415,11 @@
 		A46D4AF71B79ED8400177577 /* GroupSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSelectCell.h; sourceTree = "<group>"; };
 		A46D4AF81B79ED8400177577 /* GroupSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSelectCell.m; sourceTree = "<group>"; };
 		A46D4AFA1B79F1BA00177577 /* insert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = insert.png; sourceTree = "<group>"; };
-		A46D4B061B7A034900177577 /* PersonReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonReportController.h; sourceTree = "<group>"; };
-		A46D4B071B7A034900177577 /* PersonReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonReportController.m; sourceTree = "<group>"; };
 		A46DCEEF1B69F1060049C999 /* mzx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mzx.jpg; sourceTree = "<group>"; };
 		A46DCEF11B6A1E9D0049C999 /* UserDataTon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataTon.h; sourceTree = "<group>"; };
 		A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataTon.m; sourceTree = "<group>"; };
 		A46E0B621B783C180002854F /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
 		A46E0B631B783C180002854F /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
-		A47521BE1B7B103C00EB5BF2 /* HMWaterflowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMWaterflowLayout.h; sourceTree = "<group>"; };
-		A47521BF1B7B103C00EB5BF2 /* HMWaterflowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMWaterflowLayout.m; sourceTree = "<group>"; };
-		A47521C01B7B103C00EB5BF2 /* HMShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMShopCell.h; sourceTree = "<group>"; };
-		A47521C11B7B103C00EB5BF2 /* HMShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMShopCell.m; sourceTree = "<group>"; };
-		A47521C21B7B103C00EB5BF2 /* HMShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMShop.h; sourceTree = "<group>"; };
-		A47521C31B7B103C00EB5BF2 /* HMShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMShop.m; sourceTree = "<group>"; };
-		A47521C71B7B104C00EB5BF2 /* 1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 1.plist; sourceTree = "<group>"; };
 		A47521CB1B7B188E00EB5BF2 /* Like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like.png; sourceTree = "<group>"; };
 		A47F50361B67765600955052 /* CompanyEmailComplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyEmailComplete.h; sourceTree = "<group>"; };
 		A47F50371B67765600955052 /* CompanyEmailComplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyEmailComplete.m; sourceTree = "<group>"; };
@@ -1463,6 +1459,17 @@
 		A4F315641B5E4BFB00126C8A /* PhotoShouCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoShouCell.m; sourceTree = "<group>"; };
 		A4F315711B5E4F7A00126C8A /* GroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupViewController.h; sourceTree = "<group>"; };
 		A4F315721B5E4F7A00126C8A /* GroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupViewController.m; sourceTree = "<group>"; };
+		A4F594EC1B7C7C740088D9CC /* PersonReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonReportController.h; sourceTree = "<group>"; };
+		A4F594ED1B7C7C740088D9CC /* PersonReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonReportController.m; sourceTree = "<group>"; };
+		A4F594F01B7C7C740088D9CC /* 1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 1.plist; sourceTree = "<group>"; };
+		A4F594F11B7C7C740088D9CC /* HMShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMShop.h; sourceTree = "<group>"; };
+		A4F594F21B7C7C740088D9CC /* HMShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMShop.m; sourceTree = "<group>"; };
+		A4F594F31B7C7C740088D9CC /* HMShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMShopCell.h; sourceTree = "<group>"; };
+		A4F594F41B7C7C740088D9CC /* HMShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMShopCell.m; sourceTree = "<group>"; };
+		A4F594F51B7C7C740088D9CC /* HMWaterflowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMWaterflowLayout.h; sourceTree = "<group>"; };
+		A4F594F61B7C7C740088D9CC /* HMWaterflowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMWaterflowLayout.m; sourceTree = "<group>"; };
+		A4F595001B7C7D970088D9CC /* BrithdayBlessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrithdayBlessController.h; sourceTree = "<group>"; };
+		A4F595011B7C7D970088D9CC /* BrithdayBlessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrithdayBlessController.m; sourceTree = "<group>"; };
 		C836FD3FBA4AB74B0A650FF1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D9388089A6ADF54035C56E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1867,7 +1874,8 @@
 		9649B5191B564DE000A7F355 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A46D4B021B7A032900177577 /* NewPersonReport */,
+				A4F594FC1B7C7D7D0088D9CC /* PersonBrithdayController */,
+				A4F594EA1B7C7C740088D9CC /* NewPersonReport */,
 				A4F3156C1B5E4F4E00126C8A /* AddressViewController */,
 				A4F3156D1B5E4F4E00126C8A /* GroupViewController */,
 				9649B51A1B564DE000A7F355 /* CompanyViewController.h */,
@@ -3470,47 +3478,6 @@
 			path = model;
 			sourceTree = "<group>";
 		};
-		A46D4B021B7A032900177577 /* NewPersonReport */ = {
-			isa = PBXGroup;
-			children = (
-				A47521BD1B7B103400EB5BF2 /* view */,
-				A46D4B031B7A032900177577 /* Controller */,
-				A46D4B041B7A032900177577 /* model */,
-			);
-			name = NewPersonReport;
-			path = AddressViewController/NewPersonReport;
-			sourceTree = "<group>";
-		};
-		A46D4B031B7A032900177577 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				A46D4B061B7A034900177577 /* PersonReportController.h */,
-				A46D4B071B7A034900177577 /* PersonReportController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		A46D4B041B7A032900177577 /* model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		A47521BD1B7B103400EB5BF2 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				A47521C71B7B104C00EB5BF2 /* 1.plist */,
-				A47521BE1B7B103C00EB5BF2 /* HMWaterflowLayout.h */,
-				A47521BF1B7B103C00EB5BF2 /* HMWaterflowLayout.m */,
-				A47521C01B7B103C00EB5BF2 /* HMShopCell.h */,
-				A47521C11B7B103C00EB5BF2 /* HMShopCell.m */,
-				A47521C21B7B103C00EB5BF2 /* HMShop.h */,
-				A47521C31B7B103C00EB5BF2 /* HMShop.m */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
 		A48B1B571B707E0A0049237E /* controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -3625,6 +3592,79 @@
 				A49205761B6F0B6100F16346 /* view */,
 			);
 			path = GroupViewController;
+			sourceTree = "<group>";
+		};
+		A4F594EA1B7C7C740088D9CC /* NewPersonReport */ = {
+			isa = PBXGroup;
+			children = (
+				A4F594EB1B7C7C740088D9CC /* Controller */,
+				A4F594EE1B7C7C740088D9CC /* model */,
+				A4F594EF1B7C7C740088D9CC /* View */,
+			);
+			path = NewPersonReport;
+			sourceTree = "<group>";
+		};
+		A4F594EB1B7C7C740088D9CC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A4F594EC1B7C7C740088D9CC /* PersonReportController.h */,
+				A4F594ED1B7C7C740088D9CC /* PersonReportController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A4F594EE1B7C7C740088D9CC /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		A4F594EF1B7C7C740088D9CC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4F594F01B7C7C740088D9CC /* 1.plist */,
+				A4F594F11B7C7C740088D9CC /* HMShop.h */,
+				A4F594F21B7C7C740088D9CC /* HMShop.m */,
+				A4F594F31B7C7C740088D9CC /* HMShopCell.h */,
+				A4F594F41B7C7C740088D9CC /* HMShopCell.m */,
+				A4F594F51B7C7C740088D9CC /* HMWaterflowLayout.h */,
+				A4F594F61B7C7C740088D9CC /* HMWaterflowLayout.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A4F594FC1B7C7D7D0088D9CC /* PersonBrithdayController */ = {
+			isa = PBXGroup;
+			children = (
+				A4F594FD1B7C7D7D0088D9CC /* controller */,
+				A4F594FE1B7C7D7D0088D9CC /* model */,
+				A4F594FF1B7C7D7D0088D9CC /* view */,
+			);
+			path = PersonBrithdayController;
+			sourceTree = "<group>";
+		};
+		A4F594FD1B7C7D7D0088D9CC /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				A4F595001B7C7D970088D9CC /* BrithdayBlessController.h */,
+				A4F595011B7C7D970088D9CC /* BrithdayBlessController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		A4F594FE1B7C7D7D0088D9CC /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		A4F594FF1B7C7D7D0088D9CC /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3753,6 +3793,7 @@
 				96CF93BB1B674B54001759E2 /* 58.png in Resources */,
 				96CF944E1B674B54001759E2 /* chat_sender_audio_playing_003.png in Resources */,
 				A40936BE1B721BC800515A50 /* address.png in Resources */,
+				A4F594F81B7C7C740088D9CC /* 1.plist in Resources */,
 				96CF94241B674B54001759E2 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */,
 				96CF944C1B674B54001759E2 /* chat_sender_audio_playing_002.png in Resources */,
 				96CF94351B674B54001759E2 /* chatBar_more_locationSelected.png in Resources */,
@@ -3838,7 +3879,6 @@
 				96CF94081B674B54001759E2 /* chat_location_detail_disclosureHL@2x.png in Resources */,
 				96CF94421B674B54001759E2 /* chat_receiver_audio_playing003.png in Resources */,
 				96CF93C01B674B54001759E2 /* chatFire_audioPlaying0@2x.png in Resources */,
-				A47521C81B7B104C00EB5BF2 /* 1.plist in Resources */,
 				96CF945D1B674B54001759E2 /* titleBar@2x.png in Resources */,
 				96CF94561B674B54001759E2 /* password.png in Resources */,
 				96CF93E11B674B54001759E2 /* VoiceSearchFeedback014.png in Resources */,
@@ -4036,14 +4076,15 @@
 				969616D21B6B5D4D002FC24C /* PSTCollectionViewCell.m in Sources */,
 				969616D11B6B5D25002FC24C /* EMChatViewBaseCell.m in Sources */,
 				969616D01B6B5D03002FC24C /* BaseViewController.m in Sources */,
+				A4F594F91B7C7C740088D9CC /* HMShop.m in Sources */,
 				A45726FE1B74A9B100A27B79 /* AttentionViewCell.m in Sources */,
-				A47521C41B7B103C00EB5BF2 /* HMWaterflowLayout.m in Sources */,
 				969616CF1B6B5CC5002FC24C /* InvitationManager.m in Sources */,
 				969616CE1B6B5C96002FC24C /* ContactsViewController.m in Sources */,
 				969616CD1B6B5AF6002FC24C /* EMChatTimeCell.m in Sources */,
 				967439B91B705908004334A4 /* AccountTool.m in Sources */,
 				969616CC1B6B5ADF002FC24C /* DXFaceView.m in Sources */,
 				969616CB1B6B5ABC002FC24C /* ChoosePhotoController.m in Sources */,
+				A4F594FB1B7C7C740088D9CC /* HMWaterflowLayout.m in Sources */,
 				969616C91B6B5A7D002FC24C /* ChoosePhotoView.m in Sources */,
 				A481A1F21B65C6C100845046 /* PaggingScrollView.m in Sources */,
 				96C9FFB51B737539008B71CE /* HelpTableViewCell.m in Sources */,
@@ -4062,7 +4103,6 @@
 				96CF93891B674B54001759E2 /* FacialView.m in Sources */,
 				96CF93811B674B54001759E2 /* ChatListViewController.m in Sources */,
 				A49205751B6F0B5000F16346 /* AddressTableViewCell.m in Sources */,
-				A47521C61B7B103C00EB5BF2 /* HMShop.m in Sources */,
 				96CF90E71B673422001759E2 /* THProgressView.m in Sources */,
 				96AA196A1B79A3C7008E4CA3 /* ProfileTableViewCell.m in Sources */,
 				96CF937D1B674B54001759E2 /* UIResponder+Router.m in Sources */,
@@ -4084,7 +4124,6 @@
 				96CF939A1B674B54001759E2 /* ContactView.m in Sources */,
 				A44D40461B732EC400B10DFB /* DLDatePickerView.m in Sources */,
 				96CF93B41B674B54001759E2 /* EMNavigationController.m in Sources */,
-				A46D4B081B7A034900177577 /* PersonReportController.m in Sources */,
 				96CF93961B674B54001759E2 /* MessageModelManager.m in Sources */,
 				96CF90CF1B673422001759E2 /* EMSDWebImagePrefetcher.m in Sources */,
 				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
@@ -4099,6 +4138,7 @@
 				A439ED421B68DA9E006B3CAC /* GuidePageViewController.m in Sources */,
 				96CF90BD1B673422001759E2 /* EMAlertView.m in Sources */,
 				96AA191B1B787061008E4CA3 /* CommentsViewController.m in Sources */,
+				A4F594F71B7C7C740088D9CC /* PersonReportController.m in Sources */,
 				968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */,
 				96CF947A1B674B54001759E2 /* BlackListViewController.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
@@ -4197,12 +4237,14 @@
 				967439BD1B705908004334A4 /* RouteInfoModel.m in Sources */,
 				96CF93A81B674B54001759E2 /* AddFriendViewController.m in Sources */,
 				96CF938D1B674B54001759E2 /* EMChatBaseBubbleView.m in Sources */,
+				A4F594FA1B7C7C740088D9CC /* HMShopCell.m in Sources */,
 				A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */,
 				96CF93831B674B54001759E2 /* ChatViewController+Category.m in Sources */,
 				96CF93791B674B54001759E2 /* CallViewController.m in Sources */,
 				96CF93A51B674B54001759E2 /* ChineseToPinyin.m in Sources */,
 				96CF90E21B673422001759E2 /* PSTGridLayoutInfo.m in Sources */,
 				96CF90C01B673422001759E2 /* MWCaptionView.m in Sources */,
+				A4F595021B7C7D970088D9CC /* BrithdayBlessController.m in Sources */,
 				A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */,
 				96CF90D41B673422001759E2 /* UIImage+EMMultiFormat.m in Sources */,
 				96CF90E01B673422001759E2 /* PSTCollectionViewLayout.m in Sources */,
@@ -4238,7 +4280,6 @@
 				A434C60C1B71DBAE009643CD /* PersonalDynamicController.m in Sources */,
 				A48B1B5D1B7081420049237E /* FolderViewController.m in Sources */,
 				96CF90B81B673422001759E2 /* EMCDDeviceManager+Media.m in Sources */,
-				A47521C51B7B103C00EB5BF2 /* HMShopCell.m in Sources */,
 				A4F315691B5E4BFB00126C8A /* PhotoPlayController.m in Sources */,
 				96CF90DA1B673422001759E2 /* PSTCollectionView.m in Sources */,
 				96CF93B01B674B54001759E2 /* EMTextView.m in Sources */,
