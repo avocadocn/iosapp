@@ -14,7 +14,7 @@
 
 static NSInteger num = 0;
 
-@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate>
+@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -98,12 +98,6 @@ static NSInteger num = 0;
         case 1:
         {
             
-            
-            
-            
-            
-            
-            
             break;
         }
         default:
@@ -170,8 +164,6 @@ static NSInteger num = 0;
     
 }
 
-
-
 - (void)builtInformationView
 {
     self.nickName = [CuntomFolderView new];
@@ -209,6 +201,10 @@ static NSInteger num = 0;
     }
     scroll.contentSize = CGSizeMake(0, 45 * num);
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
 }
 
 - (void)didReceiveMemoryWarning {

@@ -45,6 +45,11 @@ static NSInteger indexNum = 0;
 {
     @autoreleasepool {
         NSArray *array= [NSArray arrayWithObjects:@"同事圈",@"新人报道", @"生日祝福" ,nil];
+        NSArray *colorArray = [NSArray arrayWithObjects:
+                               [UIColor colorWithRed:1 green:.8 blue:0 alpha:.8],
+                               [UIColor colorWithRed:.2 green:.5 blue:1 alpha:1],
+                               [UIColor orangeColor], nil];
+        
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -55,10 +60,10 @@ static NSInteger indexNum = 0;
         indexNum ++;
         TitleView.tag = indexNum;
         [TitleView addGestureRecognizer:tap];
-        CGFloat red = arc4random() % 100 / 100.0;
-        CGFloat blue = arc4random() % 100 / 100.0;
-        CGFloat green = arc4random() % 100 / 100.0;
-        [TitleView setBackgroundColor:[UIColor colorWithRed:red green:blue blue:green alpha:1]];
+
+        UIColor *color = [colorArray objectAtIndex:indexNum - 1];
+        [TitleView setBackgroundColor:color];
+        
         [self addSubview:TitleView];
         
         [TitleView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,7 +73,7 @@ static NSInteger indexNum = 0;
         }];
         
         UIImageView *imageView = [UIImageView new];
-        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", indexNum]];
+        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", (long)indexNum]];
         [TitleView addSubview:imageView];
         
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {

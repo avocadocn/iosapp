@@ -14,9 +14,9 @@
 #import "ColleaguesInformationController.h"
 #import "RestfulAPIRequestTool.h"
 #import "ChineseToPinyin.h"
+#import "EMSearchBar.h"
 
-
-@interface AddressViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface AddressViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
 @end
 
@@ -48,8 +48,8 @@
      [self.view addSubview:self.searchColleague];
      */
     
-    self.addressSearch = [[UITextField alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, 40)];
-    self.addressSearch.textAlignment = NSTextAlignmentCenter;
+    self.addressSearch = [[EMSearchBar alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, 40)];
+    
     self.addressSearch.placeholder = @"Search";  [self.addressSearch placeholder];
     self.addressSearch.layer.borderWidth = 5;
     self.addressSearch.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -63,6 +63,17 @@
     self.myTableView.sectionIndexColor = [UIColor blackColor];
     [self.view addSubview:self.myTableView];
     
+}
+- (UISearchBar *)searchBar
+{
+    if (!_searchBar) {
+        _searchBar = [[EMSearchBar alloc] initWithFrame: CGRectMake(0, 0, self.view.frame.size.width, 44)];
+        _searchBar.delegate = self;
+        _searchBar.placeholder = NSLocalizedString(@"search", @"Search");
+        _searchBar.backgroundColor = [UIColor colorWithRed:0.747 green:0.756 blue:0.751 alpha:1.000];
+    }
+    
+    return _searchBar;
 }
 
 - (void)requestNet

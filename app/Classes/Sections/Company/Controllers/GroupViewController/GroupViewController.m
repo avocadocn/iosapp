@@ -11,6 +11,7 @@
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
 #import "GroupCardViewCell.h"
+#import "TeamHomePageController.h"
 #import "GroupSelectCell.h"
 
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
@@ -21,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"群组";
     [self makeFalseData];
     [self builtInterface];
 }
@@ -91,6 +93,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"点击");
+    TeamHomePageController *team = [[TeamHomePageController alloc]init];
+    [self.navigationController pushViewController:team animated:YES];
+    
 }
 
 

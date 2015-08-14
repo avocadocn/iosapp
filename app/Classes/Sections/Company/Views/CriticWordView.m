@@ -33,7 +33,6 @@
         make.bottom.mas_equalTo(self.mas_bottom);
     }];
     
-    
     self.criticText = [UILabel new];
     self.criticText.textColor = [UIColor colorWithWhite:.5 alpha:1];
 //    [self.criticText setBackgroundColor:[UIColor greenColor]];
@@ -46,7 +45,6 @@
         make.left.mas_equalTo(self.criticIamge.mas_right).offset(self.height);
         make.bottom.mas_equalTo(self.mas_bottom);
     }];
-
     
     
 }

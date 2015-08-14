@@ -8,7 +8,7 @@
 
 #import "AttentionViewController.h"
 #import "AttentionViewCell.h"
-
+#import "FolderViewController.h"
 
 @interface AttentionViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -30,7 +30,7 @@
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:[UIImage imageNamed:@"1"] forKey:@"image"];
         [dic setObject:@"杨彤彤" forKey:@"name"];
-        [dic setObject:@"专注 滑板鞋" forKey:@"work"];
+        [dic setObject:@"前端工程师" forKey:@"work"];
         [self.modelArray addObject:dic];
     }
 }
@@ -43,8 +43,8 @@
     
 //    [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"cell"];
     
-    [self.attentionTableView registerNib:[UINib nibWithNibName:@"AttentionViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cell"];
-    
+//    [self.attentionTableView registerNib:[UINib nibWithNibName:@"AttentionViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cell"];
+    [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"cell"];
     
     [self.view addSubview:self.attentionTableView];
     
@@ -65,8 +65,8 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    
-    
+    FolderViewController *fold = [[FolderViewController alloc]init];
+    [self.navigationController pushViewController:fold animated:YES];
     
 }
 

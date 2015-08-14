@@ -12,6 +12,8 @@
 #import <ReactiveCocoa.h>
 #import "CriticWordView.h"
 
+
+
 @implementation ColleagueViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -51,18 +53,35 @@
         make.left.mas_equalTo(self.circleImage.mas_right).offset(10);
         make.top.equalTo(superBigView).with.offset(10);
     }];
-    
+    /*
     self.ColleagueWord = [UILabel new];
     
     self.ColleagueWord.textColor = [UIColor colorWithWhite:.2 alpha:.8];
     self.ColleagueWord.numberOfLines = 0;
     self.ColleagueWord.font = [UIFont systemFontOfSize:14];
+    self.ColleagueWord.backgroundColor = [UIColor blackColor];
+    self.ColleagueWord.text = @"我的吾水水水水谁谁谁水水水水谁谁谁水水水水水水水水问无为谓吾吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓哇哇哇哇哇哇哇哇问无为谓吾问无吾问无为吾问无为谓问问爱";
+    [self.ColleagueWord setTextColor:[UIColor whiteColor]];
     [superBigView addSubview:self.ColleagueWord];
     [self.ColleagueWord mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.circleImage.mas_left);
-        make.right.mas_equalTo(superBigView.mas_right);
+        make.right.mas_equalTo(superBigView.mas_right).offset(-10);
         make.top.mas_equalTo(self.circleImage.mas_bottom).offset(5); // 顶部为底部
+//        make.height.mas_equalTo(30);
     }];
+    
+    self.photoView = [UIView new];
+    [self.photoView setBackgroundColor:[UIColor greenColor]];
+    
+    [superBigView addSubview:self.photoView];
+    [self.photoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.ColleagueWord.mas_bottom).offset(DLMultipleHeight(10.0));
+        make.left.mas_equalTo(self.ColleagueWord.mas_left);
+        make.right.mas_equalTo(self.ColleagueWord.mas_right);
+        make.height.mas_equalTo(DLScreenWidth / 3.0 * self.num);
+    }];
+    
+    */
     /*
     UIView *tempView= [UIView new];
     [tempView setBackgroundColor:[UIColor blackColor]];
@@ -119,18 +138,8 @@
     
     NSInteger temp = arc4random() % 10;
     self.num = temp;
-    /*
-    if (self.num != 0) { // 有照片
-        for (NSInteger i = 0; i < self.num; i++) {
-            @autoreleasepool {
-            UIImage *image = [UIImage imageNamed:@"2.jpg"];
-            NSInteger inte = DLScreenWidth / 3.5;
-            UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(DLMultipleWidth(10.0) + i % 3 * (inte + 10), inte + i / 3 * (inte + 10), inte + 5 , inte + 5)];
-            imageview.image = image;
-            [superBigView addSubview:imageview];
-            }
-        }
-    }*/
+    
+    
     self.wordFrom = [UILabel new];
     self.wordFrom.text = @"来自 动梨基地";
     self.wordFrom.textColor = [UIColor colorWithWhite:.5 alpha:1];
@@ -143,6 +152,9 @@
         make.right.mas_equalTo(superBigView.centerX);
         make.bottom.mas_equalTo(superBigView.mas_bottom).offset(-5);
     }];
+    
+    self.userInterView = [[UIView alloc]initWithFrame:CGRectMake(DLMultipleWidth(8.0), DLMultipleHeight(55.0), DLMultipleWidth(353.0), 300)];
+    [superBigView addSubview:self.userInterView];
     
     
     [self addSubview:superBigView];
@@ -159,10 +171,24 @@
     
 }
 
-
 - (void)reloadCellWithModel:(id)model
 {
+    NSArray *viewArray =  [self.userInterView subviews];
+    for (UIView *aView in viewArray) {
+        [aView removeFromSuperview];
+    }
+    NSArray *array = [model objectForKey:@"array"];
     
+    NSInteger inte = DLScreenWidth / 3.5;
+    int i = 0;
+        for (UIImage *image in array) {
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(i % 3 * (inte + 10), i / 3 * (inte + 10), inte + 5, inte + 5)];
+        imageView.image = image;
+        [self.photoView addSubview:imageView];
+        i++;
+    }
+    self.photoView.height = inte * (i / 3 + 1);
+    self.state = YES;
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
@@ -181,6 +207,10 @@
             break;
     }
 }
+
+
+
+
 
 
 @end

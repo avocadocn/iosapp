@@ -35,6 +35,15 @@
 
 @property (nonatomic, strong)UIView *commendView;
 
+@property (nonatomic, strong)UIView *photoView;
+
+@property (nonatomic, assign)BOOL state;
+
+@property (nonatomic, strong)UIView *userInterView;
+
+- (void)reloadCellWithModel:(id)model;
+
+
 
 
 @end

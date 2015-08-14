@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class EMSearchBar;
+
 
 //通讯录
 
@@ -18,10 +20,10 @@
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
 
-@property (nonatomic, strong)UITextField *addressSearch;
+@property (nonatomic, strong)EMSearchBar *addressSearch;
 
 @property (nonatomic, strong)NSMutableDictionary *wordDic;
 
-
+@property (nonatomic, strong)EMSearchBar *searchBar;
 
 @end

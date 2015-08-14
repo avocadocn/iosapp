@@ -23,7 +23,7 @@
 
 #define GrayBackgroundColor RGB(235, 235, 235)
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
-
+#import "SHLUILabel.h"
 #import "UIView+Extension.h"
 #import "NotificationMacro.h"
 #import "EaseMob.h"

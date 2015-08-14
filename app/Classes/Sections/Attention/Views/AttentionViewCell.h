@@ -11,17 +11,11 @@
 @interface AttentionViewCell : UITableViewCell
 
 
-@property (weak, nonatomic) IBOutlet UILabel *AttentionName;
-@property (weak, nonatomic) IBOutlet UIImageView *AttentionPhoto;
-@property (weak, nonatomic) IBOutlet UILabel *AttentionWork;
+@property (strong, nonatomic)  UILabel *AttentionName;
+@property (strong, nonatomic)  UIImageView *AttentionPhoto;
+@property (strong, nonatomic)  UILabel *AttentionWork;
 
 - (void)cellBuiltWithModel:(id)model;
-
-
-
-
-
-
 
 
 @end

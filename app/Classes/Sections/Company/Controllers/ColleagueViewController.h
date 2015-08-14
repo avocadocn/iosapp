@@ -13,4 +13,8 @@
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
 
+@property (nonatomic, strong)UIView *interactionView;  // 用户交互 view cell
+
+@property (nonatomic, strong)NSMutableArray *userInterArray;
+
 @end
