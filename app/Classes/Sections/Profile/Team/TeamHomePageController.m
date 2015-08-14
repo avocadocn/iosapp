@@ -14,6 +14,9 @@
 #import "OtherActivityShowCell.h"
 #import "VoteTableViewCell.h"
 #import "HelpTableViewCell.h"
+#import "RestfulAPIRequestTool.h"
+#import "TempCompany.h"
+
 
 
 #define headViewHeight 264
@@ -173,6 +176,8 @@ static NSString * const helpCellID = @"helpCellID";
 
 -(void)settingBtnClicked:(id)sender{
     TeamInfomationViewController *infomationController = [[TeamInfomationViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    
+    // 数组为测试数据，与内容无关，至于数组的count有关，这边的count数目决定了里面用户头像的个数，界面内容会根据count的大小自动排版
     [infomationController setMemberInfos:@[@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf"]];
     [self.navigationController pushViewController:infomationController animated:YES];
 }
@@ -195,6 +200,19 @@ static NSString * const helpCellID = @"helpCellID";
     OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:avtivityCellID forIndexPath:indexPath];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    TempCompany *company = [[TempCompany alloc]init];
+//    [company setName:@"动力哈"];
+//    [company setPassword:@"asdfasd"];
+//    [company setEmail:@"asdfa@qq.com"];
+//    
+//    [RestfulAPIRequestTool routeName:@"companyQuickRegister" requestModel:company useKeys:@[@"name",@"email",@"password"] success:^(id json) {
+//        NSLog(@"%@",json);
+//    } failure:^(id errorJson) {
+//        NSLog(@"%@",errorJson);
+//    }];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

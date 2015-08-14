@@ -39,7 +39,7 @@
 
 #define ROUDEADDRESS @"http://192.168.2.115:3002/v2_0"
 
-#define BaseUrl @"http://192.168.2.115:3002/v2_0"
+#define BaseUrl @"http://www.55yali.com:3002/v2_0/"
 
 
 

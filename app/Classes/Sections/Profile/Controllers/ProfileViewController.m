@@ -15,6 +15,7 @@
 #import "VoteTableController.h"
 #import "HelpTableViewController.h"
 #import "TeamHomePageController.h"
+#import "UserMessageTableViewController.h"
 
 
 @interface ProfileViewController () <UITableViewDataSource,UITableViewDelegate,MenuCollectionControllerDelegate>
@@ -146,6 +147,7 @@ static NSString * const ID = @"ProfileTableViewCell";
             break;
         case 2: // 礼物
             //controller = [[FolderViewController alloc]init];
+            controller = [[UserMessageTableViewController alloc]init];
             break;
         case 3: // 活动
             controller = [[ActivityShowTableController alloc]init];
