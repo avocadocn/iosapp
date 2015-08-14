@@ -47,10 +47,24 @@ static AFHTTPSessionManager *_mgr;
  */
 + (void)load{
     _routeManager = [RouteManager sharedManager];
+    /**
+     
+     ****************************************************************************************************
+     baseUrl 使用细则
+     ****************************************************************************************************
+         NSURL *baseURL = [NSURL URLWithString:@"http://example.com/v1/"];
+        [NSURL URLWithString:@"foo" relativeToURL:baseURL];                  // http://example.com/v1/foo
+        [NSURL URLWithString:@"foo?bar=baz" relativeToURL:baseURL];          // http://example.com/v1/foo?bar=baz
+        [NSURL URLWithString:@"/foo" relativeToURL:baseURL];                 // http://example.com/foo
+        [NSURL URLWithString:@"foo/" relativeToURL:baseURL];                 // http://example.com/v1/foo
+        [NSURL URLWithString:@"/foo/" relativeToURL:baseURL];                // http://example.com/foo/
+        [NSURL URLWithString:@"http://example2.com/" relativeToURL:baseURL]; // http://example2.com/
+     ****************************************************************************************************
+     */
     
-    NSURL *baseUrl = [NSURL URLWithString:ROUDEADDRESS];
-//    _mgr = [[AFHTTPSessionManager alloc]initWithBaseURL:baseUrl];
-    _mgr = [[AFHTTPSessionManager alloc]init];
+    NSURL *baseUrl = [NSURL URLWithString:BaseUrl];
+    _mgr = [[AFHTTPSessionManager alloc]initWithBaseURL:baseUrl];
+//    _mgr = [[AFHTTPSessionManager alloc]init];
     _mgr.responseSerializer  = [AFHTTPResponseSerializer serializer];
     if ([AccountTool account].token) {
         [_mgr.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];
@@ -108,10 +122,6 @@ static AFHTTPSessionManager *_mgr;
     }];
     
     
-    
-    routeUrl = [NSString stringWithFormat:@"%@%@",ROUDEADDRESS,routeUrl];
-    
-    
     switch (type) {
         case RequsetMethodTypeGET:
             [self get:routeUrl params:mutableParamsDict success:success failure:failure];
@@ -149,7 +159,7 @@ static AFHTTPSessionManager *_mgr;
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        NSLog(@"%@",error);
         if (failure) {
             failure([self resolveFailureWith:error]);
         }
@@ -169,7 +179,7 @@ static AFHTTPSessionManager *_mgr;
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
-        NSLog(@"%@",_mgr.baseURL);
+        
         NSLog(@"%@",error);
         if (failure) {
             failure([self resolveFailureWith:error]);
@@ -201,6 +211,7 @@ static AFHTTPSessionManager *_mgr;
             success([self dataToJsonObject:responseObject]);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
         if (failure) {
             failure([self resolveFailureWith:error]);
         }
@@ -218,6 +229,7 @@ static AFHTTPSessionManager *_mgr;
             success([self dataToJsonObject:responseObject]);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
         if (failure) {
             failure([self resolveFailureWith:error]);
         }
@@ -232,6 +244,7 @@ static AFHTTPSessionManager *_mgr;
             success([self dataToJsonObject:responseObject]);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
         if (failure) {
             failure([self resolveFailureWith:error]);
         }

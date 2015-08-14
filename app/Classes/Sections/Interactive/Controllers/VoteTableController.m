@@ -23,6 +23,11 @@
 
 @implementation VoteTableController
 
+static UINavigationController *_staticNavi;
+
++(UINavigationController *)shareNavigation{
+    return _staticNavi;
+}
 
 static NSString * const ID = @"VoteTableViewCell";
 - (void)viewDidLoad {
@@ -44,6 +49,10 @@ static NSString * const ID = @"VoteTableViewCell";
     
     [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:ID];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    _staticNavi = self.navigationController;
 }
 
 -(void)loadVoteData{
@@ -111,7 +120,9 @@ static NSString * const ID = @"VoteTableViewCell";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CommentsViewController *commentsController = [[CommentsViewController alloc]init];
-    [self.navigationController pushViewController:commentsController animated:YES];
+//    CommentsViewController *commentsController = [[CommentsViewController alloc]init];
+//    [self.navigationController pushViewController:commentsController animated:YES];'
+    
+    NSLog(@"点击cell的事件已经取消，进入评论界面可点击下方的评论按钮进入");
 }
 @end

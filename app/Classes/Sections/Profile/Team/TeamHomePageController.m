@@ -10,6 +10,13 @@
 #import "TeamInfomationViewController.h"
 
 #import <UIImageView+WebCache.h>
+#import "CurrentActivitysShowCell.h"
+#import "OtherActivityShowCell.h"
+#import "VoteTableViewCell.h"
+#import "HelpTableViewCell.h"
+#import "RestfulAPIRequestTool.h"
+#import "TempCompany.h"
+
 
 
 #define headViewHeight 264
@@ -60,7 +67,18 @@
 
 @implementation TeamHomePageController
 
-static NSString * const ID = @"TeamHomePageController";
+ /**
+ *  活动cell
+ */
+static NSString * const avtivityCellID = @"avtivityCellID";
+/**
+ *  投票cell
+ */
+static NSString * const voteCellID = @"voteCellID";
+/**
+ *  求助cell
+ */
+static NSString * const helpCellID = @"helpCellID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,7 +107,12 @@ static NSString * const ID = @"TeamHomePageController";
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ID];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"OtherActivityShowCell" bundle:nil] forCellReuseIdentifier:avtivityCellID];
+    [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:voteCellID];
+    [self.tableView registerClass:[HelpTableViewCell class] forCellReuseIdentifier:helpCellID];
     
     
     self.headView = [[UIView alloc]init];
@@ -153,6 +176,8 @@ static NSString * const ID = @"TeamHomePageController";
 
 -(void)settingBtnClicked:(id)sender{
     TeamInfomationViewController *infomationController = [[TeamInfomationViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    
+    // 数组为测试数据，与内容无关，至于数组的count有关，这边的count数目决定了里面用户头像的个数，界面内容会根据count的大小自动排版
     [infomationController setMemberInfos:@[@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf"]];
     [self.navigationController pushViewController:infomationController animated:YES];
 }
@@ -164,7 +189,7 @@ static NSString * const ID = @"TeamHomePageController";
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 100;
+    return 3;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -172,9 +197,26 @@ static NSString * const ID = @"TeamHomePageController";
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
-    [cell.textLabel setText:[NSString stringWithFormat:@"test-%zd",indexPath.row]];
+    OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:avtivityCellID forIndexPath:indexPath];
+    
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    TempCompany *company = [[TempCompany alloc]init];
+//    [company setName:@"动力哈"];
+//    [company setPassword:@"asdfasd"];
+//    [company setEmail:@"asdfa@qq.com"];
+//    
+//    [RestfulAPIRequestTool routeName:@"companyQuickRegister" requestModel:company useKeys:@[@"name",@"email",@"password"] success:^(id json) {
+//        NSLog(@"%@",json);
+//    } failure:^(id errorJson) {
+//        NSLog(@"%@",errorJson);
+//    }];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 290 * DLScreenWidth / 375;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
