@@ -11,10 +11,14 @@
 #import <ReactiveCocoa.h>
 #import "CuntomFolderView.h"
 #import "DLDatePickerView.h"
+#import "DNImagePickerController.h"
+#import "DNAsset.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+
 
 static NSInteger num = 0;
 
-@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate>
+@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, DNImagePickerControllerDelegate>
 
 @end
 
@@ -33,21 +37,52 @@ static NSInteger num = 0;
 
 - (void)builtTitleView // 照片和选择照片
 {
+    self.scroll = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.scroll.showsVerticalScrollIndicator = FALSE;
+    self.scroll.showsHorizontalScrollIndicator = FALSE;
+    [self.view addSubview:self.scroll];
+    
+    
+//    [self.scroll mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.folderPhotoImage.mas_bottom).offset(25);
+//        make.right.mas_equalTo(self.view.mas_right);
+//        make.left.mas_equalTo(self.view.mas_left);
+//        make.bottom.mas_equalTo(self.view.mas_bottom);
+//    }];
+    
+    
     CGFloat width = DLScreenWidth / (375.0 / 150.0);
-    self.folderPhotoImage = [[UIImageView alloc]initWithFrame:CGRectMake((DLScreenWidth - width) / 2, 75, width, width)];
+    self.folderPhotoImage = [[UIImageView alloc]initWithFrame:CGRectMake((DLScreenWidth - width) / 2, DLMultipleHeight(25.0), width, width)];
     self.folderPhotoImage.image = [UIImage imageNamed:@"1"];
     self.folderPhotoImage.layer.masksToBounds = YES;
     self.folderPhotoImage.layer.cornerRadius = width / 2.0;
-    [self.view addSubview:self.folderPhotoImage];
+    [self.scroll addSubview:self.folderPhotoImage];
     
     [self editFolder];
 }
 
 - (void)editFolder  //用户看自己的资料, 允许被编辑
 {
+    UIButton *changePhotoButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [changePhotoButton addTarget:self action:@selector(choosePhotoAction:) forControlEvents:UIControlEventTouchUpInside];
+    [changePhotoButton setBackgroundImage:[UIImage imageNamed:@"cemera"] forState:UIControlStateNormal];
+    
+    [self.scroll addSubview:changePhotoButton];
+    [changePhotoButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.folderPhotoImage.mas_bottom);
+        make.right.mas_equalTo(self.folderPhotoImage.mas_right);
+        make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(40.0), DLMultipleWidth(40.0)));
+    }];
+    changePhotoButton.backgroundColor = [UIColor colorWithWhite:.95 alpha:1];
+    changePhotoButton.layer.masksToBounds = YES;
+    changePhotoButton.layer.cornerRadius = DLMultipleWidth(20.0);
+    
+    
+    
     self.editLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
 //    [label setBackgroundColor:[UIColor blackColor]];
-
+    
+    
     UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(editButtonAction:)];
     [self.editLabel addGestureRecognizer:tap];
     self.editLabel.text = @"编辑";
@@ -57,12 +92,36 @@ static NSInteger num = 0;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.editLabel];
     
 }
+
+- (void)choosePhotoAction:(UIButton *)sender
+{
+    DNImagePickerController *image = [[DNImagePickerController alloc]init];
+    image.imagePickerDelegate = self;
+    
+    [self presentViewController:image animated:YES completion:nil];
+}
+
+- (void)dnImagePickerController:(DNImagePickerController *)imagePickerController sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
+{
+    DNAsset *dnasset = [imageAssets firstObject];
+    
+    ALAssetsLibrary *lib = [ALAssetsLibrary new];
+    
+    [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+        
+        UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        self.folderPhotoImage.image = aImage;
+    } failureBlock:^(NSError *error) {
+        
+    }];
+}
+
+
+
 // 编辑按钮
 - (void)editButtonAction:(UITapGestureRecognizer *)sender
 {
-    
     NSLog(@"编辑");
-//    for ( *view in self.companyArray) {
     
     for (int i = 0; i < [self.companyArray count]-1; i++) {
         CuntomFolderView *view = [self.companyArray objectAtIndex:i];
@@ -177,28 +236,15 @@ static NSInteger num = 0;
     NSArray *labelName = @[@"昵       称", @"个人简介", @"真实姓名", @"性       别", @"生       日", @"部       门", @"手机号码", @"星       座"];
     
     
-    UIScrollView *scroll = [UIScrollView new];
-    scroll.bounces = NO;
-    scroll.showsVerticalScrollIndicator = FALSE;
-    scroll.showsHorizontalScrollIndicator = FALSE;
-    [self.view addSubview:scroll];
-    
-    
-    [scroll mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.folderPhotoImage.mas_bottom).offset(25);
-        make.right.mas_equalTo(self.view.mas_right);
-        make.left.mas_equalTo(self.view.mas_left);
-        make.bottom.mas_equalTo(self.view.mas_bottom);
-    }];
     
     for (CuntomFolderView *view in self.companyArray) {
-        view.frame = CGRectMake(0, num * 45, DLScreenWidth, 45);
+        view.frame = CGRectMake(0,DLMultipleHeight(200.0) + num * 45, DLScreenWidth, 45);
         view.titleLabel.text = [labelName objectAtIndex:num];
         [view setBackgroundColor:[UIColor whiteColor]];
-        [scroll addSubview:view];
+        [self.scroll addSubview:view];
         num ++;
     }
-    scroll.contentSize = CGSizeMake(0, 45 * num);
+    self.scroll.contentSize = CGSizeMake(0, DLMultipleHeight(200.0) + 45 * num);
     
 }
 

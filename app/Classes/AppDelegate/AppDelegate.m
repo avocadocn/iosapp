@@ -38,29 +38,20 @@
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
     // 登陆界面
-//    GuidePageViewController *gu = [[GuidePageViewController alloc]init];
-    // 动态界面  测试
-//    PersonalDynamicController *gu = [[PersonalDynamicController alloc]init];
-//    
-//    LaunchEventController *gu = [[LaunchEventController alloc]init];
-//
-//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
-//    [self.window setRootViewController:nav];
-    
-//    LaunchEventController *gu = [[LaunchEventController alloc]init];
+    GuidePageViewController *gu = [[GuidePageViewController alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
+    [self.window setRootViewController:nav];
     
     
-//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
-//    [self.window setRootViewController:nav];
     
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultCenterAction:) name:@"changeRootViewController" object:nil];
-    
+    // main 页面
+    /*
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
        self.mainController = main;
 //       self.mainController = main;
-    
+    */
     
     [self.window makeKeyAndVisible];
     return YES;

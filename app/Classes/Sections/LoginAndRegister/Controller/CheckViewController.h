@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ImageHolderView;
+
+
 
 @interface CheckViewController : UIViewController
 
@@ -16,8 +19,12 @@
 
 @property (nonatomic, strong)UITableView *companyTableView;
 
+@property (nonatomic, strong)ImageHolderView *school;
+
+@property (nonatomic, strong)ImageHolderView *time;
+
+@property (nonatomic, strong)UITableView *searchTableView;
+
 - (void)requestNetWithSuffix:(NSString *)str;
-
-
 
 @end

@@ -18,6 +18,8 @@
 #import <ReactiveCocoa.h>
 #import "DLNetworkRequest.h"
 #import "RestfulAPIRequestTool.h"
+#import "ImageHolderView.h"
+
 
 typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     SelectStateOfCompanyNo,
@@ -30,7 +32,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 
 @implementation CheckViewController
 
-
+/*
 - (void)requestNetWithSuffix:(NSString *)str
 {
 //    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
@@ -63,13 +65,84 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     }
     [self.companyTableView reloadData];
 }
+*/
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //    [self requestNet];
-    [self builtInterface];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    [self builtSchoolAndTime];
+    [self builtRightBarItem];
+    [self builtSchoolTable];
+    /*
+     //    [self requestNet];
+     [self builtInterface];
+     */  //第一个版本  公司版本
 }
 
+- (void)builtRightBarItem
+{
+    self.title = @"大学信息";
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
+    
+    label.text = @"下一步";
+    label.textAlignment = NSTextAlignmentRight;
+    
+    label.font = [UIFont systemFontOfSize:15];
+    label.textColor = [UIColor lightGrayColor];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    imageView.image = [UIImage imageNamed:@"back_normal"];
+    [view addSubview:imageView];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+    [view addGestureRecognizer:tap];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:view];
+}
+
+- (void)builtSchoolAndTime
+{
+    self.school = [[ImageHolderView alloc]initWithFrame:CGRectMake(0, 64 , DLScreenWidth, DLMultipleHeight(50.0)) andImage:[UIImage imageNamed:@"school"] andPlaceHolder:@"学校"];
+    [self.view addSubview:self.school];
+    
+    self.time = [[ImageHolderView alloc]initWithFrame:CGRectMake(0, 64 + DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(50.0)) andImage:[UIImage imageNamed:@"starTime"] andPlaceHolder:@"入学时间"];
+    [self.view addSubview:self.time];
+}
+
+- (void)builtSchoolTable
+{
+    self.searchTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64 +DLMultipleHeight(100.0), DLScreenWidth, DLScreenHeight - DLMultipleHeight(100.0) - 64) style:UITableViewStylePlain];
+    
+    self.searchTableView.delegate = self;
+    self.searchTableView.dataSource = self;
+    
+    [self.view addSubview:self.searchTableView];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [[UITableViewCell alloc]init];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)tapAction:(UITapGestureRecognizer *)tap
+{
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+/*
 - (void)requestNet
 {
     NSString *str = [self.mailURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -209,7 +282,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 {
     return 70;
 }
-
+*/
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

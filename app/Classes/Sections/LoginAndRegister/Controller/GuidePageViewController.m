@@ -40,20 +40,20 @@
 //    UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
     UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, -20, DLScreenWidth, DLScreenHeight + 20)];
-    scrollview.contentSize = CGSizeMake(DLScreenWidth * 4, 0);
+    scrollview.contentSize = CGSizeMake(DLScreenWidth * 3, 0);
     scrollview.pagingEnabled = YES;
     CGFloat red = arc4random() %100 / 100.0;
     CGFloat blue = arc4random() %100 / 100.0;
     CGFloat yellow = arc4random() %100 / 100.0;
     scrollview.backgroundColor = [UIColor colorWithRed:red green:blue blue:yellow alpha:1];
-    for (int i = 1; i < 5; i++) {
+    for (int i = 1; i < 4; i++) {
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake((i - 1) * DLScreenWidth, 0, DLScreenWidth, DLScreenHeight)];
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"welcome-%d", i]];
         [scrollview addSubview:imageView];
     }
     
     // 登录/注册逻辑 View  小元件都放在上面
-    UIView *loginLogicView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth * 3, 0, DLScreenWidth, DLScreenHeight)];
+    UIView *loginLogicView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth * 2, 0, DLScreenWidth, DLScreenHeight)];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(registerTapAction:)];
     [loginLogicView addGestureRecognizer:tap];   //需要进行传值
@@ -86,7 +86,8 @@
         make.centerX.mas_equalTo(loginLogicView.mas_centerX);
     }];
     
-
+    
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeViewAction:) name:@"loginAccount" object:nil];  //  接受返回通知
     
     
@@ -120,7 +121,7 @@
         check.mailURL = [NSString stringWithFormat:@"%@", self.mailBoxTextField.text];  //接受到的邮箱内容
 //        NSArray *array = [check.mailURL componentsSeparatedByString:@"@"];
 //        NSString *str = [array lastObject];
-        [check requestNetWithSuffix:check.mailURL];
+//        [check requestNetWithSuffix:check.mailURL];
         
         [self.navigationController pushViewController:check animated:YES];
         self.navigationController.navigationBarHidden = NO;

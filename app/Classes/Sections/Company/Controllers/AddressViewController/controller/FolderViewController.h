@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, EnumOfEditButton) {
 
 @property (nonatomic, strong)NSArray *companyArray;
 
-
+@property (nonatomic, strong)UIScrollView *scroll;
 
 
 @end
