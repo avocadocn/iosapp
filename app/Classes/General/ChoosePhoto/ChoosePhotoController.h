@@ -15,7 +15,6 @@
  3:遵循 ArrangeState 协议,执行arrangeStartWithArray:方法来对取得的图片的数组进行操作
  */
 
-
 @protocol ArrangeState <NSObject>
 
 - (void)arrangeStartWithArray:(NSMutableArray *)array;

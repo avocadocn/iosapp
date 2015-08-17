@@ -10,7 +10,6 @@
 #import <ReactiveCocoa.h>
 #import <Masonry.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "ChoosePhotoController.h"
 #import "ChoosePhotoView.h"
 #define WID ((DLScreenWidth - 20) / 4.0)
 
@@ -28,7 +27,7 @@
 
 - (void)builtInterface
 {
-    [self.view setBackgroundColor:[UIColor colorWithWhite:.8 alpha:1]];
+    [self.view setBackgroundColor:[UIColor colorWithWhite:.95 alpha:1]];
     
     //标题
     UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
@@ -79,6 +78,19 @@
         make.left.mas_equalTo(self.speakTextView.mas_left);
         make.size.mas_equalTo(CGSizeMake(DLScreenWidth - 20, WID * 3 + 20));
     }];
+    
+    
+    UIView *lineView = [UIView new];
+    [lineView setBackgroundColor:[UIColor lightGrayColor]];
+    
+    [self.view addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.selectPhotoView.mas_bottom).offset(-10);
+        make.left.mas_equalTo(self.selectPhotoView.mas_left);
+        make.right.mas_equalTo(self.selectPhotoView.mas_right);
+        make.height.mas_equalTo(.5);
+    }];
+    
 }
 
 - (void)ChoosePhotoView:(ChoosePhotoView *)chooseView withFrame:(CGRect)frame

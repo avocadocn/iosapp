@@ -11,13 +11,21 @@
 #import "ChoosePhotoController.h"
 #import <Masonry.h>
 #import "PhotoPlayController.h"
+#import "DNImagePickerController.h"
+#import "NSURL+DNIMagePickerUrlEqual.h"
+#import "DNAsset.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "DNPhotoBrowser.h"
+
+#define WID ((DLScreenWidth - 20) / 4.0)
+
 typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
 {
     EnumOfViewSubclassNo,
     EnumOfViewSubclassYes
 };
 
-@interface ChoosePhotoView ()<ArrangeState>
+@interface ChoosePhotoView ()<DNImagePickerControllerDelegate>
 @property (nonatomic, assign)EnumOfViewSubclass state;
 @end
 
@@ -37,8 +45,6 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
 {
     self.imagePhotoArray = [NSMutableArray array];
     
-    ChoosePhotoController *choose = [ChoosePhotoController shareStateOfController];
-    choose.delegate = self;
     
     if (!self.componentArray){
         self.componentArray = [NSMutableArray array];
@@ -50,9 +56,9 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
     self.insertButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         //跳转页面
         
-        [self.view.navigationController pushViewController:choose animated:YES];
-        
-//        }];
+        DNImagePickerController *imagePicker = [[DNImagePickerController alloc] init];
+        imagePicker.imagePickerDelegate = self;
+        [self.view presentViewController:imagePicker animated:YES completion:nil];
         
         return [RACSignal empty];
     }];
@@ -66,6 +72,7 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
 
 - (void)arrangeStartWithArray:(NSMutableArray *)array  //对取得的照片进行排序
 {
+    
     NSLog(@"开始排序");
     
     NSLog(@"%@", array);
@@ -121,13 +128,52 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
 
 - (void)imageViewTapAction:(UITapGestureRecognizer *)tap
 {
-    ChoosePhotoController *choose = [ChoosePhotoController shareStateOfController];
-    PhotoPlayController *photoPlay = [[PhotoPlayController alloc]initWithPhotoArray:choose.selectArray indexOfContentOffset:tap.view.tag - 1];
+    /*
+    DNPhotoBrowser *browsert = [[DNPhotoBrowser alloc]initWithPhotos:self.imagePhotoArray currentIndex:tap.view.tag fullImage:YES];
+    browsert.delegate = self;
+    browsert.hidesBottomBarWhenPushed = YES;
     
-    // 模态进入照片播放界面
-    [self.view.navigationController presentViewController:photoPlay animated:YES completion:^{
+    [self.view.navigationController pushViewController:browsert animated:YES];
+*/
+    PhotoPlayController *browser = [[PhotoPlayController alloc]initWithPhotoArray:self.imagePhotoArray indexOfContentOffset:tap.view.tag - 1];
+    [self.view.navigationController pushViewController:browser animated:YES];
+    
+}
+
+
+- (void)dnImagePickerController:(DNImagePickerController *)imagePickerController sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
+{
+    self.imagePhotoArray = [NSMutableArray array];
+    
+    for (int i = 0; i < imageAssets.count; i++) {
         
+        DNAsset *dnasset = [imageAssets objectAtIndex:i];
+        
+        ALAssetsLibrary *lib = [ALAssetsLibrary new];
+        
+        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+            
+            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+            NSLog(@"正在选择");
+            [self.imagePhotoArray addObject:aImage];
+            if (i == [imageAssets count] - 1) {
+                [self arrangeStartWithArray:self.imagePhotoArray];
+            }
+            
+        } failureBlock:^(NSError *error) {
+            
+        }];
+    }
+}
+
+- (void)dnImagePickerControllerDidCancel:(DNImagePickerController *)imagePicker
+{
+    [imagePicker dismissViewControllerAnimated:YES completion:^{
     }];
 }
+
+
+
+
 
 @end

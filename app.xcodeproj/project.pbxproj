@@ -526,6 +526,30 @@
 		A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46D4AF81B79ED8400177577 /* GroupSelectCell.m */; };
 		A46D4AFB1B79F1BA00177577 /* insert.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D4AFA1B79F1BA00177577 /* insert.png */; };
 		A46DCEF01B69F1060049C999 /* mzx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A46DCEEF1B69F1060049C999 /* mzx.jpg */; };
+		A4745DFB1B81A9AC008EB944 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DCC1B81A9AC008EB944 /* CollectionViewCell.m */; };
+		A4745DFC1B81A9AC008EB944 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DCE1B81A9AC008EB944 /* CollectionViewController.m */; };
+		A4745DFD1B81A9AC008EB944 /* DNAlbumTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DD01B81A9AC008EB944 /* DNAlbumTableViewController.m */; };
+		A4745DFE1B81A9AC008EB944 /* DNAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DD21B81A9AC008EB944 /* DNAsset.m */; };
+		A4745DFF1B81A9AC008EB944 /* DNImageFlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DD41B81A9AC008EB944 /* DNImageFlowViewController.m */; };
+		A4745E001B81A9AC008EB944 /* DNImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DD61B81A9AC008EB944 /* DNImagePickerController.m */; };
+		A4745E011B81A9AC008EB944 /* DNImagePickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = A4745DD71B81A9AC008EB944 /* DNImagePickerController.strings */; };
+		A4745E021B81A9AC008EB944 /* DNPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DD91B81A9AC008EB944 /* DNPhotoBrowser.m */; };
+		A4745E031B81A9AC008EB944 /* DNImagePicker.strings in Resources */ = {isa = PBXBuildFile; fileRef = A4745DDA1B81A9AC008EB944 /* DNImagePicker.strings */; };
+		A4745E041B81A9AC008EB944 /* NSURL+DNIMagePickerUrlEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DDE1B81A9AC008EB944 /* NSURL+DNIMagePickerUrlEqual.m */; };
+		A4745E051B81A9AC008EB944 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DE01B81A9AC008EB944 /* UIColor+Hex.m */; };
+		A4745E061B81A9AC008EB944 /* UIView+DNImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DE21B81A9AC008EB944 /* UIView+DNImagePicker.m */; };
+		A4745E071B81A9AC008EB944 /* UIViewController+DNImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DE41B81A9AC008EB944 /* UIViewController+DNImagePicker.m */; };
+		A4745E081B81A9AC008EB944 /* imageResources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4745DE51B81A9AC008EB944 /* imageResources.xcassets */; };
+		A4745E091B81A9AC008EB944 /* ImagesPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4745DE61B81A9AC008EB944 /* ImagesPicker.xcassets */; };
+		A4745E0A1B81A9AC008EB944 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DE81B81A9AC008EB944 /* InfoViewController.m */; };
+		A4745E0B1B81A9AC008EB944 /* DNAssetsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DEB1B81A9AC008EB944 /* DNAssetsViewCell.m */; };
+		A4745E0C1B81A9AC008EB944 /* DNBadgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DED1B81A9AC008EB944 /* DNBadgeLabel.m */; };
+		A4745E0D1B81A9AC008EB944 /* DNBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DEF1B81A9AC008EB944 /* DNBrowserCell.m */; };
+		A4745E0E1B81A9AC008EB944 /* DNFullImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DF11B81A9AC008EB944 /* DNFullImageButton.m */; };
+		A4745E0F1B81A9AC008EB944 /* DNSendButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DF31B81A9AC008EB944 /* DNSendButton.m */; };
+		A4745E101B81A9AC008EB944 /* DNUnAuthorizedTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DF51B81A9AC008EB944 /* DNUnAuthorizedTipsView.m */; };
+		A4745E111B81A9AC008EB944 /* JKPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DF71B81A9AC008EB944 /* JKPromptView.m */; };
+		A4745E151B81BD1C008EB944 /* OwnnessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745E141B81BD1C008EB944 /* OwnnessViewController.m */; };
 		A47521CC1B7B188E00EB5BF2 /* Like.png in Resources */ = {isa = PBXBuildFile; fileRef = A47521CB1B7B188E00EB5BF2 /* Like.png */; };
 		A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = A47F50371B67765600955052 /* CompanyEmailComplete.m */; };
 		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
@@ -1434,6 +1458,51 @@
 		A46DCEF21B6A1E9D0049C999 /* UserDataTon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataTon.m; sourceTree = "<group>"; };
 		A46E0B621B783C180002854F /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
 		A46E0B631B783C180002854F /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
+		A4745DCB1B81A9AC008EB944 /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
+		A4745DCC1B81A9AC008EB944 /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+		A4745DCD1B81A9AC008EB944 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		A4745DCE1B81A9AC008EB944 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		A4745DCF1B81A9AC008EB944 /* DNAlbumTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNAlbumTableViewController.h; sourceTree = "<group>"; };
+		A4745DD01B81A9AC008EB944 /* DNAlbumTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNAlbumTableViewController.m; sourceTree = "<group>"; };
+		A4745DD11B81A9AC008EB944 /* DNAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNAsset.h; sourceTree = "<group>"; };
+		A4745DD21B81A9AC008EB944 /* DNAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNAsset.m; sourceTree = "<group>"; };
+		A4745DD31B81A9AC008EB944 /* DNImageFlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNImageFlowViewController.h; sourceTree = "<group>"; };
+		A4745DD41B81A9AC008EB944 /* DNImageFlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNImageFlowViewController.m; sourceTree = "<group>"; };
+		A4745DD51B81A9AC008EB944 /* DNImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNImagePickerController.h; sourceTree = "<group>"; };
+		A4745DD61B81A9AC008EB944 /* DNImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNImagePickerController.m; sourceTree = "<group>"; };
+		A4745DD71B81A9AC008EB944 /* DNImagePickerController.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = DNImagePickerController.strings; sourceTree = "<group>"; };
+		A4745DD81B81A9AC008EB944 /* DNPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNPhotoBrowser.h; sourceTree = "<group>"; };
+		A4745DD91B81A9AC008EB944 /* DNPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNPhotoBrowser.m; sourceTree = "<group>"; };
+		A4745DDB1B81A9AC008EB944 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DNImagePicker.strings; sourceTree = "<group>"; };
+		A4745DDD1B81A9AC008EB944 /* NSURL+DNIMagePickerUrlEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DNIMagePickerUrlEqual.h"; sourceTree = "<group>"; };
+		A4745DDE1B81A9AC008EB944 /* NSURL+DNIMagePickerUrlEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DNIMagePickerUrlEqual.m"; sourceTree = "<group>"; };
+		A4745DDF1B81A9AC008EB944 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		A4745DE01B81A9AC008EB944 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		A4745DE11B81A9AC008EB944 /* UIView+DNImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DNImagePicker.h"; sourceTree = "<group>"; };
+		A4745DE21B81A9AC008EB944 /* UIView+DNImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DNImagePicker.m"; sourceTree = "<group>"; };
+		A4745DE31B81A9AC008EB944 /* UIViewController+DNImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DNImagePicker.h"; sourceTree = "<group>"; };
+		A4745DE41B81A9AC008EB944 /* UIViewController+DNImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DNImagePicker.m"; sourceTree = "<group>"; };
+		A4745DE51B81A9AC008EB944 /* imageResources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = imageResources.xcassets; sourceTree = "<group>"; };
+		A4745DE61B81A9AC008EB944 /* ImagesPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesPicker.xcassets; sourceTree = "<group>"; };
+		A4745DE71B81A9AC008EB944 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
+		A4745DE81B81A9AC008EB944 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
+		A4745DEA1B81A9AC008EB944 /* DNAssetsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNAssetsViewCell.h; sourceTree = "<group>"; };
+		A4745DEB1B81A9AC008EB944 /* DNAssetsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNAssetsViewCell.m; sourceTree = "<group>"; };
+		A4745DEC1B81A9AC008EB944 /* DNBadgeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNBadgeLabel.h; sourceTree = "<group>"; };
+		A4745DED1B81A9AC008EB944 /* DNBadgeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNBadgeLabel.m; sourceTree = "<group>"; };
+		A4745DEE1B81A9AC008EB944 /* DNBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNBrowserCell.h; sourceTree = "<group>"; };
+		A4745DEF1B81A9AC008EB944 /* DNBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNBrowserCell.m; sourceTree = "<group>"; };
+		A4745DF01B81A9AC008EB944 /* DNFullImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNFullImageButton.h; sourceTree = "<group>"; };
+		A4745DF11B81A9AC008EB944 /* DNFullImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNFullImageButton.m; sourceTree = "<group>"; };
+		A4745DF21B81A9AC008EB944 /* DNSendButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNSendButton.h; sourceTree = "<group>"; };
+		A4745DF31B81A9AC008EB944 /* DNSendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNSendButton.m; sourceTree = "<group>"; };
+		A4745DF41B81A9AC008EB944 /* DNUnAuthorizedTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNUnAuthorizedTipsView.h; sourceTree = "<group>"; };
+		A4745DF51B81A9AC008EB944 /* DNUnAuthorizedTipsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNUnAuthorizedTipsView.m; sourceTree = "<group>"; };
+		A4745DF61B81A9AC008EB944 /* JKPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPromptView.h; sourceTree = "<group>"; };
+		A4745DF71B81A9AC008EB944 /* JKPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKPromptView.m; sourceTree = "<group>"; };
+		A4745DFA1B81A9AC008EB944 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/DNImagePicker.strings"; sourceTree = "<group>"; };
+		A4745E131B81BD1C008EB944 /* OwnnessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnnessViewController.h; sourceTree = "<group>"; };
+		A4745E141B81BD1C008EB944 /* OwnnessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnnessViewController.m; sourceTree = "<group>"; };
 		A47521CB1B7B188E00EB5BF2 /* Like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like.png; sourceTree = "<group>"; };
 		A47F50361B67765600955052 /* CompanyEmailComplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyEmailComplete.h; sourceTree = "<group>"; };
 		A47F50371B67765600955052 /* CompanyEmailComplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyEmailComplete.m; sourceTree = "<group>"; };
@@ -1493,6 +1562,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A41CF0D21B5CC0B7005C21EF /* AssetsLibrary.framework in Frameworks */,
 				A48077941B6B86EF000F11D1 /* libEaseMobClientSDK.a in Frameworks */,
 				96CF91841B673EA9001759E2 /* libxml2.dylib in Frameworks */,
 				96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */,
@@ -1510,7 +1580,6 @@
 				96CF916C1B673E28001759E2 /* libstdc++.6.0.9.dylib in Frameworks */,
 				96CF916A1B673E19001759E2 /* libc++.dylib in Frameworks */,
 				96CF91681B673E0D001759E2 /* CoreData.framework in Frameworks */,
-				A41CF0D21B5CC0B7005C21EF /* AssetsLibrary.framework in Frameworks */,
 				C2BB2F66A5C16197F6FD8E9D /* libPods.a in Frameworks */,
 				96CF90ED1B673422001759E2 /* libopencore-amrnb.a in Frameworks */,
 				96CF90EE1B673422001759E2 /* libopencore-amrwb.a in Frameworks */,
@@ -1761,6 +1830,7 @@
 		9649B4FD1B564DE000A7F355 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				A4745DCA1B81A9AC008EB944 /* DNImagePicker */,
 				A450560A1B608D9E0075E39D /* CardChooseView */,
 				A4F315581B5E4BFB00126C8A /* ChoosePhoto */,
 				9649B5031B564DE000A7F355 /* CircleImageView */,
@@ -1899,6 +1969,8 @@
 				A4311F541B577BE1004401B4 /* ColleagueViewController.m */,
 				A43E36B51B58C55500AA2FC7 /* ConditionController.h */,
 				A43E36B61B58C55500AA2FC7 /* ConditionController.m */,
+				A4745E131B81BD1C008EB944 /* OwnnessViewController.h */,
+				A4745E141B81BD1C008EB944 /* OwnnessViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3512,6 +3584,71 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		A4745DCA1B81A9AC008EB944 /* DNImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				A4745DCB1B81A9AC008EB944 /* CollectionViewCell.h */,
+				A4745DCC1B81A9AC008EB944 /* CollectionViewCell.m */,
+				A4745DCD1B81A9AC008EB944 /* CollectionViewController.h */,
+				A4745DCE1B81A9AC008EB944 /* CollectionViewController.m */,
+				A4745DCF1B81A9AC008EB944 /* DNAlbumTableViewController.h */,
+				A4745DD01B81A9AC008EB944 /* DNAlbumTableViewController.m */,
+				A4745DD11B81A9AC008EB944 /* DNAsset.h */,
+				A4745DD21B81A9AC008EB944 /* DNAsset.m */,
+				A4745DD31B81A9AC008EB944 /* DNImageFlowViewController.h */,
+				A4745DD41B81A9AC008EB944 /* DNImageFlowViewController.m */,
+				A4745DD51B81A9AC008EB944 /* DNImagePickerController.h */,
+				A4745DD61B81A9AC008EB944 /* DNImagePickerController.m */,
+				A4745DD71B81A9AC008EB944 /* DNImagePickerController.strings */,
+				A4745DD81B81A9AC008EB944 /* DNPhotoBrowser.h */,
+				A4745DD91B81A9AC008EB944 /* DNPhotoBrowser.m */,
+				A4745DDA1B81A9AC008EB944 /* DNImagePicker.strings */,
+				A4745DDC1B81A9AC008EB944 /* Extensions */,
+				A4745DE51B81A9AC008EB944 /* imageResources.xcassets */,
+				A4745DE61B81A9AC008EB944 /* ImagesPicker.xcassets */,
+				A4745DE71B81A9AC008EB944 /* InfoViewController.h */,
+				A4745DE81B81A9AC008EB944 /* InfoViewController.m */,
+				A4745DE91B81A9AC008EB944 /* Views */,
+			);
+			path = DNImagePicker;
+			sourceTree = "<group>";
+		};
+		A4745DDC1B81A9AC008EB944 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A4745DDD1B81A9AC008EB944 /* NSURL+DNIMagePickerUrlEqual.h */,
+				A4745DDE1B81A9AC008EB944 /* NSURL+DNIMagePickerUrlEqual.m */,
+				A4745DDF1B81A9AC008EB944 /* UIColor+Hex.h */,
+				A4745DE01B81A9AC008EB944 /* UIColor+Hex.m */,
+				A4745DE11B81A9AC008EB944 /* UIView+DNImagePicker.h */,
+				A4745DE21B81A9AC008EB944 /* UIView+DNImagePicker.m */,
+				A4745DE31B81A9AC008EB944 /* UIViewController+DNImagePicker.h */,
+				A4745DE41B81A9AC008EB944 /* UIViewController+DNImagePicker.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A4745DE91B81A9AC008EB944 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A4745DEA1B81A9AC008EB944 /* DNAssetsViewCell.h */,
+				A4745DEB1B81A9AC008EB944 /* DNAssetsViewCell.m */,
+				A4745DEC1B81A9AC008EB944 /* DNBadgeLabel.h */,
+				A4745DED1B81A9AC008EB944 /* DNBadgeLabel.m */,
+				A4745DEE1B81A9AC008EB944 /* DNBrowserCell.h */,
+				A4745DEF1B81A9AC008EB944 /* DNBrowserCell.m */,
+				A4745DF01B81A9AC008EB944 /* DNFullImageButton.h */,
+				A4745DF11B81A9AC008EB944 /* DNFullImageButton.m */,
+				A4745DF21B81A9AC008EB944 /* DNSendButton.h */,
+				A4745DF31B81A9AC008EB944 /* DNSendButton.m */,
+				A4745DF41B81A9AC008EB944 /* DNUnAuthorizedTipsView.h */,
+				A4745DF51B81A9AC008EB944 /* DNUnAuthorizedTipsView.m */,
+				A4745DF61B81A9AC008EB944 /* JKPromptView.h */,
+				A4745DF71B81A9AC008EB944 /* JKPromptView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		A48B1B571B707E0A0049237E /* controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -3825,6 +3962,7 @@
 				96CF93C91B674B54001759E2 /* VoiceSearchFeedback002.png in Resources */,
 				96CF93FC1B674B54001759E2 /* chatBar_more_cardSelected@2x.png in Resources */,
 				96CF93BB1B674B54001759E2 /* 58.png in Resources */,
+				A4745E011B81A9AC008EB944 /* DNImagePickerController.strings in Resources */,
 				96CF944E1B674B54001759E2 /* chat_sender_audio_playing_003.png in Resources */,
 				A40936BE1B721BC800515A50 /* address.png in Resources */,
 				A4F594F81B7C7C740088D9CC /* 1.plist in Resources */,
@@ -3861,6 +3999,7 @@
 				96CF94021B674B54001759E2 /* chatBar_textBg@2x.png in Resources */,
 				96E3D83C1B7DA60600A623B7 /* UserMessageTableViewCell.xib in Resources */,
 				96CF93CE1B674B54001759E2 /* VoiceSearchFeedback004@2x.png in Resources */,
+				A4745E091B81A9AC008EB944 /* ImagesPicker.xcassets in Resources */,
 				96CF93D01B674B54001759E2 /* VoiceSearchFeedback005@2x.png in Resources */,
 				96CF945E1B674B54001759E2 /* group_creategroup@2x.png in Resources */,
 				96CF93D41B674B54001759E2 /* VoiceSearchFeedback007@2x.png in Resources */,
@@ -3869,6 +4008,7 @@
 				96CF941D1B674B54001759E2 /* chatBar_recordBg.png in Resources */,
 				96CF93CC1B674B54001759E2 /* VoiceSearchFeedback003@2x.png in Resources */,
 				96CF94671B674B54001759E2 /* newFriends@2x.png in Resources */,
+				A4745E031B81A9AC008EB944 /* DNImagePicker.strings in Resources */,
 				968C27481B7B43D500950581 /* VoteBottomToolBar.xib in Resources */,
 				96CF93F51B674B54001759E2 /* call_silence_h.png in Resources */,
 				96CF93FE1B674B54001759E2 /* chatBar_more_face@2x.png in Resources */,
@@ -3960,6 +4100,7 @@
 				96CF94461B674B54001759E2 /* chat_receiver_bg.png in Resources */,
 				96CF94141B674B54001759E2 /* chatBar_keyboard@2x.png in Resources */,
 				96CF94601B674B54001759E2 /* group_invitee_delete@2x.png in Resources */,
+				A4745E081B81A9AC008EB944 /* imageResources.xcassets in Resources */,
 				96CF93C81B674B54001759E2 /* VoiceSearchFeedback001@2x.png in Resources */,
 				96CF93E71B674B54001759E2 /* VoiceSearchFeedback017.png in Resources */,
 				96CF943B1B674B54001759E2 /* messageToolbarBg@2x.png in Resources */,
@@ -4109,6 +4250,7 @@
 				96E3D83F1B7DABD700A623B7 /* UserMessageTableViewController.m in Sources */,
 				967C62CA1B7C72220065F318 /* VoteInfoTableViewController.m in Sources */,
 				968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */,
+				A4745DFE1B81A9AC008EB944 /* DNAsset.m in Sources */,
 				969616D21B6B5D4D002FC24C /* PSTCollectionViewCell.m in Sources */,
 				969616D11B6B5D25002FC24C /* EMChatViewBaseCell.m in Sources */,
 				969616D01B6B5D03002FC24C /* BaseViewController.m in Sources */,
@@ -4116,6 +4258,7 @@
 				A45726FE1B74A9B100A27B79 /* AttentionViewCell.m in Sources */,
 				969616CF1B6B5CC5002FC24C /* InvitationManager.m in Sources */,
 				969616CE1B6B5C96002FC24C /* ContactsViewController.m in Sources */,
+				A4745E051B81A9AC008EB944 /* UIColor+Hex.m in Sources */,
 				969616CD1B6B5AF6002FC24C /* EMChatTimeCell.m in Sources */,
 				967439B91B705908004334A4 /* AccountTool.m in Sources */,
 				969616CC1B6B5ADF002FC24C /* DXFaceView.m in Sources */,
@@ -4143,6 +4286,7 @@
 				96AA196A1B79A3C7008E4CA3 /* ProfileTableViewCell.m in Sources */,
 				96CF937D1B674B54001759E2 /* UIResponder+Router.m in Sources */,
 				968B15411B6A2ABB004A26C0 /* RankItemView.m in Sources */,
+				A4745E0B1B81A9AC008EB944 /* DNAssetsViewCell.m in Sources */,
 				96CF93901B674B54001759E2 /* EMChatTextBubbleView.m in Sources */,
 				96CF93AD1B674B54001759E2 /* RobotManager.m in Sources */,
 				A43F86301B744AF60086D078 /* PublishVoteController.m in Sources */,
@@ -4164,23 +4308,27 @@
 				96CF90CF1B673422001759E2 /* EMSDWebImagePrefetcher.m in Sources */,
 				A4650F201B7DBDCD00013A17 /* UserInterView.m in Sources */,
 				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
+				A4745E0C1B81A9AC008EB944 /* DNBadgeLabel.m in Sources */,
 				96CF90D91B673422001759E2 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				96CF93AF1B674B54001759E2 /* EMSearchBar.m in Sources */,
 				968C27421B7B2FC600950581 /* CustomSettingAvatarTableCell.m in Sources */,
 				A43F86381B7487DB0086D078 /* PublishSeekHelp.m in Sources */,
 				A48B1B601B7088960049237E /* CuntomFolderView.m in Sources */,
+				A4745E041B81A9AC008EB944 /* NSURL+DNIMagePickerUrlEqual.m in Sources */,
 				A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */,
 				96CF93971B674B54001759E2 /* MessageReadManager.m in Sources */,
 				96CF947B1B674B54001759E2 /* DebugViewController.m in Sources */,
 				A439ED421B68DA9E006B3CAC /* GuidePageViewController.m in Sources */,
 				96CF90BD1B673422001759E2 /* EMAlertView.m in Sources */,
 				96AA191B1B787061008E4CA3 /* CommentsViewController.m in Sources */,
+				A4745E0A1B81A9AC008EB944 /* InfoViewController.m in Sources */,
 				A4F594F71B7C7C740088D9CC /* PersonReportController.m in Sources */,
 				968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */,
 				96CF947A1B674B54001759E2 /* BlackListViewController.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
 				9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */,
 				96CF90C71B673422001759E2 /* MWZoomingScrollView.m in Sources */,
+				A4745DFD1B81A9AC008EB944 /* DNAlbumTableViewController.m in Sources */,
 				967439A41B7058B3004334A4 /* Foundation+Log.m in Sources */,
 				96CF93841B674B54001759E2 /* ChatViewController.m in Sources */,
 				A4DD81351B7B4747004505C9 /* CommendPersonLabel.m in Sources */,
@@ -4196,6 +4344,7 @@
 				968C27461B7B43BE00950581 /* VoteBottomToolBar.m in Sources */,
 				96CF93AA1B674B54001759E2 /* ApplyViewController.m in Sources */,
 				96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */,
+				A4745E001B81A9AC008EB944 /* DNImagePickerController.m in Sources */,
 				96CF947D1B674B54001759E2 /* PushNotificationViewController.m in Sources */,
 				96AA195C1B799896008E4CA3 /* MenuCollectionController.m in Sources */,
 				96CF90D71B673422001759E2 /* UIImageView+EMWebCache.m in Sources */,
@@ -4212,6 +4361,8 @@
 				96CF948A1B67501B001759E2 /* SRSlimeView.m in Sources */,
 				967439BE1B705908004334A4 /* RouteManager.m in Sources */,
 				A434C6111B71EA1E009643CD /* ApertureView.m in Sources */,
+				A4745DFF1B81A9AC008EB944 /* DNImageFlowViewController.m in Sources */,
+				A4745E111B81A9AC008EB944 /* JKPromptView.m in Sources */,
 				9610536A1B5CDB0B002D62A3 /* DetailActivityShowView.m in Sources */,
 				967439BA1B705908004334A4 /* DLNetworkRequest.m in Sources */,
 				96CF937A1B674B54001759E2 /* NSDate+Category.m in Sources */,
@@ -4235,9 +4386,11 @@
 				96E3D84A1B7DE42600A623B7 /* TempCompany.m in Sources */,
 				961053541B590C31002D62A3 /* OtherSegmentButton.m in Sources */,
 				96CF90CE1B673422001759E2 /* EMSDWebImageManager.m in Sources */,
+				A4745E0D1B81A9AC008EB944 /* DNBrowserCell.m in Sources */,
 				96CF938A1B674B54001759E2 /* DXChatBarMoreView.m in Sources */,
 				96CF94781B674B54001759E2 /* RobotListViewController.m in Sources */,
 				A41993241B5F95AB0086EAAE /* LoginMailTableViewCell.m in Sources */,
+				A4745E061B81A9AC008EB944 /* UIView+DNImagePicker.m in Sources */,
 				96CF90CB1B673422001759E2 /* EMSDWebImageDecoder.m in Sources */,
 				960DCFAE1B732D38009F5D75 /* VoteOptionsView.m in Sources */,
 				96CF93991B674B54001759E2 /* ContactSelectionViewController.m in Sources */,
@@ -4261,6 +4414,8 @@
 				96CF90C51B673422001759E2 /* MWTapDetectingImageView.m in Sources */,
 				A4F315671B5E4BFB00126C8A /* PhotoCell.m in Sources */,
 				A459C4CB1B6242A2003D32C8 /* LoginViewController.m in Sources */,
+				A4745DFC1B81A9AC008EB944 /* CollectionViewController.m in Sources */,
+				A4745E0F1B81A9AC008EB944 /* DNSendButton.m in Sources */,
 				A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */,
 				96CF94891B67501B001759E2 /* SRRefreshView.m in Sources */,
 				9635AF591B748D5C00BE92B5 /* CommentsModel.m in Sources */,
@@ -4274,6 +4429,7 @@
 				96CF93B31B674B54001759E2 /* EMChooseViewController.m in Sources */,
 				967A06441B7304F7007BA757 /* VoteOptionsInfoModel.m in Sources */,
 				967439BD1B705908004334A4 /* RouteInfoModel.m in Sources */,
+				A4745E0E1B81A9AC008EB944 /* DNFullImageButton.m in Sources */,
 				96CF93A81B674B54001759E2 /* AddFriendViewController.m in Sources */,
 				96CF938D1B674B54001759E2 /* EMChatBaseBubbleView.m in Sources */,
 				A4F594FA1B7C7C740088D9CC /* HMShopCell.m in Sources */,
@@ -4291,14 +4447,18 @@
 				96CF93A91B674B54001759E2 /* ApplyFriendCell.m in Sources */,
 				968C27301B7AF5E900950581 /* TeamHomePageController.m in Sources */,
 				96CF93821B674B54001759E2 /* ChatSendHelper.m in Sources */,
+				A4745E101B81A9AC008EB944 /* DNUnAuthorizedTipsView.m in Sources */,
 				A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */,
+				A4745E021B81A9AC008EB944 /* DNPhotoBrowser.m in Sources */,
 				968C27361B7B047F00950581 /* CustomMarginSettingTableViewCell.m in Sources */,
 				96CF938B1B674B54001759E2 /* DXRecordView.m in Sources */,
 				A45727081B74BE2400A27B79 /* photoSectionHeader.m in Sources */,
 				96CF90EA1B673422001759E2 /* amrFileCodec.mm in Sources */,
 				967439B81B705908004334A4 /* Account.m in Sources */,
 				96CF93941B674B54001759E2 /* EMChatViewCell.m in Sources */,
+				A4745E151B81BD1C008EB944 /* OwnnessViewController.m in Sources */,
 				96CF938F1B674B54001759E2 /* EMChatLocationBubbleView.m in Sources */,
+				A4745E071B81A9AC008EB944 /* UIViewController+DNImagePicker.m in Sources */,
 				96CF90BC1B673422001759E2 /* EMCDDeviceManagerBase.m in Sources */,
 				9649B5421B564DE000A7F355 /* ProfileViewController.m in Sources */,
 				9649B53C1B564DE000A7F355 /* AttentionViewController.m in Sources */,
@@ -4306,6 +4466,7 @@
 				96CF90E81B673422001759E2 /* TTGlobalUICommon.m in Sources */,
 				96CF90D51B673422001759E2 /* UIImage+EMWebP.m in Sources */,
 				A4F3156A1B5E4BFB00126C8A /* PhotoShouCell.m in Sources */,
+				A4745DFB1B81A9AC008EB944 /* CollectionViewCell.m in Sources */,
 				96CF939D1B674B54001759E2 /* GroupListViewController.m in Sources */,
 				96CF93981B674B54001759E2 /* ChatGroupDetailViewController.m in Sources */,
 				A434C6091B71DB22009643CD /* ColleaguesInformationController.m in Sources */,
@@ -4398,6 +4559,15 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		A4745DDA1B81A9AC008EB944 /* DNImagePicker.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A4745DDB1B81A9AC008EB944 /* en */,
+				A4745DFA1B81A9AC008EB944 /* zh-Hans */,
+			);
+			name = DNImagePicker.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -4418,7 +4588,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiming Li (9LXRKEW759)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4440,6 +4611,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4462,7 +4634,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiming Li (9LXRKEW759)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -4477,6 +4650,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

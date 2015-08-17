@@ -69,7 +69,6 @@
 {
     MainController *main = [[MainController alloc]init];
     [self.window setRootViewController:main];
-    
 }
 
 /**

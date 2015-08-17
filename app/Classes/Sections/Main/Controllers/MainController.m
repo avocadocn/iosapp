@@ -58,7 +58,6 @@ static NSString *kGroupName = @"GroupName";
     
     // 添加主页面VC
     
-    ChoosePhotoController *choose = [ChoosePhotoController shareStateOfController];
     [self setUpTabbar];
     
     [self registerNotifications];

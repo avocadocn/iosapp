@@ -19,4 +19,8 @@
 
 @property (nonatomic, strong)UIButton *addButton;
 
+@property (nonatomic, strong)UICollectionView *collectionView;
+
+
+
 @end

@@ -14,7 +14,7 @@
 
 static NSInteger num = 0;
 
-@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate>
 
 @end
 
@@ -97,7 +97,6 @@ static NSInteger num = 0;
     switch (buttonIndex) {
         case 1:
         {
-            
             break;
         }
         default:
@@ -201,10 +200,6 @@ static NSInteger num = 0;
     }
     scroll.contentSize = CGSizeMake(0, 45 * num);
     
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
 }
 
 - (void)didReceiveMemoryWarning {

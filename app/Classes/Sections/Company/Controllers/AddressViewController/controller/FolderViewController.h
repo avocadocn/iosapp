@@ -44,4 +44,7 @@ typedef NS_ENUM(NSInteger, EnumOfEditButton) {
 
 @property (nonatomic, strong)NSArray *companyArray;
 
+
+
+
 @end

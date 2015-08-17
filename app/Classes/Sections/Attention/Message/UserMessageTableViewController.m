@@ -52,11 +52,11 @@ static NSString * const messageCellID = @"UserMessageTableViewCell";
     }
     for (NSInteger i = 0; i < 10; i++) {
         UserMessageModel *model = [[UserMessageModel alloc]init];
-        model.text = @"我是正文的文字内容，我的高度可以动态改变，而且我可以是attributeString。。。。我是正文的文字内容，我的高度可以动态改变，而且我可以是attributeString。。。。我是正文的文字内容，我的高度可以动态改变，而且我可以是attributeString。。。。我是正文的文字内容，我的高度可以动态改变，而且我可以是attributeString。。。。";
+        model.text = @"我是正文的文字内容，我的高度可以动态改变，而且我可以是attributeString。ing。。。。";
         
         if (i % 2 == 0) {
             UserMessageModel *retweedModel = [[UserMessageModel alloc]init];
-            retweedModel.text = @"我是转发的文字内容，我的高度可以动态改变，而且我可以是attributeString。。。。我是转发的文字内容，我的高度可以动态改变，而且我可以是attributeString。。。。我是转发的文字内容，我的高度可以动态改变，而且我可以是attributeString。。。。";
+            retweedModel.text = @"我是转发的文字内容，我的高度可以动态改变，而且我可以是attributeString。。。。我ng。。。。";
             
             [model setRetweedMessage:retweedModel];
         }

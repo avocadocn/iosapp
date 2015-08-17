@@ -42,7 +42,7 @@ typedef NS_ENUM(NSInteger, TouchEvent)
 {
     @autoreleasepool {
         ChoosePhotoController *choose = [ChoosePhotoController shareStateOfController];
-
+        
         self.imageView = [UIImageView new];
         
         [self addSubview:self.imageView];
