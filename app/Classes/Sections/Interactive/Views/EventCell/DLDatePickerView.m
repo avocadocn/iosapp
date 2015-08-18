@@ -83,6 +83,8 @@
 - (void)reloadWithMaxDate:(NSDate *)maxDate minDate:(NSDate *)minDate dateMode:(UIDatePickerMode)mode
 {
     self.picker.datePickerMode = mode;
+    
+    
     self.picker.maximumDate = maxDate;
     self.picker.minimumDate = minDate;
 }

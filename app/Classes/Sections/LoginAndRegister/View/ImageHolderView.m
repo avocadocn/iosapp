@@ -23,6 +23,7 @@
 
 - (void)builtWithImage:(UIImage *)image andPlaceHolder:(NSString *)placeHolder
 {
+    self.backgroundColor = [UIColor whiteColor];
     UIImageView *imageView = [UIImageView new];
     imageView.image = image;
     [self addSubview:imageView];
@@ -47,7 +48,7 @@
     }];
     
     UIView *lineView = [UIView new];
-    [lineView setBackgroundColor:[UIColor lightGrayColor]];
+    [lineView setBackgroundColor:[UIColor colorWithWhite:.8 alpha:1]];
     [self addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.mas_bottom);

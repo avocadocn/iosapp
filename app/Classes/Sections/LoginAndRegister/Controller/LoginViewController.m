@@ -104,7 +104,6 @@
     acc.email = @"afei@55yali.com";
     acc.password = @"55yali";
     
-    
     [RestfulAPIRequestTool routeName:@"userLogin" requestModel:acc useKeys:@[@"email", @"password"] success:^(id json) {
         
         // 存取用户值

@@ -42,6 +42,9 @@
     UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, -20, DLScreenWidth, DLScreenHeight + 20)];
     scrollview.contentSize = CGSizeMake(DLScreenWidth * 3, 0);
     scrollview.pagingEnabled = YES;
+    
+    UITapGestureRecognizer *scrollTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(scrollTapAction:)];
+    [scrollview addGestureRecognizer:scrollTap];
     CGFloat red = arc4random() %100 / 100.0;
     CGFloat blue = arc4random() %100 / 100.0;
     CGFloat yellow = arc4random() %100 / 100.0;
@@ -51,7 +54,7 @@
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"welcome-%d", i]];
         [scrollview addSubview:imageView];
     }
-    
+    /*
     // 登录/注册逻辑 View  小元件都放在上面
     UIView *loginLogicView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth * 2, 0, DLScreenWidth, DLScreenHeight)];
     
@@ -86,12 +89,19 @@
         make.centerX.mas_equalTo(loginLogicView.mas_centerX);
     }];
     
-    
+    */
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeViewAction:) name:@"loginAccount" object:nil];  //  接受返回通知
     
     
     return scrollview;
+}
+
+- (void)scrollTapAction:(UITapGestureRecognizer *)tap
+{
+    CheckViewController *check = [[CheckViewController alloc]init];
+    [self.navigationController pushViewController:check animated:YES];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)changeViewAction:(UIButton *)sender
@@ -118,6 +128,8 @@
     
     if (mailFormat) { //正确的邮箱格式
         CheckViewController *check = [[CheckViewController alloc]init];
+        [self.navigationController pushViewController:check animated:YES];
+        self.navigationController.navigationBarHidden = NO;
         check.mailURL = [NSString stringWithFormat:@"%@", self.mailBoxTextField.text];  //接受到的邮箱内容
 //        NSArray *array = [check.mailURL componentsSeparatedByString:@"@"];
 //        NSString *str = [array lastObject];

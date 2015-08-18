@@ -14,7 +14,7 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "LaunchEventController.h"
-
+#import "DLNavigationController.h"
 
 //测试用
 #import "PersonalDynamicController.h"
@@ -39,9 +39,8 @@
     
     // 登陆界面
     GuidePageViewController *gu = [[GuidePageViewController alloc]init];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:gu];
+    DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:gu];
     [self.window setRootViewController:nav];
-    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultCenterAction:) name:@"changeRootViewController" object:nil];

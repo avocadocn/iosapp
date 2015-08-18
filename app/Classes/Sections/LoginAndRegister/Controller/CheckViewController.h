@@ -15,8 +15,6 @@
 
 @property (nonatomic, copy)NSString *mailURL;
 
-@property (nonatomic, strong)NSMutableArray *modelArray;
-
 @property (nonatomic, strong)UITableView *companyTableView;
 
 @property (nonatomic, strong)ImageHolderView *school;
@@ -25,6 +23,9 @@
 
 @property (nonatomic, strong)UITableView *searchTableView;
 
-- (void)requestNetWithSuffix:(NSString *)str;
+@property (nonatomic, strong)NSMutableArray *modelArray;
+
+
+//- (void)requestNetWithSuffix:(NSString *)str;
 
 @end

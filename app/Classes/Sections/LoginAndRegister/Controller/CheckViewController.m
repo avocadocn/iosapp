@@ -19,14 +19,19 @@
 #import "DLNetworkRequest.h"
 #import "RestfulAPIRequestTool.h"
 #import "ImageHolderView.h"
-
+#import "DLDatePickerView.h"
+#import "SearchSchoolModel.h"
+#import "AccountTool.h"
+#import "RestfulAPIRequestTool.h"
+#import "FillInformationCon.h"
+#import "UIBarButtonItem+Extension.h"
 
 typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     SelectStateOfCompanyNo,
     SelectStateOfCompanyYes
 };
-
-@interface CheckViewController ()<UITableViewDataSource, UITableViewDelegate, CardChooseViewDelegate, DLNetworkRequestDelegate>
+// CardChooseViewDelegate   DLNetworkRequestDelegate
+@interface CheckViewController ()<UITableViewDataSource, UITableViewDelegate, DLDatePickerViewDelegate>
 
 @end
 
@@ -67,6 +72,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 }
 */
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -78,7 +84,9 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
      //    [self requestNet];
      [self builtInterface];
      */  //第一个版本  公司版本
+    [self makeFlaseValue];
 }
+
 
 - (void)builtRightBarItem
 {
@@ -88,33 +96,62 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     label.text = @"下一步";
     label.textAlignment = NSTextAlignmentRight;
     
+    UITapGestureRecognizer *labelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
+    label.userInteractionEnabled = YES;
+    [label addGestureRecognizer:labelTap];
     label.font = [UIFont systemFontOfSize:15];
     label.textColor = [UIColor lightGrayColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(tapAction:) image:@"navigationbar_back" highImage:@"navigationbar_back_highlighted"];
     
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-    imageView.image = [UIImage imageNamed:@"back_normal"];
-    [view addSubview:imageView];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-    [view addGestureRecognizer:tap];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:view];
 }
 
 - (void)builtSchoolAndTime
 {
     self.school = [[ImageHolderView alloc]initWithFrame:CGRectMake(0, 64 , DLScreenWidth, DLMultipleHeight(50.0)) andImage:[UIImage imageNamed:@"school"] andPlaceHolder:@"学校"];
+    
+    [self.school.textfield.rac_textSignal subscribeNext:^(NSString *str) {
+        // search ..
+        SearchSchoolModel *searchmodel = [[SearchSchoolModel alloc]init];
+        [searchmodel setName:str];
+//        [searchmodel setCity:@"上海"];
+        [searchmodel setPage:@"0"];
+        
+        [RestfulAPIRequestTool routeName:@"companySearch" requestModel:searchmodel useKeys:@[@"name", @"city", @"page"] success:^(id json) {
+            NSLog(@"成功");
+            NSLog(@"%@", json);
+        } failure:^(id errorJson) {
+            NSLog(@"失败, %@", errorJson);
+        }];
+    
+    }];
     [self.view addSubview:self.school];
     
     self.time = [[ImageHolderView alloc]initWithFrame:CGRectMake(0, 64 + DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(50.0)) andImage:[UIImage imageNamed:@"starTime"] andPlaceHolder:@"入学时间"];
+    UITapGestureRecognizer *timeSelect = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(timeSelect:)];
+    [self.time addGestureRecognizer:timeSelect];
     [self.view addSubview:self.time];
+}
+- (void)timeSelect:(UITapGestureRecognizer *)tap
+{
+    DLDatePickerView *time = [[DLDatePickerView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    time.delegate = self;
+    time.picker.datePickerMode = UIDatePickerModeDate;
+    [self.view addSubview:time];
+    [time show];
+}
+- (void)outPutStringOfSelectDate:(NSString *)str withTag:(NSInteger)tag
+{
+    self.time.textfield.text = str;
 }
 
 - (void)builtSchoolTable
 {
     self.searchTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64 +DLMultipleHeight(100.0), DLScreenWidth, DLScreenHeight - DLMultipleHeight(100.0) - 64) style:UITableViewStylePlain];
     
+    self.searchTableView.separatorColor = [UIColor clearColor];
+    self.searchTableView.backgroundColor = DLSBackgroundColor;
     self.searchTableView.delegate = self;
     self.searchTableView.dataSource = self;
     
@@ -123,12 +160,27 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [self.modelArray count] + 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc]init];
-    return cell;
+    if (indexPath.row < [self.modelArray count]) {
+        UITableViewCell *cell = [[UITableViewCell alloc]init];
+        SearchSchoolModel *model = [self.modelArray objectAtIndex:indexPath.row];
+        cell.textLabel.text = model.name;
+        
+        return cell;
+        
+    } else
+    {
+        UITableViewCell *cell = [[UITableViewCell alloc]init];
+        
+        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(160.0))];
+        image.image = [UIImage imageNamed:@"schoolCan"];
+        [cell addSubview:image];
+        return cell;
+    }
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -136,10 +188,45 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row < [self.modelArray count]) {
+        return DLMultipleHeight(50.0);
+        
+    } else
+    {
+        return DLMultipleHeight(160.0);
+    }
+}
+
 - (void)tapAction:(UITapGestureRecognizer *)tap
 {
     self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(34.0))];
+    
+    label.text =  @"   您身边的学校";
+    label.textColor = [UIColor colorWithWhite:.1 alpha:1];
+    label.backgroundColor = DLSBackgroundColor;
+    label.font = [UIFont systemFontOfSize:12.5];
+    label.textAlignment = NSTextAlignmentLeft;
+    
+    return label;
+    
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return DLMultipleHeight(34.0);
 }
 
 /*
@@ -283,9 +370,25 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     return 70;
 }
 */
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)makeFlaseValue
+{
+    self.modelArray = [NSMutableArray array];
+    for (int i = 0; i < 4; i++) {
+        SearchSchoolModel *model = [[SearchSchoolModel alloc]init];
+        [model setName:@"上海大学"];
+        [self.modelArray addObject:model];
+    }
+}
+- (void)nextController:(UITapGestureRecognizer *)tap
+{
+    FillInformationCon *fill = [[FillInformationCon alloc]init];
+    [self.navigationController pushViewController:fill animated:YES];
+}
+
 
 @end
