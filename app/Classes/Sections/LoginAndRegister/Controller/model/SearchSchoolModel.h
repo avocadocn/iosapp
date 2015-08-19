@@ -16,4 +16,7 @@
 
 @property (nonatomic, copy)NSString *city;
 
+@property (nonatomic, copy)NSString *ID;
+
+@property (nonatomic, copy)NSString *logo;
 @end

@@ -11,6 +11,8 @@
 #import "ImageHolderView.h"
 #import "DXAlertView.h"
 #import "VerifiCodeController.h"
+#import <ReactiveCocoa.h>
+
 
 
 
@@ -38,7 +40,7 @@
     label.textAlignment = NSTextAlignmentRight;
     
     UITapGestureRecognizer *labelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
-    label.userInteractionEnabled = YES;
+//    label.userInteractionEnabled = YES;
     [label addGestureRecognizer:labelTap];
     label.font = [UIFont systemFontOfSize:15];
     label.textColor = [UIColor lightGrayColor];
@@ -56,7 +58,23 @@
     
     self.password = [[ImageHolderView alloc]initWithFrame:CGRectMake(0, 64 + DLMultipleHeight(88.0), DLScreenWidth, DLMultipleHeight(50.0)) andImage:[UIImage imageNamed:@"write"] andPlaceHolder:@"输入您的登录密码"];
     [self.view addSubview:self.password];
+    
+    RAC(label, userInteractionEnabled) = [RACSignal combineLatest:@[self.phoneNumber.textfield.rac_textSignal, self.password.textfield.rac_textSignal] reduce:^(NSString *a, NSString *b){
+        NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+        label.textColor = [UIColor lightGrayColor];
+        
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+        
+        BOOL isMatch = [pred evaluateWithObject:self.phoneNumber.textfield.text];
+        
+        if (b.length > 6 && (a.length == 10 || a.length == 12 || a.length == 11)) {
+            label.textColor = RGBACOLOR(253, 185, 0, 1);
+        }
+        return @(a.length == 11 && b.length > 6);
+    }];
+    
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -66,6 +84,9 @@
 
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
+    [self.phoneNumber.textfield resignFirstResponder];
+    [self.password.textfield resignFirstResponder];
+    
     NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
