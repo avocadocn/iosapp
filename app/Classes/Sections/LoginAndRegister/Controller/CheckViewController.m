@@ -91,17 +91,16 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 - (void)builtRightBarItem
 {
     self.title = @"大学信息";
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
+    self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
     
-    label.text = @"下一步";
-    label.textAlignment = NSTextAlignmentRight;
+    self.label.text = @"下一步";
+    self.label.textAlignment = NSTextAlignmentRight;
     
     UITapGestureRecognizer *labelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
-    label.userInteractionEnabled = YES;
-    [label addGestureRecognizer:labelTap];
-    label.font = [UIFont systemFontOfSize:15];
-    label.textColor = [UIColor lightGrayColor];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
+    [self.label addGestureRecognizer:labelTap];
+    self.label.font = [UIFont systemFontOfSize:15];
+    self.label.textColor = [UIColor lightGrayColor];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.label];
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(tapAction:) image:@"navigationbar_back" highImage:@"navigationbar_back_highlighted"];
     
@@ -118,23 +117,41 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 //        [searchmodel setCity:@"上海"];
         [searchmodel setPage:@"1"];
         
+        if (str.length > 3 && self.time.textfield.text.length >3 ) {
+            self.label.userInteractionEnabled = YES;
+            self.label.textColor = RGBACOLOR(253, 185, 0, 1);
+        } else {
+            self.label.userInteractionEnabled = NO;
+            self.label.textColor = [UIColor lightGrayColor];
+        }
+        
         [RestfulAPIRequestTool routeName:@"companySearch" requestModel:searchmodel useKeys:@[@"name", @"city", @"page"] success:^(id json) {
             NSLog(@"成功");
-            NSLog(@"%@", json);
+            self.modelArray = [NSMutableArray array];
+            NSArray *array = [json objectForKey:@"companies"];
+            for (NSDictionary *dic in array) {
+                SearchSchoolModel *model = [[SearchSchoolModel alloc]init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.modelArray addObject:model];
+            }
+            
+            [self.searchTableView reloadData];
         } failure:^(id errorJson) {
             NSLog(@"失败, %@", errorJson);
         }];
-    
     }];
     [self.view addSubview:self.school];
     
     self.time = [[ImageHolderView alloc]initWithFrame:CGRectMake(0, 64 + DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(50.0)) andImage:[UIImage imageNamed:@"starTime"] andPlaceHolder:@"入学时间"];
+    
+    self.time.textfield.userInteractionEnabled = NO;
     UITapGestureRecognizer *timeSelect = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(timeSelect:)];
     [self.time addGestureRecognizer:timeSelect];
     [self.view addSubview:self.time];
 }
 - (void)timeSelect:(UITapGestureRecognizer *)tap
 {
+    [self.school.textfield resignFirstResponder];
     DLDatePickerView *time = [[DLDatePickerView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     time.delegate = self;
     time.picker.datePickerMode = UIDatePickerModeDate;
@@ -143,7 +160,8 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 }
 - (void)outPutStringOfSelectDate:(NSString *)str withTag:(NSInteger)tag
 {
-    self.time.textfield.text = str;
+    NSArray *array = [str componentsSeparatedByString:@" "];
+    self.time.textfield.text = [array firstObject];
 }
 
 - (void)builtSchoolTable
@@ -185,6 +203,11 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row < [self.modelArray count]) {
+        SearchSchoolModel *model = [self.modelArray objectAtIndex:indexPath.row];
+        self.school.textfield.text = model.name;
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
@@ -386,6 +409,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 }
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
+    [self.school.textfield resignFirstResponder];
     FillInformationCon *fill = [[FillInformationCon alloc]init];
     [self.navigationController pushViewController:fill animated:YES];
 }

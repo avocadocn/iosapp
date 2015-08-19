@@ -25,6 +25,7 @@
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
 
+@property (nonatomic, strong)UILabel *label;
 
 //- (void)requestNetWithSuffix:(NSString *)str;
 

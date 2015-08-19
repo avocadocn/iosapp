@@ -120,25 +120,29 @@ static AFHTTPSessionManager *_mgr;
     [pathParams enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [mutableParamsDict removeObjectForKey:key];
     }];
+
+    NSString *amendStr = [NSString stringWithFormat:@"%@%@", BaseUrl, routeUrl];
     
+    NSLog(@"请求的网址为   %@", amendStr);
+    NSLog(@"请求的body为 %@", mutableParamsDict);
     
     switch (type) {
         case RequsetMethodTypeGET:
-            [self get:routeUrl params:mutableParamsDict success:success failure:failure];
+            [self get:amendStr params:mutableParamsDict success:success failure:failure];
             break;
         
         case RequsetMethodTypePOST:
             if (uploadFlag == YES) {
-                [self upload:routeUrl params:mutableParamsDict success:success failure:failure];
+                [self upload:amendStr params:mutableParamsDict success:success failure:failure];
             }else{
-                [self post:routeUrl params:mutableParamsDict success:success failure:failure];
+                [self post:amendStr params:mutableParamsDict success:success failure:failure];
             }
             break;
         case RequsetMethodTypeDELETE:
-            [self delete:routeUrl params:mutableParamsDict success:success failure:failure];
+            [self delete:amendStr params:mutableParamsDict success:success failure:failure];
             break;
         case RequsetMethodTypePUT:
-            [self put:routeUrl params:mutableParamsDict success:success failure:failure];
+            [self put:amendStr params:mutableParamsDict success:success failure:failure];
             break;
         default:
             break;

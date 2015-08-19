@@ -13,8 +13,10 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "DNAsset.h"
 #import "AccountAndPassword.h"
+#import <ReactiveCocoa.h>
 
-@interface FillInformationCon ()<DNImagePickerControllerDelegate>
+
+@interface FillInformationCon ()<DNImagePickerControllerDelegate, UITextFieldDelegate>
 
 @end
 
@@ -37,12 +39,11 @@
     label.textAlignment = NSTextAlignmentRight;
     
     UITapGestureRecognizer *labelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
-    label.userInteractionEnabled = YES;
+//    label.userInteractionEnabled = YES;
     [label addGestureRecognizer:labelTap];
     label.font = [UIFont systemFontOfSize:15];
     label.textColor = [UIColor lightGrayColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
-
     
     
     self.userPhoto = [UIImageView new];
@@ -64,6 +65,7 @@
     self.userName = [LabelView new];
     self.userName.label.text = @"昵称";
     [self.userName setBackgroundColor:[UIColor whiteColor]];
+    
     [self.view addSubview:self.userName];
     
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,6 +78,14 @@
     self.nameTextField = [UITextField new];
     self.nameTextField.font = [UIFont systemFontOfSize:14];
     self.nameTextField.textAlignment = NSTextAlignmentCenter;
+    [self.nameTextField.rac_textSignal subscribeNext:^(NSString *textStr) {
+        if (textStr.length >= 3) {
+            label.userInteractionEnabled = YES;
+            label.textColor = RGBACOLOR(253, 185, 0, 1);
+        }
+    }];
+    
+    self.nameTextField.delegate = self;
     [self.userName addSubview:self.nameTextField];
     
     [self.nameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -192,6 +202,14 @@
     }];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (range.location > 9) {
+        return NO;
+    }
+    
+    return YES;
+}
 
 /*
 #pragma mark - Navigation
@@ -204,6 +222,7 @@
 */
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
+    [self.nameTextField resignFirstResponder];
     AccountAndPassword *acc= [[AccountAndPassword alloc]init];
     [self.navigationController pushViewController:acc animated:YES];
     

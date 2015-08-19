@@ -38,20 +38,20 @@
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
     // 登陆界面
-    
+    /*
     GuidePageViewController *gu = [[GuidePageViewController alloc]init];
     DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:gu];
     [self.window setRootViewController:nav];
-    
+    */
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultCenterAction:) name:@"changeRootViewController" object:nil];
     // main 页面
-    /*
+    
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
        self.mainController = main;
 //       self.mainController = main;
-    */
+    
     
     [self.window makeKeyAndVisible];
     return YES;
