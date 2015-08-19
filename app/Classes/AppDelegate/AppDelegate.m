@@ -38,6 +38,7 @@
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
     // 登陆界面
+    
     GuidePageViewController *gu = [[GuidePageViewController alloc]init];
     DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:gu];
     [self.window setRootViewController:nav];

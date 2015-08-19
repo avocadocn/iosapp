@@ -116,7 +116,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
         SearchSchoolModel *searchmodel = [[SearchSchoolModel alloc]init];
         [searchmodel setName:str];
 //        [searchmodel setCity:@"上海"];
-        [searchmodel setPage:@"0"];
+        [searchmodel setPage:@"1"];
         
         [RestfulAPIRequestTool routeName:@"companySearch" requestModel:searchmodel useKeys:@[@"name", @"city", @"page"] success:^(id json) {
             NSLog(@"成功");

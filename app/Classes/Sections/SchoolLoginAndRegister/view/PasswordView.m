@@ -10,6 +10,10 @@
 #import <ReactiveCocoa.h>
 #import "EnumTextField.h"
 
+@interface PasswordView ()<UITextFieldDelegate>
+
+@end
+
 
 @implementation PasswordView
 
@@ -30,8 +34,9 @@
     
     for (int i = 0; i < num; i++) {
         EnumTextField *textField = [[EnumTextField alloc]initWithFrame:CGRectMake(i * width, 0, width, hetght)];
+        textField.delegate = self;
         [textField.rac_textSignal subscribeNext:^(NSString *str) {
-            if (str.length == 1) {
+            if (str.length == 1 && (i != num -1)) {
                 
                 EnumTextField *respTextField = (EnumTextField *)[self viewWithTag:(i + 2)];
                 [respTextField becomeFirstResponder];
@@ -49,10 +54,44 @@
         textField.layer.borderWidth = .3;
         textField.textAlignment = NSTextAlignmentCenter;
         [self addSubview:textField];
-        
     }
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    //    textview 改变字体的行间距
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    paragraphStyle.lineSpacing = 20;// 字体的行间距
+    
+    NSDictionary *attributes = @{
+                                 
+                                 NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                 
+                                 NSParagraphStyleAttributeName:paragraphStyle
+                                 
+                                 };
+    
+    textField.attributedText = [[NSAttributedString alloc]initWithString:textField.text attributes:attributes];
+}
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    NSLog(@"点击");
+    
+    EnumTextField *enumtextfield = (EnumTextField *)[self viewWithTag:textField.tag];
+    
+    if (range.location >= 1)
+        
+        return NO;
+    if (range.location == 0 && enumtextfield.keyBorad == KeyBoardStateYes) {
+        EnumTextField *myTextField = (EnumTextField *)[self viewWithTag:textField.tag - 1];
+        [myTextField becomeFirstResponder];
+    }
+    
+    return YES;
+    
+}
 
 @end
