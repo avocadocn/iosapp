@@ -44,3 +44,5 @@ Carthage/Build
 
 .DS_Store
 libEaseMobClientSDK.a
+
+EaseMobSDK/
