@@ -116,6 +116,10 @@
     [voteContainer addSubview:optionsView];
     self.optionsView = optionsView;
     
+    // 从六个背景条颜色的所有20种排序中选出一个，计算方法要简单
+    // 直接取发布时间中的秒数，取除20的余数
+    NSLog(@"这里需要取时间");
+
     
     // 添加已投票btn
     UIButton *voteInfosBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -163,7 +167,7 @@
     
     // 工具条
     UIView *bottomToolBar = [[UIView alloc]init];
-    [bottomToolBar setBackgroundColor:[UIColor grayColor]];
+    [bottomToolBar setBackgroundColor:[UIColor whiteColor]];
     [bottomToolBar addSubview:voteInfosBtn];
     [bottomToolBar addSubview:retweedBtn];
     [bottomToolBar addSubview:commentBtn];
