@@ -69,8 +69,10 @@
  *  vote模型
  */
 @property (nonatomic, strong) VoteInfoModel *voteInfoModel;
-
-
+/**
+ *Judge builtInterface
+ */
+@property (nonatomic, assign)BOOL interfaceState;
 
 
 

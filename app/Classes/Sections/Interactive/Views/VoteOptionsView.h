@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class VoteInfoModel;
+
 
 @interface VoteOptionsView : UIView
 
@@ -14,10 +16,12 @@
 /**
  *  选项模型数组
  */
-@property (nonatomic, strong) NSArray *options;
+@property (nonatomic, strong) NSArray *modelArray;
 /**
  *  参与投票的总人数
  */
 @property (nonatomic, assign) NSInteger voteCount;
+
+-(void)setOptions:(VoteInfoModel *)model;
 
 @end

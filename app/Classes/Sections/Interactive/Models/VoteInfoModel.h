@@ -51,5 +51,9 @@
  */
 @property (nonatomic, assign) NSInteger voteCount;
 
+/**
+ *是否点击过投票
+ */
+@property (nonatomic, assign)BOOL judgeVote;
 
 @end

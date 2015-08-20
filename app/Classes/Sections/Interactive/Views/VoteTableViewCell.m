@@ -123,20 +123,17 @@
     int getColorSet = floor(fmod(floor(time),9));
     NSLog(@"余数:%i", getColorSet);
     // 接下来每个选项都可以从获取的数据中取到相对固定的颜色。
-
-
-
     
     // 添加已投票btn
-    UIButton *voteInfosBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [voteInfosBtn setTitle:@"已投票" forState:UIControlStateNormal];
-    voteInfosBtn.x = 12;
-    voteInfosBtn.y = 0;
-    voteInfosBtn.width = 60;
-    voteInfosBtn.height = 44;
+    self.voteInfosBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.voteInfosBtn setTitle:@"投票" forState:UIControlStateNormal];
+    self.voteInfosBtn.x = 12;
+    self.voteInfosBtn.y = 0;
+    self.voteInfosBtn.width = 60;
+    self.voteInfosBtn.height = 44;
     
     // 此处使用rac 监听按钮的点击事件
-    RACSignal *voteInfosSignal = [voteInfosBtn rac_signalForControlEvents:UIControlEventTouchDown];
+    RACSignal *voteInfosSignal = [self.voteInfosBtn rac_signalForControlEvents:UIControlEventTouchUpInside];
     [voteInfosSignal subscribeNext:^(id x) {
         VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
         
@@ -174,7 +171,7 @@
     // 工具条
     UIView *bottomToolBar = [[UIView alloc]init];
     [bottomToolBar setBackgroundColor:[UIColor whiteColor]];
-    [bottomToolBar addSubview:voteInfosBtn];
+    [bottomToolBar addSubview:self.voteInfosBtn];
     [bottomToolBar addSubview:retweedBtn];
     [bottomToolBar addSubview:commentBtn];
     [voteContainer addSubview:bottomToolBar];
@@ -189,7 +186,6 @@
 -(void)setVoteCellFrame:(VoteCellFrame *)voteCellFrame{
     
     _voteCellFrame = voteCellFrame;
-    
     
     VoteInfoModel *model = voteCellFrame.voteInfoModel;
     [self.avatarImageView setImage:[UIImage imageNamed:model.avatarURL]];
@@ -216,15 +212,29 @@
     
     // 选项
     [self.optionsView setFrame:voteCellFrame.optionsViewF];
-    [self.optionsView setOptions:model.options];
+    
+    NSArray *array = [self.optionsView subviews];
+    
+    for (id view in array) {
+        [view removeFromSuperview];
+    }
+    
+    [self.optionsView setOptions:model];  //添加动画 view 只要有一次
     
     [self.bottomToolBar setFrame:voteCellFrame.bottomToolBarF];
-    
-
   
     [self.voteContainer setFrame:voteCellFrame.voteContainerF];
+    
+    if (voteCellFrame.voteInfoModel.judgeVote == YES) {
+        [self.voteInfosBtn setTitle:@"已投票" forState: UIControlStateNormal];
+    }
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle) name:@"Vote" object:nil];  //  接受跳转通知
 }
 
-
+- (void)setVoteTitle
+{
+    [self.voteInfosBtn setTitle:@"已投票" forState: UIControlStateNormal];
+}
 
 @end

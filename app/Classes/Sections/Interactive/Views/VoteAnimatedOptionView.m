@@ -12,10 +12,6 @@
 @interface VoteAnimatedOptionView()
 
 /**
- *  选项条上的按钮
- */
-@property (nonatomic, strong) UIButton *button;
-/**
  *  显示百分比的label
  */
 @property (nonatomic, strong) UILabel *percentageLabel;
@@ -55,8 +51,11 @@
     [btn setTitleColor:RGB(57, 161, 255) forState:UIControlStateNormal];
     [btn setTitleColor:RGB(235, 235, 235) forState:UIControlStateSelected];
     [btn setBackgroundColor:[UIColor clearColor]];
+//    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
+    
     self.button = btn;
+
     
     // 添加显示百分比的label
     UILabel *percentageLabel = [[UILabel alloc]init];
@@ -75,15 +74,33 @@
     self.percentageLabel = percentageLabel;
 }
 
+//- (void)btnAction:(UIButton *)sender
+//{
+//    NSLog(@"点击");
+//}
+
 -(void)setOptionPercentage:(NSInteger)optionPercentage{
-    _optionPercentage = optionPercentage;
+//    _optionPercentage = optionPercentage;
     self.percentageLabel.text = [NSString stringWithFormat:@"%zd%%",optionPercentage];
     
     [self openAnimation:optionPercentage];
 }
 
+- (void)builtInterfaceWithInter:(NSInteger)num
+{
+    CGFloat width = num / 100.0 * DLScreenWidth;
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 44)];
+    view.backgroundColor = self.voteViewColor;
+    [self insertSubview:view atIndex:0];
+}
+
+/**
+ *   画图动画
+ */
 
 -(void)openAnimation:(NSInteger)optionPercentage{
+    /*
     
     // 定义aPath
     UIBezierPath *aPath = [UIBezierPath bezierPath];
@@ -126,7 +143,16 @@
     [shape addAnimation:pathAnimation forKey:@"animationKey"];
     
     shape.path = bPath.CGPath;
+    */
+    CGFloat width = optionPercentage / 100.0 * DLScreenWidth;
     
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 44)];
+    view.backgroundColor = self.voteViewColor;
+    [self insertSubview:view atIndex:0];
+
+    [UIView animateWithDuration:.5 animations:^{
+        view.frame = CGRectMake(0, 0, width, 44);
+    }];
 }
 
 -(void)btnClicked:(id)sender{

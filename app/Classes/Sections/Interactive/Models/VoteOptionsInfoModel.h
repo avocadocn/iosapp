@@ -10,7 +10,6 @@
 
 @interface VoteOptionsInfoModel : NSObject
 
-
 /**
  *  选项名称
  */
@@ -25,5 +24,10 @@
  *  是否投过票
  */
 @property (nonatomic, assign,getter=hasVoted) BOOL voted;
+
+/**
+ * model 中的 color
+ */
+@property (nonatomic, copy)UIColor *voteInfoColor;
 
 @end

@@ -19,4 +19,11 @@
  */
 @property (nonatomic, strong) VoteCellFrame *voteCellFrame;
 
+/**
+* 投票状态 button
+*/
+
+@property (nonatomic, strong)UIButton *voteInfosBtn;
+
+
 @end
