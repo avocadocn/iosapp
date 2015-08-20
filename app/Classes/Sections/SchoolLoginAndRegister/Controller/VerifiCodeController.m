@@ -9,8 +9,10 @@
 #import "VerifiCodeController.h"
 #import <Masonry.h>
 #import "PasswordView.h"
+#import <SMS_SDK/SMS_SDK.h>
 
-@interface VerifiCodeController ()
+
+@interface VerifiCodeController ()<PassWordViewDelegate>
 
 @end
 
@@ -50,7 +52,8 @@
         make.left.mas_equalTo(self.view.mas_left);
     }];
     
-    PasswordView *password = [[PasswordView alloc]initWithFrame:CGRectMake(DLMultipleWidth(52.0), 64 + DLMultipleHeight(77.0), DLMultipleWidth(46.0) * 6, DLMultipleHeight(54.0)) textFieldNum:6.0];
+    PasswordView *password = [[PasswordView alloc]initWithFrame:CGRectMake(DLMultipleWidth(52.0), 64 + DLMultipleHeight(77.0), DLMultipleWidth(46.0) * 4, DLMultipleHeight(54.0)) textFieldNum:4.0];
+    password.delegate = self;
     [self.view addSubview:password];
     
     
@@ -127,6 +130,34 @@
     self.requestAgain.textColor = [UIColor colorWithWhite:.7 alpha:1];
     self.requestAgain.text = str;
     self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
+}
+
+- (void)sendPassword:(NSString *)password
+{
+    [SMS_SDK commitVerifyCode:password result:^(enum SMS_ResponseState state) {
+        if (1 == state)
+        {
+            NSLog(@"验证成功");
+//            NSString* str = [NSString stringWithFormat:NSLocalizedString(@"verifycoderightmsg", nil)];
+//            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycoderighttitle", nil)
+//                                                            message:str
+//                                                           delegate:self
+//                                                  cancelButtonTitle:NSLocalizedString(@"sure", nil)
+//                                                  otherButtonTitles:nil, nil];
+//            [alert show];
+        }
+        else if(0 == state)
+        {
+            NSLog(@"验证失败");
+            NSString* str = [NSString stringWithFormat:NSLocalizedString(@"verifycodeerrormsg", nil)];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycodeerrortitle", nil)
+                                                            message:str
+                                                           delegate:self
+                                                  cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                  otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

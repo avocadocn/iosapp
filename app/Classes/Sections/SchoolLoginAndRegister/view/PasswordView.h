@@ -8,10 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PassWordViewDelegate <NSObject>
+
+- (void)sendPassword:(NSString *)password;
+
+@end
+
 @interface PasswordView : UIView
 
 @property (nonatomic, copy)NSString *password;
 
+@property (nonatomic, assign)id <PassWordViewDelegate> delegate;
+
 - (instancetype)initWithFrame:(CGRect)frame textFieldNum:(CGFloat)num;
+
 
 @end

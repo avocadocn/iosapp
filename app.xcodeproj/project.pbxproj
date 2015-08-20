@@ -519,6 +519,10 @@
 		A459C4BF1B620C88003D32C8 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4BE1B620C88003D32C8 /* RegisterViewController.m */; };
 		A459C4C51B62305D003D32C8 /* GroupCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4C41B62305D003D32C8 /* GroupCardModel.m */; };
 		A459C4CB1B6242A2003D32C8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4CA1B6242A2003D32C8 /* LoginViewController.m */; };
+		A45FEBEA1B856C6600BC5E41 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBE91B856C6600BC5E41 /* SMS_SDK.framework */; };
+		A45FEBEC1B85725000BC5E41 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBEB1B85725000BC5E41 /* libicucore.dylib */; };
+		A45FEBEE1B85727000BC5E41 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */; };
+		A45FEBF01B85727C00BC5E41 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */; };
 		A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A46448E91B6F31EF00AA621E /* AddressBookModel.m */; };
 		A4650F201B7DBDCD00013A17 /* UserInterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F1F1B7DBDCD00013A17 /* UserInterView.m */; };
 		A4650F2D1B7DCD9600013A17 /* SHLUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F2C1B7DCD9600013A17 /* SHLUILabel.m */; };
@@ -1467,6 +1471,10 @@
 		A459C4C41B62305D003D32C8 /* GroupCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCardModel.m; sourceTree = "<group>"; };
 		A459C4C91B6242A2003D32C8 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		A459C4CA1B6242A2003D32C8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		A45FEBE91B856C6600BC5E41 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		A45FEBEB1B85725000BC5E41 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A46448E81B6F31EF00AA621E /* AddressBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
 		A46448E91B6F31EF00AA621E /* AddressBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookModel.m; sourceTree = "<group>"; };
 		A4650F1E1B7DBDCD00013A17 /* UserInterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInterView.h; sourceTree = "<group>"; };
@@ -1603,12 +1611,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A45FEBF01B85727C00BC5E41 /* MessageUI.framework in Frameworks */,
+				A45FEBEE1B85727000BC5E41 /* AddressBookUI.framework in Frameworks */,
+				96CF917E1B673E92001759E2 /* AddressBook.framework in Frameworks */,
+				96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */,
+				A45FEBEC1B85725000BC5E41 /* libicucore.dylib in Frameworks */,
+				A45FEBEA1B856C6600BC5E41 /* SMS_SDK.framework in Frameworks */,
 				A41CF0D21B5CC0B7005C21EF /* AssetsLibrary.framework in Frameworks */,
 				A48077941B6B86EF000F11D1 /* libEaseMobClientSDK.a in Frameworks */,
 				96CF91841B673EA9001759E2 /* libxml2.dylib in Frameworks */,
-				96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */,
 				96CF91801B673E99001759E2 /* CFNetwork.framework in Frameworks */,
-				96CF917E1B673E92001759E2 /* AddressBook.framework in Frameworks */,
 				96CF917C1B673E8A001759E2 /* libiconv.dylib in Frameworks */,
 				96CF917A1B673E80001759E2 /* MobileCoreServices.framework in Frameworks */,
 				A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */,
@@ -1650,6 +1662,9 @@
 		528AD80964192770FD7E639E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */,
+				A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */,
+				A45FEBEB1B85725000BC5E41 /* libicucore.dylib */,
 				A48077931B6B86EF000F11D1 /* libEaseMobClientSDK.a */,
 				A48077901B6B77BD000F11D1 /* EaseMob.bundle */,
 				96CF91831B673EA9001759E2 /* libxml2.dylib */,
@@ -1786,6 +1801,7 @@
 		9649B4C71B5649AB00A7F355 = {
 			isa = PBXGroup;
 			children = (
+				A45FEBE91B856C6600BC5E41 /* SMS_SDK.framework */,
 				9649B4D21B5649AC00A7F355 /* app */,
 				9649B4EC1B5649AC00A7F355 /* appTests */,
 				9649B4D11B5649AC00A7F355 /* Products */,
@@ -4780,6 +4796,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -4805,6 +4825,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

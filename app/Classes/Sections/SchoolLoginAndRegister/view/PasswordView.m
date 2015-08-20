@@ -42,10 +42,15 @@
                 [respTextField becomeFirstResponder];
                 textField.keyBorad = KeyBoardStateYes;
             }
-//            if (str.length == 0 && textField.keyBorad == KeyBoardStateYes) {
-//                EnumTextField *respTextField = (EnumTextField *)[self viewWithTag:i];
-//                [respTextField becomeFirstResponder];
-//            }
+            if (str.length == 1 && i == num - 1)
+            {
+                NSArray *array = self.subviews;
+                NSMutableString *mutableStr = [NSMutableString string];
+                for (EnumTextField *text in array) {
+                    [mutableStr appendString:text.text];
+                }
+                [self.delegate sendPassword:mutableStr];
+            }
         }];
         
         textField.keyboardType = UIKeyboardTypeNumberPad;

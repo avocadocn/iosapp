@@ -12,7 +12,7 @@
 #import "DXAlertView.h"
 #import "VerifiCodeController.h"
 #import <ReactiveCocoa.h>
-
+#import <SMS_SDK/SMS_SDK.h>
 
 
 
@@ -101,6 +101,31 @@
     [alert show];
     
     alert.rightBlock = ^(){
+        NSString *str2 = [NSString stringWithFormat:@"86"];
+        [SMS_SDK getVerificationCodeBySMSWithPhone:self.phoneNumber.textfield.text
+                                              zone:str2
+                                            result:^(SMS_SDKError *error)
+         {
+             if (!error)
+             {
+                 NSLog(@"验证码发送成功");
+//                 [self presentViewController:verify animated:YES completion:^{
+//                     ;
+//                 }];
+             }
+             else
+             {
+                 UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil)
+                                                                 message:[NSString stringWithFormat:@"状态码：%zi ,错误描述：%@",error.errorCode,error.errorDescription]
+                                                                delegate:self
+                                                       cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                       otherButtonTitles:nil, nil];
+                 [alert show];
+             }
+             
+         }];
+
+        
         VerifiCodeController *ver = [[VerifiCodeController alloc]init];
         [self.navigationController pushViewController:ver animated:YES];
     };
