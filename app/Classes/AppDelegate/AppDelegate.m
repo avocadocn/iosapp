@@ -38,20 +38,21 @@
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
     // 登陆界面
-    /*
+  /*
     GuidePageViewController *gu = [[GuidePageViewController alloc]init];
     DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:gu];
     [self.window setRootViewController:nav];
-    */
+*/
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultCenterAction:) name:@"changeRootViewController" object:nil];
     // main 页面
-    
+
     MainController *main = [[MainController alloc]init];
     self.window.rootViewController = main;
        self.mainController = main;
 //       self.mainController = main;
-
+     
+    
     [SMS_SDK registerApp:@"96e27f7829b0" withSecret:@"b9187305412315ed038b8f9e2c43a520"];
     [self.window makeKeyAndVisible];
     return YES;

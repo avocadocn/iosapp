@@ -10,7 +10,8 @@
 #import <Masonry.h>
 #import "PasswordView.h"
 #import <SMS_SDK/SMS_SDK.h>
-
+#import "RestfulAPIRequestTool.h"
+#import "LoginSinger.h"
 
 @interface VerifiCodeController ()<PassWordViewDelegate>
 
@@ -51,8 +52,10 @@
         make.size.mas_equalTo(CGSizeMake(DLScreenWidth, 15));
         make.left.mas_equalTo(self.view.mas_left);
     }];
+    CGFloat textNum = 4.0;
+    CGFloat locationWidth = (DLScreenWidth - DLMultipleWidth(46.0) * textNum) / 2.0;
     
-    PasswordView *password = [[PasswordView alloc]initWithFrame:CGRectMake(DLMultipleWidth(52.0), 64 + DLMultipleHeight(77.0), DLMultipleWidth(46.0) * 4, DLMultipleHeight(54.0)) textFieldNum:4.0];
+    PasswordView *password = [[PasswordView alloc]initWithFrame:CGRectMake(locationWidth,  64 + DLMultipleHeight(77.0), DLMultipleWidth(46.0) * textNum, DLMultipleHeight(54.0)) textFieldNum:textNum];
     password.delegate = self;
     [self.view addSubview:password];
     
@@ -138,6 +141,7 @@
         if (1 == state)
         {
             NSLog(@"验证成功");
+            /*
 //            NSString* str = [NSString stringWithFormat:NSLocalizedString(@"verifycoderightmsg", nil)];
 //            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycoderighttitle", nil)
 //                                                            message:str
@@ -145,6 +149,16 @@
 //                                                  cancelButtonTitle:NSLocalizedString(@"sure", nil)
 //                                                  otherButtonTitles:nil, nil];
 //            [alert show];
+             */
+            LoginSinger *singer = [LoginSinger shareState];
+            [RestfulAPIRequestTool routeName:@"Register" requestModel:singer useKeys:@[@"cid", @"phone", @"password", @"name", @"gender", @"enrollment", @"photo"] success:^(id json) {
+                
+                NSLog(@"注册成功");
+            } failure:^(id errorJson) {
+                NSLog(@"%@", errorJson);
+            }];
+            
+            
         }
         else if(0 == state)
         {

@@ -523,6 +523,7 @@
 		A45FEBEC1B85725000BC5E41 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBEB1B85725000BC5E41 /* libicucore.dylib */; };
 		A45FEBEE1B85727000BC5E41 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */; };
 		A45FEBF01B85727C00BC5E41 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */; };
+		A45FEBF31B85DC1900BC5E41 /* LoginSinger.m in Sources */ = {isa = PBXBuildFile; fileRef = A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */; };
 		A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A46448E91B6F31EF00AA621E /* AddressBookModel.m */; };
 		A4650F201B7DBDCD00013A17 /* UserInterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F1F1B7DBDCD00013A17 /* UserInterView.m */; };
 		A4650F2D1B7DCD9600013A17 /* SHLUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F2C1B7DCD9600013A17 /* SHLUILabel.m */; };
@@ -1475,6 +1476,8 @@
 		A45FEBEB1B85725000BC5E41 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		A45FEBF11B85DC1900BC5E41 /* LoginSinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSinger.h; sourceTree = "<group>"; };
+		A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSinger.m; sourceTree = "<group>"; };
 		A46448E81B6F31EF00AA621E /* AddressBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
 		A46448E91B6F31EF00AA621E /* AddressBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookModel.m; sourceTree = "<group>"; };
 		A4650F1E1B7DBDCD00013A17 /* UserInterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInterView.h; sourceTree = "<group>"; };
@@ -3629,6 +3632,8 @@
 		A44B35521B82E043004F7A6A /* model */ = {
 			isa = PBXGroup;
 			children = (
+				A45FEBF11B85DC1900BC5E41 /* LoginSinger.h */,
+				A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4484,6 +4489,7 @@
 				96CF918A1B674193001759E2 /* AppDelegate+UMeng.m in Sources */,
 				96CF93A11B674B54001759E2 /* PublicGroupListViewController.m in Sources */,
 				96CF948A1B67501B001759E2 /* SRSlimeView.m in Sources */,
+				A45FEBF31B85DC1900BC5E41 /* LoginSinger.m in Sources */,
 				967439BE1B705908004334A4 /* RouteManager.m in Sources */,
 				A434C6111B71EA1E009643CD /* ApertureView.m in Sources */,
 				A4745DFF1B81A9AC008EB944 /* DNImageFlowViewController.m in Sources */,

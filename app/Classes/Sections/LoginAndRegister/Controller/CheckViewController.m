@@ -25,6 +25,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "FillInformationCon.h"
 #import "UIBarButtonItem+Extension.h"
+#import "LoginSinger.h"
 
 typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     SelectStateOfCompanyNo,
@@ -154,7 +155,12 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     [self.school.textfield resignFirstResponder];
     DLDatePickerView *time = [[DLDatePickerView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     time.delegate = self;
-    time.picker.datePickerMode = UIDatePickerModeDate;
+//    time.picker.datePickerMode = UIDatePickerModeDate;
+    
+    NSDate *minDate = [[NSDate alloc]initWithTimeInterval:- 60 * 60 * 24 * 365 * 3 sinceDate:[NSDate date]];
+    NSDate *maxDate = [[NSDate alloc]initWithTimeInterval:60 * 60 * 24 * 365 * .5 sinceDate:[NSDate date]];
+    [time reloadWithMaxDate:maxDate minDate:minDate dateMode:UIDatePickerModeDate];
+    
     [self.view addSubview:time];
     [time show];
 }
@@ -162,6 +168,16 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 {
     NSArray *array = [str componentsSeparatedByString:@" "];
     self.time.textfield.text = [array firstObject];
+    if (self.school.textfield.text.length >= 4)
+    {
+        self.label.userInteractionEnabled = YES;
+        self.label.textColor = RGBACOLOR(253, 185, 0, 1);
+    } else {
+        self.label.userInteractionEnabled = NO;
+        self.label.textColor = [UIColor lightGrayColor];
+    }
+
+    
 }
 
 - (void)builtSchoolTable
@@ -203,9 +219,11 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.school.textfield resignFirstResponder];
     if (indexPath.row < [self.modelArray count]) {
         SearchSchoolModel *model = [self.modelArray objectAtIndex:indexPath.row];
         self.school.textfield.text = model.name;
+        self.schoolID = [NSString stringWithFormat:@"%@", model.ID];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -409,6 +427,12 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 }
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
+    NSArray *array = [self.time.textfield.text componentsSeparatedByString:@"-"];
+    
+    LoginSinger *singer = [LoginSinger shareState];
+    [singer setEnrollment:[array firstObject]];  // 入学年份
+    [singer setCid:self.schoolID];
+    
     [self.school.textfield resignFirstResponder];
     FillInformationCon *fill = [[FillInformationCon alloc]init];
     [self.navigationController pushViewController:fill animated:YES];

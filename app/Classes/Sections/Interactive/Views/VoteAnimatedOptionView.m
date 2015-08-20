@@ -90,6 +90,7 @@
 {
     CGFloat width = num / 100.0 * DLScreenWidth;
     
+    self.percentageLabel.text = [NSString stringWithFormat:@"%zd%%",num];
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 44)];
     view.backgroundColor = self.voteViewColor;
     [self insertSubview:view atIndex:0];

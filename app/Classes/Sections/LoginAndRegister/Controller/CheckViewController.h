@@ -27,6 +27,8 @@
 
 @property (nonatomic, strong)UILabel *label;
 
+@property (nonatomic, copy)NSString *schoolID;
+
 //- (void)requestNetWithSuffix:(NSString *)str;
 
 @end

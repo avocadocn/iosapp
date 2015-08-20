@@ -17,4 +17,6 @@
 
 @property (nonatomic, strong)ImageHolderView *password;
 
+@property (nonatomic, strong)UILabel *label;
+
 @end

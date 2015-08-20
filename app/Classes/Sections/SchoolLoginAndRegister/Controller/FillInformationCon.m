@@ -14,7 +14,7 @@
 #import "DNAsset.h"
 #import "AccountAndPassword.h"
 #import <ReactiveCocoa.h>
-
+#import "LoginSinger.h"
 
 @interface FillInformationCon ()<DNImagePickerControllerDelegate, UITextFieldDelegate>
 
@@ -222,6 +222,17 @@
 */
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
+    LoginSinger *singer = [LoginSinger shareState];
+    
+    [singer setName:self.nameTextField.text];
+    if (self.sex == EnumUserSexMan) {
+        [singer setGender:@1];
+    } else
+    {
+        [singer setGender:@2];
+    }
+    [singer setPhoto:self.userPhoto.image];
+    
     [self.nameTextField resignFirstResponder];
     AccountAndPassword *acc= [[AccountAndPassword alloc]init];
     [self.navigationController pushViewController:acc animated:YES];
