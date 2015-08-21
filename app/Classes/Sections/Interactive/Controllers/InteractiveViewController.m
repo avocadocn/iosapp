@@ -32,6 +32,8 @@
 @property (nonatomic ,assign) CGPoint startPoint;
 @property (nonatomic ,assign) CGRect asvFrame;
 @property (nonatomic, strong) DWBubbleMenuButton *upMenuView;
+@property (nonatomic, strong) UIView *coriusView;
+@property (nonatomic, strong)UIImageView *coriusImage;
 /**
  *  path菜单
  */
@@ -74,6 +76,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         view.tag = 1999;
         [UIView animateWithDuration:.1 animations:^{
             view.backgroundColor = RGBACOLOR(0, 0, 0, .6);
+            self.coriusImage.image = [UIImage imageNamed:@"mistakeo"];
+            self.coriusView.backgroundColor = [UIColor whiteColor];
+            
+            self.coriusImage.transform = CGAffineTransformMakeRotation(M_PI_2);
         }];
     } else
     {
@@ -82,6 +88,9 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             view.backgroundColor = [UIColor clearColor];
         } completion:^(BOOL finished) {
             [view removeFromSuperview];
+            self.coriusView.backgroundColor = RGBACOLOR(253, 185, 0, 1);
+            self.coriusImage.image = [UIImage imageNamed:@"mistake"];
+                self.coriusImage.transform = CGAffineTransformMakeRotation(M_PI_2 / 2);
         }];
     }
 }
@@ -107,7 +116,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     UILabel * myLabel = [UILabel new];
     myLabel.textAlignment = NSTextAlignmentRight;
-    myLabel.text = @"退出";
     myLabel.textColor = [UIColor whiteColor];
     [label addSubview:myLabel];
     
@@ -118,19 +126,30 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         make.bottom.mas_equalTo(label.mas_bottom);
     }];
     
-    UIImageView * coriusImage = [UIImageView new];
+    self.coriusView = [UIView new];
     
-    coriusImage.backgroundColor = RGBACOLOR(253, 185, 0, 1);
-    coriusImage.layer.masksToBounds = YES;
-    coriusImage.layer.cornerRadius = label.frame.size.height / 2.0;
+    self.coriusView.backgroundColor = RGBACOLOR(253, 185, 0, 1);
+    self.coriusView.layer.masksToBounds = YES;
+    self.coriusView.layer.cornerRadius = label.frame.size.height / 2.0;
     
-    [label addSubview:coriusImage];
-    [coriusImage mas_makeConstraints:^(MASConstraintMaker *make) {
+    [label addSubview:self.coriusView];
+    [self.coriusView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(label.mas_top);
         make.left.mas_equalTo(myLabel.mas_right);
         make.right.mas_equalTo(label.mas_right);
         make.bottom.mas_equalTo(label.mas_bottom);
     }];
+    
+    self.coriusImage = [UIImageView new];
+    self.coriusImage.image = [UIImage imageNamed:@"mistake"];
+    [self.coriusView addSubview:self.coriusImage];
+    
+    [self.coriusImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.coriusView.mas_centerX);
+        make.centerY.mas_equalTo(self.coriusView.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(27.0), DLMultipleWidth(27.0)));
+    }];
+    self.coriusImage.transform = CGAffineTransformMakeRotation(M_PI_2 / 2);
     
     return label;
 }
@@ -139,10 +158,11 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     NSMutableArray *buttonsMutable = [[NSMutableArray alloc] init];
     
     int i = 0;
+    NSArray *array = @[[UIImage imageNamed:@"event"], [UIImage imageNamed:@"vote"], [UIImage imageNamed:@"seek"]];
     for (NSString *title in @[@"活动  ", @"投票  ", @"求助  "]) {
         CustomButton *button = [[CustomButton alloc]initWithFrame:CGRectMake(0.f, 0.f, DLMultipleWidth(96.0), DLMultipleWidth(48.0))];
         
-        [button reloarWithString:title andImage:nil];
+        [button reloarWithString:title andImage:[array objectAtIndex:i]];
         
         button.tag = ++i;
         
@@ -289,11 +309,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     self.asvFrame = self.asv.frame;
     self.asvHidden = NO;
 }
-
-
-
-
-
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     self.startPoint = scrollView.contentOffset;

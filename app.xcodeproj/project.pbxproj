@@ -456,6 +456,11 @@
 		A40936C01B721BCD00515A50 /* time.png in Resources */ = {isa = PBXBuildFile; fileRef = A40936BF1B721BCD00515A50 /* time.png */; };
 		A40CDF281B86F99000BD63F5 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A40CDF271B86F99000BD63F5 /* CustomButton.m */; };
 		A40CDF2B1B86F9AD00BD63F5 /* DWBubbleMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A40CDF2A1B86F9AD00BD63F5 /* DWBubbleMenuButton.m */; };
+		A40CDF5F1B8733AA00BD63F5 /* event.png in Resources */ = {isa = PBXBuildFile; fileRef = A40CDF5E1B8733AA00BD63F5 /* event.png */; };
+		A40CDF611B8733AF00BD63F5 /* vote.png in Resources */ = {isa = PBXBuildFile; fileRef = A40CDF601B8733AF00BD63F5 /* vote.png */; };
+		A40CDF631B8733B400BD63F5 /* mistake.png in Resources */ = {isa = PBXBuildFile; fileRef = A40CDF621B8733B400BD63F5 /* mistake.png */; };
+		A40CDF651B8733B800BD63F5 /* mistakeo.png in Resources */ = {isa = PBXBuildFile; fileRef = A40CDF641B8733B800BD63F5 /* mistakeo.png */; };
+		A40CDF671B8733BC00BD63F5 /* seek.png in Resources */ = {isa = PBXBuildFile; fileRef = A40CDF661B8733BC00BD63F5 /* seek.png */; };
 		A41993211B5F95AB0086EAAE /* CheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41993181B5F95AB0086EAAE /* CheckViewController.m */; };
 		A41993231B5F95AB0086EAAE /* CompanyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A419931E1B5F95AB0086EAAE /* CompanyTableViewCell.m */; };
 		A41993241B5F95AB0086EAAE /* LoginMailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A41993201B5F95AB0086EAAE /* LoginMailTableViewCell.m */; };
@@ -1374,6 +1379,11 @@
 		A40CDF271B86F99000BD63F5 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		A40CDF291B86F9AD00BD63F5 /* DWBubbleMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWBubbleMenuButton.h; sourceTree = "<group>"; };
 		A40CDF2A1B86F9AD00BD63F5 /* DWBubbleMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWBubbleMenuButton.m; sourceTree = "<group>"; };
+		A40CDF5E1B8733AA00BD63F5 /* event.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event.png; sourceTree = "<group>"; };
+		A40CDF601B8733AF00BD63F5 /* vote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vote.png; sourceTree = "<group>"; };
+		A40CDF621B8733B400BD63F5 /* mistake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mistake.png; sourceTree = "<group>"; };
+		A40CDF641B8733B800BD63F5 /* mistakeo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mistakeo.png; sourceTree = "<group>"; };
+		A40CDF661B8733BC00BD63F5 /* seek.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seek.png; sourceTree = "<group>"; };
 		A41993171B5F95AB0086EAAE /* CheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckViewController.h; sourceTree = "<group>"; };
 		A41993181B5F95AB0086EAAE /* CheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckViewController.m; sourceTree = "<group>"; };
 		A419931D1B5F95AB0086EAAE /* CompanyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyTableViewCell.h; sourceTree = "<group>"; };
@@ -3830,9 +3840,14 @@
 				A44D40471B733CAB00B10DFB /* disappear.png */,
 				A42D7EB11B784C6A00F791DA /* white.jpg */,
 				A4DD812C1B7B3225004505C9 /* DonLike.png */,
+				A40CDF5E1B8733AA00BD63F5 /* event.png */,
+				A40CDF601B8733AF00BD63F5 /* vote.png */,
+				A40CDF661B8733BC00BD63F5 /* seek.png */,
 				A4DD812E1B7B322A004505C9 /* talk.png */,
 				A43F86341B74813E0086D078 /* image.png */,
 				A4651D3B1B58DFAE008BAEE8 /* No.png */,
+				A40CDF621B8733B400BD63F5 /* mistake.png */,
+				A40CDF641B8733B800BD63F5 /* mistakeo.png */,
 				A4A009C11B579F5B005AC35F /* 2.jpg */,
 				A46DCEEF1B69F1060049C999 /* mzx.jpg */,
 				A4651D3F1B58DFB9008BAEE8 /* 2.png */,
@@ -4092,6 +4107,7 @@
 				96CF93C91B674B54001759E2 /* VoiceSearchFeedback002.png in Resources */,
 				96CF93FC1B674B54001759E2 /* chatBar_more_cardSelected@2x.png in Resources */,
 				96CF93BB1B674B54001759E2 /* 58.png in Resources */,
+				A40CDF5F1B8733AA00BD63F5 /* event.png in Resources */,
 				A4745E011B81A9AC008EB944 /* DNImagePickerController.strings in Resources */,
 				96CF944E1B674B54001759E2 /* chat_sender_audio_playing_003.png in Resources */,
 				A40936BE1B721BC800515A50 /* address.png in Resources */,
@@ -4167,6 +4183,7 @@
 				96CF94721B674B54001759E2 /* tabbar_settingHL.png in Resources */,
 				96CF93F41B674B54001759E2 /* call_silence@2x.png in Resources */,
 				9635AF5E1B74A13500BE92B5 /* CustomKeyBoard.xib in Resources */,
+				A40CDF671B8733BC00BD63F5 /* seek.png in Resources */,
 				A46D4AFB1B79F1BA00177577 /* insert.png in Resources */,
 				96CF93C41B674B54001759E2 /* chatFire_audioPlaying2@2x.png in Resources */,
 				A4651D3E1B58DFAE008BAEE8 /* OK.png in Resources */,
@@ -4192,6 +4209,7 @@
 				A44B355A1B82F895004F7A6A /* gril.png in Resources */,
 				A4651D871B58F8C6008BAEE8 /* delete-circular.png in Resources */,
 				96CF94281B674B54001759E2 /* chatBar_colorMore_locationSelected@2x.png in Resources */,
+				A40CDF611B8733AF00BD63F5 /* vote.png in Resources */,
 				96CF90F91B67345C001759E2 /* Localizable.strings in Resources */,
 				96CF94691B674B54001759E2 /* tabbar_chats@2x.png in Resources */,
 				96CF94611B674B54001759E2 /* group_joinpublicgroup@2x.png in Resources */,
@@ -4302,6 +4320,7 @@
 				96CF93C21B674B54001759E2 /* chatFire_audioPlaying1@2x.png in Resources */,
 				96CF93B81B674B54001759E2 /* 120.png in Resources */,
 				96CF943E1B674B54001759E2 /* chat_receiver_audio_playing001.png in Resources */,
+				A40CDF651B8733B800BD63F5 /* mistakeo.png in Resources */,
 				96CF93DE1B674B54001759E2 /* VoiceSearchFeedback012@2x.png in Resources */,
 				967439CC1B70A27A004334A4 /* otherActivity_time.png in Resources */,
 				96CF946D1B674B54001759E2 /* tabbar_contacts@2x.png in Resources */,
@@ -4317,6 +4336,7 @@
 				96CF942D1B674B54001759E2 /* chatBar_colorMore_videoCallSelected@2x.png in Resources */,
 				A4745E221B81E50D008EB944 /* school.png in Resources */,
 				96CF93781B674B54001759E2 /* callRing.mp3 in Resources */,
+				A40CDF631B8733B400BD63F5 /* mistake.png in Resources */,
 				96CF94401B674B54001759E2 /* chat_receiver_audio_playing002.png in Resources */,
 				967439CB1B70A27A004334A4 /* otherActivity_location.png in Resources */,
 				967A063D1B72FEF3007BA757 /* Interactive_vote_downView.png in Resources */,
