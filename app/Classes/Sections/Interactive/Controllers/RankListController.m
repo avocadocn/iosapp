@@ -76,9 +76,10 @@ static NSString * const ID =  @"RankItemTableViewcell";
     
     self.tableView = tableView;
     
-    
+    // 折叠
     iCarousel *carousel = [[iCarousel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(tableView.frame), tableView.y, DLScreenWidth - CGRectGetWidth(tableView.frame), tableView.height)];
-    carousel.backgroundColor = GrayBackgroundColor;
+    carousel.backgroundColor = [UIColor yellowColor];
+    
     carousel.delegate = self;
     carousel.dataSource = self;
     carousel.vertical = YES;
@@ -131,16 +132,17 @@ static NSString * const ID =  @"RankItemTableViewcell";
         view = [nibs objectAtIndex:0];
         RankItemView *itemView = (RankItemView *)view;
         if (index % 2 == 0) {
-            [itemView.avatar setImage:[UIImage imageNamed:@"120"]];
+//            [itemView.avatar setImage:[UIImage imageNamed:@"120"]];
         }else{
-            [itemView.avatar  setImage:[UIImage imageNamed:@"200*200_testImage"]];
+//            [itemView.avatar  setImage:[UIImage imageNamed:@"200*200_testImage"]];
         }
         
         [itemView.nameLabel setText:[NSString stringWithFormat:@"杨彤%zd",index]];
         
-        
     }
-    
+    view.layer.borderColor = [UIColor greenColor].CGColor;
+    view.layer.borderWidth = 5;
+    [view setBackgroundColor:[UIColor whiteColor]];
     return view;
 }
 

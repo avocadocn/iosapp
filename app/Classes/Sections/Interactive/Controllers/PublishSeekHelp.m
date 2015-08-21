@@ -7,12 +7,14 @@
 //
 
 #import "PublishSeekHelp.h"
-#import "ChoosePhotoController.h"
+#import "DNImagePickerController.h"
 #import "EMTextView.h"
 #import <Masonry.h>
+#import "DNAsset.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 //#import "UITextView+PlaceHolder.h"
-@interface PublishSeekHelp ()<ArrangeState>
+@interface PublishSeekHelp ()<DNImagePickerControllerDelegate>
 
 @end
 
@@ -29,26 +31,29 @@
 
 - (void)setSeekContent
 {
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
     UIView *bigView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, DLScreenHeight)];
     [self.view addSubview:bigView];
-/*
-    self.seekHelpContent = [[UITextView alloc]initWithFrame:CGRectMake(0,  100 + 64, DLScreenWidth, 120)];
+
+    self.seekHelpContent = [[UITextView alloc]initWithFrame:CGRectMake(0, -64, DLScreenWidth, DLMultipleHeight(300))];
+    self.seekHelpContent.text = @"请输入求助的内容";
     self.seekHelpContent.textContainerInset = UIEdgeInsetsMake(5, 5, 5, 10);
 //    [self.seekHelpContent placeHolderWithString:@"请输入求助内容"];
     self.seekHelpContent.font = [UIFont systemFontOfSize:17];
-    [self.seekHelpContent setBackgroundColor:[UIColor greenColor]];
+//    [self.seekHelpContent setBackgroundColor:[UIColor greenColor]];
     self.seekHelpContent.textAlignment = NSTextAlignmentJustified;
     self.seekHelpContent.contentOffset = CGPointMake(0, 0);
     self.seekHelpContent.scrollEnabled = NO;
     [bigView addSubview:self.seekHelpContent];
     
-    */
     
-    UITextField *textField = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(200.0))];
     
-    textField.placeholder = @"请输入求助内容";
-    [textField placeholder];
-    [bigView addSubview:textField];
+//    UITextField *textField = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(200.0))];
+//    
+//    textField.placeholder = @"请输入求助内容";
+//    [textField placeholder];
+//    [bigView addSubview:textField];
     
     
     self.selectPhoto = [UIImageView new];
@@ -60,7 +65,7 @@
     [bigView addSubview:self.selectPhoto];
     
     [self.selectPhoto mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(textField.mas_bottom).offset(DLMultipleHeight(50.0));
+        make.top.mas_equalTo(self.seekHelpContent.mas_bottom).offset(DLMultipleHeight(50.0));
         make.left.mas_equalTo(bigView.mas_left).offset(DLMultipleWidth(15.0));
         make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(50.0), DLMultipleWidth(50.0)));
     }];
@@ -91,16 +96,21 @@
 
 - (void)selectPhotoAction:(UITapGestureRecognizer *)tap
 {
-    ChoosePhotoController *choose = [ChoosePhotoController shareStateOfController];
-    choose.allowSelectNum = 1;
-    choose.delegate = self;
-    [self.navigationController pushViewController:choose animated:YES];
+    DNImagePickerController *choose = [[DNImagePickerController alloc]init];
     
+    choose.imagePickerDelegate = self;
+    [self.navigationController presentViewController:choose animated:YES completion:nil];
 }
 
-- (void)arrangeStartWithArray:(NSMutableArray *)array
+- (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    self.selectPhoto.image = [array lastObject];
+    DNAsset *dnasser = [imageAssets firstObject];
+    ALAssetsLibrary *library = [ALAssetsLibrary new];
+    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+        self.selectPhoto.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 

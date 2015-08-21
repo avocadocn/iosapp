@@ -9,12 +9,13 @@
 #import "PublishVoteController.h"
 #import <Masonry.h>
 #import "optionsView.h"
-#import "ChoosePhotoController.h"
-
+#import "DNImagePickerController.h"
+#import "DNAsset.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 static NSInteger num = 0;
 
-@interface PublishVoteController ()<ArrangeState>
+@interface PublishVoteController ()<DNImagePickerControllerDelegate>
 
 @end
 
@@ -31,6 +32,8 @@ static NSInteger num = 0;
 
 - (void)builtInterface
 {
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     [self setNavigationItem];
     [self setCardView];
 }
@@ -108,11 +111,21 @@ static NSInteger num = 0;
 
 - (void)selectPhotoAction:(UITapGestureRecognizer *)sender
 {
-    ChoosePhotoController *choose = [ChoosePhotoController shareStateOfController];
-    choose.allowSelectNum = 1;
-    choose.delegate = self;
-    [self.navigationController pushViewController:choose animated:YES];
-    
+    DNImagePickerController *choose = [[DNImagePickerController alloc]init];
+
+    choose.imagePickerDelegate = self;
+    [self.navigationController presentViewController:choose animated:YES completion:nil];
+}
+
+- (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
+{
+    DNAsset *dnasser = [imageAssets firstObject];
+    ALAssetsLibrary *library = [ALAssetsLibrary new];
+    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+        self.selectPhoto.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (void)arrangeStartWithArray:(NSMutableArray *)array

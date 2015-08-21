@@ -231,7 +231,7 @@
     {
         [singer setGender:@2];
     }
-    [singer setPhoto:self.userPhoto.image];
+    singer.photo = [NSMutableArray arrayWithObject:self.userPhoto.image];
     
     [self.nameTextField resignFirstResponder];
     AccountAndPassword *acc= [[AccountAndPassword alloc]init];

@@ -22,7 +22,7 @@
 
 @property (nonatomic, copy)NSString *enrollment;  //入学年份
 
-@property (nonatomic, strong)UIImage *photo;   // 头像
+@property (nonatomic, strong)NSMutableArray *photo;   // 头像
 
 + (LoginSinger *)shareState;
 

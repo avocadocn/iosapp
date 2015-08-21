@@ -11,16 +11,19 @@
 #import "ActivityShowTableController.h"
 #import "CurrentActivitysShowCell.h"
 #import "ActivityShowTableController.h"
-
+#import "DWBubbleMenuButton.h"
 #import "OtherController.h"
 #import "RankListController.h"
-
+#import "CustomButton.h"
 #import "VoteTableController.h"
 #import "HelpTableViewController.h"
 #import <DCPathButton.h>
+#import <Masonry.h>
+#import "LaunchEventController.h"
+#import "PublishVoteController.h"
+#import "PublishSeekHelp.h"
 
-
-@interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate>
+@interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate>
 
 @property (nonatomic ,strong) ActivitysShowView *asv;
 @property (atomic,assign)BOOL asvHidden ;
@@ -28,7 +31,7 @@
 @property (nonatomic ,assign) CGPoint currentPoint;
 @property (nonatomic ,assign) CGPoint startPoint;
 @property (nonatomic ,assign) CGRect asvFrame;
-
+@property (nonatomic, strong) DWBubbleMenuButton *upMenuView;
 /**
  *  path菜单
  */
@@ -54,16 +57,134 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     // 活动展示table
     [self setupActivityShowTableView];
     
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     // 弹出式菜单
-    [self setupPathButton];
+//    [self setupPathButton];
+    [self builtInterface];
+    
+}
+- (void)sendBool:(BOOL)state
+{
+    if (state == YES){
+        UIView *view = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+        [self.view addSubview:view];
+        [self.view bringSubviewToFront:self.upMenuView];
+        view.tag = 1999;
+        [UIView animateWithDuration:.1 animations:^{
+            view.backgroundColor = RGBACOLOR(0, 0, 0, .6);
+        }];
+    } else
+    {
+        UIView *view = (UIView *)[self.view viewWithTag:1999];
+        [UIView animateWithDuration:.1 animations:^{
+            view.backgroundColor = [UIColor clearColor];
+        } completion:^(BOOL finished) {
+            [view removeFromSuperview];
+        }];
+    }
+}
+- (void)builtInterface
+{
+    UILabel *homeLabel = [self createHomeButtonView];
+    
+    
+    self.upMenuView = [[DWBubbleMenuButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - homeLabel.frame.size.width - 10.f,
+                                                                                          [UIScreen mainScreen].bounds.size.height
+                                                                                          - homeLabel.frame.size.height - DLMultipleHeight(72.0),
+                                                                                          homeLabel.frame.size.width,
+                                                                                          homeLabel.frame.size.height)
+                                                            expansionDirection:DirectionUp];
+    self.upMenuView.homeButtonView = homeLabel;
+    self.upMenuView.delegate = self;
+    [self.upMenuView addButtons:[self createDemoButtonArray]];
+    
+    [self.view addSubview:self.upMenuView];
+}
+- (UILabel *)createHomeButtonView {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, DLMultipleWidth(96.0), DLMultipleWidth(48.0))];
+    
+    UILabel * myLabel = [UILabel new];
+    myLabel.textAlignment = NSTextAlignmentRight;
+    myLabel.text = @"退出";
+    myLabel.textColor = [UIColor whiteColor];
+    [label addSubview:myLabel];
+    
+    [myLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(label.mas_top);
+        make.left.mas_equalTo(label.mas_left);
+        make.right.mas_equalTo(label.mas_right).offset(-label.frame.size.height);
+        make.bottom.mas_equalTo(label.mas_bottom);
+    }];
+    
+    UIImageView * coriusImage = [UIImageView new];
+    
+    coriusImage.backgroundColor = RGBACOLOR(253, 185, 0, 1);
+    coriusImage.layer.masksToBounds = YES;
+    coriusImage.layer.cornerRadius = label.frame.size.height / 2.0;
+    
+    [label addSubview:coriusImage];
+    [coriusImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(label.mas_top);
+        make.left.mas_equalTo(myLabel.mas_right);
+        make.right.mas_equalTo(label.mas_right);
+        make.bottom.mas_equalTo(label.mas_bottom);
+    }];
+    
+    return label;
 }
 
+- (NSArray *)createDemoButtonArray {
+    NSMutableArray *buttonsMutable = [[NSMutableArray alloc] init];
+    
+    int i = 0;
+    for (NSString *title in @[@"活动  ", @"投票  ", @"求助  "]) {
+        CustomButton *button = [[CustomButton alloc]initWithFrame:CGRectMake(0.f, 0.f, DLMultipleWidth(96.0), DLMultipleWidth(48.0))];
+        
+        [button reloarWithString:title andImage:nil];
+        
+        button.tag = ++i;
+        
+        [button addTarget:self action:@selector(test:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [buttonsMutable addObject:button];
+    }
+    
+    return [buttonsMutable copy];
+}
 
+- (void)test:(UIButton *)sender {
+    switch (sender.tag) {
+        case 1:
+        {
+            NSLog(@"活动");
+            LaunchEventController *lauge = [[LaunchEventController alloc]init];
+            [self.navigationController pushViewController:lauge animated:YES];
+            
+            break;
+        }
+            
+        case 2:{
+            PublishVoteController *vote = [[PublishVoteController alloc]init];
+            [self.navigationController pushViewController:vote animated:YES];
+            NSLog(@"投票");
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"求助");
+            PublishSeekHelp *seek = [[PublishSeekHelp alloc]init];
+            [self.navigationController pushViewController:seek animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+    
+}
+
+/*
 -(void)setupPathButton{
     DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"chooser-button-tab"]
                                                          highlightedImage:[UIImage imageNamed:@"chooser-button-tab-highlighted"]];
@@ -123,7 +244,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self.view addSubview:dcPathButton];
     
 }
-
+*/
 
 #pragma mark - pathbutton 的代理方法
 -(void)pathButton:(DCPathButton *)dcPathButton clickItemButtonAtIndex:(NSUInteger)itemButtonIndex{
@@ -281,7 +402,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             
             NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithCapacity:7];
             
-            NSArray *titles = @[ @"活动", @"求助", @"投票"];
+            NSArray *titles = @[@"活动", @"投票", @"求助"];
             
             [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
                 ActivityShowTableController *tableViewController = [[ActivityShowTableController alloc] init];

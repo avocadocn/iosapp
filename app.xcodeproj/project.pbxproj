@@ -454,6 +454,8 @@
 		96E3D84A1B7DE42600A623B7 /* TempCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D8491B7DE42600A623B7 /* TempCompany.m */; };
 		A40936BE1B721BC800515A50 /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = A40936BD1B721BC800515A50 /* address.png */; };
 		A40936C01B721BCD00515A50 /* time.png in Resources */ = {isa = PBXBuildFile; fileRef = A40936BF1B721BCD00515A50 /* time.png */; };
+		A40CDF281B86F99000BD63F5 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A40CDF271B86F99000BD63F5 /* CustomButton.m */; };
+		A40CDF2B1B86F9AD00BD63F5 /* DWBubbleMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A40CDF2A1B86F9AD00BD63F5 /* DWBubbleMenuButton.m */; };
 		A41993211B5F95AB0086EAAE /* CheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A41993181B5F95AB0086EAAE /* CheckViewController.m */; };
 		A41993231B5F95AB0086EAAE /* CompanyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A419931E1B5F95AB0086EAAE /* CompanyTableViewCell.m */; };
 		A41993241B5F95AB0086EAAE /* LoginMailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A41993201B5F95AB0086EAAE /* LoginMailTableViewCell.m */; };
@@ -1368,6 +1370,10 @@
 		96E3D8491B7DE42600A623B7 /* TempCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TempCompany.m; sourceTree = "<group>"; };
 		A40936BD1B721BC800515A50 /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
 		A40936BF1B721BCD00515A50 /* time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time.png; sourceTree = "<group>"; };
+		A40CDF261B86F99000BD63F5 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
+		A40CDF271B86F99000BD63F5 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
+		A40CDF291B86F9AD00BD63F5 /* DWBubbleMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWBubbleMenuButton.h; sourceTree = "<group>"; };
+		A40CDF2A1B86F9AD00BD63F5 /* DWBubbleMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWBubbleMenuButton.m; sourceTree = "<group>"; };
 		A41993171B5F95AB0086EAAE /* CheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckViewController.h; sourceTree = "<group>"; };
 		A41993181B5F95AB0086EAAE /* CheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckViewController.m; sourceTree = "<group>"; };
 		A419931D1B5F95AB0086EAAE /* CompanyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyTableViewCell.h; sourceTree = "<group>"; };
@@ -1695,6 +1701,10 @@
 		961053441B590C31002D62A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A40CDF291B86F9AD00BD63F5 /* DWBubbleMenuButton.h */,
+				A40CDF2A1B86F9AD00BD63F5 /* DWBubbleMenuButton.m */,
+				A40CDF261B86F99000BD63F5 /* CustomButton.h */,
+				A40CDF271B86F99000BD63F5 /* CustomButton.m */,
 				A45727061B74BE2400A27B79 /* photoSectionHeader.h */,
 				A45727071B74BE2400A27B79 /* photoSectionHeader.m */,
 				A44D40091B7305A800B10DFB /* EventCell */,
@@ -4604,6 +4614,7 @@
 				A4F3156A1B5E4BFB00126C8A /* PhotoShouCell.m in Sources */,
 				A4745DFB1B81A9AC008EB944 /* CollectionViewCell.m in Sources */,
 				96CF939D1B674B54001759E2 /* GroupListViewController.m in Sources */,
+				A40CDF281B86F99000BD63F5 /* CustomButton.m in Sources */,
 				96CF93981B674B54001759E2 /* ChatGroupDetailViewController.m in Sources */,
 				A434C6091B71DB22009643CD /* ColleaguesInformationController.m in Sources */,
 				A43F86331B7453D30086D078 /* optionsView.m in Sources */,
@@ -4635,6 +4646,7 @@
 				96CF90CA1B673422001759E2 /* EMSDWebImageCompat.m in Sources */,
 				96CF90E51B673422001759E2 /* PSTGridLayoutSection.m in Sources */,
 				9649B5371B564DE000A7F355 /* AppDelegate.m in Sources */,
+				A40CDF2B1B86F9AD00BD63F5 /* DWBubbleMenuButton.m in Sources */,
 				A4311F4B1B574748004401B4 /* CompanySmallCell.m in Sources */,
 				96CF93B61B674B54001759E2 /* XHMessageTextView.m in Sources */,
 				A45727021B74B50800A27B79 /* AttentionCardController.m in Sources */,

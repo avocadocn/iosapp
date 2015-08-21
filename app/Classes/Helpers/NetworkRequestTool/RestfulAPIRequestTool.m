@@ -206,7 +206,6 @@ static AFHTTPSessionManager *_mgr;
                         [formData appendPartWithFileData:[dataDict objectForKey:@"data"] name:[dataDict objectForKey:@"name"] fileName:[NSString stringWithFormat:@"DonlerImage %zd", index] mimeType:@"image/jpeg"];
                         
                     index++;
-
                 }
             }
         }];

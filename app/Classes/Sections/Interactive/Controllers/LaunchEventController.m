@@ -5,21 +5,31 @@
 //  Created by 申家 on 15/8/6.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-#import "ChoosePhotoController.h"
+#import "DNImagePickerController.h"
 #import "LaunchEventController.h"
 #import "EventRemindCell.h"
 #import <Masonry.h>
 #import "DLDatePickerView.h"
 #import "IndexpathButton.h"
+#import "DNAsset.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+
+static NSInteger num = 0;
 
 typedef NS_ENUM(NSInteger, RemindTableState){
     RemindTableStateNo,
     RemindTableStateYes
 };
 
-@interface LaunchEventController ()<DLDatePickerViewDelegate, UITableViewDataSource, UITableViewDelegate, ArrangeState>
+@interface LaunchEventController ()<DLDatePickerViewDelegate, UITableViewDataSource, UITableViewDelegate, DNImagePickerControllerDelegate>
 
 @property (nonatomic, assign)RemindTableState state;
+
+@property (nonatomic, strong)UILabel *startTimeField;
+
+@property (nonatomic, strong)UILabel *overTimeLabel;
+
+@property (nonatomic, strong)UIImageView *myImageView;
 
 @end
 
@@ -29,7 +39,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [super viewDidLoad];
     
     [self makeFlaseValue];
-    
+    [self setNevigationLeft];
     [self builtBigScroll];
     [self builtEventCover];
     [self builtEventDetails];
@@ -37,6 +47,28 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     
     
 }
+
+- (void)setNevigationLeft
+{
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
+    
+    label.text = @"下一步";
+    label.textAlignment = NSTextAlignmentRight;
+    
+    UITapGestureRecognizer *labelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
+    //    label.userInteractionEnabled = YES;
+    [label addGestureRecognizer:labelTap];
+    label.font = [UIFont systemFontOfSize:15];
+    label.textColor = [UIColor lightGrayColor];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
+
+}
+
+- (void)nextController:(UITapGestureRecognizer *)tap
+{
+    
+}
+
 - (void)makeFlaseValue
 {
     self.remindTitleArray = [NSMutableArray arrayWithObjects:@"没有提醒",@"10分钟前",@"30分钟前",@"1小时前",@"2小时前",@"1天前",@"2天前", nil];
@@ -46,7 +78,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 - (void)builtBigScroll
 {
     self.title = @"发布活动";
-
+    
     self.eventScroll = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.eventScroll setBackgroundColor:[UIColor colorWithWhite:.9 alpha:.9]];
     self.eventScroll.contentSize = CGSizeMake(0, DLScreenHeight);
@@ -74,6 +106,16 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         make.top.mas_equalTo(self.superView.mas_top).offset(DLScreenHeight / (667 / 12));
         make.left.mas_equalTo(self.superView.mas_left).offset(10);
         make.size.mas_equalTo(CGSizeMake(eventNameRect.size.width, 20));
+    }];
+    
+    UITextField *eventNameField = [UITextField new];  //活动名称
+    eventNameField.textAlignment = NSTextAlignmentCenter;
+    [self.superView addSubview:eventNameField];
+    [eventNameField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(eventname.mas_top);
+        make.bottom.mas_equalTo(eventname.mas_bottom);
+        make.left.mas_equalTo(eventname.mas_right);
+        make.right.mas_equalTo(self.superView.mas_right);
     }];
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth / (375 / 11.0), DLScreenHeight / (667 / 49.0), DLScreenWidth, .5)];
@@ -133,33 +175,33 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     }];
     
     
-    UILabel *startTimeField = [UILabel new];
-    startTimeField.tag = 1;
+    self.startTimeField = [UILabel new];  // 开始时间
+    self.startTimeField.tag = 1;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLabelAction:)];
-    startTimeField.userInteractionEnabled = YES;
-    [startTimeField addGestureRecognizer:tap];
-    startTimeField.textAlignment = NSTextAlignmentCenter;
-    [self.superView addSubview:startTimeField];
+    self.startTimeField.userInteractionEnabled = YES;
+    [self.startTimeField addGestureRecognizer:tap];
+    self.startTimeField.textAlignment = NSTextAlignmentCenter;
+    [self.superView addSubview:self.startTimeField];
     
-    [startTimeField mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.startTimeField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.chooseButton.mas_top);
         make.left.mas_equalTo(startLabel.mas_right);
         make.bottom.mas_equalTo(timeLine.mas_top);
         make.right.mas_equalTo(self.superView.mas_right);
     }];
     
-    UILabel *overTimeLabel = [UILabel new];
-    overTimeLabel.tag = 2;
+    self.overTimeLabel = [UILabel new];  //结束时间
+    self.overTimeLabel.tag = 2;
     UITapGestureRecognizer *tapOver = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapLabelAction:)];
-    [overTimeLabel addGestureRecognizer:tapOver];
-    overTimeLabel.userInteractionEnabled = YES;
-    overTimeLabel.textAlignment = NSTextAlignmentCenter;
-    [self.superView addSubview:overTimeLabel];
+    [self.overTimeLabel addGestureRecognizer:tapOver];
+    self.overTimeLabel.userInteractionEnabled = YES;
+    self.overTimeLabel.textAlignment = NSTextAlignmentCenter;
+    [self.superView addSubview:self.overTimeLabel];
     
-    [overTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.overTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(timeLine.mas_top);
-        make.left.mas_equalTo(startTimeField.mas_left);
-        make.right.mas_equalTo(startTimeField.mas_right);
+        make.left.mas_equalTo(self.startTimeField.mas_left);
+        make.right.mas_equalTo(self.startTimeField.mas_right);
         make.bottom.mas_equalTo(self.chooseButton.mas_bottom);
     }];
     
@@ -243,17 +285,17 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 - (void)builtEventRemindTime
 {
-    self.remindView = [UIView new];
+    self.remindView = [[UIView alloc]initWithFrame:CGRectMake(0, DLMultipleHeight(327.0), DLScreenWidth, DLMultipleHeight(50.0))];
     [self.remindView setBackgroundColor:[UIColor whiteColor]];
     
     [self.eventScroll addSubview:self.remindView];
     
-    [self.remindView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.detailsView.mas_bottom).offset(DLMultipleHeight(15));
-        make.left.mas_equalTo(self.superView.mas_left);
-        make.right.mas_equalTo(self.superView.mas_right);
-        make.height.mas_equalTo(DLMultipleHeight(50.0));
-    }];
+//    [self.remindView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.detailsView.mas_bottom).offset(DLMultipleHeight(15));
+//        make.left.mas_equalTo(self.superView.mas_left);
+//        make.right.mas_equalTo(self.superView.mas_right);
+//        make.height.mas_equalTo(DLMultipleHeight(50.0));
+//    }];
     
     UILabel *remind = [UILabel new];
     remind.text = @"提醒";
@@ -267,7 +309,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         make.left.mas_equalTo(self.remindView.mas_left).offset(10);
         make.size.mas_equalTo(CGSizeMake(eventNameRect.size.width, 20));
     }];
-
+    
     UIButton *foldButton  =[UIButton buttonWithType:UIButtonTypeSystem];
     [foldButton addTarget:self action:@selector(foldButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -279,84 +321,96 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         make.size.mas_equalTo(CGSizeMake(DLMultipleHeight(49.0), DLMultipleHeight(49.0)));
     }];;
     
-    UIImageView *imageView = [UIImageView new];
-    [foldButton addSubview:imageView];
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.myImageView = [UIImageView new];
+    [foldButton addSubview:self.myImageView];
+    [self.myImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(foldButton.mas_centerX);
         make.centerY.mas_equalTo(foldButton.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(DLMultipleHeight((49 / 2.5)), DLMultipleHeight((49 / 2.5))));
     }];
     
-    imageView.image = [UIImage imageNamed:@"fold"];
+    self.myImageView.image = [UIImage imageNamed:@"fold"];
+    self.myImageView.transform = CGAffineTransformMakeRotation(M_PI);
     
-//    self.remindTimeTableView = [[UITableView alloc]initWithFrame:CGRectMake(0 ,DLMultipleHeight(50.0), DLScreenWidth, 0) style:UITableViewStylePlain];
-//    self.remindTimeTableView.delegate = self;
-//    self.remindTimeTableView.dataSource = self;
-//    
-//    [self.remindTimeTableView registerClass:[EventRemindCell class] forCellReuseIdentifier:@"eventCoverCell"];
-//    [self.remindView addSubview:self.remindTimeTableView];
     self.state = RemindTableStateNo;
     
     self.tableView = [[UIView alloc]initWithFrame:CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, 0)];
-    NSInteger i = 1;
-    /*
-   for (NSString *str in self.remindTitleArray) {
-        UIView *smailview = [UIView new];
-        smailview.frame = CGRectMake(0, i * DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(50.0));
-        UIButton *selectButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [selectButton setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
-        [selectButton addTarget:self action:@selector(selectButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [smailview addSubview: selectButton];
-        
-        
-        UILabel * remindTimeLabel = [UILabel new];
-        remindTimeLabel.text = str;
-        remindTimeLabel.font = [UIFont systemFontOfSize:15];
-       
-        [smailview addSubview:remindTimeLabel];
-        
-        i++;
-       
-       [self.tableView addSubview:smailview];
-       [selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
-           make.centerY.mas_equalTo(self.tableView.mas_centerY);
-           make.left.mas_equalTo(smailview.mas_left).offset(DLMultipleWidth(11));
-           make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(24.0), DLMultipleWidth(24.0)));
-       }];
-       [remindTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-           make.top.mas_equalTo(selectButton.mas_top);
-           make.left.mas_equalTo(selectButton.mas_right).offset(12);
-           make.width.mas_equalTo(100);
-           make.bottom.mas_equalTo(selectButton.mas_bottom);
-       }];
-
-    }
-    */
+    
+    
+    [self.remindView addSubview:self.tableView];
 }
+
+
 
 - (void)foldButtonAction:(UIButton *)sender
 {
     if (self.state == RemindTableStateNo) {
         
         [UIView animateWithDuration:.4 animations:^{
+            
             self.remindView.height = DLMultipleHeight(400.0);
-            
+            [self builtTable];
             self.tableView.frame = CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(350.0));
-            self.eventScroll.contentSize = CGSizeMake(0, DLMultipleHeight(730.0));
-            
+            self.eventScroll.contentSize = CGSizeMake(0, DLMultipleHeight(720.0));
+            //大scroll
+            self.myImageView.transform = CGAffineTransformMakeRotation(M_PI / 45.0);
         }];
         self.state = RemindTableStateYes;
     }
     else {
         [UIView animateWithDuration:.4 animations:^{
             
-        
-        self.remindView.height = DLMultipleHeight(50.0);
-        self.tableView.frame = CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, 0);
-        self.eventScroll.contentSize = CGSizeMake(0, DLMultipleHeight(667));
-        
+            
+            self.remindView.height = DLMultipleHeight(50.0);
+            self.tableView.frame = CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, 0);
+            self.eventScroll.contentSize = CGSizeMake(0, DLMultipleHeight(667));
+            
+            NSArray *array = [self.tableView subviews];
+            for (id view in array) {
+                [view removeFromSuperview];
+            }
         }];
         self.state = RemindTableStateNo;
+    }
+}
+
+- (void)builtTable{
+    NSInteger i = 0;
+    
+    for (NSString *str in self.remindTitleArray) {
+        UIView *smailview = [UIView new];
+        smailview.frame = CGRectMake(0, i * DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(50.0));
+        UIButton *selectButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [selectButton setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
+        selectButton.tag = i + 100;
+        [selectButton addTarget:self action:@selector(selectButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        smailview.tag = i + 200;
+        [smailview addSubview: selectButton];
+        
+        
+        UILabel * remindTimeLabel = [UILabel new];
+        remindTimeLabel.text = str;
+        remindTimeLabel.font = [UIFont systemFontOfSize:15];
+        
+        [smailview addSubview:remindTimeLabel];
+        i++;
+        
+        [self.tableView addSubview:smailview];
+        //         [smailview setBackgroundColor:[UIColor redColor]];
+        //         smailview.layer.borderWidth = 3;
+        
+        [selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(smailview.mas_centerY);
+            make.left.mas_equalTo(smailview.mas_left).offset(DLMultipleWidth(11));
+            make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(24.0), DLMultipleWidth(24.0)));
+        }];
+        [remindTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(selectButton.mas_top);
+            make.left.mas_equalTo(selectButton.mas_right).offset(12);
+            make.width.mas_equalTo(100);
+            make.bottom.mas_equalTo(selectButton.mas_bottom);
+        }];
+        
     }
 }
 
@@ -377,6 +431,16 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     NSLog(@"点击");
     
     DLDatePickerView *dld = [[DLDatePickerView alloc]init];
+    
+    if (self.startTimeField.text && tap.view.tag == 2) {  //点击了结束时间
+        NSDate *minDate = [self dateFromString:self.startTimeField.text];
+        dld.picker.minimumDate = minDate;
+    }
+    if (self.overTimeLabel.text && tap.view.tag == 1) {
+        NSDate *maxDate = [self dateFromString:self.overTimeLabel.text];
+        dld.picker.maximumDate = maxDate;
+    }
+    
     dld.tag = tap.view.tag;
     dld.delegate = self;
     [self.view addSubview:dld];
@@ -384,21 +448,38 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [dld show];
     
 }
-
+- (NSDate *)dateFromString:(NSString *)dateString{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm"];
+    
+    NSDate *destDate= [dateFormatter dateFromString:dateString];
+    
+    return destDate;
+    
+}
 - (void)chooseButtonAction:(UIButton *)sender
 {
-    ChoosePhotoController *choose = [ChoosePhotoController shareStateOfController];
-    choose.delegate = self;
-    choose.allowSelectNum = 1;
-    [self.navigationController pushViewController:choose animated:YES];
+    DNImagePickerController *choose = [[DNImagePickerController alloc]init];
+    choose.imagePickerDelegate = self;
+
+    [self.navigationController presentViewController:choose animated:YES completion:nil];
     
 }
 
-- (void)arrangeStartWithArray:(NSMutableArray *)array
+- (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    [self.chooseButton setBackgroundImage:[array lastObject] forState:UIControlStateNormal];
+    DNAsset *dnasser = [imageAssets firstObject];
+    ALAssetsLibrary *library = [ALAssetsLibrary new];
+    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+        UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        [self.chooseButton setBackgroundImage:image forState:UIControlStateNormal];
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -409,29 +490,20 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 {
     EventRemindCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCoverCell" forIndexPath:indexPath];
     [cell builtInterfaceWithArray:self.remindTitleArray andIndexpath:indexPath];
-//    [cell.selectButton addTarget:self action:@selector(selectButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    //    [cell.selectButton addTarget:self action:@selector(selectButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 - (void)selectButtonAction:(IndexpathButton *)sender
 {
-    
-//    if (self.indexPathController == sender.indexpath) {
-//        [sender ]
-//    } else {
-//        [sender setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
-//    }
-    
-    self.indexPathController = sender.buttonindexPath;
-    NSLog(@"%@", sender.buttonindexPath);
-    if (sender.buttonindexPath == self.indexPathController) {
-        [sender setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
-    } else {
-        [sender setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
+    if (num != 0) {
+        UIView *view = (UIView *)[self.tableView viewWithTag:num + 100];
+        UIButton *button = (UIButton *)[view viewWithTag:num];
+        [button setBackgroundImage:[UIImage imageNamed:@"No"] forState:UIControlStateNormal];
     }
     
-//    [sender setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
-    
+    [sender setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
+    num = sender.tag;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -445,13 +517,13 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
