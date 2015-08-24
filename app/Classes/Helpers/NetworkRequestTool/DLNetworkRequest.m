@@ -37,7 +37,8 @@
     
     NSLog(@"请求的网址为: %@", str);
     NSLog(@"请求的数据为: %@", paramter);
-    if ([paramter isKindOfClass:[NSDictionary class]] && [paramter objectForKey:@"imageArray"]) {  //存在照片的话
+    
+    if ([paramter objectForKey:@"imageArray"]) {  //存在照片的话
         self.imageArray = [paramter objectForKey:@"imageArray"];
         
         [self dlPOSTUploadingWithString:str andParamters:paramter];

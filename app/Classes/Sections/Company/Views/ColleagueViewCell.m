@@ -27,7 +27,7 @@
 - (void)builtInterface
 {
     
-    UIView *superBigView = [UIView new];  //放 cell上所有小控件的大 view
+    UIView *superBigView = [UIView new];  //容器
     [superBigView setBackgroundColor:[UIColor whiteColor]];
     
     [self setBackgroundColor:[UIColor colorWithWhite:.8 alpha:.3]];

@@ -14,7 +14,7 @@
 /**
  *  邮箱
  */
-@property(nonatomic,copy) NSString *email;
+@property(nonatomic,copy) NSString *phone;
 
 /**
  *  密码

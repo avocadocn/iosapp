@@ -28,35 +28,56 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  
+
+    //shareSDK 短信的设置
+    [SMS_SDK registerApp:@"96e27f7829b0" withSecret:@"b9187305412315ed038b8f9e2c43a520"];
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window setBackgroundColor:[UIColor whiteColor]];
-    
     
     //修改控制器的statusBar样式,需要注意在info.plist里配置一下
     [application setStatusBarStyle:UIStatusBarStyleDefault];
     
     // 登陆界面
+    
   /*
     GuidePageViewController *gu = [[GuidePageViewController alloc]init];
     DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:gu];
     [self.window setRootViewController:nav];
 */
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultCenterAction:) name:@"changeRootViewController" object:nil];
     // main 页面
-
+/*
     MainController *main = [[MainController alloc]init];
-    self.window.rootViewController = main;
-       self.mainController = main;
-//       self.mainController = main;
-
+ */
     
-    [SMS_SDK registerApp:@"96e27f7829b0" withSecret:@"b9187305412315ed038b8f9e2c43a520"];
+    self.window.rootViewController = [self judgeLoginState];
+    /*
+//       self.mainController = main;
+//       self.mainController = main;
+*/
+    
     [self.window makeKeyAndVisible];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultCenterAction:) name:@"changeRootViewController" object:nil];
     return YES;
 }
+
+- (id)judgeLoginState{
+    Account *myAccount = [AccountTool account];
+    if (myAccount) {  //账户已经登录过了
+        MainController *main = [[MainController alloc]init];
+        self.mainController = main;
+        return main;
+    } else
+    {
+        GuidePageViewController *gu = [[GuidePageViewController alloc]init];
+        DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:gu];
+        return nav;
+    }
+    return nil;
+}
+
 - (void)defaultCenterAction:(id)sender
 {
     MainController *main = [[MainController alloc]init];

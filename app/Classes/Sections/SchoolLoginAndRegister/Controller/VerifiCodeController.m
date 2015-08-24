@@ -12,8 +12,11 @@
 #import <SMS_SDK/SMS_SDK.h>
 #import "RestfulAPIRequestTool.h"
 #import "LoginSinger.h"
+#import "DLNetworkRequest.h"
+#import "AccountTool.h"
+#import "Account.h"
 
-@interface VerifiCodeController ()<PassWordViewDelegate>
+@interface VerifiCodeController ()<PassWordViewDelegate, DLNetworkRequestDelegate>
 
 @end
 
@@ -26,12 +29,23 @@
     
     [self builtInterface];
 }
-
+- (NSString *)addPhoneNumberWithNumString:(NSString *)str
+{
+    NSMutableString *mutableStr = [NSMutableString stringWithString:str];
+    [mutableStr insertString:@" " atIndex:7];
+    [mutableStr insertString:@" " atIndex:3];
+    return mutableStr;
+}
 - (void)builtInterface
 {
     self.phoneNumber = [UILabel new];
     self.phoneNumber.textAlignment = NSTextAlignmentCenter;
-    self.phoneNumber.text = @"132 3804 1502";
+    LoginSinger *singer = [LoginSinger shareState];
+
+    
+    self.phoneNumber.text = [self addPhoneNumberWithNumString:singer.phone];
+    
+    
     self.phoneNumber.font = [UIFont systemFontOfSize:20];
     [self.view addSubview:self.phoneNumber];
     
@@ -141,30 +155,39 @@
         if (1 == state)
         {
             NSLog(@"验证成功");
-            /*
-//            NSString* str = [NSString stringWithFormat:NSLocalizedString(@"verifycoderightmsg", nil)];
-//            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycoderighttitle", nil)
-//                                                            message:str
-//                                                           delegate:self
-//                                                  cancelButtonTitle:NSLocalizedString(@"sure", nil)
-//                                                  otherButtonTitles:nil, nil];
-//            [alert show];
-             */
             LoginSinger *singer = [LoginSinger shareState];
+            
             [RestfulAPIRequestTool routeName:@"Register" requestModel:singer useKeys:@[@"cid", @"phone", @"password", @"name", @"gender", @"enrollment", @"photo"] success:^(id json) {
                 
-                NSLog(@"注册成功");
+                NSLog(@"注册成功, 成功之后的数据为: %@", json);
+                
+                //注册成功以后直接登录  获取 token
+                Account *accont = [[Account alloc]init];
+                accont.phone = singer.phone;
+                accont.password = singer.password;
+                [RestfulAPIRequestTool routeName:@"userLogin" requestModel:accont useKeys:@[@"phone", @"password"] success:^(id json) {
+                    
+                    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
+                    
+                    [AccountTool saveAccount:accont];
+                    NSLog(@"token 获取成功");
+                    
+                } failure:^(id errorJson) {
+                    
+                }];
+                
+                
             } failure:^(id errorJson) {
                 NSLog(@"%@", errorJson);
             }];
             
-            
         }
-        else if(0 == state)
+        else
         {
             NSLog(@"验证失败");
-            NSString* str = [NSString stringWithFormat:NSLocalizedString(@"verifycodeerrormsg", nil)];
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"verifycodeerrortitle", nil)
+            NSString* str = [NSString stringWithFormat:NSLocalizedString(@"验证失败", nil)];
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"验证失败", nil)
                                                             message:str
                                                            delegate:self
                                                   cancelButtonTitle:NSLocalizedString(@"sure", nil)
@@ -173,6 +196,11 @@
         }
     }];
 }
+- (void)sendParsingWithDictionary:(NSDictionary *)dictionary
+{
+    NSLog(@"%@", dictionary);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

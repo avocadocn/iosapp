@@ -19,7 +19,7 @@
 
 @property (nonatomic, copy)NSString *content;  // 消息内容
 
-@property (nonatomic, strong)NSString *photos;  //消息图片
+@property (nonatomic, strong)NSMutableArray *photos;  //消息图片
 
 @property (nonatomic, copy)NSString *postUserId; //消息发布者id
 
@@ -28,6 +28,9 @@
 @property (nonatomic, copy)NSString *status; //消息状态
 
 @property (nonatomic, copy)NSArray *commentUsers;  //参与过评论的用户的id
+
+@property (nonatomic, copy)NSString *msg;
+
 
 
 @end

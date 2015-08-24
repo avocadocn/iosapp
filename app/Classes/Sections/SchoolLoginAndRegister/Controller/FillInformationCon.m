@@ -231,7 +231,13 @@
     {
         [singer setGender:@2];
     }
-    singer.photo = [NSMutableArray arrayWithObject:self.userPhoto.image];
+    NSData *imageData = UIImagePNGRepresentation(self.userPhoto.image);
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:imageData forKey:@"data"];
+    [dic setObject:@"photo" forKey:@"name"];
+    
+    singer.photo = [NSMutableArray array];
+    [singer.photo addObject:dic];
     
     [self.nameTextField resignFirstResponder];
     AccountAndPassword *acc= [[AccountAndPassword alloc]init];

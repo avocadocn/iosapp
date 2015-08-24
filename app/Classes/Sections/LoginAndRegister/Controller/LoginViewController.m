@@ -50,7 +50,7 @@
     
     
     self.mailTextField = [UITextField new];
-    self.mailTextField.placeholder = @"domomchon@donler.com";
+    self.mailTextField.placeholder = @"132-XXXX-3804";
     [self.mailTextField placeholder]; self.mailTextField.delegate = self;
     [view addSubview:self.mailTextField];
     
@@ -101,13 +101,13 @@
 //    
 //    [request dlRouteNetWorkWithNetName:@"userLogin" andRequestType:@"POST" paramter:dic];
     Account *acc = [[Account alloc]init];
-    acc.email = @"afei@55yali.com";
-    acc.password = @"55yali";
+    acc.phone = self.mailTextField.text;
+    acc.password = self.passwordTextField.text;
     
-    [RestfulAPIRequestTool routeName:@"userLogin" requestModel:acc useKeys:@[@"email", @"password"] success:^(id json) {
+    [RestfulAPIRequestTool routeName:@"userLogin" requestModel:acc useKeys:@[@"phone", @"password"] success:^(id json) {
         
         // 存取用户值
-        
+        NSLog(@"登录成功");
         Account *acca =[[Account alloc]init];
         
         [acca setKeyValues:json];

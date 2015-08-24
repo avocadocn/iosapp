@@ -90,11 +90,17 @@
         <key>routeName</key>
         <string>companyQuickRegister</string>
         <key>routeURL</key>
-        <string>companies/quickRegister</string>
+        <string>/companies/quickRegister</string>
         <key>routeMethod</key>
         <string>POST</string>
     </dict>
-    
-
+    <dict>
+        <key>routeName</key>
+        <string>cirleContent</string>
+        <key>routeURL</key>
+        <string>/circle/contents</string>
+        <key>routeMethod</key>
+        <string>POST</string>
+    </dict>
 </array>
 </plist>
