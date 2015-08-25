@@ -74,6 +74,7 @@ static AFHTTPSessionManager *_mgr;
 
 + (void)routeName:(NSString *)routeName requestModel:(id)requestModel useKeys:(NSArray *)keysArray success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
     
+    [self load];
     
     __block BOOL uploadFlag = NO;
     
@@ -197,14 +198,14 @@ static AFHTTPSessionManager *_mgr;
     // 发送post 请求
     [_mgr POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-        [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {//
             
             if ([obj isKindOfClass:[NSArray class]]) {
                 NSArray *fileArray = (NSArray *)obj;
-                NSInteger *index = 0;
+                NSInteger index = 0;
                 for (NSDictionary *dataDict in fileArray) {
                         [formData appendPartWithFileData:[dataDict objectForKey:@"data"] name:[dataDict objectForKey:@"name"] fileName:[NSString stringWithFormat:@"DonlerImage %zd", index] mimeType:@"image/jpeg"];
-                        
+                    
                     index++;
                 }
             }
@@ -270,6 +271,7 @@ static AFHTTPSessionManager *_mgr;
  *
  *  @return JsonObject
  */
+
 + (id)dataToJsonObject:(id)responseObject{
     NSData *data = [NSData dataWithData:responseObject];
     id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

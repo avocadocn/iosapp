@@ -27,7 +27,7 @@
     
     UIScrollView *scrollview = [self builtScrollview];
     [self.view addSubview:scrollview];
-        self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,8 +93,20 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeViewAction:) name:@"loginAccount" object:nil];  //  接受返回通知
     
+    UIView *orge = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(45.0))];
+    UITapGestureRecognizer *atapWithLogin = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(atapWithLoginAction:)];
+    [orge addGestureRecognizer:atapWithLogin];
+    [orge setBackgroundColor:[UIColor redColor]];
+    
+    [scrollview addSubview:orge];
     
     return scrollview;
+}
+
+- (void)atapWithLoginAction:(UITapGestureRecognizer *)tap
+{
+    LoginViewController *login = [[LoginViewController alloc]init];
+    [self.navigationController pushViewController:login animated:YES];
 }
 
 - (void)scrollTapAction:(UITapGestureRecognizer *)tap
@@ -106,7 +118,6 @@
 
 - (void)changeViewAction:(UIButton *)sender
 {
-    
 }
 
 - (void)loginButtonAction:(UIButton *)sender

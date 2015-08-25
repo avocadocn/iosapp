@@ -11,7 +11,15 @@
 #import <Masonry.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ChoosePhotoView.h"
+#import "DLNetworkRequest.h"
+#import "RestfulAPIRequestTool.h"
+#import "CircleContextModel.h"
+#import "Account.h"
+#import "AccountTool.h"
+
 #define WID ((DLScreenWidth - 20) / 4.0)
+
+
 
 @interface ConditionController ()<UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChoosePhotoViewDelegate>
 
@@ -49,6 +57,7 @@
     completeLabel.text = @"完成";
     completeLabel.textAlignment = NSTextAlignmentRight;
     [completeButton addSubview:completeLabel];
+    [completeButton addTarget:self action:@selector(nextStepTap:) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:completeButton];
     
@@ -91,6 +100,36 @@
         make.height.mas_equalTo(.5);
     }];
     
+}
+
+- (void)nextStepTap:(UIButton *)sender
+{
+    CircleContextModel *model = [[CircleContextModel alloc]init];
+    model.photos = [NSMutableArray array];
+
+    NSLog(@"存取的照片有:  %@", self.selectPhotoView.imagePhotoArray);
+    
+    for (UIImage *image  in self.selectPhotoView.imagePhotoArray) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        
+        [dic setObject:@"photo" forKey:@"name"];
+        NSData *data = UIImagePNGRepresentation(image);
+        [dic setObject:data forKey:@"data"];
+        [model.photos addObject:dic];
+    }
+    
+    Account *acc = [AccountTool account];
+    NSLog(@"账号的token值为 %@", acc.token);
+    
+    [model setMsg:self.speakTextView.text];
+
+    
+    [RestfulAPIRequestTool routeName:@"cirleContent" requestModel:model useKeys:@[@"msg", @"photos"] success:^(id json) {
+        NSLog(@"%@", json);
+    } failure:^(id errorJson) {
+        NSLog(@"%@", errorJson);
+    }];
+
 }
 
 - (void)ChoosePhotoView:(ChoosePhotoView *)chooseView withFrame:(CGRect)frame

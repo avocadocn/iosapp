@@ -35,17 +35,28 @@
         make.bottom.mas_equalTo(self.mas_bottom);
     }];
     
-    self.coriusImage = [UIImageView new];
-    self.coriusImage.backgroundColor = RGBACOLOR(253, 185, 0, 1);
-    self.coriusImage.layer.masksToBounds = YES;
-    self.coriusImage.layer.cornerRadius = self.frame.size.height / 2.0;
     
-    [self addSubview:self.coriusImage];
-    [self.coriusImage mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *coriusView = [UIView new];
+    coriusView.backgroundColor = RGBACOLOR(253, 185, 0, 1);
+    coriusView.layer.masksToBounds = YES;
+    coriusView.layer.cornerRadius = self.frame.size.height / 2.0;
+    
+    [self addSubview:coriusView];
+    [coriusView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top);
         make.left.mas_equalTo(self.myLabel.mas_right);
         make.right.mas_equalTo(self.mas_right);
         make.bottom.mas_equalTo(self.mas_bottom);
+    }];
+    
+    self.coriusImage = [UIImageView new];
+    
+    [coriusView addSubview:self.coriusImage];
+    
+    [self.coriusImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(coriusView.mas_centerX);
+        make.centerY.mas_equalTo(coriusView.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(32.0), DLMultipleWidth(32.0)));
     }];
 }
 

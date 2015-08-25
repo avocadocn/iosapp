@@ -73,7 +73,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (self.phoneNumber.textfield.text.length == 11 && self.password.textfield.text.length > 6) {
+    if (self.phoneNumber.textfield.text.length == 11 && self.password.textfield.text.length > 5) {
         NSLog(@"长度为%@", self.phoneNumber.textfield.text);
         self.label.userInteractionEnabled = YES;
         self.label.textColor = RGBACOLOR(253, 185, 0, 1);
@@ -110,17 +110,18 @@
 {
     [self.phoneNumber.textfield resignFirstResponder];
     [self.password.textfield resignFirstResponder];
-    
+    /*
     NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     
     BOOL isMatch = [pred evaluateWithObject:self.phoneNumber.textfield.text];
-    
+    */
+    /*
     if (!isMatch) {
         DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"手机号不正确啊少年" contentText:nil leftButtonTitle:@"修改" rightButtonTitle:nil];
         [alert show];
-    } else {
+    } else {  */
         NSString *phoneStr = [NSString stringWithFormat:@"+86 %@", [self addPhoneNumberWithNumString:self.phoneNumber.textfield.text]];
     DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"我们将发送验证码到该手机" contentText:phoneStr leftButtonTitle:@"修改" rightButtonTitle:@"确认"];
     [alert show];
@@ -138,24 +139,24 @@
                  [login setPhone:self.phoneNumber.textfield.text];
                  [login setPassword:self.password.textfield.text];
                  
+                 VerifiCodeController *ver = [[VerifiCodeController alloc]init];
+                 [self.navigationController pushViewController:ver animated:YES];
+                 
              }
              else
              {
-                 UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"codesenderrtitle", nil)
+                 UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"验证码发送失败", nil)
                                                                  message:[NSString stringWithFormat:@"状态码：%zi ,错误描述：%@",error.errorCode,error.errorDescription]
                                                                 delegate:self
                                                        cancelButtonTitle:NSLocalizedString(@"sure", nil)
                                                        otherButtonTitles:nil, nil];
                  [alert show];
              }
-             
          }];
 
         
-        VerifiCodeController *ver = [[VerifiCodeController alloc]init];
-        [self.navigationController pushViewController:ver animated:YES];
     };
-    }
+   /* }*/
 //    alert.leftBlock = ^(){
 //        [alert ];
 //    };
