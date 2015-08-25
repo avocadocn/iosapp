@@ -20,7 +20,6 @@
 
 @property (strong, nonatomic) UITextField *mailBoxTextField;
 
-
 @property (strong, nonatomic) MainController *mainController;
 @end
 

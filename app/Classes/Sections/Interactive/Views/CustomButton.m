@@ -50,6 +50,7 @@
     }];
     
     self.coriusImage = [UIImageView new];
+    self.coriusImage.userInteractionEnabled = YES;
     
     [coriusView addSubview:self.coriusImage];
     

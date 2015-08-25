@@ -13,7 +13,6 @@
 @interface FixTemplateRouteTool : NSObject
 
 
-
 /**
  *  根据传入的模板urlString 跟model urlString中需要的参数从model中取出来，然后拼接urlString
  *

@@ -8,7 +8,7 @@
 
 #import "AttentionViewController.h"
 #import "AttentionViewCell.h"
-#import "FolderViewController.h"
+#import "ColleaguesInformationController.h"
 
 @interface AttentionViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -65,7 +65,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    FolderViewController *fold = [[FolderViewController alloc]init];
+    ColleaguesInformationController *fold = [[ColleaguesInformationController alloc]init];
     [self.navigationController pushViewController:fold animated:YES];
     
 }

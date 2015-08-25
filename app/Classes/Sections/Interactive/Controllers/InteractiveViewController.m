@@ -70,6 +70,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)sendBool:(BOOL)state
 {
     if (state == YES){
+        NSLog(@"出现");
         UIView *view = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
         [self.view addSubview:view];
         [self.view bringSubviewToFront:self.upMenuView];
@@ -83,6 +84,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         }];
     } else
     {
+        NSLog(@"收起");
         UIView *view = (UIView *)[self.view viewWithTag:1999];
         [UIView animateWithDuration:.1 animations:^{
             view.backgroundColor = [UIColor clearColor];
@@ -97,8 +99,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)builtInterface
 {
     UILabel *homeLabel = [self createHomeButtonView];
-    
-    
+    if (!self.upMenuView) {
+        
     self.upMenuView = [[DWBubbleMenuButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - homeLabel.frame.size.width - 10.f,
                                                                                           [UIScreen mainScreen].bounds.size.height
                                                                                           - homeLabel.frame.size.height - DLMultipleHeight(72.0),
@@ -110,6 +112,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self.upMenuView addButtons:[self createDemoButtonArray]];
     
     [self.view addSubview:self.upMenuView];
+    }
 }
 - (UILabel *)createHomeButtonView {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.f, 0.f, DLMultipleWidth(96.0), DLMultipleWidth(48.0))];
@@ -163,9 +166,11 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         CustomButton *button = [[CustomButton alloc]initWithFrame:CGRectMake(0.f, 0.f, DLMultipleWidth(96.0), DLMultipleWidth(48.0))];
         
         [button reloarWithString:title andImage:[array objectAtIndex:i]];
+        UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(testTapAction:)];
+        [button.coriusImage addGestureRecognizer:tap];
+        button.coriusImage.tag = ++i;
         
-        button.tag = ++i;
-        
+        button.tag = i;
         [button addTarget:self action:@selector(test:) forControlEvents:UIControlEventTouchUpInside];
         
         [buttonsMutable addObject:button];
@@ -173,8 +178,40 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     return [buttonsMutable copy];
 }
+- (void)testTapAction:(UITapGestureRecognizer *)sender {
+
+    [self.upMenuView dismissButtons];
+    switch (sender.view.tag) {
+        case 1:
+        {
+            NSLog(@"活动");
+            LaunchEventController *lauge = [[LaunchEventController alloc]init];
+            [self.navigationController pushViewController:lauge animated:YES];
+            
+            break;
+        }
+            
+        case 2:{
+            PublishVoteController *vote = [[PublishVoteController alloc]init];
+            [self.navigationController pushViewController:vote animated:YES];
+            NSLog(@"投票");
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"求助");
+            PublishSeekHelp *seek = [[PublishSeekHelp alloc]init];
+            [self.navigationController pushViewController:seek animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+    
+}
 
 - (void)test:(UIButton *)sender {
+    [self.upMenuView dismissButtons];
     switch (sender.tag) {
         case 1:
         {

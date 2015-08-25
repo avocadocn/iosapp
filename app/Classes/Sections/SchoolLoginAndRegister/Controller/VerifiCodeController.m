@@ -8,7 +8,7 @@
 
 #import "VerifiCodeController.h"
 #import <Masonry.h>
-#import "PasswordView.h"
+#import "ZSDSetPasswordView.h"
 #import <SMS_SDK/SMS_SDK.h>
 #import "RestfulAPIRequestTool.h"
 #import "LoginSinger.h"
@@ -16,7 +16,7 @@
 #import "AccountTool.h"
 #import "Account.h"
 
-@interface VerifiCodeController ()<PassWordViewDelegate, DLNetworkRequestDelegate>
+@interface VerifiCodeController ()<DLNetworkRequestDelegate, ZSDSetPasswordViewDelegate>
 
 @end
 
@@ -69,7 +69,7 @@
     CGFloat textNum = 4.0;
     CGFloat locationWidth = (DLScreenWidth - DLMultipleWidth(46.0) * textNum) / 2.0;
     
-    PasswordView *password = [[PasswordView alloc]initWithFrame:CGRectMake(locationWidth,  64 + DLMultipleHeight(77.0), DLMultipleWidth(46.0) * textNum, DLMultipleHeight(54.0)) textFieldNum:textNum];
+    ZSDSetPasswordView *password = [[ZSDSetPasswordView alloc]initWithFrame:CGRectMake(locationWidth,  64 + DLMultipleHeight(77.0), DLMultipleWidth(46.0) * textNum, DLMultipleHeight(54.0))];
     password.delegate = self;
     [self.view addSubview:password];
     
@@ -148,6 +148,10 @@
     self.requestAgain.text = str;
     self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
 }
+- (void)passwordView:(ZSDSetPasswordView *)passwordView inputPassword:(NSString *)password
+{
+    [self sendPassword:password];
+}
 
 - (void)sendPassword:(NSString *)password
 {
@@ -179,7 +183,9 @@
                 
                 
             } failure:^(id errorJson) {
-                NSLog(@"%@", errorJson);
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[errorJson objectForKey:@"msg"] message:nil delegate:self cancelButtonTitle:@"好的" otherButtonTitles: nil, nil];
+                [alert show];
+                
             }];
             
         }

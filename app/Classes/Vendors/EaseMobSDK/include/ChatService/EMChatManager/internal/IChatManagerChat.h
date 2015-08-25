@@ -119,6 +119,7 @@
  @param aCompletionQueue 回调block时的线程
  @result 发送的消息对象(因为是异步方法, 不能作为发送完成或发送成功失败与否的判断)
  */
+
 - (EMMessage *)asyncResendMessage:(EMMessage *)message
                              progress:(id<IEMChatProgressDelegate>)progress 
                               prepare:(void (^)(EMMessage *message, 
