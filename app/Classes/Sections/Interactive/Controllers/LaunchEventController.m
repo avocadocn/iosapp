@@ -15,7 +15,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "RestfulAPIRequestTool.h"
 #import "Interaction.h"
-
+#import "AccountTool.h"
+#import "Account.h"
 static NSInteger num = 0;
 
 typedef NS_ENUM(NSInteger, RemindTableState){
@@ -79,7 +80,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [inter setLocation:@"上海"];
     [inter setContent:self.eventDetailTextView.text];
     [inter setRemindTime:self.startTimeField.text];
-    [inter setTarget:@"55d44d2219d8c913768fce8c"];
+    
+    Account *acc = [AccountTool account];
+    [inter setTarget:acc.cid];
     [inter setTargetType:@3];
     [inter setType:@1];
     
