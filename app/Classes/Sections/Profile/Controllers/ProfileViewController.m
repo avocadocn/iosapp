@@ -133,6 +133,10 @@ static NSString * const ID = @"ProfileTableViewCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 1) {
+        NSString * URLString = [NSString stringWithFormat:@"https://itunes.apple.com/cn/app/dong-li/id916162839?mt=8"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLString]];
+    }
 }
 
 #pragma mark - MenuCollectionController代理方法
