@@ -22,15 +22,9 @@
 @property (nonatomic, copy)NSString *postDate;// (string): 发评论时间 ,
 @property (nonatomic, copy)NSString *status;// (string): 消息状态
 
-
-/*
- ...
- 
- 
- 
+/**
+ *
  */
-
-
 
 
 @end

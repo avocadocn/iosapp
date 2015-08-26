@@ -42,7 +42,10 @@
  */
 @property(nonatomic,copy) NSString *token;
 
-
+/**
+ * 用户id, 同上,网络请求时做参数用
+ */
+@property(nonatomic,copy) NSString *userId;
 
 +(instancetype)accountWithDict:(NSDictionary *)dict;
 @end

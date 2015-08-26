@@ -7,16 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class AddressBookModel;
 @interface ColleaguesInformationController : UIViewController
 
 @property (nonatomic, strong)NSArray *photoArray;
 
 @property (nonatomic, strong)UIPageControl *pag;
 
-
 @property (nonatomic, strong)UIButton *attentionButton;
 
-
+@property (nonatomic, strong)AddressBookModel *model;
 
 @end

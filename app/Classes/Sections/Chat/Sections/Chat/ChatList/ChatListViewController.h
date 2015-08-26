@@ -14,7 +14,8 @@
 #import "BaseViewController.h"
 
 @interface ChatListViewController : BaseViewController
-
+@property (strong, nonatomic) NSMutableArray        *dataSource;
+@property (strong, nonatomic) UITableView           *tableView;
 - (void)refreshDataSource;
 
 - (void)isConnect:(BOOL)isConnect;

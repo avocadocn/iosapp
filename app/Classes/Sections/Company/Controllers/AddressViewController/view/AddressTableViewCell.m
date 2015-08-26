@@ -10,7 +10,7 @@
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
 #import "AddressBookModel.h"
-
+#import "UIImageView+DLGetWebImage.h"
 
 @implementation AddressTableViewCell
 
@@ -77,10 +77,10 @@
 
 - (void)cellReloadWithAddressModel:(AddressBookModel *)model
 {
-    self.personPhotoImageView.image = [UIImage imageNamed:@"1"];
+    [self.personPhotoImageView dlGetRouteWebImageWithString:model.photo placeholderImage:[UIImage imageNamed:@"1"]];
     self.personPhotoImageView.layer.masksToBounds = (self.frame.size.width - 10 )/ 2.0;
-    self.personEmailLabel.text = @"1064884357@qq.com";
-    self.personNameLabel.text = @"李世民";
+    self.personEmailLabel.text = model.phone;
+    self.personNameLabel.text = model.realname;
     
 }
 

@@ -23,9 +23,9 @@
 
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, UISearchDisplayDelegate,SRRefreshDelegate, UISearchBarDelegate, IChatManagerDelegate,ChatViewControllerDelegate>
 
-@property (strong, nonatomic) NSMutableArray        *dataSource;
 
-@property (strong, nonatomic) UITableView           *tableView;
+
+
 @property (nonatomic, strong) EMSearchBar           *searchBar;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
 @property (nonatomic, strong) UIView                *networkStateView;
@@ -538,10 +538,12 @@
 
 #pragma mark - public
 
+// 刷新方法
 -(void)refreshDataSource
 {
 //    self.dataSource = [self loadDataSource];
-
+    self.dataSource = [NSMutableArray array];
+    
     NSArray *array = @[@"55dc110314a37c242b6486cf",@"55dc110314a37c242b6486d0", @"55dc110314a37c242b6486d1"];
     for (NSString *str in array) {
         EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:str conversationType:eConversationTypeChat];
@@ -559,7 +561,6 @@
     else{
         _tableView.tableHeaderView = nil;
     }
-
 }
 
 - (void)networkChanged:(EMConnectionState)connectionState

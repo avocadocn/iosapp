@@ -126,7 +126,7 @@ static NSString *kGroupName = @"GroupName";
     CompanyViewController *companyVC = [[CompanyViewController alloc]init];
     [self addOneTabWithVC:companyVC title:@"公司"];
     
-    AttentionViewController *attentionVC = [[AttentionViewController alloc]init];
+    AttentionViewController *attentionVC = [AttentionViewController shareInsten];
     [self addOneTabWithVC:attentionVC title:@"关注"];
     
     ProfileViewController *profileVC = [[ProfileViewController alloc]init];

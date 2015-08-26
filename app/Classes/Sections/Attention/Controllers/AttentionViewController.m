@@ -9,11 +9,16 @@
 #import "AttentionViewController.h"
 #import "AttentionViewCell.h"
 #import "ColleaguesInformationController.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "RestfulAPIRequestTool.h"
+#import "AddressBookModel.h"
+#import "CompanyModel.h"
 
 @interface AttentionViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
-
+static AttentionViewController *att = nil;
 @implementation AttentionViewController
 
 - (void)viewDidLoad {
@@ -22,16 +27,55 @@
     [self builtInterface];
     
 }
+
++ (AttentionViewController *)shareInsten
+{
+    static dispatch_once_t once;
+    
+    dispatch_once(&once, ^{
+        if (!att) {
+            att = [[AttentionViewController alloc]init];
+        }
+    });
+    return att;
+}
+
 - (void)makeFalseValue
 {
     self.modelArray = [NSMutableArray array];
     
-    for (int i = 0; i < 18; i++) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setObject:[UIImage imageNamed:@"1"] forKey:@"image"];
-        [dic setObject:@"杨彤彤" forKey:@"name"];
-        [dic setObject:@"前端工程师" forKey:@"work"];
-        [self.modelArray addObject:dic];
+    Account *acc = [AccountTool account];
+    acc.userId = acc.ID;
+    // 获取关注列表
+    [RestfulAPIRequestTool routeName:@"getCorcernList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
+        NSLog(@"获取用户关注列表成功 %@", json);
+        [self getDetailInforFromJson:json];
+    } failure:^(id errorJson) {
+        NSLog(@"获取用户列表失败  %@", errorJson);
+    }];
+}
+
+- (void)getDetailInforFromJson:(id)array
+{
+    for (NSMutableDictionary *dic in array) {
+        [dic setObject:[dic objectForKey:@"user"] forKey:@"userId"];
+        [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:dic useKeys:@[@"userId"] success:^(id json) {
+            
+            AddressBookModel *addressModel = [[AddressBookModel alloc]init];
+            CompanyModel *companyModel = [[CompanyModel alloc]init];
+            [companyModel setValuesForKeysWithDictionary:[json objectForKey:@"company"]];
+            [addressModel setValuesForKeysWithDictionary:json];
+            [addressModel setCompany:companyModel];
+            addressModel.attentState = YES;
+            
+            [self.modelArray addObject:addressModel];
+            if ([dic isEqualToDictionary:[array lastObject]]) {
+                [self.attentionTableView reloadData];
+            }
+            
+        } failure:^(id errorJson) {
+            NSLog(@"没有获取到关注的用户信息 %@", errorJson);
+        }];
     }
 }
 
@@ -41,9 +85,6 @@
     self.attentionTableView.delegate = self;
     self.attentionTableView.dataSource = self;
     
-//    [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"cell"];
-    
-//    [self.attentionTableView registerNib:[UINib nibWithNibName:@"AttentionViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cell"];
     [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"cell"];
     
     [self.view addSubview:self.attentionTableView];
@@ -54,9 +95,9 @@
 {
     AttentionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
-    NSDictionary *dic = [self.modelArray objectAtIndex:indexPath.row];
+    AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
     
-    [cell cellBuiltWithModel:dic];
+    [cell cellBuiltWithModel:model];
     
     return cell;
 }
@@ -64,8 +105,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
     
     ColleaguesInformationController *fold = [[ColleaguesInformationController alloc]init];
+    fold.model = model;
     [self.navigationController pushViewController:fold animated:YES];
     
 }
