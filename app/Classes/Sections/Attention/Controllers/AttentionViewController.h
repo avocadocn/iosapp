@@ -14,4 +14,8 @@
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
 
+- (void)makeFalseValue;
+
++ (AttentionViewController *)shareInsten;
+
 @end

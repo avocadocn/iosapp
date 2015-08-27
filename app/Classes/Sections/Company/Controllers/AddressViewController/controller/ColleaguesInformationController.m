@@ -11,6 +11,12 @@
 #import <ReactiveCocoa.h>
 #import "FolderViewController.h"
 #import "PersonalDynamicController.h"
+#import "AddressBookModel.h"
+#import "ChatViewController.h"
+#import "ChatListViewController.h"
+#import "RestfulAPIRequestTool.h"
+#import "AttentionViewController.h"
+
 
 static NSInteger tagNum = 1;
 
@@ -72,29 +78,44 @@ static NSInteger tagNum = 1;
         make.height.mas_equalTo(DLScreenHeight / 15.159);
     }];
     
-    if (!self.attentionButton) {
-        self.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    if (self.model.attentState) {
         
-        [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
+        [self.attentionButton setTitle:@"-取消关注" forState:UIControlStateNormal];
     } else
     {
-        [self.attentionButton setTitle:@"-取消关注" forState:UIControlStateNormal];
+        [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
     }
     
     [self.attentionButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.view addSubview:self.attentionButton];
     
     self.attentionButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        
+        self.model.userId = self.model.ID;
+        AttentionViewController *att  =[AttentionViewController shareInsten];
         if ([[self.attentionButton currentTitle] isEqualToString:@"+关注"]) {
             NSLog(@"关注");
+            [self.model setUserId:self.model.ID];
+            [RestfulAPIRequestTool routeName:@"addConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
+                NSLog(@"关注成功  %@", json);
+                [att makeFalseValue];
+                
+            } failure:^(id errorJson) {
+                NSLog(@"关注失败 %@", errorJson);
+            }];
             
             [self.attentionButton setTitle:@"-取消关注" forState:UIControlStateNormal];
         } else
         {
-            
+            [RestfulAPIRequestTool routeName:@"deleteConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
+                NSLog(@"取消关注成功  %@", json);
+            } failure:^(id errorJson) {
+                NSLog(@"取消关注失败  %@", errorJson);
+            }];
             NSLog(@"取消关注");
             [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
+            
+            [att makeFalseValue];
         }
         
         return [RACSignal empty];
@@ -118,9 +139,9 @@ static NSInteger tagNum = 1;
     int i = 0;
     CGFloat rote = rect.size.width / 2.0333;
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake((DLScreenWidth - [nameArray count] * (rect.size.width + rote)) / 2.0, 0, [nameArray count] * (rect.size.width + rote), rect.size.height)];
-//    view.centerX = self.view.centerX;
+    //    view.centerX = self.view.centerX;
     view.centerY = num;
-//    [view setBackgroundColor:[UIColor redColor]];
+    //    [view setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:view];
     
     
@@ -140,7 +161,7 @@ static NSInteger tagNum = 1;
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(rote / 2.0 + i * (rect.size.width + rote), rect.size.height - rote * 2, rect.size.width, rote * 2)];
         label.text = str;
         label.textAlignment = NSTextAlignmentCenter;
-//        label.backgroundColor = [UIColor greenColor];
+        //        label.backgroundColor = [UIColor greenColor];
         label.font = [UIFont systemFontOfSize:14];
         [view addSubview:label];
         i++;
@@ -167,9 +188,20 @@ static NSInteger tagNum = 1;
         case 3:
             NSLog(@"关系");
             break;
-        case 4:
+        case 4:{
+            // 新建一个对话  跳到对话页面  聊天页面刷新界面
+            EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.model.ID conversationType:eConversationTypeChat];
+            ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:conversation.chatter conversationType:conversation.conversationType];
+            chatVC.title = conversation.chatter;
+            [self.navigationController pushViewController:chatVC animated:YES];
+            
+            ChatListViewController *chat = [[ChatListViewController alloc]init];
+            [chat.dataSource addObject:conversation];
+            [chat.tableView reloadData];
+            
             NSLog(@"聊天");
             break;
+        }
         case 5:
             NSLog(@"关心");
             break;
@@ -185,13 +217,13 @@ static NSInteger tagNum = 1;
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

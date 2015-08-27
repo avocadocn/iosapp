@@ -8,7 +8,9 @@
 
 #import "AttentionViewCell.h"
 #import <Masonry.h>
-
+#import "UIImageView+DLGetWebImage.h"
+#import "AddressBookModel.h"
+#import "CompanyModel.h"
 
 @implementation AttentionViewCell
 
@@ -65,11 +67,13 @@
     
 }
 
-- (void)cellBuiltWithModel:(id)model
+- (void)cellBuiltWithModel:(AddressBookModel *)model
 {
-    self.AttentionPhoto.image = [model objectForKey:@"image"];
-    self.AttentionName.text = [model objectForKey:@"name"];
-    self.AttentionWork.text = [model objectForKey:@"work"];
+    [self.AttentionPhoto dlGetRouteWebImageWithString:model.photo placeholderImage:nil];
+    self.AttentionName.text = model.realname;
+    CompanyModel *company = model.company;
+    
+    self.AttentionWork.text = company.name;
 }
 
 

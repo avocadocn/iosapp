@@ -12,6 +12,5 @@
 
 - (void)dlGetRouteWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image;
 
-- (void)dlGetWebImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)image;
 
 @end

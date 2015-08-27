@@ -37,20 +37,21 @@ static NSString *kGroupName = @"GroupName";
 {
     ChatListViewController *_chatListVC;
     ContactsViewController *_contactsVC;
-//    SettingsViewController *_settingsVC;
+    //    SettingsViewController *_settingsVC;
     //    __weak CallViewController *_callController;
     
     UIBarButtonItem *_addFriendItem;
 }
 
- /**
+/**
  *  上次播放时间
  */
 @property (strong, nonatomic) NSDate *lastPlaySoundDate;
+@property (strong, nonatomic)NSMutableArray *frendList;
+
 @end
 
 @implementation MainController
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -58,7 +59,7 @@ static NSString *kGroupName = @"GroupName";
     
     // 添加主页面VC
     
-    [self setUpTabbar];
+    _contactsVC = [[ContactsViewController alloc]init];
     
     [self registerNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupUntreatedApplyCount) name:@"setupUntreatedApplyCount" object:nil];
@@ -68,14 +69,10 @@ static NSString *kGroupName = @"GroupName";
     
     self.selectedIndex = 0;
     
-    UIButton *addButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [addButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
-    [addButton addTarget:_contactsVC action:@selector(addFriendAction) forControlEvents:UIControlEventTouchUpInside];
-    _addFriendItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+    [self setUpTabbar];
     
     [self setupUnreadMessageCount];
     [self setupUntreatedApplyCount];
-    
 }
 
 
@@ -87,7 +84,7 @@ static NSString *kGroupName = @"GroupName";
  */
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password
 {
-//    [self showHudInView:self.view hint:NSLocalizedString(@"login.ongoing", @"Is Login...")];
+    //    [self showHudInView:self.view hint:NSLocalizedString(@"login.ongoing", @"Is Login...")];
     //异步登陆账号
     [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:username
                                                         password:password
@@ -95,7 +92,7 @@ static NSString *kGroupName = @"GroupName";
      ^(NSDictionary *loginInfo, EMError *error) {
          
          
-//         [self hideHud];
+         //         [self hideHud];
          if (loginInfo && !error) {
              //设置是否自动登录
              [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
@@ -108,8 +105,8 @@ static NSString *kGroupName = @"GroupName";
              //获取群组列表
              [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
              
-//             //发送自动登陆状态通知
-//             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+             //             //发送自动登陆状态通知
+             //             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
              
          }
          
@@ -129,41 +126,66 @@ static NSString *kGroupName = @"GroupName";
     CompanyViewController *companyVC = [[CompanyViewController alloc]init];
     [self addOneTabWithVC:companyVC title:@"公司"];
     
-    AttentionViewController *attentionVC = [[AttentionViewController alloc]init];
+    AttentionViewController *attentionVC = [AttentionViewController shareInsten];
     [self addOneTabWithVC:attentionVC title:@"关注"];
-    
-//    ContactsViewController *contactsVC = [[ContactsViewController alloc]init];
-//    [self addOneTabWithVC:contactsVC title:@"通讯录"];
-//    _contactsVC = contactsVC;
     
     ProfileViewController *profileVC = [[ProfileViewController alloc]init];
     [self addOneTabWithVC:profileVC title:@"我的"];
     
-//    Test1ViewController *testVC = [[Test1ViewController alloc]init];
-//    [self addOneTabWithVC:testVC title:@"测试"];
-    
-//    SettingsViewController *settingsVC = [[SettingsViewController alloc]init];
-//    [self addOneTabWithVC:settingsVC title:@"设置"];
-//    _settingsVC = settingsVC;
-    
-//        
-//    PublishSeekHelp *pub = [[PublishSeekHelp alloc]init];
-//    [self addOneTabWithVC:pub title:@"投票"];
-    
-//    RepeaterGroupController *rep = [[RepeaterGroupController alloc]init];
-//    [self addOneTabWithVC:rep title:@"转发"];
     
 }
 
 - (void)addOneTabWithVC:(UIViewController *)viewController title:(NSString *)title{
     viewController.title = title;
     
-    viewController.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:@"tabbar_chats"] selectedImage:[UIImage imageNamed:@"tabbar_chatsHL"]];
+    viewController.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:@"tabbar_chatsHL"] selectedImage:[UIImage imageNamed:@"tabbar_chats"]];
     [viewController.view setBackgroundColor:[UIColor whiteColor]];
     DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:viewController];
+    //    [self getNaviIten];
+    
+    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    addButton.frame = CGRectMake(0, 0, 44, 44);
+    [addButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+    [addButton addTarget:self action:@selector(addFriendAction) forControlEvents:UIControlEventTouchUpInside];
+    addButton.backgroundColor = [UIColor greenColor];
+    _addFriendItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+    
+    viewController.navigationItem.rightBarButtonItem = _addFriendItem;
     [self addChildViewController:nav];
     
 }
+
+- (void)addFriendAction
+{
+    EMError *error = nil;
+    BOOL isSuccess = [[EaseMob sharedInstance].chatManager addBuddy:@"18801910010" message:@"我是杨同" error:&error];
+    if (isSuccess && !error) {
+        NSLog(@"添加成功");
+    } else
+    {
+        NSLog(@"%@", error);
+    }
+}
+
+- (void)getNaviIten
+{
+    if (!_addFriendItem) {
+        /*
+         UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
+         addButton.frame = CGRectMake(0, 0, 44, 44);
+         [addButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+         [addButton addTarget:_contactsVC action:@selector(addFriendAction) forControlEvents:UIControlEventTouchUpInside];
+         addButton.backgroundColor = [UIColor greenColor];
+         */
+        //    [addButton setBackgroundColor:[UIColor yellowColor]];
+        
+        UIView *addButton = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 44, 44)];
+        addButton.backgroundColor = [UIColor yellowColor];
+        
+        _addFriendItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -766,7 +788,7 @@ static NSString *kGroupName = @"GroupName";
         
     }
     
-   
+    
 }
 
 - (EMConversationType)conversationTypeFromMessageType:(EMMessageType)type
@@ -796,7 +818,7 @@ static NSString *kGroupName = @"GroupName";
         
         DLNavigationController *nav = (DLNavigationController *)self.selectedViewController;
         
-         NSString *conversationChatter = userInfo[kConversationChatter];
+        NSString *conversationChatter = userInfo[kConversationChatter];
         
         
         if ([nav.topViewController isKindOfClass:[ChatViewController class]]) {
@@ -832,7 +854,7 @@ static NSString *kGroupName = @"GroupName";
                 break;
         }
         
-
+        
         if ([currentSelectedSubs.lastObject isKindOfClass:[ChatViewController class]]) {
             ChatViewController *beforeChatVC = (ChatViewController *)currentSelectedSubs.lastObject;
             

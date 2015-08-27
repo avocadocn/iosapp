@@ -42,10 +42,10 @@
 #endif
     
    
-    [[EaseMob sharedInstance] registerSDKWithAppKey:@"donler#donlerapp"
+    EMError *error = [[EaseMob sharedInstance] registerSDKWithAppKey:@"donler#warm"
                                            apnsCertName:apnsCertName
                                             otherConfig:@{kSDKConfigEnableConsoleLogger:@YES}];
-    
+    NSLog(@"初始化的结果为%@", error);  // 初始化成功
     
     // 登录成功后，自动去取好友列表
     // SDK获取结束后，会回调
@@ -58,6 +58,17 @@
             didFinishLaunchingWithOptions:launchOptions];
     
     [self setupNotifiers];
+}
+
+- (void)didFetchedBuddyList:(NSArray *)buddyList error:(EMError *)error
+{
+    NSLog(@"好友列表为%@", buddyList);
+    
+    for (EMBuddy *bu in buddyList) {
+        NSLog(@"%ld", bu.followState);
+        NSLog(@"%d", bu.isPendingApproval);
+        NSLog(@"%@", bu.username);
+    }
 }
 
 
@@ -221,12 +232,11 @@
 -(void)willAutoLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error
 {
     
-        // 旧数据转换 (如果您的sdk是由2.1.2版本升级过来的，需要家这句话)
+        // 旧数据转换 (如果您的sdk是由2.1.2版本升级过来的，需要加这句话)
         [[EaseMob sharedInstance].chatManager importDataToNewDatabase];
         //获取数据库中的数据
         [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
     
-
 }
 
 // 结束自动登录回调

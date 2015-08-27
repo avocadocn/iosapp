@@ -23,9 +23,9 @@
 
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, UISearchDisplayDelegate,SRRefreshDelegate, UISearchBarDelegate, IChatManagerDelegate,ChatViewControllerDelegate>
 
-@property (strong, nonatomic) NSMutableArray        *dataSource;
 
-@property (strong, nonatomic) UITableView           *tableView;
+
+
 @property (nonatomic, strong) EMSearchBar           *searchBar;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
 @property (nonatomic, strong) UIView                *networkStateView;
@@ -48,6 +48,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO];
     [self removeEmptyConversationsFromDB];
 
@@ -260,8 +261,8 @@
 - (NSMutableArray *)loadDataSource
 {
     NSMutableArray *ret = nil;
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations]; //当前登陆用户的会话对象列表
+    
     NSArray* sorte = [conversations sortedArrayUsingComparator:
            ^(EMConversation *obj1, EMConversation* obj2){
                EMMessage *message1 = [obj1 latestMessage];
@@ -337,7 +338,7 @@
 }
 
 #pragma mark - TableViewDelegate & TableViewDatasource
-
+// 会话的 cell
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -392,6 +393,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
     return  self.dataSource.count;
 }
 
@@ -536,9 +538,18 @@
 
 #pragma mark - public
 
+// 刷新方法
 -(void)refreshDataSource
 {
-    self.dataSource = [self loadDataSource];
+//    self.dataSource = [self loadDataSource];
+    self.dataSource = [NSMutableArray array];
+    
+    NSArray *array = @[@"55dc110314a37c242b6486cf",@"55dc110314a37c242b6486d0", @"55dc110314a37c242b6486d1"];
+    for (NSString *str in array) {
+        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:str conversationType:eConversationTypeChat];
+        [self.dataSource addObject:conversation];
+    }
+    
     [_tableView reloadData];
     [self hideHud];
 }
@@ -550,7 +561,6 @@
     else{
         _tableView.tableHeaderView = nil;
     }
-
 }
 
 - (void)networkChanged:(EMConnectionState)connectionState

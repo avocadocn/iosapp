@@ -30,5 +30,10 @@
 
 @property (nonatomic, copy)NSString *cid;
 
+@property (nonatomic, copy)NSString *companyId;
+
+@property (nonatomic, copy)NSString *briefName;
+
+
 
 @end

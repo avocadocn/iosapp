@@ -172,6 +172,7 @@
 }
 
 - (void)dismissButtons {
+    [self.delegate sendBool:NO];
     if ([self.delegate respondsToSelector:@selector(bubbleMenuButtonWillCollapse:)]) {
         [self.delegate bubbleMenuButtonWillCollapse:self];
     }
@@ -291,11 +292,12 @@
 }
 
 - (void)_handleTapGesture:(id)sender {
+
     if (self.tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         CGPoint touchLocation = [self.tapGestureRecognizer locationOfTouch:0 inView:self];
         
         if (_collapseAfterSelection && _isCollapsed == NO && CGRectContainsPoint(self.homeButtonView.frame, touchLocation) == false) {
-            [self.delegate sendBool:NO];
+
             [self dismissButtons];
         }
     }
@@ -462,7 +464,7 @@
             [self.delegate sendBool:YES];
             [self showButtons];
         } else {
-            [self.delegate sendBool:NO];
+
             [self dismissButtons];
         }
     }

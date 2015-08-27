@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AddressBookModel;
 
 @interface AttentionViewCell : UITableViewCell
 
@@ -15,7 +16,7 @@
 @property (strong, nonatomic)  UIImageView *AttentionPhoto;
 @property (strong, nonatomic)  UILabel *AttentionWork;
 
-- (void)cellBuiltWithModel:(id)model;
+- (void)cellBuiltWithModel:(AddressBookModel *)model;
 
 
 @end

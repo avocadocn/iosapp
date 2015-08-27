@@ -37,15 +37,13 @@
 
 #define DLSBackgroundColor [UIColor colorWithWhite:.9 alpha:1];
 
-//#define ROUDEADDRESS @"http://192.168.2.107:3002/v2_0"
+//#define ROUDEADDRESS @"http://192.168.2.109:3002/v2_0"
 //
-//#define BaseUrl @"http://192.168.2.107:3002/v2_0"
-
+//#define BaseUrl @"http://192.168.2.109:3002/v2_0"
+//
 #define ROUDEADDRESS @"http://www.55yali.com:3002/v2_0"
 
 #define BaseUrl @"http://www.55yali.com:3002/v2_0"
-
-//#define BaseUrl @"http://www.55yali.com:3002/v2_0"
 
 
 

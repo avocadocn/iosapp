@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+@class CompanyModel;
+
 
 @interface AddressBookModel : NSObject
-
+@property (nonatomic, assign)BOOL attentState;
 @property (nonatomic, copy)NSString *ID;// (string): 用户id ,
 @property (nonatomic, copy)NSString *email;// (string, optional): 用户邮箱 ,
 @property (nonatomic, copy)NSString *nickname;// (string): 昵称 ,
@@ -23,7 +25,7 @@
 @property (nonatomic, copy)NSString *registerDate;// (string, optional): 注册时间 ,
 @property (nonatomic, copy)NSString *phone;// (string, optional): 电话号码 ,
 @property (nonatomic, copy)NSString *qq;// (string, optional): QQ ,
-@property (nonatomic, strong)NSDictionary *company;// (Inline Model 2, optional): 公司 ,     _id name  briefName
+@property (nonatomic, strong)CompanyModel *company;// (Inline Model 2, optional): 公司 ,     _id name  briefName
 @property (nonatomic, copy)NSString *score;// (number, optional): 积分 ,
 @property (nonatomic, strong)NSArray *tids;// (Array[string], optional): 小队id数组 ,
 @property (nonatomic, copy)NSString *lastCommentTime;// (string, optional): 上次发表评论的时间 ,

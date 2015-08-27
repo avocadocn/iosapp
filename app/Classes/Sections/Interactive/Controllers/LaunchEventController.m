@@ -13,7 +13,10 @@
 #import "IndexpathButton.h"
 #import "DNAsset.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
+#import "RestfulAPIRequestTool.h"
+#import "Interaction.h"
+#import "AccountTool.h"
+#import "Account.h"
 static NSInteger num = 0;
 
 typedef NS_ENUM(NSInteger, RemindTableState){
@@ -23,6 +26,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 @interface LaunchEventController ()<DLDatePickerViewDelegate, UITableViewDataSource, UITableViewDelegate, DNImagePickerControllerDelegate>
 
+@property (nonatomic, strong)UIImage *image;
+
 @property (nonatomic, assign)RemindTableState state;
 
 @property (nonatomic, strong)UILabel *startTimeField;
@@ -30,6 +35,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 @property (nonatomic, strong)UILabel *overTimeLabel;
 
 @property (nonatomic, strong)UIImageView *myImageView;
+
+@property (nonatomic, strong)UITextField *eventNameField;
 
 @end
 
@@ -45,7 +52,6 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [self builtEventDetails];
     [self builtEventRemindTime];
     
-    
 }
 
 - (void)setNevigationLeft
@@ -56,7 +62,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     label.textAlignment = NSTextAlignmentRight;
     
     UITapGestureRecognizer *labelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
-    //    label.userInteractionEnabled = YES;
+        label.userInteractionEnabled = YES;
     [label addGestureRecognizer:labelTap];
     label.font = [UIFont systemFontOfSize:15];
     label.textColor = [UIColor lightGrayColor];
@@ -66,13 +72,34 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
+    Interaction *inter = [[Interaction alloc]init];
     
+    [inter setTheme:self.eventNameField.text];
+    [inter setStartTime:self.startTimeField.text];
+    [inter setEndTime:self.overTimeLabel.text];
+    [inter setLocation:@"上海"];
+    [inter setContent:self.eventDetailTextView.text];
+    [inter setRemindTime:self.startTimeField.text];
+    
+    Account *acc = [AccountTool account];
+    [inter setTarget:acc.cid];
+    [inter setTargetType:@3];
+    [inter setType:@1];
+    
+    NSData *data = UIImagePNGRepresentation(self.image);
+    NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[data ,@"photo"] forKeys:@[@"data", @"name"]];
+    inter.photo = [NSArray arrayWithObjects:dic, nil];
+    
+    [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"endTime", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
+        NSLog(@" 生成活动成功%@",json);
+    } failure:^(id errorJson) {
+        NSLog(@"失败 %@", errorJson);
+    }];
 }
 
 - (void)makeFlaseValue
 {
     self.remindTitleArray = [NSMutableArray arrayWithObjects:@"没有提醒",@"10分钟前",@"30分钟前",@"1小时前",@"2小时前",@"1天前",@"2天前", nil];
-    
 }
 
 - (void)builtBigScroll
@@ -108,10 +135,10 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         make.size.mas_equalTo(CGSizeMake(eventNameRect.size.width, 20));
     }];
     
-    UITextField *eventNameField = [UITextField new];  //活动名称
-    eventNameField.textAlignment = NSTextAlignmentCenter;
-    [self.superView addSubview:eventNameField];
-    [eventNameField mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.eventNameField = [UITextField new];  //活动名称
+    self.eventNameField.textAlignment = NSTextAlignmentCenter;
+    [self.superView addSubview:self.eventNameField];
+    [self.eventNameField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(eventname.mas_top);
         make.bottom.mas_equalTo(eventname.mas_bottom);
         make.left.mas_equalTo(eventname.mas_right);
@@ -428,7 +455,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 - (void)tapLabelAction:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"点击");
+    [self.eventNameField resignFirstResponder];
     
     DLDatePickerView *dld = [[DLDatePickerView alloc]init];
     
@@ -473,8 +500,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     DNAsset *dnasser = [imageAssets firstObject];
     ALAssetsLibrary *library = [ALAssetsLibrary new];
     [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
-        UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-        [self.chooseButton setBackgroundImage:image forState:UIControlStateNormal];
+        self.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        [self.chooseButton setBackgroundImage:self.image forState:UIControlStateNormal];
         
     } failureBlock:^(NSError *error) {
         
