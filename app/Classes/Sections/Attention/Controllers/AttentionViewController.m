@@ -59,6 +59,7 @@ static AttentionViewController *att = nil;
 
 - (void)getDetailInforFromJson:(id)array
 {
+    __block int i = 0;
     for (NSMutableDictionary *dic in array) {
         [dic setObject:[dic objectForKey:@"user"] forKey:@"userId"];
         [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:dic useKeys:@[@"userId"] success:^(id json) {
@@ -71,7 +72,8 @@ static AttentionViewController *att = nil;
             addressModel.attentState = YES;
             
             [self.modelArray addObject:addressModel];
-            if ([dic isEqualToDictionary:[array lastObject]]) {
+            i++;
+            if (i == [array count]) {
                 [self.attentionTableView reloadData];
             }
             

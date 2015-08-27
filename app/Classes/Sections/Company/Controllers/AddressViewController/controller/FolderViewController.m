@@ -57,8 +57,6 @@ static NSInteger num = 0;
     self.folderPhotoImage.layer.masksToBounds = YES;
     self.folderPhotoImage.layer.cornerRadius = width / 2.0;
     [self.scroll addSubview:self.folderPhotoImage];
-    
-    [self editFolder];
 }
 
 - (void)editFolder  //用户看自己的资料, 允许被编辑

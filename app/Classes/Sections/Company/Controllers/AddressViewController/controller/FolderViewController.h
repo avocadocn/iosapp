@@ -46,5 +46,6 @@ typedef NS_ENUM(NSInteger, EnumOfEditButton) {
 
 @property (nonatomic, strong)UIScrollView *scroll;
 
+- (void)editFolder;
 
 @end
