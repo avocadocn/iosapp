@@ -14,8 +14,11 @@
 #import "DNImagePickerController.h"
 #import "DNAsset.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
-
+#import "RestfulAPIRequestTool.h"
+#import "AddressBookModel.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "UIImageView+DLGetWebImage.h"
 static NSInteger num = 0;
 
 @interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, DNImagePickerControllerDelegate>
@@ -23,7 +26,6 @@ static NSInteger num = 0;
 @end
 
 @implementation FolderViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -33,8 +35,32 @@ static NSInteger num = 0;
     num = 0;
     [self builtTitleView];  // 设置资料照片
     [self builtInformationView];  //设置资料 label
+    [self getModel];// 获取model
+    
 }
-
+- (void)getModel{
+    AddressBookModel *model = [[AddressBookModel alloc] init];
+    Account *account = [AccountTool account];
+    [model setUserId:account.ID];
+    [self netRequstWithModel:model];
+}
+- (void)netRequstWithModel:(AddressBookModel *)model { // 获取个人资料
+    [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:model useKeys:@[@"userId"] success:^(id json) {
+        NSLog(@"获取的用户信息为 %@",json);
+        AddressBookModel *infoModel = [[AddressBookModel alloc] init];
+        [infoModel setValuesForKeysWithDictionary:json];
+        self.nickName.informationTextField.text = infoModel.nickname;
+        self.synopsis.informationTextField.text = infoModel.introduce;
+        self.realName.informationTextField.text = infoModel.realname;
+        self.gender.informationTextField.text = infoModel.sex;
+        self.brithday.informationTextField.text = infoModel.birthday;
+        self.department.informationTextField.text = json[@"department"][@"name"];
+        self.phoneNumber.informationTextField.text = infoModel.phone;
+        [self.folderPhotoImage dlGetRouteWebImageWithString:infoModel.photo placeholderImage:[UIImage imageNamed:@"DaiMeng.jpg"]];
+    } failure:^(id errorJson) {
+        NSLog(@"获取个人资料失败原因 %@",errorJson);
+    }];
+}
 - (void)builtTitleView // 照片和选择照片
 {
     self.scroll = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
@@ -53,7 +79,7 @@ static NSInteger num = 0;
     
     CGFloat width = DLScreenWidth / (375.0 / 150.0);
     self.folderPhotoImage = [[UIImageView alloc]initWithFrame:CGRectMake((DLScreenWidth - width) / 2, DLMultipleHeight(25.0), width, width)];
-    self.folderPhotoImage.image = [UIImage imageNamed:@"1"];
+//    self.folderPhotoImage.image = [UIImage imageNamed:@"1"];
     self.folderPhotoImage.layer.masksToBounds = YES;
     self.folderPhotoImage.layer.cornerRadius = width / 2.0;
     [self.scroll addSubview:self.folderPhotoImage];
@@ -154,6 +180,14 @@ static NSInteger num = 0;
     switch (buttonIndex) {
         case 1:
         {
+            AddressBookModel *model = [[AddressBookModel alloc] init];
+            Account *account = [AccountTool account];
+            [model setUserId:account.ID];
+        [RestfulAPIRequestTool routeName:@"modifyUserInfo" requestModel:model useKeys:@[@"userId"] success:^(id json) {
+            NSLog(@"修改成功");
+        } failure:^(id errorJson) {
+            
+        }];
             break;
         }
         default:
@@ -232,13 +266,12 @@ static NSInteger num = 0;
     self.constellation = [CuntomFolderView new];
     self.companyArray = @[self.nickName, self.synopsis, self.realName, self.gender, self.brithday, self.department, self.phoneNumber, self.constellation];
     NSArray *labelName = @[@"昵       称", @"个人简介", @"真实姓名", @"性       别", @"生       日", @"部       门", @"手机号码", @"星       座"];
-    
-    
-    
+
     for (CuntomFolderView *view in self.companyArray) {
         view.frame = CGRectMake(0,DLMultipleHeight(200.0) + num * 45, DLScreenWidth, 45);
         view.titleLabel.text = [labelName objectAtIndex:num];
         [view setBackgroundColor:[UIColor whiteColor]];
+//        view.informationTextField.text = self.dataArray[num - 1];
         [self.scroll addSubview:view];
         num ++;
     }

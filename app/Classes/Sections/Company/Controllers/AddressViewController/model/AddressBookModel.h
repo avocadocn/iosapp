@@ -31,6 +31,5 @@
 @property (nonatomic, copy)NSString *lastCommentTime;// (string, optional): 上次发表评论的时间 ,
 @property (nonatomic, strong)NSArray *tags;// (Array[string], optional): 个人标签
 @property (nonatomic, strong)NSString *companyId;
-@property (nonatomic, strong)NSString *userId;
-
+@property (nonatomic, copy)NSString *userId;// 个人资料
 @end

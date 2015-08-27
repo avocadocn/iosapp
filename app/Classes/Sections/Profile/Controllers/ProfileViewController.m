@@ -16,8 +16,8 @@
 #import "HelpTableViewController.h"
 #import "TeamHomePageController.h"
 #import "UserMessageTableViewController.h"
-
-
+#import "TwoDimensionCodeViewController.h"
+#import "SettingViewController.h"
 @interface ProfileViewController () <UITableViewDataSource,UITableViewDelegate,MenuCollectionControllerDelegate>
 
 
@@ -133,7 +133,15 @@ static NSString * const ID = @"ProfileTableViewCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0 && indexPath.row == 0) {// 邀请
+        
+    }else if (indexPath.section == 0 && indexPath.row == 1) {// 二维码
+        TwoDimensionCodeViewController *twoDCViewController = [[TwoDimensionCodeViewController alloc] init];
+        [self.navigationController pushViewController:twoDCViewController animated:YES];
+    } else if (indexPath.section == 0 && indexPath.row == 2) {// 设置
+        SettingViewController *settingVC = [[SettingViewController alloc] init];
+        [self.navigationController pushViewController:settingVC animated:YES];
+    } else {// 评价
         NSString * URLString = [NSString stringWithFormat:@"https://itunes.apple.com/cn/app/dong-li/id916162839?mt=8"];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLString]];
     }
