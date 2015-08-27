@@ -175,7 +175,8 @@ static NSInteger tagNum = 1;
         case 1:{
             
             FolderViewController *folder = [[FolderViewController alloc]init];
-
+            [self.model setUserId:self.model.ID];
+            [folder netRequstWithModel:self.model];
             [self.navigationController pushViewController:folder animated:YES];
             
             break;

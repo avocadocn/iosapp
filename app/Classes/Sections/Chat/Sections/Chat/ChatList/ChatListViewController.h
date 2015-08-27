@@ -21,4 +21,7 @@
 - (void)isConnect:(BOOL)isConnect;
 - (void)networkChanged:(EMConnectionState)connectionState;
 
++ (ChatListViewController *)shareInstan;
+- (void)reloadConversionListWith:(NSString *)conver;
+
 @end

@@ -119,7 +119,7 @@ static NSString *kGroupName = @"GroupName";
     InteractiveViewController *interactiveVC = [[InteractiveViewController alloc]init];
     [self addOneTabWithVC:interactiveVC title:@"互动"];
     
-    ChatListViewController *chatListVC = [[ChatListViewController alloc]init];
+    ChatListViewController *chatListVC = [ChatListViewController shareInstan];
     [self addOneTabWithVC:chatListVC title:@"聊天"];
     _chatListVC = chatListVC;
     
@@ -371,6 +371,12 @@ static NSString *kGroupName = @"GroupName";
 // 收到消息回调
 -(void)didReceiveMessage:(EMMessage *)message
 {
+    // 新建一个会话
+    
+    ChatListViewController *chat = [ChatListViewController shareInstan];
+    [chat reloadConversionListWith:message.from];
+    
+    
     BOOL needShowNotification = (message.messageType != eMessageTypeChat) ? [self needShowNotification:message.conversationChatter] : YES;
     if (needShowNotification) {
 #if !TARGET_IPHONE_SIMULATOR

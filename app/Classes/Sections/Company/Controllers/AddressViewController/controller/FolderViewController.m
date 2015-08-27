@@ -35,7 +35,7 @@ static NSInteger num = 0;
     num = 0;
     [self builtTitleView];  // 设置资料照片
     [self builtInformationView];  //设置资料 label
-    [self getModel];// 获取model
+//    [self getModel];// 获取model
     
 }
 - (void)getModel{
