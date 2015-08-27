@@ -35,7 +35,7 @@ static NSInteger num = 0;
     num = 0;
     [self builtTitleView];  // 设置资料照片
     [self builtInformationView];  //设置资料 label
-    [self getModel];// 获取model
+//    [self getModel];// 获取model
     
 }
 - (void)getModel{
@@ -83,8 +83,6 @@ static NSInteger num = 0;
     self.folderPhotoImage.layer.masksToBounds = YES;
     self.folderPhotoImage.layer.cornerRadius = width / 2.0;
     [self.scroll addSubview:self.folderPhotoImage];
-    
-    [self editFolder];
 }
 
 - (void)editFolder  //用户看自己的资料, 允许被编辑

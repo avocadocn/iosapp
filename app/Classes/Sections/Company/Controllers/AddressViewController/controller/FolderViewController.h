@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CuntomFolderView.h"
+@class AddressBookModel;
 
 typedef NS_ENUM(NSInteger, EnumOfEditButton) {
     EnumOfEditButtonNo,
@@ -46,5 +47,8 @@ typedef NS_ENUM(NSInteger, EnumOfEditButton) {
 
 @property (nonatomic, strong)UIScrollView *scroll;
 
+- (void)editFolder;
+
+- (void)netRequstWithModel:(AddressBookModel *)model;
 
 @end

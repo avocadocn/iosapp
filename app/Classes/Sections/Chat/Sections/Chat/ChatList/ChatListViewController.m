@@ -21,9 +21,8 @@
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "RobotManager.h"
 
+static ChatListViewController *chat = nil;
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, UISearchDisplayDelegate,SRRefreshDelegate, UISearchBarDelegate, IChatManagerDelegate,ChatViewControllerDelegate>
-
-
 
 
 @property (nonatomic, strong) EMSearchBar           *searchBar;
@@ -45,6 +44,18 @@
     return self;
 }
 
++ (ChatListViewController *)shareInstan
+{
+    static dispatch_once_t once;
+    
+    dispatch_once(&once, ^{
+        if (!chat) {
+            chat = [[ChatListViewController alloc]init];
+        }
+    });
+    return chat;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -62,9 +73,20 @@
     
 }
 
-- (void)didReceiveMemoryWarning
+- (void)reloadConversionListWith:(NSString *)conver
 {
-    [super didReceiveMemoryWarning];
+    BOOL state = NO;
+    for (EMConversation *con in self.dataSource) {
+        if ([con.chatter isEqualToString:conver]) {
+            state = YES;  // 有对话
+        }
+    }
+    if (!state) {
+        
+        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:conver conversationType:eConversationTypeChat];
+        [self.dataSource addObject:conversation];
+        [self.tableView reloadData];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -549,6 +571,7 @@
     NSArray *array = @[@"55dc110314a37c242b6486cf",@"55dc110314a37c242b6486d0", @"55dc110314a37c242b6486d1"];
     for (NSString *str in array) {
         EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:str conversationType:eConversationTypeChat];
+        NSLog(@"消息的对话 chatter 为 %@" ,conversation.chatter);
         [self.dataSource addObject:conversation];
     }
     

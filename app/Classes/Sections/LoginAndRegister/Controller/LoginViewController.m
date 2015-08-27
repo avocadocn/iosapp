@@ -116,8 +116,6 @@
         NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
         
-        
-        
     } failure:^(id errorJson) {
         NSLog(@"失败, 请求到的数据为%@", errorJson);
     }];

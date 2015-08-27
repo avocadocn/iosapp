@@ -99,23 +99,24 @@ static NSInteger tagNum = 1;
             [RestfulAPIRequestTool routeName:@"addConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
                 NSLog(@"关注成功  %@", json);
                 [att makeFalseValue];
+                [self.attentionButton setTitle:@"-取消关注" forState:UIControlStateNormal];
                 
             } failure:^(id errorJson) {
                 NSLog(@"关注失败 %@", errorJson);
             }];
             
-            [self.attentionButton setTitle:@"-取消关注" forState:UIControlStateNormal];
         } else
         {
             [RestfulAPIRequestTool routeName:@"deleteConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
                 NSLog(@"取消关注成功  %@", json);
+                [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
+                
+                [att makeFalseValue];
             } failure:^(id errorJson) {
                 NSLog(@"取消关注失败  %@", errorJson);
             }];
             NSLog(@"取消关注");
-            [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
             
-            [att makeFalseValue];
         }
         
         return [RACSignal empty];
@@ -174,6 +175,8 @@ static NSInteger tagNum = 1;
         case 1:{
             
             FolderViewController *folder = [[FolderViewController alloc]init];
+            [self.model setUserId:self.model.ID];
+            [folder netRequstWithModel:self.model];
             [self.navigationController pushViewController:folder animated:YES];
             
             break;
