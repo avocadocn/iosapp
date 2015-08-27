@@ -174,7 +174,7 @@
     } else
     {
         NSMutableString *newStr = (NSMutableString *)[ChineseToPinyin pinyinFromChineseString:str];
-//        NSLog(@"这个字符为, 转化为拼音为 %@", newStr);
+        NSLog(@"这个字符为汉字, 转化为拼音为 %@", newStr);
         NSString *judgeStr = [self judgeString:newStr];
         if ([judgeStr integerValue]) {
 //            NSLog(@"这是特殊字符%@", str);
@@ -190,6 +190,9 @@
     
     if ([str hasPrefix:@" "]) {
         strNew = (NSMutableString *)[str substringFromIndex:1];
+    } else
+    {
+        return str;
     }
     if (![strNew hasPrefix:@" "]) {
         return strNew;
@@ -197,6 +200,7 @@
     {
         [self judgeString:strNew];
     }
+    
     return nil;
 }
 
