@@ -16,6 +16,8 @@
 		54BB1DC81B8DBE7A00F76628 /* ExitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DC61B8DBE7A00F76628 /* ExitTableViewCell.m */; };
 		54BB1DC91B8DBE7A00F76628 /* ExitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DC71B8DBE7A00F76628 /* ExitTableViewCell.xib */; };
 		54BB1DCD1B8DC3B500F76628 /* chevron-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DCC1B8DC3B500F76628 /* chevron-left.png */; };
+		54BB1DD11B8EB9E800F76628 /* ChangePassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DCF1B8EB9E800F76628 /* ChangePassWordViewController.m */; };
+		54BB1DD21B8EB9E800F76628 /* ChangePassWordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DD01B8EB9E800F76628 /* ChangePassWordViewController.xib */; };
 		960DCFAE1B732D38009F5D75 /* VoteOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 960DCFAD1B732D38009F5D75 /* VoteOptionsView.m */; };
 		960DCFB11B732E59009F5D75 /* VoteAnimatedOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 960DCFB01B732E59009F5D75 /* VoteAnimatedOptionView.m */; };
 		9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053461B590C31002D62A3 /* ActivitysShowView.m */; };
@@ -644,6 +646,9 @@
 		54BB1DC61B8DBE7A00F76628 /* ExitTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExitTableViewCell.m; sourceTree = "<group>"; };
 		54BB1DC71B8DBE7A00F76628 /* ExitTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExitTableViewCell.xib; sourceTree = "<group>"; };
 		54BB1DCC1B8DC3B500F76628 /* chevron-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron-left.png"; sourceTree = "<group>"; };
+		54BB1DCE1B8EB9E800F76628 /* ChangePassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePassWordViewController.h; sourceTree = "<group>"; };
+		54BB1DCF1B8EB9E800F76628 /* ChangePassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePassWordViewController.m; sourceTree = "<group>"; };
+		54BB1DD01B8EB9E800F76628 /* ChangePassWordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePassWordViewController.xib; sourceTree = "<group>"; };
 		960DCFAC1B732D38009F5D75 /* VoteOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteOptionsView.h; sourceTree = "<group>"; };
 		960DCFAD1B732D38009F5D75 /* VoteOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteOptionsView.m; sourceTree = "<group>"; };
 		960DCFAF1B732E59009F5D75 /* VoteAnimatedOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteAnimatedOptionView.h; sourceTree = "<group>"; };
@@ -2181,6 +2186,9 @@
 				54BB1DB51B8DAC3600F76628 /* TwoDimensionCodeViewController.xib */,
 				54BB1DBD1B8DB7E300F76628 /* SettingViewController.h */,
 				54BB1DBE1B8DB7E300F76628 /* SettingViewController.m */,
+				54BB1DCE1B8EB9E800F76628 /* ChangePassWordViewController.h */,
+				54BB1DCF1B8EB9E800F76628 /* ChangePassWordViewController.m */,
+				54BB1DD01B8EB9E800F76628 /* ChangePassWordViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4175,6 +4183,7 @@
 				96CF94261B674B54001759E2 /* chatBar_colorMore_cameraSelected@2x.png in Resources */,
 				96CF93D91B674B54001759E2 /* VoiceSearchFeedback010.png in Resources */,
 				96CF93E31B674B54001759E2 /* VoiceSearchFeedback015.png in Resources */,
+				54BB1DD21B8EB9E800F76628 /* ChangePassWordViewController.xib in Resources */,
 				96CF93BA1B674B54001759E2 /* 57.png in Resources */,
 				96CF93FA1B674B54001759E2 /* chatBar_more_card@2x.png in Resources */,
 				96CF941F1B674B54001759E2 /* chatBar_recordSelected.png in Resources */,
@@ -4559,6 +4568,7 @@
 				A4745E001B81A9AC008EB944 /* DNImagePickerController.m in Sources */,
 				96CF947D1B674B54001759E2 /* PushNotificationViewController.m in Sources */,
 				96AA195C1B799896008E4CA3 /* MenuCollectionController.m in Sources */,
+				54BB1DD11B8EB9E800F76628 /* ChangePassWordViewController.m in Sources */,
 				96CF90D71B673422001759E2 /* UIImageView+EMWebCache.m in Sources */,
 				96E3D83B1B7DA60600A623B7 /* UserMessageTableViewCell.m in Sources */,
 				96D20EAF1B5F97F300102D18 /* RankListController.m in Sources */,
