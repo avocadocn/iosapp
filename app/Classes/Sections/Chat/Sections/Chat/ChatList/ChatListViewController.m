@@ -450,7 +450,7 @@ static ChatListViewController *chat = nil;
     NSString *chatter = conversation.chatter;
     chatController = [[ChatViewController alloc] initWithChatter:chatter conversationType:conversation.conversationType];
     chatController.delelgate = self;
-    chatController.title = title;
+    chatController.title = @"我的滑板鞋";
     if ([[RobotManager sharedInstance] getRobotNickWithUsername:chatter]) {
         chatController.title = [[RobotManager sharedInstance] getRobotNickWithUsername:chatter];
     }

@@ -195,10 +195,10 @@ static NSInteger tagNum = 1;
             // 新建一个对话  跳到对话页面  聊天页面刷新界面
             EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.model.ID conversationType:eConversationTypeChat];
             ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:conversation.chatter conversationType:conversation.conversationType];
-            chatVC.title = conversation.chatter;
+            chatVC.title = self.model.realname;
             [self.navigationController pushViewController:chatVC animated:YES];
             
-            ChatListViewController *chat = [[ChatListViewController alloc]init];
+            ChatListViewController *chat = [ChatListViewController shareInstan];
             [chat.dataSource addObject:conversation];
             [chat.tableView reloadData];
             
