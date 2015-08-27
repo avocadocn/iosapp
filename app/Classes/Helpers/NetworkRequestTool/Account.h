@@ -10,7 +10,6 @@
 
 @interface Account : NSObject
 
-
 /**
  *  邮箱
  */

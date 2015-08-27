@@ -108,13 +108,9 @@
         
         // 存取用户值
         NSLog(@"登录成功");
-        Account *acca =[[Account alloc]init];
         
-        [acca setKeyValues:json];
-        [AccountTool saveAccount:acca];
-        
-        NSLog(@"%@", acca);
-        
+        [acc setKeyValues:json];
+        [AccountTool saveAccount:acc];
         
         //注册通知
         NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];

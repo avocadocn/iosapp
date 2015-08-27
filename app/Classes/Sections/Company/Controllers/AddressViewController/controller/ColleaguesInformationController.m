@@ -110,13 +110,12 @@ static NSInteger tagNum = 1;
             [RestfulAPIRequestTool routeName:@"deleteConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
                 NSLog(@"取消关注成功  %@", json);
             } failure:^(id errorJson) {
-                NSLog(@"取消关注失败 %@", errorJson);
+                NSLog(@"取消关注失败  %@", errorJson);
             }];
             NSLog(@"取消关注");
             [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
             
             [att makeFalseValue];
-            
         }
         
         return [RACSignal empty];
