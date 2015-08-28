@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ExitTableViewCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UILabel *exitLabel;
 
 @end

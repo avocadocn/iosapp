@@ -74,10 +74,10 @@
                     <exclude reference="0O4-xs-G48"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="ctt-fV-aZK"/>
-                    <exclude reference="tNk-6Z-onL"/>
                     <exclude reference="9TC-gZ-HxE"/>
                     <exclude reference="mHk-SH-cJJ"/>
+                    <exclude reference="ctt-fV-aZK"/>
+                    <exclude reference="tNk-6Z-onL"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
@@ -86,10 +86,10 @@
                     <include reference="0O4-xs-G48"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="ctt-fV-aZK"/>
-                    <include reference="tNk-6Z-onL"/>
                     <include reference="9TC-gZ-HxE"/>
                     <include reference="mHk-SH-cJJ"/>
+                    <include reference="ctt-fV-aZK"/>
+                    <include reference="tNk-6Z-onL"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="638" y="354"/>

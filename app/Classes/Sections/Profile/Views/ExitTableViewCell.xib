@@ -29,6 +29,9 @@
                     <constraint firstAttribute="centerX" secondItem="9FW-k2-oGG" secondAttribute="centerX" id="MGN-Ke-bIS"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="exitLabel" destination="9FW-k2-oGG" id="52X-lG-x1c"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

@@ -22,10 +22,16 @@
 static NSInteger num = 0;
 
 @interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, DNImagePickerControllerDelegate>
-
+@property (nonatomic, strong)NSMutableArray *infoArray;
 @end
 
 @implementation FolderViewController
+-(NSMutableArray *)infoArray { // 存放用户个人资料
+    if (_infoArray == nil) {
+        self.infoArray = [@[]mutableCopy];
+    }
+    return _infoArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -35,8 +41,10 @@ static NSInteger num = 0;
     num = 0;
     [self builtTitleView];  // 设置资料照片
     [self builtInformationView];  //设置资料 label
-//    [self getModel];// 获取model
-    
+    if (self.judgeEditState) {
+        [self getModel];
+        [self editFolder]; // 用户编辑个人资料
+    }
 }
 - (void)getModel{
     AddressBookModel *model = [[AddressBookModel alloc] init];
@@ -52,11 +60,16 @@ static NSInteger num = 0;
         self.nickName.informationTextField.text = infoModel.nickname;
         self.synopsis.informationTextField.text = infoModel.introduce;
         self.realName.informationTextField.text = infoModel.realname;
-        self.gender.informationTextField.text = infoModel.sex;
-        self.brithday.informationTextField.text = infoModel.birthday;
+        if ([[NSString stringWithFormat:@"%@",infoModel.gender] isEqualToString:@"0"]) {
+            self.gender.informationTextField.text = @"女";
+        } else {
+            self.gender.informationTextField.text = @"男";
+        }
+        self.brithday.informationTextField.text = [infoModel.birthday substringToIndex:10];
         self.department.informationTextField.text = json[@"department"][@"name"];
         self.phoneNumber.informationTextField.text = infoModel.phone;
         [self.folderPhotoImage dlGetRouteWebImageWithString:infoModel.photo placeholderImage:[UIImage imageNamed:@"DaiMeng.jpg"]];
+        [self setConstellationsText];// 设置星座
     } failure:^(id errorJson) {
         NSLog(@"获取个人资料失败原因 %@",errorJson);
     }];
@@ -169,7 +182,6 @@ static NSInteger num = 0;
         self.editLabel.text = @"完成";
     } else { //写编辑完成后的网络请求
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"要保存您的修改吗?" message:nil delegate: self cancelButtonTitle:@"取消" otherButtonTitles:@"保存", nil];
-        
         [alert show];
         self.editLabel.text = @"编辑";
         self.buttonState = EnumOfEditButtonNo;//编辑完成
@@ -178,15 +190,31 @@ static NSInteger num = 0;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (buttonIndex) {
-        case 1:
+        case 1: // 确认修改
         {
             AddressBookModel *model = [[AddressBookModel alloc] init];
             Account *account = [AccountTool account];
             [model setUserId:account.ID];
-        [RestfulAPIRequestTool routeName:@"modifyUserInfo" requestModel:model useKeys:@[@"userId"] success:^(id json) {
-            NSLog(@"修改成功");
+            for (int i = 1000; i <= 1005; i++) {
+               CuntomFolderView *view = (CuntomFolderView *)[self.view viewWithTag:i];
+                NSString *str = [NSString stringWithFormat:@"%@",view.informationTextField.text];
+                [self.infoArray addObject:str];
+            }
+            [model setNickname:self.infoArray[0]];
+            [model setIntroduce:self.infoArray[1]];
+            [model setRealname:self.infoArray[2]];
+            if ([self.infoArray[3] isEqualToString:@"男"]) {
+                [model setGender:@"1"];
+            } else {
+                [model setGender:@"0"];
+            }
+            [model setBirthday:self.infoArray[4]];
+            [model setPhone:self.infoArray[5]];
+        [RestfulAPIRequestTool routeName:@"modifyUserInfo" requestModel:model useKeys:@[@"nickname",@"introduce",@"realname",@"gender",@"birthday",@"phone",] success:^(id json) {
+            [self netRequstWithModel:model]; // 编辑成功重新请求一次数据
+            [self.infoArray removeAllObjects]; // 将存放编辑信息的数组清空
         } failure:^(id errorJson) {
-            
+            NSLog(@"编辑失败原因 %@",errorJson);
         }];
             break;
         }
@@ -220,7 +248,11 @@ static NSInteger num = 0;
     NSString *conste = [self getAstroWithMonth:[[dateArray objectAtIndex:1] intValue] day:[[dateArray objectAtIndex:2] intValue]];
     self.constellation.informationTextField.text = [NSString stringWithFormat:@"%@座",conste];
 }
-
+- (void)setConstellationsText { // 获取数据后设置星座
+    NSArray *dateArray = [self.brithday.informationTextField.text componentsSeparatedByString:@"-"];
+    NSString *conste = [self getAstroWithMonth:[[dateArray objectAtIndex:1] intValue] day:[[dateArray objectAtIndex:2] intValue]];
+    self.constellation.informationTextField.text = [NSString stringWithFormat:@"%@座",conste];
+}
 //判断星座
 -(NSString *)getAstroWithMonth:(int)m day:(int)d{
     NSString *astroString = @"魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
@@ -261,17 +293,18 @@ static NSInteger num = 0;
     self.realName = [CuntomFolderView new];
     self.gender = [CuntomFolderView new];
     self.brithday = [CuntomFolderView new];
-    self.department = [CuntomFolderView new];
+//    self.department = [CuntomFolderView new];
     self.phoneNumber = [CuntomFolderView new];
     self.constellation = [CuntomFolderView new];
-    self.companyArray = @[self.nickName, self.synopsis, self.realName, self.gender, self.brithday, self.department, self.phoneNumber, self.constellation];
-    NSArray *labelName = @[@"昵       称", @"个人简介", @"真实姓名", @"性       别", @"生       日", @"部       门", @"手机号码", @"星       座"];
+    self.companyArray = @[self.nickName, self.synopsis, self.realName, self.gender, self.brithday, self.phoneNumber, self.constellation];
+    NSArray *labelName = @[@"昵       称", @"个人简介", @"真实姓名", @"性       别", @"生       日", @"手机号码", @"星       座"];
 
     for (CuntomFolderView *view in self.companyArray) {
         view.frame = CGRectMake(0,DLMultipleHeight(200.0) + num * 45, DLScreenWidth, 45);
         view.titleLabel.text = [labelName objectAtIndex:num];
         [view setBackgroundColor:[UIColor whiteColor]];
-//        view.informationTextField.text = self.dataArray[num - 1];
+        view.tag = 1000 + num;
+
         [self.scroll addSubview:view];
         num ++;
     }

@@ -18,6 +18,7 @@
 #import "UserMessageTableViewController.h"
 #import "TwoDimensionCodeViewController.h"
 #import "SettingViewController.h"
+#import "InvatingViewController.h"
 @interface ProfileViewController () <UITableViewDataSource,UITableViewDelegate,MenuCollectionControllerDelegate>
 
 
@@ -134,7 +135,8 @@ static NSString * const ID = @"ProfileTableViewCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0 && indexPath.row == 0) {// 邀请
-        
+        InvatingViewController *invatingVC = [[InvatingViewController alloc] init];
+        [self.navigationController pushViewController:invatingVC animated:YES];
     }else if (indexPath.section == 0 && indexPath.row == 1) {// 二维码
         TwoDimensionCodeViewController *twoDCViewController = [[TwoDimensionCodeViewController alloc] init];
         [self.navigationController pushViewController:twoDCViewController animated:YES];
@@ -152,7 +154,8 @@ static NSString * const ID = @"ProfileTableViewCell";
     UIViewController *controller;
     switch (index) {
         case 0: // 我的信息
-            controller = [[FolderViewController alloc]init];
+            controller = [[FolderViewController alloc] init];
+            [(FolderViewController *)controller setJudgeEditState:YES];
             break;
         case 1: // 群组
              controller = [[TeamHomePageController alloc]init];

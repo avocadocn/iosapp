@@ -104,12 +104,35 @@
 	</dict>
     <dict>
         <key>routeName</key>
+        <string>addConcern</string>
+        <key>routeURL</key>
+        <string>/users/concern/:userId</string>
+        <key>routeMethod</key>
+        <string>POST</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>deleteConcern</string>
+        <key>routeURL</key>
+        <string>/users/concern/:userId</string>
+        <key>routeMethod</key>
+        <string>DELETE</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>getCorcernList</string>
+        <key>routeURL</key>
+        <string>/users/concern/:userId</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
         <string>userLogOut</string>
         <key>routeURL</key>
         <string>/users/logout</string>
         <key>routeMethod</key>
         <string>POST</string>
     </dict>
-
 </array>
 </plist>
