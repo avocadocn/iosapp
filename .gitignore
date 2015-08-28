@@ -46,4 +46,5 @@ Carthage/Build
 libEaseMobClientSDK.a
 
 EaseMobSDK/
-Podfile.lock
+*.lock
+

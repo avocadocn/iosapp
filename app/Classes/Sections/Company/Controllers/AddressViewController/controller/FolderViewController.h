@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger, EnumOfEditButton) {
 
 @property (nonatomic, strong)UIScrollView *scroll;
 
-- (void)editFolder;
+@property (nonatomic, assign)BOOL judgeEditState;
 
 - (void)netRequstWithModel:(AddressBookModel *)model;
 

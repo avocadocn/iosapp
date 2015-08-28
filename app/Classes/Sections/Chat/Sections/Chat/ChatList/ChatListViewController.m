@@ -69,6 +69,8 @@ static ChatListViewController *chat = nil;
     [self networkStateView];
 
     [self searchController];
+    
+    
 }
 
 - (void)reloadConversionListWith:(NSString *)conver

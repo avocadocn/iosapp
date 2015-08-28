@@ -32,4 +32,7 @@
 @property (nonatomic, strong)NSArray *tags;// (Array[string], optional): 个人标签
 @property (nonatomic, strong)NSString *companyId;
 @property (nonatomic, copy)NSString *userId;// 个人资料
+@property (nonatomic, copy)NSString *originPassword;
+@property (nonatomic, copy)NSString *password;
+@property (nonatomic, copy)NSString *gender; // 
 @end
