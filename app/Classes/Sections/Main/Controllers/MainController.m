@@ -143,12 +143,12 @@ static NSString *kGroupName = @"GroupName";
     DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:viewController];
     //    [self getNaviIten];
     
-    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    addButton.frame = CGRectMake(0, 0, 44, 44);
-    [addButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
-    [addButton addTarget:self action:@selector(addFriendAction) forControlEvents:UIControlEventTouchUpInside];
-    addButton.backgroundColor = [UIColor greenColor];
-    _addFriendItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
+//    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    addButton.frame = CGRectMake(0, 0, 44, 44);
+//    [addButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+//    [addButton addTarget:self action:@selector(addFriendAction) forControlEvents:UIControlEventTouchUpInside];
+//    addButton.backgroundColor = [UIColor greenColor];
+//    _addFriendItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     
     viewController.navigationItem.rightBarButtonItem = _addFriendItem;
     [self addChildViewController:nav];

@@ -116,7 +116,7 @@
     NSInteger i = 0;
     for (NSDictionary *dic in json) {
         NSString *str = [NSString stringWithFormat:@"%@", [dic objectForKey:@"realname"]];  //根据用户的真名进行排序
-//        NSLog(@"用户名为 %@", str);
+        NSLog(@"用户名为 %@", str);
         [self judgeNameFormat:str andIndex:i];
         i++;
     }
@@ -173,16 +173,37 @@
 //        NSLog(@"这个字符为标点符");  //  标点符号取消
     } else
     {
-        NSString *newStr = [ChineseToPinyin pinyinFromChineseString:str];
-//        NSLog(@"这个字符为, 转化为拼音为 %@", newStr);
-        if ([newStr integerValue]) {
+        NSMutableString *newStr = (NSMutableString *)[ChineseToPinyin pinyinFromChineseString:str];
+        NSLog(@"这个字符为汉字, 转化为拼音为 %@", newStr);
+        NSString *judgeStr = [self judgeString:newStr];
+        if ([judgeStr integerValue]) {
 //            NSLog(@"这是特殊字符%@", str);
         }
         else {
-            [self judgeNameFormat:newStr andIndex:index];
+            [self judgeNameFormat:judgeStr andIndex:index];
         }
     }
 }
+- (NSString *)judgeString:(NSMutableString *)str
+{
+    NSMutableString *strNew = [NSMutableString string];
+    
+    if ([str hasPrefix:@" "]) {
+        strNew = (NSMutableString *)[str substringFromIndex:1];
+    } else
+    {
+        return str;
+    }
+    if (![strNew hasPrefix:@" "]) {
+        return strNew;
+    } else
+    {
+        [self judgeString:strNew];
+    }
+    
+    return nil;
+}
+
 // 根据判断得来的字符在ASCII码中的字符 wordDic里创建相对应的数组
 - (void)orderWordWithString:(UniChar)str andIndex:(NSInteger)index
 {

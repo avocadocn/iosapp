@@ -54,42 +54,7 @@
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"welcome-%d", i]];
         [scrollview addSubview:imageView];
     }
-    /*
-    // 登录/注册逻辑 View  小元件都放在上面
-    UIView *loginLogicView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth * 2, 0, DLScreenWidth, DLScreenHeight)];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(registerTapAction:)];
-    [loginLogicView addGestureRecognizer:tap];   //需要进行传值
-    [scrollview addSubview:loginLogicView];
-    
-    self.mailBoxTextField = [UITextField new];
-    self.mailBoxTextField.textColor = [UIColor whiteColor];
-    self.mailBoxTextField.placeholder = @"enter you email...";
-    [self.mailBoxTextField placeholder];
-    self.mailBoxTextField.textAlignment = NSTextAlignmentCenter;
-    self.mailBoxTextField.font = [UIFont systemFontOfSize:20];
-    [loginLogicView addSubview:self.mailBoxTextField];
-    [self.mailBoxTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(loginLogicView).with.offset(0);
-        make.size.mas_equalTo(CGSizeMake(300, 30));
-    }];
-    
-    RAC(tap, enabled) = [RACSignal combineLatest:@[self.mailBoxTextField.rac_textSignal] reduce:^(NSString *mailStr){
-        return @(mailStr.length >= 6);
-    }];
-    
-    UIButton *loginButton = [self builttingButtonWithTitle:@"登录" tag:1];
-    
-    [loginButton addTarget:self action:@selector(loginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [loginLogicView addSubview:loginButton];
-    [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(loginLogicView).with.offset(0);
-        make.size.mas_equalTo(CGSizeMake(DLScreenWidth, 55));
-        make.centerX.mas_equalTo(loginLogicView.mas_centerX);
-    }];
-    
-    */
+
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeViewAction:) name:@"loginAccount" object:nil];  //  接受返回通知
     
