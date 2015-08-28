@@ -61,7 +61,7 @@ static AttentionViewController *att = nil;
 {
     __block int i = 0;
     for (NSMutableDictionary *dic in array) {
-        [dic setObject:[dic objectForKey:@"user"] forKey:@"userId"];
+        [dic setObject:[dic objectForKey:@"_id"] forKey:@"userId"];
         [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:dic useKeys:@[@"userId"] success:^(id json) {
             
             AddressBookModel *addressModel = [[AddressBookModel alloc]init];
