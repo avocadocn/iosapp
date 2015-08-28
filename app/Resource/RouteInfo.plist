@@ -126,5 +126,81 @@
         <key>routeMethod</key>
         <string>GET</string>
     </dict>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dict>
+        <key>routeName</key>
+        <string>getInteraction</string>
+        <key>routeURL</key>
+        <string>/interaction</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>sendInteraction</string>
+        <key>routeURL</key>
+        <string>/interaction</string>
+        <key>routeMethod</key>
+        <string>POST</string>
+    </dict>
 </array>
 </plist>

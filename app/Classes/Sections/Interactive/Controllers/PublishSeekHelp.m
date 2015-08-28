@@ -12,6 +12,10 @@
 #import <Masonry.h>
 #import "DNAsset.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "AccountTool.h"
+#import "Account.h"
+#import "RestfulAPIRequestTool.h"
+#include "Interaction.h"
 
 //#import "UITextView+PlaceHolder.h"
 @interface PublishSeekHelp ()<DNImagePickerControllerDelegate>
@@ -137,7 +141,27 @@
 
 - (void)publishAction:(UIButton *)sender
 {
-    NSLog(@"发布");
+    NSData *data = UIImagePNGRepresentation(self.selectPhoto.image);
+    NSDictionary *Dic = [NSDictionary dictionaryWithObjects:@[data, @"photo"] forKeys:@[@"data", @"name"]];
+    
+    Interaction *inter = [[Interaction alloc]init];
+    Account *acc = [AccountTool account];
+    [inter setTarget:acc.cid];
+    [inter setTargetType:@3];
+    [inter setType:@3];
+    [inter setLocation:@"上海"];
+    [inter setContent:self.seekHelpContent.text];
+    [inter setPhoto:@[Dic]];
+    [inter setTheme:@"求助"];
+    
+    [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"endTime", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
+        NSLog(@"发布求助成功 %@", json);
+    } failure:^(id errorJson) {
+        NSLog(@"发布求助失败 %@", errorJson);
+    }];
+    
+    
+    
 }
 
 - (void)cancelButtonAction:(UIButton *)sender

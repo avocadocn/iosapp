@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class Interaction;
+
 @interface DetailActivityShowView : UIView
 
+@property (nonatomic, strong)Interaction *model;
+
+- (instancetype)initWithModel:(Interaction *)model;
 
 @end

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Interaction;
+
 
 @interface DetailActivityShowController : UIViewController
+
+@property (nonatomic, strong)Interaction *model;
+
+
+
 
 @end

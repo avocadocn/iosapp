@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Interaction;
 
 @interface CurrentActivitysShowCell : UITableViewCell
 
@@ -24,5 +25,10 @@
  *  互动正文内容
  */
 @property (weak, nonatomic) IBOutlet UILabel *InteractiveText;
+
+
+- (void)reloadCellWithModel:(id)model;
+
+
 @end
 

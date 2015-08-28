@@ -29,7 +29,13 @@
 @property (nonatomic, copy)NSString *longitude;// 经度
 @property (nonatomic, copy)NSString *memberMax; //最大人数
 @property (nonatomic, copy)NSString *menberMin;  //最少人数
-@property (nonatomic, copy)NSString *option;  // 选项
-@property (nonatomic, copy)NSString *tag; //标签
+@property (nonatomic, strong)NSArray *option;  // 选项
+@property (nonatomic, strong)NSArray *tag; //标签
+@property (nonatomic, strong)NSDictionary *activity;
+@property (nonatomic, copy)NSString *cid;
+@property (nonatomic, copy)NSString * poster;
+@property (nonatomic, strong)NSArray *photos;  // 取到的图片数组
+@property (nonatomic, copy)NSString *createTime;  // 创建时间
+@property (nonatomic, strong)NSArray *members;
 //@property (nonatomic, copy)NSString *
 @end

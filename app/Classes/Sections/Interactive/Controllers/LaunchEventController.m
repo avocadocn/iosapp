@@ -85,6 +85,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [inter setTarget:acc.cid];
     [inter setTargetType:@3];
     [inter setType:@1];
+    [inter setActivityMold:@"lalal"];
+    
     
     NSData *data = UIImagePNGRepresentation(self.image);
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[data ,@"photo"] forKeys:@[@"data", @"name"]];

@@ -37,8 +37,14 @@ static NSInteger tagNum = 1;
     
     CGFloat height = DLScreenHeight / (568 / 400.0);
     
-    [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"关系"] imageArray:nil andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:height];
-    [self builtInterfaceWithNameArray:@[@"聊天", @"关心"] imageArray: nil andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:height + num * 1.85];
+    NSArray *nameArray = @[@"afolder", @"adynamic", @"talkSpeak"];
+    NSMutableArray *imageArray = [NSMutableArray array];
+    for (NSString *str in nameArray) {
+        UIImage *image = [UIImage imageNamed:str];
+        [imageArray addObject:image];
+    }
+    
+    [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"聊天"] imageArray:imageArray andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:height];
     
 }
 
@@ -148,7 +154,7 @@ static NSInteger tagNum = 1;
     
     for (NSString *str in nameArray) {
         UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(rote / 2.0 + i * (rect.size.width + rote), 0, rect.size.width, rect.size.width)];
-        imageview.image = [UIImage imageNamed:@"1"];
+        imageview.image = [imageArray objectAtIndex:i];
         [view addSubview:imageview];
         imageview.layer.masksToBounds = YES;
         imageview.layer.cornerRadius = rect.size.width / 2.0;
@@ -188,10 +194,10 @@ static NSInteger tagNum = 1;
             
             break;
         }
-        case 3:
+        case 4:
             NSLog(@"关系");
             break;
-        case 4:{
+        case 3:{
             // 新建一个对话  跳到对话页面  聊天页面刷新界面
             EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.model.ID conversationType:eConversationTypeChat];
             ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:conversation.chatter conversationType:conversation.conversationType];
