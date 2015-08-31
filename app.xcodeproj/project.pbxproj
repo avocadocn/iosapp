@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5404302C1B905D6E00C71F39 /* InvatingViewController.m */; };
+		540430311B906B5B00C71F39 /* InvatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5404302F1B906B5B00C71F39 /* InvatingTableViewCell.m */; };
+		540430321B906B5B00C71F39 /* InvatingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540430301B906B5B00C71F39 /* InvatingTableViewCell.xib */; };
 		54BB1DB61B8DAC3600F76628 /* TwoDimensionCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DB41B8DAC3600F76628 /* TwoDimensionCodeViewController.m */; };
 		54BB1DB71B8DAC3600F76628 /* TwoDimensionCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DB51B8DAC3600F76628 /* TwoDimensionCodeViewController.xib */; };
 		54BB1DB91B8DAE5500F76628 /* TwoDimensionCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DB81B8DAE5500F76628 /* TwoDimensionCode.png */; };
@@ -637,6 +639,9 @@
 		10F0C3979CC574166680CAB5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5404302B1B905D6E00C71F39 /* InvatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingViewController.h; sourceTree = "<group>"; };
 		5404302C1B905D6E00C71F39 /* InvatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingViewController.m; sourceTree = "<group>"; };
+		5404302E1B906B5B00C71F39 /* InvatingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingTableViewCell.h; sourceTree = "<group>"; };
+		5404302F1B906B5B00C71F39 /* InvatingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingTableViewCell.m; sourceTree = "<group>"; };
+		540430301B906B5B00C71F39 /* InvatingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvatingTableViewCell.xib; sourceTree = "<group>"; };
 		54BB1DB31B8DAC3600F76628 /* TwoDimensionCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimensionCodeViewController.h; sourceTree = "<group>"; };
 		54BB1DB41B8DAC3600F76628 /* TwoDimensionCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoDimensionCodeViewController.m; sourceTree = "<group>"; };
 		54BB1DB51B8DAC3600F76628 /* TwoDimensionCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoDimensionCodeViewController.xib; sourceTree = "<group>"; };
@@ -3616,6 +3621,9 @@
 				54BB1DD61B8EF7AD00F76628 /* ChangePassWordTableViewCell.h */,
 				54BB1DD71B8EF7AD00F76628 /* ChangePassWordTableViewCell.m */,
 				54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */,
+				5404302E1B906B5B00C71F39 /* InvatingTableViewCell.h */,
+				5404302F1B906B5B00C71F39 /* InvatingTableViewCell.m */,
+				540430301B906B5B00C71F39 /* InvatingTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4143,6 +4151,7 @@
 				96CF946B1B674B54001759E2 /* tabbar_chatsHL@2x.png in Resources */,
 				96CF94391B674B54001759E2 /* chatBar_more_photoSelected.png in Resources */,
 				96CF93FD1B674B54001759E2 /* chatBar_more_face.png in Resources */,
+				540430321B906B5B00C71F39 /* InvatingTableViewCell.xib in Resources */,
 				96CF941C1B674B54001759E2 /* chatBar_record@2x.png in Resources */,
 				54BB1DC91B8DBE7A00F76628 /* ExitTableViewCell.xib in Resources */,
 				96CF93B71B674B54001759E2 /* 114.png in Resources */,
@@ -4538,6 +4547,7 @@
 				A4650F201B7DBDCD00013A17 /* UserInterView.m in Sources */,
 				961053611B5C9550002D62A3 /* RankShowViewCell.m in Sources */,
 				A4745E0C1B81A9AC008EB944 /* DNBadgeLabel.m in Sources */,
+				540430311B906B5B00C71F39 /* InvatingTableViewCell.m in Sources */,
 				96CF90D91B673422001759E2 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				A44B35601B8308E2004F7A6A /* AccountAndPassword.m in Sources */,
 				96CF93AF1B674B54001759E2 /* EMSearchBar.m in Sources */,
