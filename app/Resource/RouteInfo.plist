@@ -136,9 +136,9 @@
     </dict>
     <dict>
         <key>routeName</key>
-        <string>sendInteraction</string>
+        <string>userInvate</string>
         <key>routeURL</key>
-        <string>/interaction</string>
+        <string>/users/actions/invite</string>
         <key>routeMethod</key>
         <string>POST</string>
     </dict>
