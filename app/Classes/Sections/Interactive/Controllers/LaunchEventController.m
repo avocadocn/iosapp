@@ -85,11 +85,13 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [inter setTarget:acc.cid];
     [inter setTargetType:@3];
     [inter setType:@1];
+    [inter setActivityMold:@"lalal"];
     
+    if (self.image){
     NSData *data = UIImagePNGRepresentation(self.image);
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[data ,@"photo"] forKeys:@[@"data", @"name"]];
     inter.photo = [NSArray arrayWithObjects:dic, nil];
-    
+    }
     [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"endTime", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
         NSLog(@" 生成活动成功%@",json);
     } failure:^(id errorJson) {

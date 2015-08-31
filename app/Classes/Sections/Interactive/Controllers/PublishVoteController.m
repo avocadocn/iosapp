@@ -5,13 +5,17 @@
 //  Created by 申家 on 15/8/7.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "Account.h"
+#import "AccountTool.h"
 #import "PublishVoteController.h"
 #import <Masonry.h>
 #import "optionsView.h"
 #import "DNImagePickerController.h"
 #import "DNAsset.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "RestfulAPIRequestTool.h"
+#import "Interaction.h"
+
 
 static NSInteger num = 0;
 
@@ -166,17 +170,37 @@ static NSInteger num = 0;
 
 - (void)publishAction:(UIButton *)sender
 {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:self.voteTitle.text forKey:@"votrTitle"];   //投票题目
-    [dic setObject:self.selectPhoto.image forKey:@"voteImage"];  //投票照片
     NSMutableArray *titleArray = [NSMutableArray array];
     for (NSInteger i = 1; i <= num; i ++) {
         optionsView *View = (optionsView *)[self.bigView viewWithTag:i];
         NSString *str = View.optionTextField.text;
         [titleArray addObject:str];
     }
-    [dic setObject:titleArray forKey:@"voteArray"];  // 投票选项
-    NSLog(@"%@", dic);   /// 要发布的元素
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    NSData *data= UIImagePNGRepresentation(self.selectPhoto.image);
+    [dic setObject:data forKey:@"data"];
+    [dic setObject:@"photo" forKey:@"name"];
+    
+    Interaction *inter = [[Interaction alloc]init];
+    [inter setType:@2]; //投票
+    [inter setTheme:self.voteTitle.text];
+    [inter setLocation:@"上海"];
+    [inter setOption:titleArray];
+    [inter setPhoto:@[dic]];
+    Account *acc = [AccountTool account];
+    [inter setTarget:acc.cid];
+    [inter setTargetType:@3];
+    [inter setContent:@"投票"];
+    [inter setEndTime:@"2015-09-30 19:56"];
+    
+    [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"endTime", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
+        NSLog(@"发布投票成功%@", json);
+    } failure:^(id errorJson) {
+        
+        NSLog(@"发布投票失败%@", errorJson);
+    }];
+    
 }
 
 - (void)setNavigationItem

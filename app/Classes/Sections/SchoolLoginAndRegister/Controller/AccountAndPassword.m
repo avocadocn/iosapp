@@ -61,14 +61,6 @@
     self.password.textfield.delegate = self;
     [self.view addSubview:self.password];
     
-//    RAC(self.label, userInteractionEnabled) = [RACSignal combineLatest:@[self.phoneNumber.textfield.rac_textSignal, self.password.textfield.rac_textSignal] reduce:^(NSString *a, NSString *b){
-//        
-//        if (b.length > 6 && (a.length == 10 || a.length == 12 || a.length == 11)) {
-//            self.label.textColor = RGBACOLOR(253, 185, 0, 1);
-//        }
-//        return @(a.length == 11 && b.length > 6);
-//    }];
-    
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField

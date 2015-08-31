@@ -58,10 +58,15 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeViewAction:) name:@"loginAccount" object:nil];  //  接受返回通知
     
-    UIView *orge = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(45.0))];
+    UILabel *orge = [[UILabel alloc]initWithFrame:CGRectMake(DLMultipleWidth(195.0), DLMultipleHeight(600.0), DLMultipleWidth(150.0), DLMultipleHeight(44.0))];
     UITapGestureRecognizer *atapWithLogin = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(atapWithLoginAction:)];
+    orge.userInteractionEnabled = YES;
+    orge.text = @"登录";
+    orge.textAlignment = NSTextAlignmentCenter;
     [orge addGestureRecognizer:atapWithLogin];
-    [orge setBackgroundColor:[UIColor redColor]];
+    [orge setBackgroundColor:[UIColor whiteColor]];
+    
+    
     
     [scrollview addSubview:orge];
     

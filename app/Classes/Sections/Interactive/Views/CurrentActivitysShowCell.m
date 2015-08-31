@@ -5,8 +5,9 @@
 //  Created by 张加胜 on 15/7/17.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "Interaction.h"
 #import "CurrentActivitysShowCell.h"
+#import "UIImageView+DLGetWebImage.h"
 
 @interface CurrentActivitysShowCell()
 /**
@@ -64,25 +65,33 @@
     [self.separator setBackgroundColor:RGB(235, 235, 235)];
     [self.typeContainer setBackgroundColor:RGB(235, 235, 235)];
     
-    
 }
 
-//-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-//   // NSLog(@"000");
-//    NSArray *nibs = [[NSBundle mainBundle ]loadNibNamed:@"CurrentActivitysShowCell" owner:self options:nil];
-//    if (nibs.count > 0) {
-//        self = nibs.firstObject;
-//       
-//        
-//        UIImage *img = [UIImage imageNamed:@"1"];
-//        [self.avatar setImage:img];
-//        [self.avatar.layer setCornerRadius:self.avatar.size.height /2];
-//        [self.avatar.layer setMasksToBounds:YES];
-//        
-//    }
-//    return self;
-//
-//}
+- (void)reloadCellWithModel:(Interaction *)model
+{
+    self.InteractiveText.text = model.theme;
+    switch ([model.type integerValue]) {
+        case 1:{
+            self.InteractiveTitle.text = @"活动进行中";
+            break;
+        }
+        case 2:{
+            self.InteractiveTitle.text = @"投票进行中";
+            break;
+        }
+        case 3:{
+            self.InteractiveTitle.text = @"求助进行中";
+            break;
+        }
+        default:
+            break;
+    }
+    
+    [self.InteractiveTypeIcon dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [[model.photos lastObject] objectForKey:@"uri"] ] placeholderImage:[UIImage imageNamed:@"1"]];
+    
+    self.publishTimeLabel.text = [model.activity objectForKey:@"startTime"];
+    
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

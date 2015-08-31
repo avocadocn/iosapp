@@ -200,7 +200,7 @@ static AFHTTPSessionManager *_mgr;
         
         [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {//
             
-            if ([obj isKindOfClass:[NSArray class]]) {
+            if ([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"photo"]) {
                 NSArray *fileArray = (NSArray *)obj;
                 NSInteger index = 0;
                 for (NSDictionary *dataDict in fileArray) {

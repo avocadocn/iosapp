@@ -7,14 +7,17 @@
 //
 
 #import "DetailActivityShowView.h"
-
+#import "Interaction.h"
 
 
 @interface DetailActivityShowView()<UIScrollViewDelegate>
 @property (strong,nonatomic) UIScrollView *superView;
-@property (strong,nonatomic) UIImageView *pictureView;
+@property (strong,nonatomic) UIImageView *pictureView; // 顶部照片
 @property (assign,nonatomic) CGFloat imageViewWidth;
 @property (assign,nonatomic) CGFloat imageViewHeight;
+@property (strong, nonatomic)UILabel *activityName;  //@"林肯公园演唱会"
+
+
 @end
 @implementation DetailActivityShowView
 
@@ -27,11 +30,13 @@
 */
 
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithModel:(Interaction *)model
 {
-    self = [super initWithFrame:frame];
+    self = [super init];
     if (self) {
         [self setFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
+        self.model = [[Interaction alloc]init];
+        self.model = model;
         
         [self buildInterface];
     }
@@ -68,33 +73,33 @@
     [topPictureView setBackgroundColor:[UIColor whiteColor]];
    
     // 添加活动图片
-    UIImageView *pictureView = [UIImageView new];
+    self.pictureView = [UIImageView new];
     CGFloat imageViewWidth = DLScreenWidth;
     CGFloat imageViewHeight = imageViewWidth * 4 / 5;
     self.imageViewWidth = imageViewWidth;
     self.imageViewHeight = imageViewHeight;
-    [pictureView setFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
-    [pictureView setBackgroundColor:[UIColor redColor]];
+    [self.pictureView setFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
+    [self.pictureView setBackgroundColor:[UIColor redColor]];
     UIImage *img = [UIImage imageNamed:@"2.jpg"];
-    [pictureView setClipsToBounds:YES];
-    [pictureView setImage:img];
-    [pictureView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.pictureView setClipsToBounds:YES];
+    [self.pictureView setImage:img];
+    [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
     
-    self.pictureView = pictureView;
+    self.pictureView = self.pictureView;
     // 活动名称label
     UIFont *font = [UIFont systemFontOfSize:18.0f];
-    UILabel *name = [[UILabel alloc]init];
-    name.textColor = [UIColor blackColor];
-    [name setFont:font];
-    NSString *nameText = @"林肯公园演唱会";
+    self.activityName = [[UILabel alloc]init];
+    self.activityName.textColor = [UIColor blackColor];
+    [self.activityName setFont:font];
+    NSString *nameText = self.model.theme;
 //    NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
 //    // CGSize size = [nameText sizeWithAttributes:attr];
 //    NSLog(@"%@",NSStringFromCGSize(size));
-    [name setText:nameText];
-    [name setSize:CGSizeMake(DLScreenWidth, 14)];
-    [name setTextAlignment:NSTextAlignmentCenter];
-    name.centerX = DLScreenWidth / 2;
-    name.y = CGRectGetMaxY(pictureView.frame) + 13;
+    [self.activityName setText:nameText];
+    [self.activityName setSize:CGSizeMake(DLScreenWidth, 14)];
+    [self.activityName setTextAlignment:NSTextAlignmentCenter];
+    self.activityName.centerX = DLScreenWidth / 2;
+    self.activityName.y = CGRectGetMaxY(self.pictureView.frame) + 13;
     
     
     
@@ -103,10 +108,10 @@
     [interest setTitle:@"感兴趣" forState:UIControlStateNormal];
     [interest setSize:CGSizeMake(100, 25)];
     interest.centerX = DLScreenWidth / 2;
-    interest.y = CGRectGetMaxY(name.frame) + 13;
+    interest.y = CGRectGetMaxY(self.activityName.frame) + 13;
     
-    [topPictureView addSubview:pictureView];
-    [topPictureView addSubview:name];
+    [topPictureView addSubview:self.pictureView];
+    [topPictureView addSubview:self.activityName];
     [topPictureView addSubview:interest];
     
     // 设置顶部pic view的frame
@@ -122,7 +127,7 @@
     
     // 添加时间label
     UILabel *timeLabel = [[UILabel alloc]init];
-    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@",@"2015.07.23--2015.07.30"];
+    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@", [self.model.activity objectForKey:@"startTime"]];
     
     NSMutableAttributedString *mutableAttrStr = [[NSMutableAttributedString alloc]initWithString:timeString];
     [mutableAttrStr addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 3)];
@@ -162,7 +167,7 @@
     addressLabel.numberOfLines = 0;
     // TODO
     CGSize maxLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
-    NSString *addressText = [NSString stringWithFormat:@"%@",@"上海话剧阿斯顿发送到发送到发送到发送到发士大夫撒飞洒的"];
+    NSString *addressText = [NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]];
     
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [addressLabel setFont:addressFont];
@@ -196,7 +201,7 @@
     [personCountLabel setFrame:CGRectMake(10, CGRectGetMaxY(mapView.frame) + 15, DLScreenWidth - 2 * 10, 20)];
     [personCountLabel setFont:personCountLabelFont];
     NSInteger personCount = 18;
-    NSString *personCountLabelText = [NSString stringWithFormat:@"报名人数:  %zd人",personCount];
+    NSString *personCountLabelText = [NSString stringWithFormat:@"报名人数:  %zd人", [self.model.members count]];
     NSMutableAttributedString *personMAS = [[NSMutableAttributedString alloc]initWithString:personCountLabelText];
     [personMAS addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 5)];
     [personCountLabel setAttributedText:personMAS];
@@ -224,7 +229,7 @@
     UILabel *activityIntroduceTV = [[UILabel alloc]init];
         UIFont *aITVFont = [UIFont systemFontOfSize:13.0f];
     [activityIntroduceTV setTextColor:[UIColor blackColor]];
-    NSString *IntroduceText = @"Pixel Winch is a screen measurement app with a unique approach. Rather than overlaying complicated controls on top of your existing workflow, it combines aspects of a traditional image editor with the quick access of a modal interface (similar to OS X's Launchpad or Dashboard).Select a region on the screen to load it inside of Pixel Winch. The captured region will automatically magnify and center on your display. Take measurements using any combination of the included tools. When finished, simply press escape to dismiss Pixel Winch.Need to look up previous measurements? No problem  use the history list to revisit past images. Worried about images clogging up your hard drive? Pixel Winch can be configured to automatically delete them.";
+    NSString *IntroduceText = self.model.content;
     NSString *aITVText = [NSString stringWithFormat:@"活动介绍\n%@",IntroduceText];
     // TODO
     [activityIntroduceTV setText:aITVText];

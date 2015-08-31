@@ -5,7 +5,7 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //  主页面
-
+#import "getIntroModel.h"
 #import "InteractiveViewController.h"
 #import "ActivitysShowView.h"
 #import "ActivityShowTableController.h"
@@ -22,6 +22,12 @@
 #import "LaunchEventController.h"
 #import "PublishVoteController.h"
 #import "PublishSeekHelp.h"
+#import "RestfulAPIRequestTool.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "Interaction.h"
+#import "DetailActivityShowController.h"
+
 
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate>
 
@@ -34,6 +40,9 @@
 @property (nonatomic, strong) DWBubbleMenuButton *upMenuView;
 @property (nonatomic, strong) UIView *coriusView;
 @property (nonatomic, strong)UIImageView *coriusImage;
+@property (nonatomic, strong)NSMutableArray *modelArray;
+
+
 /**
  *  path菜单
  */
@@ -56,9 +65,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
   //  NSLog(@"%@",[UIApplication sharedApplication].keyWindow.rootViewController);
     
+    
     // 活动展示table
     [self setupActivityShowTableView];
-    
+    [self requestNet];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -241,67 +251,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
 }
 
-/*
--(void)setupPathButton{
-    DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"chooser-button-tab"]
-                                                         highlightedImage:[UIImage imageNamed:@"chooser-button-tab-highlighted"]];
-    dcPathButton.delegate = self;
-    
-    // Configure item buttons
-    //
-    DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-music"]
-                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-music-highlighted"]
-                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
-                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
-    
-    DCPathItemButton *itemButton_2 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-place"]
-                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-place-highlighted"]
-                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
-                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
-    
-    DCPathItemButton *itemButton_3 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-camera"]
-                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-camera-highlighted"]
-                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
-                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
-    
-    DCPathItemButton *itemButton_4 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-thought"]
-                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-thought-highlighted"]
-                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
-                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
-    
-    DCPathItemButton *itemButton_5 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-sleep"]
-                                                           highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-sleep-highlighted"]
-                                                            backgroundImage:[UIImage imageNamed:@"chooser-moment-button"]
-                                                 backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
-    
-    // Add the item button into the center button
-    //
-    [dcPathButton addPathItems:@[itemButton_1,
-                                 itemButton_2,
-                                 itemButton_3,
-                                 itemButton_4,
-                                 itemButton_5
-                                 ]];
-    
-    // Change the bloom radius, default is 105.0f
-    //
-    dcPathButton.bloomRadius = 100.0f;
-    
-   
-    // Setting the DCButton appearance
-    //
-    dcPathButton.allowSounds = YES;
-    dcPathButton.allowCenterButtonRotation = YES;
-    
-    dcPathButton.bottomViewColor = [UIColor grayColor];
-    
-    dcPathButton.bloomDirection = kDCPathButtonBloomDirectionTopLeft;
-    dcPathButton.dcButtonCenter = CGPointMake(DLScreenWidth - 25,DLScreenHeight - 100);
-    
-    [self.view addSubview:dcPathButton];
-    
-}
-*/
 
 #pragma mark - pathbutton 的代理方法
 -(void)pathButton:(DCPathButton *)dcPathButton clickItemButtonAtIndex:(NSUInteger)itemButtonIndex{
@@ -490,25 +439,16 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.modelArray.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CurrentActivitysShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     
-    if (indexPath.row == 0) {
-        cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_activity_icon"];
-        cell.InteractiveTitle.text = @"活动进行中";
-        cell.InteractiveText.text = @"快来捡肥皂吧";
-    }else if (indexPath.row == 1){
-        cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_vote_icon"];
-        cell.InteractiveTitle.text = @"投票进行中";
-        cell.InteractiveText.text = @"你觉得我美么";
-    }else if (indexPath.row == 2){
-        cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_help_icon"];
-        cell.InteractiveTitle.text = @"求助进行中";
-        cell.InteractiveText.text = @"刚锅锅怎么样才会爱我？";
-    }
+    Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
+    
+    [cell reloadCellWithModel:inter];
+    
     return cell;
 }
 
@@ -520,29 +460,62 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    if (indexPath.row == 1) {
-        VoteTableController *voteController = [[VoteTableController alloc]init];
-        [self.navigationController pushViewController:voteController animated:YES];
-    }else if (indexPath.row == 2){
-        HelpTableViewController *helpController = [[HelpTableViewController alloc]init];
-        [self.navigationController pushViewController:helpController animated:YES];
-    }else if (indexPath.row == 0){
-        ActivityShowTableController *activityController = [[ActivityShowTableController alloc]init];
-        [self.navigationController pushViewController:activityController animated:YES];
+    Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
+    switch ([inter.type integerValue]) {
+        case 1:{  // 活动
+            DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
+            activityController.model = inter;
+//            ActivityShowTableController *activityController = [[ActivityShowTableController alloc]init];  //活动
+
+            [self.navigationController pushViewController:activityController animated:YES];
+            break;
+        }
+        case 2:{  // 投票
+            VoteTableController *voteController = [[VoteTableController alloc]init];  /// 投票
+            [self.navigationController pushViewController:voteController animated:YES];
+            
+            break;
+        }
+        case 3:  // 求助
+        {
+            HelpTableViewController *helpController = [[HelpTableViewController alloc]init];  // 求助
+            [self.navigationController pushViewController:helpController animated:YES];
+            
+            break;
+        }
+        default:
+            break;
     }
     
 }
 
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)requestNet
+{
+    Account *acc= [AccountTool account];
+    
+    getIntroModel *model = [[getIntroModel alloc]init];
+    [model setUserId:acc.ID];
+    
+    [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
+        NSLog(@"获取成功   %@", json);
+        [self analyDataWithJson:json];
+    } failure:^(id errorJson) {
+        NSLog(@"获取失败  %@", errorJson);
+    }];
 }
-*/
+
+- (void)analyDataWithJson:(id)json
+{
+    self.modelArray = [NSMutableArray array];
+    
+    for (NSDictionary *dic  in json) {
+        Interaction *inter = [[Interaction alloc]init];
+        [inter setValuesForKeysWithDictionary:dic];
+        [self.modelArray addObject:inter];
+    }
+    [self.tableView reloadData];
+}
+
 
 @end
