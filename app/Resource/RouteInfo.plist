@@ -132,7 +132,7 @@
         <key>routeURL</key>
         <string>/users/logout</string>
         <key>routeMethod</key>
-        <string>GET</string>
+        <string>POST</string>
     </dict>
     <dict>
         <key>routeName</key>

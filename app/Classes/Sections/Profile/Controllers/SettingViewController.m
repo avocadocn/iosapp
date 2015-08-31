@@ -104,7 +104,7 @@
         NSLog(@"退出成功");
     } failure:^(id errorJson) {
         NSLog(@"退出失败原因 %@",errorJson);
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你都没有登录你瞎退出啥呢？" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯嗯，知道了", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯嗯，知道了", nil];
         [alertView show];
     }];
     } else { // 取消

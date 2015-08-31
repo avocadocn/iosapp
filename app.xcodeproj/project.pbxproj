@@ -4936,7 +4936,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4947,7 +4947,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2f2e976e-1ce8-4805-9e95-75e59dd9c397";
 			};
 			name = Debug;
 		};
@@ -4965,7 +4965,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4976,7 +4976,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2f2e976e-1ce8-4805-9e95-75e59dd9c397";
 			};
 			name = Release;
 		};

@@ -93,13 +93,10 @@
 }
 - (void)loginButtonAction:(UIButton *)sender
 {
-//    DLNetworkRequest *request = [[DLNetworkRequest alloc]init];
-//    request.delegate = self;
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    [dic setObject:self.mailTextField.text forKey:@"email"];
-//    [dic setObject:self.passwordTextField.text forKey:@"password"];
-//    
-//    [request dlRouteNetWorkWithNetName:@"userLogin" andRequestType:@"POST" paramter:dic];
+    
+    [self.mailTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+    
     Account *acc = [[Account alloc]init];
     acc.phone = self.mailTextField.text;
     acc.password = self.passwordTextField.text;

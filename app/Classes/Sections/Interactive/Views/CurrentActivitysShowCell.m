@@ -69,10 +69,6 @@
 
 - (void)reloadCellWithModel:(Interaction *)model
 {
-//    cell.InteractiveTypeIcon.image = [UIImage imageNamed:@"Interactive_help_icon"];
-//    cell.InteractiveTitle.text = @"求助进行中";
-//    cell.InteractiveText.text = @"刚锅锅怎么样才会爱我？";
-
     self.InteractiveText.text = model.theme;
     switch ([model.type integerValue]) {
         case 1:{
@@ -91,7 +87,6 @@
             break;
     }
     
-//    self.InteractiveTypeIcon.image = [UIImage imageNamed:@"1"];
     [self.InteractiveTypeIcon dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [[model.photos lastObject] objectForKey:@"uri"] ] placeholderImage:[UIImage imageNamed:@"1"]];
     
     self.publishTimeLabel.text = [model.activity objectForKey:@"startTime"];
