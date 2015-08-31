@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class GroupCardModel;
+
 @interface GroupCardViewCell : UICollectionViewCell
 
 @property (nonatomic, strong)UIImageView *groupImageView;
@@ -17,5 +19,7 @@
 @property (nonatomic, strong)UILabel *groupIntroLabel;
 
 @property (nonatomic, strong)UIButton *createButton;
+
+- (void)cellReconsitutionWithModel:(GroupCardModel *)model;
 
 @end

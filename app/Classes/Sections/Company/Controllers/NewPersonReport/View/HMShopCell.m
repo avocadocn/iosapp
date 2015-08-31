@@ -8,9 +8,9 @@
 
 #import "HMShopCell.h"
 #import "HMShop.h"
-#import "UIImageView+WebCache.h"
+#import "UIImageView+DLGetWebImage.h"
 #import "Masonry.h"
-
+#import "AddressBookModel.h"
 
 typedef NS_ENUM(NSInteger, PersonAttitude) {
     PersonAttitudeDontLike,
@@ -115,14 +115,14 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
     
 }
 
-- (void)reloadCellWithModel:(id)model
+- (void)reloadCellWithModel:(AddressBookModel *)model
 {
     //    // 1.图片
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [model objectForKey:@"img"]]] placeholderImage:[UIImage imageNamed:@"loading"]];
+    [self.imageView dlGetRouteWebImageWithString:model.photo placeholderImage:nil];
+//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [model objectForKey:@"img"]]] placeholderImage:[UIImage imageNamed:@"loading"]];
 
-    self.personName.text = [model objectForKey:@"name"];
-    self.personMajor.text = [model objectForKey:@"major"];
-    self.personLike.text = [model objectForKey:@"like"];
+    self.personName.text = model.nickname;
+    
 }
 
 

@@ -9,7 +9,7 @@
 #import "GroupCardViewCell.h"
 #import <Masonry.h>
 #import "GroupCardModel.h"
-#import <UIImageView+WebCache.h>
+#import "UIImageView+DLGetWebImage.h"
 
 
 
@@ -51,9 +51,6 @@
         make.right.mas_equalTo(self.mas_right);
     }];
     
-    [self.groupImageView sd_setImageWithURL:[NSURL URLWithString:@"http://img.cache.itlily.com/tdb/song/a5/60/1381978129.jpg"]]; // 图片
-    
-    self.groupIntroLabel.text = @"空军建军节";
     self.groupIntroLabel.font = [UIFont systemFontOfSize:14];
     self.groupIntroLabel.textAlignment = NSTextAlignmentCenter;
     [self setBackgroundColor:[UIColor whiteColor]];
@@ -61,10 +58,10 @@
 
 - (void)cellReconsitutionWithModel:(GroupCardModel *)model
 {
-    [self.groupImageView sd_setImageWithURL:[NSURL URLWithString:model.imageURL]]; // 图片
-    
-    self.groupIntroLabel.text = model.intro;
+    [self.groupImageView dlGetRouteWebImageWithString:model.logo placeholderImage:nil];
+    self.groupIntroLabel.text = model.name;
     
 }
+
 
 @end

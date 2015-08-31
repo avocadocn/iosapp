@@ -10,4 +10,13 @@
 
 @implementation GroupCardModel
 
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if ([key isEqualToString:@"_id"]) {
+        self.groupId = value;
+    }
+}
+
+
 @end

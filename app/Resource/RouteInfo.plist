@@ -150,5 +150,29 @@
         <key>routeMethod</key>
         <string>GET</string>
     </dict>
+    <dict>
+        <key>routeName</key>
+        <string>getGroupList</string>
+        <key>routeURL</key>
+        <string>/groups/list/user</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>getGroupInfor</string>
+        <key>routeURL</key>
+        <string>/groups/:groupId</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>getFreshManList</string>
+        <key>routeURL</key>
+        <string>/users/list/:companyId/:freshman/:page</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
 </array>
 </plist>

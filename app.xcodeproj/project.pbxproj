@@ -512,6 +512,8 @@
 		A43F86351B74813E0086D078 /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F86341B74813E0086D078 /* image.png */; };
 		A43F86381B7487DB0086D078 /* PublishSeekHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F86371B7487DB0086D078 /* PublishSeekHelp.m */; };
 		A43F863E1B748B210086D078 /* UITextView+PlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F863D1B748B210086D078 /* UITextView+PlaceHolder.m */; };
+		A4465CF71B941D170056ACA8 /* CreateGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4465CF61B941D170056ACA8 /* CreateGroupController.m */; };
+		A4465CFA1B9453C80056ACA8 /* FreshModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4465CF91B9453C80056ACA8 /* FreshModel.m */; };
 		A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */; };
 		A44B354F1B82D126004F7A6A /* schoolCan.png in Resources */ = {isa = PBXBuildFile; fileRef = A44B354E1B82D126004F7A6A /* schoolCan.png */; };
 		A44B35561B82E088004F7A6A /* FillInformationCon.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B35551B82E088004F7A6A /* FillInformationCon.m */; };
@@ -1482,6 +1484,10 @@
 		A43F86371B7487DB0086D078 /* PublishSeekHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishSeekHelp.m; sourceTree = "<group>"; };
 		A43F863C1B748B210086D078 /* UITextView+PlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+PlaceHolder.h"; sourceTree = "<group>"; };
 		A43F863D1B748B210086D078 /* UITextView+PlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+PlaceHolder.m"; sourceTree = "<group>"; };
+		A4465CF51B941D170056ACA8 /* CreateGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateGroupController.h; sourceTree = "<group>"; };
+		A4465CF61B941D170056ACA8 /* CreateGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateGroupController.m; sourceTree = "<group>"; };
+		A4465CF81B9453C80056ACA8 /* FreshModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreshModel.h; sourceTree = "<group>"; };
+		A4465CF91B9453C80056ACA8 /* FreshModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshModel.m; sourceTree = "<group>"; };
 		A44B354B1B82CF65004F7A6A /* SearchSchoolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSchoolModel.h; sourceTree = "<group>"; };
 		A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSchoolModel.m; sourceTree = "<group>"; };
 		A44B354E1B82D126004F7A6A /* schoolCan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schoolCan.png; sourceTree = "<group>"; };
@@ -3983,6 +3989,8 @@
 				A4F315711B5E4F7A00126C8A /* GroupViewController.h */,
 				A4F315721B5E4F7A00126C8A /* GroupViewController.m */,
 				A49205761B6F0B6100F16346 /* view */,
+				A4465CF51B941D170056ACA8 /* CreateGroupController.h */,
+				A4465CF61B941D170056ACA8 /* CreateGroupController.m */,
 			);
 			path = GroupViewController;
 			sourceTree = "<group>";
@@ -4009,6 +4017,8 @@
 		A4F594EE1B7C7C740088D9CC /* model */ = {
 			isa = PBXGroup;
 			children = (
+				A4465CF81B9453C80056ACA8 /* FreshModel.h */,
+				A4465CF91B9453C80056ACA8 /* FreshModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -4503,6 +4513,7 @@
 				969616CF1B6B5CC5002FC24C /* InvitationManager.m in Sources */,
 				969616CE1B6B5C96002FC24C /* ContactsViewController.m in Sources */,
 				A4745E051B81A9AC008EB944 /* UIColor+Hex.m in Sources */,
+				A4465CFA1B9453C80056ACA8 /* FreshModel.m in Sources */,
 				969616CD1B6B5AF6002FC24C /* EMChatTimeCell.m in Sources */,
 				54BB1DC31B8DB8FF00F76628 /* SettingTableViewCell.m in Sources */,
 				967439B91B705908004334A4 /* AccountTool.m in Sources */,
@@ -4675,6 +4686,7 @@
 				96CF94891B67501B001759E2 /* SRRefreshView.m in Sources */,
 				9635AF591B748D5C00BE92B5 /* CommentsModel.m in Sources */,
 				A44D404D1B7368EA00B10DFB /* EventRemindCell.m in Sources */,
+				A4465CF71B941D170056ACA8 /* CreateGroupController.m in Sources */,
 				A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */,
 				9649B53E1B564DE000A7F355 /* CompanyViewController.m in Sources */,
 				96CF93871B674B54001759E2 /* DXMessageToolBar.m in Sources */,

@@ -38,14 +38,8 @@ static NSString * const ID = @"VoteTableViewCell";
     [self.tableView setBackgroundColor:RGB(235, 235, 235)];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    
     [self loadVoteData];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:ID];
     
