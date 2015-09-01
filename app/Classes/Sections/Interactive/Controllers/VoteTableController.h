@@ -10,6 +10,13 @@
 
 @interface VoteTableController : UITableViewController
 
+/**
+ *  投票的Frames
+ */
+@property (nonatomic, strong) NSMutableArray *voteArray;
+
+
 +(UINavigationController *)shareNavigation;
+
 
 @end

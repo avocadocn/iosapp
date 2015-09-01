@@ -27,7 +27,7 @@
 #import "AccountTool.h"
 #import "Interaction.h"
 #import "DetailActivityShowController.h"
-
+#import "PollModel.h"
 
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate>
 
@@ -187,68 +187,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     }
     
     return [buttonsMutable copy];
-}
-- (void)testTapAction:(UITapGestureRecognizer *)sender {
-
-    [self.upMenuView dismissButtons];
-    switch (sender.view.tag) {
-        case 1:
-        {
-            NSLog(@"活动");
-            LaunchEventController *lauge = [[LaunchEventController alloc]init];
-            [self.navigationController pushViewController:lauge animated:YES];
-            
-            break;
-        }
-            
-        case 2:{
-            PublishVoteController *vote = [[PublishVoteController alloc]init];
-            [self.navigationController pushViewController:vote animated:YES];
-            NSLog(@"投票");
-            break;
-        }
-        case 3:
-        {
-            NSLog(@"求助");
-            PublishSeekHelp *seek = [[PublishSeekHelp alloc]init];
-            [self.navigationController pushViewController:seek animated:YES];
-            break;
-        }
-        default:
-            break;
-    }
-    
-}
-
-- (void)test:(UIButton *)sender {
-    [self.upMenuView dismissButtons];
-    switch (sender.tag) {
-        case 1:
-        {
-            NSLog(@"活动");
-            LaunchEventController *lauge = [[LaunchEventController alloc]init];
-            [self.navigationController pushViewController:lauge animated:YES];
-            
-            break;
-        }
-            
-        case 2:{
-            PublishVoteController *vote = [[PublishVoteController alloc]init];
-            [self.navigationController pushViewController:vote animated:YES];
-            NSLog(@"投票");
-            break;
-        }
-        case 3:
-        {
-            NSLog(@"求助");
-            PublishSeekHelp *seek = [[PublishSeekHelp alloc]init];
-            [self.navigationController pushViewController:seek animated:YES];
-            break;
-        }
-        default:
-            break;
-    }
-    
 }
 
 
@@ -461,19 +399,20 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
     switch ([inter.type integerValue]) {
-        case 1:{  // 活动
+        case 1:{  // 活动详情
             DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
             activityController.model = inter;
             [self.navigationController pushViewController:activityController animated:YES];
             break;
         }
-        case 2:{  // 投票
+        case 2:{  // 投票详情
             VoteTableController *voteController = [[VoteTableController alloc]init];  /// 投票
             [self.navigationController pushViewController:voteController animated:YES];
+            voteController.voteArray = [NSMutableArray arrayWithObject:inter];
             
             break;
         }
-        case 3:  // 求助
+        case 3:  // 求助详情
         {
             HelpTableViewController *helpController = [[HelpTableViewController alloc]init];  // 求助
             [self.navigationController pushViewController:helpController animated:YES];
@@ -483,9 +422,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         default:
             break;
     }
-    
 }
-
 
 - (void)requestNet
 {
@@ -509,9 +446,78 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     for (NSDictionary *dic  in json) {
         Interaction *inter = [[Interaction alloc]init];
         [inter setValuesForKeysWithDictionary:dic];
+        NSString *str = [NSString stringWithFormat:@"%@",[dic objectForKey:@"type"]];
+        if ([str isEqualToString:[NSString stringWithFormat:@"%d", 2]])  //只有投票
+        {
+            PollModel *poll = [[PollModel alloc]init];
+            [poll setValuesForKeysWithDictionary:[dic objectForKey:@"poll"]];
+            [inter setPoll:poll];
+        }
         [self.modelArray addObject:inter];
     }
     [self.tableView reloadData];
+}
+- (void)testTapAction:(UITapGestureRecognizer *)sender {
+    
+    [self.upMenuView dismissButtons];
+    switch (sender.view.tag) {
+        case 1:
+        {
+            NSLog(@"活动");
+            LaunchEventController *lauge = [[LaunchEventController alloc]init];
+            [self.navigationController pushViewController:lauge animated:YES];
+            
+            break;
+        }
+            
+        case 2:{
+            PublishVoteController *vote = [[PublishVoteController alloc]init];
+            [self.navigationController pushViewController:vote animated:YES];
+            NSLog(@"投票");
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"求助");
+            PublishSeekHelp *seek = [[PublishSeekHelp alloc]init];
+            [self.navigationController pushViewController:seek animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+    
+}
+
+- (void)test:(UIButton *)sender {
+    [self.upMenuView dismissButtons];
+    switch (sender.tag) {
+        case 1:
+        {
+            NSLog(@"活动");
+            LaunchEventController *lauge = [[LaunchEventController alloc]init];
+            [self.navigationController pushViewController:lauge animated:YES];
+            
+            break;
+        }
+            
+        case 2:{
+            PublishVoteController *vote = [[PublishVoteController alloc]init];
+            [self.navigationController pushViewController:vote animated:YES];
+            NSLog(@"投票");
+            break;
+        }
+        case 3:
+        {
+            NSLog(@"求助");
+            PublishSeekHelp *seek = [[PublishSeekHelp alloc]init];
+            [self.navigationController pushViewController:seek animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+    
 }
 
 

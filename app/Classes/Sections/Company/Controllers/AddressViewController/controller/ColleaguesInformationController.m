@@ -16,7 +16,7 @@
 #import "ChatListViewController.h"
 #import "RestfulAPIRequestTool.h"
 #import "AttentionViewController.h"
-
+#import "UIImageView+DLGetWebImage.h"
 
 static NSInteger tagNum = 1;
 
@@ -35,9 +35,7 @@ static NSInteger tagNum = 1;
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
     tagNum = 1;
-    CGFloat num = DLScreenWidth / (320 / 55.0);
-    
-    [self builtScrollPhotoView];
+    [self builtImageView];
     
     CGFloat height = DLScreenHeight / (568 / 400.0);
     
@@ -47,16 +45,20 @@ static NSInteger tagNum = 1;
         UIImage *image = [UIImage imageNamed:str];
         [imageArray addObject:image];
     }
-    
+
+    CGFloat num = DLScreenWidth / (320 / 55.0);
     [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"聊天"] imageArray:imageArray andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:height];
+}
+- (void)builtImageView
+{
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(368.0))];
+    [imageView dlGetRouteWebImageWithString:self.model.photo placeholderImage:nil];
+    [self.view addSubview:imageView];
     
 }
-
 - (void)builtScrollPhotoView
 {
-    CGFloat heightRote = DLScreenHeight / (667 / 368.00);
-    UIScrollView *scrollPhotoView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, heightRote)];
-    [scrollPhotoView setBackgroundColor:[UIColor grayColor]];
+    UIScrollView *scrollPhotoView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(368.0))];
     
     [self.view addSubview:scrollPhotoView];
     self.photoArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"1"],[UIImage imageNamed:@"2.jpg"],[UIImage imageNamed:@"114.png"],[UIImage imageNamed:@"2.jpg"], nil];
@@ -238,7 +240,16 @@ static NSInteger tagNum = 1;
  // Pass the selected object to the new view controller.
  }
  */
+
+-(void)viewWillAppear:(BOOL)animated{
+    // 初始化导航条
+    [self setupNavigationBar];
+}
 -(void)setupNavigationBar{
+
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     //初始化山寨导航条
     self.naviView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, 64)];
@@ -267,14 +278,15 @@ static NSInteger tagNum = 1;
     self.titleLabel.y = 64 - self.titleLabel.size.height - 13;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.font = [UIFont systemFontOfSize:18];
-    self.titleLabel.text = @"小队主页";
+    self.titleLabel.text = self.model.realname;
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.titleLabel];
 }
-- (void)backBtnClicked:(UIButton *)sender
-{
-    
+-(void)backBtnClicked:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
+
 - (void)settingBtnClicked:(UIButton *)sender
 {
     

@@ -74,14 +74,14 @@
     [model setCompanyId:acc.cid];
     
     [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
-        NSLog(@"获取通讯录成功 , %@", json);
+//        NSLog(@"获取通讯录成功 , %@", json);
         
         [self relodaViewWithData:json];
         
         acc.userId = acc.ID;
         // 获取关注列表
         [RestfulAPIRequestTool routeName:@"getCorcernList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
-            NSLog(@"获取用户关注列表成功 %@", json);
+//            NSLog(@"获取用户关注列表成功 %@", json);
             
             [self compareJsonWithArray:json];
         } failure:^(id errorJson) {
@@ -93,7 +93,7 @@
     }];
 }
 - (void)compareJsonWithArray:(id)array {
-    NSLog(@"和这个 array 比较%@", self.modelArray);
+//    NSLog(@"和这个 array 比较%@", self.modelArray);
     for (NSDictionary *dic in self.modelArray) {
         NSArray *tempArray = [dic objectForKey:@"array"];
         int i = 0;
@@ -116,7 +116,7 @@
     NSInteger i = 0;
     for (NSDictionary *dic in json) {
         NSString *str = [NSString stringWithFormat:@"%@", [dic objectForKey:@"realname"]];  //根据用户的真名进行排序
-        NSLog(@"用户名为 %@", str);
+//        NSLog(@"用户名为 %@", str);
         [self judgeNameFormat:str andIndex:i];
         i++;
     }
@@ -174,7 +174,7 @@
     } else
     {
         NSMutableString *newStr = (NSMutableString *)[ChineseToPinyin pinyinFromChineseString:str];
-        NSLog(@"这个字符为汉字, 转化为拼音为 %@", newStr);
+//        NSLog(@"这个字符为汉字, 转化为拼音为 %@", newStr);
         NSString *judgeStr = [self judgeString:newStr];
         if ([judgeStr integerValue]) {
 //            NSLog(@"这是特殊字符%@", str);

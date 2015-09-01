@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+@class PollModel;
+
 
 @interface Interaction : NSObject
 
@@ -37,5 +39,5 @@
 @property (nonatomic, strong)NSArray *photos;  // 取到的图片数组
 @property (nonatomic, copy)NSString *createTime;  // 创建时间
 @property (nonatomic, strong)NSArray *members;
-//@property (nonatomic, copy)NSString *
+@property (nonatomic, strong)PollModel *poll;
 @end

@@ -183,6 +183,7 @@
     self.voteContainer = voteContainer;
     
 }
+
 -(void)setVoteCellFrame:(VoteCellFrame *)voteCellFrame{
     
     _voteCellFrame = voteCellFrame;
