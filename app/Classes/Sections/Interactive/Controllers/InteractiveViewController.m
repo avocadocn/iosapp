@@ -456,7 +456,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     return 149 ;
 }
 
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
@@ -465,8 +464,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         case 1:{  // 活动
             DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
             activityController.model = inter;
-//            ActivityShowTableController *activityController = [[ActivityShowTableController alloc]init];  //活动
-
             [self.navigationController pushViewController:activityController animated:YES];
             break;
         }

@@ -91,7 +91,7 @@ static NSString *const ID = @"shop";
     [dic setObject:@"计算机科学专业" forKey:@"major"];
     [dic setObject:@"155" forKey:@"like"];
     [dic setObject:shop.img forKey:@"img"];
-    [cell reloadCellWithModel:dic];
+    [cell reloadCellWithModel:(AddressBookModel *)dic];
     return cell;
 }
 

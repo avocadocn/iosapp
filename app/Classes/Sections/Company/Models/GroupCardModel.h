@@ -10,9 +10,11 @@
 
 @interface GroupCardModel : NSObject
 
-@property (nonatomic, copy)NSString *intro;
-@property (nonatomic, copy)NSString *imageURL;
-@property (nonatomic, copy)NSString *viewColor;
+@property (nonatomic, copy)NSString *brief;  // 简介
+@property (nonatomic, copy)NSString *logo;
+@property (nonatomic, copy)NSString *name;
+@property (nonatomic, copy)NSString *groupId;
+@property (nonatomic, assign)BOOL allInfo;
 
 
 @end

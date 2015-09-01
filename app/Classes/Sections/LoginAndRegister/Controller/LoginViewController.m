@@ -91,6 +91,7 @@
         make.height.mas_equalTo(view.height / 2.0 + 5);
     }];
 }
+
 - (void)loginButtonAction:(UIButton *)sender
 {
     

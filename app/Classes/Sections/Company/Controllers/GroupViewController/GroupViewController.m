@@ -13,6 +13,11 @@
 #import "GroupCardViewCell.h"
 #import "TeamHomePageController.h"
 #import "GroupSelectCell.h"
+#import "RestfulAPIRequestTool.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "GroupCardModel.h"
+
 
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
       
@@ -23,18 +28,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"群组";
-    [self makeFalseData];
+    [self getRequestData];
     [self builtInterface];
 }
 
-- (void)makeFalseData
+- (void)getRequestData
 {
     self.modelArray = [NSMutableArray array];
-    NSInteger inte = arc4random() % 15;
-    for (int i = 0; i < inte; i++) {
-        NSString *str = @"空军建军节";
-        [self.modelArray addObject:str];
+    // 获取群组应该有 targetid 的吧?
+    
+    [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:nil useKeys:nil success:^(id json) {
+        NSLog(@"获取到的群组为%@", json);
+        [self analyDataWithJson:json];
+    } failure:^(id errorJson) {
+        NSLog(@"获取群组失败, 原因为 %@", errorJson);
+    }];
+    
+}
+- (void)analyDataWithJson:(id)json
+{
+    NSArray *array = [json objectForKey:@"groups"];
+    for (NSDictionary *dic in array) {
+        GroupCardModel *model = [[GroupCardModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic];
+        [self.modelArray addObject:model];
     }
+    [self.groupListCollection reloadData];
 }
 
 - (void)builtInterface
@@ -62,7 +81,6 @@
     return CGSizeMake(DLMultipleWidth(111.0), DLMultipleHeight(126.0));
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -71,7 +89,9 @@
 {
     if (indexPath.row < [self.modelArray count]) {
         GroupCardViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
+        GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
         
+        [cell cellReconsitutionWithModel:model];
         return cell;
         
     } else
@@ -80,8 +100,6 @@
         GroupSelectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"selectCell" forIndexPath:indexPath];
         return cell;
     }
-    
-    
     
     return nil;
 }
@@ -92,21 +110,19 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"点击");
+    GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    [model setAllInfo:YES];
+    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:model useKeys:@[@"groupId"] success:^(id json) {
+        NSLog(@"获取到的小队信息为 %@", json);
+    } failure:^(id errorJson) {
+        NSLog(@"获取小队信息失败的原因为 %@", errorJson);
+    }];
+    
+    
+    /*
     TeamHomePageController *team = [[TeamHomePageController alloc]init];
     [self.navigationController pushViewController:team animated:YES];
-    
+    */
 }
-
-
-/*
-#pragma mark - Navigation
-
- In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     Get the new view controller using [segue destinationViewController].
-     Pass the selected object to the new view controller.
-}
-*/
 
 @end

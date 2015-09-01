@@ -18,5 +18,4 @@
 
 - (void)cellBuiltWithModel:(AddressBookModel *)model;
 
-
 @end

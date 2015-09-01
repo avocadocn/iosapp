@@ -47,7 +47,7 @@ static AFHTTPSessionManager *_mgr;
  */
 + (void)load{
     _routeManager = [RouteManager sharedManager];
-    /**
+    /*
      
      ****************************************************************************************************
      baseUrl 使用细则
@@ -194,22 +194,26 @@ static AFHTTPSessionManager *_mgr;
 
 
 
-+ (void)upload:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
++ (void)upload:(NSString *)url params:(NSMutableDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
     // 发送post 请求
+    __block NSMutableArray *fileArray = [NSMutableArray array];
+    __block NSMutableArray *keyArray = [NSMutableArray array];
+    [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"photo"]) {
+            [keyArray addObject:key];
+            fileArray = (NSMutableArray *)obj;
+        }
+    }];
+    [params removeObjectsForKeys:keyArray];
+    
     [_mgr POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSInteger index = 0;
         
-        [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {//
+        for (NSDictionary *dataDict in fileArray) {
+            [formData appendPartWithFileData:[dataDict objectForKey:@"data"] name:[dataDict objectForKey:@"name"] fileName:[NSString stringWithFormat:@"DonlerImage %zd", index] mimeType:@"image/jpeg"];
+            index++;
             
-            if ([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"photo"]) {
-                NSArray *fileArray = (NSArray *)obj;
-                NSInteger index = 0;
-                for (NSDictionary *dataDict in fileArray) {
-                        [formData appendPartWithFileData:[dataDict objectForKey:@"data"] name:[dataDict objectForKey:@"name"] fileName:[NSString stringWithFormat:@"DonlerImage %zd", index] mimeType:@"image/jpeg"];
-                    
-                    index++;
-                }
-            }
-        }];
+        }
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         if (success) {
             success([self dataToJsonObject:responseObject]);

@@ -64,7 +64,15 @@
         make.bottom.mas_equalTo(self.AttentionPhoto.mas_bottom);
     }];
     
-    
+    UIView *lineView =[UIView new];
+    [lineView setBackgroundColor:[UIColor lightGrayColor]];
+    [self addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.mas_bottom);
+        make.right.mas_equalTo(self.mas_right);
+        make.left.mas_equalTo(self.mas_left).offset(DLMultipleWidth(20.0));
+        make.height.mas_equalTo(.5);
+    }];
 }
 
 - (void)cellBuiltWithModel:(AddressBookModel *)model

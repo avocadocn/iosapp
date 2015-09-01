@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AddressBookModel;
+
 @class HMShop;
 @interface HMShopCell : UICollectionViewCell
 
@@ -21,7 +23,7 @@
 
 @property (nonatomic, strong)UIImageView *likeImage;
 
-- (void)reloadCellWithModel:(id)model;
+- (void)reloadCellWithModel:(AddressBookModel *)model;
 
 
 @end
