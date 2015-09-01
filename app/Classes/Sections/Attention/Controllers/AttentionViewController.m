@@ -88,6 +88,7 @@ static AttentionViewController *att = nil;
     self.attentionTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight) style:UITableViewStylePlain];
     self.attentionTableView.delegate = self;
     self.attentionTableView.dataSource = self;
+    self.attentionTableView.separatorColor = [UIColor clearColor];
     
     [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"cell"];
     

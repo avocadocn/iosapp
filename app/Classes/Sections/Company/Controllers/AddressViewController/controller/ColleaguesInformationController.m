@@ -21,6 +21,10 @@
 static NSInteger tagNum = 1;
 
 @interface ColleaguesInformationController ()<UIScrollViewDelegate>
+@property (nonatomic, strong)UIView *naviView;
+@property (nonatomic, strong)UIButton *backBtn;
+@property (nonatomic, strong)UIButton *settingBtn;
+@property (nonatomic, strong)UILabel *titleLabel;
 
 @end
 
@@ -234,5 +238,45 @@ static NSInteger tagNum = 1;
  // Pass the selected object to the new view controller.
  }
  */
-
+-(void)setupNavigationBar{
+    
+    //初始化山寨导航条
+    self.naviView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, 64)];
+    self.naviView.backgroundColor = [UIColor blackColor];
+    self.naviView.alpha = 0.1f;
+    [self.view addSubview:self.naviView];
+    //添加返回按钮
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backBtn.frame = CGRectMake(12, 30, 12, 20);
+    [self.backBtn setImage:[UIImage imageNamed:@"btn_back_normal"] forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(backBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backBtn];
+    
+    //按钮
+    self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 34, 19, 19);
+    [self.settingBtn setImage:[UIImage imageNamed:@"btn_setting_normal"] forState:UIControlStateNormal];
+    
+    [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.settingBtn];
+    
+    //添加导航条上的大文字
+    self.titleLabel = [[UILabel alloc] init];
+    self.titleLabel.size = CGSizeMake(200, 18);
+    self.titleLabel.centerX = DLScreenWidth / 2;
+    self.titleLabel.y = 64 - self.titleLabel.size.height - 13;
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.font = [UIFont systemFontOfSize:18];
+    self.titleLabel.text = @"小队主页";
+    self.titleLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:self.titleLabel];
+}
+- (void)backBtnClicked:(UIButton *)sender
+{
+    
+}
+- (void)settingBtnClicked:(UIButton *)sender
+{
+    
+}
 @end
