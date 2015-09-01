@@ -47,6 +47,9 @@
         } else {
             self.selected = NO;
             [self.selectButton setBackgroundImage:[UIImage imageNamed:@"NO.png"] forState:UIControlStateNormal];
+            if ([self.delegate respondsToSelector:@selector(deleteValue:)]) {
+                [self.delegate deleteValue:[NSString stringWithFormat:@"%@",self.personEmailLabel.text]];
+            }
             NSLog(@"移除邀请对象");
         }
     
@@ -99,7 +102,6 @@
     self.personNameLabel.text = model.realname;
     
 }
-#pragma addressTableDelegate
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

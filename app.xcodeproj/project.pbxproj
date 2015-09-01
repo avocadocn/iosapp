@@ -10,6 +10,7 @@
 		5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5404302C1B905D6E00C71F39 /* InvatingViewController.m */; };
 		540430311B906B5B00C71F39 /* InvatingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5404302F1B906B5B00C71F39 /* InvatingTableViewCell.m */; };
 		540430321B906B5B00C71F39 /* InvatingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 540430301B906B5B00C71F39 /* InvatingTableViewCell.xib */; };
+		54B46A051B9547C000A6500B /* InvatingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B46A041B9547C000A6500B /* InvatingModel.m */; };
 		54BB1DB61B8DAC3600F76628 /* TwoDimensionCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DB41B8DAC3600F76628 /* TwoDimensionCodeViewController.m */; };
 		54BB1DB71B8DAC3600F76628 /* TwoDimensionCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DB51B8DAC3600F76628 /* TwoDimensionCodeViewController.xib */; };
 		54BB1DB91B8DAE5500F76628 /* TwoDimensionCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DB81B8DAE5500F76628 /* TwoDimensionCode.png */; };
@@ -648,6 +649,8 @@
 		5404302E1B906B5B00C71F39 /* InvatingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingTableViewCell.h; sourceTree = "<group>"; };
 		5404302F1B906B5B00C71F39 /* InvatingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingTableViewCell.m; sourceTree = "<group>"; };
 		540430301B906B5B00C71F39 /* InvatingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvatingTableViewCell.xib; sourceTree = "<group>"; };
+		54B46A031B9547C000A6500B /* InvatingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingModel.h; sourceTree = "<group>"; };
+		54B46A041B9547C000A6500B /* InvatingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingModel.m; sourceTree = "<group>"; };
 		54BB1DB31B8DAC3600F76628 /* TwoDimensionCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimensionCodeViewController.h; sourceTree = "<group>"; };
 		54BB1DB41B8DAC3600F76628 /* TwoDimensionCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoDimensionCodeViewController.m; sourceTree = "<group>"; };
 		54BB1DB51B8DAC3600F76628 /* TwoDimensionCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwoDimensionCodeViewController.xib; sourceTree = "<group>"; };
@@ -1767,6 +1770,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		54B46A021B95479500A6500B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				54B46A031B9547C000A6500B /* InvatingModel.h */,
+				54B46A041B9547C000A6500B /* InvatingModel.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		961053441B590C31002D62A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2190,8 +2202,8 @@
 		9649B5291B564DE000A7F355 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				54B46A021B95479500A6500B /* Models */,
 				968C272D1B7AF5E900950581 /* Team */,
-				96D20EBC1B62038200102D18 /* Models */,
 				96D20EBD1B62038200102D18 /* Views */,
 				9649B52A1B564DE000A7F355 /* Controllers */,
 			);
@@ -3613,13 +3625,6 @@
 			path = SlimeRefresh;
 			sourceTree = "<group>";
 		};
-		96D20EBC1B62038200102D18 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		96D20EBD1B62038200102D18 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -4798,6 +4803,7 @@
 				A46CC45B1B8C6E3A002492EC /* Interaction.m in Sources */,
 				96CF90EB1B673422001759E2 /* wav.mm in Sources */,
 				96CF938E1B674B54001759E2 /* EMChatImageBubbleView.m in Sources */,
+				54B46A051B9547C000A6500B /* InvatingModel.m in Sources */,
 				A44B35691B831DA4004F7A6A /* PasswordView.m in Sources */,
 				96CF90DF1B673422001759E2 /* PSTCollectionViewItemKey.m in Sources */,
 				96C9FFB91B73760B008B71CE /* HelpCellFrame.m in Sources */,

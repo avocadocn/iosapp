@@ -14,6 +14,7 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
+#import "InvatingModel.h"
 @interface InvatingViewController ()<UITableViewDataSource,UITableViewDelegate,addressTableViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)NSMutableArray *contactArray; // 联系人
@@ -61,7 +62,7 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddressTableViewCell"];
-    id person = self.contactArray[indexPath.row];
+    id person = self.contactArray[indexPath.row];  // 
     cell.personPhotoImageView.image = [UIImage imageNamed:@"1"];
     NSString* tmpFirstName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty); // FirstName
     NSString* tmpLastName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);// LastName
@@ -143,12 +144,17 @@
  
 }
 #pragma addresstableDelegate
--(void)passValue:(NSString *)phoneNumber {
+-(void)passValue:(NSString *)phoneNumber { // 添加邀请对象
     if ([phoneNumber isEqualToString:@""]) {
         NSLog(@"%@",phoneNumber);
     } else {
         [self.invatePhone addObject:phoneNumber];
     }
+    NSLog(@"%lu%@",(unsigned long)self.invatePhone.count,self.invatePhone);
+}
+-(void)deleteValue:(NSString *)phoneNumber { // 移除邀请对象
+    [self.invatePhone removeObject:phoneNumber];
+    NSLog(@"%lu%@",(unsigned long)self.invatePhone.count,self.invatePhone);
 }
 // 邀请
 - (void)invateButtonAction
@@ -168,8 +174,9 @@
     NSLog(@"邀请");
     NSLog(@"%lu",(unsigned long)self.invatePhone.count);
 //    Account *account = [AccountTool account];
-    AddressBookModel *model = [[AddressBookModel alloc] init];
-    [model setPhoneNumber:self.invatePhone];
+//    AddressBookModel *model = [[AddressBookModel alloc] init];
+    InvatingModel *model = [[InvatingModel alloc] init];
+    [model setPhone:self.invatePhone];
     [RestfulAPIRequestTool routeName:@"userInvate" requestModel:model useKeys:@[@"phone"] success:^(id json) {
         NSLog(@"邀请成功");
     } failure:^(id errorJson) {

@@ -10,7 +10,7 @@
 @class AddressBookModel;
 @protocol addressTableViewDelegate <NSObject>
 -(void)passValue:(NSString *)phoneNumber;
-
+-(void)deleteValue:(NSString *)phoneNumber;
 @end
 @interface AddressTableViewCell : UITableViewCell
 
