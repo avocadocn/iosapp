@@ -13,6 +13,11 @@
 
 @interface VoteTableViewCell : UITableViewCell
 
+/**
+ *
+ * 投票人的总数
+ */
+@property (nonatomic, assign)NSInteger voteNum;
 
 /**
  *  投票的尺寸

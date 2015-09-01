@@ -40,7 +40,7 @@
     return self;
 }
 
--(void)setOptions:(VoteInfoModel *)model{
+-(void)setOptions:(VoteInfoModel *)model{ // 搭建界面
     _modelArray =  model.options;
     self.optionCount = _modelArray.count;
     if (model.judgeVote == NO) { //没有点击过投票
@@ -55,14 +55,17 @@
             optionView.y = i * 44;  //optioninfo  的坐标
             
             optionView.button.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-                
+                NSLog(@"绘制");  //点击以后绘制
                 for (NSInteger i  = 0; i < self.optionCount ; i++) {
                     @autoreleasepool {
                         
                         VoteOptionsInfoModel *optionInfo = self.modelArray[i];
                         VoteAnimatedOptionView *opti = (VoteAnimatedOptionView *)[self viewWithTag:(i + 1)];
                         opti.voteViewColor = optionInfo.voteInfoColor;
-                        opti.optionPercentage = optionInfo.optionCount;}
+                        opti.optionPercentage = optionInfo.optionCount;
+                        opti.optionCount = self.voteCount;
+                    }
+                    
                 }
                 model.judgeVote = YES;
                 optionView.button.enabled = NO;
@@ -117,13 +120,6 @@
 - (void)judgeView:(UIButton *)tap
 {
     NSLog(@"点击");
-//    NSArray *array = self.subviews;
-//    int i = 0;
-//    for (VoteAnimatedOptionView *optionView in array) {
-//        VoteOptionsInfoModel *optionInfo = self.options[i];
-//        optionView.optionPercentage = optionInfo.optionCount;
-//        i++;
-//    }
     for (NSInteger i  = 0; i < self.optionCount ; i++) {
         @autoreleasepool {
             

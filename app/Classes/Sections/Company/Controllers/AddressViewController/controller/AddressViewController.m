@@ -121,12 +121,14 @@
         i++;
     }
 //    NSLog(@"排列完的字典为%@", self.wordDic);
+        self.modelArray = [NSMutableArray array];
     [self getArrayWithDic:self.wordDic];
+    [self.myTableView reloadData];
 }
 - (void)getArrayWithDic:(NSMutableDictionary *)dic
 {
     NSArray *array = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H",@"I",@"J", @"K", @"L",@"M", @"N",@"O", @"P", @"Q", @"R", @"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z", @"#"];
-    self.modelArray = [NSMutableArray array];
+
     
     for (NSString *str in array) {
         if ([dic objectForKey:str]) {
@@ -152,7 +154,6 @@
         [self.modelArray addObject:myTempDic];
     }
 //    NSLog(@"排列完的数组为 %@", self.modelArray);
-    [self.myTableView reloadData];
 }
 //  index 为 字符串所在字典 在数组中的下标
 - (void)judgeNameFormat:(NSString *)str andIndex:(NSInteger)index

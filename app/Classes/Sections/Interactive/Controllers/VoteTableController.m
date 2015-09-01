@@ -57,34 +57,30 @@ static NSString * const ID = @"VoteTableViewCell";
                            RGBACOLOR(0, 160, 233, 1),nil];
     
     VoteInfoModel *voteInfoModel = [[VoteInfoModel alloc]init];
-    voteInfoModel.name = [NSString stringWithFormat:@"桃地再不斩%zd"];
+    voteInfoModel.name = [NSString stringWithFormat:@"桃地再不斩"];
     voteInfoModel.time = inter.createTime;
     voteInfoModel.voteImageURL = [[inter.photo firstObject] objectForKey:@"uri"];
     voteInfoModel.voteText = inter.theme;
     voteInfoModel.avatarURL = @"1";
-    NSInteger num = arc4random() % 100;
-    
-    /*
-     VoteOptionsInfoModel *optionInfo1 = [[VoteOptionsInfoModel alloc]init];
-     [optionInfo1 setOptionName:[inter.poll ]];
-     [optionInfo1 setOptionCount:];
-     [optionInfo1 setVoteInfoColor:[colorArray objectAtIndex:(arc4random()% 6)]];
-     
-     VoteOptionsInfoModel *optionInfo2 = [[VoteOptionsInfoModel alloc]init];
-     [optionInfo2 setOptionName:@"不美"];
-     [optionInfo2 setOptionCount:100 - num];
-     [optionInfo2 setVoteInfoColor:[colorArray objectAtIndex:(arc4random()% 6)]];
-     
-     */
+
     voteInfoModel.options = [NSMutableArray array];
+    NSInteger num = 0;
     for (NSDictionary *dic in inter.poll.option) {
+        NSArray *array = [dic objectForKey:@"voters"];
         VoteOptionsInfoModel *optionInfo2 = [[VoteOptionsInfoModel alloc]init];
-        [optionInfo2 setOptionName:@"value"];
-        [optionInfo2 setOptionCount:[[dic objectForKey:@"voters"] count]];
+        [optionInfo2 setOptionName:[dic objectForKey:@"value"]];
+        num += array.count;
+        [optionInfo2 setOptionCount:array.count];
+        if (!array.count) {
+            num += 0;
+            [optionInfo2 setOptionCount:0];
+        }
+        optionInfo2.voteInfoColor = [colorArray objectAtIndex:arc4random() % 6];
         [voteInfoModel.options addObject:optionInfo2];
     }
     
     VoteCellFrame *f = [[VoteCellFrame alloc]init];
+    f.voteNum = num;
     [f setVoteInfoModel:voteInfoModel];
     
     [self.voteArray addObject:f];  // 设置假的 color

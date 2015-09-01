@@ -83,6 +83,7 @@
 //    _optionPercentage = optionPercentage;
     self.percentageLabel.text = [NSString stringWithFormat:@"%zd%%",optionPercentage];
     
+    
     [self openAnimation:optionPercentage];
 }
 
@@ -145,7 +146,9 @@
     
     shape.path = bPath.CGPath;
     */
-    CGFloat width = optionPercentage / 100.0 * DLScreenWidth;
+    
+    //这儿有错误
+    CGFloat width = optionPercentage / self.optionCount * DLScreenWidth;
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 44)];
     view.backgroundColor = self.voteViewColor;
@@ -157,7 +160,8 @@
 }
 
 -(void)btnClicked:(id)sender{
-   }
+    
+}
 
 
 -(void)setOptionName:(NSString *)optionName{

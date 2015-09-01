@@ -16,7 +16,7 @@
 #import "AccountTool.h"
 #import "Account.h"
 
-@interface VerifiCodeController ()<DLNetworkRequestDelegate, ZSDSetPasswordViewDelegate>
+@interface VerifiCodeController ()<DLNetworkRequestDelegate, ZSDSetPasswordViewDelegate, UIAlertViewDelegate>
 
 @end
 
@@ -122,7 +122,7 @@
     NSInteger num = [numStr integerValue];
     
     if (num != 1) {
-        self.requestAgain.text = [NSString stringWithFormat:@"重新获取验证码( %ld )", --num];
+        self.requestAgain.text = [NSString stringWithFormat:@"重新获取验证码( %ld )", (long)--num];
     }
     else {
         self.requestAgain.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:214.0/255.0 blue:0/255.0 alpha:1];
@@ -139,15 +139,48 @@
 
 - (void)requestAgainTap:(UITapGestureRecognizer *)tap
 {
-    NSLog(@"重新获取");
-    self.requestAgain.userInteractionEnabled = NO;
-
-    NSString * str = @"重新获取验证码( 60 )";
-    self.requestAgain.backgroundColor = [UIColor colorWithWhite:.85 alpha:1];
-    self.requestAgain.textColor = [UIColor colorWithWhite:.7 alpha:1];
-    self.requestAgain.text = str;
-    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
+    UIAlertView *alext = [[UIAlertView alloc]initWithTitle:@"重新发送验证码" message:@"" delegate: self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
+    alext.delegate = self;
+    [alext show];
 }
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+        LoginSinger *singer = [LoginSinger shareState];
+    switch (buttonIndex) {
+        case 1:{
+            [SMS_SDK getVerificationCodeBySMSWithPhone:singer.phone
+                                                  zone:@"86"
+                                                result:^(SMS_SDKError *error)
+             {
+                 if (!error)
+                 {
+                     NSLog(@"验证码发送成功");
+                     self.requestAgain.userInteractionEnabled = NO;
+                     
+                     NSString * str = @"重新获取验证码( 60 )";
+                     self.requestAgain.backgroundColor = [UIColor colorWithWhite:.85 alpha:1];
+                     self.requestAgain.textColor = [UIColor colorWithWhite:.7 alpha:1];
+                     self.requestAgain.text = str;
+                     self.myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
+                 }
+                 else
+                 {
+                     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"验证码发送失败", nil)
+                                                                     message:[NSString stringWithFormat:@"状态码：%zi ,错误描述：%@",error.errorCode,error.errorDescription]
+                                                                    delegate:self
+                                                           cancelButtonTitle:NSLocalizedString(@"sure", nil)
+                                                           otherButtonTitles:nil, nil];
+                     [alert show];
+                 }
+             }];
+
+    }
+        default:
+            break;
+    }
+}
+
 - (void)passwordView:(ZSDSetPasswordView *)passwordView inputPassword:(NSString *)password
 {
     [self sendPassword:password];
@@ -155,6 +188,7 @@
 
 - (void)sendPassword:(NSString *)password
 {
+    
     [SMS_SDK commitVerifyCode:password result:^(enum SMS_ResponseState state) {
         if (1 == state)
         {

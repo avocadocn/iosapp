@@ -30,10 +30,15 @@
  * votecolor
  */
 @property (nonatomic, copy)UIColor *voteViewColor;
+/**
+ *  选择的人数
+ */
+@property (nonatomic, assign)CGFloat optionCount;
 
 /**
  *点击过投票的搭建页面
  */
 - (void)builtInterfaceWithInter:(NSInteger)num;
+
 
 @end

@@ -102,15 +102,35 @@
     [RestfulAPIRequestTool routeName:@"userLogOut" requestModel:model useKeys:@[@"msg"] success:^(id json) {
         [self presentViewController:loginVC animated:YES completion:nil];
         NSLog(@"退出成功");
+        accout.token = nil;
+        [AccountTool saveAccount:accout];
     } failure:^(id errorJson) {
         NSLog(@"退出失败原因 %@",errorJson);
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯嗯，知道了", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
+        alertView.delegate = self;
         [alertView show];
     }];
     } else { // 取消
         
     }
 }
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            LoginViewController *lo = [[LoginViewController alloc]init];
+            Account *acc = [AccountTool account];
+            acc.token = nil;
+            [self.navigationController pushViewController:lo animated:YES];
+            [AccountTool saveAccount:acc];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

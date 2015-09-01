@@ -46,7 +46,7 @@
 
 - (id)judgeLoginState{
     Account *myAccount = [AccountTool account];
-    if (myAccount) {  //账户已经登录过了
+    if (myAccount.token) {  //账户已经登录过了
         MainController *main = [[MainController alloc]init];
         self.mainController = main;
         return main;
