@@ -62,25 +62,10 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddressTableViewCell"];
-    id person = self.contactArray[indexPath.row];  // 
-    cell.personPhotoImageView.image = [UIImage imageNamed:@"1"];
-    NSString* tmpFirstName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty); // FirstName
-    NSString* tmpLastName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);// LastName
-//    phoneNumber
-    ABMultiValueRef tmpPhones = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
-    for(NSInteger j = 0; j < ABMultiValueGetCount(tmpPhones); j++)
-    {
-        NSString* tmpPhoneIndex = (__bridge NSString*)ABMultiValueCopyValueAtIndex(tmpPhones, j);
-        if (tmpPhoneIndex.length >= 13) {
-            cell.personEmailLabel.text = tmpPhoneIndex;
-        }else {
-        }
-    }
-    if (tmpLastName) {
-         cell.personNameLabel.text = [NSString stringWithFormat:@"%@ %@",tmpFirstName,tmpLastName];
-    } else {
-        cell.personNameLabel.text = [NSString stringWithFormat:@"%@",tmpFirstName];
-    }
+    NSDictionary *dic = self.contactArray[indexPath.row];  //
+    id person = [dic objectForKey:@"person"];
+    [cell reloCellWithAddressBook:person andStateString:[dic objectForKey:@"state"]];
+    cell.indexPath = indexPath;
     cell.delegate = self;
     return cell;
 }
@@ -88,7 +73,11 @@
     ABAddressBookRef tmpAddressBook = ABAddressBookCreate();
     NSArray* tmpPeoples = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(tmpAddressBook);
     for(id tmpPerson in tmpPeoples) {
-        [self.contactArray addObject:tmpPerson];
+        NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
+        [tempDic setObject:tmpPerson forKey:@"person"];
+        [tempDic setObject:@"0" forKey:@"state"];  // 未被选中
+        
+        [self.contactArray addObject:tempDic];
     }
     [self.tableView reloadData];
     //取得本地通信录名柄
@@ -141,22 +130,42 @@
     }
  */
     
- 
 }
 #pragma addresstableDelegate
--(void)passValue:(NSString *)phoneNumber { // 添加邀请对象
-    if ([phoneNumber isEqualToString:@""]) {
-        NSLog(@"%@",phoneNumber);
-    } else {
-        [self.invatePhone addObject:phoneNumber];
+/*
+//-(void)passValue:(NSString *)phoneNumber { // 添加邀请对象
+//    if ([phoneNumber isEqualToString:@""]) {
+//        NSLog(@"%@",phoneNumber);
+//    } else {
+//        [self.invatePhone addObject:phoneNumber];
+//    }
+//    NSLog(@"%lu%@",(unsigned long)self.invatePhone.count,self.invatePhone);
+//}
+//-(void)deleteValue:(NSString *)phoneNumber { // 移除邀请对象
+//    [self.invatePhone removeObject:phoneNumber];
+//    NSLog(@"%lu%@",(unsigned long)self.invatePhone.count,self.invatePhone);
+//}
+*/
+- (void)sendIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableDictionary *dic = self.contactArray[indexPath.row];
+    switch ([[dic objectForKey:@"state"] integerValue]) {
+        case 0:{
+            [dic setObject:@"1" forKey:@"state"];
+            break;
+        }
+        case 1:
+        {
+            [dic setObject:@"0" forKey:@"state"];
+            break;
+        }
+        default:
+            break;
     }
-    NSLog(@"%lu%@",(unsigned long)self.invatePhone.count,self.invatePhone);
 }
--(void)deleteValue:(NSString *)phoneNumber { // 移除邀请对象
-    [self.invatePhone removeObject:phoneNumber];
-    NSLog(@"%lu%@",(unsigned long)self.invatePhone.count,self.invatePhone);
-}
+
 // 邀请
+
 - (void)invateButtonAction
 {
     self.invatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
@@ -171,10 +180,12 @@
     self.invatingLabel.userInteractionEnabled = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.invatingLabel];}
 -(void)editButtonAction:(UITapGestureRecognizer *)gesture {
-    NSLog(@"邀请");
+    
+    NSArray *array = [self getInviteArrayWithArray];
+    NSLog(@"邀请人的列表有 %@", array);
+
     NSLog(@"%lu",(unsigned long)self.invatePhone.count);
-//    Account *account = [AccountTool account];
-//    AddressBookModel *model = [[AddressBookModel alloc] init];
+    
     InvatingModel *model = [[InvatingModel alloc] init];
     [model setPhone:self.invatePhone];
     [RestfulAPIRequestTool routeName:@"userInvate" requestModel:model useKeys:@[@"phone"] success:^(id json) {
@@ -183,7 +194,25 @@
         NSLog(@"邀请失败的原因 %@",[errorJson objectForKey:@"msg"]);
     }];
     
-    
+}
+
+- (NSArray *)getInviteArrayWithArray
+{
+    NSMutableArray *array  = [NSMutableArray array];
+    for (NSDictionary *dic in self.contactArray) {
+        if ([[dic objectForKey:@"state"] isEqualToString:@"1"]) {//选中了
+            id person = [dic objectForKey:@"person"];
+            ABMultiValueRef tmpPhones = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
+            for(NSInteger j = 0; j < ABMultiValueGetCount(tmpPhones); j++)
+            {
+                NSString* tmpPhoneIndex = (__bridge NSString*)ABMultiValueCopyValueAtIndex(tmpPhones, j);
+                if (j == (ABMultiValueGetCount(tmpPhones) - 1)) {
+                    [array addObject:tmpPhoneIndex];
+                }
+            }
+        }
+    }
+    return array;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -199,5 +228,12 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
 
 @end

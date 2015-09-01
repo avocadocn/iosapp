@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/8/3.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import <AddressBookUI/AddressBookUI.h>
 #import "AddressTableViewCell.h"
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
@@ -35,25 +35,7 @@
         make.size.mas_equalTo(CGSizeMake(self.height - 20, self.height - 20));
         make.left.mas_equalTo(self.mas_left).offset(20);
     }];
-    [[[self.selectButton rac_signalForControlEvents:UIControlEventTouchUpInside]takeUntil:self.rac_prepareForReuseSignal]subscribeNext:^(id x) {
-        if (!self.selected) {
-            self.selected = YES;
-            [self.selectButton setBackgroundImage:[UIImage imageNamed:@"OK.png"] forState:UIControlStateNormal];
-            NSLog(@"%@",self.personNameLabel.text);
-            NSLog(@"%@",self.personEmailLabel.text);
-            if ([self.delegate respondsToSelector:@selector(passValue:)]) {
-                [self.delegate passValue:[NSString stringWithFormat:@"%@",self.personEmailLabel.text]];
-            }
-        } else {
-            self.selected = NO;
-            [self.selectButton setBackgroundImage:[UIImage imageNamed:@"NO.png"] forState:UIControlStateNormal];
-            if ([self.delegate respondsToSelector:@selector(deleteValue:)]) {
-                [self.delegate deleteValue:[NSString stringWithFormat:@"%@",self.personEmailLabel.text]];
-            }
-            NSLog(@"移除邀请对象");
-        }
-    
-    }];
+    [self.selectButton addTarget:self action:@selector(selectButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     self.personPhotoImageView = [UIImageView new];
     
@@ -93,7 +75,18 @@
 //  选中图片OK.png,未选中图片2.png
     
 }
+- (void)selectButtonAction:(UIButton *)sender
+{
+    if (self.selectButtonState) { // 被选中了
+        self.selectButtonState = NO;
+        [self.selectButton setBackgroundImage:[UIImage imageNamed:@"No.png"] forState:UIControlStateNormal];
+    } else {
+        self.selectButtonState = YES;
+        [self.selectButton setBackgroundImage:[UIImage imageNamed:@"OK.png"] forState:UIControlStateNormal];
+    }
+    [self.delegate sendIndexPath:self.indexPath];
 
+}
 - (void)cellReloadWithAddressModel:(AddressBookModel *)model
 {
     [self.personPhotoImageView dlGetRouteWebImageWithString:model.photo placeholderImage:[UIImage imageNamed:@"1"]];
@@ -105,6 +98,47 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    
+}
+
+- (void)reloCellWithAddressBook:(id)person andStateString:(NSString *)str
+{
+    self.personPhotoImageView.image = [UIImage imageNamed:@"1"];
+    NSString* tmpFirstName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty); // FirstName
+    NSString* tmpLastName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);// LastName
+    //    phoneNumber
+    ABMultiValueRef tmpPhones = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
+    for(NSInteger j = 0; j < ABMultiValueGetCount(tmpPhones); j++)
+    {
+        NSString* tmpPhoneIndex = (__bridge NSString*)ABMultiValueCopyValueAtIndex(tmpPhones, j);
+        if (tmpPhoneIndex.length >= 13) {
+            self.personEmailLabel.text = tmpPhoneIndex;
+            
+        }else {
+        }
+    }
+    
+    if (tmpLastName) {
+        self.personNameLabel.text = [NSString stringWithFormat:@"%@ %@",tmpFirstName,tmpLastName];
+    } else {
+        self.personNameLabel.text = [NSString stringWithFormat:@"%@",tmpFirstName];
+    }
+    
+    switch ([str integerValue]) {
+        case 0:{//未被选中
+            self.selectButtonState = NO;
+            [self.selectButton setBackgroundImage:[UIImage imageNamed:@"No.png"] forState:UIControlStateNormal];
+            break;
+        }
+            case 1://选中
+        {
+            self.selectButtonState = YES;
+            [self.selectButton setBackgroundImage:[UIImage imageNamed:@"OK.png"] forState:UIControlStateNormal];
+            break;
+        }
+        default:
+            break;
+    }
     
 }
 
