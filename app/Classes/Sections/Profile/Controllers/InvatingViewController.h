@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface InvatingViewController : UIViewController
-
+@property (nonatomic, strong)UILabel *invatingLabel;// 邀请按钮
 @end

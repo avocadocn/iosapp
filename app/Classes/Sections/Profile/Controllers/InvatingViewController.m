@@ -9,12 +9,31 @@
 #import "InvatingViewController.h"
 #import <AddressBookUI/AddressBookUI.h>
 #import "InvatingTableViewCell.h"
-@interface InvatingViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "AddressTableViewCell.h"
+#import "AddressBookModel.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "RestfulAPIRequestTool.h"
+#import "InvatingModel.h"
+@interface InvatingViewController ()<UITableViewDataSource,UITableViewDelegate,addressTableViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
+@property (nonatomic, strong)NSMutableArray *contactArray; // 联系人
+@property (nonatomic, strong)NSMutableArray *invatePhone; // 区头
 @end
 
 @implementation InvatingViewController
-
+-(NSMutableArray *)contactArray {
+    if (_contactArray == nil) {
+        self.contactArray = [@[]mutableCopy];
+    }
+    return _contactArray;
+}
+-(NSMutableArray *)invatePhone {
+    if (_invatePhone == nil) {
+        self.invatePhone = [@[]mutableCopy];
+    }
+    return _invatePhone;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -25,36 +44,53 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
 //    注册cell
-    [self.tableView registerNib:[UINib nibWithNibName:@"InvatingTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"InvatingTableViewCell"];
+    [self.tableView registerClass:[AddressTableViewCell class] forCellReuseIdentifier:@"AddressTableViewCell"];
     [self ReadAllPeoples];
-    
+    [self invateButtonAction]; //
 }
 #pragma tableViewDelegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.contactArray.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 20;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    InvatingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InvatingTableViewCell" forIndexPath:indexPath];
+    AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AddressTableViewCell"];
+    id person = self.contactArray[indexPath.row];  // 
+    cell.personPhotoImageView.image = [UIImage imageNamed:@"1"];
+    NSString* tmpFirstName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty); // FirstName
+    NSString* tmpLastName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);// LastName
+//    phoneNumber
+    ABMultiValueRef tmpPhones = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
+    for(NSInteger j = 0; j < ABMultiValueGetCount(tmpPhones); j++)
+    {
+        NSString* tmpPhoneIndex = (__bridge NSString*)ABMultiValueCopyValueAtIndex(tmpPhones, j);
+        if (tmpPhoneIndex.length >= 13) {
+            cell.personEmailLabel.text = tmpPhoneIndex;
+        }else {
+        }
+    }
+    if (tmpLastName) {
+         cell.personNameLabel.text = [NSString stringWithFormat:@"%@ %@",tmpFirstName,tmpLastName];
+    } else {
+        cell.personNameLabel.text = [NSString stringWithFormat:@"%@",tmpFirstName];
+    }
+    cell.delegate = self;
     return cell;
 }
--(void)ReadAllPeoples {
+-(void)ReadAllPeoples { // 获取本地联系人
     ABAddressBookRef tmpAddressBook = ABAddressBookCreate();
     NSArray* tmpPeoples = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(tmpAddressBook);
     for(id tmpPerson in tmpPeoples) {
-        NSString* tmpFirstName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(tmpPerson), kABPersonFirstNameProperty);
-//        NSLog(@"联系人列表 %@",tmpFirstName);
-        //获取的联系人单一属性:Last name
-        NSString* tmpLastName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(tmpPerson), kABPersonLastNameProperty);
-        NSLog(@"Last name:%@ %@",tmpFirstName,tmpLastName);
-        //获取的联系人单一属性:Generic phone number
-        ABMultiValueRef tmpPhones = ABRecordCopyValue((__bridge ABRecordRef)(tmpPerson), kABPersonPhoneProperty);
-        NSLog(@"%@",tmpPhones);
-        for(NSInteger j = 0; j < ABMultiValueGetCount(tmpPhones); j++)
-        {
-            NSString* tmpPhoneIndex = (__bridge NSString*)ABMultiValueCopyValueAtIndex(tmpPhones, j);
-            NSLog(@"tmpPhoneIndex%ld:%@", (long)j, tmpPhoneIndex);
-        }
+        [self.contactArray addObject:tmpPerson];
     }
+    [self.tableView reloadData];
     //取得本地通信录名柄
 /*    ABAddressBookRef tmpAddressBook = ABAddressBookCreate();
     //取得本地所有联系人记录
@@ -106,6 +142,48 @@
  */
     
  
+}
+#pragma addresstableDelegate
+-(void)passValue:(NSString *)phoneNumber { // 添加邀请对象
+    if ([phoneNumber isEqualToString:@""]) {
+        NSLog(@"%@",phoneNumber);
+    } else {
+        [self.invatePhone addObject:phoneNumber];
+    }
+    NSLog(@"%lu%@",(unsigned long)self.invatePhone.count,self.invatePhone);
+}
+-(void)deleteValue:(NSString *)phoneNumber { // 移除邀请对象
+    [self.invatePhone removeObject:phoneNumber];
+    NSLog(@"%lu%@",(unsigned long)self.invatePhone.count,self.invatePhone);
+}
+// 邀请
+- (void)invateButtonAction
+{
+    self.invatingLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
+    //    [label setBackgroundColor:[UIColor blackColor]];
+    
+    
+    UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(editButtonAction:)];
+    [self.invatingLabel addGestureRecognizer:tap];
+    self.invatingLabel.text = @"邀请";
+    self.invatingLabel.textAlignment = NSTextAlignmentRight;
+    self.invatingLabel.font = [UIFont systemFontOfSize:15];
+    self.invatingLabel.userInteractionEnabled = YES;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.invatingLabel];}
+-(void)editButtonAction:(UITapGestureRecognizer *)gesture {
+    NSLog(@"邀请");
+    NSLog(@"%lu",(unsigned long)self.invatePhone.count);
+//    Account *account = [AccountTool account];
+//    AddressBookModel *model = [[AddressBookModel alloc] init];
+    InvatingModel *model = [[InvatingModel alloc] init];
+    [model setPhone:self.invatePhone];
+    [RestfulAPIRequestTool routeName:@"userInvate" requestModel:model useKeys:@[@"phone"] success:^(id json) {
+        NSLog(@"邀请成功");
+    } failure:^(id errorJson) {
+        NSLog(@"邀请失败的原因 %@",[errorJson objectForKey:@"msg"]);
+    }];
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

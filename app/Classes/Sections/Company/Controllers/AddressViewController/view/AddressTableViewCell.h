@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 @class AddressBookModel;
-
+@protocol addressTableViewDelegate <NSObject>
+-(void)passValue:(NSString *)phoneNumber;
+-(void)deleteValue:(NSString *)phoneNumber;
+@end
 @interface AddressTableViewCell : UITableViewCell
 
 @property (nonatomic, strong)UILabel *personNameLabel;
@@ -19,6 +22,7 @@
 
 @property (nonatomic, strong)UIButton *selectButton;
 
+@property (nonatomic, assign)id<addressTableViewDelegate>delegate;
 - (void)cellReloadWithAddressModel:(AddressBookModel *)model;
 
 @end

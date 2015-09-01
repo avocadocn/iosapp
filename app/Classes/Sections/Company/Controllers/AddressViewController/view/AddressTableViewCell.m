@@ -28,14 +28,31 @@
     self.selectButton = [UIButton buttonWithType:UIButtonTypeSystem];
     
     [self addSubview:self.selectButton];
-    
+//    [self.selectButton setImage:[UIImage imageNamed:@"OK.png"] forState:UIControlStateNormal];
+    [self.selectButton setBackgroundImage:[UIImage imageNamed:@"NO.png"] forState:UIControlStateNormal];
     [self.selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(self.height - 30, self.height - 30));
+        make.size.mas_equalTo(CGSizeMake(self.height - 20, self.height - 20));
         make.left.mas_equalTo(self.mas_left).offset(20);
     }];
     [[[self.selectButton rac_signalForControlEvents:UIControlEventTouchUpInside]takeUntil:self.rac_prepareForReuseSignal]subscribeNext:^(id x) {
-        NSLog(@"button select action....");
+        if (!self.selected) {
+            self.selected = YES;
+            [self.selectButton setBackgroundImage:[UIImage imageNamed:@"OK.png"] forState:UIControlStateNormal];
+            NSLog(@"%@",self.personNameLabel.text);
+            NSLog(@"%@",self.personEmailLabel.text);
+            if ([self.delegate respondsToSelector:@selector(passValue:)]) {
+                [self.delegate passValue:[NSString stringWithFormat:@"%@",self.personEmailLabel.text]];
+            }
+        } else {
+            self.selected = NO;
+            [self.selectButton setBackgroundImage:[UIImage imageNamed:@"NO.png"] forState:UIControlStateNormal];
+            if ([self.delegate respondsToSelector:@selector(deleteValue:)]) {
+                [self.delegate deleteValue:[NSString stringWithFormat:@"%@",self.personEmailLabel.text]];
+            }
+            NSLog(@"移除邀请对象");
+        }
+    
     }];
     
     self.personPhotoImageView = [UIImageView new];
@@ -73,6 +90,8 @@
         make.right.mas_equalTo(self.personNameLabel.mas_right);
         make.height.mas_equalTo(self.personNameLabel.mas_height);
     }];
+//  选中图片OK.png,未选中图片2.png
+    
 }
 
 - (void)cellReloadWithAddressModel:(AddressBookModel *)model
@@ -83,7 +102,6 @@
     self.personNameLabel.text = model.realname;
     
 }
-
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
