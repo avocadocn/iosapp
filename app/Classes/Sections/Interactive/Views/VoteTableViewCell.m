@@ -65,7 +65,7 @@
     if (self) {
         
         [self setBackgroundColor:RGB(235, 235, 235)];
-       
+
         [self setupView];
     }
     return self;
@@ -75,7 +75,7 @@
     
     // 容器视图
     UIView *voteContainer = [[UIView alloc]init];
-    [voteContainer setBackgroundColor:[UIColor whiteColor]];
+    [voteContainer setBackgroundColor:[UIColor yellowColor]];
     
     // 头像 设置圆角
     UIImageView *avatarImageView = [[UIImageView alloc]init];
@@ -116,6 +116,7 @@
     VoteOptionsView *optionsView = [[VoteOptionsView alloc]init];
     optionsView.voteCount = self.voteNum;
     [voteContainer addSubview:optionsView];
+    optionsView.backgroundColor = [UIColor redColor];
     self.optionsView = optionsView;
     
     // 从六个背景条颜色的所有种排序中选出一个
@@ -188,6 +189,8 @@
 
 -(void)setVoteCellFrame:(VoteCellFrame *)voteCellFrame{
     self.voteNum = voteCellFrame.voteNum;
+    self.optionsView.voteCount = self.voteNum;
+
     _voteCellFrame = voteCellFrame;
     
     VoteInfoModel *model = voteCellFrame.voteInfoModel;
@@ -199,7 +202,7 @@
 
     self.timeLabel.text = model.time;
     [self.timeLabel setFrame:voteCellFrame.timeLabelF];
-    
+//    self.timeLabel.backgroundColor = [UIColor redColor];
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
     if (model.voteImageURL) {
         [self.voteImageView setImage:[UIImage imageNamed:model.voteImageURL]];

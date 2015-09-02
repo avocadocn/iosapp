@@ -16,9 +16,9 @@
 @property (nonatomic, copy) NSString *optionName;
 
 /**
- *  该选项的投票数
+ *  该选项的投票人数
  */
-@property (nonatomic, assign) NSInteger optionCount;
+@property (nonatomic, assign) NSNumber* optionCount;
 
 /**
  *  是否投过票
@@ -29,5 +29,21 @@
  * model 中的 color
  */
 @property (nonatomic, copy)UIColor *voteInfoColor;
+
+
+/**
+ *  投票Id
+ */
+@property (nonatomic, copy)NSString *interactionId;
+
+/**
+ * 用户 id
+ */
+@property (nonatomic, copy)NSString *userId;
+
+/**
+ * 投票用的 body
+ */
+@property (nonatomic, strong)NSNumber *index;
 
 @end

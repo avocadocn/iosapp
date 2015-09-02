@@ -77,7 +77,7 @@
  *
  * 投票人的总数
  */
-@property (nonatomic, assign)NSInteger voteNum;
+@property (nonatomic, assign)NSNumber *voteNum;
 
 
 

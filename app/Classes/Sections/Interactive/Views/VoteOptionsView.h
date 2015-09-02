@@ -20,7 +20,7 @@
 /**
  *  参与投票的总人数
  */
-@property (nonatomic, assign) NSInteger voteCount;
+@property (nonatomic, assign) NSNumber *voteCount;
 
 -(void)setOptions:(VoteInfoModel *)model;
 
