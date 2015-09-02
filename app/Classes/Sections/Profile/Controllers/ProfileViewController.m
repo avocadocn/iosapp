@@ -133,6 +133,7 @@ static NSString * const ID = @"ProfileTableViewCell";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0 && indexPath.row == 0) {// 邀请
         InvatingViewController *invatingVC = [[InvatingViewController alloc] init];

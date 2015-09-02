@@ -59,6 +59,7 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0 && indexPath.row == 0) { // 修改密码
         self.alert = [[UIAlertView alloc] initWithTitle:@"密码验证" message:@"为了您的账号安全修改密码前 请输入原密码" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [self.alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
