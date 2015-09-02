@@ -8,11 +8,8 @@
 
 #import "InvatingViewController.h"
 #import <AddressBookUI/AddressBookUI.h>
-#import "InvatingTableViewCell.h"
 #import "AddressTableViewCell.h"
 #import "AddressBookModel.h"
-#import "Account.h"
-#import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
 #import "InvatingModel.h"
 @interface InvatingViewController ()<UITableViewDataSource,UITableViewDelegate,addressTableViewDelegate>
@@ -173,8 +170,6 @@
 -(void)editButtonAction:(UITapGestureRecognizer *)gesture {
     NSLog(@"邀请");
     NSLog(@"%lu",(unsigned long)self.invatePhone.count);
-//    Account *account = [AccountTool account];
-//    AddressBookModel *model = [[AddressBookModel alloc] init];
     InvatingModel *model = [[InvatingModel alloc] init];
     [model setPhone:self.invatePhone];
     [RestfulAPIRequestTool routeName:@"userInvate" requestModel:model useKeys:@[@"phone"] success:^(id json) {

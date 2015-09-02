@@ -14,7 +14,7 @@
 
 @implementation TwoDimensionCodeViewController
 // 用户邀请 www.55yali.com/signup?uid=xxxxxxxx
-// 学校二维码邀请：www.55yali.com/signup?cid=xxxxxxxxx用户邀请
+// 学校二维码邀请：www.55yali.com/signup?cid=xxxxxxxxx
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -108,9 +108,9 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
     CGDataProviderRelease(dataProvider);
     UIImage* resultUIImage = [UIImage imageWithCGImage:imageRef];
     // release
-    CGImageRelease(imageRef);
-    CGContextRelease(context);
-    CGColorSpaceRelease(colorSpace);
+//    CGImageRelease(imageRef);
+//    CGContextRelease(context);
+//    CGColorSpaceRelease(colorSpace);
     return resultUIImage;
 }
 @end
