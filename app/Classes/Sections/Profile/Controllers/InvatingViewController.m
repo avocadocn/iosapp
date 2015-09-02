@@ -15,7 +15,7 @@
 @interface InvatingViewController ()<UITableViewDataSource,UITableViewDelegate,addressTableViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)NSMutableArray *contactArray; // 联系人
-@property (nonatomic, strong)NSMutableArray *invatePhone; // 区头
+@property (nonatomic, strong)NSMutableArray *invatePhone; // 邀请人
 @end
 
 @implementation InvatingViewController
@@ -67,14 +67,33 @@
     return cell;
 }
 -(void)ReadAllPeoples { // 获取本地联系人
-    ABAddressBookRef tmpAddressBook = ABAddressBookCreate();
-    NSArray* tmpPeoples = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(tmpAddressBook);
+    CFErrorRef error = NULL;
+    ABAddressBookRef tmpAddressBook = ABAddressBookCreateWithOptions(NULL, &error);
+    NSArray *tmpPeoples = [NSArray array];
+    if (tmpAddressBook) {
+       tmpPeoples = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(tmpAddressBook);
+    }
     for(id tmpPerson in tmpPeoples) {
-        NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
-        [tempDic setObject:tmpPerson forKey:@"person"];
-        [tempDic setObject:@"0" forKey:@"state"];  // 未被选中
+        NSString* tmpFirstName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(tmpPerson), kABPersonFirstNameProperty); // FirstName
+        NSString* tmpLastName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(tmpPerson), kABPersonLastNameProperty);// LastName
+        NSString *contactName = [NSString stringWithFormat:@"%@ %@",tmpFirstName,tmpLastName];
         
-        [self.contactArray addObject:tempDic];
+        ABMultiValueRef tmpPhones = ABRecordCopyValue((__bridge ABRecordRef)(tmpPerson), kABPersonPhoneProperty);
+        NSString *contactPhoneNumber = @"";
+        for(NSInteger j = 0; j < ABMultiValueGetCount(tmpPhones); j++)
+        {
+            NSString* tmpPhoneIndex = (__bridge NSString*)ABMultiValueCopyValueAtIndex(tmpPhones, j);
+            if (tmpPhoneIndex.length >= 13 && [tmpPhoneIndex hasPrefix:@"("]) {
+                contactPhoneNumber = tmpPhoneIndex;
+            }else {
+            }
+        }
+        NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
+        if (![contactName isEqualToString:@""] && ![contactPhoneNumber isEqualToString:@""]) {
+            [tempDic setObject:tmpPerson forKey:@"person"];
+            [tempDic setObject:@"0" forKey:@"state"];  // 未被选中
+            [self.contactArray addObject:tempDic];
+        }
     }
     [self.tableView reloadData];
     //取得本地通信录名柄
@@ -229,6 +248,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSMutableDictionary *dic = self.contactArray[indexPath.row];
+    switch ([[dic objectForKey:@"state"] integerValue]) {
+        case 0:{
+            [dic setObject:@"1" forKey:@"state"];
+            break;
+        }
+        case 1:
+        {
+            [dic setObject:@"0" forKey:@"state"];
+            break;
+        }
+        default:
+            break;
+    }
+    [self.tableView reloadData];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 

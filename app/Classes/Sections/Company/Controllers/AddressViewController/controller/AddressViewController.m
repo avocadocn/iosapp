@@ -163,7 +163,7 @@
     //    uc 在 ascii 码表中的位置
     // 大写                            小写
     if ((uc >= 65 && uc <=90) || (uc >= 97 && uc <= 122) ) { //英文
-//        NSLog(@"这个字符为英文");
+//        NSLog(@"这个字符为英文"); 
         [self orderWordWithString:uc andIndex:index];
     } else if (uc >= 48 && uc <= 57){
 //        NSLog(@"这个字符为数字");
