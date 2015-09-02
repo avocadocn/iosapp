@@ -52,6 +52,7 @@
     self.mailTextField = [UITextField new];
     self.mailTextField.placeholder = @"132-XXXX-3804";
     [self.mailTextField placeholder]; self.mailTextField.delegate = self;
+    self.mailTextField.keyboardType = UIKeyboardTypeNumberPad;
     [view addSubview:self.mailTextField];
     
     [self.mailTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,6 +91,13 @@
         make.right.mas_equalTo(view.mas_right);
         make.height.mas_equalTo(view.height / 2.0 + 5);
     }];
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapAction:)]];
+}
+
+- (void)viewTapAction:(UITapGestureRecognizer *)tap
+{
+    [self.mailTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
 }
 
 - (void)loginButtonAction:(UIButton *)sender
@@ -115,9 +123,9 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
         
     } failure:^(id errorJson) {
-        NSLog(@"失败, 请求到的数据为%@", errorJson);
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        [alert show];
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,6 +153,7 @@
     UIAlertView *al = [[UIAlertView alloc]initWithTitle:str message:nil delegate:self cancelButtonTitle:@"重试" otherButtonTitles: nil, nil];
     [al show];
 }
+
 //- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
 //    
 //    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];

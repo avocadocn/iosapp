@@ -152,7 +152,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     self.selectedIndexPath = indexPath;
     NSString *buddyName = [self.dataSource objectAtIndex:indexPath.row];
     if ([self didBuddyExist:buddyName]) {

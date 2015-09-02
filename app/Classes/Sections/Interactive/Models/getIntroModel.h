@@ -20,4 +20,6 @@
 
 @property (nonatomic, copy)NSNumber *limit;
 
+@property (nonatomic, assign)BOOL selectState;
+
 @end

@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 @class AddressBookModel;
 @protocol addressTableViewDelegate <NSObject>
--(void)passValue:(NSString *)phoneNumber;
--(void)deleteValue:(NSString *)phoneNumber;
+
+- (void)sendIndexPath:(NSIndexPath *)indexPath;
+
+//-(void)passValue:(NSString *)phoneNumber;
+//-(void)deleteValue:(NSString *)phoneNumber;
+
+
 @end
 @interface AddressTableViewCell : UITableViewCell
 
@@ -23,6 +28,16 @@
 @property (nonatomic, strong)UIButton *selectButton;
 
 @property (nonatomic, assign)id<addressTableViewDelegate>delegate;
+
+@property (nonatomic, assign)BOOL editState;
+
+@property (nonatomic, assign)BOOL selectButtonState;
+
+@property (nonatomic, strong)NSIndexPath *indexPath;
+
 - (void)cellReloadWithAddressModel:(AddressBookModel *)model;
+
+
+- (void)reloCellWithAddressBook:(id)person andStateString:(NSString *)str;
 
 @end

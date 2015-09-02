@@ -50,7 +50,7 @@ static AttentionViewController *att = nil;
     acc.userId = acc.ID;
     // 获取关注列表
     [RestfulAPIRequestTool routeName:@"getCorcernList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
-        NSLog(@"获取用户关注列表成功 %@", json);
+//        NSLog(@"获取用户关注列表成功 %@", json);
         [self getDetailInforFromJson:json];
     } failure:^(id errorJson) {
         NSLog(@"获取用户列表失败  %@", errorJson);

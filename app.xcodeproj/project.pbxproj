@@ -551,6 +551,7 @@
 		A45FEBEE1B85727000BC5E41 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */; };
 		A45FEBF01B85727C00BC5E41 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */; };
 		A45FEBF31B85DC1900BC5E41 /* LoginSinger.m in Sources */ = {isa = PBXBuildFile; fileRef = A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */; };
+		A461E7E01B954C3500C25C21 /* PollModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A461E7DF1B954C3500C25C21 /* PollModel.m */; };
 		A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A46448E91B6F31EF00AA621E /* AddressBookModel.m */; };
 		A4650F201B7DBDCD00013A17 /* UserInterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F1F1B7DBDCD00013A17 /* UserInterView.m */; };
 		A4650F2D1B7DCD9600013A17 /* SHLUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F2C1B7DCD9600013A17 /* SHLUILabel.m */; };
@@ -1547,6 +1548,8 @@
 		A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A45FEBF11B85DC1900BC5E41 /* LoginSinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSinger.h; sourceTree = "<group>"; };
 		A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSinger.m; sourceTree = "<group>"; };
+		A461E7DE1B954C3500C25C21 /* PollModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PollModel.h; sourceTree = "<group>"; };
+		A461E7DF1B954C3500C25C21 /* PollModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PollModel.m; sourceTree = "<group>"; };
 		A46448E81B6F31EF00AA621E /* AddressBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
 		A46448E91B6F31EF00AA621E /* AddressBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookModel.m; sourceTree = "<group>"; };
 		A4650F1E1B7DBDCD00013A17 /* UserInterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInterView.h; sourceTree = "<group>"; };
@@ -2363,6 +2366,8 @@
 				9635AF571B748D5C00BE92B5 /* CommentsModel.h */,
 				9635AF581B748D5C00BE92B5 /* CommentsModel.m */,
 				A46CC4591B8C6E3A002492EC /* Interaction.h */,
+				A461E7DE1B954C3500C25C21 /* PollModel.h */,
+				A461E7DF1B954C3500C25C21 /* PollModel.m */,
 				A46CC45A1B8C6E3A002492EC /* Interaction.m */,
 				A43DA5DB1B90281100C23833 /* getIntroModel.h */,
 				A43DA5DC1B90281100C23833 /* getIntroModel.m */,
@@ -4704,6 +4709,7 @@
 				967A06441B7304F7007BA757 /* VoteOptionsInfoModel.m in Sources */,
 				967439BD1B705908004334A4 /* RouteInfoModel.m in Sources */,
 				A4745E0E1B81A9AC008EB944 /* DNFullImageButton.m in Sources */,
+				A461E7E01B954C3500C25C21 /* PollModel.m in Sources */,
 				96CF93A81B674B54001759E2 /* AddFriendViewController.m in Sources */,
 				96CF938D1B674B54001759E2 /* EMChatBaseBubbleView.m in Sources */,
 				A4F594FA1B7C7C740088D9CC /* HMShopCell.m in Sources */,
@@ -4946,8 +4952,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -4965,7 +4971,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2f2e976e-1ce8-4805-9e95-75e59dd9c397";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -4975,8 +4981,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -4994,7 +5000,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2f2e976e-1ce8-4805-9e95-75e59dd9c397";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

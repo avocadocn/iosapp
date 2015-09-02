@@ -73,6 +73,11 @@
  *Judge builtInterface
  */
 @property (nonatomic, assign)BOOL interfaceState;
+/**
+ *
+ * 投票人的总数
+ */
+@property (nonatomic, assign)NSInteger voteNum;
 
 
 

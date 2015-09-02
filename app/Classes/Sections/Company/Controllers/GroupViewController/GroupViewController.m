@@ -38,7 +38,7 @@
     // 获取群组应该有 targetid 的吧?
     
     [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:nil useKeys:nil success:^(id json) {
-        NSLog(@"获取到的群组为%@", json);
+//        NSLog(@"获取到的群组为%@", json);
         [self analyDataWithJson:json];
     } failure:^(id errorJson) {
         NSLog(@"获取群组失败, 原因为 %@", errorJson);

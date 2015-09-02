@@ -83,9 +83,9 @@ static NSString *const ID = @"shop";
     [manger.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];
     
     [manger GET:str parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"获取新人列表成功");
+//        NSLog(@"获取新人列表成功");
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"%@", dic);
+//        NSLog(@"%@", dic);
         [self reloadCollectionViewWithJson:dic];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", error);

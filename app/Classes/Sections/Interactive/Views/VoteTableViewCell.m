@@ -51,6 +51,7 @@
  *  底部工具条
  */
 @property (nonatomic, strong) UIView *bottomToolBar;
+
 @end
 
 @implementation VoteTableViewCell
@@ -113,6 +114,7 @@
     
     // 选项
     VoteOptionsView *optionsView = [[VoteOptionsView alloc]init];
+    optionsView.voteCount = self.voteNum;
     [voteContainer addSubview:optionsView];
     self.optionsView = optionsView;
     
@@ -183,21 +185,20 @@
     self.voteContainer = voteContainer;
     
 }
+
 -(void)setVoteCellFrame:(VoteCellFrame *)voteCellFrame{
-    
+    self.voteNum = voteCellFrame.voteNum;
     _voteCellFrame = voteCellFrame;
     
     VoteInfoModel *model = voteCellFrame.voteInfoModel;
     [self.avatarImageView setImage:[UIImage imageNamed:model.avatarURL]];
     [self.avatarImageView setFrame:voteCellFrame.avatarImageViewF];
     
-    
     self.nameLabel.text = model.name;
     [self.nameLabel setFrame:voteCellFrame.nameLabelF];
 
     self.timeLabel.text = model.time;
     [self.timeLabel setFrame:voteCellFrame.timeLabelF];
-    
     
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
     if (model.voteImageURL) {

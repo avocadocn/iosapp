@@ -43,7 +43,7 @@
 /**
  *  存放VoteOptionsInfoModel
  */
-@property (nonatomic, copy) NSArray *options;
+@property (nonatomic, strong) NSMutableArray *options;
 
 
 /**

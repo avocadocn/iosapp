@@ -27,12 +27,12 @@
     self.title = @"填写资料";
     
     self.view.backgroundColor = DLSBackgroundColor;
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
     [self builtInterface];
 }
 
 - (void)builtInterface
 {
-    
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
     
     label.text = @"下一步";
@@ -245,5 +245,8 @@
     
 }
 
-
+- (void)tapAction:(UITapGestureRecognizer *)tap
+{
+    [self.nameTextField resignFirstResponder];
+}
 @end
