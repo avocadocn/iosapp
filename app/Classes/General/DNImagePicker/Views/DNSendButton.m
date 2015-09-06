@@ -58,14 +58,12 @@ static CGFloat const kSendButtonTextWitdh = 38.0f;
     
     _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _sendButton.frame = CGRectMake(0, 0, self.width, self.height);
-    [_sendButton setTitle:NSLocalizedStringFromTable(@"send", @"DNImagePicker", @"发送")
-                 forState:UIControlStateNormal];
+    [_sendButton setTitle:@"确认" forState:UIControlStateNormal];
     [_sendButton setTitleColor:[UIColor hexStringToColor:dnSendButtonTintNormalColor] forState:UIControlStateNormal];
     [_sendButton setTitleColor:[UIColor hexStringToColor:dnSendButtonTintAbnormalColor] forState:UIControlStateHighlighted];
     [_sendButton setTitleColor:[UIColor hexStringToColor:dnSendButtonTintAbnormalColor] forState:UIControlStateDisabled];
     _sendButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     _sendButton.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
-    _sendButton.backgroundColor = [UIColor clearColor];
     [self addSubview:_sendButton];
 }
 

@@ -64,17 +64,18 @@
     
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if (self.phoneNumber.textfield.text.length == 11 && self.password.textfield.text.length > 5) {
-        NSLog(@"长度为%@", self.phoneNumber.textfield.text);
-        self.label.userInteractionEnabled = YES;
-        self.label.textColor = RGBACOLOR(253, 185, 0, 1);
-    } else {
-        self.label.textColor = [UIColor lightGrayColor];
-        self.label.userInteractionEnabled = NO;
-    }
-}
+
+//- (void)textFieldDidEndEditing:(UITextField *)textField
+//{
+//    if (self.phoneNumber.textfield.text.length == 11 && self.password.textfield.text.length > 5) {
+//        NSLog(@"长度为%@", self.phoneNumber.textfield.text);
+//        self.label.userInteractionEnabled = YES;
+//        self.label.textColor = RGBACOLOR(253, 185, 0, 1);
+//    } else {
+//        self.label.textColor = [UIColor lightGrayColor];
+//        self.label.userInteractionEnabled = NO;
+//    }
+//}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -90,6 +91,16 @@
             return NO;
         }
     }
+    
+    if (self.phoneNumber.textfield.text.length == 11 && self.password.textfield.text.length > 5) {
+        NSLog(@"长度为%@", self.phoneNumber.textfield.text);
+        self.label.userInteractionEnabled = YES;
+        self.label.textColor = RGBACOLOR(253, 185, 0, 1);
+    } else {
+        self.label.textColor = [UIColor lightGrayColor];
+        self.label.userInteractionEnabled = NO;
+    }
+    
     
     return YES;
 }

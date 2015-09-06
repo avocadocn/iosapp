@@ -104,7 +104,7 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
     
     [self imageFlowCollectionView];
     
-    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedStringFromTable(@"preview", @"DNImagePicker", @"预览") style:UIBarButtonItemStylePlain target:self action:@selector(previewAction)];
+    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [item1 setTintColor:[UIColor blackColor]];
     item1.enabled = NO;
     
@@ -309,10 +309,12 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 
 - (void)cancelAction
 {
-    DNImagePickerController *navController = [self dnImagePickerController];
-    if (navController && [navController.imagePickerDelegate respondsToSelector:@selector(dnImagePickerControllerDidCancel:)]) {
-        [navController.imagePickerDelegate dnImagePickerControllerDidCancel:navController];
-    }
+//    DNImagePickerController *navController = [self dnImagePickerController];
+//    if (navController && [navController.imagePickerDelegate respondsToSelector:@selector(dnImagePickerControllerDidCancel:)]) {
+//        [navController.imagePickerDelegate dnImagePickerControllerDidCancel:navController];
+//    }
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - DNAssetsViewCellDelegate

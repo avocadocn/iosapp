@@ -28,8 +28,10 @@
 #import "Interaction.h"
 #import "DetailActivityShowController.h"
 #import "PollModel.h"
+#import "LoginViewController.h"
 
-@interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate>
+
+@interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic ,strong) ActivitysShowView *asv;
 @property (atomic,assign)BOOL asvHidden ;
@@ -437,6 +439,15 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         [self analyDataWithJson:json];
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
+        
+        NSString *str = [errorJson objectForKey:@"msg"];
+        if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            alert.delegate = self;
+            [alert show];
+            
+        }
+        
     }];
 }
 
@@ -520,6 +531,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     }
     
 }
-
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    LoginViewController *login = [[LoginViewController alloc]init];
+    [self.navigationController pushViewController:login animated:YES];
+}
 
 @end
