@@ -36,6 +36,9 @@
 @property (nonatomic, copy)NSString *password; // 修改过后的密码
 @property (nonatomic, copy)NSString *gender; //
 @property (nonatomic, strong)NSArray *phoneNumber;// 邀请人的电话号码
+@property (nonatomic, copy)NSDate *latestContentDate;
+@property (nonatomic, copy)NSDate *lastContentDate;
+@property (nonatomic)float limit;
 
 
 @end
