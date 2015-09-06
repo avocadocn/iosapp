@@ -29,8 +29,16 @@
 
 @property (nonatomic, copy)NSArray *commentUsers;  //参与过评论的用户的id
 
-@property (nonatomic, copy)NSString *msg;
+//@property (nonatomic, copy)NSString *msg;
 
+@property (nonatomic, copy)NSString *__v;
 
+@property (nonatomic, copy)NSString *latestCommentDate;
+
+@property (nonatomic, strong)NSMutableArray *relativeCids;
+
+@property (nonatomic, strong)NSMutableArray *comments;
+
+@property (nonatomic, strong)NSMutableArray *photo;
 
 @end

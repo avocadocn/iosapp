@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "CircleContextModel.h"
 #import "ColleagueViewController.h"
 #import "ColleagueViewCell.h"
 #import "ConditionController.h"
@@ -15,6 +15,10 @@
 #import "CompanyModel.h"
 #import "AddressBookModel.h"
 #import <Masonry.h>
+#import "UIImageView+DLGetWebImage.h"
+
+#define LABELWIDTH 355.0
+
 @interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
@@ -29,8 +33,7 @@
 
 - (void)builtInterface
 {
-    [self makeFalse];
-    [self createUserInterView];
+//    [self createUserInterView];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(stateAction)];
     
     self.colleagueTable = [[UITableView alloc]initWithFrame:[UIScreen mainScreen].bounds];
@@ -43,24 +46,15 @@
     
     [self.view addSubview:self.colleagueTable];
     [self netRequest];
-
     
 }
 - (void)netRequest {
     AddressBookModel *model = [[AddressBookModel alloc] init];
-//    Account *account = [AccountTool account];
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
-//    [formatter setTimeZone:timeZone];
-//    [formatter setDateFormat : @"M/d/yyyy h:m a"];
-//    NSString *stringTime = @"12/5/2011 3:4 am";
-//    NSDate *dateTime = [formatter dateFromString:stringTime];
-//    [model setLatestContentDate:dateTime];
-//    [model setLastContentDate:dateTime];
+
     [model setLimit:10.00];
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
         NSLog(@"请求成功-- %@",json);
-    
+        [self reloadTableViewWithJson:json];
     } failure:^(id errorJson) {
         NSLog(@"请求失败 %@",errorJson);
     }];
@@ -77,20 +71,18 @@
     ColleagueViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell"];
     NSDictionary *dic = [self.userInterArray objectAtIndex:indexPath.row];
     UIView *view = [dic objectForKey:@"view"];
-
+    
     cell.userInterView.height = view.frame.size.height;
-    [cell reloadCellWithModel:dic];
+//    [cell reloadCellWithModel:dic];
     
     [cell.userInterView addSubview:view];
-//    [cell.userInterView addSubview:view];
-    
     
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.modelArray count];
+    return [self.userInterArray count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -100,25 +92,21 @@
     
     return 110.0 + num;   // 根据图片的高度返回行数
 }
-- (void)makeFalse
+/*- (void)getHeightWith:(id)json
 {
-    NSArray *strArr = @[@"太阳回复刚哥的统统:吾问无为谓sedaw问问娃娃哇哇哇哇drgg3", @"麻吉:吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓哇哇哇哇哇哇哇哇",@"树飞回复麻吉:的顶顶顶顶顶大大大地对地导弹顶顶顶顶", @"加胜:郁闷郁闷有没有没有没有",@"太阳回复刚哥的统统:吾问无为谓sedaw问问娃娃哇哇哇哇drgg3", @"麻吉:吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓哇哇哇哇哇哇哇哇",@"树飞回复麻吉:的顶顶顶顶顶大大大地对地导弹顶顶顶顶", @"加胜:郁闷郁闷有没有没有没有"];
-    
     
     self.modelArray = [NSMutableArray array];
     
-    SHLUILabel *label = [[SHLUILabel alloc]init];
+    SHLUILabel *label = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), 1000)];
     label.font = [UIFont systemFontOfSize:15];
     
-    for (int i = 0; i < 10; i++) {  //制造假数据, 十个字典
-        
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        NSMutableArray *array = [NSMutableArray array];
-        
-        NSInteger anum = arc4random() %[strArr count];
-        NSString *wordStr = [strArr objectAtIndex:anum];
-        label.text = wordStr;
-        int textHeight = [label getAttributedStringHeightWidthValue:DLMultipleWidth(353.0)];
+    for (NSDictionary *dic in json) {
+        NSDictionary *tempDic = [dic objectForKey:@"content"];
+    
+    
+        CGSize size = [self getSizeWithLabel:label andString:wordStr];
+        int textHeight = size.height + 3;
+        NSLog(@"他的字体为 %@, 高度为 %d", wordStr, textHeight);
         NSDictionary *dicc = [NSDictionary dictionaryWithObjects:@[wordStr, [NSString stringWithFormat:@"%d", textHeight]] forKeys:@[@"word", @"height"]];
         
         [dic setObject:dicc forKey:@"word"];  // 用户说的话
@@ -137,7 +125,12 @@
             NSString *str = [strArr objectAtIndex:num];
             
             label.text = str;
-            int heightStr = [label getAttributedStringHeightWidthValue:DLMultipleWidth(353.0)];
+//            int heightStr = [label getAttributedStringHeightWidthValue:DLMultipleWidth(365.0)];
+            
+            CGSize tempSize = [str sizeWithFont:label.font constrainedToSize:CGSizeMake(label.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+            int heightStr = tempSize.height + 3;
+            NSLog(@"字体为 %@, 高度为 %d", str, heightStr);
+            
             NSDictionary *diccc = [NSDictionary dictionaryWithObjects:@[str, [NSString stringWithFormat:@"%d", heightStr]] forKeys:@[@"word", @"height"]];
             
             [interArray addObject:diccc];
@@ -146,9 +139,15 @@
         
         [self.modelArray addObject:dic];
     }
+}*/
+- (CGSize)getSizeWithLabel:(SHLUILabel *)label andString:(NSString *)str
+{
+    CGSize size = [str sizeWithFont:label.font constrainedToSize:CGSizeMake(label.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    return size;
 }
+
 // 得到数据以后创建通用户交互页面
-- (void)createUserInterView
+/*- (void)createUserInterView
 {
     self.userInterArray = [NSMutableArray array];
     
@@ -163,7 +162,7 @@
         NSString *tempStr = [wordDic objectForKey:@"height"];
         NSInteger wordHeight = [tempStr integerValue];  // 说说的高
         
-        SHLUILabel *label = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(353.0), wordHeight)];
+        SHLUILabel *label = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(LABELWIDTH), wordHeight)];
         label.text = [wordDic objectForKey:@"word"];
         label.font = [UIFont systemFontOfSize:15];
         [view addSubview:label];
@@ -175,7 +174,8 @@
         NSInteger picNum = [array count];
         CGFloat picHeight = 0;
         if (picNum != 0) {
-            picHeight = (picNum / 3 + 1) * width; //图片view的高
+            NSLog(@"图片有 %ld 张", picNum);
+            picHeight = ((picNum + 2) / 3 )  * width; //图片view的高
         }
         int b = 0;
         for (UIImage *image in array) {
@@ -189,18 +189,16 @@
         
         NSArray *interArray = [dic objectForKey:@"interArray"];
         
-
-        
         if (!([interArray count] == 0)) {
             for (NSDictionary *interDic in interArray) {
                 NSString *interHeight = [interDic objectForKey:@"height"];
                 NSInteger tempInt = [interHeight integerValue];
                 
                 NSString *interstr = [interDic objectForKey:@"word"];
-                SHLUILabel *interLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(353.0), tempInt)];
+                SHLUILabel *interLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(LABELWIDTH), tempInt)];
                 interLabel.text = interstr;
                 interLabel.font = [UIFont systemFontOfSize:15];
-                [interLabel setBackgroundColor:[UIColor colorWithWhite:.8 alpha:1]];
+                [interLabel setBackgroundColor:[UIColor colorWithWhite:.8 alpha:.5]];
                 [view addSubview:interLabel];
                 
                 overHeight += tempInt;
@@ -213,7 +211,7 @@
         
         [self.userInterArray addObject:viewDic];
     }
-}
+} */
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -225,5 +223,67 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)reloadTableViewWithJson:(id)json
+{
+    self.userInterArray = [NSMutableArray array];
+    
+    SHLUILabel *tempLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), 100)];
+    for (NSDictionary *dic in json) {
+        
+        NSInteger overHeight = 0;
+        UIView *view = [[UIView alloc]init];
+        /*NSDictionary *tempDic = [dic objectForKey:@"content"];
+        CircleContextModel *model = [[CircleContextModel alloc]init];
+        [model setValuesForKeysWithDictionary:tempDic];
+        
+        NSMutableArray *array = [dic objectForKey:@"comments"];
+        
+        [model setComments:array];*/
 
+        NSDictionary *contentDic = [dic objectForKey:@"content"];
+        NSString *contentStr = [contentDic objectForKey:@"content"];
+        CGSize size = [self getSizeWithLabel:tempLabel andString:contentStr];
+        SHLUILabel *label = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, size.width, size.height)];
+        label.text = contentStr;
+        label.font = [UIFont systemFontOfSize:15];
+        [view addSubview:label];
+        
+        overHeight += size.height;
+        CGFloat width = DLMultipleWidth(82.0);
+        
+        NSArray *array = [contentDic objectForKey:@"photos"];//图片 array
+        NSInteger picNum = [array count];
+        CGFloat picHeight = 0;
+        if (picNum != 0) {
+            NSLog(@"图片有 %ld 张", picNum);
+            picHeight = ((picNum + 2) / 3 )  * width; //图片view的高
+        }
+        int b = 0;
+        for (NSDictionary *imageDic in array) {
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, overHeight + b / 3 * width, width - 10, width - 10)];
+            [imageView dlGetRouteWebImageWithString:[imageDic objectForKey:@"uri"] placeholderImage:nil];
+            [view addSubview:imageView];
+            b++;
+        }
+        
+        overHeight += picHeight;
+        NSArray *interArray = [dic objectForKey:@"comments"];
+        
+        for (NSDictionary *interTempDic in interArray) {
+            NSString *str = [interTempDic objectForKey:@"content"];
+            CGSize tempSize = [self getSizeWithLabel:tempLabel andString:str];
+            SHLUILabel *interLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, tempSize.width, tempSize.height)];
+            interLabel.font = [UIFont systemFontOfSize:15];
+            interLabel.text = str;
+            [interLabel setBackgroundColor:[UIColor colorWithWhite:.8 alpha:.5]];
+            [view addSubview:interLabel];
+            overHeight += size.height;
+        }
+        view.frame = CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), overHeight);
+        NSDictionary *viewDic = [NSDictionary dictionaryWithObjects:@[view, [NSString stringWithFormat:@"%ld", overHeight]] forKeys:@[@"view", @"height"]];
+        
+        [self.userInterArray addObject:viewDic];
+    }
+    [self.colleagueTable reloadData];
+}
 @end

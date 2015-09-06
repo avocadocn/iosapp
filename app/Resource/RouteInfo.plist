@@ -218,7 +218,7 @@
     </dict>
     <dict>
         <key>routeName</key>
-        <string>getCompanyCircle</string>
+        <string>deleteCompanyCircle</string>
         <key>routeURL</key>
         <string>/circle/comments/:commentId</string>
         <key>routeMethod</key>

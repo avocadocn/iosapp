@@ -153,7 +153,7 @@
         make.bottom.mas_equalTo(superBigView.mas_bottom).offset(-5);
     }];
     
-    self.userInterView = [[UIView alloc]initWithFrame:CGRectMake(DLMultipleWidth(8.0), DLMultipleHeight(55.0), DLMultipleWidth(353.0), 300)];
+    self.userInterView = [[UIView alloc]initWithFrame:CGRectMake(DLMultipleWidth(8.0), DLMultipleHeight(70.0), DLMultipleWidth(353.0), 300)];
     [superBigView addSubview:self.userInterView];
     
     
@@ -187,6 +187,7 @@
         [self.photoView addSubview:imageView];
         i++;
     }
+    self.photoView.backgroundColor = [UIColor greenColor];
     self.photoView.height = inte * (i / 3 + 1);
     self.state = YES;
 }

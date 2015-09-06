@@ -99,13 +99,12 @@
         make.right.mas_equalTo(self.selectPhotoView.mas_right);
         make.height.mas_equalTo(.5);
     }];
-    
 }
 
 - (void)nextStepTap:(UIButton *)sender
 {
     CircleContextModel *model = [[CircleContextModel alloc]init];
-    model.photos = [NSMutableArray array];
+    model.photo = [NSMutableArray array];
 
     NSLog(@"存取的照片有:  %@", self.selectPhotoView.imagePhotoArray);
     
@@ -115,16 +114,16 @@
         [dic setObject:@"photo" forKey:@"name"];
         NSData *data = UIImagePNGRepresentation(image);
         [dic setObject:data forKey:@"data"];
-        [model.photos addObject:dic];
+        [model.photo addObject:dic];
     }
     
     Account *acc = [AccountTool account];
     NSLog(@"账号的token值为 %@", acc.token);
     
-    [model setMsg:self.speakTextView.text];
+    [model setContent:self.speakTextView.text];
 
     
-    [RestfulAPIRequestTool routeName:@"cirleContent" requestModel:model useKeys:@[@"msg", @"photos"] success:^(id json) {
+    [RestfulAPIRequestTool routeName:@"cirleContent" requestModel:model useKeys:@[@"content", @"photo"] success:^(id json) {
         NSLog(@"%@", json);
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);
