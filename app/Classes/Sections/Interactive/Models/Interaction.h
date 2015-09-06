@@ -40,4 +40,6 @@
 @property (nonatomic, copy)NSString *createTime;  // 创建时间
 @property (nonatomic, strong)NSArray *members;
 @property (nonatomic, strong)PollModel *poll;
+@property (nonatomic, copy)NSString *ID;
+
 @end

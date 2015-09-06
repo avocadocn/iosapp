@@ -174,5 +174,13 @@
         <key>routeMethod</key>
         <string>GET</string>
     </dict>
+    <dict>
+        <key>routeName</key>
+        <string>voteForUser</string>
+        <key>routeURL</key>
+        <string>/interaction/poll/:interactionId/users/:userId</string>
+        <key>routeMethod</key>
+        <string>POST</string>
+    </dict>
 </array>
 </plist>

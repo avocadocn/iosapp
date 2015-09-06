@@ -94,7 +94,7 @@
 {
     LoginViewController *login = [[LoginViewController alloc]init];
     [self.navigationController pushViewController:login animated:YES];
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
 
 }
 

@@ -15,9 +15,9 @@
 
 /**
  *
- * 投票人的总数
+ * 投票人的总数量
  */
-@property (nonatomic, assign)NSInteger voteNum;
+@property (nonatomic, assign)NSNumber * voteNum;
 
 /**
  *  投票的尺寸

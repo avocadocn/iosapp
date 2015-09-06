@@ -12,10 +12,12 @@
 #import "AddressBookModel.h"
 #import "RestfulAPIRequestTool.h"
 #import "InvatingModel.h"
+#import "ChineseToPinyin.h"
 @interface InvatingViewController ()<UITableViewDataSource,UITableViewDelegate,addressTableViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)NSMutableArray *contactArray; // 联系人
-@property (nonatomic, strong)NSMutableArray *invatePhone; // 邀请人
+@property (nonatomic, strong)NSMutableArray *invatePhone; // 区头
+@property (nonatomic, strong)NSMutableDictionary *wordDic;
 @end
 
 @implementation InvatingViewController
@@ -263,5 +265,6 @@
     [self.tableView reloadData];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
+
 
 @end

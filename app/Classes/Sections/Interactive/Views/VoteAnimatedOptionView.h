@@ -20,12 +20,12 @@
 /**
  *  选择百分比  0~100
  */
-@property (nonatomic, assign) NSInteger optionPercentage;
+@property (nonatomic, assign) NSNumber *optionPercentage;
 
 /**
  *  选项名称
  */
-@property (nonatomic, strong) NSString *optionName;
+@property (nonatomic, copy) NSString *optionName;
 /**
  * votecolor
  */
@@ -33,12 +33,12 @@
 /**
  *  选择的人数
  */
-@property (nonatomic, assign)CGFloat optionCount;
+@property (nonatomic, assign)NSNumber *optionCount;
 
 /**
  *点击过投票的搭建页面
  */
-- (void)builtInterfaceWithInter:(NSInteger)num;
+- (void)builtInterfaceWithInter:(NSNumber *)num;
 
 
 @end

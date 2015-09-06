@@ -6,7 +6,8 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 #import "PollModel.h"
-
+#import "Account.h"
+#import "AccountTool.h"
 #import "Interaction.h"
 #import "VoteTableController.h"
 #import "VoteTableViewCell.h"
@@ -62,22 +63,28 @@ static NSString * const ID = @"VoteTableViewCell";
     voteInfoModel.voteImageURL = [[inter.photo firstObject] objectForKey:@"uri"];
     voteInfoModel.voteText = inter.theme;
     voteInfoModel.avatarURL = @"1";
-
+    
     voteInfoModel.options = [NSMutableArray array];
-    NSInteger num = 0;
+    NSNumber * num = 0;
     for (NSDictionary *dic in inter.poll.option) {
         NSArray *array = [dic objectForKey:@"voters"];
         VoteOptionsInfoModel *optionInfo2 = [[VoteOptionsInfoModel alloc]init];
         [optionInfo2 setOptionName:[dic objectForKey:@"value"]];
-        num += array.count;
-        [optionInfo2 setOptionCount:array.count];
-        if (!array.count) {
-            num += 0;
-            [optionInfo2 setOptionCount:0];
-        }
+        num = [NSNumber numberWithInteger:[num integerValue] + array.count];
+        
+        [optionInfo2 setOptionCount:[NSNumber numberWithInteger:array.count]];
+        optionInfo2.interactionId = inter.ID;
         optionInfo2.voteInfoColor = [colorArray objectAtIndex:arc4random() % 6];
         [voteInfoModel.options addObject:optionInfo2];
+        
     }
+    Account *acc = [AccountTool account];
+    for (NSString *tempStr in inter.members) {
+        if ([tempStr isEqualToString:acc.ID]) {
+            voteInfoModel.judgeVote = YES;
+        }
+    }
+    
     
     VoteCellFrame *f = [[VoteCellFrame alloc]init];
     f.voteNum = num;
@@ -116,7 +123,6 @@ static NSString * const ID = @"VoteTableViewCell";
     return cell;
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return ((VoteCellFrame *)self.voteArray[indexPath.row]).cellHeight;
 }
@@ -124,8 +130,8 @@ static NSString * const ID = @"VoteTableViewCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //    CommentsViewController *commentsController = [[CommentsViewController alloc]init];
     //    [self.navigationController pushViewController:commentsController animated:YES];'
+    VoteCellFrame *vote = [self.voteArray firstObject];
     
-    NSLog(@"点击cell的事件已经取消，进入评论界面可点击下方的评论按钮进入");
 }
 //}
 @end

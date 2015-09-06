@@ -37,8 +37,10 @@
     [view setBackgroundColor:[UIColor whiteColor]];
     
     UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    returnButton.frame = CGRectMake(0, 0, 30, 30);
-    [returnButton setTitle:@"返回" forState: UIControlStateNormal];
+    returnButton.frame = CGRectMake(10, 25, 30, 25);
+    [returnButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_back"] forState:UIControlStateNormal];
+    [returnButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_back_highlighted"] forState:UIControlStateHighlighted];
+
     returnButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         
         self.navigationController.navigationBarHidden = YES;
@@ -47,7 +49,7 @@
         return [RACSignal empty];
     }];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:returnButton];
-    
+    [self.view addSubview:returnButton];
     
     self.mailTextField = [UITextField new];
     self.mailTextField.placeholder = @"132-XXXX-3804";
@@ -92,6 +94,7 @@
         make.height.mas_equalTo(view.height / 2.0 + 5);
     }];
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapAction:)]];
+
 }
 
 - (void)viewTapAction:(UITapGestureRecognizer *)tap
@@ -153,29 +156,5 @@
     UIAlertView *al = [[UIAlertView alloc]initWithTitle:str message:nil delegate:self cancelButtonTitle:@"重试" otherButtonTitles: nil, nil];
     [al show];
 }
-
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-//    
-//    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-//    
-//    if (toBeString.length > 11) {
-//        textField.text = [toBeString substringToIndex:11];
-//        
-//        return NO;
-//    }
-//    return YES;
-//    
-//}
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
