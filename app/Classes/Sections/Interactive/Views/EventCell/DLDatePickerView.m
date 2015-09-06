@@ -78,6 +78,58 @@
         make.right.mas_equalTo(self.mas_right);
     }];
     
+    UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [returnButton setTitle:@"确认" forState:UIControlStateNormal];
+    [returnButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [returnButton setBackgroundColor:[UIColor whiteColor]];
+    [returnButton addTarget:self action:@selector(returnButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [returnButton setBackgroundColor:[UIColor greenColor]];
+    [self addSubview:returnButton];
+    [returnButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.picker.mas_top);
+        make.right.mas_equalTo(self.picker.mas_right);
+        make.left.mas_equalTo(self.picker.centerX);
+    }];
+    
+    UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [cancelButton setBackgroundColor:[UIColor whiteColor]];
+    [cancelButton setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
+    [cancelButton setTitle:@"取消" forState: UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:cancelButton];
+    
+    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(returnButton.mas_bottom);
+        make.left.mas_equalTo(self.picker.mas_left);
+        make.right.mas_equalTo(returnButton.mas_left);
+        make.top.mas_equalTo(returnButton.mas_top);
+    }];
+}
+- (void)returnButtonAction:(UIButton *)sender
+{
+    NSLog(@"消失");
+    [UIView animateWithDuration:.4 animations:^{
+        self.centerY = DLScreenHeight + (self.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+        
+        NSDate *pickerdate = [self.picker date];
+        NSDateFormatter *pickerFoematter = [[NSDateFormatter alloc]init];
+        [pickerFoematter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        NSString *dateStr = [pickerFoematter stringFromDate:pickerdate];
+        [self.delegate outPutStringOfSelectDate:dateStr withTag:self.tag];
+        
+    }];
+}
+
+
+- (void)cancelButtonAction:(UIButton *)sender
+{
+    [UIView animateWithDuration:.4 animations:^{
+        self.centerY = DLScreenHeight + (self.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
 }
 
 - (void)reloadWithMaxDate:(NSDate *)maxDate minDate:(NSDate *)minDate dateMode:(UIDatePickerMode)mode

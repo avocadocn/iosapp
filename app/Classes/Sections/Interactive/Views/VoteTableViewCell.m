@@ -57,7 +57,7 @@
 @implementation VoteTableViewCell
 
 - (void)awakeFromNib {
-   
+    
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -65,7 +65,7 @@
     if (self) {
         
         [self setBackgroundColor:RGB(235, 235, 235)];
-
+        
         [self setupView];
     }
     return self;
@@ -165,11 +165,10 @@
     
     RACSignal *commentBtnSignal = [commentBtn rac_signalForControlEvents:UIControlEventTouchDown];
     [commentBtnSignal subscribeNext:^(id x) {
-       
+        
         CommentsViewController *controller = [[CommentsViewController alloc]init];
         [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
     }];
-    
     
     // 工具条
     UIView *bottomToolBar = [[UIView alloc]init];
@@ -182,7 +181,7 @@
     
     
     
-   [self addSubview:voteContainer];
+    [self addSubview:voteContainer];
     self.voteContainer = voteContainer;
     
 }
@@ -190,7 +189,7 @@
 -(void)setVoteCellFrame:(VoteCellFrame *)voteCellFrame{
     self.voteNum = voteCellFrame.voteNum;
     self.optionsView.voteCount = self.voteNum;
-
+    
     _voteCellFrame = voteCellFrame;
     
     VoteInfoModel *model = voteCellFrame.voteInfoModel;
@@ -199,10 +198,10 @@
     
     self.nameLabel.text = model.name;
     [self.nameLabel setFrame:voteCellFrame.nameLabelF];
-
+    
     self.timeLabel.text = model.time;
     [self.timeLabel setFrame:voteCellFrame.timeLabelF];
-//    self.timeLabel.backgroundColor = [UIColor redColor];
+    //    self.timeLabel.backgroundColor = [UIColor redColor];
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
     if (model.voteImageURL) {
         [self.voteImageView setImage:[UIImage imageNamed:model.voteImageURL]];
@@ -226,7 +225,7 @@
     [self.optionsView setOptions:model];  //添加动画 view 只要有一次
     
     [self.bottomToolBar setFrame:voteCellFrame.bottomToolBarF];
-  
+    
     [self.voteContainer setFrame:voteCellFrame.voteContainerF];
     
     if (voteCellFrame.voteInfoModel.judgeVote == YES) {

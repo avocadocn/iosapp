@@ -72,10 +72,12 @@ static NSString* const dnalbumTableViewCellReuseIdentifier = @"dnalbumTableViewC
 #pragma mark - ui actions
 - (void)cancelAction:(id)sender
 {
-    DNImagePickerController *navController = [self dnImagePickerController];
-    if (navController && [navController.imagePickerDelegate respondsToSelector:@selector(dnImagePickerControllerDidCancel:)]) {
-        [navController.imagePickerDelegate dnImagePickerControllerDidCancel:navController];
-    }
+    NSLog(@"取消");
+//    DNImagePickerController *navController = [self dnImagePickerController];
+//    if (navController && [navController.imagePickerDelegate respondsToSelector:@selector(dnImagePickerControllerDidCancel:)]) {
+//        [navController.imagePickerDelegate dnImagePickerControllerDidCancel:navController];
+//    }
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - getter/setter

@@ -111,8 +111,11 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     
     self.time.textfield.userInteractionEnabled = NO;
     UITapGestureRecognizer *timeSelect = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(timeSelect:)];
+    
     [self.time addGestureRecognizer:timeSelect];
     [self.view addSubview:self.time];
+    
+    
 }
 - (void)timeSelect:(UITapGestureRecognizer *)tap
 {
@@ -120,10 +123,9 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     DLDatePickerView *time = [[DLDatePickerView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     time.delegate = self;
 //    time.picker.datePickerMode = UIDatePickerModeDate;
-    
     NSDate *minDate = [[NSDate alloc]initWithTimeInterval:- 60 * 60 * 24 * 365 * 60 sinceDate:[NSDate date]];
     NSDate *maxDate = [NSDate date];
-    [time reloadWithMaxDate:maxDate minDate:minDate dateMode:UIDatePickerModeDate];
+    [time reloadWithMaxDate:maxDate minDate:minDate dateMode:UIDatePickerModeCountDownTimer];
     
     [self.view addSubview:time];
     [time show];
