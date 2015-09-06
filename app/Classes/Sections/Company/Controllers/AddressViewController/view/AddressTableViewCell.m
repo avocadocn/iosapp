@@ -103,11 +103,16 @@
 
 - (void)reloCellWithAddressBook:(id)person andStateString:(NSString *)str
 {
-    self.personPhotoImageView.image = [UIImage imageNamed:@"1"];
     NSString* tmpFirstName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty); // FirstName
     NSString* tmpLastName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);// LastName
     //    phoneNumber
     ABMultiValueRef tmpPhones = ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonPhoneProperty);
+    NSData *userImage=(__bridge NSData*)(ABPersonCopyImageData((__bridge ABRecordRef)(person))); //获取当前联系人头像图片
+    if (userImage != nil) {
+        self.personPhotoImageView.image = [UIImage imageWithData:userImage];
+    } else {
+        self.personPhotoImageView.image = [UIImage imageNamed:@"boy"];
+    }
     for(NSInteger j = 0; j < ABMultiValueGetCount(tmpPhones); j++)
     {
         NSString* tmpPhoneIndex = (__bridge NSString*)ABMultiValueCopyValueAtIndex(tmpPhones, j);
@@ -118,10 +123,12 @@
         }
     }
     
-    if (tmpLastName) {
+    if (tmpLastName && tmpFirstName) {
         self.personNameLabel.text = [NSString stringWithFormat:@"%@ %@",tmpFirstName,tmpLastName];
-    } else {
+    } else if (tmpFirstName){
         self.personNameLabel.text = [NSString stringWithFormat:@"%@",tmpFirstName];
+    } else {
+        self.personNameLabel.text = [NSString stringWithFormat:@"%@",tmpLastName];
     }
     
     switch ([str integerValue]) {

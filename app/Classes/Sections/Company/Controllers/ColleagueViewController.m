@@ -9,7 +9,11 @@
 #import "ColleagueViewController.h"
 #import "ColleagueViewCell.h"
 #import "ConditionController.h"
-
+#import "Account.h"
+#import "AccountTool.h"
+#import "RestfulAPIRequestTool.h"
+#import "CompanyModel.h"
+#import "AddressBookModel.h"
 #import <Masonry.h>
 @interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -38,7 +42,28 @@
     self.colleagueTable.separatorColor = [UIColor clearColor];
     
     [self.view addSubview:self.colleagueTable];
+    [self netRequest];
+
     
+}
+- (void)netRequest {
+    AddressBookModel *model = [[AddressBookModel alloc] init];
+//    Account *account = [AccountTool account];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+//    [formatter setTimeZone:timeZone];
+//    [formatter setDateFormat : @"M/d/yyyy h:m a"];
+//    NSString *stringTime = @"12/5/2011 3:4 am";
+//    NSDate *dateTime = [formatter dateFromString:stringTime];
+//    [model setLatestContentDate:dateTime];
+//    [model setLastContentDate:dateTime];
+    [model setLimit:10.00];
+    [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
+        NSLog(@"请求成功-- %@",json);
+    
+    } failure:^(id errorJson) {
+        NSLog(@"请求失败 %@",errorJson);
+    }];
 }
 - (void)stateAction
 {
@@ -127,7 +152,7 @@
 {
     self.userInterArray = [NSMutableArray array];
     
-    NSLog(@"%@", self.modelArray);
+//    NSLog(@"%@", self.modelArray);
     for (NSDictionary *dic in self.modelArray) {
         UIView *view = [[UIView alloc]init];
         

@@ -51,6 +51,7 @@ static NSInteger num = 0;
     Account *account = [AccountTool account];
     [model setUserId:account.ID];
     [self netRequstWithModel:model];
+    NSLog(@"++++++++%@",model.userId);
 }
 - (void)netRequstWithModel:(AddressBookModel *)model { // 获取个人资料
     [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:model useKeys:@[@"userId"] success:^(id json) {
