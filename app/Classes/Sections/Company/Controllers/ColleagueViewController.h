@@ -17,4 +17,8 @@
 
 @property (nonatomic, strong)NSMutableArray *userInterArray;
 
++ (ColleagueViewController *)shareState;
+
+- (void)netRequest;
+
 @end

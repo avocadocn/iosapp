@@ -41,4 +41,6 @@
 
 @property (nonatomic, strong)NSMutableArray *photo;
 
+@property (nonatomic, strong)NSDictionary *poster;
+
 @end

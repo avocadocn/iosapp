@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class CircleImageView;
-
+@class CircleContextModel;
 @class CriticWordView;
 
 @interface ColleagueViewCell : UITableViewCell
@@ -41,7 +41,7 @@
 
 @property (nonatomic, strong)UIView *userInterView;
 
-- (void)reloadCellWithModel:(id)model;
+- (void)reloadCellWithModel:(CircleContextModel *)model;
 
 
 

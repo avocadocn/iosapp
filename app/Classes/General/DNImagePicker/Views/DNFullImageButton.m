@@ -28,7 +28,7 @@ static NSInteger const buttonImageWidth = 16;
         self.backgroundColor = [UIColor clearColor];
         self.height = 28;
         self.width = CGRectGetWidth([[UIScreen mainScreen] bounds])/2 -20;
-        [self fullImageButton];
+//        [self fullImageButton];
         [self imageSizeLabel];
         [self indicatorView];
         self.selected = NO;
@@ -61,12 +61,12 @@ static NSInteger const buttonImageWidth = 16;
         _fullImageButton.width = [self fullImageButtonWidth];
         _fullImageButton.height = 28;
         _fullImageButton.backgroundColor = [UIColor clearColor];
-        [_fullImageButton setTitle:NSLocalizedStringFromTable(@"fullImage", @"DNImagePicker", @"原图") forState:UIControlStateNormal];
+//        [_fullImageButton setTitle:NSLocalizedStringFromTable(@"fullImage", @"DNImagePicker", @"原图") forState:UIControlStateNormal];
         _fullImageButton.titleLabel.font = kDNFullImageButtonFont;
         [_fullImageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_fullImageButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        [_fullImageButton setImage:[UIImage imageNamed:@"photo_full_image_unselected"] forState:UIControlStateNormal];
-        [_fullImageButton setImage:[UIImage imageNamed:@"photo_full_image_selected"] forState:UIControlStateSelected];
+//        [_fullImageButton setImage:[UIImage imageNamed:@"photo_full_image_unselected"] forState:UIControlStateNormal];
+//        [_fullImageButton setImage:[UIImage imageNamed:@"photo_full_image_selected"] forState:UIControlStateSelected];
         _fullImageButton.contentVerticalAlignment = NSTextAlignmentRight;
         [_fullImageButton setTitleEdgeInsets:UIEdgeInsetsMake(0, buttonPadding-buttonImageWidth, 6, 0)];
         [_fullImageButton setImageEdgeInsets:UIEdgeInsetsMake(6, 0, 6, _fullImageButton.width - buttonImageWidth)];
@@ -96,22 +96,22 @@ static NSInteger const buttonImageWidth = 16;
 
 - (void)setSelected:(BOOL)selected
 {
-    if (_selected != selected) {
-        _selected = selected;
-        self.fullImageButton.selected = _selected;
-        self.fullImageButton.width = [self fullImageButtonWidth];
-        [self.fullImageButton setTitleEdgeInsets:UIEdgeInsetsMake(0, buttonPadding-buttonImageWidth, 6, 0)];
-        [self.fullImageButton setImageEdgeInsets:UIEdgeInsetsMake(6, 0, 6, self.fullImageButton.width - buttonImageWidth)];
-        CGFloat labelWidth = self.width - self.fullImageButton.width;
-        self.imageSizeLabel.left = self.fullImageButton.width;
-        self.imageSizeLabel.width = labelWidth;
-        self.imageSizeLabel.hidden = !_selected;
-    }
+//    if (_selected != selected) {
+//        _selected = selected;
+//        self.fullImageButton.selected = _selected;
+////        self.fullImageButton.width = [self fullImageButtonWidth];
+//        [self.fullImageButton setTitleEdgeInsets:UIEdgeInsetsMake(0, buttonPadding-buttonImageWidth, 6, 0)];
+//        [self.fullImageButton setImageEdgeInsets:UIEdgeInsetsMake(6, 0, 6, self.fullImageButton.width - buttonImageWidth)];
+//        CGFloat labelWidth = self.width - self.fullImageButton.width;
+//        self.imageSizeLabel.left = self.fullImageButton.width;
+//        self.imageSizeLabel.width = labelWidth;
+//        self.imageSizeLabel.hidden = !_selected;
+//    }
 }
 
 - (void)setText:(NSString *)text
 {
-    self.imageSizeLabel.text = text;
+//    self.imageSizeLabel.text = text;
 }
 
 - (void)shouldAnimating:(BOOL)animate

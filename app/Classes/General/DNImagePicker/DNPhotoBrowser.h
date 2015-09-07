@@ -25,7 +25,7 @@
 @interface DNPhotoBrowser : UIViewController
 
 @property (nonatomic, weak) id<DNPhotoBrowserDelegate> delegate;
-
+@property (nonatomic, assign)NSInteger selectNum;
 - (instancetype)initWithPhotos:(NSArray *)photosArray
                   currentIndex:(NSInteger)index
                      fullImage:(BOOL)isFullImage;

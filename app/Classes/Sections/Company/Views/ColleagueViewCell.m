@@ -11,9 +11,9 @@
 #import "CircleImageView.h"
 #import <ReactiveCocoa.h>
 #import "CriticWordView.h"
-
-
-
+#import "CircleContextModel.h"
+#import "UIImageView+DLGetWebImage.h"
+#import "UILabel+DLTimeLabel.h"
 @implementation ColleagueViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -46,59 +46,18 @@
     
     self.ColleagueNick = [UILabel new];
 //    [self.ColleagueNick setBackgroundColor:[UIColor blackColor]];
-    self.ColleagueNick.text = @"杨同";
+//    self.ColleagueNick.text = @"杨同";
         [superBigView addSubview:self.ColleagueNick];
     [self.ColleagueNick mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(100, 25));
         make.left.mas_equalTo(self.circleImage.mas_right).offset(10);
         make.top.equalTo(superBigView).with.offset(10);
     }];
-    /*
-    self.ColleagueWord = [UILabel new];
     
-    self.ColleagueWord.textColor = [UIColor colorWithWhite:.2 alpha:.8];
-    self.ColleagueWord.numberOfLines = 0;
-    self.ColleagueWord.font = [UIFont systemFontOfSize:14];
-    self.ColleagueWord.backgroundColor = [UIColor blackColor];
-    self.ColleagueWord.text = @"我的吾水水水水谁谁谁水水水水谁谁谁水水水水水水水水问无为谓吾吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓哇哇哇哇哇哇哇哇问无为谓吾问无吾问无为吾问无为谓问问爱";
-    [self.ColleagueWord setTextColor:[UIColor whiteColor]];
-    [superBigView addSubview:self.ColleagueWord];
-    [self.ColleagueWord mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.circleImage.mas_left);
-        make.right.mas_equalTo(superBigView.mas_right).offset(-10);
-        make.top.mas_equalTo(self.circleImage.mas_bottom).offset(5); // 顶部为底部
-//        make.height.mas_equalTo(30);
-    }];
-    
-    self.photoView = [UIView new];
-    [self.photoView setBackgroundColor:[UIColor greenColor]];
-    
-    [superBigView addSubview:self.photoView];
-    [self.photoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.ColleagueWord.mas_bottom).offset(DLMultipleHeight(10.0));
-        make.left.mas_equalTo(self.ColleagueWord.mas_left);
-        make.right.mas_equalTo(self.ColleagueWord.mas_right);
-        make.height.mas_equalTo(DLScreenWidth / 3.0 * self.num);
-    }];
-    
-    */
-    /*
-    UIView *tempView= [UIView new];
-    [tempView setBackgroundColor:[UIColor blackColor]];
-    
-    [superBigView addSubview:tempView];
-    
-    [tempView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.ColleagueWord.mas_bottom);
-        make.left.mas_equalTo(self.ColleagueWord.mas_left);
-        make.width.mas_equalTo(100);
-        make.height.mas_equalTo(10);
-    }];
-    */
     self.timeLabel = [UILabel new];
     
 //    self.timeLabel.backgroundColor = [UIColor blueColor];
-    [self.timeLabel setText:@"7分钟前"];
+//    [self.timeLabel setText:@"7分钟前"];
     self.timeLabel.textColor = [UIColor colorWithWhite:.2 alpha:.5];
     self.timeLabel.font = [UIFont systemFontOfSize:12];
     [superBigView addSubview:self.timeLabel];
@@ -154,6 +113,7 @@
     }];
     
     self.userInterView = [[UIView alloc]initWithFrame:CGRectMake(DLMultipleWidth(8.0), DLMultipleHeight(70.0), DLMultipleWidth(353.0), 300)];
+//    [self.userInterView setBackgroundColor:[UIColor yellowColor]];
     [superBigView addSubview:self.userInterView];
     
     
@@ -171,25 +131,13 @@
     
 }
 
-- (void)reloadCellWithModel:(id)model
+- (void)reloadCellWithModel:(CircleContextModel *)model
 {
-    NSArray *viewArray =  [self.userInterView subviews];
-    for (UIView *aView in viewArray) {
-        [aView removeFromSuperview];
-    }
-    NSArray *array = [model objectForKey:@"array"];
+    [self.circleImage dlGetRouteWebImageWithString:[model.poster objectForKey:@"photo"] placeholderImage:nil];
+    self.ColleagueNick.text = [model.poster objectForKey:@"nickname"];
     
-    NSInteger inte = DLScreenWidth / 3.5;
-    int i = 0;
-        for (UIImage *image in array) {
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(i % 3 * (inte + 10), i / 3 * (inte + 10), inte + 5, inte + 5)];
-        imageView.image = image;
-        [self.photoView addSubview:imageView];
-        i++;
-    }
-    self.photoView.backgroundColor = [UIColor greenColor];
-    self.photoView.height = inte * (i / 3 + 1);
-    self.state = YES;
+    [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
+    
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
@@ -208,10 +156,5 @@
             break;
     }
 }
-
-
-
-
-
 
 @end

@@ -551,6 +551,7 @@
 		A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFCF1B5F5E7900F7DE60 /* RankItemCell.m */; };
 		A450561F1B60F01F0075E39D /* DSNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFCA1B5E4AAE00F7DE60 /* DSNavigationBar.m */; };
 		A45056201B60F0270075E39D /* DLNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFC71B5E416900F7DE60 /* DLNavigationBar.m */; };
+		A45111051B9D96F900139B76 /* UILabel+DLTimeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A45111041B9D96F900139B76 /* UILabel+DLTimeLabel.m */; };
 		A45565DF1B6B1B2400DBEC44 /* CompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A45565DE1B6B1B2400DBEC44 /* CompanyModel.m */; };
 		A45726FE1B74A9B100A27B79 /* AttentionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A45726FC1B74A9B100A27B79 /* AttentionViewCell.m */; };
 		A45727021B74B50800A27B79 /* AttentionCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = A45727011B74B50800A27B79 /* AttentionCardController.m */; };
@@ -1520,7 +1521,7 @@
 		A4465CF91B9453C80056ACA8 /* FreshModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshModel.m; sourceTree = "<group>"; };
 		A44B354B1B82CF65004F7A6A /* SearchSchoolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSchoolModel.h; sourceTree = "<group>"; };
 		A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSchoolModel.m; sourceTree = "<group>"; };
-		A44B354E1B82D126004F7A6A /* schoolCan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schoolCan.png; sourceTree = "<group>"; };
+		A44B354E1B82D126004F7A6A /* schoolCan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = schoolCan.png; path = ../../schoolCan.png; sourceTree = "<group>"; };
 		A44B35541B82E088004F7A6A /* FillInformationCon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FillInformationCon.h; sourceTree = "<group>"; };
 		A44B35551B82E088004F7A6A /* FillInformationCon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FillInformationCon.m; sourceTree = "<group>"; };
 		A44B35571B82F895004F7A6A /* boy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boy.png; sourceTree = "<group>"; };
@@ -1552,6 +1553,8 @@
 		A450561B1B60EF980075E39D /* RankItemLayoutAttr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RankItemLayoutAttr.h; path = ../Views/RankItemLayoutAttr.h; sourceTree = "<group>"; };
 		A450561C1B60EF980075E39D /* RankItemLayoutAttr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RankItemLayoutAttr.m; path = ../Views/RankItemLayoutAttr.m; sourceTree = "<group>"; };
 		A45056221B60F1B80075E39D /* NotificationMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationMacro.h; sourceTree = "<group>"; };
+		A45111031B9D96F900139B76 /* UILabel+DLTimeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+DLTimeLabel.h"; sourceTree = "<group>"; };
+		A45111041B9D96F900139B76 /* UILabel+DLTimeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+DLTimeLabel.m"; sourceTree = "<group>"; };
 		A45565DD1B6B1B2400DBEC44 /* CompanyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyModel.h; sourceTree = "<group>"; };
 		A45565DE1B6B1B2400DBEC44 /* CompanyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyModel.m; sourceTree = "<group>"; };
 		A45726FB1B74A9B100A27B79 /* AttentionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttentionViewCell.h; sourceTree = "<group>"; };
@@ -2320,6 +2323,8 @@
 				967439B51B705907004334A4 /* UIImageView+DLGetWebImage.m */,
 				967439B61B705907004334A4 /* User.h */,
 				967439B71B705908004334A4 /* User.m */,
+				A45111031B9D96F900139B76 /* UILabel+DLTimeLabel.h */,
+				A45111041B9D96F900139B76 /* UILabel+DLTimeLabel.m */,
 			);
 			path = NetworkRequestTool;
 			sourceTree = "<group>";
@@ -4005,7 +4010,6 @@
 				A4745E231B81E512008EB944 /* starTime.png */,
 				A4745E251B81E518008EB944 /* phone.png */,
 				A4745E211B81E50D008EB944 /* school.png */,
-				A44B354E1B82D126004F7A6A /* schoolCan.png */,
 				A4745E271B81E51E008EB944 /* write.png */,
 			);
 			name = Temporary;
@@ -4014,6 +4018,7 @@
 		A4F315581B5E4BFB00126C8A /* ChoosePhoto */ = {
 			isa = PBXGroup;
 			children = (
+				A44B354E1B82D126004F7A6A /* schoolCan.png */,
 				A4F315591B5E4BFB00126C8A /* ChoosePhotoController.h */,
 				A4F3155A1B5E4BFB00126C8A /* ChoosePhotoController.m */,
 				A4F3155B1B5E4BFB00126C8A /* ChoosePhotoView.h */,
@@ -4774,6 +4779,7 @@
 				96CF938D1B674B54001759E2 /* EMChatBaseBubbleView.m in Sources */,
 				A4F594FA1B7C7C740088D9CC /* HMShopCell.m in Sources */,
 				54BB1DBF1B8DB7E300F76628 /* SettingViewController.m in Sources */,
+				A45111051B9D96F900139B76 /* UILabel+DLTimeLabel.m in Sources */,
 				A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */,
 				96CF93831B674B54001759E2 /* ChatViewController+Category.m in Sources */,
 				96CF93791B674B54001759E2 /* CallViewController.m in Sources */,

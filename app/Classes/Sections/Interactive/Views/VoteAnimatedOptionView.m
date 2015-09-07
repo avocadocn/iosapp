@@ -36,7 +36,7 @@
     if (self) {
         self.width = DLScreenWidth;
         self.height = 44;
-        self.backgroundColor = [UIColor greenColor];
+//        self.backgroundColor = [UIColor greenColor];
         [self setupView];
     }
     return self;

@@ -16,6 +16,7 @@
 #import "CircleContextModel.h"
 #import "Account.h"
 #import "AccountTool.h"
+#import "ColleagueViewController.h"
 
 #define WID ((DLScreenWidth - 20) / 4.0)
 
@@ -125,9 +126,14 @@
     
     [RestfulAPIRequestTool routeName:@"cirleContent" requestModel:model useKeys:@[@"content", @"photo"] success:^(id json) {
         NSLog(@"%@", json);
+        ColleagueViewController *coll = [ColleagueViewController shareState];
+        [coll netRequest];
+        [self.navigationController popViewControllerAnimated:YES];
+        
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);
     }];
+    
 
 }
 

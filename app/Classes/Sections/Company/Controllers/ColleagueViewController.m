@@ -15,6 +15,7 @@
 #import "CompanyModel.h"
 #import "AddressBookModel.h"
 #import <Masonry.h>
+static ColleagueViewController *coll = nil;
 #import "UIImageView+DLGetWebImage.h"
 
 #define LABELWIDTH 355.0
@@ -23,7 +24,21 @@
 
 @end
 
+
 @implementation ColleagueViewController
+
+
++ (ColleagueViewController *)shareState
+{
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        if (!coll) {
+            coll = [[ColleagueViewController alloc]init];
+        }
+    });
+    return coll;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,12 +61,12 @@
     
     [self.view addSubview:self.colleagueTable];
     [self netRequest];
-    
+
 }
 - (void)netRequest {
     AddressBookModel *model = [[AddressBookModel alloc] init];
 
-    [model setLimit:10.00];
+    [model setLimit:50.00];
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
         NSLog(@"请求成功-- %@",json);
         [self reloadTableViewWithJson:json];
@@ -72,11 +87,17 @@
     NSDictionary *dic = [self.userInterArray objectAtIndex:indexPath.row];
     UIView *view = [dic objectForKey:@"view"];
     
+    NSArray *viewArray =  [cell.userInterView subviews];
+    for (UIView *aView in viewArray) {
+        [aView removeFromSuperview];
+    }
     cell.userInterView.height = view.frame.size.height;
-//    [cell reloadCellWithModel:dic];
     
-    [cell.userInterView addSubview:view];
+    CircleContextModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    [cell reloadCellWithModel:model];
     
+    
+    [cell.userInterView insertSubview:view atIndex:0];
     return cell;
 }
 
@@ -225,31 +246,40 @@
 
 - (void)reloadTableViewWithJson:(id)json
 {
+    self.modelArray = [NSMutableArray array];
+    
     self.userInterArray = [NSMutableArray array];
     
     SHLUILabel *tempLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), 100)];
     for (NSDictionary *dic in json) {
+        //得到 model
+        NSDictionary *aTempDic = [dic objectForKey:@"content"];
+        CircleContextModel *model = [[CircleContextModel alloc]init];
+        [model setValuesForKeysWithDictionary:aTempDic];
+        
+        NSMutableArray *myTemparray = [dic objectForKey:@"comments"];
+        
+        [model setComments:myTemparray];
+        [self.modelArray addObject:model];
         
         NSInteger overHeight = 0;
         UIView *view = [[UIView alloc]init];
-        /*NSDictionary *tempDic = [dic objectForKey:@"content"];
-        CircleContextModel *model = [[CircleContextModel alloc]init];
-        [model setValuesForKeysWithDictionary:tempDic];
         
-        NSMutableArray *array = [dic objectForKey:@"comments"];
-        
-        [model setComments:array];*/
 
         NSDictionary *contentDic = [dic objectForKey:@"content"];
-        NSString *contentStr = [contentDic objectForKey:@"content"];
+        NSString *contentStr = [contentDic objectForKey:@"content"];   // 用户发表的文字
+        NSLog(@"用户发表的文字为 %@", contentStr);
+        
+        if (contentStr){
+            NSLog(@"存在文字");
         CGSize size = [self getSizeWithLabel:tempLabel andString:contentStr];
-        SHLUILabel *label = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, size.width, size.height)];
+        SHLUILabel *label = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, size.width, size.height + 5)];
         label.text = contentStr;
         label.font = [UIFont systemFontOfSize:15];
         [view addSubview:label];
-        
-        overHeight += size.height;
-        CGFloat width = DLMultipleWidth(82.0);
+        overHeight += size.height + 5;
+        }
+        CGFloat width = DLMultipleWidth(87.0);
         
         NSArray *array = [contentDic objectForKey:@"photos"];//图片 array
         NSInteger picNum = [array count];
@@ -260,8 +290,9 @@
         }
         int b = 0;
         for (NSDictionary *imageDic in array) {
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, overHeight + b / 3 * width, width - 10, width - 10)];
-            [imageView dlGetRouteWebImageWithString:[imageDic objectForKey:@"uri"] placeholderImage:nil];
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, overHeight + b / 3 * width, width - 5, width - 5)];
+            [imageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
+            imageView.backgroundColor = [UIColor orangeColor];
             [view addSubview:imageView];
             b++;
         }
@@ -272,12 +303,12 @@
         for (NSDictionary *interTempDic in interArray) {
             NSString *str = [interTempDic objectForKey:@"content"];
             CGSize tempSize = [self getSizeWithLabel:tempLabel andString:str];
-            SHLUILabel *interLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, tempSize.width, tempSize.height)];
+            SHLUILabel *interLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, LABELWIDTH, tempSize.height)];
             interLabel.font = [UIFont systemFontOfSize:15];
             interLabel.text = str;
             [interLabel setBackgroundColor:[UIColor colorWithWhite:.8 alpha:.5]];
             [view addSubview:interLabel];
-            overHeight += size.height;
+            overHeight += tempSize.height;
         }
         view.frame = CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), overHeight);
         NSDictionary *viewDic = [NSDictionary dictionaryWithObjects:@[view, [NSString stringWithFormat:@"%ld", overHeight]] forKeys:@[@"view", @"height"]];
