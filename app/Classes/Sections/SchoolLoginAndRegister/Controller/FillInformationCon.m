@@ -18,6 +18,8 @@
 
 @interface FillInformationCon ()<DNImagePickerControllerDelegate, UITextFieldDelegate>
 
+@property (nonatomic, strong)UILabel *manLabel;
+@property (nonatomic, strong)UILabel *womanLabel;
 @end
 
 @implementation FillInformationCon
@@ -125,23 +127,48 @@
     self.manButton.tag = 1;
     [self.manButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.userGender.mas_top);
-        make.right.mas_equalTo(self.userGender.mas_centerX).offset(-15);
+        make.right.mas_equalTo(self.userGender.mas_centerX).offset(-35);
         make.height.mas_equalTo(DLMultipleWidth(45.0));
         make.width.mas_equalTo(DLMultipleWidth(45.0));
     }];
     
+    self.manLabel = [UILabel new];
+    self.manLabel.text = @"男";
+    self.manLabel.font = [UIFont systemFontOfSize:15];
+    self.manLabel.textColor = RGBACOLOR(14, 161, 215, 1);
+    [self.userGender addSubview:self.manLabel];
+    [self.manLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.manButton.mas_top);
+        make.left.mas_equalTo(self.manButton.mas_right);
+        make.bottom.mas_equalTo(self.manButton.mas_bottom);
+        make.width.mas_equalTo(20);
+    }];
     
     self.womanButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.womanButton addTarget:self action:@selector(userSexAction:) forControlEvents:UIControlEventTouchUpInside];
     self.womanButton.tag = 2;
     [self.womanButton setBackgroundImage:[UIImage imageNamed:@"gray-woman"] forState:UIControlStateNormal];
     [self.userGender addSubview:self.womanButton];
-    
+    //    235 79 56 1
+
     [self.womanButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.userGender);
         make.left.mas_equalTo(self.userGender.mas_centerX).offset(15);
         make.height.mas_equalTo(DLMultipleWidth(45.0));
         make.width.mas_equalTo(DLMultipleWidth(45.0));
+    }];
+    
+    self.womanLabel = [UILabel new];
+    self.womanLabel.text = @"女";
+    self.womanLabel.font = [UIFont systemFontOfSize:15];
+    self.womanLabel.textColor = RGBACOLOR(237, 240, 241, 1);
+    [self.userGender addSubview:self.womanLabel];
+    
+    [self.womanLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.womanButton.mas_top);
+        make.left.mas_equalTo(self.womanButton.mas_right);
+        make.bottom.mas_equalTo(self.womanButton.mas_bottom);
+        make.width.mas_equalTo(20.0);
     }];
     
     UIView *lineView2 = [UIView new];
@@ -168,6 +195,8 @@
             if ([self.userPhoto.image isEqual:[UIImage imageNamed:@"gril"]]) {
                 self.userPhoto.image = [UIImage imageNamed:@"boy"];
             }
+                self.manLabel.textColor = RGBACOLOR(14, 161, 215, 1);
+                self.womanLabel.textColor = RGBACOLOR(237, 240, 241, 1);
             break;
             
         case 2:  //女性
@@ -177,7 +206,8 @@
             if ([self.userPhoto.image isEqual:[UIImage imageNamed:@"boy"]]) {
                 self.userPhoto.image = [UIImage imageNamed:@"gril"];
             }
-            
+            self.manLabel.textColor = RGBACOLOR(237, 240, 241, 1);
+            self.womanLabel.textColor = RGBACOLOR(235, 79, 56, 1);
             break;
     }
 }
@@ -189,6 +219,8 @@
 - (void)choosePhotoAction:(UITapGestureRecognizer *)tap{
     DNImagePickerController *imagePicker = [[DNImagePickerController alloc] init];
     imagePicker.imagePickerDelegate = self;
+    imagePicker.allowSelectNum = 1;
+    
     [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
 }
 - (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage

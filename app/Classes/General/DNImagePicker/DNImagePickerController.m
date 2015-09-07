@@ -66,6 +66,7 @@ ALAssetsFilter * ALAssetsFilterFromDNImagePickerControllerFilterType(DNImagePick
                  NSURL *assetsGroupURL = [assetsGroup valueForProperty:ALAssetsGroupPropertyURL];
                  DNAlbumTableViewController *albumTableViewController = [[DNAlbumTableViewController alloc] init];
                  DNImageFlowViewController *imageFlowController = [[DNImageFlowViewController alloc] initWithGroupURL:assetsGroupURL];
+                 imageFlowController.allowSlelctNum = self.allowSelectNum;
                  [self setViewControllers:@[albumTableViewController,imageFlowController]];
              }
          }

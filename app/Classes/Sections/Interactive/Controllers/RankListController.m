@@ -140,7 +140,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
         [itemView.nameLabel setText:[NSString stringWithFormat:@"杨彤%zd",index]];
         
     }
-    view.layer.borderColor = [UIColor greenColor].CGColor;
+//    view.layer.borderColor = [UIColor greenColor].CGColor;
     view.layer.borderWidth = 5;
     [view setBackgroundColor:[UIColor whiteColor]];
     return view;

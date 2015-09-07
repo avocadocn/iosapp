@@ -40,4 +40,6 @@ UIKIT_EXTERN ALAssetsFilter * ALAssetsFilterFromDNImagePickerControllerFilterTyp
 @property (nonatomic, assign) DNImagePickerFilterType filterType;
 @property (nonatomic, weak) id<DNImagePickerControllerDelegate> imagePickerDelegate;
 
+@property (nonatomic, assign)NSInteger allowSelectNum;
+
 @end

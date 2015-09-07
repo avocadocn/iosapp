@@ -32,7 +32,14 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     SelectStateOfCompanyYes
 };
 // CardChooseViewDelegate   DLNetworkRequestDelegate
-@interface CheckViewController ()<UITableViewDataSource, UITableViewDelegate, DLDatePickerViewDelegate>
+@interface CheckViewController ()<UITableViewDataSource, UITableViewDelegate, DLDatePickerViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+
+@property (nonatomic, strong)NSMutableArray *pickerArray;
+
+@property (nonatomic, strong)UIView *tempView;
+@property (nonatomic, assign)BOOL selectState;
+
+@property (nonatomic, strong)UIPickerView *picker;
 
 @end
 
@@ -53,7 +60,6 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
      */  //第一个版本  公司版本
     [self makeFlaseValue];
 }
-
 
 - (void)builtRightBarItem
 {
@@ -117,19 +123,115 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     
     
 }
+
 - (void)timeSelect:(UITapGestureRecognizer *)tap
 {
-    [self.school.textfield resignFirstResponder];
-    DLDatePickerView *time = [[DLDatePickerView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    time.delegate = self;
-//    time.picker.datePickerMode = UIDatePickerModeDate;
-    NSDate *minDate = [[NSDate alloc]initWithTimeInterval:- 60 * 60 * 24 * 365 * 60 sinceDate:[NSDate date]];
-    NSDate *maxDate = [NSDate date];
-    [time reloadWithMaxDate:maxDate minDate:minDate dateMode:UIDatePickerModeCountDownTimer];
-    
-    [self.view addSubview:time];
-    [time show];
+    if (self.selectState == NO) {
+        
+        
+        self.selectState = YES;
+        self.tempView = [[UIView alloc]initWithFrame:CGRectMake(0, DLScreenHeight, DLScreenWidth, DLScreenHeight)];
+        [self.view addSubview:self.tempView];
+        self.pickerArray = [NSMutableArray array];
+        for (int i = 2015 - 100; i <= 2015; i++) {
+            
+            NSString *str = [NSString stringWithFormat:@"%d",i];
+            [self.pickerArray addObject:str];
+        }
+        self.picker = [[UIPickerView alloc]initWithFrame:CGRectMake(0, DLScreenHeight - DLMultipleHeight(250.0) + 49.0, DLScreenWidth, DLMultipleHeight(250.0))];
+        
+        self.picker.delegate = self;
+        self.picker.dataSource = self;
+        
+        self.picker.showsSelectionIndicator = YES;
+        self.picker.backgroundColor = [UIColor whiteColor];
+        [self.picker selectRow:100 inComponent:0 animated:YES];
+        
+        [self.tempView addSubview:self.picker];
+        UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [returnButton setTitle:@"确认" forState:UIControlStateNormal];
+        [returnButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [returnButton setBackgroundColor:[UIColor whiteColor]];
+        [returnButton addTarget:self action:@selector(returnButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        //    [returnButton setBackgroundColor:[UIColor greenColor]];
+        [self.tempView addSubview:returnButton];
+        [returnButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.picker.mas_top);
+            make.right.mas_equalTo(self.picker.mas_right);
+            make.left.mas_equalTo(self.picker.centerX);
+        }];
+        
+        UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [cancelButton setBackgroundColor:[UIColor whiteColor]];
+        [cancelButton setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
+        [cancelButton setTitle:@"取消" forState: UIControlStateNormal];
+        [cancelButton addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.tempView addSubview:cancelButton];
+        
+        [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(returnButton.mas_bottom);
+            make.left.mas_equalTo(self.picker.mas_left);
+            make.right.mas_equalTo(returnButton.mas_left);
+            make.top.mas_equalTo(returnButton.mas_top);
+        }];
+        
+        [UIView animateWithDuration:.4 animations:^{
+            self.tempView.frame = [UIScreen mainScreen].bounds;
+            [self.school.textfield resignFirstResponder];
+        }];
+    }
 }
+
+- (void)returnButtonAction:(UIButton *)sender
+{
+    [self pickerViewDismiss];
+    
+    self.time.textfield.text = [self.pickerArray objectAtIndex:[self.picker selectedRowInComponent:0]];
+}
+
+- (void)cancelButtonAction:(UIButton *)sender
+{
+    [self pickerViewDismiss];
+}
+- (void)pickerViewDismiss
+{
+    [UIView animateWithDuration:.4 animations:^{
+        self.tempView.frame = CGRectMake(0, DLScreenHeight, DLScreenWidth, DLScreenHeight);
+        
+    } completion:^(BOOL finished) {
+        [self.tempView removeFromSuperview];
+        self.selectState = NO;
+        [self.school.textfield resignFirstResponder];
+    }];
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+-(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    
+    return [self.pickerArray count];
+}
+-(NSString*) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
+    return [self.pickerArray objectAtIndex:row];
+}
+
+
+/*
+ - (void)timeSelect:(UITapGestureRecognizer *)tap
+ {
+ [self.school.textfield resignFirstResponder];
+ DLDatePickerView *time = [[DLDatePickerView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+ time.delegate = self;
+ //    time.picker.datePickerMode = UIDatePickerModeDate;
+ NSDate *minDate = [[NSDate alloc]initWithTimeInterval:- 60 * 60 * 24 * 365 * 60 sinceDate:[NSDate date]];
+ NSDate *maxDate = [NSDate date];
+ [time reloadWithMaxDate:maxDate minDate:minDate dateMode:UIDatePickerModeCountDownTimer];
+ 
+ [self.view addSubview:time];
+ [time show];
+ }  */
 - (void)outPutStringOfSelectDate:(NSString *)str withTag:(NSInteger)tag
 {
     NSArray *array = [str componentsSeparatedByString:@" "];
@@ -184,7 +286,6 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.school.textfield resignFirstResponder];
     if (indexPath.row < [self.modelArray count]) {
         SearchSchoolModel *model = [self.modelArray objectAtIndex:indexPath.row];
         self.school.textfield.text = model.name;
@@ -192,6 +293,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [self.school.textfield resignFirstResponder];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -254,7 +356,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     NSArray *array = [self.time.textfield.text componentsSeparatedByString:@"-"];
     
     LoginSinger *singer = [LoginSinger shareState];
-    [singer setEnrollment:[array firstObject]];  // 入学年份
+    [singer setEnrollment:self.time.textfield.text];  // 入学年份
     [singer setCid:self.schoolID];
     
     [self.school.textfield resignFirstResponder];

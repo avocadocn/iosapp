@@ -10,5 +10,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 @interface DNImageFlowViewController : UIViewController
 
+@property (nonatomic, assign) NSInteger allowSlelctNum;
+
+
 - (instancetype)initWithGroupURL:(NSURL *)assetsGroupURL;
 @end

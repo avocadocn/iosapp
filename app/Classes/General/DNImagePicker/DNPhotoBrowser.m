@@ -32,9 +32,9 @@
 
 @property (nonatomic, strong) UICollectionView *browserCollectionView;
 @property (nonatomic, strong) UIToolbar *toolbar;
-@property (nonatomic, strong) UIButton *checkButton;
-@property (nonatomic, strong) DNSendButton *sendButton;
-@property (nonatomic, strong) DNFullImageButton *fullImageButton;
+@property (nonatomic, strong) UIButton *checkButton;  //
+@property (nonatomic, strong) DNSendButton *sendButton;  //确认按钮
+@property (nonatomic, strong) DNFullImageButton *fullImageButton;  //
 
 @property (nonatomic, strong) NSMutableArray *photoDataSources;
 @property (nonatomic, assign) NSInteger currentIndex;
@@ -233,6 +233,7 @@
 #pragma mark - ui actions
 - (void)checkButtonAction
 {
+
     if (self.checkButton.selected) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(photoBrowser:deseletedAsset:)]) {
             [self.delegate photoBrowser:self deseletedAsset:self.photoDataSources[self.currentIndex]];
@@ -240,7 +241,11 @@
         }
     } else {
         if (self.delegate && [self.delegate respondsToSelector:@selector(photoBrowser:seletedAsset:)]) {
+            
             self.checkButton.selected = [self.delegate photoBrowser:self seletedAsset:self.photoDataSources[self.currentIndex]];
+            if (self.selectNum == 1) {
+                [self backButtonAction];
+            }
         }
     }
     
@@ -303,7 +308,7 @@
 {
     if (nil == _sendButton) {
         _sendButton = [[DNSendButton alloc] initWithFrame:CGRectZero];
-        [_sendButton setBackgroundColor:[UIColor greenColor]];
+//        [_sendButton setBackgroundColor:[UIColor greenColor]];
         [_sendButton addTaget:self action:@selector(sendButtonAction)];
     }
     return  _sendButton;

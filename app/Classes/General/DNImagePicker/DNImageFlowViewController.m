@@ -21,14 +21,13 @@
 static NSUInteger const kDNImageFlowMaxSeletedNumber = 9;
 
 @interface DNImageFlowViewController () <UICollectionViewDataSource, UICollectionViewDelegate, DNAssetsViewCellDelegate, DNPhotoBrowserDelegate>
-
+// 相机胶卷
 @property (nonatomic, strong) NSURL *assetsGroupURL;
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 @property (nonatomic, strong) ALAssetsGroup *assetsGroup;
 
 @property (nonatomic, strong) UICollectionView *imageFlowCollectionView;
 @property (nonatomic, strong) DNSendButton *sendButton;
-
 
 @property (nonatomic, strong) NSMutableArray *assetsArray;
 @property (nonatomic, strong) NSMutableArray *selectedAssetsArray;
@@ -196,7 +195,7 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 }
 
 #pragma mark - priviate methods
-- (void)sendImages
+- (void)sendImages  // 选取完成
 {
     NSString *properyID = [self.assetsGroup valueForProperty:ALAssetsGroupPropertyPersistentID];
     [[NSUserDefaults standardUserDefaults] setObject:properyID forKey:kDNImagePickerStoredGroupKey];
@@ -214,6 +213,7 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
     DNPhotoBrowser *browser = [[DNPhotoBrowser alloc] initWithPhotos:assets
                                                         currentIndex:page
                                                            fullImage:self.isFullImage];
+    browser.selectNum = self.allowSlelctNum;
     browser.delegate = self;
     browser.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:browser animated:YES];
@@ -237,6 +237,7 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
         self.sendButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)self.selectedAssetsArray.count];
         return YES;
     }
+    
 }
 
 - (void)deseletedAssets:(ALAsset *)asset
@@ -321,10 +322,14 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 - (void)didSelectItemAssetsViewCell:(DNAssetsViewCell *)assetsCell
 {
     assetsCell.isSelected = [self seletedAssets:assetsCell.asset];
+    if (self.allowSlelctNum == 1) {
+        [self sendImages];
+    }
 }
 
 - (void)didDeselectItemAssetsViewCell:(DNAssetsViewCell *)assetsCell
 {
+    NSLog(@"weixuanze");
     assetsCell.isSelected = NO;
     [self deseletedAssets:assetsCell.asset];
 }
@@ -341,6 +346,7 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
     ALAsset *asset = self.assetsArray[indexPath.row];
     cell.delegate = self;
     [cell fillWithAsset:asset isSelected:[self assetIsSelected:asset]];
+    
     return cell;
 }
 
@@ -365,6 +371,7 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 #pragma mark - DNPhotoBrowserDelegate
 - (void)sendImagesFromPhotobrowser:(DNPhotoBrowser *)photoBrowser currentAsset:(ALAsset *)asset
 {
+
     if (self.selectedAssetsArray.count <= 0) {
         [self seletedAssets:asset];
         [self.imageFlowCollectionView reloadData];
@@ -385,6 +392,9 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 {
     BOOL seleted = [self seletedAssets:asset];
     [self.imageFlowCollectionView reloadData];
+    if (self.allowSlelctNum == 1) {
+        [self sendImages];
+    }
     return seleted;
 }
 
