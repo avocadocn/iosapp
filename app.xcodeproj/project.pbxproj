@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5404302C1B905D6E00C71F39 /* InvatingViewController.m */; };
+		5436967D1B9D401E00261F2D /* 标尺.png in Resources */ = {isa = PBXBuildFile; fileRef = 5436967C1B9D401E00261F2D /* 标尺.png */; };
 		54B46A051B9547C000A6500B /* InvatingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B46A041B9547C000A6500B /* InvatingModel.m */; };
 		54BB1DB61B8DAC3600F76628 /* TwoDimensionCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DB41B8DAC3600F76628 /* TwoDimensionCodeViewController.m */; };
 		54BB1DB71B8DAC3600F76628 /* TwoDimensionCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DB51B8DAC3600F76628 /* TwoDimensionCodeViewController.xib */; };
@@ -658,6 +659,7 @@
 		10F0C3979CC574166680CAB5 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5404302B1B905D6E00C71F39 /* InvatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingViewController.h; sourceTree = "<group>"; };
 		5404302C1B905D6E00C71F39 /* InvatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingViewController.m; sourceTree = "<group>"; };
+		5436967C1B9D401E00261F2D /* 标尺.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标尺.png"; sourceTree = "<group>"; };
 		54B46A031B9547C000A6500B /* InvatingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingModel.h; sourceTree = "<group>"; };
 		54B46A041B9547C000A6500B /* InvatingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingModel.m; sourceTree = "<group>"; };
 		54BB1DB31B8DAC3600F76628 /* TwoDimensionCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimensionCodeViewController.h; sourceTree = "<group>"; };
@@ -3732,6 +3734,7 @@
 		A42CFFC91B9C194000CCFB34 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				5436967C1B9D401E00261F2D /* 标尺.png */,
 				A42CFFCA1B9C194000CCFB34 /* 305.png */,
 				A42CFFCB1B9C194000CCFB34 /* 110.png */,
 				A42CFFCC1B9C194000CCFB34 /* 111.png */,
@@ -4285,6 +4288,7 @@
 				96CF94251B674B54001759E2 /* chatBar_colorMore_camera@2x.png in Resources */,
 				96CF93E91B674B54001759E2 /* VoiceSearchFeedback018.png in Resources */,
 				A42CFFDB1B9C194000CCFB34 /* 113.png in Resources */,
+				5436967D1B9D401E00261F2D /* 标尺.png in Resources */,
 				96CF94411B674B54001759E2 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				96CF94491B674B54001759E2 /* chat_sender_audio_playing_000@2x.png in Resources */,
 				A42CFFDA1B9C194000CCFB34 /* 112.png in Resources */,

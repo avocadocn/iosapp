@@ -14,10 +14,11 @@
 #import "CheckViewController.h"
 #import "DLNetworkRequest.h"
 
-
 @interface GuidePageViewController ()<UIScrollViewDelegate>
 @property (nonatomic, strong)UIPageControl *pag;
-
+@property (nonatomic, strong)UIScrollView *scrollView;
+@property (nonatomic, strong)UIImageView *imageV,*imageVL,*imageVR;//
+@property (nonatomic, strong)UIImageView *imageRuler,*imageDown,*imageLast,*ImageGirl,*imageUp,*imageFirst;//
 @end
 
 @implementation GuidePageViewController
@@ -27,8 +28,13 @@
     
     UIScrollView *scrollview = [self builtScrollview];
     scrollview.delegate = self;
+    self.scrollView = scrollview;
     [self.view addSubview:scrollview];
     [self builtLoginAndSrg];
+    [self createImageViews];
+    [self createAnimation];
+    [self newsStudentRegeister:self.scrollView];
+
     
     self.navigationController.navigationBarHidden = YES;
 }
@@ -49,6 +55,9 @@
     
     UILabel *regiLabel = [UILabel new];
     [regiLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollTapAction:)]];
+
+    
+    
     
     regiLabel.userInteractionEnabled = YES;
     regiLabel.text = @"注册";
@@ -82,6 +91,47 @@
     }];
     
 }
+// qiqiqi
+- (void)newsStudentRegeister:(UIScrollView *)scrollView {
+    
+    [UIView animateWithDuration:3 animations:^{
+        UIImageView *view = (UIImageView *)[scrollView viewWithTag:3005];
+        [UIView animateWithDuration:1 animations:^{
+            view.alpha = 1;
+        }];
+        
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:1 animations:^{
+            for (int num = 3003; num < 3005; num ++) {
+                UIImageView *view = (UIImageView *)[scrollView viewWithTag:num];
+                [UIView animateWithDuration:1 animations:^{
+                    view.alpha = 1;
+                }];
+            }
+        } completion:^(BOOL finished) {
+            for (int num = 3001; num < 3003; num ++) {
+                UIImageView *view = (UIImageView *)[scrollView viewWithTag:num];
+                [UIView animateWithDuration:1 animations:^{
+                    view.alpha = 1;
+                } completion:^(BOOL finished) {
+//                    [view removeFromSuperview];
+                }];
+            }
+        }];
+    }];
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0 , DLMultipleHeight(78.0), DLScreenWidth, 32.0)];
+    titleLabel.text = @"新生报到";
+    titleLabel.font = [UIFont systemFontOfSize:25.0];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [scrollView addSubview:titleLabel];
+    UILabel *strLabel = [[UILabel alloc]initWithFrame:CGRectMake(0 , DLMultipleHeight(510.0), DLScreenWidth, 17.0)];
+    strLabel.text = @"一大波小鲜肉正在靠近, 近水楼台, 先睹为快";
+    strLabel.font = [UIFont systemFontOfSize:14.0];
+    strLabel.textAlignment = NSTextAlignmentCenter;
+    [scrollView addSubview:strLabel];
+    
+}
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSInteger i = scrollView.contentOffset.x / DLScreenWidth;
@@ -100,40 +150,142 @@
     
     switch (i) {
         case 0:{
-            
-            [UIView animateWithDuration:3 animations:^{
-                UIView *view = (UIView *)[scrollView viewWithTag:3005];
-                [UIView animateWithDuration:1 animations:^{
-                    view.backgroundColor = [UIColor clearColor];
-                }];
-            
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:1 animations:^{
-                    for (int num = 3003; num < 3005; num ++) {
-                        UIView *view = (UIView *)[scrollView viewWithTag:num];
-                        [UIView animateWithDuration:1 animations:^{
-                            view.backgroundColor = [UIColor clearColor];
-                        }];
-                    }
-                } completion:^(BOOL finished) {
-                    for (int num = 3001; num < 3003; num ++) {
-                        UIView *view = (UIView *)[scrollView viewWithTag:num];
-                        [UIView animateWithDuration:1 animations:^{
-                            view.backgroundColor = [UIColor clearColor];
-                        } completion:^(BOOL finished) {
-                            [view removeFromSuperview];
-                        }];
-                    }
-                }];
-            }];
-            
-            
-            
             break;
         }
+            case 1:
+            NSLog(@"牛叉社团 ");
+            [self secondAnimation];
+            break;
+            case 2:
+            NSLog(@"终于找到你了。。。");
+            [self startAnimation];
+//            [self createAnimation];
+            break;
         default:
             break;
     }
+    
+}
+
+- (void)createAnimation {
+    self.ImageGirl = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 3, DLScreenHeight / 4 - 20, DLScreenWidth / 2 + 60, DLScreenHeight / 2)];
+    self.imageFirst = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 2 + 10, - 200, 140, 200)];
+    self.imageDown = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenHeight *2 + 10, DLScreenHeight + 200, 150, 200)];
+    self.imageUp = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 3, -210, 160, 210)];
+    self.imageLast = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 3, DLScreenHeight + 210, 160, 210)];
+    self.imageRuler = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 2 - 30, 0, 30, DLScreenHeight)];
+    self.imageRuler.image = [UIImage imageNamed:@"标尺"];
+    self.ImageGirl.image = [UIImage imageNamed:@"109"];
+    self.imageFirst.image = [UIImage imageNamed:@"305"];
+    self.imageDown.image = [UIImage imageNamed:@"113"];
+    self.imageUp.image = [UIImage imageNamed:@"112"];
+    self.imageLast.image = [UIImage imageNamed:@"110"];
+    self.ImageGirl.alpha = 0.0;
+    self.imageRuler.alpha = 0.0;
+    self.imageFirst.alpha = 0.0;
+    self.imageDown.alpha = 0.0;
+    self.imageUp.alpha = 0.0;
+    self.imageLast.alpha = 0.0;
+    [self.scrollView addSubview:self.imageRuler];
+    [self.scrollView addSubview:self.imageFirst];
+    [self.scrollView addSubview:self.imageDown];
+    [self.scrollView addSubview:self.imageUp];
+    [self.scrollView addSubview:self.imageLast];
+    [self.scrollView addSubview:self.ImageGirl];
+    
+    
+    
+}
+- (void)startAnimation {
+    [UIView animateWithDuration:1 animations:^{
+        CGPoint centerRuler = CGPointMake(DLScreenWidth * 2 + 15, DLScreenHeight / 2);
+        self.imageRuler.alpha = 1.0;
+        self.imageRuler.center = centerRuler;
+    } completion:^(BOOL finished) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(DLScreenWidth *2 + 31, DLScreenHeight / 2 - 30, 40, 30)];
+        label.text = @"女神";
+        label.font = [UIFont systemFontOfSize:16];
+        [self.scrollView addSubview:label];
+    }];
+     [self startSecondAnimation];
+}
+- (void)startSecondAnimation {
+    [UIView animateWithDuration:0.15 animations:^{
+        CGPoint centerFirst = CGPointMake(DLScreenWidth * 2.5 + 20, (DLScreenHeight / 2 - 20) -(DLScreenHeight / 4 + 10 - 100));
+        self.imageFirst.center = centerFirst;
+        self.imageFirst.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        [self startThirdAnimation];
+    }];
+    
+}
+
+- (void)startThirdAnimation {
+    [UIView animateWithDuration:0.15 animations:^{
+        CGPoint centerDown = CGPointMake(DLScreenWidth * 2.5 + 20, (DLScreenHeight / 2 - 20) +(DLScreenHeight / 4 + 10 - 100));
+        self.imageDown.alpha = 1.0;
+        self.imageDown.center = centerDown;
+    } completion:^(BOOL finished) {
+        [self startFourthAnimation];
+    }];
+    
+}
+- (void)startFourthAnimation {
+    [UIView animateWithDuration:0.15 animations:^{
+        CGPoint centerUp = CGPointMake(DLScreenWidth * 2.5 + 20, (DLScreenHeight / 2 - 20) -(DLScreenHeight / 4 - 110));
+        self.imageUp.alpha = 1.0;
+        self.imageUp.center = centerUp;
+    } completion:^(BOOL finished) {
+        [self startFiveAnimation];
+    }];
+    
+}
+- (void)startFiveAnimation {
+    [UIView animateWithDuration:0.15 animations:^{
+        CGPoint centerLast = CGPointMake(DLScreenWidth * 2.5 + 20, (DLScreenHeight / 2 - 20) +(DLScreenHeight / 4 - 110));
+        self.imageLast.alpha = 1.0;
+        self.imageLast.center = centerLast;
+    } completion:^(BOOL finished) {
+        [self startSixAnimation];
+    }];
+
+}
+- (void)startSixAnimation {
+ [UIView animateWithDuration:1 animations:^{
+     CGPoint center = CGPointMake(DLScreenWidth * 2.5 + 20, DLScreenHeight / 2 - 20);
+     self.ImageGirl.alpha = 1.0;
+     self.ImageGirl.center = center;
+ }];
+    
+}
+
+- (void)createImageViews {
+    self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 1.25 , - DLScreenHeight / 2, DLScreenWidth / 2 + 30, DLScreenHeight / 2 - 20)];
+    self.imageVL = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 1 - 180 , (DLScreenHeight - 240) / 2, 180, 240)];
+    self.imageVR = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 2, (DLScreenHeight - 240) / 2, 180, 240)];
+    self.imageV.image = [UIImage imageNamed:@"106"];
+    self.imageVL.image = [UIImage imageNamed:@"107"];
+    self.imageVR.image = [UIImage imageNamed:@"108"];
+    self.imageVR.alpha = 0.0;
+    self.imageV.alpha = 0.0;
+    self.imageVL.alpha = 0.0;
+    [self.scrollView addSubview:self.imageVL];
+    [self.scrollView addSubview:self.imageVR];
+    [self.scrollView addSubview:self.imageV];
+   
+}
+- (void)secondAnimation {
+  [UIView animateWithDuration:1.0 animations:^{
+      CGPoint center = CGPointMake(DLScreenWidth * 1.5, DLScreenHeight / 2);
+      CGPoint centerL = CGPointMake(DLScreenWidth * 1 + 110, DLScreenHeight / 2);
+      CGPoint centerR = CGPointMake(DLScreenWidth * 2 - 110, DLScreenHeight / 2);
+      self.imageV.center = center;
+      self.imageVL.center = centerL;
+      self.imageVR.center = centerR;
+      self.imageV.alpha = 1.0;
+      self.imageVL.alpha = 1.0;
+      self.imageVR.alpha = 1.0;
+  }];
     
 }
 - (void)didReceiveMemoryWarning {
@@ -200,17 +352,10 @@
                                                                               DLMultipleHeight([[array objectAtIndex:3] floatValue]))];
         NSInteger num = 301 + j;
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld", num]];
-        [self.view addSubview:imageView];
-        imageView.backgroundColor = [UIColor clearColor];
+        imageView.alpha = 0;
+
         [scrollview addSubview:imageView];
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(
-                                                              DLMultipleWidth([[array objectAtIndex:0] floatValue]),
-                                                              DLMultipleHeight([[array objectAtIndex:1]floatValue]),
-                                                              DLMultipleWidth([[array objectAtIndex:2] floatValue]),
-                                                              DLMultipleHeight([[array objectAtIndex:3] floatValue]))];
-        view.backgroundColor = RGBACOLOR(255, 212, 48, 1);
-        view.tag = 3001 +j;
-        [scrollview addSubview:view];
+        imageView.tag = 3001 +j;
         j++;
     }
     
