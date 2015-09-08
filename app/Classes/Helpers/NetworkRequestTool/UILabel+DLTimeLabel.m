@@ -5,11 +5,29 @@
 //  Created by 申家 on 15/9/7.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "RestfulAPIRequestTool.h"
 #import "UILabel+DLTimeLabel.h"
 
 @implementation UILabel (DLTimeLabel)
 
+- (void)getCompanyNameFromCid:(NSString *)string
+{
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:string forKey:@"companyId"];
+    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
+        [self dismembermentJson:json];
+
+    } failure:^(id errorJson) {
+        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
+    }];
+}
+
+- (void)dismembermentJson:(id)json
+{
+    NSDictionary *dic = [json objectForKey:@"company"];
+    NSDictionary *infoDic = [dic objectForKey:@"info"];
+            self.text = [NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]];
+}
 
 - (void)judgeTimeWithString:(NSString *)string
 {

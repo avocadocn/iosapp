@@ -66,7 +66,7 @@ static ColleagueViewController *coll = nil;
 - (void)netRequest {
     AddressBookModel *model = [[AddressBookModel alloc] init];
 
-    [model setLimit:50.00];
+    [model setLimit:10.00];
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
         NSLog(@"请求成功-- %@",json);
         [self reloadTableViewWithJson:json];
@@ -95,7 +95,6 @@ static ColleagueViewController *coll = nil;
     
     CircleContextModel *model = [self.modelArray objectAtIndex:indexPath.row];
     [cell reloadCellWithModel:model];
-    
     
     [cell.userInterView insertSubview:view atIndex:0];
     return cell;
@@ -161,78 +160,16 @@ static ColleagueViewController *coll = nil;
         [self.modelArray addObject:dic];
     }
 }*/
+
+/**
+ *
+ */
 - (CGSize)getSizeWithLabel:(SHLUILabel *)label andString:(NSString *)str
 {
     CGSize size = [str sizeWithFont:label.font constrainedToSize:CGSizeMake(label.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
     return size;
 }
 
-// 得到数据以后创建通用户交互页面
-/*- (void)createUserInterView
-{
-    self.userInterArray = [NSMutableArray array];
-    
-//    NSLog(@"%@", self.modelArray);
-    for (NSDictionary *dic in self.modelArray) {
-        UIView *view = [[UIView alloc]init];
-        
-        NSInteger overHeight = 0;
-        
-        
-        NSDictionary *wordDic = [dic objectForKey:@"word"];
-        NSString *tempStr = [wordDic objectForKey:@"height"];
-        NSInteger wordHeight = [tempStr integerValue];  // 说说的高
-        
-        SHLUILabel *label = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(LABELWIDTH), wordHeight)];
-        label.text = [wordDic objectForKey:@"word"];
-        label.font = [UIFont systemFontOfSize:15];
-        [view addSubview:label];
-        
-        overHeight += wordHeight;
-        
-        CGFloat width = DLMultipleWidth(82.0);
-        NSArray *array = [dic objectForKey:@"array"];//图片 array
-        NSInteger picNum = [array count];
-        CGFloat picHeight = 0;
-        if (picNum != 0) {
-            NSLog(@"图片有 %ld 张", picNum);
-            picHeight = ((picNum + 2) / 3 )  * width; //图片view的高
-        }
-        int b = 0;
-        for (UIImage *image in array) {
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, overHeight + b / 3 * width, width - 10, width - 10)];
-            imageView.image = image;
-            [view addSubview:imageView];
-            b++;
-        }
-        
-        overHeight += picHeight;
-        
-        NSArray *interArray = [dic objectForKey:@"interArray"];
-        
-        if (!([interArray count] == 0)) {
-            for (NSDictionary *interDic in interArray) {
-                NSString *interHeight = [interDic objectForKey:@"height"];
-                NSInteger tempInt = [interHeight integerValue];
-                
-                NSString *interstr = [interDic objectForKey:@"word"];
-                SHLUILabel *interLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(LABELWIDTH), tempInt)];
-                interLabel.text = interstr;
-                interLabel.font = [UIFont systemFontOfSize:15];
-                [interLabel setBackgroundColor:[UIColor colorWithWhite:.8 alpha:.5]];
-                [view addSubview:interLabel];
-                
-                overHeight += tempInt;
-            }
-        }
-        NSLog(@"卡片的高度为%ld",overHeight);
-        view.frame = CGRectMake(0, 0, DLMultipleWidth(353.0), overHeight);
-        
-        NSDictionary *viewDic = [NSDictionary dictionaryWithObjects:@[view, [NSString stringWithFormat:@"%ld", overHeight]] forKeys:@[@"view", @"height"]];
-        
-        [self.userInterArray addObject:viewDic];
-    }
-} */
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

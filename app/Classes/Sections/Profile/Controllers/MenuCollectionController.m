@@ -63,11 +63,11 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
+    
     CGFloat margin = 0.6;
     CGFloat width = (DLScreenWidth - 2 * margin) / 3;
     CGFloat height = width * 90 / 125 ;
     [self.view setFrame:CGRectMake(0, 0, DLScreenWidth, 2 * height + margin)];
-    
     [self.collectionView registerNib:[UINib nibWithNibName:@"MenuCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.

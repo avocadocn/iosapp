@@ -100,7 +100,7 @@
     
     
     self.wordFrom = [UILabel new];
-    self.wordFrom.text = @"来自 动梨基地";
+//    self.wordFrom.text = @"来自 动梨基地";
     self.wordFrom.textColor = [UIColor colorWithWhite:.5 alpha:1];
     self.wordFrom.font = [UIFont systemFontOfSize:10];
     self.wordFrom.textAlignment = NSTextAlignmentLeft;
@@ -137,7 +137,7 @@
     self.ColleagueNick.text = [model.poster objectForKey:@"nickname"];
     
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
-    
+    [self.wordFrom getCompanyNameFromCid:model.cid];
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
@@ -150,6 +150,8 @@
         }
         case 2:{
             NSLog(@"评论");
+            
+            
             break;
         }
         default:
