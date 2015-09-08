@@ -22,8 +22,9 @@
 
 - (void)builtInterface
 {
-    
+    self.userInteractionEnabled = YES;
     self.criticIamge = [UIImageView new];
+    self.criticIamge.userInteractionEnabled = YES;
     [self addSubview:self.criticIamge];
     
     [self.criticIamge mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -34,15 +35,16 @@
     }];
     
     self.criticText = [UILabel new];
+    self.criticText.userInteractionEnabled = YES;
     self.criticText.textColor = [UIColor colorWithWhite:.5 alpha:1];
 //    [self.criticText setBackgroundColor:[UIColor greenColor]];
-    self.criticText.font = [UIFont systemFontOfSize:11];
+    self.criticText.font = [UIFont systemFontOfSize:15];
     [self addSubview:self.criticText];
     
     [self.criticText mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top);
         make.right.mas_equalTo(self.mas_right);
-        make.left.mas_equalTo(self.criticIamge.mas_right).offset(self.height);
+        make.left.mas_equalTo(self.criticIamge.mas_right).offset(self.height + 5);
         make.bottom.mas_equalTo(self.mas_bottom);
     }];
     

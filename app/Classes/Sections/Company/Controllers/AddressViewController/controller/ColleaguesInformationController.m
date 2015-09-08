@@ -190,14 +190,14 @@ static NSInteger tagNum = 1;
             [self.model setUserId:self.model.ID];
             [folder netRequstWithModel:self.model];
             [self.navigationController pushViewController:folder animated:YES];
-            
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
             break;
         }
         case 2:{
             // 个人动态页面
             PersonalDynamicController *dynamic = [[PersonalDynamicController alloc]init];
             [self.navigationController pushViewController:dynamic animated:YES];
-            
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
             break;
         }
         case 4:
@@ -209,7 +209,7 @@ static NSInteger tagNum = 1;
             ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:conversation.chatter conversationType:conversation.conversationType];
             chatVC.title = self.model.realname;
             [self.navigationController pushViewController:chatVC animated:YES];
-            
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
             ChatListViewController *chat = [ChatListViewController shareInstan];
             [chat.dataSource addObject:conversation];
             [chat.tableView reloadData];

@@ -124,6 +124,7 @@
     [self.manButton addTarget:self action:@selector(userSexAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.manButton setBackgroundImage:[UIImage imageNamed:@"man"] forState:UIControlStateNormal];
     [self.userGender addSubview:self.manButton];
+    self.manButton.layer.shouldRasterize = NO;
     self.manButton.tag = 1;
     [self.manButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.userGender.mas_top);
@@ -147,6 +148,7 @@
     self.womanButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.womanButton addTarget:self action:@selector(userSexAction:) forControlEvents:UIControlEventTouchUpInside];
     self.womanButton.tag = 2;
+//    self.womanButton.layer.shouldRasterize = YES;
     [self.womanButton setBackgroundImage:[UIImage imageNamed:@"gray-woman"] forState:UIControlStateNormal];
     [self.userGender addSubview:self.womanButton];
     //    235 79 56 1
@@ -276,6 +278,8 @@
     [self.navigationController pushViewController:acc animated:YES];
     
 }
+
+
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
 {

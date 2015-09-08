@@ -43,4 +43,10 @@
 
 @property (nonatomic, strong)NSDictionary *poster;
 
+@property (nonatomic, strong)NSMutableDictionary *body;
+
+@property (nonatomic, copy)NSString *contentId;
+
+
+
 @end
