@@ -79,8 +79,6 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    
-    
     if (textField == self.phoneNumber.textfield) {
         if (range.location == 11) {
             return NO;
@@ -92,7 +90,7 @@
         }
     }
     
-    if (self.phoneNumber.textfield.text.length == 11 && self.password.textfield.text.length > 5) {
+    if (self.phoneNumber.textfield.text.length == 11 && self.password.textfield.text.length >= 5) {
         NSLog(@"长度为%@", self.phoneNumber.textfield.text);
         self.label.userInteractionEnabled = YES;
         self.label.textColor = RGBACOLOR(253, 185, 0, 1);
@@ -100,7 +98,6 @@
         self.label.textColor = [UIColor lightGrayColor];
         self.label.userInteractionEnabled = NO;
     }
-    
     
     return YES;
 }

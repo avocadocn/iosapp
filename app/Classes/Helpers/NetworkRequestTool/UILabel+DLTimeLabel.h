@@ -12,4 +12,6 @@
 
 - (void)judgeTimeWithString:(NSString *)string;
 
+- (void)getCompanyNameFromCid:(NSString *)string;
+
 @end

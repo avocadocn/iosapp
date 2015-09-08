@@ -11,7 +11,6 @@
 @implementation MenuCollectionViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
     
     [self.menuCollectionCellIcon.layer setCornerRadius:self.menuCollectionCellIcon.width / 2];
     [self.menuCollectionCellIcon.layer setMasksToBounds:YES];

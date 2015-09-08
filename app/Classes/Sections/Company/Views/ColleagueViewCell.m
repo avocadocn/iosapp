@@ -14,6 +14,8 @@
 #import "CircleContextModel.h"
 #import "UIImageView+DLGetWebImage.h"
 #import "UILabel+DLTimeLabel.h"
+
+
 @implementation ColleagueViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -30,11 +32,11 @@
     UIView *superBigView = [UIView new];  //容器
     [superBigView setBackgroundColor:[UIColor whiteColor]];
     
-    [self setBackgroundColor:[UIColor colorWithWhite:.8 alpha:.3]];
-    superBigView.layer.cornerRadius = 5;
-    superBigView.layer.masksToBounds = YES;
-    superBigView.layer.borderWidth = 1;
-    superBigView.layer.borderColor = [UIColor colorWithWhite:.5 alpha:.5].CGColor;
+    self.backgroundColor = RGBACOLOR(240, 241, 242, 1);
+//    superBigView.layer.cornerRadius = 5;
+//    superBigView.layer.masksToBounds = YES;
+//    superBigView.layer.borderWidth = 1;
+//    superBigView.layer.borderColor = [UIColor colorWithWhite:.5 alpha:.5].CGColor;
     self.circleImage = [CircleImageView circleImageViewWithImage:[UIImage imageNamed:@"2.jpg"] diameter:45];
     self.circleImage.frame = CGRectMake(8, 8, 45, 45); 
     [superBigView addSubview:self.circleImage];
@@ -90,17 +92,17 @@
         make.bottom.equalTo(self.commondButton.mas_bottom);
     }];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-    UITapGestureRecognizer *tapPre = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-    [self.praiseButton addGestureRecognizer:tapPre];
-    [self.commondButton addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+//    UITapGestureRecognizer *tapPre = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+//    [self.praiseButton addGestureRecognizer:tapPre];
+//    [self.commondButton addGestureRecognizer:tap];
     
     NSInteger temp = arc4random() % 10;
     self.num = temp;
     
     
     self.wordFrom = [UILabel new];
-    self.wordFrom.text = @"来自 动梨基地";
+//    self.wordFrom.text = @"来自 动梨基地";
     self.wordFrom.textColor = [UIColor colorWithWhite:.5 alpha:1];
     self.wordFrom.font = [UIFont systemFontOfSize:10];
     self.wordFrom.textAlignment = NSTextAlignmentLeft;
@@ -131,12 +133,18 @@
     
 }
 
-- (void)reloadCellWithModel:(CircleContextModel *)model
+- (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath
 {
     [self.circleImage dlGetRouteWebImageWithString:[model.poster objectForKey:@"photo"] placeholderImage:nil];
     self.ColleagueNick.text = [model.poster objectForKey:@"nickname"];
     
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
+    [self.wordFrom getCompanyNameFromCid:model.cid];
+    
+    self.commondButton.tag = indexpath.row + 1;
+    
+    self.praiseButton.criticText.text = [NSString stringWithFormat:@"%ld", model.commentUsers.count];
+    self.commondButton.criticText.text = [NSString stringWithFormat:@"%ld", model.comments.count];
     
 }
 
@@ -150,6 +158,8 @@
         }
         case 2:{
             NSLog(@"评论");
+            
+            
             break;
         }
         default:

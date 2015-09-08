@@ -66,11 +66,14 @@ static NSInteger num = 0;
         } else {
             self.gender.informationTextField.text = @"男";
         }
-        self.brithday.informationTextField.text = [infoModel.birthday substringToIndex:10];
+        if (infoModel.birthday) {
+            self.brithday.informationTextField.text = [infoModel.birthday substringToIndex:10];
+                    [self setConstellationsText];// 设置星座
+        }
         self.department.informationTextField.text = json[@"department"][@"name"];
         self.phoneNumber.informationTextField.text = infoModel.phone;
         [self.folderPhotoImage dlGetRouteWebImageWithString:infoModel.photo placeholderImage:[UIImage imageNamed:@"DaiMeng.jpg"]];
-        [self setConstellationsText];// 设置星座
+
     } failure:^(id errorJson) {
         NSLog(@"获取个人资料失败原因 %@",errorJson);
     }];
@@ -250,9 +253,11 @@ static NSInteger num = 0;
     self.constellation.informationTextField.text = [NSString stringWithFormat:@"%@座",conste];
 }
 - (void)setConstellationsText { // 获取数据后设置星座
-    NSArray *dateArray = [self.brithday.informationTextField.text componentsSeparatedByString:@"-"];
-    NSString *conste = [self getAstroWithMonth:[[dateArray objectAtIndex:1] intValue] day:[[dateArray objectAtIndex:2] intValue]];
-    self.constellation.informationTextField.text = [NSString stringWithFormat:@"%@座",conste];
+
+        NSArray *dateArray = [self.brithday.informationTextField.text componentsSeparatedByString:@"-"];
+        NSString *conste = [self getAstroWithMonth:[[dateArray objectAtIndex:1] intValue] day:[[dateArray objectAtIndex:2] intValue]];
+        self.constellation.informationTextField.text = [NSString stringWithFormat:@"%@座",conste];
+    
 }
 //判断星座
 -(NSString *)getAstroWithMonth:(int)m day:(int)d{

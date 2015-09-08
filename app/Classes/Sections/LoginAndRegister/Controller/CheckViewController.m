@@ -197,11 +197,11 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 {
     [UIView animateWithDuration:.4 animations:^{
         self.tempView.frame = CGRectMake(0, DLScreenHeight, DLScreenWidth, DLScreenHeight);
-        
+
     } completion:^(BOOL finished) {
         [self.tempView removeFromSuperview];
         self.selectState = NO;
-        [self.school.textfield resignFirstResponder];
+        [self.school.textfield becomeFirstResponder];
     }];
 }
 
