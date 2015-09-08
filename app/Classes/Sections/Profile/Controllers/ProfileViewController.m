@@ -19,6 +19,7 @@
 #import "TwoDimensionCodeViewController.h"
 #import "SettingViewController.h"
 #import "InvatingViewController.h"
+#import "MessageViewController.h"
 @interface ProfileViewController () <UITableViewDataSource,UITableViewDelegate,MenuCollectionControllerDelegate>
 
 
@@ -37,7 +38,7 @@ static NSString * const ID = @"ProfileTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-   
+//    self.navigationController.navigationBar.translucent = NO;
     // Do any additional setup after loading the view.
     
     // 初始化顶部的CollectionView
@@ -161,9 +162,10 @@ static NSString * const ID = @"ProfileTableViewCell";
         case 1: // 群组
              controller = [[TeamHomePageController alloc]init];
             break;
-        case 2: // 礼物
+        case 2: // 消息
             //controller = [[FolderViewController alloc]init];
-            controller = [[UserMessageTableViewController alloc]init];
+//            controller = [[UserMessageTableViewController alloc]init];
+            controller = [[MessageViewController alloc] init];
             break;
         case 3: // 活动
             controller = [[ActivityShowTableController alloc]init];

@@ -41,5 +41,7 @@
 @property (nonatomic, strong)NSArray *members;
 @property (nonatomic, strong)PollModel *poll;
 @property (nonatomic, copy)NSString *ID;
+@property (nonatomic, copy)NSString *interactionId; // 活动Id
+@property (nonatomic, copy)NSString *userId; // 
 
 @end

@@ -8,6 +8,7 @@
 
 #import "UserMessageTableViewController.h"
 #import "UserMessageTableViewCell.h"
+#import "MessageTableViewCell.h"
 
 @interface UserMessageTableViewController ()
 
