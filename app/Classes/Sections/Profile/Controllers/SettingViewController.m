@@ -15,6 +15,7 @@
 #import "AddressBookModel.h"
 #import "RestfulAPIRequestTool.h"
 #import "LoginViewController.h"
+#import "GuidePageViewController.h"
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong) UIAlertView *alert;
@@ -95,13 +96,13 @@
 }
 #pragma ActionSheet delegate
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    GuidePageViewController *loginVC = [[GuidePageViewController alloc] init];
     Account *accout = [AccountTool account];
     AddressBookModel *model = [[AddressBookModel alloc] init];
     [model setUserId:accout.ID];
     if (buttonIndex == 0) { // 退出登录
     [RestfulAPIRequestTool routeName:@"userLogOut" requestModel:model useKeys:@[@"msg"] success:^(id json) {
-        [self presentViewController:loginVC animated:YES completion:nil];
+        [self.navigationController pushViewController:loginVC animated:YES];
         NSLog(@"退出成功");
         accout.token = nil;
         [AccountTool saveAccount:accout];

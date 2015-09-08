@@ -132,7 +132,7 @@
         NSString *contactPhoneNumber = @"";
         for(NSInteger j = 0; j < ABMultiValueGetCount(tmpPhones); j++)
         {
-            NSString* tmpPhoneIndex = (__bridge NSString*)ABMultiValueCopyValueAtIndex(tmpPhones, j);
+            NSMutableString* tmpPhoneIndex = (__bridge NSMutableString*)ABMultiValueCopyValueAtIndex(tmpPhones, j);
             if (tmpPhoneIndex.length >= 13 && ![tmpPhoneIndex hasPrefix:@"("]) {
                 contactPhoneNumber = tmpPhoneIndex;
             }else {
@@ -149,7 +149,7 @@
 
 #pragma addresstableDelegate
 /*
-//-(void)passValue:(NSString *)phoneNumber { // 添加邀请对象
+//-(void)passValue:(NSString *)phonNuember { // 添加邀请对象
 //    if ([phoneNumber isEqualToString:@""]) {
 //        NSLog(@"%@",phoneNumber);
 //    } else {
@@ -198,15 +198,27 @@
 -(void)editButtonAction:(UITapGestureRecognizer *)gesture {
     
     NSArray *array = [self getInviteArrayWithArray];
-    NSLog(@"邀请人的列表有 %@", array);
+    for (NSString *number in array) {
+        if ([number containsString:@"-"]) {
+            NSRange range = [number rangeOfString:@"-"];
+           NSString  *number1 = [number stringByReplacingCharactersInRange:range withString:@""];
+            NSRange range2 = [number1 rangeOfString:@"-"];
+            NSString *number2 = [number1 stringByReplacingCharactersInRange:range2 withString:@""];
+            [self.invatePhone addObject:number2];
+        }
+    }
+//    NSLog(@"邀请人的列表有 %@", array);
 
-    NSLog(@"%lu",(unsigned long)self.invatePhone.count);
     InvatingModel *model = [[InvatingModel alloc] init];
-    [model setPhone:self.invatePhone];
-    [RestfulAPIRequestTool routeName:@"userInvate" requestModel:model useKeys:@[@"phone"] success:^(id json) {
+    [model setPhones:self.invatePhone];
+    [RestfulAPIRequestTool routeName:@"userInvate" requestModel:model useKeys:@[@"phones"] success:^(id json) {
         NSLog(@"邀请成功");
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:nil message:@"邀请成功" delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        [alertV show];
     } failure:^(id errorJson) {
-        NSLog(@"邀请失败的原因 %@",[errorJson objectForKey:@"msg"]);
+//        NSLog(@"邀请失败的原因 %@",[errorJson objectForKey:@"msg"]);
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"邀请失败" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        [alertV show];
     }];
     
 }

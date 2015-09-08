@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface InvatingModel : NSObject
-@property (nonatomic, strong)NSArray *phone; // 本地通讯录
+@property (nonatomic, strong)NSArray *phones; // 本地通讯录
 @end
