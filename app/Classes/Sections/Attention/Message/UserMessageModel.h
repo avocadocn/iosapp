@@ -35,4 +35,8 @@
  */
 @property (nonatomic, strong) UserMessageModel *retweedMessage;
 
+@property (nonatomic, copy) NSString *content;
+
+
+
 @end

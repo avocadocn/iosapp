@@ -23,11 +23,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.view.backgroundColor = [UIColor cyanColor];
+    self.view.backgroundColor = [UIColor whiteColor];
 //    self.title = @"消息列表";
 //    self.navigationController.navigationBar.translucent = NO;
     [self creatScrollView];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, DLScreenWidth, DLScreenHeight ) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,-35, DLScreenWidth, DLScreenHeight + 35) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.scrollView addSubview:self.tableView];
@@ -38,20 +38,20 @@
     [self netWorkRequest];
 }
 - (void)creatScrollView { // 创建scrollView
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, DLScreenWidth, DLScreenHeight - 64)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
     self.scrollView.contentSize = CGSizeMake(DLScreenWidth * 2, 0);
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.delegate = self;
     self.scrollView.bounces = NO;
-    self.scrollView.backgroundColor = [UIColor cyanColor];
+//    self.scrollView.backgroundColor = [UIColor cyanColor];
     [self.view addSubview:self.scrollView];
     InteractionView *view = [[InteractionView alloc] initWithFrame:CGRectMake(DLScreenWidth, 0, DLScreenWidth, DLScreenHeight)];
     [self.scrollView addSubview:view];
 }
 - (void)netWorkRequest {// 网路请求
-//    UserMessageModel *model = [[UserMessageModel alloc] init];
-    [RestfulAPIRequestTool routeName:@"getPersonalInteractionList" requestModel:nil useKeys:nil success:^(id json) {
+    UserMessageModel *model = [[UserMessageModel alloc] init];
+    [RestfulAPIRequestTool routeName:@"getPersonalInteractionList" requestModel:model useKeys:@[@"content"] success:^(id json) {
         NSLog(@"获取消息列表成功 %@",json);
     } failure:^(id errorJson) {
         NSLog(@"获取消息列表失败 %@",[errorJson objectForKey:@"msg"]);
@@ -74,10 +74,10 @@
 - (void)handleSegment:(UISegmentedControl *)segment {
     switch (segment.selectedSegmentIndex) {
         case 0:
-            [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(0, -64) animated:YES];
             break;
         case 1:
-            [self.scrollView setContentOffset:CGPointMake(DLScreenWidth, 0) animated:YES];
+            [self.scrollView setContentOffset:CGPointMake(DLScreenWidth, -64) animated:YES];
             break;
         default:
             break;
