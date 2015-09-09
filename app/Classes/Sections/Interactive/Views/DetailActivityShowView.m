@@ -88,7 +88,7 @@
     for (NSDictionary *dic in self.model.photos) {
         self.url = dic[@"uri"];
     }
-    [self.pictureView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@",self.url] placeholderImage:[UIImage imageNamed:@"2.jpg"]];
+    [self.pictureView dlGetRouteWebImageWithString:self.url placeholderImage:[UIImage imageNamed:@"2.jpg"]];
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
 //    self.pictureView = self.pictureView;
     // 活动名称label
