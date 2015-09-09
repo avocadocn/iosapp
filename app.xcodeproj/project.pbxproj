@@ -644,6 +644,8 @@
 		A4F594FB1B7C7C740088D9CC /* HMWaterflowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F594F61B7C7C740088D9CC /* HMWaterflowLayout.m */; };
 		A4F595021B7C7D970088D9CC /* BrithdayBlessController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F595011B7C7D970088D9CC /* BrithdayBlessController.m */; };
 		C2BB2F66A5C16197F6FD8E9D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9388089A6ADF54035C56E5D /* libPods.a */; };
+		E22ED8201B9FCE1E00CF4109 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = E22ED81E1B9FCE1E00CF4109 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1714,6 +1716,11 @@
 		A4F595011B7C7D970088D9CC /* BrithdayBlessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrithdayBlessController.m; sourceTree = "<group>"; };
 		C836FD3FBA4AB74B0A650FF1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D9388089A6ADF54035C56E5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E22ED81D1B9FCE1E00CF4109 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		E22ED81E1B9FCE1E00CF4109 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		E22ED81F1B9FCE1E00CF4109 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
+		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2034,6 +2041,7 @@
 		9649B5071B564DE000A7F355 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E22ED81C1B9FCDFC00CF4109 /* GTM */,
 				96AA19781B79EBB6008E4CA3 /* AddressBookTool */,
 				967439A51B705907004334A4 /* NetworkRequestTool */,
 				9649B5081B564DE000A7F355 /* PrefixHeader.pch */,
@@ -2404,6 +2412,8 @@
 				A46CC45A1B8C6E3A002492EC /* Interaction.m */,
 				A43DA5DB1B90281100C23833 /* getIntroModel.h */,
 				A43DA5DC1B90281100C23833 /* getIntroModel.m */,
+				E2D1314E1B9EE94100BE559C /* getTemplateModel.h */,
+				E2D1314F1B9EE94100BE559C /* getTemplateModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4135,6 +4145,16 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		E22ED81C1B9FCDFC00CF4109 /* GTM */ = {
+			isa = PBXGroup;
+			children = (
+				E22ED81D1B9FCE1E00CF4109 /* GTMNSString+HTML.h */,
+				E22ED81E1B9FCE1E00CF4109 /* GTMNSString+HTML.m */,
+				E22ED81F1B9FCE1E00CF4109 /* GTMDefines.h */,
+			);
+			name = GTM;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4698,6 +4718,7 @@
 				96CF90DC1B673422001759E2 /* PSTCollectionViewController.m in Sources */,
 				96CF918A1B674193001759E2 /* AppDelegate+UMeng.m in Sources */,
 				96CF93A11B674B54001759E2 /* PublicGroupListViewController.m in Sources */,
+				E22ED8201B9FCE1E00CF4109 /* GTMNSString+HTML.m in Sources */,
 				96CF948A1B67501B001759E2 /* SRSlimeView.m in Sources */,
 				A45FEBF31B85DC1900BC5E41 /* LoginSinger.m in Sources */,
 				967439BE1B705908004334A4 /* RouteManager.m in Sources */,
@@ -4839,6 +4860,7 @@
 				A4F315691B5E4BFB00126C8A /* PhotoPlayController.m in Sources */,
 				96CF90DA1B673422001759E2 /* PSTCollectionView.m in Sources */,
 				96CF93B01B674B54001759E2 /* EMTextView.m in Sources */,
+				E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */,
 				96CF90C41B673422001759E2 /* MWPhotoBrowser.m in Sources */,
 				96AA197B1B79EBFA008E4CA3 /* AddressBookSqliteTool.m in Sources */,
 				A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */,

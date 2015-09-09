@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
-#import "getActivityModel.h"
+#import "getTemplateModel.h"
 
-@implementation getActivityModel
+@implementation getTemplateModel
 
 @end

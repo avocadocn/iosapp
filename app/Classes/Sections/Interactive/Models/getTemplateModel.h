@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface getActivityModel : NSObject
+@interface getTemplateModel : NSObject
+
+@property (nonatomic, copy)NSNumber *templateType;
+
+@property (nonatomic, copy)NSString *createTime;
+
+@property (nonatomic, copy)NSString *userId;
+
+@property (nonatomic, copy)NSNumber *limit;
 
 @end
