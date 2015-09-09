@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Interaction.h"
 
 @interface OtherActivityShowCell : UITableViewCell
+
+- (void)reloadCellWithModel:(Interaction *)model;
 
 @end

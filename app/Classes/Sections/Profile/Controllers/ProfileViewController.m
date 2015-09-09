@@ -168,7 +168,8 @@ static NSString * const ID = @"ProfileTableViewCell";
             controller = [[MessageViewController alloc] init];
             break;
         case 3: // 活动
-            controller = [[ActivityShowTableController alloc]init];
+            //使用指定的frame大小初始化viewcontroller,高度增加64是因为后续会减掉64
+            controller = [[ActivityShowTableController alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight+64)];
             break;
         case 4: // 投票
             controller = [[VoteTableController alloc]init];

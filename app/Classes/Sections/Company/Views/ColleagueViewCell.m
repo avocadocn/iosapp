@@ -5,7 +5,6 @@
 //  Created by 申家 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
 #import "ColleagueViewCell.h"
 #import <Masonry.h>
 #import "CircleImageView.h"
@@ -14,8 +13,10 @@
 #import "CircleContextModel.h"
 #import "UIImageView+DLGetWebImage.h"
 #import "UILabel+DLTimeLabel.h"
+#import "Account.h"
+#import "AccountTool.h"
 
-
+static NSString *userId = nil;
 @implementation ColleagueViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -100,7 +101,6 @@
     NSInteger temp = arc4random() % 10;
     self.num = temp;
     
-    
     self.wordFrom = [UILabel new];
 //    self.wordFrom.text = @"来自 动梨基地";
     self.wordFrom.textColor = [UIColor colorWithWhite:.5 alpha:1];
@@ -143,9 +143,39 @@
     
     self.commondButton.tag = indexpath.row + 1;
     
-    self.praiseButton.criticText.text = [NSString stringWithFormat:@"%ld", model.commentUsers.count];
-    self.commondButton.criticText.text = [NSString stringWithFormat:@"%ld", model.comments.count];
-    
+    self.praiseButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.commentUsers.count];
+    self.commondButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.comments.count];
+    if (model.commentUsers) {
+        [self judgeWithArray:model.commentUsers];
+    }
+}
+
+- (void)judgeWithArray:(NSArray *)array
+{
+    if ([self judgePraiseWithArray:array]) {
+        self.praiseButton.criticIamge.image = [UIImage imageNamed:@"Like"];
+    } else
+    {
+        self.praiseButton.criticIamge.image = [UIImage imageNamed:@"DonLike"];
+    }
+}
+
+
+- (BOOL)judgePraiseWithArray:(NSArray *)array
+{
+    NSLog(@"赞的人有 %@", array);
+    if (!userId) {
+        userId = [AccountTool account].ID;
+    }
+    for (NSDictionary *dic in array) {
+        NSString *str = [dic objectForKey:@"_id"];
+        if ([userId isEqualToString:str]) {
+            NSLog(@"我赞过");
+            
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap

@@ -28,6 +28,11 @@ NSString* kWPAttributedMarkupLinkName = @"WPAttributedMarkupLinkName";
     
     NSMutableAttributedString* as = [[NSMutableAttributedString alloc] initWithString:ms];
     
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineSpacing = 3;  //行自定义行高度
+
+
+    
     // Setup base attributes
     [as setAttributes:@{NSUnderlineStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleNone]} range:NSMakeRange(0,[as length])];
     
@@ -48,7 +53,7 @@ NSString* kWPAttributedMarkupLinkName = @"WPAttributedMarkupLinkName";
             }
         }
     }
-    
+        [as addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [ms length])];
     return as;
 }
 

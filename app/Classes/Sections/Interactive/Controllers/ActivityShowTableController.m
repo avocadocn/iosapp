@@ -17,7 +17,7 @@
 
 @interface ActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;
-
+@property(nonatomic,strong) NSMutableArray *modelArray;
 @end
 
 @implementation ActivityShowTableController
@@ -61,6 +61,33 @@ static NSString * const ID = @"OtherActivityShowCell";
 }
 -(void)viewDidLoad{
     self.title = @"活动";
+    self.modelArray = [NSMutableArray new];
+    [self requestNet];
+}
+//进行网络数据获取
+- (void)requestNet{
+    Account *acc= [AccountTool account];
+    getTemplateModel * model = [getTemplateModel new];
+    [model setUserId:acc.ID];
+    [model setTemplateType:[NSNumber numberWithInt:1]];
+    [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
+        [self analyDataWithJson:json];
+        NSLog(@"success:-->%@",json);
+    } failure:^(id errorJson) {
+        NSLog(@"failed:-->%@",errorJson);
+    }];
+}
+//解析返回的数据
+- (void)analyDataWithJson:(id)json
+{
+    self.modelArray = [NSMutableArray array];
+    
+    for (NSDictionary *dic  in json) {
+        Interaction *inter = [[Interaction alloc]init];
+        [inter setValuesForKeysWithDictionary:dic];
+        [self.modelArray addObject:inter];
+    }
+    [self.tableView reloadData];
 }
 
 /**
@@ -74,9 +101,10 @@ static NSString * const ID = @"OtherActivityShowCell";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [tableView setFrame:self.view.frame];
-    
-    //tableView.height -= 64;
-    
+//    NSLog(@"view frame is :%@",NSStringFromCGRect(self.view.frame));
+    //将tableview的高度减小一个导航栏的高度
+    tableView.height -= 64;
+//    NSLog(@"tableview frame is :%@",NSStringFromCGRect(tableView.frame));
     [tableView setBackgroundColor:self.view.backgroundColor];
     [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
     [tableView setShowsVerticalScrollIndicator:NO];
@@ -92,13 +120,13 @@ static NSString * const ID = @"OtherActivityShowCell";
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     // Return the number of sections.
-    return 6;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-    return 1;
+    return self.modelArray.count;
 }
 
 
@@ -108,6 +136,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     
     
+    
     //    [cell mas_makeConstraints:^(MASConstraintMaker *make) {
     //        NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
     //        make.right.equalTo(self.tableView.mas_right);
@@ -115,14 +144,25 @@ static NSString * const ID = @"OtherActivityShowCell";
     // NSLog(@"%@",NSStringFromCGRect(cell.frame));
     
     // Configure the cell...
-    
+    [cell reloadCellWithModel:[self.modelArray objectAtIndex:indexPath.row]];
     return cell;
 }
 
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 290 * DLScreenWidth / 375;
+//    return 290 * DLScreenWidth / 375;
+    
+    Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
+    if (current.photos.count!=0) {
+        NSInteger height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
+        NSInteger width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
+        if (width<320) {
+            height *= 320.0/width;
+        }
+        return 90 + height;
+    }
+    return 290;
 }
 
 #pragma mark - delegate
@@ -130,6 +170,9 @@ static NSString * const ID = @"OtherActivityShowCell";
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     DetailActivityShowController *controller = [[DetailActivityShowController alloc]init];
+    if (self.modelArray) {
+        controller.model = [self.modelArray objectAtIndex:indexPath.row];
+    }
     [self.navigationController pushViewController:controller animated:YES];
 }
 
