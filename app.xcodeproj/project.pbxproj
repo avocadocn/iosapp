@@ -583,6 +583,7 @@
 		A45FEBEE1B85727000BC5E41 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */; };
 		A45FEBF01B85727C00BC5E41 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */; };
 		A45FEBF31B85DC1900BC5E41 /* LoginSinger.m in Sources */ = {isa = PBXBuildFile; fileRef = A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */; };
+		A461258A1BA030FF001E83B7 /* ForgetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46125891BA030FF001E83B7 /* ForgetPasswordController.m */; };
 		A461E7E01B954C3500C25C21 /* PollModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A461E7DF1B954C3500C25C21 /* PollModel.m */; };
 		A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A46448E91B6F31EF00AA621E /* AddressBookModel.m */; };
 		A4650F201B7DBDCD00013A17 /* UserInterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F1F1B7DBDCD00013A17 /* UserInterView.m */; };
@@ -1624,6 +1625,8 @@
 		A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A45FEBF11B85DC1900BC5E41 /* LoginSinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSinger.h; sourceTree = "<group>"; };
 		A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSinger.m; sourceTree = "<group>"; };
+		A46125881BA030FF001E83B7 /* ForgetPasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordController.h; sourceTree = "<group>"; };
+		A46125891BA030FF001E83B7 /* ForgetPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordController.m; sourceTree = "<group>"; };
 		A461E7DE1B954C3500C25C21 /* PollModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PollModel.h; sourceTree = "<group>"; };
 		A461E7DF1B954C3500C25C21 /* PollModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PollModel.m; sourceTree = "<group>"; };
 		A46448E81B6F31EF00AA621E /* AddressBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
@@ -3784,6 +3787,8 @@
 				A47F50381B67765600955052 /* CompanyEmailComplete.xib */,
 				A439ED401B68DA9E006B3CAC /* GuidePageViewController.h */,
 				A439ED411B68DA9E006B3CAC /* GuidePageViewController.m */,
+				A46125881BA030FF001E83B7 /* ForgetPasswordController.h */,
+				A46125891BA030FF001E83B7 /* ForgetPasswordController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4763,6 +4768,7 @@
 				968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */,
 				96CF947A1B674B54001759E2 /* BlackListViewController.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
+				A461258A1BA030FF001E83B7 /* ForgetPasswordController.m in Sources */,
 				9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */,
 				96CF90C71B673422001759E2 /* MWZoomingScrollView.m in Sources */,
 				A4745DFD1B81A9AC008EB944 /* DNAlbumTableViewController.m in Sources */,
