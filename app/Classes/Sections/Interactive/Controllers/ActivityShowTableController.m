@@ -37,7 +37,17 @@ static NSString * const ID = @"OtherActivityShowCell";
     }
     return self;
 }
-
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super init];
+    if (self) {
+        NSLog(@"the custom frame is %@",NSStringFromCGRect(frame));
+        self.view.frame=frame;
+        [self addActivitysShowTable];
+        [self.view setBackgroundColor:RGB(230, 230, 230)];
+    }
+    return self;
+}
 -(void)viewDidLoad{
     self.title = @"活动";
     self.modelArray = [NSMutableArray new];
@@ -80,9 +90,10 @@ static NSString * const ID = @"OtherActivityShowCell";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [tableView setFrame:self.view.frame];
-    NSLog(@"view frame is :%@",NSStringFromCGRect(self.view.frame));
-//    tableView.height -= 64;
-    NSLog(@"tableview frame is :%@",NSStringFromCGRect(tableView.frame));
+//    NSLog(@"view frame is :%@",NSStringFromCGRect(self.view.frame));
+    //将tableview的高度减小一个导航栏的高度
+    tableView.height -= 64;
+//    NSLog(@"tableview frame is :%@",NSStringFromCGRect(tableView.frame));
     [tableView setBackgroundColor:self.view.backgroundColor];
     [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
     [tableView setShowsVerticalScrollIndicator:NO];
