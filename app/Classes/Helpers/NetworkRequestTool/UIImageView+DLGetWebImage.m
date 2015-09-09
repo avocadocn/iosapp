@@ -13,6 +13,9 @@
 
 - (void)dlGetRouteWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image
 {
+    if (![str hasPrefix:@"/"]) {
+        str = [NSString stringWithFormat:@"/%@", str];
+    }
     NSString *roude = [NSString stringWithFormat:@"%@", ROUDEADDRESS];  //字符串拼接
     
     NSString *urlStr = [roude stringByReplacingOccurrencesOfString:@"3002/v2_0" withString:[NSString stringWithFormat:@"3000%@", str]];

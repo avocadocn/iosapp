@@ -27,7 +27,7 @@
 
 @property (nonatomic, copy)NSString *status; //消息状态
 
-@property (nonatomic, copy)NSArray *commentUsers;  //参与过评论的用户的id
+@property (nonatomic, strong)NSMutableArray *commentUsers;  //参与过评论的用户的id
 
 //@property (nonatomic, copy)NSString *msg;
 
