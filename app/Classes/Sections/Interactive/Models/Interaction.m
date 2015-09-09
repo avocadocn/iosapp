@@ -14,6 +14,7 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
     if ([key isEqualToString:@"_id"]) {
+        self.interactionId = value;
         self.ID = value;
     }
 }

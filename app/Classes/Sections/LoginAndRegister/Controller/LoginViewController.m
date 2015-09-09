@@ -18,7 +18,8 @@
 #import "AccountTool.h"  // 负责账户的存取
 
 @interface LoginViewController ()<DLNetworkRequestDelegate, UITextFieldDelegate>
-
+@property (nonatomic, strong)UILabel *phoneNumber;
+@property (nonatomic, strong)UILabel *passwordLabel;
 @end
 
 @implementation LoginViewController
@@ -33,7 +34,7 @@
     self.title = @"登录";
     self.view.backgroundColor = DLSBackgroundColor;
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(10, 200, DLScreenWidth - 20, 70)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(33, 65, DLScreenWidth - 76, 176)];
     [view setBackgroundColor:[UIColor whiteColor]];
     
     UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -43,7 +44,7 @@
 
     returnButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         
-        self.navigationController.navigationBarHidden = YES;
+//        self.navigationController.navigationBarHidden = YES;
         [self.navigationController popViewControllerAnimated:YES];
         
         return [RACSignal empty];
@@ -64,6 +65,18 @@
        
         make.bottom.mas_equalTo(view.mas_bottom).offset(- view.height / 2.0 - 1);
     }];
+    self.phoneNumber = [UILabel new];
+    self.phoneNumber.text = @" 手机号";
+    self.phoneNumber.textColor = RGBACOLOR(203, 200, 200, 1);
+    self.phoneNumber.font = [UIFont systemFontOfSize:16];
+    [view addSubview:self.phoneNumber];
+    [self.phoneNumber mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(view.mas_top);
+        make.left.mas_equalTo(view.mas_left);
+        make.width.mas_equalTo(view.height / 4 + 20);
+        make.height.mas_equalTo(view.height / 10);
+        make.bottom.mas_equalTo(view.mas_bottom).offset(- view.height / 2.0 - 1);
+    }];
     
     self.passwordTextField = [UITextField new];
     self.passwordTextField.placeholder = @"请输入密码";
@@ -79,6 +92,19 @@
         make.right.mas_equalTo(view.mas_right);
     }];
     [self.view addSubview:view];
+    self.passwordLabel = [UILabel new];
+    self.passwordLabel.text = @" 密码";
+    self.passwordLabel.font = [UIFont systemFontOfSize:16];
+    self.passwordLabel.textColor = RGBACOLOR(203, 200, 200, 1);
+    [view addSubview:self.passwordLabel];
+    [self.passwordLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.mailTextField.mas_bottom).offset(2);
+        make.top.mas_equalTo(view);
+        make.bottom.mas_equalTo(view.mas_bottom);
+        make.left.mas_equalTo(view.mas_left);
+//        make.right.mas_equalTo(view.mas_right);
+    }];
+
     
     UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [loginButton setTitle:@"登录" forState: UIControlStateNormal];
@@ -91,12 +117,22 @@
         make.top.mas_equalTo(self.passwordTextField.mas_bottom).offset(30);
         make.left.mas_equalTo(view.mas_left);
         make.right.mas_equalTo(view.mas_right);
-        make.height.mas_equalTo(view.height / 2.0 + 5);
+        make.height.mas_equalTo(view.height / 4);
     }];
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapAction:)]];
-
+    UILabel *forgetPassword = [[UILabel alloc] initWithFrame:CGRectMake(DLScreenWidth / 2 + 30, 380, 80, 20)];
+    forgetPassword.text = @"忘记密码";
+    forgetPassword.textColor = [UIColor blackColor];
+    forgetPassword.font = [UIFont systemFontOfSize:14];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushView:)];
+    [forgetPassword addGestureRecognizer:tap];
+    forgetPassword.userInteractionEnabled = YES;
+    [self.view addSubview:forgetPassword];
 }
-
+- (void)pushView:(UITapGestureRecognizer *)tap {
+    NSLog(@"+++");
+}
 - (void)viewTapAction:(UITapGestureRecognizer *)tap
 {
     [self.mailTextField resignFirstResponder];

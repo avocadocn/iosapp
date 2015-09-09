@@ -8,7 +8,10 @@
 
 #import "DetailActivityShowView.h"
 #import "Interaction.h"
-
+#import "Account.h"
+#import "AccountTool.h"
+#import "RestfulAPIRequestTool.h"
+#import "UIImageView+DLGetWebImage.h"
 
 @interface DetailActivityShowView()<UIScrollViewDelegate>
 @property (strong,nonatomic) UIScrollView *superView;
@@ -16,7 +19,7 @@
 @property (assign,nonatomic) CGFloat imageViewWidth;
 @property (assign,nonatomic) CGFloat imageViewHeight;
 @property (strong, nonatomic)UILabel *activityName;  //@"林肯公园演唱会"
-
+@property (nonatomic, copy) NSString *url; // 图片链接
 
 @end
 @implementation DetailActivityShowView
@@ -80,12 +83,14 @@
     self.imageViewHeight = imageViewHeight;
     [self.pictureView setFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
     [self.pictureView setBackgroundColor:[UIColor redColor]];
-    UIImage *img = [UIImage imageNamed:@"2.jpg"];
+//    UIImage *img = [UIImage imageNamed:@"2.jpg"];
     [self.pictureView setClipsToBounds:YES];
-    [self.pictureView setImage:img];
+    for (NSDictionary *dic in self.model.photos) {
+        self.url = dic[@"uri"];
+    }
+    [self.pictureView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@",self.url] placeholderImage:[UIImage imageNamed:@"2.jpg"]];
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
-    
-    self.pictureView = self.pictureView;
+//    self.pictureView = self.pictureView;
     // 活动名称label
     UIFont *font = [UIFont systemFontOfSize:18.0f];
     self.activityName = [[UILabel alloc]init];
@@ -286,7 +291,18 @@
 }
 
 -(void)btnClick:(id)sender{
-    NSLog(@"btn Clicked");
+    NSLog(@"btn Clicked 立即报名");
+    Account *account = [AccountTool account];
+    [self.model setInteractionId:self.model.interactionId];
+    [self.model setUserId:account.ID];
+    [RestfulAPIRequestTool routeName:@"joinInteraction" requestModel:self.model useKeys:@[@"interactionId",@"userId"] success:^(id json) {
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名成功" message:@"少年,恭喜你报名成功了" delegate:nil cancelButtonTitle:@"哇,好高兴" otherButtonTitles:nil, nil];
+        [alertV show];
+    } failure:^(id errorJson) {
+        NSLog(@"报名失败的原因 %@",[errorJson valueForKey:@"msg"]);
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名失败" message:[errorJson valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        [alertV show];
+    }];
 }
 
 
