@@ -8,6 +8,7 @@
 
 #import "OtherActivityShowCell.h"
 #import <Masonry.h>
+#import "UIImageView+DLGetWebImage.h"
 
 @interface OtherActivityShowCell()
 
@@ -44,15 +45,79 @@
            }
     return self;
 }
-- (void)reloadCellWithModel
+/*
+ * 加载数据
+ */
+- (void)reloadCellWithModel:(Interaction *)model
 {
+    //清空垃圾数据
+    self.nameLabel.text=@"";
+    self.addressLabel.text=@"";
+    self.timeLabel.text=@"";
+    self.backImageView.image=[UIImage imageNamed:@"OtherActivity_backImage"];
     
+    if (model.photos.count!=0) {
+        @try {
+            NSInteger width = [[[model.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
+            NSInteger height = [[[model.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
+            if (width<320) {
+                height*= 320.0/width;
+                width=320;
+            }
+            self.backImageView.x=0;
+            self.backImageView.y=10;
+            self.backImageView.width=width;
+            self.backImageView.height=height;
+            NSLog(@"backImageView frame-->%@",NSStringFromCGRect(self.backImageView.frame));
+            [self.backImageView dlGetRouteWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:[UIImage imageNamed:@"OtherActivity_backImage"]];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"when trying load img error happen:\n%@",exception);
+        }
+        @finally {
+            
+        }
+        
+    }
+    self.nameLabel.text = model.activityMold;
+    self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[self getParsedDateStringFromString:model.startTime],[self getParsedDateStringFromString:model.endTime]];
+    self.addressLabel.text = [[model.location keyValues] objectForKey:@"name"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+/*
+ *对服务器返回的时间做处理
+ * format: xx月xx日
+ */
+- (NSString*)getParsedDateStringFromString:(NSString*)dateString
+{
+    if (dateString==nil) {
+        return nil;
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    NSDate * date = [formatter dateFromString:dateString];
+    [formatter setDateFormat:@"MM月dd日"];
+    NSString* str = [formatter stringFromDate:date];
+    //设置源日期时区
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
+    //设置转换后的目标日期时区
+    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
+    //得到源日期与世界标准时间的偏移量
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:date];
+    //目标日期与本地时区的偏移量
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:date];
+    //得到时间偏移量的差值
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    //转为现在时间
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
+    str = [formatter stringFromDate:destinationDateNow];
+    return str;
 }
 
 @end

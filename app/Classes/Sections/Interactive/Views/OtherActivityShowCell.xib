@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,9 +14,6 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OtherActivity_backImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="fl1-K9-QFn" userLabel="背景">
                         <rect key="frame" x="0.0" y="10" width="375" height="200"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="200" id="kQB-Cf-o0P"/>
-                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="康定路1234号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ege-KF-sqF" userLabel="地址">
                         <rect key="frame" x="29" y="265" width="346" height="15"/>
@@ -79,6 +76,8 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="QsI-Fu-Hfz" secondAttribute="trailing" id="0EO-Lm-tTy"/>
                     <constraint firstItem="fl1-K9-QFn" firstAttribute="top" secondItem="QsI-Fu-Hfz" secondAttribute="bottom" id="0os-aT-0Q6"/>
+                    <constraint firstAttribute="bottom" secondItem="Ege-KF-sqF" secondAttribute="bottom" constant="9" id="1hc-yB-ASA"/>
+                    <constraint firstItem="fl1-K9-QFn" firstAttribute="top" secondItem="QsI-Fu-Hfz" secondAttribute="bottom" id="7NO-g6-ULE"/>
                     <constraint firstAttribute="trailing" secondItem="fl1-K9-QFn" secondAttribute="trailing" id="7or-jg-VYM"/>
                     <constraint firstItem="Ruj-hf-XZZ" firstAttribute="leading" secondItem="8Kf-fg-3Wu" secondAttribute="leading" constant="11" id="8yh-9d-21q"/>
                     <constraint firstItem="Yc3-WZ-ejW" firstAttribute="top" secondItem="P0G-Kh-Bmy" secondAttribute="bottom" constant="9" id="BbX-Kj-l41"/>
@@ -90,10 +89,11 @@
                     <constraint firstItem="Ege-KF-sqF" firstAttribute="top" secondItem="Yc3-WZ-ejW" secondAttribute="bottom" constant="6" id="Wbf-cB-fSJ"/>
                     <constraint firstItem="QsI-Fu-Hfz" firstAttribute="top" secondItem="8Kf-fg-3Wu" secondAttribute="top" id="Wk0-qO-vMg"/>
                     <constraint firstItem="Yc3-WZ-ejW" firstAttribute="leading" secondItem="Ruj-hf-XZZ" secondAttribute="trailing" constant="5" id="XWU-8z-OsD"/>
+                    <constraint firstItem="Yc3-WZ-ejW" firstAttribute="top" secondItem="P0G-Kh-Bmy" secondAttribute="bottom" constant="9" id="ZRl-Yt-aQi"/>
                     <constraint firstAttribute="trailing" secondItem="jb7-AF-QYN" secondAttribute="trailing" id="aA1-M1-h1a"/>
                     <constraint firstItem="jb7-AF-QYN" firstAttribute="top" secondItem="8Kf-fg-3Wu" secondAttribute="top" id="buX-ho-qKC"/>
                     <constraint firstItem="hjL-yT-HtM" firstAttribute="top" secondItem="Ruj-hf-XZZ" secondAttribute="bottom" constant="7" id="hC9-M0-wld"/>
-                    <constraint firstItem="P0G-Kh-Bmy" firstAttribute="top" secondItem="fl1-K9-QFn" secondAttribute="bottom" constant="9" id="pDm-XL-QUK"/>
+                    <constraint firstItem="P0G-Kh-Bmy" firstAttribute="top" secondItem="fl1-K9-QFn" secondAttribute="bottom" constant="9" id="kAL-Hs-HCh"/>
                     <constraint firstItem="fl1-K9-QFn" firstAttribute="leading" secondItem="8Kf-fg-3Wu" secondAttribute="leading" id="tLg-xv-FA6"/>
                     <constraint firstItem="hjL-yT-HtM" firstAttribute="leading" secondItem="8Kf-fg-3Wu" secondAttribute="leading" constant="12" id="vJx-Oj-Bnr"/>
                 </constraints>

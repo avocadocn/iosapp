@@ -8,12 +8,13 @@
 
 #import "DetailActivityShowView.h"
 #import "Interaction.h"
+#import "GTMNSString+HTML.h"
 #import "Account.h"
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
 #import "UIImageView+DLGetWebImage.h"
+@interface DetailActivityShowView()<UIScrollViewDelegate,UIWebViewDelegate>
 
-@interface DetailActivityShowView()<UIScrollViewDelegate>
 @property (strong,nonatomic) UIScrollView *superView;
 @property (strong,nonatomic) UIImageView *pictureView; // 顶部照片
 @property (assign,nonatomic) CGFloat imageViewWidth;
@@ -63,6 +64,35 @@
     }
 }
 
+/*
+ *对服务器返回的时间做处理
+ * format: xxxx年xx月xx日 xx:xx
+ */
+- (NSString*)getParsedDateStringFromString:(NSString*)dateString
+{
+    if (dateString==nil) {
+        return nil;
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    NSDate * date = [formatter dateFromString:dateString];
+    [formatter setDateFormat:@"yyyy年MM月dd日 HH:mm"];
+    NSString* str = [formatter stringFromDate:date];
+    //设置源日期时区
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
+    //设置转换后的目标日期时区
+    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
+    //得到源日期与世界标准时间的偏移量
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:date];
+    //目标日期与本地时区的偏移量
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:date];
+    //得到时间偏移量的差值
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    //转为现在时间
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
+    str = [formatter stringFromDate:destinationDateNow];
+    return str;
+}
 
 -(void)buildInterface{
     
@@ -132,7 +162,7 @@
     
     // 添加时间label
     UILabel *timeLabel = [[UILabel alloc]init];
-    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@", [self.model.activity objectForKey:@"startTime"]];
+    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@",[self getParsedDateStringFromString:self.model.startTime]];
     
     NSMutableAttributedString *mutableAttrStr = [[NSMutableAttributedString alloc]initWithString:timeString];
     [mutableAttrStr addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 3)];
@@ -172,7 +202,7 @@
     addressLabel.numberOfLines = 0;
     // TODO
     CGSize maxLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
-    NSString *addressText = [NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]];
+    NSString *addressText = [NSString stringWithFormat:@"%@",[[self.model.location keyValues] objectForKey:@"name"]];
     
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [addressLabel setFont:addressFont];
@@ -234,8 +264,8 @@
     UILabel *activityIntroduceTV = [[UILabel alloc]init];
         UIFont *aITVFont = [UIFont systemFontOfSize:13.0f];
     [activityIntroduceTV setTextColor:[UIColor blackColor]];
-    NSString *IntroduceText = self.model.content;
-    NSString *aITVText = [NSString stringWithFormat:@"活动介绍\n%@",IntroduceText];
+    NSString *IntroduceText = @"";
+    NSString *aITVText = [NSString stringWithFormat:@"活动介绍%@",IntroduceText];
     // TODO
     [activityIntroduceTV setText:aITVText];
     CGSize maxAITVSize = CGSizeMake(DLScreenWidth - 2 * 10, MAXFLOAT);
@@ -248,13 +278,27 @@
     activityIntroduceTV.lineBreakMode = UILineBreakModeWordWrap;
     activityIntroduceTV.numberOfLines = 0;
     
+    //添加webview
+    UIWebView *introduceWebView=[[UIWebView alloc] init];
+    introduceWebView.width = DLScreenWidth;
+    introduceWebView.height = DLScreenHeight * 2 / 4;
+    introduceWebView.x = 0;
+    introduceWebView.y = CGRectGetMaxY(activityIntroduceTV.frame)+2;
+    introduceWebView.backgroundColor = [UIColor whiteColor];
+    //for debug use
+//    [introduceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
+    introduceWebView.delegate=self;
+    
+    [introduceWebView loadHTMLString:[self.model.content gtm_stringByUnescapingFromHTML] baseURL:nil];
+    
     introduceView.width = DLScreenWidth;
-    introduceView.height = activityIntroduceTV.height + 16;
+    introduceView.height = CGRectGetMaxY(introduceWebView.frame) + 16;
     introduceView.x = 0;
     introduceView.y = CGRectGetMaxY(middleView.frame) + 12;
     
     // 添加到根view中
     [introduceView addSubview:activityIntroduceTV];
+    [introduceView addSubview:introduceWebView];
     [superView addSubview:introduceView];
     
     // 设置contentoffset
@@ -303,6 +347,35 @@
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名失败" message:[errorJson valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
     }];
+}
+
+//加载完成后，对网页内容进行处理
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //设置图片缩放
+    [webView stringByEvaluatingJavaScriptFromString:
+     @"var script = document.createElement('script');"
+     "script.type = 'text/javascript';"
+     "script.text = \"function ResizeImages() { "
+     "var myimg,oldwidth;"
+     "var maxwidth = 300.0;" // UIWebView中显示的图片宽度
+     "for(i=0;i <document.images.length;i++){"
+     "myimg = document.images[i];"
+     "if(myimg.width > maxwidth){"
+     "oldwidth = myimg.width;"
+     "myimg.width = maxwidth;"
+     "}"
+     "}"
+     "}\";"
+     "document.getElementsByTagName('head')[0].appendChild(script);"];
+    [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
+    //设置页面缩放
+    NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=self.view.frame.size.width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\""];
+    [webView stringByEvaluatingJavaScriptFromString:meta];
+    //设置字体大小
+    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '80%'"];
+
+    
 }
 
 
