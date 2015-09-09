@@ -217,7 +217,12 @@
                 
                 
             } failure:^(id errorJson) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[errorJson objectForKey:@"msg"] message:nil delegate:self cancelButtonTitle:@"好的" otherButtonTitles: nil, nil];
+                
+                NSString *alertStr = [NSString stringWithFormat:@"%@", [errorJson objectForKey:@"msg"]];
+                if ([alertStr isEqualToString:@"cid不能为空"]) {
+                    alertStr = [NSString stringWithFormat:@"您的学校还没有加入warm~"];
+                }
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:alertStr message:nil delegate:self cancelButtonTitle:@"好的" otherButtonTitles: nil, nil];
                 [alert show];
                 
             }];

@@ -128,7 +128,6 @@ static NSInteger tagNum = 1;
                 NSLog(@"取消关注失败  %@", errorJson);
             }];
             NSLog(@"取消关注");
-            
         }
         
         return [RACSignal empty];
@@ -140,7 +139,6 @@ static NSInteger tagNum = 1;
         make.bottom.mas_equalTo(self.pag.mas_bottom);
         make.width.mas_equalTo(100);
     }];
-    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -190,14 +188,14 @@ static NSInteger tagNum = 1;
             [self.model setUserId:self.model.ID];
             [folder netRequstWithModel:self.model];
             [self.navigationController pushViewController:folder animated:YES];
-            
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
             break;
         }
         case 2:{
             // 个人动态页面
             PersonalDynamicController *dynamic = [[PersonalDynamicController alloc]init];
             [self.navigationController pushViewController:dynamic animated:YES];
-            
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
             break;
         }
         case 4:
@@ -207,9 +205,14 @@ static NSInteger tagNum = 1;
             // 新建一个对话  跳到对话页面  聊天页面刷新界面
             EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:self.model.ID conversationType:eConversationTypeChat];
             ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:conversation.chatter conversationType:conversation.conversationType];
-            chatVC.title = self.model.realname;
+            if (self.model.realname) {
+                chatVC.title = self.model.realname;
+            } else
+            {
+                chatVC.title = self.model.nickname;
+            }
             [self.navigationController pushViewController:chatVC animated:YES];
-            
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
             ChatListViewController *chat = [ChatListViewController shareInstan];
             [chat.dataSource addObject:conversation];
             [chat.tableView reloadData];
@@ -278,7 +281,12 @@ static NSInteger tagNum = 1;
     self.titleLabel.y = 64 - self.titleLabel.size.height - 13;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.font = [UIFont systemFontOfSize:18];
-    self.titleLabel.text = self.model.realname;
+                if (self.model.realname) {
+                    self.titleLabel.text = self.model.realname;
+                } else
+                {
+                    self.titleLabel.text = self.model.nickname;
+                }
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.titleLabel];
 }

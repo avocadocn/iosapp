@@ -14,8 +14,6 @@
 
 @interface ColleagueViewCell : UITableViewCell
 
-
-
 @property (strong, nonatomic)  UIImageView *ColleaguePhoto;
 @property (strong, nonatomic)  UILabel *ColleagueNick; // 同事名字
 @property (strong, nonatomic)  UILabel *timeLabel;  // 事件时间
@@ -41,7 +39,7 @@
 
 @property (nonatomic, strong)UIView *userInterView;
 
-- (void)reloadCellWithModel:(CircleContextModel *)model;
+- (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath;
 
 
 

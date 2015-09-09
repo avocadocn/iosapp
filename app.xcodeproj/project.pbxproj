@@ -9,6 +9,18 @@
 /* Begin PBXBuildFile section */
 		5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5404302C1B905D6E00C71F39 /* InvatingViewController.m */; };
 		5436967D1B9D401E00261F2D /* 标尺.png in Resources */ = {isa = PBXBuildFile; fileRef = 5436967C1B9D401E00261F2D /* 标尺.png */; };
+		546CA5821B9E88CD0066CC0C /* 活动 .png in Resources */ = {isa = PBXBuildFile; fileRef = 546CA57E1B9E88CD0066CC0C /* 活动 .png */; };
+		546CA5831B9E88CD0066CC0C /* 聊天 copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 546CA57F1B9E88CD0066CC0C /* 聊天 copy.png */; };
+		546CA5841B9E88CD0066CC0C /* 投票 .png in Resources */ = {isa = PBXBuildFile; fileRef = 546CA5801B9E88CD0066CC0C /* 投票 .png */; };
+		546CA5851B9E88CD0066CC0C /* shetuan.png in Resources */ = {isa = PBXBuildFile; fileRef = 546CA5811B9E88CD0066CC0C /* shetuan.png */; };
+		546CA5871B9E8CAD0066CC0C /* 邀请 .png in Resources */ = {isa = PBXBuildFile; fileRef = 546CA5861B9E8CAD0066CC0C /* 邀请 .png */; };
+		546CA58B1B9EAAF30066CC0C /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA5891B9EAAF30066CC0C /* MessageTableViewCell.m */; };
+		546CA58C1B9EAAF30066CC0C /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 546CA58A1B9EAAF30066CC0C /* MessageTableViewCell.xib */; };
+		546CA58F1B9EB00B0066CC0C /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA58E1B9EB00B0066CC0C /* MessageViewController.m */; };
+		546CA5961B9ECD7B0066CC0C /* NYSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA5911B9ECD7B0066CC0C /* NYSegment.m */; };
+		546CA5971B9ECD7B0066CC0C /* NYSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA5931B9ECD7B0066CC0C /* NYSegmentedControl.m */; };
+		546CA5981B9ECD7B0066CC0C /* NYSegmentIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA5951B9ECD7B0066CC0C /* NYSegmentIndicator.m */; };
+		546CA59B1B9EDA930066CC0C /* InteractionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA59A1B9EDA930066CC0C /* InteractionView.m */; };
 		54B46A051B9547C000A6500B /* InvatingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B46A041B9547C000A6500B /* InvatingModel.m */; };
 		54BB1DB61B8DAC3600F76628 /* TwoDimensionCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DB41B8DAC3600F76628 /* TwoDimensionCodeViewController.m */; };
 		54BB1DB71B8DAC3600F76628 /* TwoDimensionCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DB51B8DAC3600F76628 /* TwoDimensionCodeViewController.xib */; };
@@ -516,6 +528,11 @@
 		A434C6111B71EA1E009643CD /* ApertureView.m in Sources */ = {isa = PBXBuildFile; fileRef = A434C6101B71EA1E009643CD /* ApertureView.m */; };
 		A434C6141B71F17E009643CD /* TableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A434C6131B71F17E009643CD /* TableHeaderView.m */; };
 		A434C6171B71FDE7009643CD /* DynamicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A434C6161B71FDE7009643CD /* DynamicTableViewCell.m */; };
+		A439D5191B9EEC09006085F7 /* NSMutableString+TagReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = A439D5161B9EEC09006085F7 /* NSMutableString+TagReplace.m */; };
+		A439D51A1B9EEC09006085F7 /* NSString+WPAttributedMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = A439D5181B9EEC09006085F7 /* NSString+WPAttributedMarkup.m */; };
+		A439D5221B9EEC14006085F7 /* WPAttributedStyleAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A439D51D1B9EEC14006085F7 /* WPAttributedStyleAction.m */; };
+		A439D5231B9EEC14006085F7 /* WPHotspotLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A439D51F1B9EEC14006085F7 /* WPHotspotLabel.m */; };
+		A439D5241B9EEC14006085F7 /* WPTappableLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A439D5211B9EEC14006085F7 /* WPTappableLabel.m */; };
 		A439ED421B68DA9E006B3CAC /* GuidePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A439ED411B68DA9E006B3CAC /* GuidePageViewController.m */; };
 		A43DA5D61B9007B500C23833 /* talkSpeak.png in Resources */ = {isa = PBXBuildFile; fileRef = A43DA5D51B9007B500C23833 /* talkSpeak.png */; };
 		A43DA5D91B9009A100C23833 /* adynamic.png in Resources */ = {isa = PBXBuildFile; fileRef = A43DA5D71B9009A100C23833 /* adynamic.png */; };
@@ -663,6 +680,24 @@
 		5404302B1B905D6E00C71F39 /* InvatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingViewController.h; sourceTree = "<group>"; };
 		5404302C1B905D6E00C71F39 /* InvatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingViewController.m; sourceTree = "<group>"; };
 		5436967C1B9D401E00261F2D /* 标尺.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标尺.png"; sourceTree = "<group>"; };
+		546CA57E1B9E88CD0066CC0C /* 活动 .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "活动 .png"; sourceTree = "<group>"; };
+		546CA57F1B9E88CD0066CC0C /* 聊天 copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天 copy.png"; sourceTree = "<group>"; };
+		546CA5801B9E88CD0066CC0C /* 投票 .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投票 .png"; sourceTree = "<group>"; };
+		546CA5811B9E88CD0066CC0C /* shetuan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shetuan.png; sourceTree = "<group>"; };
+		546CA5861B9E8CAD0066CC0C /* 邀请 .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "邀请 .png"; sourceTree = "<group>"; };
+		546CA5881B9EAAF30066CC0C /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
+		546CA5891B9EAAF30066CC0C /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
+		546CA58A1B9EAAF30066CC0C /* MessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
+		546CA58D1B9EB00B0066CC0C /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		546CA58E1B9EB00B0066CC0C /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		546CA5901B9ECD7B0066CC0C /* NYSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSegment.h; sourceTree = "<group>"; };
+		546CA5911B9ECD7B0066CC0C /* NYSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegment.m; sourceTree = "<group>"; };
+		546CA5921B9ECD7B0066CC0C /* NYSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSegmentedControl.h; sourceTree = "<group>"; };
+		546CA5931B9ECD7B0066CC0C /* NYSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegmentedControl.m; sourceTree = "<group>"; };
+		546CA5941B9ECD7B0066CC0C /* NYSegmentIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSegmentIndicator.h; sourceTree = "<group>"; };
+		546CA5951B9ECD7B0066CC0C /* NYSegmentIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegmentIndicator.m; sourceTree = "<group>"; };
+		546CA5991B9EDA930066CC0C /* InteractionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionView.h; sourceTree = "<group>"; };
+		546CA59A1B9EDA930066CC0C /* InteractionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionView.m; sourceTree = "<group>"; };
 		54B46A031B9547C000A6500B /* InvatingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingModel.h; sourceTree = "<group>"; };
 		54B46A041B9547C000A6500B /* InvatingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingModel.m; sourceTree = "<group>"; };
 		54BB1DB31B8DAC3600F76628 /* TwoDimensionCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimensionCodeViewController.h; sourceTree = "<group>"; };
@@ -1501,6 +1536,16 @@
 		A434C6131B71F17E009643CD /* TableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableHeaderView.m; sourceTree = "<group>"; };
 		A434C6151B71FDE7009643CD /* DynamicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicTableViewCell.h; sourceTree = "<group>"; };
 		A434C6161B71FDE7009643CD /* DynamicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicTableViewCell.m; sourceTree = "<group>"; };
+		A439D5151B9EEC09006085F7 /* NSMutableString+TagReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+TagReplace.h"; sourceTree = "<group>"; };
+		A439D5161B9EEC09006085F7 /* NSMutableString+TagReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+TagReplace.m"; sourceTree = "<group>"; };
+		A439D5171B9EEC09006085F7 /* NSString+WPAttributedMarkup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WPAttributedMarkup.h"; sourceTree = "<group>"; };
+		A439D5181B9EEC09006085F7 /* NSString+WPAttributedMarkup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WPAttributedMarkup.m"; sourceTree = "<group>"; };
+		A439D51C1B9EEC14006085F7 /* WPAttributedStyleAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPAttributedStyleAction.h; sourceTree = "<group>"; };
+		A439D51D1B9EEC14006085F7 /* WPAttributedStyleAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPAttributedStyleAction.m; sourceTree = "<group>"; };
+		A439D51E1B9EEC14006085F7 /* WPHotspotLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPHotspotLabel.h; sourceTree = "<group>"; };
+		A439D51F1B9EEC14006085F7 /* WPHotspotLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPHotspotLabel.m; sourceTree = "<group>"; };
+		A439D5201B9EEC14006085F7 /* WPTappableLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPTappableLabel.h; sourceTree = "<group>"; };
+		A439D5211B9EEC14006085F7 /* WPTappableLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPTappableLabel.m; sourceTree = "<group>"; };
 		A439ED401B68DA9E006B3CAC /* GuidePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidePageViewController.h; sourceTree = "<group>"; };
 		A439ED411B68DA9E006B3CAC /* GuidePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidePageViewController.m; sourceTree = "<group>"; };
 		A43DA5D51B9007B500C23833 /* talkSpeak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talkSpeak.png; sourceTree = "<group>"; };
@@ -2017,6 +2062,8 @@
 		9649B4FD1B564DE000A7F355 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				A439D51B1B9EEC14006085F7 /* Extras */,
+				A439D5141B9EEC09006085F7 /* WPAttributedMarkup */,
 				A4745DCA1B81A9AC008EB944 /* DNImagePicker */,
 				A450560A1B608D9E0075E39D /* CardChooseView */,
 				A4F315581B5E4BFB00126C8A /* ChoosePhoto */,
@@ -2096,8 +2143,16 @@
 		9649B5111B564DE000A7F355 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				546CA5901B9ECD7B0066CC0C /* NYSegment.h */,
+				546CA5911B9ECD7B0066CC0C /* NYSegment.m */,
+				546CA5921B9ECD7B0066CC0C /* NYSegmentedControl.h */,
+				546CA5931B9ECD7B0066CC0C /* NYSegmentedControl.m */,
+				546CA5941B9ECD7B0066CC0C /* NYSegmentIndicator.h */,
+				546CA5951B9ECD7B0066CC0C /* NYSegmentIndicator.m */,
 				A45726FB1B74A9B100A27B79 /* AttentionViewCell.h */,
 				A45726FC1B74A9B100A27B79 /* AttentionViewCell.m */,
+				546CA5991B9EDA930066CC0C /* InteractionView.h */,
+				546CA59A1B9EDA930066CC0C /* InteractionView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2375,6 +2430,11 @@
 		967A062A1B71E2C9007BA757 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				546CA5861B9E8CAD0066CC0C /* 邀请 .png */,
+				546CA57E1B9E88CD0066CC0C /* 活动 .png */,
+				546CA57F1B9E88CD0066CC0C /* 聊天 copy.png */,
+				546CA5801B9E88CD0066CC0C /* 投票 .png */,
+				546CA5811B9E88CD0066CC0C /* shetuan.png */,
 				967A062B1B71E2C9007BA757 /* Interactive_activity_icon.png */,
 				967A062C1B71E2C9007BA757 /* Interactive_help_icon.png */,
 				967A062D1B71E2C9007BA757 /* Interactive_vote_icon.png */,
@@ -3700,6 +3760,11 @@
 				96E3D83E1B7DABD700A623B7 /* UserMessageTableViewController.m */,
 				96E3D8401B7DBFFB00A623B7 /* UserMessageModel.h */,
 				96E3D8411B7DBFFB00A623B7 /* UserMessageModel.m */,
+				546CA5881B9EAAF30066CC0C /* MessageTableViewCell.h */,
+				546CA5891B9EAAF30066CC0C /* MessageTableViewCell.m */,
+				546CA58A1B9EAAF30066CC0C /* MessageTableViewCell.xib */,
+				546CA58D1B9EB00B0066CC0C /* MessageViewController.h */,
+				546CA58E1B9EB00B0066CC0C /* MessageViewController.m */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -3765,6 +3830,30 @@
 				A42CFFD61B9C194000CCFB34 /* 109.png */,
 			);
 			path = Icon;
+			sourceTree = "<group>";
+		};
+		A439D5141B9EEC09006085F7 /* WPAttributedMarkup */ = {
+			isa = PBXGroup;
+			children = (
+				A439D5151B9EEC09006085F7 /* NSMutableString+TagReplace.h */,
+				A439D5161B9EEC09006085F7 /* NSMutableString+TagReplace.m */,
+				A439D5171B9EEC09006085F7 /* NSString+WPAttributedMarkup.h */,
+				A439D5181B9EEC09006085F7 /* NSString+WPAttributedMarkup.m */,
+			);
+			path = WPAttributedMarkup;
+			sourceTree = "<group>";
+		};
+		A439D51B1B9EEC14006085F7 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+				A439D51C1B9EEC14006085F7 /* WPAttributedStyleAction.h */,
+				A439D51D1B9EEC14006085F7 /* WPAttributedStyleAction.m */,
+				A439D51E1B9EEC14006085F7 /* WPHotspotLabel.h */,
+				A439D51F1B9EEC14006085F7 /* WPHotspotLabel.m */,
+				A439D5201B9EEC14006085F7 /* WPTappableLabel.h */,
+				A439D5211B9EEC14006085F7 /* WPTappableLabel.m */,
+			);
+			path = Extras;
 			sourceTree = "<group>";
 		};
 		A44B354A1B82CF5C004F7A6A /* model */ = {
@@ -4316,6 +4405,7 @@
 				5436967D1B9D401E00261F2D /* 标尺.png in Resources */,
 				96CF94411B674B54001759E2 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				96CF94491B674B54001759E2 /* chat_sender_audio_playing_000@2x.png in Resources */,
+				546CA5821B9E88CD0066CC0C /* 活动 .png in Resources */,
 				A42CFFDA1B9C194000CCFB34 /* 112.png in Resources */,
 				A434C60E1B71E736009643CD /* DaiMeng.jpg in Resources */,
 				96CF91661B6734B8001759E2 /* EaseMob.bundle in Resources */,
@@ -4330,6 +4420,7 @@
 				A4745E091B81A9AC008EB944 /* ImagesPicker.xcassets in Resources */,
 				96CF93D01B674B54001759E2 /* VoiceSearchFeedback005@2x.png in Resources */,
 				96CF945E1B674B54001759E2 /* group_creategroup@2x.png in Resources */,
+				546CA5831B9E88CD0066CC0C /* 聊天 copy.png in Resources */,
 				96CF93D41B674B54001759E2 /* VoiceSearchFeedback007@2x.png in Resources */,
 				96CF93EF1B674B54001759E2 /* call_out.png in Resources */,
 				A46D4AF61B79E32C00177577 /* company1.png in Resources */,
@@ -4395,6 +4486,7 @@
 				A4651D871B58F8C6008BAEE8 /* delete-circular.png in Resources */,
 				96CF94281B674B54001759E2 /* chatBar_colorMore_locationSelected@2x.png in Resources */,
 				A40CDF611B8733AF00BD63F5 /* vote.png in Resources */,
+				546CA5841B9E88CD0066CC0C /* 投票 .png in Resources */,
 				96CF90F91B67345C001759E2 /* Localizable.strings in Resources */,
 				96CF94691B674B54001759E2 /* tabbar_chats@2x.png in Resources */,
 				96CF94611B674B54001759E2 /* group_joinpublicgroup@2x.png in Resources */,
@@ -4433,6 +4525,7 @@
 				96CF94121B674B54001759E2 /* chatBar_faceSelected@2x.png in Resources */,
 				96CF93F91B674B54001759E2 /* chatBar_more_card.png in Resources */,
 				96CF94161B674B54001759E2 /* chatBar_keyboardSelected@2x.png in Resources */,
+				546CA58C1B9EAAF30066CC0C /* MessageTableViewCell.xib in Resources */,
 				96CF94461B674B54001759E2 /* chat_receiver_bg.png in Resources */,
 				96CF94141B674B54001759E2 /* chatBar_keyboard@2x.png in Resources */,
 				96CF94601B674B54001759E2 /* group_invitee_delete@2x.png in Resources */,
@@ -4482,10 +4575,12 @@
 				96CF94311B674B54001759E2 /* chatBar_more_cameraSelected.png in Resources */,
 				96CF93E61B674B54001759E2 /* VoiceSearchFeedback016@2x.png in Resources */,
 				96CF93C61B674B54001759E2 /* chatFire_audioPlaying3@2x.png in Resources */,
+				546CA5871B9E8CAD0066CC0C /* 邀请 .png in Resources */,
 				54BB1DCD1B8DC3B500F76628 /* chevron-left.png in Resources */,
 				96CF94301B674B54001759E2 /* chatBar_more_camera@2x.png in Resources */,
 				96CF93E81B674B54001759E2 /* VoiceSearchFeedback017@2x.png in Resources */,
 				A41993301B5F99910086EAAE /* man.png in Resources */,
+				546CA5851B9E88CD0066CC0C /* shetuan.png in Resources */,
 				54BB1DC41B8DB8FF00F76628 /* SettingTableViewCell.xib in Resources */,
 				A46DCEF01B69F1060049C999 /* mzx.jpg in Resources */,
 				54BB1DB91B8DAE5500F76628 /* TwoDimensionCode.png in Resources */,
@@ -4605,6 +4700,7 @@
 				968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */,
 				A4745DFE1B81A9AC008EB944 /* DNAsset.m in Sources */,
 				969616D21B6B5D4D002FC24C /* PSTCollectionViewCell.m in Sources */,
+				546CA5961B9ECD7B0066CC0C /* NYSegment.m in Sources */,
 				969616D11B6B5D25002FC24C /* EMChatViewBaseCell.m in Sources */,
 				969616D01B6B5D03002FC24C /* BaseViewController.m in Sources */,
 				A4F594F91B7C7C740088D9CC /* HMShop.m in Sources */,
@@ -4624,11 +4720,14 @@
 				96C9FFB51B737539008B71CE /* HelpTableViewCell.m in Sources */,
 				A45056201B60F0270075E39D /* DLNavigationBar.m in Sources */,
 				96CF90BA1B673422001759E2 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
+				546CA5981B9ECD7B0066CC0C /* NYSegmentIndicator.m in Sources */,
 				96CF937E1B674B54001759E2 /* UIViewController+DismissKeyboard.m in Sources */,
 				96CF938C1B674B54001759E2 /* EMChatAudioBubbleView.m in Sources */,
 				96CF947C1B674B54001759E2 /* EditNicknameViewController.m in Sources */,
+				546CA58F1B9EB00B0066CC0C /* MessageViewController.m in Sources */,
 				A459C4BF1B620C88003D32C8 /* RegisterViewController.m in Sources */,
 				96CF939F1B674B54001759E2 /* GroupSubjectChangingViewController.m in Sources */,
+				A439D5241B9EEC14006085F7 /* WPTappableLabel.m in Sources */,
 				A450561F1B60F01F0075E39D /* DSNavigationBar.m in Sources */,
 				96CF947E1B674B54001759E2 /* SettingsViewController.m in Sources */,
 				A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */,
@@ -4694,6 +4793,7 @@
 				54BB1DD91B8EF7AD00F76628 /* ChangePassWordTableViewCell.m in Sources */,
 				A459C4C51B62305D003D32C8 /* GroupCardModel.m in Sources */,
 				96CF939B1B674B54001759E2 /* CreateGroupViewController.m in Sources */,
+				A439D5221B9EEC14006085F7 /* WPAttributedStyleAction.m in Sources */,
 				96CF90D21B673422001759E2 /* UIButton+EMWebCache.m in Sources */,
 				96CF90C81B673422001759E2 /* DACircularProgressView.m in Sources */,
 				96CF91891B674193001759E2 /* AppDelegate+EaseMob.m in Sources */,
@@ -4742,6 +4842,7 @@
 				967439BF1B705908004334A4 /* UIImageView+DLGetWebImage.m in Sources */,
 				A4F315681B5E4BFB00126C8A /* photoHeader.m in Sources */,
 				A42D7EF21B78B32900F791DA /* CircleCommentModel.m in Sources */,
+				A439D5191B9EEC09006085F7 /* NSMutableString+TagReplace.m in Sources */,
 				A42D7EEF1B78B31400F791DA /* CircleContextModel.m in Sources */,
 				A4DD81291B7B2C58004505C9 /* CriticWordView.m in Sources */,
 				96CF90E31B673422001759E2 /* PSTGridLayoutItem.m in Sources */,
@@ -4750,6 +4851,7 @@
 				961053541B590C31002D62A3 /* OtherSegmentButton.m in Sources */,
 				96CF90CE1B673422001759E2 /* EMSDWebImageManager.m in Sources */,
 				A4745E0D1B81A9AC008EB944 /* DNBrowserCell.m in Sources */,
+				546CA59B1B9EDA930066CC0C /* InteractionView.m in Sources */,
 				96CF938A1B674B54001759E2 /* DXChatBarMoreView.m in Sources */,
 				A44B35631B830E19004F7A6A /* VerifiCodeController.m in Sources */,
 				96CF94781B674B54001759E2 /* RobotListViewController.m in Sources */,
@@ -4788,6 +4890,7 @@
 				A44D404D1B7368EA00B10DFB /* EventRemindCell.m in Sources */,
 				A4465CF71B941D170056ACA8 /* CreateGroupController.m in Sources */,
 				A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */,
+				546CA58B1B9EAAF30066CC0C /* MessageTableViewCell.m in Sources */,
 				9649B53E1B564DE000A7F355 /* CompanyViewController.m in Sources */,
 				96CF93871B674B54001759E2 /* DXMessageToolBar.m in Sources */,
 				96CF90EC1B673422001759E2 /* EMVoiceConverter.mm in Sources */,
@@ -4799,6 +4902,7 @@
 				967A06441B7304F7007BA757 /* VoteOptionsInfoModel.m in Sources */,
 				967439BD1B705908004334A4 /* RouteInfoModel.m in Sources */,
 				A4745E0E1B81A9AC008EB944 /* DNFullImageButton.m in Sources */,
+				A439D51A1B9EEC09006085F7 /* NSString+WPAttributedMarkup.m in Sources */,
 				A461E7E01B954C3500C25C21 /* PollModel.m in Sources */,
 				96CF93A81B674B54001759E2 /* AddFriendViewController.m in Sources */,
 				96CF938D1B674B54001759E2 /* EMChatBaseBubbleView.m in Sources */,
@@ -4810,6 +4914,7 @@
 				96CF93791B674B54001759E2 /* CallViewController.m in Sources */,
 				96CF93A51B674B54001759E2 /* ChineseToPinyin.m in Sources */,
 				A4650F2D1B7DCD9600013A17 /* SHLUILabel.m in Sources */,
+				546CA5971B9ECD7B0066CC0C /* NYSegmentedControl.m in Sources */,
 				96CF90E21B673422001759E2 /* PSTGridLayoutInfo.m in Sources */,
 				96CF90C01B673422001759E2 /* MWCaptionView.m in Sources */,
 				A4F595021B7C7D970088D9CC /* BrithdayBlessController.m in Sources */,
@@ -4828,6 +4933,7 @@
 				A45727081B74BE2400A27B79 /* photoSectionHeader.m in Sources */,
 				96CF90EA1B673422001759E2 /* amrFileCodec.mm in Sources */,
 				967439B81B705908004334A4 /* Account.m in Sources */,
+				A439D5231B9EEC14006085F7 /* WPHotspotLabel.m in Sources */,
 				A46CC4581B8C0C18002492EC /* ZSDSetPasswordView.m in Sources */,
 				96CF93941B674B54001759E2 /* EMChatViewCell.m in Sources */,
 				A4745E151B81BD1C008EB944 /* OwnnessViewController.m in Sources */,

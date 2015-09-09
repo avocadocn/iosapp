@@ -5,7 +5,6 @@
 //  Created by 申家 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
 #import "ColleagueViewCell.h"
 #import <Masonry.h>
 #import "CircleImageView.h"
@@ -14,6 +13,10 @@
 #import "CircleContextModel.h"
 #import "UIImageView+DLGetWebImage.h"
 #import "UILabel+DLTimeLabel.h"
+#import "Account.h"
+#import "AccountTool.h"
+
+static NSString *userId = nil;
 @implementation ColleagueViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -30,11 +33,11 @@
     UIView *superBigView = [UIView new];  //容器
     [superBigView setBackgroundColor:[UIColor whiteColor]];
     
-    [self setBackgroundColor:[UIColor colorWithWhite:.8 alpha:.3]];
-    superBigView.layer.cornerRadius = 5;
-    superBigView.layer.masksToBounds = YES;
-    superBigView.layer.borderWidth = 1;
-    superBigView.layer.borderColor = [UIColor colorWithWhite:.5 alpha:.5].CGColor;
+    self.backgroundColor = RGBACOLOR(240, 241, 242, 1);
+//    superBigView.layer.cornerRadius = 5;
+//    superBigView.layer.masksToBounds = YES;
+//    superBigView.layer.borderWidth = 1;
+//    superBigView.layer.borderColor = [UIColor colorWithWhite:.5 alpha:.5].CGColor;
     self.circleImage = [CircleImageView circleImageViewWithImage:[UIImage imageNamed:@"2.jpg"] diameter:45];
     self.circleImage.frame = CGRectMake(8, 8, 45, 45); 
     [superBigView addSubview:self.circleImage];
@@ -90,10 +93,10 @@
         make.bottom.equalTo(self.commondButton.mas_bottom);
     }];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-    UITapGestureRecognizer *tapPre = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-    [self.praiseButton addGestureRecognizer:tapPre];
-    [self.commondButton addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+//    UITapGestureRecognizer *tapPre = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+//    [self.praiseButton addGestureRecognizer:tapPre];
+//    [self.commondButton addGestureRecognizer:tap];
     
     NSInteger temp = arc4random() % 10;
     self.num = temp;
@@ -131,13 +134,49 @@
     
 }
 
-- (void)reloadCellWithModel:(CircleContextModel *)model
+- (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath
 {
     [self.circleImage dlGetRouteWebImageWithString:[model.poster objectForKey:@"photo"] placeholderImage:nil];
     self.ColleagueNick.text = [model.poster objectForKey:@"nickname"];
     
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
     [self.wordFrom getCompanyNameFromCid:model.cid];
+    
+    self.commondButton.tag = indexpath.row + 1;
+    
+    self.praiseButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.commentUsers.count];
+    self.commondButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.comments.count];
+    if (model.commentUsers) {
+        [self judgeWithArray:model.commentUsers];
+    }
+}
+
+- (void)judgeWithArray:(NSArray *)array
+{
+    if ([self judgePraiseWithArray:array]) {
+        self.praiseButton.criticIamge.image = [UIImage imageNamed:@"Like"];
+    } else
+    {
+        self.praiseButton.criticIamge.image = [UIImage imageNamed:@"DonLike"];
+    }
+}
+
+
+- (BOOL)judgePraiseWithArray:(NSArray *)array
+{
+    NSLog(@"赞的人有 %@", array);
+    if (!userId) {
+        userId = [AccountTool account].ID;
+    }
+    for (NSDictionary *dic in array) {
+        NSString *str = [dic objectForKey:@"_id"];
+        if ([userId isEqualToString:str]) {
+            NSLog(@"我赞过");
+            
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
