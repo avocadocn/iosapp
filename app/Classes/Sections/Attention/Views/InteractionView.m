@@ -8,6 +8,10 @@
 
 #import "InteractionView.h"
 #import "MessageTableViewCell.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "getIntroModel.h"
+#import "RestfulAPIRequestTool.h"
 @implementation InteractionView
 
 /*
@@ -21,8 +25,20 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self createTableView];
+        [self netWorkRequest];
     }
     return self;
+}
+- (void)netWorkRequest {
+    Account *account = [AccountTool account];
+    getIntroModel *model = [[getIntroModel alloc] init];
+    [model setUserId:account.ID];
+    [model setNoticeType:@"interaction"];
+    [RestfulAPIRequestTool routeName:@"getPersonalNotificationsList" requestModel:model useKeys:@[@"noticeType",@"userId"] success:^(id json) {
+        NSLog(@"互动获取成功 %@",json);
+    } failure:^(id errorJson) {
+        NSLog(@"互动获取失败 %@",[errorJson objectForKey:@"msg"]);
+    }];
 }
 - (void)createTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -35, DLScreenWidth, DLScreenHeight + 35) style:UITableViewStyleGrouped];

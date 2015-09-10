@@ -9,6 +9,7 @@
 #import "InteractiveViewController.h"
 #import "ActivitysShowView.h"
 #import "ActivityShowTableController.h"
+#import "TemplateActivityShowTableController.h"
 #import "CurrentActivitysShowCell.h"
 #import "ActivityShowTableController.h"
 #import "DWBubbleMenuButton.h"
@@ -29,7 +30,7 @@
 #import "DetailActivityShowController.h"
 #import "PollModel.h"
 #import "LoginViewController.h"
-
+#import "Singleton.h"
 
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate, UIAlertViewDelegate>
 
@@ -71,8 +72,33 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     // 活动展示table
     [self setupActivityShowTableView];
     [self requestNet];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"KPOSTNAME" object:nil];
 }
-
+- (void)reFreshData:(NSNotification *)notice {
+    NSLog(@"%@",notice.userInfo);
+    Account *acc= [AccountTool account];
+    
+    getIntroModel *model = [[getIntroModel alloc]init];
+    [model setUserId:acc.ID];
+    
+    [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
+        NSLog(@"获取成功   %@", json);
+        [self analyDataWithJson:json];
+    } failure:^(id errorJson) {
+        NSLog(@"获取失败  %@", errorJson);
+        
+        NSString *str = [errorJson objectForKey:@"msg"];
+        if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            alert.delegate = self;
+            [alert show];
+            
+        }
+        
+    }];
+    [self.tableView reloadData];
+    
+}
 -(void)viewWillAppear:(BOOL)animated{
     // 弹出式菜单
 //    [self setupPathButton];
@@ -231,7 +257,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     [self.view addSubview:tableView];
     self.tableView = tableView;
-    
     self.asvFrame = self.asv.frame;
     self.asvHidden = NO;
 }
@@ -346,7 +371,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             NSArray *titles = @[@"活动", @"投票", @"求助"];
             
             [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
-                ActivityShowTableController *tableViewController = [[ActivityShowTableController alloc] init];
+                TemplateActivityShowTableController *tableViewController = [[TemplateActivityShowTableController alloc] init];
                 tableViewController.title = title;
                 [viewControllers addObject:tableViewController];
             }];
