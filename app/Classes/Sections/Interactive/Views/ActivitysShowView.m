@@ -29,10 +29,10 @@
         [self setBackgroundColor:[UIColor clearColor]];
         
         // 添加item
-        [self addOneItemWithImage:[UIImage imageNamed:@"1"] label:@"男神榜"];
-        [self addOneItemWithImage:[UIImage imageNamed:@"1"] label:@"女神榜"];
-        [self addOneItemWithImage:[UIImage imageNamed:@"1"] label:@"人气榜"];
-        [self addOneItemWithImage:[UIImage imageNamed:@"1"] label:@"其他"];
+        [self addOneItemWithImage:[UIImage imageNamed:@"Oval 349 Copy"] label:@"男神榜"];
+        [self addOneItemWithImage:[UIImage imageNamed:@"Oval 349"] label:@"女神榜"];
+        [self addOneItemWithImage:[UIImage imageNamed:@"Oval 349 Copy 3 + Oval 349 Copy 4"] label:@"社团榜"];
+        [self addOneItemWithImage:[UIImage imageNamed:@"Oval 349 Copy 5 + Oval 349 Copy 2"] label:@"热门"];
     }
     return self;
 }
@@ -73,13 +73,13 @@
     [item setBackgroundColor:[UIColor whiteColor]];
     
     // 圆形icon
-    CircleImageView *civ = [CircleImageView circleImageViewWithImage:image diameter:50.0f];
+    CircleImageView *civ = [CircleImageView circleImageViewWithImage:image diameter:70.0f];
     [item addSubview:civ];
     
     // 描述label
     UILabel *label = [[UILabel alloc]init];
     [label setTextAlignment:NSTextAlignmentCenter];
-    UIFont *font =[UIFont systemFontOfSize:11.0f];
+    UIFont *font =[UIFont systemFontOfSize:12.0f];
     [label setFont:font];
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
     CGSize size = [text sizeWithAttributes:dict];

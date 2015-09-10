@@ -12,6 +12,9 @@
 #import "UserMessageModel.h"
 #import "NYSegmentedControl.h"
 #import "InteractionView.h"
+#import "getIntroModel.h"
+#import "Account.h"
+#import "AccountTool.h"
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)NYSegmentedControl *segment;
@@ -50,7 +53,10 @@
     [self.scrollView addSubview:view];
 }
 - (void)netWorkRequest {// 网路请求
-    UserMessageModel *model = [[UserMessageModel alloc] init];
+    Account *account = [AccountTool account];
+    getIntroModel *model = [[getIntroModel alloc] init];
+    [model setUserId:account.ID];
+    [model setNoticeType:@"notice"];
     [RestfulAPIRequestTool routeName:@"getPersonalInteractionList" requestModel:model useKeys:@[@"content"] success:^(id json) {
         NSLog(@"获取消息列表成功 %@",json);
     } failure:^(id errorJson) {

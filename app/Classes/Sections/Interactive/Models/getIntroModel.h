@@ -22,4 +22,6 @@
 
 @property (nonatomic, assign)BOOL selectState;
 
+@property (nonatomic, copy)NSString *noticeType;
+
 @end

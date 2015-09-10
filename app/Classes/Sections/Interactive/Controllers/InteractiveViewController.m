@@ -58,6 +58,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
     
     // 设置背景颜色
     [self.view setBackgroundColor:RGB(235, 235, 235)];
@@ -71,6 +72,33 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     // 活动展示table
     [self setupActivityShowTableView];
     [self requestNet];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"KPOSTNAME" object:nil];
+}
+
+- (void)reFreshData:(NSNotification *)notice {
+    NSLog(@"%@",notice.userInfo);
+    Account *acc= [AccountTool account];
+    
+    getIntroModel *model = [[getIntroModel alloc]init];
+    [model setUserId:acc.ID];
+    
+    [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
+        NSLog(@"获取成功   %@", json);
+        [self analyDataWithJson:json];
+    } failure:^(id errorJson) {
+        NSLog(@"获取失败  %@", errorJson);
+        
+        NSString *str = [errorJson objectForKey:@"msg"];
+        if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            alert.delegate = self;
+            [alert show];
+            
+        }
+        
+    }];
+    [self.tableView reloadData];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -403,6 +431,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     switch ([inter.type integerValue]) {
         case 1:{  // 活动详情
             DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
+            activityController.orTrue = YES;
             activityController.model = inter;
             [self.navigationController pushViewController:activityController animated:YES];
             break;

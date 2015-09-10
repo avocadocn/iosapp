@@ -434,7 +434,7 @@
     </dict>
     <dict>
         <key>routeName</key>
-        <string>publishedInteraction</string>
+        <string>sendInteraction</string>
         <key>routeURL</key>
         <string>/interaction</string>
         <key>routeMethod</key>
@@ -548,7 +548,7 @@
         <key>routeName</key>
         <string>getPersonalInteractionList</string>
         <key>routeURL</key>
-        <string>/notifications/interaction</string>
+        <string>/notifications/:noticeType</string>
         <key>routeMethod</key>
         <string>GET</string>
     </dict>

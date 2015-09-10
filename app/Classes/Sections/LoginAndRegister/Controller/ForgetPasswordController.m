@@ -10,7 +10,7 @@
 #import "ImageHolderView.h"
 #import "ForgetPasswordController.h"
 #import "DXAlertView.h"
-
+#import "ResetPasswordViewController.h"
 @interface ForgetPasswordController () <UITextFieldDelegate>
 @property (nonatomic, strong)ImageHolderView *phoneNumber;
 @property (nonatomic, strong)UILabel *label;
@@ -81,7 +81,7 @@
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
 {
-            NSString *phoneStr = [NSString stringWithFormat:@"+86 %@", [self addPhoneNumberWithNumString:self.phoneNumber.textfield.text]];
+    NSString *phoneStr = [NSString stringWithFormat:@"+86 %@", [self addPhoneNumberWithNumString:self.phoneNumber.textfield.text]];
     DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"我们将发送验证码到该手机" contentText:phoneStr leftButtonTitle:@"修改" rightButtonTitle:@"确认"];
     [alert show];
     alert.rightBlock = ^(){
@@ -89,7 +89,9 @@
         NSString *str2 = [NSString stringWithFormat:@"86"];
         [SMS_SDK getVerificationCodeBySMSWithPhone:self.phoneNumber.textfield.text zone:str2 customIdentifier:@"打死都不能告诉别人" result:^(SMS_SDKError *error) {
             if (!error) {
-                
+                ResetPasswordViewController *resetVC = [[ResetPasswordViewController alloc] init];
+                resetVC.phoneNumber = self.phoneNumber.textfield.text;
+                [self.navigationController pushViewController:resetVC animated:YES];
             }
         }];
     };

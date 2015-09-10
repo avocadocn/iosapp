@@ -9,7 +9,7 @@
 #import "DetailActivityShowController.h"
 #import "DetailActivityShowView.h"
 #import "interaction.h"
-
+#import "SBDetailActivityView.h"
 
 @interface DetailActivityShowController ()
 
@@ -23,6 +23,7 @@
     self.title = @"详情";
     [self.view setBackgroundColor:RGB(235.0, 234.0, 236.0)];  
     DetailActivityShowView *detailView = [[DetailActivityShowView alloc]initWithModel:self.model];
+    detailView.orCreatBtn = self.orTrue;//
     [self.view addSubview:detailView];
 }
 
