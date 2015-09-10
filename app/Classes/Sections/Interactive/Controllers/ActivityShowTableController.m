@@ -14,6 +14,7 @@
 #import "AccountTool.h"
 #import "getIntroModel.h"
 #import "RestfulAPIRequestTool.h"
+#import "getTemplateModel.h"
 
 @interface ActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;

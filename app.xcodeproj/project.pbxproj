@@ -663,6 +663,10 @@
 		E23AF2911BA12490001BE3C5 /* TemplateDetailActivityShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2901BA12490001BE3C5 /* TemplateDetailActivityShowView.m */; };
 		E23AF2941BA12620001BE3C5 /* TemplateDetailActivityShowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2931BA12620001BE3C5 /* TemplateDetailActivityShowController.m */; };
 		E23AF2971BA126D7001BE3C5 /* TemplateActivityShowTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2961BA126D7001BE3C5 /* TemplateActivityShowTableController.m */; };
+		E23AF29D1BA1754A001BE3C5 /* VoteTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF29C1BA1754A001BE3C5 /* VoteTableController.m */; };
+		E23AF2A41BA1758E001BE3C5 /* VoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF29F1BA1758E001BE3C5 /* VoteTableViewCell.m */; };
+		E23AF2A51BA1758E001BE3C5 /* VoteOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */; };
+		E23AF2A61BA1758E001BE3C5 /* VoteAnimatedOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 /* End PBXBuildFile section */
 
@@ -1767,6 +1771,14 @@
 		E23AF2931BA12620001BE3C5 /* TemplateDetailActivityShowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateDetailActivityShowController.m; sourceTree = "<group>"; };
 		E23AF2951BA126D7001BE3C5 /* TemplateActivityShowTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateActivityShowTableController.h; sourceTree = "<group>"; };
 		E23AF2961BA126D7001BE3C5 /* TemplateActivityShowTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateActivityShowTableController.m; sourceTree = "<group>"; };
+		E23AF29B1BA1754A001BE3C5 /* VoteTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTableController.h; sourceTree = "<group>"; };
+		E23AF29C1BA1754A001BE3C5 /* VoteTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTableController.m; sourceTree = "<group>"; };
+		E23AF29E1BA1758E001BE3C5 /* VoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTableViewCell.h; sourceTree = "<group>"; };
+		E23AF29F1BA1758E001BE3C5 /* VoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTableViewCell.m; sourceTree = "<group>"; };
+		E23AF2A01BA1758E001BE3C5 /* VoteOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteOptionsView.h; sourceTree = "<group>"; };
+		E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteOptionsView.m; sourceTree = "<group>"; };
+		E23AF2A21BA1758E001BE3C5 /* VoteAnimatedOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteAnimatedOptionView.h; sourceTree = "<group>"; };
+		E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteAnimatedOptionView.m; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1878,6 +1890,12 @@
 				961053471B590C31002D62A3 /* CurrentActivitysShowCell.h */,
 				961053481B590C31002D62A3 /* CurrentActivitysShowCell.m */,
 				961053491B590C31002D62A3 /* CurrentActivitysShowCell.xib */,
+				E23AF29E1BA1758E001BE3C5 /* VoteTableViewCell.h */,
+				E23AF29F1BA1758E001BE3C5 /* VoteTableViewCell.m */,
+				E23AF2A01BA1758E001BE3C5 /* VoteOptionsView.h */,
+				E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */,
+				E23AF2A21BA1758E001BE3C5 /* VoteAnimatedOptionView.h */,
+				E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */,
 				9610534A1B590C31002D62A3 /* OtherActivityShowCell.h */,
 				9610534B1B590C31002D62A3 /* OtherActivityShowCell.m */,
 				9610534C1B590C31002D62A3 /* OtherActivityShowCell.xib */,
@@ -1931,6 +1949,8 @@
 				9610535A1B590C96002D62A3 /* InteractiveViewController.m */,
 				961053561B590C70002D62A3 /* OtherController.h */,
 				961053571B590C70002D62A3 /* OtherController.m */,
+				E23AF29B1BA1754A001BE3C5 /* VoteTableController.h */,
+				E23AF29C1BA1754A001BE3C5 /* VoteTableController.m */,
 				96AA19191B787061008E4CA3 /* CommentsViewController.h */,
 				96AA191A1B787061008E4CA3 /* CommentsViewController.m */,
 				9610535C1B5C9317002D62A3 /* RankController.h */,
@@ -4693,6 +4713,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E23AF2A61BA1758E001BE3C5 /* VoteAnimatedOptionView.m in Sources */,
 				A44D404E1B7374DE00B10DFB /* VoteCellFrame.m in Sources */,
 				969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */,
 				54BB1DB61B8DAC3600F76628 /* TwoDimensionCodeViewController.m in Sources */,
@@ -4702,6 +4723,7 @@
 				969616D31B6B5F0C002FC24C /* UIView+Extension.m in Sources */,
 				96E3D83F1B7DABD700A623B7 /* UserMessageTableViewController.m in Sources */,
 				967C62CA1B7C72220065F318 /* VoteInfoTableViewController.m in Sources */,
+				E23AF2A51BA1758E001BE3C5 /* VoteOptionsView.m in Sources */,
 				968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */,
 				A4745DFE1B81A9AC008EB944 /* DNAsset.m in Sources */,
 				969616D21B6B5D4D002FC24C /* PSTCollectionViewCell.m in Sources */,
@@ -4814,6 +4836,7 @@
 				96CF947D1B674B54001759E2 /* PushNotificationViewController.m in Sources */,
 				96AA195C1B799896008E4CA3 /* MenuCollectionController.m in Sources */,
 				54BB1DD51B8EF6F500F76628 /* ChangePassWordViewController.m in Sources */,
+				E23AF2A41BA1758E001BE3C5 /* VoteTableViewCell.m in Sources */,
 				96CF90D71B673422001759E2 /* UIImageView+EMWebCache.m in Sources */,
 				96E3D83B1B7DA60600A623B7 /* UserMessageTableViewCell.m in Sources */,
 				96D20EAF1B5F97F300102D18 /* RankListController.m in Sources */,
@@ -4854,6 +4877,7 @@
 				A4DD81291B7B2C58004505C9 /* CriticWordView.m in Sources */,
 				96CF90E31B673422001759E2 /* PSTGridLayoutItem.m in Sources */,
 				96CF90B91B673422001759E2 /* EMCDDeviceManager+Microphone.m in Sources */,
+				E23AF29D1BA1754A001BE3C5 /* VoteTableController.m in Sources */,
 				96E3D84A1B7DE42600A623B7 /* TempCompany.m in Sources */,
 				961053541B590C31002D62A3 /* OtherSegmentButton.m in Sources */,
 				96CF90CE1B673422001759E2 /* EMSDWebImageManager.m in Sources */,
