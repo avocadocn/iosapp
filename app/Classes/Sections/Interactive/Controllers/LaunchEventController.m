@@ -17,6 +17,8 @@
 #import "Interaction.h"
 #import "AccountTool.h"
 #import "Account.h"
+#import "Singleton.h"
+#import "getIntroModel.h"
 static NSInteger num = 0;
 
 typedef NS_ENUM(NSInteger, RemindTableState){
@@ -24,7 +26,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     RemindTableStateYes
 };
 
-@interface LaunchEventController ()<DLDatePickerViewDelegate, UITableViewDataSource, UITableViewDelegate, DNImagePickerControllerDelegate>
+@interface LaunchEventController ()<DLDatePickerViewDelegate, UITableViewDataSource, UITableViewDelegate, DNImagePickerControllerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong)UIImage *image;
 
@@ -112,6 +114,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     
 }
 
+}
 - (void)makeFlaseValue
 {
     self.remindTitleArray = [NSMutableArray arrayWithObjects:@"没有提醒",@"10分钟前",@"30分钟前",@"1小时前",@"2小时前",@"1天前",@"2天前", nil];

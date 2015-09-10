@@ -20,6 +20,9 @@
 @interface LoginViewController ()<DLNetworkRequestDelegate, UITextFieldDelegate>
 @property (nonatomic, strong)UILabel *phoneNumber;
 @property (nonatomic, strong)UILabel *passwordLabel;
+
+@property (nonatomic, strong)UITextField *textField;
+
 @end
 
 @implementation LoginViewController
@@ -31,10 +34,23 @@
 //    [self builtInterface];
     
     [self builtNewInterface];
+//    [self makeF];
 }
-
+- (void)makeF
+{
+    self.textField = [[UITextField alloc]initWithFrame:CGRectMake(0, 300, 100, 30)];
+    self.textField.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.textField];
+    UIButton *butto = [UIButton buttonWithType:UIButtonTypeSystem];
+    butto.frame = CGRectMake(100, 300, 100, 100);
+    butto.backgroundColor = [UIColor yellowColor];
+    [butto addTarget:self action:@selector(determineAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:butto];
+}
 - (void)builtNewInterface
 {
+    
+    
     self.view.backgroundColor = [UIColor whiteColor];
     NSInteger num = 44;
     self.mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(num, 20 + 64, DLScreenWidth - num * 2, num)];
@@ -79,6 +95,8 @@
     [self.view addSubview:label];
     
 }
+
+
 
 - (void)builtInterface{
     self.title = @"登录";
@@ -262,6 +280,7 @@
     }
     return YES;
 }
+
 
 
 @end

@@ -9,7 +9,6 @@
 #import "MessageViewController.h"
 #import "MessageTableViewCell.h"
 #import "RestfulAPIRequestTool.h"
-#import "UserMessageModel.h"
 #import "NYSegmentedControl.h"
 #import "InteractionView.h"
 #import "getIntroModel.h"

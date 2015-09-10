@@ -5,6 +5,9 @@
 //  Created by 申家 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
+#import "WPHotspotLabel.h"
+
 #import "ColleagueViewCell.h"
 #import <Masonry.h>
 #import "CircleImageView.h"
@@ -29,7 +32,7 @@ static NSString *userId = nil;
 }
 - (void)builtInterface
 {
-    
+
     UIView *superBigView = [UIView new];  //容器
     [superBigView setBackgroundColor:[UIColor whiteColor]];
     
@@ -61,47 +64,72 @@ static NSString *userId = nil;
     
 //    self.timeLabel.backgroundColor = [UIColor blueColor];
 //    [self.timeLabel setText:@"7分钟前"];
-    self.timeLabel.textColor = [UIColor colorWithWhite:.2 alpha:.5];
+    self.timeLabel.textColor = [UIColor colorWithWhite:.5 alpha:1];
     self.timeLabel.font = [UIFont systemFontOfSize:12];
     [superBigView addSubview:self.timeLabel];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(50, 20));
-        make.top.mas_equalTo(self.ColleagueNick.mas_bottom);
+//        make.size.mas_equalTo(CGSizeMake(40, 20));
+        make.bottom.mas_equalTo(self.circleImage.mas_bottom);
         make.left.mas_equalTo(self.ColleagueNick.mas_left);
     }];
     
     
     self.commondButton = [CriticWordView new];  //评论
-    self.commondButton.tag = 2;
+//    self.commondButton.tag = self.tag;
 //    [self.commondButton setBackgroundColor:[UIColor blueColor]];
     self.commondButton.criticIamge.image = [UIImage imageNamed:@"talk"];
     [superBigView addSubview:self.commondButton];
     [self.commondButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(DLMultipleHeight(40.0), DLMultipleHeight(20.0)));
-        make.bottom.equalTo(superBigView.mas_bottom).offset(-5);
-        make.right.mas_equalTo(superBigView.mas_right).offset(-10);
+        make.left.mas_equalTo(superBigView.mas_left);
+        make.height.mas_equalTo(34.5);
+        make.bottom.equalTo(superBigView.mas_bottom);
+        make.right.mas_equalTo(superBigView.centerX);
     }];
     
     self.praiseButton = [CriticWordView new];  //点赞
 //    [self.praiseButton setBackgroundColor:[UIColor yellowColor]];
-    self.praiseButton.tag = 1;
+
     self.praiseButton.criticIamge.image = [UIImage imageNamed:@"DonLike"];
     [superBigView addSubview:self.praiseButton];
     [self.praiseButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.commondButton.mas_left);
-        make.size.mas_equalTo(CGSizeMake(DLMultipleHeight(40.0), DLMultipleHeight(20.0)));
-        make.bottom.equalTo(self.commondButton.mas_bottom);
+        make.right.mas_equalTo(superBigView.mas_right);
+        make.left.mas_equalTo(superBigView.mas_centerX);
+        make.height.mas_equalTo(34.5);
+        make.bottom.equalTo(superBigView.mas_bottom);
     }];
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-//    UITapGestureRecognizer *tapPre = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-//    [self.praiseButton addGestureRecognizer:tapPre];
-//    [self.commondButton addGestureRecognizer:tap];
+    UIView *lineView =[UIView new];
+        lineView.backgroundColor = RGBACOLOR(230, 230, 230, 1);
+    [self.praiseButton addSubview:lineView];
+    
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.praiseButton.mas_left);
+        make.top.mas_equalTo(self.praiseButton.mas_top).offset(7);
+        make.bottom.mas_equalTo(self.praiseButton.mas_bottom).offset(-7);
+        make.width.mas_equalTo(.5);
+    }];
+    
+    
+    
+    
+    
+    
+    UIView *topLineView =[UIView new];
+    topLineView.backgroundColor = RGBACOLOR(230, 230, 230, 1);
+//    topLineView.backgroundColor = [UIColor redColor];
+    [superBigView addSubview:topLineView];
+    [superBigView bringSubviewToFront:topLineView];
+    [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(superBigView.mas_bottom).offset(-34.0);
+        make.height.mas_equalTo(.5);
+        make.width.mas_equalTo(400);
+        make.left.mas_equalTo(superBigView.mas_left);
+    }];
     
     NSInteger temp = arc4random() % 10;
     self.num = temp;
     
-    self.wordFrom = [UILabel new];
+    self.wordFrom = [WPHotspotLabel new];
 //    self.wordFrom.text = @"来自 动梨基地";
     self.wordFrom.textColor = [UIColor colorWithWhite:.5 alpha:1];
     self.wordFrom.font = [UIFont systemFontOfSize:10];
@@ -109,12 +137,13 @@ static NSString *userId = nil;
     [superBigView addSubview:self.wordFrom];
     
     [self.wordFrom mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.circleImage.mas_left);
-        make.right.mas_equalTo(superBigView.centerX);
-        make.bottom.mas_equalTo(superBigView.mas_bottom).offset(-5);
+        make.top.mas_equalTo(self.timeLabel.mas_top);
+        make.left.mas_equalTo(self.timeLabel.mas_right).offset(7);
+        make.width.mas_equalTo(100);
+        make.bottom.mas_equalTo(self.timeLabel.mas_bottom);
     }];
     
-    self.userInterView = [[UIView alloc]initWithFrame:CGRectMake(DLMultipleWidth(8.0), DLMultipleHeight(70.0), DLMultipleWidth(353.0), 300)];
+    self.userInterView = [[UIView alloc]initWithFrame:CGRectMake(DLMultipleWidth(8.0), 64.0, DLMultipleWidth(353.0), 300)];
 //    [self.userInterView setBackgroundColor:[UIColor yellowColor]];
     [superBigView addSubview:self.userInterView];
     
@@ -135,17 +164,19 @@ static NSString *userId = nil;
 
 - (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath
 {
-    [self.circleImage dlGetRouteWebImageWithString:[model.poster objectForKey:@"photo"] placeholderImage:nil];
+//    [self.circleImage dlGetRouteWebImageWithString:[model.poster objectForKey:@"photo"] placeholderImage:nil];
+    self.circleImage.backgroundColor = [UIColor blueColor];
     self.ColleagueNick.text = [model.poster objectForKey:@"nickname"];
     
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
+    
+    self.praiseButton.tag = indexpath.row + 1;
     [self.wordFrom getCompanyNameFromCid:model.cid];
-    
     self.commondButton.tag = indexpath.row + 1;
-    
     self.praiseButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.commentUsers.count];
     self.commondButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.comments.count];
     if (model.commentUsers) {
+        NSLog(@"%@ \n 我的 id 为  %@ ", model.content, userId);
         [self judgeWithArray:model.commentUsers];
     }
 }

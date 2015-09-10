@@ -14,4 +14,7 @@
 
 @property (nonatomic, strong)UIImageView *criticIamge;
 
+@property (nonatomic, assign)NSInteger indexRow;
+
+
 @end

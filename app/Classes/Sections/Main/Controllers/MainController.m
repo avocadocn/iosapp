@@ -115,6 +115,8 @@ static NSString *kGroupName = @"GroupName";
 
 -(void)setUpTabbar{
     
+
+    
     InteractiveViewController *interactiveVC = [[InteractiveViewController alloc]init];
     [self addOneTabWithVC:interactiveVC title:@"互动"];
     
@@ -134,7 +136,7 @@ static NSString *kGroupName = @"GroupName";
     
 }
 
-- (void)addOneTabWithVC:(UIViewController *)viewController title:(NSString *)title{
+- (void)addOneTabWithVC:(UIViewController *)viewController title:(NSString *)title {
     viewController.title = title;
 //
 //    viewController.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:@"tabbar_chatsHL"] selectedImage:[UIImage imageNamed:@"tabbar_chats"]];
@@ -159,6 +161,7 @@ static NSString *kGroupName = @"GroupName";
     [viewController.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:RGBACOLOR(35, 24, 21, 1),NSForegroundColorAttributeName, nil] forState:UIControlStateHighlighted];
     
 }
+
 
 - (void)addFriendAction
 {

@@ -106,7 +106,6 @@
     // Dispose of any resources that can be recreated.
 
 }
-
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
     [self.phoneNumber.textfield resignFirstResponder];
@@ -131,7 +130,8 @@
         NSString *str2 = [NSString stringWithFormat:@"86"];
         [SMS_SDK getVerificationCodeBySMSWithPhone:self.phoneNumber.textfield.text
                                               zone:str2
-                                            result:^(SMS_SDKError *error)
+                                            result:^
+(SMS_SDKError *error)
          {
              if (!error)
              {

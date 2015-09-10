@@ -5,7 +5,7 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //
-
+#import "AddressBookModel.h"
 #import "CompanyViewController.h"
 #import <ReactiveCocoa.h>
 #import "CompanySmallCell.h"
@@ -22,6 +22,7 @@
 
 
 @interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@property (nonatomic, strong)NSMutableArray *photoArray;
 
 @end
 
@@ -31,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self builtInterface]; //铺设截面
+    [self netRequest];
     
 }
 - (void)builtInterface
@@ -82,6 +84,7 @@
 {
     CompanySmallCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SmallCell" forIndexPath:indexPath];
     
+    [cell interCellWithModelArray:self.photoArray];
     return cell;
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -96,6 +99,36 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)netRequest {
+    AddressBookModel *model = [[AddressBookModel alloc] init];
+    
+    [model setLimit:100.00];
+    [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
+        NSLog(@"请求成功-- %@",json);
+//        [self reloadTableViewWithJson:json];
+        self.photoArray = [NSMutableArray arrayWithArray:[self getPhotoArrayFromJson:json]];
+        [self.BigCollection reloadData];
+    } failure:^(id errorJson) {
+        NSLog(@"请求失败 %@",errorJson);
+    }];
+}
+
+- (NSArray *)getPhotoArrayFromJson:(id)json
+{
+    NSMutableArray *photoArray = [NSMutableArray array];
+    for (NSDictionary *dic in json) {
+        NSDictionary *content = [dic objectForKey:@"content"];
+        NSArray *array = [content objectForKey:@"photos"];
+        if (array.count) {
+            [photoArray addObject:[array firstObject]];
+        }
+        if (photoArray.count == 9) {
+            return photoArray;
+        }
+    }
+    return nil;
 }
 
 

@@ -42,6 +42,9 @@
         // 设置圆角矩形
 //        [self.backImageView.layer setCornerRadius:4.0f];
 //        [self.backImageView.layer setMasksToBounds:YES];
+        [self.nameLabel setTextColor:RGB(0x39, 0x37, 0x37)];
+        [self.timeLabel setTextColor:RGB(0x9b, 0x9b, 0x9b)];
+        [self.addressLabel setTextColor:RGB(0x9b, 0x9b, 0x9b)];
            }
     return self;
 }

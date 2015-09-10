@@ -540,7 +540,7 @@
         <key>routeName</key>
         <string>getPersonalNotificationsList</string>
         <key>routeURL</key>
-        <string>/notifications/notice</string>
+        <string>/notifications/:noticeType</string>
         <key>routeMethod</key>
         <string>GET</string>
     </dict>

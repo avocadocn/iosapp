@@ -9,6 +9,7 @@
 #import "InteractiveViewController.h"
 #import "ActivitysShowView.h"
 #import "ActivityShowTableController.h"
+#import "TemplateActivityShowTableController.h"
 #import "CurrentActivitysShowCell.h"
 #import "ActivityShowTableController.h"
 #import "DWBubbleMenuButton.h"
@@ -29,7 +30,7 @@
 #import "DetailActivityShowController.h"
 #import "PollModel.h"
 #import "LoginViewController.h"
-
+#import "Singleton.h"
 
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate, UIAlertViewDelegate>
 
@@ -100,7 +101,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self.tableView reloadData];
     
 }
-
 -(void)viewWillAppear:(BOOL)animated{
     // 弹出式菜单
 //    [self setupPathButton];
@@ -259,7 +259,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     [self.view addSubview:tableView];
     self.tableView = tableView;
-    
     self.asvFrame = self.asv.frame;
     self.asvHidden = NO;
 }
@@ -374,7 +373,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             NSArray *titles = @[@"活动", @"投票", @"求助"];
             
             [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
-                ActivityShowTableController *tableViewController = [[ActivityShowTableController alloc] init];
+                TemplateActivityShowTableController *tableViewController = [[TemplateActivityShowTableController alloc] init];
                 tableViewController.title = title;
                 [viewControllers addObject:tableViewController];
             }];

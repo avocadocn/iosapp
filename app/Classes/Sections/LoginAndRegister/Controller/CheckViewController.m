@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 - (void)builtRightBarItem
 {
     self.title = @"大学信息";
-    self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
+self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
     
     self.label.text = @"下一步";
     self.label.textAlignment = NSTextAlignmentRight;
@@ -120,7 +120,6 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     
     [self.time addGestureRecognizer:timeSelect];
     [self.view addSubview:self.time];
-    
     
 }
 

@@ -20,6 +20,12 @@
 
 @property (nonatomic, copy)NSNumber *limit;
 
+@property (nonatomic, copy)NSString *noticeType; // 消息类型
+
+@property (nonatomic, copy)NSNumber *action;
+
+@property (nonatomic, copy)NSNumber *interaction;
+
 @property (nonatomic, assign)BOOL selectState;
 
 @property (nonatomic, copy)NSString *noticeType;
