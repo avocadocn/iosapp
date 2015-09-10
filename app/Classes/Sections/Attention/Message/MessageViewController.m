@@ -52,11 +52,11 @@
     [self.scrollView addSubview:view];
 }
 - (void)netWorkRequest {// 网路请求
-    getIntroModel *model = [[getIntroModel alloc] init];
     Account *account = [AccountTool account];
+    getIntroModel *model = [[getIntroModel alloc] init];
     [model setUserId:account.ID];
     [model setNoticeType:@"notice"];
-    [RestfulAPIRequestTool routeName:@"getPersonalNotificationsList" requestModel:model useKeys:@[@"noticeType",@"interaction",@"interactionType",@"userId",@"action"] success:^(id json) {
+    [RestfulAPIRequestTool routeName:@"getPersonalInteractionList" requestModel:model useKeys:@[@"content"] success:^(id json) {
         NSLog(@"获取消息列表成功 %@",json);
     } failure:^(id errorJson) {
         NSLog(@"获取消息列表失败 %@",[errorJson objectForKey:@"msg"]);

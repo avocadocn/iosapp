@@ -59,6 +59,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
     
     // 设置背景颜色
     [self.view setBackgroundColor:RGB(235, 235, 235)];
@@ -74,6 +75,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self requestNet];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"KPOSTNAME" object:nil];
 }
+
 - (void)reFreshData:(NSNotification *)notice {
     NSLog(@"%@",notice.userInfo);
     Account *acc= [AccountTool account];
@@ -428,6 +430,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     switch ([inter.type integerValue]) {
         case 1:{  // 活动详情
             DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
+            activityController.orTrue = YES;
             activityController.model = inter;
             [self.navigationController pushViewController:activityController animated:YES];
             break;

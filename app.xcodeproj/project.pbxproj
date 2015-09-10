@@ -9,6 +9,34 @@
 /* Begin PBXBuildFile section */
 		5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5404302C1B905D6E00C71F39 /* InvatingViewController.m */; };
 		5436967D1B9D401E00261F2D /* 标尺.png in Resources */ = {isa = PBXBuildFile; fileRef = 5436967C1B9D401E00261F2D /* 标尺.png */; };
+		5458675A1BA05CC6009ED3E7 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */; };
+		5458675B1BA05CC6009ED3E7 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */; };
+		5458675E1BA166BB009ED3E7 /* Singletons.m in Sources */ = {isa = PBXBuildFile; fileRef = 5458675D1BA166BB009ED3E7 /* Singletons.m */; };
+		545867611BA17BCA009ED3E7 /* SBDetailActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867601BA17BCA009ED3E7 /* SBDetailActivityView.m */; };
+		545867641BA17EF8009ED3E7 /* SBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867631BA17EF8009ED3E7 /* SBDetailViewController.m */; };
+		545867681BA1821F009ED3E7 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867651BA1821F009ED3E7 /* gear.png */; };
+		5458676E1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458676C1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png */; };
+		545867741BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867701BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png */; };
+		545867751BA185C5009ED3E7 /* Oval 349 Copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867711BA185C5009ED3E7 /* Oval 349 Copy.png */; };
+		545867761BA185C5009ED3E7 /* Oval 349.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867721BA185C5009ED3E7 /* Oval 349.png */; };
+		545867781BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867771BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png */; };
+		5458677C1BA18D09009ED3E7 /* 求助 + Shape Copy 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867791BA18D09009ED3E7 /* 求助 + Shape Copy 8.png */; };
+		5458677D1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458677A1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png */; };
+		5458677E1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458677B1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png */; };
+		545867811BA18F45009ED3E7 /* 发活动按钮.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458677F1BA18F45009ED3E7 /* 发活动按钮.png */; };
+		545867821BA18F45009ED3E7 /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867801BA18F45009ED3E7 /* icon1.png */; };
+		5458678F1BA194E8009ED3E7 /* 互动@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867851BA194E8009ED3E7 /* 互动@2x.png */; };
+		545867901BA194E8009ED3E7 /* 互动@2x1.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867861BA194E8009ED3E7 /* 互动@2x1.png */; };
+		545867911BA194E8009ED3E7 /* 聊天@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867871BA194E8009ED3E7 /* 聊天@2x.png */; };
+		545867921BA194E8009ED3E7 /* 聊天@2x1.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867881BA194E8009ED3E7 /* 聊天@2x1.png */; };
+		545867931BA194E8009ED3E7 /* 我@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867891BA194E8009ED3E7 /* 我@2x.png */; };
+		545867941BA194E8009ED3E7 /* 我@2x1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458678A1BA194E8009ED3E7 /* 我@2x1.png */; };
+		545867951BA194E8009ED3E7 /* 学校@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458678B1BA194E8009ED3E7 /* 学校@2x.png */; };
+		545867961BA194E8009ED3E7 /* 学校@2x1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458678C1BA194E8009ED3E7 /* 学校@2x1.png */; };
+		5458679D1BA1A953009ED3E7 /* 关注@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458679B1BA1A953009ED3E7 /* 关注@2x.png */; };
+		5458679E1BA1A953009ED3E7 /* 关注@2x1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458679C1BA1A953009ED3E7 /* 关注@2x1.png */; };
+		545867A01BA1A9C5009ED3E7 /* Group.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458679F1BA1A9C5009ED3E7 /* Group.png */; };
+		545867A21BA1AD6C009ED3E7 /* 表情icon copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867A11BA1AD6C009ED3E7 /* 表情icon copy.png */; };
 		546CA5821B9E88CD0066CC0C /* 活动 .png in Resources */ = {isa = PBXBuildFile; fileRef = 546CA57E1B9E88CD0066CC0C /* 活动 .png */; };
 		546CA5831B9E88CD0066CC0C /* 聊天 copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 546CA57F1B9E88CD0066CC0C /* 聊天 copy.png */; };
 		546CA5841B9E88CD0066CC0C /* 投票 .png in Resources */ = {isa = PBXBuildFile; fileRef = 546CA5801B9E88CD0066CC0C /* 投票 .png */; };
@@ -688,6 +716,38 @@
 		5404302B1B905D6E00C71F39 /* InvatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingViewController.h; sourceTree = "<group>"; };
 		5404302C1B905D6E00C71F39 /* InvatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingViewController.m; sourceTree = "<group>"; };
 		5436967C1B9D401E00261F2D /* 标尺.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标尺.png"; sourceTree = "<group>"; };
+		545867571BA05CC6009ED3E7 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
+		545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
+		545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
+		5458675C1BA166BB009ED3E7 /* Singletons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singletons.h; sourceTree = "<group>"; };
+		5458675D1BA166BB009ED3E7 /* Singletons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singletons.m; sourceTree = "<group>"; };
+		5458675F1BA17BCA009ED3E7 /* SBDetailActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDetailActivityView.h; sourceTree = "<group>"; };
+		545867601BA17BCA009ED3E7 /* SBDetailActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDetailActivityView.m; sourceTree = "<group>"; };
+		545867621BA17EF8009ED3E7 /* SBDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDetailViewController.h; sourceTree = "<group>"; };
+		545867631BA17EF8009ED3E7 /* SBDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDetailViewController.m; sourceTree = "<group>"; };
+		545867651BA1821F009ED3E7 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
+		5458676C1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shape Copy 2 + Line + Line Copy 6.png"; sourceTree = "<group>"; };
+		545867701BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 349 Copy 5 + Oval 349 Copy 2.png"; sourceTree = "<group>"; };
+		545867711BA185C5009ED3E7 /* Oval 349 Copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 349 Copy.png"; sourceTree = "<group>"; };
+		545867721BA185C5009ED3E7 /* Oval 349.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 349.png"; sourceTree = "<group>"; };
+		545867771BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 349 Copy 3 + Oval 349 Copy 4.png"; sourceTree = "<group>"; };
+		545867791BA18D09009ED3E7 /* 求助 + Shape Copy 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "求助 + Shape Copy 8.png"; sourceTree = "<group>"; };
+		5458677A1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 177 + calendar + Fill 133.png"; sourceTree = "<group>"; };
+		5458677B1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 177 + chart + Fill 164.png"; sourceTree = "<group>"; };
+		5458677F1BA18F45009ED3E7 /* 发活动按钮.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发活动按钮.png"; sourceTree = "<group>"; };
+		545867801BA18F45009ED3E7 /* icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon1.png; sourceTree = "<group>"; };
+		545867851BA194E8009ED3E7 /* 互动@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "互动@2x.png"; sourceTree = "<group>"; };
+		545867861BA194E8009ED3E7 /* 互动@2x1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "互动@2x1.png"; sourceTree = "<group>"; };
+		545867871BA194E8009ED3E7 /* 聊天@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天@2x.png"; sourceTree = "<group>"; };
+		545867881BA194E8009ED3E7 /* 聊天@2x1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天@2x1.png"; sourceTree = "<group>"; };
+		545867891BA194E8009ED3E7 /* 我@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "我@2x.png"; sourceTree = "<group>"; };
+		5458678A1BA194E8009ED3E7 /* 我@2x1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "我@2x1.png"; sourceTree = "<group>"; };
+		5458678B1BA194E8009ED3E7 /* 学校@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "学校@2x.png"; sourceTree = "<group>"; };
+		5458678C1BA194E8009ED3E7 /* 学校@2x1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "学校@2x1.png"; sourceTree = "<group>"; };
+		5458679B1BA1A953009ED3E7 /* 关注@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关注@2x.png"; sourceTree = "<group>"; };
+		5458679C1BA1A953009ED3E7 /* 关注@2x1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关注@2x1.png"; sourceTree = "<group>"; };
+		5458679F1BA1A9C5009ED3E7 /* Group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Group.png; sourceTree = "<group>"; };
+		545867A11BA1AD6C009ED3E7 /* 表情icon copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "表情icon copy.png"; sourceTree = "<group>"; };
 		546CA57E1B9E88CD0066CC0C /* 活动 .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "活动 .png"; sourceTree = "<group>"; };
 		546CA57F1B9E88CD0066CC0C /* 聊天 copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "聊天 copy.png"; sourceTree = "<group>"; };
 		546CA5801B9E88CD0066CC0C /* 投票 .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投票 .png"; sourceTree = "<group>"; };
@@ -2120,8 +2180,8 @@
 				96AA19781B79EBB6008E4CA3 /* AddressBookTool */,
 				967439A51B705907004334A4 /* NetworkRequestTool */,
 				9649B5081B564DE000A7F355 /* PrefixHeader.pch */,
-				546CA59C1BA009210066CC0C /* Singleton.h */,
-				546CA59D1BA009210066CC0C /* Singleton.m */,
+				5458675C1BA166BB009ED3E7 /* Singletons.h */,
+				5458675D1BA166BB009ED3E7 /* Singletons.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2350,6 +2410,8 @@
 				54BB1DD41B8EF6F500F76628 /* ChangePassWordViewController.m */,
 				5404302B1B905D6E00C71F39 /* InvatingViewController.h */,
 				5404302C1B905D6E00C71F39 /* InvatingViewController.m */,
+				545867621BA17EF8009ED3E7 /* SBDetailViewController.h */,
+				545867631BA17EF8009ED3E7 /* SBDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3828,6 +3890,9 @@
 				A439ED411B68DA9E006B3CAC /* GuidePageViewController.m */,
 				A46125881BA030FF001E83B7 /* ForgetPasswordController.h */,
 				A46125891BA030FF001E83B7 /* ForgetPasswordController.m */,
+				545867571BA05CC6009ED3E7 /* ResetPasswordViewController.h */,
+				545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */,
+				545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3848,6 +3913,29 @@
 		A42CFFC91B9C194000CCFB34 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				545867A11BA1AD6C009ED3E7 /* 表情icon copy.png */,
+				5458679F1BA1A9C5009ED3E7 /* Group.png */,
+				5458679B1BA1A953009ED3E7 /* 关注@2x.png */,
+				5458679C1BA1A953009ED3E7 /* 关注@2x1.png */,
+				545867851BA194E8009ED3E7 /* 互动@2x.png */,
+				545867861BA194E8009ED3E7 /* 互动@2x1.png */,
+				545867871BA194E8009ED3E7 /* 聊天@2x.png */,
+				545867881BA194E8009ED3E7 /* 聊天@2x1.png */,
+				545867891BA194E8009ED3E7 /* 我@2x.png */,
+				5458678A1BA194E8009ED3E7 /* 我@2x1.png */,
+				5458678B1BA194E8009ED3E7 /* 学校@2x.png */,
+				5458678C1BA194E8009ED3E7 /* 学校@2x1.png */,
+				5458677F1BA18F45009ED3E7 /* 发活动按钮.png */,
+				545867801BA18F45009ED3E7 /* icon1.png */,
+				545867791BA18D09009ED3E7 /* 求助 + Shape Copy 8.png */,
+				5458677A1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png */,
+				5458677B1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png */,
+				545867771BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png */,
+				545867701BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png */,
+				545867711BA185C5009ED3E7 /* Oval 349 Copy.png */,
+				545867721BA185C5009ED3E7 /* Oval 349.png */,
+				5458676C1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png */,
+				545867651BA1821F009ED3E7 /* gear.png */,
 				5436967C1B9D401E00261F2D /* 标尺.png */,
 				A42CFFCA1B9C194000CCFB34 /* 305.png */,
 				A42CFFCB1B9C194000CCFB34 /* 110.png */,
@@ -3962,6 +4050,8 @@
 				A43F86321B7453D30086D078 /* optionsView.m */,
 				A43F863C1B748B210086D078 /* UITextView+PlaceHolder.h */,
 				A43F863D1B748B210086D078 /* UITextView+PlaceHolder.m */,
+				5458675F1BA17BCA009ED3E7 /* SBDetailActivityView.h */,
+				545867601BA17BCA009ED3E7 /* SBDetailActivityView.m */,
 			);
 			path = EventCell;
 			sourceTree = "<group>";
@@ -4368,11 +4458,13 @@
 				96CF94761B674B54001759E2 /* tabbarSelectBg.png in Resources */,
 				96CF93E21B674B54001759E2 /* VoiceSearchFeedback014@2x.png in Resources */,
 				96CF94331B674B54001759E2 /* chatBar_more_location.png in Resources */,
+				545867741BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png in Resources */,
 				96CF93EE1B674B54001759E2 /* VoiceSearchFeedback020@2x.png in Resources */,
 				967A06301B71E2C9007BA757 /* Interactive_vote_icon.png in Resources */,
 				96CF93D11B674B54001759E2 /* VoiceSearchFeedback006.png in Resources */,
 				96CF942C1B674B54001759E2 /* chatBar_colorMore_videoCall@2x.png in Resources */,
 				96CF942A1B674B54001759E2 /* chatBar_colorMore_photoSelected@2x.png in Resources */,
+				545867A01BA1A9C5009ED3E7 /* Group.png in Resources */,
 				A42CFFD91B9C194000CCFB34 /* 111.png in Resources */,
 				96CF94051B674B54001759E2 /* chat_location_detail_disclosure.png in Resources */,
 				96CF946B1B674B54001759E2 /* tabbar_chatsHL@2x.png in Resources */,
@@ -4396,7 +4488,9 @@
 				96CF942F1B674B54001759E2 /* chatBar_more_camera.png in Resources */,
 				96CF94481B674B54001759E2 /* chat_sender_audio_playing_000.png in Resources */,
 				54BB1DDA1B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib in Resources */,
+				545867931BA194E8009ED3E7 /* 我@2x.png in Resources */,
 				96CF94131B674B54001759E2 /* chatBar_keyboard.png in Resources */,
+				545867921BA194E8009ED3E7 /* 聊天@2x1.png in Resources */,
 				96CF94231B674B54001759E2 /* chatBar_colorMore_audioCall@2x.png in Resources */,
 				96CF93DD1B674B54001759E2 /* VoiceSearchFeedback012.png in Resources */,
 				96CF93C31B674B54001759E2 /* chatFire_audioPlaying2.png in Resources */,
@@ -4415,6 +4509,7 @@
 				A4F594F81B7C7C740088D9CC /* 1.plist in Resources */,
 				96CF94241B674B54001759E2 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */,
 				96CF944C1B674B54001759E2 /* chat_sender_audio_playing_002.png in Resources */,
+				545867751BA185C5009ED3E7 /* Oval 349 Copy.png in Resources */,
 				A4745E241B81E512008EB944 /* starTime.png in Resources */,
 				96CF94351B674B54001759E2 /* chatBar_more_locationSelected.png in Resources */,
 				96CF94201B674B54001759E2 /* chatBar_recordSelected@2x.png in Resources */,
@@ -4422,7 +4517,9 @@
 				96CF93F81B674B54001759E2 /* chat_video_play.png in Resources */,
 				96CF93FB1B674B54001759E2 /* chatBar_more_cardSelected.png in Resources */,
 				961053511B590C31002D62A3 /* CurrentActivitysShowCell.xib in Resources */,
+				5458677D1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png in Resources */,
 				96CF94151B674B54001759E2 /* chatBar_keyboardSelected.png in Resources */,
+				5458676E1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png in Resources */,
 				A42CFFDE1B9C194000CCFB34 /* 304.png in Resources */,
 				96CF94101B674B54001759E2 /* chatBar_face@2x.png in Resources */,
 				96CF94631B674B54001759E2 /* group_participant_addHL@2x.png in Resources */,
@@ -4433,8 +4530,10 @@
 				96CF93E31B674B54001759E2 /* VoiceSearchFeedback015.png in Resources */,
 				96CF93BA1B674B54001759E2 /* 57.png in Resources */,
 				A42CFFDD1B9C194000CCFB34 /* 302.png in Resources */,
+				545867951BA194E8009ED3E7 /* 学校@2x.png in Resources */,
 				96CF93FA1B674B54001759E2 /* chatBar_more_card@2x.png in Resources */,
 				96CF941F1B674B54001759E2 /* chatBar_recordSelected.png in Resources */,
+				5458679E1BA1A953009ED3E7 /* 关注@2x1.png in Resources */,
 				96CF94251B674B54001759E2 /* chatBar_colorMore_camera@2x.png in Resources */,
 				96CF93E91B674B54001759E2 /* VoiceSearchFeedback018.png in Resources */,
 				A42CFFDB1B9C194000CCFB34 /* 113.png in Resources */,
@@ -4449,6 +4548,7 @@
 				9649B5471B565E5900A7F355 /* CompanyViewController.storyboard in Resources */,
 				A4745E1B1B81DC94008EB944 /* welcome-3.png in Resources */,
 				96CF94291B674B54001759E2 /* chatBar_colorMore_photo@2x.png in Resources */,
+				545867821BA18F45009ED3E7 /* icon1.png in Resources */,
 				96CF93EB1B674B54001759E2 /* VoiceSearchFeedback019.png in Resources */,
 				96CF94021B674B54001759E2 /* chatBar_textBg@2x.png in Resources */,
 				96E3D83C1B7DA60600A623B7 /* UserMessageTableViewCell.xib in Resources */,
@@ -4457,8 +4557,10 @@
 				96CF93D01B674B54001759E2 /* VoiceSearchFeedback005@2x.png in Resources */,
 				96CF945E1B674B54001759E2 /* group_creategroup@2x.png in Resources */,
 				546CA5831B9E88CD0066CC0C /* 聊天 copy.png in Resources */,
+				545867911BA194E8009ED3E7 /* 聊天@2x.png in Resources */,
 				96CF93D41B674B54001759E2 /* VoiceSearchFeedback007@2x.png in Resources */,
 				96CF93EF1B674B54001759E2 /* call_out.png in Resources */,
+				545867811BA18F45009ED3E7 /* 发活动按钮.png in Resources */,
 				A46D4AF61B79E32C00177577 /* company1.png in Resources */,
 				96CF941D1B674B54001759E2 /* chatBar_recordBg.png in Resources */,
 				96CF93CC1B674B54001759E2 /* VoiceSearchFeedback003@2x.png in Resources */,
@@ -4486,6 +4588,8 @@
 				96CF944A1B674B54001759E2 /* chat_sender_audio_playing_001.png in Resources */,
 				96CF8EFE1B671E93001759E2 /* RouteInfo.plist in Resources */,
 				96CF94681B674B54001759E2 /* tabbar_chats.png in Resources */,
+				545867681BA1821F009ED3E7 /* gear.png in Resources */,
+				545867A21BA1AD6C009ED3E7 /* 表情icon copy.png in Resources */,
 				96CF94031B674B54001759E2 /* chat_location_annotation_someone.png in Resources */,
 				96CF93E01B674B54001759E2 /* VoiceSearchFeedback013@2x.png in Resources */,
 				A42CFFD71B9C194000CCFB34 /* 305.png in Resources */,
@@ -4533,6 +4637,7 @@
 				96CF94111B674B54001759E2 /* chatBar_faceSelected.png in Resources */,
 				96CF93E41B674B54001759E2 /* VoiceSearchFeedback015@2x.png in Resources */,
 				96CF94341B674B54001759E2 /* chatBar_more_location@2x.png in Resources */,
+				5458677C1BA18D09009ED3E7 /* 求助 + Shape Copy 8.png in Resources */,
 				967A062F1B71E2C9007BA757 /* Interactive_help_icon.png in Resources */,
 				A4745E1C1B81DC94008EB944 /* welcome-2.png in Resources */,
 				96CF93D51B674B54001759E2 /* VoiceSearchFeedback008.png in Resources */,
@@ -4554,6 +4659,7 @@
 				96CF93DB1B674B54001759E2 /* VoiceSearchFeedback011.png in Resources */,
 				A41CF0DA1B5CE155005C21EF /* mark.png in Resources */,
 				A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */,
+				545867761BA185C5009ED3E7 /* Oval 349.png in Resources */,
 				967A063B1B71FBDB007BA757 /* Interactive_vote_downArrow.png in Resources */,
 				96CF942B1B674B54001759E2 /* chatBar_colorMore_video@2x.png in Resources */,
 				A4745E281B81E51E008EB944 /* write.png in Resources */,
@@ -4580,6 +4686,7 @@
 				A4651D3D1B58DFAE008BAEE8 /* No.png in Resources */,
 				96CF94511B674B54001759E2 /* chat_sender_audio_playing_full@2x.png in Resources */,
 				96CF94701B674B54001759E2 /* tabbar_setting.png in Resources */,
+				545867781BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png in Resources */,
 				967439D11B70A27A004334A4 /* RankLoveHeart_red.png in Resources */,
 				96CF940C1B674B54001759E2 /* faceDelete@2x.png in Resources */,
 				96CF93BD1B674B54001759E2 /* chatListCellHead.png in Resources */,
@@ -4591,6 +4698,7 @@
 				96CF93CA1B674B54001759E2 /* VoiceSearchFeedback002@2x.png in Resources */,
 				96CF940E1B674B54001759E2 /* messageSendFail@2x.png in Resources */,
 				A44B35591B82F895004F7A6A /* boy.png in Resources */,
+				545867941BA194E8009ED3E7 /* 我@2x1.png in Resources */,
 				96AA196B1B79A3C7008E4CA3 /* ProfileTableViewCell.xib in Resources */,
 				9635AF561B748B0800BE92B5 /* CommentViewCell.xib in Resources */,
 				A41993311B5F99910086EAAE /* gray-man.png in Resources */,
@@ -4616,6 +4724,7 @@
 				546CA5871B9E8CAD0066CC0C /* 邀请 .png in Resources */,
 				54BB1DCD1B8DC3B500F76628 /* chevron-left.png in Resources */,
 				96CF94301B674B54001759E2 /* chatBar_more_camera@2x.png in Resources */,
+				5458677E1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png in Resources */,
 				96CF93E81B674B54001759E2 /* VoiceSearchFeedback017@2x.png in Resources */,
 				A41993301B5F99910086EAAE /* man.png in Resources */,
 				546CA5851B9E88CD0066CC0C /* shetuan.png in Resources */,
@@ -4624,6 +4733,7 @@
 				54BB1DB91B8DAE5500F76628 /* TwoDimensionCode.png in Resources */,
 				961053531B590C31002D62A3 /* OtherActivityShowCell.xib in Resources */,
 				96CF93EC1B674B54001759E2 /* VoiceSearchFeedback019@2x.png in Resources */,
+				5458675B1BA05CC6009ED3E7 /* ResetPasswordViewController.xib in Resources */,
 				96CF93CF1B674B54001759E2 /* VoiceSearchFeedback005.png in Resources */,
 				A40936C01B721BCD00515A50 /* time.png in Resources */,
 				96CF945A1B674B54001759E2 /* delete@2x.png in Resources */,
@@ -4656,12 +4766,15 @@
 				96AA19731B79C193008E4CA3 /* profile_menu_setting.png in Resources */,
 				96CF93F31B674B54001759E2 /* call_silence.png in Resources */,
 				96CF94471B674B54001759E2 /* chat_receiver_bg@2x.png in Resources */,
+				5458678F1BA194E8009ED3E7 /* 互动@2x.png in Resources */,
 				96CF94731B674B54001759E2 /* tabbar_settingHL@2x.png in Resources */,
 				96CF945C1B674B54001759E2 /* titleBar.png in Resources */,
 				96CF944F1B674B54001759E2 /* chat_sender_audio_playing_003@2x.png in Resources */,
+				5458679D1BA1A953009ED3E7 /* 关注@2x.png in Resources */,
 				96CF942D1B674B54001759E2 /* chatBar_colorMore_videoCallSelected@2x.png in Resources */,
 				A4745E221B81E50D008EB944 /* school.png in Resources */,
 				96CF93781B674B54001759E2 /* callRing.mp3 in Resources */,
+				545867901BA194E8009ED3E7 /* 互动@2x1.png in Resources */,
 				A40CDF631B8733B400BD63F5 /* mistake.png in Resources */,
 				96CF94401B674B54001759E2 /* chat_receiver_audio_playing002.png in Resources */,
 				967439CB1B70A27A004334A4 /* otherActivity_location.png in Resources */,
@@ -4671,6 +4784,7 @@
 				96CF94591B674B54001759E2 /* back@2x.png in Resources */,
 				A46D4AF21B79E32100177577 /* company2.png in Resources */,
 				A42CFFE01B9C194000CCFB34 /* 106.png in Resources */,
+				545867961BA194E8009ED3E7 /* 学校@2x1.png in Resources */,
 				A44D404A1B73647700B10DFB /* fold.png in Resources */,
 				A4651D421B58DFC7008BAEE8 /* addImage.png in Resources */,
 				96CF93C71B674B54001759E2 /* VoiceSearchFeedback001.png in Resources */,
@@ -4738,6 +4852,7 @@
 				967C62CA1B7C72220065F318 /* VoteInfoTableViewController.m in Sources */,
 				E23AF2A51BA1758E001BE3C5 /* VoteOptionsView.m in Sources */,
 				968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */,
+				5458675A1BA05CC6009ED3E7 /* ResetPasswordViewController.m in Sources */,
 				A4745DFE1B81A9AC008EB944 /* DNAsset.m in Sources */,
 				969616D21B6B5D4D002FC24C /* PSTCollectionViewCell.m in Sources */,
 				546CA5961B9ECD7B0066CC0C /* NYSegment.m in Sources */,
@@ -4860,6 +4975,7 @@
 				96CF93951B674B54001759E2 /* MessageModel.m in Sources */,
 				96CF90C31B673422001759E2 /* MWPhoto.m in Sources */,
 				96CF90DC1B673422001759E2 /* PSTCollectionViewController.m in Sources */,
+				545867641BA17EF8009ED3E7 /* SBDetailViewController.m in Sources */,
 				96CF918A1B674193001759E2 /* AppDelegate+UMeng.m in Sources */,
 				96CF93A11B674B54001759E2 /* PublicGroupListViewController.m in Sources */,
 				E22ED8201B9FCE1E00CF4109 /* GTMNSString+HTML.m in Sources */,
@@ -4907,6 +5023,7 @@
 				96CF90CC1B673422001759E2 /* EMSDWebImageDownloader.m in Sources */,
 				A45727051B74BA0500A27B79 /* RepeaterGroupController.m in Sources */,
 				96CF90BF1B673422001759E2 /* EmojiEmoticons.m in Sources */,
+				5458675E1BA166BB009ED3E7 /* Singletons.m in Sources */,
 				A44D40081B7300C200B10DFB /* LaunchEventController.m in Sources */,
 				961053581B590C70002D62A3 /* OtherController.m in Sources */,
 				96CF90B71B673422001759E2 /* EMAudioRecorderUtil.m in Sources */,
@@ -5047,6 +5164,7 @@
 				96C9FFB91B73760B008B71CE /* HelpCellFrame.m in Sources */,
 				96CF93AE1B674B54001759E2 /* BaseTableViewCell.m in Sources */,
 				96CF939C1B674B54001759E2 /* GroupBansViewController.m in Sources */,
+				545867611BA17BCA009ED3E7 /* SBDetailActivityView.m in Sources */,
 				A4311F551B577BE1004401B4 /* ColleagueViewController.m in Sources */,
 				96D23E301B57A5870079193C /* DLNavigationController.m in Sources */,
 				96CF93A31B674B54001759E2 /* ChatroomListViewController.m in Sources */,

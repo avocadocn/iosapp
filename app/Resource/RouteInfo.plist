@@ -548,7 +548,7 @@
         <key>routeName</key>
         <string>getPersonalInteractionList</string>
         <key>routeURL</key>
-        <string>/notifications/interaction</string>
+        <string>/notifications/:noticeType</string>
         <key>routeMethod</key>
         <string>GET</string>
     </dict>

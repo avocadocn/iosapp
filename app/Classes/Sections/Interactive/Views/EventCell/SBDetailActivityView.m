@@ -1,19 +1,21 @@
 //
-//  DetailActivityShowView.m
+//  SBDetailActivityView.m
 //  app
 //
-//  Created by 张加胜 on 15/7/20.
+//  Created by burring on 15/9/10.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
-#import "DetailActivityShowView.h"
+#import "SBDetailActivityView.h"
 #import "Interaction.h"
 #import "GTMNSString+HTML.h"
 #import "Account.h"
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
 #import "UIImageView+DLGetWebImage.h"
-@interface DetailActivityShowView()<UIScrollViewDelegate,UIWebViewDelegate>
+#import "Singletons.h"
+
+@interface SBDetailActivityView()<UIScrollViewDelegate,UIWebViewDelegate>
 
 @property (strong,nonatomic) UIScrollView *superView;
 @property (strong,nonatomic) UIImageView *pictureView; // 顶部照片
@@ -23,17 +25,7 @@
 @property (nonatomic, copy) NSString *url; // 图片链接
 
 @end
-@implementation DetailActivityShowView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
-
+@implementation SBDetailActivityView
 - (instancetype)initWithModel:(Interaction *)model
 {
     self = [super init];
@@ -66,7 +58,7 @@
 
 /*
  *对服务器返回的时间做处理
- * format: xxxx.xx.xx
+ * format: xxxx年xx月xx日 xx:xx
  */
 - (NSString*)getParsedDateStringFromString:(NSString*)dateString
 {
@@ -76,7 +68,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     NSDate * date = [formatter dateFromString:dateString];
-    [formatter setDateFormat:@"yyyy.MM.dd"];
+    [formatter setDateFormat:@"yyyy年MM月dd日 HH:mm"];
     NSString* str = [formatter stringFromDate:date];
     //设置源日期时区
     NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
@@ -104,7 +96,7 @@
     // 顶部带有图片的视图
     UIView *topPictureView = [[UIView alloc]init];
     [topPictureView setBackgroundColor:[UIColor whiteColor]];
-   
+    
     // 添加活动图片
     self.pictureView = [UIImageView new];
     CGFloat imageViewWidth = DLScreenWidth;
@@ -113,23 +105,23 @@
     self.imageViewHeight = imageViewHeight;
     [self.pictureView setFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
     [self.pictureView setBackgroundColor:[UIColor redColor]];
-//    UIImage *img = [UIImage imageNamed:@"2.jpg"];
+    //    UIImage *img = [UIImage imageNamed:@"2.jpg"];
     [self.pictureView setClipsToBounds:YES];
     for (NSDictionary *dic in self.model.photos) {
         self.url = dic[@"uri"];
     }
     [self.pictureView dlGetRouteWebImageWithString:self.url placeholderImage:[UIImage imageNamed:@"2.jpg"]];
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
-//    self.pictureView = self.pictureView;
+    //    self.pictureView = self.pictureView;
     // 活动名称label
     UIFont *font = [UIFont systemFontOfSize:18.0f];
     self.activityName = [[UILabel alloc]init];
     self.activityName.textColor = [UIColor blackColor];
     [self.activityName setFont:font];
     NSString *nameText = self.model.theme;
-//    NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
-//    // CGSize size = [nameText sizeWithAttributes:attr];
-//    NSLog(@"%@",NSStringFromCGSize(size));
+    //    NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
+    //    // CGSize size = [nameText sizeWithAttributes:attr];
+    //    NSLog(@"%@",NSStringFromCGSize(size));
     [self.activityName setText:nameText];
     [self.activityName setSize:CGSizeMake(DLScreenWidth, 14)];
     [self.activityName setTextAlignment:NSTextAlignmentCenter];
@@ -139,19 +131,19 @@
     
     
     // 添加感兴趣按钮，需要根据图片自定义
-//    UIButton *interest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    [interest setTitle:@"感兴趣" forState:UIControlStateNormal];
-//    [interest setSize:CGSizeMake(100, 25)];
-//    interest.centerX = DLScreenWidth / 2;
-//    interest.y = CGRectGetMaxY(self.activityName.frame) + 13;
-//    
+    UIButton *interest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [interest setTitle:@"退出活动" forState:UIControlStateNormal];
+    [interest addTarget:self action:@selector(exitInteraction:) forControlEvents:UIControlEventTouchUpInside];
+    [interest setSize:CGSizeMake(100, 25)];
+    interest.centerX = DLScreenWidth / 2;
+    interest.y = CGRectGetMaxY(self.activityName.frame) + 13;
+    
     [topPictureView addSubview:self.pictureView];
     [topPictureView addSubview:self.activityName];
-//    [topPictureView addSubview:interest];
+    [topPictureView addSubview:interest];
     
     // 设置顶部pic view的frame
-    topPictureView.height = 300;
-    NSLog(@"%f",topPictureView.height);
+    topPictureView.height = CGRectGetMaxY(interest.frame) + 13;
     topPictureView.width = DLScreenWidth;
     [topPictureView setOrigin:CGPointZero];
     
@@ -163,7 +155,7 @@
     
     // 添加时间label
     UILabel *timeLabel = [[UILabel alloc]init];
-    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@--%@",[self getParsedDateStringFromString:self.model.startTime],[self getParsedDateStringFromString:self.model.endTime]];
+    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@",[self getParsedDateStringFromString:self.model.startTime]];
     
     NSMutableAttributedString *mutableAttrStr = [[NSMutableAttributedString alloc]initWithString:timeString];
     [mutableAttrStr addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 3)];
@@ -208,7 +200,7 @@
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [addressLabel setFont:addressFont];
     NSMutableAttributedString *addressMAS = [[NSMutableAttributedString alloc]initWithString:addressText];
-   
+    
     [addressLabel setAttributedText:addressMAS];
     
     // 设置地址label的frame
@@ -217,7 +209,7 @@
     addressLabel.y = CGRectGetMaxY(divisionLine.frame) + 12;
     
     
-  
+    
     
     
     // 地图view
@@ -263,7 +255,7 @@
     [introduceView setBackgroundColor:[UIColor whiteColor]];
     
     UILabel *activityIntroduceTV = [[UILabel alloc]init];
-        UIFont *aITVFont = [UIFont systemFontOfSize:13.0f];
+    UIFont *aITVFont = [UIFont systemFontOfSize:13.0f];
     [activityIntroduceTV setTextColor:[UIColor blackColor]];
     NSString *IntroduceText = @"";
     NSString *aITVText = [NSString stringWithFormat:@"活动介绍%@",IntroduceText];
@@ -287,7 +279,7 @@
     introduceWebView.y = CGRectGetMaxY(activityIntroduceTV.frame)+2;
     introduceWebView.backgroundColor = [UIColor whiteColor];
     //for debug use
-//    [introduceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
+    //    [introduceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
     introduceWebView.delegate=self;
     
     [introduceWebView loadHTMLString:[self.model.content gtm_stringByUnescapingFromHTML] baseURL:nil];
@@ -309,14 +301,23 @@
     
     [self addSubview:superView];
     
+    
+    
+    
+    
+    
+    self.superView = superView;
+    
+    
+}
+- (void)creactBtn {
     UIView *sighUpView = [[UIView alloc]init];
     [sighUpView setBackgroundColor:[UIColor redColor]];
-    
     // 设置报名view的frame
     sighUpView.size = CGSizeMake(DLScreenWidth, 44);
     sighUpView.x = 0;
     sighUpView.y = DLScreenHeight - 44;
-    
+    [self addSubview:sighUpView];
     UIButton *sighUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [sighUpBtn setTitle:@"立即报名" forState:UIControlStateNormal];
     sighUpBtn.width = DLScreenWidth - 2 * 10;
@@ -327,12 +328,6 @@
     
     // btn添加到view中
     [sighUpView addSubview:sighUpBtn];
-    [self addSubview:sighUpView];
-
-    
-    self.superView = superView;
-    
-   
 }
 
 -(void)btnClick:(id)sender{
@@ -375,10 +370,25 @@
     [webView stringByEvaluatingJavaScriptFromString:meta];
     //设置字体大小
     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '80%'"];
-
+    
     
 }
 
-
+- (void)exitInteraction:(UIButton *)btn {
+    Account *account = [AccountTool account];
+    [self.model setUserId:account.ID];
+    [RestfulAPIRequestTool routeName:@"exitInteraction" requestModel:self.model useKeys:@[@"ineractionId",@"userId"] success:^(id json) {
+        NSLog(@"退出成功 %@",json);
+        //        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"退出成功" message:@"少年你已经退出了活动,活该单身一辈子啊..." delegate:self cancelButtonTitle:@"" otherButtonTitles:@"", nil];
+        //        [alertV show];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"POSTEXIT" object:nil userInfo:@{@"name":@"东阳"}];
+        [[Singletons shareSingleton].navigationC popViewControllerAnimated:YES];
+    } failure:^(id errorJson) {
+        NSLog(@"退出失败 %@ ",[errorJson objectForKey:@"msg"]);
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"退出失败" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        [alertV show];
+    }];
+}
 
 @end
+

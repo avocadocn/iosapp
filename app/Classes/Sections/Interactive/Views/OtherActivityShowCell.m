@@ -82,7 +82,7 @@
         }
         
     }
-    self.nameLabel.text = model.activityMold;
+    self.nameLabel.text = model.theme;
     self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[self getParsedDateStringFromString:model.startTime],[self getParsedDateStringFromString:model.endTime]];
     self.addressLabel.text = [[model.location keyValues] objectForKey:@"name"];
 }

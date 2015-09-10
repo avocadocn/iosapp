@@ -15,7 +15,10 @@
 #import "getIntroModel.h"
 #import "RestfulAPIRequestTool.h"
 #import "getTemplateModel.h"
-
+#import "Interaction.h"
+#import "InvatingModel.h"
+#import "Singletons.h"
+#import "SBDetailViewController.h"
 @interface ActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSMutableArray *modelArray;
@@ -64,19 +67,34 @@ static NSString * const ID = @"OtherActivityShowCell";
     self.title = @"活动";
     self.modelArray = [NSMutableArray new];
     [self requestNet];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"POSTEXIT" object:nil];
+}
+- (void)refreshData:(NSNotification *)notice {
+    [self requestNet];
+    [self.tableView reloadData];
+    
+    NSLog(@"%@",notice.userInfo);
 }
 //进行网络数据获取
 - (void)requestNet{
     Account *acc= [AccountTool account];
-    getTemplateModel * model = [getTemplateModel new];
+    InvatingModel * model = [[InvatingModel alloc] init];
     [model setUserId:acc.ID];
-    [model setTemplateType:[NSNumber numberWithInt:1]];
-    [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
+    [model setInteractionType:@1];
+    [model setRequestType:@0];
+    [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType",@"requestType",@"userId"] success:^(id json) {
+        NSLog(@"获取成功 %@",json);
         [self analyDataWithJson:json];
-//        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
-//        NSLog(@"failed:-->%@",errorJson);
+        NSLog(@"获取失败 %@",[errorJson objectForKey:@"msg"]);
     }];
+//    [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
+//        [self analyDataWithJson:json];
+//        NSLog(@"success:-->%@",json);
+//    } failure:^(id errorJson) {
+//        NSLog(@"failed:-->%@",errorJson);
+//    }];
+    
 }
 //解析返回的数据
 - (void)analyDataWithJson:(id)json
@@ -128,6 +146,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     // Return the number of rows in the section.
     return self.modelArray.count;
+
 }
 
 
@@ -154,15 +173,15 @@ static NSString * const ID = @"OtherActivityShowCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    return 290 * DLScreenWidth / 375;
     
-    Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
-    if (current.photos.count!=0) {
-        NSInteger height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
-        NSInteger width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
-        if (width<320) {
-            height *= 320.0/width;
-        }
-        return 90 + height;
-    }
+//    Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
+//    if (current.photos.count!=0) {
+//        NSInteger height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
+//        NSInteger width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
+//        if (width<320) {
+//            height *= 320.0/width;
+//        }
+//        return 90 + height;
+//    }
     return 290;
 }
 
@@ -170,7 +189,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    DetailActivityShowController *controller = [[DetailActivityShowController alloc]init];
+    SBDetailViewController *controller = [[SBDetailViewController alloc]init];
     if (self.modelArray) {
         controller.model = [self.modelArray objectAtIndex:indexPath.row];
     }

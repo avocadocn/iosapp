@@ -24,7 +24,7 @@
 #import "PublishSeekHelp.h"
 #import "RepeaterGroupController.h"
 #import "Test1ViewController.h"
-
+#import "Singletons.h"
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 static NSString *kMessageType = @"MessageType";
@@ -132,25 +132,33 @@ static NSString *kGroupName = @"GroupName";
     
     ProfileViewController *profileVC = [[ProfileViewController alloc]init];
     [self addOneTabWithVC:profileVC title:@"我"];
+    
+    
 }
 
 - (void)addOneTabWithVC:(UIViewController *)viewController title:(NSString *)title {
     viewController.title = title;
-    
-    
-    viewController.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:@"tabbar_chatsHL"] selectedImage:[UIImage imageNamed:@"tabbar_chats"]];
-    
-    UIImage *image = [UIImage imageNamed:title];
-    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIImage *heilght = [UIImage imageNamed:[NSString stringWithFormat:@"%@1", title]];
-    heilght = [heilght imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    viewController.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:heilght selectedImage:image];
-//    viewController.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
-    
-    [viewController.view setBackgroundColor:[UIColor whiteColor]];
+//
+//    viewController.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:@"tabbar_chatsHL"] selectedImage:[UIImage imageNamed:@"tabbar_chats"]];
+//    [viewController.view setBackgroundColor:[UIColor whiteColor]];
     DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:viewController];
+    [Singletons shareSingleton].navigationC = nav;
+    //    [self getNaviIten];
+    
+//    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    addButton.frame = CGRectMake(0, 0, 22, 22);
+//    [addButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+//    [addButton addTarget:self action:@selector(addFriendAction) forControlEvents:UIControlEventTouchUpInside];
+//    addButton.backgroundColor = [UIColor greenColor];
+//    _addFriendItem = [[UIBarButtonItem alloc] initWithCustomView:addButton];
     viewController.navigationItem.rightBarButtonItem = _addFriendItem;
     [self addChildViewController:nav];
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@@2x", title ]];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *heilght = [UIImage imageNamed:[NSString stringWithFormat:@"%@@2x1", title]];
+    heilght = [heilght imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        viewController.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:heilght selectedImage:image];
+    [viewController.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:RGBACOLOR(35, 24, 21, 1),NSForegroundColorAttributeName, nil] forState:UIControlStateHighlighted];
     
 }
 

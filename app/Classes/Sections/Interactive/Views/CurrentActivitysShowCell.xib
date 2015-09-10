@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zew-ka-VTG" userLabel="cellContainer">
                         <rect key="frame" x="0.0" y="10" width="375" height="138"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="dhV-Rm-rpQ" userLabel="avatar">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon1.png" translatesAutoresizingMaskIntoConstraints="NO" id="dhV-Rm-rpQ" userLabel="avatar">
                                 <rect key="frame" x="16" y="7" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Lfb-er-yG6"/>
@@ -152,7 +152,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="1" width="59" height="59"/>
         <image name="Interactive_activity_icon.png" width="50" height="50"/>
+        <image name="icon1.png" width="84" height="86"/>
     </resources>
 </document>
