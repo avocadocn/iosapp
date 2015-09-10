@@ -1,28 +1,27 @@
 //
-//  ActivityShowTableController.m
+//  TemplateActivityShowTableController.m
 //  app
 //
-//  Created by 张加胜 on 15/7/23.
+//  Created by tom on 15/9/10.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
-#import "ActivityShowTableController.h"
+#import "TemplateActivityShowTableController.h"
 #import "OtherActivityShowCell.h"
 #import "OtherSegmentButton.h"
-#import "DetailActivityShowController.h"
+#import "TemplateDetailActivityShowController.h"
 #import "RestfulAPIRequestTool.h"
 #import "Account.h"
 #import "AccountTool.h"
 #import "getTemplateModel.h"
 #import "Interaction.h"
 
-@interface ActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
+@interface TemplateActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSMutableArray *modelArray;
 @end
 
-@implementation ActivityShowTableController
-
+@implementation TemplateActivityShowTableController
 
 static NSString * const ID = @"OtherActivityShowCell";
 
@@ -61,9 +60,9 @@ static NSString * const ID = @"OtherActivityShowCell";
     [model setTemplateType:[NSNumber numberWithInt:1]];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
-//        NSLog(@"success:-->%@",json);
+        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
-//        NSLog(@"failed:-->%@",errorJson);
+        NSLog(@"failed:-->%@",errorJson);
     }];
 }
 //解析返回的数据
@@ -90,10 +89,10 @@ static NSString * const ID = @"OtherActivityShowCell";
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [tableView setFrame:self.view.frame];
-//    NSLog(@"view frame is :%@",NSStringFromCGRect(self.view.frame));
+    //    NSLog(@"view frame is :%@",NSStringFromCGRect(self.view.frame));
     //将tableview的高度减小一个导航栏的高度
     tableView.height -= 64;
-//    NSLog(@"tableview frame is :%@",NSStringFromCGRect(tableView.frame));
+    //    NSLog(@"tableview frame is :%@",NSStringFromCGRect(tableView.frame));
     [tableView setBackgroundColor:self.view.backgroundColor];
     [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
     [tableView setShowsVerticalScrollIndicator:NO];
@@ -140,7 +139,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 290 * DLScreenWidth / 375;
+    //    return 290 * DLScreenWidth / 375;
     
     Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
     if (current.photos.count!=0) {
@@ -158,14 +157,11 @@ static NSString * const ID = @"OtherActivityShowCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    DetailActivityShowController *controller = [[DetailActivityShowController alloc]init];
+    TemplateDetailActivityShowController *controller = [[TemplateDetailActivityShowController alloc]init];
     if (self.modelArray) {
         controller.model = [self.modelArray objectAtIndex:indexPath.row];
     }
     [self.navigationController pushViewController:controller animated:YES];
 }
-
-
-
 
 @end

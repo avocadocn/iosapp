@@ -1,19 +1,20 @@
 //
-//  DetailActivityShowView.m
+//  TemplateDetailActivityShowView.m
 //  app
 //
-//  Created by 张加胜 on 15/7/20.
+//  Created by tom on 15/9/10.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
-#import "DetailActivityShowView.h"
+#import "TemplateDetailActivityShowView.h"
 #import "Interaction.h"
 #import "GTMNSString+HTML.h"
 #import "Account.h"
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
 #import "UIImageView+DLGetWebImage.h"
-@interface DetailActivityShowView()<UIScrollViewDelegate,UIWebViewDelegate>
+
+@interface TemplateDetailActivityShowView()<UIScrollViewDelegate,UIWebViewDelegate>
 
 @property (strong,nonatomic) UIScrollView *superView;
 @property (strong,nonatomic) UIImageView *pictureView; // 顶部照片
@@ -23,16 +24,8 @@
 @property (nonatomic, copy) NSString *url; // 图片链接
 
 @end
-@implementation DetailActivityShowView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
+@implementation TemplateDetailActivityShowView
 
 - (instancetype)initWithModel:(Interaction *)model
 {
@@ -104,7 +97,7 @@
     // 顶部带有图片的视图
     UIView *topPictureView = [[UIView alloc]init];
     [topPictureView setBackgroundColor:[UIColor whiteColor]];
-   
+    
     // 添加活动图片
     self.pictureView = [UIImageView new];
     CGFloat imageViewWidth = DLScreenWidth;
@@ -113,23 +106,23 @@
     self.imageViewHeight = imageViewHeight;
     [self.pictureView setFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
     [self.pictureView setBackgroundColor:[UIColor redColor]];
-//    UIImage *img = [UIImage imageNamed:@"2.jpg"];
+    //    UIImage *img = [UIImage imageNamed:@"2.jpg"];
     [self.pictureView setClipsToBounds:YES];
     for (NSDictionary *dic in self.model.photos) {
         self.url = dic[@"uri"];
     }
     [self.pictureView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@",self.url] placeholderImage:[UIImage imageNamed:@"2.jpg"]];
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
-//    self.pictureView = self.pictureView;
+    //    self.pictureView = self.pictureView;
     // 活动名称label
     UIFont *font = [UIFont systemFontOfSize:18.0f];
     self.activityName = [[UILabel alloc]init];
     self.activityName.textColor = [UIColor blackColor];
     [self.activityName setFont:font];
     NSString *nameText = self.model.theme;
-//    NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
-//    // CGSize size = [nameText sizeWithAttributes:attr];
-//    NSLog(@"%@",NSStringFromCGSize(size));
+    //    NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
+    //    // CGSize size = [nameText sizeWithAttributes:attr];
+    //    NSLog(@"%@",NSStringFromCGSize(size));
     [self.activityName setText:nameText];
     [self.activityName setSize:CGSizeMake(DLScreenWidth, 14)];
     [self.activityName setTextAlignment:NSTextAlignmentCenter];
@@ -137,20 +130,12 @@
     self.activityName.y = CGRectGetMaxY(self.pictureView.frame) + 13;
     
     
-    
-    // 添加感兴趣按钮，需要根据图片自定义
-    UIButton *interest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [interest setTitle:@"感兴趣" forState:UIControlStateNormal];
-    [interest setSize:CGSizeMake(100, 25)];
-    interest.centerX = DLScreenWidth / 2;
-    interest.y = CGRectGetMaxY(self.activityName.frame) + 13;
-    
     [topPictureView addSubview:self.pictureView];
     [topPictureView addSubview:self.activityName];
-    [topPictureView addSubview:interest];
+
     
     // 设置顶部pic view的frame
-    topPictureView.height = CGRectGetMaxY(interest.frame) + 13;
+    topPictureView.height = CGRectGetMaxY(self.activityName.frame) + 13;
     topPictureView.width = DLScreenWidth;
     [topPictureView setOrigin:CGPointZero];
     
@@ -161,37 +146,49 @@
     [middleView setBackgroundColor:[UIColor whiteColor]];
     
     // 添加时间label
-    UILabel *timeLabel = [[UILabel alloc]init];
-    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@--%@",[self getParsedDateStringFromString:self.model.startTime],[self getParsedDateStringFromString:self.model.endTime]];
+    UILabel *timeTintLabel = [UILabel new];
+    [timeTintLabel setTextColor:RGB(0x9b,0x9b, 0x9b)];
+    [timeTintLabel setFont:[UIFont systemFontOfSize:14.0]];
+    NSString* timeTintLabelStr = @"时间: ";
+    CGSize maxTimeTintLabelSize = CGSizeMake(DLScreenWidth, MAXFLOAT);
+    CGSize timeTintLabelSize = [timeTintLabelStr sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:maxTimeTintLabelSize lineBreakMode:NSLineBreakByWordWrapping];
+    timeTintLabel.text = timeTintLabelStr;
+    timeTintLabel.frame= CGRectMake(10, 15, timeTintLabelSize.width, timeTintLabelSize.height);
     
+    UILabel *timeLabel = [[UILabel alloc]init];
+    CGSize maxTimeLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - timeTintLabel.width, MAXFLOAT);
+    NSString *timeString = [NSString stringWithFormat:@"%@--%@",[self getParsedDateStringFromString:self.model.startTime],[self getParsedDateStringFromString:self.model.endTime]];
+    CGSize timeLabelSize = [timeString sizeWithFont:[UIFont systemFontOfSize:14.0f] constrainedToSize:maxTimeLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     NSMutableAttributedString *mutableAttrStr = [[NSMutableAttributedString alloc]initWithString:timeString];
-    [mutableAttrStr addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 3)];
+    [mutableAttrStr addAttribute:NSForegroundColorAttributeName value:RGB(0x51,0x46, 0x47) range:NSMakeRange(0, timeString.length)];
+    
     [timeLabel setAttributedText:mutableAttrStr];
     [timeLabel setTextAlignment:NSTextAlignmentLeft];
-    [timeLabel setFont:[UIFont systemFontOfSize:13]];
+    [timeLabel setFont:[UIFont systemFontOfSize:14.0]];
     
     // 设置label的frame
-    [timeLabel setFrame:CGRectMake(10, 15, DLScreenWidth, 30)];
+    timeLabel.size = timeLabelSize;
+    timeLabel.x =CGRectGetMaxX(timeTintLabel.frame);
+    timeLabel.y =15;
     
     // 添加分割线
     UIView *divisionLine = [[UIView alloc]init];
-    [divisionLine setBackgroundColor:[UIColor lightGrayColor]];
-    [divisionLine setAlpha:0.3f];
+    [divisionLine setBackgroundColor:RGB(0xe6,0xe6, 0xe6)];
     divisionLine.width = DLScreenWidth - 2 * 9;
     divisionLine.height = 1;
     divisionLine.x = 9;
-    divisionLine.y = CGRectGetMaxY(timeLabel.frame);
+    divisionLine.y = CGRectGetMaxY(timeLabel.frame) + 12;
     
     // 添加地址label
-    UIFont *addressFont = [UIFont systemFontOfSize:13.0f];
-    CGSize TintLabelSize = CGSizeMake(DLScreenWidth, MAXFLOAT);
+    UIFont *addressFont = [UIFont systemFontOfSize:14.0f];
     
     UILabel *addressTintLabel = [[UILabel alloc]init];
+    CGSize maxAddressTintLabelSize = CGSizeMake(DLScreenWidth, MAXFLOAT);
     NSString *addressTintStr = @"地址: ";
-    CGSize addressTintLabelSize = [addressTintStr sizeWithFont:addressFont constrainedToSize:TintLabelSize lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize addressTintLabelSize = [addressTintStr sizeWithFont:addressFont constrainedToSize:maxAddressTintLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [addressTintLabel setText:addressTintStr];
     [addressTintLabel setFont:addressFont];
-    [addressTintLabel setTextColor:[UIColor grayColor]];
+    [addressTintLabel setTextColor:RGB(0x9b,0x9b, 0x9b)];
     // tintLabel的frame
     addressTintLabel.size = addressTintLabelSize;
     addressTintLabel.x = 10;
@@ -200,24 +197,21 @@
     UILabel *addressLabel = [[UILabel alloc]init];
     addressLabel.lineBreakMode = UILineBreakModeWordWrap;
     addressLabel.numberOfLines = 0;
+    [addressLabel setTextColor:RGB(0x51,0x46, 0x47)];
     // TODO
-    CGSize maxLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
+    CGSize maxAddressLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
     NSString *addressText = [NSString stringWithFormat:@"%@",[[self.model.location keyValues] objectForKey:@"name"]];
     
-    CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxLabelSize lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxAddressLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [addressLabel setFont:addressFont];
     NSMutableAttributedString *addressMAS = [[NSMutableAttributedString alloc]initWithString:addressText];
-   
+    
     [addressLabel setAttributedText:addressMAS];
     
     // 设置地址label的frame
     addressLabel.size = trueLabelSize;
     addressLabel.x = CGRectGetMaxX(addressTintLabel.frame);
     addressLabel.y = CGRectGetMaxY(divisionLine.frame) + 12;
-    
-    
-  
-    
     
     // 地图view
     UIImage *mapImg = [UIImage imageNamed:@"map"];
@@ -231,62 +225,113 @@
     mapView.x = 0;
     mapView.y = CGRectGetMaxY(addressLabel.frame) + 10;
     
-    UILabel *personCountLabel = [[UILabel alloc]init];
-    UIFont *personCountLabelFont = [UIFont systemFontOfSize:13.0f];
-    [personCountLabel setFrame:CGRectMake(10, CGRectGetMaxY(mapView.frame) + 15, DLScreenWidth - 2 * 10, 20)];
-    [personCountLabel setFont:personCountLabelFont];
-    NSInteger personCount = 18;
-    NSString *personCountLabelText = [NSString stringWithFormat:@"报名人数:  %zd人", [self.model.members count]];
-    NSMutableAttributedString *personMAS = [[NSMutableAttributedString alloc]initWithString:personCountLabelText];
-    [personMAS addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 5)];
-    [personCountLabel setAttributedText:personMAS];
-    
-    
     
     // 设置中部view的frame
     middleView.y = CGRectGetMaxY(topPictureView.frame) + 12;
     middleView.x = 0;
     middleView.width = DLScreenWidth;
-    middleView.height = CGRectGetMaxY(personCountLabel.frame) + 14;
+    middleView.height = CGRectGetMaxY(mapView.frame) + 10;
     
+    [middleView addSubview:timeTintLabel];
     [middleView addSubview:timeLabel];
     [middleView addSubview:divisionLine];
     [middleView addSubview:addressTintLabel];
     [middleView addSubview:addressLabel];
     [middleView addSubview:mapView];
-    [middleView addSubview:personCountLabel];
     [superView addSubview:middleView];
     
-    // 添加第三栏的活动介绍view
+    //添加参与方式及已报名
+    UIView * enterView = [UIView new];
+    [enterView setBackgroundColor:[UIColor whiteColor]];
+    //添加垂直装饰线
+    UIView* verticalLine = [UIView new];
+    verticalLine.frame = CGRectMake(10, 10, 2, 10);
+    verticalLine.backgroundColor=RGB(0xfd, 0xb9, 0x0);
+    //添加参与方式label
+    UILabel* enterMethodLabel = [UILabel new];
+    [enterMethodLabel setFont:[UIFont systemFontOfSize:15.0f]];
+    [enterMethodLabel setTextColor:RGB(0x51, 0x46, 0x47)];
+    enterMethodLabel.width = DLScreenWidth-verticalLine.x-10;
+    enterMethodLabel.height= 20;
+    enterMethodLabel.x = verticalLine.x+8;
+    enterMethodLabel.y = (enterMethodLabel.height+verticalLine.height)/2.0-verticalLine.y;
+
+    enterMethodLabel.text = @"参与方式";
+    UILabel* detailEnterMethodLabel = [UILabel new];
+    detailEnterMethodLabel.frame = CGRectMake(20, CGRectGetMaxY(enterMethodLabel.frame) + 2, DLScreenWidth-20*2, 60);
+    [detailEnterMethodLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    detailEnterMethodLabel.numberOfLines = 0;
+    NSString * detailEnterMethodLabelStr = @"想参加的小伙伴请自行前往，请至相关网站进行购票。现场购票，门票市场价格。";
+    //求出当前展示文本的高度
+    NSDictionary * tdic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12.0f],NSFontAttributeName,nil];
+    CGSize size =CGSizeMake(DLScreenWidth-CGRectGetMaxX(verticalLine.frame)-18,300);
+    CGSize  actualsize =[detailEnterMethodLabelStr boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin  attributes:tdic context:nil].size;
+    detailEnterMethodLabel.size=actualsize;
+    //
+    NSMutableAttributedString *detailEnterMethodLabelAttrStr = [[NSMutableAttributedString alloc]initWithString:detailEnterMethodLabelStr];
+    [detailEnterMethodLabelAttrStr addAttribute:NSForegroundColorAttributeName value:RGB(0x5f,0x5f,0x5f) range:NSMakeRange(0, [detailEnterMethodLabelAttrStr length])];
+    [detailEnterMethodLabel setAttributedText:detailEnterMethodLabelAttrStr];
+    
+    enterView.x = 0;
+    enterView.y = CGRectGetMaxY(middleView.frame) + 12;
+    enterView.width = DLScreenWidth;
+    enterView.height =CGRectGetMaxY(detailEnterMethodLabel.frame) + 10;
+    [enterView addSubview:verticalLine];
+    [enterView addSubview:enterMethodLabel];
+    [enterView addSubview:detailEnterMethodLabel];
+    [superView addSubview:enterView];
+    //展示已报名人员
+    UIView* signedInView = [UIView new];
+    [signedInView setBackgroundColor:[UIColor whiteColor]];
+    UIView* verticalLine1 = [UIView new];
+    verticalLine1.frame = CGRectMake(10, 10, 2, 10);
+    verticalLine1.backgroundColor=RGB(0xfd, 0xb9, 0);
+    UILabel* signedInLabel = [UILabel new];
+    [signedInLabel setFont:[UIFont systemFontOfSize:15.0f]];
+    [signedInLabel setTextColor:RGB(0x51, 0x46, 0x47)];
+    signedInLabel.width = DLScreenWidth-verticalLine1.x-10;
+    signedInLabel.height= 20;
+    signedInLabel.x = verticalLine.x+8;
+    signedInLabel.y = (signedInLabel.height+verticalLine1.height)/2.0-verticalLine1.y;
+    signedInLabel.text = @"已报名";
+    signedInView.x = 0;
+    signedInView.y = CGRectGetMaxY(enterView.frame) + 12;
+    signedInView.width = DLScreenWidth;
+    signedInView.height =CGRectGetMaxY(signedInLabel.frame) + 14;
+    [signedInView addSubview:verticalLine1];
+    [signedInView addSubview:signedInLabel];
+    [superView addSubview:signedInView];
+    
+    // 添加活动介绍view
     UIView *introduceView = [[UIView alloc]init];
     [introduceView setBackgroundColor:[UIColor whiteColor]];
     
+    UIView* verticalLine2 = [UIView new];
+    verticalLine2.frame = CGRectMake(10, 10, 2, 10);
+    verticalLine2.backgroundColor=RGB(0xfd, 0xb9, 0);
+    
     UILabel *activityIntroduceTV = [[UILabel alloc]init];
-        UIFont *aITVFont = [UIFont systemFontOfSize:13.0f];
-    [activityIntroduceTV setTextColor:[UIColor blackColor]];
+    UIFont *aITVFont = [UIFont systemFontOfSize:15.0f];
+    [activityIntroduceTV setTextColor:RGB(0x51, 0x46, 0x47)];
+    activityIntroduceTV.width = DLScreenWidth-verticalLine2.x-10;
+    activityIntroduceTV.height= 20;
+    activityIntroduceTV.x = verticalLine.x+8;
+    activityIntroduceTV.y = (activityIntroduceTV.height+verticalLine2.height)/2.0-verticalLine2.y;
     NSString *IntroduceText = @"";
     NSString *aITVText = [NSString stringWithFormat:@"活动介绍%@",IntroduceText];
     // TODO
     [activityIntroduceTV setText:aITVText];
-    CGSize maxAITVSize = CGSizeMake(DLScreenWidth - 2 * 10, MAXFLOAT);
     [activityIntroduceTV setFont:aITVFont];
-    CGSize aITVSize = [aITVText sizeWithFont:aITVFont constrainedToSize:maxAITVSize lineBreakMode:NSLineBreakByWordWrapping];
-    //  AITV的frame
-    activityIntroduceTV.size = aITVSize;
-    activityIntroduceTV.x = 10;
-    activityIntroduceTV.y = 6;
-    activityIntroduceTV.lineBreakMode = UILineBreakModeWordWrap;
-    activityIntroduceTV.numberOfLines = 0;
     
     //添加webview
     UIWebView *introduceWebView=[[UIWebView alloc] init];
     introduceWebView.width = DLScreenWidth;
     introduceWebView.height = DLScreenHeight * 2 / 4;
     introduceWebView.x = 0;
-    introduceWebView.y = CGRectGetMaxY(activityIntroduceTV.frame)+2;
+    introduceWebView.y = CGRectGetMaxY(activityIntroduceTV.frame)+12;
     introduceWebView.backgroundColor = [UIColor whiteColor];
     //for debug use
-//    [introduceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
+    //    [introduceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
     introduceWebView.delegate=self;
     
     [introduceWebView loadHTMLString:[self.model.content gtm_stringByUnescapingFromHTML] baseURL:nil];
@@ -294,9 +339,10 @@
     introduceView.width = DLScreenWidth;
     introduceView.height = CGRectGetMaxY(introduceWebView.frame) + 16;
     introduceView.x = 0;
-    introduceView.y = CGRectGetMaxY(middleView.frame) + 12;
+    introduceView.y = CGRectGetMaxY(signedInView.frame) + 12;
     
     // 添加到根view中
+    [introduceView addSubview:verticalLine2];
     [introduceView addSubview:activityIntroduceTV];
     [introduceView addSubview:introduceWebView];
     [superView addSubview:introduceView];
@@ -309,7 +355,7 @@
     [self addSubview:superView];
     
     UIView *sighUpView = [[UIView alloc]init];
-    [sighUpView setBackgroundColor:[UIColor redColor]];
+    [sighUpView setBackgroundColor:[UIColor whiteColor]];
     
     // 设置报名view的frame
     sighUpView.size = CGSizeMake(DLScreenWidth, 44);
@@ -317,7 +363,8 @@
     sighUpView.y = DLScreenHeight - 44;
     
     UIButton *sighUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sighUpBtn setTitle:@"立即报名" forState:UIControlStateNormal];
+    [sighUpBtn setBackgroundColor:RGB(0xfd, 0xb9, 0)];
+    [sighUpBtn setTitle:@"转发" forState:UIControlStateNormal];
     sighUpBtn.width = DLScreenWidth - 2 * 10;
     sighUpBtn.height = 28;
     sighUpBtn.x = 10;
@@ -327,11 +374,11 @@
     // btn添加到view中
     [sighUpView addSubview:sighUpBtn];
     [self addSubview:sighUpView];
-
+    
     
     self.superView = superView;
     
-   
+    
 }
 
 -(void)btnClick:(id)sender{
@@ -374,10 +421,8 @@
     [webView stringByEvaluatingJavaScriptFromString:meta];
     //设置字体大小
     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '80%'"];
-
-    
+    //字体颜色
+    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5f5f5f'"];
 }
-
-
 
 @end
