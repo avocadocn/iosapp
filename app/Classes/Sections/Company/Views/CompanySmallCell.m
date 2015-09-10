@@ -22,6 +22,9 @@ static NSInteger indexNum = 0;
 
 @interface CompanySmallCell ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 //@property (nonatomic, assign)EnumOfCellTitleState state;
+
+@property (nonatomic, strong)NSMutableArray *modelArray;
+
 @end
 
 @implementation CompanySmallCell
@@ -153,12 +156,15 @@ static NSInteger indexNum = 0;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CompanyDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DetailCell" forIndexPath:indexPath];
+    NSDictionary *dic = [self.modelArray objectAtIndex:indexPath.row];
+    [cell reloadDetilCell:dic];
+    
     return cell;
 }
 //小 cell 的数量 ,根据数组中的元素数量决定
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 10;
+    return self.modelArray.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -168,9 +174,10 @@ static NSInteger indexNum = 0;
 }
 
 //处理传过来的数据
-- (void)interCellWithModelArray:(id)model
+- (void)interCellWithModelArray:(NSArray *)model
 {
-    
+    self.modelArray = [NSMutableArray arrayWithArray:model];
+    [self.SmallCollection reloadData];
 }
 
 //- (void)awakeFromNib {

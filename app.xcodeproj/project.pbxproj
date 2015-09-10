@@ -479,6 +479,7 @@
 		96E3D83F1B7DABD700A623B7 /* UserMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D83E1B7DABD700A623B7 /* UserMessageTableViewController.m */; };
 		96E3D8421B7DBFFB00A623B7 /* UserMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D8411B7DBFFB00A623B7 /* UserMessageModel.m */; };
 		96E3D84A1B7DE42600A623B7 /* TempCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D8491B7DE42600A623B7 /* TempCompany.m */; };
+		A401E27A1BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = A401E2791BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m */; };
 		A40936BE1B721BC800515A50 /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = A40936BD1B721BC800515A50 /* address.png */; };
 		A40936C01B721BCD00515A50 /* time.png in Resources */ = {isa = PBXBuildFile; fileRef = A40936BF1B721BCD00515A50 /* time.png */; };
 		A40CDF281B86F99000BD63F5 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A40CDF271B86F99000BD63F5 /* CustomButton.m */; };
@@ -1472,6 +1473,8 @@
 		96E3D8411B7DBFFB00A623B7 /* UserMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserMessageModel.m; sourceTree = "<group>"; };
 		96E3D8481B7DE42600A623B7 /* TempCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempCompany.h; sourceTree = "<group>"; };
 		96E3D8491B7DE42600A623B7 /* TempCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TempCompany.m; sourceTree = "<group>"; };
+		A401E2781BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DLStringWithEmoji.h"; sourceTree = "<group>"; };
+		A401E2791BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DLStringWithEmoji.m"; sourceTree = "<group>"; };
 		A40936BD1B721BC800515A50 /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
 		A40936BF1B721BCD00515A50 /* time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time.png; sourceTree = "<group>"; };
 		A40CDF261B86F99000BD63F5 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
@@ -2393,6 +2396,8 @@
 				967439B71B705908004334A4 /* User.m */,
 				A45111031B9D96F900139B76 /* UILabel+DLTimeLabel.h */,
 				A45111041B9D96F900139B76 /* UILabel+DLTimeLabel.m */,
+				A401E2781BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.h */,
+				A401E2791BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m */,
 			);
 			path = NetworkRequestTool;
 			sourceTree = "<group>";
@@ -4949,6 +4954,7 @@
 				A44B35661B83135C004F7A6A /* DXAlertView.m in Sources */,
 				9649B5421B564DE000A7F355 /* ProfileViewController.m in Sources */,
 				9649B53C1B564DE000A7F355 /* AttentionViewController.m in Sources */,
+				A401E27A1BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m in Sources */,
 				96CF93A01B674B54001759E2 /* PublicGroupDetailViewController.m in Sources */,
 				96CF90E81B673422001759E2 /* TTGlobalUICommon.m in Sources */,
 				96CF90D51B673422001759E2 /* UIImage+EMWebP.m in Sources */,

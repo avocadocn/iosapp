@@ -25,24 +25,34 @@
 #import "AddressBookModel.h"
 #import "WPAttributedStyleAction.h"
 #import "WPHotspotLabel.h"
+#import "NSString+DLStringWithEmoji.h"
 
+
+typedef NS_ENUM(NSInteger, CommentObject) {
+    CommentPoster,
+    CommentReviewers
+};
 
 static ColleagueViewController *coll = nil;
 static NSString * userId = nil;
-#define LABELWIDTH 355.0
-#define TEXTFONT 13
+static NSString * tergetUserId = nil;
+static NSString * contentId = nil;
 
+#define LABELWIDTH 355.0
+#define TEXTFONT 16
+#define REPLYTEXT 14
 
 @interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 @property (nonatomic, strong)XHMessageTextView *inputTextView;
 @property (nonatomic, strong)UITextField *myText;
 @property (nonatomic, assign)NSInteger selectIndex;
 @property (nonatomic, strong)UIView *inputView;
+@property (nonatomic, assign)CommentObject object;
+
 @end
 
 
 @implementation ColleagueViewController
-
 
 + (ColleagueViewController *)shareState
 {
@@ -54,7 +64,6 @@ static NSString * userId = nil;
     });
     return coll;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -103,6 +112,7 @@ static NSString * userId = nil;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ColleagueViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell"];
+    cell.tag = indexPath.row + 1;
     NSDictionary *dic = [self.userInterArray objectAtIndex:indexPath.row];
     UIView *view = [dic objectForKey:@"view"];
     
@@ -117,7 +127,6 @@ static NSString * userId = nil;
     
     [cell.userInterView insertSubview:view atIndex:0];
     
-    //    cell.commondButton.userInteractionEnabled = YES;
     [cell.commondButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
     [cell.praiseButton addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(praiseAction:)]];
     
@@ -134,9 +143,8 @@ static NSString * userId = nil;
     NSString *str = [dic objectForKey:@"height"];
     NSInteger num = [str integerValue];
     
-    return 110.0 + num;   // 根据图片的高度返回行数
+    return 118.0 + 6 + num;   // 根据图片的高度返回行数
 }
-
 
 /**
  * 得到
@@ -144,8 +152,16 @@ static NSString * userId = nil;
 - (CGSize)getSizeWithLabel:(SHLUILabel *)label andString:(NSString *)str
 {
     
+    
+    BOOL state = [NSString stringContainsEmoji:str];
     CGSize size = [str sizeWithFont:label.font constrainedToSize:CGSizeMake(label.frame.size.width, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-    size.height += 8;
+    
+    
+    if (state) {
+        NSLog(@"存在颜文字");
+        size.height += 8;
+    }
+    
     return size;
 }
 
@@ -195,83 +211,101 @@ static NSString * userId = nil;
         
         if (contentStr){
             NSLog(@"存在文字");
+            
             CGSize size = [self getSizeWithLabel:tempLabel andString:contentStr];
-            SHLUILabel *label = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(LABELWIDTH), size.height)];
-            label.backgroundColor = [UIColor yellowColor];
+            SHLUILabel *label = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(LABELWIDTH), size.height )];
+            
+//            label.backgroundColor = [UIColor greenColor];
             label.text = contentStr;
             label.font = [UIFont systemFontOfSize:TEXTFONT];
             [view addSubview:label];
-            overHeight += size.height + 10;
+            overHeight += size.height ;
         }
         CGFloat width = DLMultipleWidth(87.0);
         
         NSArray *array = [contentDic objectForKey:@"photos"];//图片 array
         NSInteger picNum = [array count];
         CGFloat picHeight = 0;
-        if (picNum != 0) {
+        if (picNum == 1) {
+            width = DLMultipleWidth(166.0);
+            picHeight = width;
+        }
+        if (picNum != 0 && picNum != 1) {
             NSLog(@"图片有 %ld 张", (long)picNum);
             picHeight = ((picNum + 2) / 3 )  * width; //图片view的高
         }
         int b = 0;
         for (NSDictionary *imageDic in array) {
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, overHeight + b / 3 * width, width - 5, width - 5)];
+            
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
             [imageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
             imageView.backgroundColor = [UIColor orangeColor];
+//            imageView.contentMode = UIViewContentMode;
             [view addSubview:imageView];
             b++;
         }
         
         overHeight += picHeight;
-        NSArray *interArray = [dic objectForKey:@"comments"];
+        NSMutableArray *interArray = [dic objectForKey:@"comments"];
         
+        NSMutableArray *tempArray = [NSMutableArray array];
         for (NSDictionary *interTempDic in interArray) {  //评论
+            
             
             NSString *str = [interTempDic objectForKey:@"content"];
             NSLog(@"得到的评论详情为 %@", str);
-            if (!str) {
-                //                NSLog(@"这个评论无意义");
-                break;
-            }
+            if (str) {
+            
             CGFloat tempWidth = 5;
-            CGRect rect = [self getRectWithFont:[UIFont systemFontOfSize:TEXTFONT] width:DLMultipleWidth(LABELWIDTH) - tempWidth andString:str];
+            CGRect rect = [self getRectWithFont:[UIFont systemFontOfSize:REPLYTEXT] width:DLMultipleWidth(LABELWIDTH) - tempWidth andString:str];
             //            CGSize tempSize = [self getSizeWithLabel:tempLabel andString:str];
-            WPHotspotLabel *interLabel = [[WPHotspotLabel alloc]initWithFrame:CGRectMake(tempWidth, 0, DLMultipleWidth(LABELWIDTH) - tempWidth, rect.size.height)];
+            WPHotspotLabel *interLabel = [[WPHotspotLabel alloc]initWithFrame:CGRectMake(tempWidth, 0, DLMultipleWidth(LABELWIDTH) - tempWidth, rect.size.height + 6)];
             interLabel.numberOfLines = 0;
-            NSDictionary *style4 = @{@"body":[UIFont systemFontOfSize:TEXTFONT],
+            NSDictionary *style4 = @{@"body":[UIFont systemFontOfSize:REPLYTEXT],
                                      @"abody":@[RGBACOLOR(80, 125, 175, 1) ,[WPAttributedStyleAction styledActionWithAction:^{
-                                         ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
-                                         coll.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
-                                         
-                                         AddressBookModel *model = [[AddressBookModel alloc]init];
-                                         [model setValuesForKeysWithDictionary:[interTempDic objectForKey:@"poster"]];
-                                         coll.model = [[AddressBookModel alloc]init];
-                                         coll.model = model;
-                                         [self.navigationController pushViewController:coll animated:YES];
+                                         [self jumpPageWithDic:interTempDic andPoster:@"poster"];
                                      }]]
                                      ,
                                      @"myBody":@[RGBACOLOR(51, 51, 51, 1),[WPAttributedStyleAction styledActionWithAction:^{
                                          [self.myText becomeFirstResponder];
                                          [self.inputTextView becomeFirstResponder];
+                                         self.object = CommentReviewers;
                                          self.inputTextView.text = nil;
                                          self.inputTextView.placeHolder = [NSString stringWithFormat:@"回复%@:", [[interTempDic objectForKey:@"poster"] objectForKey:@"nickname"]];
-                                     }]
-                                                 ]
+                                         tergetUserId = [[interTempDic objectForKey:@"poster"] objectForKey:@"_id"];
+                                         contentId = [interTempDic objectForKey:@"targetContentId"];
+                                     }]],
+                                     @"postBody":@[RGBACOLOR(80, 125, 175, 1) ,[WPAttributedStyleAction styledActionWithAction:^{
+                                         [self jumpPageWithDic:interTempDic andPoster:@"target"];
+                                     }]]
                                      };
-            interLabel.font = [UIFont systemFontOfSize:TEXTFONT];
-            
-            NSString *attStr = [NSString stringWithFormat:@"<abody>%@</abody>:<myBody>%@</myBody>", [[interTempDic objectForKey:@"poster"] objectForKey:@"nickname"], str];
-            
-            interLabel.attributedText = [attStr attributedStringWithStyleBook:style4];
-            //            [interLabel sizeToFit];
-            
-            interLabel.backgroundColor = RGBACOLOR(238, 238, 240, 1);
-            UIView *aTempView = [[UIView alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(LABELWIDTH), rect.size.height)];
+            interLabel.font = [UIFont systemFontOfSize:REPLYTEXT];
+                BOOL tempState = [[interTempDic objectForKey:@"isOnlyToContent"] boolValue];
+                if (tempState){
+                
+                    NSString *attStr = [NSString stringWithFormat:@"<abody>%@</abody>:<myBody>%@</myBody>", [[interTempDic objectForKey:@"poster"] objectForKey:@"nickname"], str];
+                    interLabel.attributedText = [attStr attributedStringWithStyleBook:style4];
+                } else
+                {
+                    NSString *att = [NSString stringWithFormat:@"<abody>%@</abody>回复<postBody>%@</postBody>:<myBody>%@</myBody>",[[interTempDic objectForKey:@"poster"] objectForKey:@"nickname"], [[interTempDic objectForKey:@"target"] objectForKey:@"nickname"], [interTempDic objectForKey:@"content"]];
+                    interLabel.attributedText = [att attributedStringWithStyleBook:style4];
+                }
+                
+                //            [interLabel sizeToFit];
+                //            interLabel.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+            UIView *aTempView = [[UIView alloc]initWithFrame:CGRectMake(0, overHeight + 6, DLMultipleWidth(LABELWIDTH), rect.size.height + 6)];
             [aTempView addSubview:interLabel];
-            aTempView.backgroundColor = interLabel.backgroundColor;
+            aTempView.backgroundColor = RGBACOLOR(247, 247, 247, 1);
             
             [view addSubview:aTempView];
-            overHeight += rect.size.height;
+            overHeight += rect.size.height + 3;
+        } else
+        {
+            [tempArray addObject:interTempDic];
         }
+            
+    }
+        [interArray removeObjectsInArray:tempArray];
         view.frame = CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), overHeight);
         NSDictionary *viewDic = [NSDictionary dictionaryWithObjects:@[view, [NSString stringWithFormat:@"%ld", (long)overHeight]] forKeys:@[@"view", @"height"]];
         
@@ -282,13 +316,13 @@ static NSString * userId = nil;
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
 {
+    self.object = CommentPoster;
     NSLog(@"点击");
     [self.myText becomeFirstResponder];
     [self.inputTextView becomeFirstResponder];
     self.selectIndex = tap.view.tag;
     
 }
-
 
 - (void)builtTextField
 {
@@ -301,7 +335,7 @@ static NSString * userId = nil;
     //    view.backgroundColor = [UIColor blackColor];
     
     self.inputTextView = [[XHMessageTextView  alloc] initWithFrame:CGRectMake(15 , 5 , 200 , 30)];
-    self.inputTextView.backgroundColor = [UIColor yellowColor];
+//    self.inputTextView.backgroundColor = [UIColor yellowColor];
     self.myText.borderStyle = UITextBorderStyleNone;
     self.inputTextView.scrollEnabled = YES;
     self.inputTextView.returnKeyType = UIReturnKeySend;
@@ -339,7 +373,21 @@ static NSString * userId = nil;
     
     if ([text isEqualToString:@"\n"]) {
         NSLog(@"发送");
-        [self sendManger];
+        switch (self.object) {
+            case CommentPoster:
+            {
+                [self sendManger:true];
+            }
+                break;
+                case CommentReviewers:
+            {
+                [self sendManger:false];
+                
+            }
+                break;
+            default:
+                break;
+        }
         [self.inputTextView resignFirstResponder];
         [self.myText resignFirstResponder];
         return NO;
@@ -348,20 +396,25 @@ static NSString * userId = nil;
     return YES;
 }
 
-- (void)sendManger
+- (void)sendManger:(BOOL)state
 {
-    CircleCommentModel *tempModel = [[CircleCommentModel alloc]init];
+    CircleCommentModel *tempModel = [[CircleCommentModel alloc]init];  //上传评论数据的 model
     
+    tempModel.content = self.inputTextView.text;
+
+    if (state) {  //发给用户  flase
+        CircleContextModel *model = [self.modelArray objectAtIndex:(self.selectIndex - 1)];
+        tempModel.targetUserId = [model.poster objectForKey:@"_id"];  // 这个要改
+        tempModel.contentId = model.contentId;  //这个也要改
+        
+    } else
+    {
+        tempModel.targetUserId = tergetUserId;
+        tempModel.contentId = contentId;
+    }
     
-    CircleContextModel *model = [self.modelArray objectAtIndex:(self.selectIndex - 1)];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"comment" forKey:@"kind"];
-    [dic setObject:self.inputTextView.text forKey:@"content"];
-    //    [dic setObject:@1 forKey:@"isOnlyToContent"];
-    [dic setObject:[model.poster objectForKey:@"_id"] forKey:@"targetUserId"];
-    [dic setObject:model.contentId forKey:@"contentId"];
-    [tempModel setValuesForKeysWithDictionary:dic];
-    [tempModel setIsOnlyToContent:true];
+    tempModel.kind = @"comment";
+    [tempModel setIsOnlyToContent:state];
     
     [RestfulAPIRequestTool routeName:@"publisheCircleComments" requestModel:tempModel useKeys:@[@"contentId", @"kind", @"content", @"isOnlyToContent", @"targetUserId"] success:^(id json) {
         NSLog(@"评论成功 %@",json);
@@ -399,12 +452,11 @@ static NSString * userId = nil;
         [model.commentUsers addObject:dic];
     } else
     {
-        for (NSDictionary *dic in model.comments) {
-            if ([userId isEqualToString:[[dic objectForKey:@"poster"] objectForKey:@"_id"]]) { // 如果是本人的话
+        for (NSDictionary *dic in model.commentUsers) {
+            if ([userId isEqualToString:[dic objectForKey:@"_id"]]) { // 如果是本人的话
                 tempModel.commentId = [dic objectForKey:@"_id"];
             }
         }
-        NSNumber *indexNum = [NSNumber numberWithInt:0];
         BOOL state = NO;
         NSMutableArray *tempArray = [NSMutableArray array];
         for (int i = 0; i < model.commentUsers.count; i++) {
@@ -412,14 +464,12 @@ static NSString * userId = nil;
             NSDictionary *dic = [model.commentUsers objectAtIndex:i];
             if ([[dic objectForKey:@"_id"] isEqualToString:userId]) {
                 state = YES;
-                indexNum = [NSNumber numberWithInt:i];
-                
+                [tempArray addObject:dic];
+                break;
             }
         }
-        if (state == YES) {
-            int i = [indexNum intValue];
-            [model.commentUsers removeObjectAtIndex:i];
-            
+        if (state == YES) {  // 自己点过赞
+            [model.commentUsers removeObjectsInArray:tempArray];
         }
         
         criView.criticText.text = [NSString stringWithFormat:@"%ld", ([criView.criticText.text integerValue] - 1)];
@@ -439,5 +489,18 @@ static NSString * userId = nil;
         NSLog(@"%@", errorJson);
     }];
 }
+
+- (void)jumpPageWithDic:(NSDictionary *)dic andPoster:(NSString *)string
+{
+    ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
+    coll.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    AddressBookModel *model = [[AddressBookModel alloc]init];
+    [model setValuesForKeysWithDictionary:[dic objectForKey:string]];
+    coll.model = [[AddressBookModel alloc]init];
+    coll.model = model;
+    [self.navigationController pushViewController:coll animated:YES];
+}
+
 
 @end

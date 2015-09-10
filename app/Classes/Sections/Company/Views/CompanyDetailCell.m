@@ -10,6 +10,12 @@
 #import <ReactiveCocoa.h>
 #import "ColleagueViewController.h"
 #import "CompanyViewController.h"
+#import "UIImageView+DLGetWebImage.h"
+
+@interface CompanyDetailCell ()
+@property (nonatomic, strong)UIImageView *showView;
+
+@end
 
 
 @implementation CompanyDetailCell
@@ -23,18 +29,24 @@
 }
 - (void)builtInterface
 {
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(2, 0, DLScreenWidth/3.5 - 5, DLScreenWidth / 3.5 - 5)];
+    self.showView = [[UIImageView alloc]initWithFrame:CGRectMake(2, 0, DLScreenWidth/3.5 - 5, DLScreenWidth / 3.5 - 5)];
     CGFloat red = arc4random() % 100 / 100.0;
     CGFloat blue = arc4random() % 100 / 100.0;
     CGFloat green = arc4random() % 100 / 100.0;
-    [view setBackgroundColor:[UIColor colorWithRed:red green:blue blue:green alpha:1]];
+    [self.showView setBackgroundColor:[UIColor colorWithRed:red green:blue blue:green alpha:1]];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(ViewTapAction:)];
-    [view addGestureRecognizer:tap];
+    [self.showView addGestureRecognizer:tap];
     
-    [self addSubview:view];
+    [self addSubview:self.showView];
 
 }
+
+- (void)reloadDetilCell:(id)model
+{
+    [self.showView dlGetRouteWebImageWithString:[model objectForKey:@"uri"] placeholderImage:nil];
+}
+
 
 //通过 view 进行页面的跳转
 - (void)ViewTapAction:(UITapGestureRecognizer *)tap

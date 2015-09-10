@@ -7,12 +7,14 @@
 //
 #import "RestfulAPIRequestTool.h"
 #import "UILabel+DLTimeLabel.h"
-
+#define TEXTFONT 10
 @implementation UILabel (DLTimeLabel)
+
 
 - (void)getCompanyNameFromCid:(NSString *)string
 {
     
+    self.font = [UIFont systemFontOfSize:TEXTFONT];
     NSDictionary *dic = [NSDictionary dictionaryWithObject:string forKey:@"companyId"];
     [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
         [self dismembermentJson:json];
@@ -26,12 +28,21 @@
 {
     NSDictionary *dic = [json objectForKey:@"company"];
     NSDictionary *infoDic = [dic objectForKey:@"info"];
-            self.text = [NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]];
+    NSString *temp = [NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]];
+    
+    NSDictionary *tempDic = [NSDictionary dictionaryWithObjects:@[RGBACOLOR(80, 125, 175, 1)] forKeys:@[NSForegroundColorAttributeName]];
+//    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:temp attributes:tempDic];
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]]] ;
+    NSInteger num = temp.length - 3;
+//    [attStr addAttributes:@{[UIColor orangeColor]} range:NSMakeRange(3, num)];
+    [attStr setAttributes:tempDic range:NSMakeRange(3, num)];
+    self.attributedText = attStr;
 }
 
 - (void)judgeTimeWithString:(NSString *)string
 {
-    
+
+    self.font = [UIFont systemFontOfSize:TEXTFONT];
     NSDate *aNewDate = [self dateFromString:string];
     NSDate *tempDate = [self getNowDateFromatAnDate:[NSDate date]];
     NSTimeInterval sec = [tempDate timeIntervalSinceDate:aNewDate];
@@ -46,8 +57,18 @@
     {
         self.text = [NSString stringWithFormat:@"%.f天前", sec / (24 * 60 * 60)];
     }
-    
+    CGRect rect  = [self getRectWithFont:[UIFont systemFontOfSize:TEXTFONT] width:0 andString:string];
+    self.width = rect.size.width;
 }
+
+- (CGRect)getRectWithFont:(UIFont *)font width:(CGFloat)num andString:(NSString *)string
+{
+    
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(num, 100000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil];
+    rect.size.height += 8;
+    return rect;
+}
+
 -(BOOL)compareDate:(NSDate *)date{
     
     NSTimeInterval secondsPerDay = 24 * 60 * 60;

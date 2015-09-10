@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class WPHotspotLabel;
 @class CircleImageView;
 @class CircleContextModel;
 @class CriticWordView;
@@ -27,7 +27,7 @@
 @property (nonatomic, copy)NSString *name;  // 存放假的数据
 @property (nonatomic, assign)NSInteger num;
 
-@property (nonatomic, strong)UILabel *wordFrom;  // 来自动梨基地
+@property (nonatomic, strong)WPHotspotLabel *wordFrom;  // 来自动梨基地
 
 @property (nonatomic, strong)CircleImageView *circleImage;  // touxiang
 
