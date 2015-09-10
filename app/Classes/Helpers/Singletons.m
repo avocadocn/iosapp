@@ -6,15 +6,15 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
-#import "Singleton.h"
+#import "Singletons.h"
 
-@implementation Singleton
+@implementation Singletons
 
-+(Singleton *)shareSingleton {
-    static Singleton *single = nil;
++(Singletons *)shareSingleton {
+    static Singletons *single = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        single = [[Singleton alloc] init];
+        single = [[Singletons alloc] init];
     });
     return single;
 }

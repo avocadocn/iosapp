@@ -24,7 +24,7 @@
 #import "PublishSeekHelp.h"
 #import "RepeaterGroupController.h"
 #import "Test1ViewController.h"
-#import "Singleton.h"
+#import "Singletons.h"
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 static NSString *kMessageType = @"MessageType";
@@ -140,7 +140,7 @@ static NSString *kGroupName = @"GroupName";
 //    viewController.tabBarItem = [[UITabBarItem alloc]initWithTitle:title image:[UIImage imageNamed:@"tabbar_chatsHL"] selectedImage:[UIImage imageNamed:@"tabbar_chats"]];
 //    [viewController.view setBackgroundColor:[UIColor whiteColor]];
     DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:viewController];
-//    [Singleton shareSingleton].navigationC = nav;
+    [Singletons shareSingleton].navigationC = nav;
     //    [self getNaviIten];
     
 //    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeSystem];

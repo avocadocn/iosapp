@@ -16,7 +16,7 @@
 #import "getTemplateModel.h"
 #import "Interaction.h"
 #import "InvatingModel.h"
-#import "Singleton.h"
+#import "Singletons.h"
 #import "SBDetailViewController.h"
 @interface ActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;

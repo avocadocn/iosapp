@@ -13,7 +13,7 @@
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
 #import "UIImageView+DLGetWebImage.h"
-#import "Singleton.h"
+#import "Singletons.h"
 
 @interface SBDetailActivityView()<UIScrollViewDelegate,UIWebViewDelegate>
 
@@ -382,7 +382,7 @@
         //        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"退出成功" message:@"少年你已经退出了活动,活该单身一辈子啊..." delegate:self cancelButtonTitle:@"" otherButtonTitles:@"", nil];
         //        [alertV show];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"POSTEXIT" object:nil userInfo:@{@"name":@"东阳"}];
-        [[Singleton shareSingleton].navigationC popViewControllerAnimated:YES];
+        [[Singletons shareSingleton].navigationC popViewControllerAnimated:YES];
     } failure:^(id errorJson) {
         NSLog(@"退出失败 %@ ",[errorJson objectForKey:@"msg"]);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"退出失败" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];

@@ -11,7 +11,7 @@
 		5436967D1B9D401E00261F2D /* 标尺.png in Resources */ = {isa = PBXBuildFile; fileRef = 5436967C1B9D401E00261F2D /* 标尺.png */; };
 		5458675A1BA05CC6009ED3E7 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */; };
 		5458675B1BA05CC6009ED3E7 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */; };
-		5458675E1BA166BB009ED3E7 /* Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5458675D1BA166BB009ED3E7 /* Singleton.m */; };
+		5458675E1BA166BB009ED3E7 /* Singletons.m in Sources */ = {isa = PBXBuildFile; fileRef = 5458675D1BA166BB009ED3E7 /* Singletons.m */; };
 		545867611BA17BCA009ED3E7 /* SBDetailActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867601BA17BCA009ED3E7 /* SBDetailActivityView.m */; };
 		545867641BA17EF8009ED3E7 /* SBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867631BA17EF8009ED3E7 /* SBDetailViewController.m */; };
 		545867681BA1821F009ED3E7 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867651BA1821F009ED3E7 /* gear.png */; };
@@ -712,8 +712,8 @@
 		545867571BA05CC6009ED3E7 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
-		5458675C1BA166BB009ED3E7 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
-		5458675D1BA166BB009ED3E7 /* Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singleton.m; sourceTree = "<group>"; };
+		5458675C1BA166BB009ED3E7 /* Singletons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singletons.h; sourceTree = "<group>"; };
+		5458675D1BA166BB009ED3E7 /* Singletons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singletons.m; sourceTree = "<group>"; };
 		5458675F1BA17BCA009ED3E7 /* SBDetailActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDetailActivityView.h; sourceTree = "<group>"; };
 		545867601BA17BCA009ED3E7 /* SBDetailActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDetailActivityView.m; sourceTree = "<group>"; };
 		545867621BA17EF8009ED3E7 /* SBDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDetailViewController.h; sourceTree = "<group>"; };
@@ -2155,8 +2155,8 @@
 				96AA19781B79EBB6008E4CA3 /* AddressBookTool */,
 				967439A51B705907004334A4 /* NetworkRequestTool */,
 				9649B5081B564DE000A7F355 /* PrefixHeader.pch */,
-				5458675C1BA166BB009ED3E7 /* Singleton.h */,
-				5458675D1BA166BB009ED3E7 /* Singleton.m */,
+				5458675C1BA166BB009ED3E7 /* Singletons.h */,
+				5458675D1BA166BB009ED3E7 /* Singletons.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -4989,7 +4989,7 @@
 				96CF90CC1B673422001759E2 /* EMSDWebImageDownloader.m in Sources */,
 				A45727051B74BA0500A27B79 /* RepeaterGroupController.m in Sources */,
 				96CF90BF1B673422001759E2 /* EmojiEmoticons.m in Sources */,
-				5458675E1BA166BB009ED3E7 /* Singleton.m in Sources */,
+				5458675E1BA166BB009ED3E7 /* Singletons.m in Sources */,
 				A44D40081B7300C200B10DFB /* LaunchEventController.m in Sources */,
 				961053581B590C70002D62A3 /* OtherController.m in Sources */,
 				96CF90B71B673422001759E2 /* EMAudioRecorderUtil.m in Sources */,

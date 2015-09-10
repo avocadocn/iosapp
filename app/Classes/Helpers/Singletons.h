@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Singleton : NSObject
+@interface Singletons : NSObject
 
-+ (Singleton *)shareSingleton;
++ (Singletons *)shareSingleton;
 
 @property (nonatomic, strong)UINavigationController *navigationC;
 @end
