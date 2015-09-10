@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import <Masonry.h>
 #import "DLNetworkRequest.h"
-
+#import "ForgetPasswordController.h"
 #import "UserDataTon.h"
 #import <ReactiveCocoa.h>
 #import "Account.h"
@@ -26,15 +26,65 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"登录";
+            self.navigationController.navigationBarHidden = NO;
+//    [self builtInterface];
     
-    [self builtInterface];
+    [self builtNewInterface];
+}
+
+- (void)builtNewInterface
+{
+    self.view.backgroundColor = [UIColor whiteColor];
+    NSInteger num = 44;
+    self.mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(num, 20 + 64, DLScreenWidth - num * 2, num)];
+    self.mailTextField.placeholder = @"手机号";
+    self.mailTextField.font = [UIFont systemFontOfSize:14];
+    self.mailTextField.delegate = self;
+    self.mailTextField.keyboardType = UIKeyboardTypeNumberPad;
+    
+    UIView *view =[[UIView alloc]initWithFrame:CGRectMake(0, num - .5, DLScreenWidth - num * 2, .5)];
+    view.backgroundColor = RGBACOLOR(230, 230, 230, 1);
+    [self.mailTextField addSubview:view];
+    [self.view addSubview:self.mailTextField];
+    
+    self.passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(num, 60 + 64, DLScreenWidth - num * 2, num)];
+    self.passwordTextField.placeholder=  @"密码";
+    self.passwordTextField.font = [UIFont systemFontOfSize:14];
+    self.passwordTextField.delegate = self;
+    self.passwordTextField.secureTextEntry = YES;
+    UIView *tempView =[[UIView alloc]initWithFrame:CGRectMake(0, num - .5, DLScreenWidth - num * 2, .5)];
+    tempView.backgroundColor = RGBACOLOR(230, 230, 230, 1);
+
+    [self.passwordTextField addSubview:tempView];
+    [self.view addSubview:self.passwordTextField];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.frame = CGRectMake(38, 165 + 64, DLScreenWidth - 38 * 2, 44);
+    
+    button.backgroundColor = RGBACOLOR(241, 214, 51, 1);
+    [button addTarget:self action:@selector(loginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    button.tintColor =[UIColor whiteColor];
+    [button setTitle:@"登录" forState:UIControlStateNormal];
+    [self.view addSubview:button];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(DLMultipleWidth(270.0), 110 + 64, 150, 50)];
+    label.text = @"忘记密码?";
+    label.textAlignment = NSTextAlignmentLeft;
+    label.textColor = RGBACOLOR(155, 155, 155, 1);
+    label.font  = [UIFont systemFontOfSize:12];
+    [label addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(forgetAction:)]];
+    label.userInteractionEnabled = YES;
+    
+    [self.view addSubview:label];
     
 }
+
 - (void)builtInterface{
     self.title = @"登录";
     self.view.backgroundColor = DLSBackgroundColor;
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(33, 65, DLScreenWidth - 76, 176)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(33, 65, DLScreenWidth - 76, 88)];
     [view setBackgroundColor:[UIColor whiteColor]];
     
     UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -66,7 +116,7 @@
         make.bottom.mas_equalTo(view.mas_bottom).offset(- view.height / 2.0 - 1);
     }];
     self.phoneNumber = [UILabel new];
-    self.phoneNumber.text = @" 手机号";
+    self.phoneNumber.text = @"手机号";
     self.phoneNumber.textColor = RGBACOLOR(203, 200, 200, 1);
     self.phoneNumber.font = [UIFont systemFontOfSize:16];
     [view addSubview:self.phoneNumber];
@@ -74,7 +124,6 @@
         make.top.mas_equalTo(view.mas_top);
         make.left.mas_equalTo(view.mas_left);
         make.width.mas_equalTo(view.height / 4 + 20);
-        make.height.mas_equalTo(view.height / 10);
         make.bottom.mas_equalTo(view.mas_bottom).offset(- view.height / 2.0 - 1);
     }];
     
@@ -99,7 +148,6 @@
     [view addSubview:self.passwordLabel];
     [self.passwordLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mailTextField.mas_bottom).offset(2);
-        make.top.mas_equalTo(view);
         make.bottom.mas_equalTo(view.mas_bottom);
         make.left.mas_equalTo(view.mas_left);
 //        make.right.mas_equalTo(view.mas_right);
@@ -192,5 +240,28 @@
     UIAlertView *al = [[UIAlertView alloc]initWithTitle:str message:nil delegate:self cancelButtonTitle:@"重试" otherButtonTitles: nil, nil];
     [al show];
 }
+- (void)forgetAction:(UITapGestureRecognizer *)tap
+{
+    ForgetPasswordController *forget = [[ForgetPasswordController alloc]init];
+    [self.navigationController pushViewController:forget animated:YES];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == self.mailTextField) {
+        
+    
+    if (self.mailTextField.text.length == 11) {
+        return NO;
+    }}
+    else {
+        
+        if (self.passwordTextField.text.length > 16) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
 
 @end

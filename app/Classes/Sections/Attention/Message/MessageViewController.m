@@ -9,9 +9,11 @@
 #import "MessageViewController.h"
 #import "MessageTableViewCell.h"
 #import "RestfulAPIRequestTool.h"
-#import "UserMessageModel.h"
 #import "NYSegmentedControl.h"
 #import "InteractionView.h"
+#import "getIntroModel.h"
+#import "Account.h"
+#import "AccountTool.h"
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)NYSegmentedControl *segment;
@@ -50,8 +52,11 @@
     [self.scrollView addSubview:view];
 }
 - (void)netWorkRequest {// 网路请求
-    UserMessageModel *model = [[UserMessageModel alloc] init];
-    [RestfulAPIRequestTool routeName:@"getPersonalInteractionList" requestModel:model useKeys:@[@"content"] success:^(id json) {
+    getIntroModel *model = [[getIntroModel alloc] init];
+    Account *account = [AccountTool account];
+    [model setUserId:account.ID];
+    [model setNoticeType:@"notice"];
+    [RestfulAPIRequestTool routeName:@"getPersonalNotificationsList" requestModel:model useKeys:@[@"noticeType",@"interaction",@"interactionType",@"userId",@"action"] success:^(id json) {
         NSLog(@"获取消息列表成功 %@",json);
     } failure:^(id errorJson) {
         NSLog(@"获取消息列表失败 %@",[errorJson objectForKey:@"msg"]);

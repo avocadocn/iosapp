@@ -21,6 +21,7 @@
 		546CA5971B9ECD7B0066CC0C /* NYSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA5931B9ECD7B0066CC0C /* NYSegmentedControl.m */; };
 		546CA5981B9ECD7B0066CC0C /* NYSegmentIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA5951B9ECD7B0066CC0C /* NYSegmentIndicator.m */; };
 		546CA59B1B9EDA930066CC0C /* InteractionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA59A1B9EDA930066CC0C /* InteractionView.m */; };
+		546CA59E1BA009210066CC0C /* Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA59D1BA009210066CC0C /* Singleton.m */; };
 		54B46A051B9547C000A6500B /* InvatingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B46A041B9547C000A6500B /* InvatingModel.m */; };
 		54BB1DB61B8DAC3600F76628 /* TwoDimensionCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DB41B8DAC3600F76628 /* TwoDimensionCodeViewController.m */; };
 		54BB1DB71B8DAC3600F76628 /* TwoDimensionCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DB51B8DAC3600F76628 /* TwoDimensionCodeViewController.xib */; };
@@ -34,8 +35,6 @@
 		54BB1DD51B8EF6F500F76628 /* ChangePassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DD41B8EF6F500F76628 /* ChangePassWordViewController.m */; };
 		54BB1DD91B8EF7AD00F76628 /* ChangePassWordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DD71B8EF7AD00F76628 /* ChangePassWordTableViewCell.m */; };
 		54BB1DDA1B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */; };
-		960DCFAE1B732D38009F5D75 /* VoteOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 960DCFAD1B732D38009F5D75 /* VoteOptionsView.m */; };
-		960DCFB11B732E59009F5D75 /* VoteAnimatedOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 960DCFB01B732E59009F5D75 /* VoteAnimatedOptionView.m */; };
 		9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053461B590C31002D62A3 /* ActivitysShowView.m */; };
 		961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053481B590C31002D62A3 /* CurrentActivitysShowCell.m */; };
 		961053511B590C31002D62A3 /* CurrentActivitysShowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961053491B590C31002D62A3 /* CurrentActivitysShowCell.xib */; };
@@ -85,8 +84,6 @@
 		967A062E1B71E2C9007BA757 /* Interactive_activity_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A062B1B71E2C9007BA757 /* Interactive_activity_icon.png */; };
 		967A062F1B71E2C9007BA757 /* Interactive_help_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A062C1B71E2C9007BA757 /* Interactive_help_icon.png */; };
 		967A06301B71E2C9007BA757 /* Interactive_vote_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A062D1B71E2C9007BA757 /* Interactive_vote_icon.png */; };
-		967A06341B71F22D007BA757 /* VoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06321B71F22D007BA757 /* VoteTableViewCell.m */; };
-		967A06381B71F352007BA757 /* VoteTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06371B71F352007BA757 /* VoteTableController.m */; };
 		967A063B1B71FBDB007BA757 /* Interactive_vote_downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A063A1B71FBDB007BA757 /* Interactive_vote_downArrow.png */; };
 		967A063D1B72FEF3007BA757 /* Interactive_vote_downView.png in Resources */ = {isa = PBXBuildFile; fileRef = 967A063C1B72FEF3007BA757 /* Interactive_vote_downView.png */; };
 		967A06411B7303C2007BA757 /* VoteInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06401B7303C2007BA757 /* VoteInfoModel.m */; };
@@ -583,6 +580,7 @@
 		A45FEBEE1B85727000BC5E41 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */; };
 		A45FEBF01B85727C00BC5E41 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */; };
 		A45FEBF31B85DC1900BC5E41 /* LoginSinger.m in Sources */ = {isa = PBXBuildFile; fileRef = A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */; };
+		A461258A1BA030FF001E83B7 /* ForgetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46125891BA030FF001E83B7 /* ForgetPasswordController.m */; };
 		A461E7E01B954C3500C25C21 /* PollModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A461E7DF1B954C3500C25C21 /* PollModel.m */; };
 		A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A46448E91B6F31EF00AA621E /* AddressBookModel.m */; };
 		A4650F201B7DBDCD00013A17 /* UserInterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F1F1B7DBDCD00013A17 /* UserInterView.m */; };
@@ -701,6 +699,8 @@
 		546CA5951B9ECD7B0066CC0C /* NYSegmentIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegmentIndicator.m; sourceTree = "<group>"; };
 		546CA5991B9EDA930066CC0C /* InteractionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionView.h; sourceTree = "<group>"; };
 		546CA59A1B9EDA930066CC0C /* InteractionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionView.m; sourceTree = "<group>"; };
+		546CA59C1BA009210066CC0C /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		546CA59D1BA009210066CC0C /* Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singleton.m; sourceTree = "<group>"; };
 		54B46A031B9547C000A6500B /* InvatingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingModel.h; sourceTree = "<group>"; };
 		54B46A041B9547C000A6500B /* InvatingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingModel.m; sourceTree = "<group>"; };
 		54BB1DB31B8DAC3600F76628 /* TwoDimensionCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimensionCodeViewController.h; sourceTree = "<group>"; };
@@ -721,10 +721,6 @@
 		54BB1DD61B8EF7AD00F76628 /* ChangePassWordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePassWordTableViewCell.h; sourceTree = "<group>"; };
 		54BB1DD71B8EF7AD00F76628 /* ChangePassWordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePassWordTableViewCell.m; sourceTree = "<group>"; };
 		54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePassWordTableViewCell.xib; sourceTree = "<group>"; };
-		960DCFAC1B732D38009F5D75 /* VoteOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteOptionsView.h; sourceTree = "<group>"; };
-		960DCFAD1B732D38009F5D75 /* VoteOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteOptionsView.m; sourceTree = "<group>"; };
-		960DCFAF1B732E59009F5D75 /* VoteAnimatedOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteAnimatedOptionView.h; sourceTree = "<group>"; };
-		960DCFB01B732E59009F5D75 /* VoteAnimatedOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteAnimatedOptionView.m; sourceTree = "<group>"; };
 		961053451B590C31002D62A3 /* ActivitysShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitysShowView.h; sourceTree = "<group>"; };
 		961053461B590C31002D62A3 /* ActivitysShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitysShowView.m; sourceTree = "<group>"; };
 		961053471B590C31002D62A3 /* CurrentActivitysShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentActivitysShowCell.h; sourceTree = "<group>"; };
@@ -821,10 +817,6 @@
 		967A062B1B71E2C9007BA757 /* Interactive_activity_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interactive_activity_icon.png; sourceTree = "<group>"; };
 		967A062C1B71E2C9007BA757 /* Interactive_help_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interactive_help_icon.png; sourceTree = "<group>"; };
 		967A062D1B71E2C9007BA757 /* Interactive_vote_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interactive_vote_icon.png; sourceTree = "<group>"; };
-		967A06311B71F22D007BA757 /* VoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTableViewCell.h; sourceTree = "<group>"; };
-		967A06321B71F22D007BA757 /* VoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTableViewCell.m; sourceTree = "<group>"; };
-		967A06361B71F352007BA757 /* VoteTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTableController.h; sourceTree = "<group>"; };
-		967A06371B71F352007BA757 /* VoteTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTableController.m; sourceTree = "<group>"; };
 		967A063A1B71FBDB007BA757 /* Interactive_vote_downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interactive_vote_downArrow.png; sourceTree = "<group>"; };
 		967A063C1B72FEF3007BA757 /* Interactive_vote_downView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Interactive_vote_downView.png; sourceTree = "<group>"; };
 		967A063F1B7303C2007BA757 /* VoteInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteInfoModel.h; sourceTree = "<group>"; };
@@ -1629,6 +1621,8 @@
 		A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A45FEBF11B85DC1900BC5E41 /* LoginSinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSinger.h; sourceTree = "<group>"; };
 		A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSinger.m; sourceTree = "<group>"; };
+		A46125881BA030FF001E83B7 /* ForgetPasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetPasswordController.h; sourceTree = "<group>"; };
+		A46125891BA030FF001E83B7 /* ForgetPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordController.m; sourceTree = "<group>"; };
 		A461E7DE1B954C3500C25C21 /* PollModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PollModel.h; sourceTree = "<group>"; };
 		A461E7DF1B954C3500C25C21 /* PollModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PollModel.m; sourceTree = "<group>"; };
 		A46448E81B6F31EF00AA621E /* AddressBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
@@ -1911,12 +1905,6 @@
 				968B153F1B6A2ABB004A26C0 /* RankItemView.h */,
 				968B15401B6A2ABB004A26C0 /* RankItemView.m */,
 				968B15421B6A2ADC004A26C0 /* RankItemView.xib */,
-				967A06311B71F22D007BA757 /* VoteTableViewCell.h */,
-				967A06321B71F22D007BA757 /* VoteTableViewCell.m */,
-				960DCFAC1B732D38009F5D75 /* VoteOptionsView.h */,
-				960DCFAD1B732D38009F5D75 /* VoteOptionsView.m */,
-				960DCFAF1B732E59009F5D75 /* VoteAnimatedOptionView.h */,
-				960DCFB01B732E59009F5D75 /* VoteAnimatedOptionView.m */,
 				96C9FFB21B737539008B71CE /* HelpTableViewCell.h */,
 				96C9FFB31B737539008B71CE /* HelpTableViewCell.m */,
 				9635AF521B748B0800BE92B5 /* CommentViewCell.h */,
@@ -1955,8 +1943,6 @@
 				96D20EBA1B60C4EE00102D18 /* ActivityShowTableController.m */,
 				A450561B1B60EF980075E39D /* RankItemLayoutAttr.h */,
 				A450561C1B60EF980075E39D /* RankItemLayoutAttr.m */,
-				967A06361B71F352007BA757 /* VoteTableController.h */,
-				967A06371B71F352007BA757 /* VoteTableController.m */,
 				96C9FFAF1B737508008B71CE /* HelpTableViewController.h */,
 				96C9FFB01B737508008B71CE /* HelpTableViewController.m */,
 				A44D40061B7300C200B10DFB /* LaunchEventController.h */,
@@ -2107,6 +2093,8 @@
 				96AA19781B79EBB6008E4CA3 /* AddressBookTool */,
 				967439A51B705907004334A4 /* NetworkRequestTool */,
 				9649B5081B564DE000A7F355 /* PrefixHeader.pch */,
+				546CA59C1BA009210066CC0C /* Singleton.h */,
+				546CA59D1BA009210066CC0C /* Singleton.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3809,6 +3797,8 @@
 				A47F50381B67765600955052 /* CompanyEmailComplete.xib */,
 				A439ED401B68DA9E006B3CAC /* GuidePageViewController.h */,
 				A439ED411B68DA9E006B3CAC /* GuidePageViewController.m */,
+				A46125881BA030FF001E83B7 /* ForgetPasswordController.h */,
+				A46125891BA030FF001E83B7 /* ForgetPasswordController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4799,6 +4789,7 @@
 				968B15321B69F4C9004A26C0 /* RankItemTableViewcell.m in Sources */,
 				96CF947A1B674B54001759E2 /* BlackListViewController.m in Sources */,
 				9649B5411B564DE000A7F355 /* main.m in Sources */,
+				A461258A1BA030FF001E83B7 /* ForgetPasswordController.m in Sources */,
 				9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */,
 				96CF90C71B673422001759E2 /* MWZoomingScrollView.m in Sources */,
 				A4745DFD1B81A9AC008EB944 /* DNAlbumTableViewController.m in Sources */,
@@ -4827,6 +4818,7 @@
 				96E3D83B1B7DA60600A623B7 /* UserMessageTableViewCell.m in Sources */,
 				96D20EAF1B5F97F300102D18 /* RankListController.m in Sources */,
 				96CF90C91B673422001759E2 /* EMSDImageCache.m in Sources */,
+				546CA59E1BA009210066CC0C /* Singleton.m in Sources */,
 				96CF90D11B673422001759E2 /* NSData+EMImageContentType.m in Sources */,
 				9610535B1B590C96002D62A3 /* InteractiveViewController.m in Sources */,
 				96CF93951B674B54001759E2 /* MessageModel.m in Sources */,
@@ -4844,7 +4836,6 @@
 				9610536A1B5CDB0B002D62A3 /* DetailActivityShowView.m in Sources */,
 				967439BA1B705908004334A4 /* DLNetworkRequest.m in Sources */,
 				96CF937A1B674B54001759E2 /* NSDate+Category.m in Sources */,
-				967A06341B71F22D007BA757 /* VoteTableViewCell.m in Sources */,
 				5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */,
 				96CF93851B674B54001759E2 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				967439C01B705908004334A4 /* User.m in Sources */,
@@ -4874,9 +4865,7 @@
 				A41993241B5F95AB0086EAAE /* LoginMailTableViewCell.m in Sources */,
 				A4745E061B81A9AC008EB944 /* UIView+DNImagePicker.m in Sources */,
 				96CF90CB1B673422001759E2 /* EMSDWebImageDecoder.m in Sources */,
-				960DCFAE1B732D38009F5D75 /* VoteOptionsView.m in Sources */,
 				96CF93991B674B54001759E2 /* ContactSelectionViewController.m in Sources */,
-				967A06381B71F352007BA757 /* VoteTableController.m in Sources */,
 				96CF90E11B673422001759E2 /* PSTCollectionViewUpdateItem.m in Sources */,
 				96CF90CC1B673422001759E2 /* EMSDWebImageDownloader.m in Sources */,
 				A45727051B74BA0500A27B79 /* RepeaterGroupController.m in Sources */,
@@ -4885,7 +4874,6 @@
 				961053581B590C70002D62A3 /* OtherController.m in Sources */,
 				96CF90B71B673422001759E2 /* EMAudioRecorderUtil.m in Sources */,
 				961053671B5CDA89002D62A3 /* DetailActivityShowController.m in Sources */,
-				960DCFB11B732E59009F5D75 /* VoteAnimatedOptionView.m in Sources */,
 				96CF90D01B673422001759E2 /* MKAnnotationView+EMWebCache.m in Sources */,
 				A44B356F1B8325C5004F7A6A /* EnumTextField.m in Sources */,
 				96CF937C1B674B54001759E2 /* NSString+Valid.m in Sources */,

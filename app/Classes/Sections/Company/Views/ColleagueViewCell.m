@@ -101,7 +101,6 @@ static NSString *userId = nil;
     NSInteger temp = arc4random() % 10;
     self.num = temp;
     
-    
     self.wordFrom = [UILabel new];
 //    self.wordFrom.text = @"来自 动梨基地";
     self.wordFrom.textColor = [UIColor colorWithWhite:.5 alpha:1];

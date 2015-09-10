@@ -37,6 +37,8 @@
 
 @property (nonatomic, copy) NSString *content;
 
+@property (nonatomic, copy) NSString *interaction;
+
 
 
 @end

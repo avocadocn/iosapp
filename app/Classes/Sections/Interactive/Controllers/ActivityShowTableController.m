@@ -10,11 +10,10 @@
 #import "OtherActivityShowCell.h"
 #import "OtherSegmentButton.h"
 #import "DetailActivityShowController.h"
-#import "RestfulAPIRequestTool.h"
 #import "Account.h"
 #import "AccountTool.h"
-#import "getTemplateModel.h"
-#import "Interaction.h"
+#import "getIntroModel.h"
+#import "RestfulAPIRequestTool.h"
 
 @interface ActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;
@@ -34,19 +33,31 @@ static NSString * const ID = @"OtherActivityShowCell";
         
         [self addActivitysShowTable];
         [self.view setBackgroundColor:RGB(230, 230, 230)];
+        [self netWorkRequest];
     }
     return self;
 }
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super init];
-    if (self) {
-        NSLog(@"the custom frame is %@",NSStringFromCGRect(frame));
-        self.view.frame=frame;
-        [self addActivitysShowTable];
-        [self.view setBackgroundColor:RGB(230, 230, 230)];
-    }
-    return self;
+- (void)netWorkRequest {
+    Account *account = [AccountTool account];
+    getIntroModel *model = [[getIntroModel alloc] init];
+    [model setUserId:account.ID];
+    [model setInteractionType:@0];
+    [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
+        NSLog(@"获取成功++++++   %@", json);
+//        [self analyDataWithJson:json];
+    } failure:^(id errorJson) {
+        NSLog(@"获取失败  %@", errorJson);
+        
+        NSString *str = [errorJson objectForKey:@"msg"];
+        if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            alert.delegate = self;
+            [alert show];
+            
+        }
+        
+    }];
+    
 }
 -(void)viewDidLoad{
     self.title = @"活动";
