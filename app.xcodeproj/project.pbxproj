@@ -662,6 +662,9 @@
 		A4F595021B7C7D970088D9CC /* BrithdayBlessController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F595011B7C7D970088D9CC /* BrithdayBlessController.m */; };
 		C2BB2F66A5C16197F6FD8E9D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9388089A6ADF54035C56E5D /* libPods.a */; };
 		E22ED8201B9FCE1E00CF4109 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = E22ED81E1B9FCE1E00CF4109 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E23AF2911BA12490001BE3C5 /* TemplateDetailActivityShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2901BA12490001BE3C5 /* TemplateDetailActivityShowView.m */; };
+		E23AF2941BA12620001BE3C5 /* TemplateDetailActivityShowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2931BA12620001BE3C5 /* TemplateDetailActivityShowController.m */; };
+		E23AF2971BA126D7001BE3C5 /* TemplateActivityShowTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2961BA126D7001BE3C5 /* TemplateActivityShowTableController.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 /* End PBXBuildFile section */
 
@@ -1764,6 +1767,12 @@
 		E22ED81D1B9FCE1E00CF4109 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		E22ED81E1B9FCE1E00CF4109 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		E22ED81F1B9FCE1E00CF4109 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		E23AF28F1BA12490001BE3C5 /* TemplateDetailActivityShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetailActivityShowView.h; sourceTree = "<group>"; };
+		E23AF2901BA12490001BE3C5 /* TemplateDetailActivityShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateDetailActivityShowView.m; sourceTree = "<group>"; };
+		E23AF2921BA12620001BE3C5 /* TemplateDetailActivityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetailActivityShowController.h; sourceTree = "<group>"; };
+		E23AF2931BA12620001BE3C5 /* TemplateDetailActivityShowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateDetailActivityShowController.m; sourceTree = "<group>"; };
+		E23AF2951BA126D7001BE3C5 /* TemplateActivityShowTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateActivityShowTableController.h; sourceTree = "<group>"; };
+		E23AF2961BA126D7001BE3C5 /* TemplateActivityShowTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateActivityShowTableController.m; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1919,6 +1928,8 @@
 				968C27441B7B43BE00950581 /* VoteBottomToolBar.h */,
 				968C27451B7B43BE00950581 /* VoteBottomToolBar.m */,
 				968C27471B7B43D500950581 /* VoteBottomToolBar.xib */,
+				E23AF28F1BA12490001BE3C5 /* TemplateDetailActivityShowView.h */,
+				E23AF2901BA12490001BE3C5 /* TemplateDetailActivityShowView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1958,6 +1969,10 @@
 				A45727041B74BA0500A27B79 /* RepeaterGroupController.m */,
 				967C62C71B7C72220065F318 /* VoteInfoTableViewController.h */,
 				967C62C81B7C72220065F318 /* VoteInfoTableViewController.m */,
+				E23AF2921BA12620001BE3C5 /* TemplateDetailActivityShowController.h */,
+				E23AF2931BA12620001BE3C5 /* TemplateDetailActivityShowController.m */,
+				E23AF2951BA126D7001BE3C5 /* TemplateActivityShowTableController.h */,
+				E23AF2961BA126D7001BE3C5 /* TemplateActivityShowTableController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4775,6 +4790,7 @@
 				A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */,
 				96CF93971B674B54001759E2 /* MessageReadManager.m in Sources */,
 				96CF947B1B674B54001759E2 /* DebugViewController.m in Sources */,
+				E23AF2941BA12620001BE3C5 /* TemplateDetailActivityShowController.m in Sources */,
 				A439ED421B68DA9E006B3CAC /* GuidePageViewController.m in Sources */,
 				96CF90BD1B673422001759E2 /* EMAlertView.m in Sources */,
 				96AA191B1B787061008E4CA3 /* CommentsViewController.m in Sources */,
@@ -4929,6 +4945,7 @@
 				A4745E021B81A9AC008EB944 /* DNPhotoBrowser.m in Sources */,
 				A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */,
 				968C27361B7B047F00950581 /* CustomMarginSettingTableViewCell.m in Sources */,
+				E23AF2971BA126D7001BE3C5 /* TemplateActivityShowTableController.m in Sources */,
 				96CF938B1B674B54001759E2 /* DXRecordView.m in Sources */,
 				A45727081B74BE2400A27B79 /* photoSectionHeader.m in Sources */,
 				96CF90EA1B673422001759E2 /* amrFileCodec.mm in Sources */,
@@ -4982,6 +4999,7 @@
 				96CF90CA1B673422001759E2 /* EMSDWebImageCompat.m in Sources */,
 				96CF90E51B673422001759E2 /* PSTGridLayoutSection.m in Sources */,
 				9649B5371B564DE000A7F355 /* AppDelegate.m in Sources */,
+				E23AF2911BA12490001BE3C5 /* TemplateDetailActivityShowView.m in Sources */,
 				A40CDF2B1B86F9AD00BD63F5 /* DWBubbleMenuButton.m in Sources */,
 				A4311F4B1B574748004401B4 /* CompanySmallCell.m in Sources */,
 				96CF93B61B674B54001759E2 /* XHMessageTextView.m in Sources */,
