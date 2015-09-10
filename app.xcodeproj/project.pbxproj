@@ -477,6 +477,8 @@
 		96E3D8421B7DBFFB00A623B7 /* UserMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D8411B7DBFFB00A623B7 /* UserMessageModel.m */; };
 		96E3D84A1B7DE42600A623B7 /* TempCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D8491B7DE42600A623B7 /* TempCompany.m */; };
 		A401E27A1BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = A401E2791BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m */; };
+		A401E27D1BA1B63B00B9A4B7 /* new_navigation_back_helight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A401E27B1BA1B63B00B9A4B7 /* new_navigation_back_helight@2x.png */; };
+		A401E27E1BA1B63B00B9A4B7 /* new_navigation_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A401E27C1BA1B63B00B9A4B7 /* new_navigation_back@2x.png */; };
 		A40936BE1B721BC800515A50 /* address.png in Resources */ = {isa = PBXBuildFile; fileRef = A40936BD1B721BC800515A50 /* address.png */; };
 		A40936C01B721BCD00515A50 /* time.png in Resources */ = {isa = PBXBuildFile; fileRef = A40936BF1B721BCD00515A50 /* time.png */; };
 		A40CDF281B86F99000BD63F5 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A40CDF271B86F99000BD63F5 /* CustomButton.m */; };
@@ -1473,6 +1475,8 @@
 		96E3D8491B7DE42600A623B7 /* TempCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TempCompany.m; sourceTree = "<group>"; };
 		A401E2781BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DLStringWithEmoji.h"; sourceTree = "<group>"; };
 		A401E2791BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DLStringWithEmoji.m"; sourceTree = "<group>"; };
+		A401E27B1BA1B63B00B9A4B7 /* new_navigation_back_helight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new_navigation_back_helight@2x.png"; sourceTree = "<group>"; };
+		A401E27C1BA1B63B00B9A4B7 /* new_navigation_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new_navigation_back@2x.png"; sourceTree = "<group>"; };
 		A40936BD1B721BC800515A50 /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address.png; sourceTree = "<group>"; };
 		A40936BF1B721BCD00515A50 /* time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time.png; sourceTree = "<group>"; };
 		A40CDF261B86F99000BD63F5 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
@@ -4107,6 +4111,8 @@
 				A4745E181B81DC94008EB944 /* welcome-3.png */,
 				A4745E191B81DC94008EB944 /* welcome-2.png */,
 				A4745E1A1B81DC94008EB944 /* welcome-1.png */,
+				A401E27B1BA1B63B00B9A4B7 /* new_navigation_back_helight@2x.png */,
+				A401E27C1BA1B63B00B9A4B7 /* new_navigation_back@2x.png */,
 				A47521CB1B7B188E00EB5BF2 /* Like.png */,
 				A46D4AF51B79E32C00177577 /* company1.png */,
 				A40936BD1B721BC800515A50 /* address.png */,
@@ -4513,6 +4519,7 @@
 				A42CFFD81B9C194000CCFB34 /* 110.png in Resources */,
 				96CF94011B674B54001759E2 /* chatBar_textBg.png in Resources */,
 				A44B355A1B82F895004F7A6A /* gril.png in Resources */,
+				A401E27E1BA1B63B00B9A4B7 /* new_navigation_back@2x.png in Resources */,
 				A4651D871B58F8C6008BAEE8 /* delete-circular.png in Resources */,
 				96CF94281B674B54001759E2 /* chatBar_colorMore_locationSelected@2x.png in Resources */,
 				A40CDF611B8733AF00BD63F5 /* vote.png in Resources */,
@@ -4529,6 +4536,7 @@
 				967A062F1B71E2C9007BA757 /* Interactive_help_icon.png in Resources */,
 				A4745E1C1B81DC94008EB944 /* welcome-2.png in Resources */,
 				96CF93D51B674B54001759E2 /* VoiceSearchFeedback008.png in Resources */,
+				A401E27D1BA1B63B00B9A4B7 /* new_navigation_back_helight@2x.png in Resources */,
 				968B15431B6A2ADC004A26C0 /* RankItemView.xib in Resources */,
 				96CF93B91B674B54001759E2 /* 29.png in Resources */,
 				54BB1DB71B8DAC3600F76628 /* TwoDimensionCodeViewController.xib in Resources */,
