@@ -10,8 +10,13 @@
 #import "GroupCardViewCell.h"
 #import "photoSectionHeader.h"
 #import "DWBubbleMenuButton.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "RestfulAPIRequestTool.h"
+#import "GroupCardModel.h"
 
 @interface RepeaterGroupController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@property UILabel* titleLabel;
 
 @end
 
@@ -19,8 +24,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self makeFalseData];
+    [self requestNet];
+//    [self makeFalseData];
     [self builtInterface];
+}
+- (void)requestNet{
+    Account *acc= [AccountTool account];
+    [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:acc useKeys:@[@"ID"] success:^(id json) {
+        [self analyDataWithJson:json];
+                //NSLog(@"success:-->%@",json);
+    } failure:^(id errorJson) {
+                //NSLog(@"failed:-->%@",errorJson);
+    }];
+    
+}
+
+//解析返回的数据
+- (void)analyDataWithJson:(id)json
+{
+    self.modelArray = [NSMutableArray array];
+    
+    for (NSDictionary *dic  in [json objectForKey:@"groups"]) {
+        GroupCardModel *group = [[GroupCardModel alloc]init];
+        [group setValuesForKeysWithDictionary:dic];
+        [self.modelArray addObject:group];
+    }
+    [self.groupListCollection reloadData];
 }
 
 - (void)makeFalseData
@@ -49,25 +78,25 @@
     effectview.frame = CGRectMake(0, 0, DLScreenWidth, DLScreenHeight);
     [self.view addSubview:effectview];
     //添加标题label
-    UILabel* titleLabel = [UILabel new];
+    self.titleLabel = [UILabel new];
     NSString* titleStr =  @"选择转发的小队";
     UIFont* titleFont = [UIFont systemFontOfSize:18.0f];
-    titleLabel.text = titleStr;
-    [titleLabel setTextColor:RGB(0xfd, 0xb9, 0x0)];
+    self.titleLabel.text = titleStr;
+    [self.titleLabel setTextColor:RGB(0xfd, 0xb9, 0x0)];
     CGSize maxTitleLabelSize = CGSizeMake(DLScreenWidth, 30);
     CGSize trueTitleLabelSize = [titleStr sizeWithFont:titleFont constrainedToSize:maxTitleLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     
-    titleLabel.size = trueTitleLabelSize;
-    titleLabel.x = (DLScreenWidth-titleLabel.width)/2.0;
-    titleLabel.y = 57;
+    self.titleLabel.size = trueTitleLabelSize;
+    self.titleLabel.x = (DLScreenWidth-self.titleLabel.width)/2.0;
+    self.titleLabel.y = 57;
     
-    [titleLabel setFont:[UIFont systemFontOfSize:18.0]];
+    [self.titleLabel setFont:[UIFont systemFontOfSize:18.0]];
     //添加分割线
     UIView* separater = [UIView new];
     separater.backgroundColor = [UIColor whiteColor];
     separater.x = 10;
-    separater.y = CGRectGetMaxY(titleLabel.frame) + 40;
-    separater.width = DLScreenWidth-DLMultipleWidth(11)*2;
+    separater.y = CGRectGetMaxY(self.titleLabel.frame) + 40;
+    separater.width = DLScreenWidth-DLMultipleWidth(11.0)*2;
     separater.height= 1;
 
     //添加collectionview
@@ -88,14 +117,14 @@
 //    [self.groupListCollection registerClass:[photoSectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"section"];
     //添加关闭按钮
     UIButton* closeBtn = [UIButton new];
-    NSInteger closeBtnRadius = DLMultipleWidth(20);
+    NSInteger closeBtnRadius = DLMultipleWidth(20.0);
     [closeBtn setBackgroundColor:RGB(0xfd, 0xb9, 0)];
     closeBtn.width = closeBtnRadius*2;
     closeBtn.height = closeBtnRadius*2;
     closeBtn.x = DLScreenWidth/2-closeBtnRadius;
     closeBtn.y =CGRectGetMaxY(self.groupListCollection.frame)+(DLScreenHeight-CGRectGetMaxY(self.groupListCollection.frame))/2-closeBtnRadius;
     [closeBtn addTarget:self action:@selector(closeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:titleLabel];
+    [self.view addSubview:self.titleLabel];
     [self.view addSubview:separater];
     [self.view addSubview:self.groupListCollection];
     [self.view addSubview:closeBtn];
@@ -116,7 +145,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger interval = DLMultipleWidth(10);
+    NSInteger interval = 10;
     NSInteger width = (DLScreenWidth - 4 * interval)/3.0;
     return CGSizeMake(width, DLMultipleHeight(126.0));
 }
@@ -135,14 +164,13 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GroupCardViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
+    [cell cellReconsitutionWithModel:[self.modelArray objectAtIndex:indexPath.row]];
+    [cell.groupImageView setImage:[UIImage imageNamed:@"mzx.jpg"]];
     return cell;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSDictionary *dic = [self.modelArray objectAtIndex:section];
-    NSArray *array = [dic objectForKey:@"array"];
-    
-    return [array count];
+    return [self.modelArray count];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

@@ -14,7 +14,6 @@
 #import "RestfulAPIRequestTool.h"
 #import "UIImageView+DLGetWebImage.h"
 #import "RepeaterGroupController.h"
-#import "AppDelegate.h"
 
 @interface TemplateDetailActivityShowView()<UIScrollViewDelegate,UIWebViewDelegate>
 
@@ -176,9 +175,9 @@
     // 添加分割线
     UIView *divisionLine = [[UIView alloc]init];
     [divisionLine setBackgroundColor:RGB(0xe6,0xe6, 0xe6)];
-    divisionLine.width = DLScreenWidth - 2 * DLMultipleWidth(11);
+    divisionLine.width = DLScreenWidth - 2 * DLMultipleWidth(11.0);
     divisionLine.height = 2;
-    divisionLine.x = DLMultipleWidth(11);
+    divisionLine.x = DLMultipleWidth(11.0);
     divisionLine.y = CGRectGetMaxY(timeLabel.frame) + 19;
     
     // 添加地址label
@@ -193,7 +192,7 @@
     [addressTintLabel setTextColor:RGB(0x9b,0x9b, 0x9b)];
     // tintLabel的frame
     addressTintLabel.size = addressTintLabelSize;
-    addressTintLabel.x = DLMultipleWidth(11);
+    addressTintLabel.x = DLMultipleWidth(11.0);
     addressTintLabel.y = CGRectGetMaxY(divisionLine.frame) + 17;
     
     UILabel *addressLabel = [[UILabel alloc]init];
@@ -201,7 +200,7 @@
     addressLabel.numberOfLines = 0;
     [addressLabel setTextColor:RGB(0x51,0x46, 0x47)];
     // TODO
-    CGSize maxAddressLabelSize = CGSizeMake(DLScreenWidth - 2 * DLMultipleWidth(11) - addressTintLabelSize.width, MAXFLOAT);
+    CGSize maxAddressLabelSize = CGSizeMake(DLScreenWidth - 2 * DLMultipleWidth(11.0) - addressTintLabelSize.width, MAXFLOAT);
     NSString *addressText = [NSString stringWithFormat:@"%@",[[self.model.location keyValues] objectForKey:@"name"]];
     
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxAddressLabelSize lineBreakMode:NSLineBreakByWordWrapping];
@@ -247,7 +246,7 @@
     [enterView setBackgroundColor:[UIColor whiteColor]];
     //添加垂直装饰线
     UIView* verticalLine = [UIView new];
-    verticalLine.frame = CGRectMake(DLMultipleWidth(10), 10, 2, 10);
+    verticalLine.frame = CGRectMake(DLMultipleWidth(10.0), 10, 2, 10);
     verticalLine.backgroundColor=RGB(0xfd, 0xb9, 0x0);
     //添加参与方式label
     UILabel* enterMethodLabel = [UILabel new];
@@ -286,7 +285,7 @@
     UIView* signedInView = [UIView new];
     [signedInView setBackgroundColor:[UIColor whiteColor]];
     UIView* verticalLine1 = [UIView new];
-    verticalLine1.frame = CGRectMake(DLMultipleWidth(10), 10, 2, 10);
+    verticalLine1.frame = CGRectMake(DLMultipleWidth(10.0), 10, 2, 10);
     verticalLine1.backgroundColor=RGB(0xfd, 0xb9, 0);
     UILabel* signedInLabel = [UILabel new];
     [signedInLabel setFont:[UIFont systemFontOfSize:15.0f]];
@@ -309,7 +308,7 @@
     [introduceView setBackgroundColor:[UIColor whiteColor]];
     
     UIView* verticalLine2 = [UIView new];
-    verticalLine2.frame = CGRectMake(DLMultipleWidth(10), 10, 2, 10);
+    verticalLine2.frame = CGRectMake(DLMultipleWidth(10.0), 10, 2, 10);
     verticalLine2.backgroundColor=RGB(0xfd, 0xb9, 0);
     
     UILabel *activityIntroduceTV = [[UILabel alloc]init];
@@ -387,15 +386,15 @@
     NSLog(@"btn clicked 转发");
     RepeaterGroupController* transmit = [[RepeaterGroupController alloc] init];
     [transmit.view setBackgroundColor:[UIColor clearColor]];
-    AppDelegate* appdelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     //根据系统版本，进行半透明展示
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         transmit.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         transmit.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [appdelegate.mainController presentViewController:transmit animated:YES completion:nil];
+//        [appdelegate.mainController presentViewController:transmit animated:YES completion:nil];
+        [self.context presentViewController:transmit animated:YES completion:nil];
     } else {
-        appdelegate.mainController.modalPresentationStyle = UIModalPresentationCurrentContext;
-        [appdelegate.mainController presentViewController:transmit animated:YES completion:nil];
+        self.context.modalPresentationStyle = UIModalPresentationCurrentContext;
+        [self.context presentViewController:transmit animated:YES completion:nil];
         
     }
 }

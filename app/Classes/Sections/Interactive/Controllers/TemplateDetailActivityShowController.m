@@ -23,6 +23,7 @@
     self.navigationItem.rightBarButtonItem = rightShareButton;
     [self.navigationController.navigationBar setTintColor:RGB(0x9b, 0x9b, 0x9b)];
     TemplateDetailActivityShowView *detailView = [[TemplateDetailActivityShowView alloc]initWithModel:self.model];
+    detailView.context = self;
     [self.view addSubview:detailView];
 }
 
