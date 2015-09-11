@@ -90,16 +90,16 @@
 
 - (void)builtInterfaceWithInter:(NSNumber *)num
 {
-    NSLog(@"绘制动画");
-    CGFloat tempNum = [num floatValue];
-    CGFloat allCount = [self.optionPercentage floatValue];
-    
-    CGFloat width = tempNum / allCount * DLScreenWidth;
-    
-    self.percentageLabel.text = [NSString stringWithFormat:@"%zd%%",num];
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 44)];
-    view.backgroundColor = self.voteViewColor;
-    [self insertSubview:view atIndex:0];
+//    NSLog(@"绘制动画");
+//    CGFloat tempNum = [num floatValue];
+//    CGFloat allCount = [self.optionPercentage floatValue];
+//    
+//    CGFloat width = tempNum / allCount * DLScreenWidth;
+//    
+//    self.percentageLabel.text = [NSString stringWithFormat:@"%zd%%",num];
+//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 44)];
+//    view.backgroundColor = self.voteViewColor;
+//    [self insertSubview:view atIndex:0];
 }
 
 /**

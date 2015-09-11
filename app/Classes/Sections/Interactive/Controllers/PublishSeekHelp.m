@@ -18,7 +18,7 @@
 #include "Interaction.h"
 
 //#import "UITextView+PlaceHolder.h"
-@interface PublishSeekHelp ()<DNImagePickerControllerDelegate>
+@interface PublishSeekHelp ()<DNImagePickerControllerDelegate,UIAlertViewDelegate>
 
 @end
 
@@ -156,13 +156,27 @@
     
     [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"endTime", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
         NSLog(@"发布求助成功 %@", json);
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布成功"message:@"少年郎,你的求助已经发布成功了,好好准备吧..." delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
+        [alertV show];
     } failure:^(id errorJson) {
         NSLog(@"发布求助失败 %@", errorJson);
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        [alertV show];
+
     }];
     
     
     
 }
+#pragma UIAlertView delegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"KPOSTNAME" object:nil userInfo:@{@"name":@"家豪"}];
+    }
+    
+}
+
 
 - (void)cancelButtonAction:(UIButton *)sender
 {

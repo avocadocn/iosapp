@@ -142,14 +142,14 @@ static NSString * const helpCellID = @"helpCellID";
     //添加返回按钮
     self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backBtn.frame = CGRectMake(12, 30, 12, 20);
-    [self.backBtn setImage:[UIImage imageNamed:@"btn_back_normal"] forState:UIControlStateNormal];
+    [self.backBtn setImage:[UIImage imageNamed:@"new_navigation_back@2x"] forState:UIControlStateNormal];
     [self.backBtn addTarget:self action:@selector(backBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backBtn];
     
     //按钮
     self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 34, 19, 19);
-    [self.settingBtn setImage:[UIImage imageNamed:@"btn_setting_normal"] forState:UIControlStateNormal];
+    [self.settingBtn setImage:[UIImage imageNamed:@"new_navigation_back_helight@2x"] forState:UIControlStateHighlighted];
     
     [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.settingBtn];

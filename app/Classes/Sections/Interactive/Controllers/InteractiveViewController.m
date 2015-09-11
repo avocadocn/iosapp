@@ -30,7 +30,7 @@
 #import "DetailActivityShowController.h"
 #import "PollModel.h"
 #import "LoginViewController.h"
-#import "Singleton.h"
+#import "Singletons.h"
 
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate, UIAlertViewDelegate>
 
@@ -59,6 +59,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
     
     // 设置背景颜色
     [self.view setBackgroundColor:RGB(235, 235, 235)];
@@ -74,6 +75,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self requestNet];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"KPOSTNAME" object:nil];
 }
+
 - (void)reFreshData:(NSNotification *)notice {
     NSLog(@"%@",notice.userInfo);
     Account *acc= [AccountTool account];
@@ -199,7 +201,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     NSMutableArray *buttonsMutable = [[NSMutableArray alloc] init];
     
     int i = 0;
-    NSArray *array = @[[UIImage imageNamed:@"event"], [UIImage imageNamed:@"vote"], [UIImage imageNamed:@"seek"]];
+    NSArray *array = @[[UIImage imageNamed:@"huodongs"], [UIImage imageNamed:@"toupiaos"], [UIImage imageNamed:@"qiuzhus"]];
     for (NSString *title in @[@"活动  ", @"投票  ", @"求助  "]) {
         CustomButton *button = [[CustomButton alloc]initWithFrame:CGRectMake(0.f, 0.f, DLMultipleWidth(96.0), DLMultipleWidth(48.0))];
         
@@ -428,6 +430,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     switch ([inter.type integerValue]) {
         case 1:{  // 活动详情
             DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
+            activityController.orTrue = YES;
             activityController.model = inter;
             [self.navigationController pushViewController:activityController animated:YES];
             break;

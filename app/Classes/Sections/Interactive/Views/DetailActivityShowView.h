@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong)Interaction *model;
 
+@property (nonatomic)BOOL orCreatBtn;
+
 - (instancetype)initWithModel:(Interaction *)model;
 
 @end

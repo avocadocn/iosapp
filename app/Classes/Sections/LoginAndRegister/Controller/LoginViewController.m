@@ -20,6 +20,9 @@
 @interface LoginViewController ()<DLNetworkRequestDelegate, UITextFieldDelegate>
 @property (nonatomic, strong)UILabel *phoneNumber;
 @property (nonatomic, strong)UILabel *passwordLabel;
+
+@property (nonatomic, strong)UITextField *textField;
+
 @end
 
 @implementation LoginViewController
@@ -31,10 +34,23 @@
 //    [self builtInterface];
     
     [self builtNewInterface];
+//    [self makeF];
 }
-
+- (void)makeF
+{
+    self.textField = [[UITextField alloc]initWithFrame:CGRectMake(0, 300, 100, 30)];
+    self.textField.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.textField];
+    UIButton *butto = [UIButton buttonWithType:UIButtonTypeSystem];
+    butto.frame = CGRectMake(100, 300, 100, 100);
+    butto.backgroundColor = [UIColor yellowColor];
+    [butto addTarget:self action:@selector(determineAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:butto];
+}
 - (void)builtNewInterface
 {
+    
+    
     self.view.backgroundColor = [UIColor whiteColor];
     NSInteger num = 44;
     self.mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(num, 20 + 64, DLScreenWidth - num * 2, num)];
@@ -80,6 +96,8 @@
     
 }
 
+
+
 - (void)builtInterface{
     self.title = @"登录";
     self.view.backgroundColor = DLSBackgroundColor;
@@ -89,8 +107,8 @@
     
     UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
     returnButton.frame = CGRectMake(10, 25, 30, 25);
-    [returnButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_back"] forState:UIControlStateNormal];
-    [returnButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_back_highlighted"] forState:UIControlStateHighlighted];
+    [returnButton setBackgroundImage:[UIImage imageNamed:@"new_navigation_back@2x"] forState:UIControlStateNormal];
+    [returnButton setBackgroundImage:[UIImage imageNamed:@"new_navigation_back_helight@2x"] forState:UIControlStateHighlighted];
 
     returnButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         
@@ -262,6 +280,7 @@
     }
     return YES;
 }
+
 
 
 @end

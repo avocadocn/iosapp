@@ -5,7 +5,7 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //
-
+#import "AddressBookModel.h"
 #import "CompanyViewController.h"
 #import <ReactiveCocoa.h>
 #import "CompanySmallCell.h"
@@ -19,9 +19,10 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
-
+#import "SendSchollTableModel.h"
 
 @interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@property (nonatomic, strong)NSMutableArray *photoArray;
 
 @end
 
@@ -31,17 +32,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self builtInterface]; //铺设截面
+//    [self netRequest];
     
 }
 - (void)builtInterface
 {
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout alloc];
-    layout.headerReferenceSize = CGSizeMake(DLScreenWidth, 65);
-    layout.minimumLineSpacing = 15;
+    layout.headerReferenceSize = CGSizeMake(DLScreenWidth, 85);
+    layout.minimumLineSpacing = 11;
     self.BigCollection = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
-    
     self.BigCollection.delegate = self;
     self.BigCollection.dataSource = self;
+//    self.BigCollection.backgroundColor = [UIColor cyanColor];
     [self.BigCollection registerClass:[CompanySmallCell class] forCellWithReuseIdentifier:@"SmallCell"]; //注册重用池
     [self.BigCollection setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.5]];
     [self.BigCollection registerClass:[CompanyHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BigHeader"];
@@ -75,13 +77,15 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(DLScreenWidth, DLScreenWidth / 3.5 + 30);
+    return CGSizeMake(DLScreenWidth, DLScreenWidth / 3.5 + 38);
 }
 // cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CompanySmallCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SmallCell" forIndexPath:indexPath];
-    
+    cell.tag = indexPath.row + 1;
+    SendSchollTableModel *model = [self.photoArray objectAtIndex:0];
+    [cell interCellWithModel:model];
     return cell;
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -96,6 +100,42 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)netRequest {
+    AddressBookModel *model = [[AddressBookModel alloc] init];
+    
+    [model setLimit:100.00];
+    [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
+        NSLog(@"请求成功-- %@",json);
+//        [self reloadTableViewWithJson:json];
+        self.photoArray = [NSMutableArray arrayWithObject:[self getPhotoArrayFromJson:json]];
+        [self.BigCollection reloadData];
+    } failure:^(id errorJson) {
+        NSLog(@"请求失败 %@",errorJson);
+    }];
+}
+
+- (SendSchollTableModel *)getPhotoArrayFromJson:(id)json
+{
+    NSMutableArray *photoArray = [NSMutableArray array];
+    for (NSDictionary *dic in json) {
+        NSDictionary *content = [dic objectForKey:@"content"];
+        NSArray *array = [content objectForKey:@"photos"];
+        if (array.count) {
+            [photoArray addObject:[array firstObject]];
+        }
+        if (photoArray.count == 9) {
+            SendSchollTableModel *model = [[SendSchollTableModel alloc]init];
+            model.photoArray = [NSArray arrayWithArray:photoArray];
+            model.titleName = @"同事圈";
+            model.detileName = @"不一样的精彩";
+            
+            return model;
+        }
+        
+    }
+    return nil;
 }
 
 

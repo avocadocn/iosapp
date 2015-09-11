@@ -9,7 +9,7 @@
 #import "DetailActivityShowController.h"
 #import "DetailActivityShowView.h"
 #import "interaction.h"
-
+#import "SBDetailActivityView.h"
 
 @interface DetailActivityShowController ()
 

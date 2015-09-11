@@ -16,4 +16,8 @@
 
 @property (nonatomic, strong)UIViewController *viewCon;
 
+@property (nonatomic, strong)UIImageView *gropView;
+
+@property (nonatomic, strong)UIImageView *contactsView;
+
 @end

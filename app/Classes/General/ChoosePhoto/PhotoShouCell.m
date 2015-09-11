@@ -7,7 +7,7 @@
 //
 
 #import "PhotoShouCell.h"
-
+#import "UIImageView+DLGetWebImage.h"
 @interface PhotoShouCell ()<UIScrollViewDelegate>
 
 @end
@@ -23,15 +23,16 @@
     return self;
 }
 
-- (void)settingUpImageViewWithImage:(UIImage *)image
+- (void)settingUpImageViewWithImage:(NSString *)image
 {
-    self.showImageView.image = image;
+    [self.showImageView dlGetRouteWebImageWithString:image placeholderImage:nil];
+//    self.showImageView.image = image;
     UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     
     scroll.maximumZoomScale = 3;
     scroll.alwaysBounceVertical = YES;
-    CGFloat width = scroll.frame.size.width / image.size.width; // scroll 与 image 的横比例
-    CGFloat height = image.size.height * width; // 根据比例算出高度
+    CGFloat width = scroll.frame.size.width / self.showImageView.image.size.width; // scroll 与 image 的横比例
+    CGFloat height = self.showImageView.image.size.height * width; // 根据比例算出高度
     scroll.delegate = self;
     
     self.showImageView.frame = CGRectMake(0, 0, scroll.frame.size.width, height);

@@ -13,7 +13,7 @@
 @interface DetailActivityShowController : UIViewController
 
 @property (nonatomic, strong)Interaction *model;
-
+@property (nonatomic)BOOL orTrue;
 
 
 

@@ -73,21 +73,24 @@
     switch ([model.type integerValue]) {
         case 1:{
             self.InteractiveTitle.text = @"活动进行中";
+            self.InteractiveTypeIcon.image = [UIImage imageNamed:@"Rectangle 177 + calendar + Fill 133"];
             break;
         }
         case 2:{
             self.InteractiveTitle.text = @"投票进行中";
+            self.InteractiveTypeIcon.image = [UIImage imageNamed:@"Rectangle 177 + chart + Fill 164"];
             break;
         }
         case 3:{
             self.InteractiveTitle.text = @"求助进行中";
+            self.InteractiveTypeIcon.image = [UIImage imageNamed:@"求助 + Shape Copy 8"];
             break;
         }
         default:
             break;
     }
     
-    [self.InteractiveTypeIcon dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [[model.photos lastObject] objectForKey:@"uri"] ] placeholderImage:[UIImage imageNamed:@"1"]];
+//    [self.InteractiveTypeIcon dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [[model.photos lastObject] objectForKey:@"uri"] ] placeholderImage:[UIImage imageNamed:@"1"]];
     
     self.publishTimeLabel.text = [model.activity objectForKey:@"startTime"];
     

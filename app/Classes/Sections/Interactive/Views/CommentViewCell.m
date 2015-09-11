@@ -7,7 +7,9 @@
 //
 
 #import "CommentViewCell.h"
-
+#import "UIImageView+DLGetWebImage.h"
+#import "CircleCommentModel.h"
+#import "AddressBookModel.h"
 
 @interface CommentViewCell()
 
@@ -25,41 +27,32 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
--(void)setCommentModel:(CommentsModel *)commentModel{
+-(void)setCommentModel:(CircleCommentModel *)commentModel{
     
     // 设置头像
-    self.avatar.image  = [UIImage imageNamed:commentModel.avatarUrl];
-   
+    self.avatar.image  = [UIImage imageNamed:commentModel.poster.photo];
+    
+    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
     
     // 设置昵称
-    self.name.text = commentModel.name;
-   
+    self.name.text = commentModel.poster.nickname;
+    
     
     
     // 设置评论正文
-    self.comment.text = commentModel.comment;
+    self.comment.text = commentModel.content;
     
+    CGFloat currentWidth = self.comment.width;
     
-   
+    CGSize maxCommentLabelSize = CGSizeMake(currentWidth, MAXFLOAT);
+    NSDictionary *attr = @{NSFontAttributeName:self.comment.font};
+    CGSize commentLabelSize = [commentModel.content boundingRectWithSize:maxCommentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
     
-        CGFloat currentWidth = self.comment.width;
-    
-        CGSize maxCommentLabelSize = CGSizeMake(currentWidth, MAXFLOAT);
-        NSDictionary *attr = @{NSFontAttributeName:self.comment.font};
-        CGSize commentLabelSize = [commentModel.comment boundingRectWithSize:maxCommentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
-    
-    
-        self.commentLabelHeight.constant = commentLabelSize.height;
-    
-           
-    
-    
-    
-    
+    self.commentLabelHeight.constant = commentLabelSize.height;
     
 }
 

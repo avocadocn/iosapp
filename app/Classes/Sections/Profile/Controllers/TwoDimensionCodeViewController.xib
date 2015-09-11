@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TwoDimensionCodeViewController">
             <connections>
-                <outlet property="twoDismensionCodeImage" destination="M3A-QE-m1z" id="pKJ-rv-Idz"/>
+                <outlet property="twoDismensionCodeImage" destination="EwR-Bg-8d8" id="a0S-nk-rfZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,31 +15,12 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TwoDimensionCode.png" translatesAutoresizingMaskIntoConstraints="NO" id="M3A-QE-m1z">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="120" id="NHC-qf-ywU"/>
-                        <constraint firstAttribute="height" constant="120" id="aDo-gf-F1G"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="NHC-qf-ywU"/>
-                            <exclude reference="aDo-gf-F1G"/>
-                        </mask>
-                    </variation>
-                    <variation key="heightClass=regular-widthClass=compact">
-                        <mask key="constraints">
-                            <include reference="NHC-qf-ywU"/>
-                            <include reference="aDo-gf-F1G"/>
-                        </mask>
-                    </variation>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="扫一扫，发现惊喜" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0O4-xs-G48">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我就是我，不一样的烟火" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0O4-xs-G48">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Tno-Dc-FDN"/>
                         <constraint firstAttribute="width" constant="120" id="qJp-cH-StF">
-                            <variation key="heightClass=regular-widthClass=compact" constant="140"/>
+                            <variation key="heightClass=regular-widthClass=compact" constant="300"/>
                         </constraint>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -58,44 +39,102 @@
                         </mask>
                     </variation>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="votep@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="Zr0-dd-0tx">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="1Cp-00-GLJ">
+                            <variation key="heightClass=regular-widthClass=compact" constant="293"/>
+                        </constraint>
+                        <constraint firstAttribute="width" constant="300" id="KsM-Qr-SqQ">
+                            <variation key="heightClass=regular-widthClass=compact" constant="314"/>
+                        </constraint>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="1Cp-00-GLJ"/>
+                            <exclude reference="KsM-Qr-SqQ"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="1Cp-00-GLJ"/>
+                            <include reference="KsM-Qr-SqQ"/>
+                        </mask>
+                    </variation>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EwR-Bg-8d8">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="agi-Qx-3Oj"/>
+                        <constraint firstAttribute="width" constant="120" id="oHX-xt-NG0"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="agi-Qx-3Oj"/>
+                            <exclude reference="oHX-xt-NG0"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="agi-Qx-3Oj"/>
+                            <include reference="oHX-xt-NG0"/>
+                        </mask>
+                    </variation>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="0O4-xs-G48" firstAttribute="top" secondItem="M3A-QE-m1z" secondAttribute="bottom" constant="13" id="9TC-gZ-HxE">
-                    <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                <constraint firstItem="Zr0-dd-0tx" firstAttribute="top" secondItem="EwR-Bg-8d8" secondAttribute="bottom" constant="-210" id="1bX-cr-bt9">
+                    <variation key="heightClass=regular-widthClass=compact" constant="-195"/>
                 </constraint>
-                <constraint firstAttribute="centerX" secondItem="M3A-QE-m1z" secondAttribute="centerX" id="ctt-fV-aZK"/>
+                <constraint firstAttribute="centerX" secondItem="Zr0-dd-0tx" secondAttribute="centerX" id="CHO-ft-3w2">
+                    <variation key="heightClass=regular-widthClass=compact" constant="-1"/>
+                </constraint>
+                <constraint firstItem="Zr0-dd-0tx" firstAttribute="leading" secondItem="EwR-Bg-8d8" secondAttribute="trailing" constant="-215" id="FaC-Np-GUP">
+                    <variation key="heightClass=regular-widthClass=compact" constant="-226"/>
+                </constraint>
+                <constraint firstItem="0O4-xs-G48" firstAttribute="top" secondItem="Zr0-dd-0tx" secondAttribute="bottom" constant="48" id="Uop-g5-CQ9">
+                    <variation key="heightClass=regular-widthClass=compact" constant="53"/>
+                </constraint>
                 <constraint firstAttribute="centerX" secondItem="0O4-xs-G48" secondAttribute="centerX" id="mHk-SH-cJJ"/>
-                <constraint firstAttribute="centerY" secondItem="M3A-QE-m1z" secondAttribute="centerY" constant="46" id="tNk-6Z-onL"/>
+                <constraint firstAttribute="centerY" secondItem="Zr0-dd-0tx" secondAttribute="centerY" constant="-37" id="uOw-W9-AtH">
+                    <variation key="heightClass=regular-widthClass=compact" constant="1.5"/>
+                </constraint>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
-                    <exclude reference="M3A-QE-m1z"/>
                     <exclude reference="0O4-xs-G48"/>
+                    <exclude reference="Zr0-dd-0tx"/>
+                    <exclude reference="EwR-Bg-8d8"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="9TC-gZ-HxE"/>
+                    <exclude reference="Uop-g5-CQ9"/>
                     <exclude reference="mHk-SH-cJJ"/>
-                    <exclude reference="ctt-fV-aZK"/>
-                    <exclude reference="tNk-6Z-onL"/>
+                    <exclude reference="1bX-cr-bt9"/>
+                    <exclude reference="CHO-ft-3w2"/>
+                    <exclude reference="FaC-Np-GUP"/>
+                    <exclude reference="uOw-W9-AtH"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
                 <mask key="subviews">
-                    <include reference="M3A-QE-m1z"/>
                     <include reference="0O4-xs-G48"/>
+                    <include reference="Zr0-dd-0tx"/>
+                    <include reference="EwR-Bg-8d8"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="9TC-gZ-HxE"/>
+                    <include reference="Uop-g5-CQ9"/>
                     <include reference="mHk-SH-cJJ"/>
-                    <include reference="ctt-fV-aZK"/>
-                    <include reference="tNk-6Z-onL"/>
+                    <include reference="1bX-cr-bt9"/>
+                    <include reference="CHO-ft-3w2"/>
+                    <include reference="FaC-Np-GUP"/>
+                    <include reference="uOw-W9-AtH"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="638" y="354"/>
         </view>
     </objects>
     <resources>
-        <image name="TwoDimensionCode.png" width="250" height="250"/>
+        <image name="votep@2x.png" width="250" height="250"/>
     </resources>
 </document>

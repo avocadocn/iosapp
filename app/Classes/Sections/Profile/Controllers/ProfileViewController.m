@@ -92,21 +92,22 @@ static NSString * const ID = @"ProfileTableViewCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     if (indexPath.section == 1) {
-        cell.menuCellIconWidth.constant = 0;
+//        cell.menuCellIconWidth.constant = 0;
+        [cell.menuCellIcon setImage:[UIImage imageNamed:@"表情icon copy"]];
         cell.menuCellName.text = @"喜欢的话就给我们评价吧";
     }else if (indexPath.section == 0){
         switch (indexPath.row) {
             case 0:
                 cell.menuCellName.text = @"邀请";
-                [cell.menuCellIcon setImage:[UIImage imageNamed:@"profile_menu_invite"]];
+                [cell.menuCellIcon setImage:[UIImage imageNamed:@"Shape Copy 2 + Line + Line Copy 6"]];
                 break;
             case 1:
                 cell.menuCellName.text = @"二维码";
-                 [cell.menuCellIcon setImage:[UIImage imageNamed:@"profile_menu_qrcode"]];
+                 [cell.menuCellIcon setImage:[UIImage imageNamed:@"Group"]];
                 break;
             case 2:
                 cell.menuCellName.text = @"设置";
-                 [cell.menuCellIcon setImage:[UIImage imageNamed:@"profile_menu_setting"]];
+                 [cell.menuCellIcon setImage:[UIImage imageNamed:@"gear"]];
                 break;
                 
             default:
@@ -169,7 +170,7 @@ static NSString * const ID = @"ProfileTableViewCell";
             break;
         case 3: // 活动
             //使用指定的frame大小初始化viewcontroller,高度增加64是因为后续会减掉64
-            controller = [[ActivityShowTableController alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight+64)];
+            controller = [[ActivityShowTableController alloc]init];
             break;
         case 4: // 投票
             controller = [[VoteTableController alloc]init];

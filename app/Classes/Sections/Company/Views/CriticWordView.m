@@ -28,10 +28,10 @@
     [self addSubview:self.criticIamge];
     
     [self.criticIamge mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_top);
-        make.left.mas_equalTo(self.mas_left);
-        make.width.mas_equalTo(self.mas_height);
-        make.bottom.mas_equalTo(self.mas_bottom);
+        make.top.mas_equalTo(self.mas_top).offset(10);
+        make.left.mas_equalTo(self.mas_left).offset(DLMultipleWidth(79.0));
+        make.width.mas_equalTo(15);
+        make.bottom.mas_equalTo(self.mas_bottom).offset(-10);
     }];
     
     self.criticText = [UILabel new];
@@ -42,10 +42,12 @@
     [self addSubview:self.criticText];
     
     [self.criticText mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_top);
+        make.top.mas_equalTo(self.criticIamge.mas_top);
         make.right.mas_equalTo(self.mas_right);
         make.left.mas_equalTo(self.criticIamge.mas_right).offset(self.height + 5);
-        make.bottom.mas_equalTo(self.mas_bottom);
+        make.bottom.mas_equalTo(self.criticIamge.mas_bottom);
+        
+        
     }];
     
     
