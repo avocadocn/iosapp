@@ -14,6 +14,7 @@
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
 #import "GroupCardModel.h"
+#import "LaunchEventController.h"
 
 @interface RepeaterGroupController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property UILabel* titleLabel;
@@ -165,6 +166,7 @@
 {
     GroupCardViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
     [cell cellReconsitutionWithModel:[self.modelArray objectAtIndex:indexPath.row]];
+    //for debug
     [cell.groupImageView setImage:[UIImage imageNamed:@"mzx.jpg"]];
     return cell;
 }
@@ -176,6 +178,12 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"点击");
+    LaunchEventController* l = [[LaunchEventController alloc] init];
+    [l addTemplate:self.model];
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.context pushViewController:l animated:YES];
+    }];
 }
 
 - (void)closeBtnClicked:(id)sender
