@@ -7,7 +7,7 @@
 //
 
 #import "WPHotspotLabel.h"
-
+#import "AddressBookModel.h"
 #import "ColleagueViewCell.h"
 #import <Masonry.h>
 #import "CircleImageView.h"
@@ -166,7 +166,7 @@ static NSString *userId = nil;
 {
 //    [self.circleImage dlGetRouteWebImageWithString:[model.poster objectForKey:@"photo"] placeholderImage:nil];
     self.circleImage.backgroundColor = [UIColor blueColor];
-    self.ColleagueNick.text = [model.poster objectForKey:@"nickname"];
+    self.ColleagueNick.text = model.poster.nickname;
     
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
     

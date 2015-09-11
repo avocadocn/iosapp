@@ -73,7 +73,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PhotoShouCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"photoShowCell" forIndexPath:indexPath];
-    UIImage *image = [self.showImageArray objectAtIndex:indexPath.row];
+    NSString *image = [self.showImageArray objectAtIndex:indexPath.row];
     [cell settingUpImageViewWithImage:image];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTapAction:)];

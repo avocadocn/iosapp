@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class AddressBookModel;
 
 @interface CircleContextModel : NSObject
 
@@ -41,12 +42,14 @@
 
 @property (nonatomic, strong)NSMutableArray *photo;
 
-@property (nonatomic, strong)NSDictionary *poster;
+@property (nonatomic, strong)AddressBookModel *poster;
 
 @property (nonatomic, strong)NSMutableDictionary *body;
 
 @property (nonatomic, copy)NSString *contentId;
 
+@property (nonatomic, strong)UIView *detileView;
 
+@property (nonatomic, strong)AddressBookModel *target;
 
 @end

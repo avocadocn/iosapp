@@ -44,6 +44,7 @@
     newView.layer.masksToBounds = YES;
     newView.layer.cornerRadius = (self.frame.size.width - 6) / 2.0;
     
+    /*
       
 //    
 //    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 3, self.frame.size.width - 6, self.frame.size.width - 6)];
@@ -57,7 +58,8 @@
 //    
 //    [self addSubview:imageView];
 //    
-//    
+     
+    */
     
     
     self.backgroundColor = [UIColor clearColor];

@@ -107,8 +107,8 @@
     
     UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
     returnButton.frame = CGRectMake(10, 25, 30, 25);
-    [returnButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_back"] forState:UIControlStateNormal];
-    [returnButton setBackgroundImage:[UIImage imageNamed:@"navigationbar_back_highlighted"] forState:UIControlStateHighlighted];
+    [returnButton setBackgroundImage:[UIImage imageNamed:@"new_navigation_back@2x"] forState:UIControlStateNormal];
+    [returnButton setBackgroundImage:[UIImage imageNamed:@"new_navigation_back_helight@2x"] forState:UIControlStateHighlighted];
 
     returnButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         

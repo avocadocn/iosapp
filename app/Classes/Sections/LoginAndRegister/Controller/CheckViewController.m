@@ -75,7 +75,7 @@ self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
     self.label.textColor = [UIColor lightGrayColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.label];
     
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(tapAction:) image:@"navigationbar_back" highImage:@"navigationbar_back_highlighted"];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(tapAction:) image:@"new_navigation_back@2x" highImage:@"new_navigation_back_helight@2x"];
     
 }
 

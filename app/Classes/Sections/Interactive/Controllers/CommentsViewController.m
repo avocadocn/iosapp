@@ -10,6 +10,8 @@
 #import "CommentViewCell.h"
 #import "CommentsModel.h"
 #import "CustomKeyBoard.h"
+#import "CircleCommentModel.h"
+#import "AddressBookModel.h"
 
 @interface CommentsViewController ()
 
@@ -62,7 +64,7 @@ static NSString * const ID = @"VoteCommentViewCell";
         CommentsModel *model = [[CommentsModel alloc]init];
         model.name = @"杨彤";
         model.avatarUrl = @"1";
-        model.comment = @"你猜猜看这是哪里？猜到了我就告诉你。我就是不告诉你，你咬我啊？哈哈哈哈哈哈哈哈哈哈哈，什么买什么什么什么吗";
+        model.comment = @"你猜猜看么什的低洼低洼的吾问无为谓哇哇哇哇么吗吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无问无为谓吾问无为谓哇哇哇哇哇哇哇哇";
         
         [self.comments addObject:model];
     }
@@ -121,6 +123,8 @@ static NSString * const ID = @"VoteCommentViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CommentViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+    
+//    CircleCommentModel *model = [[CircleCommentModel alloc]init];
     
     [cell setCommentModel:self.comments[indexPath.row]];
     
