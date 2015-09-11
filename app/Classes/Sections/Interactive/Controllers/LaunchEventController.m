@@ -17,7 +17,7 @@
 #import "Interaction.h"
 #import "AccountTool.h"
 #import "Account.h"
-#import "Singleton.h"
+#import "Singletons.h"
 #import "getIntroModel.h"
 static NSInteger num = 0;
 
@@ -114,7 +114,6 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     
 }
 
-}
 - (void)makeFlaseValue
 {
     self.remindTitleArray = [NSMutableArray arrayWithObjects:@"没有提醒",@"10分钟前",@"30分钟前",@"1小时前",@"2小时前",@"1天前",@"2天前", nil];

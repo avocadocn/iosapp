@@ -20,7 +20,9 @@
 #import "Singletons.h"
 #import "SBDetailViewController.h"
 @interface ActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
+
 @property(nonatomic,strong) UITableView *tableView;
+
 @property(nonatomic,strong) NSMutableArray *modelArray;
 @end
 
@@ -29,15 +31,16 @@
 
 static NSString * const ID = @"OtherActivityShowCell";
 
-
+//-(id)initWithFrame:(CGRect)frame {
+//    
+//}
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        
         [self addActivitysShowTable];
         [self.view setBackgroundColor:RGB(230, 230, 230)];
-        [self netWorkRequest];
+        [self requestNet];
     }
     return self;
 }
@@ -114,34 +117,34 @@ static NSString * const ID = @"OtherActivityShowCell";
  */
 -(void)addActivitysShowTable{
     
-    UITableView *tableView = [[UITableView alloc]init];
-    [tableView registerClass:[OtherActivityShowCell class] forCellReuseIdentifier:ID];
-    // 设置分割线样式
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    [tableView setFrame:self.view.frame];
-//    NSLog(@"view frame is :%@",NSStringFromCGRect(self.view.frame));
-    //将tableview的高度减小一个导航栏的高度
-    tableView.height -= 64;
-//    NSLog(@"tableview frame is :%@",NSStringFromCGRect(tableView.frame));
-    [tableView setBackgroundColor:self.view.backgroundColor];
-    [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
-    [tableView setShowsVerticalScrollIndicator:NO];
-    [tableView setDelegate:self];
-    [tableView setDataSource:self];
-    [self.view addSubview:tableView];
-    self.tableView = tableView;
+//    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+//
+//    // 设置分割线样式
+////    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    
+////    [tableView setFrame:self.view.frame];
+////    NSLog(@"view frame is :%@",NSStringFromCGRect(self.view.frame));
+//    //将tableview的高度减小一个导航栏的高度
+////    tableView.height -= 64;
+////    NSLog(@"tableview frame is :%@",NSStringFromCGRect(tableView.frame));
+//    [tableView setBackgroundColor:self.view.backgroundColor];
+//    [tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+//    [tableView setShowsVerticalScrollIndicator:NO];
+//    [tableView setDelegate:self];
+//    [tableView setDataSource:self];
+//    [self.view addSubview:tableView];
+//    self.tableView = tableView;
     // NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight) style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.tableView registerClass:[OtherActivityShowCell class] forCellReuseIdentifier:ID];
+    [self.view addSubview:self.tableView];
 }
-
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    // Return the number of sections.
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
@@ -172,16 +175,16 @@ static NSString * const ID = @"OtherActivityShowCell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    return 290 * DLScreenWidth / 375;
-    
-//    Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
-//    if (current.photos.count!=0) {
-//        NSInteger height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
-//        NSInteger width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
-//        if (width<320) {
-//            height *= 320.0/width;
-//        }
-//        return 90 + height;
-//    }
+//    
+////    Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
+////    if (current.photos.count!=0) {
+////        NSInteger height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
+////        NSInteger width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
+////        if (width<320) {
+////            height *= 320.0/width;
+////        }
+////        return 90 + height;
+////    }
     return 290;
 }
 

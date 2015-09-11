@@ -72,8 +72,8 @@ static NSInteger indexNum = 0;
         [TitleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(5);
             make.top.mas_equalTo(self).with.offset(8);
-            make.size.mas_equalTo(CGSizeMake(DLScreenWidth / 3.5- 10, DLScreenWidth / 3.5 - 10));
-        }];
+            make.size.mas_equalTo(CGSizeMake(DLScreenWidth / 3.5, DLScreenWidth / 3.5));
+        }];  // itemd大小
         
         UIImageView *imageView = [UIImageView new];
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", (long)indexNum]];
@@ -102,7 +102,7 @@ static NSInteger indexNum = 0;
             make.height.mas_equalTo(20.0);
         }];
         
-        self.SmallCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenWidth / 3.5) collectionViewLayout:layout];
+        self.SmallCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenWidth / 3.5 ) collectionViewLayout:layout];
 //        self.SmallCollection = [UICollectionView new];
         self.SmallCollection.collectionViewLayout = layout;
         [self.SmallCollection setBackgroundColor:[UIColor whiteColor]];
@@ -118,9 +118,10 @@ static NSInteger indexNum = 0;
             make.bottom.mas_equalTo(TitleView.mas_bottom);
         }];
         
-        self.TitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, DLScreenWidth / 3.5 + 2, DLScreenWidth - 20, 22)];
+        self.TitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, DLScreenWidth / 3.5 + 12, DLScreenWidth - 20, 22)];
         //    [self.TitleLabel setBackgroundColor:[UIColor redColor]];
-        self.TitleLabel.text = @"汉子们还没想好去哪玩吗?还不过来看看";
+        NSArray *labelArry = @[@"好多童鞋就要过生日啦，还不去送上祝福！",@"不一样的精彩",@"汉子们扔掉肥皂，迎接小鲜肉"];
+        self.TitleLabel.text = [labelArry objectAtIndex:(indexNum - 1)];
         self.TitleLabel.textColor = [UIColor colorWithWhite:.2 alpha:.6];
         self.TitleLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:self.TitleLabel];
