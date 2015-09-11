@@ -12,6 +12,6 @@
 
 @property (nonatomic, strong)UIImageView *showImageView;
 
-- (void)settingUpImageViewWithImage:(UIImage *)image;
+- (void)settingUpImageViewWithImage:(NSString *)image;
 
 @end

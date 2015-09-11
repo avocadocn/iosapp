@@ -19,7 +19,7 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
-
+#import "SendSchollTableModel.h"
 
 @interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong)NSMutableArray *photoArray;
@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self builtInterface]; //铺设截面
-    [self netRequest];
+//    [self netRequest];
     
 }
 - (void)builtInterface
@@ -83,8 +83,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CompanySmallCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SmallCell" forIndexPath:indexPath];
-    
-    [cell interCellWithModelArray:self.photoArray];
+    cell.tag = indexPath.row + 1;
+    SendSchollTableModel *model = [self.photoArray objectAtIndex:0];
+    [cell interCellWithModel:model];
     return cell;
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -108,14 +109,14 @@
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
         NSLog(@"请求成功-- %@",json);
 //        [self reloadTableViewWithJson:json];
-        self.photoArray = [NSMutableArray arrayWithArray:[self getPhotoArrayFromJson:json]];
+        self.photoArray = [NSMutableArray arrayWithObject:[self getPhotoArrayFromJson:json]];
         [self.BigCollection reloadData];
     } failure:^(id errorJson) {
         NSLog(@"请求失败 %@",errorJson);
     }];
 }
 
-- (NSArray *)getPhotoArrayFromJson:(id)json
+- (SendSchollTableModel *)getPhotoArrayFromJson:(id)json
 {
     NSMutableArray *photoArray = [NSMutableArray array];
     for (NSDictionary *dic in json) {
@@ -125,8 +126,14 @@
             [photoArray addObject:[array firstObject]];
         }
         if (photoArray.count == 9) {
-            return photoArray;
+            SendSchollTableModel *model = [[SendSchollTableModel alloc]init];
+            model.photoArray = [NSArray arrayWithArray:photoArray];
+            model.titleName = @"同事圈";
+            model.detileName = @"不一样的精彩";
+            
+            return model;
         }
+        
     }
     return nil;
 }

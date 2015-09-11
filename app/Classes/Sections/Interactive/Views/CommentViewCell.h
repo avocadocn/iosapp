@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "CommentsModel.h"
+@class CircleCommentModel;
+
 
 @interface CommentViewCell : UITableViewCell
 
@@ -19,6 +20,6 @@
 
 @property (nonatomic, assign) CGFloat cellHeight;
 
-@property (nonatomic, strong)CommentsModel *commentModel;
+@property (nonatomic, strong)CircleCommentModel *commentModel;
 
 @end

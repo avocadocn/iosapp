@@ -68,23 +68,7 @@
     
     [self.view addSubview:self.dynamicTableView];
 }
-/*
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self updateImg];
-}
 
-
-- (void)updateImg {
-    CGFloat yOffset   = self.dynamicTableView.contentOffset.y + 64;
-    if (yOffset < 0) {
-        
-        CGFloat factor = ((ABS(yOffset)+250.0)*375)/250.0;
-        CGRect f = CGRectMake(-(factor-375.0)/2, 0, factor, 250.0+ABS(yOffset));
-        self.header.frame = f;
-        self.header.y += yOffset;
-    }
-}
-*/
 - (UIView *)tableViewHeaderView
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight / (667 / 250.0))];
@@ -190,7 +174,6 @@
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
     }
 }
-
 
 /*
  #pragma mark - Navigation

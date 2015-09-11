@@ -11,7 +11,6 @@
 		5436967D1B9D401E00261F2D /* 标尺.png in Resources */ = {isa = PBXBuildFile; fileRef = 5436967C1B9D401E00261F2D /* 标尺.png */; };
 		5458675A1BA05CC6009ED3E7 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */; };
 		5458675B1BA05CC6009ED3E7 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */; };
-		5458675E1BA166BB009ED3E7 /* Singletons.m in Sources */ = {isa = PBXBuildFile; fileRef = 5458675D1BA166BB009ED3E7 /* Singletons.m */; };
 		545867611BA17BCA009ED3E7 /* SBDetailActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867601BA17BCA009ED3E7 /* SBDetailActivityView.m */; };
 		545867641BA17EF8009ED3E7 /* SBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867631BA17EF8009ED3E7 /* SBDetailViewController.m */; };
 		545867681BA1821F009ED3E7 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867651BA1821F009ED3E7 /* gear.png */; };
@@ -49,7 +48,6 @@
 		546CA5971B9ECD7B0066CC0C /* NYSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA5931B9ECD7B0066CC0C /* NYSegmentedControl.m */; };
 		546CA5981B9ECD7B0066CC0C /* NYSegmentIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA5951B9ECD7B0066CC0C /* NYSegmentIndicator.m */; };
 		546CA59B1B9EDA930066CC0C /* InteractionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA59A1B9EDA930066CC0C /* InteractionView.m */; };
-		546CA59E1BA009210066CC0C /* Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 546CA59D1BA009210066CC0C /* Singleton.m */; };
 		54B46A051B9547C000A6500B /* InvatingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B46A041B9547C000A6500B /* InvatingModel.m */; };
 		54BB1DB61B8DAC3600F76628 /* TwoDimensionCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DB41B8DAC3600F76628 /* TwoDimensionCodeViewController.m */; };
 		54BB1DB71B8DAC3600F76628 /* TwoDimensionCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DB51B8DAC3600F76628 /* TwoDimensionCodeViewController.xib */; };
@@ -544,6 +542,7 @@
 		A42D7EB41B785AF700F791DA /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = A42D7EB31B785AF700F791DA /* mask.png */; };
 		A42D7EEF1B78B31400F791DA /* CircleContextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A42D7EEE1B78B31400F791DA /* CircleContextModel.m */; };
 		A42D7EF21B78B32900F791DA /* CircleCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A42D7EF11B78B32900F791DA /* CircleCommentModel.m */; };
+		A42F498A1BA1BD2E002B55AB /* Singletons.m in Sources */ = {isa = PBXBuildFile; fileRef = A42F49891BA1BD2E002B55AB /* Singletons.m */; };
 		A4311F4B1B574748004401B4 /* CompanySmallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F491B574748004401B4 /* CompanySmallCell.m */; };
 		A4311F4F1B57565A004401B4 /* CompanyDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F4E1B57565A004401B4 /* CompanyDetailCell.m */; };
 		A4311F521B575F37004401B4 /* CompanyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F511B575F37004401B4 /* CompanyHeader.m */; };
@@ -556,6 +555,9 @@
 		A434C6111B71EA1E009643CD /* ApertureView.m in Sources */ = {isa = PBXBuildFile; fileRef = A434C6101B71EA1E009643CD /* ApertureView.m */; };
 		A434C6141B71F17E009643CD /* TableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A434C6131B71F17E009643CD /* TableHeaderView.m */; };
 		A434C6171B71FDE7009643CD /* DynamicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A434C6161B71FDE7009643CD /* DynamicTableViewCell.m */; };
+		A43707B31BA272B3002D774C /* SendSchollTableModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43707B21BA272B3002D774C /* SendSchollTableModel.m */; };
+		A43707B61BA280A9002D774C /* CricleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43707B51BA280A9002D774C /* CricleDetailViewController.m */; };
+		A43707B91BA294F0002D774C /* CommentCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A43707B81BA294EF002D774C /* CommentCardCell.m */; };
 		A439D5191B9EEC09006085F7 /* NSMutableString+TagReplace.m in Sources */ = {isa = PBXBuildFile; fileRef = A439D5161B9EEC09006085F7 /* NSMutableString+TagReplace.m */; };
 		A439D51A1B9EEC09006085F7 /* NSString+WPAttributedMarkup.m in Sources */ = {isa = PBXBuildFile; fileRef = A439D5181B9EEC09006085F7 /* NSString+WPAttributedMarkup.m */; };
 		A439D5221B9EEC14006085F7 /* WPAttributedStyleAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A439D51D1B9EEC14006085F7 /* WPAttributedStyleAction.m */; };
@@ -719,8 +721,6 @@
 		545867571BA05CC6009ED3E7 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
-		5458675C1BA166BB009ED3E7 /* Singletons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singletons.h; sourceTree = "<group>"; };
-		5458675D1BA166BB009ED3E7 /* Singletons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singletons.m; sourceTree = "<group>"; };
 		5458675F1BA17BCA009ED3E7 /* SBDetailActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDetailActivityView.h; sourceTree = "<group>"; };
 		545867601BA17BCA009ED3E7 /* SBDetailActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDetailActivityView.m; sourceTree = "<group>"; };
 		545867621BA17EF8009ED3E7 /* SBDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDetailViewController.h; sourceTree = "<group>"; };
@@ -766,8 +766,6 @@
 		546CA5951B9ECD7B0066CC0C /* NYSegmentIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegmentIndicator.m; sourceTree = "<group>"; };
 		546CA5991B9EDA930066CC0C /* InteractionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionView.h; sourceTree = "<group>"; };
 		546CA59A1B9EDA930066CC0C /* InteractionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionView.m; sourceTree = "<group>"; };
-		546CA59C1BA009210066CC0C /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
-		546CA59D1BA009210066CC0C /* Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singleton.m; sourceTree = "<group>"; };
 		54B46A031B9547C000A6500B /* InvatingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingModel.h; sourceTree = "<group>"; };
 		54B46A041B9547C000A6500B /* InvatingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingModel.m; sourceTree = "<group>"; };
 		54BB1DB31B8DAC3600F76628 /* TwoDimensionCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoDimensionCodeViewController.h; sourceTree = "<group>"; };
@@ -1580,6 +1578,8 @@
 		A42D7EEE1B78B31400F791DA /* CircleContextModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleContextModel.m; sourceTree = "<group>"; };
 		A42D7EF01B78B32900F791DA /* CircleCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCommentModel.h; sourceTree = "<group>"; };
 		A42D7EF11B78B32900F791DA /* CircleCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCommentModel.m; sourceTree = "<group>"; };
+		A42F49881BA1BD2E002B55AB /* Singletons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singletons.h; sourceTree = "<group>"; };
+		A42F49891BA1BD2E002B55AB /* Singletons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singletons.m; sourceTree = "<group>"; };
 		A4311F481B574748004401B4 /* CompanySmallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySmallCell.h; sourceTree = "<group>"; };
 		A4311F491B574748004401B4 /* CompanySmallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySmallCell.m; sourceTree = "<group>"; };
 		A4311F4D1B57565A004401B4 /* CompanyDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyDetailCell.h; sourceTree = "<group>"; };
@@ -1602,6 +1602,12 @@
 		A434C6131B71F17E009643CD /* TableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableHeaderView.m; sourceTree = "<group>"; };
 		A434C6151B71FDE7009643CD /* DynamicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicTableViewCell.h; sourceTree = "<group>"; };
 		A434C6161B71FDE7009643CD /* DynamicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicTableViewCell.m; sourceTree = "<group>"; };
+		A43707B11BA272B3002D774C /* SendSchollTableModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendSchollTableModel.h; sourceTree = "<group>"; };
+		A43707B21BA272B3002D774C /* SendSchollTableModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendSchollTableModel.m; sourceTree = "<group>"; };
+		A43707B41BA280A9002D774C /* CricleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CricleDetailViewController.h; sourceTree = "<group>"; };
+		A43707B51BA280A9002D774C /* CricleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CricleDetailViewController.m; sourceTree = "<group>"; };
+		A43707B71BA294EF002D774C /* CommentCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCardCell.h; sourceTree = "<group>"; };
+		A43707B81BA294EF002D774C /* CommentCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCardCell.m; sourceTree = "<group>"; };
 		A439D5151B9EEC09006085F7 /* NSMutableString+TagReplace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+TagReplace.h"; sourceTree = "<group>"; };
 		A439D5161B9EEC09006085F7 /* NSMutableString+TagReplace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+TagReplace.m"; sourceTree = "<group>"; };
 		A439D5171B9EEC09006085F7 /* NSString+WPAttributedMarkup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WPAttributedMarkup.h"; sourceTree = "<group>"; };
@@ -2176,12 +2182,12 @@
 		9649B5071B564DE000A7F355 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A42F49881BA1BD2E002B55AB /* Singletons.h */,
+				A42F49891BA1BD2E002B55AB /* Singletons.m */,
 				E22ED81C1B9FCDFC00CF4109 /* GTM */,
 				96AA19781B79EBB6008E4CA3 /* AddressBookTool */,
 				967439A51B705907004334A4 /* NetworkRequestTool */,
 				9649B5081B564DE000A7F355 /* PrefixHeader.pch */,
-				5458675C1BA166BB009ED3E7 /* Singletons.h */,
-				5458675D1BA166BB009ED3E7 /* Singletons.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2305,6 +2311,8 @@
 				A43E36B61B58C55500AA2FC7 /* ConditionController.m */,
 				A4745E131B81BD1C008EB944 /* OwnnessViewController.h */,
 				A4745E141B81BD1C008EB944 /* OwnnessViewController.m */,
+				A43707B41BA280A9002D774C /* CricleDetailViewController.h */,
+				A43707B51BA280A9002D774C /* CricleDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2320,6 +2328,8 @@
 				A42D7EEE1B78B31400F791DA /* CircleContextModel.m */,
 				A42D7EF01B78B32900F791DA /* CircleCommentModel.h */,
 				A42D7EF11B78B32900F791DA /* CircleCommentModel.m */,
+				A43707B11BA272B3002D774C /* SendSchollTableModel.h */,
+				A43707B21BA272B3002D774C /* SendSchollTableModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2346,6 +2356,8 @@
 				A4650F1F1B7DBDCD00013A17 /* UserInterView.m */,
 				A4650F2B1B7DCD9600013A17 /* SHLUILabel.h */,
 				A4650F2C1B7DCD9600013A17 /* SHLUILabel.m */,
+				A43707B71BA294EF002D774C /* CommentCardCell.h */,
+				A43707B81BA294EF002D774C /* CommentCardCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4955,6 +4967,7 @@
 				96CF90C81B673422001759E2 /* DACircularProgressView.m in Sources */,
 				96CF91891B674193001759E2 /* AppDelegate+EaseMob.m in Sources */,
 				96D20EB81B60AE5D00102D18 /* DLNavBar.m in Sources */,
+				A43707B61BA280A9002D774C /* CricleDetailViewController.m in Sources */,
 				A48B1B5A1B707E0A0049237E /* AddressViewController.m in Sources */,
 				968C27331B7AF64600950581 /* TeamInfomationViewController.m in Sources */,
 				968C27461B7B43BE00950581 /* VoteBottomToolBar.m in Sources */,
@@ -4969,7 +4982,6 @@
 				96E3D83B1B7DA60600A623B7 /* UserMessageTableViewCell.m in Sources */,
 				96D20EAF1B5F97F300102D18 /* RankListController.m in Sources */,
 				96CF90C91B673422001759E2 /* EMSDImageCache.m in Sources */,
-				546CA59E1BA009210066CC0C /* Singleton.m in Sources */,
 				96CF90D11B673422001759E2 /* NSData+EMImageContentType.m in Sources */,
 				9610535B1B590C96002D62A3 /* InteractiveViewController.m in Sources */,
 				96CF93951B674B54001759E2 /* MessageModel.m in Sources */,
@@ -5023,7 +5035,6 @@
 				96CF90CC1B673422001759E2 /* EMSDWebImageDownloader.m in Sources */,
 				A45727051B74BA0500A27B79 /* RepeaterGroupController.m in Sources */,
 				96CF90BF1B673422001759E2 /* EmojiEmoticons.m in Sources */,
-				5458675E1BA166BB009ED3E7 /* Singletons.m in Sources */,
 				A44D40081B7300C200B10DFB /* LaunchEventController.m in Sources */,
 				961053581B590C70002D62A3 /* OtherController.m in Sources */,
 				96CF90B71B673422001759E2 /* EMAudioRecorderUtil.m in Sources */,
@@ -5036,6 +5047,7 @@
 				968C273A1B7B0F7600950581 /* CustomMemberTableViewCell.m in Sources */,
 				9649B5401B564DE000A7F355 /* MainController.m in Sources */,
 				A44B35561B82E088004F7A6A /* FillInformationCon.m in Sources */,
+				A42F498A1BA1BD2E002B55AB /* Singletons.m in Sources */,
 				9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */,
 				96CF90C51B673422001759E2 /* MWTapDetectingImageView.m in Sources */,
 				A4F315671B5E4BFB00126C8A /* PhotoCell.m in Sources */,
@@ -5063,6 +5075,7 @@
 				A439D51A1B9EEC09006085F7 /* NSString+WPAttributedMarkup.m in Sources */,
 				A461E7E01B954C3500C25C21 /* PollModel.m in Sources */,
 				96CF93A81B674B54001759E2 /* AddFriendViewController.m in Sources */,
+				A43707B91BA294F0002D774C /* CommentCardCell.m in Sources */,
 				96CF938D1B674B54001759E2 /* EMChatBaseBubbleView.m in Sources */,
 				A4F594FA1B7C7C740088D9CC /* HMShopCell.m in Sources */,
 				54BB1DBF1B8DB7E300F76628 /* SettingViewController.m in Sources */,
@@ -5098,6 +5111,7 @@
 				A4745E151B81BD1C008EB944 /* OwnnessViewController.m in Sources */,
 				96CF938F1B674B54001759E2 /* EMChatLocationBubbleView.m in Sources */,
 				A4745E071B81A9AC008EB944 /* UIViewController+DNImagePicker.m in Sources */,
+				A43707B31BA272B3002D774C /* SendSchollTableModel.m in Sources */,
 				96CF90BC1B673422001759E2 /* EMCDDeviceManagerBase.m in Sources */,
 				A44B35661B83135C004F7A6A /* DXAlertView.m in Sources */,
 				9649B5421B564DE000A7F355 /* ProfileViewController.m in Sources */,
@@ -5320,7 +5334,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5349,7 +5363,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

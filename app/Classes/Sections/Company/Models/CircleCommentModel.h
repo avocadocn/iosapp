@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class AddressBookModel;
 @interface CircleCommentModel : NSObject
 
 
@@ -23,6 +23,10 @@
 @property (nonatomic, copy)NSString *status;// (string): 消息状态
 @property (nonatomic, copy)NSString *contentId;
 @property (nonatomic, copy)NSString *commentId;
+
+@property (nonatomic, strong)AddressBookModel *target;
+@property (nonatomic, strong)AddressBookModel *poster;
+
 
 /**
  *

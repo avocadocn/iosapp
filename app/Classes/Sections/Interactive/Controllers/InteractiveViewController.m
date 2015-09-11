@@ -30,7 +30,7 @@
 #import "DetailActivityShowController.h"
 #import "PollModel.h"
 #import "LoginViewController.h"
-#import "Singleton.h"
+#import "Singletons.h"
 
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate, UIAlertViewDelegate>
 

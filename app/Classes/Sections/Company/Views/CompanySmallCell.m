@@ -10,10 +10,10 @@
 #import "PrefixHeader.pch"
 #import "CompanyDetailCell.h"
 #import "ColleagueViewController.h"
-
+#import "SendSchollTableModel.h"
 #import <Masonry.h>
 
-static NSInteger indexNum = 0;
+static NSInteger indexNum = 1;
 //typedef NS_ENUM(NSInteger, EnumOfCellTitleState){
 //    EnumOfCellTitleStateNo,
 //    EnumOfCellTitleStateYes
@@ -22,7 +22,7 @@ static NSInteger indexNum = 0;
 
 @interface CompanySmallCell ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 //@property (nonatomic, assign)EnumOfCellTitleState state;
-
+@property (nonatomic, strong)UILabel *titleViewLabel;
 @property (nonatomic, strong)NSMutableArray *modelArray;
 
 @end
@@ -47,11 +47,13 @@ static NSInteger indexNum = 0;
 - (void)builtInterFace
 {
     @autoreleasepool {
+        
         NSArray *array= [NSArray arrayWithObjects:@"同事圈",@"新人报道", @"生日祝福" ,nil];
         NSArray *colorArray = [NSArray arrayWithObjects:
-                               [UIColor colorWithRed:1 green:.8 blue:0 alpha:.8],
-                               [UIColor colorWithRed:.2 green:.5 blue:1 alpha:1],
-                               [UIColor orangeColor], nil];
+
+                               RGBACOLOR(240, 213, 50, 1),
+                               RGBACOLOR(100, 259, 234, 1),
+                               RGBACOLOR(222, 164, 37, 1), nil];
         
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
@@ -60,7 +62,7 @@ static NSInteger indexNum = 0;
         
         UIView *TitleView = [UIView new];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(titleViewAction:)];
-        indexNum ++;
+
         TitleView.tag = indexNum;
         [TitleView addGestureRecognizer:tap];
 
@@ -76,7 +78,7 @@ static NSInteger indexNum = 0;
         }];
         
         UIImageView *imageView = [UIImageView new];
-        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", (long)indexNum]];
+        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", (long)indexNum - 1]];
         [TitleView addSubview:imageView];
         
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -89,13 +91,13 @@ static NSInteger indexNum = 0;
             make.bottom.mas_equalTo(TitleView).with.offset(-25);
         }];
         
-        UILabel *titleViewLabel = [UILabel new];
-        titleViewLabel.text = [array objectAtIndex:(indexNum - 1)];
-        [titleViewLabel setTextColor:[UIColor whiteColor]];
-        titleViewLabel.textAlignment = NSTextAlignmentCenter;
-        titleViewLabel.font = [UIFont systemFontOfSize:15];
-        [TitleView addSubview:titleViewLabel];
-        [titleViewLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.titleViewLabel = [UILabel new];
+        [self.titleViewLabel setTextColor:[UIColor whiteColor]];
+        self.titleViewLabel.textAlignment = NSTextAlignmentCenter;
+        self.titleViewLabel.font = [UIFont systemFontOfSize:15];
+        self.titleViewLabel.text = [array objectAtIndex:indexNum - 1];
+        [TitleView addSubview:self.titleViewLabel];
+        [self.titleViewLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(imageView.mas_bottom).offset(3);
             make.left.mas_equalTo(TitleView.mas_left);
             make.right.mas_equalTo(TitleView.mas_right);
@@ -117,15 +119,16 @@ static NSInteger indexNum = 0;
             make.top.mas_equalTo(self.mas_top);
             make.bottom.mas_equalTo(TitleView.mas_bottom);
         }];
-        
+        NSArray *titleArray = @[@"不一样的精彩", @"汉子们扔掉肥皂,迎接小鲜肉", @"好多童鞋就要过生日啦,还不去送上祝福!"];
         self.TitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, DLScreenWidth / 3.5 + 2, DLScreenWidth - 20, 22)];
         //    [self.TitleLabel setBackgroundColor:[UIColor redColor]];
-        self.TitleLabel.text = @"汉子们还没想好去哪玩吗?还不过来看看";
+        self.TitleLabel.text = [titleArray objectAtIndex:indexNum - 1];
         self.TitleLabel.textColor = [UIColor colorWithWhite:.2 alpha:.6];
         self.TitleLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:self.TitleLabel];
         
         self.backgroundColor = [UIColor whiteColor];
+        indexNum ++;
     }
 }
 
@@ -156,15 +159,15 @@ static NSInteger indexNum = 0;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CompanyDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DetailCell" forIndexPath:indexPath];
-    NSDictionary *dic = [self.modelArray objectAtIndex:indexPath.row];
-    [cell reloadDetilCell:dic];
+//    NSDictionary *dic = [self.modelArray objectAtIndex:indexPath.row];
+//    [cell reloadDetilCell:dic];
     
     return cell;
 }
 //小 cell 的数量 ,根据数组中的元素数量决定
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.modelArray.count;
+    return 3;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -174,10 +177,10 @@ static NSInteger indexNum = 0;
 }
 
 //处理传过来的数据
-- (void)interCellWithModelArray:(NSArray *)model
+- (void)interCellWithModel:(SendSchollTableModel *)modelDic
 {
-    self.modelArray = [NSMutableArray arrayWithArray:model];
-    [self.SmallCollection reloadData];
+    self.modelArray = [NSMutableArray arrayWithArray:modelDic.photoArray];
+//    [self.SmallCollection reloadData];
 }
 
 //- (void)awakeFromNib {
