@@ -15,8 +15,20 @@
     // Do any additional setup after loading the view.
     self.title = @"详情";
     [self.view setBackgroundColor:RGB(235.0, 234.0, 236.0)];
+    
+    UIBarButtonItem *rightShareButton = [[UIBarButtonItem alloc]
+                                         initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                         target:self
+                                         action:@selector(myAction)];
+    self.navigationItem.rightBarButtonItem = rightShareButton;
+    [self.navigationController.navigationBar setTintColor:RGB(0x9b, 0x9b, 0x9b)];
     TemplateDetailActivityShowView *detailView = [[TemplateDetailActivityShowView alloc]initWithModel:self.model];
     [self.view addSubview:detailView];
+}
+
+- (void)myAction
+{
+    NSLog(@"clicked !");
 }
 
 @end

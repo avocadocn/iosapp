@@ -22,7 +22,7 @@
     
     NSString *newUrlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:nil]; //请求网络图片
+    [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
 }
 
 - (void)dlGetWebImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)image
