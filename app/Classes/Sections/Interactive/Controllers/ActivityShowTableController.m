@@ -40,46 +40,26 @@ static NSString * const ID = @"OtherActivityShowCell";
     if (self) {
         [self addActivitysShowTable];
         [self.view setBackgroundColor:RGB(230, 230, 230)];
-        [self requestNet];
     }
     return self;
 }
-- (void)netWorkRequest {
-    Account *account = [AccountTool account];
-    getIntroModel *model = [[getIntroModel alloc] init];
-    [model setUserId:account.ID];
-    [model setInteractionType:@0];
-    [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
-        NSLog(@"获取成功++++++   %@", json);
-//        [self analyDataWithJson:json];
-    } failure:^(id errorJson) {
-        NSLog(@"获取失败  %@", errorJson);
-        
-        NSString *str = [errorJson objectForKey:@"msg"];
-        if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
-            alert.delegate = self;
-            [alert show];
-            
-        }
-        
-    }];
-    
-}
+
 -(void)viewDidLoad{
     self.title = @"活动";
     self.modelArray = [NSMutableArray new];
-    [self requestNet];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"POSTEXIT" object:nil];
+    [self netWorkRequest];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData:) name:@"POSTEXIT" object:nil]; // 接受退出活动通知
 }
-- (void)refreshData:(NSNotification *)notice {
-    [self requestNet];
+
+- (void)refreshData:(NSNotification *)notice { // 执行通知任务 刷新页面
+    [self netWorkRequest];
     [self.tableView reloadData];
     
     NSLog(@"%@",notice.userInfo);
 }
-//进行网络数据获取
-- (void)requestNet{
+
+- (void)netWorkRequest{ //进行网络数据获取
+    
     Account *acc= [AccountTool account];
     InvatingModel * model = [[InvatingModel alloc] init];
     [model setUserId:acc.ID];
@@ -91,13 +71,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     } failure:^(id errorJson) {
         NSLog(@"获取失败 %@",[errorJson objectForKey:@"msg"]);
     }];
-//    [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
-//        [self analyDataWithJson:json];
-//        NSLog(@"success:-->%@",json);
-//    } failure:^(id errorJson) {
-//        NSLog(@"failed:-->%@",errorJson);
-//    }];
-    
+ 
 }
 //解析返回的数据
 - (void)analyDataWithJson:(id)json
@@ -135,7 +109,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 //    [self.view addSubview:tableView];
 //    self.tableView = tableView;
     // NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -35, DLScreenWidth, DLScreenHeight + 35) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerClass:[OtherActivityShowCell class] forCellReuseIdentifier:ID];
@@ -176,7 +150,17 @@ static NSString * const ID = @"OtherActivityShowCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    return 290 * DLScreenWidth / 375;
 
-    return 290;
+//    
+////    Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
+////    if (current.photos.count!=0) {
+////        NSInteger height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
+////        NSInteger width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
+////        if (width<320) {
+////            height *= 320.0/width;
+////        }
+////        return 90 + height;
+////    }
+    return 350;
 }
 
 #pragma mark - delegate

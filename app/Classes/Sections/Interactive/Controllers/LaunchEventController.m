@@ -63,7 +63,10 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [self builtEventCover];
     [self builtEventDetails];
     [self builtEventRemindTime];
-    
+    if (self.model) {
+         [self addTemplate:self.model];
+    }
+   
 }
 
 - (void)setNevigationLeft
@@ -597,9 +600,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 - (void)addTemplate:(Interaction *)templateData
 {
     //还需要修改
-    [self.startTimeField setText:templateData.startTime];
-    [self.overTimeLabel setText:templateData.endTime];
-    [self.eventNameField setText:templateData.activityMold];
+    [self.startTimeField setText:[self getParsedDateStringFromString:templateData.startTime]];
+    [self.overTimeLabel setText:[self getParsedDateStringFromString:templateData.endTime]];
+    [self.eventNameField setText:templateData.theme];
 }
 
 - (void)didReceiveMemoryWarning {

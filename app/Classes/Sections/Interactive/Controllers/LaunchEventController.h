@@ -31,6 +31,6 @@
 @property (nonatomic, strong)UIView *tableView;
 
 //加载模板数据
-- (void)addTemplate:(Interaction*)templateData;
+@property (nonatomic, strong)Interaction* model;
 
 @end

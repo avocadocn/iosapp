@@ -179,7 +179,7 @@
 {
     NSLog(@"点击");
     LaunchEventController* l = [[LaunchEventController alloc] init];
-    [l addTemplate:self.model];
+    [l setModel:self.model];
     
     [self dismissViewControllerAnimated:YES completion:^{
         [self.context pushViewController:l animated:YES];
