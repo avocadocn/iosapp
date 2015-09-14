@@ -7,13 +7,13 @@
 //
 
 #import "SBDetailActivityView.h"
-#import "Interaction.h"
 #import "GTMNSString+HTML.h"
 #import "Account.h"
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
 #import "UIImageView+DLGetWebImage.h"
 #import "Singletons.h"
+#import "Interaction.h"
 
 @interface SBDetailActivityView()<UIScrollViewDelegate,UIWebViewDelegate>
 
@@ -33,7 +33,7 @@
         [self setFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
         self.model = [[Interaction alloc]init];
         self.model = model;
-        
+    
         [self buildInterface];
     }
     return self;
@@ -155,7 +155,7 @@
     
     // 添加时间label
     UILabel *timeLabel = [[UILabel alloc]init];
-    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@",[self getParsedDateStringFromString:self.model]];
+    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@",[self getParsedDateStringFromString:[self.model.activity objectForKey:@"startTime"]]];
     
     NSMutableAttributedString *mutableAttrStr = [[NSMutableAttributedString alloc]initWithString:timeString];
     [mutableAttrStr addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 3)];
@@ -195,7 +195,7 @@
     addressLabel.numberOfLines = 0;
     // TODO
     CGSize maxLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
-    NSString *addressText = [NSString stringWithFormat:@"%@",[[self.model.location keyValues] objectForKey:@"name"]];
+    NSString *addressText = [NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]];
     
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [addressLabel setFont:addressFont];

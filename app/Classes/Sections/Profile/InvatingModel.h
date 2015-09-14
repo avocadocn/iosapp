@@ -20,4 +20,6 @@
 @property (nonatomic, copy)NSString *userId;
 
 @property (nonatomic, copy)NSString *limit;
+
+@property (nonatomic, strong)NSDictionary *activity;
 @end

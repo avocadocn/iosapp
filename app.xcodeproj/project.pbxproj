@@ -62,6 +62,8 @@
 		54BB1DD51B8EF6F500F76628 /* ChangePassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DD41B8EF6F500F76628 /* ChangePassWordViewController.m */; };
 		54BB1DD91B8EF7AD00F76628 /* ChangePassWordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DD71B8EF7AD00F76628 /* ChangePassWordTableViewCell.m */; };
 		54BB1DDA1B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */; };
+		54E542E41BA6CFE9008A6687 /* FMDBSQLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */; };
+		54E542E71BA6D735008A6687 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E61BA6D735008A6687 /* Person.m */; };
 		54F248271BA2848A009133D6 /* votep@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248251BA2848A009133D6 /* votep@2x.png */; };
 		54F248281BA2848A009133D6 /* chevron-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248261BA2848A009133D6 /* chevron-left.png */; };
 		54F2482D1BA2B03A009133D6 /* 活动.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248291BA2B03A009133D6 /* 活动.png */; };
@@ -807,6 +809,10 @@
 		54BB1DD61B8EF7AD00F76628 /* ChangePassWordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePassWordTableViewCell.h; sourceTree = "<group>"; };
 		54BB1DD71B8EF7AD00F76628 /* ChangePassWordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePassWordTableViewCell.m; sourceTree = "<group>"; };
 		54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePassWordTableViewCell.xib; sourceTree = "<group>"; };
+		54E542E21BA6CFE9008A6687 /* FMDBSQLiteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDBSQLiteManager.h; sourceTree = "<group>"; };
+		54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBSQLiteManager.m; sourceTree = "<group>"; };
+		54E542E51BA6D735008A6687 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		54E542E61BA6D735008A6687 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		54F248251BA2848A009133D6 /* votep@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "votep@2x.png"; sourceTree = "<group>"; };
 		54F248261BA2848A009133D6 /* chevron-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron-left.png"; sourceTree = "<group>"; };
 		54F248291BA2B03A009133D6 /* 活动.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "活动.png"; sourceTree = "<group>"; };
@@ -1986,6 +1992,17 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		54E542DE1BA6CF08008A6687 /* FMDBManager */ = {
+			isa = PBXGroup;
+			children = (
+				54E542E21BA6CFE9008A6687 /* FMDBSQLiteManager.h */,
+				54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */,
+				54E542E51BA6D735008A6687 /* Person.h */,
+				54E542E61BA6D735008A6687 /* Person.m */,
+			);
+			name = FMDBManager;
+			sourceTree = "<group>";
+		};
 		961053441B590C31002D62A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2220,6 +2237,7 @@
 		9649B5071B564DE000A7F355 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				54E542DE1BA6CF08008A6687 /* FMDBManager */,
 				545867A41BA1B885009ED3E7 /* Singletons.h */,
 				545867A51BA1B885009ED3E7 /* Singletons.m */,
 				E22ED81C1B9FCDFC00CF4109 /* GTM */,
@@ -5177,6 +5195,7 @@
 				A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */,
 				968C27361B7B047F00950581 /* CustomMarginSettingTableViewCell.m in Sources */,
 				E23AF2971BA126D7001BE3C5 /* TemplateActivityShowTableController.m in Sources */,
+				54E542E71BA6D735008A6687 /* Person.m in Sources */,
 				96CF938B1B674B54001759E2 /* DXRecordView.m in Sources */,
 				A45727081B74BE2400A27B79 /* photoSectionHeader.m in Sources */,
 				96CF90EA1B673422001759E2 /* amrFileCodec.mm in Sources */,
@@ -5244,6 +5263,7 @@
 				96C9FFBC1B737622008B71CE /* HelpInfoModel.m in Sources */,
 				96CF937B1B674B54001759E2 /* NSDateFormatter+Category.m in Sources */,
 				96CF90BB1B673422001759E2 /* EMCDDeviceManager+Remind.m in Sources */,
+				54E542E41BA6CFE9008A6687 /* FMDBSQLiteManager.m in Sources */,
 				96CF90D81B673422001759E2 /* UIView+EMWebCacheOperation.m in Sources */,
 				A46CC45B1B8C6E3A002492EC /* Interaction.m in Sources */,
 				96CF90EB1B673422001759E2 /* wav.mm in Sources */,
