@@ -44,6 +44,16 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 @implementation LaunchEventController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.startTimeField = [UILabel new];
+        self.overTimeLabel = [UILabel new];
+        self.eventNameField = [UITextField new];
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
