@@ -10,5 +10,5 @@
 
 @interface ActivityShowTableController : UIViewController
 //指定viewcontrolller的frame
-- (id)initWithFrame:(CGRect)frame;
+//- (id)initWithFrame:(CGRect)frame;
 @end

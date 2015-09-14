@@ -44,6 +44,16 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 @implementation LaunchEventController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.startTimeField = [UILabel new];
+        self.overTimeLabel = [UILabel new];
+        self.eventNameField = [UITextField new];
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -53,7 +63,10 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [self builtEventCover];
     [self builtEventDetails];
     [self builtEventRemindTime];
-    
+    if (self.model) {
+         [self addTemplate:self.model];
+    }
+   
 }
 
 - (void)setNevigationLeft
@@ -112,7 +125,6 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         [[NSNotificationCenter defaultCenter] postNotificationName:@"KPOSTNAME" object:nil userInfo:@{@"name":@"家豪"}];
     }
 }
-
 
 - (void)makeFlaseValue
 {
@@ -496,7 +508,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm"];
+    [dateFormatter setDateFormat: @"yyyy-MM-dd hh:mm"];
     
     NSDate *destDate= [dateFormatter dateFromString:dateString];
     
@@ -555,6 +567,43 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     return  DLMultipleHeight(50.0);
 }
 
+/*
+ *对服务器返回的时间做处理
+ * format: yyyy-MM-dd hh:mm
+ */
+- (NSString*)getParsedDateStringFromString:(NSString*)dateString
+{
+    if (dateString==nil) {
+        return nil;
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    NSDate * date = [formatter dateFromString:dateString];
+    [formatter setDateFormat:@"yyyy-MM-dd hh:mm"];
+    NSString* str = [formatter stringFromDate:date];
+    //设置源日期时区
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
+    //设置转换后的目标日期时区
+    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
+    //得到源日期与世界标准时间的偏移量
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:date];
+    //目标日期与本地时区的偏移量
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:date];
+    //得到时间偏移量的差值
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    //转为现在时间
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
+    str = [formatter stringFromDate:destinationDateNow];
+    return str;
+}
+
+- (void)addTemplate:(Interaction *)templateData
+{
+    //还需要修改
+    [self.startTimeField setText:[self getParsedDateStringFromString:templateData.startTime]];
+    [self.overTimeLabel setText:[self getParsedDateStringFromString:templateData.endTime]];
+    [self.eventNameField setText:templateData.theme];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

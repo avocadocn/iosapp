@@ -44,22 +44,30 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    if (range.location == 11) {
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    if (range.location == 11) {
+//        self.label.userInteractionEnabled = YES;
+//        self.label.textColor = RGBACOLOR(253, 185, 0, 1);
+//        
+//        return NO;
+//    }
+//     else
+//     {
+//         self.label.userInteractionEnabled = NO;
+//         self.label.textColor = [UIColor lightGrayColor];
+//     }
+//    return YES;
+//}
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (self.phoneNumber.textfield.text != 0) {
         self.label.userInteractionEnabled = YES;
         self.label.textColor = RGBACOLOR(253, 185, 0, 1);
-        
-        return NO;
+    } else {
+        self.label.userInteractionEnabled = NO;
+        self.label.textColor = [UIColor lightGrayColor];
     }
-     else
-     {
-         self.label.userInteractionEnabled = NO;
-         self.label.textColor = [UIColor lightGrayColor];
-     }
-    return YES;
 }
-
 
 /*
 #pragma mark - Navigation
@@ -81,21 +89,26 @@
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
 {
-    NSString *phoneStr = [NSString stringWithFormat:@"+86 %@", [self addPhoneNumberWithNumString:self.phoneNumber.textfield.text]];
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"我们将发送验证码到该手机" contentText:phoneStr leftButtonTitle:@"修改" rightButtonTitle:@"确认"];
-    [alert show];
-    alert.rightBlock = ^(){
-        
-        NSString *str2 = [NSString stringWithFormat:@"86"];
-        [SMS_SDK getVerificationCodeBySMSWithPhone:self.phoneNumber.textfield.text zone:str2 customIdentifier:@"打死都不能告诉别人" result:^(SMS_SDKError *error) {
-            if (!error) {
-                ResetPasswordViewController *resetVC = [[ResetPasswordViewController alloc] init];
-                resetVC.phoneNumber = self.phoneNumber.textfield.text;
-                [self.navigationController pushViewController:resetVC animated:YES];
-            }
-        }];
-    };
-    
+    if (self.phoneNumber.textfield.text.length == 11) {
+        NSString *phoneStr = [NSString stringWithFormat:@"+86 %@", [self addPhoneNumberWithNumString:self.phoneNumber.textfield.text]];
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"我们将发送验证码到该手机" contentText:phoneStr leftButtonTitle:@"修改" rightButtonTitle:@"确认"];
+        [alert show];
+        alert.rightBlock = ^(){
+            
+            NSString *str2 = [NSString stringWithFormat:@"86"];
+            [SMS_SDK getVerificationCodeBySMSWithPhone:self.phoneNumber.textfield.text zone:str2 customIdentifier:@"打死都不能告诉别人" result:^(SMS_SDKError *error) {
+                if (!error) {
+                    ResetPasswordViewController *resetVC = [[ResetPasswordViewController alloc] init];
+                    resetVC.phoneNumber = self.phoneNumber.textfield.text;
+                    [self.navigationController pushViewController:resetVC animated:YES];
+                }
+            }];
+        };
+
+    } else {
+        UIAlertView *alverV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"别逗比了,能好好输个手机号么" delegate:nil cancelButtonTitle:@"哥,我错了" otherButtonTitles:@"哥,我真的错了", nil];
+        [alverV show];
+    }
 }
 
 @end

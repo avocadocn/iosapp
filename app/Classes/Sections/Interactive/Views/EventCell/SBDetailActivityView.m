@@ -155,7 +155,7 @@
     
     // 添加时间label
     UILabel *timeLabel = [[UILabel alloc]init];
-    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@",[self getParsedDateStringFromString:self.model.startTime]];
+    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@",[self getParsedDateStringFromString:self.model]];
     
     NSMutableAttributedString *mutableAttrStr = [[NSMutableAttributedString alloc]initWithString:timeString];
     [mutableAttrStr addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 3)];

@@ -90,16 +90,25 @@
 
 - (void)determineAction:(UITapGestureRecognizer *)sender
 {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:self.passWord.text forKey:@"code"];
-    [dic setObject:@"13238041502" forKey:@"phone"];
-    [dic setObject:self.newsPassword.text forKey:@"password"];
-    [RestfulAPIRequestTool routeName:@"motifyPassword" requestModel:dic useKeys:@[@"phone", @"password", @"code"] success:^(id json) {
-        
-        NSLog(@"你的密码修改成功 %@", json);
-    } failure:^(id errorJson) {
-        NSLog(@"%@", errorJson);
-    }];
+    if (self.newsPassword.text.length >= 6) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:self.passWord.text forKey:@"code"];
+        [dic setObject:@"13238041502" forKey:@"phone"];
+        [dic setObject:self.newsPassword.text forKey:@"password"];
+        [RestfulAPIRequestTool routeName:@"motifyPassword" requestModel:dic useKeys:@[@"phone", @"password", @"code"] success:^(id json) {
+            UIAlertView *alverV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"密码修改成功" delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+            [alverV show];
+            NSLog(@"你的密码修改成功 %@", json);
+        } failure:^(id errorJson) {
+            NSLog(@"%@", errorJson);
+            UIAlertView *alverV = [[UIAlertView alloc] initWithTitle:@"修改失败" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+            [alverV show];
+        }];
+
+    } else {
+        UIAlertView *alverV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"密码长度至少为6位" delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        [alverV show];
+    }
 }
 #pragma UIAlertView delegate
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -139,10 +148,15 @@
     }
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (self.passWord.text.length == 4 && self.newsPassword.text.length >= 6) {
+//    if (self.passWord.text.length == 4 && self.newsPassword.text.length >= 6) {
+//        self.confirmationLabel.userInteractionEnabled = YES;
+//        self.confirmationLabel.textColor = RGBACOLOR(253, 185, 0, 1);
+//    }
+    if (self.passWord.text.length == 4) {
         self.confirmationLabel.userInteractionEnabled = YES;
         self.confirmationLabel.textColor = RGBACOLOR(253, 185, 0, 1);
     }
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

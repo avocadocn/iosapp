@@ -201,7 +201,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     NSMutableArray *buttonsMutable = [[NSMutableArray alloc] init];
     
     int i = 0;
-    NSArray *array = @[[UIImage imageNamed:@"event"], [UIImage imageNamed:@"vote"], [UIImage imageNamed:@"seek"]];
+    NSArray *array = @[[UIImage imageNamed:@"huodongs"], [UIImage imageNamed:@"toupiaos"], [UIImage imageNamed:@"qiuzhus"]];
     for (NSString *title in @[@"活动  ", @"投票  ", @"求助  "]) {
         CustomButton *button = [[CustomButton alloc]initWithFrame:CGRectMake(0.f, 0.f, DLMultipleWidth(96.0), DLMultipleWidth(48.0))];
         

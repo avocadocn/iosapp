@@ -74,8 +74,8 @@ static NSInteger indexNum = 1;
         [TitleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(5);
             make.top.mas_equalTo(self).with.offset(8);
-            make.size.mas_equalTo(CGSizeMake(DLScreenWidth / 3.5- 10, DLScreenWidth / 3.5 - 10));
-        }];
+            make.size.mas_equalTo(CGSizeMake(DLScreenWidth / 3.5, DLScreenWidth / 3.5));
+        }];  // itemd大小
         
         UIImageView *imageView = [UIImageView new];
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", (long)indexNum - 1]];
@@ -104,7 +104,7 @@ static NSInteger indexNum = 1;
             make.height.mas_equalTo(20.0);
         }];
         
-        self.SmallCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenWidth / 3.5) collectionViewLayout:layout];
+        self.SmallCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenWidth / 3.5 ) collectionViewLayout:layout];
 //        self.SmallCollection = [UICollectionView new];
         self.SmallCollection.collectionViewLayout = layout;
         [self.SmallCollection setBackgroundColor:[UIColor whiteColor]];

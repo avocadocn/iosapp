@@ -38,12 +38,12 @@
 - (void)builtInterface
 {
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout alloc];
-    layout.headerReferenceSize = CGSizeMake(DLScreenWidth, 65);
-    layout.minimumLineSpacing = 15;
+    layout.headerReferenceSize = CGSizeMake(DLScreenWidth, 85);
+    layout.minimumLineSpacing = 11;
     self.BigCollection = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
-    
     self.BigCollection.delegate = self;
     self.BigCollection.dataSource = self;
+//    self.BigCollection.backgroundColor = [UIColor cyanColor];
     [self.BigCollection registerClass:[CompanySmallCell class] forCellWithReuseIdentifier:@"SmallCell"]; //注册重用池
     [self.BigCollection setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.5]];
     [self.BigCollection registerClass:[CompanyHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BigHeader"];
@@ -77,7 +77,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(DLScreenWidth, DLScreenWidth / 3.5 + 30);
+    return CGSizeMake(DLScreenWidth, DLScreenWidth / 3.5 + 38);
 }
 // cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
