@@ -164,7 +164,7 @@ static NSString *userId = nil;
 
 - (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath
 {
-//    [self.circleImage dlGetRouteWebImageWithString:[model.poster objectForKey:@"photo"] placeholderImage:nil];
+    [self.circleImage dlGetRouteWebImageWithString:model.poster.photo placeholderImage:nil];
     self.circleImage.backgroundColor = [UIColor blueColor];
     self.ColleagueNick.text = model.poster.nickname;
     

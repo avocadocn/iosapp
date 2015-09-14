@@ -13,6 +13,7 @@
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
 #import "UIImageView+DLGetWebImage.h"
+#import "RepeaterGroupController.h"
 
 @interface TemplateDetailActivityShowView()<UIScrollViewDelegate,UIWebViewDelegate>
 
@@ -174,10 +175,10 @@
     // 添加分割线
     UIView *divisionLine = [[UIView alloc]init];
     [divisionLine setBackgroundColor:RGB(0xe6,0xe6, 0xe6)];
-    divisionLine.width = DLScreenWidth - 2 * 9;
-    divisionLine.height = 1;
-    divisionLine.x = 9;
-    divisionLine.y = CGRectGetMaxY(timeLabel.frame) + 12;
+    divisionLine.width = DLScreenWidth - 2 * DLMultipleWidth(11.0);
+    divisionLine.height = 2;
+    divisionLine.x = DLMultipleWidth(11.0);
+    divisionLine.y = CGRectGetMaxY(timeLabel.frame) + 19;
     
     // 添加地址label
     UIFont *addressFont = [UIFont systemFontOfSize:14.0f];
@@ -191,15 +192,15 @@
     [addressTintLabel setTextColor:RGB(0x9b,0x9b, 0x9b)];
     // tintLabel的frame
     addressTintLabel.size = addressTintLabelSize;
-    addressTintLabel.x = 10;
-    addressTintLabel.y = CGRectGetMaxY(divisionLine.frame) + 12;
+    addressTintLabel.x = DLMultipleWidth(11.0);
+    addressTintLabel.y = CGRectGetMaxY(divisionLine.frame) + 17;
     
     UILabel *addressLabel = [[UILabel alloc]init];
     addressLabel.lineBreakMode = UILineBreakModeWordWrap;
     addressLabel.numberOfLines = 0;
     [addressLabel setTextColor:RGB(0x51,0x46, 0x47)];
     // TODO
-    CGSize maxAddressLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
+    CGSize maxAddressLabelSize = CGSizeMake(DLScreenWidth - 2 * DLMultipleWidth(11.0) - addressTintLabelSize.width, MAXFLOAT);
     NSString *addressText = [NSString stringWithFormat:@"%@",[[self.model.location keyValues] objectForKey:@"name"]];
     
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxAddressLabelSize lineBreakMode:NSLineBreakByWordWrapping];
@@ -211,7 +212,7 @@
     // 设置地址label的frame
     addressLabel.size = trueLabelSize;
     addressLabel.x = CGRectGetMaxX(addressTintLabel.frame);
-    addressLabel.y = CGRectGetMaxY(divisionLine.frame) + 12;
+    addressLabel.y = CGRectGetMaxY(divisionLine.frame) + 17;
     
     // 地图view
     UIImage *mapImg = [UIImage imageNamed:@"map"];
@@ -223,14 +224,14 @@
     mapView.width = DLScreenWidth;
     mapView.height = DLScreenWidth * 2 / 4;
     mapView.x = 0;
-    mapView.y = CGRectGetMaxY(addressLabel.frame) + 10;
+    mapView.y = CGRectGetMaxY(addressLabel.frame) + 14;
     
     
     // 设置中部view的frame
-    middleView.y = CGRectGetMaxY(topPictureView.frame) + 12;
+    middleView.y = CGRectGetMaxY(topPictureView.frame) + 10;
     middleView.x = 0;
     middleView.width = DLScreenWidth;
-    middleView.height = CGRectGetMaxY(mapView.frame) + 10;
+    middleView.height = CGRectGetMaxY(mapView.frame) + 14;
     
     [middleView addSubview:timeTintLabel];
     [middleView addSubview:timeLabel];
@@ -245,7 +246,7 @@
     [enterView setBackgroundColor:[UIColor whiteColor]];
     //添加垂直装饰线
     UIView* verticalLine = [UIView new];
-    verticalLine.frame = CGRectMake(10, 10, 2, 10);
+    verticalLine.frame = CGRectMake(DLMultipleWidth(10.0), 10, 2, 10);
     verticalLine.backgroundColor=RGB(0xfd, 0xb9, 0x0);
     //添加参与方式label
     UILabel* enterMethodLabel = [UILabel new];
@@ -284,7 +285,7 @@
     UIView* signedInView = [UIView new];
     [signedInView setBackgroundColor:[UIColor whiteColor]];
     UIView* verticalLine1 = [UIView new];
-    verticalLine1.frame = CGRectMake(10, 10, 2, 10);
+    verticalLine1.frame = CGRectMake(DLMultipleWidth(10.0), 10, 2, 10);
     verticalLine1.backgroundColor=RGB(0xfd, 0xb9, 0);
     UILabel* signedInLabel = [UILabel new];
     [signedInLabel setFont:[UIFont systemFontOfSize:15.0f]];
@@ -307,7 +308,7 @@
     [introduceView setBackgroundColor:[UIColor whiteColor]];
     
     UIView* verticalLine2 = [UIView new];
-    verticalLine2.frame = CGRectMake(10, 10, 2, 10);
+    verticalLine2.frame = CGRectMake(DLMultipleWidth(10.0), 10, 2, 10);
     verticalLine2.backgroundColor=RGB(0xfd, 0xb9, 0);
     
     UILabel *activityIntroduceTV = [[UILabel alloc]init];
@@ -382,39 +383,43 @@
 }
 
 -(void)btnClick:(id)sender{
-    NSLog(@"btn Clicked 立即报名");
-    Account *account = [AccountTool account];
-    [self.model setInteractionId:self.model.interactionId];
-    [self.model setUserId:account.ID];
-    [RestfulAPIRequestTool routeName:@"joinInteraction" requestModel:self.model useKeys:@[@"interactionId",@"userId"] success:^(id json) {
-        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名成功" message:@"少年,恭喜你报名成功了" delegate:nil cancelButtonTitle:@"哇,好高兴" otherButtonTitles:nil, nil];
-        [alertV show];
-    } failure:^(id errorJson) {
-        NSLog(@"报名失败的原因 %@",[errorJson valueForKey:@"msg"]);
-        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名失败" message:[errorJson valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
-        [alertV show];
-    }];
+    NSLog(@"btn clicked 转发");
+    RepeaterGroupController* transmit = [[RepeaterGroupController alloc] init];
+    [transmit.view setBackgroundColor:[UIColor clearColor]];
+    [transmit setModel:self.model];
+    [transmit setContext:self.context.navigationController];
+    //根据系统版本，进行半透明展示
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        transmit.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        transmit.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//        [appdelegate.mainController presentViewController:transmit animated:YES completion:nil];
+        [self.context presentViewController:transmit animated:YES completion:nil];
+    } else {
+        self.context.modalPresentationStyle = UIModalPresentationCurrentContext;
+        [self.context presentViewController:transmit animated:YES completion:nil];
+        
+    }
 }
 
 //加载完成后，对网页内容进行处理
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //设置图片缩放
-    [webView stringByEvaluatingJavaScriptFromString:
-     @"var script = document.createElement('script');"
-     "script.type = 'text/javascript';"
-     "script.text = \"function ResizeImages() { "
-     "var myimg,oldwidth;"
-     "var maxwidth = 300.0;" // UIWebView中显示的图片宽度
-     "for(i=0;i <document.images.length;i++){"
-     "myimg = document.images[i];"
-     "if(myimg.width > maxwidth){"
-     "oldwidth = myimg.width;"
-     "myimg.width = maxwidth;"
-     "}"
-     "}"
-     "}\";"
-     "document.getElementsByTagName('head')[0].appendChild(script);"];
+    NSString* resizeImg = [NSString stringWithFormat:@"var script = document.createElement('script');"
+                           "script.type = 'text/javascript';"
+                           "script.text = \"function ResizeImages() { "
+                           "var myimg,oldwidth;"
+                           "var maxwidth = %f;" // UIWebView中显示的图片宽度
+                           "for(i=0;i <document.images.length;i++){"
+                           "myimg = document.images[i];"
+                           "if(myimg.width > maxwidth){"
+                           "oldwidth = myimg.width;"
+                           "myimg.width = maxwidth;"
+                           "}"
+                           "}"
+                           "}\";"
+                           "document.getElementsByTagName('head')[0].appendChild(script);",DLScreenWidth-20];
+    [webView stringByEvaluatingJavaScriptFromString:resizeImg];
     [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
     //设置页面缩放
     NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=self.view.frame.size.width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\""];

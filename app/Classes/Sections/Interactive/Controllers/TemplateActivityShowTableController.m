@@ -145,8 +145,8 @@ static NSString * const ID = @"OtherActivityShowCell";
     if (current.photos.count!=0) {
         NSInteger height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
         NSInteger width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
-        if (width<320) {
-            height *= 320.0/width;
+        if (width<DLScreenWidth) {
+            height *= DLScreenWidth/width;
         }
         return 90 + height;
     }

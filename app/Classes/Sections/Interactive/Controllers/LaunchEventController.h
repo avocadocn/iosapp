@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class Interaction;
 @interface LaunchEventController : UIViewController
 
 @property (nonatomic, strong)UIView *superView;
@@ -29,5 +29,8 @@
 @property (nonatomic, strong)NSIndexPath *indexPathController;
 
 @property (nonatomic, strong)UIView *tableView;
+
+//加载模板数据
+@property (nonatomic, strong)Interaction* model;
 
 @end

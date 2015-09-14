@@ -46,10 +46,7 @@
         make.right.mas_equalTo(self.mas_right);
         make.left.mas_equalTo(self.criticIamge.mas_right).offset(self.height + 5);
         make.bottom.mas_equalTo(self.criticIamge.mas_bottom);
-        
-        
     }];
-    
     
 }
 

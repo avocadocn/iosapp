@@ -13,4 +13,7 @@
 + (Singletons *)shareSingleton;
 
 @property (nonatomic, strong)UINavigationController *navigationC;
+
+
+
 @end

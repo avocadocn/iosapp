@@ -68,6 +68,9 @@ static NSString *circleCardCell = @"circleCardCell";
     self.model = tempModel;
 //    [self builtInterface];
     [self.detileTableview reloadData];
+    
+    
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

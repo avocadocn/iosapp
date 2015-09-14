@@ -608,5 +608,13 @@
         <key>routeMethod</key>
         <string>POST</string>
     </dict>
+    <dict>
+        <key>routeName</key>
+        <string>sendGifts</string>
+        <key>routeURL</key>
+        <string>/gifts</string>
+        <key>routeMethod</key>
+        <string>POST</string>
+    </dict>
 </array>
 </plist>

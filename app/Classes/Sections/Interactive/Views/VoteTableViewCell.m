@@ -179,8 +179,6 @@
     [voteContainer addSubview:bottomToolBar];
     self.bottomToolBar = bottomToolBar;
     
-    
-    
     [self addSubview:voteContainer];
     self.voteContainer = voteContainer;
     

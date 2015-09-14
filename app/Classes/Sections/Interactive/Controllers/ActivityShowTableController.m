@@ -149,6 +149,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    return 290 * DLScreenWidth / 375;
+
 //    
 ////    Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
 ////    if (current.photos.count!=0) {

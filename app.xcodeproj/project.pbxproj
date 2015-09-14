@@ -595,6 +595,7 @@
 		A43F86351B74813E0086D078 /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F86341B74813E0086D078 /* image.png */; };
 		A43F86381B7487DB0086D078 /* PublishSeekHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F86371B7487DB0086D078 /* PublishSeekHelp.m */; };
 		A43F863E1B748B210086D078 /* UITextView+PlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F863D1B748B210086D078 /* UITextView+PlaceHolder.m */; };
+		A4424C171BA6961200738C72 /* RankDetileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4424C161BA6961200738C72 /* RankDetileModel.m */; };
 		A4465CF71B941D170056ACA8 /* CreateGroupController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4465CF61B941D170056ACA8 /* CreateGroupController.m */; };
 		A4465CFA1B9453C80056ACA8 /* FreshModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4465CF91B9453C80056ACA8 /* FreshModel.m */; };
 		A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */; };
@@ -1680,6 +1681,8 @@
 		A43F86371B7487DB0086D078 /* PublishSeekHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishSeekHelp.m; sourceTree = "<group>"; };
 		A43F863C1B748B210086D078 /* UITextView+PlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+PlaceHolder.h"; sourceTree = "<group>"; };
 		A43F863D1B748B210086D078 /* UITextView+PlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+PlaceHolder.m"; sourceTree = "<group>"; };
+		A4424C151BA6961200738C72 /* RankDetileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankDetileModel.h; sourceTree = "<group>"; };
+		A4424C161BA6961200738C72 /* RankDetileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankDetileModel.m; sourceTree = "<group>"; };
 		A4465CF51B941D170056ACA8 /* CreateGroupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateGroupController.h; sourceTree = "<group>"; };
 		A4465CF61B941D170056ACA8 /* CreateGroupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateGroupController.m; sourceTree = "<group>"; };
 		A4465CF81B9453C80056ACA8 /* FreshModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreshModel.h; sourceTree = "<group>"; };
@@ -2636,6 +2639,8 @@
 				A43DA5DC1B90281100C23833 /* getIntroModel.m */,
 				E2D1314E1B9EE94100BE559C /* getTemplateModel.h */,
 				E2D1314F1B9EE94100BE559C /* getTemplateModel.m */,
+				A4424C151BA6961200738C72 /* RankDetileModel.h */,
+				A4424C161BA6961200738C72 /* RankDetileModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5067,6 +5072,7 @@
 				968C27331B7AF64600950581 /* TeamInfomationViewController.m in Sources */,
 				968C27461B7B43BE00950581 /* VoteBottomToolBar.m in Sources */,
 				96CF93AA1B674B54001759E2 /* ApplyViewController.m in Sources */,
+				A4424C171BA6961200738C72 /* RankDetileModel.m in Sources */,
 				96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */,
 				A4745E001B81A9AC008EB944 /* DNImagePickerController.m in Sources */,
 				96CF947D1B674B54001759E2 /* PushNotificationViewController.m in Sources */,

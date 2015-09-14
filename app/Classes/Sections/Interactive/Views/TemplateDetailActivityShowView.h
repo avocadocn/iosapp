@@ -14,5 +14,5 @@
 @property (nonatomic, strong)Interaction *model;
 
 - (instancetype)initWithModel:(Interaction *)model;
-
+@property UIViewController* context;
 @end
