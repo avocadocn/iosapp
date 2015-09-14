@@ -24,7 +24,7 @@
                         <constraint firstAttribute="height" constant="21" id="r8s-rD-C4m"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目前排名: 11" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSX-7n-7Oj" userLabel="rank">
@@ -34,13 +34,13 @@
                         <constraint firstAttribute="height" constant="21" id="NbO-sM-KPr"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RankLoveHeart_red.png" translatesAutoresizingMaskIntoConstraints="NO" id="b97-hg-pOl" userLabel="love1">
                     <rect key="frame" x="225" y="23" width="22" height="18"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RankLoveHeart_gray.png" translatesAutoresizingMaskIntoConstraints="NO" id="2s2-5H-uRZ" userLabel="love3">
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RankLoveHeart_red.png" translatesAutoresizingMaskIntoConstraints="NO" id="2s2-5H-uRZ" userLabel="love3">
                     <rect key="frame" x="285" y="23" width="22" height="18"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="18" id="Jbb-OL-tig"/>
@@ -80,12 +80,11 @@
                 <outlet property="nameLabel" destination="bQn-nV-KdY" id="xmu-Y6-iI2"/>
                 <outlet property="rankLabel" destination="SSX-7n-7Oj" id="EmX-Oa-TCg"/>
             </connections>
-            <point key="canvasLocation" x="276" y="445.5"/>
+            <point key="canvasLocation" x="624" y="421"/>
         </view>
     </objects>
     <resources>
         <image name="1" width="59" height="59"/>
-        <image name="RankLoveHeart_gray.png" width="21" height="18"/>
         <image name="RankLoveHeart_red.png" width="22" height="18"/>
     </resources>
 </document>

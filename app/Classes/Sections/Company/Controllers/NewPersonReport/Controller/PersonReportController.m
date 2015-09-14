@@ -117,11 +117,9 @@ static NSString *const ID = @"shop";
 #pragma mark - <HMWaterflowLayoutDelegate>
 - (CGFloat)waterflowLayout:(HMWaterflowLayout *)waterflowLayout heightForWidth:(CGFloat)width atIndexPath:(NSIndexPath *)indexPath
 {
-    
     HMShop *shop = self.shops[indexPath.item];
     return 172.0 / shop.w * width;  //  对应图片的 高 宽  缩放
 //    return DLMultipleHeight(172.0 + 40.0);
-    
 }
 
 #pragma mark - <UICollectionViewDataSource>

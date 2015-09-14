@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 @class AddressBookModel;
-
+@class RankDetileModel;
 @class HMShop;
+@class CriticWordView;
 @interface HMShopCell : UICollectionViewCell
 
 @property (nonatomic, strong)UIImageView *imageView;// 图片
 @property (nonatomic, strong)UILabel *personName;   // 华珊
 @property (nonatomic, strong)UILabel *personMajor;  // 平面设计专业
 @property (nonatomic, strong)UILabel *personLike;  // 喜欢
-
+@property (nonatomic, strong)CriticWordView *parseButton;
 @property (nonatomic, strong) HMShop *shop;
 
 @property (nonatomic, strong)NSIndexPath *indexpath;
@@ -25,5 +26,6 @@
 
 - (void)reloadCellWithModel:(AddressBookModel *)model;
 
+- (void)reloadRankCellWithRankModel:(RankDetileModel *)model andIndex:(NSString *)index;
 
 @end

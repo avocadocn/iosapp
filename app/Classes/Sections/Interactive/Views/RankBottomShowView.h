@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *love2;
 @property (weak, nonatomic) IBOutlet UIImageView *love3;
 
+@property (nonatomic, assign)NSInteger selectNum;
+
 @end

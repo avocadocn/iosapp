@@ -51,14 +51,15 @@ static NSInteger tagNum = 1;
 }
 - (void)builtImageView
 {
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(368.0))];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(420))];
     [imageView dlGetRouteWebImageWithString:self.model.photo placeholderImage:nil];
+    
     [self.view addSubview:imageView];
     
 }
 - (void)builtScrollPhotoView
 {
-    UIScrollView *scrollPhotoView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(368.0))];
+    UIScrollView *scrollPhotoView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(420.0))];
     
     [self.view addSubview:scrollPhotoView];
     self.photoArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"1"],[UIImage imageNamed:@"2.jpg"],[UIImage imageNamed:@"114.png"],[UIImage imageNamed:@"2.jpg"], nil];
@@ -89,6 +90,16 @@ static NSInteger tagNum = 1;
         make.right.mas_equalTo(scrollPhotoView.mas_right);
         make.height.mas_equalTo(DLScreenHeight / 15.159);
     }];
+
+    [self builtButton];
+}
+
+- (void)builtButton
+{
+    UIView *view = [UIView new];
+    
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+    }];
     
     self.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
     if (self.model.attentState) {
@@ -107,6 +118,7 @@ static NSInteger tagNum = 1;
         AttentionViewController *att  =[AttentionViewController shareInsten];
         if ([[self.attentionButton currentTitle] isEqualToString:@"+关注"]) {
             NSLog(@"关注");
+            
             [self.model setUserId:self.model.ID];
             [RestfulAPIRequestTool routeName:@"addConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
                 NSLog(@"关注成功  %@", json);
@@ -139,6 +151,7 @@ static NSInteger tagNum = 1;
         make.bottom.mas_equalTo(self.pag.mas_bottom);
         make.width.mas_equalTo(100);
     }];
+
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
