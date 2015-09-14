@@ -112,18 +112,18 @@
     
     
     // 添加感兴趣按钮，需要根据图片自定义
-    UIButton *interest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [interest setTitle:@"感兴趣" forState:UIControlStateNormal];
-    [interest setSize:CGSizeMake(100, 25)];
-    interest.centerX = DLScreenWidth / 2;
-    interest.y = CGRectGetMaxY(self.activityName.frame) + 13;
+//    UIButton *interest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    [interest setTitle:@"感兴趣" forState:UIControlStateNormal];
+//    [interest setSize:CGSizeMake(100, 25)];
+//    interest.centerX = DLScreenWidth / 2;
+//    interest.y = CGRectGetMaxY(self.activityName.frame) + 13;
     
     [topPictureView addSubview:self.pictureView];
     [topPictureView addSubview:self.activityName];
-    [topPictureView addSubview:interest];
+//    [topPictureView addSubview:interest];
     
     // 设置顶部pic view的frame
-    topPictureView.height = CGRectGetMaxY(interest.frame) + 13;
+    topPictureView.height = CGRectGetMaxY(self.pictureView.frame) + 35;
     topPictureView.width = DLScreenWidth;
     [topPictureView setOrigin:CGPointZero];
     

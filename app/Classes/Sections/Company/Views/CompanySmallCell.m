@@ -119,11 +119,10 @@ static NSInteger indexNum = 1;
             make.top.mas_equalTo(self.mas_top);
             make.bottom.mas_equalTo(TitleView.mas_bottom);
         }];
-        
-        self.TitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, DLScreenWidth / 3.5 + 12, DLScreenWidth - 20, 22)];
+        NSArray *titleArray = @[@"不一样的精彩", @"汉子们扔掉肥皂,迎接小鲜肉", @"好多童鞋就要过生日啦,还不去送上祝福!"];
+        self.TitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, DLScreenWidth / 3.5 + 2, DLScreenWidth - 20, 22)];
         //    [self.TitleLabel setBackgroundColor:[UIColor redColor]];
-        NSArray *labelArry = @[@"好多童鞋就要过生日啦，还不去送上祝福！",@"不一样的精彩",@"汉子们扔掉肥皂，迎接小鲜肉"];
-        self.TitleLabel.text = [labelArry objectAtIndex:(indexNum - 1)];
+        self.TitleLabel.text = [titleArray objectAtIndex:indexNum - 1];
         self.TitleLabel.textColor = [UIColor colorWithWhite:.2 alpha:.6];
         self.TitleLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:self.TitleLabel];
