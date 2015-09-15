@@ -17,6 +17,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "Interaction.h"
 #import "FMDBSQLiteManager.h"
+#import "Person.h"
 @interface CommentsViewController ()
 
 @property (nonatomic, strong) NSMutableArray *comments;
@@ -36,7 +37,9 @@ static NSString * const ID = @"VoteCommentViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [FMDBSQLiteManager shareSQLiteManager];
+    [FMDBSQLiteManager shareSQLiteManager];
+//    NSString *filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
+//    NSLog(@"************->%@",filePath);
     self.title = @"评论";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -169,6 +172,7 @@ static NSString * const ID = @"VoteCommentViewCell";
     
     [cell setCommentModel:self.comments[indexPath.row]];
     
+    
     return cell;
 }
 
@@ -185,7 +189,6 @@ static NSString * const ID = @"VoteCommentViewCell";
    
     return self.defaultCell.comment.y + commentLabelSize.height + 12;
 }
-
 - (void) didEditingCell {
     [self.tableView setEditing:YES animated:YES];
     

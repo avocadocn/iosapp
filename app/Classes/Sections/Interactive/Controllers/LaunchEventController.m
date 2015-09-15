@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     RemindTableStateYes
 };
 
-@interface LaunchEventController ()<DLDatePickerViewDelegate, UITableViewDataSource, UITableViewDelegate, DNImagePickerControllerDelegate,UIAlertViewDelegate>
+@interface LaunchEventController ()<DLDatePickerViewDelegate, UITableViewDataSource, UITableViewDelegate, DNImagePickerControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong)UIImage *image;
 
@@ -39,6 +39,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 @property (nonatomic, strong)UIImageView *myImageView;
 
 @property (nonatomic, strong)UITextField *eventNameField;
+
+@property (nonatomic, strong)UILabel *nextStep;
 
 @end
 
@@ -81,6 +83,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [label addGestureRecognizer:labelTap];
     label.font = [UIFont systemFontOfSize:15];
     label.textColor = [UIColor lightGrayColor];
+    self.nextStep = label;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
 
 }

@@ -8,6 +8,7 @@
 
 #import "HelpCellFrame.h"
 #import "HelpInfoModel.h"
+#import "UIImageView+DLGetWebImage.h"
 @implementation HelpCellFrame
 
 

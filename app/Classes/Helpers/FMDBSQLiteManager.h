@@ -12,12 +12,13 @@
 
 + (FMDBSQLiteManager *)shareSQLiteManager;
 
+- (void)createTable;
 //增
 -(void)insertPerson:(Person *)p;
 //删
 -(void)deletePersonWithName:(NSString *)name;
 //查
--(NSArray *)selectPersonWithUserId:(NSString *)userId;
+-(Person *)selectPersonWithUserId:(NSString *)userId;
 
 
 @end

@@ -8,7 +8,8 @@
 #import "Interaction.h"
 #import "CurrentActivitysShowCell.h"
 #import "UIImageView+DLGetWebImage.h"
-
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
 @interface CurrentActivitysShowCell()
 /**
  *  头像
@@ -69,7 +70,9 @@
 
 - (void)reloadCellWithModel:(Interaction *)model
 {
-    
+  Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.poster[@"_id"]];
+    self.nameLabel.text = person.name;
+    [self.avatar dlGetRouteWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"]];
     switch ([model.type integerValue]) {
         case 1:{
             self.InteractiveText.text = model.theme;

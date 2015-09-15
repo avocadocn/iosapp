@@ -12,6 +12,8 @@
 #import "HelpInfoModel.h"
 #import "CommentsViewController.h"
 #import "Interaction.h"
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
 @interface HelpTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *helpFrames;
@@ -48,19 +50,21 @@ static NSString * const ID = @"HelpTableViewCell";
 }
 
 -(void)loadhelpData{
+   Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:self.model.poster[@"_id"]];
     if (!self.helpFrames) {
         self.helpFrames = [NSMutableArray array];
     }
     for (int i = 0; i < 10; i++) {
         HelpInfoModel *helpInfoModel = [[HelpInfoModel alloc]init];
-        helpInfoModel.name = [NSString stringWithFormat:@"杨同%zd",i];
+        helpInfoModel.name = p.name;
+//        helpInfoModel.avatarURL = p.imageURL;
         helpInfoModel.time = [self getParsedDateStringFromString:self.model.createTime];
         for (NSDictionary *dic in self.model.photos) {
             self.url = dic[@"uri"];
         }
         helpInfoModel.helpImageURL = self.url;
         helpInfoModel.helpText = self.model.content;
-        helpInfoModel.avatarURL = @"1";
+        helpInfoModel.avatarURL = p.imageURL;
         
        
         
@@ -70,15 +74,15 @@ static NSString * const ID = @"HelpTableViewCell";
         
         [self.helpFrames addObject:f];
     }
-    HelpInfoModel *helpInfoModel = [[HelpInfoModel alloc]init];
+//    HelpInfoModel *helpInfoModel = [[HelpInfoModel alloc]init];
 //    helpInfoModel.name = [NSString stringWithFormat:@"杨同%zd",i];
-    helpInfoModel.time = [self getParsedDateStringFromString:self.model.createTime];
-    for (NSDictionary *dic in self.model.photos) {
-        self.url = dic[@"uri"];
-    }
-    helpInfoModel.helpImageURL = self.url;
-    helpInfoModel.helpText = self.model.content;
-    helpInfoModel.avatarURL = @"1";
+//    helpInfoModel.time = [self getParsedDateStringFromString:self.model.createTime];
+//    for (NSDictionary *dic in self.model.photos) {
+//        self.url = dic[@"uri"];
+//    }
+//    helpInfoModel.helpImageURL = self.url;
+//    helpInfoModel.helpText = self.model.content;
+//    helpInfoModel.avatarURL = @"1";
     
 
 }
