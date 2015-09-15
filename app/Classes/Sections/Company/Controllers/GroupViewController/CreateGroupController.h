@@ -2,7 +2,7 @@
 //  CreateGroupController.h
 //  app
 //
-//  Created by 申家 on 15/8/31.
+//  Created by 申家 on 15/9/15.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
