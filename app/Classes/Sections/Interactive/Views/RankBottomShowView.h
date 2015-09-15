@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *love2;
 @property (weak, nonatomic) IBOutlet UIImageView *love3;
 
+@property (nonatomic, strong)UIView *aMaskView;
+
 @property (nonatomic, assign)NSInteger selectNum;
 
 @end

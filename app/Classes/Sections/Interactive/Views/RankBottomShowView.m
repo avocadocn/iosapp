@@ -24,8 +24,19 @@
     
     [self.avatar.layer setCornerRadius:self.avatar.width / 2];
     self.avatar.layer.masksToBounds = YES;
+
+    self.aMaskView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth, 0, 150, 60)];
+    self.aMaskView.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.aMaskView];
     
     
+//    self.love3.backgroundColor = [UIColor blackColor];
+//    
+//    UIView *view =[[UIView alloc]initWithFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)];
+//    view.backgroundColor = [UIColor blueColor];
+//    [self insertSubview:view belowSubview:self.love1];
+
+
 }
 
 @end

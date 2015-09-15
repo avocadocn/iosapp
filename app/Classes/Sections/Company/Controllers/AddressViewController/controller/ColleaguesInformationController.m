@@ -25,6 +25,10 @@ static NSInteger tagNum = 1;
 @property (nonatomic, strong)UIButton *backBtn;
 @property (nonatomic, strong)UIButton *settingBtn;
 @property (nonatomic, strong)UILabel *titleLabel;
+@property (nonatomic, strong)UIScrollView *scrollPhotoView;
+@property (nonatomic, strong)UIScrollView *bigScroll;
+@property (nonatomic, strong)UIImageView *imageView;
+@property (nonatomic, strong)UILabel *nameLabel;
 
 @end
 
@@ -33,49 +37,54 @@ static NSInteger tagNum = 1;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    self.view.backgroundColor = RGBACOLOR(238, 238, 240, 1);
     tagNum = 1;
+    
+    self.bigScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
+    
+    self.bigScroll.contentSize = CGSizeMake(0, 700);
+    [self.view addSubview:self.bigScroll];
     [self builtImageView];
     
     CGFloat height = DLScreenHeight / (568 / 400.0);
-    
-    NSArray *nameArray = @[@"afolder", @"adynamic", @"talkSpeak"];
+    self.title = @"个人资料";
+    NSArray *nameArray = @[@"Profile@2x", @"Oval 2@2x", @"chat@2x"];
     NSMutableArray *imageArray = [NSMutableArray array];
     for (NSString *str in nameArray) {
         UIImage *image = [UIImage imageNamed:str];
         [imageArray addObject:image];
     }
-
+    
     CGFloat num = DLScreenWidth / (320 / 55.0);
-    [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"聊天"] imageArray:imageArray andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:height];
+    [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"聊天"] imageArray:imageArray andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:600 - 64];
 }
-- (void)builtImageView
+- (void)builtImageView  //唯一的图片页
 {
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(420))];
-    [imageView dlGetRouteWebImageWithString:self.model.photo placeholderImage:nil];
+    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 380)];
+    [self.imageView dlGetRouteWebImageWithString:self.model.photo placeholderImage:nil];
     
-    [self.view addSubview:imageView];
-    
+    [self.bigScroll addSubview:self.imageView];
+    [self builtButton];
 }
 - (void)builtScrollPhotoView
 {
-    UIScrollView *scrollPhotoView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(420.0))];
+    self.scrollPhotoView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(420.0))];
     
-    [self.view addSubview:scrollPhotoView];
+    [self.view addSubview:self.scrollPhotoView];
     self.photoArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"1"],[UIImage imageNamed:@"2.jpg"],[UIImage imageNamed:@"114.png"],[UIImage imageNamed:@"2.jpg"], nil];
     NSInteger i = 0;
     
     for (UIImage *image in self.photoArray) {
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(i * DLScreenWidth, 0, DLScreenWidth, scrollPhotoView.size.height)];
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(i * DLScreenWidth, 0, DLScreenWidth, self.scrollPhotoView.size.height)];
         imageview.image = image;
-        [scrollPhotoView addSubview:imageview];
+        [self.scrollPhotoView addSubview:imageview];
         i++;
     }
-    scrollPhotoView.showsVerticalScrollIndicator = FALSE;
-    scrollPhotoView.showsHorizontalScrollIndicator = FALSE;
-    scrollPhotoView.pagingEnabled = YES;
-    scrollPhotoView.delegate = self;
-    scrollPhotoView.contentSize = CGSizeMake(DLScreenWidth * [self.photoArray count], 0);
+    self.scrollPhotoView.showsVerticalScrollIndicator = FALSE;
+    self.scrollPhotoView.showsHorizontalScrollIndicator = FALSE;
+    self.scrollPhotoView.pagingEnabled = YES;
+    self.scrollPhotoView.delegate = self;
+    self.scrollPhotoView.contentSize = CGSizeMake(DLScreenWidth * [self.photoArray count], 0);
     
     self.pag = [UIPageControl new];
     self.pag.backgroundColor = [UIColor colorWithWhite:.1 alpha:.2];
@@ -85,9 +94,9 @@ static NSInteger tagNum = 1;
     
     [self.view addSubview:self.pag];
     [self.pag mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(scrollPhotoView.mas_bottom);
-        make.left.mas_equalTo(scrollPhotoView.mas_left);
-        make.right.mas_equalTo(scrollPhotoView.mas_right);
+        make.bottom.mas_equalTo(self.scrollPhotoView.mas_bottom);
+        make.left.mas_equalTo(self.scrollPhotoView.mas_left);
+        make.right.mas_equalTo(self.scrollPhotoView.mas_right);
         make.height.mas_equalTo(DLScreenHeight / 15.159);
     }];
 
@@ -96,34 +105,49 @@ static NSInteger tagNum = 1;
 
 - (void)builtButton
 {
+    
     UIView *view = [UIView new];
     
+    view.backgroundColor = [UIColor whiteColor];
+    
+    [self.bigScroll addSubview:view];
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.imageView.mas_bottom);
+        make.left.mas_equalTo(self.imageView.mas_left);
+        make.right.mas_equalTo(self.imageView.mas_right);
+        make.height.mas_equalTo(65);
     }];
     
     self.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    self.attentionButton.backgroundColor = [UIColor whiteColor];
+    self.attentionButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.attentionButton.layer.borderWidth = 1;
+    self.attentionButton.layer.cornerRadius = 5;
+    self.attentionButton.layer.masksToBounds = YES;
     if (self.model.attentState) {
         
-        [self.attentionButton setTitle:@"-取消关注" forState:UIControlStateNormal];
+        [self.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
     } else
     {
-        [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
+        [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
     }
     
-    [self.attentionButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [self.view addSubview:self.attentionButton];
+    self.attentionButton.font = [UIFont systemFontOfSize:16];
+    [self.attentionButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [view addSubview:self.attentionButton];
     
     self.attentionButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         self.model.userId = self.model.ID;
         AttentionViewController *att  =[AttentionViewController shareInsten];
-        if ([[self.attentionButton currentTitle] isEqualToString:@"+关注"]) {
+        if ([[self.attentionButton currentTitle] isEqualToString:@"关注"]) {
             NSLog(@"关注");
             
             [self.model setUserId:self.model.ID];
             [RestfulAPIRequestTool routeName:@"addConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
                 NSLog(@"关注成功  %@", json);
                 [att makeFalseValue];
-                [self.attentionButton setTitle:@"-取消关注" forState:UIControlStateNormal];
+                [self.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
                 
             } failure:^(id errorJson) {
                 NSLog(@"关注失败 %@", errorJson);
@@ -133,7 +157,7 @@ static NSInteger tagNum = 1;
         {
             [RestfulAPIRequestTool routeName:@"deleteConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
                 NSLog(@"取消关注成功  %@", json);
-                [self.attentionButton setTitle:@"+关注" forState:UIControlStateNormal];
+                [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
                 
                 [att makeFalseValue];
             } failure:^(id errorJson) {
@@ -146,12 +170,17 @@ static NSInteger tagNum = 1;
     }];
     
     [self.attentionButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.pag.mas_right);
-        make.top.mas_equalTo(self.pag.mas_top);
-        make.bottom.mas_equalTo(self.pag.mas_bottom);
-        make.width.mas_equalTo(100);
+        make.right.mas_equalTo(view.mas_right).offset(-12);
+        make.top.mas_equalTo(view.mas_top).offset(11);
+        make.height.mas_equalTo(44);
+        make.width.mas_equalTo(89);
     }];
 
+    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(12, 0, 100, 60)];
+    self.nameLabel.font = [UIFont systemFontOfSize:21];
+    self.nameLabel.text = self.model.realname;
+    [view addSubview:self.nameLabel];
+    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -163,18 +192,22 @@ static NSInteger tagNum = 1;
     int i = 0;
     CGFloat rote = rect.size.width / 2.0333;
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake((DLScreenWidth - [nameArray count] * (rect.size.width + rote)) / 2.0, 0, [nameArray count] * (rect.size.width + rote), rect.size.height)];
-    //    view.centerX = self.view.centerX;
+    
     view.centerY = num;
-    //    [view setBackgroundColor:[UIColor redColor]];
-    [self.view addSubview:view];
+    
+    [self.bigScroll addSubview:view];
     
     
     for (NSString *str in nameArray) {
         UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(rote / 2.0 + i * (rect.size.width + rote), 0, rect.size.width, rect.size.width)];
         imageview.image = [imageArray objectAtIndex:i];
+        imageview.backgroundColor = [UIColor whiteColor];
         [view addSubview:imageview];
         imageview.layer.masksToBounds = YES;
         imageview.layer.cornerRadius = rect.size.width / 2.0;
+        imageview.layer.shadowColor = [UIColor blackColor].CGColor;
+        imageview.layer.shadowRadius = 7;
+        imageview.layer.shadowOpacity = .51;
         
         imageview.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageViewAction:)];
@@ -259,7 +292,7 @@ static NSInteger tagNum = 1;
 
 -(void)viewWillAppear:(BOOL)animated{
     // 初始化导航条
-    [self setupNavigationBar];
+//    [self setupNavigationBar];
 }
 -(void)setupNavigationBar{
 
