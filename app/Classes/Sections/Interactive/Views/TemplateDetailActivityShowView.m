@@ -386,6 +386,7 @@
     NSLog(@"btn clicked 转发");
     RepeaterGroupController* transmit = [[RepeaterGroupController alloc] init];
     [transmit.view setBackgroundColor:[UIColor clearColor]];
+    [transmit setType:RepeaterGroupTranimitTypeActtivity];
     [transmit setModel:self.model];
     [transmit setContext:self.context.navigationController];
     //根据系统版本，进行半透明展示

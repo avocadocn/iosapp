@@ -1896,6 +1896,7 @@
 		E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteAnimatedOptionView.m; sourceTree = "<group>"; };
 		E297E63A1BA7C47200C1AC92 /* TemplateVoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVoteTableViewCell.h; sourceTree = "<group>"; };
 		E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateVoteTableViewCell.m; sourceTree = "<group>"; };
+		E297E63D1BA8070F00C1AC92 /* TemplateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateUtils.h; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2100,6 +2101,7 @@
 				E23AF2961BA126D7001BE3C5 /* TemplateActivityShowTableController.m */,
 				E235547F1BA6774600D91D5C /* TemplateVoteTableViewController.h */,
 				E23554801BA6774600D91D5C /* TemplateVoteTableViewController.m */,
+				E297E63D1BA8070F00C1AC92 /* TemplateUtils.h */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

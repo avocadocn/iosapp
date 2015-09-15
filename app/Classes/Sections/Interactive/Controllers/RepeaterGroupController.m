@@ -15,6 +15,8 @@
 #import "RestfulAPIRequestTool.h"
 #import "GroupCardModel.h"
 #import "LaunchEventController.h"
+#import "PublishVoteController.h"
+#import "PublishSeekHelp.h"
 
 @interface RepeaterGroupController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property UILabel* titleLabel;
@@ -178,12 +180,25 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"点击");
-    LaunchEventController* l = [[LaunchEventController alloc] init];
-    [l setModel:self.model];
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self.context pushViewController:l animated:YES];
-    }];
+    UIViewController* v ;
+    if (self.type == RepeaterGroupTranimitTypeActtivity) {
+        v = [[LaunchEventController alloc] init];
+        [(LaunchEventController*)v setModel:self.model];
+        
+    }else if (self.type == RepeaterGroupTranimitTypeVote) {
+        v = [[PublishVoteController alloc] init];
+        [(PublishVoteController*)v setModel:self.model];
+        
+    }else if (self.type == RepeaterGroupTranimitTypeHelp) {
+        v = [[PublishSeekHelp alloc] init];
+//        [(PublishSeekHelp*)v setModel:self.model];
+        
+    }
+    if (v) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self.context pushViewController:v animated:YES];
+        }];
+    }
 }
 
 - (void)closeBtnClicked:(id)sender

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VoteCellFrame.h"
+@class Interaction;
 @interface TemplateVoteTableViewCell : UITableViewCell
 
 /**
@@ -26,5 +27,6 @@
  */
 
 @property (nonatomic, strong)UIButton *voteInfosBtn;
-
+@property (nonatomic, strong)Interaction *model;
+@property UIViewController* context;
 @end

@@ -66,10 +66,11 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
 - (void)analyDataWithJson:(id)json
 {
     self.voteArray = [NSMutableArray array];
-    
+    self.voteData = [NSMutableArray new];
     for (NSDictionary *dic  in json) {
         Interaction *inter = [[Interaction alloc]init];
         [inter setValuesForKeysWithDictionary:dic];
+        [self.voteData addObject:inter];
         [self loadVoteDataWithInter:inter];
     }
     [self.tableView reloadData];
@@ -152,6 +153,8 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     }
     [cell setVoteCellFrame:self.voteArray[indexPath.row]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setContext:self];
+    [cell setModel:[self.voteData objectAtIndex:indexPath.row]];
     return cell;
 }
 

@@ -15,7 +15,7 @@
  */
 @property (nonatomic, strong) NSMutableArray *voteArray;
 
-
+@property (nonatomic, strong) NSMutableArray *voteData;
 +(UINavigationController *)shareNavigation;
 
 @end

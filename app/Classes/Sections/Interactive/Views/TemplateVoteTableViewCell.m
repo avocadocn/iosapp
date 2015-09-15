@@ -17,6 +17,7 @@
 #import "TemplateVoteTableViewCell.h"
 #import "UIImageView+DLGetWebImage.h"
 #import "UILabel+DLTimeLabel.h"
+#import "RepeaterGroupController.h"
 @interface TemplateVoteTableViewCell()
 
 /**
@@ -112,7 +113,7 @@
     voteContentLabel.font = VoteCellContentFont;
     [voteContentLabel setNumberOfLines:0];
     [voteContentLabel setLineBreakMode:NSLineBreakByCharWrapping];
-    [voteContentLabel setBackgroundColor:[UIColor whiteColor]];
+    [voteContentLabel setBackgroundColor:[UIColor clearColor]];
     self.voteContentLabel = voteContentLabel;
     
     UIView *voteContentView = [[UIView alloc] init];
@@ -262,7 +263,7 @@
     self.bottomTransmitBtn.height= 33;
     self.bottomTransmitBtn.x = (self.bottomTransmitBar.width-self.bottomTransmitBtn.width)/2.0;
     self.bottomTransmitBtn.y = (self.bottomTransmitBar.height-self.bottomTransmitBtn.height)/2.0;
-    
+    [self.bottomTransmitBtn addTarget:self action:@selector(transmitClicked:) forControlEvents:UIControlEventTouchUpInside];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle) name:@"Vote" object:nil];  //  接受跳转通知
 }
 
@@ -270,7 +271,27 @@
 {
     [self.voteInfosBtn setTitle:@"已投票" forState: UIControlStateNormal];
 }
+- (void)transmitClicked:(id)sender
+{
+    NSLog(@"transmit Clicked");
+    RepeaterGroupController* transmit = [[RepeaterGroupController alloc] init];
+    [transmit.view setBackgroundColor:[UIColor clearColor]];
+    [transmit setType:RepeaterGroupTranimitTypeVote];
+    [transmit setModel:self.model];
+    [transmit setContext:self.context.navigationController];
+    //根据系统版本，进行半透明展示
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        transmit.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        transmit.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        //        [appdelegate.mainController presentViewController:transmit animated:YES completion:nil];
+        [self.context presentViewController:transmit animated:YES completion:nil];
+    } else {
+        self.context.modalPresentationStyle = UIModalPresentationCurrentContext;
+        [self.context presentViewController:transmit animated:YES completion:nil];
+        
+    }
 
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
