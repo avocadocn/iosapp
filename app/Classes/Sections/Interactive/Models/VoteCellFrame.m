@@ -120,6 +120,8 @@
     
     CGFloat voteContentLabelX = VoteCellBorderW;
     CGFloat voteContentLabelY = CGRectGetMaxY(self.avatarImageViewF) + 15;
+    CGFloat voteContentViewX = VoteCellBorderW;
+    CGFloat voteContentViewY = CGRectGetMaxY(self.avatarImageViewF) +10;
     // 判断是否存在图片
     if (voteInfoModel.voteImageURL) {
         // 存在图片
@@ -127,6 +129,7 @@
         CGFloat voteImageViewY = voteContentLabelY;
         self.voteImageViewF = CGRectMake(voteImageViewX, voteImageViewY, DLScreenWidth-2.0* VoteCellBorderW, DLScreenWidth);
         voteContentLabelY += CGRectGetHeight(self.voteImageViewF) + 14;
+        voteContentViewY += CGRectGetHeight(self.voteImageViewF) -10;
     }else{
         // 不存在图片
         self.voteImageViewF = CGRectZero;
@@ -138,12 +141,13 @@
     CGSize maxVoteContentLabelSize = CGSizeMake(DLScreenWidth - 2 *VoteCellBorderW, MAXFLOAT);
     NSDictionary *voteContentLabelAttr = @{NSFontAttributeName:VoteCellContentFont};
     CGSize voteContentLabelSize = [voteContent boundingRectWithSize:maxVoteContentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:voteContentLabelAttr context:nil].size;
-    self.voteContentLabelF = CGRectMake(voteContentLabelX, voteContentLabelY, voteContentLabelSize.width, voteContentLabelSize.height);
-    
+    self.voteContentLabelF = CGRectMake(0, 15.0f, voteContentLabelSize.width, voteContentLabelSize.height);
+    //正文边框
+    self.voteContentViewF = CGRectMake(voteContentViewX, voteContentViewY, DLScreenWidth- 2.0* VoteCellBorderW, voteContentLabelSize.height+30.0);
     // 选项
     NSInteger count = voteInfoModel.options.count;
     CGFloat optionsViewX = VoteCellBorderW;
-    CGFloat optionsViewY = CGRectGetMaxY(self.voteContentLabelF) + 14;
+    CGFloat optionsViewY = CGRectGetMaxY(self.voteContentViewF);
     CGFloat optionsViewHeight = 44 * count;
     CGFloat optionsViewWidth = DLScreenWidth- 2.0 * VoteCellBorderW;
     self.optionsViewF = CGRectMake(optionsViewX, optionsViewY, optionsViewWidth, optionsViewHeight);

@@ -25,4 +25,5 @@
 -(void)setOptions:(VoteInfoModel *)model;
 //是否过滤动画效果
 @property (nonatomic) Boolean isAnimationFiltered;
+@property (nonatomic) Boolean isBorderEnable;
 @end

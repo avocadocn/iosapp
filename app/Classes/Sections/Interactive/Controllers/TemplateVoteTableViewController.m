@@ -90,7 +90,7 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
                            RGBACOLOR(0, 160, 233, 1),nil];
     
     VoteInfoModel *voteInfoModel = [[VoteInfoModel alloc]init];
-    voteInfoModel.name = [NSString stringWithFormat:@"桃地再不斩"];
+    voteInfoModel.name = [NSString stringWithFormat:@"张三"];
     voteInfoModel.time = inter.createTime;
     voteInfoModel.voteImageURL = [[inter.photos firstObject] objectForKey:@"uri"];
     voteInfoModel.voteText = inter.theme;

@@ -39,6 +39,8 @@
  *  投票配图
  */
 @property (nonatomic, strong) UIImageView *voteImageView;
+
+@property (nonatomic, strong) UIView* voteContentView;
 /**
  *  投票内容label
  */
@@ -111,14 +113,18 @@
     [voteContentLabel setNumberOfLines:0];
     [voteContentLabel setLineBreakMode:NSLineBreakByCharWrapping];
     [voteContentLabel setBackgroundColor:[UIColor whiteColor]];
-    [voteContainer addSubview:voteContentLabel];
     self.voteContentLabel = voteContentLabel;
     
-    
+    UIView *voteContentView = [[UIView alloc] init];
+    [voteContentView setBackgroundColor:[UIColor greenColor]];
+    [voteContentView addSubview:voteContentLabel];
+    [voteContainer addSubview:voteContentView];
+    self.voteContentView = voteContentView;
     // 选项
     VoteOptionsView *optionsView = [[VoteOptionsView alloc]init];
     optionsView.voteCount = self.voteNum;
     optionsView.isAnimationFiltered =true;
+    optionsView.isBorderEnable = true;
     [voteContainer addSubview:optionsView];
     optionsView.backgroundColor = [UIColor whiteColor];
     self.optionsView = optionsView;
@@ -224,6 +230,10 @@
         [self.voteImageView setAlpha:0];
     }
     
+    [self.voteContentView setFrame:voteCellFrame.voteContentViewF];
+    [self.voteContentView setBackgroundColor:[UIColor whiteColor]];
+    [self.voteContentView.layer setBorderColor:[RGB(0xf4, 0xf5, 0xf5) CGColor]];
+    [self.voteContentView.layer setBorderWidth:1.0f];
     self.voteContentLabel.text = model.voteText;
     [self.voteContentLabel setFrame:voteCellFrame.voteContentLabelF];
     

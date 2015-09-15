@@ -48,7 +48,7 @@
         for (NSInteger i  = 0; i < self.optionCount ; i++) {
             VoteOptionsInfoModel *optionInfo = self.modelArray[i];
             optionInfo.index = [NSNumber numberWithInteger:i];
-            VoteAnimatedOptionView *optionView = [[VoteAnimatedOptionView alloc]init];
+            VoteAnimatedOptionView *optionView = [[VoteAnimatedOptionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth- 2*12.0, 0)];
             optionView.voteViewColor = optionInfo.voteInfoColor;
             optionView.optionCount = optionInfo.optionCount;
             [optionView setOptionName:optionInfo.optionName];  //设置投票名字
@@ -86,6 +86,10 @@
                 optionView.button.userInteractionEnabled = NO;
             }else {
                 optionView.button.userInteractionEnabled = YES;
+            }
+            if (self.isBorderEnable) {
+                [optionView.layer setBorderColor:[RGB(0xf4, 0xf5, 0xf5) CGColor]];
+                [optionView.layer setBorderWidth:0.5f];
             }
             [self addSubview:optionView];
         }
