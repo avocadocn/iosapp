@@ -7,7 +7,10 @@
 //
 
 #import "CustomKeyBoard.h"
-
+#import "Account.h"
+#import "AccountTool.h"
+#import "RestfulAPIRequestTool.h"
+#import "Interaction.h"
 @implementation CustomKeyBoard
 
 /*
@@ -19,14 +22,15 @@
 */
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    
-    
+//    NSString *str = textField.text;
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"POSTTEXT" object:nil userInfo:@{@"name":@"text"}];
     [self.inputView resignFirstResponder];
     return YES;
 }
 
 
 - (IBAction)sendBtnClicked:(id)sender {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"POSTTEXT" object:nil userInfo:@{@"name":@"text"}];
     [self.inputView resignFirstResponder];
 }
 

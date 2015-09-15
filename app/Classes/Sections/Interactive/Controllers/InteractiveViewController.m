@@ -446,8 +446,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         case 3:  // 求助详情
         {
             HelpTableViewController *helpController = [[HelpTableViewController alloc]init];  // 求助
+            helpController.model = inter;
             [self.navigationController pushViewController:helpController animated:YES];
-            
             break;
         }
         default:

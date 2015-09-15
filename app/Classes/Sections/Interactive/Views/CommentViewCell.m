@@ -33,14 +33,14 @@
 
 -(void)setCommentModel:(CircleCommentModel *)commentModel{
     
-    // 设置头像
-    self.avatar.image  = [UIImage imageNamed:commentModel.poster.photo];
-    
-    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
-    
-    // 设置昵称
-    self.name.text = commentModel.poster.nickname;
-    
+//    // 设置头像
+//    self.avatar.image  = [UIImage imageNamed:commentModel.poster.photo];
+//    
+//    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
+////
+//    // 设置昵称
+//    self.name.text = commentModel.poster.nickname;
+//    
     
     
     // 设置评论正文

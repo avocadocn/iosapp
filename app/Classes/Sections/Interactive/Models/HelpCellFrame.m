@@ -8,7 +8,6 @@
 
 #import "HelpCellFrame.h"
 #import "HelpInfoModel.h"
-
 @implementation HelpCellFrame
 
 

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class Interaction;
 @interface CommentsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, strong)Interaction *model;
 
 @end

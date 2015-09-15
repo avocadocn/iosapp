@@ -69,19 +69,22 @@
 
 - (void)reloadCellWithModel:(Interaction *)model
 {
-    self.InteractiveText.text = model.theme;
+    
     switch ([model.type integerValue]) {
         case 1:{
+            self.InteractiveText.text = model.theme;
             self.InteractiveTitle.text = @"活动进行中";
             self.InteractiveTypeIcon.image = [UIImage imageNamed:@"Rectangle 177 + calendar + Fill 133"];
             break;
         }
         case 2:{
+            self.InteractiveText.text = model.theme;
             self.InteractiveTitle.text = @"投票进行中";
             self.InteractiveTypeIcon.image = [UIImage imageNamed:@"Rectangle 177 + chart + Fill 164"];
             break;
         }
         case 3:{
+            self.InteractiveText.text = model.content;
             self.InteractiveTitle.text = @"求助进行中";
             self.InteractiveTypeIcon.image = [UIImage imageNamed:@"求助 + Shape Copy 8"];
             break;

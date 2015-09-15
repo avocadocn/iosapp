@@ -54,7 +54,7 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
     
     self.itemNames = @[@"我的信息",@"群组",@"消息",@"活动",@"投票",@"求助"];
     
-    self.itemIcons = @[@"Interactive_activity_icon",@"shetuan",@"聊天 copy",@"活动 ",@"投票 ",@"邀请 "];
+    self.itemIcons = @[@"boy",@"shetuan",@"聊天 copy",@"活动 ",@"投票 ",@"邀请 "];
     
     
     self.collectionView.backgroundColor = GrayBackgroundColor;

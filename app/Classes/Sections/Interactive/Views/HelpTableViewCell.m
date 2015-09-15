@@ -8,7 +8,7 @@
 
 #import "HelpTableViewCell.h"
 #import "HelpInfoModel.h"
-
+#import "UIImageView+DLGetWebImage.h"
 @interface HelpTableViewCell()
 /**
  *  整体
@@ -115,7 +115,7 @@
     
     [self.helpImageView setFrame:helpCellFrame.helpImageViewF];
     if (model.helpImageURL) {
-        [self.helpImageView setImage:[UIImage imageNamed:model.helpImageURL]];
+        [self.helpImageView dlGetRouteWebImageWithString:model.helpImageURL placeholderImage:nil];
         [self.helpImageView setAlpha:1];
     }else{
         [self.helpImageView setAlpha:0];
