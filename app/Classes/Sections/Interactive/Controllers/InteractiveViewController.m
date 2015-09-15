@@ -10,6 +10,7 @@
 #import "ActivitysShowView.h"
 #import "ActivityShowTableController.h"
 #import "TemplateActivityShowTableController.h"
+#import "TemplateVoteTableViewController.h"
 #import "CurrentActivitysShowCell.h"
 #import "ActivityShowTableController.h"
 #import "DWBubbleMenuButton.h"
@@ -31,6 +32,12 @@
 #import "PollModel.h"
 #import "LoginViewController.h"
 #import "Singletons.h"
+
+enum InteractionType{
+    InteractionTypeActivityTemplate,
+    InteractionTypeVoteTemplate,
+    InteractionTypeHelpTemplate
+};
 
 @interface InteractiveViewController ()<ActivitysShowViewDelegate,UITableViewDataSource,UITableViewDelegate,DCPathButtonDelegate, DWBubbleMenuViewDelegate, UIAlertViewDelegate>
 
@@ -373,9 +380,20 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             NSArray *titles = @[@"活动", @"投票", @"求助"];
             
             [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
-                TemplateActivityShowTableController *tableViewController = [[TemplateActivityShowTableController alloc] init];
-                tableViewController.title = title;
-                [viewControllers addObject:tableViewController];
+                if (idx == InteractionTypeActivityTemplate) {
+                    TemplateActivityShowTableController *tableViewController = [[TemplateActivityShowTableController alloc] init];
+                    tableViewController.title = title;
+                    [viewControllers addObject:tableViewController];
+                }else if(idx == InteractionTypeVoteTemplate){
+                    TemplateVoteTableViewController *tableViewController = [[TemplateVoteTableViewController alloc] init];
+                    tableViewController.title = title;
+                    [viewControllers addObject:tableViewController];
+                }else if (idx == InteractionTypeHelpTemplate) {
+                    TemplateActivityShowTableController *tableViewController = [[TemplateActivityShowTableController alloc] init];
+                    tableViewController.title = title;
+                    [viewControllers addObject:tableViewController];
+                }
+                
             }];
             [titles enumerateObjectsUsingBlock:^(NSDictionary* dic, NSUInteger idx, BOOL *stop) {
                 

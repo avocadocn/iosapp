@@ -23,5 +23,6 @@
 @property (nonatomic, assign) NSNumber *voteCount;
 
 -(void)setOptions:(VoteInfoModel *)model;
-
+//是否过滤动画效果
+@property (nonatomic) Boolean isAnimationFiltered;
 @end

@@ -82,7 +82,11 @@
                 
                 return [RACSignal empty];
             }];
-            
+            if (self.isAnimationFiltered) {
+                optionView.button.userInteractionEnabled = NO;
+            }else {
+                optionView.button.userInteractionEnabled = YES;
+            }
             [self addSubview:optionView];
         }
     }

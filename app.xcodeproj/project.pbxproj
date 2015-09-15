@@ -712,6 +712,7 @@
 		A4F595021B7C7D970088D9CC /* BrithdayBlessController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F595011B7C7D970088D9CC /* BrithdayBlessController.m */; };
 		C2BB2F66A5C16197F6FD8E9D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9388089A6ADF54035C56E5D /* libPods.a */; };
 		E22ED8201B9FCE1E00CF4109 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = E22ED81E1B9FCE1E00CF4109 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E23554811BA6774600D91D5C /* TemplateVoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23554801BA6774600D91D5C /* TemplateVoteTableViewController.m */; };
 		E23AF2911BA12490001BE3C5 /* TemplateDetailActivityShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2901BA12490001BE3C5 /* TemplateDetailActivityShowView.m */; };
 		E23AF2941BA12620001BE3C5 /* TemplateDetailActivityShowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2931BA12620001BE3C5 /* TemplateDetailActivityShowController.m */; };
 		E23AF2971BA126D7001BE3C5 /* TemplateActivityShowTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2961BA126D7001BE3C5 /* TemplateActivityShowTableController.m */; };
@@ -719,6 +720,7 @@
 		E23AF2A41BA1758E001BE3C5 /* VoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF29F1BA1758E001BE3C5 /* VoteTableViewCell.m */; };
 		E23AF2A51BA1758E001BE3C5 /* VoteOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */; };
 		E23AF2A61BA1758E001BE3C5 /* VoteAnimatedOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */; };
+		E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 /* End PBXBuildFile section */
 
@@ -1876,6 +1878,8 @@
 		E22ED81D1B9FCE1E00CF4109 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		E22ED81E1B9FCE1E00CF4109 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		E22ED81F1B9FCE1E00CF4109 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		E235547F1BA6774600D91D5C /* TemplateVoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVoteTableViewController.h; sourceTree = "<group>"; };
+		E23554801BA6774600D91D5C /* TemplateVoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateVoteTableViewController.m; sourceTree = "<group>"; };
 		E23AF28F1BA12490001BE3C5 /* TemplateDetailActivityShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetailActivityShowView.h; sourceTree = "<group>"; };
 		E23AF2901BA12490001BE3C5 /* TemplateDetailActivityShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateDetailActivityShowView.m; sourceTree = "<group>"; };
 		E23AF2921BA12620001BE3C5 /* TemplateDetailActivityShowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetailActivityShowController.h; sourceTree = "<group>"; };
@@ -1890,6 +1894,8 @@
 		E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteOptionsView.m; sourceTree = "<group>"; };
 		E23AF2A21BA1758E001BE3C5 /* VoteAnimatedOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteAnimatedOptionView.h; sourceTree = "<group>"; };
 		E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteAnimatedOptionView.m; sourceTree = "<group>"; };
+		E297E63A1BA7C47200C1AC92 /* TemplateVoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVoteTableViewCell.h; sourceTree = "<group>"; };
+		E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateVoteTableViewCell.m; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2047,6 +2053,8 @@
 				968C27471B7B43D500950581 /* VoteBottomToolBar.xib */,
 				E23AF28F1BA12490001BE3C5 /* TemplateDetailActivityShowView.h */,
 				E23AF2901BA12490001BE3C5 /* TemplateDetailActivityShowView.m */,
+				E297E63A1BA7C47200C1AC92 /* TemplateVoteTableViewCell.h */,
+				E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2090,6 +2098,8 @@
 				E23AF2931BA12620001BE3C5 /* TemplateDetailActivityShowController.m */,
 				E23AF2951BA126D7001BE3C5 /* TemplateActivityShowTableController.h */,
 				E23AF2961BA126D7001BE3C5 /* TemplateActivityShowTableController.m */,
+				E235547F1BA6774600D91D5C /* TemplateVoteTableViewController.h */,
+				E23554801BA6774600D91D5C /* TemplateVoteTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4938,6 +4948,7 @@
 				969616D31B6B5F0C002FC24C /* UIView+Extension.m in Sources */,
 				96E3D83F1B7DABD700A623B7 /* UserMessageTableViewController.m in Sources */,
 				967C62CA1B7C72220065F318 /* VoteInfoTableViewController.m in Sources */,
+				E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */,
 				E23AF2A51BA1758E001BE3C5 /* VoteOptionsView.m in Sources */,
 				968C273E1B7B2DDE00950581 /* TeamSettingViewController.m in Sources */,
 				5458675A1BA05CC6009ED3E7 /* ResetPasswordViewController.m in Sources */,
@@ -5223,6 +5234,7 @@
 				96CF90D61B673422001759E2 /* UIImageView+EMHighlightedWebCache.m in Sources */,
 				961053521B590C31002D62A3 /* OtherActivityShowCell.m in Sources */,
 				96CF939E1B674B54001759E2 /* GroupSettingViewController.m in Sources */,
+				E23554811BA6774600D91D5C /* TemplateVoteTableViewController.m in Sources */,
 				96CF93801B674B54001759E2 /* ChatListCell.m in Sources */,
 				A45565DF1B6B1B2400DBEC44 /* CompanyModel.m in Sources */,
 				967439BB1B705908004334A4 /* FixTemplateRouteTool.m in Sources */,
