@@ -191,7 +191,7 @@
         
     }else if (self.type == RepeaterGroupTranimitTypeHelp) {
         v = [[PublishSeekHelp alloc] init];
-//        [(PublishSeekHelp*)v setModel:self.model];
+        [(PublishSeekHelp*)v setModel:self.model];
         
     }
     if (v) {

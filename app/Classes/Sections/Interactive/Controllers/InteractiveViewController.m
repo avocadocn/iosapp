@@ -11,6 +11,7 @@
 #import "ActivityShowTableController.h"
 #import "TemplateActivityShowTableController.h"
 #import "TemplateVoteTableViewController.h"
+#import "TemplateHelpTableViewController.h"
 #import "CurrentActivitysShowCell.h"
 #import "ActivityShowTableController.h"
 #import "DWBubbleMenuButton.h"
@@ -389,7 +390,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
                     tableViewController.title = title;
                     [viewControllers addObject:tableViewController];
                 }else if (idx == InteractionTypeHelpTemplate) {
-                    TemplateActivityShowTableController *tableViewController = [[TemplateActivityShowTableController alloc] init];
+                    TemplateHelpTableViewController *tableViewController = [[TemplateHelpTableViewController alloc] init];
                     tableViewController.title = title;
                     [viewControllers addObject:tableViewController];
                 }

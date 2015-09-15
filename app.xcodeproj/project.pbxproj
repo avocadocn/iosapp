@@ -721,6 +721,7 @@
 		E23AF2A51BA1758E001BE3C5 /* VoteOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */; };
 		E23AF2A61BA1758E001BE3C5 /* VoteAnimatedOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */; };
 		E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */; };
+		E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 /* End PBXBuildFile section */
 
@@ -1896,7 +1897,8 @@
 		E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteAnimatedOptionView.m; sourceTree = "<group>"; };
 		E297E63A1BA7C47200C1AC92 /* TemplateVoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVoteTableViewCell.h; sourceTree = "<group>"; };
 		E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateVoteTableViewCell.m; sourceTree = "<group>"; };
-		E297E63D1BA8070F00C1AC92 /* TemplateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateUtils.h; sourceTree = "<group>"; };
+		E297E63E1BA812A300C1AC92 /* TemplateHelpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateHelpTableViewController.h; sourceTree = "<group>"; };
+		E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateHelpTableViewController.m; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2101,7 +2103,8 @@
 				E23AF2961BA126D7001BE3C5 /* TemplateActivityShowTableController.m */,
 				E235547F1BA6774600D91D5C /* TemplateVoteTableViewController.h */,
 				E23554801BA6774600D91D5C /* TemplateVoteTableViewController.m */,
-				E297E63D1BA8070F00C1AC92 /* TemplateUtils.h */,
+				E297E63E1BA812A300C1AC92 /* TemplateHelpTableViewController.h */,
+				E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4962,6 +4965,7 @@
 				A4F594F91B7C7C740088D9CC /* HMShop.m in Sources */,
 				A45726FE1B74A9B100A27B79 /* AttentionViewCell.m in Sources */,
 				969616CF1B6B5CC5002FC24C /* InvitationManager.m in Sources */,
+				E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */,
 				969616CE1B6B5C96002FC24C /* ContactsViewController.m in Sources */,
 				A4745E051B81A9AC008EB944 /* UIColor+Hex.m in Sources */,
 				A4465CFA1B9453C80056ACA8 /* FreshModel.m in Sources */,

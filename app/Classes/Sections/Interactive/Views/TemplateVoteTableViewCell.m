@@ -111,6 +111,7 @@
     // 正文
     UILabel *voteContentLabel = [[UILabel alloc]init];
     voteContentLabel.font = VoteCellContentFont;
+    [voteContentLabel setTextColor:RGB(0x67, 0x67, 0x67)];
     [voteContentLabel setNumberOfLines:0];
     [voteContentLabel setLineBreakMode:NSLineBreakByCharWrapping];
     [voteContentLabel setBackgroundColor:[UIColor clearColor]];

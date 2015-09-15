@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HelpCellFrame.h"
-
+@class Interaction;
 @interface HelpTableViewCell : UITableViewCell
 
 
@@ -17,4 +17,8 @@
  */
 @property (nonatomic, strong) HelpCellFrame *helpCellFrame;
 
+@property (nonatomic) Boolean isTemplate;
+@property (nonatomic, strong)Interaction *model;
+@property UIViewController* context;
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier isTemplate:(Boolean)isTemplate;
 @end
