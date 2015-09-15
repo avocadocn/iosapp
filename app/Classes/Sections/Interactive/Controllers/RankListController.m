@@ -16,9 +16,9 @@
 #import "RankItemTableViewcell.h"
 #import "RankItemView.h"
 #import "RankBottomShowView.h"
-
 #import "RankDetileModel.h"
 
+static int selectNum = 1;
 
 @interface RankListController ()<iCarouselDataSource, iCarouselDelegate>
 
@@ -33,6 +33,7 @@
 @property (nonatomic, strong)NSMutableArray *manArray;
 @property (nonatomic, strong)NSMutableArray *womanArray;
 @property (nonatomic, strong)NSMutableArray *populArray;
+
 @end
 
 @implementation RankListController
@@ -57,14 +58,14 @@ static NSString * const ID =  @"RankItemTableViewcell";
         }
         for (NSInteger i = 0; i < 20; i++) {
             [self.items addObject:[NSNumber numberWithInteger:i]];
-            }
+        }
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self getGiftTime];
     [self setUpUI];
 }
 
@@ -75,10 +76,15 @@ static NSString * const ID =  @"RankItemTableViewcell";
     
     NSArray *ranking = [json objectForKey:@"ranking"];
     
+    NSInteger i = 0;
     for (NSDictionary *dic  in ranking) {
         RankDetileModel *model = [[RankDetileModel alloc]init];
+        
         [model setValuesForKeysWithDictionary:dic];
+        [model setIndex:[NSString stringWithFormat:@"%ld", i + 1]];
+        
         [self.modelArray addObject:model];
+        i++;
     }
     NSLog(@"开始刷新");
     [self.carousel reloadData];
@@ -183,12 +189,15 @@ static NSString * const ID =  @"RankItemTableViewcell";
         cell.layer.borderColor = [UIColor whiteColor].CGColor;
         RankDetileModel *model = [self.modelArray objectAtIndex:index];
         [cell reloadRankCellWithRankModel:model andIndex:model.index];
-        cell.layer.shadowRadius = 10;
-        cell.layer.shadowColor = [UIColor blackColor].CGColor;
+        cell.layer.shadowRadius = 7;
+        cell.layer.shadowColor = [UIColor lightGrayColor].CGColor;
         cell.layer.shadowOpacity = .5;
         view = cell;
         
 //        [cell.parseButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(voteAction:)]];
+        
+        
+        
     }
     
     view.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -196,18 +205,25 @@ static NSString * const ID =  @"RankItemTableViewcell";
     
     return view;
 }
-
-- (void)voteAction//:(UITapGestureRecognizer *)tap
+// 送礼  点赞
+- (void)voteActionWithId:(NSString *)userId//:(UITapGestureRecognizer *)tap
 {
+    Account *acc = [AccountTool account];
+    
+    NSNumber *num = [NSNumber numberWithInt:4];
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"4" forKey:@"giftIndex"];
-    [dic setObject:@"55dc110314a37c242b6486d1" forKey:@"receiverId"];
+    [dic setObject:num forKey:@"giftIndex"];
+    [dic setObject:userId forKey:@"receiverId"];
     
     [RestfulAPIRequestTool routeName:@"sendGifts" requestModel:dic useKeys:@[@"giftIndex"] success:^(id json) {
         NSLog(@"送礼成功  %@", json);
-        
+        [self requestNetWithType:[NSNumber numberWithInt:selectNum]];
     } failure:^(id errorJson) {
         NSLog(@"送礼失败   %@", errorJson);
+        UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"投票失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle: @"取消" otherButtonTitles:nil, nil];
+        
+        [al show];
     }];
 }
 
@@ -218,29 +234,17 @@ static NSString * const ID =  @"RankItemTableViewcell";
     self.bottomShowView.nameLabel.text = model.ID;
     self.bottomShowView.rankLabel.text = [NSString stringWithFormat:@"目前排名: %@", model.index];
     self.bottomShowView.avatar.image = [UIImage imageNamed:@"2"];
-    
-    self.bottomShowView.selectNum -= 1;
-    switch (self.bottomShowView.selectNum) {
-        case 2:{
-        self.bottomShowView.love3.image = [UIImage imageNamed:@"RankLoveHeart_gray.png"];
-            break;
-        }
-        case 1 :{
-            self.bottomShowView.love2.image = [UIImage imageNamed:@"RankLoveHeart_gray.png"];
-            break;
-        }
-        case 0:{
-            self.bottomShowView.love1.image = [UIImage imageNamed:@"RankLoveHeart_gray.png"];
-            break;
-        }
-    }
 }
 
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index{
     RankDetileModel *model = [self.modelArray objectAtIndex:carousel.currentItemIndex];
     [self reloadRankViewWithModel:model];
     
-    [self voteAction];
+//    HMShopCell *cell = (HMShopCell *)[carousel.subviews objectAtIndex:carousel.currentItemIndex];
+//    cell.personLike.text = [NSString stringWithFormat:@"%ld", [cell.personLike.text integerValue] + 1];
+//    NSLog(@"子视图有  %@", cell);
+    
+    [self voteActionWithId:model.ID];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -332,7 +336,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
     }else if (indexPath.row == RankListTypeWomenGod){
         [cell.itemLabel setText:@"女神"];
     }else if (indexPath.row == RankListTypePopularity){
-        [cell.itemLabel setText:@"人气"];
+        [cell.itemLabel setText:@"社团"];
     }else{
         [cell.itemLabel setText:@""];
     }
@@ -384,12 +388,17 @@ static NSString * const ID =  @"RankItemTableViewcell";
 
 #pragma mark - 设置标题栏
 -(void)setUpNavTitleWithRankListType:(RankListType)rankListType{
+    
+//    [self getGiftTime];
+    
     // 设置标题栏
     NSString *title;
     switch (rankListType) {
         case RankListTypeMenGod:
             title = @"男神榜";
+            selectNum = 1;
             if (!self.manArray) {
+                self.bottomShowView.aMaskView.frame = CGRectMake(0, 0, 0, 0);
                 [self requestNetWithType:@1];
             } else
             {
@@ -399,6 +408,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
             break;
         case RankListTypeWomenGod:
             title = @"女神榜";
+            selectNum = 2;
+                self.bottomShowView.aMaskView.frame = CGRectMake(0, 0, 0, 0);
             if (!self.womanArray) {
                 [self requestNetWithType:@2];
             } else
@@ -407,45 +418,19 @@ static NSString * const ID =  @"RankItemTableViewcell";
             }
             break;
         case RankListTypePopularity:
-            title = @"人气榜";
+            title = @"社团榜";
+                self.bottomShowView.aMaskView.frame = CGRectMake(DLScreenWidth - 150 , 0, 150, 60);
             if (!self.populArray) {
                 [self requestNetWithType:@0];
             }
             [self loadWithArray:self.populArray];
             break;
+ 
         default:
             break;
     }
     self.title = title;
 }
-
-
-/*
-- (void)netRequestWithRankType:(RankListType)rankListType
-{
-    switch (rankListType) {
-        case RankListTypeMenGod:
-//            title = @"男神榜";
-            if (!self.manArray) {
-                [self requestNetWithType:@1];
-            }
-            break;
-        case RankListTypeWomenGod:
-            if (!self.womanArray) {
-                [self requestNetWithType:@2];
-            }
-//            title = @"女神榜";
-            break;
-        case RankListTypePopularity:
-//            title = @"人气榜";
-            [self requestNetWithType:@0];
-            break;
-        default:
-            break;
-    }
-
-}
-*/
 
 
 - (void)loadWithArray:(NSArray *)array
@@ -455,6 +440,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
 }
 - (void)requestNetWithType:(NSNumber *)num
 {
+    
+    
     Account *acc = [AccountTool account];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:acc.cid forKey:@"cid"];
@@ -463,13 +450,12 @@ static NSString * const ID =  @"RankItemTableViewcell";
     [dic setObject:@20 forKey:@"limit"];
     
     [RestfulAPIRequestTool routeName:@"getCompaniesFavoriteRank" requestModel:dic useKeys:@[@"cid", @"type", @"page", @"limit",@"vote"] success:^(id json) {
-        NSLog(@"获取成功  %@", json);
+        NSLog(@"获取排行榜成功  %@", json);
         
-        
-        [self getJson];
+        [self reloadRankDataWithJson:json];
         
     } failure:^(id errorJson) {
-        NSLog(@"获取失败  %@", errorJson);
+        NSLog(@"获取排行榜失败  %@", errorJson);
     }];
 }
 
@@ -486,10 +472,59 @@ static NSString * const ID =  @"RankItemTableViewcell";
     NSDictionary *bigDic = [NSDictionary dictionaryWithObject:ranking forKey:@"ranking"];
     [self reloadRankDataWithJson:bigDic];
 }
+- (void)getGiftTime
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"heart" forKey:@"content"];
+    
+    [RestfulAPIRequestTool routeName:@"getGiftsNum" requestModel:dic useKeys:@[@"content"] success:^(id json) {
+        NSLog(@"获取礼物数据成功 %@", json);
+        [self reloadViewWithJson:json];
+    } failure:^(id errorJson) {
+        NSLog(@"获取礼物失败   %@", errorJson);
+    }];
+}
 
+- (void)reloadViewWithJson:(id)json
+{
+    NSDictionary *dic = [json objectForKey:@"heart"];
+    
+    NSNumber *num = [dic objectForKey:@"remainGift"];
+    NSString *timeNum = [dic objectForKey:@"remainTime"];
+    
+    NSInteger timeInt = [self judgeRemainTime:[timeNum integerValue]];
+    
+    [self reloadHeartTime:[num integerValue] andLastImageIndex:[NSString stringWithFormat:@"RankLoveHeart_gray%ld@2x", (long)timeInt]];
+}
 
+- (void)reloadHeartTime:(NSInteger)num andLastImageIndex:(NSString *)lastStr
+{
+    self.bottomShowView.selectNum = num;
+    switch (self.bottomShowView.selectNum) {
+            
+        case 2:{
+            self.bottomShowView.love3.image = [UIImage imageNamed:lastStr];
+            break;
+        }
+        case 1 :{
+            self.bottomShowView.love3.image = [UIImage imageNamed:@"RankLoveHeart_gray.png"];
+            self.bottomShowView.love2.image = [UIImage imageNamed:lastStr];
+            break;
+        }
+        case 0:{
+            self.bottomShowView.love3.image = [UIImage imageNamed:@"RankLoveHeart_gray.png"];
+            self.bottomShowView.love2.image = [UIImage imageNamed:@"RankLoveHeart_gray.png"];
+            self.bottomShowView.love1.image = [UIImage imageNamed:lastStr];
+            break;
+        }
+    }
+}
 
-
+- (NSInteger)judgeRemainTime:(NSInteger)timeNumber
+{
+    NSInteger num = timeNumber / (60 * 60 * 1000 / 2);
+    
+    return num;
+}
 
 
 @end

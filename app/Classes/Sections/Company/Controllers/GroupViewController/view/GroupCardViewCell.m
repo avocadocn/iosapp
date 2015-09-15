@@ -60,7 +60,6 @@
 {
     [self.groupImageView dlGetRouteWebImageWithString:model.logo placeholderImage:nil];
     self.groupIntroLabel.text = model.name;
-    
 }
 
 
