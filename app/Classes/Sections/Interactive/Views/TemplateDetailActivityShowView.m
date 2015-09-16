@@ -304,7 +304,7 @@
     signedInView.height =CGRectGetMaxY(signedInLabel.frame) + 14;
     [signedInView addSubview:verticalLine1];
     [signedInView addSubview:signedInLabel];
-    [superView addSubview:signedInView];
+//    [superView addSubview:signedInView];
     
     // 添加活动介绍view
     UIView *introduceView = [[UIView alloc]init];
@@ -343,7 +343,7 @@
     introduceView.width = DLScreenWidth;
     introduceView.height = CGRectGetMaxY(introduceWebView.frame) + 16;
     introduceView.x = 0;
-    introduceView.y = CGRectGetMaxY(signedInView.frame) + 12;
+    introduceView.y = CGRectGetMaxY(enterView.frame) + 12;
     
     // 添加到根view中
     [introduceView addSubview:verticalLine2];

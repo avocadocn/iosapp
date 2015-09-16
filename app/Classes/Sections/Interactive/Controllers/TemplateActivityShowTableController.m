@@ -15,6 +15,7 @@
 #import "AccountTool.h"
 #import "getTemplateModel.h"
 #import "Interaction.h"
+#import <MJRefresh.h>
 
 @interface TemplateActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;
@@ -23,8 +24,8 @@
 
 @implementation TemplateActivityShowTableController
 
+static NSInteger pageLimit=10;
 static NSString * const ID = @"OtherActivityShowCell";
-
 
 - (instancetype)init
 {
@@ -40,7 +41,6 @@ static NSString * const ID = @"OtherActivityShowCell";
 {
     self = [super init];
     if (self) {
-        NSLog(@"the custom frame is %@",NSStringFromCGRect(frame));
         self.view.frame=frame;
         [self addActivitysShowTable];
         [self.view setBackgroundColor:RGB(230, 230, 230)];
@@ -52,12 +52,36 @@ static NSString * const ID = @"OtherActivityShowCell";
     self.modelArray = [NSMutableArray new];
     [self requestNet];
 }
+
+- (void)loadMoreData
+{
+    NSLog(@"load more data called");
+    Account *acc= [AccountTool account];
+    getTemplateModel * model = [getTemplateModel new];
+    [model setUserId:acc.ID];
+    [model setTemplateType:[NSNumber numberWithInt:1]];
+    [model setLimit:[NSNumber numberWithInt:pageLimit]];
+    Interaction* last =[self.modelArray lastObject];
+    [model setCreateTime:last.createTime];
+    [self.tableView.footer beginRefreshing];
+    
+    [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
+        [self analyDataWithJson:json];
+        NSLog(@"success:-->%@",json);
+        [self.tableView.footer endRefreshing];
+    } failure:^(id errorJson) {
+        NSLog(@"failed:-->%@",errorJson);
+        [self.tableView.footer endRefreshing];
+    }];
+}
+
 //进行网络数据获取
 - (void)requestNet{
     Account *acc= [AccountTool account];
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:1]];
+    [model setLimit:[NSNumber numberWithInt:pageLimit]];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
         NSLog(@"success:-->%@",json);
@@ -68,8 +92,6 @@ static NSString * const ID = @"OtherActivityShowCell";
 //解析返回的数据
 - (void)analyDataWithJson:(id)json
 {
-    self.modelArray = [NSMutableArray array];
-    
     for (NSDictionary *dic  in json) {
         Interaction *inter = [[Interaction alloc]init];
         [inter setValuesForKeysWithDictionary:dic];
@@ -94,12 +116,16 @@ static NSString * const ID = @"OtherActivityShowCell";
     tableView.height -= 64;
     //    NSLog(@"tableview frame is :%@",NSStringFromCGRect(tableView.frame));
     [tableView setBackgroundColor:self.view.backgroundColor];
-    [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+//    [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
     [tableView setShowsVerticalScrollIndicator:NO];
     [tableView setDelegate:self];
     [tableView setDataSource:self];
     [self.view addSubview:tableView];
     self.tableView = tableView;
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    [footer setTitle:@"" forState:MJRefreshStateIdle];
+    self.tableView.footer = footer;
+//    [self.tableView.footer setBackgroundColor:[UIColor redColor]];
     // NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
 }
 

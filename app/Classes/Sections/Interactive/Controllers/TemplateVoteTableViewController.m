@@ -19,6 +19,7 @@
 #import "getTemplateModel.h"
 #import "RestfulAPIRequestTool.h"
 #import "TemplateVoteTableViewCell.h"
+#import <MJRefresh.h>
 
 @interface TemplateVoteTableViewController ()
 
@@ -27,6 +28,7 @@
 @implementation TemplateVoteTableViewController
 
 static UINavigationController *_staticNavi;
+static NSInteger pageLimit = 10;
 
 +(UINavigationController *)shareNavigation{
     return _staticNavi;
@@ -36,17 +38,46 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.voteArray = [NSMutableArray array];
+    self.voteData = [NSMutableArray new];
+    
     self.title = @"投票";
-    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
     self.tableView.height -=44 ;
     
     [self.tableView setBackgroundColor:RGB(235, 235, 235)];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    [footer setTitle:@"" forState:MJRefreshStateIdle];
+    self.tableView.footer = footer;
+    
 //    [self.tableView registerClass:[TemplateVoteTableViewCell class] forCellReuseIdentifier:ID];
     
     [self requestNet];
 
+}
+
+- (void)loadMoreData
+{
+    NSLog(@"load more data called");
+    Account *acc= [AccountTool account];
+    getTemplateModel * model = [getTemplateModel new];
+    [model setUserId:acc.ID];
+    [model setTemplateType:[NSNumber numberWithInt:2]];
+    [model setLimit:[NSNumber numberWithInt:pageLimit]];
+    Interaction* last =[self.voteData lastObject];
+    [model setCreateTime:last.createTime];
+    [self.tableView.footer beginRefreshing];
+    
+    [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
+        [self analyDataWithJson:json];
+        NSLog(@"success:-->%@",json);
+        [self.tableView.footer endRefreshing];
+    } failure:^(id errorJson) {
+        NSLog(@"failed:-->%@",errorJson);
+        [self.tableView.footer endRefreshing];
+    }];
 }
 
 //进行网络数据获取
@@ -55,6 +86,7 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:2]];
+    [model setLimit:[NSNumber numberWithInt:pageLimit]];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
         NSLog(@"success:-->%@",json);
@@ -65,8 +97,7 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
 //解析返回的数据
 - (void)analyDataWithJson:(id)json
 {
-    self.voteArray = [NSMutableArray array];
-    self.voteData = [NSMutableArray new];
+    
     for (NSDictionary *dic  in json) {
         Interaction *inter = [[Interaction alloc]init];
         [inter setValuesForKeysWithDictionary:dic];
