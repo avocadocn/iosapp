@@ -35,7 +35,7 @@
 @property (nonatomic, strong)NSArray *tag; //标签
 @property (nonatomic, strong)NSDictionary *activity;
 @property (nonatomic, copy)NSString *cid;
-@property (nonatomic, copy)NSString * poster;
+@property (nonatomic, copy)NSDictionary * poster;
 @property (nonatomic, strong)NSArray *photos;  // 取到的图片数组
 @property (nonatomic, copy)NSString *createTime;  // 创建时间
 @property (nonatomic, strong)NSArray *members;

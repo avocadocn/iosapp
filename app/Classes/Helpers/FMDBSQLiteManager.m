@@ -12,6 +12,8 @@
 @interface FMDBSQLiteManager ()
 @property (nonatomic, strong)FMDatabaseQueue *queue;
 
+@property (nonatomic, strong)Person *per;
+
 @end
 @implementation FMDBSQLiteManager
 
@@ -27,7 +29,7 @@
 - (id) init {
     self = [super init];
     if (self) {
-        NSString *sandBoxPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"mydatabase.sqlite"];
+        NSString *sandBoxPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"mydatabase.sqlite"];
         //        文件管理类NSFileManager是个单例
         NSFileManager *manager = [NSFileManager defaultManager];
         if ([manager fileExistsAtPath:sandBoxPath]) {
@@ -42,15 +44,17 @@
     }
     return self;
 }
-/*
--(void)insertPerson:(Person *)p {
+
+-(void)insertPerson:(Person *)p { // 插入数据
     [self.queue inDatabase:^(FMDatabase *db) {
         [db open];//打开数据库
-        BOOL b = [db executeUpdate:@"insert into PersonTable(name,imageURL) values(?,?)",p.name,p.imageURL];//存数据
+        BOOL b = [db executeUpdate:@"insert into PersonTable(name,userId,imageURL) values(?,?,?)",p.name,p.userId,p.imageURL];//存数据
         [db close];
         b ? NSLog(@"插入成功") : NSLog(@"插入失败");
     }];
 }
+
+/*
 -(void)deletePersonWithName:(NSString *)name {
     [self.queue inDatabase:^(FMDatabase *db) {
         [db open];
@@ -69,19 +73,19 @@
     }];
 }
  */
--(NSArray *)selectPersonWithUserId:(NSString *)userId {
-    NSMutableArray *array = [NSMutableArray arrayWithArray:0];
+-(Person *)selectPersonWithUserId:(NSString *)userId { // 查找数据
+ 
     [self.queue inDatabase:^(FMDatabase *db) {
         [db open];
         FMResultSet *set = [db executeQuery:@"select *from PersonTable where userId = ?",userId];
         while ([set next]) {
             //         stringForColumn提取对应字段中的数据
-            Person *p = [Person personWithName:[set stringForColumn:@"name"] imageURL:[set stringForColumn:@"imageURL"] userId:[set stringForColumn:@"userId"]];
-            [array addObject:p];
+            self.per = [Person personWithName:[set stringForColumn:@"name"] imageURL:[set stringForColumn:@"imageURL"] userId:[set stringForColumn:@"userId"]];
+        
         }
         [db close];
     }];
-    return [NSArray arrayWithArray:array];
+    return self.per;
 }
 
 @end

@@ -64,6 +64,7 @@
 		54BB1DDA1B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */; };
 		54E542E41BA6CFE9008A6687 /* FMDBSQLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */; };
 		54E542E71BA6D735008A6687 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E61BA6D735008A6687 /* Person.m */; };
+		54E542EB1BA7DF35008A6687 /* mydatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */; };
 		54F248271BA2848A009133D6 /* votep@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248251BA2848A009133D6 /* votep@2x.png */; };
 		54F248281BA2848A009133D6 /* chevron-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248261BA2848A009133D6 /* chevron-left.png */; };
 		54F2482D1BA2B03A009133D6 /* 活动.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248291BA2B03A009133D6 /* 活动.png */; };
@@ -825,6 +826,7 @@
 		54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBSQLiteManager.m; sourceTree = "<group>"; };
 		54E542E51BA6D735008A6687 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		54E542E61BA6D735008A6687 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mydatabase.sqlite; sourceTree = "<group>"; };
 		54F248251BA2848A009133D6 /* votep@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "votep@2x.png"; sourceTree = "<group>"; };
 		54F248261BA2848A009133D6 /* chevron-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron-left.png"; sourceTree = "<group>"; };
 		54F248291BA2B03A009133D6 /* 活动.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "活动.png"; sourceTree = "<group>"; };
@@ -2264,6 +2266,7 @@
 		9649B5071B564DE000A7F355 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */,
 				54E542DE1BA6CF08008A6687 /* FMDBManager */,
 				545867A41BA1B885009ED3E7 /* Singletons.h */,
 				545867A51BA1B885009ED3E7 /* Singletons.m */,
@@ -4640,6 +4643,7 @@
 				A40CDF5F1B8733AA00BD63F5 /* event.png in Resources */,
 				A4745E011B81A9AC008EB944 /* DNImagePickerController.strings in Resources */,
 				A42CFFE11B9C194000CCFB34 /* 107.png in Resources */,
+				54E542EB1BA7DF35008A6687 /* mydatabase.sqlite in Resources */,
 				96CF944E1B674B54001759E2 /* chat_sender_audio_playing_003.png in Resources */,
 				A40936BE1B721BC800515A50 /* address.png in Resources */,
 				A4F594F81B7C7C740088D9CC /* 1.plist in Resources */,

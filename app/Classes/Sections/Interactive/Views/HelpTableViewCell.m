@@ -77,6 +77,7 @@
     // 配图
     UIImageView *helpImageView = [[UIImageView alloc]init];
     [helpImageView setContentMode:UIViewContentModeScaleAspectFit];
+    helpImageView.backgroundColor = RGBACOLOR(206, 206, 206, 1);
     [helpContainer addSubview:helpImageView];
     self.helpImageView = helpImageView;
     
@@ -102,7 +103,7 @@
     
     
     HelpInfoModel *model = helpCellFrame.helpInfoModel;
-    [self.avatarImageView setImage:[UIImage imageNamed:model.avatarURL]];
+    [self.avatarImageView dlGetRouteWebImageWithString:model.avatarURL placeholderImage:[UIImage imageNamed:@"icon1"]];
     [self.avatarImageView setFrame:helpCellFrame.avatarImageViewF];
     
     

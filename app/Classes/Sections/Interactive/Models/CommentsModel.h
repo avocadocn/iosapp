@@ -39,6 +39,8 @@
 
 @property (nonatomic, copy) NSString *commentId;
 
+@property (nonatomic, strong) NSDictionary *body;
+
 @property (nonatomic, strong) NSNumber *interactionType;
 
 @property (nonatomic, copy) NSString *interactionId;
