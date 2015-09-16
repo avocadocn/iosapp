@@ -100,9 +100,9 @@
     // 判断是否存在图片
     if (helpInfoModel.helpImageURL) {
         // 存在图片
-        CGFloat helpImageViewX = 0;
+        CGFloat helpImageViewX = HelpCellBorderW;
         CGFloat helpImageViewY = helpContentLabelY;
-        self.helpImageViewF = CGRectMake(helpImageViewX, helpImageViewY, DLScreenWidth, DLScreenWidth);
+        self.helpImageViewF = CGRectMake(helpImageViewX, helpImageViewY, DLScreenWidth-2.0*HelpCellBorderW, DLScreenWidth);
         helpContentLabelY += CGRectGetHeight(self.helpImageViewF) + 14;
     }else{
         // 不存在图片

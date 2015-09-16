@@ -116,16 +116,19 @@
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
     //    self.pictureView = self.pictureView;
     // 活动名称label
-    UIFont *font = [UIFont systemFontOfSize:18.0f];
+    UIFont *font = [UIFont systemFontOfSize:16.0f];
     self.activityName = [[UILabel alloc]init];
-    self.activityName.textColor = [UIColor blackColor];
+    self.activityName.textColor = RGB(0x39, 0x37, 0x37);
     [self.activityName setFont:font];
+    self.activityName.numberOfLines =0;
     NSString *nameText = self.model.theme;
-    //    NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
-    //    // CGSize size = [nameText sizeWithAttributes:attr];
-    //    NSLog(@"%@",NSStringFromCGSize(size));
+//        NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
+//        // CGSize size = [nameText sizeWithAttributes:attr];
+//        NSLog(@"%@",NSStringFromCGSize(size));
+    CGSize maxActivityNameLabelSize = CGSizeMake(DLScreenWidth, MAXFLOAT);
+    CGSize activityNameLabelSize = [nameText sizeWithFont:[UIFont systemFontOfSize:16.0f] constrainedToSize:maxActivityNameLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [self.activityName setText:nameText];
-    [self.activityName setSize:CGSizeMake(DLScreenWidth, 14)];
+    [self.activityName setSize:activityNameLabelSize];
     [self.activityName setTextAlignment:NSTextAlignmentCenter];
     self.activityName.centerX = DLScreenWidth / 2;
     self.activityName.y = CGRectGetMaxY(self.pictureView.frame) + 13;

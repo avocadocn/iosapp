@@ -69,8 +69,8 @@
             }
             self.backImageView.x=0;
             self.backImageView.y=10;
-            self.backImageView.width=width;
-            self.backImageView.height=height;
+            self.backImageView.width=DLScreenWidth;
+            self.backImageView.height=DLScreenWidth*4/5;
             NSLog(@"backImageView frame-->%@",NSStringFromCGRect(self.backImageView.frame));
             [self.backImageView dlGetRouteWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:[UIImage imageNamed:@"OtherActivity_backImage"]];
         }

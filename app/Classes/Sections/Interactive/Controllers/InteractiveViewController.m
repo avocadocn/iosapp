@@ -377,9 +377,9 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             
             
             NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithCapacity:7];
-            
-            NSArray *titles = @[@"活动", @"投票", @"求助"];
-            
+            //暂时屏蔽掉求助
+//            NSArray *titles = @[@"活动", @"投票", @"求助"];
+            NSArray *titles = @[@"活动", @"投票"];
             [titles enumerateObjectsUsingBlock:^(NSString *title, NSUInteger idx, BOOL *stop) {
                 if (idx == InteractionTypeActivityTemplate) {
                     TemplateActivityShowTableController *tableViewController = [[TemplateActivityShowTableController alloc] init];
