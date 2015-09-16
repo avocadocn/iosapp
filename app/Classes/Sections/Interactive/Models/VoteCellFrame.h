@@ -79,6 +79,11 @@
  */
 @property (nonatomic, assign)NSNumber *voteNum;
 
-
+@property (nonatomic, assign) CGRect bottomTransmitBarF;
+@property (nonatomic, assign) CGRect voteContentViewF;
+/**
+ *计算模板参数的frames
+ */
+-(void)setTemplateVoteInfoModel:(VoteInfoModel *)voteInfoModel;
 
 @end

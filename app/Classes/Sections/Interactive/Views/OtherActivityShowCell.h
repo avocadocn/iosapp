@@ -12,5 +12,5 @@
 @interface OtherActivityShowCell : UITableViewCell
 
 - (void)reloadCellWithModel:(Interaction *)model;
-
+@property (nonatomic )Boolean isTemplate;
 @end

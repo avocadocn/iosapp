@@ -63,4 +63,7 @@
  */
 @property (nonatomic, strong) HelpInfoModel *helpInfoModel;
 
+@property (nonatomic, assign) CGRect bottomTransmitBarF;
+
+-(void)setTemplateHelpInfoModel:(HelpInfoModel *)helpInfoModel;
 @end

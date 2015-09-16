@@ -30,7 +30,10 @@ static NSInteger num = 0;
     
     
     [self builtInterface];
-    
+    if (self.model) {
+        NSLog(@"%@",self.model);
+        [self addTemplate:self.model];
+    }
     
 }
 
@@ -256,5 +259,34 @@ static NSInteger num = 0;
     // Pass the selected object to the new view controller.
 }
 */
-
+- (void)addTemplate:(Interaction *)templateData
+{
+    [self.voteTitle setText:templateData.theme];
+    NSInteger count = templateData.option.count;
+    if (count == 1) {
+        optionsView *option1 = (optionsView*)[self.bigView viewWithTag:1];
+        [option1.optionTextField setText:[[templateData.option objectAtIndex:0] valueForKey:@"value"]];
+    }else if (count == 2||count >=3) {
+        optionsView *option1 = (optionsView*)[self.bigView viewWithTag:1];
+        [option1.optionTextField setText:[[templateData.option objectAtIndex:0] valueForKey:@"value"]];
+        optionsView *option2 = (optionsView*)[self.bigView viewWithTag:2];
+        [option2.optionTextField setText:[[templateData.option objectAtIndex:1] valueForKey:@"value"]];
+    }
+    if (count>=3) {
+        for (int i=2; i<count; i++) {
+            [UIView animateWithDuration:.1 animations:^{
+                
+                optionsView *view = [[optionsView alloc]initWithFrame:CGRectMake(DLMultipleWidth(15.0), DLMultipleHeight(50.0) + i * DLMultipleHeight(50.0), DLMultipleWidth(345.0), DLMultipleHeight(50.00)) andTag:(i + 1)];
+                [view.optionTextField setText:[[templateData.option objectAtIndex:i] valueForKey:@"value"]];
+                [self.bigView addSubview:view];
+                self.insertOptionButton.centerY = view.centerY + DLMultipleHeight(50);
+                
+                [self.buttonLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.bottom.mas_equalTo(self.insertOptionButton.mas_top);
+                }];
+            }];
+        }
+    }
+    num = count;
+}
 @end

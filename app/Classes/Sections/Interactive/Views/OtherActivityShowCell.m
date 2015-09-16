@@ -69,8 +69,8 @@
             }
             self.backImageView.x=0;
             self.backImageView.y=10;
-            self.backImageView.width=width;
-            self.backImageView.height=height;
+            self.backImageView.width=DLScreenWidth;
+            self.backImageView.height=DLScreenWidth*4/5;
             NSLog(@"backImageView frame-->%@",NSStringFromCGRect(self.backImageView.frame));
             [self.backImageView dlGetRouteWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:[UIImage imageNamed:@"OtherActivity_backImage"]];
         }
@@ -82,9 +82,15 @@
         }
         
     }
-    self.nameLabel.text = model.theme;
-    self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[self getParsedDateStringFromString:[model.activity objectForKey:@"startTime"]],[self getParsedDateStringFromString:model.endTime]];
-    self.addressLabel.text = [[model.activity objectForKey:@"location"] objectForKey:@"name"];
+    if (self.isTemplate) {
+        self.nameLabel.text = model.theme;
+        self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[self getParsedDateStringFromString:model.startTime],[self getParsedDateStringFromString:model.endTime]];
+        self.addressLabel.text = [[model.location keyValues] objectForKey:@"name"];
+    }else{
+        self.nameLabel.text = model.theme;
+        self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[self getParsedDateStringFromString:[model.activity objectForKey:@"startTime"]],[self getParsedDateStringFromString:model.endTime]];
+        self.addressLabel.text = [[model.activity objectForKey:@"location"] objectForKey:@"name"];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

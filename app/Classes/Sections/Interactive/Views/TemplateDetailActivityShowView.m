@@ -116,16 +116,19 @@
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
     //    self.pictureView = self.pictureView;
     // 活动名称label
-    UIFont *font = [UIFont systemFontOfSize:18.0f];
+    UIFont *font = [UIFont systemFontOfSize:16.0f];
     self.activityName = [[UILabel alloc]init];
-    self.activityName.textColor = [UIColor blackColor];
+    self.activityName.textColor = RGB(0x39, 0x37, 0x37);
     [self.activityName setFont:font];
+    self.activityName.numberOfLines =0;
     NSString *nameText = self.model.theme;
-    //    NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
-    //    // CGSize size = [nameText sizeWithAttributes:attr];
-    //    NSLog(@"%@",NSStringFromCGSize(size));
+//        NSMutableDictionary *attr = [NSMutableDictionary dictionaryWithObjectsAndKeys:NSFontAttributeName,font, nil];
+//        // CGSize size = [nameText sizeWithAttributes:attr];
+//        NSLog(@"%@",NSStringFromCGSize(size));
+    CGSize maxActivityNameLabelSize = CGSizeMake(DLScreenWidth, MAXFLOAT);
+    CGSize activityNameLabelSize = [nameText sizeWithFont:[UIFont systemFontOfSize:16.0f] constrainedToSize:maxActivityNameLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [self.activityName setText:nameText];
-    [self.activityName setSize:CGSizeMake(DLScreenWidth, 14)];
+    [self.activityName setSize:activityNameLabelSize];
     [self.activityName setTextAlignment:NSTextAlignmentCenter];
     self.activityName.centerX = DLScreenWidth / 2;
     self.activityName.y = CGRectGetMaxY(self.pictureView.frame) + 13;
@@ -301,7 +304,7 @@
     signedInView.height =CGRectGetMaxY(signedInLabel.frame) + 14;
     [signedInView addSubview:verticalLine1];
     [signedInView addSubview:signedInLabel];
-    [superView addSubview:signedInView];
+//    [superView addSubview:signedInView];
     
     // 添加活动介绍view
     UIView *introduceView = [[UIView alloc]init];
@@ -340,7 +343,7 @@
     introduceView.width = DLScreenWidth;
     introduceView.height = CGRectGetMaxY(introduceWebView.frame) + 16;
     introduceView.x = 0;
-    introduceView.y = CGRectGetMaxY(signedInView.frame) + 12;
+    introduceView.y = CGRectGetMaxY(enterView.frame) + 12;
     
     // 添加到根view中
     [introduceView addSubview:verticalLine2];
@@ -386,6 +389,7 @@
     NSLog(@"btn clicked 转发");
     RepeaterGroupController* transmit = [[RepeaterGroupController alloc] init];
     [transmit.view setBackgroundColor:[UIColor clearColor]];
+    [transmit setType:RepeaterGroupTranimitTypeActtivity];
     [transmit setModel:self.model];
     [transmit setContext:self.context.navigationController];
     //根据系统版本，进行半透明展示

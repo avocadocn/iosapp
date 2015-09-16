@@ -31,6 +31,9 @@
     
     [self setNavigationItem];
     [self setSeekContent];
+    if (self.model) {
+        [self addTemplate:self.model];
+    }
 }
 
 - (void)setSeekContent
@@ -181,6 +184,11 @@
 - (void)cancelButtonAction:(UIButton *)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)addTemplate:(Interaction *)templateData
+{
+    self.seekHelpContent.text = templateData.theme;
 }
 
 @end

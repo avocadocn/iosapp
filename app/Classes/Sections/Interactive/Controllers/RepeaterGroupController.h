@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 @class Interaction;
+
+enum RepeaterGroupTranimitType{
+    RepeaterGroupTranimitTypeDefault,
+    RepeaterGroupTranimitTypeActtivity,
+    RepeaterGroupTranimitTypeVote,
+    RepeaterGroupTranimitTypeHelp
+};
+
 @interface RepeaterGroupController : UIViewController
 
 @property (nonatomic, strong)UICollectionView *groupListCollection;
@@ -16,5 +24,5 @@
 @property (nonatomic, strong)UINavigationController* context;
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
-
+@property (nonatomic) NSUInteger type;
 @end

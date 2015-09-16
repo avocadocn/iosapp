@@ -15,6 +15,7 @@
 #import "AccountTool.h"
 #import "getTemplateModel.h"
 #import "Interaction.h"
+#import <MJRefresh.h>
 
 @interface TemplateActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;
@@ -23,8 +24,9 @@
 
 @implementation TemplateActivityShowTableController
 
+//一次请求的数据量
+static NSInteger pageLimit=10;
 static NSString * const ID = @"OtherActivityShowCell";
-
 
 - (instancetype)init
 {
@@ -40,7 +42,6 @@ static NSString * const ID = @"OtherActivityShowCell";
 {
     self = [super init];
     if (self) {
-        NSLog(@"the custom frame is %@",NSStringFromCGRect(frame));
         self.view.frame=frame;
         [self addActivitysShowTable];
         [self.view setBackgroundColor:RGB(230, 230, 230)];
@@ -52,24 +53,46 @@ static NSString * const ID = @"OtherActivityShowCell";
     self.modelArray = [NSMutableArray new];
     [self requestNet];
 }
+//下拉刷新时获取并加载更多数据
+- (void)loadMoreData
+{
+//    NSLog(@"load more data called");
+    Account *acc= [AccountTool account];
+    getTemplateModel * model = [getTemplateModel new];
+    [model setUserId:acc.ID];
+    [model setTemplateType:[NSNumber numberWithInt:1]];
+    [model setLimit:[NSNumber numberWithInt:pageLimit]];
+    Interaction* last =[self.modelArray lastObject];
+    [model setCreateTime:last.createTime];
+    
+    [self.tableView.footer beginRefreshing];
+    [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
+        [self analyDataWithJson:json];
+//        NSLog(@"success:-->%@",json);
+        [self.tableView.footer endRefreshing];
+    } failure:^(id errorJson) {
+//        NSLog(@"failed:-->%@",errorJson);
+        [self.tableView.footer endRefreshing];
+    }];
+}
+
 //进行网络数据获取
 - (void)requestNet{
     Account *acc= [AccountTool account];
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:1]];
+    [model setLimit:[NSNumber numberWithLong:pageLimit]];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
-        NSLog(@"success:-->%@",json);
+//        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
-        NSLog(@"failed:-->%@",errorJson);
+//        NSLog(@"failed:-->%@",errorJson);
     }];
 }
 //解析返回的数据
 - (void)analyDataWithJson:(id)json
 {
-    self.modelArray = [NSMutableArray array];
-    
     for (NSDictionary *dic  in json) {
         Interaction *inter = [[Interaction alloc]init];
         [inter setValuesForKeysWithDictionary:dic];
@@ -94,13 +117,17 @@ static NSString * const ID = @"OtherActivityShowCell";
     tableView.height -= 64;
     //    NSLog(@"tableview frame is :%@",NSStringFromCGRect(tableView.frame));
     [tableView setBackgroundColor:self.view.backgroundColor];
-    [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
+//    [tableView setContentInset:UIEdgeInsetsMake(0, 0, 20, 0)];
     [tableView setShowsVerticalScrollIndicator:NO];
     [tableView setDelegate:self];
     [tableView setDataSource:self];
     [self.view addSubview:tableView];
     self.tableView = tableView;
-    // NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
+    //添加底部下拉刷新
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    //设置默认不显示文字，只在刷新过程中显示文字
+    [footer setTitle:@"" forState:MJRefreshStateIdle];
+    self.tableView.footer = footer;
 }
 
 #pragma mark - Table view data source
@@ -122,7 +149,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
-    
+    [cell setIsTemplate:true];
     
     
     //    [cell mas_makeConstraints:^(MASConstraintMaker *make) {

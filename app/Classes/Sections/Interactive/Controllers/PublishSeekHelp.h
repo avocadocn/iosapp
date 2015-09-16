@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Interaction;
 
 @interface PublishSeekHelp : UIViewController
 
@@ -14,5 +15,6 @@
 
 @property (nonatomic, strong)UIImageView *selectPhoto;
 
-
+//加载模板数据
+@property (nonatomic, strong)Interaction* model;
 @end
