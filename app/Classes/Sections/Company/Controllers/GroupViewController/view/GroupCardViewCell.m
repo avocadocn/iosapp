@@ -24,7 +24,6 @@
     return self;
 }
 
-
 - (void)builtInterface
 {
     self.layer.masksToBounds = YES;
@@ -32,6 +31,9 @@
     
     
     self.groupImageView = [UIImageView new];
+    
+    self.groupImageView.clipsToBounds = YES;
+    self.groupImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:self.groupImageView];
     [self.groupImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top);

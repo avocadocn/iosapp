@@ -177,7 +177,15 @@
     //创建群组
     NSMutableDictionary *dic =[NSMutableDictionary dictionary];
     [dic setObject:self.nameTextfield.text forKey:@"name"];
-    [dic setObject:@"photo" forKey:@[]];
+    
+    NSMutableDictionary *photo =[NSMutableDictionary dictionary];
+    [photo setObject:@"photo" forKey:@"name"];
+    NSData *data = UIImagePNGRepresentation(self.selectImage.image);
+    [photo setObject:data forKey:@"data"];
+    NSArray *array = [NSArray arrayWithObject:photo];
+    
+    
+    [dic setObject:array forKey:@"photo"];
     
     GroupSelectView *view = (GroupSelectView *)[self.superScroll viewWithTag:100];
     [dic setObject:[NSNumber numberWithBool:view.switchLabel.on] forKey:@"open"];
@@ -187,9 +195,9 @@
     [dic setObject:@0 forKey:@"isAdmin"];
     
     [RestfulAPIRequestTool routeName:@"publisheNewGroups" requestModel:dic useKeys:@[@"name", @"photo", @"hasValidate", @"open", @"isAdmin"] success:^(id json) {
-        
+        NSLog(@"建群成功 %@", json);
     } failure:^(id errorJson) {
-        
+        NSLog(@"建群失败 %@", errorJson);
     }];
 }
 
