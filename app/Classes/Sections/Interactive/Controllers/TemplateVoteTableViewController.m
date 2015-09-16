@@ -68,14 +68,14 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     [model setLimit:[NSNumber numberWithInt:pageLimit]];
     Interaction* last =[self.voteData lastObject];
     [model setCreateTime:last.createTime];
-    [self.tableView.footer beginRefreshing];
     
+    [self.tableView.footer beginRefreshing];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
-        NSLog(@"success:-->%@",json);
+//        NSLog(@"success:-->%@",json);
         [self.tableView.footer endRefreshing];
     } failure:^(id errorJson) {
-        NSLog(@"failed:-->%@",errorJson);
+//        NSLog(@"failed:-->%@",errorJson);
         [self.tableView.footer endRefreshing];
     }];
 }
@@ -86,12 +86,12 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:2]];
-    [model setLimit:[NSNumber numberWithInt:pageLimit]];
+    [model setLimit:[NSNumber numberWithLong:pageLimit]];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
-        NSLog(@"success:-->%@",json);
+//        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
-        NSLog(@"failed:-->%@",errorJson);
+//        NSLog(@"failed:-->%@",errorJson);
     }];
 }
 //解析返回的数据

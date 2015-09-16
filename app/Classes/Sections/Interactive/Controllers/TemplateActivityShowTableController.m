@@ -24,6 +24,7 @@
 
 @implementation TemplateActivityShowTableController
 
+//一次请求的数据量
 static NSInteger pageLimit=10;
 static NSString * const ID = @"OtherActivityShowCell";
 
@@ -52,10 +53,10 @@ static NSString * const ID = @"OtherActivityShowCell";
     self.modelArray = [NSMutableArray new];
     [self requestNet];
 }
-
+//下拉刷新时获取并加载更多数据
 - (void)loadMoreData
 {
-    NSLog(@"load more data called");
+//    NSLog(@"load more data called");
     Account *acc= [AccountTool account];
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
@@ -63,14 +64,14 @@ static NSString * const ID = @"OtherActivityShowCell";
     [model setLimit:[NSNumber numberWithInt:pageLimit]];
     Interaction* last =[self.modelArray lastObject];
     [model setCreateTime:last.createTime];
-    [self.tableView.footer beginRefreshing];
     
+    [self.tableView.footer beginRefreshing];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
-        NSLog(@"success:-->%@",json);
+//        NSLog(@"success:-->%@",json);
         [self.tableView.footer endRefreshing];
     } failure:^(id errorJson) {
-        NSLog(@"failed:-->%@",errorJson);
+//        NSLog(@"failed:-->%@",errorJson);
         [self.tableView.footer endRefreshing];
     }];
 }
@@ -81,12 +82,12 @@ static NSString * const ID = @"OtherActivityShowCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:1]];
-    [model setLimit:[NSNumber numberWithInt:pageLimit]];
+    [model setLimit:[NSNumber numberWithLong:pageLimit]];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
-        NSLog(@"success:-->%@",json);
+//        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
-        NSLog(@"failed:-->%@",errorJson);
+//        NSLog(@"failed:-->%@",errorJson);
     }];
 }
 //解析返回的数据
@@ -122,11 +123,11 @@ static NSString * const ID = @"OtherActivityShowCell";
     [tableView setDataSource:self];
     [self.view addSubview:tableView];
     self.tableView = tableView;
+    //添加底部下拉刷新
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    //设置默认不显示文字，只在刷新过程中显示文字
     [footer setTitle:@"" forState:MJRefreshStateIdle];
     self.tableView.footer = footer;
-//    [self.tableView.footer setBackgroundColor:[UIColor redColor]];
-    // NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
 }
 
 #pragma mark - Table view data source
