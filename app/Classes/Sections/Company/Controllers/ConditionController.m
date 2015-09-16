@@ -17,10 +17,8 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "ColleagueViewController.h"
-
+#import "XHMessageTextView.h"
 #define WID ((DLScreenWidth - 20) / 4.0)
-
-
 
 @interface ConditionController ()<UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChoosePhotoViewDelegate>
 
@@ -62,23 +60,24 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:completeButton];
     
-    self.speakTextView = [UITextView new];
+    self.speakTextView = [XHMessageTextView new];
     self.speakTextView.font = [UIFont systemFontOfSize:17];
 //    [self.speakTextView setBackgroundColor:[UIColor greenColor]];
     self.speakTextView.delegate = self;
     self.speakTextView.allowsEditingTextAttributes = YES;
-    self.speakTextView.text = @"这一刻的想法...";
+    self.speakTextView.placeHolder = @"这一刻的想法...";
     [self.view addSubview:self.speakTextView];
     
     [self.speakTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.view.mas_top);
-        make.left.mas_equalTo(self.view).with.offset(10);
-        make.right.mas_equalTo(self.view).with.offset(-10);
+        make.left.mas_equalTo(self.view.mas_left);
+        make.right.mas_equalTo(self.view.mas_right);
         make.height.mas_equalTo(150);
     }];
     
     self.selectPhotoView = [ChoosePhotoView new];
 //    self.selectPhotoView.backgroundColor = [UIColor blueColor];
+    
     [self.view addSubview:self.selectPhotoView];
     self.selectPhotoView.view = self;
     self.selectPhotoView.delegate = self;
@@ -86,24 +85,20 @@
     [self.selectPhotoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.speakTextView.mas_bottom);
         make.left.mas_equalTo(self.speakTextView.mas_left);
-        make.size.mas_equalTo(CGSizeMake(DLScreenWidth - 20, WID * 3 + 20));
+        make.size.mas_equalTo(CGSizeMake(DLScreenWidth - 20, WID * 1 + 20));
     }];
     
-    
-    UIView *lineView = [UIView new];
-    [lineView setBackgroundColor:[UIColor lightGrayColor]];
-    
-    [self.view addSubview:lineView];
-    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.selectPhotoView.mas_bottom).offset(-10);
-        make.left.mas_equalTo(self.selectPhotoView.mas_left);
-        make.right.mas_equalTo(self.selectPhotoView.mas_right);
-        make.height.mas_equalTo(.5);
-    }];
+    if (self.photoArray) {
+        [self.selectPhotoView arrangeStartWithArray:self.photoArray];
+        self.selectPhotoView.imagePhotoArray = self.photoArray;
+    }
 }
+
+
 
 - (void)nextStepTap:(UIButton *)sender
 {
+    [self.navigationController popViewControllerAnimated:YES];
     CircleContextModel *model = [[CircleContextModel alloc]init];
     model.photo = [NSMutableArray array];
 
@@ -122,19 +117,17 @@
     NSLog(@"账号的token值为 %@", acc.token);
     
     [model setContent:self.speakTextView.text];
-
+    
     
     [RestfulAPIRequestTool routeName:@"cirleContent" requestModel:model useKeys:@[@"content", @"photo"] success:^(id json) {
         NSLog(@"%@", json);
-        ColleagueViewController *coll = [ColleagueViewController shareState];
-        [coll netRequest];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.delegate sendSingerCircle:nil];
+        
         
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);
     }];
     
-
 }
 
 - (void)ChoosePhotoView:(ChoosePhotoView *)chooseView withFrame:(CGRect)frame
@@ -145,9 +138,8 @@
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([textView.text isEqualToString:@"这一刻的想法..."]) {
-        textView.text = nil;
-    }
-    
+//    if ([textView.text isEqualToString:@"这一刻的想法..."]) {
+//        textView.text = nil;
+//    }
 }
 @end

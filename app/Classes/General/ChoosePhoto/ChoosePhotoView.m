@@ -76,7 +76,7 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
     NSLog(@"开始排序");
     
     NSLog(@"%@", array);
-    CGFloat width = self.frame.size.width / 4.0;
+    CGFloat width = DLScreenWidth / 4.0;
     
     NSInteger count = [array count];
     
@@ -124,7 +124,9 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
     CGRect rect = CGRectMake(point.x, point.y, DLScreenWidth - 20, 300);
     
     [self.delegate ChoosePhotoView:self withFrame:rect];
+
 }
+
 
 - (void)imageViewTapAction:(UITapGestureRecognizer *)tap
 {
@@ -171,8 +173,6 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
     [imagePicker dismissViewControllerAnimated:YES completion:^{
     }];
 }
-
-
 
 
 

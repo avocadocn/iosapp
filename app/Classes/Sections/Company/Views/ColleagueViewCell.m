@@ -37,11 +37,9 @@ static NSString *userId = nil;
     [superBigView setBackgroundColor:[UIColor whiteColor]];
     
     self.backgroundColor = RGBACOLOR(240, 241, 242, 1);
-//    superBigView.layer.cornerRadius = 5;
-//    superBigView.layer.masksToBounds = YES;
-//    superBigView.layer.borderWidth = 1;
-//    superBigView.layer.borderColor = [UIColor colorWithWhite:.5 alpha:.5].CGColor;
+
     self.circleImage = [CircleImageView circleImageViewWithImage:[UIImage imageNamed:@"2.jpg"] diameter:45];
+    self.circleImage.userInteractionEnabled = YES;
     self.circleImage.frame = CGRectMake(8, 8, 45, 45); 
     [superBigView addSubview:self.circleImage];
     [self.circleImage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -51,8 +49,6 @@ static NSString *userId = nil;
     }];
     
     self.ColleagueNick = [UILabel new];
-//    [self.ColleagueNick setBackgroundColor:[UIColor blackColor]];
-//    self.ColleagueNick.text = @"杨同";
         [superBigView addSubview:self.ColleagueNick];
     [self.ColleagueNick mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(100, 25));
@@ -166,6 +162,8 @@ static NSString *userId = nil;
 {
     [self.circleImage dlGetRouteWebImageWithString:model.poster.photo placeholderImage:nil];
 //    self.circleImage.backgroundColor = [UIColor blueColor];
+    self.circleImage.tag = indexpath.row + 11111;
+    
     self.ColleagueNick.text = model.poster.nickname;
     
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间

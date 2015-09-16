@@ -23,9 +23,16 @@
     return self;
 }
 
-- (void)settingUpImageViewWithImage:(NSString *)image
+- (void)settingUpImageViewWithImage:(id)image
 {
+    if ([image isKindOfClass:[NSString class]]) {
+        
     [self.showImageView dlGetRouteWebImageWithString:image placeholderImage:nil];
+    }
+    else
+    {
+        self.showImageView.image = image;
+    }
 //    self.showImageView.image = image;
     UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     

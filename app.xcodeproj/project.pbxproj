@@ -597,6 +597,9 @@
 		A43F86381B7487DB0086D078 /* PublishSeekHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F86371B7487DB0086D078 /* PublishSeekHelp.m */; };
 		A43F863E1B748B210086D078 /* UITextView+PlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F863D1B748B210086D078 /* UITextView+PlaceHolder.m */; };
 		A4424C171BA6961200738C72 /* RankDetileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4424C161BA6961200738C72 /* RankDetileModel.m */; };
+		A4448C371BA9583E00546C34 /* GiFHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A4448C351BA9583E00546C34 /* GiFHUD.m */; };
+		A4448C391BA958E400546C34 /* myGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = A4448C381BA958E400546C34 /* myGif.gif */; };
+		A4448C3C1BA9881400546C34 /* SchoolTempModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4448C3B1BA9881400546C34 /* SchoolTempModel.m */; };
 		A4465CFA1B9453C80056ACA8 /* FreshModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4465CF91B9453C80056ACA8 /* FreshModel.m */; };
 		A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */; };
 		A44B354F1B82D126004F7A6A /* schoolCan.png in Resources */ = {isa = PBXBuildFile; fileRef = A44B354E1B82D126004F7A6A /* schoolCan.png */; };
@@ -1696,6 +1699,11 @@
 		A43F863D1B748B210086D078 /* UITextView+PlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+PlaceHolder.m"; sourceTree = "<group>"; };
 		A4424C151BA6961200738C72 /* RankDetileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankDetileModel.h; sourceTree = "<group>"; };
 		A4424C161BA6961200738C72 /* RankDetileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankDetileModel.m; sourceTree = "<group>"; };
+		A4448C351BA9583E00546C34 /* GiFHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiFHUD.m; sourceTree = "<group>"; };
+		A4448C361BA9583E00546C34 /* GiFHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiFHUD.h; sourceTree = "<group>"; };
+		A4448C381BA958E400546C34 /* myGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = myGif.gif; sourceTree = "<group>"; };
+		A4448C3A1BA9881400546C34 /* SchoolTempModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SchoolTempModel.h; sourceTree = "<group>"; };
+		A4448C3B1BA9881400546C34 /* SchoolTempModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SchoolTempModel.m; sourceTree = "<group>"; };
 		A4465CF81B9453C80056ACA8 /* FreshModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreshModel.h; sourceTree = "<group>"; };
 		A4465CF91B9453C80056ACA8 /* FreshModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshModel.m; sourceTree = "<group>"; };
 		A44B354B1B82CF65004F7A6A /* SearchSchoolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSchoolModel.h; sourceTree = "<group>"; };
@@ -2266,6 +2274,8 @@
 		9649B5071B564DE000A7F355 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A4448C351BA9583E00546C34 /* GiFHUD.m */,
+				A4448C361BA9583E00546C34 /* GiFHUD.h */,
 				54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */,
 				54E542DE1BA6CF08008A6687 /* FMDBManager */,
 				545867A41BA1B885009ED3E7 /* Singletons.h */,
@@ -2416,6 +2426,8 @@
 				A42D7EF11B78B32900F791DA /* CircleCommentModel.m */,
 				A43707B11BA272B3002D774C /* SendSchollTableModel.h */,
 				A43707B21BA272B3002D774C /* SendSchollTableModel.m */,
+				A4448C3A1BA9881400546C34 /* SchoolTempModel.h */,
+				A4448C3B1BA9881400546C34 /* SchoolTempModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4317,6 +4329,7 @@
 		A4A009C01B579EEC005AC35F /* Temporary */ = {
 			isa = PBXGroup;
 			children = (
+				A4448C381BA958E400546C34 /* myGif.gif */,
 				54BB1DCC1B8DC3B500F76628 /* chevron-left.png */,
 				54BB1DB81B8DAE5500F76628 /* TwoDimensionCode.png */,
 				A46D4AF11B79E32100177577 /* company2.png */,
@@ -4639,6 +4652,7 @@
 				96CF93C91B674B54001759E2 /* VoiceSearchFeedback002.png in Resources */,
 				54F2482F1BA2B03B009133D6 /* 投票@2x.png in Resources */,
 				96CF93FC1B674B54001759E2 /* chatBar_more_cardSelected@2x.png in Resources */,
+				A4448C391BA958E400546C34 /* myGif.gif in Resources */,
 				96CF93BB1B674B54001759E2 /* 58.png in Resources */,
 				A40CDF5F1B8733AA00BD63F5 /* event.png in Resources */,
 				A4745E011B81A9AC008EB944 /* DNImagePickerController.strings in Resources */,
@@ -5092,6 +5106,7 @@
 				A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */,
 				96CF93971B674B54001759E2 /* MessageReadManager.m in Sources */,
 				96CF947B1B674B54001759E2 /* DebugViewController.m in Sources */,
+				A4448C371BA9583E00546C34 /* GiFHUD.m in Sources */,
 				E23AF2941BA12620001BE3C5 /* TemplateDetailActivityShowController.m in Sources */,
 				A439ED421B68DA9E006B3CAC /* GuidePageViewController.m in Sources */,
 				96CF90BD1B673422001759E2 /* EMAlertView.m in Sources */,
@@ -5247,6 +5262,7 @@
 				96CF93821B674B54001759E2 /* ChatSendHelper.m in Sources */,
 				A4745E101B81A9AC008EB944 /* DNUnAuthorizedTipsView.m in Sources */,
 				A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */,
+				A4448C3C1BA9881400546C34 /* SchoolTempModel.m in Sources */,
 				A4745E021B81A9AC008EB944 /* DNPhotoBrowser.m in Sources */,
 				A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */,
 				968C27361B7B047F00950581 /* CustomMarginSettingTableViewCell.m in Sources */,

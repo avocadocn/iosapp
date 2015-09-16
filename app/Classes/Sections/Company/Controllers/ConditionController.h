@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class XHMessageTextView;
+@protocol ConditionControllerDelegate <NSObject>
+
+- (void)sendSingerCircle:(id)json;
+
+@end
+
 
 @class ChoosePhotoView;
 
 @interface ConditionController : UIViewController
-@property (nonatomic, strong)UITextView *speakTextView;
+@property (nonatomic, strong)XHMessageTextView *speakTextView;
 
 @property (nonatomic, strong)NSMutableArray *photoArray;//  存从相册选取的照片
 
@@ -21,6 +28,6 @@
 
 @property (nonatomic, strong)UICollectionView *collectionView;
 
-
+@property (nonatomic, assign)id <ConditionControllerDelegate> delegate;
 
 @end

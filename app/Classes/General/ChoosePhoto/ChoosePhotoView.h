@@ -30,5 +30,5 @@
 @property (nonatomic, strong)NSMutableArray *imagePhotoArray;  //存放已经添加的 image 图片 ,防止浪费内存
 
 @property (nonatomic, assign)id <ChoosePhotoViewDelegate>delegate;
-
+- (void)arrangeStartWithArray:(NSMutableArray *)array;  //对取得的照片进行排序
 @end
