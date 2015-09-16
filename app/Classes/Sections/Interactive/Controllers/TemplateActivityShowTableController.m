@@ -149,7 +149,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
-    
+    [cell setIsTemplate:true];
     
     
     //    [cell mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -82,9 +82,15 @@
         }
         
     }
-    self.nameLabel.text = model.theme;
-    self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[self getParsedDateStringFromString:model.startTime],[self getParsedDateStringFromString:model.endTime]];
-    self.addressLabel.text = [[model.activity objectForKey:@"location"] objectForKey:@"name"];
+    if (self.isTemplate) {
+        self.nameLabel.text = model.theme;
+        self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[self getParsedDateStringFromString:model.startTime],[self getParsedDateStringFromString:model.endTime]];
+        self.addressLabel.text = [[model.location keyValues] objectForKey:@"name"];
+    }else{
+        self.nameLabel.text = model.theme;
+        self.timeLabel.text = [NSString stringWithFormat:@"%@-%@",[self getParsedDateStringFromString:[model.activity objectForKey:@"startTime"]],[self getParsedDateStringFromString:model.endTime]];
+        self.addressLabel.text = [[model.activity objectForKey:@"location"] objectForKey:@"name"];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
