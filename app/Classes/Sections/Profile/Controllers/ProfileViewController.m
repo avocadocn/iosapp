@@ -20,6 +20,9 @@
 #import "SettingViewController.h"
 #import "InvatingViewController.h"
 #import "MessageViewController.h"
+#import "AccountTool.h"
+#import "Account.h"
+#import "FMDBSQLiteManager.h"
 @interface ProfileViewController () <UITableViewDataSource,UITableViewDelegate,MenuCollectionControllerDelegate>
 
 

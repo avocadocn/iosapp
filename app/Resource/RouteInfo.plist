@@ -608,5 +608,21 @@
         <key>routeMethod</key>
         <string>POST</string>
     </dict>
+    <dict>
+        <key>routeName</key>
+        <string>sendGifts</string>
+        <key>routeURL</key>
+        <string>/gifts</string>
+        <key>routeMethod</key>
+        <string>POST</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
+        <string>getGiftsNum</string>
+        <key>routeURL</key>
+        <string>/gifts/remain/:content</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
 </array>
 </plist>

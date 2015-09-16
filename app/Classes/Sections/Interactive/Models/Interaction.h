@@ -18,7 +18,7 @@
 @property (nonatomic, copy)NSNumber *targetType;  // 目标类型 1:'个人',2:'群',3:'公司
 @property (nonatomic, copy)NSString *templateId;  // 模板 id
 @property (nonatomic, copy)NSString *inviters; // 邀请人列表
-@property (nonatomic, strong)NSArray *photo;  // 照片
+@property (nonatomic, strong)NSArray *photo;  // 照片f
 @property (nonatomic, copy)NSString *theme; //主题
 @property (nonatomic, copy)NSString *content;   //内容
 @property (nonatomic, copy)NSString *endTime;  //结束时间
@@ -35,13 +35,15 @@
 @property (nonatomic, strong)NSArray *tag; //标签
 @property (nonatomic, strong)NSDictionary *activity;
 @property (nonatomic, copy)NSString *cid;
-@property (nonatomic, copy)NSString * poster;
+@property (nonatomic, copy)NSDictionary * poster;
 @property (nonatomic, strong)NSArray *photos;  // 取到的图片数组
 @property (nonatomic, copy)NSString *createTime;  // 创建时间
 @property (nonatomic, strong)NSArray *members;
 @property (nonatomic, strong)PollModel *poll;
 @property (nonatomic, copy)NSString *ID;
 @property (nonatomic, copy)NSString *interactionId; // 活动Id
-@property (nonatomic, copy)NSString *userId; // 
+@property (nonatomic, copy)NSString *userId; //
+@property (nonatomic)NSNumber *interactionType;// 活动类型
+@property (nonatomic, copy)NSString *commentId; // 评论id
 
 @end

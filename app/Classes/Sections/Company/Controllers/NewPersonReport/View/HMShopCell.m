@@ -11,7 +11,8 @@
 #import "UIImageView+DLGetWebImage.h"
 #import "Masonry.h"
 #import "AddressBookModel.h"
-
+#import "RankDetileModel.h"
+#import "CriticWordView.h"
 typedef NS_ENUM(NSInteger, PersonAttitude) {
     PersonAttitudeDontLike,
     PersonAttitudeLike
@@ -20,7 +21,7 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
 @interface HMShopCell()
 
 @property (nonatomic, assign)PersonAttitude attitude;
-
+@property (nonatomic, strong)UILabel *RankList;
 @end
 
 @implementation HMShopCell
@@ -38,8 +39,8 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
 
 - (void)builtInterface
 {
-    self.layer.masksToBounds = YES;
-    self.layer.cornerRadius = 5;
+//    self.layer.masksToBounds = YES;
+//    self.layer.cornerRadius = 5;
     
     [self setBackgroundColor:[UIColor whiteColor]];
     self.imageView = [UIImageView new];
@@ -91,20 +92,21 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
     self.personLike = [UILabel new];
     self.personLike.textAlignment = NSTextAlignmentRight;
     self.personLike.font = [UIFont systemFontOfSize:14];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(likeButtonAction:)];
     self.personLike.userInteractionEnabled = YES;
-    
-    [self.personLike addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(likeButtonAction:)];
+//    self.personLike.backgroundColor = [UIColor greenColor];
+//    [self.personLike addGestureRecognizer:tap];
     [self addSubview:self.personLike];
     [self.personLike mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(view.mas_top);
-        make.right.mas_equalTo(view.mas_right);
-        make.width.mas_equalTo(DLMultipleWidth(40.0));
+        make.right.mas_equalTo(view.mas_right).offset(-10);
+//        make.width.mas_equalTo(DLMultipleWidth(40.0));
         make.bottom.mas_equalTo(view.mas_centerY);
     }];
     self.likeImage = [UIImageView new];
-    self.likeImage.image = [UIImage imageNamed:@"DonLike"];
-
+    self.likeImage.userInteractionEnabled = YES;
+//    [self.likeImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likeButtonAction:)]];
+    self.likeImage.image = [UIImage imageNamed:@"Like"];
     [view addSubview:self.likeImage];
     
     [self.likeImage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -112,7 +114,34 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
         make.right.mas_equalTo(self.personLike.mas_left);
         make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(20.0), DLMultipleWidth(20.0)));
     }];
+    /*
+    self.parseButton = [[CriticWordView alloc]initWithFrame:CGRectMake(150, 0, self.frame.size.width - 150 - 10 - 10 , 40)];
+    self.parseButton.criticText.text = @"35";
     
+    self.parseButton.userInteractionEnabled = YES;
+//    self.parseButton.criticIamge.userInteractionEnabled = YES;
+    self.parseButton.backgroundColor = [UIColor redColor];
+//    self.parseButton.criticIamge.backgroundColor = [UIColor greenColor];
+    
+    [view addSubview:self.parseButton];
+//    [self.parseButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(view.mas_top);
+//        make.left.mas_equalTo(self.mas_centerX);
+//        make.bottom.mas_equalTo(view.mas_centerY);
+//        make.right.mas_equalTo(self.mas_right).offset(-10);
+//    }];
+    */
+    self.RankList = [UILabel new];
+    self.RankList.font = [UIFont systemFontOfSize:12];
+    self.RankList.textAlignment = NSTextAlignmentRight;
+    [view addSubview:self.RankList];
+    
+    [self.RankList mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.personLike.mas_bottom);
+        make.left.mas_equalTo(self.likeImage.mas_left);
+        make.right.mas_equalTo(self.personLike.mas_right);
+        make.height.mas_equalTo(16);
+    }];
 }
 
 - (void)reloadCellWithModel:(AddressBookModel *)model
@@ -120,12 +149,23 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
     //    // 1.图片
     [self.imageView dlGetRouteWebImageWithString:model.photo placeholderImage:nil];
 //    [self.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [model objectForKey:@"img"]]] placeholderImage:[UIImage imageNamed:@"loading"]];
-
+    
     self.personName.text = model.nickname;
     
 }
 
-
+- (void)reloadRankCellWithRankModel:(RankDetileModel *)model andIndex:(NSString *)index
+{
+    
+    self.personName.text = model.ID;
+    self.personLike.text = model.vote;
+    self.imageView.image = [UIImage imageNamed:@"1"];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
+    self.parseButton.criticText.text = model.vote;
+    
+    self.RankList.text = [NSString stringWithFormat:@"排名: %@", index];
+}
 
 - (void)likeButtonAction:(UITapGestureRecognizer *)sender
 {

@@ -33,6 +33,9 @@
 #import "PollModel.h"
 #import "LoginViewController.h"
 #import "Singletons.h"
+#import "AddressBookModel.h"
+#import "Person.h"
+#include "FMDBSQLiteManager.h"
 
 enum InteractionType{
     InteractionTypeActivityTemplate,
@@ -52,6 +55,7 @@ enum InteractionType{
 @property (nonatomic, strong) UIView *coriusView;
 @property (nonatomic, strong)UIImageView *coriusImage;
 @property (nonatomic, strong)NSMutableArray *modelArray;
+@property (nonatomic, strong)NSMutableArray *contactsArray;
 
 
 /**
@@ -465,8 +469,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         case 3:  // 求助详情
         {
             HelpTableViewController *helpController = [[HelpTableViewController alloc]init];  // 求助
+            helpController.model = inter;
             [self.navigationController pushViewController:helpController animated:YES];
-            
             break;
         }
         default:
@@ -484,6 +488,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [self loadingContacts]; // 加载通讯录信息
+        });
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
         
@@ -582,6 +590,33 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 {
     LoginViewController *login = [[LoginViewController alloc]init];
     [self.navigationController pushViewController:login animated:YES];
+}
+
+- (void)loadingContacts { // 加载通讯录
+    Account *account = [AccountTool account];
+    AddressBookModel *model = [[AddressBookModel alloc] init];
+    [model setCompanyId:account.cid];
+    [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
+        NSLog(@"请求成功 %@",json);
+        [self reloadWithJson:json];
+    } failure:^(id errorJson) {
+        NSLog(@"请求失败 %@",[errorJson objectForKey:@"msg"]);
+    }];
+    
+}
+- (void)reloadWithJson:(id)json {  // 将获取的通讯录信息写入数据库
+    if (!self.contactsArray) {
+        self.contactsArray = [NSMutableArray arrayWithArray:json];
+    }
+    for (NSDictionary *dic in self.contactsArray) {
+        Person *per = [[Person alloc] init];
+        per.name = dic[@"realname"];
+        per.imageURL = dic[@"photo"];
+        per.userId = dic[@"_id"];
+        [[FMDBSQLiteManager shareSQLiteManager] insertPerson:per];
+    }
+   
+    
 }
 
 @end

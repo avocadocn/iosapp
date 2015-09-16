@@ -8,7 +8,11 @@
 
 #import "MenuCollectionController.h"
 #import "MenuCollectionViewCell.h"
-
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
+#import "UIImageView+DLGetWebImage.h"
+#import "Account.h"
+#import "AccountTool.h"
 
 @interface MenuCollectionController ()
 
@@ -49,12 +53,13 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
     
     
     
-    self.itemNames = @[@"我的信息",@"群组",@"消息",@"活动",@"投票",@"求助"];
+    self.itemNames = @[@"",@"群组",@"消息",@"活动",@"投票",@"求助"];
     
-    self.itemIcons = @[@"Interactive_activity_icon",@"shetuan",@"聊天 copy",@"活动 ",@"投票 ",@"邀请 "];
+    self.itemIcons = @[@"",@"shetuan",@"聊天 copy",@"活动 ",@"投票 ",@"邀请 "];
     
     
     self.collectionView.backgroundColor = GrayBackgroundColor;
@@ -102,13 +107,22 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.menuCollectionCellName.text = self.itemNames[indexPath.row];
-    [cell.menuCollectionCellIcon setImage:[UIImage imageNamed:self.itemIcons[indexPath.row]]];
+    Account *account = [AccountTool account];
+    Person *p = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:account.ID];
+    if (indexPath.row == 0) {
+        MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+        cell.menuCollectionCellName.text = @"我的信息";
+        [cell.menuCollectionCellIcon dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"icon1" ]];
+        return cell;
+    } else {
+        MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+        cell.menuCollectionCellName.text = self.itemNames[indexPath.row];
+        [cell.menuCollectionCellIcon setImage:[UIImage imageNamed:self.itemIcons[indexPath.row]]];
+        return cell;
+    }
     
     // Configure the cell
-    
-    return cell;
+
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

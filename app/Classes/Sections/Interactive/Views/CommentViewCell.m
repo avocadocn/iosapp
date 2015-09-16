@@ -10,7 +10,9 @@
 #import "UIImageView+DLGetWebImage.h"
 #import "CircleCommentModel.h"
 #import "AddressBookModel.h"
-
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
+#import "CommentsModel.h"
 @interface CommentViewCell()
 
 
@@ -31,16 +33,17 @@
     // Configure the view for the selected state
 }
 
--(void)setCommentModel:(CircleCommentModel *)commentModel{
-    
-    // 设置头像
-    self.avatar.image  = [UIImage imageNamed:commentModel.poster.photo];
-    
-    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
-    
-    // 设置昵称
-    self.name.text = commentModel.poster.nickname;
-    
+-(void)setCommentModel:(CommentsModel *)commentModel{
+   Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:commentModel.posterId];
+//
+////    // 设置头像
+    [self.avatar dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
+//
+//    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
+////
+//    // 设置昵称
+    self.name.text = p.name;
+//
     
     
     // 设置评论正文

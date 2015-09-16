@@ -22,10 +22,29 @@
 /**
  *  评论
  */
-@property (nonatomic, copy) NSString *comment;
+@property (nonatomic, copy) NSString *content;
 
 
+@property (nonatomic, copy) NSString *posterId; // 评论者id
 
+@property (nonatomic, copy) NSString *posterCid;
 
+@property (nonatomic, copy) NSString *approveCount;
+
+@property (nonatomic, copy) NSString *createTime;
+
+@property (nonatomic, copy) NSString *_id; // 评论内容id
+
+@property (nonatomic, copy) NSString *status;
+
+@property (nonatomic, copy) NSString *commentId;
+
+@property (nonatomic, strong) NSDictionary *body;
+
+@property (nonatomic, strong) NSNumber *interactionType;
+
+@property (nonatomic, copy) NSString *interactionId;
+
+@property (nonatomic, copy) NSString *userId;
 
 @end

@@ -13,7 +13,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rpo-8g-Xn0" userLabel="avatar">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boy.png" translatesAutoresizingMaskIntoConstraints="NO" id="Rpo-8g-Xn0" userLabel="avatar">
                         <rect key="frame" x="8" y="8" width="36" height="36"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="Njf-IP-156"/>
@@ -59,4 +59,7 @@
             <point key="canvasLocation" x="324.5" y="528.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="boy.png" width="336" height="354"/>
+    </resources>
 </document>

@@ -8,6 +8,8 @@
 
 #import "CommentCardCell.h"
 #import "UIImageView+DLGetWebImage.h"
+#import "FMDBSQLiteManager.h"
+
 @interface CommentCardCell ()
 
 
@@ -40,15 +42,20 @@
 
 - (void)reloadCellWithPhotoArray:(NSArray *)array
 {
+    
+    
     self.numLabel.text = [NSString stringWithFormat:@"%ld", array.count];
 
     NSInteger num = (self.frame.size.width - self.frame.size.height - 11) / 40;
+//    FMDBSQLiteManager *manger = [FMDBSQLiteManager shareSQLiteManager];
     
     int i = 0;
     for (NSDictionary *dic in array) {
+//        NSArray *array = [manger selectPersonWithUserId:[dic objectForKey:@"_id"]];
         CGFloat width = 40.0;
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(11 + i* width, 15, width - 4, width - 4)];
         imageView.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+        [imageView dlGetRouteWebImageWithString:@"" placeholderImage:nil];
         imageView.layer.masksToBounds = YES;
         imageView.layer.cornerRadius = (width - 4) / 2;
         [self addSubview:imageView];

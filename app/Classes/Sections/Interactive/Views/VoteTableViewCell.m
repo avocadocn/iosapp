@@ -75,7 +75,7 @@
     
     // 容器视图
     UIView *voteContainer = [[UIView alloc]init];
-    [voteContainer setBackgroundColor:[UIColor yellowColor]];
+//    [voteContainer setBackgroundColor:[UIColor yellowColor]];
     
     // 头像 设置圆角
     UIImageView *avatarImageView = [[UIImageView alloc]init];
@@ -107,7 +107,7 @@
     voteContentLabel.font = VoteCellContentFont;
     [voteContentLabel setNumberOfLines:0];
     [voteContentLabel setLineBreakMode:NSLineBreakByCharWrapping];
-    [voteContentLabel setBackgroundColor:[UIColor whiteColor]];
+    [voteContentLabel setBackgroundColor:[UIColor clearColor]];
     [voteContainer addSubview:voteContentLabel];
     self.voteContentLabel = voteContentLabel;
     
@@ -116,7 +116,7 @@
     VoteOptionsView *optionsView = [[VoteOptionsView alloc]init];
     optionsView.voteCount = self.voteNum;
     [voteContainer addSubview:optionsView];
-    optionsView.backgroundColor = [UIColor redColor];
+//    optionsView.backgroundColor = [UIColor redColor];
     self.optionsView = optionsView;
     
     // 从六个背景条颜色的所有种排序中选出一个
@@ -178,8 +178,6 @@
     [bottomToolBar addSubview:commentBtn];
     [voteContainer addSubview:bottomToolBar];
     self.bottomToolBar = bottomToolBar;
-    
-    
     
     [self addSubview:voteContainer];
     self.voteContainer = voteContainer;

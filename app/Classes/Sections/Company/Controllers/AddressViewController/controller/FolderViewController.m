@@ -86,14 +86,6 @@ static NSInteger num = 0;
     [self.view addSubview:self.scroll];
     
     
-//    [self.scroll mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(self.folderPhotoImage.mas_bottom).offset(25);
-//        make.right.mas_equalTo(self.view.mas_right);
-//        make.left.mas_equalTo(self.view.mas_left);
-//        make.bottom.mas_equalTo(self.view.mas_bottom);
-//    }];
-    
-    
     CGFloat width = DLScreenWidth / (375.0 / 150.0);
     self.folderPhotoImage = [[UIImageView alloc]initWithFrame:CGRectMake((DLScreenWidth - width) / 2, DLMultipleHeight(25.0), width, width)];
 //    self.folderPhotoImage.image = [UIImage imageNamed:@"1"];

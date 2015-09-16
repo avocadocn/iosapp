@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/7/21.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "GroupDetileController.h"
 #import "GroupViewController.h"
 #import <AFNetworking.h>
 #import <Masonry.h>
@@ -18,7 +18,7 @@
 #import "AccountTool.h"
 #import "GroupCardModel.h"
 
-
+#import "CreateGroupController.h"
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
       
 @end
@@ -59,10 +59,10 @@
 - (void)builtInterface
 {
     
-    NSInteger interval = 10;
+    NSInteger interval = DLMultipleWidth(10.0);
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.sectionInset = UIEdgeInsetsMake(interval, 5.0 , interval, (interval / 2.0));
+    layout.sectionInset = UIEdgeInsetsMake(interval, DLMultipleWidth(10.0) , interval, (interval / 2.0));
     
     self.groupListCollection = [[UICollectionView alloc]initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
     [self.groupListCollection setBackgroundColor:[UIColor whiteColor]];
@@ -110,14 +110,35 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (indexPath.row < self.modelArray.count) {
+    
+    
     GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
     [model setAllInfo:YES];
     [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:model useKeys:@[@"groupId"] success:^(id json) {
         NSLog(@"获取到的小队信息为 %@", json);
+        
+        NSDictionary *dic = [json objectForKey:@"group"];
+        
+        GroupCardModel *model = [[GroupCardModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic];
+        
+        GroupDetileController *groupDetile = [[GroupDetileController alloc]init];
+        groupDetile.groupModel = model;
+        [self.navigationController pushViewController:groupDetile animated:YES];
+        
+        
     } failure:^(id errorJson) {
         NSLog(@"获取小队信息失败的原因为 %@", errorJson);
     }];
-    
+    } else
+    {
+        // 创建小队
+        CreateGroupController *create = [[CreateGroupController alloc]init];
+        [self.navigationController pushViewController:create animated:YES];
+        
+    }
     
     /*
     TeamHomePageController *team = [[TeamHomePageController alloc]init];
