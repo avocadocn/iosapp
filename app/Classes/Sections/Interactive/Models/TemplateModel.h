@@ -10,4 +10,10 @@
 
 @interface TemplateModel : NSObject
 
+@property (nonatomic, copy)NSNumber *templateType;
+
+@property (nonatomic, copy) NSString* templateId;
+
+@property (nonatomic, copy)NSString *userId;
+
 @end

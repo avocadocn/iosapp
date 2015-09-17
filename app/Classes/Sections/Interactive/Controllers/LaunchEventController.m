@@ -63,8 +63,13 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [self setNevigationLeft];
     [self builtBigScroll];
     [self builtEventCover];
-    [self builtEventDetails];
-    [self builtEventRemindTime];
+    if (self.isTemplate) {
+        [self builtTemplateEventRemindTime];
+        
+    }else{
+        [self builtEventDetails];
+        [self builtEventRemindTime];
+    }
     if (self.model) {
          [self addTemplate:self.model];
     }
@@ -95,13 +100,24 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [inter setTheme:self.eventNameField.text];
     [inter setStartTime:self.startTimeField.text];
     [inter setEndTime:self.overTimeLabel.text];
-    [inter setLocation:@"上海"];
-    [inter setContent:self.eventDetailTextView.text];
+    if (self.isTemplate) {
+        [inter setLocation:[[self.model.location keyValues] objectForKey:@"name"]];
+        [inter setContent:self.model.content];
+    }else{
+        [inter setLocation:@"上海"];
+        [inter setContent:self.eventDetailTextView.text];
+    }
     [inter setRemindTime:self.startTimeField.text];
     
     Account *acc = [AccountTool account];
-    [inter setTarget:acc.cid];
-    [inter setTargetType:@3];
+    if (self.isTemplate) {
+        [inter setTarget:self.model.target];
+        [inter setTargetType:self.model.targetType];
+        [inter setTemplateId:self.model.ID];
+    }else{
+        [inter setTarget:acc.cid];
+        [inter setTargetType:@3];
+    }
     [inter setType:@1];
     [inter setActivityMold:@"lalal"];
     
@@ -399,6 +415,62 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [self.remindView addSubview:self.tableView];
 }
 
+- (void)builtTemplateEventRemindTime
+{
+    self.remindView = [[UIView alloc]initWithFrame:CGRectMake(0, DLMultipleHeight(155.0), DLScreenWidth, DLMultipleHeight(50.0))];
+    [self.remindView setBackgroundColor:[UIColor whiteColor]];
+    
+    [self.eventScroll addSubview:self.remindView];
+    
+    //    [self.remindView mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.top.mas_equalTo(self.detailsView.mas_bottom).offset(DLMultipleHeight(15));
+    //        make.left.mas_equalTo(self.superView.mas_left);
+    //        make.right.mas_equalTo(self.superView.mas_right);
+    //        make.height.mas_equalTo(DLMultipleHeight(50.0));
+    //    }];
+    
+    UILabel *remind = [UILabel new];
+    remind.text = @"提醒";
+    remind.font = [UIFont systemFontOfSize:15];
+    NSString *eventStr = [NSString stringWithFormat:@"%@", @"活动"];
+    
+    CGRect eventNameRect = [eventStr boundingRectWithSize:CGSizeMake(1000000, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]} context:nil];
+    [self.remindView addSubview:remind];
+    [remind mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.remindView.mas_top).offset(DLScreenHeight / (667 / 12));
+        make.left.mas_equalTo(self.remindView.mas_left).offset(10);
+        make.size.mas_equalTo(CGSizeMake(eventNameRect.size.width, 20));
+    }];
+    
+    UIButton *foldButton  =[UIButton buttonWithType:UIButtonTypeSystem];
+    [foldButton addTarget:self action:@selector(foldButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.remindView addSubview:foldButton];
+    
+    [foldButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.remindView.mas_top);
+        make.right.mas_equalTo(self.remindView.mas_right);
+        make.size.mas_equalTo(CGSizeMake(DLMultipleHeight(49.0), DLMultipleHeight(49.0)));
+    }];;
+    
+    self.myImageView = [UIImageView new];
+    [foldButton addSubview:self.myImageView];
+    [self.myImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(foldButton.mas_centerX);
+        make.centerY.mas_equalTo(foldButton.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(DLMultipleHeight((49 / 2.5)), DLMultipleHeight((49 / 2.5))));
+    }];
+    
+    self.myImageView.image = [UIImage imageNamed:@"fold"];
+    self.myImageView.transform = CGAffineTransformMakeRotation(M_PI);
+    
+    self.state = RemindTableStateNo;
+    
+    self.tableView = [[UIView alloc]initWithFrame:CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, 0)];
+    
+    
+    [self.remindView addSubview:self.tableView];
+}
 
 
 - (void)foldButtonAction:(UIButton *)sender
