@@ -41,6 +41,10 @@
 //
 //#define BaseUrl @"http://192.168.2.110:3002/v2_0"
 
+//
+//#define ROUDEADDRESS @"http://afei.local:3002/v2_0"
+//
+//#define BaseUrl @"http://afei.local:3002/v2_0"
 
 //#define ROUDEADDRESS @"http://afei.local:3002/v2_0"
 //

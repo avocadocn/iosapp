@@ -17,6 +17,8 @@
 #import "LaunchEventController.h"
 #import "PublishVoteController.h"
 #import "PublishSeekHelp.h"
+#import "Interaction.h"
+#import "TemplateModel.h"
 
 @interface RepeaterGroupController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property UILabel* titleLabel;
@@ -121,7 +123,8 @@
     //添加关闭按钮
     UIButton* closeBtn = [UIButton new];
     NSInteger closeBtnRadius = DLMultipleWidth(20.0);
-    [closeBtn setBackgroundColor:RGB(0xfd, 0xb9, 0)];
+//    [closeBtn setBackgroundColor:RGB(0xfd, 0xb9, 0)];
+    [closeBtn setBackgroundImage:[UIImage imageNamed:@"close_btn"] forState:UIControlStateNormal];
     closeBtn.width = closeBtnRadius*2;
     closeBtn.height = closeBtnRadius*2;
     closeBtn.x = DLScreenWidth/2-closeBtnRadius;
@@ -162,7 +165,7 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return [self.modelArray count];
+    return 1;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -180,13 +183,19 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"点击");
+    //初始化参数
+    GroupCardModel* group = [self.modelArray objectAtIndex:indexPath.row];
+    [self.model setTarget:group.groupId];
+    [self.model setTargetType:[NSNumber numberWithInt:2]];
     UIViewController* v ;
     if (self.type == RepeaterGroupTranimitTypeActtivity) {
         v = [[LaunchEventController alloc] init];
+        [(LaunchEventController*)v setIsTemplate:true];
         [(LaunchEventController*)v setModel:self.model];
         
     }else if (self.type == RepeaterGroupTranimitTypeVote) {
         v = [[PublishVoteController alloc] init];
+        [(PublishVoteController*)v setIsTemplate:true];
         [(PublishVoteController*)v setModel:self.model];
         
     }else if (self.type == RepeaterGroupTranimitTypeHelp) {
@@ -194,11 +203,37 @@
         [(PublishSeekHelp*)v setModel:self.model];
         
     }
-    if (v) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            [self.context pushViewController:v animated:YES];
-        }];
-    }
+    // 判断是否已经转发
+    Account *acc= [AccountTool account];
+    TemplateModel * model = [TemplateModel new];
+    [model setUserId:acc.ID];
+    [model setTemplateId:self.model.ID];
+    [model setTemplateType:[NSNumber numberWithInt:self.type]];
+    
+    [RestfulAPIRequestTool routeName:@"getTemplateValidate" requestModel:model useKeys:@[@"templateType",@"templateId",@"userId"] success:^(id json) {
+        NSLog(@"success:-->%@",json);
+        for (NSDictionary* dic in [json objectForKey:@"teams"]) {
+            if ([[dic objectForKey:@"_id"] isEqualToString:group.groupId]) {
+                Boolean isTrue = [[dic objectForKey:@"published"] boolValue];
+                if (isTrue) {
+                    NSLog(@"已转发");
+                    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该小队已转发！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                    [alert show];
+                }else{
+                    if (v) {
+                        [self dismissViewControllerAnimated:YES completion:^{
+                            [self.context pushViewController:v animated:YES];
+                        }];
+                    }
+                }
+            }
+        }
+    } failure:^(id errorJson) {
+        NSLog(@"failed:-->%@",errorJson);
+    }];
+    
+    
+    
 }
 
 - (void)closeBtnClicked:(id)sender

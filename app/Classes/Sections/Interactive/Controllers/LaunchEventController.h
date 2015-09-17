@@ -32,5 +32,5 @@
 
 //加载模板数据
 @property (nonatomic, strong)Interaction* model;
-
+@property (nonatomic) Boolean isTemplate;
 @end

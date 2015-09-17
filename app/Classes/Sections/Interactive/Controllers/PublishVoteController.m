@@ -192,8 +192,15 @@ static NSInteger num = 0;
     [inter setOption:titleArray];
     [inter setPhoto:@[dic]];
     Account *acc = [AccountTool account];
-    [inter setTarget:acc.cid];
-    [inter setTargetType:@3];
+    if(self.isTemplate){
+        [inter setTarget:self.model.target];
+        [inter setTargetType:self.model.targetType];
+        [inter setTemplateId:self.model.ID];
+    }else{
+        [inter setTarget:acc.cid];
+        [inter setTargetType:@3];
+    }
+    
     [inter setContent:@"投票"];
     [inter setEndTime:@"2015-09-30 19:56"];
     

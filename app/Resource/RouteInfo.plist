@@ -466,6 +466,14 @@
     </dict>
     <dict>
         <key>routeName</key>
+        <string>getTemplateValidate</string>
+        <key>routeURL</key>
+        <string>/interaction/template/:templateType/:templateId/validate</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
         <string>getInteractionDetails</string>
         <key>routeURL</key>
         <string>/interaction/:templateType/:interactionId</string>
