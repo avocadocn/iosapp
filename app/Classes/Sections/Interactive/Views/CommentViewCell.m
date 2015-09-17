@@ -33,8 +33,8 @@
     // Configure the view for the selected state
 }
 
--(void)setCommentModel:(CommentsModel *)commentModel{
-   Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:commentModel.posterId];
+-(void)setCommentModel:(CircleCommentModel *)commentModel{
+   Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:commentModel.poster.ID];
 //
 ////    // 设置头像
     [self.avatar dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];

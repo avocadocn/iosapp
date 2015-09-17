@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "SchoolTempModel.h"
 #import "CompanySmallCell.h"
 #import "PrefixHeader.pch"
 #import "CompanyDetailCell.h"
@@ -57,12 +57,14 @@ static NSInteger indexNum = 1;
         
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.minimumLineSpacing = 20;
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;  //heng
+        layout.minimumLineSpacing = 6;
+//        layout.sectionInset = UIEdgeInsetsMake(0, 6, 0, 0);
+//        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         
         UIView *TitleView = [UIView new];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(titleViewAction:)];
-
+        
         TitleView.tag = indexNum;
         [TitleView addGestureRecognizer:tap];
 
@@ -70,11 +72,11 @@ static NSInteger indexNum = 1;
         [TitleView setBackgroundColor:color];
         
         [self addSubview:TitleView];
-        
+        // 背景
         [TitleView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(5);
-            make.top.mas_equalTo(self).with.offset(8);
-            make.size.mas_equalTo(CGSizeMake(DLScreenWidth / 3.5, DLScreenWidth / 3.5));
+            make.left.mas_equalTo(6);
+            make.top.mas_equalTo(self).with.offset(7);
+            make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(109.0), DLMultipleWidth(109.0)));
         }];  // itemd大小
         
         UIImageView *imageView = [UIImageView new];
@@ -106,6 +108,7 @@ static NSInteger indexNum = 1;
         
         self.SmallCollection = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenWidth / 3.5 ) collectionViewLayout:layout];
 //        self.SmallCollection = [UICollectionView new];
+//        self.SmallCollection.backgroundColor = [UIColor greenColor];
         self.SmallCollection.collectionViewLayout = layout;
         [self.SmallCollection setBackgroundColor:[UIColor whiteColor]];
         self.SmallCollection.delegate = self;
@@ -114,13 +117,13 @@ static NSInteger indexNum = 1;
         [self addSubview:self.SmallCollection];
 //        [self.SmallCollection setBackgroundColor:[UIColor blackColor]];
         [self.SmallCollection mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(TitleView.mas_right).offset(5);
-            make.right.mas_equalTo(self).with.offset(0);
-            make.top.mas_equalTo(self.mas_top);
+            make.left.mas_equalTo(TitleView.mas_right).offset(7);
+            make.right.mas_equalTo(self.mas_right);
+            make.top.mas_equalTo(TitleView.mas_top);
             make.bottom.mas_equalTo(TitleView.mas_bottom);
         }];
         NSArray *titleArray = @[@"不一样的精彩", @"汉子们扔掉肥皂,迎接小鲜肉", @"好多童鞋就要过生日啦,还不去送上祝福!"];
-        self.TitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, DLScreenWidth / 3.5 + 2, DLScreenWidth - 20, 22)];
+        self.TitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 6 + DLMultipleWidth(109.0), DLScreenWidth - 20, DLMultipleWidth(30.0))];
         //    [self.TitleLabel setBackgroundColor:[UIColor redColor]];
         self.TitleLabel.text = [titleArray objectAtIndex:indexNum - 1];
         self.TitleLabel.textColor = [UIColor colorWithWhite:.2 alpha:.6];
@@ -159,28 +162,30 @@ static NSInteger indexNum = 1;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CompanyDetailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"DetailCell" forIndexPath:indexPath];
-//    NSDictionary *dic = [self.modelArray objectAtIndex:indexPath.row];
-//    [cell reloadDetilCell:dic];
+    SchoolTempModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    [cell reloadDetilCell:model];
     
     return cell;
 }
 //小 cell 的数量 ,根据数组中的元素数量决定
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    return self.modelArray.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat num = DLScreenWidth / 3.5 - 18;
+    CGFloat num = DLMultipleWidth(109.0);
     return CGSizeMake(num, num);
 }
+
+
 
 //处理传过来的数据
 - (void)interCellWithModel:(SendSchollTableModel *)modelDic
 {
     self.modelArray = [NSMutableArray arrayWithArray:modelDic.photoArray];
-//    [self.SmallCollection reloadData];
+    [self.SmallCollection reloadData];
 }
 
 //- (void)awakeFromNib {

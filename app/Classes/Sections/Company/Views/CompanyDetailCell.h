@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class SchoolTempModel;
 
 //公司界面详细的小cell
 @interface CompanyDetailCell : UICollectionViewCell
 
-- (void)reloadDetilCell:(id)model;
+- (void)reloadDetilCell:(SchoolTempModel *)model;
 
 @end

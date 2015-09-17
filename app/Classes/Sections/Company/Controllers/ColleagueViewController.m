@@ -1,12 +1,19 @@
-//
+
 //  ColleagueViewController.m
 //  app
 //
 //  Created by 申家 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+#import <MJRefreshConst.h>
+#import <UIScrollView+MJRefresh.h>
+#import <MJRefresh.h>
+#import "DNAsset.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "CardChooseView.h"
+#import "DNImagePickerController.h"
 #import "PhotoPlayController.h"
-
+#import "CircleImageView.h"
 #import <ReactiveCocoa.h>
 #import "ColleaguesInformationController.h"
 #import "CircleCommentModel.h"
@@ -29,6 +36,7 @@
 #import "WPHotspotLabel.h"
 #import "NSString+DLStringWithEmoji.h"
 #import "CricleDetailViewController.h"
+#import "GiFHUD.h"
 
 typedef NS_ENUM(NSInteger, CommentObject) {
     CommentPoster,
@@ -44,13 +52,16 @@ static NSString * contentId = nil;
 #define TEXTFONT 16
 #define REPLYTEXT 14
 
-@interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
+@interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, ConditionControllerDelegate, CardChooseViewDelegate, DNImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, strong)XHMessageTextView *inputTextView;
 @property (nonatomic, strong)UITextField *myText;
 @property (nonatomic, assign)NSInteger selectIndex;
 @property (nonatomic, strong)UIView *inputView;
 @property (nonatomic, assign)CommentObject object;
 @property (nonatomic, strong)NSMutableArray *photoArray;
+@property (nonatomic, strong)NSMutableArray *addressBookModel;
+@property (nonatomic, strong)GiFHUD *gifImage;
+
 @end
 
 @implementation ColleagueViewController
@@ -70,6 +81,9 @@ static NSString * contentId = nil;
     [super viewDidLoad];
     [self builtTextField];  // 发送界面
     [self builtInterface];
+    
+    [GiFHUD setGifWithImageName:@"myGif.gif"];
+    [GiFHUD show];
 }
 
 - (void)builtInterface
@@ -78,7 +92,14 @@ static NSString * contentId = nil;
         userId = [AccountTool account].ID;
     }
     //    [self createUserInterView];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(stateAction)];
+    
+    UIImageView *rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    rightImage.image = [UIImage imageNamed:@"1"];
+    rightImage.userInteractionEnabled = YES;
+    
+    [rightImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stateAction)]];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightImage];
     
     self.colleagueTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, DLScreenHeight - 64)];
     self.colleagueTable.delegate = self;
@@ -86,12 +107,20 @@ static NSString * contentId = nil;
     [self.colleagueTable setBackgroundColor:[UIColor colorWithWhite:.93 alpha:1]];
     self.title = @"同事圈";
     [self.colleagueTable registerClass:[ColleagueViewCell class] forCellReuseIdentifier:@"tableCell"];
+
+    
     self.colleagueTable.separatorColor = [UIColor clearColor];
+//    
+//    self.colleagueTable.tableHeaderView = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+//        
+//        
+//        }];
     
     [self.view addSubview:self.colleagueTable];
     [self netRequest];
     
 }
+
 - (void)netRequest {
     AddressBookModel *model = [[AddressBookModel alloc] init];
     
@@ -105,11 +134,97 @@ static NSString * contentId = nil;
 }
 - (void)stateAction
 {
-    // 及时状态 页面
-    ConditionController *state = [[ConditionController alloc]init];
-    [self.navigationController pushViewController:state animated:YES];
     
+CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"发文字", @"拍照片", @"选取现有的照片"]];
+    card.delegate = self;
+    // 及时状态 页面
+    [self.view addSubview:card];
+    [card show];
 }
+
+- (void)cardActionWithButton:(UIButton *)sender
+{
+    switch (sender.tag) {
+        case 1:{
+            ConditionController *state = [[ConditionController alloc]init];
+            state.delegate = self;
+            [self.navigationController pushViewController:state animated:YES];
+        }
+            break;
+        case 2:{
+            //拍照片
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+                imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                imagePicker.delegate = self;
+                //模态进去本地相机
+                [self presentViewController:imagePicker animated:YES completion:nil];
+            } else {
+                NSLog(@"没有图片库");
+            }
+            
+            
+            break;
+        }
+            case 3:
+        {
+            DNImagePickerController *pickr = [[DNImagePickerController alloc]init];
+            pickr.imagePickerDelegate = self;
+            
+            [self.navigationController presentViewController:pickr animated:YES completion:nil];
+        }
+            
+        default:
+            break;
+    }
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // info 是存所选取的图片的信息的字典
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    NSArray *array = [NSArray arrayWithObject:image];
+    [self jumpViewControllerWithPhoto:array];
+}
+
+- (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
+{
+      NSMutableArray *imagePhotoArray = [NSMutableArray array];
+    for (int i = 0; i < imageAssets.count; i++) {
+        
+        DNAsset *dnasset = [imageAssets objectAtIndex:i];
+        
+        ALAssetsLibrary *lib = [ALAssetsLibrary new];
+        
+        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+            
+            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+            NSLog(@"正在选择");
+            [imagePhotoArray addObject:aImage];
+            if (i == [imageAssets count] - 1) {
+                [self jumpViewControllerWithPhoto:imagePhotoArray];
+            }
+            
+        } failureBlock:^(NSError *error) {
+            
+        }];
+    }
+}
+
+- (void)jumpViewControllerWithPhoto:(NSArray *)array
+{
+    ConditionController *state = [[ConditionController alloc]init];
+    state.delegate = self;
+    state.photoArray = [NSMutableArray arrayWithArray:array];
+    [self.navigationController pushViewController:state animated:YES];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ColleagueViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell"];
@@ -121,10 +236,14 @@ static NSString * contentId = nil;
     for (UIView *aView in viewArray) {
         [aView removeFromSuperview];
     }
-    cell.userInterView.height = view.frame.size.height;
-    
     CircleContextModel *model = [self.modelArray objectAtIndex:indexPath.row];
     [cell reloadCellWithModel:model andIndexPath:indexPath];
+    
+    [cell.circleImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(circleImageAction:)]];
+    
+    cell.userInterView.height = view.frame.size.height;
+    //circleImageAction
+    
     
     [cell.userInterView insertSubview:view atIndex:0];
     
@@ -133,6 +252,22 @@ static NSString * contentId = nil;
     
     return cell;
 }
+
+//点击头像
+- (void)circleImageAction:(UITapGestureRecognizer *)tap
+{
+    ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
+    coll.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    CircleCommentModel *cirModel = [self.modelArray objectAtIndex:tap.view.tag - 11111];
+    coll.model = [[AddressBookModel alloc]init];
+    
+    coll.model = cirModel.poster;
+    
+    [self.navigationController pushViewController:coll animated:YES];
+    
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -194,19 +329,24 @@ static NSString * contentId = nil;
 {
     self.modelArray = [NSMutableArray array];
     self.userInterArray = [NSMutableArray array];
-    
+    self.addressBookModel = [NSMutableArray array];
     SHLUILabel *tempLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), 100)];
     tempLabel.font = [UIFont systemFontOfSize:TEXTFONT];
     
     int tempI = 0;
     self.photoArray = [NSMutableArray array];
+    
     for (NSDictionary *dic in json) {
+        
+        AddressBookModel *addressModel = [[AddressBookModel alloc]init];
+        [addressModel setValuesForKeysWithDictionary:dic];
+        [self.addressBookModel addObject:addressModel];
+        
         //得到 model
         NSDictionary *aTempDic = [dic objectForKey:@"content"];
         CircleContextModel *model = [[CircleContextModel alloc]init];
         [model setValuesForKeysWithDictionary:aTempDic];
-//        AddressBookModel *poster = [aTempDic objectForKey:@"poster"];  // 这儿有一个 fuck 的坑
-//        model.poster = poster;
+
         model.poster = [[AddressBookModel alloc]init];
         [model.poster setValuesForKeysWithDictionary:[aTempDic objectForKey:@"poster"]];
         NSMutableArray *myTemparray = [dic objectForKey:@"comments"];
@@ -218,8 +358,6 @@ static NSString * contentId = nil;
         view.tag = tempI + 10001;
         
         UIView *modelDetileView = [[UIView alloc]init];
-//        NSDictionary *contentDic = [dic objectForKey:@"content"];
-//        NSString *contentStr = [contentDic objectForKey:@"content"];// 用户发表的文字
         
         NSString *contentStr = model.content;
         NSLog(@"用户发表的文字为 %@", contentStr);
@@ -253,7 +391,7 @@ static NSString * contentId = nil;
             
             UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
             [imageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
-            imageView.backgroundColor = [UIColor orangeColor];
+//            imageView.backgroundColor = [UIColor orangeColor];
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             
             imageView.clipsToBounds = YES;
@@ -348,7 +486,11 @@ static NSString * contentId = nil;
         [self.userInterArray addObject:viewDic];
         tempI ++;
     }
+    
+    [GiFHUD dismiss];
+    
     [self.colleagueTable reloadData];
+    
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
@@ -569,4 +711,9 @@ static NSString * contentId = nil;
     [self.navigationController pushViewController:play animated:YES];
 }
 
+
+- (void)sendSingerCircle:(id)json
+{
+    [self netRequest];
+}
 @end
