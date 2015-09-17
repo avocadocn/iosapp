@@ -8,7 +8,9 @@
 
 #import "TeamSettingViewController.h"
 #import "CustomSettingAvatarTableCell.h"
+#import "UIImageView+DLGetWebImage.h"
 
+#import "GroupDetileModel.h"
 @interface TeamSettingViewController ()
 
 @property (assign, nonatomic) kTeamIdentity identity;
@@ -17,8 +19,8 @@
 
 @implementation TeamSettingViewController
 
-
 static NSString * const avatarCellID = @"avatarCellID";
+
 static NSString * const defaultCellID = @"defaultCellID";
 
 -(instancetype)initWithIdentity:(kTeamIdentity)identity{
@@ -35,7 +37,6 @@ static NSString * const defaultCellID = @"defaultCellID";
     self.title = @"群组设置";
     self.view.backgroundColor = GrayBackgroundColor;
     
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"CustomSettingAvatarTableCell" bundle:nil] forCellReuseIdentifier:avatarCellID];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:defaultCellID];
 }
@@ -43,6 +44,14 @@ static NSString * const defaultCellID = @"defaultCellID";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -57,11 +66,15 @@ static NSString * const defaultCellID = @"defaultCellID";
     if (indexPath.section == 0) {
         CustomSettingAvatarTableCell *cell = [tableView dequeueReusableCellWithIdentifier:avatarCellID forIndexPath:indexPath];
         
-        [cell.identity setText:self.identity == kTeamIdentityMaster ? @"群主" : @"成员"];
+        [cell reloadCellWithModel:self.detileModel];
+        
+//        [cell.identity setText:self.identity == kTeamIdentityMaster ? @"群主" : @"成员"];
         return cell;
     }else{
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:defaultCellID forIndexPath:indexPath];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
         
         [cell.textLabel setText:self.identity == kTeamIdentityMaster ? (indexPath.section == 1 ? (indexPath.row == 0 ? @"群组名称设置" : (indexPath.row == 1 ? @"群组封面设置" : @"群组成员管理")) : @"删除此群") : @"退出此群" ];
         return cell;

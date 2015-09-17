@@ -325,4 +325,10 @@ static NSInteger num = 0;
 }
 */
 
+- (void)setFoloderModel:(AddressBookModel *)foloderModel
+{
+    _foloderModel = foloderModel;
+    [self netRequstWithModel:foloderModel];
+}
+
 @end

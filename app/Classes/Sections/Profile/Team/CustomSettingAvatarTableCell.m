@@ -7,7 +7,11 @@
 //
 
 #import "CustomSettingAvatarTableCell.h"
-
+#import "GroupDetileModel.h"
+#import "UIImageView+DLGetWebImage.h"
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
+#import "GroupDetileModel.h"
 
 @interface CustomSettingAvatarTableCell()
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
@@ -18,9 +22,21 @@
 @implementation CustomSettingAvatarTableCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    
     [self.avatar.layer setCornerRadius:self.avatar.width / 2];
     [self.avatar.layer setMasksToBounds:YES];
+
+}
+
+- (void)reloadCellWithModel:(GroupDetileModel *)model
+{
+    
+        self.identity.text = @"群主";
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.leader];
+    self.name.text = per.name;
+    
+    [self.avatar dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -6,12 +6,16 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
+#import "AddressBookModel.h"
+#import "FolderViewController.h"
+
+#import "Person.h"
 #import "CustomMemberTableViewCell.h"
-
-
+#import "FMDBSQLiteManager.h"
+#import "UIImageView+DLGetWebImage.h"
 @interface CustomMemberTableViewCell() <UICollectionViewDataSource,UICollectionViewDelegate>
 
-
+@property (nonatomic, strong)FMDBSQLiteManager *manger;
 
 @end
 
@@ -42,13 +46,21 @@ static NSString * const ID = @"CustomMemberTableViewCell";
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (!self.manger) {
+        self.manger = [FMDBSQLiteManager shareSQLiteManager];
+    }
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.iconCollectionView.collectionViewLayout;
     
     UIImageView *iconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, layout.itemSize.width, layout.itemSize.height)];
-    [iconImageView setImage:[UIImage imageNamed:@"1"]];
+    
+    NSDictionary *dic = [self.memberInfos objectAtIndex:indexPath.row];
+    Person *per = [self.manger selectPersonWithUserId:[dic objectForKey:@"_id"]];
+    
+    [iconImageView dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
+    
     
     // 设置圆形icon
     [iconImageView.layer setCornerRadius:iconImageView.width / 2];
@@ -58,15 +70,35 @@ static NSString * const ID = @"CustomMemberTableViewCell";
     return cell;
 }
 
+
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%zd",indexPath.item);
+    NSDictionary *dic = [self.memberInfos objectAtIndex:indexPath.item];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"JumpToFolderController" object:nil userInfo:dic];
 }
 
 
+
+
+
+// 刷新 cell
 #pragma mark - setter method
 -(void)setMemberInfos:(NSArray *)memberInfos{
     
     _memberInfos = memberInfos;
+    
+    
+    /**
+     
+     [
+     {
+     _id=55dc110314a37c242b6486d4,
+     time=2015-09-17T03: 02: 56.900Z
+     }
+     ],
+     **/
    
 }
 

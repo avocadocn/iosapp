@@ -5,7 +5,9 @@
 //  Created by apple on 14/12/4.
 //  Copyright (c) 2014年 heima. All rights reserved.
 //
+#import "Person.h"
 
+#import "FMDBSQLiteManager.h"
 #import "HMShopCell.h"
 #import "HMShop.h"
 #import "UIImageView+DLGetWebImage.h"
@@ -157,9 +159,11 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
 - (void)reloadRankCellWithRankModel:(RankDetileModel *)model andIndex:(NSString *)index
 {
     
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
+    
     self.personName.text = model.ID;
     self.personLike.text = model.vote;
-    self.imageView.image = [UIImage imageNamed:@"1"];
+    [self.imageView dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     self.parseButton.criticText.text = model.vote;

@@ -22,9 +22,10 @@ static NSInteger indexNum = 1;
 
 @interface CompanySmallCell ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 //@property (nonatomic, assign)EnumOfCellTitleState state;
+
 @property (nonatomic, strong)UILabel *titleViewLabel;
 @property (nonatomic, strong)NSMutableArray *modelArray;
-
+@property (nonatomic, strong)UIImageView *imageView;
 @end
 
 @implementation CompanySmallCell
@@ -48,12 +49,7 @@ static NSInteger indexNum = 1;
 {
     @autoreleasepool {
         
-        NSArray *array= [NSArray arrayWithObjects:@"同事圈",@"新人报道", @"生日祝福" ,nil];
-        NSArray *colorArray = [NSArray arrayWithObjects:
-
-                               RGBACOLOR(240, 213, 50, 1),
-                               RGBACOLOR(100, 259, 234, 1),
-                               RGBACOLOR(222, 164, 37, 1), nil];
+        
         
         
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
@@ -62,47 +58,45 @@ static NSInteger indexNum = 1;
 //        layout.sectionInset = UIEdgeInsetsMake(0, 6, 0, 0);
 //        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         
-        UIView *TitleView = [UIView new];
+        self.TitleView = [UIView new];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(titleViewAction:)];
         
-        TitleView.tag = indexNum;
-        [TitleView addGestureRecognizer:tap];
+//        self.TitleView.tag = indexNum;
+        [self.TitleView addGestureRecognizer:tap];
 
-        UIColor *color = [colorArray objectAtIndex:indexNum - 1];
-        [TitleView setBackgroundColor:color];
         
-        [self addSubview:TitleView];
+        [self addSubview:self.TitleView];
         // 背景
-        [TitleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.TitleView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(6);
             make.top.mas_equalTo(self).with.offset(7);
             make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(109.0), DLMultipleWidth(109.0)));
         }];  // itemd大小
         
-        UIImageView *imageView = [UIImageView new];
-        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", (long)indexNum - 1]];
-        [TitleView addSubview:imageView];
+        self.imageView = [UIImageView new];
+//        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", (long)indexNum - 1]];
+        [self.TitleView addSubview:self.imageView];
         
-        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
 //            make.centerX.mas_equalTo(TitleView.mas_centerX);
 //            make.centerY.mas_equalTo(TitleView.mas_centerY);
 //            make.size.mas_equalTo(CGSizeMake(TitleView., TitleView.width / 3.0));
-            make.top.mas_equalTo(TitleView).with.offset(25);
-            make.left.mas_equalTo(TitleView).with.offset(25);
-            make.right.mas_equalTo(TitleView).with.offset(-25);
-            make.bottom.mas_equalTo(TitleView).with.offset(-25);
+            make.top.mas_equalTo(self.TitleView).with.offset(25);
+            make.left.mas_equalTo(self.TitleView).with.offset(25);
+            make.right.mas_equalTo(self.TitleView).with.offset(-25);
+            make.bottom.mas_equalTo(self.TitleView).with.offset(-25);
         }];
         
         self.titleViewLabel = [UILabel new];
         [self.titleViewLabel setTextColor:[UIColor whiteColor]];
         self.titleViewLabel.textAlignment = NSTextAlignmentCenter;
         self.titleViewLabel.font = [UIFont systemFontOfSize:15];
-        self.titleViewLabel.text = [array objectAtIndex:indexNum - 1];
-        [TitleView addSubview:self.titleViewLabel];
+
+        [self.TitleView addSubview:self.titleViewLabel];
         [self.titleViewLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(imageView.mas_bottom).offset(3);
-            make.left.mas_equalTo(TitleView.mas_left);
-            make.right.mas_equalTo(TitleView.mas_right);
+            make.top.mas_equalTo(self.imageView.mas_bottom).offset(3);
+            make.left.mas_equalTo(self.TitleView.mas_left);
+            make.right.mas_equalTo(self.TitleView.mas_right);
             make.height.mas_equalTo(20.0);
         }];
         
@@ -117,21 +111,20 @@ static NSInteger indexNum = 1;
         [self addSubview:self.SmallCollection];
 //        [self.SmallCollection setBackgroundColor:[UIColor blackColor]];
         [self.SmallCollection mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(TitleView.mas_right).offset(7);
+            make.left.mas_equalTo(self.TitleView.mas_right).offset(7);
             make.right.mas_equalTo(self.mas_right);
-            make.top.mas_equalTo(TitleView.mas_top);
-            make.bottom.mas_equalTo(TitleView.mas_bottom);
+            make.top.mas_equalTo(self.TitleView.mas_top);
+            make.bottom.mas_equalTo(self.TitleView.mas_bottom);
         }];
-        NSArray *titleArray = @[@"不一样的精彩", @"汉子们扔掉肥皂,迎接小鲜肉", @"好多童鞋就要过生日啦,还不去送上祝福!"];
+
         self.TitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 6 + DLMultipleWidth(109.0), DLScreenWidth - 20, DLMultipleWidth(30.0))];
         //    [self.TitleLabel setBackgroundColor:[UIColor redColor]];
-        self.TitleLabel.text = [titleArray objectAtIndex:indexNum - 1];
         self.TitleLabel.textColor = [UIColor colorWithWhite:.2 alpha:.6];
         self.TitleLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:self.TitleLabel];
         
         self.backgroundColor = [UIColor whiteColor];
-        indexNum ++;
+//        indexNum ++;
     }
 }
 
@@ -179,11 +172,31 @@ static NSInteger indexNum = 1;
     return CGSizeMake(num, num);
 }
 
-
+- (void)reloadWithIndexpath:(NSIndexPath *)index
+{
+    NSArray *titleArray = @[@"不一样的精彩", @"汉子们扔掉肥皂,迎接小鲜肉", @"好多童鞋就要过生日啦,还不去送上祝福!"];
+            self.TitleLabel.text = [titleArray objectAtIndex:index.row];
+    NSArray *array= [NSArray arrayWithObjects:@"同事圈",@"新人报道", @"生日祝福" ,nil];
+    NSArray *colorArray = [NSArray arrayWithObjects:
+                           
+                           RGBACOLOR(240, 213, 50, 1),
+                           RGBACOLOR(100, 259, 234, 1),
+                           RGBACOLOR(222, 164, 37, 1), nil];
+    
+    UIColor *color = [colorArray objectAtIndex:index.row];
+    
+    [self.TitleView setBackgroundColor:color];
+    
+    self.TitleView.tag = index.row + 1;
+    self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", (long)indexNum + 1]];
+    self.titleViewLabel.text = [array objectAtIndex:index.row];
+}
 
 //处理传过来的数据
 - (void)interCellWithModel:(SendSchollTableModel *)modelDic
 {
+    
+    
     self.modelArray = [NSMutableArray arrayWithArray:modelDic.photoArray];
     [self.SmallCollection reloadData];
 }

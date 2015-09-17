@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class GroupDetileModel;
+
 @interface TeamInfomationViewController : UITableViewController
 
 @property (nonatomic, strong) NSArray *memberInfos;
+
+@property (nonatomic, strong)GroupDetileModel *detilemodel;
+
 
 @end

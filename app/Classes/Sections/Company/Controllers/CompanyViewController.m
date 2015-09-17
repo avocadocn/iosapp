@@ -40,7 +40,7 @@
 }
 - (void)builtInterface
 {
-    self.photoArray = [NSMutableArray array];
+    self.photoArray = [NSMutableArray arrayWithArray:@[@"dacxcx", @"grdg", @"dwad"]];
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout alloc];
     layout.headerReferenceSize = CGSizeMake(DLScreenWidth, 85);
@@ -78,7 +78,6 @@
         
         NSLog(@"生日祝福");
     }
-    
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -90,8 +89,14 @@
 {
     CompanySmallCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SmallCell" forIndexPath:indexPath];
     cell.tag = indexPath.row + 1;
-    SendSchollTableModel *model = [self.photoArray objectAtIndex:indexPath.row];
-    [cell interCellWithModel:model];
+    if ([[self.photoArray objectAtIndex:indexPath.row] isKindOfClass:[SendSchollTableModel class]])
+    {
+        SendSchollTableModel *model = [self.photoArray objectAtIndex:indexPath.row];
+        [cell interCellWithModel:model];
+    }
+    
+    [cell reloadWithIndexpath:indexPath];
+    
     return cell;
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -122,7 +127,8 @@
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
         NSLog(@"请求成功-- %@",json);
 //        [self reloadTableViewWithJson:json];
-        [self.photoArray addObject:[self getPhotoArrayFromJson:json]];
+//        [self.photoArray addObject:[self getPhotoArrayFromJson:json]];
+        [self.photoArray replaceObjectAtIndex:0 withObject:[self getPhotoArrayFromJson:json]];
         [self getRequestNet];
 //        [self.BigCollection reloadData];
     } failure:^(id errorJson) {
@@ -182,7 +188,10 @@
                 NSLog(@"%@", dic);
         
         SendSchollTableModel *model = [self getImageFromDic:dic];
-        [self.photoArray addObject:model];
+        
+        [self.photoArray replaceObjectAtIndex:1 withObject:model];
+        
+//        [self.photoArray addObject:model];
         [self.BigCollection reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@", error);

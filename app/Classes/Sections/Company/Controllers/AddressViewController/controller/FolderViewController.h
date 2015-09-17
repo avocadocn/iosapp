@@ -49,6 +49,9 @@ typedef NS_ENUM(NSInteger, EnumOfEditButton) {
 
 @property (nonatomic, assign)BOOL judgeEditState;
 
+@property (nonatomic, strong)AddressBookModel *foloderModel;
+
+
 - (void)netRequstWithModel:(AddressBookModel *)model;
 
 @end

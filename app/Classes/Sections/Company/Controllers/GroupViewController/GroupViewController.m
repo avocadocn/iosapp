@@ -5,7 +5,9 @@
 //  Created by 申家 on 15/7/21.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-#import "GroupDetileController.h"
+
+#import "GroupDetileModel.h"
+#import "TeamHomePageController.h"
 #import "GroupViewController.h"
 #import <AFNetworking.h>
 #import <Masonry.h>
@@ -116,16 +118,18 @@
     
     GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
     [model setAllInfo:YES];
-    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:model useKeys:@[@"groupId"] success:^(id json) {
+        
+        
+    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:model useKeys:@[@"groupId", @"allInfo"] success:^(id json) {
         NSLog(@"获取到的小队信息为 %@", json);
         
         NSDictionary *dic = [json objectForKey:@"group"];
         
-        GroupCardModel *model = [[GroupCardModel alloc]init];
+        GroupDetileModel *model = [[GroupDetileModel alloc]init];
         [model setValuesForKeysWithDictionary:dic];
         
-        GroupDetileController *groupDetile = [[GroupDetileController alloc]init];
-        groupDetile.groupModel = model;
+        TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
+        groupDetile.informationModel = model;
         [self.navigationController pushViewController:groupDetile animated:YES];
         
         

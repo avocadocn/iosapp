@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TeamHomePageController : UIViewController
+@class GroupDetileModel;
 
+@interface TeamHomePageController : UIViewController
+@property (nonatomic, strong)GroupDetileModel *informationModel;
 @end

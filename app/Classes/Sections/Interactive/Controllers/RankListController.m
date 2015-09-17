@@ -115,6 +115,10 @@ static NSString * const ID =  @"RankItemTableViewcell";
     // 折叠
     iCarousel *carousel = [[iCarousel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(tableView.frame), tableView.y, DLScreenWidth - CGRectGetWidth(tableView.frame), tableView.height)];
 //    iCarousel *carousel = [iCarousel new];
+//    carousel.decelerationRate = 10;
+//    carousel.scrollSpeed = 0;
+    
+    carousel.bounceDistance = 1;
     
     carousel.clipsToBounds = NO;
 //    carousel.backgroundColor = RGBACOLOR(238, 238, 240, 1);
@@ -177,12 +181,6 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
     if (view == nil) {
-        /*
-//        NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"RankItemView" owner:self options:nil];
-        
-//        view = [nibs objectAtIndex:0];
-//        RankItemView *itemView = (RankItemView *)view;
-        */  //原来的不正确的item
         
         HMShopCell *cell = [[HMShopCell alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(217.0) , DLMultipleWidth(245.0))];
         cell.backgroundColor = [UIColor whiteColor];
@@ -193,10 +191,6 @@ static NSString * const ID =  @"RankItemTableViewcell";
         cell.layer.shadowColor = [UIColor lightGrayColor].CGColor;
         cell.layer.shadowOpacity = .5;
         view = cell;
-        
-//        [cell.parseButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(voteAction:)]];
-        
-        
         
     }
     

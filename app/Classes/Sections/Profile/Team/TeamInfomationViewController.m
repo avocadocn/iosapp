@@ -5,11 +5,13 @@
 //  Created by 张加胜 on 15/8/12.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "AddressBookModel.h"
 #import "TeamInfomationViewController.h"
 #import "CustomMarginSettingTableViewCell.h"
 #import "CustomMemberTableViewCell.h"
 #import "TeamSettingViewController.h"
+#import "GroupDetileModel.h"
+#import "ColleaguesInformationController.h"
 
 
 // 每一行item的个数
@@ -63,7 +65,27 @@ static NSString * const memberCell = @"memberCell";
     
     [self setupCollectionViewUI];
 
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpAction:) name:@"JumpToFolderController" object:nil];
+    
 }
+
+- (void)jumpAction:(NSNotification *)userInfo
+{
+    
+    ColleaguesInformationController *folder= [[ColleaguesInformationController alloc]init];
+    AddressBookModel *model =[[AddressBookModel alloc]init];
+    [model setValuesForKeysWithDictionary:userInfo.userInfo];
+    
+    folder.model = model;
+    
+    
+    
+    [self.navigationController pushViewController:folder animated:YES];
+    
+}
+
+
 
 -(void)setupCollectionViewUI{
     
@@ -161,6 +183,9 @@ static NSString * const memberCell = @"memberCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         TeamSettingViewController *settingController = [[TeamSettingViewController alloc]initWithIdentity:kTeamIdentityMaster];
+        // 信息 --> 设置
+        settingController.detileModel = [[GroupDetileModel alloc]init];
+        settingController.detileModel = self.detilemodel;
         [self.navigationController pushViewController:settingController animated:YES];
     }
 }

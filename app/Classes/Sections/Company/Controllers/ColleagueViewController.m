@@ -5,6 +5,8 @@
 //  Created by 申家 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
+#import "DXFaceView.h"
 #import <MJRefreshConst.h>
 #import <UIScrollView+MJRefresh.h>
 #import <MJRefresh.h>
@@ -52,7 +54,7 @@ static NSString * contentId = nil;
 #define TEXTFONT 16
 #define REPLYTEXT 14
 
-@interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, ConditionControllerDelegate, CardChooseViewDelegate, DNImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, ConditionControllerDelegate, CardChooseViewDelegate, DNImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXFaceDelegate>
 @property (nonatomic, strong)XHMessageTextView *inputTextView;
 @property (nonatomic, strong)UITextField *myText;
 @property (nonatomic, assign)NSInteger selectIndex;
@@ -93,8 +95,9 @@ static NSString * contentId = nil;
     }
     //    [self createUserInterView];
     
-    UIImageView *rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-    rightImage.image = [UIImage imageNamed:@"1"];
+    
+    UIImageView *rightImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    rightImage.image = [UIImage imageNamed:@"selectPhoto@3x"];
     rightImage.userInteractionEnabled = YES;
     
     [rightImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stateAction)]];
@@ -107,7 +110,6 @@ static NSString * contentId = nil;
     [self.colleagueTable setBackgroundColor:[UIColor colorWithWhite:.93 alpha:1]];
     self.title = @"同事圈";
     [self.colleagueTable registerClass:[ColleagueViewCell class] forCellReuseIdentifier:@"tableCell"];
-
     
     self.colleagueTable.separatorColor = [UIColor clearColor];
 //    
@@ -134,8 +136,7 @@ static NSString * contentId = nil;
 }
 - (void)stateAction
 {
-    
-CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"发文字", @"拍照片", @"选取现有的照片"]];
+    CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"发文字", @"拍照片", @"选取现有的照片"]];
     card.delegate = self;
     // 及时状态 页面
     [self.view addSubview:card];
@@ -534,7 +535,7 @@ CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"发文字",
     [faceButton setImage:[UIImage imageNamed:@"chatBar_face"] forState:UIControlStateNormal];
     [faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
     [faceButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
-    //    [faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.inputView addSubview:faceButton];
     
     [faceButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -545,6 +546,15 @@ CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"发文字",
     }];
     
     [self.view addSubview:self.myText];
+}
+
+- (void)buttonAction:(UIButton *)sender
+{
+    DXFaceView *face = [[DXFaceView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 200)];
+    face.delegate = self;
+    face.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+    [self.myText resignFirstResponder];
+    self.inputTextView.inputAccessoryView = face;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
