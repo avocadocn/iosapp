@@ -23,7 +23,8 @@
 @property (assign,nonatomic) CGFloat imageViewHeight;
 @property (strong, nonatomic)UILabel *activityName;  //@"林肯公园演唱会"
 @property (nonatomic, copy) NSString *url; // 图片链接
-
+@property (nonatomic, strong) UIView* introduceView;
+@property (nonatomic, strong) UIWebView* introduceWebView;
 @end
 
 @implementation TemplateDetailActivityShowView
@@ -309,7 +310,7 @@
     // 添加活动介绍view
     UIView *introduceView = [[UIView alloc]init];
     [introduceView setBackgroundColor:[UIColor whiteColor]];
-    
+    self.introduceView = introduceView;
     UIView* verticalLine2 = [UIView new];
     verticalLine2.frame = CGRectMake(DLMultipleWidth(10.0), 10, 2, 10);
     verticalLine2.backgroundColor=RGB(0xfd, 0xb9, 0);
@@ -329,6 +330,7 @@
     
     //添加webview
     UIWebView *introduceWebView=[[UIWebView alloc] init];
+    self.introduceWebView = introduceWebView;
     introduceWebView.width = DLScreenWidth;
     introduceWebView.height = DLScreenHeight * 2 / 4;
     introduceWebView.x = 0;
@@ -336,12 +338,17 @@
     introduceWebView.backgroundColor = [UIColor whiteColor];
     //for debug use
     //    [introduceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
-    introduceWebView.delegate=self;
-    
-    [introduceWebView loadHTMLString:[self.model.content gtm_stringByUnescapingFromHTML] baseURL:nil];
+    introduceWebView.delegate = self;
+    introduceWebView.scrollView.bounces = NO;
+    introduceWebView.scrollView.showsHorizontalScrollIndicator = NO;
+    introduceWebView.scrollView.scrollEnabled = NO;
+    NSString * htmlcontent = [NSString stringWithFormat:@"<div id=\"webview_content_wrapper\">%@</div>", [self.model.content gtm_stringByUnescapingFromHTML]];
+    [introduceWebView loadHTMLString:htmlcontent baseURL:nil];
     
     introduceView.width = DLScreenWidth;
-    introduceView.height = CGRectGetMaxY(introduceWebView.frame) + 16;
+//    introduceView.height = CGRectGetMaxY(introduceWebView.frame) + 16;
+    //先指定一个高度，后续动态修改
+    introduceView.height = 5000;
     introduceView.x = 0;
     introduceView.y = CGRectGetMaxY(enterView.frame) + 12;
     
@@ -432,6 +439,28 @@
     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '80%'"];
     //字体颜色
     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5f5f5f'"];
+    
+    //获取页面高度（像素）
+    NSString * clientheight_str = [webView stringByEvaluatingJavaScriptFromString: @"document.body.offsetHeight"];
+    float clientheight = [clientheight_str floatValue];
+    //设置到WebView上
+    webView.frame = CGRectMake(webView.x, webView.y, self.frame.size.width, clientheight);
+    //获取WebView最佳尺寸（点）
+    CGSize frame = [webView sizeThatFits:webView.frame.size];
+    //获取内容实际高度（像素）
+    NSString * height_str= [webView stringByEvaluatingJavaScriptFromString: @"document.getElementById('webview_content_wrapper').offsetHeight + parseInt(window.getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('margin-top'))  + parseInt(window.getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('margin-bottom'))"];
+    float height = [height_str floatValue];
+    //内容实际高度（像素）* 点和像素的比
+    //这样换算会有问题，所以先注释
+//    height = height * frame.height / clientheight;
+    //再次设置WebView高度（点）
+    webView.frame = CGRectMake(webView.x, webView.y, self.frame.size.width, height);
+    //修正外部控件高度
+    self.introduceView.height = CGRectGetMaxY(self.introduceWebView.frame);
+    [self.superView setContentSize:CGSizeMake(DLScreenWidth, CGRectGetMaxY(self.introduceView.frame) + 44)];
+    NSLog(@"webView frame %@",NSStringFromCGRect(self.introduceWebView.frame));
+    NSLog(@"introView frame %@",NSStringFromCGRect(self.introduceView.frame));
+    [webView.layer setBorderColor:[[UIColor clearColor] CGColor]];
 }
 
 @end
