@@ -121,7 +121,8 @@
     //添加关闭按钮
     UIButton* closeBtn = [UIButton new];
     NSInteger closeBtnRadius = DLMultipleWidth(20.0);
-    [closeBtn setBackgroundColor:RGB(0xfd, 0xb9, 0)];
+//    [closeBtn setBackgroundColor:RGB(0xfd, 0xb9, 0)];
+    [closeBtn setBackgroundImage:[UIImage imageNamed:@"close_btn"] forState:UIControlStateNormal];
     closeBtn.width = closeBtnRadius*2;
     closeBtn.height = closeBtnRadius*2;
     closeBtn.x = DLScreenWidth/2-closeBtnRadius;

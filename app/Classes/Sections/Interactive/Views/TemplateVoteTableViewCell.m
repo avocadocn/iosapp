@@ -194,7 +194,8 @@
     UIView *bottomTransmitBar = [UIView new];
     [bottomTransmitBar setBackgroundColor:[UIColor whiteColor]];
     UIButton *bottomTransmitBtn = [UIButton new];
-    [bottomTransmitBtn setBackgroundColor:RGB(0xfd, 0xb9, 0x0)];
+//    [bottomTransmitBtn setBackgroundColor:RGB(0xfd, 0xb9, 0x0)];
+    [bottomTransmitBtn setBackgroundImage:[UIImage imageNamed:@"transmit_btn"] forState:UIControlStateNormal];
     bottomTransmitBtn.titleLabel.font=[UIFont systemFontOfSize:18.0f];
     [bottomTransmitBtn setTitle:@"转发" forState:UIControlStateNormal];
     [bottomTransmitBar addSubview:bottomTransmitBtn];
