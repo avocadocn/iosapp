@@ -5,6 +5,8 @@
 //  Created by 申家 on 15/8/7.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
 
 #import "AttentionViewCell.h"
 #import <Masonry.h>
@@ -77,11 +79,17 @@
 
 - (void)cellBuiltWithModel:(AddressBookModel *)model
 {
-    [self.AttentionPhoto dlGetRouteWebImageWithString:model.photo placeholderImage:nil];
-    self.AttentionName.text = model.realname;
-    CompanyModel *company = model.company;
     
-    self.AttentionWork.text = company.name;
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
+    
+    [self.AttentionPhoto dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
+    
+    
+    self.AttentionName.text = per.name;
+//    CompanyModel *company = model.company;
+    
+//    self.AttentionWork.text = per;
+    
 }
 
 

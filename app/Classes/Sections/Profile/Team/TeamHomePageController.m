@@ -75,7 +75,7 @@ static NSString *ID = @"feasfsefse";
 
 @implementation TeamHomePageController
 
- /**
+/**
  *  活动cell
  */
 static NSString * const avtivityCellID = @"avtivityCellID";
@@ -91,8 +91,8 @@ static NSString * const helpCellID = @"helpCellID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self requestNet];
-
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -116,7 +116,7 @@ static NSString * const helpCellID = @"helpCellID";
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-  
+    
     
     [self.tableView registerNib:[UINib nibWithNibName:@"OtherActivityShowCell" bundle:nil] forCellReuseIdentifier:avtivityCellID];
     [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:voteCellID];
@@ -130,12 +130,12 @@ static NSString * const helpCellID = @"helpCellID";
     self.headImageView = [[UIImageView alloc]initWithFrame:self.headView.frame];
     self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.headImageView.layer.masksToBounds = YES;
-    [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
+    
     
     [self.headView addSubview:self.headImageView];
     
     [self.view addSubview:self.tableView];
-
+    
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -173,9 +173,9 @@ static NSString * const helpCellID = @"helpCellID";
 - (void)requestNet
 {
     
-//    getIntroModel *model = [[getIntroModel alloc]init];
-//    [model setUserId:acc.ID];
-//
+    //    getIntroModel *model = [[getIntroModel alloc]init];
+    //    [model setUserId:acc.ID];
+    //
     
     Account *acc = [AccountTool account];
     
@@ -191,9 +191,9 @@ static NSString * const helpCellID = @"helpCellID";
         NSLog(@"获取数据互动成功   %@", json);
         [self analyDataWithJson:json];
         
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-////            [self loadingContacts]; // 加载通讯录信息
-//        });
+        //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        ////            [self loadingContacts]; // 加载通讯录信息
+        //        });
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
         
@@ -206,7 +206,7 @@ static NSString * const helpCellID = @"helpCellID";
         }
         
     }];
-
+    
 }
 
 - (void)analyDataWithJson:(id)json
@@ -244,10 +244,10 @@ static NSString * const helpCellID = @"helpCellID";
     
     //按钮
     self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 34, 19, 19);
+    self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 34, 40, 40);
     [self.settingBtn setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
     
-    [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:self.settingBtn];
     
     //添加导航条上的大文字
@@ -258,7 +258,7 @@ static NSString * const helpCellID = @"helpCellID";
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.font = [UIFont systemFontOfSize:18];
     self.titleLabel.text = @"小队主页";
-//    self.titleLabel.text = self.informationModel.name;
+    
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.titleLabel];
 }
@@ -298,12 +298,12 @@ static NSString * const helpCellID = @"helpCellID";
 //    return 1;
 //}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:avtivityCellID forIndexPath:indexPath];
+    //    OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:avtivityCellID forIndexPath:indexPath];
     CurrentActivitysShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
     
     [cell reloadCellWithModel:inter];
-
+    
     
     return cell;
 }
@@ -312,25 +312,25 @@ static NSString * const helpCellID = @"helpCellID";
     return 149 ;
 }
 /*
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-
-//    TempCompany *company = [[TempCompany alloc]init];
-//    [company setName:@"动力哈"];
-//    [company setPassword:@"asdfasd"];
-//    [company setEmail:@"asdfa@qq.com"];
-//    
-//    [RestfulAPIRequestTool routeName:@"companyQuickRegister" requestModel:company useKeys:@[@"name",@"email",@"password"] success:^(id json) {
-//        NSLog(@"%@",json);
-//    } failure:^(id errorJson) {
-//        NSLog(@"%@",errorJson);
-//    }];
-}
-
-//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 290 * DLScreenWidth / 375;
-//}
-*/
+ -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+ 
+ 
+ //    TempCompany *company = [[TempCompany alloc]init];
+ //    [company setName:@"动力哈"];
+ //    [company setPassword:@"asdfasd"];
+ //    [company setEmail:@"asdfa@qq.com"];
+ //
+ //    [RestfulAPIRequestTool routeName:@"companyQuickRegister" requestModel:company useKeys:@[@"name",@"email",@"password"] success:^(id json) {
+ //        NSLog(@"%@",json);
+ //    } failure:^(id errorJson) {
+ //        NSLog(@"%@",errorJson);
+ //    }];
+ }
+ 
+ //-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+ //    return 290 * DLScreenWidth / 375;
+ //}
+ */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     // NSLog(@"%f",scrollView.contentOffset.y);
     
@@ -341,7 +341,27 @@ static NSString * const helpCellID = @"helpCellID";
         self.headView.frame = CGRectMake(0, offsetY, DLScreenWidth, headViewHeight - offsetY);
         self.headImageView.frame = CGRectMake(-(factorWidth - DLScreenWidth) / 2, offsetY, factorWidth, headViewHeight - offsetY);
     }
-   
+    
+}
+
+- (void)setGroupCardModel:(GroupCardModel *)groupCardModel
+{
+    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:groupCardModel useKeys:@[@"groupId", @"allInfo"] success:^(id json) {
+        NSLog(@"获取到的小队信息为 %@", json);
+        
+        NSDictionary *dic = [json objectForKey:@"group"];
+        
+        GroupDetileModel *model = [[GroupDetileModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic];
+        self.informationModel = model;
+        [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        self.titleLabel.text = self.informationModel.name;
+        [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
+        [self requestNet];
+    } failure:^(id errorJson) {
+        NSLog(@"获取小队信息失败的原因为 %@", errorJson);
+    }];
+    
 }
 
 @end

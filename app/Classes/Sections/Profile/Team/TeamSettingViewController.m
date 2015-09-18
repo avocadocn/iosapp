@@ -6,10 +6,13 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
+#import "GroupCoverSetting.h"
+#import "AmendGroupName.h"
+#import "RestfulAPIRequestTool.h"
 #import "TeamSettingViewController.h"
 #import "CustomSettingAvatarTableCell.h"
 #import "UIImageView+DLGetWebImage.h"
-
+#import "GroupMemberSetting.h"
 #import "GroupDetileModel.h"
 @interface TeamSettingViewController ()
 
@@ -48,6 +51,53 @@ static NSString * const defaultCellID = @"defaultCellID";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    switch (indexPath.section) {
+        case 1:
+        {
+            switch (indexPath.row) {
+                case 0:
+                {
+                    /*
+                    NSLog(@"群组名称设置");
+                    AmendGroupName *amend = [[AmendGroupName alloc]initWithNibName:@"AmendGroupName" bundle:nil];
+                    [self.navigationController pushViewController:amend animated:YES];
+                    amend.name = [NSString stringWithFormat:@"%@", self.detileModel.name];
+                    amend.detileModel = self.detileModel;
+                    NSLog(@"群组封面设置");
+                    */
+                    GroupCoverSetting *set = [[GroupCoverSetting alloc]initWithNibName:@"GroupCoverSetting" bundle:nil];
+                    set.detileModel = self.detileModel;
+                    [self.navigationController pushViewController:set animated:YES];
+                    
+                    
+                }
+                    break;
+                case 1:
+                {
+                    NSLog(@"群组成员管理");
+                    
+                    GroupMemberSetting *setting = [[GroupMemberSetting alloc]init];
+                    setting.detileModel = self.detileModel;
+                    [self.navigationController pushViewController:setting animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
+            
+
+            
+            
+        }
+            break;
+            case 2:
+        {
+            NSLog(@"删除此群");
+        }
+        default:
+            break;
+    }
+    
     
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -59,7 +109,7 @@ static NSString * const defaultCellID = @"defaultCellID";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.identity == kTeamIdentityMaster ? (section == 1 ? 3 : 1) : 1;
+    return self.identity == kTeamIdentityMaster ? (section == 1 ? 2 : 1) : 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -76,15 +126,18 @@ static NSString * const defaultCellID = @"defaultCellID";
         
         cell.textLabel.font = [UIFont systemFontOfSize:14];
         
-        [cell.textLabel setText:self.identity == kTeamIdentityMaster ? (indexPath.section == 1 ? (indexPath.row == 0 ? @"群组名称设置" : (indexPath.row == 1 ? @"群组封面设置" : @"群组成员管理")) : @"删除此群") : @"退出此群" ];
+        [cell.textLabel setText:self.identity == kTeamIdentityMaster ? (indexPath.section == 1 ? (indexPath.row == 0 ? @"群组名称封面设置" : @"群组成员管理") : @"删除此群") : @"退出此群" ];
         return cell;
     }
 }
 
+/*
+ (indexPath.row == 1 ? @"群组封面设置" : @"群组成员管理")
+ */
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return indexPath.section == 0 ? 64.0f : 50.f;
 }
-
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 17;

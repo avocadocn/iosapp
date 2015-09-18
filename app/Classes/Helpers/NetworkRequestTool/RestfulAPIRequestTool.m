@@ -1,3 +1,4 @@
+
 //
 //  RestfulAPIRequestTool.m
 //  app
@@ -5,6 +6,7 @@
 //  Created by 张加胜 on 15/8/3.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
 
 #import "RestfulAPIRequestTool.h"
 #import "RouteManager.h"
@@ -25,6 +27,7 @@ typedef enum : NSUInteger {
 
 
 @interface RestfulAPIRequestTool()
+
 
 
 @end
@@ -206,6 +209,7 @@ static AFHTTPSessionManager *_mgr;
     }];
     [params removeObjectsForKeys:keyArray];
     
+    
     [_mgr POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         NSInteger index = 0;
         
@@ -226,13 +230,28 @@ static AFHTTPSessionManager *_mgr;
     }];
 }
 
-+ (void)put:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure
++ (void)put:(NSString *)url params:(NSMutableDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure
 {
+    __block NSMutableArray *fileArray = [NSMutableArray array];
+    __block NSMutableArray *keyArray = [NSMutableArray array];
+    [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"photo"]) {
+            [keyArray addObject:key];
+            fileArray = (NSMutableArray *)obj;
+        }
+    }];
+    [params removeObjectsForKeys:keyArray];
+    
+    
+    for (NSDictionary *dataDict in fileArray) {
+        
+        NSData *data = [dataDict objectForKey:@"data"];
+    [_mgr.responseSerializer responseObjectForResponse:nil data:data error:nil];
+    }
     
    // 发送put请求
     [_mgr PUT:url parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         
-    
         if (success) {
             success([self dataToJsonObject:responseObject]);
         }

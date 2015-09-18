@@ -644,6 +644,10 @@
 		A44B35661B83135C004F7A6A /* DXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B35651B83135C004F7A6A /* DXAlertView.m */; };
 		A44B35691B831DA4004F7A6A /* PasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B35681B831DA4004F7A6A /* PasswordView.m */; };
 		A44B356F1B8325C5004F7A6A /* EnumTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B356E1B8325C5004F7A6A /* EnumTextField.m */; };
+		A44C3FA01BABCF63002D2D10 /* AmendGroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = A44C3F9E1BABCF63002D2D10 /* AmendGroupName.m */; };
+		A44C3FA11BABCF63002D2D10 /* AmendGroupName.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44C3F9F1BABCF63002D2D10 /* AmendGroupName.xib */; };
+		A44C3FA51BABDED4002D2D10 /* GroupCoverSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = A44C3FA31BABDED4002D2D10 /* GroupCoverSetting.m */; };
+		A44C3FA61BABDED4002D2D10 /* GroupCoverSetting.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44C3FA41BABDED4002D2D10 /* GroupCoverSetting.xib */; };
 		A44D40081B7300C200B10DFB /* LaunchEventController.m in Sources */ = {isa = PBXBuildFile; fileRef = A44D40071B7300C200B10DFB /* LaunchEventController.m */; };
 		A44D40461B732EC400B10DFB /* DLDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A44D40451B732EC400B10DFB /* DLDatePickerView.m */; };
 		A44D404D1B7368EA00B10DFB /* EventRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A44D404C1B7368EA00B10DFB /* EventRemindCell.m */; };
@@ -726,6 +730,9 @@
 		A4F315691B5E4BFB00126C8A /* PhotoPlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315621B5E4BFB00126C8A /* PhotoPlayController.m */; };
 		A4F3156A1B5E4BFB00126C8A /* PhotoShouCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315641B5E4BFB00126C8A /* PhotoShouCell.m */; };
 		A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F315721B5E4F7A00126C8A /* GroupViewController.m */; };
+		A4F566981BAC038F00112422 /* GroupMemberSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F566971BAC038F00112422 /* GroupMemberSetting.m */; };
+		A4F5669B1BAC0A2000112422 /* InviteGroupMember.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F5669A1BAC0A2000112422 /* InviteGroupMember.m */; };
+		A4F5669E1BAC10A000112422 /* DeleteMemberFromGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F5669D1BAC10A000112422 /* DeleteMemberFromGroup.m */; };
 		A4F594F71B7C7C740088D9CC /* PersonReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F594ED1B7C7C740088D9CC /* PersonReportController.m */; };
 		A4F594F81B7C7C740088D9CC /* 1.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4F594F01B7C7C740088D9CC /* 1.plist */; };
 		A4F594F91B7C7C740088D9CC /* HMShop.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F594F21B7C7C740088D9CC /* HMShop.m */; };
@@ -1766,6 +1773,12 @@
 		A44B35681B831DA4004F7A6A /* PasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordView.m; sourceTree = "<group>"; };
 		A44B356D1B8325C5004F7A6A /* EnumTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumTextField.h; sourceTree = "<group>"; };
 		A44B356E1B8325C5004F7A6A /* EnumTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnumTextField.m; sourceTree = "<group>"; };
+		A44C3F9D1BABCF63002D2D10 /* AmendGroupName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmendGroupName.h; sourceTree = "<group>"; };
+		A44C3F9E1BABCF63002D2D10 /* AmendGroupName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmendGroupName.m; sourceTree = "<group>"; };
+		A44C3F9F1BABCF63002D2D10 /* AmendGroupName.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmendGroupName.xib; sourceTree = "<group>"; };
+		A44C3FA21BABDED4002D2D10 /* GroupCoverSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCoverSetting.h; sourceTree = "<group>"; };
+		A44C3FA31BABDED4002D2D10 /* GroupCoverSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCoverSetting.m; sourceTree = "<group>"; };
+		A44C3FA41BABDED4002D2D10 /* GroupCoverSetting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCoverSetting.xib; sourceTree = "<group>"; };
 		A44D40061B7300C200B10DFB /* LaunchEventController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchEventController.h; sourceTree = "<group>"; };
 		A44D40071B7300C200B10DFB /* LaunchEventController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchEventController.m; sourceTree = "<group>"; };
 		A44D40441B732EC400B10DFB /* DLDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLDatePickerView.h; sourceTree = "<group>"; };
@@ -1915,6 +1928,12 @@
 		A4F315641B5E4BFB00126C8A /* PhotoShouCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoShouCell.m; sourceTree = "<group>"; };
 		A4F315711B5E4F7A00126C8A /* GroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupViewController.h; sourceTree = "<group>"; };
 		A4F315721B5E4F7A00126C8A /* GroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupViewController.m; sourceTree = "<group>"; };
+		A4F566961BAC038F00112422 /* GroupMemberSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMemberSetting.h; sourceTree = "<group>"; };
+		A4F566971BAC038F00112422 /* GroupMemberSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMemberSetting.m; sourceTree = "<group>"; };
+		A4F566991BAC0A2000112422 /* InviteGroupMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteGroupMember.h; sourceTree = "<group>"; };
+		A4F5669A1BAC0A2000112422 /* InviteGroupMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteGroupMember.m; sourceTree = "<group>"; };
+		A4F5669C1BAC10A000112422 /* DeleteMemberFromGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteMemberFromGroup.h; sourceTree = "<group>"; };
+		A4F5669D1BAC10A000112422 /* DeleteMemberFromGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteMemberFromGroup.m; sourceTree = "<group>"; };
 		A4F594EC1B7C7C740088D9CC /* PersonReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonReportController.h; sourceTree = "<group>"; };
 		A4F594ED1B7C7C740088D9CC /* PersonReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonReportController.m; sourceTree = "<group>"; };
 		A4F594F01B7C7C740088D9CC /* 1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 1.plist; sourceTree = "<group>"; };
@@ -2739,6 +2758,18 @@
 				968C27411B7B2FC600950581 /* CustomSettingAvatarTableCell.xib */,
 				96E3D8481B7DE42600A623B7 /* TempCompany.h */,
 				96E3D8491B7DE42600A623B7 /* TempCompany.m */,
+				A44C3F9D1BABCF63002D2D10 /* AmendGroupName.h */,
+				A44C3F9E1BABCF63002D2D10 /* AmendGroupName.m */,
+				A44C3F9F1BABCF63002D2D10 /* AmendGroupName.xib */,
+				A44C3FA21BABDED4002D2D10 /* GroupCoverSetting.h */,
+				A44C3FA31BABDED4002D2D10 /* GroupCoverSetting.m */,
+				A44C3FA41BABDED4002D2D10 /* GroupCoverSetting.xib */,
+				A4F566961BAC038F00112422 /* GroupMemberSetting.h */,
+				A4F566971BAC038F00112422 /* GroupMemberSetting.m */,
+				A4F566991BAC0A2000112422 /* InviteGroupMember.h */,
+				A4F5669A1BAC0A2000112422 /* InviteGroupMember.m */,
+				A4F5669C1BAC10A000112422 /* DeleteMemberFromGroup.h */,
+				A4F5669D1BAC10A000112422 /* DeleteMemberFromGroup.m */,
 			);
 			path = Team;
 			sourceTree = "<group>";
@@ -4759,6 +4790,7 @@
 				96CF94671B674B54001759E2 /* newFriends@2x.png in Resources */,
 				A4745E031B81A9AC008EB944 /* DNImagePicker.strings in Resources */,
 				A43CE9BE1BAABDDC0069C94E /* company1.png in Resources */,
+				A44C3FA61BABDED4002D2D10 /* GroupCoverSetting.xib in Resources */,
 				968C27481B7B43D500950581 /* VoteBottomToolBar.xib in Resources */,
 				96CF93F51B674B54001759E2 /* call_silence_h.png in Resources */,
 				96CF93FE1B674B54001759E2 /* chatBar_more_face@2x.png in Resources */,
@@ -4771,6 +4803,7 @@
 				96AA19611B7998B9008E4CA3 /* MenuCollectionViewCell.xib in Resources */,
 				96CF94181B674B54001759E2 /* chatBar_more@2x.png in Resources */,
 				A42CFFE21B9C194000CCFB34 /* 108.png in Resources */,
+				A44C3FA11BABCF63002D2D10 /* AmendGroupName.xib in Resources */,
 				96CF941E1B674B54001759E2 /* chatBar_recordBg@2x.png in Resources */,
 				96CF93D31B674B54001759E2 /* VoiceSearchFeedback007.png in Resources */,
 				96CF940F1B674B54001759E2 /* chatBar_face.png in Resources */,
@@ -5099,6 +5132,7 @@
 				A450561F1B60F01F0075E39D /* DSNavigationBar.m in Sources */,
 				96CF947E1B674B54001759E2 /* SettingsViewController.m in Sources */,
 				A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */,
+				A44C3FA51BABDED4002D2D10 /* GroupCoverSetting.m in Sources */,
 				96C9FFB11B737508008B71CE /* HelpTableViewController.m in Sources */,
 				A41CF0DE1B5D02DA005C21EF /* RankController.m in Sources */,
 				96CF93891B674B54001759E2 /* FacialView.m in Sources */,
@@ -5172,12 +5206,14 @@
 				96D20EB81B60AE5D00102D18 /* DLNavBar.m in Sources */,
 				A43707B61BA280A9002D774C /* CricleDetailViewController.m in Sources */,
 				A48B1B5A1B707E0A0049237E /* AddressViewController.m in Sources */,
+				A4F5669E1BAC10A000112422 /* DeleteMemberFromGroup.m in Sources */,
 				968C27331B7AF64600950581 /* TeamInfomationViewController.m in Sources */,
 				968C27461B7B43BE00950581 /* VoteBottomToolBar.m in Sources */,
 				96CF93AA1B674B54001759E2 /* ApplyViewController.m in Sources */,
 				A4424C171BA6961200738C72 /* RankDetileModel.m in Sources */,
 				96D20EBB1B60C4EE00102D18 /* ActivityShowTableController.m in Sources */,
 				A4745E001B81A9AC008EB944 /* DNImagePickerController.m in Sources */,
+				A4F5669B1BAC0A2000112422 /* InviteGroupMember.m in Sources */,
 				96CF947D1B674B54001759E2 /* PushNotificationViewController.m in Sources */,
 				96AA195C1B799896008E4CA3 /* MenuCollectionController.m in Sources */,
 				54BB1DD51B8EF6F500F76628 /* ChangePassWordViewController.m in Sources */,
@@ -5198,6 +5234,7 @@
 				96CF948A1B67501B001759E2 /* SRSlimeView.m in Sources */,
 				A45FEBF31B85DC1900BC5E41 /* LoginSinger.m in Sources */,
 				967439BE1B705908004334A4 /* RouteManager.m in Sources */,
+				A44C3FA01BABCF63002D2D10 /* AmendGroupName.m in Sources */,
 				A434C6111B71EA1E009643CD /* ApertureView.m in Sources */,
 				A4745DFF1B81A9AC008EB944 /* DNImageFlowViewController.m in Sources */,
 				A4745E111B81A9AC008EB944 /* JKPromptView.m in Sources */,
@@ -5349,6 +5386,7 @@
 				A45534E61BA8148900E2A96E /* CreateGroupController.m in Sources */,
 				E22C61761BAAA62200BDFA69 /* TemplateModel.m in Sources */,
 				96CF90C41B673422001759E2 /* MWPhotoBrowser.m in Sources */,
+				A4F566981BAC038F00112422 /* GroupMemberSetting.m in Sources */,
 				96AA197B1B79EBFA008E4CA3 /* AddressBookSqliteTool.m in Sources */,
 				A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */,
 				96CF90D61B673422001759E2 /* UIImageView+EMHighlightedWebCache.m in Sources */,

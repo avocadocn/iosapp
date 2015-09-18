@@ -5,6 +5,11 @@
 //  Created by 张加胜 on 15/8/12.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
+#import "GroupViewController.h"
+#import "RestfulAPIRequestTool.h"
+#import "Account.h"
+#import "AccountTool.h"
 #import "AddressBookModel.h"
 #import "TeamInfomationViewController.h"
 #import "CustomMarginSettingTableViewCell.h"
@@ -12,6 +17,17 @@
 #import "TeamSettingViewController.h"
 #import "GroupDetileModel.h"
 #import "ColleaguesInformationController.h"
+
+typedef NS_ENUM(NSInteger, GroupIdentity) {
+    /**
+     *是群主
+     */
+    GroupIdentityFlock,  //群主
+    /**
+     *是群众
+     */
+    GroupIdentityFigurant   //群众
+};
 
 
 // 每一行item的个数
@@ -22,6 +38,12 @@
 #define lineSpacing 4.0
 
 @interface TeamInfomationViewController ()
+
+/**
+ *是否为群主
+*/
+@property (nonatomic, assign)GroupIdentity state;
+
 
 @property (nonatomic, strong) CustomMemberTableViewCell *defaultMemberCell;
 
@@ -59,6 +81,11 @@ static NSString * const memberCell = @"memberCell";
     self.title = @"群组信息";
     
     [self.tableView registerNib:[UINib nibWithNibName:@"CustomMemberTableViewCell" bundle:nil] forCellReuseIdentifier:memberCell];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:settingCell];
+    Account *acc = [AccountTool account];
+    if (![self.detilemodel.leader isEqualToString:acc.ID]) {  //非群主
+        self.state = GroupIdentityFigurant;
+    }
     
     CustomMemberTableViewCell *defaultMemberCell = [self.tableView dequeueReusableCellWithIdentifier:memberCell];
     self.defaultMemberCell = defaultMemberCell;
@@ -78,8 +105,6 @@ static NSString * const memberCell = @"memberCell";
     [model setValuesForKeysWithDictionary:userInfo.userInfo];
     
     folder.model = model;
-    
-    
     
     [self.navigationController pushViewController:folder animated:YES];
     
@@ -126,34 +151,85 @@ static NSString * const memberCell = @"memberCell";
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     UITableViewCell *cell;
-    if (indexPath.section == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:settingCell];
-        if (!cell) {
-            cell =  [[CustomMarginSettingTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:settingCell];
-            [cell.textLabel setText:@"设置"];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
-            [cell.detailTextLabel setText:@"群主"];
-            [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
-            [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    
+    switch (self.state) {
+        case GroupIdentityFlock:
+        {
+            if (indexPath.section == 0) {
+                cell = [tableView dequeueReusableCellWithIdentifier:settingCell];
+//                if (!cell) {
+                    cell =  [[CustomMarginSettingTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:settingCell];
+                    [cell.textLabel setText:@"设置"];
+                    [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
+                    [cell.detailTextLabel setText:@"群主"];
+                    [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+//                }
+            } else if (indexPath.section == 1){
+                cell = [tableView dequeueReusableCellWithIdentifier:memberCell forIndexPath:indexPath];
+                [(CustomMemberTableViewCell *)cell setMemberInfos:self.memberInfos];
+                ((CustomMemberTableViewCell *)cell).collectionHeight.constant = self.collectionHeight;
+                
+                UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) ((CustomMemberTableViewCell *)cell).iconCollectionView.collectionViewLayout;
+                // NSLog(@"%f",self.defaultMemberCell.iconCollectionView.width);
+                self.itemWH = (self.defaultMemberCell.iconCollectionView.width - (ItemCountPerLine - 1) * cellSpacing) / 8.0;
+                layout.itemSize = CGSizeMake(self.itemWH, self.itemWH);
+                layout.minimumInteritemSpacing = cellSpacing;
+                layout.minimumLineSpacing = lineSpacing;
+                
+                // 第二行的选中状态消除
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            }
         }
-    }else if (indexPath.section == 1){
-        cell = [tableView dequeueReusableCellWithIdentifier:memberCell forIndexPath:indexPath];
-        [(CustomMemberTableViewCell *)cell setMemberInfos:self.memberInfos];
-        ((CustomMemberTableViewCell *)cell).collectionHeight.constant = self.collectionHeight;
-        
-        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) ((CustomMemberTableViewCell *)cell).iconCollectionView.collectionViewLayout;
-        // NSLog(@"%f",self.defaultMemberCell.iconCollectionView.width);
-        self.itemWH = (self.defaultMemberCell.iconCollectionView.width - (ItemCountPerLine - 1) * cellSpacing) / 8.0;
-        layout.itemSize = CGSizeMake(self.itemWH, self.itemWH);
-        layout.minimumInteritemSpacing = cellSpacing;
-        layout.minimumLineSpacing = lineSpacing;
-        
-        // 第二行的选中状态消除
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            break;
+        case GroupIdentityFigurant:
+        {
+            if (indexPath.section == 1) {
+                cell = [tableView dequeueReusableCellWithIdentifier:settingCell];
+//                if (!cell) {
+                
+                    /*
+                    cell =  [[CustomMarginSettingTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:settingCell];
+                    [cell.textLabel setText:@"退出此群"];
+                    [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
+//                    [cell.detailTextLabel setText:@"群主"];
+//                    [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
+//                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                     */
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:settingCell forIndexPath:indexPath];
+                    [cell.textLabel setText:@"退出此群"];
+                    
+                    [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
+                    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                    return cell;
+//                }
+            } else if (indexPath.section == 0){
+                cell = [tableView dequeueReusableCellWithIdentifier:memberCell forIndexPath:indexPath];
+                [(CustomMemberTableViewCell *)cell setMemberInfos:self.memberInfos];
+                ((CustomMemberTableViewCell *)cell).collectionHeight.constant = self.collectionHeight;
+                
+                UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) ((CustomMemberTableViewCell *)cell).iconCollectionView.collectionViewLayout;
+                // NSLog(@"%f",self.defaultMemberCell.iconCollectionView.width);
+                self.itemWH = (self.defaultMemberCell.iconCollectionView.width - (ItemCountPerLine - 1) * cellSpacing) / 8.0;
+                layout.itemSize = CGSizeMake(self.itemWH, self.itemWH);
+                layout.minimumInteritemSpacing = cellSpacing;
+                layout.minimumLineSpacing = lineSpacing;
+                
+                // 第二行的选中状态消除
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            }
+
+        }
+        default:
+            break;
     }
     
+
     [cell setHighlighted:NO];
     
     return cell;
@@ -163,11 +239,25 @@ static NSString * const memberCell = @"memberCell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    
-    if (indexPath.section == 0) {
-        return 64;
-    }else if (indexPath.section == 1){
-        return self.cellHeight;
+    switch (self.state) {
+        case GroupIdentityFlock:{
+            if (indexPath.section == 0) {
+                return 64;
+            }else if (indexPath.section == 1){
+                return self.cellHeight;
+            }
+        }
+            break;
+         case GroupIdentityFigurant:
+        {
+            if (indexPath.section == 1) {
+                return 50;
+            }else if (indexPath.section == 0){
+                return self.cellHeight;
+            }
+        }
+        default:
+            break;
     }
     return 0;
 }
@@ -181,15 +271,55 @@ static NSString * const memberCell = @"memberCell";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        TeamSettingViewController *settingController = [[TeamSettingViewController alloc]initWithIdentity:kTeamIdentityMaster];
-        // 信息 --> 设置
-        settingController.detileModel = [[GroupDetileModel alloc]init];
-        settingController.detileModel = self.detilemodel;
-        [self.navigationController pushViewController:settingController animated:YES];
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    switch (self.state) {
+        case GroupIdentityFlock:
+        {
+            if (indexPath.section == 0) {
+                TeamSettingViewController *settingController = [[TeamSettingViewController alloc]initWithIdentity:kTeamIdentityMaster];
+                // 信息 --> 设置
+                settingController.detileModel = [[GroupDetileModel alloc]init];
+                settingController.detileModel = self.detilemodel;
+                [self.navigationController pushViewController:settingController animated:YES];
+            }
+        }
+            break;
+        case GroupIdentityFigurant:
+        {
+            if (indexPath.section == 1) {
+                
+                NSDictionary *Dic = [NSDictionary dictionaryWithObject:self.detilemodel.ID forKey:@"groupId"];
+
+                GroupViewController *group = [[GroupViewController alloc]init];
+                [self.navigationController pushViewController:group animated:YES];
+//                NSArray *array = self.navigationController.viewControllers;
+////                [self.navigationController popToViewController:group animated:NO];
+                
+//                NSLog(@"子视图都有   %@", array);
+//                [RestfulAPIRequestTool routeName:@"exitGroups" requestModel:Dic useKeys:@[@"groupId"] success:^(id json) {
+//                    
+//                    NSLog(@"退群成功  %@", json);
+//                    
+//                    
+//                    
+//                } failure:^(id errorJson) {
+//                    
+//                    NSLog(@"退群失败   %@", errorJson);
+//                }];
+                
+            }
+            break;
+        }
+        default:
+            break;
     }
 }
 
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    
+}
 
 #pragma mark - setter方法
 -(void)setMemberInfos:(NSArray *)memberInfos{

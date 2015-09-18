@@ -5,6 +5,7 @@
 //  Created by 申家 on 15/9/15.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
 #import "RestfulAPIRequestTool.h"
 #import "CreateGroupController.h"
 #import "GroupSelectView.h"
@@ -130,7 +131,7 @@
     }
     
     CGFloat num = DLScreenWidth / (320 / 55.0);
-    [self builtInterfaceWithNameArray:@[@"社团通讯录",@"微信",@"手机联系人"] imageArray:array andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:85];
+    [self builtInterfaceWithNameArray:@[@"社团通讯录",@"微信",@"手机联系人"] imageArray:array andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:140];
     
 }
 
@@ -149,12 +150,14 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 - (void)nextButtonAction:(UIButton *)sender
 {
     switch (sender.tag) {
             case 3:
         {
             NSLog(@"请求网络");
+            [self.navigationController popViewControllerAnimated:YES];
             [self createRequest];
             
             break;
@@ -196,6 +199,9 @@
     
     [RestfulAPIRequestTool routeName:@"publisheNewGroups" requestModel:dic useKeys:@[@"name", @"photo", @"hasValidate", @"open", @"isAdmin"] success:^(id json) {
         NSLog(@"建群成功 %@", json);
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadGroup" object:nil userInfo:nil];
+        
     } failure:^(id errorJson) {
         NSLog(@"建群失败 %@", errorJson);
     }];
@@ -258,6 +264,7 @@
         
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(rote / 2.0 + i * (rect.size.width + rote), rect.size.height - rote * 2, rect.size.width + 20, rote * 2)];
         label.text = str;
+        label.centerX = imageview.centerX;
         label.textAlignment = NSTextAlignmentCenter;
         //        label.backgroundColor = [UIColor greenColor];
         label.font = [UIFont systemFontOfSize:14];

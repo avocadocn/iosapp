@@ -32,6 +32,8 @@
     self.title = @"群组";
     [self getRequestData];
     [self builtInterface];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getRequestData) name:@"reloadGroup" object:nil];
 }
 
 - (void)getRequestData
@@ -114,28 +116,14 @@
 {
     
     if (indexPath.row < self.modelArray.count) {
-    
-    
-    GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
-    [model setAllInfo:YES];
+        GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
         
-        
-    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:model useKeys:@[@"groupId", @"allInfo"] success:^(id json) {
-        NSLog(@"获取到的小队信息为 %@", json);
-        
-        NSDictionary *dic = [json objectForKey:@"group"];
-        
-        GroupDetileModel *model = [[GroupDetileModel alloc]init];
-        [model setValuesForKeysWithDictionary:dic];
+        [model setAllInfo:YES];
         
         TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
-        groupDetile.informationModel = model;
+        groupDetile.groupCardModel = model;
         [self.navigationController pushViewController:groupDetile animated:YES];
         
-        
-    } failure:^(id errorJson) {
-        NSLog(@"获取小队信息失败的原因为 %@", errorJson);
-    }];
     } else
     {
         // 创建小队

@@ -179,16 +179,16 @@ static NSInteger indexNum = 1;
     NSArray *array= [NSArray arrayWithObjects:@"同事圈",@"新人报道", @"生日祝福" ,nil];
     NSArray *colorArray = [NSArray arrayWithObjects:
                            
-                           RGBACOLOR(240, 213, 50, 1),
-                           RGBACOLOR(100, 259, 234, 1),
-                           RGBACOLOR(222, 164, 37, 1), nil];
+                           RGBACOLOR(249, 207, 9, 1),
+                           RGBACOLOR(45, 140 , 232, 1),
+                           RGBACOLOR(233, 149, 5, 1), nil];
     
     UIColor *color = [colorArray objectAtIndex:index.row];
     
     [self.TitleView setBackgroundColor:color];
     
     self.TitleView.tag = index.row + 1;
-    self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", (long)indexNum + 1]];
+    self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld", index.row + 1]];
     self.titleViewLabel.text = [array objectAtIndex:index.row];
 }
 
