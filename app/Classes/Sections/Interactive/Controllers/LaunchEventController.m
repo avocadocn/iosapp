@@ -19,6 +19,7 @@
 #import "Account.h"
 #import "Singletons.h"
 #import "getIntroModel.h"
+#import "PublishedInteractionsMapViewController.h"
 static NSInteger num = 0;
 
 typedef NS_ENUM(NSInteger, RemindTableState){
@@ -26,7 +27,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     RemindTableStateYes
 };
 
-@interface LaunchEventController ()<DLDatePickerViewDelegate, UITableViewDataSource, UITableViewDelegate, DNImagePickerControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate>
+@interface LaunchEventController ()<DLDatePickerViewDelegate, UITableViewDataSource, UITableViewDelegate, DNImagePickerControllerDelegate,UIAlertViewDelegate,UITextFieldDelegate,PublishedDelegate>
 
 @property (nonatomic, strong)UIImage *image;
 
@@ -41,6 +42,10 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 @property (nonatomic, strong)UITextField *eventNameField;
 
 @property (nonatomic, strong)UILabel *nextStep;
+
+@property (nonatomic, strong)UILabel *addressLabel;
+
+@property (nonatomic, copy) NSString *lau,*log;
 
 @end
 
@@ -104,7 +109,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         [inter setLocation:[[self.model.location keyValues] objectForKey:@"name"]];
         [inter setContent:self.model.content];
     }else{
-        [inter setLocation:@"上海"];
+        [inter setLocation:self.addressLabel.text];
         [inter setContent:self.eventDetailTextView.text];
     }
     [inter setRemindTime:self.startTimeField.text];
@@ -120,6 +125,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     }
     [inter setType:@1];
     [inter setActivityMold:@"lalal"];
+    [inter setLatitude:self.lau];
+    [inter setLongitude:self.log];
     
     if (self.image){
     NSData *data = UIImagePNGRepresentation(self.image);
@@ -297,6 +304,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     
     UILabel *eventAddreess = [UILabel new];
     eventAddreess.text = @"活动地点";
+    self.addressLabel = eventAddreess;
     eventAddreess.font = [UIFont systemFontOfSize:15];
     NSString *eventStr = [NSString stringWithFormat:@"%@", @"活动名称"];
     
@@ -305,7 +313,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [eventAddreess mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.detailsView.mas_top).offset(DLScreenHeight / (667 / 12));
         make.left.mas_equalTo(self.detailsView.mas_left).offset(10);
-        make.size.mas_equalTo(CGSizeMake(eventNameRect.size.width, 20));
+        make.size.mas_equalTo(CGSizeMake(DLScreenWidth - 40, 20));
     }];
     
     UIButton *addressButton  =[UIButton buttonWithType:UIButtonTypeSystem];
@@ -548,6 +556,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 - (void)AddressButtonAction:(UIButton *)sender
 {
     NSLog(@"定位");
+    PublishedInteractionsMapViewController *publishedVC = [[PublishedInteractionsMapViewController alloc] init];
+    publishedVC.delegate = self;
+    [self.navigationController pushViewController:publishedVC animated:YES];
 }
 - (void)outPutStringOfSelectDate:(NSString *)str withTag:(NSInteger)tag
 {
@@ -679,6 +690,15 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [self.overTimeLabel setText:[self getParsedDateStringFromString:templateData.endTime]];
     [self.eventNameField setText:templateData.theme];
 }
+
+#pragma PublishedDelegate
+-(void)passAddress:(NSString *)address coordinate:(CLLocationCoordinate2D)coordinate {
+    self.addressLabel.text = [NSString stringWithFormat:@"活动地点：%@",address];
+    self.lau = [NSString stringWithFormat:@"%f",coordinate.latitude];
+    self.log = [NSString stringWithFormat:@"%f",coordinate.longitude];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
