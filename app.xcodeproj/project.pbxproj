@@ -94,6 +94,9 @@
 		54F2484D1BA2D545009133D6 /* sc-odnoklassniki + sc-odnoklassniki copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248481BA2D545009133D6 /* sc-odnoklassniki + sc-odnoklassniki copy.png */; };
 		54F2484E1BA2D545009133D6 /* swim.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248491BA2D545009133D6 /* swim.png */; };
 		54F248541BA2D76C009133D6 /*  通讯录.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248531BA2D76C009133D6 /*  通讯录.png */; };
+		72896C621BB005BF0092EE24 /* tingyunApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72896C611BB005BF0092EE24 /* tingyunApp.framework */; };
+		72896C641BB006340092EE24 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72896C631BB006340092EE24 /* CoreTelephony.framework */; };
+		72896C661BB006440092EE24 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72896C651BB006440092EE24 /* Security.framework */; };
 		9610534F1B590C31002D62A3 /* ActivitysShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053461B590C31002D62A3 /* ActivitysShowView.m */; };
 		961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 961053481B590C31002D62A3 /* CurrentActivitysShowCell.m */; };
 		961053511B590C31002D62A3 /* CurrentActivitysShowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961053491B590C31002D62A3 /* CurrentActivitysShowCell.xib */; };
@@ -888,6 +891,9 @@
 		54F248481BA2D545009133D6 /* sc-odnoklassniki + sc-odnoklassniki copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sc-odnoklassniki + sc-odnoklassniki copy.png"; sourceTree = "<group>"; };
 		54F248491BA2D545009133D6 /* swim.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swim.png; sourceTree = "<group>"; };
 		54F248531BA2D76C009133D6 /*  通讯录.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = " 通讯录.png"; sourceTree = "<group>"; };
+		72896C611BB005BF0092EE24 /* tingyunApp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = tingyunApp.framework; sourceTree = "<group>"; };
+		72896C631BB006340092EE24 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		72896C651BB006440092EE24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		961053451B590C31002D62A3 /* ActivitysShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivitysShowView.h; sourceTree = "<group>"; };
 		961053461B590C31002D62A3 /* ActivitysShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivitysShowView.m; sourceTree = "<group>"; };
 		961053471B590C31002D62A3 /* CurrentActivitysShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentActivitysShowCell.h; sourceTree = "<group>"; };
@@ -2019,10 +2025,13 @@
 				54EE2D6C1BAFA3F500109C84 /* UIKit.framework in Frameworks */,
 				54EE2D691BAFA3D000109C84 /* AMapSearchKit.framework in Frameworks */,
 				54EE2D6A1BAFA3D000109C84 /* MAMapKit.framework in Frameworks */,
+				96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */,
+				A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */,
+				72896C661BB006440092EE24 /* Security.framework in Frameworks */,
+				72896C641BB006340092EE24 /* CoreTelephony.framework in Frameworks */,
 				A45FEBF01B85727C00BC5E41 /* MessageUI.framework in Frameworks */,
 				A45FEBEE1B85727000BC5E41 /* AddressBookUI.framework in Frameworks */,
 				96CF917E1B673E92001759E2 /* AddressBook.framework in Frameworks */,
-				96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */,
 				A45FEBEC1B85725000BC5E41 /* libicucore.dylib in Frameworks */,
 				A45FEBEA1B856C6600BC5E41 /* SMS_SDK.framework in Frameworks */,
 				A41CF0D21B5CC0B7005C21EF /* AssetsLibrary.framework in Frameworks */,
@@ -2031,8 +2040,9 @@
 				96CF91801B673E99001759E2 /* CFNetwork.framework in Frameworks */,
 				96CF917C1B673E8A001759E2 /* libiconv.dylib in Frameworks */,
 				96CF917A1B673E80001759E2 /* MobileCoreServices.framework in Frameworks */,
-				A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */,
 				96CF91781B673E6B001759E2 /* libresolv.dylib in Frameworks */,
+				72896C621BB005BF0092EE24 /* tingyunApp.framework in Frameworks */,
+				96CF91761B673E59001759E2 /* CoreLocation.framework in Frameworks */,
 				96CF91741B673E50001759E2 /* MapKit.framework in Frameworks */,
 				96CF91721B673E48001759E2 /* ImageIO.framework in Frameworks */,
 				96CF91701B673E43001759E2 /* CoreText.framework in Frameworks */,
@@ -2078,6 +2088,9 @@
 				54EE2D6B1BAFA3F500109C84 /* UIKit.framework */,
 				54EE2D671BAFA3D000109C84 /* AMapSearchKit.framework */,
 				54EE2D681BAFA3D000109C84 /* MAMapKit.framework */,
+				72896C651BB006440092EE24 /* Security.framework */,
+				72896C631BB006340092EE24 /* CoreTelephony.framework */,
+				72896C611BB005BF0092EE24 /* tingyunApp.framework */,
 				A45FEBEF1B85727C00BC5E41 /* MessageUI.framework */,
 				A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */,
 				A45FEBEB1B85725000BC5E41 /* libicucore.dylib */,
