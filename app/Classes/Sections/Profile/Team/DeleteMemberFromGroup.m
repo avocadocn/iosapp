@@ -117,19 +117,23 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.modelArray removeObjectAtIndex:indexPath.row];
-        // Delete the row from the data source.
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        AddressBookModel *model = self.modelArray[indexPath.row];
+
+        NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[self.model.ID, model.ID] forKeys:@[@"groupId", @"userId"]];
         
-        
-        
-//        [RestfulAPIRequestTool routeName:@"" requestModel:dic useKeys:@[] success:^(id json) {
-//            
-//        } failure:^(id errorJson) {
-//            
-//        }];
-        
-        
+        [RestfulAPIRequestTool routeName:@"removeGroups" requestModel:dic useKeys:@[@"groupId", @"userId"] success:^(id json) {
+            NSLog(@"成员移除成功  %@", json);
+            
+            
+            [self.modelArray removeObjectAtIndex:indexPath.row];
+            // Delete the row from the data source.
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+        } failure:^(id errorJson) {
+            UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"成员移除失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            [al show];
+            NSLog(@"成员移除失败  %@", errorJson);
+        }];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

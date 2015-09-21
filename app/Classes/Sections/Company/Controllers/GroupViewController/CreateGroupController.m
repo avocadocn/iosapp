@@ -46,6 +46,7 @@
 
 - (void)builtFirstPage
 {
+    self.title = @"(1/3)社团名和封面";
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake((DLScreenWidth - 190) / 2.0, 12, 190, 224)];
     view.backgroundColor = [UIColor whiteColor];
     self.selectImage = [[UIImageView alloc]initWithFrame:CGRectMake(2, 2, 186, 186)];

@@ -5,6 +5,9 @@
 //  Created by 张加胜 on 15/8/10.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
+#import "GroupCardModel.h"
+#import <Masonry.h>
 #import "HelpTableViewController.h"
 #import "VoteTableController.h"
 #import "DetailActivityShowController.h"
@@ -71,6 +74,10 @@ static NSString *ID = @"feasfsefse";
  */
 @property (nonatomic, strong) UILabel *titleLabel;
 
+/**
+ *  加入按钮
+ */
+@property (nonatomic, strong)UIButton *joinButton;
 @end
 
 @implementation TeamHomePageController
@@ -91,8 +98,6 @@ static NSString * const helpCellID = @"helpCellID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -136,7 +141,26 @@ static NSString * const helpCellID = @"helpCellID";
     
     [self.view addSubview:self.tableView];
     
+    self.joinButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.joinButton addTarget:self action:@selector(joinAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.joinButton];
+    [self.joinButton setTitle:@"申请加入" forState: UIControlStateNormal];
+    [self.joinButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.joinButton.layer.masksToBounds = YES;
+    self.joinButton.layer.cornerRadius = 20;
     
+    self.joinButton.backgroundColor = RGBACOLOR(251, 172, 9, 1);
+    [self.view addSubview:self.joinButton];
+    
+    [self.joinButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-3);
+        make.left.mas_equalTo(self.view.mas_left).offset(30);
+        make.right.mas_equalTo(self.view.mas_right).offset(-30);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [self builtJoinButton];
+
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -181,7 +205,7 @@ static NSString * const helpCellID = @"helpCellID";
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@"1" forKey:@"temp"];
-    [dic setObject:self.informationModel.ID forKey:@"tempId"];
+    [dic setObject:self.groupCardModel.groupId forKey:@"tempId"];
     [dic setObject:@2 forKey:@"requestType"];
     [dic setObject:@4 forKey:@"interactionType"];
     [dic setObject:@10 forKey:@"limit"];
@@ -261,6 +285,11 @@ static NSString * const helpCellID = @"helpCellID";
     
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.titleLabel];
+    
+    [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.titleLabel.text = self.informationModel.name;
+    [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
+    
 }
 
 
@@ -346,7 +375,20 @@ static NSString * const helpCellID = @"helpCellID";
 
 - (void)setGroupCardModel:(GroupCardModel *)groupCardModel
 {
-    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:groupCardModel useKeys:@[@"groupId", @"allInfo"] success:^(id json) {
+    _groupCardModel = groupCardModel;
+//    BOOL a = [self judgeMember];
+//    
+//    if (!a) {
+//        groupCardModel.allInfo = YES;
+//    }
+    NSMutableArray *tempArray = [NSMutableArray arrayWithObject:@"groupId"];
+    if (groupCardModel.isMember) {
+        [tempArray addObject:@"allInfo"];
+    }
+    
+    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:groupCardModel useKeys:tempArray success:^(id json) {
+        
+        
         NSLog(@"获取到的小队信息为 %@", json);
         
         NSDictionary *dic = [json objectForKey:@"group"];
@@ -354,14 +396,57 @@ static NSString * const helpCellID = @"helpCellID";
         GroupDetileModel *model = [[GroupDetileModel alloc]init];
         [model setValuesForKeysWithDictionary:dic];
         self.informationModel = model;
+        [self builtJoinButton];
         [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         self.titleLabel.text = self.informationModel.name;
         [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
         [self requestNet];
+        
+        
     } failure:^(id errorJson) {
         NSLog(@"获取小队信息失败的原因为 %@", errorJson);
     }];
     
 }
+
+- (void)builtJoinButton
+{
+    BOOL a = [self judgeMember];
+    if (a) {
+        [self.joinButton removeFromSuperview];
+    }
+}
+
+- (void)joinAction:(UIButton *)sender
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:self.groupCardModel.groupId forKey:@"groupId"];
+    [RestfulAPIRequestTool routeName:@"joinGroups" requestModel:dic useKeys:@[@"groupId"] success:^(id json) {
+        NSLog(@"请求发送成功  %@", json);
+        
+        UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"请求成功" message:[json objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        
+        [al show];
+        
+    } failure:^(id errorJson) {
+        
+        NSLog(@"请求发送失败   %@", errorJson);
+    }];
+}
+
+
+- (BOOL)judgeMember
+{
+    Account *acc = [AccountTool account];
+    NSArray *array  = self.informationModel.member;
+    
+    for (NSDictionary *dic in array) {
+        if ([[dic objectForKey:@"_id"] isEqualToString:acc.ID]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
 
 @end

@@ -50,8 +50,8 @@ static AFHTTPSessionManager *_mgr;
  */
 + (void)load{
     _routeManager = [RouteManager sharedManager];
+    
     /*
-     
      ****************************************************************************************************
      baseUrl 使用细则
      ****************************************************************************************************
@@ -72,6 +72,8 @@ static AFHTTPSessionManager *_mgr;
     if ([AccountTool account].token) {
         [_mgr.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];
     }
+    
+    
 }
 
 
@@ -146,7 +148,12 @@ static AFHTTPSessionManager *_mgr;
             [self delete:amendStr params:mutableParamsDict success:success failure:failure];
             break;
         case RequsetMethodTypePUT:
-            [self put:amendStr params:mutableParamsDict success:success failure:failure];
+            if (uploadFlag == NO) {
+                [self put:amendStr params:mutableParamsDict success:success failure:failure];
+            } else
+            {
+                [self putUpload:amendStr params:mutableParamsDict success:success failure:failure];
+            }
             break;
         default:
             break;
@@ -232,24 +239,13 @@ static AFHTTPSessionManager *_mgr;
 
 + (void)put:(NSString *)url params:(NSMutableDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure
 {
-    __block NSMutableArray *fileArray = [NSMutableArray array];
-    __block NSMutableArray *keyArray = [NSMutableArray array];
-    [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if ([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"photo"]) {
-            [keyArray addObject:key];
-            fileArray = (NSMutableArray *)obj;
-        }
-    }];
-    [params removeObjectsForKeys:keyArray];
-    
-    
-    for (NSDictionary *dataDict in fileArray) {
-        
-        NSData *data = [dataDict objectForKey:@"data"];
-    [_mgr.responseSerializer responseObjectForResponse:nil data:data error:nil];
-    }
     
    // 发送put请求
+
+    
+//    [manger.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];
+
+    
     [_mgr PUT:url parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         
         if (success) {
@@ -262,6 +258,50 @@ static AFHTTPSessionManager *_mgr;
         }
     }];
 }
+
++ (void)putUpload:(NSString *)url params:(NSMutableDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure
+{
+        __block NSMutableArray *fileArray = [NSMutableArray array];
+        __block NSMutableArray *keyArray = [NSMutableArray array];
+        [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            if ([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"photo"]) {
+                [keyArray addObject:key];
+                fileArray = (NSMutableArray *)obj;
+            }
+        }];
+    __block NSData *data = [NSData data];
+    for (NSDictionary *dataDict in fileArray) {
+        
+        data = [dataDict objectForKey:@"data"];
+    }
+    AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc]init];
+    if ([AccountTool account].token) {
+        [manger.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];
+    }
+    
+        [params removeObjectsForKeys:keyArray];
+    
+        NSMutableURLRequest *request = [manger.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:data name:@"photo" fileName:@"highlight_image.jpg" mimeType:@"image/jpeg"];
+        }];
+    
+    
+        AFHTTPRequestOperation *requestOperation = [manger HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            if (success) {
+                success([self dataToJsonObject:responseObject]);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if (failure) {
+                failure([self resolveFailureWith:error]);
+            }
+        }];
+        
+        [requestOperation start];
+        
+
+}
+
 
 + (void)delete:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
     
@@ -296,9 +336,14 @@ static AFHTTPSessionManager *_mgr;
  */
 
 + (id)dataToJsonObject:(id)responseObject{
-    NSData *data = [NSData dataWithData:responseObject];
-    id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-    return json;
+    if ([responseObject isKindOfClass:[NSData class]]) {
+        NSData *data = [NSData dataWithData:responseObject];
+        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        return json;
+        
+    } else {
+        return responseObject;
+    }
 }
 
 @end

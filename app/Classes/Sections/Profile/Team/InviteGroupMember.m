@@ -20,6 +20,7 @@
     self.view.backgroundColor = RGBACOLOR(243, 243, 243, 1);
     
     NSArray *arr = @[@"Profile@2x", @"Oval 2@2x", @"chat@2x"];
+    self.title = @"邀请成员";
     NSMutableArray *array = [NSMutableArray array];
     for (NSString *str in arr) {
         UIImage *im = [UIImage imageNamed:str];
@@ -91,6 +92,8 @@
         {
             NSLog(@"社团通讯录");
             AddressViewController *address = [[AddressViewController alloc]init];
+            address.detileModel = self.detileModel;
+            address.selectState = YES;
             [self.navigationController pushViewController:address animated:YES];
             
         }

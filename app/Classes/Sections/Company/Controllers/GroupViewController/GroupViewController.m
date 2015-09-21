@@ -36,13 +36,15 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getRequestData) name:@"reloadGroup" object:nil];
 }
 
+
+
 - (void)getRequestData
 {
     self.modelArray = [NSMutableArray array];
     // 获取群组应该有 targetid 的吧?
     
-    [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:nil useKeys:nil success:^(id json) {
-//        NSLog(@"获取到的群组为%@", json);
+    [RestfulAPIRequestTool routeName:@"getCompanyGroupList" requestModel:nil useKeys:nil success:^(id json) {
+        NSLog(@"获取到的群组为%@", json);
         [self analyDataWithJson:json];
     } failure:^(id errorJson) {
         NSLog(@"获取群组失败, 原因为 %@", errorJson);
@@ -121,15 +123,17 @@
         [model setAllInfo:YES];
         
         TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
-        groupDetile.groupCardModel = model;
-        [self.navigationController pushViewController:groupDetile animated:YES];
         
-    } else
+        
+        groupDetile.groupCardModel = model;
+        
+        
+        [self.navigationController pushViewController:groupDetile animated:YES];
+            } else
     {
         // 创建小队
         CreateGroupController *create = [[CreateGroupController alloc]init];
         [self.navigationController pushViewController:create animated:YES];
-        
     }
     
     /*
@@ -137,5 +141,18 @@
     [self.navigationController pushViewController:team animated:YES];
     */
 }
+
+//- (BOOL)judgeMemberWithModel:(GroupCardModel *)model
+//{
+//    Account *acc = [AccountTool account];
+//    NSArray *array  = model.member;
+//    
+//    for (NSDictionary *dic in array) {
+//        if ([[dic objectForKey:@"_id"] isEqualToString:acc.ID]) {
+//            return YES;
+//        }
+//    }
+//    return NO;
+//}
 
 @end

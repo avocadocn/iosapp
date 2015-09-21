@@ -5,6 +5,7 @@
 //  Created by 申家 on 15/9/18.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+#import "ApplyForGroup.h"
 #import "DeleteMemberFromGroup.h"
 #import "GroupMemberSetting.h"
 #import "InviteGroupMember.h"
@@ -69,6 +70,7 @@ static NSString *ID = @"fgs;ejnfjkeshjkfhjserf";
         {
             NSLog(@"邀请成员");
             InviteGroupMember *member = [[InviteGroupMember alloc]init];
+            member.detileModel = self.detileModel;
             [self.navigationController pushViewController:member animated:YES];
             
         }
@@ -76,6 +78,11 @@ static NSString *ID = @"fgs;ejnfjkeshjkfhjserf";
         case 1:
         {
             NSLog(@"申请加入的成员");
+            
+            ApplyForGroup *apply = [[ApplyForGroup alloc]init];
+            apply.detileModel = self.detileModel;
+            [self.navigationController pushViewController:apply animated:YES];
+            
         }
             break;
         case 2:
@@ -83,7 +90,7 @@ static NSString *ID = @"fgs;ejnfjkeshjkfhjserf";
             NSLog(@"剔除成员");
             DeleteMemberFromGroup *group = [[DeleteMemberFromGroup alloc] init];
             group.modelArray = (NSMutableArray *)[NSArray arrayWithArray:self.detileModel.member];
-            
+            group.model = self.detileModel;
             [self.navigationController pushViewController:group animated:YES];
         }
         default:

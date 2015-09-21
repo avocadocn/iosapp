@@ -146,6 +146,14 @@
     </dict>
     <dict>
         <key>routeName</key>
+        <string>getCompanyGroupList</string>
+        <key>routeURL</key>
+        <string>/groups/list/company</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
         <string>getGroupInfor</string>
         <key>routeURL</key>
         <string>/groups/:groupId</string>
