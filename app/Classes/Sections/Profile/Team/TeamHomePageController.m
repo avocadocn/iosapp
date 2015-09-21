@@ -244,7 +244,7 @@ static NSString * const helpCellID = @"helpCellID";
     
     //按钮
     self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 34, 40, 40);
+    self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 22, 30, 30);
     [self.settingBtn setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
     
     

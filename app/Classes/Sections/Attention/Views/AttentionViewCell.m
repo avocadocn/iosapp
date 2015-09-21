@@ -89,7 +89,7 @@
 //    CompanyModel *company = model.company;
     
 //    self.AttentionWork.text = per;
-    
+
 }
 
 
