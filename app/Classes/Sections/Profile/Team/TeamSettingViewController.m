@@ -85,14 +85,22 @@ static NSString * const defaultCellID = @"defaultCellID";
                     break;
             }
             
-
-            
-            
         }
             break;
             case 2:
         {
+
+//            UIAlertView *al = [UIAlertView alloc]initWithTitle:@"删除此群?" message: nil delegate:self cancelButtonTitle:<#(NSString *)#> otherButtonTitles:<#(NSString *), ...#>, nil
             NSLog(@"删除此群");
+            
+            NSDictionary *dic = [NSDictionary dictionaryWithObject:self.detileModel.ID forKey:@"groupId"];
+            
+            [RestfulAPIRequestTool routeName:@"deleteGroups" requestModel:dic useKeys:@[@"groupId"] success:^(id json) {
+                NSLog(@"删群成功   %@", json);
+            } failure:^(id errorJson) {
+                NSLog(@"删群失败   %@", errorJson);
+            }];
+            
         }
         default:
             break;

@@ -144,9 +144,6 @@ static NSString *ID = @"fserklfjkdsrhdj";
 }
 - (IBAction)OKButtonAction:(id)sender {
     
-
-    
-    
     switch (self.state) {
         case ChangeStateNo:
         {
@@ -173,6 +170,11 @@ static NSString *ID = @"fserklfjkdsrhdj";
             // 图片也得换
             [RestfulAPIRequestTool routeName:@"editeGroupsInfos" requestModel:dic useKeys:@[@"groupId", @"name", @"photo"] success:^(id json) {
                 NSLog(@"成功  %@", json);
+                
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadGroup" object:nil userInfo:nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"修改成功" message:[json objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+                [alert show];
+                
             } failure:^(id errorJson) {
                 NSLog(@"失败  %@",  errorJson);
             }];

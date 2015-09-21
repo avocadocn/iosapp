@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 jason. All rights reserved.
 //
 
+#import "PersonalDynamicController.h"
+
 #import "AttentionViewController.h"
 #import "AttentionViewCell.h"
 #import "ColleaguesInformationController.h"
@@ -112,10 +114,10 @@ static AttentionViewController *att = nil;
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
     
-    ColleaguesInformationController *fold = [[ColleaguesInformationController alloc]init];
-    fold.model = model;
-    [self.navigationController pushViewController:fold animated:YES];
+    PersonalDynamicController *fold = [[PersonalDynamicController alloc]init];
     
+    
+    [self.navigationController pushViewController:fold animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -5,25 +5,51 @@
 //  Created by 申家 on 15/8/5.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "PollModel.h"
+#import "CurrentActivitysShowCell.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "RestfulAPIRequestTool.h"
 #import "PersonalDynamicController.h"
 #import "ApertureView.h"
 #import "TableHeaderView.h"
 #import "DynamicTableViewCell.h"
 #import <Masonry.h>
-
+#import "Interaction.h"
 @interface PersonalDynamicController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
+
+static NSString *ID = @"fjseijfhiusehfgiu";
 
 @implementation PersonalDynamicController
 // 个人动态
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self makeFlaseData];
+//    [self makeFlaseData];
     self.title = @"个人动态";
     [self builtInterface];
+    
+    [self requestNet];
+    
+}
+
+- (void)requestNet{
+    
+    Account *acc = [AccountTool account];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:@1 forKey:@"requestType"];
+    [dic setObject:acc.ID forKey:@"userId"];
+    
+    [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:dic useKeys:@[@"requestType", @"userId"] success:^(id json) {
+        NSLog(@"请求成功  %@", json);
+        [self analyDataWithJson:json];
+        
+    } failure:^(id errorJson) {
+        NSLog(@"请求失败   %@", errorJson);
+    }];
     
 }
 
@@ -58,16 +84,17 @@
     [self.dynamicTableView setBackgroundColor:[UIColor colorWithWhite:.9 alpha:.9]];
     
     [self.dynamicTableView registerClass:[DynamicTableViewCell class] forCellReuseIdentifier:@"otherCell"];
+    [self.dynamicTableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     
-        self.header = [[TableHeaderView alloc]
+    self.header = [[TableHeaderView alloc]
                                    initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(250.0))
                                    andImage:[UIImage imageNamed:@"DaiMeng.jpg"]];
-    
     
     self.dynamicTableView.tableHeaderView = self.header;
     
     [self.view addSubview:self.dynamicTableView];
 }
+
 
 - (UIView *)tableViewHeaderView
 {
@@ -134,30 +161,40 @@
     
     return view;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return DLMultipleHeight(305.0);
-}
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     DynamicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"otherCell" forIndexPath:indexPath];
     [cell reloadCellWithModel:nil];
     return cell;
+     */
+    
+    
+    CurrentActivitysShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+    
+    Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
+    
+    [cell reloadCellWithModel:inter];
+//    cell.backgroundColor = [UIColor greenColor];
+    
+    return cell;
+    
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return [self.modelArray count];
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 149 ;
 }
+
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    return [self.modelArray count];
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *dic = [self.modelArray objectAtIndex:section];
-    NSArray *array = [dic objectForKey:@"array"];
-    
-    return [array count];
+    return self.modelArray.count;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -184,5 +221,29 @@
  // Pass the selected object to the new view controller.
  }
  */
+
+- (void)analyDataWithJson:(id)json
+{
+    self.modelArray = [NSMutableArray array];
+    
+    for (NSDictionary *dic  in json) {
+        Interaction *inter = [[Interaction alloc]init];
+        [inter setValuesForKeysWithDictionary:dic];
+        NSString *str = [NSString stringWithFormat:@"%@",[dic objectForKey:@"type"]];
+        if ([str isEqualToString:[NSString stringWithFormat:@"%d", 2]])  //只有投票
+        {
+            PollModel *poll = [[PollModel alloc]init];
+            [poll setValuesForKeysWithDictionary:[dic objectForKey:@"poll"]];
+            [inter setPoll:poll];
+        }
+        [self.modelArray addObject:inter];
+    }
+    
+    
+    
+    [self.dynamicTableView reloadData];
+}
+
+
 
 @end

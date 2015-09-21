@@ -39,6 +39,6 @@
 @property (nonatomic, copy)NSDate *latestContentDate;
 @property (nonatomic, copy)NSDate *lastContentDate;
 @property (nonatomic)float limit;
-
+@property (nonatomic, assign)BOOL selectState;
 
 @end

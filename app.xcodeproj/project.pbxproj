@@ -553,6 +553,7 @@
 		A4311F551B577BE1004401B4 /* ColleagueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F541B577BE1004401B4 /* ColleagueViewController.m */; };
 		A4311F5C1B577D50004401B4 /* ColleagueViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4311F5A1B577D50004401B4 /* ColleagueViewCell.m */; };
 		A4311F5D1B577D50004401B4 /* ColleagueViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4311F5B1B577D50004401B4 /* ColleagueViewCell.xib */; };
+		A43288C71BAFC3DB00989AC8 /* ApplyForGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = A43288C61BAFC3DB00989AC8 /* ApplyForGroup.m */; };
 		A434C6091B71DB22009643CD /* ColleaguesInformationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A434C6081B71DB22009643CD /* ColleaguesInformationController.m */; };
 		A434C60C1B71DBAE009643CD /* PersonalDynamicController.m in Sources */ = {isa = PBXBuildFile; fileRef = A434C60B1B71DBAE009643CD /* PersonalDynamicController.m */; };
 		A434C6111B71EA1E009643CD /* ApertureView.m in Sources */ = {isa = PBXBuildFile; fileRef = A434C6101B71EA1E009643CD /* ApertureView.m */; };
@@ -1649,6 +1650,8 @@
 		A4311F591B577D50004401B4 /* ColleagueViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColleagueViewCell.h; sourceTree = "<group>"; };
 		A4311F5A1B577D50004401B4 /* ColleagueViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColleagueViewCell.m; sourceTree = "<group>"; };
 		A4311F5B1B577D50004401B4 /* ColleagueViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColleagueViewCell.xib; sourceTree = "<group>"; };
+		A43288C51BAFC3DB00989AC8 /* ApplyForGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplyForGroup.h; sourceTree = "<group>"; };
+		A43288C61BAFC3DB00989AC8 /* ApplyForGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplyForGroup.m; sourceTree = "<group>"; };
 		A434C6071B71DB22009643CD /* ColleaguesInformationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColleaguesInformationController.h; sourceTree = "<group>"; };
 		A434C6081B71DB22009643CD /* ColleaguesInformationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColleaguesInformationController.m; sourceTree = "<group>"; };
 		A434C60A1B71DBAE009643CD /* PersonalDynamicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalDynamicController.h; sourceTree = "<group>"; };
@@ -2770,6 +2773,8 @@
 				A4F5669A1BAC0A2000112422 /* InviteGroupMember.m */,
 				A4F5669C1BAC10A000112422 /* DeleteMemberFromGroup.h */,
 				A4F5669D1BAC10A000112422 /* DeleteMemberFromGroup.m */,
+				A43288C51BAFC3DB00989AC8 /* ApplyForGroup.h */,
+				A43288C61BAFC3DB00989AC8 /* ApplyForGroup.m */,
 			);
 			path = Team;
 			sourceTree = "<group>";
@@ -5372,6 +5377,7 @@
 				96CF90DD1B673422001759E2 /* PSTCollectionViewData.m in Sources */,
 				96CF90C11B673422001759E2 /* MWGridCell.m in Sources */,
 				96CF93A21B674B54001759E2 /* ChatroomDetailViewController.m in Sources */,
+				A43288C71BAFC3DB00989AC8 /* ApplyForGroup.m in Sources */,
 				96CF93B11B674B54001759E2 /* EMRemarkImageView.m in Sources */,
 				96CF93A71B674B54001759E2 /* AddFriendCell.m in Sources */,
 				96CF93861B674B54001759E2 /* LocationViewController.m in Sources */,

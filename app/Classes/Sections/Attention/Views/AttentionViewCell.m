@@ -75,11 +75,24 @@
         make.left.mas_equalTo(self.mas_left).offset(DLMultipleWidth(20.0));
         make.height.mas_equalTo(.5);
     }];
+    
+    self.joinButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.joinButton setBackgroundImage:[UIImage imageNamed:@"insert"] forState:UIControlStateNormal];
+    [self.joinButton setBackgroundColor:[UIColor yellowColor]];
+    self.joinButton.frame = CGRectMake(DLScreenWidth - 50, 12, 30, 30);
+    [self addSubview:self.joinButton];
+//    [self.joinButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.mas_top).offset(12);
+//        make.bottom.mas_equalTo(self.mas_bottom).offset(-12);
+//        make.right.mas_equalTo(self.mas_right).offset(-12);
+//        make.width.mas_equalTo(self.height - 24);
+//    }];
+    
 }
 
 - (void)cellBuiltWithModel:(AddressBookModel *)model
 {
-    
+    [self.joinButton removeFromSuperview];
     Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
     
     [self.AttentionPhoto dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
@@ -89,7 +102,7 @@
 //    CompanyModel *company = model.company;
     
 //    self.AttentionWork.text = per;
-    
+
 }
 
 

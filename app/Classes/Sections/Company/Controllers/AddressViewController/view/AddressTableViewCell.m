@@ -89,11 +89,18 @@
 }
 - (void)cellReloadWithAddressModel:(AddressBookModel *)model
 {
+    
     [self.personPhotoImageView dlGetRouteWebImageWithString:model.photo placeholderImage:[UIImage imageNamed:@"1"]];
     self.personPhotoImageView.layer.masksToBounds = (self.frame.size.width - 10 )/ 2.0;
     self.personEmailLabel.text = model.phone;
     self.personNameLabel.text = model.realname;
-    
+    if (model.selectState) {
+        
+        [self.selectButton setBackgroundImage:[UIImage imageNamed:@"OK.png"] forState:UIControlStateNormal];
+    } else {
+        
+        [self.selectButton setBackgroundImage:[UIImage imageNamed:@"No.png"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
