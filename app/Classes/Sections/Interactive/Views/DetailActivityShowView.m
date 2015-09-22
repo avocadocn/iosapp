@@ -382,8 +382,9 @@
 #pragma MAPinAnnotationView // 大头针
 - (void)buildMAPinAnnotationView {
     MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
-    pointAnnotation.coordinate = CLLocationCoordinate2DMake([self.model.latitude floatValue], [self.model.longitude floatValue]); //
-//    pointAnnotation.title = self.point.name;
+    NSArray *array = [[[self.model.activity objectForKey:@"location"] objectForKey:@"loc"] objectForKey:@"coordinates"];
+    pointAnnotation.coordinate = CLLocationCoordinate2DMake([[array lastObject] floatValue], [[array firstObject] floatValue]); //
+    pointAnnotation.title = nil;
     pointAnnotation.subtitle = [[self.model.activity objectForKey:@"location"] objectForKey:@"name"];
     [_mapView addAnnotation:pointAnnotation];
 }
