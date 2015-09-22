@@ -44,6 +44,7 @@ PODS:
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
   - SOCKit (1.1)
+  - tingyunApp (2.1.4.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.4)
@@ -59,6 +60,7 @@ DEPENDENCIES:
   - ReactiveCocoa
   - SDWebImage (~> 3.7)
   - SOCKit (~> 1.1)
+  - tingyunApp
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -74,5 +76,6 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
+  tingyunApp: efb78cc02d0e9d03f713605b0c5666fbc913a2a8
 
 COCOAPODS: 0.38.2

@@ -5,7 +5,9 @@
 //  Created by 申家 on 15/7/21.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-#import "GroupDetileController.h"
+
+#import "GroupDetileModel.h"
+#import "TeamHomePageController.h"
 #import "GroupViewController.h"
 #import <AFNetworking.h>
 #import <Masonry.h>
@@ -20,7 +22,7 @@
 
 #import "CreateGroupController.h"
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
-      
+
 @end
 
 @implementation GroupViewController
@@ -30,15 +32,25 @@
     self.title = @"群组";
     [self getRequestData];
     [self builtInterface];
+    
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getRequestData) name:@"reloadGroup" object:nil];
+    
+    [self.navigationController.navigationBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
 }
+- (void)tapAction:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"咦哈 ");
+}
+
 
 - (void)getRequestData
 {
     self.modelArray = [NSMutableArray array];
     // 获取群组应该有 targetid 的吧?
     
-    [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:nil useKeys:nil success:^(id json) {
-//        NSLog(@"获取到的群组为%@", json);
+    [RestfulAPIRequestTool routeName:@"getCompanyGroupList" requestModel:nil useKeys:nil success:^(id json) {
+        NSLog(@"获取到的群组为%@", json);
         [self analyDataWithJson:json];
     } failure:^(id errorJson) {
         NSLog(@"获取群组失败, 原因为 %@", errorJson);
@@ -112,32 +124,22 @@
 {
     
     if (indexPath.row < self.modelArray.count) {
-    
-    
-    GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
-    [model setAllInfo:YES];
-    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:model useKeys:@[@"groupId"] success:^(id json) {
-        NSLog(@"获取到的小队信息为 %@", json);
+        GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
         
-        NSDictionary *dic = [json objectForKey:@"group"];
+        [model setAllInfo:YES];
         
-        GroupCardModel *model = [[GroupCardModel alloc]init];
-        [model setValuesForKeysWithDictionary:dic];
+        TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
         
-        GroupDetileController *groupDetile = [[GroupDetileController alloc]init];
-        groupDetile.groupModel = model;
+        
+        groupDetile.groupCardModel = model;
+        
+        
         [self.navigationController pushViewController:groupDetile animated:YES];
-        
-        
-    } failure:^(id errorJson) {
-        NSLog(@"获取小队信息失败的原因为 %@", errorJson);
-    }];
-    } else
+            } else
     {
         // 创建小队
         CreateGroupController *create = [[CreateGroupController alloc]init];
         [self.navigationController pushViewController:create animated:YES];
-        
     }
     
     /*
@@ -145,5 +147,18 @@
     [self.navigationController pushViewController:team animated:YES];
     */
 }
+
+//- (BOOL)judgeMemberWithModel:(GroupCardModel *)model
+//{
+//    Account *acc = [AccountTool account];
+//    NSArray *array  = model.member;
+//    
+//    for (NSDictionary *dic in array) {
+//        if ([[dic objectForKey:@"_id"] isEqualToString:acc.ID]) {
+//            return YES;
+//        }
+//    }
+//    return NO;
+//}
 
 @end

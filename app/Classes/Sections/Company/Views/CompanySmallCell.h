@@ -18,4 +18,6 @@
 
 - (void)interCellWithModel:(SendSchollTableModel *)modelDic;
 
+- (void)reloadWithIndexpath:(NSIndexPath *)index;
+
 @end

@@ -6,9 +6,18 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
+#import "GroupCardModel.h"
+#import <Masonry.h>
+#import "HelpTableViewController.h"
+#import "VoteTableController.h"
+#import "DetailActivityShowController.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "PollModel.h"
+#import "UIImageView+DLGetWebImage.h"
 #import "TeamHomePageController.h"
 #import "TeamInfomationViewController.h"
-
+#import "GroupDetileModel.h"
 #import <UIImageView+WebCache.h>
 #import "CurrentActivitysShowCell.h"
 #import "OtherActivityShowCell.h"
@@ -16,14 +25,16 @@
 #import "HelpTableViewCell.h"
 #import "RestfulAPIRequestTool.h"
 #import "TempCompany.h"
+#import "CurrentActivitysShowCell.h"
 
-
-
-#define headViewHeight 264
+static NSString *ID = @"feasfsefse";
+#define headViewHeight (DLMultipleHeight(256.0))
 
 @interface TeamHomePageController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic, strong)NSMutableArray *modelArray;
 
+//@property (nonatomic, strong)
 /**
  *  记录scrollView上次偏移的Y距离
  */
@@ -63,11 +74,15 @@
  */
 @property (nonatomic, strong) UILabel *titleLabel;
 
+/**
+ *  加入按钮
+ */
+@property (nonatomic, strong)UIButton *joinButton;
 @end
 
 @implementation TeamHomePageController
 
- /**
+/**
  *  活动cell
  */
 static NSString * const avtivityCellID = @"avtivityCellID";
@@ -83,8 +98,6 @@ static NSString * const helpCellID = @"helpCellID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -108,29 +121,136 @@ static NSString * const helpCellID = @"helpCellID";
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-  
+    
     
     [self.tableView registerNib:[UINib nibWithNibName:@"OtherActivityShowCell" bundle:nil] forCellReuseIdentifier:avtivityCellID];
     [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:voteCellID];
     [self.tableView registerClass:[HelpTableViewCell class] forCellReuseIdentifier:helpCellID];
-    
+    [self.tableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     
     self.headView = [[UIView alloc]init];
-    [self.headView setFrame:CGRectMake(0, 0, DLScreenWidth, 264)];
+    [self.headView setFrame:CGRectMake(0, 0, DLScreenWidth, headViewHeight)];
     self.tableView.tableHeaderView = self.headView;
     
     self.headImageView = [[UIImageView alloc]initWithFrame:self.headView.frame];
     self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.headImageView.layer.masksToBounds = YES;
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:nil] placeholderImage:[UIImage imageNamed:@"2.jpg"]];
+    
     
     [self.headView addSubview:self.headImageView];
     
     [self.view addSubview:self.tableView];
+    
+    self.joinButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.joinButton addTarget:self action:@selector(joinAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.joinButton];
+    [self.joinButton setTitle:@"申请加入" forState: UIControlStateNormal];
+    [self.joinButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.joinButton.layer.masksToBounds = YES;
+    self.joinButton.layer.cornerRadius = 20;
+    
+    self.joinButton.backgroundColor = RGBACOLOR(251, 172, 9, 1);
+    [self.view addSubview:self.joinButton];
+    
+    [self.joinButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-3);
+        make.left.mas_equalTo(self.view.mas_left).offset(30);
+        make.right.mas_equalTo(self.view.mas_right).offset(-30);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [self builtJoinButton];
 
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
+    switch ([inter.type integerValue]) {
+        case 1:{  // 活动详情
+            DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
+            activityController.orTrue = YES;
+            activityController.model = inter;
+            [self.navigationController pushViewController:activityController animated:YES];
+            break;
+        }
+        case 2:{  // 投票详情
+            VoteTableController *voteController = [[VoteTableController alloc]init];  /// 投票
+            voteController.voteArray = [NSMutableArray array];
+            [voteController.voteArray addObject:inter];
+            [self.navigationController pushViewController:voteController animated:YES];
+            
+            break;
+        }
+        case 3:  // 求助详情
+        {
+            HelpTableViewController *helpController = [[HelpTableViewController alloc]init];  // 求助
+            helpController.model = inter;
+            [self.navigationController pushViewController:helpController animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void)requestNet
+{
+    
+    //    getIntroModel *model = [[getIntroModel alloc]init];
+    //    [model setUserId:acc.ID];
+    //
+    
+    Account *acc = [AccountTool account];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:@"1" forKey:@"temp"];
+    [dic setObject:self.groupCardModel.groupId forKey:@"tempId"];
+    [dic setObject:@2 forKey:@"requestType"];
+    [dic setObject:@4 forKey:@"interactionType"];
+    [dic setObject:@10 forKey:@"limit"];
+    [dic setObject:acc.ID forKey:@"userId"];
+    
+    [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:dic useKeys:@[@"interactionType", @"requestType", @"limit", @"userId", @"teamId", @"team"] success:^(id json) {
+        NSLog(@"获取数据互动成功   %@", json);
+        [self analyDataWithJson:json];
+        
+        //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        ////            [self loadingContacts]; // 加载通讯录信息
+        //        });
+    } failure:^(id errorJson) {
+        NSLog(@"获取失败  %@", errorJson);
+        
+        NSString *str = [errorJson objectForKey:@"msg"];
+        if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            alert.delegate = self;
+            [alert show];
+            
+        }
+        
+    }];
     
 }
 
+- (void)analyDataWithJson:(id)json
+{
+    self.modelArray = [NSMutableArray array];
+    
+    for (NSDictionary *dic  in json) {
+        Interaction *inter = [[Interaction alloc]init];
+        [inter setValuesForKeysWithDictionary:dic];
+        NSString *str = [NSString stringWithFormat:@"%@",[dic objectForKey:@"type"]];
+        if ([str isEqualToString:[NSString stringWithFormat:@"%d", 2]])  //只有投票
+        {
+            PollModel *poll = [[PollModel alloc]init];
+            [poll setValuesForKeysWithDictionary:[dic objectForKey:@"poll"]];
+            [inter setPoll:poll];
+        }
+        [self.modelArray addObject:inter];
+    }
+    [self.tableView reloadData];
+}
 
 -(void)setupNavigationBar{
     
@@ -148,10 +268,10 @@ static NSString * const helpCellID = @"helpCellID";
     
     //按钮
     self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 34, 19, 19);
-    [self.settingBtn setImage:[UIImage imageNamed:@"new_navigation_back_helight@2x"] forState:UIControlStateHighlighted];
+    self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 22, 30, 30);
+    [self.settingBtn setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
     
-    [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:self.settingBtn];
     
     //添加导航条上的大文字
@@ -162,8 +282,14 @@ static NSString * const helpCellID = @"helpCellID";
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.font = [UIFont systemFontOfSize:18];
     self.titleLabel.text = @"小队主页";
+    
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.titleLabel];
+    
+    [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.titleLabel.text = self.informationModel.name;
+    [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
+    
 }
 
 
@@ -178,7 +304,12 @@ static NSString * const helpCellID = @"helpCellID";
     TeamInfomationViewController *infomationController = [[TeamInfomationViewController alloc]initWithStyle:UITableViewStyleGrouped];
     
     // 数组为测试数据，与内容无关，至于数组的count有关，这边的count数目决定了里面用户头像的个数，界面内容会根据count的大小自动排版
-    [infomationController setMemberInfos:@[@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf",@"asd",@"af",@"asdf"]];
+    [infomationController setMemberInfos:self.informationModel.member];
+    
+    //主页 --> 信息
+    infomationController.detilemodel = [[GroupDetileModel alloc]init];
+    infomationController.detilemodel = self.informationModel;
+    
     [self.navigationController pushViewController:infomationController animated:YES];
 }
 
@@ -189,35 +320,46 @@ static NSString * const helpCellID = @"helpCellID";
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.modelArray.count;
 }
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
+//-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+//    return 1;
+//}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:avtivityCellID forIndexPath:indexPath];
+    //    OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:avtivityCellID forIndexPath:indexPath];
+    CurrentActivitysShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
+    Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
+    
+    [cell reloadCellWithModel:inter];
+    
     
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    TempCompany *company = [[TempCompany alloc]init];
-//    [company setName:@"动力哈"];
-//    [company setPassword:@"asdfasd"];
-//    [company setEmail:@"asdfa@qq.com"];
-//    
-//    [RestfulAPIRequestTool routeName:@"companyQuickRegister" requestModel:company useKeys:@[@"name",@"email",@"password"] success:^(id json) {
-//        NSLog(@"%@",json);
-//    } failure:^(id errorJson) {
-//        NSLog(@"%@",errorJson);
-//    }];
-}
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 290 * DLScreenWidth / 375;
+    return 149 ;
 }
-
+/*
+ -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+ 
+ 
+ //    TempCompany *company = [[TempCompany alloc]init];
+ //    [company setName:@"动力哈"];
+ //    [company setPassword:@"asdfasd"];
+ //    [company setEmail:@"asdfa@qq.com"];
+ //
+ //    [RestfulAPIRequestTool routeName:@"companyQuickRegister" requestModel:company useKeys:@[@"name",@"email",@"password"] success:^(id json) {
+ //        NSLog(@"%@",json);
+ //    } failure:^(id errorJson) {
+ //        NSLog(@"%@",errorJson);
+ //    }];
+ }
+ 
+ //-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+ //    return 290 * DLScreenWidth / 375;
+ //}
+ */
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     // NSLog(@"%f",scrollView.contentOffset.y);
     
@@ -228,7 +370,83 @@ static NSString * const helpCellID = @"helpCellID";
         self.headView.frame = CGRectMake(0, offsetY, DLScreenWidth, headViewHeight - offsetY);
         self.headImageView.frame = CGRectMake(-(factorWidth - DLScreenWidth) / 2, offsetY, factorWidth, headViewHeight - offsetY);
     }
-   
+    
 }
+
+- (void)setGroupCardModel:(GroupCardModel *)groupCardModel
+{
+    _groupCardModel = groupCardModel;
+//    BOOL a = [self judgeMember];
+//    
+//    if (!a) {
+//        groupCardModel.allInfo = YES;
+//    }
+    NSMutableArray *tempArray = [NSMutableArray arrayWithObject:@"groupId"];
+    if (groupCardModel.isMember) {
+        [tempArray addObject:@"allInfo"];
+    }
+    
+    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:groupCardModel useKeys:tempArray success:^(id json) {
+        
+        
+        NSLog(@"获取到的小队信息为 %@", json);
+        
+        NSDictionary *dic = [json objectForKey:@"group"];
+        
+        GroupDetileModel *model = [[GroupDetileModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic];
+        self.informationModel = model;
+        [self builtJoinButton];
+        [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        self.titleLabel.text = self.informationModel.name;
+        [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
+        [self requestNet];
+        
+        
+    } failure:^(id errorJson) {
+        NSLog(@"获取小队信息失败的原因为 %@", errorJson);
+    }];
+    
+}
+
+- (void)builtJoinButton
+{
+    BOOL a = [self judgeMember];
+    if (a) {
+        [self.joinButton removeFromSuperview];
+    }
+}
+
+- (void)joinAction:(UIButton *)sender
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:self.groupCardModel.groupId forKey:@"groupId"];
+    [RestfulAPIRequestTool routeName:@"joinGroups" requestModel:dic useKeys:@[@"groupId"] success:^(id json) {
+        NSLog(@"请求发送成功  %@", json);
+        
+        UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"请求成功" message:[json objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        
+        [al show];
+        
+    } failure:^(id errorJson) {
+        
+        NSLog(@"请求发送失败   %@", errorJson);
+    }];
+}
+
+
+- (BOOL)judgeMember
+{
+    Account *acc = [AccountTool account];
+    NSArray *array  = self.informationModel.member;
+    
+    for (NSDictionary *dic in array) {
+        if ([[dic objectForKey:@"_id"] isEqualToString:acc.ID]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
 
 @end

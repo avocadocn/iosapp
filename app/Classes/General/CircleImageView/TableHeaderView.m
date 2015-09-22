@@ -18,7 +18,6 @@
     if (self) {
         [self maskImage:image];
         [self tableViewHeaderViewWithImage:image];
-        
     }
     return self;
 }

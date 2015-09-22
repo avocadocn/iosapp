@@ -21,6 +21,9 @@
     NSString *urlStr = [roude stringByReplacingOccurrencesOfString:@"3002/v2_0" withString:[NSString stringWithFormat:@"3000%@", str]];
     
     NSString *newUrlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+ 
+    self.contentMode = UIViewContentModeScaleAspectFill;
+    self.clipsToBounds = YES;
     
     [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
 }

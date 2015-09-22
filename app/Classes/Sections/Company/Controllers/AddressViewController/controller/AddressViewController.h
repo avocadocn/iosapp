@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 @class EMSearchBar;
 
+@class GroupDetileModel;
+
 
 //通讯录
 
@@ -25,5 +27,12 @@
 @property (nonatomic, strong)NSMutableDictionary *wordDic;
 
 @property (nonatomic, strong)EMSearchBar *searchBar;
+
+@property (nonatomic, strong)GroupDetileModel *detileModel;
+
+/**
+ * 是否为选择状态
+ */
+@property (nonatomic, assign)BOOL selectState;
 
 @end

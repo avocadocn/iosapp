@@ -14,5 +14,5 @@
 
 @property (nonatomic, copy)NSString *ID;
 
-
+@property (nonatomic, copy)NSString *time;
 @end

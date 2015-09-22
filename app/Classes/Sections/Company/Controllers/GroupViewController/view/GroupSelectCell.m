@@ -26,10 +26,10 @@
     NSArray *titleArray = @[@"创建Band", @"搜索Band"];
     self.CellImageView = [UIImageView new];
     self.CellImageView.image = [UIImage imageNamed:[array objectAtIndex:0]];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-    self.CellImageView.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+//    self.CellImageView.userInteractionEnabled = YES;
     self.CellImageView.tag = 1;
-    [self.CellImageView addGestureRecognizer:tap];
+//    [self.CellImageView addGestureRecognizer:tap];
     self.CellImageView.layer.masksToBounds = YES;
     self.CellImageView.layer.cornerRadius = DLMultipleWidth(23.5);
     

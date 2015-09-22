@@ -70,7 +70,7 @@
 
 - (void)reloadCellWithModel:(Interaction *)model
 {
-  Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.poster[@"_id"]];
+    Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.poster[@"_id"]];
     self.nameLabel.text = person.name;
     [self.avatar dlGetRouteWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"]];
     switch ([model.type integerValue]) {

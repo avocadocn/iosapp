@@ -17,8 +17,10 @@
 #import "EMSearchBar.h"
 #import "Account.h"
 #import "AccountTool.h"
+#import "GroupDetileModel.h"
 
-@interface AddressViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
+
+@interface AddressViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, addressTableViewDelegate, UIAlertViewDelegate>
 
 @end
 
@@ -51,6 +53,7 @@
     [self.view addSubview:self.myTableView];
     
 }
+
 - (UISearchBar *)searchBar
 {
     if (!_searchBar) {
@@ -112,6 +115,7 @@
     if (!self.modelArray) {
         self.modelArray = [NSMutableArray arrayWithArray:json];
     }
+    
     // 分析数据
     NSInteger i = 0;
     for (NSDictionary *dic in json) {
@@ -257,6 +261,8 @@
     AddressBookModel *model = [array objectAtIndex:indexPath.row];
     
     AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addressTableViewCell" forIndexPath:indexPath];
+    cell.indexPath = indexPath;
+    cell.delegate = self;
     [cell cellReloadWithAddressModel:model];
     return cell;
 }
@@ -315,6 +321,68 @@
     
     return [self.modelArray count];
 }
+- (void)sendIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dic = [self.modelArray objectAtIndex:indexPath.section];
+    NSArray *array = [dic objectForKey:@"array"];
+    AddressBookModel *model = [array objectAtIndex:indexPath.row];
+    if (model.selectState) {
+        model.selectState = NO;
+    } else
+    {
+        model.selectState = YES;
+    }
+}
+
+- (void)setSelectState:(BOOL)selectState
+{
+    _selectState = selectState;
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
+    
+    label.text = @"邀请";
+    label.textAlignment = NSTextAlignmentRight;
+    
+    UITapGestureRecognizer *labelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
+        label.userInteractionEnabled = YES;
+    [label addGestureRecognizer:labelTap];
+    label.font = [UIFont systemFontOfSize:15];
+    label.textColor = [UIColor orangeColor];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
+}
+
+- (void)nextController:(UITapGestureRecognizer *)tap
+{
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (NSDictionary *dic in self.modelArray) {
+        NSArray *temp = [dic objectForKey:@"array"];
+        
+        for (AddressBookModel *model in temp) {
+            if (model.selectState) {
+//                [array addObject:model];
+                [array addObject:model.ID];
+            }
+        }
+    }
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:array forKey:@"userIds"];
+    [dic setObject:self.detileModel.ID forKey:@"groupId"];
+    [RestfulAPIRequestTool routeName:@"postInvitationInfosURL" requestModel:dic useKeys:@[@"groupId", @"userIds"] success:^(id json) {
+        NSLog(@"邀请成功  %@", json);
+        UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"您的邀请发送成功" message: nil delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        al.delegate = self;
+        [al show];
+        
+    } failure:^(id errorJson) {
+        NSLog(@"邀请失败  %@", errorJson);
+    }];
+    
+}
 
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 @end

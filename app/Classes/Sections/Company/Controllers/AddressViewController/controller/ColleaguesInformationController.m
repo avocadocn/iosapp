@@ -5,7 +5,8 @@
 //  Created by 申家 on 15/8/3.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
 #import "ColleaguesInformationController.h"
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
@@ -47,6 +48,8 @@ static NSInteger tagNum = 1;
     [self builtImageView];
     
     CGFloat height = DLScreenHeight / (568 / 400.0);
+    
+    
     self.title = @"个人资料";
     NSArray *nameArray = @[@"Profile@2x", @"Oval 2@2x", @"chat@2x"];
     NSMutableArray *imageArray = [NSMutableArray array];
@@ -55,13 +58,22 @@ static NSInteger tagNum = 1;
         [imageArray addObject:image];
     }
     
+    CGFloat centerY = DLMultipleHeight((600.0 - 64.0));
+    
     CGFloat num = DLScreenWidth / (320 / 55.0);
-    [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"聊天"] imageArray:imageArray andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:600 - 64];
+    [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"聊天"] imageArray:imageArray andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY: centerY];
 }
+- (void)setModel:(AddressBookModel *)model
+{
+    _model = model;
+}
+
 - (void)builtImageView  //唯一的图片页
 {
-    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 380)];
-    [self.imageView dlGetRouteWebImageWithString:self.model.photo placeholderImage:nil];
+    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(380.0))];
+    Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:self.model.ID];
+    
+    [self.imageView dlGetRouteWebImageWithString:person.imageURL placeholderImage:nil];
     
     [self.bigScroll addSubview:self.imageView];
     [self builtButton];
@@ -244,6 +256,7 @@ static NSInteger tagNum = 1;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
             break;
         }
+            
         case 4:
             NSLog(@"关系");
             break;

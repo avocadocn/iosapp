@@ -33,7 +33,7 @@
 #import "TTGlobalUICommon.h"
 #import <MJExtension.h>
 #import "Foundation+Log.h"
-
+#import <tingyunApp/NBSAppAgent.h>
 
 #define DLSBackgroundColor [UIColor colorWithWhite:.9 alpha:1];
 

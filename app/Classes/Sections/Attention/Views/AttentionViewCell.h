@@ -15,7 +15,7 @@
 @property (strong, nonatomic)  UILabel *AttentionName;
 @property (strong, nonatomic)  UIImageView *AttentionPhoto;
 @property (strong, nonatomic)  UILabel *AttentionWork;
-
+@property (strong, nonatomic) UIButton *joinButton;
 - (void)cellBuiltWithModel:(AddressBookModel *)model;
 
 @end

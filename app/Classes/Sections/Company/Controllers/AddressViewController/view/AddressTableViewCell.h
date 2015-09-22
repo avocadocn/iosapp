@@ -37,7 +37,6 @@
 
 - (void)cellReloadWithAddressModel:(AddressBookModel *)model;
 
-
 - (void)reloCellWithAddressBook:(id)person andStateString:(NSString *)str;
 
 @end

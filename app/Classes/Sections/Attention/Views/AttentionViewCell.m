@@ -5,6 +5,8 @@
 //  Created by 申家 on 15/8/7.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
 
 #import "AttentionViewCell.h"
 #import <Masonry.h>
@@ -73,15 +75,34 @@
         make.left.mas_equalTo(self.mas_left).offset(DLMultipleWidth(20.0));
         make.height.mas_equalTo(.5);
     }];
+    
+    self.joinButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.joinButton setBackgroundImage:[UIImage imageNamed:@"insert"] forState:UIControlStateNormal];
+    [self.joinButton setBackgroundColor:[UIColor yellowColor]];
+    self.joinButton.frame = CGRectMake(DLScreenWidth - 50, 12, 30, 30);
+    [self addSubview:self.joinButton];
+//    [self.joinButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.mas_top).offset(12);
+//        make.bottom.mas_equalTo(self.mas_bottom).offset(-12);
+//        make.right.mas_equalTo(self.mas_right).offset(-12);
+//        make.width.mas_equalTo(self.height - 24);
+//    }];
+    
 }
 
 - (void)cellBuiltWithModel:(AddressBookModel *)model
 {
-    [self.AttentionPhoto dlGetRouteWebImageWithString:model.photo placeholderImage:nil];
-    self.AttentionName.text = model.realname;
-    CompanyModel *company = model.company;
+    [self.joinButton removeFromSuperview];
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
     
-    self.AttentionWork.text = company.name;
+    [self.AttentionPhoto dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
+    
+    
+    self.AttentionName.text = per.name;
+//    CompanyModel *company = model.company;
+    
+//    self.AttentionWork.text = per;
+
 }
 
 

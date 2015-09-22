@@ -12,13 +12,24 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "UIImageView+DLGetWebImage.h"
+#import <MAMapKit/MAMapKit.h>
+#import <AMapSearchKit/AMapSearchAPI.h>
+@interface DetailActivityShowView()<UIScrollViewDelegate,MAMapViewDelegate,AMapSearchDelegate>
 
-@interface DetailActivityShowView()<UIScrollViewDelegate>
+{
+    MAMapView *_mapView; // 创建地图
+    CLLocationManager * locationManager; // 创建定位定位管理
+     AMapSearchAPI *_search; // 搜索
+}
+
+
 @property (strong,nonatomic) UIScrollView *superView;
 @property (strong,nonatomic) UIImageView *pictureView; // 顶部照片
 @property (assign,nonatomic) CGFloat imageViewWidth;
 @property (assign,nonatomic) CGFloat imageViewHeight;
 @property (strong, nonatomic)UILabel *activityName;  //@"林肯公园演唱会"
+@property (nonatomic, strong) UIView *midView;
+@property (nonatomic, strong) UILabel *addressLabel;
 @property (nonatomic, copy)NSString *url;
 
 @end
@@ -42,6 +53,8 @@
         self.model = model;
         
         [self buildInterface];
+        [self initMapView]; // 创建地图
+        [self buildMAPinAnnotationView];
     }
     return self;
 }
@@ -62,6 +75,53 @@
         self.pictureView.y += yOffset;
     }
 }
+- (void)initMapView {
+    [MAMapServices sharedServices].apiKey = @"4693df7c11ba3ba2cc58e44e8666134f";
+    
+    
+    locationManager =[[CLLocationManager alloc] init];
+    // fix ios8 location issue
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+#ifdef __IPHONE_8_0
+        if ([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+        {
+            [locationManager performSelector:@selector(requestAlwaysAuthorization)];//用这个方法，plist中需要NSLocationAlwaysUsageDescription
+        }
+        
+        if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+        {
+            [locationManager performSelector:@selector(requestWhenInUseAuthorization)];//用这个方法，plist里要加字段NSLocationWhenInUseUsageDescription
+        }
+#endif
+    }
+    
+    
+    _mapView = [[MAMapView alloc] init];
+    _mapView.width = DLScreenWidth;
+    _mapView.height = DLScreenWidth * 2 / 4;
+    _mapView.x = 0;
+    _mapView.y = CGRectGetMaxY(self.addressLabel.frame) + 10;
+
+    _mapView.delegate = self;
+    _mapView.showsUserLocation = YES;
+    _mapView.mapType = MAMapTypeStandard;
+    [_mapView setUserTrackingMode:MAUserTrackingModeFollow];
+    [self.midView addSubview:_mapView];
+
+}
+- (void)builtSearch {
+    _search = [[AMapSearchAPI alloc] initWithSearchKey:@"4693df7c11ba3ba2cc58e44e8666134f" Delegate:self];
+    
+    //  逆地理编码
+    AMapReGeocodeSearchRequest *regeoRequest = [[AMapReGeocodeSearchRequest alloc] init];
+    regeoRequest.searchType = AMapSearchType_ReGeocode;
+    regeoRequest.location = [AMapGeoPoint locationWithLatitude:[self.model.latitude floatValue] longitude:[self.model.longitude floatValue]];
+    regeoRequest.radius = 10000;
+    regeoRequest.requireExtension = YES;
+    //发起逆地理编码
+    [_search AMapReGoecodeSearch: regeoRequest];
+}
+
 
 
 -(void)buildInterface{
@@ -187,6 +247,7 @@
     addressLabel.size = trueLabelSize;
     addressLabel.x = CGRectGetMaxX(addressTintLabel.frame);
     addressLabel.y = CGRectGetMaxY(divisionLine.frame) + 12;
+    self.addressLabel = addressLabel;
     
     
     
@@ -226,8 +287,9 @@
     [middleView addSubview:divisionLine];
     [middleView addSubview:addressTintLabel];
     [middleView addSubview:addressLabel];
-    [middleView addSubview:mapView];
+//    [middleView addSubview:mapView];
     [middleView addSubview:personCountLabel];
+    self.midView = middleView;
     [superView addSubview:middleView];
     
     // 添加第三栏的活动介绍view
@@ -308,7 +370,50 @@
     }];
 
 }
+#pragma AMapSearchDelegate
+// 实现逆地理编码对应的回调函数
+- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response {
+    if(response.regeocode != nil) {
+        //处理搜索结果
+      
+    }
+}
 
+#pragma MAPinAnnotationView // 大头针
+- (void)buildMAPinAnnotationView {
+    MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
+    pointAnnotation.coordinate = CLLocationCoordinate2DMake([self.model.latitude floatValue], [self.model.longitude floatValue]); //
+//    pointAnnotation.title = self.point.name;
+    pointAnnotation.subtitle = [[self.model.activity objectForKey:@"location"] objectForKey:@"name"];
+    [_mapView addAnnotation:pointAnnotation];
+}
+
+#pragma mapViewDelegate
+
+-(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation
+updatingLocation:(BOOL)updatingLocation
+{
+    if(updatingLocation) {
+        //取出当前位置的坐标
+        NSLog(@"latitude : %f,longitude: %f",userLocation.coordinate.latitude,userLocation.coordinate.longitude);
+    }
+}
+
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
+{ // 大头针
+    if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
+        static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
+        MAPinAnnotationView*annotationView = (MAPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
+        if (annotationView == nil) {
+            annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIndetifier];
+        }
+        annotationView.canShowCallout= YES; //设置气泡可以弹出,默认为 NO annotationView.animatesDrop = YES; //设置标注动画显示,默认为 NO
+        annotationView.draggable = YES; //设置标注可以拖动,默认为 NO annotationView.pinColor = MAPinAnnotationColorPurple;
+        return annotationView;
+    }
+    
+    return nil;
+}
 
 
 @end

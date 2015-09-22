@@ -14,6 +14,9 @@
 @property (nonatomic, copy)NSString *logo;
 @property (nonatomic, copy)NSString *name;
 @property (nonatomic, copy)NSString *groupId;
+
+@property (nonatomic, assign)BOOL isMember;  // 是否为群成员
+
 @property (nonatomic, assign)BOOL allInfo;
 
 

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class GroupDetileModel;
+@class GroupCardModel;
+
+
 @interface TeamHomePageController : UIViewController
+@property (nonatomic, strong)GroupDetileModel *informationModel;
+@property (nonatomic, strong)GroupCardModel *groupCardModel;
 
 @end
