@@ -34,8 +34,26 @@
 //    [self builtInterface];
     
     [self builtNewInterface];
+    [self leftNavigationBarItemAction];
 //    [self makeF];
 }
+
+- (void)leftNavigationBarItemAction {
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_navigation_back@2x"] style:UIBarButtonItemStylePlain target:self action:@selector(hideNavigationBar:)];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:0.7]];
+    self.navigationItem.leftBarButtonItem = item;
+}
+
+- (void)hideNavigationBar:(UIBarButtonItem *)item {
+    [self.navigationController.navigationBar setTintColor:[UIColor orangeColor]];
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:nil];
+}
+
+
+
+
+
 - (void)makeF
 {
     self.textField = [[UITextField alloc]initWithFrame:CGRectMake(0, 300, 100, 30)];
@@ -57,6 +75,7 @@
     self.mailTextField.placeholder = @"手机号";
     self.mailTextField.font = [UIFont systemFontOfSize:14];
     self.mailTextField.delegate = self;
+    self.mailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.mailTextField.keyboardType = UIKeyboardTypeNumberPad;
     
     UIView *view =[[UIView alloc]initWithFrame:CGRectMake(0, num - .5, DLScreenWidth - num * 2, .5)];
@@ -68,6 +87,7 @@
     self.passwordTextField.placeholder=  @"密码";
     self.passwordTextField.font = [UIFont systemFontOfSize:14];
     self.passwordTextField.delegate = self;
+    self.passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passwordTextField.secureTextEntry = YES;
     UIView *tempView =[[UIView alloc]initWithFrame:CGRectMake(0, num - .5, DLScreenWidth - num * 2, .5)];
     tempView.backgroundColor = RGBACOLOR(230, 230, 230, 1);
@@ -269,7 +289,7 @@
     if (textField == self.mailTextField) {
         
     
-    if (self.mailTextField.text.length == 11) {
+    if (self.mailTextField.text.length == 20) {
         return NO;
     }}
     else {
