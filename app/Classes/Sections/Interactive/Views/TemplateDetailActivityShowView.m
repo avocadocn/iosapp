@@ -377,9 +377,9 @@
 //    [sighUpBtn setBackgroundColor:RGB(0xfd, 0xb9, 0)];
     [sighUpBtn setBackgroundImage:[UIImage imageNamed:@"transmit_btn"] forState:UIControlStateNormal];
     [sighUpBtn setTitle:@"转发" forState:UIControlStateNormal];
-    sighUpBtn.width = DLScreenWidth - 2 * DLMultipleWidth(30);
-    sighUpBtn.height = 28;
-    sighUpBtn.x = DLMultipleWidth(30);
+    sighUpBtn.width = DLScreenWidth - 4 * DLMultipleWidth(12);
+    sighUpBtn.height = 33;
+    sighUpBtn.x = (sighUpView.width-sighUpBtn.width)/2.0;
     sighUpBtn.y = sighUpView.height / 2 - sighUpBtn.height / 2;
     [sighUpBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
