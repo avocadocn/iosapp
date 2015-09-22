@@ -369,16 +369,16 @@
     [sighUpView setBackgroundColor:[UIColor whiteColor]];
     
     // 设置报名view的frame
-    sighUpView.size = CGSizeMake(DLScreenWidth, 44);
+    sighUpView.size = CGSizeMake(DLScreenWidth, 55);
     sighUpView.x = 0;
-    sighUpView.y = DLScreenHeight - 44;
+    sighUpView.y = DLScreenHeight - 55;
     
     UIButton *sighUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [sighUpBtn setBackgroundColor:RGB(0xfd, 0xb9, 0)];
     [sighUpBtn setBackgroundImage:[UIImage imageNamed:@"transmit_btn"] forState:UIControlStateNormal];
     [sighUpBtn setTitle:@"转发" forState:UIControlStateNormal];
     sighUpBtn.width = DLScreenWidth - 4 * DLMultipleWidth(12);
-    sighUpBtn.height = 33;
+    sighUpBtn.height = 44;
     sighUpBtn.x = (sighUpView.width-sighUpBtn.width)/2.0;
     sighUpBtn.y = sighUpView.height / 2 - sighUpBtn.height / 2;
     [sighUpBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
