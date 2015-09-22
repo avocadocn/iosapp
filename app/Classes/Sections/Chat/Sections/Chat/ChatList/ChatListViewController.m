@@ -20,6 +20,9 @@
 #import "EMSearchDisplayController.h"
 #import "ConvertToCommonEmoticonsHelper.h"
 #import "RobotManager.h"
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
+#import "UIImageView+DLGetWebImage.h"
 
 static ChatListViewController *chat = nil;
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, UISearchDisplayDelegate,SRRefreshDelegate, UISearchBarDelegate, IChatManagerDelegate,ChatViewControllerDelegate>
@@ -59,8 +62,8 @@ static ChatListViewController *chat = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO];
+    self.dataSource = [NSMutableArray arrayWithArray:[[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO]];
+//    [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:YES];
     [self removeEmptyConversationsFromDB];
 
     [self.view addSubview:self.searchBar];
@@ -365,6 +368,7 @@ static ChatListViewController *chat = nil;
 // 会话的 cell
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
     
     static NSString *identify = @"chatListCell";
     ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
@@ -377,7 +381,11 @@ static ChatListViewController *chat = nil;
     if (conversation.conversationType == eConversationTypeChat) {
         if ([[RobotManager sharedInstance] isRobotWithUsername:conversation.chatter]) {
             cell.name = [[RobotManager sharedInstance] getRobotNickWithUsername:conversation.chatter];
+        }else{
+            Person* p = [fmdb selectPersonWithUserId:conversation.chatter];
+            cell.name = p.name;
         }
+        
         cell.placeholderImage = [UIImage imageNamed:@"chatListCellHead.png"];
     }
     else{
@@ -447,12 +455,16 @@ static ChatListViewController *chat = nil;
                 }
             }
         }
+    }else if(conversation.conversationType == eConversationTypeChat) {
+        FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+        Person* p = [fmdb selectPersonWithUserId:title];
+        title = p.name;
     }
     
     NSString *chatter = conversation.chatter;
     chatController = [[ChatViewController alloc] initWithChatter:chatter conversationType:conversation.conversationType];
     chatController.delelgate = self;
-    chatController.title = @"某某";
+    chatController.title = title;
     if ([[RobotManager sharedInstance] getRobotNickWithUsername:chatter]) {
         chatController.title = [[RobotManager sharedInstance] getRobotNickWithUsername:chatter];
     }
@@ -565,15 +577,17 @@ static ChatListViewController *chat = nil;
 // 刷新方法
 -(void)refreshDataSource
 {
-//    self.dataSource = [self loadDataSource];
-    self.dataSource = [NSMutableArray array];
-    
-    NSArray *array = @[@"55dc110314a37c242b6486cf",@"55dc110314a37c242b6486d0", @"55dc110314a37c242b6486d1"];
-    for (NSString *str in array) {
-        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:str conversationType:eConversationTypeChat];
-        NSLog(@"消息的对话 chatter 为 %@" ,conversation.chatter);
-        [self.dataSource addObject:conversation];
-    }
+    //从网络请求对话数据
+    self.dataSource = [self loadDataSource];
+    //下面是假数据
+//    self.dataSource = [NSMutableArray array];
+//    
+//    NSArray *array = @[@"55dc110314a37c242b6486cf",@"55dc110314a37c242b6486d0", @"55dc110314a37c242b6486d1"];
+//    for (NSString *str in array) {
+//        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:str conversationType:eConversationTypeChat];
+//        NSLog(@"消息的对话 chatter 为 %@" ,conversation.chatter);
+//        [self.dataSource addObject:conversation];
+//    }
     
     [_tableView reloadData];
     [self hideHud];
