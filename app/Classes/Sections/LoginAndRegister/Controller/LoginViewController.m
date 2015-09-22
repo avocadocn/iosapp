@@ -247,10 +247,52 @@
         NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
         
+        //继续登录环信
+        if ( ![[EaseMob sharedInstance].chatManager isAutoLoginEnabled]) {
+            [self loginWithUsername:acc.ID password:acc.ID];
+        }
     } failure:^(id errorJson) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
         [alert show];
     }];
+}
+
+/**
+ *  登陆操作
+ *
+ *  @param username 用户名
+ *  @param password 密码
+ */
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password
+{
+    //    [self showHudInView:self.view hint:NSLocalizedString(@"login.ongoing", @"Is Login...")];
+    //异步登陆账号
+    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:username
+                                                        password:password
+                                                      completion:
+     ^(NSDictionary *loginInfo, EMError *error) {
+         
+         
+         //         [self hideHud];
+         if (loginInfo && !error) {
+             //设置是否自动登录
+             [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+             
+             // 旧数据转换 (如果您的sdk是由2.1.2版本升级过来的，需要家这句话)
+             [[EaseMob sharedInstance].chatManager importDataToNewDatabase];
+             //获取数据库中数据
+             [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
+             
+             //获取群组列表
+             [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
+             
+             //             //发送自动登陆状态通知
+             //             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+             
+         }
+         
+         
+     } onQueue:nil];
 }
 
 - (void)didReceiveMemoryWarning {

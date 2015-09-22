@@ -91,10 +91,10 @@ static RealtimeSearchUtil *defaultUtil = nil;
                 if (weakSelf.selector) {
                     if([object respondsToSelector:weakSelf.selector])
                     {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                         tmpString = [[object performSelector:weakSelf.selector] lowercaseString];
-#pragma clang diagnostic pop
+//#pragma clang diagnostic pop
                         
                     }
                 }

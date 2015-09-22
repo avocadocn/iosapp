@@ -262,7 +262,7 @@
     //底部转发
     [self.bottomTransmitBar setFrame:voteCellFrame.bottomTransmitBarF];
     self.bottomTransmitBtn.width = self.bottomTransmitBar.width - 4.0 * VoteCellBorderW;
-    self.bottomTransmitBtn.height= 33;
+    self.bottomTransmitBtn.height= 44;
     self.bottomTransmitBtn.x = (self.bottomTransmitBar.width-self.bottomTransmitBtn.width)/2.0;
     self.bottomTransmitBtn.y = (self.bottomTransmitBar.height-self.bottomTransmitBtn.height)/2.0;
     [self.bottomTransmitBtn addTarget:self action:@selector(transmitClicked:) forControlEvents:UIControlEventTouchUpInside];

@@ -76,7 +76,8 @@
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
     
     Account *acc = [AccountTool account];
-    // 登陆
+    // 如果是第二次启动应用，是可以登录的，但第一次启动时，用户还未登录，此时用户账号信息为空，无法登录环信
+    Boolean isAuto=[[EaseMob sharedInstance].chatManager isAutoLoginEnabled];
     if ( ![[EaseMob sharedInstance].chatManager isAutoLoginEnabled]) {
         [self.mainController loginWithUsername:acc.ID password:acc.ID];
     }

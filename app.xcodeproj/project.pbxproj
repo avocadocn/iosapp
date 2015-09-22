@@ -63,7 +63,6 @@
 		54E542E41BA6CFE9008A6687 /* FMDBSQLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */; };
 		54E542E71BA6D735008A6687 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E61BA6D735008A6687 /* Person.m */; };
 		54E542EB1BA7DF35008A6687 /* mydatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */; };
-		54EE2D691BAFA3D000109C84 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EE2D671BAFA3D000109C84 /* AMapSearchKit.framework */; };
 		54EE2D6A1BAFA3D000109C84 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EE2D681BAFA3D000109C84 /* MAMapKit.framework */; };
 		54EE2D6C1BAFA3F500109C84 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EE2D6B1BAFA3F500109C84 /* UIKit.framework */; };
 		54EE2D6E1BAFA40400109C84 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EE2D6D1BAFA40400109C84 /* Foundation.framework */; };
@@ -74,7 +73,6 @@
 		54EE2D781BAFA48100109C84 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EE2D771BAFA48100109C84 /* Security.framework */; };
 		54EE2D7A1BAFA88400109C84 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 54EE2D791BAFA88400109C84 /* AMap.bundle */; };
 		54EE2D7D1BAFAAD500109C84 /* PublishedInteractionsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EE2D7C1BAFAAD500109C84 /* PublishedInteractionsMapViewController.m */; };
-		54EE2D811BAFB3E800109C84 /* Headers in Resources */ = {isa = PBXBuildFile; fileRef = 54EE2D801BAFB3E800109C84 /* Headers */; };
 		54F248271BA2848A009133D6 /* votep@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248251BA2848A009133D6 /* votep@2x.png */; };
 		54F248281BA2848A009133D6 /* chevron-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248261BA2848A009133D6 /* chevron-left.png */; };
 		54F2482D1BA2B03A009133D6 /* 活动.png in Resources */ = {isa = PBXBuildFile; fileRef = 54F248291BA2B03A009133D6 /* 活动.png */; };
@@ -766,6 +764,7 @@
 		E23AF2A41BA1758E001BE3C5 /* VoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF29F1BA1758E001BE3C5 /* VoteTableViewCell.m */; };
 		E23AF2A51BA1758E001BE3C5 /* VoteOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */; };
 		E23AF2A61BA1758E001BE3C5 /* VoteAnimatedOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */; };
+		E29032921BB13EB70081F9FD /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29032911BB13EB70081F9FD /* AMapSearchKit.framework */; settings = {ASSET_TAGS = (); }; };
 		E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */; };
 		E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
@@ -859,7 +858,6 @@
 		54E542E51BA6D735008A6687 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		54E542E61BA6D735008A6687 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mydatabase.sqlite; sourceTree = "<group>"; };
-		54EE2D671BAFA3D000109C84 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		54EE2D681BAFA3D000109C84 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
 		54EE2D6B1BAFA3F500109C84 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54EE2D6D1BAFA40400109C84 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -871,7 +869,6 @@
 		54EE2D791BAFA88400109C84 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AMap.bundle; path = MAMapKit.framework/Versions/3.0.0.b858bb3/Resources/AMap.bundle; sourceTree = "<group>"; };
 		54EE2D7B1BAFAAD500109C84 /* PublishedInteractionsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishedInteractionsMapViewController.h; sourceTree = "<group>"; };
 		54EE2D7C1BAFAAD500109C84 /* PublishedInteractionsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishedInteractionsMapViewController.m; sourceTree = "<group>"; };
-		54EE2D801BAFB3E800109C84 /* Headers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Headers; path = ../../Downloads/AMapSearchKit.framework/Versions/2.6.0.29103c6/Headers; sourceTree = "<group>"; };
 		54F248251BA2848A009133D6 /* votep@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "votep@2x.png"; sourceTree = "<group>"; };
 		54F248261BA2848A009133D6 /* chevron-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron-left.png"; sourceTree = "<group>"; };
 		54F248291BA2B03A009133D6 /* 活动.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "活动.png"; sourceTree = "<group>"; };
@@ -2002,6 +1999,7 @@
 		E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteOptionsView.m; sourceTree = "<group>"; };
 		E23AF2A21BA1758E001BE3C5 /* VoteAnimatedOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteAnimatedOptionView.h; sourceTree = "<group>"; };
 		E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteAnimatedOptionView.m; sourceTree = "<group>"; };
+		E29032911BB13EB70081F9FD /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		E297E63A1BA7C47200C1AC92 /* TemplateVoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVoteTableViewCell.h; sourceTree = "<group>"; };
 		E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateVoteTableViewCell.m; sourceTree = "<group>"; };
 		E297E63E1BA812A300C1AC92 /* TemplateHelpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateHelpTableViewController.h; sourceTree = "<group>"; };
@@ -2023,7 +2021,6 @@
 				54EE2D701BAFA41500109C84 /* CoreGraphics.framework in Frameworks */,
 				54EE2D6E1BAFA40400109C84 /* Foundation.framework in Frameworks */,
 				54EE2D6C1BAFA3F500109C84 /* UIKit.framework in Frameworks */,
-				54EE2D691BAFA3D000109C84 /* AMapSearchKit.framework in Frameworks */,
 				54EE2D6A1BAFA3D000109C84 /* MAMapKit.framework in Frameworks */,
 				96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */,
 				A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */,
@@ -2036,6 +2033,7 @@
 				A45FEBEA1B856C6600BC5E41 /* SMS_SDK.framework in Frameworks */,
 				A41CF0D21B5CC0B7005C21EF /* AssetsLibrary.framework in Frameworks */,
 				A48077941B6B86EF000F11D1 /* libEaseMobClientSDK.a in Frameworks */,
+				E29032921BB13EB70081F9FD /* AMapSearchKit.framework in Frameworks */,
 				96CF91841B673EA9001759E2 /* libxml2.dylib in Frameworks */,
 				96CF91801B673E99001759E2 /* CFNetwork.framework in Frameworks */,
 				96CF917C1B673E8A001759E2 /* libiconv.dylib in Frameworks */,
@@ -2079,6 +2077,7 @@
 		528AD80964192770FD7E639E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E29032911BB13EB70081F9FD /* AMapSearchKit.framework */,
 				54EE2D771BAFA48100109C84 /* Security.framework */,
 				54EE2D751BAFA46000109C84 /* CoreTelephony.framework */,
 				54EE2D731BAFA42E00109C84 /* OpenGLES.framework */,
@@ -2086,7 +2085,6 @@
 				54EE2D6F1BAFA41500109C84 /* CoreGraphics.framework */,
 				54EE2D6D1BAFA40400109C84 /* Foundation.framework */,
 				54EE2D6B1BAFA3F500109C84 /* UIKit.framework */,
-				54EE2D671BAFA3D000109C84 /* AMapSearchKit.framework */,
 				54EE2D681BAFA3D000109C84 /* MAMapKit.framework */,
 				72896C651BB006440092EE24 /* Security.framework */,
 				72896C631BB006340092EE24 /* CoreTelephony.framework */,
@@ -2268,7 +2266,6 @@
 		9649B4C71B5649AB00A7F355 = {
 			isa = PBXGroup;
 			children = (
-				54EE2D801BAFB3E800109C84 /* Headers */,
 				54EE2D791BAFA88400109C84 /* AMap.bundle */,
 				A45FEBE91B856C6600BC5E41 /* SMS_SDK.framework */,
 				9649B4D21B5649AC00A7F355 /* app */,
@@ -4758,7 +4755,6 @@
 				96CF94651B674B54001759E2 /* groupPublicHeader@2x.png in Resources */,
 				96CF94711B674B54001759E2 /* tabbar_setting@2x.png in Resources */,
 				96CF93C51B674B54001759E2 /* chatFire_audioPlaying3.png in Resources */,
-				54EE2D811BAFB3E800109C84 /* Headers in Resources */,
 				968B15381B6A1174004A26C0 /* RankBottomShowView.xib in Resources */,
 				96CF94621B674B54001759E2 /* group_participant_add@2x.png in Resources */,
 				96CF945B1B674B54001759E2 /* group_detail@2x.png in Resources */,
@@ -5645,13 +5641,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5674,13 +5671,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

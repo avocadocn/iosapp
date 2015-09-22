@@ -106,6 +106,8 @@
         NSLog(@"退出成功");
         accout.token = nil;
         [AccountTool saveAccount:accout];
+        //退出环信，清空消息数据
+        [self cleanEaseMob];
     } failure:^(id errorJson) {
         NSLog(@"退出失败原因 %@",errorJson);
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
@@ -114,6 +116,32 @@
     }];
     } else { // 取消
         
+    }
+}
+/**
+ * 当前用户退出时，清空本地消息
+ */
+- (void)cleanEaseMob{
+    //退出环信
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
+        if (!error && info) {
+            NSLog(@"退出成功");
+        }
+    } onQueue:nil];
+    
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    NSMutableArray *needRemoveConversations;
+    for (EMConversation *conversation in conversations) {
+            if (!needRemoveConversations) {
+                needRemoveConversations = [[NSMutableArray alloc] initWithCapacity:0];
+            }
+            [needRemoveConversations addObject:conversation.chatter];
+    }
+    
+    if (needRemoveConversations && needRemoveConversations.count > 0) {
+        [[EaseMob sharedInstance].chatManager removeConversationsByChatters:needRemoveConversations
+                                                             deleteMessages:YES
+                                                                append2Chat:NO];
     }
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
