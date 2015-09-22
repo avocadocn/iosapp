@@ -22,7 +22,7 @@
 
 #import "CreateGroupController.h"
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
-      
+
 @end
 
 @implementation GroupViewController
@@ -33,9 +33,15 @@
     [self getRequestData];
     [self builtInterface];
     
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getRequestData) name:@"reloadGroup" object:nil];
+    
+    [self.navigationController.navigationBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
 }
-
+- (void)tapAction:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"咦哈 ");
+}
 
 
 - (void)getRequestData
