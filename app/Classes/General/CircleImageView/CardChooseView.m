@@ -87,6 +87,7 @@ static NSInteger height = 45;
             button.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
                 [self.delegate cardActionWithButton:button];
                 [self disappear];
+//                [self.delegate CardDissmiss];
                 return [RACSignal empty];
             }];
             [self addSubview:button];
@@ -122,11 +123,13 @@ static NSInteger height = 45;
 
 - (void)disappear
 {
+    [self.delegate CardDissmiss];
     [UIView animateWithDuration:.3 animations:^{
         self.maskView.backgroundColor = [UIColor clearColor];
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:self.appearTime animations:^{
             self.center = CGPointMake(DLScreenWidth / 2.0, DLScreenHeight + self.frame.size.height );  // 坐标移动
+            
             
         } completion:^(BOOL finished) {
             [self.maskView removeFromSuperview];

@@ -5,7 +5,7 @@
 //  Created by 张加胜 on 15/8/12.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "GroupViewController.h"
 #import "GroupCoverSetting.h"
 #import "AmendGroupName.h"
 #import "RestfulAPIRequestTool.h"
@@ -72,6 +72,7 @@ static NSString * const defaultCellID = @"defaultCellID";
                     
                 }
                     break;
+        
                 case 1:
                 {
                     NSLog(@"群组成员管理");
@@ -84,7 +85,6 @@ static NSString * const defaultCellID = @"defaultCellID";
                 default:
                     break;
             }
-            
         }
             break;
             case 2:
@@ -95,8 +95,14 @@ static NSString * const defaultCellID = @"defaultCellID";
             
             NSDictionary *dic = [NSDictionary dictionaryWithObject:self.detileModel.ID forKey:@"groupId"];
             
+            
             [RestfulAPIRequestTool routeName:@"deleteGroups" requestModel:dic useKeys:@[@"groupId"] success:^(id json) {
                 NSLog(@"删群成功   %@", json);
+                
+                GroupViewController *group = [[GroupViewController alloc]init];
+                [self.navigationController pushViewController:group animated:YES];
+                
+                
             } failure:^(id errorJson) {
                 NSLog(@"删群失败   %@", errorJson);
             }];

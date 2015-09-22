@@ -63,7 +63,6 @@
 		54E542E41BA6CFE9008A6687 /* FMDBSQLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */; };
 		54E542E71BA6D735008A6687 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E61BA6D735008A6687 /* Person.m */; };
 		54E542EB1BA7DF35008A6687 /* mydatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */; };
-		54EE2D691BAFA3D000109C84 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EE2D671BAFA3D000109C84 /* AMapSearchKit.framework */; };
 		54EE2D6A1BAFA3D000109C84 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EE2D681BAFA3D000109C84 /* MAMapKit.framework */; };
 		54EE2D6C1BAFA3F500109C84 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EE2D6B1BAFA3F500109C84 /* UIKit.framework */; };
 		54EE2D6E1BAFA40400109C84 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EE2D6D1BAFA40400109C84 /* Foundation.framework */; };
@@ -692,6 +691,7 @@
 		A45FEBF31B85DC1900BC5E41 /* LoginSinger.m in Sources */ = {isa = PBXBuildFile; fileRef = A45FEBF21B85DC1900BC5E41 /* LoginSinger.m */; };
 		A461258A1BA030FF001E83B7 /* ForgetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46125891BA030FF001E83B7 /* ForgetPasswordController.m */; };
 		A461E7E01B954C3500C25C21 /* PollModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A461E7DF1B954C3500C25C21 /* PollModel.m */; };
+		A4621D151BB0F57800284FF1 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4621D141BB0F57800284FF1 /* AMapSearchKit.framework */; };
 		A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A46448E91B6F31EF00AA621E /* AddressBookModel.m */; };
 		A4650F201B7DBDCD00013A17 /* UserInterView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F1F1B7DBDCD00013A17 /* UserInterView.m */; };
 		A4650F2D1B7DCD9600013A17 /* SHLUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F2C1B7DCD9600013A17 /* SHLUILabel.m */; };
@@ -859,7 +859,6 @@
 		54E542E51BA6D735008A6687 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		54E542E61BA6D735008A6687 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mydatabase.sqlite; sourceTree = "<group>"; };
-		54EE2D671BAFA3D000109C84 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		54EE2D681BAFA3D000109C84 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
 		54EE2D6B1BAFA3F500109C84 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54EE2D6D1BAFA40400109C84 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1858,6 +1857,7 @@
 		A46125891BA030FF001E83B7 /* ForgetPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetPasswordController.m; sourceTree = "<group>"; };
 		A461E7DE1B954C3500C25C21 /* PollModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PollModel.h; sourceTree = "<group>"; };
 		A461E7DF1B954C3500C25C21 /* PollModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PollModel.m; sourceTree = "<group>"; };
+		A4621D141BB0F57800284FF1 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		A46448E81B6F31EF00AA621E /* AddressBookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBookModel.h; sourceTree = "<group>"; };
 		A46448E91B6F31EF00AA621E /* AddressBookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookModel.m; sourceTree = "<group>"; };
 		A4650F1E1B7DBDCD00013A17 /* UserInterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInterView.h; sourceTree = "<group>"; };
@@ -2023,7 +2023,6 @@
 				54EE2D701BAFA41500109C84 /* CoreGraphics.framework in Frameworks */,
 				54EE2D6E1BAFA40400109C84 /* Foundation.framework in Frameworks */,
 				54EE2D6C1BAFA3F500109C84 /* UIKit.framework in Frameworks */,
-				54EE2D691BAFA3D000109C84 /* AMapSearchKit.framework in Frameworks */,
 				54EE2D6A1BAFA3D000109C84 /* MAMapKit.framework in Frameworks */,
 				96CF91821B673EA2001759E2 /* libz.dylib in Frameworks */,
 				A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */,
@@ -2036,6 +2035,7 @@
 				A45FEBEA1B856C6600BC5E41 /* SMS_SDK.framework in Frameworks */,
 				A41CF0D21B5CC0B7005C21EF /* AssetsLibrary.framework in Frameworks */,
 				A48077941B6B86EF000F11D1 /* libEaseMobClientSDK.a in Frameworks */,
+				A4621D151BB0F57800284FF1 /* AMapSearchKit.framework in Frameworks */,
 				96CF91841B673EA9001759E2 /* libxml2.dylib in Frameworks */,
 				96CF91801B673E99001759E2 /* CFNetwork.framework in Frameworks */,
 				96CF917C1B673E8A001759E2 /* libiconv.dylib in Frameworks */,
@@ -2079,6 +2079,7 @@
 		528AD80964192770FD7E639E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A4621D141BB0F57800284FF1 /* AMapSearchKit.framework */,
 				54EE2D771BAFA48100109C84 /* Security.framework */,
 				54EE2D751BAFA46000109C84 /* CoreTelephony.framework */,
 				54EE2D731BAFA42E00109C84 /* OpenGLES.framework */,
@@ -2086,7 +2087,6 @@
 				54EE2D6F1BAFA41500109C84 /* CoreGraphics.framework */,
 				54EE2D6D1BAFA40400109C84 /* Foundation.framework */,
 				54EE2D6B1BAFA3F500109C84 /* UIKit.framework */,
-				54EE2D671BAFA3D000109C84 /* AMapSearchKit.framework */,
 				54EE2D681BAFA3D000109C84 /* MAMapKit.framework */,
 				72896C651BB006440092EE24 /* Security.framework */,
 				72896C631BB006340092EE24 /* CoreTelephony.framework */,

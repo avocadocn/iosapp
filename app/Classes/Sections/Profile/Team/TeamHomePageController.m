@@ -78,6 +78,8 @@ static NSString *ID = @"feasfsefse";
  *  加入按钮
  */
 @property (nonatomic, strong)UIButton *joinButton;
+@property (nonatomic, strong)UIImage *headerImage;
+
 @end
 
 @implementation TeamHomePageController
@@ -95,21 +97,29 @@ static NSString * const voteCellID = @"voteCellID";
  */
 static NSString * const helpCellID = @"helpCellID";
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // 初始化界面
+    [self setupUI];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    // 初始化界面
-    [self setupUI];
     
     // 初始化导航条
     [self setupNavigationBar];
+    
+    if (self.headerImage) {
+        self.headImageView.image = self.headerImage;
+    }
+    
+    
 }
 
+
 -(void)setupUI{
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -131,6 +141,7 @@ static NSString * const helpCellID = @"helpCellID";
     self.headView = [[UIView alloc]init];
     [self.headView setFrame:CGRectMake(0, 0, DLScreenWidth, headViewHeight)];
     self.tableView.tableHeaderView = self.headView;
+    
     
     self.headImageView = [[UIImageView alloc]initWithFrame:self.headView.frame];
     self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -160,8 +171,23 @@ static NSString * const helpCellID = @"helpCellID";
     }];
     
     [self builtJoinButton];
-
+            [self requestNet];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAlbumPhoto:) name:@"ChangeGroupAlbumPhoto" object:nil];
+    
 }
+
+- (void)changeAlbumPhoto:(NSNotification *)userInfo
+{
+    NSDictionary *Dic = userInfo.userInfo;
+    
+    UIImage *image = [Dic objectForKey:@"image"];
+    
+    self.headerImage = image;
+}
+
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
@@ -254,6 +280,8 @@ static NSString * const helpCellID = @"helpCellID";
 
 -(void)setupNavigationBar{
     
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     //初始化山寨导航条
     self.naviView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, 64)];
     self.naviView.backgroundColor = [UIColor blackColor];
@@ -400,7 +428,7 @@ static NSString * const helpCellID = @"helpCellID";
         [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         self.titleLabel.text = self.informationModel.name;
         [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
-        [self requestNet];
+//        [self requestNet];
         
         
     } failure:^(id errorJson) {

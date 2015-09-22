@@ -128,13 +128,19 @@
         NSLog(@"请求成功-- %@",json);
 //        [self reloadTableViewWithJson:json];
 //        [self.photoArray addObject:[self getPhotoArrayFromJson:json]];
-        [self.photoArray replaceObjectAtIndex:0 withObject:[self getPhotoArrayFromJson:json]];
-        [self getRequestNet];
+        if (json) {
+//            [self.photoArray replaceObjectAtIndex:0 withObject:[self getPhotoArrayFromJson:json]];
+//            [self getRequestNet];
+        }
+        
 //        [self.BigCollection reloadData];
+        
     } failure:^(id errorJson) {
         NSLog(@"请求失败 %@",errorJson);
     }];
+    
 }
+
 
 - (SendSchollTableModel *)getPhotoArrayFromJson:(id)json
 {

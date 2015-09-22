@@ -91,10 +91,10 @@ static NSString * const memberCell = @"memberCell";
     self.defaultMemberCell = defaultMemberCell;
     
     [self setupCollectionViewUI];
-
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpAction:) name:@"JumpToFolderController" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableview:) name:@"ReloadMemberTableView" object:nil];
 }
 
 - (void)jumpAction:(NSNotification *)userInfo
@@ -147,6 +147,37 @@ static NSString * const memberCell = @"memberCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     return 1;
+}
+
+- (void)reloadTableview:(NSNotification *)userinfo
+{
+    NSDictionary *dic = userinfo.userInfo;
+    
+    NSString *ID = [dic objectForKey:@"userId"];
+    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (NSMutableDictionary *tempDic in self.memberInfos) {
+        if ([[tempDic objectForKey:@"_id"] isEqualToString:ID]) { //存在
+            
+            [array addObject:tempDic];
+        }
+    }
+    if (array.count) {
+        [self.memberInfos removeObjectsInArray:array];
+    } else
+    {
+        NSDictionary *aDic = [NSDictionary dictionaryWithObject:[dic objectForKey:@"userId"] forKey:@"_id"];
+        
+        [self.memberInfos addObject:aDic];
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
 }
 
 
@@ -293,19 +324,19 @@ static NSString * const memberCell = @"memberCell";
                 GroupViewController *group = [[GroupViewController alloc]init];
                 [self.navigationController pushViewController:group animated:YES];
 //                NSArray *array = self.navigationController.viewControllers;
-////                [self.navigationController popToViewController:group animated:NO];
+//                [self.navigationController popToViewController:group animated:NO];
                 
 //                NSLog(@"子视图都有   %@", array);
-//                [RestfulAPIRequestTool routeName:@"exitGroups" requestModel:Dic useKeys:@[@"groupId"] success:^(id json) {
-//                    
-//                    NSLog(@"退群成功  %@", json);
-//                    
-//                    
-//                    
-//                } failure:^(id errorJson) {
-//                    
-//                    NSLog(@"退群失败   %@", errorJson);
-//                }];
+                [RestfulAPIRequestTool routeName:@"exitGroups" requestModel:Dic useKeys:@[@"groupId"] success:^(id json) {
+                    
+                    NSLog(@"退群成功  %@", json);
+                    
+                    
+                    
+                } failure:^(id errorJson) {
+                    
+                    NSLog(@"退群失败   %@", errorJson);
+                }];
                 
             }
             break;

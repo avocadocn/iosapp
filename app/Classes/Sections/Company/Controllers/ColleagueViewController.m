@@ -63,6 +63,8 @@ static NSString * contentId = nil;
 @property (nonatomic, strong)NSMutableArray *photoArray;
 @property (nonatomic, strong)NSMutableArray *addressBookModel;
 @property (nonatomic, strong)GiFHUD *gifImage;
+@property (nonatomic, assign)BOOL selectState;
+
 
 @end
 
@@ -101,7 +103,6 @@ static NSString * contentId = nil;
     rightImage.userInteractionEnabled = YES;
     
     [rightImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stateAction)]];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightImage];
     
     self.colleagueTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, DLScreenHeight - 64)];
@@ -123,6 +124,12 @@ static NSString * contentId = nil;
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    
+    [GiFHUD dismiss];
+}
+
 - (void)netRequest {
     AddressBookModel *model = [[AddressBookModel alloc] init];
     
@@ -134,17 +141,28 @@ static NSString * contentId = nil;
         NSLog(@"请求失败 %@",errorJson);
     }];
 }
+
 - (void)stateAction
 {
-    CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"发文字", @"拍照片", @"选取现有的照片"]];
-    card.delegate = self;
-    // 及时状态 页面
-    [self.view addSubview:card];
-    [card show];
+    if (self.selectState == NO) {
+        CardChooseView *card = [[CardChooseView alloc]initWithTitleArray:@[@"发文字", @"拍照片", @"选取现有的照片"]];
+        card.delegate = self;
+        // 及时状态 页面
+        [self.view addSubview:card];
+        [card show];
+        self.selectState = YES;
+    }
+}
+
+- (void)CardDissmiss
+{
+    self.selectState = NO;
 }
 
 - (void)cardActionWithButton:(UIButton *)sender
 {
+    self.selectState = NO;
+    
     switch (sender.tag) {
         case 1:{
             ConditionController *state = [[ConditionController alloc]init];
@@ -308,6 +326,8 @@ static NSString * contentId = nil;
     return rect;
 }
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.inputTextView resignFirstResponder];
@@ -326,6 +346,8 @@ static NSString * contentId = nil;
     [super didReceiveMemoryWarning];
 }
 
+
+
 - (void)reloadTableViewWithJson:(id)json
 {
     self.modelArray = [NSMutableArray array];
@@ -333,6 +355,7 @@ static NSString * contentId = nil;
     self.addressBookModel = [NSMutableArray array];
     SHLUILabel *tempLabel = [[SHLUILabel alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), 100)];
     tempLabel.font = [UIFont systemFontOfSize:TEXTFONT];
+    
     
     int tempI = 0;
     self.photoArray = [NSMutableArray array];

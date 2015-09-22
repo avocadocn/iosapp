@@ -19,6 +19,9 @@
 
 - (void)cardActionWithButton:(UIButton *)sender;
 // set smallCell's tap action...
+
+- (void)CardDissmiss;
+
 @end
 
 @interface CardChooseView : UIView

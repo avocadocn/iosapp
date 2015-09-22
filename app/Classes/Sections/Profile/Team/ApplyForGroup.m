@@ -44,7 +44,7 @@ static NSString *tableId = @"fseeeeeeeeee";
     NSDictionary *dic = [self.detileModel.applyMember objectAtIndex:indexPath.row];
     Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:[dic objectForKey:@"_id"]];
     
-    cell.textLabel.text = per.name;
+//    cell.textLabel.text = per.name;
     cell.AttentionName.text = per.name;
     [cell.AttentionPhoto dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
     cell.joinButton.tag = indexPath.row + 1;
@@ -63,9 +63,21 @@ static NSString *tableId = @"fseeeeeeeeee";
     
     [RestfulAPIRequestTool routeName:@"detailGroupsApplicants" requestModel:dic useKeys:@[@"groupId", @"userId", @"accept"] success:^(id json) {
         NSLog(@"加入成功  %@", json);
+        
+        NSIndexPath *pa = [NSIndexPath indexPathForRow:(sender.tag - 1) inSection:0];
+        
+        [self.detileModel.applyMember removeObjectAtIndex:pa.row];
+        [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pa] withRowAnimation:UITableViewRowAnimationFade];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadMemberTableView" object:nil userInfo:dic];
+        
     } failure:^(id errorJson) {
         NSLog(@"加入失败   %@", errorJson);
     }];
+    
+    
+    
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -79,13 +91,16 @@ static NSString *tableId = @"fseeeeeeeeee";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return DLMultipleHeight(67.0);
 }
+
+
+
 
 
 /*

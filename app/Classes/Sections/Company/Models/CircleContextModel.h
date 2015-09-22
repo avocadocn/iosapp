@@ -11,7 +11,6 @@
 
 @interface CircleContextModel : NSObject
 
-
 // 朋友圈单个消息
 
 @property (nonatomic, copy)NSString *ID;  //消息 id

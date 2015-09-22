@@ -54,6 +54,7 @@
     }];
 }
 
+
 /*
 -(void)deletePersonWithName:(NSString *)name {
     [self.queue inDatabase:^(FMDatabase *db) {
@@ -72,7 +73,10 @@
         b ? NSLog(@"修改成功") : NSLog(@"修改失败");
     }];
 }
- */
+*/
+
+
+
 -(Person *)selectPersonWithUserId:(NSString *)userId { // 查找数据
  
     [self.queue inDatabase:^(FMDatabase *db) {
@@ -81,7 +85,7 @@
         while ([set next]) {
             //         stringForColumn提取对应字段中的数据
             self.per = [Person personWithName:[set stringForColumn:@"name"] imageURL:[set stringForColumn:@"imageURL"] userId:[set stringForColumn:@"userId"]];
-        
+            
         }
         [db close];
     }];
