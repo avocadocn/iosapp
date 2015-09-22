@@ -81,6 +81,8 @@
     _mapView.delegate = self;
     _mapView.showsUserLocation = YES;
     _mapView.mapType = MAMapTypeStandard;
+//    _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, 22);  //罗盘位置
+    _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, 22); // 比例尺位置
     [_mapView setUserTrackingMode:MAUserTrackingModeFollow];
     [self.view addSubview:_mapView];
     

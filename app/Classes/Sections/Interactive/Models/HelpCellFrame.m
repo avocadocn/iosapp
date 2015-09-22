@@ -117,6 +117,7 @@
     CGSize helpContentLabelSize = [helpContent boundingRectWithSize:maxHelpContentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:helpContentLabelAttr context:nil].size;
     self.helpContentLabelF = CGRectMake(helpContentLabelX, helpContentLabelY, helpContentLabelSize.width, helpContentLabelSize.height);
     
+    
     //底部转发
     CGFloat bottomTransmitBarX = HelpCellBorderW;
     CGFloat bottomTransmitBarY = CGRectGetMaxY(self.helpContentLabelF)+10;

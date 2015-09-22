@@ -15,6 +15,8 @@
 #import "VoteTableController.h"
 #import "TeamSettingViewController.h"
 #import "CommentsViewController.h"
+#import "UIImageView+DLGetWebImage.h"
+#import "Interaction.h"
 
 @interface VoteTableViewCell()
 
@@ -52,6 +54,8 @@
  */
 @property (nonatomic, strong) UIView *bottomToolBar;
 
+@property (nonatomic, copy) NSString *interactionId;
+
 @end
 
 @implementation VoteTableViewCell
@@ -75,7 +79,7 @@
     
     // 容器视图
     UIView *voteContainer = [[UIView alloc]init];
-//    [voteContainer setBackgroundColor:[UIColor yellowColor]];
+    //    [voteContainer setBackgroundColor:[UIColor yellowColor]];
     
     // 头像 设置圆角
     UIImageView *avatarImageView = [[UIImageView alloc]init];
@@ -116,7 +120,7 @@
     VoteOptionsView *optionsView = [[VoteOptionsView alloc]init];
     optionsView.voteCount = self.voteNum;
     [voteContainer addSubview:optionsView];
-//    optionsView.backgroundColor = [UIColor redColor];
+    //    optionsView.backgroundColor = [UIColor redColor];
     self.optionsView = optionsView;
     
     // 从六个背景条颜色的所有种排序中选出一个
@@ -149,7 +153,7 @@
     
     // 添加转发btn
     UIButton *retweedBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [retweedBtn setTitle:@"转发" forState:UIControlStateNormal];
+    [retweedBtn setTitle:@"" forState:UIControlStateNormal];
     retweedBtn.x = DLScreenWidth - 80;
     retweedBtn.y = 0;
     retweedBtn.width = 40;
@@ -167,6 +171,8 @@
     [commentBtnSignal subscribeNext:^(id x) {
         
         CommentsViewController *controller = [[CommentsViewController alloc]init];
+        controller.interactionType = @2;
+        controller.inteactionId = self.interactionId;
         [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
     }];
     
@@ -184,6 +190,7 @@
     
 }
 
+
 -(void)setVoteCellFrame:(VoteCellFrame *)voteCellFrame{
     self.voteNum = voteCellFrame.voteNum;
     self.optionsView.voteCount = self.voteNum;
@@ -191,7 +198,8 @@
     _voteCellFrame = voteCellFrame;
     
     VoteInfoModel *model = voteCellFrame.voteInfoModel;
-    [self.avatarImageView setImage:[UIImage imageNamed:model.avatarURL]];
+    self.interactionId = model.interactionId;
+    [self.avatarImageView dlGetRouteWebImageWithString:model.avatarURL placeholderImage:[UIImage imageNamed:@"icon1"]];
     [self.avatarImageView setFrame:voteCellFrame.avatarImageViewF];
     
     self.nameLabel.text = model.name;
@@ -202,7 +210,7 @@
     //    self.timeLabel.backgroundColor = [UIColor redColor];
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
     if (model.voteImageURL) {
-        [self.voteImageView setImage:[UIImage imageNamed:model.voteImageURL]];
+        [self.voteImageView dlGetRouteWebImageWithString:model.voteImageURL placeholderImage:[UIImage imageNamed:@"108"]];
         [self.voteImageView setAlpha:1];
     }else{
         [self.voteImageView setAlpha:0];

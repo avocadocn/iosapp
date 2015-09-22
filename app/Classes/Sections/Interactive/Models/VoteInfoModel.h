@@ -56,4 +56,6 @@
  */
 @property (nonatomic, assign)BOOL judgeVote;
 
+@property (nonatomic, copy)NSString *interactionId;
+
 @end

@@ -33,21 +33,18 @@
     // Configure the view for the selected state
 }
 
--(void)setCommentModel:(CircleCommentModel *)commentModel{
+-(void)setCommentModel:(CommentsModel *)commentModel{
     
-    NSLog(@"%@",commentModel.poster);
-        NSLog(@"%@",commentModel.poster);
-   Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:commentModel.poster.ID];
-//
-////    // 设置头像
-    [self.avatar dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
-//
-//    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
-////
-//    // 设置昵称
-    self.name.text = p.name;
-//
-    
+    if (commentModel.posterId != nil) {
+        Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:commentModel.posterId];
+        ////    // 设置头像
+        [self.avatar dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
+        //
+        //    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
+        ////
+        //    // 设置昵称
+        self.name.text = p.name;
+    }
     
     // 设置评论正文
     self.comment.text = commentModel.content;
