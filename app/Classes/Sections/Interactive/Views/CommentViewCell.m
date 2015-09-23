@@ -33,6 +33,7 @@
     // Configure the view for the selected state
 }
 
+
 -(void)setCommentModel:(CircleContextModel *)commentModel{
     
     NSLog(@"%@",commentModel.poster);
@@ -47,7 +48,6 @@
 //    // 设置昵称
     self.name.text = p.name;
 //
-    
     
     // 设置评论正文
     self.comment.text = commentModel.content;

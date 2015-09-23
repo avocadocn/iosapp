@@ -15,9 +15,15 @@
 #import "VoteInfoModel.h"
 #import "VoteOptionsInfoModel.h"
 #import "CommentsViewController.h"
-
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
+#import "VoteInfoTableViewController.h"
+#import "PollModel.h"
 @interface VoteTableController ()
 
+@property (nonatomic, strong)Interaction *interactionModel;
+
+@property (nonatomic, assign)NSInteger index;
 @end
 
 @implementation VoteTableController
@@ -41,6 +47,7 @@ static NSString * const ID = @"VoteTableViewCell";
     
     [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:ID];
     [self loadVoteDataWithInter:[self.voteArray firstObject]];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -48,21 +55,27 @@ static NSString * const ID = @"VoteTableViewCell";
 }
 
 -(void)loadVoteDataWithInter:(Interaction *)inter{  // 改造 model
+    
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:inter.poster[@"_id"]];
     self.voteArray = [NSMutableArray array];
     NSArray *colorArray = [NSArray arrayWithObjects:
-                           RGBACOLOR(246, 139, 67, 1),
-                           RGBACOLOR(0, 174, 239, 1),
-                           RGBACOLOR(1, 207, 151, 1),
-                           RGBACOLOR(248, 170, 2, 1),
-                           RGBACOLOR(73, 198, 216, 1),
-                           RGBACOLOR(0, 160, 233, 1),nil];
+                           RGBACOLOR(0, 147, 255, 1),
+                           RGBACOLOR(144, 200, 255, 1),
+                           RGBACOLOR(251, 174, 140, 1),
+                           RGBACOLOR(253, 216, 192, 1),
+                           RGBACOLOR(251, 204, 52, 1),
+                           RGBACOLOR(244, 230, 208, 1),
+                           RGBACOLOR(211, 209, 209, 1),
+                           RGBACOLOR(233, 233, 234, 1),nil];
     
     VoteInfoModel *voteInfoModel = [[VoteInfoModel alloc]init];
-    voteInfoModel.name = [NSString stringWithFormat:@"桃地再不斩"];
+    voteInfoModel.name = [NSString stringWithFormat:@"%@",per.name];
     voteInfoModel.time = inter.createTime;
-    voteInfoModel.voteImageURL = [[inter.photo firstObject] objectForKey:@"uri"];
+    voteInfoModel.voteImageURL = [[inter.photos firstObject] objectForKey:@"uri"];
     voteInfoModel.voteText = inter.theme;
-    voteInfoModel.avatarURL = @"1";
+    voteInfoModel.avatarURL = per.imageURL;
+    voteInfoModel.interactionId = inter.interactionId;
+    voteInfoModel.model = inter.poll;
     
     voteInfoModel.options = [NSMutableArray array];
     NSNumber * num = 0;
@@ -74,7 +87,8 @@ static NSString * const ID = @"VoteTableViewCell";
         
         [optionInfo2 setOptionCount:[NSNumber numberWithInteger:array.count]];
         optionInfo2.interactionId = inter.ID;
-        optionInfo2.voteInfoColor = [colorArray objectAtIndex:arc4random() % 6];
+        self.index += 1;
+        optionInfo2.voteInfoColor = [colorArray objectAtIndex:self.index];
         [voteInfoModel.options addObject:optionInfo2];
         
     }
@@ -90,7 +104,8 @@ static NSString * const ID = @"VoteTableViewCell";
     f.voteNum = num;
     [f setVoteInfoModel:voteInfoModel];
     
-    [self.voteArray addObject:f];  // 设置假的 color
+    [self.voteArray addObject:f];  //
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,7 +131,7 @@ static NSString * const ID = @"VoteTableViewCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     VoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
-    
+    //    cell.interModel = self.interactionModel;
     [cell setVoteCellFrame:self.voteArray[indexPath.row]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -133,5 +148,6 @@ static NSString * const ID = @"VoteTableViewCell";
     VoteCellFrame *vote = [self.voteArray firstObject];
     
 }
+
 //}
 @end

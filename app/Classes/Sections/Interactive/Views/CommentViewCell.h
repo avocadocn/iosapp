@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class CircleContextModel;
-
+@class CommentModel;
 
 @interface CommentViewCell : UITableViewCell
 
@@ -21,5 +21,8 @@
 @property (nonatomic, assign) CGFloat cellHeight;
 
 @property (nonatomic, strong)CircleContextModel *commentModel;
+
+@property (nonatomic, strong)CommentModel *model;
+
 
 @end

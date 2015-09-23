@@ -46,4 +46,6 @@
 @property (nonatomic)NSNumber *interactionType;// 活动类型
 @property (nonatomic, copy)NSString *commentId; // 评论id
 
+@property (nonatomic, strong)NSDictionary *voters;
+
 @end

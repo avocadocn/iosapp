@@ -64,6 +64,7 @@
 
 @property (nonatomic, strong)NSNumber *isOnlyToContent;
 
+@property (nonatomic, copy)NSString *posterId;
 
 - (void)save;
 

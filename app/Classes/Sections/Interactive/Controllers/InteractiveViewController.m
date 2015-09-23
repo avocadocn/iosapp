@@ -86,6 +86,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self setupActivityShowTableView];
     [self requestNet];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"KPOSTNAME" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"CHANGESTATE" object:nil];
 }
 
 - (void)reFreshData:(NSNotification *)notice {
@@ -460,7 +461,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             break;
         }
         case 2:{  // 投票详情
-            VoteTableController *voteController = [[VoteTableController alloc]init]; /// 投票
+            VoteTableController *voteController = [[VoteTableController alloc]init];  /// 投票
             voteController.voteArray = [NSMutableArray array];
             [voteController.voteArray addObject:inter];
             [self.navigationController pushViewController:voteController animated:YES];

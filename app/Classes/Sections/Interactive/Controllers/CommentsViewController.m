@@ -38,8 +38,8 @@ static NSString * const ID = @"VoteCommentViewCell";
     [super viewDidLoad];
     
     [FMDBSQLiteManager shareSQLiteManager];
-//    NSString *filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
-//    NSLog(@"************->%@",filePath);
+    //    NSString *filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
+    //    NSLog(@"************->%@",filePath);
     self.title = @"评论";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -58,7 +58,7 @@ static NSString * const ID = @"VoteCommentViewCell";
     
     [self setupKeyBoard];
     
-//    [self loadData];
+    //    [self loadData];
     [self netWorkRequest];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commenting:) name:@"POSTTEXT"object:nil]; // 注册观察者 监测发送评论
@@ -68,13 +68,15 @@ static NSString * const ID = @"VoteCommentViewCell";
 - (void)commenting:(NSNotification *)notice {
     [self marchingComments]; // 进行评论
     
-
+    
 }
 - (void)netWorkRequest { // 获取评论列表
-    [self.model setInteractionType:@3];
+    self.model = [[Interaction alloc]init];
+    [self.model setInteractionType:self.interactionType];
+    [self.model setInteractionId:self.inteactionId];
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:self.model useKeys:@[@"interactionType",@"interactionId"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
-         [self loadDataWithJson:json];
+        [self loadDataWithJson:json];
         
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
@@ -83,8 +85,11 @@ static NSString * const ID = @"VoteCommentViewCell";
 }
 
 - (void)marchingComments {
-    [self.model setInteractionType:@3];
+    self.model = [[Interaction alloc]init];
+    [self.model setInteractionType:self.interactionType];
+    //    NSLog(@"__-%@",self.model.interactionType);
     [self.model setContent:self.keyBoard.inputView.text];
+    [self.model setInteractionId:self.inteactionId];
     [RestfulAPIRequestTool routeName:@"marchingComments" requestModel:self.model useKeys:@[@"interactionType",@"interactionId",@"content"] success:^(id json) {
         NSLog(@"发送评论成功 %@",json);
         [self netWorkRequest];
@@ -92,6 +97,7 @@ static NSString * const ID = @"VoteCommentViewCell";
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"评论失败" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
         NSLog(@"发送评论失败的原因 %@",[errorJson objectForKey:@"msg"]);
+        NSLog(@"%@",self.interactionType);
         
     }];
 }
@@ -102,15 +108,17 @@ static NSString * const ID = @"VoteCommentViewCell";
         [model setValuesForKeysWithDictionary:dic];
         [self.comments addObject:model];
     }
+    CommentsModel *model = [self.comments firstObject];
+    
     [self.tableView reloadData];
-//    for (NSInteger i = 0 ; i<5;i++) {
-//        CommentsModel *model = [[CommentsModel alloc]init];
-//        model.name = @"杨彤";
-//        model.avatarUrl = @"1";
-//        model.comment = @"你猜猜看么什的低洼低洼的吾问无为谓哇哇哇哇么吗吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无问无为谓吾问无为谓哇哇哇哇哇哇哇哇";
-//        
-//        [self.comments addObject:model];
-//    }
+    //    for (NSInteger i = 0 ; i<5;i++) {
+    //        CommentsModel *model = [[CommentsModel alloc]init];
+    //        model.name = @"杨彤";
+    //        model.avatarUrl = @"1";
+    //        model.comment = @"你猜猜看么什的低洼低洼的吾问无为谓哇哇哇哇么吗吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无为谓吾问无问无为谓吾问无为谓哇哇哇哇哇哇哇哇";
+    //
+    //        [self.comments addObject:model];
+    //    }
     
 }
 
@@ -125,7 +133,7 @@ static NSString * const ID = @"VoteCommentViewCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWasShown:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     self.keyBoard = keyBoard;
-
+    
     
     [self.view addSubview:keyBoard];
     
@@ -138,11 +146,11 @@ static NSString * const ID = @"VoteCommentViewCell";
     double duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     // 键盘的frame
     CGRect keyboardF = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-   
+    
     [UIView animateWithDuration:duration animations:^{
         self.keyBoard.y = keyboardF.origin.y - self.keyBoard.height ;
     }];
-
+    
 }
 
 
@@ -168,7 +176,7 @@ static NSString * const ID = @"VoteCommentViewCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CommentViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     
-//    CircleCommentModel *model = [[CircleCommentModel alloc]init];
+    //    CircleCommentModel *model = [[CircleCommentModel alloc]init];
     
     [cell setCommentModel:self.comments[indexPath.row]];
     
@@ -186,7 +194,7 @@ static NSString * const ID = @"VoteCommentViewCell";
     CGSize maxCommentLabelSize = CGSizeMake(currentWidth, MAXFLOAT);
     NSDictionary *attr = @{NSFontAttributeName:self.defaultCell.comment.font};
     CGSize commentLabelSize = [model.content boundingRectWithSize:maxCommentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
-   
+    
     return self.defaultCell.comment.y + commentLabelSize.height + 12;
 }
 - (void) didEditingCell {
@@ -197,7 +205,7 @@ static NSString * const ID = @"VoteCommentViewCell";
     return UITableViewCellEditingStyleDelete;
 }
 /*
-    _id = 55f6b5b31cc34f3c7f944c9f,
+ _id = 55f6b5b31cc34f3c7f944c9f,
 	content = 事实上事实上,
 	posterId = 55dc110314a37c242b6486d0,
 	posterCid = 55d44d2219d8c913768fce8c,
@@ -206,7 +214,7 @@ static NSString * const ID = @"VoteCommentViewCell";
 	interactionId = 55f63823b00f52024155b8c1,
 	createTime = 2015-09-14T11:55:31.809Z,
 	approveCount = 0
-*/
+ */
 
 
 //  删除评论
