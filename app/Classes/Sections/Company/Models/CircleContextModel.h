@@ -31,11 +31,15 @@
 
 //@property (nonatomic, copy)NSString *msg;
 
+@property (nonatomic, copy)NSString *kind;
+
 @property (nonatomic, copy)NSString *__v;
 
 @property (nonatomic, copy)NSString *latestCommentDate;
 
 @property (nonatomic, strong)NSMutableArray *relativeCids;
+
+@property (nonatomic, copy)NSString *targetContentId;
 
 @property (nonatomic, strong)NSMutableArray *comments;
 
@@ -50,5 +54,19 @@
 @property (nonatomic, strong)UIView *detileView;
 
 @property (nonatomic, strong)AddressBookModel *target;
+
+
+@property (nonatomic, copy)NSString *targetUserId;
+
+@property (nonatomic, copy)NSString *postUserCid;
+
+@property (nonatomic, copy)NSString *commentId;
+
+@property (nonatomic, strong)NSNumber *isOnlyToContent;
+
+
+- (void)save;
+
+- (instancetype)initWithString:(NSString *)string;
 
 @end

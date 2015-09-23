@@ -5,7 +5,7 @@
 //  Created by 张加胜 on 15/8/7.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "CircleContextModel.h"
 #import "CommentViewCell.h"
 #import "UIImageView+DLGetWebImage.h"
 #import "CircleCommentModel.h"
@@ -33,7 +33,7 @@
     // Configure the view for the selected state
 }
 
--(void)setCommentModel:(CircleCommentModel *)commentModel{
+-(void)setCommentModel:(CircleContextModel *)commentModel{
     
     NSLog(@"%@",commentModel.poster);
         NSLog(@"%@",commentModel.poster);

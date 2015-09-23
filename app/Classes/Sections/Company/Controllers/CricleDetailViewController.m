@@ -13,6 +13,8 @@
 #import "CommentCardCell.h"
 #import "CircleCommentModel.h"
 #import "AddressBookModel.h"
+#import <MJRefresh.h>
+
 
 static NSString * const ID = @"VoteCommentViewCell";
 
@@ -45,9 +47,16 @@ static NSString *circleCardCell = @"circleCardCell";
     [self.detileTableview registerClass:[ColleagueViewCell class] forCellReuseIdentifier:colleague];
     [self.detileTableview registerClass:[CommentCardCell class] forCellReuseIdentifier:circleCardCell];
     [self.detileTableview registerNib:[UINib nibWithNibName:@"CommentViewCell" bundle:nil] forCellReuseIdentifier:ID];
+    
+//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 10)];
+//    view.backgroundColor = [UIColor whiteColor];
+//    self.detileTableview.tableFooterView = view;
+//    
     CommentViewCell *cell = [self.detileTableview dequeueReusableCellWithIdentifier:ID];
     self.defaultCell = cell;
     [self.view addSubview:self.detileTableview];
+
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,8 +92,8 @@ static NSString *circleCardCell = @"circleCardCell";
         return 64;
     }
     
-    CircleCommentModel *model = [[CircleCommentModel alloc]init];
-    [model setValuesForKeysWithDictionary:self.model.comments[indexPath.row]];
+    CircleContextModel *model = [[CircleContextModel alloc]init];
+    model = self.model.comments[indexPath.row];
     
     CGFloat currentWidth = self.defaultCell.comment.width;
     
@@ -134,13 +143,15 @@ static NSString *circleCardCell = @"circleCardCell";
     
     CommentViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     
-    CircleCommentModel *model = [[CircleCommentModel alloc]init];
-    AddressBookModel *poster = [[AddressBookModel alloc]init];
-    NSDictionary *posterDic = [[self.model.comments objectAtIndex:indexPath.row] objectForKey:@"poster"];
-    [poster setValuesForKeysWithDictionary:posterDic];
-    [model setValuesForKeysWithDictionary:[self.model.comments objectAtIndex:indexPath.row]];
-    [model setPoster:poster];
-    [cell setCommentModel:model];
+//    CircleContextModel *model = [[CircleContextModel alloc]init];
+//    AddressBookModel *poster = [[AddressBookModel alloc]init];
+    CircleContextModel *temp = [self.model.comments objectAtIndex:indexPath.row];
+//    NSDictionary *posterDic = temp.poster;
+//    [poster setValuesForKeysWithDictionary:posterDic];
+//    [model setValuesForKeysWithDictionary:[self.model.comments objectAtIndex:indexPath.row]];
+//    [model setPoster:poster];
+
+    [cell setCommentModel:temp];
     
     return cell;
     

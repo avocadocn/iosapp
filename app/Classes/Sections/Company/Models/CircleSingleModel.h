@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CircleSingleModel : NSObject
+@interface CircleSingleModel : NSObject<NSCoding>
+
+
+
 
 @end
