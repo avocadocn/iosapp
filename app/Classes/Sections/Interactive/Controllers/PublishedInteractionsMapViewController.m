@@ -27,9 +27,22 @@
 @property (nonatomic, copy)NSString *searchText; // 搜索框内容
 @property (nonatomic, copy)NSString *addressName; // 地址
 @property (nonatomic)CLLocationCoordinate2D Interactioncoordinate; // 活动坐标
+@property (nonatomic) BOOL searchType; // 修改搜索类型
+@property (nonatomic)CLLocationCoordinate2D clickCoordinate; // 点击空白处的坐标
+@property (nonatomic, copy)NSString *titleName,*subtitleName; // 点击空白处大头针的title
+@property (nonatomic)id<MAAnnotation> annotation; /// 点击大头针出现的大头针
+
+@property (nonatomic, strong)NSMutableArray *annotationArray;
 @end
 
 @implementation PublishedInteractionsMapViewController
+
+-(NSMutableArray *)annotationArray {
+    if (_annotationArray == nil) {
+        self.annotationArray = [@[]mutableCopy];
+    }
+    return _annotationArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,6 +90,7 @@
     self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.btn.frame = CGRectMake(0, DLScreenHeight - 40, DLScreenWidth, 40);
     [self.btn setTitle:@"确认" forState:UIControlStateNormal];
+    self.btn.userInteractionEnabled = NO;
     [self.btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.btn.backgroundColor = [UIColor lightGrayColor];
     [self.btn addTarget:self action:@selector(Besure:) forControlEvents:UIControlEventTouchUpInside];
@@ -95,13 +109,17 @@
 
 #pragma search
 
-- (void)buildSearchWithText:(NSString *)text {
+- (void)buildSearchWithText:(NSString *)text orTrue:(BOOL)orTrue coordinate:(CLLocationCoordinate2D)coordinate {
     _search = [[AMapSearchAPI alloc] initWithSearchKey:@"4693df7c11ba3ba2cc58e44e8666134f" Delegate:self];
     
 //  逆地理编码
     AMapReGeocodeSearchRequest *regeoRequest = [[AMapReGeocodeSearchRequest alloc] init];
     regeoRequest.searchType = AMapSearchType_ReGeocode;
-    regeoRequest.location = [AMapGeoPoint locationWithLatitude:self.userLocation.coordinate.latitude longitude:self.userLocation.coordinate.longitude];
+    if (orTrue) { //
+        regeoRequest.location = [AMapGeoPoint locationWithLatitude:self.userLocation.coordinate.latitude longitude:self.userLocation.coordinate.longitude];
+    } else {
+        regeoRequest.location = [AMapGeoPoint locationWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    }
     regeoRequest.radius = 10000;
     regeoRequest.requireExtension = YES;
     //发起逆地理编码
@@ -127,9 +145,15 @@
 #pragma MAPinAnnotationView // 大头针
 - (void)buildMAPinAnnotationView {
     MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
-    pointAnnotation.coordinate = CLLocationCoordinate2DMake(self.point.location.latitude, self.point.location.longitude); //
-    pointAnnotation.title = self.point.name;
-    pointAnnotation.subtitle = self.point.address;
+    if (self.searchType == YES) { // 关键字搜索
+        pointAnnotation.coordinate = CLLocationCoordinate2DMake(self.point.location.latitude, self.point.location.longitude); //
+        pointAnnotation.title = self.point.name;
+        pointAnnotation.subtitle = self.point.address;
+    } else {  // 点击地图空白处
+        pointAnnotation.coordinate = self.clickCoordinate;
+        pointAnnotation.title = self.titleName;
+        pointAnnotation.subtitle = self.subtitleName;
+    }
     [_mapView addAnnotation:pointAnnotation];
 }
 
@@ -145,7 +169,7 @@
         return;
     }
     //处理搜索结果
-    NSString *strCount = [NSString stringWithFormat:@"count: %d",response.count];
+    NSString *strCount = [NSString stringWithFormat:@"count: %ld",(long)response.count];
     NSString *strSuggestion = [NSString stringWithFormat:@"Suggestion: %@",response.suggestion];
     NSString *strPoi = @"";
     for (AMapPOI *p in response.pois) {
@@ -161,15 +185,25 @@
 
 // 实现逆地理编码对应的回调函数
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response {
-    if(response.regeocode != nil) {
+    if(response.regeocode != nil) { // 关键字搜索
         //处理搜索结果
-        if ([response.regeocode.addressComponent.city isEqualToString:@""]) {
-            self.cityName = [NSString stringWithFormat:@"%@",response.regeocode.addressComponent.province];
-        } else {
-            self.cityName = [NSString stringWithFormat:@"%@",response.regeocode.addressComponent.city];
+        if (self.searchType == YES) {
+            if ([response.regeocode.addressComponent.city isEqualToString:@""]) {
+                self.cityName = [NSString stringWithFormat:@"%@",response.regeocode.addressComponent.province];
+            } else {
+                self.cityName = [NSString stringWithFormat:@"%@",response.regeocode.addressComponent.city];
+            }
+            NSLog(@"%@",self.cityName);
+            [self marchingPOISearch];
+        } else {          // 点击地图空白处
+            if ([response.regeocode.addressComponent.city isEqualToString:@""]) {
+                self.titleName = [NSString stringWithFormat:@"%@ %@",response.regeocode.addressComponent.province,response.regeocode.addressComponent.district];
+            } else {
+                self.titleName = [NSString stringWithFormat:@"%@ %@",response.regeocode.addressComponent.city,response.regeocode.addressComponent.district];
+            }
+            self.subtitleName = [NSString stringWithFormat:@"%@%@%@",response.regeocode.addressComponent.township,response.regeocode.addressComponent.streetNumber.street,response.regeocode.addressComponent.streetNumber.number];
+            [self buildMAPinAnnotationView];
         }
-        NSLog(@"%@",self.cityName);
-        [self marchingPOISearch];
     }
 }
 
@@ -177,7 +211,11 @@
 #pragma UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar resignFirstResponder]; // 移除第一响应
-    [self buildSearchWithText:searchBar.text]; // 创建搜索
+    self.searchType = YES;
+    if (self.annotationArray.count != 0) { // 如果数组不为空(存在之间搜索的大头针)将数组清空
+        [_mapView removeAnnotations:self.annotationArray];
+    }
+    [self buildSearchWithText:searchBar.text orTrue:YES coordinate:self.userLocation.coordinate]; // 创建搜索
     self.searchText = searchBar.text;
     NSLog(@"%@",searchBar.text);
     NSLog(@"search");
@@ -197,6 +235,7 @@ updatingLocation:(BOOL)updatingLocation
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 { // 大头针
+    
     if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
         static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
         MAPinAnnotationView*annotationView = (MAPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
@@ -205,6 +244,8 @@ updatingLocation:(BOOL)updatingLocation
         }
         annotationView.canShowCallout= YES; //设置气泡可以弹出,默认为 NO annotationView.animatesDrop = YES; //设置标注动画显示,默认为 NO
         annotationView.draggable = YES; //设置标注可以拖动,默认为 NO annotationView.pinColor = MAPinAnnotationColorPurple;
+        self.annotation = annotation;
+        [self.annotationArray addObject:annotation];
         return annotationView;
     }
 
@@ -213,6 +254,8 @@ updatingLocation:(BOOL)updatingLocation
 
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {//点击大头针触发
     NSLog(@"%@",mapView.annotations);
+    self.btn.userInteractionEnabled = YES;
+    self.btn.backgroundColor = RGBACOLOR(253, 185, 0, 1);
     NSArray * array = [NSArray arrayWithArray:_mapView.annotations];
     
     for (int i=0; i<array.count; i++)
@@ -222,7 +265,7 @@ updatingLocation:(BOOL)updatingLocation
         if (view.annotation.coordinate.latitude ==((MAPointAnnotation *)array[i]).coordinate.latitude)
             
         {
-            //获取到当前的大头针 你可以执行一些操作
+            //获取到当前的大头针 执行一些操作
          self.addressName = [NSString stringWithFormat:@"%@%@",[(MAPointAnnotation *)[mapView.annotations objectAtIndex:i] title],[(MAPointAnnotation *)[mapView.annotations objectAtIndex:i] subtitle]];
          self.Interactioncoordinate = view.annotation.coordinate;
             
@@ -241,6 +284,26 @@ updatingLocation:(BOOL)updatingLocation
     }
  
 }
+- (void)mapView:(MAMapView *)mapView didDeselectAnnotationView:(MAAnnotationView *)view {//大头针消失时触发
+    self.btn.userInteractionEnabled = NO;
+    self.btn.backgroundColor = [UIColor lightGrayColor];
+    
+}
+
+// 点击地图空白处调用
+- (void)mapView:(MAMapView *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate {
+    
+    NSLog(@"点击位置的坐标 %f%f",coordinate.latitude,coordinate.longitude);
+    [mapView removeAnnotation:self.annotation]; // 将之前点击出来的 大头针移除掉
+    self.searchType = NO;
+    self.clickCoordinate = coordinate;
+    [self buildSearchWithText:nil orTrue:NO coordinate:coordinate];
+    
+}
+
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

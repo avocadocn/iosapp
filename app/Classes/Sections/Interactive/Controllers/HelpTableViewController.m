@@ -58,7 +58,8 @@ static NSString * const ID = @"HelpTableViewCell";
         HelpInfoModel *helpInfoModel = [[HelpInfoModel alloc]init];
         helpInfoModel.name = p.name;
 //        helpInfoModel.avatarURL = p.imageURL;
-        helpInfoModel.time = [self getParsedDateStringFromString:self.model.createTime];
+//        helpInfoModel.time = [self getParsedDateStringFromString:self.model.createTime];
+        helpInfoModel.time = self.model.createTime;
         for (NSDictionary *dic in self.model.photos) {
             self.url = dic[@"uri"];
         }

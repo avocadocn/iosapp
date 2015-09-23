@@ -163,7 +163,7 @@
     CGFloat bottomTransmitBarX = VoteCellBorderW;
     CGFloat bottomTransmitBarY = CGRectGetMaxY(self.optionsViewF);
     CGFloat bottomTransmitBarWidth = DLScreenWidth - 2.0* VoteCellBorderW;
-    CGFloat bottomTransmitBarHeight = 44.0;
+    CGFloat bottomTransmitBarHeight = 55.0;
     self.bottomTransmitBarF = CGRectMake(bottomTransmitBarX, bottomTransmitBarY, bottomTransmitBarWidth, bottomTransmitBarHeight);
     
     // 整个容器的frame

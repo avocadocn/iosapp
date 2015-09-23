@@ -34,6 +34,9 @@
 }
 
 -(void)setCommentModel:(CircleCommentModel *)commentModel{
+    
+    NSLog(@"%@",commentModel.poster);
+        NSLog(@"%@",commentModel.poster);
    Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:commentModel.poster.ID];
 //
 ////    // 设置头像

@@ -403,7 +403,9 @@ static NSString *kGroupName = @"GroupName";
 {
     [self showHint:NSLocalizedString(@"receiveCmd", @"receive cmd message")];
 }
-
+/**
+ *当应用不在活动状态时，触发震动和提示音
+ */
 - (void)playSoundAndVibration{
     NSTimeInterval timeInterval = [[NSDate date]
                                    timeIntervalSinceDate:self.lastPlaySoundDate];
@@ -421,7 +423,9 @@ static NSString *kGroupName = @"GroupName";
     // 收到消息时，震动
     [[EMCDDeviceManager sharedInstance] playVibration];
 }
-
+/**
+ *当应用在活动状态时，发出本地通知
+ */
 - (void)showNotificationWithMessage:(EMMessage *)message
 {
     EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
