@@ -75,7 +75,7 @@
         }
 #endif
     }
-    
+     
     
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 104, DLScreenWidth, DLScreenHeight - 124 - 20)];
     _mapView.delegate = self;
