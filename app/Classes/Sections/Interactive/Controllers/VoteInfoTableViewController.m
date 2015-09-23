@@ -8,19 +8,31 @@
 
 #import "VoteInfoTableViewController.h"
 #import <ReactiveCocoa.h>
-
+#import "PollModel.h"
+#import "VoteInfoTableViewModel.h"
 #define kIconMargin 12
 #define kIconCountPerLine 7
+#import "UIImageView+DLGetWebImage.h"
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
 
 @interface VoteInfoTableViewController ()
 {
     CGFloat _itemWidthHeight;
 }
 
+@property (nonatomic, strong)NSMutableArray *dataArray;
 @end
 
 @implementation VoteInfoTableViewController
 static NSString * const ID = @"VoteInfoTableViewCell";
+
+-(NSMutableArray *)dataArray {
+    if (_dataArray == nil) {
+        self.dataArray = [@[]mutableCopy];
+    }
+    return _dataArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,6 +46,15 @@ static NSString * const ID = @"VoteInfoTableViewCell";
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
+    for (NSDictionary *dic in self.model.option) {
+        VoteInfoTableViewModel *model = [[VoteInfoTableViewModel alloc] init];
+        [model setValuesForKeysWithDictionary:dic];
+        [self.dataArray addObject:model];
+    }
+    [self.tableView reloadData];
+    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ID];
     
     
@@ -51,13 +72,14 @@ static NSString * const ID = @"VoteInfoTableViewCell";
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 2;
+    return self.dataArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 1;
+    VoteInfoTableViewModel *model = self.dataArray[section];
+    return model.voters.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

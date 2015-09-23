@@ -87,18 +87,22 @@
     [self openAnimation:fl];
 }
 
-- (void)builtInterfaceWithInter:(NSNumber *)num
+- (void)builtInterfaceWithInter:(NSNumber *)num voteCount:(NSNumber *)voteCount
 {
-//    NSLog(@"绘制动画");
-//    CGFloat tempNum = [num floatValue];
-//    CGFloat allCount = [self.optionPercentage floatValue];
-//    
-//    CGFloat width = tempNum / allCount * DLScreenWidth;
-//    
-//    self.percentageLabel.text = [NSString stringWithFormat:@"%zd%%",num];
-//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 44)];
-//    view.backgroundColor = self.voteViewColor;
-//    [self insertSubview:view atIndex:0];
+    NSLog(@"绘制动画");
+    CGFloat tempNum = [num floatValue];
+    CGFloat allCount = [voteCount floatValue];
+    CGFloat width = 0.0;
+    if (tempNum != 0) {
+        width = tempNum / allCount * DLScreenWidth + 1;
+        self.percentageLabel.text = [NSString stringWithFormat:@"%%%.2f",tempNum / [voteCount floatValue] * 100];
+    } else {
+        width = 0;
+        self.percentageLabel.text = [NSString stringWithFormat:@"%%0"];
+    }
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 44)];
+    view.backgroundColor = self.voteViewColor;
+    [self insertSubview:view atIndex:0];
 }
 
 /**

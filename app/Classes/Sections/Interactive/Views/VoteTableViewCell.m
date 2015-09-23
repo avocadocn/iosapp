@@ -56,6 +56,7 @@
 
 @property (nonatomic, copy) NSString *interactionId;
 
+@property (nonatomic, strong)VoteInfoModel *infoModel;
 @end
 
 @implementation VoteTableViewCell
@@ -142,8 +143,10 @@
     // 此处使用rac 监听按钮的点击事件
     RACSignal *voteInfosSignal = [self.voteInfosBtn rac_signalForControlEvents:UIControlEventTouchUpInside];
     [voteInfosSignal subscribeNext:^(id x) {
-        VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
         
+        
+        VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+        controller.model = self.infoModel.model;
         // **********************************************
         // 此处由于代理 以及 通知的使用均不合适，所以在这边我采用了cell所处的viewController的类方法 \
         返回一个单例的navigationController， 这样方便在cell的任何子控件调用，已推出新的viewcontroller
@@ -198,6 +201,7 @@
     _voteCellFrame = voteCellFrame;
     
     VoteInfoModel *model = voteCellFrame.voteInfoModel;
+    self.infoModel = voteCellFrame.voteInfoModel; //***********************
     self.interactionId = model.interactionId;
     [self.avatarImageView dlGetRouteWebImageWithString:model.avatarURL placeholderImage:[UIImage imageNamed:@"icon1"]];
     [self.avatarImageView setFrame:voteCellFrame.avatarImageViewF];
@@ -239,6 +243,7 @@
     }
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle) name:@"Vote" object:nil];  //  接受跳转通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle) name:@"CHANGESTATE" object:nil];
 }
 
 - (void)setVoteTitle

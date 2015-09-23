@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "PollModel.h"
 @interface VoteInfoModel : NSObject
 
 /**
@@ -58,4 +58,5 @@
 
 @property (nonatomic, copy)NSString *interactionId;
 
+@property (nonatomic, strong)PollModel *model;
 @end

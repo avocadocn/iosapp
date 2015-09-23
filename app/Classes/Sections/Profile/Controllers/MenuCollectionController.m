@@ -48,18 +48,18 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
     [flowLayout setMinimumInteritemSpacing:margin];
     
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 2 * height + margin) collectionViewLayout:flowLayout];
-//    self.collectionView = [[UICollectionView alloc]initWithFrame:cgrec collectionViewLayout:flowLayout];
+    //    self.collectionView = [[UICollectionView alloc]initWithFrame:cgrec collectionViewLayout:flowLayout];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
     
     
     
-    self.itemNames = @[@"",@"群组",@"消息",@"活动",@"投票",@"求助"];
     
-    self.itemIcons = @[@"",@"shetuan",@"聊天 copy",@"活动 ",@"投票 ",@"邀请 "];
+    self.itemNames = @[@"我的信息",@"群组",@"消息",@"活动",@"投票",@"求助"];
+    
+    self.itemIcons = @[@"我的信息111@2X",@"社团111@2X",@"消息111@2X",@"活动111@2X",@"投票111@2X",@"求助111@2x"];
     
     
     self.collectionView.backgroundColor = GrayBackgroundColor;
@@ -84,14 +84,14 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -107,26 +107,30 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    Account *account = [AccountTool account];
-    Person *p = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:account.ID];
-    if (indexPath.row == 0) {
-        MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-        cell.menuCollectionCellName.text = @"我的信息";
-        [cell.menuCollectionCellIcon dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"icon1" ]];
-        return cell;
-    } else {
-        MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-        cell.menuCollectionCellName.text = self.itemNames[indexPath.row];
-        [cell.menuCollectionCellIcon setImage:[UIImage imageNamed:self.itemIcons[indexPath.row]]];
-        return cell;
-    }
+    //    Account *account = [AccountTool account];
+    //    Person *p = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:account.ID];
+    //    if (indexPath.row == 0) {
+    //        MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    //        cell.menuCollectionCellName.text = @"我的信息";
+    //        [cell.menuCollectionCellIcon dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"icon1" ]];
+    //        return cell;
+    //    } else {
+    //        MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    //        cell.menuCollectionCellName.text = self.itemNames[indexPath.row];
+    //        [cell.menuCollectionCellIcon setImage:[UIImage imageNamed:self.itemIcons[indexPath.row]]];
+    //        return cell;
+    //    }
+    MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.menuCollectionCellName.text = self.itemNames[indexPath.row];
+    [cell.menuCollectionCellIcon setImage:[UIImage imageNamed:self.itemIcons[indexPath.row]]];
+    return cell;
     
     // Configure the cell
-
+    
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-       if ([self.delegate respondsToSelector:@selector(collectionController:didSelectedItemAtIndex:)]) {
+    if ([self.delegate respondsToSelector:@selector(collectionController:didSelectedItemAtIndex:)]) {
         [self.delegate collectionController:self didSelectedItemAtIndex:indexPath.row];
     }
     

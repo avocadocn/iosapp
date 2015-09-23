@@ -12,8 +12,8 @@
 
 - (void)awakeFromNib {
     
-    [self.menuCollectionCellIcon.layer setCornerRadius:self.menuCollectionCellIcon.width / 2];
-    [self.menuCollectionCellIcon.layer setMasksToBounds:YES];
+//    [self.menuCollectionCellIcon.layer setCornerRadius:self.menuCollectionCellIcon.width / 2];
+//    [self.menuCollectionCellIcon.layer setMasksToBounds:YES];
 }
 
 @end
