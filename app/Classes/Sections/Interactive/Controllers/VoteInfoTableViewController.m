@@ -22,6 +22,8 @@
 }
 
 @property (nonatomic, strong)NSMutableArray *dataArray;
+
+@property (nonatomic, strong) VoteInfoTableViewModel *infoModel;
 @end
 
 @implementation VoteInfoTableViewController
@@ -79,21 +81,23 @@ static NSString * const ID = @"VoteInfoTableViewCell";
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
     VoteInfoTableViewModel *model = self.dataArray[section];
-    return model.voters.count;
+     self.infoModel = model;
+    
+//    return model.voters.count;
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    
+    VoteInfoTableViewModel *model = self.dataArray[indexPath.section];
     // 硬编码 假设第一组 2 个数据，第2组 20 个数据
-   indexPath.section == 0 ? [self addSubImageViewWithCell:cell itemCount:2] : [self addSubImageViewWithCell:cell itemCount:10];
+   indexPath.section == 0 ? [self addSubImageViewWithCell:cell itemCount:model.voters.count] : [self addSubImageViewWithCell:cell itemCount:model.voters.count];
     
     return cell;
 }
 
 -(void)addSubImageViewWithCell:(UITableViewCell *)cell itemCount:(NSUInteger)count{
-    
     NSUInteger itemCount = count;
     CGFloat itemWidthHeight = _itemWidthHeight;
     
@@ -122,13 +126,17 @@ static NSString * const ID = @"VoteInfoTableViewCell";
 
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return section == 0 ? @"好帅(2)" : @"一点也不帅(20)";
+    VoteInfoTableViewModel *model = self.dataArray[section];
+    
+    return [NSString stringWithFormat:@"%@",model.value];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+     VoteInfoTableViewModel *model = self.dataArray[indexPath.section];
+   
     
     // 硬编码 假设第一组 2 个数据，第2组 20 个数据
-    NSUInteger lineCount = (indexPath.section == 0 ? 2 / kIconCountPerLine : 10 / kIconCountPerLine) + 1;
+    NSUInteger lineCount = (indexPath.section == 0 ? model.voters.count / kIconCountPerLine : model.voters.count / kIconCountPerLine) + 1;
     return lineCount * (_itemWidthHeight + kIconMargin) +  kIconMargin;
 }
 
