@@ -207,15 +207,18 @@ CGRect TTApplicationFrame() {
   CGRect frame = [UIScreen mainScreen].applicationFrame;
   return CGRectMake(0, 0, frame.size.width, frame.size.height);
 }
-
+static BOOL state = NO;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void TTAlert(NSString* message) {
-  UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Alert"
-                                             message:message
-                                                  delegate:nil
-                                        cancelButtonTitle:@"OK"
-                                        otherButtonTitles:nil];
-  [alert show];
+    if (!state) {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        state = YES;
+    }
 }
 
 

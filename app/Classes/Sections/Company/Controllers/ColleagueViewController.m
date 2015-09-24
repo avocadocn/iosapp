@@ -134,14 +134,17 @@ static NSString * contentId = nil;
     [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
     self.colleagueTable.footer = footer;
     
-    MJRefreshHeader *header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
+//    MJRefreshHeader *header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
+    MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
+    aHeader.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     
-    self.colleagueTable.header = header;
+    
+    self.colleagueTable.header = aHeader;
     [self.view addSubview:self.colleagueTable];
     [self netRequest];
     
 }
-- (void)headerAction
+- (void)headerAction  // 刷新
 {
 //    [UIView animateWithDuration:3 animations:^{
 //        [self.colleagueTable.header endRefreshing];
@@ -149,7 +152,7 @@ static NSString * contentId = nil;
     self.state = DLRefreshStateRefresh;
     CircleContextModel *model = [self.modelArray firstObject];
     
-    [self refreshAndUploadWithLimit:10 andLatestTime:model.postDate lastTime:nil];
+    [self refreshAndUploadWithLimit:10 andLatestTime:nil lastTime:nil];
 }
 
 - (void)refreshAction{
@@ -181,7 +184,7 @@ static NSString * contentId = nil;
     
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:dic useKeys:array success:^(id json) {
 //        if (num) { //num 存在是加载
-        NSLog(@" 加载的到的数据为 %@", json);
+        NSLog(@" 刷新加载的到的数据为 %@", json);
         
             [self saveDefaultWithJson:json];
         
@@ -193,6 +196,8 @@ static NSString * contentId = nil;
         
 //        }
     } failure:^(id errorJson) {
+        [self.colleagueTable.header endRefreshing];
+        [self.colleagueTable.footer endRefreshing];
         
     }];
 }
@@ -249,18 +254,25 @@ static NSString * contentId = nil;
         switch (self.state) {
             case DLRefreshStateRefresh: // 刷新
             {
+                // IDArray  是新数据
+                NSLog(@"刷新");
+                [IDArray removeObjectsInArray:array];
+                NSMutableArray *new = (NSMutableArray *)[IDArray arrayByAddingObjectsFromArray:array];
                 
-                [array removeObjectsInArray:IDArray];
-                [array arrayByAddingObjectsFromArray:IDArray];
+//                if (new.count > 10) {
+//                    [new removeObjectsInRange:NSMakeRange(10, new.count - 10)];
+//                }
                 
-                [array writeToFile:path atomically:YES];
+                [new writeToFile:path atomically:YES];
             }
                 break;
                 
             case DLRefreshStateReload:  // 加载
             {
+                NSLog(@"加载");
+                
                 [IDArray removeObjectsInArray:array];  //现在的
-                IDArray = (NSMutableArray *)[IDArray arrayByAddingObjectsFromArray:array];
+                IDArray = (NSMutableArray *)[array arrayByAddingObjectsFromArray:IDArray];
                 [manger removeItemAtPath:path error:nil];
                 [IDArray writeToFile:path atomically:YES]; // 把ID数据存进去
 
@@ -508,175 +520,6 @@ static NSString * contentId = nil;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
-/*
-- (void)reloadTableViewWithJson:(id)json
-{
-    self.modelArray = [NSMutableArray array];
-    self.userInterArray = [NSMutableArray array];
-    self.addressBookModel = [NSMutableArray array];
-    
-    int tempI = 0;
-    self.photoArray = [NSMutableArray array];
-    
-    for (NSDictionary *dic in json) {
-        
-        AddressBookModel *addressModel = [[AddressBookModel alloc]init];
-        [addressModel setValuesForKeysWithDictionary:dic];
-        [self.addressBookModel addObject:addressModel];
-        
-        //得到 model
-        NSDictionary *aTempDic = [dic objectForKey:@"content"];
-        CircleContextModel *model = [[CircleContextModel alloc]init];
-        [model setValuesForKeysWithDictionary:aTempDic];
-
-        model.poster = [[AddressBookModel alloc]init];
-        
-        [model.poster setValuesForKeysWithDictionary:[aTempDic objectForKey:@"poster"]];
-        NSMutableArray *myTemparray = [dic objectForKey:@"comments"];
-        
-        [model setComments:myTemparray];
-        
-        NSInteger overHeight = 0;
-        UIView *view = [[UIView alloc]init];
-        view.tag = tempI + 10001;
-        
-        UIView *modelDetileView = [[UIView alloc]init];
-        
-        NSString *contentStr = model.content;
-        NSLog(@"用户发表的文字为 %@", contentStr);
-        
-        if (contentStr){
-            NSLog(@"存在文字");
-            
-            UILabel *label = [self getLabelFromString:contentStr andHeight:overHeight];
-            UILabel *detileLabel = [self getLabelFromString:contentStr andHeight:overHeight];
-            
-            [modelDetileView addSubview:detileLabel];
-            [view addSubview:label];
-            overHeight += label.frame.size.height ;
-        }
-        CGFloat width = DLMultipleWidth(87.0);
-        
-        NSArray *array = model.photos;//图片 array
-        NSInteger picNum = [array count];
-        CGFloat picHeight = 0;
-        if (picNum == 1) {
-            width = DLMultipleWidth(166.0);
-            picHeight = width;
-        }
-        if (picNum != 0 && picNum != 1) {
-            NSLog(@"图片有 %ld 张", (long)picNum);
-            picHeight = ((picNum + 2) / 3 )  * width; //图片view的高
-        }
-        int b = 0;
-        NSMutableArray *tempPhotoArray = [NSMutableArray array];
-        for (NSDictionary *imageDic in array) {
-            
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
-            [imageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
-//            imageView.backgroundColor = [UIColor orangeColor];
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            
-            imageView.clipsToBounds = YES;
-            view.backgroundColor = [UIColor whiteColor];
-            imageView.tag = b + 1;
-            imageView.userInteractionEnabled = YES;
-            [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageAction:)]];
-            
-            [view addSubview:imageView];
-            UIImageView *detileImageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
-            detileImageView.image = [self OriginImage:imageView.image scaleToSize:imageView.size];
-            detileImageView.contentMode = UIViewContentModeScaleAspectFill;
-            detileImageView.clipsToBounds = YES;
-            
-            [modelDetileView addSubview:detileImageView];
-            [tempPhotoArray addObject:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]]];
-            b++;
-        }
-        if (!tempPhotoArray.count) {
-            [tempPhotoArray addObject:@"空的"];
-        }
-        [self.photoArray addObject:tempPhotoArray];
-        overHeight += picHeight;
-        
-        modelDetileView.frame = CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), overHeight);
-        
-        [model setDetileView:modelDetileView];
-        
-        [self.modelArray addObject:model];
-        NSMutableArray *interArray = [dic objectForKey:@"comments"];
-        
-        NSMutableArray *tempArray = [NSMutableArray array];
-        for (NSDictionary *interTempDic in interArray) {  //评论
-            
-            NSString *str = [interTempDic objectForKey:@"content"];
-            NSLog(@"得到的评论详情为 %@", str);
-            if (str) {
-            
-            CGFloat tempWidth = 5;
-            CGRect rect = [self getRectWithFont:[UIFont systemFontOfSize:REPLYTEXT] width:DLMultipleWidth(LABELWIDTH) - tempWidth andString:str];
-            //            CGSize tempSize = [self getSizeWithLabel:tempLabel andString:str];
-            WPHotspotLabel *interLabel = [[WPHotspotLabel alloc]initWithFrame:CGRectMake(tempWidth, 0, DLMultipleWidth(LABELWIDTH) - tempWidth, rect.size.height + 6)];
-            interLabel.numberOfLines = 0;
-            NSDictionary *style4 = @{@"body":[UIFont systemFontOfSize:REPLYTEXT],
-                                     @"abody":@[RGBACOLOR(80, 125, 175, 1) ,[WPAttributedStyleAction styledActionWithAction:^{
-                                         [self jumpPageWithDic:interTempDic andPoster:@"poster"];
-                                     }]]
-                                     ,
-                                     @"myBody":@[RGBACOLOR(51, 51, 51, 1),[WPAttributedStyleAction styledActionWithAction:^{
-                                         [self.myText becomeFirstResponder];
-                                         [self.inputTextView becomeFirstResponder];
-                                         self.object = CommentReviewers;
-                                         self.inputTextView.text = nil;
-                                         self.inputTextView.placeHolder = [NSString stringWithFormat:@"回复%@:", [[interTempDic objectForKey:@"poster"] objectForKey:@"nickname"]];
-                                         tergetUserId = [[interTempDic objectForKey:@"poster"] objectForKey:@"_id"];
-                                         contentId = [interTempDic objectForKey:@"targetContentId"];
-                                     }]],
-                                     @"postBody":@[RGBACOLOR(80, 125, 175, 1) ,[WPAttributedStyleAction styledActionWithAction:^{
-                                         [self jumpPageWithDic:interTempDic andPoster:@"target"];
-                                     }]]
-                                     };
-            interLabel.font = [UIFont systemFontOfSize:REPLYTEXT];
-                BOOL tempState = [[interTempDic objectForKey:@"isOnlyToContent"] boolValue];
-                if (tempState){
-                
-                    NSString *attStr = [NSString stringWithFormat:@"<abody>%@</abody>:<myBody>%@</myBody>", [[interTempDic objectForKey:@"poster"] objectForKey:@"nickname"], str];
-                    interLabel.attributedText = [attStr attributedStringWithStyleBook:style4];
-                } else
-                {
-                    NSString *att = [NSString stringWithFormat:@"<abody>%@</abody>回复<postBody>%@</postBody>:<myBody>%@</myBody>",[[interTempDic objectForKey:@"poster"] objectForKey:@"nickname"], [[interTempDic objectForKey:@"target"] objectForKey:@"nickname"], [interTempDic objectForKey:@"content"]];
-                    interLabel.attributedText = [att attributedStringWithStyleBook:style4];
-                }
-                
-                //            [interLabel sizeToFit];
-                //            interLabel.backgroundColor = RGBACOLOR(247, 247, 247, 1);
-            UIView *aTempView = [[UIView alloc]initWithFrame:CGRectMake(0, overHeight + 6, DLMultipleWidth(LABELWIDTH), rect.size.height + 6)];
-            [aTempView addSubview:interLabel];
-            aTempView.backgroundColor = RGBACOLOR(247, 247, 247, 1);
-            
-            [view addSubview:aTempView];
-            overHeight += rect.size.height + 3;
-        } else
-        {
-            [tempArray addObject:interTempDic];
-        }
-            
-    }
-        [interArray removeObjectsInArray:tempArray];
-        view.frame = CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), overHeight);
-        NSDictionary *viewDic = [NSDictionary dictionaryWithObjects:@[view, [NSString stringWithFormat:@"%ld", (long)overHeight]] forKeys:@[@"view", @"height"]];
-        
-        [self.userInterArray addObject:viewDic];
-        tempI ++;
-    }
-    
-    [GiFHUD dismiss];
-    
-    [self.colleagueTable reloadData];
-    
-}
-*/
 
 - (void)getViewWithModel:(CircleContextModel *)model
 {

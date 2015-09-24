@@ -30,7 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
-            self.navigationController.navigationBarHidden = NO;
+    
+    self.navigationController.navigationBarHidden = NO;
 //    [self builtInterface];
     
     [self builtNewInterface];
@@ -39,12 +40,21 @@
 }
 
 - (void)leftNavigationBarItemAction {
+    
+    if (self.pageState) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:nil];
+        
+    } else
+    {
+    
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"new_navigation_back@2x"] style:UIBarButtonItemStylePlain target:self action:@selector(hideNavigationBar:)];
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:0.7]];
     self.navigationItem.leftBarButtonItem = item;
+    }
 }
 
 - (void)hideNavigationBar:(UIBarButtonItem *)item {
+    
     [self.navigationController.navigationBar setTintColor:[UIColor orangeColor]];
     [self.navigationController popViewControllerAnimated:YES];
     [self.navigationController setNavigationBarHidden:YES animated:nil];

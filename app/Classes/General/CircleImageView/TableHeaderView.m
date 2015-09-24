@@ -5,18 +5,19 @@
 //  Created by 申家 on 15/8/5.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
 #import "TableHeaderView.h"
 #import "ApertureView.h"
 #import <Masonry.h>
 
 @implementation TableHeaderView
 
-- (instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image
+- (instancetype)initWithFrame:(CGRect)frame andImage:(NSString *)image
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self maskImage:image];
+//        [self maskImage:image];
         [self tableViewHeaderViewWithImage:image];
     }
     return self;
@@ -52,17 +53,19 @@
         make.bottom.mas_equalTo(self.mas_bottom);
     }];
 }
-- (void)tableViewHeaderViewWithImage:(UIImage *)image
+- (void)tableViewHeaderViewWithImage:(NSString *)image
 {
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:image];
+    
     
 //    self.layer.contentsGravity = kCAGravityResizeAspectFill;
     
-    ApertureView *aper = [[ApertureView alloc]initWithFrame:CGRectMake(DLScreenWidth / (375 / 10.0), DLScreenHeight / (667 / 97.0), DLScreenWidth / (375 / 100.00), DLScreenWidth / (375 / 100.00)) andImage:image withBorderColor:[UIColor whiteColor]];
+    ApertureView *aper = [[ApertureView alloc]initWithFrame:CGRectMake(DLScreenWidth / (375 / 10.0), DLScreenHeight / (667 / 97.0), DLScreenWidth / (375 / 100.00), DLScreenWidth / (375 / 100.00)) andImage:per.imageURL withBorderColor:[UIColor whiteColor]];
     [self addSubview:aper];
     
     self.headerTitleLabel = [UILabel new];
     self.headerTitleLabel.textColor = [UIColor whiteColor];
-    self.headerTitleLabel.attributedText = [self attributeString:@"刚锅锅的小彤彤"];
+    self.headerTitleLabel.attributedText = [self attributeString:per.name];
     
     UIView *lineView = [UIView new];
     [lineView setBackgroundColor:[UIColor colorWithWhite:.5 alpha:.5]];
@@ -100,7 +103,7 @@
     self.headerSingLabel = [UILabel new];
 //    [self.headerSingLabel setBackgroundColor:[UIColor redColor]];
     
-    self.headerSingLabel.attributedText = [self attributeString:@"我捡肥皂, 我骄傲!"];
+//    self.headerSingLabel.attributedText = [self attributeString:@"我捡肥皂, 我骄傲!"];
     self.headerSingLabel.font = [UIFont systemFontOfSize:15];
     self.headerSingLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.headerSingLabel];

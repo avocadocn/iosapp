@@ -52,10 +52,10 @@ static NSString * const ID = @"ProfileTableViewCell";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
      [self.view setBackgroundColor:GrayBackgroundColor];
+    
 }
-
-
 
 -(void)setupMenuCollectionController{
     MenuCollectionController *menuController = [[MenuCollectionController alloc]init];

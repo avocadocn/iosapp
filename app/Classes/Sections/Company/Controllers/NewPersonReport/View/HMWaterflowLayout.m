@@ -40,8 +40,8 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.columnMargin = 10;
-        self.rowMargin = 10;
+        self.columnMargin = 3;
+        self.rowMargin = 3;
         self.sectionInset = UIEdgeInsetsMake(0, 10, 10, 10);
         self.columnsCount = 2;
     }

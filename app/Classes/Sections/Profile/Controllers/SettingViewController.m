@@ -102,6 +102,8 @@
     [model setUserId:accout.ID];
     if (buttonIndex == 0) { // 退出登录
     [RestfulAPIRequestTool routeName:@"userLogOut" requestModel:model useKeys:@[@"msg"] success:^(id json) {
+        
+        
         [self.navigationController pushViewController:loginVC animated:YES];
         NSLog(@"退出成功");
         accout.token = nil;

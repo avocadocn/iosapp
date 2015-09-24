@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong)UIImageView *picImageView;
 
-- (instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image withBorderColor:(UIColor *)color;
+- (instancetype)initWithFrame:(CGRect)frame andImage:(NSString *)image withBorderColor:(UIColor *)color;
 
 
 

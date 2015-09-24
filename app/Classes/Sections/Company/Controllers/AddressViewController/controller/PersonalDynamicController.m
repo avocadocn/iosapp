@@ -5,6 +5,8 @@
 //  Created by 申家 on 15/8/5.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
 #import "PollModel.h"
 #import "CurrentActivitysShowCell.h"
 #import "Account.h"
@@ -19,7 +21,7 @@
 #import "DetailActivityShowController.h"
 #import "VoteTableController.h"
 #import "HelpTableViewController.h"
-
+#import "AddressBookModel.h"
 
 @interface PersonalDynamicController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -42,20 +44,17 @@ static NSString *ID = @"fjseijfhiusehfgiu";
 
 - (void)requestNet{
     
-    Account *acc = [AccountTool account];
-    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"requestType"];
-    [dic setObject:acc.ID forKey:@"userId"];
+    [dic setObject:self.userModel.ID forKey:@"userId"];
     
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:dic useKeys:@[@"requestType", @"userId"] success:^(id json) {
-        NSLog(@"请求成功  %@", json);
+        NSLog(@"请求关注用户的互动列表成功  %@", json);
         [self analyDataWithJson:json];
         
     } failure:^(id errorJson) {
-        NSLog(@"请求失败   %@", errorJson);
+        NSLog(@"请求关注用户的互动列表失败   %@", errorJson);
     }];
-    
 }
 
 - (void)makeFlaseData
@@ -81,7 +80,7 @@ static NSString *ID = @"fjseijfhiusehfgiu";
 
 - (void)builtInterface
 {
-    self.dynamicTableView = [[UITableView alloc]initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
+    self.dynamicTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight) style:UITableViewStylePlain];
     
     self.dynamicTableView.delegate = self;
     self.dynamicTableView.dataSource = self;
@@ -93,7 +92,7 @@ static NSString *ID = @"fjseijfhiusehfgiu";
     
     self.header = [[TableHeaderView alloc]
                                    initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(250.0))
-                                   andImage:[UIImage imageNamed:@"DaiMeng.jpg"]];
+                                   andImage:self.userModel.ID];
     
     self.dynamicTableView.tableHeaderView = self.header;
     
@@ -101,18 +100,6 @@ static NSString *ID = @"fjseijfhiusehfgiu";
 }
 
 
-- (UIView *)tableViewHeaderView
-{
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight / (667 / 250.0))];
-    UIImage *image = [UIImage imageNamed:@"DaiMeng.jpg"];
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, view.frame.size.width, image.size.height * (view.frame.size.width / image.size.width))];
-    imageView.image = image;
-    
-    ApertureView *aper = [[ApertureView alloc]initWithFrame:CGRectMake(DLScreenWidth / (375 / 12.0), DLScreenHeight / (667 / 97.0), DLScreenWidth / (375 / 100.00), DLScreenWidth / (375 / 100.00)) andImage:image withBorderColor:[UIColor whiteColor]];
-    [view addSubview:aper];
-    
-    return view;
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 45.0;
 }
@@ -122,7 +109,6 @@ static NSString *ID = @"fjseijfhiusehfgiu";
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(45))];
     
     [view setBackgroundColor:[UIColor colorWithWhite:.95 alpha:.9]];
-//    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(DLMultipleWidth(60.0), 0, .5, DLMultipleHeight(20.0))];
     UIView *lineView = [UIView new];
     [lineView setBackgroundColor:[UIColor colorWithWhite:.5 alpha:.5]];
     [view addSubview:lineView];

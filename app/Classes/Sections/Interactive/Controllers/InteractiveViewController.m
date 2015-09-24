@@ -591,6 +591,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     LoginViewController *login = [[LoginViewController alloc]init];
+    login.pageState = YES;
+    
     [self.navigationController pushViewController:login animated:YES];
 }
 
