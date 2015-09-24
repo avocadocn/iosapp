@@ -764,6 +764,7 @@
 		E23AF2A41BA1758E001BE3C5 /* VoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF29F1BA1758E001BE3C5 /* VoteTableViewCell.m */; };
 		E23AF2A51BA1758E001BE3C5 /* VoteOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */; };
 		E23AF2A61BA1758E001BE3C5 /* VoteAnimatedOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */; };
+		E24CA7C71BB271D500FC4AE9 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = E24CA7C61BB271D500FC4AE9 /* Group.m */; settings = {ASSET_TAGS = (); }; };
 		E29032921BB13EB70081F9FD /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29032911BB13EB70081F9FD /* AMapSearchKit.framework */; settings = {ASSET_TAGS = (); }; };
 		E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */; };
 		E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */; };
@@ -1999,6 +2000,8 @@
 		E23AF2A11BA1758E001BE3C5 /* VoteOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteOptionsView.m; sourceTree = "<group>"; };
 		E23AF2A21BA1758E001BE3C5 /* VoteAnimatedOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteAnimatedOptionView.h; sourceTree = "<group>"; };
 		E23AF2A31BA1758E001BE3C5 /* VoteAnimatedOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteAnimatedOptionView.m; sourceTree = "<group>"; };
+		E24CA7C51BB271D500FC4AE9 /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
+		E24CA7C61BB271D500FC4AE9 /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		E29032911BB13EB70081F9FD /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
 		E297E63A1BA7C47200C1AC92 /* TemplateVoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVoteTableViewCell.h; sourceTree = "<group>"; };
 		E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateVoteTableViewCell.m; sourceTree = "<group>"; };
@@ -2132,6 +2135,8 @@
 				54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */,
 				54E542E51BA6D735008A6687 /* Person.h */,
 				54E542E61BA6D735008A6687 /* Person.m */,
+				E24CA7C51BB271D500FC4AE9 /* Group.h */,
+				E24CA7C61BB271D500FC4AE9 /* Group.m */,
 			);
 			name = FMDBManager;
 			sourceTree = "<group>";
@@ -5394,6 +5399,7 @@
 				A4F595021B7C7D970088D9CC /* BrithdayBlessController.m in Sources */,
 				A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */,
 				96CF90D41B673422001759E2 /* UIImage+EMMultiFormat.m in Sources */,
+				E24CA7C71BB271D500FC4AE9 /* Group.m in Sources */,
 				96CF90E01B673422001759E2 /* PSTCollectionViewLayout.m in Sources */,
 				96CF93A91B674B54001759E2 /* ApplyFriendCell.m in Sources */,
 				968C27301B7AF5E900950581 /* TeamHomePageController.m in Sources */,
