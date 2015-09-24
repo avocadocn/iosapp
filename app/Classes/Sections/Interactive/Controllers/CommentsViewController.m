@@ -178,7 +178,7 @@ static NSString * const ID = @"VoteCommentViewCell";
     
     //    CircleCommentModel *model = [[CircleCommentModel alloc]init];
     
-    [cell setCommentModel:self.comments[indexPath.row]];
+    [cell setModel:self.comments[indexPath.row]];
     
     
     return cell;

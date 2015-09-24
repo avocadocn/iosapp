@@ -46,10 +46,10 @@
     // 添加按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
-    btn.frame = self.frame;
+    btn.frame = CGRectMake(0, 0, DLScreenWidth, 40);
     [btn setTitleColor:RGB(57, 161, 255) forState:UIControlStateNormal];
-    [btn setTitleColor:RGB(235, 235, 235) forState:UIControlStateSelected];
-    [btn setBackgroundColor:[UIColor clearColor]];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+//    [btn setBackgroundColor:[UIColor blackColor]];
 //    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
     
@@ -65,8 +65,9 @@
     CGSize maxPercentageLabelSize = CGSizeMake(DLScreenWidth, 12);
     NSDictionary *attr = @{NSFontAttributeName:percentageLabelFont};
     CGSize percentageLabelSize = [defaultString boundingRectWithSize:maxPercentageLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
-    percentageLabel.size = CGSizeMake(percentageLabelSize.width + 15, percentageLabelSize.height);
-    percentageLabel.x = DLScreenWidth - percentageLabelSize.width - 8;
+    percentageLabel.size = CGSizeMake(percentageLabelSize.width + 35, percentageLabelSize.height);
+    percentageLabel.x = DLScreenWidth - percentageLabelSize.width - 50;
+    percentageLabel.textAlignment = NSTextAlignmentRight;
     percentageLabel.centerY = self.centerY;
     [self addSubview:percentageLabel];
     
@@ -122,6 +123,8 @@
     [UIView animateWithDuration:.5 animations:^{
         view.frame = CGRectMake(0, 0, width, 44);
     }];
+    self.button.selected = YES;
+    self.button.userInteractionEnabled = NO;
 }
 
 -(void)btnClicked:(id)sender{

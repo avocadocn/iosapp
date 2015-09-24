@@ -60,6 +60,7 @@
             
             optionView.button.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
                 NSLog(@"绘制");  //点击以后绘制
+                optionView.userInteractionEnabled = NO;
                 NSNumber *tempNum = [NSNumber numberWithInteger:[self.voteCount integerValue] + 1];  //选择的总数
                 optionView.optionCount = [NSNumber numberWithInteger:[optionView.optionCount integerValue] + 1];
                 NSLog(@"选择了%@",optionInfo.optionName);
@@ -75,7 +76,6 @@
                         opti.optionPercentage = tempNum;  //选项的总人数
                     }
                 }
-                model.judgeVote = YES;
                 optionView.button.userInteractionEnabled = NO;
                 
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"Vote" object:nil userInfo:nil];

@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self builtInterface]; //铺设截面
-    [self netRequest];
+//    [self netRequest];
 //    [self getRequestNet];
     
 }

@@ -64,12 +64,13 @@
     
     // 设置背景色为主题色
     [self.separator setBackgroundColor:RGB(235, 235, 235)];
-    [self.typeContainer setBackgroundColor:RGB(235, 235, 235)];
+    [self.typeContainer setBackgroundColor:RGB(242, 242, 242)];
     
 }
 
 - (void)reloadCellWithModel:(Interaction *)model
 {
+    self.peopleCountLabel.text = [NSString stringWithFormat:@"参加:%ld",model.members.count];
     Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.poster[@"_id"]];
     self.nameLabel.text = person.name;
     [self.avatar dlGetRouteWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"]];
@@ -77,20 +78,20 @@
         case 1:{
             self.InteractiveText.text = model.theme;
             self.InteractiveTitle.text = @"活动进行中";
-            self.publishTimeLabel.text = [model.activity objectForKey:@"startTime"];
+            self.publishTimeLabel.text = [self getParsedDateStringFromString:[model.activity objectForKey:@"startTime"]];
             self.InteractiveTypeIcon.image = [UIImage imageNamed:@"Rectangle 177 + calendar + Fill 133"];
             break;
         }
         case 2:{
             self.InteractiveText.text = model.theme;
-            self.publishTimeLabel.text = model.createTime;
+            self.publishTimeLabel.text = [self getParsedDateStringFromString:model.createTime];
             self.InteractiveTitle.text = @"投票进行中";
             self.InteractiveTypeIcon.image = [UIImage imageNamed:@"Rectangle 177 + chart + Fill 164"];
             break;
         }
         case 3:{
             self.InteractiveText.text = model.content;
-            self.publishTimeLabel.text = model.createTime;
+            self.publishTimeLabel.text = [self getParsedDateStringFromString:model.createTime];
             self.InteractiveTitle.text = @"求助进行中";
             self.InteractiveTypeIcon.image = [UIImage imageNamed:@"求助 + Shape Copy 8"];
             break;
@@ -102,6 +103,32 @@
     
 //    self.publishTimeLabel.text = [model.activity objectForKey:@"startTime"];
     
+}
+
+- (NSString*)getParsedDateStringFromString:(NSString*)dateString
+{
+    if (dateString==nil) {
+        return nil;
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    NSDate * date = [formatter dateFromString:dateString];
+    [formatter setDateFormat:@"yyyy年MM月dd日 HH:mm"];
+    NSString* str = [formatter stringFromDate:date];
+    //设置源日期时区
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
+    //设置转换后的目标日期时区
+    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
+    //得到源日期与世界标准时间的偏移量
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:date];
+    //目标日期与本地时区的偏移量
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:date];
+    //得到时间偏移量的差值
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    //转为现在时间
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
+    str = [formatter stringFromDate:destinationDateNow];
+    return str;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

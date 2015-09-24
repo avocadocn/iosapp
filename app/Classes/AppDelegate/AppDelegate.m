@@ -10,8 +10,9 @@
 #import <SMS_SDK/SMS_SDK.h>  //sharesdk 短信
 //测试用
 #import "PersonalDynamicController.h"
-
-
+#import "RestfulAPIRequestTool.h"
+#import "FMDBSQLiteManager.h"
+#import "Group.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
@@ -39,10 +40,8 @@
     NSLog(@"连接状态为 %lu", (unsigned long)_connectionState);
     
     [self setupEaseMobWith:application withOptions:launchOptions];
-    
     return YES;
 }
-
 
 - (id)judgeLoginState{
     Account *myAccount = [AccountTool account];

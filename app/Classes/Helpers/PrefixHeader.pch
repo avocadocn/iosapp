@@ -50,6 +50,8 @@
 
 #define BaseUrl @"http://www.55yali.com:3002/v2_0"
 
+#define ImgBaseUrl @"http://www.55yali.com"
+
 
 
 

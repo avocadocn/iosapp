@@ -88,33 +88,6 @@ static NSString * const ID = @"HelpTableViewCell";
 
 }
 
-- (NSString*)getParsedDateStringFromString:(NSString*)dateString
-{
-    if (dateString==nil) {
-        return nil;
-    }
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-    NSDate * date = [formatter dateFromString:dateString];
-    [formatter setDateFormat:@"yyyy年MM月dd日 HH:mm"];
-    NSString* str = [formatter stringFromDate:date];
-    //设置源日期时区
-    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
-    //设置转换后的目标日期时区
-    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
-    //得到源日期与世界标准时间的偏移量
-    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:date];
-    //目标日期与本地时区的偏移量
-    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:date];
-    //得到时间偏移量的差值
-    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
-    //转为现在时间
-    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
-    str = [formatter stringFromDate:destinationDateNow];
-    return str;
-}
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
