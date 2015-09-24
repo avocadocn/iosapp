@@ -15,6 +15,8 @@
 
 @interface ChatListViewController : BaseViewController
 @property (strong, nonatomic) NSMutableArray        *dataSource;
+@property (strong, nonatomic) NSMutableArray        *chatList;
+@property (strong, nonatomic) NSMutableArray        *groupList;
 @property (strong, nonatomic) UITableView           *tableView;
 - (void)refreshDataSource;
 

@@ -23,7 +23,10 @@
 #import "FMDBSQLiteManager.h"
 #import "Person.h"
 #import "UIImageView+DLGetWebImage.h"
-
+#import "Group.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "RestfulAPIRequestTool.h"
 static ChatListViewController *chat = nil;
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, UISearchDisplayDelegate,SRRefreshDelegate, UISearchBarDelegate, IChatManagerDelegate,ChatViewControllerDelegate>
 
@@ -43,6 +46,8 @@ static ChatListViewController *chat = nil;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _dataSource = [NSMutableArray array];
+        self.chatList = [NSMutableArray new];
+        self.groupList = [NSMutableArray new];
     }
     return self;
 }
@@ -72,7 +77,7 @@ static ChatListViewController *chat = nil;
     [self networkStateView];
 
     [self searchController];
-    
+    [self refreshGroup];
     
 }
 
@@ -378,6 +383,7 @@ static ChatListViewController *chat = nil;
     }
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
     cell.name = conversation.chatter;
+    //如果是单聊会话
     if (conversation.conversationType == eConversationTypeChat) {
         if ([[RobotManager sharedInstance] isRobotWithUsername:conversation.chatter]) {
             cell.name = [[RobotManager sharedInstance] getRobotNickWithUsername:conversation.chatter];
@@ -388,8 +394,10 @@ static ChatListViewController *chat = nil;
         
         cell.placeholderImage = [UIImage imageNamed:@"chatListCellHead.png"];
     }
+    //如果是群聊会话
     else{
-        NSString *imageName = @"groupPublicHeader";
+       
+        /*NSString *imageName = @"groupPublicHeader";
         if (![conversation.ext objectForKey:@"groupSubject"] || ![conversation.ext objectForKey:@"isPublic"])
         {
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
@@ -411,8 +419,41 @@ static ChatListViewController *chat = nil;
             cell.name = [conversation.ext objectForKey:@"groupSubject"];
             imageName = [[conversation.ext objectForKey:@"isPublic"] boolValue] ? @"groupPublicHeader" : @"groupPrivateHeader";
         }
+        
+        cell.placeholderImage = [UIImage imageNamed:imageName];
+        */
+        NSString *imageName = @"groupPublicHeader";
+        if (![conversation.ext objectForKey:@"groupSubject"] || ![conversation.ext objectForKey:@"isPublic"])
+        {
+            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+            for (EMGroup *group in groupArray) {
+                if ([group.groupId isEqualToString:conversation.chatter]) {
+                    FMDBSQLiteManager * fmdb = [FMDBSQLiteManager shareSQLiteManager];
+                    Group* g = [fmdb selectGroupWithEasemobId:group.groupId];
+                    cell.name = g.name;
+                    imageName = g.open ? @"groupPublicHeader" : @"groupPrivateHeader";
+                    cell.imageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]];
+                    
+                    NSMutableDictionary *ext = [NSMutableDictionary dictionaryWithDictionary:conversation.ext];
+                    [ext setObject:g.name forKey:@"groupSubject"];
+                    [ext setObject:[NSNumber numberWithBool:g.open] forKey:@"isPublic"];
+                    //保存图片链接
+                    [ext setObject:[NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]] forKey:@"imageURL"];
+                    conversation.ext = ext;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            cell.name = [conversation.ext objectForKey:@"groupSubject"];
+            imageName = [[conversation.ext objectForKey:@"isPublic"] boolValue] ? @"groupPublicHeader" : @"groupPrivateHeader";
+            cell.imageURL = [conversation.ext objectForKey:@"imageURL"];
+        }
+        
         cell.placeholderImage = [UIImage imageNamed:imageName];
     }
+    
     cell.detailMsg = [self subTitleMessageByConversation:conversation];
     cell.time = [self lastMessageTimeByConversation:conversation];
     cell.unreadCount = [self unreadMessageCountByConversation:conversation];
@@ -440,22 +481,14 @@ static ChatListViewController *chat = nil;
     
     ChatViewController *chatController;
     NSString *title = conversation.chatter;
-    if (conversation.conversationType != eConversationTypeChat) {
-        if ([[conversation.ext objectForKey:@"groupSubject"] length])
-        {
-            title = [conversation.ext objectForKey:@"groupSubject"];
-        }
-        else
-        {
-            NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-            for (EMGroup *group in groupArray) {
-                if ([group.groupId isEqualToString:conversation.chatter]) {
-                    title = group.groupSubject;
-                    break;
-                }
-            }
-        }
-    }else if(conversation.conversationType == eConversationTypeChat) {
+    //获取群聊信息到聊天界面
+    if (conversation.conversationType != eConversationTypeChat) {        
+        FMDBSQLiteManager * fmdb = [FMDBSQLiteManager shareSQLiteManager];
+        Group* g = [fmdb selectGroupWithEasemobId:title];
+        title = g.name;
+    }
+    //获取个人信息到聊天界面
+    else if(conversation.conversationType == eConversationTypeChat) {
         FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
         Person* p = [fmdb selectPersonWithUserId:title];
         title = p.name;
@@ -542,7 +575,8 @@ static ChatListViewController *chat = nil;
 //刷新消息列表
 - (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
 {
-    [self refreshDataSource];
+//    [self refreshDataSource];
+    [self refreshGroup];
     [_slimeView endRefresh];
 }
 
@@ -577,22 +611,48 @@ static ChatListViewController *chat = nil;
 // 刷新方法
 -(void)refreshDataSource
 {
-    //从网络请求对话数据
-    self.dataSource = [self loadDataSource];
-    //下面是假数据
-//    self.dataSource = [NSMutableArray array];
-//    
-//    NSArray *array = @[@"55dc110314a37c242b6486cf",@"55dc110314a37c242b6486d0", @"55dc110314a37c242b6486d1"];
-//    for (NSString *str in array) {
-//        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:str conversationType:eConversationTypeChat];
-//        NSLog(@"消息的对话 chatter 为 %@" ,conversation.chatter);
-//        [self.dataSource addObject:conversation];
-//    }
-    
     [_tableView reloadData];
     [self hideHud];
 }
 
+- (void)getGroup
+{
+    Account *acc= [AccountTool account];
+    [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
+        [self analyDataWithJson:json];
+        NSLog(@"success:-->%@",json);
+    } failure:^(id errorJson) {
+        NSLog(@"failed:-->%@",errorJson);
+    }];
+}
+- (void)analyDataWithJson:(id)json{
+    NSArray* groups = [json objectForKey:@"groups"];
+    for (NSDictionary* g in groups) {
+        Group* gro = [Group groupWithName:[g objectForKey:@"name"] brief:[g objectForKey:@"brief"] iconURL:[g objectForKey:@"logo"] groupID:[g objectForKey:@"_id"] easemobID:[g objectForKey:@"easemobId"] open:[[g objectForKey:@"open"] boolValue]];
+        [[FMDBSQLiteManager shareSQLiteManager] insertGroup:gro];
+        EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:gro.easemobID conversationType:eConversationTypeGroupChat];
+        [self.groupList addObject:conversation];
+    }
+    //从网络请求对话数据
+    NSMutableArray* needRemove = [NSMutableArray new];
+    self.chatList = [self loadDataSource];
+    for (EMConversation* c in self.chatList) {
+        NSString* cc = c.chatter;
+        for (EMConversation* g in self.groupList) {
+            if ([cc isEqualToString:g.chatter]) {
+                [needRemove addObject:g];
+            }
+        }
+    }
+    [self.groupList removeObjectsInArray:needRemove];
+    [self.chatList addObjectsFromArray:self.groupList];
+    self.dataSource = self.chatList;
+}
+
+- (void)refreshGroup
+{
+    [self getGroup];
+}
 - (void)isConnect:(BOOL)isConnect{
     if (!isConnect) {
         _tableView.tableHeaderView = _networkStateView;
@@ -626,7 +686,7 @@ static ChatListViewController *chat = nil;
 }
 
 #pragma mark - ChatViewControllerDelegate
-
+//用户自己的名字和头像
 // 根据环信id得到要显示头像路径，如果返回nil，则显示默认头像
 - (NSString *)avatarWithChatter:(NSString *)chatter{
 //    return @"http://img0.bdstatic.com/img/image/shouye/jianbihua0525.jpg";

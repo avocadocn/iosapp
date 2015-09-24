@@ -13,7 +13,8 @@
 #import "EMChatViewCell.h"
 #import "EMChatVideoBubbleView.h"
 #import "UIResponder+Router.h"
-
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
 NSString *const kResendButtonTapEventName = @"kResendButtonTapEventName";
 NSString *const kShouldResendCell = @"kShouldResendCell";
 
@@ -110,10 +111,15 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
 
 - (void)setMessageModel:(MessageModel *)model
 {
+    //补全聊天信息中得头像信息
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+    Person* p = [fmdb selectPersonWithUserId:model.nickName];
+    model.headImageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:p.imageURL]];
     [super setMessageModel:model];
     
     if (model.messageType != eMessageTypeChat) {
-        _nameLabel.text = model.nickName;
+        //将群聊中其它用户的名称做转换
+        _nameLabel.text = p.name;
         _nameLabel.hidden = model.isSender;
     }
     
