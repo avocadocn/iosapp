@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class CircleContextModel;
-@class CommentModel;
+@class CommentsModel;
 
 @interface CommentViewCell : UITableViewCell
 
@@ -22,7 +22,7 @@
 
 @property (nonatomic, strong)CircleContextModel *commentModel;
 
-@property (nonatomic, strong)CommentModel *model;
+@property (nonatomic, strong)CommentsModel *model;
 
 
 @end

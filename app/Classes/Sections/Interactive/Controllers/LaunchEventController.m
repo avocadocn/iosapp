@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         label.userInteractionEnabled = YES;
     [label addGestureRecognizer:labelTap];
     label.font = [UIFont systemFontOfSize:15];
-    label.textColor = [UIColor lightGrayColor];
+    label.textColor = [UIColor orangeColor];
     self.nextStep = label;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
 

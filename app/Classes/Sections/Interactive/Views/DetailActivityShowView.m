@@ -195,7 +195,7 @@
     
     // 添加时间label
     UILabel *timeLabel = [[UILabel alloc]init];
-    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@", [self.model.activity objectForKey:@"startTime"]];
+    NSString *timeString = [NSString stringWithFormat:@"时间:  \%@--%@",[self getParsedDateStringFromString:[self.model.activity objectForKey:@"startTime"]],[self getParsedDateStringFromString:self.model.endTime]];
     
     NSMutableAttributedString *mutableAttrStr = [[NSMutableAttributedString alloc]initWithString:timeString];
     [mutableAttrStr addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 3)];
@@ -235,7 +235,8 @@
     addressLabel.numberOfLines = 0;
     // TODO
     CGSize maxLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
-    NSString *addressText = [NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]];
+    NSString *str = [[NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]] substringFromIndex:5];
+    NSString *addressText = str;
     
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [addressLabel setFont:addressFont];
@@ -417,4 +418,30 @@ updatingLocation:(BOOL)updatingLocation
 }
 
 
+#pragma 转换时间
+- (NSString*)getParsedDateStringFromString:(NSString*)dateString
+{
+    if (dateString==nil) {
+        return nil;
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy.MM.dd'T'HH:mm:ss.SSS'Z'"];
+    NSDate * date = [formatter dateFromString:dateString];
+    [formatter setDateFormat:@"yyyy.MM.dd"];
+    NSString* str = [formatter stringFromDate:date];
+    //设置源日期时区
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
+    //设置转换后的目标日期时区
+    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
+    //得到源日期与世界标准时间的偏移量
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:date];
+    //目标日期与本地时区的偏移量
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:date];
+    //得到时间偏移量的差值
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    //转为现在时间
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
+    str = [formatter stringFromDate:destinationDateNow];
+    return str;
+}
 @end

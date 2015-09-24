@@ -17,7 +17,7 @@
 #import "CommentsViewController.h"
 #import "UIImageView+DLGetWebImage.h"
 #import "Interaction.h"
-
+#import "UILabel+DLTimeLabel.h"
 @interface VoteTableViewCell()
 
 /**
@@ -209,7 +209,8 @@
     self.nameLabel.text = model.name;
     [self.nameLabel setFrame:voteCellFrame.nameLabelF];
     
-    self.timeLabel.text = model.time;
+//    self.timeLabel.text = model.time;
+    [self.timeLabel judgeTimeWithString:model.time];
     [self.timeLabel setFrame:voteCellFrame.timeLabelF];
     //    self.timeLabel.backgroundColor = [UIColor redColor];
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
@@ -249,6 +250,7 @@
 - (void)setVoteTitle
 {
     [self.voteInfosBtn setTitle:@"已投票" forState: UIControlStateNormal];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"REFRESSDATA" object:nil];
 }
 
 @end

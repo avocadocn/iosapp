@@ -81,7 +81,7 @@ static NSString * const ID = @"VoteInfoTableViewCell";
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
     VoteInfoTableViewModel *model = self.dataArray[section];
-     self.infoModel = model;
+    
     
 //    return model.voters.count;
     return 1;
@@ -91,8 +91,9 @@ static NSString * const ID = @"VoteInfoTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     VoteInfoTableViewModel *model = self.dataArray[indexPath.section];
+    self.infoModel = model;
     // 硬编码 假设第一组 2 个数据，第2组 20 个数据
-   indexPath.section == 0 ? [self addSubImageViewWithCell:cell itemCount:model.voters.count] : [self addSubImageViewWithCell:cell itemCount:model.voters.count];
+   [self addSubImageViewWithCell:cell itemCount:model.voters.count];
     
     return cell;
 }
@@ -102,12 +103,12 @@ static NSString * const ID = @"VoteInfoTableViewCell";
     CGFloat itemWidthHeight = _itemWidthHeight;
     
     for (NSInteger i = 0; i < itemCount; i++) {
-        
-        
+     NSDictionary *dic = [self.infoModel.voters objectAtIndex:i];
+        Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:[dic objectForKey:@"_id"]];
         // 此处为了简单演示，使用的是imageView，可根据实际项目需要改成自定义的button
         UIImageView *itemView = [[UIImageView alloc]init];
         
-        [itemView setImage:[UIImage imageNamed:@"1"]];
+        [itemView dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
         itemView.x = i % kIconCountPerLine * (itemWidthHeight + kIconMargin) + kIconMargin;
         itemView.y = i / kIconCountPerLine * (itemWidthHeight + kIconMargin) + kIconMargin;
         itemView.width = itemWidthHeight;

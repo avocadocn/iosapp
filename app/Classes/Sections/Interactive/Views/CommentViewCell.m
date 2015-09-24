@@ -33,7 +33,6 @@
     // Configure the view for the selected state
 }
 
-
 -(void)setCommentModel:(CircleContextModel *)commentModel{
     
     NSLog(@"%@",commentModel.poster);
@@ -59,6 +58,30 @@
     CGSize commentLabelSize = [commentModel.content boundingRectWithSize:maxCommentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
     
     self.commentLabelHeight.constant = commentLabelSize.height;
+    
+}
+- (void)setModel:(CommentsModel *)model {
+    if (model.posterId != nil) {
+        Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.posterId];
+        ////    // 设置头像
+        [self.avatar dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
+        //
+        //    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
+        ////
+        //    // 设置昵称
+        self.name.text = p.name;
+        // 设置评论正文
+        self.comment.text = model.content;
+        
+        CGFloat currentWidth = self.comment.width;
+        
+        CGSize maxCommentLabelSize = CGSizeMake(currentWidth, MAXFLOAT);
+        NSDictionary *attr = @{NSFontAttributeName:self.comment.font};
+        CGSize commentLabelSize = [model.content boundingRectWithSize:maxCommentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
+        
+        self.commentLabelHeight.constant = commentLabelSize.height;
+
+    }
     
 }
 

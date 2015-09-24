@@ -19,6 +19,7 @@
 #import "Person.h"
 #import "VoteInfoTableViewController.h"
 #import "PollModel.h"
+#import "UILabel+DLTimeLabel.h"
 @interface VoteTableController ()
 
 @property (nonatomic, strong)Interaction *interactionModel;
@@ -147,6 +148,9 @@ static NSString * const ID = @"VoteTableViewCell";
     //    [self.navigationController pushViewController:commentsController animated:YES];'
     VoteCellFrame *vote = [self.voteArray firstObject];
     
+}
+-(void)viewWillDisappear:(BOOL)animated {
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"CHANGESTATE" object:nil];
 }
 
 //}
