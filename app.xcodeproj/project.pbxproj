@@ -552,6 +552,7 @@
 		A41CF0D21B5CC0B7005C21EF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A41CF0D11B5CC0B7005C21EF /* AssetsLibrary.framework */; };
 		A41CF0DE1B5D02DA005C21EF /* RankController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9610535D1B5C9317002D62A3 /* RankController.m */; };
 		A422697C1B672388001B4DE6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A422697B1B672388001B4DE6 /* SystemConfiguration.framework */; };
+		A42656161BB2375400E8C8A6 /* CircleSingleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A42656151BB2375400E8C8A6 /* CircleSingleModel.m */; };
 		A42CFFD71B9C194000CCFB34 /* 305.png in Resources */ = {isa = PBXBuildFile; fileRef = A42CFFCA1B9C194000CCFB34 /* 305.png */; };
 		A42CFFD81B9C194000CCFB34 /* 110.png in Resources */ = {isa = PBXBuildFile; fileRef = A42CFFCB1B9C194000CCFB34 /* 110.png */; };
 		A42CFFD91B9C194000CCFB34 /* 111.png in Resources */ = {isa = PBXBuildFile; fileRef = A42CFFCC1B9C194000CCFB34 /* 111.png */; };
@@ -1665,6 +1666,8 @@
 		A41993201B5F95AB0086EAAE /* LoginMailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginMailTableViewCell.m; sourceTree = "<group>"; };
 		A41CF0D11B5CC0B7005C21EF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		A422697B1B672388001B4DE6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A42656141BB2375400E8C8A6 /* CircleSingleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSingleModel.h; sourceTree = "<group>"; };
+		A42656151BB2375400E8C8A6 /* CircleSingleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSingleModel.m; sourceTree = "<group>"; };
 		A42CFFCA1B9C194000CCFB34 /* 305.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 305.png; sourceTree = "<group>"; };
 		A42CFFCB1B9C194000CCFB34 /* 110.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 110.png; sourceTree = "<group>"; };
 		A42CFFCC1B9C194000CCFB34 /* 111.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 111.png; sourceTree = "<group>"; };
@@ -2092,7 +2095,6 @@
 		528AD80964192770FD7E639E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E29032911BB13EB70081F9FD /* AMapSearchKit.framework */,
 				54EE2D771BAFA48100109C84 /* Security.framework */,
 				54EE2D751BAFA46000109C84 /* CoreTelephony.framework */,
 				54EE2D731BAFA42E00109C84 /* OpenGLES.framework */,
@@ -2550,6 +2552,8 @@
 				A4448C3B1BA9881400546C34 /* SchoolTempModel.m */,
 				A43CE9721BAA937C0069C94E /* GroupDetileModel.h */,
 				A43CE9731BAA937C0069C94E /* GroupDetileModel.m */,
+				A42656141BB2375400E8C8A6 /* CircleSingleModel.h */,
+				A42656151BB2375400E8C8A6 /* CircleSingleModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5233,6 +5237,7 @@
 				A49205751B6F0B5000F16346 /* AddressTableViewCell.m in Sources */,
 				96CF90E71B673422001759E2 /* THProgressView.m in Sources */,
 				A44B355D1B82FC13004F7A6A /* LabelView.m in Sources */,
+				A42656161BB2375400E8C8A6 /* CircleSingleModel.m in Sources */,
 				96AA196A1B79A3C7008E4CA3 /* ProfileTableViewCell.m in Sources */,
 				96CF937D1B674B54001759E2 /* UIResponder+Router.m in Sources */,
 				968B15411B6A2ABB004A26C0 /* RankItemView.m in Sources */,
@@ -5678,7 +5683,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5708,7 +5713,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

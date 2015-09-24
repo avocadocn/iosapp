@@ -255,6 +255,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 }
 
 -(void)setupActivityShowTableView{
+    
     UITableView *tableView = [[UITableView alloc]init];
     //    [tableView registerClass:[CurrentActivitysShowCell class] forCellReuseIdentifier:ID];
     [tableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];

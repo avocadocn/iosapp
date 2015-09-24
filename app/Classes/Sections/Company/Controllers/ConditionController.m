@@ -121,6 +121,25 @@
     
     [RestfulAPIRequestTool routeName:@"cirleContent" requestModel:model useKeys:@[@"content", @"photo"] success:^(id json) {
         NSLog(@"%@", json);
+        
+        
+        NSArray *array = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSString *path = [array lastObject];
+        path = [NSString stringWithFormat:@"%@/%@", path, @"IDArray"];
+        
+        NSMutableArray *IDArray = [NSMutableArray arrayWithContentsOfFile:path];
+        
+        CircleContextModel *saveModel = [[CircleContextModel alloc]init];
+        NSDictionary *circleContent = [json objectForKey:@"circleContent"];
+        [saveModel setValuesForKeysWithDictionary:circleContent];
+        [IDArray insertObject:saveModel.ID atIndex:0];
+        
+        NSFileManager *manger = [[NSFileManager alloc]init];
+        [manger removeItemAtPath:path error:nil];
+        [IDArray writeToFile:path atomically:YES];
+        
+        [saveModel save];
+        
         [self.delegate sendSingerCircle:nil];
         
         

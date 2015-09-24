@@ -9,6 +9,8 @@
 #import "PublishedInteractionsMapViewController.h"
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchAPI.h>
+
+
 @interface PublishedInteractionsMapViewController ()<UISearchBarDelegate,MAMapViewDelegate,AMapSearchDelegate>
 
 {

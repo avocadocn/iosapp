@@ -10,7 +10,7 @@
 @class CompanyModel;
 
 
-@interface AddressBookModel : NSObject
+@interface AddressBookModel : NSObject<NSCoding>
 @property (nonatomic, assign)BOOL attentState;
 @property (nonatomic, copy)NSString *ID;// (string): 用户id ,
 @property (nonatomic, copy)NSString *email;// (string, optional): 用户邮箱 ,
@@ -40,5 +40,7 @@
 @property (nonatomic, copy)NSDate *lastContentDate;
 @property (nonatomic)float limit;
 @property (nonatomic, assign)BOOL selectState;
+@property (nonatomic, copy)NSString *company_official_name;
+
 
 @end

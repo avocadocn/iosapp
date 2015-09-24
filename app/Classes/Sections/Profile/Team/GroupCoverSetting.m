@@ -158,6 +158,7 @@ static NSString *ID = @"fserklfjkdsrhdj";
             [RestfulAPIRequestTool routeName:@"editeGroupsInfos" requestModel:dic useKeys:@[@"groupId", @"name"] success:^(id json) {
                 NSLog(@"修改成功   %@", json);
                 
+                
             } failure:^(id errorJson) {
                 NSLog(@"修改失败   %@", errorJson);
             }];
@@ -174,6 +175,9 @@ static NSString *ID = @"fserklfjkdsrhdj";
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadGroup" object:nil userInfo:nil];
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"修改成功" message:[json objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
                 [alert show];
+                NSDictionary * tempDic = [NSDictionary dictionaryWithObject:self.headerView.image forKey:@"image"];
+                
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"ChangeGroupAlbumPhoto" object:nil userInfo:tempDic];
                 
             } failure:^(id errorJson) {
                 NSLog(@"失败  %@",  errorJson);

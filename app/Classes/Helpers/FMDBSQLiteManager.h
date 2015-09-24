@@ -20,5 +20,4 @@
 //查
 -(Person *)selectPersonWithUserId:(NSString *)userId;
 
-
 @end

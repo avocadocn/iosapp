@@ -29,7 +29,7 @@
 @property (nonatomic, copy)NSString *leader;
 @property (nonatomic, copy)NSString *logo;
 @property (nonatomic, copy)NSString *createTime;
-@property (nonatomic, strong)NSArray *applyMember;
+@property (nonatomic, strong)NSMutableArray *applyMember;
 @property (nonatomic, copy)NSString *easemobld;
 
 @end

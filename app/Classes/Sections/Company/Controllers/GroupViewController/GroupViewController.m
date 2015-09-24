@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
+//#import "CompanyViewController.h"
+#import "UIBarButtonItem+Extension.h"
 #import "GroupDetileModel.h"
 #import "TeamHomePageController.h"
 #import "GroupViewController.h"
@@ -19,7 +21,6 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "GroupCardModel.h"
-
 #import "CreateGroupController.h"
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -30,19 +31,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"群组";
-    [self getRequestData];
+//    [self getRequestData];
     [self builtInterface];
     
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getRequestData) name:@"reloadGroup" object:nil];
     
-    [self.navigationController.navigationBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
+//    [self.navigationController.navigationBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
+    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(returnButtonAction:) image:@"new_navigation_back@2x" highImage:@"new_navigation_back_helight@2x"];
+    
+    
+    
 }
+
+
+- (void)returnButtonAction:(id)sender
+{
+//    CompanyViewController *company = [[CompanyViewController alloc]init];
+    
+//    [self.navigationController pushViewController:company animated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (void)tapAction:(UITapGestureRecognizer *)tap
 {
     NSLog(@"咦哈 ");
 }
-
 
 - (void)getRequestData
 {
@@ -133,9 +148,9 @@
         
         groupDetile.groupCardModel = model;
         
-        
         [self.navigationController pushViewController:groupDetile animated:YES];
-            } else
+        
+    } else
     {
         // 创建小队
         CreateGroupController *create = [[CreateGroupController alloc]init];
@@ -160,5 +175,11 @@
 //    }
 //    return NO;
 //}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self getRequestData];
+}
+
 
 @end
