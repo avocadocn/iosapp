@@ -46,7 +46,9 @@
 
 - (void)reloadDetilCell:(SchoolTempModel *)model
 {
-    [self.showView dlGetRouteWebImageWithString:model.photo placeholderImage:nil];
+//    [self.showView dlGetRouteWebImageWithString:model.photo placeholderImage:nil];
+    [self.showView dlGetRouteThumbnallWebImageWithString:model.photo placeholderImage:nil withSize:CGSizeMake(200, 200)];
+    
 }
 
 

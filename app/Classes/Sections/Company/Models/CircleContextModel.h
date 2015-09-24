@@ -11,7 +11,6 @@
 
 @interface CircleContextModel : NSObject
 
-
 // 朋友圈单个消息
 
 @property (nonatomic, copy)NSString *ID;  //消息 id
@@ -32,11 +31,15 @@
 
 //@property (nonatomic, copy)NSString *msg;
 
+@property (nonatomic, copy)NSString *kind;
+
 @property (nonatomic, copy)NSString *__v;
 
 @property (nonatomic, copy)NSString *latestCommentDate;
 
 @property (nonatomic, strong)NSMutableArray *relativeCids;
+
+@property (nonatomic, copy)NSString *targetContentId;
 
 @property (nonatomic, strong)NSMutableArray *comments;
 
@@ -51,5 +54,20 @@
 @property (nonatomic, strong)UIView *detileView;
 
 @property (nonatomic, strong)AddressBookModel *target;
+
+
+@property (nonatomic, copy)NSString *targetUserId;
+
+@property (nonatomic, copy)NSString *postUserCid;
+
+@property (nonatomic, copy)NSString *commentId;
+
+@property (nonatomic, strong)NSNumber *isOnlyToContent;
+
+@property (nonatomic, copy)NSString *posterId;
+
+- (void)save;
+
+- (instancetype)initWithString:(NSString *)string;
 
 @end

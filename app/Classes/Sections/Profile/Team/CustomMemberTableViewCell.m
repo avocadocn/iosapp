@@ -89,6 +89,7 @@ static NSString * const ID = @"CustomMemberTableViewCell";
     
     _memberInfos = memberInfos;
     
+    [self.iconCollectionView reloadData];
     
     /**
      

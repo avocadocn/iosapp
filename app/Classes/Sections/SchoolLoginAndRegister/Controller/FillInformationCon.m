@@ -30,7 +30,9 @@
     
     self.view.backgroundColor = DLSBackgroundColor;
     [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
+    
     [self builtInterface];
+    
 }
 
 - (void)builtInterface
@@ -81,7 +83,7 @@
     self.nameTextField.font = [UIFont systemFontOfSize:14];
     self.nameTextField.textAlignment = NSTextAlignmentCenter;
     [self.nameTextField.rac_textSignal subscribeNext:^(NSString *textStr) {
-        if (textStr.length >= 3) {
+        if (textStr.length >= 1) {
             label.userInteractionEnabled = YES;
             label.textColor = RGBACOLOR(253, 185, 0, 1);
         }
@@ -220,8 +222,8 @@
 }
 - (void)choosePhotoAction:(UITapGestureRecognizer *)tap{
     DNImagePickerController *imagePicker = [[DNImagePickerController alloc] init];
-    imagePicker.imagePickerDelegate = self;
     imagePicker.allowSelectNum = 1;
+    imagePicker.imagePickerDelegate = self;
     
     [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
 }
@@ -229,8 +231,11 @@
 {
     DNAsset *dnasser = [imageAssets firstObject];
     ALAssetsLibrary *library = [ALAssetsLibrary new];
+    
     [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+        
         self.userPhoto.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        
     } failureBlock:^(NSError *error) {
         
     }];
@@ -278,7 +283,6 @@
     [self.navigationController pushViewController:acc animated:YES];
     
 }
-
 
 
 - (void)tapAction:(UITapGestureRecognizer *)tap

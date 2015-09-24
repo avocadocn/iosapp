@@ -144,7 +144,10 @@ static NSString * const ID = @"HelpTableViewCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     CommentsViewController *commentsController = [[CommentsViewController alloc]init];
     commentsController.model = self.model;
+    commentsController.interactionType = @3;
+    commentsController.inteactionId = self.model.interactionId;
     [self.navigationController pushViewController:commentsController animated:YES];
+
 }
 
 

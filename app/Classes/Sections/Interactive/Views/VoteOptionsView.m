@@ -78,7 +78,7 @@
                 model.judgeVote = YES;
                 optionView.button.userInteractionEnabled = NO;
                 
-//                [[NSNotificationCenter defaultCenter]postNotificationName:@"Vote" object:nil userInfo:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"Vote" object:nil userInfo:nil];
                 
                 return [RACSignal empty];
             }];
@@ -113,7 +113,7 @@
         optionView.tag = 1 + i;
         optionView.x = 0;
         optionView.y = i * 44;  //optioninfo  的坐标
-        [optionView builtInterfaceWithInter:optionInfo.optionCount];
+        [optionView builtInterfaceWithInter:optionInfo.optionCount voteCount:self.voteCount];
         
         [self addSubview:optionView];
     }
@@ -177,8 +177,11 @@
     interId.userId = acc.ID;
     [RestfulAPIRequestTool routeName:@"voteForUser" requestModel:interId useKeys:@[@"interactionId", @"userId", @"index"] success:^(id json) {
         NSLog(@"投票成功 %@", json);
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"CHANGESTATE" object:nil];
     } failure:^(id errorJson) {
         NSLog(@"投票失败 %@", errorJson);
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯.知道了" otherButtonTitles:nil, nil];
+        [alertV show];
     }];
 }
 

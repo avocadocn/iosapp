@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class PollModel;
 @interface VoteInfoTableViewController : UITableViewController
+
+@property (nonatomic, strong)PollModel *model;
 
 @end

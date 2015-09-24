@@ -13,4 +13,7 @@
 - (void)dlGetRouteWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image;
 
 
+- (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size;
+
+
 @end

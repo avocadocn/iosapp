@@ -58,13 +58,13 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
      //    [self requestNet];
      [self builtInterface];
      */  //第一个版本  公司版本
-    [self makeFlaseValue];
+    [self getTempSchool];
 }
 
 - (void)builtRightBarItem
 {
     self.title = @"大学信息";
-self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
+    self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
     
     self.label.text = @"下一步";
     self.label.textAlignment = NSTextAlignmentRight;
@@ -346,10 +346,33 @@ self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
     for (int i = 0; i < 1; i++) {
         SearchSchoolModel *model = [[SearchSchoolModel alloc]init];
         [model setName:@"上海大学"];
-        [model setID:@"55d44d2219d8c913768fce8c"];
+//        [model setID:@"55d44d2219d8c913768fce8c"];
         [self.modelArray addObject:model];
     }
 }
+
+- (void)getTempSchool
+{
+    SearchSchoolModel *searchmodel = [[SearchSchoolModel alloc]init];
+    searchmodel.name = @"上海大学";
+    
+    [RestfulAPIRequestTool routeName:@"companySearch" requestModel:searchmodel useKeys:@[@"name", @"city", @"page"] success:^(id json) {
+        self.modelArray = [NSMutableArray array];
+        NSArray *array = [json objectForKey:@"companies"];
+        for (NSDictionary *dic in array) {
+            SearchSchoolModel *model = [[SearchSchoolModel alloc]init];
+            [model setValuesForKeysWithDictionary:dic];
+            [self.modelArray addObject:model];
+        }
+        
+        [self.searchTableView reloadData];
+    } failure:^(id errorJson) {
+        NSLog(@"失败, %@", errorJson);
+    }];
+    
+}
+
+
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
     NSArray *array = [self.time.textfield.text componentsSeparatedByString:@"-"];

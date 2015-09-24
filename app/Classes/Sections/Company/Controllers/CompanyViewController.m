@@ -5,6 +5,8 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //
+
+#import "CircleContextModel.h"
 #import "SchoolTempModel.h"
 #import <AFNetworking.h>
 #import "AddressBookModel.h"
@@ -123,18 +125,96 @@
 - (void)netRequest {
     AddressBookModel *model = [[AddressBookModel alloc] init];
     
-    [model setLimit:100.00];
+    [model setLimit:10];
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
         NSLog(@"请求成功-- %@",json);
 //        [self reloadTableViewWithJson:json];
 //        [self.photoArray addObject:[self getPhotoArrayFromJson:json]];
-        [self.photoArray replaceObjectAtIndex:0 withObject:[self getPhotoArrayFromJson:json]];
-        [self getRequestNet];
+        if (json) {
+//            [self.photoArray replaceObjectAtIndex:0 withObject:[self getPhotoArrayFromJson:json]];
+            
+            [self saveDefaultWithJson:json];
+            
+//            [self getRequestNet];
+        }
+        
 //        [self.BigCollection reloadData];
+        
     } failure:^(id errorJson) {
         NSLog(@"请求失败 %@",errorJson);
     }];
 }
+
+- (void)saveDefaultWithJson:(id)json
+{
+    NSMutableArray *IDArray = [NSMutableArray array];
+    
+    for (NSDictionary *jsonDic in json) {
+        
+        CircleContextModel *model = [[CircleContextModel alloc]init];
+        
+        NSDictionary *dic = [jsonDic objectForKey:@"content"];
+        
+        [model setValuesForKeysWithDictionary:dic];
+        NSDictionary *poster = [dic objectForKey:@"poster"];
+        NSDictionary *target = [dic objectForKey:@"target"];
+        model.poster = [[AddressBookModel alloc]init];
+        model.target = [[AddressBookModel alloc]init];
+        [model.poster setValuesForKeysWithDictionary:poster];
+        [model.target setValuesForKeysWithDictionary:target];
+        
+        NSArray *comments = [jsonDic objectForKey:@"comments"];
+        model.comments = [NSMutableArray array];
+        for (NSDictionary *tempDic in comments) {
+            CircleContextModel *tempModel = [[CircleContextModel alloc]init];
+            [tempModel setValuesForKeysWithDictionary:tempDic];
+            tempModel.poster = [[AddressBookModel alloc]init];
+            tempModel.target = [[AddressBookModel alloc]init];
+            NSDictionary *tempPoster = [tempDic objectForKey:@"poster"];
+            NSDictionary *tempTarget = [tempDic objectForKey:@"target"];
+            [tempModel.poster setValuesForKeysWithDictionary:tempPoster];
+            [tempModel.target setValuesForKeysWithDictionary:tempTarget];
+            
+            [model.comments addObject:tempModel];
+        }
+        
+//        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:model];  //得到了 data
+//        
+        [IDArray addObject:model.ID];
+//        [self writeFileWithData:data andAddress:model.ID];
+
+        [model save];
+        
+    }
+    
+    NSFileManager *manger = [NSFileManager defaultManager];
+    NSArray *tempArray =  NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [tempArray lastObject];
+    path = [NSString stringWithFormat:@"%@/%@", path, @"IDArray"];
+    
+    BOOL judge = [manger fileExistsAtPath:path];
+    if (judge) {
+        
+        NSArray *array = [NSArray arrayWithContentsOfFile:path];
+        [IDArray removeObjectsInArray:array];
+        IDArray = (NSMutableArray *)[IDArray arrayByAddingObjectsFromArray:array];
+        [manger removeItemAtPath:path error:nil];
+        
+        NSInteger num = IDArray.count;
+        if (num > 10) {
+            [IDArray removeObjectsInRange:NSMakeRange(9, num - 10)];
+        }
+        
+        [IDArray writeToFile:path atomically:YES]; // 把ID数据存进去
+        
+    } else
+    {
+        [IDArray writeToFile:path atomically:YES];
+    }
+    
+}
+
+
 
 - (SendSchollTableModel *)getPhotoArrayFromJson:(id)json
 {
@@ -157,10 +237,8 @@
 //            model.titleName = @"同事圈";
 //            model.detileName = @"不一样的精彩";
             model.photoArray = [NSMutableArray arrayWithArray:photoArray];
-            
             return model;
         }
-        
     }
     model.photoArray = [NSMutableArray arrayWithArray:photoArray];
     

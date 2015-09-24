@@ -21,7 +21,9 @@
 //查
 -(Person *)selectPersonWithUserId:(NSString *)userId;
 
+
 - (void)insertGroup:(Group*)g;
 - (Group*)selectGroupWithGroupId:(NSString*)groupId;
 - (Group*)selectGroupWithEasemobId:(NSString*)easemobId;
+
 @end

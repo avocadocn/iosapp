@@ -20,7 +20,7 @@
 /**
  *  选择百分比  0~100
  */
-@property (nonatomic, assign) NSNumber *optionPercentage;
+@property (nonatomic, strong) NSNumber *optionPercentage;
 
 /**
  *  选项名称
@@ -33,12 +33,12 @@
 /**
  *  选择的人数
  */
-@property (nonatomic, assign)NSNumber *optionCount;
+@property (nonatomic, strong)NSNumber *optionCount;
 
 /**
  *点击过投票的搭建页面
  */
-- (void)builtInterfaceWithInter:(NSNumber *)num;
+- (void)builtInterfaceWithInter:(NSNumber *)num voteCount:(NSNumber *)voteCount;
 
 
 @end

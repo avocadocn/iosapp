@@ -14,8 +14,6 @@
 
 @property (nonatomic, strong)UITableView *myTableView;
 
-
-
 @end
 
 @implementation DeleteMemberFromGroup
@@ -37,14 +35,21 @@
     
     [self.view addSubview:self.myTableView];
     
-}
-
-
-
-- (void)requestNet
-{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadDataAction:) name:@"ReloadMemberTableView" object:nil];
     
 }
+
+- (void)reloadDataAction:(NSNotification *)userInfo
+{
+    NSDictionary *dic = userInfo.userInfo;
+    
+    AddressBookModel *model = [[AddressBookModel alloc]init];
+    model.ID = [dic objectForKey:@"UserId"];
+    
+    [self.modelArray addObject:model];
+}
+
+
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
@@ -124,11 +129,13 @@
         [RestfulAPIRequestTool routeName:@"removeGroups" requestModel:dic useKeys:@[@"groupId", @"userId"] success:^(id json) {
             NSLog(@"成员移除成功  %@", json);
             
-            
             [self.modelArray removeObjectAtIndex:indexPath.row];
             // Delete the row from the data source.
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadMemberTableView" object:nil userInfo:dic];
+            
+            
         } failure:^(id errorJson) {
             UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"成员移除失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
             [al show];
@@ -139,5 +146,14 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
+
+
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.myTableView reloadData];
+}
+
 
 @end

@@ -12,5 +12,8 @@
 @interface CommentsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong)Interaction *model;
+@property (nonatomic, strong)NSNumber *interactionType;
+@property (nonatomic, copy) NSString *inteactionId;
+
 
 @end

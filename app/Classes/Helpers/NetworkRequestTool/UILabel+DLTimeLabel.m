@@ -49,7 +49,13 @@
     NSLog(@"相差了 %f秒", sec);
     
     if (sec < 3600.00) {
-        self.text = [NSString stringWithFormat:@"%.f分钟前", sec / 60];
+        
+        NSInteger tempNum = sec / 60;
+        if (tempNum == 0) {
+            self.text = [NSString stringWithFormat:@"刚刚"];
+        } else {
+           self.text = [NSString stringWithFormat:@"%.f分钟前", sec / 60];
+        }
     } else if (sec >= 3600 && [self compareDate:aNewDate]) // 今天
     {
         self.text = [NSString stringWithFormat:@"%@", [self getHourAndMinuteWithDate:aNewDate]];

@@ -18,7 +18,7 @@
 /**
  *  该选项的投票人数
  */
-@property (nonatomic, assign) NSNumber* optionCount;
+@property (nonatomic, strong) NSNumber* optionCount;
 
 /**
  *  是否投过票

@@ -15,6 +15,8 @@
 #import "VoteTableController.h"
 #import "TeamSettingViewController.h"
 #import "CommentsViewController.h"
+#import "UIImageView+DLGetWebImage.h"
+#import "Interaction.h"
 
 @interface VoteTableViewCell()
 
@@ -52,6 +54,9 @@
  */
 @property (nonatomic, strong) UIView *bottomToolBar;
 
+@property (nonatomic, copy) NSString *interactionId;
+
+@property (nonatomic, strong)VoteInfoModel *infoModel;
 @end
 
 @implementation VoteTableViewCell
@@ -75,7 +80,7 @@
     
     // 容器视图
     UIView *voteContainer = [[UIView alloc]init];
-//    [voteContainer setBackgroundColor:[UIColor yellowColor]];
+    //    [voteContainer setBackgroundColor:[UIColor yellowColor]];
     
     // 头像 设置圆角
     UIImageView *avatarImageView = [[UIImageView alloc]init];
@@ -116,7 +121,7 @@
     VoteOptionsView *optionsView = [[VoteOptionsView alloc]init];
     optionsView.voteCount = self.voteNum;
     [voteContainer addSubview:optionsView];
-//    optionsView.backgroundColor = [UIColor redColor];
+    //    optionsView.backgroundColor = [UIColor redColor];
     self.optionsView = optionsView;
     
     // 从六个背景条颜色的所有种排序中选出一个
@@ -138,8 +143,10 @@
     // 此处使用rac 监听按钮的点击事件
     RACSignal *voteInfosSignal = [self.voteInfosBtn rac_signalForControlEvents:UIControlEventTouchUpInside];
     [voteInfosSignal subscribeNext:^(id x) {
-        VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
         
+        
+        VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+        controller.model = self.infoModel.model;
         // **********************************************
         // 此处由于代理 以及 通知的使用均不合适，所以在这边我采用了cell所处的viewController的类方法 \
         返回一个单例的navigationController， 这样方便在cell的任何子控件调用，已推出新的viewcontroller
@@ -149,7 +156,7 @@
     
     // 添加转发btn
     UIButton *retweedBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [retweedBtn setTitle:@"转发" forState:UIControlStateNormal];
+    [retweedBtn setTitle:@"" forState:UIControlStateNormal];
     retweedBtn.x = DLScreenWidth - 80;
     retweedBtn.y = 0;
     retweedBtn.width = 40;
@@ -167,6 +174,8 @@
     [commentBtnSignal subscribeNext:^(id x) {
         
         CommentsViewController *controller = [[CommentsViewController alloc]init];
+        controller.interactionType = @2;
+        controller.inteactionId = self.interactionId;
         [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
     }];
     
@@ -184,6 +193,7 @@
     
 }
 
+
 -(void)setVoteCellFrame:(VoteCellFrame *)voteCellFrame{
     self.voteNum = voteCellFrame.voteNum;
     self.optionsView.voteCount = self.voteNum;
@@ -191,7 +201,9 @@
     _voteCellFrame = voteCellFrame;
     
     VoteInfoModel *model = voteCellFrame.voteInfoModel;
-    [self.avatarImageView setImage:[UIImage imageNamed:model.avatarURL]];
+    self.infoModel = voteCellFrame.voteInfoModel; //***********************
+    self.interactionId = model.interactionId;
+    [self.avatarImageView dlGetRouteWebImageWithString:model.avatarURL placeholderImage:[UIImage imageNamed:@"icon1"]];
     [self.avatarImageView setFrame:voteCellFrame.avatarImageViewF];
     
     self.nameLabel.text = model.name;
@@ -202,7 +214,7 @@
     //    self.timeLabel.backgroundColor = [UIColor redColor];
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
     if (model.voteImageURL) {
-        [self.voteImageView setImage:[UIImage imageNamed:model.voteImageURL]];
+        [self.voteImageView dlGetRouteWebImageWithString:model.voteImageURL placeholderImage:[UIImage imageNamed:@"108"]];
         [self.voteImageView setAlpha:1];
     }else{
         [self.voteImageView setAlpha:0];
@@ -231,6 +243,7 @@
     }
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle) name:@"Vote" object:nil];  //  接受跳转通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle) name:@"CHANGESTATE" object:nil];
 }
 
 - (void)setVoteTitle

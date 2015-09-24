@@ -161,9 +161,10 @@ static NSString *userId = nil;
 - (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath
 {
     [self.circleImage dlGetRouteWebImageWithString:model.poster.photo placeholderImage:nil];
+    
+    
 //    self.circleImage.backgroundColor = [UIColor blueColor];
     self.circleImage.tag = indexpath.row + 11111;
-    
     self.ColleagueNick.text = model.poster.nickname;
     
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间

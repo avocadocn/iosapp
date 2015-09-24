@@ -16,6 +16,11 @@
 #import "DynamicTableViewCell.h"
 #import <Masonry.h>
 #import "Interaction.h"
+#import "DetailActivityShowController.h"
+#import "VoteTableController.h"
+#import "HelpTableViewController.h"
+
+
 @interface PersonalDynamicController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
@@ -211,6 +216,41 @@ static NSString *ID = @"fjseijfhiusehfgiu";
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
     }
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
+    switch ([inter.type integerValue]) {
+        case 1:{  // 活动详情
+            DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
+            activityController.orTrue = YES;
+            activityController.model = inter;
+            [self.navigationController pushViewController:activityController animated:YES];
+            break;
+        }
+        case 2:{  // 投票详情
+            VoteTableController *voteController = [[VoteTableController alloc]init]; /// 投票
+            voteController.voteArray = [NSMutableArray array];
+            [voteController.voteArray addObject:inter];
+            [self.navigationController pushViewController:voteController animated:YES];
+            
+            break;
+        }
+        case 3:  // 求助详情
+        {
+            HelpTableViewController *helpController = [[HelpTableViewController alloc]init];  // 求助
+            helpController.model = inter;
+            [self.navigationController pushViewController:helpController animated:YES];
+            break;
+        }
+        default:
+            break;
+    }
+
+}
+
 
 /*
  #pragma mark - Navigation
