@@ -338,8 +338,9 @@
     {
         return;
     }
-    
-    NSString *groupTag = group.groupSubject;
+    //这里需要对展示的提示信息做修改
+//    NSString *groupTag = group.groupSubject;
+    NSString *groupTag = group.groupDescription;
     if ([groupTag length] == 0) {
         groupTag = group.groupId;
     }

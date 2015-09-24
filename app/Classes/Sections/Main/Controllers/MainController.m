@@ -25,6 +25,12 @@
 #import "RepeaterGroupController.h"
 #import "Test1ViewController.h"
 #import "Singletons.h"
+#import "AccountTool.h"
+#import "Account.h"
+#import "AddressBookModel.h"
+#import "RestfulAPIRequestTool.h"
+#import "GuidePageViewController.h"
+
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 static NSString *kMessageType = @"MessageType";
@@ -32,7 +38,7 @@ static NSString *kConversationChatter = @"ConversationChatter";
 static NSString *kGroupName = @"GroupName";
 
 
-@interface MainController ()< IChatManagerDelegate, EMCallManagerDelegate>
+@interface MainController ()< IChatManagerDelegate, EMCallManagerDelegate,UIAlertViewDelegate>
 {
     ChatListViewController *_chatListVC;
     ContactsViewController *_contactsVC;
@@ -704,7 +710,7 @@ static NSString *kGroupName = @"GroupName";
 }
 
 #pragma mark - IChatManagerDelegate 登录状态变化
-
+//从其它设备进行了登录，此时需要退出到登录界面，同时清空一些数据
 - (void)didLoginFromOtherDevice
 {
     [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:NO completion:^(NSDictionary *info, EMError *error) {
@@ -714,7 +720,51 @@ static NSString *kGroupName = @"GroupName";
         
     } onQueue:nil];
 }
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==100||alertView.tag==101) {
+        [self logout];
+    }
+}
+/**
+ * 当前用户退出时，清空环信本地消息
+ */
+- (void)cleanEaseMob{
+    //退出环信
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
+        if (!error && info) {
+            NSLog(@"退出成功");
+        }
+    } onQueue:nil];
+    
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    NSMutableArray *needRemoveConversations;
+    for (EMConversation *conversation in conversations) {
+        if (!needRemoveConversations) {
+            needRemoveConversations = [[NSMutableArray alloc] initWithCapacity:0];
+        }
+        [needRemoveConversations addObject:conversation.chatter];
+    }
+    
+    if (needRemoveConversations && needRemoveConversations.count > 0) {
+        [[EaseMob sharedInstance].chatManager removeConversationsByChatters:needRemoveConversations
+                                                             deleteMessages:YES
+                                                                append2Chat:NO];
+    }
+}
+//退出登录，此时只是本地界面跳转至登录界面，退出环信
+//不可以退出warm，否则后一登陆用户的token会被清空
+//（与被顶掉得效果不符）
+- (void)logout
+{
+    GuidePageViewController *loginVC = [[GuidePageViewController alloc] init];
+    Account *accout = [AccountTool account];
+    DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:loginVC];
+    [[UIApplication sharedApplication].delegate window].rootViewController = nav;
+    accout = nil;
+    [AccountTool saveAccount:accout];
+    [self cleanEaseMob];
+}
 - (void)didRemovedFromServer
 {
     [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:NO completion:^(NSDictionary *info, EMError *error) {
