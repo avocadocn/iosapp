@@ -53,7 +53,10 @@
  *  互助内容label
  */
 @property (nonatomic, assign) CGRect helpContentLabelF;
-
+/**
+ *  添加答案label
+ */
+@property (nonatomic, assign) CGRect helpAnserLabel;
 /**
  *  cell的高度
  */

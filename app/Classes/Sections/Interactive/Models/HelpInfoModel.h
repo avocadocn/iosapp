@@ -37,5 +37,10 @@
  *  互助里的表述文字
  */
 @property (nonatomic, copy) NSString *helpText;
+/**
+ *  添加答案
+ */
+@property (nonatomic, copy) NSString *helpAnserText;
+
 
 @end

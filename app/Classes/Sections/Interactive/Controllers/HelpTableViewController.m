@@ -66,7 +66,7 @@ static NSString * const ID = @"HelpTableViewCell";
         helpInfoModel.helpImageURL = self.url;
         helpInfoModel.helpText = self.model.content;
         helpInfoModel.avatarURL = p.imageURL;
-        
+        helpInfoModel.helpAnserText = @"添加答案";
        
         
 

@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 @class Interaction;
+@class XHMessageTextView;
 
 @interface PublishSeekHelp : UIViewController
 
-@property (nonatomic, strong)UITextView *seekHelpContent;
+@property (nonatomic, strong)XHMessageTextView *seekHelpContent;
 
 @property (nonatomic, strong)UIImageView *selectPhoto;
 

@@ -235,7 +235,7 @@
     addressLabel.numberOfLines = 0;
     // TODO
     CGSize maxLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
-    NSString *str = [[NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]] substringFromIndex:5];
+    NSString *str = [[NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]] substringFromIndex:4];
     NSString *addressText = str;
     
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxLabelSize lineBreakMode:NSLineBreakByWordWrapping];

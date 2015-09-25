@@ -108,6 +108,7 @@
     CGSize nameLabelSize = [name boundingRectWithSize:maxNameLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:nameLabelAttr context:nil].size;
     self.nameLabelF = CGRectMake(nameLabelX, nameLabelY,nameLabelSize.width, nameLabelSize.height);
     
+    
     // 发表时间
     NSString *time = voteInfoModel.time;
     CGFloat timeLabelX = nameLabelX;
