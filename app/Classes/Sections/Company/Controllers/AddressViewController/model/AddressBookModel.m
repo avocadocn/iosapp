@@ -8,6 +8,8 @@
 
 #import "AddressBookModel.h"
 
+#define path [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
+
 @implementation AddressBookModel
 
 
@@ -86,6 +88,39 @@
     }
     return self;
     
+}
+
+
+//创建图片
+
+
+- (void)save
+{
+    NSString *filePathStr = [NSString stringWithFormat:@"%@/address", path];
+    NSFileManager *manger = [NSFileManager defaultManager];
+    BOOL judge = [manger fileExistsAtPath:filePathStr];
+    
+    NSString *dataPathStr = [NSString stringWithFormat:@"%@/%@", filePathStr, self.ID];
+    if (judge) {
+        BOOL small = [manger fileExistsAtPath:dataPathStr];
+        if (!small) {
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+            [data writeToFile:dataPathStr atomically:YES];
+            NSLog(@"存储成功");
+        }
+        
+    } else
+    {
+        NSError *error = nil;
+        [manger createDirectoryAtPath:filePathStr withIntermediateDirectories:YES attributes:nil error:&error];
+        
+        if (!error) {
+            NSLog(@"文件夹创建成功");
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+            [data writeToFile:dataPathStr atomically:YES];
+            NSLog(@"存储成功");
+        }
+    }
 }
 
 

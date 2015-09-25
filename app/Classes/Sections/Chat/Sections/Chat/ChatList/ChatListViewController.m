@@ -75,7 +75,7 @@ static ChatListViewController *chat = nil;
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
     [self networkStateView];
-
+    
     [self searchController];
     [self refreshGroup];
     

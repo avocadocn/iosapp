@@ -49,7 +49,7 @@
     
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 3, self.frame.size.width - 6, self.frame.size.width - 6)];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [imageView dlGetRouteThumbnallWebImageWithString:image placeholderImage:nil withSize:CGSizeMake(200, 200)];
+    [imageView dlGetRouteWebImageWithString:image placeholderImage:nil];
 //    [imageView dlGetRouteWebImageWithString:image placeholderImage:nil];
     
     imageView.layer.masksToBounds = YES;

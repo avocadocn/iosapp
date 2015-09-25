@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 @class AddressBookModel;
 
+@class Person;
+
 @interface AttentionViewCell : UITableViewCell
 
 
@@ -16,6 +18,6 @@
 @property (strong, nonatomic)  UIImageView *AttentionPhoto;
 @property (strong, nonatomic)  UILabel *AttentionWork;
 @property (strong, nonatomic) UIButton *joinButton;
-- (void)cellBuiltWithModel:(AddressBookModel *)model;
+- (void)cellBuiltWithModel:(Person *)model;
 
 @end

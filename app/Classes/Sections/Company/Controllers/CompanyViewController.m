@@ -36,8 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self builtInterface]; //铺设截面
-//    [self netRequest];
-//    [self getRequestNet];
+    [self netRequest];
+    [self getRequestNet];
     
 }
 - (void)builtInterface
@@ -129,16 +129,18 @@
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
         NSLog(@"请求成功-- %@",json);
 //        [self reloadTableViewWithJson:json];
-//        [self.photoArray addObject:[self getPhotoArrayFromJson:json]];
+
         if (json) {
-//            [self.photoArray replaceObjectAtIndex:0 withObject:[self getPhotoArrayFromJson:json]];
+            
+            SendSchollTableModel *model = [self getPhotoArrayFromJson:json];
+            [self.photoArray replaceObjectAtIndex:0 withObject:model];
             
             [self saveDefaultWithJson:json];
+                    [self.BigCollection reloadData];
             
 //            [self getRequestNet];
         }
         
-//        [self.BigCollection reloadData];
         
     } failure:^(id errorJson) {
         NSLog(@"请求失败 %@",errorJson);
@@ -242,7 +244,7 @@
     }
     model.photoArray = [NSMutableArray arrayWithArray:photoArray];
     
-    return nil;
+    return model;
 }
 
 - (void)getRequestNet

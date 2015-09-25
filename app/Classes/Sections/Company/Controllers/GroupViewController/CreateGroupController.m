@@ -194,7 +194,7 @@
     GroupSelectView *view = (GroupSelectView *)[self.superScroll viewWithTag:100];
     [dic setObject:[NSNumber numberWithBool:view.switchLabel.on] forKey:@"open"];
 
-    GroupSelectView *view2 = (GroupSelectView *)[self.superScroll viewWithTag:100];
+    GroupSelectView *view2 = (GroupSelectView *)[self.superScroll viewWithTag:101];
     [dic setObject:[NSNumber numberWithBool:view2.switchLabel.on] forKey:@"hasValidate"];
     [dic setObject:@0 forKey:@"isAdmin"];
     
