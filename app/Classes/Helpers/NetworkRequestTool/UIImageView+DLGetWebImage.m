@@ -9,6 +9,8 @@
 #import "UIImageView+DLGetWebImage.h"
 #import <UIImageView+WebCache.h>
 
+#define path [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
+
 @implementation UIImageView (DLGetWebImage)
 
 /**
@@ -21,8 +23,6 @@
     NSString * newUrlStr = [self getUrlStringWithString:str];
     
     [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
-    
-    
     
 }
 
@@ -40,15 +40,61 @@
 }
 - (void)dlGetWebImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)image
 {
-    [self sd_setImageWithURL:url placeholderImage:image];
+    // 先判断本地有没有此图
     
-    
-    
-    RACSignal *imageAvailableSignal = [RACObserve(self, self.image) map:^id(id x){
+    BOOL localState = [self judgeLocalImage:url];
+    if (localState) {
         
-        return x ? @YES : @NO;
-    }];
+        self.image = [self readImageWithUrl:url];
+        NSLog(@"本地有图片");
+        
+    } else {
+        
+        [self sd_setImageWithURL:url placeholderImage:image];
+        NSLog(@"这个走不走");
+        [RACObserve(self, self.image) subscribeNext:^(UIImage *image) {
+            if (image) {
+                
+                NSLog(@"图片加载完毕 %@", self.image);
+                [self saveImageWithUrl:url];
+            }
+        }];
+    }
+}
+
+/**
+ * 存图片
+ */
+
+- (void)saveImageWithUrl:(NSURL *)url
+{
+    NSString *str = [self getAddressWithUrl:url];
+    NSData *data = UIImagePNGRepresentation(self.image);
+    [data writeToFile:str atomically:YES];
+    NSLog(@"保存图片成功");
+}
+/**
+ * 判断本地有没有图片
+ */
+- (BOOL)judgeLocalImage:(NSURL *)url
+{
+    NSString *str = [self getAddressWithUrl:url];
+    NSFileManager *manger = [NSFileManager defaultManager];
     
+    BOOL judge = [manger fileExistsAtPath:str];
+    return judge;
+}
+
+/**
+ * 读取本地的图片
+ */
+
+- (UIImage *)readImageWithUrl:(NSURL *)url
+{
+    NSData *data = [NSData dataWithContentsOfFile:[self getAddressWithUrl:url]];
+    UIImage *image = [UIImage imageWithData:data];
+    NSLog(@"获取本地图片成功");
+    return image;
 }
 
 
@@ -68,7 +114,14 @@
     
     return newUrlStr;
 }
-
+- (NSString *)getAddressWithUrl:(NSURL *)url
+{
+    NSString *str = [NSString stringWithFormat:@"%@", url];
+    NSArray *array = [str componentsSeparatedByString:@"/"];
+    NSString *returnStr = [NSString stringWithFormat:@"%@/%@%@", path, [array objectAtIndex:(array.count - 2)] ,[array lastObject]];
+    
+    return returnStr;
+}
 
 
 @end

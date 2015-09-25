@@ -115,6 +115,8 @@ static AttentionViewController *att = nil;
     AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
     
     PersonalDynamicController *fold = [[PersonalDynamicController alloc]init];
+    fold.userModel = [[AddressBookModel alloc]init];
+    fold.userModel = model;
     
     
     [self.navigationController pushViewController:fold animated:YES];

@@ -6,10 +6,15 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
+#import <Masonry.h>
+#import "FolderViewController.h"
+#import "MessageViewController.h"
+#import "ActivityShowTableController.h"
+#import "VoteTableController.h"
+#import "MenuCollectionController.h"
 #import "GroupCardModel.h"
 #import <Masonry.h>
 #import "HelpTableViewController.h"
-#import "VoteTableController.h"
 #import "DetailActivityShowController.h"
 #import "Account.h"
 #import "AccountTool.h"
@@ -28,9 +33,9 @@
 #import "CurrentActivitysShowCell.h"
 
 static NSString *ID = @"feasfsefse";
-#define headViewHeight (DLMultipleHeight(256.0))
+#define headViewHeight (DLMultipleHeight(256.0)) + 180
 
-@interface TeamHomePageController ()<UITableViewDataSource,UITableViewDelegate>
+@interface TeamHomePageController ()<UITableViewDataSource,UITableViewDelegate, MenuCollectionControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
 
@@ -114,7 +119,40 @@ static NSString * const helpCellID = @"helpCellID";
     if (self.headerImage) {
         self.headImageView.image = self.headerImage;
     }
+}
+
+-(void)collectionController:(MenuCollectionController *)collectionController didSelectedItemAtIndex:(NSInteger)index{
+    UIViewController *controller;
+    switch (index) {
+        case 0: // 我的信息
+            controller = [[FolderViewController alloc] init];
+            [(FolderViewController *)controller setJudgeEditState:YES];
+            break;
+        case 1: // 群组
+            controller = [[TeamHomePageController alloc]init];
+            break;
+        case 2: // 消息
+            //controller = [[FolderViewController alloc]init];
+            //            controller = [[UserMessageTableViewController alloc]init];
+            controller = [[MessageViewController alloc] init];
+            break;
+        case 3: // 活动
+            //使用指定的frame大小初始化viewcontroller,高度增加64是因为后续会减掉64
+            controller = [[ActivityShowTableController alloc]init];
+            break;
+        case 4: // 投票
+            controller = [[VoteTableController alloc]init];
+            break;
+        case 5: // 求助
+            controller = [[HelpTableViewController alloc]init];
+            break;
+        default:
+            break;
+    }
     
+    if (controller) {
+        [self.navigationController pushViewController:controller animated:YES];
+    }
     
 }
 
@@ -138,18 +176,55 @@ static NSString * const helpCellID = @"helpCellID";
     [self.tableView registerClass:[HelpTableViewCell class] forCellReuseIdentifier:helpCellID];
     [self.tableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     
+    
+    UIView *bigView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, headViewHeight + 180)];
+    
+    
     self.headView = [[UIView alloc]init];
     [self.headView setFrame:CGRectMake(0, 0, DLScreenWidth, headViewHeight)];
-    self.tableView.tableHeaderView = self.headView;
+    
+
     
     
-    self.headImageView = [[UIImageView alloc]initWithFrame:self.headView.frame];
+    self.headImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, headViewHeight - 180)];
     self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.headImageView.layer.masksToBounds = YES;
-    
-    
     [self.headView addSubview:self.headImageView];
     
+    
+    UIView *temp = [UIView new];
+    temp.backgroundColor = [UIColor lightGrayColor];
+    [self.headView addSubview:temp];
+    [temp mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.headImageView.mas_bottom);
+        make.height.mas_equalTo(180.0);
+        make.left.mas_equalTo(self.headView.mas_left);
+        make.right.mas_equalTo(self.headView.mas_right);
+    }];
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
+    UICollectionView *collec = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 180) collectionViewLayout:layout];
+    
+    collec.backgroundColor = [UIColor whiteColor];
+    [collec registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"fkslfksnfjenf"];
+    collec.delegate = self;
+    collec.dataSource = self;
+    [temp addSubview:collec];
+    
+    /*  加胜写的
+    MenuCollectionController *menuController = [[MenuCollectionController alloc]init];
+    menuController.view.y += 180;
+    [menuController setDelegate:self];
+    [self.headView addSubview:menuController.view];
+*/
+    
+//    [bigView addSubview:self.headView];
+//    [bigView addSubview:temp];
+    
+    self.tableView.tableHeaderView = self.headView;
     [self.view addSubview:self.tableView];
     
     self.joinButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -186,7 +261,24 @@ static NSString * const helpCellID = @"helpCellID";
     self.headerImage = image;
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat width = DLScreenWidth / 3.0;
+    return CGSizeMake(width, 90);
+}
 
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fkslfksnfjenf" forIndexPath:indexPath];
+    cell.layer.borderWidth = .5;
+    cell.layer.borderColor = RGBACOLOR(247, 247, 247, 1).CGColor;
+//    cell.layer.backgroundColor = [UIColor greenColor].CGColor;
+    return cell;
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 6;
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -396,7 +488,7 @@ static NSString * const helpCellID = @"helpCellID";
     if (offsetY < 0) {
         CGFloat factorWidth = DLScreenWidth / headViewHeight * (headViewHeight - offsetY);
         self.headView.frame = CGRectMake(0, offsetY, DLScreenWidth, headViewHeight - offsetY);
-        self.headImageView.frame = CGRectMake(-(factorWidth - DLScreenWidth) / 2, offsetY, factorWidth, headViewHeight - offsetY);
+//        self.headImageView.frame = CGRectMake(-(factorWidth - DLScreenWidth) / 2, offsetY, factorWidth, headViewHeight - offsetY);
     }
     
 }

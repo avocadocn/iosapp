@@ -22,6 +22,8 @@
 }
 
 @property (nonatomic, strong)NSMutableArray *dataArray;
+
+@property (nonatomic, strong) VoteInfoTableViewModel *infoModel;
 @end
 
 @implementation VoteInfoTableViewController
@@ -79,31 +81,34 @@ static NSString * const ID = @"VoteInfoTableViewCell";
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
     VoteInfoTableViewModel *model = self.dataArray[section];
-    return model.voters.count;
+    
+    
+//    return model.voters.count;
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    
+    VoteInfoTableViewModel *model = self.dataArray[indexPath.section];
+    self.infoModel = model;
     // 硬编码 假设第一组 2 个数据，第2组 20 个数据
-   indexPath.section == 0 ? [self addSubImageViewWithCell:cell itemCount:2] : [self addSubImageViewWithCell:cell itemCount:10];
+   [self addSubImageViewWithCell:cell itemCount:model.voters.count];
     
     return cell;
 }
 
 -(void)addSubImageViewWithCell:(UITableViewCell *)cell itemCount:(NSUInteger)count{
-    
     NSUInteger itemCount = count;
     CGFloat itemWidthHeight = _itemWidthHeight;
     
     for (NSInteger i = 0; i < itemCount; i++) {
-        
-        
+     NSDictionary *dic = [self.infoModel.voters objectAtIndex:i];
+        Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:[dic objectForKey:@"_id"]];
         // 此处为了简单演示，使用的是imageView，可根据实际项目需要改成自定义的button
         UIImageView *itemView = [[UIImageView alloc]init];
         
-        [itemView setImage:[UIImage imageNamed:@"1"]];
+        [itemView dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
         itemView.x = i % kIconCountPerLine * (itemWidthHeight + kIconMargin) + kIconMargin;
         itemView.y = i / kIconCountPerLine * (itemWidthHeight + kIconMargin) + kIconMargin;
         itemView.width = itemWidthHeight;
@@ -122,13 +127,17 @@ static NSString * const ID = @"VoteInfoTableViewCell";
 
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return section == 0 ? @"好帅(2)" : @"一点也不帅(20)";
+    VoteInfoTableViewModel *model = self.dataArray[section];
+    
+    return [NSString stringWithFormat:@"%@",model.value];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+     VoteInfoTableViewModel *model = self.dataArray[indexPath.section];
+   
     
     // 硬编码 假设第一组 2 个数据，第2组 20 个数据
-    NSUInteger lineCount = (indexPath.section == 0 ? 2 / kIconCountPerLine : 10 / kIconCountPerLine) + 1;
+    NSUInteger lineCount = (indexPath.section == 0 ? model.voters.count / kIconCountPerLine : model.voters.count / kIconCountPerLine) + 1;
     return lineCount * (_itemWidthHeight + kIconMargin) +  kIconMargin;
 }
 

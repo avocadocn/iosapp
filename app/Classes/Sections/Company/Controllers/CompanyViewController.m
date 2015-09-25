@@ -196,14 +196,14 @@
     if (judge) {
         
         NSArray *array = [NSArray arrayWithContentsOfFile:path];
-        [IDArray removeObjectsInArray:array];
-        IDArray = (NSMutableArray *)[IDArray arrayByAddingObjectsFromArray:array];
+//        [IDArray removeObjectsInArray:array];
+//        IDArray = (NSMutableArray *)[IDArray arrayByAddingObjectsFromArray:array];
         [manger removeItemAtPath:path error:nil];
         
-        NSInteger num = IDArray.count;
-        if (num > 10) {
-            [IDArray removeObjectsInRange:NSMakeRange(9, num - 10)];
-        }
+//        NSInteger num = IDArray.count;
+//        if (num > 10) {
+//            [IDArray removeObjectsInRange:NSMakeRange(10, num - 10)];
+//        }
         
         [IDArray writeToFile:path atomically:YES]; // 把ID数据存进去
         

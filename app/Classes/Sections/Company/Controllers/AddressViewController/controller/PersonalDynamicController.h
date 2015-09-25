@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class TableHeaderView;
-
+@class AddressBookModel;
 
 @interface PersonalDynamicController : UIViewController
 
@@ -17,5 +17,9 @@
 @property (nonatomic, strong)TableHeaderView *header;
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
+
+@property (nonatomic, strong)AddressBookModel *userModel;
+
+
 
 @end

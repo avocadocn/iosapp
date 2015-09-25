@@ -87,6 +87,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self requestNet];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"KPOSTNAME" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"CHANGESTATE" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"REFRESSDATA" object:nil];
 }
 
 - (void)reFreshData:(NSNotification *)notice {
@@ -591,6 +592,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     LoginViewController *login = [[LoginViewController alloc]init];
+    login.pageState = YES;
+    
     [self.navigationController pushViewController:login animated:YES];
 }
 

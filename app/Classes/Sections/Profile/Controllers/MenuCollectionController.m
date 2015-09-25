@@ -54,9 +54,6 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
-    
     self.itemNames = @[@"我的信息",@"群组",@"消息",@"活动",@"投票",@"求助"];
     
     self.itemIcons = @[@"我的信息111@2X",@"社团111@2X",@"消息111@2X",@"活动111@2X",@"投票111@2X",@"求助111@2x"];

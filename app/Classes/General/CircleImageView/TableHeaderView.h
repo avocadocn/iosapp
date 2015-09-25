@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class AddressBookModel;
 @interface TableHeaderView : UIView
 
 @property (nonatomic, strong)CIFilter *filter;
@@ -18,9 +18,10 @@
 
 @property (nonatomic, strong)UILabel *headerSingLabel;
 
-- (instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image;
+@property (nonatomic, strong)AddressBookModel *userModel;
 
-- (void)tableViewHeaderViewWithImage:(UIImage *)image;
+- (instancetype)initWithFrame:(CGRect)frame andImage:(NSString *)image;
 
+- (void)tableViewHeaderViewWithImage:(NSString *)image;
 
 @end

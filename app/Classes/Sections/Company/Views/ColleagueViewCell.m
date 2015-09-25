@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
 #import "WPHotspotLabel.h"
 #import "AddressBookModel.h"
 #import "ColleagueViewCell.h"
@@ -160,12 +162,13 @@ static NSString *userId = nil;
 
 - (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath
 {
-    [self.circleImage dlGetRouteWebImageWithString:model.poster.photo placeholderImage:nil];
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.postUserId];
     
+    [self.circleImage dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
     
 //    self.circleImage.backgroundColor = [UIColor blueColor];
     self.circleImage.tag = indexpath.row + 11111;
-    self.ColleagueNick.text = model.poster.nickname;
+    self.ColleagueNick.text = per.name;
     
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
     

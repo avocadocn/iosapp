@@ -56,6 +56,11 @@
     self.userPhoto.userInteractionEnabled = YES;
     self.userPhoto.layer.cornerRadius = DLMultipleWidth(75.0);
     UITapGestureRecognizer *choosePhotoTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(choosePhotoAction:)];
+    
+    self.userPhoto.clipsToBounds = YES;
+    self.userPhoto.contentMode = UIViewContentModeScaleAspectFill;
+    
+    
     [self.userPhoto addGestureRecognizer:choosePhotoTap];
     
     [self.view addSubview:self.userPhoto];
