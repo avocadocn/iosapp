@@ -18,19 +18,55 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "GroupDetileModel.h"
+#import <MJRefresh.h>
 
+#define path [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
 
 @interface AddressViewController ()<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, addressTableViewDelegate, UIAlertViewDelegate>
-
+/**
+ *  用做用户搜索
+ */
+@property (nonatomic, strong)NSArray *jsonArray;
+@property (nonatomic, strong)NSArray *bigArray;
 @end
 
 @implementation AddressViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self readLocalAddress];
     [self requestNet];
     [self builtInterFace];
 }
+
+
+- (void)readLocalAddress
+{
+    NSFileManager *manger = [NSFileManager defaultManager];
+    NSString *Str = [NSString stringWithFormat:@"%@/address", path];
+    
+    NSArray *array = [manger subpathsAtPath:Str];
+    
+    NSArray *big = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@/bigAddress", path]];
+    NSLog(@" 本地 %@" , big);
+    
+    NSLog(@"获取到的本地文件  %@", array);
+    NSMutableArray *mutableArray = [NSMutableArray array];
+    for (NSString *str in array) {
+        NSData *data = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", Str, str]];
+        AddressBookModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:model.nickname forKey:@"nickname"];
+        [dic setObject:model.gender forKey:@"gender"];
+        [dic setObject:model.ID forKey:@"_id"];
+        [dic setObject:model.photo forKey:@"photo"];
+        [dic setObject:model.realname forKey:@"realname"];
+        [mutableArray addObject:dic];
+    }
+    [self relodaViewWithData:mutableArray];
+}
+
+
 - (void)builtInterFace
 {
     self.title = @"公司通讯录";
@@ -38,11 +74,11 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
     self.addressSearch = [[EMSearchBar alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, 40)];
-    
     self.addressSearch.placeholder = @"Search";  [self.addressSearch placeholder];
     self.addressSearch.layer.borderWidth = 5;
     self.addressSearch.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.addressSearch.backgroundColor = DLSBackgroundColor;
+    self.addressSearch.backgroundColor = [UIColor yellowColor];
+    self.addressSearch.delegate = self;
     [self.view addSubview:self.addressSearch];
     
     self.myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64 + 40, DLScreenWidth, DLScreenHeight - 64 - 30) style:UITableViewStylePlain];
@@ -50,9 +86,72 @@
     self.myTableView.delegate = self;
     self.myTableView.dataSource = self;
     self.myTableView.sectionIndexColor = [UIColor blackColor];
+    
+    
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
+    self.myTableView.footer = footer;
+    
+    MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
+    aHeader.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    
+    
+    self.myTableView.header = aHeader;
+    
+    
     [self.view addSubview:self.myTableView];
     
 }
+- (void)refreshAction
+{
+    [UIView animateWithDuration:.7 animations:^{
+        
+        [self.myTableView.footer endRefreshing];
+    }];
+}
+
+- (void)headerAction
+{
+    [UIView animateWithDuration:.7 animations:^{
+        [self.myTableView.header endRefreshing];
+    }];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    NSMutableArray *mutableArray = [NSMutableArray array];
+    // 找寻
+    NSLog(@"要搜索的文字为  %@", searchText);
+    if (![searchText isEqualToString:@""]) {
+        self.wordDic = [NSMutableDictionary dictionary];
+        for (NSDictionary *dic in self.jsonArray) {
+            NSString *str = [dic objectForKey:@"realname"];
+        
+            if([str rangeOfString:searchText].location !=NSNotFound)//_roaldSearchText { NSLog(@"yes");
+            {
+                NSLog(@"找到了  %@", str);
+                [mutableArray addObject:dic];
+            }
+        }
+        
+        [self relodaViewWithData:mutableArray];
+    }
+    else
+    {
+        
+        self.modelArray = [NSMutableArray arrayWithArray:self.bigArray];
+        NSLog(@"重新杀星");
+        [self.myTableView reloadData];
+    }
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"结束");
+}
+
+
+
 
 - (UISearchBar *)searchBar
 {
@@ -77,9 +176,26 @@
     [model setCompanyId:acc.cid];
     
     [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
-//        NSLog(@"获取通讯录成功 , %@", json);
+        NSLog(@"获取通讯录成功 , %@", json);
+        
+        self.jsonArray = [NSArray arrayWithArray:json];
         
         [self relodaViewWithData:json];
+        
+        self.bigArray = [NSArray arrayWithArray:self.modelArray];
+        
+        [self saveDataWithJson:json];
+        /*
+        NSString *str = [NSString stringWithFormat:@"%@/bigAddress", path];
+        NSFileManager *mag = [NSFileManager defaultManager];
+        if ([mag fileExistsAtPath:str]) {
+            [mag removeItemAtPath:str error:nil];
+            [self.bigArray writeToFile:str atomically:YES];
+        } else
+        {
+            [self.bigArray writeToFile:str atomically:YES];
+        }
+        */
         
         acc.userId = acc.ID;
         // 获取关注列表
@@ -112,13 +228,19 @@
 }
 - (void)relodaViewWithData:(id)json
 {
-    if (!self.modelArray) {
+//    if (!self.modelArray) {
         self.modelArray = [NSMutableArray arrayWithArray:json];
-    }
+//    }
+    
+//    self.wordDic = [NSMutableDictionary dictionary];
     
     // 分析数据
     NSInteger i = 0;
     for (NSDictionary *dic in json) {
+        
+        AddressBookModel *model = [[AddressBookModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic];
+        
         NSString *str = [NSString stringWithFormat:@"%@", [dic objectForKey:@"realname"]];  //根据用户的真名进行排序
 //        NSLog(@"用户名为 %@", str);
         [self judgeNameFormat:str andIndex:i];
@@ -159,6 +281,8 @@
     }
 //    NSLog(@"排列完的数组为 %@", self.modelArray);
 }
+
+
 //  index 为 字符串所在字典 在数组中的下标
 - (void)judgeNameFormat:(NSString *)str andIndex:(NSInteger)index
 {
@@ -241,7 +365,6 @@
     }
 }
 
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 20)];
@@ -264,7 +387,9 @@
     cell.indexPath = indexPath;
     cell.delegate = self;
     [cell cellReloadWithAddressModel:model];
+    
     return cell;
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -380,6 +505,14 @@
     
 }
 
+- (void)saveDataWithJson:(id)json
+{
+    for (NSDictionary *dic in json) {
+        AddressBookModel *model = [[AddressBookModel alloc]init];
+        [model setValuesForKeysWithDictionary:dic];
+        [model save];
+    }
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

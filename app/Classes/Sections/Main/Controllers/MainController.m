@@ -115,8 +115,6 @@ static NSString *kGroupName = @"GroupName";
 
 -(void)setUpTabbar{
     
-
-    
     InteractiveViewController *interactiveVC = [[InteractiveViewController alloc]init];
     [self addOneTabWithVC:interactiveVC title:@"互动"];
     

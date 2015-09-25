@@ -43,4 +43,6 @@
 @property (nonatomic, copy)NSString *company_official_name;
 
 
+- (void)save;
+
 @end

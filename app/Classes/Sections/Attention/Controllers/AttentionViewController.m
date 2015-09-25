@@ -5,9 +5,10 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //
-
+#import <MJRefresh.h>
 #import "PersonalDynamicController.h"
-
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
 #import "AttentionViewController.h"
 #import "AttentionViewCell.h"
 #import "ColleaguesInformationController.h"
@@ -52,7 +53,7 @@ static AttentionViewController *att = nil;
     acc.userId = acc.ID;
     // 获取关注列表
     [RestfulAPIRequestTool routeName:@"getCorcernList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
-//        NSLog(@"获取用户关注列表成功 %@", json);
+        NSLog(@"获取用户关注列表成功 %@", json);
         [self getDetailInforFromJson:json];
     } failure:^(id errorJson) {
         NSLog(@"获取用户列表失败  %@", errorJson);
@@ -61,28 +62,34 @@ static AttentionViewController *att = nil;
 
 - (void)getDetailInforFromJson:(id)array
 {
-    __block int i = 0;
+//    __block int i = 0;
     for (NSMutableDictionary *dic in array) {
         [dic setObject:[dic objectForKey:@"_id"] forKey:@"userId"];
-        [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:dic useKeys:@[@"userId"] success:^(id json) {
-            
-            AddressBookModel *addressModel = [[AddressBookModel alloc]init];
-            CompanyModel *companyModel = [[CompanyModel alloc]init];
-            [companyModel setValuesForKeysWithDictionary:[json objectForKey:@"company"]];
-            [addressModel setValuesForKeysWithDictionary:json];
-            [addressModel setCompany:companyModel];
-            addressModel.attentState = YES;
-            
-            [self.modelArray addObject:addressModel];
-            i++;
-            if (i == [array count]) {
-                [self.attentionTableView reloadData];
-            }
-            
-        } failure:^(id errorJson) {
-            NSLog(@"没有获取到关注的用户信息 %@", errorJson);
-        }];
+//        [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:dic useKeys:@[@"userId"] success:^(id json) {
+//            
+//            AddressBookModel *addressModel = [[AddressBookModel alloc]init];
+//            CompanyModel *companyModel = [[CompanyModel alloc]init];
+//            [companyModel setValuesForKeysWithDictionary:[json objectForKey:@"company"]];
+//            [addressModel setValuesForKeysWithDictionary:json];
+//            [addressModel setCompany:companyModel];
+//            addressModel.attentState = YES;
+//            
+//            [self.modelArray addObject:addressModel];
+//            i++;
+//            if (i == [array count]) {
+//                [self.attentionTableView reloadData];
+//            }
+//            
+//        } failure:^(id errorJson) {
+//            NSLog(@"没有获取到关注的用户信息 %@", errorJson);
+//        }];
+        
+        Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:[dic objectForKey:@"_id"]];
+        [self.modelArray addObject:per];
+        
     }
+    [self.attentionTableView reloadData];
+    
 }
 
 - (void)builtInterface{
@@ -94,30 +101,56 @@ static AttentionViewController *att = nil;
     
     [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"cell"];
     
-    [self.view addSubview:self.attentionTableView];
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
+    self.attentionTableView.footer = footer;
     
+    MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
+    aHeader.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    
+    
+    self.attentionTableView.header = aHeader;
+    
+    [self.view addSubview:self.attentionTableView];
 }
+
+- (void)refreshAction
+{
+    [UIView animateWithDuration:.7 animations:^{
+        
+        [self.attentionTableView.footer endRefreshing];
+    }];
+}
+
+- (void)headerAction
+{
+    [UIView animateWithDuration:.7 animations:^{
+        [self.attentionTableView.header endRefreshing];
+    }];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AttentionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
-    AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    Person *model = [[Person alloc]init];
+    
+    model = [self.modelArray objectAtIndex:indexPath.row];
     
     [cell cellBuiltWithModel:model];
-    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    Person *model = [self.modelArray objectAtIndex:indexPath.row];
     
     PersonalDynamicController *fold = [[PersonalDynamicController alloc]init];
     fold.userModel = [[AddressBookModel alloc]init];
-    fold.userModel = model;
-    
+    fold.userModel.ID = model.userId;
+    fold.userModel.photo = model.imageURL;
     
     [self.navigationController pushViewController:fold animated:YES];
 }

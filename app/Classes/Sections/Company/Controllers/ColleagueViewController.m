@@ -134,7 +134,6 @@ static NSString * contentId = nil;
     [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
     self.colleagueTable.footer = footer;
     
-//    MJRefreshHeader *header = [MJRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
     MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
     aHeader.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     
@@ -196,9 +195,10 @@ static NSString * contentId = nil;
         
 //        }
     } failure:^(id errorJson) {
+        
         [self.colleagueTable.header endRefreshing];
         [self.colleagueTable.footer endRefreshing];
-        
+
     }];
 }
 

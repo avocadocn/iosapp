@@ -10,6 +10,8 @@
 #import "TableHeaderView.h"
 #import "ApertureView.h"
 #import <Masonry.h>
+#import "UIImageView+DLGetWebImage.h"
+
 
 @implementation TableHeaderView
 
@@ -17,14 +19,27 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-//        [self maskImage:image];
+        [self maskImage:image];
         [self tableViewHeaderViewWithImage:image];
     }
     return self;
 }
 
-- (void)maskImage:(UIImage *)image
+- (void)maskImage:(NSString *)image
 {
+    
+    UIImageView *backImage = [[UIImageView alloc]initWithFrame:self.frame];
+    [backImage dlGetRouteWebImageWithString:image placeholderImage:nil];
+    [self addSubview:backImage];
+    
+    UIView *view = [[UIView alloc]initWithFrame:self.frame];
+    UIImage *remp = [UIImage imageNamed:@"mask_sha.jpeg"];
+    
+    view.layer.contents = (__bridge id)remp.CGImage;
+    view.alpha = .45;
+    [self addSubview:view];
+    
+    /*
     self.filter = [CIFilter filterWithName:@"CIMaskedVariableBlur"];
     if (!self.context) {
         self.context = [CIContext contextWithOptions:nil];
@@ -52,6 +67,8 @@
         make.right.mas_equalTo(self.mas_right);
         make.bottom.mas_equalTo(self.mas_bottom);
     }];
+     
+     */
 }
 - (void)tableViewHeaderViewWithImage:(NSString *)image
 {
@@ -60,12 +77,13 @@
     
 //    self.layer.contentsGravity = kCAGravityResizeAspectFill;
     
-    ApertureView *aper = [[ApertureView alloc]initWithFrame:CGRectMake(DLScreenWidth / (375 / 10.0), DLScreenHeight / (667 / 97.0), DLScreenWidth / (375 / 100.00), DLScreenWidth / (375 / 100.00)) andImage:per.imageURL withBorderColor:[UIColor whiteColor]];
+    ApertureView *aper = [[ApertureView alloc]initWithFrame:CGRectMake(DLScreenWidth / (375 / 10.0), DLScreenHeight / (667 / 97.0), DLScreenWidth / (375 / 100.00), DLScreenWidth / (375 / 100.00)) andImage:image withBorderColor:[UIColor whiteColor]];
     [self addSubview:aper];
     
     self.headerTitleLabel = [UILabel new];
     self.headerTitleLabel.textColor = [UIColor whiteColor];
-    self.headerTitleLabel.attributedText = [self attributeString:per.name];
+    self.headerTitleLabel.text = per.name;
+//    self.headerTitleLabel.attributedText = [self attributeString:per.name];
     
     UIView *lineView = [UIView new];
     [lineView setBackgroundColor:[UIColor colorWithWhite:.5 alpha:.5]];
