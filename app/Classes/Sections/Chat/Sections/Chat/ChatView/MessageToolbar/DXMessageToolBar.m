@@ -344,21 +344,28 @@
     
     if (!self.moreView) {
         self.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 80) type:ChatMoreTypeGroupChat];
-        self.moreView.backgroundColor = [UIColor lightGrayColor];
+        self.moreView.backgroundColor = RGB(246, 246, 248);
         self.moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
     
     if (!self.faceView) {
         self.faceView = [[DXFaceView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 200)];
         [(DXFaceView *)self.faceView setDelegate:self];
-        self.faceView.backgroundColor = [UIColor lightGrayColor];
+        self.faceView.backgroundColor = RGB(246, 246, 248);
         self.faceView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
     
     if (!self.recordView) {
         self.recordView = [[DXRecordView alloc] initWithFrame:CGRectMake(90, 130, 140, 140)];
     }
-    
+    //添加底部分割线
+    UIView* separater = [UIView new];
+    separater.height= 0.5;
+    separater.width = DLScreenWidth;
+    separater.x =0;
+    separater.y = CGRectGetMaxY(self.inputTextView.frame)+self.inputTextView.y-0.5;
+    [separater setBackgroundColor:[UIColor lightGrayColor]];
+    [self.toolbarView addSubview:separater];
     [self.toolbarView addSubview:self.styleChangeButton];
     [self.toolbarView addSubview:self.moreButton];
     [self.toolbarView addSubview:self.faceButton];
