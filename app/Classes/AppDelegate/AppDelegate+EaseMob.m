@@ -282,7 +282,12 @@
         str = [NSString stringWithFormat:NSLocalizedString(@"group.beKicked", @"you have been kicked out from the group of \'%@\'"), tmpStr];
     }
     if (str.length > 0) {
-        TTAlertNoTitle(str);
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:str
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
     }
 }
 
@@ -291,11 +296,11 @@
                                    groupname:(NSString *)groupname
                                       reason:(NSString *)reason
                                        error:(EMError *)error{
-    if (!reason || reason.length == 0) {
-        reason = [NSString stringWithFormat:NSLocalizedString(@"group.beRefusedToJoin", @"be refused to join the group\'%@\'"), groupname];
-    }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:reason delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
-    [alertView show];
+//    if (!reason || reason.length == 0) {
+//        reason = [NSString stringWithFormat:NSLocalizedString(@"group.beRefusedToJoin", @"be refused to join the group\'%@\'"), groupname];
+//    }
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:reason delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
+//    [alertView show];
 }
 
 //接收到入群申请
@@ -334,20 +339,20 @@
 - (void)didAcceptInvitationFromGroup:(EMGroup *)group
                                error:(EMError *)error
 {
-    if(error)
-    {
-        return;
-    }
-    //这里需要对展示的提示信息做修改
-//    NSString *groupTag = group.groupSubject;
-    NSString *groupTag = group.groupDescription;
-    if ([groupTag length] == 0) {
-        groupTag = group.groupId;
-    }
-    
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"group.agreedAndJoined", @"agreed and joined the group of \'%@\'"), groupTag];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
-    [alertView show];
+//    if(error)
+//    {
+//        return;
+//    }
+//    //这里需要对展示的提示信息做修改
+////    NSString *groupTag = group.groupSubject;
+//    NSString *groupTag = group.groupDescription;
+//    if ([groupTag length] == 0) {
+//        groupTag = group.groupId;
+//    }
+//    
+//    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"group.agreedAndJoined", @"agreed and joined the group of \'%@\'"), groupTag];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
+//    [alertView show];
 }
 
 
