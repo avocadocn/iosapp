@@ -363,8 +363,9 @@
     separater.height= 0.5;
     separater.width = DLScreenWidth;
     separater.x =0;
-    separater.y = CGRectGetMaxY(self.inputTextView.frame)+self.inputTextView.y-0.5;
+    separater.y = self.faceView.y-0.5;
     [separater setBackgroundColor:[UIColor lightGrayColor]];
+    self.separator = separater;
     [self.toolbarView addSubview:separater];
     [self.toolbarView addSubview:self.styleChangeButton];
     [self.toolbarView addSubview:self.moreButton];
@@ -474,6 +475,11 @@
         if (_delegate && [_delegate respondsToSelector:@selector(didChangeFrameToHeight:)]) {
             [_delegate didChangeFrameToHeight:self.frame.size.height];
         }
+        
+        rect = self.separator.frame;
+        rect.origin.y+= changeHeight;
+        self.separator.frame= rect;
+        
     }
 }
 
