@@ -16,5 +16,4 @@
 
 @property (nonatomic, copy)NSString *detileName;
 
-
 @end

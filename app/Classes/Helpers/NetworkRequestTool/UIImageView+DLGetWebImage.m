@@ -34,7 +34,7 @@
 {
     NSString *newUrlStr = [self getUrlStringWithString:str];
     
-    NSString *newStr = [newUrlStr stringByAppendingString:[NSString stringWithFormat:@"/resize/%.f/%.f", size.width, size.height]];
+    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/resize/%.f/%.f", size.width, size.height]];
     
     [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:nil];
 }
@@ -103,7 +103,7 @@
     if (![str hasPrefix:@"/"]) {
         str = [NSString stringWithFormat:@"/%@", str];
     }
-    NSString *roude = [NSString stringWithFormat:@"%@", ROUDEADDRESS];  //字符串拼接
+    NSString *roude = [NSString stringWithFormat:@"%@", BaseUrl];  //字符串拼接
     
     NSString *urlStr = [roude stringByReplacingOccurrencesOfString:@"3002/v2_0" withString:[NSString stringWithFormat:@"3000%@", str]];
     

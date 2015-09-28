@@ -75,9 +75,7 @@
     
     self.addressSearch = [[EMSearchBar alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, 40)];
     self.addressSearch.placeholder = @"Search";  [self.addressSearch placeholder];
-    self.addressSearch.layer.borderWidth = 5;
-    self.addressSearch.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.addressSearch.backgroundColor = [UIColor yellowColor];
+    
     self.addressSearch.delegate = self;
     [self.view addSubview:self.addressSearch];
     
@@ -387,7 +385,7 @@
     cell.indexPath = indexPath;
     cell.delegate = self;
     [cell cellReloadWithAddressModel:model];
-    
+    cell.editState = self.selectState;
     return cell;
     
 }
