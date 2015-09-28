@@ -26,7 +26,9 @@
 
 - (void)builtInterface
 {
-    self.AddressBookLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 10, DLScreenWidth / 2 - 5, 64)];
+    CGFloat width = 11;
+    
+    self.AddressBookLabel = [[UILabel alloc]initWithFrame:CGRectMake(width, 10, DLScreenWidth / 2 - 5 - width, 64)];
     self.AddressBookLabel.backgroundColor = [UIColor whiteColor];
     self.AddressBookLabel.text = @"           群组";
     self.AddressBookLabel.font = [UIFont systemFontOfSize:14];
@@ -37,7 +39,7 @@
     [self.AddressBookLabel addGestureRecognizer:addressTap];
     [self addSubview:self.AddressBookLabel];
     
-    self.groupLabel = [[UILabel alloc]initWithFrame:CGRectMake(DLScreenWidth / 2 + 5, 10, DLScreenWidth / 2 - 5, 64)];
+    self.groupLabel = [[UILabel alloc]initWithFrame:CGRectMake(DLScreenWidth / 2 + 5, 10, DLScreenWidth / 2 - 5 - width, 64)];
     self.groupLabel.userInteractionEnabled = YES;
     self.groupLabel.backgroundColor = [UIColor whiteColor];
     self.groupLabel.text = @"             通讯录";
@@ -48,25 +50,29 @@
     UITapGestureRecognizer *groupTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(groupTapAction:)];
     [self.groupLabel addGestureRecognizer:groupTap];
     [self addSubview:self.groupLabel];
-    self.backgroundColor = [UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.5];
- 
+    self.backgroundColor = RGBACOLOR(234, 236, 236, 1);
+
+//    self.backgroundColor = [UIColor greenColor];
     [self creatImageViews];
 }
 
 - (void)creatImageViews {
-    self.gropView = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth / 7.5, 22, 40, 40)];
+    self.gropView = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth / 7.5, 30, 30, 30)];
+    self.gropView.contentMode = UIViewContentModeCenter;
+    self.gropView.clipsToBounds = YES;
 //    [self.gropView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.right.mas_equalTo(self.gropView.x);
 //        make.top.mas_equalTo(self.gropView.y);
 //        make.size.mas_equalTo(CGSizeMake(40, 40));
 //    }];
-    self.gropView.image = [UIImage imageNamed:@"通讯录 copy"];
+    self.gropView.image = [UIImage imageNamed:@"shetuan@2x"];
 //    self.gropView.backgroundColor = [UIColor cyanColor];
     [self addSubview:self.gropView];
-    
-    self.contactsView = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth / 2 + DLScreenWidth / 7.5, 22, 40, 40)];
+    self.contactsView.contentMode = UIViewContentModeCenter;
+    self.contactsView.clipsToBounds = YES;
+    self.contactsView = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth / 2 + DLScreenWidth / 7.5, 30, 30, 27)];
 //    self.contactsView.backgroundColor = [UIColor cyanColor];
-    self.contactsView.image = [UIImage imageNamed:@"Oval 91 + whatsapp_c"];
+    self.contactsView.image = [UIImage imageNamed:@"通讯录 @2x"];
     [self addSubview:self.contactsView];
 }
 - (void)addressTapAction:(UITapGestureRecognizer *)tap

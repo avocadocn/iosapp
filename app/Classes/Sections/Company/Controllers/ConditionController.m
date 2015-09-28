@@ -85,7 +85,7 @@
     [self.selectPhotoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.speakTextView.mas_bottom);
         make.left.mas_equalTo(self.speakTextView.mas_left);
-        make.size.mas_equalTo(CGSizeMake(DLScreenWidth - 20, WID * 1 + 20));
+        make.size.mas_equalTo(CGSizeMake(DLScreenWidth, WID * 1 + 20));
     }];
     
     if (self.photoArray) {
