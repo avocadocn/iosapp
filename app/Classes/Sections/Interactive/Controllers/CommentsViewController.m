@@ -218,25 +218,25 @@ static NSString * const ID = @"VoteCommentViewCell";
 
 
 //  删除评论
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        CommentsModel *model = self.comments[indexPath.row];
-        [model setInteractionType:@3];
-        [model setInteractionId:self.model.interactionId];
-        [model setCommentId:model._id];
-        
-        [RestfulAPIRequestTool routeName:@"deleteComments" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"commentId"] success:^(id json) {
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            NSLog(@"删除成功 %@",json);
-        } failure:^(id errorJson) {
-            NSLog(@"删除评论失败原因 %@",[errorJson objectForKey:@"msg"]);
-        }];
-        
-        
-        
-        
-    }
-}
+//-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        
+//        CommentsModel *model = self.comments[indexPath.row];
+//        [model setInteractionType:@3];
+//        [model setInteractionId:self.model.interactionId];
+//        [model setCommentId:model._id];
+//        
+//        [RestfulAPIRequestTool routeName:@"deleteComments" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"commentId"] success:^(id json) {
+//            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            NSLog(@"删除成功 %@",json);
+//        } failure:^(id errorJson) {
+//            NSLog(@"删除评论失败原因 %@",[errorJson objectForKey:@"msg"]);
+//        }];
+//        
+//        
+//        
+//        
+//    }
+//}
 
 @end

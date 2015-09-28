@@ -46,6 +46,10 @@
  */
 @property (nonatomic, assign) CGRect timeLabelF;
 /**
+ *  来自
+ */
+@property (nonatomic, assign) CGRect fromLabelF;
+/**
  *  投票配图
  */
 @property (nonatomic, assign) CGRect voteImageViewF;

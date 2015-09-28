@@ -28,6 +28,11 @@
     return YES;
 }
 
+- (IBAction)emojiClick:(id)sender {
+    NSLog(@"点击表情。。。");
+    self.inputView.keyboardType = UIKeyboardAnimationCurveUserInfoKey;
+    
+}
 
 - (IBAction)sendBtnClicked:(id)sender {
     [[NSNotificationCenter defaultCenter]postNotificationName:@"POSTTEXT" object:nil userInfo:@{@"name":@"text"}];
