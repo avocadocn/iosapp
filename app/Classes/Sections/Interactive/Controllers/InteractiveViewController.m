@@ -36,7 +36,7 @@
 #import "AddressBookModel.h"
 #import "Person.h"
 #include "FMDBSQLiteManager.h"
-
+#import <MJRefresh.h>
 enum InteractionType{
     InteractionTypeActivityTemplate,
     InteractionTypeVoteTemplate,
@@ -85,13 +85,15 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     // 活动展示table
     [self setupActivityShowTableView];
     [self requestNet];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"KPOSTNAME" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"CHANGESTATE" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData:) name:@"REFRESSDATA" object:nil];
+    [self refressMJ]; //
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"KPOSTNAME" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"CHANGESTATE" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESSDATA" object:nil];
+    
 }
 
-- (void)reFreshData:(NSNotification *)notice {
-    NSLog(@"%@",notice.userInfo);
+- (void)reFreshData {
+
     Account *acc= [AccountTool account];
     
     getIntroModel *model = [[getIntroModel alloc]init];
@@ -113,6 +115,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         
     }];
     [self.tableView reloadData];
+    [self.tableView.header endRefreshing];
     
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -609,6 +612,22 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     }];
     
 }
+- (void)refressMJ {
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reFreshData)];
+    self.tableView.header = header;
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
+    self.tableView.footer = footer;
+    
+}
+- (void)refreshAction {
+    
+    
+}
+
+
+
+
 - (void)reloadWithJson:(id)json {  // 将获取的通讯录信息写入数据库
     if (!self.contactsArray) {
         self.contactsArray = [NSMutableArray arrayWithArray:json];

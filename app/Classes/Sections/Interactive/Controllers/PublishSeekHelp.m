@@ -16,7 +16,7 @@
 #import "Account.h"
 #import "RestfulAPIRequestTool.h"
 #include "Interaction.h"
-
+#import "XHMessageTextView.h"
 //#import "UITextView+PlaceHolder.h"
 @interface PublishSeekHelp ()<DNImagePickerControllerDelegate,UIAlertViewDelegate>
 
@@ -43,8 +43,8 @@
     UIView *bigView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, DLScreenHeight)];
     [self.view addSubview:bigView];
 
-    self.seekHelpContent = [[UITextView alloc]initWithFrame:CGRectMake(0, -64, DLScreenWidth, DLMultipleHeight(300))];
-    self.seekHelpContent.text = @"请输入求助的内容";
+    self.seekHelpContent = [[XHMessageTextView alloc]initWithFrame:CGRectMake(0, -64, DLScreenWidth, DLMultipleHeight(300))];
+    self.seekHelpContent.placeHolder = @"请输入求助的内容";
     self.seekHelpContent.textContainerInset = UIEdgeInsetsMake(5, 5, 5, 10);
 //    [self.seekHelpContent placeHolderWithString:@"请输入求助内容"];
     self.seekHelpContent.font = [UIFont systemFontOfSize:17];

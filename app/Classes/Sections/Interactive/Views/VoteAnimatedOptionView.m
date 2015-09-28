@@ -124,7 +124,7 @@
         view.frame = CGRectMake(0, 0, width, 44);
     }];
     self.button.selected = YES;
-    self.button.userInteractionEnabled = NO;
+//    self.button.userInteractionEnabled = NO;
 }
 
 -(void)btnClicked:(id)sender{

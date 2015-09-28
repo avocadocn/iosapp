@@ -8,7 +8,6 @@
 
 #import "HelpCellFrame.h"
 #import "HelpInfoModel.h"
-#import "UIImageView+DLGetWebImage.h"
 @implementation HelpCellFrame
 
 
@@ -60,6 +59,9 @@
     NSDictionary *helpContentLabelAttr = @{NSFontAttributeName:HelpCellContentFont};
     CGSize helpContentLabelSize = [helpContent boundingRectWithSize:maxHelpContentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:helpContentLabelAttr context:nil].size;
     self.helpContentLabelF = CGRectMake(helpContentLabelX, helpContentLabelY, helpContentLabelSize.width, helpContentLabelSize.height);
+    // 添加答案
+    self.helpAnserLabel = CGRectMake(DLScreenWidth - 100 , helpContentLabelY, 100, 20);
+
     
     // 整个容器的frame
     self.helpContainerF = CGRectMake(0, HelpCellMargin, DLScreenWidth, CGRectGetMaxY(self.helpContentLabelF) + 15);
@@ -116,7 +118,8 @@
     NSDictionary *helpContentLabelAttr = @{NSFontAttributeName:HelpCellContentFont};
     CGSize helpContentLabelSize = [helpContent boundingRectWithSize:maxHelpContentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:helpContentLabelAttr context:nil].size;
     self.helpContentLabelF = CGRectMake(helpContentLabelX, helpContentLabelY, helpContentLabelSize.width, helpContentLabelSize.height);
-    
+     // 添加答案
+    self.helpAnserLabel = CGRectMake(DLScreenWidth - 100 , helpContentLabelY, 100, 20);
     
     //底部转发
     CGFloat bottomTransmitBarX = HelpCellBorderW;

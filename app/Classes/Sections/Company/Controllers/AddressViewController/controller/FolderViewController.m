@@ -23,6 +23,8 @@ static NSInteger num = 0;
 
 @interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, DNImagePickerControllerDelegate>
 @property (nonatomic, strong)NSMutableArray *infoArray;
+
+@property (nonatomic, strong)UIButton *btn; // 相机按钮
 @end
 
 @implementation FolderViewController
@@ -72,7 +74,7 @@ static NSInteger num = 0;
         }
         self.department.informationTextField.text = json[@"department"][@"name"];
         self.phoneNumber.informationTextField.text = infoModel.phone;
-        [self.folderPhotoImage dlGetRouteWebImageWithString:infoModel.photo placeholderImage:[UIImage imageNamed:@"DaiMeng.jpg"]];
+        [self.folderPhotoImage dlGetRouteWebImageWithString:infoModel.photo placeholderImage:[UIImage imageNamed:@"boy"]];
 
     } failure:^(id errorJson) {
         NSLog(@"获取个人资料失败原因 %@",errorJson);
@@ -97,6 +99,8 @@ static NSInteger num = 0;
 - (void)editFolder  //用户看自己的资料, 允许被编辑
 {
     UIButton *changePhotoButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.btn = changePhotoButton;
+    self.btn.userInteractionEnabled = NO;
     [changePhotoButton addTarget:self action:@selector(choosePhotoAction:) forControlEvents:UIControlEventTouchUpInside];
     [changePhotoButton setBackgroundImage:[UIImage imageNamed:@"cemera"] forState:UIControlStateNormal];
     
@@ -129,6 +133,7 @@ static NSInteger num = 0;
 - (void)choosePhotoAction:(UIButton *)sender
 {
     DNImagePickerController *image = [[DNImagePickerController alloc]init];
+    image.allowSelectNum = 1;
     image.imagePickerDelegate = self;
     
     [self presentViewController:image animated:YES completion:nil];
@@ -160,12 +165,14 @@ static NSInteger num = 0;
         CuntomFolderView *view = [self.companyArray objectAtIndex:i];
         if (self.buttonState == EnumOfEditButtonNo) { //未编辑
             view.informationTextField.userInteractionEnabled = YES;
+            self.btn.userInteractionEnabled = YES;
             view.informationTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
             NSLog(@"可以被编辑");
         }
         else
         {
             view.informationTextField.userInteractionEnabled = NO;
+            self.btn.userInteractionEnabled = NO;
             NSLog(@"无法编辑");
         }
     }
@@ -206,11 +213,16 @@ static NSInteger num = 0;
             }
             [model setBirthday:self.infoArray[4]];
             [model setPhone:self.infoArray[5]];
-        [RestfulAPIRequestTool routeName:@"modifyUserInfo" requestModel:model useKeys:@[@"nickname",@"introduce",@"realname",@"gender",@"birthday",@"phone",] success:^(id json) {
+            if (self.folderPhotoImage.image){
+                NSData *data = UIImagePNGRepresentation(self.folderPhotoImage.image);
+                NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[data ,@"photo"] forKeys:@[@"data", @"name"]];
+                model.photo = [NSArray arrayWithObjects:dic, nil];
+            }
+        [RestfulAPIRequestTool routeName:@"modifyUserInfo" requestModel:model useKeys:@[@"nickname",@"introduce",@"realname",@"gender",@"birthday",@"phone",@"photo",] success:^(id json) {
             [self netRequstWithModel:model]; // 编辑成功重新请求一次数据
             [self.infoArray removeAllObjects]; // 将存放编辑信息的数组清空
         } failure:^(id errorJson) {
-            NSLog(@"编辑失败原因 %@",errorJson);
+            NSLog(@"编辑失败原因 %@",[errorJson objectForKey:@"msg"]);
         }];
             break;
         }
