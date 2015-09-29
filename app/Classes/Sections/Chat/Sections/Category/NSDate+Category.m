@@ -87,7 +87,8 @@
         }else if (hour < 0 && hour >= -24) {
             dateFormatter = [NSDateFormatter dateFormatterWithFormat:NSLocalizedString(@"NSDateCategory.text8", @"")];
         }else {
-            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd HH:mm"];
+//            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd HH:mm"];
+            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd"];
         }
     }else {
         if (hour >= 0 && hour <= 6) {
@@ -101,7 +102,8 @@
         }else if (hour < 0 && hour >= -24){
             dateFormatter = [NSDateFormatter dateFormatterWithFormat:NSLocalizedString(@"NSDateCategory.text13", @"")];
         }else  {
-            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd HH:mm"];
+//            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd HH:mm"];
+            dateFormatter = [NSDateFormatter dateFormatterWithFormat:@"yyyy-MM-dd"];
         }
     }
     
