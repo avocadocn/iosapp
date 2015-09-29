@@ -35,6 +35,7 @@
 #import "EMCDDeviceManager.h"
 #import "EMCDDeviceManagerDelegate.h"
 #import "RobotManager.h"
+#import <MJRefresh.h>
 #define KPageCount 20
 #define KHintAdjustY    50
 
@@ -59,6 +60,7 @@
 
 @property (strong, nonatomic) NSMutableArray *dataSource;//tableView数据源
 @property (strong, nonatomic) SRRefreshView *slimeView;
+@property (strong, nonatomic) MJRefreshNormalHeader* header;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) DXMessageToolBar *chatToolBar;
 
@@ -185,7 +187,9 @@
     
     [self setupBarButtonItem];
     [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
+//    [self.tableView addSubview:self.slimeView];
+    self.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    self.tableView.header = self.header;
     [self.view addSubview:self.chatToolBar];
     
     //将self注册为chatToolBar的moreView的代理
@@ -208,7 +212,17 @@
         [self joinChatroom:_chatter];
     }
 }
-
+//下拉刷新
+- (void)refreshData
+{
+    _chatTagDate = nil;
+    EMMessage *firstMessage = [self.messages firstObject];
+    if (firstMessage)
+    {
+        [self loadMoreMessagesFrom:firstMessage.timestamp count:KPageCount append:YES];
+    }
+    [self.header endRefreshing];
+}
 - (void)handleCallNotification:(NSNotification *)notification
 {
     id object = notification.object;

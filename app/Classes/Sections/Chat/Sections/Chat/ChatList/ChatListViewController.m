@@ -27,6 +27,9 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
+#import "EMConversation+GroupName.h"
+#import <MJRefresh.h>
+
 static ChatListViewController *chat = nil;
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, UISearchDisplayDelegate,SRRefreshDelegate, UISearchBarDelegate, IChatManagerDelegate,ChatViewControllerDelegate>
 
@@ -34,7 +37,7 @@ static ChatListViewController *chat = nil;
 @property (nonatomic, strong) EMSearchBar           *searchBar;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
 @property (nonatomic, strong) UIView                *networkStateView;
-
+@property (nonatomic, strong) MJRefreshNormalHeader* header;
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
 @end
@@ -73,14 +76,21 @@ static ChatListViewController *chat = nil;
 
     [self.view addSubview:self.searchBar];
     [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
+//    [self.tableView addSubview:self.slimeView];
+    self.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    self.tableView.header = self.header;
     [self networkStateView];
 
     [self searchController];
     [self refreshGroup];
     
 }
-
+//下拉刷新
+- (void)refreshData
+{
+    [self refreshGroup];
+    [self.header endRefreshing];
+}
 - (void)reloadConversionListWith:(NSString *)conver
 {
     BOOL state = NO;
@@ -531,7 +541,7 @@ static ChatListViewController *chat = nil;
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     __weak typeof(self) weakSelf = self;
-    [[RealtimeSearchUtil currentUtil] realtimeSearchWithSource:self.dataSource searchText:(NSString *)searchText collationStringSelector:@selector(chatter) resultBlock:^(NSArray *results) {
+    [[RealtimeSearchUtil currentUtil] realtimeSearchWithSource:self.dataSource searchText:(NSString *)searchText collationStringSelector:@selector(groupName) resultBlock:^(NSArray *results) {
         if (results) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.searchController.resultsSource removeAllObjects];
@@ -647,6 +657,7 @@ static ChatListViewController *chat = nil;
     [self.groupList removeObjectsInArray:needRemove];
     [self.chatList addObjectsFromArray:self.groupList];
     self.dataSource = self.chatList;
+    [self refreshDataSource];
 }
 
 - (void)refreshGroup
