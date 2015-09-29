@@ -80,7 +80,7 @@ static ChatListViewController *chat = nil;
     self.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
     self.tableView.header = self.header;
     [self networkStateView];
-
+    
     [self searchController];
     [self refreshGroup];
     

@@ -204,15 +204,17 @@
                 accont.phone = singer.phone;
                 accont.password = singer.password;
                 [RestfulAPIRequestTool routeName:@"userLogin" requestModel:accont useKeys:@[@"phone", @"password"] success:^(id json) {
+                    [accont setKeyValues:json];
+                    
+                    [AccountTool saveAccount:accont];
                     
                     NSDictionary *dic = [NSDictionary dictionaryWithObject:@"跳转" forKey:@"name"];
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"changeRootViewController" object:nil userInfo:dic];
                     
-                    [AccountTool saveAccount:accont];
                     NSLog(@"token 获取成功");
                     
                 } failure:^(id errorJson) {
-                    
+
                 }];
                 
                 

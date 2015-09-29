@@ -90,10 +90,9 @@
     
 }
 
-- (void)cellBuiltWithModel:(AddressBookModel *)model
+- (void)cellBuiltWithModel:(Person *)per
 {
     [self.joinButton removeFromSuperview];
-    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
     
     [self.AttentionPhoto dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
     

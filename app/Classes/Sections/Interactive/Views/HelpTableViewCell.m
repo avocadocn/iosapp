@@ -5,7 +5,7 @@
 //  Created by 张加胜 on 15/8/6.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import <Masonry.h>ƒ
 #import "HelpTableViewCell.h"
 #import "HelpInfoModel.h"
 #import "RepeaterGroupController.h"
@@ -30,6 +30,10 @@
  */
 @property (nonatomic, strong) UILabel *timeLabel;
 /**
+ *  来自
+ */
+@property (nonatomic, strong) UILabel *fromLabel;
+/**
  *  投票配图
  */
 @property (nonatomic, strong) UIImageView *helpImageView;
@@ -37,6 +41,10 @@
  *  投票内容label
  */
 @property (nonatomic, strong) UILabel *helpContentLabel;
+/**
+ *  添加答案
+ */
+@property (nonatomic, strong) UILabel *helpAnserLabel;
 
 @property (nonatomic, strong) UIView *bottomTransmitBar;
 @property (nonatomic, strong) UIButton *bottomTransmitBtn;
@@ -106,6 +114,16 @@
     [separater setBackgroundColor:RGB(0xe6, 0xe6, 0xe6)];
     [helpContainer addSubview:separater];
     self.separater = separater;
+
+    self.helpAnserLabel = [UILabel new];//initWithFrame:CGRectMake(DLScreenWidth - 80 , 458, 80, 20)];
+    self.helpAnserLabel.text = @"添加答案";
+//    self.helpAnserLabel.backgroundColor = [UIColor cyanColor];
+    self.helpAnserLabel.textAlignment = NSTextAlignmentCenter;
+    self.helpAnserLabel.font = [UIFont systemFontOfSize:15];
+    self.helpAnserLabel.textColor = RGBACOLOR(37, 18, 71, 1);
+    [helpContainer addSubview:self.helpAnserLabel];
+    
+    
     // 正文
     UILabel *helpContentLabel = [[UILabel alloc]init];
     helpContentLabel.font = HelpCellContentFont;
@@ -149,6 +167,10 @@
     [self.timeLabel judgeTimeWithString:model.time];
     [self.timeLabel setFrame:helpCellFrame.timeLabelF];
     
+    self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, -3, 80, 20)];
+    [self.fromLabel getCompanyNameFromCid:model.cid];
+    [self.timeLabel addSubview:self.fromLabel];
+    
     
     [self.helpImageView setFrame:helpCellFrame.helpImageViewF];
     if (model.helpImageURL) {
@@ -175,6 +197,15 @@
         [self.bottomTransmitBtn addTarget:self action:@selector(transmitClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     [self.helpContainer setFrame:helpCellFrame.helpContainerF];
+ 
+//    添加答案Label frame
+     [self.helpAnserLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.helpContentLabel.mas_top);
+        make.bottom.mas_equalTo(self.helpContentLabel.mas_bottom);
+        make.right.mas_equalTo(self.mas_right);
+        make.width.mas_equalTo(80);
+    }];
+    
 }
 
 - (void)transmitClicked:(id)sender

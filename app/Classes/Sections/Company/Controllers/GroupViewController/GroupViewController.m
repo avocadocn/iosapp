@@ -107,7 +107,9 @@
     self.groupListCollection.backgroundColor = DLSBackgroundColor;
     self.groupListCollection.delegate = self;
     self.groupListCollection.dataSource = self;
-    MJRefreshAutoFooter *footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction:)];
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction:)];
+    [footer setTitle:@"上拉加载更多" forState:MJRefreshStateIdle];
+    
     self.groupListCollection.footer = footer;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refrshAction)];
     self.groupListCollection.header = header;

@@ -44,8 +44,19 @@ static NSString *ID = @"fjseijfhiusehfgiu";
 
 - (void)requestNet{
     
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:self.userModel.ID];
+    NSLog(@"用户名 为 %@", per.name);
+    
+    self.header = [[TableHeaderView alloc]
+                   initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(250.0))
+                   andImage:self.userModel.photo];
+    
+    self.dynamicTableView.tableHeaderView = self.header;
+
+    
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@1 forKey:@"requestType"];
+    [dic setObject:@"0" forKey:@"requestType"];
     [dic setObject:self.userModel.ID forKey:@"userId"];
     
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:dic useKeys:@[@"requestType", @"userId"] success:^(id json) {
@@ -90,11 +101,6 @@ static NSString *ID = @"fjseijfhiusehfgiu";
     [self.dynamicTableView registerClass:[DynamicTableViewCell class] forCellReuseIdentifier:@"otherCell"];
     [self.dynamicTableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     
-    self.header = [[TableHeaderView alloc]
-                                   initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(250.0))
-                                   andImage:self.userModel.ID];
-    
-    self.dynamicTableView.tableHeaderView = self.header;
     
     [self.view addSubview:self.dynamicTableView];
 }

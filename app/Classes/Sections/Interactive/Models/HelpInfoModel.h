@@ -22,6 +22,12 @@
 
 
 /**
+ *  cid
+ */
+@property (nonatomic, copy) NSString *cid;
+
+
+/**
  *  头像Image的url
  */
 @property (nonatomic, copy) NSString *avatarURL;
@@ -37,5 +43,11 @@
  *  互助里的表述文字
  */
 @property (nonatomic, copy) NSString *helpText;
+/**
+ *  添加答案
+ */
+@property (nonatomic, copy) NSString *helpAnserText;
+
+
 
 @end

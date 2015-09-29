@@ -5,7 +5,7 @@
 //  Created by 张加胜 on 15/8/10.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "MenuCollectionViewCell.h"
 #import <Masonry.h>
 #import "FolderViewController.h"
 #import "MessageViewController.h"
@@ -31,6 +31,8 @@
 #import "RestfulAPIRequestTool.h"
 #import "TempCompany.h"
 #import "CurrentActivitysShowCell.h"
+
+static NSString * reuseIdentifier = @"f,sepofjoisejf";
 
 static NSString *ID = @"feasfsefse";
 #define headViewHeight (DLMultipleHeight(256.0)) + 180
@@ -85,6 +87,15 @@ static NSString *ID = @"feasfsefse";
 @property (nonatomic, strong)UIButton *joinButton;
 @property (nonatomic, strong)UIImage *headerImage;
 
+/**
+ *  所有的item的name集合
+ */
+@property (nonatomic, strong) NSArray *itemNames;
+/**
+ *  所有的icon的图片名集合
+ */
+@property (nonatomic, strong) NSArray *itemIcons;
+
 @end
 
 @implementation TeamHomePageController
@@ -121,9 +132,9 @@ static NSString * const helpCellID = @"helpCellID";
     }
 }
 
--(void)collectionController:(MenuCollectionController *)collectionController didSelectedItemAtIndex:(NSInteger)index{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *controller;
-    switch (index) {
+    switch (indexPath.row) {
         case 0: // 我的信息
             controller = [[FolderViewController alloc] init];
             [(FolderViewController *)controller setJudgeEditState:YES];
@@ -160,6 +171,10 @@ static NSString * const helpCellID = @"helpCellID";
 -(void)setupUI{
     
     
+    self.itemNames = @[@"社团信息",@"成员",@"邀请",@"活动",@"投票",@"求助"];
+    
+    self.itemIcons = @[@"我的信息111@2X",@"社团111@2X",@"消息111@2X",@"活动111@2X",@"投票111@2X",@"求助111@2x"];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -177,7 +192,7 @@ static NSString * const helpCellID = @"helpCellID";
     [self.tableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     
     
-    UIView *bigView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, headViewHeight + 180)];
+//    UIView *bigView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, headViewHeight + 180)];
     
     
     self.headView = [[UIView alloc]init];
@@ -207,7 +222,7 @@ static NSString * const helpCellID = @"helpCellID";
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
     UICollectionView *collec = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 180) collectionViewLayout:layout];
-    
+    [collec registerNib:[UINib nibWithNibName:@"MenuCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     collec.backgroundColor = [UIColor whiteColor];
     [collec registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"fkslfksnfjenf"];
     collec.delegate = self;
@@ -269,9 +284,16 @@ static NSString * const helpCellID = @"helpCellID";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fkslfksnfjenf" forIndexPath:indexPath];
-    cell.layer.borderWidth = .5;
+    
+    MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    cell.menuCollectionCellName.text = self.itemNames[indexPath.row];
+    [cell.menuCollectionCellIcon setImage:[UIImage imageNamed:self.itemIcons[indexPath.row]]];
     cell.layer.borderColor = RGBACOLOR(247, 247, 247, 1).CGColor;
+    cell.layer.borderWidth = 1;
+    
+//    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fkslfksnfjenf" forIndexPath:indexPath];
+//    cell.layer.borderWidth = .5;
+//    cell.layer.borderColor = RGBACOLOR(247, 247, 247, 1).CGColor;
 //    cell.layer.backgroundColor = [UIColor greenColor].CGColor;
     return cell;
 }
@@ -376,23 +398,37 @@ static NSString * const helpCellID = @"helpCellID";
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     //初始化山寨导航条
     self.naviView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, 64)];
-    self.naviView.backgroundColor = [UIColor blackColor];
-    self.naviView.alpha = 0.1f;
+    self.naviView.backgroundColor = [UIColor whiteColor];
+    self.naviView.alpha = 0.0f;
     [self.view addSubview:self.naviView];
     //添加返回按钮
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 64)];
+    backView.backgroundColor = [UIColor clearColor];
+    
     self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backBtn.frame = CGRectMake(12, 30, 12, 20);
-    [self.backBtn setImage:[UIImage imageNamed:@"new_navigation_back@2x"] forState:UIControlStateNormal];
-    [self.backBtn addTarget:self action:@selector(backBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.backBtn];
+//    [self.backBtn setImage:[UIImage imageNamed:@"setting white@2x"] forState:UIControlStateNormal];
     
+    [self.backBtn addTarget:self action:@selector(backBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [backView addSubview:self.backBtn];
+    backView.userInteractionEnabled = YES;
+    [backView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backBtnClicked:)]];
+    [self.view addSubview:backView];
+    
+    UIView *setView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth - 100, 0, 100, 64)];
+    setView.backgroundColor = [UIColor clearColor];
     //按钮
     self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 22, 30, 30);
-    [self.settingBtn setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
+    self.settingBtn.frame = CGRectMake(100 - 36, 30, 20, 20);
+//    [self.settingBtn setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
     
+    [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"setting white@2x"] forState:UIControlStateNormal];
+    [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow white@2x"] forState:UIControlStateNormal];
     
-    [self.view addSubview:self.settingBtn];
+    [setView addSubview:self.settingBtn];
+    setView.userInteractionEnabled = YES;
+    [setView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(settingBtnClicked:)]];
+    [self.view addSubview:setView];
     
     //添加导航条上的大文字
     self.titleLabel = [[UILabel alloc] init];
@@ -401,9 +437,9 @@ static NSString * const helpCellID = @"helpCellID";
     self.titleLabel.y = 64 - self.titleLabel.size.height - 13;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.font = [UIFont systemFontOfSize:18];
-    self.titleLabel.text = @"小队主页";
+//    self.titleLabel.text = @"小队主页";
     
-    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.textColor = [UIColor clearColor];
     [self.view addSubview:self.titleLabel];
     
     [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -483,6 +519,28 @@ static NSString * const helpCellID = @"helpCellID";
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     // NSLog(@"%f",scrollView.contentOffset.y);
     
+    if (scrollView.contentOffset.y <= 100 && scrollView.contentOffset.y >= 0) {
+        
+        CGFloat num = scrollView.contentOffset.y / 100.0f;
+        self.naviView.alpha = num;
+    }
+    if (scrollView.contentOffset.y >= 60) {
+        self.titleLabel.textColor = [UIColor blackColor];
+        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"setting black@2x"] forState:UIControlStateNormal];
+        [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow black@2x"] forState:UIControlStateNormal];
+    } else
+    {
+        
+        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"setting white@2x"] forState:UIControlStateNormal];
+        [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow white@2x"] forState:UIControlStateNormal];
+        self.titleLabel.textColor = [UIColor clearColor];
+    }
+    
+    
+    
+    
+    
+    
     CGFloat offsetY = scrollView.contentOffset.y;
     
     if (offsetY < 0) {
@@ -554,8 +612,16 @@ static NSString * const helpCellID = @"helpCellID";
 }
 
 
+
+
+
+
 - (BOOL)judgeMember
 {
+    
+    
+    
+    
     Account *acc = [AccountTool account];
     NSArray *array  = self.informationModel.member;
     

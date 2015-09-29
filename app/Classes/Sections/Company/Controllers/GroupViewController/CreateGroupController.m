@@ -159,6 +159,7 @@
         {
             NSLog(@"请求网络");
             [self.navigationController popViewControllerAnimated:YES];
+            
             [self createRequest];
             
             break;

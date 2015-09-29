@@ -156,4 +156,13 @@
     
 }
 
+- (void)setEditState:(BOOL)editState
+{
+    if (!editState) {
+        [self.selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.mas_left).offset (- 25);
+        }];
+    }
+}
+
 @end

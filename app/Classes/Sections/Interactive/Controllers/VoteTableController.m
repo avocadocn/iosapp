@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong)Interaction *interactionModel;
 
-@property (nonatomic, assign)NSInteger index;
+@property (nonatomic, assign)NSInteger index,number;
 @end
 
 @implementation VoteTableController
@@ -59,7 +59,7 @@ static NSString * const ID = @"VoteTableViewCell";
     
     Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:inter.poster[@"_id"]];
     self.voteArray = [NSMutableArray array];
-    NSArray *colorArray = [NSArray arrayWithObjects:
+    NSMutableArray *colorArray = [NSMutableArray arrayWithObjects:
                            RGBACOLOR(0, 147, 255, 1),
                            RGBACOLOR(144, 200, 255, 1),
                            RGBACOLOR(251, 174, 140, 1),
@@ -77,6 +77,7 @@ static NSString * const ID = @"VoteTableViewCell";
     voteInfoModel.avatarURL = per.imageURL;
     voteInfoModel.interactionId = inter.interactionId;
     voteInfoModel.model = inter.poll;
+    voteInfoModel.cid = inter.cid;
     
     voteInfoModel.options = [NSMutableArray array];
     NSNumber * num = 0;
@@ -88,8 +89,13 @@ static NSString * const ID = @"VoteTableViewCell";
         
         [optionInfo2 setOptionCount:[NSNumber numberWithInteger:array.count]];
         optionInfo2.interactionId = inter.ID;
-        self.index += 1;
+        self.number -= 1;
+        self.index = arc4random()%self.number;
+        NSLog(@"%ld",(long)self.index);
+//        随机颜色
         optionInfo2.voteInfoColor = [colorArray objectAtIndex:self.index];
+        
+        [colorArray removeObjectAtIndex:self.index];
         [voteInfoModel.options addObject:optionInfo2];
         
     }

@@ -5,7 +5,7 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //
-
+#import "SchoolFirstPageCell.h"
 #import "CircleContextModel.h"
 #import "SchoolTempModel.h"
 #import <AFNetworking.h>
@@ -36,8 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self builtInterface]; //铺设截面
-//    [self netRequest];
-//    [self getRequestNet];
+    [self netRequest];
+    [self getRequestNet];
     
 }
 - (void)builtInterface
@@ -52,8 +52,12 @@
     self.BigCollection.dataSource = self;
 //    self.BigCollection.backgroundColor = [UIColor cyanColor];
     [self.BigCollection registerClass:[CompanySmallCell class] forCellWithReuseIdentifier:@"SmallCell"]; //注册重用池
-    [self.BigCollection setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.5]];
+//    [self.BigCollection setBackgroundColor:[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.5]];
+    
+    self.BigCollection.backgroundColor = RGBACOLOR(236, 238, 238, 1);
     [self.BigCollection registerClass:[CompanyHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BigHeader"];
+    [self.BigCollection registerNib:[UINib nibWithNibName:@"SchoolFirstPageCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"sasasasa"];
+    
     
     [self.view addSubview:self.BigCollection];
     
@@ -83,24 +87,40 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(DLScreenWidth, 6 + DLMultipleWidth(109.0) + DLMultipleWidth(30.0));
+    CGFloat height = 49  + (((DLScreenWidth - 22 )/ 3.0 - 1 ) * 2);
+    
+    return CGSizeMake(DLScreenWidth, height);
 }
 
 // cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CompanySmallCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SmallCell" forIndexPath:indexPath];
+    /*
+     CompanySmallCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SmallCell" forIndexPath:indexPath];
     cell.tag = indexPath.row + 1;
+    
     if ([[self.photoArray objectAtIndex:indexPath.row] isKindOfClass:[SendSchollTableModel class]])
     {
         SendSchollTableModel *model = [self.photoArray objectAtIndex:indexPath.row];
         [cell interCellWithModel:model];
     }
     
-    [cell reloadWithIndexpath:indexPath];
+     [cell reloadWithIndexpath:indexPath];
     
     return cell;
+*/
+    
+    SchoolFirstPageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sasasasa" forIndexPath:indexPath];
+    
+    [cell reloadWithIndexpath:indexPath];
+    if ([[self.photoArray objectAtIndex:indexPath.row] isKindOfClass:[SendSchollTableModel class]])
+    {
+        SendSchollTableModel *model = [self.photoArray objectAtIndex:indexPath.row];
+        cell.schoolModel = model;
+    }
+    return cell;
 }
+
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     CompanyHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BigHeader" forIndexPath:indexPath];
@@ -129,16 +149,18 @@
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:model useKeys:@[@"latestContentDate",@"lastContentDate",@"limit"] success:^(id json) {
         NSLog(@"请求成功-- %@",json);
 //        [self reloadTableViewWithJson:json];
-//        [self.photoArray addObject:[self getPhotoArrayFromJson:json]];
+
         if (json) {
-//            [self.photoArray replaceObjectAtIndex:0 withObject:[self getPhotoArrayFromJson:json]];
+            
+            SendSchollTableModel *model = [self getPhotoArrayFromJson:json];
+            [self.photoArray replaceObjectAtIndex:0 withObject:model];
             
             [self saveDefaultWithJson:json];
+                    [self.BigCollection reloadData];
             
 //            [self getRequestNet];
         }
         
-//        [self.BigCollection reloadData];
         
     } failure:^(id errorJson) {
         NSLog(@"请求失败 %@",errorJson);
@@ -242,7 +264,7 @@
     }
     model.photoArray = [NSMutableArray arrayWithArray:photoArray];
     
-    return nil;
+    return model;
 }
 
 - (void)getRequestNet

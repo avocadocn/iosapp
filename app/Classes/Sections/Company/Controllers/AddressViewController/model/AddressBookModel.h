@@ -15,7 +15,7 @@
 @property (nonatomic, copy)NSString *ID;// (string): 用户id ,
 @property (nonatomic, copy)NSString *email;// (string, optional): 用户邮箱 ,
 @property (nonatomic, copy)NSString *nickname;// (string): 昵称 ,
-@property (nonatomic, copy)NSString *photo;// (string): 头像url ,
+@property (nonatomic, copy)NSArray *photo;// (string): 头像url ,
 @property (nonatomic, copy)NSString *realname;// (string, optional): 真实姓名 ,
 @property (nonatomic, strong)NSDictionary *department;// (Inline Model 1, optional): 部门 ,       _id   name
 @property (nonatomic, copy)NSString *sex;// (string, optional): 性别 = ['男', '女'],
@@ -42,5 +42,7 @@
 @property (nonatomic, assign)BOOL selectState;
 @property (nonatomic, copy)NSString *company_official_name;
 
+
+- (void)save;
 
 @end
