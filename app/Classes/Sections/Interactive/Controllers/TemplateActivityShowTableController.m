@@ -170,10 +170,13 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
     if (current.photos.count!=0) {
-        NSInteger height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
-        NSInteger width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
+        float height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] floatValue];
+        float width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] floatValue];
         if (width<DLScreenWidth) {
             height *= DLScreenWidth/width;
+        }
+        if (width>DLScreenWidth){
+            height/= width/DLScreenWidth;
         }
         return 90 + height;
     }

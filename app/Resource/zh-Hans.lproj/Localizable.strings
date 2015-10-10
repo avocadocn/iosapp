@@ -208,8 +208,8 @@
 "call.rejected"="拒接通话";
 "call.in"="正在通话中...";
 "call.speak"="可以说话了...";
-"call.speak.relay"="可以说话了...Relay";
-"call.speak.direct"="可以说话了...Direct";
+"call.speak.relay"="可以说话了...";
+"call.speak.direct"="可以说话了...";
 "call.init"="正在初始化通话...";
 "call.dealloc"="正在结束通话...";
 "call.videoSize"="宽/高: ";

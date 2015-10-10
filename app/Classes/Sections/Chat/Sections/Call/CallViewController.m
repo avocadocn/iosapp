@@ -13,6 +13,8 @@
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>
 #import "CallViewController.h"
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
 
 #define kAlertViewTag_Close 100
 
@@ -71,8 +73,11 @@
     // Do any additional setup after loading the view.
     
     [self _setupSubviews];
+    //修改呼叫展示的名称
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+    Person* p = [fmdb selectPersonWithUserId:_chatter];
+    _nameLabel.text = p.name;
     
-    _nameLabel.text = _chatter;
     if (_callSession.type == eCallSessionTypeVideo) {
         [self _initializeCamera];
         [_session startRunning];
@@ -178,6 +183,7 @@
     
     UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     bgImageView.contentMode = UIViewContentModeScaleToFill;
+    //通话背景
     bgImageView.image = [UIImage imageNamed:@"callBg.png"];
     [self.view addSubview:bgImageView];
     

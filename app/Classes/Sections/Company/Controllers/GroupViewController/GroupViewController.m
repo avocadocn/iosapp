@@ -105,18 +105,18 @@
         
         [mutable addObject:IDStr];
     }
-    BOOL judge = [manger fileExistsAtPath:[NSString stringWithFormat:@"%@/groupList", path]];
+    BOOL judge = [manger fileExistsAtPath:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath]];
     
     if (!judge) {  //文件不存在
         
         
-        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupList", path] atomically:YES];
+        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath] atomically:YES];
         
     } else //文件存在
     {
-        [manger removeItemAtPath:[NSString stringWithFormat:@"%@/groupList", path] error:nil];
+        [manger removeItemAtPath:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath] error:nil];
         
-        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupList", path] atomically:YES];
+        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath] atomically:YES];
     }
     
     

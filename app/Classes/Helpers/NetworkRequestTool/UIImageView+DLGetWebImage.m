@@ -53,14 +53,10 @@
         NSLog(@"本地有图片");
         
     } else {
-        
-        [self sd_setImageWithURL:url placeholderImage:image];
-        NSLog(@"本地没图片");
-        [RACObserve(self, self.image) subscribeNext:^(UIImage *image) {
-            if (image) {
-                NSLog(@"图片加载完毕 %@", self.image);
-                [self saveImageWithUrl:url];
-            }
+        NSLog(@"本地没有图片");
+        [self sd_setImageWithURL:url placeholderImage:image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [self saveImageWithUrl:url];
+            
         }];
     }
 }

@@ -74,7 +74,7 @@ static ChatListViewController *chat = nil;
 //    [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:YES];
     [self removeEmptyConversationsFromDB];
 
-    [self.view addSubview:self.searchBar];
+//    [self.view addSubview:self.searchBar];
     [self.view addSubview:self.tableView];
 //    [self.tableView addSubview:self.slimeView];
     self.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
@@ -198,7 +198,8 @@ static ChatListViewController *chat = nil;
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.searchBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.searchBar.frame.size.height) style:UITableViewStylePlain];
+//        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.searchBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.searchBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         _tableView.delegate = self;
@@ -642,7 +643,6 @@ static ChatListViewController *chat = nil;
         [[FMDBSQLiteManager shareSQLiteManager] insertGroup:gro];
         EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:gro.easemobID conversationType:eConversationTypeGroupChat];
         if (conversation) {
-            
             [self.groupList addObject:conversation];
         }
     }
