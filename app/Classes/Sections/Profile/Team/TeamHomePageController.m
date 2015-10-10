@@ -5,6 +5,9 @@
 //  Created by 张加胜 on 15/8/10.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
+#import "GuidePageViewController.h"
+
 #import "TeamInfomationViewController.h"
 #import "InviteGroupMember.h"
 #import "MenuCollectionViewCell.h"
@@ -385,6 +388,17 @@ static NSString * const helpCellID = @"helpCellID";
         
     }];
     
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    GuidePageViewController *login = [[GuidePageViewController alloc]init];
+    Account *acc = [AccountTool account];
+    acc.token = nil;
+    [AccountTool saveAccount:acc];
+    
+    
+    [self.navigationController pushViewController:login animated:YES];
 }
 
 - (void)analyDataWithJson:(id)json

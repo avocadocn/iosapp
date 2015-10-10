@@ -165,14 +165,13 @@
     self.imageViewHeight = imageViewHeight;
     [self.pictureView setFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
     [self.pictureView setBackgroundColor:[UIColor redColor]];
-    //    UIImage *img = [UIImage imageNamed:@"2.jpg"];
     [self.pictureView setClipsToBounds:YES];
     for (NSDictionary *dic in self.model.photos) {
         self.url = dic[@"uri"];
     }
-    [self.pictureView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@",self.url] placeholderImage:[UIImage imageNamed:@"2.jpg"]];
+
+    [self.pictureView dlGetRouteThumbnallWebImageWithString:[NSString stringWithFormat:@"/%@",self.url] placeholderImage:[UIImage imageNamed:@"2.jpg"] withSize:CGSizeMake(self.pictureView.width, self.pictureView.height)];
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
-    //    self.pictureView = self.pictureView;
     // 活动名称label
     UIFont *font = [UIFont systemFontOfSize:16.0f];
     self.activityName = [[UILabel alloc]init];

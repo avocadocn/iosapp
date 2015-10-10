@@ -221,13 +221,12 @@
     self.nameLabel.text = model.name;
     [self.nameLabel setFrame:voteCellFrame.nameLabelF];
     
-//    self.timeLabel.text = model.time;
     [self.timeLabel judgeTimeWithString:model.time];
     [self.timeLabel setFrame:voteCellFrame.timeLabelF];
-    //    self.timeLabel.backgroundColor = [UIColor redColor];
+  
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
     if (model.voteImageURL) {
-        [self.voteImageView dlGetRouteWebImageWithString:model.voteImageURL placeholderImage:nil];
+        [self.voteImageView dlGetRouteThumbnallWebImageWithString:model.voteImageURL placeholderImage:nil withSize:CGSizeMake(DLScreenWidth, DLScreenWidth*4/5)];
         [self.voteImageView setAlpha:1];
     }else{
         [self.voteImageView setAlpha:0];

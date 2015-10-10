@@ -36,9 +36,10 @@
 
 - (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size
 {
+    // 得到网络请求的字符串
     NSString *newUrlStr = [self getUrlStringWithString:str];
     
-    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/resize/%.f/%.f", size.width, size.height]];
+    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width, size.height]];
     
     [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:nil];
 }
@@ -51,16 +52,13 @@
         
         self.image = [self readImageWithUrl:url];
         NSLog(@"本地有图片");
+        self.backgroundColor = [UIColor clearColor];
         
     } else {
-        
-        [self sd_setImageWithURL:url placeholderImage:image];
-        NSLog(@"本地没图片");
-        [RACObserve(self, self.image) subscribeNext:^(UIImage *image) {
-            if (image) {
-                NSLog(@"图片加载完毕 %@", self.image);
-                [self saveImageWithUrl:url];
-            }
+        NSLog(@"本地没有图片");
+        [self sd_setImageWithURL:url placeholderImage:image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [self saveImageWithUrl:url];
+        self.backgroundColor = [UIColor clearColor];
         }];
     }
 }
@@ -129,18 +127,23 @@
     NSMutableString *str = [NSMutableString stringWithFormat:@"%@", url];
     NSArray *array = [str componentsSeparatedByString:@"/"];
     // 判断缩略图的大图存不存在
-    NSString * temp = [array objectAtIndex:array.count - 3];
-    if ([temp isEqualToString:@"resize"]) {
+    NSString * temp = [array lastObject];
+    if ([temp hasSuffix:@"0"]) {// 请求的是缩略图的话
         
-        NSString *returnStr = [NSString stringWithFormat:@"%@/%@%@", path, [array objectAtIndex:(array.count - 5)] ,[array objectAtIndex:array.count - 4]];
+        NSString *returnStr = [NSString stringWithFormat:@"%@/%@%@%@%@", path,
+                               [array objectAtIndex:(array.count - 2)],
+                               [array lastObject],
+                               [array objectAtIndex:(array.count - 4)] ,
+                               [array objectAtIndex:array.count - 3]
+                               ];
         
-        NSLog(@"%@", returnStr);
+        NSLog(@"得到的地址为 %@",  returnStr);
         return returnStr;
     }
     
     NSString *returnStr = [NSString stringWithFormat:@"%@/%@%@", path, [array objectAtIndex:(array.count - 2)] ,[array lastObject]];
 
-    NSLog(@"%@", returnStr);
+    NSLog(@"得到的地址为 %@", returnStr);
     return returnStr;
 }
 

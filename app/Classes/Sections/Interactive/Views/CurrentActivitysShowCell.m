@@ -60,7 +60,7 @@
     // Initialization code
     
     
-    [self.avatar.layer setCornerRadius:self.avatar.width / 2];
+    [self.avatar.layer setCornerRadius:self.avatar.width / 2.0];
     self.avatar.layer.masksToBounds = YES;
     
     // 设置背景色为主题色

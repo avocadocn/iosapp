@@ -25,6 +25,11 @@ static NSInteger num = 0;
 @property (nonatomic, strong)NSMutableArray *infoArray;
 
 @property (nonatomic, strong)UIButton *btn; // 相机按钮
+
+@property (nonatomic, strong)UIButton *changePhotoButton;
+
+@property (nonatomic, assign)BOOL photoChange;
+
 @end
 
 @implementation FolderViewController
@@ -48,6 +53,8 @@ static NSInteger num = 0;
         [self editFolder]; // 用户编辑个人资料
     }
 }
+
+
 - (void)getModel{
     AddressBookModel *model = [[AddressBookModel alloc] init];
     Account *account = [AccountTool account];
@@ -74,8 +81,9 @@ static NSInteger num = 0;
         }
         self.department.informationTextField.text = json[@"department"][@"name"];
         self.phoneNumber.informationTextField.text = infoModel.phone;
-        [self.folderPhotoImage dlGetRouteWebImageWithString:infoModel.photo placeholderImage:[UIImage imageNamed:@"boy"]];
-
+//        [self.folderPhotoImage dlGetRouteWebImageWithString:infoModel.photo placeholderImage:[UIImage imageNamed:@"boy"]];
+            CGFloat width = DLScreenWidth / (375.0 / 150.0);
+        [self.folderPhotoImage dlGetRouteThumbnallWebImageWithString:infoModel.photo placeholderImage:nil withSize:CGSizeMake(width, width)];
     } failure:^(id errorJson) {
         NSLog(@"获取个人资料失败原因 %@",errorJson);
     }];
@@ -83,6 +91,7 @@ static NSInteger num = 0;
 - (void)builtTitleView // 照片和选择照片
 {
     self.scroll = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+//    self.scroll.backgroundColor = RGBACOLOR(239, 239, 239, 1);
     self.scroll.showsVerticalScrollIndicator = FALSE;
     self.scroll.showsHorizontalScrollIndicator = FALSE;
     [self.view addSubview:self.scroll];
@@ -98,21 +107,24 @@ static NSInteger num = 0;
 
 - (void)editFolder  //用户看自己的资料, 允许被编辑
 {
-    UIButton *changePhotoButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.btn = changePhotoButton;
+    self.changePhotoButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.btn = self.changePhotoButton;
     self.btn.userInteractionEnabled = NO;
-    [changePhotoButton addTarget:self action:@selector(choosePhotoAction:) forControlEvents:UIControlEventTouchUpInside];
-    [changePhotoButton setBackgroundImage:[UIImage imageNamed:@"cemera"] forState:UIControlStateNormal];
+    [self.changePhotoButton addTarget:self action:@selector(choosePhotoAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.changePhotoButton setBackgroundImage:[UIImage imageNamed:@"cemera"] forState:UIControlStateNormal];
     
-    [self.scroll addSubview:changePhotoButton];
-    [changePhotoButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.scroll addSubview:self.changePhotoButton];
+    
+    [self.changePhotoButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.folderPhotoImage.mas_bottom);
         make.right.mas_equalTo(self.folderPhotoImage.mas_right);
         make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(40.0), DLMultipleWidth(40.0)));
     }];
-    changePhotoButton.backgroundColor = [UIColor colorWithWhite:.95 alpha:1];
-    changePhotoButton.layer.masksToBounds = YES;
-    changePhotoButton.layer.cornerRadius = DLMultipleWidth(20.0);
+    
+    self.changePhotoButton.backgroundColor = [UIColor colorWithWhite:.95 alpha:1];
+    self.changePhotoButton.alpha = 0;
+    self.changePhotoButton.layer.masksToBounds = YES;
+    self.changePhotoButton.layer.cornerRadius = DLMultipleWidth(20.0);
     
     
     
@@ -130,6 +142,13 @@ static NSInteger num = 0;
     
 }
 
+- (void)buttonState:(BOOL)state
+{
+    if (state) {
+        self.changePhotoButton.alpha = 0;
+    }
+}
+
 - (void)choosePhotoAction:(UIButton *)sender
 {
     DNImagePickerController *image = [[DNImagePickerController alloc]init];
@@ -142,13 +161,14 @@ static NSInteger num = 0;
 - (void)dnImagePickerController:(DNImagePickerController *)imagePickerController sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
     DNAsset *dnasset = [imageAssets firstObject];
-    
     ALAssetsLibrary *lib = [ALAssetsLibrary new];
     
     [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
         
         UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
         self.folderPhotoImage.image = aImage;
+        
+        self.photoChange = YES;
     } failureBlock:^(NSError *error) {
         
     }];
@@ -178,12 +198,16 @@ static NSInteger num = 0;
     }
     if (self.buttonState == EnumOfEditButtonNo) {
         
+        self.changePhotoButton.alpha = 1;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapBrithdayAction:)];
         [self.brithday.informationTextField addGestureRecognizer:tap];
         
         self.buttonState = EnumOfEditButtonYes;
         self.editLabel.text = @"完成";
     } else { //写编辑完成后的网络请求
+        
+        self.changePhotoButton.alpha = 0;
+        
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"要保存您的修改吗?" message:nil delegate: self cancelButtonTitle:@"取消" otherButtonTitles:@"保存", nil];
         [alert show];
         self.editLabel.text = @"编辑";
@@ -213,7 +237,7 @@ static NSInteger num = 0;
             }
             [model setBirthday:self.infoArray[4]];
             [model setPhone:self.infoArray[5]];
-            if (self.folderPhotoImage.image){
+            if (self.photoChange ){
                 NSData *data = UIImagePNGRepresentation(self.folderPhotoImage.image);
                 NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[data ,@"photo"] forKeys:@[@"data", @"name"]];
                 model.photo = [NSArray arrayWithObjects:dic, nil];
@@ -222,7 +246,7 @@ static NSInteger num = 0;
             [self netRequstWithModel:model]; // 编辑成功重新请求一次数据
             [self.infoArray removeAllObjects]; // 将存放编辑信息的数组清空
         } failure:^(id errorJson) {
-            NSLog(@"编辑失败原因 %@",[errorJson objectForKey:@"msg"]);
+            NSLog(@"编辑失败原因 %@  %@",errorJson ,[errorJson objectForKey:@"msg"]);
         }];
             break;
         }
