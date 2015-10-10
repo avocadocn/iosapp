@@ -183,6 +183,7 @@
     
     UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     bgImageView.contentMode = UIViewContentModeScaleToFill;
+    //通话背景
     bgImageView.image = [UIImage imageNamed:@"callBg.png"];
     [self.view addSubview:bgImageView];
     
