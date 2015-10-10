@@ -75,7 +75,25 @@ static NSString * const ID = @"OtherActivityShowCell";
         [self.tableView.footer endRefreshing];
     }];
 }
-
+- (void)refreshData{
+    Account *acc= [AccountTool account];
+    getTemplateModel * model = [getTemplateModel new];
+    [model setUserId:acc.ID];
+    [model setTemplateType:[NSNumber numberWithInt:1]];
+    [model setLimit:[NSNumber numberWithLong:pageLimit]];
+    [self.tableView.header beginRefreshing];
+    [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
+        if ([json count]!=0) {
+            self.modelArray = [NSMutableArray new];
+            [self analyDataWithJson:json];
+        }
+        [self.tableView.header endRefreshing];
+        //        NSLog(@"success:-->%@",json);
+    } failure:^(id errorJson) {
+        //        NSLog(@"failed:-->%@",errorJson);
+        [self.tableView.header endRefreshing];
+    }];
+}
 //进行网络数据获取
 - (void)requestNet{
     Account *acc= [AccountTool account];
@@ -123,6 +141,8 @@ static NSString * const ID = @"OtherActivityShowCell";
     [tableView setDataSource:self];
     [self.view addSubview:tableView];
     self.tableView = tableView;
+    MJRefreshNormalHeader* header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    self.tableView.header = header;
     //添加底部下拉刷新
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     //设置默认不显示文字，只在刷新过程中显示文字
@@ -170,15 +190,15 @@ static NSString * const ID = @"OtherActivityShowCell";
     
     Interaction* current =[self.modelArray objectAtIndex:indexPath.row];
     if (current.photos.count!=0) {
-        float height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] floatValue];
-        float width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] floatValue];
-        if (width<DLScreenWidth) {
-            height *= DLScreenWidth/width;
-        }
-        if (width>DLScreenWidth){
-            height/= width/DLScreenWidth;
-        }
-        return 90 + height;
+//        float height = [[[current.photos objectAtIndex:0] objectForKey:@"height"] floatValue];
+//        float width = [[[current.photos objectAtIndex:0] objectForKey:@"width"] floatValue];
+//        if (width<DLScreenWidth) {
+//            height *= DLScreenWidth/width;
+//        }
+//        if (width>DLScreenWidth){
+//            height/= width/DLScreenWidth;
+//        }
+        return 90 + DLScreenWidth*4/5;
     }
     return 290;
 }

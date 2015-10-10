@@ -400,7 +400,9 @@ static ChatListViewController *chat = nil;
             cell.name = [[RobotManager sharedInstance] getRobotNickWithUsername:conversation.chatter];
         }else{
             Person* p = [fmdb selectPersonWithUserId:conversation.chatter];
-            cell.name = p.name;
+            if (p) {
+                cell.name = p.name;
+            }
         }
         
         cell.placeholderImage = [UIImage imageNamed:@"chatListCellHead.png"];
@@ -441,17 +443,19 @@ static ChatListViewController *chat = nil;
                 if ([group.groupId isEqualToString:conversation.chatter]) {
                     FMDBSQLiteManager * fmdb = [FMDBSQLiteManager shareSQLiteManager];
                     Group* g = [fmdb selectGroupWithEasemobId:group.groupId];
-                    cell.name = g.name;
-                    imageName = g.open ? @"groupPublicHeader" : @"groupPrivateHeader";
-                    cell.imageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]];
-                    
-                    NSMutableDictionary *ext = [NSMutableDictionary dictionaryWithDictionary:conversation.ext];
-                    [ext setObject:g.name forKey:@"groupSubject"];
-                    [ext setObject:[NSNumber numberWithBool:g.open] forKey:@"isPublic"];
-                    //保存图片链接
-                    [ext setObject:[NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]] forKey:@"imageURL"];
-                    conversation.ext = ext;
-                    break;
+                    if (g) {
+                        cell.name = g.name;
+                        imageName = g.open ? @"groupPublicHeader" : @"groupPrivateHeader";
+                        cell.imageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]];
+                        
+                        NSMutableDictionary *ext = [NSMutableDictionary dictionaryWithDictionary:conversation.ext];
+                        [ext setObject:g.name forKey:@"groupSubject"];
+                        [ext setObject:[NSNumber numberWithBool:g.open] forKey:@"isPublic"];
+                        //保存图片链接
+                        [ext setObject:[NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]] forKey:@"imageURL"];
+                        conversation.ext = ext;
+                        break;
+                    }
                 }
             }
         }
