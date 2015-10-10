@@ -13,6 +13,7 @@
 #import <MJRefresh.h>
 #import "HMWaterflowLayout.h"
 
+#define path [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
 
 #import "GroupDetileModel.h"
 #import "TeamHomePageController.h"
@@ -46,6 +47,7 @@
 //    [self.navigationController.navigationBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
     
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(returnButtonAction:) image:@"new_navigation_back@2x" highImage:@"new_navigation_back_helight@2x"];
+    
 }
 
 
@@ -82,9 +84,13 @@
     NSArray *array = [json objectForKey:@"groups"];
     for (NSDictionary *dic in array) {
         GroupCardModel *model = [[GroupCardModel alloc]init];
+        
         [model setValuesForKeysWithDictionary:dic];
         [self.modelArray addObject:model];
     }
+    
+    
+    
     [self.groupListCollection reloadData];
     
     
