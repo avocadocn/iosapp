@@ -5,7 +5,9 @@
 //  Created by apple on 14/12/4.
 //  Copyright (c) 2014年 heima. All rights reserved.
 //
-
+#import "RestfulAPIRequestTool.h"
+#import "Account.h"
+#import "AccountTool.h"
 #import "BrithdayBlessController.h"
 #import "HMWaterflowLayout.h"
 #import <MJExtension.h>
@@ -32,7 +34,7 @@ static NSString *const ID = @"shop";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self netRequest];
     self.title = @"生日祝福";
     
     // 1.初始化数据
@@ -56,6 +58,16 @@ static NSString *const ID = @"shop";
     // 3.增加刷新控件
     [self.collectionView setFooter:[MJRefreshFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreShops)]];
 }
+
+- (void)netRequest
+{
+    [RestfulAPIRequestTool routeName:@"getBirthdayList" requestModel:nil useKeys:@[] success:^(id json) {
+        NSLog(@" 获取到过生日的用户为%@", json);
+    } failure:^(id errorJson) {
+        NSLog(@"获取生日失败");
+    }];
+}
+
 
 - (void)loadMoreShops
 {
@@ -91,7 +103,7 @@ static NSString *const ID = @"shop";
     [dic setObject:@"计算机科学专业" forKey:@"major"];
     [dic setObject:@"155" forKey:@"like"];
     [dic setObject:shop.img forKey:@"img"];
-    [cell reloadCellWithModel:(AddressBookModel *)dic];
+//    [cell reloadCellWithModel:(AddressBookModel *)dic];
     return cell;
 }
 

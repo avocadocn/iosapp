@@ -640,5 +640,15 @@
         <key>routeMethod</key>
         <string>GET</string>
     </dict>
+
+    <dict>
+        <key>routeName</key>
+        <string>getBirthdayList</string>
+        <key>routeURL</key>
+        <string>/users/list/birthday</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    
 </array>
 </plist>

@@ -30,7 +30,7 @@
     
     self.AddressBookLabel = [[UILabel alloc]initWithFrame:CGRectMake(width, 10, DLScreenWidth / 2 - 5 - width, 64)];
     self.AddressBookLabel.backgroundColor = [UIColor whiteColor];
-    self.AddressBookLabel.text = @"   群组";
+    self.AddressBookLabel.text = @"       牛叉社团";
     self.AddressBookLabel.font = [UIFont systemFontOfSize:14];
     self.AddressBookLabel.userInteractionEnabled = YES;
     self.AddressBookLabel.textAlignment = 1;
@@ -42,7 +42,7 @@
     self.groupLabel = [[UILabel alloc]initWithFrame:CGRectMake(DLScreenWidth / 2 + 5, 10, DLScreenWidth / 2 - 5 - width, 64)];
     self.groupLabel.userInteractionEnabled = YES;
     self.groupLabel.backgroundColor = [UIColor whiteColor];
-    self.groupLabel.text = @"    通讯录";
+    self.groupLabel.text = @"         通讯录";
     self.groupLabel.font = [UIFont systemFontOfSize:14];
     self.groupLabel.textAlignment = 1;
 //    self.groupLabel.textColor = [UIColor colorWithWhite:.2 alpha:.5];
