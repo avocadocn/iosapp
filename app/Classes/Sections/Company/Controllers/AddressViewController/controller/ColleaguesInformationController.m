@@ -111,7 +111,7 @@ static NSInteger tagNum = 1;
         make.right.mas_equalTo(self.scrollPhotoView.mas_right);
         make.height.mas_equalTo(DLScreenHeight / 15.159);
     }];
-
+    
     [self builtButton];
 }
 
@@ -187,7 +187,7 @@ static NSInteger tagNum = 1;
         make.height.mas_equalTo(44);
         make.width.mas_equalTo(89);
     }];
-
+    
     self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(12, 0, 100, 60)];
     self.nameLabel.font = [UIFont systemFontOfSize:21];
     self.nameLabel.text = self.model.realname;
@@ -246,14 +246,14 @@ static NSInteger tagNum = 1;
             [self.model setUserId:self.model.ID];
             [folder netRequstWithModel:self.model];
             [self.navigationController pushViewController:folder animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
             break;
         }
         case 2:{
             // 个人动态页面
             PersonalDynamicController *dynamic = [[PersonalDynamicController alloc]init];
             [self.navigationController pushViewController:dynamic animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
             break;
         }
             
@@ -271,7 +271,7 @@ static NSInteger tagNum = 1;
                 chatVC.title = self.model.nickname;
             }
             [self.navigationController pushViewController:chatVC animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
             ChatListViewController *chat = [ChatListViewController shareInstan];
             [chat.dataSource addObject:conversation];
             [chat.tableView reloadData];
@@ -305,12 +305,12 @@ static NSInteger tagNum = 1;
 
 -(void)viewWillAppear:(BOOL)animated{
     // 初始化导航条
-//    [self setupNavigationBar];
+    //    [self setupNavigationBar];
 }
 -(void)setupNavigationBar{
-
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
-
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     //初始化山寨导航条
@@ -340,18 +340,21 @@ static NSInteger tagNum = 1;
     self.titleLabel.y = 64 - self.titleLabel.size.height - 13;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.font = [UIFont systemFontOfSize:18];
-                if (self.model.realname) {
-                    self.titleLabel.text = self.model.realname;
-                } else
-                {
-                    self.titleLabel.text = self.model.nickname;
-                }
+    
+    if (self.model.realname) {
+        self.titleLabel.text = self.model.realname;
+    } else
+    {
+        self.titleLabel.text = self.model.nickname;
+    }
     self.titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.titleLabel];
 }
 -(void)backBtnClicked:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    
 }
 
 - (void)settingBtnClicked:(UIButton *)sender

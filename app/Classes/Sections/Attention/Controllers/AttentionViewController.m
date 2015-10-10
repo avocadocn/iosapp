@@ -101,6 +101,9 @@ static AttentionViewController *att = nil;
     
     [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"cell"];
     
+    MJRefreshAutoGifFooter *gifFooter = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    [gifFooter setImages:@[] forState:MJRefreshStateRefreshing];
+    
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
     self.attentionTableView.footer = footer;
@@ -129,7 +132,6 @@ static AttentionViewController *att = nil;
     }];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AttentionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -150,7 +152,7 @@ static AttentionViewController *att = nil;
     PersonalDynamicController *fold = [[PersonalDynamicController alloc]init];
     fold.userModel = [[AddressBookModel alloc]init];
     fold.userModel.ID = model.userId;
-    fold.userModel.photo = model.imageURL;
+//    fold.userModel.photo = model.imageURL;
     
     [self.navigationController pushViewController:fold animated:YES];
 }

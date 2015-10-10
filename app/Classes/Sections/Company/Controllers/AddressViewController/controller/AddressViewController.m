@@ -207,6 +207,14 @@
         
     } failure:^(id errorJson) {
         NSLog(@"获取通讯录失败 , %@", errorJson);
+        
+//        NSArray *array = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@/addressBook", path]];
+//        for (NSString *str in array) {
+//            AddressBookModel *model = [[AddressBookModel alloc]initWithString:str];
+//            
+//        }
+        
+        
     }];
 }
 - (void)compareJsonWithArray:(id)array {
@@ -505,15 +513,24 @@
 
 - (void)saveDataWithJson:(id)json
 {
+    NSMutableArray *mutable = [NSMutableArray array];
+    
+    
     for (NSDictionary *dic in json) {
         AddressBookModel *model = [[AddressBookModel alloc]init];
         [model setValuesForKeysWithDictionary:dic];
+        [mutable addObject:model.ID];
+        
         [model save];
     }
+    NSString *str = [NSString stringWithFormat:@"%@/addressBook", path];
+    [mutable writeToFile:str atomically:YES];
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 @end

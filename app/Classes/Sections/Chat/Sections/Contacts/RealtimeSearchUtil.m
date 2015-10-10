@@ -94,6 +94,7 @@ static RealtimeSearchUtil *defaultUtil = nil;
 //#pragma clang diagnostic push
 //#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                         tmpString = [[object performSelector:weakSelf.selector] lowercaseString];
+                        NSLog(@"the tmpString is %@",tmpString);
 //#pragma clang diagnostic pop
                         
                     }

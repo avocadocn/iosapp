@@ -63,6 +63,11 @@
 @property (strong, nonatomic) UIView *faceView;
 
 /**
+ * 底部toolBar的分割线
+ */
+@property (nonatomic, strong) UIView* separator;
+
+/**
  *  录音的附加页面
  */
 @property (strong, nonatomic) UIView *recordView;

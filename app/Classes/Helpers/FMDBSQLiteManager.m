@@ -93,6 +93,7 @@
 
 -(Person *)selectPersonWithUserId:(NSString *)userId { // 查找数据
  
+    self.per = nil;
     [self.queue inDatabase:^(FMDatabase *db) {
         [db open];
         FMResultSet *set = [db executeQuery:@"select *from PersonTable where userId = ?",userId];

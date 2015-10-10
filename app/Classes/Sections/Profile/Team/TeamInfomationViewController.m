@@ -17,7 +17,8 @@
 #import "TeamSettingViewController.h"
 #import "GroupDetileModel.h"
 #import "ColleaguesInformationController.h"
-
+#import "FMDBSQLiteManager.h"
+#import "Group.h"
 typedef NS_ENUM(NSInteger, GroupIdentity) {
     /**
      *是群主
@@ -330,10 +331,14 @@ static NSString * const memberCell = @"memberCell";
                 [RestfulAPIRequestTool routeName:@"exitGroups" requestModel:Dic useKeys:@[@"groupId"] success:^(id json) {
                     
                     NSLog(@"退群成功  %@", json);
-                    
-                    
-                    
-                } failure:^(id errorJson) {
+                    //主动推出群
+                    FMDBSQLiteManager* fmdb=[FMDBSQLiteManager shareSQLiteManager];
+                    Group* g = [fmdb selectGroupWithGroupId:self.detilemodel.ID];
+                    [[EaseMob sharedInstance].chatManager asyncLeaveGroup:g.easemobID];
+                    //清空本地消息
+                    [[EaseMob sharedInstance].chatManager removeConversationByChatter:self.detilemodel.ID
+                                                                         deleteMessages:YES
+                                                                            append2Chat:YES];                } failure:^(id errorJson) {
                     
                     NSLog(@"退群失败   %@", errorJson);
                 }];

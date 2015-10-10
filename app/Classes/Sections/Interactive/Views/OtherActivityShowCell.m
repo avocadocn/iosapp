@@ -61,18 +61,22 @@
     
     if (model.photos.count!=0) {
         @try {
-            NSInteger width = [[[model.photos objectAtIndex:0] objectForKey:@"width"] integerValue];
-            NSInteger height = [[[model.photos objectAtIndex:0] objectForKey:@"height"] integerValue];
-            if (width<320) {
-                height*= 320.0/width;
-                width=320;
+            float width = [[[model.photos objectAtIndex:0] objectForKey:@"width"] floatValue];
+            float height = [[[model.photos objectAtIndex:0] objectForKey:@"height"] floatValue];
+            if (width<DLScreenWidth) {
+                height*= DLScreenWidth/width;
+                width=DLScreenWidth;
+            }
+            if (width>DLScreenWidth){
+                height/= width/DLScreenWidth;
             }
             self.backImageView.x=0;
             self.backImageView.y=10;
             self.backImageView.width=DLScreenWidth;
             self.backImageView.height=DLScreenWidth*4/5;
             NSLog(@"backImageView frame-->%@",NSStringFromCGRect(self.backImageView.frame));
-            [self.backImageView dlGetRouteWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:[UIImage imageNamed:@"OtherActivity_backImage"]];
+//            [self.backImageView dlGetRouteWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:[UIImage imageNamed:@"OtherActivity_backImage"]];
+            [self.backImageView dlGetRouteThumbnallWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:[UIImage imageNamed:@"OtherActivity_backImage"] withSize:CGSizeMake(width, height)];
         }
         @catch (NSException *exception) {
             NSLog(@"when trying load img error happen:\n%@",exception);

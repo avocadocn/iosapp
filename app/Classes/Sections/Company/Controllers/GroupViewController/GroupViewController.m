@@ -86,6 +86,34 @@
         [self.modelArray addObject:model];
     }
     [self.groupListCollection reloadData];
+    
+    
+    NSFileManager *manger = [NSFileManager defaultManager];
+    
+    NSMutableArray *mutable = [NSMutableArray array];
+    
+    NSArray *temp = [json objectForKey:@"groups"];
+    
+    for (NSDictionary *dic in temp) {
+        NSString *IDStr = [dic objectForKey:@"_id"];
+        
+        [mutable addObject:IDStr];
+    }
+    BOOL judge = [manger fileExistsAtPath:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath]];
+    
+    if (!judge) {  //文件不存在
+        
+        
+        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath] atomically:YES];
+        
+    } else //文件存在
+    {
+        [manger removeItemAtPath:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath] error:nil];
+        
+        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath] atomically:YES];
+    }
+    
+    
 }
 
 - (void)builtInterface
@@ -161,6 +189,7 @@
         GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
         
         [cell cellReconsitutionWithModel:model];
+        
         return cell;
         
     } else

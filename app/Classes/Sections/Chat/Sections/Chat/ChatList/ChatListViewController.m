@@ -27,6 +27,9 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
+#import "EMConversation+GroupName.h"
+#import <MJRefresh.h>
+
 static ChatListViewController *chat = nil;
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, UISearchDisplayDelegate,SRRefreshDelegate, UISearchBarDelegate, IChatManagerDelegate,ChatViewControllerDelegate>
 
@@ -34,7 +37,7 @@ static ChatListViewController *chat = nil;
 @property (nonatomic, strong) EMSearchBar           *searchBar;
 @property (nonatomic, strong) SRRefreshView         *slimeView;
 @property (nonatomic, strong) UIView                *networkStateView;
-
+@property (nonatomic, strong) MJRefreshNormalHeader* header;
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
 
 @end
@@ -71,16 +74,23 @@ static ChatListViewController *chat = nil;
 //    [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:YES];
     [self removeEmptyConversationsFromDB];
 
-    [self.view addSubview:self.searchBar];
+//    [self.view addSubview:self.searchBar];
     [self.view addSubview:self.tableView];
-    [self.tableView addSubview:self.slimeView];
+//    [self.tableView addSubview:self.slimeView];
+    self.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    self.tableView.header = self.header;
     [self networkStateView];
     
     [self searchController];
     [self refreshGroup];
     
 }
-
+//下拉刷新
+- (void)refreshData
+{
+    [self refreshGroup];
+    [self.header endRefreshing];
+}
 - (void)reloadConversionListWith:(NSString *)conver
 {
     BOOL state = NO;
@@ -188,7 +198,8 @@ static ChatListViewController *chat = nil;
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.searchBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.searchBar.frame.size.height) style:UITableViewStylePlain];
+//        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.searchBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.searchBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         _tableView.delegate = self;
@@ -531,7 +542,7 @@ static ChatListViewController *chat = nil;
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     __weak typeof(self) weakSelf = self;
-    [[RealtimeSearchUtil currentUtil] realtimeSearchWithSource:self.dataSource searchText:(NSString *)searchText collationStringSelector:@selector(chatter) resultBlock:^(NSArray *results) {
+    [[RealtimeSearchUtil currentUtil] realtimeSearchWithSource:self.dataSource searchText:(NSString *)searchText collationStringSelector:@selector(groupName) resultBlock:^(NSArray *results) {
         if (results) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.searchController.resultsSource removeAllObjects];
@@ -631,7 +642,9 @@ static ChatListViewController *chat = nil;
         Group* gro = [Group groupWithName:[g objectForKey:@"name"] brief:[g objectForKey:@"brief"] iconURL:[g objectForKey:@"logo"] groupID:[g objectForKey:@"_id"] easemobID:[g objectForKey:@"easemobId"] open:[[g objectForKey:@"open"] boolValue]];
         [[FMDBSQLiteManager shareSQLiteManager] insertGroup:gro];
         EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:gro.easemobID conversationType:eConversationTypeGroupChat];
-        [self.groupList addObject:conversation];
+        if (conversation) {
+            [self.groupList addObject:conversation];
+        }
     }
     //从网络请求对话数据
     NSMutableArray* needRemove = [NSMutableArray new];
@@ -647,6 +660,7 @@ static ChatListViewController *chat = nil;
     [self.groupList removeObjectsInArray:needRemove];
     [self.chatList addObjectsFromArray:self.groupList];
     self.dataSource = self.chatList;
+    [self refreshDataSource];
 }
 
 - (void)refreshGroup
