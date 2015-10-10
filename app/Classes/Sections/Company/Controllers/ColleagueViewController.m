@@ -120,7 +120,7 @@ static NSString * contentId = nil;
     self.colleagueTable.delegate = self;
     self.colleagueTable.dataSource = self;
     [self.colleagueTable setBackgroundColor:[UIColor colorWithWhite:.93 alpha:1]];
-    self.title = @"同事圈";
+    self.title = @"同学圈";
     [self.colleagueTable registerClass:[ColleagueViewCell class] forCellReuseIdentifier:@"tableCell"];
     
     self.colleagueTable.separatorColor = [UIColor clearColor];

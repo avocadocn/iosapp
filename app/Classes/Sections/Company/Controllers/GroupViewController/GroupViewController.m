@@ -36,9 +36,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"社团列表";
+    [self reloadLibraryFile];
 //    [self getRequestData];
     [self builtInterface];
-    
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getRequestData) name:@"reloadGroup" object:nil];
     
@@ -74,6 +74,7 @@
         [self analyDataWithJson:json];
     } failure:^(id errorJson) {
         NSLog(@"获取群组失败, 原因为 %@", errorJson);
+        [self reloadLibraryFile];
     }];
 }
 
@@ -84,13 +85,12 @@
         GroupCardModel *model = [[GroupCardModel alloc]init];
         
         [model setValuesForKeysWithDictionary:dic];
+        
+        [model save];
         [self.modelArray addObject:model];
     }
     
-    
-    
     [self.groupListCollection reloadData];
-    
     
     NSFileManager *manger = [NSFileManager defaultManager];
     
@@ -103,21 +103,31 @@
         
         [mutable addObject:IDStr];
     }
-    BOOL judge = [manger fileExistsAtPath:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath]];
+    BOOL judge = [manger fileExistsAtPath:[NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath]];
     
     if (!judge) {  //文件不存在
         
-        
-        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath] atomically:YES];
+        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath] atomically:YES];
         
     } else //文件存在
     {
-        [manger removeItemAtPath:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath] error:nil];
+        [manger removeItemAtPath:[NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath] error:nil];
         
-        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupList", DLLibraryPath] atomically:YES];
+        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath] atomically:YES];
+    }
+}
+
+- (void)reloadLibraryFile
+{
+    NSString *str = [NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath];
+    NSArray *array = [NSArray arrayWithContentsOfFile:str];
+    self.modelArray = [NSMutableArray array];
+    for (NSString *str in array) {
+        GroupCardModel *model = [[GroupCardModel alloc] initWithString:str];
+        [self.modelArray addObject:model];
     }
     
-    
+    [self.groupListCollection reloadData];
 }
 
 - (void)builtInterface
@@ -191,6 +201,8 @@
     if (indexPath.row < [self.modelArray count]) {
         GroupCardViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
         GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
+        
+        NSLog(@" model 的 logo 为  %@", model.logo);
         
         [cell cellReconsitutionWithModel:model];
         

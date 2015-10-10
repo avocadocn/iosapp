@@ -5,6 +5,9 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //  主页面
+
+#import "GuidePageViewController.h"
+
 #import "getIntroModel.h"
 #import "InteractiveViewController.h"
 #import "ActivitysShowView.h"
@@ -598,8 +601,11 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    LoginViewController *login = [[LoginViewController alloc]init];
-    login.pageState = YES;
+    GuidePageViewController *login = [[GuidePageViewController alloc]init];
+    Account *acc = [AccountTool account];
+    acc.token = nil;
+    [AccountTool saveAccount:acc];
+    
     
     [self.navigationController pushViewController:login animated:YES];
 }

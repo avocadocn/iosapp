@@ -49,7 +49,7 @@
 
 #define ArcColor [ArcColorArray objectAtIndex:(arc4random() % ArcColorArray.count)]
 
-
+#define DLLibraryPath [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
 
 
 

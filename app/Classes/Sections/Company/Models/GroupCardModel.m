@@ -46,14 +46,44 @@
 
 - (void)save
 {
+    NSString *filePathStr = [NSString stringWithFormat:@"%@/groupFile", DLLibraryPath];  //文件夹 位置 groupfile
+    NSFileManager *manger = [NSFileManager defaultManager];
+    BOOL judge = [manger fileExistsAtPath:filePathStr];
     
+    NSString *dataPathStr = [NSString stringWithFormat:@"%@/%@", filePathStr, self.groupId];
+    if (judge) {
+        BOOL small = [manger fileExistsAtPath:dataPathStr];
+        if (!small) {
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+            [data writeToFile:dataPathStr atomically:YES];
+            NSLog(@"存储成功");
+        }
+        
+    } else
+    {
+        NSError *error = nil;
+        [manger createDirectoryAtPath:filePathStr withIntermediateDirectories:YES attributes:nil error:&error];
+        
+        if (!error) {
+            NSLog(@"文件夹创建成功");
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+            [data writeToFile:dataPathStr atomically:YES];
+            NSLog(@"存储成功");
+        }
+    }
 }
+
+
 
 
 - (instancetype)initWithString:(NSString *)IDStr
 {
     self = [super init];
     if (self) {
+        NSString *str = [NSString stringWithFormat:@"%@/groupFile/%@", DLLibraryPath, IDStr];
+        
+        NSData *data = [NSData dataWithContentsOfFile:str];
+        self = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         
     }
     return  self;
