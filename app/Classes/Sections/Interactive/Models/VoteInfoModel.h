@@ -47,6 +47,12 @@
 
 
 /**
+ *  cid
+ */
+@property (nonatomic, assign) NSString *cid;
+
+
+/**
  *  参与投票的总人数
  */
 @property (nonatomic, assign) NSInteger voteCount;

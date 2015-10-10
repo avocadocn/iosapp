@@ -39,7 +39,7 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
     CGFloat margin = 0.6;
     
     CGFloat width = (DLScreenWidth - 2 * margin) / 3;
-    CGFloat height = width * 90 / 125 ;
+    CGFloat height = 90 ;
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     [flowLayout setItemSize:CGSizeMake(width, height)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
@@ -69,7 +69,7 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
     CGFloat margin = 0.6;
     CGFloat width = (DLScreenWidth - 2 * margin) / 3;
     CGFloat height = width * 90 / 125 ;
-    [self.view setFrame:CGRectMake(0, 0, DLScreenWidth, 2 * height + margin)];
+    [self.view setFrame:CGRectMake(0, 0, DLScreenWidth, 2 * 90 + margin)];
     [self.collectionView registerNib:[UINib nibWithNibName:@"MenuCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
     
     // Do any additional setup after loading the view.

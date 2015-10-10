@@ -96,10 +96,10 @@
     CGFloat width = 0.0;
     if (tempNum != 0) {
         width = tempNum / allCount * DLScreenWidth + 1;
-        self.percentageLabel.text = [NSString stringWithFormat:@"%%%.2f",tempNum / [voteCount floatValue] * 100];
+        self.percentageLabel.text = [NSString stringWithFormat:@"%.1f%%",tempNum / [voteCount floatValue] * 100];
     } else {
         width = 0;
-        self.percentageLabel.text = [NSString stringWithFormat:@"%%0"];
+        self.percentageLabel.text = [NSString stringWithFormat:@"0%%"];
     }
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, 44)];
     view.backgroundColor = self.voteViewColor;
@@ -124,7 +124,7 @@
         view.frame = CGRectMake(0, 0, width, 44);
     }];
     self.button.selected = YES;
-//    self.button.userInteractionEnabled = NO;
+    self.button.userInteractionEnabled = NO;
 }
 
 -(void)btnClicked:(id)sender{

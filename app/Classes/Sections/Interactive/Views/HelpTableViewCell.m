@@ -30,6 +30,10 @@
  */
 @property (nonatomic, strong) UILabel *timeLabel;
 /**
+ *  来自
+ */
+@property (nonatomic, strong) UILabel *fromLabel;
+/**
  *  投票配图
  */
 @property (nonatomic, strong) UIImageView *helpImageView;
@@ -162,6 +166,10 @@
     
     [self.timeLabel judgeTimeWithString:model.time];
     [self.timeLabel setFrame:helpCellFrame.timeLabelF];
+    
+    self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, -3, 80, 20)];
+    [self.fromLabel getCompanyNameFromCid:model.cid];
+    [self.timeLabel addSubview:self.fromLabel];
     
     
     [self.helpImageView setFrame:helpCellFrame.helpImageViewF];

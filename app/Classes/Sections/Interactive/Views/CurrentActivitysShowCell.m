@@ -10,6 +10,7 @@
 #import "UIImageView+DLGetWebImage.h"
 #import "FMDBSQLiteManager.h"
 #import "Person.h"
+#import "UILabel+DLTimeLabel.h"
 @interface CurrentActivitysShowCell()
 /**
  *  头像
@@ -96,8 +97,9 @@
             self.InteractiveTypeIcon.image = [UIImage imageNamed:@"求助 + Shape Copy 8"];
             break;
         }
-
     }
+
+    [self.fromLabel getCompanyNameFromCid:model.cid]; /// 来自
     
 //    [self.InteractiveTypeIcon dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [[model.photos lastObject] objectForKey:@"uri"] ] placeholderImage:[UIImage imageNamed:@"1"]];
     

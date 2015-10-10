@@ -37,6 +37,10 @@
  */
 @property (nonatomic, strong) UILabel *timeLabel;
 /**
+ *  来自
+ */
+@property (nonatomic, strong) UILabel *fromLabel;
+/**
  *  投票配图
  */
 @property (nonatomic, strong) UIImageView *voteImageView;
@@ -212,6 +216,11 @@
 //    self.timeLabel.text = model.time;
     [self.timeLabel judgeTimeWithString:model.time];
     [self.timeLabel setFrame:voteCellFrame.timeLabelF];
+    self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, -3, 80, 20)];
+//    self.fromLabel.backgroundColor = [UIColor redColor];
+    [self.fromLabel getCompanyNameFromCid:model.cid];
+    [self.timeLabel addSubview:self.fromLabel];
+    
     //    self.timeLabel.backgroundColor = [UIColor redColor];
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
     if (model.voteImageURL) {

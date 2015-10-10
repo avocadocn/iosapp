@@ -786,6 +786,7 @@
 		E29032921BB13EB70081F9FD /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29032911BB13EB70081F9FD /* AMapSearchKit.framework */; };
 		E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */; };
 		E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */; };
+		E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C3923B1BB551010072111D /* EMConversation+GroupName.m */; settings = {ASSET_TAGS = (); }; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 /* End PBXBuildFile section */
 
@@ -2046,6 +2047,8 @@
 		E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateVoteTableViewCell.m; sourceTree = "<group>"; };
 		E297E63E1BA812A300C1AC92 /* TemplateHelpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateHelpTableViewController.h; sourceTree = "<group>"; };
 		E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateHelpTableViewController.m; sourceTree = "<group>"; };
+		E2C3923A1BB551010072111D /* EMConversation+GroupName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMConversation+GroupName.h"; sourceTree = "<group>"; };
+		E2C3923B1BB551010072111D /* EMConversation+GroupName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMConversation+GroupName.m"; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3485,6 +3488,8 @@
 				96CF92121B674B53001759E2 /* UIViewController+DismissKeyboard.m */,
 				96CF92131B674B53001759E2 /* UIViewController+HUD.h */,
 				96CF92141B674B53001759E2 /* UIViewController+HUD.m */,
+				E2C3923A1BB551010072111D /* EMConversation+GroupName.h */,
+				E2C3923B1BB551010072111D /* EMConversation+GroupName.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -5266,6 +5271,7 @@
 				546CA5981B9ECD7B0066CC0C /* NYSegmentIndicator.m in Sources */,
 				96CF937E1B674B54001759E2 /* UIViewController+DismissKeyboard.m in Sources */,
 				96CF938C1B674B54001759E2 /* EMChatAudioBubbleView.m in Sources */,
+				E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */,
 				96CF947C1B674B54001759E2 /* EditNicknameViewController.m in Sources */,
 				546CA58F1B9EB00B0066CC0C /* MessageViewController.m in Sources */,
 				A459C4BF1B620C88003D32C8 /* RegisterViewController.m in Sources */,
