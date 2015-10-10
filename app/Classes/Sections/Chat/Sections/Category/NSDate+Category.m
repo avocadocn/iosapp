@@ -161,7 +161,66 @@
 + (NSString *)formattedTimeFromTimeInterval:(long long)time{
     return [[NSDate dateWithTimeIntervalInMilliSecondSince1970:time] formattedTime];
 }
-
+/**
+ *重新格式化为需要的格式
+ *由秒数转化为xx分钟前
+ */
++ (NSString *)DLChatListTimeFormat:(long long)time{
+    NSDate* oldDate=[NSDate dateWithTimeIntervalInMilliSecondSince1970:time];
+    NSDate* nowDate=[NSDate date];
+    NSTimeInterval sec = [nowDate timeIntervalSinceDate:oldDate];
+    NSLog(@"相差了 %f秒", sec);
+    NSString* str = nil;
+    if (sec < 3600.00) {
+        
+        NSInteger tempNum = sec / 60;
+        if (tempNum == 0) {
+            str = [NSString stringWithFormat:@"刚刚"];
+        } else {
+            str = [NSString stringWithFormat:@"%.f分钟前", sec / 60];
+        }
+    } else if (sec >= 3600 && [self compareDate:oldDate]) // 今天
+    {
+        str = [NSString stringWithFormat:@"%@", [self getHourAndMinuteWithDate:oldDate]];
+    } else
+    {
+        str = [NSString stringWithFormat:@"%.f天前", sec / (24 * 60 * 60)];
+    }
+    return str;
+}
++(BOOL)compareDate:(NSDate *)date{
+    
+    NSTimeInterval secondsPerDay = 24 * 60 * 60;
+    NSDate *today = [[NSDate alloc] init];
+    NSDate *tomorrow, *yesterday;
+    
+    tomorrow = [today dateByAddingTimeInterval: secondsPerDay];
+    yesterday = [today dateByAddingTimeInterval: -secondsPerDay];
+    
+    // 10 first characters of description is the calendar date:
+    NSString * todayString = [[today description] substringToIndex:10];
+    //    NSString * yesterdayString = [[yesterday description] substringToIndex:10];
+    //    NSString * tomorrowString = [[tomorrow description] substringToIndex:10];
+    
+    NSString * dateString = [[date description] substringToIndex:10];
+    
+    if ([dateString isEqualToString:todayString])
+    {
+        return YES;
+    } else
+    {
+        return NO;
+    }
+}  // 判断是否为今天
++ (NSString *)getHourAndMinuteWithDate:(NSDate *)date  // 得到小时和分钟
+{
+    NSString *str = [NSString stringWithFormat:@"%@", date];
+    NSArray *array = [str componentsSeparatedByString:@" "];
+    NSString *newStr = [array objectAtIndex:1];
+    NSArray *newArray = [newStr componentsSeparatedByString:@":"];
+    NSString *returnStr = [NSString stringWithFormat:@"%@:%@", [newArray firstObject], [newArray objectAtIndex:1]];
+    return returnStr;
+}
 #pragma mark Relative Dates
 
 + (NSDate *) dateWithDaysFromNow: (NSInteger) days

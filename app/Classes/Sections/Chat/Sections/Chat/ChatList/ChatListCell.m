@@ -31,12 +31,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(240, 7, 100, 16)];
-        _timeLabel.font = [UIFont systemFontOfSize:13];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(240, 20, 100, 16)];
+        _timeLabel.font = [UIFont systemFontOfSize:12];
         _timeLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_timeLabel];
         
-        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, 20, 20)];
+        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 10, 20, 20)];
         _unreadLabel.backgroundColor = [UIColor redColor];
         _unreadLabel.textColor = [UIColor whiteColor];
         
@@ -46,9 +46,9 @@
         _unreadLabel.clipsToBounds = YES;
         [self.contentView addSubview:_unreadLabel];
         
-        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 175, 20)];
+        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 46, 175, 20)];
         _detailLabel.backgroundColor = [UIColor clearColor];
-        _detailLabel.font = [UIFont systemFontOfSize:15];
+        _detailLabel.font = [UIFont systemFontOfSize:16];
         _detailLabel.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:_detailLabel];
         
@@ -85,11 +85,13 @@
     [super layoutSubviews];
     CGRect frame = self.imageView.frame;
     
+    self.imageView.layer.masksToBounds = YES;
     [self.imageView sd_setImageWithURL:_imageURL placeholderImage:_placeholderImage];
-    self.imageView.frame = CGRectMake(10, 7, 45, 45);
+    self.imageView.frame = CGRectMake(10,14 , 50, 50);
+    [self.imageView.layer setCornerRadius:self.imageView.width / 2.0];
     
     self.textLabel.text = _name;
-    self.textLabel.frame = CGRectMake(65, 7, 175, 20);
+    self.textLabel.frame = CGRectMake(65, 18, 175, 20);
     
     _detailLabel.text = _detailMsg;
     _timeLabel.text = _time;
