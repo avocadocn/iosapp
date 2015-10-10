@@ -15,11 +15,13 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "RestfulAPIRequestTool.h"
 #import "Interaction.h"
-
+#import "GiFHUD.h"
 
 static NSInteger num = 0;
 
 @interface PublishVoteController ()<DNImagePickerControllerDelegate,UIAlertViewDelegate>
+
+@property(nonatomic, strong)GiFHUD *gifImage;
 
 @end
 
@@ -28,7 +30,7 @@ static NSInteger num = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    [GiFHUD setGifWithImageName:@"myGif.gif"];
     [self builtInterface];
     if (self.model) {
         NSLog(@"%@",self.model);
@@ -173,6 +175,7 @@ static NSInteger num = 0;
 
 - (void)publishAction:(UIButton *)sender
 {
+    [GiFHUD show];
     NSMutableArray *titleArray = [NSMutableArray array];
     for (NSInteger i = 1; i <= num; i ++) {
         optionsView *View = (optionsView *)[self.bigView viewWithTag:i];
@@ -202,21 +205,17 @@ static NSInteger num = 0;
     }
     
     [inter setContent:@"投票"];
-    [inter setEndTime:@"2015-10-30 19:56"];
-    
-//    NSDate *date = [NSDate date];
-    
-    
-    
+    [inter setEndTime:@"2015-10-30 19:56"];//
     [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"endTime", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
         NSLog(@"发布投票成功%@", json);
+        [GiFHUD dismiss];
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布成功"message:@"少年郎,你的活动已经发布成功了,好好准备吧..." delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
         [alertV show];
 
     } failure:^(id errorJson) {
-        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯嗯,知道了", nil];
         [alertV show];
-        
+        [GiFHUD dismiss];        
         NSLog(@"发布投票失败%@", errorJson);
     }];
     
