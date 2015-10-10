@@ -408,6 +408,7 @@ static ChatListViewController *chat = nil;
             Person* p = [fmdb selectPersonWithUserId:conversation.chatter];
             if (p) {
                 cell.name = p.name;
+                cell.imageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingPathComponent:p.imageURL]];
             }
         }
         
