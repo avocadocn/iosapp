@@ -327,7 +327,8 @@ static ChatListViewController *chat = nil;
     NSString *ret = @"";
     EMMessage *lastMessage = [conversation latestMessage];;
     if (lastMessage) {
-        ret = [NSDate formattedTimeFromTimeInterval:lastMessage.timestamp];
+        //ret = [NSDate formattedTimeFromTimeInterval:lastMessage.timestamp];
+        ret = [NSDate DLChatListTimeFormat:lastMessage.timestamp];
     }
     
     return ret;
@@ -349,9 +350,14 @@ static ChatListViewController *chat = nil;
     EMMessage *lastMessage = [conversation latestMessage];
     if (lastMessage) {
         id<IEMMessageBody> messageBody = lastMessage.messageBodies.lastObject;
+        FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+        Person* p = [fmdb selectPersonWithUserId:messageBody.message.from];
+        if (p) {
+            ret = [NSString stringWithFormat:@"%@: ",p.name];
+        }
         switch (messageBody.messageBodyType) {
             case eMessageBodyType_Image:{
-                ret = NSLocalizedString(@"message.image1", @"[image]");
+                ret = [ret stringByAppendingString:NSLocalizedString(@"message.image1", @"[image]")];
             } break;
             case eMessageBodyType_Text:{
                 // 表情映射。
@@ -360,17 +366,17 @@ static ChatListViewController *chat = nil;
                 if ([[RobotManager sharedInstance] isRobotMenuMessage:lastMessage]) {
                     ret = [[RobotManager sharedInstance] getRobotMenuMessageDigest:lastMessage];
                 } else {
-                    ret = didReceiveText;
+                    ret = [ret stringByAppendingString:didReceiveText];
                 }
             } break;
             case eMessageBodyType_Voice:{
-                ret = NSLocalizedString(@"message.voice1", @"[voice]");
+                ret = [ret stringByAppendingString: NSLocalizedString(@"message.voice1", @"[voice]")];
             } break;
             case eMessageBodyType_Location: {
-                ret = NSLocalizedString(@"message.location1", @"[location]");
+                ret = [ret stringByAppendingString:NSLocalizedString(@"message.location1", @"[location]")];
             } break;
             case eMessageBodyType_Video: {
-                ret = NSLocalizedString(@"message.video1", @"[video]");
+                ret = [ret stringByAppendingString:NSLocalizedString(@"message.video1", @"[video]")];
             } break;
             default: {
             } break;
@@ -400,7 +406,9 @@ static ChatListViewController *chat = nil;
             cell.name = [[RobotManager sharedInstance] getRobotNickWithUsername:conversation.chatter];
         }else{
             Person* p = [fmdb selectPersonWithUserId:conversation.chatter];
-            cell.name = p.name;
+            if (p) {
+                cell.name = p.name;
+            }
         }
         
         cell.placeholderImage = [UIImage imageNamed:@"chatListCellHead.png"];
@@ -441,17 +449,19 @@ static ChatListViewController *chat = nil;
                 if ([group.groupId isEqualToString:conversation.chatter]) {
                     FMDBSQLiteManager * fmdb = [FMDBSQLiteManager shareSQLiteManager];
                     Group* g = [fmdb selectGroupWithEasemobId:group.groupId];
-                    cell.name = g.name;
-                    imageName = g.open ? @"groupPublicHeader" : @"groupPrivateHeader";
-                    cell.imageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]];
-                    
-                    NSMutableDictionary *ext = [NSMutableDictionary dictionaryWithDictionary:conversation.ext];
-                    [ext setObject:g.name forKey:@"groupSubject"];
-                    [ext setObject:[NSNumber numberWithBool:g.open] forKey:@"isPublic"];
-                    //保存图片链接
-                    [ext setObject:[NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]] forKey:@"imageURL"];
-                    conversation.ext = ext;
-                    break;
+                    if (g) {
+                        cell.name = g.name;
+                        imageName = g.open ? @"groupPublicHeader" : @"groupPrivateHeader";
+                        cell.imageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]];
+                        
+                        NSMutableDictionary *ext = [NSMutableDictionary dictionaryWithDictionary:conversation.ext];
+                        [ext setObject:g.name forKey:@"groupSubject"];
+                        [ext setObject:[NSNumber numberWithBool:g.open] forKey:@"isPublic"];
+                        //保存图片链接
+                        [ext setObject:[NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]] forKey:@"imageURL"];
+                        conversation.ext = ext;
+                        break;
+                    }
                 }
             }
         }
@@ -482,7 +492,8 @@ static ChatListViewController *chat = nil;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [ChatListCell tableView:tableView heightForRowAtIndexPath:indexPath];
+//    return [ChatListCell tableView:tableView heightForRowAtIndexPath:indexPath];
+    return 78;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

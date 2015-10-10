@@ -52,12 +52,14 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     [footer setTitle:@"" forState:MJRefreshStateIdle];
     self.tableView.footer = footer;
     
+    MJRefreshNormalHeader* header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    self.tableView.header = header;
 //    [self.tableView registerClass:[TemplateVoteTableViewCell class] forCellReuseIdentifier:ID];
     
     [self requestNet];
 
 }
-
+//上拉加载
 - (void)loadMoreData
 {
     NSLog(@"load more data called");
@@ -79,7 +81,27 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
         [self.tableView.footer endRefreshing];
     }];
 }
-
+- (void)refreshData
+{
+    Account *acc= [AccountTool account];
+    getTemplateModel * model = [getTemplateModel new];
+    [model setUserId:acc.ID];
+    [model setTemplateType:[NSNumber numberWithInt:2]];
+    [model setLimit:[NSNumber numberWithLong:pageLimit]];
+    [self.tableView.header beginRefreshing];
+    [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
+        if ([json count]!=0) {
+             self.voteData = [NSMutableArray new];
+            self.voteArray= [NSMutableArray new];
+             [self analyDataWithJson:json];
+        }
+        [self.tableView.header endRefreshing];
+        //        NSLog(@"success:-->%@",json);
+    } failure:^(id errorJson) {
+        [self.tableView.header endRefreshing];
+        //        NSLog(@"failed:-->%@",errorJson);
+    }];
+}
 //进行网络数据获取
 - (void)requestNet{
     Account *acc= [AccountTool account];
