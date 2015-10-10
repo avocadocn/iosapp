@@ -72,7 +72,11 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 24)];
     
+    view.backgroundColor = [UIColor greenColor];
+    [self.navigationController.toolbar addSubview:view];
+
     // 设置背景颜色
     [self.view setBackgroundColor:RGB(235, 235, 235)];
     
@@ -94,6 +98,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 
 - (void)reFreshData {
 
+    
     Account *acc= [AccountTool account];
     
     getIntroModel *model = [[getIntroModel alloc]init];
@@ -110,7 +115,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
             alert.delegate = self;
             [alert show];
-            
         }
         
     }];

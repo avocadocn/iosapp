@@ -33,7 +33,6 @@
 @implementation SchoolFirstPageCell
 
 
-
 - (void)awakeFromNib {
     // Initialization code
 
@@ -107,7 +106,7 @@
 }
 - (void)reloadWithIndexpath:(NSIndexPath *)index
 {
-    NSArray *array= [NSArray arrayWithObjects:@"同事圈",@"新人报道", @"生日祝福" ,nil];
+    NSArray *array= [NSArray arrayWithObjects:@"warm社区",@"新生报到", @"生日祝福" ,nil];
     
     self.TitileImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"company%ld@2x", index.row + 1]];
     self.TitleLabel.text = [array objectAtIndex:index.row];

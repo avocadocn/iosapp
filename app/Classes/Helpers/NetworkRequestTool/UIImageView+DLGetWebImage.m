@@ -13,6 +13,8 @@
 
 @implementation UIImageView (DLGetWebImage)
 
+
+
 /**
  *
  * 请求原图
@@ -20,6 +22,8 @@
 
 - (void)dlGetRouteWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image
 {
+
+    self.backgroundColor = ArcColor;
     NSString * newUrlStr = [self getUrlStringWithString:str];
     
     [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
@@ -51,10 +55,9 @@
     } else {
         
         [self sd_setImageWithURL:url placeholderImage:image];
-        NSLog(@"这个走不走");
+        NSLog(@"本地没图片");
         [RACObserve(self, self.image) subscribeNext:^(UIImage *image) {
             if (image) {
-                
                 NSLog(@"图片加载完毕 %@", self.image);
                 [self saveImageWithUrl:url];
             }
@@ -70,8 +73,13 @@
 {
     NSString *str = [self getAddressWithUrl:url];
     NSData *data = UIImagePNGRepresentation(self.image);
-    [data writeToFile:str atomically:YES];
-    NSLog(@"保存图片成功");
+    NSError *error = nil;
+    
+    [data writeToFile:str atomically:error];
+    if (!error) {
+        NSLog(@"保存图片成功");
+    }
+    
 }
 /**
  * 判断本地有没有图片
@@ -91,6 +99,7 @@
 
 - (UIImage *)readImageWithUrl:(NSURL *)url
 {
+    
     NSData *data = [NSData dataWithContentsOfFile:[self getAddressWithUrl:url]];
     UIImage *image = [UIImage imageWithData:data];
     NSLog(@"获取本地图片成功");
@@ -116,10 +125,22 @@
 }
 - (NSString *)getAddressWithUrl:(NSURL *)url
 {
-    NSString *str = [NSString stringWithFormat:@"%@", url];
-    NSArray *array = [str componentsSeparatedByString:@"/"];
-    NSString *returnStr = [NSString stringWithFormat:@"%@/%@%@", path, [array objectAtIndex:(array.count - 2)] ,[array lastObject]];
     
+    NSMutableString *str = [NSMutableString stringWithFormat:@"%@", url];
+    NSArray *array = [str componentsSeparatedByString:@"/"];
+    // 判断缩略图的大图存不存在
+    NSString * temp = [array objectAtIndex:array.count - 3];
+    if ([temp isEqualToString:@"resize"]) {
+        
+        NSString *returnStr = [NSString stringWithFormat:@"%@/%@%@", path, [array objectAtIndex:(array.count - 5)] ,[array objectAtIndex:array.count - 4]];
+        
+        NSLog(@"%@", returnStr);
+        return returnStr;
+    }
+    
+    NSString *returnStr = [NSString stringWithFormat:@"%@/%@%@", path, [array objectAtIndex:(array.count - 2)] ,[array lastObject]];
+
+    NSLog(@"%@", returnStr);
     return returnStr;
 }
 

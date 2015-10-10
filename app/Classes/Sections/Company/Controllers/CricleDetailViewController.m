@@ -41,6 +41,8 @@ static NSString *circleCardCell = @"circleCardCell";
 
 - (void)builtInterface
 {
+    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.detileTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight - 0) style:UITableViewStylePlain];
     self.detileTableview.delegate = self;
     self.detileTableview.dataSource = self;
@@ -48,17 +50,27 @@ static NSString *circleCardCell = @"circleCardCell";
     [self.detileTableview registerClass:[CommentCardCell class] forCellReuseIdentifier:circleCardCell];
     [self.detileTableview registerNib:[UINib nibWithNibName:@"CommentViewCell" bundle:nil] forCellReuseIdentifier:ID];
     
+    self.detileTableview.separatorColor = [UIColor clearColor];
+    
 //    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 10)];
 //    view.backgroundColor = [UIColor whiteColor];
 //    self.detileTableview.tableFooterView = view;
-//    
-    CommentViewCell *cell = [self.detileTableview dequeueReusableCellWithIdentifier:ID];
-    self.defaultCell = cell;
-    [self.view addSubview:self.detileTableview];
+    
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerAction:)];
+    self.detileTableview.footer = footer;
+    
+    
+//
+//    CommentViewCell *cell = [self.detileTableview dequeueReusableCellWithIdentifier:ID];
+//    self.defaultCell = cell;
+//    [self.view addSubview:self.detileTableview];
 
 
 }
-
+- (void)footerAction:(id)sender
+{
+    [self.detileTableview.footer endRefreshing];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

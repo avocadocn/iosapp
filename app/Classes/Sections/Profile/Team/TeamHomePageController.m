@@ -5,6 +5,8 @@
 //  Created by 张加胜 on 15/8/10.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+#import "TeamInfomationViewController.h"
+#import "InviteGroupMember.h"
 #import "MenuCollectionViewCell.h"
 #import <Masonry.h>
 #import "FolderViewController.h"
@@ -135,17 +137,29 @@ static NSString * const helpCellID = @"helpCellID";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *controller;
     switch (indexPath.row) {
-        case 0: // 我的信息
-            controller = [[FolderViewController alloc] init];
-            [(FolderViewController *)controller setJudgeEditState:YES];
+        case 0: // 群组信息{
+        {
+            TeamInfomationViewController * mycontroller = [[TeamInfomationViewController alloc] init];
+//            [(FolderViewController *)controller setJudgeEditState:YES];
+            
+            [mycontroller setMemberInfos:self.informationModel.member];
+            
+            //主页 --> 信息
+            mycontroller.detilemodel = [[GroupDetileModel alloc]init];
+            mycontroller.detilemodel = self.informationModel;
+            
+            [self.navigationController pushViewController:mycontroller animated:YES];
+            
+    }
+    
             break;
-        case 1: // 群组
+        case 1: // 成员
             controller = [[TeamHomePageController alloc]init];
             break;
-        case 2: // 消息
+        case 2: // 邀请
             //controller = [[FolderViewController alloc]init];
             //            controller = [[UserMessageTableViewController alloc]init];
-            controller = [[MessageViewController alloc] init];
+            controller = [[InviteGroupMember alloc] init];
             break;
         case 3: // 活动
             //使用指定的frame大小初始化viewcontroller,高度增加64是因为后续会减掉64

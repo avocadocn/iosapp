@@ -92,7 +92,16 @@
 
 
 //创建图片
-
+- (instancetype)initWithString:(NSString *)string
+{
+    self = [super init];
+    if (self) {
+        NSString *newPath = [NSString stringWithFormat:@"%@/%@", path, string];
+        NSData *data = [NSData dataWithContentsOfFile:newPath];
+        self = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }
+    return self;
+}
 
 - (void)save
 {

@@ -631,7 +631,10 @@ static ChatListViewController *chat = nil;
         Group* gro = [Group groupWithName:[g objectForKey:@"name"] brief:[g objectForKey:@"brief"] iconURL:[g objectForKey:@"logo"] groupID:[g objectForKey:@"_id"] easemobID:[g objectForKey:@"easemobId"] open:[[g objectForKey:@"open"] boolValue]];
         [[FMDBSQLiteManager shareSQLiteManager] insertGroup:gro];
         EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:gro.easemobID conversationType:eConversationTypeGroupChat];
-        [self.groupList addObject:conversation];
+        if (conversation) {
+            
+            [self.groupList addObject:conversation];
+        }
     }
     //从网络请求对话数据
     NSMutableArray* needRemove = [NSMutableArray new];
