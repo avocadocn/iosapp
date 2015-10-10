@@ -156,9 +156,23 @@
             [self.photoArray replaceObjectAtIndex:0 withObject:model];
             
             [self saveDefaultWithJson:json];
-                    [self.BigCollection reloadData];
+            
+            [self.BigCollection reloadData];
             
 //            [self getRequestNet];
+        } else
+        {
+            NSFileManager *manger = [NSFileManager defaultManager];
+            NSArray *tempArray =  NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+            NSString *path = [tempArray lastObject];
+            path = [NSString stringWithFormat:@"%@/%@", path, @"IDArray"];
+            
+            BOOL judge = [manger fileExistsAtPath:path];
+            if (judge) {
+//                [manger removeObserver:nil forKeyPath:path];
+                [manger removeItemAtPath:path error:nil];
+            }
+            
         }
         
         
@@ -217,7 +231,7 @@
     BOOL judge = [manger fileExistsAtPath:path];
     if (judge) {
         
-        NSArray *array = [NSArray arrayWithContentsOfFile:path];
+        NSArray *array = [NSArray arrayWithContentsOfFile:path]; //原来的
 //        [IDArray removeObjectsInArray:array];
 //        IDArray = (NSMutableArray *)[IDArray arrayByAddingObjectsFromArray:array];
         [manger removeItemAtPath:path error:nil];

@@ -43,7 +43,7 @@ static NSString *const ID = @"shop";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"新人报道";
+    self.title = @"新人报到";
     [self getRequestNet];
     // 1.初始化数据
     NSArray *shopArray = [HMShop objectArrayWithFilename:@"1.plist"];

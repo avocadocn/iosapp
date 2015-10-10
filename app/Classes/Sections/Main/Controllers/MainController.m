@@ -63,7 +63,11 @@ static NSString *kGroupName = @"GroupName";
     // Do any additional setup after loading the view.
     
     // 添加主页面VC
-    
+//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, -20, DLScreenWidth, 20)];
+//    
+//    view.backgroundColor = [UIColor greenColor];
+//    [self.navigationController.navigationBar addSubview:view];
+
     _contactsVC = [[ContactsViewController alloc]init];
     
     [self registerNotifications];
@@ -78,6 +82,11 @@ static NSString *kGroupName = @"GroupName";
     
     [self setupUnreadMessageCount];
     [self setupUntreatedApplyCount];
+}
+
+- (void)setNeedsStatusBarAppearanceUpdate
+{
+    
 }
 
 

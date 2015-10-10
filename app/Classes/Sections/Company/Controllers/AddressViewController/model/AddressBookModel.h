@@ -44,5 +44,5 @@
 
 
 - (void)save;
-
+- (instancetype)initWithString:(NSString *)string;
 @end
