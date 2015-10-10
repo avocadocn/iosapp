@@ -121,8 +121,8 @@ static NSInteger num = 0;
         make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(40.0), DLMultipleWidth(40.0)));
     }];
     
-    [self.scroll sendSubviewToBack:self.changePhotoButton];
     self.changePhotoButton.backgroundColor = [UIColor colorWithWhite:.95 alpha:1];
+    self.changePhotoButton.alpha = 0;
     self.changePhotoButton.layer.masksToBounds = YES;
     self.changePhotoButton.layer.cornerRadius = DLMultipleWidth(20.0);
     
@@ -140,6 +140,13 @@ static NSInteger num = 0;
     self.editLabel.userInteractionEnabled = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.editLabel];
     
+}
+
+- (void)buttonState:(BOOL)state
+{
+    if (state) {
+        self.changePhotoButton.alpha = 0;
+    }
 }
 
 - (void)choosePhotoAction:(UIButton *)sender
@@ -191,7 +198,7 @@ static NSInteger num = 0;
     }
     if (self.buttonState == EnumOfEditButtonNo) {
         
-        [self.scroll bringSubviewToFront:self.changePhotoButton];
+        self.changePhotoButton.alpha = 1;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapBrithdayAction:)];
         [self.brithday.informationTextField addGestureRecognizer:tap];
         
@@ -199,7 +206,8 @@ static NSInteger num = 0;
         self.editLabel.text = @"完成";
     } else { //写编辑完成后的网络请求
         
-        [self.scroll sendSubviewToBack:self.changePhotoButton];
+        self.changePhotoButton.alpha = 0;
+        
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"要保存您的修改吗?" message:nil delegate: self cancelButtonTitle:@"取消" otherButtonTitles:@"保存", nil];
         [alert show];
         self.editLabel.text = @"编辑";
