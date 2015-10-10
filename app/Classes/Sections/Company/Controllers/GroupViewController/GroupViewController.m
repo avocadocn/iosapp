@@ -13,8 +13,6 @@
 #import <MJRefresh.h>
 #import "HMWaterflowLayout.h"
 
-#define path [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
-
 #import "GroupDetileModel.h"
 #import "TeamHomePageController.h"
 #import "GroupViewController.h"
