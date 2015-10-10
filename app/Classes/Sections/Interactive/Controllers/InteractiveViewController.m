@@ -57,6 +57,8 @@ enum InteractionType{
 @property (nonatomic, strong)NSMutableArray *modelArray;
 @property (nonatomic, strong)NSMutableArray *contactsArray;
 
+@property (nonatomic, copy)NSString *path;
+@property (nonatomic)BOOL orTrue;
 
 /**
  *  path菜单
@@ -88,14 +90,41 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     // 活动展示table
     [self setupActivityShowTableView];
-    [self requestNet];
+//    [self requestNet];
+     [self loadData]; // 加载数据
     [self refressMJ]; //
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"KPOSTNAME" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"CHANGESTATE" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESSDATA" object:nil];
     
+    
 }
 
+
+- (void)loadData { // 加载数据 判断本地是否已经存在数据
+    NSFileManager *manger = [NSFileManager defaultManager];
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
+    self.path = [cachePath stringByAppendingPathComponent:@"modelArray"];
+    self.modelArray = [NSMutableArray arrayWithContentsOfFile:[cachePath stringByAppendingPathComponent:@"modelArray"]];
+//    
+//    BOOL orTrue = [manger fileExistsAtPath:self.path];
+//    if (orTrue) {
+//        self.modelArray = [NSMutableArray arrayWithContentsOfFile:path];
+//        if (self.modelArray.count == 0) {
+//            [self requestNet];
+//        } else {
+//            
+//        }
+//    } else {
+//        [self requestNet];
+//    }
+    if (self.modelArray.count == 0) {
+        [self requestNet];
+    } else {
+        [self analyDataWithJson:self.modelArray];
+    }
+    
+}
 - (void)reFreshData {
 
     
@@ -103,7 +132,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     getIntroModel *model = [[getIntroModel alloc]init];
     [model setUserId:acc.ID];
-    
+    [model setLimit:@5];
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
@@ -494,6 +523,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     getIntroModel *model = [[getIntroModel alloc]init];
     [model setUserId:acc.ID];
+    [model setLimit:@5];
     
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
@@ -518,7 +548,9 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 
 - (void)analyDataWithJson:(id)json
 {
-    self.modelArray = [NSMutableArray array];
+    if (self.modelArray.count == 0) {
+        self.modelArray = [NSMutableArray array];
+    }
     
     for (NSDictionary *dic  in json) {
         Interaction *inter = [[Interaction alloc]init];
@@ -530,9 +562,11 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             [poll setValuesForKeysWithDictionary:[dic objectForKey:@"poll"]];
             [inter setPoll:poll];
         }
+
         [self.modelArray addObject:inter];
     }
     [self.tableView reloadData];
+    [self.modelArray writeToFile:[self.path stringByAppendingPathComponent:@"modelArray"]atomically:YES];
 }
 - (void)testTapAction:(UITapGestureRecognizer *)sender {
     
@@ -624,13 +658,34 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     self.tableView.footer = footer;
     
 }
-- (void)refreshAction {
-    
-    
+- (void)refreshAction { // 上拉加载
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self fireTimerWithBool:YES];
+    });
+    Account *acc= [AccountTool account];
+       Interaction *imodel = [self.modelArray lastObject];
+    getIntroModel *model = [[getIntroModel alloc]init];
+    [model setUserId:acc.ID];
+    [model setLimit:@5];
+    [model setCreateTime:imodel.createTime];
+    [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
+         NSLog(@"获取成功   %@", json);
+        [self.tableView.footer endRefreshing];
+        self.orTrue = NO;
+        [self analyDataWithJson:json];
+        [self.tableView reloadData];
+    } failure:^(id errorJson) {
+        [self.tableView.footer endRefreshing];
+    }];
 }
-
-
-
+- (void)fireTimerWithBool:(BOOL)ortrue {
+    ortrue = self.orTrue;
+    if (self.orTrue) {
+        [self.tableView.footer endRefreshing];
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请求时间过长" delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        [alertV show];
+    }
+}
 
 - (void)reloadWithJson:(id)json {  // 将获取的通讯录信息写入数据库
     if (!self.contactsArray) {
