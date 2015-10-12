@@ -30,7 +30,7 @@
 #import "AddressBookModel.h"
 #import "RestfulAPIRequestTool.h"
 #import "GuidePageViewController.h"
-
+#import "FMDBSQLiteManager.h"
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 static NSString *kMessageType = @"MessageType";
@@ -771,6 +771,14 @@ static NSString *kGroupName = @"GroupName";
     accout = nil;
     [AccountTool saveAccount:accout];
     [self cleanEaseMob];
+    [self cleanLocalData];
+}
+//当用户推出时，清空本地缓存数据
+- (void)cleanLocalData
+{
+    FMDBSQLiteManager* fmdb=[FMDBSQLiteManager shareSQLiteManager];
+    [fmdb dropGroup];
+    [fmdb dropPerson];
 }
 - (void)didRemovedFromServer
 {
