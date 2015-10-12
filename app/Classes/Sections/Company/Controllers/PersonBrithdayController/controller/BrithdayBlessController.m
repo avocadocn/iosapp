@@ -41,7 +41,6 @@ static NSString *const ID = @"shop";
     NSArray *shopArray = [HMShop objectArrayWithFilename:@"1.plist"];
     [self.shops addObjectsFromArray:shopArray];
     
-    
     HMWaterflowLayout *layout = [[HMWaterflowLayout alloc] init];
     layout.delegate = self;
     

@@ -20,10 +20,12 @@
 -(void)deletePersonWithName:(NSString *)name;
 //查
 -(Person *)selectPersonWithUserId:(NSString *)userId;
-
+//清空用户表
+- (void)dropPerson;
 
 - (void)insertGroup:(Group*)g;
 - (Group*)selectGroupWithGroupId:(NSString*)groupId;
 - (Group*)selectGroupWithEasemobId:(NSString*)easemobId;
-
+//清空群组表
+- (void)dropGroup;
 @end

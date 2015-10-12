@@ -114,7 +114,10 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     //补全聊天信息中得头像信息
     FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
     Person* p = [fmdb selectPersonWithUserId:model.nickName];
-    model.headImageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:p.imageURL]];
+    if (p) {
+        model.headImageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:p.imageURL]];
+        
+    }
     [super setMessageModel:model];
     
     if (model.messageType != eMessageTypeChat) {

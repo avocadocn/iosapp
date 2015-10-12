@@ -200,8 +200,10 @@ static NSInteger num = 0;
         [inter setTargetType:self.model.targetType];
         [inter setTemplateId:self.model.ID];
     }else{
+        
         [inter setTarget:acc.cid];
         [inter setTargetType:@3];
+        
     }
     
     [inter setContent:@"投票"];

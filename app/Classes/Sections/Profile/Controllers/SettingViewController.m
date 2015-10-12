@@ -16,6 +16,8 @@
 #import "RestfulAPIRequestTool.h"
 #import "LoginViewController.h"
 #import "GuidePageViewController.h"
+#import "FMDBSQLiteManager.h"
+
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong) UIAlertView *alert;
@@ -110,6 +112,8 @@
         [AccountTool saveAccount:accout];
         //退出环信，清空消息数据
         [self cleanEaseMob];
+        //清空本地缓存数据
+        [self cleanLocalData];
     } failure:^(id errorJson) {
         NSLog(@"退出失败原因 %@",errorJson);
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
@@ -145,6 +149,13 @@
                                                              deleteMessages:YES
                                                                 append2Chat:NO];
     }
+}
+//当用户推出时，清空本地缓存数据
+- (void)cleanLocalData
+{
+    FMDBSQLiteManager* fmdb=[FMDBSQLiteManager shareSQLiteManager];
+    [fmdb dropGroup];
+    [fmdb dropPerson];
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {

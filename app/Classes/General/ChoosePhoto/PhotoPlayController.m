@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/7/21.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "DNAssetsViewCell.h"
 #import "PhotoPlayController.h"
 #import "PhotoShouCell.h"
 #import <Masonry.h>
@@ -23,6 +23,7 @@
 {
     self = [super init];
     if (self) {
+        
         self.showImageArray = (NSMutableArray *)array;
         self.num = num;
     }
@@ -31,6 +32,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
+    
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
@@ -53,9 +59,8 @@
     [button setTitle:@"返回" forState: UIControlStateNormal];
     button.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         
-        [self dismissViewControllerAnimated:YES completion:^{
-            
-        }];
+        [self.navigationController popViewControllerAnimated:YES];
+        
         return [RACSignal empty];
     }];
     
@@ -72,10 +77,12 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+//    DNAssetsViewCell *cell =
+    
     PhotoShouCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"photoShowCell" forIndexPath:indexPath];
     NSString *image = [self.showImageArray objectAtIndex:indexPath.row];
     [cell settingUpImageViewWithImage:image];
-    
+//    [cell fillWithImage:image];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTapAction:)];
     [cell.showImageView addGestureRecognizer:tap];
     
@@ -86,10 +93,14 @@
     if (self.titleState == TitleLabelStateYes) { // 标题在显示, 让其消失
         [UIView animateWithDuration:.2 animations:^{
             self.titleView.center = CGPointMake(DLScreenWidth / 2.0, - 100);
+//                    [self.navigationController setNavigationBarHidden:YES animated:YES];
         }];
         self.titleState = TitleLabelStateNo;
+        
     } else  //让标题出来
     {
+//                [self.navigationController setNavigationBarHidden:NO animated:YES];
+        
         self.titleView.center = CGPointMake(DLScreenWidth / 2.0, 25);
         self.titleState = TitleLabelStateYes;
     }
@@ -110,8 +121,15 @@
 {
     [UIView animateWithDuration:.2 animations:^{
         self.titleView.center = CGPointMake(DLScreenWidth / 2.0, - 100);
+//                            [self.navigationController setNavigationBarHidden:YES animated:YES];
     }];
     self.titleState = TitleLabelStateNo;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
 }
 
 @end
