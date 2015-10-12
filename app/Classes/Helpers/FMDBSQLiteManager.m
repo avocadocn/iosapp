@@ -31,7 +31,7 @@
 - (id) init {
     self = [super init];
     if (self) {
-        NSString *sandBoxPath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"mydatabase.sqlite"];
+        NSString *sandBoxPath = [DLLibraryPath stringByAppendingPathComponent:@"mydatabase.sqlite"];
         //        文件管理类NSFileManager是个单例
         NSFileManager *manager = [NSFileManager defaultManager];
         if ([manager fileExistsAtPath:sandBoxPath]) {
