@@ -26,4 +26,6 @@
 
 - (void)fillWithAsset:(ALAsset *)asset isSelected:(BOOL)seleted;
 
+- (void)fillWithImage:(NSString *)image;
+
 @end

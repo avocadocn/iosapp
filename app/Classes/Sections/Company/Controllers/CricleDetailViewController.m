@@ -25,7 +25,7 @@ static NSString *circleCardCell = @"circleCardCell";
 @interface CricleDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong)UITableView *detileTableview;
-@property (nonatomic, strong) CommentViewCell *defaultCell;
+@property (nonatomic, strong)CommentViewCell *defaultCell;
 @property (nonatomic, strong)CircleContextModel *model;
 
 @end
@@ -50,20 +50,20 @@ static NSString *circleCardCell = @"circleCardCell";
     [self.detileTableview registerClass:[CommentCardCell class] forCellReuseIdentifier:circleCardCell];
     [self.detileTableview registerNib:[UINib nibWithNibName:@"CommentViewCell" bundle:nil] forCellReuseIdentifier:ID];
     
-    self.detileTableview.separatorColor = [UIColor clearColor];
+//    self.detileTableview.separatorColor = [UIColor clearColor];
     
 //    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 10)];
 //    view.backgroundColor = [UIColor whiteColor];
 //    self.detileTableview.tableFooterView = view;
     
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerAction:)];
-    self.detileTableview.footer = footer;
+//    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerAction:)];
+//    self.detileTableview.footer = footer;
     
     
-//
-//    CommentViewCell *cell = [self.detileTableview dequeueReusableCellWithIdentifier:ID];
-//    self.defaultCell = cell;
-//    [self.view addSubview:self.detileTableview];
+
+    CommentViewCell *cell = [self.detileTableview dequeueReusableCellWithIdentifier:ID];
+    self.defaultCell = cell;
+    [self.view addSubview:self.detileTableview];
 
 
 }
@@ -77,7 +77,7 @@ static NSString *circleCardCell = @"circleCardCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (!self.model.commentUsers) {
+    if (!self.model.commentUsers.count) {
         return 2;
     }
     
@@ -90,8 +90,6 @@ static NSString *circleCardCell = @"circleCardCell";
 //    [self builtInterface];
     [self.detileTableview reloadData];
     
-    
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,7 +98,7 @@ static NSString *circleCardCell = @"circleCardCell";
         return self.model.detileView.height + 125;
     }
     
-    if (indexPath.section == 1 && self.model.commentUsers) {
+    if (indexPath.section == 1 && self.model.commentUsers.count) {
         return 64;
     }
     
@@ -119,7 +117,7 @@ static NSString *circleCardCell = @"circleCardCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.model.commentUsers) {
+    if (self.model.commentUsers.count) {
         if (section == 2 ) { //存在点赞人数
             return [self.model.comments count];
         }
@@ -139,13 +137,14 @@ static NSString *circleCardCell = @"circleCardCell";
     {
         ColleagueViewCell *cell = [tableView dequeueReusableCellWithIdentifier:colleague forIndexPath:indexPath];
         cell.userInterView.height = self.model.detileView.height;
+        
         [cell.userInterView insertSubview:self.model.detileView atIndex:0];
         
         [cell reloadCellWithModel:self.model andIndexPath:indexPath];
         
         return cell;
     }
-    if (self.model.commentUsers && indexPath.section == 1) {
+    if (self.model.commentUsers.count && indexPath.section == 1) {
         CommentCardCell *cell = [tableView dequeueReusableCellWithIdentifier:circleCardCell forIndexPath:indexPath];
         
         [cell reloadCellWithPhotoArray:self.model.commentUsers];
@@ -184,5 +183,14 @@ static NSString *circleCardCell = @"circleCardCell";
     // Pass the selected object to the new view controller.
 }
 */
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view =[[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 15)];
+    view.backgroundColor = [UIColor yellowColor];
+//    view.backgroundColor  = RGBACOLOR(236, 236, 239, 1);
+    return view;
+}
+
 
 @end

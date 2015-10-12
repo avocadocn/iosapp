@@ -33,7 +33,7 @@
 
 - (void)builtInterface
 {
-    self.numLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.size.width  - 60, 0, 60, 60)];
+    self.numLabel = [[UILabel alloc]initWithFrame:CGRectMake(DLScreenWidth  - 60, 0, 60, 60)];
     self.numLabel.textColor = RGBACOLOR(74, 74, 74, 1);
     self.numLabel.font = [UIFont systemFontOfSize:14];
     self.numLabel.textAlignment = NSTextAlignmentCenter;

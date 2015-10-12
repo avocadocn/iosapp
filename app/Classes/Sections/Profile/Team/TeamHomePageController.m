@@ -6,8 +6,10 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
+#import "Group.h"
+#import "FMDBSQLiteManager.h"
 #import "GuidePageViewController.h"
-
+#import "ChatViewController.h"
 #import "TeamInfomationViewController.h"
 #import "InviteGroupMember.h"
 #import "MenuCollectionViewCell.h"
@@ -45,7 +47,7 @@ static NSString *ID = @"feasfsefse";
 @interface TeamHomePageController ()<UITableViewDataSource,UITableViewDelegate, MenuCollectionControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
-
+@property (nonatomic, strong)UIView *setView;
 //@property (nonatomic, strong)
 /**
  *  记录scrollView上次偏移的Y距离
@@ -157,7 +159,10 @@ static NSString * const helpCellID = @"helpCellID";
     
             break;
         case 1: // 成员
-            controller = [[TeamHomePageController alloc]init];
+//            controller = [[TeamHomePageController alloc]init];
+            
+            
+            
             break;
         case 2: // 邀请
             //controller = [[FolderViewController alloc]init];
@@ -422,7 +427,6 @@ static NSString * const helpCellID = @"helpCellID";
 
 -(void)setupNavigationBar{
     
-    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     //初始化山寨导航条
     self.naviView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, 64)];
@@ -443,20 +447,21 @@ static NSString * const helpCellID = @"helpCellID";
     [backView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backBtnClicked:)]];
     [self.view addSubview:backView];
     
-    UIView *setView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth - 100, 0, 100, 64)];
-    setView.backgroundColor = [UIColor clearColor];
+    self.setView = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth - 100, 0, 100, 64)];
+    self.setView.backgroundColor = [UIColor clearColor];
     //按钮
     self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     self.settingBtn.frame = CGRectMake(100 - 36, 30, 20, 20);
 //    [self.settingBtn setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
     
-    [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"setting white@2x"] forState:UIControlStateNormal];
+    [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_white@2x"] forState:UIControlStateNormal];
     [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow white@2x"] forState:UIControlStateNormal];
     
-    [setView addSubview:self.settingBtn];
-    setView.userInteractionEnabled = YES;
-    [setView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(settingBtnClicked:)]];
-    [self.view addSubview:setView];
+    [self.setView addSubview:self.settingBtn];
+    self.setView.userInteractionEnabled = YES;
+    [self.setView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(settingBtnClicked:)]];
+    [self.view addSubview:self.setView];
     
     //添加导航条上的大文字
     self.titleLabel = [[UILabel alloc] init];
@@ -474,6 +479,16 @@ static NSString * const helpCellID = @"helpCellID";
     self.titleLabel.text = self.informationModel.name;
     [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
     
+    
+    
+    FMDBSQLiteManager *manger = [FMDBSQLiteManager shareSQLiteManager];
+    
+    Group *group = [manger selectGroupWithGroupId:self.groupCardModel.groupId];
+    if (!group) {
+        self.setView.userInteractionEnabled = NO;
+        self.settingBtn.alpha = 0;
+    }
+    
 }
 
 
@@ -484,19 +499,28 @@ static NSString * const helpCellID = @"helpCellID";
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
+// 聊天
 -(void)settingBtnClicked:(id)sender{
-    TeamInfomationViewController *infomationController = [[TeamInfomationViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    NSLog(@"点击聊天");
     
-    // 数组为测试数据，与内容无关，至于数组的count有关，这边的count数目决定了里面用户头像的个数，界面内容会根据count的大小自动排版
-    [infomationController setMemberInfos:self.informationModel.member];
+    FMDBSQLiteManager * manger = [FMDBSQLiteManager shareSQLiteManager];
+    Group *group = [manger selectGroupWithGroupId:self.groupCardModel.groupId];
     
-    //主页 --> 信息
-    infomationController.detilemodel = [[GroupDetileModel alloc]init];
-    infomationController.detilemodel = self.informationModel;
     
-    [self.navigationController pushViewController:infomationController animated:YES];
+    ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:group.easemobID conversationType:eConversationTypeGroupChat];
+    [self.navigationController pushViewController:chatVC animated:YES];
+    
+//    TeamInfomationViewController *infomationController = [[TeamInfomationViewController alloc]initWithStyle:UITableViewStyleGrouped];
+//    
+//    // 数组为测试数据，与内容无关，至于数组的count有关，这边的count数目决定了里面用户头像的个数，界面内容会根据count的大小自动排版
+//    [infomationController setMemberInfos:self.informationModel.member];
+//    
+//    //主页 --> 信息
+//    infomationController.detilemodel = [[GroupDetileModel alloc]init];
+//    infomationController.detilemodel = self.informationModel;
+//    
+//    [self.navigationController pushViewController:infomationController animated:YES];
 }
-
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -554,12 +578,12 @@ static NSString * const helpCellID = @"helpCellID";
     }
     if (scrollView.contentOffset.y >= 60) {
         self.titleLabel.textColor = [UIColor blackColor];
-        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"setting black@2x"] forState:UIControlStateNormal];
+        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_black@2x"] forState:UIControlStateNormal];
         [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow black@2x"] forState:UIControlStateNormal];
     } else
     {
         
-        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"setting white@2x"] forState:UIControlStateNormal];
+        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_white@2x"] forState:UIControlStateNormal];
         [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow white@2x"] forState:UIControlStateNormal];
         self.titleLabel.textColor = [UIColor clearColor];
     }

@@ -10,6 +10,9 @@
 
 @interface Group : NSObject
 @property (nonatomic, strong) NSString* groupID;
+/**
+ *环信 ID
+ */
 @property (nonatomic, strong) NSString* easemobID;
 @property (nonatomic, strong) NSString* name;
 @property (nonatomic, strong) NSString* brief;
