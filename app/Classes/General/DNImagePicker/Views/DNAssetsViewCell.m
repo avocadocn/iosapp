@@ -7,7 +7,7 @@
 //
 
 #import "DNAssetsViewCell.h"
-
+#import "UIImageView+DLGetWebImage.h"
 
 @interface DNAssetsViewCell ()
 @property (nonatomic, strong) UIImageView *imageView;
@@ -132,6 +132,12 @@
     } else {
         self.imageView.image = [UIImage imageNamed:@"assets_placeholder_picture"];
     }
+}
+
+- (void)fillWithImage:(NSString *)image
+{
+    [self.imageView dlGetRouteWebImageWithString:image placeholderImage:nil];;
+//    self.imageView.image = image;
 }
 
 - (void)setIsSelected:(BOOL)isSelected

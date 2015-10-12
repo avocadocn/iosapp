@@ -69,7 +69,7 @@
 
 - (void)builtInterFace
 {
-    self.title = @"公司通讯录";
+    self.title = @"学校通讯录";
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
