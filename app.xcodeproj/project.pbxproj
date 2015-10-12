@@ -791,6 +791,7 @@
 		E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */; };
 		E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C3923B1BB551010072111D /* EMConversation+GroupName.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
+		E2F49FD71BCBB6C0002709E7 /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -5248,6 +5249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2F49FD71BCBB6C0002709E7 /* GroupCardViewTransmitCell.m in Sources */,
 				E23AF2A61BA1758E001BE3C5 /* VoteAnimatedOptionView.m in Sources */,
 				A44D404E1B7374DE00B10DFB /* VoteCellFrame.m in Sources */,
 				969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */,
@@ -5414,7 +5416,6 @@
 				A434C6141B71F17E009643CD /* TableHeaderView.m in Sources */,
 				A434C6171B71FDE7009643CD /* DynamicTableViewCell.m in Sources */,
 				A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */,
-				E2C954C61BCB5DED0073E5FA /* GroupCardViewTransmitCell.m in Sources */,
 				96CF93911B674B54001759E2 /* EMChatVideoBubbleView.m in Sources */,
 				96CF93AB1B674B54001759E2 /* RealtimeSearchUtil.m in Sources */,
 				96CF93A41B674B54001759E2 /* MyChatroomListViewController.m in Sources */,
