@@ -305,22 +305,26 @@ static ChatListViewController *chat = nil;
 {
     NSMutableArray *ret = nil;
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations]; //当前登陆用户的会话对象列表
-    
+    ret = [[NSMutableArray alloc] initWithArray:conversations];
+    return ret;
+}
+- (NSMutableArray* )sortConversation:(NSArray*)conversations
+{
+    NSMutableArray *ret = nil;
     NSArray* sorte = [conversations sortedArrayUsingComparator:
-           ^(EMConversation *obj1, EMConversation* obj2){
-               EMMessage *message1 = [obj1 latestMessage];
-               EMMessage *message2 = [obj2 latestMessage];
-               if(message1.timestamp > message2.timestamp) {
-                   return(NSComparisonResult)NSOrderedAscending;
-               }else {
-                   return(NSComparisonResult)NSOrderedDescending;
-               }
-           }];
+                      ^(EMConversation *obj1, EMConversation* obj2){
+                          EMMessage *message1 = [obj1 latestMessage];
+                          EMMessage *message2 = [obj2 latestMessage];
+                          if(message1.timestamp > message2.timestamp) {
+                              return(NSComparisonResult)NSOrderedAscending;
+                          }else {
+                              return(NSComparisonResult)NSOrderedDescending;
+                          }
+                      }];
     
     ret = [[NSMutableArray alloc] initWithArray:sorte];
     return ret;
 }
-
 // 得到最后消息时间
 -(NSString *)lastMessageTimeByConversation:(EMConversation *)conversation
 {
@@ -670,7 +674,10 @@ static ChatListViewController *chat = nil;
         }
     }
     [self.groupList removeObjectsInArray:needRemove];
-    [self.chatList addObjectsFromArray:self.groupList];
+    if (self.groupList) {
+        [self.chatList addObjectsFromArray:self.groupList];
+    }
+    self.chatList=[self sortConversation:self.chatList];
     self.dataSource = self.chatList;
     [self refreshDataSource];
 }
