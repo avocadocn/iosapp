@@ -24,7 +24,10 @@
 
 @property (nonatomic, strong)Interaction *interactionModel;
 
-@property (nonatomic, assign)NSInteger index,number;
+@property (nonatomic, assign)NSInteger index;
+
+@property (nonatomic, strong)NSMutableArray *colorArray;
+
 @end
 
 @implementation VoteTableController
@@ -40,7 +43,8 @@ static NSString * const ID = @"VoteTableViewCell";
     [super viewDidLoad];
     
     self.title = @"投票";
-    
+    [self createColorArray];
+
     [self.tableView setBackgroundColor:RGB(235, 235, 235)];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
@@ -49,6 +53,17 @@ static NSString * const ID = @"VoteTableViewCell";
     [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:ID];
     [self loadVoteDataWithInter:[self.voteArray firstObject]];
     
+}
+- (void)createColorArray {
+   self.colorArray = [NSMutableArray arrayWithObjects:
+                                  RGBACOLOR(0, 147, 255, 1),
+                                  RGBACOLOR(144, 200, 255, 1),
+                                  RGBACOLOR(251, 174, 140, 1),
+                                  RGBACOLOR(253, 216, 192, 1),
+                                  RGBACOLOR(251, 204, 52, 1),
+                                  RGBACOLOR(244, 230, 208, 1),
+                                  RGBACOLOR(211, 209, 209, 1),
+                                  RGBACOLOR(233, 233, 234, 1),nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -59,16 +74,6 @@ static NSString * const ID = @"VoteTableViewCell";
     
     Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:inter.poster[@"_id"]];
     self.voteArray = [NSMutableArray array];
-    NSMutableArray *colorArray = [NSMutableArray arrayWithObjects:
-                           RGBACOLOR(0, 147, 255, 1),
-                           RGBACOLOR(144, 200, 255, 1),
-                           RGBACOLOR(251, 174, 140, 1),
-                           RGBACOLOR(253, 216, 192, 1),
-                           RGBACOLOR(251, 204, 52, 1),
-                           RGBACOLOR(244, 230, 208, 1),
-                           RGBACOLOR(211, 209, 209, 1),
-                           RGBACOLOR(233, 233, 234, 1),nil];
-    
     VoteInfoModel *voteInfoModel = [[VoteInfoModel alloc]init];
     voteInfoModel.name = [NSString stringWithFormat:@"%@",per.name];
     voteInfoModel.time = inter.createTime;
@@ -89,13 +94,15 @@ static NSString * const ID = @"VoteTableViewCell";
         
         [optionInfo2 setOptionCount:[NSNumber numberWithInteger:array.count]];
         optionInfo2.interactionId = inter.ID;
-        self.number -= 1;
-        self.index = arc4random()%self.number;
+        NSLog(@"%lu",(unsigned long)self.colorArray.count);
+        
+        self.index = arc4random_uniform((unsigned long)self.colorArray.count - 1);
+        
         NSLog(@"%ld",(long)self.index);
 //        随机颜色
-        optionInfo2.voteInfoColor = [colorArray objectAtIndex:self.index];
+        optionInfo2.voteInfoColor = [self.colorArray objectAtIndex:self.index];
+        [self.colorArray removeObjectAtIndex:self.index];
         
-        [colorArray removeObjectAtIndex:self.index];
         [voteInfoModel.options addObject:optionInfo2];
         
     }

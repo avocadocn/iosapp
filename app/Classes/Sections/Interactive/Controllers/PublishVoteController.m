@@ -121,7 +121,7 @@ static NSInteger num = 0;
 - (void)selectPhotoAction:(UITapGestureRecognizer *)sender
 {
     DNImagePickerController *choose = [[DNImagePickerController alloc]init];
-
+    choose.allowSelectNum = 1;
     choose.imagePickerDelegate = self;
     [self.navigationController presentViewController:choose animated:YES completion:nil];
 }
@@ -173,7 +173,7 @@ static NSInteger num = 0;
     }
 }
 
-- (void)publishAction:(UIButton *)sender
+- (void)publishActions:(UIButton *)sender
 {
     [GiFHUD show];
     NSMutableArray *titleArray = [NSMutableArray array];
@@ -207,17 +207,17 @@ static NSInteger num = 0;
     }
     
     [inter setContent:@"投票"];
-//    [inter setEndTime:@"2015-09-30 19:56"];
-    [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
+    [inter setEndTime:@"2015-10-30 19:56"];
+    [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"endTime", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
         NSLog(@"发布投票成功%@", json);
-        [GiFHUD dismiss];
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布成功"message:@"少年郎,你的活动已经发布成功了,好好准备吧..." delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
         [alertV show];
-
+        [GiFHUD dismiss];
+        
     } failure:^(id errorJson) {
-        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯嗯,知道了", nil];
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"再试一次", nil];
         [alertV show];
-        [GiFHUD dismiss];        
+        [GiFHUD dismiss];
         NSLog(@"发布投票失败%@", errorJson);
     }];
     
@@ -244,7 +244,7 @@ static NSInteger num = 0;
     UIButton *publishButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [publishButton setTitle:@"发布" forState:UIControlStateNormal];
     publishButton.frame = CGRectMake(0, 0, 60, 20);
-    [publishButton addTarget:self action:@selector(publishAction:) forControlEvents:UIControlEventTouchUpInside];
+    [publishButton addTarget:self action:@selector(publishActions:) forControlEvents:UIControlEventTouchUpInside];
     [publishButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:publishButton];

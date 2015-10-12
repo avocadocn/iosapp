@@ -216,7 +216,7 @@
 //    self.timeLabel.text = model.time;
     [self.timeLabel judgeTimeWithString:model.time];
     [self.timeLabel setFrame:voteCellFrame.timeLabelF];
-    self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, -3, 80, 20)];
+    self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, -3, 80, 20)];
 //    self.fromLabel.backgroundColor = [UIColor redColor];
     [self.fromLabel getCompanyNameFromCid:model.cid];
     [self.timeLabel addSubview:self.fromLabel];
