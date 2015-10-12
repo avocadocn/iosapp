@@ -788,6 +788,7 @@
 		E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */; };
 		E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */; };
 		E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C3923B1BB551010072111D /* EMConversation+GroupName.m */; settings = {ASSET_TAGS = (); }; };
+		E2C954C61BCB5DED0073E5FA /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; settings = {ASSET_TAGS = (); }; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 /* End PBXBuildFile section */
 
@@ -2052,6 +2053,8 @@
 		E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateHelpTableViewController.m; sourceTree = "<group>"; };
 		E2C3923A1BB551010072111D /* EMConversation+GroupName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMConversation+GroupName.h"; sourceTree = "<group>"; };
 		E2C3923B1BB551010072111D /* EMConversation+GroupName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMConversation+GroupName.m"; sourceTree = "<group>"; };
+		E2C954C41BCB5DED0073E5FA /* GroupCardViewTransmitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardViewTransmitCell.h; sourceTree = "<group>"; };
+		E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCardViewTransmitCell.m; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -4584,6 +4587,8 @@
 				A46D4AF81B79ED8400177577 /* GroupSelectCell.m */,
 				A45534E71BA818C600E2A96E /* GroupSelectView.h */,
 				A45534E81BA818C600E2A96E /* GroupSelectView.m */,
+				E2C954C41BCB5DED0073E5FA /* GroupCardViewTransmitCell.h */,
+				E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -5402,6 +5407,7 @@
 				A434C6141B71F17E009643CD /* TableHeaderView.m in Sources */,
 				A434C6171B71FDE7009643CD /* DynamicTableViewCell.m in Sources */,
 				A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */,
+				E2C954C61BCB5DED0073E5FA /* GroupCardViewTransmitCell.m in Sources */,
 				96CF93911B674B54001759E2 /* EMChatVideoBubbleView.m in Sources */,
 				96CF93AB1B674B54001759E2 /* RealtimeSearchUtil.m in Sources */,
 				96CF93A41B674B54001759E2 /* MyChatroomListViewController.m in Sources */,

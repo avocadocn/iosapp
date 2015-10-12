@@ -7,7 +7,7 @@
 //
 
 #import "RepeaterGroupController.h"
-#import "GroupCardViewCell.h"
+#import "GroupCardViewTransmitCell.h"
 #import "photoSectionHeader.h"
 #import "DWBubbleMenuButton.h"
 #import "Account.h"
@@ -19,10 +19,11 @@
 #import "PublishSeekHelp.h"
 #import "Interaction.h"
 #import "TemplateModel.h"
-
+#import "UIImageView+DLGetWebImage.h"
 @interface RepeaterGroupController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property UILabel* titleLabel;
-
+@property float cellWidth;
+@property float cellHeight;
 @end
 
 @implementation RepeaterGroupController
@@ -115,7 +116,7 @@
     self.groupListCollection = [[UICollectionView alloc]initWithFrame:frame collectionViewLayout:layout];
     //进行模态窗口时，需要设置背景色的透明度
     [self.groupListCollection setBackgroundColor:[UIColor clearColor]];
-    [self.groupListCollection registerClass:[GroupCardViewCell class] forCellWithReuseIdentifier:@"groupCardCell"];
+    [self.groupListCollection registerClass:[GroupCardViewTransmitCell class] forCellWithReuseIdentifier:@"groupCardTransmitCell"];
     self.groupListCollection.delegate = self;
     self.groupListCollection.dataSource = self;
     
@@ -153,6 +154,8 @@
 {
     NSInteger interval = 10;
     NSInteger width = (DLScreenWidth - 4 * interval)/3.0;
+    self.cellWidth=width;
+    self.cellHeight=DLMultipleHeight(126.0);
     return CGSizeMake(width, DLMultipleHeight(126.0));
 }
 
@@ -169,10 +172,12 @@
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GroupCardViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
-    [cell cellReconsitutionWithModel:[self.modelArray objectAtIndex:indexPath.row]];
+    GroupCardViewTransmitCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"groupCardTransmitCell" forIndexPath:indexPath];
+    GroupCardModel* g = [self.modelArray objectAtIndex:indexPath.row];
+    [cell cellReconsitutionWithModel:g];
     //for debug
-    [cell.groupImageView setImage:[UIImage imageNamed:@"mzx.jpg"]];
+//    [cell.groupImageView setImage:[UIImage imageNamed:@"mzx.jpg"]];
+    [cell.groupImageView dlGetRouteThumbnallWebImageWithString:g.logo placeholderImage:nil withSize:CGSizeMake(self.cellWidth, self.cellHeight)];
     return cell;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

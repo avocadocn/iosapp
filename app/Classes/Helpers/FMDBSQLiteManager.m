@@ -60,6 +60,12 @@
 }
 
 -(void)insertPerson:(Person *)p { // 插入数据
+    //如果数据已存在就进行更新
+    Person* person = [self selectPersonWithUserId:p.userId];
+    if (person!=nil) {
+        [self updatePerson:p];
+        return;
+    }
     [self.queue inDatabase:^(FMDatabase *db) {
         [db open];//打开数据库
         BOOL b = [db executeUpdate:@"insert into PersonTable(name,userId,imageURL) values(?,?,?)",p.name,p.userId,p.imageURL];//存数据
@@ -68,7 +74,18 @@
     }];
 }
 
-
+//更新群组信息
+- (void)updatePerson:(Person*)p
+{
+    [self.queue inDatabase:^(FMDatabase *db) {
+        [db open];//打开数据库
+        BOOL b = FALSE;
+        NSString* sql = [NSString stringWithFormat:@"update PersonTable set name = '%@',imageURL = '%@' where userId = '%@'",p.name,p.imageURL,p.userId];
+        b= [db executeUpdate:sql];//更新数据
+        [db close];
+        b ? NSLog(@"更新成功") : NSLog(@"更新失败");
+    }];
+}
 /*
 -(void)deletePersonWithName:(NSString *)name {
     [self.queue inDatabase:^(FMDatabase *db) {
@@ -124,6 +141,7 @@
         b ? NSLog(@"插入成功") : NSLog(@"插入失败");
     }];
 }
+//更新群组信息
 - (void)updateGroup:(Group*)g
 {
     [self.queue inDatabase:^(FMDatabase *db) {
@@ -135,6 +153,7 @@
         b ? NSLog(@"更新成功") : NSLog(@"更新失败");
     }];
 }
+//根据warm的群组id进行查找
 - (Group*)selectGroupWithGroupId:(NSString *)groupId
 {
     self.gro = nil;
@@ -151,6 +170,7 @@
     }];
     return self.gro;
 }
+//根据环信得群组id进行查找
 - (Group*)selectGroupWithEasemobId:(NSString *)easemobId
 {
     self.gro = nil;
@@ -165,5 +185,33 @@
         [db close];
     }];
     return self.gro;
+}
+//清空群组表
+- (void)dropGroup
+{
+    [self.queue inDatabase:^(FMDatabase *db) {
+        [db open];
+        Boolean isDrop = [db executeUpdate:@"delete from GroupTable"];
+        if (isDrop) {
+            NSLog(@"the group table is dropped!success");
+        }else{
+            NSLog(@"the group table is dropped!failed");
+        }
+        [db close];
+    }];
+}
+//清空用户表
+- (void)dropPerson
+{
+    [self.queue inDatabase:^(FMDatabase *db) {
+        [db open];
+        Boolean isDrop = [db executeUpdate:@"delete from PersonTable"];
+        if (isDrop) {
+            NSLog(@"the person table is dropped!success");
+        }else{
+            NSLog(@"the person table is dropped!failed");
+        }
+        [db close];
+    }];
 }
 @end
