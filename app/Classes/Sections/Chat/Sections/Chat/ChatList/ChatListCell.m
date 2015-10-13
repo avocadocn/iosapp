@@ -48,7 +48,7 @@
         
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 46, 175, 20)];
         _detailLabel.backgroundColor = [UIColor clearColor];
-        _detailLabel.font = [UIFont systemFontOfSize:16];
+        _detailLabel.font = [UIFont systemFontOfSize:13];
         _detailLabel.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:_detailLabel];
         
