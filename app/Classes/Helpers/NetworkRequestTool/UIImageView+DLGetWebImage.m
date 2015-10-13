@@ -128,7 +128,7 @@
     NSArray *array = [str componentsSeparatedByString:@"/"];
     // 判断缩略图的大图存不存在
     NSString * temp = [array lastObject];
-    if ([temp hasSuffix:@"0"]) {// 请求的是缩略图的话
+    if ([temp componentsSeparatedByString:@"."].count==1) {// 请求的是缩略图的话
         
         NSString *returnStr = [NSString stringWithFormat:@"%@/%@%@%@%@", path,
                                [array objectAtIndex:(array.count - 2)],
