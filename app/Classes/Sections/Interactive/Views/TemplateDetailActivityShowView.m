@@ -170,7 +170,7 @@
         self.url = dic[@"uri"];
     }
 
-    [self.pictureView dlGetRouteThumbnallWebImageWithString:[NSString stringWithFormat:@"/%@",self.url] placeholderImage:[UIImage imageNamed:@"2.jpg"] withSize:CGSizeMake(self.pictureView.width, self.pictureView.height)];
+    [self.pictureView dlGetRouteThumbnallWebImageWithString:[NSString stringWithFormat:@"/%@",self.url] placeholderImage:[UIImage imageNamed:@"2.jpg"] withSize:CGSizeMake(self.pictureView.width*2, self.pictureView.height*2)];
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
     // 活动名称label
     UIFont *font = [UIFont systemFontOfSize:16.0f];

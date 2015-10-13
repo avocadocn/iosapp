@@ -115,8 +115,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
     Person* p = [fmdb selectPersonWithUserId:model.nickName];
     if (p) {
-        model.headImageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:p.imageURL]];
-        
+        model.headImgURL = p.imageURL;
     }
     [super setMessageModel:model];
     

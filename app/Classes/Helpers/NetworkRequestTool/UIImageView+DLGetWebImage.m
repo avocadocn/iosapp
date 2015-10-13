@@ -9,7 +9,7 @@
 #import "UIImageView+DLGetWebImage.h"
 #import <UIImageView+WebCache.h>
 
-#define path [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
+#define path [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CacheImage"]
 
 @implementation UIImageView (DLGetWebImage)
 
@@ -25,7 +25,6 @@
 
     self.backgroundColor = ArcColor;
     NSString * newUrlStr = [self getUrlStringWithString:str];
-    
     [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
     
 }
@@ -41,7 +40,7 @@
     
     NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width, size.height]];
     
-    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:nil];
+    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
 }
 - (void)dlGetWebImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)image
 {
@@ -123,12 +122,22 @@
 }
 - (NSString *)getAddressWithUrl:(NSURL *)url
 {
-    
+    NSFileManager *manger = [NSFileManager defaultManager];
+    BOOL isDir = FALSE;
+    BOOL isExist=[manger fileExistsAtPath:path isDirectory:&isDir];
+    if (!isExist&&!isDir) {
+        BOOL CreateDir=[manger createDirectoryAtPath:path withIntermediateDirectories:FALSE attributes:nil error:nil];
+        if (CreateDir) {
+            NSLog(@"Create Dir OK!");
+        }else{
+            NSLog(@"Create Dir Failed!");
+        }
+    }
     NSMutableString *str = [NSMutableString stringWithFormat:@"%@", url];
     NSArray *array = [str componentsSeparatedByString:@"/"];
     // 判断缩略图的大图存不存在
     NSString * temp = [array lastObject];
-    if ([temp hasSuffix:@"0"]) {// 请求的是缩略图的话
+    if ([temp componentsSeparatedByString:@"."].count==1) {// 请求的是缩略图的话
         
         NSString *returnStr = [NSString stringWithFormat:@"%@/%@%@%@%@", path,
                                [array objectAtIndex:(array.count - 2)],

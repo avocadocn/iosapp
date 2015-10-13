@@ -105,6 +105,7 @@
 {
     DNImagePickerController *choose = [[DNImagePickerController alloc]init];
     
+    choose.allowSelectNum = 1;
     choose.imagePickerDelegate = self;
     [self.navigationController presentViewController:choose animated:YES completion:nil];
 }

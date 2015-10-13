@@ -28,6 +28,7 @@
 
 @property (nonatomic, strong, readonly) NSString *messageId;
 @property (nonatomic, strong) NSURL *headImageURL;
+@property (nonatomic, strong) NSString* headImgURL;//added by tom
 @property (nonatomic, strong) NSString *nickName;
 @property (nonatomic, strong) NSString *username;
 

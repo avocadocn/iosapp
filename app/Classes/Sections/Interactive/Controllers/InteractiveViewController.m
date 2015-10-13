@@ -38,8 +38,9 @@
 #import "Singletons.h"
 #import "AddressBookModel.h"
 #import "Person.h"
-#include "FMDBSQLiteManager.h"
+#import "FMDBSQLiteManager.h"
 #import <MJRefresh.h>
+#import "GiFHUD.h"
 enum InteractionType{
     InteractionTypeActivityTemplate,
     InteractionTypeVoteTemplate,
@@ -60,7 +61,7 @@ enum InteractionType{
 @property (nonatomic, strong)NSMutableArray *modelArray;
 @property (nonatomic, strong)NSMutableArray *contactsArray;
 
-@property (nonatomic, copy)NSString *path;
+@property (nonatomic, copy)NSString *path; // 写入文件路径
 @property (nonatomic)BOOL orTrue;
 
 /**
@@ -75,6 +76,7 @@ enum InteractionType{
 static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
 
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 24)];
@@ -93,9 +95,13 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     // 活动展示table
     [self setupActivityShowTableView];
-//    [self requestNet];
-     [self loadData]; // 加载数据
-    [self refressMJ]; //
+    [self requestNet];
+//     [self loadData]; // 加载数据
+    [self refressMJ]; // 下拉刷新 上拉加载
+    
+    [GiFHUD setGifWithImageName:@"myGif.gif"];
+    [GiFHUD show];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"KPOSTNAME" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"CHANGESTATE" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESSDATA" object:nil];
@@ -129,7 +135,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
 }
 - (void)reFreshData {
-
     
     Account *acc= [AccountTool account];
     
@@ -139,14 +144,16 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
+        [GiFHUD dismiss];
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
-        
+        [GiFHUD dismiss];
         NSString *str = [errorJson objectForKey:@"msg"];
         if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
             alert.delegate = self;
             [alert show];
+            
         }
         
     }];
@@ -154,6 +161,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self.tableView.header endRefreshing];
     
 }
+
 -(void)viewWillAppear:(BOOL)animated{
     // 弹出式菜单
 //    [self setupPathButton];
@@ -531,13 +539,13 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
-        
+        [GiFHUD dismiss];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [self loadingContacts]; // 加载通讯录信息
         });
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
-        
+        [GiFHUD dismiss];
         NSString *str = [errorJson objectForKey:@"msg"];
         if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
@@ -551,10 +559,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 
 - (void)analyDataWithJson:(id)json
 {
-    if (self.modelArray.count == 0) {
-        self.modelArray = [NSMutableArray array];
-    }
-    
+    self.modelArray = [NSMutableArray array];
     for (NSDictionary *dic  in json) {
         Interaction *inter = [[Interaction alloc]init];
         [inter setValuesForKeysWithDictionary:dic];
@@ -569,7 +574,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         [self.modelArray addObject:inter];
     }
     [self.tableView reloadData];
-    [self.modelArray writeToFile:[self.path stringByAppendingPathComponent:@"modelArray"]atomically:YES];
+//    [self.modelArray writeToFile:[self.path stringByAppendingPathComponent:@"modelArray"]atomically:YES];
 }
 - (void)testTapAction:(UITapGestureRecognizer *)sender {
     
@@ -677,12 +682,26 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
          NSLog(@"获取成功   %@", json);
         [self.tableView.footer endRefreshing];
-        self.orTrue = NO;
-        [self analyDataWithJson:json];
+        [self dealDataWithJson:json];
         [self.tableView reloadData];
     } failure:^(id errorJson) {
         [self.tableView.footer endRefreshing];
     }];
+}
+- (void)dealDataWithJson:(id)json {  // 加载数据
+    for (NSDictionary *dic  in json) {
+        Interaction *inter = [[Interaction alloc]init];
+        [inter setValuesForKeysWithDictionary:dic];
+        NSString *str = [NSString stringWithFormat:@"%@",[dic objectForKey:@"type"]];
+        if ([str isEqualToString:[NSString stringWithFormat:@"%d", 2]])  //只有投票
+        {
+            PollModel *poll = [[PollModel alloc]init];
+            [poll setValuesForKeysWithDictionary:[dic objectForKey:@"poll"]];
+            [inter setPoll:poll];
+        }
+        [self.modelArray addObject:inter];
+    }
+    [self.tableView reloadData];
 }
 - (void)fireTimerWithBool:(BOOL)ortrue {
     ortrue = self.orTrue;

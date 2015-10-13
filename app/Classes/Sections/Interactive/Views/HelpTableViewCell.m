@@ -167,7 +167,7 @@
     [self.timeLabel judgeTimeWithString:model.time];
     [self.timeLabel setFrame:helpCellFrame.timeLabelF];
     
-    self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, -3, 80, 20)];
+    self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, -3, 80, 20)];
     [self.fromLabel getCompanyNameFromCid:model.cid];
     [self.timeLabel addSubview:self.fromLabel];
     
