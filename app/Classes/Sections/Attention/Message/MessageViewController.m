@@ -14,10 +14,16 @@
 #import "getIntroModel.h"
 #import "Account.h"
 #import "AccountTool.h"
+#import "InformationModel.h"
+
+
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)NYSegmentedControl *segment;
 @property (nonatomic, strong)UIScrollView *scrollView;
+
+@property (nonatomic, strong)NSMutableArray *modelArray;
+
 @end
 
 @implementation MessageViewController
@@ -38,7 +44,26 @@
     [self layoutSegmentedControl];
 //
     [self netWorkRequest];
+    
+    [self reloadLocalData];
 }
+
+- (void)reloadLocalData
+{
+    Account *acc = [AccountTool account];
+    NSFileManager *manger = [NSFileManager defaultManager];
+    NSString *path = [NSString stringWithFormat:@"%@/%@-notice", DLLibraryPath, acc.ID];
+    NSArray *array = [manger contentsOfDirectoryAtPath:path error:nil];
+    NSLog(@"本地的 notice 文件为 %@", array);
+    
+    self.modelArray = [NSMutableArray array];
+    for (NSString *str in array) {
+        InformationModel *model = [[InformationModel alloc]initWithInforString:@"notice" andIDString:str];
+        [self.modelArray addObject:model];
+    }
+    [self.tableView reloadData];
+}
+
 - (void)creatScrollView { // 创建scrollView
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
     self.scrollView.contentSize = CGSizeMake(DLScreenWidth * 2, 0);
@@ -58,6 +83,13 @@
     [model setNoticeType:@"notice"];
     [RestfulAPIRequestTool routeName:@"getPersonalInteractionList" requestModel:model useKeys:@[@"content"] success:^(id json) {
         NSLog(@"获取消息列表成功 %@",json);
+        
+        for (NSDictionary *dic in json) {
+            InformationModel *infor = [[InformationModel alloc]init];
+            [infor setValuesForKeysWithDictionary:dic];
+            [infor save:@"notice"];
+        }
+        
     } failure:^(id errorJson) {
         NSLog(@"获取消息列表失败 %@",[errorJson objectForKey:@"msg"]);
     }];
@@ -69,7 +101,7 @@
     segment.titleTextColor = [UIColor blackColor];//未选中的字体也是
     
     segment.selectedTitleTextColor = [UIColor blackColor];//选中后的字体颜色
-    segment.segmentIndicatorBackgroundColor = [UIColor lightTextColor];//设置选中背景颜色
+    segment.segmentIndicatorBackgroundColor = RGBACOLOR(254, 221, 71, 1);//设置选中背景颜色
     segment.backgroundColor = [UIColor whiteColor];
     segment.cornerRadius = CGRectGetHeight(segment.frame) / 2.0f;//设置圆角
     self.segment = segment;
@@ -99,15 +131,15 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.modelArray.count;
+    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageTableViewCell" forIndexPath:indexPath];
-    cell.titleLabel.text = @"D大调";
-    cell.contentLabel.text = @"快来参加活动。。。";
+    cell.model = self.modelArray[indexPath.row];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

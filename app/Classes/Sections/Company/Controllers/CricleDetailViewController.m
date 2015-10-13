@@ -34,7 +34,7 @@ static NSString *circleCardCell = @"circleCardCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.title = @"详情";
     [self builtInterface];
 }
@@ -127,7 +127,6 @@ static NSString *circleCardCell = @"circleCardCell";
             return [self.model.comments count];
         }
     }
-    
     return 1;
 }
 

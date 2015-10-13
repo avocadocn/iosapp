@@ -203,11 +203,10 @@ static NSInteger num = 0;
         
         [inter setTarget:acc.cid];
         [inter setTargetType:@3];
-        
     }
     
     [inter setContent:@"投票"];
-//    [inter setEndTime:@"2015-09-30 19:56"];
+//    [inter setEndTime:@"2015-10-30 19:56"];
     [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
         NSLog(@"发布投票成功%@", json);
         [GiFHUD dismiss];

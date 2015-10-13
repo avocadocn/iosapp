@@ -5,11 +5,11 @@
 //  Created by 申家 on 15/9/7.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
 #import "RestfulAPIRequestTool.h"
 #import "UILabel+DLTimeLabel.h"
 #define TEXTFONT 10
 @implementation UILabel (DLTimeLabel)
-
 
 - (void)getCompanyNameFromCid:(NSString *)string
 {

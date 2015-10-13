@@ -43,7 +43,7 @@ static NSInteger num = 0;
     [super viewDidLoad];
     
     self.view.backgroundColor = DLSBackgroundColor;
-    self.title = @"个人资料";
+    self.title = @"我的资料";
     
     num = 0;
     [self builtTitleView];  // 设置资料照片

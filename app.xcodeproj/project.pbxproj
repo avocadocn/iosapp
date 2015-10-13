@@ -653,6 +653,7 @@
 		A43D90541BB5126D007775BB /* mask_sha.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A43D90531BB5126D007775BB /* mask_sha.jpeg */; };
 		A43DA5DD1B90281100C23833 /* getIntroModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43DA5DC1B90281100C23833 /* getIntroModel.m */; };
 		A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43E36B61B58C55500AA2FC7 /* ConditionController.m */; };
+		A43EA5BC1BCCE0050007FE84 /* InformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43EA5BB1BCCE0050007FE84 /* InformationModel.m */; };
 		A43F86301B744AF60086D078 /* PublishVoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F862F1B744AF60086D078 /* PublishVoteController.m */; };
 		A43F86331B7453D30086D078 /* optionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F86321B7453D30086D078 /* optionsView.m */; };
 		A43F86381B7487DB0086D078 /* PublishSeekHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F86371B7487DB0086D078 /* PublishSeekHelp.m */; };
@@ -790,6 +791,7 @@
 		E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */; };
 		E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */; };
 		E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C3923B1BB551010072111D /* EMConversation+GroupName.m */; };
+		E2C954C61BCB5DED0073E5FA /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 /* End PBXBuildFile section */
 
@@ -1809,6 +1811,8 @@
 		A43DA5DC1B90281100C23833 /* getIntroModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getIntroModel.m; sourceTree = "<group>"; };
 		A43E36B51B58C55500AA2FC7 /* ConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionController.h; sourceTree = "<group>"; };
 		A43E36B61B58C55500AA2FC7 /* ConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionController.m; sourceTree = "<group>"; };
+		A43EA5BA1BCCE0050007FE84 /* InformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationModel.h; sourceTree = "<group>"; };
+		A43EA5BB1BCCE0050007FE84 /* InformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationModel.m; sourceTree = "<group>"; };
 		A43F862E1B744AF60086D078 /* PublishVoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishVoteController.h; sourceTree = "<group>"; };
 		A43F862F1B744AF60086D078 /* PublishVoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishVoteController.m; sourceTree = "<group>"; };
 		A43F86311B7453D30086D078 /* optionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = optionsView.h; sourceTree = "<group>"; };
@@ -2490,6 +2494,8 @@
 		9649B5101B564DE000A7F355 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A43EA5BA1BCCE0050007FE84 /* InformationModel.h */,
+				A43EA5BB1BCCE0050007FE84 /* InformationModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5317,6 +5323,7 @@
 				96CF90CD1B673422001759E2 /* EMSDWebImageDownloaderOperation.m in Sources */,
 				961053641B5C9C51002D62A3 /* LineLayout.m in Sources */,
 				961053501B590C31002D62A3 /* CurrentActivitysShowCell.m in Sources */,
+				A43EA5BC1BCCE0050007FE84 /* InformationModel.m in Sources */,
 				96AA19601B7998B9008E4CA3 /* MenuCollectionViewCell.m in Sources */,
 				96CF937F1B674B54001759E2 /* UIViewController+HUD.m in Sources */,
 				A450561D1B60EF980075E39D /* RankItemLayoutAttr.m in Sources */,

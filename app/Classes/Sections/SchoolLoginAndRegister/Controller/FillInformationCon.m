@@ -264,6 +264,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
     LoginSinger *singer = [LoginSinger shareState];
@@ -273,7 +274,7 @@
         [singer setGender:@1];
     } else
     {
-        [singer setGender:@2];
+        [singer setGender:@0];
     }
     NSData *imageData = UIImagePNGRepresentation(self.userPhoto.image);
     

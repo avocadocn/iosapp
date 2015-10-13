@@ -68,7 +68,6 @@ static NSString * const ID = @"VoteCommentViewCell";
 - (void)commenting:(NSNotification *)notice {
     [self marchingComments]; // 进行评论
     
-    
 }
 - (void)netWorkRequest { // 获取评论列表
     self.model = [[Interaction alloc]init];
