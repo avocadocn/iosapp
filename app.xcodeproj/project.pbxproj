@@ -60,6 +60,7 @@
 		54BB1DD51B8EF6F500F76628 /* ChangePassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DD41B8EF6F500F76628 /* ChangePassWordViewController.m */; };
 		54BB1DD91B8EF7AD00F76628 /* ChangePassWordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DD71B8EF7AD00F76628 /* ChangePassWordTableViewCell.m */; };
 		54BB1DDA1B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */; };
+		54D0AE411BCBB47F000191C7 /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; };
 		54E542E41BA6CFE9008A6687 /* FMDBSQLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */; };
 		54E542E71BA6D735008A6687 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E61BA6D735008A6687 /* Person.m */; };
 		54E542EB1BA7DF35008A6687 /* mydatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */; };
@@ -5248,6 +5249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54D0AE411BCBB47F000191C7 /* GroupCardViewTransmitCell.m in Sources */,
 				E23AF2A61BA1758E001BE3C5 /* VoteAnimatedOptionView.m in Sources */,
 				A44D404E1B7374DE00B10DFB /* VoteCellFrame.m in Sources */,
 				969616D51B6B6295002FC24C /* UIBarButtonItem+Extension.m in Sources */,
@@ -5414,7 +5416,6 @@
 				A434C6141B71F17E009643CD /* TableHeaderView.m in Sources */,
 				A434C6171B71FDE7009643CD /* DynamicTableViewCell.m in Sources */,
 				A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */,
-				E2C954C61BCB5DED0073E5FA /* GroupCardViewTransmitCell.m in Sources */,
 				96CF93911B674B54001759E2 /* EMChatVideoBubbleView.m in Sources */,
 				96CF93AB1B674B54001759E2 /* RealtimeSearchUtil.m in Sources */,
 				96CF93A41B674B54001759E2 /* MyChatroomListViewController.m in Sources */,
@@ -5747,8 +5748,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiming Li (9LXRKEW759)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5756,7 +5757,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5777,8 +5778,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiming Li (9LXRKEW759)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiming Li (9LXRKEW759)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5786,7 +5787,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/app/Classes/Helpers/PrefixHeader.pch";
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

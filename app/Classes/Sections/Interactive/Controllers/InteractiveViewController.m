@@ -152,6 +152,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
             alert.delegate = self;
+            [GiFHUD dismiss];
             [alert show];
             
         }

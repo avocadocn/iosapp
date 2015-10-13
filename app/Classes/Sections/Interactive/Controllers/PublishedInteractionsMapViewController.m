@@ -81,7 +81,7 @@
     
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 104, DLScreenWidth, DLScreenHeight - 124 - 20)];
     _mapView.delegate = self;
-    _mapView.showsUserLocation = YES;
+  
     _mapView.mapType = MAMapTypeStandard;
 //    _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, 22);  //罗盘位置
     _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, 22); // 比例尺位置
@@ -303,7 +303,9 @@ updatingLocation:(BOOL)updatingLocation
     
 }
 
-
+-(void)viewWillDisappear:(BOOL)animated { // 视图消失时停止定位 （节省资源）
+    [self mapViewDidStopLocatingUser:_mapView];
+}
 
 
 - (void)didReceiveMemoryWarning {

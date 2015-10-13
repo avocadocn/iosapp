@@ -444,4 +444,13 @@ updatingLocation:(BOOL)updatingLocation
     str = [formatter stringFromDate:destinationDateNow];
     return str;
 }
+
+-(void)viewWillDisappear:(BOOL)animated { // 视图消失时停止定位 （节省资源）
+    [self mapViewDidStopLocatingUser:_mapView];
+}
+
+
+
+
+
 @end
