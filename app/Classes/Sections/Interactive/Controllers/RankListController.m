@@ -115,7 +115,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
     // 折叠
     iCarousel *carousel = [[iCarousel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(tableView.frame), tableView.y, DLScreenWidth - CGRectGetWidth(tableView.frame), tableView.height)];
 //    iCarousel *carousel = [iCarousel new];
-//    carousel.decelerationRate = 10;
+    carousel.decelerationRate = 0.99;
 //    carousel.scrollSpeed = 0;
     
     carousel.bounceDistance = 1;
@@ -129,7 +129,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
     carousel.delegate = self;
     carousel.dataSource = self;
     carousel.vertical = YES;
-    carousel.type = iCarouselTypeRotary;
+//    carousel.type = iCarouselTypeRotary;
+    carousel.type = iCarouselTypeLinear;
     carousel.clipsToBounds = YES;
     NSLog(@"%f",carousel.offsetMultiplier);
     

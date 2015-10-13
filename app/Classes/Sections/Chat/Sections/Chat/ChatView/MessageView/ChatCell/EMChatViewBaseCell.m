@@ -12,7 +12,7 @@
 
 #import "EMChatViewBaseCell.h"
 #import "UIImageView+EMWebCache.h"
-
+#import "UIImageView+DLGetWebImage.h"
 NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadImageTapEventName";
 
 @interface EMChatViewBaseCell()
@@ -82,7 +82,7 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     _nameLabel.hidden = (messageModel.messageType == eMessageTypeChat);
     
     UIImage *placeholderImage = [UIImage imageNamed:@"chatListCellHead"];
-    [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:placeholderImage];
+    [self.headImageView dlGetRouteThumbnallWebImageWithString:_messageModel.headImgURL placeholderImage:placeholderImage withSize:CGSizeMake(100.0, 100.0)];
 }
 
 #pragma mark - private

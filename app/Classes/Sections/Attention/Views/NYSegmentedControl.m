@@ -351,7 +351,7 @@
 }
 
 - (void)setSegmentIndicatorBackgroundColor:(UIColor *)segmentIndicatorBackgroundColor {
-    self.selectedSegmentIndicator.backgroundColor = RGBACOLOR(222, 129,0,1);
+    self.selectedSegmentIndicator.backgroundColor = segmentIndicatorBackgroundColor;
 }
 
 - (UIColor *)segmentIndicatorBackgroundColor {

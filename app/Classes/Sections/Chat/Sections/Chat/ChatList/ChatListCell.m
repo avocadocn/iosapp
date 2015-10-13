@@ -13,7 +13,7 @@
 
 #import "ChatListCell.h"
 #import "UIImageView+EMWebCache.h"
-
+#import "UIImageView+DLGetWebImage.h"
 @interface ChatListCell (){
     UILabel *_timeLabel;
     UILabel *_unreadLabel;
@@ -48,7 +48,7 @@
         
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 46, 175, 20)];
         _detailLabel.backgroundColor = [UIColor clearColor];
-        _detailLabel.font = [UIFont systemFontOfSize:16];
+        _detailLabel.font = [UIFont systemFontOfSize:13];
         _detailLabel.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:_detailLabel];
         
@@ -86,7 +86,7 @@
     CGRect frame = self.imageView.frame;
     
     self.imageView.layer.masksToBounds = YES;
-    [self.imageView sd_setImageWithURL:_imageURL placeholderImage:_placeholderImage];
+    [self.imageView dlGetRouteThumbnallWebImageWithString:_imgURL placeholderImage:_placeholderImage withSize:CGSizeMake(100.0, 100.0)];
     self.imageView.frame = CGRectMake(10,14 , 50, 50);
     [self.imageView.layer setCornerRadius:self.imageView.width / 2.0];
     

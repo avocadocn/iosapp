@@ -74,7 +74,8 @@
     self.peopleCountLabel.text = [NSString stringWithFormat:@"参加:%ld",model.members.count];
     Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.poster[@"_id"]];
     self.nameLabel.text = person.name;
-    [self.avatar dlGetRouteWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"]];
+//    [self.avatar dlGetRouteWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"]];
+    [self.avatar dlGetRouteThumbnallWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"] withSize:CGSizeMake(100, 100)];
     switch ([model.type integerValue]) {
         case 1:{
             self.InteractiveText.text = model.theme;

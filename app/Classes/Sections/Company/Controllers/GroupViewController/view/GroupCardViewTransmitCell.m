@@ -43,6 +43,7 @@
     self.groupIntroLabel = [UILabel new];
     self.groupIntroLabel.numberOfLines = 0;
     self.groupIntroLabel.textColor = [UIColor colorWithWhite:.2 alpha:.8];
+    self.groupIntroLabel.backgroundColor = RGB(238, 238, 238);
     [self addSubview:self.groupIntroLabel];
     [self.groupIntroLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.groupImageView.mas_bottom);
