@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy)NSNumber *interactionType;
 
-@property (nonatomic, copy)NSString *requestType;
+@property (nonatomic, copy)NSNumber *requestType;
 
 @property (nonatomic, copy)NSString *createTime;
 
@@ -25,6 +25,10 @@
 @property (nonatomic, copy)NSNumber *action;
 
 @property (nonatomic, copy)NSNumber *interaction;
+
+@property (nonatomic, copy)NSString* team;
+
+@property (nonatomic, copy)NSString* teamId;
 
 @property (nonatomic, assign)BOOL selectState;
 

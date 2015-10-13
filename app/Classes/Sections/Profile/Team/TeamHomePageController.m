@@ -38,7 +38,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "TempCompany.h"
 #import "CurrentActivitysShowCell.h"
-
+#import "TeamInteractionViewController.h"
 static NSString * reuseIdentifier = @"f,sepofjoisejf";
 
 static NSString *ID = @"feasfsefse";
@@ -170,14 +170,19 @@ static NSString * const helpCellID = @"helpCellID";
             controller = [[InviteGroupMember alloc] init];
             break;
         case 3: // 活动
-            //使用指定的frame大小初始化viewcontroller,高度增加64是因为后续会减掉64
-            controller = [[ActivityShowTableController alloc]init];
+            controller = [[TeamInteractionViewController alloc]init];
+            [(TeamInteractionViewController*)controller setType:TeamInteractionActivity];
+            [(TeamInteractionViewController*)controller setGroupCardModel:self.groupCardModel];
             break;
         case 4: // 投票
-            controller = [[VoteTableController alloc]init];
+            controller = [[TeamInteractionViewController alloc]init];
+            [(TeamInteractionViewController*)controller setType:TeamInteractionVote];
+            [(TeamInteractionViewController*)controller setGroupCardModel:self.groupCardModel];
             break;
         case 5: // 求助
-            controller = [[HelpTableViewController alloc]init];
+            controller = [[TeamInteractionViewController alloc]init];
+            [(TeamInteractionViewController*)controller setType:TeamInteractionHelp];
+            [(TeamInteractionViewController*)controller setGroupCardModel:self.groupCardModel];
             break;
         default:
             break;
@@ -366,8 +371,8 @@ static NSString * const helpCellID = @"helpCellID";
     Account *acc = [AccountTool account];
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"1" forKey:@"temp"];
-    [dic setObject:self.groupCardModel.groupId forKey:@"tempId"];
+    [dic setObject:@"1" forKey:@"team"];
+    [dic setObject:self.groupCardModel.groupId forKey:@"teamId"];
     [dic setObject:@2 forKey:@"requestType"];
     [dic setObject:@4 forKey:@"interactionType"];
     [dic setObject:@10 forKey:@"limit"];

@@ -789,6 +789,7 @@
 		E29032921BB13EB70081F9FD /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29032911BB13EB70081F9FD /* AMapSearchKit.framework */; };
 		E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */; };
 		E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */; };
+		E2AEC41E1BCC9DB900A1C3AD /* TeamInteractionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AEC41D1BCC9DB900A1C3AD /* TeamInteractionViewController.m */; settings = {ASSET_TAGS = (); }; };
 		E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C3923B1BB551010072111D /* EMConversation+GroupName.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 		E2F49FD71BCBB6C0002709E7 /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; };
@@ -2055,6 +2056,8 @@
 		E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateVoteTableViewCell.m; sourceTree = "<group>"; };
 		E297E63E1BA812A300C1AC92 /* TemplateHelpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateHelpTableViewController.h; sourceTree = "<group>"; };
 		E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateHelpTableViewController.m; sourceTree = "<group>"; };
+		E2AEC41C1BCC9DB900A1C3AD /* TeamInteractionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamInteractionViewController.h; sourceTree = "<group>"; };
+		E2AEC41D1BCC9DB900A1C3AD /* TeamInteractionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamInteractionViewController.m; sourceTree = "<group>"; };
 		E2C3923A1BB551010072111D /* EMConversation+GroupName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMConversation+GroupName.h"; sourceTree = "<group>"; };
 		E2C3923B1BB551010072111D /* EMConversation+GroupName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMConversation+GroupName.m"; sourceTree = "<group>"; };
 		E2C954C41BCB5DED0073E5FA /* GroupCardViewTransmitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardViewTransmitCell.h; sourceTree = "<group>"; };
@@ -2897,6 +2900,8 @@
 				A4F5669D1BAC10A000112422 /* DeleteMemberFromGroup.m */,
 				A43288C51BAFC3DB00989AC8 /* ApplyForGroup.h */,
 				A43288C61BAFC3DB00989AC8 /* ApplyForGroup.m */,
+				E2AEC41C1BCC9DB900A1C3AD /* TeamInteractionViewController.h */,
+				E2AEC41D1BCC9DB900A1C3AD /* TeamInteractionViewController.m */,
 			);
 			path = Team;
 			sourceTree = "<group>";
@@ -5481,6 +5486,7 @@
 				967A06441B7304F7007BA757 /* VoteOptionsInfoModel.m in Sources */,
 				967439BD1B705908004334A4 /* RouteInfoModel.m in Sources */,
 				A4745E0E1B81A9AC008EB944 /* DNFullImageButton.m in Sources */,
+				E2AEC41E1BCC9DB900A1C3AD /* TeamInteractionViewController.m in Sources */,
 				A439D51A1B9EEC09006085F7 /* NSString+WPAttributedMarkup.m in Sources */,
 				A461E7E01B954C3500C25C21 /* PollModel.m in Sources */,
 				96CF93A81B674B54001759E2 /* AddFriendViewController.m in Sources */,
