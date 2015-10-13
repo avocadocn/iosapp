@@ -41,7 +41,7 @@
     
     NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width, size.height]];
     
-    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:nil];
+    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
 }
 - (void)dlGetWebImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)image
 {

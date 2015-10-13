@@ -412,7 +412,7 @@ static ChatListViewController *chat = nil;
             Person* p = [fmdb selectPersonWithUserId:conversation.chatter];
             if (p) {
                 cell.name = p.name;
-                cell.imageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingPathComponent:p.imageURL]];
+                cell.imgURL = p.imageURL;
             }
         }
         
@@ -457,13 +457,12 @@ static ChatListViewController *chat = nil;
                     if (g) {
                         cell.name = g.name;
                         imageName = g.open ? @"groupPublicHeader" : @"groupPrivateHeader";
-                        cell.imageURL = [NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]];
-                        
+                        cell.imgURL = g.iconURL;
                         NSMutableDictionary *ext = [NSMutableDictionary dictionaryWithDictionary:conversation.ext];
                         [ext setObject:g.name forKey:@"groupSubject"];
                         [ext setObject:[NSNumber numberWithBool:g.open] forKey:@"isPublic"];
                         //保存图片链接
-                        [ext setObject:[NSURL URLWithString:[ImgBaseUrl stringByAppendingString:g.iconURL]] forKey:@"imageURL"];
+                        [ext setObject:g.iconURL forKey:@"imageURL"];
                         conversation.ext = ext;
                         break;
                     }
@@ -474,7 +473,7 @@ static ChatListViewController *chat = nil;
         {
             cell.name = [conversation.ext objectForKey:@"groupSubject"];
             imageName = [[conversation.ext objectForKey:@"isPublic"] boolValue] ? @"groupPublicHeader" : @"groupPrivateHeader";
-            cell.imageURL = [conversation.ext objectForKey:@"imageURL"];
+            cell.imgURL = [conversation.ext objectForKey:@"imageURL"];
         }
         
         cell.placeholderImage = [UIImage imageNamed:imageName];
