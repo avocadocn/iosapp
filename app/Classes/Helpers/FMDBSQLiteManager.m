@@ -74,7 +74,7 @@
     }];
 }
 
-//更新群组信息
+//更新用户信息
 - (void)updatePerson:(Person*)p
 {
     [self.queue inDatabase:^(FMDatabase *db) {
@@ -85,6 +85,15 @@
         [db close];
         b ? NSLog(@"更新成功") : NSLog(@"更新失败");
     }];
+}
+-(void)deletePersonWithUserId:(NSString *)userId {
+    [self.queue inDatabase:^(FMDatabase *db) {
+        [db open];
+        BOOL b = [db executeUpdate:@"delete from PersonTable where userId = ?",userId];
+        [db close];
+        b ? NSLog(@"删除成功") : NSLog(@"删除失败");
+    }];
+    
 }
 /*
 -(void)deletePersonWithName:(NSString *)name {
@@ -185,6 +194,14 @@
         [db close];
     }];
     return self.gro;
+}
+-(void)deleteGroupWithGroupId:(NSString *)groupID {
+    [self.queue inDatabase:^(FMDatabase *db) {
+        [db open];
+        BOOL b = [db executeUpdate:@"delete from GroupTable where groupID = ?",groupID];
+        [db close];
+        b ? NSLog(@"删除成功") : NSLog(@"删除失败");
+    }];
 }
 //清空群组表
 - (void)dropGroup
