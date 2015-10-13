@@ -90,7 +90,8 @@
 - (void)cellReloadWithAddressModel:(AddressBookModel *)model
 {
     
-    [self.personPhotoImageView dlGetRouteWebImageWithString:model.photo placeholderImage:[UIImage imageNamed:@"1"]];
+//    [self.personPhotoImageView dlGetRouteWebImageWithString:model.photo placeholderImage:[UIImage imageNamed:@"1"]];
+    [self.personPhotoImageView dlGetRouteThumbnallWebImageWithString:model.photo placeholderImage:[UIImage imageNamed:@"1"] withSize:CGSizeMake(100.0, 100.0)];
     self.personPhotoImageView.layer.masksToBounds = (self.frame.size.width - 10 )/ 2.0;
     self.personEmailLabel.text = model.phone;
     self.personNameLabel.text = model.realname;

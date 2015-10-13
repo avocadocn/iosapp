@@ -9,7 +9,7 @@
 #import "UIImageView+DLGetWebImage.h"
 #import <UIImageView+WebCache.h>
 
-#define path [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject]
+#define path [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CacheImage"]
 
 @implementation UIImageView (DLGetWebImage)
 
@@ -25,7 +25,6 @@
 
     self.backgroundColor = ArcColor;
     NSString * newUrlStr = [self getUrlStringWithString:str];
-    
     [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
     
 }
@@ -123,7 +122,17 @@
 }
 - (NSString *)getAddressWithUrl:(NSURL *)url
 {
-    
+    NSFileManager *manger = [NSFileManager defaultManager];
+    BOOL isDir = FALSE;
+    BOOL isExist=[manger fileExistsAtPath:path isDirectory:&isDir];
+    if (!isExist&&!isDir) {
+        BOOL CreateDir=[manger createDirectoryAtPath:path withIntermediateDirectories:FALSE attributes:nil error:nil];
+        if (CreateDir) {
+            NSLog(@"Create Dir OK!");
+        }else{
+            NSLog(@"Create Dir Failed!");
+        }
+    }
     NSMutableString *str = [NSMutableString stringWithFormat:@"%@", url];
     NSArray *array = [str componentsSeparatedByString:@"/"];
     // 判断缩略图的大图存不存在
