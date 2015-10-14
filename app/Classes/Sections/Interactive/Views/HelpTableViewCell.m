@@ -115,13 +115,18 @@
     [helpContainer addSubview:separater];
     self.separater = separater;
 
-    self.helpAnserLabel = [UILabel new];//initWithFrame:CGRectMake(DLScreenWidth - 80 , 458, 80, 20)];
-    self.helpAnserLabel.text = @"添加答案";
-//    self.helpAnserLabel.backgroundColor = [UIColor cyanColor];
-    self.helpAnserLabel.textAlignment = NSTextAlignmentCenter;
-    self.helpAnserLabel.font = [UIFont systemFontOfSize:15];
-    self.helpAnserLabel.textColor = RGBACOLOR(37, 18, 71, 1);
-    [helpContainer addSubview:self.helpAnserLabel];
+//    self.helpAnserLabel = [UILabel new];//initWithFrame:CGRectMake(DLScreenWidth - 80 , 458, 80, 20)];
+//    self.helpAnserLabel.text = @"添加答案";
+//    self.helpAnserLabel.userInteractionEnabled = YES;
+////    self.helpAnserLabel.backgroundColor = [UIColor cyanColor];
+//    self.helpAnserLabel.textAlignment = NSTextAlignmentCenter;
+//    self.helpAnserLabel.font = [UIFont systemFontOfSize:15];
+//    self.helpAnserLabel.textColor = RGBACOLOR(37, 18, 71, 1);
+//    
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addAnsers:)];
+//    [self.helpAnserLabel addGestureRecognizer:tapGesture];
+//    
+//    [helpContainer addSubview:self.helpAnserLabel];
     
     
     // 正文
@@ -199,13 +204,13 @@
     [self.helpContainer setFrame:helpCellFrame.helpContainerF];
  
 //    添加答案Label frame
-     [self.helpAnserLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(self.helpContentLabel.mas_top);
-        make.bottom.mas_equalTo(self.helpContentLabel.mas_bottom);
-        make.right.mas_equalTo(self.mas_right);
-        make.width.mas_equalTo(80);
-    }];
-    
+//     [self.helpAnserLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+////        make.top.mas_equalTo(self.helpContentLabel.mas_top);
+//        make.bottom.mas_equalTo(self.helpContentLabel.mas_bottom);
+//        make.right.mas_equalTo(self.mas_right);
+//        make.width.mas_equalTo(80);
+//    }];
+
 }
 
 - (void)transmitClicked:(id)sender

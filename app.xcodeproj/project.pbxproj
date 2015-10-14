@@ -5776,7 +5776,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7654dddc-fed5-40bc-a987-9637d4587fe5";
 			};
 			name = Debug;
 		};
@@ -5806,7 +5806,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7654dddc-fed5-40bc-a987-9637d4587fe5";
 			};
 			name = Release;
 		};

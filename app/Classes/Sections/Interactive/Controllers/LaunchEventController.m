@@ -698,6 +698,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     self.log = [NSString stringWithFormat:@"%f",coordinate.longitude];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { 
+    [self.view endEditing:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {
