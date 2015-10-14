@@ -160,12 +160,15 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
 {
     
     Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
-    
-    self.personName.text = model.ID;
+    if (per){
+        self.personName.text = per.name;
+        [self.imageView dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(200*2, 200*2)];
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageView.clipsToBounds = YES;
+    }
     self.personLike.text = model.vote;
-    [self.imageView dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.clipsToBounds = YES;
+    
+    
     self.parseButton.criticText.text = model.vote;
     
     self.RankList.text = [NSString stringWithFormat:@"排名: %@", index];

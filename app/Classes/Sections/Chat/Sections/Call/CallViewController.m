@@ -15,6 +15,7 @@
 #import "CallViewController.h"
 #import "FMDBSQLiteManager.h"
 #import "Person.h"
+#import "UIImageView+DLGetWebImage.h"
 
 #define kAlertViewTag_Close 100
 
@@ -76,8 +77,10 @@
     //修改呼叫展示的名称
     FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
     Person* p = [fmdb selectPersonWithUserId:_chatter];
-    _nameLabel.text = p.name;
-    
+    if (p) {
+        _nameLabel.text = p.name;
+        [_headerImageView dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
+    }
     if (_callSession.type == eCallSessionTypeVideo) {
         [self _initializeCamera];
         [_session startRunning];
