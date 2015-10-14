@@ -264,7 +264,8 @@ static AFHTTPSessionManager *_mgr;
         __block NSMutableArray *fileArray = [NSMutableArray array];
         __block NSMutableArray *keyArray = [NSMutableArray array];
         [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            if ([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"photo"]) {
+            if ([obj isKindOfClass:[NSArray class]] &&
+                ([key isEqualToString:@"photo"] || [key isEqualToString:@"uploadPhoto"])) {
                 [keyArray addObject:key];
                 fileArray = (NSMutableArray *)obj;
             }

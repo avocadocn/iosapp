@@ -94,6 +94,13 @@
         NSLog(@"获取消息列表失败 %@",[errorJson objectForKey:@"msg"]);
     }];
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    InformationModel *model = self.modelArray[indexPath.row];
+    NSLog(@"model的 action 为 %@", model.action);
+}
+
 - (void)layoutSegmentedControl {  // 创建segment
     
     NYSegmentedControl *segment = [[NYSegmentedControl alloc] initWithItems:@[@"消息", @"互动"]];
@@ -134,7 +141,8 @@
     return self.modelArray.count;
     
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -142,9 +150,7 @@
     cell.model = self.modelArray[indexPath.row];
     return cell;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

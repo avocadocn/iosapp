@@ -21,7 +21,7 @@
 #import "UIImageView+DLGetWebImage.h"
 static NSInteger num = 0;
 
-@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, DNImagePickerControllerDelegate>
+@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, DNImagePickerControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 @property (nonatomic, strong)NSMutableArray *infoArray;
 
 @property (nonatomic, strong)UIButton *btn; // 相机按钮
@@ -29,6 +29,8 @@ static NSInteger num = 0;
 @property (nonatomic, strong)UIButton *changePhotoButton;
 
 @property (nonatomic, assign)BOOL photoChange;
+
+@property (nonatomic, strong)UIPickerView *picker;
 
 @end
 
@@ -202,6 +204,8 @@ static NSInteger num = 0;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapBrithdayAction:)];
         [self.brithday.informationTextField addGestureRecognizer:tap];
         
+        UITapGestureRecognizer *gender = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(genderAction:)];
+        [self.gender addGestureRecognizer:gender];
         self.buttonState = EnumOfEditButtonYes;
         self.editLabel.text = @"完成";
     } else { //写编辑完成后的网络请求
@@ -214,6 +218,34 @@ static NSInteger num = 0;
         self.buttonState = EnumOfEditButtonNo;//编辑完成
     }
 }
+- (void)genderAction:(UITapGestureRecognizer *)tap
+{
+    self.picker = [[UIPickerView alloc]initWithFrame:CGRectMake(0, DLScreenHeight - DLMultipleHeight(250.0) + 49.0, DLScreenWidth, DLMultipleHeight(250.0))];
+    self.picker.delegate = self;
+    self.picker.dataSource = self;
+    self.picker.showsSelectionIndicator = YES;
+    [self.picker selectRow:2 inComponent:0 animated:YES];
+    
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    self.gender.informationTextField.text =( row ==  0 ? @"男" : @"女");
+    
+}
+
+
+
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return 2;
+}
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return row == 0 ? @"男" : @"女";
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (buttonIndex) {
@@ -240,9 +272,9 @@ static NSInteger num = 0;
             if (self.photoChange ){
                 NSData *data = UIImagePNGRepresentation(self.folderPhotoImage.image);
                 NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[data ,@"photo"] forKeys:@[@"data", @"name"]];
-                model.photo = [NSArray arrayWithObjects:dic, nil];
+                model.uploadPhoto = [NSArray arrayWithObjects:dic, nil];
             }
-        [RestfulAPIRequestTool routeName:@"modifyUserInfo" requestModel:model useKeys:@[@"nickname",@"introduce",@"realname",@"gender",@"birthday",@"phone",@"photo",] success:^(id json) {
+        [RestfulAPIRequestTool routeName:@"modifyUserInfo" requestModel:model useKeys:@[@"nickname",@"introduce",@"realname",@"gender",@"birthday",@"phone",@"uploadPhoto",] success:^(id json) {
             [self netRequstWithModel:model]; // 编辑成功重新请求一次数据
             [self.infoArray removeAllObjects]; // 将存放编辑信息的数组清空
         } failure:^(id errorJson) {

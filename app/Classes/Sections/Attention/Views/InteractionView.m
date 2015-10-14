@@ -63,7 +63,7 @@
 {
     Account *acc = [AccountTool account];
     NSFileManager *manger = [NSFileManager defaultManager];
-    NSString *path = [NSString stringWithFormat:@"%@/%@-interaction", acc.ID, DLLibraryPath];
+    NSString *path = [NSString stringWithFormat:@"%@/%@-interaction",  DLLibraryPath, acc.ID];
     NSArray *array = [manger contentsOfDirectoryAtPath:path error:nil];
     NSLog(@"本地的 interaction 文件为 %@", array);
     self.modelArray = [NSMutableArray array];
@@ -74,7 +74,50 @@
     [self.tableView reloadData];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    //  1: 活动有人参加了、投票有人参与了、求助有人回答了
+    //  2: 被邀请参加活动、投票、求助
+    //  3: 求助的回答被采纳了
+    //  4: 评论有回复
+    //  5: 评论被赞了
+    //  6: 被邀请进小队
+    //  7: 入群申请被通过
+    //  8: XX申请入X群，待处理(群主)
+    //  9: XX申请入X群，已被其它管理员处理
 
+    InformationModel *model = self.modelArray[indexPath.row];
+    NSLog(@"这个通知的内容为  %@", model.action);
+    NSInteger num = [model.action integerValue];
+    switch (num) {
+        case 1:
+        {
+            NSLog(@"活动有人参加了、投票有人参与了、求助有人回答了");
+        }
+            break;
+            case 4:
+        {
+            NSLog(@"评论有回复");
+        } break;
+        case 6:{
+            NSLog(@"被邀请进小队");
+        } break;
+            case 7:
+        {
+            NSLog(@"入群申请被通过");
+        } break;
+            case 8:
+        {
+            NSLog(@"XX申请入X群，待处理(群主)");
+        } break;
+            
+        default:
+            break;
+    }
+    
+}
 
 - (void)createTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -35, DLScreenWidth, DLScreenHeight + 35) style:UITableViewStyleGrouped];

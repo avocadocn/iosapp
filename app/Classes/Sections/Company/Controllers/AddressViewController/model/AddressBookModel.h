@@ -42,6 +42,10 @@
 @property (nonatomic, assign)BOOL selectState;
 @property (nonatomic, copy)NSString *company_official_name;
 
+/**
+ * 用来上传照片的临时 array
+ */
+@property (nonatomic, strong)NSArray *uploadPhoto;
 
 - (void)save;
 - (instancetype)initWithString:(NSString *)string;

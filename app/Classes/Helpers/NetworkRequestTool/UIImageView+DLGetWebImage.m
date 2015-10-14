@@ -22,11 +22,9 @@
 
 - (void)dlGetRouteWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image
 {
-
     self.backgroundColor = ArcColor;
     NSString * newUrlStr = [self getUrlStringWithString:str];
     [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
-    
 }
 
 /**
@@ -35,6 +33,7 @@
 
 - (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size
 {
+    self.backgroundColor = ArcColor;
     // 得到网络请求的字符串
     NSString *newUrlStr = [self getUrlStringWithString:str];
     
