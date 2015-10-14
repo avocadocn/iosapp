@@ -32,6 +32,9 @@
 @property (nonatomic, strong) UILabel *addressLabel;
 @property (nonatomic, copy)NSString *url;
 
+@property (nonatomic, strong)UIButton *applyBtn; // 报名按钮
+
+
 @end
 @implementation DetailActivityShowView
 
@@ -53,6 +56,7 @@
         self.model = model;
         
         [self buildInterface];
+        [self getState]; // 获得报名状态
         [self initMapView]; // 创建地图
         [self buildMAPinAnnotationView];
     }
@@ -101,7 +105,7 @@
     _mapView.height = DLScreenWidth * 2 / 4;
     _mapView.x = 0;
     _mapView.y = CGRectGetMaxY(self.addressLabel.frame) + 10;
-
+    
     _mapView.delegate = self;
     _mapView.showsUserLocation = YES;
     _mapView.mapType = MAMapTypeStandard;
@@ -339,6 +343,7 @@
     sighUpView.y = DLScreenHeight - 44;
     
     UIButton *sighUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.applyBtn = sighUpBtn;
     [sighUpBtn setTitle:@"立即报名" forState:UIControlStateNormal];
     sighUpBtn.width = DLScreenWidth - 2 * 10;
     sighUpBtn.height = 28;
@@ -356,7 +361,10 @@
     
 }
 
--(void)btnClick:(id)sender{
+-(void)btnClick:(UIButton *)sender{
+    sender.backgroundColor = [UIColor lightGrayColor];
+    sender.superview.backgroundColor = [UIColor lightGrayColor];
+    sender.userInteractionEnabled = NO;
     NSLog(@"btn Clicked");
     Account *account = [AccountTool account];
     [self.model setInteractionId:self.model.interactionId];
@@ -368,9 +376,27 @@
         NSLog(@"报名失败的原因 %@",[errorJson valueForKey:@"msg"]);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名失败" message:[errorJson valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
+        sender.backgroundColor = [UIColor redColor];
+        sender.superview.backgroundColor = [UIColor redColor];
+        sender.userInteractionEnabled = YES;
     }];
 
 }
+
+- (void)getState {
+    Account *account = [AccountTool account];
+    [self.model setInteractionId:self.model.interactionId];
+    [self.model setUserId:account.ID];
+    [RestfulAPIRequestTool routeName:@"joinInteraction" requestModel:self.model useKeys:@[@"interactionId",@"userId"] success:^(id json) {
+        
+    } failure:^(id errorJson) {
+        [self.applyBtn setTitle:[NSString stringWithFormat:@"%@",[errorJson valueForKey:@"msg"]] forState:UIControlStateNormal];
+        self.applyBtn.backgroundColor = [UIColor lightGrayColor];
+        self.applyBtn.superview.backgroundColor = [UIColor lightGrayColor];
+        self.applyBtn.userInteractionEnabled = NO;
+    }];
+}
+
 #pragma AMapSearchDelegate
 // 实现逆地理编码对应的回调函数
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response {
@@ -385,7 +411,8 @@
     MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
     NSArray *array = [[[self.model.activity objectForKey:@"location"] objectForKey:@"loc"] objectForKey:@"coordinates"];
     pointAnnotation.coordinate = CLLocationCoordinate2DMake([[array lastObject] floatValue], [[array firstObject] floatValue]); //
-    pointAnnotation.title = nil;
+    _mapView.centerCoordinate = pointAnnotation.coordinate; // 取出大头针的坐标设为地图中心点
+    pointAnnotation.title = self.model.theme;
     pointAnnotation.subtitle = [[self.model.activity objectForKey:@"location"] objectForKey:@"name"];
     [_mapView addAnnotation:pointAnnotation];
 }
@@ -399,6 +426,7 @@ updatingLocation:(BOOL)updatingLocation
         //取出当前位置的坐标
         NSLog(@"latitude : %f,longitude: %f",userLocation.coordinate.latitude,userLocation.coordinate.longitude);
     }
+    
 }
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation

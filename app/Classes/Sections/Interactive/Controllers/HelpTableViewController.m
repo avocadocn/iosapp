@@ -20,6 +20,7 @@
 #import "CommentsModel.h"
 #import "CustomKeyBoard.h"
 #import "GiFHUD.h"
+#import <MJRefresh.h>
 @interface HelpTableViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) NSMutableArray *helpFrames;
@@ -60,6 +61,7 @@ static NSString * const ID = @"HelpTableViewCell";
     
     
     [self loadhelpData];
+    [self refressMJ];  // 刷新加载
     
 //    注册评论cell
     [self.tableView registerNib:[UINib nibWithNibName:@"CommentViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"CommentViewCell"];
@@ -121,14 +123,17 @@ static NSString * const ID = @"HelpTableViewCell";
     Interaction *model = [[Interaction alloc]init];
     [model setInteractionType:@3];
     [model setInteractionId:self.model.interactionId];
-    [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId"] success:^(id json) {
+    [model setLimit:@5];
+    [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self loadDataWithJson:json];
+        self.keyBoard.inputView.text = nil;
         [GiFHUD dismiss];
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
         [GiFHUD dismiss];
     }];
+    [self.tableView.header endRefreshing];
 }
 
 -(void)loadDataWithJson:(id)json{ // 
@@ -261,6 +266,7 @@ static NSString * const ID = @"HelpTableViewCell";
     [RestfulAPIRequestTool routeName:@"marchingComments" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"content"] success:^(id json) {
         NSLog(@"发送评论成功 %@",json);
         [self getCommentsLists];
+        
     } failure:^(id errorJson) {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"评论失败" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
@@ -299,8 +305,42 @@ static NSString * const ID = @"HelpTableViewCell";
 
 }
 
-
-
+// 上拉加载 下拉刷新
+- (void)refressMJ {
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getCommentsLists)];
+    self.tableView.header = header;
+    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
+    self.tableView.footer = footer;
+    
+}
+- (void)refreshAction { // 上拉加载事件
+    CommentsModel *cmodel = [self.comments lastObject];
+    Interaction *model = [[Interaction alloc]init];
+    [model setInteractionType:@3];
+    [model setInteractionId:self.model.interactionId];
+    [model setCreateTime:cmodel.createTime];
+    [model setLimit:@5];
+    [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit",@"createTime"] success:^(id json) {
+        NSLog(@"请求评论列表成功 %@",json);
+        [self detalNewDataWithJson:json];
+        [GiFHUD dismiss];
+    } failure:^(id errorJson) {
+        NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
+        [GiFHUD dismiss];
+    }];
+    [self.tableView.footer endRefreshing];
+    
+}
+- (void)detalNewDataWithJson:(id)json {
+    for (NSDictionary *dic in json) {
+        CommentsModel *model = [[CommentsModel alloc] init];
+        [model setValuesForKeysWithDictionary:dic];
+        [self.comments addObject:model];
+    }
+    
+    [self.tableView reloadData];
+}
 
 
 
