@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class Interaction;
-@interface HelpTableViewController : UITableViewController
+@interface HelpTableViewController : UIViewController
 
 @property (nonatomic, strong)Interaction *model;
 

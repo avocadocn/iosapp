@@ -56,6 +56,12 @@ typedef NS_ENUM(NSInteger, DLRefreshState) {
     DLRefreshStateReload
 };
 
+typedef NS_ENUM(NSInteger, DLKeyBoardType) {
+    DLKeyBoardTypeNormal,
+    DLKeyBoardTypeFace
+};
+
+
 static ColleagueViewController *coll = nil;
 static NSString * userId = nil;
 static NSString * tergetUserId = nil;
@@ -66,9 +72,15 @@ static NSString * contentId = nil;
 #define REPLYTEXT 14
 
 @interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, ConditionControllerDelegate, CardChooseViewDelegate, DNImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXFaceDelegate>
+/**
+ * 输入评论内容的真正 textfield
+ */
 @property (nonatomic, strong)XHMessageTextView *inputTextView;
+/**
+ * 用来召出键盘的 textfield
+ */
 @property (nonatomic, strong)UITextField *myText;
-@property (nonatomic, assign)NSInteger selectIndex;
+@property (nonatomic, strong)NSNumber *selectIndex;
 @property (nonatomic, strong)UIView *inputView;
 @property (nonatomic, assign)CommentObject object;
 @property (nonatomic, strong)NSMutableArray *photoArray;
@@ -76,7 +88,7 @@ static NSString * contentId = nil;
 @property (nonatomic, strong)GiFHUD *gifImage;
 @property (nonatomic, assign)BOOL selectState;
 @property (nonatomic, assign)DLRefreshState state;
-
+@property (nonatomic, assign)DLKeyBoardType keyBordType;
 @end
 
 @implementation ColleagueViewController
@@ -124,11 +136,11 @@ static NSString * contentId = nil;
     [self.colleagueTable registerClass:[ColleagueViewCell class] forCellReuseIdentifier:@"tableCell"];
     
     self.colleagueTable.separatorColor = [UIColor clearColor];
+    
     //
     //    self.colleagueTable.tableHeaderView = [MJRefreshStateHeader headerWithRefreshingBlock:^{
     //
-    //
-    //        }];
+    //     }];
     
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
@@ -136,7 +148,6 @@ static NSString * contentId = nil;
     
     MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
     aHeader.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    
     
     self.colleagueTable.header = aHeader;
     [self.view addSubview:self.colleagueTable];
@@ -149,7 +160,7 @@ static NSString * contentId = nil;
     //        [self.colleagueTable.header endRefreshing];
     //    }];
     self.state = DLRefreshStateRefresh;
-    CircleContextModel *model = [self.modelArray firstObject];
+//    CircleContextModel *model = [self.modelArwray firstObject];
     
     [self refreshAndUploadWithLimit:10 andLatestTime:nil lastTime:nil];
 }
@@ -205,9 +216,9 @@ static NSString * contentId = nil;
 - (void)saveDefaultWithJson:(id)json
 {
     NSMutableArray *IDArray = [NSMutableArray array];
+
     
     for (NSDictionary *jsonDic in json) {
-        
         CircleContextModel *model = [[CircleContextModel alloc]init];
         
         NSDictionary *dic = [jsonDic objectForKey:@"content"];
@@ -247,7 +258,6 @@ static NSString * contentId = nil;
     
     BOOL judge = [manger fileExistsAtPath:path];
     if (judge) {
-        
         
         NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:path];  //原来的 array
         
@@ -629,6 +639,8 @@ static NSString * contentId = nil;
                                          self.inputTextView.placeHolder = [NSString stringWithFormat:@"回复%@:", interTempDic.poster.nickname];
                                          tergetUserId = interTempDic.poster.ID;
                                          contentId = interTempDic.targetContentId;
+                                         self.selectIndex = [NSNumber numberWithInteger:(tag - 10000)] ;
+                                         
                                      }]],
                                      @"postBody":@[RGBACOLOR(80, 125, 175, 1) ,[WPAttributedStyleAction styledActionWithAction:^{
                                          [self jumpPageWithDic:interTempDic andPoster:@"target"];
@@ -673,11 +685,11 @@ static NSString * contentId = nil;
 - (void)tapAction:(UITapGestureRecognizer *)tap
 {
     self.object = CommentPoster;
-    NSLog(@"点击");
+    NSLog(@"点击评论");
     
     [self.myText becomeFirstResponder];
     [self.inputTextView becomeFirstResponder];
-    self.selectIndex = tap.view.tag;
+    self.selectIndex = [NSNumber numberWithInteger:tap.view.tag];
     
 }
 
@@ -727,12 +739,85 @@ static NSString * contentId = nil;
 
 - (void)buttonAction:(UIButton *)sender
 {
-    DXFaceView *face = [[DXFaceView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 200)];
-    face.delegate = self;
-    face.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
-    [self.myText resignFirstResponder];
-    self.inputTextView.inputAccessoryView = face;
+    switch (self.keyBordType) {
+        case DLKeyBoardTypeNormal:
+        {
+            DXFaceView *face = [[DXFaceView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 200)];
+            face.delegate = self;
+            face.backgroundColor = RGBACOLOR(238, 238, 245, 1);
+            face.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
+            self.inputTextView.inputView = face;
+//            [self.inputTextView resignFirstResponder];
+//            [self.inputTextView becomeFirstResponder];
+            // 刷新 inputView
+            [self.inputTextView reloadInputViews];
+            self.keyBordType = DLKeyBoardTypeFace;
+        }
+            break;
+        case DLKeyBoardTypeFace:
+        {
+            self.inputTextView.inputView = UIInputViewStyleDefault;
+            [self.inputTextView reloadInputViews];
+            self.keyBordType = DLKeyBoardTypeNormal;
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
+
+- (void)selectedFacialView:(NSString *)str isDelete:(BOOL)isDelete;
+{
+    NSLog(@" 选中的表情为%@  %d", str, isDelete);
+    NSMutableString *mustr = [NSMutableString stringWithFormat:@"%@", self.inputTextView.text];
+    if (isDelete && mustr.length) {
+        NSString *lastStr;
+        if (mustr.length == 1) {
+            lastStr = [mustr substringFromIndex:mustr.length - 1];
+        } else
+        {
+            lastStr = [mustr substringFromIndex:mustr.length - 2];
+        }
+        BOOL judge = [self stringContainsEmoji:lastStr];
+        NSLog(@"%d   %@", judge, lastStr);
+        if (judge) {
+            NSLog(@"是表情");
+            [mustr deleteCharactersInRange:NSMakeRange(mustr.length - 2, 2)];
+        } else
+        {
+            [mustr deleteCharactersInRange:NSMakeRange(mustr.length - 1, 1)];
+            NSLog(@"不是表情");
+        }
+        
+        self.inputTextView.text = mustr;
+    } else if (!isDelete) {
+    self.inputTextView.text = [NSString stringWithFormat:@"%@%@",self.inputTextView.text, str];
+    }
+}
+
+- (void)sendFace
+{
+    switch (self.object) {
+        case CommentPoster:
+        {
+            [self sendManger:true];
+        }
+            break;
+        case CommentReviewers:
+        {
+            [self sendManger:false];
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
+    [self.inputTextView resignFirstResponder];
+    [self.myText resignFirstResponder];
+}
+
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
@@ -767,8 +852,8 @@ static NSString * contentId = nil;
     CircleCommentModel *tempModel = [[CircleCommentModel alloc]init];  //上传评论数据的 model
     
     tempModel.content = self.inputTextView.text;
-    
-    __block CircleContextModel *model = [self.modelArray objectAtIndex:(self.selectIndex - 1)];
+    NSInteger num = [self.selectIndex  integerValue] - 1;
+    __block CircleContextModel *model = [self.modelArray objectAtIndex:num];
     if (state) {  //发给用户  flase
         tempModel.targetUserId = model.poster.ID;  // 这个要改
         tempModel.contentId = model.ID;  //这个也要改
@@ -793,6 +878,13 @@ static NSString * contentId = nil;
         NSDictionary *dic = [circleComment objectForKey:@"poster"];
         temp.poster = [[AddressBookModel alloc]init];
         [temp.poster setValuesForKeysWithDictionary:dic];
+        if ([circleComment objectForKey:@"target"]) {
+            NSDictionary *target = [circleComment objectForKey:@"target"];
+            temp.target = [[AddressBookModel alloc]init];
+            [temp.target setValuesForKeysWithDictionary:target];
+        }
+
+        
         [cir.comments addObject:temp];
         [cir save];
         [self netRequest];
@@ -910,6 +1002,44 @@ static NSString * contentId = nil;
     
     [self.navigationController pushViewController:play animated:YES];
     
+}
+- (BOOL)stringContainsEmoji:(NSString *)string
+{
+    __block BOOL returnValue = NO;
+    
+    [string enumerateSubstringsInRange:NSMakeRange(0, [string length])
+                               options:NSStringEnumerationByComposedCharacterSequences
+                            usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                const unichar hs = [substring characterAtIndex:0];
+                                if (0xd800 <= hs && hs <= 0xdbff) {
+                                    if (substring.length > 1) {
+                                        const unichar ls = [substring characterAtIndex:1];
+                                        const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
+                                        if (0x1d000 <= uc && uc <= 0x1f77f) {
+                                            returnValue = YES;
+                                        }
+                                    }
+                                } else if (substring.length > 1) {
+                                    const unichar ls = [substring characterAtIndex:1];
+                                    if (ls == 0x20e3) {
+                                        returnValue = YES;
+                                    }
+                                } else {
+                                    if (0x2100 <= hs && hs <= 0x27ff) {
+                                        returnValue = YES;
+                                    } else if (0x2B05 <= hs && hs <= 0x2b07) {
+                                        returnValue = YES;
+                                    } else if (0x2934 <= hs && hs <= 0x2935) {
+                                        returnValue = YES;
+                                    } else if (0x3297 <= hs && hs <= 0x3299) {
+                                        returnValue = YES;
+                                    } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b || hs == 0x2b50) {
+                                        returnValue = YES;
+                                    }
+                                }
+                            }];
+    
+    return returnValue;
 }
 
 

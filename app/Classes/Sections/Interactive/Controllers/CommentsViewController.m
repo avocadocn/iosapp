@@ -79,7 +79,6 @@ static NSString * const ID = @"VoteCommentViewCell";
         [GiFHUD dismiss];
     }
     
-    
 }
 - (void)netWorkRequest { // 获取评论列表
     self.model = [[Interaction alloc]init];
