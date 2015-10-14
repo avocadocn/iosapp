@@ -230,93 +230,93 @@ static NSString * const ID =  @"RankItemTableViewcell";
 
 
 
-- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
-{
-    //customize carousel display
-    switch (option)
-    {
-        case iCarouselOptionWrap:
-        {
-            //normally you would hard-code this to YES or NO
-            return NO;
-        }
-        case iCarouselOptionSpacing:
-        {
-            //add a bit of spacing between the item views
-            return value * 1.05f;
-        }
-        case iCarouselOptionFadeMax:
-        {
-            if (self.carousel.type == iCarouselTypeCustom)
-            {
-                //set opacity based on distance from camera
-                return 0.0f;
-            }
-            return value;
-        }
-        case iCarouselOptionShowBackfaces:
-        case iCarouselOptionRadius:
-        case iCarouselOptionAngle:
-        case iCarouselOptionArc:
-        case iCarouselOptionTilt:
-        case iCarouselOptionCount:
-        case iCarouselOptionFadeMin:
-        case iCarouselOptionFadeMinAlpha:
-        case iCarouselOptionFadeRange:
-        case iCarouselOptionOffsetMultiplier:
-        case iCarouselOptionVisibleItems:
-        {
-            return value;
-        }
-    }
-}
-//- (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+//- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
 //{
+//    //customize carousel display
 //    switch (option)
 //    {
-//        //当为NO时，可以添加占位视图
 //        case iCarouselOptionWrap:
 //        {
+//            //normally you would hard-code this to YES or NO
 //            return NO;
 //        }
-//        case iCarouselOptionArc:
+//        case iCarouselOptionSpacing:
 //        {
-//            return  value;
+//            //add a bit of spacing between the item views
+//            return value * 1.05f;
 //        }
-//        //可以设置两个items的距离（我的理解）
-//        case iCarouselOptionRadius:
+//        case iCarouselOptionFadeMax:
 //        {
-////            return 250;
-//            return DLScreenHeight * 0.3;
-//        }
-//      
-//        case iCarouselOptionVisibleItems:{
+//            if (self.carousel.type == iCarouselTypeCustom)
+//            {
+//                //set opacity based on distance from camera
+//                return 0.0f;
+//            }
 //            return value;
 //        }
-//            
-//        case iCarouselOptionSpacing:{
-//            return value*1.05f;
-//        }
-//            
+//        case iCarouselOptionShowBackfaces:
+//        case iCarouselOptionRadius:
+//        case iCarouselOptionAngle:
+//        case iCarouselOptionArc:
+//        case iCarouselOptionTilt:
+//        case iCarouselOptionCount:
 //        case iCarouselOptionFadeMin:
-//        {
-//            return .5;
-//        }
-//        case iCarouselOptionFadeMax:{
-//            return .5;
-//        }
-//            
-//        case iCarouselOptionFadeMinAlpha:{
-//            return 1;
-//            
-//        }
-//        
-//        default:
+//        case iCarouselOptionFadeMinAlpha:
+//        case iCarouselOptionFadeRange:
+//        case iCarouselOptionOffsetMultiplier:
+//        case iCarouselOptionVisibleItems:
 //        {
 //            return value;
 //        }
 //    }
 //}
+- (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+{
+    switch (option)
+    {
+        //当为NO时，可以添加占位视图
+        case iCarouselOptionWrap:
+        {
+            return NO;
+        }
+        case iCarouselOptionArc:
+        {
+            return  value;
+        }
+        //可以设置两个items的距离（我的理解）
+        case iCarouselOptionRadius:
+        {
+//            return 250;
+            return DLScreenHeight * 0.3;
+        }
+      
+        case iCarouselOptionVisibleItems:{
+            return value;
+        }
+            
+        case iCarouselOptionSpacing:{
+            return value*1.05f;
+        }
+            
+        case iCarouselOptionFadeMin:
+        {
+            return .5;
+        }
+        case iCarouselOptionFadeMax:{
+            return .5;
+        }
+            
+        case iCarouselOptionFadeMinAlpha:{
+            return 1;
+            
+        }
+        
+        default:
+        {
+            return value;
+        }
+    }
+}
 //当添加占位视图时，返回占位视图的数量
 - (NSInteger)numberOfPlaceholdersInCarousel:(__unused iCarousel *)carousel
 {
