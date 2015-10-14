@@ -47,5 +47,6 @@
 @property (nonatomic, copy)NSString *commentId; // 评论id
 
 @property (nonatomic, strong)NSDictionary *voters;
+@property (nonatomic, strong)NSNumber *limit;
 
 @end
