@@ -223,12 +223,6 @@ static NSString * const ID =  @"RankItemTableViewcell";
 }
 
 
-- (CGFloat)carouselItemWidth:(iCarousel *)carousel
-{
-    return 20;
-}
-
-
 
 //- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
 //{
