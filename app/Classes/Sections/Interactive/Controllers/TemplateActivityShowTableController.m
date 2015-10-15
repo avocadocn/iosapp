@@ -81,13 +81,16 @@ static NSString * const ID = @"OtherActivityShowCell";
     [model setCreateTime:last.createTime];
     
     [self.tableView.footer beginRefreshing];
+    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
 //        NSLog(@"success:-->%@",json);
+        [self.activityIndicatorView removeFromSuperview];
         [self.tableView.footer endRefreshing];
     } failure:^(id errorJson) {
 //        NSLog(@"failed:-->%@",errorJson);
         [self.tableView.footer endRefreshing];
+        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 - (void)refreshData{
@@ -97,16 +100,19 @@ static NSString * const ID = @"OtherActivityShowCell";
     [model setTemplateType:[NSNumber numberWithInt:1]];
     [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     [self.tableView.header beginRefreshing];
+    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         if ([json count]!=0) {
             self.modelArray = [NSMutableArray new];
             [self analyDataWithJson:json];
         }
         [self.tableView.header endRefreshing];
+        [self.activityIndicatorView removeFromSuperview];
         //        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
         //        NSLog(@"failed:-->%@",errorJson);
         [self.tableView.header endRefreshing];
+        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 //进行网络数据获取
@@ -116,11 +122,14 @@ static NSString * const ID = @"OtherActivityShowCell";
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:1]];
     [model setLimit:[NSNumber numberWithInteger:pageLimit]];
+    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
+        [self.activityIndicatorView removeFromSuperview];
 //        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
 //        NSLog(@"failed:-->%@",errorJson);
+        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 //解析返回的数据
