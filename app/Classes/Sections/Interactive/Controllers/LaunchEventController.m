@@ -116,6 +116,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
     [self loadingImageView]; // loading
+    [self.view endEditing:YES];
     Interaction *inter = [[Interaction alloc]init];
     
     [inter setTheme:self.eventNameField.text];
