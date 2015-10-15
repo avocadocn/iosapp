@@ -29,6 +29,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "EMConversation+GroupName.h"
 #import <MJRefresh.h>
+#import <DGActivityIndicatorView.h>
 
 static ChatListViewController *chat = nil;
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, UISearchDisplayDelegate,SRRefreshDelegate, UISearchBarDelegate, IChatManagerDelegate,ChatViewControllerDelegate>
@@ -39,7 +40,7 @@ static ChatListViewController *chat = nil;
 @property (nonatomic, strong) UIView                *networkStateView;
 @property (nonatomic, strong) MJRefreshNormalHeader* header;
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
-
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 @end
 
 @implementation ChatListViewController
@@ -84,6 +85,18 @@ static ChatListViewController *chat = nil;
     [self searchController];
     [self refreshGroup];
     
+}
+//加载Loading动画
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
 }
 //下拉刷新
 - (void)refreshData
@@ -644,11 +657,14 @@ static ChatListViewController *chat = nil;
 - (void)getGroup
 {
     Account *acc= [AccountTool account];
+    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
         [self analyDataWithJson:json];
-        NSLog(@"success:-->%@",json);
+        [self.activityIndicatorView removeFromSuperview];
+//        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
-        NSLog(@"failed:-->%@",errorJson);
+        [self.activityIndicatorView removeFromSuperview];
+//        NSLog(@"failed:-->%@",errorJson);
     }];
 }
 - (void)analyDataWithJson:(id)json{

@@ -57,7 +57,7 @@
     NSString *newUrlStr = [self getUrlStringWithString:str];
     
     NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width, size.height]];
-    NSLog(@"the app path is :%@",path);
+//    NSLog(@"the app path is :%@",path);
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
     [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
 }
@@ -76,7 +76,25 @@
         
     }];
 }
+//拼接图片地址
+- (NSString *)getUrlStringWithString:(NSString *)str
+{
+    if (![str hasPrefix:@"/"]) {
+        str = [NSString stringWithFormat:@"/%@", str];
+    }
+    NSString *roude = [NSString stringWithFormat:@"%@", BaseUrl];  //字符串拼接
+    
+    NSString *urlStr = [roude stringByReplacingOccurrencesOfString:@"3002/v2_0" withString:[NSString stringWithFormat:@"3000%@", str]];
+    
+    NSString *newUrlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    self.contentMode = UIViewContentModeScaleAspectFill;
+    self.clipsToBounds = YES;
+    
+    return newUrlStr;
+}
 
+#pragma mark - 以下方法基本没用了
 //自己进行图片的缓存
 - (void)dlGetWebImageWithUrl:(NSURL *)url placeholderImage:(UIImage *)image
 {
@@ -140,22 +158,7 @@
 }
 
 
-- (NSString *)getUrlStringWithString:(NSString *)str
-{
-    if (![str hasPrefix:@"/"]) {
-        str = [NSString stringWithFormat:@"/%@", str];
-    }
-    NSString *roude = [NSString stringWithFormat:@"%@", BaseUrl];  //字符串拼接
-    
-    NSString *urlStr = [roude stringByReplacingOccurrencesOfString:@"3002/v2_0" withString:[NSString stringWithFormat:@"3000%@", str]];
-    
-    NSString *newUrlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    self.contentMode = UIViewContentModeScaleAspectFill;
-    self.clipsToBounds = YES;
-    
-    return newUrlStr;
-}
+
 - (NSString *)getAddressWithUrl:(NSURL *)url
 {
     NSFileManager *manger = [NSFileManager defaultManager];
