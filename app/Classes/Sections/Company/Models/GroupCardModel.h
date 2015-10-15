@@ -18,9 +18,9 @@
 
 @property (nonatomic, assign)BOOL allInfo;
 
-- (void)save;
+- (void)save:(NSString *)group;
 
-- (instancetype)initWithString:(NSString *)IDStr;
+- (instancetype)initWithString:(NSString *)IDStr andType:(NSString *)type;
 
 
 @end

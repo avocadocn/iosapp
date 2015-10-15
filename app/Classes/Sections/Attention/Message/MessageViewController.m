@@ -74,6 +74,7 @@
 //    self.scrollView.backgroundColor = [UIColor cyanColor];
     [self.view addSubview:self.scrollView];
     InteractionView *view = [[InteractionView alloc] initWithFrame:CGRectMake(DLScreenWidth, 0, DLScreenWidth, DLScreenHeight)];
+    view.navigationController = self.navigationController;
     [self.scrollView addSubview:view];
 }
 - (void)netWorkRequest {// 网路请求
@@ -97,6 +98,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
     InformationModel *model = self.modelArray[indexPath.row];
     NSLog(@"model的 action 为 %@", model.action);
 }

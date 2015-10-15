@@ -27,6 +27,7 @@
 #import "AccountTool.h"
 #import "GroupCardModel.h"
 #import "CreateGroupController.h"
+
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, HMWaterflowLayoutDelegate>
 
 @end
@@ -36,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"社团列表";
+    self.modelArray = [NSMutableArray array];
     [self reloadLibraryFile];
 //    [self getRequestData];
     [self builtInterface];
@@ -67,8 +69,23 @@
 - (void)getRequestData
 {
     // 获取群组应该有 targetid 的吧?
+    NSString *netAddress;
+    switch (self.groupType) {
+        case GroupTypeSingle:
+        {
+            netAddress = [NSString stringWithFormat:@"getGroupList"];
+        }
+            break;
+            
+        default:
+        {
+            netAddress = [NSString stringWithFormat:@"getCompanyGroupList"];
+        }
+            break;
+    }
     
-    [RestfulAPIRequestTool routeName:@"getCompanyGroupList" requestModel:nil useKeys:nil success:^(id json) {
+    
+    [RestfulAPIRequestTool routeName:netAddress requestModel:nil useKeys:nil success:^(id json) {
         self.modelArray = [NSMutableArray array];
         NSLog(@"获取到的群组为%@", json);
         [self analyDataWithJson:json];
@@ -81,12 +98,22 @@
 - (void)analyDataWithJson:(id)json
 {
     NSArray *array = [json objectForKey:@"groups"];
+    NSString *groupType;
+    switch (self.groupType) {
+        case GroupTypeSingle:
+            groupType = [NSString stringWithFormat:@"single"];
+            break;
+            
+        default:
+            groupType = [NSString stringWithFormat:@"company"];
+            break;
+    }
+    
     for (NSDictionary *dic in array) {
         GroupCardModel *model = [[GroupCardModel alloc]init];
         
         [model setValuesForKeysWithDictionary:dic];
-        
-        [model save];
+        [model save:groupType];
         [self.modelArray addObject:model];
     }
     
@@ -103,27 +130,40 @@
         
         [mutable addObject:IDStr];
     }
-    BOOL judge = [manger fileExistsAtPath:[NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath]];
+    NSString *arrayAddressStr = [NSString stringWithFormat:@"%@/%@-groupFile/groupList", DLLibraryPath, groupType];
+    
+    BOOL judge = [manger fileExistsAtPath:arrayAddressStr];
     
     if (!judge) {  //文件不存在
         
-        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath] atomically:YES];
+        [mutable writeToFile:arrayAddressStr atomically:YES];
         
     } else //文件存在
     {
-        [manger removeItemAtPath:[NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath] error:nil];
+        [manger removeItemAtPath:arrayAddressStr error:nil];
         
-        [mutable writeToFile:[NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath] atomically:YES];
+        [mutable writeToFile:arrayAddressStr atomically:YES];
     }
 }
 
 - (void)reloadLibraryFile
 {
-    NSString *str = [NSString stringWithFormat:@"%@/groupFile/groupList", DLLibraryPath];
+    NSString *groupType;
+    switch (self.groupType) {
+        case GroupTypeSingle:
+            groupType = [NSString stringWithFormat:@"single"];
+            break;
+            
+        default:
+            groupType = [NSString stringWithFormat:@"company"];
+            break;
+    }
+    NSString *str = [NSString stringWithFormat:@"%@/%@-groupFile/groupList", DLLibraryPath, groupType];
     NSArray *array = [NSArray arrayWithContentsOfFile:str];
     self.modelArray = [NSMutableArray array];
     for (NSString *str in array) {
-        GroupCardModel *model = [[GroupCardModel alloc] initWithString:str];
+        
+        GroupCardModel *model = [[GroupCardModel alloc]initWithString:str andType:groupType];
         [self.modelArray addObject:model];
     }
     
@@ -249,19 +289,6 @@
     [self.navigationController pushViewController:team animated:YES];
     */
 }
-
-//- (BOOL)judgeMemberWithModel:(GroupCardModel *)model
-//{
-//    Account *acc = [AccountTool account];
-//    NSArray *array  = model.member;
-//    
-//    for (NSDictionary *dic in array) {
-//        if ([[dic objectForKey:@"_id"] isEqualToString:acc.ID]) {
-//            return YES;
-//        }
-//    }
-//    return NO;
-//}
 
 - (void)viewWillAppear:(BOOL)animated
 {

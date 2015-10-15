@@ -130,7 +130,7 @@ static AFHTTPSessionManager *_mgr;
     NSString *amendStr = [NSString stringWithFormat:@"%@%@", BaseUrl, routeUrl];
     
     NSLog(@"请求的网址为   %@", amendStr);
-    NSLog(@"请求的body为 %@", mutableParamsDict);
+//    NSLog(@"请求的body为 %@", mutableParamsDict);
     
     switch (type) {
         case RequsetMethodTypeGET:
@@ -183,9 +183,6 @@ static AFHTTPSessionManager *_mgr;
 
 + (void)post:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure
 {
-    
-    
-    
     // 发送post请求
     [_mgr POST:url parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         

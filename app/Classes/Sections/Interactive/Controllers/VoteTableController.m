@@ -5,6 +5,7 @@
 //  Created by 张加胜 on 15/8/5.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+#import "RestfulAPIRequestTool.h"
 #import "PollModel.h"
 #import "Account.h"
 #import "AccountTool.h"
@@ -165,6 +166,30 @@ static NSString * const ID = @"VoteTableViewCell";
 -(void)viewWillDisappear:(BOOL)animated {
 //    [[NSNotificationCenter defaultCenter]postNotificationName:@"CHANGESTATE" object:nil];
 }
+
+- (void)setInteraction:(NSString *)interaction
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:interaction forKey:@"interactionId"];
+    [dic setObject:self.interactionType forKey:@"interactionType"];
+    
+    [RestfulAPIRequestTool routeName:@"getInterDetails" requestModel:dic useKeys:@[@"interactionType", @"interactionId"] success:^(id json) {
+        NSLog(@" 获得的求助详情微 %@", json);
+        
+        Interaction *model = [[Interaction alloc]init];
+        [model setValuesForKeysWithDictionary:json];
+         NSDictionary *pollDic = [json objectForKey:@"poll"];
+        
+        
+        model.poll = [[PollModel alloc]init];
+        [model.poll setValuesForKeysWithDictionary:pollDic];
+        [self loadVoteDataWithInter:model];
+        [self.tableView reloadData];
+    } failure:^(id errorJson) {
+        NSLog(@"获取求朱详情失败 %@",errorJson);
+    }];
+}
+
 
 //}
 @end

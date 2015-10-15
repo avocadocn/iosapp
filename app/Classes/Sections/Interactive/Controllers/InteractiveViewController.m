@@ -518,23 +518,23 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             activityController.orTrue = YES;
             activityController.model = inter;
             [self.navigationController pushViewController:activityController animated:YES];
-            break;
         }
+            break;
         case 2:{  // 投票详情
             VoteTableController *voteController = [[VoteTableController alloc]init];  /// 投票
             voteController.voteArray = [NSMutableArray array];
             [voteController.voteArray addObject:inter];
             [self.navigationController pushViewController:voteController animated:YES];
             
-            break;
         }
+            break;
         case 3:  // 求助详情
         {
             HelpTableViewController *helpController = [[HelpTableViewController alloc]init];  // 求助
             helpController.model = inter;
             [self.navigationController pushViewController:helpController animated:YES];
-            break;
         }
+            break;
         default:
             break;
     }
@@ -656,7 +656,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     Account *acc = [AccountTool account];
     acc.token = nil;
     [AccountTool saveAccount:acc];
-    
     
     [self.navigationController pushViewController:login animated:YES];
 }
