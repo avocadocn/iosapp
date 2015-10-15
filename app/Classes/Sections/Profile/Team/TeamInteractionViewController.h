@@ -17,4 +17,8 @@ typedef enum {
 @interface TeamInteractionViewController : UITableViewController
 @property TeamInteraction type;
 @property (nonatomic, strong)GroupCardModel *groupCardModel;
+
+@property (nonatomic , strong)NSNumber *requestType;
+
+@property (nonatomic, copy)NSString *team;
 @end

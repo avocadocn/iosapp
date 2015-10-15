@@ -73,7 +73,9 @@
 
 - (void)save:(NSString *)inforType
 {
-    NSString *filePathStr = [NSString stringWithFormat:@"%@/%@", DLLibraryPath, inforType];
+    Account *acc = [AccountTool account];
+    
+    NSString *filePathStr = [NSString stringWithFormat:@"%@/%@-%@", DLLibraryPath, acc.ID,inforType];
     NSFileManager *manger = [NSFileManager defaultManager];
     BOOL judge = [manger fileExistsAtPath:filePathStr];
     
@@ -102,8 +104,10 @@
 
 - (void)deleteSelf:(NSString *)inforType
 {
+    Account *acc = [AccountTool account];
+    
     NSFileManager *maner = [NSFileManager defaultManager];
-    [maner removeItemAtPath:[NSString stringWithFormat:@"%@/%@/%@", DLLibraryPath,  inforType , self.ID] error:nil];
+    [maner removeItemAtPath:[NSString stringWithFormat:@"%@/%@-%@/%@", DLLibraryPath, acc.ID, inforType , self.ID] error:nil];
 }
 
 @end

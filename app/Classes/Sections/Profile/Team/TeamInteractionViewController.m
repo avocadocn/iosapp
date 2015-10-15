@@ -55,7 +55,13 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [model setUserId:acc.ID];
     [model setLimit:@10];
     [model setRequestType:@1];
+    if (self.requestType) {
+        [model setRequestType:self.requestType];
+    }
     [model setTeam:@"1"];
+    if (self.team) {
+        [model setTeam:self.team];
+    }
     [model setTeamId:self.groupCardModel.groupId];
     Interaction* last =[self.modelArray lastObject];
     [model setCreateTime:last.createTime];
@@ -117,6 +123,13 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         default:
             break;
     }
+    if (self.requestType) {
+        [model setRequestType:self.requestType];
+    }
+    if (self.team) {
+        [model setTeam:self.team];
+    }
+    
     [self.tableView.header beginRefreshing];
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
@@ -268,6 +281,13 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [model setRequestType:@1];
     [model setTeam:@"1"];
     [model setTeamId:self.groupCardModel.groupId];
+    if (self.requestType) {
+        [model setRequestType:self.requestType];
+    }
+    [model setTeam:@"1"];
+    if (self.team) {
+        [model setTeam:self.team];
+    }
     switch (self.type) {
         case TeamInteractionActivity:
             [model setInteractionType:[NSNumber numberWithInt:TeamInteractionActivity]];

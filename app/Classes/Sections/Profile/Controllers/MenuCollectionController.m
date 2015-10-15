@@ -26,26 +26,25 @@
  */
 @property (nonatomic, strong) NSArray *itemIcons;
 
-
 @end
 
 @implementation MenuCollectionController
 
 static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
 
-
 -(void)loadView{
     
     CGFloat margin = 0.6;
     
-    CGFloat width = (DLScreenWidth - 2 * margin) / 3;
+    CGFloat width = (DLScreenWidth - 4) / 3.0;
     CGFloat height = 90 ;
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     [flowLayout setItemSize:CGSizeMake(width, height)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    [flowLayout setMinimumLineSpacing:margin];
-    [flowLayout setMinimumInteritemSpacing:margin];
+    flowLayout.sectionInset = UIEdgeInsetsMake(1, 1, 1, 1);
+
+    [flowLayout setMinimumLineSpacing:1];
+    [flowLayout setMinimumInteritemSpacing:1];
     
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 2 * height + margin) collectionViewLayout:flowLayout];
     //    self.collectionView = [[UICollectionView alloc]initWithFrame:cgrec collectionViewLayout:flowLayout];
@@ -67,7 +66,7 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
     // Register cell classes
     
     CGFloat margin = 0.6;
-    CGFloat width = (DLScreenWidth - 2 * margin) / 3;
+    CGFloat width = (DLScreenWidth - 2 ) / 3.0;
     CGFloat height = width * 90 / 125 ;
     [self.view setFrame:CGRectMake(0, 0, DLScreenWidth, 2 * 90 + margin)];
     [self.collectionView registerNib:[UINib nibWithNibName:@"MenuCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
@@ -93,13 +92,11 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete method implementation -- Return the number of sections
     return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete method implementation -- Return the number of items in the section
     return 6;
 }
 
