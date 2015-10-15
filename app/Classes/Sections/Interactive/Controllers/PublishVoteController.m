@@ -15,13 +15,13 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "RestfulAPIRequestTool.h"
 #import "Interaction.h"
-#import "GiFHUD.h"
+#import <DGActivityIndicatorView.h>
 
 static NSInteger num = 0;
 
 @interface PublishVoteController ()<DNImagePickerControllerDelegate,UIAlertViewDelegate>
 
-@property(nonatomic, strong)GiFHUD *gifImage;
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -30,7 +30,6 @@ static NSInteger num = 0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [GiFHUD setGifWithImageName:@"myGif.gif"];
     [self builtInterface];
     if (self.model) {
         NSLog(@"%@",self.model);
@@ -45,6 +44,18 @@ static NSInteger num = 0;
     
     [self setNavigationItem];
     [self setCardView];
+}
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
+    
 }
 
 
@@ -175,7 +186,7 @@ static NSInteger num = 0;
 
 - (void)publishActions:(UIButton *)sender
 {
-    [GiFHUD show];
+    [self loadingImageView];
     NSMutableArray *titleArray = [NSMutableArray array];
     for (NSInteger i = 1; i <= num; i ++) {
         optionsView *View = (optionsView *)[self.bigView viewWithTag:i];
@@ -211,12 +222,12 @@ static NSInteger num = 0;
         NSLog(@"发布投票成功%@", json);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布成功"message:@"少年郎,你的活动已经发布成功了,好好准备吧..." delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
         [alertV show];
-        [GiFHUD dismiss];
+        [self.activityIndicatorView removeFromSuperview];
         
     } failure:^(id errorJson) {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"再试一次", nil];
         [alertV show];
-        [GiFHUD dismiss];
+        [self.activityIndicatorView removeFromSuperview];
         NSLog(@"发布投票失败%@", errorJson);
     }];
     

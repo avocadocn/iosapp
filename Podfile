@@ -26,3 +26,5 @@ pod 'DCPathButton', '~> 2.1'
 pod 'FMDB', '~> 2.5'
 
 pod 'FastImageCache'
+
+pod 'DGActivityIndicatorView', '~> 1.0'

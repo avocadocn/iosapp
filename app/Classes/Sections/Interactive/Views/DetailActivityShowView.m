@@ -239,7 +239,7 @@
     addressLabel.numberOfLines = 0;
     // TODO
     CGSize maxLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
-    NSString *str = [[NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]] substringFromIndex:4];
+    NSString *str = [[NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]] substringFromIndex:5];
     NSString *addressText = str;
     
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxLabelSize lineBreakMode:NSLineBreakByWordWrapping];
@@ -335,7 +335,7 @@
     [self addSubview:superView];
     
     UIView *sighUpView = [[UIView alloc]init];
-    [sighUpView setBackgroundColor:[UIColor redColor]];
+    [sighUpView setBackgroundColor:[UIColor whiteColor]];
     
     // 设置报名view的frame
     sighUpView.size = CGSizeMake(DLScreenWidth, 44);
@@ -343,8 +343,13 @@
     sighUpView.y = DLScreenHeight - 44;
     
     UIButton *sighUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sighUpBtn.layer setMasksToBounds:YES];
+    [sighUpBtn.layer setCornerRadius:10.0];
     self.applyBtn = sighUpBtn;
+    sighUpBtn.superview.backgroundColor = [UIColor whiteColor];
     [sighUpBtn setTitle:@"立即报名" forState:UIControlStateNormal];
+    sighUpBtn.backgroundColor = [UIColor redColor];
+    [sighUpBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     sighUpBtn.width = DLScreenWidth - 2 * 10;
     sighUpBtn.height = 28;
     sighUpBtn.x = 10;
@@ -363,7 +368,6 @@
 
 -(void)btnClick:(UIButton *)sender{
     sender.backgroundColor = [UIColor lightGrayColor];
-    sender.superview.backgroundColor = [UIColor lightGrayColor];
     sender.userInteractionEnabled = NO;
     NSLog(@"btn Clicked");
     Account *account = [AccountTool account];
@@ -372,29 +376,39 @@
     [RestfulAPIRequestTool routeName:@"joinInteraction" requestModel:self.model useKeys:@[@"interactionId",@"userId"] success:^(id json) {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名成功" message:@"少年,恭喜你报名成功了" delegate:nil cancelButtonTitle:@"哇,好高兴" otherButtonTitles:nil, nil];
         [alertV show];
+        [sender setTitle:@"已经报名" forState:UIControlStateNormal];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"KPOSTNAME" object:nil];
     } failure:^(id errorJson) {
         NSLog(@"报名失败的原因 %@",[errorJson valueForKey:@"msg"]);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名失败" message:[errorJson valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
-        sender.backgroundColor = [UIColor redColor];
-        sender.superview.backgroundColor = [UIColor redColor];
-        sender.userInteractionEnabled = YES;
+//        sender.backgroundColor = [UIColor redColor];
+//        sender.superview.backgroundColor = [UIColor whiteColor];
+//        sender.userInteractionEnabled = YES;
+        [sender setTitle:[NSString stringWithFormat:@"%@",[errorJson valueForKey:@"msg"]] forState:UIControlStateNormal];
     }];
 
 }
 
 - (void)getState {
+//    Account *account = [AccountTool account];
+//    [self.model setInteractionId:self.model.interactionId];
+//    [self.model setUserId:account.ID];
+//    [RestfulAPIRequestTool routeName:@"joinInteraction" requestModel:self.model useKeys:@[@"interactionId",@"userId"] success:^(id json) {
+//        
+//    } failure:^(id errorJson) {
+//        [self.applyBtn setTitle:[NSString stringWithFormat:@"%@",[errorJson valueForKey:@"msg"]] forState:UIControlStateNormal];
+//        self.applyBtn.backgroundColor = [UIColor lightGrayColor];
+//        self.applyBtn.userInteractionEnabled = NO;
+//    }];
     Account *account = [AccountTool account];
-    [self.model setInteractionId:self.model.interactionId];
-    [self.model setUserId:account.ID];
-    [RestfulAPIRequestTool routeName:@"joinInteraction" requestModel:self.model useKeys:@[@"interactionId",@"userId"] success:^(id json) {
-        
-    } failure:^(id errorJson) {
-        [self.applyBtn setTitle:[NSString stringWithFormat:@"%@",[errorJson valueForKey:@"msg"]] forState:UIControlStateNormal];
+    NSArray *array = self.model.members;
+    if ([array containsObject:account.ID]) {
+        [self.applyBtn setTitle:[NSString stringWithFormat:@"%@",@"已经报名"] forState:UIControlStateNormal];
         self.applyBtn.backgroundColor = [UIColor lightGrayColor];
-        self.applyBtn.superview.backgroundColor = [UIColor lightGrayColor];
         self.applyBtn.userInteractionEnabled = NO;
-    }];
+    }
+    
 }
 
 #pragma AMapSearchDelegate
