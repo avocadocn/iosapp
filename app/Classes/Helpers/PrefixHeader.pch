@@ -45,7 +45,7 @@
 
 #define ImgBaseUrl @"http://www.55yali.com"
 
-#define ArcColorArray [NSArray arrayWithArray:@[RGBACOLOR(163, 159, 164, 1),     RGBACOLOR(98, 88, 87, 1),     RGBACOLOR(168, 148, 141, 1),     RGBACOLOR(212, 194, 169, 1),    RGBACOLOR(107, 114, 119, 1),     RGBACOLOR(119, 114, 60, 1),    RGBACOLOR(219, 193, 169, 1),     RGBACOLOR(129, 126, 97, 1),    RGBACOLOR(116, 105, 108, 1),    RGBACOLOR(121, 113, 102, 1)]]
+#define ArcColorArray [NSArray arrayWithObjects:RGBACOLOR(163, 159, 164, 1),     RGBACOLOR(98, 88, 87, 1),     RGBACOLOR(168, 148, 141, 1),     RGBACOLOR(212, 194, 169, 1),    RGBACOLOR(107, 114, 119, 1),     RGBACOLOR(119, 114, 60, 1),    RGBACOLOR(219, 193, 169, 1),     RGBACOLOR(129, 126, 97, 1),    RGBACOLOR(116, 105, 108, 1),    RGBACOLOR(121, 113, 102, 1),nil]
 
 #define ArcColor [ArcColorArray objectAtIndex:(arc4random() % ArcColorArray.count)]
 
