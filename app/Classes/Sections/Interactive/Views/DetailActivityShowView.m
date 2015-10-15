@@ -254,10 +254,6 @@
     addressLabel.y = CGRectGetMaxY(divisionLine.frame) + 12;
     self.addressLabel = addressLabel;
     
-    
-    
-    
-    
     // 地图view
     UIImage *mapImg = [UIImage imageNamed:@"map"];
     UIImageView *mapView = [[UIImageView alloc]initWithImage:mapImg];
@@ -279,8 +275,6 @@
     NSMutableAttributedString *personMAS = [[NSMutableAttributedString alloc]initWithString:personCountLabelText];
     [personMAS addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(0, 5)];
     [personCountLabel setAttributedText:personMAS];
-    
-    
     
     // 设置中部view的frame
     middleView.y = CGRectGetMaxY(topPictureView.frame) + 12;

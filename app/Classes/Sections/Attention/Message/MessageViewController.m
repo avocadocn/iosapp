@@ -5,7 +5,7 @@
 //  Created by burring on 15/9/8.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "ApplyForGroup.h"
 #import "MessageViewController.h"
 #import "MessageTableViewCell.h"
 #import "RestfulAPIRequestTool.h"
@@ -102,6 +102,27 @@
     
     InformationModel *model = self.modelArray[indexPath.row];
     NSLog(@"model的 action 为 %@", model.action);
+    
+    NSInteger num = [model.action integerValue];
+    switch (num) {
+        case 6:{
+            NSLog(@"被邀请进小队");
+        } break;
+        case 7:
+        {
+            NSLog(@"入群申请被通过");
+        } break;
+        case 8:
+        {
+            NSLog(@"XX申请入X群，待处理(群主)");
+            ApplyForGroup *group = [[ApplyForGroup alloc]init];
+            group.groupId = model.team;
+            [self.navigationController pushViewController:group animated:YES];
+        } break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)layoutSegmentedControl {  // 创建segment

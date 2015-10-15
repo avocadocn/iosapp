@@ -83,23 +83,25 @@
     NSInteger i = schoolModel.photoArray.count;
     if (i == 1) {
         SchoolTempModel *first = [schoolModel.photoArray objectAtIndex:0];
-        [self.BigImage dlGetRouteWebImageWithString:first.photo placeholderImage:nil];
+//        [self.BigImage dlGetRouteWebImageWithString:first.photo placeholderImage:nil];
+        [self.BigImage dlGetRouteThumbnallWebImageWithString:first.photo placeholderImage:nil withSize:CGSizeMake(245, 245)];
     }
     if (i == 2) {
         SchoolTempModel *first = [schoolModel.photoArray objectAtIndex:0];
-        [self.BigImage dlGetRouteWebImageWithString:first.photo placeholderImage:nil];
+        [self.BigImage dlGetRouteThumbnallWebImageWithString:first.photo placeholderImage:nil withSize:CGSizeMake(245, 245)];
         SchoolTempModel *second = [schoolModel.photoArray objectAtIndex:1];
-        [self.smailImage1 dlGetRouteWebImageWithString:second.photo placeholderImage:nil];
+        [self.smailImage1 dlGetRouteThumbnallWebImageWithString:second.photo placeholderImage:nil withSize:CGSizeMake(125, 125)];
     }
     else {
         SchoolTempModel *first = [schoolModel.photoArray objectAtIndex:0];
-        [self.BigImage dlGetRouteWebImageWithString:first.photo placeholderImage:nil];
+        [self.BigImage dlGetRouteThumbnallWebImageWithString:first.photo placeholderImage:nil withSize:CGSizeMake(245, 245)];
 //        self.BigImage.backgroundColor = [UIColor yellowColor];
         SchoolTempModel *second = [schoolModel.photoArray objectAtIndex:1];
-        [self.smailImage1 dlGetRouteWebImageWithString:second.photo placeholderImage:nil];
+        [self.smailImage1 dlGetRouteThumbnallWebImageWithString:second.photo placeholderImage:nil withSize:CGSizeMake(125, 125)];
 
         SchoolTempModel *teird = [schoolModel.photoArray objectAtIndex:2];
         [self.smailImage2 dlGetRouteWebImageWithString:teird.photo placeholderImage:nil];
+        [self.smailImage2 dlGetRouteThumbnallWebImageWithString:teird.photo placeholderImage:nil withSize:CGSizeMake(125, 125)];
     }
     
     

@@ -99,7 +99,24 @@ static NSString *tableId = @"fseeeeeeeeee";
     return DLMultipleHeight(67.0);
 }
 
-
+- (void)setGroupId:(NSString *)groupId
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:groupId forKey:@"groupId"];
+    [dic setObject:@"1" forKey:@"allInfo"];
+    
+    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:dic useKeys:@[@"groupId", @"allInfo"] success:^(id json) {
+        NSLog(@"获取到的群组信息为 %@", json);
+        NSDictionary *group = [json objectForKey:@"group"];
+        
+        self.detileModel = [[GroupDetileModel alloc]init];
+        [self.detileModel setValuesForKeysWithDictionary:group];
+        
+        [self.myTableView reloadData];
+    } failure:^(id errorJson) {
+        NSLog(@"获取失败群组信息为 %@", errorJson);
+    }];
+}
 
 
 

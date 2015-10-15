@@ -97,9 +97,9 @@ static NSString * const ID = @"HelpTableViewCell";
 
 -(void)loadhelpData{
    Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:self.model.poster[@"_id"]];
-    if (!self.helpFrames) {
+//    if (!self.helpFrames) {
         self.helpFrames = [NSMutableArray array];
-    }
+//    }
 //    for (int i = 0; i < 10; i++) {
         HelpInfoModel *helpInfoModel = [[HelpInfoModel alloc]init];
         helpInfoModel.name = p.name;
@@ -143,10 +143,10 @@ static NSString * const ID = @"HelpTableViewCell";
         NSLog(@"请求评论列表成功 %@",json);
         [self loadDataWithJson:json];
         self.keyBoard.inputView.text = nil;
-//        [GiFHUD dismiss];
+        [self.activityIndicatorView removeFromSuperview];
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-//        [GiFHUD dismiss];
+        [self.activityIndicatorView removeFromSuperview];
     }];
     [self.tableView.header endRefreshing];
 }
@@ -259,7 +259,7 @@ static NSString * const ID = @"HelpTableViewCell";
     // 进行评论
     if (self.keyBoard.inputView.text.length != 0) {
         [self marchingComments];
-//        [GiFHUD show];
+        [self loadingImageView];
     }else {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"内容不能为空"delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
@@ -336,10 +336,10 @@ static NSString * const ID = @"HelpTableViewCell";
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit",@"createTime"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self detalNewDataWithJson:json];
-//        [GiFHUD dismiss];
+ 
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-//        [GiFHUD dismiss];
+
     }];
     [self.tableView.footer endRefreshing];
     
@@ -353,6 +353,9 @@ static NSString * const ID = @"HelpTableViewCell";
     
     [self.tableView reloadData];
 }
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.activityIndicatorView removeFromSuperview];
+}
 
 - (void)netRequest
 {
@@ -365,15 +368,13 @@ static NSString * const ID = @"HelpTableViewCell";
 
         self.model = [[Interaction alloc]init];
         [self.model setValuesForKeysWithDictionary:json];
-
+        [self loadhelpData];
+        [self.tableView reloadData];
+        
     } failure:^(id errorJson) {
         NSLog(@"获取求朱详情失败 %@",errorJson);
     }];
 }
 
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-//    [GiFHUD dismiss];
-}
 @end
