@@ -67,7 +67,7 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:2]];
-    [model setLimit:[NSNumber numberWithInt:pageLimit]];
+    [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     Interaction* last =[self.voteData lastObject];
     [model setCreateTime:last.createTime];
     
@@ -87,7 +87,7 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:2]];
-    [model setLimit:[NSNumber numberWithLong:pageLimit]];
+    [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     [self.tableView.header beginRefreshing];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         if ([json count]!=0) {
@@ -108,7 +108,7 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:2]];
-    [model setLimit:[NSNumber numberWithLong:pageLimit]];
+    [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
 //        NSLog(@"success:-->%@",json);

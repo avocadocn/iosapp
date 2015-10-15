@@ -16,10 +16,12 @@
 #import "getTemplateModel.h"
 #import "Interaction.h"
 #import <MJRefresh.h>
+#import <DGActivityIndicatorView.h>
 
 @interface TemplateActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSMutableArray *modelArray;
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 @end
 
 @implementation TemplateActivityShowTableController
@@ -53,6 +55,19 @@ static NSString * const ID = @"OtherActivityShowCell";
     self.modelArray = [NSMutableArray new];
     [self requestNet];
 }
+//加载Loading动画
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
+}
+
 //下拉刷新时获取并加载更多数据
 - (void)loadMoreData
 {
@@ -61,7 +76,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:1]];
-    [model setLimit:[NSNumber numberWithInt:pageLimit]];
+    [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     Interaction* last =[self.modelArray lastObject];
     [model setCreateTime:last.createTime];
     
@@ -80,7 +95,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:1]];
-    [model setLimit:[NSNumber numberWithLong:pageLimit]];
+    [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     [self.tableView.header beginRefreshing];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         if ([json count]!=0) {
@@ -100,7 +115,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:1]];
-    [model setLimit:[NSNumber numberWithLong:pageLimit]];
+    [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
 //        NSLog(@"success:-->%@",json);

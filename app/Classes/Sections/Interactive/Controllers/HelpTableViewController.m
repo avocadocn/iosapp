@@ -81,7 +81,6 @@ static NSString * const ID = @"HelpTableViewCell";
     [activityIndicatorView.layer setCornerRadius:10.0];
     [self.activityIndicatorView startAnimating];
     [self.view addSubview:activityIndicatorView];
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
