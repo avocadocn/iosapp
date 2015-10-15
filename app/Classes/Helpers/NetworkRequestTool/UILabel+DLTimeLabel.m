@@ -14,14 +14,14 @@
 - (void)getCompanyNameFromCid:(NSString *)string
 {
     
-    self.font = [UIFont systemFontOfSize:TEXTFONT];
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:string forKey:@"companyId"];
-    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
-        [self dismembermentJson:json];
-
-    } failure:^(id errorJson) {
-        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
-    }];
+//    self.font = [UIFont systemFontOfSize:TEXTFONT];
+//    NSDictionary *dic = [NSDictionary dictionaryWithObject:string forKey:@"companyId"];
+//    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
+//        [self dismembermentJson:json];
+//
+//    } failure:^(id errorJson) {
+//        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
+//    }];
 }
 
 - (void)dismembermentJson:(id)json

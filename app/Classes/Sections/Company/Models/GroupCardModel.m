@@ -44,9 +44,9 @@
     
 }
 
-- (void)save
+- (void)save:(NSString *)group
 {
-    NSString *filePathStr = [NSString stringWithFormat:@"%@/groupFile", DLLibraryPath];  //文件夹 位置 groupfile
+    NSString *filePathStr = [NSString stringWithFormat:@"%@/%@-groupFile", DLLibraryPath, group];  //文件夹 位置 groupfile
     NSFileManager *manger = [NSFileManager defaultManager];
     BOOL judge = [manger fileExistsAtPath:filePathStr];
     
@@ -76,11 +76,11 @@
 
 
 
-- (instancetype)initWithString:(NSString *)IDStr
+- (instancetype)initWithString:(NSString *)IDStr andType:(NSString *)type
 {
     self = [super init];
     if (self) {
-        NSString *str = [NSString stringWithFormat:@"%@/groupFile/%@", DLLibraryPath, IDStr];
+        NSString *str = [NSString stringWithFormat:@"%@/%@-groupFile/%@", DLLibraryPath, type, IDStr];
         
         NSData *data = [NSData dataWithContentsOfFile:str];
         self = [NSKeyedUnarchiver unarchiveObjectWithData:data];

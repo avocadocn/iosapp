@@ -5,6 +5,7 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //
+#import "GroupViewController.h"
 #import "TeamInteractionViewController.h"
 #import "ProfileViewController.h"
 #import "Test1ViewController.h"
@@ -164,11 +165,13 @@ static NSString * const ID = @"ProfileTableViewCell";
             [(FolderViewController *)controller setJudgeEditState:YES];
             break;
         case 1: // 群组
-             controller = [[TeamHomePageController alloc]init];
+        {
+            GroupViewController *group = [[GroupViewController alloc]init];
+            [group setGroupType:GroupTypeSingle];
+            [self.navigationController pushViewController:group animated:YES];
+        }
             break;
         case 2: // 消息
-            //controller = [[FolderViewController alloc]init];
-//            controller = [[UserMessageTableViewController alloc]init];
             controller = [[MessageViewController alloc] init];
             break;
         case 3: // 活动

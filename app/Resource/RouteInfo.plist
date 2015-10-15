@@ -490,6 +490,14 @@
     </dict>
     <dict>
         <key>routeName</key>
+        <string>getInterDetails</string>
+        <key>routeURL</key>
+        <string>/interaction/:interactionType/:interactionId</string>
+        <key>routeMethod</key>
+        <string>GET</string>
+    </dict>
+    <dict>
+        <key>routeName</key>
         <string>exitInteraction</string>
         <key>routeURL</key>
         <string>/interaction/activity/:interactionId/users/:userId</string>

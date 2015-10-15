@@ -13,7 +13,9 @@
 #import "RestfulAPIRequestTool.h"
 #import "getIntroModel.h"
 #import "InformationModel.h"
-
+#import "VoteTableController.h"
+#import "DetailActivityShowController.h"
+#import "HelpTableViewController.h"
 @interface InteractionView ()
 @property  (nonatomic, strong)NSMutableArray *modelArray;
 
@@ -95,6 +97,42 @@
         case 1:
         {
             NSLog(@"活动有人参加了、投票有人参与了、求助有人回答了");
+            NSInteger interactionType = [model.interactionType integerValue];
+            switch (interactionType) {
+                case 1:{  // 活动详情
+                    DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
+                    activityController.interactionType = model.interactionType;
+                    activityController.interaction = model.interaction;
+                    activityController.orTrue = YES;
+                    
+//                    activityController.model = inter;
+                    [self.navigationController pushViewController:activityController animated:YES];
+                }
+                    break;
+                case 2:{  // 投票详情
+                    VoteTableController *voteController = [[VoteTableController alloc]init];  /// 投票
+                    voteController.voteArray = [NSMutableArray array];
+                    voteController.interactionType = model.interactionType;
+                    voteController.interaction = model.interaction;
+//                    [voteController.voteArray addObject:inter];
+                    [self.navigationController pushViewController:voteController animated:YES];
+                    
+                }
+                    break;
+                case 3:  // 求助详情
+                {
+                    HelpTableViewController *helpController = [[HelpTableViewController alloc]init];  // 求助
+                    helpController.interactionType = model.interactionType;
+                    helpController.interaction = model.interaction;
+                    
+//                    helpController.model = inter;
+                    [self.navigationController pushViewController:helpController animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
+            
         }
             break;
             case 4:
