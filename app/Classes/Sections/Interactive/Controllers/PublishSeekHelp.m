@@ -17,9 +17,10 @@
 #import "RestfulAPIRequestTool.h"
 #include "Interaction.h"
 #import "XHMessageTextView.h"
+#import <DGActivityIndicatorView.h>
 //#import "UITextView+PlaceHolder.h"
 @interface PublishSeekHelp ()<DNImagePickerControllerDelegate,UIAlertViewDelegate>
-
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 @end
 
 @implementation PublishSeekHelp
@@ -35,6 +36,20 @@
         [self addTemplate:self.model];
     }
 }
+
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
+    
+}
+
 
 - (void)setSeekContent
 {
@@ -65,7 +80,7 @@
     
     self.selectPhoto = [UIImageView new];
     self.selectPhoto.userInteractionEnabled = YES;
-    //    self.selectPhoto.contentMode = UIViewContentModeCenter;
+    //    self.selectPhoto.contentMod = UIViewContentModeCenter;
     self.selectPhoto.image = [UIImage imageNamed:@"image"];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectPhotoAction:)];
     [self.selectPhoto addGestureRecognizer:tap];
@@ -145,6 +160,16 @@
 
 - (void)publishAction:(UIButton *)sender
 {
+    
+    if (self.seekHelpContent.text.length != 0) {
+        [self loadingImageView];
+        [self marchingPublish];
+    } else {
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"求助内容不能为空" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
+        [alertV show];
+    }
+}
+- (void)marchingPublish {
     NSData *data = UIImagePNGRepresentation(self.selectPhoto.image);
     NSDictionary *Dic = [NSDictionary dictionaryWithObjects:@[data, @"photo"] forKeys:@[@"data", @"name"]];
     
@@ -160,17 +185,16 @@
     
     [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"endTime", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
         NSLog(@"发布求助成功 %@", json);
+        [self.activityIndicatorView removeFromSuperview];
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布成功"message:@"少年郎,你的求助已经发布成功了,好好准备吧..." delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
         [alertV show];
     } failure:^(id errorJson) {
         NSLog(@"发布求助失败 %@", errorJson);
-        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"再试一次", nil];
+        [self.activityIndicatorView removeFromSuperview];
         [alertV show];
-
+        
     }];
-    
-    
-    
 }
 #pragma UIAlertView delegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -190,6 +214,10 @@
 - (void)addTemplate:(Interaction *)templateData
 {
     self.seekHelpContent.text = templateData.theme;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.activityIndicatorView removeFromSuperview];
 }
 
 @end

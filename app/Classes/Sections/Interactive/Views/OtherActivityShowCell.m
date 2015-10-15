@@ -37,8 +37,6 @@
         self = nibs.firstObject;
         
         [self.separator setBackgroundColor:RGB(230, 230, 230)];
-        // self.width = DLScreenWidth;
-        // NSLog(@"%@",self.nameLabel);
         // 设置圆角矩形
 //        [self.backImageView.layer setCornerRadius:4.0f];
 //        [self.backImageView.layer setMasksToBounds:YES];
@@ -57,27 +55,15 @@
     self.nameLabel.text=@"";
     self.addressLabel.text=@"";
     self.timeLabel.text=@"";
-    self.backImageView.image=[UIImage imageNamed:@"OtherActivity_backImage"];
     
     if (model.photos.count!=0) {
         @try {
-//            float width = [[[model.photos objectAtIndex:0] objectForKey:@"width"] floatValue];
-//            float height = [[[model.photos objectAtIndex:0] objectForKey:@"height"] floatValue];
-//            if (width<DLScreenWidth) {
-//                height*= DLScreenWidth/width;
-//                width=DLScreenWidth;
-//            }
-//            if (width>DLScreenWidth){
-//                height/= width/DLScreenWidth;
-//                width=DLScreenWidth;
-//            }
             self.backImageView.x=0;
             self.backImageView.y=10;
             self.backImageView.width=DLScreenWidth;
             self.backImageView.height=DLScreenWidth*4/5;
             NSLog(@"backImageView frame-->%@",NSStringFromCGRect(self.backImageView.frame));
-//            [self.backImageView dlGetRouteWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:[UIImage imageNamed:@"OtherActivity_backImage"]];
-            [self.backImageView dlGetRouteThumbnallWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:[UIImage imageNamed:@"OtherActivity_backImage"] withSize:CGSizeMake(DLScreenWidth, DLScreenWidth*4/5)];
+            [self.backImageView dlGetRouteThumbnallWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:nil withSize:CGSizeMake(DLScreenWidth, DLScreenWidth*4/5)];
         }
         @catch (NSException *exception) {
             NSLog(@"when trying load img error happen:\n%@",exception);

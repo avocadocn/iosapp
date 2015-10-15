@@ -19,7 +19,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "CommentsModel.h"
 #import "CustomKeyBoard.h"
-#import "GiFHUD.h"
+#import <DGActivityIndicatorView.h>
 #import <MJRefresh.h>
 @interface HelpTableViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
@@ -33,7 +33,7 @@
 
 @property (nonatomic, strong)UITableView *tableView;
 
-
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -76,9 +76,20 @@ static NSString * const ID = @"HelpTableViewCell";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commenting:) name:@"POSTTEXT"object:nil]; // 注册观察者 监测发送评论
    
+    [self loadingImageView];
+}
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
     
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

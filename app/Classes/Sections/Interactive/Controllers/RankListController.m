@@ -74,8 +74,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
         i++;
     }
     NSLog(@"开始刷新");
+    [self.carousel scrollToItemAtIndex:0 animated:YES];
     [self.carousel reloadData];
-    
 }
 
 // 设置ui
@@ -108,10 +108,9 @@ static NSString * const ID =  @"RankItemTableViewcell";
     carousel.dataSource = self;
     carousel.vertical = YES;
     carousel.type = iCarouselTypeRotary;
-//    carousel.clipsToBounds = YES;
-//    carousel.currentItemIndex=1;
+    //默认先将当前索引置为-1
+    carousel.currentItemIndex=-1;
     [self.view addSubview:carousel];
-    
     self.carousel = carousel;
     
     NSArray *nibs = [[NSBundle mainBundle]loadNibNamed:@"RankBottomShowView"owner:self options:nil];
@@ -131,7 +130,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.listType inSection:0];
     
-    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
     RankItemTableViewcell *cell = (RankItemTableViewcell *)[self.tableView cellForRowAtIndexPath:indexPath];
     [self makeCellSelected:cell];
     self.lastIndexPath = indexPath;
@@ -224,93 +223,93 @@ static NSString * const ID =  @"RankItemTableViewcell";
 
 
 
-//- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
-//{
-//    //customize carousel display
-//    switch (option)
-//    {
-//        case iCarouselOptionWrap:
-//        {
-//            //normally you would hard-code this to YES or NO
-//            return NO;
-//        }
-//        case iCarouselOptionSpacing:
-//        {
-//            //add a bit of spacing between the item views
-//            return value * 1.05f;
-//        }
-//        case iCarouselOptionFadeMax:
-//        {
-//            if (self.carousel.type == iCarouselTypeCustom)
-//            {
-//                //set opacity based on distance from camera
-//                return 0.0f;
-//            }
-//            return value;
-//        }
-//        case iCarouselOptionShowBackfaces:
-//        case iCarouselOptionRadius:
-//        case iCarouselOptionAngle:
-//        case iCarouselOptionArc:
-//        case iCarouselOptionTilt:
-//        case iCarouselOptionCount:
-//        case iCarouselOptionFadeMin:
-//        case iCarouselOptionFadeMinAlpha:
-//        case iCarouselOptionFadeRange:
-//        case iCarouselOptionOffsetMultiplier:
-//        case iCarouselOptionVisibleItems:
-//        {
-//            return value;
-//        }
-//    }
-//}
-- (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
 {
+    //customize carousel display
     switch (option)
     {
-        //当为NO时，可以添加占位视图
         case iCarouselOptionWrap:
         {
+            //normally you would hard-code this to YES or NO
             return NO;
         }
-        case iCarouselOptionArc:
+        case iCarouselOptionSpacing:
         {
-            return  value;
+            //add a bit of spacing between the item views
+            return value * 1.05f;
         }
-        //可以设置两个items的距离（我的理解）
-        case iCarouselOptionRadius:
+        case iCarouselOptionFadeMax:
         {
-//            return 250;
-            return DLScreenHeight * 0.3;
-        }
-      
-        case iCarouselOptionVisibleItems:{
+            if (self.carousel.type == iCarouselTypeCustom)
+            {
+                //set opacity based on distance from camera
+                return 0.0f;
+            }
             return value;
         }
-            
-        case iCarouselOptionSpacing:{
-            return value*1.05f;
-        }
-            
+        case iCarouselOptionShowBackfaces:
+        case iCarouselOptionRadius:
+        case iCarouselOptionAngle:
+        case iCarouselOptionArc:
+        case iCarouselOptionTilt:
+        case iCarouselOptionCount:
         case iCarouselOptionFadeMin:
-        {
-            return .5;
-        }
-        case iCarouselOptionFadeMax:{
-            return .5;
-        }
-            
-        case iCarouselOptionFadeMinAlpha:{
-            return 1;
-            
-        }
-        
-        default:
+        case iCarouselOptionFadeMinAlpha:
+        case iCarouselOptionFadeRange:
+        case iCarouselOptionOffsetMultiplier:
+        case iCarouselOptionVisibleItems:
         {
             return value;
         }
     }
 }
+//- (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+//{
+//    switch (option)
+//    {
+//        //当为NO时，可以添加占位视图
+//        case iCarouselOptionWrap:
+//        {
+//            return NO;
+//        }
+//        case iCarouselOptionArc:
+//        {
+//            return  value;
+//        }
+//        //可以设置两个items的距离（我的理解）
+//        case iCarouselOptionRadius:
+//        {
+////            return 250;
+//            return DLScreenHeight * 0.3;
+//        }
+//      
+//        case iCarouselOptionVisibleItems:{
+//            return value;
+//        }
+//            
+//        case iCarouselOptionSpacing:{
+//            return value*1.05f;
+//        }
+//            
+//        case iCarouselOptionFadeMin:
+//        {
+//            return .5;
+//        }
+//        case iCarouselOptionFadeMax:{
+//            return .5;
+//        }
+//            
+//        case iCarouselOptionFadeMinAlpha:{
+//            return 1;
+//            
+//        }
+//        
+//        default:
+//        {
+//            return value;
+//        }
+//    }
+//}
 //当添加占位视图时，返回占位视图的数量
 - (NSInteger)numberOfPlaceholdersInCarousel:(__unused iCarousel *)carousel
 {
@@ -447,10 +446,13 @@ static NSString * const ID =  @"RankItemTableViewcell";
         case RankListTypePopularity:
             title = @"社团榜";
                 self.bottomShowView.aMaskView.frame = CGRectMake(DLScreenWidth - 150 , 0, 150, 60);
+            //[self.bottomShowView.aMaskView setBackgroundColor:[UIColor redColor]];
             if (!self.populArray) {
                 [self requestNetWithType:@0];
+            }else
+            {
+                [self loadWithArray:self.populArray];
             }
-            [self loadWithArray:self.populArray];
             break;
  
         default:
@@ -480,7 +482,6 @@ static NSString * const ID =  @"RankItemTableViewcell";
         NSLog(@"获取排行榜成功  %@", json);
         
         [self reloadRankDataWithJson:json];
-        [self.carousel reloadData];
         
     } failure:^(id errorJson) {
         NSLog(@"获取排行榜失败  %@", errorJson);

@@ -10,9 +10,19 @@
 
 @interface UIImageView (DLGetWebImage)
 
+/**
+ * 请求原始图
+ */
 - (void)dlGetRouteWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image;
 
+/**
+ * 请求指定大小的图，可指定是否刷新
+ */
+- (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size NeedRefresh:(Boolean)needRefresh;
 
+/**
+ * 请求指定大小的图
+ */
 - (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size;
 
 
