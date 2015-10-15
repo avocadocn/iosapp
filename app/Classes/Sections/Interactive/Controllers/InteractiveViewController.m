@@ -40,7 +40,7 @@
 #import "Person.h"
 #import "FMDBSQLiteManager.h"
 #import <MJRefresh.h>
-#import "GiFHUD.h"
+#import <DGActivityIndicatorView.h>
 enum InteractionType{
     InteractionTypeActivityTemplate,
     InteractionTypeVoteTemplate,
@@ -63,6 +63,7 @@ enum InteractionType{
 
 @property (nonatomic, copy)NSString *path; // 写入文件路径
 @property (nonatomic)BOOL orTrue;
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 
 /**
  *  path菜单
@@ -76,7 +77,7 @@ enum InteractionType{
 static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+ 
     // Do any additional setup after loading the view.
 
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 24)];
@@ -99,17 +100,27 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 //     [self loadData]; // 加载数据
     [self refressMJ]; // 下拉刷新 上拉加载
     
-    [GiFHUD setGifWithImageName:@"myGif.gif"];
-    [GiFHUD show];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"KPOSTNAME" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"CHANGESTATE" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESSDATA" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reFreshData) name:@"POSTEXIT" object:nil];
     
+       [self loadingImageView];  // loading
+}
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
     
 }
 
-
+/*
 - (void)loadData { // 加载数据 判断本地是否已经存在数据
     NSFileManager *manger = [NSFileManager defaultManager];
     NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
@@ -134,6 +145,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     }
     
 }
+ */
 - (void)reFreshData {
     
     Account *acc= [AccountTool account];
@@ -144,15 +156,14 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
-        [GiFHUD dismiss];
+        [self.activityIndicatorView removeFromSuperview];
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
-        [GiFHUD dismiss];
         NSString *str = [errorJson objectForKey:@"msg"];
         if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
             alert.delegate = self;
-            [GiFHUD dismiss];
+            [self.activityIndicatorView removeFromSuperview];
             [alert show];
             
         }
@@ -540,13 +551,13 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
-        [GiFHUD dismiss];
+        [self.activityIndicatorView removeFromSuperview];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [self loadingContacts]; // 加载通讯录信息
         });
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
-        [GiFHUD dismiss];
+        [self.activityIndicatorView removeFromSuperview];
         NSString *str = [errorJson objectForKey:@"msg"];
         if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
@@ -727,5 +738,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
    
     
 }
-
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.activityIndicatorView removeFromSuperview];
+}
 @end

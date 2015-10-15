@@ -20,6 +20,7 @@
 #import "Singletons.h"
 #import "getIntroModel.h"
 #import "PublishedInteractionsMapViewController.h"
+#import <DGActivityIndicatorView.h>
 static NSInteger num = 0;
 
 typedef NS_ENUM(NSInteger, RemindTableState){
@@ -46,6 +47,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 @property (nonatomic, strong)UILabel *addressLabel;
 
 @property (nonatomic, copy) NSString *lau,*log;
+
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;// loading
 
 @end
 
@@ -78,14 +81,26 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     if (self.model) {
          [self addTemplate:self.model];
     }
+    
    
 }
-
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
+    
+}
 - (void)setNevigationLeft
 {
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
     
-    label.text = @"下一步";
+    label.text = @"发布";
     label.textAlignment = NSTextAlignmentRight;
     
     UITapGestureRecognizer *labelTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
@@ -100,6 +115,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
+    [self loadingImageView]; // loading
     Interaction *inter = [[Interaction alloc]init];
     
     [inter setTheme:self.eventNameField.text];
@@ -137,11 +153,12 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         NSLog(@" 生成活动成功%@",json);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布成功"message:@"少年郎,你的活动已经发布成功了,好好准备吧..." delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
         [alertV show];
-
+        [self.activityIndicatorView removeFromSuperview];
     } failure:^(id errorJson) {
         NSLog(@"失败 %@", errorJson);
-        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
+        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"再试一次", nil];
         [alertV show];
+        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 #pragma UIAlertView delegate
@@ -604,6 +621,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 - (void)chooseButtonAction:(UIButton *)sender
 {
     DNImagePickerController *choose = [[DNImagePickerController alloc]init];
+    choose.allowSelectNum = 1; // 选择照片数量
     choose.imagePickerDelegate = self;
 
     [self.navigationController presentViewController:choose animated:YES completion:nil];
@@ -705,6 +723,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.activityIndicatorView removeFromSuperview];
 }
 
 /*

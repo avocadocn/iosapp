@@ -19,7 +19,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "CommentsModel.h"
 #import "CustomKeyBoard.h"
-#import "GiFHUD.h"
+#import <DGActivityIndicatorView.h>
 #import <MJRefresh.h>
 @interface HelpTableViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
@@ -33,7 +33,7 @@
 
 @property (nonatomic, strong)UITableView *tableView;
 
-
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -42,8 +42,6 @@ static NSString * const ID = @"HelpTableViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [GiFHUD setGifWithImageName:@"myGif.gif"];
-    [GiFHUD show];
     self.title = @"求助";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -71,9 +69,20 @@ static NSString * const ID = @"HelpTableViewCell";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commenting:) name:@"POSTTEXT"object:nil]; // 注册观察者 监测发送评论
    
+    [self loadingImageView];
+}
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
     
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -128,10 +137,10 @@ static NSString * const ID = @"HelpTableViewCell";
         NSLog(@"请求评论列表成功 %@",json);
         [self loadDataWithJson:json];
         self.keyBoard.inputView.text = nil;
-        [GiFHUD dismiss];
+        [self.activityIndicatorView removeFromSuperview];
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-        [GiFHUD dismiss];
+        [self.activityIndicatorView removeFromSuperview];
     }];
     [self.tableView.header endRefreshing];
 }
@@ -247,7 +256,7 @@ static NSString * const ID = @"HelpTableViewCell";
     // 进行评论
     if (self.keyBoard.inputView.text.length != 0) {
         [self marchingComments];
-        [GiFHUD show];
+        [self loadingImageView];
     }else {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"内容不能为空"delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
@@ -324,10 +333,10 @@ static NSString * const ID = @"HelpTableViewCell";
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit",@"createTime"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self detalNewDataWithJson:json];
-        [GiFHUD dismiss];
+ 
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-        [GiFHUD dismiss];
+
     }];
     [self.tableView.footer endRefreshing];
     
@@ -341,7 +350,9 @@ static NSString * const ID = @"HelpTableViewCell";
     
     [self.tableView reloadData];
 }
-
+- (void) viewWillDisappear:(BOOL)animated {
+    [self.activityIndicatorView removeFromSuperview];
+}
 
 
 @end
