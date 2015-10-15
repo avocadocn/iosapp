@@ -63,7 +63,7 @@
             self.backImageView.width=DLScreenWidth;
             self.backImageView.height=DLScreenWidth*4/5;
             NSLog(@"backImageView frame-->%@",NSStringFromCGRect(self.backImageView.frame));
-            [self.backImageView dlGetRouteThumbnallWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:[UIImage imageNamed:@"OtherActivity_backImage"] withSize:CGSizeMake(DLScreenWidth, DLScreenWidth*4/5)];
+            [self.backImageView dlGetRouteThumbnallWebImageWithString:[[model.photos objectAtIndex:0] objectForKey:@"uri"] placeholderImage:nil withSize:CGSizeMake(DLScreenWidth, DLScreenWidth*4/5)];
         }
         @catch (NSException *exception) {
             NSLog(@"when trying load img error happen:\n%@",exception);
