@@ -85,16 +85,16 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     [model setCreateTime:last.createTime];
     
     [self.tableView.footer beginRefreshing];
-    [self loadingImageView];
+//    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
 //        NSLog(@"success:-->%@",json);
         [self.tableView.footer endRefreshing];
-        [self.activityIndicatorView removeFromSuperview];
+//        [self.activityIndicatorView removeFromSuperview];
     } failure:^(id errorJson) {
 //        NSLog(@"failed:-->%@",errorJson);
         [self.tableView.footer endRefreshing];
-        [self.activityIndicatorView removeFromSuperview];
+//        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 - (void)refreshData
@@ -105,7 +105,7 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     [model setTemplateType:[NSNumber numberWithInt:2]];
     [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     [self.tableView.header beginRefreshing];
-    [self loadingImageView];
+//    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         if ([json count]!=0) {
              self.voteData = [NSMutableArray new];
@@ -113,11 +113,11 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
              [self analyDataWithJson:json];
         }
         [self.tableView.header endRefreshing];
-        [self.activityIndicatorView removeFromSuperview];
+//        [self.activityIndicatorView removeFromSuperview];
         //        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
         [self.tableView.header endRefreshing];
-        [self.activityIndicatorView removeFromSuperview];
+//        [self.activityIndicatorView removeFromSuperview];
         //        NSLog(@"failed:-->%@",errorJson);
     }];
 }
