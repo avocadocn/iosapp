@@ -28,7 +28,7 @@
 @property (nonatomic, copy) NSString *url;
 
 @property (nonatomic, strong) NSMutableArray *comments;
-@property (nonatomic, strong)CommentViewCell *defaultCell;
+@property (nonatomic, strong) CommentViewCell *defaultCell;
 @property (nonatomic, strong) CustomKeyBoard *keyBoard;
 
 @property (nonatomic, strong)UITableView *tableView;
@@ -42,6 +42,13 @@ static NSString * const ID = @"HelpTableViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [GiFHUD setGifWithImageName:@"myGif.gif"];
+//    [GiFHUD show];
+    
+    if (self.interaction) {
+        [self netRequest];
+    }
+    
     self.title = @"求助";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -93,7 +100,7 @@ static NSString * const ID = @"HelpTableViewCell";
     if (!self.helpFrames) {
         self.helpFrames = [NSMutableArray array];
     }
-    for (int i = 0; i < 10; i++) {
+//    for (int i = 0; i < 10; i++) {
         HelpInfoModel *helpInfoModel = [[HelpInfoModel alloc]init];
         helpInfoModel.name = p.name;
 //        helpInfoModel.avatarURL = p.imageURL;
@@ -108,12 +115,11 @@ static NSString * const ID = @"HelpTableViewCell";
         helpInfoModel.helpAnserText = @"添加答案";
         helpInfoModel.cid = self.model.cid;
         
-
         HelpCellFrame *f = [[HelpCellFrame alloc]init];
         [f setHelpInfoModel:helpInfoModel];
         
         [self.helpFrames addObject:f];
-    }
+//    }
 //    HelpInfoModel *helpInfoModel = [[HelpInfoModel alloc]init];
 //    helpInfoModel.name = [NSString stringWithFormat:@"杨同%zd",i];
 //    helpInfoModel.time = [self getParsedDateStringFromString:self.model.createTime];
@@ -123,7 +129,7 @@ static NSString * const ID = @"HelpTableViewCell";
 //    helpInfoModel.helpImageURL = self.url;
 //    helpInfoModel.helpText = self.model.content;
 //    helpInfoModel.avatarURL = @"1";
-    
+//    
     [self getCommentsLists];
 }
 
@@ -137,10 +143,10 @@ static NSString * const ID = @"HelpTableViewCell";
         NSLog(@"请求评论列表成功 %@",json);
         [self loadDataWithJson:json];
         self.keyBoard.inputView.text = nil;
-        [self.activityIndicatorView removeFromSuperview];
+//        [GiFHUD dismiss];
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-        [self.activityIndicatorView removeFromSuperview];
+//        [GiFHUD dismiss];
     }];
     [self.tableView.header endRefreshing];
 }
@@ -205,9 +211,7 @@ static NSString * const ID = @"HelpTableViewCell";
         CGSize commentLabelSize = [model.content boundingRectWithSize:maxCommentLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
         
         return self.defaultCell.comment.y + commentLabelSize.height + 12;
-
     }
-        
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 1) {
@@ -230,9 +234,8 @@ static NSString * const ID = @"HelpTableViewCell";
     
     self.keyBoard = keyBoard;
     
-    
+
     [self.view addSubview:keyBoard];
-    
     
     
 }
@@ -256,7 +259,7 @@ static NSString * const ID = @"HelpTableViewCell";
     // 进行评论
     if (self.keyBoard.inputView.text.length != 0) {
         [self marchingComments];
-        [self loadingImageView];
+//        [GiFHUD show];
     }else {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"内容不能为空"delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
@@ -333,10 +336,10 @@ static NSString * const ID = @"HelpTableViewCell";
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit",@"createTime"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self detalNewDataWithJson:json];
- 
+//        [GiFHUD dismiss];
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-
+//        [GiFHUD dismiss];
     }];
     [self.tableView.footer endRefreshing];
     
@@ -350,9 +353,27 @@ static NSString * const ID = @"HelpTableViewCell";
     
     [self.tableView reloadData];
 }
-- (void) viewWillDisappear:(BOOL)animated {
-    [self.activityIndicatorView removeFromSuperview];
+
+- (void)netRequest
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:self.interaction forKey:@"interactionId"];
+    [dic setObject:self.interactionType forKey:@"interactionType"];
+    
+    [RestfulAPIRequestTool routeName:@"getInterDetails" requestModel:dic useKeys:@[@"interactionType", @"interactionId"] success:^(id json) {
+        NSLog(@" 获得的求助详情为 %@", json);
+
+        self.model = [[Interaction alloc]init];
+        [self.model setValuesForKeysWithDictionary:json];
+
+    } failure:^(id errorJson) {
+        NSLog(@"获取求朱详情失败 %@",errorJson);
+    }];
 }
 
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+//    [GiFHUD dismiss];
+}
 @end

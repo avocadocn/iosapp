@@ -12,4 +12,7 @@
 
 @property (nonatomic, strong)UITableView *tableView;
 
+
+@property (nonatomic, strong)UINavigationController *navigationController;
+
 @end

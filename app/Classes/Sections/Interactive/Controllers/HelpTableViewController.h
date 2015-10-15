@@ -11,5 +11,6 @@
 @interface HelpTableViewController : UIViewController
 
 @property (nonatomic, strong)Interaction *model;
-
+@property (nonatomic, copy)NSString *interactionType;
+@property (nonatomic, copy)NSString *interaction;
 @end

@@ -8,10 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, GroupType)
+{
+    GroupTypeCompany,
+    GroupTypeSingle
+};
+
 @interface GroupViewController : UIViewController
+
 
 @property (nonatomic, strong)UICollectionView *groupListCollection;
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
+
+@property (nonatomic, assign)GroupType groupType;
 
 @end

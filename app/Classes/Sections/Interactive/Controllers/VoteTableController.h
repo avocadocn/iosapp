@@ -14,7 +14,8 @@
  *  投票的Frames
  */
 @property (nonatomic, strong) NSMutableArray *voteArray;
-
+@property (nonatomic, copy)NSString *interactionType;
+@property (nonatomic, copy)NSString *interaction;
 
 +(UINavigationController *)shareNavigation;
 
