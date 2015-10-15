@@ -391,6 +391,7 @@ static NSString * const helpCellID = @"helpCellID";
         NSString *str = [errorJson objectForKey:@"msg"];
         if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+            alert.tag = 100;
             alert.delegate = self;
             [alert show];
             
@@ -402,13 +403,15 @@ static NSString * const helpCellID = @"helpCellID";
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    GuidePageViewController *login = [[GuidePageViewController alloc]init];
-    Account *acc = [AccountTool account];
-    acc.token = nil;
-    [AccountTool saveAccount:acc];
+    if (alertView.tag == 100) {
+        GuidePageViewController *login = [[GuidePageViewController alloc]init];
+        Account *acc = [AccountTool account];
+        acc.token = nil;
+        [AccountTool saveAccount:acc];
+        [self.navigationController pushViewController:login animated:YES];
+        
+    }
     
-    
-    [self.navigationController pushViewController:login animated:YES];
 }
 
 - (void)analyDataWithJson:(id)json

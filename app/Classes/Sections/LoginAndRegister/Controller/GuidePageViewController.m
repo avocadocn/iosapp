@@ -304,7 +304,7 @@
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeViewAction:) name:@"loginAccount" object:nil];  //  接受返回通知
     
-    NSArray *strArray = @[@"一大波小鲜肉正在靠近, 近水楼台, 先睹为快", @"私人定制, 臭味相投, 我的社团我做主", @"男神, 女神, 原理TA就在你隔壁的教室"];
+    NSArray *strArray = @[@"一大波小鲜肉正在靠近, 近水楼台, 先睹为快", @"私人定制, 臭味相投, 我的社团我做主", @"男神, 女神, 原来TA就在你隔壁的教室"];
     NSArray *titleArray = @[@"新生报到", @"牛叉社团", @"人气排行"];
     
     NSInteger i = 0;

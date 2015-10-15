@@ -35,12 +35,17 @@ typedef NS_ENUM(NSInteger, DLKeyBoardType) {
     [[NSNotificationCenter defaultCenter]postNotificationName:@"POSTTEXT" object:nil userInfo:@{@"name":@"text"}];
     [self.inputView resignFirstResponder];
     self.inputView.text = nil;
+    
     return YES;
 }
 
 - (IBAction)emojiClick:(id)sender {
 //    NSLog(@"点击表情。。。");
 //    self.inputView.keyboardType = UIKeyboardAnimationCurveUserInfoKey;
+    if (![self.inputView isFirstResponder]) {
+        [self.inputView becomeFirstResponder];
+        
+    }
     switch (self.keyBoard) {
         case DLKeyBoardTypeNormal:
         {

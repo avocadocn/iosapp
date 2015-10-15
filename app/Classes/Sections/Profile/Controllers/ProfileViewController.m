@@ -5,7 +5,7 @@
 //  Created by jason on 15/7/10.
 //  Copyright (c) 2015年 jason. All rights reserved.
 //
-
+#import "TeamInteractionViewController.h"
 #import "ProfileViewController.h"
 #import "Test1ViewController.h"
 #import "MenuCollectionController.h"
@@ -172,14 +172,32 @@ static NSString * const ID = @"ProfileTableViewCell";
             controller = [[MessageViewController alloc] init];
             break;
         case 3: // 活动
+        {
             //使用指定的frame大小初始化viewcontroller,高度增加64是因为后续会减掉64
-            controller = [[ActivityShowTableController alloc]init];
+            TeamInteractionViewController * team = [[TeamInteractionViewController alloc]init];
+            [(TeamInteractionViewController*)controller setType:TeamInteractionActivity];
+            team.team = [NSString stringWithFormat:@"0"];
+            team.requestType = [NSNumber numberWithInteger:2];
+            [self.navigationController pushViewController:team animated:YES];
+        }
             break;
         case 4: // 投票
-            controller = [[VoteTableController alloc]init];
+        {
+            TeamInteractionViewController * team = [[TeamInteractionViewController alloc]init];
+            [(TeamInteractionViewController*)controller setType:TeamInteractionVote];
+            team.team = [NSString stringWithFormat:@"0"];
+            team.requestType = [NSNumber numberWithInteger:2];
+            [self.navigationController pushViewController:team animated:YES];
+    }
             break;
         case 5: // 求助
-            controller = [[HelpTableViewController alloc]init];
+        {
+            TeamInteractionViewController * team = [[TeamInteractionViewController alloc]init];
+            [(TeamInteractionViewController*)controller setType:TeamInteractionHelp];
+            team.team = [NSString stringWithFormat:@"0"];
+            team.requestType = [NSNumber numberWithInteger:2];
+            [self.navigationController pushViewController:team animated:YES];
+        }
             break;
         default:
             break;

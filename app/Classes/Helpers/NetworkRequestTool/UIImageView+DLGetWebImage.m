@@ -22,7 +22,6 @@
 
 - (void)dlGetRouteWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image
 {
-
     self.backgroundColor = ArcColor;
     NSString * newUrlStr = [self getUrlStringWithString:str];
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
