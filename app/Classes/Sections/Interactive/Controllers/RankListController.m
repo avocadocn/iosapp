@@ -5,9 +5,7 @@
 //  Created by 张加胜 on 15/7/22.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-#import "CriticWordView.h"
 #import <Masonry.h>
-#import "HMShopCell.h"
 #import "RestfulAPIRequestTool.h"
 #import "AccountTool.h"
 #import "Account.h"
@@ -17,6 +15,10 @@
 #import "RankItemView.h"
 #import "RankBottomShowView.h"
 #import "RankDetileModel.h"
+#import "RankListItemView.h"
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
+#import "UIImageView+DLGetWebImage.h"
 
 static int selectNum = 1;
 
@@ -102,8 +104,6 @@ static NSString * const ID =  @"RankItemTableViewcell";
     
     // 折叠
     iCarousel *carousel = [[iCarousel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(tableView.frame), tableView.y, DLScreenWidth - CGRectGetWidth(tableView.frame), tableView.height)];
-//    [carousel setBackgroundColor:[UIColor redColor]];
-
     carousel.delegate = self;
     carousel.dataSource = self;
     carousel.vertical = YES;
@@ -150,8 +150,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
     if (view == nil) {
-        
-        HMShopCell *cell = [[HMShopCell alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(217.0) , DLMultipleWidth(245.0))];
+        RankListItemView *cell = [[RankListItemView alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(217.0) , DLMultipleWidth((DLScreenHeight/2.0))>DLMultipleWidth(217.0)?DLMultipleWidth(217.0):DLMultipleWidth((DLScreenHeight/2.0)))];
         cell.backgroundColor = [UIColor whiteColor];
         cell.layer.borderColor = [UIColor whiteColor].CGColor;
         RankDetileModel *model = [self.modelArray objectAtIndex:index];
@@ -169,7 +168,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
     return view;
 }
 // 送礼  点赞
-- (void)voteActionWithId:(NSString *)userId//:(UITapGestureRecognizer *)tap
+- (void)voteActionWithId:(NSString *)userId
 {
     Account *acc = [AccountTool account];
     
@@ -194,9 +193,13 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (void)reloadRankViewWithModel:(RankDetileModel *)model
 {
     NSLog(@"现在的 %@, %@", model.ID, model.index);
-    self.bottomShowView.nameLabel.text = model.ID;
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+    Person* p = [fmdb selectPersonWithUserId:model.ID];
+    if (p) {
+        self.bottomShowView.nameLabel.text = p.name;
+        [self.bottomShowView.avatar dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(100.0, 100.0)] ;
+    }
     self.bottomShowView.rankLabel.text = [NSString stringWithFormat:@"目前排名: %@", model.index];
-    self.bottomShowView.avatar.image = [UIImage imageNamed:@"2"];
 }
 
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index{
@@ -206,8 +209,9 @@ static NSString * const ID =  @"RankItemTableViewcell";
 //    HMShopCell *cell = (HMShopCell *)[carousel.subviews objectAtIndex:carousel.currentItemIndex];
 //    cell.personLike.text = [NSString stringWithFormat:@"%ld", [cell.personLike.text integerValue] + 1];
 //    NSLog(@"子视图有  %@", cell);
-    
-    [self voteActionWithId:model.ID];
+    if(index==carousel.currentItemIndex){
+        [self voteActionWithId:model.ID];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -342,6 +346,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (void)carouselCurrentItemIndexDidChange:(__unused iCarousel *)carousel
 {
     NSLog(@"Index: %@", @(self.carousel.currentItemIndex));
+    RankDetileModel *model = [self.modelArray objectAtIndex:carousel.currentItemIndex];
+    [self reloadRankViewWithModel:model];
 }
 #pragma mark - tableView 代理和数据源方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

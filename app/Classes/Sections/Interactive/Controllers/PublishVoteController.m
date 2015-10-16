@@ -187,6 +187,7 @@ static NSInteger num = 0;
 - (void)publishActions:(UIButton *)sender
 {
     [self loadingImageView];
+    [self.view endEditing:YES];
     NSMutableArray *titleArray = [NSMutableArray array];
     for (NSInteger i = 1; i <= num; i ++) {
         optionsView *View = (optionsView *)[self.bigView viewWithTag:i];
@@ -311,4 +312,9 @@ static NSInteger num = 0;
     }
     num = count;
 }
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+}
+
+
 @end

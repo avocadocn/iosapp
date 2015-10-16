@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong)UIView *remindView;
 
-@property (nonatomic, strong)UIButton *chooseButton;
+@property (nonatomic, strong)UIImageView *chooseButton;
 
 @property (nonatomic, strong)NSIndexPath *indexPathController;
 

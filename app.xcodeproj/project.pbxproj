@@ -791,6 +791,8 @@
 		E297E63C1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63B1BA7C47200C1AC92 /* TemplateVoteTableViewCell.m */; };
 		E297E6401BA812A300C1AC92 /* TemplateHelpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */; };
 		E2AEC41E1BCC9DB900A1C3AD /* TeamInteractionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AEC41D1BCC9DB900A1C3AD /* TeamInteractionViewController.m */; };
+		E2B370C61BD0B95100F557A5 /* RankListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B370C51BD0B95100F557A5 /* RankListItemView.m */; settings = {ASSET_TAGS = (); }; };
+		E2B370C91BD0BAE000F557A5 /* FreshManItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B370C81BD0BAE000F557A5 /* FreshManItemView.m */; settings = {ASSET_TAGS = (); }; };
 		E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C3923B1BB551010072111D /* EMConversation+GroupName.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 		E2F49FD71BCBB6C0002709E7 /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; };
@@ -2059,6 +2061,10 @@
 		E297E63F1BA812A300C1AC92 /* TemplateHelpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateHelpTableViewController.m; sourceTree = "<group>"; };
 		E2AEC41C1BCC9DB900A1C3AD /* TeamInteractionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamInteractionViewController.h; sourceTree = "<group>"; };
 		E2AEC41D1BCC9DB900A1C3AD /* TeamInteractionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamInteractionViewController.m; sourceTree = "<group>"; };
+		E2B370C41BD0B95100F557A5 /* RankListItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankListItemView.h; sourceTree = "<group>"; };
+		E2B370C51BD0B95100F557A5 /* RankListItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankListItemView.m; sourceTree = "<group>"; };
+		E2B370C71BD0BAE000F557A5 /* FreshManItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreshManItemView.h; sourceTree = "<group>"; };
+		E2B370C81BD0BAE000F557A5 /* FreshManItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshManItemView.m; sourceTree = "<group>"; };
 		E2C3923A1BB551010072111D /* EMConversation+GroupName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMConversation+GroupName.h"; sourceTree = "<group>"; };
 		E2C3923B1BB551010072111D /* EMConversation+GroupName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMConversation+GroupName.m"; sourceTree = "<group>"; };
 		E2C954C41BCB5DED0073E5FA /* GroupCardViewTransmitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardViewTransmitCell.h; sourceTree = "<group>"; };
@@ -4684,6 +4690,10 @@
 				A4F594F41B7C7C740088D9CC /* HMShopCell.m */,
 				A4F594F51B7C7C740088D9CC /* HMWaterflowLayout.h */,
 				A4F594F61B7C7C740088D9CC /* HMWaterflowLayout.m */,
+				E2B370C41BD0B95100F557A5 /* RankListItemView.h */,
+				E2B370C51BD0B95100F557A5 /* RankListItemView.m */,
+				E2B370C71BD0BAE000F557A5 /* FreshManItemView.h */,
+				E2B370C81BD0BAE000F557A5 /* FreshManItemView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5427,6 +5437,7 @@
 				96CF93911B674B54001759E2 /* EMChatVideoBubbleView.m in Sources */,
 				96CF93AB1B674B54001759E2 /* RealtimeSearchUtil.m in Sources */,
 				96CF93A41B674B54001759E2 /* MyChatroomListViewController.m in Sources */,
+				E2B370C91BD0BAE000F557A5 /* FreshManItemView.m in Sources */,
 				54E6A9341BBA3E5C003765AF /* GIFHUDPlus.m in Sources */,
 				9649B53A1B564DE000A7F355 /* CircleImageView.m in Sources */,
 				967439BF1B705908004334A4 /* UIImageView+DLGetWebImage.m in Sources */,
@@ -5443,6 +5454,7 @@
 				96CF90CE1B673422001759E2 /* EMSDWebImageManager.m in Sources */,
 				A4745E0D1B81A9AC008EB944 /* DNBrowserCell.m in Sources */,
 				546CA59B1B9EDA930066CC0C /* InteractionView.m in Sources */,
+				E2B370C61BD0B95100F557A5 /* RankListItemView.m in Sources */,
 				96CF938A1B674B54001759E2 /* DXChatBarMoreView.m in Sources */,
 				A44B35631B830E19004F7A6A /* VerifiCodeController.m in Sources */,
 				96CF94781B674B54001759E2 /* RobotListViewController.m in Sources */,

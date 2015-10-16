@@ -58,7 +58,7 @@
     UIView *bigView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, DLScreenHeight)];
     [self.view addSubview:bigView];
 
-    self.seekHelpContent = [[XHMessageTextView alloc]initWithFrame:CGRectMake(0, -64, DLScreenWidth, DLMultipleHeight(300))];
+    self.seekHelpContent = [[XHMessageTextView alloc]initWithFrame:CGRectMake(0, -64, DLScreenWidth, DLMultipleHeight(280))];
     self.seekHelpContent.placeHolder = @"请输入求助的内容";
     self.seekHelpContent.textContainerInset = UIEdgeInsetsMake(5, 5, 5, 10);
 //    [self.seekHelpContent placeHolderWithString:@"请输入求助内容"];
@@ -160,7 +160,7 @@
 
 - (void)publishAction:(UIButton *)sender
 {
-    
+    [self.view endEditing:YES];
     if (self.seekHelpContent.text.length != 0) {
         [self loadingImageView];
         [self marchingPublish];
@@ -218,6 +218,9 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [self.activityIndicatorView removeFromSuperview];
+}
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 @end

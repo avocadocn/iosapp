@@ -20,9 +20,8 @@
 #import "RestfulAPIRequestTool.h"
 #import "FreshModel.h"
 #import <AFNetworking.h>
+#import "FreshManItemView.h"
 
-
-//#import <UIScrollView+MJRefresh.h>
 @interface  PersonReportController () <UICollectionViewDataSource, UICollectionViewDelegate, HMWaterflowLayoutDelegate>
 
 @property (nonatomic, strong)NSMutableArray *modelArray;
@@ -30,24 +29,14 @@
 
 @implementation PersonReportController
 
-- (NSMutableArray *)shops
-{
-    if (_shops == nil) {
-        self.shops = [NSMutableArray array];
-    }
-    return _shops;
-}
 
-static NSString *const ID = @"shop";
+static NSString *const ID = @"freshman";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"新人报到";
     [self getRequestNet];
-    // 1.初始化数据
-    NSArray *shopArray = [HMShop objectArrayWithFilename:@"1.plist"];
-    [self.shops addObjectsFromArray:shopArray];
     
     HMWaterflowLayout *layout = [[HMWaterflowLayout alloc] init];
     layout.delegate = self;
@@ -57,8 +46,7 @@ static NSString *const ID = @"shop";
     collectionView.backgroundColor = [UIColor whiteColor];
     collectionView.dataSource = self;
     collectionView.delegate = self;
-    //    [collectionView registerNib:[UINib nibWithNibName:@"HMShopCell" bundle:nil] forCellWithReuseIdentifier:ID];
-    [collectionView registerClass:[HMShopCell class] forCellWithReuseIdentifier:ID];
+    [collectionView registerClass:[FreshManItemView class] forCellWithReuseIdentifier:ID];
     [self.view addSubview:collectionView];
     self.collectionView = collectionView;
     [self.collectionView setBackgroundColor:[UIColor colorWithWhite:.9 alpha:1]];
@@ -105,23 +93,15 @@ static NSString *const ID = @"shop";
 }
 - (void)loadMoreShops
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSArray *shopArray = [HMShop objectArrayWithFilename:@"1.plist"];
-        [self.shops addObjectsFromArray:shopArray];
-        [self.collectionView reloadData];
-        
-    });
+
 }
 
 #pragma mark - <HMWaterflowLayoutDelegate>
 - (CGFloat)waterflowLayout:(HMWaterflowLayout *)waterflowLayout heightForWidth:(CGFloat)width atIndexPath:(NSIndexPath *)indexPath
 {
     AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
-    
-    
-    HMShop *shop = self.shops[indexPath.item];
-    return 172.0 / shop.w * width;  //  对应图片的 高 宽  缩放
-//    return DLMultipleHeight(172.0 + 40.0);
+
+    return width;
 }
 
 #pragma mark - <UICollectionViewDataSource>
@@ -132,16 +112,9 @@ static NSString *const ID = @"shop";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HMShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-//    HMShop *shop = self.shops[indexPath.item];
+    FreshManItemView* cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     cell.indexpath = indexPath;
     AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
-    
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    [dic setObject:@"华珊" forKey:@"name"];
-//    [dic setObject:@"计算机科学专业" forKey:@"major"];
-//    [dic setObject:@"155" forKey:@"like"];
-//    [dic setObject:shop.img forKey:@"img"];
     [cell reloadCellWithModel:model];
     return cell;
 }
