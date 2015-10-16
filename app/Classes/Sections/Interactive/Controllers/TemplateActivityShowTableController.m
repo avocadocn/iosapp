@@ -59,7 +59,8 @@ static NSString * const ID = @"OtherActivityShowCell";
 - (void)loadingImageView {
     
     DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
-    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    //修正错误的坐标
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2.0 - 40, DLScreenHeight / 2.0 - 40 -64, 80.0f, 80.0f);
     activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
     self.activityIndicatorView = activityIndicatorView;
     [activityIndicatorView.layer setMasksToBounds:YES];
