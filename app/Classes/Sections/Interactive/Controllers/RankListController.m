@@ -19,6 +19,7 @@
 #import "Person.h"
 #import "FMDBSQLiteManager.h"
 #import "UIImageView+DLGetWebImage.h"
+#import <DGActivityIndicatorView.h>
 
 static int selectNum = 1;
 
@@ -35,6 +36,8 @@ static int selectNum = 1;
 @property (nonatomic, strong)NSMutableArray *manArray;
 @property (nonatomic, strong)NSMutableArray *womanArray;
 @property (nonatomic, strong)NSMutableArray *populArray;
+
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -181,6 +184,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
     [RestfulAPIRequestTool routeName:@"sendGifts" requestModel:dic useKeys:@[@"giftIndex"] success:^(id json) {
         NSLog(@"送礼成功  %@", json);
         [self requestNetWithType:[NSNumber numberWithInt:selectNum]];
+        //尝试获取状态更新
+        [self getGiftTime];
     } failure:^(id errorJson) {
         NSLog(@"送礼失败   %@", errorJson);
         UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"投票失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle: @"取消" otherButtonTitles:nil, nil];
@@ -473,24 +478,42 @@ static NSString * const ID =  @"RankItemTableViewcell";
     self.modelArray = [NSMutableArray arrayWithArray:array];
     [self.carousel reloadData];
 }
+
+//加载Loading动画
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    //修正错误的坐标
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2.0 - 40, DLScreenHeight / 2.0 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
+}
+
 - (void)requestNetWithType:(NSNumber *)num
 {
-    
-    
     Account *acc = [AccountTool account];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:acc.cid forKey:@"cid"];
     [dic setObject:num forKey:@"type"];
     [dic setObject:@1 forKey:@"page"];
     [dic setObject:@20 forKey:@"limit"];
-    
+    if (self.activityIndicatorView) {
+        
+        [self.activityIndicatorView removeFromSuperview];
+    }
+    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getCompaniesFavoriteRank" requestModel:dic useKeys:@[@"cid", @"type", @"page", @"limit",@"vote"] success:^(id json) {
         NSLog(@"获取排行榜成功  %@", json);
-        
+        [self.activityIndicatorView removeFromSuperview];
         [self reloadRankDataWithJson:json];
         
     } failure:^(id errorJson) {
         NSLog(@"获取排行榜失败  %@", errorJson);
+        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 
