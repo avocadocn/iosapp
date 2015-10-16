@@ -7,7 +7,7 @@
 //
 #import "CriticWordView.h"
 #import <Masonry.h>
-#import "HMShopCell.h"
+//#import "HMShopCell.h"
 #import "RestfulAPIRequestTool.h"
 #import "AccountTool.h"
 #import "Account.h"
@@ -17,6 +17,7 @@
 #import "RankItemView.h"
 #import "RankBottomShowView.h"
 #import "RankDetileModel.h"
+#import "RankListItemView.h"
 
 static int selectNum = 1;
 
@@ -150,8 +151,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
     if (view == nil) {
-        
-        HMShopCell *cell = [[HMShopCell alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(217.0) , DLMultipleWidth(245.0))];
+        RankListItemView *cell = [[RankListItemView alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(217.0) , DLMultipleWidth((DLScreenHeight/2.0))>DLMultipleWidth(217.0)?DLMultipleWidth(217.0):DLMultipleWidth((DLScreenHeight/2.0)))];
         cell.backgroundColor = [UIColor whiteColor];
         cell.layer.borderColor = [UIColor whiteColor].CGColor;
         RankDetileModel *model = [self.modelArray objectAtIndex:index];
