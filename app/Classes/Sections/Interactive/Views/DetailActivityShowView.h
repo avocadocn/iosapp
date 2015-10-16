@@ -16,6 +16,9 @@
 
 @property (nonatomic)BOOL orCreatBtn;
 
+@property (nonatomic, assign)BOOL deleteButtonState;
+
+
 - (instancetype)initWithModel:(Interaction *)model;
 
 @end

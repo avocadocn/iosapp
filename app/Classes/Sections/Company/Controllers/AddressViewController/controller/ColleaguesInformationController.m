@@ -49,7 +49,6 @@ static NSInteger tagNum = 1;
     
     CGFloat height = DLScreenHeight / (568 / 400.0);
     
-    
     self.title = @"个人资料";
     NSArray *nameArray = @[@"Profile@2x", @"Oval 2@2x", @"chat@2x"];
     NSMutableArray *imageArray = [NSMutableArray array];

@@ -130,6 +130,8 @@
 
 -(void)buildInterface{
     
+    self.deleteButtonState = YES;
+    
     UIScrollView *superView = [[UIScrollView alloc]init];
     [superView setDelegate:self];
     [superView setFrame:self.frame];
@@ -170,10 +172,9 @@
     [self.activityName setText:nameText];
     [self.activityName setSize:CGSizeMake(DLScreenWidth, 14)];
     [self.activityName setTextAlignment:NSTextAlignmentCenter];
+//    self.activityName.backgroundColor = [UIColor yellowColor];
     self.activityName.centerX = DLScreenWidth / 2;
     self.activityName.y = CGRectGetMaxY(self.pictureView.frame) + 13;
-    
-    
     
     // 添加感兴趣按钮，需要根据图片自定义
 //    UIButton *interest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -186,10 +187,22 @@
     [topPictureView addSubview:self.activityName];
 //    [topPictureView addSubview:interest];
     
+    
+    int i = 0;
+    if (self.deleteButtonState){
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.frame = CGRectMake(0, 0, DLScreenWidth, 30);
+    [button setTitle:@"退出活动" forState: UIControlStateNormal];
+    [button addTarget:self action:@selector(quitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    button.y = CGRectGetMaxY(self.activityName.frame) + 5;
+    i = 35;
+        [topPictureView addSubview:button];
+    }
     // 设置顶部pic view的frame
-    topPictureView.height = CGRectGetMaxY(self.pictureView.frame) + 35;
+    topPictureView.height = CGRectGetMaxY(self.pictureView.frame) + 35 + i;
     topPictureView.width = DLScreenWidth;
     [topPictureView setOrigin:CGPointZero];
+//    topPictureView.backgroundColor = [UIColor blueColor];
     
     [superView addSubview:topPictureView];
     
@@ -332,33 +345,43 @@
     [sighUpView setBackgroundColor:[UIColor whiteColor]];
     
     // 设置报名view的frame
-    sighUpView.size = CGSizeMake(DLScreenWidth, 44);
-    sighUpView.x = 0;
-    sighUpView.y = DLScreenHeight - 44;
     
-    UIButton *sighUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sighUpBtn.layer setMasksToBounds:YES];
-    [sighUpBtn.layer setCornerRadius:10.0];
-    self.applyBtn = sighUpBtn;
-    sighUpBtn.superview.backgroundColor = [UIColor whiteColor];
-    [sighUpBtn setTitle:@"立即报名" forState:UIControlStateNormal];
-    sighUpBtn.backgroundColor = [UIColor redColor];
-    [sighUpBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    sighUpBtn.width = DLScreenWidth - 2 * 10;
-    sighUpBtn.height = 28;
-    sighUpBtn.x = 10;
-    sighUpBtn.y = sighUpView.height / 2 - sighUpBtn.height / 2;
-    [sighUpBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    ////////
+    if (!self.deleteButtonState) {
+        sighUpView.size = CGSizeMake(DLScreenWidth, 44);
+        sighUpView.x = 0;
+        sighUpView.y = DLScreenHeight - 44;
+        UIButton *sighUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sighUpBtn.layer setMasksToBounds:YES];
+        [sighUpBtn.layer setCornerRadius:10.0];
+        self.applyBtn = sighUpBtn;
+        sighUpBtn.superview.backgroundColor = [UIColor whiteColor];
+        [sighUpBtn setTitle:@"立即报名" forState:UIControlStateNormal];
+        sighUpBtn.backgroundColor = [UIColor redColor];
+        [sighUpBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        sighUpBtn.width = DLScreenWidth - 2 * 10;
+        sighUpBtn.height = 28;
+        sighUpBtn.x = 10;
+        sighUpBtn.y = sighUpView.height / 2 - sighUpBtn.height / 2;
+        [sighUpBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        // btn添加到view中
+        [sighUpView addSubview:sighUpBtn];
+        [self addSubview:sighUpView];
+    }
     
-    // btn添加到view中
-    [sighUpView addSubview:sighUpBtn];
-    [self addSubview:sighUpView];
+    
     
     
     self.superView = superView;
     
     
 }
+- (void)quitButtonAction:(UIButton *)sender
+{
+    
+}
+
 
 -(void)btnClick:(UIButton *)sender{
     sender.backgroundColor = [UIColor lightGrayColor];

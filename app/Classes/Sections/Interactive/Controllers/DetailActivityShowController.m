@@ -23,7 +23,9 @@
     [self.view setBackgroundColor:RGB(235.0, 234.0, 236.0)];
     if (self.model) {
         DetailActivityShowView *detailView = [[DetailActivityShowView alloc]initWithModel:self.model];
+        detailView.deleteButtonState = YES;
         [self.view addSubview:detailView];
+        
     }
 }
 
