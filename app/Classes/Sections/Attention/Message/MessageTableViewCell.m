@@ -14,6 +14,12 @@
 
 - (void)awakeFromNib {
     // Initialization code
+//    self.projectPicture;
+//    self.titleLabel;
+//    self.contentLabel;
+//    self.projectPicture.layer.masksToBounds = YES;
+//    self.projectPicture.layer.cornerRadius = self.projectPicture.width / 2.0;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -28,7 +34,27 @@
     [self.projectPicture dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
     self.titleLabel.text = per.name;
     self.contentLabel.text = model.content;
-
+    
+    NSInteger num = [model.examine integerValue];
+    switch (num) {
+        case 0:
+        {
+            self.backgroundColor = [UIColor whiteColor];
+            self.userInteractionEnabled = YES;
+            
+            NSLog(@"未读 背景为白色");
+        }
+            break;
+        case 1:
+        {
+            self.backgroundColor = RGBACOLOR(238, 238, 238, 1);
+//            self.userInteractionEnabled = NO;
+            NSLog(@"未读 背景为黑色");
+        }
+        default:
+            break;
+    }
+    
 }
 
 @end

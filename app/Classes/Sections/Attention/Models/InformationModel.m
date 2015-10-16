@@ -73,6 +73,9 @@
 
 - (void)save:(NSString *)inforType
 {
+    if (!self.examine) {
+        self.examine = [NSNumber numberWithInt:0];
+    }
     Account *acc = [AccountTool account];
     
     NSString *filePathStr = [NSString stringWithFormat:@"%@/%@-%@", DLLibraryPath, acc.ID,inforType];
@@ -86,6 +89,11 @@
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
             [data writeToFile:dataPathStr atomically:YES];
             NSLog(@"存储成功");
+        } else
+        {
+            [manger removeItemAtPath:dataPathStr error:nil];
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+            [data writeToFile:dataPathStr atomically:YES];
         }
         
     } else
@@ -100,6 +108,16 @@
             NSLog(@"存储成功");
         }
     }
+    NSArray *strArray = [manger subpathsAtPath:filePathStr];
+    NSLog(@"本地存储的通知有  %@", strArray);
+
+    if (strArray.count > 20) {
+        for (int i = 0; i < strArray.count - 20; i ++) {
+            NSString *deleteStr = [strArray objectAtIndex:i];
+            [manger removeItemAtPath:[NSString stringWithFormat:@"%@/%@", filePathStr, deleteStr] error:nil];
+        }
+    }
+    
 }
 
 - (void)deleteSelf:(NSString *)inforType

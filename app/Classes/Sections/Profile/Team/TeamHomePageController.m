@@ -161,12 +161,10 @@ static NSString * const helpCellID = @"helpCellID";
         case 1: // 成员
 //            controller = [[TeamHomePageController alloc]init];
             
-            
-            
             break;
         case 2: // 邀请
             //controller = [[FolderViewController alloc]init];
-            //            controller = [[UserMessageTableViewController alloc]init];
+            //controller = [[UserMessageTableViewController alloc]init];
             controller = [[InviteGroupMember alloc] init];
             break;
         case 3: // 活动
@@ -288,7 +286,9 @@ static NSString * const helpCellID = @"helpCellID";
     }];
     
     [self builtJoinButton];
-            [self requestNet];
+    if (self.groupCardModel) {
+        [self requestNet];
+    }
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAlbumPhoto:) name:@"ChangeGroupAlbumPhoto" object:nil];
     
@@ -640,11 +640,9 @@ static NSString * const helpCellID = @"helpCellID";
         [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
 //        [self requestNet];
         
-        
     } failure:^(id errorJson) {
         NSLog(@"获取小队信息失败的原因为 %@", errorJson);
     }];
-    
 }
 
 - (void)builtJoinButton
@@ -678,9 +676,6 @@ static NSString * const helpCellID = @"helpCellID";
 
 - (BOOL)judgeMember
 {
-    
-    
-    
     
     Account *acc = [AccountTool account];
     NSArray *array  = self.informationModel.member;

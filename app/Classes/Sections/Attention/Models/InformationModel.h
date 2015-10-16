@@ -44,8 +44,9 @@
  * 相关人数,可能很多人回答、参加 (action为1、5、8)
  */
 @property (nonatomic, copy)NSString *relativeCount;
+
 /**
- * 是否查看
+ * 是否查看 0未读 1 已读
  */
 @property (nonatomic, strong)NSNumber *examine;
 

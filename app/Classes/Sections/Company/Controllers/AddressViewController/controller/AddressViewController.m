@@ -51,13 +51,14 @@
     NSLog(@" 本地 %@" , big);
     
     NSLog(@"获取到的本地文件  %@", array);
+    
     NSMutableArray *mutableArray = [NSMutableArray array];
     for (NSString *str in array) {
         NSData *data = [NSData dataWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", Str, str]];
         AddressBookModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:model.nickname forKey:@"nickname"];
-        [dic setObject:model.gender forKey:@"gender"];
+//        [dic setObject:model.gender forKey:@"gender"];
         [dic setObject:model.ID forKey:@"_id"];
         [dic setObject:model.photo forKey:@"photo"];
         [dic setObject:model.realname forKey:@"realname"];
@@ -65,7 +66,6 @@
     }
     [self relodaViewWithData:mutableArray];
 }
-
 
 - (void)builtInterFace
 {
@@ -168,7 +168,6 @@
 {
     Account *acc = [AccountTool account];
     
-    
     AddressBookModel *model = [[AddressBookModel alloc]init];
     
     [model setCompanyId:acc.cid];
@@ -257,8 +256,10 @@
     [self getArrayWithDic:self.wordDic];
     [self.myTableView reloadData];
 }
+
 - (void)getArrayWithDic:(NSMutableDictionary *)dic
 {
+
     NSArray *array = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H",@"I",@"J", @"K", @"L",@"M", @"N",@"O", @"P", @"Q", @"R", @"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z", @"#"];
 
     

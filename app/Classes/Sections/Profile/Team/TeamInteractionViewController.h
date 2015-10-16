@@ -21,4 +21,7 @@ typedef enum {
 @property (nonatomic , strong)NSNumber *requestType;
 
 @property (nonatomic, copy)NSString *team;
+
+@property (nonatomic, copy)NSNumber *interactionType;
+
 @end
