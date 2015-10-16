@@ -104,6 +104,10 @@ static ChatListViewController *chat = nil;
     [self refreshGroup];
     [self.header endRefreshing];
 }
+- (void)reSortConversion
+{
+    self.dataSource=[self sortConversation:self.dataSource];
+}
 - (void)reloadConversionListWith:(NSString *)conver
 {
     BOOL state = NO;
@@ -650,6 +654,7 @@ static ChatListViewController *chat = nil;
 // 刷新方法
 -(void)refreshDataSource
 {
+    [self reSortConversion];
     [_tableView reloadData];
     [self hideHud];
 }
