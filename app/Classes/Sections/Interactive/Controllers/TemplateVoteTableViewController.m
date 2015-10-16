@@ -20,9 +20,10 @@
 #import "RestfulAPIRequestTool.h"
 #import "TemplateVoteTableViewCell.h"
 #import <MJRefresh.h>
+#import <DGActivityIndicatorView.h>
 
 @interface TemplateVoteTableViewController ()
-
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 @end
 
 @implementation TemplateVoteTableViewController
@@ -59,6 +60,18 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     [self requestNet];
 
 }
+//加载Loading动画
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
+}
 //上拉加载
 - (void)loadMoreData
 {
@@ -67,18 +80,21 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:2]];
-    [model setLimit:[NSNumber numberWithInt:pageLimit]];
+    [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     Interaction* last =[self.voteData lastObject];
     [model setCreateTime:last.createTime];
     
     [self.tableView.footer beginRefreshing];
+//    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
 //        NSLog(@"success:-->%@",json);
         [self.tableView.footer endRefreshing];
+//        [self.activityIndicatorView removeFromSuperview];
     } failure:^(id errorJson) {
 //        NSLog(@"failed:-->%@",errorJson);
         [self.tableView.footer endRefreshing];
+//        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 - (void)refreshData
@@ -87,8 +103,9 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:2]];
-    [model setLimit:[NSNumber numberWithLong:pageLimit]];
+    [model setLimit:[NSNumber numberWithInteger:pageLimit]];
     [self.tableView.header beginRefreshing];
+//    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         if ([json count]!=0) {
              self.voteData = [NSMutableArray new];
@@ -96,9 +113,11 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
              [self analyDataWithJson:json];
         }
         [self.tableView.header endRefreshing];
+//        [self.activityIndicatorView removeFromSuperview];
         //        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
         [self.tableView.header endRefreshing];
+//        [self.activityIndicatorView removeFromSuperview];
         //        NSLog(@"failed:-->%@",errorJson);
     }];
 }
@@ -108,11 +127,14 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
     getTemplateModel * model = [getTemplateModel new];
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:2]];
-    [model setLimit:[NSNumber numberWithLong:pageLimit]];
+    [model setLimit:[NSNumber numberWithInteger:pageLimit]];
+    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
+        [self.activityIndicatorView removeFromSuperview];
 //        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
+        [self.activityIndicatorView removeFromSuperview];
 //        NSLog(@"failed:-->%@",errorJson);
     }];
 }

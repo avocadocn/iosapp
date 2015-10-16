@@ -48,12 +48,16 @@
     [RestfulAPIRequestTool routeName:@"getPersonalInteractionList" requestModel:model useKeys:@[@"content"] success:^(id json) {
         NSLog(@"获取互动列表成功 %@",json);
         
+        
+        int i = 0;
         for (NSDictionary *dic in json) {
             InformationModel *infor = [[InformationModel alloc]init];
             [infor setValuesForKeysWithDictionary:dic];
             [infor save:@"interaction"];
+            [self.modelArray insertObject:infor atIndex:i];
+            i++;
         }
-        
+        [self.tableView reloadData];
         
     } failure:^(id errorJson) {
         NSLog(@"获取互动列表失败 %@",[errorJson objectForKey:@"msg"]);
@@ -69,7 +73,9 @@
     NSArray *array = [manger contentsOfDirectoryAtPath:path error:nil];
     NSLog(@"本地的 interaction 文件为 %@", array);
     self.modelArray = [NSMutableArray array];
-    for (NSString *str in array) {
+    NSInteger num = array.count;
+    for (NSInteger i = num; i > 0; i--) {
+        NSString *str =[ array objectAtIndex:i - 1];
         InformationModel *model = [[InformationModel alloc]initWithInforString:@"interaction" andIDString:str];
         [self.modelArray addObject:model];
     }
@@ -80,18 +86,22 @@
 {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    //  1: 活动有人参加了、投票有人参与了、求助有人回答了
-    //  2: 被邀请参加活动、投票、求助
-    //  3: 求助的回答被采纳了
-    //  4: 评论有回复
-    //  5: 评论被赞了
-    //  6: 被邀请进小队
-    //  7: 入群申请被通过
-    //  8: XX申请入X群，待处理(群主)
-    //  9: XX申请入X群，已被其它管理员处理
+    //  1: 活动有人参加了、投票有人参与了、求助有人回答了 OK
+    //  2: 被邀请参加活动、投票、求助 XXXXX
+    //  3: 求助的回答被采纳了  XXXXX
+    //  4: 评论有回复  XXXXX
+    //  5: 评论被赞了 XXXXX
+    //  6: 被邀请进小队 ??
+    //  7: 入群申请被通过  OK
+    //  8: XX申请入X群，待处理(群主) OK
+    //  9: XX申请入X群，已被其它管理员处理  XXXXX
 
     InformationModel *model = self.modelArray[indexPath.row];
     NSLog(@"这个通知的内容为  %@", model.action);
+    
+    model.examine = [NSNumber numberWithInt:1];
+    [model save:@"interaction"];
+    
     NSInteger num = [model.action integerValue];
     switch (num) {
         case 1:
@@ -158,7 +168,7 @@
 }
 
 - (void)createTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -35, DLScreenWidth, DLScreenHeight + 35) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -35, DLScreenWidth, DLScreenHeight) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self addSubview:_tableView];
@@ -181,4 +191,8 @@
     cell.model = self.modelArray[indexPath.row];
     return cell;
 }
+
+
+
+
 @end

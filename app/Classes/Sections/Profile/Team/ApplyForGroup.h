@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong)GroupDetileModel *detileModel;
 
+@property (nonatomic, strong)NSString *groupId;
+
 @end

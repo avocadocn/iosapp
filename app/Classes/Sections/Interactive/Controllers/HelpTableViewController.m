@@ -88,7 +88,6 @@ static NSString * const ID = @"HelpTableViewCell";
     [activityIndicatorView.layer setCornerRadius:10.0];
     [self.activityIndicatorView startAnimating];
     [self.view addSubview:activityIndicatorView];
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -97,9 +96,9 @@ static NSString * const ID = @"HelpTableViewCell";
 
 -(void)loadhelpData{
    Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:self.model.poster[@"_id"]];
-    if (!self.helpFrames) {
+//    if (!self.helpFrames) {
         self.helpFrames = [NSMutableArray array];
-    }
+//    }
 //    for (int i = 0; i < 10; i++) {
         HelpInfoModel *helpInfoModel = [[HelpInfoModel alloc]init];
         helpInfoModel.name = p.name;
@@ -352,6 +351,9 @@ static NSString * const ID = @"HelpTableViewCell";
     
     [self.tableView reloadData];
 }
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.activityIndicatorView removeFromSuperview];
+}
 
 - (void)netRequest
 {
@@ -364,7 +366,9 @@ static NSString * const ID = @"HelpTableViewCell";
 
         self.model = [[Interaction alloc]init];
         [self.model setValuesForKeysWithDictionary:json];
-
+        [self loadhelpData];
+        [self.tableView reloadData];
+        
     } failure:^(id errorJson) {
         NSLog(@"获取求朱详情失败 %@",errorJson);
     }];

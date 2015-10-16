@@ -19,8 +19,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self maskImage:image];
-        [self tableViewHeaderViewWithImage:image];
+        Person *per=  [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:image];
+        
+        [self maskImage:per.imageURL];
+        [self tableViewHeaderViewWithImage:per.imageURL];
     }
     return self;
 }
@@ -31,6 +33,12 @@
     UIImageView *backImage = [[UIImageView alloc]initWithFrame:self.frame];
     [backImage dlGetRouteWebImageWithString:image placeholderImage:nil];
     [self addSubview:backImage];
+    
+    UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
+    effectview.alpha = .5;
+    effectview.frame = self.frame;
+    [self addSubview:effectview];
     
     UIView *view = [[UIView alloc]initWithFrame:self.frame];
     UIImage *remp = [UIImage imageNamed:@"mask_sha.jpeg"];

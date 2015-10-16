@@ -129,7 +129,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     if (self.team) {
         [model setTeam:self.team];
     }
-    
+
     [self.tableView.header beginRefreshing];
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
@@ -301,6 +301,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         default:
             break;
     }
+    NSLog(@"请求的类型为 %@", model.interactionType);
     [GiFHUD show];
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
