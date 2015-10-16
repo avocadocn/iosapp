@@ -143,10 +143,10 @@ static NSString * const ID = @"HelpTableViewCell";
         NSLog(@"请求评论列表成功 %@",json);
         [self loadDataWithJson:json];
         self.keyBoard.inputView.text = nil;
-//        [GiFHUD dismiss];
+     [self.activityIndicatorView removeFromSuperview];
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-//        [GiFHUD dismiss];
+          [self.activityIndicatorView removeFromSuperview];
     }];
     [self.tableView.header endRefreshing];
 }
@@ -260,6 +260,7 @@ static NSString * const ID = @"HelpTableViewCell";
     if (self.keyBoard.inputView.text.length != 0) {
         [self marchingComments];
 //        [GiFHUD show];
+        [self loadingImageView];
     }else {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"内容不能为空"delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
@@ -284,7 +285,7 @@ static NSString * const ID = @"HelpTableViewCell";
         [alertV show];
         NSLog(@"发送评论失败的原因 %@",[errorJson objectForKey:@"msg"]);
     
-        
+        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 // 设置tableView 的分割线顶到屏幕边框
@@ -336,10 +337,8 @@ static NSString * const ID = @"HelpTableViewCell";
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit",@"createTime"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self detalNewDataWithJson:json];
-//        [GiFHUD dismiss];
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-//        [GiFHUD dismiss];
     }];
     [self.tableView.footer endRefreshing];
     
@@ -374,6 +373,6 @@ static NSString * const ID = @"HelpTableViewCell";
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-//    [GiFHUD dismiss];
+    [self.activityIndicatorView removeFromSuperview];
 }
 @end

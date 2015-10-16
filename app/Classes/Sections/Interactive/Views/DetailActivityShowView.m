@@ -14,7 +14,8 @@
 #import "UIImageView+DLGetWebImage.h"
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchAPI.h>
-@interface DetailActivityShowView()<UIScrollViewDelegate,MAMapViewDelegate,AMapSearchDelegate>
+#import "GTMNSString+HTML.h"
+@interface DetailActivityShowView()<UIScrollViewDelegate,MAMapViewDelegate,AMapSearchDelegate,UIWebViewDelegate>
 
 {
     MAMapView *_mapView; // 创建地图
@@ -33,6 +34,11 @@
 @property (nonatomic, copy)NSString *url;
 
 @property (nonatomic, strong)UIButton *applyBtn; // 报名按钮
+@property (nonatomic, copy) NSString *introduceStr; // 活动介绍
+@property (nonatomic, strong) UIWebView* introduceWebView;
+@property (nonatomic, strong) UIView *introduceView;
+@property (nonatomic, copy) NSString *addressStr;
+
 
 
 @end
@@ -238,9 +244,14 @@
     addressLabel.lineBreakMode = UILineBreakModeWordWrap;
     addressLabel.numberOfLines = 0;
     // TODO
+    if ([[[self.model.activity objectForKey:@"location"] objectForKey:@"name"] containsString:@"："]) {
+        self.addressStr = [[NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]] substringFromIndex:5];
+    } else {
+        self.addressStr = [NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]];
+    }
     CGSize maxLabelSize = CGSizeMake(DLScreenWidth - 2 * 10 - addressTintLabelSize.width, MAXFLOAT);
-    NSString *str = [[NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]] substringFromIndex:5];
-    NSString *addressText = str;
+//    NSString *str = [[NSString stringWithFormat:@"%@",[[self.model.activity objectForKey:@"location"] objectForKey:@"name"]] substringFromIndex:4];
+    NSString *addressText = self.addressStr;
     
     CGSize trueLabelSize = [addressText sizeWithFont:addressFont constrainedToSize:maxLabelSize lineBreakMode:NSLineBreakByWordWrapping];
     [addressLabel setFont:addressFont];
@@ -299,18 +310,39 @@
     
     // 添加第三栏的活动介绍view
     UIView *introduceView = [[UIView alloc]init];
+    self.introduceView = introduceView;
     [introduceView setBackgroundColor:[UIColor whiteColor]];
     
     UILabel *activityIntroduceTV = [[UILabel alloc]init];
     UIFont *aITVFont = [UIFont systemFontOfSize:13.0f];
     [activityIntroduceTV setTextColor:[UIColor blackColor]];
-    NSString *IntroduceText = self.model.content;
-    NSString *aITVText = [NSString stringWithFormat:@"活动介绍\n%@",IntroduceText];
+    
+    if ([self.model.targetType isEqualToNumber:@2]) {
+        UIWebView *introduceWebView=[[UIWebView alloc] init];
+        self.introduceWebView = introduceWebView;
+        introduceWebView.width = DLScreenWidth;
+        introduceWebView.height = DLScreenHeight * 2 / 4;
+        introduceWebView.x = 0;
+        introduceWebView.y = CGRectGetMaxY(activityIntroduceTV.frame)+12;
+        introduceWebView.backgroundColor = [UIColor whiteColor];
+        //for debug use
+        //    [introduceWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
+        introduceWebView.delegate = self;
+        introduceWebView.scrollView.bounces = NO;
+        introduceWebView.scrollView.showsHorizontalScrollIndicator = NO;
+        introduceWebView.scrollView.scrollEnabled = NO;
+        NSString * htmlcontent = [NSString stringWithFormat:@"活动介绍\n<div id=\"webview_content_wrapper\">%@</div>", [self.model.content gtm_stringByUnescapingFromHTML]];
+        [introduceWebView loadHTMLString:htmlcontent baseURL:nil];
+        [self.introduceView addSubview:self.introduceWebView];
+    } else {
+       self.introduceStr = [NSString stringWithFormat:@"活动介绍\n%@",self.model.content];
+//        self.introduceStr = self.model.content;
+    }
     // TODO
-    [activityIntroduceTV setText:aITVText];
+    [activityIntroduceTV setText:self.introduceStr];
     CGSize maxAITVSize = CGSizeMake(DLScreenWidth - 2 * 10, MAXFLOAT);
     [activityIntroduceTV setFont:aITVFont];
-    CGSize aITVSize = [aITVText sizeWithFont:aITVFont constrainedToSize:maxAITVSize lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize aITVSize = [self.introduceStr sizeWithFont:aITVFont constrainedToSize:maxAITVSize lineBreakMode:NSLineBreakByWordWrapping];
     //  AITV的frame
     activityIntroduceTV.size = aITVSize;
     activityIntroduceTV.x = 10;
@@ -330,7 +362,7 @@
     // 设置contentoffset
     [superView setContentSize:CGSizeMake(DLScreenWidth, CGRectGetMaxY(introduceView.frame) + 44)];
     
-    
+
     
     [self addSubview:superView];
     
@@ -382,25 +414,12 @@
         NSLog(@"报名失败的原因 %@",[errorJson valueForKey:@"msg"]);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名失败" message:[errorJson valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
-//        sender.backgroundColor = [UIColor redColor];
-//        sender.superview.backgroundColor = [UIColor whiteColor];
-//        sender.userInteractionEnabled = YES;
         [sender setTitle:[NSString stringWithFormat:@"%@",[errorJson valueForKey:@"msg"]] forState:UIControlStateNormal];
     }];
 
 }
 
-- (void)getState {
-//    Account *account = [AccountTool account];
-//    [self.model setInteractionId:self.model.interactionId];
-//    [self.model setUserId:account.ID];
-//    [RestfulAPIRequestTool routeName:@"joinInteraction" requestModel:self.model useKeys:@[@"interactionId",@"userId"] success:^(id json) {
-//        
-//    } failure:^(id errorJson) {
-//        [self.applyBtn setTitle:[NSString stringWithFormat:@"%@",[errorJson valueForKey:@"msg"]] forState:UIControlStateNormal];
-//        self.applyBtn.backgroundColor = [UIColor lightGrayColor];
-//        self.applyBtn.userInteractionEnabled = NO;
-//    }];
+- (void)getState { // 获取报名状态
     Account *account = [AccountTool account];
     NSArray *array = self.model.members;
     if ([array containsObject:account.ID]) {
@@ -486,6 +505,61 @@ updatingLocation:(BOOL)updatingLocation
     str = [formatter stringFromDate:destinationDateNow];
     return str;
 }
+#pragma UIWebviewDelegate
+//加载完成后，对网页内容进行处理
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //设置图片缩放
+    NSString* resizeImg = [NSString stringWithFormat:@"var script = document.createElement('script');"
+                           "script.type = 'text/javascript';"
+                           "script.text = \"function ResizeImages() { "
+                           "var myimg,oldwidth;"
+                           "var maxwidth = %f;" // UIWebView中显示的图片宽度
+                           "for(i=0;i <document.images.length;i++){"
+                           "myimg = document.images[i];"
+                           "if(myimg.width > maxwidth){"
+                           "oldwidth = myimg.width;"
+                           "myimg.width = maxwidth;"
+                           "}"
+                           "}"
+                           "}\";"
+                           "document.getElementsByTagName('head')[0].appendChild(script);",DLScreenWidth-20];
+    [webView stringByEvaluatingJavaScriptFromString:resizeImg];
+    [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
+    //设置页面缩放
+    NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=self.view.frame.size.width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\""];
+    [webView stringByEvaluatingJavaScriptFromString:meta];
+    //设置字体大小
+    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '80%'"];
+    //字体颜色
+    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5f5f5f'"];
+    
+    //获取页面高度（像素）
+    NSString * clientheight_str = [webView stringByEvaluatingJavaScriptFromString: @"document.body.offsetHeight"];
+    float clientheight = [clientheight_str floatValue];
+    //设置到WebView上
+    webView.frame = CGRectMake(webView.x, webView.y, self.frame.size.width, clientheight);
+    //获取WebView最佳尺寸（点）
+    CGSize frame = [webView sizeThatFits:webView.frame.size];
+    //获取内容实际高度（像素）
+    NSString * height_str= [webView stringByEvaluatingJavaScriptFromString: @"document.getElementById('webview_content_wrapper').offsetHeight + parseInt(window.getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('margin-top'))  + parseInt(window.getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('margin-bottom'))"];
+    float height = [height_str floatValue];
+    //内容实际高度（像素）* 点和像素的比
+    //这样换算会有问题，所以先注释
+    //    height = height * frame.height / clientheight;
+    //再次设置WebView高度（点）
+    webView.frame = CGRectMake(webView.x, webView.y, self.frame.size.width, height);
+    //修正外部控件高度
+    self.introduceView.height = CGRectGetMaxY(self.introduceWebView.frame);
+    [self.superView setContentSize:CGSizeMake(DLScreenWidth, CGRectGetMaxY(self.introduceView.frame) + 44)];
+    NSLog(@"webView frame %@",NSStringFromCGRect(self.introduceWebView.frame));
+    NSLog(@"introView frame %@",NSStringFromCGRect(self.introduceView.frame));
+    [webView.layer setBorderColor:[[UIColor clearColor] CGColor]];
+}
+
+
+
+
 
 -(void)viewWillDisappear:(BOOL)animated { // 视图消失时停止定位 （节省资源）
     [self mapViewDidStopLocatingUser:_mapView];

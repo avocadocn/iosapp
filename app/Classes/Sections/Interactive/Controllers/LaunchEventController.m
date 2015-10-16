@@ -21,6 +21,7 @@
 #import "getIntroModel.h"
 #import "PublishedInteractionsMapViewController.h"
 #import <DGActivityIndicatorView.h>
+#import "UIImageView+DLGetWebImage.h"
 static NSInteger num = 0;
 
 typedef NS_ENUM(NSInteger, RemindTableState){
@@ -73,7 +74,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [self builtEventCover];
     if (self.isTemplate) {
         [self builtTemplateEventRemindTime];
-        
+        [self getImages];
     }else{
         [self builtEventDetails];
         [self builtEventRemindTime];
@@ -112,6 +113,13 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:label];
 
 }
+- (void)getImages {
+    
+    for (NSDictionary *dic in self.model.photos) {
+        [self.chooseButton dlGetRouteWebImageWithString:dic[@"uri"] placeholderImage:nil];
+    }
+
+}
 
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
@@ -124,10 +132,22 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [inter setEndTime:self.overTimeLabel.text];
     if (self.isTemplate) {
         [inter setLocation:[[self.model.location keyValues] objectForKey:@"name"]];
+        [inter setLatitude:[[[[self.model.location keyValues] objectForKey:@"loc"] objectForKey:@"coordinates"] lastObject]];
+        [inter setLongitude:[[[[self.model.location keyValues] objectForKey:@"loc"] objectForKey:@"coordinates"] firstObject]];
         [inter setContent:self.model.content];
+        if (self.chooseButton.image){
+            NSData *data = UIImagePNGRepresentation(self.chooseButton.image);
+            NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[data ,@"photo"] forKeys:@[@"data", @"name"]];
+            inter.photo = [NSArray arrayWithObjects:dic, nil];
+        }
+
     }else{
         [inter setLocation:self.addressLabel.text];
         [inter setContent:self.eventDetailTextView.text];
+
+        [inter setActivityMold:@"lalal"];
+        [inter setLatitude:self.lau];
+        [inter setLongitude:self.log];
     }
     [inter setRemindTime:self.startTimeField.text];
     
@@ -140,11 +160,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         [inter setTarget:acc.cid];
         [inter setTargetType:@3];
     }
-    [inter setType:@1];
-    [inter setActivityMold:@"lalal"];
-    [inter setLatitude:self.lau];
-    [inter setLongitude:self.log];
-    
+        [inter setType:@1];
     if (self.image){
     NSData *data = UIImagePNGRepresentation(self.image);
     NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[data ,@"photo"] forKeys:@[@"data", @"name"]];
@@ -221,10 +237,10 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(DLScreenWidth / (375 / 11.0), DLScreenHeight / (667 / 49.0), DLScreenWidth, .5)];
     [view setBackgroundColor:[UIColor colorWithWhite:.5 alpha:.5]];
     [self.superView addSubview:view];
-    self.chooseButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    [self.chooseButton addTarget:self action:@selector(chooseButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    
+    self.chooseButton = [[UIImageView alloc] init];
+    self.chooseButton.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseButtonAction:)];
+    [self.chooseButton addGestureRecognizer:tapGesture];
     [self.chooseButton setBackgroundColor:[UIColor lightGrayColor]];
     [self.superView addSubview:self.chooseButton];
     
@@ -635,8 +651,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     ALAssetsLibrary *library = [ALAssetsLibrary new];
     [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
         self.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-        [self.chooseButton setBackgroundImage:self.image forState:UIControlStateNormal];
-        
+//        [self.chooseButton setBackgroundImage:self.image forState:UIControlStateNormal];
+        [self.chooseButton setImage:self.image];
     } failureBlock:^(NSError *error) {
         
     }];
