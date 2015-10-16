@@ -197,7 +197,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
     Person* p = [fmdb selectPersonWithUserId:model.ID];
     if (p) {
         self.bottomShowView.nameLabel.text = p.name;
-        [self.bottomShowView.avatar dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(100.0, 100.0)] ;
+        [self.bottomShowView.avatar dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)] ;
     }
     self.bottomShowView.rankLabel.text = [NSString stringWithFormat:@"目前排名: %@", model.index];
 }

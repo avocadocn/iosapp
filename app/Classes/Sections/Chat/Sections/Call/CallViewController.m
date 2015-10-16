@@ -79,7 +79,7 @@
     Person* p = [fmdb selectPersonWithUserId:_chatter];
     if (p) {
         _nameLabel.text = p.name;
-        [_headerImageView dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
+        [_headerImageView dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)];
     }
     if (_callSession.type == eCallSessionTypeVideo) {
         [self _initializeCamera];

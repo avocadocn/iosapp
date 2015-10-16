@@ -38,7 +38,7 @@
         // 得到网络请求的字符串
         NSString *newUrlStr = [self getUrlStringWithString:str];
         
-        NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width, size.height]];
+        NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width*2, size.height*2]];
         
         //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
         [self dlGetWebImageWithDefaultCacheAndRefreshWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
@@ -56,7 +56,7 @@
     // 得到网络请求的字符串
     NSString *newUrlStr = [self getUrlStringWithString:str];
     
-    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width, size.height]];
+    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width*2, size.height*2]];
 //    NSLog(@"the app path is :%@",path);
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
     [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];

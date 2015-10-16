@@ -86,7 +86,7 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
 - (void)reloadCellWithModel:(AddressBookModel *)model
 {
     //    // 1.图片
-    [self.imageView dlGetRouteThumbnallWebImageWithString:model.photo placeholderImage:nil withSize:CGSizeMake(200*2, 200*2)];
+    [self.imageView dlGetRouteThumbnallWebImageWithString:model.photo placeholderImage:nil withSize:CGSizeMake(200.0, 200.0)];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     self.personName.text = model.nickname;

@@ -177,7 +177,7 @@
     [cell cellReconsitutionWithModel:g];
     //for debug
 //    [cell.groupImageView setImage:[UIImage imageNamed:@"mzx.jpg"]];
-    [cell.groupImageView dlGetRouteThumbnallWebImageWithString:g.logo placeholderImage:nil withSize:CGSizeMake(self.cellWidth*2, self.cellHeight*2)];
+    [cell.groupImageView dlGetRouteThumbnallWebImageWithString:g.logo placeholderImage:nil withSize:CGSizeMake(self.cellWidth, self.cellHeight)];
     return cell;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
