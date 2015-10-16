@@ -49,11 +49,9 @@ static NSString *ID = @"fjseijfhiusehfgiu";
     
     self.header = [[TableHeaderView alloc]
                    initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(250.0))
-                   andImage:self.userModel.photo];
+                   andImage:self.userModel.ID];
     
     self.dynamicTableView.tableHeaderView = self.header;
-
-    
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@"0" forKey:@"requestType"];
@@ -185,7 +183,7 @@ static NSString *ID = @"fjseijfhiusehfgiu";
 }
 
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
+//{/Users/taiyang/Desktop/Simulator Screen Shot 2015年10月16日 下午2.33.26.png
 //    return [self.modelArray count];
 //}
 

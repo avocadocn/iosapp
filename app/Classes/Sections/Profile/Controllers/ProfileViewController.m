@@ -178,27 +178,32 @@ static NSString * const ID = @"ProfileTableViewCell";
         {
             //使用指定的frame大小初始化viewcontroller,高度增加64是因为后续会减掉64
             TeamInteractionViewController * team = [[TeamInteractionViewController alloc]init];
-            [(TeamInteractionViewController*)controller setType:TeamInteractionActivity];
+            [(TeamInteractionViewController*)team setType:TeamInteractionActivity];
+            
+            team.interactionType = [NSNumber numberWithInteger:1];
             team.team = [NSString stringWithFormat:@"0"];
-            team.requestType = [NSNumber numberWithInteger:2];
+            team.requestType = [NSNumber numberWithInteger:0];
             [self.navigationController pushViewController:team animated:YES];
         }
             break;
         case 4: // 投票
         {
             TeamInteractionViewController * team = [[TeamInteractionViewController alloc]init];
-            [(TeamInteractionViewController*)controller setType:TeamInteractionVote];
+            [(TeamInteractionViewController*)team setType:TeamInteractionVote];
+                        team.interactionType = [NSNumber numberWithInteger:2];
             team.team = [NSString stringWithFormat:@"0"];
-            team.requestType = [NSNumber numberWithInteger:2];
+            team.requestType = [NSNumber numberWithInteger:0];
             [self.navigationController pushViewController:team animated:YES];
     }
             break;
         case 5: // 求助
         {
             TeamInteractionViewController * team = [[TeamInteractionViewController alloc]init];
-            [(TeamInteractionViewController*)controller setType:TeamInteractionHelp];
+            [(TeamInteractionViewController*)team setType:TeamInteractionHelp];
+
+            team.interactionType = [NSNumber numberWithInteger:3];
             team.team = [NSString stringWithFormat:@"0"];
-            team.requestType = [NSNumber numberWithInteger:2];
+            team.requestType = [NSNumber numberWithInteger:0];
             [self.navigationController pushViewController:team animated:YES];
         }
             break;
@@ -209,8 +214,8 @@ static NSString * const ID = @"ProfileTableViewCell";
     if (controller) {
          [self.navigationController pushViewController:controller animated:YES];
     }
-    
 }
+
 
 
 @end
