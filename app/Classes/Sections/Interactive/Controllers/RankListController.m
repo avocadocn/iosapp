@@ -20,7 +20,10 @@
 #import "FMDBSQLiteManager.h"
 #import "UIImageView+DLGetWebImage.h"
 #import <DGActivityIndicatorView.h>
-
+#import "GroupCardModel.h"
+#import "TeamHomePageController.h"
+#import "AddressBookModel.h"
+#import "ColleaguesInformationController.h"
 static int selectNum = 1;
 static Boolean wrap = NO;
 @interface RankListController ()<iCarouselDataSource, iCarouselDelegate>
@@ -50,8 +53,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
     self = [self init];
     self.listType = rankListType;
     
-    // 设置标题栏
-    [self setUpNavTitleWithRankListType:rankListType];
+    
     return self;
 }
 
@@ -59,6 +61,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
     [super viewDidLoad];
     [self getGiftTime];
     [self setUpUI];
+    // 设置标题栏
+    [self setUpNavTitleWithRankListType:self.listType];
 }
 
 - (void)reloadRankDataWithJson:(id)json AndType:(PARSE_TYPE)type
@@ -87,6 +91,9 @@ static NSString * const ID =  @"RankItemTableViewcell";
         wrap=NO;
     }
     NSLog(@"开始刷新");
+    //设置底部信息栏
+    RankDetileModel *model = [self.modelArray firstObject];
+    [self reloadRankViewWithModel:model];
     [self.carousel scrollToItemAtIndex:0 animated:YES];
     [self.carousel reloadData];
 }
@@ -188,13 +195,15 @@ static NSString * const ID =  @"RankItemTableViewcell";
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:num forKey:@"giftIndex"];
     [dic setObject:userId forKey:@"receiverId"];
-    
+    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"sendGifts" requestModel:dic useKeys:@[@"giftIndex"] success:^(id json) {
         NSLog(@"送礼成功  %@", json);
+        [self.activityIndicatorView removeFromSuperview];
         [self requestNetWithType:[NSNumber numberWithInt:selectNum]];
         //尝试获取状态更新
         [self getGiftTime];
     } failure:^(id errorJson) {
+        [self.activityIndicatorView removeFromSuperview];
         NSLog(@"送礼失败   %@", errorJson);
         UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"投票失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle: @"取消" otherButtonTitles:nil, nil];
         
@@ -206,6 +215,9 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (void)reloadRankViewWithModel:(RankDetileModel *)model
 {
     NSLog(@"现在的 %@, %@", model.ID, model.index);
+    self.bottomShowView.nameLabel.text = @"";
+    self.bottomShowView.avatar.image = nil;
+    
     FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
     Person* p = [fmdb selectPersonWithUserId:model.ID];
     if (p) {
@@ -222,9 +234,52 @@ static NSString * const ID =  @"RankItemTableViewcell";
 //    HMShopCell *cell = (HMShopCell *)[carousel.subviews objectAtIndex:carousel.currentItemIndex];
 //    cell.personLike.text = [NSString stringWithFormat:@"%ld", [cell.personLike.text integerValue] + 1];
 //    NSLog(@"子视图有  %@", cell);
-    if((index==carousel.currentItemIndex)&&(self.listType != RankListTypePopularity)){
+    if(index==carousel.currentItemIndex){
         //[self voteActionWithId:model.ID];
+        if (self.listType == RankListTypePopularity) {
+            //跳转到群组详情
+            [self jumpToTeamWithID:model.ID];
+        }else{
+            //跳转到个人详情
+            [self jumpToPeopleWithID:model.ID];
+        }
     }
+}
+- (void)jumpToTeamWithID:(NSString*)groupId
+{
+    [self loadingImageView];
+    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:[NSDictionary dictionaryWithObjects:@[groupId]  forKeys:@[@"groupId"]] useKeys:@[@"groupId"] success:^(id json) {
+        [self.activityIndicatorView removeFromSuperview];
+        GroupCardModel *model = [GroupCardModel new];
+        NSDictionary* d = [json objectForKey:@"group"];
+        [model setName:[d objectForKey:@"name"]];
+        [model setLogo:[d objectForKey:@"logo"]];
+        [model setGroupId:[d objectForKey:@"_id"]];
+        [model setAllInfo:YES];
+        TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
+        groupDetile.groupCardModel = model;
+        [self.navigationController pushViewController:groupDetile animated:YES];
+    } failure:^(id errorJson) {
+        [self.activityIndicatorView removeFromSuperview];
+    }];
+    
+    
+}
+- (void)jumpToPeopleWithID:(NSString*)peopleId
+{
+    [self loadingImageView];
+    [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:[NSDictionary dictionaryWithObjects:@[peopleId]  forKeys:@[@"userId"]] useKeys:@[@"userId"] success:^(id json) {
+        [self.activityIndicatorView removeFromSuperview];
+        AddressBookModel* model = [AddressBookModel new];
+        [model setValuesForKeysWithDictionary:json];
+        ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
+        coll.model = [[AddressBookModel alloc]init];
+        coll.model = model;
+        coll.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.navigationController pushViewController:coll animated:YES];
+    } failure:^(id errorJson) {
+        [self.activityIndicatorView removeFromSuperview];
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
