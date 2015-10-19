@@ -16,6 +16,7 @@
 
 @property (nonatomic, copy)NSString *index;
 
+@property (nonatomic, copy)NSString *score;
 
-
+@property (nonatomic)NSInteger type;
 @end
