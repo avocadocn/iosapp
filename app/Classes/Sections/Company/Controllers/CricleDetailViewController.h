@@ -9,10 +9,20 @@
 #import <UIKit/UIKit.h>
 @class CircleContextModel;
 
+@protocol CricleDetailViewControllerDelegate <NSObject>
+
+- (void)reloadData:(NSIndexPath *)index;
+
+@end
+
 @interface CricleDetailViewController : UIViewController
+
+
+
 @property (nonatomic, strong)NSMutableArray *modelArray;
 @property (nonatomic, strong)CircleContextModel *tempModel;
+@property (nonatomic, assign)id <CricleDetailViewControllerDelegate>delegate;
 
-
+@property (nonatomic, strong)NSIndexPath *index;
 
 @end
