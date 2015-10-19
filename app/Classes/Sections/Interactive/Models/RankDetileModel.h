@@ -19,4 +19,8 @@
 @property (nonatomic, copy)NSString *score;
 
 @property (nonatomic)NSInteger type;
+
+@property (nonatomic, copy)NSString* name;
+
+@property (nonatomic, copy)NSString* logo;
 @end

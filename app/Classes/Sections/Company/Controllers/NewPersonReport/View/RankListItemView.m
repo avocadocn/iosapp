@@ -127,26 +127,16 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
 
 - (void)reloadRankCellWithRankModel:(RankDetileModel *)model andIndex:(NSString *)index
 {
+    self.personName.text = model.name;
+    [self.imageView dlGetRouteThumbnallWebImageWithString:model.logo placeholderImage:nil withSize:CGSizeMake(200, 200)];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
     if (model.type==PARSE_TYPE_MEN||model.type==PARSE_TYPE_WOMEN) {
-        Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
-        if (per){
-            self.personName.text = per.name;
-            [self.imageView dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(200, 200)];
-            self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-            self.imageView.clipsToBounds = YES;
-        }
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(votePressed:)];
         [self.voteRect addGestureRecognizer:singleTap];
         self.personLike.text = model.vote;
     }
     else if (model.type==PARSE_TYPE_TEAM){
-        Group* g = [[FMDBSQLiteManager shareSQLiteManager] selectGroupWithGroupId:model.ID];
-        if (g) {
-            self.personName.text = g.name;
-            [self.imageView dlGetRouteThumbnallWebImageWithString:g.iconURL placeholderImage:nil withSize:CGSizeMake(200, 200)];
-            self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-            self.imageView.clipsToBounds = YES;
-        }
         self.personLike.text = [NSString stringWithFormat:@"%@",model.score];
     }
     self.RankList.text = [NSString stringWithFormat:@"排名: %@", index];

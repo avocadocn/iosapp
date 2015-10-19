@@ -79,6 +79,10 @@ static NSString * const ID =  @"RankItemTableViewcell";
         RankDetileModel *model = [[RankDetileModel alloc]init];
         
         [model setValuesForKeysWithDictionary:dic];
+        if (type!=PARSE_TYPE_TEAM) {
+            [model setLogo:[dic objectForKey:@"photo"]];
+            [model setName:[dic objectForKey:@"nickname"]];
+        }
         [model setIndex:[NSString stringWithFormat:@"%ld", i + 1]];
         [model setType:type];
 
@@ -218,12 +222,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
     self.bottomShowView.nameLabel.text = @"";
     self.bottomShowView.avatar.image = nil;
     
-    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
-    Person* p = [fmdb selectPersonWithUserId:model.ID];
-    if (p) {
-        self.bottomShowView.nameLabel.text = p.name;
-        [self.bottomShowView.avatar dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)] ;
-    }
+    self.bottomShowView.nameLabel.text = model.name;
+    [self.bottomShowView.avatar dlGetRouteThumbnallWebImageWithString:model.logo placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)] ;
     self.bottomShowView.rankLabel.text = [NSString stringWithFormat:@"目前排名: %@", model.index];
 }
 
