@@ -51,6 +51,10 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 @property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;// loading
 
+@property (nonatomic, copy) NSString *remainTimeStr;
+
+@property (nonatomic, assign) NSInteger index;
+
 @end
 
 @implementation LaunchEventController
@@ -87,9 +91,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 }
 - (void)loadingImageView {
     
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:RGBACOLOR(253, 185, 0, 1) size:40.0f];
     activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    activityIndicatorView.backgroundColor = RGBACOLOR(132, 123, 123, 0.52);
     self.activityIndicatorView = activityIndicatorView;
     [activityIndicatorView.layer setMasksToBounds:YES];
     [activityIndicatorView.layer setCornerRadius:10.0];
@@ -149,8 +153,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         [inter setLatitude:self.lau];
         [inter setLongitude:self.log];
     }
-    [inter setRemindTime:self.startTimeField.text];
-    
+    if (self.startTimeField.text.length != 0) {
+        [inter setRemindTime:[self getRemindTimeFromStartTime:self.startTimeField.text]]; // mark
+    }
     Account *acc = [AccountTool account];
     if (self.isTemplate) {
         [inter setTarget:self.model.target];
@@ -537,7 +542,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
             self.remindView.height = DLMultipleHeight(50.0);
             self.tableView.frame = CGRectMake(0, DLMultipleHeight(50.0), DLScreenWidth, 0);
             self.eventScroll.contentSize = CGSizeMake(0, DLMultipleHeight(667));
-            
+            self.myImageView.transform = CGAffineTransformMakeRotation(- M_PI);
             NSArray *array = [self.tableView subviews];
             for (id view in array) {
                 [view removeFromSuperview];
@@ -609,6 +614,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     DLDatePickerView *dld = [[DLDatePickerView alloc]init];
     
     if (self.startTimeField.text && tap.view.tag == 2) {  //点击了结束时间
+        NSLog(@"%@",self.startTimeField.text);
         NSDate *minDate = [self dateFromString:self.startTimeField.text];
         dld.picker.minimumDate = minDate;
     }
@@ -631,6 +637,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [dateFormatter setDateFormat: @"yyyy-MM-dd hh:mm"];
     
     NSDate *destDate= [dateFormatter dateFromString:dateString];
+    
+//    NSLog(@"")
     
     return destDate;
     
@@ -681,6 +689,8 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     
     [sender setBackgroundImage:[UIImage imageNamed:@"OK"] forState:UIControlStateNormal];
     num = sender.tag;
+    self.index = num - 100;
+    NSLog(@"%ld",(long)self.index);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -714,7 +724,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
     //转为现在时间
     NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
+    
     str = [formatter stringFromDate:destinationDateNow];
+    NSLog(@"现在的时间为      %@" ,str);
     return str;
 }
 
@@ -737,6 +749,21 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [self.view endEditing:YES];
 }
 
+- (NSString *)getRemindTimeFromStartTime:(NSString *)startTime {
+    
+    NSArray *remindTimeAry = [NSArray arrayWithObjects:@0,@600,@1800,@3600,@7200,@86400,@172800, nil];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat: @"yyyy-MM-dd hh:mm"];
+    
+    NSDate *startDate = [dateFormatter dateFromString:[startTime substringToIndex:16]];
+    
+    NSDate *remindDate = [NSDate dateWithTimeInterval:-[[remindTimeAry objectAtIndex:self.index] integerValue] sinceDate:startDate];
+    
+    return [dateFormatter stringFromDate:remindDate];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -744,6 +771,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 -(void)viewWillDisappear:(BOOL)animated {
     [self.activityIndicatorView removeFromSuperview];
 }
+
 
 /*
  #pragma mark - Navigation
