@@ -343,6 +343,7 @@ static NSString * const helpCellID = @"helpCellID";
         }
         case 2:{  // 投票详情
             VoteTableController *voteController = [[VoteTableController alloc]init];  /// 投票
+            
             voteController.voteArray = [NSMutableArray array];
             [voteController.voteArray addObject:inter];
             [self.navigationController pushViewController:voteController animated:YES];

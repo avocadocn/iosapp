@@ -10,12 +10,24 @@
 
 @class Interaction;
 
+
+@protocol DetailActivityShowViewDelegate <NSObject>
+
+- (void)DetailActivityShowViewDismiss;
+
+@end
+
+
 @interface DetailActivityShowView : UIView
 
 @property (nonatomic, strong)Interaction *model;
 
 @property (nonatomic)BOOL orCreatBtn;
 
-- (instancetype)initWithModel:(Interaction *)model;
+@property (nonatomic, assign)BOOL deleteButtonState;
+
+@property (nonatomic, assign)id <DetailActivityShowViewDelegate> delegate;
+
+- (instancetype)initWithModel:(Interaction *)model andButtonState:(BOOL)state;
 
 @end

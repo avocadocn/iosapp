@@ -188,6 +188,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     switch ([inter.type integerValue]) {
         case 1:{  // 活动详情
             DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
+            activityController.quitState = YES;
             activityController.orTrue = YES;
             activityController.model = inter;
             [self.navigationController pushViewController:activityController animated:YES];
@@ -338,4 +339,12 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self.tableView reloadData];
     //    [self.modelArray writeToFile:[self.path stringByAppendingPathComponent:@"modelArray"]atomically:YES];
 }
+
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    if (self.tableView) {
+//        [self refreshData];
+//    }
+//}
+
 @end

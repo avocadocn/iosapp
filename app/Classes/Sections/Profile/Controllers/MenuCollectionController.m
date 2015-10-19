@@ -37,7 +37,7 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
     CGFloat margin = 0.6;
     
     CGFloat width = (DLScreenWidth - 4) / 3.0;
-    CGFloat height = 90 ;
+    CGFloat height = 80;
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     [flowLayout setItemSize:CGSizeMake(width, height)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
@@ -52,6 +52,8 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     
     self.itemNames = @[@"我的信息",@"群组",@"消息",@"活动",@"投票",@"求助"];
     

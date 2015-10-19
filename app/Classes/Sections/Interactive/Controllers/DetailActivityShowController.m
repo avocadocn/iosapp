@@ -10,7 +10,7 @@
 #import "DetailActivityShowView.h"
 #import "interaction.h"
 
-@interface DetailActivityShowController ()
+@interface DetailActivityShowController ()<DetailActivityShowViewDelegate>
 
 @end
 
@@ -22,9 +22,16 @@
     self.title = @"详情";
     [self.view setBackgroundColor:RGB(235.0, 234.0, 236.0)];
     if (self.model) {
-        DetailActivityShowView *detailView = [[DetailActivityShowView alloc]initWithModel:self.model];
+        DetailActivityShowView *detailView = [[DetailActivityShowView alloc]initWithModel:self.model andButtonState:self.quitState];
+        detailView.delegate = self;
         [self.view addSubview:detailView];
+        
     }
+}
+
+- (void)DetailActivityShowViewDismiss
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,7 +50,7 @@
         self.model = [[Interaction alloc]init];
         [self.model setValuesForKeysWithDictionary:json];
         
-        DetailActivityShowView *detailView = [[DetailActivityShowView alloc]initWithModel:self.model];
+        DetailActivityShowView *detailView = [[DetailActivityShowView alloc]initWithModel:self.model andButtonState:NO];
         [self.view addSubview:detailView];
 
         
