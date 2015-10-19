@@ -143,7 +143,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     } else {
         [self analyDataWithJson:self.modelArray];
     }
-    
+ 
 }
  */
 - (void)reFreshData {

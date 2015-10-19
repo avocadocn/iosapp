@@ -375,8 +375,9 @@ static NSString * const ID = @"HelpTableViewCell";
 }
 
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.activityIndicatorView removeFromSuperview];
-}
+
+
+
+
+
 @end

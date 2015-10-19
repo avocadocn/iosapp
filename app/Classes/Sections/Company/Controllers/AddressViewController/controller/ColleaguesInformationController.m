@@ -5,6 +5,9 @@
 //  Created by 申家 on 15/8/3.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
+#import "Account.h"
+#import "AccountTool.h"
 #import "FMDBSQLiteManager.h"
 #import "Person.h"
 #import "ColleaguesInformationController.h"
@@ -60,7 +63,14 @@ static NSInteger tagNum = 1;
     CGFloat centerY = DLMultipleHeight((600.0 - 64.0));
     
     CGFloat num = DLScreenWidth / (320 / 55.0);
-    [self builtInterfaceWithNameArray:@[@"资料", @"动态", @"聊天"] imageArray:imageArray andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY: centerY];
+    NSArray *titleNameArray;
+    titleNameArray = @[@"资料", @"动态", @"聊天"];
+    Account *acc = [AccountTool account];
+    if ([acc.ID isEqualToString:self.model.ID]) {
+        titleNameArray = @[@"资料", @"动态"];
+    }
+    
+    [self builtInterfaceWithNameArray:titleNameArray imageArray:imageArray andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY: centerY];
 }
 - (void)setModel:(AddressBookModel *)model
 {
@@ -128,64 +138,72 @@ static NSInteger tagNum = 1;
         make.right.mas_equalTo(self.imageView.mas_right);
         make.height.mas_equalTo(65);
     }];
-    
-    self.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    self.attentionButton.backgroundColor = [UIColor whiteColor];
-    self.attentionButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.attentionButton.layer.borderWidth = 1;
-    self.attentionButton.layer.cornerRadius = 5;
-    self.attentionButton.layer.masksToBounds = YES;
-    if (self.model.attentState) {
+    Account *acc = [AccountTool account];
+
         
-        [self.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
-    } else
-    {
-        [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
-    }
-    
-    self.attentionButton.font = [UIFont systemFontOfSize:16];
-    [self.attentionButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [view addSubview:self.attentionButton];
-    
-    self.attentionButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        self.model.userId = self.model.ID;
-        AttentionViewController *att  =[AttentionViewController shareInsten];
-        if ([[self.attentionButton currentTitle] isEqualToString:@"关注"]) {
-            NSLog(@"关注");
+        self.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        
+        self.attentionButton.backgroundColor = [UIColor whiteColor];
+        self.attentionButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        self.attentionButton.layer.borderWidth = 1;
+        self.attentionButton.layer.cornerRadius = 5;
+        self.attentionButton.layer.masksToBounds = YES;
+        if (self.model.attentState) {
             
-            [self.model setUserId:self.model.ID];
-            [RestfulAPIRequestTool routeName:@"addConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
-                NSLog(@"关注成功  %@", json);
-                [att makeFalseValue];
-                [self.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
-                
-            } failure:^(id errorJson) {
-                NSLog(@"关注失败 %@", errorJson);
-            }];
-            
+            [self.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
         } else
         {
-            [RestfulAPIRequestTool routeName:@"deleteConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
-                NSLog(@"取消关注成功  %@", json);
-                [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
-                
-                [att makeFalseValue];
-            } failure:^(id errorJson) {
-                NSLog(@"取消关注失败  %@", errorJson);
-            }];
-            NSLog(@"取消关注");
+            [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
         }
         
-        return [RACSignal empty];
-    }];
+        self.attentionButton.font = [UIFont systemFontOfSize:16];
+        [self.attentionButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [view addSubview:self.attentionButton];
+        
+        self.attentionButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+            self.model.userId = self.model.ID;
+            AttentionViewController *att  =[AttentionViewController shareInsten];
+            if ([[self.attentionButton currentTitle] isEqualToString:@"关注"]) {
+                NSLog(@"关注");
+                
+                [self.model setUserId:self.model.ID];
+                [RestfulAPIRequestTool routeName:@"addConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
+                    NSLog(@"关注成功  %@", json);
+                    [att makeFalseValue];
+                    [self.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
+                    
+                } failure:^(id errorJson) {
+                    NSLog(@"关注失败 %@", errorJson);
+                }];
+                
+            } else
+            {
+                [RestfulAPIRequestTool routeName:@"deleteConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
+                    NSLog(@"取消关注成功  %@", json);
+                    [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
+                    
+                    [att makeFalseValue];
+                } failure:^(id errorJson) {
+                    NSLog(@"取消关注失败  %@", errorJson);
+                }];
+                NSLog(@"取消关注");
+            }
+            
+            return [RACSignal empty];
+        }];
+        
+        [self.attentionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(view.mas_right).offset(-12);
+            make.top.mas_equalTo(view.mas_top).offset(11);
+            make.height.mas_equalTo(44);
+            make.width.mas_equalTo(89);
+        }];
     
-    [self.attentionButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(view.mas_right).offset(-12);
-        make.top.mas_equalTo(view.mas_top).offset(11);
-        make.height.mas_equalTo(44);
-        make.width.mas_equalTo(89);
-    }];
+    if ([acc.ID isEqualToString:self.model.ID]) {
+        [self.attentionButton removeFromSuperview];
+    }
+    
+    
     
     self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(12, 0, 100, 60)];
     self.nameLabel.font = [UIFont systemFontOfSize:21];

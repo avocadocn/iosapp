@@ -17,4 +17,7 @@
 
 @property (nonatomic, copy)NSString *interactionType;
 @property (nonatomic, copy)NSString *interaction;
+@property (nonatomic, assign)BOOL quitState;
+
+
 @end

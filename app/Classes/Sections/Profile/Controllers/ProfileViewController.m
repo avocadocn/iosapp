@@ -62,13 +62,14 @@ static NSString * const ID = @"ProfileTableViewCell";
     MenuCollectionController *menuController = [[MenuCollectionController alloc]init];
     menuController.view.y += 64;
     [menuController setDelegate:self];
+    
     [self.view addSubview:menuController.view];
     self.menuController = menuController;
 }
 
 -(void)setupMenuTableView{
     UITableView *tableView = [[UITableView alloc]init];
-    [tableView setFrame:CGRectMake(0, CGRectGetMaxY(self.menuController.view.frame) + 25, DLScreenWidth, 4 * 50 + 15)];
+    [tableView setFrame:CGRectMake(0, CGRectGetMaxY(self.menuController.view.frame) - 3, DLScreenWidth, 4 * 50 + 15)];
     [tableView setBackgroundColor:GrayBackgroundColor];
     [tableView setBounces:NO];
     [tableView setDataSource:self];
