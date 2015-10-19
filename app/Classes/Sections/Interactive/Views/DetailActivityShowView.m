@@ -15,7 +15,7 @@
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchAPI.h>
 #import "GTMNSString+HTML.h"
-@interface DetailActivityShowView()<UIScrollViewDelegate,MAMapViewDelegate,AMapSearchDelegate,UIWebViewDelegate>
+@interface DetailActivityShowView()<UIScrollViewDelegate,MAMapViewDelegate,AMapSearchDelegate,UIWebViewDelegate, UIAlertViewDelegate>
 
 {
     MAMapView *_mapView; // 创建地图
@@ -23,7 +23,7 @@
      AMapSearchAPI *_search; // 搜索
 }
 
-
+@property (nonatomic, strong)UIAlertView *alert;
 @property (strong,nonatomic) UIScrollView *superView;
 @property (strong,nonatomic) UIImageView *pictureView; // 顶部照片
 @property (assign,nonatomic) CGFloat imageViewWidth;
@@ -53,13 +53,16 @@
  */
 
 
-- (instancetype)initWithModel:(Interaction *)model
+- (instancetype)initWithModel:(Interaction *)model andButtonState:(BOOL)state
 {
     self = [super init];
     if (self) {
         [self setFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
         self.model = [[Interaction alloc]init];
         self.model = model;
+        if (state) {
+            self.deleteButtonState = state;
+        }
         
         [self buildInterface];
         [self getState]; // 获得报名状态
@@ -136,6 +139,7 @@
 
 -(void)buildInterface{
     
+    
     UIScrollView *superView = [[UIScrollView alloc]init];
     [superView setDelegate:self];
     [superView setFrame:self.frame];
@@ -176,10 +180,9 @@
     [self.activityName setText:nameText];
     [self.activityName setSize:CGSizeMake(DLScreenWidth, 14)];
     [self.activityName setTextAlignment:NSTextAlignmentCenter];
+//    self.activityName.backgroundColor = [UIColor yellowColor];
     self.activityName.centerX = DLScreenWidth / 2;
     self.activityName.y = CGRectGetMaxY(self.pictureView.frame) + 13;
-    
-    
     
     // 添加感兴趣按钮，需要根据图片自定义
 //    UIButton *interest = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -192,10 +195,22 @@
     [topPictureView addSubview:self.activityName];
 //    [topPictureView addSubview:interest];
     
+    
+    int i = 0;
+    if (self.deleteButtonState){
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.frame = CGRectMake(0, 0, DLScreenWidth, 30);
+    [button setTitle:@"退出活动" forState: UIControlStateNormal];
+    [button addTarget:self action:@selector(quitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    button.y = CGRectGetMaxY(self.activityName.frame) + 5;
+    i = 35;
+        [topPictureView addSubview:button];
+    }
     // 设置顶部pic view的frame
-    topPictureView.height = CGRectGetMaxY(self.pictureView.frame) + 35;
+    topPictureView.height = CGRectGetMaxY(self.pictureView.frame) + 35 + i;
     topPictureView.width = DLScreenWidth;
     [topPictureView setOrigin:CGPointZero];
+//    topPictureView.backgroundColor = [UIColor blueColor];
     
     [superView addSubview:topPictureView];
     
@@ -364,32 +379,74 @@
     [sighUpView setBackgroundColor:[UIColor whiteColor]];
     
     // 设置报名view的frame
-    sighUpView.size = CGSizeMake(DLScreenWidth, 44);
-    sighUpView.x = 0;
-    sighUpView.y = DLScreenHeight - 44;
     
-    UIButton *sighUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sighUpBtn.layer setMasksToBounds:YES];
-    [sighUpBtn.layer setCornerRadius:10.0];
-    self.applyBtn = sighUpBtn;
-    sighUpBtn.superview.backgroundColor = [UIColor whiteColor];
-    [sighUpBtn setTitle:@"立即报名" forState:UIControlStateNormal];
-    sighUpBtn.backgroundColor = [UIColor redColor];
-    [sighUpBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    sighUpBtn.width = DLScreenWidth - 2 * 10;
-    sighUpBtn.height = 28;
-    sighUpBtn.x = 10;
-    sighUpBtn.y = sighUpView.height / 2 - sighUpBtn.height / 2;
-    [sighUpBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    ////////
+    if (!self.deleteButtonState) {
+        sighUpView.size = CGSizeMake(DLScreenWidth, 44);
+        sighUpView.x = 0;
+        sighUpView.y = DLScreenHeight - 44;
+        UIButton *sighUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [sighUpBtn.layer setMasksToBounds:YES];
+        [sighUpBtn.layer setCornerRadius:10.0];
+        self.applyBtn = sighUpBtn;
+        sighUpBtn.superview.backgroundColor = [UIColor whiteColor];
+        [sighUpBtn setTitle:@"立即报名" forState:UIControlStateNormal];
+        sighUpBtn.backgroundColor = [UIColor redColor];
+        [sighUpBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        sighUpBtn.width = DLScreenWidth - 2 * 10;
+        sighUpBtn.height = 28;
+        sighUpBtn.x = 10;
+        sighUpBtn.y = sighUpView.height / 2 - sighUpBtn.height / 2;
+        [sighUpBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        // btn添加到view中
+        [sighUpView addSubview:sighUpBtn];
+        [self addSubview:sighUpView];
+    }
     
-    // btn添加到view中
-    [sighUpView addSubview:sighUpBtn];
-    [self addSubview:sighUpView];
+    
     
     
     self.superView = superView;
     
     
+}
+- (void)quitButtonAction:(UIButton *)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"退出活动?" message: nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
+    [alert show];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView == self.alert) {
+        
+
+    switch (buttonIndex) {
+        case 1:
+        {
+            [self.delegate DetailActivityShowViewDismiss];
+            NSMutableDictionary *dic =[NSMutableDictionary dictionary];
+            [dic setObject:self.model.ID forKey:@"interactionId"];
+            Account *acc = [AccountTool account];
+            [dic setObject:acc.ID forKey:@"userId"];
+            [RestfulAPIRequestTool routeName:@"exitInteraction" requestModel:dic useKeys:@[@"interactionId", @"userId"] success:^(id json) {
+                NSLog(@"退出活动成功%@", json);
+                
+            } failure:^(id errorJson) {
+                
+                UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"退出失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+                
+                [al show];
+            }];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    }
 }
 
 -(void)btnClick:(UIButton *)sender{
@@ -400,8 +457,8 @@
     [self.model setInteractionId:self.model.interactionId];
     [self.model setUserId:account.ID];
     [RestfulAPIRequestTool routeName:@"joinInteraction" requestModel:self.model useKeys:@[@"interactionId",@"userId"] success:^(id json) {
-        UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名成功" message:@"少年,恭喜你报名成功了" delegate:nil cancelButtonTitle:@"哇,好高兴" otherButtonTitles:nil, nil];
-        [alertV show];
+        self.alert = [[UIAlertView alloc] initWithTitle:@"报名成功" message:@"少年,恭喜你报名成功了" delegate:nil cancelButtonTitle:@"哇,好高兴" otherButtonTitles:nil, nil];
+        [self.alert show];
         [sender setTitle:@"已经报名" forState:UIControlStateNormal];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"KPOSTNAME" object:nil];
     } failure:^(id errorJson) {

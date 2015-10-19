@@ -105,9 +105,10 @@ static NSString *ID = @"fjseijfhiusehfgiu";
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 45.0;
+//    return 45.0;
+    return 0;
 }
-
+/*
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(45))];
@@ -156,7 +157,7 @@ static NSString *ID = @"fjseijfhiusehfgiu";
     
     return view;
 }
-
+*/
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     /*
