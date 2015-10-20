@@ -17,6 +17,7 @@
 #import "LoginViewController.h"
 #import "GuidePageViewController.h"
 #import "FMDBSQLiteManager.h"
+#import <SDWebImageManager.h>
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong)UITableView *tableView;
@@ -153,10 +154,14 @@
 //当用户推出时，清空本地缓存数据
 - (void)cleanLocalData
 {
+    //清空本地缓存数据
     FMDBSQLiteManager* fmdb=[FMDBSQLiteManager shareSQLiteManager];
     [fmdb dropGroup];
     [fmdb dropPerson];
     [fmdb dropConcerns];
+    //清空缓存图片
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[SDImageCache sharedImageCache] clearDisk];
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
