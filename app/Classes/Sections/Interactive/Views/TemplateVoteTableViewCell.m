@@ -226,7 +226,7 @@
   
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
     if (model.voteImageURL) {
-        [self.voteImageView dlGetRouteThumbnallWebImageWithString:model.voteImageURL placeholderImage:nil withSize:CGSizeMake(DLScreenWidth*2, DLScreenWidth*4/5*2)];
+        [self.voteImageView dlGetRouteThumbnallWebImageWithString:model.voteImageURL placeholderImage:nil withSize:CGSizeMake(DLScreenWidth, DLScreenWidth*4/5)];
         [self.voteImageView setAlpha:1];
     }else{
         [self.voteImageView setAlpha:0];

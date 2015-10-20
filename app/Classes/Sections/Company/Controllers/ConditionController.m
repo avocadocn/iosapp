@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
+#import <DGActivityIndicatorView.h>
+
 #import "ConditionController.h"
 #import <ReactiveCocoa.h>
 #import <Masonry.h>
@@ -22,6 +24,7 @@
 
 @interface ConditionController ()<UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ChoosePhotoViewDelegate>
 
+@property(nonatomic, strong)DGActivityIndicatorView *activityIndicatorView;
 @end
 @implementation ConditionController
 
@@ -38,7 +41,7 @@
     
     //标题
     UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-//    [cancelButton setBackgroundColor:[UIColor greenColor]];
+    //    [cancelButton setBackgroundColor:[UIColor greenColor]];
     UILabel *cancelLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
     cancelLabel.text = @"取消";
     cancelLabel.textColor = [UIColor colorWithWhite:.5 alpha:.8];
@@ -51,7 +54,7 @@
     }];
     
     UIButton *completeButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
-//    [completeButton setBackgroundColor:[UIColor greenColor]];
+    //    [completeButton setBackgroundColor:[UIColor greenColor]];
     UILabel *completeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 30)];
     completeLabel.text = @"完成";
     completeLabel.textAlignment = NSTextAlignmentRight;
@@ -62,7 +65,7 @@
     
     self.speakTextView = [XHMessageTextView new];
     self.speakTextView.font = [UIFont systemFontOfSize:17];
-//    [self.speakTextView setBackgroundColor:[UIColor greenColor]];
+    //    [self.speakTextView setBackgroundColor:[UIColor greenColor]];
     self.speakTextView.delegate = self;
     self.speakTextView.allowsEditingTextAttributes = YES;
     self.speakTextView.placeHolder = @"这一刻的想法...";
@@ -76,7 +79,7 @@
     }];
     
     self.selectPhotoView = [ChoosePhotoView new];
-//    self.selectPhotoView.backgroundColor = [UIColor blueColor];
+    //    self.selectPhotoView.backgroundColor = [UIColor blueColor];
     
     [self.view addSubview:self.selectPhotoView];
     self.selectPhotoView.view = self;
@@ -98,10 +101,11 @@
 
 - (void)nextStepTap:(UIButton *)sender
 {
+    [self loadingImageView];
     [self.navigationController popViewControllerAnimated:YES];
     CircleContextModel *model = [[CircleContextModel alloc]init];
     model.photo = [NSMutableArray array];
-
+    
     NSLog(@"存取的照片有:  %@", self.selectPhotoView.imagePhotoArray);
     
     for (UIImage *image  in self.selectPhotoView.imagePhotoArray) {
@@ -122,7 +126,7 @@
     [RestfulAPIRequestTool routeName:@"cirleContent" requestModel:model useKeys:@[@"content", @"photo"] success:^(id json) {
         NSLog(@"%@", json);
         
-        
+        [self.activityIndicatorView removeFromSuperview];
         NSArray *array = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
         NSString *path = [array lastObject];
         path = [NSString stringWithFormat:@"%@/%@", path, @"IDArray"];
@@ -145,6 +149,7 @@
         
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);
+        [self.activityIndicatorView removeFromSuperview];
     }];
     
 }
@@ -161,4 +166,17 @@
 //        textView.text = nil;
 //    }
 }
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
+    
+}
+
 @end

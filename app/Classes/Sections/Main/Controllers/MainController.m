@@ -31,6 +31,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "GuidePageViewController.h"
 #import "FMDBSQLiteManager.h"
+#import <SDWebImageManager.h>
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 static NSString *kMessageType = @"MessageType";
@@ -779,6 +780,10 @@ static NSString *kGroupName = @"GroupName";
     FMDBSQLiteManager* fmdb=[FMDBSQLiteManager shareSQLiteManager];
     [fmdb dropGroup];
     [fmdb dropPerson];
+    [fmdb dropConcerns];
+    //清空缓存图片
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[SDImageCache sharedImageCache] clearDisk];
 }
 - (void)didRemovedFromServer
 {

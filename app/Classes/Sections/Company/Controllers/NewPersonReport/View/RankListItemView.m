@@ -14,7 +14,7 @@
 #import "AddressBookModel.h"
 #import "RankListItemView.h"
 #import "RankDetileModel.h"
-
+#import "Group.h"
 typedef NS_ENUM(NSInteger, PersonAttitude) {
     PersonAttitudeDontLike,
     PersonAttitudeLike
@@ -75,7 +75,7 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
     self.personLike.textAlignment = NSTextAlignmentRight;
     self.personLike.font = [UIFont systemFontOfSize:14];
     self.personLike.userInteractionEnabled = YES;
-    [self addSubview:self.personLike];
+    [view addSubview:self.personLike];
     [self.personLike mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(view.mas_right).offset(-10);
         make.top.mas_equalTo(view.mas_top);
@@ -105,20 +105,40 @@ typedef NS_ENUM(NSInteger, PersonAttitude) {
         make.right.mas_equalTo(self.personLike.mas_right);
 //        make.height.mas_equalTo(16);
     }];
+    self.voteRect = [UIView new];
+    [self.voteRect setBackgroundColor:[UIColor clearColor]];
+    [view addSubview:self.voteRect];
+    [self.voteRect mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(view.mas_top);
+        make.left.mas_equalTo(self.likeImage.mas_left);
+        make.right.mas_equalTo(self.personLike.mas_right);
+        make.bottom.mas_equalTo(self.RankList.mas_bottom);
+    }];
+    
+}
+
+- (void)votePressed:(id)sender
+{
+    NSLog(@"vote clicked!");
+    if ([self.delegate respondsToSelector:@selector(voteForPeople)]) {
+        [self.delegate voteForPeople];
+    }
 }
 
 - (void)reloadRankCellWithRankModel:(RankDetileModel *)model andIndex:(NSString *)index
 {
-    
-    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
-    if (per){
-        self.personName.text = per.name;
-        [self.imageView dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(200*2, 200*2)];
-        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.imageView.clipsToBounds = YES;
+    self.personName.text = model.name;
+    [self.imageView dlGetRouteThumbnallWebImageWithString:model.logo placeholderImage:nil withSize:CGSizeMake(200, 200)];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
+    if (model.type==PARSE_TYPE_MEN||model.type==PARSE_TYPE_WOMEN) {
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(votePressed:)];
+        [self.voteRect addGestureRecognizer:singleTap];
+        self.personLike.text = model.vote;
     }
-    self.personLike.text = model.vote;
-    
+    else if (model.type==PARSE_TYPE_TEAM){
+        self.personLike.text = [NSString stringWithFormat:@"%@",model.score];
+    }
     self.RankList.text = [NSString stringWithFormat:@"排名: %@", index];
 }
 

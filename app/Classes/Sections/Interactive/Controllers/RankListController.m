@@ -19,9 +19,13 @@
 #import "Person.h"
 #import "FMDBSQLiteManager.h"
 #import "UIImageView+DLGetWebImage.h"
-
+#import <DGActivityIndicatorView.h>
+#import "GroupCardModel.h"
+#import "TeamHomePageController.h"
+#import "AddressBookModel.h"
+#import "ColleaguesInformationController.h"
 static int selectNum = 1;
-
+static Boolean wrap = NO;
 @interface RankListController ()<iCarouselDataSource, iCarouselDelegate>
 
 @property (nonatomic,strong) NSMutableArray *items;
@@ -36,6 +40,8 @@ static int selectNum = 1;
 @property (nonatomic, strong)NSMutableArray *womanArray;
 @property (nonatomic, strong)NSMutableArray *populArray;
 
+@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
+
 @end
 
 @implementation RankListController
@@ -47,8 +53,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
     self = [self init];
     self.listType = rankListType;
     
-    // 设置标题栏
-    [self setUpNavTitleWithRankListType:rankListType];
+    
     return self;
 }
 
@@ -56,26 +61,43 @@ static NSString * const ID =  @"RankItemTableViewcell";
     [super viewDidLoad];
     [self getGiftTime];
     [self setUpUI];
+    // 设置标题栏
+    [self setUpNavTitleWithRankListType:self.listType];
 }
 
-
-- (void)reloadRankDataWithJson:(id)json
+- (void)reloadRankDataWithJson:(id)json AndType:(PARSE_TYPE)type
 {
     self.modelArray = [NSMutableArray array];
-    
-    NSArray *ranking = [json objectForKey:@"ranking"];
-    
+    NSArray *ranking;
+    if (type==PARSE_TYPE_MEN||type==PARSE_TYPE_WOMEN) {
+        ranking = [json objectForKey:@"ranking"];
+    }else if(type==PARSE_TYPE_TEAM){
+        ranking = json;
+    }
     NSInteger i = 0;
     for (NSDictionary *dic  in ranking) {
         RankDetileModel *model = [[RankDetileModel alloc]init];
         
         [model setValuesForKeysWithDictionary:dic];
+        if (type!=PARSE_TYPE_TEAM) {
+            [model setLogo:[dic objectForKey:@"photo"]];
+            [model setName:[dic objectForKey:@"nickname"]];
+        }
         [model setIndex:[NSString stringWithFormat:@"%ld", i + 1]];
-        
+        [model setType:type];
+
         [self.modelArray addObject:model];
         i++;
     }
+    if (i>2) {
+        wrap=YES;
+    }else{
+        wrap=NO;
+    }
     NSLog(@"开始刷新");
+    //设置底部信息栏
+    RankDetileModel *model = [self.modelArray firstObject];
+    [self reloadRankViewWithModel:model];
     [self.carousel scrollToItemAtIndex:0 animated:YES];
     [self.carousel reloadData];
 }
@@ -153,15 +175,15 @@ static NSString * const ID =  @"RankItemTableViewcell";
         RankListItemView *cell = [[RankListItemView alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(217.0) , DLMultipleWidth((DLScreenHeight/2.0))>DLMultipleWidth(217.0)?DLMultipleWidth(217.0):DLMultipleWidth((DLScreenHeight/2.0)))];
         cell.backgroundColor = [UIColor whiteColor];
         cell.layer.borderColor = [UIColor whiteColor].CGColor;
-        RankDetileModel *model = [self.modelArray objectAtIndex:index];
-        [cell reloadRankCellWithRankModel:model andIndex:model.index];
+        cell.delegate=self;
         cell.layer.shadowRadius = 7;
         cell.layer.shadowColor = [UIColor lightGrayColor].CGColor;
         cell.layer.shadowOpacity = .5;
         view = cell;
         
     }
-    
+    RankDetileModel *model = [self.modelArray objectAtIndex:index];
+    [(RankListItemView*)view reloadRankCellWithRankModel:model andIndex:model.index];
     view.layer.borderColor = [UIColor whiteColor].CGColor;
     view.layer.borderWidth = 5;
     
@@ -177,11 +199,15 @@ static NSString * const ID =  @"RankItemTableViewcell";
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:num forKey:@"giftIndex"];
     [dic setObject:userId forKey:@"receiverId"];
-    
+    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"sendGifts" requestModel:dic useKeys:@[@"giftIndex"] success:^(id json) {
         NSLog(@"送礼成功  %@", json);
+        [self.activityIndicatorView removeFromSuperview];
         [self requestNetWithType:[NSNumber numberWithInt:selectNum]];
+        //尝试获取状态更新
+        [self getGiftTime];
     } failure:^(id errorJson) {
+        [self.activityIndicatorView removeFromSuperview];
         NSLog(@"送礼失败   %@", errorJson);
         UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"投票失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle: @"取消" otherButtonTitles:nil, nil];
         
@@ -193,12 +219,11 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (void)reloadRankViewWithModel:(RankDetileModel *)model
 {
     NSLog(@"现在的 %@, %@", model.ID, model.index);
-    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
-    Person* p = [fmdb selectPersonWithUserId:model.ID];
-    if (p) {
-        self.bottomShowView.nameLabel.text = p.name;
-        [self.bottomShowView.avatar dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(100.0, 100.0)] ;
-    }
+    self.bottomShowView.nameLabel.text = @"";
+    self.bottomShowView.avatar.image = nil;
+    
+    self.bottomShowView.nameLabel.text = model.name;
+    [self.bottomShowView.avatar dlGetRouteThumbnallWebImageWithString:model.logo placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)] ;
     self.bottomShowView.rankLabel.text = [NSString stringWithFormat:@"目前排名: %@", model.index];
 }
 
@@ -210,8 +235,54 @@ static NSString * const ID =  @"RankItemTableViewcell";
 //    cell.personLike.text = [NSString stringWithFormat:@"%ld", [cell.personLike.text integerValue] + 1];
 //    NSLog(@"子视图有  %@", cell);
     if(index==carousel.currentItemIndex){
-        [self voteActionWithId:model.ID];
+        //[self voteActionWithId:model.ID];
+        if (self.listType == RankListTypePopularity) {
+            //跳转到群组详情
+            [self jumpToTeamWithID:model.ID];
+        }else{
+            //跳转到个人详情
+            [self jumpToPeopleWithID:model.ID];
+        }
     }
+}
+- (void)jumpToTeamWithID:(NSString*)groupId
+{
+    [self loadingImageView];
+    [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:[NSDictionary dictionaryWithObjects:@[groupId]  forKeys:@[@"groupId"]] useKeys:@[@"groupId"] success:^(id json) {
+        [self.activityIndicatorView removeFromSuperview];
+        GroupCardModel *model = [GroupCardModel new];
+        NSDictionary* d = [json objectForKey:@"group"];
+        [model setName:[d objectForKey:@"name"]];
+        [model setLogo:[d objectForKey:@"logo"]];
+        [model setGroupId:[d objectForKey:@"_id"]];
+        [model setAllInfo:YES];
+        TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
+        groupDetile.groupCardModel = model;
+        [self.navigationController pushViewController:groupDetile animated:YES];
+    } failure:^(id errorJson) {
+        [self.activityIndicatorView removeFromSuperview];
+    }];
+    
+    
+}
+- (void)jumpToPeopleWithID:(NSString*)peopleId
+{
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+    Boolean attentState = [fmdb containConcernWithId:peopleId];
+    [self loadingImageView];
+    [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:[NSDictionary dictionaryWithObjects:@[peopleId]  forKeys:@[@"userId"]] useKeys:@[@"userId"] success:^(id json) {
+        [self.activityIndicatorView removeFromSuperview];
+        AddressBookModel* model = [AddressBookModel new];
+        [model setValuesForKeysWithDictionary:json];
+        [model setAttentState:attentState];
+        ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
+        coll.model = [[AddressBookModel alloc]init];
+        coll.model = model;
+        coll.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.navigationController pushViewController:coll animated:YES];
+    } failure:^(id errorJson) {
+        [self.activityIndicatorView removeFromSuperview];
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -227,93 +298,96 @@ static NSString * const ID =  @"RankItemTableViewcell";
 
 
 
-- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
-{
-    //customize carousel display
-    switch (option)
-    {
-        case iCarouselOptionWrap:
-        {
-            //normally you would hard-code this to YES or NO
-            return NO;
-        }
-        case iCarouselOptionSpacing:
-        {
-            //add a bit of spacing between the item views
-            return value * 1.05f;
-        }
-        case iCarouselOptionFadeMax:
-        {
-            if (self.carousel.type == iCarouselTypeCustom)
-            {
-                //set opacity based on distance from camera
-                return 0.0f;
-            }
-            return value;
-        }
-        case iCarouselOptionShowBackfaces:
-        case iCarouselOptionRadius:
-        case iCarouselOptionAngle:
-        case iCarouselOptionArc:
-        case iCarouselOptionTilt:
-        case iCarouselOptionCount:
-        case iCarouselOptionFadeMin:
-        case iCarouselOptionFadeMinAlpha:
-        case iCarouselOptionFadeRange:
-        case iCarouselOptionOffsetMultiplier:
-        case iCarouselOptionVisibleItems:
-        {
-            return value;
-        }
-    }
-}
-//- (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+//- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
 //{
+//    //customize carousel display
 //    switch (option)
 //    {
-//        //当为NO时，可以添加占位视图
 //        case iCarouselOptionWrap:
 //        {
-//            return NO;
+//            //normally you would hard-code this to YES or NO
+//            return wrap;
 //        }
-//        case iCarouselOptionArc:
+//        case iCarouselOptionSpacing:
 //        {
-//            return  value;
+//            //add a bit of spacing between the item views
+//            return value * 1.05f;
 //        }
-//        //可以设置两个items的距离（我的理解）
-//        case iCarouselOptionRadius:
+//        case iCarouselOptionFadeMax:
 //        {
-////            return 250;
-//            return DLScreenHeight * 0.3;
-//        }
-//      
-//        case iCarouselOptionVisibleItems:{
+//            if (self.carousel.type == iCarouselTypeCustom)
+//            {
+//                //set opacity based on distance from camera
+//                return 0.0f;
+//            }
 //            return value;
 //        }
-//            
-//        case iCarouselOptionSpacing:{
-//            return value*1.05f;
-//        }
-//            
-//        case iCarouselOptionFadeMin:
+//        case iCarouselOptionVisibleItems:
 //        {
-//            return .5;
+//            return value;
 //        }
-//        case iCarouselOptionFadeMax:{
-//            return .5;
-//        }
-//            
-//        case iCarouselOptionFadeMinAlpha:{
-//            return 1;
-//            
-//        }
+//        case iCarouselOptionShowBackfaces:
+//        case iCarouselOptionRadius:
+//        case iCarouselOptionAngle:
+//        case iCarouselOptionArc:
+//        case iCarouselOptionTilt:
+//        case iCarouselOptionCount:
+//        case iCarouselOptionFadeMin:
+//        case iCarouselOptionFadeMinAlpha:
+//        case iCarouselOptionFadeRange:
+//        case iCarouselOptionOffsetMultiplier:
 //        
-//        default:
 //        {
 //            return value;
 //        }
 //    }
 //}
+- (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+{
+    switch (option)
+    {
+        //当为NO时，可以添加占位视图
+        case iCarouselOptionWrap:
+        {
+            return wrap;
+        }
+        case iCarouselOptionArc:
+        {
+            return  value;
+        }
+        //可以设置两个items的距离（我的理解）
+        case iCarouselOptionRadius:
+        {
+//            return 250;
+            return DLScreenHeight * 0.3;
+        }
+      
+        case iCarouselOptionVisibleItems:{
+            return 5;
+        }
+            
+        case iCarouselOptionSpacing:{
+            return value*1.05f;
+        }
+            
+        case iCarouselOptionFadeMin:
+        {
+            return .5;
+        }
+        case iCarouselOptionFadeMax:{
+            return .5;
+        }
+            
+        case iCarouselOptionFadeMinAlpha:{
+            return 1;
+            
+        }
+        default:
+        {
+            return value;
+        }
+    }
+}
 //当添加占位视图时，返回占位视图的数量
 - (NSInteger)numberOfPlaceholdersInCarousel:(__unused iCarousel *)carousel
 {
@@ -382,7 +456,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
     if (indexPath.row < RankListTypeMenGod || indexPath.row > RankListTypePopularity) {
         return;
     }
-    
+    self.listType=indexPath.row;
     // 设置标题栏title
     [self setUpNavTitleWithRankListType:indexPath.row];
     
@@ -473,25 +547,55 @@ static NSString * const ID =  @"RankItemTableViewcell";
     self.modelArray = [NSMutableArray arrayWithArray:array];
     [self.carousel reloadData];
 }
+
+//加载Loading动画
+- (void)loadingImageView {
+    
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    //修正错误的坐标
+    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2.0 - 40, DLScreenHeight / 2.0 - 40, 80.0f, 80.0f);
+    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    self.activityIndicatorView = activityIndicatorView;
+    [activityIndicatorView.layer setMasksToBounds:YES];
+    [activityIndicatorView.layer setCornerRadius:10.0];
+    [self.activityIndicatorView startAnimating];
+    [self.view addSubview:activityIndicatorView];
+}
+
 - (void)requestNetWithType:(NSNumber *)num
 {
-    
-    
     Account *acc = [AccountTool account];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:acc.cid forKey:@"cid"];
-    [dic setObject:num forKey:@"type"];
     [dic setObject:@1 forKey:@"page"];
     [dic setObject:@20 forKey:@"limit"];
-    
-    [RestfulAPIRequestTool routeName:@"getCompaniesFavoriteRank" requestModel:dic useKeys:@[@"cid", @"type", @"page", @"limit",@"vote"] success:^(id json) {
-        NSLog(@"获取排行榜成功  %@", json);
+    if (self.activityIndicatorView) {
         
-        [self reloadRankDataWithJson:json];
-        
-    } failure:^(id errorJson) {
-        NSLog(@"获取排行榜失败  %@", errorJson);
-    }];
+        [self.activityIndicatorView removeFromSuperview];
+    }
+    [self loadingImageView];
+    if ([num compare:[NSNumber numberWithInt:0]]!=NSOrderedSame) {
+        [dic setObject:acc.cid forKey:@"cid"];
+        [dic setObject:num forKey:@"type"];
+        [RestfulAPIRequestTool routeName:@"getCompaniesFavoriteRank" requestModel:dic useKeys:@[@"cid", @"type", @"page", @"limit",@"vote"] success:^(id json) {
+            NSLog(@"获取排行榜成功  %@", json);
+            [self.activityIndicatorView removeFromSuperview];
+            [self reloadRankDataWithJson:json AndType:[num isEqual:@1]?PARSE_TYPE_MEN:PARSE_TYPE_WOMEN];
+            
+        } failure:^(id errorJson) {
+            NSLog(@"获取排行榜失败  %@", errorJson);
+            [self.activityIndicatorView removeFromSuperview];
+        }];
+    }else{
+        [RestfulAPIRequestTool routeName:@"getTeamsFavoriteRank" requestModel:dic useKeys:@[@"page", @"limit",@"vote"] success:^(id json) {
+            NSLog(@"获取排行榜成功  %@", json);
+            [self.activityIndicatorView removeFromSuperview];
+            [self reloadRankDataWithJson:json AndType:PARSE_TYPE_TEAM];
+            
+        } failure:^(id errorJson) {
+            NSLog(@"获取排行榜失败  %@", errorJson);
+            [self.activityIndicatorView removeFromSuperview];
+        }];
+    }
 }
 
 - (void)getJson
@@ -505,7 +609,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
         [ranking addObject:dic];
     }
     NSDictionary *bigDic = [NSDictionary dictionaryWithObject:ranking forKey:@"ranking"];
-    [self reloadRankDataWithJson:bigDic];
+//    [self reloadRankDataWithJson:bigDic];
 }
 - (void)getGiftTime
 {
@@ -530,7 +634,12 @@ static NSString * const ID =  @"RankItemTableViewcell";
     
     [self reloadHeartTime:[num integerValue] andLastImageIndex:[NSString stringWithFormat:@"RankLoveHeart_gray%ld@2x", (long)timeInt]];
 }
-
+- (void)updateHeartTime:(NSInteger)num
+{
+    if (self.bottomShowView.selectNum>0) {
+        self.bottomShowView.selectNum-=1;
+    }
+}
 - (void)reloadHeartTime:(NSInteger)num andLastImageIndex:(NSString *)lastStr
 {
     self.bottomShowView.selectNum = num;
@@ -561,6 +670,27 @@ static NSString * const ID =  @"RankItemTableViewcell";
     return num;
 }
 
+- (void)voteForPeople
+{
+    RankDetileModel* model = [self.modelArray objectAtIndex:self.carousel.currentItemIndex];
+    NSNumber *num = [NSNumber numberWithInt:4];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:num forKey:@"giftIndex"];
+    [dic setObject:model.ID forKey:@"receiverId"];
+    
+    [RestfulAPIRequestTool routeName:@"sendGifts" requestModel:dic useKeys:@[@"giftIndex"] success:^(id json) {
+        NSLog(@"送礼成功  %@", json);
+        [self requestNetWithType:[NSNumber numberWithInt:selectNum]];
+        //尝试获取状态更新
+        [self getGiftTime];
+    } failure:^(id errorJson) {
+        NSLog(@"送礼失败   %@", errorJson);
+        UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"投票失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle: @"取消" otherButtonTitles:nil, nil];
+        
+        [al show];
+    }];
+}
 
 @end
 
