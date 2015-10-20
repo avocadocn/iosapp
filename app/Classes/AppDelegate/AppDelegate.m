@@ -13,6 +13,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "FMDBSQLiteManager.h"
 #import "Group.h"
+#import "InteractiveViewController.h"
 #import "Concern.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
 
@@ -41,6 +42,12 @@
     NSLog(@"连接状态为 %lu", (unsigned long)_connectionState);
     
     [self setupEaseMobWith:application withOptions:launchOptions];
+    
+    // iOS8系统需要注册本地通知，这样才能正常使用
+    if ([UIApplication instanceMethodSignatureForSelector:@selector(registerUserNotificationSettings:)]) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
+    
     [self initLocalData];
     return YES;
 }
