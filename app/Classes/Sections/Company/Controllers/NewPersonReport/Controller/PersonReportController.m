@@ -35,7 +35,7 @@ static NSString *const ID = @"freshman";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"新人报到";
+    self.title = @"新生报到";
     [self getRequestNet];
     
     HMWaterflowLayout *layout = [[HMWaterflowLayout alloc] init];
@@ -99,7 +99,7 @@ static NSString *const ID = @"freshman";
 #pragma mark - <HMWaterflowLayoutDelegate>
 - (CGFloat)waterflowLayout:(HMWaterflowLayout *)waterflowLayout heightForWidth:(CGFloat)width atIndexPath:(NSIndexPath *)indexPath
 {
-    AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
+//    AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
 
     return width;
 }

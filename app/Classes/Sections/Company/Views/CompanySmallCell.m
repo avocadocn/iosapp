@@ -176,7 +176,7 @@ static NSInteger indexNum = 1;
 {
     NSArray *titleArray = @[@"不一样的精彩", @"汉子们扔掉肥皂,迎接小鲜肉", @"好多童鞋就要过生日啦,还不去送上祝福!"];
             self.TitleLabel.text = [titleArray objectAtIndex:index.row];
-    NSArray *array= [NSArray arrayWithObjects:@"同事圈",@"新人报道", @"生日祝福" ,nil];
+    NSArray *array= [NSArray arrayWithObjects:@"同事圈",@"新人报到", @"生日祝福" ,nil];
     NSArray *colorArray = [NSArray arrayWithObjects:
                            
                            RGBACOLOR(249, 207, 9, 1),

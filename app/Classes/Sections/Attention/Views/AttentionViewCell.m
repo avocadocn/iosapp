@@ -94,8 +94,7 @@
 {
     [self.joinButton removeFromSuperview];
     
-    [self.AttentionPhoto dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
-    
+    [self.AttentionPhoto dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
     
     self.AttentionName.text = per.name;
 //    CompanyModel *company = model.company;

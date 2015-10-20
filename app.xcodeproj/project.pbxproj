@@ -711,6 +711,15 @@
 		A46CC45B1B8C6E3A002492EC /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CC45A1B8C6E3A002492EC /* Interaction.m */; };
 		A46CFBAA1BD5D62C00D64CDB /* GroupMemberController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBA91BD5D62C00D64CDB /* GroupMemberController.m */; settings = {ASSET_TAGS = (); }; };
 		A46CFBAD1BD5DB7300D64CDB /* GroupMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBAC1BD5DB7300D64CDB /* GroupMemberCell.m */; settings = {ASSET_TAGS = (); }; };
+		A46CFBB01BD6129100D64CDB /* BirthdayBlessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBAF1BD6129100D64CDB /* BirthdayBlessCell.m */; settings = {ASSET_TAGS = (); }; };
+		A46CFBB21BD6182F00D64CDB /* BirthdayGift.png in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBB11BD6182F00D64CDB /* BirthdayGift.png */; settings = {ASSET_TAGS = (); }; };
+		A46CFBB41BD6201200D64CDB /* BG@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBB31BD6201200D64CDB /* BG@2X.png */; settings = {ASSET_TAGS = (); }; };
+		A46CFBB81BD6244400D64CDB /* 社团@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBB51BD6244400D64CDB /* 社团@2x.png */; settings = {ASSET_TAGS = (); }; };
+		A46CFBB91BD6244400D64CDB /* 手机好友@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBB61BD6244400D64CDB /* 手机好友@2x.png */; settings = {ASSET_TAGS = (); }; };
+		A46CFBBA1BD6244400D64CDB /* 微信@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBB71BD6244400D64CDB /* 微信@2x.png */; settings = {ASSET_TAGS = (); }; };
+		A46CFBBE1BD62C4D00D64CDB /* GroupInviteController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBBC1BD62C4D00D64CDB /* GroupInviteController.m */; settings = {ASSET_TAGS = (); }; };
+		A46CFBBF1BD62C4D00D64CDB /* GroupInviteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBBD1BD62C4D00D64CDB /* GroupInviteController.xib */; settings = {ASSET_TAGS = (); }; };
+		A46CFBC31BD6378C00D64CDB /* WarmText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBC21BD6378C00D64CDB /* WarmText@2x.png */; settings = {ASSET_TAGS = (); }; };
 		A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46D4AF81B79ED8400177577 /* GroupSelectCell.m */; };
 		A4745DFB1B81A9AC008EB944 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DCC1B81A9AC008EB944 /* CollectionViewCell.m */; };
 		A4745DFC1B81A9AC008EB944 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DCE1B81A9AC008EB944 /* CollectionViewController.m */; };
@@ -1918,6 +1927,17 @@
 		A46CFBA91BD5D62C00D64CDB /* GroupMemberController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMemberController.m; sourceTree = "<group>"; };
 		A46CFBAB1BD5DB7300D64CDB /* GroupMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMemberCell.h; sourceTree = "<group>"; };
 		A46CFBAC1BD5DB7300D64CDB /* GroupMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMemberCell.m; sourceTree = "<group>"; };
+		A46CFBAE1BD6129100D64CDB /* BirthdayBlessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BirthdayBlessCell.h; sourceTree = "<group>"; };
+		A46CFBAF1BD6129100D64CDB /* BirthdayBlessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BirthdayBlessCell.m; sourceTree = "<group>"; };
+		A46CFBB11BD6182F00D64CDB /* BirthdayGift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BirthdayGift.png; sourceTree = "<group>"; };
+		A46CFBB31BD6201200D64CDB /* BG@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BG@2X.png"; sourceTree = "<group>"; };
+		A46CFBB51BD6244400D64CDB /* 社团@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "社团@2x.png"; sourceTree = "<group>"; };
+		A46CFBB61BD6244400D64CDB /* 手机好友@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "手机好友@2x.png"; sourceTree = "<group>"; };
+		A46CFBB71BD6244400D64CDB /* 微信@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微信@2x.png"; sourceTree = "<group>"; };
+		A46CFBBB1BD62C4D00D64CDB /* GroupInviteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInviteController.h; sourceTree = "<group>"; };
+		A46CFBBC1BD62C4D00D64CDB /* GroupInviteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInviteController.m; sourceTree = "<group>"; };
+		A46CFBBD1BD62C4D00D64CDB /* GroupInviteController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupInviteController.xib; sourceTree = "<group>"; };
+		A46CFBC21BD6378C00D64CDB /* WarmText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WarmText@2x.png"; sourceTree = "<group>"; };
 		A46D4AF71B79ED8400177577 /* GroupSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSelectCell.h; sourceTree = "<group>"; };
 		A46D4AF81B79ED8400177577 /* GroupSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSelectCell.m; sourceTree = "<group>"; };
 		A46DCEF11B6A1E9D0049C999 /* UserDataTon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataTon.h; sourceTree = "<group>"; };
@@ -4194,6 +4214,9 @@
 				546CA58A1B9EAAF30066CC0C /* MessageTableViewCell.xib */,
 				546CA58D1B9EB00B0066CC0C /* MessageViewController.h */,
 				546CA58E1B9EB00B0066CC0C /* MessageViewController.m */,
+				A46CFBBB1BD62C4D00D64CDB /* GroupInviteController.h */,
+				A46CFBBC1BD62C4D00D64CDB /* GroupInviteController.m */,
+				A46CFBBD1BD62C4D00D64CDB /* GroupInviteController.xib */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -4346,11 +4369,17 @@
 				A43CE97C1BAABDDC0069C94E /* addImage.png */,
 				A43CE97D1BAABDDC0069C94E /* address.png */,
 				A4483DB41BCB5FCD00E7D101 /* chat_white@2x.png */,
+				A46CFBC21BD6378C00D64CDB /* WarmText@2x.png */,
 				A4483DB51BCB5FCD00E7D101 /* chat_black@2x.png */,
+				A46CFBB51BD6244400D64CDB /* 社团@2x.png */,
+				A46CFBB61BD6244400D64CDB /* 手机好友@2x.png */,
+				A46CFBB71BD6244400D64CDB /* 微信@2x.png */,
 				A48523D51BB910BF007098DC /* 通讯录 @2x.png */,
 				A48523D61BB910BF007098DC /* Back Arrow @2x.png */,
 				A48523D71BB910BF007098DC /* company1@2x.png */,
+				A46CFBB11BD6182F00D64CDB /* BirthdayGift.png */,
 				A48523D81BB910BF007098DC /* company2@2x.png */,
+				A46CFBB31BD6201200D64CDB /* BG@2X.png */,
 				A48523D91BB910BF007098DC /* company3@2x.png */,
 				A48523DA1BB910BF007098DC /* shetuan@2x.png */,
 				A43D90531BB5126D007775BB /* mask_sha.jpeg */,
@@ -4742,6 +4771,8 @@
 		A4F594FF1B7C7D7D0088D9CC /* view */ = {
 			isa = PBXGroup;
 			children = (
+				A46CFBAE1BD6129100D64CDB /* BirthdayBlessCell.h */,
+				A46CFBAF1BD6129100D64CDB /* BirthdayBlessCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4894,6 +4925,7 @@
 				96CF93C31B674B54001759E2 /* chatFire_audioPlaying2.png in Resources */,
 				96CF94881B67501B001759E2 /* sr_refresh@2X.png in Resources */,
 				96CF943D1B674B54001759E2 /* chat_receiver_audio_playing000@2x.png in Resources */,
+				A46CFBC31BD6378C00D64CDB /* WarmText@2x.png in Resources */,
 				96CF93C91B674B54001759E2 /* VoiceSearchFeedback002.png in Resources */,
 				54F2482F1BA2B03B009133D6 /* 投票@2x.png in Resources */,
 				96CF93FC1B674B54001759E2 /* chatBar_more_cardSelected@2x.png in Resources */,
@@ -4936,6 +4968,7 @@
 				545867951BA194E8009ED3E7 /* 学校@2x.png in Resources */,
 				96CF93FA1B674B54001759E2 /* chatBar_more_card@2x.png in Resources */,
 				96CF941F1B674B54001759E2 /* chatBar_recordSelected.png in Resources */,
+				A46CFBB41BD6201200D64CDB /* BG@2X.png in Resources */,
 				A48523E01BB910BF007098DC /* shetuan@2x.png in Resources */,
 				A4483DB71BCB5FCD00E7D101 /* chat_black@2x.png in Resources */,
 				54F248281BA2848A009133D6 /* chevron-left.png in Resources */,
@@ -4944,6 +4977,7 @@
 				A43CE9CF1BAABDDC0069C94E /* man.png in Resources */,
 				96CF93E91B674B54001759E2 /* VoiceSearchFeedback018.png in Resources */,
 				A42CFFDB1B9C194000CCFB34 /* 113.png in Resources */,
+				A46CFBBA1BD6244400D64CDB /* 微信@2x.png in Resources */,
 				5436967D1B9D401E00261F2D /* 标尺.png in Resources */,
 				96CF94411B674B54001759E2 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				A43CE9DC1BAABDDC0069C94E /* Profile@2x.png in Resources */,
@@ -5105,6 +5139,7 @@
 				96CF93C81B674B54001759E2 /* VoiceSearchFeedback001@2x.png in Resources */,
 				A42CFFDC1B9C194000CCFB34 /* 303.png in Resources */,
 				96CF93E71B674B54001759E2 /* VoiceSearchFeedback017.png in Resources */,
+				A46CFBBF1BD62C4D00D64CDB /* GroupInviteController.xib in Resources */,
 				96CF943B1B674B54001759E2 /* messageToolbarBg@2x.png in Resources */,
 				967439D31B70A849004334A4 /* OtherActivity_backImage.png in Resources */,
 				A4311F5D1B577D50004401B4 /* ColleagueViewCell.xib in Resources */,
@@ -5189,6 +5224,7 @@
 				968B15331B69F4C9004A26C0 /* RankItemTableViewcell.xib in Resources */,
 				96CF93FF1B674B54001759E2 /* chatBar_more_faceSelected.png in Resources */,
 				A43CE9E11BAABDDC0069C94E /* shezhi@2x.png in Resources */,
+				A46CFBB81BD6244400D64CDB /* 社团@2x.png in Resources */,
 				96CF94431B674B54001759E2 /* chat_receiver_audio_playing003@2x.png in Resources */,
 				A43CE9C41BAABDDC0069C94E /* DonLike.png in Resources */,
 				A48523D41BB8E10E007098DC /* SchoolFirstPageCell.xib in Resources */,
@@ -5200,6 +5236,7 @@
 				96CF93DE1B674B54001759E2 /* VoiceSearchFeedback012@2x.png in Resources */,
 				967439CC1B70A27A004334A4 /* otherActivity_time.png in Resources */,
 				96CF946D1B674B54001759E2 /* tabbar_contacts@2x.png in Resources */,
+				A46CFBB21BD6182F00D64CDB /* BirthdayGift.png in Resources */,
 				96CF944D1B674B54001759E2 /* chat_sender_audio_playing_002@2x.png in Resources */,
 				A48523DD1BB910BF007098DC /* company1@2x.png in Resources */,
 				96CF94041B674B54001759E2 /* chat_location_annotation_someone@2x.png in Resources */,
@@ -5211,6 +5248,7 @@
 				96CF94471B674B54001759E2 /* chat_receiver_bg@2x.png in Resources */,
 				5458678F1BA194E8009ED3E7 /* 互动@2x.png in Resources */,
 				A43CE9BD1BAABDDC0069C94E /* chevron-left.png in Resources */,
+				A46CFBB91BD6244400D64CDB /* 手机好友@2x.png in Resources */,
 				96CF94731B674B54001759E2 /* tabbar_settingHL@2x.png in Resources */,
 				A43CE9CD1BAABDDC0069C94E /* insert.png in Resources */,
 				96CF945C1B674B54001759E2 /* titleBar.png in Resources */,
@@ -5379,6 +5417,7 @@
 				A4745E041B81A9AC008EB944 /* NSURL+DNIMagePickerUrlEqual.m in Sources */,
 				A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */,
 				96CF93971B674B54001759E2 /* MessageReadManager.m in Sources */,
+				A46CFBB01BD6129100D64CDB /* BirthdayBlessCell.m in Sources */,
 				96CF947B1B674B54001759E2 /* DebugViewController.m in Sources */,
 				A4448C371BA9583E00546C34 /* GiFHUD.m in Sources */,
 				E23AF2941BA12620001BE3C5 /* TemplateDetailActivityShowController.m in Sources */,
@@ -5622,6 +5661,7 @@
 				A44D40511B73800800B10DFB /* IndexpathButton.m in Sources */,
 				96CF90DE1B673422001759E2 /* PSTCollectionViewFlowLayout.m in Sources */,
 				A46CFBAA1BD5D62C00D64CDB /* GroupMemberController.m in Sources */,
+				A46CFBBE1BD62C4D00D64CDB /* GroupInviteController.m in Sources */,
 				A450560D1B608F250075E39D /* CardChooseView.m in Sources */,
 				96CF90C61B673422001759E2 /* MWTapDetectingView.m in Sources */,
 				E2AF51621BD4F1DF00EB71E4 /* Concern.m in Sources */,

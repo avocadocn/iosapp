@@ -5,6 +5,8 @@
 //  Created by apple on 14/12/4.
 //  Copyright (c) 2014年 heima. All rights reserved.
 //
+#import "ColleaguesInformationController.h"
+#import "BirthdayBlessCell.h"
 #import "RestfulAPIRequestTool.h"
 #import "Account.h"
 #import "AccountTool.h"
@@ -14,10 +16,11 @@
 #import "HMShop.h"
 #import "HMShopCell.h"
 #import <MJRefresh.h>
+#import "AddressBookModel.h"
 //#import <UIScrollView+MJRefresh.h>
 @interface  BrithdayBlessController () <UICollectionViewDataSource, UICollectionViewDelegate, HMWaterflowLayoutDelegate>
 
-
+@property (nonatomic, strong)NSMutableArray *modelArray;
 @end
 
 @implementation BrithdayBlessController
@@ -38,8 +41,6 @@ static NSString *const ID = @"shop";
     self.title = @"生日祝福";
     
     // 1.初始化数据
-    NSArray *shopArray = [HMShop objectArrayWithFilename:@"1.plist"];
-    [self.shops addObjectsFromArray:shopArray];
     
     HMWaterflowLayout *layout = [[HMWaterflowLayout alloc] init];
     layout.delegate = self;
@@ -50,7 +51,7 @@ static NSString *const ID = @"shop";
     collectionView.dataSource = self;
     collectionView.delegate = self;
     //    [collectionView registerNib:[UINib nibWithNibName:@"HMShopCell" bundle:nil] forCellWithReuseIdentifier:ID];
-    [collectionView registerClass:[HMShopCell class] forCellWithReuseIdentifier:ID];
+    [collectionView registerClass:[BirthdayBlessCell class] forCellWithReuseIdentifier:ID];
     [self.view addSubview:collectionView];
     self.collectionView = collectionView;
     [self.collectionView setBackgroundColor:[UIColor colorWithWhite:.9 alpha:1]];
@@ -62,6 +63,13 @@ static NSString *const ID = @"shop";
 {
     [RestfulAPIRequestTool routeName:@"getBirthdayList" requestModel:nil useKeys:@[] success:^(id json) {
         NSLog(@" 获取到过生日的用户为%@", json);
+        self.modelArray = [NSMutableArray array];
+        for (NSDictionary *dic in json) {
+            AddressBookModel *model = [[AddressBookModel alloc]init];
+            [model setValuesForKeysWithDictionary:dic];
+            [self.modelArray addObject:model];
+        }
+        [self.collectionView reloadData];
     } failure:^(id errorJson) {
         NSLog(@"获取生日失败");
     }];
@@ -70,45 +78,42 @@ static NSString *const ID = @"shop";
 
 - (void)loadMoreShops
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSArray *shopArray = [HMShop objectArrayWithFilename:@"1.plist"];
-        [self.shops addObjectsFromArray:shopArray];
-        [self.collectionView reloadData];
-        
-    });
 }
 
 #pragma mark - <HMWaterflowLayoutDelegate>
 - (CGFloat)waterflowLayout:(HMWaterflowLayout *)waterflowLayout heightForWidth:(CGFloat)width atIndexPath:(NSIndexPath *)indexPath
 {
-    HMShop *shop = self.shops[indexPath.item];
-    return shop.h / shop.w * width;  //  对应图片的 高 宽  缩放
+//    HMShop *shop = self.shops[indexPath.item];
+//    return shop.h / shop.w * width;  //  对应图片的 高 宽  缩放
+    return width;
 }
 
 #pragma mark - <UICollectionViewDataSource>
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.shops.count;
+    return self.modelArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HMShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    HMShop *shop = self.shops[indexPath.item];
-    cell.indexpath = indexPath;
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"华珊" forKey:@"name"];
-    [dic setObject:@"计算机科学专业" forKey:@"major"];
-    [dic setObject:@"155" forKey:@"like"];
-    [dic setObject:shop.img forKey:@"img"];
-//    [cell reloadCellWithModel:(AddressBookModel *)dic];
+    BirthdayBlessCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+    cell.indexPath = indexPath;
+    AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    [cell reloadCellWithModel:model];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"点击的为 %@", indexPath);
+    
+    AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
+    coll.model = [[AddressBookModel alloc]init];
+    coll.model = model;
+    coll.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.navigationController pushViewController:coll animated:YES];
+
+    
 }
 
 

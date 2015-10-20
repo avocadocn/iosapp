@@ -8,6 +8,7 @@
 #import "AddressViewController.h"
 #import "InviteGroupMember.h"
 #import "InvatingViewController.h"
+#import "GroupDetileModel.h"
 @interface InviteGroupMember ()
 
 @end
@@ -16,10 +17,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, DLScreenWidth, DLScreenWidth / (375 / 260.0))];
+    image.image = [UIImage imageNamed:@"BG@2X"];
+    [self.view addSubview:image];
+    
+    UILabel *name = [[UILabel alloc]initWithFrame:CGRectMake(0, 64 +DLScreenWidth / (375 / 260.0) + 30, DLScreenWidth, 21)];
+    name.font = [UIFont systemFontOfSize:18];
+    name.textAlignment = NSTextAlignmentCenter;
+    name.text = self.detileModel.name;
+    [self.view addSubview:name];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(18, 64 +DLScreenWidth / (375 / 260.0) + 58, DLScreenWidth - 18 * 2, 42)];
+    label.numberOfLines = 0;
+    label.font = [UIFont systemFontOfSize:16];
+    label.textColor = RGB(81, 70, 71);
+    label.text = @"快来邀请你的小伙伴加入,成功后一起体验不一样的校园生活!";
+    [self.view addSubview:label];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = RGBACOLOR(243, 243, 243, 1);
     
-    NSArray *arr = @[@"Profile@2x", @"Oval 2@2x", @"chat@2x"];
+    NSArray *arr = @[@"微信@2x", @"社团@2x", @"手机好友@2x"];
     self.title = @"邀请成员";
     NSMutableArray *array = [NSMutableArray array];
     for (NSString *str in arr) {
@@ -27,9 +45,8 @@
         [array addObject:im];
     }
     
-    
-    CGFloat num = DLScreenWidth / (320 / 55.0);
-    [self builtInterfaceWithNameArray:@[@"社团通讯录",@"微信",@"手机联系人"] imageArray:array andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:140 + 64];
+    CGFloat num = DLMultipleWidth(70.0);
+    [self builtInterfaceWithNameArray:@[@"微信好友",@"社团好友",@"手机好友"] imageArray:array andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:(64 + DLScreenWidth / (375 / 260.0) + 138 + 35 + 20)];
     
 }
 - (void)builtInterfaceWithNameArray:(NSArray *)nameArray imageArray:(NSArray *)imageArray andrect:(CGRect)rect andCenterY:(NSInteger)num
@@ -88,7 +105,7 @@
 - (void)imageViewAction:(UITapGestureRecognizer *)tap
 {
     switch (tap.view.tag) {
-        case 1:
+        case 2:
         {
             NSLog(@"社团通讯录");
             AddressViewController *address = [[AddressViewController alloc]init];
@@ -98,7 +115,7 @@
             
         }
             break;
-            case 2:
+            case 1:
         {
             NSLog(@"微信");
         }break;
