@@ -9,6 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface InteractiveViewController : UIViewController
-+ (void)cancelLocalNotificationWithKey:(NSString *)key;
 
 @end
