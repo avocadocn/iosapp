@@ -5,7 +5,7 @@
 //  Created by 张加胜 on 15/8/10.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "GroupMemberController.h"
 #import "Group.h"
 #import "FMDBSQLiteManager.h"
 #import "GuidePageViewController.h"
@@ -147,7 +147,7 @@ static NSString * const helpCellID = @"helpCellID";
             TeamInfomationViewController * mycontroller = [[TeamInfomationViewController alloc] init];
 //            [(FolderViewController *)controller setJudgeEditState:YES];
             
-            [mycontroller setMemberInfos:self.informationModel.member];
+            [mycontroller setMemberInfos:(NSMutableArray *)self.informationModel.member];
             
             //主页 --> 信息
             mycontroller.detilemodel = [[GroupDetileModel alloc]init];
@@ -160,7 +160,8 @@ static NSString * const helpCellID = @"helpCellID";
             break;
         case 1: // 成员
 //            controller = [[TeamHomePageController alloc]init];
-            
+            controller = [[GroupMemberController alloc]init];
+            [(GroupMemberController *)controller setModelArray:(NSMutableArray *)self.informationModel.member];
             break;
         case 2: // 邀请
             //controller = [[FolderViewController alloc]init];

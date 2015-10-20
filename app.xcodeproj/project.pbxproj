@@ -709,6 +709,8 @@
 		A4650F2D1B7DCD9600013A17 /* SHLUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4650F2C1B7DCD9600013A17 /* SHLUILabel.m */; };
 		A46CC4581B8C0C18002492EC /* ZSDSetPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CC4571B8C0C18002492EC /* ZSDSetPasswordView.m */; };
 		A46CC45B1B8C6E3A002492EC /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CC45A1B8C6E3A002492EC /* Interaction.m */; };
+		A46CFBAA1BD5D62C00D64CDB /* GroupMemberController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBA91BD5D62C00D64CDB /* GroupMemberController.m */; settings = {ASSET_TAGS = (); }; };
+		A46CFBAD1BD5DB7300D64CDB /* GroupMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBAC1BD5DB7300D64CDB /* GroupMemberCell.m */; settings = {ASSET_TAGS = (); }; };
 		A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46D4AF81B79ED8400177577 /* GroupSelectCell.m */; };
 		A4745DFB1B81A9AC008EB944 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DCC1B81A9AC008EB944 /* CollectionViewCell.m */; };
 		A4745DFC1B81A9AC008EB944 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DCE1B81A9AC008EB944 /* CollectionViewController.m */; };
@@ -1911,6 +1913,10 @@
 		A46CC4571B8C0C18002492EC /* ZSDSetPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSDSetPasswordView.m; sourceTree = "<group>"; };
 		A46CC4591B8C6E3A002492EC /* Interaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interaction.h; sourceTree = "<group>"; };
 		A46CC45A1B8C6E3A002492EC /* Interaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Interaction.m; sourceTree = "<group>"; };
+		A46CFBA81BD5D62C00D64CDB /* GroupMemberController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMemberController.h; sourceTree = "<group>"; };
+		A46CFBA91BD5D62C00D64CDB /* GroupMemberController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMemberController.m; sourceTree = "<group>"; };
+		A46CFBAB1BD5DB7300D64CDB /* GroupMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMemberCell.h; sourceTree = "<group>"; };
+		A46CFBAC1BD5DB7300D64CDB /* GroupMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMemberCell.m; sourceTree = "<group>"; };
 		A46D4AF71B79ED8400177577 /* GroupSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSelectCell.h; sourceTree = "<group>"; };
 		A46D4AF81B79ED8400177577 /* GroupSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSelectCell.m; sourceTree = "<group>"; };
 		A46DCEF11B6A1E9D0049C999 /* UserDataTon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataTon.h; sourceTree = "<group>"; };
@@ -2909,6 +2915,8 @@
 				A43288C61BAFC3DB00989AC8 /* ApplyForGroup.m */,
 				E2AEC41C1BCC9DB900A1C3AD /* TeamInteractionViewController.h */,
 				E2AEC41D1BCC9DB900A1C3AD /* TeamInteractionViewController.m */,
+				A46CFBA81BD5D62C00D64CDB /* GroupMemberController.h */,
+				A46CFBA91BD5D62C00D64CDB /* GroupMemberController.m */,
 			);
 			path = Team;
 			sourceTree = "<group>";
@@ -4160,6 +4168,8 @@
 				54BB1DD61B8EF7AD00F76628 /* ChangePassWordTableViewCell.h */,
 				54BB1DD71B8EF7AD00F76628 /* ChangePassWordTableViewCell.m */,
 				54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */,
+				A46CFBAB1BD5DB7300D64CDB /* GroupMemberCell.h */,
+				A46CFBAC1BD5DB7300D64CDB /* GroupMemberCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5473,6 +5483,7 @@
 				96CF90D01B673422001759E2 /* MKAnnotationView+EMWebCache.m in Sources */,
 				A44B356F1B8325C5004F7A6A /* EnumTextField.m in Sources */,
 				96CF937C1B674B54001759E2 /* NSString+Valid.m in Sources */,
+				A46CFBAD1BD5DB7300D64CDB /* GroupMemberCell.m in Sources */,
 				9635AF551B748B0800BE92B5 /* CommentViewCell.m in Sources */,
 				A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */,
 				968C273A1B7B0F7600950581 /* CustomMemberTableViewCell.m in Sources */,
@@ -5605,6 +5616,7 @@
 				A45727021B74B50800A27B79 /* AttentionCardController.m in Sources */,
 				A44D40511B73800800B10DFB /* IndexpathButton.m in Sources */,
 				96CF90DE1B673422001759E2 /* PSTCollectionViewFlowLayout.m in Sources */,
+				A46CFBAA1BD5D62C00D64CDB /* GroupMemberController.m in Sources */,
 				A450560D1B608F250075E39D /* CardChooseView.m in Sources */,
 				96CF90C61B673422001759E2 /* MWTapDetectingView.m in Sources */,
 				96C9FFBC1B737622008B71CE /* HelpInfoModel.m in Sources */,
