@@ -156,6 +156,7 @@
     FMDBSQLiteManager* fmdb=[FMDBSQLiteManager shareSQLiteManager];
     [fmdb dropGroup];
     [fmdb dropPerson];
+    [fmdb dropConcerns];
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {

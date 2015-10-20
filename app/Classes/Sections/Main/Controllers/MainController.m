@@ -779,6 +779,7 @@ static NSString *kGroupName = @"GroupName";
     FMDBSQLiteManager* fmdb=[FMDBSQLiteManager shareSQLiteManager];
     [fmdb dropGroup];
     [fmdb dropPerson];
+    [fmdb dropConcerns];
 }
 - (void)didRemovedFromServer
 {

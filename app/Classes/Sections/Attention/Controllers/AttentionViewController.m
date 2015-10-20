@@ -17,6 +17,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "AddressBookModel.h"
 #import "CompanyModel.h"
+#import "Concern.h"
 
 @interface AttentionViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -54,12 +55,21 @@ static AttentionViewController *att = nil;
     // 获取关注列表
     [RestfulAPIRequestTool routeName:@"getCorcernList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
         NSLog(@"获取用户关注列表成功 %@", json);
+        [self saveLocalConcerns:json];
         [self getDetailInforFromJson:json];
     } failure:^(id errorJson) {
         NSLog(@"获取用户列表失败  %@", errorJson);
     }];
 }
-
+- (void)saveLocalConcerns:(id)data
+{
+    if (data) {
+        FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+        Account *acc = [AccountTool account];
+        Concern* c=[Concern initWithPersonId:acc.ID AndConcernIds:data];
+        [fmdb saveConcerns:c];
+    }
+}
 - (void)getDetailInforFromJson:(id)array
 {
 //    __block int i = 0;

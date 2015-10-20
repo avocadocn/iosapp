@@ -13,6 +13,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "FMDBSQLiteManager.h"
 #import "Group.h"
+#import "Concern.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
@@ -40,9 +41,30 @@
     NSLog(@"连接状态为 %lu", (unsigned long)_connectionState);
     
     [self setupEaseMobWith:application withOptions:launchOptions];
+    [self initLocalData];
     return YES;
 }
-
+- (void)initLocalData
+{
+    //加载关注列表
+    [self initConcernsData];
+}
+- (void)initConcernsData
+{
+    Account *acc = [AccountTool account];
+    acc.userId = acc.ID;
+    // 获取关注列表
+    [RestfulAPIRequestTool routeName:@"getCorcernList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
+        NSLog(@"获取用户关注列表成功 %@", json);
+        if (json) {
+            Concern* c = [Concern initWithPersonId:acc.ID AndConcernIds:json];
+            FMDBSQLiteManager* fmdb = [FMDBSQLiteManager  shareSQLiteManager];
+            [fmdb saveConcerns:c];
+        }
+    } failure:^(id errorJson) {
+        NSLog(@"获取用户关注列表失败  %@", errorJson);
+    }];
+}
 - (id)judgeLoginState{
     Account *myAccount = [AccountTool account];
     if (myAccount.token) {  //账户已经登录过了

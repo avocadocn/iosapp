@@ -267,11 +267,14 @@ static NSString * const ID =  @"RankItemTableViewcell";
 }
 - (void)jumpToPeopleWithID:(NSString*)peopleId
 {
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+    Boolean attentState = [fmdb containConcernWithId:peopleId];
     [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:[NSDictionary dictionaryWithObjects:@[peopleId]  forKeys:@[@"userId"]] useKeys:@[@"userId"] success:^(id json) {
         [self.activityIndicatorView removeFromSuperview];
         AddressBookModel* model = [AddressBookModel new];
         [model setValuesForKeysWithDictionary:json];
+        [model setAttentState:attentState];
         ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
         coll.model = [[AddressBookModel alloc]init];
         coll.model = model;
