@@ -711,6 +711,7 @@
 		A46CC45B1B8C6E3A002492EC /* Interaction.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CC45A1B8C6E3A002492EC /* Interaction.m */; };
 		A46CFBAA1BD5D62C00D64CDB /* GroupMemberController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBA91BD5D62C00D64CDB /* GroupMemberController.m */; settings = {ASSET_TAGS = (); }; };
 		A46CFBAD1BD5DB7300D64CDB /* GroupMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBAC1BD5DB7300D64CDB /* GroupMemberCell.m */; settings = {ASSET_TAGS = (); }; };
+		A46CFBB01BD6129100D64CDB /* BirthdayBlessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBAF1BD6129100D64CDB /* BirthdayBlessCell.m */; settings = {ASSET_TAGS = (); }; };
 		A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46D4AF81B79ED8400177577 /* GroupSelectCell.m */; };
 		A4745DFB1B81A9AC008EB944 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DCC1B81A9AC008EB944 /* CollectionViewCell.m */; };
 		A4745DFC1B81A9AC008EB944 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DCE1B81A9AC008EB944 /* CollectionViewController.m */; };
@@ -1917,6 +1918,8 @@
 		A46CFBA91BD5D62C00D64CDB /* GroupMemberController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMemberController.m; sourceTree = "<group>"; };
 		A46CFBAB1BD5DB7300D64CDB /* GroupMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMemberCell.h; sourceTree = "<group>"; };
 		A46CFBAC1BD5DB7300D64CDB /* GroupMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMemberCell.m; sourceTree = "<group>"; };
+		A46CFBAE1BD6129100D64CDB /* BirthdayBlessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BirthdayBlessCell.h; sourceTree = "<group>"; };
+		A46CFBAF1BD6129100D64CDB /* BirthdayBlessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BirthdayBlessCell.m; sourceTree = "<group>"; };
 		A46D4AF71B79ED8400177577 /* GroupSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSelectCell.h; sourceTree = "<group>"; };
 		A46D4AF81B79ED8400177577 /* GroupSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSelectCell.m; sourceTree = "<group>"; };
 		A46DCEF11B6A1E9D0049C999 /* UserDataTon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataTon.h; sourceTree = "<group>"; };
@@ -4737,6 +4740,8 @@
 		A4F594FF1B7C7D7D0088D9CC /* view */ = {
 			isa = PBXGroup;
 			children = (
+				A46CFBAE1BD6129100D64CDB /* BirthdayBlessCell.h */,
+				A46CFBAF1BD6129100D64CDB /* BirthdayBlessCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -5374,6 +5379,7 @@
 				A4745E041B81A9AC008EB944 /* NSURL+DNIMagePickerUrlEqual.m in Sources */,
 				A4F315731B5E4F7A00126C8A /* GroupViewController.m in Sources */,
 				96CF93971B674B54001759E2 /* MessageReadManager.m in Sources */,
+				A46CFBB01BD6129100D64CDB /* BirthdayBlessCell.m in Sources */,
 				96CF947B1B674B54001759E2 /* DebugViewController.m in Sources */,
 				A4448C371BA9583E00546C34 /* GiFHUD.m in Sources */,
 				E23AF2941BA12620001BE3C5 /* TemplateDetailActivityShowController.m in Sources */,
