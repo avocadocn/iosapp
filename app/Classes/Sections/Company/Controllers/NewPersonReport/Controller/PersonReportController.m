@@ -35,7 +35,7 @@ static NSString *const ID = @"freshman";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"新人报到";
+    self.title = @"新生报到";
     [self getRequestNet];
     
     HMWaterflowLayout *layout = [[HMWaterflowLayout alloc] init];

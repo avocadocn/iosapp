@@ -5,8 +5,8 @@
 //  Created by apple on 14/12/4.
 //  Copyright (c) 2014年 heima. All rights reserved.
 //
-
-#import "FreshManItemView.h"
+#import "ColleaguesInformationController.h"
+#import "BirthdayBlessCell.h"
 #import "RestfulAPIRequestTool.h"
 #import "Account.h"
 #import "AccountTool.h"
@@ -51,7 +51,7 @@ static NSString *const ID = @"shop";
     collectionView.dataSource = self;
     collectionView.delegate = self;
     //    [collectionView registerNib:[UINib nibWithNibName:@"HMShopCell" bundle:nil] forCellWithReuseIdentifier:ID];
-    [collectionView registerClass:[FreshManItemView class] forCellWithReuseIdentifier:ID];
+    [collectionView registerClass:[BirthdayBlessCell class] forCellWithReuseIdentifier:ID];
     [self.view addSubview:collectionView];
     self.collectionView = collectionView;
     [self.collectionView setBackgroundColor:[UIColor colorWithWhite:.9 alpha:1]];
@@ -96,8 +96,8 @@ static NSString *const ID = @"shop";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    FreshManItemView* cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    cell.indexpath = indexPath;
+    BirthdayBlessCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+    cell.indexPath = indexPath;
     AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
     [cell reloadCellWithModel:model];
     return cell;
@@ -105,7 +105,15 @@ static NSString *const ID = @"shop";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"点击的为 %@", indexPath);
+    
+    AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
+    coll.model = [[AddressBookModel alloc]init];
+    coll.model = model;
+    coll.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.navigationController pushViewController:coll animated:YES];
+
+    
 }
 
 

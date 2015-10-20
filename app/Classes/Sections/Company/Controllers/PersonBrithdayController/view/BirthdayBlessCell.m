@@ -40,7 +40,7 @@
         make.top.mas_equalTo(self.mas_top);
         make.left.mas_equalTo(self.mas_left);
         make.right.mas_equalTo(self.mas_right);
-        make.bottom.mas_equalTo(self.mas_bottom).offset(DLMultipleHeight(-30.0));
+        make.bottom.mas_equalTo(self.mas_bottom).offset(DLMultipleHeight(-40.0));
     }];
     
     // 2.名字
@@ -63,12 +63,24 @@
         make.top.mas_equalTo(view.mas_top);
         make.left.mas_equalTo(view.mas_left).offset(5);
         make.right.mas_equalTo(view.mas_centerX);
-        make.centerY.mas_equalTo(view.mas_centerY);
+        make.bottom.mas_equalTo(view.mas_centerY);
     }];
+    
+    self.personBirthday = [UILabel new];
+    self.personBirthday.font = [UIFont systemFontOfSize:11];
+    self.personBirthday.textColor = [UIColor colorWithWhite:.4 alpha:1];
+    [view addSubview:self.personBirthday];
+    [self.personBirthday mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.personName.mas_bottom);
+        make.bottom.mas_equalTo(view.mas_bottom);
+        make.left.mas_equalTo(self.personName.mas_left);
+        make.width.mas_equalTo(100);
+    }];
+    
     
     self.likeImage = [UIImageView new];
     self.likeImage.userInteractionEnabled = YES;
-    self.likeImage.image = [UIImage imageNamed:@"Like"];
+    self.likeImage.image = [UIImage imageNamed:@"BirthdayGift"];
     [view addSubview:self.likeImage];
     
     [self.likeImage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,7 +99,15 @@
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     self.personName.text = model.nickname;
-    
+    self.personBirthday.text = [self getBrithdayWithStr:model.birthday];
 }
 
+- (NSString *)getBrithdayWithStr:(NSString *)str
+{
+    NSArray *Tarray = [str componentsSeparatedByString:@"T"];
+    NSString *year = [Tarray firstObject];
+    NSArray *mouth = [year componentsSeparatedByString:@"-"];
+    NSString *returnStr = [NSString stringWithFormat:@"%@月%@日生日", mouth[1], mouth[2]];
+    return returnStr;
+}
 @end

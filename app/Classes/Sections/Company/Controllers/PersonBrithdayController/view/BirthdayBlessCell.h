@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AddressBookModel;
 
 @interface BirthdayBlessCell : UICollectionViewCell
+
+- (void)reloadCellWithModel:(AddressBookModel *)model;
+
+@property (nonatomic, strong)NSIndexPath *indexPath;
 
 @end
