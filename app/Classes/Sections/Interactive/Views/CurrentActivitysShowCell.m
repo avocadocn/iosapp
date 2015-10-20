@@ -75,7 +75,7 @@
     Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.poster[@"_id"]];
     self.nameLabel.text = person.name;
 //    [self.avatar dlGetRouteWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"]];
-    [self.avatar dlGetRouteThumbnallWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"] withSize:CGSizeMake(100, 100)];
+    [self.avatar dlGetRouteThumbnallWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"] withSize:CGSizeMake(50.0, 50.0)];
     switch ([model.type integerValue]) {
         case 1:{
             self.InteractiveText.text = model.theme;

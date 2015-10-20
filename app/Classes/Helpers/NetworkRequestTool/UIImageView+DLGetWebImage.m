@@ -11,6 +11,10 @@
 
 #define path [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CacheImage"]
 
+#define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height == 568) ? YES : NO)
+#define IS_IPhone6 (667 == [[UIScreen mainScreen] bounds].size.height ? YES : NO)
+#define IS_IPhone6plus (736 == [[UIScreen mainScreen] bounds].size.height ? YES : NO)
+
 @implementation UIImageView (DLGetWebImage)
 
 
@@ -27,7 +31,18 @@
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
     [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image];
 }
-
+- (int)BitmapScale
+{
+    if (IS_IPhone6plus) {
+        return 3;
+    }else if (IS_IPhone6) {
+        return 2;
+    }else if (IS_IPHONE_5) {
+        return 2;
+    }else {
+        return 2;
+    }
+}
 /**
  * 请求指定大小的图，可指定是否刷新
  */
@@ -38,7 +53,7 @@
         // 得到网络请求的字符串
         NSString *newUrlStr = [self getUrlStringWithString:str];
         
-        NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width, size.height]];
+        NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width*[self BitmapScale], size.height*[self BitmapScale]]];
         
         //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
         [self dlGetWebImageWithDefaultCacheAndRefreshWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
@@ -56,7 +71,7 @@
     // 得到网络请求的字符串
     NSString *newUrlStr = [self getUrlStringWithString:str];
     
-    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width, size.height]];
+    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width*[self BitmapScale], size.height*[self BitmapScale]]];
 //    NSLog(@"the app path is :%@",path);
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
     [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];

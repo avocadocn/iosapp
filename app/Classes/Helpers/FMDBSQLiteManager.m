@@ -10,6 +10,7 @@
 #import <FMDB.h>
 #import "Person.h"
 #import "Group.h"
+#import "Concern.h"
 
 @interface FMDBSQLiteManager ()
 @property (nonatomic, strong)FMDatabaseQueue *queue;
@@ -230,5 +231,33 @@
         }
         [db close];
     }];
+}
+
+- (void)saveConcerns:(Concern *)c
+{
+    // 自定义对象的存储必须用NSKeyedArchiver，不再有什么writeToFile方法
+    [NSKeyedArchiver archiveRootObject:c toFile:ConcernsPath];
+}
+
+- (Concern*)getConcerns{
+    Concern* c = [NSKeyedUnarchiver unarchiveObjectWithFile:ConcernsPath];
+    return c;
+}
+
+- (Boolean)containConcernWithId:(NSString *)cid
+{
+    Concern* c = [self getConcerns];
+    for (NSDictionary *d in c.concernIds) {
+        if ([[d objectForKey:@"_id"] isEqualToString:cid]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)dropConcerns
+{
+    Concern* c = [Concern new];
+    [self saveConcerns:c];
 }
 @end

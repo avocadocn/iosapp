@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <iCarousel.h>
+@class RankDetileModel;
 
 typedef enum : NSUInteger {
     RankListTypeMenGod = 7, // 男神
@@ -15,7 +16,18 @@ typedef enum : NSUInteger {
     RankListTypePopularity , // 人气榜
 } RankListType;
 
-@interface RankListController : UIViewController <iCarouselDataSource,iCarouselDelegate,UITableViewDataSource,UITableViewDelegate>
+typedef enum {
+    PARSE_TYPE_MEN,
+    PARSE_TYPE_WOMEN,
+    PARSE_TYPE_TEAM,
+}PARSE_TYPE;
+
+@protocol RankListControllerDelegate <NSObject>
+@optional
+- (void)voteForPeople;
+@end
+
+@interface RankListController : UIViewController <iCarouselDataSource,iCarouselDelegate,UITableViewDataSource,UITableViewDelegate,RankListControllerDelegate>
 
 -(instancetype)initWithRankListType:(RankListType)rankListType;
 

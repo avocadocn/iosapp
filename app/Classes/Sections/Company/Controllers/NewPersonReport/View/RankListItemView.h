@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "RankListController.h"
 @class RankDetileModel;
-@interface RankListItemView : UICollectionViewCell
+@interface RankListItemView : UICollectionViewCell <RankListControllerDelegate>
 
 @property (nonatomic, strong)UIImageView *imageView;
 @property (nonatomic, strong)UILabel *personName;
@@ -17,6 +17,8 @@
 @property (nonatomic, strong)NSIndexPath *indexpath;
 
 @property (nonatomic, strong)UIImageView *likeImage;
+@property (nonatomic, strong)UIView* voteRect;
+@property (nonatomic,strong) id<RankListControllerDelegate>delegate;
 
 - (void)reloadRankCellWithRankModel:(RankDetileModel *)model andIndex:(NSString *)index;
 @end
