@@ -47,9 +47,9 @@ static NSInteger num = 0;
 }
 - (void)loadingImageView {
     
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:RGBACOLOR(253, 185, 0, 1) size:40.0f];
     activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    activityIndicatorView.backgroundColor = RGBACOLOR(132, 123, 123, 0.52);
     self.activityIndicatorView = activityIndicatorView;
     [activityIndicatorView.layer setMasksToBounds:YES];
     [activityIndicatorView.layer setCornerRadius:10.0];

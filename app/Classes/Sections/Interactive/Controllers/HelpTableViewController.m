@@ -80,14 +80,15 @@ static NSString * const ID = @"HelpTableViewCell";
 }
 - (void)loadingImageView {
     
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
+    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:RGBACOLOR(253, 185, 0, 1) size:40.0f];
     activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
+    activityIndicatorView.backgroundColor = RGBACOLOR(132, 123, 123, 0.52);
     self.activityIndicatorView = activityIndicatorView;
     [activityIndicatorView.layer setMasksToBounds:YES];
     [activityIndicatorView.layer setCornerRadius:10.0];
     [self.activityIndicatorView startAnimating];
     [self.view addSubview:activityIndicatorView];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -336,8 +337,10 @@ static NSString * const ID = @"HelpTableViewCell";
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit",@"createTime"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self detalNewDataWithJson:json];
+ 
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
+
     }];
     [self.tableView.footer endRefreshing];
     
@@ -373,11 +376,4 @@ static NSString * const ID = @"HelpTableViewCell";
         NSLog(@"获取求朱详情失败 %@",errorJson);
     }];
 }
-
-
-
-
-
-
-
 @end
