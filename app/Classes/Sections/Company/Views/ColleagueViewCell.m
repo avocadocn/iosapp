@@ -5,7 +5,9 @@
 //  Created by 申家 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "NSString+WPAttributedMarkup.h"
+#import "WPHotspotLabel.h"
+#import "WPAttributedStyleAction.h"
 #import "FMDBSQLiteManager.h"
 #import "Person.h"
 #import "WPHotspotLabel.h"
@@ -20,6 +22,12 @@
 #import "UILabel+DLTimeLabel.h"
 #import "Account.h"
 #import "AccountTool.h"
+
+
+#define LABELWIDTH 355.0
+#define TEXTFONT 16
+#define REPLYTEXT 14
+
 
 static NSString *userId = nil;
 @implementation ColleagueViewCell
@@ -193,7 +201,6 @@ static NSString *userId = nil;
     }
 }
 
-
 - (BOOL)judgePraiseWithArray:(NSArray *)array
 {
     NSLog(@"赞的人有 %@", array);
@@ -229,5 +236,206 @@ static NSString *userId = nil;
             break;
     }
 }
+
+
+- (void)getViewWithModel:(CircleContextModel *)model andTag:(NSInteger)tag
+{
+    
+    
+    NSInteger overHeight = 0;
+    UIView *view = [[UIView alloc]init];
+    view.tag = tag += 10001;
+    
+    UIView *modelDetileView = [[UIView alloc]init];
+    
+    NSString *contentStr = model.content;
+    NSLog(@"用户发表的文字为 %@", contentStr);
+    
+    if (contentStr){
+        
+        UILabel *label = [self getLabelFromString:contentStr andHeight:overHeight];
+        UILabel *detileLabel = [self getLabelFromString:contentStr andHeight:overHeight];
+        
+        [modelDetileView addSubview:detileLabel];
+        [view addSubview:label];
+        overHeight += label.frame.size.height ;
+    }
+    
+    CGFloat width = DLMultipleWidth(87.0);
+    
+    NSArray *array = model.photos;//图片 array
+    NSInteger picNum = [array count];
+    CGFloat picHeight = 0;
+    if (picNum == 1) {
+        width = DLMultipleWidth(166.0);
+        picHeight = width;
+    }
+    if (picNum != 0 && picNum != 1) {
+        NSLog(@"图片有 %ld 张", (long)picNum);
+        picHeight = ((picNum + 2) / 3 )  * width; //图片view的高
+    }
+    int b = 0;
+    NSMutableArray *tempPhotoArray = [NSMutableArray array];
+    for (NSDictionary *imageDic in array) {
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
+        [imageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
+        //            imageView.backgroundColor = [UIColor orangeColor];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        
+        imageView.clipsToBounds = YES;
+        view.backgroundColor = [UIColor whiteColor];
+        imageView.tag = b + 1;
+        imageView.userInteractionEnabled = YES;
+        [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageAction:)]];
+        
+        [view addSubview:imageView];
+        UIImageView *detileImageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
+        detileImageView.image = [self OriginImage:imageView.image scaleToSize:imageView.size];
+        detileImageView.backgroundColor = [UIColor yellowColor];
+        detileImageView.contentMode = UIViewContentModeScaleAspectFill;
+        detileImageView.clipsToBounds = YES;
+        [detileImageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
+        
+        //            detileImageView.image = [UIImage imageNamed:@"1"];
+        
+        //            [imageView.rac_willDeallocSignal subscribeNext:^(UIImage *image) {
+        //                if (image) {
+        //                    NSLog(@"已获得图片");
+        //                }
+        //            }];
+        
+        [modelDetileView addSubview:detileImageView];
+        [tempPhotoArray addObject:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]]];
+        b++;
+    }
+    if (!tempPhotoArray.count) {
+        [tempPhotoArray addObject:@"空的"];
+    }
+//    [self.photoArray addObject:tempPhotoArray];
+    overHeight += picHeight;
+    
+//    modelDetileView.frame = CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), overHeight);
+    
+    [model setDetileView:modelDetileView];
+    
+    NSMutableArray *interArray = model.comments;
+    NSMutableArray *tempArray = [NSMutableArray array];
+    for (CircleContextModel *interTempDic in interArray) {  //评论
+        
+        NSString *str = interTempDic.content;
+        NSLog(@"得到的评论详情为 %@", str);
+        if (str) {
+            
+            CGFloat tempWidth = 5;
+            CGRect rect = [self getRectWithFont:[UIFont systemFontOfSize:REPLYTEXT] width:DLMultipleWidth(LABELWIDTH) - tempWidth andString:str];
+            WPHotspotLabel *interLabel = [[WPHotspotLabel alloc]initWithFrame:CGRectMake(tempWidth, 0, DLMultipleWidth(LABELWIDTH) - tempWidth, rect.size.height + 6)];
+            interLabel.numberOfLines = 0;
+            NSDictionary *style4 = @{@"body":[UIFont systemFontOfSize:REPLYTEXT],
+                                     @"abody":@[RGBACOLOR(80, 125, 175, 1) ,[WPAttributedStyleAction styledActionWithAction:^{
+                                         [self jumpPageWithDic:interTempDic andPoster:@"poster"];
+                                     }]]
+                                     ,
+                                     @"myBody":@[RGBACOLOR(51, 51, 51, 1),[WPAttributedStyleAction styledActionWithAction:^{
+//                                         [self.myText becomeFirstResponder];
+//                                         [self.inputTextView becomeFirstResponder];
+//                                         self.object = CommentReviewers;
+//                                         self.inputTextView.text = nil;
+//                                         self.inputTextView.placeHolder = [NSString stringWithFormat:@"回复%@:", interTempDic.poster.nickname];
+//                                         tergetUserId = interTempDic.poster.ID;
+//                                         contentId = interTempDic.targetContentId;
+//                                         self.selectIndex = [NSNumber numberWithInteger:(tag - 10000)] ;
+
+                                         NSLog(@"this is my body");
+                                     }]],
+                                     @"postBody":@[RGBACOLOR(80, 125, 175, 1) ,[WPAttributedStyleAction styledActionWithAction:^{
+                                         [self jumpPageWithDic:interTempDic andPoster:@"target"];
+                                     }]]
+                                     };
+            interLabel.font = [UIFont systemFontOfSize:REPLYTEXT];
+            BOOL tempState = [interTempDic.isOnlyToContent boolValue];
+            if (tempState){
+                
+                NSString *attStr = [NSString stringWithFormat:@"<abody>%@</abody>:<myBody>%@</myBody>", interTempDic.poster.nickname, str];
+                interLabel.attributedText = [attStr attributedStringWithStyleBook:style4];
+            } else
+            {
+                NSString *att = [NSString stringWithFormat:@"<abody>%@</abody>回复<postBody>%@</postBody>:<myBody>%@</myBody>",interTempDic.poster.nickname, interTempDic.target.nickname, interTempDic.content];
+                interLabel.attributedText = [att attributedStringWithStyleBook:style4];
+            }
+            
+            //            [interLabel sizeToFit];
+            //            interLabel.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+            UIView *aTempView = [[UIView alloc]initWithFrame:CGRectMake(0, overHeight + 6, DLMultipleWidth(LABELWIDTH), rect.size.height + 6)];
+            [aTempView addSubview:interLabel];
+            aTempView.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+            
+            [view addSubview:aTempView];
+            overHeight += rect.size.height + 3;
+        } else
+        {
+            [tempArray addObject:interTempDic];
+        }
+        
+    }
+    [interArray removeObjectsInArray:tempArray];
+    view.frame = CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), overHeight);
+    NSDictionary *viewDic = [NSDictionary dictionaryWithObjects:@[view, [NSString stringWithFormat:@"%ld", (long)overHeight]] forKeys:@[@"view", @"height"]];
+    
+    NSArray *viewArray = [self.userInterView subviews];
+    for (id view in viewArray) {
+        [view removeFromSuperview];
+    }
+    [self.userInterView addSubview:view];
+    
+    
+//    [self.userInterArray addObject:viewDic];
+    //        tempI ++;
+    
+}
+
+
+
+
+
+- (UILabel *)getLabelFromString:(NSString *)contentStr andHeight:(CGFloat)overHeight
+{
+    CGRect rect = [self getRectWithFont:[UIFont systemFontOfSize:TEXTFONT] width:DLMultipleWidth(LABELWIDTH) andString:contentStr];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, overHeight, DLMultipleWidth(LABELWIDTH), rect.size.height )];
+    label.numberOfLines = 0;
+    //            label.backgroundColor = [UIColor greenColor];
+    label.text = contentStr;
+    label.font = [UIFont systemFontOfSize:TEXTFONT];
+    return label;
+}
+
+- (CGRect)getRectWithFont:(UIFont *)font width:(CGFloat)num andString:(NSString *)string
+{
+    
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(num, 100000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil];
+    return rect;
+}
+
+-(UIImage *)OriginImage:(UIImage *)image scaleToSize:(CGSize)size{
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+- (void)jumpPageWithDic:(CircleContextModel *)dic andPoster:(NSString *)string
+{
+//    ColleaguesInformationController *coll = [[ColleaguesInformationController alloc]init];
+//    coll.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//    
+//    //    AddressBookModel *model = [[AddressBookModel alloc]init];
+//    //    [model setValuesForKeysWithDictionary:[dic objectForKey:string]];
+//    
+//    coll.model = [[AddressBookModel alloc]init];
+//    coll.model = dic.poster;
+//    [self.navigationController pushViewController:coll animated:YES];
+    NSLog(@"跳跃");
+}
+
 
 @end

@@ -104,7 +104,15 @@
     }
     
 }
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+//    NSLog(@"ddfjeofjewofjweofjawojf收到通知单了");
+     application.applicationIconBadgeNumber = 0;
+    [InteractiveViewController cancelLocalNotificationWithKey:@"key"];
+}
 
+-(void)applicationDidBecomeActive:(UIApplication *)application {
+     application.applicationIconBadgeNumber = 0;
+}
 
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {

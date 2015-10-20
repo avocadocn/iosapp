@@ -70,8 +70,6 @@ static NSString * const ID = @"CustomMemberTableViewCell";
     return cell;
 }
 
-
-
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%zd",indexPath.item);
     NSDictionary *dic = [self.memberInfos objectAtIndex:indexPath.item];

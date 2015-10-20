@@ -41,7 +41,7 @@
 
 - (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath;
 
-
+- (void)getViewWithModel:(CircleContextModel *)model andTag:(NSInteger)tag;
 
 
 @end

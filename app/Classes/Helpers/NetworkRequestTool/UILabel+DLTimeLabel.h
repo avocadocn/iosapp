@@ -14,4 +14,6 @@
 
 - (void)getCompanyNameFromCid:(NSString *)string;
 
+- (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate;
+
 @end

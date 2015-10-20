@@ -71,7 +71,7 @@ static NSString * contentId = nil;
 #define TEXTFONT 16
 #define REPLYTEXT 14
 
-@interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, ConditionControllerDelegate, CardChooseViewDelegate, DNImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXFaceDelegate>
+@interface ColleagueViewController ()<UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, ConditionControllerDelegate, CardChooseViewDelegate, DNImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, DXFaceDelegate, CricleDetailViewControllerDelegate>
 /**
  * 输入评论内容的真正 textfield
  */
@@ -345,7 +345,6 @@ static NSString * contentId = nil;
      NSLog(@"请求失败 %@",errorJson);
      }];
      */
-    
 }
 
 - (void)stateAction
@@ -398,7 +397,6 @@ static NSString * contentId = nil;
             
             [self.navigationController presentViewController:pickr animated:YES completion:nil];
         }
-            
         default:
             break;
     }
@@ -480,6 +478,18 @@ static NSString * contentId = nil;
     return cell;
 }
 
+
+ /*
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ColleagueViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell"];
+    CircleContextModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    [cell reloadCellWithModel:model andIndexPath:indexPath];
+    [cell getViewWithModel:model andTag:indexPath.row + 1];
+    return cell;
+}
+*/
 //点击头像
 - (void)circleImageAction:(UITapGestureRecognizer *)tap
 {
@@ -498,8 +508,11 @@ static NSString * contentId = nil;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.userInterArray count];
+//    return [self.userInterArray count];
+    return self.modelArray.count;
 }
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dic = [self.userInterArray objectAtIndex:indexPath.row];
@@ -507,6 +520,36 @@ static NSString * contentId = nil;
     NSInteger num = [str integerValue];
     
     return 118.0 + 6 + num;   // 根据图片的高度返回行数
+//    CGFloat num = [self getHeightWithModel:self.modelArray[indexPath.row]];
+//    return  num;
+}
+
+- (CGFloat)getHeightWithModel:(CircleContextModel *)model
+{
+    CGFloat height = 0.0f;
+    NSArray *array = model.photos;
+    NSInteger picNum = [array count];
+    // 图片的高度
+    if (picNum == 1) {
+        height = DLMultipleWidth(166.0);
+    }
+    if (picNum != 0 && picNum != 1) {
+        CGFloat width = DLMultipleWidth(87.0);
+        NSLog(@"图片有 %ld 张", (long)picNum);
+        height = ((picNum + 2) / 3 )  * width; //图片view的高
+    }
+    // 评论 回复的高度
+    
+    NSMutableArray *interArray = model.comments;
+    for (CircleContextModel *interTempDic in interArray) {  //评论
+        NSString *str = interTempDic.content;
+        NSLog(@"得到的评论详情为 %@", str);
+        
+        CGFloat tempWidth = 5;
+        CGRect rect = [self getRectWithFont:[UIFont systemFontOfSize:REPLYTEXT] width:DLMultipleWidth(LABELWIDTH) - tempWidth andString:str];
+        height += rect.size.height;
+    }
+    return 118.0 + 6 + height;
 }
 
 - (CGRect)getRectWithFont:(UIFont *)font width:(CGFloat)num andString:(NSString *)string
@@ -524,11 +567,30 @@ static NSString * contentId = nil;
     CircleContextModel *model = [self.modelArray objectAtIndex:indexPath.row];
     
     CricleDetailViewController *c = [[CricleDetailViewController alloc]init];
+    c.delegate = self;
     c.tempModel = [[CircleContextModel alloc]init];
     c.tempModel = model;
+    
     [self.navigationController pushViewController:c animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)reloadData:(NSIndexPath *)index
+{
+//    NSFileManager *manger = [NSFileManager defaultManager];
+//    NSArray *tempArray =  NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+//    NSString *path = [tempArray lastObject];
+//    path = [NSString stringWithFormat:@"%@/%@", path, @"IDArray"];
+//    
+//    NSArray *array = [NSArray arrayWithContentsOfFile:path];
+//    
+//    NSString *str = array[index.row];
+//    
+//    CircleContextModel *model = [[CircleContextModel alloc]initWithString:str];
+//    [self.modelArray replaceObjectAtIndex:index.row withObject:model];
+//
+    [self netRequest];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -576,7 +638,8 @@ static NSString * contentId = nil;
     for (NSDictionary *imageDic in array) {
         
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
-        [imageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
+//        [imageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
+        [imageView dlGetRouteThumbnallWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil withSize:CGSizeMake(width, width)];
         //            imageView.backgroundColor = [UIColor orangeColor];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         
@@ -592,7 +655,7 @@ static NSString * contentId = nil;
         detileImageView.backgroundColor = [UIColor yellowColor];
         detileImageView.contentMode = UIViewContentModeScaleAspectFill;
         detileImageView.clipsToBounds = YES;
-        [detileImageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
+        [detileImageView dlGetRouteThumbnallWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil withSize:CGSizeMake(width, width)];
         
         //            detileImageView.image = [UIImage imageNamed:@"1"];
         
@@ -871,6 +934,7 @@ static NSString * contentId = nil;
     
     [RestfulAPIRequestTool routeName:@"publisheCircleComments" requestModel:tempModel useKeys:@[@"contentId", @"kind", @"content", @"isOnlyToContent", @"targetUserId"] success:^(id json) {
         NSLog(@"评论成功 %@",json);
+        self.inputTextView.text = nil;
         [self.inputTextView resignFirstResponder];
         
         CircleContextModel *cir = [[CircleContextModel alloc]initWithString:model.ID];  // 取出来的
