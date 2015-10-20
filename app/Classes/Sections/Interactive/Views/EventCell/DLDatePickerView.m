@@ -63,7 +63,7 @@
     NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
     
     if (!self.minDate){
-    
+        
         self.picker.minimumDate = localeDate;}
     if (!self.maxDate) {
         
@@ -108,12 +108,15 @@
 - (void)returnButtonAction:(UIButton *)sender
 {
     NSLog(@"消失");
+    
     [UIView animateWithDuration:.4 animations:^{
         self.centerY = DLScreenHeight + (self.frame.size.height);
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+        NSDate *date = [self.picker date];
         
-        NSDate *pickerdate = [self.picker date];
+        NSDate *pickerdate = [NSDate dateWithTimeInterval:- 8 * 60 *60 sinceDate:date];
+        
         NSDateFormatter *pickerFoematter = [[NSDateFormatter alloc]init];
         [pickerFoematter setDateFormat:@"yyyy-MM-dd HH:mm"];
         NSString *dateStr = [pickerFoematter stringFromDate:pickerdate];
@@ -156,8 +159,9 @@
         self.centerY = DLScreenHeight + (self.frame.size.height);
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
+        NSDate *date = [self.picker date];
+        NSDate *pickerdate = [NSDate dateWithTimeInterval:- 8 * 60 *60 sinceDate:date];
         
-        NSDate *pickerdate = [self.picker date];
         NSDateFormatter *pickerFoematter = [[NSDateFormatter alloc]init];
         
         [pickerFoematter setDateFormat:@"yyyy-MM-dd HH:mm"];

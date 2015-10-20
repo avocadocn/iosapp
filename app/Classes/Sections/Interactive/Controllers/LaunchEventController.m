@@ -154,7 +154,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         [inter setLongitude:self.log];
     }
     if (self.startTimeField.text.length != 0) {
-        [inter setRemindTime:[self getRemindTimeFromStartTime:self.startTimeField.text]]; // mark
+//        [inter setRemindTime:[self getRemindTimeFromStartTime:self.startTimeField.text]]; // mark
     }
     Account *acc = [AccountTool account];
     if (self.isTemplate) {

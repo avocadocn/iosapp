@@ -743,7 +743,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)localNotifications {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     if (notification) {
-        NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:5];
+        NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:18000];
         notification.fireDate = currentDate; // 通知开始时间
         notification.repeatInterval = NSCalendarUnitSecond; // 设置重复间隔
         notification.alertBody = @"Party Time"; // 通知提醒内容
