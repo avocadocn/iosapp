@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/7/21.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-#import <DGActivityIndicatorView.h>
+
 #import "AddressViewController.h"
 #import <ReactiveCocoa.h>
 #import <Masonry.h>
@@ -28,7 +28,7 @@
  */
 @property (nonatomic, strong)NSArray *jsonArray;
 @property (nonatomic, strong)NSArray *bigArray;
-@property (nonatomic, strong)DGActivityIndicatorView *activityIndicatorView;
+
 @end
 
 @implementation AddressViewController
@@ -44,10 +44,6 @@
 
 - (void)loadingImageView {
     
-    self.activityIndicatorView = [[DGActivityIndicatorView alloc]initWithOverTime:^(id a) {
-        
-        [self.activityIndicatorView stopAnimating];
-    }];
     
     
     
@@ -188,7 +184,7 @@
     
     [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
         NSLog(@"获取通讯录成功 , %@", json);
-        [DGActivityIndicatorView dismiss];
+        
         
         self.jsonArray = [NSArray arrayWithArray:json];
         

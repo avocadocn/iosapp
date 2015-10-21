@@ -664,6 +664,7 @@
 		A4465CFA1B9453C80056ACA8 /* FreshModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4465CF91B9453C80056ACA8 /* FreshModel.m */; };
 		A4483DB61BCB5FCD00E7D101 /* chat_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A4483DB41BCB5FCD00E7D101 /* chat_white@2x.png */; };
 		A4483DB71BCB5FCD00E7D101 /* chat_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A4483DB51BCB5FCD00E7D101 /* chat_black@2x.png */; };
+		A449B21D1BD794F80033A387 /* DLLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = A449B21C1BD794F80033A387 /* DLLoading.m */; settings = {ASSET_TAGS = (); }; };
 		A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */; };
 		A44B35561B82E088004F7A6A /* FillInformationCon.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B35551B82E088004F7A6A /* FillInformationCon.m */; };
 		A44B355D1B82FC13004F7A6A /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B355C1B82FC13004F7A6A /* LabelView.m */; };
@@ -1850,6 +1851,8 @@
 		A4465CF91B9453C80056ACA8 /* FreshModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshModel.m; sourceTree = "<group>"; };
 		A4483DB41BCB5FCD00E7D101 /* chat_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_white@2x.png"; sourceTree = "<group>"; };
 		A4483DB51BCB5FCD00E7D101 /* chat_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_black@2x.png"; sourceTree = "<group>"; };
+		A449B21B1BD794F80033A387 /* DLLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLoading.h; sourceTree = "<group>"; };
+		A449B21C1BD794F80033A387 /* DLLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLoading.m; sourceTree = "<group>"; };
 		A44B354B1B82CF65004F7A6A /* SearchSchoolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSchoolModel.h; sourceTree = "<group>"; };
 		A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSchoolModel.m; sourceTree = "<group>"; };
 		A44B35541B82E088004F7A6A /* FillInformationCon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FillInformationCon.h; sourceTree = "<group>"; };
@@ -2472,6 +2475,8 @@
 				9649B5031B564DE000A7F355 /* CircleImageView */,
 				A434C60F1B71EA1E009643CD /* ApertureView.h */,
 				A434C6101B71EA1E009643CD /* ApertureView.m */,
+				A449B21B1BD794F80033A387 /* DLLoading.h */,
+				A449B21C1BD794F80033A387 /* DLLoading.m */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -5693,6 +5698,7 @@
 				A46CC45B1B8C6E3A002492EC /* Interaction.m in Sources */,
 				96CF90EB1B673422001759E2 /* wav.mm in Sources */,
 				96CF938E1B674B54001759E2 /* EMChatImageBubbleView.m in Sources */,
+				A449B21D1BD794F80033A387 /* DLLoading.m in Sources */,
 				54B46A051B9547C000A6500B /* InvatingModel.m in Sources */,
 				A44B35691B831DA4004F7A6A /* PasswordView.m in Sources */,
 				96CF90DF1B673422001759E2 /* PSTCollectionViewItemKey.m in Sources */,

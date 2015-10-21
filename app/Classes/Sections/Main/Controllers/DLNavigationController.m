@@ -5,7 +5,7 @@
 //  Created by 张加胜 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "DLLoading.h"
 #import "DLNavigationController.h"
 #import "UIBarButtonItem+Extension.h"
 #import "ChoosePhotoController.h"
@@ -97,8 +97,7 @@
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     
         if ([window viewWithTag:19921223] ) {
-            DGActivityIndicatorView *view = (DGActivityIndicatorView *)[window viewWithTag:19921223];
-            [view removeFromSuperview];
+            [DLLoading dismisss];
         }
 
     [self popViewControllerAnimated:YES];
