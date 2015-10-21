@@ -11,12 +11,10 @@
 #import "getIntroModel.h"
 #import "InteractiveViewController.h"
 #import "ActivitysShowView.h"
-#import "ActivityShowTableController.h"
 #import "TemplateActivityShowTableController.h"
 #import "TemplateVoteTableViewController.h"
 #import "TemplateHelpTableViewController.h"
 #import "CurrentActivitysShowCell.h"
-#import "ActivityShowTableController.h"
 #import "DWBubbleMenuButton.h"
 #import "OtherController.h"
 #import "RankListController.h"
@@ -41,6 +39,7 @@
 #import "FMDBSQLiteManager.h"
 #import <MJRefresh.h>
 #import <DGActivityIndicatorView.h>
+#import "NewRankListControllerViewController.h"
 enum InteractionType{
     InteractionTypeActivityTemplate,
     InteractionTypeVoteTemplate,
@@ -106,7 +105,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reFreshData) name:@"POSTEXIT" object:nil];
     
     [self loadingImageView];  // loading
-    [self localNotifications]; // 本地通知
     
 }
 - (void)loadingImageView {
@@ -420,7 +418,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         case 0: // 男神
         {
             RankListController  *controller =  [[RankListController alloc]initWithRankListType:RankListTypeMenGod];
-            
+//            NewRankListControllerViewController * controller = [[NewRankListControllerViewController alloc] initWithNibName:@"NewRankListControllerViewController" bundle:nil];
+//            controller.listType = NewRankListTypeMenGod;
             [self.navigationController pushViewController:controller animated:YES];
         }
             break;
@@ -743,7 +742,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)localNotifications {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     if (notification) {
-        NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:5];
+        NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:500000000];
         notification.fireDate = currentDate; // 通知开始时间
         notification.repeatInterval = NSCalendarUnitSecond; // 设置重复间隔
         notification.alertBody = @"Party Time"; // 通知提醒内容

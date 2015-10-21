@@ -30,4 +30,6 @@
 
 - (instancetype)initWithModel:(Interaction *)model andButtonState:(BOOL)state;
 
++ (void)cancelLocalNotificationWithKey:(NSString *)key;
+
 @end

@@ -74,8 +74,7 @@
     self.peopleCountLabel.text = [NSString stringWithFormat:@"参加:%ld",model.members.count];
     Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.poster[@"_id"]];
     self.nameLabel.text = person.name;
-//    [self.avatar dlGetRouteWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"]];
-    [self.avatar dlGetRouteThumbnallWebImageWithString:person.imageURL placeholderImage:[UIImage imageNamed:@"icon1"] withSize:CGSizeMake(50.0, 50.0)];
+    [self.avatar dlGetRouteThumbnallWebImageWithString:person.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)];
     switch ([model.type integerValue]) {
         case 1:{
             self.InteractiveText.text = model.theme;
@@ -100,12 +99,7 @@
         }
     }
 
-    [self.fromLabel getCompanyNameFromCid:model.cid]; /// 来自
-    
-//    [self.InteractiveTypeIcon dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [[model.photos lastObject] objectForKey:@"uri"] ] placeholderImage:[UIImage imageNamed:@"1"]];
-    
-//    self.publishTimeLabel.text = [model.activity objectForKey:@"startTime"];
-    
+    [self.fromLabel getCompanyNameFromCid:model.cid]; 
 }
 
 - (NSString*)getParsedDateStringFromString:(NSString*)dateString

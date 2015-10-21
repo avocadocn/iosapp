@@ -59,8 +59,6 @@
 
 - (void)cellReconsitutionWithModel:(GroupCardModel *)model
 {
-    //    [self.groupImageView dlGetRouteWebImageWithString:model.logo placeholderImage:nil];
-    
     [self.groupImageView dlGetRouteThumbnallWebImageWithString:model.logo placeholderImage:nil withSize:CGSizeMake(200, 200)];
     
     self.groupIntroLabel.text = model.name;

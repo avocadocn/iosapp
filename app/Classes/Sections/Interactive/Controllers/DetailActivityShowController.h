@@ -20,4 +20,5 @@
 @property (nonatomic, assign)BOOL quitState;
 
 
+
 @end

@@ -103,19 +103,6 @@ static NSString * const reuseIdentifier = @"MenuCollectionViewCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    //    Account *account = [AccountTool account];
-    //    Person *p = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:account.ID];
-    //    if (indexPath.row == 0) {
-    //        MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    //        cell.menuCollectionCellName.text = @"我的信息";
-    //        [cell.menuCollectionCellIcon dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"icon1" ]];
-    //        return cell;
-    //    } else {
-    //        MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    //        cell.menuCollectionCellName.text = self.itemNames[indexPath.row];
-    //        [cell.menuCollectionCellIcon setImage:[UIImage imageNamed:self.itemIcons[indexPath.row]]];
-    //        return cell;
-    //    }
     MenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.menuCollectionCellName.text = self.itemNames[indexPath.row];
     [cell.menuCollectionCellIcon setImage:[UIImage imageNamed:self.itemIcons[indexPath.row]]];

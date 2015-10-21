@@ -16,7 +16,6 @@
 #import <Masonry.h>
 #import "FolderViewController.h"
 #import "MessageViewController.h"
-#import "ActivityShowTableController.h"
 #import "VoteTableController.h"
 #import "MenuCollectionController.h"
 #import "GroupCardModel.h"
@@ -488,9 +487,7 @@ static NSString * const helpCellID = @"helpCellID";
     
     [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.titleLabel.text = self.informationModel.name;
-    [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
-    
-    
+    [self.headImageView dlGetRouteThumbnallWebImageWithString:self.informationModel.logo placeholderImage:nil withSize:self.headImageView.size];    
     
     FMDBSQLiteManager *manger = [FMDBSQLiteManager shareSQLiteManager];
     
@@ -499,7 +496,6 @@ static NSString * const helpCellID = @"helpCellID";
         self.setView.userInteractionEnabled = NO;
         self.settingBtn.alpha = 0;
     }
-    
 }
 
 
@@ -639,7 +635,7 @@ static NSString * const helpCellID = @"helpCellID";
         [self builtJoinButton];
         [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         self.titleLabel.text = self.informationModel.name;
-        [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
+        [self.headImageView dlGetRouteThumbnallWebImageWithString:self.informationModel.logo placeholderImage:nil withSize:self.headImageView.size];
 //        [self requestNet];
         
     } failure:^(id errorJson) {
