@@ -31,7 +31,9 @@
 {
     
     UIImageView *backImage = [[UIImageView alloc]initWithFrame:self.frame];
-    [backImage dlGetRouteWebImageWithString:image placeholderImage:nil];
+//    [backImage dlGetRouteWebImageWithString:image placeholderImage:nil];
+    //下载指定大小的图片
+    [backImage dlGetRouteThumbnallWebImageWithString:image placeholderImage:nil withSize:self.frame.size];
     [self addSubview:backImage];
     
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
