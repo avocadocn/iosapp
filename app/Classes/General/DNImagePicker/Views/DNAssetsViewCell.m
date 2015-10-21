@@ -136,8 +136,7 @@
 
 - (void)fillWithImage:(NSString *)image
 {
-    [self.imageView dlGetRouteWebImageWithString:image placeholderImage:nil];;
-//    self.imageView.image = image;
+    [self.imageView dlGetRouteThumbnallWebImageWithString:image placeholderImage:nil withSize:self.imageView.size];
 }
 
 - (void)setIsSelected:(BOOL)isSelected

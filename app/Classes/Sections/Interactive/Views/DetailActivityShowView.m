@@ -162,8 +162,7 @@
     for (NSDictionary *dic in self.model.photos) {
         self.url = dic[@"uri"];
     }
-    [self.pictureView dlGetRouteWebImageWithString:self.url placeholderImage:[UIImage imageNamed:@"2.jpg"]];
-    
+    [self.pictureView dlGetRouteThumbnallWebImageWithString:self.url placeholderImage:nil withSize:self.pictureView.size];
     [self.pictureView setClipsToBounds:YES];
 //    [self.pictureView setImage:img];
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];

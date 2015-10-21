@@ -112,7 +112,8 @@ static NSString * const ID = @"OtherActivityShowCell";
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -35, DLScreenWidth, DLScreenHeight + 35) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView registerClass:[OtherActivityShowCell class] forCellReuseIdentifier:ID];
+//    [self.tableView registerClass:[OtherActivityShowCell class] forCellReuseIdentifier:ID];
+    [self.tableView registerNib:[UINib nibWithNibName:@"OtherActivityShowCell" bundle:nil] forCellReuseIdentifier:ID];
     [self.view addSubview:self.tableView];
 }
 #pragma mark - Table view data source

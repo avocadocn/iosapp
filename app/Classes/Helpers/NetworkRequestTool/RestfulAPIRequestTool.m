@@ -6,8 +6,8 @@
 //  Created by 张加胜 on 15/8/3.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
-
+#import "DLLoading.h"
+#import <DGActivityIndicatorView.h>
 #import "RestfulAPIRequestTool.h"
 #import "RouteManager.h"
 #import "RouteInfoModel.h"
@@ -72,13 +72,13 @@ static AFHTTPSessionManager *_mgr;
     if ([AccountTool account].token) {
         [_mgr.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];
     }
-    
-    
 }
 
 
 + (void)routeName:(NSString *)routeName requestModel:(id)requestModel useKeys:(NSArray *)keysArray success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
-    
+
+    DLLoading *lo = [[DLLoading alloc]init];
+    [lo loading];
     [self load];
     
     __block BOOL uploadFlag = NO;
@@ -318,6 +318,7 @@ static AFHTTPSessionManager *_mgr;
 
 
 + (id)resolveFailureWith:(NSError *)error{
+
    id errorJson =  [self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]];
     if (!errorJson) {
         TTAlert(@"服务器连接失败");
@@ -334,6 +335,7 @@ static AFHTTPSessionManager *_mgr;
  */
 
 + (id)dataToJsonObject:(id)responseObject{
+
     if ([responseObject isKindOfClass:[NSData class]]) {
         NSData *data = [NSData dataWithData:responseObject];
         id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

@@ -120,7 +120,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 - (void)getImages {
     
     for (NSDictionary *dic in self.model.photos) {
-        [self.chooseButton dlGetRouteWebImageWithString:dic[@"uri"] placeholderImage:nil];
+        [self.chooseButton dlGetRouteThumbnallWebImageWithString:dic[@"uri"] placeholderImage:nil withSize:self.chooseButton.size];
     }
 
 }

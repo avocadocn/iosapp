@@ -27,7 +27,7 @@
 
 @end
 
-static NSString *ID = @"fjseijfhiusehfgiu";
+static NSString *ID = @"CurrentActivitysShowCell";
 
 @implementation PersonalDynamicController
 // 个人动态
@@ -96,7 +96,7 @@ static NSString *ID = @"fjseijfhiusehfgiu";
     self.dynamicTableView.separatorColor = [UIColor clearColor];
     [self.dynamicTableView setBackgroundColor:[UIColor colorWithWhite:.9 alpha:.9]];
     
-    [self.dynamicTableView registerClass:[DynamicTableViewCell class] forCellReuseIdentifier:@"otherCell"];
+//    [self.dynamicTableView registerClass:[DynamicTableViewCell class] forCellReuseIdentifier:@"otherCell"];
     [self.dynamicTableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     
     

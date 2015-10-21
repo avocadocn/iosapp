@@ -70,7 +70,6 @@
     [dic setObject:self.model.team forKey:@"groupId"];
     [dic setObject:@1 forKey:@"accept"];
     
-
     [RestfulAPIRequestTool routeName:@"detailInvitationInfos" requestModel:dic useKeys:@[@"groupId", @"accept"] success:^(id json) {
         
         UIAlertView *alet =[[UIAlertView alloc] initWithTitle:@"成功" message:json[@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];

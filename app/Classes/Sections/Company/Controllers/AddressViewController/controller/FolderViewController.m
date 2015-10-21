@@ -83,7 +83,6 @@ static NSInteger num = 0;
         }
         self.department.informationTextField.text = json[@"department"][@"name"];
         self.phoneNumber.informationTextField.text = infoModel.phone;
-//        [self.folderPhotoImage dlGetRouteWebImageWithString:infoModel.photo placeholderImage:[UIImage imageNamed:@"boy"]];
             CGFloat width = DLScreenWidth / (375.0 / 150.0);
         [self.folderPhotoImage dlGetRouteThumbnallWebImageWithString:infoModel.photo placeholderImage:nil withSize:CGSizeMake(width, width)];
     } failure:^(id errorJson) {

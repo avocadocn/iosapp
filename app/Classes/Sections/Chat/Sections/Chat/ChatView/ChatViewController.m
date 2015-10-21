@@ -253,7 +253,8 @@
         [clearButton setImage:[UIImage imageNamed:@"navigationbar_more"] forState:UIControlStateNormal];
         [clearButton setImage:[UIImage imageNamed:@"navigationbar_more_highlighted"] forState:UIControlStateHighlighted];
         [clearButton addTarget:self action:@selector(removeAllMessages:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
+        //去掉删除当前聊天内容的按钮
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
     }
 }
 

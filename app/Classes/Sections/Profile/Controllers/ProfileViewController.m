@@ -12,7 +12,6 @@
 #import "MenuCollectionController.h"
 #import "ProfileTableViewCell.h"
 #import "FolderViewController.h"
-#import "ActivityShowTableController.h"
 #import "VoteTableController.h"
 #import "HelpTableViewController.h"
 #import "TeamHomePageController.h"

@@ -19,7 +19,7 @@
 #import "Interaction.h"
 #import "FMDBSQLiteManager.h"
 #import "Person.h"
-#import "GiFHUD.h"
+
 @interface CommentsViewController ()
 
 @property (nonatomic, strong) NSMutableArray *comments;
@@ -38,7 +38,7 @@ static NSString * const ID = @"VoteCommentViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [GiFHUD setGifWithImageName:@"myGif.gif"];
+
     [FMDBSQLiteManager shareSQLiteManager];
     //    NSString *filePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
     //    NSLog(@"************->%@",filePath);
@@ -62,21 +62,20 @@ static NSString * const ID = @"VoteCommentViewCell";
     
     //    [self loadData];
     [self netWorkRequest];
-    [GiFHUD show];
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commenting:) name:@"POSTTEXT"object:nil]; // 注册观察者 监测发送评论
     
     
 }
 - (void)commenting:(NSNotification *)notice {
-    [GiFHUD show];
+
      // 进行评论
     if (self.keyBoard.inputView.text.length != 0) {
         [self marchingComments];
     }else {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"内容不能为空"delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
-        [GiFHUD dismiss];
     }
     
 }
@@ -87,10 +86,10 @@ static NSString * const ID = @"VoteCommentViewCell";
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:self.model useKeys:@[@"interactionType",@"interactionId"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self loadDataWithJson:json];
-        [GiFHUD dismiss];
+
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-        [GiFHUD dismiss];
+
     }];
 }
 
@@ -108,7 +107,7 @@ static NSString * const ID = @"VoteCommentViewCell";
         [alertV show];
         NSLog(@"发送评论失败的原因 %@",[errorJson objectForKey:@"msg"]);
         NSLog(@"%@",self.interactionType);
-        [GiFHUD dismiss];
+
         
     }];
 }

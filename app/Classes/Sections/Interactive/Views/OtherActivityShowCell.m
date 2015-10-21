@@ -32,10 +32,10 @@
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     // NSLog(@"---%@",reuseIdentifier);
-    NSArray *nibs = [[NSBundle mainBundle ]loadNibNamed:@"OtherActivityShowCell" owner:self options:nil];
-    if (nibs.count > 0) {
-        self = nibs.firstObject;
-        
+//    NSArray *nibs = [[NSBundle mainBundle ]loadNibNamed:@"OtherActivityShowCell" owner:self options:nil];
+//    if (nibs.count > 0) {
+//        self = nibs.firstObject;
+    
         [self.separator setBackgroundColor:RGB(230, 230, 230)];
         // 设置圆角矩形
 //        [self.backImageView.layer setCornerRadius:4.0f];
@@ -43,7 +43,7 @@
         [self.nameLabel setTextColor:RGB(0x39, 0x37, 0x37)];
         [self.timeLabel setTextColor:RGB(0x9b, 0x9b, 0x9b)];
         [self.addressLabel setTextColor:RGB(0x9b, 0x9b, 0x9b)];
-           }
+//           }
     return self;
 }
 /*

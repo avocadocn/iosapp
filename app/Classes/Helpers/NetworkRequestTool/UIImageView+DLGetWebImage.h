@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <UIImageView+WebCache.h>
 @interface UIImageView (DLGetWebImage)
 
 /**
@@ -25,5 +25,5 @@
  */
 - (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size;
 
-
+- (void)dlGetLocalImageWithUrl:(NSString *)url size:(CGSize)size completed:(SDWebImageCompletionBlock)completedBlock;
 @end

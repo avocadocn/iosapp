@@ -48,6 +48,13 @@
     }
 }
 
+- (void)setImageUrl:(NSString *)imageUrl
+{
+    if (_imageUrl != imageUrl) {
+        _imageUrl = imageUrl;
+    }
+}
+
 // Get and display image
 - (void)displayImage {
     self.zoomingScrollView.maximumZoomScale = 1;
@@ -68,6 +75,7 @@
     [self setMaxMinZoomScalesForCurrentBounds];
     [self setNeedsLayout];
 }
+
 
 
 #pragma mark - get

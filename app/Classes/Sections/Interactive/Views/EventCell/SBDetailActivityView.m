@@ -110,9 +110,8 @@
     for (NSDictionary *dic in self.model.photos) {
         self.url = dic[@"uri"];
     }
-    [self.pictureView dlGetRouteWebImageWithString:self.url placeholderImage:[UIImage imageNamed:@"2.jpg"]];
+    [self.pictureView dlGetRouteThumbnallWebImageWithString:self.url placeholderImage:nil withSize:self.pictureView.size];
     [self.pictureView setContentMode:UIViewContentModeScaleAspectFill];
-    //    self.pictureView = self.pictureView;
     // 活动名称label
     UIFont *font = [UIFont systemFontOfSize:18.0f];
     self.activityName = [[UILabel alloc]init];

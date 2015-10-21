@@ -205,11 +205,10 @@
     _voteCellFrame = voteCellFrame;
     
     VoteInfoModel *model = voteCellFrame.voteInfoModel;
-    self.infoModel = voteCellFrame.voteInfoModel; //***********************
+    self.infoModel = voteCellFrame.voteInfoModel;
     self.interactionId = model.interactionId;
-    [self.avatarImageView dlGetRouteWebImageWithString:model.avatarURL placeholderImage:[UIImage imageNamed:@"icon1"]];
     [self.avatarImageView setFrame:voteCellFrame.avatarImageViewF];
-    
+    [self.avatarImageView dlGetRouteThumbnallWebImageWithString:model.avatarURL placeholderImage:nil withSize:self.avatarImageView.size];
     self.nameLabel.text = model.name;
     [self.nameLabel setFrame:voteCellFrame.nameLabelF];
     
@@ -223,7 +222,7 @@
     //    self.timeLabel.backgroundColor = [UIColor redColor];
     [self.voteImageView setFrame:voteCellFrame.voteImageViewF];
     if (model.voteImageURL) {
-        [self.voteImageView dlGetRouteWebImageWithString:model.voteImageURL placeholderImage:[UIImage imageNamed:@"108"]];
+        [self.voteImageView dlGetRouteThumbnallWebImageWithString:model.voteImageURL placeholderImage:nil withSize:self.voteImageView.size];
         [self.voteImageView setAlpha:1];
     }else{
         [self.voteImageView setAlpha:0];

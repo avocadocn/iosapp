@@ -16,7 +16,6 @@
 #import <Masonry.h>
 #import "FolderViewController.h"
 #import "MessageViewController.h"
-#import "ActivityShowTableController.h"
 #import "VoteTableController.h"
 #import "MenuCollectionController.h"
 #import "GroupCardModel.h"
@@ -107,18 +106,18 @@ static NSString *ID = @"feasfsefse";
 
 @implementation TeamHomePageController
 
-/**
- *  活动cell
- */
-static NSString * const avtivityCellID = @"avtivityCellID";
-/**
- *  投票cell
- */
-static NSString * const voteCellID = @"voteCellID";
-/**
- *  求助cell
- */
-static NSString * const helpCellID = @"helpCellID";
+///**
+// *  活动cell
+// */
+//static NSString * const avtivityCellID = @"avtivityCellID";
+///**
+// *  投票cell
+// */
+//static NSString * const voteCellID = @"voteCellID";
+///**
+// *  求助cell
+// */
+//static NSString * const helpCellID = @"helpCellID";
 
 
 
@@ -167,6 +166,7 @@ static NSString * const helpCellID = @"helpCellID";
             //controller = [[FolderViewController alloc]init];
             //controller = [[UserMessageTableViewController alloc]init];
             controller = [[InviteGroupMember alloc] init];
+            [(InviteGroupMember *)controller setDetileModel:self.informationModel];
             break;
         case 3: // 活动
             controller = [[TeamInteractionViewController alloc]init];
@@ -212,9 +212,9 @@ static NSString * const helpCellID = @"helpCellID";
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"OtherActivityShowCell" bundle:nil] forCellReuseIdentifier:avtivityCellID];
-    [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:voteCellID];
-    [self.tableView registerClass:[HelpTableViewCell class] forCellReuseIdentifier:helpCellID];
+//    [self.tableView registerNib:[UINib nibWithNibName:@"OtherActivityShowCell" bundle:nil] forCellReuseIdentifier:avtivityCellID];
+//    [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:voteCellID];
+//    [self.tableView registerClass:[HelpTableViewCell class] forCellReuseIdentifier:helpCellID];
     [self.tableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     
     
@@ -487,9 +487,7 @@ static NSString * const helpCellID = @"helpCellID";
     
     [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.titleLabel.text = self.informationModel.name;
-    [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
-    
-    
+    [self.headImageView dlGetRouteThumbnallWebImageWithString:self.informationModel.logo placeholderImage:nil withSize:self.headImageView.size];    
     
     FMDBSQLiteManager *manger = [FMDBSQLiteManager shareSQLiteManager];
     
@@ -498,7 +496,6 @@ static NSString * const helpCellID = @"helpCellID";
         self.setView.userInteractionEnabled = NO;
         self.settingBtn.alpha = 0;
     }
-    
 }
 
 
@@ -610,7 +607,6 @@ static NSString * const helpCellID = @"helpCellID";
         self.headView.frame = CGRectMake(0, offsetY, DLScreenWidth, headViewHeight - offsetY);
 //        self.headImageView.frame = CGRectMake(-(factorWidth - DLScreenWidth) / 2, offsetY, factorWidth, headViewHeight - offsetY);
     }
-    
 }
 
 - (void)setGroupCardModel:(GroupCardModel *)groupCardModel
@@ -639,7 +635,7 @@ static NSString * const helpCellID = @"helpCellID";
         [self builtJoinButton];
         [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         self.titleLabel.text = self.informationModel.name;
-        [self.headImageView dlGetRouteWebImageWithString:self.informationModel.logo placeholderImage:nil];
+        [self.headImageView dlGetRouteThumbnallWebImageWithString:self.informationModel.logo placeholderImage:nil withSize:self.headImageView.size];
 //        [self requestNet];
         
     } failure:^(id errorJson) {

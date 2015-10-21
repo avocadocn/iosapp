@@ -34,8 +34,7 @@
         self.identity.text = @"群主";
     Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.leader];
     self.name.text = per.name;
-    
-    [self.avatar dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
+    [self.avatar dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:self.avatar.size];
     
 }
 

@@ -150,7 +150,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 -(void)addActivitysShowTable{
     
     UITableView *tableView = [[UITableView alloc]init];
-    [tableView registerClass:[OtherActivityShowCell class] forCellReuseIdentifier:ID];
+    [tableView registerNib:[UINib nibWithNibName:@"OtherActivityShowCell" bundle:nil] forCellReuseIdentifier:ID];
     // 设置分割线样式
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -195,15 +195,6 @@ static NSString * const ID = @"OtherActivityShowCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OtherActivityShowCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     [cell setIsTemplate:true];
-    
-    
-    //    [cell mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        NSLog(@"%@",NSStringFromCGRect(self.tableView.frame));
-    //        make.right.equalTo(self.tableView.mas_right);
-    //    }];
-    // NSLog(@"%@",NSStringFromCGRect(cell.frame));
-    
-    // Configure the cell...
     [cell reloadCellWithModel:[self.modelArray objectAtIndex:indexPath.row]];
     return cell;
 }

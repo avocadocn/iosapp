@@ -28,6 +28,7 @@
  */
 @property (nonatomic, strong)NSArray *jsonArray;
 @property (nonatomic, strong)NSArray *bigArray;
+
 @end
 
 @implementation AddressViewController
@@ -37,6 +38,15 @@
 //    [self readLocalAddress];
     [self requestNet];
     [self builtInterFace];
+    [self loadingImageView];
+    
+}
+
+- (void)loadingImageView {
+    
+    
+    
+    
 }
 
 
@@ -174,6 +184,7 @@
     
     [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
         NSLog(@"获取通讯录成功 , %@", json);
+        
         
         self.jsonArray = [NSArray arrayWithArray:json];
         
@@ -509,7 +520,6 @@
     } failure:^(id errorJson) {
         NSLog(@"邀请失败  %@", errorJson);
     }];
-    
 }
 
 - (void)saveDataWithJson:(id)json
@@ -532,6 +542,11 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)setDetileModel:(GroupDetileModel *)detileModel
+{
+    _detileModel = detileModel;
 }
 
 @end

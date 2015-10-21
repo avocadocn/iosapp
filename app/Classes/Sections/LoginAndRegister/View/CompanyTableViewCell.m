@@ -101,10 +101,7 @@
 
 - (void)setCompanyCellWithModel:(CompanyModel *)model
 {
-    [self.companyImageView dlGetRouteWebImageWithString:model.logo placeholderImage:nil];
-    
-    self.companyNameLabel.text = model.name;
-//    self.companySynopsnsLabel.text = model.;
-    
+    [self.companyImageView dlGetRouteThumbnallWebImageWithString:model.logo placeholderImage:nil withSize:self.companyImageView.size];
+    self.companyNameLabel.text = model.name;    
 }
 @end

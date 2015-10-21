@@ -5,11 +5,13 @@
 //  Created by 张加胜 on 15/7/16.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "DLLoading.h"
 #import "DLNavigationController.h"
 #import "UIBarButtonItem+Extension.h"
 #import "ChoosePhotoController.h"
 #import "DSNavigationBar.h"
+#import <DGActivityIndicatorView.h>
+
 @interface DLNavigationController ()<UIGestureRecognizerDelegate>
 
 @end
@@ -91,6 +93,13 @@
 {
 #warning 这里要用self，不是self.navigationController
     // 因为self本来就是一个导航控制器，self.navigationController这里是nil的
+    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    
+        if ([window viewWithTag:19921223] ) {
+            [DLLoading dismisss];
+        }
+
     [self popViewControllerAnimated:YES];
 }
 
@@ -98,6 +107,7 @@
 {
     [self popToRootViewControllerAnimated:YES];
 }
+
 
 
 @end

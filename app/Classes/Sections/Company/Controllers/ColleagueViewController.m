@@ -38,7 +38,7 @@
 #import "WPHotspotLabel.h"
 #import "NSString+DLStringWithEmoji.h"
 #import "CricleDetailViewController.h"
-#import "GiFHUD.h"
+
 
 typedef NS_ENUM(NSInteger, CommentObject) {
     CommentPoster,
@@ -85,7 +85,7 @@ static NSString * contentId = nil;
 @property (nonatomic, assign)CommentObject object;
 @property (nonatomic, strong)NSMutableArray *photoArray;
 @property (nonatomic, strong)NSMutableArray *addressBookModel;
-@property (nonatomic, strong)GiFHUD *gifImage;
+
 @property (nonatomic, assign)BOOL selectState;
 @property (nonatomic, assign)DLRefreshState state;
 @property (nonatomic, assign)DLKeyBoardType keyBordType;
@@ -106,8 +106,6 @@ static NSString * contentId = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [GiFHUD setGifWithImageName:@"myGif.gif"];
-    [GiFHUD show];
     [self builtTextField];  // 发送界面
     [self builtInterface];
     
@@ -304,7 +302,7 @@ static NSString * contentId = nil;
 - (void)viewWillDisappear:(BOOL)animated
 {
     
-    [GiFHUD dismiss];
+
 }
 
 - (void)netRequest {
@@ -332,7 +330,7 @@ static NSString * contentId = nil;
         
     }
     [self.colleagueTable reloadData];
-    [GiFHUD dismiss];
+
     
     /*
      AddressBookModel *model = [[AddressBookModel alloc] init];
@@ -637,8 +635,10 @@ static NSString * contentId = nil;
     NSMutableArray *tempPhotoArray = [NSMutableArray array];
     for (NSDictionary *imageDic in array) {
         
+        width = (int)width;
+        
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
-//        [imageView dlGetRouteWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil];
+        NSLog(@"%f", width);
         [imageView dlGetRouteThumbnallWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil withSize:CGSizeMake(width, width)];
         //            imageView.backgroundColor = [UIColor orangeColor];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -666,7 +666,7 @@ static NSString * contentId = nil;
         //            }];
         
         [modelDetileView addSubview:detileImageView];
-        [tempPhotoArray addObject:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]]];
+        [tempPhotoArray addObject:[NSString stringWithFormat:@"%@/_%.f/%.f", [imageDic objectForKey:@"uri"], width, width]];
         b++;
     }
     if (!tempPhotoArray.count) {

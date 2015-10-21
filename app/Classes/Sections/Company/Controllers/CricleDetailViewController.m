@@ -53,7 +53,7 @@ static BOOL state;
         userId = [AccountTool account].ID;
     }
     self.view.backgroundColor = [UIColor whiteColor];
-    self.detileTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight - 35) style:UITableViewStylePlain];
+    self.detileTableview = [[UITableView alloc]initWithFrame:CGRectMake(0, -8, DLScreenWidth, DLScreenHeight - 35 + 8) style:UITableViewStylePlain];
     self.detileTableview.delegate = self;
     self.detileTableview.dataSource = self;
     [self.detileTableview registerClass:[ColleagueViewCell class] forCellReuseIdentifier:colleague];
@@ -320,12 +320,27 @@ static BOOL state;
 }
 */
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UIView *view =[[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 15)];
+//    view.backgroundColor = [UIColor yellowColor];
+////    view.backgroundColor  = RGBACOLOR(236, 236, 239, 1);
+//    return view;
+//}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 15;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *view =[[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 15)];
-    view.backgroundColor = [UIColor yellowColor];
-//    view.backgroundColor  = RGBACOLOR(236, 236, 239, 1);
+    
+    view.backgroundColor = tableView.numberOfSections == 3 ? (section != 2 ? RGBACOLOR(236, 236, 239, 1) : [UIColor clearColor]):(section != 1 ? RGBACOLOR(236, 236, 239, 1) : [UIColor clearColor]);
+    
     return view;
+
 }
 
 -(void)setupKeyBoard{
