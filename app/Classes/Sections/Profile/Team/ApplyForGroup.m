@@ -48,7 +48,7 @@ static NSString *tableId = @"AttentionViewCell";
     
 //    cell.textLabel.text = per.name;
     cell.AttentionName.text = per.name;
-    [cell.AttentionPhoto dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
+    [cell.AttentionPhoto dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:cell.AttentionPhoto.size];
     cell.joinButton.tag = indexPath.row + 1;
     [cell.joinButton addTarget:self action:@selector(joinAction:) forControlEvents:UIControlEventTouchUpInside];
     return cell;

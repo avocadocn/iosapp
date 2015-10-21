@@ -56,7 +56,7 @@
         CGFloat width = 40.0;
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(11 + i* width, 15, width - 4, width - 4)];
         imageView.backgroundColor = RGBACOLOR(247, 247, 247, 1);
-        [imageView dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
+        [imageView dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:imageView.size];
         imageView.layer.masksToBounds = YES;
         imageView.layer.cornerRadius = (width - 4) / 2;
         [self addSubview:imageView];

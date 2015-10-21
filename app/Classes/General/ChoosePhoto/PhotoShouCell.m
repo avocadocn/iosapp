@@ -26,8 +26,7 @@
 - (void)settingUpImageViewWithImage:(id)image
 {
     if ([image isKindOfClass:[NSString class]]) {
-        
-    [self.showImageView dlGetRouteWebImageWithString:image placeholderImage:nil];
+        [self.showImageView dlGetRouteThumbnallWebImageWithString:image placeholderImage:nil withSize:self.showImageView.size];
     }
     else
     {

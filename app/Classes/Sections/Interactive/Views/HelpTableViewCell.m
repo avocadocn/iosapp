@@ -162,9 +162,8 @@
     
     
     HelpInfoModel *model = helpCellFrame.helpInfoModel;
-    [self.avatarImageView dlGetRouteWebImageWithString:model.avatarURL placeholderImage:[UIImage imageNamed:@"icon1"]];
     [self.avatarImageView setFrame:helpCellFrame.avatarImageViewF];
-    
+    [self.avatarImageView dlGetRouteThumbnallWebImageWithString:model.avatarURL placeholderImage:nil withSize:self.avatarImageView.size];
     
     self.nameLabel.text = model.name;
     [self.nameLabel setFrame:helpCellFrame.nameLabelF];
@@ -179,7 +178,7 @@
     
     [self.helpImageView setFrame:helpCellFrame.helpImageViewF];
     if (model.helpImageURL) {
-        [self.helpImageView dlGetRouteWebImageWithString:model.helpImageURL placeholderImage:nil];
+        [self.helpImageView dlGetRouteThumbnallWebImageWithString:model.helpImageURL placeholderImage:nil withSize:self.helpImageView.size];
         [self.helpImageView setAlpha:1];
     }else{
         [self.helpImageView setAlpha:0];

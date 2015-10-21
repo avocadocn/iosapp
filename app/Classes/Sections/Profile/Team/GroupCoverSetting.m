@@ -50,8 +50,7 @@ static NSString *ID = @"fserklfjkdsrhdj";
     
     [self.tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:ID];
     self.headerView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenWidth)];
-    [self.headerView dlGetRouteWebImageWithString:self.detileModel.logo placeholderImage:nil];
-    
+    [self.headerView dlGetRouteThumbnallWebImageWithString:self.detileModel.logo placeholderImage:nil withSize:self.headerView.size];
     self.tableview.tableHeaderView = self.headerView;
     self.stringArray = [NSMutableArray arrayWithObjects:@"更换封面",self.detileModel.name, nil];
     

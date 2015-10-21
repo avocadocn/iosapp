@@ -107,12 +107,11 @@ static NSString * const ID = @"VoteInfoTableViewCell";
         Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:[dic objectForKey:@"_id"]];
         // 此处为了简单演示，使用的是imageView，可根据实际项目需要改成自定义的button
         UIImageView *itemView = [[UIImageView alloc]init];
-        
-        [itemView dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
         itemView.x = i % kIconCountPerLine * (itemWidthHeight + kIconMargin) + kIconMargin;
         itemView.y = i / kIconCountPerLine * (itemWidthHeight + kIconMargin) + kIconMargin;
         itemView.width = itemWidthHeight;
         itemView.height = itemWidthHeight;
+        [itemView dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:itemView.size];
         itemView.userInteractionEnabled = YES;
         
         // 设置圆形头像

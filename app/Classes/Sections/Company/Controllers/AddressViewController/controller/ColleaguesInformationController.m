@@ -82,7 +82,6 @@ static NSInteger tagNum = 1;
     self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(380.0))];
     Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:self.model.ID];
     
-//    [self.imageView dlGetRouteWebImageWithString:person.imageURL placeholderImage:nil];
     //加载指定大小的图片
     [self.imageView dlGetRouteThumbnallWebImageWithString:person.imageURL placeholderImage:nil withSize:self.imageView.size];
     
