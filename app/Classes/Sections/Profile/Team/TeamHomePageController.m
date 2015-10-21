@@ -106,18 +106,18 @@ static NSString *ID = @"feasfsefse";
 
 @implementation TeamHomePageController
 
-/**
- *  活动cell
- */
-static NSString * const avtivityCellID = @"avtivityCellID";
-/**
- *  投票cell
- */
-static NSString * const voteCellID = @"voteCellID";
-/**
- *  求助cell
- */
-static NSString * const helpCellID = @"helpCellID";
+///**
+// *  活动cell
+// */
+//static NSString * const avtivityCellID = @"avtivityCellID";
+///**
+// *  投票cell
+// */
+//static NSString * const voteCellID = @"voteCellID";
+///**
+// *  求助cell
+// */
+//static NSString * const helpCellID = @"helpCellID";
 
 
 
@@ -212,9 +212,9 @@ static NSString * const helpCellID = @"helpCellID";
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"OtherActivityShowCell" bundle:nil] forCellReuseIdentifier:avtivityCellID];
-    [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:voteCellID];
-    [self.tableView registerClass:[HelpTableViewCell class] forCellReuseIdentifier:helpCellID];
+//    [self.tableView registerNib:[UINib nibWithNibName:@"OtherActivityShowCell" bundle:nil] forCellReuseIdentifier:avtivityCellID];
+//    [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:voteCellID];
+//    [self.tableView registerClass:[HelpTableViewCell class] forCellReuseIdentifier:helpCellID];
     [self.tableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     
     

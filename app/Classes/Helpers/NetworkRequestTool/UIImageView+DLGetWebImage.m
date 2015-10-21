@@ -7,7 +7,7 @@
 //
 #import <ReactiveCocoa.h>
 #import "UIImageView+DLGetWebImage.h"
-#import <UIImageView+WebCache.h>
+
 
 #define path [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CacheImage"]
 
@@ -26,7 +26,6 @@
 
 - (void)dlGetRouteWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image
 {
-    
     self.backgroundColor = ArcColor;
     NSString * newUrlStr = [self getUrlStringWithString:str];
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
@@ -72,7 +71,7 @@
     // 得到网络请求的字符串
     NSString *newUrlStr = [self getUrlStringWithString:str];
     
-    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width*[self BitmapScale], size.height*[self BitmapScale]]];
+    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%d/%d", (int)size.width*[self BitmapScale], (int)size.height*[self BitmapScale]]];
 //    NSLog(@"the app path is :%@",path);
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
     [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
@@ -85,6 +84,15 @@
         
     }];
 }
+- (void)dlGetLocalImageWithUrl:(NSString *)url size:(CGSize)size completed:(SDWebImageCompletionBlock)completedBlock
+{
+    // 得到网络请求的字符串
+    NSString *newUrlStr = [self getUrlStringWithString:url];
+    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width*[self BitmapScale], size.height*[self BitmapScale]]];
+    
+    [self sd_setImageWithURL:[NSURL URLWithString:newStr] placeholderImage:nil options:SDWebImageProgressiveDownload|SDWebImageHighPriority completed:completedBlock];
+}
+
 //直接使用第三方库的缓存,带刷新
 - (void)dlGetWebImageWithDefaultCacheAndRefreshWithUrl:(NSURL *)url placeholderImage:(UIImage *)image
 {

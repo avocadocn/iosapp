@@ -635,7 +635,10 @@ static NSString * contentId = nil;
     NSMutableArray *tempPhotoArray = [NSMutableArray array];
     for (NSDictionary *imageDic in array) {
         
+        width = (int)width;
+        
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
+        NSLog(@"%f", width);
         [imageView dlGetRouteThumbnallWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil withSize:CGSizeMake(width, width)];
         //            imageView.backgroundColor = [UIColor orangeColor];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
