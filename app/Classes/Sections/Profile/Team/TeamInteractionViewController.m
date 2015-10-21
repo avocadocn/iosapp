@@ -20,8 +20,11 @@
 #import "HelpTableViewController.h"
 #import <MJRefresh.h>
 #import "GroupCardModel.h"
+#import "DetailActivityShowView.h"
 @interface TeamInteractionViewController ()
 @property (nonatomic, strong)NSMutableArray *modelArray;
+
+@property (nonatomic, strong) NSIndexPath *index;
 @end
 
 @implementation TeamInteractionViewController
@@ -45,6 +48,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     self.tableView.footer = footer;
     [self builtUI];
     [self requestNet];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteDate) name:@"POSTEXIT" object:nil];
+    
 }
 //上拉加载
 - (void)loadMoreData
@@ -187,10 +192,11 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
     switch ([inter.type integerValue]) {
         case 1:{  // 活动详情
-            DetailActivityShowController * activityController = [[DetailActivityShowController alloc]init];
+            DetailActivityShowController * activityController = [[DetailActivityShowController alloc] init];
             activityController.quitState = YES;
             activityController.orTrue = YES;
             activityController.model = inter;
+            self.index = indexPath;
             [self.navigationController pushViewController:activityController animated:YES];
             break;
         }
@@ -346,5 +352,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 //        [self refreshData];
 //    }
 //}
-
+- (void) deleteDate {
+    [self.modelArray removeObjectAtIndex:self.index.row];
+    [self.tableView reloadData];
+}
 @end

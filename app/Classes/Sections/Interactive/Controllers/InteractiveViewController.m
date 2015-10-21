@@ -106,6 +106,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reFreshData) name:@"POSTEXIT" object:nil];
     
     [self loadingImageView];  // loading
+//    [self localNotifications];
     
 }
 - (void)loadingImageView {
@@ -743,4 +744,34 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 -(void)viewWillDisappear:(BOOL)animated {
     [self.activityIndicatorView removeFromSuperview];
 }
+
+- (void)localNotifications {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    if (notification) {
+        //        NSDate *currentDate = [self ParsedDateStringFromString:[self.model.activity objectForKey:@"remindTime"]];
+        //设置本地时区
+        notification.timeZone = [NSTimeZone defaultTimeZone];
+        
+        NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:5];
+        notification.fireDate = currentDate; // 通知开始时间
+        
+        notification.repeatInterval = NSCalendarUnitSecond; // 设置重复间隔
+        
+        notification.alertBody = @"local"; // 通知提醒内容
+        
+        notification.applicationIconBadgeNumber = 0; //
+        notification.alertAction = NSLocalizedString(@"", nil);
+        notification.soundName = UILocalNotificationDefaultSoundName; // 通知提示音
+        
+        NSDictionary *userInfoDic = [NSDictionary dictionaryWithObject:@"inteaction" forKey:@"key"];
+        
+        notification.userInfo = userInfoDic;
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification]; //
+    }
+    //    NSArray *localNotifications = [UIApplication sharedApplication].scheduledLocalNotifications;
+}
+
+
+
 @end

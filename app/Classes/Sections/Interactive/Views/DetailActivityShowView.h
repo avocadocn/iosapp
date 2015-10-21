@@ -15,6 +15,10 @@
 
 - (void)DetailActivityShowViewDismiss;
 
+- (void)sendRemindTime:(NSDate *)remindTime Theme:(NSString *)theme;
+
+- (void)DeleteCellWithIndex:(NSIndexPath *)index;
+
 @end
 
 

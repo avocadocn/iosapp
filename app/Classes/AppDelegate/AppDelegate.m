@@ -13,7 +13,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "FMDBSQLiteManager.h"
 #import "Group.h"
-#import "DetailActivityShowView.h"
+#import "DetailActivityShowController.h"
 #import "Concern.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
 
@@ -111,10 +111,21 @@
     }
     
 }
+// 接受到本地通知调用
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-//    NSLog(@"ddfjeofjewofjweofjawojf收到通知单了");
-     application.applicationIconBadgeNumber = 0;
-    [DetailActivityShowView cancelLocalNotificationWithKey:@"key"];
+    
+    for (NSString * key in notification.userInfo.allKeys) {
+        
+        [DetailActivityShowController cancelLocalNotificationWithKey:key];
+        
+    }
+    
+    // 更新显示的徽章个数
+    NSInteger badge = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    badge--;
+    badge = badge >= 0 ? badge : 0;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = badge;
+
 }
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {

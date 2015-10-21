@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @class Interaction;
-
-
 @interface DetailActivityShowController : UIViewController
 
 @property (nonatomic, strong)Interaction *model;
@@ -18,7 +16,9 @@
 @property (nonatomic, copy)NSString *interactionType;
 @property (nonatomic, copy)NSString *interaction;
 @property (nonatomic, assign)BOOL quitState;
+@property (nonatomic, strong)NSIndexPath *index;
 
 
++ (void)cancelLocalNotificationWithKey:(NSString *)key; // 删除对应的本地通知
 
 @end
