@@ -31,7 +31,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(240, 20, 100, 16)];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(DLScreenWidth-80, 20, 100, 16)];
         _timeLabel.font = [UIFont systemFontOfSize:12];
         _timeLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_timeLabel];
@@ -54,7 +54,7 @@
         
         self.textLabel.backgroundColor = [UIColor clearColor];
         
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, 1)];
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, 1)];
         _lineView.backgroundColor = RGBACOLOR(207, 210, 213, 0.7);
         [self.contentView addSubview:_lineView];
     }
