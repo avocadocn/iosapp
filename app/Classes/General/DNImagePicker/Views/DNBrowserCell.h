@@ -16,4 +16,5 @@
 
 @property (nonatomic, strong) ALAsset *asset;
 
+@property (nonatomic, copy)NSString *imageUrl;
 @end

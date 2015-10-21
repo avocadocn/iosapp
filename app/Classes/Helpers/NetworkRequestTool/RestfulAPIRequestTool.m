@@ -7,7 +7,7 @@
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
 
-
+#import <DGActivityIndicatorView.h>
 #import "RestfulAPIRequestTool.h"
 #import "RouteManager.h"
 #import "RouteInfoModel.h"
@@ -72,12 +72,13 @@ static AFHTTPSessionManager *_mgr;
     if ([AccountTool account].token) {
         [_mgr.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];
     }
-    
-    
 }
 
 
 + (void)routeName:(NSString *)routeName requestModel:(id)requestModel useKeys:(NSArray *)keysArray success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
+    DGActivityIndicatorView *a = [[DGActivityIndicatorView alloc] initWithOverTime:^(id a) {
+        [DGActivityIndicatorView dismiss];
+    }];
     
     [self load];
     
@@ -318,6 +319,7 @@ static AFHTTPSessionManager *_mgr;
 
 
 + (id)resolveFailureWith:(NSError *)error{
+
    id errorJson =  [self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]];
     if (!errorJson) {
         TTAlert(@"服务器连接失败");
@@ -334,6 +336,7 @@ static AFHTTPSessionManager *_mgr;
  */
 
 + (id)dataToJsonObject:(id)responseObject{
+//    [DGActivityIndicatorView dismiss];
     if ([responseObject isKindOfClass:[NSData class]]) {
         NSData *data = [NSData dataWithData:responseObject];
         id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

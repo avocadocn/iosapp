@@ -34,7 +34,8 @@
 //    CGFloat width = (DLScreenWidth - 3) / 4.0 - num * 2;
     CGFloat width = 58.0;
     self.imageView = [UIImageView new];
-    
+    self.imageView.layer.borderColor = RGBACOLOR(236, 236, 236, 1).CGColor;
+    self.imageView.layer.borderWidth = 1;
     [self addSubview:self.imageView];
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top).offset(20);

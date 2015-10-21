@@ -13,7 +13,7 @@
 #import "AccountTool.h"
 #import "getIntroModel.h"
 #import "RestfulAPIRequestTool.h"
-#import "GiFHUD.h"
+
 #import "PollModel.h"
 #import "DetailActivityShowController.h"
 #import "VoteTableController.h"
@@ -303,14 +303,14 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             break;
     }
     NSLog(@"请求的类型为 %@", model.interactionType);
-    [GiFHUD show];
+
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
-        [GiFHUD dismiss];
+
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
-        [GiFHUD dismiss];
+
         NSString *str = [errorJson objectForKey:@"msg"];
         if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];

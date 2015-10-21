@@ -25,9 +25,20 @@
 
 - (void)settingUpImageViewWithImage:(id)image
 {
+    
     if ([image isKindOfClass:[NSString class]]) {
         
-    [self.showImageView dlGetRouteWebImageWithString:image placeholderImage:nil];
+//        if ([image hasPrefix:@"//"]) {
+//            image = [image stringByReplacingOccurrencesOfString:@"//" withString:@"/"];
+//        }
+        NSArray *array = [image componentsSeparatedByString:@"_"];
+//        image = [NSString stringWithFormat:@"%@%@", [array firstObject],[array lastObject]];
+        NSString *last = [array lastObject];
+        NSArray *lastArray = [last componentsSeparatedByString:@"/"];
+        CGFloat one = [lastArray[0] floatValue];
+        CGFloat two = [lastArray[1] floatValue];
+        [self.showImageView dlGetRouteThumbnallWebImageWithString:[array firstObject] placeholderImage:nil withSize:CGSizeMake(one, two)];
+//    [self.showImageView dlGetRouteWebImageWithString:image placeholderImage:nil];
     }
     else
     {
@@ -48,7 +59,7 @@
         scroll.contentSize = CGSizeMake(0, self.showImageView.frame.size.height);
     }
     else {
-    self.showImageView.center = scroll.center;  // 中心点设置
+        self.showImageView.center = scroll.center;  // 中心点设置
     }
     [scroll addSubview:self.showImageView];
     [self addSubview:scroll];

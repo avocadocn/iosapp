@@ -17,8 +17,8 @@
 //    self.projectPicture;
 //    self.titleLabel;
 //    self.contentLabel;
-//    self.projectPicture.layer.masksToBounds = YES;
-//    self.projectPicture.layer.cornerRadius = self.projectPicture.width / 2.0;
+    self.projectPicture.layer.masksToBounds = YES;
+    self.projectPicture.layer.cornerRadius = 25;
 
 }
 

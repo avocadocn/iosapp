@@ -433,7 +433,6 @@
             [dic setObject:acc.ID forKey:@"userId"];
             [RestfulAPIRequestTool routeName:@"exitInteraction" requestModel:dic useKeys:@[@"interactionId", @"userId"] success:^(id json) {
                 NSLog(@"退出活动成功%@", json);
-                
             } failure:^(id errorJson) {
                 
                 UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"退出失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];

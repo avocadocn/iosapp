@@ -167,6 +167,7 @@ static NSString * const helpCellID = @"helpCellID";
             //controller = [[FolderViewController alloc]init];
             //controller = [[UserMessageTableViewController alloc]init];
             controller = [[InviteGroupMember alloc] init];
+            [(InviteGroupMember *)controller setDetileModel:self.informationModel];
             break;
         case 3: // 活动
             controller = [[TeamInteractionViewController alloc]init];
@@ -610,7 +611,6 @@ static NSString * const helpCellID = @"helpCellID";
         self.headView.frame = CGRectMake(0, offsetY, DLScreenWidth, headViewHeight - offsetY);
 //        self.headImageView.frame = CGRectMake(-(factorWidth - DLScreenWidth) / 2, offsetY, factorWidth, headViewHeight - offsetY);
     }
-    
 }
 
 - (void)setGroupCardModel:(GroupCardModel *)groupCardModel
