@@ -656,7 +656,7 @@ static ChatListViewController *chat = nil;
 {
     [self reSortConversion];
     [_tableView reloadData];
-    [self hideHud];
+//    [self hideHud];
 }
 
 - (void)getGroup
