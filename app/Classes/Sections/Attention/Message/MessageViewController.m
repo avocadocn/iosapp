@@ -18,7 +18,7 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "InformationModel.h"
-
+#import "GroupInviteController.h"
 
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -128,15 +128,20 @@
 //            
 //            [model setAllInfo:YES];
 //            
-            TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
-            GroupCardModel *groupModel = [[GroupCardModel alloc] init];
-            groupModel.groupId = model.team;
-            
-            groupDetile.groupCardModel = groupModel;
-            
+//            TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
+//            GroupCardModel *groupModel = [[GroupCardModel alloc] init];
+//            groupModel.groupId = model.team;
+//            
+//            groupDetile.groupCardModel = groupModel;
+//
+            GroupInviteController *groupDetile = [[GroupInviteController alloc]initWithNibName:@"GroupInviteController" bundle:nil];
+            groupDetile.model = model;
             [self.navigationController pushViewController:groupDetile animated:YES];
-            
             NSLog(@"被邀请进小队");
+            
+            
+            
+            
             
         } break;
         case 7:

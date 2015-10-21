@@ -38,7 +38,7 @@
     [self builtInterface]; //铺设截面
     [self netRequest];
     [self getRequestNet];
-    
+    [self getBrithdayNet];
 }
 - (void)builtInterface
 {
@@ -172,9 +172,7 @@
 //                [manger removeObserver:nil forKeyPath:path];
                 [manger removeItemAtPath:path error:nil];
             }
-            
         }
-        
         
     } failure:^(id errorJson) {
         NSLog(@"请求失败 %@",errorJson);
@@ -325,7 +323,7 @@
         SchoolTempModel *school = [[SchoolTempModel alloc]init];
         [school setValuesForKeysWithDictionary:tempDic];
         [photoArray addObject:school];
-        if (i == 5) {
+        if (i == 3) {
             
             model.photoArray = [NSArray arrayWithArray:photoArray];
             return model;
@@ -348,5 +346,52 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)getBrithdayNet{
+    [RestfulAPIRequestTool routeName:@"getBirthdayList" requestModel:nil useKeys:@[] success:^(id json) {
+        NSLog(@" 获取到过生日的用户为%@", json);
+        self.modelArray = [NSMutableArray array];
+        for (NSDictionary *dic in json) {
+            AddressBookModel *model = [[AddressBookModel alloc]init];
+            [model setValuesForKeysWithDictionary:dic];
+            [self.modelArray addObject:model];
+        }
+        
+        
+        SendSchollTableModel *model = [self getBrithdayFromJson:json];
+        
+        [self.photoArray replaceObjectAtIndex:2 withObject:model];
+        
+        //        [self.photoArray addObject:model];
+        [self.BigCollection reloadData];
+        
+        
+    } failure:^(id errorJson) {
+        NSLog(@"获取生日失败");
+    }];
+}
+- (SendSchollTableModel *)getBrithdayFromJson:(id)json
+{
+    SendSchollTableModel *model = [[SendSchollTableModel alloc]init];
+    NSMutableArray *photoArray = [NSMutableArray array];
+    
+    int i = 0;
+    
+    for (NSDictionary *tempDic in json) {
+        //        photoArray
+        SchoolTempModel *school = [[SchoolTempModel alloc]init];
+        [school setValuesForKeysWithDictionary:tempDic];
+        [photoArray addObject:school];
+        if (i == 3) {
+            
+            model.photoArray = [NSArray arrayWithArray:photoArray];
+            return model;
+        }
+        i++;
+    }
+    model.photoArray = [NSArray arrayWithArray:photoArray];
+    return model;
+
+}
 
 @end

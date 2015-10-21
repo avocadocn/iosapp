@@ -755,9 +755,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat: @"yyyy-MM-dd hh:mm"];
+    [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm"];
     
-    NSDate *startDate = [dateFormatter dateFromString:[startTime substringToIndex:16]];
+    NSDate *startDate = [dateFormatter dateFromString:startTime];
     
     NSDate *remindDate = [NSDate dateWithTimeInterval:-[[remindTimeAry objectAtIndex:self.index] integerValue] sinceDate:startDate];
     

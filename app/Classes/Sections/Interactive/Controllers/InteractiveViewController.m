@@ -107,7 +107,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reFreshData) name:@"POSTEXIT" object:nil];
     
     [self loadingImageView];  // loading
-    [self localNotifications]; // 本地通知
     
 }
 - (void)loadingImageView {

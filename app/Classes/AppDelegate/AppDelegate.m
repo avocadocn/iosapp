@@ -13,7 +13,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "FMDBSQLiteManager.h"
 #import "Group.h"
-#import "InteractiveViewController.h"
+#import "DetailActivityShowView.h"
 #import "Concern.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
 
@@ -114,7 +114,7 @@
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
 //    NSLog(@"ddfjeofjewofjweofjawojf收到通知单了");
      application.applicationIconBadgeNumber = 0;
-    [InteractiveViewController cancelLocalNotificationWithKey:@"key"];
+    [DetailActivityShowView cancelLocalNotificationWithKey:@"key"];
 }
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
