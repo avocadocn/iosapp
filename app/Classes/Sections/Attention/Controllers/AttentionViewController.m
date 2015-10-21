@@ -110,7 +110,7 @@ static AttentionViewController *att = nil;
     self.attentionTableView.dataSource = self;
     self.attentionTableView.separatorColor = [UIColor clearColor];
     
-    [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.attentionTableView registerClass:[AttentionViewCell class] forCellReuseIdentifier:@"AttentionViewCell"];
     
     MJRefreshAutoGifFooter *gifFooter = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     [gifFooter setImages:@[] forState:MJRefreshStateRefreshing];
@@ -145,8 +145,11 @@ static AttentionViewController *att = nil;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AttentionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
+    static NSString *cellIdentifier = @"AttentionViewCell";
+    AttentionViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[AttentionViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
     Person *model = [[Person alloc]init];
     
     model = [self.modelArray objectAtIndex:indexPath.row];

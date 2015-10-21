@@ -16,7 +16,6 @@
 #import <Masonry.h>
 #import "FolderViewController.h"
 #import "MessageViewController.h"
-#import "ActivityShowTableController.h"
 #import "VoteTableController.h"
 #import "MenuCollectionController.h"
 #import "GroupCardModel.h"

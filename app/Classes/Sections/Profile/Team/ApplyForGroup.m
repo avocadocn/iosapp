@@ -19,7 +19,7 @@
 @interface ApplyForGroup ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong)UITableView *myTableView;
 @end
-static NSString *tableId = @"fseeeeeeeeee";
+static NSString *tableId = @"AttentionViewCell";
 @implementation ApplyForGroup
 
 - (void)viewDidLoad {
