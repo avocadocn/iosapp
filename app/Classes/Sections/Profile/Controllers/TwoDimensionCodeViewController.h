@@ -10,5 +10,9 @@
 
 @interface TwoDimensionCodeViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIImageView *twoDismensionCodeImage;
+@property (strong, nonatomic) IBOutlet UIImageView *photoImage;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *companyLabel;
+@property (strong, nonatomic) IBOutlet UIView *colorView;
 
 @end

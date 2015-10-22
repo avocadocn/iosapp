@@ -12,6 +12,8 @@
 
 @interface DetailActivityShowController ()<DetailActivityShowViewDelegate>
 
+@property (nonatomic, assign) NSInteger number;
+
 @end
 
 @implementation DetailActivityShowController
@@ -27,12 +29,18 @@
         [self.view addSubview:detailView];
         
     }
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localNotifications) name:@"KPOSTNAME" object:nil];
+//    [self localNotifications];
 
 }
 
+-(void)sendRemindTime:(NSDate *)remindTime Theme:(NSString *)theme {
+    [self localNotificationsWithDate:remindTime Theme:theme];
+}
 - (void)DetailActivityShowViewDismiss
 {
     [self.navigationController popViewControllerAnimated:YES];
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,67 +67,54 @@
         NSLog(@"获取求朱详情失败 %@",errorJson);
     }];
 }
-//- (void)localNotifications {
-//    UILocalNotification *notification = [[UILocalNotification alloc] init];
-//    if (notification) {
-//        NSDate *currentDate = [self getParsedDateStringFromString:self.model.remindTime];
-//        notification.fireDate = currentDate; // 通知开始时间
-//        //            notification.repeatInterval = NSCalendarUnitSecond; // 设置重复间隔
-//        notification.alertBody = self.model.theme; // 通知提醒内容
-//        //        notification.applicationIconBadgeNumber = 0; //
-//        //        notification.alertAction = NSLocalizedString(@"", nil);
-//        notification.soundName = UILocalNotificationDefaultSoundName; // 通知提示音
-//        NSDictionary *userInfoDic = [NSDictionary dictionaryWithObject:@"inteaction" forKey:@"key"];
-//        notification.userInfo = userInfoDic;
-//        [[UIApplication sharedApplication] scheduleLocalNotification:notification]; //
-//    }
-//}
-//- (NSDate*)getParsedDateStringFromString:(NSString*)dateString
-//{
-//    if (dateString==nil) {
-//        return nil;
-//    }
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-//    NSDate * date = [formatter dateFromString:dateString];
-//    [formatter setDateFormat:@"yyyy年MM月dd日 HH:mm"];
-//    //    NSString* str = [formatter stringFromDate:date];
-//    //设置源日期时区
-//    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
-//    //设置转换后的目标日期时区
-//    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
-//    //得到源日期与世界标准时间的偏移量
-//    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:date];
-//    //目标日期与本地时区的偏移量
-//    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:date];
-//    //得到时间偏移量的差值
-//    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
-//    //转为现在时间
-//    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
-//    //    str = [formatter stringFromDate:destinationDateNow];
-//    
-//    return destinationDateNow;
-//}
-//
-//+ (void)cancelLocalNotificationWithKey:(NSString *)key {
-//    // 获取所有本地通知数组
-//    NSArray *localNotifications = [UIApplication sharedApplication].scheduledLocalNotifications;
-//    
-//    for (UILocalNotification *notification in localNotifications) {
-//        NSDictionary *userInfo = notification.userInfo;
-//        if (userInfo) {
-//            // 根据设置通知参数时指定的key来获取通知参数
-//            NSString *info = userInfo[key];
-//            
-//            // 如果找到需要取消的通知，则取消
-//            if (info != nil) {
-//                [[UIApplication sharedApplication] cancelLocalNotification:notification];
-//                break;
-//            }
-//        }
-//    }
-//    //    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-//}
-//
+- (void)localNotificationsWithDate:(NSDate *)date Theme:(NSString *)theme {
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    if (notification) {
+
+        NSTimeInterval time = [date timeIntervalSinceNow];
+        //设置本地时区
+        notification.timeZone = [NSTimeZone defaultTimeZone];
+        
+        NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:time];
+        
+        notification.fireDate = fireDate; // 通知开始时间
+        
+//        notification.repeatInterval = NSCalendarUnitSecond; // 设置重复间隔
+        
+        notification.alertTitle = @"活动提醒";
+        
+        notification.alertBody = theme; // 通知提醒内容
+        
+        notification.applicationIconBadgeNumber = 0; //
+        
+        notification.alertAction = NSLocalizedString(@"", nil);
+        
+        notification.soundName = UILocalNotificationDefaultSoundName; // 通知提示音
+        
+        self.number += 1;
+    
+        NSDictionary *userInfoDic = [NSDictionary dictionaryWithObject:theme forKey:[NSString stringWithFormat:@"%ld",(long)self.number]];
+        
+        notification.userInfo = userInfoDic;
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification]; //
+
+    }
+        NSArray *localNotifications = [UIApplication sharedApplication].scheduledLocalNotifications;
+    NSLog(@"%lu",(unsigned long)localNotifications.count);
+}
+
++ (void)cancelLocalNotificationWithKey:(NSString *)key {  // 删除对应的本地通知
+    // 获取所有本地通知数组
+    NSArray *localNotifications = [UIApplication sharedApplication].scheduledLocalNotifications;
+    for (UILocalNotification *notification in localNotifications) {
+        NSArray *arry = notification.userInfo.allKeys;
+        if ([arry containsObject:key]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        }
+    }
+    NSLog(@"%lu",(unsigned long)localNotifications.count);
+}
+
 
 @end

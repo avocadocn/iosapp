@@ -15,6 +15,7 @@
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchAPI.h>
 #import "GTMNSString+HTML.h"
+#import "Singletons.h"
 @interface DetailActivityShowView()<UIScrollViewDelegate,MAMapViewDelegate,AMapSearchDelegate,UIWebViewDelegate, UIAlertViewDelegate>
 
 {
@@ -419,8 +420,8 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView == self.alert) {
-        
+//    if (alertView == self.alert) {
+    
 
     switch (buttonIndex) {
         case 1:
@@ -432,6 +433,11 @@
             [dic setObject:acc.ID forKey:@"userId"];
             [RestfulAPIRequestTool routeName:@"exitInteraction" requestModel:dic useKeys:@[@"interactionId", @"userId"] success:^(id json) {
                 NSLog(@"退出活动成功%@", json);
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"POSTEXIT" object:nil userInfo:@{@"name":@"东阳"}];
+                [self.delegate DetailActivityShowViewDismiss];
+//                [[Singletons shareSingleton].navigationC popViewControllerAnimated:YES];
+                
             } failure:^(id errorJson) {
                 
                 UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"退出失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
@@ -444,7 +450,7 @@
         default:
             break;
     }
-    }
+//    }
 }
 
 -(void)btnClick:(UIButton *)sender{
@@ -456,10 +462,14 @@
     [self.model setUserId:account.ID];
     [RestfulAPIRequestTool routeName:@"joinInteraction" requestModel:self.model useKeys:@[@"interactionId",@"userId"] success:^(id json) {
         self.alert = [[UIAlertView alloc] initWithTitle:@"报名成功" message:@"少年,恭喜你报名成功了" delegate:nil cancelButtonTitle:@"哇,好高兴" otherButtonTitles:nil, nil];
+        
+        [self.delegate sendRemindTime: [self ParsedDateStringFromString:[self.model.activity objectForKey:@"remindTime"]] Theme:self.model.theme];
+        
         [self.alert show];
         [sender setTitle:@"已经报名" forState:UIControlStateNormal];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"KPOSTNAME" object:nil];
-        [self localNotifications];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"KPOSTNAME" object:nil];
+//        [self localNotifications];
+        
     } failure:^(id errorJson) {
         NSLog(@"报名失败的原因 %@",[errorJson valueForKey:@"msg"]);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"报名失败" message:[errorJson valueForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
@@ -615,22 +625,6 @@ updatingLocation:(BOOL)updatingLocation
     [self mapViewDidStopLocatingUser:_mapView];
 }
 
-- (void)localNotifications {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    if (notification) {
-        NSDate *currentDate = [self ParsedDateStringFromString:[self.model.activity objectForKey:@"remindTime"]];
-        notification.fireDate = currentDate; // 通知开始时间
-        //            notification.repeatInterval = NSCalendarUnitSecond; // 设置重复间隔
-        notification.alertBody = self.model.theme; // 通知提醒内容
-        //        notification.applicationIconBadgeNumber = 0; //
-        //        notification.alertAction = NSLocalizedString(@"", nil);
-        notification.soundName = UILocalNotificationDefaultSoundName; // 通知提示音
-        NSDictionary *userInfoDic = [NSDictionary dictionaryWithObject:@"inteaction" forKey:@"key"];
-        notification.userInfo = userInfoDic;
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification]; //
-    }
-//    NSArray *localNotifications = [UIApplication sharedApplication].scheduledLocalNotifications;
-}
 - (NSDate*)ParsedDateStringFromString:(NSString*)dateString
 {
     if (dateString==nil) {
@@ -652,33 +646,11 @@ updatingLocation:(BOOL)updatingLocation
     //得到时间偏移量的差值
     NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
     //转为现在时间
-    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval * 2 sinceDate:date];
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
 //       NSString * newstr = [formatter stringFromDate:destinationDateNow];
 //    NSDate *dates = [formatter dateFromString:newstr];
     return destinationDateNow;
 }
-
-+ (void)cancelLocalNotificationWithKey:(NSString *)key {
-    // 获取所有本地通知数组
-    NSArray *localNotifications = [UIApplication sharedApplication].scheduledLocalNotifications;
-    
-    for (UILocalNotification *notification in localNotifications) {
-        NSDictionary *userInfo = notification.userInfo;
-        if (userInfo) {
-            // 根据设置通知参数时指定的key来获取通知参数
-            NSString *info = userInfo[key];
-            
-            // 如果找到需要取消的通知，则取消
-            if (info != nil) {
-                [[UIApplication sharedApplication] cancelLocalNotification:notification];
-                break;
-            }
-        }
-    }
-    //    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-}
-
-
 
 
 

@@ -7,7 +7,11 @@
 //
 
 #import "TwoDimensionCodeViewController.h"
-
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "UIImageView+DLGetWebImage.h"
 @interface TwoDimensionCodeViewController ()
 
 @end
@@ -17,6 +21,8 @@
 // 学校二维码邀请：www.55yali.com/signup?cid=xxxxxxxxx
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"二维码";
+    self.view.backgroundColor = RGBACOLOR(237, 237, 237, 1);
     // Do any additional setup after loading the view, typically from a nib.
     UIImage *qrcode = [self createNonInterpolatedUIImageFormCIImage:[self createQRForString:@"https://itunes.apple.com/cn/app/dong-li/id916162839?mt=8"] withSize:250.0f];
     UIImage *customQrcode = [self imageBlackToTransparent:qrcode withRed:60.0f andGreen:74.0f andBlue:89.0f];
@@ -26,6 +32,16 @@
     self.twoDismensionCodeImage.layer.shadowRadius = 2;
     self.twoDismensionCodeImage.layer.shadowColor = [UIColor blackColor].CGColor;
     self.twoDismensionCodeImage.layer.shadowOpacity = 0.5;
+    [self buildInterface];
+}
+- (void)buildInterface {
+    self.colorView.backgroundColor = RGBACOLOR(255, 214, 0, 1);
+    Account *account = [AccountTool account];
+    Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];
+    self.nameLabel.text = p.name;
+    self.photoImage.layer.masksToBounds = YES;
+    self.photoImage.layer.cornerRadius = 25;
+    [self.photoImage dlGetRouteWebImageWithString:p.imageURL placeholderImage:nil];
 }
 
 - (void)didReceiveMemoryWarning {
