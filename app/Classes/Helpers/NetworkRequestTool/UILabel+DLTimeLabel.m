@@ -14,14 +14,14 @@
 - (void)getCompanyNameFromCid:(NSString *)string
 {
     
-//    self.font = [UIFont systemFontOfSize:TEXTFONT];
-//    NSDictionary *dic = [NSDictionary dictionaryWithObject:string forKey:@"companyId"];
-//    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
-//        [self dismembermentJson:json];
-//
-//    } failure:^(id errorJson) {
-//        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
-//    }];
+    self.font = [UIFont systemFontOfSize:TEXTFONT];
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:string forKey:@"companyId"];
+    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
+        [self dismembermentJson:json];
+
+    } failure:^(id errorJson) {
+        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
+    }];
 }
 
 - (void)dismembermentJson:(id)json
@@ -134,6 +134,34 @@
     
     NSLog(@"该朋友圈发送的时间为 %@", [self getNowDateFromatAnDate:localDate]);
     return [self getNowDateFromatAnDate:localDate];
+}
+
+- (void)dealCompanyNameFromCid:(NSString *)string
+{
+    
+    self.font = [UIFont systemFontOfSize:14];
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:string forKey:@"companyId"];
+    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
+        [self membermentJson:json];
+        
+    } failure:^(id errorJson) {
+        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
+    }];
+}
+
+- (void)membermentJson:(id)json
+{
+    NSDictionary *dic = [json objectForKey:@"company"];
+    NSDictionary *infoDic = [dic objectForKey:@"info"];
+    NSString *temp = [NSString stringWithFormat:@"%@", [infoDic objectForKey:@"name"]];
+    
+    NSDictionary *tempDic = [NSDictionary dictionaryWithObjects:@[RGBACOLOR(166, 166, 166, 1)] forKeys:@[NSForegroundColorAttributeName]];
+    //    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:temp attributes:tempDic];
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", [infoDic objectForKey:@"name"]]] ;
+    NSInteger num = temp.length - 3;
+    //    [attStr addAttributes:@{[UIColor orangeColor]} range:NSMakeRange(3, num)];
+    [attStr setAttributes:tempDic range:NSMakeRange(3, num)];
+    self.attributedText = attStr;
 }
 
 

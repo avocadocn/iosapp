@@ -39,9 +39,17 @@ typedef NS_ENUM(NSInteger, DLKeyBoardType) {
     return YES;
 }
 
-- (IBAction)emojiClick:(id)sender {
+- (IBAction)emojiClick:(UIButton *)sender {
+    if (sender.selected == YES) {
+        sender.selected = NO;
+        [sender setImage:[UIImage imageNamed:@"compose_emoticonbutton_background"] forState:UIControlStateNormal];
+    } else {
+        [sender setImage:[UIImage imageNamed:@"chatBar_keyboard@2x"] forState:UIControlStateNormal];
+        sender.selected = YES;
+    }
 //    NSLog(@"点击表情。。。");
 //    self.inputView.keyboardType = UIKeyboardAnimationCurveUserInfoKey;
+    
     if (![self.inputView isFirstResponder]) {
         [self.inputView becomeFirstResponder];
         

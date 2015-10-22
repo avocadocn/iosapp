@@ -12,6 +12,7 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "UIImageView+DLGetWebImage.h"
+#import "UILabel+DLTimeLabel.h"
 @interface TwoDimensionCodeViewController ()
 
 @end
@@ -39,6 +40,8 @@
     Account *account = [AccountTool account];
     Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];
     self.nameLabel.text = p.name;
+    [self.companyLabel dealCompanyNameFromCid:account.cid];
+    NSLog(@"%@",self.companyLabel.text);
     self.photoImage.layer.masksToBounds = YES;
     self.photoImage.layer.cornerRadius = 25;
     [self.photoImage dlGetRouteWebImageWithString:p.imageURL placeholderImage:nil];
@@ -129,4 +132,38 @@ void ProviderReleaseData (void *info, const void *data, size_t size){
 //    CGColorSpaceRelease(colorSpace);
     return resultUIImage;
 }
+
+//- (void)getCompanyNameFromCid:(NSString *)string
+//{
+//    
+//    self.font = [UIFont systemFontOfSize:TEXTFONT];
+//    NSDictionary *dic = [NSDictionary dictionaryWithObject:string forKey:@"companyId"];
+//    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
+//        [self dismembermentJson:json];
+//        
+//    } failure:^(id errorJson) {
+//        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
+//    }];
+//}
+//
+//- (void)dismembermentJson:(id)json
+//{
+//    NSDictionary *dic = [json objectForKey:@"company"];
+//    NSDictionary *infoDic = [dic objectForKey:@"info"];
+//    NSString *temp = [NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]];
+//    
+//    NSDictionary *tempDic = [NSDictionary dictionaryWithObjects:@[RGBACOLOR(80, 125, 175, 1)] forKeys:@[NSForegroundColorAttributeName]];
+//    //    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:temp attributes:tempDic];
+//    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]]] ;
+//    NSInteger num = temp.length - 3;
+//    //    [attStr addAttributes:@{[UIColor orangeColor]} range:NSMakeRange(3, num)];
+//    [attStr setAttributes:tempDic range:NSMakeRange(3, num)];
+//    self.attributedText = attStr;
+//}
+
+
+
+
+
+
 @end

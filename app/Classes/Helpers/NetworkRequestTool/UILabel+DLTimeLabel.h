@@ -16,4 +16,6 @@
 
 - (NSDate *)getNowDateFromatAnDate:(NSDate *)anyDate;
 
+- (void)dealCompanyNameFromCid:(NSString *)string;
+
 @end

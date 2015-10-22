@@ -38,7 +38,6 @@
 #import "Person.h"
 #import "FMDBSQLiteManager.h"
 #import <MJRefresh.h>
-#import <DGActivityIndicatorView.h>
 #import "NewRankListControllerViewController.h"
 enum InteractionType{
     InteractionTypeActivityTemplate,
@@ -62,7 +61,6 @@ enum InteractionType{
 
 @property (nonatomic, copy)NSString *path; // 写入文件路径
 @property (nonatomic)BOOL orTrue;
-@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 
 /**
  *  path菜单
@@ -104,22 +102,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESSDATA" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reFreshData) name:@"POSTEXIT" object:nil];
     
-    [self loadingImageView];  // loading
 //    [self localNotifications];
     
 }
-- (void)loadingImageView {
-    
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:RGBACOLOR(253, 185, 0, 1) size:40.0f];
-    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(132, 123, 123, 0.52);
-    self.activityIndicatorView = activityIndicatorView;
-    [activityIndicatorView.layer setMasksToBounds:YES];
-    [activityIndicatorView.layer setCornerRadius:10.0];
-    [self.activityIndicatorView startAnimating];
-    [self.view addSubview:activityIndicatorView];
-    
-}
+
 
 /*
 - (void)loadData { // 加载数据 判断本地是否已经存在数据
@@ -157,14 +143,14 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
-        [self.activityIndicatorView removeFromSuperview];
+
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
         NSString *str = [errorJson objectForKey:@"msg"];
         if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
             alert.delegate = self;
-            [self.activityIndicatorView removeFromSuperview];
+
             [alert show];
             
         }
@@ -553,13 +539,13 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
-        [self.activityIndicatorView removeFromSuperview];
+  
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [self loadingContacts]; // 加载通讯录信息
         });
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
-        [self.activityIndicatorView removeFromSuperview];
+   
         NSString *str = [errorJson objectForKey:@"msg"];
         if ([str isEqualToString:@"您没有登录或者登录超时，请重新登录"]) {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"身份信息过期" message:@"您没有登录或者登录超时，请重新登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
@@ -741,10 +727,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 }
 
 
-
--(void)viewWillDisappear:(BOOL)animated {
-    [self.activityIndicatorView removeFromSuperview];
-}
 
 
 @end
