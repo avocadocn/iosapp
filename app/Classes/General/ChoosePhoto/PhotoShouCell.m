@@ -8,7 +8,12 @@
 
 #import "PhotoShouCell.h"
 #import "UIImageView+DLGetWebImage.h"
+#define window [UIApplication sharedApplication].keyWindow
+
 @interface PhotoShouCell ()<UIScrollViewDelegate>
+
+@property (nonatomic, strong)UIScrollView *scroll;
+@property (nonatomic, strong)UILabel *downloadPro;
 
 @end
 
@@ -16,6 +21,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
+    
     self = [super initWithFrame:frame];
     if (self) {
         [self builtInterface];
@@ -25,70 +31,63 @@
 
 - (void)settingUpImageViewWithImage:(id)image
 {
+    NSLog(@"传过来的 imageurl 为%@", image);
+    NSArray *array = [image componentsSeparatedByString:@"/_"];
     
+    NSString *last = [array lastObject];
     if ([image isKindOfClass:[NSString class]]) {
         
-//        if ([image hasPrefix:@"//"]) {
-//            image = [image stringByReplacingOccurrencesOfString:@"//" withString:@"/"];
-//        }
-        NSArray *array = [image componentsSeparatedByString:@"/_"];
-//        image = [NSString stringWithFormat:@"%@%@", [array firstObject],[array lastObject]];
-        NSString *last = [array lastObject];
         NSArray *lastArray = [last componentsSeparatedByString:@"/"];
         CGFloat one = [lastArray[0] floatValue];
         CGFloat two = [lastArray[1] floatValue];
 //        [self.showImageView dlGetRouteThumbnallWebImageWithString:[array firstObject] placeholderImage:nil withSize:CGSizeMake(one, two)];
         [self.showImageView dlGetLocalImageWithUrl:[array firstObject] size:CGSizeMake(one, two) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             if (image) {
-            UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-            
-            scroll.maximumZoomScale = 3;
-            scroll.alwaysBounceVertical = YES;
-            CGFloat width = scroll.frame.size.width / self.showImageView.image.size.width; // scroll 与 image 的横比例
-            CGFloat height = self.showImageView.image.size.height * width; // 根据比例算出高度
-            scroll.delegate = self;
-            
-            self.showImageView.frame = CGRectMake(0, 0, scroll.frame.size.width, height);
-            
-            if (self.showImageView.frame.size.height > scroll.frame.size.height) { // 增加偏移量
-                scroll.contentSize = CGSizeMake(0, self.showImageView.frame.size.height);
-            }
-            else {
-                self.showImageView.center = scroll.center;  // 中心点设置
-            }
-            [scroll addSubview:self.showImageView];
-            [self addSubview:scroll];
+                [self reloadImage:image];
             }
         }];
         
-//    [self.showImageView dlGetRouteWebImageWithString:[array firstObject] placeholderImage:nil];
+
     }
     else
     {
         self.showImageView.image = image;
     }
-    /*
-//    self.showImageView.image = image;
-//    UIScrollView *scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-//    
-//    scroll.maximumZoomScale = 3;
-//    scroll.alwaysBounceVertical = YES;
-//    CGFloat width = scroll.frame.size.width / self.showImageView.image.size.width; // scroll 与 image 的横比例
-//    CGFloat height = self.showImageView.image.size.height * width; // 根据比例算出高度
-//    scroll.delegate = self;
-//    
-//    self.showImageView.frame = CGRectMake(0, 0, scroll.frame.size.width, height);
-//    
-//    if (self.showImageView.frame.size.height > scroll.frame.size.height) { // 增加偏移量
-//        scroll.contentSize = CGSizeMake(0, self.showImageView.frame.size.height);
-//    }
-//    else {
-//        self.showImageView.center = scroll.center;  // 中心点设置
-//    }
-//    [scroll addSubview:self.showImageView];
-//    [self addSubview:scroll];
-     */
+
+    
+    
+    SDWebImageManager *manger = [SDWebImageManager sharedManager];
+    
+    [manger downloadImageWithURL:[NSURL URLWithString:[self getUrlStringWithString:[array firstObject]]] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        CGFloat num =   (CGFloat)receivedSize  / (CGFloat)expectedSize  * 100;
+        self.downloadPro.text = [NSString stringWithFormat:@"%.f", num];
+        
+    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        [self reloadImage:image];
+        [self.downloadPro removeFromSuperview];
+    }];
+    
 }
+
+
+
+- (NSString *)getUrlStringWithString:(NSString *)str
+{
+    if (![str hasPrefix:@"/"]) {
+        str = [NSString stringWithFormat:@"/%@", str];
+    }
+    NSString *roude = [NSString stringWithFormat:@"%@", BaseUrl];  //字符串拼接
+    
+    NSString *urlStr = [roude stringByReplacingOccurrencesOfString:@"3002/v2_0" withString:[NSString stringWithFormat:@"3000%@", str]];
+    
+    NSString *newUrlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    self.contentMode = UIViewContentModeScaleAspectFill;
+    self.clipsToBounds = YES;
+    
+    return newUrlStr;
+}
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return [scrollView.subviews objectAtIndex:0];
@@ -96,9 +95,42 @@
 
 - (void)builtInterface
 {
+    self.scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
+    
+    
     self.showImageView = [UIImageView new];
     self.showImageView.userInteractionEnabled = YES;
+    self.downloadPro = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    self.downloadPro.backgroundColor = [UIColor colorWithWhite:.2 alpha:.5];
+    self.downloadPro.layer.masksToBounds = YES;
+    self.downloadPro.layer.cornerRadius = 20;
+    self.downloadPro.textAlignment = NSTextAlignmentCenter;
+    self.downloadPro.center = window.center;
+    self.downloadPro.textColor = [UIColor whiteColor];
+    self.scroll.maximumZoomScale = 3;
+    self.scroll.alwaysBounceVertical = YES;
+    self.scroll.delegate = self;
+    [self.scroll addSubview:self.showImageView];
     
+    [self addSubview:self.scroll];
+    [self addSubview:self.downloadPro];
+    [self bringSubviewToFront:self.downloadPro];
+
+
 }
 
+- (void)reloadImage:(UIImage *)image{
+    self.showImageView.image = image;
+    CGFloat width = self.scroll.frame.size.width / self.showImageView.image.size.width; // scroll 与 image 的横比例
+    CGFloat height = self.showImageView.image.size.height * width; // 根据比例算出高度
+    
+    self.showImageView.frame = CGRectMake(0, 0, self.scroll.frame.size.width, height);
+    self.showImageView.center = window.center;
+    if (self.showImageView.frame.size.height > self.scroll.frame.size.height) { // 增加偏移量
+        self.scroll.contentSize = CGSizeMake(2 * DLScreenWidth, 0);
+            
+        }
+}
+    
+    
 @end

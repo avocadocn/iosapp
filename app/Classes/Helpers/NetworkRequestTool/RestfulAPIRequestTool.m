@@ -318,7 +318,7 @@ static AFHTTPSessionManager *_mgr;
 
 
 + (id)resolveFailureWith:(NSError *)error{
-
+    [DLLoading dismisss];
    id errorJson =  [self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]];
     if (!errorJson) {
         TTAlert(@"服务器连接失败");
@@ -335,7 +335,9 @@ static AFHTTPSessionManager *_mgr;
  */
 
 + (id)dataToJsonObject:(id)responseObject{
-
+    
+    [DLLoading dismisss];
+    
     if ([responseObject isKindOfClass:[NSData class]]) {
         NSData *data = [NSData dataWithData:responseObject];
         id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

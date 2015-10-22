@@ -48,6 +48,7 @@
  */
 - (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size NeedRefresh:(Boolean)needRefresh
 {
+    
     if(needRefresh){
         self.backgroundColor = ArcColor;
         // 得到网络请求的字符串
@@ -103,6 +104,9 @@
 //拼接图片地址
 - (NSString *)getUrlStringWithString:(NSString *)str
 {
+    if ([str hasPrefix:@"//"]) {
+        str = [str substringFromIndex:1];
+    }
     if (![str hasPrefix:@"/"]) {
         str = [NSString stringWithFormat:@"/%@", str];
     }

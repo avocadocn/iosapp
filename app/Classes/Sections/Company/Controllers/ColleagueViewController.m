@@ -330,7 +330,6 @@ static NSString * contentId = nil;
         
     }
     [self.colleagueTable reloadData];
-
     
     /*
      AddressBookModel *model = [[AddressBookModel alloc] init];
@@ -639,7 +638,7 @@ static NSString * contentId = nil;
         
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(b % 3 * width, (overHeight + 2) + b / 3 * width, width - 6, width - 6)];
         NSLog(@"%f", width);
-        [imageView dlGetRouteThumbnallWebImageWithString:[NSString stringWithFormat:@"/%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil withSize:CGSizeMake(width, width)];
+        [imageView dlGetRouteThumbnallWebImageWithString:[NSString stringWithFormat:@"%@", [imageDic objectForKey:@"uri"]] placeholderImage:nil withSize:CGSizeMake(width, width)];
         //            imageView.backgroundColor = [UIColor orangeColor];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         
@@ -1058,6 +1057,8 @@ static NSString * contentId = nil;
 
 - (void)imageAction:(UITapGestureRecognizer *)tap
 {
+    UIImageView *image = (UIImageView *)tap.view;
+    NSLog(@"点击的 image 为  %@",  image);
     NSLog(@"%ld", tap.view.superview.tag);
     
     NSInteger num = tap.view.superview.tag;
@@ -1065,7 +1066,7 @@ static NSString * contentId = nil;
     NSArray * array  = [self.photoArray objectAtIndex:num - 1];
     
     PhotoPlayController *play = [[PhotoPlayController alloc]initWithPhotoArray:array indexOfContentOffset:(tap.view.tag - 1)];
-    
+    NSLog(@"传过去 %@  下标为 %ld",  array, tap.view.tag - 1);
     [self.navigationController pushViewController:play animated:YES];
     
 }
