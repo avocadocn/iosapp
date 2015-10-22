@@ -61,6 +61,8 @@
 @property (nonatomic, copy) NSString *interactionId;
 
 @property (nonatomic, strong)VoteInfoModel *infoModel;
+
+@property (nonatomic, strong) UILabel *numberLabel;
 @end
 
 @implementation VoteTableViewCell
@@ -137,26 +139,40 @@
     // 接下来每个选项都可以从获取的数据中取到相对固定的颜色。
     
     // 添加已投票btn
-    self.voteInfosBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.voteInfosBtn setTitle:@"投票" forState:UIControlStateNormal];
-    self.voteInfosBtn.x = 12;
-    self.voteInfosBtn.y = 0;
-    self.voteInfosBtn.width = 60;
-    self.voteInfosBtn.height = 44;
+    self.voteInfosBtn = [UIImageView new];
+//    [self.voteInfosBtn setTitle:@"投票" forState:UIControlStateNormal];
+    [self.voteInfosBtn setUserInteractionEnabled:YES];
+    self.voteInfosBtn.image = [UIImage imageNamed:@"talk"];
+    self.voteInfosBtn.x = 10;
+    self.voteInfosBtn.y = 8;
+    self.voteInfosBtn.width  = 25;
+    self.voteInfosBtn.height = 25;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(haveVote:)];
+    [self.voteInfosBtn addGestureRecognizer:tap];
     
-    // 此处使用rac 监听按钮的点击事件
-    RACSignal *voteInfosSignal = [self.voteInfosBtn rac_signalForControlEvents:UIControlEventTouchUpInside];
-    [voteInfosSignal subscribeNext:^(id x) {
-        
-        
-        VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
-        controller.model = self.infoModel.model;
-        // **********************************************
-        // 此处由于代理 以及 通知的使用均不合适，所以在这边我采用了cell所处的viewController的类方法 \
-        返回一个单例的navigationController， 这样方便在cell的任何子控件调用，已推出新的viewcontroller
-        // **********************************************
-        [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
-    }];
+    self.numberLabel = [UILabel new];
+    self.numberLabel.textColor = RGBACOLOR(155, 155, 155, 1);
+    self.numberLabel.font = [UIFont systemFontOfSize:13];
+    self.numberLabel.x = 37;
+    self.numberLabel.y = 8;
+    self.numberLabel.width = 50;
+    self.numberLabel.height = 25;
+
+
+    
+//    // 此处使用rac 监听按钮的点击事件
+//    RACSignal *voteInfosSignal = [self.voteInfosBtn rac_signalForControlEvents:UIControlEventTouchUpInside];
+//    [voteInfosSignal subscribeNext:^(id x) {
+//        
+//        
+//        VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+//        controller.model = self.infoModel.model;
+//        // **********************************************
+//        // 此处由于代理 以及 通知的使用均不合适，所以在这边我采用了cell所处的viewController的类方法 \
+//        返回一个单例的navigationController， 这样方便在cell的任何子控件调用，已推出新的viewcontroller
+//        // **********************************************
+//        [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
+//    }];
     
     // 添加转发btn
     UIButton *retweedBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -167,21 +183,24 @@
     retweedBtn.height = 44;
     
     // 添加评论btn
-    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [commentBtn setTitle:@"评论" forState:UIControlStateNormal];
-    commentBtn.x = DLScreenWidth - 40;
-    commentBtn.y = 0;
-    commentBtn.width = 40;
-    commentBtn.height = 44;
+    UIImageView *commentBtn = [UIImageView new];
+    [commentBtn setUserInteractionEnabled:YES];
+    commentBtn.x = DLScreenWidth - 35;
+    commentBtn.y = 8;
+    commentBtn.width = 25;
+    commentBtn.height = 25;
+    commentBtn.image = [UIImage imageNamed:@"talk"];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushViewControllerd:)];
+    [commentBtn addGestureRecognizer:tapGesture];
     
-    RACSignal *commentBtnSignal = [commentBtn rac_signalForControlEvents:UIControlEventTouchDown];
-    [commentBtnSignal subscribeNext:^(id x) {
-        
-        CommentsViewController *controller = [[CommentsViewController alloc]init];
-        controller.interactionType = @2;
-        controller.inteactionId = self.interactionId;
-        [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
-    }];
+//    RACSignal *commentBtnSignal = [commentBtn rac_signalForControlEvents:UIControlEventTouchDown];
+//    [commentBtnSignal subscribeNext:^(id x) {
+//        
+//        CommentsViewController *controller = [[CommentsViewController alloc]init];
+//        controller.interactionType = @2;
+//        controller.inteactionId = self.interactionId;
+//        [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
+//    }];
     
     // 工具条
     UIView *bottomToolBar = [[UIView alloc]init];
@@ -190,11 +209,19 @@
     [bottomToolBar addSubview:retweedBtn];
     [bottomToolBar addSubview:commentBtn];
     [voteContainer addSubview:bottomToolBar];
+    [bottomToolBar addSubview:self.numberLabel];
     self.bottomToolBar = bottomToolBar;
     
     [self addSubview:voteContainer];
     self.voteContainer = voteContainer;
     
+}
+- (void) pushViewControllerd:(UITapGestureRecognizer *)tap {
+    CommentsViewController *controller = [[CommentsViewController alloc]init];
+    controller.interactionType = @2;
+    controller.inteactionId = self.interactionId;
+    [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
+
 }
 
 
@@ -231,6 +258,13 @@
     self.voteContentLabel.text = model.voteText;
     [self.voteContentLabel setFrame:voteCellFrame.voteContentLabelF];
     
+//     已投票人数
+    for (NSDictionary *dic in self.infoModel.model.option) {
+        NSArray *array = dic[@"voters"];
+        self.numberLabel.text = [NSString stringWithFormat:@"%ld",array.count];
+    }
+    
+    
     // 选项
     [self.optionsView setFrame:voteCellFrame.optionsViewF];
     
@@ -246,17 +280,26 @@
     
     [self.voteContainer setFrame:voteCellFrame.voteContainerF];
     
-    if (voteCellFrame.voteInfoModel.judgeVote == YES) {
-        [self.voteInfosBtn setTitle:@"已投票" forState: UIControlStateNormal];
-    }
+//    if (voteCellFrame.voteInfoModel.judgeVote == YES) {
+//        [self.voteInfosBtn setTitle:@"已投票" forState: UIControlStateNormal];
+//    }
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle) name:@"Vote" object:nil];  //  接受跳转通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setVoteTitle) name:@"Vote" object:nil];    //  接受跳转通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle) name:@"CHANGESTATE" object:nil];
+}
+- (void)haveVote:(UITapGestureRecognizer *)tap {
+    VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    controller.model = self.infoModel.model;
+    // **********************************************
+    // 此处由于代理 以及 通知的使用均不合适，所以在这边我采用了cell所处的viewController的类方法 \
+    返回一个单例的navigationController， 这样方便在cell的任何子控件调用，已推出新的viewcontroller
+    // **********************************************
+    [[VoteTableController shareNavigation] pushViewController:controller animated:YES];
+
 }
 
 - (void)setVoteTitle
 {
-    [self.voteInfosBtn setTitle:@"已投票" forState: UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"REFRESSDATA" object:nil];
 }
 

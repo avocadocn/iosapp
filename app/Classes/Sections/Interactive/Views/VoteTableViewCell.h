@@ -28,7 +28,7 @@
 * 投票状态 button
 */
 
-@property (nonatomic, strong)UIButton *voteInfosBtn;
+@property (nonatomic, strong)UIImageView *voteInfosBtn;
 
 
 @end

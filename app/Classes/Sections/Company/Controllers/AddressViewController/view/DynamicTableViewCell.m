@@ -129,7 +129,7 @@
 - (void)reloadCellWithModel:(id)model
 {
     
-    self.cellBackGroundView.image = [UIImage imageNamed:@"DaiMeng.jpg"];
+    self.cellBackGroundView.image = [UIImage imageNamed:@""];
     self.cellNameLabel.text = @"炎热八月, 小彤彤陪你度过不眠之夜";
     
     self.cellAddressLabel.text = @"康定路106号";

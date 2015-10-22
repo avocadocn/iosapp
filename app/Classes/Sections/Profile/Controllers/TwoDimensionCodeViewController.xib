@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yun-Qn-oqz">
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yun-Qn-oqz">
                     <rect key="frame" x="54" y="43" width="282" height="391"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="109.png" translatesAutoresizingMaskIntoConstraints="NO" id="VrF-A0-Lnp">
@@ -198,10 +198,10 @@
                                 <mask key="constraints">
                                     <exclude reference="MUf-qd-ub6"/>
                                     <exclude reference="lN5-CS-pmK"/>
-                                    <exclude reference="Hsg-Pl-zcU"/>
-                                    <exclude reference="a22-Sg-Pgv"/>
                                     <exclude reference="IYM-sy-lM0"/>
                                     <exclude reference="Uiq-sR-AIT"/>
+                                    <exclude reference="Hsg-Pl-zcU"/>
+                                    <exclude reference="a22-Sg-Pgv"/>
                                 </mask>
                             </variation>
                             <variation key="heightClass=regular-widthClass=compact">
@@ -212,10 +212,10 @@
                                 <mask key="constraints">
                                     <include reference="MUf-qd-ub6"/>
                                     <include reference="lN5-CS-pmK"/>
-                                    <include reference="Hsg-Pl-zcU"/>
-                                    <include reference="a22-Sg-Pgv"/>
                                     <include reference="IYM-sy-lM0"/>
                                     <include reference="Uiq-sR-AIT"/>
+                                    <include reference="Hsg-Pl-zcU"/>
+                                    <include reference="a22-Sg-Pgv"/>
                                 </mask>
                             </variation>
                         </view>
@@ -245,14 +245,14 @@
                         <mask key="constraints">
                             <exclude reference="BO5-7Q-9ee"/>
                             <exclude reference="oX3-6d-hxP"/>
-                            <exclude reference="3Dt-Y7-dtt"/>
-                            <exclude reference="ema-c2-LEF"/>
                             <exclude reference="LcV-eu-y0R"/>
                             <exclude reference="gUJ-ST-5e9"/>
-                            <exclude reference="HCa-7r-juE"/>
-                            <exclude reference="VlT-oy-uu3"/>
                             <exclude reference="SkS-ft-uny"/>
                             <exclude reference="dQK-AM-wLH"/>
+                            <exclude reference="3Dt-Y7-dtt"/>
+                            <exclude reference="ema-c2-LEF"/>
+                            <exclude reference="HCa-7r-juE"/>
+                            <exclude reference="VlT-oy-uu3"/>
                         </mask>
                     </variation>
                     <variation key="heightClass=regular-widthClass=compact">
@@ -265,14 +265,14 @@
                         <mask key="constraints">
                             <include reference="BO5-7Q-9ee"/>
                             <include reference="oX3-6d-hxP"/>
-                            <include reference="3Dt-Y7-dtt"/>
-                            <include reference="ema-c2-LEF"/>
                             <include reference="LcV-eu-y0R"/>
                             <include reference="gUJ-ST-5e9"/>
-                            <include reference="HCa-7r-juE"/>
-                            <include reference="VlT-oy-uu3"/>
                             <include reference="SkS-ft-uny"/>
                             <include reference="dQK-AM-wLH"/>
+                            <include reference="3Dt-Y7-dtt"/>
+                            <include reference="ema-c2-LEF"/>
+                            <include reference="HCa-7r-juE"/>
+                            <include reference="VlT-oy-uu3"/>
                         </mask>
                     </variation>
                 </view>

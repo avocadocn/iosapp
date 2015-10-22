@@ -622,7 +622,9 @@ updatingLocation:(BOOL)updatingLocation
 
 
 -(void)viewWillDisappear:(BOOL)animated { // 视图消失时停止定位 （节省资源）
-    [self mapViewDidStopLocatingUser:_mapView];
+//    [self mapViewDidStopLocatingUser:_mapView];
+    _mapView.showsUserLocation = NO;
+    [_mapView setUserTrackingMode:MAUserTrackingModeNone];
 }
 
 - (NSDate*)ParsedDateStringFromString:(NSString*)dateString
