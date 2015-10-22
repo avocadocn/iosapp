@@ -13,7 +13,7 @@
 #import "AccountTool.h"
 #import "AddressBookModel.h"
 #import "RestfulAPIRequestTool.h"
-@interface ChangePassWordViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ChangePassWordViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)ChangePassWordTableViewCell *cell;
 @end
@@ -61,6 +61,7 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     ChangePassWordTableViewCell *cellNewPass = (ChangePassWordTableViewCell *)[self.view viewWithTag:1001];
     ChangePassWordTableViewCell *cellSurePass = (ChangePassWordTableViewCell *)[self.view viewWithTag:1002];
     Account *account = [AccountTool account];
@@ -74,7 +75,10 @@
                account.password = cellSurePass.changePassWord.text;// 将修改成功的密码存入accout
                [AccountTool saveAccount:account]; // 保存密码到本地
                NSLog(@"%@",account.password);
+               [[[UIAlertView alloc] initWithTitle:@"提示" message:@"密码修改成功！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"嗯嗯 知道了", nil] show];
+               
            } failure:^(id errorJson) {
+               [[[UIAlertView alloc] initWithTitle:@"提示" message:@"密码修改失败！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"嗯嗯 知道了", nil] show];
                NSLog(@"修改失败 %@",errorJson);
            }];
         } else {
@@ -87,6 +91,12 @@
             }
         }
     }
+}
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+//    if (buttonIndex==0) {
+        [self.navigationController popViewControllerAnimated:YES];
+//    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

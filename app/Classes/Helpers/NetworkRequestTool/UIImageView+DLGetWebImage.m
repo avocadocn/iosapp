@@ -83,7 +83,9 @@
 {
     [self sd_setImageWithURL:url placeholderImage:image options:SDWebImageProgressiveDownload|SDWebImageHighPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         //请求图片成功后，直接保存，不再等待异步保存
-        [[SDImageCache sharedImageCache] storeImage:image forKey:[url absoluteString]];
+        if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]]) {
+            [[SDImageCache sharedImageCache] storeImage:image forKey:[url absoluteString]];
+        }
     }];
 }
 - (void)dlGetLocalImageWithUrl:(NSString *)url size:(CGSize)size completed:(SDWebImageCompletionBlock)completedBlock

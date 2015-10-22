@@ -40,7 +40,6 @@ static ChatListViewController *chat = nil;
 @property (nonatomic, strong) UIView                *networkStateView;
 @property (nonatomic, strong) MJRefreshNormalHeader* header;
 @property (strong, nonatomic) EMSearchDisplayController *searchController;
-@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 @end
 
 @implementation ChatListViewController
@@ -86,18 +85,7 @@ static ChatListViewController *chat = nil;
     [self refreshGroup];
     
 }
-//加载Loading动画
-- (void)loadingImageView {
-    
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
-    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2.0 - 40, DLScreenHeight / 2.0 - 40 -64, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
-    self.activityIndicatorView = activityIndicatorView;
-    [activityIndicatorView.layer setMasksToBounds:YES];
-    [activityIndicatorView.layer setCornerRadius:10.0];
-    [self.activityIndicatorView startAnimating];
-    [self.view addSubview:activityIndicatorView];
-}
+
 //下拉刷新
 - (void)refreshData
 {
@@ -662,13 +650,10 @@ static ChatListViewController *chat = nil;
 - (void)getGroup
 {
     Account *acc= [AccountTool account];
-    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
         [self analyDataWithJson:json];
-        [self.activityIndicatorView removeFromSuperview];
 //        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
-        [self.activityIndicatorView removeFromSuperview];
 //        NSLog(@"failed:-->%@",errorJson);
     }];
 }

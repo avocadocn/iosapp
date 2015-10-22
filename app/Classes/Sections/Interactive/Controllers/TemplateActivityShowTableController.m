@@ -21,7 +21,6 @@
 @interface TemplateActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) NSMutableArray *modelArray;
-@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 @end
 
 @implementation TemplateActivityShowTableController
@@ -55,19 +54,7 @@ static NSString * const ID = @"OtherActivityShowCell";
     self.modelArray = [NSMutableArray new];
     [self requestNet];
 }
-//加载Loading动画
-- (void)loadingImageView {
-    
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
-    //修正错误的坐标
-    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2.0 - 40, DLScreenHeight / 2.0 - 40 -64, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
-    self.activityIndicatorView = activityIndicatorView;
-    [activityIndicatorView.layer setMasksToBounds:YES];
-    [activityIndicatorView.layer setCornerRadius:10.0];
-    [self.activityIndicatorView startAnimating];
-    [self.view addSubview:activityIndicatorView];
-}
+
 
 //下拉刷新时获取并加载更多数据
 - (void)loadMoreData
@@ -123,14 +110,11 @@ static NSString * const ID = @"OtherActivityShowCell";
     [model setUserId:acc.ID];
     [model setTemplateType:[NSNumber numberWithInt:1]];
     [model setLimit:[NSNumber numberWithInteger:pageLimit]];
-    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getModelLists" requestModel:model useKeys:@[@"templateType",@"createTime",@"limit",@"userID"] success:^(id json) {
         [self analyDataWithJson:json];
-        [self.activityIndicatorView removeFromSuperview];
 //        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
 //        NSLog(@"failed:-->%@",errorJson);
-        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 //解析返回的数据
