@@ -78,6 +78,7 @@
                [[[UIAlertView alloc] initWithTitle:@"提示" message:@"密码修改成功！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"嗯嗯 知道了", nil] show];
                
            } failure:^(id errorJson) {
+               [[[UIAlertView alloc] initWithTitle:@"提示" message:@"密码修改失败！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"嗯嗯 知道了", nil] show];
                NSLog(@"修改失败 %@",errorJson);
            }];
         } else {
@@ -93,9 +94,9 @@
 }
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex==0) {
+//    if (buttonIndex==0) {
         [self.navigationController popViewControllerAnimated:YES];
-    }
+//    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

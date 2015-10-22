@@ -81,10 +81,12 @@
 #pragma AlertView delegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     ChangePassWordViewController *changeVC = [[ChangePassWordViewController alloc] init];
-    UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"输入有误" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯，知道了", nil];
+    UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"输入不正确" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯，知道了", nil];
      Account *account = [AccountTool account];
     switch (buttonIndex) {
         case 0: // 取消修改密码
+            //暂时返回上一级菜单
+            [self.navigationController popViewControllerAnimated:YES];
             break;
           case 1: // 确定修改过密码
             if ([[self.alert textFieldAtIndex:0].text isEqualToString:account.password]) {
