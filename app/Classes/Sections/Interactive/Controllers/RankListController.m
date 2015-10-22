@@ -40,8 +40,6 @@ static Boolean wrap = NO;
 @property (nonatomic, strong)NSMutableArray *womanArray;
 @property (nonatomic, strong)NSMutableArray *populArray;
 
-@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
-
 @end
 
 @implementation RankListController
@@ -199,15 +197,12 @@ static NSString * const ID =  @"RankItemTableViewcell";
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:num forKey:@"giftIndex"];
     [dic setObject:userId forKey:@"receiverId"];
-    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"sendGifts" requestModel:dic useKeys:@[@"giftIndex"] success:^(id json) {
         NSLog(@"送礼成功  %@", json);
-        [self.activityIndicatorView removeFromSuperview];
         [self requestNetWithType:[NSNumber numberWithInt:selectNum]];
         //尝试获取状态更新
         [self getGiftTime];
     } failure:^(id errorJson) {
-        [self.activityIndicatorView removeFromSuperview];
         NSLog(@"送礼失败   %@", errorJson);
         UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"投票失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle: @"取消" otherButtonTitles:nil, nil];
         
@@ -247,9 +242,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
 }
 - (void)jumpToTeamWithID:(NSString*)groupId
 {
-    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:[NSDictionary dictionaryWithObjects:@[groupId]  forKeys:@[@"groupId"]] useKeys:@[@"groupId"] success:^(id json) {
-        [self.activityIndicatorView removeFromSuperview];
+        
         GroupCardModel *model = [GroupCardModel new];
         NSDictionary* d = [json objectForKey:@"group"];
         [model setName:[d objectForKey:@"name"]];
@@ -260,7 +254,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
         groupDetile.groupCardModel = model;
         [self.navigationController pushViewController:groupDetile animated:YES];
     } failure:^(id errorJson) {
-        [self.activityIndicatorView removeFromSuperview];
+        
     }];
     
     
@@ -269,9 +263,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
 {
     FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
     Boolean attentState = [fmdb containConcernWithId:peopleId];
-    [self loadingImageView];
     [RestfulAPIRequestTool routeName:@"getUserInfo" requestModel:[NSDictionary dictionaryWithObjects:@[peopleId]  forKeys:@[@"userId"]] useKeys:@[@"userId"] success:^(id json) {
-        [self.activityIndicatorView removeFromSuperview];
+        
         AddressBookModel* model = [AddressBookModel new];
         [model setValuesForKeysWithDictionary:json];
         [model setAttentState:attentState];
@@ -281,7 +274,6 @@ static NSString * const ID =  @"RankItemTableViewcell";
         coll.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.navigationController pushViewController:coll animated:YES];
     } failure:^(id errorJson) {
-        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 
@@ -548,19 +540,6 @@ static NSString * const ID =  @"RankItemTableViewcell";
     [self.carousel reloadData];
 }
 
-//加载Loading动画
-- (void)loadingImageView {
-    
-//    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:[UIColor yellowColor] size:40.0f];
-//    //修正错误的坐标
-//    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2.0 - 40, DLScreenHeight / 2.0 - 40, 80.0f, 80.0f);
-//    activityIndicatorView.backgroundColor = RGBACOLOR(214, 214, 214, 0.5);
-//    self.activityIndicatorView = activityIndicatorView;
-//    [activityIndicatorView.layer setMasksToBounds:YES];
-//    [activityIndicatorView.layer setCornerRadius:10.0];
-//    [self.activityIndicatorView startAnimating];
-//    [self.view addSubview:activityIndicatorView];
-}
 
 - (void)requestNetWithType:(NSNumber *)num
 {
@@ -568,32 +547,23 @@ static NSString * const ID =  @"RankItemTableViewcell";
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"page"];
     [dic setObject:@20 forKey:@"limit"];
-    if (self.activityIndicatorView) {
-        
-        [self.activityIndicatorView removeFromSuperview];
-    }
-    [self loadingImageView];
     if ([num compare:[NSNumber numberWithInt:0]]!=NSOrderedSame) {
         [dic setObject:acc.cid forKey:@"cid"];
         [dic setObject:num forKey:@"type"];
         [RestfulAPIRequestTool routeName:@"getCompaniesFavoriteRank" requestModel:dic useKeys:@[@"cid", @"type", @"page", @"limit",@"vote"] success:^(id json) {
             NSLog(@"获取排行榜成功  %@", json);
-            [self.activityIndicatorView removeFromSuperview];
             [self reloadRankDataWithJson:json AndType:[num isEqual:@1]?PARSE_TYPE_MEN:PARSE_TYPE_WOMEN];
             
         } failure:^(id errorJson) {
             NSLog(@"获取排行榜失败  %@", errorJson);
-            [self.activityIndicatorView removeFromSuperview];
         }];
     }else{
         [RestfulAPIRequestTool routeName:@"getTeamsFavoriteRank" requestModel:dic useKeys:@[@"page", @"limit",@"vote"] success:^(id json) {
             NSLog(@"获取排行榜成功  %@", json);
-            [self.activityIndicatorView removeFromSuperview];
             [self reloadRankDataWithJson:json AndType:PARSE_TYPE_TEAM];
             
         } failure:^(id errorJson) {
             NSLog(@"获取排行榜失败  %@", errorJson);
-            [self.activityIndicatorView removeFromSuperview];
         }];
     }
 }
