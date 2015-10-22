@@ -658,6 +658,13 @@ static NSString *ID = @"feasfsefse";
         NSLog(@"请求发送成功  %@", json);
         
         UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"请求成功" message:[json objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+        if ([json[@"msg"] isEqualToString:@"加入群组成功"]) {
+            [self.joinButton removeFromSuperview];
+        } else {
+            
+            self.joinButton.backgroundColor = RGB(236, 236, 236);
+            self.joinButton.userInteractionEnabled = NO;
+        }
         
         [al show];
         

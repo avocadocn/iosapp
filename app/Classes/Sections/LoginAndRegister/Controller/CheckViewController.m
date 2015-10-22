@@ -127,7 +127,6 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 {
     if (self.selectState == NO) {
         
-        
         self.selectState = YES;
         self.tempView = [[UIView alloc]initWithFrame:CGRectMake(0, DLScreenHeight, DLScreenWidth, DLScreenHeight)];
         [self.view addSubview:self.tempView];
@@ -145,7 +144,8 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
         self.picker.showsSelectionIndicator = YES;
         self.picker.backgroundColor = [UIColor whiteColor];
         [self.picker selectRow:100 inComponent:0 animated:YES];
-        
+        self.tempView.userInteractionEnabled = YES;
+        [self.tempView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAction:)]];
         [self.tempView addSubview:self.picker];
         UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [returnButton setTitle:@"确认" forState:UIControlStateNormal];
@@ -180,7 +180,13 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
         }];
     }
 }
-
+- (void)dismissAction:(UITapGestureRecognizer *)tap
+{
+    [self pickerViewDismiss];
+    
+    self.time.textfield.text = [self.pickerArray objectAtIndex:[self.picker selectedRowInComponent:0]];
+    
+}
 - (void)returnButtonAction:(UIButton *)sender
 {
     [self pickerViewDismiss];

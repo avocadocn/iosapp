@@ -12,11 +12,23 @@
 
 
 static NSInteger timeNum = 0;
+static DLLoading *load = nil;
 
 @implementation DLLoading
 
+
+
 - (void)loading
 {
+//    static dispatch_once_t once;
+//    dispatch_once(&once, ^{
+//        if (!load) {
+//            load = [DLLoading alloc];
+//        }
+//        
+//    });
+//    
+       
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     if (![window viewWithTag:19921223]) {
         
