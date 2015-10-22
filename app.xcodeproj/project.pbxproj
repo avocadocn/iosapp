@@ -613,7 +613,6 @@
 		A43CE9CA1BAABDDC0069C94E /* gray-woman.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9901BAABDDC0069C94E /* gray-woman.png */; };
 		A43CE9CB1BAABDDC0069C94E /* gril.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9911BAABDDC0069C94E /* gril.png */; };
 		A43CE9CC1BAABDDC0069C94E /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9921BAABDDC0069C94E /* image.png */; };
-		A43CE9CD1BAABDDC0069C94E /* insert.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9931BAABDDC0069C94E /* insert.png */; };
 		A43CE9CE1BAABDDC0069C94E /* Like.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9941BAABDDC0069C94E /* Like.png */; };
 		A43CE9CF1BAABDDC0069C94E /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9951BAABDDC0069C94E /* man.png */; };
 		A43CE9D01BAABDDC0069C94E /* mark.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9961BAABDDC0069C94E /* mark.png */; };
@@ -749,6 +748,7 @@
 		A4745E201B81DF53008EB944 /* ImageHolderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745E1F1B81DF53008EB944 /* ImageHolderView.m */; };
 		A47DCAFD1BD8B4DC0015F609 /* DLPhotoPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCAFC1BD8B4DC0015F609 /* DLPhotoPlayView.m */; settings = {ASSET_TAGS = (); }; };
 		A47DCB031BD8C9B80015F609 /* UIScrollView+DLTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCB021BD8C9B80015F609 /* UIScrollView+DLTouch.m */; settings = {ASSET_TAGS = (); }; };
+		A47DCB071BD8EBF80015F609 /* insert.png in Resources */ = {isa = PBXBuildFile; fileRef = A47DCB061BD8EBF80015F609 /* insert.png */; settings = {ASSET_TAGS = (); }; };
 		A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = A47F50371B67765600955052 /* CompanyEmailComplete.m */; };
 		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
 		A48077941B6B86EF000F11D1 /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A48077931B6B86EF000F11D1 /* libEaseMobClientSDK.a */; };
@@ -1791,7 +1791,6 @@
 		A43CE9901BAABDDC0069C94E /* gray-woman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray-woman.png"; sourceTree = "<group>"; };
 		A43CE9911BAABDDC0069C94E /* gril.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gril.png; sourceTree = "<group>"; };
 		A43CE9921BAABDDC0069C94E /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
-		A43CE9931BAABDDC0069C94E /* insert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = insert.png; sourceTree = "<group>"; };
 		A43CE9941BAABDDC0069C94E /* Like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like.png; sourceTree = "<group>"; };
 		A43CE9951BAABDDC0069C94E /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
 		A43CE9961BAABDDC0069C94E /* mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mark.png; sourceTree = "<group>"; };
@@ -2002,6 +2001,7 @@
 		A47DCAFC1BD8B4DC0015F609 /* DLPhotoPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLPhotoPlayView.m; sourceTree = "<group>"; };
 		A47DCB011BD8C9B80015F609 /* UIScrollView+DLTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+DLTouch.h"; sourceTree = "<group>"; };
 		A47DCB021BD8C9B80015F609 /* UIScrollView+DLTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+DLTouch.m"; sourceTree = "<group>"; };
+		A47DCB061BD8EBF80015F609 /* insert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = insert.png; sourceTree = "<group>"; };
 		A47F50361B67765600955052 /* CompanyEmailComplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyEmailComplete.h; sourceTree = "<group>"; };
 		A47F50371B67765600955052 /* CompanyEmailComplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyEmailComplete.m; sourceTree = "<group>"; };
 		A47F50381B67765600955052 /* CompanyEmailComplete.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyEmailComplete.xib; sourceTree = "<group>"; };
@@ -4416,6 +4416,7 @@
 				A43D904D1BB4F0CD007775BB /* setting black@2x.png */,
 				A43D904E1BB4F0CD007775BB /* setting white@2x.png */,
 				A43CE97F1BAABDDC0069C94E /* afolder.png */,
+				A47DCB061BD8EBF80015F609 /* insert.png */,
 				A43CE9801BAABDDC0069C94E /* boy.png */,
 				A43CE9811BAABDDC0069C94E /* cemera.png */,
 				A43CE9821BAABDDC0069C94E /* chat@2x.png */,
@@ -4432,7 +4433,6 @@
 				A43CE9901BAABDDC0069C94E /* gray-woman.png */,
 				A43CE9911BAABDDC0069C94E /* gril.png */,
 				A43CE9921BAABDDC0069C94E /* image.png */,
-				A43CE9931BAABDDC0069C94E /* insert.png */,
 				A43CE9941BAABDDC0069C94E /* Like.png */,
 				A43CE9951BAABDDC0069C94E /* man.png */,
 				A43CE9961BAABDDC0069C94E /* mark.png */,
@@ -5231,6 +5231,7 @@
 				546CA5871B9E8CAD0066CC0C /* 邀请 .png in Resources */,
 				96CF94301B674B54001759E2 /* chatBar_more_camera@2x.png in Resources */,
 				54EA032A1BB25E4400B96881 /* 投票111@2X.png in Resources */,
+				A47DCB071BD8EBF80015F609 /* insert.png in Resources */,
 				5458677E1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png in Resources */,
 				96CF93E81B674B54001759E2 /* VoiceSearchFeedback017@2x.png in Resources */,
 				546CA5851B9E88CD0066CC0C /* shetuan.png in Resources */,
@@ -5283,7 +5284,6 @@
 				A43CE9BD1BAABDDC0069C94E /* chevron-left.png in Resources */,
 				A46CFBB91BD6244400D64CDB /* 手机好友@2x.png in Resources */,
 				96CF94731B674B54001759E2 /* tabbar_settingHL@2x.png in Resources */,
-				A43CE9CD1BAABDDC0069C94E /* insert.png in Resources */,
 				96CF945C1B674B54001759E2 /* titleBar.png in Resources */,
 				96CF944F1B674B54001759E2 /* chat_sender_audio_playing_003@2x.png in Resources */,
 				5458679D1BA1A953009ED3E7 /* 关注@2x.png in Resources */,
