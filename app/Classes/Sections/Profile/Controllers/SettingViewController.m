@@ -84,8 +84,6 @@
     UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"输入有误" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯，知道了", nil];
      Account *account = [AccountTool account];
     switch (buttonIndex) {
-        case 0: // 取消修改密码
-            break;
           case 1: // 确定修改过密码
             if ([[self.alert textFieldAtIndex:0].text isEqualToString:account.password]) {
                 [self.navigationController pushViewController:changeVC animated:YES];
@@ -163,22 +161,22 @@
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDisk];
 }
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-        {
-            LoginViewController *lo = [[LoginViewController alloc]init];
-            Account *acc = [AccountTool account];
-            acc.token = nil;
-            [self.navigationController pushViewController:lo animated:YES];
-            [AccountTool saveAccount:acc];
-            break;
-        }
-        default:
-            break;
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//    switch (buttonIndex) {
+//        case 1:
+//        {
+//            LoginViewController *lo = [[LoginViewController alloc]init];
+//            Account *acc = [AccountTool account];
+//            acc.token = nil;
+//            [self.navigationController pushViewController:lo animated:YES];
+//            [AccountTool saveAccount:acc];
+//            break;
+//        }
+//        default:
+//            break;
+//    }
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

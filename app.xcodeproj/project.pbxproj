@@ -748,6 +748,7 @@
 		A4745E151B81BD1C008EB944 /* OwnnessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745E141B81BD1C008EB944 /* OwnnessViewController.m */; };
 		A4745E201B81DF53008EB944 /* ImageHolderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745E1F1B81DF53008EB944 /* ImageHolderView.m */; };
 		A47DCAFD1BD8B4DC0015F609 /* DLPhotoPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCAFC1BD8B4DC0015F609 /* DLPhotoPlayView.m */; settings = {ASSET_TAGS = (); }; };
+		A47DCB031BD8C9B80015F609 /* UIScrollView+DLTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCB021BD8C9B80015F609 /* UIScrollView+DLTouch.m */; settings = {ASSET_TAGS = (); }; };
 		A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = A47F50371B67765600955052 /* CompanyEmailComplete.m */; };
 		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
 		A48077941B6B86EF000F11D1 /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A48077931B6B86EF000F11D1 /* libEaseMobClientSDK.a */; };
@@ -1999,6 +2000,8 @@
 		A4745E1F1B81DF53008EB944 /* ImageHolderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageHolderView.m; sourceTree = "<group>"; };
 		A47DCAFB1BD8B4DC0015F609 /* DLPhotoPlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLPhotoPlayView.h; sourceTree = "<group>"; };
 		A47DCAFC1BD8B4DC0015F609 /* DLPhotoPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLPhotoPlayView.m; sourceTree = "<group>"; };
+		A47DCB011BD8C9B80015F609 /* UIScrollView+DLTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+DLTouch.h"; sourceTree = "<group>"; };
+		A47DCB021BD8C9B80015F609 /* UIScrollView+DLTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+DLTouch.m"; sourceTree = "<group>"; };
 		A47F50361B67765600955052 /* CompanyEmailComplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyEmailComplete.h; sourceTree = "<group>"; };
 		A47F50371B67765600955052 /* CompanyEmailComplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyEmailComplete.m; sourceTree = "<group>"; };
 		A47F50381B67765600955052 /* CompanyEmailComplete.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanyEmailComplete.xib; sourceTree = "<group>"; };
@@ -4696,6 +4699,8 @@
 				A4F315641B5E4BFB00126C8A /* PhotoShouCell.m */,
 				A47DCAFB1BD8B4DC0015F609 /* DLPhotoPlayView.h */,
 				A47DCAFC1BD8B4DC0015F609 /* DLPhotoPlayView.m */,
+				A47DCB011BD8C9B80015F609 /* UIScrollView+DLTouch.h */,
+				A47DCB021BD8C9B80015F609 /* UIScrollView+DLTouch.m */,
 			);
 			path = ChoosePhoto;
 			sourceTree = "<group>";
@@ -5622,6 +5627,7 @@
 				96CF938B1B674B54001759E2 /* DXRecordView.m in Sources */,
 				A45727081B74BE2400A27B79 /* photoSectionHeader.m in Sources */,
 				96CF90EA1B673422001759E2 /* amrFileCodec.mm in Sources */,
+				A47DCB031BD8C9B80015F609 /* UIScrollView+DLTouch.m in Sources */,
 				967439B81B705908004334A4 /* Account.m in Sources */,
 				A439D5231B9EEC14006085F7 /* WPHotspotLabel.m in Sources */,
 				E2A3323C1BD62D6800F9A247 /* NewRankListTableViewCell.m in Sources */,

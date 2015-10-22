@@ -97,7 +97,7 @@
     
     
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
-    [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
+//    [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
     self.myTableView.footer = footer;
     
     MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
@@ -271,8 +271,7 @@
 - (void)getArrayWithDic:(NSMutableDictionary *)dic
 {
 
-    NSArray *array = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H",@"I",@"J", @"K", @"L",@"M", @"N",@"O", @"P", @"Q", @"R", @"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z", @"#"];
-
+    NSArray *array = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H",@"I",@"J", @"K", @"L",@"M", @"N",@"O", @"P", @"Q", @"R", @"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
     
     for (NSString *str in array) {
         if ([dic objectForKey:str]) {
@@ -291,7 +290,8 @@
             [tempArray addObjectsFromArray:[dic objectForKey:str]];
         }
     }
-    if (tempArray) { // 存在特殊字符
+    
+    if (tempArray.count) { // 存在特殊字符
         [myTempDic setObject:tempArray forKey:@"array"];
         [myTempDic setObject:@"#" forKey:@"letter"];
         

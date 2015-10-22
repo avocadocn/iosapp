@@ -47,8 +47,11 @@
     self.showImageCollection.delegate = self;
     self.showImageCollection.dataSource = self;
     self.showImageCollection.pagingEnabled = YES;
-            self.showImageCollection.contentOffset = CGPointMake(DLScreenWidth * self.num, 0);
+//    self.showImageCollection.bounces = YES;
+//    self.showImageCollection.bouncesZoom = YES;
+    self.showImageCollection.contentOffset = CGPointMake(DLScreenWidth * self.num, 0);
     [self.showImageCollection registerClass:[PhotoShouCell class] forCellWithReuseIdentifier:@"photoShowCell"];
+    
     [self.view addSubview:self.showImageCollection];
     
 //    self.titleView = [UIView new];
@@ -90,21 +93,22 @@
 }
 - (void)imageTapAction:(UITapGestureRecognizer *)tap
 {
-    if (self.titleState == TitleLabelStateYes) { // 标题在显示, 让其消失
-        [UIView animateWithDuration:.2 animations:^{
-//            self.titleView.center = CGPointMake(DLScreenWidth / 2.0, - 100);
-                    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    if (self.titleState == TitleLabelStateYes) { // 标题在显示, 让其消失
+//        [UIView animateWithDuration:.2 animations:^{
+////            self.titleView.center = CGPointMake(DLScreenWidth / 2.0, - 100);
 //                    [self.navigationController setNavigationBarHidden:YES animated:YES];
-        }];
-        self.titleState = TitleLabelStateNo;
-        
-    } else  //让标题出来
-    {
-//                [self.navigationController setNavigationBarHidden:NO animated:YES];
-                [self.navigationController setNavigationBarHidden:NO animated:YES];
-//        self.titleView.center = CGPointMake(DLScreenWidth / 2.0, 25);
-        self.titleState = TitleLabelStateYes;
-    }
+////                    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//        }];
+//        self.titleState = TitleLabelStateNo;
+//        
+//    } else  //让标题出来
+//    {
+////                [self.navigationController setNavigationBarHidden:NO animated:YES];
+//                [self.navigationController setNavigationBarHidden:NO animated:YES];
+////        self.titleView.center = CGPointMake(DLScreenWidth / 2.0, 25);
+//        self.titleState = TitleLabelStateYes;
+//    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -116,7 +120,6 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -127,10 +130,15 @@
     self.titleState = TitleLabelStateNo;
 }
 
+
 - (void)viewWillDisappear:(BOOL)animated
 {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     
 }
+
+
+
+
 
 @end
