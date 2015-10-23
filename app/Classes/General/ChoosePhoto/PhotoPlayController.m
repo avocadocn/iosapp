@@ -11,7 +11,7 @@
 #import <Masonry.h>
 #import <ReactiveCocoa.h>
 
-@interface PhotoPlayController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface PhotoPlayController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PhotoShowCellDelegate>
 
 @end
 
@@ -85,30 +85,17 @@
     PhotoShouCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"photoShowCell" forIndexPath:indexPath];
     NSString *image = [self.showImageArray objectAtIndex:indexPath.row];
     [cell settingUpImageViewWithImage:image];
+    cell.delegate = self;
 //    [cell fillWithImage:image];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTapAction:)];
-    [cell.showImageView addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageTapAction:)];
+//    [cell.showImageView addGestureRecognizer:tap];
     
     return cell;
 }
-- (void)imageTapAction:(UITapGestureRecognizer *)tap
+- (void)photoShowSuperControllerDismiss
 {
-//    if (self.titleState == TitleLabelStateYes) { // 标题在显示, 让其消失
-//        [UIView animateWithDuration:.2 animations:^{
-////            self.titleView.center = CGPointMake(DLScreenWidth / 2.0, - 100);
-//                    [self.navigationController setNavigationBarHidden:YES animated:YES];
-////                    [self.navigationController setNavigationBarHidden:YES animated:YES];
-//        }];
-//        self.titleState = TitleLabelStateNo;
-//        
-//    } else  //让标题出来
-//    {
-////                [self.navigationController setNavigationBarHidden:NO animated:YES];
-//                [self.navigationController setNavigationBarHidden:NO animated:YES];
-////        self.titleView.center = CGPointMake(DLScreenWidth / 2.0, 25);
-//        self.titleState = TitleLabelStateYes;
-//    }
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
