@@ -515,7 +515,10 @@ static ChatListViewController *chat = nil;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    ChatListCell* currentCell = [tableView cellForRowAtIndexPath:indexPath];
+    if (currentCell) {
+        currentCell.unreadCount=0;
+    }
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
     
     ChatViewController *chatController;
