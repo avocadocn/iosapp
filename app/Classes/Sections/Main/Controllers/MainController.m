@@ -352,11 +352,13 @@ static NSString *kGroupName = @"GroupName";
 }
 
 #pragma mark - IChatManagerDelegate 消息变化
-
+- (void)willSendMessage:(EMMessage *)message error:(EMError *)error
+{
+    [_chatListVC refreshDataSource];
+}
 - (void)didUpdateConversationList:(NSArray *)conversationList
 {
     [self setupUnreadMessageCount];
-    [_chatListVC refreshDataSource];
 }
 
 // 未读消息数量变化回调
@@ -397,7 +399,7 @@ static NSString *kGroupName = @"GroupName";
     
     ChatListViewController *chat = [ChatListViewController shareInstan];
     [chat reloadConversionListWith:message.from];
-    
+    [chat refreshDataSource];
     
     BOOL needShowNotification = (message.messageType != eMessageTypeChat) ? [self needShowNotification:message.conversationChatter] : YES;
     if (needShowNotification) {
@@ -566,7 +568,7 @@ static NSString *kGroupName = @"GroupName";
 - (void)_removeBuddies:(NSArray *)userNames
 {
     [[EaseMob sharedInstance].chatManager removeConversationsByChatters:userNames deleteMessages:YES append2Chat:YES];
-    [_chatListVC refreshDataSource];
+//    [_chatListVC refreshDataSource];
     
     NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
     ChatViewController *chatViewContrller = nil;
