@@ -283,7 +283,6 @@ static AFHTTPSessionManager *_mgr;
             [formData appendPartWithFileData:data name:@"photo" fileName:@"highlight_image.jpg" mimeType:@"image/jpeg"];
         }];
     
-    
         AFHTTPRequestOperation *requestOperation = [manger HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             if (success) {

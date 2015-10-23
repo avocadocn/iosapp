@@ -133,11 +133,14 @@
     [self.userGender addSubview:self.manButton];
     self.manButton.layer.shouldRasterize = NO;
     self.manButton.tag = 1;
+    
+    CGFloat width = 25.0;
+    
     [self.manButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.userGender.mas_top);
+        make.centerY.mas_equalTo(self.userGender.mas_centerY);
         make.right.mas_equalTo(self.userGender.mas_centerX).offset(-35);
-        make.height.mas_equalTo(DLMultipleWidth(45.0));
-        make.width.mas_equalTo(DLMultipleWidth(45.0));
+        make.height.mas_equalTo(DLMultipleWidth(width));
+        make.width.mas_equalTo(DLMultipleWidth(width));
     }];
     
     self.manLabel = [UILabel new];
@@ -149,7 +152,7 @@
         make.top.mas_equalTo(self.manButton.mas_top);
         make.left.mas_equalTo(self.manButton.mas_right);
         make.bottom.mas_equalTo(self.manButton.mas_bottom);
-        make.width.mas_equalTo(20);
+        make.width.mas_equalTo(width);
     }];
     
     self.womanButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -161,10 +164,10 @@
     //    235 79 56 1
 
     [self.womanButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.userGender);
+        make.centerY.mas_equalTo(self.userGender.mas_centerY);
         make.left.mas_equalTo(self.userGender.mas_centerX).offset(15);
-        make.height.mas_equalTo(DLMultipleWidth(45.0));
-        make.width.mas_equalTo(DLMultipleWidth(45.0));
+        make.height.mas_equalTo(DLMultipleWidth(width));
+        make.width.mas_equalTo(DLMultipleWidth(width));
     }];
     
     self.womanLabel = [UILabel new];
@@ -177,7 +180,7 @@
         make.top.mas_equalTo(self.womanButton.mas_top);
         make.left.mas_equalTo(self.womanButton.mas_right);
         make.bottom.mas_equalTo(self.womanButton.mas_bottom);
-        make.width.mas_equalTo(20.0);
+        make.width.mas_equalTo(width);
     }];
     
     UIView *lineView2 = [UIView new];

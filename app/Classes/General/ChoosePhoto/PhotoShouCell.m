@@ -141,7 +141,7 @@
 {
 //    UITouch *touch = [touches anyObject];
     
-    
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 //    NSTimeInterval delay = 1;
     
 //    NSLog(@"点击结束  %@   \n \n\n\n  %@", touches, event);

@@ -12,6 +12,10 @@
 
 - (void)outPutStringOfSelectDate:(NSString *)str withTag:(NSInteger)tag;
 
+@optional
+
+- (void)dismiss;
+
 @end
 
 @interface DLDatePickerView : UIView

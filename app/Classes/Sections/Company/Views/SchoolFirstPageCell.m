@@ -81,6 +81,9 @@
 - (void)setSchoolModel:(SendSchollTableModel *)schoolModel
 {
     NSInteger i = schoolModel.photoArray.count;
+    if (i == 0) {
+        return;
+    }
     if (i == 1) {
         SchoolTempModel *first = [schoolModel.photoArray objectAtIndex:0];
 //        [self.BigImage dlGetRouteWebImageWithString:first.photo placeholderImage:nil];

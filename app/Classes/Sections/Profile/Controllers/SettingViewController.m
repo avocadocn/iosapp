@@ -102,22 +102,22 @@
     AddressBookModel *model = [[AddressBookModel alloc] init];
     [model setUserId:accout.ID];
     if (buttonIndex == 0) { // 退出登录
-    [RestfulAPIRequestTool routeName:@"userLogOut" requestModel:model useKeys:@[@"msg"] success:^(id json) {
-        
-        
         [self.navigationController pushViewController:loginVC animated:YES];
-        NSLog(@"退出成功");
         accout.token = nil;
         [AccountTool saveAccount:accout];
         //退出环信，清空消息数据
         [self cleanEaseMob];
         //清空本地缓存数据
         [self cleanLocalData];
+    [RestfulAPIRequestTool routeName:@"userLogOut" requestModel:model useKeys:@[@"msg"] success:^(id json) {
+        
+        
+        NSLog(@"退出成功");
     } failure:^(id errorJson) {
         NSLog(@"退出失败原因 %@",errorJson);
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
-        alertView.delegate = self;
-        [alertView show];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
+//        alertView.delegate = self;
+//        [alertView show];
     }];
     } else { // 取消
         

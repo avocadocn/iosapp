@@ -204,7 +204,7 @@ static NSInteger num = 0;
         [self.brithday.informationTextField addGestureRecognizer:tap];
         
         UITapGestureRecognizer *gender = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(genderAction:)];
-        [self.gender addGestureRecognizer:gender];
+        [self.gender.informationTextField addGestureRecognizer:gender];
         self.buttonState = EnumOfEditButtonYes;
         self.editLabel.text = @"完成";
     } else { //写编辑完成后的网络请求
@@ -219,12 +219,80 @@ static NSInteger num = 0;
 }
 - (void)genderAction:(UITapGestureRecognizer *)tap
 {
+    self.gender.informationTextField.userInteractionEnabled = NO;
     self.picker = [[UIPickerView alloc]initWithFrame:CGRectMake(0, DLScreenHeight - DLMultipleHeight(250.0) + 49.0, DLScreenWidth, DLMultipleHeight(250.0))];
     self.picker.delegate = self;
     self.picker.dataSource = self;
     self.picker.showsSelectionIndicator = YES;
+    self.picker.backgroundColor = [UIColor whiteColor];
     [self.picker selectRow:2 inComponent:0 animated:YES];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
+    [view addSubview:self.picker];
+    UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [returnButton setTitle:@"确认" forState:UIControlStateNormal];
+    [returnButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [returnButton setBackgroundColor:[UIColor whiteColor]];
+    [returnButton addTarget:self action:@selector(returnButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    //    [returnButton setBackgroundColor:[UIColor greenColor]];
+    [view addSubview:returnButton];
+    [returnButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.picker.mas_top);
+        make.right.mas_equalTo(self.picker.mas_right);
+        make.left.mas_equalTo(self.picker.centerX);
+    }];
     
+    UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [cancelButton setBackgroundColor:[UIColor whiteColor]];
+    [cancelButton setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
+    [cancelButton setTitle:@"取消" forState: UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:cancelButton];
+    
+    [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(returnButton.mas_bottom);
+        make.left.mas_equalTo(self.picker.mas_left);
+        make.right.mas_equalTo(returnButton.mas_left);
+        make.top.mas_equalTo(returnButton.mas_top);
+    }];
+
+    
+    view.userInteractionEnabled = YES;
+    [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                       action:@selector(tapAction:)]];
+    
+    
+    
+    [self.view addSubview:view];
+}
+
+- (void)returnButtonAction:(UIButton *)sender
+{
+    [self pickerDismiss];
+    int a =  (int)[self.picker selectedRowInComponent:0];
+    self.gender.informationTextField.text = (a == 0 ? @"男" : @"女");
+
+}
+- (void)cancelButtonAction:(UIButton *)sender
+{
+    [self pickerDismiss];
+
+}
+- (void)tapAction:(UITapGestureRecognizer *)sender
+{
+    [self pickerDismiss];
+    int a =  (int)[self.picker selectedRowInComponent:0];
+    self.gender.informationTextField.text = (a == 0 ? @"男" : @"女");
+
+}
+- (void)pickerDismiss
+{
+    UIView *view = (UIView *)[self.picker superview];
+    [view removeFromSuperview];
+    self.gender.informationTextField.userInteractionEnabled = YES;
+}
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
@@ -232,9 +300,6 @@ static NSInteger num = 0;
     self.gender.informationTextField.text =( row ==  0 ? @"男" : @"女");
     
 }
-
-
-
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
@@ -263,8 +328,6 @@ static NSInteger num = 0;
             [model setRealname:self.infoArray[2]];
             if ([self.infoArray[3] isEqualToString:@"男"]) {
                 [model setGender:@"1"];
-            } else {
-                [model setGender:@"0"];
             }
             [model setBirthday:self.infoArray[4]];
             [model setPhone:self.infoArray[5]];
@@ -274,10 +337,10 @@ static NSInteger num = 0;
                 model.uploadPhoto = [NSArray arrayWithObjects:dic, nil];
             }
         [RestfulAPIRequestTool routeName:@"modifyUserInfo" requestModel:model useKeys:@[@"nickname",@"introduce",@"realname",@"gender",@"birthday",@"phone",@"uploadPhoto",] success:^(id json) {
-            [self netRequstWithModel:model]; // 编辑成功重新请求一次数据
+//            [self netRequstWithModel:model]; // 编辑成功重新请求一次数据
             [self.infoArray removeAllObjects]; // 将存放编辑信息的数组清空
         } failure:^(id errorJson) {
-            NSLog(@"编辑失败原因 %@  %@",errorJson ,[errorJson objectForKey:@"msg"]);
+            NSLog(@"编辑失败原因 %@" ,[errorJson objectForKey:@"msg"]);
         }];
             break;
         }
@@ -288,6 +351,7 @@ static NSInteger num = 0;
 //点击生日弹出 pickerview
 - (void)tapBrithdayAction:(UITapGestureRecognizer *)tap
 {
+    self.brithday.informationTextField.userInteractionEnabled = NO;
     DLDatePickerView *picker = [[DLDatePickerView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
     picker.delegate = self;
@@ -310,6 +374,11 @@ static NSInteger num = 0;
     NSArray *dateArray = [dateStr componentsSeparatedByString:@"-"];
     NSString *conste = [self getAstroWithMonth:[[dateArray objectAtIndex:1] intValue] day:[[dateArray objectAtIndex:2] intValue]];
     self.constellation.informationTextField.text = [NSString stringWithFormat:@"%@座",conste];
+    self.brithday.informationTextField.userInteractionEnabled = YES;
+}
+- (void)dismiss
+{
+    self.brithday.informationTextField.userInteractionEnabled = YES;
 }
 - (void)setConstellationsText { // 获取数据后设置星座
 
