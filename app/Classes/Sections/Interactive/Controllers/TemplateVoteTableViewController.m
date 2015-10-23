@@ -139,6 +139,7 @@ static NSString * const ID = @"TemplateVoteTableViewCell";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     _staticNavi = self.navigationController;
 }
 
