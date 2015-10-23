@@ -29,10 +29,10 @@
         [self setBackgroundColor:[UIColor clearColor]];
         
         // 添加item
-        [self addOneItemWithImage:[UIImage imageNamed:@"Oval 349 Copy"] label:@"男神榜"];
-        [self addOneItemWithImage:[UIImage imageNamed:@"Oval 349"] label:@"女神榜"];
-        [self addOneItemWithImage:[UIImage imageNamed:@"Oval 349 Copy 3 + Oval 349 Copy 4"] label:@"社团榜"];
-        [self addOneItemWithImage:[UIImage imageNamed:@"Oval 349 Copy 5 + Oval 349 Copy 2"] label:@"热门"];
+        [self addOneItemWithImage:[UIImage imageNamed:@"manGodRank"] label:@"男神榜"];
+        [self addOneItemWithImage:[UIImage imageNamed:@"womenGodRank"] label:@"女神榜"];
+        [self addOneItemWithImage:[UIImage imageNamed:@"teamGodRank"] label:@"社团榜"];
+        [self addOneItemWithImage:[UIImage imageNamed:@"hotEvent"] label:@"热门"];
     }
     return self;
 }

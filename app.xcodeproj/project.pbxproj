@@ -15,10 +15,10 @@
 		545867641BA17EF8009ED3E7 /* SBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867631BA17EF8009ED3E7 /* SBDetailViewController.m */; };
 		545867681BA1821F009ED3E7 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867651BA1821F009ED3E7 /* gear.png */; };
 		5458676E1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458676C1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png */; };
-		545867741BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867701BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png */; };
-		545867751BA185C5009ED3E7 /* Oval 349 Copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867711BA185C5009ED3E7 /* Oval 349 Copy.png */; };
-		545867761BA185C5009ED3E7 /* Oval 349.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867721BA185C5009ED3E7 /* Oval 349.png */; };
-		545867781BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867771BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png */; };
+		545867741BA185C5009ED3E7 /* hotEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867701BA185C5009ED3E7 /* hotEvent.png */; };
+		545867751BA185C5009ED3E7 /* manGodRank.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867711BA185C5009ED3E7 /* manGodRank.png */; };
+		545867761BA185C5009ED3E7 /* womenGodRank.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867721BA185C5009ED3E7 /* womenGodRank.png */; };
+		545867781BA1888B009ED3E7 /* teamGodRank.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867771BA1888B009ED3E7 /* teamGodRank.png */; };
 		5458677C1BA18D09009ED3E7 /* 求助 + Shape Copy 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 545867791BA18D09009ED3E7 /* 求助 + Shape Copy 8.png */; };
 		5458677D1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458677A1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png */; };
 		5458677E1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png in Resources */ = {isa = PBXBuildFile; fileRef = 5458677B1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png */; };
@@ -835,10 +835,10 @@
 		545867631BA17EF8009ED3E7 /* SBDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDetailViewController.m; sourceTree = "<group>"; };
 		545867651BA1821F009ED3E7 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		5458676C1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Shape Copy 2 + Line + Line Copy 6.png"; sourceTree = "<group>"; };
-		545867701BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 349 Copy 5 + Oval 349 Copy 2.png"; sourceTree = "<group>"; };
-		545867711BA185C5009ED3E7 /* Oval 349 Copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 349 Copy.png"; sourceTree = "<group>"; };
-		545867721BA185C5009ED3E7 /* Oval 349.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 349.png"; sourceTree = "<group>"; };
-		545867771BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 349 Copy 3 + Oval 349 Copy 4.png"; sourceTree = "<group>"; };
+		545867701BA185C5009ED3E7 /* hotEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotEvent.png; sourceTree = "<group>"; };
+		545867711BA185C5009ED3E7 /* manGodRank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = manGodRank.png; sourceTree = "<group>"; };
+		545867721BA185C5009ED3E7 /* womenGodRank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = womenGodRank.png; sourceTree = "<group>"; };
+		545867771BA1888B009ED3E7 /* teamGodRank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teamGodRank.png; sourceTree = "<group>"; };
 		545867791BA18D09009ED3E7 /* 求助 + Shape Copy 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "求助 + Shape Copy 8.png"; sourceTree = "<group>"; };
 		5458677A1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 177 + calendar + Fill 133.png"; sourceTree = "<group>"; };
 		5458677B1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 177 + chart + Fill 164.png"; sourceTree = "<group>"; };
@@ -4328,10 +4328,10 @@
 				545867791BA18D09009ED3E7 /* 求助 + Shape Copy 8.png */,
 				5458677A1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png */,
 				5458677B1BA18D09009ED3E7 /* Rectangle 177 + chart + Fill 164.png */,
-				545867771BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png */,
-				545867701BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png */,
-				545867711BA185C5009ED3E7 /* Oval 349 Copy.png */,
-				545867721BA185C5009ED3E7 /* Oval 349.png */,
+				545867771BA1888B009ED3E7 /* teamGodRank.png */,
+				545867701BA185C5009ED3E7 /* hotEvent.png */,
+				545867711BA185C5009ED3E7 /* manGodRank.png */,
+				545867721BA185C5009ED3E7 /* womenGodRank.png */,
 				5458676C1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png */,
 				545867651BA1821F009ED3E7 /* gear.png */,
 				5436967C1B9D401E00261F2D /* 标尺.png */,
@@ -4889,7 +4889,7 @@
 				96CF93E21B674B54001759E2 /* VoiceSearchFeedback014@2x.png in Resources */,
 				96CF94331B674B54001759E2 /* chatBar_more_location.png in Resources */,
 				A43CE9D51BAABDDC0069C94E /* mzx.jpg in Resources */,
-				545867741BA185C5009ED3E7 /* Oval 349 Copy 5 + Oval 349 Copy 2.png in Resources */,
+				545867741BA185C5009ED3E7 /* hotEvent.png in Resources */,
 				96CF93EE1B674B54001759E2 /* VoiceSearchFeedback020@2x.png in Resources */,
 				967A06301B71E2C9007BA757 /* Interactive_vote_icon.png in Resources */,
 				96CF93D11B674B54001759E2 /* VoiceSearchFeedback006.png in Resources */,
@@ -4950,7 +4950,7 @@
 				96CF94241B674B54001759E2 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */,
 				96CF944C1B674B54001759E2 /* chat_sender_audio_playing_002.png in Resources */,
 				54F248271BA2848A009133D6 /* votep@2x.png in Resources */,
-				545867751BA185C5009ED3E7 /* Oval 349 Copy.png in Resources */,
+				545867751BA185C5009ED3E7 /* manGodRank.png in Resources */,
 				A43CE9B81BAABDDC0069C94E /* adynamic.png in Resources */,
 				96CF94351B674B54001759E2 /* chatBar_more_locationSelected.png in Resources */,
 				96CF94201B674B54001759E2 /* chatBar_recordSelected@2x.png in Resources */,
@@ -5159,7 +5159,7 @@
 				54EA03281BB25E4400B96881 /* 求助111@2x.png in Resources */,
 				96CF94701B674B54001759E2 /* tabbar_setting.png in Resources */,
 				A43CE9B91BAABDDC0069C94E /* afolder.png in Resources */,
-				545867781BA1888B009ED3E7 /* Oval 349 Copy 3 + Oval 349 Copy 4.png in Resources */,
+				545867781BA1888B009ED3E7 /* teamGodRank.png in Resources */,
 				A43CE9C61BAABDDC0069C94E /* event.png in Resources */,
 				A43D904F1BB4F0CD007775BB /* Back Arrow black@2x.png in Resources */,
 				967439D11B70A27A004334A4 /* RankLoveHeart_red.png in Resources */,

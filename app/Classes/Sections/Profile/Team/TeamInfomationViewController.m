@@ -354,7 +354,7 @@ static NSString * const memberCell = @"memberCell";
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark - setter方法
