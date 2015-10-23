@@ -167,6 +167,11 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self builtInterface];
     
 }
+- (void)dismissAction:(UITapGestureRecognizer *)sender
+{
+    [self.upMenuView dismissButtons];
+}
+
 - (void)sendBool:(BOOL)state
 {
     if (state == YES){
@@ -177,6 +182,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         view.tag = 1999;
         [UIView animateWithDuration:.1 animations:^{
             view.backgroundColor = RGBACOLOR(0, 0, 0, .6);
+            [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAction:)]];
             self.coriusImage.image = [UIImage imageNamed:@"mistakeo"];
             self.coriusView.backgroundColor = [UIColor whiteColor];
             

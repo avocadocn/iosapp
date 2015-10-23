@@ -35,8 +35,8 @@
 {
     NSLog(@"传过来的 imageurl 为%@", image);
     NSArray *array = [image componentsSeparatedByString:@"/_"];
-    
     NSString *last = [array lastObject];
+    
     if ([image isKindOfClass:[NSString class]]) {
         
         NSArray *lastArray = [last componentsSeparatedByString:@"/"];
@@ -58,7 +58,11 @@
     
     [manger downloadImageWithURL:[NSURL URLWithString:[self getUrlStringWithString:[array firstObject]]] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         CGFloat num =   (CGFloat)receivedSize  / (CGFloat)expectedSize  * 100;
-        self.downloadPro.text = [NSString stringWithFormat:@"%.f", num];
+        if (num <= 0) {
+            num = 0;
+        }
+        
+        self.downloadPro.text = [NSString stringWithFormat:@"%.f%%", num];
         
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         if (image) {
@@ -101,15 +105,18 @@
     
     self.showImageView = [UIImageView new];
     self.showImageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *ap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageAction:)];
+    UITapGestureRecognizer *ap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageAction:)]; //双击
     ap.numberOfTapsRequired = 2;
+    ap.numberOfTouchesRequired = 1;
     [self.showImageView addGestureRecognizer:ap];
     
     
-//    UITapGestureRecognizer *apap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(apImageAction:)];
-//    apap.numberOfTapsRequired = 1;
-//    [self.showImageView addGestureRecognizer:apap];
+    UITapGestureRecognizer *apap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(apImageAction:)];  //单击
+    apap.numberOfTapsRequired = 1;
+    apap.numberOfTouchesRequired = 1;
+    [self.showImageView addGestureRecognizer:apap];
     
+    [apap requireGestureRecognizerToFail:ap];
     
     self.downloadPro = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
     self.downloadPro.backgroundColor = [UIColor colorWithWhite:.2 alpha:.5];
@@ -132,21 +139,26 @@
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
-
-    NSTimeInterval delay = 1;
+//    UITouch *touch = [touches anyObject];
     
-    NSLog(@"%ld", touch.tapCount);
+    
+//    NSTimeInterval delay = 1;
+    
+//    NSLog(@"点击结束  %@   \n \n\n\n  %@", touches, event);
+    
+    
     
 }
 
-- (void)apImageAction:(UITapGestureRecognizer *)sender
+
+- (void)apImageAction:(UITapGestureRecognizer *)sender //单击
 {
-    NSLog(@"时尚  %ld %ld", sender.numberOfTapsRequired, sender.numberOfTouchesRequired );
-    
+
+    NSLog(@"单机");
+    [self.delegate photoShowSuperControllerDismiss];
 }
 
-- (void)imageAction:(UITapGestureRecognizer *)sender
+- (void)imageAction:(UITapGestureRecognizer *)sender  //双击
 {
     float newScale = 1;
     

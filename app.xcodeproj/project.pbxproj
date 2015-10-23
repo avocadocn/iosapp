@@ -647,6 +647,7 @@
 		A43DA5DD1B90281100C23833 /* getIntroModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43DA5DC1B90281100C23833 /* getIntroModel.m */; };
 		A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43E36B61B58C55500AA2FC7 /* ConditionController.m */; };
 		A43EA5BC1BCCE0050007FE84 /* InformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43EA5BB1BCCE0050007FE84 /* InformationModel.m */; };
+		A43F56211BD9CFF6004DE6AE /* chat_black.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F56201BD9CFF6004DE6AE /* chat_black.png */; settings = {ASSET_TAGS = (); }; };
 		A43F86301B744AF60086D078 /* PublishVoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F862F1B744AF60086D078 /* PublishVoteController.m */; };
 		A43F86331B7453D30086D078 /* optionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F86321B7453D30086D078 /* optionsView.m */; };
 		A43F86381B7487DB0086D078 /* PublishSeekHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F86371B7487DB0086D078 /* PublishSeekHelp.m */; };
@@ -656,7 +657,6 @@
 		A4448C3C1BA9881400546C34 /* SchoolTempModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4448C3B1BA9881400546C34 /* SchoolTempModel.m */; };
 		A4465CFA1B9453C80056ACA8 /* FreshModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4465CF91B9453C80056ACA8 /* FreshModel.m */; };
 		A4483DB61BCB5FCD00E7D101 /* chat_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A4483DB41BCB5FCD00E7D101 /* chat_white@2x.png */; };
-		A4483DB71BCB5FCD00E7D101 /* chat_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A4483DB51BCB5FCD00E7D101 /* chat_black@2x.png */; };
 		A449B21D1BD794F80033A387 /* DLLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = A449B21C1BD794F80033A387 /* DLLoading.m */; };
 		A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */; };
 		A44B35561B82E088004F7A6A /* FillInformationCon.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B35551B82E088004F7A6A /* FillInformationCon.m */; };
@@ -1822,6 +1822,7 @@
 		A43E36B61B58C55500AA2FC7 /* ConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionController.m; sourceTree = "<group>"; };
 		A43EA5BA1BCCE0050007FE84 /* InformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationModel.h; sourceTree = "<group>"; };
 		A43EA5BB1BCCE0050007FE84 /* InformationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationModel.m; sourceTree = "<group>"; };
+		A43F56201BD9CFF6004DE6AE /* chat_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_black.png; sourceTree = "<group>"; };
 		A43F862E1B744AF60086D078 /* PublishVoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishVoteController.h; sourceTree = "<group>"; };
 		A43F862F1B744AF60086D078 /* PublishVoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishVoteController.m; sourceTree = "<group>"; };
 		A43F86311B7453D30086D078 /* optionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = optionsView.h; sourceTree = "<group>"; };
@@ -1839,7 +1840,6 @@
 		A4465CF81B9453C80056ACA8 /* FreshModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreshModel.h; sourceTree = "<group>"; };
 		A4465CF91B9453C80056ACA8 /* FreshModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshModel.m; sourceTree = "<group>"; };
 		A4483DB41BCB5FCD00E7D101 /* chat_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_white@2x.png"; sourceTree = "<group>"; };
-		A4483DB51BCB5FCD00E7D101 /* chat_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_black@2x.png"; sourceTree = "<group>"; };
 		A449B21B1BD794F80033A387 /* DLLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLoading.h; sourceTree = "<group>"; };
 		A449B21C1BD794F80033A387 /* DLLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLoading.m; sourceTree = "<group>"; };
 		A44B354B1B82CF65004F7A6A /* SearchSchoolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSchoolModel.h; sourceTree = "<group>"; };
@@ -4383,9 +4383,9 @@
 				A43CE97B1BAABDDC0069C94E /* 2.png */,
 				A43CE97C1BAABDDC0069C94E /* addImage.png */,
 				A43CE97D1BAABDDC0069C94E /* address.png */,
+				A43F56201BD9CFF6004DE6AE /* chat_black.png */,
 				A4483DB41BCB5FCD00E7D101 /* chat_white@2x.png */,
 				A46CFBC21BD6378C00D64CDB /* WarmText@2x.png */,
-				A4483DB51BCB5FCD00E7D101 /* chat_black@2x.png */,
 				A46CFBB51BD6244400D64CDB /* 社团@2x.png */,
 				A46CFBB61BD6244400D64CDB /* 手机好友@2x.png */,
 				A46CFBB71BD6244400D64CDB /* 微信@2x.png */,
@@ -4981,7 +4981,6 @@
 				96CF941F1B674B54001759E2 /* chatBar_recordSelected.png in Resources */,
 				A46CFBB41BD6201200D64CDB /* BG@2X.png in Resources */,
 				A48523E01BB910BF007098DC /* shetuan@2x.png in Resources */,
-				A4483DB71BCB5FCD00E7D101 /* chat_black@2x.png in Resources */,
 				54F248281BA2848A009133D6 /* chevron-left.png in Resources */,
 				5458679E1BA1A953009ED3E7 /* 关注@2x1.png in Resources */,
 				96CF94251B674B54001759E2 /* chatBar_colorMore_camera@2x.png in Resources */,
@@ -5230,6 +5229,7 @@
 				96CF94171B674B54001759E2 /* chatBar_more.png in Resources */,
 				96CF93C11B674B54001759E2 /* chatFire_audioPlaying1.png in Resources */,
 				96CF941B1B674B54001759E2 /* chatBar_record.png in Resources */,
+				A43F56211BD9CFF6004DE6AE /* chat_black.png in Resources */,
 				968B15331B69F4C9004A26C0 /* RankItemTableViewcell.xib in Resources */,
 				96CF93FF1B674B54001759E2 /* chatBar_more_faceSelected.png in Resources */,
 				A43CE9E11BAABDDC0069C94E /* shezhi@2x.png in Resources */,

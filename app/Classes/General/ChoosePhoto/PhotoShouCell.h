@@ -8,10 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol PhotoShowCellDelegate <NSObject>
+
+- (void)photoShowSuperControllerDismiss;
+
+@end
 @interface PhotoShouCell : UICollectionViewCell
 
-@property (nonatomic, strong)UIImageView *showImageView;
 
+
+
+@property (nonatomic, strong)UIImageView *showImageView;
+@property (nonatomic, assign)id <PhotoShowCellDelegate>delegate;
 - (void)settingUpImageViewWithImage:(id)image;
 
 @end

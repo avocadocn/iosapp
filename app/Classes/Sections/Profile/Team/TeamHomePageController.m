@@ -440,8 +440,7 @@ static NSString *ID = @"feasfsefse";
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     //初始化山寨导航条
     self.naviView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, 64)];
-    self.naviView.backgroundColor = [UIColor whiteColor];
-    self.naviView.alpha = 0.0f;
+    self.naviView.backgroundColor = [UIColor colorWithWhite:0 alpha:.2];
     [self.view addSubview:self.naviView];
     //添加返回按钮
     UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 64)];
@@ -482,7 +481,7 @@ static NSString *ID = @"feasfsefse";
     self.titleLabel.font = [UIFont systemFontOfSize:18];
 //    self.titleLabel.text = @"小队主页";
     
-    self.titleLabel.textColor = [UIColor clearColor];
+    self.titleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.titleLabel];
     
     [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -581,18 +580,18 @@ static NSString *ID = @"feasfsefse";
     if (scrollView.contentOffset.y <= 100 && scrollView.contentOffset.y >= 0) {
         
         CGFloat num = scrollView.contentOffset.y / 100.0f;
-        self.naviView.alpha = num;
+        self.naviView.backgroundColor = [UIColor colorWithWhite:num alpha:num];
     }
     if (scrollView.contentOffset.y >= 60) {
         self.titleLabel.textColor = [UIColor blackColor];
-        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_black@2x"] forState:UIControlStateNormal];
+        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_black"] forState:UIControlStateNormal];
         [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow black@2x"] forState:UIControlStateNormal];
     } else
     {
-        
+        self.naviView.backgroundColor = [UIColor colorWithWhite:0 alpha:.2];
         [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_white@2x"] forState:UIControlStateNormal];
         [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow white@2x"] forState:UIControlStateNormal];
-        self.titleLabel.textColor = [UIColor clearColor];
+        self.titleLabel.textColor = [UIColor whiteColor];
     }
     
     
