@@ -15,7 +15,8 @@
 #import "UIImageView+DLGetWebImage.h"
 #import "FMDBSQLiteManager.h"
 #import "Person.h"
-
+#import "ColleaguesInformationController.h"
+#import "AddressBookModel.h"
 @interface VoteInfoTableViewController ()
 {
     CGFloat _itemWidthHeight;
@@ -24,6 +25,8 @@
 @property (nonatomic, strong)NSMutableArray *dataArray;
 
 @property (nonatomic, strong) VoteInfoTableViewModel *infoModel;
+
+@property (nonatomic, strong) UIImageView *item;
 @end
 
 @implementation VoteInfoTableViewController
@@ -113,17 +116,20 @@ static NSString * const ID = @"VoteInfoTableViewCell";
         itemView.height = itemWidthHeight;
         [itemView dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:itemView.size];
         itemView.userInteractionEnabled = YES;
-        
+        itemView.tag = 1000 + i;
         // 设置圆形头像
         [itemView.layer setCornerRadius:itemWidthHeight / 2];
         [itemView.layer setMasksToBounds:YES];
-        
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushView:)];
+//        [itemView addGestureRecognizer:tap];
         [cell addSubview:itemView];
     }
 
     
 }
-
+//- (void)pushView:(UITapGestureRecognizer *)tap {
+//    NSLog(@"____---->%ld",self.item.tag);
+//}
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     VoteInfoTableViewModel *model = self.dataArray[section];
@@ -148,5 +154,15 @@ static NSString * const ID = @"VoteInfoTableViewCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 1;
 }
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    VoteInfoTableViewModel *model = self.dataArray[indexPath.section];
+//    NSArray *array = model.voters;
+//    NSDictionary *dic = array[indexPath.row];
+//    AddressBookModel *models = [[AddressBookModel alloc] init];
+//    [models setValuesForKeysWithDictionary:dic];
+//    ColleaguesInformationController *informationController = [[ColleaguesInformationController alloc] init];
+//    informationController.model = models;
+//    [self.navigationController pushViewController:informationController animated:YES];
+//}
 
 @end

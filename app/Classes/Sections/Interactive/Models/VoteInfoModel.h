@@ -65,4 +65,9 @@
 @property (nonatomic, copy)NSString *interactionId;
 
 @property (nonatomic, strong)PollModel *model;
+
+/**
+ *  学校
+ */
+@property (nonatomic, copy) NSString *companyName;
 @end

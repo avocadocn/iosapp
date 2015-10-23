@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface Person : NSObject
-@property (nonatomic, copy)NSString *name, *imageURL, *userId;
+@property (nonatomic, copy)NSString *name, *imageURL, *userId , *companyName;
 +(id)personWithName:(NSString *)name
            imageURL:(NSString *)imageURL
-             userId:(NSString *)userId;
+             userId:(NSString *)userId
+        companyName:(NSString *)companyName;
 @end

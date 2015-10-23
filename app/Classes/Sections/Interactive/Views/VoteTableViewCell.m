@@ -142,19 +142,19 @@
     self.voteInfosBtn = [UIImageView new];
 //    [self.voteInfosBtn setTitle:@"投票" forState:UIControlStateNormal];
     [self.voteInfosBtn setUserInteractionEnabled:YES];
-    self.voteInfosBtn.image = [UIImage imageNamed:@"talk"];
-    self.voteInfosBtn.x = 10;
-    self.voteInfosBtn.y = 8;
+    self.voteInfosBtn.image = [UIImage imageNamed:@"info"];
+    self.voteInfosBtn.x = 8;
+    self.voteInfosBtn.y = 10;
     self.voteInfosBtn.width  = 25;
-    self.voteInfosBtn.height = 25;
+    self.voteInfosBtn.height = 22;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(haveVote:)];
     [self.voteInfosBtn addGestureRecognizer:tap];
     
     self.numberLabel = [UILabel new];
     self.numberLabel.textColor = RGBACOLOR(155, 155, 155, 1);
-    self.numberLabel.font = [UIFont systemFontOfSize:13];
-    self.numberLabel.x = 37;
-    self.numberLabel.y = 8;
+    self.numberLabel.font = [UIFont systemFontOfSize:14];
+    self.numberLabel.x = 35;
+    self.numberLabel.y = 10;
     self.numberLabel.width = 50;
     self.numberLabel.height = 25;
 
@@ -186,10 +186,10 @@
     UIImageView *commentBtn = [UIImageView new];
     [commentBtn setUserInteractionEnabled:YES];
     commentBtn.x = DLScreenWidth - 35;
-    commentBtn.y = 8;
+    commentBtn.y = 10;
     commentBtn.width = 25;
-    commentBtn.height = 25;
-    commentBtn.image = [UIImage imageNamed:@"talk"];
+    commentBtn.height = 22;
+    commentBtn.image = [UIImage imageNamed:@"iconfont-chat"];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushViewControllerd:)];
     [commentBtn addGestureRecognizer:tapGesture];
     
@@ -244,6 +244,9 @@
     [self.timeLabel setFrame:voteCellFrame.timeLabelF];
     self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, -3, 80, 20)];
 //    [self.fromLabel getCompanyNameFromCid:model.cid];
+    self.fromLabel.text = model.companyName;
+    self.fromLabel.font = [UIFont systemFontOfSize:10];
+    self.fromLabel.tintColor = RGBACOLOR(155, 155, 155, 1);
     [self.timeLabel addSubview:self.fromLabel];
     
     //    self.timeLabel.backgroundColor = [UIColor redColor];
@@ -259,10 +262,8 @@
     [self.voteContentLabel setFrame:voteCellFrame.voteContentLabelF];
     
 //     已投票人数
-    for (NSDictionary *dic in self.infoModel.model.option) {
-        NSArray *array = dic[@"voters"];
-        self.numberLabel.text = [NSString stringWithFormat:@"%ld",array.count];
-    }
+
+    self.numberLabel.text = [NSString stringWithFormat:@"%ld",model.voteCount];
     
     
     // 选项

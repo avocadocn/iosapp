@@ -19,7 +19,6 @@
 #import "Interaction.h"
 #import "FMDBSQLiteManager.h"
 #import "Person.h"
-
 @interface CommentsViewController ()
 
 @property (nonatomic, strong) NSMutableArray *comments;
@@ -213,6 +212,10 @@ static NSString * const ID = @"VoteCommentViewCell";
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
 }
 /*
  _id = 55f6b5b31cc34f3c7f944c9f,

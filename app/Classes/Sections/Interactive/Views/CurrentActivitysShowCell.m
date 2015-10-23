@@ -99,7 +99,8 @@
         }
     }
 
-    [self.fromLabel getCompanyNameFromCid:model.cid]; 
+//    [self.fromLabel getCompanyNameFromCid:model.cid]; 
+    self.fromLabel.text = person.companyName;
 }
 
 - (NSString*)getParsedDateStringFromString:(NSString*)dateString

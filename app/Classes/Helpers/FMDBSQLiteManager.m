@@ -69,7 +69,7 @@
     }
     [self.queue inDatabase:^(FMDatabase *db) {
         [db open];//打开数据库
-        BOOL b = [db executeUpdate:@"insert into PersonTable(name,userId,imageURL) values(?,?,?)",p.name,p.userId,p.imageURL];//存数据
+        BOOL b = [db executeUpdate:@"insert into PersonTable(name,userId,imageURL,companyName) values(?,?,?,?)",p.name,p.userId,p.imageURL,p.companyName];//存数据
         [db close];
         b ? NSLog(@"插入成功") : NSLog(@"插入失败");
     }];
@@ -81,7 +81,7 @@
     [self.queue inDatabase:^(FMDatabase *db) {
         [db open];//打开数据库
         BOOL b = FALSE;
-        NSString* sql = [NSString stringWithFormat:@"update PersonTable set name = '%@',imageURL = '%@' where userId = '%@'",p.name,p.imageURL,p.userId];
+        NSString* sql = [NSString stringWithFormat:@"update PersonTable set name = '%@',imageURL = '%@',companyName = '%@' where userId = '%@'",p.name,p.imageURL,p.companyName,p.userId];
         b= [db executeUpdate:sql];//更新数据
         [db close];
         b ? NSLog(@"更新成功") : NSLog(@"更新失败");
@@ -126,7 +126,7 @@
         FMResultSet *set = [db executeQuery:@"select *from PersonTable where userId = ?",userId];
         while ([set next]) {
             //         stringForColumn提取对应字段中的数据
-            self.per = [Person personWithName:[set stringForColumn:@"name"] imageURL:[set stringForColumn:@"imageURL"] userId:[set stringForColumn:@"userId"]];
+            self.per = [Person personWithName:[set stringForColumn:@"name"] imageURL:[set stringForColumn:@"imageURL"] userId:[set stringForColumn:@"userId"] companyName:[set stringForColumn:@"companyName"]];
             
         }
         [db close];

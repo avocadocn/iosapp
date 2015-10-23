@@ -29,7 +29,7 @@
     self.backgroundColor = ArcColor;
     NSString * newUrlStr = [self getUrlStringWithString:str];
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
-    [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image];
+    [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 }
 - (int)BitmapScale
 {
@@ -57,7 +57,7 @@
         NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width*[self BitmapScale], size.height*[self BitmapScale]]];
         
         //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
-        [self dlGetWebImageWithDefaultCacheAndRefreshWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
+        [self dlGetWebImageWithDefaultCacheAndRefreshWithUrl:[NSURL URLWithString:newStr] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }else{
         [self dlGetRouteThumbnallWebImageWithString:str placeholderImage:image withSize:size];
     }
@@ -75,7 +75,7 @@
     NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%d/%d", (int)size.width*[self BitmapScale], (int)size.height*[self BitmapScale]]];
 //    NSLog(@"the app path is :%@",path);
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
-    [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
+    [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newStr] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 }
 
 //直接使用第三方库的缓存
@@ -94,13 +94,13 @@
     NSString *newUrlStr = [self getUrlStringWithString:url];
     NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width*[self BitmapScale], size.height*[self BitmapScale]]];
     
-    [self sd_setImageWithURL:[NSURL URLWithString:newStr] placeholderImage:nil options:SDWebImageProgressiveDownload|SDWebImageHighPriority completed:completedBlock];
+    [self sd_setImageWithURL:[NSURL URLWithString:newStr] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageProgressiveDownload|SDWebImageHighPriority completed:completedBlock];
 }
 
 //直接使用第三方库的缓存,带刷新
 - (void)dlGetWebImageWithDefaultCacheAndRefreshWithUrl:(NSURL *)url placeholderImage:(UIImage *)image
 {
-    [self sd_setImageWithURL:url placeholderImage:image options:SDWebImageProgressiveDownload|SDWebImageHighPriority|SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageProgressiveDownload|SDWebImageHighPriority|SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
 }
@@ -140,7 +140,7 @@
         
     } else {
         NSLog(@"本地没有图片");
-        [self sd_setImageWithURL:url placeholderImage:image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [self saveImageWithUrl:url];
             self.backgroundColor = [UIColor clearColor];
         }];

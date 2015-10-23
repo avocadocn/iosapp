@@ -129,16 +129,16 @@
     
 }
 
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    UITouch *touch = [touches anyObject];
-
-    NSTimeInterval delay = 1;
-    
-    NSLog(@"%ld", touch.tapCount);
-    
-}
+//
+//- (void)touchesEnded:(NSSet<UITouch *>)touches withEvent:(UIEvent *)event
+//{
+//    UITouch *touch = [touches anyObject];
+//
+//    NSTimeInterval delay = 1;
+//    
+//    NSLog(@"%ld", touch.tapCount);
+//    
+//}
 
 - (void)apImageAction:(UITapGestureRecognizer *)sender
 {

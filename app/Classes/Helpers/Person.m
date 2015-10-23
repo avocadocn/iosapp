@@ -9,11 +9,12 @@
 #import "Person.h"
 
 @implementation Person
-+(id)personWithName:(NSString *)name imageURL:(NSString *)imageURL userId:(NSString *)userId {
++(id)personWithName:(NSString *)name imageURL:(NSString *)imageURL userId:(NSString *)userId companyName:(NSString *)companyName {
     Person *p = [[Person alloc] init];
     p.name = name;
     p.imageURL = imageURL;
     p.userId = userId;
+    p.companyName = companyName;
     return p;
 }
 @end

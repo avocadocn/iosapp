@@ -39,6 +39,7 @@
 #import "FMDBSQLiteManager.h"
 #import <MJRefresh.h>
 #import "NewRankListControllerViewController.h"
+
 enum InteractionType{
     InteractionTypeActivityTemplate,
     InteractionTypeVoteTemplate,
@@ -61,6 +62,7 @@ enum InteractionType{
 
 @property (nonatomic, copy)NSString *path; // 写入文件路径
 @property (nonatomic)BOOL orTrue;
+@property (nonatomic, copy) NSString *companyName;
 
 /**
  *  path菜单
@@ -652,6 +654,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     Account *account = [AccountTool account];
     AddressBookModel *model = [[AddressBookModel alloc] init];
     [model setCompanyId:account.cid];
+    [self getCompanyNameWithCid:account.cid];
     [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
         NSLog(@"请求成功 %@",json);
         [self reloadWithJson:json];
@@ -720,12 +723,38 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         per.name = dic[@"realname"];
         per.imageURL = dic[@"photo"];
         per.userId = dic[@"_id"];
+        per.companyName = self.companyName;
         [[FMDBSQLiteManager shareSQLiteManager] insertPerson:per];
     }
    
     
 }
+- (void)getCompanyNameWithCid:(NSString *)cid {
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:cid forKey:@"companyId"];
+    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
+        [self ismembermentJson:json];
+        NSLog(@"%@",json);
+        
+    } failure:^(id errorJson) {
+        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
+    }];
+}
 
+- (void)ismembermentJson:(id)json
+{
+    NSDictionary *dic = [json objectForKey:@"company"];
+    NSDictionary *infoDic = [dic objectForKey:@"info"];
+    NSString *temp = [NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]];
+    
+    NSDictionary *tempDic = [NSDictionary dictionaryWithObjects:@[RGBACOLOR(80, 125, 175, 1)] forKeys:@[NSForegroundColorAttributeName]];
+    //    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:temp attributes:tempDic];
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]]] ;
+    NSInteger num = temp.length - 3;
+    //    [attStr addAttributes:@{[UIColor orangeColor]} range:NSMakeRange(3, num)];
+    [attStr setAttributes:tempDic range:NSMakeRange(3, num)];
+    self.companyName = [attStr string];
+}
 
 
 

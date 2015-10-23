@@ -60,6 +60,13 @@
 		54BB1DD51B8EF6F500F76628 /* ChangePassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DD41B8EF6F500F76628 /* ChangePassWordViewController.m */; };
 		54BB1DD91B8EF7AD00F76628 /* ChangePassWordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BB1DD71B8EF7AD00F76628 /* ChangePassWordTableViewCell.m */; };
 		54BB1DDA1B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */; };
+		54DBCAD61BDA19A000308DC5 /* iconfont-chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCAD41BDA19A000308DC5 /* iconfont-chat.png */; };
+		54DBCAD71BDA19A000308DC5 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCAD51BDA19A000308DC5 /* info.png */; };
+		54DBCAD91BDA2A6F00308DC5 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCAD81BDA2A6F00308DC5 /* placeholder.png */; };
+		54DBCADE1BDA302500308DC5 /* launchImage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCADA1BDA302500308DC5 /* launchImage2.png */; };
+		54DBCAE01BDA302500308DC5 /* launchImage4.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCADC1BDA302500308DC5 /* launchImage4.png */; };
+		54DBCAE11BDA302500308DC5 /* launchImage5.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCADD1BDA302500308DC5 /* launchImage5.png */; };
+		54DBCAE31BDA365B00308DC5 /* launchImage750 * 1334.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DBCAE21BDA365B00308DC5 /* launchImage750 * 1334.png */; };
 		54E542E41BA6CFE9008A6687 /* FMDBSQLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */; };
 		54E542E71BA6D735008A6687 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E61BA6D735008A6687 /* Person.m */; };
 		54E542EB1BA7DF35008A6687 /* mydatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */; };
@@ -741,8 +748,8 @@
 		A4745E111B81A9AC008EB944 /* JKPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DF71B81A9AC008EB944 /* JKPromptView.m */; };
 		A4745E151B81BD1C008EB944 /* OwnnessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745E141B81BD1C008EB944 /* OwnnessViewController.m */; };
 		A4745E201B81DF53008EB944 /* ImageHolderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745E1F1B81DF53008EB944 /* ImageHolderView.m */; };
-		A47DCAFD1BD8B4DC0015F609 /* DLPhotoPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCAFC1BD8B4DC0015F609 /* DLPhotoPlayView.m */; settings = {ASSET_TAGS = (); }; };
-		A47DCB031BD8C9B80015F609 /* UIScrollView+DLTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCB021BD8C9B80015F609 /* UIScrollView+DLTouch.m */; settings = {ASSET_TAGS = (); }; };
+		A47DCAFD1BD8B4DC0015F609 /* DLPhotoPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCAFC1BD8B4DC0015F609 /* DLPhotoPlayView.m */; };
+		A47DCB031BD8C9B80015F609 /* UIScrollView+DLTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCB021BD8C9B80015F609 /* UIScrollView+DLTouch.m */; };
 		A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = A47F50371B67765600955052 /* CompanyEmailComplete.m */; };
 		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
 		A48077941B6B86EF000F11D1 /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A48077931B6B86EF000F11D1 /* libEaseMobClientSDK.a */; };
@@ -894,6 +901,13 @@
 		54BB1DD61B8EF7AD00F76628 /* ChangePassWordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePassWordTableViewCell.h; sourceTree = "<group>"; };
 		54BB1DD71B8EF7AD00F76628 /* ChangePassWordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePassWordTableViewCell.m; sourceTree = "<group>"; };
 		54BB1DD81B8EF7AD00F76628 /* ChangePassWordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePassWordTableViewCell.xib; sourceTree = "<group>"; };
+		54DBCAD41BDA19A000308DC5 /* iconfont-chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-chat.png"; sourceTree = "<group>"; };
+		54DBCAD51BDA19A000308DC5 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		54DBCAD81BDA2A6F00308DC5 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		54DBCADA1BDA302500308DC5 /* launchImage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchImage2.png; sourceTree = "<group>"; };
+		54DBCADC1BDA302500308DC5 /* launchImage4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchImage4.png; sourceTree = "<group>"; };
+		54DBCADD1BDA302500308DC5 /* launchImage5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchImage5.png; sourceTree = "<group>"; };
+		54DBCAE21BDA365B00308DC5 /* launchImage750 * 1334.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchImage750 * 1334.png"; sourceTree = "<group>"; };
 		54E542E21BA6CFE9008A6687 /* FMDBSQLiteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDBSQLiteManager.h; sourceTree = "<group>"; };
 		54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBSQLiteManager.m; sourceTree = "<group>"; };
 		54E542E51BA6D735008A6687 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
@@ -2980,6 +2994,13 @@
 		96AA196D1B79C193008E4CA3 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				54DBCAE21BDA365B00308DC5 /* launchImage750 * 1334.png */,
+				54DBCADA1BDA302500308DC5 /* launchImage2.png */,
+				54DBCADC1BDA302500308DC5 /* launchImage4.png */,
+				54DBCADD1BDA302500308DC5 /* launchImage5.png */,
+				54DBCAD81BDA2A6F00308DC5 /* placeholder.png */,
+				54DBCAD41BDA19A000308DC5 /* iconfont-chat.png */,
+				54DBCAD51BDA19A000308DC5 /* info.png */,
 				96AA196E1B79C193008E4CA3 /* profile_menu_invite.png */,
 				96AA196F1B79C193008E4CA3 /* profile_menu_qrcode.png */,
 				96AA19701B79C193008E4CA3 /* profile_menu_setting.png */,
@@ -4906,11 +4927,13 @@
 				96CF94391B674B54001759E2 /* chatBar_more_photoSelected.png in Resources */,
 				96CF93FD1B674B54001759E2 /* chatBar_more_face.png in Resources */,
 				96CF941C1B674B54001759E2 /* chatBar_record@2x.png in Resources */,
+				54DBCAD71BDA19A000308DC5 /* info.png in Resources */,
 				54BB1DC91B8DBE7A00F76628 /* ExitTableViewCell.xib in Resources */,
 				96CF93B71B674B54001759E2 /* 114.png in Resources */,
 				A43CE9C31BAABDDC0069C94E /* disappear.png in Resources */,
 				54EE2D7A1BAFA88400109C84 /* AMap.bundle in Resources */,
 				96CF93BC1B674B54001759E2 /* 80.png in Resources */,
+				54DBCADE1BDA302500308DC5 /* launchImage2.png in Resources */,
 				96CF93EA1B674B54001759E2 /* VoiceSearchFeedback018@2x.png in Resources */,
 				96CF94651B674B54001759E2 /* groupPublicHeader@2x.png in Resources */,
 				96CF94711B674B54001759E2 /* tabbar_setting@2x.png in Resources */,
@@ -5070,6 +5093,7 @@
 				A43CE9B71BAABDDC0069C94E /* address.png in Resources */,
 				96CF94541B674B54001759E2 /* account.png in Resources */,
 				96CF94551B674B54001759E2 /* account@2x.png in Resources */,
+				54DBCAE31BDA365B00308DC5 /* launchImage750 * 1334.png in Resources */,
 				A43CE9D01BAABDDC0069C94E /* mark.png in Resources */,
 				96CF94081B674B54001759E2 /* chat_location_detail_disclosureHL@2x.png in Resources */,
 				96CF94421B674B54001759E2 /* chat_receiver_audio_playing003.png in Resources */,
@@ -5083,6 +5107,7 @@
 				96CF94281B674B54001759E2 /* chatBar_colorMore_locationSelected@2x.png in Resources */,
 				54F2482E1BA2B03B009133D6 /* 求助@2x.png in Resources */,
 				54F248321BA2B2B4009133D6 /* voteyeah.png in Resources */,
+				54DBCAE01BDA302500308DC5 /* launchImage4.png in Resources */,
 				A43CE9E31BAABDDC0069C94E /* talk.png in Resources */,
 				546CA5841B9E88CD0066CC0C /* 投票 .png in Resources */,
 				96CF90F91B67345C001759E2 /* Localizable.strings in Resources */,
@@ -5095,6 +5120,7 @@
 				96AA19721B79C193008E4CA3 /* profile_menu_qrcode.png in Resources */,
 				96CF94771B674B54001759E2 /* tabbarSelectBg@2x.png in Resources */,
 				968C27431B7B2FC600950581 /* CustomSettingAvatarTableCell.xib in Resources */,
+				54DBCAE11BDA302500308DC5 /* launchImage5.png in Resources */,
 				96CF94111B674B54001759E2 /* chatBar_faceSelected.png in Resources */,
 				96CF93E41B674B54001759E2 /* VoiceSearchFeedback015@2x.png in Resources */,
 				A43CE9DF1BAABDDC0069C94E /* seek.png in Resources */,
@@ -5113,6 +5139,7 @@
 				96CF93F01B674B54001759E2 /* call_out@2x.png in Resources */,
 				54F248541BA2D76C009133D6 /*  通讯录.png in Resources */,
 				96CF94091B674B54001759E2 /* chat_location_preview.png in Resources */,
+				54DBCAD91BDA2A6F00308DC5 /* placeholder.png in Resources */,
 				96CF93F11B674B54001759E2 /* call_out_h.png in Resources */,
 				54F2483A1BA2BD09009133D6 /* votesss.png in Resources */,
 				96CF94571B674B54001759E2 /* password@2x.png in Resources */,
@@ -5254,6 +5281,7 @@
 				54EA032B1BB25E4400B96881 /* 我的信息111@2X.png in Resources */,
 				96CF93F31B674B54001759E2 /* call_silence.png in Resources */,
 				A43CE9DB1BAABDDC0069C94E /* phone.png in Resources */,
+				54DBCAD61BDA19A000308DC5 /* iconfont-chat.png in Resources */,
 				96CF94471B674B54001759E2 /* chat_receiver_bg@2x.png in Resources */,
 				5458678F1BA194E8009ED3E7 /* 互动@2x.png in Resources */,
 				A43CE9BD1BAABDDC0069C94E /* chevron-left.png in Resources */,
@@ -5841,6 +5869,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -5872,6 +5901,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;

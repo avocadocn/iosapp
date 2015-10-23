@@ -84,6 +84,9 @@ static NSString * const ID = @"VoteTableViewCell";
     voteInfoModel.interactionId = inter.interactionId;
     voteInfoModel.model = inter.poll;
     voteInfoModel.cid = inter.cid;
+    voteInfoModel.companyName = per.companyName;
+    voteInfoModel.voteCount = inter.members.count;
+
     
     voteInfoModel.options = [NSMutableArray array];
     NSNumber * num = 0;
