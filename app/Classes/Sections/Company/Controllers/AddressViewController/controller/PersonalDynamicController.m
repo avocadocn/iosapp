@@ -212,10 +212,16 @@ static NSString *ID = @"CurrentActivitysShowCell";
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setupNavigationBar];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
     switch ([inter.type integerValue]) {
         case 1:{  // 活动详情

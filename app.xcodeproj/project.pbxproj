@@ -648,6 +648,7 @@
 		A43F56271BDA1462004DE6AE /* man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F56231BDA1462004DE6AE /* man@2x.png */; settings = {ASSET_TAGS = (); }; };
 		A43F56281BDA1462004DE6AE /* gray-woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F56241BDA1462004DE6AE /* gray-woman@2x.png */; settings = {ASSET_TAGS = (); }; };
 		A43F56291BDA1462004DE6AE /* woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F56251BDA1462004DE6AE /* woman@2x.png */; settings = {ASSET_TAGS = (); }; };
+		A43F562B1BDA30B0004DE6AE /* aa.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A43F562A1BDA30B0004DE6AE /* aa.jpg */; settings = {ASSET_TAGS = (); }; };
 		A43F86301B744AF60086D078 /* PublishVoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F862F1B744AF60086D078 /* PublishVoteController.m */; };
 		A43F86331B7453D30086D078 /* optionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F86321B7453D30086D078 /* optionsView.m */; };
 		A43F86381B7487DB0086D078 /* PublishSeekHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = A43F86371B7487DB0086D078 /* PublishSeekHelp.m */; };
@@ -1823,6 +1824,7 @@
 		A43F56231BDA1462004DE6AE /* man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "man@2x.png"; sourceTree = "<group>"; };
 		A43F56241BDA1462004DE6AE /* gray-woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray-woman@2x.png"; sourceTree = "<group>"; };
 		A43F56251BDA1462004DE6AE /* woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@2x.png"; sourceTree = "<group>"; };
+		A43F562A1BDA30B0004DE6AE /* aa.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aa.jpg; sourceTree = "<group>"; };
 		A43F862E1B744AF60086D078 /* PublishVoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishVoteController.h; sourceTree = "<group>"; };
 		A43F862F1B744AF60086D078 /* PublishVoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishVoteController.m; sourceTree = "<group>"; };
 		A43F86311B7453D30086D078 /* optionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = optionsView.h; sourceTree = "<group>"; };
@@ -4379,6 +4381,7 @@
 		A43CE9791BAABDDC0069C94E /* Temporary */ = {
 			isa = PBXGroup;
 			children = (
+				A43F562A1BDA30B0004DE6AE /* aa.jpg */,
 				A43CE97A1BAABDDC0069C94E /* 2.jpg */,
 				A43CE97B1BAABDDC0069C94E /* 2.png */,
 				A43CE97C1BAABDDC0069C94E /* addImage.png */,
@@ -4960,6 +4963,7 @@
 				96CF93FB1B674B54001759E2 /* chatBar_more_cardSelected.png in Resources */,
 				961053511B590C31002D62A3 /* CurrentActivitysShowCell.xib in Resources */,
 				5458677D1BA18D09009ED3E7 /* Rectangle 177 + calendar + Fill 133.png in Resources */,
+				A43F562B1BDA30B0004DE6AE /* aa.jpg in Resources */,
 				A43CE9E41BAABDDC0069C94E /* talkSpeak.png in Resources */,
 				96CF94151B674B54001759E2 /* chatBar_keyboardSelected.png in Resources */,
 				5458676E1BA18487009ED3E7 /* Shape Copy 2 + Line + Line Copy 6.png in Resources */,
@@ -5123,7 +5127,7 @@
 				96CF93BF1B674B54001759E2 /* chatFire_audioPlaying0.png in Resources */,
 				96CF93DB1B674B54001759E2 /* VoiceSearchFeedback011.png in Resources */,
 				A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */,
-				545867761BA185C5009ED3E7 /* Oval 349.png in Resources */,
+				545867761BA185C5009ED3E7 /* womenGodRank.png in Resources */,
 				A43CE9CC1BAABDDC0069C94E /* image.png in Resources */,
 				967A063B1B71FBDB007BA757 /* Interactive_vote_downArrow.png in Resources */,
 				96CF942B1B674B54001759E2 /* chatBar_colorMore_video@2x.png in Resources */,
@@ -5841,6 +5845,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -5872,6 +5877,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
