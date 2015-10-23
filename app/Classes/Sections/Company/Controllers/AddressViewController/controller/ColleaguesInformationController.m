@@ -274,7 +274,7 @@ static NSInteger tagNum = 1;
             dynamic.userModel = [[AddressBookModel alloc] init];
             dynamic.userModel = self.model;
             [self.navigationController pushViewController:dynamic animated:YES];
-            [self.navigationController setNavigationBarHidden:NO animated:YES];
+
             break;
         }
             

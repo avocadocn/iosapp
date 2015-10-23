@@ -59,8 +59,7 @@ static NSString * const ID = @"CustomMemberTableViewCell";
     NSDictionary *dic = [self.memberInfos objectAtIndex:indexPath.row];
     Person *per = [self.manger selectPersonWithUserId:[dic objectForKey:@"_id"]];
     
-    [iconImageView dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
-    
+    [iconImageView dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:iconImageView.size];
     
     // 设置圆形icon
     [iconImageView.layer setCornerRadius:iconImageView.width / 2];

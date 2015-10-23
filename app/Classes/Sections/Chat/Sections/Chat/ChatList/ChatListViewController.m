@@ -115,8 +115,6 @@ static ChatListViewController *chat = nil;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self refreshDataSource];
     [self registerNotifications];
 }
 
@@ -143,7 +141,7 @@ static ChatListViewController *chat = nil;
     if (needRemoveConversations && needRemoveConversations.count > 0) {
         [[EaseMob sharedInstance].chatManager removeConversationsByChatters:needRemoveConversations
                                                              deleteMessages:YES
-                                                                append2Chat:NO];
+                                                            append2Chat:NO];
     }
 }
 
@@ -315,8 +313,18 @@ static ChatListViewController *chat = nil;
 }
 - (NSMutableArray* )sortConversation:(NSArray*)conversations
 {
-    NSMutableArray *ret = nil;
-    NSArray* sorte = [conversations sortedArrayUsingComparator:
+    NSMutableArray *ret = [NSMutableArray arrayWithArray:conversations];
+    NSMutableArray * temp = [NSMutableArray new];
+    for (EMConversation *con in ret) {
+        if (!con.latestMessage) {
+            [temp addObject:con];
+        }
+    }
+    if (temp.count==conversations.count) {
+        return ret;
+    }
+    [ret removeObjectsInArray:temp];
+    NSArray* sorte = [ret sortedArrayUsingComparator:
                       ^(EMConversation *obj1, EMConversation* obj2){
                           EMMessage *message1 = [obj1 latestMessage];
                           EMMessage *message2 = [obj2 latestMessage];
@@ -326,8 +334,8 @@ static ChatListViewController *chat = nil;
                               return(NSComparisonResult)NSOrderedDescending;
                           }
                       }];
-    
     ret = [[NSMutableArray alloc] initWithArray:sorte];
+    [ret addObjectsFromArray:temp];
     return ret;
 }
 // 得到最后消息时间
@@ -507,7 +515,10 @@ static ChatListViewController *chat = nil;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    ChatListCell* currentCell = [tableView cellForRowAtIndexPath:indexPath];
+    if (currentCell) {
+        currentCell.unreadCount=0;
+    }
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
     
     ChatViewController *chatController;
@@ -606,7 +617,6 @@ static ChatListViewController *chat = nil;
 //刷新消息列表
 - (void)slimeRefreshStartRefresh:(SRRefreshView *)refreshView
 {
-//    [self refreshDataSource];
     [self refreshGroup];
     [_slimeView endRefresh];
 }
@@ -615,7 +625,6 @@ static ChatListViewController *chat = nil;
 
 -(void)didUnreadMessagesCountChanged
 {
-    [self refreshDataSource];
 }
 
 - (void)didUpdateGroupList:(NSArray *)allGroups error:(EMError *)error
@@ -659,6 +668,8 @@ static ChatListViewController *chat = nil;
 }
 - (void)analyDataWithJson:(id)json{
     NSArray* groups = [json objectForKey:@"groups"];
+    self.groupList = [NSMutableArray new];
+    self.chatList = [NSMutableArray new];
     for (NSDictionary* g in groups) {
         Group* gro = [Group groupWithName:[g objectForKey:@"name"] brief:[g objectForKey:@"brief"] iconURL:[g objectForKey:@"logo"] groupID:[g objectForKey:@"_id"] easemobID:[g objectForKey:@"easemobId"] open:[[g objectForKey:@"open"] boolValue]];
         [[FMDBSQLiteManager shareSQLiteManager] insertGroup:gro];
@@ -682,7 +693,7 @@ static ChatListViewController *chat = nil;
     if (self.groupList) {
         [self.chatList addObjectsFromArray:self.groupList];
     }
-    self.chatList=[self sortConversation:self.chatList];
+//    self.chatList=[self sortConversation:self.chatList];
     self.dataSource = self.chatList;
     [self refreshDataSource];
 }

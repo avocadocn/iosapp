@@ -22,7 +22,7 @@
         Person *per=  [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:image];
         
         [self maskImage:per.imageURL];
-        [self tableViewHeaderViewWithImage:per.imageURL];
+        [self tableViewHeaderViewWithImage:per];
     }
     return self;
 }
@@ -37,16 +37,16 @@
     
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
-    effectview.alpha = .5;
+    effectview.alpha = .8;
     effectview.frame = self.frame;
     [self addSubview:effectview];
     
-    UIView *view = [[UIView alloc]initWithFrame:self.frame];
-    UIImage *remp = [UIImage imageNamed:@"mask_sha.jpeg"];
+//    UIView *view = [[UIView alloc]initWithFrame:self.frame];
+//    UIImage *remp = [UIImage imageNamed:@"mask_sha.jpeg"];
     
-    view.layer.contents = (__bridge id)remp.CGImage;
-    view.alpha = .45;
-    [self addSubview:view];
+//    view.layer.contents = (__bridge id)remp.CGImage;
+//    view.alpha = .45;
+//    [self addSubview:view];
     
     /*
     self.filter = [CIFilter filterWithName:@"CIMaskedVariableBlur"];
@@ -79,19 +79,17 @@
      
      */
 }
-- (void)tableViewHeaderViewWithImage:(NSString *)image
+- (void)tableViewHeaderViewWithImage:(Person *)image
 {
-    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:image];
-    
     
 //    self.layer.contentsGravity = kCAGravityResizeAspectFill;
     
-    ApertureView *aper = [[ApertureView alloc]initWithFrame:CGRectMake(DLScreenWidth / (375 / 10.0), DLScreenHeight / (667 / 97.0), DLScreenWidth / (375 / 100.00), DLScreenWidth / (375 / 100.00)) andImage:image withBorderColor:[UIColor whiteColor]];
+    ApertureView *aper = [[ApertureView alloc]initWithFrame:CGRectMake(DLScreenWidth / (375 / 10.0), DLScreenHeight / (667 / 97.0), DLScreenWidth / (375 / 100.00), DLScreenWidth / (375 / 100.00)) andImage:image.imageURL withBorderColor:[UIColor whiteColor]];
     [self addSubview:aper];
     
     self.headerTitleLabel = [UILabel new];
     self.headerTitleLabel.textColor = [UIColor whiteColor];
-    self.headerTitleLabel.text = per.name;
+    self.headerTitleLabel.text = image.name;
 //    self.headerTitleLabel.attributedText = [self attributeString:per.name];
     
     UIView *lineView = [UIView new];

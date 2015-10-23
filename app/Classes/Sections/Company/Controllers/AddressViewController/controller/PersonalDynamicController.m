@@ -24,7 +24,10 @@
 #import "AddressBookModel.h"
 
 @interface PersonalDynamicController ()<UITableViewDataSource, UITableViewDelegate>
-
+@property (nonatomic, strong)UIButton *settingBtn;
+@property (nonatomic, strong)UIButton *backBtn;
+@property (nonatomic, strong)UILabel *titleLabel;
+@property (nonatomic, strong)UIView *naviView;
 @end
 
 static NSString *ID = @"CurrentActivitysShowCell";
@@ -33,12 +36,13 @@ static NSString *ID = @"CurrentActivitysShowCell";
 // 个人动态
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
 //    [self makeFlaseData];
-    self.title = @"个人动态";
+
     [self builtInterface];
     
     [self requestNet];
+    [self setupNavigationBar];
     
 }
 
@@ -208,10 +212,16 @@ static NSString *ID = @"CurrentActivitysShowCell";
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setupNavigationBar];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     Interaction *inter = [self.modelArray objectAtIndex:indexPath.row];
     switch ([inter.type integerValue]) {
         case 1:{  // 活动详情
@@ -276,5 +286,47 @@ static NSString *ID = @"CurrentActivitysShowCell";
 }
 
 
-
+-(void)setupNavigationBar{
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    //初始化山寨导航条
+    self.naviView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, 64)];
+    self.naviView.backgroundColor = [UIColor blackColor];
+    self.naviView.alpha = .2f;
+    [self.view addSubview:self.naviView];
+    //添加返回按钮
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backBtn.frame = CGRectMake(12, 30, 12, 20);
+    [self.backBtn setImage:[UIImage imageNamed:@"new_navigation_back@2x"] forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(backBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backBtn];
+    
+    //按钮
+//    self.settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.settingBtn.frame = CGRectMake(DLScreenWidth - 36, 34, 19, 19);
+//    [self.settingBtn setImage:[UIImage imageNamed:@"new_navigation_back_helight@2x"] forState:UIControlStateHighlighted];
+//    
+//    [self.settingBtn addTarget:self action:@selector(settingBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:self.settingBtn];
+//    
+    //添加导航条上的大文字
+    self.titleLabel = [[UILabel alloc] init];
+    self.titleLabel.size = CGSizeMake(200, 18);
+    self.titleLabel.centerX = DLScreenWidth / 2;
+    self.titleLabel.y = 64 - self.titleLabel.size.height - 13;
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.font = [UIFont systemFontOfSize:18];
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.text = @"个人动态";
+    [self.view addSubview:self.titleLabel];
+}
+- (void)backBtnClicked:(UIButton *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 @end
+

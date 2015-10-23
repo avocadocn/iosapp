@@ -22,6 +22,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame andImage:(NSString *)image;
 
-- (void)tableViewHeaderViewWithImage:(NSString *)image;
+- (void)tableViewHeaderViewWithImage:(Person *)image;
 
 @end

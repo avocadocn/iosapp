@@ -41,7 +41,6 @@
 //            make.bottom.mas_equalTo(button.mas_bottom);
 //            make.width.mas_equalTo(40);
 //        }];
-
     }
     
     if (self.homeButtonView != nil) {

@@ -43,7 +43,7 @@ static NSInteger height = 45;
         [self.cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.cancelButton setBackgroundColor:[UIColor colorWithWhite:1 alpha:1]];
         self.cancelButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-            
+            [self.delegate CardDissmiss];
             [UIView animateWithDuration:.3 animations:^{
                 self.maskView.backgroundColor = [UIColor clearColor];
             } completion:^(BOOL finished) {

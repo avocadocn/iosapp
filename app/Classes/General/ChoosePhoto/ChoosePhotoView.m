@@ -51,7 +51,8 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
     }
     
     self.insertButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.insertButton setBackgroundImage:[UIImage imageNamed:@"insert"] forState:UIControlStateNormal];
+//    [self.insertButton setBackgroundImage:[UIImage imageNamed:@"insert"] forState:UIControlStateNormal];
+    
     self.insertButton.backgroundColor = [UIColor whiteColor];
     self.insertButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         //跳转页面
@@ -63,8 +64,16 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
         return [RACSignal empty];
     }];
     CGFloat width = (DLScreenWidth - 20) / 4.0;
-    
+    self.insertButton.layer.borderColor = RGB(213 , 213, 214).CGColor;
+    self.insertButton.layer.borderWidth = 1;
     self.insertButton.frame = CGRectMake(0, 0, width - 1.5, width - 1.5);
+    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"insert"]];
+    imageV.frame = CGRectMake(0, 0, width / 3.5 * 2, width / 3.5 * 2);
+    [self.insertButton addSubview:imageV];
+    imageV.center = self.insertButton.center;
+    
+    
+    
     [self addSubview:self.insertButton];
     [self.componentArray insertObject:self.insertButton atIndex:0];  //把 Button放在第0个元素
     self.backgroundColor = [UIColor whiteColor];

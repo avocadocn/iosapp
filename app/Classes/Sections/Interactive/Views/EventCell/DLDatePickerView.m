@@ -131,6 +131,7 @@
     [UIView animateWithDuration:.4 animations:^{
         self.centerY = DLScreenHeight + (self.frame.size.height);
     } completion:^(BOOL finished) {
+        [self.delegate dismiss];
         [self removeFromSuperview];
     }];
 }

@@ -283,7 +283,6 @@ static AFHTTPSessionManager *_mgr;
             [formData appendPartWithFileData:data name:@"photo" fileName:@"highlight_image.jpg" mimeType:@"image/jpeg"];
         }];
     
-    
         AFHTTPRequestOperation *requestOperation = [manger HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             if (success) {
@@ -321,7 +320,7 @@ static AFHTTPSessionManager *_mgr;
     [DLLoading dismisss];
    id errorJson =  [self dataToJsonObject:error.userInfo[@"com.alamofire.serialization.response.error.data"]];
     if (!errorJson) {
-        TTAlert(@"服务器连接失败");
+//        TTAlert(@"服务器连接失败");
     }
     return errorJson;
 }

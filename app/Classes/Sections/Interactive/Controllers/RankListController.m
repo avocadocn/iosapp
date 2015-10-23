@@ -147,7 +147,7 @@ static NSString * const ID =  @"RankItemTableViewcell";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+    [super viewWillAppear:animated];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.listType inSection:0];
     
     [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];

@@ -47,7 +47,7 @@
     
       
     
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(3, 3, self.frame.size.width - 6, self.frame.size.width - 6)];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, self.frame.size.width - 10, self.frame.size.width - 10)];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     //下载指定大小的图片
     [imageView dlGetRouteThumbnallWebImageWithString:image placeholderImage:nil withSize:CGSizeMake(width, width)];
@@ -65,8 +65,8 @@
     
     self.backgroundColor = [UIColor clearColor];
     self.layer.cornerRadius = self.frame.size.width / 2.0;
-    self.layer.borderColor = color.CGColor;
-    self.layer.borderWidth = 1;
+    self.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.layer.borderWidth = 1.5;
 }
 
 
