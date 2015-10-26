@@ -21,13 +21,15 @@
 #import "VoteInfoTableViewController.h"
 #import "PollModel.h"
 #import "UILabel+DLTimeLabel.h"
-@interface VoteTableController ()
+@interface VoteTableController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong)Interaction *interactionModel;
 
 @property (nonatomic, assign)NSInteger index;
 
 @property (nonatomic, strong)NSMutableArray *colorArray;
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -42,13 +44,17 @@ static UINavigationController *_staticNavi;
 static NSString * const ID = @"VoteTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = RGBACOLOR(235, 235, 235, 1);
     self.title = @"投票";
     [self createColorArray];
-
-    [self.tableView setBackgroundColor:RGB(235, 235, 235)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, - 32, DLScreenWidth, DLScreenHeight + 24) style:UITableViewStyleGrouped];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.showsVerticalScrollIndicator = NO;
+    [self.tableView setBackgroundColor:RGBACOLOR(235, 235, 235, 1)];
+    [self.view addSubview:self.tableView];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    
+
     //    [self loadVoteData];
     
     [self.tableView registerClass:[VoteTableViewCell class] forCellReuseIdentifier:ID];

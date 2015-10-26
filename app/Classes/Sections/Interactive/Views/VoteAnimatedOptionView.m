@@ -58,8 +58,8 @@
     
     // 添加显示百分比的label
     UILabel *percentageLabel = [[UILabel alloc]init];
-    percentageLabel.textColor = [UIColor lightGrayColor];
-    UIFont *percentageLabelFont = [UIFont systemFontOfSize:12];
+    percentageLabel.textColor = RGBACOLOR(155, 155, 155, 1);
+    UIFont *percentageLabelFont = [UIFont systemFontOfSize:14];
     percentageLabel.font = percentageLabelFont;
     NSString *defaultString = @"100%";
     CGSize maxPercentageLabelSize = CGSizeMake(DLScreenWidth, 12);
@@ -82,7 +82,6 @@
 -(void)setOptionPercentage:(NSNumber *)optionPercentage{
 //    _optionPercentage = optionPercentage;
     CGFloat fl =[self.optionCount floatValue] / [optionPercentage floatValue];
-    
     self.percentageLabel.text = [NSString stringWithFormat:@"%.f%%",fl * 100];
     
     [self openAnimation:fl];
