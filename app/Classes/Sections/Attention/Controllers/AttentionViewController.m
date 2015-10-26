@@ -94,6 +94,8 @@ static AttentionViewController *att = nil;
 //        } failure:^(id errorJson) {
 //            NSLog(@"没有获取到关注的用户信息 %@", errorJson);
 //        }];
+#pragma mark-
+#pragma per 存的太慢导致数据不能及时取出来而崩溃
         
         Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:[dic objectForKey:@"_id"]];
         [self.modelArray addObject:per];

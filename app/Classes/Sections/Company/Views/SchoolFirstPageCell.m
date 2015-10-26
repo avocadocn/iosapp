@@ -89,7 +89,7 @@
 //        [self.BigImage dlGetRouteWebImageWithString:first.photo placeholderImage:nil];
         [self.BigImage dlGetRouteThumbnallWebImageWithString:first.photo placeholderImage:nil withSize:CGSizeMake(245, 245)];
     }
-    if (i == 2) {
+    else if (i == 2) {
         SchoolTempModel *first = [schoolModel.photoArray objectAtIndex:0];
         [self.BigImage dlGetRouteThumbnallWebImageWithString:first.photo placeholderImage:nil withSize:CGSizeMake(245, 245)];
         SchoolTempModel *second = [schoolModel.photoArray objectAtIndex:1];

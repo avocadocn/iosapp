@@ -41,6 +41,8 @@
 @property (nonatomic)float limit;
 @property (nonatomic, assign)BOOL selectState;
 @property (nonatomic, copy)NSString *company_official_name;
+// 邀请界面临时传送的 data
+@property (nonatomic, copy)NSData *imageData;
 
 /**
  * 用来上传照片的临时 array

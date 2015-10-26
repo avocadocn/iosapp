@@ -109,6 +109,7 @@
 
 - (void)reloCellWithAddressBook:(id)person andStateString:(NSString *)str
 {
+    
     NSString* tmpFirstName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonFirstNameProperty); // FirstName
     NSString* tmpLastName = (__bridge NSString*)ABRecordCopyValue((__bridge ABRecordRef)(person), kABPersonLastNameProperty);// LastName
     //    phoneNumber
@@ -129,7 +130,7 @@
         }
     }
     
-    if (tmpLastName && tmpFirstName) {
+    if (tmpLastName && tmpFirstName) {   // lastname 不一定有
         self.personNameLabel.text = [NSString stringWithFormat:@"%@ %@",tmpFirstName,tmpLastName];
     } else if (tmpFirstName){
         self.personNameLabel.text = [NSString stringWithFormat:@"%@",tmpFirstName];
@@ -161,6 +162,27 @@
         [self.selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.mas_left).offset (- 25);
         }];
+    }
+}
+
+- (void)setMyModel:(AddressBookModel *)myModel
+{
+    self.personNameLabel.text = myModel.realname;
+    self.personEmailLabel.text = myModel.phone;
+    
+    if (myModel.selectState) {
+        self.selectButtonState = YES;
+        [self.selectButton setBackgroundImage:[UIImage imageNamed:@"OK.png"] forState:UIControlStateNormal];
+    } else
+    {
+        self.selectButtonState = NO;
+        [self.selectButton setBackgroundImage:[UIImage imageNamed:@"No.png"] forState:UIControlStateNormal];
+    }
+    
+    if (myModel.imageData != nil) {
+        self.personPhotoImageView.image = [UIImage imageWithData:myModel.imageData];
+    } else {
+        self.personPhotoImageView.image = [UIImage imageNamed:@"boy"]; //心机boy
     }
 }
 
