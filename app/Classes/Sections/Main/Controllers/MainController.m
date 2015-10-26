@@ -709,6 +709,12 @@ static NSString *kGroupName = @"GroupName";
     [self showHint:message];
 }
 
+- (void)group:(EMGroup *)group didLeave:(EMGroupLeaveReason)reason error:(EMError *)error
+{
+    //去掉聊天会话中得会话
+    ChatListViewController *chat = [ChatListViewController shareInstan];
+    [chat removeConversion:group.groupId];
+}
 #pragma mark - IChatManagerDelegate 收到聊天室邀请
 
 - (void)didReceiveChatroomInvitationFrom:(NSString *)chatroomId

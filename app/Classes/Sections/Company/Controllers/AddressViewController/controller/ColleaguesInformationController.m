@@ -170,7 +170,7 @@ static NSInteger tagNum = 1;
                 [self.model setUserId:self.model.ID];
                 [RestfulAPIRequestTool routeName:@"addConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
                     NSLog(@"关注成功  %@", json);
-                    [att makeFalseValue];
+                    [att requestNet];
                     [self.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
                     
                 } failure:^(id errorJson) {
@@ -183,7 +183,7 @@ static NSInteger tagNum = 1;
                     NSLog(@"取消关注成功  %@", json);
                     [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
                     
-                    [att makeFalseValue];
+                    [att requestNet];
                 } failure:^(id errorJson) {
                     NSLog(@"取消关注失败  %@", errorJson);
                 }];
