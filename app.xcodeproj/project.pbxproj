@@ -750,7 +750,6 @@
 		A4745E201B81DF53008EB944 /* ImageHolderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745E1F1B81DF53008EB944 /* ImageHolderView.m */; };
 		A47DCAFD1BD8B4DC0015F609 /* DLPhotoPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCAFC1BD8B4DC0015F609 /* DLPhotoPlayView.m */; settings = {ASSET_TAGS = (); }; };
 		A47DCB031BD8C9B80015F609 /* UIScrollView+DLTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = A47DCB021BD8C9B80015F609 /* UIScrollView+DLTouch.m */; settings = {ASSET_TAGS = (); }; };
-		A47DCB071BD8EBF80015F609 /* insert.png in Resources */ = {isa = PBXBuildFile; fileRef = A47DCB061BD8EBF80015F609 /* insert.png */; settings = {ASSET_TAGS = (); }; };
 		A47F50391B67765600955052 /* CompanyEmailComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = A47F50371B67765600955052 /* CompanyEmailComplete.m */; };
 		A47F503A1B67765600955052 /* CompanyEmailComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47F50381B67765600955052 /* CompanyEmailComplete.xib */; };
 		A48077941B6B86EF000F11D1 /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A48077931B6B86EF000F11D1 /* libEaseMobClientSDK.a */; };
