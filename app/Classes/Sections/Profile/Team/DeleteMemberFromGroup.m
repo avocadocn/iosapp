@@ -13,6 +13,8 @@
 #import "AttentionViewCell.h"
 #import "GroupDetileModel.h"
 #import "AddressBookModel.h"
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
 @interface DeleteMemberFromGroup ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong)UITableView *myTableView;
@@ -81,9 +83,11 @@
     
     AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
     
-    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
-    [cell cellBuiltWithModel:per];
-    
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+    Person* p = [fmdb selectPersonWithUserId:model.ID];
+    if (p) {
+        [cell cellBuiltWithModel:p];
+    }
     return cell;
 }
 

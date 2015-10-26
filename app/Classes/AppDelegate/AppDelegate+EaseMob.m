@@ -11,6 +11,9 @@
  */
 
 #import "AppDelegate+EaseMob.h"
+#import "FMDBSQLiteManager.h"
+#import "Group.h"
+
 //#import "AppDelegate+EaseMobDebug.h"
 
 /**
@@ -277,9 +280,13 @@
             }
         }
     }
-    
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+    Group* g = [fmdb selectGroupWithEasemobId:group.groupId];
     if (reason == eGroupLeaveReason_BeRemoved) {
-        str = [NSString stringWithFormat:NSLocalizedString(@"group.beKicked", @"you have been kicked out from the group of \'%@\'"), tmpStr];
+        if (g) {
+            str = [NSString stringWithFormat:NSLocalizedString(@"group.beKicked", @"you have been kicked out from the group of \'%@\'"), g.name];
+        }
+//        str = [NSString stringWithFormat:NSLocalizedString(@"group.beKicked", @"you have been kicked out from the group of \'%@\'"), tmpStr];
     }
     if (str.length > 0) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示"

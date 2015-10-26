@@ -19,6 +19,7 @@
 #import "ColleaguesInformationController.h"
 #import "FMDBSQLiteManager.h"
 #import "Group.h"
+#import "ChatListViewController.h"
 typedef NS_ENUM(NSInteger, GroupIdentity) {
     /**
      *是群主
@@ -335,10 +336,14 @@ static NSString * const memberCell = @"memberCell";
                     FMDBSQLiteManager* fmdb=[FMDBSQLiteManager shareSQLiteManager];
                     Group* g = [fmdb selectGroupWithGroupId:self.detilemodel.ID];
                     [[EaseMob sharedInstance].chatManager asyncLeaveGroup:g.easemobID];
+                    //去掉聊天会话中得会话
+                    ChatListViewController *chat = [ChatListViewController shareInstan];
+                    [chat removeConversion:g.easemobID];
                     //清空本地消息
-                    [[EaseMob sharedInstance].chatManager removeConversationByChatter:self.detilemodel.ID
+                    [[EaseMob sharedInstance].chatManager removeConversationByChatter:g.easemobID
                                                                          deleteMessages:YES
-                                                                            append2Chat:YES];                } failure:^(id errorJson) {
+                                                                            append2Chat:YES];
+                } failure:^(id errorJson) {
                     
                     NSLog(@"退群失败   %@", errorJson);
                 }];
