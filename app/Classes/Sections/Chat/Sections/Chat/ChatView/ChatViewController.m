@@ -914,16 +914,16 @@
                     MessageModel *model = (MessageModel *)object;
                     if ([message.messageId isEqualToString:model.messageId]) {
                         MessageModel *cellModel = [MessageModelManager modelWithMessage:message];
-                        if ([self->_delelgate respondsToSelector:@selector(nickNameWithChatter:)]) {
-                            NSString *showName = [self->_delelgate nickNameWithChatter:model.username];
-                            cellModel.nickName = showName?showName:cellModel.username;
-                        }else {
-                            cellModel.nickName = cellModel.username;
-                        }
-                        
-                        if ([self->_delelgate respondsToSelector:@selector(avatarWithChatter:)]) {
-                            cellModel.headImageURL = [NSURL URLWithString:[self->_delelgate avatarWithChatter:cellModel.username]];
-                        }
+//                        if ([self->_delelgate respondsToSelector:@selector(nickNameWithChatter:)]) {
+//                            NSString *showName = [self->_delelgate nickNameWithChatter:model.username];
+//                            cellModel.nickName = showName?showName:cellModel.username;
+//                        }else {
+//                            cellModel.nickName = cellModel.username;
+//                        }
+//                        
+//                        if ([self->_delelgate respondsToSelector:@selector(avatarWithChatter:)]) {
+//                            cellModel.headImageURL = [NSURL URLWithString:[self->_delelgate avatarWithChatter:cellModel.username]];
+//                        }
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [weakSelf.tableView beginUpdates];
                             [weakSelf.dataSource replaceObjectAtIndex:i withObject:cellModel];
