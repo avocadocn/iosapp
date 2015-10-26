@@ -5,6 +5,9 @@
 //  Created by 申家 on 15/9/18.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
 #import "RestfulAPIRequestTool.h"
 #import "DeleteMemberFromGroup.h"
 #import "AttentionViewCell.h"
@@ -78,8 +81,8 @@
     
     AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
     
-    
-    [cell cellBuiltWithModel:model];
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.ID];
+    [cell cellBuiltWithModel:per];
     
     return cell;
 }

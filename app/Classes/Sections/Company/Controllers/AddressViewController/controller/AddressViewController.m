@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self readLocalAddress];
+    [self readLocalAddress];
     [self requestNet];
     [self builtInterFace];
     [self loadingImageView];
