@@ -38,7 +38,7 @@
     // Do any additional setup after loading the view.
     self.title = @"邀请";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
@@ -62,6 +62,7 @@
 {
     return 20;
 }
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -289,7 +290,9 @@
     NSDictionary *dic = [self.contactArray objectAtIndex:section];
     NSString *str = [dic objectForKey:@"letter"];
     label.text = str;
+
     [view addSubview:label];
+
     return view;
 }
 - (NSArray *)getInviteArrayWithArray
