@@ -96,12 +96,12 @@ static NSString * const ID = @"VoteInfoTableViewCell";
     VoteInfoTableViewModel *model = self.dataArray[indexPath.section];
     self.infoModel = model;
     // 硬编码 假设第一组 2 个数据，第2组 20 个数据
-   [self addSubImageViewWithCell:cell itemCount:model.voters.count];
+   [self addSubImageViewWithCell:cell itemCount:model.voters.count indexPath:indexPath];
     
     return cell;
 }
 
--(void)addSubImageViewWithCell:(UITableViewCell *)cell itemCount:(NSUInteger)count{
+-(void)addSubImageViewWithCell:(UITableViewCell *)cell itemCount:(NSUInteger)count indexPath:(NSIndexPath *)indexPath{
     NSUInteger itemCount = count;
     CGFloat itemWidthHeight = _itemWidthHeight;
     
@@ -116,20 +116,20 @@ static NSString * const ID = @"VoteInfoTableViewCell";
         itemView.height = itemWidthHeight;
         [itemView dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:itemView.size];
         itemView.userInteractionEnabled = YES;
-        itemView.tag = 1000 + i;
+        itemView.tag = indexPath.section * 10000 + 10000 + i;
         // 设置圆形头像
         [itemView.layer setCornerRadius:itemWidthHeight / 2];
         [itemView.layer setMasksToBounds:YES];
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushView:)];
-//        [itemView addGestureRecognizer:tap];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushView:)];
+        [itemView addGestureRecognizer:tap];
         [cell addSubview:itemView];
     }
 
     
 }
-//- (void)pushView:(UITapGestureRecognizer *)tap {
-//    NSLog(@"____---->%ld",self.item.tag);
-//}
+- (void)pushView:(UITapGestureRecognizer *)tap {
+    NSLog(@"____---->%ld",tap.view.tag);
+}
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     VoteInfoTableViewModel *model = self.dataArray[section];
