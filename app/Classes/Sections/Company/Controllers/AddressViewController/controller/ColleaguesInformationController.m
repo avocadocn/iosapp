@@ -60,9 +60,9 @@ static NSInteger tagNum = 1;
         [imageArray addObject:image];
     }
     
-    CGFloat centerY = DLMultipleHeight((600.0 - 64.0));
+    CGFloat centerY = self.imageView.frame.size.height + 65 + 35 + 24 + 35; //DLMultipleHeight((600.0 - 64.0));
     
-    CGFloat num = DLScreenWidth / (320 / 55.0);
+    CGFloat num = DLMultipleWidth(70.0);
     NSArray *titleNameArray;
     titleNameArray = @[@"资料", @"动态", @"聊天"];
     Account *acc = [AccountTool account];
