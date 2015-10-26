@@ -85,7 +85,18 @@ static ChatListViewController *chat = nil;
     [self refreshGroup];
     
 }
-
+//根据环信得ID去除会话
+- (void)removeConversion:(NSString*)conver
+{
+    NSMutableArray* needToRemove = [NSMutableArray new];
+    for (EMConversation *con in self.dataSource) {
+        if ([con.chatter isEqualToString:conver]) {
+            [needToRemove addObject:con];  // 有对话
+        }
+    }
+    [self.dataSource removeObjectsInArray:needToRemove];
+    [self.tableView reloadData];
+}
 //下拉刷新
 - (void)refreshData
 {
