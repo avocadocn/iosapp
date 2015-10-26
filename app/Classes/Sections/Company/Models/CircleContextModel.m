@@ -43,7 +43,6 @@
     [aCoder encodeObject:self.cid forKey:@"cid"];
     [aCoder encodeObject:self.target forKey:@"target"];
     [aCoder encodeObject:self.poster forKey:@"poster"];
-    [aCoder encodeObject:self.commentUsers forKey:@"commentUsers"];
     [aCoder encodeObject:self.latestCommentDate forKey:@"latestCommentDate"];
     [aCoder encodeObject:self.photos forKey:@"photos"];
     [aCoder encodeObject:self.relativeCids forKey:@"relativeCids"];
@@ -71,7 +70,6 @@
         self.cid = [aDecoder decodeObjectForKey:@"cid"];
         self.target = [aDecoder decodeObjectForKey:@"target"];
         self.poster = [aDecoder decodeObjectForKey:@"poster"];
-        self.commentUsers = [aDecoder decodeObjectForKey:@"commentUsers"];
         self.latestCommentDate = [aDecoder decodeObjectForKey:@"latestCommentDate"];
         self.photos = [aDecoder decodeObjectForKey:@"photos"];
         self.relativeCids = [aDecoder decodeObjectForKey:@"relativeCids"];
