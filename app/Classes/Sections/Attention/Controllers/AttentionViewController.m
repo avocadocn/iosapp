@@ -29,9 +29,9 @@ static AttentionViewController *att = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self makeFalseValue];
     [self builtInterface];
-    
+    [self loadLocalData];
+    [self requestNet];
 }
 
 + (AttentionViewController *)shareInsten
@@ -45,11 +45,15 @@ static AttentionViewController *att = nil;
     });
     return att;
 }
-
-- (void)makeFalseValue
+- (void)loadLocalData
 {
-    self.modelArray = [NSMutableArray array];
-    
+    Concern* c = [self getLocalConcerns];
+    if (c) {
+        [self getDetailInforFromJson:c.concernIds];
+    }
+}
+- (void)requestNet
+{
     Account *acc = [AccountTool account];
     acc.userId = acc.ID;
     // 获取关注列表
@@ -70,8 +74,14 @@ static AttentionViewController *att = nil;
         [fmdb saveConcerns:c];
     }
 }
+- (Concern*)getLocalConcerns
+{
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+    return [fmdb getConcerns];
+}
 - (void)getDetailInforFromJson:(id)array
 {
+    self.modelArray = [NSMutableArray array];
 //    __block int i = 0;
     for (NSMutableDictionary *dic in array) {
         [dic setObject:[dic objectForKey:@"_id"] forKey:@"userId"];
@@ -116,7 +126,7 @@ static AttentionViewController *att = nil;
     [gifFooter setImages:@[] forState:MJRefreshStateRefreshing];
     
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
-    [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
+    [footer setTitle:@"" forState: MJRefreshStateIdle];
     self.attentionTableView.footer = footer;
     
     MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
@@ -138,6 +148,7 @@ static AttentionViewController *att = nil;
 
 - (void)headerAction
 {
+    [self requestNet];
     [UIView animateWithDuration:.7 animations:^{
         [self.attentionTableView.header endRefreshing];
     }];
