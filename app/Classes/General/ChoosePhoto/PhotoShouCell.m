@@ -147,8 +147,7 @@
 //    
 //}
 
-
-- (void)apImageAction:(UITapGestureRecognizer *)sender //单击
+- (void)apImageAction:(UITapGestureRecognizer *)sender
 {
 
     NSLog(@"单机");

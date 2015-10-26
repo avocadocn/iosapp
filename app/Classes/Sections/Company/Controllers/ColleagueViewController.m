@@ -767,7 +767,7 @@ static NSString * contentId = nil;
     self.inputView.backgroundColor = [UIColor whiteColor];
     //    view.backgroundColor = [UIColor blackColor];
     
-    self.inputTextView = [[XHMessageTextView  alloc] initWithFrame:CGRectMake(15 , 5 , 200 , 30)];
+    self.inputTextView = [[XHMessageTextView  alloc] initWithFrame:CGRectMake(15 , 5 , DLScreenWidth - 60 , 30)];
     //    self.inputTextView.backgroundColor = [UIColor yellowColor];
     self.myText.borderStyle = UITextBorderStyleNone;
     self.inputTextView.scrollEnabled = YES;

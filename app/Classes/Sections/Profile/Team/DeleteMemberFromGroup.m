@@ -5,6 +5,9 @@
 //  Created by 申家 on 15/9/18.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
 #import "RestfulAPIRequestTool.h"
 #import "DeleteMemberFromGroup.h"
 #import "AttentionViewCell.h"

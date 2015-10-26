@@ -39,6 +39,7 @@
 @property (nonatomic, strong) UIWebView* introduceWebView;
 @property (nonatomic, strong) UIView *introduceView;
 @property (nonatomic, copy) NSString *addressStr;
+@property (nonatomic, strong) UIButton *exitInteractionBtn;// 退出活动按钮
 
 
 
@@ -67,6 +68,7 @@
         
         [self buildInterface];
         [self getState]; // 获得报名状态
+        [self getExitState]; // 获得退出状态
         [self initMapView]; // 创建地图
         [self buildMAPinAnnotationView];
     }
@@ -198,19 +200,20 @@
     
     int i = 0;
     if (self.deleteButtonState){
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.frame = CGRectMake(0, 0, DLScreenWidth, 30);
-    [button setTitle:@"退出活动" forState: UIControlStateNormal];
-    [button addTarget:self action:@selector(quitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    button.y = CGRectGetMaxY(self.activityName.frame) + 5;
-    i = 35;
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+        self.exitInteractionBtn = button;
+        button.frame = CGRectMake(0, 0, DLScreenWidth, 30);
+        [button setTitle:@"退出活动" forState: UIControlStateNormal];
+        [button addTarget:self action:@selector(quitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        button.y = CGRectGetMaxY(self.activityName.frame) + 5;
+        i = 35;
         [topPictureView addSubview:button];
     }
     // 设置顶部pic view的frame
     topPictureView.height = CGRectGetMaxY(self.pictureView.frame) + 35 + i;
     topPictureView.width = DLScreenWidth;
     [topPictureView setOrigin:CGPointZero];
-//    topPictureView.backgroundColor = [UIColor blueColor];
+    //    topPictureView.backgroundColor = [UIColor blueColor];
     
     [superView addSubview:topPictureView];
     
@@ -467,8 +470,7 @@
         
         [self.alert show];
         [sender setTitle:@"已经报名" forState:UIControlStateNormal];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"KPOSTNAME" object:nil];
-//        [self localNotifications];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"REFRESHDATE" object:nil];
         
     } failure:^(id errorJson) {
         NSLog(@"报名失败的原因 %@",[errorJson valueForKey:@"msg"]);
@@ -488,6 +490,19 @@
         self.applyBtn.userInteractionEnabled = NO;
     }
     
+}
+
+- (void) getExitState {
+    NSDate *endtime = [self ParsedDateStringFromString:self.model.endTime];
+    NSDate *currentTime = [NSDate date];
+    NSTimeInterval interval = [currentTime timeIntervalSinceDate:endtime];
+    if (interval <= 0) {
+        [self.exitInteractionBtn setTitle:@"退出活动" forState:UIControlStateNormal];
+    } else {
+        [self.exitInteractionBtn setTitle:@"活动时间已截止" forState:UIControlStateNormal];
+        [self.exitInteractionBtn setTitleColor:RGBACOLOR(166, 166, 166, 1) forState:UIControlStateNormal];
+        [self.exitInteractionBtn setUserInteractionEnabled:NO];
+    }
 }
 
 #pragma AMapSearchDelegate

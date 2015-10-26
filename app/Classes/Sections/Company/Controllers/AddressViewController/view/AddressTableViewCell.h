@@ -35,6 +35,7 @@
 
 @property (nonatomic, strong)NSIndexPath *indexPath;
 
+@property (nonatomic, strong)AddressBookModel *myModel;
 - (void)cellReloadWithAddressModel:(AddressBookModel *)model;
 
 - (void)reloCellWithAddressBook:(id)person andStateString:(NSString *)str;
