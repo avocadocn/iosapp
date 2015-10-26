@@ -96,6 +96,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     // 活动展示table
     [self setupActivityShowTableView];
     [self requestNet];
+    [self loadingContacts]; // 加载通讯录信息
 //     [self loadData]; // 加载数据
     [self refressMJ]; // 下拉刷新 上拉加载
     
@@ -103,6 +104,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"CHANGESTATE" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESSDATA" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reFreshData) name:@"POSTEXIT" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESHDATE" object:nil];
     
 //    [self localNotifications];
     
@@ -173,7 +175,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 {
     [self.upMenuView dismissButtons];
 }
-
+// 发布活动弹出的小圆点
 - (void)sendBool:(BOOL)state
 {
     if (state == YES){
@@ -548,9 +550,9 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
   
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [self loadingContacts]; // 加载通讯录信息
-        });
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+//            [self loadingContacts]; // 加载通讯录信息
+//        });
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
    
