@@ -464,8 +464,9 @@ static NSString *ID = @"feasfsefse";
     self.settingBtn.frame = CGRectMake(100 - 36, 30, 20, 20);
 //    [self.settingBtn setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
     
-    [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_white@2x"] forState:UIControlStateNormal];
-    [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow white@2x"] forState:UIControlStateNormal];
+    [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_white"] forState:UIControlStateNormal];
+//    self.backBtn.backgroundColor = [UIColor redColor];
+    [self.backBtn setBackgroundImage:[UIImage imageNamed:@"ReturnWhite"] forState:UIControlStateNormal];
     
     [self.setView addSubview:self.settingBtn];
     self.setView.userInteractionEnabled = YES;
@@ -586,11 +587,11 @@ static NSString *ID = @"feasfsefse";
         self.titleLabel.textColor = [UIColor blackColor];
         [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_black"] forState:UIControlStateNormal];
         [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow black@2x"] forState:UIControlStateNormal];
-    } else
+    } else // if (scrollView.contentOffset.y < 60)
     {
+        [self.backBtn setBackgroundImage:[UIImage imageNamed:@"ReturnWhite"] forState:UIControlStateNormal];
         self.naviView.backgroundColor = [UIColor colorWithWhite:0 alpha:.2];
-        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_white@2x"] forState:UIControlStateNormal];
-        [self.backBtn setBackgroundImage:[UIImage imageNamed:@"Back Arrow white@2x"] forState:UIControlStateNormal];
+        [self.settingBtn setBackgroundImage:[UIImage imageNamed:@"chat_white"] forState:UIControlStateNormal];
         self.titleLabel.textColor = [UIColor whiteColor];
     }
     

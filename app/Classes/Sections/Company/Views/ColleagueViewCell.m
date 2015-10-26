@@ -181,7 +181,7 @@ static NSString *userId = nil;
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
     
     self.praiseButton.tag = indexpath.row + 1;
-    [self.wordFrom getCompanyNameFromCid:model.cid];
+    [self.wordFrom getCompanyNameFromCid:model.poster.ID];
     self.commondButton.tag = indexpath.row + 1;
     self.praiseButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.commentUsers.count];
     self.commondButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.comments.count];

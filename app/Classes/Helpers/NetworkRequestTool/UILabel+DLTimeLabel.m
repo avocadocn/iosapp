@@ -8,32 +8,30 @@
 
 #import "RestfulAPIRequestTool.h"
 #import "UILabel+DLTimeLabel.h"
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
+
 #define TEXTFONT 10
 @implementation UILabel (DLTimeLabel)
 
 - (void)getCompanyNameFromCid:(NSString *)string
 {
+    Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:string];
+    [self dismembermentJson:per.companyName];
     
-    self.font = [UIFont systemFontOfSize:TEXTFONT];
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:string forKey:@"companyId"];
-    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
-//        [self dismembermentJson:json];
-        NSLog(@"");
-
-    } failure:^(id errorJson) {
-        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
-    }];
 }
 
 - (void)dismembermentJson:(id)json
 {
-    NSDictionary *dic = [json objectForKey:@"company"];
-    NSDictionary *infoDic = [dic objectForKey:@"info"];
-    NSString *temp = [NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]];
+//    NSDictionary *dic = [json objectForKey:@"company"];
+//    NSDictionary *infoDic = [dic objectForKey:@"info"];
+//    NSString *temp = [NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]];
+//
     
+    NSString *temp = [NSString stringWithFormat:@"%@", json];
     NSDictionary *tempDic = [NSDictionary dictionaryWithObjects:@[RGBACOLOR(80, 125, 175, 1)] forKeys:@[NSForegroundColorAttributeName]];
 //    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:temp attributes:tempDic];
-    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]]] ;
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", temp]] ;
     NSInteger num = temp.length - 3;
 //    [attStr addAttributes:@{[UIColor orangeColor]} range:NSMakeRange(3, num)];
     [attStr setAttributes:tempDic range:NSMakeRange(3, num)];

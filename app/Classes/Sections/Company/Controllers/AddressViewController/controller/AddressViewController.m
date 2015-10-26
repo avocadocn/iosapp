@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self readLocalAddress];
+    [self readLocalAddress];
     [self requestNet];
     [self builtInterFace];
     [self loadingImageView];
@@ -148,7 +148,7 @@
     {
         
         self.modelArray = [NSMutableArray arrayWithArray:self.bigArray];
-        NSLog(@"重新杀星");
+        NSLog(@"重新刷新");
         [self.myTableView reloadData];
     }
 }
@@ -248,7 +248,7 @@
         self.modelArray = [NSMutableArray arrayWithArray:json];
 //    }
     
-//    self.wordDic = [NSMutableDictionary dictionary];
+    self.wordDic = [NSMutableDictionary dictionary];
     
     // 分析数据
     NSInteger i = 0;
@@ -263,14 +263,14 @@
         i++;
     }
 //    NSLog(@"排列完的字典为%@", self.wordDic);
-        self.modelArray = [NSMutableArray array];
+//        self.modelArray = [NSMutableArray array];
     [self getArrayWithDic:self.wordDic];
     [self.myTableView reloadData];
 }
 
 - (void)getArrayWithDic:(NSMutableDictionary *)dic
 {
-
+    self.modelArray = [NSMutableArray array];
     NSArray *array = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H",@"I",@"J", @"K", @"L",@"M", @"N",@"O", @"P", @"Q", @"R", @"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z"];
     
     for (NSString *str in array) {

@@ -5,11 +5,16 @@
 //  Created by 申家 on 15/9/18.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
+
+#import "Person.h"
+#import "FMDBSQLiteManager.h"
 #import "RestfulAPIRequestTool.h"
 #import "DeleteMemberFromGroup.h"
 #import "AttentionViewCell.h"
 #import "GroupDetileModel.h"
 #import "AddressBookModel.h"
+#import "FMDBSQLiteManager.h"
+#import "Person.h"
 @interface DeleteMemberFromGroup ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong)UITableView *myTableView;
@@ -78,9 +83,11 @@
     
     AddressBookModel *model = [self.modelArray objectAtIndex:indexPath.row];
     
-    
-    [cell cellBuiltWithModel:model];
-    
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+    Person* p = [fmdb selectPersonWithUserId:model.ID];
+    if (p) {
+        [cell cellBuiltWithModel:p];
+    }
     return cell;
 }
 

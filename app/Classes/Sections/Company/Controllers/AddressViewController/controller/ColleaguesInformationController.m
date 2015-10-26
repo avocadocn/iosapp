@@ -60,9 +60,9 @@ static NSInteger tagNum = 1;
         [imageArray addObject:image];
     }
     
-    CGFloat centerY = DLMultipleHeight((600.0 - 64.0));
+    CGFloat centerY = self.imageView.frame.size.height + 65 + 35 + 24 + 35; //DLMultipleHeight((600.0 - 64.0));
     
-    CGFloat num = DLScreenWidth / (320 / 55.0);
+    CGFloat num = DLMultipleWidth(70.0);
     NSArray *titleNameArray;
     titleNameArray = @[@"资料", @"动态", @"聊天"];
     Account *acc = [AccountTool account];
@@ -170,7 +170,7 @@ static NSInteger tagNum = 1;
                 [self.model setUserId:self.model.ID];
                 [RestfulAPIRequestTool routeName:@"addConcern" requestModel:self.model useKeys:@[@"userId"] success:^(id json) {
                     NSLog(@"关注成功  %@", json);
-                    [att makeFalseValue];
+                    [att requestNet];
                     [self.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
                     
                 } failure:^(id errorJson) {
@@ -183,7 +183,7 @@ static NSInteger tagNum = 1;
                     NSLog(@"取消关注成功  %@", json);
                     [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
                     
-                    [att makeFalseValue];
+                    [att requestNet];
                 } failure:^(id errorJson) {
                     NSLog(@"取消关注失败  %@", errorJson);
                 }];
