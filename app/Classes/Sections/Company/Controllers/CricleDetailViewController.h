@@ -13,6 +13,8 @@
 
 - (void)reloadData:(NSIndexPath *)index;
 
+- (void)deleteIndexPath:(NSIndexPath *)index;
+
 @end
 
 @interface CricleDetailViewController : UIViewController

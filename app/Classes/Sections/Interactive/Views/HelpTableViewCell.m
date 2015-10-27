@@ -172,7 +172,10 @@
     [self.timeLabel setFrame:helpCellFrame.timeLabelF];
     
     self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, -3, 80, 20)];
-    [self.fromLabel getCompanyNameFromCid:model.cid];
+    self.fromLabel.font = [UIFont systemFontOfSize:9];
+    self.fromLabel.textColor = RGBACOLOR(155, 155, 155, 1);
+//    [self.fromLabel getCompanyNameFromCid:model.cid];
+    self.fromLabel.text = model.companyName;
     [self.timeLabel addSubview:self.fromLabel];
     
     

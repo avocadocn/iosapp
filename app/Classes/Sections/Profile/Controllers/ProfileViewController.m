@@ -30,6 +30,8 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
+@property (nonatomic, strong) UIScrollView *scrollView;
+
 
 
 @end
@@ -40,7 +42,7 @@ static NSString * const ID = @"ProfileTableViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self buildlowView];
 //    self.navigationController.navigationBar.translucent = NO;
     // Do any additional setup after loading the view.
     
@@ -49,6 +51,13 @@ static NSString * const ID = @"ProfileTableViewCell";
     
     // 初始化菜单选项
     [self setupMenuTableView];
+}
+- (void) buildlowView {
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -64, DLScreenWidth, DLScreenHeight + 64)];
+    self.scrollView.contentSize = CGSizeMake(DLScreenWidth, DLScreenHeight);
+    self.scrollView.backgroundColor = RGBACOLOR(238, 239, 240, 1);
+    self.scrollView.showsVerticalScrollIndicator = NO;
+    [self.view insertSubview:self.scrollView atIndex:0];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -62,21 +71,21 @@ static NSString * const ID = @"ProfileTableViewCell";
     menuController.view.y += 64;
     [menuController setDelegate:self];
     
-    [self.view addSubview:menuController.view];
+    [self.scrollView addSubview:menuController.view];
     self.menuController = menuController;
 }
 
 -(void)setupMenuTableView{
     UITableView *tableView = [[UITableView alloc]init];
     [tableView setFrame:CGRectMake(0, CGRectGetMaxY(self.menuController.view.frame) - 3, DLScreenWidth, 4 * 50 + 15)];
-    [tableView setBackgroundColor:GrayBackgroundColor];
+    [tableView setBackgroundColor:RGBACOLOR(238, 239, 240, 1)];
     [tableView setBounces:NO];
     [tableView setDataSource:self];
     [tableView setDelegate:self];
     [tableView registerNib:[UINib nibWithNibName:@"ProfileTableViewCell" bundle:nil] forCellReuseIdentifier:ID];
     [tableView setScrollEnabled:NO];
     
-    [self.view addSubview:tableView];
+    [self.scrollView addSubview:tableView];
     self.tableView = tableView;
 }
 

@@ -118,7 +118,7 @@
     if (userImage != nil) {
         self.personPhotoImageView.image = [UIImage imageWithData:userImage];
     } else {
-        self.personPhotoImageView.image = [UIImage imageNamed:@"boy"];
+        self.personPhotoImageView.image = [UIImage imageNamed:@"placeholder"];
     }
     for(NSInteger j = 0; j < ABMultiValueGetCount(tmpPhones); j++)
     {
@@ -182,7 +182,7 @@
     if (myModel.imageData != nil) {
         self.personPhotoImageView.image = [UIImage imageWithData:myModel.imageData];
     } else {
-        self.personPhotoImageView.image = [UIImage imageNamed:@"boy"]; //心机boy
+        self.personPhotoImageView.image = [UIImage imageNamed:@"placeholder"]; //心机boy
     }
 }
 

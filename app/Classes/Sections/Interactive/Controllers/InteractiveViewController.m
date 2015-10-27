@@ -662,7 +662,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     Account *account = [AccountTool account];
     AddressBookModel *model = [[AddressBookModel alloc] init];
     [model setCompanyId:account.cid];
-    [self getCompanyNameWithCid:account.cid];
+    [self getCompanyNameWithCid:model.companyId];
     [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
         NSLog(@"请求成功 %@",json);
         [self reloadWithJson:json];

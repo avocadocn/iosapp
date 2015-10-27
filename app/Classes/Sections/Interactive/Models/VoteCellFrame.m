@@ -71,10 +71,10 @@
     
     // 选项
     NSInteger count = voteInfoModel.options.count;
-    CGFloat optionsViewX = 0;
+    CGFloat optionsViewX = 11;
     CGFloat optionsViewY = CGRectGetMaxY(self.voteContentLabelF) + 14;
     CGFloat optionsViewHeight = 44 * count;
-    CGFloat optionsViewWidth = DLScreenWidth;
+    CGFloat optionsViewWidth = DLScreenWidth - 22;
     self.optionsViewF = CGRectMake(optionsViewX, optionsViewY, optionsViewWidth, optionsViewHeight);
     
     // 工具条

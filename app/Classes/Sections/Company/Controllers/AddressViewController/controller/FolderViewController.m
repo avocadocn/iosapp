@@ -52,7 +52,7 @@ static NSInteger num = 0;
     [self builtInformationView];  //设置资料 label
     if (self.judgeEditState) {
         [self getModel];
-        [self editFolder]; // 用户编辑个人资料
+        [self editFolder]; //  用户编辑个人资料
     }
 }
 

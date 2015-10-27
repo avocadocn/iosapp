@@ -28,6 +28,11 @@
 #define TEXTFONT 16
 #define REPLYTEXT 14
 
+@interface ColleagueViewCell ()
+
+
+
+@end
 
 static NSString *userId = nil;
 @implementation ColleagueViewCell
@@ -42,7 +47,6 @@ static NSString *userId = nil;
 }
 - (void)builtInterface
 {
-
     UIView *superBigView = [UIView new];  //容器
     [superBigView setBackgroundColor:[UIColor whiteColor]];
     
@@ -153,6 +157,18 @@ static NSString *userId = nil;
 //    [self.userInterView setBackgroundColor:[UIColor yellowColor]];
     [superBigView addSubview:self.userInterView];
     
+    // 删除按钮
+    
+    self.deleteButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.deleteButton setBackgroundImage:[UIImage imageNamed:@"deleteImage"] forState:UIControlStateNormal];
+    [superBigView addSubview:self.deleteButton];
+    [self.deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(superBigView.mas_top);
+        make.right.mas_equalTo(superBigView.mas_right);
+        make.size.mas_equalTo(CGSizeMake(44, 44));
+    }];
+    
+    self.deleteButton.alpha = 0;
     
     [self addSubview:superBigView];
     [superBigView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -181,7 +197,7 @@ static NSString *userId = nil;
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
     
     self.praiseButton.tag = indexpath.row + 1;
-    [self.wordFrom getCompanyNameFromCid:model.poster.ID];
+    [self.wordFrom getCompanyNameFromCid:model.postUserId];
     self.commondButton.tag = indexpath.row + 1;
     self.praiseButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.commentUsers.count];
     self.commondButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)model.comments.count];
