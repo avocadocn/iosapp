@@ -317,7 +317,7 @@ static BOOL state;
     CircleContextModel *model = self.model;
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@"appreciate" forKey:@"kind"];
-    [dic setObject:model.poster.ID forKey:@"targetUserId"];
+    [dic setObject:model.postUserId forKey:@"targetUserId"];
     [dic setObject:model.ID forKey:@"contentId"];
     [tempModel setValuesForKeysWithDictionary:dic];
     [tempModel setIsOnlyToContent:true];
