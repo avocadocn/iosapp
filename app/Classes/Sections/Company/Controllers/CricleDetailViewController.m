@@ -29,7 +29,7 @@ static NSString *circleCardCell = @"circleCardCell";
 static BOOL state;
 
 
-@interface CricleDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface CricleDetailViewController ()<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong)UITableView *detileTableview;
 @property (nonatomic, strong)CommentViewCell *defaultCell;
@@ -167,6 +167,12 @@ static BOOL state;
                 }
             }
         }
+        Account *acc = [AccountTool account];
+        
+        if ([acc.ID isEqualToString:self.model.postUserId]) {
+            cell.deleteButton.alpha = 1;
+            [cell.deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
         
         
         return cell;
@@ -195,6 +201,56 @@ static BOOL state;
     
     
     //    return cell;
+}
+- (void)deleteAction:(UIButton *)sender
+{
+    NSLog(@"删除");
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"确定删除吗?" message: nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
+    alert.tag = 1;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) {
+        switch (buttonIndex) {
+            case 0:
+                NSLog(@"取消");
+                break;
+                
+            default:{
+                [self.delegate deleteIndexPath:self.index];
+                [self.navigationController popViewControllerAnimated:YES];
+                NSLog(@"好的");
+                
+                NSDictionary *dic = [NSDictionary dictionaryWithObject:self.model.ID forKey:@"contentId"];
+                [RestfulAPIRequestTool routeName:@"deleteCircle" requestModel:dic useKeys:@[@"contentId"] success:^(id json) {
+                    NSLog(@"删除成功  %@", json);
+                } failure:^(id errorJson) {
+                    NSLog(@"删除同事圈失败  %@", errorJson);
+                }];
+                
+//                dispatch_queue_t concurrent = dispatch_queue_create("2", DISPATCH_QUEUE_SERIAL);
+//                dispatch_async(concurrent, ^{
+//                    NSLog(@"消失");
+//                    
+//                    
+//                });
+//                dispatch_async(concurrent, ^{
+//                    NSLog(@"删除");
+//                });
+            }
+                break;
+        }
+    }
+}
+
+- (void)runfor
+{
+    NSLog(@"删除");
+}
+- (void)dismiss{
+    NSLog(@"消失");
 }
 
 - (void)tapCommondAction:(UITapGestureRecognizer *)tap
@@ -261,7 +317,7 @@ static BOOL state;
     CircleContextModel *model = self.model;
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@"appreciate" forKey:@"kind"];
-    [dic setObject:model.poster.ID forKey:@"targetUserId"];
+    [dic setObject:model.postUserId forKey:@"targetUserId"];
     [dic setObject:model.ID forKey:@"contentId"];
     [tempModel setValuesForKeysWithDictionary:dic];
     [tempModel setIsOnlyToContent:true];

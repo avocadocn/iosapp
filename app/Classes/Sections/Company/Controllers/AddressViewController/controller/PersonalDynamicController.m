@@ -36,12 +36,12 @@ static NSString *ID = @"CurrentActivitysShowCell";
 // 个人动态
 - (void)viewDidLoad {
     [super viewDidLoad];
-
 //    [self makeFlaseData];
 
     [self builtInterface];
     
     [self requestNet];
+//    [self setupNavigationBar];
     [self setupNavigationBar];
     
 }
@@ -214,7 +214,7 @@ static NSString *ID = @"CurrentActivitysShowCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self setupNavigationBar];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

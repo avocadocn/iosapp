@@ -356,8 +356,8 @@ static ChatListViewController *chat = nil;
     NSString *ret = @"";
     EMMessage *lastMessage = [conversation latestMessage];;
     if (lastMessage) {
-        //ret = [NSDate formattedTimeFromTimeInterval:lastMessage.timestamp];
-        ret = [NSDate DLChatListTimeFormat:lastMessage.timestamp];
+        ret = [NSDate formattedTimeFromTimeInterval:lastMessage.timestamp];
+//        ret = [NSDate DLChatListTimeFormat:lastMessage.timestamp];
     }
     
     return ret;

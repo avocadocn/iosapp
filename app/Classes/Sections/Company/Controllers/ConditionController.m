@@ -144,7 +144,7 @@
         
         [saveModel save];
         
-        [self.delegate sendSingerCircle:nil];
+        [self.delegate sendSingerCircle:json];
         
         
     } failure:^(id errorJson) {
