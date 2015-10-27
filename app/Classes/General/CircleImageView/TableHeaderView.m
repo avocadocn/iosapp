@@ -39,6 +39,7 @@
     UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
     effectview.alpha = .8;
     effectview.frame = self.frame;
+    effectview.height = self.frame.size.height + 1;
     [self addSubview:effectview];
     
 //    UIView *view = [[UIView alloc]initWithFrame:self.frame];
