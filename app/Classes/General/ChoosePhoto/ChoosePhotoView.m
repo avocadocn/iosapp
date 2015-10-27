@@ -154,27 +154,27 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
 
 - (void)dnImagePickerController:(DNImagePickerController *)imagePickerController sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    self.imagePhotoArray = [NSMutableArray array];
+    self.imagePhotoArray = [NSMutableArray arrayWithArray:imageAssets];
     
-    for (int i = 0; i < imageAssets.count; i++) {
-        
-        DNAsset *dnasset = [imageAssets objectAtIndex:i];
-        
-        ALAssetsLibrary *lib = [ALAssetsLibrary new];
-        
-        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
-            
-            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-            NSLog(@"正在选择");
-            [self.imagePhotoArray addObject:aImage];
-            if (i == [imageAssets count] - 1) {
+//    for (int i = 0; i < imageAssets.count; i++) {
+//        
+//        DNAsset *dnasset = [imageAssets objectAtIndex:i];
+//        
+//        ALAssetsLibrary *lib = [ALAssetsLibrary new];
+//        
+//        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+//            
+//            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+//            NSLog(@"正在选择");
+//            [self.imagePhotoArray addObject:aImage];
+//            if (i == [imageAssets count] - 1) {
                 [self arrangeStartWithArray:self.imagePhotoArray];
-            }
-            
-        } failureBlock:^(NSError *error) {
-            
-        }];
-    }
+//            }
+//            
+//        } failureBlock:^(NSError *error) {
+//            
+//        }];
+//    }
 }
 
 - (void)dnImagePickerControllerDidCancel:(DNImagePickerController *)imagePicker

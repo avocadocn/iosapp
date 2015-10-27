@@ -168,15 +168,66 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 - (void)removeAssetsObject:(ALAsset *)asset
 {
     if ([self assetIsSelected:asset]) {
+        ALAssetsLibrary *lib = [ALAssetsLibrary new];
+        DNAsset *dnasset = [self dnassetFromALAsset:asset];
+        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+            [self.photoArray removeObject:aImage];
+        } failureBlock:^(NSError *error) {
+            
+        }];
         [self.selectedAssetsArray removeObject:asset];
     }
 }
 
 - (void)addAssetsObject:(ALAsset *)asset
 {
+    if (!self.photoArray) {
+        self.photoArray = [NSMutableArray new];
+    }
+    ALAssetsLibrary *lib = [ALAssetsLibrary new];
+    DNAsset *dnasset = [self dnassetFromALAsset:asset];
+    [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+        UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        UIImage *temp = [self scaleImage:aImage];
+        
+        if (temp) {
+            aImage = temp;
+        }
+        [self.photoArray addObject:aImage];
+
+        
+    } failureBlock:^(NSError *error) {
+        
+    }];
+    
     [self.selectedAssetsArray addObject:asset];
 }
-
+- (UIImage *)scaleImage:(UIImage *)image
+{
+    CGFloat width = image.size.width;
+    CGFloat height = image.size.height;
+    
+    CGFloat smalltemp = width < height ? width :height; // 小的
+    CGFloat bigtemp = width > height ? width :height; // 大的
+    
+    CGFloat tempWidth = 750;
+    
+    if (smalltemp > tempWidth) {
+        CGFloat rote = smalltemp / tempWidth;
+        bigtemp = bigtemp / rote;
+        
+        CGSize itemSize = width > height ? CGSizeMake(bigtemp , tempWidth) : CGSizeMake(tempWidth, bigtemp);
+        NSLog(@"得到的比例为   %f  %f", itemSize.width, itemSize.height);
+    UIGraphicsBeginImageContext(itemSize);
+    CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+    [image drawInRect:imageRect];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+    }
+    return nil;
+}
 - (DNAsset *)dnassetFromALAsset:(ALAsset *)ALAsset
 {
     DNAsset *asset = [[DNAsset alloc] init];
@@ -186,6 +237,25 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 
 - (NSArray *)seletedDNAssetArray
 {
+//    NSMutableArray *seletedArray = [NSMutableArray new];
+//    for (ALAsset *asset in self.selectedAssetsArray) {
+//        DNAsset *dnasset = [self dnassetFromALAsset:asset];
+//        
+//        ALAssetsLibrary *lib = [ALAssetsLibrary new];
+//        
+//        //  转化成图片
+//        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+//            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+//            
+//            [seletedArray addObject:aImage];
+//            
+//        } failureBlock:^(NSError *error) {
+//            
+//        }];
+////        [seletedArray addObject:dnasset];
+//    }
+//    return seletedArray;
+    
     NSMutableArray *seletedArray = [NSMutableArray new];
     for (ALAsset *asset in self.selectedAssetsArray) {
         DNAsset *dnasset = [self dnassetFromALAsset:asset];
@@ -203,8 +273,12 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
     
     DNImagePickerController *imagePicker = [self dnImagePickerController];
     if (imagePicker && [imagePicker.imagePickerDelegate respondsToSelector:@selector(dnImagePickerController:sendImages:isFullImage:)]) {
-        [imagePicker.imagePickerDelegate dnImagePickerController:imagePicker sendImages:[self seletedDNAssetArray] isFullImage:self.isFullImage];// 选取完成 发送图片
-        
+        [UIView animateWithDuration:.5 animations:^{
+            
+        } completion:^(BOOL finished) {
+            [imagePicker.imagePickerDelegate dnImagePickerController:imagePicker sendImages:self.photoArray isFullImage:self.isFullImage];// 选取完成 发送图片
+            
+        }];
     }
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];}
 

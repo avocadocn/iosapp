@@ -161,18 +161,18 @@ static NSInteger num = 0;
 
 - (void)dnImagePickerController:(DNImagePickerController *)imagePickerController sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    DNAsset *dnasset = [imageAssets firstObject];
-    ALAssetsLibrary *lib = [ALAssetsLibrary new];
-    
-    [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
-        
-        UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-        self.folderPhotoImage.image = aImage;
+//    DNAsset *dnasset = [imageAssets firstObject];
+//    ALAssetsLibrary *lib = [ALAssetsLibrary new];
+//    
+//    [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+//        
+//        UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+    self.folderPhotoImage.image = imageAssets[0];//aImage;
         
         self.photoChange = YES;
-    } failureBlock:^(NSError *error) {
-        
-    }];
+//    } failureBlock:^(NSError *error) {
+//        
+//    }];
 }
 
 

@@ -283,15 +283,15 @@
 
 - (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    DNAsset *dnasser = [imageAssets firstObject];
-    ALAssetsLibrary *library = [ALAssetsLibrary new];
-    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+//    DNAsset *dnasser = [imageAssets firstObject];
+//    ALAssetsLibrary *library = [ALAssetsLibrary new];
+//    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+//        
+        self.selectImage.image = imageAssets[0];
         
-        self.selectImage.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-        
-    } failureBlock:^(NSError *error) {
-        
-    }];
+//    } failureBlock:^(NSError *error) {
+//        
+//    }];
 }
 
 - (void)scrollAction:(UITapGestureRecognizer *)tap
