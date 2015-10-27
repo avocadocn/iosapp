@@ -56,7 +56,7 @@
 #define NSLog(...){}
 #endif
 
-
+#define USE_SDWebImageProgressiveDownload true
 
 
 
