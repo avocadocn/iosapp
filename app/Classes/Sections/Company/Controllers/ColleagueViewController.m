@@ -417,26 +417,26 @@ static NSString * contentId = nil;
 
 - (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    NSMutableArray *imagePhotoArray = [NSMutableArray array];
-    for (int i = 0; i < imageAssets.count; i++) {
-        
-        DNAsset *dnasset = [imageAssets objectAtIndex:i];
-        
-        ALAssetsLibrary *lib = [ALAssetsLibrary new];
-        
-        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
-            
-            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-            NSLog(@"正在选择");
-            [imagePhotoArray addObject:aImage];
-            if (i == [imageAssets count] - 1) {
+    NSMutableArray *imagePhotoArray = [NSMutableArray arrayWithArray:imageAssets];
+//    for (int i = 0; i < imageAssets.count; i++) {
+//        
+//        DNAsset *dnasset = [imageAssets objectAtIndex:i];
+//        
+//        ALAssetsLibrary *lib = [ALAssetsLibrary new];
+//        
+//        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+//            
+//            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+//            NSLog(@"正在选择");
+//            [imagePhotoArray addObject:aImage];
+//            if (i == [imageAssets count] - 1) {
                 [self jumpViewControllerWithPhoto:imagePhotoArray];
-            }
-            
-        } failureBlock:^(NSError *error) {
-            
-        }];
-    }
+//            }
+//            
+//        } failureBlock:^(NSError *error) {
+//            
+//        }];
+//    }
 }
 
 - (void)jumpViewControllerWithPhoto:(NSArray *)array

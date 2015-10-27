@@ -237,16 +237,16 @@
 }
 - (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    DNAsset *dnasser = [imageAssets firstObject];
-    ALAssetsLibrary *library = [ALAssetsLibrary new];
-    
-    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+//    DNAsset *dnasser = [imageAssets firstObject];
+//    ALAssetsLibrary *library = [ALAssetsLibrary new];
+//    
+//    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+//        
+    self.userPhoto.image = imageAssets[0]; //[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
         
-        self.userPhoto.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-        
-    } failureBlock:^(NSError *error) {
-        
-    }];
+//    } failureBlock:^(NSError *error) {
+//        
+//    }];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string

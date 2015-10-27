@@ -11,7 +11,7 @@
 @interface DNImageFlowViewController : UIViewController
 
 @property (nonatomic, assign) NSInteger allowSlelctNum;
-
+@property (nonatomic, strong)NSMutableArray *photoArray;
 
 - (instancetype)initWithGroupURL:(NSURL *)assetsGroupURL;
 @end

@@ -139,13 +139,13 @@ static NSInteger num = 0;
 
 - (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    DNAsset *dnasser = [imageAssets firstObject];
-    ALAssetsLibrary *library = [ALAssetsLibrary new];
-    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
-        self.selectPhoto.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-    } failureBlock:^(NSError *error) {
-        
-    }];
+//    DNAsset *dnasser = [imageAssets firstObject];
+//    ALAssetsLibrary *library = [ALAssetsLibrary new];
+//    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+    self.selectPhoto.image = imageAssets[0];//[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+//    } failureBlock:^(NSError *error) {
+//        
+//    }];
 }
 
 - (void)arrangeStartWithArray:(NSMutableArray *)array
