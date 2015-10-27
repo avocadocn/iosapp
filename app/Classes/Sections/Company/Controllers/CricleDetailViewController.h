@@ -22,7 +22,7 @@
 @property (nonatomic, strong)NSMutableArray *modelArray;
 @property (nonatomic, strong)CircleContextModel *tempModel;
 @property (nonatomic, assign)id <CricleDetailViewControllerDelegate>delegate;
-
+@property (nonatomic, strong)NSMutableArray *photoArray;
 @property (nonatomic, strong)NSIndexPath *index;
 
 @end
