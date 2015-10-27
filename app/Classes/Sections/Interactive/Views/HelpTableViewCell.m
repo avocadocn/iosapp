@@ -97,6 +97,7 @@
     // 发表时间
     UILabel *timeLabel = [[UILabel alloc]init];
     [timeLabel setFont:HelpCellTimeFont];
+    timeLabel.textColor = RGBACOLOR(155, 155, 155, 1);
     [helpContainer addSubview:timeLabel];
     self.timeLabel = timeLabel;
     
@@ -172,7 +173,7 @@
     [self.timeLabel setFrame:helpCellFrame.timeLabelF];
     
     self.fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, -3, 80, 20)];
-    self.fromLabel.font = [UIFont systemFontOfSize:9];
+    self.fromLabel.font = [UIFont systemFontOfSize:10];
     self.fromLabel.textColor = RGBACOLOR(155, 155, 155, 1);
 //    [self.fromLabel getCompanyNameFromCid:model.cid];
     self.fromLabel.text = model.companyName;
