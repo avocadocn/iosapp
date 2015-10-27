@@ -166,27 +166,28 @@
  *由秒数转化为xx分钟前
  */
 + (NSString *)DLChatListTimeFormat:(long long)time{
-    NSDate* oldDate=[NSDate dateWithTimeIntervalInMilliSecondSince1970:time];
-    NSDate* nowDate=[NSDate date];
-    NSTimeInterval sec = [nowDate timeIntervalSinceDate:oldDate];
-    NSLog(@"相差了 %f秒", sec);
-    NSString* str = nil;
-    if (sec < 3600.00) {
-        
-        NSInteger tempNum = sec / 60;
-        if (tempNum == 0) {
-            str = [NSString stringWithFormat:@"刚刚"];
-        } else {
-            str = [NSString stringWithFormat:@"%.f分钟前", sec / 60];
-        }
-    } else if (sec >= 3600 && [self compareDate:oldDate]) // 今天
-    {
-        str = [NSString stringWithFormat:@"%@", [self getHourAndMinuteWithDate:oldDate]];
-    } else
-    {
-        str = [NSString stringWithFormat:@"%.f天前", sec / (24 * 60 * 60)];
-    }
-    return str;
+    return [[NSDate dateWithTimeIntervalInMilliSecondSince1970:time] formattedDateDescription];
+//    NSDate* oldDate=[NSDate dateWithTimeIntervalInMilliSecondSince1970:time];
+//    NSDate* nowDate=[NSDate date];
+//    NSTimeInterval sec = [nowDate timeIntervalSinceDate:oldDate];
+//    NSLog(@"相差了 %f秒", sec);
+//    NSString* str = nil;
+//    if (sec < 3600.00) {
+//        
+//        NSInteger tempNum = sec / 60;
+//        if (tempNum == 0) {
+//            str = [NSString stringWithFormat:@"刚刚"];
+//        } else {
+//            str = [NSString stringWithFormat:@"%.f分钟前", sec / 60];
+//        }
+//    } else if (sec >= 3600 && [self compareDate:oldDate]) // 今天
+//    {
+//        str = [NSString stringWithFormat:@"%@", [self getHourAndMinuteWithDate:oldDate]];
+//    } else
+//    {
+//        str = [NSString stringWithFormat:@"%.f天前", sec / (24 * 60 * 60)];
+//    }
+//    return str;
 }
 +(BOOL)compareDate:(NSDate *)date{
     
