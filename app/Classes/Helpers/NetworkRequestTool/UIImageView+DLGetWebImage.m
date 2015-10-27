@@ -89,23 +89,13 @@
     effectview.alpha = 0.7;
     [self addSubview:effectview];
     
-    if (USE_SDWebImageProgressiveDownload) {
-        [self sd_setImageWithURL:url placeholderImage:image options:SDWebImageProgressiveDownload|SDWebImageHighPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [self cleanTheMask];
-            //请求图片成功后，直接保存，不再等待异步保存
-            if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]]) {
-                [[SDImageCache sharedImageCache] storeImage:image forKey:[url absoluteString]];
-            }
-        }];
-    }else{
-        [self sd_setImageWithURL:url placeholderImage:image options:SDWebImageHighPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [self cleanTheMask];
-            //请求图片成功后，直接保存，不再等待异步保存
-            if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]]) {
-                [[SDImageCache sharedImageCache] storeImage:image forKey:[url absoluteString]];
-            }
-        }];
-    }
+    [self sd_setImageWithURL:url placeholderImage:image options:USE_SDWebImageProgressiveDownload?SDWebImageProgressiveDownload:0|SDWebImageHighPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self cleanTheMask];
+        //请求图片成功后，直接保存，不再等待异步保存
+        if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]]) {
+            [[SDImageCache sharedImageCache] storeImage:image forKey:[url absoluteString]];
+        }
+    }];
     
 }
 - (void)cleanTheMask
