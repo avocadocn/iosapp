@@ -67,8 +67,7 @@
  */
 - (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size
 {
-//    self.backgroundColor = ArcColor;
-   
+    self.backgroundColor = ArcColor;
     // 得到网络请求的字符串
     NSString *newUrlStr = [self getUrlStringWithString:str];
     
