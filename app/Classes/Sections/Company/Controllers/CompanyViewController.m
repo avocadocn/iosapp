@@ -61,29 +61,8 @@
     
     [self.view addSubview:self.BigCollection];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jumpPageAction:) name:@"JumpController" object:nil];  //  接受跳转通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jumpPageAction:) name:@"PersonReport" object:nil];  //
+
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(jumpPageAction:) name:@"HappyBrithday" object:nil];  //
-    
-}
-- (void)jumpPageAction:(NSNotification *)noti //用来跳转页面的通知
-{
-    NSString *str = [NSString stringWithFormat:@"%@", noti.name];
-    if ([str isEqualToString:@"JumpController"]) {
-        ColleagueViewController *coll = [[ColleagueViewController alloc]init];
-        [self.navigationController pushViewController:coll animated:YES];
-    } else if ([str isEqualToString:@"PersonReport"])
-    {
-        PersonReportController *report = [[PersonReportController alloc]init];
-        [self.navigationController pushViewController:report animated:YES];
-    } else if ([str isEqualToString:@"HappyBrithday"])
-    {
-        BrithdayBlessController *brith = [[BrithdayBlessController alloc]init];
-        [self.navigationController pushViewController:brith animated:YES];
-        
-        NSLog(@"生日祝福");
-    }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -393,5 +372,37 @@
     return model;
 
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+        switch (indexPath.row) {
+                
+            case 0:
+            {
+                ColleagueViewController *coll = [[ColleagueViewController alloc]init];
+                [self.navigationController pushViewController:coll animated:YES];
+                
+            }
+                break;
+            case 1:
+            {
+                PersonReportController *report = [[PersonReportController alloc]init];
+                [self.navigationController pushViewController:report animated:YES];
+            }
+                break;
+            case 2:
+            {
+                BrithdayBlessController *brith = [[BrithdayBlessController alloc]init];
+                [self.navigationController pushViewController:brith animated:YES];
+            }
+                break;
+            default:
+                break;
+        }
+        NSLog(@"点击");
+
+}
+
 
 @end
