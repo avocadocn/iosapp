@@ -26,6 +26,11 @@
  */
 @property (nonatomic, copy) NSString *cid;
 
+/**
+ *  学校
+ */
+@property (nonatomic, copy) NSString *companyName;
+
 
 /**
  *  头像Image的url

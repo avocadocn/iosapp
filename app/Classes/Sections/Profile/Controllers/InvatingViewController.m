@@ -468,5 +468,21 @@
         [array addObject:model];
     }
 }
+// 设置索引
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    NSMutableArray *arry = [NSMutableArray arrayWithCapacity:0];
+    for (NSDictionary *dic in self.contactArray) {
+        NSString *str = dic[@"letter"];
+        [arry addObject:str];
+    }
+    return arry;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:index] atScrollPosition:UITableViewScrollPositionNone animated:YES];
+    
+    return [self.contactArray count];
+}
 
 @end

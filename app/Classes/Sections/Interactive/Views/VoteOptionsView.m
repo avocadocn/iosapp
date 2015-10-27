@@ -48,7 +48,7 @@
         for (NSInteger i  = 0; i < self.optionCount ; i++) {
             VoteOptionsInfoModel *optionInfo = self.modelArray[i];
             optionInfo.index = [NSNumber numberWithInteger:i];
-            VoteAnimatedOptionView *optionView = [[VoteAnimatedOptionView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth- 2*12.0, 0)];
+            VoteAnimatedOptionView *optionView = [[VoteAnimatedOptionView alloc]initWithFrame:CGRectMake(11, 0, DLScreenWidth- 2*11.0, 0)];
             optionView.voteViewColor = optionInfo.voteInfoColor;
             optionView.optionCount = optionInfo.optionCount;
             [optionView setOptionName:optionInfo.optionName];  //设置投票名字
