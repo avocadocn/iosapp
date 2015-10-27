@@ -731,14 +731,20 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         per.name = dic[@"realname"];
         per.imageURL = dic[@"photo"];
         per.userId = dic[@"_id"];
-        per.companyName = self.companyName;
+        NSLog(@"-------> %@",self.companyName);
+        if (self.companyName.length != 0) {
+            per.companyName = self.companyName;
+        } else {
+            Account *account = [AccountTool account];
+            [self getCompanyNameWithCid:account.cid];
+        }
         [[FMDBSQLiteManager shareSQLiteManager] insertPerson:per];
     }
    
     
 }
 - (void)getCompanyNameWithCid:(NSString *)cid {
-    
+    NSLog(@"++++++> %@",cid);
     NSDictionary *dic = [NSDictionary dictionaryWithObject:cid forKey:@"companyId"];
     [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
         [self ismembermentJson:json];
