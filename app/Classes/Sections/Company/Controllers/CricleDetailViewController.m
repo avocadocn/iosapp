@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/9/11.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "PhotoPlayController.h"
 #import "Account.h"
 #import "AccountTool.h"
 #import "CustomKeyBoard.h"
@@ -60,19 +60,19 @@ static BOOL state;
     [self.detileTableview registerClass:[CommentCardCell class] forCellReuseIdentifier:circleCardCell];
     [self.detileTableview registerNib:[UINib nibWithNibName:@"CommentViewCell" bundle:nil] forCellReuseIdentifier:ID];
     
-//    self.detileTableview.separatorColor = [UIColor clearColor];
+    //    self.detileTableview.separatorColor = [UIColor clearColor];
     
-//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 10)];
-//    view.backgroundColor = [UIColor whiteColor];
-//    self.detileTableview.tableFooterView = view;
+    //    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 10)];
+    //    view.backgroundColor = [UIColor whiteColor];
+    //    self.detileTableview.tableFooterView = view;
     
-//    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerAction:)];
-//    self.detileTableview.footer = footer;
+    //    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerAction:)];
+    //    self.detileTableview.footer = footer;
     
     CommentViewCell *cell = [self.detileTableview dequeueReusableCellWithIdentifier:ID];
     self.defaultCell = cell;
     [self.view addSubview:self.detileTableview];
-
+    
     [self setupKeyBoard];
 }
 - (void)footerAction:(id)sender
@@ -95,7 +95,7 @@ static BOOL state;
 - (void)setTempModel:(CircleContextModel *)tempModel
 {
     self.model = tempModel;
-//    [self builtInterface];
+    //    [self builtInterface];
     [self.detileTableview reloadData];
     
 }
@@ -151,6 +151,22 @@ static BOOL state;
         
         [cell.commondButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCommondAction:)]];
         [cell.praiseButton addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(praiseAction:)]];
+        NSArray *tempArray = [cell.userInterView subviews];
+        int i = 0;
+
+        for (UIView * tempView in tempArray) {
+            NSArray *viewArray = [tempView subviews];
+            for (id tempImageView in viewArray) {
+                if ([tempImageView isKindOfClass:[UIImageView class]]) {
+                    i++;
+                    NSLog(@"有 image");
+                    UIImageView *image = (UIImageView *)tempImageView;
+                    image.tag = i;
+                    image.userInteractionEnabled = YES;
+                    [image addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageAction:)]];
+                }
+            }
+        }
         
         
         return cell;
@@ -165,20 +181,20 @@ static BOOL state;
     
     CommentViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID forIndexPath:indexPath];
     
-//    CircleContextModel *model = [[CircleContextModel alloc]init];
-//    AddressBookModel *poster = [[AddressBookModel alloc]init];
+    //    CircleContextModel *model = [[CircleContextModel alloc]init];
+    //    AddressBookModel *poster = [[AddressBookModel alloc]init];
     CircleContextModel *temp = [self.model.comments objectAtIndex:indexPath.row];
-//    NSDictionary *posterDic = temp.poster;
-//    [poster setValuesForKeysWithDictionary:posterDic];
-//    [model setValuesForKeysWithDictionary:[self.model.comments objectAtIndex:indexPath.row]];
-//    [model setPoster:poster];
-
+    //    NSDictionary *posterDic = temp.poster;
+    //    [poster setValuesForKeysWithDictionary:posterDic];
+    //    [model setValuesForKeysWithDictionary:[self.model.comments objectAtIndex:indexPath.row]];
+    //    [model setPoster:poster];
+    
     [cell setCommentModel:temp];
     
     return cell;
     
     
-//    return cell;
+    //    return cell;
 }
 
 - (void)tapCommondAction:(UITapGestureRecognizer *)tap
@@ -292,15 +308,17 @@ static BOOL state;
         temp = @[@"contentId", @"commentId"];
     }
     
+    [self.detileTableview reloadData];
+    
     [RestfulAPIRequestTool routeName:routeString requestModel:tempModel useKeys:temp success:^(id json) {
         
-        NSLog(@"%@ %@", nsl, json);
-//        [self.inputTextView resignFirstResponder];
+        NSLog(@"点赞的结果为   %@ %@", nsl, json);
+        //        [self.inputTextView resignFirstResponder];
         
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);
     }];
-  
+    
 }
 
 
@@ -311,14 +329,14 @@ static BOOL state;
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 //{
@@ -340,7 +358,7 @@ static BOOL state;
     view.backgroundColor = tableView.numberOfSections == 3 ? (section != 2 ? RGBACOLOR(236, 236, 239, 1) : [UIColor clearColor]):(section != 1 ? RGBACOLOR(236, 236, 239, 1) : [UIColor clearColor]);
     
     return view;
-
+    
 }
 
 -(void)setupKeyBoard{
@@ -355,7 +373,7 @@ static BOOL state;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commond) name:@"POSTTEXT" object:nil];
     self.keyBoard = keyBoard;
     
-//    self.inputAccessoryView = self.keyBoard;
+    //    self.inputAccessoryView = self.keyBoard;
     [self.view addSubview:keyBoard];
     
 }
@@ -377,5 +395,12 @@ static BOOL state;
 {
     [self.delegate reloadData:self.index];
 }
-
+- (void)imageAction:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"点击");
+    
+    PhotoPlayController *play = [[PhotoPlayController alloc]initWithPhotoArray:self.photoArray indexOfContentOffset:tap.view.tag - 1];
+    [self.navigationController pushViewController:play animated:YES];
+    
+}
 @end

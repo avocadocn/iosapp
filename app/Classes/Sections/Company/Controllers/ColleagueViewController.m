@@ -570,6 +570,8 @@ static NSString * contentId = nil;
     
     [self.navigationController pushViewController:c animated:YES];
     
+    c.photoArray = [NSMutableArray arrayWithArray:[self.photoArray objectAtIndex:indexPath.row]];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 

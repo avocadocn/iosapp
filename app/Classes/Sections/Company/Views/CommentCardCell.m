@@ -49,8 +49,16 @@
     NSInteger num = (self.frame.size.width - self.frame.size.height - 11) / 40;
     FMDBSQLiteManager *manger = [FMDBSQLiteManager shareSQLiteManager];
     
+    NSArray *tempArray = [self subviews];
+    for (id image in tempArray) {
+        if ([image isKindOfClass:[UIImageView class]]) {
+            [image removeFromSuperview];
+        }
+    }
+    
     int i = 0;
     for (NSDictionary *dic in array) {
+        
         Person *per = [manger selectPersonWithUserId:[dic objectForKey:@"_id"]];
         
         CGFloat width = 40.0;

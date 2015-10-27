@@ -34,10 +34,10 @@
 - (void)settingUpImageViewWithImage:(id)image
 {
     NSLog(@"传过来的 imageurl 为%@", image);
-    NSArray *array = [image componentsSeparatedByString:@"/_"];
-    NSString *last = [array lastObject];
     
     if ([image isKindOfClass:[NSString class]]) {
+        NSArray *array = [image componentsSeparatedByString:@"/_"];
+        NSString *last = [array lastObject];
         
         NSArray *lastArray = [last componentsSeparatedByString:@"/"];
         CGFloat one = [lastArray[0] floatValue];
@@ -48,28 +48,29 @@
                 [self reloadImage:image];
             }
         }];
+        SDWebImageManager *manger = [SDWebImageManager sharedManager];
+        
+        [manger downloadImageWithURL:[NSURL URLWithString:[self getUrlStringWithString:[array firstObject]]] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            CGFloat num =   (CGFloat)receivedSize  / (CGFloat)expectedSize  * 100;
+            if (num <= 0) {
+                num = 0;
+            }
+            
+            self.downloadPro.text = [NSString stringWithFormat:@"%.f%%", num];
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            if (image) {
+                [self reloadImage:image];
+            }
+            [self.downloadPro removeFromSuperview];
+        }];
     }
     else
     {
         self.showImageView.image = image;
+        [self reloadImage:image];
     }
     
-    SDWebImageManager *manger = [SDWebImageManager sharedManager];
-    
-    [manger downloadImageWithURL:[NSURL URLWithString:[self getUrlStringWithString:[array firstObject]]] options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-        CGFloat num =   (CGFloat)receivedSize  / (CGFloat)expectedSize  * 100;
-        if (num <= 0) {
-            num = 0;
-        }
-        
-        self.downloadPro.text = [NSString stringWithFormat:@"%.f%%", num];
-        
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-        if (image) {
-            [self reloadImage:image];
-        }
-            [self.downloadPro removeFromSuperview];
-    }];
     
 }
 
