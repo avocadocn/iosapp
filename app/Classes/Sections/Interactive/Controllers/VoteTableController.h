@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VoteTableController : UITableViewController
+@interface VoteTableController : UIViewController
 
 /**
  *  投票的Frames

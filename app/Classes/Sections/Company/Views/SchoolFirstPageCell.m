@@ -44,7 +44,7 @@
     
     self.smailWidth1.constant = self.smailWidth2.constant = self.smailHeight1.constant = self.smailHeifht2.constant = width;
     self.BigWidth.constant = self.BigHeight.constant = width * 2;
-    [self.tapView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(TapAction:)]];
+//    [self.tapView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(TapAction:)]];
 }
 
 

@@ -214,6 +214,7 @@ static NSString * const ID = @"VoteCommentViewCell";
     return UITableViewCellEditingStyleDelete;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }

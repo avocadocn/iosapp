@@ -52,9 +52,9 @@
     // 判断是否存在图片
     if (voteInfoModel.voteImageURL) {
         // 存在图片
-        CGFloat voteImageViewX = 0;
+        CGFloat voteImageViewX = 11;
         CGFloat voteImageViewY = voteContentLabelY;
-        self.voteImageViewF = CGRectMake(voteImageViewX, voteImageViewY, DLScreenWidth, DLScreenWidth);
+        self.voteImageViewF = CGRectMake(voteImageViewX, voteImageViewY, DLScreenWidth - 22, DLScreenHeight- 332);
         voteContentLabelY += CGRectGetHeight(self.voteImageViewF) + 14;
     }else{
         // 不存在图片

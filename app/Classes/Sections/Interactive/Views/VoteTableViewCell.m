@@ -86,7 +86,7 @@
     
     // 容器视图
     UIView *voteContainer = [[UIView alloc]init];
-    //    [voteContainer setBackgroundColor:[UIColor yellowColor]];
+        [voteContainer setBackgroundColor:[UIColor whiteColor]];
     
     // 头像 设置圆角
     UIImageView *avatarImageView = [[UIImageView alloc]init];

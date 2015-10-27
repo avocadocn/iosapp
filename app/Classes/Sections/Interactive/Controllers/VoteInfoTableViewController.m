@@ -27,6 +27,8 @@
 @property (nonatomic, strong) VoteInfoTableViewModel *infoModel;
 
 @property (nonatomic, strong) UIImageView *item;
+
+@property (nonatomic, strong) NSMutableDictionary *userIdDic;
 @end
 
 @implementation VoteInfoTableViewController
@@ -37,6 +39,12 @@ static NSString * const ID = @"VoteInfoTableViewCell";
         self.dataArray = [@[]mutableCopy];
     }
     return _dataArray;
+}
+- (NSMutableDictionary *)userIdDic {
+    if (_userIdDic == nil) {
+        self.userIdDic = [@{}mutableCopy];
+    }
+    return _userIdDic;
 }
 
 - (void)viewDidLoad {
@@ -117,6 +125,9 @@ static NSString * const ID = @"VoteInfoTableViewCell";
         [itemView dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:itemView.size];
         itemView.userInteractionEnabled = YES;
         itemView.tag = indexPath.section * 10000 + 10000 + i;
+        AddressBookModel *model = [[AddressBookModel alloc] init];
+        [model setValuesForKeysWithDictionary:dic];
+        [self.userIdDic setObject:model forKey:[NSNumber numberWithInteger:itemView.tag]];
         // 设置圆形头像
         [itemView.layer setCornerRadius:itemWidthHeight / 2];
         [itemView.layer setMasksToBounds:YES];
@@ -128,7 +139,13 @@ static NSString * const ID = @"VoteInfoTableViewCell";
     
 }
 - (void)pushView:(UITapGestureRecognizer *)tap {
-    NSLog(@"____---->%ld",tap.view.tag);
+    
+    ColleaguesInformationController *informationController = [[ColleaguesInformationController alloc] init];
+
+    informationController.model = [self.userIdDic objectForKey:[NSNumber numberWithInteger:tap.view.tag]];
+    
+    [self.navigationController pushViewController:informationController animated:YES];
+    
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{

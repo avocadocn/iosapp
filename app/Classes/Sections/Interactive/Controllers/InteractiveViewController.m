@@ -188,8 +188,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
             view.backgroundColor = RGBACOLOR(0, 0, 0, .6);
             [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAction:)]];
             self.coriusImage.image = [UIImage imageNamed:@"mistakeo"];
-            self.coriusView.backgroundColor = [UIColor whiteColor];
             
+            self.coriusView.backgroundColor = [UIColor whiteColor];
             self.coriusImage.transform = CGAffineTransformMakeRotation(M_PI_2);
         }];
     } else
@@ -198,11 +198,11 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         UIView *view = (UIView *)[self.view viewWithTag:1999];
         [UIView animateWithDuration:.1 animations:^{
             view.backgroundColor = [UIColor clearColor];
-        } completion:^(BOOL finished) {
             [view removeFromSuperview];
             self.coriusView.backgroundColor = RGBACOLOR(253, 185, 0, 1);
             self.coriusImage.image = [UIImage imageNamed:@"mistake"];
-                self.coriusImage.transform = CGAffineTransformMakeRotation(M_PI_2 / 2);
+            self.coriusImage.transform = CGAffineTransformMakeRotation(M_PI_2 / 2);
+        } completion:^(BOOL finished) {
         }];
     }
 }
