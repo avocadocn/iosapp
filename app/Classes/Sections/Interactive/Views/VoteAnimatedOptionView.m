@@ -66,7 +66,7 @@
     NSDictionary *attr = @{NSFontAttributeName:percentageLabelFont};
     CGSize percentageLabelSize = [defaultString boundingRectWithSize:maxPercentageLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attr context:nil].size;
     percentageLabel.size = CGSizeMake(percentageLabelSize.width + 35, percentageLabelSize.height);
-    percentageLabel.x = DLScreenWidth - percentageLabelSize.width - 50;
+    percentageLabel.x = DLScreenWidth - percentageLabelSize.width - 60;
     percentageLabel.textAlignment = NSTextAlignmentRight;
     percentageLabel.centerY = self.centerY;
     [self addSubview:percentageLabel];
