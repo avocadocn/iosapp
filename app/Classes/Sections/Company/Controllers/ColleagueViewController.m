@@ -461,7 +461,6 @@ static NSString * contentId = nil;
     CircleContextModel *model = [self.modelArray objectAtIndex:indexPath.row];
     [cell reloadCellWithModel:model andIndexPath:indexPath];
     
-    
     cell.userInterView.height = view.frame.size.height;
     //circleImageAction
     
@@ -567,6 +566,7 @@ static NSString * contentId = nil;
     c.delegate = self;
     c.tempModel = [[CircleContextModel alloc]init];
     c.tempModel = model;
+    c.index = indexPath;
     
     [self.navigationController pushViewController:c animated:YES];
     
@@ -588,8 +588,32 @@ static NSString * contentId = nil;
 //    
 //    CircleContextModel *model = [[CircleContextModel alloc]initWithString:str];
 //    [self.modelArray replaceObjectAtIndex:index.row withObject:model];
-//
+    
+    
     [self netRequest];
+}
+
+- (void)deleteIndexPath:(NSIndexPath *)index
+{
+    NSFileManager *manger = [NSFileManager defaultManager];
+    NSArray *tempArray =  NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [tempArray lastObject];
+
+    path = [NSString stringWithFormat:@"%@/%@", path, @"IDArray"];
+    
+    CircleContextModel *model = self.modelArray[index.row];
+    NSMutableArray *IDArray = (NSMutableArray *)[NSArray arrayWithContentsOfFile:path];
+    [IDArray removeObjectAtIndex:index.row];
+    [manger removeItemAtPath:path error:nil];
+    [IDArray writeToFile:path atomically:YES];
+    NSLog( @"  %@ \n  %@", IDArray[index.row], model.ID);
+    
+    NSLog(@"%ld  %ld", index.row, index.section);
+    [self.userInterArray removeObjectAtIndex:index.row];
+    [self.modelArray removeObjectAtIndex:index.row];
+    NSLog(@"原文为   %@  ", model.content);
+    
+    [self.colleagueTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

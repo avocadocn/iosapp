@@ -699,6 +699,7 @@
 		A459C4BF1B620C88003D32C8 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4BE1B620C88003D32C8 /* RegisterViewController.m */; };
 		A459C4C51B62305D003D32C8 /* GroupCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4C41B62305D003D32C8 /* GroupCardModel.m */; };
 		A459C4CB1B6242A2003D32C8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4CA1B6242A2003D32C8 /* LoginViewController.m */; };
+		A45D4EA91BDF3924006A0618 /* deleteImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A45D4EA81BDF3924006A0618 /* deleteImage.png */; settings = {ASSET_TAGS = (); }; };
 		A45FEBEA1B856C6600BC5E41 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBE91B856C6600BC5E41 /* SMS_SDK.framework */; };
 		A45FEBEC1B85725000BC5E41 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBEB1B85725000BC5E41 /* libicucore.dylib */; };
 		A45FEBEE1B85727000BC5E41 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */; };
@@ -1914,6 +1915,7 @@
 		A459C4C41B62305D003D32C8 /* GroupCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCardModel.m; sourceTree = "<group>"; };
 		A459C4C91B6242A2003D32C8 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		A459C4CA1B6242A2003D32C8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		A45D4EA81BDF3924006A0618 /* deleteImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteImage.png; sourceTree = "<group>"; };
 		A45FEBE91B856C6600BC5E41 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
 		A45FEBEB1B85725000BC5E41 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -4412,6 +4414,7 @@
 				A46CFBB71BD6244400D64CDB /* 微信@2x.png */,
 				A48523D51BB910BF007098DC /* 通讯录 @2x.png */,
 				A48523D61BB910BF007098DC /* Back Arrow @2x.png */,
+				A45D4EA81BDF3924006A0618 /* deleteImage.png */,
 				A48523D71BB910BF007098DC /* company1@2x.png */,
 				A45644771BDDC9200097EC3E /* chat_black.png */,
 				A45644781BDDC9200097EC3E /* chat_white.png */,
@@ -5101,6 +5104,7 @@
 				96CF945D1B674B54001759E2 /* titleBar@2x.png in Resources */,
 				96CF94561B674B54001759E2 /* password.png in Resources */,
 				A43F56261BDA1462004DE6AE /* gray-man@2x.png in Resources */,
+				A45D4EA91BDF3924006A0618 /* deleteImage.png in Resources */,
 				96CF93E11B674B54001759E2 /* VoiceSearchFeedback014.png in Resources */,
 				A42CFFD81B9C194000CCFB34 /* 110.png in Resources */,
 				A43CE9CB1BAABDDC0069C94E /* gril.png in Resources */,
