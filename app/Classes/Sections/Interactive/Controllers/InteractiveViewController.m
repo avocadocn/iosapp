@@ -62,7 +62,6 @@ enum InteractionType{
 
 @property (nonatomic, copy)NSString *path; // 写入文件路径
 @property (nonatomic)BOOL orTrue;
-@property (nonatomic, copy) NSString *companyName;
 
 /**
  *  path菜单
@@ -76,6 +75,7 @@ enum InteractionType{
 static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadingContacts]; // 加载通讯录信息
  
     // Do any additional setup after loading the view.
 
@@ -96,7 +96,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     // 活动展示table
     [self setupActivityShowTableView];
     [self requestNet];
-    [self loadingContacts]; // 加载通讯录信息
 //     [self loadData]; // 加载数据
     [self refressMJ]; // 下拉刷新 上拉加载
     
@@ -658,19 +657,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [self.navigationController pushViewController:login animated:YES];
 }
 
-- (void)loadingContacts { // 加载通讯录
-    Account *account = [AccountTool account];
-    AddressBookModel *model = [[AddressBookModel alloc] init];
-    [model setCompanyId:account.cid];
-    [self getCompanyNameWithCid:model.companyId];
-    [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
-        NSLog(@"请求成功 %@",json);
-        [self reloadWithJson:json];
-    } failure:^(id errorJson) {
-        NSLog(@"请求失败 %@",[errorJson objectForKey:@"msg"]);
-    }];
-    
-}
 - (void)refressMJ {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reFreshData)];
     self.tableView.header = header;
@@ -722,40 +708,25 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     }
 }
 
-- (void)reloadWithJson:(id)json {  // 将获取的通讯录信息写入数据库
-    if (!self.contactsArray) {
-        self.contactsArray = [NSMutableArray arrayWithArray:json];
-    }
-    for (NSDictionary *dic in self.contactsArray) {
-        Person *per = [[Person alloc] init];
-        per.name = dic[@"realname"];
-        per.imageURL = dic[@"photo"];
-        per.userId = dic[@"_id"];
-        NSLog(@"-------> %@",self.companyName);
-        if (self.companyName.length != 0) {
-            per.companyName = self.companyName;
-        } else {
-            Account *account = [AccountTool account];
-            [self getCompanyNameWithCid:account.cid];
-        }
-        [[FMDBSQLiteManager shareSQLiteManager] insertPerson:per];
-    }
-   
-    
+#pragma Company and Contacts Info
+- (void)loadingContacts { // 加载学校信息
+    Account *account = [AccountTool account];
+    [self getCompanyNameWithCid:account.cid]; // 获取学校信息
 }
+
 - (void)getCompanyNameWithCid:(NSString *)cid {
-    NSLog(@"++++++> %@",cid);
+    NSLog(@"学校ID 为 %@",cid);
     NSDictionary *dic = [NSDictionary dictionaryWithObject:cid forKey:@"companyId"];
     [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
-        [self ismembermentJson:json];
-        NSLog(@"%@",json);
+        [self ismembermentJson:json Cid:cid];
+        NSLog(@"获取的学校信息为  %@",json);
         
     } failure:^(id errorJson) {
         NSLog(@"%@", [errorJson objectForKey:@"msg"]);
     }];
 }
 
-- (void)ismembermentJson:(id)json
+- (void)ismembermentJson:(id)json Cid:(NSString *)cid
 {
     NSDictionary *dic = [json objectForKey:@"company"];
     NSDictionary *infoDic = [dic objectForKey:@"info"];
@@ -767,8 +738,49 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     NSInteger num = temp.length - 3;
     //    [attStr addAttributes:@{[UIColor orangeColor]} range:NSMakeRange(3, num)];
     [attStr setAttributes:tempDic range:NSMakeRange(3, num)];
-    self.companyName = [attStr string];
+    
+    NSString *companyName = [attStr string];
+    [self getcontactPersonsWithCid:cid comapnyName:companyName];  // 加载通讯录信息
+    NSLog(@"huoqudexuexiaoming %@",companyName);
 }
+
+- (void)getcontactPersonsWithCid:(NSString *)cid comapnyName:(NSString *)companyName {
+    
+    AddressBookModel *model = [[AddressBookModel alloc] init];
+    [model setCompanyId:cid];
+    [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
+        NSLog(@"请求成功 %@",json);
+        [self reloadWithJson:json companyName:companyName];
+    } failure:^(id errorJson) {
+        NSLog(@"请求失败 %@",[errorJson objectForKey:@"msg"]);
+    }];
+    
+}
+
+- (void)reloadWithJson:(id)json companyName:(NSString *)companyName {  // 将获取的 通讯录信息 和 学校信息 写入数据库
+    if (!self.contactsArray) {
+        self.contactsArray = [NSMutableArray arrayWithArray:json];
+    }
+    for (NSDictionary *dic in self.contactsArray) {
+        Person *per = [[Person alloc] init];
+        per.name = dic[@"realname"];
+        per.imageURL = dic[@"photo"];
+        per.userId = dic[@"_id"];
+        if (companyName.length != 0) {
+            per.companyName = companyName;
+           
+        } else {
+            per.companyName = per.companyName;
+        }
+         [[FMDBSQLiteManager shareSQLiteManager] insertPerson:per];
+    }
+   
+    
+}
+
+
+
+
 
 
 

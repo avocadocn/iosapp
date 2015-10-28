@@ -39,7 +39,7 @@
     }];
     
     self.informationTextField = [UITextField new];
-    
+    self.informationTextField.delegate = self;
     [self addSubview:self.informationTextField];
     self.informationTextField.userInteractionEnabled = NO;
     self.informationTextField.textAlignment = NSTextAlignmentCenter;
@@ -62,7 +62,10 @@
     }];
 }
 
-
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.informationTextField resignFirstResponder];
+    return YES;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

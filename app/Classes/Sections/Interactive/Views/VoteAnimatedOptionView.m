@@ -46,7 +46,7 @@
     // 添加按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
-    btn.frame = CGRectMake(0, 0, DLScreenWidth, 40);
+    btn.frame = CGRectMake(0, 0, DLScreenWidth - 22, 40);
     [btn setTitleColor:RGB(57, 161, 255) forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
 //    [btn setBackgroundColor:[UIColor blackColor]];
@@ -94,7 +94,7 @@
     CGFloat allCount = [voteCount floatValue];
     CGFloat width = 0.0;
     if (tempNum != 0) {
-        width = tempNum / allCount * DLScreenWidth + 1;
+        width = tempNum / allCount * (DLScreenWidth - 22) + 1;
         self.percentageLabel.text = [NSString stringWithFormat:@"%.1f%%",tempNum / [voteCount floatValue] * 100];
     } else {
         width = 0;
@@ -117,7 +117,7 @@
     view.backgroundColor = self.voteViewColor;
     [self insertSubview:view atIndex:0];
     
-    CGFloat width = optionPercentage * DLScreenWidth;
+    CGFloat width = optionPercentage * (DLScreenWidth - 22);
     
     [UIView animateWithDuration:.5 animations:^{
         view.frame = CGRectMake(0, 0, width, 44);

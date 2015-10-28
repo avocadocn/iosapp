@@ -507,7 +507,7 @@ static NSInteger num = 0;
 //    CGRect newFrame = self.scrollView.frame;
 //    newFrame.size.height -= keyboardRect.size.height;
     [self.scrollView setContentOffset:CGPointMake(0, 130) animated:YES];
-    [UIView beginAnimations:@"ResizeTextView" context:nil];
+//    [UIView beginAnimations:@"ResizeTextView" context:nil];
 //    [UIView setAnimationDuration:animationDuration];
 //    
 //    self.view.frame = newFrame;  
@@ -518,7 +518,7 @@ static NSInteger num = 0;
 
 - (void) keyboardWillHide:(NSNotification *)aNotification {  // 消失回调
     [self.scrollView setContentOffset:CGPointMake(0, - 60) animated:YES];
-    [UIView beginAnimations:@"ResizeTextView" context:nil];
+//    [UIView beginAnimations:@"ResizeTextView" context:nil];
 
 }
 
