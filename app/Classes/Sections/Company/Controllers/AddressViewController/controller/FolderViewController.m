@@ -32,6 +32,8 @@ static NSInteger num = 0;
 
 @property (nonatomic, strong)UIPickerView *picker;
 
+@property (nonatomic, strong) UIScrollView *scrollView;
+
 @end
 
 @implementation FolderViewController
@@ -43,7 +45,7 @@ static NSInteger num = 0;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self builtScrollView];
     self.view.backgroundColor = DLSBackgroundColor;
     self.title = @"我的资料";
     
@@ -56,6 +58,13 @@ static NSInteger num = 0;
     }
 }
 
+- (void)builtScrollView {
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
+    self.scrollView.contentSize = CGSizeMake(DLScreenWidth, DLScreenHeight + 180);
+    self.scrollView.backgroundColor = RGBACOLOR(238, 239, 240, 1);
+    self.scrollView.showsVerticalScrollIndicator = NO;
+    [self.view insertSubview:self.scrollView atIndex:0];
+}
 
 - (void)getModel{
     AddressBookModel *model = [[AddressBookModel alloc] init];
@@ -95,7 +104,7 @@ static NSInteger num = 0;
 //    self.scroll.backgroundColor = RGBACOLOR(239, 239, 239, 1);
     self.scroll.showsVerticalScrollIndicator = FALSE;
     self.scroll.showsHorizontalScrollIndicator = FALSE;
-    [self.view addSubview:self.scroll];
+    [self.scrollView addSubview:self.scroll];
     
     
     CGFloat width = DLScreenWidth / (375.0 / 150.0);
@@ -161,18 +170,18 @@ static NSInteger num = 0;
 
 - (void)dnImagePickerController:(DNImagePickerController *)imagePickerController sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    DNAsset *dnasset = [imageAssets firstObject];
-    ALAssetsLibrary *lib = [ALAssetsLibrary new];
-    
-    [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
-        
-        UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-        self.folderPhotoImage.image = aImage;
+//    DNAsset *dnasset = [imageAssets firstObject];
+//    ALAssetsLibrary *lib = [ALAssetsLibrary new];
+//    
+//    [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+//        
+//        UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+    self.folderPhotoImage.image = imageAssets[0];//aImage;
         
         self.photoChange = YES;
-    } failureBlock:^(NSError *error) {
-        
-    }];
+//    } failureBlock:^(NSError *error) {
+//        
+//    }];
 }
 
 
@@ -262,7 +271,7 @@ static NSInteger num = 0;
     
     
     
-    [self.view addSubview:view];
+    [self.scrollView addSubview:view];
 }
 
 - (void)returnButtonAction:(UIButton *)sender
@@ -360,7 +369,7 @@ static NSInteger num = 0;
     NSDate *maxDate = [[NSDate alloc] initWithTimeInterval:- 60 * 60 * 24 * 365 * 3 sinceDate:[NSDate date]];
     [picker reloadWithMaxDate:maxDate minDate:minDate dateMode:UIDatePickerModeDate];
     
-    [self.view addSubview:picker];
+    [self.scrollView addSubview:picker];
     [picker show];
 }
 //pickerview 消失后的方法
@@ -446,6 +455,9 @@ static NSInteger num = 0;
     
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -466,5 +478,62 @@ static NSInteger num = 0;
     _foloderModel = foloderModel;
     [self netRequstWithModel:foloderModel];
 }
+
+
+- (void)viewWillAppear:(BOOL)animated  // 注册通知 监测 键盘弹出状态
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification *)aNotification  // 弹出回调
+
+{
+//    NSDictionary *userInfo = [aNotification userInfo];
+    
+//    CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey]CGRectValue];
+//    NSTimeInterval animationDuration = [[userInfo
+//                                         
+//                                         objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+//    CGRect newFrame = self.scrollView.frame;
+//    newFrame.size.height -= keyboardRect.size.height;
+    [self.scrollView setContentOffset:CGPointMake(0, 130) animated:YES];
+    [UIView beginAnimations:@"ResizeTextView" context:nil];
+//    [UIView setAnimationDuration:animationDuration];
+//    
+//    self.view.frame = newFrame;  
+    
+    [UIView commitAnimations];
+
+}
+
+- (void) keyboardWillHide:(NSNotification *)aNotification {  // 消失回调
+    [self.scrollView setContentOffset:CGPointMake(0, - 60) animated:YES];
+    [UIView beginAnimations:@"ResizeTextView" context:nil];
+
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated
+{  // 移除通知
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+}
+
 
 @end

@@ -655,15 +655,16 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 - (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
-    DNAsset *dnasser = [imageAssets firstObject];
-    ALAssetsLibrary *library = [ALAssetsLibrary new];
-    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
-        self.image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+//    DNAsset *dnasser = [imageAssets firstObject];
+//    ALAssetsLibrary *library = [ALAssetsLibrary new];
+//    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
+    self.image = imageAssets[0];//[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+
 //        [self.chooseButton setBackgroundImage:self.image forState:UIControlStateNormal];
         [self.chooseButton setImage:self.image];
-    } failureBlock:^(NSError *error) {
-        
-    }];
+//    } failureBlock:^(NSError *error) {
+//        
+//    }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
