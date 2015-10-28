@@ -89,7 +89,7 @@
     effectview.alpha = 0.7;
     [self addSubview:effectview];
     
-    [self sd_setImageWithURL:url placeholderImage:image options:USE_SDWebImageProgressiveDownload?SDWebImageProgressiveDownload:0|SDWebImageHighPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self sd_setImageWithURL:url placeholderImage:image options:USE_SDWebImageProgressiveDownload?SDWebImageProgressiveDownload:0|SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [self cleanTheMask];
         //请求图片成功后，直接保存，不再等待异步保存
         if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]]) {
@@ -116,13 +116,13 @@
     NSString *newUrlStr = [self getUrlStringWithString:url];
     NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%.f/%.f", size.width*[self BitmapScale], size.height*[self BitmapScale]]];
     
-    [self sd_setImageWithURL:[NSURL URLWithString:newStr] placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageProgressiveDownload|SDWebImageHighPriority completed:completedBlock];
+    [self sd_setImageWithURL:[NSURL URLWithString:newStr] placeholderImage:[UIImage imageNamed:@"placeholder"] options:USE_SDWebImageProgressiveDownload?SDWebImageProgressiveDownload:0|SDWebImageLowPriority completed:completedBlock];
 }
 
 //直接使用第三方库的缓存,带刷新
 - (void)dlGetWebImageWithDefaultCacheAndRefreshWithUrl:(NSURL *)url placeholderImage:(UIImage *)image
 {
-    [self sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageProgressiveDownload|SDWebImageHighPriority|SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder"] options:SDWebImageProgressiveDownload|SDWebImageLowPriority|SDWebImageRefreshCached completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
 }
