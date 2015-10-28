@@ -661,7 +661,7 @@
 		A4448C3C1BA9881400546C34 /* SchoolTempModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4448C3B1BA9881400546C34 /* SchoolTempModel.m */; };
 		A4465CFA1B9453C80056ACA8 /* FreshModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4465CF91B9453C80056ACA8 /* FreshModel.m */; };
 		A449B21D1BD794F80033A387 /* DLLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = A449B21C1BD794F80033A387 /* DLLoading.m */; };
-		A449EFDF1BE060160033454D /* UILabel+DLSendLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A449EFDE1BE060160033454D /* UILabel+DLSendLabel.m */; settings = {ASSET_TAGS = (); }; };
+		A449EFDF1BE060160033454D /* UILabel+DLSendLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A449EFDE1BE060160033454D /* UILabel+DLSendLabel.m */; };
 		A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */; };
 		A44B35561B82E088004F7A6A /* FillInformationCon.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B35551B82E088004F7A6A /* FillInformationCon.m */; };
 		A44B355D1B82FC13004F7A6A /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B355C1B82FC13004F7A6A /* LabelView.m */; };
@@ -700,7 +700,7 @@
 		A459C4BF1B620C88003D32C8 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4BE1B620C88003D32C8 /* RegisterViewController.m */; };
 		A459C4C51B62305D003D32C8 /* GroupCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4C41B62305D003D32C8 /* GroupCardModel.m */; };
 		A459C4CB1B6242A2003D32C8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A459C4CA1B6242A2003D32C8 /* LoginViewController.m */; };
-		A45D4EA91BDF3924006A0618 /* deleteImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A45D4EA81BDF3924006A0618 /* deleteImage.png */; settings = {ASSET_TAGS = (); }; };
+		A45D4EA91BDF3924006A0618 /* deleteImage.png in Resources */ = {isa = PBXBuildFile; fileRef = A45D4EA81BDF3924006A0618 /* deleteImage.png */; };
 		A45FEBEA1B856C6600BC5E41 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBE91B856C6600BC5E41 /* SMS_SDK.framework */; };
 		A45FEBEC1B85725000BC5E41 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBEB1B85725000BC5E41 /* libicucore.dylib */; };
 		A45FEBEE1B85727000BC5E41 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A45FEBED1B85727000BC5E41 /* AddressBookUI.framework */; };
