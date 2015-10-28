@@ -22,6 +22,7 @@
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong) UIAlertView *alert;
+@property (nonatomic, strong)NSMutableArray* menu;
 @end
 
 @implementation SettingViewController
@@ -30,6 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"设置";
+    self.menu = [[NSMutableArray alloc] initWithObjects:@"修改密码",@"关于我们",@"清除缓存", nil];
     self.view.backgroundColor = [UIColor whiteColor]; //创建设置选项的tableView
     self.tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -42,7 +44,7 @@
 #pragma tableView delegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 2;
+        return self.menu.count;
     } else {
         return 1;
     }
@@ -53,9 +55,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell" forIndexPath:indexPath];
-        if (indexPath.row == 1) {
-            cell.contactLabel.text = @"关于我们";
-        }
+        cell.contactLabel.text = [self.menu objectAtIndex:indexPath.row];
         return cell;
     } else {
         ExitTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExitTableViewCell" forIndexPath:indexPath];
@@ -73,7 +73,11 @@
         [self.alert show];
     } else if (indexPath.section == 0 && indexPath.row == 1) { // 关于我们
         
-    } else {// 退出登录
+    } else if (indexPath.section == 0 && indexPath.row == 2) {
+        self.alert = [[UIAlertView alloc] initWithTitle:@"清除缓存" message:@"清除本地缓存数据" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [self.alert show];
+    }
+    else {// 退出登录
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles:nil, nil];
         [actionSheet showInView:self.view];
     }
@@ -81,18 +85,29 @@
 #pragma AlertView delegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     ChangePassWordViewController *changeVC = [[ChangePassWordViewController alloc] init];
-    UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"输入不正确" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯，知道了", nil];
-     Account *account = [AccountTool account];
-    switch (buttonIndex) {
-          case 1: // 确定修改过密码
-            if ([[self.alert textFieldAtIndex:0].text isEqualToString:account.password]) {
-                [self.navigationController pushViewController:changeVC animated:YES];
-            } else {
-                [alertV show];
-            }
-            break;
-        default:
-            break;
+    if ([alertView.title isEqualToString:@"密码验证"]) {
+        UIAlertView *alertV = [[UIAlertView alloc]initWithTitle:@"输入不正确" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"嗯，知道了", nil];
+        Account *account = [AccountTool account];
+        switch (buttonIndex) {
+            case 1: // 确定修改过密码
+                if ([[self.alert textFieldAtIndex:0].text isEqualToString:account.password]) {
+                    [self.navigationController pushViewController:changeVC animated:YES];
+                } else {
+                    [alertV show];
+                }
+                break;
+            default:
+                break;
+        }
+    } else if ([alertView.title isEqualToString:@"清除缓存"]) {
+        switch (buttonIndex) {
+            case 1: // 确定清除本地缓存
+                //清空本地缓存数据
+                [self cleanLocalImageData];
+                break;
+            default:
+                break;
+        }
     }
 }
 #pragma ActionSheet delegate
@@ -161,6 +176,12 @@
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDisk];
         
+}
+- (void)cleanLocalImageData
+{
+    //清空缓存图片
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[SDImageCache sharedImageCache] clearDisk];
 }
 //- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 //{

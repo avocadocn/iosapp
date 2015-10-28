@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CuntomFolderView : UIView
+@interface CuntomFolderView : UIView<UITextFieldDelegate>
 
 @property (nonatomic, strong)UILabel *titleLabel;
 

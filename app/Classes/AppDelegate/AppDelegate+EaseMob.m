@@ -282,6 +282,8 @@
     }
     FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
     Group* g = [fmdb selectGroupWithEasemobId:group.groupId];
+    //离开群组后，清除本地群信息
+    [fmdb deleteGroupWithGroupId:g.groupID];
     if (reason == eGroupLeaveReason_BeRemoved) {
         if (g) {
             str = [NSString stringWithFormat:NSLocalizedString(@"group.beKicked", @"you have been kicked out from the group of \'%@\'"), g.name];
