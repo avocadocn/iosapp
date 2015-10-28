@@ -317,7 +317,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [tableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     [tableView setFrame:self.view.frame];
     tableView.y = CGRectGetMaxY(self.asv.frame);
-    tableView.height = DLScreenHeight - tableView.y - 50;
+    tableView.height = DLScreenHeight - tableView.y - 49;
     [tableView setContentInset:UIEdgeInsetsMake(0, 0, 10, 0)];
     
     tableView.showsVerticalScrollIndicator = NO;

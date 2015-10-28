@@ -991,11 +991,11 @@ static NSString * contentId = nil;
     CircleContextModel *model = [self.modelArray objectAtIndex:(sender.view.tag - 1)];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@"appreciate" forKey:@"kind"];
-    [dic setObject:model.poster.ID forKey:@"targetUserId"];
+    [dic setObject:model.postUserId forKey:@"targetUserId"];
     [dic setObject:model.ID forKey:@"contentId"];
     [tempModel setValuesForKeysWithDictionary:dic];
     [tempModel setIsOnlyToContent:true];
-    
+
     NSString *routeString = nil;
     CriticWordView *criView = (CriticWordView *)sender.view;
     NSArray *temp = [NSArray array];

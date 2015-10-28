@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/7/17.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "UILabel+DLSendLabel.h"
 #import <DGActivityIndicatorView.h>
 
 #import "ConditionController.h"
@@ -101,6 +101,27 @@
 
 - (void)nextStepTap:(UIButton *)sender
 {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    __block UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, DLScreenWidth, 20)];
+    statusBarView.backgroundColor = [UIColor clearColor];
+    statusBarView.opaque = YES;
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 20)];
+    
+    label.font = [UIFont systemFontOfSize:14];
+    label.text = @"正在发送";
+    [label reload];
+    label.backgroundColor = [UIColor colorWithWhite:0 alpha:.75];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.tag = 100;
+    label.textColor = [UIColor whiteColor];
+    [statusBarView addSubview:label];
+    window.windowLevel = UIWindowLevelStatusBar + 1;
+    
+    statusBarView.tag = 10;
+    self.view.backgroundColor = [UIColor greenColor];
+    [self.navigationController.navigationBar addSubview:statusBarView];
+    
     [self loadingImageView];
     [self.navigationController popViewControllerAnimated:YES];
     CircleContextModel *model = [[CircleContextModel alloc]init];
@@ -145,7 +166,19 @@
         [saveModel save];
         
         [self.delegate sendSingerCircle:json];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        UIView *view = (UIView *)[self.navigationController.navigationBar viewWithTag:10];
         
+        UILabel *label = (UILabel *)[view viewWithTag:100];
+        
+        [UIView animateWithDuration:.4 animations:^{
+            label.text = @"发送完成";
+            statusBarView.frame = CGRectMake(0, -40, DLScreenWidth, 20);
+        }completion:^(BOOL finished) {
+            
+            [statusBarView removeFromSuperview];
+            window.windowLevel = UIWindowLevelNormal;
+        }];
         
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);

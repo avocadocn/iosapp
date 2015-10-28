@@ -506,6 +506,7 @@ static NSString *ID = @"feasfsefse";
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
+
 // 聊天
 -(void)settingBtnClicked:(id)sender{
     NSLog(@"点击聊天");

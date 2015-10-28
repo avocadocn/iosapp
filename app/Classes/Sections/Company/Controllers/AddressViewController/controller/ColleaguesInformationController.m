@@ -328,6 +328,12 @@ static NSInteger tagNum = 1;
     // 初始化导航条
     //    [self setupNavigationBar];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 -(void)setupNavigationBar{
     
     self.automaticallyAdjustsScrollViewInsets = NO;
