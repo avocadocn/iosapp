@@ -746,9 +746,11 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)getCompanyNameWithCid:(NSString *)cid {
     NSLog(@"++++++> %@",cid);
     NSDictionary *dic = [NSDictionary dictionaryWithObject:cid forKey:@"companyId"];
+    
+    NSLog(@"请求的信息为   %@", dic);
     [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
         [self ismembermentJson:json];
-        NSLog(@"%@",json);
+        NSLog(@"获取到的信息为   %@",json);
         
     } failure:^(id errorJson) {
         NSLog(@"%@", [errorJson objectForKey:@"msg"]);

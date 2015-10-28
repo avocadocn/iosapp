@@ -159,6 +159,9 @@
             break;
     }
     NSString *str = [NSString stringWithFormat:@"%@/%@-groupFile/groupList", DLLibraryPath, groupType];
+    if ([NSArray arrayWithContentsOfFile:str]) {
+        
+    
     NSArray *array = [NSArray arrayWithContentsOfFile:str];
     self.modelArray = [NSMutableArray array];
     for (NSString *str in array) {
@@ -168,6 +171,7 @@
     }
     
     [self.groupListCollection reloadData];
+    }
 }
 
 - (void)builtInterface
