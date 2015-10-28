@@ -661,6 +661,7 @@
 		A4448C3C1BA9881400546C34 /* SchoolTempModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4448C3B1BA9881400546C34 /* SchoolTempModel.m */; };
 		A4465CFA1B9453C80056ACA8 /* FreshModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4465CF91B9453C80056ACA8 /* FreshModel.m */; };
 		A449B21D1BD794F80033A387 /* DLLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = A449B21C1BD794F80033A387 /* DLLoading.m */; };
+		A449EFDF1BE060160033454D /* UILabel+DLSendLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A449EFDE1BE060160033454D /* UILabel+DLSendLabel.m */; settings = {ASSET_TAGS = (); }; };
 		A44B354D1B82CF65004F7A6A /* SearchSchoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */; };
 		A44B35561B82E088004F7A6A /* FillInformationCon.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B35551B82E088004F7A6A /* FillInformationCon.m */; };
 		A44B355D1B82FC13004F7A6A /* LabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = A44B355C1B82FC13004F7A6A /* LabelView.m */; };
@@ -1853,6 +1854,8 @@
 		A4465CF91B9453C80056ACA8 /* FreshModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreshModel.m; sourceTree = "<group>"; };
 		A449B21B1BD794F80033A387 /* DLLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLoading.h; sourceTree = "<group>"; };
 		A449B21C1BD794F80033A387 /* DLLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLoading.m; sourceTree = "<group>"; };
+		A449EFDD1BE060160033454D /* UILabel+DLSendLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+DLSendLabel.h"; sourceTree = "<group>"; };
+		A449EFDE1BE060160033454D /* UILabel+DLSendLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+DLSendLabel.m"; sourceTree = "<group>"; };
 		A44B354B1B82CF65004F7A6A /* SearchSchoolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSchoolModel.h; sourceTree = "<group>"; };
 		A44B354C1B82CF65004F7A6A /* SearchSchoolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSchoolModel.m; sourceTree = "<group>"; };
 		A44B35541B82E088004F7A6A /* FillInformationCon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FillInformationCon.h; sourceTree = "<group>"; };
@@ -2815,6 +2818,8 @@
 		967439A51B705907004334A4 /* NetworkRequestTool */ = {
 			isa = PBXGroup;
 			children = (
+				A449EFDD1BE060160033454D /* UILabel+DLSendLabel.h */,
+				A449EFDE1BE060160033454D /* UILabel+DLSendLabel.m */,
 				967439A61B705907004334A4 /* Account.h */,
 				967439A71B705907004334A4 /* Account.m */,
 				967439A81B705907004334A4 /* AccountTool.h */,
@@ -5678,6 +5683,7 @@
 				A4F315691B5E4BFB00126C8A /* PhotoPlayController.m in Sources */,
 				96CF90DA1B673422001759E2 /* PSTCollectionView.m in Sources */,
 				96CF93B01B674B54001759E2 /* EMTextView.m in Sources */,
+				A449EFDF1BE060160033454D /* UILabel+DLSendLabel.m in Sources */,
 				E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */,
 				A45534E61BA8148900E2A96E /* CreateGroupController.m in Sources */,
 				E22C61761BAAA62200BDFA69 /* TemplateModel.m in Sources */,

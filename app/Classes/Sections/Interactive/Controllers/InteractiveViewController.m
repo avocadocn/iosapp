@@ -735,8 +735,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         if (self.companyName.length != 0) {
             per.companyName = self.companyName;
         } else {
-            Account *account = [AccountTool account];
-            [self getCompanyNameWithCid:account.cid];
+//            Account *account = [AccountTool account];
+//            [self getCompanyNameWithCid:account.cid];
         }
         [[FMDBSQLiteManager shareSQLiteManager] insertPerson:per];
     }
