@@ -70,6 +70,8 @@ static ChatListViewController *chat = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//        self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+
     self.dataSource = [NSMutableArray arrayWithArray:[[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO]];
 //    [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:YES];
     [self removeEmptyConversationsFromDB];
@@ -222,6 +224,7 @@ static ChatListViewController *chat = nil;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell"];
+            self.navigationController.navigationBar.translucent = NO;
     }
     
     return _tableView;

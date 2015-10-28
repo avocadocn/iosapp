@@ -196,13 +196,13 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
         }
         [self.photoArray addObject:aImage];
 
-        
     } failureBlock:^(NSError *error) {
-        
+        // 还没推呢
     }];
     
     [self.selectedAssetsArray addObject:asset];
 }
+
 - (UIImage *)scaleImage:(UIImage *)image
 {
     CGFloat width = image.size.width;
