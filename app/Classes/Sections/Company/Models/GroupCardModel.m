@@ -8,6 +8,8 @@
 
 #import "GroupCardModel.h"
 
+
+
 @implementation GroupCardModel
 
 

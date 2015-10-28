@@ -318,15 +318,20 @@ static NSString * contentId = nil;
     self.userInterArray = [NSMutableArray array];
     self.addressBookModel = [NSMutableArray array];
     
-    self.photoArray = [NSMutableArray array]
-    ;    NSInteger tag = 0;
+    self.photoArray = [NSMutableArray array];
+    
     for (NSString *str in IDArray) {
         CircleContextModel *cir = [[CircleContextModel alloc]initWithString:str];
         NSLog(@"%@    %@", cir.content, cir.poster.ID);
         
-        [self getViewWithModel:cir andTag:(NSInteger)tag];
+        NSMutableDictionary *viewDic = [self getViewWithModel:cir];
+        
+        NSArray *tempPhotoArray = [viewDic objectForKey:@"photoArray"];
+        [viewDic removeObjectForKey:@"photoArray"];
+        
+        [self.photoArray addObject:tempPhotoArray];
+        [self.userInterArray addObject:viewDic];
         [self.modelArray addObject:cir];
-        tag ++;
         
     }
     [self.colleagueTable reloadData];
@@ -449,8 +454,12 @@ static NSString * contentId = nil;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     ColleagueViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tableCell"];
-    cell.tag = indexPath.row + 1;
+    if (!cell) {
+        cell = [[ColleagueViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"tableCell"];
+    }
+    
     NSDictionary *dic = [self.userInterArray objectAtIndex:indexPath.row];
     UIView *view = [dic objectForKey:@"view"];
     
@@ -588,8 +597,7 @@ static NSString * contentId = nil;
 //    
 //    CircleContextModel *model = [[CircleContextModel alloc]initWithString:str];
 //    [self.modelArray replaceObjectAtIndex:index.row withObject:model];
-    
-    
+
     [self netRequest];
 }
 
@@ -620,13 +628,12 @@ static NSString * contentId = nil;
     [super didReceiveMemoryWarning];
 }
 
-- (void)getViewWithModel:(CircleContextModel *)model andTag:(NSInteger)tag
+- (NSMutableDictionary *)getViewWithModel:(CircleContextModel *)model
 {
     
     
     NSInteger overHeight = 0;
     UIView *view = [[UIView alloc]init];
-    view.tag = tag += 10001;
     
     UIView *modelDetileView = [[UIView alloc]init];
     
@@ -694,10 +701,7 @@ static NSString * contentId = nil;
         [tempPhotoArray addObject:[NSString stringWithFormat:@"%@/_%.f/%.f", [imageDic objectForKey:@"uri"], width, width]];
         b++;
     }
-    if (!tempPhotoArray.count) {
-        [tempPhotoArray addObject:@"空的"];
-    }
-    [self.photoArray addObject:tempPhotoArray];
+    
     overHeight += picHeight;
     
     modelDetileView.frame = CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), overHeight);
@@ -729,7 +733,7 @@ static NSString * contentId = nil;
                                          self.inputTextView.placeHolder = [NSString stringWithFormat:@"回复%@:", interTempDic.poster.nickname];
                                          tergetUserId = interTempDic.poster.ID;
                                          contentId = interTempDic.targetContentId;
-                                         self.selectIndex = [NSNumber numberWithInteger:(tag - 10000)] ;
+//                                         self.selectIndex = [NSNumber numberWithInteger:(tag - 10000)] ;
                                          
                                      }]],
                                      @"postBody":@[RGBACOLOR(80, 125, 175, 1) ,[WPAttributedStyleAction styledActionWithAction:^{
@@ -764,9 +768,14 @@ static NSString * contentId = nil;
     }
     [interArray removeObjectsInArray:tempArray];
     view.frame = CGRectMake(0, 0, DLMultipleWidth(LABELWIDTH), overHeight);
-    NSDictionary *viewDic = [NSDictionary dictionaryWithObjects:@[view, [NSString stringWithFormat:@"%ld", (long)overHeight]] forKeys:@[@"view", @"height"]];
+    NSMutableDictionary *viewDic = [NSMutableDictionary dictionaryWithObjects:@[view, [NSString stringWithFormat:@"%ld", (long)overHeight]] forKeys:@[@"view", @"height"]];
     
-    [self.userInterArray addObject:viewDic];
+    if (!tempPhotoArray.count) {
+        [tempPhotoArray addObject:@"空的"];
+    }
+    [viewDic setObject:tempPhotoArray forKey:@"photoArray"];
+    
+    return viewDic;
     //        tempI ++;
     
 }
@@ -1135,10 +1144,40 @@ static NSString * contentId = nil;
     return returnValue;
 }
 
-
 - (void)sendSingerCircle:(id)json
 {
-    [self netRequest];
+    [self.colleagueTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+    NSLog(@"数据为   %@", json);
+    
+    NSDictionary *circleContent = json[@"circleContent"];
+    
+    CircleContextModel *cir = [[CircleContextModel alloc] init];
+    [cir setValuesForKeysWithDictionary:circleContent];
+    
+    
+    
+
+    //    NSLog(@"%@    %@", cir.content, cir.poster.ID);
+    //
+    
+    NSArray *array = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [array lastObject];
+    path = [NSString stringWithFormat:@"%@/%@", path, @"IDArray"];
+    
+    NSMutableArray *IDArray = [NSMutableArray arrayWithContentsOfFile:path];
+    
+        NSMutableDictionary *viewDic = [self getViewWithModel:cir];
+        NSArray *tempPhotoArray = [viewDic objectForKey:@"photoArray"];
+        [viewDic removeObjectForKey:@"photoArray"];
+    
+    [IDArray insertObject:cir.postUserId atIndex:0];
+    [self.photoArray insertObject:tempPhotoArray atIndex:0];
+    [self.userInterArray insertObject:viewDic atIndex:0];
+    [self.modelArray insertObject:cir atIndex:0];
+    [self.colleagueTable reloadData];
+    
+    
 }
 
 
