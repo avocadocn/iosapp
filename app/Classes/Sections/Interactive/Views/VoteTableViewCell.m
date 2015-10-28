@@ -143,14 +143,24 @@
     // 添加已投票btn
     self.voteInfosBtn = [UIImageView new];
 //    [self.voteInfosBtn setTitle:@"投票" forState:UIControlStateNormal];
-    [self.voteInfosBtn setUserInteractionEnabled:YES];
+//    [self.voteInfosBtn setUserInteractionEnabled:YES];
     self.voteInfosBtn.image = [UIImage imageNamed:@"info"];
     self.voteInfosBtn.x = 8;
     self.voteInfosBtn.y = 10;
     self.voteInfosBtn.width  = 25;
     self.voteInfosBtn.height = 22;
+    
+    UIView *viewBtn = [UIView new];
+    viewBtn.userInteractionEnabled = YES;
+    viewBtn.backgroundColor = [UIColor clearColor];
+    viewBtn.x = 0;
+    viewBtn.y = 0;
+    viewBtn.width = 50;
+    viewBtn.height = 50;
+    
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(haveVote:)];
-    [self.voteInfosBtn addGestureRecognizer:tap];
+    [viewBtn addGestureRecognizer:tap];
     
     self.numberLabel = [UILabel new];
     self.numberLabel.textColor = RGBACOLOR(155, 155, 155, 1);
@@ -186,14 +196,23 @@
     
     // 添加评论btn
     UIImageView *commentBtn = [UIImageView new];
-    [commentBtn setUserInteractionEnabled:YES];
+//    [commentBtn setUserInteractionEnabled:YES];
     commentBtn.x = DLScreenWidth - 37;
     commentBtn.y = 10;
     commentBtn.width = 25;
     commentBtn.height = 22;
     commentBtn.image = [UIImage imageNamed:@"iconfont-chat"];
+    
+//
+    UIView *view  = [UIView new];
+    view.backgroundColor = [UIColor clearColor];
+    view.x = DLScreenWidth - 50;
+    view.y = 0;
+    view.width = 50;
+    view.height = 50;
+    view.userInteractionEnabled = YES;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushViewControllerd:)];
-    [commentBtn addGestureRecognizer:tapGesture];
+    [view addGestureRecognizer:tapGesture];
     
 //    RACSignal *commentBtnSignal = [commentBtn rac_signalForControlEvents:UIControlEventTouchDown];
 //    [commentBtnSignal subscribeNext:^(id x) {
@@ -210,6 +229,8 @@
     [bottomToolBar addSubview:self.voteInfosBtn];
     [bottomToolBar addSubview:retweedBtn];
     [bottomToolBar addSubview:commentBtn];
+    [bottomToolBar addSubview:view];
+    [bottomToolBar addSubview:viewBtn];
     [voteContainer addSubview:bottomToolBar];
     [bottomToolBar addSubview:self.numberLabel];
     self.bottomToolBar = bottomToolBar;
