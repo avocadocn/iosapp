@@ -130,13 +130,13 @@ static NSString* const dnalbumTableViewCellReuseIdentifier = @"dnalbumTableViewC
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.assetsGroups.count;
+    return self.assetsGroups.count - 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dnalbumTableViewCellReuseIdentifier forIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    ALAssetsGroup *group = self.assetsGroups[indexPath.row];
+    ALAssetsGroup *group = self.assetsGroups[indexPath.row + 1];
     cell.textLabel.attributedText = [self albumTitle:group];
     
     //choose the latest pic as poster image
@@ -163,7 +163,8 @@ static NSString* const dnalbumTableViewCellReuseIdentifier = @"dnalbumTableViewC
 #pragma mark - tableView delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ALAssetsGroup *group = self.assetsGroups[indexPath.row];
+    
+    ALAssetsGroup *group = self.assetsGroups[indexPath.row + 1];
     NSURL *url = [group valueForProperty:ALAssetsGroupPropertyURL];
     DNImageFlowViewController *imageFlowViewController = [[DNImageFlowViewController alloc] initWithGroupURL:url];
     [self.navigationController pushViewController:imageFlowViewController animated:YES];

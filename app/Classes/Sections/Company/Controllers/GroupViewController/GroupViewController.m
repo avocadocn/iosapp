@@ -253,24 +253,15 @@ static NSNumber *myNum = 0;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < [self.modelArray count]) {
+
         GroupCardViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
         GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
         
-        NSLog(@" model 的 logo 为  %@", model.logo);
-        
+//        NSLog(@" model 的 logo 为  %@", model.logo);
+    
         [cell cellReconsitutionWithModel:model];
         
         return cell;
-        
-    } else
-        
-    {
-        GroupSelectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"selectCell" forIndexPath:indexPath];
-        return cell;
-    }
-    
-    return nil;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {

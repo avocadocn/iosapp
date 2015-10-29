@@ -100,7 +100,7 @@
     _recordAnimationView.image = [UIImage imageNamed:@"VoiceSearchFeedback001"];
     double voiceSound = 0;
     voiceSound = [[EMCDDeviceManager sharedInstance] emPeekRecorderVoiceMeter];
-    if (0 < voiceSound <= 0.05) {
+    if (0 <= voiceSound <= 0.05) {
         [_recordAnimationView setImage:[UIImage imageNamed:@"VoiceSearchFeedback001"]];
     }else if (0.05<voiceSound<=0.10) {
         [_recordAnimationView setImage:[UIImage imageNamed:@"VoiceSearchFeedback002"]];
