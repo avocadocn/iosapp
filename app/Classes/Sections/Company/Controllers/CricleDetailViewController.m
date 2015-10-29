@@ -286,7 +286,7 @@ static BOOL state;
         self.keyBoard.inputView.text = nil;
         [self.keyBoard.inputView resignFirstResponder];
         
-        CircleContextModel *cir = [[CircleContextModel alloc]initWithString:model.ID];  // 取出来的
+//        CircleContextModel *self.model = [[CircleContextModel alloc]initWithString:model.ID];  // 取出来的
         CircleContextModel *temp = [[CircleContextModel alloc]init];
         NSDictionary *circleComment = [json objectForKey:@"circleComment"];
         [temp setValuesForKeysWithDictionary:circleComment];
@@ -299,10 +299,8 @@ static BOOL state;
             [temp.target setValuesForKeysWithDictionary:target];
         }
         
-        
-        [cir.comments addObject:temp];
-        [cir save];
         [self.model.comments addObject:temp];
+        
         [self.detileTableview reloadData];
         
     } failure:^(id errorJson) {
@@ -314,11 +312,11 @@ static BOOL state;
 - (void)praiseAction:(UITapGestureRecognizer *)sender
 {
     CircleCommentModel *tempModel = [[CircleCommentModel alloc]init];
-    CircleContextModel *model = self.model;
+
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@"appreciate" forKey:@"kind"];
-    [dic setObject:model.postUserId forKey:@"targetUserId"];
-    [dic setObject:model.ID forKey:@"contentId"];
+    [dic setObject:self.model.postUserId forKey:@"targetUserId"];
+    [dic setObject:self.model.ID forKey:@"contentId"];
     [tempModel setValuesForKeysWithDictionary:dic];
     [tempModel setIsOnlyToContent:true];
     
@@ -334,19 +332,19 @@ static BOOL state;
         criView.criticText.text = [NSString stringWithFormat:@"%ld", ([criView.criticText.text integerValue] + 1)];
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[userId] forKeys:@[@"_id"]];
         
-        [model.commentUsers addObject:dic];
+        [self.model.commentUsers addObject:dic];
     } else
     {
-        for (NSDictionary *dic in model.commentUsers) {
+        for (NSDictionary *dic in self.model.commentUsers) {
             if ([userId isEqualToString:[dic objectForKey:@"_id"]]) { // 如果是本人的话
                 tempModel.commentId = [dic objectForKey:@"_id"];
             }
         }
         BOOL state = NO;
         NSMutableArray *tempArray = [NSMutableArray array];
-        for (int i = 0; i < model.commentUsers.count; i++) {
+        for (int i = 0; i < self.model.commentUsers.count; i++) {
             
-            NSDictionary *dic = [model.commentUsers objectAtIndex:i];
+            NSDictionary *dic = [self.model.commentUsers objectAtIndex:i];
             if ([[dic objectForKey:@"_id"] isEqualToString:userId]) {
                 state = YES;
                 [tempArray addObject:dic];
@@ -354,7 +352,7 @@ static BOOL state;
             }
         }
         if (state == YES) {  // 自己点过赞
-            [model.commentUsers removeObjectsInArray:tempArray];
+            [self.model.commentUsers removeObjectsInArray:tempArray];
         }
         
         criView.criticText.text = [NSString stringWithFormat:@"%ld", ([criView.criticText.text integerValue] - 1)];
@@ -369,7 +367,11 @@ static BOOL state;
     [RestfulAPIRequestTool routeName:routeString requestModel:tempModel useKeys:temp success:^(id json) {
         
         NSLog(@"点赞的结果为   %@ %@", nsl, json);
+        
         //        [self.inputTextView resignFirstResponder];
+        Account *acc = [AccountTool account];
+        NSDictionary *dic = [NSDictionary dictionaryWithObject:acc.ID forKey:@"_id"];
+        
         
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);
@@ -449,7 +451,10 @@ static BOOL state;
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.delegate reloadData:self.index];
+    [super viewWillDisappear:animated];
+    [self.model save];
+    [self.delegate reloadDataWithModel:self.model andIndexPath:self.index];
+    
 }
 - (void)imageAction:(UITapGestureRecognizer *)tap
 {

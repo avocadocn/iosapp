@@ -179,6 +179,7 @@ static NSString * const memberCell = @"memberCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
 

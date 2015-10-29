@@ -49,14 +49,15 @@
     
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, self.frame.size.width - 10, self.frame.size.width - 10)];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    //下载指定大小的图片
-    [imageView dlGetRouteThumbnallWebImageWithString:image placeholderImage:nil withSize:CGSizeMake(width, width)];
+    
     
     imageView.layer.masksToBounds = YES;
     
     imageView.layer.cornerRadius = width;
 //    imageView.layer.borderWidth = 1;
     imageView.clipsToBounds = YES;
+    //下载指定大小的图片
+    [imageView dlGetRouteThumbnallWebImageWithString:image placeholderImage:nil withSize:imageView.size];
     [self addSubview:imageView];
 
      

@@ -45,6 +45,7 @@ static NSString * const ID = @"OtherActivityShowCell";
 }
 
 -(void)viewDidLoad{
+    [super viewDidLoad];
     self.title = @"活动";
     self.modelArray = [NSMutableArray new];
     [self netWorkRequest];

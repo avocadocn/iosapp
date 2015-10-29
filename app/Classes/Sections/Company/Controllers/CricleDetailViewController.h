@@ -11,7 +11,7 @@
 
 @protocol CricleDetailViewControllerDelegate <NSObject>
 
-- (void)reloadData:(NSIndexPath *)index;
+- (void)reloadDataWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)index;
 
 - (void)deleteIndexPath:(NSIndexPath *)index;
 

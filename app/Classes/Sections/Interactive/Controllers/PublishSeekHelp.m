@@ -217,6 +217,7 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self.activityIndicatorView removeFromSuperview];
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

@@ -126,12 +126,14 @@ static NSString *ID = @"feasfsefse";
     // Do any additional setup after loading the view.
     // 初始化界面
     [self setupUI];
+    
+    [self setupNavigationBar];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+    [super viewWillAppear:animated];
     // 初始化导航条
-    [self setupNavigationBar];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     if (self.headerImage) {
         self.headImageView.image = self.headerImage;
@@ -531,6 +533,7 @@ static NSString *ID = @"feasfsefse";
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 

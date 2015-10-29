@@ -39,7 +39,7 @@
     self.backArrow.image = [UIImage imageNamed:@"Back Arrow @2x.png"];
     self.backArrow.clipsToBounds = YES;
     self.backArrow.contentMode = UIViewContentModeCenter;
-    
+    self.backArrow.backgroundColor = [UIColor whiteColor];
     CGFloat width = (DLScreenWidth - 22) / 3.0 - 1;
     
     self.smailWidth1.constant = self.smailWidth2.constant = self.smailHeight1.constant = self.smailHeifht2.constant = width;

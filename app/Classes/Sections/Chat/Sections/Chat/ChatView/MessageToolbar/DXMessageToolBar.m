@@ -333,7 +333,7 @@
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
     [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
-    [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
+//    [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
     self.recordButton.hidden = YES;
     [self.recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
@@ -341,7 +341,22 @@
     [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
     [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
     self.recordButton.hidden = YES;
-    
+    //fakeRecordBtn
+    self.fakeRecordButton = [[UIButton alloc] initWithFrame:CGRectMake(textViewLeftMargin, 0, width, 45)];
+    [self.fakeRecordButton setBackgroundColor:[UIColor clearColor]];
+    self.fakeRecordButton.hidden = YES;
+//    [self.fakeRecordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
+//    [self.fakeRecordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
+    [self.fakeRecordButton addTarget:self action:@selector(changeBtnText) forControlEvents:UIControlEventTouchDown];
+    [self.fakeRecordButton addTarget:self action:@selector(restoreBtnText) forControlEvents:UIControlEventTouchUpOutside];
+    [self.fakeRecordButton addTarget:self action:@selector(restoreBtnText) forControlEvents:UIControlEventTouchUpInside];
+    [self.fakeRecordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
+//    [self.fakeRecordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDragInside];
+    [self.fakeRecordButton addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
+    [self.fakeRecordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
+    [self.fakeRecordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
+    [self.fakeRecordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
+    [self.fakeRecordButton resignFirstResponder];
     if (!self.moreView) {
         self.moreView = [[DXChatBarMoreView alloc] initWithFrame:CGRectMake(0, (kVerticalPadding * 2 + kInputTextViewMinHeight), self.frame.size.width, 80) type:ChatMoreTypeGroupChat];
         self.moreView.backgroundColor = RGB(246, 246, 248);
@@ -372,8 +387,20 @@
     [self.toolbarView addSubview:self.faceButton];
     [self.toolbarView addSubview:self.inputTextView];
     [self.toolbarView addSubview:self.recordButton];
+//    [self.toolbarView addSubview:self.fakeRecordButton];
 }
-
+- (void)changeBtnText
+{
+    NSLog(@"changeBtnText btn clicked");
+    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    [self.recordButton setTitle:kTouchToFinish forState:UIControlStateNormal];
+}
+- (void)restoreBtnText
+{
+    NSLog(@"restoreBtnText btn clicked");
+    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
+}
 #pragma mark - change frame
 
 - (void)willShowBottomHeight:(CGFloat)bottomHeight
@@ -522,6 +549,7 @@
             
             [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.recordButton.hidden = !button.selected;
+                self.fakeRecordButton.hidden = !button.selected;
                 self.inputTextView.hidden = button.selected;
             } completion:^(BOOL finished) {
                 
@@ -547,6 +575,7 @@
                 [self willShowBottomView:self.faceView];
                 [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                     self.recordButton.hidden = button.selected;
+                    self.fakeRecordButton.hidden = button.selected;
                     self.inputTextView.hidden = !button.selected;
                 } completion:^(BOOL finished) {
                     
@@ -576,6 +605,7 @@
                 [self willShowBottomView:self.moreView];
                 [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                     self.recordButton.hidden = button.selected;
+                    self.fakeRecordButton.hidden = button.selected;
                     self.inputTextView.hidden = !button.selected;
                 } completion:^(BOOL finished) {
                     
@@ -607,13 +637,13 @@
 
 - (void)recordButtonTouchUpOutside
 {
+    if ([self.recordView isKindOfClass:[DXRecordView class]]) {
+        [(DXRecordView *)self.recordView recordButtonTouchUpOutside];
+    }
+    
     if (_delegate && [_delegate respondsToSelector:@selector(didCancelRecordingVoiceAction:)])
     {
         [_delegate didCancelRecordingVoiceAction:self.recordView];
-    }
-    
-    if ([self.recordView isKindOfClass:[DXRecordView class]]) {
-        [(DXRecordView *)self.recordView recordButtonTouchUpOutside];
     }
     
     [self.recordView removeFromSuperview];

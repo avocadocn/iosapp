@@ -356,6 +356,7 @@ static NSString * const ID = @"HelpTableViewCell";
     [self.tableView reloadData];
 }
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self.activityIndicatorView removeFromSuperview];
 }
 

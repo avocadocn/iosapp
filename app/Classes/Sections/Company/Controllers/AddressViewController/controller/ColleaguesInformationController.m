@@ -327,10 +327,12 @@ static NSInteger tagNum = 1;
 -(void)viewWillAppear:(BOOL)animated{
     // 初始化导航条
     //    [self setupNavigationBar];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 

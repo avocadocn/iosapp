@@ -73,6 +73,7 @@
     [self.tableView reloadData];
 }
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     if (self.tableView) {
         [self.tableView reloadData];
         [self.interView.tableView reloadData];

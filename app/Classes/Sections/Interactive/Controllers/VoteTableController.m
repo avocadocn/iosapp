@@ -74,6 +74,7 @@ static NSString * const ID = @"VoteTableViewCell";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     _staticNavi = self.navigationController;
 }
 
@@ -173,6 +174,7 @@ static NSString * const ID = @"VoteTableViewCell";
     
 }
 -(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
 //    [[NSNotificationCenter defaultCenter]postNotificationName:@"CHANGESTATE" object:nil];
 }
 

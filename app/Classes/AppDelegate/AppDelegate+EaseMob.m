@@ -269,17 +269,7 @@
 // 离开群组回调
 - (void)group:(EMGroup *)group didLeave:(EMGroupLeaveReason)reason error:(EMError *)error
 {
-    NSString *tmpStr = group.groupSubject;
     NSString *str;
-    if (!tmpStr || tmpStr.length == 0) {
-        NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-        for (EMGroup *obj in groupArray) {
-            if ([obj.groupId isEqualToString:group.groupId]) {
-                tmpStr = obj.groupSubject;
-                break;
-            }
-        }
-    }
     FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
     Group* g = [fmdb selectGroupWithEasemobId:group.groupId];
     //离开群组后，清除本地群信息
