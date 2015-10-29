@@ -307,6 +307,7 @@ static NSNumber *myNum = 0;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     myNum = 0;
     [self getRequestDataAndPage:0];
 }

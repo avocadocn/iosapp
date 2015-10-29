@@ -451,6 +451,7 @@ static BOOL state;
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [self.model save];
     [self.delegate reloadDataWithModel:self.model andIndexPath:self.index];
     

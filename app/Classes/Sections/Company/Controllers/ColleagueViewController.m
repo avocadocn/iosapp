@@ -314,8 +314,7 @@ static NSString * contentId = nil;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    
-
+    [super viewWillDisappear:animated];
 }
 
 - (void)netRequest {

@@ -131,7 +131,7 @@ static NSString *ID = @"feasfsefse";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+    [super viewWillAppear:animated];
     // 初始化导航条
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
@@ -533,6 +533,7 @@ static NSString *ID = @"feasfsefse";
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
