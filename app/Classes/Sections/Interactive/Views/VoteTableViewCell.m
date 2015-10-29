@@ -97,8 +97,8 @@
     
     // 昵称
     UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
-//    [nameLabel setFont:VoteCellNameFont];
+//    nameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:16];
+    [nameLabel setFont:VoteCellNameFont];
     nameLabel.textColor = RGBACOLOR(81, 70,71, 1);
     [voteContainer addSubview:nameLabel];
     self.nameLabel = nameLabel;

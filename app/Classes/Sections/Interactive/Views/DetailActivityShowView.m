@@ -180,11 +180,11 @@
     //    // CGSize size = [nameText sizeWithAttributes:attr];
     //    NSLog(@"%@",NSStringFromCGSize(size));
     [self.activityName setText:nameText];
-    [self.activityName setSize:CGSizeMake(DLScreenWidth, 14)];
+    [self.activityName setSize:CGSizeMake(DLScreenWidth, 20)];
     [self.activityName setTextAlignment:NSTextAlignmentCenter];
 //    self.activityName.backgroundColor = [UIColor yellowColor];
     self.activityName.centerX = DLScreenWidth / 2;
-    self.activityName.y = CGRectGetMaxY(self.pictureView.frame) + 13;
+    self.activityName.y = CGRectGetMaxY(self.pictureView.frame) + 10;
     
     // 添加感兴趣按钮，需要根据图片自定义
 //    UIButton *interest = [UIButton buttonWithType:UIButtonTypeRoundedRect];

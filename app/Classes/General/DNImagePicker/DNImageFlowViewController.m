@@ -43,6 +43,7 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 {
     self = [super init];
     if (self) {
+        _photoArray = [NSMutableArray new];
         _assetsArray = [NSMutableArray new];
         _selectedAssetsArray = [NSMutableArray new];
         _assetsGroupURL = assetsGroupURL;
@@ -188,8 +189,11 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
     }
     ALAssetsLibrary *lib = [ALAssetsLibrary new];
     DNAsset *dnasset = [self dnassetFromALAsset:asset];
+     NSLog(@" 取得的图片信息为 \n%@  \n%@", asset, dnasset);
+    
     [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
         UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+        NSLog(@"%@", aImage);
         UIImage *temp = [self scaleImage:aImage];
         
         if (temp) {

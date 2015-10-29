@@ -61,6 +61,7 @@
     [self.optionTextField placeholder];
     self.optionTextField.textAlignment = NSTextAlignmentLeft;
     self.optionTextField.font = [UIFont systemFontOfSize:15];
+    self.optionTextField.delegate = self;
     [self addSubview:self.optionTextField];
     
     [self.optionTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,7 +72,10 @@
     }];
     
 }
-
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.optionTextField resignFirstResponder];
+    return YES;
+}
 
 
 

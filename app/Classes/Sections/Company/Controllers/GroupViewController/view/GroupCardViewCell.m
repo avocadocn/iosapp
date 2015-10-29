@@ -31,7 +31,7 @@
     
     
     self.groupImageView = [UIImageView new];
-    
+    self.groupImageView.opaque = YES;
     self.groupImageView.clipsToBounds = YES;
     self.groupImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:self.groupImageView];
@@ -43,6 +43,7 @@
     }];
     
     self.groupIntroLabel = [UILabel new];
+    self.groupImageView.opaque = YES;
     self.groupIntroLabel.numberOfLines = 0;
     self.groupIntroLabel.textColor = [UIColor colorWithWhite:.2 alpha:.8];
 
@@ -57,6 +58,7 @@
     
     self.groupIntroLabel.font = [UIFont systemFontOfSize:16];
 //    self.groupIntroLabel.textAlignment = nn;
+    self.opaque = YES;
     [self setBackgroundColor:[UIColor whiteColor]];
 }
 
