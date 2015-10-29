@@ -28,7 +28,7 @@
     self.backgroundColor = ArcColor;
     NSString * newUrlStr = [self getUrlStringWithString:str];
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:image]; //请求网络图片
-    [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:[UIImage imageNamed:@"placeholder"] withSize:self.size];
+    [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newUrlStr] placeholderImage:[UIImage imageNamed:@"placeholder"] withSize:self.size andHaveBlur:YES];
 }
 - (int)BitmapScale
 {
@@ -74,23 +74,42 @@
     NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%d/%d", (int)size.width*[self BitmapScale], (int)size.height*[self BitmapScale]]];
 //    NSLog(@"the app path is :%@",path);
 //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
-    [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newStr] placeholderImage:[UIImage imageNamed:@"placeholder"] withSize:size];
+    [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newStr] placeholderImage:[UIImage imageNamed:@"placeholder"] withSize:size andHaveBlur:YES];
+}
+
+/**
+ * 请求指定大小的图,是否需要遮罩
+ */
+- (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size andHaveBlur:(BOOL)haveBlur
+{
+    self.backgroundColor = ArcColor;
+    // 得到网络请求的字符串
+    NSString *newUrlStr = [self getUrlStringWithString:str];
+    
+    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%d/%d", (int)size.width*[self BitmapScale], (int)size.height*[self BitmapScale]]];
+    //    NSLog(@"the app path is :%@",path);
+    //    [self dlGetWebImageWithUrl:[NSURL URLWithString:newStr] placeholderImage:image];
+    [self dlGetWebImageWithDefaultCacheWithUrl:[NSURL URLWithString:newStr] placeholderImage:[UIImage imageNamed:@"placeholder"] withSize:size andHaveBlur:haveBlur];
 }
 
 //直接使用第三方库的缓存
-- (void)dlGetWebImageWithDefaultCacheWithUrl:(NSURL *)url placeholderImage:(UIImage *)image withSize:(CGSize)size
+- (void)dlGetWebImageWithDefaultCacheWithUrl:(NSURL *)url placeholderImage:(UIImage *)image withSize:(CGSize)size andHaveBlur:(BOOL)haveBlur
 {
-    UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
-    effectview.x = 0;
-    effectview.y = 0;
-    effectview.width = size.width+10;
-    effectview.height = size.height +10;
-    effectview.alpha = 0.7;
-    [self addSubview:effectview];
+    if (haveBlur) {
+        UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
+        effectview.x = 0;
+        effectview.y = 0;
+        effectview.width = size.width+10;
+        effectview.height = size.height +10;
+        effectview.alpha = 0.7;
+        [self addSubview:effectview];
+    }
     
     [self sd_setImageWithURL:url placeholderImage:image options:USE_SDWebImageProgressiveDownload?SDWebImageProgressiveDownload:0|SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [self cleanTheMask];
+        if (haveBlur) {
+            [self cleanTheMask];
+        }
         //请求图片成功后，直接保存，不再等待异步保存
         if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]]) {
             [[SDImageCache sharedImageCache] storeImage:image forKey:[url absoluteString]];
