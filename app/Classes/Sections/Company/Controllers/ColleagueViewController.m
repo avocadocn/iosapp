@@ -198,7 +198,11 @@ static NSString * contentId = nil;
         
         //        [self saveDefaultWithJson:json]; //十条
         
-        [self netRequest];
+//        [self netRequest];
+        
+        [self.colleagueTable reloadData];
+        
+        
         [self.colleagueTable.header endRefreshing];
         [self.colleagueTable.footer endRefreshing];
         
@@ -243,6 +247,15 @@ static NSString * contentId = nil;
             
             [model.comments addObject:tempModel];
         }
+        
+        NSMutableDictionary *tempDic = [self getViewWithModel:model];
+        
+        NSArray *photoArray = tempDic[@"photoArray"];
+        [tempDic removeObjectForKey:@"photoArray"];
+        
+        [self.userInterArray addObject:tempDic];
+        [self.photoArray addObject:photoArray];
+        [self.modelArray addObject:model];
         
         [IDArray addObject:model.ID];
         [model save];
@@ -460,14 +473,14 @@ static NSString * contentId = nil;
         cell = [[ColleagueViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"tableCell"];
     }
     
-    NSDictionary *dic = [self.userInterArray objectAtIndex:indexPath.row];
-    UIView *view = [dic objectForKey:@"view"];
+    NSDictionary *dic = self.userInterArray[indexPath.row];
+    UIView *view = dic[@"view"];
     
     NSArray *viewArray =  [cell.userInterView subviews];
     for (UIView *aView in viewArray) {
         [aView removeFromSuperview];
     }
-    CircleContextModel *model = [self.modelArray objectAtIndex:indexPath.row];
+    CircleContextModel *model = self.modelArray[indexPath.row];
     [cell reloadCellWithModel:model andIndexPath:indexPath];
     
     cell.userInterView.height = view.frame.size.height;
@@ -479,9 +492,10 @@ static NSString * contentId = nil;
     [cell.circleImage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(circleImageAction:)]];
     [cell.commondButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
     [cell.praiseButton addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(praiseAction:)]];
-    
+//    [cell setNeedsDisplay];
     return cell;
 }
+
 
 
  /*
@@ -583,22 +597,17 @@ static NSString * contentId = nil;
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
-- (void)reloadData:(NSIndexPath *)index
+- (void)reloadDataWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)index
 {
-//    NSFileManager *manger = [NSFileManager defaultManager];
-//    NSArray *tempArray =  NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-//    NSString *path = [tempArray lastObject];
-//    path = [NSString stringWithFormat:@"%@/%@", path, @"IDArray"];
-//    
-//    NSArray *array = [NSArray arrayWithContentsOfFile:path];
-//    
-//    NSString *str = array[index.row];
-//    
-//    CircleContextModel *model = [[CircleContextModel alloc]initWithString:str];
-//    [self.modelArray replaceObjectAtIndex:index.row withObject:model];
-
-    [self netRequest];
+    NSMutableDictionary *dic = [self getViewWithModel:model];
+    NSArray *photoArray = dic[@"photoArray"];
+    [dic removeObjectForKey:@"photoArray"];
+    [self.photoArray replaceObjectAtIndex:index.row withObject:photoArray];
+    [self.userInterArray replaceObjectAtIndex:index.row withObject:dic];
+    [self.modelArray replaceObjectAtIndex:index.row withObject:model];
+    
+    [self.colleagueTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:index, nil] withRowAnimation:UITableViewRowAnimationFade];
+    
 }
 
 - (void)deleteIndexPath:(NSIndexPath *)index
@@ -951,8 +960,8 @@ static NSString * contentId = nil;
     CircleCommentModel *tempModel = [[CircleCommentModel alloc]init];  //上传评论数据的 model
     
     tempModel.content = self.inputTextView.text;
-    NSInteger num = [self.selectIndex  integerValue] - 1;
-    __block CircleContextModel *model = [self.modelArray objectAtIndex:num];
+    __block NSNumber *num = [NSNumber numberWithInteger:[self.selectIndex  integerValue] - 1];
+    __block CircleContextModel *model = [self.modelArray objectAtIndex:[num integerValue]];
     if (state) {  //发给用户  flase
         tempModel.targetUserId = model.poster.ID;  // 这个要改
         tempModel.contentId = model.ID;  //这个也要改
@@ -971,7 +980,6 @@ static NSString * contentId = nil;
         self.inputTextView.text = nil;
         [self.inputTextView resignFirstResponder];
         
-        CircleContextModel *cir = [[CircleContextModel alloc]initWithString:model.ID];  // 取出来的
         CircleContextModel *temp = [[CircleContextModel alloc]init];
         NSDictionary *circleComment = [json objectForKey:@"circleComment"];
         [temp setValuesForKeysWithDictionary:circleComment];
@@ -984,10 +992,24 @@ static NSString * contentId = nil;
             [temp.target setValuesForKeysWithDictionary:target];
         }
 
+        if (!model.comments)
+        {
+            model.comments = [NSMutableArray new];
+        }
+        [model.comments addObject:temp];
+        [model save];
+        NSMutableDictionary *tempMuDic = [self getViewWithModel:model];
+        NSArray *array = tempMuDic[@"photoArray"];
         
-        [cir.comments addObject:temp];
-        [cir save];
-        [self netRequest];
+        [tempMuDic removeObjectForKey:@"photoArray"];
+        
+        [self.photoArray replaceObjectAtIndex:[num integerValue] withObject:array];
+        [self.userInterArray replaceObjectAtIndex:[num integerValue] withObject:tempMuDic];
+        [self.modelArray replaceObjectAtIndex:[num integerValue] withObject:model];
+        [self.colleagueTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:[num integerValue] inSection:0], nil] withRowAnimation:UITableViewRowAnimationFade];
+        
+//        [self.colleagueTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects: count:<#(NSUInteger)#>] withRowAnimation:UITableViewRowAnimationTop];
+//        [self netRequest];
         
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);
@@ -1257,6 +1279,24 @@ static NSString * contentId = nil;
     CGImageRelease(cgimg);  
     return img;  
 }
-
-
+//
+////按需加载 - 如果目标行与当前行相差超过指定行数，只在目标滚动范围的前后指定3行加载。
+//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+//    NSIndexPath *ip = [self.colleagueTable indexPathForRowAtPoint:CGPointMake(0, targetContentOffset->y)];
+//    NSIndexPath *cip = [[self.colleagueTable indexPathsForVisibleRows] firstObject];
+//    NSInteger skipCount = 8;
+//    if (labs(cip.row-ip.row)>skipCount) {
+//        NSArray *temp = [self.colleagueTable indexPathsForRowsInRect:CGRectMake(0, targetContentOffset->y, self.colleagueTable.width, self.colleagueTable.height)];
+//        NSMutableArray *arr = [NSMutableArray arrayWithArray:temp];
+//        if (velocity.y<0) {
+//            NSIndexPath *indexPath = [temp lastObject];
+//            if (indexPath.row+33) {
+//                [arr addObject:[NSIndexPath indexPathForRow:indexPath.row-3 inSection:0]];
+//                [arr addObject:[NSIndexPath indexPathForRow:indexPath.row-2 inSection:0]];
+//                [arr addObject:[NSIndexPath indexPathForRow:indexPath.row-1 inSection:0]];
+//            }
+//        }
+////        [needLoadArr addObjectsFromArray:arr];
+//    }
+//}
 @end
