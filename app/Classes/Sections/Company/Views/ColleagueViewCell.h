@@ -40,6 +40,13 @@
 @property (nonatomic, strong)UIView *userInterView;
 
 @property (nonatomic, strong)UIButton *deleteButton;
+
+@property (nonatomic, strong)UIView *tempView;
+
+@property (nonatomic, strong)CircleContextModel *model;
+
+
+
 - (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath;
 
 - (void)getViewWithModel:(CircleContextModel *)model andTag:(NSInteger)tag;

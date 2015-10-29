@@ -186,6 +186,7 @@ static NSString *userId = nil;
 
 - (void)reloadCellWithModel:(CircleContextModel *)model andIndexPath:(NSIndexPath *)indexpath
 {
+
     Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.postUserId];
     
     [self.circleImage dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
@@ -207,6 +208,32 @@ static NSString *userId = nil;
     }
 }
 
+
+//- (void)drawRect:(CGRect)rect
+//{
+//    NSLog(@"绘制");
+//    Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:self.model.postUserId];
+//    
+//    [self.circleImage dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
+//    
+//    //    self.circleImage.backgroundColor = [UIColor blueColor];
+//    self.circleImage.tag = self.indexPath.row + 11111;
+//    self.ColleagueNick.text = per.name;
+//    
+//    [self.timeLabel judgeTimeWithString:self.model.postDate]; //判断时间
+//    
+//    self.praiseButton.tag = self.indexPath.row + 1;
+//    [self.wordFrom getCompanyNameFromCid:self.model.postUserId];
+//    self.commondButton.tag = self.indexPath.row + 1;
+//    self.praiseButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)self.model.commentUsers.count];
+//    self.commondButton.criticText.text = [NSString stringWithFormat:@"%ld", (unsigned long)self.model.comments.count];
+//    if (self.model.commentUsers) {
+//        NSLog(@"%@ \n 我的 id 为  %@ ", self.model.content, userId);
+//        [self judgeWithArray:self.model.commentUsers];
+//    }
+//    [self.userInterView insertSubview:self.tempView atIndex:0];
+//
+//}
 - (void)judgeWithArray:(NSArray *)array
 {
     if ([self judgePraiseWithArray:array]) {
@@ -453,5 +480,18 @@ static NSString *userId = nil;
     NSLog(@"跳跃");
 }
 
+- (void)setModel:(CircleContextModel *)model
+{
+    _model = model;
+}
+
+- (void)setIndexPath:(NSIndexPath *)indexPath
+{
+    _indexPath = indexPath;
+}
+- (void)setTempView:(UIView *)tempView
+{
+    _tempView = tempView;
+}
 
 @end

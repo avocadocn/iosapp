@@ -28,6 +28,8 @@
 #import "GroupCardModel.h"
 #import "CreateGroupController.h"
 
+static NSNumber *myNum = 0;
+
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, HMWaterflowLayoutDelegate>
 
 @end
@@ -36,13 +38,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"社团列表";
     self.modelArray = [NSMutableArray array];
     [self reloadLibraryFile];
 //    [self getRequestData];
     [self builtInterface];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getRequestData) name:@"reloadGroup" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getRequestDataAndPage:) name:@"reloadGroup" object:nil];
     
 //    [self.navigationController.navigationBar addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
     
@@ -66,7 +69,7 @@
     NSLog(@"咦哈");
 }
 
-- (void)getRequestData
+- (void)getRequestDataAndPage:(NSNumber *)num
 {
     // 获取群组应该有 targetid 的吧?
     NSString *netAddress;
@@ -84,11 +87,18 @@
             break;
     }
     
+    if (!num) {
+        num = [NSNumber numberWithInt:0];
+    }
     
-    [RestfulAPIRequestTool routeName:netAddress requestModel:nil useKeys:nil success:^(id json) {
-        self.modelArray = [NSMutableArray array];
+    NSDictionary *dic =[NSDictionary dictionaryWithObject:num forKey:@"page"];
+    
+    [RestfulAPIRequestTool routeName:netAddress requestModel:dic useKeys:@[@"page"] success:^(id json) {
+
         NSLog(@"获取到的群组为%@", json);
         [self analyDataWithJson:json];
+        NSInteger nu = [myNum integerValue];
+        myNum = [NSNumber numberWithInteger:++nu];
     } failure:^(id errorJson) {
         NSLog(@"获取群组失败, 原因为 %@", errorJson);
         [self reloadLibraryFile];
@@ -205,6 +215,7 @@
 
 - (void)loadMoreAction:(id)sender // 加载
 {
+    [self getRequestDataAndPage:myNum];
     [self.groupListCollection.footer endRefreshing];
 }
 
@@ -296,7 +307,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self getRequestData];
+    myNum = 0;
+    [self getRequestDataAndPage:0];
 }
 
 - (void)newAction
