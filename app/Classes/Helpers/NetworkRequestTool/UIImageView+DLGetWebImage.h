@@ -24,6 +24,12 @@
  * 请求指定大小的图
  */
 - (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size;
-
+/**
+ * 请求指定大小的图,是否需要遮罩
+ */
+- (void)dlGetRouteThumbnallWebImageWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size andHaveBlur:(BOOL)haveBlur;
+/**
+ * 请求本地缓存的图片
+ */
 - (void)dlGetLocalImageWithUrl:(NSString *)url size:(CGSize)size completed:(SDWebImageCompletionBlock)completedBlock;
 @end

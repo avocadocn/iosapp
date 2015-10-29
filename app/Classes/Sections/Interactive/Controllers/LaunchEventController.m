@@ -770,6 +770,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [super didReceiveMemoryWarning];
 }
 -(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self.activityIndicatorView removeFromSuperview];
 }
 

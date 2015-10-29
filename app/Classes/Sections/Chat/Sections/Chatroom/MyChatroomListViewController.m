@@ -126,6 +126,7 @@ static NSString *kOnceJoinedChatroomsPattern = @"OnceJoinedChatrooms_%@";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self reloadDataSource];
 }
 

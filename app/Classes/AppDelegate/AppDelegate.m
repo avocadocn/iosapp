@@ -12,10 +12,14 @@
 #import "PersonalDynamicController.h"
 #import "RestfulAPIRequestTool.h"
 #import "FMDBSQLiteManager.h"
+#import "Person.h"
 #import "Group.h"
 #import "DetailActivityShowController.h"
 #import "Concern.h"
+#import "AddressBookModel.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
+
+@property (nonatomic, strong)NSMutableArray *contactsArray;
 
 @end
 
@@ -49,6 +53,7 @@
     }
     
     [self initLocalData];
+    [self loadingContacts]; // 加载通讯录 学校信息
     return YES;
 }
 - (void)initLocalData
@@ -136,5 +141,82 @@
 {
     return UIInterfaceOrientationMaskPortrait;
 }
+
+#pragma Company and Contacts Info
+- (void)loadingContacts { // 加载学校信息
+    Account *account = [AccountTool account];
+    [self getCompanyNameWithCid:account.cid]; // 获取学校信息
+}
+
+- (void)getCompanyNameWithCid:(NSString *)cid {
+    NSLog(@"学校ID 为 %@",cid);
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:cid forKey:@"companyId"];
+    [RestfulAPIRequestTool routeName:@"getCompaniesInfos" requestModel:dic useKeys:@[@"companyId"] success:^(id json) {
+        [self ismembermentJson:json Cid:cid];
+        NSLog(@"获取的学校信息为  %@",json);
+        
+    } failure:^(id errorJson) {
+        NSLog(@"%@", [errorJson objectForKey:@"msg"]);
+    }];
+}
+
+- (void)ismembermentJson:(id)json Cid:(NSString *)cid
+{
+    NSDictionary *dic = [json objectForKey:@"company"];
+    NSDictionary *infoDic = [dic objectForKey:@"info"];
+    NSString *temp = [NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]];
+    
+    NSDictionary *tempDic = [NSDictionary dictionaryWithObjects:@[RGBACOLOR(80, 125, 175, 1)] forKeys:@[NSForegroundColorAttributeName]];
+    //    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:temp attributes:tempDic];
+    NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"来自 %@", [infoDic objectForKey:@"name"]]] ;
+    NSInteger num = temp.length - 3;
+    //    [attStr addAttributes:@{[UIColor orangeColor]} range:NSMakeRange(3, num)];
+    [attStr setAttributes:tempDic range:NSMakeRange(3, num)];
+    
+    NSString *companyName = [attStr string];
+    if (companyName.length != 0) {
+        
+        [self getcontactPersonsWithCid:cid comapnyName:companyName];  // 加载通讯录信息
+        
+    }
+    NSLog(@"huoqudexuexiaoming %@",companyName);
+}
+
+- (void)getcontactPersonsWithCid:(NSString *)cid comapnyName:(NSString *)companyName {
+    
+    AddressBookModel *model = [[AddressBookModel alloc] init];
+    [model setCompanyId:cid];
+    [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
+        NSLog(@"请求成功 %@",json);
+        [self reloadWithJson:json companyName:companyName];
+    } failure:^(id errorJson) {
+        NSLog(@"请求失败 %@",[errorJson objectForKey:@"msg"]);
+    }];
+    
+}
+
+- (void)reloadWithJson:(id)json companyName:(NSString *)companyName {  // 将获取的 通讯录信息 和 学校信息 写入数据库
+    if (!self.contactsArray) {
+        self.contactsArray = [NSMutableArray arrayWithArray:json];
+    }
+    for (NSDictionary *dic in self.contactsArray) {
+        Person *per = [[Person alloc] init];
+        per.name = dic[@"realname"];
+        per.imageURL = dic[@"photo"];
+        per.userId = dic[@"_id"];
+        if (companyName.length != 0) {
+            per.companyName = companyName;
+            
+        } else {
+            per.companyName = per.companyName;
+        }
+        [[FMDBSQLiteManager shareSQLiteManager] insertPerson:per];
+    }
+    
+    
+}
+
+
+
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface optionsView : UIView
+@interface optionsView : UIView<UITextFieldDelegate>
 
 @property (nonatomic, strong)UITextField *optionTextField;
 

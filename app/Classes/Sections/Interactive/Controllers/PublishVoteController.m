@@ -16,6 +16,7 @@
 #import "RestfulAPIRequestTool.h"
 #import "Interaction.h"
 #import <DGActivityIndicatorView.h>
+#import "UIImageView+DLGetWebImage.h"
 
 static NSInteger num = 0;
 
@@ -311,6 +312,10 @@ static NSInteger num = 0;
         }
     }
     num = count;
+    for (NSDictionary *dic in self.model.photos) {
+        [self.selectPhoto dlGetRouteThumbnallWebImageWithString:dic[@"uri"] placeholderImage:nil withSize:self.selectPhoto.size];
+    }
+    
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];

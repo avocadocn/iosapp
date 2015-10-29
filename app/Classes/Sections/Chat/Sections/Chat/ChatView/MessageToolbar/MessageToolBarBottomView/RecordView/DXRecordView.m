@@ -70,7 +70,7 @@
                                             selector:@selector(setVoiceImage)
                                             userInfo:nil
                                              repeats:YES];
-    
+    [_timer fire];
 }
 // 手指在录音按钮内部时离开
 -(void)recordButtonTouchUpInside
