@@ -88,43 +88,43 @@ static NSInteger tagNum = 1;
     [self.bigScroll addSubview:self.imageView];
     [self builtButton];
 }
-- (void)builtScrollPhotoView
-{
-    self.scrollPhotoView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(420.0))];
-    
-    [self.view addSubview:self.scrollPhotoView];
-    self.photoArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"1"],[UIImage imageNamed:@"2.jpg"],[UIImage imageNamed:@"114.png"],[UIImage imageNamed:@"2.jpg"], nil];
-    NSInteger i = 0;
-    
-    for (UIImage *image in self.photoArray) {
-        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(i * DLScreenWidth, 0, DLScreenWidth, self.scrollPhotoView.size.height)];
-        imageview.image = image;
-        [self.scrollPhotoView addSubview:imageview];
-        i++;
-    }
-    self.scrollPhotoView.showsVerticalScrollIndicator = FALSE;
-    self.scrollPhotoView.showsHorizontalScrollIndicator = FALSE;
-    self.scrollPhotoView.pagingEnabled = YES;
-    self.scrollPhotoView.delegate = self;
-    self.scrollPhotoView.contentSize = CGSizeMake(DLScreenWidth * [self.photoArray count], 0);
-    
-    self.pag = [UIPageControl new];
-    self.pag.backgroundColor = [UIColor colorWithWhite:.1 alpha:.2];
-    self.pag.numberOfPages = [self.photoArray count];
-    self.pag.userInteractionEnabled = NO;
-    
-    
-    [self.view addSubview:self.pag];
-    [self.pag mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.scrollPhotoView.mas_bottom);
-        make.left.mas_equalTo(self.scrollPhotoView.mas_left);
-        make.right.mas_equalTo(self.scrollPhotoView.mas_right);
-        make.height.mas_equalTo(DLScreenHeight / 15.159);
-    }];
-    
-    [self builtButton];
-}
-
+//- (void)builtScrollPhotoView
+//{
+//    self.scrollPhotoView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(420.0))];
+//    
+//    [self.view addSubview:self.scrollPhotoView];
+//    self.photoArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"1"],[UIImage imageNamed:@"2.jpg"],[UIImage imageNamed:@"114.png"],[UIImage imageNamed:@"2.jpg"], nil];
+//    NSInteger i = 0;
+//    
+//    for (UIImage *image in self.photoArray) {
+//        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(i * DLScreenWidth, 0, DLScreenWidth, self.scrollPhotoView.size.height)];
+//        imageview.image = image;
+//        [self.scrollPhotoView addSubview:imageview];
+//        i++;
+//    }
+//    self.scrollPhotoView.showsVerticalScrollIndicator = FALSE;
+//    self.scrollPhotoView.showsHorizontalScrollIndicator = FALSE;
+//    self.scrollPhotoView.pagingEnabled = YES;
+//    self.scrollPhotoView.delegate = self;
+//    self.scrollPhotoView.contentSize = CGSizeMake(DLScreenWidth * [self.photoArray count], 0);
+//    
+//    self.pag = [UIPageControl new];
+//    self.pag.backgroundColor = [UIColor colorWithWhite:.1 alpha:.2];
+//    self.pag.numberOfPages = [self.photoArray count];
+//    self.pag.userInteractionEnabled = NO;
+//    
+//    
+//    [self.view addSubview:self.pag];
+//    [self.pag mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.mas_equalTo(self.scrollPhotoView.mas_bottom);
+//        make.left.mas_equalTo(self.scrollPhotoView.mas_left);
+//        make.right.mas_equalTo(self.scrollPhotoView.mas_right);
+//        make.height.mas_equalTo(DLScreenHeight / 15.159);
+//    }];
+//    
+//    [self builtButton];
+//}
+//
 - (void)builtButton
 {
     

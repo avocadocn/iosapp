@@ -21,7 +21,7 @@
 #import "UIImageView+DLGetWebImage.h"
 static NSInteger num = 0;
 
-@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, DNImagePickerControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface FolderViewController ()<DLDatePickerViewDelegate, UIAlertViewDelegate, DNImagePickerControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate>
 @property (nonatomic, strong)NSMutableArray *infoArray;
 
 @property (nonatomic, strong)UIButton *btn; // 相机按钮
@@ -60,7 +60,7 @@ static NSInteger num = 0;
 
 - (void)builtScrollView {
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLScreenHeight)];
-    self.scrollView.contentSize = CGSizeMake(DLScreenWidth, DLScreenHeight + 180);
+    self.scrollView.contentSize = CGSizeMake(DLScreenWidth, DLScreenHeight);
     self.scrollView.backgroundColor = RGBACOLOR(238, 239, 240, 1);
     self.scrollView.showsVerticalScrollIndicator = NO;
     [self.view insertSubview:self.scrollView atIndex:0];
@@ -447,7 +447,7 @@ static NSInteger num = 0;
         view.titleLabel.text = [labelName objectAtIndex:num];
         [view setBackgroundColor:[UIColor whiteColor]];
         view.tag = 1000 + num;
-
+        view.informationTextField.delegate = self;
         [self.scroll addSubview:view];
         num ++;
     }
@@ -521,7 +521,9 @@ static NSInteger num = 0;
 //    [UIView beginAnimations:@"ResizeTextView" context:nil];
 
 }
-
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.scrollView.contentSize = CGSizeMake(DLScreenWidth, DLScreenHeight + 300);
+}
 
 - (void)viewDidDisappear:(BOOL)animated
 {  // 移除通知
