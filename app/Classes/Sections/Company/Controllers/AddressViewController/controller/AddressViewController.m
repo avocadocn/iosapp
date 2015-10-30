@@ -537,7 +537,7 @@
         
         [model save];
     }
-    NSString *str = [NSString stringWithFormat:@"%@/addressBook", path];
+    NSString *str = [NSString stringWithFormat:@"%@/DLLibraryCache/addressBook", path];
     [mutable writeToFile:str atomically:YES];
     
 }

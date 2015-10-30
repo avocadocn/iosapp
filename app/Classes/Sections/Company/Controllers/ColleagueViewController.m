@@ -334,7 +334,7 @@ static NSString * contentId = nil;
     
     for (NSString *str in IDArray) {
         CircleContextModel *cir = [[CircleContextModel alloc]initWithString:str];
-        NSLog(@"%@    %@", cir.content, cir.poster.ID);
+//        NSLog(@"%@    %@", cir.content, cir.poster.ID);
         
         NSMutableDictionary *viewDic = [self getViewWithModel:cir];
         
@@ -553,7 +553,7 @@ static NSString * contentId = nil;
     }
     if (picNum != 0 && picNum != 1) {
         CGFloat width = DLMultipleWidth(87.0);
-        NSLog(@"图片有 %ld 张", (long)picNum);
+//        NSLog(@"图片有 %ld 张", (long)picNum);
         height = ((picNum + 2) / 3 )  * width; //图片view的高
     }
     // 评论 回复的高度
@@ -561,7 +561,7 @@ static NSString * contentId = nil;
     NSMutableArray *interArray = model.comments;
     for (CircleContextModel *interTempDic in interArray) {  //评论
         NSString *str = interTempDic.content;
-        NSLog(@"得到的评论详情为 %@", str);
+//        NSLog(@"得到的评论详情为 %@", str);
         
         CGFloat tempWidth = 5;
         CGRect rect = [self getRectWithFont:[UIFont systemFontOfSize:REPLYTEXT] width:DLMultipleWidth(LABELWIDTH) - tempWidth andString:str];
@@ -646,7 +646,7 @@ static NSString * contentId = nil;
     UIView *modelDetileView = [[UIView alloc]init];
     
     NSString *contentStr = model.content;
-    NSLog(@"用户发表的文字为 %@", contentStr);
+//    NSLog(@"用户发表的文字为 %@", contentStr);
     
     if (contentStr){
         
@@ -721,7 +721,7 @@ static NSString * contentId = nil;
     for (CircleContextModel *interTempDic in interArray) {  //评论
         
         NSString *str = interTempDic.content;
-        NSLog(@"得到的评论详情为 %@", str);
+//        NSLog(@"得到的评论详情为 %@", str);
         if (str) {
             
             CGFloat tempWidth = 5;
@@ -742,7 +742,10 @@ static NSString * contentId = nil;
                                          tergetUserId = interTempDic.poster.ID;
                                          contentId = interTempDic.targetContentId;
 //                                         self.selectIndex = [NSNumber numberWithInteger:(tag - 10000)] ;
-                                         
+
+                                         NSInteger temp = interLabel.superview.superview.tag;
+                                         self.selectIndex = [NSNumber numberWithInteger:temp];
+
                                      }]],
                                      @"postBody":@[RGBACOLOR(80, 125, 175, 1) ,[WPAttributedStyleAction styledActionWithAction:^{
                                          [self jumpPageWithDic:interTempDic andPoster:@"target"];
@@ -804,12 +807,13 @@ static NSString * contentId = nil;
 {
     self.myText = [UITextField new];
     self.myText.backgroundColor = [UIColor redColor];
-    self.inputView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 40)];
+    self.inputView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 600)];
     //    self.inputView.layer.borderWidth = .5;
     //    self.inputView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.inputView.backgroundColor = [UIColor whiteColor];
+//    self.inputView.backgroundColor = [UIColor whiteColor];
     //    view.backgroundColor = [UIColor blackColor];
     
+    UIView *whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, 600 - 40, DLScreenWidth, 40)];
     self.inputTextView = [[XHMessageTextView  alloc] initWithFrame:CGRectMake(15 , 5 , DLScreenWidth - 60 , 30)];
     //    self.inputTextView.backgroundColor = [UIColor yellowColor];
     self.myText.borderStyle = UITextBorderStyleNone;
@@ -818,12 +822,12 @@ static NSString * contentId = nil;
     self.inputTextView.enablesReturnKeyAutomatically = YES; // UITextView内部判断send按钮是否可以用
     self.inputTextView.placeHolder = @"输入评论";
     self.inputTextView.delegate = self;
-    self.inputTextView.backgroundColor = [UIColor clearColor];
+//    self.inputTextView.backgroundColor = [UIColor clearColor];
     self.inputTextView.layer.borderColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
     self.inputTextView.layer.borderWidth = 0.65f;
     self.inputTextView.layer.cornerRadius = 6.0f;
     
-    [self.inputView addSubview:self.inputTextView];
+    [whiteView addSubview:self.inputTextView];
     self.myText.inputAccessoryView = self.inputView;;
     
     UIButton * faceButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -832,18 +836,36 @@ static NSString * contentId = nil;
     [faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
     [faceButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
     [faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.inputView addSubview:faceButton];
+    [whiteView addSubview:faceButton];
     
     [faceButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.inputView.mas_top).offset(5);
-        make.bottom.mas_equalTo(self.inputView.mas_bottom).offset(-5);
-        make.right.mas_equalTo(self.inputView.mas_right).offset(-10);
-        make.width.mas_equalTo(self.inputView.height - 10);
+        make.height.mas_equalTo(30);
+        make.bottom.mas_equalTo(whiteView.mas_bottom).offset(-5);
+        make.right.mas_equalTo(whiteView.mas_right).offset(-10);
+        make.width.mas_equalTo(30);
     }];
+    
+    whiteView.backgroundColor = [UIColor whiteColor];
+    [whiteView addSubview:self.inputTextView];
+    [self.inputView addSubview:whiteView];
+    [self.inputView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disMissAction)]];
+
+//    self.inputTextView.rac_textSignal map:^id(NSNumber *number) {
+//        return @(self.inputTextView.isFirstResponder);
+//    }
     
     [self.view addSubview:self.myText];
 }
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    
+}
 
+- (void)disMissAction
+{
+    [self.inputTextView resignFirstResponder];
+    [self.myText resignFirstResponder];
+}
 - (void)buttonAction:(UIButton *)sender
 {
     switch (self.keyBordType) {
