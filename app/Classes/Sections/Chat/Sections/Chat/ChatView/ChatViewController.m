@@ -440,8 +440,8 @@
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         //解决录音按钮的触发问题
-        _tableView.delaysContentTouches= NO;
-        _tableView.canCancelContentTouches=NO;
+//        _tableView.delaysContentTouches= NO;
+//        _tableView.canCancelContentTouches=NO;
         /*UIControlEventTouchDown事件是一旦手指碰到按钮就调用了，这样在iOS7上会产生一个冲突，由于iOS7加上了手势滑动返回这么一个动作，
         在手势滑动返回时那个区域是不允许有UIControlEventTouchDown事件的，不然就会有事件冲突了，系统不知道是要准备返回还是要点击那个Button，
         所以就加上了TouchDown事件的一个延迟响应。
