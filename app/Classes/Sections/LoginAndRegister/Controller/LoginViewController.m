@@ -261,6 +261,14 @@
         if ( ![[EaseMob sharedInstance].chatManager isAutoLoginEnabled]) {
             [self loginWithUsername:acc.ID password:acc.ID];
         }
+        // 创建本地缓存文件
+        NSFileManager *manger = [NSFileManager defaultManager];
+        BOOL judge = [manger fileExistsAtPath:[NSString stringWithFormat:@"%@/DLLibraryCache", DLLibraryPath]];
+        
+        if (!judge) {
+            [manger createDirectoryAtPath:[NSString stringWithFormat:@"%@/DLLibraryCache", DLLibraryPath] withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        
     } failure:^(id errorJson) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"登录失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
         [alert show];

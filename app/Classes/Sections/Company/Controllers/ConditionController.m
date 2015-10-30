@@ -88,13 +88,18 @@
     [self.selectPhotoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.speakTextView.mas_bottom);
         make.left.mas_equalTo(self.speakTextView.mas_left);
-        make.size.mas_equalTo(CGSizeMake(DLScreenWidth, WID * 1 + 20));
+        make.size.mas_equalTo(CGSizeMake(DLScreenWidth, DLScreenHeight - 150));
+//        make.width.mas_equalTo(DLScreenWidth)
     }];
     
     if (self.photoArray) {
         [self.selectPhotoView arrangeStartWithArray:self.photoArray];
         self.selectPhotoView.imagePhotoArray = self.photoArray;
     }
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 150 + 20 + WID, DLScreenWidth, DLScreenHeight - 150 - WID - 20)];
+    view.backgroundColor = RGB(239, 239, 239);
+    view.tag = 1001;
+    [self.view addSubview:view];
 }
 
 
@@ -189,9 +194,13 @@
 
 - (void)ChoosePhotoView:(ChoosePhotoView *)chooseView withFrame:(CGRect)frame
 {
-    [UIView animateWithDuration:.5 animations:^{
-        
-    }];
+    
+//    [self.selectPhotoView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.height.mas_equalTo(frame.size.height);
+//    }];
+    UIView *view = (UIView *)[self.view viewWithTag:1001];
+    view.frame = CGRectMake(0, 150 + frame.size.height + 20, DLScreenWidth, 400);
+    
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {

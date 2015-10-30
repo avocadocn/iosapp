@@ -140,7 +140,7 @@ static NSNumber *myNum = 0;
         
         [mutable addObject:IDStr];
     }
-    NSString *arrayAddressStr = [NSString stringWithFormat:@"%@/%@-groupFile/groupList", DLLibraryPath, groupType];
+    NSString *arrayAddressStr = [NSString stringWithFormat:@"%@/DLLibraryCache/%@-groupFile/groupList", DLLibraryPath, groupType];
     
     BOOL judge = [manger fileExistsAtPath:arrayAddressStr];
     
@@ -168,7 +168,7 @@ static NSNumber *myNum = 0;
             groupType = [NSString stringWithFormat:@"company"];
             break;
     }
-    NSString *str = [NSString stringWithFormat:@"%@/%@-groupFile/groupList", DLLibraryPath, groupType];
+    NSString *str = [NSString stringWithFormat:@"%@/DLLibraryCache/%@-groupFile/groupList", DLLibraryPath, groupType];
     if ([NSArray arrayWithContentsOfFile:str]) {
         
     
