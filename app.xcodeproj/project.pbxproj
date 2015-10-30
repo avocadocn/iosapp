@@ -817,6 +817,7 @@
 		E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C3923B1BB551010072111D /* EMConversation+GroupName.m */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 		E2F49FD71BCBB6C0002709E7 /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; };
+		E2F674B31BE344B900CB3304 /* UILabel+FitContent.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F674B21BE344B900CB3304 /* UILabel+FitContent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2125,6 +2126,8 @@
 		E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCardViewTransmitCell.m; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
+		E2F674B11BE344B900CB3304 /* UILabel+FitContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+FitContent.h"; sourceTree = "<group>"; };
+		E2F674B21BE344B900CB3304 /* UILabel+FitContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FitContent.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2507,6 +2510,8 @@
 		9649B5071B564DE000A7F355 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E2F674B11BE344B900CB3304 /* UILabel+FitContent.h */,
+				E2F674B21BE344B900CB3304 /* UILabel+FitContent.m */,
 				A4448C351BA9583E00546C34 /* GiFHUD.m */,
 				A4448C361BA9583E00546C34 /* GiFHUD.h */,
 				54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */,
@@ -5477,6 +5482,7 @@
 				A461258A1BA030FF001E83B7 /* ForgetPasswordController.m in Sources */,
 				9649B5521B5663CE00A7F355 /* Test1ViewController.m in Sources */,
 				96CF90C71B673422001759E2 /* MWZoomingScrollView.m in Sources */,
+				E2F674B31BE344B900CB3304 /* UILabel+FitContent.m in Sources */,
 				A4745DFD1B81A9AC008EB944 /* DNAlbumTableViewController.m in Sources */,
 				967439A41B7058B3004334A4 /* Foundation+Log.m in Sources */,
 				96CF93841B674B54001759E2 /* ChatViewController.m in Sources */,
