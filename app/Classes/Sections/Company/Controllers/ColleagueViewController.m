@@ -196,7 +196,6 @@ static NSString * contentId = nil;
         
         [self saveDefaultWithJson:json];
         
-        //        [self saveDefaultWithJson:json]; //十条
         
 //        [self netRequest];
         
@@ -279,10 +278,6 @@ static NSString * contentId = nil;
                 NSLog(@"刷新");
                 [IDArray removeObjectsInArray:array];
                 NSMutableArray *new = (NSMutableArray *)[IDArray arrayByAddingObjectsFromArray:array];
-                
-                //                if (new.count > 10) {
-                //                    [new removeObjectsInRange:NSMakeRange(10, new.count - 10)];
-                //                }
                 
                 [new writeToFile:path atomically:YES];
             }
@@ -588,6 +583,7 @@ static NSString * contentId = nil;
     c.delegate = self;
     c.tempModel = [[CircleContextModel alloc]init];
     c.tempModel = model;
+    NSLog(@"传过去的位置为 %@", indexPath);
     c.index = indexPath;
     
     [self.navigationController pushViewController:c animated:YES];
@@ -611,6 +607,7 @@ static NSString * contentId = nil;
 
 - (void)deleteIndexPath:(NSIndexPath *)index
 {
+    NSLog(@"传回来的位置为 %@", index);
     NSFileManager *manger = [NSFileManager defaultManager];
     NSArray *tempArray =  NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
     NSString *path = [tempArray lastObject];
@@ -628,8 +625,9 @@ static NSString * contentId = nil;
     [self.userInterArray removeObjectAtIndex:index.row];
     [self.modelArray removeObjectAtIndex:index.row];
     NSLog(@"原文为   %@  ", model.content);
+    [self.photoArray removeObjectAtIndex:index.row];
+    [self.colleagueTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:index] withRowAnimation:UITableViewRowAnimationFade];
     
-    [self.colleagueTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -1218,9 +1216,9 @@ static NSString * contentId = nil;
     [self.photoArray insertObject:tempPhotoArray atIndex:0];
     [self.userInterArray insertObject:viewDic atIndex:0];
     [self.modelArray insertObject:cir atIndex:0];
-    [self.colleagueTable reloadData];
+//    [self.colleagueTable reloadData];
     
-    
+    [self.colleagueTable insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationMiddle];
 }
 
 

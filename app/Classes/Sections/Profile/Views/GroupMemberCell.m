@@ -66,7 +66,7 @@
     Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:userId];
     
     [self.imageView dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
-    self.name.text = per.name;
+    self.name.text = per.nickName;
 }
 
 @end
