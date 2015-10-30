@@ -96,8 +96,10 @@ static NSString * const ID =  @"RankItemTableViewcell";
     //设置底部信息栏
     RankDetileModel *model = [self.modelArray firstObject];
     [self reloadRankViewWithModel:model];
+    [UIView beginAnimations:nil context:nil];
     [self.carousel scrollToItemAtIndex:0 animated:YES];
     [self.carousel reloadData];
+    [UIView commitAnimations];
 }
 
 // 设置ui
@@ -170,8 +172,10 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
     if (view == nil) {
-        RankListItemView *cell = [[RankListItemView alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(217.0) , DLMultipleWidth((DLScreenHeight/2.0))>DLMultipleWidth(217.0)?DLMultipleWidth(217.0):DLMultipleWidth((DLScreenHeight/2.0)))];
+//        RankListItemView *cell = [[RankListItemView alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(217.0) , DLMultipleWidth(DLScreenHeight/2.0))];
+        RankListItemView *cell = [[RankListItemView alloc]initWithFrame:CGRectMake(0, 0, DLMultipleWidth(217.0) , DLMultipleWidth(257.0))];
         cell.backgroundColor = [UIColor whiteColor];
+//        cell.backgroundColor = [UIColor greenColor];
         cell.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.delegate=self;
         cell.layer.shadowRadius = 7;
@@ -290,96 +294,108 @@ static NSString * const ID =  @"RankItemTableViewcell";
 
 
 
-//- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
-//{
-//    //customize carousel display
-//    switch (option)
-//    {
-//        case iCarouselOptionWrap:
-//        {
-//            //normally you would hard-code this to YES or NO
-//            return wrap;
-//        }
-//        case iCarouselOptionSpacing:
-//        {
-//            //add a bit of spacing between the item views
-//            return value * 1.05f;
-//        }
-//        case iCarouselOptionFadeMax:
-//        {
-//            if (self.carousel.type == iCarouselTypeCustom)
-//            {
-//                //set opacity based on distance from camera
-//                return 0.0f;
-//            }
-//            return value;
-//        }
-//        case iCarouselOptionVisibleItems:
-//        {
-//            return value;
-//        }
-//        case iCarouselOptionShowBackfaces:
-//        case iCarouselOptionRadius:
-//        case iCarouselOptionAngle:
-//        case iCarouselOptionArc:
-//        case iCarouselOptionTilt:
-//        case iCarouselOptionCount:
-//        case iCarouselOptionFadeMin:
-//        case iCarouselOptionFadeMinAlpha:
-//        case iCarouselOptionFadeRange:
-//        case iCarouselOptionOffsetMultiplier:
-//        
-//        {
-//            return value;
-//        }
-//    }
-//}
-- (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+- (CGFloat)carousel:(__unused iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
 {
+    //customize carousel display
     switch (option)
     {
-        //当为NO时，可以添加占位视图
         case iCarouselOptionWrap:
         {
+            //normally you would hard-code this to YES or NO
             return wrap;
+        }
+        case iCarouselOptionSpacing:
+        {
+            //add a bit of spacing between the item views
+            return value * .5;//* 1.05f;
+        }
+        case iCarouselOptionVisibleItems:
+        {
+            return value;
+        }
+        case iCarouselOptionRadius:
+        {
+//            return DLScreenHeight * 0.5;
+            return value ;
         }
         case iCarouselOptionArc:
         {
-            return  value;
+            return  2 * M_PI ;
         }
-        //可以设置两个items的距离（我的理解）
-        case iCarouselOptionRadius:
-        {
-//            return 250;
-            return DLScreenHeight * 0.3;
-        }
-      
-        case iCarouselOptionVisibleItems:{
-            return 5;
-        }
-            
-        case iCarouselOptionSpacing:{
-            return value*1.05f;
-        }
-            
         case iCarouselOptionFadeMin:
         {
+            return -.5;
+        }
+        case iCarouselOptionFadeMax:
+        {
             return .5;
         }
-        case iCarouselOptionFadeMax:{
-            return .5;
+        case iCarouselOptionFadeMinAlpha:
+        {
+            return value;
         }
-            
-        case iCarouselOptionFadeMinAlpha:{
-            return 1;
-            
+        case iCarouselOptionFadeRange:
+        {
+            return 2;
         }
-        default:
+        case iCarouselOptionShowBackfaces:
+        case iCarouselOptionAngle:
+        case iCarouselOptionTilt:
+        case iCarouselOptionCount:
+        
+        case iCarouselOptionOffsetMultiplier:
+        
         {
             return value;
         }
     }
 }
+//- (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+//{
+//    switch (option)
+//    {
+//        //当为NO时，可以添加占位视图
+//        case iCarouselOptionWrap:
+//        {
+//            return wrap;
+//        }
+//        case iCarouselOptionArc:
+//        {
+//            return  value;
+//        }
+//        //可以设置两个items的距离（我的理解）
+//        case iCarouselOptionRadius:
+//        {
+////            return 250;
+//            return DLScreenHeight * 0.3;
+//        }
+//      
+//        case iCarouselOptionVisibleItems:{
+//            return 5;
+//        }
+//            
+//        case iCarouselOptionSpacing:{
+//            return value*1.05f;
+//        }
+//            
+//        case iCarouselOptionFadeMin:
+//        {
+//            return .5;
+//        }
+//        case iCarouselOptionFadeMax:{
+//            return .5;
+//        }
+//            
+//        case iCarouselOptionFadeMinAlpha:{
+//            return 1;
+//            
+//        }
+//        default:
+//        {
+//            return value;
+//        }
+//    }
+//}
 //当添加占位视图时，返回占位视图的数量
 - (NSInteger)numberOfPlaceholdersInCarousel:(__unused iCarousel *)carousel
 {
