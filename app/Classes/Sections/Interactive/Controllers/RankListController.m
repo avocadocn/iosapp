@@ -223,6 +223,8 @@ static NSString * const ID =  @"RankItemTableViewcell";
     
     self.bottomShowView.nameLabel.text = model.name;
     [self.bottomShowView.avatar dlGetRouteThumbnallWebImageWithString:model.logo placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)] ;
+    [self.bottomShowView.nameLabel fitContent];
+    [self.bottomShowView bringSubviewToFront:self.bottomShowView.nameLabel];
     self.bottomShowView.rankLabel.text = [NSString stringWithFormat:@"目前排名: %@", model.index];
 }
 

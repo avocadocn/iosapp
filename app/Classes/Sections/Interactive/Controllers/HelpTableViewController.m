@@ -102,7 +102,7 @@ static NSString * const ID = @"HelpTableViewCell";
 //    }
 //    for (int i = 0; i < 10; i++) {
         HelpInfoModel *helpInfoModel = [[HelpInfoModel alloc]init];
-        helpInfoModel.name = p.name;
+        helpInfoModel.name = p.nickName;
 //        helpInfoModel.avatarURL = p.imageURL;
 //        helpInfoModel.time = [self getParsedDateStringFromString:self.model.createTime];
         helpInfoModel.time = self.model.createTime;

@@ -37,7 +37,7 @@
     self.GroupLogo.contentMode = UIViewContentModeScaleAspectFill;
     
     Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:self.model.sender];
-    self.PersonName.text = per.name;
+    self.PersonName.text = per.nickName;
     [self.PersonPhoto dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(50, 50)];
     
     NSDictionary *dic = [NSDictionary dictionaryWithObject:self.model.team forKey:@"groupId"];

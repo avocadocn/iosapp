@@ -77,7 +77,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self loadingContacts]; // 加载通讯录信息
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self loadingContacts]; // 加载通讯录信息
+    });
  
     // Do any additional setup after loading the view.
 
@@ -144,7 +147,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     getIntroModel *model = [[getIntroModel alloc]init];
     [model setUserId:acc.ID];
-    [model setLimit:@5];
+    [model setLimit:@10];
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
@@ -545,15 +548,12 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
     getIntroModel *model = [[getIntroModel alloc]init];
     [model setUserId:acc.ID];
-    [model setLimit:@5];
+    [model setLimit:@10];
     
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
         NSLog(@"获取成功   %@", json);
         [self analyDataWithJson:json];
-  
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-//            [self loadingContacts]; // 加载通讯录信息
-//        });
+
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
    
@@ -675,7 +675,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
        Interaction *imodel = [self.modelArray lastObject];
     getIntroModel *model = [[getIntroModel alloc]init];
     [model setUserId:acc.ID];
-    [model setLimit:@5];
+    [model setLimit:@10];
     [model setCreateTime:imodel.createTime];
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:model useKeys:@[@"interactionType", @"requestType", @"createTime", @"limit", @"userId"] success:^(id json) {
          NSLog(@"获取成功   %@", json);
@@ -770,7 +770,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         self.contactsArray = [NSMutableArray arrayWithArray:json];
     }
     for (NSDictionary *dic in self.contactsArray) {
-        NSLog(@"-------> %@",dic);
         Person *per = [[Person alloc] init];
         per.name = dic[@"realname"];
         per.imageURL = dic[@"photo"];

@@ -24,7 +24,7 @@
 #import "AccountTool.h"
 #import "RestfulAPIRequestTool.h"
 #import "SendSchollTableModel.h"
-
+#import <MJRefresh.h>
 @interface CompanyViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong)NSMutableArray *photoArray;
 
@@ -39,6 +39,7 @@
     [self netRequest];
     [self getRequestNet];
     [self getBrithdayNet];
+    [self refreshMJ];
 }
 - (void)builtInterface
 {
@@ -156,6 +157,7 @@
     } failure:^(id errorJson) {
         NSLog(@"请求失败 %@",errorJson);
     }];
+    [self.BigCollection.header endRefreshing];
 }
 
 - (void)saveDefaultWithJson:(id)json
@@ -404,5 +406,9 @@
 
 }
 
+- (void)refreshMJ {
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(netRequest)];
+    self.BigCollection.header = header;
+}
 
 @end

@@ -830,9 +830,10 @@ static NSString * contentId = nil;
     
     UIButton * faceButton = [UIButton buttonWithType:UIButtonTypeSystem];
     faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
-    [faceButton setImage:[UIImage imageNamed:@"chatBar_face"] forState:UIControlStateNormal];
-    [faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
-    [faceButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
+    [faceButton setBackgroundImage:[UIImage imageNamed:@"chatBar_face@2x"] forState:UIControlStateNormal];
+//    [faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
+//    [faceButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
+    [faceButton setBackgroundColor:[UIColor greenColor]];
     [faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [whiteView addSubview:faceButton];
     
@@ -854,10 +855,6 @@ static NSString * contentId = nil;
     
     [self.view addSubview:self.myText];
 }
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    
-}
 
 - (void)disMissAction
 {
@@ -866,6 +863,13 @@ static NSString * contentId = nil;
 }
 - (void)buttonAction:(UIButton *)sender
 {
+    if (sender.selected == YES) {
+        sender.selected = NO;
+        [sender setBackgroundImage:[UIImage imageNamed:@"chatBar_face@2x"] forState:UIControlStateNormal];
+    } else {
+        sender.selected = YES;
+        [sender setBackgroundImage:[UIImage imageNamed:@"chatBar_keyboard@2x"] forState:UIControlStateNormal];
+    }
     switch (self.keyBordType) {
         case DLKeyBoardTypeNormal:
         {

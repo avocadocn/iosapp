@@ -447,6 +447,7 @@
 
 - (void)buttonAction:(UIButton *)sender  //登录逻辑
 {
+    
     [UIView animateWithDuration:.4 delay:.1 usingSpringWithDamping:.1 initialSpringVelocity:.1 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
         
     } completion:^(BOOL finished) {

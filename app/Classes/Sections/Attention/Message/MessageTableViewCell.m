@@ -32,7 +32,7 @@
 {
     Person *per= [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:model.sender];
     [self.projectPicture dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
-    self.titleLabel.text = per.name;
+    self.titleLabel.text = per.nickName;
     self.contentLabel.text = model.content;
     
     NSInteger num = [model.examine integerValue];

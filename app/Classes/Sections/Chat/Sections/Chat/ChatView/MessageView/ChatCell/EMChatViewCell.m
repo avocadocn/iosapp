@@ -121,7 +121,7 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     
     if (model.messageType != eMessageTypeChat) {
         //将群聊中其它用户的名称做转换
-        _nameLabel.text = p.name;
+        _nameLabel.text = p.nickName;
         _nameLabel.hidden = model.isSender;
     }
     

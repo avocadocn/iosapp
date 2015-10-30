@@ -38,7 +38,7 @@
     self.colorView.backgroundColor = RGBACOLOR(255, 214, 0, 1);
     Account *account = [AccountTool account];
     Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];
-    self.nameLabel.text = p.name;
+    self.nameLabel.text = p.nickName;
     if (p.companyName.length != 0) {
         self.companyLabel.text = [p.companyName substringFromIndex:3];
     }
