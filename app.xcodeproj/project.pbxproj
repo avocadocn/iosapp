@@ -70,6 +70,7 @@
 		54E542E41BA6CFE9008A6687 /* FMDBSQLiteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E31BA6CFE9008A6687 /* FMDBSQLiteManager.m */; };
 		54E542E71BA6D735008A6687 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E542E61BA6D735008A6687 /* Person.m */; };
 		54E542EB1BA7DF35008A6687 /* mydatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */; };
+		54E6491C1BE36DB300286E1F /* select-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 54E6491A1BE36DB300286E1F /* select-camera.png */; };
 		54E6A9341BBA3E5C003765AF /* GIFHUDPlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E6A9331BBA3E5C003765AF /* GIFHUDPlus.m */; };
 		54EA03271BB25E4400B96881 /* 活动111@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EA03211BB25E4400B96881 /* 活动111@2X.png */; };
 		54EA03281BB25E4400B96881 /* 求助111@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54EA03221BB25E4400B96881 /* 求助111@2x.png */; };
@@ -915,6 +916,7 @@
 		54E542E51BA6D735008A6687 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		54E542E61BA6D735008A6687 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		54E542EA1BA7DF35008A6687 /* mydatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = mydatabase.sqlite; sourceTree = "<group>"; };
+		54E6491A1BE36DB300286E1F /* select-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select-camera.png"; sourceTree = "<group>"; };
 		54E6A9321BBA3E5C003765AF /* GIFHUDPlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GIFHUDPlus.h; sourceTree = "<group>"; };
 		54E6A9331BBA3E5C003765AF /* GIFHUDPlus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GIFHUDPlus.m; sourceTree = "<group>"; };
 		54EA03211BB25E4400B96881 /* 活动111@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "活动111@2X.png"; sourceTree = "<group>"; };
@@ -2864,6 +2866,7 @@
 			isa = PBXGroup;
 			children = (
 				967439C31B70A27A004334A4 /* otherActivity_location.png */,
+				54E6491A1BE36DB300286E1F /* select-camera.png */,
 				967439D21B70A849004334A4 /* OtherActivity_backImage.png */,
 				967439C41B70A27A004334A4 /* otherActivity_time.png */,
 			);
@@ -5291,6 +5294,7 @@
 				96AA19731B79C193008E4CA3 /* profile_menu_setting.png in Resources */,
 				54EA032B1BB25E4400B96881 /* 我的信息111@2X.png in Resources */,
 				96CF93F31B674B54001759E2 /* call_silence.png in Resources */,
+				54E6491C1BE36DB300286E1F /* select-camera.png in Resources */,
 				A43CE9DB1BAABDDC0069C94E /* phone.png in Resources */,
 				54DBCAD61BDA19A000308DC5 /* iconfont-chat.png in Resources */,
 				96CF94471B674B54001759E2 /* chat_receiver_bg@2x.png in Resources */,

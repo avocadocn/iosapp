@@ -110,7 +110,6 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reFreshData) name:@"POSTEXIT" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESHDATE" object:nil];
     
-//    [self localNotifications];
     
 }
 
