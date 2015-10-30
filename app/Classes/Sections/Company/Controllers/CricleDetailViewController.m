@@ -35,7 +35,7 @@ static BOOL state;
 @property (nonatomic, strong)CommentViewCell *defaultCell;
 @property (nonatomic, strong)CircleContextModel *model;
 @property (nonatomic, strong) CustomKeyBoard *keyBoard;
-
+@property (nonatomic, assign)BOOL deleteState;
 @end
 
 @implementation CricleDetailViewController
@@ -220,6 +220,7 @@ static BOOL state;
                 
             default:{
                 [self.delegate deleteIndexPath:self.index];
+                self.deleteState = YES;
                 [self.navigationController popViewControllerAnimated:YES];
                 NSLog(@"好的");
                 
@@ -297,6 +298,9 @@ static BOOL state;
             NSDictionary *target = [circleComment objectForKey:@"target"];
             temp.target = [[AddressBookModel alloc]init];
             [temp.target setValuesForKeysWithDictionary:target];
+        }
+        if (!self.model.comments){
+            self.model.comments = [NSMutableArray array];
         }
         
         [self.model.comments addObject:temp];
@@ -452,8 +456,10 @@ static BOOL state;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.model save];
-    [self.delegate reloadDataWithModel:self.model andIndexPath:self.index];
+    if (!self.deleteState) {
+        [self.model save];
+        [self.delegate reloadDataWithModel:self.model andIndexPath:self.index];
+    }
     
 }
 - (void)imageAction:(UITapGestureRecognizer *)tap

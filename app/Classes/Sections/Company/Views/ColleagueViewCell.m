@@ -193,7 +193,7 @@ static NSString *userId = nil;
     
 //    self.circleImage.backgroundColor = [UIColor blueColor];
     self.circleImage.tag = indexpath.row + 11111;
-    self.ColleagueNick.text = per.name;
+    self.ColleagueNick.text = per.nickName;
     
     [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
     
