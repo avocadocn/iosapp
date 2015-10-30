@@ -77,9 +77,9 @@
     }];
     
     self.joinButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.joinButton setBackgroundImage:[UIImage imageNamed:@"insert"] forState:UIControlStateNormal];
+    [self.joinButton setBackgroundImage:[UIImage imageNamed:@"JoinButton"] forState:UIControlStateNormal];
 //    [self.joinButton setBackgroundColor:[UIColor yellowColor]];
-    self.joinButton.frame = CGRectMake(DLScreenWidth - 50, 12, 30, 30);
+    self.joinButton.frame = CGRectMake(DLScreenWidth - 50, 11, 44, 44);
     [self addSubview:self.joinButton];
 //    [self.joinButton mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.mas_equalTo(self.mas_top).offset(12);

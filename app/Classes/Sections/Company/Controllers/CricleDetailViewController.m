@@ -45,6 +45,7 @@ static BOOL state;
     
     self.title = @"详情";
     [self builtInterface];
+    [self setupForDismissKeyboard];
 }
 
 - (void)builtInterface

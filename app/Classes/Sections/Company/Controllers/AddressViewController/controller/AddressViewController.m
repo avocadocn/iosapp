@@ -53,11 +53,11 @@
 - (void)readLocalAddress
 {
     NSFileManager *manger = [NSFileManager defaultManager];
-    NSString *Str = [NSString stringWithFormat:@"%@/address", path];
+    NSString *Str = [NSString stringWithFormat:@"%@/DLLibraryCache/address", path];
     
     NSArray *array = [manger subpathsAtPath:Str];
     
-    NSArray *big = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@/bigAddress", path]];
+    NSArray *big = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@/DLLibraryCache/bigAddress", path]];
     NSLog(@" 本地 %@" , big);
     
     NSLog(@"获取到的本地文件  %@", array);
@@ -133,7 +133,7 @@
     if (![searchText isEqualToString:@""]) {
         self.wordDic = [NSMutableDictionary dictionary];
         for (NSDictionary *dic in self.jsonArray) {
-            NSString *str = [dic objectForKey:@"realname"];
+            NSString *str = [dic objectForKey:@"nickname"];
         
             if([str rangeOfString:searchText].location !=NSNotFound)//_roaldSearchText { NSLog(@"yes");
             {
@@ -256,7 +256,7 @@
         AddressBookModel *model = [[AddressBookModel alloc]init];
         [model setValuesForKeysWithDictionary:dic];
         
-        NSString *str = [NSString stringWithFormat:@"%@", [dic objectForKey:@"realname"]];  //根据用户的真名进行排序
+        NSString *str = [NSString stringWithFormat:@"%@", [dic objectForKey:@"nickname"]];  //根据用户的真名进行排序
 //        NSLog(@"用户名为 %@", str);
         [self judgeNameFormat:str andIndex:i];
         i++;
@@ -528,7 +528,6 @@
 - (void)saveDataWithJson:(id)json
 {
     NSMutableArray *mutable = [NSMutableArray array];
-    
     
     for (NSDictionary *dic in json) {
         AddressBookModel *model = [[AddressBookModel alloc]init];

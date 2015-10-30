@@ -50,8 +50,6 @@ static NSInteger tagNum = 1;
     [self.view addSubview:self.bigScroll];
     [self builtImageView];
     
-    CGFloat height = DLScreenHeight / (568 / 400.0);
-    
     self.title = @"个人资料";
     NSArray *nameArray = @[@"Profile@2x", @"Oval 2@2x", @"chat@2x"];
     NSMutableArray *imageArray = [NSMutableArray array];
@@ -205,8 +203,8 @@ static NSInteger tagNum = 1;
     }
     
     
+    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(12, 0, DLScreenWidth - 115, 60)];
     
-    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(12, 0, 100, 60)];
     self.nameLabel.font = [UIFont systemFontOfSize:21];
     Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:self.model.ID];
     self.nameLabel.text = per.nickName;

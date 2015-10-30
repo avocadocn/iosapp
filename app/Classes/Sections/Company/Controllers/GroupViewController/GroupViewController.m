@@ -28,7 +28,7 @@
 #import "GroupCardModel.h"
 #import "CreateGroupController.h"
 
-static NSNumber *myNum = 0;
+static NSNumber *myNum;
 
 @interface GroupViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, HMWaterflowLayoutDelegate>
 
@@ -37,6 +37,7 @@ static NSNumber *myNum = 0;
 @implementation GroupViewController
 
 - (void)viewDidLoad {
+    myNum = [NSNumber numberWithInteger:1];
     [super viewDidLoad];
     
     self.title = @"社团列表";
@@ -88,16 +89,19 @@ static NSNumber *myNum = 0;
     }
     
     if (!num) {
-        num = [NSNumber numberWithInt:0];
+        num = [NSNumber numberWithInt:1];
     }
     
     NSDictionary *dic =[NSDictionary dictionaryWithObject:num forKey:@"page"];
-    
+    NSLog(@"网络请求的数据为%@", dic);
     [RestfulAPIRequestTool routeName:netAddress requestModel:dic useKeys:@[@"page"] success:^(id json) {
+        NSInteger nu = [myNum integerValue];
+        if (nu == 1) {
+            [self.modelArray removeAllObjects];
+        }
 
         NSLog(@"获取到的群组为%@", json);
         [self analyDataWithJson:json];
-        NSInteger nu = [myNum integerValue];
         myNum = [NSNumber numberWithInteger:++nu];
     } failure:^(id errorJson) {
         NSLog(@"获取群组失败, 原因为 %@", errorJson);
@@ -299,8 +303,8 @@ static NSNumber *myNum = 0;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    myNum = 0;
-    [self getRequestDataAndPage:0];
+
+    [self getRequestDataAndPage:[NSNumber numberWithInteger:1]];
 }
 
 - (void)newAction

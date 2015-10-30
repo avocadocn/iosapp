@@ -69,8 +69,8 @@ static NSString *tableId = @"AttentionViewCell";
         NSIndexPath *pa = [NSIndexPath indexPathForRow:(sender.tag - 1) inSection:0];
         
         [self.detileModel.applyMember removeObjectAtIndex:pa.row];
-        [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pa] withRowAnimation:UITableViewRowAnimationFade];
-        
+        [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pa] withRowAnimation:UITableViewRowAnimationMiddle];
+        [self.myTableView reloadData];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadMemberTableView" object:nil userInfo:dic];
         
     } failure:^(id errorJson) {
@@ -98,7 +98,7 @@ static NSString *tableId = @"AttentionViewCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return DLMultipleHeight(67.0);
+    return 66.0;
 }
 
 - (void)setGroupId:(NSString *)groupId
