@@ -56,6 +56,7 @@ static NSInteger num = 0;
         [self getModel];
         [self editFolder]; //  用户编辑个人资料
     }
+    [self setupForDismissKeyboard];
 }
 
 - (void)builtScrollView {

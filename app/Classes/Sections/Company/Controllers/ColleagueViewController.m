@@ -89,6 +89,8 @@ static NSString * contentId = nil;
 @property (nonatomic, assign)BOOL selectState;
 @property (nonatomic, assign)DLRefreshState state;
 @property (nonatomic, assign)DLKeyBoardType keyBordType;
+@property (nonatomic, assign)BOOL selected;
+
 @end
 
 @implementation ColleagueViewController
@@ -828,13 +830,12 @@ static NSString * contentId = nil;
     [whiteView addSubview:self.inputTextView];
     self.myText.inputAccessoryView = self.inputView;;
     
-    UIButton * faceButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIImageView * faceButton = [UIImageView new];
     faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
-    [faceButton setBackgroundImage:[UIImage imageNamed:@"chatBar_face@2x"] forState:UIControlStateNormal];
-//    [faceButton setImage:[UIImage imageNamed:@"chatBar_faceSelected"] forState:UIControlStateHighlighted];
-//    [faceButton setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateSelected];
-    [faceButton setBackgroundColor:[UIColor greenColor]];
-    [faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    faceButton.image = [UIImage imageNamed:@"chatBar_face@2x"];
+    faceButton.userInteractionEnabled = YES;
+    [faceButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonAction:)]];
+//    [faceButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [whiteView addSubview:faceButton];
     
     [faceButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -861,14 +862,20 @@ static NSString * contentId = nil;
     [self.inputTextView resignFirstResponder];
     [self.myText resignFirstResponder];
 }
-- (void)buttonAction:(UIButton *)sender
+- (void)buttonAction:(UITapGestureRecognizer *)sender
 {
-    if (sender.selected == YES) {
-        sender.selected = NO;
-        [sender setBackgroundImage:[UIImage imageNamed:@"chatBar_face@2x"] forState:UIControlStateNormal];
+    UIImageView *imageview = (UIImageView *)sender.view;
+    if (self.selected == YES) {
+        self.selected = NO;
+//        [sender setBackgroundImage:[UIImage imageNamed:@"chatBar_face@2x"] forState:UIControlStateNormal];
+        imageview.image = [UIImage imageNamed:@"chatBar_face@2x"];
     } else {
-        sender.selected = YES;
-        [sender setBackgroundImage:[UIImage imageNamed:@"chatBar_keyboard@2x"] forState:UIControlStateNormal];
+        self.selected = YES;
+//        UIImage *image = [UIImage imageNamed:@"chatBar_keyboard@2x"];
+//        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        [sender setBackgroundImage:image forState:UIControlStateNormal];
+//        [sender setBackgroundImage:[UIImage imageNamed:@"chatBar_keyboard@2x"] forState:UIControlStateNormal];
+        imageview.image = [UIImage imageNamed:@"chatBar_keyboard@2x"];
     }
     switch (self.keyBordType) {
         case DLKeyBoardTypeNormal:
@@ -1199,8 +1206,6 @@ static NSString * contentId = nil;
     
     CircleContextModel *cir = [[CircleContextModel alloc] init];
     [cir setValuesForKeysWithDictionary:circleContent];
-    
-    
     
 
     //    NSLog(@"%@    %@", cir.content, cir.poster.ID);

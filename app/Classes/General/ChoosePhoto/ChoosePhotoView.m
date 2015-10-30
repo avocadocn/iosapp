@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
     }
     
     self.insertButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [self.insertButton setBackgroundImage:[UIImage imageNamed:@"insert"] forState:UIControlStateNormal];
+    [self.insertButton setBackgroundImage:[UIImage imageNamed:@"insertButton"] forState:UIControlStateNormal];
     
     self.insertButton.backgroundColor = [UIColor whiteColor];
     self.insertButton.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
@@ -64,8 +64,8 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
         return [RACSignal empty];
     }];
     CGFloat width = (DLScreenWidth - 20) / 4.0;
-    self.insertButton.layer.borderColor = RGB(213 , 213, 214).CGColor;
-    self.insertButton.layer.borderWidth = 1;
+//    self.insertButton.layer.borderColor = RGB(213 , 213, 214).CGColor;
+//    self.insertButton.layer.borderWidth = 1;
     self.insertButton.frame = CGRectMake(0, 0, width - 1.5, width - 1.5);
     UIImageView *imageV = [[UIImageView alloc]init];
     imageV.image = [UIImage imageNamed:@"insert"];

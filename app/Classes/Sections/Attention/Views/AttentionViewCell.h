@@ -13,7 +13,6 @@
 
 @interface AttentionViewCell : UITableViewCell
 
-
 @property (strong, nonatomic)  UILabel *AttentionName;
 @property (strong, nonatomic)  UIImageView *AttentionPhoto;
 @property (strong, nonatomic)  UILabel *AttentionWork;

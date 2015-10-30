@@ -92,7 +92,7 @@
     [self.personPhotoImageView dlGetRouteThumbnallWebImageWithString:model.photo placeholderImage:[UIImage imageNamed:@"1"] withSize:CGSizeMake(50.0, 50.0)];
     self.personPhotoImageView.layer.masksToBounds = (self.frame.size.width - 10 )/ 2.0;
     self.personEmailLabel.text = model.phone;
-    self.personNameLabel.text = model.realname;
+    self.personNameLabel.text = model.nickname;
     if (model.selectState) {
         
         [self.selectButton setBackgroundImage:[UIImage imageNamed:@"OK.png"] forState:UIControlStateNormal];
