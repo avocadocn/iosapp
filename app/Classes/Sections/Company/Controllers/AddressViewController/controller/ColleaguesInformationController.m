@@ -209,7 +209,7 @@ static NSInteger tagNum = 1;
     self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(12, 0, 100, 60)];
     self.nameLabel.font = [UIFont systemFontOfSize:21];
     Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:self.model.ID];
-    self.nameLabel.text = per.name;
+    self.nameLabel.text = per.nickName;
     [view addSubview:self.nameLabel];
     
 }

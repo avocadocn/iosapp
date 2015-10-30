@@ -42,9 +42,9 @@ typedef NS_ENUM(NSInteger, DLKeyBoardType) {
 - (IBAction)emojiClick:(UIButton *)sender {
     if (sender.selected == YES) {
         sender.selected = NO;
-        [sender setImage:[UIImage imageNamed:@"compose_emoticonbutton_background"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"chatBar_face@2x"] forState:UIControlStateNormal];
     } else {
-        [sender setImage:[UIImage imageNamed:@"chatBar_keyboard@2x"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"chatBar_keyboard"] forState:UIControlStateNormal];
         sender.selected = YES;
     }
 //    NSLog(@"点击表情。。。");
