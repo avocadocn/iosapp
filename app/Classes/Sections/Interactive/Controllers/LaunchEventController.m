@@ -244,6 +244,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     [self.superView addSubview:view];
     self.chooseButton = [[UIImageView alloc] init];
     self.chooseButton.userInteractionEnabled = YES;
+    self.chooseButton.image = [UIImage imageNamed:@"select-camera"];
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(chooseButtonAction:)];
     [self.chooseButton addGestureRecognizer:tapGesture];
     [self.chooseButton setBackgroundColor:[UIColor lightGrayColor]];
