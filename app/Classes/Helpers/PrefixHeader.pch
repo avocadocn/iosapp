@@ -34,6 +34,7 @@
 #import <MJExtension.h>
 #import "Foundation+Log.h"
 #import <tingyunApp/NBSAppAgent.h>
+#import "UILabel+FitContent.h"
 
 #define DLSBackgroundColor [UIColor colorWithWhite:.9 alpha:1];
 
