@@ -857,10 +857,6 @@ static NSString * contentId = nil;
     
     [self.view addSubview:self.myText];
 }
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    
-}
 
 - (void)disMissAction
 {
