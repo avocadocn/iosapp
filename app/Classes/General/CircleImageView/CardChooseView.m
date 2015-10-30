@@ -111,14 +111,28 @@ static NSInteger height = 45;
         make.height.mas_equalTo((DLScreenHeight) - self.frame.size.height);
     }];
     
-    [UIView animateWithDuration:self.appearTime animations:^{
+//    [UIView animateWithDuration:self.appearTime animations:^{
+//        self.center = CGPointMake(self.frame.size.width / 2.0, (DLScreenHeight ) - self.frame.size.height / 2.0);
+//        
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:.2 animations:^{
+//            [self.maskView setBackgroundColor:[UIColor colorWithWhite:.1 alpha:.5]];
+//        }];
+//    }];
+    
+    
+    [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveLinear animations:^{
         self.center = CGPointMake(self.frame.size.width / 2.0, (DLScreenHeight ) - self.frame.size.height / 2.0);
-        
+    
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.2 animations:^{
-            [self.maskView setBackgroundColor:[UIColor colorWithWhite:.1 alpha:.5]];
+        [UIView animateWithDuration:.2 delay:.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                        [self.maskView setBackgroundColor:[UIColor colorWithWhite:.1 alpha:.5]];
+        } completion:^(BOOL finished) {
+            
         }];
     }];
+    
+
 }
 
 - (void)disappear

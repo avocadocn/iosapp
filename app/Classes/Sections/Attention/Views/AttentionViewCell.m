@@ -96,7 +96,7 @@
     
     [self.AttentionPhoto dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(50, 50)];
     
-    self.AttentionName.text = per.name;
+    self.AttentionName.text = per.nickName;
 //    CompanyModel *company = model.company;
     
 //    self.AttentionWork.text = per;

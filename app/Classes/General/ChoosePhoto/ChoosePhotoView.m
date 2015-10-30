@@ -67,7 +67,10 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
     self.insertButton.layer.borderColor = RGB(213 , 213, 214).CGColor;
     self.insertButton.layer.borderWidth = 1;
     self.insertButton.frame = CGRectMake(0, 0, width - 1.5, width - 1.5);
-    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"insert"]];
+    UIImageView *imageV = [[UIImageView alloc]init];
+    imageV.image = [UIImage imageNamed:@"insert"];
+    
+    
     imageV.frame = CGRectMake(0, 0, width / 3.5 * 2, width / 3.5 * 2);
     [self.insertButton addSubview:imageV];
     imageV.center = self.insertButton.center;
@@ -130,7 +133,16 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
     self.state = EnumOfViewSubclassYes;  //已经添加过子视图,再次添加删掉子视图
     CGPoint point = self.frame.origin;
     
-    CGRect rect = CGRectMake(point.x, point.y, DLScreenWidth - 20, 300);
+    NSInteger tempNum = array.count;
+    if (tempNum != 9) {
+        tempNum += 1;
+    }
+    
+    NSInteger num = (tempNum - 1) / 4 + 1;
+    
+    
+    CGRect rect = CGRectMake(point.x, point.y, DLScreenWidth - 20, num * width);
+    
     
     [self.delegate ChoosePhotoView:self withFrame:rect];
 

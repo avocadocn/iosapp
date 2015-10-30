@@ -40,11 +40,7 @@
         } else {
             //           文件不存在
             BOOL b = [manager copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"mydatabase" ofType:@"sqlite"] toPath:sandBoxPath error:nil];
-            if (b) {
-                NSLog(@"T");
-            }else {
-                NSLog(@"F");
-            }
+            NSLog(@"%@",b?@"插入成功":@"插入失败");
         }
         //        根据SQLite文件路径创建SQLite数据管理对象
         self.queue = [FMDatabaseQueue databaseQueueWithPath:sandBoxPath];
@@ -75,11 +71,7 @@
         [db open];//打开数据库
         BOOL b = [db executeUpdate:@"insert into PersonTable(name,userId,imageURL,companyName,nickName) values(?,?,?,?,?)",p.name,p.userId,p.imageURL,p.companyName,p.nickName];//存数据
         [db close];
-        if (b) {
-            NSLog(@"T");
-        }else {
-            NSLog(@"F");
-        }
+        NSLog(@"%@",b?@"插入成功":@"插入失败");
     }];
 }
 
@@ -92,11 +84,7 @@
         NSString* sql = [NSString stringWithFormat:@"update PersonTable set name = '%@',imageURL = '%@',companyName = '%@',nickName = '%@', where userId = '%@'",p.name,p.imageURL,p.companyName,p.nickName,p.userId];
         b= [db executeUpdate:sql];//更新数据
         [db close];
-        if (b) {
-            NSLog(@"T");
-        }else {
-            NSLog(@"F");
-        }
+        NSLog(@"%@",b?@"插入成功":@"插入失败");
     }];
 }
 -(void)deletePersonWithUserId:(NSString *)userId {
@@ -104,11 +92,7 @@
         [db open];
         BOOL b = [db executeUpdate:@"delete from PersonTable where userId = ?",userId];
         [db close];
-        if (b) {
-            NSLog(@"T");
-        }else {
-            NSLog(@"F");
-        }
+        NSLog(@"%@",b?@"插入成功":@"插入失败");
     }];
     
 }
@@ -164,11 +148,7 @@
         b= [db executeUpdate:@"insert into GroupTable(groupID,easemobID,name,brief,open,iconURL) values(?,?,?,?,?,?)",g.groupID,g.easemobID,g.name,g.brief,g.open?@"1":@"0",g.iconURL];//存数据
         //        b= [db executeUpdate:@"insert into GroupTable (name,brief,groupID,easemobID,open,iconURL) values(?,?,?,?,?,?)",@"123",@"456",@"789",@"abc",@"def",@"jkl"];//存数据
         [db close];
-        if (b) {
-            NSLog(@"T");
-        }else {
-            NSLog(@"F");
-        }
+        NSLog(@"%@",b?@"插入成功":@"插入失败");
     }];
 }
 //更新群组信息
@@ -180,11 +160,7 @@
         NSString* sql = [NSString stringWithFormat:@"update GroupTable set easemobID = '%@',name = '%@',brief = '%@',open = '%@',iconURL = '%@' where groupID = '%@'",g.easemobID,g.name,g.brief,g.open?@"1":@"0",g.iconURL,g.groupID];
         b= [db executeUpdate:sql];//更新数据
         [db close];
-        if (b) {
-            NSLog(@"T");
-        }else {
-            NSLog(@"F");
-        }
+        NSLog(@"%@",b?@"插入成功":@"插入失败");
     }];
 }
 //根据warm的群组id进行查找
@@ -225,11 +201,7 @@
         [db open];
         BOOL b = [db executeUpdate:@"delete from GroupTable where groupID = ?",groupID];
         [db close];
-        if (b) {
-            NSLog(@"T");
-        }else {
-            NSLog(@"F");
-        }
+        NSLog(@"%@",b?@"插入成功":@"插入失败");
     }];
 }
 //清空群组表

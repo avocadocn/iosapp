@@ -292,7 +292,7 @@ static NSString *userId = nil;
     UIView *modelDetileView = [[UIView alloc]init];
     
     NSString *contentStr = model.content;
-    NSLog(@"用户发表的文字为 %@", contentStr);
+//    NSLog(@"用户发表的文字为 %@", contentStr);
     
     if (contentStr){
         

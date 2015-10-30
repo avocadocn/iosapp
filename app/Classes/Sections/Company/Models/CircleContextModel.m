@@ -85,7 +85,7 @@
 {
     self = [super init];
     if (self) {
-        NSString *newPath = [NSString stringWithFormat:@"%@/%@", path, string];
+        NSString *newPath = [NSString stringWithFormat:@"%@/DLLibraryCache/%@", path, string];
         NSData *data = [NSData dataWithContentsOfFile:newPath];
         self = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     }
@@ -95,7 +95,7 @@
 - (void)save
 {
     NSFileManager *manger = [NSFileManager defaultManager];
-    NSString *newPath = [NSString stringWithFormat:@"%@/%@", path, self.ID];
+    NSString *newPath = [NSString stringWithFormat:@"%@/DLLibraryCache/%@", DLLibraryPath, self.ID];
     BOOL judge = [manger fileExistsAtPath:newPath];
     
     if (judge) {

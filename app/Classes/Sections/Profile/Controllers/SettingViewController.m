@@ -175,7 +175,9 @@
     //清空缓存图片
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDisk];
-        
+    
+    NSFileManager *manger = [NSFileManager defaultManager];
+    [manger removeItemAtPath:[NSString stringWithFormat:@"%@/DLLibraryCache", DLLibraryPath] error:nil];
 }
 - (void)cleanLocalImageData
 {
