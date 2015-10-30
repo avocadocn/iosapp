@@ -250,13 +250,15 @@ static NSString * const ID =  @"RankItemTableViewcell";
         
         GroupCardModel *model = [GroupCardModel new];
         NSDictionary* d = [json objectForKey:@"group"];
-        [model setName:[d objectForKey:@"name"]];
-        [model setLogo:[d objectForKey:@"logo"]];
-        [model setGroupId:[d objectForKey:@"_id"]];
-        [model setAllInfo:YES];
-        TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
-        groupDetile.groupCardModel = model;
-        [self.navigationController pushViewController:groupDetile animated:YES];
+        if (![[NSNull null] isEqual:d]) {
+            [model setName:[d objectForKey:@"name"]];
+            [model setLogo:[d objectForKey:@"logo"]];
+            [model setGroupId:[d objectForKey:@"_id"]];
+            [model setAllInfo:YES];
+            TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];
+            groupDetile.groupCardModel = model;
+            [self.navigationController pushViewController:groupDetile animated:YES];
+        }
     } failure:^(id errorJson) {
         
     }];
