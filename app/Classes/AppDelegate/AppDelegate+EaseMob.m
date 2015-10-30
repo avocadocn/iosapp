@@ -359,7 +359,7 @@
 - (void)didBindDeviceWithError:(EMError *)error
 {
     if (error) {
-        TTAlertNoTitle(NSLocalizedString(@"apns.failToBindDeviceToken", @"Fail to bind device token"));
+        //TTAlertNoTitle(NSLocalizedString(@"apns.failToBindDeviceToken", @"Fail to bind device token"));
     }
 }
 

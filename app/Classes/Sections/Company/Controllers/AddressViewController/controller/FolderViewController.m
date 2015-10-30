@@ -229,6 +229,7 @@ static NSInteger num = 0;
 }
 - (void)genderAction:(UITapGestureRecognizer *)tap
 {
+    [self.view endEditing:YES];
     self.gender.informationTextField.userInteractionEnabled = NO;
     self.picker = [[UIPickerView alloc]initWithFrame:CGRectMake(0, DLScreenHeight - DLMultipleHeight(250.0) + 49.0, DLScreenWidth, DLMultipleHeight(250.0))];
     self.picker.delegate = self;
@@ -272,7 +273,7 @@ static NSInteger num = 0;
     
     
     
-    [self.scrollView addSubview:view];
+    [self.view addSubview:view];
 }
 
 - (void)returnButtonAction:(UIButton *)sender
@@ -361,6 +362,7 @@ static NSInteger num = 0;
 //点击生日弹出 pickerview
 - (void)tapBrithdayAction:(UITapGestureRecognizer *)tap
 {
+    [self.view endEditing:YES];
     self.brithday.informationTextField.userInteractionEnabled = NO;
     DLDatePickerView *picker = [[DLDatePickerView alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
@@ -370,7 +372,7 @@ static NSInteger num = 0;
     NSDate *maxDate = [[NSDate alloc] initWithTimeInterval:- 60 * 60 * 24 * 365 * 3 sinceDate:[NSDate date]];
     [picker reloadWithMaxDate:maxDate minDate:minDate dateMode:UIDatePickerModeDate];
     
-    [self.scrollView addSubview:picker];
+    [self.view addSubview:picker];
     [picker show];
 }
 //pickerview 消失后的方法

@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = RGBACOLOR(238, 239, 240, 1);
     // Do any additional setup after loading the view.
     self.title = @"设置";
     self.menu = [[NSMutableArray alloc] initWithObjects:@"修改密码",@"关于我们",@"清除缓存", nil];
@@ -91,6 +92,7 @@
         switch (buttonIndex) {
             case 1: // 确定修改过密码
                 if ([[self.alert textFieldAtIndex:0].text isEqualToString:account.password]) {
+                    [[self.alert textFieldAtIndex:0] resignFirstResponder];
                     [self.navigationController pushViewController:changeVC animated:YES];
                 } else {
                     [alertV show];
