@@ -9,8 +9,7 @@
 #import "UILabel+FitContent.h"
 
 @implementation UILabel (FitContent)
-
-- (void)fitContent
+- (CGSize)fitSizeWithMaxSize:(CGSize)maxSize
 {
     CGSize expectedLabelSize = CGSizeZero;
     
@@ -19,14 +18,27 @@
         paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName:self.font, NSParagraphStyleAttributeName:paragraphStyle.copy};
         
-        expectedLabelSize = [self.text boundingRectWithSize:CGSizeMake(260, 999) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+        expectedLabelSize = [self.text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
     }
     else {
         expectedLabelSize = [self.text sizeWithFont:self.font
-                                  constrainedToSize:CGSizeMake(260, 999)
+                                  constrainedToSize:maxSize
                                       lineBreakMode:self.lineBreakMode];
     }
-    
+    return expectedLabelSize;
+}
+- (void)fitContent
+{
+    CGSize expectedLabelSize = CGSizeZero;
+    expectedLabelSize = [self fitSizeWithMaxSize:CGSizeMake(260, 999)];
+    CGRect oldFrame = self.frame;
+    oldFrame.size = expectedLabelSize;
+    self.frame = oldFrame;
+}
+- (void)fitContentWithMaxSize:(CGSize)maxSize
+{
+    CGSize expectedLabelSize = CGSizeZero;
+    expectedLabelSize = [self fitSizeWithMaxSize:maxSize];
     CGRect oldFrame = self.frame;
     oldFrame.size = expectedLabelSize;
     self.frame = oldFrame;

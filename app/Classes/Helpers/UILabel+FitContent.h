@@ -10,4 +10,5 @@
 
 @interface UILabel (FitContent)
 - (void)fitContent;
+- (void)fitContentWithMaxSize:(CGSize)maxSize;
 @end
