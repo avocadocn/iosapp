@@ -385,7 +385,7 @@ static ChatListViewController *chat = nil;
         FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
         Person* p = [fmdb selectPersonWithUserId:messageBody.message.from];
         if (p) {
-            ret = [NSString stringWithFormat:@"%@: ",p.name];
+            ret = [NSString stringWithFormat:@"%@: ",p.nickName];
         }
         switch (messageBody.messageBodyType) {
             case eMessageBodyType_Image:{
@@ -439,7 +439,7 @@ static ChatListViewController *chat = nil;
         }else{
             Person* p = [fmdb selectPersonWithUserId:conversation.chatter];
             if (p) {
-                cell.name = p.name;
+                cell.name = p.nickName;
                 cell.imgURL = p.imageURL;
             }
         }
@@ -480,7 +480,6 @@ static ChatListViewController *chat = nil;
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
                 if ([group.groupId isEqualToString:conversation.chatter]) {
-                    FMDBSQLiteManager * fmdb = [FMDBSQLiteManager shareSQLiteManager];
                     Group* g = [fmdb selectGroupWithEasemobId:group.groupId];
                     if (g) {
                         cell.name = g.name;
@@ -548,7 +547,7 @@ static ChatListViewController *chat = nil;
     else if(conversation.conversationType == eConversationTypeChat) {
         FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
         Person* p = [fmdb selectPersonWithUserId:title];
-        title = p.name;
+        title = p.nickName;
     }
     
     NSString *chatter = conversation.chatter;

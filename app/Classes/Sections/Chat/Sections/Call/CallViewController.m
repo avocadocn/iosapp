@@ -78,7 +78,7 @@
     FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
     Person* p = [fmdb selectPersonWithUserId:_chatter];
     if (p) {
-        _nameLabel.text = p.name;
+        _nameLabel.text = p.nickName;
         [_headerImageView dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)];
     }
     if (_callSession.type == eCallSessionTypeVideo) {

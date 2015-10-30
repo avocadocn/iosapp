@@ -47,7 +47,7 @@ static NSString *tableId = @"AttentionViewCell";
     Person *per = [[FMDBSQLiteManager shareSQLiteManager]selectPersonWithUserId:[dic objectForKey:@"_id"]];
     
 //    cell.textLabel.text = per.name;
-    cell.AttentionName.text = per.name;
+    cell.AttentionName.text = per.nickName;
     [cell.AttentionPhoto dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:cell.AttentionPhoto.size];
     cell.joinButton.tag = indexPath.row + 1;
     [cell.joinButton addTarget:self action:@selector(joinAction:) forControlEvents:UIControlEventTouchUpInside];
