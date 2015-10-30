@@ -32,9 +32,9 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="杨同" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVL-BH-dC0" userLabel="nameLabel">
-                                <rect key="frame" x="65" y="9" width="294" height="14"/>
+                                <rect key="frame" x="65" y="9" width="294" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="14" id="1ss-tA-Gk2"/>
+                                    <constraint firstAttribute="height" constant="16" id="1ss-tA-Gk2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -115,7 +115,7 @@
                             <constraint firstAttribute="bottom" secondItem="3c4-Eb-mdr" secondAttribute="bottom" constant="11" id="Phi-li-lOu"/>
                             <constraint firstItem="3c4-Eb-mdr" firstAttribute="leading" secondItem="8z7-VB-bhp" secondAttribute="trailing" id="QgY-zM-eOA"/>
                             <constraint firstAttribute="trailing" secondItem="AdX-tY-941" secondAttribute="trailing" constant="16" id="UXy-70-tIT"/>
-                            <constraint firstItem="AdX-tY-941" firstAttribute="top" secondItem="YVL-BH-dC0" secondAttribute="bottom" constant="5" id="WO5-E3-Dce"/>
+                            <constraint firstItem="AdX-tY-941" firstAttribute="top" secondItem="YVL-BH-dC0" secondAttribute="bottom" constant="3" id="WO5-E3-Dce"/>
                             <constraint firstItem="dhV-Rm-rpQ" firstAttribute="leading" secondItem="zew-ka-VTG" secondAttribute="leading" constant="16" id="abM-en-yA4"/>
                             <constraint firstItem="dhV-Rm-rpQ" firstAttribute="top" secondItem="zew-ka-VTG" secondAttribute="top" constant="7" id="d56-c0-UBh"/>
                             <constraint firstItem="8z7-VB-bhp" firstAttribute="height" secondItem="3c4-Eb-mdr" secondAttribute="height" id="fiV-hM-dSi"/>

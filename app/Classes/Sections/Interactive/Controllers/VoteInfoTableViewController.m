@@ -91,7 +91,7 @@ static NSString * const ID = @"VoteInfoTableViewCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    VoteInfoTableViewModel *model = self.dataArray[section];
+//    VoteInfoTableViewModel *model = self.dataArray[section];
     
     
 //    return model.voters.count;
