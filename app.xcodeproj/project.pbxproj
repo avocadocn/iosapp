@@ -778,6 +778,7 @@
 		A48D46021BA7E60D00C110AC /* RankLoveHeart_gray6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A48D45FC1BA7E60D00C110AC /* RankLoveHeart_gray6@2x.png */; };
 		A49205751B6F0B5000F16346 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205741B6F0B5000F16346 /* AddressTableViewCell.m */; };
 		A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205781B6F0BAC00F16346 /* GroupCardViewCell.m */; };
+		A4A5A1A21BE7483600376076 /* DLTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A5A1A11BE7483600376076 /* DLTimerLabel.m */; settings = {ASSET_TAGS = (); }; };
 		A4DD81291B7B2C58004505C9 /* CriticWordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DD81281B7B2C58004505C9 /* CriticWordView.m */; };
 		A4DD81321B7B3F94004505C9 /* CommandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DD81311B7B3F94004505C9 /* CommandView.m */; };
 		A4DD81351B7B4747004505C9 /* CommendPersonLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DD81341B7B4747004505C9 /* CommendPersonLabel.m */; };
@@ -2048,6 +2049,8 @@
 		A49205741B6F0B5000F16346 /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
 		A49205771B6F0BAC00F16346 /* GroupCardViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardViewCell.h; sourceTree = "<group>"; };
 		A49205781B6F0BAC00F16346 /* GroupCardViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCardViewCell.m; sourceTree = "<group>"; };
+		A4A5A1A01BE7483600376076 /* DLTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLTimerLabel.h; sourceTree = "<group>"; };
+		A4A5A1A11BE7483600376076 /* DLTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLTimerLabel.m; sourceTree = "<group>"; };
 		A4DD81271B7B2C58004505C9 /* CriticWordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CriticWordView.h; sourceTree = "<group>"; };
 		A4DD81281B7B2C58004505C9 /* CriticWordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CriticWordView.m; sourceTree = "<group>"; };
 		A4DD81301B7B3F94004505C9 /* CommandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandView.h; sourceTree = "<group>"; };
@@ -2860,6 +2863,8 @@
 				A45111041B9D96F900139B76 /* UILabel+DLTimeLabel.m */,
 				A401E2781BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.h */,
 				A401E2791BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m */,
+				A4A5A1A01BE7483600376076 /* DLTimerLabel.h */,
+				A4A5A1A11BE7483600376076 /* DLTimerLabel.m */,
 			);
 			path = NetworkRequestTool;
 			sourceTree = "<group>";
@@ -5692,6 +5697,7 @@
 				96CF939D1B674B54001759E2 /* GroupListViewController.m in Sources */,
 				A40CDF281B86F99000BD63F5 /* CustomButton.m in Sources */,
 				96CF93981B674B54001759E2 /* ChatGroupDetailViewController.m in Sources */,
+				A4A5A1A21BE7483600376076 /* DLTimerLabel.m in Sources */,
 				A434C6091B71DB22009643CD /* ColleaguesInformationController.m in Sources */,
 				A43F86331B7453D30086D078 /* optionsView.m in Sources */,
 				A43F863E1B748B210086D078 /* UITextView+PlaceHolder.m in Sources */,

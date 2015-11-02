@@ -37,7 +37,6 @@ static NSTimer *timer;
     self.text = new;
     NSLog(@"%@", new);
     
-    
 }
 //- (void)removeFromSuperview
 //{

@@ -40,7 +40,7 @@ static NSNumber *myNum;
     
     myNum = [NSNumber numberWithInteger:1];
     [super viewDidLoad];
-    
+    [self getRequestDataAndPage:[NSNumber numberWithInteger:1]];
     self.title = @"社团列表";
     self.modelArray = [NSMutableArray array];
     [self reloadLibraryFile];
@@ -318,8 +318,7 @@ static NSNumber *myNum;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    [self getRequestDataAndPage:[NSNumber numberWithInteger:1]];
+//    [self getRequestDataAndPage:[NSNumber numberWithInteger:1]];
 }
 
 - (void)newAction

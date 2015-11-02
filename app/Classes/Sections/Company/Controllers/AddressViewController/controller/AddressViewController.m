@@ -72,6 +72,7 @@
         [dic setObject:model.ID forKey:@"_id"];
         [dic setObject:model.photo forKey:@"photo"];
         [dic setObject:model.realname forKey:@"realname"];
+        [dic setObject:model.phone forKey:@"phone"];
         [mutableArray addObject:dic];
     }
     [self relodaViewWithData:mutableArray];
@@ -183,7 +184,6 @@
     
     [RestfulAPIRequestTool routeName:@"getCompanyAddressBook" requestModel:model useKeys:@[@"companyId"] success:^(id json) {
         NSLog(@"获取通讯录成功 , %@", json);
-        
         
         self.jsonArray = [NSArray arrayWithArray:json];
         
@@ -384,9 +384,10 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 20)];
-    [view setBackgroundColor:[UIColor colorWithWhite:.9 alpha:.7]];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 100, 20)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 22)];
+    view.backgroundColor = RGB(245, 245, 245);
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 100, 22)];
+    label.font = [UIFont systemFontOfSize:12];
     NSDictionary *dic = [self.modelArray objectAtIndex:section];
     NSString *str = [dic objectForKey:@"letter"];
     label.text = str;
@@ -424,9 +425,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
-    
-    return 60;
+    return 67;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {

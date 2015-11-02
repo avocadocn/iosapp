@@ -40,20 +40,20 @@
     self.personPhotoImageView = [UIImageView new];
     
     self.personPhotoImageView.layer.masksToBounds = YES;
-    self.personPhotoImageView.layer.cornerRadius = 50 / 2.0;
+    self.personPhotoImageView.layer.cornerRadius = 45 / 2.0;
     
     [self addSubview:self.personPhotoImageView];
 //    [self.personPhotoImageView setBackgroundColor:[UIColor blackColor]];
     
     [self.personPhotoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.selectButton.mas_right).offset(10);
-        make.top.mas_equalTo(self.mas_top).offset(5);
-        make.bottom.mas_equalTo(self.mas_bottom).offset(-5);
-        make.width.mas_equalTo(50);
+        make.centerY.mas_equalTo(self.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(45, 45));
     }];
     
     self.personNameLabel = [UILabel new];
 //    self.personNameLabel.backgroundColor = [UIColor greenColor];
+    self.personNameLabel.font = [UIFont systemFontOfSize:14];
     [self addSubview:self.personNameLabel];
     [self.personNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.personPhotoImageView.mas_top).offset(5);
@@ -63,6 +63,7 @@
     }];
     
     self.personEmailLabel = [UILabel new];
+    self.personEmailLabel.font = [UIFont systemFontOfSize:10];
 //    self.personEmailLabel.backgroundColor = [UIColor blueColor];
     [self addSubview:self.personEmailLabel];
     
