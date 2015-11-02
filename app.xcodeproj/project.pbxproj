@@ -646,9 +646,9 @@
 		A43D90541BB5126D007775BB /* mask_sha.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A43D90531BB5126D007775BB /* mask_sha.jpeg */; };
 		A43DA5DD1B90281100C23833 /* getIntroModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43DA5DC1B90281100C23833 /* getIntroModel.m */; };
 		A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43E36B61B58C55500AA2FC7 /* ConditionController.m */; };
-		A43E77E81BE364CD00ADBF24 /* JoinButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77E71BE364CD00ADBF24 /* JoinButton.png */; settings = {ASSET_TAGS = (); }; };
-		A43E77EA1BE36A7E00ADBF24 /* insertButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77E91BE36A7E00ADBF24 /* insertButton.png */; settings = {ASSET_TAGS = (); }; };
-		A43E77EC1BE36E2400ADBF24 /* talk.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77EB1BE36E2400ADBF24 /* talk.png */; settings = {ASSET_TAGS = (); }; };
+		A43E77E81BE364CD00ADBF24 /* JoinButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77E71BE364CD00ADBF24 /* JoinButton.png */; };
+		A43E77EA1BE36A7E00ADBF24 /* insertButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77E91BE36A7E00ADBF24 /* insertButton.png */; };
+		A43E77EC1BE36E2400ADBF24 /* talk.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77EB1BE36E2400ADBF24 /* talk.png */; };
 		A43EA5BC1BCCE0050007FE84 /* InformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43EA5BB1BCCE0050007FE84 /* InformationModel.m */; };
 		A43F56261BDA1462004DE6AE /* gray-man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F56221BDA1462004DE6AE /* gray-man@2x.png */; };
 		A43F56271BDA1462004DE6AE /* man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F56231BDA1462004DE6AE /* man@2x.png */; };
@@ -5917,6 +5917,7 @@
 					"$(PROJECT_DIR)/app/Classes/Vendors/EaseMobSDK/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.donler.warm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5949,6 +5950,7 @@
 					"$(PROJECT_DIR)/app/Classes/Vendors/EaseMobSDK/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.donler.warm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
