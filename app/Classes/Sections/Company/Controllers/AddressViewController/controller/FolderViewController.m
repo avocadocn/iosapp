@@ -270,9 +270,6 @@ static NSInteger num = 0;
     view.userInteractionEnabled = YES;
     [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
                                                                        action:@selector(tapAction:)]];
-    
-    
-    
     [self.view addSubview:view];
 }
 
