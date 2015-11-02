@@ -49,7 +49,7 @@ static NSString *ID = @"CurrentActivitysShowCell";
 - (void)requestNet{
     
     Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:self.userModel.ID];
-    NSLog(@"用户名 为 %@", per.name);
+    NSLog(@"用户名 为 %@", per.nickName);
     
     self.header = [[TableHeaderView alloc]
                    initWithFrame:CGRectMake(0, 0, DLScreenWidth, DLMultipleHeight(250.0))

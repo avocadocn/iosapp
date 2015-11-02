@@ -423,11 +423,37 @@ static NSString * contentId = nil;
     // info 是存所选取的图片的信息的字典
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
-    NSArray *array = [NSArray arrayWithObject:[self fixOrientation:image]];
+    UIImage *getImage = [self fixOrientation:image];
+    
+    NSArray *array = [NSArray arrayWithObject:[self scaleImage:getImage]];
     [self jumpViewControllerWithPhoto:array];
 }
 
-
+- (UIImage *)scaleImage:(UIImage *)image
+{
+    CGFloat width = image.size.width;
+    CGFloat height = image.size.height;
+    
+    CGFloat smalltemp = width < height ? width :height; // 小的
+    CGFloat bigtemp = width > height ? width :height; // 大的
+    
+    CGFloat tempWidth = 750;
+    
+    if (smalltemp > tempWidth) {
+        CGFloat rote = smalltemp / tempWidth;
+        bigtemp = bigtemp / rote;
+        
+        CGSize itemSize = width > height ? CGSizeMake(bigtemp , tempWidth) : CGSizeMake(tempWidth, bigtemp);
+        NSLog(@"得到的比例为   %f  %f", itemSize.width, itemSize.height);
+        UIGraphicsBeginImageContext(itemSize);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [image drawInRect:imageRect];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return image;
+    }
+    return nil;
+}
 
 - (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
@@ -629,6 +655,7 @@ static NSString * contentId = nil;
     NSLog(@"原文为   %@  ", model.content);
     [self.photoArray removeObjectAtIndex:index.row];
     [self.colleagueTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:index] withRowAnimation:UITableViewRowAnimationFade];
+    [self.colleagueTable reloadData];
     
 }
 
@@ -1228,6 +1255,7 @@ static NSString * contentId = nil;
 //    [self.colleagueTable reloadData];
     
     [self.colleagueTable insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationMiddle];
+    [self.colleagueTable reloadData];
 }
 
 

@@ -68,6 +68,7 @@
     else
     {
         self.showImageView.image = image;
+        [self.downloadPro removeFromSuperview];
         [self reloadImage:image];
     }
     
@@ -180,7 +181,8 @@
     self.showImageView.frame = CGRectMake(0, 0, self.scroll.frame.size.width, height);
     self.showImageView.center = window.center;
     if (self.showImageView.frame.size.height > self.scroll.frame.size.height) { // 增加偏移量
-//        self.scroll.contentSize = CGSizeMake(DLScreenWidth, height);
+        self.scroll.contentSize = CGSizeMake(DLScreenWidth, height);
+        self.showImageView.frame = CGRectMake(0, 0, DLScreenWidth, height);
         }
 }
     

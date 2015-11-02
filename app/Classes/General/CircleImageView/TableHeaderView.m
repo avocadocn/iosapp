@@ -90,7 +90,7 @@
     
     self.headerTitleLabel = [UILabel new];
     self.headerTitleLabel.textColor = [UIColor whiteColor];
-    self.headerTitleLabel.text = image.name;
+    self.headerTitleLabel.text = image.nickName;
 //    self.headerTitleLabel.attributedText = [self attributeString:per.name];
     
     UIView *lineView = [UIView new];
