@@ -144,20 +144,13 @@
  * 当前用户退出时，清空本地消息
  */
 - (void)cleanEaseMob{
-    //退出环信
-    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
-        if (!error && info) {
-            NSLog(@"退出成功");
-        }
-    } onQueue:nil];
-    
     NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
     NSMutableArray *needRemoveConversations;
     for (EMConversation *conversation in conversations) {
-            if (!needRemoveConversations) {
-                needRemoveConversations = [[NSMutableArray alloc] initWithCapacity:0];
-            }
-            [needRemoveConversations addObject:conversation.chatter];
+        if (!needRemoveConversations) {
+            needRemoveConversations = [[NSMutableArray alloc] initWithCapacity:0];
+        }
+        [needRemoveConversations addObject:conversation.chatter];
     }
     
     if (needRemoveConversations && needRemoveConversations.count > 0) {
@@ -165,6 +158,13 @@
                                                              deleteMessages:YES
                                                                 append2Chat:NO];
     }
+    
+    //退出环信
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
+        if (!error && info) {
+            NSLog(@"退出成功");
+        }
+    } onQueue:nil];
 }
 //当用户推出时，清空本地缓存数据
 - (void)cleanLocalData
