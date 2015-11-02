@@ -1,4 +1,5 @@
 
+
 //  ColleagueViewController.m
 //  app
 //
@@ -156,21 +157,14 @@ static NSString * contentId = nil;
 }
 - (void)headerAction  // 刷新
 {
-    //    [UIView animateWithDuration:3 animations:^{
-    //        [self.colleagueTable.header endRefreshing];
-    //    }];
     self.state = DLRefreshStateRefresh;
-//    CircleContextModel *model = [self.modelArwray firstObject];
     
     [self refreshAndUploadWithLimit:10 andLatestTime:nil lastTime:nil];
 }
 
 - (void)refreshAction{
-    //    [UIView animateWithDuration:2 animations:^{
-    //        [self.colleagueTable.footer endRefreshing];
-    //    }];
     
-    //   下拉加载
+    //   上拉加载
     self.state = DLRefreshStateReload;
     CircleContextModel *model = [self.modelArray lastObject];
     [self refreshAndUploadWithLimit:10 andLatestTime:nil lastTime:model.postDate];
@@ -182,24 +176,20 @@ static NSString * contentId = nil;
     [dic setObject:[NSNumber numberWithInteger:num] forKey:@"limit"];
     NSMutableArray *array = [NSMutableArray arrayWithObject:@"limit"];
     
-    if (latest) {
-        [dic setObject:latest forKey:@"latestContentDate"];  //刷新
-        [array addObject:@"latestContentDate"];
-    }
-    if (last)
-    {
-        [dic setObject:last forKey:@"lastContentDate"];
+    if (last) {  // 加载更多
+        [dic setObject:last forKey:@"lastContentDate"];  //
         [array addObject:@"lastContentDate"];
     }
-    
+    NSLog(@"请求的 dic为 \n%@ 参数为  \n%@", dic, array);
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:dic useKeys:array success:^(id json) {
         //        if (num) { //num 存在是加载
         NSLog(@" 刷新加载的到的数据为 %@", json);
-        
+        if (!last) {
+            [self.userInterArray removeAllObjects];
+            [self.photoArray removeAllObjects];
+            [self.modelArray removeAllObjects];
+        }
         [self saveDefaultWithJson:json];
-        
-        
-//        [self netRequest];
         
         [self.colleagueTable reloadData];
         
@@ -1066,7 +1056,7 @@ static NSString * contentId = nil;
         [self.colleagueTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:[num integerValue] inSection:0], nil] withRowAnimation:UITableViewRowAnimationFade];
         
 //        [self.colleagueTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects: count:<#(NSUInteger)#>] withRowAnimation:UITableViewRowAnimationTop];
-//        [self netRequest];
+
         
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);
@@ -1145,7 +1135,7 @@ static NSString * contentId = nil;
     //    [model setValuesForKeysWithDictionary:[dic objectForKey:string]];
     
     coll.model = [[AddressBookModel alloc]init];
-    coll.model = dic.poster;
+    coll.model = [string isEqualToString:@"poster"] ? dic.poster : dic.target;
     [self.navigationController pushViewController:coll animated:YES];
 }
 

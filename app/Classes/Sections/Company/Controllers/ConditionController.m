@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/7/17.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-#import "UILabel+DLSendLabel.h"
+#import "DLTimerLabel.h"
 #import <DGActivityIndicatorView.h>
 
 #import "ConditionController.h"
@@ -111,7 +111,7 @@
     statusBarView.backgroundColor = [UIColor clearColor];
     statusBarView.opaque = YES;
     
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 20)];
+    DLTimerLabel *label = [[DLTimerLabel alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 20)];
     
     label.font = [UIFont systemFontOfSize:14];
     label.text = @"正在发送";
@@ -151,7 +151,7 @@
     
     [RestfulAPIRequestTool routeName:@"cirleContent" requestModel:model useKeys:@[@"content", @"photo"] success:^(id json) {
         NSLog(@"%@", json);
-        
+        [label removeFromSuperview];
         [self.activityIndicatorView removeFromSuperview];
         NSArray *array = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
         NSString *path = [array lastObject];
@@ -174,7 +174,7 @@
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         UIView *view = (UIView *)[self.navigationController.navigationBar viewWithTag:10];
         
-        UILabel *label = (UILabel *)[view viewWithTag:100];
+        DLTimerLabel *label = (DLTimerLabel *)[view viewWithTag:100];
         
         [UIView animateWithDuration:.4 animations:^{
             label.text = @"发送完成";
@@ -188,6 +188,19 @@
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);
         [self.activityIndicatorView removeFromSuperview];
+        UIView *view = (UIView *)[self.navigationController.navigationBar viewWithTag:10];
+        DLTimerLabel *label = (DLTimerLabel *)[view viewWithTag:100];
+        
+        [UIView animateWithDuration:.4 animations:^{
+            label.text = @"发送失败";
+            statusBarView.frame = CGRectMake(0, -40, DLScreenWidth, 20);
+        }completion:^(BOOL finished) {
+            
+            [statusBarView removeFromSuperview];
+            window.windowLevel = UIWindowLevelNormal;
+        }];
+
+        [label removeFromSuperview];
     }];
     
 }
