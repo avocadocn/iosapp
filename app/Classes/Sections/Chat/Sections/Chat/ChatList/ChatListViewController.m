@@ -73,6 +73,7 @@ static ChatListViewController *chat = nil;
 //        self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
     self.dataSource = [NSMutableArray arrayWithArray:[[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO]];
+//    self.dataSource = [NSMutableArray arrayWithArray:[[EaseMob sharedInstance].chatManager conversations] ];
 //    [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:YES];
     [self removeEmptyConversationsFromDB];
 
@@ -128,6 +129,7 @@ static ChatListViewController *chat = nil;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self refreshData];
     [self.tableView reloadData];
     [self registerNotifications];
 }
