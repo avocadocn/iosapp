@@ -37,6 +37,7 @@ static NSNumber *myNum;
 @implementation GroupViewController
 
 - (void)viewDidLoad {
+    
     myNum = [NSNumber numberWithInteger:1];
     [super viewDidLoad];
     
@@ -250,7 +251,18 @@ static NSNumber *myNum;
 {
     return CGSizeMake(DLMultipleWidth(111.0), DLMultipleHeight(126.0));
 }
-
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+//{
+//    NSArray *array = [self.groupListCollection indexPathsForVisibleItems];
+//    for (NSIndexPath *indexPath in array) {
+//        NSLog(@"%@", indexPath);
+//        GroupCardViewCell *cell = [self.groupListCollection dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
+//        if (!cell.groupIntroLabel.text) {
+//        GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
+//        [cell cellReconsitutionWithModel:model];
+//        }
+//    }
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -262,9 +274,12 @@ static NSNumber *myNum;
         GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
         
 //        NSLog(@" model 的 logo 为  %@", model.logo);
-    
-        [cell cellReconsitutionWithModel:model];
+//    if (self.groupListCollection.dragging == NO && self.groupListCollection.decelerating == NO) {
         
+        [cell cellReconsitutionWithModel:model];
+//    }
+    
+    
         return cell;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

@@ -130,13 +130,13 @@ static NSString* const dnalbumTableViewCellReuseIdentifier = @"dnalbumTableViewC
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.assetsGroups.count - 1;
+    return self.assetsGroups.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dnalbumTableViewCellReuseIdentifier forIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    ALAssetsGroup *group = self.assetsGroups[indexPath.row + 1];
+    ALAssetsGroup *group = self.assetsGroups[indexPath.row];
     cell.textLabel.attributedText = [self albumTitle:group];
     
     //choose the latest pic as poster image
@@ -164,7 +164,7 @@ static NSString* const dnalbumTableViewCellReuseIdentifier = @"dnalbumTableViewC
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    ALAssetsGroup *group = self.assetsGroups[indexPath.row + 1];
+    ALAssetsGroup *group = self.assetsGroups[indexPath.row];
     NSURL *url = [group valueForProperty:ALAssetsGroupPropertyURL];
     DNImageFlowViewController *imageFlowViewController = [[DNImageFlowViewController alloc] initWithGroupURL:url];
     [self.navigationController pushViewController:imageFlowViewController animated:YES];
@@ -190,7 +190,17 @@ static NSString* const dnalbumTableViewCellReuseIdentifier = @"dnalbumTableViewC
                  // Add assets group
                  if (assetsGroup.numberOfAssets > 0) {
                      // Add assets group
-                     [assetsGroups addObject:assetsGroup];
+                     /*
+                     NSLog(@"获取到的系统相册为 %@", assetsGroup);
+                     NSString *str= [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
+                     NSLog(@"相册的名称为  %@", str);
+                     */
+                     NSLog(@" 获取到的相册类型为 %@",[assetsGroup valueForProperty:ALAssetsGroupPropertyType]);
+                     NSNumber *num = (NSNumber *)[assetsGroup valueForProperty:ALAssetsGroupPropertyType];
+                     if (![num isEqualToNumber:@32])
+                     {
+                         [assetsGroups addObject:assetsGroup];
+                     }
                  }
              } else {
                  numberOfFinishedTypes++;
