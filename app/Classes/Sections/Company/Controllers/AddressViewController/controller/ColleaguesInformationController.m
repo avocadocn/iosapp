@@ -160,9 +160,9 @@ static NSInteger tagNum = 1;
         make.right.mas_equalTo(self.imageView.mas_right);
         make.height.mas_equalTo(65);
     }];
+    
     Account *acc = [AccountTool account];
-
-        
+    
         self.attentionButton = [UIButton buttonWithType:UIButtonTypeSystem];
         
         self.attentionButton.backgroundColor = [UIColor whiteColor];
@@ -170,8 +170,10 @@ static NSInteger tagNum = 1;
         self.attentionButton.layer.borderWidth = 1;
         self.attentionButton.layer.cornerRadius = 5;
         self.attentionButton.layer.masksToBounds = YES;
-        if (self.model.attentState) {
-            
+    FMDBSQLiteManager* fmdb = [FMDBSQLiteManager shareSQLiteManager];
+
+        if ([fmdb containConcernWithId:self.model.ID]) {
+
             [self.attentionButton setTitle:@"已关注" forState:UIControlStateNormal];
         } else
         {

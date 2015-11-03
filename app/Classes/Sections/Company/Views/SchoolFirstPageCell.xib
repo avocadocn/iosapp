@@ -19,7 +19,7 @@
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fUw-Qo-jo8">
                                 <rect key="frame" x="0.0" y="0.0" width="518" height="49"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ncf-8Z-STG">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ncf-8Z-STG">
                                         <rect key="frame" x="15" y="12" width="30" height="30"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwq-nb-IfZ">
@@ -48,10 +48,12 @@
                                     <constraint firstItem="d26-0O-a5Y" firstAttribute="top" secondItem="fUw-Qo-jo8" secondAttribute="top" constant="12" id="eeL-At-dD8"/>
                                     <constraint firstItem="Bwq-nb-IfZ" firstAttribute="leading" secondItem="Ncf-8Z-STG" secondAttribute="trailing" constant="8" symbolic="YES" id="fqs-Rp-v5W"/>
                                     <constraint firstItem="d26-0O-a5Y" firstAttribute="top" secondItem="Ncf-8Z-STG" secondAttribute="top" id="iZo-3G-IaH"/>
+                                    <constraint firstItem="Ncf-8Z-STG" firstAttribute="centerY" secondItem="Bwq-nb-IfZ" secondAttribute="centerY" id="jl0-vu-Amb"/>
                                     <constraint firstItem="d26-0O-a5Y" firstAttribute="centerY" secondItem="fUw-Qo-jo8" secondAttribute="centerY" id="kkv-PF-quO"/>
+                                    <constraint firstItem="Ncf-8Z-STG" firstAttribute="leading" secondItem="fUw-Qo-jo8" secondAttribute="leading" constant="15" id="ztM-CY-b56"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2w5-VK-BUs">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="2w5-VK-BUs">
                                 <rect key="frame" x="380" y="49" width="138" height="128"/>
                                 <color key="backgroundColor" red="0.89803921568627454" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -59,7 +61,7 @@
                                     <constraint firstAttribute="width" constant="138" id="pO6-AU-MDu"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g2a-iR-Tst">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="g2a-iR-Tst">
                                 <rect key="frame" x="380" y="216" width="138" height="128"/>
                                 <color key="backgroundColor" red="0.90980392156862744" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -67,7 +69,7 @@
                                     <constraint firstAttribute="height" constant="159" id="hWY-3L-d47"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zRh-Em-0X6">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="zRh-Em-0X6">
                                 <rect key="frame" x="0.0" y="49" width="314" height="298"/>
                                 <color key="backgroundColor" red="0.90980392156862744" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -124,4 +126,7 @@
             <point key="canvasLocation" x="254" y="407.5"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="placeholder.png" width="477" height="478"/>
+    </resources>
 </document>

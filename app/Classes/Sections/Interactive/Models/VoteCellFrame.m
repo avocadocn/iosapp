@@ -118,7 +118,7 @@
     CGSize timeLabelSize = [time boundingRectWithSize:maxTimeLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:timeLabelAttr context:nil].size;
     self.timeLabelF = CGRectMake(timeLabelX, timeLabelY, timeLabelSize.width, timeLabelSize.height);
     
-    CGFloat voteContentLabelX = VoteCellBorderW;
+//    CGFloat voteContentLabelX = VoteCellBorderW;
     CGFloat voteContentLabelY = CGRectGetMaxY(self.avatarImageViewF) + 15;
     CGFloat voteContentViewX = VoteCellBorderW;
     CGFloat voteContentViewY = CGRectGetMaxY(self.avatarImageViewF) +10;

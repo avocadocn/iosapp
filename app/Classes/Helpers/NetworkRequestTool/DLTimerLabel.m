@@ -44,6 +44,7 @@
     
     if (self.num == 30) {
         [self.timer invalidate];
+        [self.superview removeFromSuperview];
     }
     
     NSMutableString *str =[NSMutableString stringWithFormat:@"%@", self.text];
@@ -55,7 +56,6 @@
     }
     self.text = new;
     NSLog(@"%@", new);
-    [self.superview removeFromSuperview];
 }
 - (void)removeFromSuperview
 {

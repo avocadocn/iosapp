@@ -133,7 +133,6 @@
     
     CGFloat num = DLScreenWidth / (320 / 55.0);
     [self builtInterfaceWithNameArray:@[@"社团通讯录",@"微信",@"手机联系人"] imageArray:array andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY:140];
-    
 }
 
 
@@ -158,9 +157,15 @@
             case 3:
         {
             NSLog(@"请求网络");
-            [self.navigationController popViewControllerAnimated:YES];
             
-            [self createRequest];
+            if (self.nameTextfield.text.length) {
+                [self.navigationController popViewControllerAnimated:YES];
+                [self createRequest];
+            } else
+            {
+                UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"创建失败" message:@"社团名称不能为空" delegate: nil cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
+                [al show];
+            }
             
             break;
         }
@@ -182,15 +187,20 @@
     //创建群组
     NSMutableDictionary *dic =[NSMutableDictionary dictionary];
     [dic setObject:self.nameTextfield.text forKey:@"name"];
+    NSMutableArray *titleArray  = [@[@"name", @"hasValidate", @"open", @"isAdmin"] mutableCopy];
     
-    NSMutableDictionary *photo =[NSMutableDictionary dictionary];
-    [photo setObject:@"photo" forKey:@"name"];
-    NSData *data = UIImagePNGRepresentation(self.selectImage.image);
-    [photo setObject:data forKey:@"data"];
-    NSArray *array = [NSArray arrayWithObject:photo];
+    if (self.selectImage.image) {
+        NSMutableDictionary *photo =[NSMutableDictionary dictionary];
+        [photo setObject:@"photo" forKey:@"name"];
+        NSData *data = UIImagePNGRepresentation(self.selectImage.image);
+        [photo setObject:data forKey:@"data"];
+        NSArray *array = [NSArray arrayWithObject:photo];
+        [dic setObject:array forKey:@"photo"];
+        [titleArray addObject:@"photo"];
+        
+    }
     
     
-    [dic setObject:array forKey:@"photo"];
     
     GroupSelectView *view = (GroupSelectView *)[self.superScroll viewWithTag:100];
     [dic setObject:[NSNumber numberWithBool:view.switchLabel.on] forKey:@"open"];
@@ -199,7 +209,7 @@
     [dic setObject:[NSNumber numberWithBool:view2.switchLabel.on] forKey:@"hasValidate"];
     [dic setObject:@0 forKey:@"isAdmin"];
     
-    [RestfulAPIRequestTool routeName:@"publisheNewGroups" requestModel:dic useKeys:@[@"name", @"photo", @"hasValidate", @"open", @"isAdmin"] success:^(id json) {
+    [RestfulAPIRequestTool routeName:@"publisheNewGroups" requestModel:dic useKeys:titleArray success:^(id json) {
         NSLog(@"建群成功 %@", json);
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadGroup" object:nil userInfo:nil];

@@ -7,6 +7,8 @@
 //
 
 //#import "CompanyViewController.h"
+
+#import <RACEXTScope.h>
 #import "UIBarButtonItem+Extension.h"
 #import "HMShop.h"
 #import "HMShopCell.h"
@@ -95,6 +97,9 @@ static NSNumber *myNum;
     
     NSDictionary *dic =[NSDictionary dictionaryWithObject:num forKey:@"page"];
     NSLog(@"网络请求的数据为%@", dic);
+    
+
+    
     [RestfulAPIRequestTool routeName:netAddress requestModel:dic useKeys:@[@"page"] success:^(id json) {
         NSInteger nu = [myNum integerValue];
         if (nu == 1) {

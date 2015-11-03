@@ -5,7 +5,7 @@
 //  Created by 申家 on 15/7/21.
 //  Copyright (c) 2015年 Donler. All rights reserved.
 //
-
+#import "FMDBSQLiteManager.h"
 #import "AddressViewController.h"
 #import <ReactiveCocoa.h>
 #import <Masonry.h>
@@ -192,54 +192,13 @@
         self.bigArray = [NSArray arrayWithArray:self.modelArray];
         
         [self saveDataWithJson:json];
-        /*
-        NSString *str = [NSString stringWithFormat:@"%@/bigAddress", path];
-        NSFileManager *mag = [NSFileManager defaultManager];
-        if ([mag fileExistsAtPath:str]) {
-            [mag removeItemAtPath:str error:nil];
-            [self.bigArray writeToFile:str atomically:YES];
-        } else
-        {
-            [self.bigArray writeToFile:str atomically:YES];
-        }
-        */
         
         acc.userId = acc.ID;
-        // 获取关注列表
-        [RestfulAPIRequestTool routeName:@"getCorcernList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
-//            NSLog(@"获取用户关注列表成功 %@", json);
-            
-            [self compareJsonWithArray:json];
-        } failure:^(id errorJson) {
-            NSLog(@"获取用户列表失败  %@", errorJson);
-        }];
         
     } failure:^(id errorJson) {
+        
         NSLog(@"获取通讯录失败 , %@", errorJson);
-        
-//        NSArray *array = [NSArray arrayWithContentsOfFile:[NSString stringWithFormat:@"%@/addressBook", path]];
-//        for (NSString *str in array) {
-//            AddressBookModel *model = [[AddressBookModel alloc]initWithString:str];
-//            
-//        }
-        
-        
     }];
-}
-- (void)compareJsonWithArray:(id)array {
-//    NSLog(@"和这个 array 比较%@", self.modelArray);
-    for (NSDictionary *dic in self.modelArray) {
-        NSArray *tempArray = [dic objectForKey:@"array"];
-        int i = 0;
-        for (AddressBookModel *model in tempArray) {
-            for (NSDictionary *tempDic in array) {
-                if ([[tempDic objectForKey:@"user"] isEqualToString:model.ID]) {
-                    model.attentState = YES;
-                }
-            }
-            i++;
-        }
-    }
 }
 - (void)relodaViewWithData:(id)json
 {

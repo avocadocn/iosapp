@@ -82,6 +82,7 @@
 {
     NSInteger i = schoolModel.photoArray.count;
     if (i == 0) {
+        
         return;
     }
     if (i == 1) {

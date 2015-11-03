@@ -122,7 +122,9 @@ static NSInteger num = 0;
     self.btn = self.changePhotoButton;
     self.btn.userInteractionEnabled = NO;
     [self.changePhotoButton addTarget:self action:@selector(choosePhotoAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.changePhotoButton setBackgroundImage:[UIImage imageNamed:@"cemera"] forState:UIControlStateNormal];
+    [self.changePhotoButton setBackgroundImage:[UIImage imageNamed:@"cemera.jpg"] forState:UIControlStateNormal];
+    self.changePhotoButton.layer.masksToBounds = YES;
+    self.changePhotoButton.layer.cornerRadius = DLMultipleWidth(20.0);
     
     [self.scroll addSubview:self.changePhotoButton];
     
