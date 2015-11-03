@@ -29,7 +29,6 @@
 
 - (void)maskImage:(NSString *)image
 {
-    
     UIImageView *backImage = [[UIImageView alloc]initWithFrame:self.frame];
     //下载指定大小的图片
     [backImage dlGetRouteThumbnallWebImageWithString:image placeholderImage:nil withSize:backImage.size];

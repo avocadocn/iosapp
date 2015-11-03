@@ -181,27 +181,30 @@ static NSString * contentId = nil;
         [array addObject:@"lastContentDate"];
     }
     NSLog(@"请求的 dic为 \n%@ 参数为  \n%@", dic, array);
+    
+    __weak ColleagueViewController *mySelf = self;
+    
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:dic useKeys:array success:^(id json) {
         //        if (num) { //num 存在是加载
         NSLog(@" 刷新加载的到的数据为 %@", json);
         if (!last) {
-            [self.userInterArray removeAllObjects];
-            [self.photoArray removeAllObjects];
-            [self.modelArray removeAllObjects];
+            [mySelf.userInterArray removeAllObjects];
+            [mySelf.photoArray removeAllObjects];
+            [mySelf.modelArray removeAllObjects];
         }
-        [self saveDefaultWithJson:json];
+        [mySelf saveDefaultWithJson:json];
         
-        [self.colleagueTable reloadData];
+        [mySelf.colleagueTable reloadData];
         
         
-        [self.colleagueTable.header endRefreshing];
-        [self.colleagueTable.footer endRefreshing];
+        [mySelf.colleagueTable.header endRefreshing];
+        [mySelf.colleagueTable.footer endRefreshing];
         
         //        }
     } failure:^(id errorJson) {
         
-        [self.colleagueTable.header endRefreshing];
-        [self.colleagueTable.footer endRefreshing];
+        [mySelf.colleagueTable.header endRefreshing];
+        [mySelf.colleagueTable.footer endRefreshing];
         
     }];
 }
@@ -1021,11 +1024,11 @@ static NSString * contentId = nil;
     
     tempModel.kind = @"comment";
     [tempModel setIsOnlyToContent:state];
-    
+    __weak ColleagueViewController *mySelf = self;
     [RestfulAPIRequestTool routeName:@"publisheCircleComments" requestModel:tempModel useKeys:@[@"contentId", @"kind", @"content", @"isOnlyToContent", @"targetUserId"] success:^(id json) {
         NSLog(@"评论成功 %@",json);
-        self.inputTextView.text = nil;
-        [self.inputTextView resignFirstResponder];
+        mySelf.inputTextView.text = nil;
+        [mySelf.inputTextView resignFirstResponder];
         
         CircleContextModel *temp = [[CircleContextModel alloc]init];
         NSDictionary *circleComment = [json objectForKey:@"circleComment"];
@@ -1050,10 +1053,10 @@ static NSString * contentId = nil;
         
         [tempMuDic removeObjectForKey:@"photoArray"];
         
-        [self.photoArray replaceObjectAtIndex:[num integerValue] withObject:array];
-        [self.userInterArray replaceObjectAtIndex:[num integerValue] withObject:tempMuDic];
-        [self.modelArray replaceObjectAtIndex:[num integerValue] withObject:model];
-        [self.colleagueTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:[num integerValue] inSection:0], nil] withRowAnimation:UITableViewRowAnimationFade];
+        [mySelf.photoArray replaceObjectAtIndex:[num integerValue] withObject:array];
+        [mySelf.userInterArray replaceObjectAtIndex:[num integerValue] withObject:tempMuDic];
+        [mySelf.modelArray replaceObjectAtIndex:[num integerValue] withObject:model];
+        [mySelf.colleagueTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:[num integerValue] inSection:0], nil] withRowAnimation:UITableViewRowAnimationFade];
         
 //        [self.colleagueTable reloadRowsAtIndexPaths:[NSArray arrayWithObjects: count:<#(NSUInteger)#>] withRowAnimation:UITableViewRowAnimationTop];
 
@@ -1115,11 +1118,12 @@ static NSString * contentId = nil;
         routeString = @"deleteCompanyCircle";
         temp = @[@"contentId", @"commentId"];
     }
-    
+    __weak ColleagueViewController *mySelf = self;
+
     [RestfulAPIRequestTool routeName:routeString requestModel:tempModel useKeys:temp success:^(id json) {
         
         NSLog(@"%@ %@", nsl, json);
-        [self.inputTextView resignFirstResponder];
+        [mySelf.inputTextView resignFirstResponder];
         
     } failure:^(id errorJson) {
         NSLog(@"%@", errorJson);

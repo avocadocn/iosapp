@@ -22,9 +22,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        for (UIView *view in self.subviews) {
-            
-        }
+        
         
         UIView *view = [[UIView alloc]init];
         [view setFrame:CGRectMake(0, 0, DLScreenWidth, 44)];
