@@ -86,6 +86,10 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         [self loadingContacts]; // 加载通讯录信息
     });
     
+    
+    
+}
+- (void)buildInterface {
     // Do any additional setup after loading the view.
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, DLScreenWidth, 24)];
@@ -113,8 +117,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESSDATA" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reFreshData) name:@"POSTEXIT" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reFreshData) name:@"REFRESHDATE" object:nil];
-    
-    
+    [self littlePointWillAppear:nil];
 }
 
 
@@ -172,7 +175,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)littlePointWillAppear:(BOOL)animated{
     // 弹出式菜单
     //    [self setupPathButton];
     if (self.coriusView.frame.size.width == 0) {
@@ -792,6 +795,8 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         }
         [[FMDBSQLiteManager shareSQLiteManager] insertPerson:per];
     }
+    
+    [self buildInterface]; // 加载完通讯录 布局页面
     
     
 }

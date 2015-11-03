@@ -778,7 +778,7 @@
 		A48D46021BA7E60D00C110AC /* RankLoveHeart_gray6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A48D45FC1BA7E60D00C110AC /* RankLoveHeart_gray6@2x.png */; };
 		A49205751B6F0B5000F16346 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205741B6F0B5000F16346 /* AddressTableViewCell.m */; };
 		A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205781B6F0BAC00F16346 /* GroupCardViewCell.m */; };
-		A4A5A1A21BE7483600376076 /* DLTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A5A1A11BE7483600376076 /* DLTimerLabel.m */; settings = {ASSET_TAGS = (); }; };
+		A4A5A1A21BE7483600376076 /* DLTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A5A1A11BE7483600376076 /* DLTimerLabel.m */; };
 		A4DD81291B7B2C58004505C9 /* CriticWordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DD81281B7B2C58004505C9 /* CriticWordView.m */; };
 		A4DD81321B7B3F94004505C9 /* CommandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DD81311B7B3F94004505C9 /* CommandView.m */; };
 		A4DD81351B7B4747004505C9 /* CommendPersonLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DD81341B7B4747004505C9 /* CommendPersonLabel.m */; };

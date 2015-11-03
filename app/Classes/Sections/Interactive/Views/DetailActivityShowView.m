@@ -92,7 +92,7 @@
     }
 }
 - (void)initMapView {
-    [MAMapServices sharedServices].apiKey = @"4693df7c11ba3ba2cc58e44e8666134f";
+    [MAMapServices sharedServices].apiKey = AMAP_APPKEY;
     
     
     locationManager =[[CLLocationManager alloc] init];
@@ -126,7 +126,7 @@
 
 }
 - (void)builtSearch {
-    _search = [[AMapSearchAPI alloc] initWithSearchKey:@"4693df7c11ba3ba2cc58e44e8666134f" Delegate:self];
+    _search = [[AMapSearchAPI alloc] initWithSearchKey:@"d9fbbc91d0da87de51f8c667d8776365" Delegate:self];
     
     //  逆地理编码
     AMapReGeocodeSearchRequest *regeoRequest = [[AMapReGeocodeSearchRequest alloc] init];
