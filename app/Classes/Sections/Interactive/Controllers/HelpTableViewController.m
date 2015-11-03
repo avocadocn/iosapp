@@ -14,12 +14,10 @@
 #import "Interaction.h"
 #import "FMDBSQLiteManager.h"
 #import "Person.h"
-
 #import "CommentViewCell.h"
 #import "RestfulAPIRequestTool.h"
 #import "CommentsModel.h"
 #import "CustomKeyBoard.h"
-#import <DGActivityIndicatorView.h>
 #import <MJRefresh.h>
 @interface HelpTableViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
@@ -33,7 +31,6 @@
 
 @property (nonatomic, strong)UITableView *tableView;
 
-@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -76,19 +73,6 @@ static NSString * const ID = @"HelpTableViewCell";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commenting:) name:@"POSTTEXT"object:nil]; // 注册观察者 监测发送评论
    
-    [self loadingImageView];
-}
-- (void)loadingImageView {
-    
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:RGBACOLOR(253, 185, 0, 1) size:40.0f];
-    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(132, 123, 123, 0.52);
-    self.activityIndicatorView = activityIndicatorView;
-    [activityIndicatorView.layer setMasksToBounds:YES];
-    [activityIndicatorView.layer setCornerRadius:10.0];
-    [self.activityIndicatorView startAnimating];
-    [self.view addSubview:activityIndicatorView];
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -139,15 +123,13 @@ static NSString * const ID = @"HelpTableViewCell";
     Interaction *model = [[Interaction alloc]init];
     [model setInteractionType:@3];
     [model setInteractionId:self.model.interactionId];
-    [model setLimit:@5];
+    [model setLimit:@10];
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self loadDataWithJson:json];
         self.keyBoard.inputView.text = nil;
-     [self.activityIndicatorView removeFromSuperview];
     } failure:^(id errorJson) {
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
-          [self.activityIndicatorView removeFromSuperview];
     }];
     [self.tableView.header endRefreshing];
 }
@@ -261,7 +243,6 @@ static NSString * const ID = @"HelpTableViewCell";
     if (self.keyBoard.inputView.text.length != 0) {
         [self marchingComments];
 //        [GiFHUD show];
-        [self loadingImageView];
     }else {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"内容不能为空"delegate:nil cancelButtonTitle:@"嗯嗯,知道了" otherButtonTitles:nil, nil];
         [alertV show];
@@ -286,7 +267,6 @@ static NSString * const ID = @"HelpTableViewCell";
         [alertV show];
         NSLog(@"发送评论失败的原因 %@",[errorJson objectForKey:@"msg"]);
     
-        [self.activityIndicatorView removeFromSuperview];
     }];
 }
 // 设置tableView 的分割线顶到屏幕边框
@@ -334,7 +314,7 @@ static NSString * const ID = @"HelpTableViewCell";
     [model setInteractionType:@3];
     [model setInteractionId:self.model.interactionId];
     [model setCreateTime:cmodel.createTime];
-    [model setLimit:@5];
+    [model setLimit:@10];
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit",@"createTime"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self detalNewDataWithJson:json];
@@ -357,7 +337,6 @@ static NSString * const ID = @"HelpTableViewCell";
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.activityIndicatorView removeFromSuperview];
 }
 
 - (void)netRequest

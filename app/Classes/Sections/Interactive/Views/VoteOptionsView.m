@@ -63,8 +63,8 @@
                 optionView.userInteractionEnabled = NO;
                 NSNumber *tempNum = [NSNumber numberWithInteger:[self.voteCount integerValue] + 1];  //选择的总数
                 optionView.optionCount = [NSNumber numberWithInteger:[optionView.optionCount integerValue] + 1];
-                NSLog(@"选择了%@",optionInfo.optionName);
-                [self requestNetWithInterId:optionInfo];;
+                NSLog(@"选择了%@ %@",optionInfo.optionName,optionInfo.index);
+                [self requestNetWithInterId:optionInfo index:optionInfo.index];
                 
                 for (NSInteger i  = 0; i < self.optionCount ; i++) {
                     @autoreleasepool {
@@ -155,7 +155,7 @@
     NSNumber *tempNum = [NSNumber numberWithInteger:[optionView.optionPercentage integerValue] + 1];  //选择的总数
     optionView.optionCount = [NSNumber numberWithInteger:[optionView.optionCount integerValue] + 1];
     
-    [self requestNetWithInterId:optionInfo];;
+    [self requestNetWithInterId:optionInfo index:nil];
     
     for (NSInteger i  = 0; i < self.optionCount ; i++) {
         @autoreleasepool {
@@ -171,18 +171,22 @@
     optionView.button.userInteractionEnabled = NO;
 }
 
-- (void)requestNetWithInterId:(VoteOptionsInfoModel *)interId
+- (void)requestNetWithInterId:(VoteOptionsInfoModel *)interId index:(NSNumber *)index
 {
+//    NSDictionary *dic = [NSDictionary dictionaryWithObject:index forKey:@"index"];
     Account *acc = [AccountTool account];
     interId.userId = acc.ID;
     [RestfulAPIRequestTool routeName:@"voteForUser" requestModel:interId useKeys:@[@"interactionId", @"userId", @"index"] success:^(id json) {
         NSLog(@"投票成功 %@", json);
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"CHANGESTATE" object:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"CHANGESTATE" object:nil userInfo:@{@"index":index}];
+        [self changeState];
     } failure:^(id errorJson) {
         NSLog(@"投票失败 %@", errorJson);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:[errorJson objectForKey:@"msg"] delegate:nil cancelButtonTitle:@"嗯嗯.知道了" otherButtonTitles:nil, nil];
         [alertV show];
     }];
 }
-
+- (void)changeState {
+    
+}
 @end

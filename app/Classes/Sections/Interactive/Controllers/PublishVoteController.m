@@ -15,14 +15,14 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "RestfulAPIRequestTool.h"
 #import "Interaction.h"
-#import <DGActivityIndicatorView.h>
 #import "UIImageView+DLGetWebImage.h"
 
 static NSInteger num = 0;
 
 @interface PublishVoteController ()<DNImagePickerControllerDelegate,UIAlertViewDelegate>
 
-@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
+
+@property (nonatomic, assign) BOOL orClick;
 
 @end
 
@@ -34,6 +34,7 @@ static NSInteger num = 0;
     [self builtInterface];
     if (self.model) {
         NSLog(@"%@",self.model);
+        self.orClick = YES;
         [self addTemplate:self.model];
     }
     
@@ -46,19 +47,6 @@ static NSInteger num = 0;
     [self setNavigationItem];
     [self setCardView];
 }
-- (void)loadingImageView {
-    
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:RGBACOLOR(253, 185, 0, 1) size:40.0f];
-    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(132, 123, 123, 0.52);
-    self.activityIndicatorView = activityIndicatorView;
-    [activityIndicatorView.layer setMasksToBounds:YES];
-    [activityIndicatorView.layer setCornerRadius:10.0];
-    [self.activityIndicatorView startAnimating];
-    [self.view addSubview:activityIndicatorView];
-    
-}
-
 
 - (void)setCardView
 {
@@ -132,6 +120,8 @@ static NSInteger num = 0;
 
 - (void)selectPhotoAction:(UITapGestureRecognizer *)sender
 {
+    self.orClick = YES;
+    
     DNImagePickerController *choose = [[DNImagePickerController alloc]init];
     choose.allowSelectNum = 1;
     choose.imagePickerDelegate = self;
@@ -187,7 +177,6 @@ static NSInteger num = 0;
 
 - (void)publishActions:(UIButton *)sender
 {
-    [self loadingImageView];
     [self.view endEditing:YES];
     NSMutableArray *titleArray = [NSMutableArray array];
     for (NSInteger i = 1; i <= num; i ++) {
@@ -197,10 +186,14 @@ static NSInteger num = 0;
     }
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSData *data= UIImagePNGRepresentation(self.selectPhoto.image);
-    [dic setObject:data forKey:@"data"];
-    [dic setObject:@"photo" forKey:@"name"];
-    
+    if (self.orClick == YES) {
+        NSData *data= UIImagePNGRepresentation(self.selectPhoto.image);
+        [dic setObject:data forKey:@"data"];
+        [dic setObject:@"photo" forKey:@"name"];
+    } else {
+        
+
+    }
     Interaction *inter = [[Interaction alloc]init];
     [inter setType:@2]; //投票
     [inter setTheme:self.voteTitle.text];
@@ -224,12 +217,10 @@ static NSInteger num = 0;
         NSLog(@"发布投票成功%@", json);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布成功"message:@"少年郎,你的活动已经发布成功了,好好准备吧..." delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
         [alertV show];
-        [self.activityIndicatorView removeFromSuperview];
         
     } failure:^(id errorJson) {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"再试一次", nil];
         [alertV show];
-        [self.activityIndicatorView removeFromSuperview];
         NSLog(@"发布投票失败%@", errorJson);
     }];
     

@@ -20,8 +20,8 @@
 #import "Singletons.h"
 #import "getIntroModel.h"
 #import "PublishedInteractionsMapViewController.h"
-#import <DGActivityIndicatorView.h>
 #import "UIImageView+DLGetWebImage.h"
+#import "XHMessageTextView.h"
 static NSInteger num = 0;
 
 typedef NS_ENUM(NSInteger, RemindTableState){
@@ -48,8 +48,6 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 @property (nonatomic, strong)UILabel *addressLabel;
 
 @property (nonatomic, copy) NSString *lau,*log;
-
-@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;// loading
 
 @property (nonatomic, copy) NSString *remainTimeStr;
 
@@ -89,18 +87,6 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     
    
 }
-- (void)loadingImageView {
-    
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:RGBACOLOR(253, 185, 0, 1) size:40.0f];
-    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(132, 123, 123, 0.52);
-    self.activityIndicatorView = activityIndicatorView;
-    [activityIndicatorView.layer setMasksToBounds:YES];
-    [activityIndicatorView.layer setCornerRadius:10.0];
-    [self.activityIndicatorView startAnimating];
-    [self.view addSubview:activityIndicatorView];
-    
-}
 - (void)setNevigationLeft
 {
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
@@ -127,7 +113,6 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
-    [self loadingImageView]; // loading
     [self.view endEditing:YES];
     Interaction *inter = [[Interaction alloc]init];
     
@@ -175,12 +160,11 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         NSLog(@" 生成活动成功%@",json);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布成功"message:@"少年郎,你的活动已经发布成功了,好好准备吧..." delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
         [alertV show];
-        [self.activityIndicatorView removeFromSuperview];
     } failure:^(id errorJson) {
         NSLog(@"失败 %@", errorJson);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"再试一次", nil];
         [alertV show];
-        [self.activityIndicatorView removeFromSuperview];
+       
     }];
 }
 #pragma UIAlertView delegate
@@ -393,8 +377,9 @@ typedef NS_ENUM(NSInteger, RemindTableState){
         make.size.mas_equalTo(CGSizeMake(eventNameRect.size.width, 20));
     }];
     
-    self.eventDetailTextView = [UITextView new];
-    self.eventDetailTextView.text = @"介绍一下你的活动吧~ ~";
+    self.eventDetailTextView = [[XHMessageTextView alloc] init];
+    self.eventDetailTextView.font = [UIFont systemFontOfSize:14];
+    self.eventDetailTextView.placeHolder = @"介绍一下你的活动吧~ ~";
     
     [self.detailsView addSubview:self.eventDetailTextView];
     
@@ -610,6 +595,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 
 - (void)tapLabelAction:(UITapGestureRecognizer *)tap
 {
+    [self.view endEditing:YES];
     [self.eventNameField resignFirstResponder];
     
     DLDatePickerView *dld = [[DLDatePickerView alloc]init];
@@ -772,7 +758,6 @@ typedef NS_ENUM(NSInteger, RemindTableState){
 }
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.activityIndicatorView removeFromSuperview];
 }
 
 

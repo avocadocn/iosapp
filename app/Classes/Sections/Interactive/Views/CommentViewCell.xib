@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -22,9 +22,9 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="肥猫猫" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wde-5b-PM4" userLabel="name">
-                        <rect key="frame" x="57" y="8" width="310" height="14"/>
+                        <rect key="frame" x="57" y="8" width="310" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="14" id="pFn-ng-TST"/>
+                            <constraint firstAttribute="height" constant="16" id="pFn-ng-TST"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.2666666667" green="0.16862745100000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -48,7 +48,7 @@
                     <constraint firstAttribute="trailing" secondItem="Wde-5b-PM4" secondAttribute="trailing" constant="8" id="Wj1-aA-Y8m"/>
                     <constraint firstItem="Wde-5b-PM4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="bRd-nf-sJL"/>
                     <constraint firstItem="Wde-5b-PM4" firstAttribute="leading" secondItem="Rpo-8g-Xn0" secondAttribute="trailing" constant="13" id="bVM-Ab-c4L"/>
-                    <constraint firstItem="OzE-KP-wyy" firstAttribute="top" secondItem="Wde-5b-PM4" secondAttribute="bottom" constant="3" id="zLV-fu-FFO"/>
+                    <constraint firstItem="OzE-KP-wyy" firstAttribute="top" secondItem="Wde-5b-PM4" secondAttribute="bottom" constant="1" id="zLV-fu-FFO"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

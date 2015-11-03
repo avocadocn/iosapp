@@ -820,6 +820,8 @@
 		E2B370C61BD0B95100F557A5 /* RankListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B370C51BD0B95100F557A5 /* RankListItemView.m */; };
 		E2B370C91BD0BAE000F557A5 /* FreshManItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B370C81BD0BAE000F557A5 /* FreshManItemView.m */; };
 		E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C3923B1BB551010072111D /* EMConversation+GroupName.m */; };
+		E2CB7D5F1BE702FD0088E044 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CB7D5D1BE702FD0088E044 /* ReportViewController.m */; };
+		E2CB7D601BE702FD0088E044 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2CB7D5E1BE702FD0088E044 /* ReportViewController.xib */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 		E2F49FD71BCBB6C0002709E7 /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; };
 		E2F674B31BE344B900CB3304 /* UILabel+FitContent.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F674B21BE344B900CB3304 /* UILabel+FitContent.m */; };
@@ -2134,6 +2136,9 @@
 		E2C3923B1BB551010072111D /* EMConversation+GroupName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMConversation+GroupName.m"; sourceTree = "<group>"; };
 		E2C954C41BCB5DED0073E5FA /* GroupCardViewTransmitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardViewTransmitCell.h; sourceTree = "<group>"; };
 		E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCardViewTransmitCell.m; sourceTree = "<group>"; };
+		E2CB7D5C1BE702FD0088E044 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
+		E2CB7D5D1BE702FD0088E044 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
+		E2CB7D5E1BE702FD0088E044 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 		E2F674B11BE344B900CB3304 /* UILabel+FitContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+FitContent.h"; sourceTree = "<group>"; };
@@ -2661,6 +2666,9 @@
 				A4745E141B81BD1C008EB944 /* OwnnessViewController.m */,
 				A43707B41BA280A9002D774C /* CricleDetailViewController.h */,
 				A43707B51BA280A9002D774C /* CricleDetailViewController.m */,
+				E2CB7D5C1BE702FD0088E044 /* ReportViewController.h */,
+				E2CB7D5D1BE702FD0088E044 /* ReportViewController.m */,
+				E2CB7D5E1BE702FD0088E044 /* ReportViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -5328,6 +5336,7 @@
 				96CF94401B674B54001759E2 /* chat_receiver_audio_playing002.png in Resources */,
 				54EA032C1BB25E4400B96881 /* 消息111@2X.png in Resources */,
 				967439CB1B70A27A004334A4 /* otherActivity_location.png in Resources */,
+				E2CB7D601BE702FD0088E044 /* ReportViewController.xib in Resources */,
 				967A063D1B72FEF3007BA757 /* Interactive_vote_downView.png in Resources */,
 				96CF94061B674B54001759E2 /* chat_location_detail_disclosure@2x.png in Resources */,
 				96CF94591B674B54001759E2 /* back@2x.png in Resources */,
@@ -5644,6 +5653,7 @@
 				546CA5971B9ECD7B0066CC0C /* NYSegmentedControl.m in Sources */,
 				96CF90E21B673422001759E2 /* PSTGridLayoutInfo.m in Sources */,
 				96CF90C01B673422001759E2 /* MWCaptionView.m in Sources */,
+				E2CB7D5F1BE702FD0088E044 /* ReportViewController.m in Sources */,
 				A4F595021B7C7D970088D9CC /* BrithdayBlessController.m in Sources */,
 				A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */,
 				96CF90D41B673422001759E2 /* UIImage+EMMultiFormat.m in Sources */,

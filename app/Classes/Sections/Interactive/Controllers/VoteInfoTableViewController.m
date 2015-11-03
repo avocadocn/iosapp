@@ -127,7 +127,7 @@ static NSString * const ID = @"VoteInfoTableViewCell";
         itemView.tag = indexPath.section * 10000 + 10000 + i;
         AddressBookModel *model = [[AddressBookModel alloc] init];
         [model setValuesForKeysWithDictionary:dic];
-        [self.userIdDic setObject:model forKey:[NSNumber numberWithInteger:itemView.tag]];
+        [self.userIdDic setObject:model forKey:[NSNumber numberWithInteger:itemView.tag]]; // 将model 和tag值对应存入字典
         // 设置圆形头像
         [itemView.layer setCornerRadius:itemWidthHeight / 2];
         [itemView.layer setMasksToBounds:YES];

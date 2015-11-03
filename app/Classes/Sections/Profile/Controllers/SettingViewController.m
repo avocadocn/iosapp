@@ -18,6 +18,10 @@
 #import "GuidePageViewController.h"
 #import "FMDBSQLiteManager.h"
 #import <SDWebImageManager.h>
+#import "AppDelegate.h"
+#import "DLNavigationController.h"
+#import "ChatListViewController.h"
+#import "AttentionViewController.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong)UITableView *tableView;
@@ -115,20 +119,21 @@
 #pragma ActionSheet delegate
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     GuidePageViewController *loginVC = [[GuidePageViewController alloc] init];
+    DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:loginVC];
     Account *accout = [AccountTool account];
     AddressBookModel *model = [[AddressBookModel alloc] init];
     [model setUserId:accout.ID];
     if (buttonIndex == 0) { // 退出登录
-        [self.navigationController pushViewController:loginVC animated:YES];
+        AppDelegate* delegate  = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [delegate window].rootViewController = nav;
+//        [self.navigationController pushViewController:loginVC animated:YES];
         accout.token = nil;
         [AccountTool saveAccount:accout];
         //退出环信，清空消息数据
         [self cleanEaseMob];
         //清空本地缓存数据
         [self cleanLocalData];
-    [RestfulAPIRequestTool routeName:@"userLogOut" requestModel:model useKeys:@[@"msg"] success:^(id json) {
-        
-        
+    [RestfulAPIRequestTool routeName:@"userLogOut" requestModel:model useKeys:@[@"userId"] success:^(id json) {
         NSLog(@"退出成功");
     } failure:^(id errorJson) {
         NSLog(@"退出失败原因 %@",errorJson);
@@ -144,27 +149,27 @@
  * 当前用户退出时，清空本地消息
  */
 - (void)cleanEaseMob{
+//    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+//    NSMutableArray *needRemoveConversations;
+//    for (EMConversation *conversation in conversations) {
+//        if (!needRemoveConversations) {
+//            needRemoveConversations = [[NSMutableArray alloc] initWithCapacity:0];
+//        }
+//        [needRemoveConversations addObject:conversation.chatter];
+//    }
+//    
+//    if (needRemoveConversations && needRemoveConversations.count > 0) {
+//        [[EaseMob sharedInstance].chatManager removeConversationsByChatters:needRemoveConversations
+//                                                             deleteMessages:YES
+//                                                                append2Chat:YES];
+//    }
+    [[EaseMob sharedInstance].chatManager removeAllConversationsWithDeleteMessages:YES append2Chat:YES];
     //退出环信
     [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
         if (!error && info) {
             NSLog(@"退出成功");
         }
     } onQueue:nil];
-    
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    NSMutableArray *needRemoveConversations;
-    for (EMConversation *conversation in conversations) {
-            if (!needRemoveConversations) {
-                needRemoveConversations = [[NSMutableArray alloc] initWithCapacity:0];
-            }
-            [needRemoveConversations addObject:conversation.chatter];
-    }
-    
-    if (needRemoveConversations && needRemoveConversations.count > 0) {
-        [[EaseMob sharedInstance].chatManager removeConversationsByChatters:needRemoveConversations
-                                                             deleteMessages:YES
-                                                                append2Chat:NO];
-    }
 }
 //当用户推出时，清空本地缓存数据
 - (void)cleanLocalData
@@ -178,6 +183,8 @@
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDisk];
     
+    [[ChatListViewController shareInstan].dataSource removeAllObjects];
+    [[AttentionViewController shareInsten].modelArray removeAllObjects];
     NSFileManager *manger = [NSFileManager defaultManager];
     [manger removeItemAtPath:[NSString stringWithFormat:@"%@/DLLibraryCache", DLLibraryPath] error:nil];
 }

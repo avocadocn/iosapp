@@ -16,7 +16,6 @@
 #import "getTemplateModel.h"
 #import "Interaction.h"
 #import <MJRefresh.h>
-#import <DGActivityIndicatorView.h>
 
 @interface TemplateActivityShowTableController()<UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong) UITableView *tableView;

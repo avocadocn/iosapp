@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @class Interaction;
+@class XHMessageTextView;
+
 @interface LaunchEventController : UIViewController
 
 @property (nonatomic, strong)UIView *superView;
@@ -16,7 +18,7 @@
 
 @property (nonatomic, strong)UIScrollView *eventScroll;
 
-@property (nonatomic, strong)UITextView *eventDetailTextView;  //活动简介
+@property (nonatomic, strong)XHMessageTextView *eventDetailTextView;  //活动简介
 
 @property (nonatomic, strong)NSMutableArray *remindTitleArray;
 
