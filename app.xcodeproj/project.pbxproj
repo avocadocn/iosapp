@@ -606,7 +606,6 @@
 		A43CE9B81BAABDDC0069C94E /* adynamic.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE97E1BAABDDC0069C94E /* adynamic.png */; };
 		A43CE9B91BAABDDC0069C94E /* afolder.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE97F1BAABDDC0069C94E /* afolder.png */; };
 		A43CE9BA1BAABDDC0069C94E /* boy.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9801BAABDDC0069C94E /* boy.png */; };
-		A43CE9BB1BAABDDC0069C94E /* cemera.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9811BAABDDC0069C94E /* cemera.png */; };
 		A43CE9BD1BAABDDC0069C94E /* chevron-left.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9831BAABDDC0069C94E /* chevron-left.png */; };
 		A43CE9C21BAABDDC0069C94E /* delete-circular.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9881BAABDDC0069C94E /* delete-circular.png */; };
 		A43CE9C31BAABDDC0069C94E /* disappear.png in Resources */ = {isa = PBXBuildFile; fileRef = A43CE9891BAABDDC0069C94E /* disappear.png */; };
@@ -682,6 +681,7 @@
 		A44D404D1B7368EA00B10DFB /* EventRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A44D404C1B7368EA00B10DFB /* EventRemindCell.m */; };
 		A44D404E1B7374DE00B10DFB /* VoteCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06461B732578007BA757 /* VoteCellFrame.m */; };
 		A44D40511B73800800B10DFB /* IndexpathButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A44D40501B73800800B10DFB /* IndexpathButton.m */; };
+		A44E844F1BE7650500EDA54B /* cemera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A44E844E1BE7650500EDA54B /* cemera.jpg */; settings = {ASSET_TAGS = (); }; };
 		A450560D1B608F250075E39D /* CardChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = A450560C1B608F250075E39D /* CardChooseView.m */; };
 		A450561D1B60EF980075E39D /* RankItemLayoutAttr.m in Sources */ = {isa = PBXBuildFile; fileRef = A450561C1B60EF980075E39D /* RankItemLayoutAttr.m */; };
 		A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFCF1B5F5E7900F7DE60 /* RankItemCell.m */; };
@@ -1792,7 +1792,6 @@
 		A43CE97E1BAABDDC0069C94E /* adynamic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adynamic.png; sourceTree = "<group>"; };
 		A43CE97F1BAABDDC0069C94E /* afolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = afolder.png; sourceTree = "<group>"; };
 		A43CE9801BAABDDC0069C94E /* boy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boy.png; sourceTree = "<group>"; };
-		A43CE9811BAABDDC0069C94E /* cemera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cemera.png; sourceTree = "<group>"; };
 		A43CE9831BAABDDC0069C94E /* chevron-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron-left.png"; sourceTree = "<group>"; };
 		A43CE9881BAABDDC0069C94E /* delete-circular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete-circular.png"; sourceTree = "<group>"; };
 		A43CE9891BAABDDC0069C94E /* disappear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disappear.png; sourceTree = "<group>"; };
@@ -1894,6 +1893,7 @@
 		A44D404C1B7368EA00B10DFB /* EventRemindCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventRemindCell.m; sourceTree = "<group>"; };
 		A44D404F1B73800800B10DFB /* IndexpathButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexpathButton.h; sourceTree = "<group>"; };
 		A44D40501B73800800B10DFB /* IndexpathButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexpathButton.m; sourceTree = "<group>"; };
+		A44E844E1BE7650500EDA54B /* cemera.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cemera.jpg; sourceTree = "<group>"; };
 		A450560B1B608F250075E39D /* CardChooseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardChooseView.h; sourceTree = "<group>"; };
 		A450560C1B608F250075E39D /* CardChooseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardChooseView.m; sourceTree = "<group>"; };
 		A450561B1B60EF980075E39D /* RankItemLayoutAttr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RankItemLayoutAttr.h; path = ../Views/RankItemLayoutAttr.h; sourceTree = "<group>"; };
@@ -4430,6 +4430,7 @@
 				A43CE97C1BAABDDC0069C94E /* addImage.png */,
 				A43CE97D1BAABDDC0069C94E /* address.png */,
 				A46CFBC21BD6378C00D64CDB /* WarmText@2x.png */,
+				A44E844E1BE7650500EDA54B /* cemera.jpg */,
 				A43E77E91BE36A7E00ADBF24 /* insertButton.png */,
 				A46CFBB51BD6244400D64CDB /* 社团@2x.png */,
 				A46CFBB61BD6244400D64CDB /* 手机好友@2x.png */,
@@ -4458,7 +4459,6 @@
 				A43D904E1BB4F0CD007775BB /* setting white@2x.png */,
 				A43CE97F1BAABDDC0069C94E /* afolder.png */,
 				A43CE9801BAABDDC0069C94E /* boy.png */,
-				A43CE9811BAABDDC0069C94E /* cemera.png */,
 				A43CE9831BAABDDC0069C94E /* chevron-left.png */,
 				A43CE9881BAABDDC0069C94E /* delete-circular.png */,
 				A43CE9891BAABDDC0069C94E /* disappear.png */,
@@ -5103,6 +5103,7 @@
 				96CF93F41B674B54001759E2 /* call_silence@2x.png in Resources */,
 				9635AF5E1B74A13500BE92B5 /* CustomKeyBoard.xib in Resources */,
 				96CF93C41B674B54001759E2 /* chatFire_audioPlaying2@2x.png in Resources */,
+				A44E844F1BE7650500EDA54B /* cemera.jpg in Resources */,
 				96CF93DC1B674B54001759E2 /* VoiceSearchFeedback011@2x.png in Resources */,
 				54F248421BA2BED5009133D6 /* huodongs.png in Resources */,
 				96CF942E1B674B54001759E2 /* chatBar_colorMore_videoSelected@2x.png in Resources */,
@@ -5190,7 +5191,6 @@
 				96CF94381B674B54001759E2 /* chatBar_more_photo@2x.png in Resources */,
 				96CF94121B674B54001759E2 /* chatBar_faceSelected@2x.png in Resources */,
 				96CF93F91B674B54001759E2 /* chatBar_more_card.png in Resources */,
-				A43CE9BB1BAABDDC0069C94E /* cemera.png in Resources */,
 				54F2483E1BA2BD27009133D6 /* helperss.png in Resources */,
 				96CF94161B674B54001759E2 /* chatBar_keyboardSelected@2x.png in Resources */,
 				A43CE9D21BAABDDC0069C94E /* mistake.png in Resources */,
