@@ -7,6 +7,7 @@
 //
 #import <ReactiveCocoa.h>
 #import "UIImageView+DLGetWebImage.h"
+#import "UIImage+DLExtension.h"
 
 #define path [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CacheImage"]
 
@@ -117,6 +118,21 @@
     }];
     
 }
+- (void)setCircleHeaderWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size
+{
+//    self.backgroundColor = ArcColor;
+    // 得到网络请求的字符串
+    NSString *newUrlStr = [self getUrlStringWithString:str];
+    
+    NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%d/%d", (int)size.width*[self BitmapScale], (int)size.height*[self BitmapScale]]];
+    [self sd_setImageWithURL:[NSURL URLWithString:newStr] placeholderImage:image completed:
+     ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+         // 如果图片下载失败，就不做任何处理，按照默认的做法：会显示占位图片
+         if (image == nil) return;
+         self.image = [image circleImage];
+     }];
+}
+
 - (void)cleanTheMask
 {
     for (UIView* t in self.subviews) {

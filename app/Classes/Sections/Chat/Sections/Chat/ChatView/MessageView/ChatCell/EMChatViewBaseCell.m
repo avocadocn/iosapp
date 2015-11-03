@@ -83,9 +83,10 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     
     UIImage *placeholderImage = [UIImage imageNamed:@"chatListCellHead"];
     
-    [self.headImageView dlGetRouteThumbnallWebImageWithString:_messageModel.headImgURL placeholderImage:placeholderImage withSize:CGSizeMake(50.0, 50.0)];
-    self.headImageView.layer.masksToBounds = YES;
-    [self.headImageView.layer setCornerRadius:self.headImageView.width / 2.0];
+//    [self.headImageView dlGetRouteThumbnallWebImageWithString:_messageModel.headImgURL placeholderImage:placeholderImage withSize:CGSizeMake(50.0, 50.0)];
+    [self.headImageView setCircleHeaderWithString:_messageModel.headImgURL placeholderImage:placeholderImage withSize:self.headImageView.size];
+//    self.headImageView.layer.masksToBounds = YES;
+//    [self.headImageView.layer setCornerRadius:self.headImageView.width / 2.0];
 }
 
 #pragma mark - private
