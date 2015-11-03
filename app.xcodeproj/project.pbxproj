@@ -646,9 +646,9 @@
 		A43D90541BB5126D007775BB /* mask_sha.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = A43D90531BB5126D007775BB /* mask_sha.jpeg */; };
 		A43DA5DD1B90281100C23833 /* getIntroModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43DA5DC1B90281100C23833 /* getIntroModel.m */; };
 		A43E36B71B58C55500AA2FC7 /* ConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = A43E36B61B58C55500AA2FC7 /* ConditionController.m */; };
-		A43E77E81BE364CD00ADBF24 /* JoinButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77E71BE364CD00ADBF24 /* JoinButton.png */; settings = {ASSET_TAGS = (); }; };
-		A43E77EA1BE36A7E00ADBF24 /* insertButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77E91BE36A7E00ADBF24 /* insertButton.png */; settings = {ASSET_TAGS = (); }; };
-		A43E77EC1BE36E2400ADBF24 /* talk.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77EB1BE36E2400ADBF24 /* talk.png */; settings = {ASSET_TAGS = (); }; };
+		A43E77E81BE364CD00ADBF24 /* JoinButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77E71BE364CD00ADBF24 /* JoinButton.png */; };
+		A43E77EA1BE36A7E00ADBF24 /* insertButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77E91BE36A7E00ADBF24 /* insertButton.png */; };
+		A43E77EC1BE36E2400ADBF24 /* talk.png in Resources */ = {isa = PBXBuildFile; fileRef = A43E77EB1BE36E2400ADBF24 /* talk.png */; };
 		A43EA5BC1BCCE0050007FE84 /* InformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A43EA5BB1BCCE0050007FE84 /* InformationModel.m */; };
 		A43F56261BDA1462004DE6AE /* gray-man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F56221BDA1462004DE6AE /* gray-man@2x.png */; };
 		A43F56271BDA1462004DE6AE /* man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A43F56231BDA1462004DE6AE /* man@2x.png */; };
@@ -778,6 +778,7 @@
 		A48D46021BA7E60D00C110AC /* RankLoveHeart_gray6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A48D45FC1BA7E60D00C110AC /* RankLoveHeart_gray6@2x.png */; };
 		A49205751B6F0B5000F16346 /* AddressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205741B6F0B5000F16346 /* AddressTableViewCell.m */; };
 		A49205791B6F0BAC00F16346 /* GroupCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A49205781B6F0BAC00F16346 /* GroupCardViewCell.m */; };
+		A4A5A1A21BE7483600376076 /* DLTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A5A1A11BE7483600376076 /* DLTimerLabel.m */; settings = {ASSET_TAGS = (); }; };
 		A4DD81291B7B2C58004505C9 /* CriticWordView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DD81281B7B2C58004505C9 /* CriticWordView.m */; };
 		A4DD81321B7B3F94004505C9 /* CommandView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DD81311B7B3F94004505C9 /* CommandView.m */; };
 		A4DD81351B7B4747004505C9 /* CommendPersonLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DD81341B7B4747004505C9 /* CommendPersonLabel.m */; };
@@ -819,6 +820,8 @@
 		E2B370C61BD0B95100F557A5 /* RankListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B370C51BD0B95100F557A5 /* RankListItemView.m */; };
 		E2B370C91BD0BAE000F557A5 /* FreshManItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B370C81BD0BAE000F557A5 /* FreshManItemView.m */; };
 		E2C3923C1BB551010072111D /* EMConversation+GroupName.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C3923B1BB551010072111D /* EMConversation+GroupName.m */; };
+		E2CB7D5F1BE702FD0088E044 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CB7D5D1BE702FD0088E044 /* ReportViewController.m */; };
+		E2CB7D601BE702FD0088E044 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2CB7D5E1BE702FD0088E044 /* ReportViewController.xib */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
 		E2F49FD71BCBB6C0002709E7 /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; };
 		E2F674B31BE344B900CB3304 /* UILabel+FitContent.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F674B21BE344B900CB3304 /* UILabel+FitContent.m */; };
@@ -2046,6 +2049,8 @@
 		A49205741B6F0B5000F16346 /* AddressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressTableViewCell.m; sourceTree = "<group>"; };
 		A49205771B6F0BAC00F16346 /* GroupCardViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardViewCell.h; sourceTree = "<group>"; };
 		A49205781B6F0BAC00F16346 /* GroupCardViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCardViewCell.m; sourceTree = "<group>"; };
+		A4A5A1A01BE7483600376076 /* DLTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLTimerLabel.h; sourceTree = "<group>"; };
+		A4A5A1A11BE7483600376076 /* DLTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLTimerLabel.m; sourceTree = "<group>"; };
 		A4DD81271B7B2C58004505C9 /* CriticWordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CriticWordView.h; sourceTree = "<group>"; };
 		A4DD81281B7B2C58004505C9 /* CriticWordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CriticWordView.m; sourceTree = "<group>"; };
 		A4DD81301B7B3F94004505C9 /* CommandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandView.h; sourceTree = "<group>"; };
@@ -2131,6 +2136,9 @@
 		E2C3923B1BB551010072111D /* EMConversation+GroupName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMConversation+GroupName.m"; sourceTree = "<group>"; };
 		E2C954C41BCB5DED0073E5FA /* GroupCardViewTransmitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCardViewTransmitCell.h; sourceTree = "<group>"; };
 		E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCardViewTransmitCell.m; sourceTree = "<group>"; };
+		E2CB7D5C1BE702FD0088E044 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
+		E2CB7D5D1BE702FD0088E044 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
+		E2CB7D5E1BE702FD0088E044 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
 		E2F674B11BE344B900CB3304 /* UILabel+FitContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+FitContent.h"; sourceTree = "<group>"; };
@@ -2658,6 +2666,9 @@
 				A4745E141B81BD1C008EB944 /* OwnnessViewController.m */,
 				A43707B41BA280A9002D774C /* CricleDetailViewController.h */,
 				A43707B51BA280A9002D774C /* CricleDetailViewController.m */,
+				E2CB7D5C1BE702FD0088E044 /* ReportViewController.h */,
+				E2CB7D5D1BE702FD0088E044 /* ReportViewController.m */,
+				E2CB7D5E1BE702FD0088E044 /* ReportViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2852,6 +2863,8 @@
 				A45111041B9D96F900139B76 /* UILabel+DLTimeLabel.m */,
 				A401E2781BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.h */,
 				A401E2791BA16C0700B9A4B7 /* NSString+DLStringWithEmoji.m */,
+				A4A5A1A01BE7483600376076 /* DLTimerLabel.h */,
+				A4A5A1A11BE7483600376076 /* DLTimerLabel.m */,
 			);
 			path = NetworkRequestTool;
 			sourceTree = "<group>";
@@ -5323,6 +5336,7 @@
 				96CF94401B674B54001759E2 /* chat_receiver_audio_playing002.png in Resources */,
 				54EA032C1BB25E4400B96881 /* 消息111@2X.png in Resources */,
 				967439CB1B70A27A004334A4 /* otherActivity_location.png in Resources */,
+				E2CB7D601BE702FD0088E044 /* ReportViewController.xib in Resources */,
 				967A063D1B72FEF3007BA757 /* Interactive_vote_downView.png in Resources */,
 				96CF94061B674B54001759E2 /* chat_location_detail_disclosure@2x.png in Resources */,
 				96CF94591B674B54001759E2 /* back@2x.png in Resources */,
@@ -5639,6 +5653,7 @@
 				546CA5971B9ECD7B0066CC0C /* NYSegmentedControl.m in Sources */,
 				96CF90E21B673422001759E2 /* PSTGridLayoutInfo.m in Sources */,
 				96CF90C01B673422001759E2 /* MWCaptionView.m in Sources */,
+				E2CB7D5F1BE702FD0088E044 /* ReportViewController.m in Sources */,
 				A4F595021B7C7D970088D9CC /* BrithdayBlessController.m in Sources */,
 				A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */,
 				96CF90D41B673422001759E2 /* UIImage+EMMultiFormat.m in Sources */,
@@ -5682,6 +5697,7 @@
 				96CF939D1B674B54001759E2 /* GroupListViewController.m in Sources */,
 				A40CDF281B86F99000BD63F5 /* CustomButton.m in Sources */,
 				96CF93981B674B54001759E2 /* ChatGroupDetailViewController.m in Sources */,
+				A4A5A1A21BE7483600376076 /* DLTimerLabel.m in Sources */,
 				A434C6091B71DB22009643CD /* ColleaguesInformationController.m in Sources */,
 				A43F86331B7453D30086D078 /* optionsView.m in Sources */,
 				A43F863E1B748B210086D078 /* UITextView+PlaceHolder.m in Sources */,
@@ -5917,6 +5933,7 @@
 					"$(PROJECT_DIR)/app/Classes/Vendors/EaseMobSDK/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.donler.warm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5949,6 +5966,7 @@
 					"$(PROJECT_DIR)/app/Classes/Vendors/EaseMobSDK/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.donler.warm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

@@ -33,7 +33,11 @@ static AttentionViewController *att = nil;
     [self loadLocalData];
     [self requestNet];
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self requestNet];
+}
 + (AttentionViewController *)shareInsten
 {
     static dispatch_once_t once;

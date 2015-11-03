@@ -37,9 +37,10 @@ static NSNumber *myNum;
 @implementation GroupViewController
 
 - (void)viewDidLoad {
+    
     myNum = [NSNumber numberWithInteger:1];
     [super viewDidLoad];
-    
+    [self getRequestDataAndPage:[NSNumber numberWithInteger:1]];
     self.title = @"社团列表";
     self.modelArray = [NSMutableArray array];
     [self reloadLibraryFile];
@@ -250,7 +251,18 @@ static NSNumber *myNum;
 {
     return CGSizeMake(DLMultipleWidth(111.0), DLMultipleHeight(126.0));
 }
-
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+//{
+//    NSArray *array = [self.groupListCollection indexPathsForVisibleItems];
+//    for (NSIndexPath *indexPath in array) {
+//        NSLog(@"%@", indexPath);
+//        GroupCardViewCell *cell = [self.groupListCollection dequeueReusableCellWithReuseIdentifier:@"groupCardCell" forIndexPath:indexPath];
+//        if (!cell.groupIntroLabel.text) {
+//        GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
+//        [cell cellReconsitutionWithModel:model];
+//        }
+//    }
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -262,9 +274,12 @@ static NSNumber *myNum;
         GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
         
 //        NSLog(@" model 的 logo 为  %@", model.logo);
-    
-        [cell cellReconsitutionWithModel:model];
+//    if (self.groupListCollection.dragging == NO && self.groupListCollection.decelerating == NO) {
         
+        [cell cellReconsitutionWithModel:model];
+//    }
+    
+    
         return cell;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -303,8 +318,7 @@ static NSNumber *myNum;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    [self getRequestDataAndPage:[NSNumber numberWithInteger:1]];
+//    [self getRequestDataAndPage:[NSNumber numberWithInteger:1]];
 }
 
 - (void)newAction

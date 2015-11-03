@@ -746,27 +746,13 @@ static NSString *kGroupName = @"GroupName";
  * 当前用户退出时，清空环信本地消息
  */
 - (void)cleanEaseMob{
+    [[EaseMob sharedInstance].chatManager removeAllConversationsWithDeleteMessages:YES append2Chat:YES];
     //退出环信
     [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
         if (!error && info) {
             NSLog(@"退出成功");
         }
     } onQueue:nil];
-    
-    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-    NSMutableArray *needRemoveConversations;
-    for (EMConversation *conversation in conversations) {
-        if (!needRemoveConversations) {
-            needRemoveConversations = [[NSMutableArray alloc] initWithCapacity:0];
-        }
-        [needRemoveConversations addObject:conversation.chatter];
-    }
-    
-    if (needRemoveConversations && needRemoveConversations.count > 0) {
-        [[EaseMob sharedInstance].chatManager removeConversationsByChatters:needRemoveConversations
-                                                             deleteMessages:YES
-                                                                append2Chat:NO];
-    }
 }
 //退出登录，此时只是本地界面跳转至登录界面，退出环信
 //不可以退出warm，否则后一登陆用户的token会被清空
@@ -792,6 +778,8 @@ static NSString *kGroupName = @"GroupName";
     //清空缓存图片
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDisk];
+    [[ChatListViewController shareInstan].dataSource removeAllObjects];
+    [[AttentionViewController shareInsten].modelArray removeAllObjects];
 }
 - (void)didRemovedFromServer
 {

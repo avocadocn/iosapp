@@ -407,8 +407,13 @@
 }
 
 - (void)refreshMJ {
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(netRequest)];
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
     self.BigCollection.header = header;
 }
+- (void)refresh{
+    [self netRequest];
+    [self getRequestNet];
+    [self getBrithdayNet];
 
+}
 @end

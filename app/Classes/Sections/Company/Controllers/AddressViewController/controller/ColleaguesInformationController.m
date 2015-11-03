@@ -21,10 +21,11 @@
 #import "RestfulAPIRequestTool.h"
 #import "AttentionViewController.h"
 #import "UIImageView+DLGetWebImage.h"
+#import "ReportViewController.h"
 
 static NSInteger tagNum = 1;
 
-@interface ColleaguesInformationController ()<UIScrollViewDelegate>
+@interface ColleaguesInformationController ()<UIScrollViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong)UIView *naviView;
 @property (nonatomic, strong)UIButton *backBtn;
 @property (nonatomic, strong)UIButton *settingBtn;
@@ -40,7 +41,7 @@ static NSInteger tagNum = 1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self addReportItem];
     self.view.backgroundColor = RGBACOLOR(238, 238, 240, 1);
     tagNum = 1;
     
@@ -69,6 +70,28 @@ static NSInteger tagNum = 1;
     }
     
     [self builtInterfaceWithNameArray:titleNameArray imageArray:imageArray andrect:CGRectMake(0, 0, num, num * 1.85) andCenterY: centerY];
+}
+- (void)addReportItem
+{
+    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [clearButton setImage:[UIImage imageNamed:@"navigationbar_more"] forState:UIControlStateNormal];
+    [clearButton setImage:[UIImage imageNamed:@"navigationbar_more_highlighted"] forState:UIControlStateHighlighted];
+    [clearButton addTarget:self action:@selector(reportDanger) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
+}
+- (void)reportDanger
+{
+    NSLog(@"report clicked");
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"举报" message:@"是否举报？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    [alert show];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1) {
+        ReportViewController* r = [[ReportViewController alloc] initWithNibName:@"ReportViewController" bundle:nil];
+        r.model = self.model;
+        [self.navigationController pushViewController:r animated:YES];
+    }
 }
 - (void)setModel:(AddressBookModel *)model
 {
