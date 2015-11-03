@@ -681,7 +681,7 @@
 		A44D404D1B7368EA00B10DFB /* EventRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A44D404C1B7368EA00B10DFB /* EventRemindCell.m */; };
 		A44D404E1B7374DE00B10DFB /* VoteCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A06461B732578007BA757 /* VoteCellFrame.m */; };
 		A44D40511B73800800B10DFB /* IndexpathButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A44D40501B73800800B10DFB /* IndexpathButton.m */; };
-		A44E844F1BE7650500EDA54B /* cemera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A44E844E1BE7650500EDA54B /* cemera.jpg */; settings = {ASSET_TAGS = (); }; };
+		A44E844F1BE7650500EDA54B /* cemera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A44E844E1BE7650500EDA54B /* cemera.jpg */; };
 		A450560D1B608F250075E39D /* CardChooseView.m in Sources */ = {isa = PBXBuildFile; fileRef = A450560C1B608F250075E39D /* CardChooseView.m */; };
 		A450561D1B60EF980075E39D /* RankItemLayoutAttr.m in Sources */ = {isa = PBXBuildFile; fileRef = A450561C1B60EF980075E39D /* RankItemLayoutAttr.m */; };
 		A450561E1B60F00F0075E39D /* RankItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9612CFCF1B5F5E7900F7DE60 /* RankItemCell.m */; };
@@ -823,6 +823,7 @@
 		E2CB7D5F1BE702FD0088E044 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CB7D5D1BE702FD0088E044 /* ReportViewController.m */; };
 		E2CB7D601BE702FD0088E044 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2CB7D5E1BE702FD0088E044 /* ReportViewController.xib */; };
 		E2D131501B9EE94100BE559C /* getTemplateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D1314F1B9EE94100BE559C /* getTemplateModel.m */; };
+		E2D52AEB1BE89C4800995C66 /* UIImage+DLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E2D52AEA1BE89C4800995C66 /* UIImage+DLExtension.m */; };
 		E2F49FD71BCBB6C0002709E7 /* GroupCardViewTransmitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C954C51BCB5DED0073E5FA /* GroupCardViewTransmitCell.m */; };
 		E2F674B31BE344B900CB3304 /* UILabel+FitContent.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F674B21BE344B900CB3304 /* UILabel+FitContent.m */; };
 /* End PBXBuildFile section */
@@ -2141,6 +2142,8 @@
 		E2CB7D5E1BE702FD0088E044 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
 		E2D1314E1B9EE94100BE559C /* getTemplateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getTemplateModel.h; sourceTree = "<group>"; };
 		E2D1314F1B9EE94100BE559C /* getTemplateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTemplateModel.m; sourceTree = "<group>"; };
+		E2D52AE91BE89C4800995C66 /* UIImage+DLExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DLExtension.h"; sourceTree = "<group>"; };
+		E2D52AEA1BE89C4800995C66 /* UIImage+DLExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DLExtension.m"; sourceTree = "<group>"; };
 		E2F674B11BE344B900CB3304 /* UILabel+FitContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+FitContent.h"; sourceTree = "<group>"; };
 		E2F674B21BE344B900CB3304 /* UILabel+FitContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FitContent.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2539,6 +2542,8 @@
 				9649B5081B564DE000A7F355 /* PrefixHeader.pch */,
 				54E6A9321BBA3E5C003765AF /* GIFHUDPlus.h */,
 				54E6A9331BBA3E5C003765AF /* GIFHUDPlus.m */,
+				E2D52AE91BE89C4800995C66 /* UIImage+DLExtension.h */,
+				E2D52AEA1BE89C4800995C66 /* UIImage+DLExtension.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -5760,6 +5765,7 @@
 				96CF938E1B674B54001759E2 /* EMChatImageBubbleView.m in Sources */,
 				A449B21D1BD794F80033A387 /* DLLoading.m in Sources */,
 				54B46A051B9547C000A6500B /* InvatingModel.m in Sources */,
+				E2D52AEB1BE89C4800995C66 /* UIImage+DLExtension.m in Sources */,
 				A44B35691B831DA4004F7A6A /* PasswordView.m in Sources */,
 				96CF90DF1B673422001759E2 /* PSTCollectionViewItemKey.m in Sources */,
 				96C9FFB91B73760B008B71CE /* HelpCellFrame.m in Sources */,
