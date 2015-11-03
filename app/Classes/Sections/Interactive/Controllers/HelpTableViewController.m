@@ -123,7 +123,7 @@ static NSString * const ID = @"HelpTableViewCell";
     Interaction *model = [[Interaction alloc]init];
     [model setInteractionType:@3];
     [model setInteractionId:self.model.interactionId];
-    [model setLimit:@5];
+    [model setLimit:@10];
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self loadDataWithJson:json];
@@ -314,7 +314,7 @@ static NSString * const ID = @"HelpTableViewCell";
     [model setInteractionType:@3];
     [model setInteractionId:self.model.interactionId];
     [model setCreateTime:cmodel.createTime];
-    [model setLimit:@5];
+    [model setLimit:@10];
     [RestfulAPIRequestTool routeName:@"getCommentsLists" requestModel:model useKeys:@[@"interactionType",@"interactionId",@"limit",@"createTime"] success:^(id json) {
         NSLog(@"请求评论列表成功 %@",json);
         [self detalNewDataWithJson:json];
