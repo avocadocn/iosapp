@@ -17,10 +17,10 @@
 #import "RestfulAPIRequestTool.h"
 #include "Interaction.h"
 #import "XHMessageTextView.h"
-#import <DGActivityIndicatorView.h>
 //#import "UITextView+PlaceHolder.h"
 @interface PublishSeekHelp ()<DNImagePickerControllerDelegate,UIAlertViewDelegate>
-@property (nonatomic, strong) DGActivityIndicatorView *activityIndicatorView;
+
+@property (nonatomic, assign) BOOL orClick; // 是否点击选择照片
 @end
 
 @implementation PublishSeekHelp
@@ -37,18 +37,6 @@
     }
 }
 
-- (void)loadingImageView {
-    
-    DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeFiveDots tintColor:RGBACOLOR(253, 185, 0, 1) size:40.0f];
-    activityIndicatorView.frame = CGRectMake(DLScreenWidth / 2 - 40, DLScreenHeight / 2 - 40, 80.0f, 80.0f);
-    activityIndicatorView.backgroundColor = RGBACOLOR(132, 123, 123, 0.52);
-    self.activityIndicatorView = activityIndicatorView;
-    [activityIndicatorView.layer setMasksToBounds:YES];
-    [activityIndicatorView.layer setCornerRadius:10.0];
-    [self.activityIndicatorView startAnimating];
-    [self.view addSubview:activityIndicatorView];
-    
-}
 
 
 - (void)setSeekContent
@@ -118,6 +106,8 @@
 
 - (void)selectPhotoAction:(UITapGestureRecognizer *)tap
 {
+    self.orClick = YES;
+    
     DNImagePickerController *choose = [[DNImagePickerController alloc]init];
     
     choose.allowSelectNum = 1;
@@ -162,7 +152,7 @@
 {
     [self.view endEditing:YES];
     if (self.seekHelpContent.text.length != 0) {
-        [self loadingImageView];
+
         [self marchingPublish];
     } else {
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"提示" message:@"求助内容不能为空" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
@@ -170,32 +160,41 @@
     }
 }
 - (void)marchingPublish {
-    NSData *data = UIImagePNGRepresentation(self.selectPhoto.image);
-    NSDictionary *Dic = [NSDictionary dictionaryWithObjects:@[data, @"photo"] forKeys:@[@"data", @"name"]];
-    
     Interaction *inter = [[Interaction alloc]init];
     Account *acc = [AccountTool account];
+
+    if (self.orClick == YES) {
+        NSData *data = UIImagePNGRepresentation(self.selectPhoto.image);
+        NSDictionary *Dic = [NSDictionary dictionaryWithObjects:@[data, @"photo"] forKeys:@[@"data", @"name"]];
+        [inter setPhoto:@[Dic]];
+    } else {
+        self.selectPhoto.image = [UIImage imageNamed:@"placeholder"];
+        NSData *data = UIImagePNGRepresentation(self.selectPhoto.image);
+        NSDictionary *Dic = [NSDictionary dictionaryWithObjects:@[data, @"photo"] forKeys:@[@"data", @"name"]];
+        [inter setPhoto:@[Dic]];
+    }
     [inter setTarget:acc.cid];
     [inter setTargetType:@3];
     [inter setType:@3];
     [inter setLocation:@"上海"];
     [inter setContent:self.seekHelpContent.text];
-    [inter setPhoto:@[Dic]];
+
     [inter setTheme:@"求助"];
     
     [RestfulAPIRequestTool routeName:@"sendInteraction" requestModel:inter useKeys:@[@"type", @"target", @"relatedTeam", @"targetType", @"templateId", @"inviters",@"photo", @"theme", @"content", @"endTime", @"startTime", @"deadline", @"remindTime", @"activityMold", @"location", @"latitude", @"longitude", @"memberMax", @"memberMin", @"option", @"tags"] success:^(id json) {
         NSLog(@"发布求助成功 %@", json);
-        [self.activityIndicatorView removeFromSuperview];
+    
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布成功"message:@"少年郎,你的求助已经发布成功了,好好准备吧..." delegate:self cancelButtonTitle:nil otherButtonTitles:@"好的", nil];
         [alertV show];
     } failure:^(id errorJson) {
         NSLog(@"发布求助失败 %@", errorJson);
         UIAlertView *alertV = [[UIAlertView alloc] initWithTitle:@"发布失败" message:[errorJson objectForKey:@"msg"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"再试一次", nil];
-        [self.activityIndicatorView removeFromSuperview];
+      
         [alertV show];
         
     }];
 }
+
 #pragma UIAlertView delegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
@@ -218,7 +217,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.activityIndicatorView removeFromSuperview];
+
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];

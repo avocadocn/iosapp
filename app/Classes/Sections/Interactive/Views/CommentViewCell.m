@@ -69,7 +69,7 @@
         //    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
         ////
         //    // 设置昵称
-        self.name.text = p.name;
+        self.name.text = p.nickName;
         // 设置评论正文
         self.comment.text = model.content;
         

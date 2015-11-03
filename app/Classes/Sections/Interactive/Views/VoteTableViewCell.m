@@ -18,6 +18,8 @@
 #import "UIImageView+DLGetWebImage.h"
 #import "Interaction.h"
 #import "UILabel+DLTimeLabel.h"
+#import "Account.h"
+#import "AccountTool.h"
 @interface VoteTableViewCell()
 
 /**
@@ -63,6 +65,9 @@
 @property (nonatomic, strong)VoteInfoModel *infoModel;
 
 @property (nonatomic, strong) UILabel *numberLabel;
+
+@property (nonatomic, strong)  VoteInfoModel *model1;
+
 @end
 
 @implementation VoteTableViewCell
@@ -258,7 +263,9 @@
     self.infoModel = voteCellFrame.voteInfoModel;
     self.interactionId = model.interactionId;
     [self.avatarImageView setFrame:voteCellFrame.avatarImageViewF];
+
     [self.avatarImageView dlGetRouteThumbnallWebImageWithString:model.avatarURL placeholderImage:nil withSize:self.avatarImageView.size];
+
     self.nameLabel.text = model.name;
     [self.nameLabel setFrame:voteCellFrame.nameLabelF];
     
@@ -285,7 +292,7 @@
     [self.voteContentLabel setFrame:voteCellFrame.voteContentLabelF];
     
 //     已投票人数
-
+    self.model1 = model;
     self.numberLabel.text = [NSString stringWithFormat:@"%ld",model.voteCount];
     
     
@@ -308,8 +315,9 @@
 //        [self.voteInfosBtn setTitle:@"已投票" forState: UIControlStateNormal];
 //    }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setVoteTitle) name:@"Vote" object:nil];    //  接受跳转通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle) name:@"CHANGESTATE" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setVoteTitle:) name:@"Vote" object:nil];    //  接受跳转通知
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(setVoteTitle:) name:@"CHANGESTATE" object:nil];
 }
 - (void)haveVote:(UITapGestureRecognizer *)tap {
     VoteInfoTableViewController *controller = [[VoteInfoTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
@@ -322,8 +330,20 @@
 
 }
 
-- (void)setVoteTitle
+- (void)setVoteTitle:(NSNotification *)notice
 {
+    Account *account = [AccountTool account];
+    for (NSDictionary *dic in self.infoModel.model.option) {
+        NSInteger str = (NSInteger)dic[@"index"];
+        NSInteger index =  (NSInteger)[notice.userInfo objectForKey:@"index"];
+        if (str == index) {
+            NSMutableArray *arry = dic[@"voters"];
+            NSDictionary *modelDic = [NSDictionary dictionaryWithObject:account.ID forKey:@"_id"];
+            [arry addObject:modelDic];
+        }
+    }
+    self.numberLabel.text = [NSString stringWithFormat:@"%ld",self.model1.voteCount + 1];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"REFRESSDATA" object:nil];
 }
 

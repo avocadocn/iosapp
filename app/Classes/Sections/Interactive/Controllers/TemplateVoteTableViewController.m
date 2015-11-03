@@ -20,7 +20,6 @@
 #import "RestfulAPIRequestTool.h"
 #import "TemplateVoteTableViewCell.h"
 #import <MJRefresh.h>
-#import <DGActivityIndicatorView.h>
 
 @interface TemplateVoteTableViewController ()
 
