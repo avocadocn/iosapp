@@ -110,19 +110,8 @@
 {
     [self.phoneNumber.textfield resignFirstResponder];
     [self.password.textfield resignFirstResponder];
-    /*
-    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
     
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    
-    BOOL isMatch = [pred evaluateWithObject:self.phoneNumber.textfield.text];
-    */
-    /*
-    if (!isMatch) {
-        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"手机号不正确啊少年" contentText:nil leftButtonTitle:@"修改" rightButtonTitle:nil];
-        [alert show];
-    } else {  */
-        NSString *phoneStr = [NSString stringWithFormat:@"+86 %@", [self addPhoneNumberWithNumString:self.phoneNumber.textfield.text]];
+    NSString *phoneStr = [NSString stringWithFormat:@"+86 %@", [self addPhoneNumberWithNumString:self.phoneNumber.textfield.text]];
     DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"我们将发送验证码到该手机" contentText:phoneStr leftButtonTitle:@"修改" rightButtonTitle:@"确认"];
     [alert show];
     
@@ -131,7 +120,7 @@
         [SMS_SDK getVerificationCodeBySMSWithPhone:self.phoneNumber.textfield.text
                                               zone:str2
                                             result:^
-(SMS_SDKError *error)
+         (SMS_SDKError *error)
          {
              if (!error)
              {
@@ -154,8 +143,6 @@
                  [alert show];
              }
          }];
-
-        
     };
    /* }*/
 //    alert.leftBlock = ^(){

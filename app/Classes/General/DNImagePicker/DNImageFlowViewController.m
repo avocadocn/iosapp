@@ -170,14 +170,20 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 - (void)removeAssetsObject:(ALAsset *)asset
 {
     if ([self assetIsSelected:asset]) {
-        ALAssetsLibrary *lib = [ALAssetsLibrary new];
-        DNAsset *dnasset = [self dnassetFromALAsset:asset];
-        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
-            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-            [self.photoArray removeObject:aImage];
-        } failureBlock:^(NSError *error) {
-            
-        }];
+        /*
+//        ALAssetsLibrary *lib = [ALAssetsLibrary new];
+//        DNAsset *dnasset = [self dnassetFromALAsset:asset];
+//        [lib assetForURL:dnasset.url resultBlock:^(ALAsset *asset) {
+//            UIImage *aImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+//            NSArray *array = [NSArray arrayWithObject:aImage];
+//            [self.photoArray removeObjectsInArray:array];
+//            
+//        } failureBlock:^(NSError *error) {
+//            
+//        }];
+//      */
+        NSInteger index = [self.selectedAssetsArray indexOfObject:asset];
+        [self.photoArray removeObjectAtIndex:index];
         [self.selectedAssetsArray removeObject:asset];
     }
 }
@@ -281,7 +287,9 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
         [UIView animateWithDuration:.5 animations:^{
             
         } completion:^(BOOL finished) {
-            [imagePicker.imagePickerDelegate dnImagePickerController:imagePicker sendImages:self.photoArray isFullImage:self.isFullImage];// 选取完成 发送图片
+            [imagePicker.imagePickerDelegate dnImagePickerController:imagePicker sendImages:self.photoArray isFullImage:self.isFullImage];
+            
+            NSLog(@"选取完成 发送图片");
             
         }];
     }
