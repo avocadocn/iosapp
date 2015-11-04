@@ -96,21 +96,23 @@
 //直接使用第三方库的缓存
 - (void)dlGetWebImageWithDefaultCacheWithUrl:(NSURL *)url placeholderImage:(UIImage *)image withSize:(CGSize)size andHaveBlur:(BOOL)haveBlur
 {
-    if (haveBlur) {
-        UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-        UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
-        effectview.x = 0;
-        effectview.y = 0;
-        effectview.width = size.width+10;
-        effectview.height = size.height +10;
-        effectview.alpha = 0.7;
-        [self addSubview:effectview];
-    }
-    
-    [self sd_setImageWithURL:url placeholderImage:image options:USE_SDWebImageProgressiveDownload?SDWebImageProgressiveDownload:0|SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]]) {
         if (haveBlur) {
-            [self cleanTheMask];
+            UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+            UIVisualEffectView *effectview = [[UIVisualEffectView alloc] initWithEffect:blur];
+            effectview.x = 0;
+            effectview.y = 0;
+            effectview.width = size.width+10;
+            effectview.height = size.height +10;
+            effectview.alpha = 0.7;
+            [self addSubview:effectview];
         }
+    }
+    [self sd_setImageWithURL:url placeholderImage:image options:USE_SDWebImageProgressiveDownload?SDWebImageProgressiveDownload:0|SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (!image) {
+            return ;
+        }
+        [self cleanTheMask];
         //请求图片成功后，直接保存，不再等待异步保存
         if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]]) {
             [[SDImageCache sharedImageCache] storeImage:image forKey:[url absoluteString]];
@@ -125,7 +127,7 @@
     NSString *newUrlStr = [self getUrlStringWithString:str];
     
     NSString *newStr = [newUrlStr  stringByAppendingString:[NSString stringWithFormat:@"/%d/%d", (int)size.width*[self BitmapScale], (int)size.height*[self BitmapScale]]];
-    [self sd_setImageWithURL:[NSURL URLWithString:newStr] placeholderImage:image completed:
+    [self sd_setImageWithURL:[NSURL URLWithString:newStr] placeholderImage:[[UIImage imageNamed:@"placeholder"] circleImage] completed:
      ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
          // 如果图片下载失败，就不做任何处理，按照默认的做法：会显示占位图片
          if (image == nil) return;
