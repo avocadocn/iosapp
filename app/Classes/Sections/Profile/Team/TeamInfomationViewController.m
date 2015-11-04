@@ -334,7 +334,7 @@ static NSString * const memberCell = @"memberCell";
                     //主动推出群
                     FMDBSQLiteManager* fmdb=[FMDBSQLiteManager shareSQLiteManager];
                     Group* g = [fmdb selectGroupWithGroupId:self.detilemodel.ID];
-                    [[EaseMob sharedInstance].chatManager asyncLeaveGroup:g.easemobID];
+//                    [[EaseMob sharedInstance].chatManager asyncLeaveGroup:g.easemobID];
                     //去掉聊天会话中得会话
                     ChatListViewController *chat = [ChatListViewController shareInstan];
                     [chat removeConversion:g.easemobID];
