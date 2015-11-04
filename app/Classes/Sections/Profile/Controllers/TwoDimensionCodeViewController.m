@@ -22,9 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码";
+
+    Account *account = [AccountTool account];
+    Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];
     self.view.backgroundColor = RGBACOLOR(237, 237, 237, 1);
     // Do any additional setup after loading the view, typically from a nib.
-    UIImage *qrcode = [self createNonInterpolatedUIImageFormCIImage:[self createQRForString:@"https://itunes.apple.com/cn/app/dong-li/id916162839?mt=8"] withSize:250.0f];
+    UIImage *qrcode = [self createNonInterpolatedUIImageFormCIImage:[self createQRForString:[NSString stringWithFormat:@"http://www.55yali.com/signup?cid=%@&uid=%@",account.ID,account.cid]] withSize:250.0f];
     UIImage *customQrcode = [self imageBlackToTransparent:qrcode withRed:60.0f andGreen:74.0f andBlue:89.0f];
     self.twoDismensionCodeImage.image = customQrcode;
     // set shadow
@@ -32,19 +35,19 @@
     self.twoDismensionCodeImage.layer.shadowRadius = 2;
     self.twoDismensionCodeImage.layer.shadowColor = [UIColor blackColor].CGColor;
     self.twoDismensionCodeImage.layer.shadowOpacity = 0.5;
-    [self buildInterface];
+    [self buildInterfaceWithPerson:p];
 }
-- (void)buildInterface {
+- (void)buildInterfaceWithPerson:(Person *)p {
     self.colorView.backgroundColor = RGBACOLOR(255, 214, 0, 1);
-    Account *account = [AccountTool account];
-    Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];
     self.nameLabel.text = p.nickName;
     if (p.companyName.length != 0) {
         self.companyLabel.text = [p.companyName substringFromIndex:3];
     }
     self.photoImage.layer.masksToBounds = YES;
     self.photoImage.layer.cornerRadius = 25;
-    [self.photoImage dlGetRouteWebImageWithString:p.imageURL placeholderImage:nil];
+//    [self.photoImage dlGetRouteWebImageWithString:p.imageURL placeholderImage:nil];
+    [self.photoImage dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
+
 }
 
 - (void)didReceiveMemoryWarning {

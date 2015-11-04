@@ -42,20 +42,28 @@
     
     NSDictionary *dic = [NSDictionary dictionaryWithObject:self.model.team forKey:@"groupId"];
     [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:dic useKeys:@[@"groupId"] success:^(id json) {
-        
-        NSDictionary *group = [json objectForKey:@"group"];
+        @try {
+            NSDictionary *group = [json objectForKey:@"group"];
             self.GroupName.text = group[@"name"];
             [self.GroupLogo dlGetRouteThumbnallWebImageWithString:group[@"logo"] placeholderImage:nil withSize:CGSizeMake(109, 157)];
-        Account *acc = [AccountTool account];
-        
-        for (NSDictionary *mem in group[@"member"]) {
-            NSString *ID = mem[@"_id"];
-            if ([ID isEqualToString:acc.ID]) {
-                self.AgreeLabel.text = [NSString stringWithFormat:@"已加入%@", group[@"name"]];
-                self.AgreeLabel.userInteractionEnabled = NO;
-                self.AgreeLabel.backgroundColor = RGBACOLOR(213, 213, 213, 1);
+            Account *acc = [AccountTool account];
+            
+            for (NSDictionary *mem in group[@"member"]) {
+                NSString *ID = mem[@"_id"];
+                if ([ID isEqualToString:acc.ID]) {
+                    self.AgreeLabel.text = [NSString stringWithFormat:@"已加入%@", group[@"name"]];
+                    self.AgreeLabel.userInteractionEnabled = NO;
+                    self.AgreeLabel.backgroundColor = RGBACOLOR(213, 213, 213, 1);
+                }
             }
         }
+        @catch (NSException *exception) {
+            
+        }
+        @finally {
+            
+        }
+        
         
     } failure:^(id errorJson) {
         
