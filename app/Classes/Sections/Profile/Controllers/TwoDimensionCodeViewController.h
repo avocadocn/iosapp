@@ -14,5 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *companyLabel;
 @property (strong, nonatomic) IBOutlet UIView *colorView;
+@property (strong, nonatomic) IBOutlet UIView *WhiteSuperView;
 
 @end

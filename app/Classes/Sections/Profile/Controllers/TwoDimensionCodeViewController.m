@@ -12,17 +12,23 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "UIImageView+DLGetWebImage.h"
+#define IS_IPHONE_4_SCREEN [[UIScreen mainScreen] bounds].size.height >= 480.0f && [[UIScreen mainScreen] bounds].size.height < 568.0f
 @interface TwoDimensionCodeViewController ()
 
 @end
 
 @implementation TwoDimensionCodeViewController
-// 用户邀请 www.55yali.com/signup?uid=xxxxxxxx
+// 用户邀请: http://www.55yali.com/signup?cid=xxx&uid=xxx
 // 学校二维码邀请：www.55yali.com/signup?cid=xxxxxxxxx
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码";
-
+    if (IS_IPHONE_4_SCREEN) {
+//        NSLog(@"===%f%f%f%f",self.WhiteSuperView.y,self.WhiteSuperView.x,self.WhiteSuperView.width,self.WhiteSuperView.height);
+        
+    } else {
+        
+    }
     Account *account = [AccountTool account];
     Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];
     self.view.backgroundColor = RGBACOLOR(237, 237, 237, 1);

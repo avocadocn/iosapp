@@ -139,7 +139,7 @@
             [self.modelArray removeObjectAtIndex:indexPath.row];
             // Delete the row from the data source.
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            
+//            [tableView reloadData];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadMemberTableView" object:nil userInfo:dic];
             
             
@@ -148,6 +148,7 @@
             [al show];
             NSLog(@"成员移除失败  %@", errorJson);
         }];
+
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
