@@ -68,7 +68,9 @@
     
     self.selectPhoto = [UIImageView new];
     self.selectPhoto.userInteractionEnabled = YES;
-    //    self.selectPhoto.contentMod = UIViewContentModeCenter;
+    self.selectPhoto.clipsToBounds = YES;
+
+    [self.selectPhoto setContentMode:UIViewContentModeScaleAspectFit];
     self.selectPhoto.image = [UIImage imageNamed:@"vote-camera"];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectPhotoAction:)];
     [self.selectPhoto addGestureRecognizer:tap];
@@ -77,7 +79,7 @@
     [self.selectPhoto mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.seekHelpContent.mas_bottom).offset(DLMultipleHeight(50.0));
         make.left.mas_equalTo(bigView.mas_left).offset(DLMultipleWidth(15.0));
-        make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(60.0), DLMultipleWidth(45.0)));
+        make.size.mas_equalTo(CGSizeMake(DLMultipleWidth(45.0), DLMultipleWidth(45.0)));
     }];
     
     UIView *lastLineView = [UIView new];
@@ -124,6 +126,7 @@
 //    } failureBlock:^(NSError *error) {
 //        
 //    }];
+    [self.selectPhoto setContentMode:UIViewContentModeScaleAspectFill];
 }
 
 

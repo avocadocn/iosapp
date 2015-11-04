@@ -60,8 +60,8 @@
     // Initialization code
     
     
-    [self.avatar.layer setCornerRadius:self.avatar.width / 2.0];
-    self.avatar.layer.masksToBounds = YES;
+//    [self.avatar.layer setCornerRadius:self.avatar.width / 2.0];
+//    self.avatar.layer.masksToBounds = YES;
     
     // 设置背景色为主题色
     [self.separator setBackgroundColor:RGB(235, 235, 235)];
@@ -74,7 +74,8 @@
     self.peopleCountLabel.text = [NSString stringWithFormat:@"参加:%ld",model.members.count];
     Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.poster[@"_id"]];
     self.nameLabel.text = person.nickName;
-    [self.avatar dlGetRouteThumbnallWebImageWithString:person.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)];
+//    [self.avatar dlGetRouteThumbnallWebImageWithString:person.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)];
+    [self.avatar setCircleHeaderWithString:person.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)];
     switch ([model.type integerValue]) {
         case 1:{
             self.InteractiveText.text = model.theme;

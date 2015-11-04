@@ -59,8 +59,7 @@
     self.searchBar.delegate = self;
     [self.view addSubview:self.searchBar];
 //     中间地图
-    [MAMapServices sharedServices].apiKey = @"4693df7c11ba3ba2cc58e44e8666134f";
-    
+    [MAMapServices sharedServices].apiKey = AMAP_APPKEY;
     
     locationManager =[[CLLocationManager alloc] init];
     // fix ios8 location issue
@@ -112,7 +111,7 @@
 #pragma search
 
 - (void)buildSearchWithText:(NSString *)text orTrue:(BOOL)orTrue coordinate:(CLLocationCoordinate2D)coordinate {
-    _search = [[AMapSearchAPI alloc] initWithSearchKey:@"4693df7c11ba3ba2cc58e44e8666134f" Delegate:self];
+    _search = [[AMapSearchAPI alloc] initWithSearchKey:AMAP_APPKEY Delegate:self];
     
 //  逆地理编码
     AMapReGeocodeSearchRequest *regeoRequest = [[AMapReGeocodeSearchRequest alloc] init];
@@ -129,7 +128,7 @@
 }
 
 - (void)marchingPOISearch {
-     _search = [[AMapSearchAPI alloc] initWithSearchKey:@"4693df7c11ba3ba2cc58e44e8666134f" Delegate:self];
+     _search = [[AMapSearchAPI alloc] initWithSearchKey:AMAP_APPKEY Delegate:self];
     //  POI搜索
     
     //构造 AMapPlaceSearchRequest 对象,配置关键字搜索参数

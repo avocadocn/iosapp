@@ -32,4 +32,10 @@
  * 请求本地缓存的图片
  */
 - (void)dlGetLocalImageWithUrl:(NSString *)url size:(CGSize)size completed:(SDWebImageCompletionBlock)completedBlock;
+
+/**
+ * 设置头像
+ */
+- (void)setCircleHeaderWithString:(NSString *)str placeholderImage:(UIImage *)image withSize:(CGSize)size;
+
 @end

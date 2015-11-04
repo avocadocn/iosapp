@@ -675,7 +675,8 @@ static ChatListViewController *chat = nil;
 - (void)getGroup
 {
     Account *acc= [AccountTool account];
-    [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
+    NSDictionary* data = [[NSDictionary alloc] initWithObjects:@[acc.ID,@0] forKeys:@[@"userId",@"limit"]];
+    [RestfulAPIRequestTool routeName:@"getGroupList" requestModel:data useKeys:@[@"userId",@"limit"] success:^(id json) {
         [self analyDataWithJson:json];
 //        NSLog(@"success:-->%@",json);
     } failure:^(id errorJson) {
