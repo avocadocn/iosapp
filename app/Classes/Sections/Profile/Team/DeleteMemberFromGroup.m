@@ -40,7 +40,7 @@
     
     [self.view addSubview:self.myTableView];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadDataAction:) name:@"ReloadMemberTableView" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadDataAction:) name:@"ReloadInsertMemberTableView" object:nil];
     
 }
 
@@ -138,9 +138,11 @@
             
             [self.modelArray removeObjectAtIndex:indexPath.row];
             // Delete the row from the data source.
+            
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadMemberTableView" object:nil userInfo:dic];
+            [self.myTableView reloadData];
             
             
         } failure:^(id errorJson) {

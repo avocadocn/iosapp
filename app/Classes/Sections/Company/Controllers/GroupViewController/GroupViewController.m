@@ -297,7 +297,9 @@ static NSNumber *myNum;
     
     if (indexPath.row < self.modelArray.count) {
         GroupCardModel *model = [self.modelArray objectAtIndex:indexPath.row];
-        
+        if (self.groupType == GroupTypeSingle) {
+            model.isMember = [NSNumber numberWithInt:1];
+        }
         [model setAllInfo:YES];
         
         TeamHomePageController *groupDetile = [[TeamHomePageController alloc]init];

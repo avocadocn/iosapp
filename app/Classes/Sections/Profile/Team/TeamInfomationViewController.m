@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger, GroupIdentity) {
 
 /**
  *是否为群主
-*/
+ */
 @property (nonatomic, assign)GroupIdentity state;
 
 
@@ -97,6 +97,7 @@ static NSString * const memberCell = @"memberCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpAction:) name:@"JumpToFolderController" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableview:) name:@"ReloadMemberTableView" object:nil];
+    
 }
 
 - (void)jumpAction:(NSNotification *)userInfo
@@ -124,7 +125,7 @@ static NSString * const memberCell = @"memberCell";
     layout.itemSize = CGSizeMake(self.itemWH, self.itemWH);
     layout.minimumInteritemSpacing = cellSpacing;
     layout.minimumLineSpacing = lineSpacing;
-
+    
     CGFloat collectionHeight = lineCount * self.itemWH + (lineCount - 1) * lineSpacing;
     self.collectionHeight = collectionHeight;
     self.defaultMemberCell.iconCollectionView.height = collectionHeight;
@@ -143,7 +144,16 @@ static NSString * const memberCell = @"memberCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 2;
+    
+    Account *Acc = [AccountTool account];
+    NSLog(@"群成员有 %@", self.detilemodel.member);
+    for (NSDictionary *tempDic in self.detilemodel.member) {
+        if ([tempDic[@"_id"] isEqualToString:Acc.ID]) {
+            return 2;
+        }
+    }
+    
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -187,21 +197,21 @@ static NSString * const memberCell = @"memberCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     UITableViewCell *cell;
-    
+    Account *Acc = [AccountTool account];
     switch (self.state) {
         case GroupIdentityFlock:
         {
             if (indexPath.section == 0) {
                 cell = [tableView dequeueReusableCellWithIdentifier:settingCell];
-//                if (!cell) {
-                    cell =  [[CustomMarginSettingTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:settingCell];
-                    [cell.textLabel setText:@"设置"];
-                    [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
-                    [cell.detailTextLabel setText:@"群主"];
-                    [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
-                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-                    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-//                }
+                //                if (!cell) {
+                cell =  [[CustomMarginSettingTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:settingCell];
+                [cell.textLabel setText:@"设置"];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
+                [cell.detailTextLabel setText:@"群主"];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
+                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                //                }
             } else if (indexPath.section == 1){
                 cell = [tableView dequeueReusableCellWithIdentifier:memberCell forIndexPath:indexPath];
                 [(CustomMemberTableViewCell *)cell setMemberInfos:self.memberInfos];
@@ -223,25 +233,13 @@ static NSString * const memberCell = @"memberCell";
         {
             if (indexPath.section == 1) {
                 cell = [tableView dequeueReusableCellWithIdentifier:settingCell];
-//                if (!cell) {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:settingCell forIndexPath:indexPath];
+                [cell.textLabel setText:@"退出此群"];
                 
-                    /*
-                    cell =  [[CustomMarginSettingTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:settingCell];
-                    [cell.textLabel setText:@"退出此群"];
-                    [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
-//                    [cell.detailTextLabel setText:@"群主"];
-//                    [cell.detailTextLabel setFont:[UIFont systemFontOfSize:12]];
-//                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-                    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-                     */
-                    
-                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:settingCell forIndexPath:indexPath];
-                    [cell.textLabel setText:@"退出此群"];
-                    
-                    [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
-                    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-                    return cell;
-//                }
+                [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
+                [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+                return cell;
+                
             } else if (indexPath.section == 0){
                 cell = [tableView dequeueReusableCellWithIdentifier:memberCell forIndexPath:indexPath];
                 [(CustomMemberTableViewCell *)cell setMemberInfos:self.memberInfos];
@@ -257,13 +255,13 @@ static NSString * const memberCell = @"memberCell";
                 // 第二行的选中状态消除
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             }
-
+            
         }
         default:
             break;
     }
     
-
+    
     [cell setHighlighted:NO];
     
     return cell;
@@ -272,7 +270,7 @@ static NSString * const memberCell = @"memberCell";
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     switch (self.state) {
         case GroupIdentityFlock:{
             if (indexPath.section == 0) {
@@ -282,7 +280,7 @@ static NSString * const memberCell = @"memberCell";
             }
         }
             break;
-         case GroupIdentityFigurant:
+        case GroupIdentityFigurant:
         {
             if (indexPath.section == 1) {
                 return 50;
@@ -305,7 +303,7 @@ static NSString * const memberCell = @"memberCell";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     switch (self.state) {
         case GroupIdentityFlock:
         {
@@ -323,13 +321,13 @@ static NSString * const memberCell = @"memberCell";
             if (indexPath.section == 1) {
                 
                 NSDictionary *Dic = [NSDictionary dictionaryWithObject:self.detilemodel.ID forKey:@"groupId"];
-
+                
                 GroupViewController *group = [[GroupViewController alloc]init];
                 [self.navigationController pushViewController:group animated:YES];
-//                NSArray *array = self.navigationController.viewControllers;
-//                [self.navigationController popToViewController:group animated:NO];
+                //                NSArray *array = self.navigationController.viewControllers;
+                //                [self.navigationController popToViewController:group animated:NO];
                 
-//                NSLog(@"子视图都有   %@", array);
+                //                NSLog(@"子视图都有   %@", array);
                 [RestfulAPIRequestTool routeName:@"exitGroups" requestModel:Dic useKeys:@[@"groupId"] success:^(id json) {
                     
                     NSLog(@"退群成功  %@", json);
@@ -342,8 +340,8 @@ static NSString * const memberCell = @"memberCell";
                     [chat removeConversion:g.easemobID];
                     //清空本地消息
                     [[EaseMob sharedInstance].chatManager removeConversationByChatter:g.easemobID
-                                                                         deleteMessages:YES
-                                                                            append2Chat:YES];
+                                                                       deleteMessages:YES
+                                                                          append2Chat:YES];
                 } failure:^(id errorJson) {
                     
                     NSLog(@"退群失败   %@", errorJson);
@@ -366,7 +364,7 @@ static NSString * const memberCell = @"memberCell";
 #pragma mark - setter方法
 -(void)setMemberInfos:(NSArray *)memberInfos{
     _memberInfos = memberInfos;
- 
+    
 }
 
 @end
