@@ -33,7 +33,7 @@
 //        make.centerY.mas_equalTo(self.mas_centerY);
 //        make.size.mas_equalTo(CGSizeMake(self.frame.size.width - 6, self.frame.size.width - 6));
 //    }];
-    CGFloat width = (self.frame.size.width  - 6) / 2.0;
+    CGFloat width = (self.frame.size.width  - 10) / 2.0;
 //
     
 //    newView.frame = CGRectMake(3, 3, self.frame.size.width - 6, self.frame.size.width - 6);

@@ -181,7 +181,8 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 //        } failureBlock:^(NSError *error) {
 //            
 //        }];
-//      */
+//        
+         */
         NSInteger index = [self.selectedAssetsArray indexOfObject:asset];
         [self.photoArray removeObjectAtIndex:index];
         [self.selectedAssetsArray removeObject:asset];
@@ -458,12 +459,14 @@ static NSString* const dnAssetsViewCellReuseIdentifier = @"DNAssetsViewCell";
 #pragma mark - DNPhotoBrowserDelegate
 - (void)sendImagesFromPhotobrowser:(DNPhotoBrowser *)photoBrowser currentAsset:(ALAsset *)asset
 {
-
+    // 为了防止出现图片为选择点确认后传送图片的问题 加了 判空
+    if (asset) {
     if (self.selectedAssetsArray.count <= 0) {
         [self seletedAssets:asset];
         [self.imageFlowCollectionView reloadData];
     }
     [self sendImages];
+    }
 }
 
 - (NSUInteger)seletedPhotosNumberInPhotoBrowser:(DNPhotoBrowser *)photoBrowser

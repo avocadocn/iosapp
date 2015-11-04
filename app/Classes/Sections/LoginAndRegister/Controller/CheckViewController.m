@@ -89,7 +89,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
         [searchmodel setName:str];
         [searchmodel setPage:@"1"];
         
-        if (str.length > 3 && self.time.textfield.text.length >3 ) {
+        if (str.length > 3 && self.schoolID.length) {
             self.label.userInteractionEnabled = YES;
             self.label.textColor = RGBACOLOR(253, 185, 0, 1);
         } else {
@@ -207,6 +207,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
         [self.tempView removeFromSuperview];
         self.selectState = NO;
         [self.school.textfield becomeFirstResponder];
+        [self.school.textfield resignFirstResponder];
     }];
 }
 
@@ -381,8 +382,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
 
 - (void)nextController:(UITapGestureRecognizer *)tap
 {
-    NSArray *array = [self.time.textfield.text componentsSeparatedByString:@"-"];
-    
+    if (self.schoolID) {
     LoginSinger *singer = [LoginSinger shareState];
     [singer setEnrollment:self.time.textfield.text];  // 入学年份
     [singer setCid:self.schoolID];
@@ -390,6 +390,7 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     [self.school.textfield resignFirstResponder];
     FillInformationCon *fill = [[FillInformationCon alloc]init];
     [self.navigationController pushViewController:fill animated:YES];
+    }
 }
 
 

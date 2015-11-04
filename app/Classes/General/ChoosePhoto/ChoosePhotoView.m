@@ -117,6 +117,8 @@ typedef NS_ENUM(NSInteger, EnumOfViewSubclass)
             imageView.tag = i + 1;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageViewTapAction:)];
             [imageView addGestureRecognizer:tap];
+            imageView.clipsToBounds = YES;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.userInteractionEnabled = YES;
             i++;
         }
