@@ -85,7 +85,7 @@
     [super layoutSubviews];
     CGRect frame = self.imageView.frame;
     
-    self.imageView.layer.masksToBounds = YES;
+//    self.imageView.layer.masksToBounds = YES;
     self.imageView.frame = CGRectMake(10,14 , 50, 50);
 //    [self.imageView.layer setCornerRadius:self.imageView.width / 2.0];
 //    [self.imageView dlGetRouteThumbnallWebImageWithString:_imgURL placeholderImage:_placeholderImage withSize:self.imageView.size andHaveBlur:NO];
