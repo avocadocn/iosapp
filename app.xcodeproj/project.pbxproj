@@ -1007,7 +1007,7 @@
 		9635AF5A1B74A11F00BE92B5 /* CustomKeyBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomKeyBoard.h; sourceTree = "<group>"; };
 		9635AF5B1B74A11F00BE92B5 /* CustomKeyBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomKeyBoard.m; sourceTree = "<group>"; };
 		9635AF5D1B74A13500BE92B5 /* CustomKeyBoard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomKeyBoard.xib; sourceTree = "<group>"; };
-		9649B4D01B5649AC00A7F355 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9649B4D01B5649AC00A7F355 /* Warm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Warm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9649B4D41B5649AC00A7F355 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9649B4E01B5649AC00A7F355 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9649B4E31B5649AC00A7F355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -2426,7 +2426,7 @@
 		9649B4D11B5649AC00A7F355 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9649B4D01B5649AC00A7F355 /* app.app */,
+				9649B4D01B5649AC00A7F355 /* Warm.app */,
 				9649B4E91B5649AC00A7F355 /* appTests.xctest */,
 			);
 			name = Products;
@@ -4880,7 +4880,7 @@
 			);
 			name = app;
 			productName = app;
-			productReference = 9649B4D01B5649AC00A7F355 /* app.app */;
+			productReference = 9649B4D01B5649AC00A7F355 /* Warm.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9649B4E81B5649AC00A7F355 /* appTests */ = {
@@ -5941,7 +5941,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.donler.warm;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Warm;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -5975,7 +5975,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.donler.warm;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Warm;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
