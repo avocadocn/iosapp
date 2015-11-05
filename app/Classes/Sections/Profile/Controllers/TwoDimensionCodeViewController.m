@@ -25,9 +25,9 @@
     self.title = @"二维码";
     if (IS_IPHONE_4_SCREEN) {
 //        NSLog(@"===%f%f%f%f",self.WhiteSuperView.y,self.WhiteSuperView.x,self.WhiteSuperView.width,self.WhiteSuperView.height);
-        
+        self.WhiteSuperView.y = 66;
     } else {
-        
+        self.WhiteSuperView.y = 109;
     }
     Account *account = [AccountTool account];
     Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];

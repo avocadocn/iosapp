@@ -64,7 +64,11 @@
     Account *acc = [AccountTool account];
     acc.userId = acc.ID;
     // 获取关注列表
-    [RestfulAPIRequestTool routeName:@"getCorcernList" requestModel:acc useKeys:@[@"userId"] success:^(id json) {
+    if (!acc.userId) {
+        return;
+    }
+#pragma warning 传参为空也可
+    [RestfulAPIRequestTool routeName:@"getCorcernList" requestModel:nil useKeys:@[@"userId"] success:^(id json) {
         NSLog(@"获取用户关注列表成功 %@", json);
         if (json) {
             Concern* c = [Concern initWithPersonId:acc.ID AndConcernIds:json];

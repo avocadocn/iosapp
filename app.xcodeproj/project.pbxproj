@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5404302C1B905D6E00C71F39 /* InvatingViewController.m */; };
 		5436967D1B9D401E00261F2D /* 标尺.png in Resources */ = {isa = PBXBuildFile; fileRef = 5436967C1B9D401E00261F2D /* 标尺.png */; };
+		543E536B1BEB32A7007C5A32 /* AboutAsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 543E53691BEB32A7007C5A32 /* AboutAsViewController.m */; };
+		543E536C1BEB32A7007C5A32 /* AboutAsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 543E536A1BEB32A7007C5A32 /* AboutAsViewController.xib */; };
 		5458675A1BA05CC6009ED3E7 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */; };
 		5458675B1BA05CC6009ED3E7 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */; };
 		545867611BA17BCA009ED3E7 /* SBDetailActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867601BA17BCA009ED3E7 /* SBDetailActivityView.m */; };
@@ -843,6 +845,9 @@
 		5404302B1B905D6E00C71F39 /* InvatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingViewController.h; sourceTree = "<group>"; };
 		5404302C1B905D6E00C71F39 /* InvatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingViewController.m; sourceTree = "<group>"; };
 		5436967C1B9D401E00261F2D /* 标尺.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标尺.png"; sourceTree = "<group>"; };
+		543E53681BEB32A7007C5A32 /* AboutAsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutAsViewController.h; sourceTree = "<group>"; };
+		543E53691BEB32A7007C5A32 /* AboutAsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutAsViewController.m; sourceTree = "<group>"; };
+		543E536A1BEB32A7007C5A32 /* AboutAsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutAsViewController.xib; sourceTree = "<group>"; };
 		545867571BA05CC6009ED3E7 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
@@ -2794,6 +2799,9 @@
 				5404302C1B905D6E00C71F39 /* InvatingViewController.m */,
 				545867621BA17EF8009ED3E7 /* SBDetailViewController.h */,
 				545867631BA17EF8009ED3E7 /* SBDetailViewController.m */,
+				543E53681BEB32A7007C5A32 /* AboutAsViewController.h */,
+				543E53691BEB32A7007C5A32 /* AboutAsViewController.m */,
+				543E536A1BEB32A7007C5A32 /* AboutAsViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -5070,6 +5078,7 @@
 				A4745E091B81A9AC008EB944 /* ImagesPicker.xcassets in Resources */,
 				E2A3323D1BD62D6800F9A247 /* NewRankListTableViewCell.xib in Resources */,
 				96CF93D01B674B54001759E2 /* VoiceSearchFeedback005@2x.png in Resources */,
+				543E536C1BEB32A7007C5A32 /* AboutAsViewController.xib in Resources */,
 				96CF945E1B674B54001759E2 /* group_creategroup@2x.png in Resources */,
 				546CA5831B9E88CD0066CC0C /* 聊天 copy.png in Resources */,
 				545867911BA194E8009ED3E7 /* 聊天@2x.png in Resources */,
@@ -5569,6 +5578,7 @@
 				5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */,
 				96CF93851B674B54001759E2 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				967439C01B705908004334A4 /* User.m in Sources */,
+				543E536B1BEB32A7007C5A32 /* AboutAsViewController.m in Sources */,
 				A434C6141B71F17E009643CD /* TableHeaderView.m in Sources */,
 				A434C6171B71FDE7009643CD /* DynamicTableViewCell.m in Sources */,
 				A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */,
