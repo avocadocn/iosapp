@@ -382,7 +382,7 @@
                 
             case 0:
             {
-                ColleagueViewController *coll = [[ColleagueViewController alloc]init];
+                ColleagueViewController *coll = [ColleagueViewController shareState];
                 [self.navigationController pushViewController:coll animated:YES];
                 
             }

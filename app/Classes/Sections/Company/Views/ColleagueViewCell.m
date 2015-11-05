@@ -22,7 +22,7 @@
 #import "UILabel+DLTimeLabel.h"
 #import "Account.h"
 #import "AccountTool.h"
-
+#import "NSDate+Category.h"
 
 #define LABELWIDTH 355.0
 #define TEXTFONT 16
@@ -195,7 +195,9 @@ static NSString *userId = nil;
     self.circleImage.tag = indexpath.row + 11111;
     self.ColleagueNick.text = per.nickName;
     
-    [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
+//    [self.timeLabel judgeTimeWithString:model.postDate]; //判断时间
+    NSDate *date = [self getParsedDateStringFromString:model.postDate];
+    self.timeLabel.text = [date timeIntervalDescription];
     
     self.praiseButton.tag = indexpath.row + 1;
     [self.wordFrom getCompanyNameFromCid:model.postUserId];
@@ -208,6 +210,31 @@ static NSString *userId = nil;
     }
 }
 
+- (NSDate *)getParsedDateStringFromString:(NSString*)dateString
+{
+    if (dateString==nil) {
+        return nil;
+    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    NSDate * date = [formatter dateFromString:dateString];
+    [formatter setDateFormat:@"yyyy年MM月dd日 HH:mm"];
+    NSString* str = [formatter stringFromDate:date];
+    //设置源日期时区
+    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];//或GMT
+    //设置转换后的目标日期时区
+    NSTimeZone* destinationTimeZone = [NSTimeZone localTimeZone];
+    //得到源日期与世界标准时间的偏移量
+    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:date];
+    //目标日期与本地时区的偏移量
+    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:date];
+    //得到时间偏移量的差值
+    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+    //转为现在时间
+    NSDate* destinationDateNow = [[NSDate alloc] initWithTimeInterval:interval sinceDate:date];
+//    str = [formatter stringFromDate:destinationDateNow];
+    return destinationDateNow;
+}
 
 //- (void)drawRect:(CGRect)rect
 //{
@@ -280,7 +307,7 @@ static NSString *userId = nil;
     }
 }
 
-
+/*
 - (void)getViewWithModel:(CircleContextModel *)model andTag:(NSInteger)tag
 {
     
@@ -437,10 +464,10 @@ static NSString *userId = nil;
     
 }
 
+*/
 
 
-
-
+/*
 - (UILabel *)getLabelFromString:(NSString *)contentStr andHeight:(CGFloat)overHeight
 {
     CGRect rect = [self getRectWithFont:[UIFont systemFontOfSize:TEXTFONT] width:DLMultipleWidth(LABELWIDTH) andString:contentStr];
@@ -457,7 +484,7 @@ static NSString *userId = nil;
     
     CGRect rect = [string boundingRectWithSize:CGSizeMake(num, 100000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil];
     return rect;
-}
+}*/
 
 -(UIImage *)OriginImage:(UIImage *)image scaleToSize:(CGSize)size{
     UIGraphicsBeginImageContext(size);

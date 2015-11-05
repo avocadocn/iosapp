@@ -22,7 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *GroupName;
 @property (weak, nonatomic) IBOutlet UILabel *AgreeLabel;
 
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *AgreeLabelLayout;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskTopLayout;
 
 @end
 
@@ -30,6 +31,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if ([UIScreen mainScreen].bounds.size.height == 480)
+    {
+        self.AgreeLabelLayout.constant = 2;
+        self.maskTopLayout.constant = 15;
+    }
     // Do any additional setup after loading the view from its nib.
     self.PersonPhoto.layer.masksToBounds = YES;
     self.PersonPhoto.layer.cornerRadius = 25;
@@ -42,7 +48,10 @@
     
     NSDictionary *dic = [NSDictionary dictionaryWithObject:self.model.team forKey:@"groupId"];
     [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:dic useKeys:@[@"groupId"] success:^(id json) {
+        NSString *str = [NSString stringWithFormat:@"%@", json[@"group"]];
         
+        if (![str isEqualToString:@"<null>"]) {
+            
         NSDictionary *group = [json objectForKey:@"group"];
             self.GroupName.text = group[@"name"];
             [self.GroupLogo dlGetRouteThumbnallWebImageWithString:group[@"logo"] placeholderImage:nil withSize:CGSizeMake(109, 157)];
@@ -55,6 +64,7 @@
                 self.AgreeLabel.userInteractionEnabled = NO;
                 self.AgreeLabel.backgroundColor = RGBACOLOR(213, 213, 213, 1);
             }
+        }
         }
         
     } failure:^(id errorJson) {
