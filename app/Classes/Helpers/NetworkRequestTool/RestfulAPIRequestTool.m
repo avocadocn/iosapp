@@ -74,11 +74,12 @@ static AFHTTPSessionManager *_mgr;
     }
 }
 
-
 + (void)routeName:(NSString *)routeName requestModel:(id)requestModel useKeys:(NSArray *)keysArray success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
-
-    DLLoading *lo = [[DLLoading alloc]init];
-    [lo loading];
+    NSArray *array = @[@"getInteraction", @"getCompanyAddressBook", @"joinInteraction", @"getCompaniesFavoriteRank", @"setupBarButtonItems", @"sendInteraction", @"getGroupList",@"getCompanyGroupList", @"getCompanyCircle", @"getBirthdayList", @"addConcern", @"deleteConcern", @"modifyUserInfo", @"getCorcernList", @"postInvitationInfosURL"];
+    if ([array indexOfObject:routeName]) {
+        DLLoading *lo = [[DLLoading alloc]init];
+        [lo loading];
+    }
     [self load];
     
     __block BOOL uploadFlag = NO;
