@@ -111,6 +111,14 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
             NSLog(@"失败, %@", errorJson);
         }];
     }];
+    NSArray *array = [NSArray array];
+    NSArray *newArray = [[array.rac_sequence map:^id(id value) {
+        
+        return value;
+        
+    }] array];
+    
+    
     [self.view addSubview:self.school];
     
     self.time = [[ImageHolderView alloc]initWithFrame:CGRectMake(0, 64 + DLMultipleHeight(50.0), DLScreenWidth, DLMultipleHeight(50.0)) andImage:[UIImage imageNamed:@"starTime"] andPlaceHolder:@"入学时间"];
@@ -122,7 +130,6 @@ typedef NS_ENUM(NSInteger, SelectStateOfCompany){
     [self.view addSubview:self.time];
     
 }
-
 - (void)timeSelect:(UITapGestureRecognizer *)tap
 {
     if (self.selectState == NO) {

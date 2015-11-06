@@ -442,10 +442,11 @@ static NSInteger num = 0;
     self.phoneNumber = [CuntomFolderView new];
     self.constellation = [CuntomFolderView new];
     self.companyArray = @[self.nickName, self.synopsis, self.realName, self.gender, self.brithday, self.phoneNumber, self.constellation];
+    
     NSArray *labelName = @[@"昵       称", @"个人简介", @"真实姓名", @"性       别", @"生       日", @"手机号码", @"星       座"];
 
     for (CuntomFolderView *view in self.companyArray) {
-        view.frame = CGRectMake(0,DLMultipleHeight(200.0) + num * 45, DLScreenWidth, 45);
+        view.frame = CGRectMake(0,DLMultipleWidth(150.0) + DLMultipleHeight(50.0) + num * 45, DLScreenWidth, 45);
         view.titleLabel.text = [labelName objectAtIndex:num];
         [view setBackgroundColor:[UIColor whiteColor]];
         view.tag = 1000 + num;

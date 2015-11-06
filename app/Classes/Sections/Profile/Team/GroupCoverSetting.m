@@ -126,13 +126,14 @@ static NSString *ID = @"fserklfjkdsrhdj";
 - (void)dnImagePickerController:(DNImagePickerController *)imagePicker sendImages:(NSArray *)imageAssets isFullImage:(BOOL)fullImage
 {
     
-//    self.state = ChangeStateAll;
+    self.state = ChangeStateAll;
 //    DNAsset *dnasser = [imageAssets firstObject];
 //    ALAssetsLibrary *library = [ALAssetsLibrary new];
 //    [library assetForURL:dnasser.url resultBlock:^(ALAsset *asset) {
 //        
-    self.headerView.image = imageAssets[0];//[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-//        
+    self.headerView.image = imageAssets[0];
+    //[UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+//
 //    } failureBlock:^(NSError *error) {
 //        
 //    }];
@@ -146,7 +147,7 @@ static NSString *ID = @"fserklfjkdsrhdj";
     switch (self.state) {
         case ChangeStateNo:
         {
-            UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"失败" message:@"您未作任何修改" delegate: self cancelButtonTitle:@"取消" otherButtonTitles: nil, nil];
+            UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"失败" message:@"您未做任何修改" delegate: self cancelButtonTitle:@"取消" otherButtonTitles: nil, nil];
             [al show];
         }            break;
          case ChangeStateName:
