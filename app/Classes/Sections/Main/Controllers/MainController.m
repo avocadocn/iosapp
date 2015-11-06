@@ -778,8 +778,8 @@ static NSString *kGroupName = @"GroupName";
     //清空缓存图片
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDisk];
-    [[ChatListViewController shareInstan].dataSource removeAllObjects];
-    [[AttentionViewController shareInsten].modelArray removeAllObjects];
+    [[ChatListViewController shareInstan] clearData];
+    [[AttentionViewController shareInsten] clearData];
 }
 - (void)didRemovedFromServer
 {
