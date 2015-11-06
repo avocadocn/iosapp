@@ -97,15 +97,15 @@
     self.myTableView.sectionIndexColor = [UIColor blackColor];
     
     
-    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
-//    [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
-    self.myTableView.footer = footer;
-    
-    MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
-    aHeader.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    
-    
-    self.myTableView.header = aHeader;
+//    MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+////    [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
+//    self.myTableView.footer = footer;
+//    
+//    MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
+//    aHeader.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+//    
+//    
+//    self.myTableView.header = aHeader;
     
     
     [self.view addSubview:self.myTableView];

@@ -491,7 +491,9 @@ static ChatListViewController *chat = nil;
                         [ext setObject:g.name forKey:@"groupSubject"];
                         [ext setObject:[NSNumber numberWithBool:g.open] forKey:@"isPublic"];
                         //保存图片链接
-                        [ext setObject:g.iconURL forKey:@"imageURL"];
+                        if (g.iconURL) {
+                            [ext setObject:g.iconURL forKey:@"imageURL"];
+                        }
                         conversation.ext = ext;
                         break;
                     }

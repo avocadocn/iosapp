@@ -14,6 +14,8 @@
 #import "UIImageView+DLGetWebImage.h"
 #import "GroupMemberSetting.h"
 #import "GroupDetileModel.h"
+#import <ReactiveCocoa.h>
+
 @interface TeamSettingViewController ()
 
 @property (assign, nonatomic) kTeamIdentity identity;
@@ -99,6 +101,8 @@ static NSString * const defaultCellID = @"defaultCellID";
             [RestfulAPIRequestTool routeName:@"deleteGroups" requestModel:dic useKeys:@[@"groupId"] success:^(id json) {
                 NSLog(@"删群成功   %@", json);
                 
+                [self deleteGroupWithGroupType:@"single"];
+                [self deleteGroupWithGroupType:@"company"];
                 GroupViewController *group = [[GroupViewController alloc]init];
                 [self.navigationController pushViewController:group animated:YES];
                 
@@ -112,10 +116,23 @@ static NSString * const defaultCellID = @"defaultCellID";
             break;
     }
     
-    
-    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+}
+
+- (void)deleteGroupWithGroupType:(NSString *)groupType
+{
+    NSFileManager *manger = [NSFileManager defaultManager];
+    NSString *arrayAddressStr = [NSString stringWithFormat:@"%@/DLLibraryCache/%@-groupFile/groupList", DLLibraryPath, groupType];
+    NSArray *array = [NSArray arrayWithContentsOfFile:arrayAddressStr];
+    if (array) {
+        [array.rac_sequence.signal subscribeNext:^(NSString *IDText) {
+            if ([IDText isEqualToString:self.detileModel.ID]) {
+                
+                [manger removeItemAtPath:[NSString stringWithFormat:@"%@/%@", DLLibraryPath, IDText] error:nil];
+            }
+        }];
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
