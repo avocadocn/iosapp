@@ -9,14 +9,10 @@
 #import "DLLoading.h"
 #import <DGActivityIndicatorView.h>
 
-
-
 static NSInteger timeNum = 0;
 static DLLoading *load = nil;
 
 @implementation DLLoading
-
-
 
 - (void)loading
 {

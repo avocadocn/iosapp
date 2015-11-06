@@ -237,6 +237,8 @@ static NSInteger tagNum = 1;
     
 }
 
+
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     self.pag.currentPage = scrollView.contentOffset.x / DLScreenWidth;

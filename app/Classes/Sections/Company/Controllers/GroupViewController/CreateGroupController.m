@@ -212,7 +212,7 @@
     [RestfulAPIRequestTool routeName:@"publisheNewGroups" requestModel:dic useKeys:titleArray success:^(id json) {
         NSLog(@"建群成功 %@", json);
         
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadGroup" object:nil userInfo:nil];
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadGroup" object:nil userInfo:nil];
         
     } failure:^(id errorJson) {
         NSLog(@"建群失败 %@", errorJson);

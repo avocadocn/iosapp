@@ -75,8 +75,10 @@ static AFHTTPSessionManager *_mgr;
 }
 
 + (void)routeName:(NSString *)routeName requestModel:(id)requestModel useKeys:(NSArray *)keysArray success:(void (^)(id json))success failure:(void (^)(id errorJson))failure{
-    NSArray *array = @[@"getInteraction", @"getCompanyAddressBook", @"joinInteraction", @"getCompaniesFavoriteRank", @"setupBarButtonItems", @"sendInteraction", @"getGroupList",@"getCompanyGroupList", @"getCompanyCircle", @"getBirthdayList", @"addConcern", @"deleteConcern", @"modifyUserInfo", @"getCorcernList", @"postInvitationInfosURL"];
-    if ([array indexOfObject:routeName]) {
+    NSArray *array = @[@"getInteraction", @"getCompanyAddressBook", @"joinInteraction", @"getCompaniesFavoriteRank", @"setupBarButtonItems", @"sendInteraction" /*,@"getGroupList"*/,@"getCompanyGroupList", /*@"getCompanyCircle", @"getBirthdayList",*/ @"addConcern", @"deleteConcern", @"modifyUserInfo",/* @"getCorcernList",*/ @"postInvitationInfosURL"];
+    if ([array indexOfObject:routeName] < array.count) {
+        NSLog(@"biu 出来的 routeName 为 %@", routeName);
+        
         DLLoading *lo = [[DLLoading alloc]init];
         [lo loading];
     }

@@ -37,7 +37,7 @@ static NSString *ID = @"CurrentActivitysShowCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self makeFlaseData];
-
+    self.view.backgroundColor = RGB(234, 234, 236);
     [self builtInterface];
     
     [self requestNet];
@@ -98,8 +98,8 @@ static NSString *ID = @"CurrentActivitysShowCell";
     self.dynamicTableView.delegate = self;
     self.dynamicTableView.dataSource = self;
     self.dynamicTableView.separatorColor = [UIColor clearColor];
-    [self.dynamicTableView setBackgroundColor:[UIColor colorWithWhite:.9 alpha:.9]];
     
+    self.dynamicTableView.backgroundColor = RGB(234, 234, 236);
 //    [self.dynamicTableView registerClass:[DynamicTableViewCell class] forCellReuseIdentifier:@"otherCell"];
     [self.dynamicTableView registerNib:[UINib nibWithNibName:@"CurrentActivitysShowCell" bundle:nil] forCellReuseIdentifier:ID];
     
