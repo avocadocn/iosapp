@@ -4913,6 +4913,11 @@
 					9649B4CF1B5649AC00A7F355 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = WQK4NCSCW9;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					9649B4E81B5649AC00A7F355 = {
 						CreatedOnToolsVersion = 6.4;
