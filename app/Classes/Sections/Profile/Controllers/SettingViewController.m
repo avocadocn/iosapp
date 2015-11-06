@@ -183,9 +183,9 @@
     //清空缓存图片
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDisk];
-    
-    [[ChatListViewController shareInstan].dataSource removeAllObjects];
-    [[AttentionViewController shareInsten].modelArray removeAllObjects];
+    //清空单例中缓存的数据并刷新
+    [[ChatListViewController shareInstan] clearData];
+    [[AttentionViewController shareInsten] clearData];
     NSFileManager *manger = [NSFileManager defaultManager];
     [manger removeItemAtPath:[NSString stringWithFormat:@"%@/DLLibraryCache", DLLibraryPath] error:nil];
 }
