@@ -497,6 +497,7 @@ static ChatListViewController *chat = nil;
                         //保存图片链接
                         if (g.iconURL) {
                             [ext setObject:g.iconURL forKey:@"imageURL"];
+
                         }
                         conversation.ext = ext;
                         break;

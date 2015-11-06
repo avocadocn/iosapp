@@ -63,7 +63,7 @@ static NSString *kGroupName = @"GroupName";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    // 添加主页面VC
+    // 添加主页面V
 //    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, -20, DLScreenWidth, 20)];
 //    
 //    view.backgroundColor = [UIColor greenColor];
@@ -146,7 +146,7 @@ static NSString *kGroupName = @"GroupName";
     
     ProfileViewController *profileVC = [[ProfileViewController alloc]init];
     [self addOneTabWithVC:profileVC title:@"我"];
-    
+
     
 }
 
@@ -241,10 +241,9 @@ static NSString *kGroupName = @"GroupName";
     [[EaseMob sharedInstance].callManager removeDelegate:self];
 }
 
-
-
-
 // 统计未读消息数
+
+
 -(void)setupUnreadMessageCount
 {
     NSArray *conversations = [[[EaseMob sharedInstance] chatManager] conversations];

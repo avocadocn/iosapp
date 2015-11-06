@@ -104,10 +104,10 @@ static NSNumber *myNum;
         if (nu == 1 && (((NSArray *)json[@"groups"]).count <= 10)) {
             [self.modelArray removeAllObjects];
         }
-        else if (((NSArray *)json[@"groups"]).count <= 10)
-        {
-            [self.modelArray removeAllObjects];
-        }
+//        else if (((NSArray *)json[@"groups"]).count <= 10)
+//        {
+//            [self.modelArray removeAllObjects];
+//        }
         if (((NSArray *)json[@"groups"]).count == 0 && (NSInteger)json[@"maxPage"] != 1) {
             self.modelArray = mutableArray;
         }

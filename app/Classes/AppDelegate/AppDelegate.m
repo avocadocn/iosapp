@@ -85,6 +85,7 @@
         MainController *main = [[MainController alloc]init];
         self.mainController = main;
         return main;
+        
     } else
     {
         GuidePageViewController *gu = [[GuidePageViewController alloc]init];
