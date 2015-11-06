@@ -468,7 +468,7 @@ static NSString *userId = nil;
 
 */
 
-*/
+
 
 /*
 - (UILabel *)getLabelFromString:(NSString *)contentStr andHeight:(CGFloat)overHeight

@@ -48,8 +48,11 @@
     
     NSDictionary *dic = [NSDictionary dictionaryWithObject:self.model.team forKey:@"groupId"];
     [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:dic useKeys:@[@"groupId"] success:^(id json) {
-        @try {
-            NSDictionary *group = [json objectForKey:@"group"];
+        NSString *str = [NSString stringWithFormat:@"%@", json[@"group"]];
+        
+        if (![str isEqualToString:@"<null>"]) {
+            
+        NSDictionary *group = [json objectForKey:@"group"];
             self.GroupName.text = group[@"name"];
             [self.GroupLogo dlGetRouteThumbnallWebImageWithString:group[@"logo"] placeholderImage:nil withSize:CGSizeMake(109, 157)];
             Account *acc = [AccountTool account];
@@ -63,13 +66,6 @@
                 }
             }
         }
-        @catch (NSException *exception) {
-            
-        }
-        @finally {
-            
-        }
-        
         
     } failure:^(id errorJson) {
         
