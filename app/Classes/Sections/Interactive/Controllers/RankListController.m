@@ -218,16 +218,16 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (void)reloadRankViewWithModel:(RankDetileModel *)model
 {
     NSLog(@"现在的 %@, %@", model.ID, model.index);
+    self.bottomShowView.nameLabel.text = @"";
+    self.bottomShowView.rankLabel.text = @"";
+    self.bottomShowView.avatar.image = nil;
     if (model) {
-        self.bottomShowView.nameLabel.text = @"";
-        self.bottomShowView.avatar.image = nil;
-        
         self.bottomShowView.nameLabel.text = model.name;
         [self.bottomShowView.avatar dlGetRouteThumbnallWebImageWithString:model.logo placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)] ;
         [self.bottomShowView.nameLabel fitContentWithMaxSize:CGSizeMake(160, 90)];
         [self.bottomShowView bringSubviewToFront:self.bottomShowView.nameLabel];
         self.bottomShowView.rankLabel.text = [NSString stringWithFormat:@"目前排名: %@", model.index];
-    }
+    } 
 }
 
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index{
