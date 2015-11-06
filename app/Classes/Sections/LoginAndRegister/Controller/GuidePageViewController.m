@@ -261,8 +261,8 @@
 
 - (void)createImageViews {
     self.imageV = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 1.25 , - DLScreenHeight / 2, DLScreenWidth / 2 + 30, DLScreenHeight / 2 - 20)];
-    self.imageVL = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 1 - 180 , (DLScreenHeight - 240) / 2, 180, 240)];
-    self.imageVR = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 2, (DLScreenHeight - 240) / 2, 180, 240)];
+    self.imageVL = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 1 - 180 , (DLScreenHeight - 240) / 2, 180, DLScreenHeight / 2 - 98)];
+    self.imageVR = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth * 2, (DLScreenHeight - 240) / 2, 180, DLScreenHeight / 2 - 98)];
     self.imageV.image = [UIImage imageNamed:@"106"];
     self.imageVL.image = [UIImage imageNamed:@"107"];
     self.imageVR.image = [UIImage imageNamed:@"108"];

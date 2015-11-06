@@ -109,10 +109,6 @@
         }
     }
     [self sd_setImageWithURL:url placeholderImage:image options:USE_SDWebImageProgressiveDownload?SDWebImageProgressiveDownload:0|SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if (!image) {
-            [self cleanTheMask];
-            return ;
-        }
         [self cleanTheMask];
         //请求图片成功后，直接保存，不再等待异步保存
         if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:[url absoluteString]]) {

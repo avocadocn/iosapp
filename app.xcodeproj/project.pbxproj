@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5404302C1B905D6E00C71F39 /* InvatingViewController.m */; };
 		5436967D1B9D401E00261F2D /* 标尺.png in Resources */ = {isa = PBXBuildFile; fileRef = 5436967C1B9D401E00261F2D /* 标尺.png */; };
+		543E536B1BEB32A7007C5A32 /* AboutAsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 543E53691BEB32A7007C5A32 /* AboutAsViewController.m */; };
+		543E536C1BEB32A7007C5A32 /* AboutAsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 543E536A1BEB32A7007C5A32 /* AboutAsViewController.xib */; };
+		543E536E1BEC4564007C5A32 /* GroupInviteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 543E536D1BEC4564007C5A32 /* GroupInviteController.xib */; };
 		5458675A1BA05CC6009ED3E7 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */; };
 		5458675B1BA05CC6009ED3E7 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */; };
 		545867611BA17BCA009ED3E7 /* SBDetailActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 545867601BA17BCA009ED3E7 /* SBDetailActivityView.m */; };
@@ -725,7 +728,6 @@
 		A46CFBB91BD6244400D64CDB /* 手机好友@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBB61BD6244400D64CDB /* 手机好友@2x.png */; };
 		A46CFBBA1BD6244400D64CDB /* 微信@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBB71BD6244400D64CDB /* 微信@2x.png */; };
 		A46CFBBE1BD62C4D00D64CDB /* GroupInviteController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46CFBBC1BD62C4D00D64CDB /* GroupInviteController.m */; };
-		A46CFBBF1BD62C4D00D64CDB /* GroupInviteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBBD1BD62C4D00D64CDB /* GroupInviteController.xib */; };
 		A46CFBC31BD6378C00D64CDB /* WarmText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46CFBC21BD6378C00D64CDB /* WarmText@2x.png */; };
 		A46D4AF91B79ED8400177577 /* GroupSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A46D4AF81B79ED8400177577 /* GroupSelectCell.m */; };
 		A4745DFB1B81A9AC008EB944 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4745DCC1B81A9AC008EB944 /* CollectionViewCell.m */; };
@@ -843,6 +845,10 @@
 		5404302B1B905D6E00C71F39 /* InvatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvatingViewController.h; sourceTree = "<group>"; };
 		5404302C1B905D6E00C71F39 /* InvatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvatingViewController.m; sourceTree = "<group>"; };
 		5436967C1B9D401E00261F2D /* 标尺.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "标尺.png"; sourceTree = "<group>"; };
+		543E53681BEB32A7007C5A32 /* AboutAsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutAsViewController.h; sourceTree = "<group>"; };
+		543E53691BEB32A7007C5A32 /* AboutAsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutAsViewController.m; sourceTree = "<group>"; };
+		543E536A1BEB32A7007C5A32 /* AboutAsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutAsViewController.xib; sourceTree = "<group>"; };
+		543E536D1BEC4564007C5A32 /* GroupInviteController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupInviteController.xib; sourceTree = "<group>"; };
 		545867571BA05CC6009ED3E7 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		545867581BA05CC6009ED3E7 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		545867591BA05CC6009ED3E7 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
@@ -1007,7 +1013,7 @@
 		9635AF5A1B74A11F00BE92B5 /* CustomKeyBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomKeyBoard.h; sourceTree = "<group>"; };
 		9635AF5B1B74A11F00BE92B5 /* CustomKeyBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomKeyBoard.m; sourceTree = "<group>"; };
 		9635AF5D1B74A13500BE92B5 /* CustomKeyBoard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomKeyBoard.xib; sourceTree = "<group>"; };
-		9649B4D01B5649AC00A7F355 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9649B4D01B5649AC00A7F355 /* Warm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Warm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9649B4D41B5649AC00A7F355 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9649B4E01B5649AC00A7F355 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9649B4E31B5649AC00A7F355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -1963,7 +1969,6 @@
 		A46CFBB71BD6244400D64CDB /* 微信@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "微信@2x.png"; sourceTree = "<group>"; };
 		A46CFBBB1BD62C4D00D64CDB /* GroupInviteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupInviteController.h; sourceTree = "<group>"; };
 		A46CFBBC1BD62C4D00D64CDB /* GroupInviteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupInviteController.m; sourceTree = "<group>"; };
-		A46CFBBD1BD62C4D00D64CDB /* GroupInviteController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupInviteController.xib; sourceTree = "<group>"; };
 		A46CFBC21BD6378C00D64CDB /* WarmText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WarmText@2x.png"; sourceTree = "<group>"; };
 		A46D4AF71B79ED8400177577 /* GroupSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSelectCell.h; sourceTree = "<group>"; };
 		A46D4AF81B79ED8400177577 /* GroupSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSelectCell.m; sourceTree = "<group>"; };
@@ -2426,7 +2431,7 @@
 		9649B4D11B5649AC00A7F355 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9649B4D01B5649AC00A7F355 /* app.app */,
+				9649B4D01B5649AC00A7F355 /* Warm.app */,
 				9649B4E91B5649AC00A7F355 /* appTests.xctest */,
 			);
 			name = Products;
@@ -2794,6 +2799,9 @@
 				5404302C1B905D6E00C71F39 /* InvatingViewController.m */,
 				545867621BA17EF8009ED3E7 /* SBDetailViewController.h */,
 				545867631BA17EF8009ED3E7 /* SBDetailViewController.m */,
+				543E53681BEB32A7007C5A32 /* AboutAsViewController.h */,
+				543E53691BEB32A7007C5A32 /* AboutAsViewController.m */,
+				543E536A1BEB32A7007C5A32 /* AboutAsViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4276,6 +4284,7 @@
 		96E3D8371B7DA5BE00A623B7 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				543E536D1BEC4564007C5A32 /* GroupInviteController.xib */,
 				96E3D8381B7DA60600A623B7 /* UserMessageTableViewCell.h */,
 				96E3D8391B7DA60600A623B7 /* UserMessageTableViewCell.m */,
 				96E3D83A1B7DA60600A623B7 /* UserMessageTableViewCell.xib */,
@@ -4290,7 +4299,6 @@
 				546CA58E1B9EB00B0066CC0C /* MessageViewController.m */,
 				A46CFBBB1BD62C4D00D64CDB /* GroupInviteController.h */,
 				A46CFBBC1BD62C4D00D64CDB /* GroupInviteController.m */,
-				A46CFBBD1BD62C4D00D64CDB /* GroupInviteController.xib */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -4880,7 +4888,7 @@
 			);
 			name = app;
 			productName = app;
-			productReference = 9649B4D01B5649AC00A7F355 /* app.app */;
+			productReference = 9649B4D01B5649AC00A7F355 /* Warm.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9649B4E81B5649AC00A7F355 /* appTests */ = {
@@ -4913,6 +4921,11 @@
 					9649B4CF1B5649AC00A7F355 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = WQK4NCSCW9;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					9649B4E81B5649AC00A7F355 = {
 						CreatedOnToolsVersion = 6.4;
@@ -5070,6 +5083,7 @@
 				A4745E091B81A9AC008EB944 /* ImagesPicker.xcassets in Resources */,
 				E2A3323D1BD62D6800F9A247 /* NewRankListTableViewCell.xib in Resources */,
 				96CF93D01B674B54001759E2 /* VoiceSearchFeedback005@2x.png in Resources */,
+				543E536C1BEB32A7007C5A32 /* AboutAsViewController.xib in Resources */,
 				96CF945E1B674B54001759E2 /* group_creategroup@2x.png in Resources */,
 				546CA5831B9E88CD0066CC0C /* 聊天 copy.png in Resources */,
 				545867911BA194E8009ED3E7 /* 聊天@2x.png in Resources */,
@@ -5191,6 +5205,7 @@
 				A43CE9BA1BAABDDC0069C94E /* boy.png in Resources */,
 				96CF946A1B674B54001759E2 /* tabbar_chatsHL.png in Resources */,
 				96CF94531B674B54001759E2 /* chat_sender_bg@2x.png in Resources */,
+				543E536E1BEC4564007C5A32 /* GroupInviteController.xib in Resources */,
 				96CF94751B674B54001759E2 /* tabbarBackground@2x.png in Resources */,
 				96CF93BF1B674B54001759E2 /* chatFire_audioPlaying0.png in Resources */,
 				96CF93DB1B674B54001759E2 /* VoiceSearchFeedback011.png in Resources */,
@@ -5217,7 +5232,6 @@
 				96CF93C81B674B54001759E2 /* VoiceSearchFeedback001@2x.png in Resources */,
 				A42CFFDC1B9C194000CCFB34 /* 303.png in Resources */,
 				96CF93E71B674B54001759E2 /* VoiceSearchFeedback017.png in Resources */,
-				A46CFBBF1BD62C4D00D64CDB /* GroupInviteController.xib in Resources */,
 				96CF943B1B674B54001759E2 /* messageToolbarBg@2x.png in Resources */,
 				967439D31B70A849004334A4 /* OtherActivity_backImage.png in Resources */,
 				A4311F5D1B577D50004401B4 /* ColleagueViewCell.xib in Resources */,
@@ -5569,6 +5583,7 @@
 				5404302D1B905D6E00C71F39 /* InvatingViewController.m in Sources */,
 				96CF93851B674B54001759E2 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				967439C01B705908004334A4 /* User.m in Sources */,
+				543E536B1BEB32A7007C5A32 /* AboutAsViewController.m in Sources */,
 				A434C6141B71F17E009643CD /* TableHeaderView.m in Sources */,
 				A434C6171B71FDE7009643CD /* DynamicTableViewCell.m in Sources */,
 				A46448EA1B6F31EF00AA621E /* AddressBookModel.m in Sources */,
@@ -5941,7 +5956,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.donler.warm;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Warm;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -5975,7 +5990,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.donler.warm;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Warm;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

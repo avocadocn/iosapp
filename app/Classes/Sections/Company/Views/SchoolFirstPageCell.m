@@ -104,7 +104,9 @@
         [self.smailImage1 dlGetRouteThumbnallWebImageWithString:second.photo placeholderImage:nil withSize:CGSizeMake(125, 125)];
 
         SchoolTempModel *teird = [schoolModel.photoArray objectAtIndex:2];
-        [self.smailImage2 dlGetRouteWebImageWithString:teird.photo placeholderImage:nil];
+//        [self.smailImage2 dlGetRouteWebImageWithString:teird.photo placeholderImage:nil];
+//        [self.smailImage2 dlGetRouteThumbnallWebImageWithString:teird placeholderImage:nil withSize:CGSizeMake(100, 100)];
+
         [self.smailImage2 dlGetRouteThumbnallWebImageWithString:teird.photo placeholderImage:nil withSize:CGSizeMake(125, 125)];
     }
     

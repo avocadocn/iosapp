@@ -189,7 +189,8 @@ static NSString *userId = nil;
 
     Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.postUserId];
     
-    [self.circleImage dlGetRouteWebImageWithString:per.imageURL placeholderImage:nil];
+
+    [self.circleImage dlGetRouteThumbnallWebImageWithString:per.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
     
 //    self.circleImage.backgroundColor = [UIColor blueColor];
     self.circleImage.tag = indexpath.row + 11111;
@@ -307,6 +308,7 @@ static NSString *userId = nil;
     }
 }
 
+// 废弃的代码
 /*
 - (void)getViewWithModel:(CircleContextModel *)model andTag:(NSInteger)tag
 {
@@ -465,6 +467,7 @@ static NSString *userId = nil;
 }
 
 */
+
 
 
 /*

@@ -30,7 +30,7 @@
     
     self.AddressBookLabel = [[UILabel alloc]initWithFrame:CGRectMake(width, 10, DLScreenWidth / 2 - 5 - width, 64)];
     self.AddressBookLabel.backgroundColor = [UIColor whiteColor];
-    self.AddressBookLabel.text = @"       牛叉社团";
+    self.AddressBookLabel.text = @"         牛叉社团";
     self.AddressBookLabel.font = [UIFont systemFontOfSize:14];
     self.AddressBookLabel.userInteractionEnabled = YES;
     self.AddressBookLabel.textAlignment = 1;
@@ -42,7 +42,7 @@
     self.groupLabel = [[UILabel alloc]initWithFrame:CGRectMake(DLScreenWidth / 2 + 5, 10, DLScreenWidth / 2 - 5 - width, 64)];
     self.groupLabel.userInteractionEnabled = YES;
     self.groupLabel.backgroundColor = [UIColor whiteColor];
-    self.groupLabel.text = @"         通讯录";
+    self.groupLabel.text = @"          通讯录";
     self.groupLabel.font = [UIFont systemFontOfSize:14];
     self.groupLabel.textAlignment = 1;
 //    self.groupLabel.textColor = [UIColor colorWithWhite:.2 alpha:.5];
@@ -57,7 +57,7 @@
 }
 
 - (void)creatImageViews {
-    self.gropView = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth / 7.5, 30, 30, 30)];
+    self.gropView = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth / 7.5 - 3, 26, 30, 30)];
     self.gropView.contentMode = UIViewContentModeCenter;
     self.gropView.clipsToBounds = YES;
 //    [self.gropView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -70,7 +70,7 @@
     [self addSubview:self.gropView];
     self.contactsView.contentMode = UIViewContentModeCenter;
     self.contactsView.clipsToBounds = YES;
-    self.contactsView = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth / 2 + DLScreenWidth / 7.5, 30, 30, 27)];
+    self.contactsView = [[UIImageView alloc] initWithFrame:CGRectMake(DLScreenWidth / 2 + DLScreenWidth / 7.5 - 1, 27, 30, 27)];
 //    self.contactsView.backgroundColor = [UIColor cyanColor];
     self.contactsView.image = [UIImage imageNamed:@"通讯录 @2x"];
     [self addSubview:self.contactsView];
