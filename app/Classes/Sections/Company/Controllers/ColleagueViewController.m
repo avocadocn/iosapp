@@ -145,6 +145,7 @@ static NSString * contentId = nil;
     
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
+    [footer setTitle:@"––––––––––––– W –––––––––––––" forState:MJRefreshStateNoMoreData];
     self.colleagueTable.footer = footer;
     
     MJRefreshNormalHeader *aHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerAction)];
@@ -186,6 +187,9 @@ static NSString * contentId = nil;
     
     [RestfulAPIRequestTool routeName:@"getCompanyCircle" requestModel:dic useKeys:array success:^(id json) {
         //        if (num) { //num 存在是加载
+        if (!json) {
+            [self.colleagueTable.footer noticeNoMoreData];
+        }
         NSLog(@" 刷新加载的到的数据为 %@", json);
         if (!last) {
             [mySelf.userInterArray removeAllObjects];
@@ -326,6 +330,7 @@ static NSString * contentId = nil;
         CircleContextModel *cir = [[CircleContextModel alloc]initWithString:str];
 //        NSLog(@"%@    %@", cir.content, cir.poster.ID);
         
+        if (cir) {
         NSMutableDictionary *viewDic = [self getViewWithModel:cir];
         
         NSArray *tempPhotoArray = [viewDic objectForKey:@"photoArray"];
@@ -334,7 +339,7 @@ static NSString * contentId = nil;
         [self.photoArray addObject:tempPhotoArray];
         [self.userInterArray addObject:viewDic];
         [self.modelArray addObject:cir];
-        
+        }
     }
     [self.colleagueTable reloadData];
     
@@ -639,9 +644,12 @@ static NSString * contentId = nil;
     NSMutableArray *IDArray = (NSMutableArray *)[NSArray arrayWithContentsOfFile:path];
     [IDArray removeObjectAtIndex:index.row];
     [manger removeItemAtPath:path error:nil];
-    [IDArray writeToFile:path atomically:YES];
-    NSLog( @"  %@ \n  %@", IDArray[index.row], model.ID);
-    
+    if (IDArray.count) {
+        
+        [IDArray writeToFile:path atomically:YES];
+        NSLog( @"  %@ \n  %@", IDArray[index.row], model.ID);
+        
+    }
     NSLog(@"%ld  %ld", index.row, index.section);
     [self.userInterArray removeObjectAtIndex:index.row];
     [self.modelArray removeObjectAtIndex:index.row];
@@ -1219,8 +1227,9 @@ static NSString * contentId = nil;
 
 - (void)sendSingerCircle:(id)json
 {
+    if (self.colleagueTable.indexPathForSelectedRow){
     [self.colleagueTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    
+    }
     NSLog(@"数据为   %@", json);
     
     NSDictionary *circleContent = json[@"circleContent"];

@@ -164,11 +164,26 @@ static NSString *ID = @"feasfsefse";
             controller = [[GroupMemberController alloc]init];
             [(GroupMemberController *)controller setModelArray:(NSMutableArray *)self.informationModel.member];
             break;
-        case 2: // 邀请
+        case 2:
+            // 邀请
             //controller = [[FolderViewController alloc]init];
-            //controller = [[UserMessageTableViewController alloc]init];
-            controller = [[InviteGroupMember alloc] init];
-            [(InviteGroupMember *)controller setDetileModel:self.informationModel];
+            //controller = [[UserMessageTableViewController alloc]init];/
+        {
+            for (NSDictionary *dic in self.informationModel.member)
+            {
+                if ([[AccountTool account].ID isEqualToString:dic[@"_id"]]) {
+                    controller = [[InviteGroupMember alloc] init];
+                    
+                    [(InviteGroupMember *)controller setDetileModel:self.informationModel];
+                    break;
+                }
+            }
+            if (!controller) {
+                
+                UIAlertView *al = [[UIAlertView alloc]initWithTitle:@"操作失败" message:@"您不是该群成员" delegate: nil cancelButtonTitle:@"好的" otherButtonTitles: nil, nil];
+                [al show];
+            }
+    }
             break;
         case 3: // 活动
             controller = [[TeamInteractionViewController alloc]init];

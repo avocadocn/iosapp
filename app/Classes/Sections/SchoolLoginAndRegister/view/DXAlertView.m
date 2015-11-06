@@ -12,7 +12,7 @@
 
 
 #define kAlertWidth [UIScreen mainScreen].bounds.size.width / (375 / 335.0)
-#define kAlertHeight [UIScreen mainScreen].bounds.size.height / (667 / 163.0)
+#define kAlertHeight 163.0
 
 @interface DXAlertView ()
 {
@@ -115,31 +115,31 @@
         if (!leftTitle){
             [self.leftBtn removeFromSuperview];
             [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.mas_left).offset(DLMultipleWidth(17.0));
-                make.top.mas_equalTo(self.mas_top).offset(DLMultipleHeight(101.0));
-                make.bottom.mas_equalTo(self.mas_bottom).offset(DLMultipleHeight(-18.0));
-                make.right.mas_equalTo(self.mas_right).offset(DLMultipleWidth(-17.0));
+                make.left.mas_equalTo(self.mas_left).offset(17.0);
+                make.top.mas_equalTo(self.mas_top).offset(101.0);
+                make.bottom.mas_equalTo(self.mas_bottom).offset(-18.0);
+                make.right.mas_equalTo(self.mas_right).offset(-17.0);
             }];
         } else if (!rigthTitle) {
             [self.rightBtn removeFromSuperview];
             [self.leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.mas_left).offset(DLMultipleWidth(17.0));
-                make.top.mas_equalTo(self.mas_top).offset(DLMultipleHeight(101.0));
-                make.bottom.mas_equalTo(self.mas_bottom).offset(DLMultipleHeight(-18.0));
-                make.right.mas_equalTo(self.mas_right).offset(DLMultipleWidth(-17.0));
+                make.left.mas_equalTo(self.mas_left).offset(17.0);
+                make.top.mas_equalTo(self.mas_top).offset(101.0);
+                make.bottom.mas_equalTo(self.mas_bottom).offset(-18.0);
+                make.right.mas_equalTo(self.mas_right).offset(-17.0);
             }];
         } else {
         
         [self.leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.mas_left).offset(DLMultipleWidth(17.0));
-            make.top.mas_equalTo(self.mas_top).offset(DLMultipleHeight(101.0));
-            make.bottom.mas_equalTo(self.mas_bottom).offset(DLMultipleHeight(-18.0));
-            make.right.mas_equalTo(self.mas_centerX).offset(DLMultipleWidth(-5.0));
+            make.left.mas_equalTo(self.mas_left).offset(17.0);
+            make.top.mas_equalTo(self.mas_top).offset(101.0);
+            make.bottom.mas_equalTo(self.mas_bottom).offset(-18.0);
+            make.right.mas_equalTo(self.mas_centerX).offset(-5.0);
         }];
         
         [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.leftBtn.mas_top);
-            make.left.mas_equalTo(self.mas_centerX).offset(DLMultipleWidth(5.0));
+            make.left.mas_equalTo(self.mas_centerX).offset(5.0);
             make.right.mas_equalTo(self.mas_right).offset(-17.0);
             make.bottom.mas_equalTo(self.leftBtn.mas_bottom);
         }];

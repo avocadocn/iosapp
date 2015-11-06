@@ -419,7 +419,11 @@ static ChatListViewController *chat = nil;
     
     return ret;
 }
-
+- (void)clearData
+{
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
+}
 #pragma mark - TableViewDelegate & TableViewDatasource
 // 会话的 cell
 -(UITableViewCell *)tableView:(UITableView *)tableView
@@ -493,7 +497,6 @@ static ChatListViewController *chat = nil;
                         //保存图片链接
                         if (g.iconURL) {
                             [ext setObject:g.iconURL forKey:@"imageURL"];
-
                         }
                         conversation.ext = ext;
                         break;

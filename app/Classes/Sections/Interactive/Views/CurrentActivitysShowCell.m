@@ -71,9 +71,10 @@
 
 - (void)reloadCellWithModel:(Interaction *)model
 {
-    self.peopleCountLabel.text = [NSString stringWithFormat:@"参加:%ld",model.members.count];
+//    self.peopleCountLabel.text = [NSString stringWithFormat:@"参加:%ld",model.members.count];
     Person *person = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.poster[@"_id"]];
     self.nameLabel.text = person.nickName;
+    NSLog(@"取得的用户名字为%@  图片为%@",person.nickName, person.imageURL);
 //    [self.avatar dlGetRouteThumbnallWebImageWithString:person.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)];
     [self.avatar setCircleHeaderWithString:person.imageURL placeholderImage:nil withSize:CGSizeMake(50.0, 50.0)];
     switch ([model.type integerValue]) {

@@ -26,4 +26,5 @@
 + (ChatListViewController *)shareInstan;
 - (void)reloadConversionListWith:(NSString *)conver;
 - (void)removeConversion:(NSString*)conver;
+- (void)clearData;
 @end

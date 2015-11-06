@@ -4,7 +4,6 @@
 //
 //  Created by 申家 on 15/7/21.
 //  Copyright (c) 2015年 Donler. All rights reserved.
-//
 
 //#import "CompanyViewController.h"
 
@@ -83,7 +82,6 @@ static NSNumber *myNum;
             netAddress = [NSString stringWithFormat:@"getGroupList"];
         }
             break;
-            
         default:
         {
             netAddress = [NSString stringWithFormat:@"getCompanyGroupList"];
@@ -98,16 +96,30 @@ static NSNumber *myNum;
     NSDictionary *dic =[NSDictionary dictionaryWithObject:num forKey:@"page"];
     NSLog(@"网络请求的数据为%@", dic);
     
-
     
     [RestfulAPIRequestTool routeName:netAddress requestModel:dic useKeys:@[@"page"] success:^(id json) {
+        NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:self.modelArray];
         NSInteger nu = [myNum integerValue];
-        if (nu == 1) {
+        // 在群组数少于十个 用来防止刷新时数据重复加载 self.modelarray 重载
+        if (nu == 1 && (((NSArray *)json[@"groups"]).count <= 10)) {
             [self.modelArray removeAllObjects];
         }
-
+        else if (((NSArray *)json[@"groups"]).count <= 10)
+        {
+            [self.modelArray removeAllObjects];
+        }
+        if (((NSArray *)json[@"groups"]).count == 0 && (NSInteger)json[@"maxPage"] != 1) {
+            self.modelArray = mutableArray;
+        }
+        
         NSLog(@"获取到的群组为%@", json);
-        [self analyDataWithJson:json];
+        if (((NSArray *)json[@"groups"]).count)
+        {
+            [self analyDataWithJson:json];
+        } else
+        {
+            [self.groupListCollection.footer noticeNoMoreData];
+        }
         myNum = [NSNumber numberWithInteger:++nu];
     } failure:^(id errorJson) {
         NSLog(@"获取群组失败, 原因为 %@", errorJson);
@@ -215,6 +227,8 @@ static NSNumber *myNum;
     self.groupListCollection.dataSource = self;
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction:)];
     [footer setTitle:@"上拉加载更多" forState:MJRefreshStateIdle];
+    [footer setTitle:@"––––––––––––– W –––––––––––––" forState:MJRefreshStateNoMoreData];
+    footer.tintColor = RGB(209, 209, 209);
     
     self.groupListCollection.footer = footer;
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refrshAction)];
