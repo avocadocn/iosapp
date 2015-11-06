@@ -59,6 +59,7 @@
     
     self.password = [[ImageHolderView alloc]initWithFrame:CGRectMake(0, 64 + DLMultipleHeight(88.0), DLScreenWidth, DLMultipleHeight(50.0)) andImage:[UIImage imageNamed:@"write"] andPlaceHolder:@"输入您的登录密码"];
     self.password.textfield.delegate = self;
+    self.password.textfield.secureTextEntry = YES;
     self.password.textfield.keyboardType = UIKeyboardTypeAlphabet;
     [self.view addSubview:self.password];
     
