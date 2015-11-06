@@ -22,7 +22,7 @@
 #import "DLNavigationController.h"
 #import "ChatListViewController.h"
 #import "AttentionViewController.h"
-
+#import "AboutAsViewController.h"
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong) UIAlertView *alert;
@@ -77,7 +77,8 @@
         [self.alert textFieldAtIndex:0].clearButtonMode = YES;
         [self.alert show];
     } else if (indexPath.section == 0 && indexPath.row == 1) { // 关于我们
-        
+//        AboutAsViewController *aboutVC  = [[AboutAsViewController alloc] init];
+//        [self.navigationController pushViewController:aboutVC animated:YES];
     } else if (indexPath.section == 0 && indexPath.row == 2) {
         self.alert = [[UIAlertView alloc] initWithTitle:@"清除缓存" message:@"清除本地缓存数据" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [self.alert show];
@@ -182,9 +183,9 @@
     //清空缓存图片
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDisk];
-    
-    [[ChatListViewController shareInstan].dataSource removeAllObjects];
-    [[AttentionViewController shareInsten].modelArray removeAllObjects];
+    //清空单例中缓存的数据并刷新
+    [[ChatListViewController shareInstan] clearData];
+    [[AttentionViewController shareInsten] clearData];
     NSFileManager *manger = [NSFileManager defaultManager];
     [manger removeItemAtPath:[NSString stringWithFormat:@"%@/DLLibraryCache", DLLibraryPath] error:nil];
 }

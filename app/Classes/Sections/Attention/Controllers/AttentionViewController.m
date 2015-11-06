@@ -202,6 +202,10 @@ static AttentionViewController *att = nil;
     [super didReceiveMemoryWarning];
 }
 
-
+- (void)clearData
+{
+    [self.modelArray removeAllObjects];
+    [self.attentionTableView reloadData];
+}
 
 @end

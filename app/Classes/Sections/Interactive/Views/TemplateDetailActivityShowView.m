@@ -70,7 +70,7 @@
 }
 
 - (void)initMapView {
-    [MAMapServices sharedServices].apiKey = @"4693df7c11ba3ba2cc58e44e8666134f";
+    [MAMapServices sharedServices].apiKey = AMAP_APPKEY;
     
     
     locationManager =[[CLLocationManager alloc] init];

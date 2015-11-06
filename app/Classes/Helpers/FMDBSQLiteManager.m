@@ -81,7 +81,7 @@
     [self.queue inDatabase:^(FMDatabase *db) {
         [db open];//打开数据库
         BOOL b = FALSE;
-        NSString* sql = [NSString stringWithFormat:@"update PersonTable set name = '%@',imageURL = '%@',companyName = '%@',nickName = '%@', where userId = '%@'",p.name,p.imageURL,p.companyName,p.nickName,p.userId];
+        NSString* sql = [NSString stringWithFormat:@"update PersonTable set name = '%@',imageURL = '%@',companyName = '%@',nickName = '%@' where userId = '%@'",p.name,p.imageURL,p.companyName,p.nickName,p.userId];
         b= [db executeUpdate:sql];//更新数据
         [db close];
         NSLog(@"%@",b?@"插入成功":@"插入失败");

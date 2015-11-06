@@ -40,7 +40,8 @@
    Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:commentModel.poster.ID];
 //
 ////    // 设置头像
-    [self.avatar dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
+//    [self.avatar dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
+    [self.avatar dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
 //
 //    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
 ////
@@ -64,7 +65,9 @@
     if (model.posterId != nil) {
         Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:model.posterId];
         ////    // 设置头像
-        [self.avatar dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
+//        [self.avatar dlGetRouteWebImageWithString:p.imageURL placeholderImage:[UIImage imageNamed:@"boy"]];
+        [self.avatar dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
+
         //
         //    [self.avatar dlGetRouteWebImageWithString:commentModel.poster.photo placeholderImage:nil];
         ////

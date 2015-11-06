@@ -432,6 +432,9 @@ static NSString * const ID =  @"RankItemTableViewcell";
 - (void)carouselCurrentItemIndexDidChange:(__unused iCarousel *)carousel
 {
     NSLog(@"Index: %@", @(self.carousel.currentItemIndex));
+    if (self.carousel.currentItemIndex<0) {
+        return;
+    }
     RankDetileModel *model = [self.modelArray objectAtIndex:carousel.currentItemIndex];
     [self reloadRankViewWithModel:model];
 }

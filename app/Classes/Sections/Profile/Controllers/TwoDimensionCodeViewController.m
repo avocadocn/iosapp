@@ -12,19 +12,28 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "UIImageView+DLGetWebImage.h"
+#define IS_IPHONE_4_SCREEN [[UIScreen mainScreen] bounds].size.height >= 480.0f && [[UIScreen mainScreen] bounds].size.height < 568.0f
 @interface TwoDimensionCodeViewController ()
 
 @end
 
 @implementation TwoDimensionCodeViewController
-// 用户邀请 www.55yali.com/signup?uid=xxxxxxxx
+// 用户邀请: http://www.55yali.com/signup?cid=xxx&uid=xxx
 // 学校二维码邀请：www.55yali.com/signup?cid=xxxxxxxxx
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码";
+    if (IS_IPHONE_4_SCREEN) {
+//        NSLog(@"===%f%f%f%f",self.WhiteSuperView.y,self.WhiteSuperView.x,self.WhiteSuperView.width,self.WhiteSuperView.height);
+        self.WhiteSuperView.y = 66;
+    } else {
+        self.WhiteSuperView.y = 109;
+    }
+    Account *account = [AccountTool account];
+    Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];
     self.view.backgroundColor = RGBACOLOR(237, 237, 237, 1);
     // Do any additional setup after loading the view, typically from a nib.
-    UIImage *qrcode = [self createNonInterpolatedUIImageFormCIImage:[self createQRForString:@"https://itunes.apple.com/cn/app/dong-li/id916162839?mt=8"] withSize:250.0f];
+    UIImage *qrcode = [self createNonInterpolatedUIImageFormCIImage:[self createQRForString:[NSString stringWithFormat:@"http://www.55yali.com/signup?cid=%@&uid=%@",account.ID,account.cid]] withSize:250.0f];
     UIImage *customQrcode = [self imageBlackToTransparent:qrcode withRed:60.0f andGreen:74.0f andBlue:89.0f];
     self.twoDismensionCodeImage.image = customQrcode;
     // set shadow
@@ -32,19 +41,19 @@
     self.twoDismensionCodeImage.layer.shadowRadius = 2;
     self.twoDismensionCodeImage.layer.shadowColor = [UIColor blackColor].CGColor;
     self.twoDismensionCodeImage.layer.shadowOpacity = 0.5;
-    [self buildInterface];
+    [self buildInterfaceWithPerson:p];
 }
-- (void)buildInterface {
+- (void)buildInterfaceWithPerson:(Person *)p {
     self.colorView.backgroundColor = RGBACOLOR(255, 214, 0, 1);
-    Account *account = [AccountTool account];
-    Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];
     self.nameLabel.text = p.nickName;
     if (p.companyName.length != 0) {
         self.companyLabel.text = [p.companyName substringFromIndex:3];
     }
     self.photoImage.layer.masksToBounds = YES;
     self.photoImage.layer.cornerRadius = 25;
-    [self.photoImage dlGetRouteWebImageWithString:p.imageURL placeholderImage:nil];
+//    [self.photoImage dlGetRouteWebImageWithString:p.imageURL placeholderImage:nil];
+    [self.photoImage dlGetRouteThumbnallWebImageWithString:p.imageURL placeholderImage:nil withSize:CGSizeMake(100, 100)];
+
 }
 
 - (void)didReceiveMemoryWarning {

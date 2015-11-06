@@ -83,7 +83,7 @@
         
         notification.alertTitle = @"活动提醒";
         
-        notification.alertBody = theme; // 通知提醒内容
+        notification.alertBody = [NSString stringWithFormat:@"活动提醒:%@",theme]; // 通知提醒内容
         
         notification.applicationIconBadgeNumber = 0; //
         

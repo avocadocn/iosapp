@@ -80,14 +80,9 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
         [self loadingContacts]; // 加载通讯录信息
-    });
-    
-    
-    
+
 }
 - (void)buildInterface {
     // Do any additional setup after loading the view.
@@ -786,6 +781,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
         per.imageURL = dic[@"photo"];
         per.userId = dic[@"_id"];
         per.nickName = dic[@"nickname"];
+        NSLog(@"======>%@",per.nickName);
         
         if (companyName.length != 0) {
             per.companyName = companyName;

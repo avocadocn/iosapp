@@ -17,5 +17,5 @@
 - (void)requestNet;
 
 + (AttentionViewController *)shareInsten;
-
+- (void)clearData;
 @end

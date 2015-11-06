@@ -419,7 +419,11 @@ static ChatListViewController *chat = nil;
     
     return ret;
 }
-
+- (void)clearData
+{
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
+}
 #pragma mark - TableViewDelegate & TableViewDatasource
 // 会话的 cell
 -(UITableViewCell *)tableView:(UITableView *)tableView
