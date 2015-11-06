@@ -22,7 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *GroupName;
 @property (weak, nonatomic) IBOutlet UILabel *AgreeLabel;
 
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *AgreeLabelLayout;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *maskTopLayout;
 
 @end
 
@@ -30,6 +31,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if ([UIScreen mainScreen].bounds.size.height == 480)
+    {
+        self.AgreeLabelLayout.constant = 2;
+        self.maskTopLayout.constant = 15;
+    }
     // Do any additional setup after loading the view from its nib.
     self.PersonPhoto.layer.masksToBounds = YES;
     self.PersonPhoto.layer.cornerRadius = 25;

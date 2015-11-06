@@ -18,6 +18,9 @@
     if ([key isEqualToString:@"_id"]) {
         self.groupId = value;
     }
+    if ([key isEqualToString:@"isMember"]) {
+        self.isMember = value;
+    }
 }
 
 
@@ -27,6 +30,7 @@
     [aCoder encodeObject:self.logo forKey:@"logo"];
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.groupId forKey:@"groupId"];
+    [aCoder encodeObject:self.isMember forKey:@"isMember"];
 }
 
 
@@ -41,6 +45,7 @@
         self.logo = [aDecoder decodeObjectForKey:@"logo"];
         self.name = [aDecoder decodeObjectForKey:@"name"];
         self.brief = [aDecoder decodeObjectForKey:@"brief"];
+        self.isMember = [aDecoder decodeObjectForKey:@"isMember"];
     }
     return self;
     
@@ -59,6 +64,10 @@
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
             [data writeToFile:dataPathStr atomically:YES];
             NSLog(@"存储成功");
+        } else {
+            [manger removeItemAtPath:dataPathStr error:nil];
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+            [data writeToFile:dataPathStr atomically:YES];
         }
         
     } else
@@ -90,5 +99,6 @@
     }
     return  self;
 }
+
 
 @end

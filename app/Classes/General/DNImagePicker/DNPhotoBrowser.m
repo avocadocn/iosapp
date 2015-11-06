@@ -114,6 +114,7 @@
 - (void)setupView {
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.clipsToBounds = YES;
+    
     [self browserCollectionView];
     [self toolbar];
     [self setupBarButtonItems];
@@ -258,9 +259,13 @@
 
 - (void)sendButtonAction
 {
+    NSLog(@"点击确认按钮 ");
+    
     if ([self.delegate respondsToSelector:@selector(sendImagesFromPhotobrowser:currentAsset:)]) {
-        [self.delegate sendImagesFromPhotobrowser:self currentAsset:self.photoDataSources[self.currentIndex]];
+        ALAsset *asset = self.checkButton.selected ? self.photoDataSources[self.currentIndex] : nil;
+        [self.delegate sendImagesFromPhotobrowser:self currentAsset:asset];
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)fullImageButtonAction
@@ -325,6 +330,7 @@
         }
         _toolbar.barStyle = UIBarStyleBlackTranslucent;
         _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+        NSLog(@" 添加确认按钮");
         [self.view addSubview:_toolbar];
     }
     return _toolbar;

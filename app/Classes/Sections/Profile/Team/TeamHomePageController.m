@@ -383,12 +383,9 @@ static NSString *ID = @"feasfsefse";
     [dic setObject:acc.ID forKey:@"userId"];
     
     [RestfulAPIRequestTool routeName:@"getInteraction" requestModel:dic useKeys:@[@"interactionType", @"requestType", @"limit", @"userId", @"teamId", @"team"] success:^(id json) {
-        NSLog(@"获取数据互动成功   %@", json);
+//        NSLog(@"获取互动数据成功   %@", json);
         [self analyDataWithJson:json];
         
-        //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        ////            [self loadingContacts]; // 加载通讯录信息
-        //        });
     } failure:^(id errorJson) {
         NSLog(@"获取失败  %@", errorJson);
         
@@ -600,10 +597,6 @@ static NSString *ID = @"feasfsefse";
     }
     
     
-    
-    
-    
-    
     CGFloat offsetY = scrollView.contentOffset.y;
     
     if (offsetY < 0) {
@@ -622,12 +615,11 @@ static NSString *ID = @"feasfsefse";
 //        groupCardModel.allInfo = YES;
 //    }
     NSMutableArray *tempArray = [NSMutableArray arrayWithObject:@"groupId"];
-    if (groupCardModel.isMember) {
+    if (groupCardModel.isMember.integerValue == 1) {
         [tempArray addObject:@"allInfo"];
     }
     
     [RestfulAPIRequestTool routeName:@"getGroupInfor" requestModel:groupCardModel useKeys:tempArray success:^(id json) {
-        
         
         NSLog(@"获取到的小队信息为 %@", json);
         

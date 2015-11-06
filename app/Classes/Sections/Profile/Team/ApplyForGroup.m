@@ -71,7 +71,7 @@ static NSString *tableId = @"AttentionViewCell";
         [self.detileModel.applyMember removeObjectAtIndex:pa.row];
         [self.myTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pa] withRowAnimation:UITableViewRowAnimationMiddle];
         [self.myTableView reloadData];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadMemberTableView" object:nil userInfo:dic];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadInsertMemberTableView" object:nil userInfo:dic];
         
     } failure:^(id errorJson) {
         NSLog(@"加入失败   %@", errorJson);

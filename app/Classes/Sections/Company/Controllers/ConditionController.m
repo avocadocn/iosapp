@@ -92,14 +92,25 @@
 //        make.width.mas_equalTo(DLScreenWidth)
     }];
     
-    if (self.photoArray) {
-        [self.selectPhotoView arrangeStartWithArray:self.photoArray];
-        self.selectPhotoView.imagePhotoArray = self.photoArray;
-    }
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 150 + 20 + WID, DLScreenWidth, DLScreenHeight - 150 - WID - 20)];
     view.backgroundColor = RGB(239, 239, 239);
     view.tag = 1001;
     [self.view addSubview:view];
+    
+    if (self.photoArray) {
+        [self.selectPhotoView arrangeStartWithArray:self.photoArray];
+        self.selectPhotoView.imagePhotoArray = self.photoArray;
+        
+            CGFloat width = DLScreenWidth / 4.0;
+        NSInteger tempNum = self.photoArray.count;
+        if (tempNum != 9) {
+            tempNum += 1;
+        }
+        
+        NSInteger num = (tempNum - 1) / 4 + 1;
+        
+        view.frame = CGRectMake(0, 150 + num * width + 20, DLScreenWidth, 600);
+    }
 }
 
 

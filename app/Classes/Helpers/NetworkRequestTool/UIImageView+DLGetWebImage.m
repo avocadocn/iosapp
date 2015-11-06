@@ -127,6 +127,7 @@
     [self sd_setImageWithURL:[NSURL URLWithString:newStr] placeholderImage:[[UIImage imageNamed:@"placeholder"] circleImage] completed:
      ^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
          // 如果图片下载失败，就不做任何处理，按照默认的做法：会显示占位图片
+         
          if (image == nil) return;
          self.image = [image circleImage];
      }];
