@@ -670,6 +670,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     self.tableView.header = header;
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     [footer setTitle:@"加载更多" forState: MJRefreshStateIdle];
+    [footer setTitle:@"––––––––––––– W –––––––––––––" forState:MJRefreshStateNoMoreData];
     self.tableView.footer = footer;
     
 }
@@ -693,7 +694,12 @@ static NSString * const ID = @"CurrentActivitysShowCell";
     }];
 }
 - (void)dealDataWithJson:(id)json {  // 加载数据
+    NSArray *array = [NSArray arrayWithArray:json];
+    if (array.count == 0) {
+        [self.tableView.footer noticeNoMoreData];
+    }
     for (NSDictionary *dic  in json) {
+        NSLog(@"haiyoumeiyou %@",json);
         Interaction *inter = [[Interaction alloc]init];
         [inter setValuesForKeysWithDictionary:dic];
         NSString *str = [NSString stringWithFormat:@"%@",[dic objectForKey:@"type"]];

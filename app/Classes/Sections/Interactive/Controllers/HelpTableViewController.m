@@ -323,6 +323,7 @@ static NSString * const ID = @"HelpTableViewCell";
         NSLog(@"请求评论列表失败原因 %@",[errorJson objectForKey:@"msg"]);
 
     }];
+
     [self.tableView.footer endRefreshing];
     
 }
@@ -331,8 +332,10 @@ static NSString * const ID = @"HelpTableViewCell";
         CommentsModel *model = [[CommentsModel alloc] init];
         [model setValuesForKeysWithDictionary:dic];
         [self.comments addObject:model];
+        if (model == nil) {
+                [self.tableView.footer noticeNoMoreData];
+        }
     }
-    
     [self.tableView reloadData];
 }
 - (void)viewWillDisappear:(BOOL)animated {

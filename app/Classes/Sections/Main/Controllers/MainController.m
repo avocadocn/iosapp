@@ -762,10 +762,10 @@ static NSString *kGroupName = @"GroupName";
     Account *accout = [AccountTool account];
     DLNavigationController *nav = [[DLNavigationController alloc]initWithRootViewController:loginVC];
     [[UIApplication sharedApplication].delegate window].rootViewController = nav;
-    accout = nil;
-    [AccountTool saveAccount:accout];
     [self cleanEaseMob];
     [self cleanLocalData];
+    accout = nil;
+    [AccountTool saveAccount:accout];
 }
 //当用户推出时，清空本地缓存数据
 - (void)cleanLocalData
