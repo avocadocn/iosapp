@@ -89,7 +89,8 @@ static NSInteger tagNum = 1;
 {
     if (buttonIndex==1) {
         ReportViewController* r = [[ReportViewController alloc] initWithNibName:@"ReportViewController" bundle:nil];
-        r.model = self.model;
+        r.reportSection = ReportSectionUser;
+        r.data = [[NSDictionary alloc] initWithObjectsAndKeys:self.model.nickname,REPORT_TITLE,self.model.ID,REPORT_ID,nil];
         [self.navigationController pushViewController:r animated:YES];
     }
 }

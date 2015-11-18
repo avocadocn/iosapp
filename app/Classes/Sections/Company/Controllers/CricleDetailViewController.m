@@ -19,6 +19,7 @@
 #import "CircleCommentModel.h"
 #import "AddressBookModel.h"
 #import <MJRefresh.h>
+#import "ReportViewController.h"
 
 
 static NSString * const ID = @"VoteCommentViewCell";
@@ -75,6 +76,8 @@ static BOOL state;
     [self.view addSubview:self.detileTableview];
     
     [self setupKeyBoard];
+    //add report
+    [self addReportItem];
 }
 - (void)footerAction:(id)sender
 {
@@ -213,36 +216,46 @@ static BOOL state;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == 1) {
-        switch (buttonIndex) {
-            case 0:
-                NSLog(@"取消");
-                break;
-                
-            default:{
-                [self.delegate deleteIndexPath:self.index];
-                self.deleteState = YES;
-                [self.navigationController popViewControllerAnimated:YES];
-                NSLog(@"好的");
-                
-                NSDictionary *dic = [NSDictionary dictionaryWithObject:self.model.ID forKey:@"contentId"];
-                [RestfulAPIRequestTool routeName:@"deleteCircle" requestModel:dic useKeys:@[@"contentId"] success:^(id json) {
-                    NSLog(@"删除成功  %@", json);
-                } failure:^(id errorJson) {
-                    NSLog(@"删除同事圈失败  %@", errorJson);
-                }];
-                
-//                dispatch_queue_t concurrent = dispatch_queue_create("2", DISPATCH_QUEUE_SERIAL);
-//                dispatch_async(concurrent, ^{
-//                    NSLog(@"消失");
-//                    
-//                    
-//                });
-//                dispatch_async(concurrent, ^{
-//                    NSLog(@"删除");
-//                });
+    if ([alertView.title isEqualToString:@"举报"]) {
+        if (buttonIndex==1) {
+            ReportViewController* r = [[ReportViewController alloc] initWithNibName:@"ReportViewController" bundle:nil];
+            r.reportSection = ReportSectionCircle;
+            r.data = [[NSDictionary alloc] initWithObjectsAndKeys:self.model.content,REPORT_TITLE,self.model.ID,REPORT_ID,nil];
+            [self.navigationController pushViewController:r animated:YES];
+        }
+    }
+    else{
+        if (alertView.tag == 1) {
+            switch (buttonIndex) {
+                case 0:
+                    NSLog(@"取消");
+                    break;
+                    
+                default:{
+                    [self.delegate deleteIndexPath:self.index];
+                    self.deleteState = YES;
+                    [self.navigationController popViewControllerAnimated:YES];
+                    NSLog(@"好的");
+                    
+                    NSDictionary *dic = [NSDictionary dictionaryWithObject:self.model.ID forKey:@"contentId"];
+                    [RestfulAPIRequestTool routeName:@"deleteCircle" requestModel:dic useKeys:@[@"contentId"] success:^(id json) {
+                        NSLog(@"删除成功  %@", json);
+                    } failure:^(id errorJson) {
+                        NSLog(@"删除同事圈失败  %@", errorJson);
+                    }];
+                    
+                    //                dispatch_queue_t concurrent = dispatch_queue_create("2", DISPATCH_QUEUE_SERIAL);
+                    //                dispatch_async(concurrent, ^{
+                    //                    NSLog(@"消失");
+                    //
+                    //
+                    //                });
+                    //                dispatch_async(concurrent, ^{
+                    //                    NSLog(@"删除");
+                    //                });
+                }
+                    break;
             }
-                break;
         }
     }
 }
@@ -471,4 +484,23 @@ static BOOL state;
     [self.navigationController pushViewController:play animated:YES];
     
 }
+
+#pragma mark - add report
+
+- (void)addReportItem
+{
+    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [clearButton setImage:[UIImage imageNamed:@"navigationbar_more"] forState:UIControlStateNormal];
+    [clearButton setImage:[UIImage imageNamed:@"navigationbar_more_highlighted"] forState:UIControlStateHighlighted];
+    [clearButton addTarget:self action:@selector(reportDanger) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
+}
+- (void)reportDanger
+{
+    NSLog(@"report clicked");
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"举报" message:@"是否举报？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    [alert show];
+}
+
+
 @end

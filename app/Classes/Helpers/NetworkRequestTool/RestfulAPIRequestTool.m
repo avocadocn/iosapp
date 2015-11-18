@@ -132,7 +132,7 @@ static AFHTTPSessionManager *_mgr;
 
     NSString *amendStr = [NSString stringWithFormat:@"%@%@", BaseUrl, routeUrl];
     
-    NSLog(@"请求的网址为   %@", amendStr);
+//    NSLog(@"请求的网址为   %@", amendStr);
 //    NSLog(@"请求的body为 %@", mutableParamsDict);
     
     switch (type) {
@@ -161,6 +161,11 @@ static AFHTTPSessionManager *_mgr;
         default:
             break;
     }
+    NSLog(@"==============================\n");
+    NSLog(@"请求的方式为  %@",routeInfoModel.routeMethod);
+    NSLog(@"请求的网址为  %@", amendStr);
+    NSLog(@"请求的参数为  %@", mutableParamsDict);
+    NSLog(@"==============================\n");
 }
 
 

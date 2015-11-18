@@ -8,7 +8,6 @@
 
 #import "ReportViewController.h"
 #import "RestfulAPIRequestTool.h"
-#import "AddressBookModel.h"
 #import "Account.h"
 #import "AccountTool.h"
 
@@ -37,7 +36,10 @@
 //    [self.okBtn setBackgroundImage:[UIImage imageNamed:@"transmit_btn"] forState:UIControlStateNormal];
     [self.cancelBtn setBackgroundColor:RGB(253, 185, 0)];
     [self.okBtn setBackgroundColor:RGB(253, 185, 0)];
-    self.nameLabel.text = self.model.nickname;
+
+    self.nameLabel.text = [self.data objectForKey:REPORT_TITLE];
+
+    
     //
     UIPickerView* picker = [[UIPickerView alloc] init];
     picker.delegate = self;
@@ -59,7 +61,21 @@
         content = @"";
     }
     Account * acc = [AccountTool account];
-    NSDictionary * data = [[NSDictionary alloc] initWithObjects:@[acc.ID,@"user",self.model.ID,[NSNumber numberWithInteger:self.reportType],content] forKeys:@[@"userId",@"hostType",@"hostId",@"reportType",@"content"]];
+    NSMutableDictionary * data =[[NSMutableDictionary alloc] initWithObjects:@[acc.ID,[NSNumber numberWithInteger:self.reportType],[self.data objectForKey:REPORT_ID],content] forKeys:@[@"userId",@"reportType",@"hostId",@"content"]];
+    if (self.reportSection==ReportSectionUser) {
+        [data setObject:@"user" forKey:@"hostType"];
+    }else if(self.reportSection == ReportSectionActivity) {
+        [data setObject:@"activity" forKey:@"hostType"];
+    }else if(self.reportSection == ReportSectionHelp) {
+        [data setObject:@"question" forKey:@"hostType"];
+    }else if(self.reportSection == ReportSectionVote) {
+        [data setObject:@"poll" forKey:@"hostType"];
+    }else if(self.reportSection == ReportSectionCircle) {
+        [data setObject:@"circle" forKey:@"hostType"];
+    }else if(self.reportSection == ReportSectionComment) {
+        [data setObject:@"comment" forKey:@"hostType"];
+    }
+    
     [RestfulAPIRequestTool routeName:@"marchingReport" requestModel:data useKeys:@[@"userId",@"hostType",@"hostId",@"reportType",@"content"] success:^(id json) {
         NSLog(@"%@",json);
         [self showMessage:@"举报成功!"];

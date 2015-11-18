@@ -21,6 +21,8 @@
 #import "VoteInfoTableViewController.h"
 #import "PollModel.h"
 #import "UILabel+DLTimeLabel.h"
+#import "ReportViewController.h"
+
 @interface VoteTableController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong)Interaction *interactionModel;
@@ -47,6 +49,9 @@ static NSString * const ID = @"VoteTableViewCell";
     self.view.backgroundColor = RGBACOLOR(235, 235, 235, 1);
     self.title = @"投票";
     [self createColorArray];
+    //add report
+    [self addReportItem];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, - 32, DLScreenWidth, DLScreenHeight + 24) style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -199,6 +204,32 @@ static NSString * const ID = @"VoteTableViewCell";
     } failure:^(id errorJson) {
         NSLog(@"获取求朱详情失败 %@",errorJson);
     }];
+}
+#pragma mark - add report
+
+- (void)addReportItem
+{
+    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [clearButton setImage:[UIImage imageNamed:@"navigationbar_more"] forState:UIControlStateNormal];
+    [clearButton setImage:[UIImage imageNamed:@"navigationbar_more_highlighted"] forState:UIControlStateHighlighted];
+    [clearButton addTarget:self action:@selector(reportDanger) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
+}
+- (void)reportDanger
+{
+    NSLog(@"report clicked");
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"举报" message:@"是否举报？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    [alert show];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1) {
+        ReportViewController* r = [[ReportViewController alloc] initWithNibName:@"ReportViewController" bundle:nil];
+        r.reportSection = ReportSectionVote;
+        VoteCellFrame* v = [self.voteArray firstObject];
+        r.data = [[NSDictionary alloc] initWithObjectsAndKeys:v.voteInfoModel.voteText,REPORT_TITLE,v.voteInfoModel.interactionId ,REPORT_ID,nil];
+        [self.navigationController pushViewController:r animated:YES];
+    }
 }
 
 

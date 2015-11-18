@@ -19,6 +19,8 @@
 #import "CommentsModel.h"
 #import "CustomKeyBoard.h"
 #import <MJRefresh.h>
+#import "ReportViewController.h"
+
 @interface HelpTableViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) NSMutableArray *helpFrames;
@@ -60,7 +62,8 @@ static NSString * const ID = @"HelpTableViewCell";
     [self.tableView registerClass:[HelpTableViewCell class] forCellReuseIdentifier:ID];
     [self.tableView setSeparatorInset:UIEdgeInsetsMake(0,0,0,0)];
     [self.tableView setBackgroundColor:RGB(235, 235, 235)];
-    
+    //add report
+    [self addReportItem];
     
     [self loadhelpData];
     [self refressMJ];  // 刷新加载
@@ -357,5 +360,29 @@ static NSString * const ID = @"HelpTableViewCell";
         NSLog(@"获取求朱详情失败 %@",errorJson);
     }];
 }
+#pragma mark - add report
 
+- (void)addReportItem
+{
+    UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    [clearButton setImage:[UIImage imageNamed:@"navigationbar_more"] forState:UIControlStateNormal];
+    [clearButton setImage:[UIImage imageNamed:@"navigationbar_more_highlighted"] forState:UIControlStateHighlighted];
+    [clearButton addTarget:self action:@selector(reportDanger) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
+}
+- (void)reportDanger
+{
+    NSLog(@"report clicked");
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"举报" message:@"是否举报？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    [alert show];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==1) {
+        ReportViewController* r = [[ReportViewController alloc] initWithNibName:@"ReportViewController" bundle:nil];
+        r.reportSection = ReportSectionHelp;
+        r.data = [[NSDictionary alloc] initWithObjectsAndKeys:self.model.content,REPORT_TITLE,self.model.ID,REPORT_ID,nil];
+        [self.navigationController pushViewController:r animated:YES];
+    }
+}
 @end
