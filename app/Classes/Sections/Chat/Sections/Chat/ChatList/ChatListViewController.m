@@ -768,7 +768,7 @@ static ChatListViewController *chat = nil;
 
 // 根据环信id得到要显示用户名，如果返回nil，则默认显示环信id
 - (NSString *)nickNameWithChatter:(NSString *)chatter{
-    return chatter;
+    return nil;
 }
 
 @end
