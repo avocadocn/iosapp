@@ -112,7 +112,9 @@ static AttentionViewController *att = nil;
 #pragma per 存的太慢导致数据不能及时取出来而崩溃
         
         Person *per = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:[dic objectForKey:@"_id"]];
-        [self.modelArray addObject:per];
+        if (per) {
+            [self.modelArray addObject:per];
+        }
         
     }
     [self.attentionTableView reloadData];
