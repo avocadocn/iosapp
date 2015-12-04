@@ -132,7 +132,7 @@ static AFHTTPSessionManager *_mgr;
 
     NSString *amendStr = [NSString stringWithFormat:@"%@%@", BaseUrl, routeUrl];
     
-    NSLog(@"请求的网址为   %@", amendStr);
+//    NSLog(@"请求的网址为   %@", amendStr);
 //    NSLog(@"请求的body为 %@", mutableParamsDict);
     
     switch (type) {
@@ -161,6 +161,11 @@ static AFHTTPSessionManager *_mgr;
         default:
             break;
     }
+    NSLog(@"==============================\n");
+    NSLog(@"请求的方式为  %@",routeInfoModel.routeMethod);
+    NSLog(@"请求的网址为  %@", amendStr);
+    NSLog(@"请求的参数为  %@", mutableParamsDict);
+    NSLog(@"==============================\n");
 }
 
 
@@ -209,7 +214,7 @@ static AFHTTPSessionManager *_mgr;
     __block NSMutableArray *fileArray = [NSMutableArray array];
     __block NSMutableArray *keyArray = [NSMutableArray array];
     [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if ([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"photo"]) {
+        if (([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"photo"]) || ([obj isKindOfClass:[NSArray class]] && [key isEqualToString:@"uploadPhoto"])) {
             [keyArray addObject:key];
             fileArray = (NSMutableArray *)obj;
         }
@@ -259,47 +264,78 @@ static AFHTTPSessionManager *_mgr;
     }];
 }
 
+
 + (void)putUpload:(NSString *)url params:(NSMutableDictionary *)params success:(void (^)(id json))success failure:(void (^)(id errorJson))failure
 {
-        __block NSMutableArray *fileArray = [NSMutableArray array];
-        __block NSMutableArray *keyArray = [NSMutableArray array];
-        [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            if ([obj isKindOfClass:[NSArray class]] &&
-                ([key isEqualToString:@"photo"] || [key isEqualToString:@"uploadPhoto"])) {
-                [keyArray addObject:key];
-                fileArray = (NSMutableArray *)obj;
-            }
-        }];
-    __block NSData *data = [NSData data];
-    for (NSDictionary *dataDict in fileArray) {
+    __block NSMutableArray *fileArray = [NSMutableArray array];
+    __block NSMutableArray *keyArray = [NSMutableArray array];
+    [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:[NSArray class]] &&
+            ([key isEqualToString:@"photo"] || [key isEqualToString:@"uploadPhoto"])) {
+            [keyArray addObject:key];
+            fileArray = (NSMutableArray *)obj;
+        }
+    }];
+    [params removeObjectsForKeys:keyArray];
+    
+    [self PUT:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        NSInteger index = 0;
         
-        data = [dataDict objectForKey:@"data"];
-    }
-    AFHTTPRequestOperationManager *manger = [[AFHTTPRequestOperationManager alloc]init];
-    if ([AccountTool account].token) {
-        [manger.requestSerializer setValue:[AccountTool account].token forHTTPHeaderField:@"x-access-token"];
-    }
-    
-        [params removeObjectsForKeys:keyArray];
-    
-        NSMutableURLRequest *request = [manger.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:data name:@"photo" fileName:@"highlight_image.jpg" mimeType:@"image/jpeg"];
-        }];
-    
-        AFHTTPRequestOperation *requestOperation = [manger HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        for (NSDictionary *dataDict in fileArray) {
+            [formData appendPartWithFileData:[dataDict objectForKey:@"data"] name:[dataDict objectForKey:@"name"] fileName:[NSString stringWithFormat:@"DonlerImage %zd", index] mimeType:@"image/jpeg"];
+            index++;
             
-            if (success) {
-                success([self dataToJsonObject:responseObject]);
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if (failure) {
-                failure([self resolveFailureWith:error]);
-            }
-        }];
-        
-        [requestOperation start];
-        
+        }
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (success) {
+            success([self dataToJsonObject:responseObject]);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+        if (failure) {
+            failure([self resolveFailureWith:error]);
+        }
+    }];
+    
+    
+}
 
++ (NSURLSessionDataTask *)PUT:(NSString *)URLString
+                    parameters:(id)parameters
+     constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
+                       success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+{
+    NSError *serializationError = nil;
+    NSMutableURLRequest *request = [_mgr.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:[[NSURL URLWithString:URLString relativeToURL:_mgr.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:block error:&serializationError];
+    if (serializationError) {
+        if (failure) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu"
+            dispatch_async(_mgr.completionQueue ?: dispatch_get_main_queue(), ^{
+                failure(nil, serializationError);
+            });
+#pragma clang diagnostic pop
+        }
+        
+        return nil;
+    }
+    
+    __block NSURLSessionDataTask *task = [_mgr uploadTaskWithStreamedRequest:request progress:nil completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
+        if (error) {
+            if (failure) {
+                failure(task, error);
+            }
+        } else {
+            if (success) {
+                success(task, responseObject);
+            }
+        }
+    }];
+    
+    [task resume];
+    
+    return task;
 }
 
 

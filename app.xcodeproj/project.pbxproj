@@ -276,7 +276,6 @@
 		96CF916E1B673E39001759E2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF916D1B673E39001759E2 /* libsqlite3.dylib */; };
 		96CF91701B673E43001759E2 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF916F1B673E43001759E2 /* CoreText.framework */; };
 		96CF91721B673E48001759E2 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91711B673E48001759E2 /* ImageIO.framework */; };
-		96CF91741B673E50001759E2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91731B673E50001759E2 /* MapKit.framework */; };
 		96CF91761B673E59001759E2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91751B673E59001759E2 /* CoreLocation.framework */; };
 		96CF91781B673E6B001759E2 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91771B673E6B001759E2 /* libresolv.dylib */; };
 		96CF917A1B673E80001759E2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CF91791B673E80001759E2 /* MobileCoreServices.framework */; };
@@ -1348,7 +1347,6 @@
 		96CF916D1B673E39001759E2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		96CF916F1B673E43001759E2 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		96CF91711B673E48001759E2 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		96CF91731B673E50001759E2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		96CF91751B673E59001759E2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		96CF91771B673E6B001759E2 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		96CF91791B673E80001759E2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -2186,7 +2184,6 @@
 				96CF91781B673E6B001759E2 /* libresolv.dylib in Frameworks */,
 				72896C621BB005BF0092EE24 /* tingyunApp.framework in Frameworks */,
 				96CF91761B673E59001759E2 /* CoreLocation.framework in Frameworks */,
-				96CF91741B673E50001759E2 /* MapKit.framework in Frameworks */,
 				96CF91721B673E48001759E2 /* ImageIO.framework in Frameworks */,
 				96CF91701B673E43001759E2 /* CoreText.framework in Frameworks */,
 				96CF916E1B673E39001759E2 /* libsqlite3.dylib in Frameworks */,
@@ -2246,7 +2243,6 @@
 				96CF91791B673E80001759E2 /* MobileCoreServices.framework */,
 				96CF91771B673E6B001759E2 /* libresolv.dylib */,
 				96CF91751B673E59001759E2 /* CoreLocation.framework */,
-				96CF91731B673E50001759E2 /* MapKit.framework */,
 				96CF91711B673E48001759E2 /* ImageIO.framework */,
 				96CF916F1B673E43001759E2 /* CoreText.framework */,
 				96CF916D1B673E39001759E2 /* libsqlite3.dylib */,
@@ -4922,6 +4918,12 @@
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = WQK4NCSCW9;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -6002,10 +6004,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -6014,7 +6013,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/app.app/app";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Warm.app/Warm";
 			};
 			name = Debug;
 		};
@@ -6024,15 +6023,12 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = appTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/app.app/app";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Warm.app/Warm";
 			};
 			name = Release;
 		};
