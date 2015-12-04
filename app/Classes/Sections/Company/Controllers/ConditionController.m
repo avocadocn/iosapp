@@ -93,7 +93,8 @@
     }];
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 150 + 20 + WID, DLScreenWidth, DLScreenHeight - 150 - WID - 20)];
-    view.backgroundColor = RGB(239, 239, 239);
+    view.backgroundColor = [UIColor redColor];
+    
     view.tag = 1001;
     [self.view addSubview:view];
     

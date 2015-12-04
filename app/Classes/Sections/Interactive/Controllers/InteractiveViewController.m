@@ -80,7 +80,7 @@ static NSString * const ID = @"CurrentActivitysShowCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
         [self loadingContacts]; // 加载通讯录信息
 
 }

@@ -23,12 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码";
-    if (IS_IPHONE_4_SCREEN) {
-//        NSLog(@"===%f%f%f%f",self.WhiteSuperView.y,self.WhiteSuperView.x,self.WhiteSuperView.width,self.WhiteSuperView.height);
-        self.WhiteSuperView.y = 66;
-    } else {
-        self.WhiteSuperView.y = 109;
-    }
     Account *account = [AccountTool account];
     Person *p = [[FMDBSQLiteManager shareSQLiteManager] selectPersonWithUserId:account.ID];
     self.view.backgroundColor = RGBACOLOR(237, 237, 237, 1);
@@ -42,6 +36,14 @@
     self.twoDismensionCodeImage.layer.shadowColor = [UIColor blackColor].CGColor;
     self.twoDismensionCodeImage.layer.shadowOpacity = 0.5;
     [self buildInterfaceWithPerson:p];
+}
+-(void)viewWillAppear:(BOOL)animated {
+    if (IS_IPHONE_4_SCREEN) {
+        //        NSLog(@"===%f%f%f%f",self.WhiteSuperView.y,self.WhiteSuperView.x,self.WhiteSuperView.width,self.WhiteSuperView.height);
+        self.WhiteSuperView.frame = CGRectMake(0, 0, DLScreenWidth, DLScreenHeight);
+    } else {
+        self.WhiteSuperView.y = 109;
+    }
 }
 - (void)buildInterfaceWithPerson:(Person *)p {
     self.colorView.backgroundColor = RGBACOLOR(255, 214, 0, 1);

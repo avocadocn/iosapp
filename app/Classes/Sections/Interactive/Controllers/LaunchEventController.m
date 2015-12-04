@@ -172,7 +172,7 @@ typedef NS_ENUM(NSInteger, RemindTableState){
     if (buttonIndex == 0) {
         [self.navigationController popViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"KPOSTNAME" object:nil userInfo:@{@"name":@"家豪"}];
-    }
+    } 
 }
 
 - (void)makeFlaseValue
